@@ -14,8 +14,8 @@ Please also describe the impact and migration path for existing applications.
 <!--
 If this fixes an open issue, please link to the issue here.
 
-Closes #ISSUE-NUMBER
-Refs #ISSUE-NUMBER
+Closes #ISSUE_NUMBER
+Refs #ISSUE_NUMBER
 -->
 
 ### Dependencies
@@ -25,7 +25,7 @@ If this depends on another PR, please link it here.
 If this has some other dependency, please describe it here.
 Please add the label "status: on hold" to inform that this is blocked.
 
-Otherwise you can delete this section, or just state "None".
+Otherwise, you can delete this section or just state "None".
 -->
 
 ## Checklist
