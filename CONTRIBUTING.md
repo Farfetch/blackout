@@ -73,7 +73,7 @@ In this project, there are always two main branches - `main` and `next`:
 
 Any commit made to `main` should be replicated (and adapted) on `next`, to ensure nothing is lost between versions.
 This replication should be isolated, in order to maintain a clear Git history for the release tags and commits pushed.
-This means that no rebase should be made on these branches, only on merge request branches; ie, `main` and `next` never actually "touch" each other (although we can cherry-pick some commits instead of actually duplicating changes).
+This means that no rebase should be made on these branches, only on PR branches; ie, `main` and `next` never actually "touch" each other (although we can cherry-pick some commits instead of actually duplicating changes).
 
 ### Code review and approval process
 
