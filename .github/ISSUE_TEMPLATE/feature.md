@@ -1,3 +1,9 @@
+---
+name: "Feature"
+about: Request a feature or a different way of doing something.
+labels: "type: feature"
+---
+
 ## Is your proposal related to a problem?
 
 <!--
