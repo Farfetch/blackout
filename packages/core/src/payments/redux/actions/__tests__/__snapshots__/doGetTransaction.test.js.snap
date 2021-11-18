@@ -1,0 +1,177 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetTransaction() action creator should create the correct actions for when the get transaction procedure is successful: get transaction success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "checkoutOrderItemProducts": Object {
+        "12640693": Object {
+          "DEPRECATED_images": undefined,
+          "categories": undefined,
+          "colors": undefined,
+          "customAttributes": undefined,
+          "description": undefined,
+          "id": 12640693,
+          "images": undefined,
+          "isAvailable": undefined,
+          "isCustomizable": undefined,
+          "isExclusive": undefined,
+          "merchant": 12455,
+          "name": "Navy Treated Bonded Cotton Dry Bag",
+          "price": Object {
+            "excludingTaxes": 1.26,
+            "includingTaxes": 1.51,
+            "includingTaxesWithoutDiscount": 1.53,
+            "isFormatted": true,
+          },
+          "sizes": undefined,
+          "slug": "navy-treated-bonded-cotton-dry-bag-12640693",
+          "variants": undefined,
+        },
+      },
+      "checkoutOrderItems": Object {
+        "30380051": Object {
+          "brandId": 121212,
+          "brandName": "78 Stitches",
+          "dateCreated": null,
+          "id": 30380051,
+          "merchant": 12455,
+          "price": Object {
+            "excludingTaxes": 1.26,
+            "includingTaxes": 1.51,
+            "includingTaxesWithoutDiscount": 1.53,
+            "isFormatted": true,
+          },
+          "product": 12640693,
+          "size": Object {
+            "id": 17,
+            "name": "One Size",
+          },
+          "tags": Array [
+            "GIFT",
+          ],
+        },
+      },
+      "checkoutOrders": Object {
+        "15338048": Object {
+          "billingAddress": Object {
+            "addressLine1": "Rua da Lionesa 446, G12",
+            "addressLine2": "Teste",
+            "city": Object {
+              "countryId": 0,
+              "id": 0,
+              "name": "Leça do Balio",
+              "stateId": null,
+            },
+            "country": Object {
+              "alpha2Code": "PT",
+              "alpha3Code": "PRT",
+              "continentId": 3,
+              "culture": "pt-PT",
+              "id": 165,
+              "name": "Portugal",
+              "nativeName": "Portugal",
+              "region": "Europe",
+              "regionId": 0,
+              "subRegion": null,
+              "subfolder": "/en-pt",
+            },
+            "ddd": null,
+            "firstName": "tester",
+            "id": "c9ce5410-58d9-4298-a385-231a79373e4a",
+            "isDefaultBillingAddress": true,
+            "isDefaultShippingAddress": true,
+            "lastName": "teste",
+            "neighbourhood": null,
+            "phone": "121525125",
+            "state": Object {
+              "code": null,
+              "countryId": 0,
+              "id": 0,
+              "name": null,
+            },
+            "title": null,
+            "userId": 0,
+            "vatNumber": null,
+            "zipCode": "4465-761",
+          },
+          "checkoutOrderMerchants": Array [
+            Object {
+              "merchant": 10658,
+            },
+          ],
+          "createdDate": null,
+          "id": 15338048,
+          "items": Array [
+            30380051,
+          ],
+          "shippingAddress": Object {
+            "addressLine1": "Rua da Lionesa 446, G12",
+            "addressLine2": "Teste",
+            "city": Object {
+              "countryId": 0,
+              "id": 0,
+              "name": "Leça do Balio",
+              "stateId": null,
+            },
+            "country": Object {
+              "alpha2Code": "PT",
+              "alpha3Code": "PRT",
+              "continentId": 3,
+              "culture": "pt-PT",
+              "id": 165,
+              "name": "Portugal",
+              "nativeName": "Portugal",
+              "region": "Europe",
+              "regionId": 0,
+              "subRegion": null,
+              "subfolder": "/en-pt",
+            },
+            "ddd": null,
+            "firstName": "tester",
+            "id": "c9ce5410-58d9-4298-a385-231a79373e4a",
+            "isDefaultBillingAddress": true,
+            "isDefaultShippingAddress": true,
+            "lastName": "teste",
+            "neighbourhood": null,
+            "phone": "121525125",
+            "state": Object {
+              "code": null,
+              "countryId": 0,
+              "id": 0,
+              "name": null,
+            },
+            "title": null,
+            "userId": 0,
+            "vatNumber": null,
+            "zipCode": "4465-761",
+          },
+          "updatedDate": null,
+        },
+      },
+      "merchants": Object {
+        "10658": Object {
+          "id": 10658,
+          "name": "MACKINTOSH WH NELSON FG",
+        },
+        "12455": Object {
+          "id": 12455,
+          "name": "Test Merchant",
+          "shoppingUrl": "http://www.merchant.com",
+        },
+      },
+      "transaction": Object {
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6": Object {
+          "checkoutOrder": 15338048,
+          "deliveryBundles": Array [],
+          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          "paymentMethods": Object {},
+          "shippingOptions": Array [],
+        },
+      },
+    },
+    "result": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  },
+  "type": "@farfetch/blackout-core/GET_TRANSACTION_SUCCESS",
+}
+`;

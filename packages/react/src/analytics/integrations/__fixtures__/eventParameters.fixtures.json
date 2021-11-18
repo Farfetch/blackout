@@ -1,0 +1,16 @@
+{
+  "deviceLanguage": "en-US",
+  "eventTimestamp": 1567010265879,
+  "internalRequest": false,
+  "referrer": "https://example.com",
+  "referrerHost": "example.com",
+  "screenHeight": 0,
+  "screenWidth": 0,
+  "url": "http://127.0.0.1:3000/pt/",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36",
+  "utmCampaign": "utm_campaign",
+  "utmContent": "utm_content",
+  "utmMedium": "utm_medium",
+  "utmSource": "utm_source",
+  "utmTerm": "utm_term"
+}

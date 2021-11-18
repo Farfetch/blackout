@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetCollectPoints() action creator should create the correct actions for when the get collect points procedure is successful: get collect points success payload 1`] = `
+Object {
+  "meta": Object {
+    "id": 15338048,
+  },
+  "payload": Object {
+    "entities": Object {
+      "collectpoints": Array [
+        Object {
+          "businessDays": Array [
+            Object {
+              "hours": Array [
+                Object {
+                  "close": "17:00:00",
+                  "open": "12:00:00",
+                },
+              ],
+              "weekday": 0,
+            },
+          ],
+          "clickAndCollect": Object {
+            "collectPointId": 3195,
+            "merchantLocationId": 10534,
+          },
+          "storeAddress": Object {
+            "addressLine1": "19 Conduit Street",
+            "addressLine2": "",
+            "addressLine3": null,
+            "city": Object {
+              "countryId": 0,
+              "id": 0,
+              "name": "London",
+              "stateId": null,
+            },
+            "country": Object {
+              "alpha2Code": "GB",
+              "alpha3Code": "GBR",
+              "continentId": 3,
+              "culture": "en-GB",
+              "id": 215,
+              "name": "United Kingdom",
+              "nativeName": "United Kingdom",
+              "region": "Europe",
+              "regionId": 0,
+              "subRegion": null,
+              "subfolder": "/en-gb",
+            },
+            "ddd": null,
+            "firstName": "MACKINTOSH LONDON",
+            "id": "00000000-0000-0000-0000-000000000000",
+            "isDefaultBillingAddress": false,
+            "isDefaultShippingAddress": false,
+            "lastName": null,
+            "location": Object {
+              "componentTypeName": null,
+              "latitude": "51.5121368",
+              "longitude": "-0.14222780000000057",
+              "name": null,
+              "tag": null,
+              "visualizationComponents": Object {},
+            },
+            "neighbourhood": null,
+            "phone": "02074934667",
+            "state": null,
+            "userId": 0,
+            "vatNumber": null,
+            "zipCode": "W1S 2BH",
+          },
+        },
+        Object {
+          "businessDays": Array [
+            Object {
+              "hours": Array [
+                Object {
+                  "close": "18:00:00",
+                  "open": "10:00:00",
+                },
+              ],
+              "weekday": 1,
+            },
+          ],
+          "clickAndCollect": Object {
+            "collectPointId": 3196,
+            "merchantLocationId": 10649,
+          },
+          "storeAddress": Object {
+            "addressLine1": "833 Madison Avenue",
+            "addressLine2": "",
+            "addressLine3": null,
+            "city": Object {
+              "countryId": 0,
+              "id": 0,
+              "name": "New York",
+              "stateId": null,
+            },
+            "country": Object {
+              "alpha2Code": "US",
+              "alpha3Code": "USA",
+              "continentId": 5,
+              "culture": "en-US",
+              "id": 216,
+              "name": "United States",
+              "nativeName": "United States",
+              "region": "The United States & Canada",
+              "regionId": 0,
+              "subRegion": null,
+              "subfolder": "/en-us",
+            },
+            "ddd": null,
+            "firstName": "MACKINTOSH NEW YORK",
+            "id": "00000000-0000-0000-0000-000000000000",
+            "isDefaultBillingAddress": false,
+            "isDefaultShippingAddress": false,
+            "lastName": null,
+            "location": Object {
+              "componentTypeName": null,
+              "latitude": "40.7700246",
+              "longitude": "-73.96643059999997",
+              "name": null,
+              "tag": null,
+              "visualizationComponents": Object {},
+            },
+            "neighbourhood": null,
+            "phone": "+1 646 524 5401",
+            "state": Object {
+              "code": null,
+              "countryId": 0,
+              "id": 46,
+              "name": null,
+            },
+            "userId": 0,
+            "vatNumber": null,
+            "zipCode": "10021",
+          },
+        },
+      ],
+    },
+  },
+  "type": "@farfetch/blackout-core/GET_COLLECTPOINTS_SUCCESS",
+}
+`;

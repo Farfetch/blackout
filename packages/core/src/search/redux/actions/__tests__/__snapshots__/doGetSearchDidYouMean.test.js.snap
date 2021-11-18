@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetSearchDidYouMean() action creator should create the correct actions for when the get search did you mean procedure is successful: Get search did you mean success payload 1`] = `
+Object {
+  "meta": Object {
+    "query": Object {
+      "genders": Array [
+        0,
+        1,
+      ],
+      "searchTerms": "balenciga",
+    },
+  },
+  "payload": Object {
+    "result": Array [
+      Object {
+        "resourceId": 2450,
+        "suggestion": "Balenciaga",
+        "type": 2,
+      },
+    ],
+  },
+  "type": "@farfetch/blackout-core/GET_SEARCH_DID_YOU_MEAN_SUCCESS",
+}
+`;

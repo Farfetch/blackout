@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Castle events Should match the snapshot 1`] = `
+Object {
+  "LOAD": "autoTrack",
+  "LOGIN": "identify",
+  "LOGOUT": "reset",
+  "PAGE": "trackPageview",
+}
+`;

@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetSEO action creator should create the correct actions for when the get SEO procedure is successful: Get SEO payload 1`] = `
+Object {
+  "meta": Object {
+    "query": Object {
+      "pageType": "pages",
+      "path": "about",
+      "subPageType": "",
+    },
+  },
+  "payload": Object {
+    "pathname": "pages!about",
+    "result": Object {
+      "pages!about": Object {
+        "canonicalUrl": "https://api.blackout.com/about",
+        "description": "About Page",
+        "h1": "h1 title",
+        "headPrefix": "og: http://ogp.me/ns#",
+        "hrefLangs": Array [
+          Object {
+            "href": "https://api.blackout.com/about",
+            "hrefLang": "x-default",
+          },
+        ],
+        "imageAltText": null,
+        "keywords": "test",
+        "metatags": Array [
+          Object {
+            "content": "About Page",
+            "contentType": "content",
+            "propertyDescription": "og:description",
+            "propertyType": "property",
+            "tagName": "meta",
+          },
+        ],
+        "title": "About",
+      },
+    },
+  },
+  "type": "@farfetch/blackout-core/GET_SEO_SUCCESS",
+}
+`;

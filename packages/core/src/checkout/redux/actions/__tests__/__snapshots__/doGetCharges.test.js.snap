@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetCharges() action creator should create the correct actions for when the post charges procedure is successful: post charge success payload 1`] = `
+Object {
+  "payload": Object {
+    "cancelUrl": "some url",
+    "id": "00000000-0000-0000-0000-000000000000",
+    "redirectUrl": "some url",
+    "returnUrl": "some url",
+    "status": "Processing",
+  },
+  "type": "@farfetch/blackout-core/GET_CHARGES_SUCCESS",
+}
+`;

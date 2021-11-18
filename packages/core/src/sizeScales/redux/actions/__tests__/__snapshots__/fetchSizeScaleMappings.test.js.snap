@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetSizeScales() action creator should create the correct actions for when the fetch size scale mappings procedure is successful: Fetch size scale mappings success payload 1`] = `
+Object {
+  "meta": Object {
+    "hash": "?brand=1664&gender=0&sizeScale=453",
+    "query": Object {
+      "brand": 1664,
+      "gender": 0,
+      "sizeScale": 453,
+    },
+  },
+  "payload": Object {
+    "result": Array [
+      Object {
+        "scales": Array [
+          Object {
+            "brand": Object {
+              "id": 1664,
+            },
+            "country": Object {
+              "alpha2Code": "US",
+            },
+            "gender": 0,
+            "id": 453,
+            "name": "NIKE WOMEN SHOES US",
+            "sizes": Array [
+              Object {
+                "code": "4",
+                "position": 17,
+              },
+              Object {
+                "code": "4.5",
+                "position": 18,
+              },
+              Object {
+                "code": "5",
+                "position": 19,
+              },
+              Object {
+                "code": "5.5",
+                "position": 20,
+              },
+              Object {
+                "code": "6",
+                "position": 21,
+              },
+              Object {
+                "code": "6.5",
+                "position": 22,
+              },
+              Object {
+                "code": "7",
+                "position": 23,
+              },
+              Object {
+                "code": "7.5",
+                "position": 24,
+              },
+              Object {
+                "code": "8",
+                "position": 25,
+              },
+              Object {
+                "code": "8.5",
+                "position": 26,
+              },
+              Object {
+                "code": "9",
+                "position": 27,
+              },
+              Object {
+                "code": "9.5",
+                "position": 28,
+              },
+              Object {
+                "code": "10",
+                "position": 29,
+              },
+              Object {
+                "code": "10.5",
+                "position": 30,
+              },
+              Object {
+                "code": "11",
+                "position": 31,
+              },
+              Object {
+                "code": "11.5",
+                "position": 32,
+              },
+              Object {
+                "code": "12",
+                "position": 33,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  "type": "@farfetch/blackout-core/FETCH_SIZESCALE_MAPPINGS_SUCCESS",
+}
+`;

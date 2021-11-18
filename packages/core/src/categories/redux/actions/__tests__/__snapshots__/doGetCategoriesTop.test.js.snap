@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetCategoriesTop() action creator should create the correct actions in case the get top categories procedure is successful: Get categories top success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "categories": Object {
+        "135967": Object {
+          "gender": "Woman",
+          "id": 135967,
+          "name": "Clothing",
+        },
+        "135973": Object {
+          "gender": "Woman",
+          "id": 135973,
+          "name": "Accessories",
+        },
+        "136330": Object {
+          "gender": "Man",
+          "id": 136330,
+          "name": "Clothing",
+        },
+      },
+    },
+    "result": Array [
+      135967,
+      135973,
+      136330,
+    ],
+  },
+  "type": "@farfetch/blackout-core/GET_CATEGORIES_TOP_SUCCESS",
+}
+`;

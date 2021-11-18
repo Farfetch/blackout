@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`adaptAttributes() should map attributes to the corresponding structure for a one size product: size attributes adapter for one size product 1`] = `
+Object {
+  "globalQuantity": 10,
+  "id": 17,
+  "name": "One Size",
+  "scale": 14,
+  "scaleAbbreviation": undefined,
+  "scaleDescription": undefined,
+}
+`;
+
+exports[`adaptAttributes() should map attributes to the corresponding structure when the given size does not exist in the available sizes: size attributes adapter when the given size does not exist in the available sizes 1`] = `
+Object {
+  "id": 20,
+  "name": "S",
+  "scale": 115,
+  "scaleAbbreviation": "IT",
+  "scaleDescription": "Clothing standard",
+}
+`;
+
+exports[`adaptAttributes() should map attributes to the corresponding structure: size attributes adapter 1`] = `
+Object {
+  "globalQuantity": 40,
+  "id": 20,
+  "name": "S",
+  "scale": 115,
+  "scaleAbbreviation": "IT",
+  "scaleDescription": "Clothing standard",
+}
+`;

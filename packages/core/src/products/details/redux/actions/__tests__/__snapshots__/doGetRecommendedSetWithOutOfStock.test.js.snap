@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetRecommendedSetWithOutOfStock() action creator should create the correct actions for when the get recommended set with out of stock procedure is successful: Get recommended set with out of stock success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "recommendedSetsWithOutOfStock": Object {
+        "1050": Object {
+          "id": 1050,
+          "name": "cool recommended set",
+          "platformSetId": 9999,
+          "products": Array [
+            11766695,
+          ],
+          "slug": "cool-recommended-set",
+        },
+      },
+    },
+    "recommendedSetId": 1050,
+    "result": 1050,
+  },
+  "type": "@farfetch/blackout-core/FETCH_RECOMMENDED_SET_WITH_OOS_SUCCESS",
+}
+`;

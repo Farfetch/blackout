@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Subscriptions redux actions doGetUserSubscriptions() action creator Should create the correct actions for when the get subscriptions is successful: Get subscriptions success payload 1`] = `
+Object {
+  "payload": Object {
+    "id": "8c2b5c3e3acb4bdd9c26ba46",
+    "topics": Array [
+      Object {
+        "channels": Array [
+          Object {
+            "address": "user1_test1@acme.com",
+            "platform": "email",
+            "source": "My Account",
+          },
+        ],
+        "type": "Latest_News",
+      },
+      Object {
+        "channels": Array [
+          Object {
+            "address": "user1_test1@acme.com",
+            "platform": "email",
+            "source": "My Account",
+          },
+          Object {
+            "address": "1234567890",
+            "platform": "sms",
+            "source": "My Account",
+          },
+        ],
+        "type": "Promotions",
+      },
+    ],
+  },
+  "type": "@farfetch/blackout-core/GET_USER_SUBSCRIPTIONS_SUCCESS",
+}
+`;

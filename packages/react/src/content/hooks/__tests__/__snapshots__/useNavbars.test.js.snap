@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useNavbars should render with the state and navbar for the specified nav key 1`] = `
+<div>
+  <nav
+    data-test="navigation"
+  >
+    <ul>
+      <li
+        data-test="navigation-link"
+      >
+        <a
+          data-test="navigation-link-text"
+          href="/about"
+          rel="noreferrer"
+          target="_self"
+        >
+          About White Label
+          <br />
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+`;

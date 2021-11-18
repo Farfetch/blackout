@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetPaymentMethodsByIntent() action creator should create the correct actions when the get payment methods by intent procedure is successful: get payment methods by intent success payload 1`] = `
+Object {
+  "payload": undefined,
+  "type": "@farfetch/blackout-core/GET_PAYMENT_METHODS_BY_INTENT_SUCCESS",
+}
+`;

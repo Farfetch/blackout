@@ -1,0 +1,17 @@
+logs
+*.log
+.DS_Store
+
+.idea/
+.vscode/
+.history/
+
+junit.xml
+test-report.xml
+coverage/
+node_modules/
+
+**/package-lock.json
+**/docs
+**/.cache
+!/docs/contributing

@@ -1,0 +1,11 @@
+{
+  "@context": "http://schema.org/",
+  "@type": "WebSite",
+  "url": "http://www.farfetch.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "name": "Title",
+    "target": "http://www.farfetch.com/shopping?query={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}

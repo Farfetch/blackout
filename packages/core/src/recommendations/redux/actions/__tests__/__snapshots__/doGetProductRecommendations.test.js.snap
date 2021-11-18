@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetProductRecommendations() action creator should create the correct actions for when the get product recommendations procedure is successful: get product recommendations success payload 1`] = `
+Object {
+  "meta": Object {
+    "strategyName": "a_strategy_name",
+  },
+  "payload": Object {
+    "id": "000-00000-0000-0000",
+    "values": Array [
+      Object {
+        "id": "123",
+        "score": 0.9,
+      },
+      Object {
+        "id": "321",
+        "score": 0.8,
+      },
+    ],
+  },
+  "type": "@farfetch/blackout-core/GET_PRODUCT_RECOMMENDATIONS_SUCCESS",
+}
+`;
