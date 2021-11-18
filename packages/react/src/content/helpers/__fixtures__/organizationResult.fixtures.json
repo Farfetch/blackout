@@ -1,0 +1,24 @@
+{
+  "@context": "http://schema.org/",
+  "@type": "Organization",
+  "name": "acme Homepage",
+  "url": "http://www.farfetch.com",
+  "logo": "http://www.farfetch.com/static/logo.jpg",
+  "sameAs": [
+    "https://www.instagram.com/WL/",
+    "https://www.facebook.com/WL/",
+    "https://twitter.com/WL",
+    "https://www.weibo.com/WL"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Street name",
+    "addressLocality": "Street Locality",
+    "postalCode": "4000"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "232323",
+    "contactType": "Customer Service"
+  }
+}

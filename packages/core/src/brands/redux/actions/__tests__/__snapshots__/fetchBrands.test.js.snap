@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchBrands() action creator should create the correct actions for when the fetch brands procedure is successful: Fetch brands success payload 1`] = `
+Object {
+  "meta": Object {
+    "hash": "brands?id=211376, 110127",
+    "query": Object {
+      "id": "211376, 110127",
+    },
+  },
+  "payload": Object {
+    "entities": Object {
+      "brands": Object {
+        "110127": Object {
+          "description": "Cecilia Prado pushes the boundaries of traditional knitwear.",
+          "id": 110127,
+          "name": "Cecilia Prado",
+        },
+        "211376": Object {
+          "description": "Derek Lam is an American fashion designer.",
+          "id": 211376,
+          "name": "Derek Lam 10 Crosby",
+        },
+      },
+    },
+    "result": Object {
+      "entries": Array [
+        211376,
+        110127,
+      ],
+      "number": 1,
+      "totalItems": 30,
+      "totalPages": 1,
+    },
+  },
+  "type": "@farfetch/blackout-core/FETCH_BRANDS_SUCCESS",
+}
+`;

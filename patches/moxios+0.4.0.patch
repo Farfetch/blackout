@@ -1,0 +1,12 @@
+diff --git a/node_modules/moxios/dist/moxios.js b/node_modules/moxios/dist/moxios.js
+index 9117e32..7fd9fed 100644
+--- a/node_modules/moxios/dist/moxios.js
++++ b/node_modules/moxios/dist/moxios.js
+@@ -1184,6 +1184,7 @@ return /******/ (function(modules) { // webpackBootstrap
+ 	  if (code) {
+ 	    error.code = code;
+ 	  }
++	  error.isAxiosError = true;
+ 	  error.response = response;
+ 	  return error;
+ 	};

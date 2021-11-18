@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`adaptProductImages() should adapt digital assets images successfully: Product images adapter - images 1`] = `
+Array [
+  Object {
+    "displayOrder": 1,
+    "mediaType": "image/jpeg",
+    "order": 1,
+    "size": "250",
+    "sources": Object {
+      "250": "https://cdn-images.farfetch.com/foo_1_250.jpg",
+      "500": "https://cdn-images.farfetch.com/foo_1_500.jpg",
+    },
+    "type": 0,
+    "url": "https://cdn-images.farfetch.com/foo_1_250.jpg",
+  },
+]
+`;
+
+exports[`adaptProductImages() should adapt legacy product images (images) successfully: Product images adapter - images 1`] = `
+Array [
+  Object {
+    "order": 1,
+    "size": "250",
+    "sources": Object {
+      "250": "https://cdn-images.farfetch.com/foo_1_250.jpg",
+      "500": "https://cdn-images.farfetch.com/foo_1_500.jpg",
+    },
+    "url": "https://cdn-images.farfetch.com/foo_1_250.jpg",
+  },
+  Object {
+    "order": 2,
+    "size": "250",
+    "sources": Object {
+      "250": "https://cdn-images.farfetch.com/foo_2_250.jpg",
+      "500": "https://cdn-images.farfetch.com/foo_2_500.jpg",
+    },
+    "url": "https://cdn-images.farfetch.com/foo_2_250.jpg",
+  },
+  Object {
+    "order": 3,
+    "size": "250",
+    "sources": Object {
+      "250": "https://cdn-images.farfetch.com/foo_3_250.jpg",
+      "500": "https://cdn-images.farfetch.com/foo_3_500.jpg",
+    },
+    "url": "https://cdn-images.farfetch.com/foo_3_250.jpg",
+  },
+]
+`;
+
+exports[`adaptProductImages() should adapt legacy product images organized by groups (imageGroups) successfully: Product images adapter - imagesGroup 1`] = `
+Array [
+  Object {
+    "order": 1,
+    "size": "250",
+    "sources": Object {
+      "250": "https://cdn-images.farfetch.com/foo_1_250.jpg",
+      "500": "https://cdn-images.farfetch.com/foo_1_500.jpg",
+    },
+    "url": "https://cdn-images.farfetch.com/foo_1_250.jpg",
+  },
+  Object {
+    "order": 2,
+    "size": "250",
+    "sources": Object {
+      "250": "https://cdn-images.farfetch.com/foo_2_250.jpg",
+      "500": "https://cdn-images.farfetch.com/foo_2_500.jpg",
+    },
+    "url": "https://cdn-images.farfetch.com/foo_2_250.jpg",
+  },
+  Object {
+    "order": 3,
+    "size": "250",
+    "sources": Object {
+      "250": "https://cdn-images.farfetch.com/foo_3_250.jpg",
+      "500": "https://cdn-images.farfetch.com/foo_3_500.jpg",
+    },
+    "url": "https://cdn-images.farfetch.com/foo_3_250.jpg",
+  },
+]
+`;

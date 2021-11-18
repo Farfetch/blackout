@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetDeliveryBundleUpgrades() action creator should create the correct actions for when the get delivery bundle upgrades procedure is successful: get delivery bundle upgrades success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "deliveryBundleUpgrades": Object {
+        "12345678": Object {
+          "95097041": Object {
+            "Estimated": Array [
+              Object {
+                "currency": "EUR",
+                "deliveryWindow": Object {
+                  "max": "2019-10-12T16:20:32.303Z",
+                  "min": "2019-10-09T16:20:32.303Z",
+                  "type": "Estimated",
+                },
+                "id": "123456789",
+                "isSelected": false,
+                "itemId": 95097041,
+                "name": "Fast",
+                "price": 10,
+                "rank": 1,
+              },
+            ],
+          },
+          "95097042": Object {
+            "Estimated": Array [
+              Object {
+                "currency": "EUR",
+                "deliveryWindow": Object {
+                  "max": "2019-10-11T16:20:32.303Z",
+                  "min": "2019-10-09T16:20:32.303Z",
+                  "type": "Estimated",
+                },
+                "id": "123456788",
+                "isSelected": false,
+                "itemId": 95097042,
+                "name": "90 min",
+                "price": 10,
+                "rank": 1,
+              },
+            ],
+          },
+          "95097043": Object {
+            "Nominated": Array [
+              Object {
+                "currency": "EUR",
+                "deliveryWindow": Object {
+                  "max": "2019-10-09T16:20:32.303Z",
+                  "min": "2019-10-09T16:20:32.303Z",
+                  "type": "Nominated",
+                },
+                "id": "123456787",
+                "isSelected": false,
+                "itemId": 95097043,
+                "name": "NDD",
+                "price": 0,
+                "rank": 1,
+              },
+            ],
+          },
+        },
+      },
+    },
+    "result": "12345678",
+  },
+  "type": "@farfetch/blackout-core/GET_DELIVERY_BUNDLE_UPGRADES_SUCCESS",
+}
+`;

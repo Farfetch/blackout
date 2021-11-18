@@ -1,0 +1,245 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doUpdateBagItem() action creator should create the correct actions for when the update bag item procedure is successful without receiving options: update bag item success payload without receiving options 1`] = `
+Object {
+  "meta": Object {
+    "bagId": "7894746",
+    "bagItemId": 134,
+    "merchant": Object {
+      "id": 1,
+    },
+    "product": Object {
+      "id": 1,
+    },
+    "quantity": 1,
+    "scale": "1",
+    "size": Object {
+      "id": 1,
+    },
+  },
+  "payload": Object {
+    "bagItemId": 134,
+    "entities": Object {
+      "bag": Object {
+        "7894746": Object {
+          "id": "7894746",
+          "items": Array [
+            134,
+          ],
+        },
+      },
+      "bagItems": Object {
+        "134": Object {
+          "attributes": Array [
+            Object {
+              "type": "1",
+              "value": "M",
+            },
+          ],
+          "customAttributes": undefined,
+          "dateCreated": 12345,
+          "id": 134,
+          "merchant": 12424,
+          "price": Object {
+            "discount": Object {
+              "excludingTaxes": 0,
+              "includingTaxes": 0,
+              "rate": 0,
+            },
+            "excludingTaxes": 185442.9802,
+            "formatted": Object {
+              "includingTaxes": "$265,597.00",
+              "includingTaxesWithoutDiscount": "$265,597.00",
+            },
+            "includingTaxes": 265596.9995,
+            "includingTaxesWithoutDiscount": 265596.9995,
+            "isFormatted": true,
+            "tags": Array [
+              "DDP",
+            ],
+            "taxes": Object {
+              "amount": 80154.0193,
+              "rate": 43.223,
+              "type": "DDP",
+            },
+          },
+          "product": 11766695,
+          "size": Object {},
+        },
+      },
+      "brands": Object {
+        "RL": Object {
+          "id": "RL",
+          "name": "Ralph Lauren",
+        },
+      },
+      "merchants": Object {
+        "12424": Object {
+          "id": 12424,
+          "name": "STORE OF THE FUTURE LISBON BOUTIQUE",
+          "shoppingUrl": null,
+        },
+      },
+      "products": Object {
+        "11766695": Object {
+          "DEPRECATED_images": Object {
+            "contextual": Object {},
+            "details": Array [],
+            "primary": undefined,
+            "secondary": undefined,
+          },
+          "brand": "RL",
+          "categories": undefined,
+          "colorGrouping": undefined,
+          "colors": undefined,
+          "customAttributes": undefined,
+          "description": "Classic oxford shirt",
+          "groupedEntries": undefined,
+          "id": 11766695,
+          "images": Object {},
+          "labels": Array [],
+          "merchant": undefined,
+          "name": "Oxford Shirt",
+          "price": Object {
+            "isFormatted": true,
+            "type": 0,
+          },
+          "prices": undefined,
+          "sizes": undefined,
+          "slug": undefined,
+          "tag": Object {
+            "id": undefined,
+            "name": undefined,
+          },
+          "type": 0,
+          "variants": undefined,
+        },
+      },
+    },
+    "result": "7894746",
+  },
+  "type": "@farfetch/blackout-core/UPDATE_BAG_ITEM_SUCCESS",
+}
+`;
+
+exports[`doUpdateBagItem() action creator should create the correct actions for when the update bag item procedure is successful: delete bag item success payload 1`] = `
+Object {
+  "meta": Object {
+    "bagId": "7894746",
+    "bagItemId": 134,
+    "merchant": Object {
+      "id": 1,
+    },
+    "product": Object {
+      "id": 1,
+    },
+    "quantity": 1,
+    "scale": "1",
+    "size": Object {
+      "id": 1,
+    },
+  },
+  "payload": Object {
+    "bagItemId": 134,
+    "entities": Object {
+      "bag": Object {
+        "7894746": Object {
+          "id": "7894746",
+          "items": Array [
+            134,
+          ],
+        },
+      },
+      "bagItems": Object {
+        "134": Object {
+          "attributes": Array [
+            Object {
+              "type": "1",
+              "value": "M",
+            },
+          ],
+          "customAttributes": undefined,
+          "dateCreated": 12345,
+          "id": 134,
+          "merchant": 12424,
+          "price": Object {
+            "discount": Object {
+              "excludingTaxes": 0,
+              "includingTaxes": 0,
+              "rate": 0,
+            },
+            "excludingTaxes": 185442.9802,
+            "formatted": Object {
+              "includingTaxes": "$265,597.00",
+              "includingTaxesWithoutDiscount": "$265,597.00",
+            },
+            "includingTaxes": 265596.9995,
+            "includingTaxesWithoutDiscount": 265596.9995,
+            "isFormatted": true,
+            "tags": Array [
+              "DDP",
+            ],
+            "taxes": Object {
+              "amount": 80154.0193,
+              "rate": 43.223,
+              "type": "DDP",
+            },
+          },
+          "product": 11766695,
+          "size": Object {},
+        },
+      },
+      "brands": Object {
+        "RL": Object {
+          "id": "RL",
+          "name": "Ralph Lauren",
+        },
+      },
+      "merchants": Object {
+        "12424": Object {
+          "id": 12424,
+          "name": "STORE OF THE FUTURE LISBON BOUTIQUE",
+          "shoppingUrl": null,
+        },
+      },
+      "products": Object {
+        "11766695": Object {
+          "DEPRECATED_images": Object {
+            "contextual": Object {},
+            "details": Array [],
+            "primary": undefined,
+            "secondary": undefined,
+          },
+          "brand": "RL",
+          "categories": undefined,
+          "colorGrouping": undefined,
+          "colors": undefined,
+          "customAttributes": undefined,
+          "description": "Classic oxford shirt",
+          "groupedEntries": undefined,
+          "id": 11766695,
+          "images": Object {},
+          "labels": Array [],
+          "merchant": undefined,
+          "name": "Oxford Shirt",
+          "price": Object {
+            "isFormatted": true,
+            "type": 0,
+          },
+          "prices": undefined,
+          "sizes": undefined,
+          "slug": undefined,
+          "tag": Object {
+            "id": undefined,
+            "name": undefined,
+          },
+          "type": 0,
+          "variants": undefined,
+        },
+      },
+    },
+    "result": "7894746",
+  },
+  "type": "@farfetch/blackout-core/UPDATE_BAG_ITEM_SUCCESS",
+}
+`;

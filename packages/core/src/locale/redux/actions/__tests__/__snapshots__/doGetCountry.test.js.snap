@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetCountry() action creator should create the correct actions for when the get country procedure is successful: Get country success payload 1`] = `
+Object {
+  "meta": Object {
+    "countryCode": "US",
+  },
+  "payload": Object {
+    "entities": Object {
+      "countries": Object {
+        "US": Object {
+          "code": "US",
+          "continentId": 5,
+          "cultureCode": "en-US",
+          "currencies": Array [
+            Object {
+              "cultureCode": "en-US",
+              "id": 2,
+              "isoCode": "USD",
+              "name": "United States Dollar",
+            },
+          ],
+          "isCountryDefault": true,
+          "isDefault": true,
+          "newsletterSubscriptionOptionDefault": true,
+          "platformId": 216,
+          "structure": "/",
+        },
+      },
+    },
+    "result": "US",
+  },
+  "type": "@farfetch/blackout-core/GET_COUNTRY_SUCCESS",
+}
+`;

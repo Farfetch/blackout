@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchProductFittings() action creator should dispatch the correct actions when fetch product fittings is successful: Fetch product fittings success payload 1`] = `
+Object {
+  "meta": Object {
+    "productId": 11766695,
+  },
+  "payload": Object {
+    "entities": Object {
+      "products": Object {
+        "11766695": Object {
+          "DEPRECATED_images": undefined,
+          "colorGrouping": undefined,
+          "customAttributes": undefined,
+          "fittings": Array [
+            Object {
+              "description": "This piece fits true to size. We recommend you get your regular size",
+              "type": "Size Selection",
+            },
+            Object {
+              "description": "Cut for a slim fit",
+              "type": "Overall fit",
+            },
+            Object {
+              "description": "Made with a mid-weight fabric",
+              "type": "Fabric weifht & type",
+            },
+          ],
+          "groupedEntries": undefined,
+          "id": 11766695,
+          "images": undefined,
+          "merchant": undefined,
+          "price": undefined,
+          "prices": undefined,
+          "sizes": undefined,
+          "tag": Object {
+            "id": undefined,
+            "name": undefined,
+          },
+          "variants": undefined,
+        },
+      },
+    },
+    "result": 11766695,
+  },
+  "type": "@farfetch/blackout-core/FETCH_PRODUCT_FITTINGS_SUCCESS",
+}
+`;

@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`designers serverInitialState() should initialise server state for desginers 1`] = `
+Object {
+  "designers": Object {
+    "hash": "/us?categoryid=123",
+    "isLoading": Object {
+      "/us?categoryid=123": false,
+    },
+  },
+  "entities": Object {
+    "designerResults": Object {
+      "/us?categoryid=123": Object {
+        "designers": Array [
+          Object {
+            "gender": "",
+            "list": Array [
+              Object {
+                "description": "Yup",
+                "image": "",
+                "slug": "a-peace-treaty",
+                "slugSuffix": null,
+                "title": "A Peace Treaty",
+              },
+            ],
+            "slug": "A",
+            "title": "A",
+          },
+        ],
+        "hash": "/us?categoryid=123",
+        "slug": "/us/designers?categoryid=123",
+      },
+    },
+  },
+}
+`;
+
+exports[`designers serverInitialState() should initialise server state for non designer result 1`] = `
+Object {
+  "designers": Object {
+    "error": Object {},
+    "hash": null,
+    "isLoading": Object {},
+  },
+}
+`;

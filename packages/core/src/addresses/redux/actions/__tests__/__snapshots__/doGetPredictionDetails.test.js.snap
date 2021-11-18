@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetPredictionDetails() action creator with query params should create the correct actions for when the get prediction details procedure is successful: get prediction details success payload 1`] = `
+Object {
+  "payload": Object {
+    "addressLine1": "sesame street 12",
+    "addressLine2": "apartment 12 ",
+    "buildingNumber": "12",
+    "cityName": "sesame",
+    "countryName": "sesame",
+    "districtName": "sesame district",
+    "postalCode": "12",
+    "provinceName": "sesame province",
+    "streetName": "sesame street",
+  },
+  "type": "@farfetch/blackout-core/GET_PREDICTION_DETAILS_SUCCESS",
+}
+`;
+
+exports[`doGetPredictionDetails() action creator without query params should create the correct actions for when the get prediction details procedure is successful: get prediction details success payload 1`] = `
+Object {
+  "payload": Object {
+    "addressLine1": "sesame street 12",
+    "addressLine2": "apartment 12 ",
+    "buildingNumber": "12",
+    "cityName": "sesame",
+    "countryName": "sesame",
+    "districtName": "sesame district",
+    "postalCode": "12",
+    "provinceName": "sesame province",
+    "streetName": "sesame street",
+  },
+  "type": "@farfetch/blackout-core/GET_PREDICTION_DETAILS_SUCCESS",
+}
+`;

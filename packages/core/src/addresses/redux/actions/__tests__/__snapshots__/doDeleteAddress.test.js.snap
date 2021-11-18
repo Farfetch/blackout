@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doDeleteAddress() action creator should create the correct actions for when the delete address procedure is successful: delete address success payload 1`] = `
+Object {
+  "meta": Object {
+    "addressId": "2222222",
+  },
+  "type": "@farfetch/blackout-core/DELETE_ADDRESS_SUCCESS",
+}
+`;

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Defaults Should export getPageDefaults 1`] = `
+Object {
+  "location": Object {
+    "auth": "",
+    "hash": "",
+    "host": "localhost",
+    "hostname": "localhost",
+    "href": "http://localhost/",
+    "origin": "http://localhost",
+    "password": "",
+    "pathname": "/",
+    "port": "",
+    "protocol": "http:",
+    "query": Object {},
+    "slashes": true,
+    "username": "",
+  },
+  "referrer": "",
+  "title": "",
+}
+`;

@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getReturnsFromOrder Account SVC should receive a client request error 1`] = `
+Object {
+  "code": -1,
+  "message": "stub error",
+  "status": 404,
+}
+`;
+
+exports[`getReturnsFromOrder Legacy should receive a client request error 1`] = `
+Object {
+  "code": -1,
+  "message": "stub error",
+  "status": 404,
+}
+`;

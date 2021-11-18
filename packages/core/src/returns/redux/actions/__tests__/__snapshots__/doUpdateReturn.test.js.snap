@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doUpdateReturn() action creator should create the correct actions for when the update return procedure is successful: update return success payload 1`] = `
+Object {
+  "meta": Object {
+    "id": 5926969,
+  },
+  "payload": Object {
+    "entities": Object {
+      "redirectUrl": "theConfirmationPageUrl",
+    },
+  },
+  "type": "@farfetch/blackout-core/UPDATE_RETURN_SUCCESS",
+}
+`;

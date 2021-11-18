@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetContent() action creator should create the correct actions for when the get content procedure is successful: Get content payload 1`] = `
+Object {
+  "meta": Object {
+    "query": Object {
+      "codes": Array [
+        "cttpage,boutiques",
+      ],
+      "contentTypeCode": "pages",
+      "environmentCode": "live",
+      "spaceCode": "website",
+    },
+  },
+  "payload": Object {
+    "entities": Object {
+      "contentGroups": Object {
+        "pages!cttpage,boutiques": Object {
+          "entries": Array [
+            "1fa65fb0-49bf-43b3-902e-78d104f160a3",
+            "01b7783c-1b9d-4d5d-915b-17a30c85082d",
+          ],
+          "hash": "pages!cttpage,boutiques",
+          "number": 1,
+          "totalItems": 2,
+          "totalPages": 1,
+        },
+      },
+      "contents": Object {
+        "01b7783c-1b9d-4d5d-915b-17a30c85082d": Object {
+          "code": "boutiques",
+          "components": Array [
+            Object {
+              "components": Array [
+                Object {
+                  "fields": Object {
+                    "title": Object {
+                      "displayOptions": Object {},
+                      "name": "Title",
+                      "type": "text",
+                      "value": "Browns South Molton Street",
+                    },
+                  },
+                  "type": "custom",
+                },
+              ],
+              "type": "list",
+            },
+          ],
+          "contentTypeCode": "pages",
+          "environmentCode": "live",
+          "id": undefined,
+          "publicationId": "01b7783c-1b9d-4d5d-915b-17a30c85082d",
+          "spaceCode": "website",
+          "target": Object {
+            "contentzone": "10674",
+          },
+          "versionId": "8402918c-b859-4b5b-8192-d83809bae1d0",
+        },
+        "1fa65fb0-49bf-43b3-902e-78d104f160a3": Object {
+          "code": "cttpage",
+          "components": Array [
+            Object {
+              "content": "",
+              "displayOptions": Object {},
+              "name": "QA HTML Template",
+              "type": "html",
+            },
+          ],
+          "contentTypeCode": "pages",
+          "environmentCode": "live",
+          "id": undefined,
+          "publicationId": "1fa65fb0-49bf-43b3-902e-78d104f160a3",
+          "spaceCode": "website",
+          "target": Object {
+            "contentzone": "10674",
+          },
+          "versionId": "914480a1-21a3-4bb4-8670-40ab113b1a3a",
+        },
+      },
+    },
+    "hash": "pages!cttpage,boutiques",
+    "result": "pages!cttpage,boutiques",
+  },
+  "type": "@farfetch/blackout-core/GET_CONTENT_SUCCESS",
+}
+`;

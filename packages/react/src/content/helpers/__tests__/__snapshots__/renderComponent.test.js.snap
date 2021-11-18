@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renderComponent should render component 1`] = `
+<Component
+  component={
+    Object {
+      "type": "text",
+      "value": "test",
+    }
+  }
+/>
+`;

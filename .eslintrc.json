@@ -1,0 +1,113 @@
+{
+  "extends": [
+    "react-app",
+    "plugin:jsdoc/recommended",
+    "prettier",
+    "prettier/react",
+    "prettier/flowtype"
+  ],
+  "plugins": ["sort-imports-es6-autofix", "prettier"],
+  "rules": {
+    "no-duplicate-imports": "error",
+    "no-unused-vars": [
+      "error",
+      {
+        "vars": "local",
+        "args": "after-used",
+        "ignoreRestSiblings": true
+      }
+    ],
+    "sort-imports-es6-autofix/sort-imports-es6": [
+      "error",
+      {
+        "ignoreCase": true,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "quotes": [
+      "error",
+      "single",
+      { "avoidEscape": true, "allowTemplateLiterals": false }
+    ],
+    "padding-line-between-statements": [
+      "error",
+      {
+        "blankLine": "never",
+        "prev": "singleline-const",
+        "next": "singleline-const"
+      },
+      {
+        "blankLine": "never",
+        "prev": "singleline-let",
+        "next": "singleline-let"
+      },
+      { "blankLine": "never", "prev": "import", "next": "import" }
+    ],
+    "spaced-comment": ["error", "always"],
+    "no-use-before-define": [
+      "error",
+      { "functions": true, "classes": true, "variables": true }
+    ],
+    "jsdoc/require-description-complete-sentence": ["error"],
+    "jsdoc/check-tag-names": [
+      "error",
+      {
+        "definedTags": ["category", "subcategory", "component"] //Add the better-docs specific tags to the set of defined tags in jsdoc to avoid errors.
+      }
+    ],
+    "jsdoc/no-undefined-types": [
+      "warn",
+      {
+        "definedTypes": [
+          "Iterable",
+          "StorageWrapper",
+          "User",
+          "Analytics",
+          "farfetch/blackout-core/Analytics",
+          "external:farfetch/blackout-core/Analytics"
+        ]
+      }
+    ]
+  },
+  "overrides": [
+    //Disable all jsdoc checking in test files
+    {
+      "files": ["*.test.js"],
+      "rules": {
+        "jsdoc/check-alignment": "off",
+        "jsdoc/check-examples": "off",
+        "jsdoc/check-indentation": "off",
+        "jsdoc/check-param-names": "off",
+        "jsdoc/check-syntax": "off",
+        "jsdoc/check-tag-names": "off",
+        "jsdoc/check-types": "off",
+        "jsdoc/implements-on-classes": "off",
+        "jsdoc/match-description": "off",
+        "jsdoc/newline-after-description": "off",
+        "jsdoc/no-types": "off",
+        "jsdoc/no-undefined-types": "off",
+        "jsdoc/require-description": "off",
+        "jsdoc/require-description-complete-sentence": "off",
+        "jsdoc/require-example": "off",
+        "jsdoc/require-hyphen-before-param-description": "off",
+        "jsdoc/require-jsdoc": "off",
+        "jsdoc/require-param": "off",
+        "jsdoc/require-param-description": "off",
+        "jsdoc/require-param-name": "off",
+        "jsdoc/require-param-type": "off",
+        "jsdoc/require-returns": "off",
+        "jsdoc/require-returns-check": "off",
+        "jsdoc/require-returns-description": "off",
+        "jsdoc/require-returns-type": "off",
+        "jsdoc/valid-types": "off"
+      }
+    }
+  ]
+}

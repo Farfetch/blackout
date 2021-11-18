@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetSizeguides() action creator should create the correct actions for when the get search procedure is successful: Get size guide success payload 1`] = `
+Object {
+  "meta": Object {
+    "query": Object {
+      "brandIds": Array [
+        1053,
+      ],
+      "categoryIds": Array [
+        135967,
+      ],
+    },
+  },
+  "payload": Object {
+    "result": Array [
+      Object {
+        "brandId": null,
+        "categoryId": 135967,
+        "maps": Array [
+          Object {
+            "abbreviation": "",
+            "description": "Clothing standard",
+            "maps": Array [
+              Object {
+                "description": "XXXS",
+                "position": 0,
+              },
+            ],
+            "sizeScaleId": 115,
+          },
+          Object {
+            "abbreviation": "IT",
+            "description": "Italy",
+            "maps": Array [
+              Object {
+                "description": "XXXS",
+                "position": 0,
+              },
+            ],
+            "sizeScaleId": 193,
+          },
+        ],
+      },
+      Object {
+        "brandId": 1053,
+        "categoryId": 135967,
+        "maps": Array [
+          Object {
+            "abbreviation": "",
+            "description": "CHLOÉ STANDARD",
+            "maps": Array [
+              Object {
+                "description": "XXXS",
+                "position": 0,
+              },
+            ],
+            "sizeScaleId": 950,
+          },
+          Object {
+            "abbreviation": "FR",
+            "description": "CHLOÉ FRANCE",
+            "maps": Array [
+              Object {
+                "description": "XXXS",
+                "position": 0,
+              },
+            ],
+            "sizeScaleId": 955,
+          },
+        ],
+      },
+      Object {
+        "brandId": 1053,
+        "categoryId": 135983,
+        "maps": Array [],
+      },
+      Object {
+        "brandId": null,
+        "categoryId": 135983,
+        "maps": Array [],
+      },
+    ],
+  },
+  "type": "@farfetch/blackout-core/GET_SIZEGUIDES_SUCCESS",
+}
+`;
