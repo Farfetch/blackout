@@ -4,6 +4,7 @@ Blackout is the codename for the Farfetch Platform Solutions (FPS) projects. It'
 
 Useful to build e-commerce applications using the FPS APIs and integrating business logic.
 
+## Table of contents
 - [Blackout](#blackout)
   - [What's inside](#whats-inside)
     - [Project structure](#project-structure)
@@ -87,4 +88,4 @@ You'll find some workflows for Github Actions in [.github/workflows](.github/wor
 
 ## License
 
-[MIT](LICENSE)
+[MIT](LICENSE) @ Farfetch
