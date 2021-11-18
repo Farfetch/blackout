@@ -77,6 +77,8 @@
     "rimraf": "^3.0.2"
   },
   "resolutions": {
+    "@babel/core": "7.13.15",
+    "@babel/preset-env": "7.13.15",
     "color-string": "^1.6.0",
     "css-what": "^5.0.1",
     "dot-prop": "^6.0.1",
