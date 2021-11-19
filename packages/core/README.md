@@ -2,13 +2,6 @@
 
 Clients to connect to the Farfetch Platform Solutions' services and modules to manage the application data layer and global state.
 
-- [@farfetch/blackout-core](#farfetchblackout-core)
-  - [Installation](#installation)
-  - [Usage](#usage)
-    - [Additional configuration](#additional-configuration)
-  - [Contributing](#contributing)
-  - [License](#license)
-
 ## Installation
 
 **yarn**
@@ -98,4 +91,4 @@ Please read the [CONTRIBUTING](../../CONTRIBUTING) file to know what we expect f
 
 ## License
 
-[MIT](../../LICENSE)
+[MIT](../../LICENSE) @ Farfetch
