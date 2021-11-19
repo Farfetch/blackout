@@ -63,4 +63,4 @@ Please read the [CONTRIBUTING](../../CONTRIBUTING) file to know what we expect f
 
 ## License
 
-[MIT](../../LICENSE)
+[MIT](../../LICENSE) @ Farfetch
