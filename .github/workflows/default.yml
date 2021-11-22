@@ -24,6 +24,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - uses: actions/setup-node@v2
         with:
@@ -76,10 +77,12 @@ jobs:
           MAKE_RELEASE_COMMIT_MESSAGE: "chore: make release"
           PUBLISH_COMMIT_MESSAGE: "chore: publish [skip ci]"
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_BOT_GITHUB_TOKEN}}
+          GIT_AUTHOR_NAME: ${{ secrets.RELEASE_BOT_GIT_NAME }}
+          GIT_AUTHOR_EMAIL: ${{ secrets.RELEASE_BOT_GIT_EMAIL }}
+          GIT_COMMITTER_NAME: ${{ secrets.RELEASE_BOT_GIT_NAME }}
+          GIT_COMMITTER_EMAIL: ${{ secrets.RELEASE_BOT_GIT_EMAIL }}
         run: |
-          git config user.name "${{ github.actor }}"
-          git config user.email "${{ github.actor}}@users.noreply.github.com"
-
           SOURCE_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 
           if [[ ${SOURCE_BRANCH_NAME} = main ]]; then
