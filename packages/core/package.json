@@ -38,5 +38,8 @@
     "immer": "^9.0.6",
     "lodash": "^4.17.21",
     "redux": "^4.0.5"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
