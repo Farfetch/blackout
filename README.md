@@ -18,60 +18,21 @@ Each package has its own `package.json` file and defines its dependencies, havin
 - Set of react components, hooks, contexts and utils with business logic embedded, to build web or react-native interfaces
 - Depends on `@farfetch/blackout-core`
 
-### Project structure
+## Contributing
 
-```
-.
-├── packages
-│   ├── core       // @farfetch/blackout-core package
-│   └── react      // @farfetch/blackout-react package
-├── tests          // global test utilities and fixtures
-├── ...
-└── package.json   //root workspace (private package used by yarn workspaces)
-```
+Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
-## Installing
+Please read the [CONTRIBUTING](CONTRIBUTING) file to know what we expect from your contribution and the guidelines you should follow.
 
-Clone the project
+## About
+Blackout is a project maintained by some awesome [contributors](https://github.com/Farfetch/blackout/graphs/contributors) from [Farfetch Platform Solutions](https://www.farfetchplatformsolutions.com/).
 
-```sh
-git clone git@github.com:Farfetch/blackout.git
-cd blackout
-```
-
-Install the dependencies
-
-```sh
-yarn install
-```
-
-## Quality
-
-### Coding styles
-
-[Prettier](https://prettier.io/) is in charge of formatting the code, check the [.prettierrc](.prettierrc) content to see what's configured.
-
-There is also the [.editorconfig](.editorconfig) to help maintain consistent coding styles.
-
-### Linters
-
-The eslint configuration can be found in [.eslintrc.json](.eslintrc.json). Prettier is included.
-
-### Git hooks/Lint-staged
-
-Check the [.huskyrc.json](.huskyrc.json) content to see what hooks are enabled. Lint-staged is used to guarantee that lint and prettier are applied automatically on commit and/or pushes.
-
-### Tests
-
-Tests are made with [Jest](https://jestjs.io/) and relies on [enzyme](https://enzymejs.github.io/enzyme/). [React-testing-library](https://testing-library.com/) is enabled whenever react is involved. Configuration lives in the root folder, check [jest.config.js](jest.config.js).
-
-### CI
-
-You'll find some workflows for Github Actions in [.github/workflows](.github/workflows); they will ensure that:
-
-- There is no linter/code-style errors
-- The test suite is successful
-- The package releases are handled
+## Maintainers
+- [Helder Burato Berto](https://github.com/helderburato)
+- [João Ramalho Costa](https://github.com/joaoprcosta)
+- [Nelson Leite](https://github.com/nelsonleite)
+- [Ricardo Jorge Figueiredo](https://github.com/ricardojmf)
+- [Rui Nunes](https://github.com/ruifcnunes)
 
 ## License
 
