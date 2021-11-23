@@ -7,8 +7,17 @@ on:
     branches:
       - main
       - next
+    paths-ignore:
+      - '**/docs/**'
+      - '**.md'
   pull_request:
     types: [opened, synchronize, reopened, edited]
+    paths-ignore:
+      - '**/docs/**'
+      - '**.md'
+
+# Setup concurrency to the ref (branch / tag) that triggered the workflow
+concurrency: ci-${{ github.ref }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
