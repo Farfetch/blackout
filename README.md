@@ -1,5 +1,9 @@
 # Blackout
 
+[![Pipeline](https://github.com/Farfetch/blackout/actions/workflows/CI.yml/badge.svg)](https://github.com/Farfetch/blackout/actions/workflows/CI.yml)
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui)](https://github.com/Farfetch/blackout/blob/main/LICENSE)
+[![GitHub last commit](https://img.shields.io/github/last-commit/Farfetch/blackout)](https://github.com/Farfetch/blackout/graphs/commit-activity)
+
 Blackout is the codename for the Farfetch Platform Solutions (FPS) projects. It's a monorepo with Yarn workspaces and Lerna.
 
 Useful to build e-commerce applications using the FPS APIs and integrating business logic.
@@ -25,9 +29,11 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 Please read the [CONTRIBUTING](CONTRIBUTING) file to know what we expect from your contribution and the guidelines you should follow.
 
 ## About
+
 Blackout is a project maintained by some awesome [contributors](https://github.com/Farfetch/blackout/graphs/contributors) from [Farfetch Platform Solutions](https://www.farfetchplatformsolutions.com/).
 
 ## Maintainers
+
 - [Helder Burato Berto](https://github.com/helderburato)
 - [João Ramalho Costa](https://github.com/joaoprcosta)
 - [Nelson Leite](https://github.com/nelsonleite)
