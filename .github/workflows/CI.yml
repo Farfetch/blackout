@@ -1,4 +1,4 @@
-name: Default pipeline
+name: CI
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the main and next branches
@@ -12,8 +12,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "default"
-  default:
+  # This workflow contains a single job called "CI"
+  CI:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -21,6 +21,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       # Use fetch-depth: 0 so that all tags and branches are fetched
+      # Use persist-credentials: false so that the make release step uses another personal access 
+      # token which has admin access and can push the version commit without the restriction
+      # of creating a pull-request.
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
@@ -77,12 +80,14 @@ jobs:
           MAKE_RELEASE_COMMIT_MESSAGE: "chore: make release"
           PUBLISH_COMMIT_MESSAGE: "chore: publish [skip ci]"
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.RELEASE_BOT_GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_BOT_GITHUB_TOKEN }}
           GIT_AUTHOR_NAME: ${{ secrets.RELEASE_BOT_GIT_NAME }}
           GIT_AUTHOR_EMAIL: ${{ secrets.RELEASE_BOT_GIT_EMAIL }}
           GIT_COMMITTER_NAME: ${{ secrets.RELEASE_BOT_GIT_NAME }}
           GIT_COMMITTER_EMAIL: ${{ secrets.RELEASE_BOT_GIT_EMAIL }}
         run: |
+          git remote set-url origin "https://${GITHUB_TOKEN}@github.com/Farfetch/blackout.git"
+
           SOURCE_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 
           if [[ ${SOURCE_BRANCH_NAME} = main ]]; then
