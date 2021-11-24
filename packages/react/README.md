@@ -65,7 +65,7 @@ Since this package is published in its original structure, all the source code i
 
 Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
-Please read the [CONTRIBUTING](../../CONTRIBUTING) file to know what we expect from your contribution and the guidelines you should follow.
+Please read the [CONTRIBUTING](../../CONTRIBUTING.md) file to know what we expect from your contribution and the guidelines you should follow.
 
 ## License
 
