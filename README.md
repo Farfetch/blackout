@@ -20,7 +20,7 @@ Each package has its own `package.json` file and defines its dependencies, havin
 [**@farfetch/blackout-react**](packages/react)
 
 - Set of react components, hooks, contexts and utils with business logic embedded, to build web or react-native interfaces
-- Depends on `@farfetch/blackout-core`
+- Depends on [`@farfetch/blackout-core`](https://www.npmjs.com/package/@farfetch/blackout-core)
 
 ## Contributing
 
