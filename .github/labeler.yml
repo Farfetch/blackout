@@ -1,0 +1,8 @@
+":package: core":
+  - 'packages/core/**/*'
+
+":package: react":
+  - 'packages/react/**/*'
+
+"type: maintenance":
+  - '.github/**/*'
