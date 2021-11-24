@@ -104,7 +104,8 @@
     "y18n": "^4.0.2"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "*.{json,md}": "prettier --write",
+    "*.js": "eslint --fix"
   },
   "workspaces": [
     "packages/*"
