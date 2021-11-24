@@ -16,6 +16,12 @@ yarn add @farfetch/blackout-react
 npm i @farfetch/blackout-react
 ```
 
+### Peer dependencies
+
+Make sure that you have installed the correct Farfetch's peer dependencies:
+
+- [`@farfetch/blackout-core`](https://www.npmjs.com/package/@farfetch/blackout-core)
+
 ## Usage
 
 You just need to import and use what you need
