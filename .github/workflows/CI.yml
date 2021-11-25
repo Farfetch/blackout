@@ -103,5 +103,6 @@ jobs:
             npx lerna publish --conventional-commits --message "${PUBLISH_COMMIT_MESSAGE}" --no-verify-access --yes
           else
             PRE_ID=${SOURCE_BRANCH_NAME//_/-}
+            PRE_ID=${PRE_ID//\//-}
             npx lerna publish --conventional-commits --conventional-prerelease --no-verify-access --preid ${PRE_ID} --pre-dist-tag ${PRE_ID}  --message "${PUBLISH_COMMIT_MESSAGE}"  --yes
           fi
