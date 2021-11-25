@@ -6,6 +6,18 @@
     "type": "git",
     "url": "https://github.com/Farfetch/blackout.git"
   },
+  "author": {
+    "name": "FPS",
+    "email": "opensource@farfetch.com",
+    "url": "https://www.farfetchplatformsolutions.com"
+  },
+  "bugs": "https://github.com/Farfetch/blackout/issues",
+  "keywords": [
+    "blackout",
+    "e-commerce",
+    "Farfetch",
+    "FPS"
+  ],
   "license": "UNLICENSED",
   "engines": {
     "node": ">=10.15.0",
