@@ -28,7 +28,6 @@
     "docs": "lerna exec --concurrency 1 --no-bail --stream -- jsdoc -c '$LERNA_ROOT_PATH'/jsdoc.json",
     "format": "prettier --write '**/*.{js,json,md}'",
     "lint": "npx eslint .",
-    "make-release": "bash scripts/makeRelease.sh",
     "postinstall": "patch-package",
     "prepare": "husky install",
     "test": "rimraf coverage && jest"
