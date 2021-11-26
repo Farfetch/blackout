@@ -24,22 +24,19 @@ Update your store to include the reducers and entities, like the example below:
 // Typically in `store/buildStore.js`
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { bagMiddleware } from '@farfetch/blackout-core/analytics/redux/middlewares';
-import {
-  checkout,
-  entitiesMapper,
-  listing,
-} from '@farfetch/blackout-core/redux';
-import { createEntitiesReducer } from '@farfetch/blackout-core';
+import { entitiesMapperReducer } from '@farfetch/blackout-core/entities/redux';
+import checkout from '@farfetch/blackout-core/checkout/redux';
+import listing from '@farfetch/blackout-core/products/listing/redux';
 import otherScopeReducer from './other-scope';
 
 // Create your reducer based on a combination of other reducers and entities
 const reducers = combineReducers({
   checkout,
-  entities: createEntitiesReducer({ ...entitiesMapper }),
+  entities: entitiesMapperReducer(),
   listing,
   otherScope: otherScopeReducer,
 });
-const middlewares = [bagMiddleware(analytics)];
+const middlewares = [bagMiddleware()];
 const store = createStore(reducers, applyMiddleware(...middlewares));
 ```
 
