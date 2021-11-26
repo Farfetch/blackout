@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`removeUserToken() action creator should create the correct actions for when the delete user token procedure is successful: delete user token success payload 1`] = `
+Object {
+  "meta": Object {
+    "userTokenId": "dsjfn-dsfnksdj",
+  },
+  "type": "@farfetch/blackout-redux/DELETE_USER_TOKEN_SUCCESS",
+}
+`;

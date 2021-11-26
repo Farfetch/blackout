@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useContentType should render with the state and selected content type and code 1`] = `
+<div>
+  <div
+    data-test="contentType-container"
+  >
+    <h1
+      data-test="contentType-title"
+    >
+      Career
+    </h1>
+    <div
+      data-test="contentType-description"
+    >
+      &lt;p&gt;Career test&lt;/p&gt;
+    </div>
+  </div>
+</div>
+`;

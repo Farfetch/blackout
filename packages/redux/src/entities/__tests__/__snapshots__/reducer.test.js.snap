@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+Object {
+  "addresses": Object {
+    "@farfetch/blackout-redux/CREATE_ADDRESS_SUCCESS": [Function],
+    "@farfetch/blackout-redux/FETCH_ADDRESS_SCHEMA_SUCCESS": [Function],
+    "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
+    "@farfetch/blackout-redux/REMOVE_ADDRESS_SUCCESS": [Function],
+    "@farfetch/blackout-redux/REMOVE_DEFAULT_CONTACT_ADDRESS_SUCCESS": [Function],
+    "@farfetch/blackout-redux/SET_DEFAULT_BILLING_ADDRESS_SUCCESS": [Function],
+    "@farfetch/blackout-redux/SET_DEFAULT_CONTACT_ADDRESS_SUCCESS": [Function],
+    "@farfetch/blackout-redux/SET_DEFAULT_SHIPPING_ADDRESS_SUCCESS": [Function],
+    "@farfetch/blackout-redux/UPDATE_ADDRESS_SUCCESS": [Function],
+  },
+  "authentication": Object {
+    "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
+  },
+  "bag": Object {
+    "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
+    "@farfetch/blackout-redux/RESET_BAG_ENTITIES": [Function],
+  },
+  "checkout": Object {
+    "@farfetch/blackout-redux/COMPLETE_PAYMENT_CHECKOUT_SUCCESS": [Function],
+    "@farfetch/blackout-redux/CREATE_CHECKOUT_SUCCESS": [Function],
+    "@farfetch/blackout-redux/FETCH_CHECKOUT_DETAILS_SUCCESS": [Function],
+    "@farfetch/blackout-redux/FETCH_CHECKOUT_SUCCESS": [Function],
+    "@farfetch/blackout-redux/FETCH_COLLECT_POINTS_SUCCESS": [Function],
+    "@farfetch/blackout-redux/FETCH_ITEM_DELIVERY_PROVISIONING_SUCCESS": [Function],
+    "@farfetch/blackout-redux/FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_SUCCESS": [Function],
+    "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
+    "@farfetch/blackout-redux/RESET_CHECKOUT_STATE": [Function],
+    "@farfetch/blackout-redux/SET_ITEM_TAGS_SUCCESS": [Function],
+    "@farfetch/blackout-redux/SET_PROMOCODE_SUCCESS": [Function],
+    "@farfetch/blackout-redux/SET_TAGS_SUCCESS": [Function],
+    "@farfetch/blackout-redux/UPDATE_CHECKOUT_SUCCESS": [Function],
+  },
+  "merchantsLocations": Object {
+    "@farfetch/blackout-redux/RESET_MERCHANTS_LOCATIONS_STATE": [Function],
+  },
+  "orders": Object {
+    "@farfetch/blackout-client/GET_ORDERS_SUCCESS": [Function],
+    "@farfetch/blackout-client/GET_ORDER_DETAILS_SUCCESS": [Function],
+    "@farfetch/blackout-client/GET_ORDER_RETURN_OPTIONS_SUCCESS": [Function],
+    "@farfetch/blackout-client/RESET_ORDERS": [Function],
+  },
+  "payments": Object {
+    "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
+    "@farfetch/blackout-redux/REMOVE_INSTRUMENT_SUCCESS": [Function],
+    "@farfetch/blackout-redux/REMOVE_PAYMENT_TOKEN_SUCCESS": [Function],
+    "@farfetch/blackout-redux/RESET_INSTRUMENTS_STATE": [Function],
+  },
+  "products": Object {
+    "@farfetch/blackout-redux/FETCH_PRODUCT_MEASUREMENTS_SUCCESS": [Function],
+    "@farfetch/blackout-redux/RESET_PRODUCTS_LISTS_ENTITIES": [Function],
+    "@farfetch/blackout-redux/RESET_PRODUCT_DETAILS_ENTITIES": [Function],
+  },
+  "profile": Object {
+    "@farfetch/blackout-client/GET_BENEFITS_SUCCESS": [Function],
+    "@farfetch/blackout-client/GET_CONTACTS_SUCCESS": [Function],
+    "@farfetch/blackout-client/GET_CREDIT_MOVEMENTS_SUCCESS": [Function],
+    "@farfetch/blackout-client/GET_CREDIT_SUCCESS": [Function],
+    "@farfetch/blackout-client/GET_PREFERENCES_SUCCESS": [Function],
+    "@farfetch/blackout-client/UPDATE_PREFERENCES_SUCCESS": [Function],
+  },
+  "returns": Object {
+    "@farfetch/blackout-client/GET_PICKUP_CAPABILITIES_SUCCESS": [Function],
+    "@farfetch/blackout-client/RESET_RETURN": [Function],
+    "@farfetch/blackout-client/UPDATE_RETURN_SUCCESS": [Function],
+  },
+  "subscriptions": Object {
+    "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
+    "@farfetch/blackout-redux/RESET_SUBSCRIPTIONS": [Function],
+  },
+  "wishlist": Object {
+    "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
+    "@farfetch/blackout-redux/REMOVE_WISHLIST_SET_SUCCESS": [Function],
+    "@farfetch/blackout-redux/RESET_WISHLIST_ENTITIES": [Function],
+    "@farfetch/blackout-redux/RESET_WISHLIST_SETS_ENTITIES": [Function],
+  },
+}
+`;

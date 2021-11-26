@@ -1,11 +1,20 @@
 {
   "extends": [
     "react-app",
+    "plugin:@typescript-eslint/recommended",
     "plugin:jsdoc/recommended",
     "prettier",
+    "prettier/@typescript-eslint",
+    "prettier/flowtype",
     "prettier/react",
-    "prettier/flowtype"
+    "plugin:@typescript-eslint/eslint-recommended"
   ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "plugins": ["sort-imports-es6-autofix", "prettier"],
   "rules": {
     "no-duplicate-imports": "error",
@@ -16,6 +25,10 @@
         "args": "after-used",
         "ignoreRestSiblings": true
       }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "vars": "local", "args": "after-used", "ignoreRestSiblings": true }
     ],
     "sort-imports-es6-autofix/sort-imports-es6": [
       "error",
@@ -51,15 +64,13 @@
       { "blankLine": "never", "prev": "import", "next": "import" }
     ],
     "spaced-comment": ["error", "always"],
-    "no-use-before-define": [
-      "error",
-      { "functions": true, "classes": true, "variables": true }
-    ],
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
     "jsdoc/require-description-complete-sentence": ["error"],
     "jsdoc/check-tag-names": [
       "error",
       {
-        "definedTags": ["category", "subcategory", "component"] //Add the better-docs specific tags to the set of defined tags in jsdoc to avoid errors.
+        "definedTags": ["category", "subcategory", "component"] // Add the better-docs specific tags to the set of defined tags in jsdoc to avoid errors.
       }
     ],
     "jsdoc/no-undefined-types": [
@@ -70,11 +81,12 @@
           "StorageWrapper",
           "User",
           "Analytics",
-          "farfetch/blackout-core/Analytics",
-          "external:farfetch/blackout-core/Analytics"
+          "fps/core/Analytics",
+          "external:fps/core/Analytics"
         ]
       }
-    ]
+    ],
+    "@typescript-eslint/ban-ts-comment": "off"
   },
   "overrides": [
     //Disable all jsdoc checking in test files
@@ -106,7 +118,22 @@
         "jsdoc/require-returns-check": "off",
         "jsdoc/require-returns-description": "off",
         "jsdoc/require-returns-type": "off",
-        "jsdoc/valid-types": "off"
+        "jsdoc/valid-types": "off",
+        // We use const xxx = () => {} many times in tests.
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    },
+    {
+      "files": ["*.ts"],
+      "rules": {
+        "no-unused-vars": "off"
+      }
+    },
+    {
+      "files": ["*.d.ts"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off"
       }
     }
   ]

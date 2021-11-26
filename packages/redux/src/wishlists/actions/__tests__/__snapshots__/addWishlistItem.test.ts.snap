@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`addWishlistItem() should create the correct actions for when the adding a wishlist item procedure is successful: Add wishlist item success payload 1`] = `undefined`;

@@ -1,0 +1,13 @@
+/**
+ * Contents hooks.
+ *
+ * @module contents/hooks
+ * @category Contents
+ * @subcategory hooks
+ */
+
+export { default as useContentType } from './useContentType';
+export { default as useMetaTags } from './useMetaTags';
+export { default as useNavbars } from './useNavbars';
+export { default as usePage } from './usePage';
+export { default as useWidget } from './useWidget';

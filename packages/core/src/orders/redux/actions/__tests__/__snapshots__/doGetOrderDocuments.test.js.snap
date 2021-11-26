@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`doGetOrderDocuments() action creator should create the correct actions for when the get order documents procedure is successful: get order documents success payload 1`] = `
-Object {
-  "type": "@farfetch/blackout-core/GET_ORDER_DOCUMENTS_SUCCESS",
-}
-`;

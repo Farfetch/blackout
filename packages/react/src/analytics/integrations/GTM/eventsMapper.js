@@ -3,7 +3,7 @@
  * @private
  */
 
-import { eventTypes, pageTypes } from '@farfetch/blackout-core/analytics';
+import { eventTypes, pageTypes } from '@farfetch/blackout-analytics';
 import { getEventProperties, getProductData } from './utils';
 import get from 'lodash/get';
 

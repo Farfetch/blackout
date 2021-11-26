@@ -1,6 +1,6 @@
 # @farfetch/blackout-react
 
-React components, hooks and other tools filled with business logic to help you use Farfetch Platform Solutions' services in your web or native e-commerce app.
+React components, hooks and other tools filled with business logic to help using the Farfetch Platform Solutions' services in web or native e-commerce apps.
 
 ## Installation
 
@@ -18,9 +18,15 @@ npm i @farfetch/blackout-react
 
 ### Peer dependencies
 
-Make sure that you have installed the correct Farfetch's peer dependencies:
+Make sure that you have installed the correct peer dependencies of this package:
 
-- [`@farfetch/blackout-core`](https://www.npmjs.com/package/@farfetch/blackout-core)
+- [`@farfetch/blackout-analytics`](https://www.npmjs.com/package/@farfetch/blackout-analytics)
+- [`@farfetch/blackout-client`](https://www.npmjs.com/package/@farfetch/blackout-client)
+- [`@farfetch/blackout-redux`](https://www.npmjs.com/package/@farfetch/blackout-redux)
+- [`lodash`](https://www.npmjs.com/package/lodash)
+- [`react`](https://www.npmjs.com/package/react)
+- [`react-redux`](https://www.npmjs.com/package/react-redux)
+- [`redux`](https://www.npmjs.com/package/redux)
 
 ## Usage
 

@@ -16,7 +16,7 @@ import {
   PRODUCT_CATEGORY_FIELD,
   SET_ACTION_COMMAND,
 } from './constants';
-import { eventTypes, utils } from '@farfetch/blackout-core/analytics';
+import { eventTypes, utils } from '@farfetch/blackout-analytics';
 import { validationSchemaBuilder } from '../shared/validation/eventSchemas';
 import get from 'lodash/get';
 import isBoolean from 'lodash/isBoolean';

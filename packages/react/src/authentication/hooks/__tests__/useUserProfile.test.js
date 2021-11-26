@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { cleanup } from '@testing-library/react';
-import { getProfile } from '@farfetch/blackout-core/profile/client';
+import { getProfile } from '@farfetch/blackout-client/profile/client';
 import { mockDefaultActiveTokenData } from '../../contexts/__fixtures__/AuthenticationProvider.fixtures';
 import { ProfileChangedError } from '../../errors';
 import AuthenticationProvider from '../../contexts/AuthenticationProvider';
@@ -16,7 +16,7 @@ let mockGetProfileCommon;
 
 jest.mock('../../contexts/AuthenticationProvider');
 
-jest.mock('@farfetch/blackout-core/profile/client', () => {
+jest.mock('@farfetch/blackout-client/profile/client', () => {
   if (!mockGetProfileCommon) {
     mockGetProfileCommon = config => {
       const usedAccessTokenCallback = config['__usedAccessTokenCallback'];
@@ -30,7 +30,7 @@ jest.mock('@farfetch/blackout-core/profile/client', () => {
   }
 
   return {
-    ...jest.requireActual('@farfetch/blackout-core/profile/client'),
+    ...jest.requireActual('@farfetch/blackout-client/profile/client'),
     getProfile: jest.fn(mockGetProfileCommon),
   };
 });

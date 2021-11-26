@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`submitFormData() action creator should create the correct actions for when the submit form data procedure is successful: Submit form schemas payload 1`] = `
+Object {
+  "meta": Object {
+    "schemaCode": "contact-us",
+  },
+  "payload": Object {
+    "foo": "bar",
+  },
+  "type": "@farfetch/blackout-redux/SUBMIT_FORM_SUCCESS",
+}
+`;

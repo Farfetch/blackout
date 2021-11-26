@@ -12,15 +12,29 @@ Useful to build e-commerce applications using the FPS APIs and integrating busin
 
 Each package has its own `package.json` file and defines its dependencies, having full autonomy to publish a new version into the registry when needed.
 
-[**@farfetch/blackout-core**](packages/core)
+[**@farfetch/blackout-analytics**](packages/analytics)
 
-- Clients to connect to the FPS APIs
-- Modules to manage the application data layer and global state (with redux)
+- Centralized and agnostic way of tracking data with built-in integrations
+- Depends on [`@farfetch/blackout-client`](https://www.npmjs.com/package/@farfetch/blackout-client)
+
+[**@farfetch/blackout-client**](packages/client)
+
+- Clients to connect to the Farfetch Platform Solutions' services
 
 [**@farfetch/blackout-react**](packages/react)
 
-- Set of react components, hooks, contexts and utils with business logic embedded, to build web or react-native interfaces
-- Depends on [`@farfetch/blackout-core`](https://www.npmjs.com/package/@farfetch/blackout-core)
+- React components, hooks and other tools filled with business logic to help using the Farfetch Platform Solutions' services in web or native e-commerce apps
+- Depends on
+  - [`@farfetch/blackout-analytics`](https://www.npmjs.com/package/@farfetch/blackout-analytics)
+  - [`@farfetch/blackout-client`](https://www.npmjs.com/package/@farfetch/blackout-client)
+  - [`@farfetch/blackout-redux`](https://www.npmjs.com/package/@farfetch/blackout-redux)
+
+[**@farfetch/blackout-redux**](packages/redux)
+
+- Modules to manage the application global state
+- Depends on
+  - [`@farfetch/blackout-analytics`](https://www.npmjs.com/package/@farfetch/blackout-analytics)
+  - [`@farfetch/blackout-client`](https://www.npmjs.com/package/@farfetch/blackout-client)
 
 ## Contributing
 

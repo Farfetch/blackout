@@ -15,10 +15,10 @@ import {
   integrations,
   pageTypes,
   utils,
-} from '@farfetch/blackout-core/analytics';
-import { getCustomerIdFromUser } from '@farfetch/blackout-core/analytics/integrations/Omnitracking/omnitracking-helper';
-import { POST_TRACKINGS_PATHNAME } from '@farfetch/blackout-core/analytics/integrations/Omnitracking/client';
-import mockUserAndTrackData from '../../__fixtures__/analyticsTrackData.fixtures';
+} from '@farfetch/blackout-analytics';
+import { getCustomerIdFromUser } from '@farfetch/blackout-analytics/integrations/Omnitracking/omnitracking-helper';
+import { onSetUserEventData as mockUserAndTrackData } from 'tests/__fixtures__/analytics';
+import { POST_TRACKINGS_PATHNAME } from '@farfetch/blackout-client/omnitracking';
 import Vitorino from '../Vitorino';
 
 utils.logger.error = jest.fn();

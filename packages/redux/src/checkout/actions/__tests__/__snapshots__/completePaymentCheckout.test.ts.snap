@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`completePaymentCheckout() action creator should create the correct actions for when the complete payment checkout procedure is successful: complete payment checkout success payload 1`] = `
+Object {
+  "meta": Object {
+    "id": 15338048,
+  },
+  "payload": Object {
+    "entities": Object {
+      "billingAddressUsed": Object {},
+      "cancelUrl": null,
+      "checkoutOrderId": 0,
+      "confirmationRedirectUrl": null,
+      "createdDate": 12345,
+      "creditCard": Object {},
+      "numberOfInstallments": 0,
+      "paymentMethodId": "e13bb06b-392b-49a0-8acd-3f44416e3234",
+      "paymentStatus": Object {},
+      "recurringPayment": Object {},
+      "redirectUrl": null,
+      "savePaymentMethodAsToken": true,
+      "transactionId": "MTADRWG2ZYQ3SERXJ87G",
+    },
+  },
+  "type": "@farfetch/blackout-redux/COMPLETE_PAYMENT_CHECKOUT_SUCCESS",
+}
+`;

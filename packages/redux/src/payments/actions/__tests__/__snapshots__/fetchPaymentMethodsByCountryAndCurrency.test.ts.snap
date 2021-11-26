@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchPaymentMethodsByCountryAndCurrency() action creator should create the correct actions when the fetch payment methods with country and currency procedure is successful: fetch payment methods with country and currency success payload 1`] = `
+Object {
+  "payload": undefined,
+  "type": "@farfetch/blackout-redux/FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_SUCCESS",
+}
+`;

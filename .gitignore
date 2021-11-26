@@ -7,11 +7,15 @@ logs
 .history/
 
 junit.xml
-test-report.xml
 coverage/
 node_modules/
 
 **/package-lock.json
+**/dist
 **/docs
 **/.cache
 !/docs/contributing
+
+**/types/**/build
+
+.eslintcache

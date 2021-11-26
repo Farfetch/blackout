@@ -22,7 +22,7 @@ import {
   trackTypes as analyticsTrackTypes,
   integrations,
   utils,
-} from '@farfetch/blackout-core/analytics';
+} from '@farfetch/blackout-analytics';
 import {
   DATA_TEST_SELECTOR,
   DEFAULT_DATA_LAYER_NAME,
@@ -271,9 +271,12 @@ class GA4 extends integrations.Integration {
     const validationResult = eventValidator(data, validationSchema);
 
     if (!validationResult.isValid) {
+      // The ignore line is temporary and should be removed in following development of ecommerce events
+      /* istanbul ignore next */
       utils.logger.error(
         `${MESSAGE_PREFIX}Track event failed. Reason: ${validationResult.errorMessage}`,
       );
+      /* istanbul ignore next */
       return false;
     }
 
@@ -413,6 +416,8 @@ class GA4 extends integrations.Integration {
     const extraCommands = this.getExtraCommandsForEvent(data, scopeCommands);
 
     if (extraCommands) {
+      // The ignore line is temporary and should be removed in following development of ecommerce events
+      /* istanbul ignore next */
       commandList.push(...extraCommands);
     }
 

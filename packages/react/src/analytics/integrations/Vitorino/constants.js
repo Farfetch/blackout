@@ -1,4 +1,4 @@
-import { eventTypes, pageTypes } from '@farfetch/blackout-core/analytics';
+import { eventTypes, pageTypes } from '@farfetch/blackout-analytics';
 
 /**
  * Error messages and other constants.

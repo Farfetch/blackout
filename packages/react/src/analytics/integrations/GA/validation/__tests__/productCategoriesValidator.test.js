@@ -4,7 +4,7 @@ import {
   MAX_PRODUCT_CATEGORIES,
   SET_ACTION_COMMAND,
 } from '../../constants';
-import { utils } from '@farfetch/blackout-core/analytics';
+import { utils } from '@farfetch/blackout-analytics';
 import productCategoriesValidator from '../productCategoriesValidator';
 
 utils.logger.warn = jest.fn();

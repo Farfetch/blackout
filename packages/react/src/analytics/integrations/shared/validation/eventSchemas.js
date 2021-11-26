@@ -4,7 +4,7 @@
  */
 
 import * as yup from 'yup';
-import { eventTypes } from '@farfetch/blackout-core/analytics';
+import { eventTypes } from '@farfetch/blackout-analytics';
 import defaultTo from 'lodash/defaultTo';
 
 /**
@@ -50,14 +50,6 @@ export const affiliationSchema = yup.object({
 
 export const currencySchema = yup.object({
   currency: yup.string().strict().required(),
-});
-
-export const locationSchema = yup.object({
-  locationId: yup.string().strict(),
-});
-
-export const valueSchema = yup.object({
-  value: yup.number().strict(),
 });
 
 export const productBaseWithCurrencySchema =
@@ -127,6 +119,14 @@ export const shippingSchema = yup.object({
   shipping: yup.number().min(0).strict().nullable(),
 });
 
+export const locationSchema = yup.object({
+  locationId: yup.string().strict(),
+});
+
+export const valueSchema = yup.object({
+  value: yup.number().strict(),
+});
+
 export const orderSchema = orderIdSchema
   .concat(couponSchema)
   .concat(taxSchema)
@@ -176,6 +176,10 @@ export const orderCompletedSchema = productsListCheckoutSchema
 export const productRefundSchema =
   productsListRefundSchema.concat(orderIdSchema);
 
+export const loginSignUpSchema = yup.object({
+  method: yup.string().notRequired(),
+});
+
 export const fromRequiredSchema = yup.object({
   from: yup.string().strict().required(),
 });
@@ -186,10 +190,6 @@ export const sortSchema = yup.object({
 
 export const filtersSchema = yup.object({
   filters: yup.string().notRequired(),
-});
-
-export const loginSignUpSchema = yup.object({
-  method: yup.string().notRequired(),
 });
 
 /**

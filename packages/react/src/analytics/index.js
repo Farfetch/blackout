@@ -10,7 +10,7 @@ import {
   eventTypes,
   fromParameterTypes,
   pageTypes,
-} from '@farfetch/blackout-core/analytics';
+} from '@farfetch/blackout-analytics';
 import analyticsWeb from './analytics';
 
 export default analyticsWeb;

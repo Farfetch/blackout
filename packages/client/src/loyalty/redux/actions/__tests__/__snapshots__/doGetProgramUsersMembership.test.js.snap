@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetProgramUsersMembership() action creator should create the correct actions for when the get program users membership procedure is successful: get program users membership success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "memberships": Object {
+        "1": Object {
+          "cashBalance": 0,
+          "externalId": "string",
+          "id": 1,
+          "rewardPoints": 0,
+          "status": "string",
+          "userId": 0,
+        },
+      },
+    },
+    "result": 1,
+  },
+  "type": "@farfetch/blackout-client/GET_PROGRAM_MEMBERSHIP_STATEMENTS_SUCCESS",
+}
+`;

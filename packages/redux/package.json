@@ -1,0 +1,40 @@
+{
+  "name": "@farfetch/blackout-redux",
+  "version": "1.0.0-next.143",
+  "description": "Modules to manage the application global state",
+  "license": "MIT",
+  "exports": {
+    "./*": "./dist/*"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Farfetch/blackout.git"
+  },
+  "dependencies": {
+    "credit-card-type": "^9.1.0",
+    "deep-compact": "^1.1.0",
+    "invariant": "^2.2.4",
+    "normalizr": "^3.6.1",
+    "proper-url-join": "^2.1.1",
+    "reselect": "^4.0.0",
+    "url-parse": "^1.4.7"
+  },
+  "devDependencies": {
+    "@farfetch/blackout-analytics": "^0.1.0-next.0",
+    "@farfetch/blackout-client": "^2.0.0-next.98",
+    "redux-mock-store": "^1.5.4",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0"
+  },
+  "peerDependencies": {
+    "@farfetch/blackout-analytics": "^0.1.0-next.0",
+    "@farfetch/blackout-client": "^2.0.0-next.98",
+    "lodash": "^4.17.20",
+    "redux": "^4.1.0",
+    "reselect": "^4.0.0"
+  }
+}

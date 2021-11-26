@@ -1,0 +1,587 @@
+export const checkoutId = 15338048;
+export const transactionId = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
+const checkoutOrderId = 15338048;
+export const checkoutOrderItemId = 30380051;
+const merchantId = 10658;
+const productId = 12640693;
+const brandId = 121212;
+
+const address = {
+  addressLine1: 'Rua da Lionesa 446, G12',
+  addressLine2: ' Teste',
+  city: {
+    countryId: 0,
+    id: 0,
+    name: 'Leça do Balio',
+    stateId: null,
+  },
+  country: {
+    alpha2Code: 'PT',
+    alpha3Code: 'PRT',
+    culture: 'pt-PT',
+    id: 165,
+    name: 'Portugal',
+    nativeName: 'Portugal',
+    region: 'Europe',
+    subRegion: null,
+    regionId: 0,
+    subfolder: '/en-pt',
+    continentId: 3,
+  },
+  ddd: null,
+  title: null,
+  firstName: 'tester',
+  id: 'c9ce5410-58d9-4298-a385-231a79373e4a',
+  lastName: 'teste',
+  neighbourhood: null,
+  phone: '121525125',
+  state: {
+    code: null,
+    countryId: 0,
+    id: 0,
+    name: null,
+  },
+  vatNumber: null,
+  zipCode: '4465-761',
+  userId: 0,
+  isCurrentBilling: true,
+  isCurrentShipping: true,
+};
+
+export const mockDeliveryBundlesResponse = [
+  {
+    id: '12345678',
+    name: 'Basic',
+    isSelected: true,
+    price: 10,
+    discount: 0,
+    currency: 'EUR',
+    rank: 1,
+    itemsDeliveryOptions: [
+      {
+        itemId: 95097041,
+        name: 'Standard',
+        deliveryWindow: {
+          type: 'Estimated',
+          min: '2020-02-10T14:38:22.228Z',
+          max: '2020-02-13T14:38:22.228Z',
+        },
+      },
+      {
+        itemId: 95097042,
+        name: 'Standard',
+        deliveryWindow: {
+          type: 'Estimated',
+          min: '2020-02-10T14:38:22.228Z',
+          max: '2020-02-14T14:38:22.228Z',
+        },
+      },
+    ],
+  },
+  {
+    id: '87654321',
+    name: 'Fast',
+    isSelected: false,
+    price: 15,
+    discount: 0,
+    currency: 'EUR',
+    rank: 2,
+    itemsDeliveryOptions: [
+      {
+        itemId: 95097041,
+        name: 'Fast',
+        deliveryWindow: {
+          type: 'Estimated',
+          min: '2020-02-09T14:38:22.228Z',
+          max: '2019-10-12T14:38:22.228Z',
+        },
+      },
+      {
+        itemId: 95097042,
+        name: 'Fast',
+        deliveryWindow: {
+          type: 'Estimated',
+          min: '2020-02-09T14:38:22.228Z',
+          max: '2019-10-11T14:38:22.228Z',
+        },
+      },
+    ],
+  },
+];
+
+export const mockItemDeliveryPorvisioningResponse = [
+  {
+    itemId: 95097041,
+    provisioning: [
+      {
+        merchantId: 9206,
+        merchantLocationId: 92061,
+        quantity: 1,
+        deliveryDateEstimateMinimum: '2020-02-10T14:38:22.228Z',
+        deliveryDateEstimateMaximum: '2020-02-13T14:38:22.228Z',
+        deliveryDateEstimate: '2020-02-11T14:38:22.228Z',
+      },
+    ],
+  },
+  {
+    itemId: 95097042,
+    provisioning: [
+      {
+        merchantId: 9689,
+        merchantLocationId: 96891,
+        quantity: 1,
+        deliveryDateEstimateMinimum: '2020-02-10T14:38:22.228Z',
+        deliveryDateEstimateMaximum: '2020-02-14T14:38:22.228Z',
+        deliveryDateEstimate: '2020-02-11T14:38:22.228Z',
+      },
+    ],
+  },
+];
+
+export const mockResponse = {
+  id: checkoutId,
+  checkoutOrder: {
+    id: checkoutOrderId,
+    shippingAddress: address,
+    billingAddress: address,
+    checkoutOrderMerchants: [
+      {
+        merchantId: merchantId,
+        merchantName: 'ACME WH NELSON FG',
+      },
+    ],
+    items: [
+      {
+        attributes: [
+          {
+            type: 0,
+            value: '17',
+            description: 'Size',
+          },
+          {
+            type: 1,
+            value: 'One Size',
+            description: 'SizeDescription',
+          },
+        ],
+        id: checkoutOrderItemId,
+        brandName: '78 Stitches',
+        brandId,
+        productId: productId,
+        productName: 'Navy Treated Bonded Cotton Dry Bag',
+        productSlug: 'navy-treated-bonded-cotton-dry-bag-12640693',
+        tags: ['GIFT'],
+        price: {
+          priceExclTaxes: 1.26,
+          priceInclTaxes: 1.51,
+          priceInclTaxesWithoutDiscount: 1.53,
+        },
+        prices: [],
+        merchantId: 12455,
+        merchantName: 'Test Merchant',
+        merchantShoppingUrl: 'http://www.merchant.com',
+      },
+    ],
+    currency: 'EUR',
+    paymentIntentId: '123',
+  },
+  deliveryBundles: mockDeliveryBundlesResponse,
+  shippingOptions: [],
+  paymentMethods: {},
+  userPaymentTokens: null,
+  orderStatus: 0,
+};
+
+export const mockCharges = {
+  id: '00000000-0000-0000-0000-000000000000',
+  status: 'Processing',
+  redirectUrl: 'some url',
+  returnUrl: 'some url',
+  cancelUrl: 'some url',
+};
+
+export const mockDetailsResponse = {
+  checkoutOrder: {
+    id: checkoutOrderId,
+    shippingAddress: address,
+    billingAddress: address,
+    checkoutOrderMerchants: [
+      {
+        merchantId: merchantId,
+        merchantName: 'ACME WH NELSON FG',
+      },
+    ],
+    items: [
+      {
+        attributes: [
+          {
+            type: 0,
+            value: '17',
+            description: 'Size',
+          },
+          {
+            type: 1,
+            value: 'One Size',
+            description: 'SizeDescription',
+          },
+        ],
+        id: checkoutOrderItemId,
+        productId: productId,
+        productName: 'Navy Treated Bonded Cotton Dry Bag',
+        productSlug: 'navy-treated-bonded-cotton-dry-bag-12640693',
+        tags: ['GIFT'],
+      },
+    ],
+  },
+  registered: true,
+};
+
+export const mockCollectPointsResponse = [
+  {
+    storeAddress: {
+      location: {
+        latitude: '51.5121368',
+        longitude: '-0.14222780000000057',
+        name: null,
+        componentTypeName: null,
+        tag: null,
+        visualizationComponents: {},
+      },
+      addressLine1: '19 Conduit Street',
+      addressLine2: '',
+      addressLine3: null,
+      city: {
+        countryId: 0,
+        id: 0,
+        name: 'London',
+        stateId: null,
+      },
+      country: {
+        alpha2Code: 'GB',
+        alpha3Code: 'GBR',
+        culture: 'en-GB',
+        id: 215,
+        name: 'United Kingdom',
+        nativeName: 'United Kingdom',
+        region: 'Europe',
+        subRegion: null,
+        regionId: 0,
+        subfolder: '/en-gb',
+        continentId: 3,
+      },
+      ddd: null,
+      firstName: 'ACME LONDON',
+      id: '00000000-0000-0000-0000-000000000000',
+      lastName: null,
+      neighbourhood: null,
+      phone: '02074934667',
+      state: null,
+      vatNumber: null,
+      zipCode: 'W1S 2BH',
+      userId: 0,
+      isCurrentBilling: false,
+      isCurrentShipping: false,
+    },
+    clickAndCollect: {
+      collectPointId: 3195,
+      merchantLocationId: 10534,
+    },
+    businessDays: [
+      {
+        hours: [
+          {
+            close: '17:00:00',
+            open: '12:00:00',
+          },
+        ],
+        weekday: 0,
+      },
+    ],
+  },
+  {
+    storeAddress: {
+      location: {
+        latitude: '40.7700246',
+        longitude: '-73.96643059999997',
+        name: null,
+        componentTypeName: null,
+        tag: null,
+        visualizationComponents: {},
+      },
+      addressLine1: '833 Madison Avenue',
+      addressLine2: '',
+      addressLine3: null,
+      city: {
+        countryId: 0,
+        id: 0,
+        name: 'New York',
+        stateId: null,
+      },
+      country: {
+        alpha2Code: 'US',
+        alpha3Code: 'USA',
+        culture: 'en-US',
+        id: 216,
+        name: 'United States',
+        nativeName: 'United States',
+        region: 'The United States & Canada',
+        subRegion: null,
+        regionId: 0,
+        subfolder: '/en-us',
+        continentId: 5,
+      },
+      ddd: null,
+      firstName: 'ACME NEW YORK',
+      id: '00000000-0000-0000-0000-000000000000',
+      lastName: null,
+      neighbourhood: null,
+      phone: '+1 646 524 5401',
+      state: {
+        code: null,
+        countryId: 0,
+        id: 46,
+        name: null,
+      },
+      vatNumber: null,
+      zipCode: '10021',
+      userId: 0,
+      isCurrentBilling: false,
+      isCurrentShipping: false,
+    },
+    clickAndCollect: {
+      collectPointId: 3196,
+      merchantLocationId: 10649,
+    },
+    businessDays: [
+      {
+        hours: [
+          {
+            close: '18:00:00',
+            open: '10:00:00',
+          },
+        ],
+        weekday: 1,
+      },
+    ],
+  },
+];
+
+export const mockCompletePaymentResponse = {
+  billingAddressUsed: {},
+  cancelUrl: null,
+  checkoutOrderId: 0,
+  confirmationRedirectUrl: null,
+  createdDate: '/Date(12345)/',
+  creditCard: {},
+  numberOfInstallments: 0,
+  paymentMethodId: 'e13bb06b-392b-49a0-8acd-3f44416e3234',
+  paymentStatus: {},
+  recurringPayment: {},
+  redirectUrl: null,
+  savePaymentMethodAsToken: true,
+  transactionId: 'MTADRWG2ZYQ3SERXJ87G',
+};
+
+export const mockDeliveryBundleUpgradesResponse = {
+  95097041: {
+    Estimated: [
+      {
+        id: '123456789',
+        name: 'Fast',
+        isSelected: false,
+        price: 10,
+        currency: 'EUR',
+        rank: 1,
+        itemId: 95097041,
+        deliveryWindow: {
+          type: 'Estimated',
+          min: '2019-10-09T16:20:32.303Z',
+          max: '2019-10-12T16:20:32.303Z',
+        },
+      },
+    ],
+  },
+  95097042: {
+    Estimated: [
+      {
+        id: '123456788',
+        name: '90 min',
+        isSelected: false,
+        price: 10,
+        currency: 'EUR',
+        rank: 1,
+        itemId: 95097042,
+        deliveryWindow: {
+          type: 'Estimated',
+          min: '2019-10-09T16:20:32.303Z',
+          max: '2019-10-11T16:20:32.303Z',
+        },
+      },
+    ],
+  },
+  95097043: {
+    Nominated: [
+      {
+        id: '123456787',
+        name: 'NDD',
+        isSelected: false,
+        price: 0,
+        currency: 'EUR',
+        rank: 1,
+        itemId: 95097043,
+        deliveryWindow: {
+          type: 'Nominated',
+          min: '2019-10-09T16:20:32.303Z',
+          max: '2019-10-09T16:20:32.303Z',
+        },
+      },
+    ],
+  },
+};
+
+export const expectedNormalizedPayload = {
+  entities: {
+    checkout: {
+      [checkoutId]: { checkoutOrder: checkoutOrderId },
+    },
+    checkoutOrders: {
+      [checkoutOrderId]: {
+        id: checkoutOrderId,
+        items: [checkoutOrderItemId],
+      },
+    },
+    checkoutOrderItems: {
+      [checkoutOrderItemId]: {
+        id: checkoutOrderItemId,
+        product: productId,
+        brandName: '78 Stitches',
+        tags: ['GIFT'],
+      },
+    },
+    products: { [productId]: { id: productId } },
+  },
+  result: checkoutId,
+};
+
+export const expectedItemDeliveryProvisioningNormalizedPayload = {
+  entities: {
+    itemDeliveryProvisioning: {
+      95097041: {
+        itemId: 95097041,
+        provisioning: [
+          {
+            merchantId: 9206,
+            merchantLocationId: 92061,
+            quantity: 1,
+            deliveryDateEstimateMinimum: '2020-02-10T14:38:22.228Z',
+            deliveryDateEstimateMaximum: '2020-02-13T14:38:22.228Z',
+            deliveryDateEstimate: '2020-02-11T14:38:22.228Z',
+          },
+        ],
+      },
+      95097042: {
+        itemId: 95097042,
+        provisioning: [
+          {
+            merchantId: 9689,
+            merchantLocationId: 96891,
+            quantity: 1,
+            deliveryDateEstimateMinimum: '2020-02-10T14:38:22.228Z',
+            deliveryDateEstimateMaximum: '2020-02-14T14:38:22.228Z',
+            deliveryDateEstimate: '2020-02-11T14:38:22.228Z',
+          },
+        ],
+      },
+    },
+  },
+  result: [95097041, 95097042],
+};
+
+export const expectedUpgradesNormalizedPayload = {
+  entities: {
+    deliveryBundleUpgrades: {
+      12345678: {
+        95097041: {
+          Estimated: [
+            {
+              id: '123456789',
+              name: 'Fast',
+              isSelected: false,
+              price: 10,
+              currency: 'EUR',
+              rank: 1,
+              itemId: 95097041,
+              deliveryWindow: {
+                type: 'Estimated',
+                min: '2019-10-09T16:20:32.303Z',
+                max: '2019-10-12T16:20:32.303Z',
+              },
+            },
+          ],
+        },
+        95097042: {
+          Estimated: [
+            {
+              id: '123456788',
+              name: '90 min',
+              isSelected: false,
+              price: 10,
+              currency: 'EUR',
+              rank: 1,
+              itemId: 95097042,
+              deliveryWindow: {
+                type: 'Estimated',
+                min: '2019-10-09T16:20:32.303Z',
+                max: '2019-10-11T16:20:32.303Z',
+              },
+            },
+          ],
+        },
+        95097043: {
+          Nominated: [
+            {
+              id: '123456787',
+              name: 'NDD',
+              isSelected: false,
+              price: 0,
+              currency: 'EUR',
+              rank: 1,
+              itemId: 95097043,
+              deliveryWindow: {
+                type: 'Nominated',
+                min: '2019-10-09T16:20:32.303Z',
+                max: '2019-10-09T16:20:32.303Z',
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+};
+
+export const expectedDetailsNormalizedPayload = {
+  entities: {
+    checkoutOrders: {
+      [checkoutOrderId]: {
+        id: checkoutOrderId,
+        items: [checkoutOrderItemId],
+      },
+    },
+    checkoutOrderItems: {
+      [checkoutOrderItemId]: {
+        id: checkoutOrderItemId,
+        product: productId,
+        tags: ['GIFT'],
+      },
+    },
+    checkoutDetails: {
+      [checkoutOrderId]: {
+        checkoutOrder: checkoutOrderId,
+        registered: true,
+      },
+    },
+    products: { [productId]: { id: productId } },
+  },
+  result: checkoutId,
+};

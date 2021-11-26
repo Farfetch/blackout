@@ -12,7 +12,7 @@
  * @subcategory Integrations
  */
 
-import { integrations, trackTypes } from '@farfetch/blackout-core/analytics';
+import { integrations, trackTypes } from '@farfetch/blackout-analytics';
 
 /**
  * Analytics service integration.
@@ -38,6 +38,8 @@ class AnalyticsServiceWeb extends integrations.AnalyticsService {
    * Function that will create and store the interval.
    *
    * @param {number} interval - The interval in milliseconds for the queue flush.
+   *
+   * @override
    */
   setup(interval) {
     this.interval = setInterval(this.flushQueue, interval);
@@ -50,6 +52,8 @@ class AnalyticsServiceWeb extends integrations.AnalyticsService {
    * This will make sure all previously tracked events (that were not flushed yet) are persisted properly when a page change occurs.
    *
    * @param {object} data - Event data provided by analytics.
+   *
+   * @override
    */
   controlQueue(data) {
     if (data.type === trackTypes.PAGE) {
@@ -62,6 +66,8 @@ class AnalyticsServiceWeb extends integrations.AnalyticsService {
    * This will be possible by fetching the integration first and then calling this method, like this:
    * `analytics.integration('analyticsService').clearInterval()` (replace `analyticsService` with the name you gave when adding it with `analytics.addIntegration()`)
    * It can be initialized again later by calling the `.initialize()` method of the same instance.
+   *
+   * @override
    */
   clearInterval() {
     clearInterval(this.interval);

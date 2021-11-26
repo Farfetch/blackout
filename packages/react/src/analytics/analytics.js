@@ -1,12 +1,12 @@
 import Analytics, {
   trackTypes as analyticsTrackTypes,
   platformTypes,
-} from '@farfetch/blackout-core/analytics';
+} from '@farfetch/blackout-analytics';
 
 /**
  * Analytics base class.
  *
- * @external farfetch/blackout-core/Analytics
+ * @external fps/core/Analytics
  * @category Analytics
  */
 
@@ -17,12 +17,12 @@ import Analytics, {
 
 /**
  * Analytics facade for web applications.
- * Refer to @farfetch/blackout-core documentation to know the
+ * Refer to @farfetch/blackout-client documentation to know the
  * inherited methods from Analytics.
  *
  * @category Analytics
  * @alias AnalyticsWeb
- * @augments external:farfetch/blackout-core/Analytics
+ * @augments external:fps/core/Analytics
  */
 class AnalyticsWeb extends Analytics {
   /**
