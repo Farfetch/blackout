@@ -1,6 +1,6 @@
 # @farfetch/blackout-react
 
-React components, hooks and other tools filled with business logic to help you use Farfetch Platform Solutions' services in your web or native e-commerce app.
+React components, hooks and other tools filled with business logic to help you use Farfetch Platform Solutions' services in your web or native e-commerce app
 
 ## Installation
 
