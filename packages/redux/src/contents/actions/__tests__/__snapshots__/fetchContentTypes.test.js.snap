@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchContentTypes() action creator should create the correct actions for fetching content types when procedure is successful 1`] = `
+Object {
+  "payload": Array [
+    "careers",
+    "stories",
+  ],
+  "type": "@farfetch/blackout-redux/FETCH_CONTENT_TYPES_SUCCESS",
+}
+`;

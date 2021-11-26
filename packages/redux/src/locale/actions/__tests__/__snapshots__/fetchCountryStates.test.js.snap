@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchCountryStates() action creator should create the correct actions for when the get states procedure is successful: Get states success payload 1`] = `
+Object {
+  "meta": Object {
+    "countryCode": "US",
+  },
+  "payload": Object {
+    "entities": Object {
+      "countries": Object {
+        "US": Object {
+          "code": "US",
+          "states": Array [
+            3,
+            6,
+          ],
+        },
+      },
+      "states": Object {
+        "3": Object {
+          "code": "AL",
+          "countryId": 216,
+          "id": 3,
+          "name": "Alabama",
+        },
+        "6": Object {
+          "code": "AK",
+          "countryId": 216,
+          "id": 6,
+          "name": "Alaska",
+        },
+      },
+    },
+    "result": "US",
+  },
+  "type": "@farfetch/blackout-redux/FETCH_COUNTRY_STATES_SUCCESS",
+}
+`;

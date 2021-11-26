@@ -1,0 +1,182 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`products lists serverInitialState() should initialize server state for a listing 1`] = `
+Object {
+  "entities": Object {
+    "products": Object {
+      "123": Object {
+        "colorGrouping": undefined,
+        "customAttributes": undefined,
+        "groupedEntries": undefined,
+        "id": 123,
+        "images": undefined,
+        "merchant": undefined,
+        "price": undefined,
+        "prices": undefined,
+        "sizes": undefined,
+        "tag": Object {
+          "id": undefined,
+          "name": undefined,
+        },
+        "variants": undefined,
+      },
+      "321": Object {
+        "colorGrouping": undefined,
+        "customAttributes": undefined,
+        "groupedEntries": undefined,
+        "id": 321,
+        "images": undefined,
+        "merchant": undefined,
+        "price": undefined,
+        "prices": undefined,
+        "sizes": undefined,
+        "tag": Object {
+          "id": undefined,
+          "name": undefined,
+        },
+        "variants": undefined,
+      },
+    },
+    "productsLists": Object {
+      "listing/woman?pageindex=1&sort=price&sortdirection=asc": Object {
+        "breadCrumbs": Array [],
+        "config": Object {
+          "pageIndex": 1,
+        },
+        "didYouMean": undefined,
+        "facetGroups": Array [],
+        "facetsBaseUrl": "/en-pt/shopping",
+        "filterSegments": Array [
+          Object {
+            "key": "categories",
+            "order": 0,
+            "type": 6,
+            "value": 137626,
+          },
+        ],
+        "gender": 0,
+        "genderName": "Woman",
+        "hash": "listing/woman?pageindex=1&sort=price&sortdirection=asc",
+        "name": "New arrivals",
+        "products": Object {
+          "entries": Array [
+            123,
+            321,
+          ],
+          "totalItems": 193,
+          "totalPages": 10,
+        },
+        "redirectInformation": null,
+        "searchTerm": null,
+        "slug": "/en-pt/shopping/woman?pageIndex=1&sort=price&sortDirection=asc",
+      },
+    },
+  },
+  "lists": Object {
+    "error": Object {},
+    "hash": "listing/woman?pageindex=1&sort=price&sortdirection=asc",
+    "isHydrated": Object {
+      "listing/woman?pageindex=1&sort=price&sortdirection=asc": true,
+    },
+    "isLoading": Object {
+      "listing/woman?pageindex=1&sort=price&sortdirection=asc": false,
+    },
+  },
+}
+`;
+
+exports[`products lists serverInitialState() should initialize server state for a non products list 1`] = `
+Object {
+  "lists": Object {
+    "error": Object {},
+    "hash": null,
+    "isHydrated": Object {},
+    "isLoading": Object {},
+  },
+}
+`;
+
+exports[`products lists serverInitialState() should initialize server state for sets 1`] = `
+Object {
+  "entities": Object {
+    "products": Object {
+      "123": Object {
+        "colorGrouping": undefined,
+        "customAttributes": undefined,
+        "groupedEntries": undefined,
+        "id": 123,
+        "images": undefined,
+        "merchant": undefined,
+        "price": undefined,
+        "prices": undefined,
+        "sizes": undefined,
+        "tag": Object {
+          "id": undefined,
+          "name": undefined,
+        },
+        "variants": undefined,
+      },
+      "321": Object {
+        "colorGrouping": undefined,
+        "customAttributes": undefined,
+        "groupedEntries": undefined,
+        "id": 321,
+        "images": undefined,
+        "merchant": undefined,
+        "price": undefined,
+        "prices": undefined,
+        "sizes": undefined,
+        "tag": Object {
+          "id": undefined,
+          "name": undefined,
+        },
+        "variants": undefined,
+      },
+    },
+    "productsLists": Object {
+      "sets/woman?pageindex=1&sort=price&sortdirection=asc": Object {
+        "breadCrumbs": Array [],
+        "config": Object {
+          "pageIndex": 1,
+        },
+        "didYouMean": undefined,
+        "facetGroups": Array [],
+        "facetsBaseUrl": "/en-pt/shopping",
+        "filterSegments": Array [
+          Object {
+            "key": "categories",
+            "order": 0,
+            "type": 6,
+            "value": 137626,
+          },
+        ],
+        "gender": 0,
+        "genderName": "Woman",
+        "hash": "sets/woman?pageindex=1&sort=price&sortdirection=asc",
+        "name": "New arrivals",
+        "products": Object {
+          "entries": Array [
+            123,
+            321,
+          ],
+          "totalItems": 193,
+          "totalPages": 10,
+        },
+        "redirectInformation": null,
+        "searchTerm": null,
+        "slug": "/en-pt/sets/woman?pageIndex=1&sort=price&sortDirection=asc",
+      },
+    },
+  },
+  "lists": Object {
+    "error": Object {},
+    "hash": "sets/woman?pageindex=1&sort=price&sortdirection=asc",
+    "isHydrated": Object {
+      "sets/woman?pageindex=1&sort=price&sortdirection=asc": true,
+    },
+    "isLoading": Object {
+      "sets/woman?pageindex=1&sort=price&sortdirection=asc": false,
+    },
+  },
+}
+`;

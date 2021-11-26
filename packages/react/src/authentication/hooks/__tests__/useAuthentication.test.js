@@ -5,7 +5,7 @@ import {
   deleteTokens,
   postGuestTokens,
   postTokens,
-} from '@farfetch/blackout-core/authentication/client';
+} from '@farfetch/blackout-client/authentication';
 import {
   LoginWithoutDataError,
   NotLoggedInError,
@@ -17,10 +17,10 @@ import AuthenticationProvider, {
 import AxiosAuthenticationTokenManager, {
   TokenData,
   TokenKinds,
-} from '@farfetch/blackout-core/helpers/client/interceptors/authentication';
+} from '@farfetch/blackout-client/helpers/client/interceptors/authentication';
 import client, {
   configApiBlackAndWhite,
-} from '@farfetch/blackout-core/helpers/client';
+} from '@farfetch/blackout-client/helpers/client';
 import React from 'react';
 import useAuthentication from '../useAuthentication';
 
@@ -35,9 +35,9 @@ const mockGuestUserTokenData = {
   expiresIn: '12000',
 };
 
-jest.mock('@farfetch/blackout-core/authentication/client', () => {
+jest.mock('@farfetch/blackout-client/authentication', () => {
   return {
-    ...jest.requireActual('@farfetch/blackout-core/authentication/client'),
+    ...jest.requireActual('@farfetch/blackout-client/authentication'),
     postGuestTokens: jest.fn(() => Promise.resolve(mockGuestUserTokenData)),
     postTokens: jest.fn(() => Promise.resolve(mockUserTokenData)),
     deleteTokens: jest.fn(() => Promise.resolve(true)),
@@ -88,9 +88,8 @@ describe('useUserAuthState', () => {
       login: expect.any(Function),
       logout: expect.any(Function),
       resetGuestTokensContext: expect.any(Function),
-      setGuestUserClaims: expect.any(Function),
       setGuestTokensContext: expect.any(Function),
-
+      setGuestUserClaims: expect.any(Function),
       tokenManager: expect.any(AxiosAuthenticationTokenManager),
     });
   });

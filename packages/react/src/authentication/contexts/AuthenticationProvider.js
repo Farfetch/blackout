@@ -1,13 +1,12 @@
-import { setAxiosAuthenticationInterceptors } from '@farfetch/blackout-core/helpers/client/interceptors/authentication';
-import { usePrevious } from '../../utils';
+import { setAxiosAuthenticationInterceptors } from '@farfetch/blackout-client/helpers/client/interceptors/authentication';
+import { usePrevious } from '../../helpers';
 import AuthenticationContext from './AuthenticationContext';
-import client from '@farfetch/blackout-core/helpers/client';
+import client from '@farfetch/blackout-client/helpers/client';
 import React, {
   ReactElement,
   ReactNode,
   useCallback,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -19,7 +18,7 @@ export const CallbackNames = {
 
 /**
  * Provides support for transparent authentication to apps with access tokens by installing
- * an interceptor on the default @farfetch/blackout-core axios instance used by all clients. It also provides
+ * an interceptor on the default @farfetch/blackout-client axios instance used by all clients. It also provides
  * functions to login/logout a user through the useAuthentication hook that must be called
  * in order for the interceptor to know when to use guest/authenticated user tokens
  * for subsequent requests. See the options below for more information on how you can configure this provider.
@@ -32,7 +31,7 @@ export const CallbackNames = {
  * return (<AuthenticationProvider><MyComponent /></AuthenticationProvider>);
  * }
  * @param {object} [props] - Props to configure AuthenticationProvider.
- * @param {string} [props.baseURL] - The baseURL to apply to the axios instance in @farfetch/blackout-core.
+ * @param {string} [props.baseURL] - The baseURL to apply to the axios instance in @farfetch/blackout-client.
  * @param {ReactNode} [props.children] - The children to be rendered by the provider.
  * @param {object} [props.headers] - An object containing header values to be added on each request.
  * @param {object} [props.callbacks] - An object containing callbacks for events that the provider will trigger.
@@ -70,15 +69,14 @@ function AuthenticationProvider({
     [callbacks],
   );
 
-  const tokenManager = useMemo(() => {
+  const [tokenManager] = useState(() => {
     const tokenManagerInstance = setAxiosAuthenticationInterceptors(
       client,
       tokenManagerOptions,
     );
 
     return tokenManagerInstance;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
 
   const authState = useUserAuthState({ activeTokenData, tokenManager });
 
@@ -101,16 +99,16 @@ function AuthenticationProvider({
     return tokenManager.getCurrentGuestTokensContext();
   }, [tokenManager]);
 
-  const setGuestUserClaims = useCallback(
-    async (claims, useCache) => {
-      await tokenManager.setGuestTokensContext(claims);
+  const getAccessToken = useCallback(
+    useCache => {
       return tokenManager.getAccessToken(useCache);
     },
     [tokenManager],
   );
 
-  const getAccessToken = useCallback(
-    useCache => {
+  const setGuestUserClaims = useCallback(
+    async (claims, useCache) => {
+      await tokenManager.setGuestTokensContext(claims);
       return tokenManager.getAccessToken(useCache);
     },
     [tokenManager],

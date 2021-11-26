@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`removeWishlistItem() action creator should create the correct actions for when the remove wishlist item procedure is successful: Remove wishlist item success payload 1`] = `undefined`;

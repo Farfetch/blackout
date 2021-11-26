@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchWishlistSets() should create the correct actions for when the fetch wishlist sets procedure is successful: Fetch wishlist sets success payload 1`] = `undefined`;

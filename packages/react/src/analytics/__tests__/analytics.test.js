@@ -2,28 +2,8 @@ import analytics from '../analytics';
 import AnalyticsCore, {
   trackTypes as analyticsTrackTypes,
   integrations,
-} from '@farfetch/blackout-core/analytics';
-
-class TestStorage {
-  items = {};
-
-  getItem(key) {
-    return this.items[key];
-  }
-
-  setItem(key, data) {
-    this.items[key] = data;
-  }
-
-  removeItem(key) {
-    delete this.items[key];
-  }
-
-  clear() {
-    this.items = {};
-  }
-}
-
+} from '@farfetch/blackout-analytics';
+import TestStorage from 'test-storage';
 class LoadableIntegration extends integrations.Integration {
   static shouldLoad() {
     return true;

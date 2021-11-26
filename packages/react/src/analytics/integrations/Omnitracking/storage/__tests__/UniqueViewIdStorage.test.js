@@ -1,10 +1,10 @@
-import { utils } from '@farfetch/blackout-core/analytics';
+import { utils } from '@farfetch/blackout-analytics';
 import UniqueViewIdStorage from '../UniqueViewIdStorage';
 import UniqueViewIdStorageOptions from '../UniqueViewIdStorageOptions';
 
-jest.mock('@farfetch/blackout-core/analytics', () => {
+jest.mock('@farfetch/blackout-analytics', () => {
   return {
-    ...jest.requireActual('@farfetch/blackout-core/analytics'),
+    ...jest.requireActual('@farfetch/blackout-analytics'),
     utils: {
       logger: {
         warn: jest.fn(),

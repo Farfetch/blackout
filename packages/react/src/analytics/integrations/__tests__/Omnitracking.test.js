@@ -1,20 +1,18 @@
-import { postTrackings } from '@farfetch/blackout-core/analytics/integrations/Omnitracking/client';
-import analyticsPageData from '../__fixtures__/analyticsPageData.fixtures';
-import analyticsTrackData from '../__fixtures__/analyticsTrackData.fixtures';
+import {
+  pageEventsData as analyticsPageData,
+  trackEventsData as analyticsTrackData,
+} from 'tests/__fixtures__/analytics';
+import { eventTypes, pageTypes } from '@farfetch/blackout-analytics';
+import { postTrackings } from '@farfetch/blackout-client/omnitracking';
 import Omnitracking from '../Omnitracking';
-import OmnitrackingCore from '@farfetch/blackout-core/analytics/integrations/Omnitracking/Omnitracking';
+import OmnitrackingCore from '@farfetch/blackout-analytics/integrations/Omnitracking/Omnitracking';
 import UniqueViewIdStorage from '../Omnitracking/storage/UniqueViewIdStorage';
 import UniqueViewIdStorageOptions from '../Omnitracking/storage/UniqueViewIdStorageOptions';
 
-jest.mock(
-  '@farfetch/blackout-core/analytics/integrations/Omnitracking/client',
-  () => ({
-    ...jest.requireActual(
-      '@farfetch/blackout-core/analytics/integrations/Omnitracking/client',
-    ),
-    postTrackings: jest.fn(),
-  }),
-);
+jest.mock('@farfetch/blackout-client/omnitracking', () => ({
+  ...jest.requireActual('@farfetch/blackout-client/omnitracking'),
+  postTrackings: jest.fn(),
+}));
 
 const mockUrl = 'https://api.blackout.com/en-pt/shopping/woman/gucci';
 const mockUniqueViewId = 'd76e46e0-39ee-49b2-bdcd-e550e51fa8f2';
@@ -31,7 +29,7 @@ describe('Omnitracking', () => {
       expect(Omnitracking.shouldLoad()).toEqual(true);
     });
 
-    it('Should extend Omnitracking class from @farfetch/blackout-core', () => {
+    it('Should extend Omnitracking class from @farfetch/blackout-client', () => {
       expect(Omnitracking.createInstance()).toBeInstanceOf(OmnitrackingCore);
     });
 
@@ -103,7 +101,7 @@ describe('Omnitracking', () => {
         });
 
         // Act
-        await omnitrackingInstance.track(analyticsPageData);
+        await omnitrackingInstance.track(analyticsPageData[pageTypes.HOMEPAGE]);
 
         // Assert
         expect(storage.get(mockUrl)).toBe(
@@ -122,7 +120,7 @@ describe('Omnitracking', () => {
         const omnitrackingInstance = Omnitracking.createInstance({});
 
         // Act
-        await omnitrackingInstance.track(analyticsPageData);
+        await omnitrackingInstance.track(analyticsPageData[pageTypes.HOMEPAGE]);
 
         // Assert
         expect(postTrackings).toHaveBeenCalledWith(
@@ -144,8 +142,13 @@ describe('Omnitracking', () => {
 
         const omnitrackingInstance = Omnitracking.createInstance({});
 
+        // This is only to remove warning 'uniqueViewId not set' when running tests.
+        omnitrackingInstance.currentUniqueViewId = 'dummy-unique-view-id';
+
         // Act
-        await omnitrackingInstance.track(analyticsTrackData);
+        await omnitrackingInstance.track(
+          analyticsTrackData[eventTypes.PRODUCT_VIEWED],
+        );
 
         // Assert
         expect(storage.get(mockUrl)).toBe(null);

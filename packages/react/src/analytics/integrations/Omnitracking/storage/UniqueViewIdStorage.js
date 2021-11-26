@@ -1,5 +1,5 @@
-import { getTimeInMinutes } from '../../../../utils';
-import { utils } from '@farfetch/blackout-core/analytics';
+import { getTimeInMinutes } from '../../../../helpers';
+import { utils } from '@farfetch/blackout-analytics';
 
 const CACHE_PREFIX = 'UniqueViewId_';
 

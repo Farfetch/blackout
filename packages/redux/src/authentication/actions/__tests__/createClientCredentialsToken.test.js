@@ -1,0 +1,88 @@
+import { createClientCredentialsToken } from '..';
+import { mockStore } from '../../../../tests';
+import { postTokens } from '@farfetch/blackout-client/authentication';
+import find from 'lodash/find';
+import reducer, { actionTypes } from '../..';
+
+jest.mock('@farfetch/blackout-client/authentication', () => ({
+  ...jest.requireActual('@farfetch/blackout-client/authentication'),
+  postTokens: jest.fn(),
+}));
+
+const authenticationMockStore = (state = {}) =>
+  mockStore({ authentication: reducer() }, state);
+
+const expectedConfig = undefined;
+let store;
+
+describe('createClientCredentialsToken() action creator', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    store = authenticationMockStore();
+  });
+
+  it('should create the correct actions for when the create client credentials token procedure fails', async () => {
+    const errorObject = {
+      errorMessage: 'post user token error',
+      errorCode: 0,
+      status: 400,
+    };
+
+    postTokens.mockRejectedValueOnce(errorObject);
+    expect.assertions(4);
+
+    try {
+      await store.dispatch(createClientCredentialsToken());
+    } catch (error) {
+      expect(error).toBe(errorObject);
+      expect(postTokens).toHaveBeenCalledTimes(1);
+      expect(postTokens).toHaveBeenCalledWith(
+        { grantType: 'client_credentials' },
+        expectedConfig,
+      );
+      expect(store.getActions()).toEqual(
+        expect.arrayContaining([
+          { type: actionTypes.CREATE_CLIENT_CREDENTIALS_TOKEN_REQUEST },
+          {
+            type: actionTypes.CREATE_CLIENT_CREDENTIALS_TOKEN_FAILURE,
+            payload: { error: errorObject },
+          },
+        ]),
+      );
+    }
+  });
+
+  it('should create the correct actions for when the create client credentials token procedure is successful', async () => {
+    const mockResponse = {
+      accessToken: '04b55bb7-f1af-4b45-aa10-5c4667a48936',
+      expiresIn: '1200',
+      refreshToken:
+        'd5b4f8e72f652d9e048d7e5c75f1ec97bb9eeaec2b080497eba0965abc0ade4d',
+    };
+
+    postTokens.mockResolvedValueOnce(mockResponse);
+    await store.dispatch(createClientCredentialsToken());
+
+    const actionResults = store.getActions();
+
+    expect(postTokens).toHaveBeenCalledTimes(1);
+    expect(postTokens).toHaveBeenCalledWith(
+      { grantType: 'client_credentials' },
+      expectedConfig,
+    );
+
+    expect(actionResults).toMatchObject([
+      { type: actionTypes.CREATE_CLIENT_CREDENTIALS_TOKEN_REQUEST },
+      {
+        type: actionTypes.CREATE_CLIENT_CREDENTIALS_TOKEN_SUCCESS,
+        payload: mockResponse,
+      },
+    ]);
+    expect(
+      find(actionResults, {
+        type: actionTypes.CREATE_CLIENT_CREDENTIALS_TOKEN_SUCCESS,
+        payload: mockResponse,
+      }),
+    ).toMatchSnapshot('create client credentials token success payload');
+  });
+});

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchPredictions() action creator should create the correct actions for when the get payment procedure is successful: get prediction success payload 1`] = `
+Object {
+  "payload": Array [
+    Object {
+      "description": "wow, such empty",
+      "id": "123456789",
+      "text": "sesame street",
+    },
+  ],
+  "type": "@farfetch/blackout-redux/FETCH_PREDICTION_SUCCESS",
+}
+`;

@@ -1,0 +1,345 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GA Integration GA instance When it is instantiated correctly Should track event 'Checkout Step Completed' 1`] = `
+Array [
+  Array [
+    "ec:setAction",
+    "checkout_option",
+    Object {
+      "option": "DHL Ground",
+      "step": 1,
+    },
+  ],
+  Array [
+    "send",
+    "event",
+    "Ecommerce",
+    "Checkout Step Completed",
+    "1 - DHL Ground",
+  ],
+]
+`;
+
+exports[`GA Integration GA instance When it is instantiated correctly Should track event 'Checkout Step Viewed' 1`] = `
+Array [
+  Array [
+    "set",
+    "currencyCode",
+    "USD",
+  ],
+  Array [
+    "ec:addProduct",
+    Object {
+      "brand": "Just A T-Shirt",
+      "category": "Clothing/Tops/T-shirts/",
+      "id": "507f1f77bcf86cd799439011",
+      "name": "Gareth McConnell Dreamscape T-Shirt",
+      "price": 19,
+      "quantity": 1,
+      "variant": "Black",
+    },
+  ],
+  Array [
+    "ec:setAction",
+    "checkout",
+    Object {
+      "option": undefined,
+      "step": 1,
+    },
+  ],
+  Array [
+    "send",
+    "event",
+    "Ecommerce",
+    "Checkout Step Viewed",
+    "1",
+    Object {
+      "nonInteraction": true,
+    },
+  ],
+]
+`;
+
+exports[`GA Integration GA instance When it is instantiated correctly Should track event 'Order Completed' 1`] = `
+Array [
+  Array [
+    "set",
+    "currencyCode",
+    "USD",
+  ],
+  Array [
+    "ec:addProduct",
+    Object {
+      "brand": "Just A T-Shirt",
+      "category": "Clothing/Tops/T-shirts/",
+      "id": "507f1f77bcf86cd799439011",
+      "name": "Gareth McConnell Dreamscape T-Shirt",
+      "price": 19,
+      "quantity": 1,
+      "variant": "Black",
+    },
+  ],
+  Array [
+    "ec:setAction",
+    "purchase",
+    Object {
+      "coupon": "ACME2019",
+      "id": "50314b8e9bcf000000000000",
+      "revenue": 30.64,
+      "shipping": 3.6,
+      "tax": 2.04,
+    },
+  ],
+  Array [
+    "send",
+    "event",
+    "Ecommerce",
+    "Order Completed",
+    "50314b8e9bcf000000000000",
+  ],
+]
+`;
+
+exports[`GA Integration GA instance When it is instantiated correctly Should track event 'Order Refunded' 1`] = `
+Array [
+  Array [
+    "ec:addProduct",
+    Object {
+      "id": "507f1f77bcf86cd799439011",
+      "quantity": 1,
+    },
+  ],
+  Array [
+    "ec:setAction",
+    "refund",
+    Object {
+      "id": "50314b8e9bcf000000000000",
+    },
+  ],
+  Array [
+    "send",
+    "event",
+    "Ecommerce",
+    "Order Refunded",
+    "50314b8e9bcf000000000000",
+  ],
+]
+`;
+
+exports[`GA Integration GA instance When it is instantiated correctly Should track event 'Product Added to Cart' 1`] = `
+Array [
+  Array [
+    "set",
+    "currencyCode",
+    "USD",
+  ],
+  Array [
+    "ec:addProduct",
+    Object {
+      "brand": "Just A T-Shirt",
+      "category": "Clothing/Tops/T-shirts",
+      "id": "507f1f77bcf86cd799439011",
+      "metric3": 18.99,
+      "name": "Gareth McConnell Dreamscape T-Shirt",
+      "price": 18.99,
+      "quantity": 1,
+      "variant": "Black",
+    },
+  ],
+  Array [
+    "ec:setAction",
+    "add",
+    undefined,
+  ],
+  Array [
+    "send",
+    "event",
+    "Ecommerce",
+    "Product Added to Cart",
+    "507f1f77bcf86cd799439011 - Gareth McConnell Dreamscape T-Shirt",
+  ],
+]
+`;
+
+exports[`GA Integration GA instance When it is instantiated correctly Should track event 'Product Added to Wishlist' 1`] = `
+Array [
+  Array [
+    "send",
+    "event",
+    "Ecommerce",
+    "Product Added to Wishlist - Woman shopping",
+    "507f1f77bcf86cd799439011 - Gareth McConnell Dreamscape T-Shirt",
+  ],
+]
+`;
+
+exports[`GA Integration GA instance When it is instantiated correctly Should track event 'Product Clicked' 1`] = `
+Array [
+  Array [
+    "set",
+    "currencyCode",
+    "GBP",
+  ],
+  Array [
+    "ec:addProduct",
+    Object {
+      "id": "507f1f77bcf86cd799439011",
+      "list": "Woman shopping",
+      "name": "Gareth McConnell Dreamscape T-Shirt",
+      "position": 3,
+      "price": 10,
+    },
+  ],
+  Array [
+    "ec:setAction",
+    "click",
+    Object {
+      "list": "Woman shopping",
+    },
+  ],
+  Array [
+    "send",
+    "event",
+    "Ecommerce",
+    "Product Clicked",
+    "507f1f77bcf86cd799439011 - Gareth McConnell Dreamscape T-Shirt",
+  ],
+]
+`;
+
+exports[`GA Integration GA instance When it is instantiated correctly Should track event 'Product List Viewed' 1`] = `
+Array [
+  Array [
+    "set",
+    "currencyCode",
+    "USD",
+  ],
+  Array [
+    "ec:addImpression",
+    Object {
+      "id": "507f1f77bcf86cd799439011",
+      "list": "Woman shopping",
+      "name": "Gareth McConnell Dreamscape T-Shirt",
+      "position": 2,
+      "price": 18.99,
+    },
+  ],
+  Array [
+    "ec:addImpression",
+    Object {
+      "id": "507f1f77bcf86cd799439012",
+      "list": "Woman shopping",
+      "name": "Gareth McConnell Dreamscape T-Shirt",
+      "position": 3,
+      "price": 18.99,
+    },
+  ],
+  Array [
+    "send",
+    "event",
+    "Ecommerce",
+    "Product List Viewed",
+    "Woman shopping",
+    Object {
+      "nonInteraction": true,
+    },
+  ],
+]
+`;
+
+exports[`GA Integration GA instance When it is instantiated correctly Should track event 'Product Removed From Wishlist' 1`] = `
+Array [
+  Array [
+    "send",
+    "event",
+    "Ecommerce",
+    "Product Removed From Wishlist - Woman shopping",
+    "507f1f77bcf86cd799439011 - Gareth McConnell Dreamscape T-Shirt",
+  ],
+]
+`;
+
+exports[`GA Integration GA instance When it is instantiated correctly Should track event 'Product Removed from Cart' 1`] = `
+Array [
+  Array [
+    "set",
+    "currencyCode",
+    "USD",
+  ],
+  Array [
+    "ec:addProduct",
+    Object {
+      "brand": "Just A T-Shirt",
+      "category": "Clothing/Tops/T-shirts",
+      "id": "507f1f77bcf86cd799439011",
+      "metric3": -18.99,
+      "name": "Gareth McConnell Dreamscape T-Shirt",
+      "price": 18.99,
+      "quantity": 1,
+      "variant": "Black",
+    },
+  ],
+  Array [
+    "ec:setAction",
+    "remove",
+    undefined,
+  ],
+  Array [
+    "send",
+    "event",
+    "Ecommerce",
+    "Product Removed from Cart",
+    "507f1f77bcf86cd799439011 - Gareth McConnell Dreamscape T-Shirt",
+  ],
+]
+`;
+
+exports[`GA Integration GA instance When it is instantiated correctly Should track event 'Product Updated In Wishlist' 1`] = `
+Array [
+  Array [
+    "send",
+    "event",
+    "Ecommerce",
+    "Woman shopping",
+    "507f1f77bcf86cd799439011 - Gareth McConnell Dreamscape T-Shirt",
+  ],
+]
+`;
+
+exports[`GA Integration GA instance When it is instantiated correctly Should track event 'Product Viewed' 1`] = `
+Array [
+  Array [
+    "set",
+    "currencyCode",
+    "USD",
+  ],
+  Array [
+    "ec:addProduct",
+    Object {
+      "brand": "Just A T-Shirt",
+      "category": "Clothing/Tops/T-shirts",
+      "id": "507f1f77bcf86cd799439011",
+      "metric1": 1,
+      "metric2": 0,
+      "name": "Gareth McConnell Dreamscape T-Shirt",
+      "price": 18.99,
+      "variant": "Black",
+    },
+  ],
+  Array [
+    "ec:setAction",
+    "detail",
+    undefined,
+  ],
+  Array [
+    "send",
+    "event",
+    "Ecommerce",
+    "Product Viewed",
+    "507f1f77bcf86cd799439011 - Gareth McConnell Dreamscape T-Shirt",
+    Object {
+      "nonInteraction": true,
+    },
+  ],
+]
+`;

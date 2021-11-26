@@ -1,0 +1,250 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doCreateCheckout() action creator should create the correct actions for when the create checkout procedure is successful: create checkout success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "checkout": Object {
+        "15338048": Object {
+          "checkoutOrder": 15338048,
+          "deliveryBundles": Array [
+            "12345678",
+            "87654321",
+          ],
+          "id": 15338048,
+          "orderStatus": 0,
+          "paymentMethods": Object {},
+          "shippingOptions": Array [],
+        },
+      },
+      "checkoutOrderItems": Object {
+        "30380051": Object {
+          "brandId": 121212,
+          "brandName": "78 Stitches",
+          "dateCreated": null,
+          "id": 30380051,
+          "merchant": 12455,
+          "price": Object {
+            "excludingTaxes": 1.26,
+            "includingTaxes": 1.51,
+            "includingTaxesWithoutDiscount": 1.53,
+            "isFormatted": true,
+          },
+          "prices": Array [],
+          "product": 12640693,
+          "size": Object {
+            "id": 17,
+            "name": "One Size",
+          },
+          "tags": Array [
+            "GIFT",
+          ],
+        },
+      },
+      "checkoutOrders": Object {
+        "15338048": Object {
+          "billingAddress": Object {
+            "addressLine1": "Rua da Lionesa 446, G12",
+            "addressLine2": "Teste",
+            "city": Object {
+              "countryId": 0,
+              "id": 0,
+              "name": "Leça do Balio",
+              "stateId": null,
+            },
+            "country": Object {
+              "alpha2Code": "PT",
+              "alpha3Code": "PRT",
+              "continentId": 3,
+              "culture": "pt-PT",
+              "id": 165,
+              "name": "Portugal",
+              "nativeName": "Portugal",
+              "region": "Europe",
+              "regionId": 0,
+              "subRegion": null,
+              "subfolder": "/en-pt",
+            },
+            "ddd": null,
+            "firstName": "tester",
+            "id": "c9ce5410-58d9-4298-a385-231a79373e4a",
+            "isCurrentBilling": true,
+            "isCurrentShipping": true,
+            "lastName": "teste",
+            "neighbourhood": null,
+            "phone": "121525125",
+            "state": Object {
+              "code": null,
+              "countryId": 0,
+              "id": 0,
+              "name": null,
+            },
+            "title": null,
+            "userId": 0,
+            "vatNumber": null,
+            "zipCode": "4465-761",
+          },
+          "checkoutOrderMerchants": Array [
+            Object {
+              "merchant": 10658,
+            },
+          ],
+          "createdDate": null,
+          "currency": "EUR",
+          "id": 15338048,
+          "items": Array [
+            30380051,
+          ],
+          "paymentIntentId": "123",
+          "shippingAddress": Object {
+            "addressLine1": "Rua da Lionesa 446, G12",
+            "addressLine2": "Teste",
+            "city": Object {
+              "countryId": 0,
+              "id": 0,
+              "name": "Leça do Balio",
+              "stateId": null,
+            },
+            "country": Object {
+              "alpha2Code": "PT",
+              "alpha3Code": "PRT",
+              "continentId": 3,
+              "culture": "pt-PT",
+              "id": 165,
+              "name": "Portugal",
+              "nativeName": "Portugal",
+              "region": "Europe",
+              "regionId": 0,
+              "subRegion": null,
+              "subfolder": "/en-pt",
+            },
+            "ddd": null,
+            "firstName": "tester",
+            "id": "c9ce5410-58d9-4298-a385-231a79373e4a",
+            "isCurrentBilling": true,
+            "isCurrentShipping": true,
+            "lastName": "teste",
+            "neighbourhood": null,
+            "phone": "121525125",
+            "state": Object {
+              "code": null,
+              "countryId": 0,
+              "id": 0,
+              "name": null,
+            },
+            "title": null,
+            "userId": 0,
+            "vatNumber": null,
+            "zipCode": "4465-761",
+          },
+          "updatedDate": null,
+        },
+      },
+      "deliveryBundles": Object {
+        "12345678": Object {
+          "currency": "EUR",
+          "discount": 0,
+          "id": "12345678",
+          "isSelected": true,
+          "itemsDeliveryOptions": Array [
+            Object {
+              "deliveryWindow": Object {
+                "max": "2020-02-13T14:38:22.228Z",
+                "min": "2020-02-10T14:38:22.228Z",
+                "type": "Estimated",
+              },
+              "itemId": 95097041,
+              "name": "Standard",
+            },
+            Object {
+              "deliveryWindow": Object {
+                "max": "2020-02-14T14:38:22.228Z",
+                "min": "2020-02-10T14:38:22.228Z",
+                "type": "Estimated",
+              },
+              "itemId": 95097042,
+              "name": "Standard",
+            },
+          ],
+          "name": "Basic",
+          "price": 10,
+          "rank": 1,
+        },
+        "87654321": Object {
+          "currency": "EUR",
+          "discount": 0,
+          "id": "87654321",
+          "isSelected": false,
+          "itemsDeliveryOptions": Array [
+            Object {
+              "deliveryWindow": Object {
+                "max": "2019-10-12T14:38:22.228Z",
+                "min": "2020-02-09T14:38:22.228Z",
+                "type": "Estimated",
+              },
+              "itemId": 95097041,
+              "name": "Fast",
+            },
+            Object {
+              "deliveryWindow": Object {
+                "max": "2019-10-11T14:38:22.228Z",
+                "min": "2020-02-09T14:38:22.228Z",
+                "type": "Estimated",
+              },
+              "itemId": 95097042,
+              "name": "Fast",
+            },
+          ],
+          "name": "Fast",
+          "price": 15,
+          "rank": 2,
+        },
+      },
+      "merchants": Object {
+        "10658": Object {
+          "id": 10658,
+          "name": "ACME WH NELSON FG",
+        },
+        "12455": Object {
+          "id": 12455,
+          "name": "Test Merchant",
+          "shoppingUrl": "http://www.merchant.com",
+        },
+      },
+      "products": Object {
+        "12640693": Object {
+          "categories": undefined,
+          "colorGrouping": undefined,
+          "colors": undefined,
+          "customAttributes": undefined,
+          "description": undefined,
+          "groupedEntries": undefined,
+          "id": 12640693,
+          "images": undefined,
+          "isAvailable": undefined,
+          "isCustomizable": undefined,
+          "isExclusive": undefined,
+          "merchant": 12455,
+          "name": "Navy Treated Bonded Cotton Dry Bag",
+          "price": Object {
+            "excludingTaxes": 1.26,
+            "includingTaxes": 1.51,
+            "includingTaxesWithoutDiscount": 1.53,
+            "isFormatted": true,
+          },
+          "prices": undefined,
+          "sizes": undefined,
+          "slug": "navy-treated-bonded-cotton-dry-bag-12640693",
+          "tag": Object {
+            "id": undefined,
+            "name": undefined,
+          },
+          "variants": undefined,
+        },
+      },
+    },
+    "result": 15338048,
+  },
+  "type": "@farfetch/blackout-redux/CREATE_CHECKOUT_SUCCESS",
+}
+`;

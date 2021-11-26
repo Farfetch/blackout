@@ -15,11 +15,11 @@ module.exports = {
   // The test environment that will be used for testing
   testEnvironment: 'jsdom',
   // The regexp pattern or array of patterns that Jest uses to detect test files
-  testRegex: '.+\\.test.js$',
+  testRegex: '.+\\.test.[jt]s(x?)$',
   // Indicates whether the coverage information should be collected while executing the test
   collectCoverage: true,
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: ['**/src/**/*.{js,jsx}'],
+  collectCoverageFrom: ['**/src/**/*.{js,jsx,ts,tsx}'],
   // An object that configures minimum threshold enforcement for coverage results
   coverageThreshold: {
     global: {
@@ -33,17 +33,24 @@ module.exports = {
   coveragePathIgnorePatterns: [
     '/node_modules/',
     '__tests__/',
-    'packages/core/src/bags/hooks/useBagItem.js',
-    'packages/core/src/search/redux/utils.js',
-    'packages/core/src/tests/',
-    'packages/react/src/hooks/tests/',
-    'packages/react/src/tests/',
+    'packages/client/src/entities/schemas',
     'packages/react/src/analytics/integrations/Forter/loadForterScriptForSiteId.js',
+    'packages/react/src/payments/components/constants.js',
+    'packages/react/src/checkout/hooks', // TODO - https://farfetch.atlassian.net/browse/FPSCH-1454
+    'packages/redux/src/entities/schemas',
+    'packages/redux/src/search/utils.js',
+    // @TODO: remove these two client folders after the split
+    'packages/client/src/entities/redux',
+    'packages/client/src/helpers/redux',
+    '__fixtures__',
   ],
   // A map from regular expressions to module names that allow to stub out resources with a single module
   moduleNameMapper: {
-    '^@farfetch/blackout-core(.*)$': '<rootDir>/packages/core/src$1',
+    '^@farfetch/blackout-analytics(.*)$': '<rootDir>/packages/analytics/src$1',
+    '^@farfetch/blackout-client(.*)$': '<rootDir>/packages/client/src$1',
+    '^@farfetch/blackout-redux(.*)$': '<rootDir>/packages/redux/src$1',
     '^jestSetup$': '<rootDir>/jestSetup',
+    '^redux/tests(.*)$': '<rootDir>/packages/redux/tests$1',
     '^tests(.*)$': '<rootDir>/tests$1',
   },
   // Add custom reporters to Jest

@@ -25,10 +25,10 @@ import {
   PROD_SCRIPT_SRC,
   VITORINO_CALL_ERROR_MESSAGE,
 } from './constants';
-import { getCustomerIdFromUser } from '@farfetch/blackout-core/analytics/integrations/Omnitracking/omnitracking-helper';
+import { getCustomerIdFromUser } from '@farfetch/blackout-analytics/integrations/Omnitracking/omnitracking-helper';
 import { getEnvironmentFromOptions } from './vitorino-helper';
-import { integrations, utils } from '@farfetch/blackout-core/analytics';
-import { POST_TRACKINGS_PATHNAME } from '@farfetch/blackout-core/analytics/integrations/Omnitracking/client';
+import { integrations, utils } from '@farfetch/blackout-analytics';
+import { POST_TRACKINGS_PATHNAME } from '@farfetch/blackout-client/omnitracking';
 import isArray from 'lodash/isArray';
 
 /**
@@ -262,7 +262,7 @@ export default class Vitorino extends integrations.Integration {
    * Returns the correspondant Vitorino page type for the event.
    *
    * @param {string} event - The analytics event to filter by.
-
+   
    * @returns {string | Array} - The correspondant Vitorino's page view(s).
    */
   getPageTypeFromEvent(event) {

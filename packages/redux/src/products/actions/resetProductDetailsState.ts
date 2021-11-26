@@ -1,0 +1,34 @@
+import { RESET_PRODUCT_DETAILS_STATE } from '../actionTypes';
+import type { Dispatch } from 'redux';
+import type { ResetProductDetailsStateAction } from '../types';
+
+/**
+ * Reset details state to its initial value.
+ *
+ * @memberof module:products/actions
+ *
+ * @name resetProductDetailsState
+ *
+ * @example
+ * import { resetProductDetailsState } from '@farfetch/blackout-redux/products';
+ *
+ * // State before executing action
+ * const state = { id: '123', error: null, isLoading: false, isHydrated: ... };
+ *
+ * // Result of resetProductDetailsState
+ * const state =  { id: null, error: null, isLoading: false, isHydrated: {} }
+ *
+ * // Usage
+ * dispatch(resetProductDetailsState());
+ *
+ * @returns {Function} Dispatch reset details state action.
+ */
+const resetProductDetailsState =
+  () =>
+  (dispatch: Dispatch<ResetProductDetailsStateAction>): void => {
+    dispatch({
+      type: RESET_PRODUCT_DETAILS_STATE,
+    });
+  };
+
+export default resetProductDetailsState;

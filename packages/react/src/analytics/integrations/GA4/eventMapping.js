@@ -1,8 +1,4 @@
-import {
-  eventTypes,
-  pageTypes,
-  utils,
-} from '@farfetch/blackout-core/analytics';
+import { eventTypes, pageTypes, utils } from '@farfetch/blackout-analytics';
 import { MAX_PRODUCT_CATEGORIES } from './constants';
 import get from 'lodash/get';
 
@@ -201,22 +197,6 @@ const getCheckoutShippingStepParametersFromEvent = eventProperties => {
 };
 
 /**
- * Returns login and sign up event properties formatted to GA4 recommended events.
- *
- * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/reference/events#login}
- * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/reference/events#sign_up}
- *
- * @param {object} eventProperties - Properties from a track event.
- *
- * @returns {object} Common properties formatted to GA4's recommended events, login and signup.
- */
-const getLoginAndSignupParametersFromEvent = eventProperties => {
-  return {
-    method: eventProperties.method,
-  };
-};
-
-/**
  * Returns the checkout order completed/refunded event properties formatted for the GA4 ecommerce events.
  *
  * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/ecommerce#purchases_checkouts_and_refunds}
@@ -247,6 +227,22 @@ const getOrderPurchaseOrRefundParametersFromEvent = eventProperties => {
 const getSearchParametersFromEvent = eventProperties => {
   return {
     search_term: eventProperties.searchTerm,
+  };
+};
+
+/**
+ * Returns login and sign up event properties formatted to GA4 recommended events.
+ *
+ * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/reference/events#login}
+ * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/reference/events#sign_up}
+ *
+ * @param {object} eventProperties - Properties from a track event.
+ *
+ * @returns {object} Common properties formatted to GA4's recommended events, login and signup.
+ */
+const getLoginAndSignupParametersFromEvent = eventProperties => {
+  return {
+    method: eventProperties.method,
   };
 };
 
@@ -314,7 +310,6 @@ const getViewItemListParametersFromEvent = eventProperties => ({
   item_list_id: eventProperties.listId,
   item_list_name: eventProperties.list,
   filters: eventProperties.filters,
-  from: eventProperties.from,
   sort_option: eventProperties.sort,
   error: eventProperties.error,
 });

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchGiftCardBalance() action creator should create the correct actions for when the fetch gift card balance procedure is successful: fetch gift card balance success payload 1`] = `
+Object {
+  "payload": Object {
+    "currency": "USD",
+    "value": 200,
+  },
+  "type": "@farfetch/blackout-redux/FETCH_GIFT_CARD_BALANCE_SUCCESS",
+}
+`;

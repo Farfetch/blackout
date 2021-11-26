@@ -1,7 +1,7 @@
 import {
   TokenData,
   TokenKinds,
-} from '@farfetch/blackout-core/helpers/client/interceptors/authentication';
+} from '@farfetch/blackout-client/helpers/client/interceptors/authentication';
 
 export const mockDefaultActiveTokenData = {
   kind: TokenKinds.Guest,

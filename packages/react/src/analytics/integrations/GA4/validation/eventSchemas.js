@@ -23,7 +23,7 @@ import {
   totalRequiredSchema,
   valueSchema,
 } from '../../shared/validation/eventSchemas';
-import { eventTypes, pageTypes } from '@farfetch/blackout-core/analytics';
+import { eventTypes, pageTypes } from '@farfetch/blackout-analytics';
 
 export const locationId = yup.object({
   locationId: yup.string(),
@@ -35,6 +35,7 @@ const baseProductSchema = productBaseSchema
   .concat(affiliationSchema)
   .concat(discountSchema)
   .concat(listNameSchema)
+  .concat(listIdSchema)
   .concat(listIdSchema)
   .concat(locationId)
   .concat(priceSchema)

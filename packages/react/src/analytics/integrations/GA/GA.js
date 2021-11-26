@@ -21,7 +21,7 @@ import {
   trackTypes as analyticsTrackTypes,
   integrations,
   utils,
-} from '@farfetch/blackout-core/analytics';
+} from '@farfetch/blackout-analytics';
 import defaultEventCommands, {
   commandListSchema,
   nonInteractionEvents,
@@ -349,7 +349,7 @@ class GA extends integrations.Integration {
    * @returns {(Array|null)} An array with the commands or null if there was an error executing the extra commands builder.
    */
   getExtraCommandsForPage(data, scopeCommands) {
-    let extrasCommandBuilder = get(scopeCommands, 'hit.pageview.extras');
+    const extrasCommandBuilder = get(scopeCommands, 'hit.pageview.extras');
 
     return this.executeCommandBuilder(extrasCommandBuilder, data);
   }
@@ -366,7 +366,7 @@ class GA extends integrations.Integration {
   getExtraCommandsForEvent(data, scopeCommands) {
     const event = utils.getEvent(data);
 
-    let extrasCommandBuilder = this.getExtrasCommandBuilderForEvent(
+    const extrasCommandBuilder = this.getExtrasCommandBuilderForEvent(
       event,
       scopeCommands,
     );
@@ -386,7 +386,7 @@ class GA extends integrations.Integration {
   getMainCommandsForEvent(data, scopeCommands, productMappings) {
     const event = get(data, 'event');
 
-    let mainCommandBuilder = this.getMainCommandBuilderForEvent(
+    const mainCommandBuilder = this.getMainCommandBuilderForEvent(
       event,
       scopeCommands,
     );
@@ -429,7 +429,7 @@ class GA extends integrations.Integration {
    * @returns {(Function|undefined)} Extra commands builder for the hit if there is one, undefined otherwise.
    */
   getExtrasCommandBuilderForEvent(event, scopeCommands) {
-    let commandBuilder = get(scopeCommands, `hit.event.${event}.extras`);
+    const commandBuilder = get(scopeCommands, `hit.event.${event}.extras`);
 
     if (commandBuilder) {
       return commandBuilder;

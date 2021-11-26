@@ -1,11 +1,10 @@
 /**
  * Omnitracking integration for web apps. This integration extends the Omnitracking class
- * in @farfetch/blackout-core that contains most of the business logic and adds logic to
+ * in @farfetch/blackout-client that contains most of the business logic and adds logic to
  * persist and retrieve the unique view ids of each page view. This will fix
  * the bug where the previousUniqueViewId was null when the user opens a product
  * detail page in another tab instead of containing the uniqueViewId of the
  * referrer page.
- *
  *
  * @example <caption>Adding Omnitracking integration to analytics</caption>
  *
@@ -18,8 +17,8 @@
  * @subcategory Integrations
  */
 
-import { trackTypes } from '@farfetch/blackout-core/analytics';
-import OmnitrackingCore from '@farfetch/blackout-core/analytics/integrations/Omnitracking/Omnitracking';
+import { trackTypes } from '@farfetch/blackout-analytics';
+import OmnitrackingCore from '@farfetch/blackout-analytics/integrations/Omnitracking/Omnitracking';
 import UniqueViewIdStorage from './storage/UniqueViewIdStorage';
 import UniqueViewIdStorageOptions from './storage/UniqueViewIdStorageOptions';
 

@@ -1,0 +1,5 @@
+{
+  "include": ["packages", "tests"],
+  "exclude": ["**/node_modules/*", "./scripts", "**/docs/*", "**/__tests__/*"],
+  "extends": "./configs/typescript/tsconfig.basic.json"
+}

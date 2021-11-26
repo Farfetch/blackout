@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`doPostFormData() action creator should create the correct actions for when the post form schemas procedure is successful: Post form schemas payload 1`] = `undefined`;

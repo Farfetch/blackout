@@ -9,7 +9,7 @@ import {
   MAX_PRODUCT_CATEGORIES,
   PRODUCT_CATEGORY_FIELD,
 } from '../constants';
-import { utils } from '@farfetch/blackout-core/analytics';
+import { utils } from '@farfetch/blackout-analytics';
 import get from 'lodash/get';
 
 /**

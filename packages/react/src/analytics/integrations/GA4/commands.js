@@ -2,7 +2,7 @@
  * @module commands
  * @private
  */
-import { eventTypes, pageTypes } from '@farfetch/blackout-core/analytics';
+import { eventTypes, pageTypes } from '@farfetch/blackout-analytics';
 import { validationSchemaBuilder } from '../shared/validation/eventSchemas';
 import ga4EventNameMapping, { getEventProperties } from './eventMapping';
 

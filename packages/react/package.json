@@ -1,10 +1,13 @@
 {
   "name": "@farfetch/blackout-react",
-  "version": "0.25.1",
-  "description": "React components, hooks and other tools filled with business logic to help you use Farfetch Platform Solutions' services in your web or native e-commerce app",
+  "version": "1.0.0-next.111",
+  "description": "React components, hooks and other tools filled with business logic to help using the Farfetch Platform Solutions' services in web or native e-commerce apps",
   "license": "MIT",
-  "main": "src/index.js",
+  "exports": {
+    "./*": "./dist/*"
+  },
   "files": [
+    "dist",
     "src"
   ],
   "repository": {
@@ -15,18 +18,22 @@
     "crypto-js": "3.1.9-1",
     "prop-types": "^15.7.2",
     "proper-url-join": "^2.1.1",
-    "react-helmet": "^5.2.1",
+    "react-iframe": "^1.8.0",
     "url-parse": "^1.4.4",
     "yup": "^0.27.0"
   },
+  "devDependencies": {
+    "@farfetch/blackout-analytics": "^0.1.0-next.0",
+    "@farfetch/blackout-client": "^2.0.0-next.98",
+    "@farfetch/blackout-redux": "^1.0.0-next.143"
+  },
   "peerDependencies": {
-    "@farfetch/blackout-core": "^1.0.0",
+    "@farfetch/blackout-analytics": "^0.1.0-next.0",
+    "@farfetch/blackout-client": "^2.0.0-next.98",
+    "@farfetch/blackout-redux": "^1.0.0-next.143",
     "lodash": "^4.17.21",
     "react": "^16.7.0",
     "react-redux": "^7.2.0",
-    "redux": "^4.0.5"
-  },
-  "publishConfig": {
-    "access": "public"
+    "redux": "^4.1.0"
   }
 }

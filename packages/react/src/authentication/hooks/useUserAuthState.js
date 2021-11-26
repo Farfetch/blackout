@@ -1,11 +1,11 @@
 import {
   AuthenticationConfigOptions,
   TokenKinds,
-} from '@farfetch/blackout-core/helpers/client/interceptors/authentication';
+} from '@farfetch/blackout-client/helpers/client/interceptors/authentication';
 import {
   deleteTokens,
   postTokens,
-} from '@farfetch/blackout-core/authentication/client';
+} from '@farfetch/blackout-client/authentication';
 import {
   LoginWithoutDataError,
   NotLoggedInError,

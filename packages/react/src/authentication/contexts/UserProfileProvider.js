@@ -1,5 +1,5 @@
-import { AuthenticationConfigOptions } from '@farfetch/blackout-core/helpers/client/interceptors/authentication';
-import { getProfile } from '@farfetch/blackout-core/profile/client';
+import { AuthenticationConfigOptions } from '@farfetch/blackout-client/helpers/client/interceptors/authentication';
+import { getProfile } from '@farfetch/blackout-client/profile/client';
 import { ProfileChangedError } from '../errors';
 import noop from 'lodash/noop';
 import React, {

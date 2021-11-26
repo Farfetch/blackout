@@ -32,9 +32,9 @@ import {
   SET_USER_KEY,
   SET_USER_TYPE,
 } from './constants';
-import { utils as coreUtils } from '@farfetch/blackout-core/analytics';
+import { utils as coreUtils } from '@farfetch/blackout-analytics';
 import { getContextParameters, getUserParameters } from './utils';
-import { Integration } from '@farfetch/blackout-core/analytics/integrations';
+import { Integration } from '@farfetch/blackout-analytics/integrations';
 import eventSchemas from '../shared/validation/eventSchemas';
 import eventsMapper from './eventsMapper';
 import eventValidator from '../shared/validation/eventValidator';
