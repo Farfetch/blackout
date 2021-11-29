@@ -30,6 +30,7 @@ class Analytics {
     this.setUserPromiseResolve = null;
     this.setStoragePromiseResolve = null;
     this.platform = platform;
+    this.dummy = 'dummy';
 
     this.setUserPromise = new Promise(resolve => {
       this.setUserPromiseResolve = resolve;
