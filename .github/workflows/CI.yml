@@ -30,7 +30,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       # Use fetch-depth: 0 so that all tags and branches are fetched
-      # Use persist-credentials: false so that the make release step uses another personal access 
+      # Use persist-credentials: false so that the make release step uses another personal access
       # token which has admin access and can push the version commit without the restriction
       # of creating a pull-request.
       - uses: actions/checkout@v2
@@ -40,10 +40,10 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: "14"
-          registry-url: "https://registry.npmjs.org"
-          scope: "@farfetch"
-          cache: "yarn"
+          node-version: '14'
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@farfetch'
+          cache: 'yarn'
           always-auth: true
 
       # This is needed for lerna to commit and push the
@@ -84,10 +84,10 @@ jobs:
         if: |
           github.ref_name == 'main' ||
           github.ref_name == 'next' ||
-          (steps.get-commit-message.outputs.message == env.MAKE_RELEASE_COMMIT_MESSAGE && github.event_name == 'pull_request')
+          (github.event_name == 'pull_request' && startsWith(github.head_ref, 'rc/'))
         env:
-          MAKE_RELEASE_COMMIT_MESSAGE: "chore: make release"
-          PUBLISH_COMMIT_MESSAGE: "chore: publish [skip ci]"
+          MAKE_RELEASE_COMMIT_MESSAGE: 'chore: make release'
+          PUBLISH_COMMIT_MESSAGE: 'chore: publish [skip ci]'
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.RELEASE_BOT_GITHUB_TOKEN }}
           GIT_AUTHOR_NAME: ${{ secrets.RELEASE_BOT_GIT_NAME }}
@@ -102,7 +102,10 @@ jobs:
           if [[ ${SOURCE_BRANCH_NAME} = main ]]; then
             npx lerna publish --conventional-commits --message "${PUBLISH_COMMIT_MESSAGE}" --no-verify-access --yes
           else
-            PRE_ID=${SOURCE_BRANCH_NAME//_/-}
-            PRE_ID=${PRE_ID//\//-}
+            if [[ ${SOURCE_BRANCH_NAME} = next ]]; then
+              PRE_ID=next
+            else
+              PRE_ID=rc
+            fi
             npx lerna publish --conventional-commits --conventional-prerelease --no-verify-access --preid ${PRE_ID} --pre-dist-tag ${PRE_ID}  --message "${PUBLISH_COMMIT_MESSAGE}"  --yes
           fi
