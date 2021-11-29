@@ -22,5 +22,8 @@
   "peerDependencies": {
     "@farfetch/blackout-client": "^2.0.0-next.98",
     "lodash": "^4.17.21"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
