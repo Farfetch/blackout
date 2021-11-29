@@ -98,6 +98,8 @@
     "typescript": "^4.1.5"
   },
   "resolutions": {
+    "@babel/core": "7.13.15",
+    "@babel/preset-env": "7.13.15",
     "color-string": "^1.6.0",
     "css-what": "^5.0.1",
     "dot-prop": "^6.0.1",
@@ -109,8 +111,8 @@
     "node-forge": "^0.10.0",
     "node-notifier": "^8.0.2",
     "property-expr": "^2.0.4",
-    "pug": "^3.0.2",
     "pug-code-gen": "^2.0.3",
+    "pug": "^3.0.2",
     "semver-regex": "^4.0.2",
     "set-value": "^4.1.0",
     "trim-off-newlines": "^1.0.2",
