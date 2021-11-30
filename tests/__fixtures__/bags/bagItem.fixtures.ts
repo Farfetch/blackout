@@ -12,7 +12,12 @@ export const mockBagItem = {
     id: 23,
     scale: 'IT',
     name: '11',
-    stock: [{ merchantId: mockMerchantId, quantity: 7 }],
+    stock: [
+      {
+        merchantId: mockMerchantId,
+        quantity: 7,
+      },
+    ],
   },
   sizeId: 23,
   isAvailable: true,

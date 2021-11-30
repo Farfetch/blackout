@@ -58,7 +58,7 @@ export const mockErrorState = {
       ids: [],
       item: {
         error: {
-          [mockBagItemId]: 'An unexpected error occurred',
+          [mockBagItemId]: { message: 'An unexpected error occurred' },
         },
         isLoading: {
           [mockBagItemId]: false,
@@ -102,7 +102,7 @@ export const mockState = {
           [mockBagItemId]: true,
         },
         error: {
-          [mockBagItemId]: 'error: not loaded',
+          [mockBagItemId]: { message: 'error: not loaded' },
         },
       },
     },
