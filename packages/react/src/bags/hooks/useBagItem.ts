@@ -29,6 +29,7 @@ import type {
   HandleSizeChangeType,
   UseBagItem,
 } from './types';
+import type { SizeAdapted } from '@farfetch/blackout-client/helpers/adapters/types';
 import type { StoreState } from '@farfetch/blackout-redux/src/types';
 
 /**
@@ -79,8 +80,9 @@ const useBagItem: UseBagItem = bagItemId => {
    * default.</small></i>.
    *
    * @function handleAddOrUpdateItem
+   *
    * @param {object} [item] - Item to add/update the bag with.
-   * @param {string} [item.customAttributes] - Bag item custom attributes.
+   * @param {string} [item.customAttributes=''] - Bag item custom attributes.
    * @param {object} [item.product=bagItem.product] - Product of the bag item
    * to handle. Defaults to the product of the bag item that instantiated the
    * hook.
@@ -110,8 +112,7 @@ const useBagItem: UseBagItem = bagItemId => {
         continue;
       }
 
-      // The quantity we want to add might be limited
-      // by the merchant stock
+      // The quantity we want to add might be limited by the merchant stock
       const quantityToAdd = Math.min(quantityToHandle, merchantQuantity);
       // Format the data to send to the request
       const requestData = buildBagItem({
@@ -220,9 +221,9 @@ const useBagItem: UseBagItem = bagItemId => {
     // This extra logic is due to the fact that when changing sizes,
     // the verification to see if the bag item is already in bag
     // will always be false, thus never updating.
-    let quantityToHandle = bagItem.quantity;
-
     const size = bagItem.product?.sizes?.find(size => size.id === newSize);
+    let quantityToHandle = bagItem.quantity;
+    let sizeToHandle = size;
 
     const requestData = {
       merchantId: bagItem.merchant,
@@ -251,7 +252,8 @@ const useBagItem: UseBagItem = bagItemId => {
         });
         return;
       } else {
-        // Update with merchantQuantity
+        // Update with merchantQuantity, removing the need
+        // of trying to add the rest of the quantity in this merchant
         await updateBagItem(bagItem.id, {
           ...requestData,
           quantity: merchantQuantity,
@@ -259,15 +261,26 @@ const useBagItem: UseBagItem = bagItemId => {
           oldSize: bagItem.size,
         });
         quantityToHandle -= merchantQuantity;
+        // Remove the merchant of the future possibilities to add to the bag for
+        // this size
+        // TS: The stock here is manipulated, so it can be an empty array
+        sizeToHandle = {
+          ...size,
+          stock:
+            size?.stock.filter(
+              ({ merchantId }) => merchantId !== currentMerchant.merchantId,
+            ) || [],
+        } as Omit<SizeAdapted, 'stock'> & { stock: SizeAdapted['stock'] | [] };
       }
     } else {
       await deleteBagItem(bagItem.id);
     }
 
     if (quantityToHandle) {
+      // Add the left quantity in the other merchants
       handleAddOrUpdateItem({
         quantity: quantityToHandle,
-        size,
+        size: sizeToHandle,
       });
     }
   };
@@ -312,9 +325,10 @@ const useBagItem: UseBagItem = bagItemId => {
 
       // Format the data to send to the request
       const requestData = buildBagItem({
+        customAttributes: bagItem.customAttributes,
         merchantId,
-        quantity: quantityToManage,
         product: bagItem.product,
+        quantity: quantityToManage,
         size,
       });
 

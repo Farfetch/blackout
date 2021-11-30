@@ -74,6 +74,27 @@ export const mockProductSizesAdapted = [
     name: '41',
   },
   {
+    id: 7,
+    globalQuantity: 1,
+    scale: mockSizeScaleId,
+    stock: [{ merchantId: mockMerchantId, quantity: 1 }],
+    isOneSize: false,
+    isOutOfStock: false,
+    name: '43',
+  },
+  {
+    id: 8,
+    globalQuantity: 3,
+    scale: mockSizeScaleId,
+    stock: [
+      { merchantId: mockMerchantId, quantity: 1 },
+      { merchantId: 22, quantity: 2 },
+    ],
+    isOneSize: false,
+    isOutOfStock: false,
+    name: '44',
+  },
+  {
     id: 23,
     name: '23',
     scale: 'IT',

@@ -1,4 +1,6 @@
-export { default as getTimeInMinutes } from './getTimeInMinutes';
-export { default as useAction } from './useAction';
-export { default as usePrevious } from './usePrevious';
-export * as headers from './headers';
+import * as headers from './headers';
+import getTimeInMinutes from './getTimeInMinutes';
+import useAction from './useAction';
+import usePrevious from './usePrevious';
+
+export { getTimeInMinutes, headers, useAction, usePrevious };

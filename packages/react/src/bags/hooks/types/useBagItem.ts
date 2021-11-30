@@ -23,7 +23,7 @@ export type HandleAddOrUpdateItemType = ({
   product?: ProductEntity;
   customAttributes?: CustomAttributesAdapted;
   quantity?: number;
-  size?: SizeAdapted | undefined;
+  size?: SizeAdapted;
 }) => Promise<void>;
 export type HandleQuantityChangeType = (newQuantity: number) => void;
 export type HandleSizeChangeType = (newSize: number) => void;
