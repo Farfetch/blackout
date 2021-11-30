@@ -20,7 +20,167 @@ export const ENVIRONMENT_CODES = {
 };
 
 /**
- * Build a hash with query object received to identify contentGroups, when searching for contents.
+ * Constant that represent all possible genders.
+ *
+ * @type {object}
+ */
+export const GENDER = {
+  0: 'Woman',
+  1: 'Man',
+  2: 'Unisex',
+  3: 'Kids',
+};
+
+/**
+ * Constant that represent the price types available.
+ *
+ * @type {object}
+ */
+export const PRICETYPE = {
+  0: 'Full Price',
+  1: 'Sale',
+  2: 'Private Sale',
+};
+
+/**
+ * Generate a ranking number for each commerce page.
+ *
+ * @function
+ *
+ * @param {object} metadata - Metadata object with custom attributes.
+ * @returns {number} Ranking number for a specific commerce page.
+ *
+ * @example
+ * const pageRanking = getPageRanking({ custom: { type: "listing" } });
+ * Result of pageRanking === 0;
+ */
+export const getPageRanking = metadata => {
+  let ranking = 0;
+  const { gender, brand, category, priceType, id } = metadata.custom;
+
+  // Return default ranking number when no data was returned from each commerce property.
+  // We can't only check if it's empty from 'metadata.custom' because it could have other properties inside.
+  if (!gender && !brand && !category && !priceType && !id) {
+    return ranking;
+  }
+
+  const rankingGender = 10;
+  const rankingBrand = 100;
+  const rankingCategory = 10000;
+  const rankingPriceType = 1000000000;
+  const rankingId = 10000000000;
+
+  Object.entries(metadata.custom).forEach(entry => {
+    const [key, value] = entry;
+
+    switch (key) {
+      case 'gender':
+        ranking += !isEmpty(value) && rankingGender;
+        break;
+      case 'brand':
+        ranking += !isEmpty(value) && rankingBrand;
+        break;
+      case 'category':
+        ranking += !isEmpty(value) && rankingCategory;
+        break;
+      case 'priceType':
+        ranking += !isEmpty(value) && rankingPriceType;
+        break;
+      case 'id':
+        ranking += !isEmpty(value) && rankingId;
+        break;
+
+      default:
+        return ranking;
+    }
+  });
+
+  return ranking;
+};
+
+/**
+ * Method to check each page ranking and return the better one.
+ *
+ * @function
+ *
+ * @param {object} result - Commerce page payload result.
+ * @returns {object} Selected page with better ranking.
+ *
+ * @example
+ * const defaultStrategy = getDefaultStrategy({ entries: [...pages] });
+ * Result of defaultStrategy === { entries: [...bestRankedPage] };
+ */
+export const getDefaultStrategy = result => {
+  const bestRankedPage = result.entries
+    .map(page => ({
+      ...page,
+      ranking: getPageRanking(page.metadata),
+    }))
+    .reduce((p, c) => (p.ranking > c.ranking ? p : c), {});
+
+  return {
+    number: 1,
+    totalPages: 1,
+    totalItems: 1,
+    entries: [bestRankedPage],
+  };
+};
+
+/**
+ * Method to return the main page with all components from other pages.
+ *
+ * @function
+ *
+ * @param {object} result - Commerce page payload result.
+ * @returns {object} Selected page with merged components.
+ *
+ * @example
+ * const mergeStrategy = getMergeStrategy({ entries: [...pages] });
+ * Result of mergeStrategy === { entries: [...mergedPages] };
+ */
+export const getMergeStrategy = result => {
+  // Select the main commerce page
+  const selectedCommercePage = result.entries[0];
+
+  // Merge components inside the selected commerce page
+  return result.entries.reduce((acc, current) => ({
+    number: 1,
+    totalPages: 1,
+    totalItems: 1,
+    entries: [
+      {
+        ...selectedCommercePage,
+        components: [].concat(acc.components, current.components),
+      },
+    ],
+  }));
+};
+
+/**
+ * Method to calculate the ranking for commerce pages, according to the selected strategy
+ * and returning only the selected one.
+ *
+ * @function
+ *
+ * @param {object} result - Commerce page payload result.
+ * @param {string} [strategy] - The selected ranking strategy (E.g. 'default | merge').
+ * @returns {object} Selected page with best ranking.
+ *
+ * @example
+ * const rankedPage = getRankedCommercePage({ entries: [...pages] }, 'merge');
+ * Result of rankedPage === { entries: [...mergedPages] };
+ */
+export const getRankedCommercePage = (result, strategy) => {
+  switch (strategy) {
+    case 'merge':
+      return getMergeStrategy(result);
+    default:
+      return getDefaultStrategy(result);
+  }
+};
+
+/**
+ * Build a hash with query object received to identify contentGroups when searching for contents.
  *
  * @function
  *

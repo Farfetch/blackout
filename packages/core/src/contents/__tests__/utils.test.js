@@ -1,4 +1,78 @@
-import { buildContentGroupHash, buildSEOPathname } from '../utils';
+import {
+  buildContentGroupHash,
+  buildSEOPathname,
+  getDefaultStrategy,
+  getMergeStrategy,
+  getPageRanking,
+  getRankedCommercePage,
+} from '../utils';
+import {
+  defaultStrategyResult,
+  mergeStrategyResult,
+  mockCommercePages,
+} from 'tests/__fixtures__/contents';
+
+describe('getPageRanking', () => {
+  it('should correctly construct a ranking number for a specific metadata', () => {
+    const metadata = {
+      custom: {
+        gender: '1',
+        brand: '2450',
+        category: '',
+        priceType: '',
+        id: '',
+      },
+    };
+    const expectedRanking = 110;
+    const ranking = getPageRanking(metadata);
+
+    expect(ranking).toBe(expectedRanking);
+  });
+
+  it('should correctly construct a ranking number for a specific metadata without data', () => {
+    const metadata = {
+      custom: {
+        gender: '',
+        brand: '',
+        category: '',
+        priceType: '',
+        id: '',
+      },
+    };
+    const expectedRanking = 0;
+    const ranking = getPageRanking(metadata);
+
+    expect(ranking).toBe(expectedRanking);
+  });
+});
+
+describe('getDefaultStrategy', () => {
+  it('should correctly apply commerce pages default strategy to the page result', () => {
+    const commercePagesResult = getDefaultStrategy(mockCommercePages);
+
+    expect(commercePagesResult).toMatchObject(defaultStrategyResult);
+  });
+});
+
+describe('getMergeStrategy', () => {
+  it('should correctly apply commerce pages merge strategy to the page result', () => {
+    const commercePagesResult = getMergeStrategy(mockCommercePages);
+
+    expect(commercePagesResult).toMatchObject(mergeStrategyResult);
+  });
+});
+
+describe('getRankedCommercePage', () => {
+  it('should correctly select the commerce pages strategy return the respective page result', () => {
+    const commercePagesResult = getRankedCommercePage(mockCommercePages);
+
+    expect(commercePagesResult).toMatchObject(defaultStrategyResult);
+
+    const mergeStrategy = getRankedCommercePage(mockCommercePages, 'merge');
+
+    expect(mergeStrategy).toMatchObject(mergeStrategyResult);
+  });
+});
 
 describe('buildContentGroupHash', () => {
   it('should correctly construct the correct hash a query object', () => {

@@ -25,11 +25,13 @@ export const INITIAL_STATE = {
 const error = (state = INITIAL_STATE.error, action) => {
   switch (action.type) {
     case actionTypes.GET_CONTENT_REQUEST:
+    case actionTypes.GET_COMMERCE_PAGES_REQUEST:
       return {
         ...state,
         [action.payload.hash]: null,
       };
     case actionTypes.GET_CONTENT_FAILURE:
+    case actionTypes.GET_COMMERCE_PAGES_FAILURE:
       return {
         ...state,
         [action.payload.hash]: action.payload.error,
@@ -45,16 +47,19 @@ const isLoading = (
 ) => {
   switch (action.type) {
     case actionTypes.GET_CONTENT_REQUEST:
+    case actionTypes.GET_COMMERCE_PAGES_REQUEST:
       return {
         ...state,
         [action.payload.hash]: true,
       };
     case actionTypes.GET_CONTENT_SUCCESS:
+    case actionTypes.GET_COMMERCE_PAGES_SUCCESS:
       return {
         ...state,
         [action.payload.hash]: false,
       };
     case actionTypes.GET_CONTENT_FAILURE:
+    case actionTypes.GET_COMMERCE_PAGES_FAILURE:
       return {
         ...state,
         [action.payload.hash]: undefined,
