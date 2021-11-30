@@ -71,6 +71,8 @@ export default bagItemId => {
    * @param {object} [item.product=bagItem.product] - Product of the bag item
    * to handle. Defaults to the product of the bag item that instantiated the
    * hook.
+   * @param {number} [item.productAggregatorId = bagItem.productAggregator.id] - Product
+   * aggregator id that represents the bundle variant that owns it.
    * @param {number} [item.quantity=bagItem.quantity] - Quantity of the
    * product to add/update. Defaults to the quantity of the bag item that
    * instantiated the hook.
@@ -81,8 +83,10 @@ export default bagItemId => {
   const handleAddOrUpdateItem = async ({
     customAttributes = bagItem.customAttributes,
     product = bagItem.product,
+    productAggregatorId = bagItem.productAggregator.id,
     quantity = bagItem.quantity,
     size = productSize,
+    ...otherParams
   }) => {
     let quantityToHandle = quantity;
     // Iterate through the stock of different merchants
@@ -99,8 +103,10 @@ export default bagItemId => {
         customAttributes,
         merchantId,
         product,
+        productAggregatorId,
         quantity: quantityToAdd,
         size,
+        ...otherParams,
       });
       // Checks if the item we want to add is already in bag
       // by comparing the bag items' hash
@@ -307,6 +313,7 @@ export default bagItemId => {
         merchantId,
         product: bagItem.product,
         quantity: quantityToManage,
+        productAggregatorId: bagItem.productAggregator?.id,
         size,
       });
 
