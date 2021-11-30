@@ -25,16 +25,18 @@ const customHandlers = {
   onAddBagItem:
     ({ addBagItem, updateBagItem, bagItems }) =>
     async ({
-      product,
-      size,
-      quantity = 1,
-      from,
       affiliation,
       coupon,
       discount,
+      from,
       index,
       listName,
       locationId,
+      product,
+      productAggregatorId,
+      quantity = 1,
+      size,
+      ...otherParams
     }) => {
       let quantityToHandle = quantity;
 
@@ -47,8 +49,10 @@ const customHandlers = {
         const requestData = buildBagItem({
           merchantId,
           product,
+          productAggregatorId,
           quantity: quantityToAdd,
           size,
+          ...otherParams,
         });
         // Checks if the item we want to add is already in bag
         // by comparing the bag items' hash

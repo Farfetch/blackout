@@ -16,6 +16,8 @@ export default params => {
   const sizeId = get(params, 'size.id') || get(params, 'size');
   const sizeScale = get(params, 'size.scale') || get(params, 'scale');
   const customAttributes = get(params, 'customAttributes');
+  const productAggregatorId =
+    get(params, 'productAggregatorId') || get(params, 'productAggregator.id');
 
   if (!merchantId || !productId || !sizeId || !sizeScale) {
     throw new Error(
@@ -23,7 +25,7 @@ export default params => {
     );
   }
 
-  return `${merchantId}!${productId}!${sizeId}!${sizeScale}!${
-    customAttributes || ''
-  }`;
+  return `${merchantId}!${productId}!${sizeId}!${sizeScale}${
+    customAttributes ? `!${customAttributes}` : ''
+  }${productAggregatorId ? `!${productAggregatorId}` : ''}`;
 };
