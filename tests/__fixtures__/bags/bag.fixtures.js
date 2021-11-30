@@ -89,7 +89,12 @@ export const mockState = {
     bag: { [mockBagId]: mockBagEntity },
     bagItems: {
       [mockBagItemId]: mockBagItemEntity,
-      101: { ...mockBagItemEntity, id: 101, customAttributes: null },
+      101: {
+        ...mockBagItemEntity,
+        id: 101,
+        customAttributes: null,
+        productAggregator: null,
+      },
       102: {
         id: 102,
         product: 1002,
