@@ -41,15 +41,15 @@ const INITIAL_STATE = {
 
 const error = (state = INITIAL_STATE.error, action = {}) => {
   switch (action.type) {
-    case actionTypes.GET_ORDER_DETAILS_FAILURE:
-    case actionTypes.GET_ORDER_RETURN_OPTIONS_FAILURE:
-    case actionTypes.GET_ORDERS_FAILURE:
-    case actionTypes.GET_TRACKINGS_FAILURE:
+    case actionTypes.FETCH_ORDER_DETAILS_FAILURE:
+    case actionTypes.FETCH_ORDER_RETURN_OPTIONS_FAILURE:
+    case actionTypes.FETCH_ORDERS_FAILURE:
+    case actionTypes.FETCH_TRACKINGS_FAILURE:
       return action.payload.error;
-    case actionTypes.GET_ORDER_DETAILS_REQUEST:
-    case actionTypes.GET_ORDER_RETURN_OPTIONS_REQUEST:
-    case actionTypes.GET_ORDERS_REQUEST:
-    case actionTypes.GET_TRACKINGS_REQUEST:
+    case actionTypes.FETCH_ORDER_DETAILS_REQUEST:
+    case actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST:
+    case actionTypes.FETCH_ORDERS_REQUEST:
+    case actionTypes.FETCH_TRACKINGS_REQUEST:
     case actionTypes.RESET_ORDERS:
       return INITIAL_STATE.error;
     default:
@@ -59,19 +59,19 @@ const error = (state = INITIAL_STATE.error, action = {}) => {
 
 const isLoading = (state = INITIAL_STATE.isLoading, action = {}) => {
   switch (action.type) {
-    case actionTypes.GET_ORDERS_REQUEST:
-    case actionTypes.GET_ORDER_DETAILS_REQUEST:
-    case actionTypes.GET_ORDER_RETURN_OPTIONS_REQUEST:
-    case actionTypes.GET_TRACKINGS_REQUEST:
+    case actionTypes.FETCH_ORDERS_REQUEST:
+    case actionTypes.FETCH_ORDER_DETAILS_REQUEST:
+    case actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST:
+    case actionTypes.FETCH_TRACKINGS_REQUEST:
       return true;
-    case actionTypes.GET_ORDERS_FAILURE:
-    case actionTypes.GET_ORDERS_SUCCESS:
-    case actionTypes.GET_ORDER_DETAILS_FAILURE:
-    case actionTypes.GET_ORDER_DETAILS_SUCCESS:
-    case actionTypes.GET_ORDER_RETURN_OPTIONS_FAILURE:
-    case actionTypes.GET_ORDER_RETURN_OPTIONS_SUCCESS:
-    case actionTypes.GET_TRACKINGS_FAILURE:
-    case actionTypes.GET_TRACKINGS_SUCCESS:
+    case actionTypes.FETCH_ORDERS_FAILURE:
+    case actionTypes.FETCH_ORDERS_SUCCESS:
+    case actionTypes.FETCH_ORDER_DETAILS_FAILURE:
+    case actionTypes.FETCH_ORDER_DETAILS_SUCCESS:
+    case actionTypes.FETCH_ORDER_RETURN_OPTIONS_FAILURE:
+    case actionTypes.FETCH_ORDER_RETURN_OPTIONS_SUCCESS:
+    case actionTypes.FETCH_TRACKINGS_FAILURE:
+    case actionTypes.FETCH_TRACKINGS_SUCCESS:
     case actionTypes.RESET_ORDERS:
       return INITIAL_STATE.isLoading;
     default:
@@ -80,7 +80,7 @@ const isLoading = (state = INITIAL_STATE.isLoading, action = {}) => {
 };
 
 export const entitiesMapper = {
-  [actionTypes.GET_ORDERS_SUCCESS]: (state, action) => {
+  [actionTypes.FETCH_ORDERS_SUCCESS]: (state, action) => {
     const orders = action.payload.entities.orders;
     const { entities } = action.payload;
     const merchantsFromOrders = {};
@@ -109,7 +109,7 @@ export const entitiesMapper = {
       draftState.merchants = newMerchants;
     });
   },
-  [actionTypes.GET_ORDER_DETAILS_SUCCESS]: (state, action) => {
+  [actionTypes.FETCH_ORDER_DETAILS_SUCCESS]: (state, action) => {
     const { orderId } = action.meta;
     const { entities, result } = action.payload;
     // Filtering unimportant properties from the orderDetails request.
@@ -187,7 +187,7 @@ export const entitiesMapper = {
       };
     });
   },
-  [actionTypes.GET_ORDER_RETURN_OPTIONS_SUCCESS]: (state, action) => {
+  [actionTypes.FETCH_ORDER_RETURN_OPTIONS_SUCCESS]: (state, action) => {
     const { orderId } = action.meta;
     const returnOptions = action.payload.entities.returnOptions;
     const newReturnOptions = {};
@@ -234,7 +234,7 @@ export const entitiesMapper = {
 };
 
 export const ordersList = reducerFactory(
-  'GET_ORDERS',
+  'FETCH_ORDERS',
   INITIAL_STATE.ordersList,
   actionTypes,
 );
@@ -244,7 +244,7 @@ export const orderDetails = (
   action = {},
 ) => {
   switch (action.type) {
-    case actionTypes.GET_ORDER_DETAILS_REQUEST:
+    case actionTypes.FETCH_ORDER_DETAILS_REQUEST:
       return {
         isLoading: {
           ...state.isLoading,
@@ -255,7 +255,7 @@ export const orderDetails = (
           [action.meta.orderId]: null,
         },
       };
-    case actionTypes.GET_ORDER_DETAILS_SUCCESS:
+    case actionTypes.FETCH_ORDER_DETAILS_SUCCESS:
       return {
         ...state,
         isLoading: {
@@ -263,7 +263,7 @@ export const orderDetails = (
           [action.meta.orderId]: false,
         },
       };
-    case actionTypes.GET_ORDER_DETAILS_FAILURE:
+    case actionTypes.FETCH_ORDER_DETAILS_FAILURE:
       return {
         ...state,
         isLoading: {
@@ -285,7 +285,7 @@ export const orderReturnOptions = (
   action = {},
 ) => {
   switch (action.type) {
-    case actionTypes.GET_ORDER_RETURN_OPTIONS_REQUEST:
+    case actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST:
       return {
         isLoading: {
           ...state.isLoading,
@@ -296,7 +296,7 @@ export const orderReturnOptions = (
           [action.meta.orderId]: null,
         },
       };
-    case actionTypes.GET_ORDER_RETURN_OPTIONS_SUCCESS:
+    case actionTypes.FETCH_ORDER_RETURN_OPTIONS_SUCCESS:
       return {
         ...state,
         isLoading: {
@@ -304,7 +304,7 @@ export const orderReturnOptions = (
           [action.meta.orderId]: false,
         },
       };
-    case actionTypes.GET_ORDER_RETURN_OPTIONS_FAILURE:
+    case actionTypes.FETCH_ORDER_RETURN_OPTIONS_FAILURE:
       return {
         ...state,
         isLoading: {
@@ -322,20 +322,20 @@ export const orderReturnOptions = (
 };
 
 export const trackings = reducerFactory(
-  'GET_TRACKINGS',
+  'FETCH_TRACKINGS',
   INITIAL_STATE.trackings,
   actionTypes,
 );
 
 export const documents = reducerFactory(
-  ['GET_ORDER_DOCUMENTS', 'GET_ORDER_DOCUMENT', 'POST_ORDER_DOCUMENT'],
+  ['FETCH_ORDER_DOCUMENTS', 'FETCH_ORDER_DOCUMENT', 'ADD_ORDER_DOCUMENT'],
   INITIAL_STATE.documents,
   actionTypes,
 );
 
 const result = (state = INITIAL_STATE.result, action = {}) => {
   switch (action.type) {
-    case actionTypes.GET_ORDERS_SUCCESS:
+    case actionTypes.FETCH_ORDERS_SUCCESS:
       return action.payload.result;
     default:
       return state;

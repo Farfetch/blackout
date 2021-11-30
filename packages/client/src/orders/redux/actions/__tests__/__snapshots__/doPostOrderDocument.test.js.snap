@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`doPostOrderDocuments() action creator should create the correct actions for when the post order document procedure is successful: post order document success payload 1`] = `
-Object {
-  "type": "@farfetch/blackout-client/POST_ORDER_DOCUMENT_SUCCESS",
-}
-`;

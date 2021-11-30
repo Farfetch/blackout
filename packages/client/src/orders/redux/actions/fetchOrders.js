@@ -1,13 +1,13 @@
 import {
-  GET_ORDERS_FAILURE,
-  GET_ORDERS_REQUEST,
-  GET_ORDERS_SUCCESS,
+  FETCH_ORDERS_FAILURE,
+  FETCH_ORDERS_REQUEST,
+  FETCH_ORDERS_SUCCESS,
 } from '../actionTypes';
 import { normalize } from 'normalizr';
 import order from '../../../entities/schemas/order';
 
 /**
- * @callback GetOrdersThunkFactory
+ * @callback FetchOrdersThunkFactory
  * @param {number} userId - Identifier of the user.
  * @param {object} query - Pagination information. Possible values: "page", "pageSize".
  * @param {object} [config] - Custom configurations to send to the client
@@ -17,35 +17,36 @@ import order from '../../../entities/schemas/order';
  */
 
 /**
- * Get orders.
+ * Fetches orders.
  *
- * @function doGetOrders
+ * @function fetchOrders
  * @memberof module:orders/actions
  *
  * @param {Function} getOrders - Get orders client.
  *
- * @returns {GetOrdersThunkFactory} Thunk factory.
+ * @returns {FetchOrdersThunkFactory} Thunk factory.
  */
 export default getOrders => (userId, query, config) => async dispatch => {
   dispatch({
-    type: GET_ORDERS_REQUEST,
+    type: FETCH_ORDERS_REQUEST,
   });
 
   try {
     const result = await getOrders({ userId, query }, config);
-
     const normalizedOrders = normalize(result, {
       entries: [order],
     });
 
     dispatch({
       payload: normalizedOrders,
-      type: GET_ORDERS_SUCCESS,
+      type: FETCH_ORDERS_SUCCESS,
     });
+
+    return result;
   } catch (error) {
     dispatch({
       payload: { error },
-      type: GET_ORDERS_FAILURE,
+      type: FETCH_ORDERS_FAILURE,
     });
 
     throw error;

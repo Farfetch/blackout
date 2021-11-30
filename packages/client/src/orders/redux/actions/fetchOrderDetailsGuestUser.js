@@ -1,13 +1,13 @@
 import {
-  GET_ORDER_DETAILS_FAILURE,
-  GET_ORDER_DETAILS_REQUEST,
-  GET_ORDER_DETAILS_SUCCESS,
+  FETCH_ORDER_DETAILS_FAILURE,
+  FETCH_ORDER_DETAILS_REQUEST,
+  FETCH_ORDER_DETAILS_SUCCESS,
 } from '../actionTypes';
 import { normalize } from 'normalizr';
 import orderItem from '../../../entities/schemas/orderItem';
 
 /**
- * @callback GetOrderDetailsGuestUserThunkFactory
+ * @callback FetchOrderDetailsGuestUserThunkFactory
  * @param {string} orderId - The order id to get details from.
  * @param {string} guestUserEmail - The guest user e-mail to get details from.
  * @param {object} [config] - Custom configurations to send to the client
@@ -17,21 +17,21 @@ import orderItem from '../../../entities/schemas/orderItem';
  */
 
 /**
- * Get order details for a guest user.
+ * Fetches order details for a guest user.
  *
- * @function doGetOrderDetailsGuestUser
+ * @function fetchOrderDetailsGuestUser
  * @memberof module:orders/actions
  *
  * @param {Function} getGuestOrderDetails - Get guest order details client.
  *
- * @returns {GetOrderDetailsGuestUserThunkFactory} Thunk factory.
+ * @returns {FetchOrderDetailsGuestUserThunkFactory} Thunk factory.
  */
 export default getGuestOrderDetails =>
   (orderId, guestUserEmail, config) =>
   async (dispatch, getState, { getOptions = arg => ({ arg }) }) => {
     dispatch({
       meta: { orderId },
-      type: GET_ORDER_DETAILS_REQUEST,
+      type: FETCH_ORDER_DETAILS_REQUEST,
     });
 
     try {
@@ -54,14 +54,16 @@ export default getGuestOrderDetails =>
             items: [orderItem],
           },
         ),
-        type: GET_ORDER_DETAILS_SUCCESS,
+        type: FETCH_ORDER_DETAILS_SUCCESS,
         guest: true,
       });
+
+      return result;
     } catch (error) {
       dispatch({
         meta: { orderId },
         payload: { error },
-        type: GET_ORDER_DETAILS_FAILURE,
+        type: FETCH_ORDER_DETAILS_FAILURE,
       });
 
       throw error;

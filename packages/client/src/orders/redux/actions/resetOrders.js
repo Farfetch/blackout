@@ -3,7 +3,7 @@ import { RESET_ORDERS } from '../actionTypes';
 /**
  * Reset state to its initial value.
  *
- * @function doResetOrders
+ * @function resetOrders
  * @memberof module:orders/actions
  *
  * @returns {Function} - Thunk.

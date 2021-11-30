@@ -6,12 +6,12 @@
  * @subcategory Actions
  */
 
-export { default as doGetOrderDetails } from './doGetOrderDetails';
-export { default as doGetOrderDetailsGuestUser } from './doGetOrderDetailsGuestUser';
-export { default as doGetOrderDocument } from './doGetOrderDocument';
-export { default as doGetOrderDocuments } from './doGetOrderDocuments';
-export { default as doGetOrderReturnOptions } from './doGetOrderReturnOptions';
-export { default as doGetOrders } from './doGetOrders';
-export { default as doGetTracking } from './doGetTracking';
-export { default as doPostOrderDocument } from './doPostOrderDocument';
-export { default as doResetOrders } from './doResetOrders';
+export { default as addOrderDocument } from './addOrderDocument';
+export { default as fetchOrderDetails } from './fetchOrderDetails';
+export { default as fetchOrderDetailsGuestUser } from './fetchOrderDetailsGuestUser';
+export { default as fetchOrderDocument } from './fetchOrderDocument';
+export { default as fetchOrderDocuments } from './fetchOrderDocuments';
+export { default as fetchOrderReturnOptions } from './fetchOrderReturnOptions';
+export { default as fetchOrders } from './fetchOrders';
+export { default as fetchTrackings } from './fetchTrackings';
+export { default as resetOrders } from './resetOrders';

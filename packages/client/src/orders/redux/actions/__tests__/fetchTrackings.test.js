@@ -3,9 +3,8 @@ import {
   expectedTrackingNormalizedPayload,
   mockTrackingResponse,
 } from '../../__fixtures__/orders.fixtures';
+import { fetchTrackings } from '../';
 import { mockStore } from '../../../../../tests';
-import doGetTracking from '../doGetTracking';
-import find from 'lodash/find';
 import reducer, { actionTypes } from '../../';
 import thunk from 'redux-thunk';
 
@@ -16,14 +15,13 @@ const mockMiddlewares = [
 ];
 const ordersMockStore = (state = {}) =>
   mockStore({ orders: reducer() }, state, mockMiddlewares);
-
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
 let store;
 
-describe('doGetTracking() action creator', () => {
+describe('fetchTrackings() action creator', () => {
   const getTrackings = jest.fn();
-  const action = doGetTracking(getTrackings);
+  const action = fetchTrackings(getTrackings);
   const trackingNumbers = '1';
 
   beforeEach(() => {
@@ -31,54 +29,48 @@ describe('doGetTracking() action creator', () => {
     store = ordersMockStore();
   });
 
-  it('should create the correct actions for when the get tracking procedure fails', async () => {
+  it('should create the correct actions for when the fetch trackings procedure fails', async () => {
     const expectedError = new Error('get tracking error');
 
     getTrackings.mockRejectedValueOnce(expectedError);
+
     expect.assertions(4);
 
-    try {
-      await store.dispatch(action(trackingNumbers));
-    } catch (error) {
+    await store.dispatch(action(trackingNumbers)).catch(error => {
       expect(error).toBe(expectedError);
       expect(getTrackings).toHaveBeenCalledTimes(1);
       expect(getTrackings).toHaveBeenCalledWith(
         trackingNumbers,
         expectedConfig,
       );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.GET_TRACKINGS_REQUEST },
-          {
-            type: actionTypes.GET_TRACKINGS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    }
+      expect(store.getActions()).toEqual([
+        { type: actionTypes.FETCH_TRACKINGS_REQUEST },
+        {
+          payload: { error: expectedError },
+          type: actionTypes.FETCH_TRACKINGS_FAILURE,
+        },
+      ]);
+    });
   });
 
-  it('should create the correct actions for when the get tracking procedure is successful', async () => {
+  it('should create the correct actions for when the fetch trackings procedure is successful', async () => {
     getTrackings.mockResolvedValueOnce(mockTrackingResponse);
-    await store.dispatch(action(trackingNumbers));
 
-    const actionResults = store.getActions();
+    expect.assertions(5);
+
+    await store.dispatch(action(trackingNumbers)).then(clientResult => {
+      expect(clientResult).toEqual(mockTrackingResponse);
+    });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getTrackings).toHaveBeenCalledTimes(1);
     expect(getTrackings).toHaveBeenCalledWith(trackingNumbers, expectedConfig);
-
-    expect(actionResults).toMatchObject([
-      { type: actionTypes.GET_TRACKINGS_REQUEST },
+    expect(store.getActions()).toMatchObject([
+      { type: actionTypes.FETCH_TRACKINGS_REQUEST },
       {
-        type: actionTypes.GET_TRACKINGS_SUCCESS,
         payload: expectedTrackingNormalizedPayload,
+        type: actionTypes.FETCH_TRACKINGS_SUCCESS,
       },
     ]);
-    expect(
-      find(actionResults, {
-        type: actionTypes.GET_TRACKINGS_SUCCESS,
-      }),
-    ).toMatchSnapshot('get tracking success payload');
   });
 });

@@ -1,13 +1,13 @@
 import {
-  GET_TRACKINGS_FAILURE,
-  GET_TRACKINGS_REQUEST,
-  GET_TRACKINGS_SUCCESS,
+  FETCH_TRACKINGS_FAILURE,
+  FETCH_TRACKINGS_REQUEST,
+  FETCH_TRACKINGS_SUCCESS,
 } from '../actionTypes';
 import { normalize } from 'normalizr';
 import labelTracking from '../../../entities/schemas/labelTracking';
 
 /**
- * @callback GetTrackingThunkFactory
+ * @callback FetchTrackingsThunkFactory
  * @param {Array} trackingNumbers - Array containing all the tracking numbers.
  * @param {object} [config] - Custom configurations to send to the client
  * instance (axios).
@@ -16,18 +16,18 @@ import labelTracking from '../../../entities/schemas/labelTracking';
  */
 
 /**
- * Get all tracking events for the tracking numbers.
+ * Fetch all tracking events for the tracking numbers.
  *
- * @function doGetTracking
+ * @function fetchTrackings
  * @memberof module:orders/actions
  *
  * @param {Function} getTrackings - Get trackings client.
  *
- * @returns {GetTrackingThunkFactory} Thunk factory.
+ * @returns {FetchTrackingsThunkFactory} Thunk factory.
  */
 export default getTrackings => (trackingNumbers, config) => async dispatch => {
   dispatch({
-    type: GET_TRACKINGS_REQUEST,
+    type: FETCH_TRACKINGS_REQUEST,
   });
 
   try {
@@ -37,12 +37,14 @@ export default getTrackings => (trackingNumbers, config) => async dispatch => {
       payload: normalize(result, {
         entries: [{ labelTrackings: [labelTracking] }],
       }),
-      type: GET_TRACKINGS_SUCCESS,
+      type: FETCH_TRACKINGS_SUCCESS,
     });
+
+    return result;
   } catch (error) {
     dispatch({
       payload: { error },
-      type: GET_TRACKINGS_FAILURE,
+      type: FETCH_TRACKINGS_FAILURE,
     });
 
     throw error;

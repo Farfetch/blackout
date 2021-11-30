@@ -1,13 +1,13 @@
 import {
-  GET_ORDER_DOCUMENT_FAILURE,
-  GET_ORDER_DOCUMENT_REQUEST,
-  GET_ORDER_DOCUMENT_SUCCESS,
+  FETCH_ORDER_DOCUMENT_FAILURE,
+  FETCH_ORDER_DOCUMENT_REQUEST,
+  FETCH_ORDER_DOCUMENT_SUCCESS,
 } from '../actionTypes';
 
 /**
- * @callback GetOrderDocumentThunkFactory
+ * @callback FetchOrderDocumentThunkFactory
  * @param {object} props - Props object.
- * @param {string} props.orderId - The order identifierto get the document from.
+ * @param {string} props.orderId - The order identifier to get the document from.
  * @param {string} props.fileId - The identifier of the document.
  * @param {object} [config] - Custom configurations to send to the client
  * instance (axios).
@@ -18,32 +18,32 @@ import {
 /**
  * Action responsible for fetching a specific document of a certain order.
  *
- * @function doGetOrderDocument
+ * @function fetchOrderDocument
  * @memberof module:orders/actions
  *
  * @param {Function} getOrderDocument - Get order document client.
  *
- * @returns {GetOrderDocumentThunkFactory} Thunk factory.
+ * @returns {FetchOrderDocumentThunkFactory} Thunk factory.
  */
 export default getOrderDocument =>
   ({ orderId, fileId }, config) =>
   async dispatch => {
     dispatch({
-      type: GET_ORDER_DOCUMENT_REQUEST,
+      type: FETCH_ORDER_DOCUMENT_REQUEST,
     });
 
     try {
       const result = await getOrderDocument({ orderId, fileId }, config);
 
       dispatch({
-        type: GET_ORDER_DOCUMENT_SUCCESS,
+        type: FETCH_ORDER_DOCUMENT_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error },
-        type: GET_ORDER_DOCUMENT_FAILURE,
+        type: FETCH_ORDER_DOCUMENT_FAILURE,
       });
 
       throw error;

@@ -1,13 +1,13 @@
 import {
-  POST_ORDER_DOCUMENT_FAILURE,
-  POST_ORDER_DOCUMENT_REQUEST,
-  POST_ORDER_DOCUMENT_SUCCESS,
+  ADD_ORDER_DOCUMENT_FAILURE,
+  ADD_ORDER_DOCUMENT_REQUEST,
+  ADD_ORDER_DOCUMENT_SUCCESS,
 } from '../actionTypes';
 
 /**
- * @typedef {object} PostOrderDocumentData
+ * @typedef {object} AddOrderDocumentData
  *
- * @alias PostOrderDocumentData
+ * @alias AddOrderDocumentData
  * @memberof module:orders/redux
  *
  * @property {string} action - The action to be executed within the request. (Ex: SendToCustomer).
@@ -15,11 +15,11 @@ import {
  */
 
 /**
- * @callback PostOrderDocumentThunkFactory
+ * @callback AddOrderDocumentThunkFactory
  * @param {object} props - Props object.
  * @param {string} props.orderId - The order identifier to get the document from.
  * @param {string} props.fileId - The identifier of the document.
- * @param {PostOrderDocumentData} data
+ * @param {AddOrderDocumentData} data
  * @param {object} [config] - Custom configurations to send to the client
  * instance (axios).
  *
@@ -27,32 +27,34 @@ import {
  */
 
 /**
- * Method responsible for fetching a specific document of a certain order.
+ * Method responsible for adding a specific document of a certain order.
  *
- * @function doPostOrderDocument
+ * @function addOrderDocument
  * @memberof module:orders/actions
  *
  * @param {Function} postOrderDocument - Post orders documents client.
  *
- * @returns {PostOrderDocumentThunkFactory} Thunk factory.
+ * @returns {AddOrderDocumentThunkFactory} Thunk factory.
  */
 export default postOrderDocument =>
   ({ orderId, fileId }, data, config) =>
   async dispatch => {
     dispatch({
-      type: POST_ORDER_DOCUMENT_REQUEST,
+      type: ADD_ORDER_DOCUMENT_REQUEST,
     });
 
     try {
       await postOrderDocument({ orderId, fileId }, data, config);
 
       dispatch({
-        type: POST_ORDER_DOCUMENT_SUCCESS,
+        type: ADD_ORDER_DOCUMENT_SUCCESS,
       });
+
+      return;
     } catch (error) {
       dispatch({
         payload: { error },
-        type: POST_ORDER_DOCUMENT_FAILURE,
+        type: ADD_ORDER_DOCUMENT_FAILURE,
       });
 
       throw error;
