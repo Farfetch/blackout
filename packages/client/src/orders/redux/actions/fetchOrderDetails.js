@@ -1,14 +1,14 @@
 import {
-  GET_ORDER_DETAILS_FAILURE,
-  GET_ORDER_DETAILS_REQUEST,
-  GET_ORDER_DETAILS_SUCCESS,
+  FETCH_ORDER_DETAILS_FAILURE,
+  FETCH_ORDER_DETAILS_REQUEST,
+  FETCH_ORDER_DETAILS_SUCCESS,
 } from '../actionTypes';
 import { normalize } from 'normalizr';
 import orderItem from '../../../entities/schemas/orderItem';
 import trim from 'lodash/trim';
 
 /**
- * @callback GetOrderDetailsThunkFactory
+ * @callback FetchOrderDetailsThunkFactory
  * @param {string} orderId - The order id to get details from.
  * @param {object} [config] - Custom configurations to send to the client
  * instance (axios).
@@ -17,33 +17,32 @@ import trim from 'lodash/trim';
  */
 
 /**
- * Get order details.
+ * Fetches order details.
  *
- * @function doGetOrderDetails
+ * @function fetchOrderDetails
  * @memberof module:orders/actions
  *
  * @param {Function} getOrderDetails - Get order details client.
  *
- * @returns {GetOrderDetailsThunkFactory} Thunk factory.
+ * @returns {FetchOrderDetailsThunkFactory} Thunk factory.
  */
 export default getOrderDetails =>
   (orderId, config) =>
   async (dispatch, getState, { getOptions = arg => ({ arg }) }) => {
     dispatch({
       meta: { orderId },
-      type: GET_ORDER_DETAILS_REQUEST,
+      type: FETCH_ORDER_DETAILS_REQUEST,
     });
 
     try {
       const result = await getOrderDetails(orderId, config);
       const { productImgQueryParam } = getOptions(getState);
-
-      /* This is needed since the Checkout service is merging
-        both Address Line 2 and Address Line 3 not checking correctly if the
-        second is empty, when the user fills the third address line but not
-        the second it adds a space when merging the values and returns it
-        in the second line.
-        This only occurs in the order details not in the address book. */
+      // This is needed since the Farfetch Checkout service is merging
+      // both Address Line 2 and Address Line 3 not checking correctly if the
+      // second is empty, when the user fills the third address line but not
+      // the second it adds a space when merging the values and returns it
+      // in the second line.
+      // This only occurs in the order details not in the address book.
       const normalizedAddressResult = {
         ...result,
         billingAddress: {
@@ -70,14 +69,16 @@ export default getOrderDetails =>
             items: [orderItem],
           },
         ),
-        type: GET_ORDER_DETAILS_SUCCESS,
+        type: FETCH_ORDER_DETAILS_SUCCESS,
         guest: false,
       });
+
+      return normalizedAddressResult;
     } catch (error) {
       dispatch({
         meta: { orderId },
         payload: { error },
-        type: GET_ORDER_DETAILS_FAILURE,
+        type: FETCH_ORDER_DETAILS_FAILURE,
       });
 
       throw error;

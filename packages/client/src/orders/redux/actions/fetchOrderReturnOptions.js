@@ -1,13 +1,13 @@
 import {
-  GET_ORDER_RETURN_OPTIONS_FAILURE,
-  GET_ORDER_RETURN_OPTIONS_REQUEST,
-  GET_ORDER_RETURN_OPTIONS_SUCCESS,
+  FETCH_ORDER_RETURN_OPTIONS_FAILURE,
+  FETCH_ORDER_RETURN_OPTIONS_REQUEST,
+  FETCH_ORDER_RETURN_OPTIONS_SUCCESS,
 } from '../actionTypes';
 import { normalize } from 'normalizr';
 import returnOption from '../../../entities/schemas/returnOption';
 
 /**
- * @callback GetOrderReturnOptionsThunkFactory
+ * @callback FetchOrderReturnOptionsThunkFactory
  * @param {string} orderId - The order id to get details from.
  * @param {object} [config] - Custom configurations to send to the client
  * instance (axios).
@@ -16,19 +16,19 @@ import returnOption from '../../../entities/schemas/returnOption';
  */
 
 /**
- * Get order return options.
+ * Fetches order return options.
  *
- * @function doGetOrderReturnOptions
+ * @function fetchOrderReturnOptions
  * @memberof module:orders/actions
  *
  * @param {Function} getOrderReturnOptions - Get order return options client.
  *
- * @returns {GetOrderReturnOptionsThunkFactory} Thunk factory.
+ * @returns {FetchOrderReturnOptionsThunkFactory} Thunk factory.
  */
 export default getOrderReturnOptions => (orderId, config) => async dispatch => {
   dispatch({
     meta: { orderId },
-    type: GET_ORDER_RETURN_OPTIONS_REQUEST,
+    type: FETCH_ORDER_RETURN_OPTIONS_REQUEST,
   });
 
   try {
@@ -37,13 +37,15 @@ export default getOrderReturnOptions => (orderId, config) => async dispatch => {
     dispatch({
       meta: { orderId },
       payload: normalize(result, [{ options: [returnOption] }]),
-      type: GET_ORDER_RETURN_OPTIONS_SUCCESS,
+      type: FETCH_ORDER_RETURN_OPTIONS_SUCCESS,
     });
+
+    return result;
   } catch (error) {
     dispatch({
       meta: { orderId },
       payload: { error },
-      type: GET_ORDER_RETURN_OPTIONS_FAILURE,
+      type: FETCH_ORDER_RETURN_OPTIONS_FAILURE,
     });
 
     throw error;

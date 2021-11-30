@@ -883,9 +883,11 @@ export const expectedNormalizedPayload = {
               id: merchantId,
               name: 'TOMAS MAIER MADISON',
             },
+            merchantOrderCode: 'PZ1129361393',
             returnAvailable: false,
             returnId: null,
             status: 'Reviewing order',
+            tags: [],
             totalQuantity: 2,
             userId: userId,
           },
@@ -895,9 +897,11 @@ export const expectedNormalizedPayload = {
               id: merchantId2,
               name: 'TOMAS MAIER BLEECKER',
             },
+            merchantOrderCode: 'PZ1128781830',
             returnAvailable: false,
             returnId: null,
             status: 'Reviewing order',
+            tags: [],
             totalQuantity: 1,
             userId: userId,
           },
@@ -1205,33 +1209,43 @@ export const expectedOrderDetailsNormalizedPayload = {
         images: [
           {
             order: 1,
+            size: '200',
             sources: {
               200: 'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099951_200.jpg',
             },
+            url: 'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099951_200.jpg',
           },
           {
             order: 2,
+            size: '200',
             sources: {
               200: 'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099952_200.jpg',
             },
+            url: 'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099952_200.jpg',
           },
           {
             order: 3,
+            size: '200',
             sources: {
               200: 'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099953_200.jpg',
             },
+            url: 'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099953_200.jpg',
           },
           {
             order: 4,
+            size: '200',
             sources: {
               200: 'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099954_200.jpg',
             },
+            url: 'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099954_200.jpg',
           },
           {
             order: 5,
+            size: '200',
             sources: {
               200: 'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099955_200.jpg',
             },
+            url: 'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099955_200.jpg',
           },
         ],
         isCustomizable: false,
@@ -1294,33 +1308,43 @@ export const expectedOrderDetailsNormalizedPayload = {
         images: [
           {
             order: 1,
+            size: '200',
             sources: {
               200: 'https://cdn-images.farfetch.com/12/51/12/41/12511241_11981398_200.jpg',
             },
+            url: 'https://cdn-images.farfetch.com/12/51/12/41/12511241_11981398_200.jpg',
           },
           {
             order: 2,
+            size: '200',
             sources: {
               200: 'https://cdn-images.farfetch.com/12/51/12/41/12511241_11981399_200.jpg',
             },
+            url: 'https://cdn-images.farfetch.com/12/51/12/41/12511241_11981399_200.jpg',
           },
           {
             order: 3,
+            size: '200',
             sources: {
               200: 'https://cdn-images.farfetch.com/12/51/12/41/12511241_11981401_200.jpg',
             },
+            url: 'https://cdn-images.farfetch.com/12/51/12/41/12511241_11981401_200.jpg',
           },
           {
             order: 4,
+            size: '200',
             sources: {
               200: 'https://cdn-images.farfetch.com/12/51/12/41/12511241_11981402_200.jpg',
             },
+            url: 'https://cdn-images.farfetch.com/12/51/12/41/12511241_11981402_200.jpg',
           },
           {
             order: 5,
+            size: '200',
             sources: {
               200: 'https://cdn-images.farfetch.com/12/51/12/41/12511241_11981404_200.jpg',
             },
+            url: 'https://cdn-images.farfetch.com/12/51/12/41/12511241_11981404_200.jpg',
           },
         ],
         isCustomizable: false,
@@ -1383,21 +1407,27 @@ export const expectedOrderDetailsNormalizedPayload = {
         images: [
           {
             order: 1,
+            size: '200',
             sources: {
               200: 'https://cdn-images.farfetch.com/12/09/26/33/12092633_10778720_200.jpg',
             },
+            url: 'https://cdn-images.farfetch.com/12/09/26/33/12092633_10778720_200.jpg',
           },
           {
             order: 2,
+            size: '200',
             sources: {
               200: 'https://cdn-images.farfetch.com/12/09/26/33/12092633_10778718_200.jpg',
             },
+            url: 'https://cdn-images.farfetch.com/12/09/26/33/12092633_10778718_200.jpg',
           },
           {
             order: 3,
+            size: '200',
             sources: {
               200: 'https://cdn-images.farfetch.com/12/09/26/33/12092633_10778716_200.jpg',
             },
+            url: 'https://cdn-images.farfetch.com/12/09/26/33/12092633_10778716_200.jpg',
           },
         ],
         isCustomizable: false,
