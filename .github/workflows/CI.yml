@@ -49,7 +49,7 @@ jobs:
       # This is needed for lerna to commit and push the
       # new version when making a release
       - name: Checkout the source branch in a pull request for lerna
-        if: ${{ github.event_name == 'pull_request' }}
+        if: ${{ github.event_name == 'pull_request' && startsWith(github.head_ref, 'rc/') }}
         run: |
           git checkout "${{ github.head_ref }}"
 
