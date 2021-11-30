@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetCommercePages() action creator should create the correct actions for when the get commerce pages procedure is successful: Get commerce pages payload 1`] = `
+Object {
+  "meta": Object {
+    "query": Object {
+      "brand": 5030844,
+      "category": 136643,
+      "gender": 0,
+      "type": "LISTING",
+    },
+  },
+  "payload": Object {
+    "entities": Object {
+      "contentGroups": Object {
+        "commerce_pages!woman": Object {
+          "hash": "commerce_pages!woman",
+        },
+      },
+    },
+    "hash": "commerce_pages!woman",
+    "result": "commerce_pages!woman",
+  },
+  "type": "@farfetch/blackout-core/GET_COMMERCE_PAGES_SUCCESS",
+}
+`;

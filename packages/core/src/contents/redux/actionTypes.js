@@ -4,6 +4,16 @@
  * @subcategory Actions
  */
 
+/** Action type dispatched when the get commerce pages request fails. */
+export const GET_COMMERCE_PAGES_FAILURE =
+  '@farfetch/blackout-core/GET_COMMERCE_PAGES_FAILURE';
+/** Action type dispatched when the get commerce pages request starts. */
+export const GET_COMMERCE_PAGES_REQUEST =
+  '@farfetch/blackout-core/GET_COMMERCE_PAGES_REQUEST';
+/** Action type dispatched when the get commerce pages request succeeds. */
+export const GET_COMMERCE_PAGES_SUCCESS =
+  '@farfetch/blackout-core/GET_COMMERCE_PAGES_SUCCESS';
+
 /** Action type dispatched when the get contents request fails. */
 export const GET_CONTENT_FAILURE =
   '@farfetch/blackout-core/GET_CONTENT_FAILURE';
