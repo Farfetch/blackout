@@ -8,18 +8,19 @@ import {
   mockSize,
   mockSizePreferedMerchant,
 } from '../__fixtures__/productActions.fixtures';
+import { mockProductAggregatorId } from 'tests/__fixtures__/bags';
 import { shallow } from 'enzyme';
 import React from 'react';
 import withProductActions from '../withProductActions';
 
 const mockProductId = 123;
+const mockBagItems = [{ ...mockBagItem }];
+
 const getShallowTree = props => {
   const Component = withProductActions(() => <div>foo-bar</div>);
 
   return shallow(<Component {...props} />);
 };
-
-const mockBagItems = [{ ...mockBagItem }];
 
 describe('withProductActions HOC', () => {
   beforeEach(jest.clearAllMocks);
@@ -67,6 +68,23 @@ describe('withProductActions HOC', () => {
             quantity: 1,
             scale: mockSizePreferedMerchant.scale,
             size: mockSizePreferedMerchant.id,
+          });
+        });
+
+        it('should add an item to bag with a productAggregatorId', () => {
+          tree.props().onAddBagItem({
+            ...mockData,
+            productAggregatorId: mockProductAggregatorId,
+          });
+
+          expect(addBagItem).toHaveBeenCalledWith({
+            customAttributes: '',
+            merchantId: 10937,
+            productId: mockProduct.id,
+            productAggregatorId: mockProductAggregatorId,
+            quantity: mockQuantity,
+            scale: mockSize.scale,
+            size: mockSize.id,
           });
         });
 

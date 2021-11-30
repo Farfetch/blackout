@@ -51,8 +51,10 @@ export function useBagItem(
   // Function that provides all tenant logic to deal with add,
   // update or add the next merchant available.
   const addOrUpdateItem = async ({
-    size = productSize,
+    productAggregatorId = bagItem.productAggregator.id,
     quantity = bagItem.quantity,
+    size = productSize,
+    ...otherParams
   }) => {
     let quantityToHandle = quantity;
 
@@ -66,8 +68,10 @@ export function useBagItem(
         customAttributes: bagItem?.customAttributes,
         merchantId,
         product: bagItem.product,
+        productAggregatorId,
         quantity: quantityToAdd,
         size,
+        ...otherParams,
       });
       // Checks if the item we want to add is already in bag
       // by comparing the bag items' hash
@@ -125,7 +129,7 @@ export function useBagItem(
         oldQuantity: bagItem.quantity
           ? bagItem.quantity
           : bagItem.product.quantity,
-        oldSize: bagItem.size ? bagItem.size : bagItem.product.size,
+        oldSize: bagItem.size || bagItem.product.size,
       });
       return;
     }

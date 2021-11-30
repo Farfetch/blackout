@@ -2,6 +2,7 @@ import { mockBagId } from './bag.fixtures';
 import { mockMerchantId, mockProduct, mockProductId } from '../products';
 
 export const mockBagItemId = 134;
+export const mockProductAggregatorId = 321;
 
 export const mockBagEntity = {
   id: mockBagId,
@@ -28,6 +29,10 @@ export const mockBagItem = {
   sizeId: 23,
   isAvailable: true,
   product: mockProduct,
+  productAggregator: {
+    bundleSlug: '/slug',
+    id: mockProductAggregatorId,
+  },
 };
 
 export const mockBagItemEntity = {
