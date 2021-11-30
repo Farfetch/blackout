@@ -106,7 +106,7 @@ describe('useBagItem', () => {
 
       await handleAddOrUpdateItem({});
 
-      // This ensures `handleAddOrUpdateItem` is correctly working. It's logic is
+      // This ensures `handleAddOrUpdateItem` is correctly working. Its logic is
       // already extensively tested within `handleQuantityChange` and `handleSizeChange`
       expect(mockDispatch).toHaveBeenCalledTimes(2);
       expect(mockDispatch).toHaveBeenCalledWith({ type: 'update' });
