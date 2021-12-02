@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.115](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.114...@farfetch/blackout-react@1.0.0-next.115) (2021-12-02)
+
+
+### Bug Fixes
+
+* **react:** update handleSize function on the useBagItem function ([854d4f3](https://github.com/Farfetch/blackout/commit/854d4f36e9bb17c35dcf72869727a6bd491a2116))
+
+
+
+
+
 # [1.0.0-next.114](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.113...@farfetch/blackout-react@1.0.0-next.114) (2021-12-02)
 
 **Note:** Version bump only for package @farfetch/blackout-react
