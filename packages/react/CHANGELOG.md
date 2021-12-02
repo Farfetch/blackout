@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.116](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.115...@farfetch/blackout-react@1.0.0-next.116) (2021-12-02)
+
+
+### Features
+
+* **react:** add productAggregatorId to add to bag requests ([a5fac7f](https://github.com/Farfetch/blackout/commit/a5fac7fa7c30a504f872c37f5e6b2d312349097b))
+
+
+
+
+
 # [1.0.0-next.115](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.114...@farfetch/blackout-react@1.0.0-next.115) (2021-12-02)
 
 
