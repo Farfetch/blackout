@@ -165,7 +165,7 @@ export default ({
         shippingMode: shippingMode,
       });
     }
-  }, []);
+  }, [checkoutId, guestEmail, bagId, isGuest]);
 
   const handleGetCollectPoints = async (checkoutId: number) => {
     await fetchCollectPoints({ orderId: checkoutId });
