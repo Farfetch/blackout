@@ -11,6 +11,8 @@ type Params = Partial<{
   customAttributes: CustomAttributesAdapted | string;
   merchantId: MerchantEntity['id'];
   merchant: MerchantEntity['id'];
+  productAggregator: BagItemEntity['productAggregator'];
+  productAggregatorId: Exclude<BagItemEntity['productAggregator'], null>['id'];
   size: BagItemEntity['size'] | number;
   scale: string | number;
 }>;
@@ -30,6 +32,8 @@ const generateBagItemHash = (params: Params): string => {
   let sizeId = params.size;
   let sizeScale = params.scale;
   const customAttributes = params.customAttributes;
+  const productAggregatorId =
+    params.productAggregatorId || params.productAggregator?.id;
 
   if (typeof params.size === 'object') {
     sizeId = params.size.id;
@@ -42,9 +46,9 @@ const generateBagItemHash = (params: Params): string => {
     );
   }
 
-  return `${merchantId}!${productId}!${sizeId}!${sizeScale}!${
-    customAttributes || ''
-  }`;
+  return `${merchantId}!${productId}!${sizeId}!${sizeScale}${
+    customAttributes ? `!${customAttributes}` : ''
+  }${productAggregatorId ? `!${productAggregatorId}` : ''}`;
 };
 
 export default generateBagItemHash;
