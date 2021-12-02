@@ -13,6 +13,7 @@ type BuildBagItemParams = {
   customAttributes?: CustomAttributesAdapted;
   merchantId?: number;
   product: ProductEntity;
+  productAggregatorId?: Exclude<BagItemEntity['productAggregator'], null>['id'];
   quantity?: number;
   size: SizeAdapted | BagItemEntity['size'];
 };
@@ -38,6 +39,7 @@ type BuildBagItem = (arg0: BuildBagItemParams) => {
  * @param {string} [data.customAttributes=''] - Custom attributes.
  * @param {number} [data.merchantId] - Specific merchant id.
  * @param {object} data.product - Product with all information.
+ * @param {number} [data.productAggregatorId] - Product bundle aggregator id.
  * @param {number} [data.quantity=1] - Number of units.
  * @param {object} data.size - Size information.
  *
@@ -48,8 +50,10 @@ const buildBagItem: BuildBagItem = ({
   customAttributes = '',
   merchantId,
   product,
+  productAggregatorId,
   quantity = 1,
   size,
+  ...otherParams
 }) => {
   const sizeHydrated = product.sizes?.find(({ id }) => id === size.id);
 
@@ -58,9 +62,11 @@ const buildBagItem: BuildBagItem = ({
     customAttributes,
     merchantId: merchantId || sizeHydrated?.stock[0]?.merchantId,
     productId: product.id,
+    productAggregatorId,
     quantity,
     scale: size.scale,
     size: size.id,
+    ...otherParams,
   };
 };
 

@@ -1,5 +1,6 @@
 import { generateBagItemHash } from '..';
 import { mockBagItem } from 'tests/__fixtures__/bags';
+import omit from 'lodash/omit';
 
 describe('generateBagItemHash()', () => {
   describe('error handling', () => {
@@ -61,15 +62,32 @@ describe('generateBagItemHash()', () => {
   });
 
   describe('hash creation', () => {
-    const baseHashPattern = `${mockBagItem.merchantId}!${mockBagItem.product.id}!${mockBagItem.sizeId}!${mockBagItem.size.scale}!`;
+    const baseHashPattern = `${mockBagItem.merchantId}!${mockBagItem.product.id}!${mockBagItem.sizeId}!${mockBagItem.size.scale}`;
 
-    it('should create a valid hash when no custom attributes are provided', () => {
-      const {
-        customAttributes, // eslint-disable-line  @typescript-eslint/no-unused-vars
-        ...item
-      } = mockBagItem;
+    it('should create a valid hash when no other parameters are provided', () => {
+      expect(
+        generateBagItemHash(
+          omit(mockBagItem, ['customAttributes', 'productAggregator']),
+        ),
+      ).toBe(baseHashPattern);
+    });
 
-      expect(generateBagItemHash(item)).toBe(baseHashPattern);
+    it('should create a valid hash when `customAttributes` are provided', () => {
+      expect(
+        generateBagItemHash(omit(mockBagItem, ['productAggregator'])),
+      ).toBe(`${baseHashPattern}!${mockBagItem.customAttributes}`);
+    });
+
+    it('should create a valid hash when a `productAggregatorId` is provided', () => {
+      expect(generateBagItemHash(omit(mockBagItem, ['customAttributes']))).toBe(
+        `${baseHashPattern}!${mockBagItem.productAggregator.id}`,
+      );
+    });
+
+    it('should create a valid hash from a valid bag item', () => {
+      expect(generateBagItemHash(mockBagItem)).toBe(
+        `${baseHashPattern}!${mockBagItem.customAttributes}!${mockBagItem.productAggregator.id}`,
+      );
     });
   });
 });
