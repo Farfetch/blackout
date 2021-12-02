@@ -15,13 +15,18 @@ import type {
 import type { Error } from '@farfetch/blackout-client/types';
 
 export type HandleAddOrUpdateItemType = ({
-  product,
   customAttributes,
+  product,
+  productAggregatorId,
   quantity,
   size,
 }: {
-  product?: ProductEntity;
   customAttributes?: CustomAttributesAdapted;
+  product?: ProductEntity;
+  productAggregatorId?: Exclude<
+    BagItemHydrated['productAggregator'],
+    null
+  >['id'];
   quantity?: number;
   size?: SizeAdapted;
 }) => Promise<void>;
