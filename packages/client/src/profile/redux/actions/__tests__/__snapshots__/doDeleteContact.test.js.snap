@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`doDeleteContact action creator should create the correct actions for when the get contact procedure is successful: get contact success payload 1`] = `
-Object {
-  "type": "@farfetch/blackout-client/DELETE_CONTACT_SUCCESS",
-}
-`;

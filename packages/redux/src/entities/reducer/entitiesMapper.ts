@@ -8,8 +8,8 @@ import { entitiesMapper as merchantsLocationsEntitiesMapper } from '../../mercha
 import { entitiesMapper as ordersEntitiesMapper } from '@farfetch/blackout-client/orders/redux';
 import { entitiesMapper as paymentsEntitiesMapper } from '../../payments';
 import { entitiesMapper as productsEntitiesMapper } from '../../products';
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '@farfetch/blackout-client/profile/redux' or it... Remove this comment to see the full error message
-import { entitiesMapper as profileEntitiesMapper } from '@farfetch/blackout-client/profile/redux';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '../../users' or it... Remove this comment to see the full error message
+import { entitiesMapper as usersEntitiesMapper } from '../../users';
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '@farfetch/blackout-client/returns/redux' or it... Remove this comment to see the full error message
 import { entitiesMapper as returnsEntitiesMapper } from '@farfetch/blackout-client/returns/redux';
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module '../.... Remove this comment to see the full error message
@@ -43,7 +43,7 @@ export const defaultMappers = {
   orders: ordersEntitiesMapper,
   payments: paymentsEntitiesMapper,
   products: productsEntitiesMapper,
-  profile: profileEntitiesMapper,
+  users: usersEntitiesMapper,
   returns: returnsEntitiesMapper,
   subscriptions: subscriptionsEntitiesMapper,
   wishlist: wishlistEntitiesMapper,
@@ -59,7 +59,7 @@ const entitiesMapper: EntitiesMapper = ({ ...extraMappers }) =>
     ...ordersEntitiesMapper,
     ...paymentsEntitiesMapper,
     ...productsEntitiesMapper,
-    ...profileEntitiesMapper,
+    ...usersEntitiesMapper,
     ...returnsEntitiesMapper,
     ...subscriptionsEntitiesMapper,
     ...wishlistEntitiesMapper,

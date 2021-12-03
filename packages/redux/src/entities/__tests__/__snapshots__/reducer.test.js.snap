@@ -55,14 +55,6 @@ Object {
     "@farfetch/blackout-redux/RESET_PRODUCTS_LISTS_ENTITIES": [Function],
     "@farfetch/blackout-redux/RESET_PRODUCT_DETAILS_ENTITIES": [Function],
   },
-  "profile": Object {
-    "@farfetch/blackout-client/GET_BENEFITS_SUCCESS": [Function],
-    "@farfetch/blackout-client/GET_CONTACTS_SUCCESS": [Function],
-    "@farfetch/blackout-client/GET_CREDIT_MOVEMENTS_SUCCESS": [Function],
-    "@farfetch/blackout-client/GET_CREDIT_SUCCESS": [Function],
-    "@farfetch/blackout-client/GET_PREFERENCES_SUCCESS": [Function],
-    "@farfetch/blackout-client/UPDATE_PREFERENCES_SUCCESS": [Function],
-  },
   "returns": Object {
     "@farfetch/blackout-client/GET_PICKUP_CAPABILITIES_SUCCESS": [Function],
     "@farfetch/blackout-client/RESET_RETURN": [Function],
@@ -71,6 +63,14 @@ Object {
   "subscriptions": Object {
     "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
     "@farfetch/blackout-redux/RESET_SUBSCRIPTIONS": [Function],
+  },
+  "users": Object {
+    "@farfetch/blackout-client/FETCH_BENEFITS_SUCCESS": [Function],
+    "@farfetch/blackout-client/FETCH_CONTACTS_SUCCESS": [Function],
+    "@farfetch/blackout-client/FETCH_CREDIT_MOVEMENTS_SUCCESS": [Function],
+    "@farfetch/blackout-client/FETCH_CREDIT_SUCCESS": [Function],
+    "@farfetch/blackout-client/FETCH_PREFERENCES_SUCCESS": [Function],
+    "@farfetch/blackout-client/UPDATE_PREFERENCES_SUCCESS": [Function],
   },
   "wishlist": Object {
     "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],

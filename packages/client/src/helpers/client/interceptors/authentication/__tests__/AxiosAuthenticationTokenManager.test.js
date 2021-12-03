@@ -2,7 +2,7 @@ import {
   defaultAuthorizationHeaderFormatter,
   getDefaultTokenDataSerializer,
 } from '../defaults';
-import { getProfile } from '../../../../../profile/client';
+import { getUser } from '../../../../../users/';
 import { DEFAULT_STORAGE_KEY as GuestTokenDefaultStorageKey } from '../token-providers/GuestTokenProvider';
 import {
   MisconfiguredTokenProviderError,
@@ -126,7 +126,7 @@ describe('AxiosAuthenticationTokenManager', () => {
           status: 200,
         });
 
-        await getProfile();
+        await getUser();
 
         expect(mockGuestTokenRequester).toHaveBeenCalledWith(
           { guestUserId: null },
@@ -138,7 +138,7 @@ describe('AxiosAuthenticationTokenManager', () => {
 
         jest.clearAllMocks();
 
-        await getProfile();
+        await getUser();
 
         expect(mockGuestTokenRequester).not.toHaveBeenCalled();
       });
@@ -160,7 +160,7 @@ describe('AxiosAuthenticationTokenManager', () => {
           });
         });
 
-        await getProfile();
+        await getUser();
 
         expect(mockGuestTokenRequester).toHaveBeenCalledWith(
           { guestUserId: null },
@@ -172,7 +172,7 @@ describe('AxiosAuthenticationTokenManager', () => {
 
         jest.clearAllMocks();
 
-        await getProfile();
+        await getUser();
 
         expect(mockGuestTokenRequester).toHaveBeenCalledWith(
           {
@@ -204,10 +204,10 @@ describe('AxiosAuthenticationTokenManager', () => {
           return mockGuestTokenRequesterPromise;
         });
 
-        // Make concurrent requests to getProfile that will
+        // Make concurrent requests to getUser that will
         // require a new access token.
-        const firstGetProfilePromise = getProfile();
-        const secondGetProfilePromise = getProfile();
+        const firstGetUserPromise = getUser();
+        const secondGetUserPromise = getUser();
 
         // Resolve the guest access token requester promise
         mockGuestTokenRequesterPromiseResolve({
@@ -216,7 +216,7 @@ describe('AxiosAuthenticationTokenManager', () => {
         });
 
         // Await the requests
-        await Promise.all([firstGetProfilePromise, secondGetProfilePromise]);
+        await Promise.all([firstGetUserPromise, secondGetUserPromise]);
 
         // Guest token requester should only be invoked one time.
         expect(mockGuestTokenRequester).toHaveBeenCalledTimes(1);
@@ -248,7 +248,7 @@ describe('AxiosAuthenticationTokenManager', () => {
           { status: 200, response: { id: 10000, isGuest: true } },
         );
 
-        await getProfile();
+        await getUser();
 
         expect(mockGuestTokenRequester).toHaveBeenCalledTimes(2);
       });
@@ -267,7 +267,7 @@ describe('AxiosAuthenticationTokenManager', () => {
         expect.assertions(2);
 
         try {
-          await getProfile();
+          await getUser();
         } catch (e) {
           expect(e).toBeInstanceOf(RefreshGuestUserAccessTokenError);
         }
@@ -286,7 +286,7 @@ describe('AxiosAuthenticationTokenManager', () => {
         expect.assertions(3);
 
         try {
-          await getProfile();
+          await getUser();
         } catch (e) {
           expect(e).toBeInstanceOf(Error);
           expect(e.response.status).toBe(500);
@@ -323,7 +323,7 @@ describe('AxiosAuthenticationTokenManager', () => {
         expect.assertions(3);
 
         try {
-          await getProfile();
+          await getUser();
         } catch (e) {
           expect(e).toBeInstanceOf(Error);
           expect(e.response.status).toBe(401);
@@ -373,7 +373,7 @@ describe('AxiosAuthenticationTokenManager', () => {
           status: 200,
         });
 
-        await getProfile();
+        await getUser();
 
         expect(mockUserTokenRequester).toHaveBeenCalledTimes(1);
 
@@ -421,10 +421,10 @@ describe('AxiosAuthenticationTokenManager', () => {
           return mockUserTokenRequesterPromise;
         });
 
-        // Make concurrent requests to getProfile that will
+        // Make concurrent requests to getUser that will
         // require a new access token.
-        const firstGetProfilePromise = getProfile();
-        const secondGetProfilePromise = getProfile();
+        const firstGetUserPromise = getUser();
+        const secondGetUserPromise = getUser();
 
         // Resolve the guest access token requester promise
         mockUserTokenRequesterPromiseResolve({
@@ -434,7 +434,7 @@ describe('AxiosAuthenticationTokenManager', () => {
         });
 
         // Await the requests
-        await Promise.all([firstGetProfilePromise, secondGetProfilePromise]);
+        await Promise.all([firstGetUserPromise, secondGetUserPromise]);
 
         // User token requester should only be invoked one time.
         expect(mockUserTokenRequester).toHaveBeenCalledTimes(1);
@@ -488,7 +488,7 @@ describe('AxiosAuthenticationTokenManager', () => {
         expect.assertions(4);
 
         try {
-          await getProfile();
+          await getUser();
         } catch (e) {
           expect(e).toBeInstanceOf(UserSessionExpiredError);
         }
@@ -523,7 +523,7 @@ describe('AxiosAuthenticationTokenManager', () => {
         expect.assertions(4);
 
         try {
-          await getProfile();
+          await getUser();
         } catch (e) {
           expect(e).toBeInstanceOf(RefreshUserAccessTokenError);
         }
@@ -546,7 +546,7 @@ describe('AxiosAuthenticationTokenManager', () => {
         expect.assertions(4);
 
         try {
-          await getProfile();
+          await getUser();
         } catch (e) {
           expect(e).toBeInstanceOf(Error);
           expect(e.response.status).toBe(500);
@@ -572,7 +572,7 @@ describe('AxiosAuthenticationTokenManager', () => {
         expect.assertions(4);
 
         try {
-          await getProfile();
+          await getUser();
         } catch (e) {
           expect(e).toBeInstanceOf(Error);
           expect(e.response.status).toBe(401);
@@ -591,11 +591,11 @@ describe('AxiosAuthenticationTokenManager', () => {
 
       expect.assertions(1);
 
-      expect(getProfile()).rejects.toThrow(TokenManagerNotLoadedException);
+      expect(getUser()).rejects.toThrow(TokenManagerNotLoadedException);
     });
 
     it('should wait for the load promise completion when a request is performed while token manager is loading', async () => {
-      const mockGetProfileResponse = {
+      const mockGetUserResponse = {
         id: 10000,
         isGuest: false,
       };
@@ -642,20 +642,20 @@ describe('AxiosAuthenticationTokenManager', () => {
 
       moxios.stubRequest('/api/account/v1/users/me', {
         method: 'get',
-        response: mockGetProfileResponse,
+        response: mockGetUserResponse,
         status: 200,
       });
 
-      const getProfilePromise = getProfile();
+      const getUserPromise = getUser();
 
       jest.advanceTimersByTime(2000);
 
-      const result = await getProfilePromise;
+      const result = await getUserPromise;
 
       expect(tokenManagerInstance.isLoading).toBe(false);
       expect(tokenManagerInstance.isLoaded).toBe(true);
 
-      expect(result).toEqual(expect.objectContaining(mockGetProfileResponse));
+      expect(result).toEqual(expect.objectContaining(mockGetUserResponse));
     });
 
     it('should not create new promises when calling .load() if token manager is still loading', async () => {
@@ -712,7 +712,7 @@ describe('AxiosAuthenticationTokenManager', () => {
       expect(tokenManagerInstance.isLoading).toBe(false);
 
       try {
-        await getProfile();
+        await getUser();
       } catch (e) {
         expect(e).toBe(tokenManagerInstance.loadError);
       }
@@ -823,7 +823,7 @@ describe('AxiosAuthenticationTokenManager', () => {
 
       // Disregard the error, we are not interested on it for this test
       try {
-        await getProfile();
+        await getUser();
       } catch {}
 
       expect(listener).toHaveBeenCalledWith({
@@ -1371,9 +1371,9 @@ describe('AxiosAuthenticationTokenManager', () => {
 
   describe('Guest context operations', () => {
     it("should allow to add parameters to create guest token request through 'setGuestTokensContext'", async () => {
-      const mockGetProfileResponse = { id: 10000, isGuest: true };
+      const mockGetUserResponse = { id: 10000, isGuest: true };
 
-      tokenManagerInstance.setUserInfo(mockGetProfileResponse);
+      tokenManagerInstance.setUserInfo(mockGetUserResponse);
 
       const mockGuestTokensContext = {
         context_prop_1: 'context_prop_1',
@@ -1383,7 +1383,7 @@ describe('AxiosAuthenticationTokenManager', () => {
       tokenManagerInstance.setGuestTokensContext(mockGuestTokensContext);
 
       const expectedGuestContext = {
-        guestUserId: mockGetProfileResponse.id,
+        guestUserId: mockGetUserResponse.id,
         ...mockGuestTokensContext,
       };
 
@@ -1393,11 +1393,11 @@ describe('AxiosAuthenticationTokenManager', () => {
 
       moxios.stubRequest('/api/account/v1/users/me', {
         method: 'get',
-        response: mockGetProfileResponse,
+        response: mockGetUserResponse,
         status: 200,
       });
 
-      await getProfile();
+      await getUser();
 
       expect(mockGuestTokenRequester).toHaveBeenCalledWith(
         expectedGuestContext,
@@ -1409,9 +1409,9 @@ describe('AxiosAuthenticationTokenManager', () => {
     });
 
     it("should allow to reset guest tokens context request through 'resetGuestTokensContext'", async () => {
-      const mockGetProfileResponse = { id: 10000, isGuest: true };
+      const mockGetUserResponse = { id: 10000, isGuest: true };
 
-      tokenManagerInstance.setUserInfo(mockGetProfileResponse);
+      tokenManagerInstance.setUserInfo(mockGetUserResponse);
 
       const mockGuestTokensContext = {
         context_prop_1: 'context_prop_1',
@@ -1421,7 +1421,7 @@ describe('AxiosAuthenticationTokenManager', () => {
       tokenManagerInstance.setGuestTokensContext(mockGuestTokensContext);
 
       const expectedGuestContext = {
-        guestUserId: mockGetProfileResponse.id,
+        guestUserId: mockGetUserResponse.id,
         ...mockGuestTokensContext,
       };
 
@@ -1432,20 +1432,20 @@ describe('AxiosAuthenticationTokenManager', () => {
       tokenManagerInstance.resetGuestTokensContext();
 
       expect(tokenManagerInstance.getCurrentGuestTokensContext()).toEqual({
-        guestUserId: mockGetProfileResponse.id,
+        guestUserId: mockGetUserResponse.id,
       });
 
       moxios.stubRequest('/api/account/v1/users/me', {
         method: 'get',
-        response: mockGetProfileResponse,
+        response: mockGetUserResponse,
         status: 200,
       });
 
-      await getProfile();
+      await getUser();
 
       expect(mockGuestTokenRequester).toHaveBeenCalledWith(
         {
-          guestUserId: mockGetProfileResponse.id,
+          guestUserId: mockGetUserResponse.id,
         },
         {
           [AuthenticationConfigOptions.IsGuestUserAccessTokenRequest]: true,
@@ -1520,7 +1520,7 @@ describe('AxiosAuthenticationTokenManager', () => {
         status: 200,
       });
 
-      await getProfile({
+      await getUser({
         [AuthenticationConfigOptions.AccessToken]: mockAccessToken,
         [AuthenticationConfigOptions.UsedAccessTokenCallback]:
           mockUsedAccessTokenCallback,

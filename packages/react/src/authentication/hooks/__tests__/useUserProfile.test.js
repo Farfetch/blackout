@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { cleanup } from '@testing-library/react';
-import { getProfile } from '@farfetch/blackout-client/profile/client';
+import { getUser } from '@farfetch/blackout-client/users';
 import { mockDefaultActiveTokenData } from '../../contexts/__fixtures__/AuthenticationProvider.fixtures';
 import { ProfileChangedError } from '../../errors';
 import AuthenticationProvider from '../../contexts/AuthenticationProvider';
@@ -8,30 +8,30 @@ import React from 'react';
 import UserProfileProvider from '../../contexts/UserProfileProvider';
 import useUserProfile from '../useUserProfile';
 
-const mockUserProfileData = {
+const mockUserData = {
   id: mockDefaultActiveTokenData.data.userId,
 };
 
-let mockGetProfileCommon;
+let mockGetUserCommon;
 
 jest.mock('../../contexts/AuthenticationProvider');
 
-jest.mock('@farfetch/blackout-client/profile/client', () => {
-  if (!mockGetProfileCommon) {
-    mockGetProfileCommon = config => {
+jest.mock('@farfetch/blackout-client/users', () => {
+  if (!mockGetUserCommon) {
+    mockGetUserCommon = config => {
       const usedAccessTokenCallback = config['__usedAccessTokenCallback'];
 
       if (usedAccessTokenCallback) {
         usedAccessTokenCallback(mockDefaultActiveTokenData.data.accessToken);
       }
 
-      return Promise.resolve(mockUserProfileData);
+      return Promise.resolve(mockUserData);
     };
   }
 
   return {
-    ...jest.requireActual('@farfetch/blackout-client/profile/client'),
-    getProfile: jest.fn(mockGetProfileCommon),
+    ...jest.requireActual('@farfetch/blackout-client/users'),
+    getUser: jest.fn(mockGetUserCommon),
   };
 });
 
@@ -78,11 +78,11 @@ describe('useUserProfile', () => {
     });
   });
 
-  it('should _NOT_ call getProfile again if there is a pending loadProfile operation and another call to loadProfile is made again', async () => {
-    getProfile.mockImplementationOnce(config => {
+  it('should _NOT_ call getUser again if there is a pending loadProfile operation and another call to loadProfile is made again', async () => {
+    getUser.mockImplementationOnce(config => {
       return new Promise(resolve => {
         setTimeout(() => {
-          mockGetProfileCommon(config).then(data => resolve(data));
+          mockGetUserCommon(config).then(data => resolve(data));
         }, 10000);
       });
     });
@@ -108,16 +108,16 @@ describe('useUserProfile', () => {
     await act(async () => await loadProfilePromise);
 
     expect(result.current.isLoading).toBe(false);
-    expect(result.current.userData).toBe(mockUserProfileData);
+    expect(result.current.userData).toBe(mockUserData);
 
-    expect(getProfile).toHaveBeenCalledTimes(1);
+    expect(getUser).toHaveBeenCalledTimes(1);
   });
 
   it('should throw an error if getProfile fails', async () => {
     const expectedError = new Error('dummy error');
 
-    getProfile.mockImplementationOnce(config => {
-      return mockGetProfileCommon(config).then(() => {
+    getUser.mockImplementationOnce(config => {
+      return mockGetUserCommon(config).then(() => {
         throw expectedError;
       });
     });
@@ -125,7 +125,7 @@ describe('useUserProfile', () => {
     const { result } = renderHook(() => useUserProfile(), {
       wrapper,
       initialProps: {
-        fetchProfileOnTokenChanges: false,
+        fetchUserOnTokenChanges: false,
       },
     });
 
@@ -146,15 +146,15 @@ describe('useUserProfile', () => {
     expect(result.current.error).toBe(expectedError);
   });
 
-  it('should throw a profile changed error if when the getProfile request returns, the current active access token has changed', async () => {
-    getProfile.mockImplementationOnce(config => {
+  it('should throw a profile changed error if when the getUser request returns, the current active access token has changed', async () => {
+    getUser.mockImplementationOnce(config => {
       const usedAccessTokenCallback = config['__usedAccessTokenCallback'];
 
       if (usedAccessTokenCallback) {
         usedAccessTokenCallback('another_token');
       }
 
-      return Promise.resolve(mockUserProfileData);
+      return Promise.resolve(mockUserData);
     });
 
     const { result } = renderHook(() => useUserProfile(), {

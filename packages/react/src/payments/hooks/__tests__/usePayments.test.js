@@ -10,9 +10,9 @@ import {
   mockInitialState,
   mockLoadingState,
 } from 'tests/__fixtures__/payments';
-import { mockProfileResponse } from 'tests/__fixtures__/profile';
 import { mockResponse } from 'tests/__fixtures__/checkout';
 import { mockStore, wrap } from '../../../../tests/helpers';
+import { mockUsersResponse } from 'tests/__fixtures__/users';
 import { Payments } from './__fixtures__/Payments.fixtures';
 import { Provider } from 'react-redux';
 import { renderHook } from '@testing-library/react-hooks';
@@ -20,7 +20,7 @@ import { usePayments } from '../../';
 import React from 'react';
 
 const order = mockResponse.checkoutOrder;
-const user = mockProfileResponse;
+const user = mockUsersResponse;
 
 jest.mock('@farfetch/blackout-redux/payments', () => ({
   ...jest.requireActual('@farfetch/blackout-redux/payments'),

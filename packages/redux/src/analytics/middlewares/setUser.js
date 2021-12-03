@@ -1,7 +1,7 @@
 import { actionTypes as authenticationActionTypes } from '../../authentication';
 import { getUser, getUserId, USER_ID_PROPERTY } from '../../entities/selectors';
 import { logger } from '@farfetch/blackout-analytics/utils';
-import { actionTypes as profileActionTypes } from '@farfetch/blackout-client/profile/redux';
+import { actionTypes as usersActionTypes } from '@farfetch/blackout-redux/users';
 import Analytics, { eventTypes } from '@farfetch/blackout-analytics';
 import get from 'lodash/get';
 import isPlainObject from 'lodash/isPlainObject';
@@ -9,12 +9,12 @@ import isPlainObject from 'lodash/isPlainObject';
 export const DEFAULT_TRIGGER_SET_USER_ACTION_TYPES = new Set([
   authenticationActionTypes.LOGIN_SUCCESS,
   authenticationActionTypes.REGISTER_SUCCESS,
-  profileActionTypes.GET_PROFILE_SUCCESS,
+  usersActionTypes.FETCH_USER_SUCCESS,
 ]);
 
 export const DEFAULT_TRIGGER_ANONYMIZE_ACTION_TYPES = new Set([
   authenticationActionTypes.LOGOUT_SUCCESS,
-  profileActionTypes.GET_PROFILE_FAILURE,
+  usersActionTypes.FETCH_USER_FAILURE,
 ]);
 
 // Default user traits picker
@@ -25,8 +25,8 @@ const DEFAULT_USER_TRAITS_PICKER = ({ [USER_ID_PROPERTY]: id, ...rest }) =>
 // Paths for the options
 export const OPTION_TRIGGER_SET_USER_ACTIONS = 'triggerSetUserActions';
 export const OPTION_TRIGGER_ANONYMIZE_ACTIONS = 'triggerAnonymizeActions';
-export const OPTION_GET_USER_SELECTOR = 'getUserSelector';
-export const OPTION_GET_USER_ID_SELECTOR = 'getUserIdSelector';
+export const OPTION_FETCH_USER_SELECTOR = 'getUserSelector';
+export const OPTION_FETCH_USER_ID_SELECTOR = 'getUserIdSelector';
 export const OPTION_USER_TRAITS_PICKER = 'userTraitsPicker';
 
 /**
@@ -120,11 +120,15 @@ export default (analyticsInstance, actionTypesOrOptions) => {
     DEFAULT_TRIGGER_ANONYMIZE_ACTION_TYPES,
   );
 
-  const getUserSelector = get(finalOptions, OPTION_GET_USER_SELECTOR, getUser);
+  const getUserSelector = get(
+    finalOptions,
+    OPTION_FETCH_USER_SELECTOR,
+    getUser,
+  );
 
   const getUserIdSelector = get(
     finalOptions,
-    OPTION_GET_USER_ID_SELECTOR,
+    OPTION_FETCH_USER_ID_SELECTOR,
     getUserId,
   );
 
