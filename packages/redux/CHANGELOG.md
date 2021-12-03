@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.148](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.147...@farfetch/blackout-redux@1.0.0-next.148) (2021-12-03)
+
+
+### Bug Fixes
+
+* **redux:** remove entries in server initial state of product/details ([d73b71f](https://github.com/Farfetch/blackout/commit/d73b71fb74de06f5b569b9ab6c893376d8dd1aca))
+
+
+
+
+
 # [1.0.0-next.147](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.146...@farfetch/blackout-redux@1.0.0-next.147) (2021-12-02)
 
 
