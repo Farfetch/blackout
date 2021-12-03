@@ -1,5 +1,5 @@
 import { AuthenticationConfigOptions } from '@farfetch/blackout-client/helpers/client/interceptors/authentication';
-import { getProfile } from '@farfetch/blackout-client/profile/client';
+import { getUser } from '@farfetch/blackout-client/users';
 import { ProfileChangedError } from '../errors';
 import noop from 'lodash/noop';
 import React, {
@@ -13,9 +13,9 @@ import useAuthentication from '../hooks/useAuthentication';
 import UserProfileContext from './UserProfileContext';
 
 const ActionTypes = {
-  GetProfileRequested: 'GET_PROFILE_REQUESTED',
-  GetProfileSucceeded: 'GET_PROFILE_SUCCEEDED',
-  GetProfileFailed: 'GET_PROFILE_FAILED',
+  GetUserRequested: 'FETCH_USER_REQUESTED',
+  GetUserSucceeded: 'FETCH_USER_SUCCEEDED',
+  GetUserFailed: 'FETCH_USER_FAILED',
 };
 
 const initialState = {
@@ -26,7 +26,7 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case ActionTypes.GetProfileRequested: {
+    case ActionTypes.GetUserRequested: {
       return {
         ...state,
         error: null,
@@ -35,7 +35,7 @@ const reducer = (state, action) => {
       };
     }
 
-    case ActionTypes.GetProfileSucceeded: {
+    case ActionTypes.GetUserSucceeded: {
       return {
         ...state,
         isLoading: false,
@@ -43,13 +43,16 @@ const reducer = (state, action) => {
       };
     }
 
-    case ActionTypes.GetProfileFailed: {
+    case ActionTypes.GetUserFailed: {
       return {
         ...state,
         error: action.payload,
         isLoading: false,
       };
     }
+
+    default:
+      return state;
   }
 };
 
@@ -85,7 +88,7 @@ const UserProfileProvider = ({
   const currentLoadProfilePromiseRef = useRef(null);
 
   const loadProfileAux = useCallback(async () => {
-    dispatch({ type: ActionTypes.GetProfileRequested });
+    dispatch({ type: ActionTypes.GetUserRequested });
 
     const usedAccessTokenRef = {};
 
@@ -94,7 +97,7 @@ const UserProfileProvider = ({
     };
 
     try {
-      const userData = await getProfile({
+      const userData = await getUser({
         [AuthenticationConfigOptions.UsedAccessTokenCallback]:
           setAccessTokenRef,
       });
@@ -102,23 +105,23 @@ const UserProfileProvider = ({
       const tokenManagerCurrentActiveToken =
         tokenManager.getActiveToken().data?.accessToken;
 
-      // This is a safe check to ensure that the response obtained from the getProfile
+      // This is a safe check to ensure that the response obtained from the getUser
       // is still valid as there might have been a change on the active token
       // while the request has not returned. This will only happen on very extreme
-      // situations like getProfile taking a huge amount of time and after that a logout/login
+      // situations like getUser taking a huge amount of time and after that a logout/login
       // happens that changes the current active token.
       if (tokenManagerCurrentActiveToken !== usedAccessTokenRef.current) {
         throw new ProfileChangedError();
       }
 
       // HACK: While the guestTokens/tokens endpoints do not return
-      // the userId, we need to use the response from the getProfile
+      // the userId, we need to use the response from the getUser
       // client to associate a userId with a previously obtained token.
       // When these endpoints include this data, we can safely remove this call.
       await tokenManager.setUserInfo(userData);
 
       dispatch({
-        type: ActionTypes.GetProfileSucceeded,
+        type: ActionTypes.GetUserSucceeded,
         payload: userData,
       });
 
@@ -126,7 +129,7 @@ const UserProfileProvider = ({
 
       return userData;
     } catch (error) {
-      dispatch({ type: ActionTypes.GetProfileFailed, payload: error });
+      dispatch({ type: ActionTypes.GetUserFailed, payload: error });
       throw error;
     }
   }, [dispatch, tokenManager]);
@@ -144,7 +147,7 @@ const UserProfileProvider = ({
   }, [loadProfileAux, userProfileState]);
 
   // This useEffect call will check if there is a need to
-  // call getProfile client again to synchronize the user profile data
+  // call getUser client again to synchronize the user data
   // with the currently active access token.
   useEffect(() => {
     // Only check for token changes if the user specified as so

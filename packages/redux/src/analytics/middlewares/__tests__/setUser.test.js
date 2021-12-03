@@ -3,8 +3,8 @@ import { combineReducers } from 'redux';
 import {
   DEFAULT_TRIGGER_ANONYMIZE_ACTION_TYPES,
   DEFAULT_TRIGGER_SET_USER_ACTION_TYPES,
-  OPTION_GET_USER_ID_SELECTOR,
-  OPTION_GET_USER_SELECTOR,
+  OPTION_FETCH_USER_ID_SELECTOR,
+  OPTION_FETCH_USER_SELECTOR,
   OPTION_TRIGGER_ANONYMIZE_ACTIONS,
   OPTION_TRIGGER_SET_USER_ACTIONS,
   OPTION_USER_TRAITS_PICKER,
@@ -14,7 +14,7 @@ import {
   loginMethodParameterTypes,
 } from '@farfetch/blackout-analytics';
 import { getUser, getUserId } from '../../../entities/selectors';
-import { actionTypes as profileActionTypes } from '@farfetch/blackout-client/profile/redux';
+import { actionTypes as usersActionTypes } from '@farfetch/blackout-redux/users';
 import pick from 'lodash/pick';
 import TestStorage from 'test-storage';
 
@@ -274,8 +274,8 @@ describe('setUserMiddleware', () => {
       const traitsToPick = ['isGuest', 'membership'];
 
       const options = {
-        [OPTION_GET_USER_SELECTOR]: jest.fn(getUser),
-        [OPTION_GET_USER_ID_SELECTOR]: jest.fn(getUserId),
+        [OPTION_FETCH_USER_SELECTOR]: jest.fn(getUser),
+        [OPTION_FETCH_USER_ID_SELECTOR]: jest.fn(getUserId),
         [OPTION_TRIGGER_SET_USER_ACTIONS]: triggerSetUserActions,
         [OPTION_TRIGGER_ANONYMIZE_ACTIONS]: triggerAnonymizeActions,
         [OPTION_USER_TRAITS_PICKER]: jest.fn(user => pick(user, traitsToPick)),
@@ -298,8 +298,8 @@ describe('setUserMiddleware', () => {
         pick(loggedInUserInfo, traitsToPick),
       );
 
-      expect(options[OPTION_GET_USER_SELECTOR]).toHaveBeenCalledTimes(1);
-      expect(options[OPTION_GET_USER_ID_SELECTOR]).toHaveBeenCalledTimes(2);
+      expect(options[OPTION_FETCH_USER_SELECTOR]).toHaveBeenCalledTimes(1);
+      expect(options[OPTION_FETCH_USER_ID_SELECTOR]).toHaveBeenCalledTimes(2);
       expect(options[OPTION_USER_TRAITS_PICKER]).toHaveBeenCalledTimes(1);
 
       // Dispatch a default action to trigger a setUser call
@@ -353,8 +353,8 @@ describe('setUserMiddleware', () => {
       const traitsToPick = ['isGuest', 'membership'];
 
       const options = {
-        [OPTION_GET_USER_SELECTOR]: jest.fn(getUser),
-        [OPTION_GET_USER_ID_SELECTOR]: jest.fn(getUserId),
+        [OPTION_FETCH_USER_SELECTOR]: jest.fn(getUser),
+        [OPTION_FETCH_USER_ID_SELECTOR]: jest.fn(getUserId),
         [OPTION_TRIGGER_SET_USER_ACTIONS]: triggerSetUserActions,
         [OPTION_USER_TRAITS_PICKER]: jest.fn(user => pick(user, traitsToPick)),
       };
@@ -380,8 +380,8 @@ describe('setUserMiddleware', () => {
       const traitsToPick = ['isGuest', 'membership'];
 
       const options = {
-        [OPTION_GET_USER_SELECTOR]: jest.fn(getUser),
-        [OPTION_GET_USER_ID_SELECTOR]: jest.fn(getUserId),
+        [OPTION_FETCH_USER_SELECTOR]: jest.fn(getUser),
+        [OPTION_FETCH_USER_ID_SELECTOR]: jest.fn(getUserId),
         [OPTION_TRIGGER_SET_USER_ACTIONS]: triggerSetUserActions,
         [OPTION_TRIGGER_ANONYMIZE_ACTIONS]: triggerAnonymizeActions,
         [OPTION_USER_TRAITS_PICKER]: jest.fn(user => pick(user, traitsToPick)),
@@ -480,7 +480,7 @@ describe('setUserMiddleware', () => {
       // Change the user to a guest now
       await dispatchUserChangingAction(
         store,
-        profileActionTypes.GET_PROFILE_SUCCESS,
+        usersActionTypes.FETCH_USER_SUCCESS,
         guestUserEntity,
       );
 
@@ -498,7 +498,7 @@ describe('setUserMiddleware', () => {
 
       await dispatchUserChangingAction(
         store,
-        profileActionTypes.GET_PROFILE_SUCCESS,
+        usersActionTypes.FETCH_USER_SUCCESS,
         loggedInUserEntity,
         { isLoginAction: false, method: loginMethodParameterTypes.TENANT },
       );

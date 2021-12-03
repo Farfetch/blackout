@@ -9,7 +9,7 @@ const getSelectorSubAreaName = subArea => {
 
 /**
  * Tests all the Loading Selectors for the specified subareas in the 'subAreaNames' parameter.
- * By default the selector to test is prefixed with the string 'is', followed by the <sub_area_name_here>, followed by 'Loading' string.
+ * By default the selector to test is prefixed with the string 'is' or 'are', followed by the <sub_area_name_here>, followed by 'Loading' string.
  * I.e. For a list containing ['Benefits'], the test will verify that the selector isBenefitsLoading correctly obtains the loading state for the benefits subarea.
  *
  * @param {string[]} subAreaNames  Array containing the subareas to test. Example: ['Benefits', 'Preferences'].
@@ -21,8 +21,13 @@ export const assertSubAreasLoadingSelector = (
   subAreaState,
   selectors,
 ) => {
-  it.each(subAreaNames)('should handle is%sLoading selector', subArea => {
-    const selectorName = `is${subArea}Loading`;
+  it.each(subAreaNames)('should handle is|are%sLoading selector', subArea => {
+    const isSelectorName = `is${subArea}Loading`;
+    const areSelectorName = `are${subArea}Loading`;
+    const selectorName = selectors[isSelectorName]
+      ? isSelectorName
+      : areSelectorName;
+
     expect(selectors[selectorName](subAreaState)).toEqual(false);
   });
 };
