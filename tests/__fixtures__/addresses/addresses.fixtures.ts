@@ -281,8 +281,38 @@ export const mockInitialState = {
     error: null,
     isLoading: false,
     result: null,
+    predictions: {
+      result: null,
+      error: null,
+      isLoading: false,
+    },
+    predictionDetails: {
+      result: null,
+      error: null,
+      isLoading: false,
+    },
+    addresses: {
+      error: null,
+      isLoading: false,
+    },
+    address: {
+      error: {},
+      isLoading: {},
+    },
+    addressSchema: {
+      error: null,
+      isLoading: false,
+    },
+    defaultAddressDetails: {
+      error: null,
+      isLoading: false,
+      result: null,
+    },
   },
-  entities: {},
+  entities: {
+    addresses: {},
+    addressSchema: {},
+  },
 };
 
 export const mockLoadingState = {
@@ -308,10 +338,43 @@ export const mockCurrentState = {
     error: null,
     isLoading: false,
     result: expectedGetAddressesNormalizedPayload.result,
+    predictions: {
+      result: null,
+      error: null,
+      isLoading: false,
+    },
+    predictionDetails: {
+      result: null,
+      error: null,
+      isLoading: false,
+    },
+    addresses: {
+      error: null,
+      isLoading: false,
+    },
+    address: {
+      error: {},
+      isLoading: {
+        [addressId2]: false,
+        [addressId3]: false,
+      },
+    },
+    addressSchema: {
+      error: null,
+      isLoading: false,
+    },
+    defaultAddressDetails: {
+      error: null,
+      isLoading: false,
+      result: null,
+    },
   },
   entities: {
     addresses: {
       ...expectedGetAddressesNormalizedPayload['entities'].addresses,
+    },
+    addressSchema: {
+      ...expectedGetAddressSchemaNormalizedPayload['entities'].addressSchema,
     },
   },
 };

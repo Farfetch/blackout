@@ -1,3 +1,5 @@
+export * from './addresses.types';
+export * from './addressSchema.types';
 export * from './bagItem.types';
 export * from './brand.types';
 export * from './category.types';

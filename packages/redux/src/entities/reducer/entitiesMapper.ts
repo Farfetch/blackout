@@ -1,4 +1,3 @@
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '@farfetch/blackout-client/addresses/redux' or ... Remove this comment to see the full error message
 import { entitiesMapper as addressesEntitiesMapper } from '../../addresses';
 import { entitiesMapper as authenticationEntitiesMapper } from '../../authentication';
 import { entitiesMapper as bagEntitiesMapper } from '../../bags';
