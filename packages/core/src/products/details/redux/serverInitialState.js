@@ -75,26 +75,7 @@ export default ({ model, options: { productImgQueryParam } = {} }) => {
 
   return {
     details: {
-      attributes: {
-        error: {},
-        isLoading: {
-          [id]: false,
-        },
-      },
-      colorGrouping: {
-        currentPageIndex: {},
-        error: {},
-        isLoading: {
-          [id]: false,
-        },
-      },
       error: {},
-      fittings: {
-        error: {},
-        isLoading: {
-          [id]: false,
-        },
-      },
       id,
       isHydrated: {
         [id]: true,
@@ -102,42 +83,8 @@ export default ({ model, options: { productImgQueryParam } = {} }) => {
       isLoading: {
         [id]: false,
       },
-      measurements: {
-        error: {},
-        isLoading: {},
-      },
-      merchantsLocations: {
-        error: {},
-        isLoading: {
-          [id]: false,
-        },
-      },
-      recommendedSets: {
-        error: {},
-        isLoading: {
-          [id]: false,
-        },
-      },
-      sets: {
-        error: {},
-        isLoading: {
-          [id]: false,
-        },
-      },
-      sizeguides: {
-        error: {},
-        isLoading: {
-          [id]: false,
-        },
-      },
       sizes: {
         error: {},
-        isLoading: {
-          [id]: false,
-        },
-      },
-      sizeScale: {
-        error: null,
         isLoading: {
           [id]: false,
         },
