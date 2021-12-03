@@ -3,66 +3,13 @@
 exports[`details serverInitialState() should initialize server state 1`] = `
 Object {
   "details": Object {
-    "attributes": Object {
-      "error": Object {},
-      "isLoading": Object {
-        "11766695": false,
-      },
-    },
-    "colorGrouping": Object {
-      "currentPageIndex": Object {},
-      "error": Object {},
-      "isLoading": Object {
-        "11766695": false,
-      },
-    },
     "error": Object {},
-    "fittings": Object {
-      "error": Object {},
-      "isLoading": Object {
-        "11766695": false,
-      },
-    },
     "id": 11766695,
     "isHydrated": Object {
       "11766695": true,
     },
     "isLoading": Object {
       "11766695": false,
-    },
-    "measurements": Object {
-      "error": Object {},
-      "isLoading": Object {},
-    },
-    "merchantsLocations": Object {
-      "error": Object {},
-      "isLoading": Object {
-        "11766695": false,
-      },
-    },
-    "recommendedSets": Object {
-      "error": Object {},
-      "isLoading": Object {
-        "11766695": false,
-      },
-    },
-    "sets": Object {
-      "error": Object {},
-      "isLoading": Object {
-        "11766695": false,
-      },
-    },
-    "sizeScale": Object {
-      "error": null,
-      "isLoading": Object {
-        "11766695": false,
-      },
-    },
-    "sizeguides": Object {
-      "error": Object {},
-      "isLoading": Object {
-        "11766695": false,
-      },
     },
     "sizes": Object {
       "error": Object {},
