@@ -73,22 +73,10 @@ Object {
     },
   },
   "products": Object {
-    "attributes": Object {
-      "error": Object {},
-      "isLoading": Object {},
-    },
-    "colorGrouping": Object {
-      "error": Object {},
-      "isLoading": Object {},
-    },
     "details": Object {
       "error": Object {},
       "id": null,
       "isHydrated": Object {},
-      "isLoading": Object {},
-    },
-    "fittings": Object {
-      "error": Object {},
       "isLoading": Object {},
     },
     "lists": Object {
@@ -101,19 +89,7 @@ Object {
         "listing/woman?pageindex=1&sort=price&sortdirection=asc": false,
       },
     },
-    "measurements": Object {
-      "error": Object {},
-      "isLoading": Object {},
-    },
-    "sizeGuides": Object {
-      "error": Object {},
-      "isLoading": Object {},
-    },
     "sizes": Object {
-      "error": Object {},
-      "isLoading": Object {},
-    },
-    "variantsByMerchantsLocations": Object {
       "error": Object {},
       "isLoading": Object {},
     },
@@ -282,18 +258,6 @@ Object {
     },
   },
   "products": Object {
-    "attributes": Object {
-      "error": Object {},
-      "isLoading": Object {
-        "11766695": false,
-      },
-    },
-    "colorGrouping": Object {
-      "error": Object {},
-      "isLoading": Object {
-        "11766695": false,
-      },
-    },
     "details": Object {
       "error": Object {},
       "id": 11766695,
@@ -304,35 +268,13 @@ Object {
         "11766695": false,
       },
     },
-    "fittings": Object {
-      "error": Object {},
-      "isLoading": Object {
-        "11766695": false,
-      },
-    },
     "lists": Object {
       "error": Object {},
       "hash": null,
       "isHydrated": Object {},
       "isLoading": Object {},
     },
-    "measurements": Object {
-      "error": Object {},
-      "isLoading": Object {},
-    },
-    "sizeGuides": Object {
-      "error": Object {},
-      "isLoading": Object {
-        "11766695": false,
-      },
-    },
     "sizes": Object {
-      "error": Object {},
-      "isLoading": Object {
-        "11766695": false,
-      },
-    },
-    "variantsByMerchantsLocations": Object {
       "error": Object {},
       "isLoading": Object {
         "11766695": false,

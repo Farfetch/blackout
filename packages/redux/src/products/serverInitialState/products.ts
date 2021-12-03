@@ -1,12 +1,6 @@
-import { INITIAL_STATE as ATTRIBUTES_INITIAL_STATE } from '../reducer/attributes';
-import { INITIAL_STATE as COLOR_GROUPING_INITIAL_STATE } from '../reducer/colorGrouping';
 import { INITIAL_STATE as DETAILS_INITIAL_STATE } from '../reducer/details';
-import { INITIAL_STATE as FITTINGS_INITIAL_STATE } from '../reducer/fittings';
-import { INITIAL_STATE as MEASUREMENTS_INITIAL_STATE } from '../reducer/measurements';
 import { normalize } from 'normalizr';
-import { INITIAL_STATE as SIZE_GUIDES_INITIAL_STATE } from '../reducer/sizeGuides';
 import { INITIAL_STATE as SIZES_INITIAL_STATE } from '../reducer/sizes';
-import { INITIAL_STATE as VARIANTS_BY_MERCHANTS_LOCATIONS_INITIAL_STATE } from '../reducer/variantsByMerchantsLocations';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import productSchema from '../../entities/schemas/product';
@@ -32,29 +26,16 @@ const serverInitialState = ({
   model: Model;
   options?: { productImgQueryParam?: string };
 }): {
-  attributes: StoreState['products']['attributes'];
-  colorGrouping: StoreState['products']['colorGrouping'];
   details: StoreState['products']['details'];
   entities?: StoreState['entities'];
-  fittings: StoreState['products']['fittings'];
-  measurements: StoreState['products']['measurements'];
-  sizeGuides: StoreState['products']['sizeGuides'];
   sizes: StoreState['products']['sizes'];
-  variantsByMerchantsLocations: StoreState['products']['variantsByMerchantsLocations'];
 } => {
   // Check if a model object is of a product detail page (type === 'Product')
   // - if not, do nothing
   if (isEmpty(model) || get(model, 'dataLayer.general.type') !== 'Product') {
     return {
-      attributes: ATTRIBUTES_INITIAL_STATE,
-      colorGrouping: COLOR_GROUPING_INITIAL_STATE,
       details: DETAILS_INITIAL_STATE,
-      fittings: FITTINGS_INITIAL_STATE,
-      measurements: MEASUREMENTS_INITIAL_STATE,
-      sizeGuides: SIZE_GUIDES_INITIAL_STATE,
       sizes: SIZES_INITIAL_STATE,
-      variantsByMerchantsLocations:
-        VARIANTS_BY_MERCHANTS_LOCATIONS_INITIAL_STATE,
     };
   }
 
@@ -111,18 +92,6 @@ const serverInitialState = ({
   const { result: id, entities } = normalize(productInfo, productSchema);
 
   return {
-    attributes: {
-      error: {},
-      isLoading: {
-        [id]: false,
-      },
-    },
-    colorGrouping: {
-      error: {},
-      isLoading: {
-        [id]: false,
-      },
-    },
     details: {
       error: {},
       id,
@@ -134,29 +103,7 @@ const serverInitialState = ({
       },
     },
     entities,
-    fittings: {
-      error: {},
-      isLoading: {
-        [id]: false,
-      },
-    },
-    measurements: {
-      error: {},
-      isLoading: {},
-    },
-    sizeGuides: {
-      error: {},
-      isLoading: {
-        [id]: false,
-      },
-    },
     sizes: {
-      error: {},
-      isLoading: {
-        [id]: false,
-      },
-    },
-    variantsByMerchantsLocations: {
       error: {},
       isLoading: {
         [id]: false,

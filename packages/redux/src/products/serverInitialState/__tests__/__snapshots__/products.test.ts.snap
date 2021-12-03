@@ -2,37 +2,13 @@
 
 exports[`products serverInitialState() should initialize server state for a non products related page 1`] = `
 Object {
-  "attributes": Object {
-    "error": Object {},
-    "isLoading": Object {},
-  },
-  "colorGrouping": Object {
-    "error": Object {},
-    "isLoading": Object {},
-  },
   "details": Object {
     "error": Object {},
     "id": null,
     "isHydrated": Object {},
     "isLoading": Object {},
   },
-  "fittings": Object {
-    "error": Object {},
-    "isLoading": Object {},
-  },
-  "measurements": Object {
-    "error": Object {},
-    "isLoading": Object {},
-  },
-  "sizeGuides": Object {
-    "error": Object {},
-    "isLoading": Object {},
-  },
   "sizes": Object {
-    "error": Object {},
-    "isLoading": Object {},
-  },
-  "variantsByMerchantsLocations": Object {
     "error": Object {},
     "isLoading": Object {},
   },
@@ -41,18 +17,6 @@ Object {
 
 exports[`products serverInitialState() should initialize server state for products 1`] = `
 Object {
-  "attributes": Object {
-    "error": Object {},
-    "isLoading": Object {
-      "11766695": false,
-    },
-  },
-  "colorGrouping": Object {
-    "error": Object {},
-    "isLoading": Object {
-      "11766695": false,
-    },
-  },
   "details": Object {
     "error": Object {},
     "id": 11766695,
@@ -221,29 +185,7 @@ Object {
       },
     },
   },
-  "fittings": Object {
-    "error": Object {},
-    "isLoading": Object {
-      "11766695": false,
-    },
-  },
-  "measurements": Object {
-    "error": Object {},
-    "isLoading": Object {},
-  },
-  "sizeGuides": Object {
-    "error": Object {},
-    "isLoading": Object {
-      "11766695": false,
-    },
-  },
   "sizes": Object {
-    "error": Object {},
-    "isLoading": Object {
-      "11766695": false,
-    },
-  },
-  "variantsByMerchantsLocations": Object {
     "error": Object {},
     "isLoading": Object {
       "11766695": false,
