@@ -1,4 +1,6 @@
+import type { Address } from '@farfetch/blackout-client/addresses/types';
 import type {
+  AddressEntity,
   BagItemEntity,
   CheckoutDetailsEntity,
   CheckoutEntity,
@@ -16,6 +18,7 @@ import type {
   WishlistItemEntity,
   WishlistSetEntity,
 } from '../entities/types';
+import type { State as AddressesState } from '../addresses/types';
 import type { State as BagState } from '../bags/types';
 import type { Brand } from '@farfetch/blackout-client/brands/types';
 import type { State as BrandsState } from '../brands/types';
@@ -39,6 +42,7 @@ import type { State as WishlistsState } from '../wishlists/types';
 export type StoreState = {
   // Keep adding/changing here as we migrate chunks
   entities: Partial<{
+    addresses: Record<Address['id'], AddressEntity>;
     bagItems: Record<BagItemEntity['id'], BagItemEntity>;
     brands: Record<Brand['id'], Brand>;
     categories: Record<Category['id'], Category>;
@@ -69,6 +73,7 @@ export type StoreState = {
     [k: string]: any;
     // Keep adding/changing here as we migrate chunks
   }>;
+  addresses: AddressesState;
   bag: BagState;
   brands: BrandsState;
   categories: CategoriesState;
