@@ -14,9 +14,9 @@ import join from 'proper-url-join';
  * @returns {Promise} Promise that will be resolved when the call to the
  * endpoint finishes.
  */
-export default (settingId, config) =>
+export default (testId, config) =>
   client
-    .get(join('/account/v1/settings', settingId), config)
+    .get(join('/account/v1/settings', testId), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);

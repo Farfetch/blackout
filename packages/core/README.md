@@ -2,6 +2,8 @@
 
 Clients to connect to the Farfetch Platform Solutions' services and modules to manage the application data layer and global state.
 
+Amazing readme!
+
 ## Installation
 
 **yarn**
