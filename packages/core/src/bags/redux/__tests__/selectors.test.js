@@ -450,5 +450,24 @@ describe('bags redux selectors', () => {
         }),
       ).toBe(expectedResult);
     });
+
+    it('should return 0 if there is no bag', () => {
+      const mockStateWithoutBag = {
+        ...mockState,
+        bag: {},
+        entities: {
+          ...mockState.entities,
+          bag: {},
+          bagItems: {},
+        },
+      };
+
+      expect(
+        selectors.getItemWholeQuantity(mockStateWithoutBag, {
+          product: { id: mockProductId },
+          size: 1,
+        }),
+      ).toBe(0);
+    });
   });
 });
