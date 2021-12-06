@@ -107,6 +107,31 @@ describe('bags redux selectors', () => {
 
       expect(selectors.getBagItems(mockState)).toEqual(expectedResult);
     });
+
+    it('should return an empty array when there are no bag or bag items', () => {
+      const mockStateWithoutBagItems = {
+        ...mockState,
+        bag: {
+          error: null,
+          id: null,
+          isLoading: false,
+          result: null,
+          items: {
+            ids: null,
+            item: {
+              error: {},
+              isLoading: {},
+            },
+          },
+        },
+        entities: {
+          ...mockState.entities,
+          bagItems: {},
+        },
+      };
+
+      expect(selectors.getBagItems(mockStateWithoutBagItems)).toEqual([]);
+    });
   });
 
   describe('getBagItemsCounter()', () => {
@@ -198,17 +223,17 @@ describe('bags redux selectors', () => {
 
   describe('getBagItemsUnavailable()', () => {
     it('should not return any items if all items are available', () => {
-      expect(selectors.getBagItemsUnavailable(mockState)).toHaveLength(0);
+      expect(selectors.getBagItemsUnavailable(mockState)).toEqual([]);
     });
 
-    it('should return null if there is no bag loaded', () => {
+    it('should return an empty array if there is no bag loaded', () => {
       expect(
         // @ts-expect-error Changing only what's necessary for this test
         selectors.getBagItemsUnavailable({
           bag: fromBag.INITIAL_STATE,
           entities: {},
         }),
-      ).toBeUndefined();
+      ).toEqual([]);
     });
 
     it('should return an empty array if bag items does not exist', () => {
@@ -224,7 +249,7 @@ describe('bags redux selectors', () => {
           },
           entities: {},
         }),
-      ).toHaveLength(0);
+      ).toEqual([]);
     });
 
     it('should return a list with the unavailable items', () => {

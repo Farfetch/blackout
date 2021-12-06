@@ -171,7 +171,7 @@ export const getBagItemsIds = (state: StoreState): BagItemsState['ids'] =>
  *
  * @param {object} state - Application state.
  *
- * @returns {Array|undefined} - List of each bag item entity (with the respective products) from the current user's bag.
+ * @returns {Array} - List of each bag item entity (with the respective products) from the current user's bag.
  *
  * @example
  * import { getBagItems } from '@farfetch/blackout-redux/bags';
@@ -186,7 +186,7 @@ export const getBagItems = createSelector(
     (state: StoreState) => getEntities(state, 'bagItems'),
     (state: StoreState) => getEntities(state, 'products'),
   ],
-  (bagItemsIds, bagItems, products): BagItemHydrated[] | undefined =>
+  (bagItemsIds, bagItems, products): BagItemHydrated[] =>
     bagItemsIds?.reduce<BagItemHydrated[]>((acc, bagItemId) => {
       const bagItem = bagItems?.[bagItemId];
       const productId = bagItem?.product;
@@ -202,7 +202,7 @@ export const getBagItems = createSelector(
       }
 
       return acc;
-    }, []),
+    }, []) || [],
 );
 
 /**
@@ -270,7 +270,7 @@ export const getBagItemsCounter = (
  * });
  */
 export const getBagItemsUnavailable = createSelector([getBagItems], bagItems =>
-  bagItems?.filter(bagItem => !bagItem?.isAvailable),
+  bagItems.filter(bagItem => !bagItem?.isAvailable),
 );
 
 /**
@@ -307,7 +307,7 @@ export const getBagTotalQuantity = (
 ): number => {
   const bagItems = getBagItems(state);
 
-  if (!bagItems || bagItems.length === 0) {
+  if (bagItems.length === 0) {
     return 0;
   }
 
