@@ -356,6 +356,19 @@ export const getBagItemAvailableSizes = createSelector(
 );
 
 /**
+ * @typedef {Function} GetItemInBag
+ *
+ * @alias GetItemInBag
+ *
+ * @param   {object} productParams - Product params needed to this selector.
+ * @param   {object} productParams.product - Product object with its id.
+ * @param   {object} productParams.size - Size selected, with stock and scale.
+ * @param   {object} [productParams.customAttributes] - Custom attributes of the product.
+ *
+ * @returns {object | undefined} - Bag item if it exists, undefined otherwise.
+ */
+
+/**
  * Creates a function responsible for checking if a certain product exists in the bag.
  * This selector uses the `buildBagItem` util, so there are some `productParams`
  * that are optional like `quantity` and `customAttributes`, because in the `buildBagItem`
@@ -364,12 +377,8 @@ export const getBagItemAvailableSizes = createSelector(
  * @function
  *
  * @param   {object} state - Application state.
- * @param   {object} productParams - Product params needed to this selector.
- * @param   {object} productParams.product - Product object with its id.
- * @param   {object} productParams.size - Size selected, with stock and scale.
- * @param   {object} [productParams.customAttributes] - Custom attributes of the product.
  *
- * @returns {Function} - Function that returns an item object in the bag if search had results, undefined otherwise.
+ * @returns {GetItemInBag} - Function that returns an item object in the bag if search had results, undefined otherwise.
  *
  * @example
  * import { createGetItemInBag } from '@farfetch/blackout-core/bags/redux';
@@ -440,7 +449,7 @@ export const getItemWholeQuantity = (state, bagItem) => {
   const productId = bagItem.product.id;
   const bagItems = getBagItems(state);
 
-  const quantity = bagItems.reduce((acc, item) => {
+  const quantity = bagItems?.reduce((acc, item) => {
     if (item.product.id === productId && item.size.id === bagItem.size.id) {
       return acc + item.quantity;
     }
@@ -448,5 +457,5 @@ export const getItemWholeQuantity = (state, bagItem) => {
     return acc;
   }, 0);
 
-  return quantity;
+  return quantity || 0;
 };
