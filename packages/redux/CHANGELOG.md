@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.149](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.148...@farfetch/blackout-redux@1.0.0-next.149) (2021-12-06)
+
+
+### Bug Fixes
+
+* **redux:** make `getBagItems` return empty array ([c339a06](https://github.com/Farfetch/blackout/commit/c339a0601af8be973c6aea526197a7254ed76008))
+
+
+### Features
+
+* **client|redux:** profile - rename API and  client split ([1d74770](https://github.com/Farfetch/blackout/commit/1d7477014b32ef47bc982386e99f8b200cee1a2c))
+
+
+
+
+
 # [1.0.0-next.148](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.147...@farfetch/blackout-redux@1.0.0-next.148) (2021-12-03)
 
 

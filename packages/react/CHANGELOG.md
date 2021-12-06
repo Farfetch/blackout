@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.118](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.117...@farfetch/blackout-react@1.0.0-next.118) (2021-12-06)
+
+
+### Features
+
+* **client|redux:** profile - rename API and  client split ([1d74770](https://github.com/Farfetch/blackout/commit/1d7477014b32ef47bc982386e99f8b200cee1a2c))
+
+
+
+
+
 # [1.0.0-next.117](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.116...@farfetch/blackout-react@1.0.0-next.117) (2021-12-03)
 
 
