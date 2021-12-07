@@ -1,6 +1,5 @@
 import isEqual from 'lodash/isEqual';
 import TokenData from './TokenData';
-import TokenKinds from './TokenKinds';
 
 let TokenListenerIdInternalCount = 0;
 
@@ -83,10 +82,20 @@ class TokenProvider {
    * Gets the kind of tokens that are supported by this
    * provider.
    *
-   * @returns {TokenKinds} The kind of tokens supported.
+   * @throws
    */
   getSupportedTokenKind() {
     throw new TypeError('Not implemented exception');
+  }
+
+  async invalidateCurrentAccessToken() {
+    if (this.tokenData) {
+      const newTokenData = { ...this.tokenData };
+      delete newTokenData.accessToken;
+      await this.setTokenData(newTokenData);
+    }
+
+    return Promise.resolve();
   }
 
   /**
@@ -137,7 +146,7 @@ class TokenProvider {
    *
    * @param {boolean} useCache - If cache should be used or not.
    *
-   * @returns {Promise} Promise that will be resolved with a valid access token to be used.
+   * @throws
    */
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   getAccessToken(useCache) {

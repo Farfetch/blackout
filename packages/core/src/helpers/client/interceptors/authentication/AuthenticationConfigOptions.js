@@ -22,5 +22,24 @@ export default {
   IsClientCredentialsTokenRequest: '__isClientCredentialsTokenRequest',
   // This indicates a callback to be called with the access token used for the request.
   // Can be used to match request responses with the current active token.
+  // This is useful when you do not have access to the axios's config object directly.
   UsedAccessTokenCallback: '__usedAccessTokenCallback',
+  // This indicates that the current request is to get the current user's profile.
+  // Used to set the user id to the current guest/user tokens.
+  IsGetUserProfileRequest: '__isGetUserProfileRequest',
+  // This indicates the access token used in the request.
+  // Useful to query if the request is being done with a guest or authenticated user token.
+  UsedAccessToken: '__usedAccessToken',
+  // This indicates that the current request is a login request.
+  // Used to change the tokens context.
+  IsLoginRequest: '__isLoginRequest',
+  // This indicates that the current request is a logout request.
+  // Used to change the tokens context.
+  IsLogoutRequest: '__isLogoutRequest',
+  // This value is set on the request by the token manager
+  // after it evaluated if the request is supposed to need
+  // authentication or not.
+  NeedsAuthentication: '__needsAuthentication',
+  // This indicates the kind of the used access token for a request.
+  UsedAccessTokenKind: '__usedAccessTokenKind',
 };
