@@ -73,27 +73,38 @@ class GuestTokenProvider extends TokenProvider {
       this.currentGetAccessTokenPromise = this.requester(usedTokenContext, {
         [AuthenticationConfigOptions.NoAuthentication]: true,
         [AuthenticationConfigOptions.IsGuestUserAccessTokenRequest]: true,
-      }).then(async response => {
-        this.currentGetAccessTokenPromise = null;
+      }).then(
+        async response => {
+          this.currentGetAccessTokenPromise = null;
 
-        const responseTokenData = new TokenData(response);
+          const responseTokenData = new TokenData(response);
 
-        if (!responseTokenData.userId && this.userId) {
-          responseTokenData.userId = this.userId;
-        }
+          if (!responseTokenData.userId && this.userId) {
+            responseTokenData.userId = this.userId;
+          }
 
-        // Only set this token as the current if the token context
-        // has not been changed while the request was going on.
-        // If the context has changed, return the retrieved token
-        // for the caller so he can complete the request and return.
-        if (!isEqual(usedTokenContext, this.getTokenContext())) {
-          return responseTokenData.accessToken;
-        }
+          // Only set this token as the current if the token context
+          // has not been changed while the request was going on.
+          // If the context has changed, return the retrieved token
+          // for the caller so he can complete the request and return.
+          if (!isEqual(usedTokenContext, this.getTokenContext())) {
+            return responseTokenData.accessToken;
+          }
 
-        await this.setTokenData(responseTokenData);
+          await this.setTokenData(responseTokenData);
 
-        return this.tokenData.accessToken;
-      });
+          return this.tokenData.accessToken;
+        },
+        error => {
+          // We can only clean the currentGetAccessTokenPromise when it is
+          // an error from the current token context.
+          if (isEqual(usedTokenContext, this.getTokenContext())) {
+            this.currentGetAccessTokenPromise = null;
+          }
+
+          return Promise.reject(error);
+        },
+      );
 
       return this.currentGetAccessTokenPromise;
     }
