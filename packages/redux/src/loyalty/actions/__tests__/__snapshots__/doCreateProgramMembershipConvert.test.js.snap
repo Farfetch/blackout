@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doCreateProgramMembershipConvert() action creator should create the correct actions for when the create program membership convert procedure is successful: create program membership convert success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "converts": Object {
+        "0": Object {
+          "createdDate": "date",
+          "id": 0,
+        },
+      },
+    },
+    "result": 0,
+  },
+  "type": "@farfetch/blackout-redux/POST_PROGRAM_MEMBERSHIP_CONVERT_SUCCESS",
+}
+`;
