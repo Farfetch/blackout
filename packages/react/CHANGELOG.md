@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.120](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.119...@farfetch/blackout-react@1.0.0-next.120) (2021-12-07)
+
+
+### Bug Fixes
+
+* **core|react:** handle guest users expired in authentication provider ([447ed49](https://github.com/Farfetch/blackout/commit/447ed4962b696bf992052424e94f2a211ebc06d9))
+
+
+
+
+
 # [1.0.0-next.119](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.118...@farfetch/blackout-react@1.0.0-next.119) (2021-12-06)
 
 **Note:** Version bump only for package @farfetch/blackout-react
