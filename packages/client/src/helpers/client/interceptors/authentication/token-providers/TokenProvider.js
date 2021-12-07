@@ -89,6 +89,16 @@ class TokenProvider {
     throw new TypeError('Not implemented exception');
   }
 
+  async invalidateCurrentAccessToken() {
+    if (this.tokenData) {
+      const newTokenData = { ...this.tokenData };
+      delete newTokenData.accessToken;
+      await this.setTokenData(newTokenData);
+    }
+
+    return Promise.resolve();
+  }
+
   /**
    * Sets user id with this instance. Will trigger a call to onTokenDataChanged if the passed user id
    * is different than the current one set. This is what will make the association of a previously obtained

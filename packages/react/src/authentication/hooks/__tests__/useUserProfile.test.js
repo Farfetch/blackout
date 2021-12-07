@@ -113,7 +113,7 @@ describe('useUserProfile', () => {
     expect(getUser).toHaveBeenCalledTimes(1);
   });
 
-  it('should throw an error if getProfile fails', async () => {
+  it('should throw an error if getUser fails', async () => {
     const expectedError = new Error('dummy error');
 
     getUser.mockImplementationOnce(config => {

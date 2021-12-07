@@ -31,6 +31,7 @@ export class RefreshUserAccessTokenError extends RefreshAccessTokenError {
 
 export class RefreshClientCredentialsAccessTokenError extends RefreshAccessTokenError {
   constructor(originalError) {
+    /* istanbul ignore next */
     super('Unable to refresh client credentials access token.', originalError);
   }
 }

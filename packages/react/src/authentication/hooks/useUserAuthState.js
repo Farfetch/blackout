@@ -57,13 +57,16 @@ const reducer = (state, action) => {
         },
       };
     }
+
+    default:
+      return state;
   }
 };
 
 /**
  * Helper hook used by AuthenticationProvider to manage user login status.
  *
- * @param {object} params
+ * @param {object} params - Parameters object.
  * @param {object} params.activeTokenData - Active token data kept by AuthenticationProvider.
  * @param {object} params.tokenManager - Active instance of axios token manager used by AuthenticationProvider.
  * @returns {object} An object containing the user login status state and login/logout functions.
@@ -92,13 +95,15 @@ const useUserAuthState = ({ activeTokenData, tokenManager }) => {
 
         const { rememberMe = false, ...loginData } = data;
 
+        tokenManager.setRememberMe(rememberMe);
+
         const tokenData = await postTokens(
           { grantType: 'password', ...loginData },
-          { [AuthenticationConfigOptions.NoAuthentication]: true },
+          {
+            [AuthenticationConfigOptions.IsLoginRequest]: true,
+            [AuthenticationConfigOptions.NoAuthentication]: true,
+          },
         );
-
-        tokenManager.setRememberMe(rememberMe);
-        await tokenManager.setUserTokenData({ ...tokenData }, true);
 
         dispatch({ type: ActionTypes.LoginSucceeded });
 
@@ -108,7 +113,7 @@ const useUserAuthState = ({ activeTokenData, tokenManager }) => {
         throw e;
       }
     },
-    [assertNotLoading, dispatch, state, tokenManager],
+    [assertNotLoading, dispatch, tokenManager],
   );
 
   const logout = useCallback(async () => {
@@ -127,20 +132,9 @@ const useUserAuthState = ({ activeTokenData, tokenManager }) => {
         throw new NotLoggedInError();
       }
 
-      try {
-        await deleteTokens(currentAccessToken);
-      } catch (e) {
-        // The token does not exist anymore, so the user has effectively been
-        // logged out. For now, the server returns for this case a 400 status
-        // with a 17 code, but there is a possibility that this will be changed
-        // to a 404 code, so check both cases for now and assume it is an error
-        // only when the error is not one of these cases.
-        if ((e.status !== 400 || e.code !== '17') && e.status !== 404) {
-          throw e;
-        }
-      }
-
-      tokenManager.selectGuestTokenProvider();
+      await deleteTokens(currentAccessToken, {
+        [AuthenticationConfigOptions.IsLogoutRequest]: true,
+      });
 
       dispatch({ type: ActionTypes.LogoutSucceeded });
     } catch (e) {

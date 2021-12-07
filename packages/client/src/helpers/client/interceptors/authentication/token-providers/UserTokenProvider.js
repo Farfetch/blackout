@@ -73,19 +73,27 @@ class UserTokenProvider extends TokenProvider {
           [AuthenticationConfigOptions.NoAuthentication]: true,
           [AuthenticationConfigOptions.IsUserRefreshTokenRequest]: true,
         },
-      ).then(async response => {
-        this.currentGetAccessTokenPromise = null;
+      ).then(
+        async response => {
+          this.currentGetAccessTokenPromise = null;
 
-        const responseTokenData = new TokenData(response);
+          const responseTokenData = new TokenData(response);
 
-        if (!responseTokenData.userId && this.userId) {
-          responseTokenData.userId = this.userId;
-        }
+          if (!responseTokenData.userId && this.userId) {
+            responseTokenData.userId = this.userId;
+          }
 
-        await this.setTokenData(responseTokenData);
+          await this.setTokenData(responseTokenData);
 
-        return this.tokenData.accessToken;
-      });
+          return this.tokenData.accessToken;
+        },
+        error => {
+          // Clear current get access token promise
+          this.currentGetAccessTokenPromise = null;
+
+          return Promise.reject(error);
+        },
+      );
 
       return this.currentGetAccessTokenPromise;
     }
