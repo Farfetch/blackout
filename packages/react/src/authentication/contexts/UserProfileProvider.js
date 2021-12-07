@@ -50,6 +50,9 @@ const reducer = (state, action) => {
         isLoading: false,
       };
     }
+
+    default:
+      return state;
   }
 };
 
@@ -74,6 +77,7 @@ const reducer = (state, action) => {
  * @param {boolean} [props.fetchProfileOnTokenChanges=false] - Boolean to indicate if the provider should try to keep the user profile data in sync with the active token data.
  * @param {boolean} [props.onProfileChange] - Callback that runs after the profile changes.
  *
+ * @returns {React.ReactElement} An element that wraps the children with the UserProfileContext.Provider element.
  */
 const UserProfileProvider = ({
   children,
@@ -97,6 +101,7 @@ const UserProfileProvider = ({
       const userData = await getProfile({
         [AuthenticationConfigOptions.UsedAccessTokenCallback]:
           setAccessTokenRef,
+        [AuthenticationConfigOptions.IsGetUserProfileRequest]: true,
       });
 
       const tokenManagerCurrentActiveToken =
@@ -110,12 +115,6 @@ const UserProfileProvider = ({
       if (tokenManagerCurrentActiveToken !== usedAccessTokenRef.current) {
         throw new ProfileChangedError();
       }
-
-      // HACK: While the guestTokens/tokens endpoints do not return
-      // the userId, we need to use the response from the getProfile
-      // client to associate a userId with a previously obtained token.
-      // When these endpoints include this data, we can safely remove this call.
-      await tokenManager.setUserInfo(userData);
 
       dispatch({
         type: ActionTypes.GetProfileSucceeded,
@@ -183,6 +182,7 @@ const UserProfileProvider = ({
     activeTokenData,
     fetchProfileOnTokenChanges,
     loadProfile,
+    onProfileChange,
     tokenManager,
     userProfileState,
   ]);

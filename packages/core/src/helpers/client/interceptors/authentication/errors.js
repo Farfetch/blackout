@@ -11,11 +11,7 @@ export class UserSessionExpiredError extends AuthenticationManagerBaseError {
   }
 }
 
-export class RefreshAccessTokenError extends AuthenticationManagerBaseError {
-  constructor(message, originalError) {
-    super(message, originalError);
-  }
-}
+export class RefreshAccessTokenError extends AuthenticationManagerBaseError {}
 
 export class RefreshGuestUserAccessTokenError extends RefreshAccessTokenError {
   constructor(originalError) {
@@ -31,6 +27,7 @@ export class RefreshUserAccessTokenError extends RefreshAccessTokenError {
 
 export class RefreshClientCredentialsAccessTokenError extends RefreshAccessTokenError {
   constructor(originalError) {
+    /* istanbul ignore next */
     super('Unable to refresh client credentials access token.', originalError);
   }
 }

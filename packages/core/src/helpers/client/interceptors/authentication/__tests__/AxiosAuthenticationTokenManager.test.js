@@ -295,7 +295,7 @@ describe('AxiosAuthenticationTokenManager', () => {
         expect(mockGuestTokenRequester).toHaveBeenCalledTimes(2);
       });
 
-      it('should return the original error if a request fails with 401 and the access token refresh fails', async () => {
+      it('should return an error if a request fails with 401 and the access token refresh fails', async () => {
         moxios.stubRequest('/api/account/v1/users/me', {
           method: 'get',
           status: 401,
@@ -317,19 +317,111 @@ describe('AxiosAuthenticationTokenManager', () => {
             config,
             response: { status: 500 },
             request: { data },
+            isAxiosError: true,
           });
         });
 
-        expect.assertions(3);
+        expect.assertions(2);
 
         try {
           await getProfile();
         } catch (e) {
-          expect(e).toBeInstanceOf(Error);
-          expect(e.response.status).toBe(401);
+          expect(e).toBeInstanceOf(RefreshGuestUserAccessTokenError);
         }
 
         expect(mockGuestTokenRequester).toHaveBeenCalledTimes(2);
+      });
+
+      it('should refresh guest token data when the get profile request fails because the guest user has expired', async () => {
+        // Set initial users/me request mock to return a successful result
+        // so that guest token data is set.
+        moxios.stubRequest('/api/account/v1/users/me', {
+          method: 'get',
+          response: { id: 10000, isGuest: true },
+          status: 200,
+        });
+
+        // Before any requests it should be null as it is not loading from storage.
+        expect(tokenManagerInstance.guestTokenProvider.getTokenData()).toBe(
+          null,
+        );
+
+        // Force a get profile request so that the guest token data is set with
+        // a user id.
+        await getProfile({
+          [AuthenticationConfigOptions.IsGetUserProfileRequest]: true,
+        });
+
+        // Expect that the post guestTokens request was performed with a null
+        // guestUserId as it is the first request.
+        expect(mockGuestTokenRequester).toHaveBeenLastCalledWith(
+          expect.objectContaining({ guestUserId: null }),
+          expect.any(Object),
+        );
+
+        const guestTokenData =
+          tokenManagerInstance.guestTokenProvider.getTokenData();
+
+        expect(guestTokenData).toEqual(
+          expect.objectContaining({
+            userId: 10000,
+          }),
+        );
+
+        // Reinstall moxios on the client to clear mocks.
+        // Without this, we are unable to mock a successful response again.
+        moxios.uninstall(client);
+
+        moxios.install(client);
+
+        // Mock first a 400 error for the first users/me request mimicking the
+        // case where the guest user has expired.
+        // Then return a successful result for the next requests with a different
+        // user id.
+        stubMoxiosRequestOnce(
+          'get',
+          '/api/account/v1/users/me',
+          {
+            status: 400,
+          },
+          {
+            status: 200,
+            response: { id: 20000, isGuest: true },
+          },
+        );
+
+        // Clear mock data from mockGuestTokenRequester mock
+        jest.clearAllMocks();
+
+        // Force guest user token expiration.
+        // This is necessary so that a request to guestTokens is made
+        // with the guestUserId filled with the current guest token user id
+        // so that we can assert it.
+        guestTokenData.expiresTimeUtc = new Date().getTime();
+
+        // Perform the users/me request. It should not throw and should retry the request
+        // after getting the first 400 response.
+        await getProfile({
+          [AuthenticationConfigOptions.IsGetUserProfileRequest]: true,
+        });
+
+        // Expect that the post guestTokens request was performed first with the
+        // current guest user id, and then with null
+        expect(mockGuestTokenRequester).toHaveBeenNthCalledWith(
+          1,
+          expect.objectContaining({ guestUserId: 10000 }),
+          expect.any(Object),
+        );
+
+        expect(mockGuestTokenRequester).toHaveBeenNthCalledWith(
+          2,
+          expect.objectContaining({ guestUserId: null }),
+          expect.any(Object),
+        );
+
+        expect(tokenManagerInstance.guestTokenProvider.getTokenData()).toEqual(
+          expect.objectContaining({ userId: 20000 }),
+        );
       });
     });
 
@@ -555,7 +647,7 @@ describe('AxiosAuthenticationTokenManager', () => {
         expect(mockUserTokenRequester).toHaveBeenCalledTimes(1);
       });
 
-      it('should return the original error if a request fails with 401 and the access token refresh fails', async () => {
+      it('should return an error if a request fails with 401 and the access token refresh fails', async () => {
         moxios.stubRequest('/api/account/v1/users/me', {
           method: 'get',
           status: 401,
@@ -566,16 +658,16 @@ describe('AxiosAuthenticationTokenManager', () => {
             config,
             response: { status: 500 },
             request: { data },
+            isAxiosError: true,
           });
         });
 
-        expect.assertions(4);
+        expect.assertions(3);
 
         try {
           await getProfile();
         } catch (e) {
-          expect(e).toBeInstanceOf(Error);
-          expect(e.response.status).toBe(401);
+          expect(e).toBeInstanceOf(RefreshUserAccessTokenError);
         }
 
         expect(mockUserTokenRequester).toHaveBeenCalledTimes(1);
