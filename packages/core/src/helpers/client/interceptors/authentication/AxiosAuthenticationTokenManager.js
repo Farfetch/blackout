@@ -7,6 +7,7 @@ import {
   ClientCredentialsTokenProvider,
   GuestTokenProvider,
   TokenData,
+  TokenProvider,
   UserTokenProvider,
 } from './token-providers';
 import {
@@ -262,13 +263,16 @@ class AxiosAuthenticationTokenManager {
     this.onRequestFailedInterceptor =
       this.onRequestFailedInterceptor.bind(this);
 
+    this.onRequestSuccessfulInterceptor =
+      this.onRequestSuccessfulInterceptor.bind(this);
+
     this.requestInterceptor = this.axiosInstance.interceptors.request.use(
       this.onBeforeRequestInterceptor,
       undefined,
     );
 
     this.responseInterceptor = this.axiosInstance.interceptors.response.use(
-      undefined,
+      this.onRequestSuccessfulInterceptor,
       this.onRequestFailedInterceptor,
     );
   }
@@ -563,6 +567,9 @@ class AxiosAuthenticationTokenManager {
   async onBeforeRequestInterceptor(config) {
     const needsAuthentication = this.requestNeedsAccessTokenMatcher(config);
 
+    config[AuthenticationConfigOptions.NeedsAuthentication] =
+      needsAuthentication;
+
     if (needsAuthentication) {
       let accessToken;
 
@@ -581,14 +588,22 @@ class AxiosAuthenticationTokenManager {
           throw new TokenManagerNotLoadedException();
         }
 
+        if (!config[AuthenticationConfigOptions.UsedAccessTokenKind]) {
+          config[AuthenticationConfigOptions.UsedAccessTokenKind] =
+            this.currentTokenProvider.getSupportedTokenKind();
+        }
+
         accessToken = await this.currentTokenProvider.getAccessToken();
       }
 
       config.headers.Authorization =
         this.authorizationHeaderFormatter(accessToken);
 
+      config[AuthenticationConfigOptions.UsedAccessToken] = accessToken;
+
       const usedAccessTokenCallback =
         config[AuthenticationConfigOptions.UsedAccessTokenCallback];
+
       if (typeof usedAccessTokenCallback === 'function') {
         usedAccessTokenCallback(accessToken);
       }
@@ -625,6 +640,29 @@ class AxiosAuthenticationTokenManager {
     }
   }
 
+  async onRequestSuccessfulInterceptor(result) {
+    const { config } = result;
+
+    if (config[AuthenticationConfigOptions.IsGetUserProfileRequest]) {
+      // HACK: On a get profile request success response, we need to retrieve the user id
+      //       from the response and set it on the current token provider, so that it can
+      //       be persisted on the storage and reused later. This should be addressed by
+      //       the server-side on the tokens/guestTokens endpoints, that could reply with the user id
+      //       associated with the access token.
+      await this.setUserInfo(result.data);
+    } else if (config[AuthenticationConfigOptions.IsLoginRequest]) {
+      // On a login successful request, set user token data and change the tokens context
+      // to authenticated user context.
+      await this.setUserTokenData(result.data, true);
+    } else if (config[AuthenticationConfigOptions.IsLogoutRequest]) {
+      // On a logout successful request, change the tokens context to
+      // guest user context.
+      this.selectGuestTokenProvider();
+    }
+
+    return result;
+  }
+
   /**
    * Response rejected axios interceptor which will be called after a request has failed.
    * This method will look for 401 errors and retry the original request one more time with a new access token.
@@ -641,12 +679,8 @@ class AxiosAuthenticationTokenManager {
     }
 
     const { config } = error;
-
-    if (!config._originalError) {
-      config._originalError = error;
-    }
-
     const responseStatus = error.response?.status;
+    let forceRetry = false;
 
     // Assume the refresh token expired if the response status is within the 400 range.
     // If not, throw a refresh access token error which will avoid the error recovery path and enter in a loop.
@@ -659,8 +693,6 @@ class AxiosAuthenticationTokenManager {
       throw new RefreshUserAccessTokenError(error);
     }
 
-    // As guest tokens cannot be refreshed, just throw an error to identify
-    // this case and not enter in the 401 error recovery path and enter in a loop.
     if (config[AuthenticationConfigOptions.IsGuestUserAccessTokenRequest]) {
       throw new RefreshGuestUserAccessTokenError(error);
     }
@@ -672,22 +704,104 @@ class AxiosAuthenticationTokenManager {
       throw new RefreshClientCredentialsAccessTokenError(error);
     }
 
+    // If it is a delete token request (i.e. a logout) and the token is not found
+    // return success. The token might already have been deleted.
+    if (
+      config[AuthenticationConfigOptions.IsLogoutRequest] &&
+      ((responseStatus === 400 && error.response.code === '17') ||
+        responseStatus === 404)
+    ) {
+      this.selectGuestTokenProvider();
+
+      // Return a 200 response in this case
+      return Promise.resolve({
+        ...error.response,
+        status: 200,
+      });
+    }
+
+    const needsAuthentication =
+      config[AuthenticationConfigOptions.NeedsAuthentication];
+
+    if (!needsAuthentication) {
+      return Promise.reject(error);
+    }
+
+    const usedAccessTokenKind =
+      config[AuthenticationConfigOptions.UsedAccessTokenKind];
+
+    if (
+      usedAccessTokenKind !== this.currentTokenProvider.getSupportedTokenKind()
+    ) {
+      return Promise.reject(error);
+    }
+
+    const usedAccessToken = config[AuthenticationConfigOptions.UsedAccessToken];
+
+    // HACK: Temporary fix to the case where the guest user id expired
+    // although we got a valid user token for it. This will be fixed
+    // on server-side later. So, we set the user id to null, set the forceRetry
+    // flag to true and let the retry get access token code give it a go.
+    // this.guestTokenProvider.clearData();
+    if (
+      config[AuthenticationConfigOptions.IsGetUserProfileRequest] &&
+      responseStatus === 400
+    ) {
+      const guestTokenData = this.guestTokenProvider.getTokenData() || {};
+
+      // If the request access token is equal to the current guest token
+      // and the user id is set, refresh the guest token data as the guest user
+      // might have expired.
+      if (
+        usedAccessToken === guestTokenData.accessToken &&
+        guestTokenData.userId
+      ) {
+        try {
+          await this.guestTokenProvider.clearData();
+        } catch (e) {
+          // Just log this error, it is not critical to stop the retry process
+          console.log(
+            '[Error]: An error occurred when trying to clear guest token data: ',
+            e,
+          );
+        }
+
+        forceRetry = true;
+      }
+    }
+
     // If the request failed with a 401 (this should happen only if the refresh token time window is
     // too low or the token was manually removed from the server), try to fetch a new access token and
-    // , if successful, retry the request with the new access token obtained.
+    // ,if successful, retry the request with the new access token obtained.
     // If the get access token request fails, throw the original request error to the caller.
     if (
-      responseStatus === 401 &&
+      (responseStatus === 401 || forceRetry) &&
       !config.currentRetry &&
       !config[AuthenticationConfigOptions.AccessToken]
     ) {
       try {
-        await this.currentTokenProvider.getAccessToken(false);
+        const currentAccessToken =
+          this.currentTokenProvider.getTokenData()?.accessToken;
+
+        const hasToRefreshToken =
+          usedAccessToken &&
+          currentAccessToken &&
+          usedAccessToken === currentAccessToken;
+
+        if (hasToRefreshToken) {
+          await this.currentTokenProvider.invalidateCurrentAccessToken();
+        }
       } catch {
-        throw config._originalError;
+        throw error;
       }
 
       config.currentRetry = 1;
+
+      // Clear used access token values of the request so they can be
+      // refreshed.
+      delete config.headers.Authorization;
+      delete config[AuthenticationConfigOptions.UsedAccessToken];
+      delete config[AuthenticationConfigOptions.NeedsAuthentication];
 
       const { baseURL, url, method } = config;
       // Remove the baseURL from the request url
@@ -712,7 +826,7 @@ class AxiosAuthenticationTokenManager {
    * Sets if the user token provider can persist user tokens on the storage.
    * Note: Guest tokens are always preserved, ignoring this value.
    *
-   * @param {boolean} rememberMe
+   * @param {boolean} rememberMe - The new remember me value.
    */
   setRememberMe(rememberMe) {
     this.userTokenProvider.setCanSaveTokenData(rememberMe);

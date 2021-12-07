@@ -2,11 +2,6 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import { ActionTypes } from '../useUserAuthState';
 import { cleanup } from '@testing-library/react';
 import {
-  deleteTokens,
-  postGuestTokens,
-  postTokens,
-} from '@farfetch/blackout-core/authentication/client';
-import {
   LoginWithoutDataError,
   NotLoggedInError,
   PendingUserOperationError,
@@ -21,28 +16,9 @@ import AxiosAuthenticationTokenManager, {
 import client, {
   configApiBlackAndWhite,
 } from '@farfetch/blackout-core/helpers/client';
+import moxios from 'moxios';
 import React from 'react';
 import useAuthentication from '../useAuthentication';
-
-const mockUserTokenData = {
-  accessToken: 'dummy_access_token',
-  refreshToken: 'dummy_refresh_token',
-  expiresIn: '12000',
-};
-
-const mockGuestUserTokenData = {
-  accessToken: 'dummy_access_token',
-  expiresIn: '12000',
-};
-
-jest.mock('@farfetch/blackout-core/authentication/client', () => {
-  return {
-    ...jest.requireActual('@farfetch/blackout-core/authentication/client'),
-    postGuestTokens: jest.fn(() => Promise.resolve(mockGuestUserTokenData)),
-    postTokens: jest.fn(() => Promise.resolve(mockUserTokenData)),
-    deleteTokens: jest.fn(() => Promise.resolve(true)),
-  };
-});
 
 const defaultHeaders = {
   'Accept-Language': 'en-GB',
@@ -64,9 +40,16 @@ const wrapper = ({ children, baseURL, callbacks, headers, storage }) => (
 
 jest.useFakeTimers();
 
-afterEach(cleanup);
+beforeEach(() => {
+  moxios.install(client);
+});
 
-describe('useUserAuthState', () => {
+afterEach(() => {
+  moxios.uninstall(client);
+  cleanup();
+});
+
+describe('useAuthentication', () => {
   it('should return the correct values', async () => {
     const { result, waitForNextUpdate } = renderHook(
       () => useAuthentication(),
@@ -211,6 +194,24 @@ describe('useUserAuthState', () => {
   });
 
   it("should update the value of 'isLoggedIn' value whenever user login status changed", async () => {
+    const accessToken = 'dummy_access_token';
+
+    moxios.stubRequest('/authentication/v1/tokens', {
+      method: 'post',
+      response: {
+        accessToken,
+        expiresIn: '12000',
+        refreshToken: 'dummy_refresh_token',
+      },
+      status: 200,
+    });
+
+    moxios.stubRequest(`/authentication/v1/tokens/${accessToken}`, {
+      method: 'delete',
+      response: {},
+      status: 200,
+    });
+
     const { result, waitForNextUpdate } = renderHook(
       () => useAuthentication(),
       {
@@ -224,7 +225,7 @@ describe('useUserAuthState', () => {
 
     await act(async () => {
       await result.current.login({
-        rememberMe: false,
+        rememberMe: true,
         username: 'user',
         password: 'pass',
       });
@@ -242,20 +243,22 @@ describe('useUserAuthState', () => {
   });
 
   it('should throw an error if login is called before it is terminated', async () => {
+    moxios.stubRequest('/authentication/v1/tokens', {
+      method: 'post',
+      response: {
+        accessToken: 'dummy_access_token',
+        expiresIn: '12000',
+        refreshToken: 'dummy_refresh_token',
+      },
+      status: 200,
+    });
+
     const { result, waitForNextUpdate } = renderHook(
       () => useAuthentication(),
       {
         wrapper,
       },
     );
-
-    postTokens.mockImplementationOnce(() => {
-      return new Promise(resolve => {
-        setTimeout(() => {
-          resolve(mockUserTokenData);
-        }, 10000);
-      });
-    });
 
     await waitForNextUpdate();
 
@@ -266,8 +269,6 @@ describe('useUserAuthState', () => {
     expect(result.current.isLoading).toBe(true);
 
     expect(result.current.login({})).rejects.toThrow(PendingUserOperationError);
-
-    jest.runTimersToTime();
 
     await loginPromise;
 
@@ -300,8 +301,20 @@ describe('useUserAuthState', () => {
   });
 
   it('should set tokens context before fetching the access token', async () => {
-    const mockGuestUserEmail = 'user@email.com';
-    const mockGuestUserSecretCode = 'A1B2C3';
+    moxios.stubRequest('/authentication/v1/guestTokens', {
+      method: 'post',
+      response: {
+        accessToken: 'dummy_access_token',
+        expiresIn: '12000',
+      },
+      status: 200,
+    });
+
+    const mockGuestUserClaimsParameter = {
+      guestUserEmail: 'user@email.com',
+      guestUserSecret: 'A1B2C3',
+    };
+
     const { result, waitForNextUpdate } = renderHook(
       () => useAuthentication(),
       {
@@ -314,21 +327,26 @@ describe('useUserAuthState', () => {
     expect(result.current.activeTokenData).toBeTruthy();
     expect(result.current.activeTokenData.kind).toBe(TokenKinds.Guest);
 
+    const getAccessTokenSpy = jest.spyOn(
+      result.current.tokenManager,
+      'getAccessToken',
+    );
+
+    jest.clearAllMocks();
+
     await act(async () => {
-      await result.current.setGuestUserClaims({
-        guestUserEmail: mockGuestUserEmail,
-        guestUserSecret: mockGuestUserSecretCode,
-      });
+      await result.current.setGuestUserClaims(mockGuestUserClaimsParameter);
     });
 
-    expect(postGuestTokens).toBeCalledWith(
-      {
-        guestUserEmail: 'user@email.com',
-        guestUserId: null,
-        guestUserSecret: 'A1B2C3',
-      },
-      { __isGuestUserAccessTokenRequest: true, __noAuthentication: true },
-    );
+    expect(getAccessTokenSpy).toHaveBeenCalledTimes(1);
+
+    const request = moxios.requests.mostRecent();
+    const requestDataParsed = JSON.parse(request.config.data);
+
+    expect(requestDataParsed).toEqual({
+      ...mockGuestUserClaimsParameter,
+      guestUserId: null,
+    });
   });
 
   it('should throw an error if logout is called but the current user is not logged in', async () => {
@@ -362,10 +380,14 @@ describe('useUserAuthState', () => {
     // Make the login endpoint return invalid data
     // to test when the user token data does not contain
     // an access token case.
-    postTokens.mockImplementationOnce(() => ({
-      ...mockUserTokenData,
-      accessToken: null,
-    }));
+    moxios.stubRequest('/authentication/v1/tokens', {
+      status: 200,
+      response: {
+        refreshToken: 'dummy_refresh_token',
+        expiresIn: '12000',
+        accessToken: null,
+      },
+    });
 
     await act(async () => result.current.login({}));
 
@@ -387,6 +409,18 @@ describe('useUserAuthState', () => {
   });
 
   it("should _NOT_ throw an error if logout request fails but the error is of the kind 'user token is not found'", async () => {
+    const accessToken = 'dummy_access_token';
+
+    moxios.stubRequest('/authentication/v1/tokens', {
+      method: 'post',
+      status: 200,
+      response: {
+        accessToken,
+        expiresIn: '12000',
+        refreshToken: 'dummy_refresh_token',
+      },
+    });
+
     const { result, waitForNextUpdate } = renderHook(
       () => useAuthentication(),
       {
@@ -407,12 +441,11 @@ describe('useUserAuthState', () => {
     expect(result.current.isLoading).toBe(false);
     expect(result.current.isLoggedIn).toBe(true);
 
-    deleteTokens.mockImplementationOnce(() =>
-      Promise.reject({
-        status: 400,
-        code: '17',
-      }),
-    );
+    moxios.stubRequest(`/authentication/v1/tokens/${accessToken}`, {
+      method: 'delete',
+      status: 400,
+      code: '17',
+    });
 
     await act(async () => {
       await result.current.logout();
@@ -427,11 +460,15 @@ describe('useUserAuthState', () => {
     expect(result.current.isLoading).toBe(false);
     expect(result.current.isLoggedIn).toBe(true);
 
-    deleteTokens.mockImplementationOnce(() =>
-      Promise.reject({
-        status: 404,
-      }),
-    );
+    // Need to reinstall moxios so that we can mock a new response for delete request again.
+    // By the way, the method stubOnce was already tried and did not work.
+    moxios.uninstall(client);
+    moxios.install(client);
+
+    moxios.stubRequest(`/authentication/v1/tokens/${accessToken}`, {
+      method: 'delete',
+      status: 404,
+    });
 
     await act(async () => {
       await result.current.logout();
@@ -442,6 +479,18 @@ describe('useUserAuthState', () => {
   });
 
   it("should throw an error if logout fails for other reason than 'user token is not found'", async () => {
+    const accessToken = 'dummy_access_token';
+
+    moxios.stubRequest('/authentication/v1/tokens', {
+      method: 'post',
+      status: 200,
+      response: {
+        accessToken,
+        expiresIn: '12000',
+        refreshToken: 'dummy_refresh_token',
+      },
+    });
+
     const { result, waitForNextUpdate } = renderHook(
       () => useAuthentication(),
       {
@@ -458,10 +507,15 @@ describe('useUserAuthState', () => {
     expect(result.current.activeTokenData.kind).toBe(TokenKinds.User);
     expect(result.current.isLoading).toBe(false);
 
-    const mockError = new Error('mock error');
+    const errorResponseStatus = 500;
 
-    deleteTokens.mockImplementationOnce(() => {
-      throw mockError;
+    const mockError = new Error(
+      `Request failed with status code ${errorResponseStatus}`,
+    );
+
+    moxios.stubRequest(`/authentication/v1/tokens/${accessToken}`, {
+      method: 'delete',
+      status: errorResponseStatus,
     });
 
     try {
@@ -469,7 +523,7 @@ describe('useUserAuthState', () => {
         await result.current.logout();
       });
     } catch (e) {
-      expect(e).toBe(mockError);
+      expect(e).toStrictEqual(mockError);
     }
 
     expect(result.current.errorData).toEqual({
