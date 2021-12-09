@@ -15,6 +15,7 @@ import {
   getResult,
   getTitles as getTitlesGetter,
   getUpdatePreferences as getUpdatePreferencesGetter,
+  getUserAttributes as getUserAttributesGetter,
 } from './reducer';
 import { getEntity } from '../../entities/redux/selectors';
 
@@ -293,3 +294,39 @@ export const getContactsError = state => getContactsGetter(state.profile).error;
  * @returns {object} Contacts entity.
  */
 export const getContacts = state => getEntity(state, 'contacts');
+
+/**
+ * Returns the loading status for the user attributes operation.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {boolean} User attributes operation Loading status.
+ */
+export const isUserAttributesLoading = state =>
+  getUserAttributesGetter(state.profile).isLoading;
+
+/**
+ * Returns the user attributes error.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {object} User attributes operation error.
+ */
+export const getUserAttributesError = state =>
+  getUserAttributesGetter(state.profile).error;
+
+/**
+ * Returns the user attributes.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {object} User attributes.
+ */
+export const getUserAttributes = state =>
+  getUserAttributesGetter(state.profile).result;

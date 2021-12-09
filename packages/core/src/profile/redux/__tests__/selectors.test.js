@@ -48,6 +48,11 @@ describe('profile redux selectors', () => {
         error: 'error: not loaded',
         isLoading: false,
       },
+      userAttributes: {
+        result: null,
+        error: 'error: not loaded',
+        isLoading: false,
+      },
     },
     entities: {
       ...expectedNormalizedPayload.entities,
@@ -97,6 +102,7 @@ describe('profile redux selectors', () => {
       'Credit',
       'CreditMovements',
       'Contacts',
+      'UserAttributes',
     ];
 
     describe('sub-areas loading selectors', () => {
@@ -208,6 +214,30 @@ describe('profile redux selectors', () => {
 
       expect(selectors.getContacts(mockState)).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledWith(mockState, 'contacts');
+    });
+  });
+
+  describe('isUserAttributesLoading()', () => {
+    it('should get the user attributes loading property from state', () => {
+      expect(selectors.isUserAttributesLoading(mockState)).toEqual(false);
+    });
+  });
+
+  describe('getUserAttributesError()', () => {
+    it('should get the preferences error property from state', () => {
+      expect(selectors.getUserAttributesError(mockState)).toEqual(
+        mockState.profile.userAttributes.error,
+      );
+    });
+  });
+
+  describe('getUserAttributes()', () => {
+    it('should get the user attributes from state', () => {
+      const expectedResult = mockState.profile.userAttributes.result;
+      const spy = jest.spyOn(fromProfile, 'getUserAttributes');
+
+      expect(selectors.getUserAttributes(mockState)).toEqual(expectedResult);
+      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 });
