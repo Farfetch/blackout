@@ -34,4 +34,21 @@ describe('buildWishlistItem()', () => {
       size: undefined,
     });
   });
+
+  it('should return a valid wishlist item object with data', () => {
+    const mockData = {
+      oldSize: { id: 123 },
+    };
+
+    expect(
+      buildWishlistItem(mockProduct, undefined, undefined, mockData),
+    ).toEqual({
+      merchantId: undefined,
+      productId: mockProductId,
+      quantity: 1,
+      scale: undefined,
+      size: undefined,
+      oldSize: { id: 123 },
+    });
+  });
 });

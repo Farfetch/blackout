@@ -8,14 +8,19 @@ import get from 'lodash/get';
  * @memberof module:wishlists/utils
  *
  * @param {object} product - Product with all its information.
- * @param {object} [size={}] - Selected product size to add to the wihslist.
+ * @param {object} [size={}] - Selected product size to add to the wishlist.
  * @param {object} [size.id] - Size id.
  * @param {object} [size.scale] - Size scale id.
- * @param {number} [quantity=1] - Quantity to add to the wihslist.
- *
+ * @param {number} [quantity=1] - Quantity to add to the wishlist.
+ * @param {object} [additionalParameters={}] - Additional parameters.
  * @returns {object} Wishlist item object ready to wishlist requests.
  */
-export default (product, size = {}, quantity = 1) => {
+export default (
+  product,
+  size = {},
+  quantity = 1,
+  additionalParameters = {},
+) => {
   let merchantId;
   // If the sizeId is populated we can send the merchantID
   const sizeId = get(size, 'id');
@@ -27,6 +32,7 @@ export default (product, size = {}, quantity = 1) => {
   }
 
   return {
+    ...additionalParameters,
     merchantId,
     productId: product.id,
     quantity,

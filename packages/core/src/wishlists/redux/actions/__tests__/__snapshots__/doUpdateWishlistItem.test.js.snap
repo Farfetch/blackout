@@ -3,7 +3,11 @@
 exports[`doUpdateWishlistItem() should create the correct actions for when the update wishlist item procedure is successful without receiving options: update wishlist item success payload without receiving options 1`] = `
 Object {
   "meta": Object {
+    "merchantId": 11554,
     "productId": 12129099,
+    "quantity": 1,
+    "scale": 210,
+    "size": 18,
     "wishlistItemId": 481426747,
   },
   "payload": Object {
@@ -73,7 +77,11 @@ Object {
 exports[`doUpdateWishlistItem() should create the correct actions for when the update wishlist item procedure is successful: update wishlist item success payload 1`] = `
 Object {
   "meta": Object {
+    "merchantId": 11554,
     "productId": 12129099,
+    "quantity": 1,
+    "scale": 210,
+    "size": 18,
     "wishlistItemId": 481426747,
   },
   "payload": Object {

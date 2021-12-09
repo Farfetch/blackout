@@ -53,6 +53,8 @@ export default postWishlistItem =>
         type: actionTypes.ADD_ITEM_TO_WISHLIST_SUCCESS,
         meta: {
           ...data,
+          wishlistId,
+          ...config,
         },
       });
     } catch (error) {

@@ -156,15 +156,9 @@ export const getSubscriptionPackages = createSelector(
   (subscriptionPackagesResult, subscriptionPackagesEntity) => {
     return (
       subscriptionPackagesResult &&
-      subscriptionPackagesResult.packages.reduce((accum, packageId) => {
-        const subscription = get(subscriptionPackagesEntity, packageId);
-
-        if (subscription) {
-          accum.push(subscription);
-        }
-
-        return accum;
-      }, [])
+      subscriptionPackagesResult.packages
+        .map(packageId => get(subscriptionPackagesEntity, packageId))
+        .filter(Boolean)
     );
   },
 );
