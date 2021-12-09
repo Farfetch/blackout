@@ -1,5 +1,10 @@
+import { buildBagItem, generateBagItemHash } from '../../bags/utils';
 import { createSelector } from 'reselect';
-import { findProductInBag, getProductQuantityInBag } from '../../bags';
+import {
+  findProductInBag,
+  getBagItems,
+  getProductQuantityInBag,
+} from '../../bags';
 import { getError, getIsHydrated, getIsLoading } from '../reducer/details';
 import { getProduct } from '../../entities/selectors';
 import type { Error } from '@farfetch/blackout-client/types';
@@ -109,19 +114,19 @@ export const getProductBreadcrumbs = (
 };
 
 /**
- * Creates a function responsible for checking the remaining available quantity
+ * Function responsible for checking the remaining available quantity
  * of a product of a given size, based on its quantity in the bag.
- * This creator should only be used in cases/projects you have the need
- * to have product details and bag logics/reducer at the same time.
+ *
+ * To use this selector you should be using products and bag reducers
+ * at the same time.
  *
  * @memberof module:products/selectors
- 
+ *
  * @param {object} state - Application state.
  * @param {number} productId - Numeric identifier of the product.
  * @param {number} sizeId - Numeric identifier of the size.
  *
- * @returns {Function} Function that returns a Number,
- * which is the difference between the total quantity of product size and the
+ * @returns {number} Difference between the total quantity of product size and the
  * respective bag quantity.
  *
  */
@@ -130,10 +135,10 @@ export const getProductSizeRemainingQuantity = (
   productId: ProductEntity['id'],
   sizeId: SizeAdapted['id'],
 ): number => {
-  const product = getProduct(state, productId) as ProductEntity;
+  const product = getProduct(state, productId);
   const size = product?.sizes?.find(({ id }) => id === sizeId) as SizeAdapted;
   const stockAvailable = size?.globalQuantity ?? 0;
-  const bagItem = findProductInBag(state, { product, size });
+  const bagItem = product && findProductInBag(state, { product, size });
 
   if (bagItem) {
     const itemWholeQuantity = getProductQuantityInBag(state, productId, sizeId);
@@ -143,6 +148,70 @@ export const getProductSizeRemainingQuantity = (
 
   return stockAvailable;
 };
+
+/**
+ * Function responsible for checking the remaining available quantity
+ * for each size of the provided product, based on its quantity in the bag.
+ *
+ * To use this selector you should be using products and bag reducers
+ * at the same time.
+ *
+ * @memberof module:products/selectors
+ *
+ * @param {object} state - Application state.
+ * @param {number} productId - Numeric identifier of the product.
+ *
+ * @returns {Array} Product sizes array with updated quantity, as the difference
+ * between the total quantity of product size and the respective bag quantity.
+ *
+ */
+export const getAllProductSizesRemainingQuantity = createSelector(
+  [
+    (state: StoreState, productId: ProductEntity['id']) =>
+      getProduct(state, productId),
+    getBagItems,
+  ],
+  (product, bagItems): ProductEntity['sizes'] => {
+    return (
+      product?.sizes?.map(
+        ({ globalQuantity, isOutOfStock, id: sizeId, ...props }) => {
+          // Get product size remaining quantity
+          const size = product?.sizes?.find(({ id }) => id === sizeId);
+          let stockAvailable = size?.globalQuantity ?? 0;
+          const bagItemData = size && buildBagItem({ product, size });
+          const hash = bagItemData && generateBagItemHash(bagItemData);
+          const bagItem = bagItems?.find(
+            item => generateBagItemHash(item) === hash,
+          );
+
+          if (bagItem) {
+            // Get product quantity in bag
+            const itemWholeQuantity =
+              bagItems?.reduce((acc, item) => {
+                if (
+                  item.product?.id === product.id &&
+                  item.size.id === sizeId
+                ) {
+                  return acc + item.quantity;
+                }
+
+                return acc;
+              }, 0) || 0;
+
+            stockAvailable = stockAvailable - itemWholeQuantity;
+          }
+
+          return {
+            ...props,
+            id: sizeId,
+            globalQuantity: stockAvailable,
+            isOutOfStock: stockAvailable === 0,
+          };
+        },
+      ) || []
+    );
+  },
+);
 
 /**
  * Returns all the info about color grouping for the given product id.

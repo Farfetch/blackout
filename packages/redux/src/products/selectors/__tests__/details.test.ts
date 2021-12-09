@@ -250,6 +250,53 @@ describe('Product', () => {
     });
   });
 
+  describe('getAllProductSizesRemainingQuantity()', () => {
+    let spyGetProduct;
+    let spyGetBagItems;
+
+    beforeEach(() => {
+      spyGetProduct = jest.spyOn(fromProductEntities, 'getProduct');
+      spyGetBagItems = jest.spyOn(fromBags, 'getBagItems');
+    });
+
+    afterEach(() => {
+      spyGetProduct.mockRestore();
+      spyGetBagItems.mockRestore();
+    });
+
+    it('should return the updated product sizes', () => {
+      const bagItem = mockProductsState.entities.bagItems[102];
+      const product = mockProductsState.entities.products[mockProductId];
+      const size = product.sizes.find(({ id }) => id === bagItem.size.id);
+      const globalQuantity = bagItem.size.globalQuantity;
+      const bagQuantity = bagItem.quantity;
+      const expectedResult = globalQuantity - bagQuantity;
+
+      expect(
+        selectors.getAllProductSizesRemainingQuantity(
+          mockProductsState,
+          mockProductId,
+        ),
+      ).toEqual(
+        expect.arrayContaining([
+          {
+            ...size,
+            globalQuantity: expectedResult,
+          },
+        ]),
+      );
+    });
+
+    it("should return an empty array when the product or its sizes don't exist", () => {
+      expect(
+        selectors.getAllProductSizesRemainingQuantity(
+          mockProductsState,
+          'not-a-product-id-for-sure',
+        ),
+      ).toEqual([]);
+    });
+  });
+
   describe('getProductGroupedEntries()', () => {
     it('should get the color grouping', () => {
       const expectedResult = {
