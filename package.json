@@ -30,7 +30,10 @@
     "lint": "npx eslint .",
     "postinstall": "patch-package",
     "prepare": "husky install",
-    "test": "rimraf coverage && jest"
+    "test": "rimraf coverage && jest",
+    "yalc-publish": "bash scripts/yalc.sh",
+    "yalc-publish-core": "bash scripts/yalc.sh core",
+    "yalc-publish-react": "bash scripts/yalc.sh react"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.11.5",
