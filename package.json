@@ -31,7 +31,12 @@
     "postinstall": "patch-package",
     "format": "prettier --write '**/*.{js,ts,json,md}'",
     "test": "rimraf coverage && jest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "yalc-publish": "bash scripts/yalc.sh",
+    "yalc-publish-analytics": "bash scripts/yalc.sh analytics",
+    "yalc-publish-client": "bash scripts/yalc.sh client",
+    "yalc-publish-react": "bash scripts/yalc.sh react",
+    "yalc-publish-redux": "bash scripts/yalc.sh redux"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.11.5",
