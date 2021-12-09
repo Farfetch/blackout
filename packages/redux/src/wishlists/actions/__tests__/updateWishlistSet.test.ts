@@ -92,7 +92,7 @@ describe('updateWishlistSet()', () => {
         type: actionTypes.UPDATE_WISHLIST_SET_REQUEST,
       },
       {
-        meta: { wishlistSetId: mockWishlistSetId },
+        meta: { wishlistSetId: mockWishlistSetId, data },
         type: actionTypes.UPDATE_WISHLIST_SET_SUCCESS,
       },
       // Ensure the `GET` is called

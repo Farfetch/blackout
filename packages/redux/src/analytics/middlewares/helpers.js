@@ -75,9 +75,32 @@ export const getCurrency = async analyticsInstance => {
 
   if (!currency) {
     logger.error(
-      '[Bag middleware] - Track event failed. Make sure to set `currencyCode` via `analytics.useContext()`.',
+      'Track event failed. Make sure to set `currencyCode` via `analytics.useContext()`.',
     );
   }
 
   return currency;
+};
+
+/**
+ * Calculates the price discount absolute value by subtracting the price
+ * with discount value from the price without discount value.
+ * Using the price.discount.rate or even the price.discount.includingTaxes
+ * was considered but they introduce additional complexity as they might
+ * not exist in the store or cause rounding errors in the case of the price.discount.rate
+ * as it is a percentage.
+ *
+ * @param {number} priceWithDiscount - The price value with discount.
+ * @param {number} priceWithoutDiscount - The price value without discount.
+ *
+ * @returns {number} The absolute discount value or 0 if either priceWithDiscount or priceWithoutDiscount are not numbers.
+ */
+export const calculatePriceDiscount = (
+  priceWithDiscount,
+  priceWithoutDiscount,
+) => {
+  return typeof priceWithDiscount === 'number' &&
+    typeof priceWithoutDiscount === 'number'
+    ? priceWithoutDiscount - priceWithDiscount
+    : 0;
 };

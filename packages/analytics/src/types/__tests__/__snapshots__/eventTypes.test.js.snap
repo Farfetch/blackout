@@ -2,9 +2,16 @@
 
 exports[`Should export eventTypes 1`] = `
 Object {
+  "ADDRESS_INFO_ADDED": "Address Info Added",
+  "CHANGE_SCALE_SIZE_GUIDE": "Size Guide Scale Changed",
+  "CHECKOUT_ABANDONED": "Checkout Abandoned",
   "CHECKOUT_STARTED": "Checkout Started",
   "CHECKOUT_STEP_COMPLETED": "Checkout Step Completed",
+  "CHECKOUT_STEP_EDITING": "Checkout Step Editing",
   "CHECKOUT_STEP_VIEWED": "Checkout Step Viewed",
+  "FILTERS_APPLIED": "Filters Applied",
+  "FILTERS_CLEARED": "Filters Cleared",
+  "INTERACT_CONTENT": "Interact Content",
   "LOGIN": "Login",
   "LOGOUT": "Logout",
   "ORDER_COMPLETED": "Order Completed",
@@ -18,11 +25,17 @@ Object {
   "PRODUCT_LIST_VIEWED": "Product List Viewed",
   "PRODUCT_REMOVED_FROM_CART": "Product Removed from Cart",
   "PRODUCT_REMOVED_FROM_WISHLIST": "Product Removed From Wishlist",
+  "PRODUCT_UPDATED": "Product Updated",
   "PRODUCT_UPDATED_WISHLIST": "Product Updated In Wishlist",
   "PRODUCT_VIEWED": "Product Viewed",
+  "PROMOCODE_APPLIED": "Promocode Applied",
+  "SAME_BILLING_ADDRESS_SELECTED": "Same Billing Address Selected",
   "SELECT_CONTENT": "Select Content",
+  "SHARE": "Share",
   "SHIPPING_INFO_ADDED": "Shipping Info Added",
+  "SHIPPING_METHOD_ADDED": "Shipping Method Added",
   "SIGNUP_FORM_COMPLETED": "Sign-up Form Completed",
   "SIGNUP_FORM_VIEWED": "Sign-up Form Viewed",
+  "SORT_OPTION_CHANGED": "Sort Option Changed",
 }
 `;

@@ -62,7 +62,7 @@ class Castle extends integrations.Integration {
    * @param {object} options - Integration options.
    * @param {object} loadData - Analytics's load event data.
    */
-  constructor(options = {}, loadData) {
+  constructor(options, loadData) {
     super(options, loadData);
 
     this.baseUrl = 'https://d2t77mnxyo7adj.cloudfront.net/v1/c.js';

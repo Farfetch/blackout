@@ -85,7 +85,7 @@ describe('fetchWishlistSets()', () => {
         type: actionTypes.FETCH_WISHLIST_SETS_SUCCESS,
       },
     ]);
-    expect(storeActions[2]).toMatchSnapshot(
+    expect(storeActions[1]).toMatchSnapshot(
       'Fetch wishlist sets success payload',
     );
   });

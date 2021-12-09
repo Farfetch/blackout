@@ -89,7 +89,7 @@ describe('fetchWishlist()', () => {
         payload: mockWishlistNormalizedPayload,
       },
     ]);
-    expect(storeActions[2]).toMatchSnapshot('Fetch wishlist success payload');
+    expect(storeActions[1]).toMatchSnapshot('Fetch wishlist success payload');
   });
 
   it('should create the correct actions for when the fetch wishlist procedure is successful without `getOptions`', async () => {

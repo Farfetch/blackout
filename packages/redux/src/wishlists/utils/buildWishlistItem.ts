@@ -7,6 +7,10 @@ export type BuildWishlistItemData = {
     id: number;
     scale: number;
   };
+  oldSize?: {
+    id: number;
+    name?: string;
+  };
 };
 
 type BuildWishlistItem = (data: BuildWishlistItemData) => {
@@ -15,6 +19,10 @@ type BuildWishlistItem = (data: BuildWishlistItemData) => {
   quantity: number;
   scale?: number;
   size?: number;
+  oldSize?: {
+    id: number;
+    name?: string;
+  };
 };
 
 /**
@@ -29,6 +37,9 @@ type BuildWishlistItem = (data: BuildWishlistItemData) => {
  * @param {object} [data.size.id] - Size id.
  * @param {object} [data.size.scale] - Size scale id.
  * @param {number} [data.quantity=1] - Quantity to add to the wishlist.
+ * @param {object} [data.oldSize={}] - Selected product old size to add to the wishlist.
+ * @param {object} [data.oldSize.id] - Size id.
+ * @param {object} [data.oldSize.name] - Size scale id.
  *
  * @returns {object} Wishlist item object ready to wishlist requests.
  */
@@ -36,6 +47,7 @@ const buildWishlistItem: BuildWishlistItem = ({
   product,
   quantity = 1,
   size,
+  oldSize,
 }) => {
   const sizeId = size?.id;
   // If the sizeId is populated we can send the merchantID
@@ -53,6 +65,7 @@ const buildWishlistItem: BuildWishlistItem = ({
     quantity,
     scale: size?.scale,
     size: sizeId,
+    oldSize,
   };
 };
 

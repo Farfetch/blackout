@@ -34,5 +34,7 @@ export {
   mockWishlistId,
   mockWishlistItemId,
   mockWishlistProductId,
+  mockWishlistSetDescription,
   mockWishlistSetId,
+  mockWishlistSetName,
 } from './__fixtures__/initialReduxState';

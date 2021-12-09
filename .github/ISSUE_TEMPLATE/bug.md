@@ -1,7 +1,7 @@
 ---
-name: "Bug"
+name: 'Bug'
 about: Report a detailed bug or problem.
-labels: "type: bug"
+labels: 'type: bug'
 ---
 
 ## Expected behavior

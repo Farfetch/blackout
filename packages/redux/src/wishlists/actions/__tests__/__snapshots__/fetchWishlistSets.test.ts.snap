@@ -1,3 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetchWishlistSets() should create the correct actions for when the fetch wishlist sets procedure is successful: Fetch wishlist sets success payload 1`] = `undefined`;
+exports[`fetchWishlistSets() should create the correct actions for when the fetch wishlist sets procedure is successful: Fetch wishlist sets success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "wishlistSets": Object {
+        "77fae745-7608-4b7d-8e7d-4f6923e032ef": Object {
+          "createdByStaffMemberId": "00000000-0000-0000-0000-000000000000",
+          "dateCreated": "2020-03-19T18:16:20.389Z",
+          "description": "(in case I can go out)",
+          "id": "77fae745-7608-4b7d-8e7d-4f6923e032ef",
+          "name": "My wishlist for summer 2021",
+          "wishlistSetItems": Array [
+            Object {
+              "createdByStaffMemberId": "00000000-0000-0000-0000-000000000000",
+              "dateCreated": "2020-03-19T18:16:20.389Z",
+              "wishlistItemId": 481426747,
+            },
+          ],
+        },
+      },
+    },
+    "result": Array [
+      "77fae745-7608-4b7d-8e7d-4f6923e032ef",
+    ],
+  },
+  "type": "@farfetch/blackout-redux/FETCH_WISHLIST_SETS_SUCCESS",
+}
+`;

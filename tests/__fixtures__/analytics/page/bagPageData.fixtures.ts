@@ -7,6 +7,8 @@ export default {
   properties: {
     currency: 'USD',
     from: fromParameterTypes.BAG,
+    list: 'Bag',
+    listId: 'e0030b3c-b970-4496-bc72-f9a38d6270b1',
     products: [
       {
         id: '507f1f77bcf86cd799439011',
@@ -15,7 +17,9 @@ export default {
         brand: 'Just A T-Shirt',
         variant: 'Black',
         size: 'L',
+        discountValue: 6,
         price: 19,
+        priceWithoutDiscount: 25,
         quantity: 1,
       },
     ],

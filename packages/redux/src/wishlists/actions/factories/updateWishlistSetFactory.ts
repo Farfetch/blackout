@@ -66,7 +66,7 @@ const updateWishlistSetFactory =
       await patchWishlistSet(wishlistId, wishlistSetId, data, config);
 
       dispatch({
-        meta: { wishlistSetId },
+        meta: { wishlistSetId, data, ...config },
         type: actionTypes.UPDATE_WISHLIST_SET_SUCCESS,
       });
 

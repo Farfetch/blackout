@@ -137,7 +137,7 @@ describe('updateWishlistItem()', () => {
         type: actionTypes.UPDATE_WISHLIST_ITEM_SUCCESS,
       },
     ]);
-    expect(storeActions[2]).toMatchSnapshot(
+    expect(storeActions[1]).toMatchSnapshot(
       'Update wishlist item success payload',
     );
   });

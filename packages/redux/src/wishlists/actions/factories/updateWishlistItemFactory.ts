@@ -78,6 +78,7 @@ const updateWishlistItemFactory =
 
       dispatch({
         meta: {
+          ...data,
           productId: wishlistItem?.product?.id,
           wishlistItemId,
         },
