@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.152](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.151...@farfetch/blackout-redux@1.0.0-next.152) (2021-12-09)
+
+
+### Features
+
+* **client|redux:** loyalty - split client ([6d36e03](https://github.com/Farfetch/blackout/commit/6d36e035865916cdf5aa5b6e5341f9ca3963d632))
+
+
+
+
+
 # [1.0.0-next.151](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.150...@farfetch/blackout-redux@1.0.0-next.151) (2021-12-07)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
