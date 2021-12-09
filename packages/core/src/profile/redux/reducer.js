@@ -36,6 +36,11 @@ const INITIAL_STATE = {
     error: null,
     isLoading: false,
   },
+  userAttributes: {
+    result: null,
+    error: null,
+    isLoading: false,
+  },
 };
 
 export const entitiesMapper = {
@@ -115,11 +120,23 @@ const error = (state = INITIAL_STATE.error, action = {}) => {
     case actionTypes.UPDATE_PROFILE_FAILURE:
     case actionTypes.CREATE_GUEST_USER_FAILURE:
     case actionTypes.GET_GUEST_USER_FAILURE:
+    case actionTypes.GET_USER_ATTRIBUTES_FAILURE:
+    case actionTypes.POST_USER_ATTRIBUTES_FAILURE:
+    case actionTypes.GET_USER_ATTRIBUTE_FAILURE:
+    case actionTypes.PUT_USER_ATTRIBUTE_FAILURE:
+    case actionTypes.PATCH_USER_ATTRIBUTE_FAILURE:
+    case actionTypes.DELETE_USER_ATTRIBUTE_FAILURE:
       return action.payload.error;
     case actionTypes.GET_PROFILE_REQUEST:
     case actionTypes.UPDATE_PROFILE_REQUEST:
     case actionTypes.CREATE_GUEST_USER_REQUEST:
     case actionTypes.GET_GUEST_USER_REQUEST:
+    case actionTypes.GET_USER_ATTRIBUTES_REQUEST:
+    case actionTypes.POST_USER_ATTRIBUTES_REQUEST:
+    case actionTypes.GET_USER_ATTRIBUTE_REQUEST:
+    case actionTypes.PUT_USER_ATTRIBUTE_REQUEST:
+    case actionTypes.PATCH_USER_ATTRIBUTE_REQUEST:
+    case actionTypes.DELETE_USER_ATTRIBUTE_REQUEST:
       return INITIAL_STATE.error;
     default:
       return state;
@@ -144,6 +161,12 @@ const isLoading = (state = INITIAL_STATE.isLoading, action = {}) => {
     case actionTypes.UPDATE_PROFILE_REQUEST:
     case actionTypes.CREATE_GUEST_USER_REQUEST:
     case actionTypes.GET_GUEST_USER_REQUEST:
+    case actionTypes.GET_USER_ATTRIBUTES_REQUEST:
+    case actionTypes.POST_USER_ATTRIBUTES_REQUEST:
+    case actionTypes.GET_USER_ATTRIBUTE_REQUEST:
+    case actionTypes.PUT_USER_ATTRIBUTE_REQUEST:
+    case actionTypes.PATCH_USER_ATTRIBUTE_REQUEST:
+    case actionTypes.DELETE_USER_ATTRIBUTE_REQUEST:
       return true;
     case actionTypes.GET_PROFILE_FAILURE:
     case actionTypes.GET_PROFILE_SUCCESS:
@@ -153,6 +176,18 @@ const isLoading = (state = INITIAL_STATE.isLoading, action = {}) => {
     case actionTypes.CREATE_GUEST_USER_SUCCESS:
     case actionTypes.GET_GUEST_USER_FAILURE:
     case actionTypes.GET_GUEST_USER_SUCCESS:
+    case actionTypes.GET_USER_ATTRIBUTES_FAILURE:
+    case actionTypes.GET_USER_ATTRIBUTES_SUCCESS:
+    case actionTypes.POST_USER_ATTRIBUTES_FAILURE:
+    case actionTypes.POST_USER_ATTRIBUTES_SUCCESS:
+    case actionTypes.GET_USER_ATTRIBUTE_FAILURE:
+    case actionTypes.GET_USER_ATTRIBUTE_SUCCESS:
+    case actionTypes.PUT_USER_ATTRIBUTE_FAILURE:
+    case actionTypes.PUT_USER_ATTRIBUTE_SUCCESS:
+    case actionTypes.PATCH_USER_ATTRIBUTE_FAILURE:
+    case actionTypes.PATCH_USER_ATTRIBUTE_SUCCESS:
+    case actionTypes.DELETE_USER_ATTRIBUTE_FAILURE:
+    case actionTypes.DELETE_USER_ATTRIBUTE_SUCCESS:
       return INITIAL_STATE.isLoading;
     default:
       return state;
@@ -201,6 +236,37 @@ export const contacts = reducerFactory(
   actionTypes,
 );
 
+export const userAttributes = (
+  state = INITIAL_STATE.userAttributes,
+  action = {},
+) => {
+  switch (action.type) {
+    case actionTypes.GET_USER_ATTRIBUTES_SUCCESS:
+      return {
+        error: INITIAL_STATE.userAttributes.error,
+        isLoading: false,
+        result: action.payload,
+      };
+    case actionTypes.GET_USER_ATTRIBUTE_SUCCESS:
+      const newArray = [...state.result];
+      const index = state.result.findIndex(
+        attribute => attribute.id === action.payload.id,
+      );
+
+      if (index !== -1) {
+        newArray[index] = action.payload;
+      }
+
+      return {
+        error: INITIAL_STATE.userAttributes.error,
+        isLoading: false,
+        result: index !== -1 ? newArray : [...state.result, action.payload],
+      };
+    default:
+      return state;
+  }
+};
+
 export const getError = state => state.error;
 export const getResult = state => state.result;
 export const getIsLoading = state => state.isLoading;
@@ -211,6 +277,7 @@ export const getTitles = state => state.titles;
 export const getCredit = state => state.credit;
 export const getCreditMovements = state => state.creditMovements;
 export const getContacts = state => state.contacts;
+export const getUserAttributes = state => state.userAttributes;
 
 /**
  * Reducer for profile state.
@@ -234,4 +301,5 @@ export default combineReducers({
   result,
   titles,
   updatePreferences,
+  userAttributes,
 });
