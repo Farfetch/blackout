@@ -3,6 +3,7 @@ import {
   eventTypes,
   fromParameterTypes,
   integrations,
+  interactionTypes,
   pageTypes,
   utils,
 } from '@farfetch/blackout-core/analytics';
@@ -26,6 +27,7 @@ import {
   validTrackEvents,
 } from '../__fixtures__/gaData.fixtures';
 import analyticsTrackDataMock from '../__fixtures__/analyticsTrackData.fixtures';
+import cloneDeep from 'lodash/cloneDeep';
 import eventMapping from '../GA4/eventMapping';
 import mockedPageData from '../__fixtures__/analyticsPageData.fixtures.json';
 
@@ -108,8 +110,7 @@ describe('GA4 Integration', () => {
           ga4Instance = createGA4Instance(options);
         } catch (e) {
           expect(e.message).toBe(
-            `${MESSAGE_PREFIX}${INIT_ERROR}Custom loading script failed with\n` +
-              "              following error: Error: Function's return value is not a Promise",
+            `${MESSAGE_PREFIX}${INIT_ERROR}Custom loading script failed with following error: Error: Function's return value is not a Promise`,
           );
         }
       });
@@ -364,7 +365,7 @@ describe('GA4 Integration', () => {
           properties: {
             ...validEvent.properties,
             from: fromParameterTypes.BAG,
-            position: 0,
+            position: 1,
             affiliation: 'foo',
             coupon: 'bar',
             discount: 5,
@@ -1135,27 +1136,129 @@ describe('GA4 Integration', () => {
 
             expect(ga4Spy.mock.calls[0]).toEqual(expectedPayload);
           });
+
+          it('Should obtain bag value in pageType.bag', async () => {
+            ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+
+            let ga4Spy = getWindowGa4Spy();
+            const clonedEvent = { ...validTrackEvents[pageTypes.BAG] };
+
+            clonedEvent.properties.value = 10;
+
+            await ga4Instance.track(clonedEvent);
+
+            // expect obtain fixed value
+            expect(ga4Spy.mock.calls[0][2].value).toEqual(10);
+
+            delete clonedEvent.properties.value;
+
+            await ga4Instance.track(clonedEvent);
+
+            // expect obtain calculated value
+            expect(ga4Spy.mock.calls[2][2].value).toEqual(19);
+          });
         });
 
-        it('Should obtain bag value in pageType.bag', async () => {
+        describe('Navigation events', () => {
+          describe('Interact Content event', () => {
+            it('Should allow to track the interact_content transforming camelCase to snake_case', async () => {
+              ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+
+              const ga4Spy = getWindowGa4Spy();
+
+              await ga4Instance.track(
+                validTrackEvents[eventTypes.INTERACT_CONTENT],
+              );
+
+              expect(ga4Spy).toHaveBeenCalledWith('event', 'interact_content', {
+                content_type: 'biz',
+                some_other_property: 12312312,
+                interaction_type: interactionTypes.CLICK,
+              });
+            });
+          });
+        });
+      });
+
+      describe('Update Product events', () => {
+        it('Should not trigger ga4 event', async () => {
           ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
 
-          let ga4Spy = getWindowGa4Spy();
-          const clonedEvent = { ...validTrackEvents[pageTypes.BAG] };
+          const ga4Spy = getWindowGa4Spy();
+          const clonedEvent = cloneDeep(
+            validTrackEvents[eventTypes.PRODUCT_UPDATED],
+          );
 
-          clonedEvent.properties.value = 10;
+          // delete unwanted case scenarios
+          delete clonedEvent.properties.oldQuantity;
+          delete clonedEvent.properties.oldSize;
+          delete clonedEvent.properties.oldColour;
+
+          await ga4Instance.track(clonedEvent);
+          expect(ga4Spy).not.toHaveBeenCalled();
+        });
+
+        it('Should trigger ga4 change_quantity event', async () => {
+          ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+
+          const ga4Spy = getWindowGa4Spy();
+          const clonedEvent = cloneDeep(
+            validTrackEvents[eventTypes.PRODUCT_UPDATED],
+          );
+
+          // delete unwanted case scenarios
+          delete clonedEvent.properties.oldSize;
+          delete clonedEvent.properties.oldColour;
+
+          await ga4Instance.track(clonedEvent);
+          expect(ga4Spy.mock.calls).toMatchSnapshot();
+        });
+
+        it('Should trigger ga4 change_size event', async () => {
+          ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+
+          const ga4Spy = getWindowGa4Spy();
+          const clonedEvent = cloneDeep(
+            validTrackEvents[eventTypes.PRODUCT_UPDATED],
+          );
+
+          // delete unwanted case scenarios
+          delete clonedEvent.properties.oldQuantity;
+          delete clonedEvent.properties.oldColour;
 
           await ga4Instance.track(clonedEvent);
 
-          // expect obtain fixed value
-          expect(ga4Spy.mock.calls[0][2].value).toEqual(10);
+          expect(ga4Spy.mock.calls).toMatchSnapshot();
+        });
 
-          delete clonedEvent.properties.value;
+        it('Should trigger ga4 change_colour event', async () => {
+          ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+
+          const ga4Spy = getWindowGa4Spy();
+          const clonedEvent = cloneDeep(
+            validTrackEvents[eventTypes.PRODUCT_UPDATED],
+          );
+
+          // delete unwanted case scenarios
+          delete clonedEvent.properties.oldQuantity;
+          delete clonedEvent.properties.oldSize;
 
           await ga4Instance.track(clonedEvent);
 
-          // expect obtain calculated value
-          expect(ga4Spy.mock.calls[2][2].value).toEqual(19);
+          expect(ga4Spy.mock.calls).toMatchSnapshot();
+        });
+
+        it('Should trigger ga4 change_quantity and change_size and change_colour event', async () => {
+          ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+
+          const ga4Spy = getWindowGa4Spy();
+          const clonedEvent = cloneDeep(
+            validTrackEvents[eventTypes.PRODUCT_UPDATED],
+          );
+
+          await ga4Instance.track(clonedEvent);
+
+          expect(ga4Spy.mock.calls).toMatchSnapshot();
         });
       });
     });

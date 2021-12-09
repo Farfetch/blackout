@@ -17,6 +17,7 @@ jest.mock('../../../../helpers', () => ({
     }
   },
 }));
+
 const analytics = new Analytics();
 const trackSpy = jest.spyOn(analytics, 'track');
 const loggerErrorSpy = jest.spyOn(logger, 'error');
@@ -30,13 +31,13 @@ const categoryName = 'Bags';
 const colorName = 'BLUE';
 const coupon = 'super discount';
 const currencyCode = 'USD';
-const discount = 0;
+const discount = 5;
 const from = 'bag';
 const oldQuantity = 2;
 const position = 3;
-const price = 0.0499;
-const value = price;
-const priceInBagItem = 0.05; // Just to differentiate in tests that are supposed to get the price from the bagItem entity
+const priceWithoutDiscount = 15;
+const priceWithDiscount = priceWithoutDiscount - discount;
+const value = priceWithDiscount;
 const productDescription = 'Woven Marianne Shopper Bag';
 const productId = 13976753;
 const quantity = 1;
@@ -44,6 +45,10 @@ const sizes = [
   { id: 12, name: 'S' },
   { id: 123, name: 'L' },
 ];
+const bagItemQuantity = 5;
+const totalPromotionDiscountValue = 2;
+const discountIncludingPromotions =
+  discount + totalPromotionDiscountValue / bagItemQuantity;
 const sku = '000000000006175920';
 
 const baseMockState = {
@@ -62,7 +67,8 @@ const baseMockState = {
     products: {
       [productId]: {
         price: {
-          includingTaxes: price,
+          includingTaxes: priceWithDiscount,
+          includingTaxesWithoutDiscount: priceWithoutDiscount,
         },
         brand: brandId,
         categories: [categoryId],
@@ -89,9 +95,15 @@ const baseMockState = {
     bagItems: {
       [bagItemId]: {
         price: {
-          includingTaxes: priceInBagItem,
+          includingTaxes: priceWithDiscount,
+          includingTaxesWithoutDiscount: priceWithoutDiscount,
         },
-        size: sizes[1],
+        product: productId,
+        size: sizes[0],
+        quantity: bagItemQuantity,
+        promotionDetail: {
+          totalDiscountValue: totalPromotionDiscountValue,
+        },
       },
     },
   },
@@ -122,16 +134,7 @@ describe('bagMiddleware()', () => {
         getMockState({
           entities: {
             products: {
-              123: {
-                colors: [
-                  {
-                    color: {
-                      name: colorName,
-                    },
-                    tags: undefined,
-                  },
-                ],
-              },
+              123: {},
             },
           },
         }),
@@ -206,12 +209,7 @@ describe('bagMiddleware()', () => {
 
   describe('Add item to bag', () => {
     beforeEach(() => {
-      // For add to bag events, bagItems state
-      // should not be available in order to force to use
-      // the product properties to obtain the payload to the analytics track call
       const mockState = getMockState();
-      delete mockState.entities.bag[bagId].items;
-      delete mockState.entities.bagItems;
 
       store = mockStore(null, mockState, [bagMiddleware(analytics)]);
     });
@@ -221,18 +219,26 @@ describe('bagMiddleware()', () => {
         type: bagActionTypes.ADD_ITEM_TO_BAG_SUCCESS,
         payload: {
           result: bagId,
+          entities: {
+            bagItems: {
+              [bagItemId]: {
+                id: bagItemId,
+                product: productId,
+                size: { id: sizes[0].id },
+              },
+            },
+          },
         },
         meta: {
           affiliation,
           coupon,
-          discount,
           from,
           oldQuantity,
           position,
           productId,
           quantity,
-          value,
           size: sizes[0].id,
+          value,
         },
       });
 
@@ -243,30 +249,26 @@ describe('bagMiddleware()', () => {
         category: categoryName,
         coupon,
         currency: currencyCode,
-        discount,
+        discountValue: discountIncludingPromotions,
         from,
         id: productId,
-        position,
         name: productDescription,
         oldQuantity,
-        price,
+        position,
+        price: priceWithDiscount,
+        priceWithoutDiscount,
         quantity,
-        value,
         size: sizes[0].name,
         sku,
         variant: colorName,
+        value,
       });
     });
   });
 
   describe('Remove item from bag', () => {
     beforeEach(() => {
-      // For remove from bag events, sizes and price might not
-      // be available if a hard-refresh is done when browsing
-      // the bag page
       const mockState = getMockState();
-      delete mockState.entities.products[productId].sizes;
-      delete mockState.entities.products[productId].price;
 
       store = mockStore(null, mockState, [bagMiddleware(analytics)]);
     });
@@ -283,6 +285,7 @@ describe('bagMiddleware()', () => {
           quantity,
           size: sizes[0].id,
           bagItemId,
+          value,
         },
       });
 
@@ -291,14 +294,16 @@ describe('bagMiddleware()', () => {
         cartId: bagId,
         category: categoryName,
         currency: currencyCode,
-        discount: 0,
+        discountValue: discountIncludingPromotions,
         id: productId,
         name: productDescription,
         oldQuantity,
-        price: priceInBagItem,
+        price: priceWithDiscount,
+        priceWithoutDiscount,
         quantity,
         sku,
-        size: sizes[1].name,
+        size: sizes[0].name,
+        value,
         variant: colorName,
       });
     });
@@ -310,6 +315,16 @@ describe('bagMiddleware()', () => {
         type: bagActionTypes.UPDATE_BAG_ITEM_SUCCESS,
         payload: {
           result: bagId,
+          entities: {
+            bagItems: {
+              [bagItemId]: {
+                id: bagItemId,
+                product: productId,
+                size: { id: sizes[0].id },
+              },
+            },
+          },
+          bagItemId,
         },
         meta: {
           productId,
@@ -324,11 +339,12 @@ describe('bagMiddleware()', () => {
         cartId: bagId,
         category: categoryName,
         currency: currencyCode,
-        discount,
+        discountValue: discountIncludingPromotions,
         id: productId,
         name: productDescription,
         oldQuantity: 3,
-        price,
+        price: priceWithDiscount,
+        priceWithoutDiscount,
         quantity: 2,
         sku,
         size: sizes[0].name,
@@ -341,6 +357,16 @@ describe('bagMiddleware()', () => {
         type: bagActionTypes.UPDATE_BAG_ITEM_SUCCESS,
         payload: {
           result: bagId,
+          entities: {
+            bagItems: {
+              [bagItemId]: {
+                id: bagItemId,
+                product: productId,
+                size: { id: sizes[0].id },
+              },
+            },
+          },
+          bagItemId,
         },
         meta: {
           productId,
@@ -355,11 +381,12 @@ describe('bagMiddleware()', () => {
         cartId: bagId,
         category: categoryName,
         currency: currencyCode,
-        discount: 0,
+        discountValue: discountIncludingPromotions,
         id: productId,
         name: productDescription,
         oldQuantity: 3,
-        price,
+        price: priceWithDiscount,
+        priceWithoutDiscount,
         quantity: 3,
         sku,
         size: sizes[0].name,
@@ -372,6 +399,16 @@ describe('bagMiddleware()', () => {
         type: bagActionTypes.UPDATE_BAG_ITEM_SUCCESS,
         payload: {
           result: bagId,
+          entities: {
+            bagItems: {
+              [bagItemId]: {
+                id: bagItemId,
+                product: productId,
+                size: { id: sizes[0].id },
+              },
+            },
+          },
+          bagItemId,
         },
         meta: {
           productId,
@@ -382,38 +419,35 @@ describe('bagMiddleware()', () => {
         },
       });
 
-      expect(trackSpy).nthCalledWith(1, eventTypes.PRODUCT_REMOVED_FROM_CART, {
+      const baseData = {
         brand: brandName,
         cartId: bagId,
         category: categoryName,
         currency: currencyCode,
-        discount: 0,
+        discountValue: discountIncludingPromotions,
         id: productId,
         name: productDescription,
-        oldQuantity: 1,
-        price,
-        quantity: 1,
+        price: priceWithDiscount,
+        priceWithoutDiscount,
         sku,
-        size: sizes[1].name,
         oldSize: sizes[1].name,
         variant: colorName,
+        oldQuantity: 1,
+        quantity: 3,
+        size: sizes[0].name,
+      };
+
+      expect(trackSpy).nthCalledWith(1, eventTypes.PRODUCT_UPDATED, baseData);
+
+      expect(trackSpy).nthCalledWith(2, eventTypes.PRODUCT_REMOVED_FROM_CART, {
+        ...baseData,
+        quantity: 1,
+        size: sizes[1].name,
       });
 
-      expect(trackSpy).nthCalledWith(2, eventTypes.PRODUCT_ADDED_TO_CART, {
-        brand: brandName,
-        cartId: bagId,
-        category: categoryName,
-        currency: currencyCode,
-        discount,
-        id: productId,
-        name: productDescription,
+      expect(trackSpy).nthCalledWith(3, eventTypes.PRODUCT_ADDED_TO_CART, {
+        ...baseData,
         oldQuantity: 0,
-        price,
-        quantity: 3,
-        sku,
-        size: sizes[0].name,
-        variant: colorName,
-        oldSize: sizes[1].name,
       });
     });
   });
@@ -458,10 +492,35 @@ describe('bagMiddleware()', () => {
           productId,
           oldQuantity,
           quantity,
+          size: sizes[0].id,
         },
       });
 
-      expect(trackSpy).toBeCalledTimes(1);
+      const expectedData = {
+        brand: brandName,
+        cartId: bagId,
+        category: categoryName,
+        currency: currencyCode,
+        discountValue: 0,
+        id: productId,
+        name: productDescription,
+        price: priceWithDiscount,
+        priceWithoutDiscount: 10,
+        oldQuantity,
+        quantity,
+        size: sizes[0].name,
+        sku,
+        variant: colorName,
+      };
+
+      // expect trigger analytics product updated event
+      expect(trackSpy).toBeCalledWith(eventTypes.PRODUCT_UPDATED, expectedData);
+
+      // expect trigger analytics product removed event
+      expect(trackSpy).toBeCalledWith(
+        eventTypes.PRODUCT_REMOVED_FROM_CART,
+        expectedData,
+      );
     });
 
     it('should handle a custom action type for remove from bag action', async () => {

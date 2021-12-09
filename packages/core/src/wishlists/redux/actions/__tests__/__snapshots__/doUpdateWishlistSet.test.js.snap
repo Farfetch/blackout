@@ -3,6 +3,14 @@
 exports[`doUpdateWishlistSet() should create the correct actions for when the update wishlist set procedure is successful: update wishlist set success payload 1`] = `
 Object {
   "meta": Object {
+    "data": Array [
+      Object {
+        "from": "string",
+        "op": "string",
+        "path": "string",
+        "value": Object {},
+      },
+    ],
     "wishlistSetId": "77fae745-7608-4b7d-8e7d-4f6923e032ef",
   },
   "type": "@farfetch/blackout-core/UPDATE_WISHLIST_SET_SUCCESS",

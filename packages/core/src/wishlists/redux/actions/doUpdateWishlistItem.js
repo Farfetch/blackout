@@ -57,6 +57,7 @@ export default patchWishlistItem =>
         meta: {
           productId: wishlistItem.product.id,
           wishlistItemId,
+          ...data,
         },
       });
     } catch (error) {

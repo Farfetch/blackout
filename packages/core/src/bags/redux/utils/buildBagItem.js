@@ -3,6 +3,7 @@
  *
  * @function buildBagItem
  * @memberof module:bags/utils
+ *
  * @param {object} data - Details of the bag item to build.
  * @param {string} [data.authCode=''] - Authorization code (for SMS
  * restrictions, for example).
@@ -12,6 +13,8 @@
  * @param {number} data.productAggregatorId - Product's aggregator (bundle variant) id.
  * @param {number} [data.quantity=1] - Number of units.
  * @param {object} data.size - Size information.
+ * @param {object} [data.from] - Provenience of action.
+ *
  * @returns {object} Bag item data ready to perform add or update requests.
  */
 export default ({

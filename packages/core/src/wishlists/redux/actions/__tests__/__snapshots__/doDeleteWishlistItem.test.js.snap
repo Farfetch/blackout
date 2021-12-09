@@ -4,6 +4,7 @@ exports[`doDeleteWishlistItem() action creator should create the correct actions
 Object {
   "meta": Object {
     "productId": 12129099,
+    "wishlistId": "b1a13891-6084-489f-96ed-300eed45b948",
     "wishlistItemId": 481426747,
   },
   "payload": Object {

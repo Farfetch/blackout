@@ -7,6 +7,7 @@ Object {
     "productId": 12129099,
     "quantity": 1,
     "size": 18,
+    "wishlistId": "b1a13891-6084-489f-96ed-300eed45b948",
   },
   "payload": Object {
     "entities": Object {
@@ -79,6 +80,7 @@ Object {
     "productId": 12129099,
     "quantity": 1,
     "size": 18,
+    "wishlistId": "b1a13891-6084-489f-96ed-300eed45b948",
   },
   "payload": Object {
     "entities": Object {

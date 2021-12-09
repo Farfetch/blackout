@@ -41,7 +41,7 @@ export const productBaseSchema = productRequiredSchema.concat(
 );
 
 export const discountSchema = yup.object({
-  discount: yup.number().min(0).strict(),
+  discountValue: yup.number().min(0).strict(),
 });
 
 export const affiliationSchema = yup.object({
@@ -50,14 +50,6 @@ export const affiliationSchema = yup.object({
 
 export const currencySchema = yup.object({
   currency: yup.string().strict().required(),
-});
-
-export const locationSchema = yup.object({
-  locationId: yup.string().strict(),
-});
-
-export const valueSchema = yup.object({
-  value: yup.number().strict(),
 });
 
 export const productBaseWithCurrencySchema =
@@ -71,8 +63,8 @@ export const priceSchema = yup.object({
   price: yup.number().min(0).strict().nullable(),
 });
 
-export const priceRequiredSchema = yup.object({
-  price: yup.number().min(0).strict().required(),
+export const priceWithoutDiscountSchema = yup.object({
+  price: yup.number().min(0).strict().nullable(),
 });
 
 export const quantitySchema = yup.object({
@@ -127,6 +119,14 @@ export const shippingSchema = yup.object({
   shipping: yup.number().min(0).strict().nullable(),
 });
 
+export const locationSchema = yup.object({
+  locationId: yup.string().strict(),
+});
+
+export const valueSchema = yup.object({
+  value: yup.number().strict(),
+});
+
 export const orderSchema = orderIdSchema
   .concat(couponSchema)
   .concat(taxSchema)
@@ -176,20 +176,20 @@ export const orderCompletedSchema = productsListCheckoutSchema
 export const productRefundSchema =
   productsListRefundSchema.concat(orderIdSchema);
 
+export const loginSignUpSchema = yup.object({
+  method: yup.string().notRequired(),
+});
+
 export const fromRequiredSchema = yup.object({
   from: yup.string().strict().required(),
 });
 
-export const sortSchema = yup.object({
-  sort: yup.string().notRequired(),
+export const sortOptionSchema = yup.object({
+  sortOption: yup.string().notRequired(),
 });
 
 export const filtersSchema = yup.object({
-  filters: yup.string().notRequired(),
-});
-
-export const loginSignUpSchema = yup.object({
-  method: yup.string().notRequired(),
+  filters: yup.object().notRequired(),
 });
 
 /**
@@ -198,6 +198,9 @@ export const loginSignUpSchema = yup.object({
 const schemaEventsMap = {
   [eventTypes.CHECKOUT_STEP_COMPLETED]: checkoutSchema,
   [eventTypes.CHECKOUT_STEP_VIEWED]: checkoutStepViewedSchema,
+  [eventTypes.FILTERS_APPLIED]: filtersSchema,
+  [eventTypes.FILTERS_CLEARED]: filtersSchema,
+  [eventTypes.LOGIN]: loginSignUpSchema,
   [eventTypes.ORDER_COMPLETED]: orderCompletedSchema,
   [eventTypes.ORDER_REFUNDED]: productRefundSchema,
   [eventTypes.PRODUCT_ADDED_TO_CART]: productAddedRemovedCartSchema,
@@ -208,8 +211,8 @@ const schemaEventsMap = {
   [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: productAddedRemovedWishlistSchema,
   [eventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: productAddedRemovedWishlistSchema,
   [eventTypes.PRODUCT_UPDATED_WISHLIST]: productAddedRemovedWishlistSchema,
-  [eventTypes.LOGIN]: loginSignUpSchema,
   [eventTypes.SIGNUP_FORM_COMPLETED]: loginSignUpSchema,
+  [eventTypes.SORT_OPTION_CHANGED]: sortOptionSchema,
 };
 
 export default schemaEventsMap;
