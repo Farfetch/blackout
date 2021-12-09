@@ -157,7 +157,7 @@ export const mockProductsState = {
         size: {
           scale: 117,
           id: 6,
-          name: '40',
+          name: '41',
           scaleDescription: 'Jeans (waist)',
           scaleAbbreviation: 'WAIST',
           globalQuantity: 44,
