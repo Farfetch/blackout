@@ -272,3 +272,66 @@ describe('entitiesMapper()', () => {
     ).toEqual(expectedResult);
   });
 });
+
+describe('userAttributes() reducer', () => {
+  it.each([actionTypes.GET_USER_ATTRIBUTES_SUCCESS])(
+    'should handle %s action type',
+    actionType => {
+      const payload = {
+        type: 'Generic',
+        channelCode: 'channel_abc',
+        details: {
+          items: {
+            key1: 'value1',
+            key2: 'value2',
+          },
+        },
+      };
+      const reducerResult = reducer(undefined, {
+        payload,
+        type: actionType,
+      }).userAttributes;
+      const expectedResult = {
+        error: null,
+        isLoading: false,
+        result: payload,
+      };
+
+      expect(reducerResult).toEqual(expectedResult);
+    },
+  );
+
+  it.each([actionTypes.GET_USER_ATTRIBUTE_SUCCESS])(
+    'should handle %s action type',
+    actionType => {
+      const state = {
+        userAttributes: {
+          error: null,
+          result: [],
+        },
+      };
+      const payload = {
+        id: 'e194de8d-de70-4933-9116-ecf91fbf59cc',
+        type: 'Generic',
+        channelCode: 'channel_abc',
+        details: {
+          items: {
+            key1: 'value1',
+            key2: 'value2',
+          },
+        },
+      };
+      const reducerResult = reducer(state, {
+        payload,
+        type: actionType,
+      }).userAttributes;
+      const expectedResult = {
+        error: state.userAttributes.error,
+        isLoading: false,
+        result: [payload],
+      };
+
+      expect(reducerResult).toEqual(expectedResult);
+    },
+  );
+});
