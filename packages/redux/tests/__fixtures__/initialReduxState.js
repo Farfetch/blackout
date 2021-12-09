@@ -53,6 +53,8 @@ export const mockWishlistId = '8ea6dba4-ca23-4daa-9f0f-d34ba3d91634';
 export const mockWishlistItemId = 4568785454;
 export const mockWishlistProductId = 4544564654;
 export const mockWishlistSetId = '50408d1f-8541-49a6-be2e-64c3c267e237';
+export const mockWishlistSetName = 'This is a set';
+export const mockWishlistSetDescription = 'This is a set description';
 
 // This will be used for the regular listing and as "parent listing", because of
 // the desabled filters
@@ -3312,8 +3314,8 @@ export default {
     wishlistSets: {
       [mockWishlistSetId]: {
         id: mockWishlistSetId,
-        name: 'Este é o set bonito',
-        description: 'Aqui jaz a descrição do que outrora fora um set bonito',
+        name: mockWishlistSetName,
+        description: mockWishlistSetDescription,
         dateCreated: '2020-04-06T15:59:17.377Z',
         wishlistSetItems: [
           {

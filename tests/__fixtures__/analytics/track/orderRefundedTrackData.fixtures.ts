@@ -6,7 +6,7 @@ export default {
   event: eventTypes.ORDER_REFUNDED,
   properties: {
     orderId: '50314b8e9bcf000000000000',
-    total: 30,
+    total: 19,
     currency: 'USD',
     products: [
       {
@@ -17,7 +17,9 @@ export default {
         currency: 'USD',
         variant: 'Black',
         size: 'L',
+        discountValue: 6,
         price: 19,
+        priceWithoutDiscount: 25,
         quantity: 1,
       },
     ],

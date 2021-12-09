@@ -3,6 +3,7 @@ import {
   MESSAGE_PREFIX,
   OPTION_DATA_LAYER_NAME,
   OPTION_ENABLE_AUTOMATIC_PAGE_VIEWS,
+  OPTION_EXCLUDE_ARRAY_PARAMETERS_EVENTS,
   OPTION_LOAD_SCRIPT_FUNCTION,
   OPTION_MEASUREMENT_ID,
   OPTION_NON_INTERACTION_EVENTS,
@@ -24,6 +25,7 @@ const optionsInterface = {
   [OPTION_SCHEMAS]: { type: 'object', required: false },
   [OPTION_SCOPE_COMMANDS]: { type: 'object', required: false },
   [OPTION_DATA_LAYER_NAME]: { type: 'string', required: false },
+  [OPTION_EXCLUDE_ARRAY_PARAMETERS_EVENTS]: { type: 'object', required: false },
 };
 
 /**

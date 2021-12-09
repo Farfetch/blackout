@@ -9,6 +9,7 @@ import bagItemSchema from '../../../entities/schemas/bagItem';
 import type {
   Bag,
   DeleteBagItem,
+  PatchBagItemData,
   Query,
 } from '@farfetch/blackout-client/bags/types';
 import type { Dispatch } from 'redux';
@@ -46,7 +47,12 @@ import type { GetOptionsArgument, StoreState } from '../../../types';
  */
 const removeBagItemFactory =
   (deleteBagItem: DeleteBagItem) =>
-  (bagItemId: number, query?: Query, config?: Record<string, unknown>) =>
+  (
+    bagItemId: number,
+    data?: PatchBagItemData,
+    query?: Query,
+    config?: Record<string, unknown>,
+  ) =>
   async (
     dispatch: Dispatch,
     getState: () => StoreState,
@@ -81,6 +87,7 @@ const removeBagItemFactory =
         payload: normalizedBag,
         type: REMOVE_BAG_ITEM_SUCCESS,
         meta: {
+          ...data,
           bagId,
           bagItemId,
         },

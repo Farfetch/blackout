@@ -79,6 +79,8 @@ const removeWishlistItemFactory =
         meta: {
           productId: wishlistItem?.product?.id,
           wishlistItemId,
+          wishlistId,
+          ...config,
         },
       });
 

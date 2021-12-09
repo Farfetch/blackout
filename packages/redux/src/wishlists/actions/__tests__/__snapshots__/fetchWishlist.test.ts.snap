@@ -1,3 +1,63 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetchWishlist() should create the correct actions for when the fetch wishlist procedure is successful: Fetch wishlist success payload 1`] = `undefined`;
+exports[`fetchWishlist() should create the correct actions for when the fetch wishlist procedure is successful: Fetch wishlist success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "brands": Object {
+        "10533": Object {
+          "id": 10533,
+          "name": "Valentino",
+        },
+      },
+      "products": Object {
+        "12129099": Object {
+          "brand": 10533,
+          "categories": undefined,
+          "colorGrouping": undefined,
+          "colors": undefined,
+          "customAttributes": undefined,
+          "description": undefined,
+          "groupedEntries": undefined,
+          "id": 12129099,
+          "images": undefined,
+          "labels": undefined,
+          "merchant": undefined,
+          "name": "251 sneakers",
+          "price": undefined,
+          "prices": undefined,
+          "sizes": undefined,
+          "slug": undefined,
+          "tag": Object {
+            "id": undefined,
+            "name": undefined,
+          },
+          "variants": undefined,
+        },
+      },
+      "wishlistItems": Object {
+        "481426747": Object {
+          "attributes": undefined,
+          "createdByStaffMemberId": null,
+          "dateCreated": 1612194217929,
+          "id": 481426747,
+          "merchant": undefined,
+          "price": undefined,
+          "product": 12129099,
+          "quantity": 2,
+          "size": Object {},
+        },
+      },
+    },
+    "result": Object {
+      "count": 1,
+      "id": "b1a13891-6084-489f-96ed-300eed45b948",
+      "items": Array [
+        481426747,
+      ],
+      "userId": null,
+    },
+  },
+  "type": "@farfetch/blackout-redux/FETCH_WISHLIST_SUCCESS",
+}
+`;

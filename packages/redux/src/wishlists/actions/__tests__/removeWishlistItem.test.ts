@@ -133,7 +133,7 @@ describe('removeWishlistItem() action creator', () => {
         type: actionTypes.REMOVE_WISHLIST_ITEM_SUCCESS,
       },
     ]);
-    expect(storeActions[2]).toMatchSnapshot(
+    expect(storeActions[1]).toMatchSnapshot(
       'Remove wishlist item success payload',
     );
   });

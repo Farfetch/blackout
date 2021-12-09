@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should export interactionTypes 1`] = `
+Object {
+  "CLICK": "Click",
+  "DOUBLE_CLICK": "Double Click",
+  "DRAG": "Drag",
+  "DROP": "Drop",
+  "HOVER": "Hover",
+  "KEYPRESS": "Keypress",
+  "RESIZE": "Resize",
+  "SCROLL": "Scroll",
+  "SUBMIT": "Submit",
+  "SWIPE": "Swipe",
+  "TAP": "Tap",
+  "TOUCH": "Touch",
+}
+`;

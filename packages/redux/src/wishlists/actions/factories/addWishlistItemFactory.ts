@@ -74,7 +74,7 @@ const addWishlistItemFactory =
       }));
 
       dispatch({
-        meta: { ...data },
+        meta: { ...data, wishlistId },
         payload: normalize(
           { ...result, items: newItems },
           { items: [wishlistItemSchema] },

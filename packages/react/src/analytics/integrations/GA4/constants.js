@@ -17,3 +17,5 @@ export const OPTION_PRODUCT_MAPPINGS = 'productMappings';
 export const OPTION_SCOPE_COMMANDS = 'scopeCommands';
 export const OPTION_SCHEMAS = 'schemas';
 export const OPTION_DATA_LAYER_NAME = 'dataLayerName';
+export const OPTION_EXCLUDE_ARRAY_PARAMETERS_EVENTS =
+  'excludeArrayParametersEvents';

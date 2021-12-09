@@ -20,6 +20,7 @@ export type HandleAddOrUpdateItemType = ({
   productAggregatorId,
   quantity,
   size,
+  from,
 }: {
   customAttributes?: CustomAttributesAdapted;
   product?: ProductEntity;
@@ -28,14 +29,25 @@ export type HandleAddOrUpdateItemType = ({
     null
   >['id'];
   quantity?: number;
-  size?: SizeAdapted;
+  size?: SizeAdapted | undefined;
+  from?: string;
 }) => Promise<void>;
-export type HandleQuantityChangeType = (newQuantity: number) => void;
-export type HandleSizeChangeType = (newSize: number) => void;
-export type HandleFullUpdateType = (newSizeId: number, newQty: number) => void;
-export type HandleDeleteBagItemType = () => void;
+export type HandleQuantityChangeType = (
+  newQuantity: number,
+  from?: string,
+) => void;
+export type HandleSizeChangeType = (newSize: number, from?: string) => void;
+export type HandleFullUpdateType = (
+  newSizeId: number,
+  newQty: number,
+  from?: string,
+) => void;
+export type HandleDeleteBagItemType = (from?: string) => void;
 
-export type UseBagItem = (bagItemId: number) => {
+export type UseBagItem = (
+  bagItemId: number,
+  from?: string,
+) => {
   addBagItem: (
     data: PostBagItemData,
     query?: Query,
@@ -43,6 +55,7 @@ export type UseBagItem = (bagItemId: number) => {
   ) => Promise<Bag>;
   deleteBagItem: (
     bagItemId: number,
+    data?: PatchBagItemData,
     query?: Query,
     config?: Record<string, unknown>,
   ) => Promise<Bag>;
