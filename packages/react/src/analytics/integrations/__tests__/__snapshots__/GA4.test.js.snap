@@ -1,19 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Address Info Added event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "add_address_info",
+    Object {
+      "Items": "[{\\"item_category\\":\\"Clothing\\",\\"item_category2\\":\\"Tops\\",\\"item_category3\\":\\"T-shirts\\",\\"currency\\":\\"USD\\",\\"discount\\":6,\\"item_brand\\":\\"Just A T-Shirt\\",\\"item_id\\":\\"507f1f77bcf86cd799439011\\",\\"item_name\\":\\"Gareth McConnell Dreamscape T-Shirt\\",\\"item_variant\\":\\"Black\\",\\"price\\":25,\\"quantity\\":1,\\"size_id\\":\\"L\\"}]",
+      "address_finder": undefined,
+      "coupon": "HARRODS2019",
+      "currency": "USD",
+      "delivery_type": undefined,
+      "packaging_type": undefined,
+      "shipping_tier": "Next Day",
+      "value": 24.64,
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Checkout Abandoned event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "abandon_confirmation_checkout",
+    Object {
+      "Items": "[{\\"item_category\\":\\"Clothing\\",\\"item_category2\\":\\"Tops\\",\\"item_category3\\":\\"T-shirts\\",\\"currency\\":\\"USD\\",\\"discount\\":6,\\"item_brand\\":\\"Just A T-Shirt\\",\\"item_id\\":\\"507f1f77bcf86cd799439011\\",\\"item_name\\":\\"Gareth McConnell Dreamscape T-Shirt\\",\\"item_variant\\":\\"Black\\",\\"price\\":25,\\"quantity\\":1,\\"size_id\\":\\"L\\"}]",
+      "coupon": "HARRODS2019",
+      "currency": "USD",
+      "from": undefined,
+      "value": 24.64,
+    },
+  ],
+]
+`;
+
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Checkout Started event correctly 1`] = `
 Array [
   Array [
     "event",
     "begin_checkout",
     Object {
-      "coupon": "acme2019",
+      "coupon": "HARRODS2019",
       "currency": "USD",
       "items": Array [
         Object {
           "affiliation": undefined,
           "coupon": undefined,
           "currency": "USD",
-          "discount": undefined,
+          "discount": 6,
           "index": undefined,
           "item_brand": "Just A T-Shirt",
           "item_category": "Clothing",
@@ -25,11 +60,62 @@ Array [
           "item_name": "Gareth McConnell Dreamscape T-Shirt",
           "item_variant": "Black",
           "location_id": undefined,
-          "price": 19,
+          "price": 25,
           "quantity": 1,
+          "size_id": "L",
         },
       ],
-      "value": 30.64,
+      "value": 24.64,
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Checkout Step Editing event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "edit_checkout_step",
+    Object {
+      "checkout_step": 1,
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Filters Applied event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "apply_filters",
+    Object {
+      "filters": "{\\"brands\\":[2765,4062],\\"categories\\":[135973],\\"colors\\":[1],\\"discount\\":[0],\\"gender\\":[0],\\"price\\":[0,1950],\\"sizes\\":[16]}",
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Filters Cleared event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "clear_filters",
+    Object {
+      "filters": "{\\"brands\\":[2765,4062],\\"categories\\":[135973],\\"colors\\":[1],\\"discount\\":[0],\\"gender\\":[0],\\"price\\":[0,1950],\\"sizes\\":[16]}",
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Interact Content event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "interact_content",
+    Object {
+      "content_type": "biz",
+      "interaction_type": "Click",
+      "some_other_property": 12312312,
     },
   ],
 ]
@@ -41,7 +127,7 @@ Array [
     "event",
     "login",
     Object {
-      "method": "Acme",
+      "method": "Farfetch",
     },
   ],
 ]
@@ -54,14 +140,14 @@ Array [
     "purchase",
     Object {
       "affiliation": undefined,
-      "coupon": "acme2019",
+      "coupon": "HARRODS2019",
       "currency": "USD",
       "items": Array [
         Object {
           "affiliation": undefined,
           "coupon": undefined,
           "currency": "USD",
-          "discount": undefined,
+          "discount": 6,
           "index": undefined,
           "item_brand": "Just A T-Shirt",
           "item_category": "Clothing",
@@ -73,14 +159,15 @@ Array [
           "item_name": "Gareth McConnell Dreamscape T-Shirt",
           "item_variant": "Black",
           "location_id": undefined,
-          "price": 19,
+          "price": 25,
           "quantity": 1,
+          "size_id": "L",
         },
       ],
       "shipping": 3.6,
       "tax": 2.04,
       "transaction_id": "50314b8e9bcf000000000000",
-      "value": 30.64,
+      "value": 24.64,
     },
   ],
 ]
@@ -100,7 +187,7 @@ Array [
           "affiliation": undefined,
           "coupon": undefined,
           "currency": "USD",
-          "discount": undefined,
+          "discount": 6,
           "index": undefined,
           "item_brand": "Just A T-Shirt",
           "item_category": "Clothing",
@@ -112,14 +199,15 @@ Array [
           "item_name": "Gareth McConnell Dreamscape T-Shirt",
           "item_variant": "Black",
           "location_id": undefined,
-          "price": 19,
+          "price": 25,
           "quantity": 1,
+          "size_id": "L",
         },
       ],
       "shipping": undefined,
       "tax": undefined,
       "transaction_id": "50314b8e9bcf000000000000",
-      "value": 30,
+      "value": 19,
     },
   ],
 ]
@@ -131,14 +219,14 @@ Array [
     "event",
     "add_payment_info",
     Object {
-      "coupon": "acme2019",
+      "coupon": "HARRODS2019",
       "currency": "USD",
       "items": Array [
         Object {
           "affiliation": undefined,
           "coupon": undefined,
           "currency": "USD",
-          "discount": undefined,
+          "discount": 6,
           "index": undefined,
           "item_brand": "Just A T-Shirt",
           "item_category": "Clothing",
@@ -150,12 +238,32 @@ Array [
           "item_name": "Gareth McConnell Dreamscape T-Shirt",
           "item_variant": "Black",
           "location_id": undefined,
-          "price": 19,
+          "price": 25,
           "quantity": 1,
+          "size_id": "L",
         },
       ],
       "payment_type": "credit card",
-      "value": 30.64,
+      "value": 24.64,
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Place Order Started event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "place_order",
+    Object {
+      "Items": "[{\\"item_category\\":\\"Clothing\\",\\"item_category2\\":\\"Tops\\",\\"item_category3\\":\\"T-shirts\\",\\"currency\\":\\"USD\\",\\"discount\\":6,\\"item_brand\\":\\"Just A T-Shirt\\",\\"item_id\\":\\"507f1f77bcf86cd799439011\\",\\"item_name\\":\\"Gareth McConnell Dreamscape T-Shirt\\",\\"item_variant\\":\\"Black\\",\\"price\\":25,\\"quantity\\":1,\\"size_id\\":\\"L\\"}]",
+      "affiliation": undefined,
+      "coupon": "HARRODS2019",
+      "currency": "USD",
+      "shipping": 3.6,
+      "tax": 2.04,
+      "transaction_id": "50314b8e9bcf000000000000",
+      "value": 24.64,
     },
   ],
 ]
@@ -168,29 +276,32 @@ Array [
     "add_to_cart",
     Object {
       "currency": "USD",
-      "from": "PDP",
+      "from": "Wishlist",
+      "item_list_id": "d3618128-5aa9-4caa-a452-1dd1377a6190",
+      "item_list_name": "my_wishlist",
       "items": Array [
         Object {
           "affiliation": undefined,
           "coupon": undefined,
           "currency": "USD",
-          "discount": undefined,
+          "discount": 6,
           "index": undefined,
           "item_brand": "Just A T-Shirt",
           "item_category": "Clothing",
           "item_category2": "Tops",
           "item_category3": "T-shirts",
           "item_id": "507f1f77bcf86cd799439011",
-          "item_list_id": undefined,
-          "item_list_name": undefined,
           "item_name": "Gareth McConnell Dreamscape T-Shirt",
           "item_variant": "Black",
           "location_id": undefined,
-          "price": 18.99,
+          "price": 25,
           "quantity": 1,
+          "size_id": "L",
         },
       ],
-      "value": 18.99,
+      "value": 19,
+      "wishlist_id": undefined,
+      "wishlist_name": undefined,
     },
   ],
 ]
@@ -203,29 +314,32 @@ Array [
     "add_to_wishlist",
     Object {
       "currency": "USD",
-      "from": undefined,
+      "from": "PLP",
+      "item_list_id": "/en-pt/shopping/woman",
+      "item_list_name": "Woman shopping",
       "items": Array [
         Object {
           "affiliation": undefined,
           "coupon": undefined,
           "currency": "USD",
-          "discount": undefined,
+          "discount": 6,
           "index": undefined,
           "item_brand": "Just A T-Shirt",
           "item_category": "Clothing",
           "item_category2": "Tops",
           "item_category3": "T-shirts",
           "item_id": "507f1f77bcf86cd799439011",
-          "item_list_id": undefined,
-          "item_list_name": "Woman shopping",
           "item_name": "Gareth McConnell Dreamscape T-Shirt",
           "item_variant": "Black",
           "location_id": undefined,
-          "price": 18.99,
+          "price": 25,
           "quantity": undefined,
+          "size_id": undefined,
         },
       ],
-      "value": 18.99,
+      "value": 19,
+      "wishlist_id": "d3618128-5aa9-4caa-a452-1dd1377a6190",
+      "wishlist_name": "my_wishlist",
     },
   ],
 ]
@@ -237,24 +351,23 @@ Array [
     "event",
     "select_item",
     Object {
-      "item_list_id": undefined,
+      "item_list_id": "/en-pt/shopping/woman",
       "item_list_name": "Woman shopping",
       "items": Array [
         Object {
           "affiliation": undefined,
           "coupon": undefined,
           "currency": "GBP",
-          "discount": undefined,
+          "discount": 6,
           "index": 3,
           "item_brand": undefined,
           "item_id": "507f1f77bcf86cd799439011",
-          "item_list_id": undefined,
-          "item_list_name": "Woman shopping",
           "item_name": "Gareth McConnell Dreamscape T-Shirt",
           "item_variant": undefined,
           "location_id": undefined,
-          "price": 10,
+          "price": 25,
           "quantity": undefined,
+          "size_id": undefined,
         },
       ],
     },
@@ -278,37 +391,58 @@ Array [
           "affiliation": undefined,
           "coupon": undefined,
           "currency": "USD",
-          "discount": undefined,
+          "discount": 6,
           "index": 2,
           "item_brand": undefined,
           "item_id": "507f1f77bcf86cd799439011",
-          "item_list_id": undefined,
+          "item_list_id": "09a35590-bb62-4027-a630-5da04ec64fb5",
           "item_list_name": "Woman shopping",
           "item_name": "Gareth McConnell Dreamscape T-Shirt",
           "item_variant": undefined,
           "location_id": undefined,
-          "price": 18.99,
+          "price": 25,
           "quantity": undefined,
+          "size_id": undefined,
         },
         Object {
           "affiliation": undefined,
           "coupon": undefined,
           "currency": "USD",
-          "discount": undefined,
+          "discount": 6,
           "index": 3,
           "item_brand": undefined,
           "item_id": "507f1f77bcf86cd799439012",
-          "item_list_id": undefined,
+          "item_list_id": "09a35590-bb62-4027-a630-5da04ec64fb5",
           "item_list_name": "Woman shopping",
           "item_name": "Gareth McConnell Dreamscape T-Shirt",
           "item_variant": undefined,
           "location_id": undefined,
-          "price": 18.99,
+          "price": 25,
           "quantity": undefined,
+          "size_id": undefined,
         },
       ],
       "non_interaction": true,
       "sort_option": undefined,
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Product Removed From Wishlist event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "remove_from_wishlist",
+    Object {
+      "Items": "[{\\"item_category\\":\\"Clothing\\",\\"item_category2\\":\\"Tops\\",\\"item_category3\\":\\"T-shirts\\",\\"currency\\":\\"USD\\",\\"discount\\":6,\\"item_brand\\":\\"Just A T-Shirt\\",\\"item_id\\":\\"507f1f77bcf86cd799439011\\",\\"item_name\\":\\"Gareth McConnell Dreamscape T-Shirt\\",\\"item_variant\\":\\"Black\\",\\"price\\":25}]",
+      "currency": "USD",
+      "from": "PLP",
+      "item_list_id": "/en-pt/shopping/woman",
+      "item_list_name": "Woman shopping",
+      "value": 19,
+      "wishlist_id": "d3618128-5aa9-4caa-a452-1dd1377a6190",
+      "wishlist_name": "my_wishlist",
     },
   ],
 ]
@@ -322,28 +456,31 @@ Array [
     Object {
       "currency": "USD",
       "from": "Bag",
+      "item_list_id": "e0030b3c-b970-4496-bc72-f9a38d6270b1",
+      "item_list_name": "Bag",
       "items": Array [
         Object {
           "affiliation": undefined,
           "coupon": undefined,
           "currency": "USD",
-          "discount": undefined,
+          "discount": 6,
           "index": 1,
           "item_brand": "Just A T-Shirt",
           "item_category": "Clothing",
           "item_category2": "Tops",
           "item_category3": "T-shirts",
           "item_id": "507f1f77bcf86cd799439011",
-          "item_list_id": undefined,
-          "item_list_name": undefined,
           "item_name": "Gareth McConnell Dreamscape T-Shirt",
           "item_variant": "Black",
           "location_id": undefined,
-          "price": 18.99,
+          "price": 25,
           "quantity": 1,
+          "size_id": "L",
         },
       ],
-      "value": 18.99,
+      "value": 19,
+      "wishlist_id": undefined,
+      "wishlist_name": undefined,
     },
   ],
 ]
@@ -356,31 +493,68 @@ Array [
     "view_item",
     Object {
       "currency": "USD",
-      "from": undefined,
+      "from": "PLP",
       "image_count": undefined,
       "items": Array [
         Object {
           "affiliation": undefined,
           "coupon": undefined,
           "currency": "USD",
-          "discount": undefined,
+          "discount": 6,
           "index": undefined,
           "item_brand": "Just A T-Shirt",
           "item_category": "Clothing",
           "item_category2": "Tops",
           "item_category3": "T-shirts",
           "item_id": "507f1f77bcf86cd799439011",
-          "item_list_id": undefined,
-          "item_list_name": undefined,
           "item_name": "Gareth McConnell Dreamscape T-Shirt",
           "item_variant": "Black",
           "location_id": undefined,
-          "price": 18.99,
+          "price": 25,
           "quantity": undefined,
+          "size_id": undefined,
         },
       ],
       "non_interaction": true,
-      "value": 18.99,
+      "value": 19,
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Promocode Applied event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "apply_promo_code",
+    Object {
+      "Items": "[{\\"item_category\\":\\"Clothing\\",\\"item_category2\\":\\"Tops\\",\\"item_category3\\":\\"T-shirts\\",\\"currency\\":\\"USD\\",\\"discount\\":6,\\"item_brand\\":\\"Just A T-Shirt\\",\\"item_id\\":\\"507f1f77bcf86cd799439011\\",\\"item_name\\":\\"Gareth McConnell Dreamscape T-Shirt\\",\\"item_variant\\":\\"Black\\",\\"price\\":25,\\"quantity\\":1,\\"size_id\\":\\"L\\"}]",
+      "address_finder": undefined,
+      "coupon": "HARRODS2019",
+      "currency": "USD",
+      "delivery_type": undefined,
+      "packaging_type": undefined,
+      "shipping_tier": "Next Day",
+      "value": 24.64,
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Same Billing Address Selected event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "select_same_billing_address",
+    Object {
+      "Items": "[{\\"item_category\\":\\"Clothing\\",\\"item_category2\\":\\"Tops\\",\\"item_category3\\":\\"T-shirts\\",\\"currency\\":\\"USD\\",\\"discount\\":6,\\"item_brand\\":\\"Just A T-Shirt\\",\\"item_id\\":\\"507f1f77bcf86cd799439011\\",\\"item_name\\":\\"Gareth McConnell Dreamscape T-Shirt\\",\\"item_variant\\":\\"Black\\",\\"price\\":25,\\"quantity\\":1,\\"size_id\\":\\"L\\"}]",
+      "address_finder": undefined,
+      "coupon": "HARRODS2019",
+      "currency": "USD",
+      "delivery_type": undefined,
+      "packaging_type": undefined,
+      "shipping_tier": "Next Day",
+      "value": 24.64,
     },
   ],
 ]
@@ -399,14 +573,28 @@ Array [
 ]
 `;
 
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Share event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "share",
+    Object {
+      "content_type": "image",
+      "item_id": "123456",
+      "method": "Facebook",
+    },
+  ],
+]
+`;
+
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Shipping Info Added event correctly 1`] = `
 Array [
   Array [
     "event",
     "add_shipping_info",
     Object {
-      "address_finder": 0,
-      "coupon": "acme2019",
+      "address_finder": undefined,
+      "coupon": "HARRODS2019",
       "currency": "USD",
       "delivery_type": undefined,
       "items": Array [
@@ -414,7 +602,7 @@ Array [
           "affiliation": undefined,
           "coupon": undefined,
           "currency": "USD",
-          "discount": undefined,
+          "discount": 6,
           "index": undefined,
           "item_brand": "Just A T-Shirt",
           "item_category": "Clothing",
@@ -426,13 +614,33 @@ Array [
           "item_name": "Gareth McConnell Dreamscape T-Shirt",
           "item_variant": "Black",
           "location_id": undefined,
-          "price": 19,
+          "price": 25,
           "quantity": 1,
+          "size_id": "L",
         },
       ],
       "packaging_type": undefined,
       "shipping_tier": "Next Day",
-      "value": 30.64,
+      "value": 24.64,
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Shipping Method Added event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "add_shipping_method",
+    Object {
+      "Items": "[{\\"item_category\\":\\"Clothing\\",\\"item_category2\\":\\"Tops\\",\\"item_category3\\":\\"T-shirts\\",\\"currency\\":\\"USD\\",\\"discount\\":6,\\"item_brand\\":\\"Just A T-Shirt\\",\\"item_id\\":\\"507f1f77bcf86cd799439011\\",\\"item_name\\":\\"Gareth McConnell Dreamscape T-Shirt\\",\\"item_variant\\":\\"Black\\",\\"price\\":25,\\"quantity\\":1,\\"size_id\\":\\"L\\"}]",
+      "address_finder": undefined,
+      "coupon": "HARRODS2019",
+      "currency": "USD",
+      "delivery_type": undefined,
+      "packaging_type": undefined,
+      "shipping_tier": "Next Day",
+      "value": 24.64,
     },
   ],
 ]
@@ -444,7 +652,36 @@ Array [
     "event",
     "sign_up",
     Object {
-      "method": "Acme",
+      "method": "Farfetch",
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Size Guide Scale Changed event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "change_scale_size_guide",
+    Object {
+      "Items": "[{\\"item_category\\":\\"Clothing\\",\\"item_category2\\":\\"Tops\\",\\"item_category3\\":\\"T-shirts\\",\\"currency\\":\\"USD\\",\\"item_brand\\":\\"Just A T-Shirt\\",\\"item_id\\":\\"507f1f77bcf86cd799439011\\",\\"item_name\\":\\"Gareth McConnell Dreamscape T-Shirt\\",\\"item_variant\\":\\"Black\\",\\"quantity\\":1,\\"size_id\\":\\"L\\"}]",
+      "currency": "USD",
+      "from": "PDP",
+      "size_scale_id": "20652",
+      "size_scale_name": "Adidas Men Shoes UK",
+      "value": 0,
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Sort Option Changed event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "sort_by",
+    Object {
+      "sort_option": "Price: Low to High",
     },
   ],
 ]
@@ -458,12 +695,14 @@ Array [
     Object {
       "currency": "USD",
       "from": "Bag",
+      "item_list_id": "e0030b3c-b970-4496-bc72-f9a38d6270b1",
+      "item_list_name": "Bag",
       "items": Array [
         Object {
           "affiliation": undefined,
           "coupon": undefined,
           "currency": undefined,
-          "discount": undefined,
+          "discount": 6,
           "index": undefined,
           "item_brand": "Just A T-Shirt",
           "item_category": "Clothing",
@@ -475,11 +714,14 @@ Array [
           "item_name": "Gareth McConnell Dreamscape T-Shirt",
           "item_variant": "Black",
           "location_id": undefined,
-          "price": 19,
+          "price": 25,
           "quantity": 1,
+          "size_id": "L",
         },
       ],
       "value": 19,
+      "wishlist_id": undefined,
+      "wishlist_name": undefined,
     },
   ],
   Array [
@@ -506,6 +748,136 @@ Array [
     "GA-123456-12",
     Object {
       "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the wishlist event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "view_wishlist",
+    Object {
+      "Items": "[{\\"item_category\\":\\"Clothing\\",\\"item_category2\\":\\"Tops\\",\\"item_category3\\":\\"T-shirts\\",\\"discount\\":6,\\"item_brand\\":\\"Just A T-Shirt\\",\\"item_id\\":\\"507f1f77bcf86cd799439011\\",\\"item_name\\":\\"Gareth McConnell Dreamscape T-Shirt\\",\\"item_variant\\":\\"Black\\",\\"price\\":25,\\"quantity\\":1,\\"size_id\\":\\"L\\"}]",
+      "currency": "USD",
+      "from": "Wishlist",
+      "item_list_id": "d3618128-5aa9-4caa-a452-1dd1377a6190",
+      "item_list_name": "my_wishlist",
+      "value": 19,
+      "wishlist_id": undefined,
+      "wishlist_name": undefined,
+    },
+  ],
+  Array [
+    "config",
+    "GA-123456-12",
+    Object {
+      "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Update Product events Should trigger ga4 change_colour event 1`] = `
+Array [
+  Array [
+    "event",
+    "change_colour",
+    Object {
+      "Items": "[{\\"item_category\\":\\"Clothing\\",\\"item_category2\\":\\"Tops\\",\\"item_category3\\":\\"T-shirts\\",\\"currency\\":\\"USD\\",\\"item_brand\\":\\"Just A T-Shirt\\",\\"item_id\\":\\"507f1f77bcf86cd799439011\\",\\"item_name\\":\\"Gareth McConnell Dreamscape T-Shirt\\",\\"item_variant\\":\\"Black\\",\\"quantity\\":1,\\"size_id\\":\\"L\\"}]",
+      "currency": "USD",
+      "from": "Bag",
+      "item_list_id": undefined,
+      "item_list_name": undefined,
+      "value": 0,
+      "wishlist_id": undefined,
+      "wishlist_name": undefined,
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Update Product events Should trigger ga4 change_quantity and change_size and change_colour event 1`] = `
+Array [
+  Array [
+    "event",
+    "change_quantity",
+    Object {
+      "Items": "[{\\"item_category\\":\\"Clothing\\",\\"item_category2\\":\\"Tops\\",\\"item_category3\\":\\"T-shirts\\",\\"currency\\":\\"USD\\",\\"item_brand\\":\\"Just A T-Shirt\\",\\"item_id\\":\\"507f1f77bcf86cd799439011\\",\\"item_name\\":\\"Gareth McConnell Dreamscape T-Shirt\\",\\"item_variant\\":\\"Black\\",\\"quantity\\":1,\\"size_id\\":\\"L\\"}]",
+      "currency": "USD",
+      "from": "Bag",
+      "item_list_id": undefined,
+      "item_list_name": undefined,
+      "value": 0,
+      "wishlist_id": undefined,
+      "wishlist_name": undefined,
+    },
+  ],
+  Array [
+    "event",
+    "change_size",
+    Object {
+      "Items": "[{\\"item_category\\":\\"Clothing\\",\\"item_category2\\":\\"Tops\\",\\"item_category3\\":\\"T-shirts\\",\\"currency\\":\\"USD\\",\\"item_brand\\":\\"Just A T-Shirt\\",\\"item_id\\":\\"507f1f77bcf86cd799439011\\",\\"item_name\\":\\"Gareth McConnell Dreamscape T-Shirt\\",\\"item_variant\\":\\"Black\\",\\"quantity\\":1,\\"size_id\\":\\"L\\"}]",
+      "currency": "USD",
+      "from": "Bag",
+      "item_list_id": undefined,
+      "item_list_name": undefined,
+      "value": 0,
+      "wishlist_id": undefined,
+      "wishlist_name": undefined,
+    },
+  ],
+  Array [
+    "event",
+    "change_colour",
+    Object {
+      "Items": "[{\\"item_category\\":\\"Clothing\\",\\"item_category2\\":\\"Tops\\",\\"item_category3\\":\\"T-shirts\\",\\"currency\\":\\"USD\\",\\"item_brand\\":\\"Just A T-Shirt\\",\\"item_id\\":\\"507f1f77bcf86cd799439011\\",\\"item_name\\":\\"Gareth McConnell Dreamscape T-Shirt\\",\\"item_variant\\":\\"Black\\",\\"quantity\\":1,\\"size_id\\":\\"L\\"}]",
+      "currency": "USD",
+      "from": "Bag",
+      "item_list_id": undefined,
+      "item_list_name": undefined,
+      "value": 0,
+      "wishlist_id": undefined,
+      "wishlist_name": undefined,
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Update Product events Should trigger ga4 change_quantity event 1`] = `
+Array [
+  Array [
+    "event",
+    "change_quantity",
+    Object {
+      "Items": "[{\\"item_category\\":\\"Clothing\\",\\"item_category2\\":\\"Tops\\",\\"item_category3\\":\\"T-shirts\\",\\"currency\\":\\"USD\\",\\"item_brand\\":\\"Just A T-Shirt\\",\\"item_id\\":\\"507f1f77bcf86cd799439011\\",\\"item_name\\":\\"Gareth McConnell Dreamscape T-Shirt\\",\\"item_variant\\":\\"Black\\",\\"quantity\\":1,\\"size_id\\":\\"L\\"}]",
+      "currency": "USD",
+      "from": "Bag",
+      "item_list_id": undefined,
+      "item_list_name": undefined,
+      "value": 0,
+      "wishlist_id": undefined,
+      "wishlist_name": undefined,
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Update Product events Should trigger ga4 change_size event 1`] = `
+Array [
+  Array [
+    "event",
+    "change_size",
+    Object {
+      "Items": "[{\\"item_category\\":\\"Clothing\\",\\"item_category2\\":\\"Tops\\",\\"item_category3\\":\\"T-shirts\\",\\"currency\\":\\"USD\\",\\"item_brand\\":\\"Just A T-Shirt\\",\\"item_id\\":\\"507f1f77bcf86cd799439011\\",\\"item_name\\":\\"Gareth McConnell Dreamscape T-Shirt\\",\\"item_variant\\":\\"Black\\",\\"quantity\\":1,\\"size_id\\":\\"L\\"}]",
+      "currency": "USD",
+      "from": "Bag",
+      "item_list_id": undefined,
+      "item_list_name": undefined,
+      "value": 0,
+      "wishlist_id": undefined,
+      "wishlist_name": undefined,
     },
   ],
 ]
