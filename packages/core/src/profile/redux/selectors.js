@@ -15,6 +15,8 @@ import {
   getResult,
   getTitles as getTitlesGetter,
   getUpdatePreferences as getUpdatePreferencesGetter,
+  getUserAttribute as getUserAttributeGetter,
+  getUserAttributes as getUserAttributesGetter,
 } from './reducer';
 import { getEntity } from '../../entities/redux/selectors';
 
@@ -293,3 +295,73 @@ export const getContactsError = state => getContactsGetter(state.profile).error;
  * @returns {object} Contacts entity.
  */
 export const getContacts = state => getEntity(state, 'contacts');
+
+/**
+ * Returns the loading status for the user attributes operation.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {boolean} User attributes operation Loading status.
+ */
+export const isUserAttributesLoading = state =>
+  getUserAttributesGetter(state.profile).isLoading;
+
+/**
+ * Returns the user attributes error.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {object} User attributes operation error.
+ */
+export const getUserAttributesError = state =>
+  getUserAttributesGetter(state.profile).error;
+
+/**
+ * Returns the user attributes entity.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {object} User attributes entity.
+ */
+export const getUserAttributes = state => getEntity(state, 'userAttributes');
+
+/**
+ * Returns the loading status for the user attribute operation.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {boolean} User attributes operation Loading status.
+ */
+export const isUserAttributeLoading = state =>
+  getUserAttributeGetter(state.profile).isLoading;
+
+/**
+ * Returns the user attribute error.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {object} User attributes operation error.
+ */
+export const getUserAttributeError = state =>
+  getUserAttributeGetter(state.profile).error;
+
+/**
+ * Returns a user attribute.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {object} User attribute object.
+ */
+export const getUserAttribute = state => getEntity(state, 'attribute');

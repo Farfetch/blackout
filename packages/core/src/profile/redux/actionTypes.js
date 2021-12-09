@@ -147,3 +147,63 @@ export const GET_GUEST_USER_REQUEST =
 /** Action type dispatched when the get guest user request succeeds. */
 export const GET_GUEST_USER_SUCCESS =
   '@farfetch/blackout-core/GET_GUEST_USER_SUCCESS';
+
+/** Action type dispatched when the get user attributes request fails. */
+export const GET_USER_ATTRIBUTES_FAILURE =
+  '@farfetch/blackout-core/GET_USER_ATTRIBUTES_FAILURE';
+/** Action type dispatched when the get user attributes request starts. */
+export const GET_USER_ATTRIBUTES_REQUEST =
+  '@farfetch/blackout-core/GET_USER_ATTRIBUTES_REQUEST';
+/** Action type dispatched when the get user attributes request succeeds. */
+export const GET_USER_ATTRIBUTES_SUCCESS =
+  '@farfetch/blackout-core/GET_USER_ATTRIBUTES_SUCCESS';
+
+/** Action type dispatched when the post user attributes request fails. */
+export const POST_USER_ATTRIBUTES_FAILURE =
+  '@farfetch/blackout-core/POST_USER_ATTRIBUTES_FAILURE';
+/** Action type dispatched when the post user attributes request starts. */
+export const POST_USER_ATTRIBUTES_REQUEST =
+  '@farfetch/blackout-core/POST_USER_ATTRIBUTES_REQUEST';
+/** Action type dispatched when the post user attributes request succeeds. */
+export const POST_USER_ATTRIBUTES_SUCCESS =
+  '@farfetch/blackout-core/POST_USER_ATTRIBUTES_SUCCESS';
+
+/** Action type dispatched when the get user attribute request fails. */
+export const GET_USER_ATTRIBUTE_FAILURE =
+  '@farfetch/blackout-core/GET_USER_ATTRIBUTE_FAILURE';
+/** Action type dispatched when the get user attribute request starts. */
+export const GET_USER_ATTRIBUTE_REQUEST =
+  '@farfetch/blackout-core/GET_USER_ATTRIBUTE_REQUEST';
+/** Action type dispatched when the get user attribute request succeeds. */
+export const GET_USER_ATTRIBUTE_SUCCESS =
+  '@farfetch/blackout-core/GET_USER_ATTRIBUTE_SUCCESS';
+
+/** Action type dispatched when the put user attribute request fails. */
+export const PUT_USER_ATTRIBUTE_FAILURE =
+  '@farfetch/blackout-core/PUT_USER_ATTRIBUTE_FAILURE';
+/** Action type dispatched when the put user attribute request starts. */
+export const PUT_USER_ATTRIBUTE_REQUEST =
+  '@farfetch/blackout-core/PUT_USER_ATTRIBUTE_REQUEST';
+/** Action type dispatched when the put user attribute request succeeds. */
+export const PUT_USER_ATTRIBUTE_SUCCESS =
+  '@farfetch/blackout-core/PUT_USER_ATTRIBUTE_SUCCESS';
+
+/** Action type dispatched when the patch user attribute request fails. */
+export const PATCH_USER_ATTRIBUTE_FAILURE =
+  '@farfetch/blackout-core/PATCH_USER_ATTRIBUTE_FAILURE';
+/** Action type dispatched when the patch user attribute request starts. */
+export const PATCH_USER_ATTRIBUTE_REQUEST =
+  '@farfetch/blackout-core/PATCH_USER_ATTRIBUTE_REQUEST';
+/** Action type dispatched when the patch user attribute request succeeds. */
+export const PATCH_USER_ATTRIBUTE_SUCCESS =
+  '@farfetch/blackout-core/PATCH_USER_ATTRIBUTE_SUCCESS';
+
+/** Action type dispatched when the delete user attribute request fails. */
+export const DELETE_USER_ATTRIBUTE_FAILURE =
+  '@farfetch/blackout-core/DELETE_USER_ATTRIBUTE_FAILURE';
+/** Action type dispatched when the delete user attribute request starts. */
+export const DELETE_USER_ATTRIBUTE_REQUEST =
+  '@farfetch/blackout-core/DELETE_USER_ATTRIBUTE_REQUEST';
+/** Action type dispatched when the delete user attribute request succeeds. */
+export const DELETE_USER_ATTRIBUTE_SUCCESS =
+  '@farfetch/blackout-core/DELETE_USER_ATTRIBUTE_SUCCESS';
