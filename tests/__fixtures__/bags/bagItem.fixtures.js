@@ -1,5 +1,6 @@
 import { mockBagId } from './bag.fixtures';
 import { mockMerchantId, mockProduct, mockProductId } from '../products';
+import { mockPromotionEvaluationItemId } from '../promotionEvaluations';
 
 export const mockBagItemId = 134;
 export const mockProductAggregatorId = 321;
@@ -30,6 +31,13 @@ export const mockBagItem = {
   isAvailable: true,
   product: mockProduct,
   productAggregator: null,
+  promotionDetail: {
+    totalDiscountPercentage: 18.18,
+    totalDiscountValue: 50.0,
+    isProductOffer: false,
+    totalDiscountValuePerUnit: 50.0,
+    promotionEvaluationItemId: mockPromotionEvaluationItemId,
+  },
 };
 
 export const mockBagItemEntity = {
