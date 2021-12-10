@@ -185,9 +185,9 @@ describe('categories redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { isLoading: 'foo' };
+      const state = { top: ['foo'] };
 
-      expect(reducer(state).isLoading).toEqual(state.isLoading);
+      expect(reducer(state).top).toEqual(state.top);
     });
   });
 

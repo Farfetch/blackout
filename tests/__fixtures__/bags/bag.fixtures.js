@@ -8,6 +8,7 @@ import {
   mockProductId,
   mockProductTypeToExclude,
 } from '../products';
+import { mockPromotionEvaluationId } from '../promotionEvaluations';
 
 export const mockBagId = '7894746';
 export const mockError = 'Unexpected Error';
@@ -182,6 +183,7 @@ export const mockResponse = {
       productId: mockProductId,
       productName: 'Oxford Shirt',
       type: 0,
+      promotionEvaluationId: mockPromotionEvaluationId,
     },
   ],
 };
