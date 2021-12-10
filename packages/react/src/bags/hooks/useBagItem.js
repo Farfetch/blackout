@@ -83,7 +83,7 @@ export default bagItemId => {
   const handleAddOrUpdateItem = async ({
     customAttributes = bagItem.customAttributes,
     product = bagItem.product,
-    productAggregatorId = bagItem.productAggregator.id,
+    productAggregatorId = bagItem.productAggregator?.id,
     quantity = bagItem.quantity,
     size = productSize,
     ...otherParams

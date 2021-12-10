@@ -29,10 +29,7 @@ export const mockBagItem = {
   sizeId: 23,
   isAvailable: true,
   product: mockProduct,
-  productAggregator: {
-    bundleSlug: '/slug',
-    id: mockProductAggregatorId,
-  },
+  productAggregator: null,
 };
 
 export const mockBagItemEntity = {
