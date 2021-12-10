@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.153](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.152...@farfetch/blackout-redux@1.0.0-next.153) (2021-12-10)
+
+
+### Features
+
+* add selector to get all product sizes with remaining quantity ([28fc8a6](https://github.com/Farfetch/blackout/commit/28fc8a68952b88075821a3d40d04f110b3a09585))
+
+
+
+
+
 # [1.0.0-next.152](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.151...@farfetch/blackout-redux@1.0.0-next.152) (2021-12-09)
 
 
