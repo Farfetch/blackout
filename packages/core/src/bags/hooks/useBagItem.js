@@ -51,7 +51,7 @@ export function useBagItem(
   // Function that provides all tenant logic to deal with add,
   // update or add the next merchant available.
   const addOrUpdateItem = async ({
-    productAggregatorId = bagItem.productAggregator.id,
+    productAggregatorId = bagItem.productAggregator?.id,
     quantity = bagItem.quantity,
     size = productSize,
     ...otherParams

@@ -1,5 +1,5 @@
 import { createBagItemHash } from '../';
-import { mockBagItem } from 'tests/__fixtures__/bags';
+import { mockBagItem, mockProductAggregatorId } from 'tests/__fixtures__/bags';
 import omit from 'lodash/omit';
 
 describe('createBagItemHash()', () => {
@@ -49,20 +49,31 @@ describe('createBagItemHash()', () => {
     });
 
     it('should create a valid hash when `customAttributes` are provided', () => {
-      expect(createBagItemHash(omit(mockBagItem, ['productAggregator']))).toBe(
+      expect(createBagItemHash(mockBagItem)).toBe(
         `${baseHashPattern}!${mockBagItem.customAttributes}`,
       );
     });
 
     it('should create a valid hash when a `productAggregatorId` is provided', () => {
-      expect(createBagItemHash(omit(mockBagItem, ['customAttributes']))).toBe(
-        `${baseHashPattern}!${mockBagItem.productAggregator.id}`,
+      const mockBagItemWithProductAggregator = {
+        ...mockBagItem,
+        productAggregator: {
+          bundleSlug: '/slug',
+          id: mockProductAggregatorId,
+        },
+      };
+      expect(
+        createBagItemHash(
+          omit(mockBagItemWithProductAggregator, ['customAttributes']),
+        ),
+      ).toBe(
+        `${baseHashPattern}!${mockBagItemWithProductAggregator.productAggregator.id}`,
       );
     });
 
     it('should create a valid hash from a valid bag item', () => {
       expect(createBagItemHash(mockBagItem)).toBe(
-        `${baseHashPattern}!${mockBagItem.customAttributes}!${mockBagItem.productAggregator.id}`,
+        `${baseHashPattern}!${mockBagItem.customAttributes}`,
       );
     });
   });
