@@ -30,7 +30,7 @@ export default (subfolder, slug, query) => {
 
   // If the query is a string should be transformed to an object,
   // with parse function from url-parse package. This is necessary because
-  // on SSR the query is retrived from pathname catched from the model.
+  // on SSR the query is retrieved from model.pathname.
   //
   // Example:
   // const queryParams = '?sortdirection=asc&pageIndex=1';
