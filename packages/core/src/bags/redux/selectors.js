@@ -156,21 +156,24 @@ export const getBagItems = createSelector(
 );
 
 /**
- * Retrieves the number of different items in the bag, regardless of each one's quantity.
+ * Retrieves the number of different items in the bag, regardless of each one's
+ * quantity.
  *
  * @function
  *
  * @param {object} state - Application state.
- * @param {Array} excludeProductTypes - List of product types to exclude from the counter.
+ * @param {Array} excludeProductTypes - List of product types to exclude from
+ * the counter.
  *
  * Product types supported:<br/>.
  *
  * | Type | Description |
  * |------|-------------|
- * | **0**    | Simple      |
- * | **1**    | Grouped     |
- * | **2**    | Bundle      |
- * | **3**    | Sample      |
+ * | **0**    | Standard        |
+ * | **1**    | BundleProduct   |
+ * | **2**    | BundleVariant   |
+ * | **3**    | ProductGroup    |
+ * | **4**    | Sample          |
  * <br/>.
  *
  * @returns {number} - Count of the items in the bag.
@@ -239,21 +242,24 @@ export const getBagItemsUnavailable = createSelector([getBagItems], bagItems =>
 );
 
 /**
- * Retrieves the total quantity of products in the current user's bag, accounting with each item's quantity.
+ * Retrieves the total quantity of products in the current user's bag,
+ * accounting with each item's quantity.
  *
  * @function
  *
  * @param {object} state - Application state.
- * @param {Array} excludeProductTypes - List of product types to exclude from the counter.
+ * @param {Array} excludeProductTypes - List of product types to exclude from
+ * the counter.
  *
  * Product types supported:<br/>.
  *
  * | Type | Description |
  * |------|-------------|
- * | **0**    | Simple      |
- * | **1**    | Grouped     |
- * | **2**    | Bundle      |
- * | **3**    | Sample      |
+ * | **0**    | Standard        |
+ * | **1**    | BundleProduct   |
+ * | **2**    | BundleVariant   |
+ * | **3**    | ProductGroup    |
+ * | **4**    | Sample          |
  * <br/>.
  *
  * @returns {number} - Total quantity of products in the bag.

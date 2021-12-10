@@ -452,7 +452,7 @@ export const getListingActiveFilters = createSelector(
       } else {
         // @TODO: Review this to apply the same logic when is
         // Price-range and Discount-multiple - the value should be
-        // a concatnation of value and valueUpperBound
+        // a concatenation of value and valueUpperBound
         if (valueUpperBound !== 0 && !isDiscount) {
           acc[key] = [value, valueUpperBound];
         } else {
@@ -586,7 +586,7 @@ export const getListingSort = createSelector(
 );
 
 /**
- * Find all facets groups belonging to the spectific type.
+ * Find all facets groups belonging to the specific type.
  *
  * @function
  * @memberof module:products/listing/selectors
@@ -615,7 +615,7 @@ export const getFacetsGroupsByType = createSelector(
 );
 
 /**
- * Find all facets belonging to the spectific facet group type.
+ * Find all facets belonging to the specific facet group type.
  *
  * @function
  * @memberof module:products/listing/selectors
