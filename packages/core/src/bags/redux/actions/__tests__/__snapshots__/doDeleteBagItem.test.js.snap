@@ -54,6 +54,7 @@ Object {
             },
           },
           "product": 11766695,
+          "promotionEvaluationId": "123456",
           "size": Object {},
         },
       },
