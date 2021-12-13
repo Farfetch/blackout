@@ -5,7 +5,6 @@
  * @category Orders
  * @subcategory Clients
  */
-export { default as getGuestOrderDetails } from './getGuestOrderDetails';
 export { default as getOrderDetails } from './getOrderDetails';
 export { default as getOrderDocument } from './getOrderDocument';
 export { default as getOrderDocuments } from './getOrderDocuments';
