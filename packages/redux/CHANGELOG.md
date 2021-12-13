@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.155](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.154...@farfetch/blackout-redux@1.0.0-next.155) (2021-12-13)
+
+
+### Features
+
+* **analytics|react|redux:** add ga4 custom events support ([29eccb3](https://github.com/Farfetch/blackout/commit/29eccb354e3af15dceadb361eb52445cd4f3718c))
+
+
+
+
+
 # [1.0.0-next.154](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.153...@farfetch/blackout-redux@1.0.0-next.154) (2021-12-10)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
