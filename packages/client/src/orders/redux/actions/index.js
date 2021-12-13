@@ -8,7 +8,6 @@
 
 export { default as addOrderDocument } from './addOrderDocument';
 export { default as fetchOrderDetails } from './fetchOrderDetails';
-export { default as fetchOrderDetailsGuestUser } from './fetchOrderDetailsGuestUser';
 export { default as fetchOrderDocument } from './fetchOrderDocument';
 export { default as fetchOrderDocuments } from './fetchOrderDocuments';
 export { default as fetchOrderReturnOptions } from './fetchOrderReturnOptions';
