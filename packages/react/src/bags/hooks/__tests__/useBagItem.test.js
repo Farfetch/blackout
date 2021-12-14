@@ -1,5 +1,4 @@
 import { cleanup } from '@testing-library/react';
-import { getBagItem } from '@farfetch/blackout-core/bags/redux';
 import {
   mockBagItem,
   mockBagItemId,
@@ -43,30 +42,33 @@ describe('useBagItem', () => {
   beforeEach(jest.clearAllMocks);
   afterEach(cleanup);
 
-  it('should return values correctly', () => {
+  it('should return values correctly with initial state', () => {
     const current = getRenderedHook();
 
-    expect(typeof current.addBagItem).toBe('function');
-    expect(typeof current.deleteBagItem).toBe('function');
-    expect(typeof current.updateBagItem).toBe('function');
-    expect(current.bagItem).toEqual(mockBagItem);
-    expect(current.error).toBeUndefined();
-    expect(current.isLoading).toBeUndefined();
-    expect(typeof current.handleAddOrUpdateItem).toBe('function');
-    expect(typeof current.handleQuantityChange).toBe('function');
-    expect(typeof current.handleSizeChange).toBe('function');
-    expect(typeof current.handleDeleteBagItem).toBe('function');
+    expect(current).toStrictEqual({
+      addBagItem: expect.any(Function),
+      bagItem: expect.any(Object),
+      deleteBagItem: expect.any(Function),
+      error: undefined,
+      handleAddOrUpdateItem: expect.any(Function),
+      handleDeleteBagItem: expect.any(Function),
+      handleFullUpdate: expect.any(Function),
+      handleQuantityChange: expect.any(Function),
+      handleSizeChange: expect.any(Function),
+      isLoading: undefined,
+      updateBagItem: expect.any(Function),
+    });
   });
 
   it('should render in loading state', () => {
     const { isLoading } = getRenderedHook(mockLoadingState);
 
-    expect(isLoading).toBe(true);
+    expect(isLoading).toBe(
+      mockLoadingState.bag.bagItems.isLoading[mockBagItemId],
+    );
   });
 
   it('should render in error state', () => {
-    getBagItem.mockReturnValueOnce(null);
-
     const { error } = getRenderedHook(mockErrorState);
 
     expect(error).toEqual(mockErrorState.bag.bagItems.error[mockBagItemId]);
