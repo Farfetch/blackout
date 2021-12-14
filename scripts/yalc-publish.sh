@@ -5,6 +5,7 @@ fi
 
 if [ ! $1 ]; 
 then
+  printf "If you want to publish a specific package, use the folder name as argument. \nExample: 'yarn yalc-publish client'.\n"
   for i in ./packages/*
   do
     cd "$i"
