@@ -91,7 +91,7 @@ export const mockSearchIntentsInitialState = {
 export const mockSearchIntentsState = {
   search: {
     intents: {
-      error: 'Error - Search request.',
+      error: null,
       isLoading: false,
       result: mockSearchIntentsResponse,
     },
@@ -111,7 +111,7 @@ export const mockSearchIntentsLoadingState = {
 export const mockSearchIntentsErrorState = {
   search: {
     intents: {
-      error: 'An awesome, fascinating and incredible error',
+      error: { message: 'An awesome, fascinating and incredible error' },
       isLoading: false,
       result: null,
     },

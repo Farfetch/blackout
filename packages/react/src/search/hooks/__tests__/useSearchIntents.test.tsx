@@ -1,29 +1,46 @@
-import { cleanup, fireEvent } from '@testing-library/react';
-import {
-  fetchSearchIntents as fetchSearchIntentsAction,
-  resetSearchIntents as resetSearchIntentsAction,
-} from '@farfetch/blackout-redux/search';
+import { cleanup } from '@testing-library/react';
 import {
   mockSearchIntentsErrorState,
   mockSearchIntentsInitialState,
   mockSearchIntentsInvalidResponse,
   mockSearchIntentsLoadingState,
+  mockSearchIntentsQuery,
   mockSearchIntentsRedirectUrl,
   mockSearchIntentsResponse,
   mockSearchIntentsResponseListing,
   mockSearchIntentsResponseListingWithParameters,
   mockSearchIntentsResponseProduct,
   mockSearchIntentsResponseRedirect,
+  mockSearchIntentsState,
 } from 'tests/__fixtures__/search';
-import { Search } from './__fixtures__/Search.fixtures';
-import { wrap } from '../../../../tests/helpers';
+import { mockStore } from '../../../../tests/helpers';
+import { Provider } from 'react-redux';
+import { renderHook } from '@testing-library/react-hooks';
+import { useSearchIntents } from '../../';
 import React from 'react';
 
 jest.mock('@farfetch/blackout-redux/search', () => ({
   ...jest.requireActual('@farfetch/blackout-redux/search'),
-  resetSearchIntents: jest.fn(() => ({ type: 'foo-bar' })),
-  fetchSearchIntents: jest.fn(() => ({ type: 'bar-biz' })),
+  resetSearchIntents: jest.fn(() => ({ type: 'resetSearchIntents' })),
+  fetchSearchIntents: jest.fn(() => ({ type: 'fetchSearchIntents' })),
 }));
+
+const mockDispatch = jest.fn();
+
+jest.mock('react-redux', () => ({
+  ...jest.requireActual('react-redux'),
+  useDispatch: () => mockDispatch,
+}));
+
+const getRenderedHook = (state = mockSearchIntentsInitialState) => {
+  const {
+    result: { current },
+  } = renderHook(() => useSearchIntents(), {
+    wrapper: props => <Provider store={mockStore(state)} {...props} />,
+  });
+
+  return current;
+};
 
 describe('useSearchIntents', () => {
   afterEach(() => cleanup());
@@ -32,162 +49,133 @@ describe('useSearchIntents', () => {
     jest.clearAllMocks();
   });
 
-  it('should render with the initial state', () => {
-    const { container, queryByTestId } = wrap(<Search />)
-      .withStore(mockSearchIntentsInitialState)
-      .render();
+  it('should return values correctly with initial state', () => {
+    const current = getRenderedHook();
 
-    expect(queryByTestId('searchIntents-loading')).toBeNull();
-    expect(queryByTestId('searchIntents-error')).toBeNull();
-    expect(container).toMatchSnapshot();
+    expect(current).toStrictEqual({
+      fetchSearchIntents: expect.any(Function),
+      resetSearchIntents: expect.any(Function),
+      isLoading: expect.any(Boolean),
+      error: expect.any(Object),
+      searchIntents: null,
+      searchRedirectUrl: null,
+    });
   });
 
   it('should render in loading state', () => {
-    const { container, getByTestId } = wrap(<Search />)
-      .withStore(mockSearchIntentsLoadingState)
-      .render();
+    const { isLoading } = getRenderedHook(mockSearchIntentsLoadingState);
 
-    expect(getByTestId('searchIntents-loading').textContent).toBe('yes');
-
-    expect(container).toMatchSnapshot();
+    expect(isLoading).toBe(
+      mockSearchIntentsLoadingState.search.intents.isLoading,
+    );
   });
 
   it('should render in error state', () => {
-    const { container, getByTestId } = wrap(<Search />)
-      .withStore(mockSearchIntentsErrorState)
-      .render();
+    const { error } = getRenderedHook(mockSearchIntentsErrorState);
 
-    expect(getByTestId('searchIntents-error').textContent).toBe(
-      mockSearchIntentsErrorState.search.intents.error,
-    );
-
-    expect(container).toMatchSnapshot();
+    expect(error).toEqual(mockSearchIntentsErrorState.search.intents.error);
   });
 
-  it('should call `reset`', () => {
-    const { getByTestId, queryByTestId } = wrap(<Search />)
-      .withStore(mockSearchIntentsInitialState)
-      .render();
+  it('should render the search intents', () => {
+    const { searchIntents } = getRenderedHook(mockSearchIntentsState);
 
-    const resetSearchStateButton = getByTestId('searchIntents-resetButton');
-
-    fireEvent.click(resetSearchStateButton);
-
-    expect(resetSearchIntentsAction).toHaveBeenCalledTimes(1);
-    expect(queryByTestId('searchIntents-loading')).toBeNull();
-    expect(queryByTestId('searchIntents-error')).toBeNull();
+    expect(searchIntents).toEqual(mockSearchIntentsResponse);
   });
 
-  it('should call `fetchSearchIntents` and have the correct intents', () => {
-    const { getByTestId } = wrap(<Search />)
-      .withStore({
-        search: {
-          intents: {
-            ...mockSearchIntentsInitialState,
-            result: mockSearchIntentsResponse,
-          },
-        },
-      })
-      .render();
+  describe('actions', () => {
+    it('should call `resetSearchIntents`', () => {
+      const { resetSearchIntents } = getRenderedHook();
 
-    const fetchSearchIntentsButton = getByTestId('searchIntents-getButton');
+      resetSearchIntents();
 
-    fireEvent.click(fetchSearchIntentsButton);
+      expect(mockDispatch).toHaveBeenCalledWith({ type: 'resetSearchIntents' });
+    });
 
-    expect(fetchSearchIntentsAction).toHaveBeenCalledTimes(1);
-    expect(getByTestId('searchIntents-result').textContent).toBe(
-      JSON.stringify(mockSearchIntentsResponse),
-    );
+    it('should call `fetchSearchIntents`', () => {
+      const { fetchSearchIntents } = getRenderedHook();
+
+      fetchSearchIntents(mockSearchIntentsQuery);
+
+      expect(mockDispatch).toHaveBeenCalledWith({
+        type: 'fetchSearchIntents',
+      });
+    });
   });
 
-  it('should not have a `searchRedirectUrl` if does not have `searchIntents`', () => {
-    const { getByTestId } = wrap(<Search />)
-      .withStore(mockSearchIntentsInitialState)
-      .render();
+  describe('searchRedirectUrl', () => {
+    it('should not have a `searchRedirectUrl` if does not have `searchIntents`', () => {
+      const { searchRedirectUrl } = getRenderedHook();
 
-    expect(getByTestId('searchIntents-redirectUrl').innerText).toBeUndefined();
-  });
+      expect(searchRedirectUrl).toBeNull();
+    });
 
-  it('should not have a `searchRedirectUrl` if does not recognize the `typeRequest`', () => {
-    const { getByTestId } = wrap(<Search />)
-      .withStore({
+    it('should not have a `searchRedirectUrl` if does not recognize the `typeRequest`', () => {
+      const { searchRedirectUrl } = getRenderedHook({
         search: {
           intents: {
             ...mockSearchIntentsInitialState,
             result: mockSearchIntentsInvalidResponse,
           },
         },
-      })
-      .render();
+      });
 
-    expect(getByTestId('searchIntents-redirectUrl').innerText).toBeUndefined();
-  });
+      expect(searchRedirectUrl).toBeUndefined();
+    });
 
-  it('should have a `searchRedirectUrl` if the `typeRequest` is REDIRECT', () => {
-    const { getByTestId } = wrap(<Search />)
-      .withStore({
+    it('should have a `searchRedirectUrl` if the `typeRequest` is REDIRECT', () => {
+      const { searchRedirectUrl } = getRenderedHook({
         search: {
           intents: {
             ...mockSearchIntentsInitialState,
             result: mockSearchIntentsResponseRedirect,
           },
         },
-      })
-      .render();
+      });
 
-    expect(getByTestId('searchIntents-redirectUrl').textContent).toBe(
-      `/${mockSearchIntentsRedirectUrl}`,
-    );
-  });
+      expect(searchRedirectUrl).toBe(`/${mockSearchIntentsRedirectUrl}`);
+    });
 
-  it('should have a `searchRedirectUrl` if the `typeRequest` is PRODUCT', () => {
-    const { getByTestId } = wrap(<Search />)
-      .withStore({
+    it('should have a `searchRedirectUrl` if the `typeRequest` is PRODUCT', () => {
+      const { searchRedirectUrl } = getRenderedHook({
         search: {
           intents: {
             ...mockSearchIntentsInitialState,
             result: mockSearchIntentsResponseProduct,
           },
         },
-      })
-      .render();
+      });
 
-    expect(getByTestId('searchIntents-redirectUrl').textContent).toBe(
-      '/shopping/beautiful-dress',
-    );
-  });
+      expect(searchRedirectUrl).toBe('/shopping/beautiful-dress');
+    });
 
-  it('should have a `searchRedirectUrl` if the `typeRequest` is LISTING', () => {
-    const { getByTestId } = wrap(<Search />)
-      .withStore({
+    it('should have a `searchRedirectUrl` if the `typeRequest` is LISTING', () => {
+      const { searchRedirectUrl } = getRenderedHook({
         search: {
           intents: {
             ...mockSearchIntentsInitialState,
             result: mockSearchIntentsResponseListing,
           },
         },
-      })
-      .render();
+      });
 
-    expect(getByTestId('searchIntents-redirectUrl').textContent).toBe(
-      '/shopping?colors=pink&gender=woman&pageindex=1',
-    );
-  });
+      expect(searchRedirectUrl).toBe(
+        '/shopping?colors=pink&gender=woman&pageindex=1',
+      );
+    });
 
-  it('should have a `searchRedirectUrl` if the `typeRequest` is LISTING, has slug and query parameters', () => {
-    const { getByTestId } = wrap(<Search />)
-      .withStore({
+    it('should have a `searchRedirectUrl` if the `typeRequest` is LISTING, has slug and query parameters', () => {
+      const { searchRedirectUrl } = getRenderedHook({
         search: {
           intents: {
             ...mockSearchIntentsInitialState,
             result: mockSearchIntentsResponseListingWithParameters,
           },
         },
-      })
-      .render();
+      });
 
-    expect(getByTestId('searchIntents-redirectUrl').textContent).toBe(
-      '/shopping/valentino?categories=137520%7C137641&pageindex=1&query=akdksaldkasld',
-    );
+      expect(searchRedirectUrl).toBe(
+        '/shopping/valentino?categories=137520%7C137641&pageindex=1&query=akdksaldkasld',
+      );
+    });
   });
 });
