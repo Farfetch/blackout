@@ -10,7 +10,7 @@ import { entitiesMapper as productsEntitiesMapper } from '../../products';
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '../../users' or it... Remove this comment to see the full error message
 import { entitiesMapper as usersEntitiesMapper } from '../../users';
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '@farfetch/blackout-client/returns/redux' or it... Remove this comment to see the full error message
-import { entitiesMapper as returnsEntitiesMapper } from '@farfetch/blackout-client/returns/redux';
+import { entitiesMapper as returnsEntitiesMapper } from '../../returns';
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module '../.... Remove this comment to see the full error message
 import { entitiesMapper as subscriptionsEntitiesMapper } from '../../subscriptions/reducer';
 import { entitiesMapper as wishlistEntitiesMapper } from '../../wishlists';
