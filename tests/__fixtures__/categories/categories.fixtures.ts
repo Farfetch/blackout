@@ -133,6 +133,9 @@ export const mockCategoriesErrorState = {
     isLoading: false,
     top: {},
   },
+  entities: {
+    categories: null,
+  },
 };
 
 export const mockTopCategoriesErrorState = {
@@ -145,5 +148,8 @@ export const mockTopCategoriesErrorState = {
       },
       isLoading: false,
     },
+  },
+  entities: {
+    categories: null,
   },
 };

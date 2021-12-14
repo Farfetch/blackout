@@ -1,168 +1,170 @@
-import { Categories } from './__fixtures__/Categories.fixtures.js';
-import { cleanup, fireEvent } from '@testing-library/react';
-import {
-  fetchCategories,
-  fetchTopCategories,
-  resetCategoriesState,
-} from '@farfetch/blackout-redux/categories';
+import { cleanup } from '@testing-library/react';
 import {
   mockCategories,
   mockCategoriesErrorState,
   mockCategoriesInitialState,
   mockCategoriesLoadingState,
   mockCategoriesState,
+  mockCategoryId,
   mockTopCategories,
   mockTopCategoriesErrorState,
   mockTopCategoriesLoadingState,
 } from 'tests/__fixtures__/categories';
-import { within } from '@testing-library/dom';
-import { wrap } from '../../../../tests/helpers';
+import { mockStore } from '../../../../tests/helpers';
+import { Provider } from 'react-redux';
+import { renderHook } from '@testing-library/react-hooks';
+import { useCategories } from '../../';
 import React from 'react';
 
 jest.mock('@farfetch/blackout-redux/categories', () => ({
   ...jest.requireActual('@farfetch/blackout-redux/categories'),
-  resetCategoriesState: jest.fn(() => ({ type: 'foo-bar' })),
-  fetchCategories: jest.fn(() => ({ type: 'foo-bar1' })),
-  fetchTopCategories: jest.fn(() => ({ type: 'foo-bar2' })),
+  resetCategoriesState: jest.fn(() => ({ type: 'reset' })),
+  fetchCategories: jest.fn(() => ({ type: 'fetchCategories' })),
+  fetchTopCategories: jest.fn(() => ({ type: 'fetchTopCategories' })),
 }));
 
-const getRender = state =>
-  wrap(<Categories />)
-    .withStore(state)
-    .render();
+const mockDispatch = jest.fn();
+
+jest.mock('react-redux', () => ({
+  ...jest.requireActual('react-redux'),
+  useDispatch: () => mockDispatch,
+}));
+
+const getRenderedHook = (state = mockCategoriesInitialState) => {
+  const {
+    result: { current },
+  } = renderHook(() => useCategories(), {
+    wrapper: props => <Provider store={mockStore(state)} {...props} />,
+  });
+
+  return current;
+};
 
 describe('useCategories', () => {
   beforeEach(jest.clearAllMocks);
   afterEach(cleanup);
 
-  it('should render with the initial state', () => {
-    const { container, queryByTestId } = getRender(mockCategoriesInitialState);
+  it('should return values correctly with initial state', () => {
+    const current = getRenderedHook();
 
-    expect(queryByTestId('categories-loading')).toBeNull();
-    expect(queryByTestId('top-categories-loading')).toBeNull();
-    expect(queryByTestId('categories-error')).toBeNull();
-    expect(queryByTestId('top-categories-error')).toBeNull();
-    expect(container).toMatchSnapshot();
+    expect(current).toStrictEqual({
+      areCategoriesFetched: expect.any(Boolean),
+      areCategoriesLoading: expect.any(Boolean),
+      areTopCategoriesFetched: expect.any(Boolean),
+      areTopCategoriesLoading: expect.any(Boolean),
+      categories: expect.any(Array),
+      categoriesError: expect.any(Object),
+      fetchCategories: expect.any(Function),
+      fetchTopCategories: expect.any(Function),
+      getCategory: expect.any(Function),
+      getRootCategory: expect.any(Function),
+      resetCategoriesState: expect.any(Function),
+      topCategories: expect.any(Array),
+      topCategoriesError: expect.any(Object),
+    });
   });
 
   it('should render in categories loading state', () => {
-    const { container, getByTestId } = getRender(mockCategoriesLoadingState);
+    const { areCategoriesLoading } = getRenderedHook(
+      mockCategoriesLoadingState,
+    );
 
-    expect(getByTestId('categories-loading')).toBeInTheDocument();
-    expect(container).toMatchSnapshot();
+    expect(areCategoriesLoading).toBe(
+      mockCategoriesLoadingState.categories.isLoading,
+    );
   });
 
   it('should render in top categories loading state', () => {
-    const { container, getByTestId } = getRender(mockTopCategoriesLoadingState);
+    const { areTopCategoriesLoading } = getRenderedHook(
+      mockTopCategoriesLoadingState,
+    );
 
-    expect(getByTestId('topCategories-loading')).toBeInTheDocument();
-    expect(container).toMatchSnapshot();
+    expect(areTopCategoriesLoading).toBe(
+      mockCategoriesLoadingState.categories.top.isLoading,
+    );
   });
 
   it('should render in categories error state', () => {
-    const { container, getByTestId } = getRender({
-      ...mockCategoriesInitialState,
-      ...mockCategoriesErrorState,
-    });
-    const element = getByTestId('categories-error');
+    const { categoriesError } = getRenderedHook(mockCategoriesErrorState);
 
-    expect(element).toBeInTheDocument();
-    expect(
-      within(element).getByText(
-        mockCategoriesErrorState.categories.error.message,
-      ),
-    ).toBeInTheDocument();
-    expect(container).toMatchSnapshot();
+    expect(categoriesError).toEqual(mockCategoriesErrorState.categories.error);
   });
 
   it('should render in top categories error state', () => {
-    const { container, getByTestId } = getRender({
-      ...mockCategoriesInitialState,
-      ...mockTopCategoriesErrorState,
-    });
-    const element = getByTestId('topCategories-error');
+    const { topCategoriesError } = getRenderedHook(mockTopCategoriesErrorState);
 
-    expect(element).toBeInTheDocument();
-    expect(
-      within(element).getByText(
-        mockTopCategoriesErrorState.categories.top.error.message,
-      ),
-    ).toBeInTheDocument();
-    expect(container).toMatchSnapshot();
+    expect(topCategoriesError).toEqual(
+      mockTopCategoriesErrorState.categories.top.error,
+    );
   });
 
   it('should render in categories fetched state', () => {
-    const { container, getByTestId } = getRender(mockCategoriesState);
-    const element = getByTestId('categories-fetched');
+    const { areCategoriesFetched } = getRenderedHook(mockCategoriesState);
 
-    expect(element).toBeInTheDocument();
-    expect(within(element).getByText('yes')).toBeInTheDocument();
-    expect(container).toMatchSnapshot();
+    expect(areCategoriesFetched).toBe(mockCategoriesState.categories.isFetched);
   });
 
   it('should render in top categories fetched state', () => {
-    const { container, getByTestId } = getRender({
-      ...mockCategoriesInitialState,
-      categories: {
-        top: mockCategoriesState.categories.top,
-      },
+    const { areTopCategoriesFetched } = getRenderedHook(mockCategoriesState);
+
+    expect(areTopCategoriesFetched).toBe(true);
+  });
+
+  it('should render the categories', () => {
+    const { categories } = getRenderedHook(mockCategoriesState);
+
+    expect(categories).toEqual(
+      Object.values(mockCategoriesState.entities.categories),
+    );
+  });
+
+  it('should render the top categories', () => {
+    const { topCategories } = getRenderedHook(mockCategoriesState);
+
+    expect(topCategories).toEqual(mockTopCategories);
+  });
+
+  describe('actions', () => {
+    it('should call `reset`', () => {
+      const { resetCategoriesState } = getRenderedHook();
+
+      resetCategoriesState();
+
+      expect(mockDispatch).toHaveBeenCalledWith({ type: 'reset' });
     });
-    const element = getByTestId('topCategories-fetched');
 
-    expect(element).toBeInTheDocument();
-    expect(within(element).getByText('yes')).toBeInTheDocument();
-    expect(container).toMatchSnapshot();
+    it('should call `fetchCategories`', () => {
+      const { fetchCategories } = getRenderedHook(mockCategoriesState);
+
+      fetchCategories();
+
+      expect(mockDispatch).toHaveBeenCalledWith({ type: 'fetchCategories' });
+    });
+
+    it('should call `fetchTopCategories`', () => {
+      const { fetchTopCategories } = getRenderedHook(mockCategoriesState);
+
+      fetchTopCategories();
+
+      expect(mockDispatch).toHaveBeenCalledWith({ type: 'fetchTopCategories' });
+    });
   });
 
-  it('should call `reset`', () => {
-    const { queryByTestId, getByTestId } = getRender(mockCategoriesState);
-    const resetSearchStateButton = getByTestId('categories-resetButton');
+  describe('getCategory', () => {
+    it('should render the correct results for `getCategory` function', () => {
+      const { getCategory } = getRenderedHook(mockCategoriesState);
+      const result = getCategory(mockCategories[0].id);
 
-    fireEvent.click(resetSearchStateButton);
-
-    expect(resetCategoriesState).toHaveBeenCalledTimes(1);
-    expect(queryByTestId('categories-loading')).toBeNull();
-    expect(queryByTestId('categories-error')).toBeNull();
+      expect(result).toEqual(mockCategories[0]);
+    });
   });
 
-  it('should call `fetchCategories` and have the correct results', () => {
-    const { getByTestId } = getRender(mockCategoriesInitialState);
+  describe('getRootCategory', () => {
+    it('should render the correct results for `getRootCategory` function', () => {
+      const { getRootCategory } = getRenderedHook(mockCategoriesState);
+      const result = getRootCategory(mockCategoryId);
 
-    const element = getByTestId('categories-result');
-    const getCategoriesButton = getByTestId('categories-getButton');
-
-    fireEvent.click(getCategoriesButton);
-
-    expect(fetchCategories).toHaveBeenCalledTimes(1);
-  });
-
-  it('should call `fetchTopCategories` and have the correct results', () => {
-    const { getByTestId } = getRender(mockCategoriesInitialState);
-    const element = getByTestId('categories-topResult');
-    const getTopCategoriesButton = getByTestId('categories-getTopButton');
-
-    fireEvent.click(getTopCategoriesButton);
-
-    expect(fetchTopCategories).toHaveBeenCalledTimes(1);
-  });
-
-  it('should render the correct results for `getCategory` function', () => {
-    const { getByTestId } = getRender(mockCategoriesState);
-    const element = getByTestId('categories-getCategory');
-
-    expect(element).toBeInTheDocument();
-    expect(
-      within(element).getByText(JSON.stringify(mockCategories[0])),
-    ).toBeInTheDocument();
-  });
-
-  it('should render the correct results for `getRootCategory` function', () => {
-    const { getByTestId } = getRender(mockCategoriesState);
-    const element = getByTestId('categories-getRootCategory');
-
-    expect(element).toBeInTheDocument();
-    expect(
-      within(element).getByText(JSON.stringify(mockTopCategories[1])),
-    ).toBeInTheDocument();
+      expect(result).toEqual(mockTopCategories[1]);
+    });
   });
 });
