@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.27.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.26.0...@farfetch/blackout-react@0.27.0) (2021-12-14)
+
+
+### Bug Fixes
+
+* **core|react:** handle guest users expired in authentication provider ([5270108](https://github.com/Farfetch/blackout/commit/527010839b0453b91454a293d5805740f7bdcbac))
+* **react:** allow `useBagItem`'s to work without `productAggregator` ([b5c4d04](https://github.com/Farfetch/blackout/commit/b5c4d0418d29a5c656cb4325b8a498077f8a4c43))
+
+
+### Features
+
+* **core|react:** add support for GA4 custom events ([e8416ca](https://github.com/Farfetch/blackout/commit/e8416ca9011de97b567e8ffc3d34bf93c9229eda))
+
+
+
+
+
 # [0.26.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.25.1...@farfetch/blackout-react@0.26.0) (2021-12-07)
 
 
