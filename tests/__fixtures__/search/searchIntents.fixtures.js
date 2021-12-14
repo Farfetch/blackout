@@ -88,6 +88,16 @@ export const mockSearchIntentsInitialState = {
   },
 };
 
+export const mockSearchIntentsState = {
+  search: {
+    intents: {
+      error: null,
+      isLoading: false,
+      result: mockSearchIntentsResponse,
+    },
+  },
+};
+
 export const mockSearchIntentsLoadingState = {
   search: {
     intents: {
