@@ -32,6 +32,7 @@ import type { MerchantLocation } from '@farfetch/blackout-client/merchantsLocati
 import type { State as MerchantsLocationsState } from '../merchantsLocations/types';
 import type { State as PaymentsState } from '../payments/types';
 import type { State as ProductsState } from '../products/types';
+import type { State as PromotionEvaluationsState } from '../promotionEvaluations/types';
 import type { State as SearchState } from '../search/types';
 import type { State as SizeGuidesState } from '../sizeGuides/types';
 import type { SizeScale } from '@farfetch/blackout-client/sizeScales/types';
@@ -84,6 +85,7 @@ export type StoreState = {
   merchantsLocations: MerchantsLocationsState;
   payments: PaymentsState;
   products: ProductsState;
+  promotionEvaluations: PromotionEvaluationsState;
   search: SearchState;
   sizeGuides: SizeGuidesState;
   sizeScales: SizeScalesState;
