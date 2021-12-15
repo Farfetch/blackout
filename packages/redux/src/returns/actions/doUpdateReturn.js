@@ -64,6 +64,7 @@ export default patchReturn => (id, data, query, config) => async dispatch => {
       },
       type: UPDATE_RETURN_SUCCESS,
     });
+    return result;
   } catch (error) {
     dispatch({
       payload: { error },
