@@ -18,6 +18,8 @@ export type QueryContents = IndexSignature<
   sort?: string;
   page?: number;
   pageSize?: number;
+  metadataSearchTagsValues?: string;
+  metadataCustom?: string;
 };
 
 export interface ComponentType {
