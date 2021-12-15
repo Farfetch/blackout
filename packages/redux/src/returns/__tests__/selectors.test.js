@@ -1,3 +1,4 @@
+import * as fromEntities from '@farfetch/blackout-client/entities/redux/selectors/entity';
 import * as fromReturns from '../reducer';
 import * as selectors from '../selectors';
 
@@ -42,6 +43,16 @@ describe('returns redux selectors', () => {
   };
 
   beforeEach(jest.clearAllMocks);
+
+  describe('getReturnItem()', () => {
+    it('should get the return item from state', () => {
+      const spy = jest.spyOn(fromEntities, 'getEntity');
+      expect(selectors.getReturnItem(mockState, returnItemId)).toEqual(
+        returnItem,
+      );
+      expect(spy).toHaveBeenCalledWith(mockState, 'returnItems', returnItemId);
+    });
+  });
 
   describe('getReturnId()', () => {
     it('should get the return id property from state', () => {
