@@ -46,6 +46,7 @@ export default getReturnsFromOrder =>
         payload: normalize(result, [returnSchema]),
         type: GET_RETURNS_FROM_ORDER_SUCCESS,
       });
+      return result;
     } catch (error) {
       dispatch({
         payload: { error },

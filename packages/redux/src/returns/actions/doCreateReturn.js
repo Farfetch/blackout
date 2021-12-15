@@ -49,6 +49,7 @@ export default postReturn => (data, query, config) => async dispatch => {
       payload: normalize(result, returnSchema),
       type: CREATE_RETURN_SUCCESS,
     });
+    return result;
   } catch (error) {
     dispatch({
       payload: { error },

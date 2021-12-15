@@ -40,11 +40,12 @@ export default getReferences => (id, name, query, config) => async dispatch => {
   });
 
   try {
-    await getReferences(id, name, query, config);
+    const result = await getReferences(id, name, query, config);
 
     dispatch({
       type: GET_REFERENCES_SUCCESS,
     });
+    return result;
   } catch (error) {
     dispatch({
       payload: { error },

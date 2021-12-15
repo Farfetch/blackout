@@ -46,6 +46,7 @@ export default getReturn => (id, query, config) => async dispatch => {
       payload: normalize(result, returnSchema),
       type: GET_RETURN_SUCCESS,
     });
+    return result;
   } catch (error) {
     dispatch({
       payload: { error },

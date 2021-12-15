@@ -53,6 +53,7 @@ export default getPickupCapabilities =>
         availableStartHours,
         availableTimeSlots,
         pickupDate,
+        result,
       } = await getPickupCapabilities(id, queryParams, config);
 
       dispatch({
@@ -74,6 +75,7 @@ export default getPickupCapabilities =>
         },
         type: GET_PICKUP_CAPABILITIES_SUCCESS,
       });
+      return result;
     } catch (error) {
       dispatch({
         payload: { error },
