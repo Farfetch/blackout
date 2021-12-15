@@ -4,15 +4,26 @@ import { normalize } from 'normalizr';
 import contentGroup from '../../../entities/schemas/contentGroup';
 
 /**
+ * @typedef {object} QueryTarget
+ * @property {string} [contentzone] - The zone to query by (ROW|EUROPE...).
+ * @property {string} [language] - Using country code to query by a specific language (US).
+ * @property {string} [country] - Using culture code to query by a specific country (en-US).
+ * @property {string} [benefits] - Query content for a benefit (sale).
+ */
+
+/**
  * @typedef {object} GetContentQuery
  * @property {string} spaceCode - The space where the content belongs to (website|mobileapp|emailTool...).
  * @property {string} environmentCode - The environment identifier (live | preview).
  * @property {string} contentTypeCode - The content type unique code (page|post|menu|pages|posts|widgets|waterproof...).
- * @property {Array}  codes - List of codes that representing the content code (about-us|today-news|header|productId...).
- * @property {object} target - The targets and respective values that a content type is configured (contentzone:ROW | country:GB | language:en-GB | benefits:test).
+ * @property {string|string[]} [codes] - List of codes that representing the content code (about-us|today-news|header|productId...).
+ * @property {QueryTarget} [target] - The targets and respective values that a content type is configured (contentzone:ROW | country:GB | language:en-GB | benefits:test).
  * @property {string} [sort] - Sort content by (publicationDate:desc | publicationDate:asc | metadataCustom.eventDate:desc | metadataCustom.X:asc).
  * @property {number} [page=1] - Number of the page to get, starting at 1. The default is 1.
  * @property {number} [pageSize=60] - Size of each page, as a number between 1 and 180. The default is 60.
+ * @property {string} [metadataSearchTagsValues] - Filter by metadata tag. Separate multiple values with commas (,). For example, "red,dress".
+ * @property {string} [metadataCustom] - Filter by content custom metadata. Repeat the parameter for multiple values. For example,
+ * (metadataCustom.eventDate=2020-07-21&metadataCustom.eventName=cosmos&metadataCustom.presenter=carl sagan,tyson neil degrasse).
  */
 
 /**
