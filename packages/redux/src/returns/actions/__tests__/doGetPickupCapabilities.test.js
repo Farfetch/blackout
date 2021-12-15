@@ -1,5 +1,5 @@
 import { mockStore } from '../../../../tests';
-import { responses } from '../../__fixtures__/returns.fixtures';
+import { responses } from 'tests/__fixtures__/returns';
 import doGetPickupCapabilities from '../../actions/doGetPickupCapabilities';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../../';
