@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.107](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.106...@farfetch/blackout-client@2.0.0-next.107) (2021-12-15)
+
+
+### Features
+
+* **client:** add `promotionEvaluations` client ([7db4408](https://github.com/Farfetch/blackout/commit/7db440808e90ab83a398e7c929d4b6b5c97cfab1))
+
+
+
+
+
 # [2.0.0-next.106](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.105...@farfetch/blackout-client@2.0.0-next.106) (2021-12-14)
 
 

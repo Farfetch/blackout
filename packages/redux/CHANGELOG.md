@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.157](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.156...@farfetch/blackout-redux@1.0.0-next.157) (2021-12-15)
+
+
+### Features
+
+* **redux:** add `promotionEvaluations` redux logic ([da63b77](https://github.com/Farfetch/blackout/commit/da63b775e5ff4803c0820b6fcb3a6a4f65b47480))
+
+
+
+
+
 # [1.0.0-next.156](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.155...@farfetch/blackout-redux@1.0.0-next.156) (2021-12-14)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
