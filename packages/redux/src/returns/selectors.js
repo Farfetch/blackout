@@ -9,7 +9,7 @@ import {
   getEntity,
   getReturnItems as getEntityReturnItems,
   getReturns as getEntityReturns,
-} from '@farfetch/blackout-client/entities/redux/selectors/returns';
+} from '@farfetch/blackout-client/entities/redux/selectors';
 import {
   getError,
   getId,

@@ -3,7 +3,7 @@ import { mockStore } from '../../../../tests';
 import {
   responses,
   returnsNormalizedPayload,
-} from '../../__fixtures__/returns.fixtures';
+} from 'tests/__fixtures__/returns';
 import doGetReturn from '../../actions/doGetReturn';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../../';
