@@ -15,7 +15,6 @@ export type ProductsColorGroupingState = CombinedState<{
 
 export type ProductsDetailsState = CombinedState<{
   error: Record<ProductEntity['id'], Error | undefined>;
-  id: number | null;
   isHydrated: Record<ProductEntity['id'], boolean | never>;
   isLoading: Record<ProductEntity['id'], boolean | undefined>;
 }>;

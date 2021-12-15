@@ -94,7 +94,6 @@ const serverInitialState = ({
   return {
     details: {
       error: {},
-      id,
       isHydrated: {
         [id]: true,
       },
