@@ -10,7 +10,6 @@ import type {
   FetchProductDetailsAction,
   FetchProductDetailsFailureAction,
   FetchProductDetailsRequestAction,
-  FetchProductDetailsSuccessAction,
   ProductsDetailsState,
   ResetProductDetailsStateAction,
 } from '../types';
@@ -18,7 +17,6 @@ import type { StoreState } from '../../types';
 
 export const INITIAL_STATE: ProductsDetailsState = {
   error: {},
-  id: null,
   isHydrated: {},
   isLoading: {},
 };
@@ -41,16 +39,6 @@ const error = (
     default:
       return state;
   }
-};
-
-const id = (
-  state = INITIAL_STATE.id,
-  action: FetchProductDetailsSuccessAction,
-) => {
-  if (action.type === actionTypes.FETCH_PRODUCT_DETAILS_SUCCESS) {
-    return action.meta.productId;
-  }
-  return state;
 };
 
 const isHydrated = (
@@ -97,9 +85,6 @@ export const entitiesMapper = {
 export const getError = (
   state: ProductsDetailsState,
 ): ProductsDetailsState['error'] => state.error;
-export const getId = (
-  state: ProductsDetailsState,
-): ProductsDetailsState['id'] => state.id;
 export const getIsHydrated = (
   state: ProductsDetailsState,
 ): ProductsDetailsState['isHydrated'] => state.isHydrated;
@@ -109,7 +94,6 @@ export const getIsLoading = (
 
 const reducers = combineReducers({
   error,
-  id,
   isHydrated,
   isLoading,
 });

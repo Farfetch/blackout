@@ -4,7 +4,6 @@ exports[`products serverInitialState() should initialize server state for a non 
 Object {
   "details": Object {
     "error": Object {},
-    "id": null,
     "isHydrated": Object {},
     "isLoading": Object {},
   },
@@ -19,7 +18,6 @@ exports[`products serverInitialState() should initialize server state for produc
 Object {
   "details": Object {
     "error": Object {},
-    "id": 11766695,
     "isHydrated": Object {
       "11766695": true,
     },

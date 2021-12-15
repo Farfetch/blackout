@@ -37,7 +37,6 @@ export const mockDetailsState = {
       [mockProductId]: 'Error - Not loaded.',
       456: null,
     },
-    id: mockProductId,
     isHydrated: {
       [mockProductId]: false,
       456: false,

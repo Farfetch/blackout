@@ -3,12 +3,10 @@ import { mockProductId, mockSetId } from 'tests/__fixtures__/products';
 import reducer, {
   entitiesMapper,
   getError,
-  getId,
   getIsHydrated,
   getIsLoading,
   INITIAL_STATE,
 } from '../details';
-import type { ProductEntity } from '../../../entities/types';
 
 const mockAction = { type: 'foo' };
 const meta = { productId: mockProductId };
@@ -65,47 +63,10 @@ describe('details redux reducer', () => {
       const state = {
         error: { [mockProductId]: error },
         isLoading: {},
-        id: mockProductId,
         isHydrated: {},
       };
 
       expect(reducer(state, mockAction).error).toEqual(state.error);
-    });
-  });
-
-  describe('id() reducer', () => {
-    it('should return the initial state', () => {
-      const state = reducer(INITIAL_STATE, mockAction).id;
-
-      expect(state).toBe(initialState.id);
-    });
-
-    it('should handle FETCH_PRODUCT_DETAILS_SUCCESS action type', () => {
-      const state = reducer(undefined, {
-        meta,
-        payload: {
-          entities: {
-            products: {
-              [mockProductId]: { id: mockProductId } as ProductEntity,
-            },
-          },
-          result: 'foo',
-        },
-        type: actionTypes.FETCH_PRODUCT_DETAILS_SUCCESS,
-      });
-
-      expect(state.id).toBe(mockProductId);
-    });
-
-    it('should handle other actions by returning the previous state', () => {
-      const state = {
-        id: mockProductId,
-        error: {},
-        isLoading: {},
-        isHydrated: {},
-      };
-
-      expect(reducer(state, mockAction).id).toBe(mockProductId);
     });
   });
 
@@ -130,7 +91,6 @@ describe('details redux reducer', () => {
       const state = {
         isHydrated: { [mockProductId]: false },
         isLoading: {},
-        id: mockProductId,
         error: {},
       };
       expect(reducer(state, mockAction).isHydrated).toEqual(state.isHydrated);
@@ -188,7 +148,6 @@ describe('details redux reducer', () => {
       const state = {
         isHydrated: {},
         isLoading: { [mockProductId]: false },
-        id: mockProductId,
         error: {},
       };
       expect(reducer(state, mockAction).isLoading).toEqual(state.isLoading);
@@ -234,14 +193,6 @@ describe('details redux reducer', () => {
         const state = { ...initialState, error };
 
         expect(getError(state)).toBe(error);
-      });
-    });
-
-    describe('getId()', () => {
-      it('should return the `id` property from a given state', () => {
-        const state = { ...initialState, id: mockProductId };
-
-        expect(getId(state)).toBe(mockProductId);
       });
     });
 
