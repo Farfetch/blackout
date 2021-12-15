@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 import {
   affiliationSchema,
+  couponRequiredSchema,
   couponSchema,
   currencySchema,
   discountSchema,
@@ -217,7 +218,8 @@ const checkoutStepEditingSchema = yup.object({
 });
 
 const checkoutAbandonedSchema = baseCheckoutSchema.concat(fromSchema);
-const promocodeAppliedSchema = checkoutShippingStepSchema;
+const promocodeAppliedSchema =
+  checkoutShippingStepSchema.concat(couponRequiredSchema);
 const placeOrderStartedSchema = purchaseAndRefundSchema;
 const sameBillingAddressSelectedSchema = checkoutShippingStepSchema;
 const addressInfoAddedSchema = checkoutShippingStepSchema;
