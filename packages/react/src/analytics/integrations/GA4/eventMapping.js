@@ -387,6 +387,7 @@ const getSelectContentParametersFromEvent = eventProperties => ({
  * @returns {object} Properties formatted for the GA4's select item.
  */
 const getProductClickedParametersFromEvent = eventProperties => ({
+  from: eventProperties.from,
   items: getProductItemsFromEvent(eventProperties),
   item_list_id: eventProperties.listId,
   item_list_name: eventProperties.list,
