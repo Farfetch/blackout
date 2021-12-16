@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.159](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.158...@farfetch/blackout-redux@1.0.0-next.159) (2021-12-16)
+
+
+### Bug Fixes
+
+* **redux:** remove circular dependency from recently viewed ([9a69cc1](https://github.com/Farfetch/blackout/commit/9a69cc188005a5ebf34cd3b041604e7b027946eb))
+
+
+
+
+
 # [1.0.0-next.158](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.157...@farfetch/blackout-redux@1.0.0-next.158) (2021-12-16)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
