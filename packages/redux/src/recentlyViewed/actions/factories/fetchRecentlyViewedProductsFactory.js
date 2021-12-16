@@ -1,5 +1,5 @@
 import * as actionTypes from '../../actionTypes';
-import { areRecentlyViewedProductsFetched } from '../../';
+import { areRecentlyViewedProductsFetched } from '../../selectors';
 
 /* eslint-disable jsdoc/no-undefined-types */
 
