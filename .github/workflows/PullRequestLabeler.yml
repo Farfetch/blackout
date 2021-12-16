@@ -1,6 +1,6 @@
 name: "Pull Request Labeler"
 on:
-- pull_request_target
+  - pull_request_target
 
 jobs:
   triage:
@@ -10,3 +10,19 @@ jobs:
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
         sync-labels: true
+
+  conventional-commits-labeler:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: bcoe/conventional-release-labels@v1
+        with:
+          type_labels: | 
+            {
+              "breaking": ":rotating_light: BREAKING CHANGE",
+              "feat": "type: feature",
+              "fix": "type: bug",
+              "docs": "type: documentation",
+              "perf": "type: enhancement",
+              "refactor": "type: enhancement",
+              "test": "type: enhancement"
+            }
