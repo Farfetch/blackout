@@ -351,6 +351,7 @@ Array [
     "event",
     "select_item",
     Object {
+      "from": "PLP",
       "item_list_id": "/en-pt/shopping/woman",
       "item_list_name": "Woman shopping",
       "items": Array [
