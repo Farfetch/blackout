@@ -45,7 +45,7 @@ export const getPromotionEvaluationItems = state =>
 export const getPromotionEvaluationItemById = (state, id) => {
   const promotionEvaluationsItems = getResult(state.promotionEvaluations);
 
-  return promotionEvaluationsItems.find(item => item.id === id);
+  return promotionEvaluationsItems?.find(item => item.id === id);
 };
 
 /**
