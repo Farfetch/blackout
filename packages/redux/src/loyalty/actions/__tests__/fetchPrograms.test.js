@@ -1,8 +1,8 @@
 import * as normalizr from 'normalizr';
 import { mockStore } from '../../../../tests';
-import doGetPrograms from '../doGetPrograms';
+import fetchPrograms from '../fetchPrograms';
 import find from 'lodash/find';
-import reducer, { actionTypes } from '../../';
+import reducer, { actionTypes } from '../..';
 
 const rewardsMockStore = (state = {}) =>
   mockStore({ rewards: reducer() }, state);
@@ -11,7 +11,7 @@ const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
 let store;
 
-describe('doGetPrograms() action creator', () => {
+describe('fetchPrograms() action creator', () => {
   const programId = 1;
   const mockResponseProgram = {
     id: programId,
@@ -30,15 +30,15 @@ describe('doGetPrograms() action creator', () => {
   };
 
   const getPrograms = jest.fn();
-  const action = doGetPrograms(getPrograms);
+  const action = fetchPrograms(getPrograms);
 
   beforeEach(() => {
     jest.clearAllMocks();
     store = rewardsMockStore();
   });
 
-  it('should create the correct actions for when the get programs procedure fails', async () => {
-    const expectedError = new Error('get programs error');
+  it('should create the correct actions for when the fetch programs procedure fails', async () => {
+    const expectedError = new Error('fetch programs error');
 
     getPrograms.mockRejectedValueOnce(expectedError);
     expect.assertions(4);
@@ -51,9 +51,9 @@ describe('doGetPrograms() action creator', () => {
       expect(getPrograms).toHaveBeenCalledWith(expectedConfig);
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
-          { type: actionTypes.GET_PROGRAMS_REQUEST },
+          { type: actionTypes.FETCH_PROGRAMS_REQUEST },
           {
-            type: actionTypes.GET_PROGRAMS_FAILURE,
+            type: actionTypes.FETCH_PROGRAMS_FAILURE,
             payload: { error: expectedError },
           },
         ]),
@@ -61,7 +61,7 @@ describe('doGetPrograms() action creator', () => {
     }
   });
 
-  it('should create the correct actions for when the get programs procedure is successful', async () => {
+  it('should create the correct actions for when the fetch programs procedure is successful', async () => {
     getPrograms.mockResolvedValueOnce(mockResponsePrograms);
     await store.dispatch(action());
 
@@ -71,9 +71,9 @@ describe('doGetPrograms() action creator', () => {
     expect(getPrograms).toHaveBeenCalledTimes(1);
     expect(getPrograms).toHaveBeenCalledWith(expectedConfig);
     expect(actionResults).toMatchObject([
-      { type: actionTypes.GET_PROGRAMS_REQUEST },
+      { type: actionTypes.FETCH_PROGRAMS_REQUEST },
       {
-        type: actionTypes.GET_PROGRAMS_SUCCESS,
+        type: actionTypes.FETCH_PROGRAMS_SUCCESS,
         payload: {
           ...expectedNormalizedPayloadPrograms,
           result: [programId],
@@ -81,7 +81,7 @@ describe('doGetPrograms() action creator', () => {
       },
     ]);
     expect(
-      find(actionResults, { type: actionTypes.GET_PROGRAMS_SUCCESS }),
-    ).toMatchSnapshot('get programs success payload');
+      find(actionResults, { type: actionTypes.FETCH_PROGRAMS_SUCCESS }),
+    ).toMatchSnapshot('fetch programs success payload');
   });
 });

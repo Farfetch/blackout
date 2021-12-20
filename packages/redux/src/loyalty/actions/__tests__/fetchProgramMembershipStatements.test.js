@@ -6,9 +6,9 @@ import {
   programId,
 } from 'tests/__fixtures__/loyalty/loyalty.fixtures';
 import { mockStore } from '../../../../tests';
-import doGetProgramMembershipStatements from '../doGetProgramMembershipStatements';
+import fetchProgramMembershipStatements from '../fetchProgramMembershipStatements';
 import find from 'lodash/find';
-import reducer, { actionTypes } from '../../';
+import reducer, { actionTypes } from '../..';
 
 const rewardsMockStore = (state = {}) =>
   mockStore({ rewards: reducer() }, state);
@@ -19,9 +19,9 @@ let store;
 
 beforeEach(jest.clearAllMocks);
 
-describe('doGetProgramMembershipStatements() action creator', () => {
+describe('fetchProgramMembershipStatements() action creator', () => {
   const getProgramMembershipStatements = jest.fn();
-  const action = doGetProgramMembershipStatements(
+  const action = fetchProgramMembershipStatements(
     getProgramMembershipStatements,
   );
   const query = {};
@@ -30,8 +30,10 @@ describe('doGetProgramMembershipStatements() action creator', () => {
     store = rewardsMockStore();
   });
 
-  it('should create the correct actions for when the get program membership statements procedure fails', async () => {
-    const expectedError = new Error('get program membership statements error');
+  it('should create the correct actions for when the fetch program membership statements procedure fails', async () => {
+    const expectedError = new Error(
+      'fetch program membership statements error',
+    );
 
     getProgramMembershipStatements.mockRejectedValueOnce(expectedError);
     expect.assertions(4);
@@ -50,10 +52,10 @@ describe('doGetProgramMembershipStatements() action creator', () => {
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
           {
-            type: actionTypes.GET_PROGRAM_MEMBERSHIP_STATEMENTS_REQUEST,
+            type: actionTypes.FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_REQUEST,
           },
           {
-            type: actionTypes.GET_PROGRAM_MEMBERSHIP_STATEMENTS_FAILURE,
+            type: actionTypes.FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_FAILURE,
             payload: { error: expectedError },
           },
         ]),
@@ -61,7 +63,7 @@ describe('doGetProgramMembershipStatements() action creator', () => {
     }
   });
 
-  it('should create the correct actions for when the get program membership statements procedure is successful', async () => {
+  it('should create the correct actions for when the fetch program membership statements procedure is successful', async () => {
     getProgramMembershipStatements.mockResolvedValueOnce(
       mockResponseProgramMembershipStatements,
     );
@@ -78,9 +80,9 @@ describe('doGetProgramMembershipStatements() action creator', () => {
       expectedConfig,
     );
     expect(actionResults).toMatchObject([
-      { type: actionTypes.GET_PROGRAM_MEMBERSHIP_STATEMENTS_REQUEST },
+      { type: actionTypes.FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_REQUEST },
       {
-        type: actionTypes.GET_PROGRAM_MEMBERSHIP_STATEMENTS_SUCCESS,
+        type: actionTypes.FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_SUCCESS,
         payload: {
           ...expectedNormalizedPayloadProgramMembershipStatements,
           result: [0],
@@ -89,8 +91,8 @@ describe('doGetProgramMembershipStatements() action creator', () => {
     ]);
     expect(
       find(actionResults, {
-        type: actionTypes.GET_PROGRAM_MEMBERSHIPS_SUCCESS,
+        type: actionTypes.FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_SUCCESS,
       }),
-    ).toMatchSnapshot('get programs membership statements success payload');
+    ).toMatchSnapshot('fetch programs membership statements success payload');
   });
 });

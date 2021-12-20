@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`doGetProgramMembershipStatements() action creator should create the correct actions for when the get program membership statements procedure is successful: get programs membership statements success payload 1`] = `undefined`;

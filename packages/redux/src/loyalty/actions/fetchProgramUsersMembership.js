@@ -1,13 +1,13 @@
 import {
-  GET_PROGRAM_USERS_MEMBERSHIP_FAILURE,
-  GET_PROGRAM_USERS_MEMBERSHIP_REQUEST,
-  GET_PROGRAM_USERS_MEMBERSHIP_SUCCESS,
+  FETCH_PROGRAM_USERS_MEMBERSHIP_FAILURE,
+  FETCH_PROGRAM_USERS_MEMBERSHIP_REQUEST,
+  FETCH_PROGRAM_USERS_MEMBERSHIP_SUCCESS,
 } from '../actionTypes';
 import { normalize } from 'normalizr';
 import membershipSchema from '../../entities/schemas/membership';
 
 /**
- * @callback GetProgramUsersMembershipThunkFactory
+ * @callback FetchProgramUsersMembershipThunkFactory
  * @param {string} programId - Program identifier.
  * @param {object} [config] - Custom configurations to send to the client
  * instance (axios).
@@ -18,19 +18,19 @@ import membershipSchema from '../../entities/schemas/membership';
 /**
  * Load program membership statements.
  *
- * @function doGetProgramUsersMembership
+ * @function fetchProgramUsersMembership
  * @memberof module:loyalty/actions
  *
  * @param {Function} getProgramUsersMembership - Get program users membership
  *  client.
  *
- * @returns {GetProgramUsersMembershipThunkFactory} Thunk factory.
+ * @returns {FetchProgramUsersMembershipThunkFactory} Thunk factory.
  */
 export default getProgramUsersMembership =>
   (programId, config) =>
   async dispatch => {
     dispatch({
-      type: GET_PROGRAM_USERS_MEMBERSHIP_REQUEST,
+      type: FETCH_PROGRAM_USERS_MEMBERSHIP_REQUEST,
     });
 
     try {
@@ -38,12 +38,14 @@ export default getProgramUsersMembership =>
 
       dispatch({
         payload: normalize(result, membershipSchema),
-        type: GET_PROGRAM_USERS_MEMBERSHIP_SUCCESS,
+        type: FETCH_PROGRAM_USERS_MEMBERSHIP_SUCCESS,
       });
+
+      return result;
     } catch (error) {
       dispatch({
         payload: { error },
-        type: GET_PROGRAM_USERS_MEMBERSHIP_FAILURE,
+        type: FETCH_PROGRAM_USERS_MEMBERSHIP_FAILURE,
       });
 
       throw error;

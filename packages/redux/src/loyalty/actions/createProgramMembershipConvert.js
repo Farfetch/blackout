@@ -19,7 +19,7 @@ import convertSchema from '../../entities/schemas/convert';
 /**
  * Create program membership convert.
  *
- * @function doCreateProgramMembershipConvert
+ * @function createProgramMembershipConvert
  * @memberof module:loyalty/actions
  *
  * @param {Function} postProgramMembershipConvert - Post program membership
@@ -45,6 +45,8 @@ export default postProgramMembershipConvert =>
         payload: normalize(result, convertSchema),
         type: CREATE_PROGRAM_MEMBERSHIP_CONVERT_SUCCESS,
       });
+
+      return result;
     } catch (error) {
       dispatch({
         payload: { error },
