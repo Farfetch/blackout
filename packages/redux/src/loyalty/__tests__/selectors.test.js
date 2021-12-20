@@ -1,60 +1,8 @@
 import * as fromEntities from '../../entities/selectors/entity';
 import * as fromReducer from '../reducer';
 import * as selectors from '../selectors';
+import { mockState } from 'tests/__fixtures__/loyalty';
 
-const programId = 1;
-const membershipId = 1;
-const replacementId = 1;
-const convertId = 1;
-const statementId = 1;
-const programsEntity = { id: programId, name: 'string' };
-const replacementsEntity = { id: replacementId, reason: 'string' };
-const convertsEntity = { id: convertId };
-const statementsEntity = { id: statementId, points: 0, category: 'Purchase' };
-const membershipEntity = {
-  id: membershipId,
-  externalId: 'string',
-  userId: 0,
-  rewardPoints: 0,
-  cashBalance: 0,
-  status: 'string',
-};
-const mockState = {
-  loyalty: {
-    programs: {
-      error: 'error: not loaded',
-      result: [programId],
-      isLoading: false,
-    },
-    membership: {
-      error: 'error: not loaded',
-      result: membershipId,
-      isLoading: false,
-    },
-    replacements: {
-      error: 'error: not loaded',
-      result: [replacementId],
-      isLoading: false,
-    },
-    converts: {
-      error: 'error: not loaded',
-      result: [convertId],
-      isLoading: false,
-    },
-    statements: {
-      error: 'error: not loaded',
-      result: [statementId],
-      isLoading: false,
-    },
-  },
-  entities: {
-    programs: { [programId]: programsEntity },
-    membership: { [membershipId]: membershipEntity },
-    replacements: { [replacementId]: replacementsEntity },
-    converts: { [convertId]: convertsEntity },
-    statements: { [statementId]: statementsEntity },
-  },
-};
 const testEntitySelector = (selector, subArea) => {
   const spy = jest.spyOn(fromEntities, 'getEntities');
   expect(selector(mockState)).toEqual(mockState.entities[subArea]);

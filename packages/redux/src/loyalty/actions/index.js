@@ -5,9 +5,9 @@
  * @category Loyalty
  * @subcategory Actions
  */
-export { default as doGetPrograms } from './doGetPrograms';
-export { default as doCreateProgramMembership } from './doCreateProgramMembership';
-export { default as doRequestProgramMembershipReplacement } from './doRequestProgramMembershipReplacement';
-export { default as doCreateProgramMembershipConvert } from './doCreateProgramMembershipConvert';
-export { default as doGetProgramMembershipStatements } from './doGetProgramMembershipStatements';
-export { default as doGetProgramUsersMembership } from './doGetProgramUsersMembership';
+export { default as createProgramMembership } from './createProgramMembership';
+export { default as createProgramMembershipConvert } from './createProgramMembershipConvert';
+export { default as createProgramMembershipReplacement } from './createProgramMembershipReplacement';
+export { default as fetchProgramMembershipStatements } from './fetchProgramMembershipStatements';
+export { default as fetchPrograms } from './fetchPrograms';
+export { default as fetchProgramUsersMembership } from './fetchProgramUsersMembership';

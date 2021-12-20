@@ -5,9 +5,9 @@ import {
   programId,
 } from 'tests/__fixtures__/loyalty/loyalty.fixtures';
 import { mockStore } from '../../../../tests';
-import doCreateProgramMembershipConvert from '../doCreateProgramMembershipConvert';
+import createProgramMembershipConvert from '../createProgramMembershipConvert';
 import find from 'lodash/find';
-import reducer, { actionTypes } from '../../';
+import reducer, { actionTypes } from '../..';
 
 const rewardsMockStore = (state = {}) =>
   mockStore({ rewards: reducer() }, state);
@@ -17,9 +17,9 @@ let store;
 
 beforeEach(jest.clearAllMocks);
 
-describe('doCreateProgramMembershipConvert() action creator', () => {
+describe('createProgramMembershipConvert() action creator', () => {
   const postProgramMembershipConvert = jest.fn();
-  const action = doCreateProgramMembershipConvert(postProgramMembershipConvert);
+  const action = createProgramMembershipConvert(postProgramMembershipConvert);
 
   beforeEach(() => {
     store = rewardsMockStore();

@@ -1,13 +1,13 @@
 import {
-  GET_PROGRAM_MEMBERSHIP_STATEMENTS_FAILURE,
-  GET_PROGRAM_MEMBERSHIP_STATEMENTS_REQUEST,
-  GET_PROGRAM_MEMBERSHIP_STATEMENTS_SUCCESS,
+  FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_FAILURE,
+  FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_REQUEST,
+  FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_SUCCESS,
 } from '../actionTypes';
 import { normalize } from 'normalizr';
 import statementSchema from '../../entities/schemas/statement';
 
 /**
- * @typedef {object} GetProgramMembershipStatementsQuery
+ * @typedef {object} FetchProgramMembershipStatementsQuery
  * @property {string} Category - Gets/Sets the Category Add or Convert
  * statement.Possible Values: Purchase, Misc, Transfer, Bonus, Partner, Convert.
  * @property {string} InitialDate- Gets/Sets the InitialDate (Ex. 2017-07-20).
@@ -20,10 +20,10 @@ import statementSchema from '../../entities/schemas/statement';
  */
 
 /**
- * @callback GetProgramMembershipStatementsThunkFactory
+ * @callback FetchProgramMembershipStatementsThunkFactory
  * @param {string} programId - Program identifier.
  * @param {string} membershipId - Memberhip identifier.
- * @param {GetProgramMembershipStatementsQuery} query - Data to retrieve
+ * @param {FetchProgramMembershipStatementsQuery} query - Data to retrieve
  * memberships statements.
  * @param {object} [config] - Custom configurations to send to the client
  * instance (axios).
@@ -34,19 +34,19 @@ import statementSchema from '../../entities/schemas/statement';
 /**
  * Load program membership statements.
  *
- * @function doGetProgramMembershipStatements
+ * @function fetchProgramMembershipStatements
  * @memberof module:loyalty/actions
  *
  * @param {Function} getProgramMembershipStatements - Get program membership
  * statements client.
  *
- * @returns {GetProgramMembershipStatementsThunkFactory} Thunk factory.
+ * @returns {FetchProgramMembershipStatementsThunkFactory} Thunk factory.
  */
 export default getProgramMembershipStatements =>
   (programId, membershipId, query = {}, config) =>
   async dispatch => {
     dispatch({
-      type: GET_PROGRAM_MEMBERSHIP_STATEMENTS_REQUEST,
+      type: FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_REQUEST,
     });
 
     try {
@@ -59,12 +59,14 @@ export default getProgramMembershipStatements =>
 
       dispatch({
         payload: normalize(result, [statementSchema]),
-        type: GET_PROGRAM_MEMBERSHIP_STATEMENTS_SUCCESS,
+        type: FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_SUCCESS,
       });
+
+      return result;
     } catch (error) {
       dispatch({
         payload: { error },
-        type: GET_PROGRAM_MEMBERSHIP_STATEMENTS_FAILURE,
+        type: FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_FAILURE,
       });
 
       throw error;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`doGetPrograms() action creator should create the correct actions for when the get programs procedure is successful: get programs success payload 1`] = `
+exports[`fetchPrograms() action creator should create the correct actions for when the fetch programs procedure is successful: fetch programs success payload 1`] = `
 Object {
   "payload": Object {
     "entities": Object {
@@ -15,6 +15,6 @@ Object {
       1,
     ],
   },
-  "type": "@farfetch/blackout-redux/GET_PROGRAMS_SUCCESS",
+  "type": "@farfetch/blackout-redux/FETCH_PROGRAMS_SUCCESS",
 }
 `;

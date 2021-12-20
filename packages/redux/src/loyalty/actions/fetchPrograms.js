@@ -1,13 +1,13 @@
 import {
-  GET_PROGRAMS_FAILURE,
-  GET_PROGRAMS_REQUEST,
-  GET_PROGRAMS_SUCCESS,
+  FETCH_PROGRAMS_FAILURE,
+  FETCH_PROGRAMS_REQUEST,
+  FETCH_PROGRAMS_SUCCESS,
 } from '../actionTypes';
 import { normalize } from 'normalizr';
 import programSchema from '../../entities/schemas/program';
 
 /**
- * @callback GetProgramUsersThunkFactory
+ * @callback FetchProgramUsersThunkFactory
  * @param {object} [config] - Custom configurations to send to the client
  * instance (axios).
  *
@@ -17,16 +17,16 @@ import programSchema from '../../entities/schemas/program';
 /**
  * Load programs.
  *
- * @function doGetPrograms
+ * @function fetchPrograms
  * @memberof module:loyalty/actions
  *
  * @param {Function} getPrograms - Get programs client.
  *
- * @returns {GetProgramUsersThunkFactory} Thunk factory.
+ * @returns {FetchProgramUsersThunkFactory} Thunk factory.
  */
 export default getPrograms => config => async dispatch => {
   dispatch({
-    type: GET_PROGRAMS_REQUEST,
+    type: FETCH_PROGRAMS_REQUEST,
   });
 
   try {
@@ -34,12 +34,14 @@ export default getPrograms => config => async dispatch => {
 
     dispatch({
       payload: normalize(result, [programSchema]),
-      type: GET_PROGRAMS_SUCCESS,
+      type: FETCH_PROGRAMS_SUCCESS,
     });
+
+    return result;
   } catch (error) {
     dispatch({
       payload: { error },
-      type: GET_PROGRAMS_FAILURE,
+      type: FETCH_PROGRAMS_FAILURE,
     });
 
     throw error;

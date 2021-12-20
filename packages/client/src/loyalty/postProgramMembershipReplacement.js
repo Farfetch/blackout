@@ -2,6 +2,11 @@ import client, { adaptError } from '../helpers/client';
 import join from 'proper-url-join';
 
 /**
+ * @typedef {object} CreateProgramMembershipReplacementData
+ * @property {string} reason - Reason of replacement.
+ */
+
+/**
  * Method responsible for creating a replacement for a membership.
  *
  * @function postProgramMembershipReplacement
@@ -9,7 +14,7 @@ import join from 'proper-url-join';
  *
  * @param {string} programId - Program identifier.
  * @param {string} membershipId - Membership identifier.
- * @param {object} data - Replacement to be created.
+ * @param {CreateProgramMembershipReplacementData} data - Replacement to be created.
  * @param {object} [config] - Custom configurations to send to the client
  * instance (axios).
  *

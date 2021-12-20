@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`doGetProgramUsersMembership() action creator should create the correct actions for when the get program users membership procedure is successful: get program users membership success payload 1`] = `
+exports[`fetchProgramUsersMembership() action creator should create the correct actions for when the fetch program users membership procedure is successful: fetch program users membership success payload 1`] = `
 Object {
   "payload": Object {
     "entities": Object {
@@ -17,6 +17,6 @@ Object {
     },
     "result": 1,
   },
-  "type": "@farfetch/blackout-redux/GET_PROGRAM_MEMBERSHIP_STATEMENTS_SUCCESS",
+  "type": "@farfetch/blackout-redux/FETCH_PROGRAM_USERS_MEMBERSHIP_SUCCESS",
 }
 `;

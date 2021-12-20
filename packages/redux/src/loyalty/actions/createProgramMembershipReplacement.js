@@ -1,16 +1,21 @@
-import { normalize } from 'normalizr';
 import {
-  REQUEST_PROGRAM_MEMBERSHIP_REPLACEMENT_FAILURE,
-  REQUEST_PROGRAM_MEMBERSHIP_REPLACEMENT_REQUEST,
-  REQUEST_PROGRAM_MEMBERSHIP_REPLACEMENT_SUCCESS,
+  CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_FAILURE,
+  CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_REQUEST,
+  CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_SUCCESS,
 } from '../actionTypes';
+import { normalize } from 'normalizr';
 import replacementSchema from '../../entities/schemas/replacement';
 
 /**
- * @callback RequestProgramMembershipReplacementThunkFactory
+ * @typedef {object} CreateProgramMembershipReplacementData
+ * @property {string} reason - Reason of replacement.
+ */
+
+/**
+ * @callback CreateProgramMembershipReplacementThunkFactory
  * @param {string} programId - Program identifier.
  * @param {string} membershipId - Membership identifier.
- * @param {object} data - Replacement to be created.
+ * @param {CreateProgramMembershipReplacementData} data - Replacement to be created.
  * @param {object} [config] - Custom configurations to send to the client
  * instance (axios).
  *
@@ -20,19 +25,19 @@ import replacementSchema from '../../entities/schemas/replacement';
 /**
  * Request a new membership id by replacement.
  *
- * @function doRequestProgramMembershipReplacement
+ * @function createProgramMembershipReplacement
  * @memberof module:loyalty/actions
  *
  * @param {Function} postProgramMembershipReplacement - Post program membership
  * replacement client.
  *
- * @returns {RequestProgramMembershipReplacementThunkFactory} Thunk factory.
+ * @returns {CreateProgramMembershipReplacementThunkFactory} Thunk factory.
  */
 export default postProgramMembershipReplacement =>
   (programId, membershipId, data, config) =>
   async dispatch => {
     dispatch({
-      type: REQUEST_PROGRAM_MEMBERSHIP_REPLACEMENT_REQUEST,
+      type: CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_REQUEST,
     });
 
     try {
@@ -45,12 +50,14 @@ export default postProgramMembershipReplacement =>
 
       dispatch({
         payload: normalize(result, replacementSchema),
-        type: REQUEST_PROGRAM_MEMBERSHIP_REPLACEMENT_SUCCESS,
+        type: CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_SUCCESS,
       });
+
+      return result;
     } catch (error) {
       dispatch({
         payload: { error },
-        type: REQUEST_PROGRAM_MEMBERSHIP_REPLACEMENT_FAILURE,
+        type: CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_FAILURE,
       });
 
       throw error;
