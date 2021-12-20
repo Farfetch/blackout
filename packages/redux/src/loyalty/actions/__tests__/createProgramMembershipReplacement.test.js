@@ -5,9 +5,9 @@ import {
   programId,
 } from 'tests/__fixtures__/loyalty/loyalty.fixtures';
 import { mockStore } from '../../../../tests';
-import doRequestProgramMembershipReplacement from '../doRequestProgramMembershipReplacement';
+import createProgramMembershipReplacement from '../createProgramMembershipReplacement';
 import find from 'lodash/find';
-import reducer, { actionTypes } from '../../';
+import reducer, { actionTypes } from '../..';
 
 const rewardsMockStore = (state = {}) =>
   mockStore({ rewards: reducer() }, state);
@@ -17,9 +17,9 @@ let store;
 
 beforeEach(jest.clearAllMocks);
 
-describe('doRequestProgramMembershipReplacement() action creator', () => {
+describe('createProgramMembershipReplacement() action creator', () => {
   const postProgramMembershipReplacement = jest.fn();
-  const action = doRequestProgramMembershipReplacement(
+  const action = createProgramMembershipReplacement(
     postProgramMembershipReplacement,
   );
   const data = { reason: 'string' };
@@ -35,9 +35,9 @@ describe('doRequestProgramMembershipReplacement() action creator', () => {
     });
   });
 
-  it('should create the correct actions for when the request program membership replacement procedure fails', async () => {
+  it('should create the correct actions for when the create program membership replacement procedure fails', async () => {
     const expectedError = new Error(
-      'request program membership replacement error',
+      'create program membership replacement error',
     );
 
     postProgramMembershipReplacement.mockRejectedValueOnce(expectedError);
@@ -57,18 +57,18 @@ describe('doRequestProgramMembershipReplacement() action creator', () => {
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
           {
-            type: actionTypes.REQUEST_PROGRAM_MEMBERSHIP_REPLACEMENT_REQUEST,
+            type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_REQUEST,
           },
           {
             payload: { error: expectedError },
-            type: actionTypes.REQUEST_PROGRAM_MEMBERSHIP_REPLACEMENT_FAILURE,
+            type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_FAILURE,
           },
         ]),
       );
     }
   });
 
-  it('should create the correct actions for when the create program membership procedure is successful', async () => {
+  it('should create the correct actions for when the create program membership replacement procedure is successful', async () => {
     postProgramMembershipReplacement.mockResolvedValueOnce(
       mockResponseProgramMembershipReplacement,
     );
@@ -85,17 +85,17 @@ describe('doRequestProgramMembershipReplacement() action creator', () => {
     );
     expect(actionResults).toMatchObject([
       {
-        type: actionTypes.REQUEST_PROGRAM_MEMBERSHIP_REPLACEMENT_REQUEST,
+        type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_REQUEST,
       },
       {
         payload: expectedNormalizedPayloadProgramMembershipReplacement,
-        type: actionTypes.REQUEST_PROGRAM_MEMBERSHIP_REPLACEMENT_SUCCESS,
+        type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_SUCCESS,
       },
     ]);
     expect(
       find(actionResults, {
-        type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_SUCCESS,
+        type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_SUCCESS,
       }),
-    ).toMatchSnapshot('request program membership replacement success payload');
+    ).toMatchSnapshot('create program membership replacement success payload');
   });
 });

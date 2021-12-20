@@ -7,9 +7,19 @@ import { normalize } from 'normalizr';
 import membershipSchema from '../../entities/schemas/membership';
 
 /**
+ * @typedef {object} CreateMembershipData
+ * @property {string} id - Membership identifier.
+ * @property {string} externalId - External identifier.
+ * @property {number} userId - User identifier.
+ * @property {number} rewardPoints - Reward Points.
+ * @property {number} cashBalance - Cash balance.
+ * @property {('Unverified'|'Activated'|'Invalid'|'Canceled')} status - Membership status.
+ */
+
+/**
  * @callback CreateProgramMembershipThunkFactory
  * @param {string} programId - Program identifier.
- * @param {object} data - Membership to be created.
+ * @param {CreateMembershipData} data - Membership to be created.
  * @param {object} [config] - Custom configurations to send to the client
  * instance (axios).
  *
@@ -19,7 +29,7 @@ import membershipSchema from '../../entities/schemas/membership';
 /**
  * Create program membership.
  *
- * @function doCreateProgramMembership
+ * @function createProgramMembership
  * @memberof module:loyalty/actions
  *
  * @param {Function} postProgramMembership - Post program membership client.
@@ -40,6 +50,8 @@ export default postProgramMembership =>
         payload: normalize(result, membershipSchema),
         type: CREATE_PROGRAM_MEMBERSHIP_SUCCESS,
       });
+
+      return result;
     } catch (error) {
       dispatch({
         payload: { error },

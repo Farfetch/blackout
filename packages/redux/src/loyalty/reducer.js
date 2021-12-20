@@ -39,14 +39,14 @@ const INITIAL_STATE = {
 };
 
 export const programs = createReducerWithResult(
-  'GET_PROGRAMS',
+  'FETCH_PROGRAMS',
   INITIAL_STATE.programs,
   actionTypes,
   isNormalized,
 );
 
 export const replacements = createReducerWithResult(
-  'REQUEST_PROGRAM_MEMBERSHIP_REPLACEMENT',
+  'CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT',
   INITIAL_STATE.replacements,
   actionTypes,
   isNormalized,
@@ -59,7 +59,7 @@ export const converts = createReducerWithResult(
   isNormalized,
 );
 export const statements = createReducerWithResult(
-  'GET_PROGRAM_MEMBERSHIP_STATEMENTS',
+  'FETCH_PROGRAM_MEMBERSHIP_STATEMENTS',
   INITIAL_STATE.statements,
   actionTypes,
   isNormalized,
@@ -67,20 +67,20 @@ export const statements = createReducerWithResult(
 
 export const membership = (state = INITIAL_STATE.membership, action = {}) => {
   switch (action.type) {
-    case actionTypes.GET_PROGRAM_USERS_MEMBERSHIP_REQUEST:
+    case actionTypes.FETCH_PROGRAM_USERS_MEMBERSHIP_REQUEST:
     case actionTypes.CREATE_PROGRAM_MEMBERSHIP_REQUEST:
       return {
         isLoading: true,
         error: INITIAL_STATE.membership.error,
       };
-    case actionTypes.GET_PROGRAM_USERS_MEMBERSHIP_SUCCESS:
+    case actionTypes.FETCH_PROGRAM_USERS_MEMBERSHIP_SUCCESS:
     case actionTypes.CREATE_PROGRAM_MEMBERSHIP_SUCCESS:
       return {
         error: INITIAL_STATE.membership.error,
         result: action.payload.result,
         isLoading: false,
       };
-    case actionTypes.GET_PROGRAM_USERS_MEMBERSHIP_FAILURE:
+    case actionTypes.FETCH_PROGRAM_USERS_MEMBERSHIP_FAILURE:
     case actionTypes.CREATE_PROGRAM_MEMBERSHIP_FAILURE:
       return {
         error: action.payload.error,
