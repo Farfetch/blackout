@@ -5,9 +5,15 @@ import {
   programId,
 } from 'tests/__fixtures__/loyalty/loyalty.fixtures';
 import { mockStore } from '../../../../tests';
+import { postProgramMembershipConvert } from '@farfetch/blackout-client/loyalty';
 import createProgramMembershipConvert from '../createProgramMembershipConvert';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
+
+jest.mock('@farfetch/blackout-client/loyalty', () => ({
+  ...jest.requireActual('@farfetch/blackout-client/loyalty'),
+  postProgramMembershipConvert: jest.fn(),
+}));
 
 const rewardsMockStore = (state = {}) =>
   mockStore({ rewards: reducer() }, state);
@@ -18,9 +24,6 @@ let store;
 beforeEach(jest.clearAllMocks);
 
 describe('createProgramMembershipConvert() action creator', () => {
-  const postProgramMembershipConvert = jest.fn();
-  const action = createProgramMembershipConvert(postProgramMembershipConvert);
-
   beforeEach(() => {
     store = rewardsMockStore();
   });
@@ -32,7 +35,9 @@ describe('createProgramMembershipConvert() action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(action(programId, membershipId));
+      await store.dispatch(
+        createProgramMembershipConvert(programId, membershipId),
+      );
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(postProgramMembershipConvert).toHaveBeenCalledTimes(1);
@@ -59,7 +64,9 @@ describe('createProgramMembershipConvert() action creator', () => {
     postProgramMembershipConvert.mockResolvedValueOnce(
       mockResponseProgramMembershipConvert,
     );
-    await store.dispatch(action(programId, membershipId));
+    await store.dispatch(
+      createProgramMembershipConvert(programId, membershipId),
+    );
 
     const actionResults = store.getActions();
 
