@@ -1,8 +1,14 @@
 import * as normalizr from 'normalizr';
+import { getPrograms } from '@farfetch/blackout-client/loyalty';
 import { mockStore } from '../../../../tests';
 import fetchPrograms from '../fetchPrograms';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
+
+jest.mock('@farfetch/blackout-client/loyalty', () => ({
+  ...jest.requireActual('@farfetch/blackout-client/loyalty'),
+  getPrograms: jest.fn(),
+}));
 
 const rewardsMockStore = (state = {}) =>
   mockStore({ rewards: reducer() }, state);
@@ -29,9 +35,6 @@ describe('fetchPrograms() action creator', () => {
     result: [programId],
   };
 
-  const getPrograms = jest.fn();
-  const action = fetchPrograms(getPrograms);
-
   beforeEach(() => {
     jest.clearAllMocks();
     store = rewardsMockStore();
@@ -44,7 +47,7 @@ describe('fetchPrograms() action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(action());
+      await store.dispatch(fetchPrograms());
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(getPrograms).toHaveBeenCalledTimes(1);
@@ -63,7 +66,7 @@ describe('fetchPrograms() action creator', () => {
 
   it('should create the correct actions for when the fetch programs procedure is successful', async () => {
     getPrograms.mockResolvedValueOnce(mockResponsePrograms);
-    await store.dispatch(action());
+    await store.dispatch(fetchPrograms());
 
     const actionResults = store.getActions();
 
