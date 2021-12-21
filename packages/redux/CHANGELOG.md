@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.160](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.159...@farfetch/blackout-redux@1.0.0-next.160) (2021-12-21)
+
+
+### Features
+
+* **client|redux:** general mocks - returns ([1d385be](https://github.com/Farfetch/blackout/commit/1d385be8ff8d3c9e0b88e0f0e746d53ef3cefdc4))
+* **client|redux:** split core & redux returns ([ebff34d](https://github.com/Farfetch/blackout/commit/ebff34d2faa547be6aeaa3b19294959f97ce9992))
+* **redux:** return statements - returns ([4ae2e50](https://github.com/Farfetch/blackout/commit/4ae2e506bcfb0c07fb0cd427c6b4493d54fe6024))
+
+
+
+
+
 # [1.0.0-next.159](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.158...@farfetch/blackout-redux@1.0.0-next.159) (2021-12-16)
 
 
