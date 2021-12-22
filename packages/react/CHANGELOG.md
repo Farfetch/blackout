@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.27.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.27.0...@farfetch/blackout-react@0.27.1) (2021-12-22)
+
+
+### Bug Fixes
+
+* **react:** add `from` to PRODUCT_CLICKED event mapping in GA4 ([b99b74d](https://github.com/Farfetch/blackout/commit/b99b74d615f0d209fc03473fa4ad7950d46227a5))
+* fix ga4 promocode_applied event schema ([dea348e](https://github.com/Farfetch/blackout/commit/dea348e2d2c4e3697c90808c4791bd06be8af801))
+
+
+
+
+
 # [0.27.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.26.0...@farfetch/blackout-react@0.27.0) (2021-12-14)
 
 

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.45.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.44.0...@farfetch/blackout-core@1.45.0) (2021-12-22)
+
+
+### Bug Fixes
+
+* **core:** fix getPromotionEvaluationItemById ([fc4c7c1](https://github.com/Farfetch/blackout/commit/fc4c7c15f150db91172955a6b22d0ea4fe5e1262))
+
+
+### Features
+
+* **core:** add additional user attributes client ([8c77c25](https://github.com/Farfetch/blackout/commit/8c77c2582fa8df4b98d170bf2395f74cacd5565e))
+
+
+
+
+
 # [1.44.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.43.0...@farfetch/blackout-core@1.44.0) (2021-12-14)
 
 
