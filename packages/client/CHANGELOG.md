@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.109](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.108...@farfetch/blackout-client@2.0.0-next.109) (2021-12-23)
+
+
+### Features
+
+* change loyalty actions nomenclature ([bad8581](https://github.com/Farfetch/blackout/commit/bad8581febc9b5a645f2d1ceabe82285653f71a0))
+
+
+
+
+
 # [2.0.0-next.108](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.107...@farfetch/blackout-client@2.0.0-next.108) (2021-12-21)
 
 
