@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.162](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.161...@farfetch/blackout-redux@1.0.0-next.162) (2021-12-23)
+
+
+### Features
+
+* **redux:** provide loyalty actions with a client ([2e98225](https://github.com/Farfetch/blackout/commit/2e982255eb5b09604047569e10526da3205a23cf))
+
+
+
+
+
 # [1.0.0-next.161](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.160...@farfetch/blackout-redux@1.0.0-next.161) (2021-12-23)
 
 
