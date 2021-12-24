@@ -2,9 +2,9 @@ import { getFormSchema } from '../';
 import {
   query,
   formSchemaResponse as successResponse,
-} from 'tests/__fixtures__/forms/formsSchema';
+} from 'tests/__fixtures__/forms';
 import client from '../../helpers/client';
-import fixtures from './__mocks__/getFormSchema.fixtures';
+import fixtures from '../__fixtures__/getFormSchema.fixtures';
 import join from 'proper-url-join';
 import moxios from 'moxios';
 

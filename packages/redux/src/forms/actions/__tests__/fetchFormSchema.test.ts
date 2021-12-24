@@ -3,13 +3,14 @@ import { fetchFormSchema } from '..';
 import {
   formSchemaResponse,
   query as getFormSchemasQuery,
-} from 'tests/__fixtures__/forms/formsSchema';
+} from 'tests/__fixtures__/forms';
 import { getFormSchema } from '@farfetch/blackout-client/forms';
+import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from 'redux/tests';
 import find from 'lodash/find';
-import reducer from '../../reducer';
 
-const formsMockStore = (state = {}) => mockStore(reducer(), state);
+const formsMockStore = (state = {}) =>
+  mockStore({ forms: INITIAL_STATE }, state);
 const expectedConfig = undefined;
 let store;
 
@@ -52,16 +53,10 @@ describe('fetchFormSchema() action creator', () => {
         );
         expect(store.getActions()).toEqual(
           expect.arrayContaining([
-            expect.objectContaining(
-              {
-                type: actionTypes.FETCH_FORM_SCHEMA_FAILURE,
-                meta: { schemaCode: formSchemaResponse.code },
-              },
-              {
-                payload: { error: expectedError },
-                type: actionTypes.FETCH_FORM_SCHEMA_FAILURE,
-              },
-            ),
+            expect.objectContaining({
+              type: actionTypes.FETCH_FORM_SCHEMA_FAILURE,
+              meta: { schemaCode: formSchemaResponse.code },
+            }),
           ]),
         );
       });
@@ -95,16 +90,10 @@ describe('fetchFormSchema() action creator', () => {
     );
     expect(store.getActions()).toEqual(
       expect.arrayContaining([
-        expect.objectContaining(
-          {
-            type: actionTypes.FETCH_FORM_SCHEMA_REQUEST,
-            meta: { schemaCode: formSchemaResponse.code },
-          },
-          {
-            payload: {},
-            type: actionTypes.FETCH_FORM_SCHEMA_SUCCESS,
-          },
-        ),
+        expect.objectContaining({
+          type: actionTypes.FETCH_FORM_SCHEMA_REQUEST,
+          meta: { schemaCode: formSchemaResponse.code },
+        }),
       ]),
     );
     expect(
