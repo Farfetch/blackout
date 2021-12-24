@@ -56,3 +56,15 @@ export const postFormDataResponse = {
   createdAt: '2020-02-05T15:56:36.494Z',
   updatedAt: '2020-02-05T15:56:36.494Z',
 };
+
+export const mockState = {
+  forms: {
+    result: { [formSchemaResponse.code]: formSchemaResponse },
+    error: { [formSchemaResponse.code]: 'Error - Content not loaded.' },
+    isLoading: { [formSchemaResponse.code]: false },
+    isSubmitFormLoading: { [formSchemaResponse.code]: false },
+    submitFormError: {
+      [formSchemaResponse.code]: 'Error - Content not loaded.',
+    },
+  },
+};

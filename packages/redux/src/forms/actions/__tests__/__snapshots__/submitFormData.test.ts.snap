@@ -3,6 +3,17 @@
 exports[`submitFormData() action creator should create the correct actions for when the submit form data procedure is successful: Submit form schemas payload 1`] = `
 Object {
   "meta": Object {
+    "data": Object {
+      "formData": Object {
+        "email": "john.jackson@test.com",
+        "firstName": "John",
+        "lastName": "Jackson",
+        "message": "Need some help",
+        "orderNumber": "12345",
+        "phone": "123456789",
+        "subject": "product_info",
+      },
+    },
     "schemaCode": "contact-us",
   },
   "payload": Object {

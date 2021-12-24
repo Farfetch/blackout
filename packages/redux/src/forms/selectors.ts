@@ -4,6 +4,7 @@
  * @subcategory Selectors
  */
 
+import { FormResult } from './types';
 import { get } from 'lodash';
 import {
   getFormsError,
@@ -12,6 +13,7 @@ import {
   getSubmitFormDataError as getSubmitFormDataErrorFromReducer,
   getSubmitFormDataIsLoading,
 } from './reducer';
+import type { StoreState } from '../types';
 
 /**
  * Retrieves the error thrown by the fetchFormSchema request, by schemaCode.
@@ -31,7 +33,10 @@ import {
  * });
  *
  */
-export const getFormSchemaError = (state, schemaCode) => {
+export const getFormSchemaError = (
+  state: StoreState,
+  schemaCode: string,
+): Error | null => {
   return getFormsError(state.forms)[schemaCode];
 };
 
@@ -52,17 +57,19 @@ export const getFormSchemaError = (state, schemaCode) => {
  *     isLoading: isFormSchemaLoading(state, query)
  * });
  */
-export const isFormSchemaLoading = (state, schemaCode) =>
-  getFormsIsLoading(state.forms)[schemaCode];
+export const isFormSchemaLoading = (
+  state: StoreState,
+  schemaCode: string,
+): boolean => getFormsIsLoading(state.forms)[schemaCode];
 
 /**
  * Retrieves all form schemas.
  *
  * @function
  *
- * @param {object} state - Application state.
+ * @param {StoreState} state - Application state.
  *
- * @returns {Array} - All form schemas.
+ * @returns {FormResult} - All form schemas.
  *
  * @example
  * import { getFormSchemaByCode } from '@farfetch/blackout-redux/forms';
@@ -72,7 +79,8 @@ export const isFormSchemaLoading = (state, schemaCode) =>
  * });
  *
  */
-export const getFormSchemas = state => getFormsSchemas(state.forms);
+export const getFormSchemas = (state: StoreState): FormResult =>
+  getFormsSchemas(state.forms);
 
 /**
  * Retrieves a schema.
@@ -92,8 +100,10 @@ export const getFormSchemas = state => getFormsSchemas(state.forms);
  * });
  *
  */
-export const getFormSchemaByCode = (state, schemaCode) =>
-  get(getFormSchemas(state)[schemaCode], 'jsonSchema');
+export const getFormSchemaByCode = (
+  state: StoreState,
+  schemaCode: string,
+): [] => get(getFormSchemas(state)[schemaCode], 'jsonSchema');
 /**
  * Retrieves the error thrown by the postFormData request, by schemaCode.
  *
@@ -112,7 +122,10 @@ export const getFormSchemaByCode = (state, schemaCode) =>
  * });
  *
  */
-export const getSubmitFormDataError = (state, schemaCode) => {
+export const getSubmitFormDataError = (
+  state: StoreState,
+  schemaCode: string,
+): any => {
   return getSubmitFormDataErrorFromReducer(state.forms)[schemaCode];
 };
 
@@ -133,5 +146,7 @@ export const getSubmitFormDataError = (state, schemaCode) => {
  *     isLoading: isSubmitFormDataLoading(state, query)
  * });
  */
-export const isSubmitFormDataLoading = (state, schemaCode) =>
-  getSubmitFormDataIsLoading(state.forms)[schemaCode];
+export const isSubmitFormDataLoading = (
+  state: StoreState,
+  schemaCode: string,
+): boolean => getSubmitFormDataIsLoading(state.forms)[schemaCode];

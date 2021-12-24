@@ -27,6 +27,7 @@ import type { Category } from '@farfetch/blackout-client/categories/types';
 import type { State as CheckoutState } from '../checkout/types';
 import type { State as ContentsState } from '../contents/types';
 import type { State as DesignersState } from '../designers/types';
+import type { State as FormsState } from '../forms/types';
 import type { State as LocaleState } from '../locale/types';
 import type { MerchantLocation } from '@farfetch/blackout-client/merchantsLocations/types';
 import type { State as MerchantsLocationsState } from '../merchantsLocations/types';
@@ -41,7 +42,7 @@ import type { State as StaffMembersState } from '../staffMembers/types';
 import type { State as UsersState } from '../users/types';
 import type { State as WishlistsState } from '../wishlists/types';
 
-export type StoreState = {
+export type StoreState = Partial<{
   // Keep adding/changing here as we migrate chunks
   entities: Partial<{
     addresses: Record<Address['id'], AddressEntity>;
@@ -89,9 +90,10 @@ export type StoreState = {
   promotionEvaluations: PromotionEvaluationsState;
   search: SearchState;
   sizeGuides: SizeGuidesState;
+  forms: FormsState;
   sizeScales: SizeScalesState;
   staffMembers: StaffMembersState;
   users: UsersState;
   wishlist: WishlistsState;
   // Keep adding here as we migrate chunks
-};
+}>;
