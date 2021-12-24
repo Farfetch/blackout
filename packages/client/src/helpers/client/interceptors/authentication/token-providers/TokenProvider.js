@@ -281,7 +281,7 @@ class TokenProvider {
    * Sets the flag that enables/disables the saving of token data
    * in storage.
    *
-   * @throws
+   * @throws TypeError if not receiving a boolean.
    *
    * @param {boolean} canSaveTokenData - If the token can be saved or not.
    */

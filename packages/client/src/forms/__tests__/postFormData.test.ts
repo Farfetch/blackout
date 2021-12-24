@@ -1,7 +1,7 @@
 import { postFormData } from '../';
-import { postFormDataResponse } from 'tests/__fixtures__/forms/formsSchema';
+import { postFormDataResponse } from 'tests/__fixtures__/forms';
 import client from '../../helpers/client';
-import fixtures from './__mocks__/postFormData.fixtures';
+import fixtures from '../__fixtures__/postFormData.fixtures';
 import moxios from 'moxios';
 
 describe('schemas client', () => {

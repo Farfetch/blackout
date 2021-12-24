@@ -2,15 +2,15 @@ import { actionTypes } from '../..';
 import {
   formSchemaResponse,
   postFormDataPayload,
-  postFormDataResponse,
-} from 'tests/__fixtures__/forms/formsSchema';
+} from 'tests/__fixtures__/forms';
+import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from 'redux/tests';
 import { postFormData } from '@farfetch/blackout-client/forms';
 import { submitFormData } from '..';
 import find from 'lodash/find';
-import reducer from '../../reducer';
 
-const formsMockStore = (state = {}) => mockStore(reducer(), state);
+const formsMockStore = (state = {}) =>
+  mockStore({ forms: INITIAL_STATE }, state);
 const expectedConfig = undefined;
 let store;
 
@@ -53,15 +53,9 @@ describe('submitFormData() action creator', () => {
         );
         expect(store.getActions()).toEqual(
           expect.arrayContaining([
-            expect.objectContaining(
-              {
-                type: actionTypes.SUBMIT_FORM_REQUEST,
-              },
-              {
-                payload: { error: expectedError },
-                type: actionTypes.SUBMIT_FORM_FAILURE,
-              },
-            ),
+            expect.objectContaining({
+              type: actionTypes.SUBMIT_FORM_REQUEST,
+            }),
           ]),
         );
       });
@@ -95,15 +89,9 @@ describe('submitFormData() action creator', () => {
     );
     expect(store.getActions()).toEqual(
       expect.arrayContaining([
-        expect.objectContaining(
-          {
-            type: actionTypes.SUBMIT_FORM_REQUEST,
-          },
-          {
-            payload: postFormDataResponse,
-            type: actionTypes.SUBMIT_FORM_SUCCESS,
-          },
-        ),
+        expect.objectContaining({
+          type: actionTypes.SUBMIT_FORM_REQUEST,
+        }),
       ]),
     );
     expect(

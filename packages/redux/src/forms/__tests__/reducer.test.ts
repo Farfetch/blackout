@@ -1,10 +1,12 @@
+import * as fromReducer from '../reducer';
 import reducer, { actionTypes } from '..';
 
 let initialState;
+const randomAction = { type: 'this_is_a_random_action' };
 
 describe('forms redux reducer', () => {
   beforeEach(() => {
-    initialState = reducer();
+    initialState = fromReducer.INITIAL_STATE;
   });
 
   describe('reset handling', () => {
@@ -19,7 +21,7 @@ describe('forms redux reducer', () => {
 
   describe('error() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer().error;
+      const state = reducer(undefined, randomAction).error;
 
       expect(state).toEqual(initialState.error);
       expect(state).toEqual({});
@@ -46,15 +48,15 @@ describe('forms redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { error: { 'foo-biz': false } };
+      const state = { ...initialState, error: { 'foo-biz': false } };
 
-      expect(reducer(state).error).toEqual(state.error);
+      expect(reducer(state, randomAction).error).toEqual(state.error);
     });
   });
 
   describe('isLoading() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(undefined).isLoading;
+      const state = reducer(undefined, randomAction).isLoading;
 
       expect(state).toEqual(initialState.isLoading);
       expect(state).toEqual({});
@@ -91,9 +93,9 @@ describe('forms redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { isLoading: { 'foo-biz': false } };
+      const state = { ...initialState, isLoading: { 'foo-biz': false } };
 
-      expect(reducer(state).isLoading).toEqual(state.isLoading);
+      expect(reducer(state, randomAction).isLoading).toEqual(state.isLoading);
     });
   });
 });

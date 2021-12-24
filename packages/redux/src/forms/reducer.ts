@@ -4,9 +4,11 @@
  * @subcategory Reducer
  */
 import * as actionTypes from './actionTypes';
-import { combineReducers } from 'redux';
+import { AnyAction, combineReducers } from 'redux';
+import type { FormResult, State } from './types';
+import type { ReducerSwitch } from '../types';
 
-export const INITIAL_STATE = {
+export const INITIAL_STATE: State = {
   result: {},
   error: {},
   isLoading: {},
@@ -14,7 +16,7 @@ export const INITIAL_STATE = {
   submitFormError: {},
 };
 
-const isLoading = (state = INITIAL_STATE.isLoading, action) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_FORM_SCHEMA_REQUEST:
       return {
@@ -36,12 +38,12 @@ const isLoading = (state = INITIAL_STATE.isLoading, action) => {
   }
 };
 
-const error = (state = INITIAL_STATE.error, action) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_FORM_SCHEMA_FAILURE:
       return {
         ...state,
-        [action.meta.schemaCode]: action.payload.error,
+        [action.meta.schemaCode]: action.payload?.error,
       };
     case actionTypes.FETCH_FORM_SCHEMA_REQUEST:
       return {
@@ -53,7 +55,10 @@ const error = (state = INITIAL_STATE.error, action) => {
   }
 };
 
-const result = (state = INITIAL_STATE.result, action) => {
+const result = (
+  state = INITIAL_STATE.result,
+  action: AnyAction,
+): FormResult => {
   switch (action.type) {
     case actionTypes.FETCH_FORM_SCHEMA_SUCCESS:
       return {
@@ -67,7 +72,7 @@ const result = (state = INITIAL_STATE.result, action) => {
 
 const isSubmitFormLoading = (
   state = INITIAL_STATE.isSubmitFormLoading,
-  action,
+  action: AnyAction,
 ) => {
   switch (action.type) {
     case actionTypes.SUBMIT_FORM_REQUEST:
@@ -90,12 +95,12 @@ const isSubmitFormLoading = (
   }
 };
 
-const submitFormError = (state = INITIAL_STATE.error, action) => {
+const submitFormError = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.SUBMIT_FORM_FAILURE:
       return {
         ...state,
-        [action.meta.schemaCode]: action.payload.error,
+        [action.meta.schemaCode]: action.payload?.error,
       };
     case actionTypes.SUBMIT_FORM_REQUEST:
       return {
@@ -107,13 +112,18 @@ const submitFormError = (state = INITIAL_STATE.error, action) => {
   }
 };
 
-export const getFormsSchemas = state => state.result;
-export const getFormsError = state => state.error;
-export const getFormsIsLoading = state => state.isLoading;
-export const getSubmitFormDataIsLoading = state => state.isSubmitFormLoading;
-export const getSubmitFormDataError = state => state.submitFormError;
+export const getFormsSchemas = (state: State): State['result'] => state.result;
+export const getFormsError = (state: State): State['error'] => state.error;
+export const getFormsIsLoading = (state: State): State['isLoading'] =>
+  state.isLoading;
+export const getSubmitFormDataIsLoading = (
+  state: State,
+): State['isSubmitFormLoading'] => state.isSubmitFormLoading;
+export const getSubmitFormDataError = (
+  state: State,
+): State['submitFormError'] => state.submitFormError;
 
-const forms = combineReducers({
+const reducers = combineReducers({
   isLoading,
   error,
   result,
@@ -124,18 +134,21 @@ const forms = combineReducers({
 /**
  * Reducer for forms state.
  *
- * @function formsReducer
- * @static
+ * @param state - Current redux state.
+ * @param action - Action dispatched.
  *
- * @param {object} state - Current redux state.
- * @param {object} action - Action dispatched.
- *
- * @returns {object} New state.
+ * @returns New state.
  */
-export default (state, action = {}) => {
+
+const formsReducer: ReducerSwitch<State, AnyAction> = (
+  state,
+  action = { type: undefined },
+): State => {
   if (action.type === actionTypes.RESET_SCHEMAS) {
-    state = INITIAL_STATE;
+    return reducers(INITIAL_STATE, action);
   }
 
-  return forms(state, action);
+  return reducers(state, action);
 };
+
+export default formsReducer;

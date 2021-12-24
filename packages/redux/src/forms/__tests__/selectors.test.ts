@@ -1,24 +1,12 @@
 import * as formReducer from '../reducer';
 import * as selectors from '../selectors';
-import { formSchemaResponse } from 'tests/__fixtures__/forms/formsSchema';
+import { formSchemaResponse, mockState } from 'tests/__fixtures__/forms';
 
 beforeEach(() => {
   jest.clearAllMocks();
 });
 
 describe('contents redux selectors', () => {
-  const mockState = {
-    forms: {
-      result: { [formSchemaResponse.code]: formSchemaResponse },
-      error: { [formSchemaResponse.code]: 'Error - Content not loaded.' },
-      isLoading: { [formSchemaResponse.code]: false },
-      isSubmitFormLoading: { [formSchemaResponse.code]: false },
-      submitFormError: {
-        [formSchemaResponse.code]: 'Error - Content not loaded.',
-      },
-    },
-  };
-
   describe('forms selectors', () => {
     describe('isFormSchemaLoading()', () => {
       it('should get the loading status of a given form by code', () => {

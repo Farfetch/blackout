@@ -480,7 +480,8 @@ class AxiosAuthenticationTokenManager {
    * (i.e. It has a refresh token field) or the client credentials
    * token provider if not.
    *
-   * @throws
+   * @throws MisconfiguredTokenProviderError.
+   *
    * @returns {Promise} Promise that will be resolved when the load method completes.
    */
   load() {
