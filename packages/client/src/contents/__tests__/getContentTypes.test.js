@@ -1,17 +1,14 @@
 import { getContentTypes } from '../';
 import client from '../../helpers/client';
 import fixture from '../__fixtures__/contentTypes.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getContentTypes()', () => {
   const expectedConfig = undefined;
 
   beforeEach(() => {
-    moxios.install(client);
     jest.clearAllMocks();
   });
-
-  afterEach(() => moxios.uninstall(client));
 
   const spy = jest.spyOn(client, 'get');
   const spaceCode = 'website';
@@ -66,11 +63,11 @@ describe('getContentTypes()', () => {
   };
 
   it('should handle a client request successfully', async () => {
-    fixture.get.success({ spaceCode, response });
+    mswServer.use(fixture.get.success(response));
 
     expect.assertions(2);
 
-    await expect(getContentTypes(spaceCode)).resolves.toBe(response);
+    await expect(getContentTypes(spaceCode)).resolves.toEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
       `/content/v1/spaces/${spaceCode}/contentTypes`,
@@ -79,7 +76,7 @@ describe('getContentTypes()', () => {
   });
 
   it('should handle a client request error', async () => {
-    fixture.get.failure({ spaceCode });
+    mswServer.use(fixture.get.failure());
 
     expect.assertions(2);
 

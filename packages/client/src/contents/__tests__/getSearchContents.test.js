@@ -1,17 +1,14 @@
 import { getSearchContents } from '../';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/contents.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('contents client', () => {
   const expectedConfig = undefined;
 
   beforeEach(() => {
-    moxios.install(client);
     jest.clearAllMocks();
   });
-
-  afterEach(() => moxios.uninstall(client));
 
   describe('getSearchContents()', () => {
     const spy = jest.spyOn(client, 'get');
@@ -24,7 +21,7 @@ describe('contents client', () => {
     const response = {
       number: 1,
       totalPages: 1,
-      totalItems: 3,
+      totalItems: 2,
       entries: [
         {
           publicationId: '1fa65fb0-49bf-43b3-902e-78d104f160a3',
@@ -78,12 +75,12 @@ describe('contents client', () => {
     };
 
     it('should handle a client request successfully', async () => {
-      fixtures.get.success({
-        queryParams: query,
-        response,
-      });
+      mswServer.use(fixtures.get.success(response));
 
-      await expect(getSearchContents(query)).resolves.toBe(response);
+      expect.assertions(2);
+
+      await expect(getSearchContents(query)).resolves.toEqual(response);
+
       expect(spy).toHaveBeenCalledWith(
         '/content/v1/search/contents?codes=123456789&contentTypeCode=pages&environmentCode=live&spaceCode=website',
         expectedConfig,
@@ -91,11 +88,12 @@ describe('contents client', () => {
     });
 
     it('should receive a client request error', async () => {
-      fixtures.get.failure({
-        queryParams: query,
-      });
+      mswServer.use(fixtures.get.failure());
+
+      expect.assertions(2);
 
       await expect(getSearchContents(query)).rejects.toMatchSnapshot();
+
       expect(spy).toHaveBeenCalledWith(
         '/content/v1/search/contents?codes=123456789&contentTypeCode=pages&environmentCode=live&spaceCode=website',
         expectedConfig,
