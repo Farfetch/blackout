@@ -1,10 +1,4 @@
-import moxios from 'moxios';
-
-/**
- * @typedef {object} RequestParams
- * @property {string} spaceCode - The space the content belongs to (website|mobileapp|emailTool...).
- * @property {Array} [response] - Content types payload.
- */
+import { rest } from 'msw';
 
 /**
  * Response payloads.
@@ -12,32 +6,23 @@ import moxios from 'moxios';
 export default {
   get: {
     /**
-     * Success moxios request.
+     * Success msw request.
      *
-     * @param {RequestParams} params - Params to moxios request.
+     * @param {object} response - Content types payload.
      */
-    success: params => {
-      moxios.stubRequest(
-        `/api/content/v1/spaces/${params.spaceCode}/contentTypes`,
-        {
-          response: params.response,
-          status: 200,
-        },
-      );
-    },
+    success: response =>
+      rest.get(
+        '/api/content/v1/spaces/:spaceCode/contentTypes',
+        async (req, res, ctx) => res(ctx.status(200), ctx.json(response)),
+      ),
     /**
-     * Failure moxios request.
-     *
-     * @param {RequestParams} params - Params to moxios request.
+     * Failure msw request.
      */
-    failure: params => {
-      moxios.stubRequest(
-        `/api/content/v1/spaces/${params.spaceCode}/contentTypes`,
-        {
-          response: 'error',
-          status: 404,
-        },
-      );
-    },
+    failure: () =>
+      rest.get(
+        '/api/content/v1/spaces/:spaceCode/contentTypes',
+        async (req, res, ctx) =>
+          res(ctx.status(404), ctx.json({ message: 'stub error' })),
+      ),
   },
 };

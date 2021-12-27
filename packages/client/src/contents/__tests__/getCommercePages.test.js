@@ -1,17 +1,14 @@
-import { getCommercePages } from '../';
+import { getCommercePages } from '..';
 import client from '../../helpers/client';
 import fixture from '../__fixtures__/commercepages.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getCommercePages()', () => {
   const expectedConfig = undefined;
 
   beforeEach(() => {
-    moxios.install(client);
     jest.clearAllMocks();
   });
-
-  afterEach(() => moxios.uninstall(client));
 
   const spy = jest.spyOn(client, 'get');
   const query = {
@@ -48,11 +45,11 @@ describe('getCommercePages()', () => {
   };
 
   it('should handle a client request successfully', async () => {
-    fixture.get.success({ queryParams: query, response });
+    mswServer.use(fixture.get.success(response));
 
     expect.assertions(2);
 
-    await expect(getCommercePages(query)).resolves.toBe(response);
+    await expect(getCommercePages(query)).resolves.toEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
       '/content/v1/commercepages?contentTypeCode=listing&environmentCode=live&spaceCode=website',
@@ -61,7 +58,7 @@ describe('getCommercePages()', () => {
   });
 
   it('should handle a client request error', async () => {
-    fixture.get.failure({ queryParams: query });
+    mswServer.use(fixture.get.failure());
 
     expect.assertions(2);
 
