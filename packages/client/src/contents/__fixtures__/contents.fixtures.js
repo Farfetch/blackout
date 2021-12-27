@@ -1,11 +1,6 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
+import { rest } from 'msw';
 
-/**
- * @typedef {object} RequestParams
- * @property {object} query - Query to request.
- * @property {Array} [response] - Contents payload.
- */
+const path = '/api/content/v1/search/contents';
 
 /**
  * Response payloads.
@@ -13,36 +8,20 @@ import moxios from 'moxios';
 export default {
   get: {
     /**
-     * Success moxios request.
+     * Success msw request.
      *
-     * @param {RequestParams} params - Params to moxios request.
+     * @param {object} response - Contents payload.
      */
-    success: params => {
-      moxios.stubRequest(
-        join('/api/content/v1/search/contents', {
-          query: params.queryParams,
-        }),
-        {
-          response: params.response,
-          status: 200,
-        },
-      );
-    },
+    success: response =>
+      rest.get(path, async (req, res, ctx) =>
+        res(ctx.status(200), ctx.json(response)),
+      ),
     /**
-     * Failure moxios request.
-     *
-     * @param {RequestParams} params - Params to moxios request.
+     * Failure msw request.
      */
-    failure: params => {
-      moxios.stubRequest(
-        join('/api/content/v1/search/contents', {
-          query: params.queryParams,
-        }),
-        {
-          response: 'stub error',
-          status: 404,
-        },
-      );
-    },
+    failure: () =>
+      rest.get(path, async (req, res, ctx) =>
+        res(ctx.status(404), ctx.json({ message: 'stub error' })),
+      ),
   },
 };

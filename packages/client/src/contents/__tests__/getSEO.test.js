@@ -1,17 +1,14 @@
 import { getSEO } from '../';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/seo.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('SEO client', () => {
   const expectedConfig = undefined;
 
   beforeEach(() => {
-    moxios.install(client);
     jest.clearAllMocks();
   });
-
-  afterEach(() => moxios.uninstall(client));
 
   describe('getSEO()', () => {
     const spy = jest.spyOn(client, 'get');
@@ -68,12 +65,12 @@ describe('SEO client', () => {
     };
 
     it('should handle a client request successfully', async () => {
-      fixtures.get.success({
-        queryParams: query,
-        response,
-      });
+      mswServer.use(fixtures.get.success(response));
 
-      await expect(getSEO(query)).resolves.toBe(response);
+      expect.assertions(2);
+
+      await expect(getSEO(query)).resolves.toEqual(response);
+
       expect(spy).toHaveBeenCalledWith(
         '/seo/metadata?pageType=pages&param&path=about&subpageType=',
         expectedConfig,
@@ -81,11 +78,12 @@ describe('SEO client', () => {
     });
 
     it('should handle a client request error', async () => {
-      fixtures.get.failure({
-        queryParams: query,
-      });
+      mswServer.use(fixtures.get.failure());
+
+      expect.assertions(2);
 
       await expect(getSEO(query)).rejects.toMatchSnapshot();
+
       expect(spy).toHaveBeenCalledWith(
         '/seo/metadata?pageType=pages&param&path=about&subpageType=',
         expectedConfig,
