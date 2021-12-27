@@ -1,20 +1,26 @@
+import { actionTypes } from '../..';
 import {
   expectedCreditMovementsNormalizedPayload,
   mockGetCreditMovementsResponse,
 } from '../../__fixtures__/creditMovements.fixtures';
 import { fetchCreditMovements } from '..';
+import { getCreditMovements } from '@farfetch/blackout-client/users';
+import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
-import reducer, { actionTypes } from '../..';
 
-const usersMockStore = (state = {}) => mockStore({ users: reducer() }, state);
+jest.mock('@farfetch/blackout-client/users', () => ({
+  ...jest.requireActual('@farfetch/blackout-client/users'),
+  getCreditMovements: jest.fn(),
+}));
+
+const usersMockStore = (state = {}) =>
+  mockStore({ users: INITIAL_STATE }, state);
 const expectedConfig = undefined;
 let store;
 
 describe('fetchCreditMovements action creator', () => {
-  const getCreditMovements = jest.fn();
-  const action = fetchCreditMovements(getCreditMovements);
-  const id = '123456';
+  const id = 123456;
   const query = {};
 
   beforeEach(() => {
@@ -29,7 +35,7 @@ describe('fetchCreditMovements action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(action(id, query));
+      await store.dispatch(fetchCreditMovements(id, query));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(getCreditMovements).toHaveBeenCalledTimes(1);
@@ -53,7 +59,7 @@ describe('fetchCreditMovements action creator', () => {
   it('should create the correct actions for when the get credit movements procedure is successful', async () => {
     getCreditMovements.mockResolvedValueOnce(mockGetCreditMovementsResponse);
 
-    await store.dispatch(action(id, query));
+    await store.dispatch(fetchCreditMovements(id, query));
 
     const actionResults = store.getActions();
 
