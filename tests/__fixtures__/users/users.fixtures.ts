@@ -22,3 +22,29 @@ export const mockUsersResponse = {
   countryCode: 'US',
   receiveNewsletters: false,
 };
+
+export const mockUserAttributesResponse = {
+  id: '',
+  type: '',
+  channelCode: '',
+  tenandId: 0,
+  userId: 0,
+  details: {
+    referralToken: '',
+    rewardsCardNumber: '',
+    joinRewards: false,
+  },
+};
+
+export const mockUserAttributesData = {
+  id: '',
+  type: '',
+  channelCode: '',
+  tenandId: 0,
+  userId: 0,
+  details: {
+    referralToken: '',
+    rewardsCardNumber: '',
+    joinRewards: false,
+  },
+};

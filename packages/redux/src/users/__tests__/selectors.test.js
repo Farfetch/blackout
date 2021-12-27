@@ -48,6 +48,11 @@ describe('users redux selectors', () => {
         error: 'error: not loaded',
         isLoading: false,
       },
+      userAttributes: {
+        result: null,
+        error: 'error: not loaded',
+        isLoading: false,
+      },
     },
     entities: {
       ...expectedNormalizedPayload.entities,
@@ -208,6 +213,26 @@ describe('users redux selectors', () => {
 
       expect(selectors.getContacts(mockState)).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledWith(mockState, 'contacts');
+    });
+  });
+
+  describe('isUserAttributesLoading()', () => {
+    it('should get the user attributes loading property from state', () => {
+      expect(selectors.isUserAttributesLoading(mockState)).toEqual(false);
+    });
+  });
+
+  describe('getUserAttributes()', () => {
+    it('should get the user attributes result property from state', () => {
+      expect(selectors.getUserAttributes(mockState)).toEqual(null);
+    });
+  });
+
+  describe('getUserAttributesError()', () => {
+    it('should get the user attributes error property from state', () => {
+      expect(selectors.getUserAttributesError(mockState)).toEqual(
+        mockState.users.updatePreferences.error,
+      );
     });
   });
 });

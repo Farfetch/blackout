@@ -1,15 +1,21 @@
+import { actionTypes } from '../..';
+import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
+import { patchContact } from '@farfetch/blackout-client/users';
 import { updateContact } from '..';
 import find from 'lodash/find';
-import reducer, { actionTypes } from '../..';
 
-const usersMockStore = (state = {}) => mockStore({ users: reducer() }, state);
+jest.mock('@farfetch/blackout-client/users', () => ({
+  ...jest.requireActual('@farfetch/blackout-client/users'),
+  patchContact: jest.fn(),
+}));
+
+const usersMockStore = (state = {}) =>
+  mockStore({ users: INITIAL_STATE }, state);
 const expectedConfig = undefined;
 let store;
 
 describe('doUpdateContact action creator', () => {
-  const patchContact = jest.fn();
-  const action = updateContact(patchContact);
   const userId = 123456789;
   const contactId = 'abcdefghi';
   const data = {};
@@ -27,7 +33,7 @@ describe('doUpdateContact action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(action(userId, contactId, data, query));
+      await store.dispatch(updateContact(userId, contactId, data, query));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(patchContact).toHaveBeenCalledTimes(1);
@@ -54,7 +60,7 @@ describe('doUpdateContact action creator', () => {
     patchContact.mockResolvedValueOnce();
 
     await store.dispatch(
-      action(userId, contactId, data, query, expectedConfig),
+      updateContact(userId, contactId, data, query, expectedConfig),
     );
 
     const actionResults = store.getActions();

@@ -1,19 +1,25 @@
+import { actionTypes } from '../..';
 import {
   expectedGetContactNormalized,
   mockGetContactResponse,
 } from '../../__fixtures__/contacts.fixtures';
 import { fetchContact } from '..';
+import { getContact } from '@farfetch/blackout-client/users';
+import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
-import reducer, { actionTypes } from '../..';
 
-const usersMockStore = (state = {}) => mockStore({ users: reducer() }, state);
+jest.mock('@farfetch/blackout-client/users', () => ({
+  ...jest.requireActual('@farfetch/blackout-client/users'),
+  getContact: jest.fn(),
+}));
+
+const usersMockStore = (state = {}) =>
+  mockStore({ users: INITIAL_STATE }, state);
 const expectedConfig = undefined;
 let store;
 
 describe('fetchContact action creator', () => {
-  const getContact = jest.fn();
-  const action = fetchContact(getContact);
   const userId = 123456789;
   const contactId = 'abcdefghi';
   const query = {};
@@ -30,7 +36,7 @@ describe('fetchContact action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(action(userId, contactId, query));
+      await store.dispatch(fetchContact(userId, contactId, query));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(getContact).toHaveBeenCalledTimes(1);
@@ -55,7 +61,9 @@ describe('fetchContact action creator', () => {
   it('should create the correct actions for when the get contact procedure is successful', async () => {
     getContact.mockResolvedValueOnce(mockGetContactResponse);
 
-    await store.dispatch(action(userId, contactId, query, expectedConfig));
+    await store.dispatch(
+      fetchContact(userId, contactId, query, expectedConfig),
+    );
 
     const actionResults = store.getActions();
 
