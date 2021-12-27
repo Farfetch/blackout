@@ -1,15 +1,21 @@
+import { actionTypes } from '../..';
+import { deleteContact } from '@farfetch/blackout-client/users';
+import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import { removeContact } from '..';
 import find from 'lodash/find';
-import reducer, { actionTypes } from '../..';
 
-const usersMockStore = (state = {}) => mockStore({ users: reducer() }, state);
+jest.mock('@farfetch/blackout-client/users', () => ({
+  ...jest.requireActual('@farfetch/blackout-client/users'),
+  deleteContact: jest.fn(),
+}));
+
+const usersMockStore = (state = {}) =>
+  mockStore({ users: INITIAL_STATE }, state);
 const expectedConfig = undefined;
 let store;
 
 describe('removeContact action creator', () => {
-  const deleteContact = jest.fn();
-  const action = removeContact(deleteContact);
   const userId = 123456789;
   const contactId = 'abcdefghi';
   const query = {};
@@ -26,7 +32,7 @@ describe('removeContact action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(action(userId, contactId, query));
+      await store.dispatch(removeContact(userId, contactId, query));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(deleteContact).toHaveBeenCalledTimes(1);
@@ -51,7 +57,9 @@ describe('removeContact action creator', () => {
   it('should create the correct actions for when the get contact procedure is successful', async () => {
     deleteContact.mockResolvedValueOnce();
 
-    await store.dispatch(action(userId, contactId, query, expectedConfig));
+    await store.dispatch(
+      removeContact(userId, contactId, query, expectedConfig),
+    );
 
     const actionResults = store.getActions();
 

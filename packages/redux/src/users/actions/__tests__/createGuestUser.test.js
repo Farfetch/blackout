@@ -1,19 +1,25 @@
+import { actionTypes } from '../..';
 import { createGuestUser } from '..';
 import {
   expectedNormalizedPayload,
   mockGuestUserResponse as mockPostGuestUserResponse,
 } from '../../__fixtures__/guestUsers.fixtures';
+import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
+import { postGuestUser } from '@farfetch/blackout-client/users';
 import find from 'lodash/find';
-import reducer, { actionTypes } from '../..';
+
+jest.mock('@farfetch/blackout-client/users', () => ({
+  ...jest.requireActual('@farfetch/blackout-client/users'),
+  postGuestUser: jest.fn(),
+}));
 
 describe('createGuestUser action creator', () => {
   let store;
-  const postGuestUser = jest.fn();
-  const action = createGuestUser(postGuestUser);
   const params = { countryId: 'PT', ip: 'IP address of the guest user' };
   const expectedConfig = undefined;
-  const usersMockStore = (state = {}) => mockStore({ users: reducer() }, state);
+  const usersMockStore = (state = {}) =>
+    mockStore({ users: INITIAL_STATE }, state);
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -27,7 +33,7 @@ describe('createGuestUser action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(action(params));
+      await store.dispatch(createGuestUser(params));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(postGuestUser).toHaveBeenCalledTimes(1);
@@ -46,7 +52,7 @@ describe('createGuestUser action creator', () => {
 
   it('should create the correct actions for when the create guest user procedure is successful', async () => {
     postGuestUser.mockResolvedValueOnce(mockPostGuestUserResponse);
-    await store.dispatch(action(params));
+    await store.dispatch(createGuestUser(params));
 
     const actionResults = store.getActions();
 
