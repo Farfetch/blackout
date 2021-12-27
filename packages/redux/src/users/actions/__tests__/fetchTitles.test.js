@@ -1,21 +1,27 @@
 import * as normalizr from 'normalizr';
+import { actionTypes } from '../..';
 import {
   expectedTitlesNormalizedPayload,
   mockGetTitlesResponse,
 } from '../../__fixtures__/titles.fixtures';
 import { fetchTitles } from '..';
+import { getTitles } from '@farfetch/blackout-client/users';
+import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
-import reducer, { actionTypes } from '../..';
 
-const usersMockStore = (state = {}) => mockStore({ users: reducer() }, state);
+jest.mock('@farfetch/blackout-client/users', () => ({
+  ...jest.requireActual('@farfetch/blackout-client/users'),
+  getTitles: jest.fn(),
+}));
+
+const usersMockStore = (state = {}) =>
+  mockStore({ users: INITIAL_STATE }, state);
 const expectedConfig = undefined;
 let store;
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 
 describe('doGetTitles action creator', () => {
-  const getTitles = jest.fn();
-  const action = fetchTitles(getTitles);
   const query = {};
 
   beforeEach(() => {
@@ -30,7 +36,7 @@ describe('doGetTitles action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(action(query));
+      await store.dispatch(fetchTitles(query));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(getTitles).toHaveBeenCalledTimes(1);
@@ -50,7 +56,7 @@ describe('doGetTitles action creator', () => {
   it('should create the correct actions for when the get titles procedure is successful', async () => {
     getTitles.mockResolvedValueOnce(mockGetTitlesResponse);
 
-    await store.dispatch(action(query));
+    await store.dispatch(fetchTitles(query));
 
     const actionResults = store.getActions();
 
