@@ -1,7 +1,7 @@
 import {
-  GET_REFERENCES_FAILURE,
-  GET_REFERENCES_REQUEST,
-  GET_REFERENCES_SUCCESS,
+  FETCH_REFERENCES_FAILURE,
+  FETCH_REFERENCES_REQUEST,
+  FETCH_REFERENCES_SUCCESS,
 } from '../actionTypes';
 
 /**
@@ -27,7 +27,7 @@ import {
 /**
  * Method responsible for obtaining a specific return reference.
  *
- * @function doGetReferences
+ * @function fetchReferences
  * @memberof module:returns/actions
  *
  * @param {Function} getReferences - Get references client.
@@ -36,20 +36,20 @@ import {
  */
 export default getReferences => (id, name, query, config) => async dispatch => {
   dispatch({
-    type: GET_REFERENCES_REQUEST,
+    type: FETCH_REFERENCES_REQUEST,
   });
 
   try {
     const result = await getReferences(id, name, query, config);
 
     dispatch({
-      type: GET_REFERENCES_SUCCESS,
+      type: FETCH_REFERENCES_SUCCESS,
     });
     return result;
   } catch (error) {
     dispatch({
       payload: { error },
-      type: GET_REFERENCES_FAILURE,
+      type: FETCH_REFERENCES_FAILURE,
     });
 
     throw error;

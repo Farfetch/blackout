@@ -1,7 +1,7 @@
 import {
-  GET_RETURN_FAILURE,
-  GET_RETURN_REQUEST,
-  GET_RETURN_SUCCESS,
+  FETCH_RETURN_FAILURE,
+  FETCH_RETURN_REQUEST,
+  FETCH_RETURN_SUCCESS,
 } from '../actionTypes';
 import { normalize } from 'normalizr';
 import returnSchema from '../../entities/schemas/return';
@@ -27,7 +27,7 @@ import returnSchema from '../../entities/schemas/return';
 /**
  * Method responsible for obtaining a specific return.
  *
- * @function doGetReturn
+ * @function fetchReturn
  * @memberof module:returns/actions
  *
  * @param {Function} getReturn - Get return client.
@@ -36,7 +36,7 @@ import returnSchema from '../../entities/schemas/return';
  */
 export default getReturn => (id, query, config) => async dispatch => {
   dispatch({
-    type: GET_RETURN_REQUEST,
+    type: FETCH_RETURN_REQUEST,
   });
 
   try {
@@ -44,13 +44,13 @@ export default getReturn => (id, query, config) => async dispatch => {
 
     dispatch({
       payload: normalize(result, returnSchema),
-      type: GET_RETURN_SUCCESS,
+      type: FETCH_RETURN_SUCCESS,
     });
     return result;
   } catch (error) {
     dispatch({
       payload: { error },
-      type: GET_RETURN_FAILURE,
+      type: FETCH_RETURN_FAILURE,
     });
 
     throw error;

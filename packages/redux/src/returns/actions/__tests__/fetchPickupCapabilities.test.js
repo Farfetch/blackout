@@ -1,13 +1,13 @@
 import { mockStore } from '../../../../tests';
 import { responses } from 'tests/__fixtures__/returns';
-import doGetPickupCapabilities from '../../actions/doGetPickupCapabilities';
+import fetchPickupCapabilities from '../fetchPickupCapabilities';
 import find from 'lodash/find';
-import reducer, { actionTypes } from '../../';
+import reducer, { actionTypes } from '../..';
 
 const returnsMockStore = (state = {}) =>
   mockStore({ returns: reducer() }, state);
 
-describe('doGetPickupCapabilities action creator', () => {
+describe('fetchPickupCapabilities action creator', () => {
   const pickupDay = 154992960000;
   const queryParams = {
     pickupDay,
@@ -19,7 +19,7 @@ describe('doGetPickupCapabilities action creator', () => {
   let store;
 
   const getPickupCapabilities = jest.fn();
-  const action = doGetPickupCapabilities(getPickupCapabilities);
+  const action = fetchPickupCapabilities(getPickupCapabilities);
   const returnId = 5926969;
   const expectedQueryParams = {
     ...queryParams,
@@ -50,10 +50,10 @@ describe('doGetPickupCapabilities action creator', () => {
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
           {
-            type: actionTypes.GET_PICKUP_CAPABILITIES_REQUEST,
+            type: actionTypes.FETCH_PICKUP_CAPABILITIES_REQUEST,
           },
           {
-            type: actionTypes.GET_PICKUP_CAPABILITIES_FAILURE,
+            type: actionTypes.FETCH_PICKUP_CAPABILITIES_FAILURE,
             payload: { error: expectedError },
           },
         ]),
@@ -112,17 +112,17 @@ describe('doGetPickupCapabilities action creator', () => {
       expectedConfig,
     );
     expect(actionResults).toMatchObject([
-      { type: actionTypes.GET_PICKUP_CAPABILITIES_REQUEST },
+      { type: actionTypes.FETCH_PICKUP_CAPABILITIES_REQUEST },
       {
         meta: { id: returnId },
         payload,
-        type: actionTypes.GET_PICKUP_CAPABILITIES_SUCCESS,
+        type: actionTypes.FETCH_PICKUP_CAPABILITIES_SUCCESS,
       },
     ]);
     expect(
       find(actionResults, {
-        type: actionTypes.GET_PICKUP_CAPABILITIES_SUCCESS,
+        type: actionTypes.FETCH_PICKUP_CAPABILITIES_SUCCESS,
       }),
-    ).toMatchSnapshot('get pickup capabilities success payload');
+    ).toMatchSnapshot('fetch pickup capabilities success payload');
   });
 });

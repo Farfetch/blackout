@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`doGetReturn action creator should create the correct actions for when the get return procedure is successful: get return success payload 1`] = `
+exports[`fetchReturn action creator should create the correct actions for when the get return procedure is successful: get return success payload 1`] = `
 Object {
   "payload": Object {
     "entities": Object {
@@ -91,6 +91,6 @@ Object {
     },
     "result": 5926969,
   },
-  "type": "@farfetch/blackout-client/GET_RETURN_SUCCESS",
+  "type": "@farfetch/blackout-client/FETCH_RETURN_SUCCESS",
 }
 `;

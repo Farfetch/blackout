@@ -1,7 +1,7 @@
 import {
-  GET_RETURNS_FROM_ORDER_FAILURE,
-  GET_RETURNS_FROM_ORDER_REQUEST,
-  GET_RETURNS_FROM_ORDER_SUCCESS,
+  FETCH_RETURNS_FROM_ORDER_FAILURE,
+  FETCH_RETURNS_FROM_ORDER_REQUEST,
+  FETCH_RETURNS_FROM_ORDER_SUCCESS,
 } from '../actionTypes';
 import { normalize } from 'normalizr';
 import returnSchema from '../../entities/schemas/return';
@@ -25,7 +25,7 @@ import returnSchema from '../../entities/schemas/return';
 /**
  * Method responsible for returns from a specific order.
  *
- * @function doGetReturnsFromOrder
+ * @function fetchReturnsFromOrder
  * @memberof module:returns/actions
  *
  * @param {Function} getReturnsFromOrder - Get returns from order client.
@@ -36,7 +36,7 @@ export default getReturnsFromOrder =>
   (orderId, query, config) =>
   async dispatch => {
     dispatch({
-      type: GET_RETURNS_FROM_ORDER_REQUEST,
+      type: FETCH_RETURNS_FROM_ORDER_REQUEST,
     });
 
     try {
@@ -44,13 +44,13 @@ export default getReturnsFromOrder =>
 
       dispatch({
         payload: normalize(result, [returnSchema]),
-        type: GET_RETURNS_FROM_ORDER_SUCCESS,
+        type: FETCH_RETURNS_FROM_ORDER_SUCCESS,
       });
       return result;
     } catch (error) {
       dispatch({
         payload: { error },
-        type: GET_RETURNS_FROM_ORDER_FAILURE,
+        type: FETCH_RETURNS_FROM_ORDER_FAILURE,
       });
 
       throw error;

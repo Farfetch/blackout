@@ -1,18 +1,18 @@
 import { mockStore } from '../../../../tests';
-import doUpdateReturn from '../../actions/doUpdateReturn';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../../';
+import updateReturn from '../../actions/updateReturn';
 
 const returnsMockStore = (state = {}) =>
   mockStore({ returns: reducer() }, state);
 
-describe('doUpdateReturn() action creator', () => {
+describe('updateReturn() action creator', () => {
   const query = {};
   const expectedConfig = undefined;
   let store;
 
   const patchReturn = jest.fn();
-  const action = doUpdateReturn(patchReturn);
+  const action = updateReturn(patchReturn);
   const returnId = 5926969;
 
   const data = {
