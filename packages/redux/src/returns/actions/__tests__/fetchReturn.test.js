@@ -2,24 +2,24 @@ import * as normalizr from 'normalizr';
 import { mockStore } from '../../../../tests';
 import {
   responses,
-  returnsFromOrderNormalizedPayload,
+  returnsNormalizedPayload,
 } from 'tests/__fixtures__/returns';
-import doGetReturnsFromOrder from '../../actions/doGetReturnsFromOrder';
+import fetchReturn from '../../actions/fetchReturn';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../../';
 
 const returnsMockStore = (state = {}) =>
   mockStore({ returns: reducer() }, state);
 
-describe('doGetReturnsFromOrder action creator', () => {
+describe('fetchReturn action creator', () => {
   const query = {};
   const expectedConfig = undefined;
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
   let store;
 
-  const getReturnsFromOrder = jest.fn();
-  const action = doGetReturnsFromOrder(getReturnsFromOrder);
-  const orderId = '8VXRHN';
+  const getReturn = jest.fn();
+  const action = fetchReturn(getReturn);
+  const returnId = 5926969;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -29,24 +29,20 @@ describe('doGetReturnsFromOrder action creator', () => {
   it('should create the correct actions for when the get return procedure fails', async () => {
     const expectedError = new Error('get return error');
 
-    getReturnsFromOrder.mockRejectedValueOnce(expectedError);
+    getReturn.mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
-      await store.dispatch(action(orderId, query));
+      await store.dispatch(action(returnId, query));
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(getReturnsFromOrder).toHaveBeenCalledTimes(1);
-      expect(getReturnsFromOrder).toHaveBeenCalledWith(
-        orderId,
-        query,
-        expectedConfig,
-      );
+      expect(getReturn).toHaveBeenCalledTimes(1);
+      expect(getReturn).toHaveBeenCalledWith(returnId, query, expectedConfig);
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
-          { type: actionTypes.GET_RETURNS_FROM_ORDER_REQUEST },
+          { type: actionTypes.FETCH_RETURN_REQUEST },
           {
-            type: actionTypes.GET_RETURNS_FROM_ORDER_FAILURE,
+            type: actionTypes.FETCH_RETURN_FAILURE,
             payload: { error: expectedError },
           },
         ]),
@@ -55,29 +51,23 @@ describe('doGetReturnsFromOrder action creator', () => {
   });
 
   it('should create the correct actions for when the get return procedure is successful', async () => {
-    getReturnsFromOrder.mockResolvedValueOnce(
-      responses.getReturnsFromOrder.get.success,
-    );
-    await store.dispatch(action(orderId, query));
+    getReturn.mockResolvedValueOnce(responses.get.success);
+    await store.dispatch(action(returnId, query));
 
     const actionResults = store.getActions();
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
-    expect(getReturnsFromOrder).toHaveBeenCalledTimes(1);
-    expect(getReturnsFromOrder).toHaveBeenCalledWith(
-      orderId,
-      query,
-      expectedConfig,
-    );
+    expect(getReturn).toHaveBeenCalledTimes(1);
+    expect(getReturn).toHaveBeenCalledWith(returnId, query, expectedConfig);
     expect(actionResults).toMatchObject([
-      { type: actionTypes.GET_RETURNS_FROM_ORDER_REQUEST },
+      { type: actionTypes.FETCH_RETURN_REQUEST },
       {
-        type: actionTypes.GET_RETURNS_FROM_ORDER_SUCCESS,
-        payload: returnsFromOrderNormalizedPayload,
+        type: actionTypes.FETCH_RETURN_SUCCESS,
+        payload: returnsNormalizedPayload,
       },
     ]);
     expect(
-      find(actionResults, { type: actionTypes.GET_RETURN_SUCCESS }),
+      find(actionResults, { type: actionTypes.FETCH_RETURN_SUCCESS }),
     ).toMatchSnapshot('get return success payload');
   });
 });

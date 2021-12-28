@@ -30,7 +30,7 @@ import returnSchema from '../../entities/schemas/return';
 /**
  * Method responsible for creating a return.
  *
- * @function doCreateReturn
+ * @function createReturn
  * @memberof module:returns/actions
  *
  * @param {Function} postReturn  - Post return client.

@@ -3,20 +3,20 @@ import {
   responses,
   returnsNormalizedPayload,
 } from 'tests/__fixtures__/returns';
-import doCreateReturn from '../../actions/doCreateReturn';
+import createReturn from '../../actions/createReturn';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../../';
 
 const returnsMockStore = (state = {}) =>
   mockStore({ returns: reducer() }, state);
 
-describe('doCreateReturn() action creator', () => {
+describe('createReturn() action creator', () => {
   const query = {};
   const expectedConfig = undefined;
   let store;
 
   const postReturn = jest.fn();
-  const action = doCreateReturn(postReturn);
+  const action = createReturn(postReturn);
   const data = { ...responses.post.success };
 
   beforeEach(() => {

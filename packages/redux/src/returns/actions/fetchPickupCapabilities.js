@@ -1,8 +1,8 @@
 import { adaptDate } from '@farfetch/blackout-client/helpers/adapters';
 import {
-  GET_PICKUP_CAPABILITIES_FAILURE,
-  GET_PICKUP_CAPABILITIES_REQUEST,
-  GET_PICKUP_CAPABILITIES_SUCCESS,
+  FETCH_PICKUP_CAPABILITIES_FAILURE,
+  FETCH_PICKUP_CAPABILITIES_REQUEST,
+  FETCH_PICKUP_CAPABILITIES_SUCCESS,
 } from '../actionTypes';
 import parsePickupDate from '@farfetch/blackout-client/helpers/parsePickupDate';
 
@@ -44,7 +44,7 @@ export default getPickupCapabilities =>
     };
 
     dispatch({
-      type: GET_PICKUP_CAPABILITIES_REQUEST,
+      type: FETCH_PICKUP_CAPABILITIES_REQUEST,
     });
 
     try {
@@ -73,13 +73,13 @@ export default getPickupCapabilities =>
             pickupDate: pickupDate && adaptDate(pickupDate),
           },
         },
-        type: GET_PICKUP_CAPABILITIES_SUCCESS,
+        type: FETCH_PICKUP_CAPABILITIES_SUCCESS,
       });
       return result;
     } catch (error) {
       dispatch({
         payload: { error },
-        type: GET_PICKUP_CAPABILITIES_FAILURE,
+        type: FETCH_PICKUP_CAPABILITIES_FAILURE,
       });
 
       throw error;

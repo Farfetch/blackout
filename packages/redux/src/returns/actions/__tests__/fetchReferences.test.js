@@ -1,17 +1,17 @@
 import { mockStore } from '../../../../tests';
-import doGetReferences from '../../actions/doGetReferences';
+import fetchReferences from '../../actions/fetchReferences';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../../';
 
 const returnsMockStore = (state = {}) =>
   mockStore({ returns: reducer() }, state);
 
-describe('doGetReferences() action creator', () => {
+describe('fetchReferences() action creator', () => {
   const query = {};
   const expectedConfig = undefined;
   let store;
   const getReferences = jest.fn();
-  const action = doGetReferences(getReferences);
+  const action = fetchReferences(getReferences);
   const name = 'ReturnNote';
   const returnId = 5926969;
 
@@ -39,9 +39,9 @@ describe('doGetReferences() action creator', () => {
       );
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
-          { type: actionTypes.GET_REFERENCES_REQUEST },
+          { type: actionTypes.FETCH_REFERENCES_REQUEST },
           {
-            type: actionTypes.GET_REFERENCES_FAILURE,
+            type: actionTypes.FETCH_REFERENCES_FAILURE,
             payload: { error: expectedError },
           },
         ]),
@@ -63,14 +63,14 @@ describe('doGetReferences() action creator', () => {
       expectedConfig,
     );
     expect(actionResults).toMatchObject([
-      { type: actionTypes.GET_REFERENCES_REQUEST },
+      { type: actionTypes.FETCH_REFERENCES_REQUEST },
       {
-        type: actionTypes.GET_REFERENCES_SUCCESS,
+        type: actionTypes.FETCH_REFERENCES_SUCCESS,
       },
     ]);
     expect(
       find(actionResults, {
-        type: actionTypes.GET_REFERENCES_SUCCESS,
+        type: actionTypes.FETCH_REFERENCES_SUCCESS,
       }),
     ).toMatchSnapshot('update return success payload');
   });

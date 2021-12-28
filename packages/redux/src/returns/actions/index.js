@@ -6,10 +6,10 @@
  * @subcategory Actions
  */
 
-export { default as doCreateReturn } from './doCreateReturn';
-export { default as doGetPickupCapabilities } from './doGetPickupCapabilities';
-export { default as doGetReferences } from './doGetReferences';
-export { default as doGetReturn } from './doGetReturn';
-export { default as doGetReturnsFromOrder } from './doGetReturnsFromOrder';
-export { default as doResetReturn } from './doResetReturn';
-export { default as doUpdateReturn } from './doUpdateReturn';
+export { default as createReturn } from './createReturn';
+export { default as fetchPickupCapabilities } from './fetchPickupCapabilities';
+export { default as fetchReferences } from './fetchReferences';
+export { default as fetchReturn } from './fetchReturn';
+export { default as fetchReturnsFromOrder } from './fetchReturnsFromOrder';
+export { default as resetReturn } from './resetReturn';
+export { default as updateReturn } from './updateReturn';
