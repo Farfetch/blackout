@@ -7,6 +7,7 @@ import type {
   CheckoutOrderEntity,
   CheckoutOrderItemEntity,
   ContentsEntity,
+  ConvertEntity,
   DeliveryBundlesEntity,
   DeliveryBundleUpgradesEntity,
   FacetEntity,
@@ -15,6 +16,9 @@ import type {
   PaymentTokenEntity,
   ProductEntity,
   ProductsListEntity,
+  ProgramEntity,
+  ReplacementEntity,
+  StatementEntity,
   WishlistItemEntity,
   WishlistSetEntity,
 } from '../entities/types';
@@ -29,10 +33,12 @@ import type { State as ContentsState } from '../contents/types';
 import type { State as DesignersState } from '../designers/types';
 import type { State as FormsState } from '../forms/types';
 import type { State as LocaleState } from '../locale/types';
+import type { State as LoyaltyState } from '../loyalty/types';
 import type { MerchantLocation } from '@farfetch/blackout-client/merchantsLocations/types';
 import type { State as MerchantsLocationsState } from '../merchantsLocations/types';
 import type { State as PaymentsState } from '../payments/types';
 import type { State as ProductsState } from '../products/types';
+import type { ProgramMembership } from '@farfetch/blackout-client/src/loyalty/types';
 import type { State as PromotionEvaluationsState } from '../promotionEvaluations/types';
 import type { State as SearchState } from '../search/types';
 import type { State as SizeGuidesState } from '../sizeGuides/types';
@@ -58,17 +64,22 @@ export type StoreState = Partial<{
     checkoutOrders: Record<CheckoutOrderEntity['id'], CheckoutOrderEntity>;
     cities: Record<string, any>;
     contents: Record<string, ContentsEntity>;
+    converts: Record<ConvertEntity['id'], ConvertEntity>;
     countries: Record<string, any>;
     deliveryBundles: Record<DeliveryBundlesEntity['id'], DeliveryBundlesEntity>;
     deliveryBundleUpgrades: DeliveryBundleUpgradesEntity;
     facets: Record<FacetEntity['id'], FacetEntity>;
     instruments: Record<InstrumentEntity['id'], InstrumentEntity>;
+    membership: Record<ProgramMembership['id'], ProgramMembership>;
     merchants: Record<MerchantEntity['id'], MerchantEntity>;
     merchantsLocations: Record<MerchantLocation['id'], MerchantLocation>;
     paymentTokens: Record<PaymentTokenEntity['id'], PaymentTokenEntity>;
     products: Record<ProductEntity['id'], ProductEntity>;
     productsLists: Record<ProductsListEntity['hash'], ProductsListEntity>;
+    programs: Record<ProgramEntity['id'], ProgramEntity>;
+    replacements: Record<ReplacementEntity['id'], ReplacementEntity>;
     sizeScales: Record<SizeScale['sizeScaleId'], SizeScale>;
+    statements: Record<StatementEntity['id'], StatementEntity>;
     states: Record<string, any>;
     user: Record<string, any>;
     wishlistItems: Record<WishlistItemEntity['id'], WishlistItemEntity>;
@@ -84,6 +95,7 @@ export type StoreState = Partial<{
   contents: ContentsState;
   designers: DesignersState;
   locale: LocaleState;
+  loyalty: LoyaltyState;
   merchantsLocations: MerchantsLocationsState;
   payments: PaymentsState;
   products: ProductsState;
