@@ -1,14 +1,14 @@
 import { mockStore } from '../../../../tests';
-import doResetReturn from '../../actions/doResetReturn';
 import reducer, { actionTypes } from '../../';
+import resetReturn from '../../actions/resetReturn';
 
 const returnsMockStore = (state = {}) =>
   mockStore({ returns: reducer() }, state);
 
-describe('doUpdateReturn() action creator', () => {
+describe('updateReturn() action creator', () => {
   let store;
 
-  const action = doResetReturn;
+  const action = resetReturn;
 
   beforeEach(() => {
     jest.clearAllMocks();

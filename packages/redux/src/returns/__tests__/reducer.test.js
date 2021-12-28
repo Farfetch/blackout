@@ -19,10 +19,10 @@ describe('returns reducer', () => {
 
     it.each([
       actionTypes.CREATE_RETURN_REQUEST,
-      actionTypes.GET_PICKUP_CAPABILITIES_REQUEST,
-      actionTypes.GET_RETURN_REQUEST,
+      actionTypes.FETCH_PICKUP_CAPABILITIES_REQUEST,
+      actionTypes.FETCH_RETURN_REQUEST,
       actionTypes.UPDATE_RETURN_REQUEST,
-      actionTypes.GET_REFERENCES_REQUEST,
+      actionTypes.FETCH_REFERENCES_REQUEST,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(
@@ -38,9 +38,9 @@ describe('returns reducer', () => {
 
     it.each([
       actionTypes.CREATE_RETURN_FAILURE,
-      actionTypes.GET_PICKUP_CAPABILITIES_FAILURE,
-      actionTypes.GET_RETURN_FAILURE,
-      actionTypes.GET_REFERENCES_FAILURE,
+      actionTypes.FETCH_PICKUP_CAPABILITIES_FAILURE,
+      actionTypes.FETCH_RETURN_FAILURE,
+      actionTypes.FETCH_REFERENCES_FAILURE,
       actionTypes.UPDATE_RETURN_FAILURE,
     ])('should handle %s action type', actionType => {
       const error = 'foo';
@@ -69,7 +69,7 @@ describe('returns reducer', () => {
 
     it.each([
       actionTypes.CREATE_RETURN_SUCCESS,
-      actionTypes.GET_RETURN_SUCCESS,
+      actionTypes.FETCH_RETURN_SUCCESS,
     ])('should handle %s action type', actionType => {
       const result = 'foo';
       expect(
@@ -97,9 +97,9 @@ describe('returns reducer', () => {
 
     it.each([
       actionTypes.CREATE_RETURN_REQUEST,
-      actionTypes.GET_PICKUP_CAPABILITIES_REQUEST,
-      actionTypes.GET_RETURN_REQUEST,
-      actionTypes.GET_REFERENCES_REQUEST,
+      actionTypes.FETCH_PICKUP_CAPABILITIES_REQUEST,
+      actionTypes.FETCH_RETURN_REQUEST,
+      actionTypes.FETCH_REFERENCES_REQUEST,
       actionTypes.UPDATE_RETURN_REQUEST,
     ])('should handle %s action type', actionType => {
       expect(
@@ -111,9 +111,9 @@ describe('returns reducer', () => {
 
     it.each([
       actionTypes.CREATE_RETURN_SUCCESS,
-      actionTypes.GET_PICKUP_CAPABILITIES_SUCCESS,
-      actionTypes.GET_RETURN_SUCCESS,
-      actionTypes.GET_REFERENCES_SUCCESS,
+      actionTypes.FETCH_PICKUP_CAPABILITIES_SUCCESS,
+      actionTypes.FETCH_RETURN_SUCCESS,
+      actionTypes.FETCH_REFERENCES_SUCCESS,
       actionTypes.UPDATE_RETURN_SUCCESS,
     ])('should handle %s action type', actionType => {
       expect(
@@ -126,9 +126,9 @@ describe('returns reducer', () => {
 
     it.each([
       actionTypes.CREATE_RETURN_FAILURE,
-      actionTypes.GET_PICKUP_CAPABILITIES_FAILURE,
-      actionTypes.GET_RETURN_FAILURE,
-      actionTypes.GET_REFERNECES_FAILURE,
+      actionTypes.FETCH_PICKUP_CAPABILITIES_FAILURE,
+      actionTypes.FETCH_RETURN_FAILURE,
+      actionTypes.FETCH_REFERNECES_FAILURE,
       actionTypes.UPDATE_RETURN_FAILURE,
     ])('should handle %s action type', actionType => {
       expect(
@@ -170,12 +170,12 @@ describe('returns reducer', () => {
       },
     };
 
-    it('should handle GET_PICKUP_CAPABILITIES_SUCCESS action type', () => {
+    it('should handle FETCH_PICKUP_CAPABILITIES_SUCCESS action type', () => {
       expect(
-        entitiesMapper[actionTypes.GET_PICKUP_CAPABILITIES_SUCCESS](state, {
+        entitiesMapper[actionTypes.FETCH_PICKUP_CAPABILITIES_SUCCESS](state, {
           meta: { id: 1 },
           payload: { entities: result },
-          type: actionTypes.GET_PICKUP_CAPABILITIES_SUCCESS,
+          type: actionTypes.FETCH_PICKUP_CAPABILITIES_SUCCESS,
         }),
       ).toEqual(expectedResult);
     });

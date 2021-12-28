@@ -29,18 +29,18 @@ const INITIAL_STATE = {
 const error = (state = INITIAL_STATE.error, action = {}) => {
   switch (action.type) {
     case actionTypes.CREATE_RETURN_FAILURE:
-    case actionTypes.GET_PICKUP_CAPABILITIES_FAILURE:
-    case actionTypes.GET_RETURN_FAILURE:
-    case actionTypes.GET_RETURNS_FROM_ORDER_FAILURE:
+    case actionTypes.FETCH_PICKUP_CAPABILITIES_FAILURE:
+    case actionTypes.FETCH_RETURN_FAILURE:
+    case actionTypes.FETCH_RETURNS_FROM_ORDER_FAILURE:
     case actionTypes.UPDATE_RETURN_FAILURE:
-    case actionTypes.GET_REFERENCES_FAILURE:
+    case actionTypes.FETCH_REFERENCES_FAILURE:
       return action.payload.error;
     case actionTypes.CREATE_RETURN_REQUEST:
-    case actionTypes.GET_PICKUP_CAPABILITIES_REQUEST:
-    case actionTypes.GET_RETURN_REQUEST:
-    case actionTypes.GET_RETURNS_FROM_ORDER_REQUEST:
+    case actionTypes.FETCH_PICKUP_CAPABILITIES_REQUEST:
+    case actionTypes.FETCH_RETURN_REQUEST:
+    case actionTypes.FETCH_RETURNS_FROM_ORDER_REQUEST:
     case actionTypes.UPDATE_RETURN_REQUEST:
-    case actionTypes.GET_REFERENCES_REQUEST:
+    case actionTypes.FETCH_REFERENCES_REQUEST:
     case actionTypes.RESET_RETURN:
       return INITIAL_STATE.error;
     default:
@@ -51,8 +51,8 @@ const error = (state = INITIAL_STATE.error, action = {}) => {
 const id = (state = INITIAL_STATE.id, action = {}) => {
   switch (action.type) {
     case actionTypes.CREATE_RETURN_SUCCESS:
-    case actionTypes.GET_RETURN_SUCCESS:
-    case actionTypes.GET_RETURNS_FROM_ORDER_SUCCESS:
+    case actionTypes.FETCH_RETURN_SUCCESS:
+    case actionTypes.FETCH_RETURNS_FROM_ORDER_SUCCESS:
       return action.payload.result;
     case actionTypes.RESET_RETURN:
       return INITIAL_STATE.id;
@@ -64,24 +64,24 @@ const id = (state = INITIAL_STATE.id, action = {}) => {
 const isLoading = (state = INITIAL_STATE.isLoading, action = {}) => {
   switch (action.type) {
     case actionTypes.CREATE_RETURN_REQUEST:
-    case actionTypes.GET_PICKUP_CAPABILITIES_REQUEST:
-    case actionTypes.GET_RETURN_REQUEST:
-    case actionTypes.GET_RETURNS_FROM_ORDER_REQUEST:
+    case actionTypes.FETCH_PICKUP_CAPABILITIES_REQUEST:
+    case actionTypes.FETCH_RETURN_REQUEST:
+    case actionTypes.FETCH_RETURNS_FROM_ORDER_REQUEST:
     case actionTypes.UPDATE_RETURN_REQUEST:
-    case actionTypes.GET_REFERENCES_REQUEST:
+    case actionTypes.FETCH_REFERENCES_REQUEST:
       return true;
     case actionTypes.CREATE_RETURN_SUCCESS:
     case actionTypes.CREATE_RETURN_FAILURE:
-    case actionTypes.GET_PICKUP_CAPABILITIES_SUCCESS:
-    case actionTypes.GET_PICKUP_CAPABILITIES_FAILURE:
-    case actionTypes.GET_RETURN_SUCCESS:
-    case actionTypes.GET_RETURNS_FROM_ORDER_SUCCESS:
-    case actionTypes.GET_RETURN_FAILURE:
-    case actionTypes.GET_RETURNS_FROM_ORDER_FAILURE:
+    case actionTypes.FETCH_PICKUP_CAPABILITIES_SUCCESS:
+    case actionTypes.FETCH_PICKUP_CAPABILITIES_FAILURE:
+    case actionTypes.FETCH_RETURN_SUCCESS:
+    case actionTypes.FETCH_RETURNS_FROM_ORDER_SUCCESS:
+    case actionTypes.FETCH_RETURN_FAILURE:
+    case actionTypes.FETCH_RETURNS_FROM_ORDER_FAILURE:
     case actionTypes.UPDATE_RETURN_SUCCESS:
     case actionTypes.UPDATE_RETURN_FAILURE:
-    case actionTypes.GET_REFERENCES_SUCCESS:
-    case actionTypes.GET_REFERENCES_FAILURE:
+    case actionTypes.FETCH_REFERENCES_SUCCESS:
+    case actionTypes.FETCH_REFERENCES_FAILURE:
     case actionTypes.RESET_RETURN:
       return INITIAL_STATE.isLoading;
     default:
@@ -108,7 +108,7 @@ const returnsEntityMapper = (state, action) => {
 };
 
 export const entitiesMapper = {
-  [actionTypes.GET_PICKUP_CAPABILITIES_SUCCESS]: (state, action) =>
+  [actionTypes.FETCH_PICKUP_CAPABILITIES_SUCCESS]: (state, action) =>
     returnsEntityMapper(state, action),
   [actionTypes.UPDATE_RETURN_SUCCESS]: (state, action) =>
     returnsEntityMapper(state, action),
@@ -129,19 +129,24 @@ export const entitiesMapper = {
 };
 
 const returns = reducerFactory(
-  ['CREATE_RETURN', 'GET_RETURN', 'UPDATE_RETURN', 'GET_RETURNS_FROM_ORDER'],
+  [
+    'CREATE_RETURN',
+    'FETCH_RETURN',
+    'UPDATE_RETURN',
+    'FETCH_RETURNS_FROM_ORDER',
+  ],
   INITIAL_STATE.returns,
   actionTypes,
 );
 
 const references = reducerFactory(
-  'GET_REFERENCES',
+  'FETCH_REFERENCES',
   INITIAL_STATE.references,
   actionTypes,
 );
 
 const pickupCapabilities = reducerFactory(
-  'GET_PICKUP_CAPABILITIES',
+  'FETCH_PICKUP_CAPABILITIES',
   INITIAL_STATE.pickupCapabilities,
   actionTypes,
 );

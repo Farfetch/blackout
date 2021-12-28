@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`doGetReturnsFromOrder action creator should create the correct actions for when the get return procedure is successful: get return success payload 1`] = `undefined`;
