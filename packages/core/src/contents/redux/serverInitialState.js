@@ -20,14 +20,23 @@ export default ({ model }) => {
     return { contents: INITIAL_STATE };
   }
 
-  const { searchContentRequests } = model;
+  const { searchContentRequests, slug, subfolder } = model;
 
   return searchContentRequests.reduce((acc, item) => {
     const {
       filters: { codes, contentTypeCode },
       searchResponse,
     } = item;
-    const hash = buildContentGroupHash({ codes, contentTypeCode });
+    let hashCommerce = null;
+    if (contentTypeCode === 'commerce_pages') {
+      const slugCommerce = slug
+        .replace(subfolder, '')
+        .replace('&json=true', '')
+        .replace('?json=true', '');
+      hashCommerce = `${contentTypeCode}!${slugCommerce}`;
+    }
+    const hash =
+      hashCommerce ?? buildContentGroupHash({ codes, contentTypeCode });
     const { entities } = {
       ...normalize({ hash, ...searchResponse }, contentGroup),
     };
