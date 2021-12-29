@@ -7,7 +7,13 @@ export const commercePagesQuery = {
   category: 136643,
 };
 
-export const commercePagesHash = buildContentGroupHash(commercePagesQuery);
+export const slug = 'woman/gucci';
+const contentQuery = {
+  codes: slug,
+  contentTypeCode: 'commerce_pages',
+};
+
+export const commercePagesHash = buildContentGroupHash(contentQuery);
 
 export const mockCommercePages = {
   number: 1,
@@ -41,15 +47,17 @@ export const mockCommercePages = {
       publicationDate: '2021-08-20T15:40:39.0000132Z',
       components: [
         {
-          type: 'text',
-          name: 'Title',
-          displayOptions: {},
-        },
-        {
-          type: 'html',
-          content:
-            '<p>With delicate jewellery being her signature, Gigi Clozeau fine earrings are minature masterpieces. Taking inspiration from her beaded necklaces and bracelets, Gigi creates chain link huggie hoops using the same tiny resin beads, alongside diamond studs that can be worn as a pair or sepearately for a unique curated ear.</p>',
-          name: 'Listing Page Description',
+          type: 'custom',
+          fields: {
+            title: {
+              type: 'text',
+              value: 'Commerce Page',
+              name: 'test',
+              displayOptions: {},
+            },
+          },
+          customType: 'promotions',
+          name: 'promotions',
           displayOptions: {},
         },
       ],
@@ -147,4 +155,28 @@ export const mergeStrategyResult = {
       ),
     },
   ],
+};
+
+export const mockCommercePagesLoadingState = {
+  entities: {},
+  contents: {
+    isLoading: {
+      [commercePagesHash]: true,
+    },
+    error: {},
+  },
+};
+
+export const mockCommercePagesErrorState = {
+  entities: {},
+  contents: {
+    isLoading: {
+      [commercePagesHash]: false,
+    },
+    error: {
+      [commercePagesHash]: {
+        message: 'Error',
+      },
+    },
+  },
 };
