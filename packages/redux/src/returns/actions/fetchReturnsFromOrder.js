@@ -1,58 +1,13 @@
-import {
-  FETCH_RETURNS_FROM_ORDER_FAILURE,
-  FETCH_RETURNS_FROM_ORDER_REQUEST,
-  FETCH_RETURNS_FROM_ORDER_SUCCESS,
-} from '../actionTypes';
-import { normalize } from 'normalizr';
-import returnSchema from '../../entities/schemas/return';
+import { fetchReturnsFromOrderFactory } from './factories';
+import { getReturnsFromOrder } from '@farfetch/blackout-client/returns';
 
 /**
- * @typedef {object} GetReturnsFromOrderQuery
- * @property {string} [guestUserEmail] - User email. Only required if
- * the user is not registered (guest).
- */
-
-/**
- * @callback GetReturnsFromOrderThunkFactory
- * @param {string} orderId - Order identifier.
- * @param {GetReturnsFromOrderQuery} query - Query parameters.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * Get return from order.
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
- */
-
-/**
- * Method responsible for returns from a specific order.
- *
- * @function fetchReturnsFromOrder
  * @memberof module:returns/actions
  *
- * @param {Function} getReturnsFromOrder - Get returns from order client.
+ * @name getReturnsFromOrder
  *
- * @returns {GetReturnsFromOrderThunkFactory} Thunk factory.
+ * @type {GetReturnsFromOrderThunkFactory}
  */
-export default getReturnsFromOrder =>
-  (orderId, query, config) =>
-  async dispatch => {
-    dispatch({
-      type: FETCH_RETURNS_FROM_ORDER_REQUEST,
-    });
-
-    try {
-      const result = await getReturnsFromOrder(orderId, query, config);
-
-      dispatch({
-        payload: normalize(result, [returnSchema]),
-        type: FETCH_RETURNS_FROM_ORDER_SUCCESS,
-      });
-      return result;
-    } catch (error) {
-      dispatch({
-        payload: { error },
-        type: FETCH_RETURNS_FROM_ORDER_FAILURE,
-      });
-
-      throw error;
-    }
-  };
+export default fetchReturnsFromOrderFactory(getReturnsFromOrder);

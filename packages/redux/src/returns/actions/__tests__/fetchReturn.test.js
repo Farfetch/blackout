@@ -1,4 +1,5 @@
 import * as normalizr from 'normalizr';
+import { getReturn } from '@farfetch/blackout-client/returns';
 import { mockStore } from '../../../../tests';
 import {
   responses,
@@ -7,6 +8,11 @@ import {
 import fetchReturn from '../../actions/fetchReturn';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../../';
+
+jest.mock('@farfetch/blackout-client/returns', () => ({
+  ...jest.requireActual('@farfetch/blackout-client/returns'),
+  getReturn: jest.fn(),
+}));
 
 const returnsMockStore = (state = {}) =>
   mockStore({ returns: reducer() }, state);
@@ -17,8 +23,6 @@ describe('fetchReturn action creator', () => {
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
   let store;
 
-  const getReturn = jest.fn();
-  const action = fetchReturn(getReturn);
   const returnId = 5926969;
 
   beforeEach(() => {
@@ -33,7 +37,7 @@ describe('fetchReturn action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(action(returnId, query));
+      await store.dispatch(fetchReturn(returnId, query));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(getReturn).toHaveBeenCalledTimes(1);
@@ -52,7 +56,7 @@ describe('fetchReturn action creator', () => {
 
   it('should create the correct actions for when the get return procedure is successful', async () => {
     getReturn.mockResolvedValueOnce(responses.get.success);
-    await store.dispatch(action(returnId, query));
+    await store.dispatch(fetchReturn(returnId, query));
 
     const actionResults = store.getActions();
 

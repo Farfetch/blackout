@@ -1,4 +1,5 @@
 import { mockStore } from '../../../../tests';
+import { postReturn } from '@farfetch/blackout-client/returns';
 import {
   responses,
   returnsNormalizedPayload,
@@ -6,6 +7,11 @@ import {
 import createReturn from '../../actions/createReturn';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../../';
+
+jest.mock('@farfetch/blackout-client/returns', () => ({
+  ...jest.requireActual('@farfetch/blackout-client/returns'),
+  postReturn: jest.fn(),
+}));
 
 const returnsMockStore = (state = {}) =>
   mockStore({ returns: reducer() }, state);
@@ -15,8 +21,6 @@ describe('createReturn() action creator', () => {
   const expectedConfig = undefined;
   let store;
 
-  const postReturn = jest.fn();
-  const action = createReturn(postReturn);
   const data = { ...responses.post.success };
 
   beforeEach(() => {
@@ -31,7 +35,7 @@ describe('createReturn() action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(action(data, query));
+      await store.dispatch(createReturn(data, query));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(postReturn).toHaveBeenCalledTimes(1);
@@ -51,7 +55,7 @@ describe('createReturn() action creator', () => {
   it('should create the correct actions for when the create checkout procedure is successful', async () => {
     postReturn.mockResolvedValueOnce(responses.post.success);
 
-    await store.dispatch(action(data, query));
+    await store.dispatch(createReturn(data, query));
 
     const actionResults = store.getActions();
 
