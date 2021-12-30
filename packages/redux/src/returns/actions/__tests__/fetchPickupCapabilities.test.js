@@ -1,8 +1,14 @@
+import { getPickupCapabilities } from '@farfetch/blackout-client/returns';
 import { mockStore } from '../../../../tests';
 import { responses } from 'tests/__fixtures__/returns';
 import fetchPickupCapabilities from '../fetchPickupCapabilities';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
+
+jest.mock('@farfetch/blackout-client/returns', () => ({
+  ...jest.requireActual('@farfetch/blackout-client/returns'),
+  getPickupCapabilities: jest.fn(),
+}));
 
 const returnsMockStore = (state = {}) =>
   mockStore({ returns: reducer() }, state);
@@ -18,8 +24,6 @@ describe('fetchPickupCapabilities action creator', () => {
   const expectedConfig = undefined;
   let store;
 
-  const getPickupCapabilities = jest.fn();
-  const action = fetchPickupCapabilities(getPickupCapabilities);
   const returnId = 5926969;
   const expectedQueryParams = {
     ...queryParams,
@@ -38,7 +42,7 @@ describe('fetchPickupCapabilities action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(action(returnId, queryParams));
+      await store.dispatch(fetchPickupCapabilities(returnId, queryParams));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(getPickupCapabilities).toHaveBeenCalledTimes(1);
@@ -101,7 +105,7 @@ describe('fetchPickupCapabilities action creator', () => {
     getPickupCapabilities.mockResolvedValueOnce(
       responses.getPickupCapabilities.success,
     );
-    await store.dispatch(action(returnId, queryParams));
+    await store.dispatch(fetchPickupCapabilities(returnId, queryParams));
 
     const actionResults = store.getActions();
 
