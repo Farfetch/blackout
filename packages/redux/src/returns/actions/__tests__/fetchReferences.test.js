@@ -1,7 +1,13 @@
+import { getReferences } from '@farfetch/blackout-client/returns';
 import { mockStore } from '../../../../tests';
 import fetchReferences from '../../actions/fetchReferences';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../../';
+
+jest.mock('@farfetch/blackout-client/returns', () => ({
+  ...jest.requireActual('@farfetch/blackout-client/returns'),
+  getReferences: jest.fn(),
+}));
 
 const returnsMockStore = (state = {}) =>
   mockStore({ returns: reducer() }, state);
@@ -10,8 +16,7 @@ describe('fetchReferences() action creator', () => {
   const query = {};
   const expectedConfig = undefined;
   let store;
-  const getReferences = jest.fn();
-  const action = fetchReferences(getReferences);
+
   const name = 'ReturnNote';
   const returnId = 5926969;
 
@@ -27,7 +32,7 @@ describe('fetchReferences() action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(action(returnId, name, query));
+      await store.dispatch(fetchReferences(returnId, name, query));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(getReferences).toHaveBeenCalledTimes(1);
@@ -51,7 +56,7 @@ describe('fetchReferences() action creator', () => {
 
   it('should create the correct actions for when the get references procedure is successful', async () => {
     getReferences.mockResolvedValueOnce({});
-    await store.dispatch(action(returnId, name, query));
+    await store.dispatch(fetchReferences(returnId, name, query));
 
     const actionResults = store.getActions();
 

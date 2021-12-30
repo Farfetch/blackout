@@ -1,7 +1,13 @@
 import { mockStore } from '../../../../tests';
+import { patchReturn } from '@farfetch/blackout-client/returns';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../../';
 import updateReturn from '../../actions/updateReturn';
+
+jest.mock('@farfetch/blackout-client/returns', () => ({
+  ...jest.requireActual('@farfetch/blackout-client/returns'),
+  patchReturn: jest.fn(),
+}));
 
 const returnsMockStore = (state = {}) =>
   mockStore({ returns: reducer() }, state);
@@ -11,8 +17,6 @@ describe('updateReturn() action creator', () => {
   const expectedConfig = undefined;
   let store;
 
-  const patchReturn = jest.fn();
-  const action = updateReturn(patchReturn);
   const returnId = 5926969;
 
   const data = {
@@ -37,7 +41,7 @@ describe('updateReturn() action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(action(returnId, data, query));
+      await store.dispatch(updateReturn(returnId, data, query));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(patchReturn).toHaveBeenCalledTimes(1);
@@ -64,7 +68,7 @@ describe('updateReturn() action creator', () => {
     patchReturn.mockResolvedValueOnce({
       redirectUrl,
     });
-    await store.dispatch(action(returnId, data, query));
+    await store.dispatch(updateReturn(returnId, data, query));
 
     const actionResults = store.getActions();
 
