@@ -76,7 +76,7 @@ export default getCommercePages =>
 
     try {
       const result = await getCommercePages(query, config);
-      const rankedResult = getRankedCommercePage(result, strategy);
+      const rankedResult = getRankedCommercePage({ entries: result }, strategy);
 
       dispatch({
         meta: { query },
