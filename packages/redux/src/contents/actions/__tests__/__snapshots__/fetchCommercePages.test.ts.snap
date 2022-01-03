@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchCommercePages() action creator should create the correct actions for when the get commerce pages procedure is successful: Get commerce pages payload 1`] = `
+Object {
+  "meta": Object {
+    "query": Object {
+      "brand": 5030844,
+      "category": 136643,
+      "gender": 0,
+      "type": "LISTING",
+    },
+  },
+  "payload": Object {
+    "entities": Object {},
+    "hash": "commerce_pages!woman",
+    "result": Object {
+      "code": "LISTING_gender_0/brand_5030844/category_136643",
+      "components": Array [
+        Object {
+          "customType": "promotions",
+          "displayOptions": Object {},
+          "fields": Object {
+            "title": Object {
+              "displayOptions": Object {},
+              "name": "test",
+              "type": "text",
+              "value": "Commerce Page",
+            },
+          },
+          "name": "promotions",
+          "type": "custom",
+        },
+      ],
+      "contentTypeCode": "commerce_pages",
+      "environmentCode": "live",
+      "hash": "commerce_pages!woman",
+      "metadata": Object {
+        "custom": Object {
+          "brand": "5030844",
+          "category": "136643",
+          "eventDate": "0001-01-01T00:00:00Z",
+          "gender": "0",
+          "id": "",
+          "none": "",
+          "priceType": "0",
+          "sku": "",
+          "slug": "",
+          "type": "LISTING",
+        },
+      },
+      "publicationDate": "2021-08-20T15:40:39.0000132Z",
+      "publicationId": "dc9c0c95-9485-45c2-a76c-6923bb39b544",
+      "spaceCode": "website",
+      "target": Object {
+        "contentzone": "10674",
+      },
+      "versionId": "78f1922d-0ef1-46ed-b02c-ca541d0a0d80",
+    },
+  },
+  "type": "@farfetch/blackout-redux/FETCH_COMMERCE_PAGES_SUCCESS",
+}
+`;

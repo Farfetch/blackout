@@ -1,6 +1,7 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
 import type {
+  CommercePagesContent,
   ContentTypesEntries,
   QueryContents,
   QuerySEO,
@@ -15,7 +16,7 @@ export interface ActionFetchContentRequest extends Action {
   payload: { hash: Hash };
 }
 
-export interface ActionFetchContentRequestSucesss extends Action {
+export interface ActionFetchContentRequestSuccess extends Action {
   type: typeof actionTypes.FETCH_CONTENT_SUCCESS;
   meta: { query: QueryContents };
   payload: {
@@ -26,6 +27,30 @@ export interface ActionFetchContentRequestSucesss extends Action {
 
 export interface ActionFetchContentRequestFailure extends Action {
   type: typeof actionTypes.FETCH_CONTENT_FAILURE;
+  meta: { query: QueryContents };
+  payload: {
+    error: Error;
+    hash: Hash;
+  };
+}
+
+export interface ActionFetchCommercePagesRequest extends Action {
+  type: typeof actionTypes.FETCH_COMMERCE_PAGES_REQUEST;
+  meta: { query: QueryContents };
+  payload: { hash: Hash };
+}
+
+export interface ActionFetchCommercePagesSuccess extends Action {
+  type: typeof actionTypes.FETCH_COMMERCE_PAGES_SUCCESS;
+  meta: { query: QueryContents };
+  payload: {
+    result: SearchResultsReducer['result'];
+    hash: Hash;
+  };
+}
+
+export interface ActionFetchCommercePagesFailure extends Action {
+  type: typeof actionTypes.FETCH_COMMERCE_PAGES_FAILURE;
   meta: { query: QueryContents };
   payload: {
     error: Error;
@@ -73,8 +98,12 @@ export interface ActionFetchContentTypesFailure extends Action {
 
 export type ActionFetchContent =
   | ActionFetchContentRequest
-  | ActionFetchContentRequestSucesss
+  | ActionFetchContentRequestSuccess
   | ActionFetchContentRequestFailure;
+export type ActionFetchCommercePages =
+  | ActionFetchCommercePagesRequest
+  | ActionFetchCommercePagesSuccess
+  | ActionFetchCommercePagesFailure;
 export type ActionFetchSEO =
   | ActionFetchSEORequest
   | ActionFetchSEOSuccess
@@ -83,3 +112,10 @@ export type ActionFetchContentTypes =
   | ActionFetchContentTypesRequest
   | ActionFetchContentTypesSuccess
   | ActionFetchContentTypesFailure;
+
+export type CommercePagesContentNormalized = {
+  number: number;
+  totalPages: number;
+  totalItems: number;
+  entries: CommercePagesContent;
+};

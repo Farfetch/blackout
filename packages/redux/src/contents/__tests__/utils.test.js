@@ -1,4 +1,98 @@
-import { generateContentHash, generateSEOPathname } from '../utils';
+import {
+  defaultStrategyResult,
+  mergeStrategyResult,
+  mergeStrategyResultOneEntry,
+  mockCommercePages,
+} from 'tests/__fixtures__/contents';
+import {
+  generateContentHash,
+  generateSEOPathname,
+  getDefaultStrategy,
+  getMergeStrategy,
+  getPageRanking,
+  getRankedCommercePage,
+} from '../utils';
+
+describe('getPageRanking', () => {
+  it('should correctly construct a ranking number for a specific metadata', () => {
+    const metadata = {
+      custom: {
+        gender: '1',
+        brand: '2450',
+        category: '',
+        priceType: '',
+        id: '',
+      },
+    };
+    const expectedRanking = 110;
+    const ranking = getPageRanking(metadata);
+
+    expect(ranking).toBe(expectedRanking);
+  });
+
+  it('should correctly construct a ranking number for a specific metadata without data', () => {
+    const metadata = {
+      custom: {
+        gender: '',
+        brand: '',
+        category: '',
+        priceType: '',
+        id: '',
+      },
+    };
+    const expectedRanking = 0;
+    const ranking = getPageRanking(metadata);
+
+    expect(ranking).toBe(expectedRanking);
+  });
+});
+
+describe('getDefaultStrategy', () => {
+  it('should correctly apply commerce pages default strategy to the page result', () => {
+    const commercePagesResult = getDefaultStrategy({
+      entries: mockCommercePages,
+    });
+
+    expect(commercePagesResult).toMatchObject(defaultStrategyResult);
+  });
+});
+
+describe('getMergeStrategy', () => {
+  it('should correctly apply commerce pages merge strategy to the page result', () => {
+    const commercePagesResult = getMergeStrategy({
+      entries: mockCommercePages,
+    });
+
+    expect(commercePagesResult).toMatchObject(mergeStrategyResult);
+  });
+
+  it('should correctly apply commerce pages merge strategy to the page result when there is only one entry', () => {
+    const commercePagesResult = getMergeStrategy({
+      entries: [mockCommercePages[0]],
+    });
+
+    expect(commercePagesResult).toMatchObject(mergeStrategyResultOneEntry);
+  });
+});
+
+describe('getRankedCommercePage', () => {
+  it('should correctly select the commerce pages strategy return the respective page result', () => {
+    const commercePagesResult = getRankedCommercePage({
+      entries: mockCommercePages,
+    });
+
+    expect(commercePagesResult).toMatchObject(defaultStrategyResult);
+
+    const mergeStrategy = getRankedCommercePage(
+      {
+        entries: mockCommercePages,
+      },
+      'merge',
+    );
+
+    expect(mergeStrategy).toMatchObject(mergeStrategyResult);
+  });
+});
 
 describe('generateContentHash', () => {
   it('should correctly construct the correct hash with a query object', () => {

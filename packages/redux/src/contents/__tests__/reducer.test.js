@@ -28,10 +28,13 @@ describe('contents redux reducer', () => {
       expect(state).toEqual({});
     });
 
-    it('should handle FETCH_CONTENT_REQUEST action type', () => {
+    it.each([
+      actionTypes.FETCH_CONTENT_REQUEST,
+      actionTypes.FETCH_COMMERCE_PAGES_REQUEST,
+    ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_CONTENT_REQUEST,
+          type: actionType,
           payload: { foo: 'bar', hash: 'foo-biz' },
         }).searchResults,
       ).toEqual({
@@ -42,10 +45,13 @@ describe('contents redux reducer', () => {
       });
     });
 
-    it('should handle FETCH_CONTENT_SUCCESS action type', () => {
+    it.each([
+      actionTypes.FETCH_CONTENT_SUCCESS,
+      actionTypes.FETCH_COMMERCE_PAGES_SUCCESS,
+    ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_CONTENT_SUCCESS,
+          type: actionType,
           payload: { result: { foo: 'bar' }, hash: 'foo-biz' },
         }).searchResults,
       ).toEqual({
@@ -56,10 +62,13 @@ describe('contents redux reducer', () => {
       });
     });
 
-    it('should handle FETCH_CONTENT_FAILURE action type', () => {
+    it.each([
+      actionTypes.FETCH_CONTENT_FAILURE,
+      actionTypes.FETCH_COMMERCE_PAGES_FAILURE,
+    ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_CONTENT_FAILURE,
+          type: actionType,
           payload: { error: 'Error - not loaded', hash: 'foo-biz' },
         }).searchResults,
       ).toEqual({
