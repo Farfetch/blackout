@@ -26,7 +26,7 @@ describe('patchReturn', () => {
     expect.assertions(2);
     await expect(patchReturn(id, data, query)).resolves.toBe(response);
     expect(spy).toHaveBeenCalledWith(
-      join(`/legacy/v1/returns/${id}`, { query }),
+      join(`/account/v1/returns/${id}`, { query }),
       data,
       expectedConfig,
     );
@@ -38,7 +38,7 @@ describe('patchReturn', () => {
     expect.assertions(2);
     await expect(patchReturn(id, data, query)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      join(`/legacy/v1/returns/${id}`, { query }),
+      join(`/account/v1/returns/${id}`, { query }),
       data,
       expectedConfig,
     );

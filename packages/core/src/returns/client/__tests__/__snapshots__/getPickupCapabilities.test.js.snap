@@ -1,6 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`getPickupCapabilities should receive a client request error 1`] = `
+exports[`getPickupCapabilities Account SVC should receive a client request error 1`] = `
+Object {
+  "code": -1,
+  "message": "stub error",
+  "status": 404,
+}
+`;
+
+exports[`getPickupCapabilities Legacy should receive a client request error 1`] = `
 Object {
   "code": -1,
   "message": "stub error",
