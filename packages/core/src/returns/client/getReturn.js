@@ -29,7 +29,7 @@ import join from 'proper-url-join';
  */
 export default (id, query, config) =>
   client
-    .get(join('/legacy/v1/returns', id, { query }), config)
+    .get(join('/account/v1/returns', id, { query }), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);

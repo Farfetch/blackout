@@ -20,21 +20,34 @@ import join from 'proper-url-join';
  * @function getPickupCapabilities
  * @memberof module:returns/client
  *
- * @param {string} id - Return identifier.
- * @param {GetPickupCapabilitiesQuery} query - Query parameters.
+ * @param {number} id - Return identifier.
+ * @param {GetPickupCapabilitiesQuery} pickupDay - Query parameters.
  * @param {object} [config] - Custom configurations to send to the client
  * instance (axios).
  *
  * @returns {Promise} Promise that will resolve when the call to
  * the endpoint finishes.
  */
-export default (id, query, config) =>
-  client
-    .get(
-      join('/legacy/v1/returns', id, 'pickupcapabilities', { query }),
-      config,
-    )
+export default (id, pickupDay, config) => {
+  const returnId = id.toString();
+  const isQuery = typeof pickupDay.pickupDay !== 'string';
+
+  const args = isQuery
+    ? [
+        join('/legacy/v1/returns', id, 'pickupcapabilities', {
+          query: pickupDay,
+        }),
+        config,
+      ]
+    : [
+        join('/account/v1/returns', returnId, 'pickupcapabilities', pickupDay),
+        config,
+      ];
+
+  return client
+    .get(...args)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+};

@@ -25,7 +25,7 @@ describe('getReturn', () => {
     expect.assertions(2);
     await expect(getReturn(id, query)).resolves.toBe(response);
     expect(spy).toHaveBeenCalledWith(
-      join(`/legacy/v1/returns/${id}`, { query }),
+      join(`/account/v1/returns/${id}`, { query }),
       expectedConfig,
     );
   });
@@ -36,7 +36,7 @@ describe('getReturn', () => {
     expect.assertions(2);
     await expect(getReturn(id, query)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      join(`/legacy/v1/returns/${id}`, { query }),
+      join(`/account/v1/returns/${id}`, { query }),
       expectedConfig,
     );
   });

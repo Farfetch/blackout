@@ -42,7 +42,7 @@ import join from 'proper-url-join';
  */
 export default (id, data, query, config) =>
   client
-    .patch(join('/legacy/v1/returns', id, { query }), data, config)
+    .patch(join('/account/v1/returns', id, { query }), data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
