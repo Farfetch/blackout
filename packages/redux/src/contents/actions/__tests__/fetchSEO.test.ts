@@ -1,5 +1,5 @@
-import { actionTypes } from '../../';
-import { fetchSEO } from '../';
+import { actionTypes } from '../..';
+import { fetchSEO } from '..';
 import { getSEO } from '@farfetch/blackout-client/contents';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
@@ -29,9 +29,7 @@ describe('fetchSEO action creator', () => {
 
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchSEO(seoQuery));
-    } catch (error) {
+    await store.dispatch(fetchSEO(seoQuery)).catch(error => {
       expect(error).toBe(expectedError);
       expect(getSEO).toHaveBeenCalledTimes(1);
       expect(getSEO).toHaveBeenCalledWith(seoQuery, expectedConfig);
@@ -48,7 +46,7 @@ describe('fetchSEO action creator', () => {
           ),
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the get SEO procedure is successful', async () => {

@@ -1,6 +1,6 @@
-import { actionTypes } from '../../';
+import { actionTypes } from '../..';
 import { mockStore } from '../../../../tests';
-import { resetContents } from '../';
+import { resetContents } from '..';
 
 describe('reset contents action', () => {
   it('should dispatch the correct action type', () => {

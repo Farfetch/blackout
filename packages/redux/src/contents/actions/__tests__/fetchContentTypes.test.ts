@@ -30,9 +30,7 @@ describe('fetchContentTypes() action creator', () => {
 
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchContentTypes(spaceCode));
-    } catch (error) {
+    await store.dispatch(fetchContentTypes(spaceCode)).catch(error => {
       expect(error).toBe(expectedError);
       expect(getContentTypes).toHaveBeenCalledTimes(1);
       expect(getContentTypes).toHaveBeenCalledWith(spaceCode, expectedConfig);
@@ -44,7 +42,7 @@ describe('fetchContentTypes() action creator', () => {
           }),
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for fetching content types when procedure is successful', async () => {
