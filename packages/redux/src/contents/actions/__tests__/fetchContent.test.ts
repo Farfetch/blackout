@@ -1,11 +1,11 @@
 import * as normalizr from 'normalizr';
-import { actionTypes } from '../../';
+import { actionTypes } from '../..';
 import {
   contentNormalizedPayload,
   contentQuery,
   mockContentResult,
 } from 'tests/__fixtures__/contents';
-import { fetchContent } from '../';
+import { fetchContent } from '..';
 import { getSearchContents } from '@farfetch/blackout-client/contents';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
@@ -36,9 +36,7 @@ describe('fetchContent() action creator', () => {
 
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchContent(contentQuery));
-    } catch (error) {
+    await store.dispatch(fetchContent(contentQuery)).catch(error => {
       expect(error).toBe(expectedError);
       expect(getSearchContents).toHaveBeenCalledTimes(1);
       expect(getSearchContents).toHaveBeenCalledWith(
@@ -58,7 +56,7 @@ describe('fetchContent() action creator', () => {
           ),
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the get content procedure is successful', async () => {

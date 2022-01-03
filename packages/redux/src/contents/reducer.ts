@@ -7,6 +7,7 @@
 import * as actionTypes from './actionTypes';
 import { combineReducers } from 'redux';
 import type {
+  ActionFetchCommercePages,
   ActionFetchContent,
   ActionFetchContentTypes,
   ActionFetchSEO,
@@ -30,10 +31,11 @@ export const INITIAL_STATE: State = {
 
 const searchResults = (
   state = INITIAL_STATE.searchResults,
-  action: ActionFetchContent,
+  action: ActionFetchContent | ActionFetchCommercePages,
 ): State['searchResults'] => {
   switch (action.type) {
     case actionTypes.FETCH_CONTENT_REQUEST:
+    case actionTypes.FETCH_COMMERCE_PAGES_REQUEST:
       return {
         ...state,
         [action.payload.hash]: {
@@ -42,6 +44,7 @@ const searchResults = (
         },
       };
     case actionTypes.FETCH_CONTENT_SUCCESS:
+    case actionTypes.FETCH_COMMERCE_PAGES_SUCCESS:
       return {
         ...state,
         [action.payload.hash]: {
@@ -50,6 +53,7 @@ const searchResults = (
         },
       };
     case actionTypes.FETCH_CONTENT_FAILURE:
+    case actionTypes.FETCH_COMMERCE_PAGES_FAILURE:
       return {
         ...state,
         [action.payload.hash]: {
