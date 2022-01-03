@@ -36,7 +36,7 @@ import join from 'proper-url-join';
  */
 export default (data, query, config) =>
   client
-    .post(join('/legacy/v1/returns', { query }), data, config)
+    .post(join('/account/v1/returns', { query }), data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);

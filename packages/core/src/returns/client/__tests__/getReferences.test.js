@@ -31,7 +31,7 @@ describe('getReferences', () => {
     expect.assertions(2);
     await expect(getReferences(id, name, query)).resolves.toBe(response);
     expect(spy).toHaveBeenCalledWith(
-      join(`/legacy/v1/returns/${id}/references/${name}`, { query }),
+      join(`/account/v1/returns/${id}/references/${name}`, { query }),
       expectedConfig,
     );
   });
@@ -42,7 +42,7 @@ describe('getReferences', () => {
     expect.assertions(2);
     await expect(getReferences(id, name, query)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      join(`/legacy/v1/returns/${id}/references/${name}`, { query }),
+      join(`/account/v1/returns/${id}/references/${name}`, { query }),
       expectedConfig,
     );
   });
