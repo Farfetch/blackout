@@ -8,7 +8,7 @@ const returnsMockStore = (state = {}) =>
   mockStore({ returns: reducer() }, state);
 
 describe('doGetPickupCapabilities action creator', () => {
-  const pickupDay = 154992960000;
+  const pickupDay = '1974-11-29';
   const queryParams = {
     pickupDay,
     guestOrderId: '12345',

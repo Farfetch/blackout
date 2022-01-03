@@ -4,21 +4,11 @@ import {
   GET_PICKUP_CAPABILITIES_REQUEST,
   GET_PICKUP_CAPABILITIES_SUCCESS,
 } from '../actionTypes';
-import parsePickupDate from '../../../helpers/parsePickupDate';
-
-/**
- * @typedef {object} GetPickupCapabilitiesQuery
- * @property {Date} pickupDay - Timestamp for the day of pickup.
- * @property {string} [guestOrderId] - Order identifier. Only required if
- * the user is not registered (guest).
- * @property {string} [guestUserEmail] - User email. Only required if
- * the user is not registered (guest).
- */
 
 /**
  * @callback GetPickupCapabilitiesThunkFactory
- * @param {string} id - Return identifier.
- * @param {GetPickupCapabilitiesQuery} [query] - Query parameters for the pickup capabilities.
+ * @param {number} id - Return identifier.
+ * @param {string} pickupDay - Timestamp for the day of pickup.
  * @param {object} [config] - Custom configurations to send to the client
  * instance (axios).
  *
@@ -36,13 +26,8 @@ import parsePickupDate from '../../../helpers/parsePickupDate';
  * @returns {GetPickupCapabilitiesThunkFactory} Thunk factory.
  */
 export default getPickupCapabilities =>
-  (id, query, config) =>
+  (id, pickupDay, config) =>
   async dispatch => {
-    const queryParams = {
-      ...query,
-      pickupDay: parsePickupDate(query.pickupDay),
-    };
-
     dispatch({
       type: GET_PICKUP_CAPABILITIES_REQUEST,
     });
@@ -53,7 +38,7 @@ export default getPickupCapabilities =>
         availableStartHours,
         availableTimeSlots,
         pickupDate,
-      } = await getPickupCapabilities(id, queryParams, config);
+      } = await getPickupCapabilities(id, pickupDay, config);
 
       dispatch({
         meta: { id },

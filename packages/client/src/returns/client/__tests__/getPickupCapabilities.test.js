@@ -6,9 +6,9 @@ import moxios from 'moxios';
 
 describe('getPickupCapabilities', () => {
   const spy = jest.spyOn(client, 'get');
-  const id = '123456';
+  const id = 123456;
+  const pickupDay = '2020-04-20';
   const expectedConfig = undefined;
-  const query = { guestUserEmail: 'test@email.com' };
 
   beforeEach(() => {
     moxios.install(client);
@@ -22,25 +22,27 @@ describe('getPickupCapabilities', () => {
 
     fixture.success({
       id,
+      pickupDay,
       response,
-      query,
     });
 
     expect.assertions(2);
-    await expect(getPickupCapabilities(id, query)).resolves.toBe(response);
+    await expect(getPickupCapabilities(id, pickupDay)).resolves.toBe(response);
     expect(spy).toHaveBeenCalledWith(
-      join(`/legacy/v1/returns/${id}/pickupcapabilities`, { query }),
+      join(`/account/v1/returns/${id}/pickupcapabilities/${pickupDay}`),
       expectedConfig,
     );
   });
 
   it('should receive a client request error', async () => {
-    fixture.failure({ id, query });
+    fixture.failure({ id, pickupDay });
 
     expect.assertions(2);
-    await expect(getPickupCapabilities(id, query)).rejects.toMatchSnapshot();
+    await expect(
+      getPickupCapabilities(id, pickupDay),
+    ).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      join(`/legacy/v1/returns/${id}/pickupcapabilities`, { query }),
+      join(`/account/v1/returns/${id}/pickupcapabilities/${pickupDay}`),
       expectedConfig,
     );
   });

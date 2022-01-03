@@ -5,9 +5,12 @@ import moxios from 'moxios';
 export default {
   success: params => {
     moxios.stubRequest(
-      join('/api/legacy/v1/returns', params.id, 'pickupcapabilities', {
-        query: get(params, 'query'),
-      }),
+      join(
+        '/api/account/v1/returns',
+        params.id,
+        'pickupcapabilities/',
+        params.pickupDay,
+      ),
       {
         method: 'get',
         response: get(params, 'response'),
@@ -17,9 +20,12 @@ export default {
   },
   failure: params => {
     moxios.stubRequest(
-      join('/api/legacy/v1/returns', params.id, 'pickupcapabilities', {
-        query: get(params, 'query'),
-      }),
+      join(
+        '/api/account/v1/returns',
+        params.id,
+        'pickupcapabilities/',
+        params.pickupDay,
+      ),
       {
         method: 'get',
         response: 'stub error',

@@ -5,7 +5,7 @@ import moxios from 'moxios';
 export default {
   success: params => {
     moxios.stubRequest(
-      join('/api/legacy/v1/returns', {
+      join('/api/account/v1/returns', {
         query: get(params, 'query'),
       }),
       {
@@ -17,7 +17,7 @@ export default {
   },
   failure: params => {
     moxios.stubRequest(
-      join('/api/legacy/v1/returns', {
+      join('/api/account/v1/returns', {
         query: get(params, 'query'),
       }),
       {
