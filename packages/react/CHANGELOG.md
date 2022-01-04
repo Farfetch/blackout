@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.28.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.27.1...@farfetch/blackout-react@0.28.0) (2022-01-04)
+
+
+### Features
+
+* **react:** create hook commerce pages ([fe333d2](https://github.com/Farfetch/blackout/commit/fe333d21c72b09823170745303e2463de17b1df1))
+
+
+
+
+
 ## [0.27.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.27.0...@farfetch/blackout-react@0.27.1) (2021-12-22)
 
 

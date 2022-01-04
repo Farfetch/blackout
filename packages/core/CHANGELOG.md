@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.45.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.45.0...@farfetch/blackout-core@1.45.1) (2022-01-04)
+
+
+### Bug Fixes
+
+* **core:** pass result into entries object ([5c0b2b3](https://github.com/Farfetch/blackout/commit/5c0b2b3f3db3b1cf232cc4d64b9eec0e1847cbb6))
+
+
+
+
+
 # [1.45.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.44.0...@farfetch/blackout-core@1.45.0) (2021-12-22)
 
 
