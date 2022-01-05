@@ -27,7 +27,7 @@ import type { Config } from '../types';
  */
 const getCommercePages = (
   query: QueryCommercePages,
-  config: Config,
+  config?: Config,
 ): Promise<CommercePagesContent> =>
   client
     .get(join('content/v1/commercepages', { query }), config)

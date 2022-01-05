@@ -45,3 +45,9 @@ export type ProductSummaryTypedPrice = {
   type: ProductPriceTypeEnum;
   typeDescription: string;
 };
+
+export enum PriceTypeEnum {
+  'Full Price',
+  Sale,
+  'Private Sale',
+}
