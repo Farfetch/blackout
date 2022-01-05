@@ -31,16 +31,27 @@ export interface ComponentType {
   displayOptions: Record<string, string>;
 }
 
+export interface Metadata {
+  custom: {
+    id: string;
+    gender: string;
+    brand: string;
+    priceType: string;
+    category: string;
+  };
+}
+
 export interface ContentEntries {
   publicationId: string;
   publicationDate: Date;
   versionId: string;
   spaceCode: string;
-  metadata?: Record<string, string>;
+  metadata: Metadata;
   target?: Targets;
   contentTypeCode: string;
   environmentCode: string;
   code: string;
+  ranking?: number;
   components: Array<ComponentType>;
 }
 
