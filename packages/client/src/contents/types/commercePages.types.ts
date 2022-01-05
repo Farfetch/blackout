@@ -1,20 +1,28 @@
-import type { Contents } from './contents.types';
+import type { Config, GenderEnum } from '../../types';
+import type { ContentEntries } from './contents.types';
+import type { PriceTypeEnum } from '../../products/types';
+
+export enum Type {
+  PRODUCT = 'PRODUCT',
+  LISTING = 'LISTING',
+  SET = 'SET',
+}
 
 export type QueryCommercePages = {
-  type: string;
+  type: Type;
   id?: number;
-  gender?: number;
+  gender?: GenderEnum;
   brand?: number;
   category?: string;
-  priceType?: string;
+  priceType?: PriceTypeEnum;
   sku?: number;
   pageIndex?: number;
   pageSize?: number;
 };
 
-export type CommercePagesContent = {
-  number: number;
-  totalPages: number;
-  totalItems: number;
-  entries: Array<Contents>;
-};
+export type CommercePagesContent = Array<ContentEntries>;
+
+export type GetCommercePages = (
+  query: QueryCommercePages,
+  config?: Config,
+) => Promise<CommercePagesContent>;
