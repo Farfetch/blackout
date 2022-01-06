@@ -100,7 +100,7 @@ const useCategories: UseCategories = () => {
     /**
      * Categories result.
      *
-     * @type {object}
+     * @type {Array}
      */
     categories: Object.values(categories),
     /**
@@ -144,7 +144,7 @@ const useCategories: UseCategories = () => {
     /**
      * Top categories result.
      *
-     * @type {object}
+     * @type {Array}
      */
     topCategories,
     /**

@@ -7,7 +7,9 @@ import {
 } from '../products';
 
 export const mockBagId = '7894746';
-export const mockError = 'Unexpected Error';
+export const mockError = {
+  message: 'Unexpected Error',
+};
 
 export const mockData = {
   merchant: { id: 1 },
