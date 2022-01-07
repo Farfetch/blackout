@@ -17,7 +17,6 @@
   "dependencies": {
     "axios-token-interceptor": "^0.2.0",
     "crypto-js": "3.1.9-1",
-    "deep-compact": "^1.1.0",
     "deep-sort-object": "^1.0.2",
     "invariant": "^2.2.4",
     "normalizr": "^3.3.0",
