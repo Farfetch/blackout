@@ -34,10 +34,8 @@ const adaptGroupedEntries: AdaptGroupedEntries = groupedEntries =>
       images: adaptProductImages(entry.images),
     })),
   };
-const adaptPrices: AdaptPrices = prices =>
-  prices && prices.length ? prices.map(price => adaptPrice(price)) : undefined;
+const adaptPrices: AdaptPrices = prices => prices?.map(adaptPrice);
 const adaptVariants: AdaptVariants = variants =>
-  variants &&
   variants?.map(variant => ({
     ...variant,
     price: adaptPrice(variant.price),

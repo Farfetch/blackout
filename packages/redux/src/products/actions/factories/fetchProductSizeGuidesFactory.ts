@@ -25,7 +25,7 @@ import type {
 /**
  * Creates a thunk factory configured with the specified client to fetch product
  * size guides for a given product id.
- * This sizeguides logic should be used where the project has a category tree.
+ * This size guides logic should be used where the project has a category tree.
  * If your project does not have a category tree you
  * should use the size guides logic from @farfetch/blackout-redux/sizeGuides.
  *

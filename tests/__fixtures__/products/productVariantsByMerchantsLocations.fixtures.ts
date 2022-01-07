@@ -1,3 +1,4 @@
+import { mockPriceAdaptedEmpty } from './price.fixtures';
 import { mockProductId, mockVariantId } from './ids.fixtures';
 
 export const mockProductVariantsByMerchantsLocations = [
@@ -25,26 +26,27 @@ export const mockProductVariantsByMerchantsLocationsNormalizedResponse = {
     products: {
       [mockProductId]: {
         id: mockProductId,
-        variants: [
-          {
-            id: mockVariantId,
-            merchantId: 10948,
-            size: '25',
-            merchantsLocations: mockProductVariantsByMerchantsLocations,
-          },
-        ],
         colorGrouping: undefined,
         customAttributes: undefined,
         groupedEntries: undefined,
         images: undefined,
         merchant: undefined,
-        price: undefined,
+        price: mockPriceAdaptedEmpty,
         prices: undefined,
         sizes: undefined,
         tag: {
           id: undefined,
           name: undefined,
         },
+        variants: [
+          {
+            id: mockVariantId,
+            merchantId: 10948,
+            merchantsLocations: mockProductVariantsByMerchantsLocations,
+            price: mockPriceAdaptedEmpty,
+            size: '25',
+          },
+        ],
       },
     },
   },

@@ -11,7 +11,33 @@ Object {
         "id": 123,
         "images": undefined,
         "merchant": undefined,
-        "price": undefined,
+        "price": Object {
+          "discount": Object {
+            "excludingTaxes": undefined,
+            "includingTaxes": undefined,
+            "rate": undefined,
+          },
+          "excludingTaxes": undefined,
+          "formatted": Object {
+            "includingTaxes": undefined,
+            "includingTaxesWithoutDiscount": undefined,
+          },
+          "includingTaxes": undefined,
+          "includingTaxesWithoutDiscount": undefined,
+          "isFormatted": true,
+          "priceType": undefined,
+          "promocode": Object {
+            "rate": undefined,
+          },
+          "promotionType": undefined,
+          "tags": undefined,
+          "taxes": Object {
+            "amount": undefined,
+            "rate": undefined,
+            "type": undefined,
+          },
+          "type": undefined,
+        },
         "prices": undefined,
         "sizes": undefined,
         "tag": Object {
@@ -27,7 +53,33 @@ Object {
         "id": 321,
         "images": undefined,
         "merchant": undefined,
-        "price": undefined,
+        "price": Object {
+          "discount": Object {
+            "excludingTaxes": undefined,
+            "includingTaxes": undefined,
+            "rate": undefined,
+          },
+          "excludingTaxes": undefined,
+          "formatted": Object {
+            "includingTaxes": undefined,
+            "includingTaxesWithoutDiscount": undefined,
+          },
+          "includingTaxes": undefined,
+          "includingTaxesWithoutDiscount": undefined,
+          "isFormatted": true,
+          "priceType": undefined,
+          "promocode": Object {
+            "rate": undefined,
+          },
+          "promotionType": undefined,
+          "tags": undefined,
+          "taxes": Object {
+            "amount": undefined,
+            "rate": undefined,
+            "type": undefined,
+          },
+          "type": undefined,
+        },
         "prices": undefined,
         "sizes": undefined,
         "tag": Object {
@@ -107,7 +159,33 @@ Object {
         "id": 123,
         "images": undefined,
         "merchant": undefined,
-        "price": undefined,
+        "price": Object {
+          "discount": Object {
+            "excludingTaxes": undefined,
+            "includingTaxes": undefined,
+            "rate": undefined,
+          },
+          "excludingTaxes": undefined,
+          "formatted": Object {
+            "includingTaxes": undefined,
+            "includingTaxesWithoutDiscount": undefined,
+          },
+          "includingTaxes": undefined,
+          "includingTaxesWithoutDiscount": undefined,
+          "isFormatted": true,
+          "priceType": undefined,
+          "promocode": Object {
+            "rate": undefined,
+          },
+          "promotionType": undefined,
+          "tags": undefined,
+          "taxes": Object {
+            "amount": undefined,
+            "rate": undefined,
+            "type": undefined,
+          },
+          "type": undefined,
+        },
         "prices": undefined,
         "sizes": undefined,
         "tag": Object {
@@ -123,7 +201,33 @@ Object {
         "id": 321,
         "images": undefined,
         "merchant": undefined,
-        "price": undefined,
+        "price": Object {
+          "discount": Object {
+            "excludingTaxes": undefined,
+            "includingTaxes": undefined,
+            "rate": undefined,
+          },
+          "excludingTaxes": undefined,
+          "formatted": Object {
+            "includingTaxes": undefined,
+            "includingTaxesWithoutDiscount": undefined,
+          },
+          "includingTaxes": undefined,
+          "includingTaxesWithoutDiscount": undefined,
+          "isFormatted": true,
+          "priceType": undefined,
+          "promocode": Object {
+            "rate": undefined,
+          },
+          "promotionType": undefined,
+          "tags": undefined,
+          "taxes": Object {
+            "amount": undefined,
+            "rate": undefined,
+            "type": undefined,
+          },
+          "type": undefined,
+        },
         "prices": undefined,
         "sizes": undefined,
         "tag": Object {

@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "credit-card-type": "^9.1.0",
-    "deep-compact": "^1.1.0",
     "invariant": "^2.2.4",
     "normalizr": "^3.6.1",
     "proper-url-join": "^2.1.1",

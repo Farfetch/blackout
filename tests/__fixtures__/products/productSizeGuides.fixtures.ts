@@ -1,3 +1,4 @@
+import { mockPriceAdaptedEmpty } from './price.fixtures';
 import { mockProductId } from './ids.fixtures';
 
 export const mockProductSizeGuides = [
@@ -47,15 +48,15 @@ export const mockProductSizeGuidesNormalizedResponse = {
   entities: {
     products: {
       [mockProductId]: {
-        id: mockProductId,
-        sizeGuides: mockProductSizeGuides,
         colorGrouping: undefined,
         customAttributes: undefined,
         groupedEntries: undefined,
+        id: mockProductId,
         images: undefined,
         merchant: undefined,
-        price: undefined,
+        price: mockPriceAdaptedEmpty,
         prices: undefined,
+        sizeGuides: mockProductSizeGuides,
         sizes: undefined,
         tag: {
           id: undefined,

@@ -36,7 +36,9 @@ describe('fetchListing() action creator', () => {
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
   const state = {
     products: {
-      lists: { hash: mockProductsListHash },
+      lists: {
+        hash: mockProductsListHash,
+      },
     },
     entities: {},
   };
