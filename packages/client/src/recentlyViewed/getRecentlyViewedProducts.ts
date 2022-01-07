@@ -1,17 +1,6 @@
 import client, { adaptError } from '../helpers/client';
 import join from 'proper-url-join';
-
-/**
- * @typedef {object} GetRecentlyViewedProductsQuery
- *
- * @alias GetRecentlyViewedProductsQuery
- * @memberof module:recentlyViewed
- *
- * @property {number} [page] - Page to be retrieved with the recently
- * viewed products.
- * @property {number} [pageSize] - Quantity of items to be retrievedwithin
- * each page.
- */
+import type { GetRecentlyViewedProducts } from './types';
 
 /**
  * Method responsible for retrieving data from recently viewed products
@@ -26,11 +15,9 @@ import join from 'proper-url-join';
  *
  * @returns {Promise} Promise that will be resolved when the call to the endpoint finishes.
  */
-export default (
-  query = {
-    page: 1,
-    pageSize: 10,
-  },
+
+const getRecentlyViewedProducts: GetRecentlyViewedProducts = (
+  query = { page: 1, pageSize: 10 },
   config,
 ) =>
   client
@@ -44,3 +31,5 @@ export default (
     .catch(error => {
       throw adaptError(error);
     });
+
+export default getRecentlyViewedProducts;

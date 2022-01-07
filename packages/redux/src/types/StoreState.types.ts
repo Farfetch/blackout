@@ -33,6 +33,7 @@ import type { State as MerchantsLocationsState } from '../merchantsLocations/typ
 import type { State as PaymentsState } from '../payments/types';
 import type { State as ProductsState } from '../products/types';
 import type { State as PromotionEvaluationsState } from '../promotionEvaluations/types';
+import type { State as RecentlyViewedState } from '../recentlyViewed/types';
 import type { State as SearchState } from '../search/types';
 import type { State as SizeGuidesState } from '../sizeGuides/types';
 import type { SizeScale } from '@farfetch/blackout-client/sizeScales/types';
@@ -88,6 +89,7 @@ export type StoreState = {
   promotionEvaluations: PromotionEvaluationsState;
   search: SearchState;
   sizeGuides: SizeGuidesState;
+  recentlyViewed: RecentlyViewedState;
   sizeScales: SizeScalesState;
   staffMembers: StaffMembersState;
   wishlist: WishlistsState;
