@@ -1,5 +1,9 @@
 import { cleanup } from '@testing-library/react';
-import { mockLoadingState, mockState } from 'tests/__fixtures__/bags';
+import {
+  mockInitialState,
+  mockLoadingState,
+  mockState,
+} from 'tests/__fixtures__/bags';
 import { mockStore } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
 import { renderHook } from '@testing-library/react-hooks';
@@ -39,10 +43,10 @@ describe('useBag', () => {
 
     expect(current).toStrictEqual({
       bag: expect.any(Object),
-      bagId: expect.any(String),
       error: expect.any(Object),
       fetchBag: expect.any(Function),
-      hasItems: expect.any(Boolean),
+      id: expect.any(String),
+      isEmpty: expect.any(Boolean),
       isLoading: expect.any(Boolean),
       isWithAnyError: expect.any(Boolean),
       items: expect.any(Array),
@@ -62,10 +66,10 @@ describe('useBag', () => {
     expect(isLoading).toBe(true);
   });
 
-  it('should return hasItems as true if it has items', () => {
-    const { hasItems } = getRenderedHook();
+  it('should return isEmpty as true if it does not have items', () => {
+    const { isEmpty } = getRenderedHook({ ...mockState, ...mockInitialState });
 
-    expect(hasItems).toBe(true);
+    expect(isEmpty).toBe(true);
   });
 
   describe('actions', () => {
