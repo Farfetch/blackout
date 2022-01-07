@@ -1,4 +1,4 @@
-const basePrice = {
+export const basePrice = {
   discountExclTaxes: 104.17,
   discountInclTaxes: 125,
   discountRate: 50,
@@ -7,14 +7,16 @@ const basePrice = {
   formattedPriceWithoutDiscount: '250,00 €',
   formattedPriceWithoutDiscountAndCurrency: '250,00',
   priceExclTaxes: 104.17,
+  priceInclTaxes: 125,
+  priceInclTaxesWithoutDiscount: 250,
+  priceType: 0,
   promocodeDiscountPercentage: 50,
+  promotionType: 'FullPrice',
   tags: ['VAT'],
   taxesRate: 20,
   taxesValue: 20.83,
   taxType: 'VAT',
   type: 0,
-  promotionType: 'FullPrice',
-  priceType: 0,
 };
 
 const generateSizeAttributes = (
@@ -55,26 +57,10 @@ export const priceWithPromotionPercentage = {
 };
 
 export const pricesForPriceRange = [
+  basePrice,
   {
     ...basePrice,
-  },
-  {
-    discountExclTaxes: 150.17,
-    discountInclTaxes: 180,
-    discountRate: 50,
-    formattedPrice: '180,00 €',
-    formattedPriceWithoutCurrency: '180,00',
-    formattedPriceWithoutDiscount: '250,00 €',
-    formattedPriceWithoutDiscountAndCurrency: '250,00',
-    priceExclTaxes: 150.17,
-    promocodeDiscountPercentage: 50,
-    tags: ['VAT'],
-    taxesRate: 20,
-    taxesValue: 20.83,
-    taxType: 'VAT',
     type: 1,
-    promotionType: 'FullPrice',
-    priceType: 0,
   },
 ];
 
@@ -181,7 +167,7 @@ export const twoSizesProductVariants = [
     scale: '115',
     merchantId: 10002,
     purchaseChannel: 1,
-    attributes: [generateSizeAttributes(21, 'M')],
+    attributes: [generateSizeAttributes('21', 'M')],
   },
 ];
 
