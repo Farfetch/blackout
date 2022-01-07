@@ -64,7 +64,7 @@ export const mockWishlistNormalizedPayload = {
 
 export const mockWishlistState = {
   wishlist: {
-    error: 'error: not loaded',
+    error: undefined,
     id: mockWishlistId,
     isLoading: false,
     items: {
