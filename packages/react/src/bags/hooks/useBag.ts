@@ -34,14 +34,14 @@ import type { UseBag } from './types';
 const useBag: UseBag = () => {
   // Selectors
   const bag = useSelector(getBag);
-  const bagId = useSelector(getBagId);
   const error = useSelector(getBagError);
   const isBagLoading = useSelector(isBagLoadingSelector);
+  const id = useSelector(getBagId);
   const isWithAnyError = useSelector(isBagWithAnyError);
   const items = useSelector(getBagItems);
   const itemsIds = useSelector(getBagItemsIds);
   const itemsUnavailable = useSelector(getBagItemsUnavailable);
-  const hasItems = items?.length > 0;
+  const isEmpty = items?.length === 0;
   const isLoading = (!bag && !error) || isBagLoading;
   // Actions
   const fetchBag = useAction(fetchBagAction);
@@ -55,12 +55,7 @@ const useBag: UseBag = () => {
      * @type {object}
      */
     bag,
-    /**
-     * Bag identifier.
-     *
-     * @type {string}
-     */
-    bagId,
+
     /**
      * Bag error.
      *
@@ -74,15 +69,21 @@ const useBag: UseBag = () => {
      */
     fetchBag,
     /**
-     * Whether the bag has any items.
+     * Whether the bag is empty (doesn't have items).
      *
      * @type {boolean}
      */
-    hasItems,
+    id,
     /**
      * Whether the bag is loading.
      *
      * @type {boolean}
+     */
+    isEmpty,
+    /**
+     * Bag identifier.
+     *
+     * @type {string}
      */
     isLoading,
     /**
