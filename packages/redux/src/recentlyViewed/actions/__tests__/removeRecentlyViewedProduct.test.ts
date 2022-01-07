@@ -1,7 +1,8 @@
+import { actionTypes } from '../..';
 import { deleteRecentlyViewedProduct } from '@farfetch/blackout-client/recentlyViewed';
 import { mockStore } from '../../../../tests';
 import { removeRecentlyViewedProduct } from '..';
-import reducer, { actionTypes } from '../..';
+import reducer, { INITIAL_STATE } from '../../reducer';
 
 jest.mock('@farfetch/blackout-client/recentlyViewed', () => {
   return {
@@ -10,10 +11,12 @@ jest.mock('@farfetch/blackout-client/recentlyViewed', () => {
   };
 });
 
+const mockAction = { type: 'this_is_a_mock_action' };
+
 const mockRecentlyViewedStore = (state = {}) =>
   mockStore(
     {
-      recentlyViewed: reducer(),
+      recentlyViewed: reducer(INITIAL_STATE, mockAction),
     },
     state,
   );

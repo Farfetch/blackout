@@ -1,9 +1,11 @@
-import { expectedRemotePayload } from 'tests/__fixtures__/recentlyViewed/getRecentlyViewed';
+import { actionTypes } from '../../';
+import { expectedRemotePayload } from 'tests/__fixtures__/recentlyViewed';
 import { fetchRecentlyViewedProducts } from '../';
 import { getRecentlyViewedProducts } from '@farfetch/blackout-client/recentlyViewed';
-import { mockStore } from '../../../../tests';
+import { mockStore } from 'redux/tests';
+import { StoreState } from '../../../types';
 import find from 'lodash/find';
-import reducer, { actionTypes } from '../../';
+import reducer, { INITIAL_STATE } from '../../reducer';
 
 jest.mock('@farfetch/blackout-client/recentlyViewed', () => {
   return {
@@ -12,10 +14,12 @@ jest.mock('@farfetch/blackout-client/recentlyViewed', () => {
   };
 });
 
-const mockRecentlyViewedStore = (state = {}) =>
+const mockAction = { type: 'this_is_a_mock_action' };
+
+const mockRecentlyViewedStore = (state: StoreState = {}) =>
   mockStore(
     {
-      recentlyViewed: reducer(),
+      recentlyViewed: reducer(INITIAL_STATE, mockAction),
     },
     state,
   );
@@ -99,8 +103,12 @@ describe('fetchRecentlyViewedProducts() action creator', () => {
     store = mockRecentlyViewedStore({
       recentlyViewed: {
         result: {
-          remote: [{ productId: 123123 }],
+          remote: { entries: [{ productId: 123123 }] },
+          computed: undefined,
+          pagination: undefined,
         },
+        error: undefined,
+        isLoading: false,
       },
     });
 

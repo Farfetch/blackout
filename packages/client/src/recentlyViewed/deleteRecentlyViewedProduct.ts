@@ -1,5 +1,6 @@
 import client, { adaptError } from '../helpers/client';
 import join from 'proper-url-join';
+import type { DeleteRecentlyViewedProducts } from './types';
 
 /**
  * Method responsible for deleting the data of a recently viewed product endpoint on the Marketing API.
@@ -12,10 +13,16 @@ import join from 'proper-url-join';
  *
  * @returns {Promise} Promise that will be resolved when the call to the endpoint finishes.
  */
-export default (id, config) =>
+
+const deleteRecentlyViewedProduct: DeleteRecentlyViewedProducts = (
+  id,
+  config,
+) =>
   client
     .delete(join('/marketing/v1/recentlyViewed/products', id), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default deleteRecentlyViewedProduct;

@@ -1,14 +1,15 @@
-import * as fromRecentlyViewed from '../reducer';
+import * as fromReducer from '../reducer';
 import * as selectors from '../selectors';
 import {
   expectedLocalPayload,
   expectedRemotePayload,
-} from 'tests/__fixtures__/recentlyViewed/getRecentlyViewed';
+} from 'tests/__fixtures__/recentlyViewed';
+import { StoreState } from '../../types';
 import omit from 'lodash/omit';
 import uniqBy from 'lodash/uniqBy';
 
 describe('RecentlyViewed redux selectors', () => {
-  const mockState = {
+  const mockState: StoreState = {
     recentlyViewed: {
       isLoading: false,
       error: null,
@@ -27,7 +28,7 @@ describe('RecentlyViewed redux selectors', () => {
 
   describe('areRecentlyViewedProductsLoading()', () => {
     it('should get the loading status', () => {
-      const spy = jest.spyOn(fromRecentlyViewed, 'getIsLoading');
+      const spy = jest.spyOn(fromReducer, 'getIsLoading');
 
       expect(selectors.areRecentlyViewedProductsLoading(mockState)).toBe(false);
       expect(spy).toHaveBeenCalledTimes(1);
@@ -36,7 +37,7 @@ describe('RecentlyViewed redux selectors', () => {
 
   describe('getRecentlyViewedProductsError()', () => {
     it('should get the error status', () => {
-      const spy = jest.spyOn(fromRecentlyViewed, 'getError');
+      const spy = jest.spyOn(fromReducer, 'getError');
 
       expect(selectors.getRecentlyViewedProductsError(mockState)).toBe(null);
       expect(spy).toHaveBeenCalledTimes(1);
@@ -45,7 +46,7 @@ describe('RecentlyViewed redux selectors', () => {
 
   describe('getRecentlyViewedProducts()', () => {
     it('should get the result', () => {
-      const spy = jest.spyOn(fromRecentlyViewed, 'getResult');
+      const spy = jest.spyOn(fromReducer, 'getResult');
 
       expect(selectors.getRecentlyViewedProducts(mockState)).toEqual([
         ...expectedLocalPayload,
@@ -64,7 +65,10 @@ describe('RecentlyViewed redux selectors', () => {
             result: {
               remote: null,
               computed: null,
+              pagination: null,
             },
+            isLoading: false,
+            error: undefined,
           },
         }),
       ).toEqual(null);
@@ -73,12 +77,16 @@ describe('RecentlyViewed redux selectors', () => {
 
   describe('areRecentlyViewedProductsFetched()', () => {
     it('should return false if the remote entry is null', () => {
-      const spy = jest.spyOn(fromRecentlyViewed, 'getResult');
-      const initialState = {
+      const spy = jest.spyOn(fromReducer, 'getResult');
+      const initialState: StoreState = {
         recentlyViewed: {
           result: {
             remote: null,
+            pagination: undefined,
+            computed: undefined,
           },
+          isLoading: false,
+          error: undefined,
         },
       };
 
@@ -89,7 +97,7 @@ describe('RecentlyViewed redux selectors', () => {
     });
 
     it('should return true if the remote entry is filled', () => {
-      const spy = jest.spyOn(fromRecentlyViewed, 'getResult');
+      const spy = jest.spyOn(fromReducer, 'getResult');
 
       expect(selectors.areRecentlyViewedProductsFetched(mockState)).toEqual(
         true,
@@ -100,7 +108,7 @@ describe('RecentlyViewed redux selectors', () => {
 
   describe('getRecentlyViewedProductsPagination()', () => {
     it('should get the pagination result', () => {
-      const spy = jest.spyOn(fromRecentlyViewed, 'getResult');
+      const spy = jest.spyOn(fromReducer, 'getResult');
 
       expect(selectors.getRecentlyViewedProductsPagination(mockState)).toBe(
         mockState.recentlyViewed.result.pagination,

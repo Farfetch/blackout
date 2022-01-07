@@ -1,19 +1,21 @@
-import { expectedLocalPayload } from 'tests/__fixtures__/recentlyViewed/getRecentlyViewed';
-import { mockStore } from '../../../../tests';
+import { actionTypes } from '../../';
+import { expectedLocalPayload } from 'tests/__fixtures__/recentlyViewed';
+import { mockStore } from 'redux/tests';
 import { saveRecentlyViewedProduct } from '../';
-import reducer, { actionTypes } from '../../';
+import reducer, { INITIAL_STATE } from '../../reducer';
+
+const mockAction = { type: 'this_is_a_mock_action' };
 
 const mockRecentlyViewedStore = (state = {}) =>
   mockStore(
     {
-      recentlyViewed: reducer(),
+      recentlyViewed: reducer(INITIAL_STATE, mockAction),
     },
     state,
   );
 
 describe('saveRecentlyViewedProduct() action creator', () => {
   let store;
-  const expectedConfig = undefined;
   const action = saveRecentlyViewedProduct();
 
   beforeEach(() => {
@@ -22,7 +24,7 @@ describe('saveRecentlyViewedProduct() action creator', () => {
   });
 
   it('should create the correct action', () => {
-    store.dispatch(action(expectedLocalPayload[0].productId, expectedConfig));
+    store.dispatch(action(expectedLocalPayload[0].productId));
 
     const actionResults = store.getActions();
 
