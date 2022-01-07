@@ -4,11 +4,13 @@
  * @subcategory Reducer
  */
 import * as actionTypes from './actionTypes';
-import { combineReducers } from 'redux';
+import { AnyAction, combineReducers } from 'redux';
 import omit from 'lodash/omit';
 import uniqBy from 'lodash/uniqBy';
+import type { ReducerSwitch } from '../types';
+import type { State } from './types';
 
-export const INITIAL_STATE = {
+export const INITIAL_STATE: State = {
   error: null,
   isLoading: false,
   result: {
@@ -18,10 +20,7 @@ export const INITIAL_STATE = {
   },
 };
 
-const error = (
-  state = INITIAL_STATE.error,
-  /* istanbul ignore next */ action = {},
-) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE:
     case actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE:
@@ -31,10 +30,7 @@ const error = (
   }
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  /* istanbul ignore next */ action = {},
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST:
     case actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_REQUEST:
@@ -49,10 +45,7 @@ const isLoading = (
   }
 };
 
-const result = (
-  state = INITIAL_STATE.result,
-  /* istanbul ignore next */ action = {},
-) => {
+const result = (state = INITIAL_STATE.result, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS: {
       const computed = state.computed || [];
@@ -74,10 +67,9 @@ const result = (
       };
     }
     case actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS: {
-      const computed =
-        state.computed.filter(
-          ({ productId }) => productId !== action.meta.productId,
-        ) || [];
+      const computed = (state.computed || []).filter(
+        ({ productId }) => productId !== action.meta.productId,
+      );
 
       // Removes the productId from the local reference, as the action doesn't provide a payload
       return {
@@ -90,9 +82,15 @@ const result = (
   }
 };
 
-export const getError = state => state.error;
-export const getIsLoading = state => state.isLoading;
-export const getResult = state => state.result;
+export const getError = (state: State): State['error'] => state.error;
+export const getIsLoading = (state: State): State['isLoading'] =>
+  state.isLoading;
+export const getResult = (state: State): State['result'] => state.result;
+const reducers = combineReducers({
+  error,
+  isLoading,
+  result,
+});
 
 /**
  * Reducer for recently viewed state.
@@ -105,8 +103,11 @@ export const getResult = state => state.result;
  *
  * @returns {object} New state.
  */
-export default combineReducers({
-  error,
-  isLoading,
-  result,
-});
+const formsReducer: ReducerSwitch<State, AnyAction> = (
+  state,
+  action = { type: undefined },
+): State => {
+  return reducers(state, action);
+};
+
+export default formsReducer;
