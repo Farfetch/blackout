@@ -5,6 +5,7 @@ import {
   mockSetId,
   mockSizeScaleId,
 } from './ids.fixtures';
+import { mockPriceAdapted } from './price.fixtures';
 import { mockProductAttributes } from './productAttributes.fixtures';
 import { mockProductColorGrouping } from './productColorGrouping.fixtures';
 import { mockProductFittings } from './productFittings.fixtures';
@@ -12,28 +13,6 @@ import { mockProductSizeGuides } from './productSizeGuides.fixtures';
 import { mockProductSizesAdapted } from './productSizes.fixtures';
 import { mockProductVariants } from './productVariantsByMerchantsLocations.fixtures';
 import { mockProductVariantsMeasurements } from './productVariantsMeasurements.fixtures';
-
-export const mockPriceAdapted = {
-  includingTaxes: 129.7446,
-  includingTaxesWithoutDiscount: 129.7446,
-};
-
-export const mockPriceResponse = {
-  priceExclTaxes: 500,
-  priceInclTaxes: 610,
-  priceInclTaxesWithoutDiscount: 610,
-  discountExclTaxes: 0,
-  discountInclTaxes: 0,
-  discountRate: 0,
-  taxesRate: 22,
-  taxesValue: 110,
-  tags: ['VAT'],
-  formattedPrice: '610,00 €',
-  formattedPriceWithoutDiscount: '610,00 €',
-  formattedPriceWithoutCurrency: '610,00',
-  formattedPriceWithoutDiscountAndCurrency: '610,00',
-  taxType: 'VAT',
-};
 
 export const mockTag = { name: 'NewSeason', id: 1 };
 

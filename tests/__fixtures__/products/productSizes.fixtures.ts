@@ -1,4 +1,5 @@
 import { mockMerchantId, mockProductId, mockSizeScaleId } from './ids.fixtures';
+import { mockPriceAdaptedEmpty } from './price.fixtures';
 
 export const mockProductSizes = [
   {
@@ -135,6 +136,7 @@ export const mockProductSizesNormalizedResponse = {
             name: '36',
             scale: 206,
             scaleAbbreviation: 'IT',
+            scaleDescription: undefined,
             stock: [
               {
                 barcodes: ['2013323497172'],
@@ -156,7 +158,7 @@ export const mockProductSizesNormalizedResponse = {
         groupedEntries: undefined,
         images: undefined,
         merchant: undefined,
-        price: undefined,
+        price: mockPriceAdaptedEmpty,
         prices: undefined,
         tag: {
           id: undefined,

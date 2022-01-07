@@ -45,7 +45,8 @@ export type GroupedEntriesAdapted =
         }
       >;
     })
-  | undefined;
+  | undefined
+  | null;
 
 export type AdaptGroupedEntries = (
   groupedEntries: ProductGroup,
@@ -57,7 +58,9 @@ export type AdaptPrices = (prices: ProductSummaryPrice[]) => PricesAdapted;
 
 export type VariantAdapted = Omit<ProductVariant, 'price'> & {
   price: PriceAdapted;
-  merchantsLocations: ProductVariantByMerchantLocation[];
+  // This is only populated after requesting for a product variant merchant locations
+  // (`fetchProductVariantsByMerchantsLocations`)
+  merchantsLocations?: ProductVariantByMerchantLocation[];
 };
 
 export type VariantsAdapted = VariantAdapted[] | undefined;
@@ -69,68 +72,76 @@ export type AdaptVariants = (
 ) => VariantsAdapted;
 
 export type ProductEntity = {
+  //
   // Entities
-  categories: Category['id'][];
+  //
   brand: Brand['id'];
+  categories: Category['id'][];
   merchant: MerchantEntity['id'];
-  // Properties
-  id: OriginalProduct['result']['id'];
+  //
+  // Raw properties
+  //
+  associations: OriginalProduct['result']['associations'];
+  associationsInformation: OriginalProduct['result']['associationsInformation'];
   attributes: ProductAttribute[];
-  recommendedSet: number;
-  isInWishlist: boolean;
-  quantity: number;
-  genderName: string;
-  fittings: ProductFitting[];
-  sizeGuides: ProductSizeGuide[];
-  isDuplicated: boolean;
+  brandStyleId: OriginalProduct['result']['brandStyleId'];
   breadCrumbs: OriginalProduct['breadCrumbs'];
+  care: OriginalProduct['result']['care'];
+  colors: OriginalProduct['result']['colors'];
   colorSet: OriginalProduct['colorSet'];
   colorSwatch: OriginalProduct['colorSwatch'];
-  sizeSet: OriginalProduct['sizeSet'];
   complementaryInformation: OriginalProduct['complementaryInformation'];
-  currencyIsoCode: OriginalProduct['currencyIsoCode'];
-  liveModel: OriginalProduct['liveModel'];
-  productSize: OriginalProduct['productSize'];
-  productRef: OriginalProduct['productRef'];
-  brandStyleId: OriginalProduct['result']['brandStyleId'];
   compositions: OriginalProduct['result']['compositions'];
-  colors: OriginalProduct['result']['colors'];
-  care: OriginalProduct['result']['care'];
+  currencyIsoCode: OriginalProduct['currencyIsoCode'];
   description: OriginalProduct['result']['description'];
+  digitalAssets: OriginalProduct['result']['digitalAssets'];
+  fittings: ProductFitting[];
+  fulfillmentDate: OriginalProduct['result']['fulfillmentDate'];
   gender: OriginalProduct['result']['gender'];
+  genderName: string;
+  hasParentProduct: OriginalProduct['result']['hasParentProduct'];
+  id: OriginalProduct['result']['id'];
+  isCustomizable: OriginalProduct['result']['isCustomizable'];
+  isDuplicated: boolean;
+  isExclusive: OriginalProduct['result']['isExclusive'];
+  isInWishlist: boolean;
+  isOnline: OriginalProduct['result']['isOnline'];
+  labels: OriginalProduct['result']['labels'];
+  liveModel: OriginalProduct['liveModel'];
+  madeIn: OriginalProduct['result']['madeIn'];
   measurements: OriginalProduct['result']['measurements'];
+  parentProductId: OriginalProduct['result']['parentProductId'];
+  preferedMerchant: OriginalProduct['result']['preferedMerchant'];
+  productRef: OriginalProduct['productRef'];
+  productSize: OriginalProduct['productSize'];
+  promotions: OriginalProduct['result']['promotions'];
+  quantity: number;
+  recommendedSet: number;
+  redirectInfo: OriginalProduct['redirectInfo'];
+  relatedSets: OriginalProduct['relatedSets'];
+  scaleId: OriginalProduct['result']['scaleId'];
   season: OriginalProduct['result']['season'];
+  selectedSize: OriginalProduct['selectedSize'];
   shortDescription: OriginalProduct['result']['shortDescription'];
+  // This is only populated after requesting for a product size guide (`fetchProductSizeGuides`)
+  sizeGuides?: ProductSizeGuide[];
+  sizeSet: OriginalProduct['sizeSet'];
+  sku: OriginalProduct['result']['sku'];
+  slug: OriginalProduct['slug'];
+  styleId: OriginalProduct['result']['styleId'];
   tag: {
     name: OriginalProduct['result']['tagDescription'];
     id: OriginalProduct['result']['tag'];
   };
-  videos: OriginalProduct['result']['videos'];
-  hasParentProduct: OriginalProduct['result']['hasParentProduct'];
-  parentProductId: OriginalProduct['result']['parentProductId'];
-  preferedMerchant: OriginalProduct['result']['preferedMerchant'];
-  madeIn: OriginalProduct['result']['madeIn'];
-  isOnline: OriginalProduct['result']['isOnline'];
-  isExclusive: OriginalProduct['result']['isExclusive'];
   translatedAttributes: OriginalProduct['result']['translatedAttributes'];
-  isCustomizable: OriginalProduct['result']['isCustomizable'];
-  styleId: OriginalProduct['result']['styleId'];
-  scaleId: OriginalProduct['result']['scaleId'];
-  labels: OriginalProduct['result']['labels'];
-  fulfillmentDate: OriginalProduct['result']['fulfillmentDate'];
-  variations: OriginalProduct['result']['variations'];
   type: OriginalProduct['result']['type'];
-  sku: OriginalProduct['result']['sku'];
-  associationsInformation: OriginalProduct['result']['associationsInformation'];
-  associations: OriginalProduct['result']['associations'];
-  digitalAssets: OriginalProduct['result']['digitalAssets'];
-  promotions: OriginalProduct['result']['promotions'];
-  selectedSize: OriginalProduct['selectedSize'];
-  relatedSets: OriginalProduct['relatedSets'];
-  slug: OriginalProduct['slug'];
-  redirectInfo: OriginalProduct['redirectInfo'];
-  // Adapters
-  colorGrouping: ColorGroupingAdapted;
+  variations: OriginalProduct['result']['variations'];
+  videos: OriginalProduct['result']['videos'];
+  //
+  // Adapted properties
+  //
+  // This is only populated after requesting for a product color grouping (`fetchProductColorGrouping`)
+  colorGrouping?: ColorGroupingAdapted;
   customAttributes: CustomAttributesAdapted;
   groupedEntries: GroupedEntriesAdapted;
   images: ProductImagesAdapted;
@@ -138,8 +149,10 @@ export type ProductEntity = {
   prices: PricesAdapted;
   sizes: SizesAdapted;
   variants: VariantsAdapted;
+  //
   // Specificities
+  //
   // On the bag/wishlist the name comes from `name` instead of `shortDescription`
   // (see `bagItems` entity schema)
-  name: BagItem['productName'] | WishlistItem['productName'];
+  name?: BagItem['productName'] | WishlistItem['productName'];
 };

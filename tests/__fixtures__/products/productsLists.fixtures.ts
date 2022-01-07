@@ -1,4 +1,5 @@
 import { mockBreadCrumbs } from './products.fixtures';
+import { mockPriceAdaptedEmpty } from './price.fixtures';
 import { mockSetId } from './ids.fixtures';
 
 export const mockProductsListSlug = '/woman/clothing';
@@ -18,7 +19,6 @@ export const mockProductsListHashWithPageIndexParameter =
 export const mockProductsListHashForSets =
   'sets/woman/clothing?categories=135971&colors=6&pageindex=1';
 export const mockProductsListHashForSetsWithId = `sets/${mockSetId}`;
-
 export const mockProductsListResponse = {
   result: {
     entries: [
@@ -30,7 +30,6 @@ export const mockProductsListResponse = {
     ],
   },
 };
-
 export const mockGroupedEntries = {
   totalItems: 20,
   remaining: 15,
@@ -76,7 +75,6 @@ export const mockFacetsGroups = [
     type: 6,
   },
 ];
-
 export const mockSortOptions = [
   {
     key: 'price-asc',
@@ -96,7 +94,6 @@ export const mockSortOptions = [
     value: 0,
   },
 ];
-
 export const mockFacets = [
   {
     description: 'Aquazzura',
@@ -148,8 +145,7 @@ export const mockFacets = [
     value: 1,
     valueUpperBound: 0,
   },
-];
-
+] as const;
 export const mockProductsList = {
   breadCrumbs: mockBreadCrumbs,
   name: null,
@@ -237,7 +233,6 @@ export const mockProductsList = {
     pageSize: 20,
   },
 };
-
 const getMockProductsListNormalized = (includeImageQueryParam = true) => ({
   entities: {
     products: {
@@ -259,11 +254,11 @@ const getMockProductsListNormalized = (includeImageQueryParam = true) => ({
           },
         ],
         merchant: undefined,
-        price: { includingTaxes: 129.7446, isFormatted: true },
+        price: { ...mockPriceAdaptedEmpty, includingTaxes: 129.7446 },
         tag: { id: undefined, name: undefined },
         shortDescription: 'Chuck 70 U-Throat Ballet sneakers',
         slug: 'chuck-70-u-throat-ballet-sneakers-12913172',
-        prices: undefined,
+        prices: [],
         quantity: 7,
         sizes: undefined,
         variants: undefined,
@@ -286,11 +281,11 @@ const getMockProductsListNormalized = (includeImageQueryParam = true) => ({
           },
         ],
         merchant: undefined,
-        price: { includingTaxes: 129.7446, isFormatted: true },
+        price: { ...mockPriceAdaptedEmpty, includingTaxes: 129.7446 },
         tag: { id: undefined, name: undefined },
         shortDescription: 'Chuck 70 U-Throat Ballet sneakers',
         slug: 'chuck-70-u-throat-ballet-sneakers-12913174',
-        prices: undefined,
+        prices: [],
         quantity: 7,
         sizes: undefined,
         variants: undefined,
@@ -359,13 +354,16 @@ const getMockProductsListNormalized = (includeImageQueryParam = true) => ({
 export const mockProductsListNormalized = getMockProductsListNormalized();
 export const mockProductsListNormalizedWithoutImageOptions =
   getMockProductsListNormalized(false);
-
 const getMockProductsListForSetsWithIdNormalized = (
   includeImageQueryParam = true,
 ) => ({
   entities: {
     products: {
       12913172: {
+        colorGrouping: undefined,
+        customAttributes: undefined,
+        groupedEntries: undefined,
+        id: 12913172,
         images: [
           {
             order: 1,
@@ -378,12 +376,15 @@ const getMockProductsListForSetsWithIdNormalized = (
             },
           },
         ],
-        price: { includingTaxes: 129.7446, isFormatted: true },
-        tag: {},
-        id: 12913172,
+        merchant: undefined,
+        price: { ...mockPriceAdaptedEmpty, includingTaxes: 129.7446 },
+        tag: { id: undefined, name: undefined },
         shortDescription: 'Chuck 70 U-Throat Ballet sneakers',
         slug: 'chuck-70-u-throat-ballet-sneakers-12913172',
+        prices: [],
         quantity: 7,
+        sizes: undefined,
+        variants: undefined,
       },
     },
     facets: {
@@ -426,7 +427,6 @@ export const mockProductsListForSetsWithIdNormalized =
   getMockProductsListForSetsWithIdNormalized();
 export const mockProductsListForSetsWithIdNormalizedWithoutImageOptions =
   getMockProductsListForSetsWithIdNormalized(false);
-
 export const mockProductsListNormalizedPayload = {
   productsList: { hash: mockProductsListHash },
   result: mockProductsListHash,
@@ -682,7 +682,6 @@ export const mockProductsListNormalizedPayload = {
     },
   },
 };
-
 export const mockProductsListModel = {
   slug: mockProductsListSlug,
   subfolder: 'us',

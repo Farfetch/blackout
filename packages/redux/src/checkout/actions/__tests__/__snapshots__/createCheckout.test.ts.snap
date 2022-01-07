@@ -25,10 +25,31 @@ Object {
           "id": 30380051,
           "merchant": 12455,
           "price": Object {
+            "discount": Object {
+              "excludingTaxes": undefined,
+              "includingTaxes": undefined,
+              "rate": undefined,
+            },
             "excludingTaxes": 1.26,
+            "formatted": Object {
+              "includingTaxes": undefined,
+              "includingTaxesWithoutDiscount": undefined,
+            },
             "includingTaxes": 1.51,
             "includingTaxesWithoutDiscount": 1.53,
             "isFormatted": true,
+            "priceType": undefined,
+            "promocode": Object {
+              "rate": undefined,
+            },
+            "promotionType": undefined,
+            "tags": undefined,
+            "taxes": Object {
+              "amount": undefined,
+              "rate": undefined,
+              "type": undefined,
+            },
+            "type": undefined,
           },
           "prices": Array [],
           "product": 12640693,
@@ -227,10 +248,31 @@ Object {
           "merchant": 12455,
           "name": "Navy Treated Bonded Cotton Dry Bag",
           "price": Object {
+            "discount": Object {
+              "excludingTaxes": undefined,
+              "includingTaxes": undefined,
+              "rate": undefined,
+            },
             "excludingTaxes": 1.26,
+            "formatted": Object {
+              "includingTaxes": undefined,
+              "includingTaxesWithoutDiscount": undefined,
+            },
             "includingTaxes": 1.51,
             "includingTaxesWithoutDiscount": 1.53,
             "isFormatted": true,
+            "priceType": undefined,
+            "promocode": Object {
+              "rate": undefined,
+            },
+            "promotionType": undefined,
+            "tags": undefined,
+            "taxes": Object {
+              "amount": undefined,
+              "rate": undefined,
+              "type": undefined,
+            },
+            "type": undefined,
           },
           "prices": undefined,
           "sizes": undefined,

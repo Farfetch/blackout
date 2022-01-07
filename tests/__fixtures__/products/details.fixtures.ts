@@ -1,4 +1,5 @@
-import { mockBreadCrumbs, mockPriceResponse } from './products.fixtures';
+import { mockBreadCrumbs } from './products.fixtures';
+import { mockPriceAdapted, mockPriceResponse } from './price.fixtures';
 import { mockProductAttributes } from './productAttributes.fixtures';
 import { mockProductId, mockSetId, mockSizeScaleId } from './ids.fixtures';
 import { mockProductSizes } from './productSizes.fixtures';
@@ -15,7 +16,6 @@ export const mockComplementaryInformation = [
 ];
 const mockDataLayer = { general: { type: 'Product' } };
 const mockProductSlug = 'rockstud-sling-back-flats-12854475';
-
 const mockProductResult = {
   brand: {
     id: 1053,
@@ -40,7 +40,6 @@ const mockProductResult = {
   shortDescription: 'Rockstud sling-back flats',
   customAttributes: null,
 };
-
 export const mockDetailsModel = {
   dataLayer: mockDataLayer,
   slug: mockProductSlug,
@@ -77,9 +76,7 @@ export const mockDetailsModel = {
     id: 0,
   },
 };
-
 export const { dataLayer, ...mockResponse } = mockDetailsModel;
-
 const getMockProductResponseNormalized = (includeImageQueryParam = true) => ({
   entities: {
     categories: { 136301: { id: 136301, name: 'Shoes' } },
@@ -99,19 +96,7 @@ const getMockProductResponseNormalized = (includeImageQueryParam = true) => ({
             },
           },
         ],
-        price: {
-          includingTaxes: 610,
-          includingTaxesWithoutDiscount: 610,
-          excludingTaxes: 500,
-          taxes: { rate: 22, amount: 110, type: 'VAT' },
-          discount: { rate: 0, includingTaxes: 0, excludingTaxes: 0 },
-          tags: ['VAT'],
-          formatted: {
-            includingTaxes: '610,00 €',
-            includingTaxesWithoutDiscount: '610,00 €',
-          },
-          isFormatted: true,
-        },
+        price: mockPriceAdapted,
         sizes: [
           {
             globalQuantity: 2,
@@ -170,7 +155,6 @@ const getMockProductResponseNormalized = (includeImageQueryParam = true) => ({
   },
   result: mockProductId,
 });
-
 export const mockProductResponseNormalized = getMockProductResponseNormalized();
 export const mockProductResponseNormalizedWithoutImageOptions =
   getMockProductResponseNormalized(false);
