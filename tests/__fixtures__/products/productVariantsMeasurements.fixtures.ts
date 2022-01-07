@@ -1,3 +1,4 @@
+import { mockPriceAdaptedEmpty } from './price.fixtures';
 import { mockProductId } from './ids.fixtures';
 
 export const mockProductVariantsMeasurements = [
@@ -29,7 +30,7 @@ export const mockProductVariantsMeasurementsNormalizedResponse = {
         groupedEntries: undefined,
         images: undefined,
         merchant: undefined,
-        price: undefined,
+        price: mockPriceAdaptedEmpty,
         prices: undefined,
         sizes: undefined,
         tag: {
