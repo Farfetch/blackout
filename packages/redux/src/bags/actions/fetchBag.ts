@@ -2,7 +2,7 @@ import { fetchBagFactory } from './factories';
 import { getBag } from '@farfetch/blackout-client/bags';
 
 /**
- * Fetches a bag item with the given id.
+ * Fetches the bag.
  *
  * @memberof module:bags/actions
  *
