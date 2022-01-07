@@ -2,21 +2,22 @@ import * as fromReducer from '../reducer';
 import {
   expectedLocalPayload,
   expectedRemotePayload,
-} from 'tests/__fixtures__/recentlyViewed/getRecentlyViewed';
+} from 'tests/__fixtures__/recentlyViewed';
 import reducer, { actionTypes } from '..';
 
 let initialState;
+const mockAction = { type: 'this_is_a_mock_action' };
 
 describe('Recently Viewed reducer', () => {
   beforeEach(() => {
-    initialState = reducer();
+    initialState = reducer(fromReducer.INITIAL_STATE, mockAction);
   });
 
   describe('error() reducer', () => {
     const expectedError = 'An error occurred';
 
     it('should return the initial state', () => {
-      const state = reducer();
+      const state = reducer(undefined, mockAction);
 
       expect(state.error).toEqual(initialState.error);
     });
@@ -45,16 +46,17 @@ describe('Recently Viewed reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
+        ...initialState,
         error: expectedError,
       };
 
-      expect(reducer(state).error).toEqual(state.error);
+      expect(reducer(state, mockAction).error).toEqual(state.error);
     });
   });
 
   describe('isLoading() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer();
+      const state = reducer(undefined, mockAction);
 
       expect(state.isLoading).toEqual(initialState.isLoading);
     });
@@ -123,16 +125,17 @@ describe('Recently Viewed reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
+        ...initialState,
         isLoading: true,
       };
 
-      expect(reducer(state).isLoading).toEqual(state.isLoading);
+      expect(reducer(state, mockAction).isLoading).toEqual(state.isLoading);
     });
   });
 
   describe('result() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer();
+      const state = reducer(undefined, mockAction);
 
       expect(state.result).toEqual(initialState.result);
     });
@@ -185,16 +188,17 @@ describe('Recently Viewed reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
+        ...initialState,
         result: { foo: 'bar' },
       };
 
-      expect(reducer(state).result).toEqual(state.result);
+      expect(reducer(state, mockAction).result).toEqual(state.result);
     });
   });
 
   describe('getRecentlyViewedProductsError()', () => {
     it('should return the `recentlyViewed.error` property from a given state', () => {
-      const state = { error: { message: 'This is an error' } };
+      const state = { ...initialState, error: { message: 'This is an error' } };
 
       expect(fromReducer.getError(state)).toEqual(state.error);
     });
@@ -202,7 +206,7 @@ describe('Recently Viewed reducer', () => {
 
   describe('getAreRecentlyViewedProductsLoading()', () => {
     it('should return the `recentlyViewed.isLoading` property from a given state', () => {
-      const state = { isLoading: true };
+      const state = { ...initialState, isLoading: true };
 
       expect(fromReducer.getIsLoading(state)).toEqual(state.isLoading);
     });
@@ -211,6 +215,7 @@ describe('Recently Viewed reducer', () => {
   describe('getRecentlyViewedProducts()', () => {
     it('should return the `recentlyViewed.result` property from a given state', () => {
       const state = {
+        ...initialState,
         result: {
           foo: 'bar',
         },
