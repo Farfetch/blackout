@@ -1,48 +1,51 @@
-import type { Price, ProductSummaryPrice } from '../../../products/types';
+import type { Item as CheckoutOrderItem } from '../../../checkout/types';
+import type {
+  Price,
+  ProductSummaryPrice,
+  ProductSummaryTypedPrice,
+} from '../../../products/types';
 
+export type PlpPrice = ProductSummaryPrice & ProductSummaryTypedPrice;
+
+// There are several properties marked as optional due to the source of the data. For instance:
+// - from a PLP's `prices` - there is no `discount.includingTaxes`, `discount.excludingTaxes`,
+//   `excludingTaxes`, `priceType`, `tags` and `taxes`
+// - from a PDP's `price` - there is no `type` and `promotionType`
+// - from a checkout order item - only place with `discount.rate`
 export type PriceAdapted =
   | {
-      isFormatted: boolean;
-      includingTaxes: Price['priceInclTaxes'];
-      includingTaxesWithoutDiscount: Price['priceInclTaxesWithoutDiscount'];
-      excludingTaxes: Price['priceExclTaxes'];
-      taxes: {
-        rate: Price['taxesRate'];
-        amount: Price['taxesValue'];
-        type: Price['taxType'];
-      };
-      discount: {
+      discount?: {
         rate: Price['discountRate'];
-        includingTaxes: Price['discountInclTaxes'];
-        excludingTaxes: Price['discountExclTaxes'];
+        includingTaxes?: Price['discountInclTaxes'];
+        excludingTaxes?: Price['discountExclTaxes'];
       };
-      tags: Price['tags'];
+      excludingTaxes?: Price['priceExclTaxes'];
       formatted: {
         includingTaxes: Price['formattedPrice'];
         includingTaxesWithoutDiscount: Price['formattedPriceWithoutDiscount'];
       };
-      promocode: {
-        rate: number;
+      includingTaxes: Price['priceInclTaxes'];
+      includingTaxesWithoutDiscount: Price['priceInclTaxesWithoutDiscount'];
+      isFormatted: boolean;
+      priceType?: ProductSummaryPrice['priceType'];
+      promocode?: {
+        rate: CheckoutOrderItem['promocodeDiscountPercentage'];
       };
-      type: number;
-      promotionType: number;
-      priceType: number;
+      promotionType?: ProductSummaryTypedPrice['promotionType'];
+      tags?: Price['tags'];
+      taxes?: {
+        rate: Price['taxesRate'];
+        amount: Price['taxesValue'];
+        type: Price['taxType'];
+      };
+      type?: ProductSummaryTypedPrice['type'];
     }
   | undefined;
 
 export type AdaptPrice = (
-  legacyPrice:
-    | (Price & Record<string, unknown>)
-    | (ProductSummaryPrice & Record<string, unknown>)
-    | {
-        price: number;
-        formattedPrice: string;
-        formattedPriceWithoutDiscount: string;
-        priceType: number;
-        priceWithoutDiscount: number;
-        currencyIsoCode: string;
-        promotionPercentage: number;
-        [k: string]: unknown;
-      }
-    | (PriceAdapted & Record<string, unknown>),
+  priceToAdapt:
+    | Price
+    | ProductSummaryPrice
+    | ProductSummaryTypedPrice
+    | PriceAdapted,
 ) => PriceAdapted;

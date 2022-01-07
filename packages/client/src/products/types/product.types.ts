@@ -14,38 +14,42 @@ enum DigitalAssetTypeEnum {
   ItemSwatch,
 }
 
+enum MerchantAttributeTypeEnum {
+  Size,
+  SizeDescription,
+  Scale,
+  ScaleDescription,
+  ScaleAbbreviation,
+}
+
 /**
  * The result of fetching a product detail page.
  */
 export type Product = {
   breadCrumbs: BreadCrumb[];
   colorSet: Array<{
-    productId: number;
-    name: string;
-    url: string;
     image: string;
+    name: string;
+    productId: number;
+    url: string;
   }>;
   colorSwatch: string;
-  sizeSet: Array<{
-    productId: number;
-    url: string;
-    volumeLabel: string;
-  }>;
   complementaryInformation: Array<{
     key: string;
     title: string;
     value: string;
   }>;
-  currencyIsoCode: string;
+  currencyIsoCode: string | null;
   imageGroups: Array<{
-    order: number;
     images: Array<{
+      order: number;
       size: string;
       url: string;
-      order: number;
     }>;
+    order: number;
   }>;
   liveModel: {
+    globalId: string;
     id: number;
     measurements: Array<{
       description: string;
@@ -53,34 +57,55 @@ export type Product = {
       value: number;
     }>;
     name: string;
-    globalId: string;
   };
-  productSize: string;
   price: Price;
-  productRef: string;
+  productAttributes?: string[];
+  productRef: string | null;
+  productSize: string;
+  recommendedSet?: number;
+  redirectInfo: {
+    url: string;
+    responseCode: number;
+  } | null;
+  relatedSets: Array<{
+    setId: number;
+    setType: number;
+  }>;
   result: {
+    associations: Array<{
+      id: number;
+      type: ProductTypeEnum;
+    }> | null;
+    associationsInformation: { hasColorGrouping: boolean };
     brand: Brand;
     brandStyleId: string;
-    categories: Category[];
-    compositions: Array<{
-      material: string;
-      productId: number;
-      productPart: string;
-      value: string;
-    }>;
-    colors: Array<{
-      color: {
-        id: number;
-        name: string;
-      };
-      tags: string[];
-    }>;
     care: Array<{
       instruction: string;
       value: string;
     }>;
+    categories: Category[];
+    colors: Array<{
+      color: { id: number; name: string };
+      tags: string[];
+    }>;
+    compositions: Array<{
+      material: string;
+      productId: number;
+      productPart: string | null;
+      value: string;
+    }>;
+    customAttributes: string | null;
     description: string;
+    digitalAssets: Array<{
+      displayOrder: number;
+      mediaType: string;
+      size: string;
+      type: DigitalAssetTypeEnum;
+      url: string;
+    }>;
+    fulfillmentDate: string | null;
     gender: GenderEnum;
+    hasParentProduct: boolean;
     id: number;
     images: {
       images: Array<{
@@ -89,100 +114,77 @@ export type Product = {
         url: string;
       }>;
       liveModel: {
+        globalId: string;
         id: number;
         measurements: ProductMeasurement[];
         name: string;
-        globalId: string;
       };
       productSize: string;
       tag: string;
     };
-    measurements: ProductMeasurement[];
-    season: {
-      id: number;
-      name: string;
-    };
-    shortDescription: string;
-    tag: ProductTagEnum;
-    tagDescription: string;
-    variants: ProductVariant[];
-    videos: Array<{
-      order: number;
-      url: string;
-    }>;
-    hasParentProduct: boolean;
-    parentProductId: number;
-    preferedMerchant: {
-      byAttribute: Array<{
-        merchantId: number;
-        type: string;
-        value: string;
-      }>;
-      merchantId: number;
-    };
-    madeIn: string;
-    isOnline: boolean;
-    isExclusive: boolean;
-    translatedAttributes: string;
-    customAttributes: string;
     isCustomizable: boolean;
-    styleId: number;
-    scaleId: number;
+    isExclusive: boolean;
+    isOnline: boolean;
     labels: Array<{
       id: number;
       name: string;
       priority: number;
     }>;
-    fulfillmentDate: string;
+    madeIn: string;
+    measurements: ProductMeasurement[];
+    parentProductId: number;
+    preferedMerchant: {
+      byAttribute: Array<{
+        merchantId: number;
+        type: MerchantAttributeTypeEnum;
+        value: string;
+      }>;
+      merchantId: number;
+    };
+    promotions: Array<{
+      id: string;
+      name: string;
+    }> | null;
+    scaleId: number;
+    season: {
+      id: number;
+      name: string | null;
+    };
+    shortDescription: string;
+    sku: string | null;
+    styleId: number;
+    tag: ProductTagEnum;
+    tagDescription: string;
+    translatedAttributes: string | null;
+    type: ProductTypeEnum;
+    variants: ProductVariant[];
     variations: Array<{
+      products: Array<{
+        id: number;
+        isDefault: boolean;
+        order: number;
+        varianId: string;
+      }>;
       values: Array<{
-        type: string;
         property: {
           id: string;
           value: string;
         };
-      }>;
-      products: Array<{
-        id: number;
-        order: number;
-        isDefault: boolean;
-        varianId: string;
+        type: string;
       }>;
     }>;
-    type: ProductTypeEnum;
-    sku: string;
-    associationsInformation: {
-      hasColorGrouping: boolean;
-    };
-    associations: Array<{
-      id: number;
-      type: ProductTypeEnum;
-    }>;
-    digitalAssets: Array<{
-      mediaType: string;
-      displayOrder: number;
-      size: string;
+    videos: Array<{
+      order: number;
       url: string;
-      type: DigitalAssetTypeEnum;
     }>;
-    promotions: Array<{
-      id: string;
-      name: string;
-    }>;
-  };
-  selectedSize: string;
-  sizes: Size[];
-  relatedSets: Array<{
-    setId: number;
-    setType: number;
-  }>;
-  slug: string;
-  redirectInfo: {
-    url: string;
-    responseCode: number;
   };
   scaleId: number;
-  // Model properties
-  productAttributes?: string[];
-  recommendedSet?: number;
+  selectedSize: string | null;
+  sizes: Size[];
+  sizeSet: Array<{
+    productId: number;
+    url: string;
+    volumeLabel: string;
+  }> | null;
+  slug: string;
 };

@@ -1,6 +1,10 @@
-import deepCompact from 'deep-compact';
 import isEmpty from 'lodash/isEmpty';
-import type { AdaptPrice } from './types';
+import type { AdaptPrice, PlpPrice } from './types/adaptPrice.types';
+import type {
+  Price,
+  ProductSummaryPrice,
+  ProductSummaryTypedPrice,
+} from '../../products/types';
 
 /**
  * Returns a price object adapted to all site areas (plp, pdp, bag, etc).
@@ -8,65 +12,68 @@ import type { AdaptPrice } from './types';
  * @function
  * @memberof module:helpers/adapters
  *
- * @param {object} legacyPrice - Price to adapt.
+ * @param {object} priceToAdapt - Price to adapt.
  *
- * @returns {object} Price adapted to fit all site areas.
+ * @returns {object|undefined} Price adapted to fit all site areas.
  */
-const adaptPrice: AdaptPrice = legacyPrice => {
-  if (!legacyPrice) {
+const adaptPrice: AdaptPrice = priceToAdapt => {
+  if (!priceToAdapt || isEmpty(priceToAdapt)) {
     return;
   }
 
-  if (legacyPrice.isFormatted) {
-    return legacyPrice;
+  // If the price is already adapted/formatted, return it
+  if ('isFormatted' in priceToAdapt) {
+    return priceToAdapt;
   }
 
-  const priceFormatted = deepCompact({
-    includingTaxes:
-      legacyPrice.price !== undefined
-        ? legacyPrice.price
-        : legacyPrice.priceInclTaxes,
-    includingTaxesWithoutDiscount:
-      legacyPrice.priceWithoutDiscount !== undefined
-        ? legacyPrice.priceWithoutDiscount
-        : legacyPrice.priceInclTaxesWithoutDiscount,
-    excludingTaxes: legacyPrice.priceExclTaxes,
-    taxes: {
-      rate: legacyPrice.taxesRate,
-      amount: legacyPrice.taxesValue,
-      type: legacyPrice.taxType,
-    },
+  // Have to manually define the type of the `priceToAdapt` for each situation, because it can
+  // always be multiple things and TS (correctly) doesn't know.
+  const priceFormatted = {
     discount: {
+      excludingTaxes: (priceToAdapt as Price).discountExclTaxes,
+      includingTaxes: (priceToAdapt as Price).discountInclTaxes,
       rate:
-        legacyPrice.discountRate !== undefined
-          ? legacyPrice.discountRate
-          : legacyPrice.promotionPercentage,
-      includingTaxes: legacyPrice.discountInclTaxes,
-      excludingTaxes: legacyPrice.discountExclTaxes,
+        (priceToAdapt as Price).discountRate ??
+        (priceToAdapt as PlpPrice).promotionPercentage,
     },
-    tags: legacyPrice.tags,
+    excludingTaxes: (priceToAdapt as Price).priceExclTaxes,
     formatted: {
-      includingTaxes: legacyPrice.formattedPrice,
-      includingTaxesWithoutDiscount: legacyPrice.formattedPriceWithoutDiscount,
+      includingTaxes: priceToAdapt.formattedPrice,
+      includingTaxesWithoutDiscount: priceToAdapt.formattedPriceWithoutDiscount,
     },
+    includingTaxes:
+      (priceToAdapt as PlpPrice).price ??
+      (priceToAdapt as Price).priceInclTaxes,
+    includingTaxesWithoutDiscount:
+      (priceToAdapt as PlpPrice).priceWithoutDiscount ??
+      (priceToAdapt as Price).priceInclTaxesWithoutDiscount,
+    // Type of price as an integer - { 0: FullPrice, 1: Sale, 2: PrivateSale }
+    priceType: (priceToAdapt as ProductSummaryPrice).priceType,
     promocode: {
-      rate: legacyPrice.promocodeDiscountPercentage,
+      // Only exists on the checkout order item
+      // @TODO: Verify if this is actually being done, because in the checkout order item entity
+      // only the price is being adapted, there's no reference to `promocodeDiscountPercentage`
+      // @ts-ignore
+      rate: priceToAdapt.promocodeDiscountPercentage,
+    },
+    // Promotion type as a string ["FullPrice", "Sale", "PrivateSale"]. It comes
+    // within the PLP's `prices`
+    promotionType: (priceToAdapt as ProductSummaryTypedPrice).promotionType,
+    tags: (priceToAdapt as Price).tags,
+    taxes: {
+      amount: (priceToAdapt as Price).taxesValue,
+      rate: (priceToAdapt as Price).taxesRate,
+      type: (priceToAdapt as Price).taxType,
     },
     // Price limit type for price range as an integer - { 0: minimum, 1: maximum }
-    type: legacyPrice.type,
-    // Promotion type as a string ["FullPrice", "Sale", "PrivateSale"]
-    promotionType: legacyPrice.promotionType,
-    // Type of price as an integer - { 0: FullPrice, 1: Sale, 2: PrivateSale }
-    priceType: legacyPrice.priceType,
-  });
+    type: (priceToAdapt as ProductSummaryTypedPrice).type,
+  };
 
-  if (isEmpty(priceFormatted)) {
-    return;
-  }
-
-  // We have to use the isFormatted flag to avoid re-adapting the price
-  // when it is already formatted.
-  return { ...priceFormatted, isFormatted: true };
+  // Add the `isFormatted` flag to avoid re-adapting the price
+  return {
+    ...priceFormatted,
+    isFormatted: true,
+  };
 };
 
 export default adaptPrice;

@@ -1,6 +1,6 @@
 export type Image = {
-  order?: number;
   displayOrder?: number;
+  order?: number;
   size: string;
   url: string;
   [k: string]: unknown;

@@ -1,5 +1,5 @@
 export type ProductMeasurement = {
   description: string;
-  unit: string;
+  unit: string | null;
   value: number;
 };

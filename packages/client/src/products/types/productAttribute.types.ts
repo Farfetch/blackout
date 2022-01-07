@@ -3,6 +3,6 @@ export type ProductAttribute = {
   name: string;
   values: Array<{
     id: number;
-    name: string;
+    value: string;
   }>;
 };
