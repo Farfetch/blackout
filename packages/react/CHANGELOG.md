@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.134](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.133...@farfetch/blackout-react@1.0.0-next.134) (2022-01-07)
+
+
+### Features
+
+* **react:** add useBag hook ([6da0047](https://github.com/Farfetch/blackout/commit/6da0047c484100ad8e32c64e7364f67ca843a822))
+
+
+
+
+
 # [1.0.0-next.133](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.132...@farfetch/blackout-react@1.0.0-next.133) (2021-12-27)
 
 **Note:** Version bump only for package @farfetch/blackout-react
