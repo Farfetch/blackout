@@ -1,5 +1,6 @@
 import * as fromReducer from '../reducer';
 import { getInitialState } from '../../../tests';
+import { LOGOUT_SUCCESS } from '@farfetch/blackout-redux/authentication/actionTypes';
 import reducer, { actionTypes, entitiesMapper } from '..';
 
 let initialState;
@@ -23,6 +24,7 @@ describe('returns reducer', () => {
       actionTypes.FETCH_RETURN_REQUEST,
       actionTypes.UPDATE_RETURN_REQUEST,
       actionTypes.FETCH_REFERENCES_REQUEST,
+      LOGOUT_SUCCESS,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(
@@ -205,6 +207,15 @@ describe('returns reducer', () => {
         entitiesMapper[actionTypes.RESET_RETURN](state, {
           meta: { resetEntities: false },
           type: actionTypes.RESET_RETURN,
+        }),
+      ).toEqual(state);
+    });
+
+    it('should handle LOGOUT_SUCCESS', () => {
+      expect(
+        entitiesMapper[LOGOUT_SUCCESS](state, {
+          meta: { resetEntities: false },
+          type: LOGOUT_SUCCESS,
         }),
       ).toEqual(state);
     });
