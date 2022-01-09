@@ -6,6 +6,7 @@
 
 import * as actionTypes from './actionTypes';
 import { combineReducers } from 'redux';
+import { LOGOUT_SUCCESS } from '../authentication/actionTypes';
 import { reducerFactory } from '../helpers';
 
 const INITIAL_STATE = {
@@ -42,6 +43,7 @@ const error = (state = INITIAL_STATE.error, action = {}) => {
     case actionTypes.UPDATE_RETURN_REQUEST:
     case actionTypes.FETCH_REFERENCES_REQUEST:
     case actionTypes.RESET_RETURN:
+    case LOGOUT_SUCCESS:
       return INITIAL_STATE.error;
     default:
       return state;
@@ -55,6 +57,7 @@ const id = (state = INITIAL_STATE.id, action = {}) => {
     case actionTypes.FETCH_RETURNS_FROM_ORDER_SUCCESS:
       return action.payload.result;
     case actionTypes.RESET_RETURN:
+    case LOGOUT_SUCCESS:
       return INITIAL_STATE.id;
     default:
       return state;
@@ -83,6 +86,7 @@ const isLoading = (state = INITIAL_STATE.isLoading, action = {}) => {
     case actionTypes.FETCH_REFERENCES_SUCCESS:
     case actionTypes.FETCH_REFERENCES_FAILURE:
     case actionTypes.RESET_RETURN:
+    case LOGOUT_SUCCESS:
       return INITIAL_STATE.isLoading;
     default:
       return state;
@@ -113,6 +117,20 @@ export const entitiesMapper = {
   [actionTypes.UPDATE_RETURN_SUCCESS]: (state, action) =>
     returnsEntityMapper(state, action),
   [actionTypes.RESET_RETURN]: (state, action) => {
+    const {
+      meta: { resetEntities },
+    } = action;
+    const { returns, returnItems, ...rest } = state;
+
+    if (resetEntities) {
+      return {
+        ...rest,
+      };
+    }
+
+    return state;
+  },
+  [LOGOUT_SUCCESS]: (state, action) => {
     const {
       meta: { resetEntities },
     } = action;
