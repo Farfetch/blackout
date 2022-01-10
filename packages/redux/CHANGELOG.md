@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.165](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.164...@farfetch/blackout-redux@1.0.0-next.165) (2022-01-10)
+
+
+### Bug Fixes
+
+* `useBag` hook types ([b1a480a](https://github.com/Farfetch/blackout/commit/b1a480a9f9e95690895f73b77f678d470111a241))
+
+
+
+
+
 # [1.0.0-next.164](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.163...@farfetch/blackout-redux@1.0.0-next.164) (2022-01-07)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
