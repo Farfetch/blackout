@@ -56,9 +56,7 @@ Object {
     "@farfetch/blackout-redux/RESET_PRODUCT_DETAILS_ENTITIES": [Function],
   },
   "returns": Object {
-    "@farfetch/blackout-client/FETCH_PICKUP_CAPABILITIES_SUCCESS": [Function],
     "@farfetch/blackout-client/RESET_RETURN": [Function],
-    "@farfetch/blackout-client/UPDATE_RETURN_SUCCESS": [Function],
     "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
   },
   "subscriptions": Object {
