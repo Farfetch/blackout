@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.138](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.137...@farfetch/blackout-react@1.0.0-next.138) (2022-01-10)
+
+
+### Features
+
+* **react:** add index file to export everything from the wishlist chunk ([0d7fd79](https://github.com/Farfetch/blackout/commit/0d7fd79096c29e9f6d663d6c9a010b530b437318))
+
+
+
+
+
 # [1.0.0-next.137](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.136...@farfetch/blackout-react@1.0.0-next.137) (2022-01-10)
 
 
