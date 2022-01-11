@@ -1,5 +1,5 @@
 import { actionTypes } from '../../';
-import { mockStore } from 'redux/tests';
+import { mockStore } from '../../../../tests';
 import { resetFormSchema } from '../';
 
 let store;

@@ -3,7 +3,7 @@ import {
   mockData,
   mockResponse,
 } from 'tests/__fixtures__/subscriptions/putSubscriptions.fixtures';
-import { mockStore } from 'redux/tests';
+import { mockStore } from '../../../../tests';
 import { putSubscriptions } from '@farfetch/blackout-client/subscriptions';
 import { updateUserSubscriptions } from '..';
 import find from 'lodash/find';

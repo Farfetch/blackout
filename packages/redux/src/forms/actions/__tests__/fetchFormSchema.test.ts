@@ -6,7 +6,7 @@ import {
 } from 'tests/__fixtures__/forms';
 import { getFormSchema } from '@farfetch/blackout-client/forms';
 import { INITIAL_STATE } from '../../reducer';
-import { mockStore } from 'redux/tests';
+import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 
 const formsMockStore = (state = {}) =>

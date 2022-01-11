@@ -6,7 +6,7 @@ import {
   mockProductId,
   mockRecommendationsStrategy,
   mockStore,
-} from 'redux/tests';
+} from '../../../../tests';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
 

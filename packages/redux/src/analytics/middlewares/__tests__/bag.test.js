@@ -9,7 +9,7 @@ import {
   mockBrandId,
   mockCategoryId,
   mockStore,
-} from 'redux/tests';
+} from '../../../../tests';
 import { logger } from '@farfetch/blackout-analytics/utils';
 import Analytics, { eventTypes } from '@farfetch/blackout-analytics';
 import merge from 'lodash/merge';

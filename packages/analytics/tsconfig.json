@@ -1,15 +1,8 @@
 {
+  "extends": "../../configs/typescript/tsconfig.package-build.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "./dist" /* Output dir to d.ts core files */
-  },
-  "exclude": [
-    "./node_modules",
-    "./docs",
-    "./tests",
-    "**/__tests__/*",
-    "**/__fixtures__/*"
-  ],
-  "extends": "../../configs/typescript/tsconfig.package-build.json",
-  "include": ["src", "../../types"]
+    "outDir": "./dist",
+    "typeRoots": ["../../node_modules/@types", "../../types"]
+  }
 }
