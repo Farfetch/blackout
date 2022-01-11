@@ -30,7 +30,7 @@ import join from 'proper-url-join';
  */
 export default (id, pickupDay, config) => {
   const returnId = id.toString();
-  const isQuery = typeof pickupDay.pickupDay !== 'string';
+  const isQuery = typeof pickupDay !== 'string';
 
   const args = isQuery
     ? [
