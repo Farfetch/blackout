@@ -1,8 +1,8 @@
 import * as fromRecommendations from '../reducer';
 import * as selectors from '../selectors';
-import { initialReduxState } from 'redux/tests';
+import { initialReduxState } from '../../../tests';
 import { merge } from 'lodash';
-import { mockRecommendationsStrategy } from 'redux/tests/__fixtures__/initialReduxState';
+import { mockRecommendationsStrategy } from '../../../tests/__fixtures__/initialReduxState';
 
 describe('Recommendations redux selectors', () => {
   const mockState = initialReduxState;

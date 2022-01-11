@@ -1,5 +1,5 @@
 import { expectedLocalPayload } from 'tests/__fixtures__/recentlyViewed/getRecentlyViewed';
-import { mockStore } from 'redux/tests';
+import { mockStore } from '../../../../tests';
 import { saveRecentlyViewedProduct } from '../';
 import reducer, { actionTypes } from '../../';
 

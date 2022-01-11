@@ -4,7 +4,7 @@ import {
   postFormDataPayload,
 } from 'tests/__fixtures__/forms';
 import { INITIAL_STATE } from '../../reducer';
-import { mockStore } from 'redux/tests';
+import { mockStore } from '../../../../tests';
 import { postFormData } from '@farfetch/blackout-client/forms';
 import { submitFormData } from '..';
 import find from 'lodash/find';

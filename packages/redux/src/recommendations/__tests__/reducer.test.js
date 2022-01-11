@@ -1,4 +1,4 @@
-import { mockRecommendationsStrategy } from 'redux/tests/__fixtures__/initialReduxState';
+import { mockRecommendationsStrategy } from '../../../tests/__fixtures__/initialReduxState';
 import reducer, { actionTypes } from '..';
 
 let initialState;

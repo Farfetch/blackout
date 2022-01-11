@@ -50,7 +50,6 @@ module.exports = {
     '^@farfetch/blackout-client(.*)$': '<rootDir>/packages/client/src$1',
     '^@farfetch/blackout-redux(.*)$': '<rootDir>/packages/redux/src$1',
     '^jestSetup$': '<rootDir>/jestSetup',
-    '^redux/tests(.*)$': '<rootDir>/packages/redux/tests$1',
     '^tests(.*)$': '<rootDir>/tests$1',
   },
   // Add custom reporters to Jest

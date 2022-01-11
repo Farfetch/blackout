@@ -1,5 +1,5 @@
 import { deleteRecentlyViewedProduct } from '@farfetch/blackout-client/recentlyViewed';
-import { mockStore } from 'redux/tests';
+import { mockStore } from '../../../../tests';
 import { removeRecentlyViewedProduct } from '..';
 import reducer, { actionTypes } from '../..';
 

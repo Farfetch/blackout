@@ -1,8 +1,9 @@
 {
+  "extends": "../../configs/typescript/tsconfig.package-build.json",
   "compilerOptions": {
     "baseUrl": "../..",
     "rootDir": "src",
-    "outDir": "./dist" /* Output dir to d.ts core files */,
+    "outDir": "./dist",
     "lib": ["esnext", "DOM"],
     "paths": {
       "@farfetch/blackout-client/*": [
@@ -11,14 +12,7 @@
       "@farfetch/blackout-redux/*": [
         "node_modules/@farfetch/blackout-redux/src/*"
       ]
-    }
-  },
-  "exclude": [
-    "./node_modules",
-    "./docs",
-    "**/__tests__/*",
-    "**/__fixtures__/*"
-  ],
-  "extends": "../../configs/typescript/tsconfig.package-build.json",
-  "include": ["src", "../../types"]
+    },
+    "typeRoots": ["../../node_modules/@types", "../../types"]
+  }
 }
