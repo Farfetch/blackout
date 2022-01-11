@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.166](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.165...@farfetch/blackout-redux@1.0.0-next.166) (2022-01-11)
+
+
+### Features
+
+* **redux|client:** add additional user attributes client ([86f2455](https://github.com/Farfetch/blackout/commit/86f2455a9730ad457dd049a8a59d21f31d83f1b7))
+
+
+
+
+
 # [1.0.0-next.165](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.164...@farfetch/blackout-redux@1.0.0-next.165) (2022-01-10)
 
 
