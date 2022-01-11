@@ -1,5 +1,5 @@
 import { actionTypes } from '../..';
-import { mockStore } from 'redux/tests';
+import { mockStore } from '../../../../tests';
 import clearUnsubscribeRecipientFromTopicRequest from '../clearUnsubscribeRecipientFromTopicRequest';
 
 let store;

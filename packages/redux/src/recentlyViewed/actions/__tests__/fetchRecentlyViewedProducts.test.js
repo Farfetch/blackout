@@ -1,7 +1,7 @@
 import { expectedRemotePayload } from 'tests/__fixtures__/recentlyViewed/getRecentlyViewed';
 import { fetchRecentlyViewedProducts } from '../';
 import { getRecentlyViewedProducts } from '@farfetch/blackout-client/recentlyViewed';
-import { mockStore } from 'redux/tests';
+import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../../';
 

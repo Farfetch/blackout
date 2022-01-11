@@ -9,7 +9,7 @@ import {
   mockWishlistItemId,
   mockWishlistProductId,
   mockWishlistSetId,
-} from 'redux/tests';
+} from '../../../../tests';
 import { logger } from '@farfetch/blackout-analytics/utils';
 import { wishlistMiddleware } from '../../';
 import Analytics, {

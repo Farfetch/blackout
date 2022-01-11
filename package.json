@@ -26,7 +26,7 @@
   "scripts": {
     "clean": "bash scripts/clean.sh",
     "docs": "lerna exec --concurrency 1 --no-bail --stream -- jsdoc -c '$LERNA_ROOT_PATH'/jsdoc.json",
-    "types": "lerna exec --concurrency 1 --no-bail --stream -- tsc -p .",
+    "types": "lerna exec --concurrency 1 --no-bail --stream -- tsc -p tsconfig.build.json",
     "lint": "npx eslint . --ext .js,.ts",
     "postinstall": "patch-package",
     "format": "prettier --write '**/*.{js,ts,json,md}'",

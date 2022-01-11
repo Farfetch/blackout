@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "declaration": true /* Output d.ts files */
+    "declaration": true
   },
   "extends": "./tsconfig.basic.json"
 }

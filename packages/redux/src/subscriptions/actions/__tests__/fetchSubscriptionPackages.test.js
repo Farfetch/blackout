@@ -5,7 +5,7 @@ import {
   mockQuery,
   mockResponse,
 } from 'tests/__fixtures__/subscriptions/getSubscriptionPackages.fixtures';
-import { mockStore } from 'redux/tests';
+import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 import reducer from '../../reducer';
 

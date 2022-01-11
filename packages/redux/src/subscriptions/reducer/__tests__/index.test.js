@@ -1,6 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import * as authenticationActionTypes from '../../../authentication/actionTypes';
-import { initialReduxState } from 'redux/tests';
+import { initialReduxState } from '../../../../tests';
 import merge from 'lodash/merge';
 import reducer, { entitiesMapper, INITIAL_STATE } from '..';
 
