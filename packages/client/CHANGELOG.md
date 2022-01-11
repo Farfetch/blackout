@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.113](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.112...@farfetch/blackout-client@2.0.0-next.113) (2022-01-11)
+
+
+### Features
+
+* **client|redux:** convert forms area to ts ([43c4a73](https://github.com/Farfetch/blackout/commit/43c4a7353f2bb36cab43bbcdc8c70cd61c06aef7))
+
+
+
+
+
 # [2.0.0-next.112](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.111...@farfetch/blackout-client@2.0.0-next.112) (2022-01-11)
 
 
