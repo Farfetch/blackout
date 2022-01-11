@@ -17,34 +17,36 @@ describe('getPickupCapabilities', () => {
 
   describe('Account SVC', () => {
     const id = 123456;
-    const query = { pickupDay: '2020-04-20' };
+    const pickupDay = '2020-04-20';
 
     it('should handle a client request successfully', async () => {
       const response = {};
 
       fixture.accsvc.success({
         id,
-        pickupDay: query.pickupDay,
+        pickupDay,
         response,
       });
 
       expect.assertions(2);
-      await expect(getPickupCapabilities(id, query)).resolves.toStrictEqual(
+      await expect(getPickupCapabilities(id, pickupDay)).resolves.toStrictEqual(
         response,
       );
       expect(spy).toHaveBeenCalledWith(
-        join(`/account/v1/returns/${id}/pickupcapabilities/${query.pickupDay}`),
+        join(`/account/v1/returns/${id}/pickupcapabilities/${pickupDay}`),
         expectedConfig,
       );
     });
 
     it('should receive a client request error', async () => {
-      fixture.accsvc.failure({ id, pickupDay: query.pickupDay });
+      fixture.accsvc.failure({ id, pickupDay });
 
       expect.assertions(2);
-      await expect(getPickupCapabilities(id, query)).rejects.toMatchSnapshot();
+      await expect(
+        getPickupCapabilities(id, pickupDay),
+      ).rejects.toMatchSnapshot();
       expect(spy).toHaveBeenCalledWith(
-        join(`/account/v1/returns/${id}/pickupcapabilities/${query.pickupDay}`),
+        join(`/account/v1/returns/${id}/pickupcapabilities/${pickupDay}`),
         expectedConfig,
       );
     });
