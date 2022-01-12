@@ -3,6 +3,90 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.168](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.167...@farfetch/blackout-redux@1.0.0-next.168) (2022-01-12)
+
+
+### chore
+
+* **redux:** returns - rename api ([eac274a](https://github.com/Farfetch/blackout/commit/eac274aa8df08be2613aa49483c3915eb96d78a0))
+
+
+### Features
+
+* **redux:** provide returns actions with client ([73af24c](https://github.com/Farfetch/blackout/commit/73af24c79adb9f4a1e2045c9eb1fc8ab3353cf26))
+
+
+### BREAKING CHANGES
+
+* **redux:** - Rename the action types if you use them in any custom reducer/middleware:
+
+```js
+import { actionTypes } from "@farfetch/blackout-client/returns/redux";
+
+// Previously
+actionTypes.GET_PICKUP_CAPABILITIES_FAILURE;
+actionTypes.GET_PICKUP_CAPABILITIES_REQUEST;
+actionTypes.GET_PICKUP_CAPABILITIES_SUCCESS;
+
+actionTypes.GET_REFERENCES_FAILURE;
+actionTypes.GET_REFERENCES_REQUEST;
+actionTypes.GET_REFERENCES_SUCCESS;
+
+actionTypes.GET_RETURN_FAILURE;
+actionTypes.GET_RETURN_REQUEST;
+actionTypes.GET_RETURN_SUCCESS;
+
+actionTypes.GET_RETURNS_FROM_ORDER_FAILURE;
+actionTypes.GET_RETURNS_FROM_ORDER_REQUEST;
+actionTypes.GET_RETURNS_FROM_ORDER_SUCCESS;
+
+// Change to
+actionTypes.FETCH_PICKUP_CAPABILITIES_FAILURE;
+actionTypes.FETCH_PICKUP_CAPABILITIES_REQUEST;
+actionTypes.FETCH_PICKUP_CAPABILITIES_SUCCESS;
+
+actionTypes.FETCH_REFERENCES_FAILURE;
+actionTypes.FETCH_REFERENCES_REQUEST;
+actionTypes.FETCH_REFERENCES_SUCCESS;
+
+actionTypes.FETCH_RETURN_FAILURE;
+actionTypes.FETCH_RETURN_REQUEST;
+actionTypes.FETCH_RETURN_SUCCESS;
+
+actionTypes.FETCH_RETURNS_FROM_ORDER_FAILURE;
+actionTypes.FETCH_RETURNS_FROM_ORDER_REQUEST;
+actionTypes.FETCH_RETURNS_FROM_ORDER_SUCCESS;
+```
+
+- Rename the action thunk creators:
+```js
+// Previously
+import {
+  doCreateReturn,
+  doGetReturn,
+  doGetPickupCapabilities,
+  doGetReferences,
+  doGetReturnsFromOrder,
+  doResetReturn,
+  doUpdateReturn,
+} from "@farfetch/blackout-redux/returns";
+
+// Change to
+import {
+  createReturn,
+  fetchReturn,
+  fetchPickupCapabilities,
+  fetchReferences,
+  fetchReturnsFromOrder,
+  resetReturn,
+  updateReturn,
+} from "@farfetch/blackout-redux/returns";
+```
+
+
+
+
+
 # [1.0.0-next.167](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.166...@farfetch/blackout-redux@1.0.0-next.167) (2022-01-11)
 
 
