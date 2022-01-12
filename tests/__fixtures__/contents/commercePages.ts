@@ -147,25 +147,34 @@ export const mergeStrategyResultOneEntry = {
   ],
 };
 
+export const mockCommercePagesInitialState = {
+  entities: {},
+  contents: {
+    searchResults: {},
+  },
+};
+
 export const mockCommercePagesLoadingState = {
   entities: {},
   contents: {
-    isLoading: {
-      [commercePagesHash]: true,
+    searchResults: {
+      [commercePagesHash]: {
+        isLoading: true,
+        error: {},
+      },
     },
-    error: {},
   },
 };
 
 export const mockCommercePagesErrorState = {
   entities: {},
   contents: {
-    isLoading: {
-      [commercePagesHash]: false,
-    },
-    error: {
+    searchResults: {
       [commercePagesHash]: {
-        message: 'Error',
+        isLoading: false,
+        error: {
+          message: 'Error',
+        },
       },
     },
   },

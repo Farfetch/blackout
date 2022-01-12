@@ -11,7 +11,7 @@ import {
 import { mockStore } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
 import { renderHook } from '@testing-library/react-hooks';
-import { useMetaTags } from '../';
+import { useMetaTags } from '..';
 import React from 'react';
 
 jest.mock('@farfetch/blackout-redux/contents', () => {
