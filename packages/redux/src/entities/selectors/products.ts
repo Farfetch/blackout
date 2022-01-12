@@ -96,12 +96,15 @@ export const getProductLabelsByPriority = createSelector(
   [
     (state: StoreState, productId: ProductEntity['id']) =>
       getProduct(state, productId),
-    (state: StoreState, productId: ProductEntity['id'], sortOrder: string) =>
-      sortOrder,
+    (
+      state: StoreState,
+      productId: ProductEntity['id'],
+      sortOrder: 'asc' | 'desc' = 'asc',
+    ) => sortOrder,
   ],
   (product, sortOrder) => {
     const labels = product?.labels;
 
-    return orderBy(labels, 'priority', sortOrder as 'asc' | 'desc');
+    return orderBy(labels, 'priority', sortOrder);
   },
 );
