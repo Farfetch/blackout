@@ -70,7 +70,7 @@ export const isProductLoading = (
 export const isProductFetched = (
   state: StoreState,
   id: ProductEntity['id'],
-): boolean | undefined =>
+): boolean =>
   (getIsLoading(state.products.details).hasOwnProperty(id) ||
     getIsHydrated(state.products.details).hasOwnProperty(id)) &&
   isProductLoading(state, id) === false;
