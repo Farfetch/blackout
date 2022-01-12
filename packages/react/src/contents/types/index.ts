@@ -1,4 +1,5 @@
 export * from './breadcrumb.types';
+export * from './commercePages.types';
 export * from './contentType.types';
 export * from './date.types';
 export * from './listing.types';
