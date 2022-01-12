@@ -13,7 +13,7 @@ export const mockAttributesState = {
       456: false,
     },
     error: {
-      [mockProductId]: 'Error',
+      [mockProductId]: { message: 'Error' },
     },
   },
 };
@@ -24,7 +24,7 @@ export const mockColorGroupingState = {
       456: false,
     },
     error: {
-      [mockProductId]: 'Error',
+      [mockProductId]: { message: 'Error' },
     },
     currentPageIndex: {
       [mockProductId]: 4,
@@ -34,7 +34,7 @@ export const mockColorGroupingState = {
 export const mockDetailsState = {
   details: {
     error: {
-      [mockProductId]: 'Error - Not loaded.',
+      [mockProductId]: { message: 'Error - Not loaded.' },
       456: null,
     },
     isHydrated: {
@@ -54,13 +54,15 @@ export const mockFittingsState = {
       456: false,
     },
     error: {
-      [mockProductId]: 'Error',
+      [mockProductId]: { message: 'Error' },
     },
   },
 };
 export const mockProductsListsState = {
   lists: {
-    error: { [mockProductsListHash]: 'Error - Listing not loaded.' },
+    error: {
+      [mockProductsListHash]: { message: 'Error - Listing not loaded.' },
+    },
     isHydrated: {
       [mockProductsListHash]: true,
     },
@@ -75,7 +77,7 @@ export const mockMeasurementsState = {
       456: false,
     },
     error: {
-      [mockProductId]: 'Error',
+      [mockProductId]: { message: 'Error' },
     },
   },
 };
@@ -86,7 +88,7 @@ export const mockVariantsByMerchantsLocationsState = {
       456: false,
     },
     error: {
-      [mockProductId]: 'Error',
+      [mockProductId]: { message: 'Error' },
     },
   },
 };
@@ -97,7 +99,7 @@ export const mockSizeGuidesState = {
       456: false,
     },
     error: {
-      [mockProductId]: 'Error',
+      [mockProductId]: { message: 'Error' },
     },
   },
 };
@@ -108,7 +110,7 @@ export const mockSizesState = {
       456: false,
     },
     error: {
-      [mockProductId]: 'Error',
+      [mockProductId]: { message: 'Error' },
     },
   },
 };
