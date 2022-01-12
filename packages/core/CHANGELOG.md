@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.46.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.45.1...@farfetch/blackout-core@1.46.0) (2022-01-12)
+
+
+### Bug Fixes
+
+* **core:** fix returns account migration service tests ([526bd33](https://github.com/Farfetch/blackout/commit/526bd3357646fc1869326095e4f5fab72a84703b))
+
+
+### Features
+
+* **core:** implement new return endpoints ([178b913](https://github.com/Farfetch/blackout/commit/178b913dca1488e0e7c9807115c45d4c2bc9840f))
+
+
+
+
+
 ## [1.45.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.45.0...@farfetch/blackout-core@1.45.1) (2022-01-04)
 
 
