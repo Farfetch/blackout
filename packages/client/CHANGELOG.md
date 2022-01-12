@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.115](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.114...@farfetch/blackout-client@2.0.0-next.115) (2022-01-12)
+
+
+### Features
+
+* **client:** add more commerce pages types ([66bcc2c](https://github.com/Farfetch/blackout/commit/66bcc2cf28925c64ecc0bc687012d03547a7c3b4))
+
+
+
+
+
 # [2.0.0-next.114](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.113...@farfetch/blackout-client@2.0.0-next.114) (2022-01-12)
 
 **Note:** Version bump only for package @farfetch/blackout-client

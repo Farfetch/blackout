@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.170](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.169...@farfetch/blackout-redux@1.0.0-next.170) (2022-01-12)
+
+
+### Features
+
+* **redux:** add commerce pages to redux ([2924ec3](https://github.com/Farfetch/blackout/commit/2924ec355572e2755c9137985a7ae4200e877294))
+
+
+
+
+
 # [1.0.0-next.169](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.168...@farfetch/blackout-redux@1.0.0-next.169) (2022-01-12)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
