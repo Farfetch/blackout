@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.171](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.170...@farfetch/blackout-redux@1.0.0-next.171) (2022-01-13)
+
+
+### Features
+
+* **redux:** reset returns data on logout ([b52f8c2](https://github.com/Farfetch/blackout/commit/b52f8c201f61825624d257b6290459fa4accae1d))
+
+
+
+
+
 # [1.0.0-next.170](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.169...@farfetch/blackout-redux@1.0.0-next.170) (2022-01-12)
 
 
