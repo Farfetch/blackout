@@ -6,6 +6,11 @@ import type { SetsState } from '../types';
 import type { StoreState } from '../../types';
 import type { WishlistSet } from '@farfetch/blackout-client/wishlists/types';
 import type { WishlistSetEntity } from '../../entities/types';
+import type {
+  WishlistSetHydrated,
+  WishlistSetsErrors,
+  WishlistSetsHydrated,
+} from './types/wishlistsSets.types';
 
 /**
  * Retrieves the error state of the current user's wishlist sets.
@@ -173,7 +178,7 @@ export const getWishlistSet = createSelector(
     return {
       ...wishlistSet,
       wishlistSetItems,
-    };
+    } as WishlistSetHydrated;
   },
 );
 
@@ -185,7 +190,7 @@ export const getWishlistSet = createSelector(
  *
  * @param {object} state - Application state.
  *
- * @returns {Array} List of wishlist sets.
+ * @returns {Array | undefined} List of wishlist sets.
  *
  * @example
  * import { getWishlistSets } from '@farfetch/blackout-redux/wishlists';
@@ -197,7 +202,9 @@ export const getWishlistSet = createSelector(
 export const getWishlistSets = createSelector(
   [getWishlistSetsIds, state => state],
   (wishlistSetsIds, state) =>
-    wishlistSetsIds?.map(setId => getWishlistSet(state, setId)),
+    wishlistSetsIds?.map(setId =>
+      getWishlistSet(state, setId),
+    ) as WishlistSetsHydrated,
 );
 
 /**
@@ -359,13 +366,7 @@ export const getAllWishlistSetsErrors = createSelector(
     state => getEntities(state, 'wishlistSets'),
   ],
   (wishlistSetsIds, wishlistSetsErrors, wishlistSets) => {
-    type Errors = Array<{
-      id: string;
-      name?: string;
-      error: Error;
-    }>;
-
-    const errors: Errors = [];
+    const errors: WishlistSetsErrors = [];
 
     wishlistSetsIds?.forEach(id => {
       const error = wishlistSetsErrors[id];
