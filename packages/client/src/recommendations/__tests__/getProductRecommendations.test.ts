@@ -29,7 +29,7 @@ describe('getProductRecommendations', () => {
     expect.assertions(2);
 
     await expect(
-      getProductRecommendations(productId, strategyName),
+      getProductRecommendations({ productId, strategyName }),
     ).resolves.toBe(response);
 
     expect(spy).toHaveBeenCalledWith(
@@ -46,7 +46,7 @@ describe('getProductRecommendations', () => {
     expect.assertions(2);
 
     expect(
-      getProductRecommendations(productId, strategyName),
+      getProductRecommendations({ productId, strategyName }),
     ).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(
