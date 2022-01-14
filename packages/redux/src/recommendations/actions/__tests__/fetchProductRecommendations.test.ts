@@ -1,19 +1,20 @@
 import { adaptProductRecommendations } from '@farfetch/blackout-client/helpers/adapters';
-import { expectedPayload } from 'tests/__fixtures__/recommendations/getRecommendations';
-import { fetchProductRecommendations } from '..';
-import { getProductRecommendations } from '@farfetch/blackout-client/recommendations';
 import {
+  expectedPayload,
   mockProductId,
   mockRecommendationsStrategy,
-  mockStore,
-} from '../../../../tests';
+} from 'tests/__fixtures__/recommendations';
+import { fetchProductRecommendations } from '..';
+import { getProductRecommendations } from '@farfetch/blackout-client/recommendations';
+import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
 
+const mockAction = { type: 'this_is_a_mock_action' };
 const mockProductRecommendationsStore = (state = {}) =>
   mockStore(
     {
-      recommendations: reducer(),
+      recommendations: reducer(undefined, mockAction),
     },
     state,
   );
@@ -42,14 +43,19 @@ describe('fetchProductRecommendations() action creator', () => {
 
     await store
       .dispatch(
-        fetchProductRecommendations(mockProductId, mockRecommendationsStrategy),
+        fetchProductRecommendations({
+          productId: mockProductId,
+          strategyName: mockRecommendationsStrategy,
+        }),
       )
       .catch(error => {
         expect(error).toBe(expectedError);
         expect(getProductRecommendations).toHaveBeenCalledTimes(1);
         expect(getProductRecommendations).toHaveBeenCalledWith(
-          mockProductId,
-          mockRecommendationsStrategy,
+          {
+            productId: mockProductId,
+            strategyName: mockRecommendationsStrategy,
+          },
           expectedConfig,
         );
 
@@ -78,8 +84,11 @@ describe('fetchProductRecommendations() action creator', () => {
     await store
       .dispatch(
         fetchProductRecommendations(
-          mockProductId,
-          mockRecommendationsStrategy,
+          {
+            productId: mockProductId,
+            strategyName: mockRecommendationsStrategy,
+          },
+
           expectedConfig,
         ),
       )
@@ -89,8 +98,10 @@ describe('fetchProductRecommendations() action creator', () => {
 
     expect(getProductRecommendations).toHaveBeenCalledTimes(1);
     expect(getProductRecommendations).toHaveBeenCalledWith(
-      mockProductId,
-      mockRecommendationsStrategy,
+      {
+        productId: mockProductId,
+        strategyName: mockRecommendationsStrategy,
+      },
       expectedConfig,
     );
     expect(actionResults).toEqual([

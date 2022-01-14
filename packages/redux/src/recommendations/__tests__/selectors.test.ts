@@ -1,12 +1,12 @@
 import * as fromRecommendations from '../reducer';
 import * as selectors from '../selectors';
-import { initialReduxState } from '../../../tests';
 import { merge } from 'lodash';
-import { mockRecommendationsStrategy } from '../../../tests/__fixtures__/initialReduxState';
+import {
+  mockRecommendationsStrategy,
+  mockState,
+} from 'tests/__fixtures__/recommendations';
 
 describe('Recommendations redux selectors', () => {
-  const mockState = initialReduxState;
-
   beforeEach(jest.clearAllMocks);
 
   describe('isProductRecommendationLoading()', () => {

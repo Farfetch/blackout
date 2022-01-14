@@ -89,7 +89,6 @@ describe('fetchCommercePages() action creator', () => {
     );
 
     const actionResults = store.getActions();
-
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCommercePages).toHaveBeenCalledTimes(1);
     expect(getCommercePages).toHaveBeenCalledWith(

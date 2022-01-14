@@ -141,8 +141,8 @@ const reducers = combineReducers({
  */
 
 const formsReducer: ReducerSwitch<State, AnyAction> = (
-  state,
-  action = { type: undefined },
+  state = INITIAL_STATE,
+  action,
 ): State => {
   if (action.type === actionTypes.RESET_SCHEMAS) {
     return reducers(INITIAL_STATE, action);

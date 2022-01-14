@@ -6,16 +6,16 @@ import type {
   SubmitFormSchema,
 } from '@farfetch/blackout-client/forms/types';
 
-interface FetchFormSchemaRequestAction {
+interface FetchFormSchemaRequestAction extends Action {
   type: typeof actionTypes.FETCH_FORM_SCHEMA_REQUEST;
   meta: { schemaCode: string };
 }
-export interface FetchFormSchemaSuccessAction {
+interface FetchFormSchemaSuccessAction extends Action {
   type: typeof actionTypes.FETCH_FORM_SCHEMA_SUCCESS;
   payload: FormSchema;
   meta: { schemaCode: string };
 }
-interface FetchFormSchemaFailureAction {
+interface FetchFormSchemaFailureAction extends Action {
   type: typeof actionTypes.FETCH_FORM_SCHEMA_FAILURE;
   payload: { error: Error };
   meta: { schemaCode: string };
