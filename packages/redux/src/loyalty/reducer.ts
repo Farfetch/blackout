@@ -7,6 +7,7 @@
 import * as actionTypes from './actionTypes';
 import { combineReducers } from 'redux';
 import { createReducerWithResult } from '../helpers';
+import { LOGOUT_SUCCESS } from '../authentication/actionTypes';
 import type * as T from './types';
 import type { ProgramMembership } from '@farfetch/blackout-client/src/loyalty/types';
 import type { ReducerSwitch, StateWithResult } from '../types';
@@ -95,7 +96,6 @@ export const membership = (
         error: action.payload.error,
         isLoading: false,
       };
-
     default:
       return state;
   }
@@ -132,7 +132,12 @@ const reducers = combineReducers({
  * @returns {object} New state.
  */
 
-const loyaltyReducer: ReducerSwitch<T.State> = (state, action) =>
-  reducers(state, action);
+const loyaltyReducer: ReducerSwitch<T.State> = (state, action) => {
+  if (action.type === LOGOUT_SUCCESS) {
+    return INITIAL_STATE;
+  }
+
+  return reducers(state, action);
+};
 
 export default loyaltyReducer;
