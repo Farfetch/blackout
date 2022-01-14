@@ -2,16 +2,11 @@
   "extends": "../../configs/typescript/tsconfig.package-build.json",
   "compilerOptions": {
     "baseUrl": "../..",
-    "rootDir": "src",
     "outDir": "./dist",
     "lib": ["esnext", "DOM"],
     "paths": {
-      "@farfetch/blackout-client/*": [
-        "node_modules/@farfetch/blackout-client/src/*"
-      ],
-      "@farfetch/blackout-redux/*": [
-        "node_modules/@farfetch/blackout-redux/src/*"
-      ]
+      "@farfetch/blackout-client/*": ["packages/client/src/*"],
+      "@farfetch/blackout-redux/*": ["packages/redux/src/*"]
     },
     "typeRoots": ["../../node_modules/@types", "../../types"]
   }
