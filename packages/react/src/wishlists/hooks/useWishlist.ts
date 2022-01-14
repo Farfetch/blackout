@@ -6,6 +6,7 @@
  * @subcategory Hooks
  */
 import {
+  addWishlistItem as addWishlistItemAction,
   fetchWishlist as fetchWishlistAction,
   getWishlist,
   getWishlistError,
@@ -41,6 +42,7 @@ const useWishlist: UseWishlist = () => {
   const totalQuantity = useSelector(getWishlistTotalQuantity);
   const wishlist = useSelector(getWishlist);
   // Actions
+  const addWishlistItem = useAction(addWishlistItemAction);
   const fetchWishlist = useAction(fetchWishlistAction);
   const resetWishlist = useAction(resetWishlistAction);
   const resetWishlistState = useAction(resetWishlistStateAction);
@@ -51,6 +53,12 @@ const useWishlist: UseWishlist = () => {
   const isLoading = (!wishlist && !error) || isWishlistLoading;
 
   return {
+    /**
+     * Add item to wishlist.
+     *
+     * @type {Function}
+     */
+    addWishlistItem,
     /**
      * Error state of the fetched wishlist.
      *
