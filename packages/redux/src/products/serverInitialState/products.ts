@@ -4,7 +4,7 @@ import { INITIAL_STATE as SIZES_INITIAL_STATE } from '../reducer/sizes';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import productSchema from '../../entities/schemas/product';
-import type { Model, StoreState } from '../../types';
+import type { ProductsServerInitialState } from './types';
 
 /**
  * Converts server data for details of a product to store state.
@@ -19,17 +19,10 @@ import type { Model, StoreState } from '../../types';
  *
  * @returns {object} Initial state for the product details reducer.
  */
-const serverInitialState = ({
+const serverInitialState: ProductsServerInitialState = ({
   model,
   options: { productImgQueryParam } = {},
-}: {
-  model: Model;
-  options?: { productImgQueryParam?: string };
-}): {
-  details: StoreState['products']['details'];
-  entities?: StoreState['entities'];
-  sizes: StoreState['products']['sizes'];
-} => {
+}) => {
   // Check if a model object is of a product detail page (type === 'Product')
   // - if not, do nothing
   if (isEmpty(model) || get(model, 'dataLayer.general.type') !== 'Product') {
@@ -56,7 +49,6 @@ const serverInitialState = ({
     recommendedSet,
     relatedSets,
     result: productData,
-    scaleId,
     sizes,
     sizeSet,
     slug,
@@ -77,8 +69,6 @@ const serverInitialState = ({
     productSize,
     recommendedSet,
     relatedSets,
-    // @ts-expect-error scaleId is duplicated on product payload
-    scaleId,
     sizes,
     sizeSet,
     slug,

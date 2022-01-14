@@ -109,6 +109,7 @@ Object {
         "gender": 0,
         "genderName": "Woman",
         "hash": "listing/woman?pageindex=1&sort=price&sortdirection=asc",
+        "id": 120198,
         "name": "New arrivals",
         "products": Object {
           "entries": Array [
