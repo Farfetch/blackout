@@ -6,6 +6,7 @@ import type { ProductSummary } from './productSummary.types';
 import type { ShoppingConfig } from './shoppingConfig.types';
 
 export type Set = {
+  id: number;
   name: string;
   products: {
     entries: ProductSummary[];
