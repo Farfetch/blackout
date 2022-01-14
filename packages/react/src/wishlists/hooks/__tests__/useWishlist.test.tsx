@@ -8,6 +8,7 @@ import useWishlist from '../useWishlist';
 
 jest.mock('@farfetch/blackout-redux/wishlists', () => ({
   ...jest.requireActual('@farfetch/blackout-redux/wishlists'),
+  addWishlistItem: jest.fn(() => ({ type: 'addItem' })),
   fetchWishlist: jest.fn(() => ({ type: 'fetch' })),
   resetWishlist: jest.fn(() => ({ type: 'reset' })),
   resetWishlistState: jest.fn(() => ({ type: 'resetState' })),
@@ -38,6 +39,7 @@ describe('useWishlist', () => {
     const current = getRenderedHook();
 
     expect(current).toStrictEqual({
+      addWishlistItem: expect.any(Function),
       error: undefined,
       fetchWishlist: expect.any(Function),
       id: expect.any(String),
@@ -112,6 +114,14 @@ describe('useWishlist', () => {
   });
 
   describe('actions', () => {
+    it('should call `addWishlistItem` action', () => {
+      const { addWishlistItem } = getRenderedHook();
+
+      addWishlistItem();
+
+      expect(mockDispatch).toHaveBeenCalledWith({ type: 'addItem' });
+    });
+
     it('should call `fetchWishlist` action', () => {
       const { fetchWishlist } = getRenderedHook();
 
