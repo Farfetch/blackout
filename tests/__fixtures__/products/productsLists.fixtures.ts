@@ -701,6 +701,7 @@ export const mockProductsListModel = {
   ],
   gender: 0,
   genderName: 'Woman',
+  id: 120198,
   name: 'New arrivals',
   products: {
     totalPages: 10,

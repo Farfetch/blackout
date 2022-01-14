@@ -37,6 +37,7 @@ const mockProductResult = {
   preferedMerchant: {
     merchantId: 9359,
   },
+  scaleId: mockSizeScaleId,
   shortDescription: 'Rockstud sling-back flats',
   customAttributes: null,
 };
