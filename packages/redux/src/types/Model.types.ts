@@ -6,24 +6,26 @@ import type { Designers } from '@farfetch/blackout-client/designers/types';
 import type {
   Listing,
   Product,
+  Set,
 } from '@farfetch/blackout-client/products/types';
 
-export type Model = Listing &
-  Product & {
-    countryCode: string;
-    countryId: number;
-    cultureCode: string;
-    currencyCode: string;
-    currencyCultureCode: string;
-    designers: Designers;
-    newsletterSubscriptionOptionDefault: boolean;
-    pageType: string;
-    searchContentRequests: [
-      {
-        filters: QueryContents;
-        searchResponse: Contents;
-      },
-    ];
-    slug: string;
-    subfolder: string;
-  };
+type Common = {
+  countryCode: string;
+  countryId: number;
+  cultureCode: string;
+  currencyCode: string;
+  currencyCultureCode: string;
+  designers: Designers;
+  newsletterSubscriptionOptionDefault: boolean;
+  pageType: string;
+  searchContentRequests: [
+    {
+      filters: QueryContents;
+      searchResponse: Contents;
+    },
+  ];
+  slug: string;
+  subfolder: string;
+};
+
+export type Model = Listing & Set & Product & Common;

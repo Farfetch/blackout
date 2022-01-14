@@ -4,7 +4,7 @@ import { normalize } from 'normalizr';
 import get from 'lodash/get';
 import parse from 'url-parse';
 import productsList from '../../entities/schemas/productsList';
-import type { Model, StoreState } from '../../types';
+import type { ListsServerInitialState } from './types';
 
 /**
  * Converts server data for a products list (listing or sets) to store state.
@@ -20,16 +20,10 @@ import type { Model, StoreState } from '../../types';
  *
  * @returns {object} Initial state for the products lists reducer.
  */
-const serverInitialState = ({
+const serverInitialState: ListsServerInitialState = ({
   model,
   options: { productImgQueryParam } = {},
-}: {
-  model: Model;
-  options?: { productImgQueryParam?: string };
-}): {
-  lists: StoreState['products']['lists'];
-  entities?: StoreState['entities'];
-} => {
+}) => {
   if (!get(model, 'products')) {
     return { lists: INITIAL_STATE };
   }
@@ -46,6 +40,7 @@ const serverInitialState = ({
     filterSegments,
     gender,
     genderName,
+    id,
     name,
     products,
     redirectInformation,
@@ -54,7 +49,7 @@ const serverInitialState = ({
   } = model;
   const { pathname, query } = parse(slug, true);
   // Remove CDN required `json=true` param from query which breaks our
-  // selectors and causes SSR deoptimization
+  // selectors and causes SSR de-optimization
   delete query.json;
 
   const builtSlug = getSlug(pathname);
@@ -64,7 +59,6 @@ const serverInitialState = ({
   // Normalize it
   const { entities } = normalize(
     {
-      hash,
       breadCrumbs,
       config,
       didYouMean,
@@ -73,9 +67,10 @@ const serverInitialState = ({
       filterSegments,
       gender,
       genderName,
+      hash,
+      id,
       name,
-      // Send this to the entity's `adaptProductImages`
-      productImgQueryParam,
+      productImgQueryParam, // Send this to the entity's `adaptProductImages`
       products,
       redirectInformation,
       searchTerm,
