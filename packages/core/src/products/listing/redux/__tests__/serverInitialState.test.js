@@ -2,7 +2,7 @@ import { mockListingModel } from 'tests/__fixtures__/products';
 import { serverInitialState } from '../';
 
 describe('listing serverInitialState()', () => {
-  it('should initialise server state for a listing', () => {
+  it('should initialize server state for a listing', () => {
     const state = serverInitialState({ model: mockListingModel });
 
     expect(state).toMatchSnapshot();
@@ -20,9 +20,7 @@ describe('listing serverInitialState()', () => {
 
     const state = serverInitialState({ model });
 
-    expect(Object.keys(state.entities.searchResults)).toEqual(
-      expect.arrayContaining([expectedHash]),
-    );
+    expect(Object.keys(state.entities.searchResults)).toEqual([expectedHash]);
     expect(state.listing.hash).toBe(expectedHash);
   });
 
@@ -33,13 +31,11 @@ describe('listing serverInitialState()', () => {
     const model = { ...mockListingModel, slug, subfolder };
     const state = serverInitialState({ model });
 
-    expect(Object.keys(state.entities.searchResults)).toEqual(
-      expect.arrayContaining([expectedHash]),
-    );
+    expect(Object.keys(state.entities.searchResults)).toEqual([expectedHash]);
     expect(state.listing.hash).toBe(expectedHash);
   });
 
-  it('should initialise server state for a non listing', () => {
+  it('should initialize server state for a non listing', () => {
     const model = {};
     const state = serverInitialState({ model });
 
