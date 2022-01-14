@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`listing serverInitialState() should initialise server state for a listing 1`] = `
+exports[`listing serverInitialState() should initialize server state for a listing 1`] = `
 Object {
   "entities": Object {
     "products": Object {
@@ -59,6 +59,7 @@ Object {
         "gender": 0,
         "genderName": "Woman",
         "hash": "/us/listing/woman/clothing",
+        "id": 120198,
         "name": "New arrivals",
         "products": Object {
           "entries": Array [
@@ -86,7 +87,7 @@ Object {
 }
 `;
 
-exports[`listing serverInitialState() should initialise server state for a non listing 1`] = `
+exports[`listing serverInitialState() should initialize server state for a non listing 1`] = `
 Object {
   "listing": Object {
     "error": Object {},

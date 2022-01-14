@@ -33,6 +33,7 @@ export default ({ model, options: { productImgQueryParam } = {} }) => {
     filterSegments,
     gender,
     genderName,
+    id,
     name,
     products,
     redirectInformation,
@@ -43,7 +44,7 @@ export default ({ model, options: { productImgQueryParam } = {} }) => {
   const { pathname, query } = parse(slug, true);
 
   // Remove CDN required `json=true` param from query which breaks our
-  // selectors and causes SSR deoptimization
+  // selectors and causes SSR de-optimization
   delete query.json;
 
   const builtSlug = getSlug(pathname);
@@ -51,7 +52,6 @@ export default ({ model, options: { productImgQueryParam } = {} }) => {
   // Normalize it
   const { entities } = normalize(
     {
-      hash,
       breadCrumbs,
       config,
       didYouMean,
@@ -60,9 +60,10 @@ export default ({ model, options: { productImgQueryParam } = {} }) => {
       filterSegments,
       gender,
       genderName,
+      hash,
+      id,
       name,
-      // Send this to the entity's `adaptProductImages`
-      productImgQueryParam,
+      productImgQueryParam, // Send this to the entity's `adaptProductImages`
       products,
       redirectInformation,
       searchTerm,
