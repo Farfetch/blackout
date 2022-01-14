@@ -1,11 +1,13 @@
-import { mockRecommendationsStrategy } from '../../../tests/__fixtures__/initialReduxState';
+import { mockRecommendationsStrategy } from 'tests/__fixtures__/recommendations';
 import reducer, { actionTypes } from '..';
+import type { State } from '../types';
 
-let initialState;
+let initialState: State;
+const mockAction = { type: 'this_is_a_mock_action' };
 
 describe('recommendations reducer', () => {
   beforeEach(() => {
-    initialState = reducer();
+    initialState = reducer(undefined, mockAction);
   });
 
   const meta = { strategyName: mockRecommendationsStrategy };
@@ -17,7 +19,7 @@ describe('recommendations reducer', () => {
     };
 
     it('should return the initial state', () => {
-      const state = reducer();
+      const state = reducer(undefined, mockAction);
 
       expect(state.error).toEqual(initialState.error);
     });
@@ -48,19 +50,21 @@ describe('recommendations reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = {
+      const state: State = {
         error: {
-          [mockRecommendationsStrategy]: error,
+          [mockRecommendationsStrategy]: { message: error },
         },
+        isLoading: {},
+        result: {},
       };
 
-      expect(reducer(state).error).toEqual(state.error);
+      expect(reducer(state, mockAction).error).toEqual(state.error);
     });
   });
 
   describe('isLoading() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer();
+      const state = reducer(undefined, mockAction);
 
       expect(state.isLoading).toEqual(initialState.isLoading);
     });
@@ -105,13 +109,15 @@ describe('recommendations reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = {
+      const state: State = {
         isLoading: {
           [mockRecommendationsStrategy]: false,
         },
+        error: {},
+        result: {},
       };
 
-      expect(reducer(state).isLoading).toEqual(state.isLoading);
+      expect(reducer(state, mockAction).isLoading).toEqual(state.isLoading);
     });
   });
 
@@ -129,7 +135,7 @@ describe('recommendations reducer', () => {
       [mockRecommendationsStrategy]: payload,
     };
     it('should return the initial state', () => {
-      const state = reducer();
+      const state = reducer(undefined, mockAction);
 
       expect(state.result).toEqual(initialState.result);
     });
@@ -145,13 +151,15 @@ describe('recommendations reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = {
+      const state: State = {
         result: {
           [mockRecommendationsStrategy]: payload,
         },
+        error: {},
+        isLoading: {},
       };
 
-      expect(reducer(state).result).toEqual(state.result);
+      expect(reducer(state, mockAction).result).toEqual(state.result);
     });
   });
 });

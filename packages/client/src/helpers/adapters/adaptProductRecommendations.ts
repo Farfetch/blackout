@@ -1,10 +1,14 @@
+import type {
+  GetProductRecommendation,
+  ProductRecommendation,
+} from '../../recommendations/types';
 /**
  * Formats and simplifies the recommendations object structure.
  *
  * @function adaptProductRecommendations
  * @memberof module:helpers/adapters
  *
- * @param {object} result - The payload received by the endpoint to be formatted.
+ * @param result - The payload received by the endpoint to be formatted.
  *
  * @example
  * const recommendations = adaptProductRecommendations(result);
@@ -15,14 +19,12 @@
  *          score: 1
  *      }]
  * }
- * @returns {Array} The formatted result including the ID of the recommendation.
+ * @returns The formatted result including the ID of the recommendation.
  */
-export default (
-  result: Array<any> = [{ products: [], id: null }],
-): { id: string; values: Array<any> } => ({
+export default (result: GetProductRecommendation[]): ProductRecommendation => ({
   id: result[0].id,
   values: result[0].products.map(
-    (item: { product: { id: any }; score: any }) => ({
+    (item: { product: { id: string }; score: number }) => ({
       id: item.product.id,
       score: item.score,
     }),

@@ -10,7 +10,7 @@ const mockAction = { type: 'this_is_a_mock_action' };
 
 describe('Recently Viewed reducer', () => {
   beforeEach(() => {
-    initialState = reducer(fromReducer.INITIAL_STATE, mockAction);
+    initialState = reducer(undefined, mockAction);
   });
 
   describe('error() reducer', () => {

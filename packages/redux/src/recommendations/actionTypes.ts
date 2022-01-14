@@ -15,3 +15,7 @@ export const FETCH_PRODUCT_RECOMMENDATIONS_REQUEST =
 /** Action type dispatched when the fetch product recommendations request succeeds. */
 export const FETCH_PRODUCT_RECOMMENDATIONS_SUCCESS =
   '@farfetch/blackout-redux/FETCH_PRODUCT_RECOMMENDATIONS_SUCCESS';
+
+/** Action type dispatched when the fetch product recommendations needs to reset. */
+export const RESET_RECOMMENDATIONS =
+  '@farfetch/blackout-redux/RESET_RECOMMENDATIONS';
