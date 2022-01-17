@@ -19,6 +19,7 @@ import {
   OPTION_NON_INTERACTION_EVENTS,
   OPTION_ON_PRE_PROCESS_COMMANDS,
   OPTION_SCOPE_COMMANDS,
+  OPTION_SET_CUSTOM_USER_ID_PROPERTY,
 } from '../GA4/constants';
 import { GA4 } from '../';
 import {
@@ -379,7 +380,7 @@ describe('GA4 Integration', () => {
       });
 
       describe('Options', () => {
-        describe('`scopeCommands` option', () => {
+        describe(`${OPTION_SCOPE_COMMANDS} option`, () => {
           describe('pageview', () => {
             it('Should allow the user to add extra commands to the default pageview handler', async () => {
               let customCommands = [];
@@ -433,13 +434,14 @@ describe('GA4 Integration', () => {
             });
           });
 
-          describe('events tracking', () => {
-            it('Should allow the user to add support to new event', async () => {
+          describe('event tracking', () => {
+            it('Should allow the user to add support to new events', async () => {
               const scopeCommands = {
                 event: {
                   [nonSupportedByDefaultTrackEvent.event]: {
                     main: data => [
-                      ['set', { currency: data.properties.currency }],
+                      ['event', 'currency', data.properties.currency],
+                      ['event', 'fake_action', data.properties],
                     ],
                   },
                 },
@@ -463,7 +465,7 @@ describe('GA4 Integration', () => {
               );
             });
 
-            it('Should allow the user to specify a wildcard to handle all events tracking', async () => {
+            it('Should allow the user to specify a wildcard to handle all events', async () => {
               const wildcardCommandMock = jest.fn();
 
               const scopeCommands = {
@@ -490,7 +492,7 @@ describe('GA4 Integration', () => {
               expect(wildcardCommandMock.mock.calls.length).toBe(2);
             });
 
-            it('Should check if the main command builder specified for an event track is a function', async () => {
+            it('Should check if the main command builder specified for an event is a function', async () => {
               let scopeCommands = {
                 event: {
                   '*': {
@@ -501,7 +503,7 @@ describe('GA4 Integration', () => {
 
               let options = {
                 ...validOptions,
-                scopeCommands,
+                [OPTION_SCOPE_COMMANDS]: scopeCommands,
               };
 
               ga4Instance = createGA4InstanceAndLoad(options, loadData);
@@ -523,7 +525,7 @@ describe('GA4 Integration', () => {
 
               options = {
                 ...validOptions,
-                scopeCommands,
+                [OPTION_SCOPE_COMMANDS]: scopeCommands,
               };
 
               mockLoggerError.mockClear();
@@ -538,7 +540,7 @@ describe('GA4 Integration', () => {
               expect(mockLoggerError).toHaveBeenCalled();
             });
 
-            it('Should check if the main command builder output for an event track is in the correct format', async () => {
+            it('Should check if the main command builder output for an event is in the proper format', async () => {
               let invalidScopeCommands = {
                 event: {
                   '*': {
@@ -549,7 +551,7 @@ describe('GA4 Integration', () => {
 
               let options = {
                 ...validOptions,
-                scopeCommands: invalidScopeCommands,
+                [OPTION_SCOPE_COMMANDS]: invalidScopeCommands,
               };
 
               ga4Instance = createGA4InstanceAndLoad(options, loadData);
@@ -565,6 +567,42 @@ describe('GA4 Integration', () => {
               expect(ga4Spy.mock.calls.length).toBe(0);
             });
 
+            it('Should allow to add extra commands to the default event handler', async () => {
+              let extraCommands;
+
+              const scopeCommands = {
+                event: {
+                  [eventTypes.PRODUCT_ADDED_TO_CART]: {
+                    extras: data => {
+                      extraCommands = [
+                        ['set', 'custom_attr', data.properties.size],
+                      ];
+                      return extraCommands;
+                    },
+                  },
+                },
+              };
+
+              const options = {
+                ...validOptions,
+                [OPTION_SCOPE_COMMANDS]: scopeCommands,
+              };
+
+              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+
+              const ga4Spy = getWindowGa4Spy();
+
+              await ga4Instance.track(
+                validTrackEvents[eventTypes.PRODUCT_ADDED_TO_CART],
+              );
+
+              expect(ga4Spy.mock.calls).toContainEqual(extraCommands[0]);
+
+              expect(ga4Spy.mock.calls.length).toBeGreaterThan(
+                extraCommands.length,
+              );
+            });
+
             it('Should check if the extra commands builder specified is a function', async () => {
               let scopeCommands = {
                 event: {
@@ -576,7 +614,7 @@ describe('GA4 Integration', () => {
 
               let options = {
                 ...validOptions,
-                scopeCommands,
+                [OPTION_SCOPE_COMMANDS]: scopeCommands,
               };
 
               ga4Instance = createGA4InstanceAndLoad(options, loadData);
@@ -598,7 +636,7 @@ describe('GA4 Integration', () => {
 
               options = {
                 ...validOptions,
-                scopeCommands,
+                [OPTION_SCOPE_COMMANDS]: scopeCommands,
               };
 
               mockLoggerError.mockClear();
@@ -624,7 +662,7 @@ describe('GA4 Integration', () => {
 
               let options = {
                 ...validOptions,
-                scopeCommands: invalidScopeCommands,
+                [OPTION_SCOPE_COMMANDS]: invalidScopeCommands,
               };
 
               ga4Instance = createGA4InstanceAndLoad(options, loadData);
@@ -670,6 +708,7 @@ describe('GA4 Integration', () => {
                 {
                   user_id: dataRegisteredUser.user.id,
                   is_guest: dataRegisteredUser.user.traits.isGuest,
+                  crm_id: dataRegisteredUser.user.id,
                 },
               ];
 
@@ -679,6 +718,7 @@ describe('GA4 Integration', () => {
                 {
                   user_id: null,
                   is_guest: dataGuestUser.user.traits.isGuest,
+                  crm_id: null,
                 },
               ];
 
@@ -731,250 +771,9 @@ describe('GA4 Integration', () => {
               expect(mockLoggerError).toHaveBeenCalled();
             });
           });
-
-          describe('event tracking', () => {
-            it('Should allow the user to add support to new events', async () => {
-              const scopeCommands = {
-                event: {
-                  [nonSupportedByDefaultTrackEvent.event]: {
-                    main: data => [
-                      ['event', 'currency', data.properties.currency],
-                      ['event', 'fake_action', data.properties],
-                    ],
-                  },
-                },
-              };
-
-              const options = {
-                ...validOptions,
-                scopeCommands,
-              };
-
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
-
-              const ga4Spy = getWindowGa4Spy();
-
-              await ga4Instance.track(nonSupportedByDefaultTrackEvent);
-
-              expect(ga4Spy.mock.calls).toEqual(
-                scopeCommands.event[nonSupportedByDefaultTrackEvent.event].main(
-                  nonSupportedByDefaultTrackEvent,
-                ),
-              );
-            });
-
-            it('Should allow the user to specify a wildcard to handle all events', async () => {
-              const wildcardCommandMock = jest.fn();
-
-              const scopeCommands = {
-                event: {
-                  '*': {
-                    main: wildcardCommandMock,
-                  },
-                },
-              };
-
-              const options = {
-                ...validOptions,
-                scopeCommands,
-              };
-
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
-
-              await ga4Instance.track(
-                validTrackEvents[eventTypes.PRODUCT_ADDED_TO_CART],
-              );
-
-              await ga4Instance.track(nonSupportedByDefaultTrackEvent);
-
-              expect(wildcardCommandMock.mock.calls.length).toBe(2);
-            });
-
-            it('Should check if the main command builder specified for an event is a function', async () => {
-              let scopeCommands = {
-                event: {
-                  '*': {
-                    main: 'stringValue',
-                  },
-                },
-              };
-
-              let options = {
-                ...validOptions,
-                scopeCommands,
-              };
-
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
-
-              await ga4Instance.track({
-                type: analyticsTrackTypes.TRACK,
-                event: 'DUMMY_EVENT',
-              });
-
-              expect(mockLoggerError).toHaveBeenCalled();
-
-              scopeCommands = {
-                event: {
-                  DUMMY_EVENT: {
-                    main: 'stringValue',
-                  },
-                },
-              };
-
-              options = {
-                ...validOptions,
-                scopeCommands,
-              };
-
-              mockLoggerError.mockClear();
-
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
-
-              await ga4Instance.track({
-                type: analyticsTrackTypes.TRACK,
-                event: 'DUMMY_EVENT',
-              });
-
-              expect(mockLoggerError).toHaveBeenCalled();
-            });
-
-            it('Should check if the main command builder output for an event is in the proper format', async () => {
-              let invalidScopeCommands = {
-                event: {
-                  '*': {
-                    main: () => ({ dummy: 'dummy' }),
-                  },
-                },
-              };
-
-              let options = {
-                ...validOptions,
-                scopeCommands: invalidScopeCommands,
-              };
-
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
-
-              const ga4Spy = getWindowGa4Spy();
-
-              await ga4Instance.track(
-                validTrackEvents[eventTypes.PRODUCT_ADDED_TO_CART],
-              );
-
-              expect(mockLoggerError).toHaveBeenCalled();
-
-              expect(ga4Spy.mock.calls.length).toBe(0);
-            });
-
-            it('Should allow to add extra commands to the default event handler', async () => {
-              let extraCommands;
-
-              const scopeCommands = {
-                event: {
-                  [eventTypes.PRODUCT_ADDED_TO_CART]: {
-                    extras: data => {
-                      extraCommands = [
-                        ['set', 'custom_attr', data.properties.size],
-                      ];
-                      return extraCommands;
-                    },
-                  },
-                },
-              };
-
-              const options = {
-                ...validOptions,
-                scopeCommands,
-              };
-
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
-
-              const ga4Spy = getWindowGa4Spy();
-
-              await ga4Instance.track(
-                validTrackEvents[eventTypes.PRODUCT_ADDED_TO_CART],
-              );
-
-              expect(ga4Spy.mock.calls).toContainEqual(extraCommands[0]);
-
-              expect(ga4Spy.mock.calls.length).toBeGreaterThan(
-                extraCommands.length,
-              );
-            });
-
-            it('Should check if the extra commands builder specified is a function', async () => {
-              let scopeCommands = {
-                event: {
-                  '*': {
-                    extras: 'stringValue',
-                  },
-                },
-              };
-
-              let options = {
-                ...validOptions,
-                scopeCommands,
-              };
-
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
-
-              await ga4Instance.track({
-                type: analyticsTrackTypes.TRACK,
-                event: 'DUMMY_EVENT',
-              });
-
-              expect(mockLoggerError).toHaveBeenCalled();
-
-              scopeCommands = {
-                event: {
-                  DUMMY_EVENT: {
-                    extras: 'stringValue',
-                  },
-                },
-              };
-
-              options = {
-                ...validOptions,
-                scopeCommands,
-              };
-
-              mockLoggerError.mockClear();
-
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
-
-              await ga4Instance.track({
-                type: analyticsTrackTypes.TRACK,
-                event: 'DUMMY_EVENT',
-              });
-
-              expect(mockLoggerError).toHaveBeenCalled();
-            });
-
-            it('Should check if the extra commands builder output is in the proper format', async () => {
-              let invalidScopeCommands = {
-                event: {
-                  '*': {
-                    extras: () => ({ dummy: 'dummy' }),
-                  },
-                },
-              };
-
-              let options = {
-                ...validOptions,
-                scopeCommands: invalidScopeCommands,
-              };
-
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
-
-              await ga4Instance.track(
-                validTrackEvents[eventTypes.PRODUCT_ADDED_TO_CART],
-              );
-
-              expect(mockLoggerError).toHaveBeenCalled();
-            });
-          });
         });
 
-        describe('`onPreProcessCommands` option', () => {
+        describe(`${OPTION_ON_PRE_PROCESS_COMMANDS} option`, () => {
           it('Should log an error when the value specified is not a function', () => {
             const options = {
               ...validOptions,
@@ -1008,27 +807,6 @@ describe('GA4 Integration', () => {
           });
         });
 
-        describe('.onSetUser', () => {
-          it('Should log an error if the ga4 instance is not loaded', async () => {
-            const options = {
-              ...validOptions,
-            };
-
-            ga4Instance = createGA4InstanceAndLoad(options, loadData);
-
-            const ga4Spy = getWindowGa4Spy();
-
-            // Force an error
-            window.gtag = undefined;
-
-            await ga4Instance.onSetUser();
-
-            expect(mockLoggerError).toHaveBeenCalled();
-
-            expect(ga4Spy).not.toHaveBeenCalled();
-          });
-        });
-
         describe(`${OPTION_DATA_LAYER_NAME} option`, () => {
           it('Should log an error when the value specified is not a string', () => {
             const options = {
@@ -1054,6 +832,122 @@ describe('GA4 Integration', () => {
 
             expect(window[dataLayerName][1]).toBeDefined();
           });
+        });
+
+        describe(`${OPTION_SET_CUSTOM_USER_ID_PROPERTY} option`, () => {
+          const userIdLoggedIn = 10000;
+          const userIdGuest = 30000;
+
+          describe('When it is true', () => {
+            it('Should set a `crm_id` user property whose value is equal to the `user_id` when the user is not guest', async () => {
+              const options = {
+                ...validOptions,
+              };
+
+              // By default OPTION_SET_CUSTOM_USER_ID_PROPERTY value is true
+              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+
+              const ga4Spy = getWindowGa4Spy();
+
+              await ga4Instance.onSetUser({
+                user: { id: userIdLoggedIn, traits: { isGuest: false } },
+              });
+
+              expect(ga4Spy).toHaveBeenCalledWith('set', 'user_properties', {
+                crm_id: userIdLoggedIn,
+                is_guest: false,
+                user_id: userIdLoggedIn,
+              });
+            });
+
+            it('Should set a `crm_id` user property whose value is null when the user is guest', async () => {
+              const options = {
+                ...validOptions,
+              };
+
+              // By default OPTION_SET_CUSTOM_USER_ID_PROPERTY value is true
+              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+
+              const ga4Spy = getWindowGa4Spy();
+
+              await ga4Instance.onSetUser({
+                user: { id: userIdGuest, traits: { isGuest: true } },
+              });
+
+              expect(ga4Spy).toHaveBeenCalledWith('set', 'user_properties', {
+                crm_id: null,
+                is_guest: true,
+                user_id: null,
+              });
+            });
+          });
+
+          describe('When it is false', () => {
+            it('Should set a `crm_id` user property whose value is null when the user is not guest', async () => {
+              const options = {
+                ...validOptions,
+                [OPTION_SET_CUSTOM_USER_ID_PROPERTY]: false,
+              };
+
+              // By default OPTION_SET_CUSTOM_USER_ID_PROPERTY value is true
+              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+
+              const ga4Spy = getWindowGa4Spy();
+
+              await ga4Instance.onSetUser({
+                user: { id: userIdLoggedIn, traits: { isGuest: false } },
+              });
+
+              expect(ga4Spy).toHaveBeenCalledWith('set', 'user_properties', {
+                crm_id: null,
+                is_guest: false,
+                user_id: userIdLoggedIn,
+              });
+            });
+
+            it('Should set a `crm_id` user property whose value is null when the user is guest', async () => {
+              const options = {
+                ...validOptions,
+                [OPTION_SET_CUSTOM_USER_ID_PROPERTY]: false,
+              };
+
+              // By default OPTION_SET_CUSTOM_USER_ID_PROPERTY value is true
+              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+
+              const ga4Spy = getWindowGa4Spy();
+
+              await ga4Instance.onSetUser({
+                user: { id: userIdGuest, traits: { isGuest: true } },
+              });
+
+              expect(ga4Spy).toHaveBeenCalledWith('set', 'user_properties', {
+                crm_id: null,
+                is_guest: true,
+                user_id: null,
+              });
+            });
+          });
+        });
+      });
+
+      describe('.onSetUser', () => {
+        it('Should log an error if the ga4 instance is not loaded', async () => {
+          const options = {
+            ...validOptions,
+          };
+
+          ga4Instance = createGA4InstanceAndLoad(options, loadData);
+
+          const ga4Spy = getWindowGa4Spy();
+
+          // Force an error
+          window.gtag = undefined;
+
+          await ga4Instance.onSetUser();
+
+          expect(mockLoggerError).toHaveBeenCalled();
+
+          expect(ga4Spy).not.toHaveBeenCalled();
         });
       });
 

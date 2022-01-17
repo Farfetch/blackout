@@ -19,3 +19,4 @@ export const OPTION_SCHEMAS = 'schemas';
 export const OPTION_DATA_LAYER_NAME = 'dataLayerName';
 export const OPTION_EXCLUDE_ARRAY_PARAMETERS_EVENTS =
   'excludeArrayParametersEvents';
+export const OPTION_SET_CUSTOM_USER_ID_PROPERTY = 'setCustomUserIdProperty';
