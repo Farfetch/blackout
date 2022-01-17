@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.175](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.174...@farfetch/blackout-redux@1.0.0-next.175) (2022-01-17)
+
+
+### Bug Fixes
+
+* **redux:** add `id` to the lists server initial state ([83948bb](https://github.com/Farfetch/blackout/commit/83948bbbb6e130b6aff5905035f6ba4ec5f97874))
+
+
+
+
+
 # [1.0.0-next.174](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.173...@farfetch/blackout-redux@1.0.0-next.174) (2022-01-14)
 
 

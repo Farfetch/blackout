@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.118](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.117...@farfetch/blackout-client@2.0.0-next.118) (2022-01-17)
+
+
+### Bug Fixes
+
+* **client:** add `id` to the set type ([b1bb52c](https://github.com/Farfetch/blackout/commit/b1bb52ce13f06e0f4de510c6c8b3f1769a54a252))
+
+
+
+
+
 # [2.0.0-next.117](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.116...@farfetch/blackout-client@2.0.0-next.117) (2022-01-14)
 
 **Note:** Version bump only for package @farfetch/blackout-client
