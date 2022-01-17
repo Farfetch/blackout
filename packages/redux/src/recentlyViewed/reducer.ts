@@ -7,8 +7,9 @@ import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import omit from 'lodash/omit';
 import uniqBy from 'lodash/uniqBy';
+import type { RecentlyViewedProductsPaginationData } from '@farfetch/blackout-client/recentlyViewed/types';
+import type { RecentlyViewedResult, State } from './types';
 import type { ReducerSwitch } from '../types';
-import type { State } from './types';
 
 export const INITIAL_STATE: State = {
   error: null,
@@ -45,7 +46,10 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   }
 };
 
-const result = (state = INITIAL_STATE.result, action: AnyAction) => {
+const result = (
+  state = INITIAL_STATE.result,
+  action: AnyAction,
+): RecentlyViewedResult => {
   switch (action.type) {
     case actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS: {
       const computed = state.computed || [];
@@ -53,7 +57,10 @@ const result = (state = INITIAL_STATE.result, action: AnyAction) => {
       // Merge the new payload after the previously computed entries and filter the repeated ones
       return {
         remote: action.payload,
-        pagination: omit(action.payload, 'entries'),
+        pagination: omit(
+          action.payload,
+          'entries',
+        ) as RecentlyViewedProductsPaginationData,
         computed: uniqBy([...action.payload.entries, ...computed], 'productId'),
       };
     }
@@ -98,14 +105,14 @@ const reducers = combineReducers({
  * @function recentlyViewedReducer
  * @static
  *
- * @param {object} state - Current redux state.
- * @param {object} action - Action dispatched.
+ * @param state - Current redux state.
+ * @param action - Action dispatched.
  *
- * @returns {object} New state.
+ * @returns  New state.
  */
 const formsReducer: ReducerSwitch<State, AnyAction> = (
-  state,
-  action = { type: undefined },
+  state = INITIAL_STATE,
+  action,
 ): State => {
   return reducers(state, action);
 };

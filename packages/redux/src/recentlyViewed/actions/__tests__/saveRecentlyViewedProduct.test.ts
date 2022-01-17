@@ -1,15 +1,15 @@
 import { actionTypes } from '../../';
 import { expectedLocalPayload } from 'tests/__fixtures__/recentlyViewed';
-import { mockStore } from 'redux/tests';
+import { mockStore } from '../../../../tests';
 import { saveRecentlyViewedProduct } from '../';
-import reducer, { INITIAL_STATE } from '../../reducer';
+import reducer from '../../reducer';
 
 const mockAction = { type: 'this_is_a_mock_action' };
 
 const mockRecentlyViewedStore = (state = {}) =>
   mockStore(
     {
-      recentlyViewed: reducer(INITIAL_STATE, mockAction),
+      recentlyViewed: reducer(undefined, mockAction),
     },
     state,
   );
