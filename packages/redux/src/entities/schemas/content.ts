@@ -4,7 +4,7 @@ export const content = new schema.Entity(
   'contents',
   {},
   {
-    idAttribute: (entity, { hash }) => hash,
+    idAttribute: ({ publicationId }) => publicationId,
   },
 );
 

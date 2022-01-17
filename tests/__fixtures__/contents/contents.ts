@@ -267,7 +267,7 @@ export const expectedNormalizedPayload = {
         error: null,
         isLoading: false,
         result: {
-          entries: [contentHash],
+          entries: [mockContents.entries[0].publicationId],
           hash: contentHash,
           number: 1,
           totalItems: 1,
@@ -278,7 +278,7 @@ export const expectedNormalizedPayload = {
         error: null,
         isLoading: false,
         result: {
-          entries: [widgetHash],
+          entries: [mockWidget.entries[0].publicationId],
           hash: widgetHash,
           number: 1,
           totalItems: 1,
@@ -289,7 +289,7 @@ export const expectedNormalizedPayload = {
         error: null,
         isLoading: false,
         result: {
-          entries: [navbarsHash],
+          entries: [mockNavbars.entries[0].publicationId],
           hash: navbarsHash,
           number: 1,
           totalItems: 1,
@@ -301,7 +301,10 @@ export const expectedNormalizedPayload = {
         isLoading: false,
         result: {
           // We will need to fix this duplication when the codes is 'all'
-          entries: [contentTypeHash, contentTypeHash],
+          entries: [
+            mockContentType.entries[0].publicationId,
+            mockContentType.entries[1].publicationId,
+          ],
           hash: contentTypeHash,
           number: 1,
           totalItems: 2,
@@ -312,7 +315,7 @@ export const expectedNormalizedPayload = {
         error: null,
         isLoading: false,
         result: {
-          entries: [contentTypeHashWithCodes],
+          entries: [mockContentType.entries[1].publicationId],
           hash: contentTypeHashWithCodes,
           number: 1,
           totalItems: 1,
@@ -323,14 +326,11 @@ export const expectedNormalizedPayload = {
   },
   entities: {
     contents: {
-      [contentHash]: mockContents.entries[0],
-      [widgetHash]: mockWidget.entries[0],
-      [navbarsHash]: mockNavbars.entries[0],
-      [contentTypeHash]: {
-        ...mockContentType.entries[0],
-        ...mockContentType.entries[1],
-      },
-      [contentTypeHashWithCodes]: mockContentType.entries[1],
+      [mockContents.entries[0].publicationId]: mockContents.entries[0],
+      [mockWidget.entries[0].publicationId]: mockWidget.entries[0],
+      [mockNavbars.entries[0].publicationId]: mockNavbars.entries[0],
+      [mockContentType.entries[0].publicationId]: mockContentType.entries[0],
+      [mockContentType.entries[1].publicationId]: mockContentType.entries[1],
     },
   },
 };
