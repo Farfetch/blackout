@@ -11,6 +11,7 @@ import {
   OPTION_PRODUCT_MAPPINGS,
   OPTION_SCHEMAS,
   OPTION_SCOPE_COMMANDS,
+  OPTION_SET_CUSTOM_USER_ID_PROPERTY,
 } from '../constants';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
@@ -26,6 +27,7 @@ const optionsInterface = {
   [OPTION_SCOPE_COMMANDS]: { type: 'object', required: false },
   [OPTION_DATA_LAYER_NAME]: { type: 'string', required: false },
   [OPTION_EXCLUDE_ARRAY_PARAMETERS_EVENTS]: { type: 'object', required: false },
+  [OPTION_SET_CUSTOM_USER_ID_PROPERTY]: { type: 'boolean', required: false },
 };
 
 /**
