@@ -37,6 +37,7 @@ import {
   OPTION_PRODUCT_MAPPINGS,
   OPTION_SCHEMAS,
   OPTION_SCOPE_COMMANDS,
+  OPTION_SET_CUSTOM_USER_ID_PROPERTY,
 } from './constants';
 import { validateFields } from './validation/optionsValidator';
 import defaultEventCommands, {
@@ -146,6 +147,12 @@ class GA4 extends integrations.Integration {
     );
 
     this.onPreProcessCommands = options[OPTION_ON_PRE_PROCESS_COMMANDS];
+
+    this.setCustomUserIdProperty = get(
+      options,
+      OPTION_SET_CUSTOM_USER_ID_PROPERTY,
+      true,
+    );
 
     this.loadGtagScript(options);
   }
@@ -333,6 +340,7 @@ class GA4 extends integrations.Integration {
       window.gtag('set', 'user_properties', {
         user_id: isGuest ? null : userId,
         is_guest: isGuest,
+        crm_id: isGuest || !this.setCustomUserIdProperty ? null : userId,
       });
 
       const userCommandBuilder = get(this.scopeCommands, 'user');
