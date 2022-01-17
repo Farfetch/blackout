@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.148](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.147...@farfetch/blackout-react@1.0.0-next.148) (2022-01-17)
+
+
+### Features
+
+* add `addWishlistItem` to useWishlist hook ([2a56abb](https://github.com/Farfetch/blackout/commit/2a56abbc198eda24d460493a7176a3be3390e6ac))
+
+
+
+
+
 # [1.0.0-next.147](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.146...@farfetch/blackout-react@1.0.0-next.147) (2022-01-14)
 
 
