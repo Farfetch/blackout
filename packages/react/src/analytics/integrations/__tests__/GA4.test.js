@@ -1191,8 +1191,11 @@ describe('GA4 Integration', () => {
 
           // delete unwanted case scenarios
           delete clonedEvent.properties.oldQuantity;
+          delete clonedEvent.properties.quantity;
           delete clonedEvent.properties.oldSize;
+          delete clonedEvent.properties.size;
           delete clonedEvent.properties.oldColour;
+          delete clonedEvent.properties.colour;
 
           await ga4Instance.track(clonedEvent);
           expect(ga4Spy).not.toHaveBeenCalled();
@@ -1208,7 +1211,9 @@ describe('GA4 Integration', () => {
 
           // delete unwanted case scenarios
           delete clonedEvent.properties.oldSize;
+          delete clonedEvent.properties.size;
           delete clonedEvent.properties.oldColour;
+          delete clonedEvent.properties.colour;
 
           await ga4Instance.track(clonedEvent);
           expect(ga4Spy.mock.calls).toMatchSnapshot();
@@ -1224,7 +1229,9 @@ describe('GA4 Integration', () => {
 
           // delete unwanted case scenarios
           delete clonedEvent.properties.oldQuantity;
+          delete clonedEvent.properties.quantity;
           delete clonedEvent.properties.oldColour;
+          delete clonedEvent.properties.colour;
 
           await ga4Instance.track(clonedEvent);
 
@@ -1241,7 +1248,9 @@ describe('GA4 Integration', () => {
 
           // delete unwanted case scenarios
           delete clonedEvent.properties.oldQuantity;
+          delete clonedEvent.properties.quantity;
           delete clonedEvent.properties.oldSize;
+          delete clonedEvent.properties.size;
 
           await ga4Instance.track(clonedEvent);
 
