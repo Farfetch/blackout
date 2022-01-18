@@ -11,7 +11,7 @@ on:
       - '**/docs/**'
       - '**.md'
   pull_request:
-    types: [opened, synchronize, reopened, edited]
+    types: [opened, synchronize, reopened, edited, ready_for_review]
     paths-ignore:
       - '**/docs/**'
       - '**.md'
@@ -25,12 +25,14 @@ jobs:
   CI:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    # Do not run if the pull request is a draft
+    if: ${{ !github.event.pull_request.draft }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       # Use fetch-depth: 0 so that all tags and branches are fetched
-      # Use persist-credentials: false so that the make release step uses another personal access 
+      # Use persist-credentials: false so that the make release step uses another personal access
       # token which has admin access and can push the version commit without the restriction
       # of creating a pull-request.
       - uses: actions/checkout@v2
@@ -40,10 +42,10 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: "14"
-          registry-url: "https://registry.npmjs.org"
-          scope: "@farfetch"
-          cache: "yarn"
+          node-version: '14'
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@farfetch'
+          cache: 'yarn'
           always-auth: true
 
       # This is needed for lerna to commit and push the
@@ -86,7 +88,8 @@ jobs:
           github.ref_name == 'next' ||
           (github.event_name == 'pull_request' && startsWith(github.head_ref, 'rc/'))
         env:
-          PUBLISH_COMMIT_MESSAGE: "chore: publish [skip ci]"
+          MAKE_RELEASE_COMMIT_MESSAGE: 'chore: make release'
+          PUBLISH_COMMIT_MESSAGE: 'chore: publish [skip ci]'
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.RELEASE_BOT_GITHUB_TOKEN }}
           GIT_AUTHOR_NAME: ${{ secrets.RELEASE_BOT_GIT_NAME }}
@@ -103,7 +106,7 @@ jobs:
           else
             if [[ ${SOURCE_BRANCH_NAME} = next ]]; then
               PRE_ID=next
-            else 
+            else
               PRE_ID=rc
             fi
             npx lerna publish --conventional-commits --conventional-prerelease --no-verify-access --preid ${PRE_ID} --pre-dist-tag ${PRE_ID}  --message "${PUBLISH_COMMIT_MESSAGE}"  --yes
