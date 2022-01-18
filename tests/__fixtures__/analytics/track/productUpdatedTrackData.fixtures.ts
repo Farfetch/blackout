@@ -16,10 +16,10 @@ export default {
     price: 18.99,
     currency: 'USD',
     size: 'L',
-    oldSize: 'XL',
+    oldSize: undefined,
     quantity: 1,
-    oldQuantity: 2,
+    oldQuantity: undefined,
     colour: 'white',
-    oldColour: 'red',
+    oldColour: undefined,
   },
 };

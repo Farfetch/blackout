@@ -87,7 +87,7 @@ export const getProductUpdatedEventList = data => {
   const dispatchGA4EventList = [];
 
   if (
-    eventProperties.oldQuantity &&
+    eventProperties.quantity &&
     eventProperties.oldQuantity !== eventProperties.quantity
   ) {
     dispatchGA4EventList.push(
@@ -96,14 +96,14 @@ export const getProductUpdatedEventList = data => {
   }
 
   if (
-    eventProperties.oldColour &&
+    eventProperties.colour &&
     eventProperties.oldColour !== eventProperties.colour
   ) {
     dispatchGA4EventList.push(InternalEventTypes.PRODUCT_UPDATED.CHANGE_COLOUR);
   }
 
   if (
-    eventProperties.oldSize &&
+    eventProperties.size &&
     eventProperties.oldSize !== eventProperties.size
   ) {
     dispatchGA4EventList.push(InternalEventTypes.PRODUCT_UPDATED.CHANGE_SIZE);
