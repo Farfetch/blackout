@@ -11,7 +11,7 @@ on:
       - '**/docs/**'
       - '**.md'
   pull_request:
-    types: [opened, synchronize, reopened, edited]
+    types: [opened, synchronize, reopened, edited, ready_for_review]
     paths-ignore:
       - '**/docs/**'
       - '**.md'
@@ -25,6 +25,8 @@ jobs:
   CI:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    # Do not run if the pull request is a draft
+    if: ${{ !github.event.pull_request.draft }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
