@@ -4,10 +4,9 @@ import { entitiesMapper as bagEntitiesMapper } from '../../bags';
 import { entitiesMapper as checkoutEntitiesMapper } from '../../checkout';
 import { entitiesMapper as merchantsLocationsEntitiesMapper } from '../../merchantsLocations';
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '@farfetch/blackout-client/orders/redux' or its... Remove this comment to see the full error message
-import { entitiesMapper as ordersEntitiesMapper } from '@farfetch/blackout-client/orders/redux';
+import { entitiesMapper as ordersEntitiesMapper } from '../../orders';
 import { entitiesMapper as paymentsEntitiesMapper } from '../../payments';
 import { entitiesMapper as productsEntitiesMapper } from '../../products';
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '../../users' or it... Remove this comment to see the full error message
 import { entitiesMapper as usersEntitiesMapper } from '../../users';
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '@farfetch/blackout-client/returns/redux' or it... Remove this comment to see the full error message
 import { entitiesMapper as returnsEntitiesMapper } from '../../returns';
