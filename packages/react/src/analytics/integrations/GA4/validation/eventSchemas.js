@@ -31,9 +31,9 @@ import {
 import { InternalEventTypes } from '../eventMapping';
 
 export const errorCodes = {
-  InvalidOldSize: 'ga4_invalid_old_size',
-  InvalidOldQuantity: 'ga4_invalid_old_size',
-  InvalidOldColour: 'ga4_invalid_old_colour',
+  InvalidSize: 'ga4_invalid_size',
+  InvalidQuantity: 'ga4_invalid_quantity',
+  InvalidColour: 'ga4_invalid_colour',
 };
 
 export const locationId = yup.object({
@@ -188,9 +188,14 @@ const changeSizeProductInCartSchema = updateProductInCart.concat(
     oldSize: yup.string(),
     size: yup
       .string()
-      .test(errorCodes.InvalidOldSize, errorCodes.InvalidOldSize, function () {
-        const { oldSize } = this.parent;
-        return oldSize !== undefined;
+      .test(errorCodes.InvalidSize, errorCodes.InvalidSize, function () {
+        const { oldSize, size } = this.parent;
+        // This validation can be unused at the moment because ga4 responds to
+        // product_updated event, which ar a special event because analyzes metadata,
+        // and assigns different events, like change_size if provided data shows
+        // a change size intent.
+
+        return oldSize !== size;
       }),
   }),
 );
@@ -201,13 +206,35 @@ const changeQuantityProductInCartSchema = updateProductInCart.concat(
     quantity: yup
       .number()
       .test(
-        errorCodes.InvalidOldQuantity,
-        errorCodes.InvalidOldQuantity,
+        errorCodes.InvalidQuantity,
+        errorCodes.InvalidQuantity,
         function () {
-          const { oldQuantity } = this.parent;
-          return oldQuantity !== undefined;
+          const { oldQuantity, quantity } = this.parent;
+          // This validation can be unused at the moment because ga4 responds to
+          // product_updated event, which ar a special event because analyzes metadata,
+          // and assigns different events, like change_quantity if provided data shows
+          // a change size intent.
+
+          return oldQuantity !== quantity;
         },
       ),
+  }),
+);
+
+const colourChangedSchema = updateProductInCart.concat(
+  yup.object({
+    oldColour: yup.string(),
+    colour: yup
+      .string()
+      .test(errorCodes.InvalidColour, errorCodes.InvalidColour, function () {
+        const { oldColour, colour } = this.parent;
+        // This validation can be unused at the moment because ga4 responds to
+        // product_updated event, which ar a special event because analyzes metadata,
+        // and assigns different events, like change_colour if provided data shows
+        // a change size intent.
+
+        return oldColour !== colour;
+      }),
   }),
 );
 
@@ -222,21 +249,6 @@ const placeOrderStartedSchema = purchaseAndRefundSchema;
 const sameBillingAddressSelectedSchema = checkoutShippingStepSchema;
 const addressInfoAddedSchema = checkoutShippingStepSchema;
 const shippingMethodAddedSchema = checkoutShippingStepSchema;
-const colourChangedSchema = updateProductInCart.concat(
-  yup.object({
-    oldColour: yup.string(),
-    colour: yup
-      .string()
-      .test(
-        errorCodes.InvalidOldColour,
-        errorCodes.InvalidOldColour,
-        function () {
-          const { oldColour } = this.parent;
-          return oldColour !== undefined;
-        },
-      ),
-  }),
-);
 
 const interactContentSchema = yup.object({
   interactionType: yup
