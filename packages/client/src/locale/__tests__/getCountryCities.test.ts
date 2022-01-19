@@ -2,7 +2,7 @@ import { getCountryCities } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCountryCities.fixtures';
 import join from 'proper-url-join';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('locale client', () => {
   const countryCode = 'US';
@@ -10,11 +10,8 @@ describe('locale client', () => {
   const expectedConfig = undefined;
 
   beforeEach(() => {
-    moxios.install(client);
     jest.clearAllMocks();
   });
-
-  afterEach(() => moxios.uninstall(client));
 
   describe('getCountryCities()', () => {
     const spy = jest.spyOn(client, 'get');
@@ -29,13 +26,11 @@ describe('locale client', () => {
         },
       ];
 
-      fixtures.success({
-        response,
-        countryCode,
-        stateId,
-      });
+      mswServer.use(fixtures.get.success(response));
 
-      await expect(getCountryCities(countryCode, stateId)).resolves.toBe(
+      expect.assertions(2);
+
+      await expect(getCountryCities(countryCode, stateId)).resolves.toEqual(
         response,
       );
 
@@ -52,10 +47,9 @@ describe('locale client', () => {
     });
 
     it('should receive a client request error', async () => {
-      fixtures.failure({
-        countryCode,
-        stateId,
-      });
+      mswServer.use(fixtures.get.failure());
+
+      expect.assertions(2);
 
       await expect(
         getCountryCities(countryCode, stateId),
