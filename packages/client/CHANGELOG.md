@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.120](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.119...@farfetch/blackout-client@2.0.0-next.120) (2022-01-19)
+
+
+### Features
+
+* **client:** create client search translations ([997a703](https://github.com/Farfetch/blackout/commit/997a703e893a2146d1d0c70b0b1c56baabdd4cde))
+
+
+
+
+
 # [2.0.0-next.119](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.118...@farfetch/blackout-client@2.0.0-next.119) (2022-01-19)
 
 
