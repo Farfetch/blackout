@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.178](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.177...@farfetch/blackout-redux@1.0.0-next.178) (2022-01-19)
+
+
+### Features
+
+* **client|redux:** convert recently viewed area from js to ts ([869a576](https://github.com/Farfetch/blackout/commit/869a576b9b5a0fd4bd3075d5a7d1a93a5eb8224b))
+* **client|redux:** convert recently viewed area from js to ts ([d80258c](https://github.com/Farfetch/blackout/commit/d80258c3c21038f3464f32f61b53b7398a8da9ff))
+
+
+
+
+
 # [1.0.0-next.177](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.176...@farfetch/blackout-redux@1.0.0-next.177) (2022-01-19)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
