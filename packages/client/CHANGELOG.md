@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.119](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.118...@farfetch/blackout-client@2.0.0-next.119) (2022-01-19)
+
+
+### Features
+
+* **client:** add mock service worker contents ([54b78da](https://github.com/Farfetch/blackout/commit/54b78da5ef471e25bf31a51a000431e2eecfe81f))
+
+
+
+
+
 # [2.0.0-next.118](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.117...@farfetch/blackout-client@2.0.0-next.118) (2022-01-17)
 
 
