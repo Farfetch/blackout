@@ -2,18 +2,15 @@ import { getCountry } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCountry.fixtures';
 import join from 'proper-url-join';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('locale client', () => {
   const countryCode = 'US';
   const expectedConfig = undefined;
 
   beforeEach(() => {
-    moxios.install(client);
     jest.clearAllMocks();
   });
-
-  afterEach(() => moxios.uninstall(client));
 
   describe('getCountry()', () => {
     const spy = jest.spyOn(client, 'get');
@@ -38,12 +35,11 @@ describe('locale client', () => {
         ],
       };
 
-      fixtures.success({
-        response,
-        countryCode,
-      });
+      mswServer.use(fixtures.get.success(response));
 
-      await expect(getCountry(countryCode)).resolves.toBe(response);
+      expect.assertions(2);
+
+      await expect(getCountry(countryCode)).resolves.toEqual(response);
 
       expect(spy).toHaveBeenCalledWith(
         join('/settings/v1/countries', countryCode),
@@ -52,9 +48,9 @@ describe('locale client', () => {
     });
 
     it('should receive a client request error', async () => {
-      fixtures.failure({
-        countryCode,
-      });
+      mswServer.use(fixtures.get.failure());
+
+      expect.assertions(2);
 
       await expect(getCountry(countryCode)).rejects.toMatchSnapshot();
 
