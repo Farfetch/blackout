@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.123](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.122...@farfetch/blackout-client@2.0.0-next.123) (2022-01-20)
+
+
+### Features
+
+* **client|redux:** convert recommended area from js to ts  … ([d86eca2](https://github.com/Farfetch/blackout/commit/d86eca2e9dc84f587d16b96cee701c1b56d2882e))
+
+
+
+
+
 # [2.0.0-next.122](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.121...@farfetch/blackout-client@2.0.0-next.122) (2022-01-20)
 
 
