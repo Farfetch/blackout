@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.180](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.179...@farfetch/blackout-redux@1.0.0-next.180) (2022-01-20)
+
+
+### Features
+
+* **client|redux:** implement new return endpoint ([3442fe4](https://github.com/Farfetch/blackout/commit/3442fe4d8d6da46b427e6104a20cfdcd184767f2))
+
+
+### BREAKING CHANGES
+
+* **client|redux:** - Changed pickupCapabilities endpoint. Instead of a query, now
+it should receive the pickup day in the format YYYY-MM-DD.
+
+
+
+
+
 # [1.0.0-next.179](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.178...@farfetch/blackout-redux@1.0.0-next.179) (2022-01-20)
 
 
