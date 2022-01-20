@@ -41,6 +41,8 @@ const fetchUserFactory = getUser => (data, config) => async dispatch => {
       type: FETCH_USER_SUCCESS,
       meta: config,
     });
+
+    return result;
   } catch (error) {
     dispatch({
       payload: { error },

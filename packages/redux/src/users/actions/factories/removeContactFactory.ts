@@ -3,7 +3,11 @@ import {
   REMOVE_CONTACT_REQUEST,
   REMOVE_CONTACT_SUCCESS,
 } from '../../actionTypes';
-
+import type {
+  DeleteContact,
+  DeleteContactQuery,
+} from '@farfetch/blackout-client/users/types';
+import type { Dispatch } from 'redux';
 /**
  * @callback RemoveContactThunkFactory
  * @param {string} id - The user's id.
@@ -27,17 +31,26 @@ import {
  */
 
 const removeContactFactory =
-  deleteContact => (id, contactId, query, config) => async dispatch => {
+  (deleteContact: DeleteContact) =>
+  (
+    id: number,
+    contactId: string,
+    query: DeleteContactQuery,
+    config: Record<string, unknown>,
+  ) =>
+  async (dispatch: Dispatch) => {
     dispatch({
       type: REMOVE_CONTACT_REQUEST,
     });
 
     try {
-      await deleteContact(id, contactId, query, config);
+      const result = await deleteContact(id, contactId, query, config);
 
       dispatch({
         type: REMOVE_CONTACT_SUCCESS,
       });
+
+      return result;
     } catch (error) {
       dispatch({
         payload: { error },

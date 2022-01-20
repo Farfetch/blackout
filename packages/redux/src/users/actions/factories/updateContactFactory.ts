@@ -3,6 +3,12 @@ import {
   UPDATE_CONTACT_REQUEST,
   UPDATE_CONTACT_SUCCESS,
 } from '../../actionTypes';
+import type { Dispatch } from 'redux';
+import type {
+  PatchContact,
+  PatchContactData,
+  PatchContactQuery,
+} from '@farfetch/blackout-client/users/types';
 
 /**
  * @callback UpdateContactThunkFactory
@@ -29,17 +35,27 @@ import {
  */
 
 const updateContactFactory =
-  patchContact => (id, contactId, data, query, config) => async dispatch => {
+  (patchContact: PatchContact) =>
+  (
+    id: number,
+    contactId: string,
+    data: PatchContactData,
+    query: PatchContactQuery,
+    config: Record<string, unknown>,
+  ) =>
+  async (dispatch: Dispatch) => {
     dispatch({
       type: UPDATE_CONTACT_REQUEST,
     });
 
     try {
-      await patchContact(id, contactId, data, query, config);
+      const result = await patchContact(id, contactId, data, query, config);
 
       dispatch({
         type: UPDATE_CONTACT_SUCCESS,
       });
+
+      return result;
     } catch (error) {
       dispatch({
         payload: { error },
