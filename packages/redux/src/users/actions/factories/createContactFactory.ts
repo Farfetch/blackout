@@ -5,6 +5,12 @@ import {
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
 import contactsSchema from '../../../entities/schemas/contact';
+import type {
+  Contact,
+  PostContact,
+  PostContactQuery,
+} from '@farfetch/blackout-client/users/types';
+import type { Dispatch } from 'redux';
 
 /**
  * @callback CreateContactThunkFactory
@@ -28,7 +34,14 @@ import contactsSchema from '../../../entities/schemas/contact';
  * @returns {CreateContactThunkFactory} Thunk factory.
  */
 const createContactFactory =
-  postContact => (id, data, query, config) => async dispatch => {
+  (postContact: PostContact) =>
+  (
+    id: number,
+    data: Contact,
+    query: PostContactQuery,
+    config: Record<string, unknown>,
+  ) =>
+  async (dispatch: Dispatch) => {
     dispatch({
       type: CREATE_CONTACT_REQUEST,
     });
@@ -40,6 +53,8 @@ const createContactFactory =
         type: CREATE_CONTACT_SUCCESS,
         payload: normalize(result, contactsSchema),
       });
+
+      return result;
     } catch (error) {
       dispatch({
         payload: { error },

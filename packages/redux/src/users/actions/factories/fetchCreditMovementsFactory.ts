@@ -49,6 +49,8 @@ const fetchCreditMovementsFactory =
         payload: { creditMovements: result },
         type: FETCH_CREDIT_MOVEMENTS_SUCCESS,
       });
+
+      return result;
     } catch (error) {
       dispatch({
         payload: { error },

@@ -3,6 +3,8 @@ import {
   FETCH_GUEST_USER_REQUEST,
   FETCH_GUEST_USER_SUCCESS,
 } from '../../actionTypes';
+import type { Dispatch } from 'redux';
+import type { GetGuestUser } from '@farfetch/blackout-client/users/types';
 
 /**
  * @callback FetchGuestUserThunkFactory
@@ -25,7 +27,9 @@ import {
  */
 
 const fetchGuestUserFactory =
-  getGuestUser => (id, config) => async dispatch => {
+  (getGuestUser: GetGuestUser) =>
+  (id: number, config: Record<string, unknown>) =>
+  async (dispatch: Dispatch) => {
     dispatch({
       type: FETCH_GUEST_USER_REQUEST,
     });
@@ -41,6 +45,8 @@ const fetchGuestUserFactory =
         payload: userEntity,
         type: FETCH_GUEST_USER_SUCCESS,
       });
+
+      return result;
     } catch (error) {
       dispatch({
         payload: { error },

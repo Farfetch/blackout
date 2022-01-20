@@ -5,6 +5,11 @@ import {
   UPDATE_PREFERENCES_SUCCESS,
 } from '../../actionTypes';
 import userPreferencesSchema from '../../../entities/schemas/preference';
+import type { Dispatch } from 'redux';
+import type {
+  SetPreferences,
+  SetPreferencesData,
+} from '@farfetch/blackout-client/users/types';
 
 /**
  * @callback UpdatePreferencesThunkFactory
@@ -27,18 +32,22 @@ import userPreferencesSchema from '../../../entities/schemas/preference';
  * @returns {SetPreferencesThunkFactory} Thunk factory.
  */
 const setPreferencesFactory =
-  updatePreferences => (userId, data, config) => async dispatch => {
+  (updatePreferences: SetPreferences) =>
+  (userId: number, data: SetPreferencesData, config: Record<string, unknown>) =>
+  async (dispatch: Dispatch) => {
     dispatch({
       type: UPDATE_PREFERENCES_REQUEST,
     });
 
     try {
-      await updatePreferences(userId, data, config);
+      const result = await updatePreferences(userId, data, config);
 
       dispatch({
         type: UPDATE_PREFERENCES_SUCCESS,
         payload: normalize(data, [userPreferencesSchema]),
       });
+
+      return result;
     } catch (error) {
       dispatch({
         payload: { error },

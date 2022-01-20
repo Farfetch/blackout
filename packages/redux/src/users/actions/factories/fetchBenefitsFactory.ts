@@ -36,6 +36,8 @@ const fetchBenefitsFactory = getBenefits => config => async dispatch => {
       payload: normalize(result, [userBenefitsSchema]),
       type: FETCH_BENEFITS_SUCCESS,
     });
+
+    return result;
   } catch (error) {
     dispatch({
       payload: { error },
