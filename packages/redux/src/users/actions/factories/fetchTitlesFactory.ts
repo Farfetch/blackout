@@ -5,6 +5,11 @@ import {
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
 import titlesSchema from '../../../entities/schemas/titles';
+import type { Dispatch } from 'redux';
+import type {
+  GetTitles,
+  GetTitlesQuery,
+} from '@farfetch/blackout-client/users/types';
 
 /**
  * @typedef {object} GetTitlesQuery
@@ -34,26 +39,31 @@ import titlesSchema from '../../../entities/schemas/titles';
  * @returns {FetchTitlesThunkFactory} Thunk factory.
  */
 
-const fetchTitlesFactory = getTitles => (query, config) => async dispatch => {
-  dispatch({
-    type: FETCH_TITLES_REQUEST,
-  });
-
-  try {
-    const result = await getTitles(query, config);
-
+const fetchTitlesFactory =
+  (getTitles: GetTitles) =>
+  (query: GetTitlesQuery, config: Record<string, unknown>) =>
+  async (dispatch: Dispatch) => {
     dispatch({
-      payload: normalize(result, titlesSchema),
-      type: FETCH_TITLES_SUCCESS,
-    });
-  } catch (error) {
-    dispatch({
-      payload: { error },
-      type: FETCH_TITLES_FAILURE,
+      type: FETCH_TITLES_REQUEST,
     });
 
-    throw error;
-  }
-};
+    try {
+      const result = await getTitles(query, config);
+
+      dispatch({
+        payload: normalize(result, titlesSchema),
+        type: FETCH_TITLES_SUCCESS,
+      });
+
+      return result;
+    } catch (error) {
+      dispatch({
+        payload: { error },
+        type: FETCH_TITLES_FAILURE,
+      });
+
+      throw error;
+    }
+  };
 
 export default fetchTitlesFactory;

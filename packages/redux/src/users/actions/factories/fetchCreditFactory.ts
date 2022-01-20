@@ -44,6 +44,8 @@ const fetchCreditFactory = getCredit => (id, config) => async dispatch => {
       payload: { credit },
       type: FETCH_CREDIT_SUCCESS,
     });
+
+    return result;
   } catch (error) {
     dispatch({
       payload: { error },

@@ -40,6 +40,8 @@ const setUserFactory = putUser => (id, data, config) => async dispatch => {
       payload: userEntity,
       type: UPDATE_USER_SUCCESS,
     });
+
+    return result;
   } catch (error) {
     dispatch({
       payload: { error },

@@ -3,6 +3,11 @@ import {
   CREATE_GUEST_USER_REQUEST,
   CREATE_GUEST_USER_SUCCESS,
 } from '../../actionTypes';
+import type { Dispatch } from 'redux';
+import type {
+  PostGuestUser,
+  PostGuestUserData,
+} from '@farfetch/blackout-client/users/types';
 
 /**
  * @typedef {object} CreateGuestUserData
@@ -30,29 +35,34 @@ import {
  *
  * @returns {CreateGuestUserThunkFactory} Thunk factory.
  */
-const createGuestUser = postGuestUser => (data, config) => async dispatch => {
-  dispatch({
-    type: CREATE_GUEST_USER_REQUEST,
-  });
-
-  try {
-    const result = await postGuestUser(data, config);
-    const userEntity = {
-      entities: { user: result },
-      result: result.id,
-    };
+const createGuestUser =
+  (postGuestUser: PostGuestUser) =>
+  (data: PostGuestUserData, config: Record<string, unknown>) =>
+  async (dispatch: Dispatch) => {
     dispatch({
-      payload: userEntity,
-      type: CREATE_GUEST_USER_SUCCESS,
-    });
-  } catch (error) {
-    dispatch({
-      payload: { error },
-      type: CREATE_GUEST_USER_FAILURE,
+      type: CREATE_GUEST_USER_REQUEST,
     });
 
-    throw error;
-  }
-};
+    try {
+      const result = await postGuestUser(data, config);
+      const userEntity = {
+        entities: { user: result },
+        result: result.id,
+      };
+      dispatch({
+        payload: userEntity,
+        type: CREATE_GUEST_USER_SUCCESS,
+      });
+
+      return result;
+    } catch (error) {
+      dispatch({
+        payload: { error },
+        type: CREATE_GUEST_USER_FAILURE,
+      });
+
+      throw error;
+    }
+  };
 
 export default createGuestUser;

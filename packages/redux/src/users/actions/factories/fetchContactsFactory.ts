@@ -5,6 +5,11 @@ import {
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
 import contactsSchema from '../../../entities/schemas/contact';
+import type { Dispatch } from 'redux';
+import type {
+  GetContacts,
+  GetContactsQuery,
+} from '@farfetch/blackout-client/users/types';
 
 /**
  * @callback FetchContactsThunkFactory
@@ -27,7 +32,9 @@ import contactsSchema from '../../../entities/schemas/contact';
  * @returns {FetchContactsThunkFactory} Thunk factory.
  */
 const fetchContactsFactory =
-  getContacts => (id, query, config) => async dispatch => {
+  (getContacts: GetContacts) =>
+  (id: number, query: GetContactsQuery, config: Record<string, unknown>) =>
+  async (dispatch: Dispatch) => {
     dispatch({
       type: FETCH_CONTACTS_REQUEST,
     });
@@ -39,6 +46,8 @@ const fetchContactsFactory =
         payload: normalize(result, [contactsSchema]),
         type: FETCH_CONTACTS_SUCCESS,
       });
+
+      return result;
     } catch (error) {
       dispatch({
         payload: { error },

@@ -5,6 +5,8 @@ import {
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
 import userPreferencesSchema from '../../../entities/schemas/preference';
+import type { Dispatch } from 'redux';
+import type { GetPreferences } from '@farfetch/blackout-client/users/types';
 
 /**
  * @callback FetchPreferencesThunkFactory
@@ -27,7 +29,9 @@ import userPreferencesSchema from '../../../entities/schemas/preference';
  * @returns {FetchPreferencesThunkFactory} Thunk factory.
  */
 const fetchPreferencesFactory =
-  getPreferences => (userId, code, config) => async dispatch => {
+  (getPreferences: GetPreferences) =>
+  (userId: number, code: string, config: Record<string, unknown>) =>
+  async (dispatch: Dispatch) => {
     dispatch({
       type: FETCH_PREFERENCES_REQUEST,
     });
@@ -39,6 +43,8 @@ const fetchPreferencesFactory =
         payload: normalize(result, [userPreferencesSchema]),
         type: FETCH_PREFERENCES_SUCCESS,
       });
+
+      return result;
     } catch (error) {
       dispatch({
         payload: { error },
