@@ -730,6 +730,7 @@ Array [
     "GA-123456-12",
     Object {
       "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
+      "path_clean": "/pt/",
     },
   ],
 ]
@@ -749,6 +750,7 @@ Array [
     "GA-123456-12",
     Object {
       "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
+      "path_clean": "/pt/",
     },
   ],
 ]
@@ -775,6 +777,7 @@ Array [
     "GA-123456-12",
     Object {
       "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
+      "path_clean": "/pt/",
     },
   ],
 ]

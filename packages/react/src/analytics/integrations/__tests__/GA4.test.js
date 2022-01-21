@@ -309,6 +309,7 @@ describe('GA4 Integration', () => {
                 utils.stringifyQuery(
                   mockedPageData.context.web.window.location.query,
                 ),
+              path_clean: mockedPageData.context.web.window.location.pathname,
             },
           ],
         ];
