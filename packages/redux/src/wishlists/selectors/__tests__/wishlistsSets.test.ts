@@ -87,6 +87,60 @@ describe('wishlists redux selectors', () => {
     });
   });
 
+  describe('isWishlistSetFetched()', () => {
+    it('should get true if the wishlist has been fetched and it is not loading', () => {
+      const newMockWishlistState = {
+        ...mockWishlistState,
+        wishlist: {
+          ...mockWishlistState.wishlist,
+          sets: {
+            ...mockWishlistState.wishlist.sets,
+            set: {
+              ...mockWishlistState.wishlist.sets.set,
+              isLoading: {
+                ...mockWishlistState.wishlist.sets.set.isLoading,
+                [mockWishlistSetId]: false,
+              },
+            },
+          },
+        },
+      };
+
+      expect(
+        selectors.isWishlistSetFetched(newMockWishlistState, mockWishlistSetId),
+      ).toBe(true);
+    });
+
+    it('should get false if it is loading', () => {
+      expect(
+        selectors.isWishlistSetFetched(mockWishlistState, mockWishlistSetId),
+      ).toBe(false);
+    });
+
+    it('should get false if it has not a wishlist set for the specific id', () => {
+      const newMockWishlistState = {
+        ...mockWishlistState,
+        wishlist: {
+          ...mockWishlistState.wishlist,
+          sets: {
+            ...mockWishlistState.wishlist.sets,
+            set: {
+              ...mockWishlistState.wishlist.sets.set,
+              isLoading: {
+                ...mockWishlistState.wishlist.sets.set.isLoading,
+                [mockWishlistSetId]: undefined,
+              },
+            },
+          },
+        },
+      };
+
+      expect(
+        selectors.isWishlistSetFetched(newMockWishlistState, mockWishlistSetId),
+      ).toBe(false);
+    });
+  });
+
   describe('getWishlistSet()', () => {
     it('should return all data regarding a wishlist set', () => {
       const expectedResult = {

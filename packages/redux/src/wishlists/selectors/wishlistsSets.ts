@@ -133,6 +133,24 @@ export const isWishlistSetLoading = (
   fromWishlistSetsReducer.getIsSetLoading(state.wishlist.sets)[setId];
 
 /**
+ * Returns the fetched status of a specific wishlist set.
+ *
+ * @memberof module:wishlists/selectors
+ *
+ * @param {object} state - Application state.
+ * @param {string} setId - Global identifier of the set in the wishlist.
+ *
+ * @returns {boolean} If a certain set has been fetched or not.
+ */
+export const isWishlistSetFetched = (
+  state: StoreState,
+  setId: WishlistSet['setId'],
+): boolean | undefined =>
+  fromWishlistSetsReducer
+    .getIsSetLoading(state.wishlist.sets)
+    .hasOwnProperty(setId) && isWishlistSetLoading(state, setId) === false;
+
+/**
  * Retrieves a specific wishlist set by its id, with all properties populated
  * (ie, the wishlist item and product).
  *
