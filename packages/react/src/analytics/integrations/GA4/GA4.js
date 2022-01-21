@@ -194,6 +194,7 @@ class GA4 extends integrations.Integration {
         this.measurementId,
         {
           page_path: location.pathname + utils.stringifyQuery(location.query),
+          path_clean: location.pathname,
         },
       ]);
 
