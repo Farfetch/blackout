@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.182](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.181...@farfetch/blackout-redux@1.0.0-next.182) (2022-01-24)
+
+
+### Features
+
+* **redux:** add isWishlistSetFetched selector ([89115c9](https://github.com/Farfetch/blackout/commit/89115c9b707c4adf41b54ae1bd961a8925b4241c))
+
+
+
+
+
 # [1.0.0-next.181](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.180...@farfetch/blackout-redux@1.0.0-next.181) (2022-01-20)
 
 
