@@ -1,11 +1,12 @@
 import * as normalizr from 'normalizr';
+import { actionTypes } from '../../';
 import {
   expectedNormalizedPayload,
   mockOrdersResponse,
 } from '../../__fixtures__/orders.fixtures';
 import { fetchOrders } from '../';
+import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../../tests';
-import reducer, { actionTypes } from '../../';
 import thunk from 'redux-thunk';
 
 const userId = 112233;
@@ -15,7 +16,7 @@ const mockMiddlewares = [
   }),
 ];
 const ordersMockStore = (state = {}) =>
-  mockStore({ orders: reducer() }, state, mockMiddlewares);
+  mockStore({ orders: INITIAL_STATE }, state, mockMiddlewares);
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
 let store;

@@ -1,8 +1,10 @@
+import { actionTypes } from '../../';
+import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../../tests';
 import { resetOrders } from '../';
-import reducer, { actionTypes } from '../../';
 
-const ordersMockStore = (state = {}) => mockStore({ orders: reducer() }, state);
+const ordersMockStore = (state = {}) =>
+  mockStore({ orders: INITIAL_STATE }, state);
 let store;
 
 describe('resetOrders() action creator', () => {
