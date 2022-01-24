@@ -1,9 +1,11 @@
+import { actionTypes } from '../..';
 import { fetchOrderDocuments } from '../';
+import { INITIAL_STATE } from '../../reducer';
 import { mockOrderDocumentsResponse } from '../../__fixtures__/orders.fixtures';
 import { mockStore } from '../../../../../tests';
-import reducer, { actionTypes } from '../..';
 
-const ordersMockStore = (state = {}) => mockStore({ orders: reducer() }, state);
+const ordersMockStore = (state = {}) =>
+  mockStore({ orders: INITIAL_STATE }, state);
 const orderId = '24BJKS';
 const expectedConfig = undefined;
 const types = ['ComercialInvoice'];

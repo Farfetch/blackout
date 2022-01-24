@@ -43,6 +43,7 @@ Object {
     "@farfetch/blackout-client/FETCH_ORDER_DETAILS_SUCCESS": [Function],
     "@farfetch/blackout-client/FETCH_ORDER_RETURN_OPTIONS_SUCCESS": [Function],
     "@farfetch/blackout-client/RESET_ORDERS": [Function],
+    "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
   },
   "payments": Object {
     "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
