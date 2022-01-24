@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.159](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.158...@farfetch/blackout-react@1.0.0-next.159) (2022-01-24)
+
+
+### Features
+
+* **react:** add allow trigger ga4's change size event on first selection of size ([192e634](https://github.com/Farfetch/blackout/commit/192e6346348cb6cd77f57b5de5a450fcd94d3d12))
+* **react:** add parameter path_clean on GA4 view_page event ([82bf8b5](https://github.com/Farfetch/blackout/commit/82bf8b52cf7ce6d980d446f105b0758579bcac71))
+
+
+
+
+
 # [1.0.0-next.158](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.157...@farfetch/blackout-react@1.0.0-next.158) (2022-01-21)
 
 
