@@ -3,26 +3,41 @@ import {
   expectedNormalizedPayload,
   expectedOrderDetailsNormalizedPayload,
   expectedOrderReturnOptionsNormalizedPayload,
+  expectedTrackingNormalizedPayload,
   merchantId,
   merchantId2,
   orderId,
   orderItemId,
 } from '../__fixtures__/orders.fixtures';
-import { getInitialState } from '../../../../tests';
+// @TODO: Fix the path when the split to the redux folder is done
+// import { LOGOUT_SUCCESS } from '../../authentication/actionTypes';
+import { LOGOUT_SUCCESS } from '../../../../../redux/src/authentication/actionTypes';
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
 import reducer, { actionTypes, entitiesMapper } from '..';
 
 let initialState;
+const randomAction = { type: 'this_is_a_random_action' };
 
 describe('orders reducer', () => {
   beforeEach(() => {
-    initialState = getInitialState(reducer());
+    initialState = fromReducer.INITIAL_STATE;
+  });
+
+  describe('reset handling', () => {
+    it('should return the initial state when is a LOGOUT_SUCCESS action', () => {
+      expect(
+        reducer(undefined, {
+          payload: {},
+          type: LOGOUT_SUCCESS,
+        }),
+      ).toEqual(initialState);
+    });
   });
 
   describe('error() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer().error;
+      const state = reducer(undefined, randomAction).error;
 
       expect(state).toBe(initialState.error);
       expect(state).toBeNull();
@@ -61,13 +76,13 @@ describe('orders reducer', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = { error: 'foo' };
 
-      expect(reducer(state).error).toBe(state.error);
+      expect(reducer(state, randomAction).error).toBe(state.error);
     });
   });
 
   describe('isLoading() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer().isLoading;
+      const state = reducer(undefined, randomAction).isLoading;
 
       expect(state).toBe(initialState.isLoading);
       expect(state).toBe(false);
@@ -112,13 +127,13 @@ describe('orders reducer', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = { isLoading: 'foo' };
 
-      expect(reducer(state).isLoading).toBe(state.isLoading);
+      expect(reducer(state, randomAction).isLoading).toBe(state.isLoading);
     });
   });
 
   describe('orderDetails() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer().orderDetails;
+      const state = reducer(undefined, randomAction).orderDetails;
 
       expect(state).toEqual(initialState.orderDetails);
       expect(state).toEqual({ error: {}, isLoading: {} });
@@ -161,13 +176,15 @@ describe('orders reducer', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = { orderDetails: { isLoading: { foo: false } } };
 
-      expect(reducer(state).orderDetails).toEqual(state.orderDetails);
+      expect(reducer(state, randomAction).orderDetails).toEqual(
+        state.orderDetails,
+      );
     });
   });
 
   describe('orderReturnOptions() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer().orderReturnOptions;
+      const state = reducer(undefined, randomAction).orderReturnOptions;
 
       expect(state).toEqual(initialState.orderReturnOptions);
       expect(state).toEqual({ error: {}, isLoading: {} });
@@ -210,7 +227,7 @@ describe('orders reducer', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = { orderReturnOptions: { isLoading: { foo: false } } };
 
-      expect(reducer(state).orderReturnOptions).toEqual(
+      expect(reducer(state, randomAction).orderReturnOptions).toEqual(
         state.orderReturnOptions,
       );
     });
@@ -637,6 +654,29 @@ describe('orders reducer', () => {
         expect(
           entitiesMapper[actionTypes.RESET_ORDERS](merge({}, state)),
         ).toEqual(expectedResult);
+      });
+    });
+
+    describe('for LOGOUT_SUCCESS', () => {
+      const state = {
+        ...expectedNormalizedPayload.entities,
+        ...expectedOrderDetailsNormalizedPayload.entities,
+        ...expectedOrderReturnOptionsNormalizedPayload.entities,
+        ...expectedTrackingNormalizedPayload.entities,
+      };
+      const expectedResult = {
+        ...omit(state, [
+          'orders',
+          'orderItems',
+          'labelTracking',
+          'returnOptions',
+        ]),
+      };
+
+      it('should handle LOGOUT_SUCCESS action type', () => {
+        expect(entitiesMapper[LOGOUT_SUCCESS](merge({}, state))).toEqual(
+          expectedResult,
+        );
       });
     });
   });

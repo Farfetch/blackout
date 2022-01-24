@@ -1,12 +1,13 @@
 import * as normalizr from 'normalizr';
+import { actionTypes } from '../../';
 import {
   expectedOrderDetailsNormalizedPayload,
   mockOrderDetailsResponse,
   orderId,
 } from '../../__fixtures__/orders.fixtures';
 import { fetchOrderDetails } from '../';
+import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../../tests';
-import reducer, { actionTypes } from '../../';
 import thunk from 'redux-thunk';
 
 const mockProductImgQueryParam = '?c=2';
@@ -16,9 +17,9 @@ const mockMiddlewares = [
   }),
 ];
 const ordersMockStore = (state = {}) =>
-  mockStore({ orders: reducer() }, state, mockMiddlewares);
+  mockStore({ orders: INITIAL_STATE }, state, mockMiddlewares);
 const ordersMockStoreWithoutMiddlewares = (state = {}) =>
-  mockStore({ orders: reducer() }, state);
+  mockStore({ orders: INITIAL_STATE }, state);
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
 let store;

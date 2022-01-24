@@ -7,13 +7,16 @@
 import * as actionTypes from './actionTypes';
 import { adaptDate } from '../../helpers/adapters';
 import { combineReducers } from 'redux';
+// @TODO: Fix the path when the split to the redux folder is done
+// import { LOGOUT_SUCCESS } from '../authentication/actionTypes';
+import { LOGOUT_SUCCESS } from '../../../../redux/src/authentication/actionTypes';
 import { reducerFactory } from '../../helpers/redux';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
 import produce from 'immer';
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   error: null,
   isLoading: false,
   result: null,
@@ -229,7 +232,18 @@ export const entitiesMapper = {
   [actionTypes.RESET_ORDERS]: state => {
     const { orders, orderItems, ...remainingEntities } = state;
 
-    return { ...remainingEntities };
+    return remainingEntities;
+  },
+  [LOGOUT_SUCCESS]: state => {
+    const {
+      orders,
+      orderItems,
+      labelTracking,
+      returnOptions,
+      ...remainingEntities
+    } = state;
+
+    return remainingEntities;
   },
 };
 
@@ -351,6 +365,17 @@ export const getOrderReturnOptions = state => state.orderReturnOptions;
 export const getTrackings = state => state.trackings;
 export const getDocuments = state => state.documents;
 
+const reducer = combineReducers({
+  error,
+  isLoading,
+  result,
+  ordersList,
+  orderDetails,
+  orderReturnOptions,
+  trackings,
+  documents,
+});
+
 /**
  * Reducer for orders state.
  *
@@ -362,13 +387,12 @@ export const getDocuments = state => state.documents;
  *
  * @returns {object} New state.
  */
-export default combineReducers({
-  error,
-  isLoading,
-  result,
-  ordersList,
-  orderDetails,
-  orderReturnOptions,
-  trackings,
-  documents,
-});
+const ordersReducer = (state, action) => {
+  if (action.type === LOGOUT_SUCCESS) {
+    return INITIAL_STATE;
+  }
+
+  return reducer(state, action);
+};
+
+export default ordersReducer;
