@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.183](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.182...@farfetch/blackout-redux@1.0.0-next.183) (2022-01-25)
+
+
+### Bug Fixes
+
+* **redux:** multiple entries generates same hash contents ([597fa06](https://github.com/Farfetch/blackout/commit/597fa061d39d8bd49ba2d69e2a4ad904a91c729b))
+
+
+
+
+
 # [1.0.0-next.182](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.181...@farfetch/blackout-redux@1.0.0-next.182) (2022-01-24)
 
 
