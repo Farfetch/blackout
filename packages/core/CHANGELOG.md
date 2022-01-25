@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.47.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.46.1...@farfetch/blackout-core@1.47.0) (2022-01-25)
+
+
+### Features
+
+* **core:** create client search translations ([3970407](https://github.com/Farfetch/blackout/commit/397040701d245287027ceb5ddca7d3b66501a51a))
+
+
+
+
+
 ## [1.46.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.46.0...@farfetch/blackout-core@1.46.1) (2022-01-18)
 
 
