@@ -2,6 +2,7 @@ import { mockBreadCrumbs } from './products.fixtures';
 import { mockPriceAdaptedEmpty } from './price.fixtures';
 import { mockSetId } from './ids.fixtures';
 
+export const mockProductsListPathname = 'shopping/woman/clothing';
 export const mockProductsListSlug = '/woman/clothing';
 export const mockQuery = { categories: '135971', colors: '6', pageIndex: '1' };
 export const mockQueryWithoutPageIndex = {
