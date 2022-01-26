@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.124](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.123...@farfetch/blackout-client@2.0.0-next.124) (2022-01-26)
+
+
+### Features
+
+* **client|redux:** reset orders data on logout ([cd23bdd](https://github.com/Farfetch/blackout/commit/cd23bddb63606f10aced2a9ade0965765192cee1))
+
+
+
+
+
 # [2.0.0-next.123](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.122...@farfetch/blackout-client@2.0.0-next.123) (2022-01-20)
 
 
