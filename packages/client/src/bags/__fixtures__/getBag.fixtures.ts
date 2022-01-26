@@ -1,28 +1,23 @@
+import { rest, RestHandler } from 'msw';
 import join from 'proper-url-join';
-import moxios from 'moxios';
 import type { Bag } from '../types';
 
+const path = '/api/commerce/v1/bags';
+
 export default {
-  success: (params: { bagId: Bag['id']; response: Bag }): void => {
-    moxios.stubRequest(
-      join('/api/commerce/v1/bags', params.bagId, {
+  success: (params: { bagId: Bag['id']; response: Bag }): RestHandler =>
+    rest.get(
+      join(path, params.bagId, {
         query: { hydrate: 'true' },
       }),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { bagId: Bag['id'] }): void => {
-    moxios.stubRequest(
-      join('/api/commerce/v1/bags', params.bagId, {
+      async (req, res, ctx) => res(ctx.status(200), ctx.json(params.response)),
+    ),
+  failure: (params: { bagId: Bag['id'] }): RestHandler =>
+    rest.get(
+      join(path, params.bagId, {
         query: { hydrate: 'true' },
       }),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+      async (req, res, ctx) =>
+        res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };
