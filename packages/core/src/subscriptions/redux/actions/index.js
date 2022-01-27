@@ -13,5 +13,6 @@ export { default as doUnsubscribeAllSubscriptions } from './doUnsubscribeAllSubs
 export { default as doUnsubscribeRecipientFromTopic } from './doUnsubscribeRecipientFromTopic';
 export { default as doClearAllUnsubscribeRecipientFromTopicRequests } from './doClearAllUnsubscribeRecipientFromTopicRequests';
 export { default as doClearUnsubscribeRecipientFromTopicRequest } from './doClearUnsubscribeRecipientFromTopicRequest';
+export { default as doUnsubscribeFromSubscription } from './doUnsubscribeFromSubscription';
 
 export { default as reset } from './reset';
