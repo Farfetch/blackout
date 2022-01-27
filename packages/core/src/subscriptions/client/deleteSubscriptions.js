@@ -1,3 +1,8 @@
+import {
+  name as PCKG_NAME,
+  version as PCKG_VERSION,
+} from '../../../package.json';
+import { warnDeprecatedMethod } from '../../helpers';
 import client, { adaptError } from '../../helpers/client';
 import join from 'proper-url-join';
 
@@ -12,10 +17,17 @@ import join from 'proper-url-join';
  *
  * @returns {Promise} Promise object.
  */
-export default (emailHash, config) =>
-  client
+export default (emailHash, config) => {
+  warnDeprecatedMethod(
+    `${PCKG_NAME}@${PCKG_VERSION}`,
+    '@farfetch/blackout-core/subscription/client/deleteSubscriptions',
+    '@farfetch/blackout-core/subscription/client/deleteSubscription',
+  );
+
+  return client
     .delete(join('/marketing/v1/subscriptions', emailHash), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+};

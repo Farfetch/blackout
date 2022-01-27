@@ -13,6 +13,7 @@ export { default as getSubscriptions } from './getSubscriptions';
 export { default as getSubscriptionPackages } from './getSubscriptionPackages';
 export { default as deleteSubscriptions } from './deleteSubscriptions';
 export { default as deleteRecipientFromTopic } from './deleteRecipientFromTopic';
+export { default as deleteSubscription } from './deleteSubscription';
 
 warnDeprecatedMethod(
   '@farfetch/blackout-core',

@@ -1,4 +1,9 @@
 import * as actionTypes from '../actionTypes';
+import {
+  name as PCKG_NAME,
+  version as PCKG_VERSION,
+} from '../../../../package.json';
+import { warnDeprecatedMethod } from '../../../helpers';
 
 /**
  * @callback UnsubscribeAllSubscriptionsThunkFactory
@@ -25,6 +30,12 @@ import * as actionTypes from '../actionTypes';
  * @returns {UnsubscribeAllSubscriptionsThunkFactory} Thunk factory.
  */
 export default deleteSubscriptions => (emailHash, config) => async dispatch => {
+  warnDeprecatedMethod(
+    `${PCKG_NAME}@${PCKG_VERSION}`,
+    '@farfetch/blackout-core/subscription/redux/actions/doUnsubscribeAllSubscriptions',
+    '@farfetch/blackout-core/subscription/redux/actions/doUnsubscribeFromSubscription',
+  );
+
   dispatch({
     type: actionTypes.UNSUBSCRIBE_ALL_SUBSCRIPTIONS_REQUEST,
   });
