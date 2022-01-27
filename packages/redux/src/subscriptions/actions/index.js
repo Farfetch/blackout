@@ -10,5 +10,5 @@ export { default as fetchSubscriptionPackages } from './fetchSubscriptionPackage
 export { default as fetchUserSubscriptions } from './fetchUserSubscriptions';
 export { default as updateUserSubscriptions } from './updateUserSubscriptions';
 export { default as resetSubscriptions } from './resetSubscriptions';
-export { default as unsubscribeAllSubscriptions } from './unsubscribeAllSubscriptions';
+export { default as unsubscribeFromSubscription } from './unsubscribeFromSubscription';
 export { default as unsubscribeRecipientFromTopic } from './unsubscribeRecipientFromTopic';
