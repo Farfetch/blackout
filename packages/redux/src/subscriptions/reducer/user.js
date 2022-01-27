@@ -15,11 +15,11 @@ const error = (
   switch (action.type) {
     case actionTypes.FETCH_USER_SUBSCRIPTIONS_FAILURE:
     case actionTypes.UPDATE_USER_SUBSCRIPTIONS_FAILURE:
-    case actionTypes.UNSUBSCRIBE_ALL_SUBSCRIPTIONS_FAILURE:
+    case actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_FAILURE:
       return action.payload.error;
     case actionTypes.FETCH_USER_SUBSCRIPTIONS_REQUEST:
     case actionTypes.UPDATE_USER_SUBSCRIPTIONS_REQUEST:
-    case actionTypes.UNSUBSCRIBE_ALL_SUBSCRIPTIONS_REQUEST:
+    case actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_REQUEST:
       return INITIAL_STATE.error;
     default:
       return state;
@@ -33,14 +33,14 @@ const isLoading = (
   switch (action.type) {
     case actionTypes.FETCH_USER_SUBSCRIPTIONS_REQUEST:
     case actionTypes.UPDATE_USER_SUBSCRIPTIONS_REQUEST:
-    case actionTypes.UNSUBSCRIBE_ALL_SUBSCRIPTIONS_REQUEST:
+    case actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_REQUEST:
       return true;
     case actionTypes.UPDATE_USER_SUBSCRIPTIONS_SUCCESS:
     case actionTypes.UPDATE_USER_SUBSCRIPTIONS_FAILURE:
     case actionTypes.FETCH_USER_SUBSCRIPTIONS_SUCCESS:
     case actionTypes.FETCH_USER_SUBSCRIPTIONS_FAILURE:
-    case actionTypes.UNSUBSCRIBE_ALL_SUBSCRIPTIONS_SUCCESS:
-    case actionTypes.UNSUBSCRIBE_ALL_SUBSCRIPTIONS_FAILURE:
+    case actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS:
+    case actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_FAILURE:
       return INITIAL_STATE.isLoading;
     default:
       return state;
@@ -55,7 +55,7 @@ const result = (
     case actionTypes.FETCH_USER_SUBSCRIPTIONS_SUCCESS:
     case actionTypes.UPDATE_USER_SUBSCRIPTIONS_SUCCESS:
       return action.payload;
-    case actionTypes.UNSUBSCRIBE_ALL_SUBSCRIPTIONS_SUCCESS:
+    case actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS:
       return INITIAL_STATE.result;
     case actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_SUCCESS: {
       const { subscriptionId, topicId, recipientId } = action.payload;
