@@ -5,7 +5,7 @@ import {
 import { postWishlistSet } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postWishlistSet.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('postWishlistSet', () => {
   const expectedConfig = undefined;
@@ -13,19 +13,15 @@ describe('postWishlistSet', () => {
   const data = mockWishlistsSetResponse;
   const spy = jest.spyOn(client, 'post');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
     const response = mockWishlistsSetResponse;
 
-    fixtures.success({ wishlistId, response });
+    mswServer.use(fixtures.success(response));
+    expect.assertions(2);
 
-    await expect(postWishlistSet(wishlistId, data)).resolves.toBe(response);
+    await expect(postWishlistSet(wishlistId, data)).resolves.toEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/wishlists/${wishlistId}/sets`,
@@ -35,7 +31,8 @@ describe('postWishlistSet', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ wishlistId });
+    mswServer.use(fixtures.failure());
+    expect.assertions(2);
 
     await expect(postWishlistSet(wishlistId, data)).rejects.toMatchSnapshot();
 
