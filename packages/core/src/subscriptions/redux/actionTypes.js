@@ -38,6 +38,16 @@ export const PUT_USER_SUBSCRIPTIONS_SUCCESS =
 export const RESET_SUBSCRIPTIONS =
   '@farfetch/blackout-core/RESET_SUBSCRIPTIONS';
 
+/** Action type dispatched when the unsubscribe from subscriptions request fails. */
+export const UNSUBSCRIBE_FROM_SUBSCRIPTION_FAILURE =
+  '@farfetch/blackout-core/UNSUBSCRIBE_FROM_SUBSCRIPTION_FAILURE';
+/** Action type dispatched when the unsubscribe from subscriptions request starts. */
+export const UNSUBSCRIBE_FROM_SUBSCRIPTION_REQUEST =
+  '@farfetch/blackout-core/UNSUBSCRIBE_FROM_SUBSCRIPTION_REQUEST';
+/** Action type dispatched when the unsubscribe from subscriptions request succeeds. */
+export const UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS =
+  '@farfetch/blackout-core/UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS';
+
 /** Action type dispatched when the unsubscribe all subscriptions request fails. */
 export const UNSUBSCRIBE_ALL_SUBSCRIPTIONS_FAILURE =
   '@farfetch/blackout-core/UNSUBSCRIBE_ALL_SUBSCRIPTIONS_FAILURE';
