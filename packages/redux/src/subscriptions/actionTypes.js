@@ -38,15 +38,15 @@ export const UPDATE_USER_SUBSCRIPTIONS_SUCCESS =
 export const RESET_SUBSCRIPTIONS =
   '@farfetch/blackout-redux/RESET_SUBSCRIPTIONS';
 
-/** Action type dispatched when the unsubscribe all subscriptions request fails. */
-export const UNSUBSCRIBE_ALL_SUBSCRIPTIONS_FAILURE =
-  '@farfetch/blackout-redux/UNSUBSCRIBE_ALL_SUBSCRIPTIONS_FAILURE';
-/** Action type dispatched when the unsubscribe all subscriptions request starts. */
-export const UNSUBSCRIBE_ALL_SUBSCRIPTIONS_REQUEST =
-  '@farfetch/blackout-redux/UNSUBSCRIBE_ALL_SUBSCRIPTIONS_REQUEST';
-/** Action type dispatched when the unsubscribe all subscriptions request succeeds. */
-export const UNSUBSCRIBE_ALL_SUBSCRIPTIONS_SUCCESS =
-  '@farfetch/blackout-redux/UNSUBSCRIBE_ALL_SUBSCRIPTIONS_SUCCESS';
+/** Action type dispatched when the unsubscribe from subscriptions request fails. */
+export const UNSUBSCRIBE_FROM_SUBSCRIPTION_FAILURE =
+  '@farfetch/blackout-core/UNSUBSCRIBE_FROM_SUBSCRIPTION_FAILURE';
+/** Action type dispatched when the unsubscribe from subscriptions request starts. */
+export const UNSUBSCRIBE_FROM_SUBSCRIPTION_REQUEST =
+  '@farfetch/blackout-core/UNSUBSCRIBE_FROM_SUBSCRIPTION_REQUEST';
+/** Action type dispatched when the unsubscribe from subscriptions request succeeds. */
+export const UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS =
+  '@farfetch/blackout-core/UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS';
 
 /** Action type dispatched when the unsubscribe recipient from topic request fails. */
 export const UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_FAILURE =

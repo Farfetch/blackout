@@ -90,10 +90,10 @@ describe('User Subscriptions redux reducer', () => {
       ).toEqual(mockUserSubscriptionsState.result);
     });
 
-    it(`should handle ${actionTypes.UNSUBSCRIBE_ALL_SUBSCRIPTIONS_SUCCESS} action type`, () => {
+    it(`should handle ${actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS} action type`, () => {
       expect(
         reducer(mockUserSubscriptionsState, {
-          type: actionTypes.UNSUBSCRIBE_ALL_SUBSCRIPTIONS_SUCCESS,
+          type: actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS,
         }).result,
       ).toEqual(INITIAL_STATE.result);
     });
@@ -218,10 +218,10 @@ describe('User Subscriptions redux reducer', () => {
       ).toEqual(true);
     });
 
-    it(`should handle ${actionTypes.UNSUBSCRIBE_ALL_SUBSCRIPTIONS_REQUEST} action type`, () => {
+    it(`should handle ${actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_REQUEST} action type`, () => {
       expect(
         reducer(mockUserSubscriptionsState, {
-          type: actionTypes.UNSUBSCRIBE_ALL_SUBSCRIPTIONS_REQUEST,
+          type: actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_REQUEST,
           payload: {},
         }).isLoading,
       ).toEqual(true);
@@ -263,19 +263,19 @@ describe('User Subscriptions redux reducer', () => {
       ).toEqual(false);
     });
 
-    it(`should handle ${actionTypes.UNSUBSCRIBE_ALL_SUBSCRIPTIONS_FAILURE} action type`, () => {
+    it(`should handle ${actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_FAILURE} action type`, () => {
       expect(
         reducer(mockUserSubscriptionsState, {
-          type: actionTypes.UNSUBSCRIBE_ALL_SUBSCRIPTIONS_FAILURE,
+          type: actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_FAILURE,
           payload: { error: { code: -1 } },
         }).isLoading,
       ).toEqual(false);
     });
 
-    it(`should handle ${actionTypes.UNSUBSCRIBE_ALL_SUBSCRIPTIONS_SUCCESS} action type`, () => {
+    it(`should handle ${actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS} action type`, () => {
       expect(
         reducer(mockUserSubscriptionsState, {
-          type: actionTypes.UNSUBSCRIBE_ALL_SUBSCRIPTIONS_SUCCESS,
+          type: actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS,
           payload: {},
         }).isLoading,
       ).toEqual(false);
