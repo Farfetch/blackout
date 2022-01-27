@@ -2,11 +2,11 @@ import { deleteWishlistItem } from '..';
 import {
   mockWishlistId,
   mockWishlistItemId,
-  mockWishlistResponse,
+  mockWishlistsResponse,
 } from 'tests/__fixtures__/wishlists';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/deleteWishlistItem.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('deleteWishlistItem', () => {
   const expectedConfig = undefined;
@@ -14,25 +14,16 @@ describe('deleteWishlistItem', () => {
   const wishlistItemId = mockWishlistItemId;
   const spy = jest.spyOn(client, 'delete');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
-    const response = mockWishlistResponse;
+    const response = mockWishlistsResponse;
+    mswServer.use(fixtures.success(response));
+    expect.assertions(2);
 
-    fixtures.success({
-      wishlistId,
-      wishlistItemId,
-      response,
-    });
-
-    await expect(deleteWishlistItem(wishlistId, wishlistItemId)).resolves.toBe(
-      response,
-    );
+    await expect(
+      deleteWishlistItem(wishlistId, wishlistItemId),
+    ).resolves.toEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/wishlists/${wishlistId}/items/${wishlistItemId}`,
@@ -41,7 +32,8 @@ describe('deleteWishlistItem', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ wishlistId, wishlistItemId });
+    mswServer.use(fixtures.failure());
+    expect.assertions(2);
 
     await expect(
       deleteWishlistItem(wishlistId, wishlistItemId),

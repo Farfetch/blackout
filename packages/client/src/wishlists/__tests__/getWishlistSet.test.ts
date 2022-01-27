@@ -6,7 +6,7 @@ import {
 } from 'tests/__fixtures__/wishlists';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getWishlistSet.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getWishlistSet', () => {
   const expectedConfig = undefined;
@@ -14,19 +14,15 @@ describe('getWishlistSet', () => {
   const wishlistSetId = mockWishlistSetId;
   const spy = jest.spyOn(client, 'get');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
     const response = mockWishlistsSetResponse;
 
-    fixtures.success({ wishlistId, wishlistSetId, response });
+    mswServer.use(fixtures.success(response));
+    expect.assertions(2);
 
-    await expect(getWishlistSet(wishlistId, wishlistSetId)).resolves.toBe(
+    await expect(getWishlistSet(wishlistId, wishlistSetId)).resolves.toEqual(
       response,
     );
 
@@ -37,7 +33,8 @@ describe('getWishlistSet', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ wishlistId, wishlistSetId });
+    mswServer.use(fixtures.failure());
+    expect.assertions(2);
 
     await expect(
       getWishlistSet(wishlistId, wishlistSetId),
