@@ -5,7 +5,7 @@ import {
 } from 'tests/__fixtures__/wishlists';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/deleteWishlistSet.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('deleteWishlistSet', () => {
   const expectedConfig = undefined;
@@ -13,18 +13,11 @@ describe('deleteWishlistSet', () => {
   const wishlistSetId = mockWishlistSetId;
   const spy = jest.spyOn(client, 'delete');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
-    fixtures.success({
-      wishlistId,
-      wishlistSetId,
-    });
+    mswServer.use(fixtures.success());
+    expect.assertions(2);
 
     await expect(deleteWishlistSet(wishlistId, wishlistSetId)).resolves.toEqual(
       expect.objectContaining({ status: 204 }),
@@ -37,7 +30,8 @@ describe('deleteWishlistSet', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ wishlistId, wishlistSetId });
+    mswServer.use(fixtures.failure());
+    expect.assertions(2);
 
     await expect(
       deleteWishlistSet(wishlistId, wishlistSetId),

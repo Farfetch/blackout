@@ -1,30 +1,26 @@
 import { getWishlist } from '..';
 import {
   mockWishlistId,
-  mockWishlistResponse,
+  mockWishlistsResponse,
 } from 'tests/__fixtures__/wishlists';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getWishlist.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getWishlist', () => {
   const expectedConfig = undefined;
   const wishlistId = mockWishlistId;
   const spy = jest.spyOn(client, 'get');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
-    const response = mockWishlistResponse;
+    const response = mockWishlistsResponse;
 
-    fixtures.success({ wishlistId, response });
+    mswServer.use(fixtures.success(response));
+    expect.assertions(2);
 
-    await expect(getWishlist(wishlistId)).resolves.toBe(response);
+    await expect(getWishlist(wishlistId)).resolves.toEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/wishlists/${wishlistId}?hydrate=true`,
@@ -33,7 +29,8 @@ describe('getWishlist', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ wishlistId });
+    mswServer.use(fixtures.failure());
+    expect.assertions(2);
 
     await expect(getWishlist(wishlistId)).rejects.toMatchSnapshot();
 

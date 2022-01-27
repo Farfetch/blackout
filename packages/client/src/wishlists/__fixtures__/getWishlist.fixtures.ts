@@ -1,31 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
 import type { Wishlist } from '../types';
 
+const path = '/api/commerce/v1/wishlists/:wishlistId';
+
 export default {
-  success: (params: {
-    wishlistId: Wishlist['id'];
-    response: Wishlist;
-  }): void => {
-    moxios.stubRequest(
-      join('/api/commerce/v1/wishlists', params.wishlistId, {
-        query: { hydrate: 'true' },
-      }),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { wishlistId: Wishlist['id'] }): void => {
-    moxios.stubRequest(
-      join('/api/commerce/v1/wishlists', params.wishlistId, {
-        query: { hydrate: 'true' },
-      }),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: Wishlist): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

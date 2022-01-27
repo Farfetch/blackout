@@ -2,38 +2,30 @@ import {
   mockWishlistId,
   mockWishlistItemId,
   mockWishlistItemPatchData,
-  mockWishlistResponse,
+  mockWishlistsResponse,
 } from 'tests/__fixtures__/wishlists';
 import { patchWishlistItem } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/patchWishlistItem.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('patchWishlistItem', () => {
   const expectedConfig = undefined;
   const wishlistId = mockWishlistId;
   const wishlistItemId = mockWishlistItemId;
   const data = mockWishlistItemPatchData;
-  const response = mockWishlistResponse;
+  const response = mockWishlistsResponse;
   const spy = jest.spyOn(client, 'patch');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
-    fixtures.success({
-      wishlistId,
-      wishlistItemId,
-      response,
-    });
+    mswServer.use(fixtures.success(response));
+    expect.assertions(2);
 
     await expect(
       patchWishlistItem(wishlistId, wishlistItemId, data),
-    ).resolves.toBe(response);
+    ).resolves.toEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/wishlists/${wishlistId}/items/${wishlistItemId}`,
@@ -43,11 +35,8 @@ describe('patchWishlistItem', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({
-      wishlistId,
-      wishlistItemId,
-      response,
-    });
+    mswServer.use(fixtures.failure());
+    expect.assertions(2);
 
     await expect(
       patchWishlistItem(wishlistId, wishlistItemId, data),
