@@ -1,5 +1,6 @@
 export * from './addresses.types';
 export * from './addressSchema.types';
+export * from './availableTimeSlots.types';
 export * from './bagItem.types';
 export * from './brand.types';
 export * from './category.types';
@@ -23,6 +24,8 @@ export * from './product.types';
 export * from './productsList.types';
 export * from './program.types';
 export * from './replacement.types';
+export * from './returnItems.types';
+export * from './returns.types';
 export * from './sizeScale.types';
 export * from './statement.types';
 export * from './wishlistItem.types';

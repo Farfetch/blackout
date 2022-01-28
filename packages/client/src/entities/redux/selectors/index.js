@@ -12,6 +12,4 @@ export * from './facets';
 export * from './merchants';
 export * from './preferences';
 export * from './products';
-export * from './returns';
 export * from './preferences';
-export * from './returns';

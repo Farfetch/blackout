@@ -238,6 +238,12 @@ export const mockState = {
   entities: {
     returnItems: { [returnItemId]: returnItem },
     returns: { [returnId]: returnEntity },
+    availableTimeSlots: [
+      {
+        start: '2022-01-07T10:59:03.9169641Z',
+        end: '2022-01-07T10:59:03.9169641Z',
+      },
+    ],
   },
 };
 
@@ -281,6 +287,15 @@ export const mockPostData = {
     {
       name: 'ReturnNote',
       url: '/account/v1/returns/25741579/references/ReturnNote',
+    },
+  ],
+};
+
+export const mockPickupCapabilitiesResponse = {
+  availableTimeSlots: [
+    {
+      start: '2022-01-07T10:59:03.9169641Z',
+      end: '2022-01-07T10:59:03.9169641Z',
     },
   ],
 };
