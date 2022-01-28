@@ -26,7 +26,7 @@ import type {
   UseProductsList,
 } from './types/useProductsList';
 
-export const PRODUCTS_LIST_TYPES: ProductsListTypes = {
+const PRODUCTS_LIST_TYPES: ProductsListTypes = {
   LISTING: 'listing',
   SET: 'set',
 };
