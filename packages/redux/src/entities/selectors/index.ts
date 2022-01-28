@@ -14,6 +14,7 @@ export * from './facets';
 export * from './merchants';
 export * from './merchantsLocations';
 export * from './products';
+export * from './returns';
 export * from './sizeScales';
 export * from './user';
 export * from './states';

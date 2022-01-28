@@ -5,11 +5,11 @@
  */
 
 import { createSelector } from 'reselect';
+import { getEntity } from '@farfetch/blackout-client/entities/redux/selectors';
 import {
-  getEntity,
   getReturnItems as getEntityReturnItems,
   getReturns as getEntityReturns,
-} from '@farfetch/blackout-client/entities/redux/selectors';
+} from '@farfetch/blackout-redux/entities/selectors';
 import {
   getError,
   getId,

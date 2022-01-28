@@ -4,4 +4,4 @@ export type GetPickupCapabilities = (
   id: number,
   pickupDay: string,
   config?: Record<string, unknown>,
-) => Promise<PickupCapabilities[]>;
+) => Promise<PickupCapabilities>;
