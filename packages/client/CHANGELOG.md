@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.125](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.124...@farfetch/blackout-client@2.0.0-next.125) (2022-01-28)
+
+
+### Features
+
+* **client|redux:** orders - split core and redux ([60580f6](https://github.com/Farfetch/blackout/commit/60580f603d6db9691baff76b1390024572c637d2))
+
+
+
+
+
 # [2.0.0-next.124](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.123...@farfetch/blackout-client@2.0.0-next.124) (2022-01-26)
 
 
