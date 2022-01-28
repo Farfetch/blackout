@@ -9,7 +9,7 @@ import { mockStore } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
 import { renderHook } from '@testing-library/react-hooks';
 import React from 'react';
-import useProductsList, { PRODUCTS_LIST_TYPES } from '../useProductsList';
+import useProductsList from '../useProductsList';
 import type { UseProductsListParams } from '../types';
 
 jest.mock('@farfetch/blackout-redux/products', () => ({
@@ -84,7 +84,7 @@ describe('useProductsList', () => {
     });
 
     it('should fetch a set', () => {
-      getRenderedHook({ type: PRODUCTS_LIST_TYPES.SET });
+      getRenderedHook({ type: 'set' });
 
       expect(mockDispatch).toHaveBeenCalledWith({ type: 'fetchSet' });
     });
