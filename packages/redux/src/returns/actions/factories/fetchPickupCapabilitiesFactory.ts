@@ -1,3 +1,4 @@
+import { adaptDate } from '@farfetch/blackout-client/helpers/adapters';
 import {
   FETCH_PICKUP_CAPABILITIES_FAILURE,
   FETCH_PICKUP_CAPABILITIES_REQUEST,
@@ -41,17 +42,27 @@ import type {
 const fetchPickupCapabilitiesFactory =
   (getPickupCapabilities: GetPickupCapabilities) =>
   (id: number, pickupDay: string, config?: Record<string, unknown>) =>
-  async (dispatch: Dispatch): Promise<PickupCapabilities[]> => {
+  async (dispatch: Dispatch): Promise<PickupCapabilities> => {
     dispatch({
       type: FETCH_PICKUP_CAPABILITIES_REQUEST,
     });
 
     try {
       const result = await getPickupCapabilities(id, pickupDay, config);
+      const { availableTimeSlots } = result;
 
       dispatch({
+        payload: {
+          entities: {
+            availableTimeSlots: availableTimeSlots.map(timeSlot => ({
+              start: adaptDate(timeSlot.start),
+              end: adaptDate(timeSlot.end),
+            })),
+          },
+        },
         type: FETCH_PICKUP_CAPABILITIES_SUCCESS,
       });
+
       return result;
     } catch (error) {
       dispatch({

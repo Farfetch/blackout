@@ -2,6 +2,7 @@ import { actionTypes } from '../..';
 import { fetchPickupCapabilities } from '..';
 import { getPickupCapabilities } from '@farfetch/blackout-client/returns';
 import { INITIAL_STATE } from '../../reducer';
+import { mockPickupCapabilitiesResponse } from 'tests/__fixtures__/returns';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 
@@ -25,7 +26,7 @@ describe('fetchPickupCapabilities action creator', () => {
   });
 
   it('should create the correct actions for when the get pickup capabilities procedure fails', async () => {
-    const expectedError = new Error('get pickup capabilities error');
+    const expectedError = new Error('fetch pickup capabilities error');
 
     getPickupCapabilities.mockRejectedValueOnce(expectedError);
     expect.assertions(4);
@@ -55,8 +56,13 @@ describe('fetchPickupCapabilities action creator', () => {
   });
 
   it('should create the correct actions for when the get pickup capabilities procedure is successful', async () => {
-    getPickupCapabilities.mockResolvedValueOnce();
-    await store.dispatch(fetchPickupCapabilities(returnId, pickupDay));
+    getPickupCapabilities.mockResolvedValueOnce(mockPickupCapabilitiesResponse);
+
+    await store
+      .dispatch(fetchPickupCapabilities(returnId, pickupDay))
+      .then(result => {
+        expect(result).toBe(mockPickupCapabilitiesResponse);
+      });
 
     const actionResults = store.getActions();
 
@@ -76,6 +82,6 @@ describe('fetchPickupCapabilities action creator', () => {
       find(actionResults, {
         type: actionTypes.FETCH_PICKUP_CAPABILITIES_SUCCESS,
       }),
-    ).toMatchSnapshot('get pickup capabilities success payload');
+    ).toMatchSnapshot('fetch pickup capabilities success payload');
   });
 });
