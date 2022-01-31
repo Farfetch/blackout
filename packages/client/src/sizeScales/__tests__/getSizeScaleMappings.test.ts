@@ -8,17 +8,12 @@ import {
 } from 'tests/__fixtures__/sizeScales';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getSizeScaleMappings.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('sizeScaleMappings client', () => {
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(jest.clearAllMocks);
 
   describe('getSizeScaleMappings()', () => {
     const spy = jest.spyOn(client, 'get');
@@ -26,14 +21,13 @@ describe('sizeScaleMappings client', () => {
     it('should handle a client request successfully', async () => {
       const response = mockSizeScaleMappings;
 
-      fixtures.success({
-        query: mockSizeScaleMappingsQuery,
-        response,
-      });
+      mswServer.use(fixtures.success(response));
+      expect.assertions(2);
 
       await expect(
         getSizeScaleMappings(mockSizeScaleMappingsQuery),
-      ).resolves.toBe(response);
+      ).resolves.toEqual(response);
+
       expect(spy).toHaveBeenCalledWith(
         `/commerce/v1/sizeScaleMappings?brand=${mockSizeScaleMappingsBrandId}&gender=${mockSizeScaleMappingsGenderId}&sizeScale=${mockSizeScaleMappingsScaleId}`,
         expectedConfig,
@@ -41,13 +35,13 @@ describe('sizeScaleMappings client', () => {
     });
 
     it('should receive a client request error', async () => {
-      fixtures.failure({
-        query: mockSizeScaleMappingsQuery,
-      });
+      mswServer.use(fixtures.failure());
+      expect.assertions(2);
 
       await expect(
         getSizeScaleMappings(mockSizeScaleMappingsQuery),
       ).rejects.toMatchSnapshot();
+
       expect(spy).toHaveBeenCalledWith(
         `/commerce/v1/sizeScaleMappings?brand=${mockSizeScaleMappingsBrandId}&gender=${mockSizeScaleMappingsGenderId}&sizeScale=${mockSizeScaleMappingsScaleId}`,
         expectedConfig,
