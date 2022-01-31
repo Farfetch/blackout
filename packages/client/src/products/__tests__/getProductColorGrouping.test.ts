@@ -5,32 +5,25 @@ import {
 } from 'tests/__fixtures__/products';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getProductColorGrouping.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getProductColorGrouping', () => {
   const expectedConfig = undefined;
   const query = { pageSize: 10 };
   const spy = jest.spyOn(client, 'get');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
     const response = mockProductColorGrouping;
 
-    fixtures.success({
-      id: mockProductId,
-      query,
-      response,
-    });
+    mswServer.use(fixtures.success(response));
 
-    await expect(getProductColorGrouping(mockProductId, query)).resolves.toBe(
-      response,
-    );
+    expect.assertions(2);
+
+    await expect(
+      getProductColorGrouping(mockProductId, query),
+    ).resolves.toEqual(response);
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/products/${mockProductId}/colorgrouping?pageSize=10`,
       expectedConfig,
@@ -38,10 +31,9 @@ describe('getProductColorGrouping', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({
-      id: mockProductId,
-      query,
-    });
+    mswServer.use(fixtures.failure());
+
+    expect.assertions(2);
 
     await expect(
       getProductColorGrouping(mockProductId, query),

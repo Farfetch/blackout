@@ -5,31 +5,23 @@ import {
 } from 'tests/__fixtures__/products';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getRecommendedSet.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('recommended sets client', () => {
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(jest.clearAllMocks);
 
   describe('getRecommendedSet()', () => {
     const spy = jest.spyOn(client, 'get');
 
     it('should handle a client request successfully', async () => {
-      const response = mockRecommendedSet;
+      mswServer.use(fixtures.success(mockRecommendedSet));
 
-      fixtures.success({
-        id: mockRecommendedSetId,
-        response,
-      });
+      expect.assertions(2);
 
-      await expect(getRecommendedSet(mockRecommendedSetId)).resolves.toBe(
-        response,
+      await expect(getRecommendedSet(mockRecommendedSetId)).resolves.toEqual(
+        mockRecommendedSet,
       );
       expect(spy).toHaveBeenCalledWith(
         `/commerce/v1/recommendedsets/${mockRecommendedSetId}`,
@@ -38,9 +30,9 @@ describe('recommended sets client', () => {
     });
 
     it('should receive a client request error', async () => {
-      fixtures.failure({
-        id: mockRecommendedSetId,
-      });
+      mswServer.use(fixtures.failure());
+
+      expect.assertions(2);
 
       await expect(
         getRecommendedSet(mockRecommendedSetId),

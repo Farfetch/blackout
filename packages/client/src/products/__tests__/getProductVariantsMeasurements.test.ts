@@ -5,30 +5,22 @@ import {
 } from 'tests/__fixtures__/products';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getProductVariantsMeasurements.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getProductVariantsMeasurements', () => {
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'get');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
-    const response = mockProductVariantsMeasurements;
+    mswServer.use(fixtures.success(mockProductVariantsMeasurements));
 
-    fixtures.success({
-      id: mockProductId,
-      response,
-    });
+    expect.assertions(2);
 
-    await expect(getProductVariantsMeasurements(mockProductId)).resolves.toBe(
-      response,
-    );
+    await expect(
+      getProductVariantsMeasurements(mockProductId),
+    ).resolves.toEqual(mockProductVariantsMeasurements);
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/products/${mockProductId}/variantsMeasurements`,
       expectedConfig,
@@ -36,9 +28,9 @@ describe('getProductVariantsMeasurements', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({
-      id: mockProductId,
-    });
+    mswServer.use(fixtures.failure());
+
+    expect.assertions(2);
 
     await expect(
       getProductVariantsMeasurements(mockProductId),

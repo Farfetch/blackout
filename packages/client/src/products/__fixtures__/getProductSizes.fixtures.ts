@@ -1,35 +1,17 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { ProductSizesQuery, Size } from '../types';
+import { rest, RestHandler } from 'msw';
+import type { Size } from '../types';
 
+const path = '/api/commerce/v1/products/:id/sizes';
 /**
  * Response payloads.
  */
 export default {
-  success: (params: {
-    id: number;
-    query?: ProductSizesQuery;
-    response: Size[];
-  }): void => {
-    moxios.stubRequest(
-      join('/api/commerce/v1/products', params.id, 'sizes', {
-        query: params.query,
-      }),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { id: number; query?: ProductSizesQuery }): void => {
-    moxios.stubRequest(
-      join('/api/commerce/v1/products', params.id, 'sizes', {
-        query: params.query,
-      }),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: Size[]): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };
