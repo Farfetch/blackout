@@ -1,34 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { SearchSuggestion, SearchSuggestionsQuery } from '../types';
+import { rest, RestHandler } from 'msw';
+import type { SearchSuggestion } from '../types';
 
-/**
- * Response payloads.
- */
+const path = '/api/commerce/v1/search/suggestions';
+
 export default {
-  success: (params: {
-    query: SearchSuggestionsQuery;
-    response: SearchSuggestion[];
-  }): void => {
-    moxios.stubRequest(
-      join('/api/commerce/v1/search/suggestions', {
-        query: params.query,
-      }),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { query: SearchSuggestionsQuery }): void => {
-    moxios.stubRequest(
-      join('/api/commerce/v1/search/suggestions', {
-        query: params.query,
-      }),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: SearchSuggestion[]): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };
