@@ -3,30 +3,23 @@ import { mockQuery, mockResponse } from 'tests/__fixtures__/designers';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getDesigners.fixtures';
 import join from 'proper-url-join';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('designers client', () => {
   const expectedConfig = undefined;
   const query = mockQuery;
   const spy = jest.spyOn(client, 'get');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(jest.clearAllMocks);
 
   describe('getDesigners()', () => {
     it('should handle a client request successfully', async () => {
       const response = mockResponse.result;
 
-      fixtures.success({
-        response,
-        query,
-      });
+      mswServer.use(fixtures.success(response));
+      expect.assertions(2);
 
-      await expect(getDesigners(query)).resolves.toBe(response);
+      await expect(getDesigners(query)).resolves.toEqual(response);
 
       expect(spy).toHaveBeenCalledWith(
         join('/legacy/v1/designers', { query }),
@@ -35,9 +28,8 @@ describe('designers client', () => {
     });
 
     it('should receive a client request error', async () => {
-      fixtures.failure({
-        query,
-      });
+      mswServer.use(fixtures.failure());
+      expect.assertions(2);
 
       await expect(getDesigners(query)).rejects.toMatchSnapshot();
 
