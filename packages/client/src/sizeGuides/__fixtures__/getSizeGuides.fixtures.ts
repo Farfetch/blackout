@@ -1,34 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { SizeGuide, SizeGuidesQuery } from '../types';
+import { rest, RestHandler } from 'msw';
+import type { SizeGuide } from '../types';
 
-/**
- * Response payloads.
- */
+const path = '/api/commerce/v1/sizeGuides';
+
 export default {
-  success: (params: {
-    query: SizeGuidesQuery;
-    response: SizeGuide[];
-  }): void => {
-    moxios.stubRequest(
-      join('/api/commerce/v1/sizeGuides', {
-        query: params.query,
-      }),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { query: SizeGuidesQuery }): void => {
-    moxios.stubRequest(
-      join('/api/commerce/v1/sizeGuides', {
-        query: params.query,
-      }),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: SizeGuide[]): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };
