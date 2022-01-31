@@ -6,30 +6,21 @@ import {
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getStaffMember.fixtures';
 import join from 'proper-url-join';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getStaffMember', () => {
   const spy = jest.spyOn(client, 'get');
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
     const response = mockStaffMember;
 
-    fixtures.success({
-      response,
-      id: mockStaffMemberId,
-    });
-
+    mswServer.use(fixtures.success(response));
     expect.assertions(2);
 
-    await expect(getStaffMember(mockStaffMemberId)).resolves.toBe(response);
+    await expect(getStaffMember(mockStaffMemberId)).resolves.toEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
       join('/account/v1/staffMembers', mockStaffMemberId),
@@ -37,12 +28,11 @@ describe('getStaffMember', () => {
     );
   });
 
-  it('should receive a client request error', () => {
-    fixtures.failure({ id: mockStaffMemberId });
-
+  it('should receive a client request error', async () => {
+    mswServer.use(fixtures.failure());
     expect.assertions(2);
 
-    expect(getStaffMember(mockStaffMemberId)).rejects.toMatchSnapshot();
+    await expect(getStaffMember(mockStaffMemberId)).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(
       join('/account/v1/staffMembers', mockStaffMemberId),
