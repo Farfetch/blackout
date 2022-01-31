@@ -1,21 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
 import type { Brand } from '../types';
 
-/**
- * Response payloads.
- */
+const path = '/api/commerce/v1/brands/:id';
+
 export default {
-  success: (params: { id: Brand['id']; response: Brand }): void => {
-    moxios.stubRequest(join('/api/commerce/v1/brands', params.id), {
-      response: params.response,
-      status: 200,
-    });
-  },
-  failure: (params: { id: Brand['id'] }): void => {
-    moxios.stubRequest(join('/api/commerce/v1/brands', params.id), {
-      response: 'stub error',
-      status: 404,
-    });
-  },
+  success: (response: Brand): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };
