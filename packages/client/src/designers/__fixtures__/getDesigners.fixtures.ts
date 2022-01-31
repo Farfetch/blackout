@@ -1,34 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { Designers, GetDesignersQuery } from '../types';
+import { rest, RestHandler } from 'msw';
+import type { Designers } from '../types';
 
-/**
- * Response payloads.
- */
+const path = '/api/legacy/v1/designers';
+
 export default {
-  success: (params: {
-    query: GetDesignersQuery;
-    response: Designers;
-  }): void => {
-    moxios.stubRequest(
-      join('/api/legacy/v1/designers', {
-        query: params.query,
-      }),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { query: GetDesignersQuery }): void => {
-    moxios.stubRequest(
-      join('/api/legacy/v1/designers', {
-        query: params.query,
-      }),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: Designers): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };
