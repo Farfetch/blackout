@@ -5,18 +5,13 @@ import {
 } from 'tests/__fixtures__/search';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getSearchSuggestions.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('search suggestions client', () => {
   const expectedConfig = undefined;
   const query = mockSearchSuggestionsQuery;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(jest.clearAllMocks);
 
   describe('getSearchSuggestions', () => {
     const spy = jest.spyOn(client, 'get');
@@ -24,14 +19,10 @@ describe('search suggestions client', () => {
     it('should handle a client request successfully', async () => {
       const response = mockSearchSuggestionsResponse;
 
-      fixtures.success({
-        response,
-        query,
-      });
-
+      mswServer.use(fixtures.success(response));
       expect.assertions(2);
 
-      await expect(getSearchSuggestions(query)).resolves.toBe(response);
+      await expect(getSearchSuggestions(query)).resolves.toEqual(response);
 
       expect(spy).toHaveBeenCalledWith(
         '/commerce/v1/search/suggestions?gender=0&ignoreFilterExclusions=true&query=dresses',
@@ -40,10 +31,7 @@ describe('search suggestions client', () => {
     });
 
     it('should receive a client request error', async () => {
-      fixtures.failure({
-        query,
-      });
-
+      mswServer.use(fixtures.failure());
       expect.assertions(2);
 
       await expect(getSearchSuggestions(query)).rejects.toMatchSnapshot();
