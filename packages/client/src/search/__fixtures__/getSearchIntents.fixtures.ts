@@ -1,34 +1,16 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { SearchIntents, SearchIntentsQuery } from '../types';
+import { rest, RestHandler } from 'msw';
+import type { SearchIntents } from '../types';
 
-/**
- * Response payloads.
- */
+const path = '/api/commerce/v1/search/intent';
+
 export default {
-  success: (params: {
-    query: SearchIntentsQuery;
-    response: SearchIntents;
-  }): void => {
-    moxios.stubRequest(
-      join('/api/commerce/v1/search/intent', {
-        query: params.query,
-      }),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { query: SearchIntentsQuery }): void => {
-    moxios.stubRequest(
-      join('/api/commerce/v1/search/intent', {
-        query: params.query,
-      }),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: SearchIntents): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+
+  failure: (): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

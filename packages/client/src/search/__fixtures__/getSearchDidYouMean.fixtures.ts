@@ -1,34 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { SearchDidYouMean, SearchDidYouMeanQuery } from '../types';
+import { rest, RestHandler } from 'msw';
+import type { SearchDidYouMean } from '../types';
 
-/**
- * Response payloads.
- */
+const path = '/api/commerce/v1/search/didyoumean';
+
 export default {
-  success: (params: {
-    query: SearchDidYouMeanQuery;
-    response: SearchDidYouMean[];
-  }): void => {
-    moxios.stubRequest(
-      join('/api/commerce/v1/search/didyoumean', {
-        query: params.query,
-      }),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { query: SearchDidYouMeanQuery }): void => {
-    moxios.stubRequest(
-      join('/api/commerce/v1/search/didyoumean', {
-        query: params.query,
-      }),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: SearchDidYouMean[]): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };
