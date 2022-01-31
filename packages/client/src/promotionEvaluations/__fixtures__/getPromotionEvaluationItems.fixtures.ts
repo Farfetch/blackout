@@ -1,35 +1,17 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { PromotionEvaluationId, PromotionEvaluationItem } from '../types';
+import { rest, RestHandler } from 'msw';
+import type { PromotionEvaluationItem } from '../types';
+
+const path =
+  '/api/commerce/v1/promotionEvaluations/:promotionEvaluationId/promotionEvaluationItems';
 
 export default {
-  success: (params: {
-    promotionEvaluationId: PromotionEvaluationId;
-    response: Array<PromotionEvaluationItem>;
-  }): void => {
-    moxios.stubRequest(
-      join(
-        '/api/commerce/v1/promotionEvaluations',
-        params.promotionEvaluationId,
-        'promotionEvaluationItems',
-      ),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { promotionEvaluationId: PromotionEvaluationId }): void => {
-    moxios.stubRequest(
-      join(
-        '/api/commerce/v1/promotionEvaluations',
-        params.promotionEvaluationId,
-        'promotionEvaluationItems',
-      ),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: PromotionEvaluationItem[]): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+
+  failure: (): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

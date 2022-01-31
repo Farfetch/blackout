@@ -5,30 +5,25 @@ import {
 } from 'tests/__fixtures__/promotionEvaluations';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getPromotionEvaluationItems.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getPromotionEvaluationItems()', () => {
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
+  beforeEach(jest.clearAllMocks);
 
-  afterEach(() => moxios.uninstall(client));
   const spy = jest.spyOn(client, 'get');
 
   it('should handle a client request successfully', async () => {
     const response = mockPromotionEvaluationsItemsResponse;
 
-    fixtures.success({
-      promotionEvaluationId: mockPromotionEvaluationId,
-      response,
-    });
+    mswServer.use(fixtures.success(response));
+    expect.assertions(2);
 
     await expect(
       getPromotionEvaluationItems(mockPromotionEvaluationId),
-    ).resolves.toBe(response);
+    ).resolves.toEqual(response);
+
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/promotionEvaluations/${mockPromotionEvaluationId}/promotionEvaluationItems`,
       expectedConfig,
@@ -36,13 +31,13 @@ describe('getPromotionEvaluationItems()', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({
-      promotionEvaluationId: mockPromotionEvaluationId,
-    });
+    mswServer.use(fixtures.failure());
+    expect.assertions(2);
 
     await expect(
       getPromotionEvaluationItems(mockPromotionEvaluationId),
     ).rejects.toMatchSnapshot();
+
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/promotionEvaluations/${mockPromotionEvaluationId}/promotionEvaluationItems`,
       expectedConfig,
