@@ -1,62 +1,46 @@
-import { getListing } from '..';
+import { getListing } from '../';
 import {
   mockProductsListResponse,
   mockProductsListSlug,
 } from 'tests/__fixtures__/products';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getListing.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
-describe('listing client', () => {
+describe('getListing', () => {
   const query = {};
-  const response = mockProductsListResponse;
   const expectedConfig = undefined;
+  const spy = jest.spyOn(client, 'get');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
+  beforeEach(jest.clearAllMocks);
+
+  it('should handle a client request successfully', async () => {
+    mswServer.use(fixtures.success(mockProductsListResponse));
+
+    expect.assertions(2);
+
+    await expect(getListing(mockProductsListSlug, query)).resolves.toEqual(
+      mockProductsListResponse,
+    );
+
+    expect(spy).toHaveBeenCalledWith(
+      `/commerce/v1/listing${mockProductsListSlug}`,
+      expectedConfig,
+    );
   });
 
-  afterEach(() => moxios.uninstall(client));
+  it('should receive a client request error', async () => {
+    mswServer.use(fixtures.failure());
 
-  describe('getListing', () => {
-    const spy = jest.spyOn(client, 'get');
+    expect.assertions(2);
 
-    it('should handle a client request successfully', async () => {
-      fixtures.get.success({
-        slug: mockProductsListSlug,
-        response,
-        query,
-      });
+    await expect(
+      getListing(mockProductsListSlug, query),
+    ).rejects.toMatchSnapshot();
 
-      expect.assertions(2);
-
-      await expect(getListing(mockProductsListSlug, query)).resolves.toBe(
-        response,
-      );
-
-      expect(spy).toHaveBeenCalledWith(
-        `/commerce/v1/listing${mockProductsListSlug}`,
-        expectedConfig,
-      );
-    });
-
-    it('should receive a client request error', async () => {
-      fixtures.get.failure({
-        slug: mockProductsListSlug,
-        query,
-      });
-
-      expect.assertions(2);
-
-      await expect(
-        getListing(mockProductsListSlug, query),
-      ).rejects.toMatchSnapshot();
-
-      expect(spy).toHaveBeenCalledWith(
-        `/commerce/v1/listing${mockProductsListSlug}`,
-        expectedConfig,
-      );
-    });
+    expect(spy).toHaveBeenCalledWith(
+      `/commerce/v1/listing${mockProductsListSlug}`,
+      expectedConfig,
+    );
   });
 });

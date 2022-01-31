@@ -1,24 +1,18 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
 import type { RecommendedSet } from '../types';
+
+const path = '/api/commerce/v1/recommendedsets/:id';
 
 /**
  * Response payloads.
  */
 export default {
-  success: (params: {
-    id: RecommendedSet['id'];
-    response: RecommendedSet;
-  }): void => {
-    moxios.stubRequest(join('/api/commerce/v1/recommendedsets', params.id), {
-      response: params.response,
-      status: 200,
-    });
-  },
-  failure: (params: { id: RecommendedSet['id'] }): void => {
-    moxios.stubRequest(join('/api/commerce/v1/recommendedsets', params.id), {
-      response: 'stub error',
-      status: 404,
-    });
-  },
+  success: (response: RecommendedSet): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

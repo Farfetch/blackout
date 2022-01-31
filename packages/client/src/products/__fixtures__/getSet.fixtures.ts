@@ -1,35 +1,18 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { Set, SetQuery } from '../types';
+import { rest, RestHandler } from 'msw';
+import type { Set } from '../types';
+
+const path = '/api/commerce/v1/sets/:slug';
 
 /**
  * Response payloads.
  */
 export default {
-  success: (params: {
-    slug: string | number;
-    query?: SetQuery;
-    response: Set;
-  }): void => {
-    moxios.stubRequest(
-      join('/api/commerce/v1/sets', params.slug, {
-        query: params.query,
-      }),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { slug: string | number; query?: SetQuery }): void => {
-    moxios.stubRequest(
-      join('/api/commerce/v1/sets', params.slug, {
-        query: params.query,
-      }),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: Set): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };
