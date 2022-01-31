@@ -2,7 +2,7 @@ import { getSizeScales } from '../';
 import { mockSizeScale } from 'tests/__fixtures__/sizeScales';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getSizeScales.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('sizeScales client', () => {
   const mockQuery = {
@@ -10,12 +10,7 @@ describe('sizeScales client', () => {
   };
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(jest.clearAllMocks);
 
   describe('getSizeScales()', () => {
     const spy = jest.spyOn(client, 'get');
@@ -23,12 +18,11 @@ describe('sizeScales client', () => {
     it('should handle a client request successfully', async () => {
       const response = [mockSizeScale];
 
-      fixtures.success({
-        query: mockQuery,
-        response,
-      });
+      mswServer.use(fixtures.success(response));
+      expect.assertions(2);
 
-      await expect(getSizeScales(mockQuery)).resolves.toBe(response);
+      await expect(getSizeScales(mockQuery)).resolves.toEqual(response);
+
       expect(spy).toHaveBeenCalledWith(
         '/commerce/v1/sizeScales?categoryId=136301',
         expectedConfig,
@@ -36,11 +30,11 @@ describe('sizeScales client', () => {
     });
 
     it('should receive a client request error', async () => {
-      fixtures.failure({
-        query: mockQuery,
-      });
+      mswServer.use(fixtures.failure());
+      expect.assertions(2);
 
       await expect(getSizeScales(mockQuery)).rejects.toMatchSnapshot();
+
       expect(spy).toHaveBeenCalledWith(
         '/commerce/v1/sizeScales?categoryId=136301',
         expectedConfig,
