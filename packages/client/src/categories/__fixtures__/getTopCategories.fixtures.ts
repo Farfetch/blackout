@@ -1,18 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
 import type { Category } from '../types';
 
+const path = '/api/commerce/v1/categories/top';
+
 export default {
-  success: (params: { response: Category[] }): void => {
-    moxios.stubRequest(join('/api/commerce/v1/categories/top'), {
-      response: params.response,
-      status: 200,
-    });
-  },
-  failure: (): void => {
-    moxios.stubRequest(join('/api/commerce/v1/categories/top'), {
-      response: 'stub error',
-      status: 404,
-    });
-  },
+  success: (response: Category[]): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };
