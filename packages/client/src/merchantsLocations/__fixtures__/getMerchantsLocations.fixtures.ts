@@ -1,34 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { GetMerchantsLocationsQuery, MerchantLocation } from '../types';
+import { rest, RestHandler } from 'msw';
+import type { MerchantLocation } from '../types';
 
-/**
- * Response payloads.
- */
+const path = '/api/commerce/v1/merchantsLocations';
+
 export default {
-  success: (params: {
-    query: GetMerchantsLocationsQuery;
-    response: MerchantLocation[];
-  }): void => {
-    moxios.stubRequest(
-      join('/api/commerce/v1/merchantsLocations', {
-        query: params.query,
-      }),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { query: GetMerchantsLocationsQuery }): void => {
-    moxios.stubRequest(
-      join('/api/commerce/v1/merchantsLocations', {
-        query: params.query,
-      }),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: MerchantLocation[]): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };
