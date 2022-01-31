@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.126](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.125...@farfetch/blackout-client@2.0.0-next.126) (2022-01-31)
+
+
+### Features
+
+* **client|redux:** add new unsubscribe client ([a82f004](https://github.com/Farfetch/blackout/commit/a82f00481100fa74d03c124a39f2a8b5e7978ad2))
+
+
+
+
+
 # [2.0.0-next.125](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.124...@farfetch/blackout-client@2.0.0-next.125) (2022-01-28)
 
 
