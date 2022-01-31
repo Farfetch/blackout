@@ -1,21 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
 import type { SizeScale } from '../types';
 
-/**
- * Response payloads.
- */
+const path = '/api/commerce/v1/sizeScales/:id';
+
 export default {
-  success: (params: { id: number; response: SizeScale }): void => {
-    moxios.stubRequest(join('/api/commerce/v1/sizeScales', params.id), {
-      response: params.response,
-      status: 200,
-    });
-  },
-  failure: (params: { id: number }): void => {
-    moxios.stubRequest(join('/api/commerce/v1/sizeScales', params.id), {
-      response: 'stub error',
-      status: 404,
-    });
-  },
+  success: (response: SizeScale): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };
