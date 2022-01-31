@@ -1,4 +1,4 @@
-import { mockProductId } from './products.fixtures';
+import { mockProductId } from './ids.fixtures';
 
 export const mockRecommendedSetId = 202382;
 

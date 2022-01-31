@@ -11,9 +11,7 @@ describe('postBagItem', () => {
   beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
-    mswServer.use(
-      fixtures.success({ bagId: mockBagId, response: mockResponse }),
-    );
+    mswServer.use(fixtures.success(mockResponse));
 
     expect.assertions(2);
 
@@ -29,7 +27,7 @@ describe('postBagItem', () => {
   });
 
   it('should receive a client request error', async () => {
-    mswServer.use(fixtures.failure({ bagId: mockBagId }));
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

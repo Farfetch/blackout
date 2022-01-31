@@ -11,25 +11,18 @@ import mswServer from '../../../tests/mswServer';
 
 describe('patchBagItem', () => {
   const expectedConfig = undefined;
-  const response = mockResponse;
   const spy = jest.spyOn(client, 'patch');
 
   beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
-    mswServer.use(
-      fixtures.success({
-        bagId: mockBagId,
-        bagItemId: mockBagItemId,
-        response,
-      }),
-    );
+    mswServer.use(fixtures.success(mockResponse));
 
     expect.assertions(2);
 
     await expect(
       patchBagItem(mockBagId, mockBagItemId, mockData),
-    ).resolves.toEqual(response);
+    ).resolves.toEqual(mockResponse);
 
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/bags/${mockBagId}/items/${mockBagItemId}`,
@@ -39,12 +32,7 @@ describe('patchBagItem', () => {
   });
 
   it('should receive a client request error', async () => {
-    mswServer.use(
-      fixtures.failure({
-        bagId: mockBagId,
-        bagItemId: mockBagItemId,
-      }),
-    );
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

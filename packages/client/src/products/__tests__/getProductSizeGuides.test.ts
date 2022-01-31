@@ -1,31 +1,26 @@
 import { getProductSizeGuides } from '..';
-import { mockProductId, mockSizeGuides } from 'tests/__fixtures__/products';
+import {
+  mockProductId,
+  mockProductSizeGuides,
+} from 'tests/__fixtures__/products';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getProductSizeGuides.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getProductSizeGuides', () => {
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'get');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
-    const response = mockSizeGuides;
-
-    fixtures.success({
-      id: mockProductId,
-      response,
-    });
+    mswServer.use(fixtures.success(mockProductSizeGuides));
 
     expect.assertions(2);
 
-    await expect(getProductSizeGuides(mockProductId)).resolves.toBe(response);
+    await expect(getProductSizeGuides(mockProductId)).resolves.toEqual(
+      mockProductSizeGuides,
+    );
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/products/${mockProductId}/sizeguides`,
       expectedConfig,
@@ -33,9 +28,10 @@ describe('getProductSizeGuides', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ id: mockProductId });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
+
     await expect(getProductSizeGuides(mockProductId)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/products/${mockProductId}/sizeguides`,
