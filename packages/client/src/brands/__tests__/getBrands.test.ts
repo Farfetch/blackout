@@ -2,17 +2,12 @@ import { getBrands } from '../';
 import { mockBrandsResponse, mockQuery } from 'tests/__fixtures__/brands';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getBrands.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('brands client', () => {
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(jest.clearAllMocks);
 
   describe('getBrands()', () => {
     const spy = jest.spyOn(client, 'get');
@@ -20,12 +15,11 @@ describe('brands client', () => {
     it('should handle a client request successfully', async () => {
       const response = mockBrandsResponse;
 
-      fixtures.success({
-        query: mockQuery,
-        response,
-      });
+      mswServer.use(fixtures.success(response));
+      expect.assertions(2);
 
-      await expect(getBrands(mockQuery)).resolves.toBe(response);
+      await expect(getBrands(mockQuery)).resolves.toEqual(response);
+
       expect(spy).toHaveBeenCalledWith(
         '/commerce/v1/brands?id=211376%2C%20110127',
         expectedConfig,
@@ -33,11 +27,12 @@ describe('brands client', () => {
     });
 
     it('should receive a client request error', async () => {
-      fixtures.failure({
-        query: mockQuery,
-      });
+      mswServer.use(fixtures.failure());
+
+      expect.assertions(2);
 
       await expect(getBrands(mockQuery)).rejects.toMatchSnapshot();
+
       expect(spy).toHaveBeenCalledWith(
         '/commerce/v1/brands?id=211376%2C%20110127',
         expectedConfig,
