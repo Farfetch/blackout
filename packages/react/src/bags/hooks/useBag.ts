@@ -55,7 +55,6 @@ const useBag: UseBag = () => {
      * @type {object}
      */
     bag,
-
     /**
      * Bag error.
      *
