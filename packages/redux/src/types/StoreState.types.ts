@@ -14,12 +14,15 @@ import type {
   FacetEntity,
   InstrumentEntity,
   MerchantEntity,
+  OrderItemsEntity,
+  OrdersEntity,
   PaymentTokenEntity,
   ProductEntity,
   ProductsListEntity,
   ProgramEntity,
   ReplacementEntity,
   ReturnItemsEntity,
+  ReturnOptionsEntity,
   ReturnsEntity,
   StatementEntity,
   WishlistItemEntity,
@@ -39,6 +42,7 @@ import type { State as LocaleState } from '../locale/types';
 import type { State as LoyaltyState } from '../loyalty/types';
 import type { MerchantLocation } from '@farfetch/blackout-client/merchantsLocations/types';
 import type { State as MerchantsLocationsState } from '../merchantsLocations/types';
+import type { State as OrdersState } from '../orders/types';
 import type { State as PaymentsState } from '../payments/types';
 import type { State as ProductsState } from '../products/types';
 import type { ProgramMembership } from '@farfetch/blackout-client/src/loyalty/types';
@@ -80,6 +84,8 @@ export type StoreState = Partial<{
     membership: Record<ProgramMembership['id'], ProgramMembership>;
     merchants: Record<MerchantEntity['id'], MerchantEntity>;
     merchantsLocations: Record<MerchantLocation['id'], MerchantLocation>;
+    orders: Record<OrdersEntity['id'], OrdersEntity>;
+    orderItems: Record<OrderItemsEntity['id'], OrderItemsEntity>;
     paymentTokens: Record<PaymentTokenEntity['id'], PaymentTokenEntity>;
     products: Record<ProductEntity['id'], ProductEntity>;
     productsLists: Record<ProductsListEntity['hash'], ProductsListEntity>;
@@ -87,6 +93,7 @@ export type StoreState = Partial<{
     replacements: Record<ReplacementEntity['id'], ReplacementEntity>;
     returnItems: Record<ReturnItemsEntity['Id'], ReturnItemsEntity>;
     returns: Record<ReturnsEntity['id'], ReturnsEntity>;
+    returnOptions: Record<ReturnOptionsEntity['id'], ReturnOptionsEntity>;
     sizeScales: Record<SizeScale['sizeScaleId'], SizeScale>;
     statements: Record<StatementEntity['id'], StatementEntity>;
     states: Record<string, any>;
@@ -107,6 +114,7 @@ export type StoreState = Partial<{
   locale: LocaleState;
   loyalty: LoyaltyState;
   merchantsLocations: MerchantsLocationsState;
+  orders: OrdersState;
   payments: PaymentsState;
   products: ProductsState;
   promotionEvaluations: PromotionEvaluationsState;
