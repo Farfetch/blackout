@@ -861,7 +861,7 @@ export const mockOrderDocumentsResponse = [
   {
     id: '1',
     fileId: '98b1cb96-710e-437c-98b6-e904b91cf6f6',
-    type: 'ComercialInvoice',
+    type: ['ComercialInvoice'],
     createdAt: '2021-08-04T06:36:17.28+00:00',
     updatedAt: '2021-08-04T06:37:50.317+00:00',
   },
@@ -1651,4 +1651,102 @@ export const expectedOrderReturnOptionsNormalizedPayload = {
       options: ['10538_3'],
     },
   ],
+};
+
+export const returnOptionEntity = {
+  id: returnOptionId,
+  type: 3,
+};
+export const orderEntity = {
+  id: orderId,
+  byMerchant: {
+    [`${merchantId}`]: {
+      returnOptions: [returnOptionId],
+      orderItems: [orderItemId],
+    },
+  },
+  items: [orderItemId],
+};
+export const labelTrackingEntity = {
+  courier: courierId,
+  estimatedDeliveryDate: '2019-05-24T22:59:00Z',
+  events: [
+    {
+      code: 'PU',
+      date: '2019-05-23T18:35:23Z',
+      description: 'Shipment picked up',
+      location: 'DOCKLANDS-GBR',
+      signatory: '',
+    },
+  ],
+  isEstimatedDeliveryDateTrusworthy: false,
+  service: 'DOMESTIC EXPRESS',
+  trackingNumber,
+};
+export const courierEntity = {
+  id: courierId,
+  name: 'DHL',
+};
+export const merchantEntity = { id: merchantId, name: 'merchant' };
+export const orderItemEntity = {
+  brand: 220482,
+  id: orderItemId,
+};
+export const countryEntity = {
+  id: countryId,
+  name: 'Portugal',
+};
+
+export const mockState = {
+  orders: {
+    error: 'error: not loaded',
+    isLoading: false,
+    result: {
+      entries: [`${orderId}`],
+      number: 1,
+      totalItems: 1,
+      totalPages: 1,
+    },
+    ordersList: {
+      error: 'error: not loaded',
+      isLoading: false,
+    },
+    orderDetails: {
+      error: { [orderId]: null },
+      isLoading: { [orderId]: false },
+    },
+    orderReturnOptions: {
+      error: { [orderId]: null },
+      isLoading: { [orderId]: false },
+    },
+    trackings: {
+      error: null,
+      isLoading: false,
+    },
+    documents: {
+      error: null,
+      isLoading: false,
+    },
+  },
+  entities: {
+    courier: {
+      [`${courierId}`]: courierEntity,
+    },
+    labelTracking: {
+      [`${trackingNumber}`]: labelTrackingEntity,
+    },
+    orders: { [`${orderId}`]: orderEntity },
+    merchants: {
+      [`${merchantId}`]: merchantEntity,
+    },
+    orderItems: {
+      [`${orderItemId}`]: orderItemEntity,
+    },
+    countries: {
+      [`${countryId}`]: countryEntity,
+    },
+    returnOptions: {
+      [`${returnOptionId}`]: returnOptionEntity,
+    },
+  },
 };
