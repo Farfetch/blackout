@@ -16,46 +16,47 @@ import type {
  *
  * @returns Thunk factory.
  */
-const fetchProductRecommendationsFactory: FetchProductRecommendationsFactory<GetProductRecommendations> =
+const fetchProductRecommendationsFactory: FetchProductRecommendationsFactory<
+  GetProductRecommendations
+> =
+  getProductRecommendations =>
+  // (productId, strategyName, config) =>
+  (query, config) =>
+  async (
+    dispatch: Dispatch<FetchProductRecommendationsAction>,
+  ): Promise<GetProductRecommendation[]> => {
+    const { strategyName } = query;
 
-    getProductRecommendations =>
-    // (productId, strategyName, config) =>
-    (query, config) =>
-    async (
-      dispatch: Dispatch<FetchProductRecommendationsAction>,
-    ): Promise<GetProductRecommendation[]> => {
-      const { strategyName } = query;
+    try {
+      dispatch({
+        type: actionTypes.FETCH_PRODUCT_RECOMMENDATIONS_REQUEST,
+        meta: { strategyName },
+      });
 
-      try {
-        dispatch({
-          type: actionTypes.FETCH_PRODUCT_RECOMMENDATIONS_REQUEST,
-          meta: { strategyName },
-        });
+      const result = await getProductRecommendations(query, config);
+      const recommendations = adaptProductRecommendations(result);
 
-        const result = await getProductRecommendations(query, config);
-        const recommendations = adaptProductRecommendations(result);
+      dispatch({
+        type: actionTypes.FETCH_PRODUCT_RECOMMENDATIONS_SUCCESS,
+        payload: {
+          id: recommendations.id,
+          values: recommendations.values,
+        },
+        meta: {
+          strategyName,
+        },
+      });
 
-        dispatch({
-          type: actionTypes.FETCH_PRODUCT_RECOMMENDATIONS_SUCCESS,
-          payload: {
-            id: recommendations.id,
-            values: recommendations.values,
-          },
-          meta: {
-            strategyName,
-          },
-        });
+      return result;
+    } catch (error) {
+      dispatch({
+        type: actionTypes.FETCH_PRODUCT_RECOMMENDATIONS_FAILURE,
+        payload: { error },
+        meta: { strategyName },
+      });
 
-        return result;
-      } catch (error) {
-        dispatch({
-          type: actionTypes.FETCH_PRODUCT_RECOMMENDATIONS_FAILURE,
-          payload: { error },
-          meta: { strategyName },
-        });
-
-        throw error;
-      }
-    };
+      throw error;
+    }
+  };
 
 export default fetchProductRecommendationsFactory;

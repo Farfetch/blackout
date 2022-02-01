@@ -11,34 +11,35 @@ import type { RemoveRecentlyViewedProductsFactory } from './types';
  *
  * @returns Thunk factory.
  */
-const removeRecentlyViewedProductFactory: RemoveRecentlyViewedProductsFactory<DeleteRecentlyViewedProducts> =
+const removeRecentlyViewedProductFactory: RemoveRecentlyViewedProductsFactory<
+  DeleteRecentlyViewedProducts
+> =
+  deleteRecentlyViewedProduct =>
+  (productId, config) =>
+  async (
+    dispatch: Dispatch<RemoveRecentlyViewedProductAction>,
+  ): Promise<void> => {
+    try {
+      dispatch({
+        meta: { productId },
+        type: actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_REQUEST,
+      });
 
-    deleteRecentlyViewedProduct =>
-    (productId, config) =>
-    async (
-      dispatch: Dispatch<RemoveRecentlyViewedProductAction>,
-    ): Promise<void> => {
-      try {
-        dispatch({
-          meta: { productId },
-          type: actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_REQUEST,
-        });
+      await deleteRecentlyViewedProduct(productId, config);
 
-        await deleteRecentlyViewedProduct(productId, config);
+      dispatch({
+        meta: { productId },
+        type: actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        meta: { productId },
+        payload: { error },
+        type: actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE,
+      });
 
-        dispatch({
-          meta: { productId },
-          type: actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS,
-        });
-      } catch (error) {
-        dispatch({
-          meta: { productId },
-          payload: { error },
-          type: actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE,
-        });
-
-        throw error;
-      }
-    };
+      throw error;
+    }
+  };
 
 export default removeRecentlyViewedProductFactory;
