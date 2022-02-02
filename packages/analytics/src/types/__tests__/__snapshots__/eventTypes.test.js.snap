@@ -36,6 +36,7 @@ Object {
   "SHIPPING_METHOD_ADDED": "Shipping Method Added",
   "SIGNUP_FORM_COMPLETED": "Sign-up Form Completed",
   "SIGNUP_FORM_VIEWED": "Sign-up Form Viewed",
+  "SIGNUP_NEWSLETTER": "Sign-up Newsletter",
   "SORT_OPTION_CHANGED": "Sort Option Changed",
 }
 `;
