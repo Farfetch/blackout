@@ -73,7 +73,7 @@ const getProductCategories = productCategoryString => {
     return {};
   }
 
-  const productCategories = productCategoryString
+  let productCategories = productCategoryString
     .split('/')
     .filter(category => category);
 
@@ -81,6 +81,12 @@ const getProductCategories = productCategoryString => {
     utils.logger.warn(
       `[GA4] - Product category hierarchy exceeded maximum of ${MAX_PRODUCT_CATEGORIES}. GA4 only allows up to ${MAX_PRODUCT_CATEGORIES} levels.`,
     );
+
+    // Use the first and the last four categories
+    productCategories = [
+      productCategories[0],
+      ...productCategories.slice(-MAX_PRODUCT_CATEGORIES + 1),
+    ];
   }
 
   // GA4 only supports 5 level of categories

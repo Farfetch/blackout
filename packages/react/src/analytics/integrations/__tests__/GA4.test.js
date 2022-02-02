@@ -10,6 +10,7 @@ import {
 import {
   DEFAULT_DATA_LAYER_NAME,
   INIT_ERROR,
+  MAX_PRODUCT_CATEGORIES,
   MESSAGE_PREFIX,
   NON_INTERACTION_FLAG,
   OPTION_DATA_LAYER_NAME,
@@ -1163,6 +1164,51 @@ describe('GA4 Integration', () => {
           await ga4Instance.track(clonedEvent);
 
           expect(ga4Spy.mock.calls).toMatchSnapshot();
+        });
+      });
+
+      describe('Product categories max validation', () => {
+        it(`Should display a warning and truncate the categories if the product categories exceed ${MAX_PRODUCT_CATEGORIES}`, async () => {
+          ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+
+          const ga4Spy = getWindowGa4Spy();
+
+          const clonedEvent = cloneDeep(
+            validTrackEvents[eventTypes.PRODUCT_ADDED_TO_CART],
+          );
+
+          clonedEvent.properties.category =
+            'Category_1/Category_2/Category_3/Category_4/Category_5/Category_6';
+
+          // Make sure our dummy categories exceed the max length
+          expect(
+            clonedEvent.properties.category.split('/').length,
+          ).toBeGreaterThan(MAX_PRODUCT_CATEGORIES);
+
+          // We want the first + last 4 categories
+          const expectedCategories = {
+            item_category: 'Category_1',
+            item_category2: 'Category_3',
+            item_category3: 'Category_4',
+            item_category4: 'Category_5',
+            item_category5: 'Category_6',
+          };
+
+          await ga4Instance.track(clonedEvent);
+
+          expect(utils.logger.warn).toHaveBeenCalledWith(
+            '[GA4] - Product category hierarchy exceeded maximum of 5. GA4 only allows up to 5 levels.',
+          );
+
+          const eventPropertiesSentGa4 = ga4Spy.mock.calls[0].pop();
+
+          expect(eventPropertiesSentGa4).toEqual(
+            expect.objectContaining({
+              items: expect.arrayContaining([
+                expect.objectContaining(expectedCategories),
+              ]),
+            }),
+          );
         });
       });
     });
