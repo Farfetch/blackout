@@ -1,8 +1,8 @@
 import { actionTypes } from '../..';
 import {
-  expectedNormalizedPayload,
+  expectedNormalizedUserPayload,
   mockUsersResponse,
-} from '../../__fixtures__/users.fixtures';
+} from 'tests/__fixtures__/users';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import { putUser } from '@farfetch/blackout-client/users';
@@ -71,7 +71,7 @@ describe('updateUser action creator', () => {
     expect(actionResults).toMatchObject([
       { type: actionTypes.UPDATE_USER_REQUEST },
       {
-        payload: expectedNormalizedPayload,
+        payload: expectedNormalizedUserPayload,
         type: actionTypes.UPDATE_USER_SUCCESS,
       },
     ]);

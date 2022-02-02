@@ -1,27 +1,48 @@
 export const mockUsersResponse = {
-  bagId: 'fe72a536-a68d-49c7-a47f-fb8fe3e97c3e',
-  email: 'rrrrrr@rrrrrr.rrrrrr',
-  gender: 'NotDefined',
-  id: 45409141,
+  bagId: '3a52edfe-5b17-46b9-ba5d-ed87cb36aa67',
+  dateOfBirth: null,
+  email: 'teste@conta.com',
+  gender: 0,
+  id: 29538482,
   title: {
-    id: 'd9c46e48-bf5c-4340-91d8-bc360cbc0699',
-    value: 'None',
+    id: '111',
+    value: 'Dr.',
   },
-  name: 'rrrrrr rrrrrr',
+  name: 'Ivo Mota',
+  phoneNumber: null,
   segments: [],
-  username: 'rrrrrr@rrrrrr.rrrrrr',
-  wishlistId: 'da16f6d8-ae2a-445b-a42f-b66dfeeea673',
+  username: 'teste@conta.com',
+  wishlistId: '8e091868-b74b-47e1-ab27-a2c247c92242',
   isExternalLogin: false,
-  isGuest: false,
-  guestBagItemsMerged: 0,
-  status: 'PendingEmailConfirmation',
-  lastName: 'rrrrrr',
-  firstName: 'rrrrrr',
-  createdDate: '2020-04-16T09:28:13.13Z',
-  updatedDate: '2020-04-16T09:28:13.13Z',
-  countryCode: 'US',
-  receiveNewsletters: false,
+  genders: ['NotDefined', 'Male', 'Female'],
+  genderId: 0,
 };
+
+export const expectedNormalizedUserPayload = {
+  entities: {
+    user: {
+      bagId: '3a52edfe-5b17-46b9-ba5d-ed87cb36aa67',
+      dateOfBirth: null,
+      email: 'teste@conta.com',
+      gender: 0,
+      genderId: 0,
+      genders: ['NotDefined', 'Male', 'Female'],
+      id: 29538482,
+      isExternalLogin: false,
+      name: 'Ivo Mota',
+      phoneNumber: null,
+      segments: [],
+      username: 'teste@conta.com',
+      wishlistId: '8e091868-b74b-47e1-ab27-a2c247c92242',
+      title: {
+        id: '111',
+        value: 'Dr.',
+      },
+    },
+  },
+  result: 29538482,
+};
+
 
 export const mockUserAttributesResponse = {
   id: '',

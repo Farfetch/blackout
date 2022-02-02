@@ -3,7 +3,7 @@ import { createGuestUser } from '..';
 import {
   expectedNormalizedPayload,
   mockGuestUserResponse as mockPostGuestUserResponse,
-} from '../../__fixtures__/guestUsers.fixtures';
+} from 'tests/__fixtures__/users';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import { postGuestUser } from '@farfetch/blackout-client/users';

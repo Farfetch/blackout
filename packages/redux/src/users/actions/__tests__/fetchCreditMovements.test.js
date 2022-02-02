@@ -2,7 +2,7 @@ import { actionTypes } from '../..';
 import {
   expectedCreditMovementsNormalizedPayload,
   mockGetCreditMovementsResponse,
-} from '../../__fixtures__/creditMovements.fixtures';
+} from 'tests/__fixtures__/users';
 import { fetchCreditMovements } from '..';
 import { getCreditMovements } from '@farfetch/blackout-client/users';
 import { INITIAL_STATE } from '../../reducer';
