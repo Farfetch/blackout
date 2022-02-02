@@ -51,6 +51,7 @@ export default {
   [InternalEventTypes.PRODUCT_UPDATED.CHANGE_SIZE]: getCommandForEvent,
   [InternalEventTypes.PRODUCT_UPDATED.CHANGE_COLOUR]: getCommandForEvent,
   [eventTypes.INTERACT_CONTENT]: getCommandForEvent,
+  [eventTypes.SIGNUP_NEWSLETTER]: getCommandForEvent,
 };
 
 // Schema used to validate the output of command functions

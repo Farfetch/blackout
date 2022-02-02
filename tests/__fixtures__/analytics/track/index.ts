@@ -30,6 +30,7 @@ import shareTrackData from './shareTrackData.fixtures';
 import shippingInfoAddedTrackData from './shippingInfoAddedTrackData.fixtures';
 import shippingMethodAddedTrackData from './shippingMethodAddedTrackData.fixtures';
 import signupFormCompletedTrackData from './signupFormCompletedTrackData.fixtures';
+import signupNewsletterTrackData from './signupNewsletterTrackData.fixtures';
 import sortOptionChangedTrackData from './sortOptionChangedTrackData.fixtures';
 
 export default {
@@ -66,5 +67,6 @@ export default {
   [eventTypes.SHIPPING_INFO_ADDED]: shippingInfoAddedTrackData,
   [eventTypes.SHIPPING_METHOD_ADDED]: shippingMethodAddedTrackData,
   [eventTypes.SIGNUP_FORM_COMPLETED]: signupFormCompletedTrackData,
+  [eventTypes.SIGNUP_NEWSLETTER]: signupNewsletterTrackData,
   [eventTypes.SORT_OPTION_CHANGED]: sortOptionChangedTrackData,
 };
