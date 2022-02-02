@@ -708,6 +708,7 @@ const validTrackEvents = {
       step: 1,
     },
   },
+
   [eventTypes.SHARE]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.SHARE,
@@ -742,6 +743,7 @@ const validTrackEvents = {
       ],
     },
   },
+
   [eventTypes.INTERACT_CONTENT]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.INTERACT_CONTENT,
@@ -749,6 +751,14 @@ const validTrackEvents = {
       interactionType: interactionTypes.CLICK,
       contentType: 'biz',
       someOtherProperty: 12312312,
+    },
+  },
+
+  [eventTypes.SIGNUP_NEWSLETTER]: {
+    type: analyticsTrackTypes.TRACK,
+    event: eventTypes.SIGNUP_NEWSLETTER,
+    properties: {
+      gender: '0',
     },
   },
 };
