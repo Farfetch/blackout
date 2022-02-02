@@ -1,5 +1,6 @@
 import { eventTypes, pageTypes, utils } from '@farfetch/blackout-analytics';
 import { MAX_PRODUCT_CATEGORIES } from './constants';
+import { SignupNewsletterGenderMappings } from '../shared/dataMappings/';
 import get from 'lodash/get';
 import snakeCase from 'lodash/snakeCase';
 
@@ -48,6 +49,7 @@ export default {
   [eventTypes.ADDRESS_INFO_ADDED]: 'add_address_info',
   [eventTypes.SHIPPING_METHOD_ADDED]: 'add_shipping_method',
   [eventTypes.INTERACT_CONTENT]: 'interact_content',
+  [eventTypes.SIGNUP_NEWSLETTER]: 'sign_up_newsletter',
   // internal ga4 cases
   [InternalEventTypes.PRODUCT_UPDATED.CHANGE_QUANTITY]:
     InternalEventTypes.PRODUCT_UPDATED.CHANGE_QUANTITY,
@@ -587,6 +589,19 @@ const getChangeScaleSizeGuideParametersFromEvent = eventProperties => {
 };
 
 /**
+ * Returns the signup newsletter parameters formatted for the GA4 event.
+ *
+ * @param {object} eventProperties - Properties from a track event.
+ *
+ * @returns {object} Parameters formatted for the GA4's sign_up_newsletter event.
+ */
+const getSignupNewsletterParametersFromEvent = eventProperties => {
+  return {
+    newsletter_gender: SignupNewsletterGenderMappings[eventProperties.gender],
+  };
+};
+
+/**
  * Returns event properties mapping by GA4 event name.
  *
  * @param {string} event - Event name.
@@ -676,6 +691,9 @@ export function getEventProperties(event, data) {
 
     case eventTypes.CHECKOUT_STEP_EDITING:
       return getCheckoutStepEditingParametersFromEvent(eventProperties);
+
+    case eventTypes.SIGNUP_NEWSLETTER:
+      return getSignupNewsletterParametersFromEvent(eventProperties);
 
     default:
       /* istanbul ignore next */
