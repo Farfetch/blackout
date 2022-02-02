@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.189](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.188...@farfetch/blackout-redux@1.0.0-next.189) (2022-02-02)
+
+
+### Bug Fixes
+
+* **client|redux:** save pickup capabilities time slots ([80bcdb8](https://github.com/Farfetch/blackout/commit/80bcdb842696616b61a8915dd6a7aa195161e837))
+
+
+
+
+
 # [1.0.0-next.188](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.187...@farfetch/blackout-redux@1.0.0-next.188) (2022-02-01)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
