@@ -25,14 +25,15 @@ export type QueryContents = IndexSignature<
 export interface ComponentType {
   type: string;
   // Need to use any here because fields could have a big nested structure.
-  fields: Record<string, any>;
-  customType: string;
-  name: string;
-  displayOptions: Record<string, string>;
+  fields?: Record<string, any>;
+  content?: string;
+  customType?: string;
+  name?: string;
+  displayOptions?: Record<string, string>;
 }
 
 export interface Metadata {
-  custom: {
+  custom?: {
     id: string;
     gender: string;
     brand: string;
@@ -43,7 +44,7 @@ export interface Metadata {
 
 export interface ContentEntries {
   publicationId: string;
-  publicationDate: Date;
+  publicationDate: string;
   versionId: string;
   spaceCode: string;
   metadata: Metadata;

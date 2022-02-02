@@ -1,4 +1,4 @@
-import { getSearchContents } from '../';
+import { getSearchContents } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/contents.fixtures';
 import mswServer from '../../../tests/mswServer';
@@ -15,7 +15,7 @@ describe('contents client', () => {
     const query = {
       spaceCode: 'website',
       environmentCode: 'live',
-      codes: 123456789,
+      codes: '123456789',
       contentTypeCode: 'pages',
     };
     const response = {
@@ -25,8 +25,10 @@ describe('contents client', () => {
       entries: [
         {
           publicationId: '1fa65fb0-49bf-43b3-902e-78d104f160a3',
+          publicationDate: '2021-10-28T10:34:01.226Z',
           versionId: '914480a1-21a3-4bb4-8670-40ab113b1a3a',
           spaceCode: 'website',
+          metadata: {},
           contentTypeCode: 'pages',
           environmentCode: 'live',
           code: 'cttpage',
@@ -44,8 +46,10 @@ describe('contents client', () => {
         },
         {
           publicationId: '01b7783c-1b9d-4d5d-915b-17a30c85082d',
+          publicationDate: '2021-10-28T10:34:01.226Z',
           versionId: '8402918c-b859-4b5b-8192-d83809bae1d0',
           spaceCode: 'website',
+          metadata: {},
           contentTypeCode: 'pages',
           environmentCode: 'live',
           code: 'boutiques',

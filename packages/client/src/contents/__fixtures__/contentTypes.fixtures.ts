@@ -1,25 +1,18 @@
-import { rest } from 'msw';
+import { rest, RestHandler } from 'msw';
+import type { ContentTypes } from '../types';
 
-const path = '/api/seo/metadata';
+const path = '/api/content/v1/spaces/:spaceCode/contentTypes';
 
 /**
  * Response payloads.
  */
 export default {
   get: {
-    /**
-     * Success moxios request.
-     *
-     * @param {object} response - SEO payload.
-     */
-    success: response =>
+    success: (response: ContentTypes): RestHandler =>
       rest.get(path, async (req, res, ctx) =>
         res(ctx.status(200), ctx.json(response)),
       ),
-    /**
-     * Failure msw request.
-     */
-    failure: () =>
+    failure: (): RestHandler =>
       rest.get(path, async (req, res, ctx) =>
         res(ctx.status(404), ctx.json({ message: 'stub error' })),
       ),

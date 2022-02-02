@@ -1,25 +1,18 @@
-import { rest } from 'msw';
+import { rest, RestHandler } from 'msw';
+import type { CommercePages } from '../types';
 
-const path = '/api/content/v1/search/contents';
+const path = '/api/content/v1/commercepages';
 
 /**
  * Response payloads.
  */
 export default {
   get: {
-    /**
-     * Success msw request.
-     *
-     * @param {object} response - Contents payload.
-     */
-    success: response =>
+    success: (response: CommercePages): RestHandler =>
       rest.get(path, async (req, res, ctx) =>
         res(ctx.status(200), ctx.json(response)),
       ),
-    /**
-     * Failure msw request.
-     */
-    failure: () =>
+    failure: (): RestHandler =>
       rest.get(path, async (req, res, ctx) =>
         res(ctx.status(404), ctx.json({ message: 'stub error' })),
       ),

@@ -1,4 +1,4 @@
-import { getSEO } from '../';
+import { getSEO } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/seo.fixtures';
 import mswServer from '../../../tests/mswServer';
@@ -15,7 +15,7 @@ describe('SEO client', () => {
     const query = {
       path: 'about',
       pageType: 'pages',
-      subpageType: '',
+      subPageType: '',
       param: null,
     };
     const response = {
@@ -72,7 +72,7 @@ describe('SEO client', () => {
       await expect(getSEO(query)).resolves.toEqual(response);
 
       expect(spy).toHaveBeenCalledWith(
-        '/seo/metadata?pageType=pages&param&path=about&subpageType=',
+        '/seo/metadata?pageType=pages&param&path=about&subPageType=',
         expectedConfig,
       );
     });
@@ -85,7 +85,7 @@ describe('SEO client', () => {
       await expect(getSEO(query)).rejects.toMatchSnapshot();
 
       expect(spy).toHaveBeenCalledWith(
-        '/seo/metadata?pageType=pages&param&path=about&subpageType=',
+        '/seo/metadata?pageType=pages&param&path=about&subPageType=',
         expectedConfig,
       );
     });
