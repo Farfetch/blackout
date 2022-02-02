@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.48.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.47.0...@farfetch/blackout-core@1.48.0) (2022-02-02)
+
+
+### Features
+
+* **core:** add new unsubscribe client ([68d6f38](https://github.com/Farfetch/blackout/commit/68d6f384f086f395abf94513c9dde191b0c2968e))
+
+
+
+
+
 # [1.47.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.46.1...@farfetch/blackout-core@1.47.0) (2022-01-25)
 
 
