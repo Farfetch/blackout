@@ -666,6 +666,18 @@ Array [
 ]
 `;
 
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Sign-up Newsletter event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "sign_up_newsletter",
+    Object {
+      "newsletter_gender": "Woman",
+    },
+  ],
+]
+`;
+
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Size Guide Scale Changed event correctly 1`] = `
 Array [
   Array [

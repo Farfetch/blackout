@@ -77,6 +77,8 @@ export default {
   SIGNUP_FORM_COMPLETED: 'Sign-up Form Completed',
   /** Signup From Viewed should be tracked when the signup form is viewed. */
   SIGNUP_FORM_VIEWED: 'Sign-up Form Viewed',
+  /** Signup Newsletter should be tracked when the user signs-up the newsletter. */
+  SIGNUP_NEWSLETTER: 'Sign-up Newsletter',
   /** Sort Option Changed should be tracked when the user changes sort options. */
   SORT_OPTION_CHANGED: 'Sort Option Changed',
 };
