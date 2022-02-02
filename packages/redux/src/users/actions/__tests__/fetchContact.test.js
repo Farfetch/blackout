@@ -2,7 +2,7 @@ import { actionTypes } from '../..';
 import {
   expectedGetContactNormalized,
   mockGetContactResponse,
-} from '../../__fixtures__/contacts.fixtures';
+} from 'tests/__fixtures__/users';
 import { fetchContact } from '..';
 import { getContact } from '@farfetch/blackout-client/users';
 import { INITIAL_STATE } from '../../reducer';
