@@ -22,6 +22,13 @@ export type QueryCommercePages = {
 
 export type CommercePagesContent = Array<ContentEntries>;
 
+export type CommercePages = {
+  number: number;
+  totalPages: number;
+  totalItems: number;
+  entries: CommercePagesContent;
+};
+
 export type GetCommercePages = (
   query: QueryCommercePages,
   config?: Config,
