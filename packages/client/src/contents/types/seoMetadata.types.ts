@@ -4,7 +4,7 @@ export type GetSEO = (query: QuerySEO, config?: Config) => Promise<SEOMetadata>;
 
 export type QuerySEO = {
   pageType: string;
-  param: string;
+  param: string | null;
   path: string;
   subPageType: string;
 };
@@ -33,13 +33,13 @@ export type Metatags = {
 };
 
 export type SEOMetadata = {
-  title?: string;
-  h1?: string;
-  canonicalUrl?: string;
-  keywords?: string;
-  description?: string;
-  headPrefix?: string;
-  imageAltText?: string;
+  title: string | null;
+  h1: string | null;
+  canonicalUrl: string | null;
+  keywords: string | null;
+  description: string | null;
+  headPrefix: string | null;
+  imageAltText?: string | null;
   metatags?: Array<Metatags>;
   hrefLangs?: Array<HrefLangs>;
 };
