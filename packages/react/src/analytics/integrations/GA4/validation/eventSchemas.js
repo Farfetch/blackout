@@ -33,6 +33,7 @@ import {
   pageTypes,
 } from '@farfetch/blackout-core/analytics';
 import { InternalEventTypes } from '../eventMapping';
+import { SignupNewsletterGenderMappings } from '../../shared/dataMappings/';
 
 export const errorCodes = {
   InvalidSize: 'ga4_invalid_size',
@@ -270,6 +271,10 @@ const interactContentSchema = yup.object({
     ),
 });
 
+const signupNewsletterSchema = yup.object({
+  gender: yup.string().oneOf(Object.keys(SignupNewsletterGenderMappings)),
+});
+
 export default {
   [eventTypes.CHECKOUT_ABANDONED]: checkoutAbandonedSchema,
   [eventTypes.CHECKOUT_STARTED]: beginCheckoutSchema,
@@ -302,4 +307,5 @@ export default {
     changeQuantityProductInCartSchema,
   [InternalEventTypes.PRODUCT_UPDATED.CHANGE_COLOUR]: colourChangedSchema,
   [eventTypes.INTERACT_CONTENT]: interactContentSchema,
+  [eventTypes.SIGNUP_NEWSLETTER]: signupNewsletterSchema,
 };
