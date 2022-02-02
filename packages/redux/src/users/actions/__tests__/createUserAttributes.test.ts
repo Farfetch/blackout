@@ -1,7 +1,7 @@
 import { actionTypes } from '../..';
 import { createUserAttributes } from '../';
 import { INITIAL_STATE } from '../../reducer';
-import { mockPostUserAttributesResponse } from '../../__fixtures__/userAttributes.fixtures';
+import { mockPostUserAttributesResponse } from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../tests';
 import { postUserAttributes } from '@farfetch/blackout-client/users';
 import find from 'lodash/find';

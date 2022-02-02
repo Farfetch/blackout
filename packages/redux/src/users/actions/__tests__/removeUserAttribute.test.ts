@@ -1,7 +1,7 @@
 import { actionTypes } from '../..';
 import { deleteUserAttribute } from '@farfetch/blackout-client/users';
 import { INITIAL_STATE } from '../../reducer';
-import { mockDeleteUserAttributeResponse } from '../../__fixtures__/userAttribute.fixtures';
+import { mockDeleteUserAttributeResponse } from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../tests';
 import { removeUserAttribute } from '../';
 import find from 'lodash/find';

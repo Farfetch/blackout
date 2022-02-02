@@ -1,16 +1,16 @@
 import * as fromEntities from '../../entities/selectors/entity';
 import * as fromUsers from '../reducer';
 import * as selectors from '../selectors';
-import { expectedBenefitsNormalizedPayload } from '../__fixtures__/benefits.fixtures';
-import { expectedCreditMovementsNormalizedPayload } from '../__fixtures__/creditMovements.fixtures';
-import { expectedCreditNormalizedPayload } from '../__fixtures__/credit.fixtures';
-import { expectedGetContactsNormalized } from '../__fixtures__/contacts.fixtures';
-import { expectedNormalizedPayload } from '../__fixtures__/users.fixtures';
-import { expectedPreferencesNormalizedPayload } from '../__fixtures__/preferences.fixtures';
 import {
+  expectedBenefitsNormalizedPayload,
+  expectedCreditMovementsNormalizedPayload,
+  expectedCreditNormalizedPayload,
+  expectedGetContactsNormalized,
+  expectedNormalizedUserPayload,
+  expectedPreferencesNormalizedPayload,
   expectedTitlesNormalizedPayload,
   idTitle1,
-} from '../__fixtures__/titles.fixtures';
+} from 'tests/__fixtures__/users';
 import { selectorAssertions } from '../../../tests/helpers';
 
 describe('users redux selectors', () => {
@@ -55,7 +55,7 @@ describe('users redux selectors', () => {
       },
     },
     entities: {
-      ...expectedNormalizedPayload.entities,
+      ...expectedNormalizedUserPayload.entities,
       ...expectedBenefitsNormalizedPayload.entities,
       ...expectedPreferencesNormalizedPayload.entities,
       ...expectedTitlesNormalizedPayload.entities,

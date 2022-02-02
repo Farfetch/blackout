@@ -2,7 +2,7 @@ import { actionTypes } from '../..';
 import { fetchUserAttributes } from '../';
 import { getUserAttributes } from '@farfetch/blackout-client/users';
 import { INITIAL_STATE } from '../../reducer';
-import { mockGetUserAttributesResponse } from '../../__fixtures__/userAttributes.fixtures';
+import { mockGetUserAttributesResponse } from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 

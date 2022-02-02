@@ -3,7 +3,7 @@ import { actionTypes } from '../..';
 import {
   expectedBenefitsNormalizedPayload,
   mockGetBenefitsResponse,
-} from '../../__fixtures__/benefits.fixtures';
+} from 'tests/__fixtures__/users';
 import { fetchBenefits } from '..';
 import { getBenefits } from '@farfetch/blackout-client/users';
 import { INITIAL_STATE } from '../../reducer';

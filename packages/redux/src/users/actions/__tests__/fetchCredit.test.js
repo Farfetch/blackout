@@ -2,7 +2,7 @@ import { actionTypes } from '../..';
 import {
   expectedCreditNormalizedPayload,
   mockGetCreditResponse,
-} from '../../__fixtures__/credit.fixtures';
+} from 'tests/__fixtures__/users';
 import { fetchCredit } from '..';
 import { getCredit } from '@farfetch/blackout-client/users';
 import { INITIAL_STATE } from '../../reducer';

@@ -3,7 +3,7 @@ import { createContact } from '..';
 import {
   expectedCreateContactNormalized,
   mockPostContactResponse,
-} from '../../__fixtures__/contacts.fixtures';
+} from 'tests/__fixtures__/users';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import { postContact } from '@farfetch/blackout-client/users';

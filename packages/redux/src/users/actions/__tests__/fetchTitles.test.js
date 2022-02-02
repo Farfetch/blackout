@@ -3,7 +3,7 @@ import { actionTypes } from '../..';
 import {
   expectedTitlesNormalizedPayload,
   mockGetTitlesResponse,
-} from '../../__fixtures__/titles.fixtures';
+} from 'tests/__fixtures__/users';
 import { fetchTitles } from '..';
 import { getTitles } from '@farfetch/blackout-client/users';
 import { INITIAL_STATE } from '../../reducer';

@@ -3,7 +3,7 @@ import { actionTypes } from '../..';
 import {
   expectedPreferencesNormalizedPayload,
   mockGetPreferencesResponse,
-} from '../../__fixtures__/preferences.fixtures';
+} from 'tests/__fixtures__/users';
 import { fetchPreferences } from '..';
 import { getPreferences } from '@farfetch/blackout-client/users';
 import { INITIAL_STATE } from '../../reducer';

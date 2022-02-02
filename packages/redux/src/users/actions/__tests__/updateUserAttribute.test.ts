@@ -1,6 +1,6 @@
 import { actionTypes } from '../..';
 import { INITIAL_STATE } from '../../reducer';
-import { mockPatchUserAttributeResponse } from '../../__fixtures__/userAttribute.fixtures';
+import { mockPatchUserAttributeResponse } from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../tests';
 import { patchUserAttribute } from '@farfetch/blackout-client/users';
 import { updateUserAttribute } from '../';
