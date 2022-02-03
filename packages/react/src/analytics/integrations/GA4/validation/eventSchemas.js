@@ -3,6 +3,7 @@ import {
   affiliationSchema,
   couponRequiredSchema,
   couponSchema,
+  currencyRequiredSchema,
   currencySchema,
   discountSchema,
   filtersSchema,
@@ -14,14 +15,16 @@ import {
   positionSchema,
   priceWithoutDiscountSchema,
   productBaseSchema,
-  productCheckoutSchema,
   productIdSchema,
+  productRequiredSchema,
   quantitySchema,
   shippingSchema,
+  sizeSchema,
   sortOptionSchema,
   taxSchema,
   totalRequiredSchema,
   valueSchema,
+  wishlistIdSchema,
 } from '../../shared/validation/eventSchemas';
 import {
   eventTypes,
@@ -36,28 +39,25 @@ export const errorCodes = {
   InvalidColour: 'ga4_invalid_colour',
 };
 
-export const locationId = yup.object({
-  locationId: yup.string(),
-});
-
-const baseProductSchema = productBaseSchema
-  .concat(currencySchema)
-  .concat(couponSchema)
+const fullProductSchema = productBaseSchema
   .concat(affiliationSchema)
+  .concat(couponSchema)
+  .concat(currencySchema)
   .concat(discountSchema)
-  .concat(listNameSchema)
   .concat(listIdSchema)
-  .concat(locationId)
+  .concat(listNameSchema)
+  .concat(locationSchema)
   .concat(priceWithoutDiscountSchema)
   .concat(quantitySchema)
-  .concat(positionSchema);
+  .concat(positionSchema)
+  .concat(sizeSchema);
 
 const productsSchema = yup.object({
-  products: yup.array().of(baseProductSchema),
+  products: yup.array().of(fullProductSchema),
 });
 
 const baseCheckoutSchema = productsSchema
-  .concat(currencySchema)
+  .concat(currencyRequiredSchema)
   .concat(totalRequiredSchema)
   .concat(couponSchema);
 
@@ -83,7 +83,7 @@ const shippingTierSchema = yup.object({
   shippingTier: yup.string().strict().notRequired(),
 });
 
-const checkoutShippingStepSchema = baseCheckoutSchema
+const shippingInfoAddedSchema = baseCheckoutSchema
   .concat(addressFinderSchema)
   .concat(deliveryTypeSchema)
   .concat(packagingTypeSchema)
@@ -107,7 +107,7 @@ const selectContentSchema = productIdSchema.concat(
   }),
 );
 
-const selectItemSchema = baseProductSchema
+const selectItemSchema = fullProductSchema
   .concat(listNameSchema)
   .concat(listIdSchema);
 
@@ -119,7 +119,7 @@ const errorSchema = yup.object({
   error: yup.string().notRequired(),
 });
 
-const viewItemSchema = baseProductSchema.concat(imageCountSchema);
+const viewItemSchema = fullProductSchema.concat(imageCountSchema);
 
 const viewItemListSchema = productsSchema
   .concat(fromSchema)
@@ -127,22 +127,14 @@ const viewItemListSchema = productsSchema
   .concat(filtersSchema)
   .concat(errorSchema);
 
-const prePurchaseProductSchema = productCheckoutSchema
-  .concat(listNameSchema)
+const viewBagSchema = currencyRequiredSchema
+  .concat(fromSchema)
   .concat(listIdSchema)
-  .concat(affiliationSchema)
-  .concat(couponSchema)
-  .concat(positionSchema)
-  .concat(locationSchema);
+  .concat(listNameSchema)
+  .concat(productsSchema)
+  .concat(valueSchema);
 
-const prePurchaseProductListSchema = yup.object({
-  products: yup.array().of(prePurchaseProductSchema),
-});
-
-const prePurchaseSchema = fromSchema
-  .concat(currencySchema)
-  .concat(valueSchema)
-  .concat(prePurchaseProductListSchema);
+const viewWishlistSchema = wishlistIdSchema.required();
 
 const shareSchema = yup.object({
   method: yup.string().notRequired(),
@@ -151,9 +143,8 @@ const shareSchema = yup.object({
 });
 
 const changeScaleSizeGuideSchema = fromSchema
-  .concat(productsSchema)
+  .concat(productRequiredSchema)
   .concat(currencySchema)
-  .concat(valueSchema)
   .concat(
     yup.object({
       sizeScaleName: yup.string().nullable(),
@@ -165,7 +156,7 @@ const changeScaleSizeGuideSchema = fromSchema
     }),
   );
 
-const addOrRemoveProductInCartSchema = yup.object({
+const productUpdatesInCartWishlistSchema = yup.object({
   oldSize: yup.string(),
   size: yup.string(),
   oldQuantity: yup.number(),
@@ -173,17 +164,17 @@ const addOrRemoveProductInCartSchema = yup.object({
 });
 
 const manageProductInCartSchema = fromSchema
-  .concat(currencySchema)
   .concat(valueSchema)
-  .concat(prePurchaseProductSchema)
-  .concat(addOrRemoveProductInCartSchema);
+  .concat(fullProductSchema)
+  .concat(currencyRequiredSchema)
+  .concat(productUpdatesInCartWishlistSchema);
 
-const updateProductInCart = fromSchema
-  .concat(currencySchema)
-  .concat(valueSchema)
-  .concat(prePurchaseProductSchema);
+const manageProductInWishlistSchema =
+  manageProductInCartSchema.concat(wishlistIdSchema);
 
-const changeSizeProductInCartSchema = updateProductInCart.concat(
+const updateProductSchema = fromSchema.concat(productRequiredSchema);
+
+const changeSizeProductInCartSchema = updateProductSchema.concat(
   yup.object({
     oldSize: yup.string(),
     size: yup
@@ -200,7 +191,7 @@ const changeSizeProductInCartSchema = updateProductInCart.concat(
   }),
 );
 
-const changeQuantityProductInCartSchema = updateProductInCart.concat(
+const changeQuantityProductInCartSchema = updateProductSchema.concat(
   yup.object({
     oldQuantity: yup.number(),
     quantity: yup
@@ -221,7 +212,7 @@ const changeQuantityProductInCartSchema = updateProductInCart.concat(
   }),
 );
 
-const colourChangedSchema = updateProductInCart.concat(
+const colourChangedSchema = updateProductSchema.concat(
   yup.object({
     oldColour: yup.string(),
     colour: yup
@@ -242,13 +233,33 @@ const checkoutStepEditingSchema = yup.object({
   step: yup.number().required(),
 });
 
-const checkoutAbandonedSchema = baseCheckoutSchema.concat(fromSchema);
+const checkoutShippingStepSchema = currencyRequiredSchema
+  .concat(totalRequiredSchema)
+  .concat(couponSchema)
+  .concat(addressFinderSchema)
+  .concat(deliveryTypeSchema)
+  .concat(packagingTypeSchema)
+  .concat(shippingTierSchema);
+
+const checkoutAbandonedSchema = currencyRequiredSchema
+  .concat(totalRequiredSchema)
+  .concat(couponSchema)
+  .concat(fromSchema);
+
 const promocodeAppliedSchema =
   checkoutShippingStepSchema.concat(couponRequiredSchema);
-const placeOrderStartedSchema = purchaseAndRefundSchema;
+
+const placeOrderStartedSchema = currencyRequiredSchema
+  .concat(couponSchema)
+  .concat(totalRequiredSchema)
+  .concat(orderIdSchema)
+  .concat(affiliationSchema)
+  .concat(shippingSchema)
+  .concat(taxSchema);
+
 const sameBillingAddressSelectedSchema = checkoutShippingStepSchema;
-const addressInfoAddedSchema = checkoutShippingStepSchema;
 const shippingMethodAddedSchema = checkoutShippingStepSchema;
+const addressInfoAddedSchema = checkoutShippingStepSchema;
 
 const interactContentSchema = yup.object({
   interactionType: yup
@@ -268,16 +279,18 @@ export default {
   [eventTypes.PAYMENT_INFO_ADDED]: checkoutPaymentStepSchema,
   [eventTypes.PLACE_ORDER_STARTED]: placeOrderStartedSchema,
   [eventTypes.PRODUCT_ADDED_TO_CART]: manageProductInCartSchema,
+  [eventTypes.PRODUCT_REMOVED_FROM_CART]: manageProductInCartSchema,
+  [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: manageProductInWishlistSchema,
+  [eventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: manageProductInWishlistSchema,
   [eventTypes.PRODUCT_CLICKED]: selectItemSchema,
   [eventTypes.PRODUCT_LIST_VIEWED]: viewItemListSchema,
-  [eventTypes.PRODUCT_REMOVED_FROM_CART]: manageProductInCartSchema,
   [eventTypes.PRODUCT_VIEWED]: viewItemSchema,
   [eventTypes.PROMOCODE_APPLIED]: promocodeAppliedSchema,
   [eventTypes.SELECT_CONTENT]: selectContentSchema,
-  [eventTypes.SHIPPING_INFO_ADDED]: checkoutShippingStepSchema,
-  [pageTypes.BAG]: prePurchaseSchema,
+  [eventTypes.SHIPPING_INFO_ADDED]: shippingInfoAddedSchema,
+  [pageTypes.BAG]: viewBagSchema,
   [pageTypes.SEARCH]: searchSchema,
-  [pageTypes.WISHLIST]: prePurchaseSchema,
+  [pageTypes.WISHLIST]: viewWishlistSchema,
   [eventTypes.SHARE]: shareSchema,
   [eventTypes.CHANGE_SCALE_SIZE_GUIDE]: changeScaleSizeGuideSchema,
   [eventTypes.CHECKOUT_STEP_EDITING]: checkoutStepEditingSchema,

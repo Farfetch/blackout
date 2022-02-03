@@ -179,6 +179,42 @@ const getProductItemsFromEvent = eventProperties => {
 };
 
 /**
+ * Returns product updated event parameters for GA4 custom events (change_size, change_colour, change_quantity).
+ *
+ * @param {string} event - Event name.
+ * @param {object} eventProperties - Properties from a track event.
+ *
+ * @returns {object} Parameters for GA4's custom product updated events.
+ */
+const getProductUpdatedParametersFromEvent = (event, eventProperties) => {
+  const parameters = {
+    from: eventProperties.from,
+    item_id: utils.getProductId(eventProperties),
+    item_name: utils.getProductName(eventProperties),
+  };
+
+  switch (event) {
+    case InternalEventTypes.PRODUCT_UPDATED.CHANGE_QUANTITY:
+      parameters.quantity = eventProperties.quantity;
+      parameters.old_quantity = eventProperties.oldSize;
+      break;
+    case InternalEventTypes.PRODUCT_UPDATED.CHANGE_SIZE:
+      parameters.size_id = eventProperties.size;
+      parameters.old_size_id = eventProperties.oldQuantity;
+      break;
+    case InternalEventTypes.PRODUCT_UPDATED.CHANGE_COLOUR:
+      parameters.colour = eventProperties.colour;
+      parameters.old_colour = eventProperties.oldColour;
+      break;
+
+    default:
+      break;
+  }
+
+  return parameters;
+};
+
+/**
  * Returns pre-purchased event properties formatted to GA4 ecommerce events.
  *
  * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/ecommerce#pre-purchase_interactions}
@@ -199,6 +235,43 @@ const getPrePurchaseParametersFromEvent = eventProperties => {
     wishlist_id: eventProperties.wishlistId,
     items,
     value: getEventTotalValue(eventProperties, items),
+  };
+};
+
+/**
+ * Returns view wishlist event parameters formatted for GA4 event.
+ *
+ * @param {object} eventProperties - Properties from a track event.
+ *
+ * @returns {object} Parameters for GA4's view wishlist custom event.
+ */
+const getViewWishlistParametersFromEvent = eventProperties => {
+  return {
+    wishlist_id: eventProperties.wishlistId,
+  };
+};
+
+/**
+ * Returns product removed from wishlist parameters formatted for GA4 event.
+ *
+ * @param {object} eventProperties - Properties from a track event.
+ *
+ * @returns {object} Parameters for GA4's remove_from_wishlist event.
+ */
+const getProductRemovedFromWishlist = eventProperties => {
+  const productParameters = getProductParametersFromEvent(
+    eventProperties,
+    false,
+  );
+
+  return {
+    from: eventProperties.from,
+    item_list_id: eventProperties.listId,
+    item_list_name: eventProperties.list,
+    wishlist_name: eventProperties.wishlist,
+    wishlist_id: eventProperties.wishlistId,
+    value: getEventTotalValue(eventProperties, new Array(productParameters)),
+    ...productParameters,
   };
 };
 
@@ -249,7 +322,9 @@ const getCheckoutPaymentStepParametersFromEvent = eventProperties => {
  */
 const getCheckoutShippingStepParametersFromEvent = eventProperties => {
   return {
-    ...getCheckoutParametersFromEvent(eventProperties),
+    currency: eventProperties.currency,
+    coupon: eventProperties.coupon,
+    value: eventProperties.total,
     shipping_tier: eventProperties.shippingTier,
     address_finder: eventProperties.addressFinder,
     delivery_type: eventProperties.deliveryType,
@@ -258,13 +333,15 @@ const getCheckoutShippingStepParametersFromEvent = eventProperties => {
 };
 
 /**
- * Returns the promocode applied custom event properties formatted for the GA4 event.
+ * Returns the shipping info added event parameters for the GA4 ecommerce event.
+ *
+ * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/ecommerce?client_type=gtag#add_shipping_info}
  *
  * @param {object} eventProperties - Properties from a track event.
  *
- * @returns {object} Properties formatted for the GA4's promocode applied custom event.
+ * @returns {object} Parameters for the GA4's add_shipping_info event.
  */
-const getPromocodeAppliedParametersFromEvent = eventProperties => {
+const getShippingInfoAddedParametersFromEvent = eventProperties => {
   return {
     ...getCheckoutParametersFromEvent(eventProperties),
     shipping_tier: eventProperties.shippingTier,
@@ -275,16 +352,18 @@ const getPromocodeAppliedParametersFromEvent = eventProperties => {
 };
 
 /**
- * Returns the checkout abandoned custom event properties formatted for the GA4 event.
+ * Returns the checkout abandoned custom event parameters formatted for the GA4 event.
  *
  * @param {object} eventProperties - Properties from a track event.
  *
- * @returns {object} Properties formatted for the GA4's checkout abandoned custom event.
+ * @returns {object} Parameters for the GA4's checkout abandoned custom event.
  */
 const getCheckoutAbandonedParametersFromEvent = eventProperties => {
   return {
-    ...getCheckoutParametersFromEvent(eventProperties),
     from: eventProperties.from,
+    currency: eventProperties.currency,
+    coupon: eventProperties.coupon,
+    value: eventProperties.total,
   };
 };
 
@@ -350,7 +429,9 @@ const getOrderPurchaseOrRefundParametersFromEvent = eventProperties => {
  */
 const getPlaceOrderStartedParametersFromEvent = eventProperties => {
   return {
-    ...getCheckoutParametersFromEvent(eventProperties),
+    currency: eventProperties.currency,
+    coupon: eventProperties.coupon,
+    value: eventProperties.total,
     transaction_id: eventProperties.orderId,
     affiliation: eventProperties.affiliation,
     shipping: eventProperties.shipping,
@@ -501,13 +582,10 @@ const getShareParametersFromEvent = eventProperties => ({
  * @returns {object} Properties formatted for the GA4's share event.
  */
 const getChangeScaleSizeGuideParametersFromEvent = eventProperties => {
-  const items = getProductItemsFromEvent(eventProperties);
-
   return {
-    currency: eventProperties.currency,
-    items,
-    value: getEventTotalValue(eventProperties, items),
     from: eventProperties.from,
+    item_id: utils.getProductId(eventProperties),
+    item_name: utils.getProductName(eventProperties),
     size_scale_id: eventProperties.sizeScaleId,
     size_scale_name: eventProperties.sizeScaleName,
   };
@@ -534,13 +612,19 @@ export function getEventProperties(event, data) {
     case InternalEventTypes.PRODUCT_UPDATED.CHANGE_QUANTITY:
     case InternalEventTypes.PRODUCT_UPDATED.CHANGE_SIZE:
     case InternalEventTypes.PRODUCT_UPDATED.CHANGE_COLOUR:
+      return getProductUpdatedParametersFromEvent(event, eventProperties);
+
     case pageTypes.BAG:
-    case pageTypes.WISHLIST:
     case eventTypes.PRODUCT_ADDED_TO_CART:
     case eventTypes.PRODUCT_REMOVED_FROM_CART:
     case eventTypes.PRODUCT_ADDED_TO_WISHLIST:
-    case eventTypes.PRODUCT_REMOVED_FROM_WISHLIST:
       return getPrePurchaseParametersFromEvent(eventProperties);
+
+    case pageTypes.WISHLIST:
+      return getViewWishlistParametersFromEvent(eventProperties);
+
+    case eventTypes.PRODUCT_REMOVED_FROM_WISHLIST:
+      return getProductRemovedFromWishlist(eventProperties);
 
     case eventTypes.PRODUCT_CLICKED:
       return getProductClickedParametersFromEvent(eventProperties);
@@ -562,9 +646,12 @@ export function getEventProperties(event, data) {
       return getSelectContentParametersFromEvent(eventProperties);
 
     case eventTypes.SHIPPING_INFO_ADDED:
+      return getShippingInfoAddedParametersFromEvent(eventProperties);
+
     case eventTypes.SAME_BILLING_ADDRESS_SELECTED:
     case eventTypes.ADDRESS_INFO_ADDED:
     case eventTypes.SHIPPING_METHOD_ADDED:
+    case eventTypes.PROMOCODE_APPLIED:
       return getCheckoutShippingStepParametersFromEvent(eventProperties);
 
     case eventTypes.INTERACT_CONTENT:
@@ -591,9 +678,6 @@ export function getEventProperties(event, data) {
 
     case eventTypes.PLACE_ORDER_STARTED:
       return getPlaceOrderStartedParametersFromEvent(eventProperties);
-
-    case eventTypes.PROMOCODE_APPLIED:
-      return getPromocodeAppliedParametersFromEvent(eventProperties);
 
     case eventTypes.CHECKOUT_STEP_EDITING:
       return getCheckoutStepEditingParametersFromEvent(eventProperties);
