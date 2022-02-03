@@ -9,7 +9,7 @@ import {
   orderItemId,
   returnOptionId,
   trackingNumber,
-} from '../__fixtures__/orders.fixtures';
+} from 'tests/__fixtures__/orders';
 import omit from 'lodash/omit';
 
 describe('orders redux selectors', () => {

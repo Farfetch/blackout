@@ -4,7 +4,7 @@ import {
   expectedOrderReturnOptionsNormalizedPayload,
   mockOrderReturnOptionsResponse,
   orderId,
-} from '../../__fixtures__/orders.fixtures';
+} from 'tests/__fixtures__/orders';
 import { fetchOrderReturnOptions } from '../';
 import { getOrderReturnOptions } from '@farfetch/blackout-client/orders';
 import { INITIAL_STATE } from '../../reducer';

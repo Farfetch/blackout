@@ -8,7 +8,7 @@ import {
   merchantId2,
   orderId,
   orderItemId,
-} from '../__fixtures__/orders.fixtures';
+} from 'tests/__fixtures__/orders';
 import { LOGOUT_SUCCESS } from '../../authentication/actionTypes';
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
