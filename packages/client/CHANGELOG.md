@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.128](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.127...@farfetch/blackout-client@2.0.0-next.128) (2022-02-03)
+
+**Note:** Version bump only for package @farfetch/blackout-client
+
+
+
+
+
 # [2.0.0-next.127](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.126...@farfetch/blackout-client@2.0.0-next.127) (2022-02-02)
 
 
