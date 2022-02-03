@@ -68,23 +68,6 @@ export const nonInteractionEvents = {
   [eventTypes.PRODUCT_VIEWED]: true,
 };
 
-export const defaultExcludedEventsFromArrayProcessing = {
-  view_item_list: true,
-  view_item: true,
-  select_item: true,
-  view_promotion: true,
-  select_promotion: true,
-  add_to_wishlist: true,
-  add_to_cart: true,
-  remove_from_cart: true,
-  view_cart: true,
-  begin_checkout: true,
-  add_payment_info: true,
-  add_shipping_info: true,
-  purchase: true,
-  refund: true,
-};
-
 export const getProductUpdatedEventList = data => {
   const eventProperties = utils.getProperties(data);
   const dispatchGA4EventList = [];

@@ -49,6 +49,10 @@ export const affiliationSchema = yup.object({
 });
 
 export const currencySchema = yup.object({
+  currency: yup.string().strict(),
+});
+
+export const currencyRequiredSchema = yup.object({
   currency: yup.string().strict().required(),
 });
 
@@ -64,7 +68,7 @@ export const priceSchema = yup.object({
 });
 
 export const priceWithoutDiscountSchema = yup.object({
-  price: yup.number().min(0).strict().nullable(),
+  priceWithoutDiscount: yup.number().min(0).strict().nullable(),
 });
 
 export const quantitySchema = yup.object({
@@ -194,6 +198,14 @@ export const sortOptionSchema = yup.object({
 
 export const filtersSchema = yup.object({
   filters: yup.object().notRequired(),
+});
+
+export const wishlistIdSchema = yup.object({
+  wishlistId: yup.string(),
+});
+
+export const sizeSchema = yup.object({
+  size: yup.string(),
 });
 
 /**
