@@ -43,7 +43,6 @@ export const expectedNormalizedUserPayload = {
   result: 29538482,
 };
 
-
 export const mockUserAttributesResponse = {
   id: '',
   type: '',

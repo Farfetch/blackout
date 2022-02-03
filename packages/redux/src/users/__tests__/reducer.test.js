@@ -1,4 +1,5 @@
 import * as fromReducer from '../reducer';
+import { LOGOUT_SUCCESS } from '@farfetch/blackout-redux/authentication/actionTypes';
 import reducer, { actionTypes, entitiesMapper } from '..';
 
 let initialState;
@@ -458,6 +459,15 @@ describe('users redux reducer', () => {
           payload: { result: {} },
         }).isLoading,
       ).toBe(initialState.isLoading);
+    });
+
+    it('should return the initial state when is a LOGOUT_SUCCESS action', () => {
+      expect(
+        reducer(undefined, {
+          payload: {},
+          type: LOGOUT_SUCCESS,
+        }),
+      ).toEqual(initialState);
     });
 
     it('should handle other actions by returning the previous state', () => {

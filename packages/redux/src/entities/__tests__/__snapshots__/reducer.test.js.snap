@@ -71,6 +71,7 @@ Object {
     "@farfetch/blackout-client/FETCH_CREDIT_SUCCESS": [Function],
     "@farfetch/blackout-client/FETCH_PREFERENCES_SUCCESS": [Function],
     "@farfetch/blackout-client/UPDATE_PREFERENCES_SUCCESS": [Function],
+    "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
   },
   "wishlist": Object {
     "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
