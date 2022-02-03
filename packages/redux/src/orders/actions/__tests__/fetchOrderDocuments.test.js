@@ -2,7 +2,7 @@ import { actionTypes } from '../..';
 import { fetchOrderDocuments } from '../';
 import { getOrderDocuments } from '@farfetch/blackout-client/orders';
 import { INITIAL_STATE } from '../../reducer';
-import { mockOrderDocumentsResponse } from '../../__fixtures__/orders.fixtures';
+import { mockOrderDocumentsResponse } from 'tests/__fixtures__/orders';
 import { mockStore } from '../../../../tests';
 
 jest.mock('@farfetch/blackout-client/orders', () => ({
