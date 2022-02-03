@@ -1,9 +1,6 @@
 import { actionTypes } from '../..';
 import { fetchOrderDocument } from '../';
-import {
-  fileId,
-  mockOrderDocumentsResponse,
-} from '../../__fixtures__/orders.fixtures';
+import { fileId, mockOrderDocumentsResponse } from 'tests/__fixtures__/orders';
 import { getOrderDocument } from '@farfetch/blackout-client/orders';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';

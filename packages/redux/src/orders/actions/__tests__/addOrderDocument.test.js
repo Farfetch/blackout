@@ -1,9 +1,6 @@
 import { actionTypes } from '../..';
 import { addOrderDocument } from '../';
-import {
-  fileId,
-  mockOrderDocumentPayload,
-} from '../../__fixtures__/orders.fixtures';
+import { fileId, mockOrderDocumentPayload } from 'tests/__fixtures__/orders';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import { postOrderDocument } from '@farfetch/blackout-client/orders';

@@ -3,7 +3,7 @@ import { actionTypes } from '../../';
 import {
   expectedNormalizedPayload,
   mockOrdersResponse,
-} from '../../__fixtures__/orders.fixtures';
+} from 'tests/__fixtures__/orders';
 import { fetchOrders } from '../';
 import { getOrders } from '@farfetch/blackout-client/orders';
 import { INITIAL_STATE } from '../../reducer';
