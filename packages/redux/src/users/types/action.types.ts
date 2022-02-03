@@ -1,5 +1,6 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
+import type { LOGOUT_SUCCESS } from '../../authentication/actionTypes';
 import type { UserAttributesResponse } from '@farfetch/blackout-client/users/types';
 
 //
@@ -221,3 +222,7 @@ export type RemoveUserAttributeAction =
   | RemoveUserAttributeRequestAction
   | RemoveUserAttributeFailureAction
   | RemoveUserAttributeSuccessAction;
+
+export interface LogoutAction extends Action {
+  type: typeof LOGOUT_SUCCESS;
+}
