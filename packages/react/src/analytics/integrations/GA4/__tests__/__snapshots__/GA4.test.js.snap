@@ -114,7 +114,6 @@ Array [
     Object {
       "coupon": "ACME2019",
       "currency": "USD",
-      "from": undefined,
       "value": 24.64,
     },
   ],
