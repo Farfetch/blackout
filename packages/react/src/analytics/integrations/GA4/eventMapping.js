@@ -142,7 +142,7 @@ const getProductParametersFromEvent = (
     location_id: properties.locationId,
     price: properties.priceWithoutDiscount,
     quantity: properties.quantity,
-    size_id: properties.size,
+    size: properties.size,
   };
 
   // addListParameters will be false for events that are single
@@ -192,11 +192,11 @@ const getProductUpdatedParametersFromEvent = (event, eventProperties) => {
   switch (event) {
     case InternalEventTypes.PRODUCT_UPDATED.CHANGE_QUANTITY:
       parameters.quantity = eventProperties.quantity;
-      parameters.old_quantity = eventProperties.oldSize;
+      parameters.old_quantity = eventProperties.oldQuantity;
       break;
     case InternalEventTypes.PRODUCT_UPDATED.CHANGE_SIZE:
-      parameters.size_id = eventProperties.size;
-      parameters.old_size_id = eventProperties.oldQuantity;
+      parameters.size = eventProperties.size;
+      parameters.old_size = eventProperties.oldSize;
       break;
     case InternalEventTypes.PRODUCT_UPDATED.CHANGE_COLOUR:
       parameters.colour = eventProperties.colour;
