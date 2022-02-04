@@ -23,6 +23,7 @@ import {
   sortOptionSchema,
   taxSchema,
   totalRequiredSchema,
+  totalSchema,
   valueSchema,
   wishlistIdSchema,
 } from '../../shared/validation/eventSchemas';
@@ -144,7 +145,6 @@ const shareSchema = yup.object({
 
 const changeScaleSizeGuideSchema = fromSchema
   .concat(productRequiredSchema)
-  .concat(currencySchema)
   .concat(
     yup.object({
       sizeScaleName: yup.string().nullable(),
@@ -233,18 +233,17 @@ const checkoutStepEditingSchema = yup.object({
   step: yup.number().required(),
 });
 
-const checkoutShippingStepSchema = currencyRequiredSchema
-  .concat(totalRequiredSchema)
+const checkoutShippingStepSchema = currencySchema
+  .concat(totalSchema)
   .concat(couponSchema)
   .concat(addressFinderSchema)
   .concat(deliveryTypeSchema)
   .concat(packagingTypeSchema)
   .concat(shippingTierSchema);
 
-const checkoutAbandonedSchema = currencyRequiredSchema
-  .concat(totalRequiredSchema)
-  .concat(couponSchema)
-  .concat(fromSchema);
+const checkoutAbandonedSchema = currencySchema
+  .concat(totalSchema)
+  .concat(couponSchema);
 
 const promocodeAppliedSchema =
   checkoutShippingStepSchema.concat(couponRequiredSchema);

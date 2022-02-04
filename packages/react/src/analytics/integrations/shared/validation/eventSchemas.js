@@ -115,6 +115,10 @@ export const couponRequiredSchema = yup.object({
   coupon: yup.string().strict().required(),
 });
 
+export const totalSchema = yup.object({
+  total: yup.number(),
+});
+
 export const totalRequiredSchema = yup.object({
   total: yup.number().required(),
 });
