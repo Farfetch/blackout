@@ -39,6 +39,10 @@ const fetchWishlistSetFactory =
     const state = getState();
     const wishlistId = getWishlistId(state);
 
+    if (!wishlistSetId) {
+      throw new Error('No wishlist set id is set');
+    }
+
     if (!wishlistId) {
       throw new Error('No wishlist id is set');
     }
