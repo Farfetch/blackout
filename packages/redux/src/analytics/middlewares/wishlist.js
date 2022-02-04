@@ -108,20 +108,14 @@ const getWishlistData = (action, wishlistItem) => {
  * @param {Analytics} analyticsInstance - Analytics instance.
  * @param {object} state - Application state.
  * @param {object} wishlistItem - The wishlist action object.
- * @param {object} action - The action being executed.
+ *
  * @returns {object} Product data for analytics.
  */
-const getProductData = async (
-  analyticsInstance,
-  state,
-  wishlistItem,
-  action,
-) => {
+const getProductData = async (analyticsInstance, state, wishlistItem) => {
   const product = get(wishlistItem, 'product');
   const priceWithDiscount = get(wishlistItem, 'price.includingTaxes');
   const quantity = get(wishlistItem, 'quantity');
   const size = get(wishlistItem, 'size.name');
-  const oldSize = get(action, 'meta.oldSize.name');
 
   const priceWithoutDiscount = get(
     wishlistItem,
@@ -144,7 +138,6 @@ const getProductData = async (
     currency: await getCurrency(analyticsInstance),
     quantity,
     size,
-    oldSize,
   };
 };
 
@@ -185,12 +178,7 @@ export default (analyticsInstance, customActionTypes) => {
         const wishlistId = getWishlistId(state);
 
         analyticsInstance.track(eventTypes.PRODUCT_ADDED_TO_WISHLIST, {
-          ...(await getProductData(
-            analyticsInstance,
-            state,
-            wishlistItem,
-            action,
-          )),
+          ...(await getProductData(analyticsInstance, state, wishlistItem)),
           ...getWishlistData(action, wishlistItem),
           wishlistId,
         });
@@ -207,12 +195,7 @@ export default (analyticsInstance, customActionTypes) => {
         const wishlistId = getWishlistId(state);
 
         analyticsInstance.track(eventTypes.PRODUCT_REMOVED_FROM_WISHLIST, {
-          ...(await getProductData(
-            analyticsInstance,
-            state,
-            wishlistItem,
-            action,
-          )),
+          ...(await getProductData(analyticsInstance, state, wishlistItem)),
           ...getWishlistData(action, wishlistItem),
           wishlistId,
         });
@@ -223,6 +206,25 @@ export default (analyticsInstance, customActionTypes) => {
       }
 
       case actionTypes.UPDATE_WISHLIST_ITEM_SUCCESS: {
+        // Get the previous wishlist item from the store
+        // Here we can search the action's meta for a wishlistItemId
+        // because we want the previous wishlist item id and not the new one
+        // which can be changed after updating.
+        const previousWishlistItemId = getWishlistItemIdFromAction(
+          action,
+          true,
+        );
+        const previousStoreState = store.getState();
+        const previousWishlistItem = getWishlistItem(
+          previousStoreState,
+          previousWishlistItemId,
+        );
+        const oldProductData = await getProductData(
+          analyticsInstance,
+          previousStoreState,
+          previousWishlistItem,
+        );
+
         // Run the action through the middlewares pipeline
         // so that it can reach the reducers and update store state.
         const result = await next(action);
@@ -239,12 +241,9 @@ export default (analyticsInstance, customActionTypes) => {
         const wishlistId = getWishlistId(state);
 
         const analyticsData = {
-          ...(await getProductData(
-            analyticsInstance,
-            state,
-            wishlistItem,
-            action,
-          )),
+          ...(await getProductData(analyticsInstance, state, wishlistItem)),
+          oldSize: oldProductData.size,
+          oldQuantity: oldProductData.quantity,
           ...getWishlistData(action, wishlistItem),
           wishlistId,
         };
@@ -281,12 +280,7 @@ export default (analyticsInstance, customActionTypes) => {
           const wishlistItem = getWishlistItem(state, wishlistItemId);
 
           analyticsInstance.track(eventTypes.PRODUCT_REMOVED_FROM_WISHLIST, {
-            ...(await getProductData(
-              analyticsInstance,
-              state,
-              wishlistItem,
-              action,
-            )),
+            ...(await getProductData(analyticsInstance, state, wishlistItem)),
             ...getWishlistData(action, wishlistItem),
             wishlistId: wishlistSetId, // We can infer the wishlistId parameter from the wishlistSet
           });
@@ -304,12 +298,7 @@ export default (analyticsInstance, customActionTypes) => {
           const wishlistItem = getWishlistItem(state, wishlistItemId);
 
           analyticsInstance.track(eventTypes.PRODUCT_ADDED_TO_WISHLIST, {
-            ...(await getProductData(
-              analyticsInstance,
-              state,
-              wishlistItem,
-              action,
-            )),
+            ...(await getProductData(analyticsInstance, state, wishlistItem)),
             ...getWishlistData(action, wishlistItem),
             wishlistId: wishlistSetId, // We can infer the wishlistId parameter from the wishlistSet
           });
@@ -348,12 +337,7 @@ export default (analyticsInstance, customActionTypes) => {
         await Promise.all(
           removedItems.map(async wishlistItem => {
             analyticsInstance.track(eventTypes.PRODUCT_REMOVED_FROM_WISHLIST, {
-              ...(await getProductData(
-                analyticsInstance,
-                state,
-                wishlistItem,
-                action,
-              )),
+              ...(await getProductData(analyticsInstance, state, wishlistItem)),
               ...getWishlistData(action, wishlistItem),
               wishlistId: wishlistSetId, // We can infer the wishlistId parameter from the wishlistSet
             });
@@ -392,12 +376,7 @@ export default (analyticsInstance, customActionTypes) => {
         await Promise.all(
           addedItems.map(async wishlistItem => {
             analyticsInstance.track(eventTypes.PRODUCT_ADDED_TO_WISHLIST, {
-              ...(await getProductData(
-                analyticsInstance,
-                state,
-                wishlistItem,
-                action,
-              )),
+              ...(await getProductData(analyticsInstance, state, wishlistItem)),
               ...getWishlistData(action, wishlistItem),
               wishlistId: wishlistSetId, // We can infer the wishlistId parameter from the wishlistSet
             });

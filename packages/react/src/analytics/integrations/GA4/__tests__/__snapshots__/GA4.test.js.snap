@@ -29,7 +29,7 @@ Array [
           "location_id": undefined,
           "price": 25,
           "quantity": 1,
-          "size_id": "L",
+          "size": "L",
         },
       ],
       "value": 19,
@@ -106,6 +106,21 @@ Array [
 ]
 `;
 
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Track events Should map the Checkout Abandoned event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "abandon_confirmation_checkout",
+    Object {
+      "coupon": "ACME2019",
+      "currency": "USD",
+      "from": undefined,
+      "value": 24.64,
+    },
+  ],
+]
+`;
+
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Track events Should map the Checkout Started event correctly 1`] = `
 Array [
   Array [
@@ -133,7 +148,7 @@ Array [
           "location_id": undefined,
           "price": 25,
           "quantity": 1,
-          "size_id": "L",
+          "size": "L",
         },
       ],
       "value": 24.64,
@@ -232,7 +247,7 @@ Array [
           "location_id": undefined,
           "price": 25,
           "quantity": 1,
-          "size_id": "L",
+          "size": "L",
         },
       ],
       "shipping": 3.6,
@@ -272,7 +287,7 @@ Array [
           "location_id": undefined,
           "price": 25,
           "quantity": 1,
-          "size_id": "L",
+          "size": "L",
         },
       ],
       "shipping": undefined,
@@ -311,10 +326,28 @@ Array [
           "location_id": undefined,
           "price": 25,
           "quantity": 1,
-          "size_id": "L",
+          "size": "L",
         },
       ],
       "payment_type": "credit card",
+      "value": 24.64,
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Track events Should map the Place Order Started event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "place_order",
+    Object {
+      "affiliation": undefined,
+      "coupon": "ACME2019",
+      "currency": "USD",
+      "shipping": 3.6,
+      "tax": 2.04,
+      "transaction_id": "50314b8e9bcf000000000000",
       "value": 24.64,
     },
   ],
@@ -348,7 +381,7 @@ Array [
           "location_id": undefined,
           "price": 25,
           "quantity": 1,
-          "size_id": "L",
+          "size": "L",
         },
       ],
       "value": 19,
@@ -386,7 +419,7 @@ Array [
           "location_id": undefined,
           "price": 25,
           "quantity": undefined,
-          "size_id": undefined,
+          "size": undefined,
         },
       ],
       "value": 19,
@@ -420,7 +453,7 @@ Array [
           "location_id": undefined,
           "price": 25,
           "quantity": undefined,
-          "size_id": undefined,
+          "size": undefined,
         },
       ],
     },
@@ -455,7 +488,7 @@ Array [
           "location_id": undefined,
           "price": 25,
           "quantity": undefined,
-          "size_id": undefined,
+          "size": undefined,
         },
         Object {
           "affiliation": undefined,
@@ -472,7 +505,7 @@ Array [
           "location_id": undefined,
           "price": 25,
           "quantity": undefined,
-          "size_id": undefined,
+          "size": undefined,
         },
       ],
       "non_interaction": true,
@@ -506,7 +539,7 @@ Array [
       "location_id": undefined,
       "price": 25,
       "quantity": undefined,
-      "size_id": undefined,
+      "size": undefined,
       "value": 19,
       "wishlist_id": "d3618128-5aa9-4caa-a452-1dd1377a6190",
       "wishlist_name": undefined,
@@ -542,7 +575,7 @@ Array [
           "location_id": undefined,
           "price": 25,
           "quantity": 1,
-          "size_id": "L",
+          "size": "L",
         },
       ],
       "value": 19,
@@ -579,11 +612,29 @@ Array [
           "location_id": undefined,
           "price": 25,
           "quantity": undefined,
-          "size_id": undefined,
+          "size": undefined,
         },
       ],
       "non_interaction": true,
       "value": 19,
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Track events Should map the Promocode Applied event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "apply_promo_code",
+    Object {
+      "address_finder": undefined,
+      "coupon": "ACME2019",
+      "currency": "USD",
+      "delivery_type": undefined,
+      "packaging_type": undefined,
+      "shipping_tier": "Next Day",
+      "value": 24.64,
     },
   ],
 ]
@@ -663,7 +714,7 @@ Array [
           "location_id": undefined,
           "price": 25,
           "quantity": 1,
-          "size_id": "L",
+          "size": "L",
         },
       ],
       "packaging_type": undefined,
@@ -784,8 +835,8 @@ Array [
       "from": "Bag",
       "item_id": "507f1f77bcf86cd799439011",
       "item_name": "Gareth McConnell Dreamscape T-Shirt",
-      "old_size_id": undefined,
-      "size_id": "L",
+      "old_size": undefined,
+      "size": "L",
     },
   ],
   Array [
