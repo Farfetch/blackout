@@ -49,15 +49,11 @@ export const affiliationSchema = yup.object({
 });
 
 export const currencySchema = yup.object({
+  currency: yup.string().strict(),
+});
+
+export const currencyRequiredSchema = yup.object({
   currency: yup.string().strict().required(),
-});
-
-export const locationSchema = yup.object({
-  locationId: yup.string().strict(),
-});
-
-export const valueSchema = yup.object({
-  value: yup.number().strict(),
 });
 
 export const productBaseWithCurrencySchema =
@@ -72,7 +68,7 @@ export const priceSchema = yup.object({
 });
 
 export const priceWithoutDiscountSchema = yup.object({
-  price: yup.number().min(0).strict().nullable(),
+  priceWithoutDiscount: yup.number().min(0).strict().nullable(),
 });
 
 export const quantitySchema = yup.object({
@@ -131,6 +127,14 @@ export const shippingSchema = yup.object({
   shipping: yup.number().min(0).strict().nullable(),
 });
 
+export const locationSchema = yup.object({
+  locationId: yup.string().strict(),
+});
+
+export const valueSchema = yup.object({
+  value: yup.number().strict(),
+});
+
 export const orderSchema = orderIdSchema
   .concat(couponSchema)
   .concat(taxSchema)
@@ -180,6 +184,10 @@ export const orderCompletedSchema = productsListCheckoutSchema
 export const productRefundSchema =
   productsListRefundSchema.concat(orderIdSchema);
 
+export const loginSignUpSchema = yup.object({
+  method: yup.string().notRequired(),
+});
+
 export const fromRequiredSchema = yup.object({
   from: yup.string().strict().required(),
 });
@@ -192,8 +200,12 @@ export const filtersSchema = yup.object({
   filters: yup.object().notRequired(),
 });
 
-export const loginSignUpSchema = yup.object({
-  method: yup.string().notRequired(),
+export const wishlistIdSchema = yup.object({
+  wishlistId: yup.string(),
+});
+
+export const sizeSchema = yup.object({
+  size: yup.string(),
 });
 
 /**
