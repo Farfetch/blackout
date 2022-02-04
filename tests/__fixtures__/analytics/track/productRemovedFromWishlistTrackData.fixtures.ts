@@ -17,7 +17,6 @@ export default {
     price: 19,
     priceWithoutDiscount: 25,
     currency: 'USD',
-    wishlist: 'my_wishlist',
     wishlistId: 'd3618128-5aa9-4caa-a452-1dd1377a6190',
   },
 };
