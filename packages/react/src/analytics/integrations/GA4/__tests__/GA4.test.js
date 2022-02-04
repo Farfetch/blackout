@@ -346,7 +346,7 @@ describe('GA4 Integration', () => {
 
         invalidSchemaTrack.properties = {
           ...invalidSchemaTrack.properties,
-          price: 'invalid price format',
+          priceWithoutDiscount: 'invalid price format',
         };
 
         await ga4Instance.track(invalidSchemaTrack);

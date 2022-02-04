@@ -17,7 +17,6 @@ export default {
     currency: 'USD',
     list: 'Woman shopping',
     listId: '/en-pt/shopping/woman',
-    wishlist: 'my_wishlist',
     wishlistId: 'd3618128-5aa9-4caa-a452-1dd1377a6190',
   },
 };

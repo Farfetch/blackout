@@ -29,7 +29,6 @@ import {
   NON_INTERACTION_FLAG,
   OPTION_DATA_LAYER_NAME,
   OPTION_ENABLE_AUTOMATIC_PAGE_VIEWS,
-  OPTION_EXCLUDE_ARRAY_PARAMETERS_EVENTS,
   OPTION_LOAD_SCRIPT_FUNCTION,
   OPTION_MEASUREMENT_ID,
   OPTION_NON_INTERACTION_EVENTS,
@@ -42,7 +41,6 @@ import {
 import { validateFields } from './validation/optionsValidator';
 import defaultEventCommands, {
   commandListSchema,
-  defaultExcludedEventsFromArrayProcessing,
   getProductUpdatedEventList,
   nonInteractionEvents,
 } from './commands';
@@ -138,12 +136,6 @@ class GA4 extends integrations.Integration {
       {},
       nonInteractionEvents,
       options[OPTION_NON_INTERACTION_EVENTS],
-    );
-
-    this.excludeArrayParametersProcessing = merge(
-      {},
-      defaultExcludedEventsFromArrayProcessing,
-      options[OPTION_EXCLUDE_ARRAY_PARAMETERS_EVENTS],
     );
 
     this.onPreProcessCommands = options[OPTION_ON_PRE_PROCESS_COMMANDS];
@@ -311,12 +303,9 @@ class GA4 extends integrations.Integration {
     const validationResult = eventValidator(data, validationSchema);
 
     if (!validationResult.isValid) {
-      // The ignore line is temporary and should be removed in following development of ecommerce events
-      /* istanbul ignore next */
       utils.logger.error(
         `${MESSAGE_PREFIX}Track event failed. Reason: ${validationResult.errorMessage}`,
       );
-      /* istanbul ignore next */
       return false;
     }
 
@@ -401,8 +390,6 @@ class GA4 extends integrations.Integration {
 
       this.processInteractionEvents(commandList, data?.event);
 
-      this.processCustomArrayParameters(commandList);
-
       each(commandList, command => {
         window.gtag.apply(null, command);
       });
@@ -446,56 +433,6 @@ class GA4 extends integrations.Integration {
   }
 
   /**
-   * Process the command list to change custom parameter values that are arrays
-   * for non ecommerce events as they are rejected by GA4.
-   *
-   * @param {Array} commandList - List of commands to be executed by gtag instance.
-   */
-  processCustomArrayParameters(commandList) {
-    each(commandList, ga4Command => {
-      const command = ga4Command[0];
-
-      // Check if the command is event
-      if (command === 'event') {
-        const eventName = ga4Command[1];
-
-        // We only want to process events that are not in the exclude processing array
-        if (!this.excludeArrayParametersProcessing[eventName]) {
-          const eventPropertiesIndex = 2;
-
-          // After the event name, should be the event properties
-          // If no properties were passed by the developer, we add an
-          // empty object so we can add the non_interaction property to it.
-          if (!ga4Command[eventPropertiesIndex]) {
-            ga4Command[eventPropertiesIndex] = {};
-          }
-
-          const eventProperties = ga4Command[eventPropertiesIndex];
-          const keys = Object.keys(eventProperties);
-
-          keys.forEach(key => {
-            const value = eventProperties[key];
-
-            if (Array.isArray(value)) {
-              const newValue = JSON.stringify(value);
-
-              // If the prop is "items", we need to change the name
-              // so that GA4 does not filter it. If we do not change the name,
-              // GA4 will filter it from the payload.
-              if (key === 'items') {
-                eventProperties['Items'] = newValue;
-                delete eventProperties[key];
-              } else {
-                eventProperties[key] = newValue;
-              }
-            }
-          });
-        }
-      }
-    });
-  }
-
-  /**
    * Return a GA4 command list for the event.
    *
    * @param {object} data - Event data provided by analytics.
@@ -509,8 +446,6 @@ class GA4 extends integrations.Integration {
     const extraCommands = this.getExtraCommandsForEvent(data, scopeCommands);
 
     if (extraCommands) {
-      // The ignore line is temporary and should be removed in following development of ecommerce events
-      /* istanbul ignore next */
       commandList.push(...extraCommands);
     }
 

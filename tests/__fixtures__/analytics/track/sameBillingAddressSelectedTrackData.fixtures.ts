@@ -12,20 +12,5 @@ export default {
     coupon: 'ACME2019',
     shippingTier: 'Next Day',
     currency: 'USD',
-    products: [
-      {
-        id: '507f1f77bcf86cd799439011',
-        category: 'Clothing/Tops/T-shirts/',
-        name: 'Gareth McConnell Dreamscape T-Shirt',
-        brand: 'Just A T-Shirt',
-        variant: 'Black',
-        currency: 'USD',
-        size: 'L',
-        discountValue: 6,
-        price: 19,
-        priceWithoutDiscount: 25,
-        quantity: 1,
-      },
-    ],
   },
 };
