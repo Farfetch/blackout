@@ -354,7 +354,6 @@ const getShippingInfoAddedParametersFromEvent = eventProperties => {
  */
 const getCheckoutAbandonedParametersFromEvent = eventProperties => {
   return {
-    from: eventProperties.from,
     currency: eventProperties.currency,
     coupon: eventProperties.coupon,
     value: eventProperties.total,

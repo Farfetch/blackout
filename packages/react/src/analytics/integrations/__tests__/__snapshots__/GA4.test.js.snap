@@ -26,7 +26,6 @@ Array [
     Object {
       "coupon": "HARRODS2019",
       "currency": "USD",
-      "from": undefined,
       "value": 24.64,
     },
   ],
