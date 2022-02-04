@@ -254,7 +254,7 @@ export const getWishlistSetItemsCounter = (
     setId,
   ) as WishlistSetEntity;
 
-  if (!wishlistSet || wishlistSet.wishlistSetItems.length === 0) {
+  if (!setId || !wishlistSet || wishlistSet.wishlistSetItems.length === 0) {
     return 0;
   }
 

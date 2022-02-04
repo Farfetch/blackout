@@ -239,6 +239,12 @@ describe('wishlists redux selectors', () => {
         ),
       ).toBe(0);
     });
+
+    it('should return 0 when setId is undefined', () => {
+      expect(
+        selectors.getWishlistSetItemsCounter(mockWishlistState, undefined),
+      ).toBe(0);
+    });
   });
 
   describe('getWishlistSetTotalQuantity()', () => {
