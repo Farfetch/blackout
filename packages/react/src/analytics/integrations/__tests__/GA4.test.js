@@ -42,9 +42,10 @@ function createGA4Instance(options, loadData) {
   return GA4.createInstance(options, loadData);
 }
 
-function createGA4InstanceAndLoad(options, loadData) {
+async function createGA4InstanceAndLoad(options, loadData) {
   const instance = createGA4Instance(options, loadData);
   instance.scriptOnload();
+  await instance.initializePromise;
   return instance;
 }
 
@@ -172,7 +173,7 @@ describe('GA4 Integration', () => {
       };
 
       try {
-        ga4Instance = createGA4InstanceAndLoad(options);
+        ga4Instance = await createGA4InstanceAndLoad(options);
         window.gtag = undefined;
         await ga4Instance.track(analyticsTrackDataMock);
       } catch (e) {
@@ -188,7 +189,7 @@ describe('GA4 Integration', () => {
       };
 
       try {
-        ga4Instance = createGA4InstanceAndLoad(options);
+        ga4Instance = await createGA4InstanceAndLoad(options);
         window.gtag = undefined;
         await ga4Instance.track(mockedPageData);
       } catch (e) {
@@ -285,7 +286,7 @@ describe('GA4 Integration', () => {
           [OPTION_ENABLE_AUTOMATIC_PAGE_VIEWS]: true,
         };
 
-        ga4Instance = createGA4InstanceAndLoad(options, loadData);
+        ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
         await ga4Instance.track(mockedPageData);
 
@@ -295,7 +296,7 @@ describe('GA4 Integration', () => {
       });
 
       it('Should send page events', async () => {
-        ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+        ga4Instance = await createGA4InstanceAndLoad(validOptions, loadData);
 
         const ga4Spy = getWindowGa4Spy();
 
@@ -320,7 +321,7 @@ describe('GA4 Integration', () => {
       });
 
       it('Should not track events that are not supported by default', async () => {
-        ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+        ga4Instance = await createGA4InstanceAndLoad(validOptions, loadData);
 
         const ga4Spy = getWindowGa4Spy();
 
@@ -330,7 +331,7 @@ describe('GA4 Integration', () => {
       });
 
       it('Should give an error and not track events that don`t conform to the default schema', async () => {
-        ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+        ga4Instance = await createGA4InstanceAndLoad(validOptions, loadData);
 
         const ga4Spy = getWindowGa4Spy();
 
@@ -349,7 +350,7 @@ describe('GA4 Integration', () => {
           },
         };
 
-        ga4Instance = createGA4InstanceAndLoad(options, loadData);
+        ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
         const expectedPayload = [
           'event',
@@ -403,7 +404,7 @@ describe('GA4 Integration', () => {
                 [OPTION_SCOPE_COMMANDS]: scopeCommands,
               };
 
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+              ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
               const ga4Spy = getWindowGa4Spy();
 
@@ -428,7 +429,7 @@ describe('GA4 Integration', () => {
                 [OPTION_SCOPE_COMMANDS]: scopeCommands,
               };
 
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+              ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
               await ga4Instance.track(mockedPageData);
 
@@ -454,7 +455,7 @@ describe('GA4 Integration', () => {
                 [OPTION_SCOPE_COMMANDS]: scopeCommands,
               };
 
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+              ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
               const ga4Spy = getWindowGa4Spy();
 
@@ -483,7 +484,7 @@ describe('GA4 Integration', () => {
                 [OPTION_SCOPE_COMMANDS]: scopeCommands,
               };
 
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+              ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
               await ga4Instance.track(
                 validTrackEvents[eventTypes.PRODUCT_ADDED_TO_CART],
@@ -508,7 +509,7 @@ describe('GA4 Integration', () => {
                 [OPTION_SCOPE_COMMANDS]: scopeCommands,
               };
 
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+              ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
               await ga4Instance.track({
                 type: analyticsTrackTypes.TRACK,
@@ -532,7 +533,7 @@ describe('GA4 Integration', () => {
 
               mockLoggerError.mockClear();
 
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+              ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
               await ga4Instance.track({
                 type: analyticsTrackTypes.TRACK,
@@ -556,7 +557,7 @@ describe('GA4 Integration', () => {
                 [OPTION_SCOPE_COMMANDS]: invalidScopeCommands,
               };
 
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+              ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
               const ga4Spy = getWindowGa4Spy();
 
@@ -590,7 +591,7 @@ describe('GA4 Integration', () => {
                 [OPTION_SCOPE_COMMANDS]: scopeCommands,
               };
 
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+              ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
               const ga4Spy = getWindowGa4Spy();
 
@@ -619,7 +620,7 @@ describe('GA4 Integration', () => {
                 [OPTION_SCOPE_COMMANDS]: scopeCommands,
               };
 
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+              ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
               await ga4Instance.track({
                 type: analyticsTrackTypes.TRACK,
@@ -643,7 +644,7 @@ describe('GA4 Integration', () => {
 
               mockLoggerError.mockClear();
 
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+              ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
               await ga4Instance.track({
                 type: analyticsTrackTypes.TRACK,
@@ -667,7 +668,7 @@ describe('GA4 Integration', () => {
                 [OPTION_SCOPE_COMMANDS]: invalidScopeCommands,
               };
 
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+              ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
               await ga4Instance.track(
                 validTrackEvents[eventTypes.PRODUCT_ADDED_TO_CART],
@@ -737,7 +738,7 @@ describe('GA4 Integration', () => {
                 },
               };
 
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+              ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
               const ga4Spy = getWindowGa4Spy();
 
@@ -766,7 +767,7 @@ describe('GA4 Integration', () => {
                 },
               };
 
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+              ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
               await ga4Instance.onSetUser({});
 
@@ -795,7 +796,7 @@ describe('GA4 Integration', () => {
               [OPTION_ON_PRE_PROCESS_COMMANDS]: () => 'dummy',
             };
 
-            ga4Instance = createGA4InstanceAndLoad(options, loadData);
+            ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
             const ga4Spy = getWindowGa4Spy();
 
@@ -847,7 +848,7 @@ describe('GA4 Integration', () => {
               };
 
               // By default OPTION_SET_CUSTOM_USER_ID_PROPERTY value is true
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+              ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
               const ga4Spy = getWindowGa4Spy();
 
@@ -868,7 +869,7 @@ describe('GA4 Integration', () => {
               };
 
               // By default OPTION_SET_CUSTOM_USER_ID_PROPERTY value is true
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+              ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
               const ga4Spy = getWindowGa4Spy();
 
@@ -892,7 +893,7 @@ describe('GA4 Integration', () => {
               };
 
               // By default OPTION_SET_CUSTOM_USER_ID_PROPERTY value is true
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+              ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
               const ga4Spy = getWindowGa4Spy();
 
@@ -914,7 +915,7 @@ describe('GA4 Integration', () => {
               };
 
               // By default OPTION_SET_CUSTOM_USER_ID_PROPERTY value is true
-              ga4Instance = createGA4InstanceAndLoad(options, loadData);
+              ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
               const ga4Spy = getWindowGa4Spy();
 
@@ -938,7 +939,7 @@ describe('GA4 Integration', () => {
             ...validOptions,
           };
 
-          ga4Instance = createGA4InstanceAndLoad(options, loadData);
+          ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
           const ga4Spy = getWindowGa4Spy();
 
@@ -959,7 +960,7 @@ describe('GA4 Integration', () => {
             eventType => eventType in validTrackEvents,
           ),
         )('Should map the %s event correctly', async eventType => {
-          ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+          ga4Instance = await createGA4InstanceAndLoad(validOptions, loadData);
 
           const ga4Spy = getWindowGa4Spy();
 
@@ -970,7 +971,10 @@ describe('GA4 Integration', () => {
 
         describe('Pre-purchase events', () => {
           it("Should use the 'value' property if it is available on the event properties", async () => {
-            ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+            ga4Instance = await createGA4InstanceAndLoad(
+              validOptions,
+              loadData,
+            );
 
             const expectedValue = 56;
             const expectedIndex = 4;
@@ -1006,7 +1010,10 @@ describe('GA4 Integration', () => {
           });
 
           it("Should calculate the 'value' property if it is not available on the event properties", async () => {
-            ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+            ga4Instance = await createGA4InstanceAndLoad(
+              validOptions,
+              loadData,
+            );
 
             const expectedValue =
               validTrackEvents[eventTypes.PRODUCT_REMOVED_FROM_CART].properties
@@ -1034,7 +1041,10 @@ describe('GA4 Integration', () => {
           });
 
           it('Should obtain bag value in pageType.bag', async () => {
-            ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+            ga4Instance = await createGA4InstanceAndLoad(
+              validOptions,
+              loadData,
+            );
 
             let ga4Spy = getWindowGa4Spy();
             const clonedEvent = { ...validTrackEvents[pageTypes.BAG] };
@@ -1058,7 +1068,10 @@ describe('GA4 Integration', () => {
         describe('Navigation events', () => {
           describe('Interact Content event', () => {
             it('Should allow to track the interact_content transforming camelCase to snake_case', async () => {
-              ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+              ga4Instance = await createGA4InstanceAndLoad(
+                validOptions,
+                loadData,
+              );
 
               const ga4Spy = getWindowGa4Spy();
 
@@ -1078,7 +1091,7 @@ describe('GA4 Integration', () => {
 
       describe('Update Product events', () => {
         it('Should not trigger ga4 event', async () => {
-          ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+          ga4Instance = await createGA4InstanceAndLoad(validOptions, loadData);
 
           const ga4Spy = getWindowGa4Spy();
           const clonedEvent = cloneDeep(
@@ -1098,7 +1111,7 @@ describe('GA4 Integration', () => {
         });
 
         it('Should trigger ga4 change_quantity event', async () => {
-          ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+          ga4Instance = await createGA4InstanceAndLoad(validOptions, loadData);
 
           const ga4Spy = getWindowGa4Spy();
           const clonedEvent = cloneDeep(
@@ -1116,7 +1129,7 @@ describe('GA4 Integration', () => {
         });
 
         it('Should trigger ga4 change_size event', async () => {
-          ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+          ga4Instance = await createGA4InstanceAndLoad(validOptions, loadData);
 
           const ga4Spy = getWindowGa4Spy();
           const clonedEvent = cloneDeep(
@@ -1135,7 +1148,7 @@ describe('GA4 Integration', () => {
         });
 
         it('Should trigger ga4 change_colour event', async () => {
-          ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+          ga4Instance = await createGA4InstanceAndLoad(validOptions, loadData);
 
           const ga4Spy = getWindowGa4Spy();
           const clonedEvent = cloneDeep(
@@ -1154,7 +1167,7 @@ describe('GA4 Integration', () => {
         });
 
         it('Should trigger ga4 change_quantity and change_size and change_colour event', async () => {
-          ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+          ga4Instance = await createGA4InstanceAndLoad(validOptions, loadData);
 
           const ga4Spy = getWindowGa4Spy();
           const clonedEvent = cloneDeep(
@@ -1169,7 +1182,7 @@ describe('GA4 Integration', () => {
 
       describe('Product categories max validation', () => {
         it(`Should display a warning and truncate the categories if the product categories exceed ${MAX_PRODUCT_CATEGORIES}`, async () => {
-          ga4Instance = createGA4InstanceAndLoad(validOptions, loadData);
+          ga4Instance = await createGA4InstanceAndLoad(validOptions, loadData);
 
           const ga4Spy = getWindowGa4Spy();
 
