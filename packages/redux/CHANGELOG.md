@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.194](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.193...@farfetch/blackout-redux@1.0.0-next.194) (2022-02-07)
+
+
+### Bug Fixes
+
+* **react|redux:** fixed GA4 mappings and improved wishlist middleware ([7f989e1](https://github.com/Farfetch/blackout/commit/7f989e137746a22cee375193a243bb751ff2017b))
+
+
+
+
+
 # [1.0.0-next.193](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.192...@farfetch/blackout-redux@1.0.0-next.193) (2022-02-07)
 
 

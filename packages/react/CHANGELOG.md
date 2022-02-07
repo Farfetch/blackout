@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.174](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.173...@farfetch/blackout-react@1.0.0-next.174) (2022-02-07)
+
+
+### Bug Fixes
+
+* **react:** minor fixes to custom events schemas and mappings ([f12ae1d](https://github.com/Farfetch/blackout/commit/f12ae1dcfc0b3e3c0b3f4b97d621c89a413a96e4))
+* **react:** remove `items` parameter workaround for custom events ([b584563](https://github.com/Farfetch/blackout/commit/b584563c2f55e3b29e67317691e52d8512f5d9a3))
+* **react:** truncate categories if the categories sent are greater than limit ([043aa5e](https://github.com/Farfetch/blackout/commit/043aa5e44521b003002b2f75706da8463d371fd9))
+* **react|redux:** fixed GA4 mappings and improved wishlist middleware ([7f989e1](https://github.com/Farfetch/blackout/commit/7f989e137746a22cee375193a243bb751ff2017b))
+
+
+
+
+
 # [1.0.0-next.173](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.172...@farfetch/blackout-react@1.0.0-next.173) (2022-02-07)
 
 **Note:** Version bump only for package @farfetch/blackout-react
