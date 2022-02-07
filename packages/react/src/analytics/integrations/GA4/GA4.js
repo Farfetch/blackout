@@ -79,6 +79,7 @@ class GA4 extends integrations.Integration {
   constructor(options, loadData, analytics) {
     super(options, loadData, analytics);
     this.initialize(options);
+    this.onSetUser(loadData);
   }
 
   /**
