@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.175](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.174...@farfetch/blackout-react@1.0.0-next.175) (2022-02-07)
+
+
+### Features
+
+* **analytics|react:** add signup newsletter event mappings in GA4 ([0b5dd7f](https://github.com/Farfetch/blackout/commit/0b5dd7f22c57dde94012eaef860dc03a744d1856))
+
+
+
+
+
 # [1.0.0-next.174](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.173...@farfetch/blackout-react@1.0.0-next.174) (2022-02-07)
 
 
