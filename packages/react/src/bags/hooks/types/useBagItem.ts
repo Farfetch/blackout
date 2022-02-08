@@ -4,34 +4,9 @@ import type {
   PostBagItemData,
   Query,
 } from '@farfetch/blackout-client/bags/types';
-import type {
-  BagItemHydrated,
-  ProductEntity,
-} from '@farfetch/blackout-redux/entities/types';
-import type {
-  CustomAttributesAdapted,
-  SizeAdapted,
-} from '@farfetch/blackout-client/helpers/adapters/types';
+import type { BagItemHydrated } from '@farfetch/blackout-redux/entities/types';
 import type { Error } from '@farfetch/blackout-client/types';
 
-export type HandleAddOrUpdateItemType = ({
-  customAttributes,
-  product,
-  productAggregatorId,
-  quantity,
-  size,
-  from,
-}: {
-  customAttributes?: CustomAttributesAdapted;
-  product?: ProductEntity;
-  productAggregatorId?: Exclude<
-    BagItemHydrated['productAggregator'],
-    null
-  >['id'];
-  quantity?: number;
-  size?: SizeAdapted | undefined;
-  from?: string;
-}) => Promise<void>;
 export type HandleQuantityChangeType = (
   newQuantity: number,
   from?: string,
@@ -68,7 +43,6 @@ export type UseBagItem = (
   bagItem: BagItemHydrated;
   error: Error | null | undefined;
   isLoading: boolean | undefined;
-  handleAddOrUpdateItem: HandleAddOrUpdateItemType;
   handleQuantityChange: HandleQuantityChangeType;
   handleSizeChange: HandleSizeChangeType;
   handleFullUpdate: HandleFullUpdateType;

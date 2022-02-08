@@ -50,7 +50,6 @@ describe('useBagItem', () => {
       bagItem: expect.any(Object),
       deleteBagItem: expect.any(Function),
       error: undefined,
-      handleAddOrUpdateItem: expect.any(Function),
       handleDeleteBagItem: expect.any(Function),
       handleFullUpdate: expect.any(Function),
       handleQuantityChange: expect.any(Function),
@@ -99,20 +98,6 @@ describe('useBagItem', () => {
       updateBagItem(mockBagItemId, mockData);
 
       expect(mockDispatch).toHaveBeenCalledWith({ type: 'update' });
-    });
-  });
-
-  describe('handleAddOrUpdateItem', () => {
-    it('should call handleAddOrUpdateItem', async () => {
-      const { handleAddOrUpdateItem } = getRenderedHook();
-
-      await handleAddOrUpdateItem({});
-
-      // This ensures `handleAddOrUpdateItem` is correctly working. It's logic is
-      // already extensively tested within `handleQuantityChange` and `handleSizeChange`
-      expect(mockDispatch).toHaveBeenCalledTimes(2);
-      expect(mockDispatch).toHaveBeenCalledWith({ type: 'update' });
-      expect(mockDispatch).toHaveBeenCalledWith({ type: 'add' });
     });
   });
 
