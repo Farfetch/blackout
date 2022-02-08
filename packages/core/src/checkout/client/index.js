@@ -11,6 +11,8 @@ export { default as getCheckoutDetails } from './getCheckoutDetails';
 export { default as getCollectPoints } from './getCollectPoints';
 export { default as getDeliveryBundleUpgrades } from './getDeliveryBundleUpgrades.js';
 export { default as getItemDeliveryProvisioning } from './getItemDeliveryProvisioning.js';
+export { default as getOperations } from './getOperations.js';
+export { default as getOperation } from './getOperation.js';
 export { default as getUpgradeItemDeliveryProvisioning } from './getUpgradeItemDeliveryProvisioning.js';
 export { default as patchCheckout } from './patchCheckout';
 export { default as patchDeliveryBundleUpgrade } from './patchDeliveryBundleUpgrade.js';
