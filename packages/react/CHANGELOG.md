@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.176](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.175...@farfetch/blackout-react@1.0.0-next.176) (2022-02-08)
+
+
+### Bug Fixes
+
+* **react:** add set user on ga4 initialization ([54ee917](https://github.com/Farfetch/blackout/commit/54ee917684bc5d5b4a3e10db09ca20b8d181dad9))
+
+
+
+
+
 # [1.0.0-next.175](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.174...@farfetch/blackout-react@1.0.0-next.175) (2022-02-07)
 
 
