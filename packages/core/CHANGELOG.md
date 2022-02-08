@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.49.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.48.0...@farfetch/blackout-core@1.49.0) (2022-02-08)
+
+
+### Bug Fixes
+
+* **core|react:** fixed GA4 mappings and improved wishlist middleware ([10cb459](https://github.com/Farfetch/blackout/commit/10cb4599b4e7157461c771f142882d8ee86edf01))
+
+
+### Features
+
+* **core|react:** add signup newsletter event mappings in GA4 ([3603cc7](https://github.com/Farfetch/blackout/commit/3603cc7aab1affa545f3c8f37b09325f12826a0f))
+
+
+
+
+
 # [1.48.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.47.0...@farfetch/blackout-core@1.48.0) (2022-02-02)
 
 

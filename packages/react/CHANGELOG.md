@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.30.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.29.0...@farfetch/blackout-react@0.30.0) (2022-02-08)
+
+
+### Bug Fixes
+
+* **core|react:** fixed GA4 mappings and improved wishlist middleware ([10cb459](https://github.com/Farfetch/blackout/commit/10cb4599b4e7157461c771f142882d8ee86edf01))
+* **react:** add set user on ga4 initialization ([3d4c6e9](https://github.com/Farfetch/blackout/commit/3d4c6e90854ced92afcbbe23b13a8426fef93195))
+* **react:** minor fixes to custom events schemas and mappings ([23a59fe](https://github.com/Farfetch/blackout/commit/23a59fed253f2567c933f23e4e7a71e02fb24f40))
+* **react:** remove `items` parameter workaround for custom events ([6b15984](https://github.com/Farfetch/blackout/commit/6b159848278723a6b6694270da9009a9c357d6cb))
+* **react:** truncate categories if the categories sent are greater than limit ([7181b2f](https://github.com/Farfetch/blackout/commit/7181b2f95556abb8a1bea0c1984320e68f573699))
+
+
+### Features
+
+* **core|react:** add signup newsletter event mappings in GA4 ([3603cc7](https://github.com/Farfetch/blackout/commit/3603cc7aab1affa545f3c8f37b09325f12826a0f))
+
+
+
+
+
 # [0.29.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.28.0...@farfetch/blackout-react@0.29.0) (2022-01-25)
 
 
