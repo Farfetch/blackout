@@ -38,14 +38,11 @@ export default {
   [eventTypes.SIGNUP_FORM_COMPLETED]: 'sign_up',
   [eventTypes.FILTERS_APPLIED]: 'apply_filters',
   [eventTypes.FILTERS_CLEARED]: 'clear_filters',
-  [eventTypes.SORT_OPTION_CHANGED]: 'sort_by',
   [eventTypes.SHARE]: 'share',
-  [eventTypes.CHANGE_SCALE_SIZE_GUIDE]: 'change_scale_size_guide',
   [eventTypes.CHECKOUT_ABANDONED]: 'abandon_confirmation_checkout',
   [eventTypes.PLACE_ORDER_STARTED]: 'place_order',
   [eventTypes.PROMOCODE_APPLIED]: 'apply_promo_code',
   [eventTypes.CHECKOUT_STEP_EDITING]: 'edit_checkout_step',
-  [eventTypes.SAME_BILLING_ADDRESS_SELECTED]: 'select_same_billing_address',
   [eventTypes.ADDRESS_INFO_ADDED]: 'add_address_info',
   [eventTypes.SHIPPING_METHOD_ADDED]: 'add_shipping_method',
   [eventTypes.INTERACT_CONTENT]: 'interact_content',
@@ -572,23 +569,6 @@ const getShareParametersFromEvent = eventProperties => ({
 });
 
 /**
- * Returns the change scale size guide properties formatted for the GA4 event.
- *
- * @param {object} eventProperties - Properties from a track event.
- *
- * @returns {object} Properties formatted for the GA4's share event.
- */
-const getChangeScaleSizeGuideParametersFromEvent = eventProperties => {
-  return {
-    from: eventProperties.from,
-    item_id: utils.getProductId(eventProperties),
-    item_name: utils.getProductName(eventProperties),
-    size_scale_id: eventProperties.sizeScaleId,
-    size_scale_name: eventProperties.sizeScaleName,
-  };
-};
-
-/**
  * Returns the signup newsletter parameters formatted for the GA4 event.
  *
  * @param {object} eventProperties - Properties from a track event.
@@ -658,7 +638,6 @@ export function getEventProperties(event, data) {
     case eventTypes.SHIPPING_INFO_ADDED:
       return getShippingInfoAddedParametersFromEvent(eventProperties);
 
-    case eventTypes.SAME_BILLING_ADDRESS_SELECTED:
     case eventTypes.ADDRESS_INFO_ADDED:
     case eventTypes.SHIPPING_METHOD_ADDED:
     case eventTypes.PROMOCODE_APPLIED:
@@ -675,13 +654,8 @@ export function getEventProperties(event, data) {
     case eventTypes.FILTERS_CLEARED:
       return getFilterParametersFromEvent(eventProperties);
 
-    case eventTypes.SORT_OPTION_CHANGED:
-      return getSortParametersFromEvent(eventProperties);
     case eventTypes.SHARE:
       return getShareParametersFromEvent(eventProperties);
-
-    case eventTypes.CHANGE_SCALE_SIZE_GUIDE:
-      return getChangeScaleSizeGuideParametersFromEvent(eventProperties);
 
     case eventTypes.CHECKOUT_ABANDONED:
       return getCheckoutAbandonedParametersFromEvent(eventProperties);
