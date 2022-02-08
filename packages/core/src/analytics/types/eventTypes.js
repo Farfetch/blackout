@@ -13,8 +13,6 @@ export default {
   ADDRESS_INFO_ADDED: 'Address Info Added',
   /** Checkout Abandoned should be tracked when the user abandons the checkout. */
   CHECKOUT_ABANDONED: 'Checkout Abandoned',
-  /** Change Scale Size Guide should be tracked when a the size guide scale is changed. */
-  CHANGE_SCALE_SIZE_GUIDE: 'Size Guide Scale Changed',
   /** Checkout Started should be tracked when a checkout is started. */
   CHECKOUT_STARTED: 'Checkout Started',
   /** Checkout Step Completed should be tracked whenever a step of a checkout is completed. */
@@ -63,8 +61,6 @@ export default {
   PRODUCT_VIEWED: 'Product Viewed',
   /** Promocode Applied should be tracked when the user applies a promocode to a checkout. */
   PROMOCODE_APPLIED: 'Promocode Applied',
-  /** Same Billing Address Selected should be tracked when a the option is true. */
-  SAME_BILLING_ADDRESS_SELECTED: 'Same Billing Address Selected',
   /** Select Content should be tracked when the user selects a content, i.e., a product item. */
   SELECT_CONTENT: 'Select Content',
   /** Share should be tracked when the share feature is clicked. */
@@ -79,6 +75,4 @@ export default {
   SIGNUP_FORM_VIEWED: 'Sign-up Form Viewed',
   /** Signup Newsletter should be tracked when the user signs-up the newsletter. */
   SIGNUP_NEWSLETTER: 'Sign-up Newsletter',
-  /** Sort Option Changed should be tracked when the user changes sort options. */
-  SORT_OPTION_CHANGED: 'Sort Option Changed',
 };

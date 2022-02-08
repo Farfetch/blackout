@@ -331,20 +331,6 @@ const validTrackEvents = {
     },
   },
 
-  [eventTypes.SAME_BILLING_ADDRESS_SELECTED]: {
-    type: analyticsTrackTypes.TRACK,
-    event: eventTypes.SAME_BILLING_ADDRESS_SELECTED,
-    properties: {
-      orderId: '50314b8e9bcf000000000000',
-      total: 24.64,
-      shipping: 3.6,
-      tax: 2.04,
-      coupon: 'HARRODS2019',
-      shippingTier: 'Next Day',
-      currency: 'USD',
-    },
-  },
-
   [eventTypes.ADDRESS_INFO_ADDED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.ADDRESS_INFO_ADDED,
@@ -579,14 +565,6 @@ const validTrackEvents = {
     },
   },
 
-  [eventTypes.SORT_OPTION_CHANGED]: {
-    type: analyticsTrackTypes.TRACK,
-    event: eventTypes.SORT_OPTION_CHANGED,
-    properties: {
-      sortOption: 'Price: Low to High',
-    },
-  },
-
   [eventTypes.CHECKOUT_STEP_EDITING]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.CHECKOUT_STEP_EDITING,
@@ -602,20 +580,6 @@ const validTrackEvents = {
       method: 'Facebook',
       contentType: 'image',
       id: '123456',
-    },
-  },
-
-  [eventTypes.CHANGE_SCALE_SIZE_GUIDE]: {
-    type: analyticsTrackTypes.TRACK,
-    event: eventTypes.CHANGE_SCALE_SIZE_GUIDE,
-    properties: {
-      id: '507f1f77bcf86cd799439011',
-      name: 'Gareth McConnell Dreamscape T-Shirt',
-      total: 30.64,
-      currency: 'USD',
-      from: 'PDP',
-      sizeScaleId: '20652',
-      sizeScaleName: 'Adidas Men Shoes UK',
     },
   },
 
