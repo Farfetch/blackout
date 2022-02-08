@@ -1,9 +1,9 @@
+import type { BagItem } from '@farfetch/blackout-client/bags/types';
 import type {
-  AttributesAdapted,
   CustomAttributesAdapted,
   PriceAdapted,
+  SizeAdapted,
 } from '@farfetch/blackout-client/helpers/adapters/types';
-import type { BagItem } from '@farfetch/blackout-client/bags/types';
 import type { MerchantEntity } from './merchant.types';
 import type { ProductEntity } from './product.types';
 
@@ -35,7 +35,7 @@ export type BagItemEntity = Omit<
   merchant: MerchantEntity['id'];
   price: PriceAdapted;
   product: ProductEntity['id'];
-  size: AttributesAdapted;
+  size: SizeAdapted;
 };
 
 export type BagItemHydrated = Omit<BagItemEntity, 'product'> & {

@@ -4,15 +4,21 @@ export const mockBagItemId = 134;
 export const mockProductAggregatorId = 321;
 
 export const mockBagItem = {
+  customAttributes: { a: '1', b: '2', c: '3' },
   id: mockBagItemId,
-  customAttributes: { a: 1, b: 2, c: { d: 3 } },
-  quantity: 5,
-  merchantId: mockMerchantId,
+  isAvailable: true,
   merchant: mockMerchantId,
+  merchantId: mockMerchantId,
+  product: mockProduct,
+  productAggregator: {
+    bundleSlug: '/slug',
+    id: mockProductAggregatorId,
+  },
+  quantity: 5,
   size: {
     id: 23,
-    scale: 'IT',
     name: '11',
+    scale: 'IT',
     stock: [
       {
         merchantId: mockMerchantId,
@@ -21,12 +27,6 @@ export const mockBagItem = {
     ],
   },
   sizeId: 23,
-  isAvailable: true,
-  product: mockProduct,
-  productAggregator: {
-    bundleSlug: '/slug',
-    id: mockProductAggregatorId,
-  },
 };
 
 export const mockBagItemEntity = {
@@ -35,7 +35,7 @@ export const mockBagItemEntity = {
 };
 
 export const mockIdenticalBagItem = {
-  customAttributes: { a: 1, b: 2, c: { d: 3 } },
+  customAttributes: { a: '1', b: '2', c: '3' },
   id: 5,
   product: {
     id: mockProductId,
