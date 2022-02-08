@@ -551,24 +551,6 @@ Array [
 ]
 `;
 
-exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Same Billing Address Selected event correctly 1`] = `
-Array [
-  Array [
-    "event",
-    "select_same_billing_address",
-    Object {
-      "address_finder": undefined,
-      "coupon": "HARRODS2019",
-      "currency": "USD",
-      "delivery_type": undefined,
-      "packaging_type": undefined,
-      "shipping_tier": "Next Day",
-      "value": 24.64,
-    },
-  ],
-]
-`;
-
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Select Content event correctly 1`] = `
 Array [
   Array [
@@ -673,34 +655,6 @@ Array [
     "sign_up_newsletter",
     Object {
       "newsletter_gender": "Woman",
-    },
-  ],
-]
-`;
-
-exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Size Guide Scale Changed event correctly 1`] = `
-Array [
-  Array [
-    "event",
-    "change_scale_size_guide",
-    Object {
-      "from": "PDP",
-      "item_id": "507f1f77bcf86cd799439011",
-      "item_name": "Gareth McConnell Dreamscape T-Shirt",
-      "size_scale_id": "20652",
-      "size_scale_name": "Adidas Men Shoes UK",
-    },
-  ],
-]
-`;
-
-exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Sort Option Changed event correctly 1`] = `
-Array [
-  Array [
-    "event",
-    "sort_by",
-    Object {
-      "sort_option": "Price: Low to High",
     },
   ],
 ]
