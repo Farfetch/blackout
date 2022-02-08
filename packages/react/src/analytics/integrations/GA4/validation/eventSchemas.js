@@ -144,19 +144,6 @@ const shareSchema = yup.object({
   id: yup.string().notRequired(),
 });
 
-const changeScaleSizeGuideSchema = fromSchema
-  .concat(productRequiredSchema)
-  .concat(
-    yup.object({
-      sizeScaleName: yup.string().nullable(),
-    }),
-  )
-  .concat(
-    yup.object({
-      sizeScaleId: yup.string().nullable(),
-    }),
-  );
-
 const productUpdatesInCartWishlistSchema = yup.object({
   oldSize: yup.string(),
   size: yup.string(),
@@ -257,7 +244,6 @@ const placeOrderStartedSchema = currencyRequiredSchema
   .concat(shippingSchema)
   .concat(taxSchema);
 
-const sameBillingAddressSelectedSchema = checkoutShippingStepSchema;
 const shippingMethodAddedSchema = checkoutShippingStepSchema;
 const addressInfoAddedSchema = checkoutShippingStepSchema;
 
@@ -296,9 +282,7 @@ export default {
   [pageTypes.SEARCH]: searchSchema,
   [pageTypes.WISHLIST]: viewWishlistSchema,
   [eventTypes.SHARE]: shareSchema,
-  [eventTypes.CHANGE_SCALE_SIZE_GUIDE]: changeScaleSizeGuideSchema,
   [eventTypes.CHECKOUT_STEP_EDITING]: checkoutStepEditingSchema,
-  [eventTypes.SAME_BILLING_ADDRESS_SELECTED]: sameBillingAddressSelectedSchema,
   [eventTypes.ADDRESS_INFO_ADDED]: addressInfoAddedSchema,
   [eventTypes.SHIPPING_METHOD_ADDED]: shippingMethodAddedSchema,
   [eventTypes.INTERACT_CONTENT]: interactContentSchema,

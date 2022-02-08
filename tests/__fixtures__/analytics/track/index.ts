@@ -1,6 +1,5 @@
 import { eventTypes } from '@farfetch/blackout-analytics';
 import addressInfoAddedTrackData from './addressInfoAddedTrackData.fixtures';
-import changeScaleSizeGuideTrackData from './changeScaleSizeGuideTrackData.fixtures';
 import checkoutAbandonedTrackDataFixtures from './checkoutAbandonedTrackData.fixtures';
 import checkoutStartedTrackData from './checkoutStartedTrackData.fixtures';
 import checkoutStepCompletedTrackData from './checkoutStepCompletedTrackData.fixtures';
@@ -24,18 +23,15 @@ import productUpdatedTrackData from './productUpdatedTrackData.fixtures';
 import productUpdatedWishlistTrackData from './productUpdatedWishlistTrackData.fixtures';
 import productViewedTrackData from './productViewedTrackData.fixtures';
 import promocodeAppliedTrackDataFixtures from './promocodeAppliedTrackData.fixtures';
-import sameBillingAddressSelectedTrackData from './sameBillingAddressSelectedTrackData.fixtures';
 import selectContentTrackData from './selectContentTrackData.fixtures';
 import shareTrackData from './shareTrackData.fixtures';
 import shippingInfoAddedTrackData from './shippingInfoAddedTrackData.fixtures';
 import shippingMethodAddedTrackData from './shippingMethodAddedTrackData.fixtures';
 import signupFormCompletedTrackData from './signupFormCompletedTrackData.fixtures';
 import signupNewsletterTrackData from './signupNewsletterTrackData.fixtures';
-import sortOptionChangedTrackData from './sortOptionChangedTrackData.fixtures';
 
 export default {
   [eventTypes.ADDRESS_INFO_ADDED]: addressInfoAddedTrackData,
-  [eventTypes.CHANGE_SCALE_SIZE_GUIDE]: changeScaleSizeGuideTrackData,
   [eventTypes.CHECKOUT_ABANDONED]: checkoutAbandonedTrackDataFixtures,
   [eventTypes.CHECKOUT_STARTED]: checkoutStartedTrackData,
   [eventTypes.CHECKOUT_STEP_COMPLETED]: checkoutStepCompletedTrackData,
@@ -60,13 +56,10 @@ export default {
   [eventTypes.PRODUCT_UPDATED_WISHLIST]: productUpdatedWishlistTrackData,
   [eventTypes.PRODUCT_VIEWED]: productViewedTrackData,
   [eventTypes.PROMOCODE_APPLIED]: promocodeAppliedTrackDataFixtures,
-  [eventTypes.SAME_BILLING_ADDRESS_SELECTED]:
-    sameBillingAddressSelectedTrackData,
   [eventTypes.SELECT_CONTENT]: selectContentTrackData,
   [eventTypes.SHARE]: shareTrackData,
   [eventTypes.SHIPPING_INFO_ADDED]: shippingInfoAddedTrackData,
   [eventTypes.SHIPPING_METHOD_ADDED]: shippingMethodAddedTrackData,
   [eventTypes.SIGNUP_FORM_COMPLETED]: signupFormCompletedTrackData,
   [eventTypes.SIGNUP_NEWSLETTER]: signupNewsletterTrackData,
-  [eventTypes.SORT_OPTION_CHANGED]: sortOptionChangedTrackData,
 };
