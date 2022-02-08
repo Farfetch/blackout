@@ -196,10 +196,6 @@ export const fromRequiredSchema = yup.object({
   from: yup.string().strict().required(),
 });
 
-export const sortOptionSchema = yup.object({
-  sortOption: yup.string().notRequired(),
-});
-
 export const filtersSchema = yup.object({
   filters: yup.object().notRequired(),
 });
@@ -232,7 +228,6 @@ const schemaEventsMap = {
   [eventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: productAddedRemovedWishlistSchema,
   [eventTypes.PRODUCT_UPDATED_WISHLIST]: productAddedRemovedWishlistSchema,
   [eventTypes.SIGNUP_FORM_COMPLETED]: loginSignUpSchema,
-  [eventTypes.SORT_OPTION_CHANGED]: sortOptionSchema,
 };
 
 export default schemaEventsMap;
