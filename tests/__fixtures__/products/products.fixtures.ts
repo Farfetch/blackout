@@ -115,23 +115,22 @@ export const mockSet = {
 };
 
 export const mockProduct = {
-  merchant: mockMerchantId,
-  price: mockPriceAdapted,
-  sizes: mockProductSizesAdapted,
-  tag: mockTag,
-  id: mockProductId,
-  shortDescription: 'Chuck 70 U-Throat Ballet sneakers',
+  associationsInformation: {
+    hasColorGrouping: true,
+  },
+  attributes: mockProductAttributes,
   brand: mockBrandId,
-  slug: 'chuck-70-u-throat-ballet-sneakers-12913174',
-  quantity: 7,
-  promotions: mockPromotions,
+  breadCrumbs: mockBreadCrumbs,
+  colorGrouping: mockProductColorGrouping,
+  fittings: mockProductFittings,
+  id: mockProductId,
+  isDuplicated: false,
   labels: mockLabels,
   measurements: mockProductVariantsMeasurements,
-  colorGrouping: mockProductColorGrouping,
-  attributes: mockProductAttributes,
-  variants: mockProductVariants,
-  fittings: mockProductFittings,
-  sizeGuides: mockProductSizeGuides,
+  merchant: mockMerchantId,
+  price: mockPriceAdapted,
+  promotions: mockPromotions,
+  quantity: 7,
   recommendedSet: mockSetId,
   relatedSets: [
     {
@@ -144,9 +143,10 @@ export const mockProduct = {
     },
   ],
   scaleId: mockSizeScaleId,
-  breadCrumbs: mockBreadCrumbs,
-  isDuplicated: false,
-  associationsInformation: {
-    hasColorGrouping: true,
-  },
+  shortDescription: 'Chuck 70 U-Throat Ballet sneakers',
+  sizeGuides: mockProductSizeGuides,
+  sizes: mockProductSizesAdapted,
+  slug: 'chuck-70-u-throat-ballet-sneakers-12913174',
+  tag: mockTag,
+  variants: mockProductVariants,
 };
