@@ -5,12 +5,12 @@ import type { Error } from '@farfetch/blackout-client/types';
 import type { SetsState } from '../types';
 import type { StoreState } from '../../types';
 import type { WishlistSet } from '@farfetch/blackout-client/wishlists/types';
-import type { WishlistSetEntity } from '../../entities/types';
 import type {
+  WishlistSetEntity,
   WishlistSetHydrated,
-  WishlistSetsErrors,
   WishlistSetsHydrated,
-} from './types/wishlistsSets.types';
+} from '../../entities/types';
+import type { WishlistSetsErrors } from './types/wishlistsSets.types';
 
 /**
  * Retrieves the error state of the current user's wishlist sets.
