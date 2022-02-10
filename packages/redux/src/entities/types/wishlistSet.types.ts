@@ -18,3 +18,5 @@ export type WishlistSetHydrated = Omit<
     product: ProductEntity | undefined;
   };
 };
+
+export type WishlistSetsHydrated = Array<WishlistSetHydrated> | undefined;
