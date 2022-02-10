@@ -3,10 +3,8 @@ import type {
   WishlistSets,
 } from '@farfetch/blackout-client/wishlists/types';
 import type { SetsState } from '@farfetch/blackout-redux/wishlists/types';
-import type {
-  WishlistSetsErrors,
-  WishlistSetsHydrated,
-} from '@farfetch/blackout-redux/wishlists/selectors/types';
+import type { WishlistSetsErrors } from '@farfetch/blackout-redux/wishlists/selectors/types';
+import type { WishlistSetsHydrated } from '@farfetch/blackout-redux/entities/types';
 
 export type UseWishlistSets = () => {
   addWishlistSet: (
