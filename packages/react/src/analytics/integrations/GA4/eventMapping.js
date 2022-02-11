@@ -10,6 +10,7 @@ export const InternalEventTypes = {
     CHANGE_QUANTITY: 'change_quantity',
     CHANGE_COLOUR: 'change_colour',
   },
+  PAGE_SCROLL: 'scroll',
 };
 
 /**
@@ -54,6 +55,7 @@ export default {
     InternalEventTypes.PRODUCT_UPDATED.CHANGE_SIZE,
   [InternalEventTypes.PRODUCT_UPDATED.CHANGE_COLOUR]:
     InternalEventTypes.PRODUCT_UPDATED.CHANGE_COLOUR,
+  [InternalEventTypes.PAGE_SCROLL]: InternalEventTypes.PAGE_SCROLL,
 };
 
 /**
@@ -582,6 +584,19 @@ const getSignupNewsletterParametersFromEvent = eventProperties => {
 };
 
 /**
+ * Returns the scroll parameters formatted for the GA4 event.
+ *
+ * @param {object} eventProperties - Properties from a track event.
+ *
+ * @returns {object} Parameters formatted for the GA4's scroll event.
+ */
+const getScrollParametersFromEvent = eventProperties => {
+  return {
+    percent_scrolled: eventProperties.percentageScrolled,
+  };
+};
+
+/**
  * Returns event properties mapping by GA4 event name.
  *
  * @param {string} event - Event name.
@@ -668,6 +683,9 @@ export function getEventProperties(event, data) {
 
     case eventTypes.SIGNUP_NEWSLETTER:
       return getSignupNewsletterParametersFromEvent(eventProperties);
+
+    case InternalEventTypes.PAGE_SCROLL:
+      return getScrollParametersFromEvent(eventProperties);
 
     default:
       /* istanbul ignore next */

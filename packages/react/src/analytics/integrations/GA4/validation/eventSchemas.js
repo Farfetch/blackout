@@ -32,7 +32,6 @@ import {
   interactionTypes,
   pageTypes,
 } from '@farfetch/blackout-analytics';
-import { InternalEventTypes } from '../eventMapping';
 import { SignupNewsletterGenderMappings } from '../../shared/dataMappings/';
 
 export const errorCodes = {
@@ -160,60 +159,14 @@ const manageProductInCartSchema = fromSchema
 const manageProductInWishlistSchema =
   manageProductInCartSchema.concat(wishlistIdSchema);
 
-const updateProductSchema = fromSchema.concat(productRequiredSchema);
-
-const changeSizeProductInCartSchema = updateProductSchema.concat(
-  yup.object({
-    oldSize: yup.string(),
-    size: yup
-      .string()
-      .test(errorCodes.InvalidSize, errorCodes.InvalidSize, function () {
-        const { oldSize, size } = this.parent;
-        // This validation can be unused at the moment because ga4 responds to
-        // product_updated event, which ar a special event because analyzes metadata,
-        // and assigns different events, like change_size if provided data shows
-        // a change size intent.
-
-        return oldSize !== size;
-      }),
-  }),
-);
-
-const changeQuantityProductInCartSchema = updateProductSchema.concat(
+const productUpdatedSchema = fromSchema.concat(productRequiredSchema).concat(
   yup.object({
     oldQuantity: yup.number(),
-    quantity: yup
-      .number()
-      .test(
-        errorCodes.InvalidQuantity,
-        errorCodes.InvalidQuantity,
-        function () {
-          const { oldQuantity, quantity } = this.parent;
-          // This validation can be unused at the moment because ga4 responds to
-          // product_updated event, which ar a special event because analyzes metadata,
-          // and assigns different events, like change_quantity if provided data shows
-          // a change size intent.
-
-          return oldQuantity !== quantity;
-        },
-      ),
-  }),
-);
-
-const colourChangedSchema = updateProductSchema.concat(
-  yup.object({
+    quantity: yup.number(),
+    oldSize: yup.string(),
+    size: yup.string(),
     oldColour: yup.string(),
-    colour: yup
-      .string()
-      .test(errorCodes.InvalidColour, errorCodes.InvalidColour, function () {
-        const { oldColour, colour } = this.parent;
-        // This validation can be unused at the moment because ga4 responds to
-        // product_updated event, which ar a special event because analyzes metadata,
-        // and assigns different events, like change_colour if provided data shows
-        // a change size intent.
-
-        return oldColour !== colour;
-      }),
+    colour: yup.string(),
   }),
 );
 
@@ -247,15 +200,56 @@ const placeOrderStartedSchema = currencyRequiredSchema
 const shippingMethodAddedSchema = checkoutShippingStepSchema;
 const addressInfoAddedSchema = checkoutShippingStepSchema;
 
-const interactContentSchema = yup.object({
-  interactionType: yup
-    .string()
-    .test(
-      'match_interaction_type',
-      'The interactionType must match one of the built-in "interationTypes"',
-      value => Object.values(interactionTypes).includes(value),
-    ),
-});
+/**
+ * Returns true if the argument is a DOM element.
+ *
+ * @param {*} o - The value to check.
+ *
+ * @returns {boolean} True if the argument is a DOM element, false otherwise.
+ */
+function isElement(o) {
+  return (
+    o instanceof HTMLElement ||
+    (o &&
+      typeof o === 'object' &&
+      o !== null &&
+      o.nodeType === 1 &&
+      typeof o.nodeName === 'string')
+  );
+}
+
+const interactContentSchema = yup
+  .object({
+    interactionType: yup
+      .string()
+      .test(
+        'match_interaction_type',
+        'The interactionType must match one of the built-in "interationTypes"',
+        value => Object.values(interactionTypes).includes(value),
+      ),
+  })
+  .test(
+    'scroll_invalid_target_parameter',
+    "invalid 'target' parameter for 'SCROLL' interaction type. It must be a DOM Element.",
+    value => {
+      if (value.interactionType === interactionTypes.SCROLL) {
+        return isElement(value.target);
+      }
+
+      return true;
+    },
+  )
+  .test(
+    'scroll_invalid_percentage_scrolled_parameter',
+    "invalid 'percentageScrolled' parameter for 'SCROLL' interaction type. It must be a string containing a percentage.",
+    value => {
+      if (value.interactionType === interactionTypes.SCROLL) {
+        return typeof value.percentageScrolled === 'string';
+      }
+
+      return true;
+    },
+  );
 
 const signupNewsletterSchema = yup.object({
   gender: yup.string().oneOf(Object.keys(SignupNewsletterGenderMappings)),
@@ -285,11 +279,7 @@ export default {
   [eventTypes.CHECKOUT_STEP_EDITING]: checkoutStepEditingSchema,
   [eventTypes.ADDRESS_INFO_ADDED]: addressInfoAddedSchema,
   [eventTypes.SHIPPING_METHOD_ADDED]: shippingMethodAddedSchema,
+  [eventTypes.PRODUCT_UPDATED]: productUpdatedSchema,
   [eventTypes.INTERACT_CONTENT]: interactContentSchema,
   [eventTypes.SIGNUP_NEWSLETTER]: signupNewsletterSchema,
-  [InternalEventTypes.PRODUCT_UPDATED.CHANGE_SIZE]:
-    changeSizeProductInCartSchema,
-  [InternalEventTypes.PRODUCT_UPDATED.CHANGE_QUANTITY]:
-    changeQuantityProductInCartSchema,
-  [InternalEventTypes.PRODUCT_UPDATED.CHANGE_COLOUR]: colourChangedSchema,
 };
