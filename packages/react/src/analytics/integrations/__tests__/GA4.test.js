@@ -1226,7 +1226,7 @@ describe('GA4 Integration', () => {
       });
 
       describe('Interact content events', () => {
-        it('Should map to a page scroll event when the interaction type is scroll and target is document', async () => {
+        it('Should map to a page scroll event when the interaction type is scroll and target is document.body', async () => {
           ga4Instance = await createGA4InstanceAndLoad(validOptions, loadData);
 
           const ga4Spy = getWindowGa4Spy();
@@ -1236,14 +1236,14 @@ describe('GA4 Integration', () => {
 
           clonedEvent.properties.interactionType = interactionTypes.SCROLL;
           clonedEvent.properties.target = document.body;
-          clonedEvent.properties.percentageScrolled = '25%';
+          clonedEvent.properties.percentageScrolled = 25;
 
           await ga4Instance.track(clonedEvent);
 
           expect(ga4Spy.mock.calls).toMatchSnapshot();
         });
 
-        it('Should not map to a page scroll event when the interaction type is scroll and target is not document', async () => {
+        it('Should not map to a page scroll event when the interaction type is scroll and target is not document.body', async () => {
           ga4Instance = await createGA4InstanceAndLoad(validOptions, loadData);
 
           const ga4Spy = getWindowGa4Spy();
@@ -1253,7 +1253,7 @@ describe('GA4 Integration', () => {
 
           clonedEvent.properties.interactionType = interactionTypes.SCROLL;
           clonedEvent.properties.target = document.createElement('ul'); // use other element instead of document
-          clonedEvent.properties.percentageScrolled = '25%';
+          clonedEvent.properties.percentageScrolled = 25;
 
           await ga4Instance.track(clonedEvent);
 
@@ -1261,7 +1261,7 @@ describe('GA4 Integration', () => {
             'event',
             'interact_content',
             expect.objectContaining({
-              percentage_scrolled: '25%',
+              percentage_scrolled: 25,
               interaction_type: 'Scroll',
             }),
           );

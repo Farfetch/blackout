@@ -748,7 +748,7 @@ Array [
 ]
 `;
 
-exports[`GA4 Integration GA4 instance When it is instantiated correctly Interact content events Should map to a page scroll event when the interaction type is scroll and target is document 1`] = `
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Interact content events Should map to a page scroll event when the interaction type is scroll and target is document.body 1`] = `
 Array [
   Array [
     "event",

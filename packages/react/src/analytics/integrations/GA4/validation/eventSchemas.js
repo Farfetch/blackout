@@ -33,6 +33,7 @@ import {
   pageTypes,
 } from '@farfetch/blackout-core/analytics';
 import { SignupNewsletterGenderMappings } from '../../shared/dataMappings/';
+import isElement from 'lodash/isElement';
 
 export const errorCodes = {
   InvalidSize: 'ga4_invalid_size',
@@ -200,24 +201,6 @@ const placeOrderStartedSchema = currencyRequiredSchema
 const shippingMethodAddedSchema = checkoutShippingStepSchema;
 const addressInfoAddedSchema = checkoutShippingStepSchema;
 
-/**
- * Returns true if the argument is a DOM element.
- *
- * @param {*} o - The value to check.
- *
- * @returns {boolean} True if the argument is a DOM element, false otherwise.
- */
-function isElement(o) {
-  return (
-    o instanceof HTMLElement ||
-    (o &&
-      typeof o === 'object' &&
-      o !== null &&
-      o.nodeType === 1 &&
-      typeof o.nodeName === 'string')
-  );
-}
-
 const interactContentSchema = yup
   .object({
     interactionType: yup
@@ -241,10 +224,14 @@ const interactContentSchema = yup
   )
   .test(
     'scroll_invalid_percentage_scrolled_parameter',
-    "invalid 'percentageScrolled' parameter for 'SCROLL' interaction type. It must be a string containing a percentage.",
+    "invalid 'percentageScrolled' parameter for 'SCROLL' interaction type. It must be a number representing a percentage between [0,100].",
     value => {
       if (value.interactionType === interactionTypes.SCROLL) {
-        return typeof value.percentageScrolled === 'string';
+        return (
+          typeof value.percentageScrolled === 'number' &&
+          value.percentageScrolled >= 0 &&
+          value.percentageScrolled <= 100
+        );
       }
 
       return true;
