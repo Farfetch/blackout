@@ -411,6 +411,8 @@ describe('checkout redux selectors', () => {
       'DeliveryBundleUpgrades',
       'ItemDeliveryProvisioning',
       'UpgradeItemDeliveryProvisioning',
+      'Operations',
+      'Operation',
     ];
 
     describe('sub-areas loading selectors', () => {

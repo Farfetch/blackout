@@ -183,6 +183,14 @@ export default {
       error: null,
       isLoading: false,
     },
+    operations: {
+      error: null,
+      isLoading: false,
+    },
+    operation: {
+      error: null,
+      isLoading: false,
+    },
   },
   entities: {
     checkout: { [checkoutId]: checkoutEntity },

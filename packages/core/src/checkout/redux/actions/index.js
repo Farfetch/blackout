@@ -15,7 +15,8 @@ export { default as doGetDeliveryBundleUpgrades } from './doGetDeliveryBundleUpg
 export { default as doGetItemDeliveryProvisioning } from './doGetItemDeliveryProvisioning';
 export { default as doGetUpgradeItemDeliveryProvisioning } from './doGetUpgradeItemDeliveryProvisioning';
 export { default as doPostCharges } from './doPostCharges';
-export { default as doGetCharges } from './doGetCharges';
+export { default as doGetOperation } from './doGetOperation';
+export { default as doGetOperations } from './doGetOperations';
 export { default as reset } from './reset';
 export { default as doSetItemTags } from './doSetItemTags';
 export { default as doSetPromocode } from './doSetPromocode';

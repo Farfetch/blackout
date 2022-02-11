@@ -858,6 +858,8 @@ describe('checkout reducer', () => {
       deliveryBundleUpgrades: { ...subAreaResult },
       itemDeliveryProvisioning: { ...subAreaResult },
       upgradeItemDeliveryProvisioning: { ...subAreaResult },
+      operations: { ...subAreaResult },
+      operation: { ...subAreaResult },
     };
 
     const subAreaNames = [
@@ -872,6 +874,8 @@ describe('checkout reducer', () => {
       'DeliveryBundleUpgrades',
       'ItemDeliveryProvisioning',
       'UpgradeItemDeliveryProvisioning',
+      'Operations',
+      'Operation',
     ];
 
     it.each(subAreaNames)(
