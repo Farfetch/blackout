@@ -56,6 +56,26 @@ export const GET_CHECKOUT_REQUEST =
 export const GET_CHECKOUT_SUCCESS =
   '@farfetch/blackout-core/GET_CHECKOUT_SUCCESS';
 
+/** Action type dispatched when the get operations request fails. */
+export const GET_OPERATIONS_FAILURE =
+  '@farfetch/blackout-core/GET_OPERATIONS_FAILURE';
+/** Action type dispatched when the get operations request starts. */
+export const GET_OPERATIONS_REQUEST =
+  '@farfetch/blackout-core/GET_OPERATIONS_REQUEST';
+/** Action type dispatched when the get operations request succeeds. */
+export const GET_OPERATIONS_SUCCESS =
+  '@farfetch/blackout-core/GET_OPERATIONS_SUCCESS';
+
+/** Action type dispatched when the get operation request fails. */
+export const GET_OPERATION_FAILURE =
+  '@farfetch/blackout-core/GET_OPERATION_FAILURE';
+/** Action type dispatched when the get operation request starts. */
+export const GET_OPERATION_REQUEST =
+  '@farfetch/blackout-core/GET_OPERATION_REQUEST';
+/** Action type dispatched when the get operation request succeeds. */
+export const GET_OPERATION_SUCCESS =
+  '@farfetch/blackout-core/GET_OPERATION_SUCCESS';
+
 /** Action type dispatched when reseting the checkout. */
 export const RESET_CHECKOUT = '@farfetch/blackout-core/RESET_CHECKOUT';
 

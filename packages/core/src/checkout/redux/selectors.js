@@ -16,6 +16,8 @@ import {
   getIsLoading,
   getItemDeliveryProvisioning,
   getItemTags,
+  getOperation,
+  getOperations,
   getCharges as getPaidOrders,
   getPromoCode,
   getTags,
@@ -626,6 +628,52 @@ export const isUpgradeItemDeliveryProvisioningLoading = state =>
  */
 export const getUpgradeItemDeliveryProvisioningError = state =>
   getUpgradeItemDeliveryProvisioning(state.checkout).error;
+
+/**
+ * Returns the loading status for the Operations.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {boolean} Operations Loading status.
+ */
+export const isOperationsLoading = state =>
+  getOperations(state.checkout).isLoading;
+
+/**
+ * Returns the error for the Operations.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {object} Operations error.
+ */
+export const getOperationsError = state => getOperations(state.checkout).error;
+
+/**
+ * Returns the loading status for the Operation.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {boolean} Operation Loading status.
+ */
+export const isOperationLoading = state =>
+  getOperation(state.checkout).isLoading;
+
+/**
+ * Returns the error for the Operation.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {object} Operation error.
+ */
+export const getOperationError = state => getOperation(state.checkout).error;
 
 /**
  * Returns the ISO date for the item delivery options.
