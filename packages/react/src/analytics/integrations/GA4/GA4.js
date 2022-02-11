@@ -15,7 +15,6 @@
  * @subcategory Integrations
  */
 import {
-  eventTypes as analyticsEventTypes,
   pageTypes as analyticsPageTypes,
   trackTypes as analyticsTrackTypes,
   integrations,
@@ -39,9 +38,8 @@ import {
   OPTION_SET_CUSTOM_USER_ID_PROPERTY,
 } from './constants';
 import { validateFields } from './validation/optionsValidator';
-import defaultEventCommands, {
+import defaultCommandsBuilder, {
   commandListSchema,
-  getProductUpdatedEventList,
   nonInteractionEvents,
 } from './commands';
 import defaultSchemaEventsMap from '../shared/validation/eventSchemas';
@@ -222,30 +220,6 @@ class GA4 extends integrations.Integration {
   }
 
   /**
-   * Preprocess GA4 event to prevent multiple ga4 track events at once.
-   *
-   * @async
-   *
-   * @param {object} data - Event data provided by analytics.
-   *
-   * @returns {Promise} Promise that will resolve when the method finishes.
-   */
-  async processTrackEvent(data) {
-    const eventName = get(data, 'event');
-
-    switch (eventName) {
-      case analyticsEventTypes.PRODUCT_UPDATED:
-        return await Promise.all([
-          getProductUpdatedEventList(data).map(event =>
-            this.trackEvent({ ...data, event }),
-          ),
-        ]);
-      default:
-        return this.trackEvent(data);
-    }
-  }
-
-  /**
    * Send events to GA4 if the input event data passes schema validation.
    *
    * @async
@@ -262,7 +236,7 @@ class GA4 extends integrations.Integration {
         return await this.processPageEvent(data);
 
       case analyticsTrackTypes.TRACK:
-        return await this.processTrackEvent(data);
+        return await this.trackEvent(data);
       /* istanbul ignore next */
       default:
         /* istanbul ignore next */
@@ -543,7 +517,7 @@ class GA4 extends integrations.Integration {
       return commandBuilder;
     }
 
-    return get(defaultEventCommands, event);
+    return defaultCommandsBuilder;
   }
 
   /**

@@ -1306,6 +1306,55 @@ describe('GA4 Integration', () => {
             );
           });
         });
+
+        describe('Interact content events', () => {
+          it('Should map to a page scroll event when the interaction type is scroll and target is document', async () => {
+            ga4Instance = await createGA4InstanceAndLoad(
+              validOptions,
+              loadData,
+            );
+
+            const ga4Spy = getWindowGa4Spy();
+            const clonedEvent = cloneDeep(
+              trackEventsData[eventTypes.INTERACT_CONTENT],
+            );
+
+            clonedEvent.properties.interactionType = interactionTypes.SCROLL;
+            clonedEvent.properties.target = document.body;
+            clonedEvent.properties.percentageScrolled = '25%';
+
+            await ga4Instance.track(clonedEvent);
+
+            expect(ga4Spy.mock.calls).toMatchSnapshot();
+          });
+
+          it('Should not map to a page scroll event when the interaction type is scroll and target is not document', async () => {
+            ga4Instance = await createGA4InstanceAndLoad(
+              validOptions,
+              loadData,
+            );
+
+            const ga4Spy = getWindowGa4Spy();
+            const clonedEvent = cloneDeep(
+              trackEventsData[eventTypes.INTERACT_CONTENT],
+            );
+
+            clonedEvent.properties.interactionType = interactionTypes.SCROLL;
+            clonedEvent.properties.target = document.createElement('ul'); // use other element instead of document
+            clonedEvent.properties.percentageScrolled = '25%';
+
+            await ga4Instance.track(clonedEvent);
+
+            expect(ga4Spy).toHaveBeenCalledWith(
+              'event',
+              'interact_content',
+              expect.objectContaining({
+                percentage_scrolled: '25%',
+                interaction_type: 'Scroll',
+              }),
+            );
+          });
+        });
       });
     });
   });
