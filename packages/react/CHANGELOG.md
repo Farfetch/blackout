@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.178](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.177...@farfetch/blackout-react@1.0.0-next.178) (2022-02-11)
+
+
+### Features
+
+* **react:** move `handleAddOrUpdateItem` method to new hook ([2e29fb9](https://github.com/Farfetch/blackout/commit/2e29fb905d7cfc0f693a67a19a8b21d5c08830c2)), closes [#16](https://github.com/Farfetch/blackout/issues/16)
+
+
+### BREAKING CHANGES
+
+* **react:** This moves the method `handleAddOrUpdateItem` to a new
+hook `useAddOrUpdateBagItem`. The new hook is necessary since we are using
+selectors and actions outside a React component.
+
+
+
+
+
 # [1.0.0-next.177](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.176...@farfetch/blackout-react@1.0.0-next.177) (2022-02-11)
 
 
