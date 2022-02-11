@@ -1,4 +1,4 @@
-export type CustomAttributesAdapted = Record<string, string> | string | null;
+export type CustomAttributesAdapted = unknown | null;
 
 export type AdaptCustomAttributes = (
   attributes: string,
