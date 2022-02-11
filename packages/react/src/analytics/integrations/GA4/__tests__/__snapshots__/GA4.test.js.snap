@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Interact content events Should map to a page scroll event when the interaction type is scroll and target is document 1`] = `
+Array [
+  Array [
+    "event",
+    "scroll",
+    Object {
+      "percent_scrolled": "25%",
+    },
+  ],
+]
+`;
+
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Page events Should map the bag event correctly 1`] = `
 Array [
   Array [
