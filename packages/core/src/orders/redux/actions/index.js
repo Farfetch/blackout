@@ -15,3 +15,6 @@ export { default as doGetOrders } from './doGetOrders';
 export { default as doGetTracking } from './doGetTracking';
 export { default as doPostOrderDocument } from './doPostOrderDocument';
 export { default as doResetOrders } from './doResetOrders';
+export { default as doGetOrderAvailableItemsActivities } from './doGetOrderAvailableItemsActivities';
+export { default as doGetOrderItemAvailableActivities } from './doGetOrderItemAvailableActivities';
+export { default as doPostOrderItemActivities } from './doPostOrderItemActivities';
