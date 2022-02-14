@@ -63,6 +63,26 @@ export const GET_ORDER_DOCUMENT_REQUEST =
 export const GET_ORDER_DOCUMENT_SUCCESS =
   '@farfetch/blackout-core/GET_ORDER_DOCUMENT_SUCCESS';
 
+/** Action type dispatched when the get order available items activities request fails. */
+export const GET_ORDER_AVAILABLE_ITEMS_ACTIVITIES_FAILURE =
+  '@farfetch/blackout-core/GET_ORDER_AVAILABLE_ITEMS_ACTIVITIES_FAILURE';
+/** Action type dispatched when the get order available items activities request starts. */
+export const GET_ORDER_AVAILABLE_ITEMS_ACTIVITIES_REQUEST =
+  '@farfetch/blackout-core/GET_ORDER_AVAILABLE_ITEMS_ACTIVITIES_REQUEST';
+/** Action type dispatched when the get order available items activities request succeeds. */
+export const GET_ORDER_AVAILABLE_ITEMS_ACTIVITIES_SUCCESS =
+  '@farfetch/blackout-core/GET_ORDER_AVAILABLE_ITEMS_ACTIVITIES_SUCCESS';
+
+/** Action type dispatched when the get order item available activities request fails. */
+export const GET_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE =
+  '@farfetch/blackout-core/GET_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE';
+/** Action type dispatched when the get order item available activities request starts. */
+export const GET_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST =
+  '@farfetch/blackout-core/GET_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST';
+/** Action type dispatched when the get order item available activities request succeeds. */
+export const GET_ORDER_ITEM_AVAILABLE_ACTIVITIES_SUCCESS =
+  '@farfetch/blackout-core/GET_ORDER_ITEM_AVAILABLE_ACTIVITIES_SUCCESS';
+
 /** Action type dispatched when the post order documents request fails. */
 export const POST_ORDER_DOCUMENT_FAILURE =
   '@farfetch/blackout-core/POST_ORDER_DOCUMENT_FAILURE';
@@ -72,3 +92,13 @@ export const POST_ORDER_DOCUMENT_REQUEST =
 /** Action type dispatched when the post order documents request succeeds. */
 export const POST_ORDER_DOCUMENT_SUCCESS =
   '@farfetch/blackout-core/POST_ORDER_DOCUMENT_SUCCESS';
+
+/** Action type dispatched when the post order item activities request fails. */
+export const POST_ORDER_ITEM_ACTIVITIES_FAILURE =
+  '@farfetch/blackout-core/POST_ORDER_ITEM_ACTIVITIES_FAILURE';
+/** Action type dispatched when the post order item activities request starts. */
+export const POST_ORDER_ITEM_ACTIVITIES_REQUEST =
+  '@farfetch/blackout-core/POST_ORDER_ITEM_ACTIVITIES_REQUEST';
+/** Action type dispatched when the post order item activities request succeeds. */
+export const POST_ORDER_ITEM_ACTIVITIES_SUCCESS =
+  '@farfetch/blackout-core/POST_ORDER_ITEM_ACTIVITIES_SUCCESS';
