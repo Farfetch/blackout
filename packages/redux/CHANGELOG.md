@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.198](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.197...@farfetch/blackout-redux@1.0.0-next.198) (2022-02-14)
+
+
+### Features
+
+* **client|redux:** convert orders files to typescript ([6066925](https://github.com/Farfetch/blackout/commit/6066925eb8c9bb01341d8809cee93634ce413e74))
+
+
+
+
+
 # [1.0.0-next.197](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.196...@farfetch/blackout-redux@1.0.0-next.197) (2022-02-11)
 
 
