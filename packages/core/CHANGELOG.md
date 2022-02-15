@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.50.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.49.0...@farfetch/blackout-core@1.50.0) (2022-02-15)
+
+
+### Bug Fixes
+
+* remove GA4 non essential events ([c053eda](https://github.com/Farfetch/blackout/commit/c053eda69b124995444422f7b9ff5a60a97e3c03))
+
+
+### Features
+
+* **client|redux:** add order activities endpoints ([d4dbea1](https://github.com/Farfetch/blackout/commit/d4dbea16bb3b55c7bfa3e0270a92346cd1ee5fbb))
+* **core:** add operations endpoints ([e6bac3b](https://github.com/Farfetch/blackout/commit/e6bac3bc3302462fef1cfa946021c132c7d74cd4))
+
+
+
+
+
 # [1.49.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.48.0...@farfetch/blackout-core@1.49.0) (2022-02-08)
 
 

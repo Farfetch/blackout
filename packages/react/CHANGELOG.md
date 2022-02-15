@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.31.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.30.0...@farfetch/blackout-react@0.31.0) (2022-02-15)
+
+
+### Bug Fixes
+
+* **react:** change percentageScrolled parameter type to number ([8dfbc10](https://github.com/Farfetch/blackout/commit/8dfbc10e03c60dbb0762169cfc8cd376d9c3cd13))
+* remove GA4 non essential events ([c053eda](https://github.com/Farfetch/blackout/commit/c053eda69b124995444422f7b9ff5a60a97e3c03))
+
+
+### Features
+
+* **react:** add GA4 custom scroll event mappings ([097fc52](https://github.com/Farfetch/blackout/commit/097fc522e3debc1be7dd23c17ced5c24d5c37f69))
+
+
+
+
+
 # [0.30.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.29.0...@farfetch/blackout-react@0.30.0) (2022-02-08)
 
 
