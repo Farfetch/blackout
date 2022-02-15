@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-next.7](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@0.1.0-next.6...@farfetch/blackout-analytics@0.1.0-next.7) (2022-02-15)
+
+
+### Bug Fixes
+
+* remove GA4 non essential events ([3470c12](https://github.com/Farfetch/blackout/commit/3470c121351e1a00c42c17f76e0ef239466dc9de))
+
+
+
+
+
 # [0.1.0-next.6](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@0.1.0-next.5...@farfetch/blackout-analytics@0.1.0-next.6) (2022-02-07)
 
 
