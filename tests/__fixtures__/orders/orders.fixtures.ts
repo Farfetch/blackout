@@ -9,6 +9,7 @@ export const merchantOrderId = 100001339;
 export const merchantOrderId2 = 100001340;
 export const fileId = '98b1cb96-710e-437c-98b6-e904b91cf6f6';
 export const orderId = '3558DS';
+export const itemId = '3558DS';
 export const orderId2 = 'QUJ9AC';
 export const orderItemId = 10070161;
 export const orderItemId2 = 10070162;
@@ -870,6 +871,10 @@ export const mockOrderDocumentsResponse = [
 export const mockOrderDocumentPayload = {
   action: 'SendToCustomer',
   documentTypes: ['ComercialInvoice'],
+};
+
+export const mockOrderItemActivityPayload = {
+  type: 'ConfirmDelivery',
 };
 
 export const expectedNormalizedPayload = {
