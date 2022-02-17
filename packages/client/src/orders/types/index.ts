@@ -12,3 +12,6 @@ export * from './returnItem.types';
 export * from './orderSummary.types';
 export * from './tracking.types';
 export * from './postOrderDocument.types';
+export * from './getOrderAvailableItemsActivities.types';
+export * from './getOrderItemAvailableActivities.types';
+export * from './postOrderItemActivities.types';
