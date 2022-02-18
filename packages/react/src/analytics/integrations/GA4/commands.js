@@ -16,10 +16,6 @@ import ga4EventNameMapping, {
 const genericCommandsBuilder = data => {
   const eventName = ga4EventNameMapping[data.event];
 
-  if (!eventName) {
-    return null;
-  }
-
   return [['event', eventName, getEventProperties(data.event, data)]];
 };
 
@@ -85,18 +81,20 @@ const specializedCommandsBuilderByEvent = {
   [eventTypes.INTERACT_CONTENT]: interactContentEventCommandsBuilder,
 };
 
-const defaultCommandsBuilder = data => {
+export default event => {
   const specializedEventCommandsBuilder =
-    specializedCommandsBuilderByEvent[data.event];
+    specializedCommandsBuilderByEvent[event];
 
   if (specializedEventCommandsBuilder) {
-    return specializedEventCommandsBuilder(data);
+    return specializedEventCommandsBuilder;
   }
 
-  return genericCommandsBuilder(data);
-};
+  if (ga4EventNameMapping[event]) {
+    return genericCommandsBuilder;
+  }
 
-export default defaultCommandsBuilder;
+  return null;
+};
 
 // Schema used to validate the output of command functions
 export const commandListSchema = validationSchemaBuilder

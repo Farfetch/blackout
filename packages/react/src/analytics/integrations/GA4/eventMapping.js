@@ -2,6 +2,7 @@ import { eventTypes, pageTypes, utils } from '@farfetch/blackout-analytics';
 import { MAX_PRODUCT_CATEGORIES } from './constants';
 import { SignupNewsletterGenderMappings } from '../shared/dataMappings/';
 import get from 'lodash/get';
+import isObject from 'lodash/isObject';
 import snakeCase from 'lodash/snakeCase';
 
 export const InternalEventTypes = {
@@ -374,7 +375,13 @@ const getInteractContentParametersFromEvent = eventProperties => {
   const formattedProperties = {};
 
   Object.keys(eventProperties).forEach(key => {
-    formattedProperties[snakeCase(key)] = eventProperties[key];
+    const value = eventProperties[key];
+
+    if (isObject(value)) {
+      return;
+    }
+
+    formattedProperties[snakeCase(key)] = value;
   });
 
   return formattedProperties;
