@@ -13,15 +13,11 @@ import {
   pageDefinitions,
   pageEventsFilter,
   pageViewEventTypes,
-  PRODUCT_ID_PARAMETER,
-  PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST,
   systemActionParameters,
   trackDefinitions,
-  trackEventsMapper,
 } from './definitions';
 import { v4 as uuidv4 } from 'uuid';
 import analyticsTrackTypes from '../../types/trackTypes';
-import eventTypes from '../../types/eventTypes';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
 import platformTypes from '../../types/platformTypes';
@@ -264,36 +260,12 @@ export const formatPageEvent = (data, additionalParameters) => {
 };
 
 /**
- * @param {string} eventName - Name of the event.
- *
- * @returns {string} Corresponding `tid` value for the event.
- */
-export const getEventTidforEventName = eventName => {
-  const mapping = trackEventsMapper[eventName];
-
-  return mapping && mapping.tid;
-};
-
-/**
- * Get mapped type value for the passed event name.
- *
- * @param {string} eventName - Name of the event.
- *
- * @returns {string} Corresponding `type` value for the event.
- */
-export const getTrackEventType = eventName => {
-  const mapping = trackEventsMapper[eventName];
-
-  return mapping && mapping.type;
-};
-
-/**
  * @param {object} data         - Event object passed by Analytics.
  * @param {string} parameter    - Name of the parameter to obtain.
  *
  * @returns {*} The value of the parameter if found in event data or null if not found.
  */
-const getParameterValueFromEventData = (data, parameter) => {
+export const getParameterValueFromEvent = (data, parameter) => {
   let value;
 
   let searchLocations = [
@@ -315,44 +287,26 @@ const getParameterValueFromEventData = (data, parameter) => {
 };
 
 /**
- * @param {object} data   - Event data passed by analytics.
+ * @param {object} valParameters - Properties to be appended to the stringified "val" parameter.
  *
- * @returns {*} Value to be used on the `val` parameter.
+ * @returns {string} The object stringified.
  */
-export const getEventValForEventData = data => {
-  switch (data.event) {
-    case eventTypes.SIGNUP_FORM_VIEWED:
-    case eventTypes.CHECKOUT_STEP_VIEWED:
-    case eventTypes.PLACE_ORDER_STARTED: {
-      const correlationId = get(data, 'user.localId', null);
-      const timestamp = data.timestamp;
-      const referenceId = `${correlationId}_${timestamp}`;
+export const getValParameterForEvent = (valParameters = {}) => {
+  return JSON.stringify(valParameters);
+};
 
-      return JSON.stringify({
-        type: getTrackEventType(data.event),
-        paymentAttemptReferenceId: referenceId,
-      });
-    }
+/**
+ * Generates a payment attempt reference ID based on the correlationID (user local ID) and the timestamp of the event.
+ *
+ * @param {object} data - Event object passed by Analytics.
+ 
+ * @returns {string} - The payment attempt reference ID.
+ */
+export const generatePaymentAttemptReferenceId = data => {
+  const correlationId = get(data, 'user.localId', null);
+  const timestamp = data.timestamp;
 
-    case eventTypes.PRODUCT_ADDED_TO_CART:
-    case eventTypes.PRODUCT_ADDED_TO_WISHLIST: {
-      // The parameter containing the product id can come from the
-      // bag/wishlist middleware or the developer might specify it if
-      // these middlewares are not used to track these events, so
-      // we try first the parameter "productId" and then the "id" parameter
-      // that is used by the middlewares to obtain the productId.
-      return (
-        getParameterValueFromEventData(data, PRODUCT_ID_PARAMETER) ||
-        getParameterValueFromEventData(
-          data,
-          PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST,
-        )
-      );
-    }
-
-    default:
-      return null;
-  }
+  return `${correlationId}_${timestamp}`;
 };
 
 /**
@@ -378,39 +332,12 @@ export const pickTrackParameters = (
 };
 
 /**
- * Returns the formatted object for the event passed.
- *
- * @param {object} data                         - Page object passed by Analytics.
- *
- * @returns {object} The formated object for the event.
- */
-export const getTrackParameters = data => {
-  switch (data.event) {
-    case eventTypes.SIGNUP_FORM_VIEWED:
-    case eventTypes.CHECKOUT_STEP_VIEWED:
-    case eventTypes.PLACE_ORDER_STARTED:
-    case eventTypes.PRODUCT_ADDED_TO_CART:
-    case eventTypes.PRODUCT_ADDED_TO_WISHLIST: {
-      return {
-        tid: getEventTidforEventName(data.event),
-        val: getEventValForEventData(data),
-        ...pickTrackParameters(data),
-      };
-    }
-
-    default:
-      return pickTrackParameters(data);
-  }
-};
-
-/**
  * Formats tracking data to be sent to omnitracking service to register a custom event.
  *
  * @param {object} data                         - Object to pick properties from.
  * @param {object} [additionalParameters]       - Additional parameters to be considered.
  *
  * @returns {object} Formatted track data.
- *
  */
 export const formatTrackEvent = (data, additionalParameters) => {
   const user = get(data, 'user', { id: '', traits: {} });
@@ -422,7 +349,7 @@ export const formatTrackEvent = (data, additionalParameters) => {
     ...additionalParameters,
     ...getPlatformSpecificParameters(data),
     ...getCommonParameters(data),
-    ...getTrackParameters(data),
+    ...pickTrackParameters(data),
   };
 
   const hasSystemActionParameter = systemActionParameters.some(

@@ -26,11 +26,13 @@ import {
   OPTION_TRANSFORM_PAYLOAD,
 } from './constants';
 import { postTrackings } from './client';
-import { userGenderValuesMapper } from './definitions';
+import { trackEventsMapper, userGenderValuesMapper } from './definitions';
 import { v4 as uuidv4 } from 'uuid';
 import analyticsTrackTypes from '../../types/trackTypes';
 import get from 'lodash/get';
 import Integration from '../Integration';
+import isArray from 'lodash/isArray';
+import isObject from 'lodash/isObject';
 import logger from '../../utils/logger';
 import platformTypes from '../../types/platformTypes';
 
@@ -215,24 +217,48 @@ class Omnitracking extends Integration {
         );
       }
       case analyticsTrackTypes.TRACK: {
-        precalculatedParameters = this.getPrecalculatedParametersForEvent(data);
+        const eventMapperFn = trackEventsMapper[data.event];
 
-        if (!this.validateTrackingRequisites()) {
-          logger.warn(
-            `[Omnitracking] - Event ${data.event} tried to track without an unique view id.
-                Consider tracking an event only after a page event.
-                This behaviour is not recommended and will not be supported in upcoming versions`,
-          );
+        if (eventMapperFn) {
+          const mappedEvents = eventMapperFn(data);
+
+          if (isArray(mappedEvents)) {
+            await Promise.all(
+              mappedEvents.map(async mappedEventData => {
+                return this.processTrackEvents(data, mappedEventData);
+              }),
+            );
+          }
+
+          if (isObject(mappedEvents)) {
+            return this.processTrackEvents(data, mappedEvents);
+          }
         }
 
-        return await this.postTracking(
-          formatTrackEvent(data, precalculatedParameters),
-          data,
-        );
+        return this.processTrackEvents(data);
       }
       default:
         break;
     }
+  }
+
+  async processTrackEvents(data, mappedEventData) {
+    const precalculatedParameters =
+      this.getPrecalculatedParametersForEvent(data);
+    const formattedEventData = formatTrackEvent(data, {
+      ...precalculatedParameters,
+      ...mappedEventData,
+    });
+
+    if (!this.validateTrackingRequisites()) {
+      logger.warn(
+        `[Omnitracking] - Event ${data.event} tried to track without an unique view id.
+                Consider tracking an event only after a page event.
+                This behaviour is not recommended and will not be supported in upcoming versions`,
+      );
+    }
+
+    return await this.postTracking(formattedEventData, data);
   }
 
   /**
