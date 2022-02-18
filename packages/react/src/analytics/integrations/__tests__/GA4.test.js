@@ -1265,6 +1265,10 @@ describe('GA4 Integration', () => {
               interaction_type: 'Scroll',
             }),
           );
+
+          const eventProperties = ga4Spy.mock.calls[0][2];
+
+          expect(eventProperties).not.toHaveProperty('target');
         });
       });
     });
