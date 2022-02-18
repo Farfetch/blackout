@@ -1,5 +1,52 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Omnitracking definitions \`Checkout Step Viewed\` return should match the snapshot 1`] = `
+Object {
+  "tid": 10097,
+  "val": "{\\"type\\":\\"SUBMIT\\",\\"paymentAttemptReferenceId\\":\\"d9864a1c112d-47ff-8ee4-968c-5acecae23_1567010265879\\"}",
+}
+`;
+
+exports[`Omnitracking definitions \`Logout\` return should match the snapshot 1`] = `
+Object {
+  "tid": 431,
+}
+`;
+
+exports[`Omnitracking definitions \`Place Order Started\` return should match the snapshot 1`] = `
+Array [
+  Object {
+    "tid": 10097,
+    "val": "{\\"type\\":\\"TRANSACTION\\",\\"paymentAttemptReferenceId\\":\\"d9864a1c112d-47ff-8ee4-968c-5acecae23_1567010265879\\"}",
+  },
+  Object {
+    "tid": 188,
+    "val": "{\\"type\\":\\"TRANSACTION\\",\\"paymentAttemptReferenceId\\":\\"d9864a1c112d-47ff-8ee4-968c-5acecae23_1567010265879\\"}",
+  },
+]
+`;
+
+exports[`Omnitracking definitions \`Product Added to Cart\` return should match the snapshot 1`] = `
+Object {
+  "tid": 16,
+  "val": null,
+}
+`;
+
+exports[`Omnitracking definitions \`Product Added to Wishlist\` return should match the snapshot 1`] = `
+Object {
+  "tid": 35,
+  "val": null,
+}
+`;
+
+exports[`Omnitracking definitions \`Sign-up Form Viewed\` return should match the snapshot 1`] = `
+Object {
+  "tid": 10097,
+  "val": "{\\"type\\":\\"REGISTER\\",\\"paymentAttemptReferenceId\\":\\"d9864a1c112d-47ff-8ee4-968c-5acecae23_1567010265879\\"}",
+}
+`;
+
 exports[`Omnitracking definitions \`pageDefinitions\` should match snapshot 1`] = `
 Object {
   "CheckoutPageVisited": Array [
@@ -563,27 +610,4 @@ Array [
   "val",
   "tid",
 ]
-`;
-
-exports[`Omnitracking definitions \`trackEventsMapper\` should match snapshot 1`] = `
-Object {
-  "Checkout Step Viewed": Object {
-    "tid": 10097,
-    "type": "SUBMIT",
-  },
-  "Place Order Started": Object {
-    "tid": 10097,
-    "type": "TRANSACTION",
-  },
-  "Product Added to Cart": Object {
-    "tid": 16,
-  },
-  "Product Added to Wishlist": Object {
-    "tid": 35,
-  },
-  "Sign-up Form Viewed": Object {
-    "tid": 10097,
-    "type": "REGISTER",
-  },
-}
 `;

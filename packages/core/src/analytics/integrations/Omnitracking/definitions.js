@@ -2,7 +2,14 @@
  * @module Omnitracking/definitions
  * @private
  */
+
+import {
+  generatePaymentAttemptReferenceId,
+  getParameterValueFromEvent,
+  getValParameterForEvent,
+} from './omnitracking-helper';
 import eventTypes from '../../types/eventTypes';
+import fromParameterTypes from '../../types/fromParameterTypes';
 import pageTypes from '../../types/pageTypes';
 
 export const PRODUCT_ID_PARAMETER = 'productId';
@@ -337,13 +344,100 @@ export const pageEventsFilter = {
 
 /**
  * Interested events for tracking.
+ * If there is an event that can have different TIDs depending on the `from` parameter,
+ * make sure to define it, along with any specific parameter, if applicable.
  */
 export const trackEventsMapper = {
-  [eventTypes.SIGNUP_FORM_VIEWED]: { type: 'REGISTER', tid: 10097 },
-  [eventTypes.CHECKOUT_STEP_VIEWED]: { type: 'SUBMIT', tid: 10097 },
-  [eventTypes.PLACE_ORDER_STARTED]: { type: 'TRANSACTION', tid: 10097 },
-  [eventTypes.PRODUCT_ADDED_TO_CART]: { tid: 16 },
-  [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: { tid: 35 },
+  [eventTypes.SIGNUP_FORM_VIEWED]: data => ({
+    tid: 10097,
+    val: getValParameterForEvent({
+      type: 'REGISTER',
+      paymentAttemptReferenceId: generatePaymentAttemptReferenceId(data),
+    }),
+  }),
+  [eventTypes.CHECKOUT_STEP_VIEWED]: data => ({
+    tid: 10097,
+    val: getValParameterForEvent({
+      type: 'SUBMIT',
+      paymentAttemptReferenceId: generatePaymentAttemptReferenceId(data),
+    }),
+  }),
+  [eventTypes.PLACE_ORDER_STARTED]: data => {
+    const val = getValParameterForEvent({
+      type: 'TRANSACTION',
+      paymentAttemptReferenceId: generatePaymentAttemptReferenceId(data),
+    });
+
+    return [
+      {
+        tid: 10097,
+        val,
+      },
+      {
+        tid: 188,
+        val,
+      },
+    ];
+  },
+  [eventTypes.LOGOUT]: () => ({
+    tid: 431,
+  }),
+  [eventTypes.PRODUCT_ADDED_TO_CART]: data => {
+    const val =
+      getParameterValueFromEvent(data, PRODUCT_ID_PARAMETER) ||
+      getParameterValueFromEvent(data, PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST);
+
+    switch (data.properties?.from) {
+      case fromParameterTypes.PDP:
+        return {
+          tid: 598,
+          val,
+        };
+
+      default:
+        return {
+          tid: 16,
+          val,
+        };
+    }
+  },
+  [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: data => {
+    const val =
+      getParameterValueFromEvent(data, PRODUCT_ID_PARAMETER) ||
+      getParameterValueFromEvent(data, PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST);
+
+    switch (data.properties?.from) {
+      case fromParameterTypes.PDP:
+        return {
+          tid: 35,
+          val,
+        };
+
+      case fromParameterTypes.BAG:
+        return {
+          tid: 135,
+          val,
+        };
+
+      case fromParameterTypes.RECOMMENDATIONS:
+        return {
+          tid: 531,
+          val,
+        };
+
+      case fromParameterTypes.RECENTLY_VIEWED:
+        return {
+          tid: 532,
+          val,
+        };
+
+      default:
+        return {
+          tid: 35,
+          val,
+        };
+    }
+  },
 };
 
 export const userGenderValuesMapper = {
