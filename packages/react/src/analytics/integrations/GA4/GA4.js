@@ -38,15 +38,15 @@ import {
   OPTION_SET_CUSTOM_USER_ID_PROPERTY,
 } from './constants';
 import { validateFields } from './validation/optionsValidator';
-import defaultCommandsBuilder, {
-  commandListSchema,
-  nonInteractionEvents,
-} from './commands';
 import defaultSchemaEventsMap from '../shared/validation/eventSchemas';
 import each from 'lodash/each';
 import eventValidator from '../shared/validation/eventValidator';
 import GA4SchemaEventsMap from './validation/eventSchemas';
 import get from 'lodash/get';
+import getDefaultCommandsBuilder, {
+  commandListSchema,
+  nonInteractionEvents,
+} from './commands';
 import merge from 'lodash/merge';
 
 /**
@@ -517,7 +517,7 @@ class GA4 extends integrations.Integration {
       return commandBuilder;
     }
 
-    return defaultCommandsBuilder;
+    return getDefaultCommandsBuilder(event);
   }
 
   /**
