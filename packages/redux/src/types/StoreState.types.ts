@@ -25,6 +25,7 @@ import type {
   ReturnOptionsEntity,
   ReturnsEntity,
   StatementEntity,
+  SubscriptionPackageEntity,
   WishlistItemEntity,
   WishlistSetEntity,
 } from '../entities/types';
@@ -55,6 +56,7 @@ import type { State as SizeGuidesState } from '../sizeGuides/types';
 import type { SizeScale } from '@farfetch/blackout-client/sizeScales/types';
 import type { State as SizeScalesState } from '../sizeScales/types';
 import type { State as StaffMembersState } from '../staffMembers/types';
+import type { SubscriptionState } from '../subscriptions/types';
 import type { State as UsersState } from '../users/types';
 import type { State as WishlistsState } from '../wishlists/types';
 
@@ -97,6 +99,10 @@ export type StoreState = Partial<{
     sizeScales: Record<SizeScale['sizeScaleId'], SizeScale>;
     statements: Record<StatementEntity['id'], StatementEntity>;
     states: Record<string, any>;
+    subscriptionPackages: Record<
+      SubscriptionPackageEntity['id'],
+      SubscriptionPackageEntity
+    >;
     user: Record<string, any>;
     wishlistItems: Record<WishlistItemEntity['id'], WishlistItemEntity>;
     wishlistSets: Record<WishlistSetEntity['id'], WishlistSetEntity>;
@@ -125,6 +131,7 @@ export type StoreState = Partial<{
   sizeGuides: SizeGuidesState;
   sizeScales: SizeScalesState;
   staffMembers: StaffMembersState;
+  subscriptions: SubscriptionState;
   users: UsersState;
   wishlist: WishlistsState;
   // Keep adding here as we migrate chunks

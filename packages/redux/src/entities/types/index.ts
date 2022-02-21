@@ -31,5 +31,6 @@ export * from './returns.types';
 export * from './returnOptions.types';
 export * from './sizeScale.types';
 export * from './statement.types';
+export * from './subscriptionPackage.types';
 export * from './wishlistItem.types';
 export * from './wishlistSet.types';
