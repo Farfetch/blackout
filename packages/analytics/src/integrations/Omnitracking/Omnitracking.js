@@ -26,11 +26,13 @@ import {
   OPTION_TRANSFORM_PAYLOAD,
 } from './constants';
 import { postTrackings } from '@farfetch/blackout-client/omnitracking';
-import { userGenderValuesMapper } from './definitions';
+import { trackEventsMapper, userGenderValuesMapper } from './definitions';
 import { v4 as uuidv4 } from 'uuid';
 import analyticsTrackTypes from '../../types/trackTypes';
 import get from 'lodash/get';
 import Integration from '../Integration';
+import isArray from 'lodash/isArray';
+import isObject from 'lodash/isObject';
 import logger from '../../utils/logger';
 import platformTypes from '../../types/platformTypes';
 
@@ -209,33 +211,65 @@ class Omnitracking extends Integration {
 
         precalculatedParameters = this.getPrecalculatedParametersForEvent(data);
 
-        return await this.postTracking(
+        return this.postTracking(
           formatPageEvent(data, precalculatedParameters),
           data,
         );
       }
       case analyticsTrackTypes.TRACK: {
-        precalculatedParameters = this.getPrecalculatedParametersForEvent(data);
+        const eventMapperFn = trackEventsMapper[data.event];
 
-        if (!this.validateTrackingRequisites()) {
-          logger.error(
-            `[Omnitracking] - Event ${data.event} could not be tracked since it had no unique view id.
-             A possible cause is trying to track an event before tracking a page view. 
-             Make sure you are tracking events after page views are tracked.
-             This event will not be tracked with Omnitracking`,
-          );
+        if (eventMapperFn) {
+          const mappedEvents = eventMapperFn(data);
 
-          return;
+          if (isArray(mappedEvents)) {
+            return Promise.all(
+              mappedEvents.map(async mappedEventData => {
+                return this.processTrackEvents(data, mappedEventData);
+              }),
+            );
+          }
+
+          if (isObject(mappedEvents)) {
+            return this.processTrackEvents(data, mappedEvents);
+          }
         }
 
-        return await this.postTracking(
-          formatTrackEvent(data, precalculatedParameters),
-          data,
-        );
+        return this.processTrackEvents(data);
       }
       default:
         break;
     }
+  }
+
+  /**
+   * Method that will combine all pre-calculated parameters with the ones that come from the mapper.
+   *
+   * @param {object} data - Event data provided by analytics.
+   * @param {object} mappedEventData - Object with properties that come from the event mapper.
+   *
+   * @returns {Promise} Promise that will resolve when the method finishes.
+   */
+  async processTrackEvents(data, mappedEventData) {
+    const precalculatedParameters =
+      this.getPrecalculatedParametersForEvent(data);
+    const formattedEventData = formatTrackEvent(data, {
+      ...precalculatedParameters,
+      ...mappedEventData,
+    });
+
+    if (!this.validateTrackingRequisites()) {
+      logger.error(
+        `[Omnitracking] - Event ${data.event} could not be tracked since it had no unique view id.
+         A possible cause is trying to track an event before tracking a page view. 
+         Make sure you are tracking events after page views are tracked.
+         This event will not be tracked with Omnitracking.`,
+      );
+
+      return;
+    }
+
+    return await this.postTracking(formattedEventData, data);
   }
 
   /**

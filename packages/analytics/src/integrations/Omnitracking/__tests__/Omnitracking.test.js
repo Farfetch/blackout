@@ -15,6 +15,7 @@ import {
 import { pageEventsData, trackEventsData } from 'tests/__fixtures__/analytics';
 import analyticsTrackTypes from '../../../types/trackTypes';
 import eventTypes from '../../../types/eventTypes';
+import fromParameterTypes from '../../../types/fromParameterTypes';
 import merge from 'lodash/merge';
 import mocked_view_uid from '../__fixtures__/mocked_view_uid';
 import pageTypes from '../../../types/pageTypes';
@@ -359,7 +360,8 @@ describe('Omnitracking', () => {
       });
 
       it('event is `Place Order Started`', async () => {
-        const tid = 10097;
+        const placeOrderTid1 = 10097;
+        const placeOrderTid2 = 188;
 
         const data = generateTrackMockData({
           event: eventTypes.PLACE_ORDER_STARTED,
@@ -371,7 +373,7 @@ describe('Omnitracking', () => {
           ...mockExpectedTrackPayload,
           parameters: {
             ...mockExpectedTrackPayload.parameters,
-            tid,
+            tid: placeOrderTid1,
             val: JSON.stringify({
               type: 'TRANSACTION',
               paymentAttemptReferenceId: `${localIdMock}_${mockedTrackData.timestamp}`,
@@ -379,7 +381,19 @@ describe('Omnitracking', () => {
           },
         };
 
-        expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
+        expect(postTrackingsSpy).toHaveBeenCalledTimes(2);
+        expect(postTrackingsSpy.mock.calls).toEqual([
+          [expectedPayload],
+          [
+            {
+              ...expectedPayload,
+              parameters: {
+                ...expectedPayload.parameters,
+                tid: placeOrderTid2,
+              },
+            },
+          ],
+        ]);
       });
 
       it('event is `Sign-up Form Viewed`', async () => {
@@ -436,7 +450,7 @@ describe('Omnitracking', () => {
         expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
       });
 
-      it('event is `Product Added to Cart`', async () => {
+      it('event is `Product Added to Cart` without from parameter', async () => {
         const productId = 10000;
         const tid = 16;
 
@@ -461,7 +475,33 @@ describe('Omnitracking', () => {
         expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
       });
 
-      it('event is `Product Added to Wishlist`', async () => {
+      it('event is `Product Added to Cart` from PDP', async () => {
+        const productId = 10000;
+        const tid = 598;
+
+        const data = generateTrackMockData({
+          event: eventTypes.PRODUCT_ADDED_TO_CART,
+          properties: {
+            [definitions.PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST]: productId, // Here we simulate the event being dispatched by the bag middleware
+            from: fromParameterTypes.PDP,
+          },
+        });
+
+        await omnitracking.track(data);
+
+        const expectedPayload = {
+          ...mockExpectedTrackPayload,
+          parameters: {
+            ...mockExpectedTrackPayload.parameters,
+            tid,
+            val: productId,
+          },
+        };
+
+        expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
+      });
+
+      it('event is `Product Added to Wishlist` without from parameter', async () => {
         const productId = 10000;
         const tid = 35;
 
@@ -483,37 +523,153 @@ describe('Omnitracking', () => {
             val: productId,
           },
         };
+        expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
+      });
+
+      it('event is `Product Added to Wishlist` from PDP', async () => {
+        const productId = 10000;
+        const tid = 35;
+
+        const data = generateTrackMockData({
+          event: eventTypes.PRODUCT_ADDED_TO_WISHLIST,
+          properties: {
+            [definitions.PRODUCT_ID_PARAMETER]: productId,
+            from: fromParameterTypes.PDP,
+          },
+        });
+
+        await omnitracking.track(data);
+
+        const expectedPayload = {
+          ...mockExpectedTrackPayload,
+          parameters: {
+            ...mockExpectedTrackPayload.parameters,
+            productId,
+            tid,
+            val: productId,
+          },
+        };
 
         expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
       });
-    });
 
-    it('Should not send track events for any other of the predefined events by default', async () => {
-      const data = generateTrackMockData({
-        event: 'My custom Event',
+      it('event is `Product Added to Wishlist` from BAG', async () => {
+        const productId = 10000;
+        const tid = 135;
+
+        const data = generateTrackMockData({
+          event: eventTypes.PRODUCT_ADDED_TO_WISHLIST,
+          properties: {
+            [definitions.PRODUCT_ID_PARAMETER]: productId,
+            from: fromParameterTypes.BAG,
+          },
+        });
+
+        await omnitracking.track(data);
+
+        const expectedPayload = {
+          ...mockExpectedTrackPayload,
+          parameters: {
+            ...mockExpectedTrackPayload.parameters,
+            productId,
+            tid,
+            val: productId,
+          },
+        };
+
+        expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
       });
 
-      await omnitracking.track(data);
+      it('event is `Product Added to Wishlist` from RECOMMENDATIONS', async () => {
+        const productId = 10000;
+        const tid = 531;
 
-      expect(postTrackingsSpy).not.toHaveBeenCalled();
+        const data = generateTrackMockData({
+          event: eventTypes.PRODUCT_ADDED_TO_WISHLIST,
+          properties: {
+            [definitions.PRODUCT_ID_PARAMETER]: productId,
+            from: fromParameterTypes.RECOMMENDATIONS,
+          },
+        });
+
+        await omnitracking.track(data);
+
+        const expectedPayload = {
+          ...mockExpectedTrackPayload,
+          parameters: {
+            ...mockExpectedTrackPayload.parameters,
+            productId,
+            tid,
+            val: productId,
+          },
+        };
+
+        expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
+      });
+
+      it('event is `Product Added to Wishlist` from RECENTLY_VIEWED', async () => {
+        const productId = 10000;
+        const tid = 532;
+
+        const data = generateTrackMockData({
+          event: eventTypes.PRODUCT_ADDED_TO_WISHLIST,
+          properties: {
+            [definitions.PRODUCT_ID_PARAMETER]: productId,
+            from: fromParameterTypes.RECENTLY_VIEWED,
+          },
+        });
+
+        await omnitracking.track(data);
+
+        const expectedPayload = {
+          ...mockExpectedTrackPayload,
+          parameters: {
+            ...mockExpectedTrackPayload.parameters,
+            productId,
+            tid,
+            val: productId,
+          },
+        };
+
+        expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
+      });
+
+      it('Should not send track events for any other of the predefined events by default', async () => {
+        const data = generateTrackMockData({
+          event: 'My custom Event',
+        });
+
+        await omnitracking.track(data);
+
+        expect(postTrackingsSpy).not.toHaveBeenCalled();
+      });
     });
-  });
 
-  describe('definitions', () => {
-    it('`pageDefinitions` should match snapshot', () => {
-      expect(definitions.pageDefinitions).toMatchSnapshot();
-    });
+    describe('definitions', () => {
+      it('`pageDefinitions` should match snapshot', () => {
+        expect(definitions.pageDefinitions).toMatchSnapshot();
+      });
 
-    it('`trackDefinitions` should match snapshot', () => {
-      expect(definitions.trackDefinitions).toMatchSnapshot();
-    });
+      it('`trackDefinitions` should match snapshot', () => {
+        expect(definitions.trackDefinitions).toMatchSnapshot();
+      });
 
-    it('`pageEventsFilter` should match snapshot', () => {
-      expect(definitions.pageEventsFilter).toMatchSnapshot();
-    });
+      it('`pageEventsFilter` should match snapshot', () => {
+        expect(definitions.pageEventsFilter).toMatchSnapshot();
+      });
 
-    it('`trackEventsMapper` should match snapshot', () => {
-      expect(definitions.trackEventsMapper).toMatchSnapshot();
+      // test the trackEventsMapper globally with all default scenarios
+      it.each(Object.keys(definitions.trackEventsMapper))(
+        '`%s` return should match the snapshot',
+        eventMapperKey => {
+          expect(
+            definitions.trackEventsMapper[eventMapperKey](mockedTrackData),
+          ).toMatchSnapshot();
+          expect(typeof definitions.trackEventsMapper[eventMapperKey]).toBe(
+            'function',
+          );
+        },
+      );
     });
   });
 
