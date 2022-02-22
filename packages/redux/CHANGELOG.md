@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.200](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.199...@farfetch/blackout-redux@1.0.0-next.200) (2022-02-22)
+
+
+### Features
+
+* **client|redux:** convert subscription area from js to ts ([6b623e4](https://github.com/Farfetch/blackout/commit/6b623e4b580c93089e82dbdc702442305cc9ff44))
+
+
+
+
+
 # [1.0.0-next.199](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.198...@farfetch/blackout-redux@1.0.0-next.199) (2022-02-15)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
