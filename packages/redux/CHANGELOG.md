@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.201](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.200...@farfetch/blackout-redux@1.0.0-next.201) (2022-02-22)
+
+
+### Features
+
+* **client|redux:** add order activities endpoints ([e15afcd](https://github.com/Farfetch/blackout/commit/e15afcdab73339dd3873e3145d2004766cfbcf10))
+
+
+
+
+
 # [1.0.0-next.200](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.199...@farfetch/blackout-redux@1.0.0-next.200) (2022-02-22)
 
 
