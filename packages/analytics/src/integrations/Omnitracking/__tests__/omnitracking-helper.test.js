@@ -1,9 +1,9 @@
 import {
-  getEventValForEventData,
+  generatePaymentAttemptReferenceId,
   getPageEventFromLocation,
   getPlatformSpecificParameters,
+  getValParameterForEvent,
 } from '../omnitracking-helper';
-import eventTypes from '../../../types/eventTypes';
 import platformTypes from '../../../types/platformTypes';
 import trackTypes from '../../../types/trackTypes';
 
@@ -17,9 +17,25 @@ describe('getPageEventFromLocation', () => {
   });
 });
 
-describe('getEventValForEventData', () => {
-  it('should return null for an event that is not considered', () => {
-    expect(getEventValForEventData(eventTypes.SELECT_CONTENT)).toBe(null);
+describe('getValParameterForEvent', () => {
+  it('should return a stringified object', () => {
+    expect(getValParameterForEvent()).toBe('{}');
+    expect(getValParameterForEvent({ foo: 'bar' })).toBe('{"foo":"bar"}');
+  });
+});
+
+describe('generatePaymentAttemptReferenceId', () => {
+  it('Should return a string with the generated payment attempt reference ID', () => {
+    const mockPaymentAttemptReferenceId = '12345_123456789';
+
+    expect(
+      generatePaymentAttemptReferenceId({
+        user: {
+          localId: '12345',
+        },
+        timestamp: 123456789,
+      }),
+    ).toEqual(mockPaymentAttemptReferenceId);
   });
 });
 
