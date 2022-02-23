@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.51.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.50.0...@farfetch/blackout-core@1.51.0) (2022-02-23)
+
+
+### Features
+
+* **core:** add new mapper on omnitracking integration to calculate parameters from data object ([50efd81](https://github.com/Farfetch/blackout/commit/50efd817eb07cc95efb3dc88c41e8b62d3c98f9b))
+* **redux:** add operations actions ([201f01b](https://github.com/Farfetch/blackout/commit/201f01bdbcd132f78136e94f294027f7e1164dd9))
+
+
+
+
+
 # [1.50.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.49.0...@farfetch/blackout-core@1.50.0) (2022-02-15)
 
 

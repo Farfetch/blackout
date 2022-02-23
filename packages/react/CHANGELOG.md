@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.31.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.31.0...@farfetch/blackout-react@0.31.1) (2022-02-23)
+
+
+### Bug Fixes
+
+* **react:** fix interact content payload in GA4 ([91652f6](https://github.com/Farfetch/blackout/commit/91652f666c024ec702f89d680d414af72bd99be2))
+
+
+
+
+
 # [0.31.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.30.0...@farfetch/blackout-react@0.31.0) (2022-02-15)
 
 
