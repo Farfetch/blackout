@@ -69,7 +69,6 @@ const useAddOrUpdateBagItem: UseAddOrUpdateBagItem = bagItem => {
    */
   const handleAddOrUpdateItem: HandleAddOrUpdateItem = async ({
     customAttributes = bagItem?.customAttributes,
-    from,
     product = bagItem?.product,
     productAggregatorId = bagItem?.productAggregator?.id,
     quantity = bagItem?.quantity || 1,
