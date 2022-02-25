@@ -72,7 +72,7 @@ const useProductsList: UseProductsList = ({
   );
 
   useEffect(() => {
-    if (slug !== undefined && !isFetched) {
+    if (slug !== undefined) {
       dispatch(
         isSetPage
           ? fetchSet(slug, query as SetQuery, { useCache, setProductsListHash })
@@ -82,15 +82,7 @@ const useProductsList: UseProductsList = ({
             }),
       );
     }
-  }, [
-    dispatch,
-    isFetched,
-    isSetPage,
-    query,
-    setProductsListHash,
-    slug,
-    useCache,
-  ]);
+  }, [dispatch, isSetPage, query, setProductsListHash, slug, useCache]);
 
   return {
     /**
