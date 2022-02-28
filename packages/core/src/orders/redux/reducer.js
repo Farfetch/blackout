@@ -37,6 +37,14 @@ const INITIAL_STATE = {
     error: null,
     isLoading: false,
   },
+  orderAvailableItemsActivities: {
+    error: null,
+    isLoading: false,
+  },
+  orderItemAvailableActivities: {
+    error: null,
+    isLoading: false,
+  },
 };
 
 const error = (state = INITIAL_STATE.error, action = {}) => {
@@ -45,11 +53,15 @@ const error = (state = INITIAL_STATE.error, action = {}) => {
     case actionTypes.GET_ORDER_RETURN_OPTIONS_FAILURE:
     case actionTypes.GET_ORDERS_FAILURE:
     case actionTypes.GET_TRACKINGS_FAILURE:
+    case actionTypes.GET_ORDER_AVAILABLE_ITEMS_ACTIVITIES_FAILURE:
+    case actionTypes.GET_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE:
       return action.payload.error;
     case actionTypes.GET_ORDER_DETAILS_REQUEST:
     case actionTypes.GET_ORDER_RETURN_OPTIONS_REQUEST:
     case actionTypes.GET_ORDERS_REQUEST:
     case actionTypes.GET_TRACKINGS_REQUEST:
+    case actionTypes.GET_ORDER_AVAILABLE_ITEMS_ACTIVITIES_REQUEST:
+    case actionTypes.GET_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST:
     case actionTypes.RESET_ORDERS:
       return INITIAL_STATE.error;
     default:
@@ -63,6 +75,8 @@ const isLoading = (state = INITIAL_STATE.isLoading, action = {}) => {
     case actionTypes.GET_ORDER_DETAILS_REQUEST:
     case actionTypes.GET_ORDER_RETURN_OPTIONS_REQUEST:
     case actionTypes.GET_TRACKINGS_REQUEST:
+    case actionTypes.GET_ORDER_AVAILABLE_ITEMS_ACTIVITIES_REQUEST:
+    case actionTypes.GET_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST:
       return true;
     case actionTypes.GET_ORDERS_FAILURE:
     case actionTypes.GET_ORDERS_SUCCESS:
@@ -72,6 +86,10 @@ const isLoading = (state = INITIAL_STATE.isLoading, action = {}) => {
     case actionTypes.GET_ORDER_RETURN_OPTIONS_SUCCESS:
     case actionTypes.GET_TRACKINGS_FAILURE:
     case actionTypes.GET_TRACKINGS_SUCCESS:
+    case actionTypes.GET_ORDER_AVAILABLE_ITEMS_ACTIVITIES_FAILURE:
+    case actionTypes.GET_ORDER_AVAILABLE_ITEMS_ACTIVITIES_SUCCESS:
+    case actionTypes.GET_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE:
+    case actionTypes.GET_ORDER_ITEM_AVAILABLE_ACTIVITIES_SUCCESS:
     case actionTypes.RESET_ORDERS:
       return INITIAL_STATE.isLoading;
     default:
@@ -361,6 +379,18 @@ export const documents = reducerFactory(
   actionTypes,
 );
 
+export const orderAvailableItemsActivities = reducerFactory(
+  'GET_ORDER_AVAILABLE_ITEMS_ACTIVITIES',
+  INITIAL_STATE.orderAvailableItemsActivities,
+  actionTypes,
+);
+
+export const orderItemAvailableActivities = reducerFactory(
+  ['GET_ORDER_ITEM_AVAILABLE_ACTIVITIES', 'POST_ORDER_ITEM_ACTIVITIES'],
+  INITIAL_STATE.orderItemAvailableActivities,
+  actionTypes,
+);
+
 const result = (state = INITIAL_STATE.result, action = {}) => {
   switch (action.type) {
     case actionTypes.GET_ORDERS_SUCCESS:
@@ -378,6 +408,10 @@ export const getOrderDetails = state => state.orderDetails;
 export const getOrderReturnOptions = state => state.orderReturnOptions;
 export const getTrackings = state => state.trackings;
 export const getDocuments = state => state.documents;
+export const getOrderAvailableItemsActivities = state =>
+  state.orderAvailableItemsActivities;
+export const getOrderItemAvailableActivities = state =>
+  state.orderItemAvailableActivities;
 
 /**
  * Reducer for orders state.
@@ -399,4 +433,6 @@ export default combineReducers({
   orderReturnOptions,
   trackings,
   documents,
+  orderAvailableItemsActivities,
+  orderItemAvailableActivities,
 });
