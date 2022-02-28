@@ -8,7 +8,7 @@
  * by the integrations included in this package.
  * To be used in analytics.track or analytics.page calls.
  */
-export default {
+const fromParameterTypes = {
   BAG: 'Bag',
   WISHLIST: 'Wishlist',
   PLP: 'PLP',
@@ -18,3 +18,5 @@ export default {
   EDITORIAL: 'Editorial',
   OTHER: 'Other',
 };
+
+export default fromParameterTypes;

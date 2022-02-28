@@ -6,6 +6,8 @@ import merge from 'lodash/merge';
  * @category Analytics
  */
 class Entity {
+  data: Record<string, unknown>;
+
   constructor(data = {}) {
     this.data = data;
   }
@@ -13,11 +15,11 @@ class Entity {
   /**
    * Retrieves stored data.
    *
-   * @param {string} [key] - Property of object data.
+   * @param key - Property of object data.
    *
-   * @returns {*} Retrieves stored data.
+   * @returns Retrieves stored data.
    */
-  get(key) {
+  get(key?: string): unknown {
     return key ? this.data[key] : this.data;
   }
 
@@ -30,7 +32,7 @@ class Entity {
    *
    * @returns {Entity} The instance that was used when calling this method to allow chaining.
    */
-  set(data, force = false) {
+  set(data: unknown, force = false): Entity {
     force && (this.data = {});
 
     merge(this.data, data);

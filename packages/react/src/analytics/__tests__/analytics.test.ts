@@ -4,12 +4,13 @@ import AnalyticsCore, {
   integrations,
 } from '@farfetch/blackout-analytics';
 import TestStorage from 'test-storage';
+
 class LoadableIntegration extends integrations.Integration {
   static shouldLoad() {
     return true;
   }
 
-  static createInstance(options) {
+  static createInstance(options: Record<string, unknown>) {
     return new LoadableIntegration(options);
   }
 
@@ -19,11 +20,11 @@ class LoadableIntegration extends integrations.Integration {
 }
 
 class MarketingIntegration extends integrations.Integration {
-  static shouldLoad(consent) {
+  static shouldLoad(consent: Record<string, unknown>) {
     return !!consent && !!consent.marketing;
   }
 
-  static createInstance(options) {
+  static createInstance(options: Record<string, unknown>) {
     return new MarketingIntegration(options);
   }
 
@@ -39,7 +40,7 @@ describe('analytics web', () => {
     analytics.currentPageCallData = null;
 
     await analytics.setStorage(new TestStorage());
-    await analytics.setUser(123);
+    await analytics.setUser('123');
 
     await analytics
       .addIntegration('LoadableIntegration', LoadableIntegration)
@@ -75,7 +76,9 @@ describe('analytics web', () => {
       // This call will be held until the consent is given to the integration
       await analytics.page(event, properties, eventContext);
 
-      expect(marketingIntegrationInstance.track).toBeCalledWith(
+      expect(
+        (marketingIntegrationInstance as integrations.Integration).track,
+      ).toBeCalledWith(
         expect.objectContaining({
           type: analyticsTrackTypes.PAGE,
           event,
@@ -116,7 +119,9 @@ describe('analytics web', () => {
 
       expect(marketingIntegrationInstance).not.toBe(null);
 
-      expect(marketingIntegrationInstance.track).toBeCalledWith(
+      expect(
+        (marketingIntegrationInstance as integrations.Integration).track,
+      ).toBeCalledWith(
         expect.objectContaining({
           type: analyticsTrackTypes.PAGE,
           event,
@@ -127,10 +132,7 @@ describe('analytics web', () => {
   });
 
   it('Should extend the `track() method for tracking of pages and events`', async () => {
-    const coreTrackSpy = jest.spyOn(
-      AnalyticsCore.prototype,
-      analyticsTrackTypes.TRACK,
-    );
+    const coreTrackSpy = jest.spyOn(AnalyticsCore.prototype, 'track');
     const event = 'myEvent';
     const properties = {};
     const eventContext = { culture: 'pt-PT' }; // Simulate that the event has a different culture associated with it.
