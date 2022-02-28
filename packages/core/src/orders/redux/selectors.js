@@ -9,7 +9,9 @@ import {
   getDocuments,
   getError,
   getIsLoading,
+  getOrderAvailableItemsActivities,
   getOrderDetails,
+  getOrderItemAvailableActivities,
   getOrderReturnOptions,
   getOrdersList,
   getResult,
@@ -523,3 +525,51 @@ export const isDocumentsLoading = state => getDocuments(state.orders).isLoading;
  * @returns {object} Trackings operation error.
  */
 export const getDocumentsError = state => getDocuments(state.orders).error;
+
+/**
+ * Returns the loading status for the available items activities operations.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {boolean} Tracking Loading status.
+ */
+export const isAvailableItemsActivitiesLoading = state =>
+  getOrderAvailableItemsActivities(state.orders).isLoading;
+
+/**
+ * Returns the error for the available items activities operations.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {object} Trackings operation error.
+ */
+export const getAvailableItemsActivitiesError = state =>
+  getOrderAvailableItemsActivities(state.orders).error;
+
+/**
+ * Returns the loading status for the order item available activities operations.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {boolean} Tracking Loading status.
+ */
+export const isOrderItemAvailableActivitiesLoading = state =>
+  getOrderItemAvailableActivities(state.orders).isLoading;
+
+/**
+ * Returns the error for the order item available activities operations.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {object} Trackings operation error.
+ */
+export const getOrderItemAvailableActivitiesError = state =>
+  getOrderItemAvailableActivities(state.orders).error;
