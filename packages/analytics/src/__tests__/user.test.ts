@@ -3,8 +3,8 @@ import TestStorage from 'test-storage';
 import User from '../User';
 
 describe('User', () => {
-  let userInstance;
-  let storage;
+  let userInstance: User;
+  let storage: StorageWrapper;
 
   beforeEach(async () => {
     storage = await new StorageWrapper(new TestStorage());
@@ -29,7 +29,7 @@ describe('User', () => {
   });
 
   it('Should delete the user', async () => {
-    await userInstance.set(123123, { name: 'foo' });
+    await userInstance.set('123123', { name: 'foo' });
     const beforeAnonymizeLocalId = await userInstance.localId();
 
     await userInstance.anonymize();
@@ -84,6 +84,7 @@ describe('User', () => {
   });
 
   it('Should throw if an invalid storage instance is passed to the constructor', () => {
-    expect(() => new User()).toThrow();
+    const invalidData = undefined as unknown as StorageWrapper;
+    expect(() => new User(invalidData)).toThrow();
   });
 });

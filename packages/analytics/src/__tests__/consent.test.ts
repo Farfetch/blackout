@@ -1,10 +1,11 @@
 import { StorageWrapper } from '../utils';
 import Consent from '../Consent';
 import TestStorage from 'test-storage';
+import type ConsentData from '../types/consentData.types';
 
 describe('Consent', () => {
-  let storage;
-  let consentInstance;
+  let storage: StorageWrapper;
+  let consentInstance: Consent;
 
   beforeEach(() => {
     storage = new StorageWrapper(new TestStorage());
@@ -25,8 +26,12 @@ describe('Consent', () => {
     expect(consentInStorage).toMatchObject(data);
   });
 
-  it('Should return null if there is no consent stored yet', async () => {
-    expect(await consentInstance.get()).toBeNull();
+  it('Should return default consent if there is no consent stored yet', async () => {
+    expect(await consentInstance.get()).toMatchObject({
+      marketing: false,
+      preferences: false,
+      statistics: false,
+    });
   });
 
   it('Should return the consent data via get()', async () => {
@@ -62,11 +67,16 @@ describe('Consent', () => {
   it('Should only set valid consent parameters on storage', async () => {
     const invalidData = {
       foo: true,
-    };
+    } as unknown as ConsentData;
 
-    const data = {
+    const inputConsentData = {
       marketing: false,
       statistics: true,
+    };
+
+    const outputConsentData = {
+      ...inputConsentData,
+      preferences: false,
     };
 
     await consentInstance.set(invalidData);
@@ -75,14 +85,15 @@ describe('Consent', () => {
 
     expect(consentInStorage).not.toHaveProperty('foo');
 
-    await consentInstance.set(data);
+    await consentInstance.set(inputConsentData);
 
     const newConsentInStorage = await storage.getItem('consent');
 
-    expect(newConsentInStorage).toMatchObject(data);
+    expect(newConsentInStorage).toMatchObject(outputConsentData);
   });
 
   it('Should throw if an invalid storage instance is passed to the constructor', () => {
-    expect(() => new Consent()).toThrow();
+    const invalidData = undefined as unknown as StorageWrapper;
+    expect(() => new Consent(invalidData)).toThrow();
   });
 });

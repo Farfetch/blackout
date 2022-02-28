@@ -8,7 +8,7 @@
  * by the integrations included in this package.
  * To be used in analytics.page calls.
  */
-export default {
+const pageTypes = {
   ABOUT: 'about',
   ACCOUNT: 'account',
   ARTICLE: 'article',
@@ -51,10 +51,14 @@ export default {
 /**
  * Validates if the pageType passed exists in `pageTypes`.
  *
- * @param {object} types - PageTypes list.
- * @param {string} type - Page type to validate.
+ * @param types - PageTypes list.
+ * @param type - Page type to validate.
  *
- * @returns {string} - The page type matched.
+ * @returns The page type matched.
  */
-export const isValidPageType = (types, type) =>
-  Object.keys(types).some(value => type === types[value]);
+export const isValidPageType = (
+  types: Record<string, string>,
+  type: string,
+): boolean => Object.keys(types).some(value => type === types[value]);
+
+export default pageTypes;
