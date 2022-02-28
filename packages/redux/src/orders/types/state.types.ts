@@ -20,5 +20,7 @@ export type State = CombinedState<{
   ordersList: StateWithoutResult;
   trackings: StateWithoutResult;
   documents: StateWithoutResult;
+  orderAvailableItemsActivities: StateWithoutResult;
+  orderItemAvailableActivities: StateWithoutResult;
   [k: string]: unknown;
 }>;
