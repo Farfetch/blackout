@@ -1,4 +1,4 @@
-export default {
+const loginMethodParameterTypes = {
   TENANT: 'Tenant',
   FACEBOOK: 'Facebook',
   GOOGLE: 'Google',
@@ -6,3 +6,5 @@ export default {
   APPLE: 'Apple',
   OTHER: 'Other',
 };
+
+export default loginMethodParameterTypes;

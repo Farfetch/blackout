@@ -8,7 +8,7 @@
  * by the integrations included in this package.
  * To be used in analytics.track or analytics.page calls.
  */
-export default {
+const interactionTypes = {
   CLICK: 'Click',
   DOUBLE_CLICK: 'Double Click',
   SUBMIT: 'Submit',
@@ -22,3 +22,5 @@ export default {
   DRAG: 'Drag',
   DROP: 'Drop',
 };
+
+export default interactionTypes;

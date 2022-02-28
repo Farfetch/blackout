@@ -5,6 +5,9 @@ import eventTypes from '../types/eventTypes';
 import pageTypes from '../types/pageTypes';
 import TestStorage from 'test-storage';
 import trackTypes from '../types/trackTypes';
+import type { IntegrationFactory } from '../integrations/Integration';
+import type { Storage } from '../utils/types';
+import type StorageWrapper from '../utils/StorageWrapper';
 
 // Workaround to mock Date class
 global.Date = class MockDate {
@@ -14,54 +17,72 @@ global.Date = class MockDate {
 };
 
 class MyIntegration extends Integration {
+  static createInstance(options?: Record<string, unknown>) {
+    return new MyIntegration(options);
+  }
+
   static shouldLoad() {
     return true;
   }
 
-  static createInstance(options) {
-    return new MyIntegration(options);
-  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+  track(data: Record<string, unknown>): void {}
 }
 
 class NullInstanceIntegration extends Integration {
-  static shouldLoad() {
-    return true;
-  }
-
   static createInstance() {
     return null;
   }
-}
 
-class NoIntegrationInstanceIntegration extends Integration {
   static shouldLoad() {
     return true;
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+  track(data: Record<string, unknown>): void {}
+}
+
+class NoIntegrationInstanceIntegration extends Integration {
   static createInstance() {
     return String('test');
   }
+
+  static shouldLoad() {
+    return true;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+  track(data: Record<string, unknown>): void {}
 }
 
 class DefaultCreateInstanceIntegration extends Integration {
   static shouldLoad() {
     return true;
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+  track(data: Record<string, unknown>): void {}
 }
 
 class CreateInstanceThrowsIntegration extends Integration {
+  static createInstance() {
+    throw new Error('error');
+  }
+
   static shouldLoad() {
     return true;
   }
 
-  static createInstance() {
-    throw new Error('error');
-  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+  track(data: Record<string, unknown>): void {}
 }
 
 class NotLoadableIntegration extends Integration {
   static shouldLoad() {
     return false;
   }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+  track(data: Record<string, unknown>): void {}
 }
 
 class ErrorIntegration extends Integration {
@@ -83,23 +104,26 @@ class ErrorIntegration extends Integration {
 }
 
 class StatisticsConsentRequiredIntegration extends Integration {
-  static shouldLoad(consent) {
+  static shouldLoad(consent: Record<string, unknown>) {
     return !!consent && !!consent.statistics;
   }
 
-  static createInstance(options) {
+  static createInstance(options: Record<string, unknown>) {
     return new StatisticsConsentRequiredIntegration(options);
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+  track(data: Record<string, unknown>): void {}
 }
 
 // Mock logger so it does not output to the console
 jest.mock('@farfetch/blackout-client/helpers', () => ({
   ...jest.requireActual('@farfetch/blackout-client/helpers'),
   Logger: class {
-    warn(message) {
+    warn(message: string) {
       return message;
     }
-    error(message) {
+    error(message: string) {
       return message;
     }
   },
@@ -107,8 +131,11 @@ jest.mock('@farfetch/blackout-client/helpers', () => ({
 
 const loggerErrorSpy = jest.spyOn(logger, 'error');
 
-let analytics;
+let analytics: Analytics;
 
+/**
+ *
+ */
 async function setupAnalyticsWithFaultyStorage() {
   analytics.isReady = false;
 
@@ -230,7 +257,11 @@ describe('analytics', () => {
     });
 
     it('should log an error when calling `analytics.setConsent`', async () => {
-      await analytics.setConsent({ marketing: true });
+      await analytics.setConsent({
+        marketing: true,
+        statistics: false,
+        preferences: false,
+      });
 
       expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
 
@@ -255,7 +286,7 @@ describe('analytics', () => {
   });
 
   describe('When storage is set in analytics', () => {
-    let storage;
+    let storage: Storage;
 
     beforeAll(async () => {
       analytics.isReady = false;
@@ -275,8 +306,10 @@ describe('analytics', () => {
       it('Should buffer calls to track method and execute them when setUser is called', async () => {
         await analytics.addIntegration('myIntegration', MyIntegration).ready();
 
-        const integrationInstance = analytics.integration('myIntegration');
-        const spyTrack = jest.spyOn(integrationInstance, trackTypes.TRACK);
+        const integrationInstance = analytics.integration(
+          'myIntegration',
+        ) as Integration;
+        const spyTrack = jest.spyOn(integrationInstance, 'track');
 
         analytics.track(trackTypes.PAGE, pageTypes.HOMEPAGE);
 
@@ -327,7 +360,8 @@ describe('analytics', () => {
         });
 
         it('Should log an error if useContext is used with incorrect arguments', async () => {
-          const newContext = { prop1: 'A', prop2: 'B' };
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const newContext = { prop1: 'A', prop2: 'B' } as any;
 
           analytics.useContext(newContext);
 
@@ -344,7 +378,7 @@ describe('analytics', () => {
         });
 
         it('Should log an error when calling `analytics.setContext`', () => {
-          analytics.setContext({});
+          analytics.setContext();
 
           expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
           expect(loggerErrorSpy).toBeCalledWith(
@@ -353,7 +387,7 @@ describe('analytics', () => {
         });
 
         it('should log an error and not prevent execution of next context functions on the chain when a context function throws', async () => {
-          // Save previously setted context functions in order to restore them after the test
+          // Save previously set context functions in order to restore them after the test
           const previousContextFns = analytics.contextFns;
 
           analytics.contextFns = [];
@@ -404,13 +438,22 @@ describe('analytics', () => {
             marketing: true,
           };
 
-          const spyStorageSetItem = jest.spyOn(analytics.storage, 'setItem');
+          const consentDataSet = {
+            marketing: true,
+            preferences: false,
+            statistics: false,
+          };
+
+          const spyStorageSetItem = jest.spyOn(
+            analytics.storage as StorageWrapper,
+            'setItem',
+          );
 
           await analytics.setConsent(consentData);
 
           expect(spyStorageSetItem).toHaveBeenCalledWith(
             'consent',
-            consentData,
+            consentDataSet,
           );
         });
 
@@ -487,7 +530,10 @@ describe('analytics', () => {
           }
 
           await analytics
-            .addIntegration('invalidIntegration', InvalidIntegration)
+            .addIntegration(
+              'invalidIntegration',
+              InvalidIntegration as unknown as IntegrationFactory,
+            )
             .ready();
 
           expect(analytics.integrations.size).toBe(0);
@@ -508,7 +554,7 @@ describe('analytics', () => {
           await analytics
             .addIntegration(
               'createInstanceThrowsIntegration',
-              CreateInstanceThrowsIntegration,
+              CreateInstanceThrowsIntegration as unknown as IntegrationFactory,
             )
             .ready();
 
@@ -521,7 +567,10 @@ describe('analytics', () => {
 
         it('Should log an error when an integration`s createInstance method returns null', async () => {
           await analytics
-            .addIntegration('nullInstanceIntegration', NullInstanceIntegration)
+            .addIntegration(
+              'nullInstanceIntegration',
+              NullInstanceIntegration as unknown as IntegrationFactory,
+            )
             .ready();
 
           expect(loggerErrorSpy).toBeCalledTimes(1);
@@ -533,11 +582,11 @@ describe('analytics', () => {
           await analytics
             .addIntegration(
               'noIntegrationInstanceIntegration',
-              NoIntegrationInstanceIntegration,
+              NoIntegrationInstanceIntegration as unknown as IntegrationFactory,
             )
             .addIntegration(
               'defaultCreateInstanceIntegration',
-              DefaultCreateInstanceIntegration,
+              DefaultCreateInstanceIntegration as unknown as IntegrationFactory,
             )
             .ready();
 
@@ -584,18 +633,22 @@ describe('analytics', () => {
 
           await analytics.setUser(userId, traits);
 
-          const userData = await analytics.user();
+          const userData = (await analytics.user()) as Record<string, unknown>;
 
           expect(userData['id']).toEqual(userId);
           expect(userData['traits']).toEqual(traits);
         });
 
         it("Should return user's empty data structure if there's no data on storage", async () => {
-          const currentLocalId = (await analytics.user()).localId;
+          const currentLocalId = (
+            (await analytics.user()) as Record<string, unknown>
+          ).localId;
 
           await analytics.anonymize();
 
-          const sameLocalId = (await analytics.user()).localId;
+          const sameLocalId = (
+            (await analytics.user()) as Record<string, unknown>
+          ).localId;
 
           expect(currentLocalId).toEqual(sameLocalId);
 
@@ -611,7 +664,7 @@ describe('analytics', () => {
         it('Should identify an user with its data', async () => {
           await analytics.setUser();
 
-          let user = await analytics.user();
+          let user = (await analytics.user()) as Record<string, unknown>;
           expect(user.id).toBeNull();
           expect(user.traits).toMatchObject({});
           expect(user.localId).not.toBeNull();
@@ -624,7 +677,7 @@ describe('analytics', () => {
 
           await analytics.setUser(userId, traits);
 
-          user = await analytics.user();
+          user = (await analytics.user()) as Record<string, unknown>;
 
           expect(user.id).toEqual(userId);
           expect(user.traits).toEqual(traits);
@@ -634,11 +687,15 @@ describe('analytics', () => {
         it('Should anonymize an user', async () => {
           await analytics.setUser('12345678', { name: 'Dummy' });
 
-          const currentLocalId = (await analytics.user()).localId;
+          const currentLocalId = (
+            (await analytics.user()) as Record<string, unknown>
+          ).localId;
 
           await analytics.anonymize();
 
-          const sameLocalId = (await analytics.user()).localId;
+          const sameLocalId = (
+            (await analytics.user()) as Record<string, unknown>
+          ).localId;
 
           expect(currentLocalId).toEqual(sameLocalId);
 
@@ -680,12 +737,12 @@ describe('analytics', () => {
           await analytics.ready();
 
           const spyIntegration1 = jest.spyOn(
-            analytics.integration('integration1'),
+            analytics.integration('integration1') as Integration,
             'onSetUser',
           );
 
           const spyIntegration2 = jest.spyOn(
-            analytics.integration('integration2'),
+            analytics.integration('integration2') as Integration,
             'onSetUser',
           );
 
@@ -708,7 +765,7 @@ describe('analytics', () => {
             .ready();
 
           const spy = jest.spyOn(
-            analytics.integration('myIntegration'),
+            analytics.integration('myIntegration') as Integration,
             'onSetUser',
           );
 
@@ -725,7 +782,7 @@ describe('analytics', () => {
             .ready();
 
           const spy = jest.spyOn(
-            analytics.integration('myIntegration'),
+            analytics.integration('myIntegration') as Integration,
             'onSetUser',
           );
 
@@ -746,8 +803,8 @@ describe('analytics', () => {
 
         it('Should not track an event if the event name is not passed', async () => {
           const spyTrack = jest.spyOn(
-            analytics.integration('myIntegration'),
-            trackTypes.TRACK,
+            analytics.integration('myIntegration') as Integration,
+            'track',
           );
 
           const event = undefined;
@@ -755,7 +812,11 @@ describe('analytics', () => {
             productId: 123123,
           };
 
-          await analytics.track(undefined, event, properties);
+          await analytics.track(
+            undefined,
+            event as unknown as string,
+            properties,
+          );
 
           expect(loggerErrorSpy).toBeCalledTimes(1);
           expect(spyTrack).not.toBeCalled();
@@ -783,10 +844,7 @@ describe('analytics', () => {
             timestamp: new Date().getTime(),
           };
 
-          const spyIntegration = jest.spyOn(
-            MyIntegration.prototype,
-            trackTypes.TRACK,
-          );
+          const spyIntegration = jest.spyOn(MyIntegration.prototype, 'track');
 
           await analytics.track(
             trackTypes.TRACK,
@@ -802,8 +860,8 @@ describe('analytics', () => {
           analytics.isReady = false;
 
           const spyTrack = jest.spyOn(
-            analytics.integration('myIntegration'),
-            trackTypes.TRACK,
+            analytics.integration('myIntegration') as Integration,
+            'track',
           );
 
           await analytics.track(trackTypes.TRACK, eventTypes.PRODUCT_CLICKED);
@@ -831,9 +889,11 @@ describe('analytics', () => {
 
           await analytics.ready();
 
-          myIntegrationInstance = analytics.integration('myIntegration');
+          myIntegrationInstance = analytics.integration(
+            'myIntegration',
+          ) as Integration;
 
-          const spyTrack = jest.spyOn(myIntegrationInstance, trackTypes.TRACK);
+          const spyTrack = jest.spyOn(myIntegrationInstance, 'track');
 
           expect(myIntegrationInstance).toBeInstanceOf(MyIntegration);
 
@@ -846,7 +906,7 @@ describe('analytics', () => {
         it("Should not load an integration if it's not ready to load", async () => {
           analytics.addIntegration(
             'notLoadableIntegration',
-            NotLoadableIntegration,
+            NotLoadableIntegration as unknown as IntegrationFactory,
           );
 
           expect(analytics.integrations.size).toBe(1);
@@ -865,8 +925,8 @@ describe('analytics', () => {
             .ready();
 
           const spyTrack = jest.spyOn(
-            analytics.integration('myIntegration'),
-            trackTypes.TRACK,
+            analytics.integration('myIntegration') as Integration,
+            'track',
           );
 
           await analytics.track(trackTypes.PAGE, pageTypes.HOMEPAGE);

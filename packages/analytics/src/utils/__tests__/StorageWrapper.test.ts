@@ -2,6 +2,7 @@ import { PACKAGE_NAME } from '../constants';
 import logger from '../logger';
 import StorageWrapper from '../StorageWrapper';
 import TestStorage from 'test-storage';
+import type { Storage } from '../../types/storage.types';
 
 // Mock logger so it does not output to the console
 jest.mock('@farfetch/blackout-client/helpers', () => ({
@@ -19,16 +20,17 @@ jest.mock('@farfetch/blackout-client/helpers', () => ({
 logger.error = jest.fn();
 
 describe('Storage', () => {
-  let storage;
+  let storage: StorageWrapper;
   const testStorage = new TestStorage();
-  const getStorageWrapper = dataStorage => new StorageWrapper(dataStorage);
+  const getStorageWrapper = (dataStorage?: Storage) =>
+    new StorageWrapper(dataStorage);
 
   beforeEach(async () => {
     storage = await getStorageWrapper(testStorage);
   });
 
   it('should throw an error if an invalid store is passed', () => {
-    expect(() => getStorageWrapper(null)).toThrow();
+    expect(() => getStorageWrapper()).toThrow();
   });
 
   it('Should migrate the old key entry data to `@farfetch/blackout-analytics`', async () => {
@@ -63,7 +65,7 @@ describe('Storage', () => {
   it('Should create a store with 1 year ttl', async () => {
     const currentYear = new Date().getFullYear();
     const ttl = await storage.getItem('ttl');
-    const expectedYear = new Date(ttl).getFullYear();
+    const expectedYear = new Date(ttl as number).getFullYear();
 
     expect(expectedYear).toEqual(currentYear + 1);
   });
@@ -106,12 +108,12 @@ describe('Storage', () => {
     // Force the createStorage flow with the same store, to ensure the ttl is updated, as the `new Date()` will return a date two years from now
     await storage.createStorage(testStorage);
     const newTtl = await storage.getItem('ttl');
-    const updatedStorage = await storage.getItem();
+    const updatedStorage = (await storage.getItem()) as Record<string, unknown>;
 
     expect(Object.keys(updatedStorage)).toHaveLength(1);
     expect(Object.keys(updatedStorage)[0]).toBe('ttl');
-    expect(ttl).not.toEqual(newTtl);
-    expect(ttl).toBeLessThan(newTtl);
+    expect(ttl as number).not.toEqual(newTtl as number);
+    expect(ttl as number).toBeLessThan(newTtl as number);
   });
 
   it('Should return an object with the storage if no key is passed via `getItem()`', async () => {
@@ -132,7 +134,8 @@ describe('Storage', () => {
   });
 
   it('Should return the instance via `set()` if no key is passed', async () => {
-    expect(await storage.setItem()).toEqual(storage);
+    const wrapper = await storage.setItem();
+    expect(wrapper).toEqual(storage);
   });
 
   it('Should set and merge a property with the data already stored', async () => {

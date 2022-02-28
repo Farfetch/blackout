@@ -8,7 +8,7 @@
  * by the integrations included in this package.
  * To be used in analytics.track calls.
  */
-export default {
+const eventTypes = {
   /** Address Info Added should be tracked when an address info is added. */
   ADDRESS_INFO_ADDED: 'Address Info Added',
   /** Checkout Abandoned should be tracked when the user abandons the checkout. */
@@ -76,3 +76,5 @@ export default {
   /** Signup Newsletter should be tracked when the user signs-up the newsletter. */
   SIGNUP_NEWSLETTER: 'Sign-up Newsletter',
 };
+
+export default eventTypes;

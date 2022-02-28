@@ -4,7 +4,6 @@
  * @module analytics
  * @category Analytics
  */
-
 import * as integrations from './integrations';
 import {
   eventTypes,

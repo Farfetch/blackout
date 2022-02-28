@@ -9,7 +9,9 @@ import parse, { qs } from 'url-parse';
 /*
  * Returns an object with default context properties.
  */
-export const getContextDefaults = () => {
+export const getContextDefaults = (): {
+  library: { version: string; name: string };
+} => {
   return {
     library: {
       version: PACKAGE_VERSION,
@@ -21,7 +23,7 @@ export const getContextDefaults = () => {
 /*
  * Returns an object with default page properties.
  */
-export const getPageDefaults = () => {
+export const getPageDefaults = (): Record<string, unknown> => {
   if (typeof window === 'undefined') {
     return {};
   }
@@ -38,9 +40,9 @@ export const getPageDefaults = () => {
  * It uses the qs named export from url-parse (that is used by the url-parse's parse method internally to build the query object)
  * to stringify the passed in query object.
  *
- * @param {object} query - Query object to stringify.
+ * @param query - Query object to stringify.
  *
- * @returns {string} - Returns the query string object stringified.
+ * @returns Returns the query string object stringified.
  *
  * @example
  * Input query object
@@ -52,6 +54,7 @@ export const getPageDefaults = () => {
  * '?colors=3|11&categories=187345'
  * }
  */
-export const stringifyQuery = query => {
+
+export const stringifyQuery = (query: Record<string, unknown>): string => {
   return qs.stringify(query, true);
 };
