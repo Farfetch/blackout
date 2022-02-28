@@ -131,6 +131,14 @@ describe('orders redux selectors', () => {
         error: null,
         isLoading: false,
       },
+      orderAvailableItemsActivities: {
+        error: null,
+        isLoading: false,
+      },
+      orderItemAvailableActivities: {
+        error: null,
+        isLoading: false,
+      },
     },
     entities: {
       courier: {
@@ -300,6 +308,54 @@ describe('orders redux selectors', () => {
       const spy = jest.spyOn(fromOrders, 'getDocuments');
 
       expect(selectors.getDocumentsError(mockState)).toBe(expectedResult);
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('isAvailableItemsActivitiesLoading()', () => {
+    it('should get the orderAvailableItemsActivities isLoading property from state', () => {
+      const spy = jest.spyOn(fromOrders, 'getOrderAvailableItemsActivities');
+
+      expect(selectors.isAvailableItemsActivitiesLoading(mockState)).toEqual(
+        false,
+      );
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('getAvailableItemsActivitiesError()', () => {
+    it('should get the orderAvailableItemsActivities error property from state', () => {
+      const expectedResult =
+        mockState.orders.orderAvailableItemsActivities.error;
+      const spy = jest.spyOn(fromOrders, 'getOrderAvailableItemsActivities');
+
+      expect(selectors.getAvailableItemsActivitiesError(mockState)).toBe(
+        expectedResult,
+      );
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('isOrderItemAvailableActivitiesLoading()', () => {
+    it('should get the orderAvailableItemsActivities isLoading property from state', () => {
+      const spy = jest.spyOn(fromOrders, 'getOrderItemAvailableActivities');
+
+      expect(
+        selectors.isOrderItemAvailableActivitiesLoading(mockState),
+      ).toEqual(false);
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('getOrderItemAvailableActivitiesError()', () => {
+    it('should get the orderAvailableItemsActivities error property from state', () => {
+      const expectedResult =
+        mockState.orders.orderAvailableItemsActivities.error;
+      const spy = jest.spyOn(fromOrders, 'getOrderItemAvailableActivities');
+
+      expect(selectors.getOrderItemAvailableActivitiesError(mockState)).toBe(
+        expectedResult,
+      );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
