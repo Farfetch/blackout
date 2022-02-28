@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.186](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.185...@farfetch/blackout-react@1.0.0-next.186) (2022-02-28)
+
+
+### Bug Fixes
+
+* **blackout-react:** fix `from` parameter in useAddOrUpdateBagItem hook ([a9e5379](https://github.com/Farfetch/blackout/commit/a9e53792ecd3d6555e71592b54e53250b91f0a6d))
+
+
+
+
+
 # [1.0.0-next.185](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.184...@farfetch/blackout-react@1.0.0-next.185) (2022-02-24)
 
 **Note:** Version bump only for package @farfetch/blackout-react
