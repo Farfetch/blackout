@@ -165,3 +165,42 @@ export interface ResetOrdersAction extends Action {
 export interface LogoutAction extends Action {
   type: typeof LOGOUT_SUCCESS;
 }
+
+/** Actions dispatched when the fetch order available items activities request is made. */
+export type FetchOrderAvailableItemsActivitiesAction =
+  | FetchOrderAvailableItemsActivitiesRequestAction
+  | FetchOrderAvailableItemsActivitiesSuccessAction
+  | FetchOrderAvailableItemsActivitiesFailureAction;
+
+export interface FetchOrderAvailableItemsActivitiesRequestAction
+  extends Action {
+  type: typeof actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_REQUEST;
+}
+export interface FetchOrderAvailableItemsActivitiesSuccessAction
+  extends Action {
+  type: typeof actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_SUCCESS;
+  payload: Payload;
+}
+export interface FetchOrderAvailableItemsActivitiesFailureAction
+  extends Action {
+  type: typeof actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_FAILURE;
+  payload: { error: Error };
+}
+
+/** Actions dispatched when the fetch order available items activities request is made. */
+export type FetchOrderItemAvailableActivitiesAction =
+  | FetchOrderItemAvailableActivitiesRequestAction
+  | FetchOrderItemAvailableActivitiesSuccessAction
+  | FetchOrderItemAvailableActivitiesFailureAction;
+
+export interface FetchOrderItemAvailableActivitiesRequestAction extends Action {
+  type: typeof actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST;
+}
+export interface FetchOrderItemAvailableActivitiesSuccessAction extends Action {
+  type: typeof actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_SUCCESS;
+  payload: Payload;
+}
+export interface FetchOrderItemAvailableActivitiesFailureAction extends Action {
+  type: typeof actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE;
+  payload: { error: Error };
+}

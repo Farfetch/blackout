@@ -1732,6 +1732,14 @@ export const mockState = {
       error: null,
       isLoading: false,
     },
+    orderAvailableItemsActivities: {
+      error: null,
+      isLoading: false,
+    },
+    orderItemAvailableActivities: {
+      error: null,
+      isLoading: false,
+    },
   },
   entities: {
     courier: {

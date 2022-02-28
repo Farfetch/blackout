@@ -39,6 +39,14 @@ export const INITIAL_STATE: T.State = {
     error: null,
     isLoading: false,
   },
+  orderAvailableItemsActivities: {
+    error: null,
+    isLoading: false,
+  },
+  orderItemAvailableActivities: {
+    error: null,
+    isLoading: false,
+  },
 };
 
 const error = (
@@ -52,6 +60,8 @@ const error = (
     | T.FetchOrdersRequestAction
     | T.FetchTrackingsFailureAction
     | T.FetchTrackingsRequestAction
+    | T.FetchOrderAvailableItemsActivitiesAction
+    | T.FetchOrderItemAvailableActivitiesAction
     | T.ResetOrdersAction,
 ) => {
   switch (action.type) {
@@ -59,11 +69,15 @@ const error = (
     case actionTypes.FETCH_ORDER_RETURN_OPTIONS_FAILURE:
     case actionTypes.FETCH_ORDERS_FAILURE:
     case actionTypes.FETCH_TRACKINGS_FAILURE:
+    case actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_FAILURE:
+    case actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE:
       return action.payload.error;
     case actionTypes.FETCH_ORDER_DETAILS_REQUEST:
     case actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST:
     case actionTypes.FETCH_ORDERS_REQUEST:
     case actionTypes.FETCH_TRACKINGS_REQUEST:
+    case actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_REQUEST:
+    case actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST:
     case actionTypes.RESET_ORDERS:
       return INITIAL_STATE.error;
     default:
@@ -78,6 +92,8 @@ const isLoading = (
     | T.FetchOrderDetailsAction
     | T.FetchOrderReturnOptionsAction
     | T.FetchTrackingsAction
+    | T.FetchOrderItemAvailableActivitiesAction
+    | T.FetchOrderAvailableItemsActivitiesAction
     | T.ResetOrdersAction,
 ) => {
   switch (action.type) {
@@ -85,6 +101,8 @@ const isLoading = (
     case actionTypes.FETCH_ORDER_DETAILS_REQUEST:
     case actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST:
     case actionTypes.FETCH_TRACKINGS_REQUEST:
+    case actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_REQUEST:
+    case actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST:
       return true;
     case actionTypes.FETCH_ORDERS_FAILURE:
     case actionTypes.FETCH_ORDERS_SUCCESS:
@@ -94,6 +112,10 @@ const isLoading = (
     case actionTypes.FETCH_ORDER_RETURN_OPTIONS_SUCCESS:
     case actionTypes.FETCH_TRACKINGS_FAILURE:
     case actionTypes.FETCH_TRACKINGS_SUCCESS:
+    case actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_FAILURE:
+    case actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_SUCCESS:
+    case actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE:
+    case actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_SUCCESS:
     case actionTypes.RESET_ORDERS:
       return INITIAL_STATE.isLoading;
     default:
@@ -375,6 +397,18 @@ export const documents = reducerFactory(
   actionTypes,
 );
 
+export const orderAvailableItemsActivities = reducerFactory(
+  'FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES',
+  INITIAL_STATE.orderAvailableItemsActivities,
+  actionTypes,
+);
+
+export const orderItemAvailableActivities = reducerFactory(
+  ['FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES', 'ADD_ORDER_ITEM_ACTIVITIES'],
+  INITIAL_STATE.orderItemAvailableActivities,
+  actionTypes,
+);
+
 const result = (
   state = INITIAL_STATE.result,
   action: T.FetchOrdersSuccessAction,
@@ -402,6 +436,14 @@ export const getTrackings = (state: T.State): T.State['trackings'] =>
   state.trackings;
 export const getDocuments = (state: T.State): T.State['documents'] =>
   state.documents;
+export const getOrderAvailableItemsActivities = (
+  state: T.State,
+): T.State['orderAvailableItemsActivities'] =>
+  state.orderAvailableItemsActivities;
+export const getOrderItemAvailableActivities = (
+  state: T.State,
+): T.State['orderItemAvailableActivities'] =>
+  state.orderItemAvailableActivities;
 
 const reducer = combineReducers({
   error,
@@ -412,6 +454,8 @@ const reducer = combineReducers({
   orderReturnOptions,
   trackings,
   documents,
+  orderAvailableItemsActivities,
+  orderItemAvailableActivities,
 });
 
 /**
