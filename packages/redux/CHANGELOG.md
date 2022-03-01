@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.203](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.202...@farfetch/blackout-redux@1.0.0-next.203) (2022-03-01)
+
+
+### Bug Fixes
+
+* **redux:** add missing reducers and selectors for activities endpoints on next ([620ec34](https://github.com/Farfetch/blackout/commit/620ec34c45d249648cd77abe610b344e956533ab))
+
+
+
+
+
 # [1.0.0-next.202](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.201...@farfetch/blackout-redux@1.0.0-next.202) (2022-02-24)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
