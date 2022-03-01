@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.52.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.51.0...@farfetch/blackout-core@1.52.0) (2022-03-01)
+
+
+### Bug Fixes
+
+* **redux:** add missing reducers and selectors for activities endpoints ([12b17f3](https://github.com/Farfetch/blackout/commit/12b17f32277ea97a659f92880335f9982257ec32))
+
+
+### Features
+
+* **core:** update order of components and fix ranking on merge strategy for commerce pages ([34c3fc8](https://github.com/Farfetch/blackout/commit/34c3fc87c5ab42e37919dd4a03f6c09bb0116433))
+
+
+
+
+
 # [1.51.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.50.0...@farfetch/blackout-core@1.51.0) (2022-02-23)
 
 
