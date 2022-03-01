@@ -99,6 +99,27 @@ export const getPageRanking = metadata => {
 };
 
 /**
+ * Method to check each page ranking and return a list of ranked commerce pages ordered by the better one.
+ *
+ * @function
+ *
+ * @param {object} result - Commerce page payload result.
+ * @returns {object[]} - List of commerce pages ranked.
+ *
+ * @example
+ * const getCommercePagesRanked = getCommercePagesRanked({ entries: [...pages] });
+ * Result of getCommercePagesRanked === { entries: [commercePagesWithRankProperty] };
+ */
+const getCommercePagesRanked = result => {
+  const commercePagesWithRank = result.entries.map(page => ({
+    ...page,
+    ranking: getPageRanking(page.metadata),
+  }));
+
+  return commercePagesWithRank.sort((p, c) => c.ranking - p.ranking);
+};
+
+/**
  * Method to check each page ranking and return the better one.
  *
  * @function
@@ -111,12 +132,7 @@ export const getPageRanking = metadata => {
  * Result of defaultStrategy === { entries: [...bestRankedPage] };
  */
 export const getDefaultStrategy = result => {
-  const bestRankedPage = result.entries
-    .map(page => ({
-      ...page,
-      ranking: getPageRanking(page.metadata),
-    }))
-    .reduce((p, c) => (p.ranking > c.ranking ? p : c), {});
+  const bestRankedPage = getCommercePagesRanked(result)[0];
 
   return {
     number: 1,
@@ -127,7 +143,7 @@ export const getDefaultStrategy = result => {
 };
 
 /**
- * Method to return the main page with all components from other pages.
+ * Method to return the main ranked commerce page with all components from other pages without duplicates.
  *
  * @function
  *
@@ -139,21 +155,28 @@ export const getDefaultStrategy = result => {
  * Result of mergeStrategy === { entries: [...mergedPages] };
  */
 export const getMergeStrategy = result => {
-  // Select the main commerce page
-  const selectedCommercePage = result.entries[0];
-
+  const rankedCommercePages = getCommercePagesRanked(result);
   // Merge components inside the selected commerce page
-  return result.entries.reduce((acc, current) => ({
+  const mergedComponents = [];
+
+  rankedCommercePages.forEach(content =>
+    content.components.forEach(component => {
+      if (
+        !mergedComponents.some(
+          mergedComponent =>
+            mergedComponent.customType === component.customType,
+        )
+      )
+        mergedComponents.push(component);
+    }),
+  );
+
+  return {
     number: 1,
-    totalPages: 1,
     totalItems: 1,
-    entries: [
-      {
-        ...selectedCommercePage,
-        components: [].concat(acc.components, current.components),
-      },
-    ],
-  }));
+    totalPages: 1,
+    entries: [{ ...rankedCommercePages[0], components: mergedComponents }],
+  };
 };
 
 /**
