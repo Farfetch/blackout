@@ -18,8 +18,6 @@ export type WebContextType = {
 /**
  * Adds web environment information to the context.
  *
- * @function webContext
- * @memberof module:analytics
  * @returns Context object for web applications.
  */
 export const context = (): WebContextType => {

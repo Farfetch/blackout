@@ -15,8 +15,4 @@ describe('Defaults', () => {
 
     expect(data).toMatchObject(result);
   });
-
-  it('Should export getPageDefaults', () => {
-    expect(defaults.getPageDefaults()).toMatchSnapshot();
-  });
 });

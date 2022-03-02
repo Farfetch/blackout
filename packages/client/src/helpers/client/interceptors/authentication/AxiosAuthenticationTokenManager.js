@@ -7,7 +7,6 @@ import {
   ClientCredentialsTokenProvider,
   GuestTokenProvider,
   TokenData,
-  TokenProvider,
   UserTokenProvider,
 } from './token-providers';
 import {
@@ -19,7 +18,7 @@ import {
   UserSessionExpiredError,
 } from './errors';
 import AuthenticationConfigOptions from './AuthenticationConfigOptions';
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import isNil from 'lodash/isNil';
 
 /**
@@ -30,19 +29,19 @@ import isNil from 'lodash/isNil';
 class AxiosAuthenticationTokenManager {
   /**
    *
-   * @param {AxiosInstance} client - The axios instance to apply the interceptors to.
-   * @param {object} options - Options to configure this instance.
-   * @param {Function} options.authorizationHeaderFormatter - Function that will be used to format the authorization header of a request with the access token.
-   * @param {Function} [options.clientCredentialsTokenRequester] - A function that will produce a new client credentials token. This function can be async and will be awaited.
-   * @param {Function} options.guestTokenRequester - A function that will produce a new guest token. This function can be async and will be awaited.
-   * @param {number} [options.refreshTokenWindowOffset] - A value in milliseconds to advance the access token expiration time. Use this value if you want to make a refresh access token request before the access token expiration time. By default, it will be 30 seconds.
-   * @param {object} [options.storage] - Storage options.
-   * @param {object} options.storage.provider - An object implementing the Storage API methods getItem, setItem and removeItem. If these methods are async, they will be awaited. If not specified, the tokens will not be persisted.
-   * @param {object} options.storage.serializer - An object implementing the methods serializeTokenData and deserializeTokenData. This option is required if a valid storage.provider value is provided. The methods provided by serializer must not be async.
-   * @param {object} [options.storage.guestTokenStorageKey] - A string that defines the storage key where guest user tokens data will be stored and will be used as the argument to storage.provider methods as the key argument. If not provided a default value will be used.
-   * @param {string} [options.storage.userTokenStorageKey] - A string that defines the storage key where user tokens data will be stored and will be used as the argument to storage.provider methods as the key argument. If not provided a default value will be used.
-   * @param {string} [options.storage.clientCredentialsTokenStorageKey] - A string that defines the storage key where client credentials tokens data will be stored and will be used as the argument to storage.provider methods as the key argument. If not provided a default value will be used.
-   * @param {Function} options.userTokenRequester - A function that will produce a new user token. This function can be async and will be awaited.
+   * @param client - The axios instance to apply the interceptors to.
+   * @param options - Options to configure this instance.
+   * @param options.authorizationHeaderFormatter - Function that will be used to format the authorization header of a request with the access token.
+   * @param options.clientCredentialsTokenRequester - A function that will produce a new client credentials token. This function can be async and will be awaited.
+   * @param options.guestTokenRequester - A function that will produce a new guest token. This function can be async and will be awaited.
+   * @param options.refreshTokenWindowOffset - A value in milliseconds to advance the access token expiration time. Use this value if you want to make a refresh access token request before the access token expiration time. By default, it will be 30 seconds.
+   * @param options.storage - Storage options.
+   * @param options.storage.provider - An object implementing the Storage API methods getItem, setItem and removeItem. If these methods are async, they will be awaited. If not specified, the tokens will not be persisted.
+   * @param options.storage.serializer - An object implementing the methods serializeTokenData and deserializeTokenData. This option is required if a valid storage.provider value is provided. The methods provided by serializer must not be async.
+   * @param options.storage.guestTokenStorageKey - A string that defines the storage key where guest user tokens data will be stored and will be used as the argument to storage.provider methods as the key argument. If not provided a default value will be used.
+   * @param options.storage.userTokenStorageKey - A string that defines the storage key where user tokens data will be stored and will be used as the argument to storage.provider methods as the key argument. If not provided a default value will be used.
+   * @param options.storage.clientCredentialsTokenStorageKey - A string that defines the storage key where client credentials tokens data will be stored and will be used as the argument to storage.provider methods as the key argument. If not provided a default value will be used.
+   * @param options.userTokenRequester - A function that will produce a new user token. This function can be async and will be awaited.
    */
   constructor(client, options) {
     this.initialize(client, options);
@@ -52,8 +51,8 @@ class AxiosAuthenticationTokenManager {
    * Initializes the instance with the passed in options by validating them first
    * and then applying them.
    *
-   * @param {AxiosInstance} client - The axios instance to apply the interceptors to.
-   * @param {object} options - The options object passed to the constructor.
+   * @param client - The axios instance to apply the interceptors to.
+   * @param options - The options object passed to the constructor.
    */
   initialize(client, options) {
     this.validateOptions(client, options);
@@ -66,8 +65,8 @@ class AxiosAuthenticationTokenManager {
    *
    * @throws Will throw an error if an option does not contain a valid value.
    *
-   * @param {AxiosInstance} client - The axios instance to apply the interceptors to.
-   * @param {object} options - The options object passed to the constructor.
+   * @param client - The axios instance to apply the interceptors to.
+   * @param options - The options object passed to the constructor.
    */
   validateOptions(client, options) {
     if (!client) {
@@ -179,8 +178,8 @@ class AxiosAuthenticationTokenManager {
    * Applies the options and makes the call to the function that will install the axios
    * interceptors to the axios instance.
    *
-   * @param {AxiosInstance} client - The axios instance to apply the interceptors to.
-   * @param {object} options - The options object passed to the constructor.
+   * @param client - The axios instance to apply the interceptors to.
+   * @param options - The options object passed to the constructor.
    */
   applyOptions(client, options) {
     const {
@@ -288,7 +287,7 @@ class AxiosAuthenticationTokenManager {
   /**
    * Clears token data from memory and storage if provided.
    *
-   * @returns {Promise} Promise that will finish when both the guest and user tokens data are cleared.
+   * @returns Promise that will finish when both the guest and user tokens data are cleared.
    */
   clearData() {
     const clearDataPromises = [
@@ -313,7 +312,7 @@ class AxiosAuthenticationTokenManager {
    * provider context from guest to authenticated users and vice-versa.
    * Make sure you know what you are doing before calling this method yourself.
    *
-   * @param {TokenProvider} newTokenProvider - The token provider instance to select.
+   * @param newTokenProvider - The token provider instance to select.
    */
   selectTokenProvider(newTokenProvider) {
     if (this.currentTokenProvider !== newTokenProvider) {
@@ -331,7 +330,7 @@ class AxiosAuthenticationTokenManager {
   /**
    * Gets the token from the current token provider.
    *
-   * @returns {(object|null)} Returns the token data from the current token provider or null if there is not a current token provider.
+   * @returns Returns the token data from the current token provider or null if there is not a current token provider.
    */
   getActiveToken() {
     if (!this.currentTokenProvider) {
@@ -358,7 +357,7 @@ class AxiosAuthenticationTokenManager {
   /**
    * Sets the context for guest tokens retrieval.
    *
-   * @param {object} newContext - Properties to set on the guest token context.
+   * @param newContext - Properties to set on the guest token context.
    */
   setGuestTokensContext(newContext) {
     this.guestTokenProvider.setTokenContext(newContext);
@@ -374,7 +373,7 @@ class AxiosAuthenticationTokenManager {
   /**
    * Retrieves the current guest tokens context.
    *
-   * @returns {object} The current guest tokens context.
+   * @returns The current guest tokens context.
    */
   getCurrentGuestTokensContext() {
     return this.guestTokenProvider.getTokenContext();
@@ -385,9 +384,9 @@ class AxiosAuthenticationTokenManager {
    * If useCache is false, a new create access token request
    * will be made.
    *
-   * @async
-   * @param {boolean} useCache - Returns an access token from the cache if available, if not a new create access token request will be made.
-   * @returns {Promise<string>} Promise that will resolve with a renewed or cached access token from the current provider. If the renew request fails, the promise will reject with the error.
+   *
+   * @param useCache - Returns an access token from the cache if available, if not a new create access token request will be made.
+   * @returns Promise that will resolve with a renewed or cached access token from the current provider. If the renew request fails, the promise will reject with the error.
    */
   async getAccessToken(useCache) {
     return await this.currentTokenProvider?.getAccessToken(useCache);
@@ -429,7 +428,7 @@ class AxiosAuthenticationTokenManager {
   /**
    * Sets the active token data changed events listener.
    *
-   * @param {Function} listener - The new listener to apply.
+   * @param listener - The new listener to apply.
    */
   setActiveTokenDataChangedEventListener(listener) {
     this.activeTokenDataChangedListener = listener;
@@ -438,7 +437,7 @@ class AxiosAuthenticationTokenManager {
   /**
    * Sets the user forced logout events listener.
    *
-   * @param {Function} listener - The new listener to apply.
+   * @param listener - The new listener to apply.
    */
   setUserSessionTerminatedEventListener(listener) {
     this.userSessionTerminatedEventListener = listener;
@@ -452,9 +451,8 @@ class AxiosAuthenticationTokenManager {
    * This function must be called after the user data is retrieved for
    * an access token.
    *
-   * @async
-   * @param {object} userData - The user data obtained from the get profile endpoint.
-   * @returns {Promise} Promise that will be resolved when the user info is set on the appropriate token provider instance.
+   * @param userData - The user data obtained from the get profile endpoint.
+   * @returns Promise that will be resolved when the user info is set on the appropriate token provider instance.
    */
   async setUserInfo(userData) {
     if (!userData) {
@@ -482,7 +480,7 @@ class AxiosAuthenticationTokenManager {
    *
    * @throws MisconfiguredTokenProviderError.
    *
-   * @returns {Promise} Promise that will be resolved when the load method completes.
+   * @returns Promise that will be resolved when the load method completes.
    */
   load() {
     if (this.isLoading) {
@@ -537,8 +535,8 @@ class AxiosAuthenticationTokenManager {
    *  2 - The config object contains a no authentication property. If it does, no access token will be added to the request. This is necessary on certain requests that do not need an access token.
    *  3 - The config object already contains an authorization header.
    *
-   * @param {AxiosRequestConfig} config - Axios request config object.
-   * @returns {boolean} If the request needs an acess token or not.
+   * @param config - Axios request config object.
+   * @returns If the request needs an acess token or not.
    */
   requestNeedsAccessTokenMatcher(config) {
     if (config[AuthenticationConfigOptions.AccessToken]) {
@@ -560,10 +558,9 @@ class AxiosAuthenticationTokenManager {
    * Installed request fulfilled axios interceptor which will be called before every request that is dispatched.
    * Will add an access token if the request is flagged as needing it.
    *
-   * @param {AxiosRequestConfig} config - Axios request config object.
+   * @param config - Axios request config object.
    *
-   * @async
-   * @returns {Promise} Promise that will be resolved with the final config object.
+   * @returns Promise that will be resolved with the final config object.
    */
   async onBeforeRequestInterceptor(config) {
     const needsAuthentication = this.requestNeedsAccessTokenMatcher(config);
@@ -633,7 +630,7 @@ class AxiosAuthenticationTokenManager {
   /**
    * Raises the user forced logout event.
    *
-   * @param {(object|null)} expiredUserToken - The expired user token data.
+   * @param expiredUserToken - The expired user token data.
    */
   raiseOnUserSessionTerminatedEvent(expiredUserToken) {
     if (typeof this.userSessionTerminatedEventListener === 'function') {
@@ -669,10 +666,9 @@ class AxiosAuthenticationTokenManager {
    * This method will look for 401 errors and retry the original request one more time with a new access token.
    * If after that the method still fails, the original error will be returned to the caller.
    *
-   * @param {AxiosError} error - Axios error object.
+   * @param error - Axios error object.
    *
-   * @async
-   * @returns {Promise} Promise that will be rejected with the original error if the retry for the 401 error was not successfull or resolved with the data from the request if the retry is successfull.
+   * @returns Promise that will be rejected with the original error if the retry for the 401 error was not successfull or resolved with the data from the request if the retry is successfull.
    */
   async onRequestFailedInterceptor(error) {
     if (!axios.isAxiosError(error)) {
@@ -827,7 +823,7 @@ class AxiosAuthenticationTokenManager {
    * Sets if the user token provider can persist user tokens on the storage.
    * Note: Guest tokens are always preserved, ignoring this value.
    *
-   * @param {boolean} rememberMe - The new remember me value.
+   * @param rememberMe - The new remember me value.
    */
   setRememberMe(rememberMe) {
     this.userTokenProvider.setCanSaveTokenData(rememberMe);
@@ -837,10 +833,9 @@ class AxiosAuthenticationTokenManager {
    * Sets user token data and optionally switches the current token provider
    * to the user token provider.
    *
-   * @param {object} tokenData - The new user token data.
-   * @param {boolean} forceSwitch - If 'true' will switch the current token provider to the user token provider after setting the user token data.
-   * @async
-   * @returns {Promise} Promise that will be resolved when the token data is successfully applied to the user token provider and the switch to it is performed if forceSwitch parameter is true.
+   * @param tokenData - The new user token data.
+   * @param forceSwitch - If 'true' will switch the current token provider to the user token provider after setting the user token data.
+   * @returns Promise that will be resolved when the token data is successfully applied to the user token provider and the switch to it is performed if forceSwitch parameter is true.
    */
   async setUserTokenData(tokenData, forceSwitch) {
     const newTokenData = new TokenData(tokenData);

@@ -1,11 +1,5 @@
-/**
- * @module analytics/utils/defaults
- * @private
- */
-
 import { PACKAGE_NAME, PACKAGE_VERSION } from './constants';
-import parse, { qs } from 'url-parse';
-
+import { qs } from 'url-parse';
 /*
  * Returns an object with default context properties.
  */
@@ -20,21 +14,6 @@ export const getContextDefaults = (): {
   };
 };
 
-/*
- * Returns an object with default page properties.
- */
-export const getPageDefaults = (): Record<string, unknown> => {
-  if (typeof window === 'undefined') {
-    return {};
-  }
-
-  return {
-    location: parse(window.location.href, true),
-    title: document.title,
-    referrer: document.referrer,
-  };
-};
-
 /**
  * Stringifies query objects obtained by parsing a url string with url-parse's parse method.
  * It uses the qs named export from url-parse (that is used by the url-parse's parse method internally to build the query object)
@@ -46,13 +25,12 @@ export const getPageDefaults = (): Record<string, unknown> => {
  *
  * @example
  * Input query object
- * {
+ * \{
  *   colors: '3|11',
  *   categories: 187345
- * }
+ * \}
  * Output query string
  * '?colors=3|11&categories=187345'
- * }
  */
 
 export const stringifyQuery = (query: Record<string, unknown>): string => {

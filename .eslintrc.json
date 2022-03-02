@@ -1,28 +1,19 @@
 {
-  "extends": [
-    "react-app",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:jsdoc/recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "prettier"
-  ],
+  "extends": ["react-app", "plugin:@typescript-eslint/recommended", "prettier"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     }
   },
-  "plugins": ["sort-imports-es6-autofix", "prettier", "react-hooks"],
+  "plugins": [
+    "sort-imports-es6-autofix",
+    "prettier",
+    "react-hooks",
+    "eslint-plugin-tsdoc"
+  ],
   "rules": {
     "no-duplicate-imports": "error",
-    "no-unused-vars": [
-      "error",
-      {
-        "vars": "local",
-        "args": "after-used",
-        "ignoreRestSiblings": true
-      }
-    ],
     "@typescript-eslint/no-unused-vars": [
       "error",
       { "vars": "local", "args": "after-used", "ignoreRestSiblings": true }
@@ -63,70 +54,20 @@
     "spaced-comment": ["error", "always"],
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
-    "jsdoc/require-description-complete-sentence": ["error"],
-    "jsdoc/check-tag-names": [
-      "error",
-      {
-        "definedTags": ["category", "subcategory", "component"] // Add the better-docs specific tags to the set of defined tags in jsdoc to avoid errors.
-      }
-    ],
-    "jsdoc/no-undefined-types": [
-      "warn",
-      {
-        "definedTypes": [
-          "Iterable",
-          "StorageWrapper",
-          "User",
-          "Analytics",
-          "fps/core/Analytics",
-          "external:fps/core/Analytics"
-        ]
-      }
-    ],
     "@typescript-eslint/ban-ts-comment": "off",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "tsdoc/syntax": "warn"
   },
   "overrides": [
-    //Disable all jsdoc checking in test files
+    //Disable all tsdoc checking in test files
     {
       "files": ["*.test.js"],
       "rules": {
-        "jsdoc/check-alignment": "off",
-        "jsdoc/check-examples": "off",
-        "jsdoc/check-indentation": "off",
-        "jsdoc/check-param-names": "off",
-        "jsdoc/check-syntax": "off",
-        "jsdoc/check-tag-names": "off",
-        "jsdoc/check-types": "off",
-        "jsdoc/implements-on-classes": "off",
-        "jsdoc/match-description": "off",
-        "jsdoc/newline-after-description": "off",
-        "jsdoc/no-types": "off",
-        "jsdoc/no-undefined-types": "off",
-        "jsdoc/require-description": "off",
-        "jsdoc/require-description-complete-sentence": "off",
-        "jsdoc/require-example": "off",
-        "jsdoc/require-hyphen-before-param-description": "off",
-        "jsdoc/require-jsdoc": "off",
-        "jsdoc/require-param": "off",
-        "jsdoc/require-param-description": "off",
-        "jsdoc/require-param-name": "off",
-        "jsdoc/require-param-type": "off",
-        "jsdoc/require-returns": "off",
-        "jsdoc/require-returns-check": "off",
-        "jsdoc/require-returns-description": "off",
-        "jsdoc/require-returns-type": "off",
-        "jsdoc/valid-types": "off",
+        "tsdoc/syntax": "off",
         // We use const xxx = () => {} many times in tests.
         "@typescript-eslint/no-empty-function": "off",
         "@typescript-eslint/no-var-requires": "off"
-      }
-    },
-    {
-      "files": ["*.ts"],
-      "rules": {
-        "no-unused-vars": "off"
       }
     },
     {

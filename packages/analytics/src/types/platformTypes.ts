@@ -1,9 +1,4 @@
 /**
- * @module platformTypes
- * @category Analytics
- */
-
-/**
  * The platform types supported by analytics.
  * These values are to be used in Analytics's constructor
  * and will be available under the platform property of the event

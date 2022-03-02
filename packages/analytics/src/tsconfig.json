@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "../dist/",
+    "baseUrl": "../../..",
+    "typeRoots": ["../../node_modules/@types", "../../types"]
+  },
+  "exclude": ["**/*.test.ts", "**/*.types.ts"],
+  "references": [{ "path": "../tsconfig.build.json" }]
+}

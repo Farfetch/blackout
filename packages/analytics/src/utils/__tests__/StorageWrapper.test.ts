@@ -2,16 +2,16 @@ import { PACKAGE_NAME } from '../constants';
 import logger from '../logger';
 import StorageWrapper from '../StorageWrapper';
 import TestStorage from 'test-storage';
-import type { Storage } from '../../types/storage.types';
+import type { Storage } from '../types/storage.types';
 
 // Mock logger so it does not output to the console
 jest.mock('@farfetch/blackout-client/helpers', () => ({
   ...jest.requireActual('@farfetch/blackout-client/helpers'),
   Logger: class {
-    warn(message) {
+    warn(message: string) {
       return message;
     }
-    error(message) {
+    error(message: string) {
       return message;
     }
   },
@@ -49,6 +49,7 @@ describe('Storage', () => {
 
     expect(testStorage.items[oldKey]).toEqual(data);
 
+    // @ts-ignore
     await storage.createStorage(testStorage);
 
     expect(testStorage.items[oldKey]).toBeUndefined();
@@ -74,6 +75,7 @@ describe('Storage', () => {
     const ttl = storage.getItem('ttl');
 
     // Force the createStorage flow with the same store, to ensure the ttl is not updated
+    // @ts-ignore
     storage.createStorage(testStorage);
 
     const newTtl = storage.getItem('ttl');
@@ -89,6 +91,7 @@ describe('Storage', () => {
     await storage.setItem('foo', 'bar');
 
     // Force the createStorage flow with the same store, to ensure the ttl is not updated
+    // @ts-ignore
     storage.createStorage(testStorage);
 
     // Ensure the store is intact
@@ -98,14 +101,12 @@ describe('Storage', () => {
     });
     const now = new Date();
     const twoYearsFromNow = new Date(now.setFullYear(now.getFullYear() + 2));
-    global.Date = class extends Date {
-      constructor(data) {
-        super(data);
-        return twoYearsFromNow;
-      }
-    };
+    jest
+      .spyOn(global, 'Date')
+      .mockImplementation(() => twoYearsFromNow as unknown as string);
 
     // Force the createStorage flow with the same store, to ensure the ttl is updated, as the `new Date()` will return a date two years from now
+    // @ts-ignore
     await storage.createStorage(testStorage);
     const newTtl = await storage.getItem('ttl');
     const updatedStorage = (await storage.getItem()) as Record<string, unknown>;
@@ -134,6 +135,7 @@ describe('Storage', () => {
   });
 
   it('Should return the instance via `set()` if no key is passed', async () => {
+    // @ts-ignore
     const wrapper = await storage.setItem();
     expect(wrapper).toEqual(storage);
   });

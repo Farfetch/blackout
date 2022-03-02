@@ -1,39 +1,40 @@
 import get from 'lodash/get';
+import type { EventData } from '../types/analytics.types';
 
-export const getEvent = (data: Record<string, unknown>): string => {
+export const getEvent = (data: EventData<unknown>): string => {
   return get(data, 'event', '') as string;
 };
 
 export const getProperties = (
-  data: Record<string, unknown>,
+  data: EventData<unknown>,
 ): Record<string, unknown> => {
   return get(data, 'properties', {}) as Record<string, unknown>;
 };
 
-export const getProducts = (data: Record<string, unknown>): [] => {
+export const getProducts = (data: EventData<unknown>): [] => {
   return get(data, 'properties.products', []) as [];
 };
 
-export const getCurrency = (data: Record<string, unknown>): string => {
+export const getCurrency = (data: EventData<unknown>): string => {
   const properties = getProperties(data);
 
   return properties.currency as string;
 };
 
-export const getList = (data: Record<string, unknown>): unknown => {
+export const getList = (data: EventData<unknown>): unknown => {
   const properties = getProperties(data);
 
   return get(properties, 'list') as unknown;
 };
 
-export const getOrderId = (data: Record<string, unknown>): string => {
+export const getOrderId = (data: EventData<unknown>): string => {
   const properties = getProperties(data);
 
   return properties.orderId as string;
 };
 
 export const getPurchaseProperties = (
-  data: Record<string, unknown>,
+  data: EventData<unknown>,
 ): {
   id: string;
   revenue: number;
@@ -53,13 +54,13 @@ export const getPurchaseProperties = (
 };
 
 export const getCheckoutProperties = (
-  data: Record<string, unknown>,
-): { step: unknown; option: unknown } => {
+  data: EventData<unknown>,
+): { step: string; option: string } => {
   const properties = getProperties(data);
 
   return {
-    step: properties.step,
-    option: properties.option,
+    step: properties.step as string,
+    option: properties.option as string,
   };
 };
 

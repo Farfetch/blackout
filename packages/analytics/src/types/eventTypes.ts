@@ -1,9 +1,4 @@
 /**
- * @module eventTypes
- * @category Analytics
- */
-
-/**
  * Contains events that are supported by default
  * by the integrations included in this package.
  * To be used in analytics.track calls.
