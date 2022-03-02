@@ -10,6 +10,9 @@
     "dist",
     "src"
   ],
+  "scripts": {
+    "types": "tsc --build src"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Farfetch/blackout.git"
@@ -18,6 +21,10 @@
     "crypto-js": "3.1.9-1",
     "url-parse": "^1.4.4",
     "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@farfetch/blackout-client": "^2.0.0-next.133",
+    "lodash": "^4.17.21"
   },
   "peerDependencies": {
     "@farfetch/blackout-client": "^2.0.0-next.98",

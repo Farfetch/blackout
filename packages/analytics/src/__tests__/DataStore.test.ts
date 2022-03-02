@@ -1,7 +1,7 @@
-import Entity from '../Entity';
+import DataStore from '../DataStore';
 
-describe('Entity', () => {
-  const entity = new Entity();
+describe('DataStore', () => {
+  const dataStore = new DataStore();
 
   it('Should store data with set()', () => {
     const data = {
@@ -11,9 +11,9 @@ describe('Entity', () => {
       },
     };
 
-    entity.set(data);
+    dataStore.set(data);
 
-    expect(entity.data).toEqual(data);
+    expect(dataStore.data).toEqual(data);
   });
 
   it('Should return data with get()', () => {
@@ -24,9 +24,9 @@ describe('Entity', () => {
       },
     };
 
-    entity.set(data);
+    dataStore.set(data);
 
-    expect(entity.get()).toEqual(data);
+    expect(dataStore.get()).toEqual(data);
   });
 
   it('Should return data with get(key)', () => {
@@ -37,9 +37,9 @@ describe('Entity', () => {
       },
     };
 
-    entity.set(data);
+    dataStore.set(data);
 
-    expect(entity.get('foo')).toEqual(data.foo);
+    expect(dataStore.get('foo')).toEqual(data.foo);
   });
 
   it('Should clear data with clear()', () => {
@@ -51,12 +51,12 @@ describe('Entity', () => {
       },
     };
 
-    entity.set(data);
+    dataStore.set(data);
 
-    expect(entity.data).toEqual(data);
+    expect(dataStore.data).toEqual(data);
 
-    entity.set({}, true);
+    dataStore.set({}, true);
 
-    expect(entity.data).toEqual(initialState);
+    expect(dataStore.data).toEqual(initialState);
   });
 });

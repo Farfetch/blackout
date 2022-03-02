@@ -8,9 +8,6 @@ const oldStorageKey = '@farfetch/blackout-core/analytics';
 
 /**
  * Manages a storage with a specific key and a time-to-live.
- *
- * @private
- * @category Analytics
  */
 class StorageWrapper {
   storage: Storage;
@@ -40,11 +37,9 @@ class StorageWrapper {
    * so for that we have this method that fetches the data from the storage with the previous package name (`oldStorageKey`, if available)
    * and sets its value with the new one.
    *
-   * @private
-   *
    * @returns Promise that will resolve with the instance that was used when calling this method to allow chaining.
    */
-  async preProcessStorage(): Promise<this> {
+  private async preProcessStorage(): Promise<this> {
     const oldStorage = await this.storage.getItem(oldStorageKey);
 
     if (oldStorage) {
@@ -60,12 +55,11 @@ class StorageWrapper {
    * Creates the store with the time-to-live.
    * Checks if there's a previous TTL stored, and if it's expired, stores a new one.
    *
-   * @private
    * @param storage - The actual storage that will hold the data, like the browser localStorage.
    *
    * @returns Promise that will resolve when the method finishes.
    */
-  async createStorage(storage: Storage): Promise<void> {
+  private async createStorage(storage: Storage): Promise<void> {
     this.storage = storage;
 
     await this.preProcessStorage();
@@ -103,14 +97,15 @@ class StorageWrapper {
   }
 
   /**
-   * Sets a value with a key on the storage.
+   * Sets a value with a key on the storage. If you want to clear the value for the key,
+   * use the `removeItem` method instead of setting the key to null or undefined.
    *
    * @param key - The key to store.
    * @param data - The data to store with the passed key.
    *
    * @returns Promise that will resolve with the instance that was used when calling this method to allow chaining.
    */
-  async setItem(key?: string, data?: unknown): Promise<this> {
+  async setItem(key: string, data?: unknown): Promise<this> {
     if (!key) {
       return this;
     }

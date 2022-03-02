@@ -21,4 +21,7 @@ export {
   utils,
 };
 
+export * from './types/analytics.types';
+export * from './utils/types';
+
 export default Analytics;

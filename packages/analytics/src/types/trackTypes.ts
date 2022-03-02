@@ -1,10 +1,4 @@
 /**
- * @module trackTypes
- * @category Analytics
- */
-
-/**
- *
  * Analytics tracking event types.
  * These types are meant to be used whenever a call is made to an integration,
  * to send the proper type of event on the payload.
@@ -16,6 +10,6 @@ const trackTypes = {
   PAGE: 'page',
   /** Screen is to be used for screen view events (Mobile platform-only). */
   SCREEN: 'screen',
-};
+} as const;
 
 export default trackTypes;

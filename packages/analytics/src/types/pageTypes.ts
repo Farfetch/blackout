@@ -1,9 +1,4 @@
 /**
- * @module pageTypes
- * @category Analytics
- */
-
-/**
  * Contains some page types that are supported by default
  * by the integrations included in this package.
  * To be used in analytics.page calls.

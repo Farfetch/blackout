@@ -1,5 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import sha256 from 'crypto-js/sha256';
+import type { UserData, UserTraits } from '../types/analytics.types';
 
 /**
  * Hashes a string with SHA-256 encryption.
@@ -8,7 +9,9 @@ import sha256 from 'crypto-js/sha256';
  *
  * @returns The hashed result.
  */
-const hashPlainTextString = (plainString: string): string =>
+const hashPlainTextString = (
+  plainString: string | undefined | null,
+): string | undefined | null =>
   plainString ? sha256(plainString).toString() : plainString;
 
 /**
@@ -19,12 +22,9 @@ const hashPlainTextString = (plainString: string): string =>
  *
  * @returns - The same object with some hashed properties.
  */
-const hashUserData = (
-  userData: Record<string, unknown>,
-): Record<string, unknown> => {
+const hashUserData = (userData: UserData): UserData => {
   if (!isEmpty(userData)) {
-    const traits: Record<string, unknown> =
-      (userData?.traits as Record<string, unknown>) || {};
+    const traits: UserTraits = userData?.traits || {};
 
     return {
       ...userData,

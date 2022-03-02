@@ -1,4 +1,3 @@
-import { AxiosInstance } from 'axios';
 import { defaultAuthorizationHeaderFormatter } from './defaults';
 import { postGuestTokens, postTokens } from '../../../../authentication';
 import AxiosAuthenticationTokenManager from './AxiosAuthenticationTokenManager';
@@ -17,10 +16,10 @@ const defaultOptions = {
  *
  * @see AxiosAuthenticationTokenManager constructor for more information about the available options.
  *
- * @param {AxiosInstance} client - The axios instance where to install the authentication interceptors.
- * @param {object} options - Options object to AxiosAuthenticationTokenManager constructor.
+ * @param client - The axios instance where to install the authentication interceptors.
+ * @param options - Options object to AxiosAuthenticationTokenManager constructor.
  *
- * @returns {AxiosAuthenticationTokenManager} An AxiosAuthenticationTokenManager instance which contains methods to eject the interceptors installed and clear token data.
+ * @returns An AxiosAuthenticationTokenManager instance which contains methods to eject the interceptors installed and clear token data.
  */
 export default function setAxiosAuthenticationInterceptors(client, options) {
   const finalOptions = {

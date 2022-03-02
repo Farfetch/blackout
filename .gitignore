@@ -19,3 +19,5 @@ node_modules/
 **/types/**/build
 
 .eslintcache
+
+*.tsbuildinfo

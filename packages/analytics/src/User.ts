@@ -1,16 +1,15 @@
-import Entity from './Entity';
+import DataStore from './DataStore';
 import uuid from 'uuid';
 import type { StorageWrapper } from './utils';
+import type { UserData } from './types/analytics.types';
 
 /**
  * Handles and persists user data on the instance.
  * Persists localId on the passed in storage.
- *
- * @private
- * @category Analytics
  */
-class User extends Entity {
+class User {
   storage: StorageWrapper;
+  dataStore: DataStore;
 
   /**
    * Constructs a new user instance with the passed in storage wrapper instance.
@@ -18,8 +17,6 @@ class User extends Entity {
    * @param storage - The storage wrapper instance where data will be stored.
    */
   constructor(storage: StorageWrapper) {
-    super();
-
     // NOTE: For now, we will only check if the storage reference is set to something,
     //      as we are already validating the storage on the analytics class, so it is not
     //      required to do it right now. If we expose this class to be used in other
@@ -29,6 +26,7 @@ class User extends Entity {
     }
 
     this.storage = storage;
+    this.dataStore = new DataStore();
 
     this.set();
   }
@@ -56,17 +54,17 @@ class User extends Entity {
    *
    * @returns Promise that will resolve with the user's data.
    */
-  async get(): Promise<Record<string, unknown>> {
+  async get(): Promise<UserData> {
     const localId = await this.localId();
 
     return {
-      ...super.get(),
+      ...this.dataStore.get(),
       localId,
-    };
+    } as UserData;
   }
 
   /**
-   * Allows to pass user ID and its properties (traits) to be merged with existing ones on the store.
+   * Allows to update user data to be merged with existing ones on the store.
    *
    * @param id - Id of the user.
    * @param traits - Properties like name, email, etc of the user.
@@ -77,7 +75,7 @@ class User extends Entity {
     // Generate a new localId and store it (if needed)
     await this.localId();
 
-    super.set({
+    this.dataStore.set({
       id,
       traits,
     });
@@ -92,7 +90,7 @@ class User extends Entity {
    */
   async anonymize(): Promise<User> {
     // Reset the user with defaults
-    super.set({ id: null, traits: {} }, true);
+    this.dataStore.set({ id: null, traits: {} }, true);
 
     return this;
   }

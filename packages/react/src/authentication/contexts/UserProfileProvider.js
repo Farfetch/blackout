@@ -2,13 +2,7 @@ import { AuthenticationConfigOptions } from '@farfetch/blackout-client/helpers/c
 import { getUser } from '@farfetch/blackout-client/users';
 import { ProfileChangedError } from '../errors';
 import noop from 'lodash/noop';
-import React, {
-  ReactNode,
-  useCallback,
-  useEffect,
-  useReducer,
-  useRef,
-} from 'react';
+import React, { useCallback, useEffect, useReducer, useRef } from 'react';
 import useAuthentication from '../hooks/useAuthentication';
 import UserProfileContext from './UserProfileContext';
 
@@ -65,19 +59,19 @@ const reducer = (state, action) => {
  *
  * @example <caption>Adding the UserProfileProvider to your app</caption>
  *
- * import { AuthenticationProvider, UserProfileProvider } from '@farfetch/blackout-react/authentication/contexts';
- * import { useUserProfile } from '@farfetch/blackout-react/authentication/hooks';
+ * import \{ AuthenticationProvider, UserProfileProvider \} from '\@farfetch/blackout-react/authentication/contexts';
+ * import \{ useUserProfile \} from '\@farfetch/blackout-react/authentication/hooks';
  *
- * const App = () => {
+ * const App = () =\> \{
  * return (<AuthenticationProvider><UserProfileProvider><MyComponent /></UserProfileProvider></AuthenticationProvider>);
- * }
+ * \}
  *
- * @param {object} props - Props for the provider.
- * @param {ReactNode} [props.children] - The children to be rendered by the provider.
- * @param {boolean} [props.fetchProfileOnTokenChanges=false] - Boolean to indicate if the provider should try to keep the user profile data in sync with the active token data.
- * @param {boolean} [props.onProfileChange] - Callback that runs after the profile changes.
+ * @param props - Props for the provider.
+ * @param props.children - The children to be rendered by the provider.
+ * @param props.fetchProfileOnTokenChanges - Boolean to indicate if the provider should try to keep the user profile data in sync with the active token data.
+ * @param props.onProfileChange - Callback that runs after the profile changes.
  *
- * @returns {React.ReactElement} An element that wraps the children with the UserProfileContext.Provider element.
+ * @returns An element that wraps the children with the UserProfileContext.Provider element.
  */
 const UserProfileProvider = ({
   children,

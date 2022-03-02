@@ -24,8 +24,10 @@ describe('User', () => {
   it('Should not identify a user without parameters', async () => {
     await userInstance.set();
 
-    expect(userInstance.data.id).toEqual(null);
-    expect(userInstance.data.traits).toMatchObject({});
+    const data = await userInstance.get();
+
+    expect(data.id).toEqual(null);
+    expect(data.traits).toMatchObject({});
   });
 
   it('Should delete the user', async () => {
@@ -35,8 +37,9 @@ describe('User', () => {
     await userInstance.anonymize();
 
     const afterAnonymizeLocalId = await userInstance.localId();
+    const data = await userInstance.get();
 
-    expect(userInstance.data).toMatchObject({ id: null, traits: {} });
+    expect(data).toMatchObject({ id: null, traits: {} });
     expect(beforeAnonymizeLocalId === afterAnonymizeLocalId).toBe(true);
   });
 
@@ -49,8 +52,10 @@ describe('User', () => {
 
     await userInstance.set(userId, traits);
 
-    expect(userInstance.data.id).toMatch(userId);
-    expect(userInstance.data.traits).toMatchObject(traits);
+    const data = await userInstance.get();
+
+    expect(data.id).toMatch(userId);
+    expect(data.traits).toMatchObject(traits);
   });
 
   it('Should create a local ID and store it on the storage', async () => {
