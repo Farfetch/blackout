@@ -1,7 +1,7 @@
 export const addressId = '1234';
 export const addressId2 = '2222222';
 export const addressId3 = '33333333';
-export const userId = '123456';
+export const userId = 123456;
 export const isoCode = 'PT';
 
 export const mockPredictionDetailsResponse = {
@@ -320,8 +320,40 @@ export const mockLoadingState = {
     error: null,
     isLoading: true,
     result: null,
+    predictions: {
+      result: null,
+      error: null,
+      isLoading: true,
+    },
+    predictionDetails: {
+      result: null,
+      error: null,
+      isLoading: true,
+    },
+    addresses: {
+      error: null,
+      isLoading: false,
+    },
+    address: {
+      error: {},
+      isLoading: {
+        [addressId]: true,
+      },
+    },
+    addressSchema: {
+      error: null,
+      isLoading: false,
+    },
+    defaultAddressDetails: {
+      error: null,
+      isLoading: false,
+      result: null,
+    },
   },
-  entities: {},
+  entities: {
+    addresses: {},
+    addressSchema: {},
+  },
 };
 
 export const mockErrorState = {
@@ -329,8 +361,40 @@ export const mockErrorState = {
     error: 'Error',
     isLoading: false,
     result: null,
+    predictions: {
+      result: null,
+      error: 'Error',
+      isLoading: false,
+    },
+    predictionDetails: {
+      result: null,
+      error: 'Error',
+      isLoading: false,
+    },
+    addresses: {
+      error: null,
+      isLoading: false,
+    },
+    address: {
+      error: {
+        [addressId]: 'Error',
+      },
+      isLoading: {},
+    },
+    addressSchema: {
+      error: null,
+      isLoading: false,
+    },
+    defaultAddressDetails: {
+      error: null,
+      isLoading: false,
+      result: null,
+    },
   },
-  entities: {},
+  entities: {
+    addresses: {},
+    addressSchema: {},
+  },
 };
 
 export const mockCurrentState = {

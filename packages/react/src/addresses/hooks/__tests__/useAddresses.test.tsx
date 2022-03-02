@@ -4,6 +4,8 @@ import {
   mockErrorState,
   mockInitialState,
   mockLoadingState,
+  mockPredictionDetailsResponse,
+  mockPredictionResponse,
   userId,
 } from 'tests/__fixtures__/addresses';
 import { Addresses } from './__fixtures__/Adresses.fixtures';
@@ -15,7 +17,11 @@ import {
 import {
   createAddress as createAddressAction,
   fetchAddresses,
+  fetchAddressSchema,
+  fetchPredictionDetails,
+  fetchPredictions,
   removeAddress,
+  resetPredictions,
   setDefaultBillingAddress as setDefaultBillingAddressAction,
   setDefaultContactAddress as setDefaultContactAddressAction,
   setDefaultShippingAddress as setDefaultShippingAddressAction,
@@ -24,7 +30,7 @@ import {
 import { mockStore, wrap } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
 import { renderHook } from '@testing-library/react-hooks';
-import { useAddresses } from '../../';
+import { useAddresses } from '../..';
 import React from 'react';
 
 jest.mock('@farfetch/blackout-redux/addresses', () => ({
@@ -36,6 +42,10 @@ jest.mock('@farfetch/blackout-redux/addresses', () => ({
   setDefaultBillingAddress: jest.fn(() => ({ type: 'update_billing' })),
   setDefaultContactAddress: jest.fn(() => ({ type: 'update_contact' })),
   setDefaultShippingAddress: jest.fn(() => ({ type: 'update_shipping' })),
+  fetchPredictions: jest.fn(() => ({ type: 'get' })),
+  fetchPredictionDetails: jest.fn(() => ({ type: 'get' })),
+  fetchAddressSchema: jest.fn(() => ({ type: 'get' })),
+  resetPredictions: jest.fn(() => ({ type: 'reset' })),
 }));
 
 describe('useAddresses', () => {
@@ -61,6 +71,20 @@ describe('useAddresses', () => {
     expect(current.addressesIds).toBeNull();
     expect(current.addressesError).toBeNull();
     expect(current.isAddressesLoading).toBeFalsy();
+    expect(typeof current.addressError).toBe('function');
+    expect(typeof current.isAddressLoading).toBe('function');
+    expect(current.predictionsError).toBeNull();
+    expect(current.isPredictionsLoading).toBeFalsy();
+    expect(current.predictionDetailsError).toBeNull();
+    expect(current.isPredictionDetailsLoading).toBeFalsy();
+    expect(current.predictions).toBeNull();
+    expect(typeof current.handleGetPredictions).toBe('function');
+    expect(typeof current.handleGetPredictionDetails).toBe('function');
+    expect(typeof current.resetPredictions).toBe('function');
+    expect(typeof current.addressSchema).toBe('function');
+    expect(current.isAddressSchemaLoading).toBeFalsy();
+    expect(current.addressSchemaError).toBeNull();
+    expect(typeof current.handleGetAddressSchema).toBe('function');
   });
 
   it('should render in loading state', () => {
@@ -218,7 +242,7 @@ describe('useAddresses', () => {
         );
       });
 
-      it('should not set any default address when removed address is nos default', async () => {
+      it('should not set any default address when removed address is not default', async () => {
         const { getByTestId } = wrap(<Addresses userId={userId} />)
           .withStore(mockCurrentState)
           .render();
@@ -234,9 +258,10 @@ describe('useAddresses', () => {
         );
       });
 
-      it('should not set any default address when therar are just one address', async () => {
+      it('should not set any default address when there is just one address', async () => {
         const newMockCurrentState = {
           addresses: {
+            ...mockCurrentState.addresses,
             error: null,
             isLoading: false,
             result: [address2.id],
@@ -314,6 +339,54 @@ describe('useAddresses', () => {
         fireEvent.click(getByTestId('addresses-handleCreateAddress'));
 
         expect(createAddressAction).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe('handleGetPredictions', () => {
+      it('should call getPredictions action', () => {
+        const { getByTestId } = wrap(<Addresses userId={userId} />)
+          .withStore(mockInitialState)
+          .render();
+
+        fireEvent.click(getByTestId('addresses-handleGetPredictions'));
+
+        expect(fetchPredictions).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe('handleGetPredictionDetails', () => {
+      it('should call fetchPredictionDetails action', () => {
+        const { getByTestId } = wrap(<Addresses userId={userId} />)
+          .withStore(mockInitialState)
+          .render();
+
+        fireEvent.click(getByTestId('addresses-handleGetPredictionDetails'));
+
+        expect(fetchPredictionDetails).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe('handleGetAddressSchema', () => {
+      it('should call fetchAddressSchema action', () => {
+        const { getByTestId } = wrap(<Addresses userId={userId} />)
+          .withStore(mockInitialState)
+          .render();
+
+        fireEvent.click(getByTestId('addresses-handleGetAddressSchema'));
+
+        expect(fetchAddressSchema).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe('resetPredictions', () => {
+      it('should call resetPredictions action', () => {
+        const { getByTestId } = wrap(<Addresses userId={userId} />)
+          .withStore(mockInitialState)
+          .render();
+
+        fireEvent.click(getByTestId('addresses-resetPredictions'));
+
+        expect(resetPredictions).toHaveBeenCalledTimes(1);
       });
     });
   });
