@@ -1,6 +1,5 @@
 import isEqual from 'lodash/isEqual';
 import TokenData from './TokenData';
-import TokenKinds from './TokenKinds';
 
 let TokenListenerIdInternalCount = 0;
 
@@ -12,10 +11,10 @@ class TokenProvider {
   /**
    * Constructs a new TokenProvider instance.
    *
-   * @param {Function} requester - A function that will be responsible to request new tokens. If async, the call will be awaited.
-   * @param {object} [storageProvider] - An object implementing the Storage API's methods getItem, setItem and removeItem. If those methods are async, the calls will be awaited.
-   * @param {object} [tokenDataSerializer] - An object implementing the serializeTokenData and deserializeTokenData methods. If storage provider is defined, tokenDataSerializer is required.
-   * @param {string} [storageKey] - The storage key that will be used on the calls to storageProvider's methods as the key argument.
+   * @param requester - A function that will be responsible to request new tokens. If async, the call will be awaited.
+   * @param storageProvider - An object implementing the Storage API's methods getItem, setItem and removeItem. If those methods are async, the calls will be awaited.
+   * @param tokenDataSerializer - An object implementing the serializeTokenData and deserializeTokenData methods. If storage provider is defined, tokenDataSerializer is required.
+   * @param storageKey - The storage key that will be used on the calls to storageProvider's methods as the key argument.
    */
   constructor(requester, storageProvider, tokenDataSerializer, storageKey) {
     this.requester = requester;
@@ -31,7 +30,7 @@ class TokenProvider {
   /**
    * Returns the current user id associated with this token provider instance.
    *
-   * @returns {(number | undefined)} The current user id associated with this token provider instance or undefined if not set.
+   * @returns The current user id associated with this token provider instance or undefined if not set.
    */
   getUserId() {
     return this.userId;
@@ -40,7 +39,7 @@ class TokenProvider {
   /**
    * Returns the most recently cached access token or undefined if no access token is available.
    *
-   * @returns {(string | undefined)} The most recently cached access token or undefined if no access token is available.
+   * @returns The most recently cached access token or undefined if no access token is available.
    */
   getCachedAccessToken() {
     return this.tokenData?.accessToken;
@@ -49,10 +48,9 @@ class TokenProvider {
   /**
    * Sets token data with this instance which will trigger the onTokenDataChanged method.
    *
-   * @param {TokenData} tokenData - Token data to be set.
+   * @param tokenData - Token data to be set.
    *
-   * @async
-   * @returns {Promise} Promise that will be resolved after the call to onTokenDataChanged returns.
+   * @returns Promise that will be resolved after the call to onTokenDataChanged returns.
    */
   async setTokenData(tokenData) {
     if (isEqual(this.tokenData, tokenData)) {
@@ -73,7 +71,7 @@ class TokenProvider {
   /**
    * Gets the currently set token data via setTokenData function.
    *
-   * @returns {object} The currently set token data.
+   * @returns The currently set token data.
    */
   getTokenData() {
     return this.tokenData;
@@ -83,7 +81,7 @@ class TokenProvider {
    * Gets the kind of tokens that are supported by this
    * provider.
    *
-   * @returns {TokenKinds} The kind of tokens supported.
+   * @returns The kind of tokens supported.
    */
   getSupportedTokenKind() {
     throw new TypeError('Not implemented exception');
@@ -105,10 +103,9 @@ class TokenProvider {
    * access token with a user id because the data returned from the token creation endpoints
    * does not contain the user id yet.
    *
-   * @param {number} userId - The user id to set.
+   * @param userId - The user id to set.
    *
-   * @async
-   * @returns {Promise} Promise that will be resolved after the call to onTokenDataChanged returns.
+   * @returns Promise that will be resolved after the call to onTokenDataChanged returns.
    */
   async setUserId(userId) {
     /* istanbul ignore else */
@@ -131,8 +128,7 @@ class TokenProvider {
   /**
    * Clears all data from memory and triggers onTokenDataChanged to remove data from storage, if provided.
    *
-   * @async
-   * @returns {Promise} Promise that will be resolved after the call to onTokenDataChanged returns.
+   * @returns Promise that will be resolved after the call to onTokenDataChanged returns.
    */
   async clearData() {
     this.tokenData = undefined;
@@ -145,11 +141,11 @@ class TokenProvider {
    * Method responsible to get valid access tokens.
    * It must be implemented by a subclass.
    *
-   * @param {boolean} useCache - If cache should be used or not.
+   * @param useCache - If cache should be used or not.
    *
-   * @returns {Promise} Promise that will be resolved with a valid access token to be used.
+   * @returns Promise that will be resolved with a valid access token to be used.
    */
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getAccessToken(useCache) {
     throw new TypeError('Not implemented exception');
   }
@@ -157,8 +153,7 @@ class TokenProvider {
   /**
    * Method responsible to load access tokens from storage, if available.
    *
-   * @async
-   * @returns {Promise} Promise that will be resolved when the storageProvider's getItem method is finished.
+   * @returns Promise that will be resolved when the storageProvider's getItem method is finished.
    */
   async load() {
     if (!this.storageProvider) {
@@ -186,8 +181,7 @@ class TokenProvider {
    * Called after the token data has changed.
    * Will persist token data if a storage provider instance is provided.
    *
-   * @async
-   * @returns {Promise} Promise that will be resolved when the call to storageProvider's methods are finished.
+   * @returns Promise that will be resolved when the call to storageProvider's methods are finished.
    */
   async onTokenDataChanged() {
     if (!!this.storageProvider) {
@@ -209,7 +203,7 @@ class TokenProvider {
   /**
    * Invokes token data changes listeners.
    *
-   * @param {object} newTokenData - The new token data.
+   * @param newTokenData - The new token data.
    */
   invokeTokenChangedListeners(newTokenData) {
     this.tokenChangesListeners.forEach(listener => {
@@ -227,7 +221,7 @@ class TokenProvider {
   /**
    * Method that checks if this instance is fully configured to accept retrieve access token requests.
    *
-   * @returns {boolean} True if the instance is ready to retrieve tokens and false otherwise.
+   * @returns True if the instance is ready to retrieve tokens and false otherwise.
    */
   canRetrieveTokens() {
     return false;
@@ -236,9 +230,9 @@ class TokenProvider {
   /**
    * Adds a listener to token data changes.
    *
-   * @param {Function} tokenChangesListener - The listener to add.
+   * @param tokenChangesListener - The listener to add.
    *
-   * @returns {number} The id of the listener in order to be used on the removeTokenChangesListener function.
+   * @returns The id of the listener in order to be used on the removeTokenChangesListener function.
    */
   addTokenChangesListener(tokenChangesListener) {
     const newListenerId = ++TokenListenerIdInternalCount;
@@ -254,7 +248,7 @@ class TokenProvider {
   /**
    * Removes a listener from the token data changes listeners list.
    *
-   * @param {number} tokenChangesListenerId - The id of the listener to remove.
+   * @param tokenChangesListenerId - The id of the listener to remove.
    */
   removeTokenChangesListener(tokenChangesListenerId) {
     const listenerIndex = this.tokenChangesListeners.findIndex(
@@ -271,7 +265,7 @@ class TokenProvider {
    *
    * By default returns true only if both the storage provider and canSaveTokenDataFlag are true.
    *
-   * @returns {boolean} If the token can be saved.
+   * @returns If the token can be saved.
    */
   canSaveTokenData() {
     return this.canSaveTokenDataFlag;
@@ -283,7 +277,7 @@ class TokenProvider {
    *
    * @throws TypeError if not receiving a boolean.
    *
-   * @param {boolean} canSaveTokenData - If the token can be saved or not.
+   * @param canSaveTokenData - If the token can be saved or not.
    */
   setCanSaveTokenData(canSaveTokenData) {
     if (typeof canSaveTokenData !== 'boolean') {

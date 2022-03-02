@@ -1,20 +1,11 @@
 import { CONSENT_KEYS } from './utils';
 import merge from 'lodash/merge';
 import pick from 'lodash/pick';
-import type ConsentData from './types/consentData.types';
+import type { ConsentData } from './types/analytics.types';
 import type StorageWrapper from './utils/StorageWrapper';
-
-const defaultConsentData: ConsentData = {
-  marketing: false,
-  preferences: false,
-  statistics: false,
-};
 
 /**
  * Stores the consent values in a new instance.
- *
- * @private
- * @category Analytics
  */
 class Consent {
   storage: StorageWrapper;
@@ -38,50 +29,28 @@ class Consent {
   }
 
   /**
-   * Returns the stored consent object. If not defined, returns the defaults.
+   * Returns the stored consent object. If not defined, returns null.
    *
    * @returns Promise that will resolve with the consent data.
    */
-  async get(): Promise<ConsentData> {
-    const getItem = (await this.storage.getItem('consent')) as Record<
-      string,
-      boolean | undefined
-    >;
-
-    return {
-      marketing: getItem?.marketing || defaultConsentData.marketing,
-      preferences: getItem?.preferences || defaultConsentData.preferences,
-      statistics: getItem?.statistics || defaultConsentData.statistics,
-    };
+  async get(): Promise<ConsentData | null> {
+    return ((await this.storage.getItem('consent')) as ConsentData) || null;
   }
 
   /**
    * Merges consent default properties with incoming ones from data received.
    *
    * @param data - Object with properties for the different types of preferences (Marketing, preferences or statistics).
-   * @param data.marketing
-   * @param data.preferences
-   * @param data.statistics
+   *
    * @returns Promise that will resolve with the instance that was used when calling this method to allow chaining.
    */
-  async set(
-    data: {
-      marketing?: boolean;
-      preferences?: boolean;
-      statistics?: boolean;
-    } = defaultConsentData,
-  ): Promise<Consent> {
+  async set(data: ConsentData | undefined): Promise<Consent> {
     const consent = pick(data, CONSENT_KEYS);
     const currentConsentFromStorage = ((await this.storage.getItem(
       'consent',
     )) || {}) as typeof data;
 
-    const newConsent = merge(currentConsentFromStorage, {
-      marketing: consent.marketing || !!currentConsentFromStorage?.marketing,
-      preferences:
-        consent.preferences || !!currentConsentFromStorage?.preferences,
-      statistics: consent.statistics || !!currentConsentFromStorage?.statistics,
-    });
+    const newConsent = merge(currentConsentFromStorage, consent);
 
     await this.storage.setItem('consent', newConsent);
 

@@ -6,7 +6,8 @@
     "lib": ["esnext", "DOM"],
     "paths": {
       "@farfetch/blackout-client/*": ["packages/client/src/*"],
-      "@farfetch/blackout-redux/*": ["packages/redux/src/*"]
+      "@farfetch/blackout-redux/*": ["packages/redux/src/*"],
+      "@farfetch/blackout-analytics": ["packages/analytics/src/"]
     },
     "typeRoots": ["../../node_modules/@types", "../../types"]
   }

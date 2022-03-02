@@ -2,14 +2,7 @@ import { setAxiosAuthenticationInterceptors } from '@farfetch/blackout-client/he
 import { usePrevious } from '../../helpers';
 import AuthenticationContext from './AuthenticationContext';
 import client from '@farfetch/blackout-client/helpers/client';
-import React, {
-  ReactElement,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import useUserAuthState from '../hooks/useUserAuthState';
 
 export const CallbackNames = {
@@ -18,25 +11,25 @@ export const CallbackNames = {
 
 /**
  * Provides support for transparent authentication to apps with access tokens by installing
- * an interceptor on the default @farfetch/blackout-client axios instance used by all clients. It also provides
+ * an interceptor on the default \@farfetch/blackout-client axios instance used by all clients. It also provides
  * functions to login/logout a user through the useAuthentication hook that must be called
  * in order for the interceptor to know when to use guest/authenticated user tokens
  * for subsequent requests. See the options below for more information on how you can configure this provider.
  *
  * @example <caption>Adding the AuthenticationProvider to your app</caption>
  *
- * import { AuthenticationProvider } from '@farfetch/blackout-react/authentication/contexts';
+ * import \{ AuthenticationProvider \} from '\@farfetch/blackout-react/authentication/contexts';
  *
- * const App = () => {
+ * const App = () =\> \{
  * return (<AuthenticationProvider><MyComponent /></AuthenticationProvider>);
- * }
- * @param {object} [props] - Props to configure AuthenticationProvider.
- * @param {string} [props.baseURL] - The baseURL to apply to the axios instance in @farfetch/blackout-client.
- * @param {ReactNode} [props.children] - The children to be rendered by the provider.
- * @param {object} [props.headers] - An object containing header values to be added on each request.
- * @param {object} [props.callbacks] - An object containing callbacks for events that the provider will trigger.
+ * \}
+ * @param props - Props to configure AuthenticationProvider.
+ * @param props.baseURL - The baseURL to apply to the axios instance in @farfetch/blackout-client.
+ * @param props.children - The children to be rendered by the provider.
+ * @param props.headers - An object containing header values to be added on each request.
+ * @param props.callbacks - An object containing callbacks for events that the provider will trigger.
  *
- * @returns {ReactElement} - The authentication context provider element wrapping the passed in children.
+ * @returns - The authentication context provider element wrapping the passed in children.
  */
 function AuthenticationProvider({
   baseURL,

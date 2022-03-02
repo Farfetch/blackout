@@ -1,7 +1,11 @@
 import analytics from '../analytics';
 import AnalyticsCore, {
   trackTypes as analyticsTrackTypes,
+  ConsentData,
+  IntegrationOptions,
   integrations,
+  LoadIntegrationEventData,
+  StrippedDownAnalytics,
 } from '@farfetch/blackout-analytics';
 import TestStorage from 'test-storage';
 
@@ -10,22 +14,28 @@ class LoadableIntegration extends integrations.Integration {
     return true;
   }
 
-  static createInstance(options: Record<string, unknown>) {
-    return new LoadableIntegration(options);
+  static createInstance(
+    options: IntegrationOptions,
+    loadData: LoadIntegrationEventData,
+    strippedDownAnalytics: StrippedDownAnalytics,
+  ) {
+    return new LoadableIntegration(options, loadData, strippedDownAnalytics);
   }
 
-  track() {
-    return jest.fn();
-  }
+  track = jest.fn();
 }
 
 class MarketingIntegration extends integrations.Integration {
-  static shouldLoad(consent: Record<string, unknown>) {
+  static shouldLoad(consent: ConsentData) {
     return !!consent && !!consent.marketing;
   }
 
-  static createInstance(options: Record<string, unknown>) {
-    return new MarketingIntegration(options);
+  static createInstance(
+    options: IntegrationOptions,
+    loadData: LoadIntegrationEventData,
+    strippedDownAnalytics: StrippedDownAnalytics,
+  ) {
+    return new MarketingIntegration(options, loadData, strippedDownAnalytics);
   }
 
   track = jest.fn();
@@ -35,7 +45,9 @@ describe('analytics web', () => {
   beforeEach(async () => {
     jest.clearAllMocks();
 
+    // @ts-ignore
     analytics.isReady = false;
+    // @ts-ignore
     analytics.integrations.clear();
     analytics.currentPageCallData = null;
 
@@ -95,7 +107,8 @@ describe('analytics web', () => {
 
       expect(analytics.integration('marketingIntegration')).toBe(null);
 
-      const coreTrackSpy = jest.spyOn(AnalyticsCore.prototype, 'track');
+      // @ts-ignore
+      const coreTrackSpy = jest.spyOn(AnalyticsCore.prototype, 'trackInternal');
       const event = 'myEvent';
       const properties = {};
       const eventContext = { culture: 'pt-PT' }; // Simulate that the event has a different culture associated with it.
@@ -131,20 +144,12 @@ describe('analytics web', () => {
     });
   });
 
-  it('Should extend the `track() method for tracking of pages and events`', async () => {
-    const coreTrackSpy = jest.spyOn(AnalyticsCore.prototype, 'track');
+  it('Should extend the `track() method for tracking of pages`', async () => {
+    // @ts-ignore
+    const coreTrackSpy = jest.spyOn(AnalyticsCore.prototype, 'trackInternal');
     const event = 'myEvent';
     const properties = {};
     const eventContext = { culture: 'pt-PT' }; // Simulate that the event has a different culture associated with it.
-
-    await analytics.track(event, properties, eventContext);
-
-    expect(coreTrackSpy).toBeCalledWith(
-      analyticsTrackTypes.TRACK,
-      event,
-      properties,
-      eventContext,
-    );
 
     await analytics.page(event, properties, eventContext);
 

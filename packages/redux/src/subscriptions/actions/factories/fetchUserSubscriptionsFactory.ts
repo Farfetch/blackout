@@ -2,8 +2,6 @@ import * as actionTypes from '../../actionTypes';
 import type { FetchUserSubscriptionsFactory } from './types';
 import type { GetSubscriptions } from '@farfetch/blackout-client/subscriptions/types';
 
-/* eslint-disable jsdoc/no-undefined-types */
-
 /**
  * Method to create a thunk factory configured with the specified client.
  *

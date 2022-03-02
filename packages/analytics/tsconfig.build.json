@@ -1,8 +1,10 @@
 {
   "extends": "./tsconfig.json",
   "exclude": ["**/__tests__/*", "**/__fixtures__/*"],
-  "include": ["src", "../../types"],
+  "files": ["package.json"],
   "compilerOptions": {
-    "rootDir": "src"
+    "rootDir": ".",
+    "outDir": ".",
+    "composite": true
   }
 }

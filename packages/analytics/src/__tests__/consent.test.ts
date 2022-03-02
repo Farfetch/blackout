@@ -1,7 +1,7 @@
 import { StorageWrapper } from '../utils';
 import Consent from '../Consent';
 import TestStorage from 'test-storage';
-import type ConsentData from '../types/consentData.types';
+import type { ConsentData } from '../types/analytics.types';
 
 describe('Consent', () => {
   let storage: StorageWrapper;
@@ -26,12 +26,8 @@ describe('Consent', () => {
     expect(consentInStorage).toMatchObject(data);
   });
 
-  it('Should return default consent if there is no consent stored yet', async () => {
-    expect(await consentInstance.get()).toMatchObject({
-      marketing: false,
-      preferences: false,
-      statistics: false,
-    });
+  it('Should return null if no consent is set', async () => {
+    expect(await consentInstance.get()).toBe(null);
   });
 
   it('Should return the consent data via get()', async () => {
@@ -76,7 +72,6 @@ describe('Consent', () => {
 
     const outputConsentData = {
       ...inputConsentData,
-      preferences: false,
     };
 
     await consentInstance.set(invalidData);

@@ -1,47 +1,58 @@
-import { getContextDefaults, logger, StorageWrapper } from './utils';
+import {
+  getContextDefaults,
+  LOAD_INTEGRATION_TRACK_TYPE,
+  logger,
+  ON_SET_USER_TRACK_TYPE,
+  StorageWrapper,
+} from './utils';
 import { Integration } from './integrations';
 import Consent from './Consent';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
 import trackTypes from './types/trackTypes';
 import User from './User';
+import type {
+  ConsentData,
+  ContextData,
+  EventContext,
+  EventContextData,
+  EventData,
+  EventProperties,
+  IntegrationOptions,
+  IntegrationRuntimeData,
+  LoadIntegrationEventData,
+  SetUserEventData,
+  TrackTypesValues,
+  UserData,
+  UserTraits,
+} from './types/analytics.types';
 import type { IntegrationFactory } from './integrations/Integration';
 import type { Storage } from './utils/types';
-import type ConsentData from './types/consentData.types';
-import type EventData from './types/eventData.types';
-import type IntegrationRuntimeData from './types/integrationRuntimeData.types';
-
-// @TODO: evaluate this TS rule
-/* eslint-disable  @typescript-eslint/no-empty-function */
 
 /**
  * Track user's journey across websites.
- *
- * @category Analytics
  */
-
 class Analytics {
-  isReady: boolean;
-  storage: StorageWrapper | null;
-  contextFns: Array<() => unknown>;
-  userInstance: User | null;
-  consentInstance: Consent | null;
-  integrations: Map<string, IntegrationRuntimeData>;
-  activeIntegrations: Map<string, IntegrationRuntimeData>;
-  setUserPromiseResolve: ((value?: unknown) => void) | null;
-  setStoragePromiseResolve: ((value?: unknown) => void) | null;
-  platform: string | undefined;
-  setUserPromise: Promise<unknown>;
-  setStoragePromise: Promise<unknown>;
+  private isReady: boolean;
+  private storage: StorageWrapper | null;
+  private contextFns: Array<() => unknown>;
+  private userInstance: User | null;
+  private consentInstance: Consent | null;
+  private integrations: Map<string, IntegrationRuntimeData>;
+  private activeIntegrations: Map<string, IntegrationRuntimeData>;
+  private setUserPromiseResolve: ((value?: unknown) => void) | null;
+  private setStoragePromiseResolve: ((value?: unknown) => void) | null;
+  private setUserPromise: Promise<unknown>;
+  private setStoragePromise: Promise<unknown>;
 
   /**
    * Creates a new Analytics instance with the given platform type.
-   * The analytics instance must be created by @farfetch/blackout-react/analytics or @farfetch/blackout-react-native/analytics.
+   * The analytics instance must be created by \@farfetch/blackout-react/analytics or \@farfetch/blackout-react-native/analytics.
    * Each one of the two will properly extend this core to add all functionality needed for web or native, respectively.
    *
    * @param platform - The platform type where the instance is going to be used.
    */
-  constructor(platform?: string) {
+  constructor(private platform?: string) {
     this.isReady = false;
     this.storage = null;
     this.contextFns = [];
@@ -68,9 +79,9 @@ class Analytics {
    * @param key - Key to retrieve from the consent. If not specified, will return the whole data stored in the consent object.
    * @returns Value for the key in consent or the whole consent data if key is not specified.
    */
-  async consent(
-    key?: keyof ConsentData,
-  ): Promise<ConsentData | boolean | null> {
+  consent(): Promise<ConsentData | null>;
+  consent(key: keyof ConsentData): Promise<boolean | null>;
+  async consent(key?: keyof ConsentData) {
     if (!this.storage) {
       logger.error(
         'Tried to call `analytics.consent` before a storage was defined with `analytics.setStorage`. Returning null.',
@@ -81,7 +92,7 @@ class Analytics {
     await this.setStoragePromise;
 
     try {
-      const data = await (this.consentInstance as Consent).get();
+      const data = await (this.consentInstance && this.consentInstance.get());
 
       return key ? get(data, key) : data;
     } catch (error) {
@@ -98,7 +109,9 @@ class Analytics {
    * @param key - Key to retrieve from the context. If not specified, will return the whole data stored in the context.
    * @returns Value for the key in context or the whole context data if key is not specified.
    */
-  async context(key?: string): Promise<unknown> {
+  context(): Promise<ContextData>;
+  context(key: string): Promise<unknown>;
+  async context(key?: string) {
     const externalContextData = {};
 
     for (const contextFn of this.contextFns) {
@@ -137,7 +150,9 @@ class Analytics {
    * @param key - The key of the user object that is returned.
    * @returns Value for the key in user or the whole user data if key is not specified.
    */
-  async user(key?: string): Promise<Record<string, unknown> | unknown> {
+  user(): Promise<UserData | null>;
+  user(key: string): Promise<unknown | null>;
+  async user(key?: string) {
     if (!this.storage) {
       logger.error(
         'Tried to call `analytics.user` before a storage was defined with `analytics.setStorage`. Returning null.',
@@ -165,16 +180,10 @@ class Analytics {
    * Sets the consent and passes it to the registered integrations.
    *
    * @param data - Consent object to be stored.
-   * @param data.marketing
-   * @param data.preferences
-   * @param data.statistics
+   *
    * @returns Promise that will resolve with the instance that was used when calling this method to allow chaining.
    */
-  async setConsent(data: {
-    marketing?: boolean;
-    preferences?: boolean;
-    statistics?: boolean;
-  }): Promise<Analytics> {
+  async setConsent(data: ConsentData): Promise<this> {
     if (!this.storage) {
       logger.error(
         'Tried to call `analytics.setConsent` before a storage was defined with `analytics.setStorage`. This will be a noop.',
@@ -206,14 +215,16 @@ class Analytics {
   /**
    * This method will be called whenever integrations are loaded into analytics. To be overriden by subclasses.
    *
-   * @param loadedIntegrations
-   * @protected
-   * @returns {Promise} Promise that will resolve when the method finishes.
+   * @param loadedIntegrations - Array of containing the integrations that were loaded.
+   *
+   * @returns Promise that will resolve when the method finishes.
    */
-  async onLoadedIntegrations(
+  protected async onLoadedIntegrations(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     loadedIntegrations: IntegrationRuntimeData[],
-  ): Promise<void> {}
+  ): Promise<void> {
+    // Do nothing
+  }
 
   /**
    * [DEPRECATED] - Replaced by useContext.
@@ -221,7 +232,7 @@ class Analytics {
    * @returns The analytics instance that was used when calling this method to allow chaining.
    *
    */
-  setContext(): Analytics {
+  setContext(): this {
     logger.error(
       '`analytics.setContext is deprecated. Use analytics.useContext instead. This will be a noop.`',
     );
@@ -235,9 +246,8 @@ class Analytics {
    * @param contextFn - A function that will return context data to be appended to the default context.
    *
    * @returns The analytics instance that was used when calling this method to allow chaining.
-   *
    */
-  useContext(contextFn: () => unknown): Analytics {
+  useContext(contextFn: () => unknown): this {
     if (typeof contextFn !== 'function') {
       logger.error(
         'Invalid context argument provided to `analytics.useContext`. You must provide a function.',
@@ -258,7 +268,7 @@ class Analytics {
    *
    * @returns The analytics instance that was used when calling this method to allow chaining.
    */
-  setStorage(storage: Storage | null): Analytics {
+  setStorage(storage: Storage | null): this {
     if (this.isReady) {
       logger.error('Cannot call setStorage after analytics is ready.');
 
@@ -296,8 +306,8 @@ class Analytics {
    */
   async setUser(
     userId: string | null = null,
-    traits: Record<string, unknown> = {},
-  ): Promise<Analytics> {
+    traits: UserTraits = {},
+  ): Promise<this> {
     if (!this.storage) {
       logger.error(
         'Tried to call `analytics.setUser` before a storage was defined with `analytics.setStorage`. This will be a noop.',
@@ -307,7 +317,7 @@ class Analytics {
     }
 
     try {
-      this.userInstance && (await this.userInstance.set(userId, traits));
+      await (this.userInstance && this.userInstance.set(userId, traits));
 
       await this.handleOnUserChanged();
     } catch (error) {
@@ -331,8 +341,8 @@ class Analytics {
   addIntegration(
     name: string,
     Factory: IntegrationFactory,
-    options: Record<string, unknown> = {},
-  ): Analytics {
+    options: IntegrationOptions = {},
+  ): this {
     const isSubclass = Factory.prototype instanceof Integration;
 
     if (!isSubclass) {
@@ -347,6 +357,7 @@ class Analytics {
       instance: undefined,
       Factory,
       options,
+      name,
     });
 
     return this;
@@ -358,7 +369,7 @@ class Analytics {
    * @returns The analytics instance that was used when calling this method to allow chaining.
    *
    */
-  anonymize(): Analytics {
+  anonymize(): this {
     if (!this.storage) {
       logger.error(
         'Tried to call `analytics.anonymize` before a storage was defined with `analytics.setStorage`. This will be a noop.',
@@ -380,6 +391,28 @@ class Analytics {
 
   /**
    * Track method for custom events.
+   *
+   * @param event - Name of the event.
+   * @param properties  - Properties of the event.
+   * @param eventContext - Context data that is specific for this event.
+   *
+   * @returns Promise that will resolve with the instance that was used when calling this method to allow chaining.
+   */
+  async track(
+    event: string,
+    properties?: EventProperties,
+    eventContext?: EventContextData,
+  ): Promise<this> {
+    return await this.trackInternal(
+      trackTypes.TRACK,
+      event,
+      properties,
+      eventContext,
+    );
+  }
+
+  /**
+   * Internal track method used by the public track method.
    * Builds the track object with page default properties on the context.
    *
    * @param type - Type of event to be tracked.
@@ -388,14 +421,13 @@ class Analytics {
    * @param eventContext - Context data that is specific for this event.
    *
    * @returns Promise that will resolve with the instance that was used when calling this method to allow chaining.
-.
    */
-  async track(
-    type = trackTypes.TRACK,
+  protected async trackInternal(
+    type: TrackTypesValues = trackTypes.TRACK,
     event: string,
-    properties?: Record<string, unknown>,
-    eventContext?: Record<string, unknown>,
-  ): Promise<Analytics> {
+    properties?: EventProperties,
+    eventContext?: EventContextData,
+  ): Promise<this> {
     if (!this.isReady) {
       logger.error(
         `Analytics tried to track the event ${event} but failed. Did you forget to call "analytics.ready()?"`,
@@ -438,11 +470,9 @@ class Analytics {
    * many times.
    *
    * @param raiseOnLoadedIntegrationsEvent - If the onLoadedIntegrations event should be raised by calling `onLoadedIntegrations` or not.
-   *
-   * @private
    * @returns Promise that will resolve when the method finishes.
    */
-  async loadIntegrations(
+  protected async loadIntegrations(
     raiseOnLoadedIntegrationsEvent: boolean,
   ): Promise<void> {
     const loadedIntegrations: IntegrationRuntimeData[] = [];
@@ -514,7 +544,7 @@ class Analytics {
    *
    * @returns Promise that will resolve with the instance that was used when calling this method to allow chaining.
    */
-  async ready(): Promise<Analytics> {
+  async ready(): Promise<this> {
     if (!this.storage) {
       logger.error(
         'No storage instance is available to analytics. Please, call analytics.setStorage() with a valid storage instance',
@@ -535,12 +565,13 @@ class Analytics {
    * to be used in all logger calls.
    *
    * @param integrations - Integrations to call the method.
-   * @param methodName - Name of the method to be called in all integrations.
-   * @param  {...*} args                         - Arguments to be passed to the method.
-   * @private
+   * @param methodName   - Name of the method to be called in all integrations.
+   * @param args         - Arguments to be passed to the method.
    */
-  callIntegrationsMethod(
-    integrations: Map<string, IntegrationRuntimeData>,
+  protected callIntegrationsMethod(
+    integrations:
+      | Map<string, IntegrationRuntimeData>
+      | IntegrationRuntimeData[],
     methodName: string,
     ...args: unknown[]
   ): void {
@@ -548,13 +579,13 @@ class Analytics {
       return;
     }
 
-    integrations.forEach((item, intName) => {
+    integrations.forEach(item => {
       try {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (item.instance as any)[methodName](...args);
       } catch (e) {
         logger.error(
-          `${methodName} skipped for integration: '${intName}': Unhandled exception: ${e}`,
+          `${methodName} skipped for integration: '${item.name}': Unhandled exception: ${e}`,
         );
       }
     });
@@ -563,10 +594,8 @@ class Analytics {
   /**
    * Resolves the setUser promise which will release any buffered calls to page/track methods
    * and will call `onSetUser` on all integrations if it is ready.
-   *
-   * @private
    */
-  async handleOnUserChanged(): Promise<void> {
+  private async handleOnUserChanged(): Promise<void> {
     if (this.setUserPromiseResolve) {
       this.setUserPromiseResolve();
       this.setUserPromiseResolve = null;
@@ -592,20 +621,24 @@ class Analytics {
    * @param eventContext - Context data that is specific for this event.
    *
    * @returns Data for the event.
-   * @private
    */
-  async getEventData(
-    type: string,
-    additionalData?: Record<string, unknown>,
-    eventContext?: Record<string, unknown>,
-  ): Promise<EventData> {
-    const context = await this.context();
+  protected async getEventData<
+    T extends
+      | TrackTypesValues
+      | typeof ON_SET_USER_TRACK_TYPE
+      | typeof LOAD_INTEGRATION_TRACK_TYPE,
+  >(
+    type: T,
+    additionalData?: Partial<EventData<T>>,
+    eventContext?: EventData<T>['context']['event'],
+  ): Promise<EventData<T>> {
+    const context = (await this.context()) as EventContext;
 
     Object.assign(context, { event: eventContext });
 
-    const commonData: EventData = {
+    const commonData: Partial<EventData<T>> = {
       type,
-      context: context as Record<string, unknown>,
+      context: context as EventContext,
       platform: this.platform,
       consent: (await this.consent()) as ConsentData,
       user: await this.user(),
@@ -615,31 +648,28 @@ class Analytics {
     return {
       ...commonData,
       ...additionalData,
-    };
+    } as EventData<T>;
   }
 
   /**
    * Returns event data that will be sent on an 'onSetUser' event.
    *
    * @returns User data to be sent to integrations.
-   * @private
    */
-  async getSetUserEventData(): Promise<EventData> {
-    return await this.getEventData('onSetUser', {
-      event: 'onSetUser',
+  protected async getSetUserEventData(): Promise<SetUserEventData> {
+    return await this.getEventData(ON_SET_USER_TRACK_TYPE, {
+      event: ON_SET_USER_TRACK_TYPE,
       properties: {},
     });
   }
 
   /**
    * Returns event data that will be sent on an 'onSetUser' event.
-   *
    * @returns Load data to be sent to integrations.
-   * @private
    */
-  async getLoadEventData(): Promise<EventData> {
-    return await this.getEventData('loadIntegration', {
-      event: 'loadIntegration',
+  protected async getLoadEventData(): Promise<LoadIntegrationEventData> {
+    return await this.getEventData(LOAD_INTEGRATION_TRACK_TYPE, {
+      event: LOAD_INTEGRATION_TRACK_TYPE,
       properties: {},
     });
   }
@@ -653,14 +683,13 @@ class Analytics {
    * @param eventContext - Context data that is specific for this event.
    *
    * @returns - Track event data to be sent to integrations.
-   * @private
    */
-  async getTrackEventData(
-    type: string,
+  public async getTrackEventData(
+    type: TrackTypesValues,
     event: string,
-    properties?: Record<string, unknown>,
-    eventContext?: Record<string, unknown>,
-  ): Promise<Record<string, unknown>> {
+    properties?: EventProperties,
+    eventContext?: EventContextData,
+  ): Promise<EventData<TrackTypesValues>> {
     return await this.getEventData(
       type,
       {
