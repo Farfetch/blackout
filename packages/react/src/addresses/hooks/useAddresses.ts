@@ -5,24 +5,37 @@
  * @category Addresses
  * @subcategory Hooks
  */
+import * as selectors from '@farfetch/blackout-redux/addresses/selectors';
 import {
   createAddress as createAddressAction,
   fetchAddresses,
+  fetchAddressSchema,
+  fetchPredictionDetails,
+  fetchPredictions,
   removeAddress,
+  resetPredictions as resetPredictionsAction,
   setDefaultBillingAddress as setDefaultBillingAddressAction,
   setDefaultContactAddress as setDefaultContactAddressAction,
   setDefaultShippingAddress as setDefaultShippingAddressAction,
   updateAddress as updateAddressAction,
-  // @ts-expect-error ts-migrate(7016)
 } from '@farfetch/blackout-redux/addresses';
 import { useAction } from '../../helpers';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-// @ts-expect-error ts-migrate(7016)
-import * as selectors from '@farfetch/blackout-redux/addresses/selectors';
+import type { StoreState } from '@farfetch/blackout-redux/types';
 
 export interface MetaData {
   userId?: number;
+}
+
+interface Query {
+  containerId?: string;
+  countries?: string;
+  sampleSize?: number;
+}
+
+interface QueryPredictionDetails {
+  sessionToken: string; // Session token for Google's session logic.
 }
 
 /**
@@ -43,13 +56,51 @@ export interface MetaData {
  */
 export default ({ userId }: MetaData): any => {
   // Selectors
-  const addressesData = useSelector((state: any) =>
+  const addressesData = useSelector((state: StoreState) =>
     selectors.getAddresses(state),
   );
-  const addressesIds = useSelector((state: any) => selectors.getResult(state));
-  const addressesError = useSelector((state: any) => selectors.getError(state));
-  const isAddressesLoading = useSelector((state: any) =>
+  const addressesIds = useSelector((state: StoreState) =>
+    selectors.getResult(state),
+  );
+  const addressesError = useSelector((state: StoreState) =>
+    selectors.getError(state),
+  );
+  const isAddressesLoading = useSelector((state: StoreState) =>
     selectors.isAddressesLoading(state),
+  );
+  const addressError = useCallback((addressId: string) => {
+    useSelector((state: StoreState) =>
+      selectors.getAddressError(state, addressId),
+    );
+  }, []);
+  const isAddressLoading = useCallback((addressId: string) => {
+    useSelector((state: StoreState) =>
+      selectors.isAddressLoading(state, addressId),
+    );
+  }, []);
+  const predictions = useSelector((state: StoreState) =>
+    selectors.getPredictions(state),
+  );
+  const isPredictionsLoading = useSelector((state: StoreState) =>
+    selectors.isPredictionsLoading(state),
+  );
+  const predictionsError = useSelector((state: StoreState) =>
+    selectors.getPredictionsError(state),
+  );
+  const isPredictionDetailsLoading = useSelector((state: StoreState) =>
+    selectors.isPredictionDetailsLoading(state),
+  );
+  const predictionDetailsError = useSelector((state: StoreState) =>
+    selectors.getPredictionDetailsError(state),
+  );
+  const addressSchema = useCallback((isoCode: string) => {
+    useSelector((state: StoreState) => selectors.getSchema(state, isoCode));
+  }, []);
+  const isAddressSchemaLoading = useSelector((state: StoreState) =>
+    selectors.isAddressSchemaLoading(state),
+  );
+  const addressSchemaError = useSelector((state: StoreState) =>
+    selectors.getAddressSchemaError(state),
   );
 
   // Actions
@@ -60,6 +111,10 @@ export default ({ userId }: MetaData): any => {
   const setDefaultBillingAddress = useAction(setDefaultBillingAddressAction);
   const setDefaultContactAddress = useAction(setDefaultContactAddressAction);
   const setDefaultShippingAddress = useAction(setDefaultShippingAddressAction);
+  const getPredictions = useAction(fetchPredictions);
+  const getPredictionDetails = useAction(fetchPredictionDetails);
+  const resetPredictions = useAction(resetPredictionsAction);
+  const getAddressSchema = useAction(fetchAddressSchema);
   /**
    * Deleting status is used to differentiate between different addresses currently being removed
    * Whenever someone clicks the delete button it adds a boolean associated to the address id
@@ -175,6 +230,16 @@ export default ({ userId }: MetaData): any => {
 
   const handleGetAddress = () => getAddresses(userId);
 
+  const handleGetPredictions = (text: string, query?: Query) =>
+    getPredictions(text, query);
+
+  const handleGetPredictionDetails = (
+    predictionId: string,
+    query?: QueryPredictionDetails,
+  ) => getPredictionDetails({ predictionId }, query);
+
+  const handleGetAddressSchema = (isoCode: string) => getAddressSchema(isoCode);
+
   return {
     deletingStatus,
     addressesData,
@@ -188,6 +253,16 @@ export default ({ userId }: MetaData): any => {
     setDefaultBillingAddress,
     setDefaultContactAddress,
     setDefaultShippingAddress,
+    addressError,
+    isAddressLoading,
+    predictions,
+    isPredictionDetailsLoading,
+    isPredictionsLoading,
+    predictionsError,
+    predictionDetailsError,
+    addressSchema,
+    isAddressSchemaLoading,
+    addressSchemaError,
     /**
      * @type {Function}
      * @variation Member
@@ -237,5 +312,33 @@ export default ({ userId }: MetaData): any => {
      * @see {@link module:useAddresses~handleGetAddress|handleGetAddress} method
      */
     handleGetAddress,
+    /**
+     * @type {Function}
+     * @variation Member
+     *
+     * @see {@link module:useAddresses~handleGetPredictions|handleGetPredictions} method
+     */
+    handleGetPredictions,
+    /**
+     * @type {Function}
+     * @variation Member
+     *
+     * @see {@link module:useAddresses~handleGetPredictionDetails|handleGetPredictionDetails} method
+     */
+    handleGetPredictionDetails,
+    /**
+     * @type {Function}
+     * @variation Member
+     *
+     * @see {@link module:useAddresses~resetPredictions|resetPredictions} method
+     */
+    resetPredictions,
+    /**
+     * @type {Function}
+     * @variation Member
+     *
+     * @see {@link module:useAddresses~handleGetAddressSchema|handleGetAddressSchema} method
+     */
+    handleGetAddressSchema,
   };
 };

@@ -2,7 +2,10 @@ import {
   address1,
   address2,
   addressId,
+  mockGetAddressSchemaResponse,
   mockPostAddressResponse,
+  mockPredictionDetailsResponse,
+  mockPredictionResponse,
   mockUpdateAddressResponse,
 } from 'tests/__fixtures__/addresses';
 import React, { Fragment } from 'react';
@@ -29,6 +32,10 @@ export const Addresses = ({ userId }) => {
     handleDeleteAddress,
     handleCreateAddress,
     handleGetAddress,
+    handleGetPredictions,
+    handleGetPredictionDetails,
+    handleGetAddressSchema,
+    resetPredictions,
   } = useAddresses({ userId });
 
   if (isAddressesLoading) {
@@ -144,6 +151,32 @@ export const Addresses = ({ userId }) => {
         onClick={() => handleCreateAddress(mockPostAddressResponse)}
       >
         handle create address
+      </button>
+      <button
+        data-test="addresses-handleGetPredictions"
+        onClick={() => handleGetPredictions(mockPredictionResponse)}
+      >
+        handle get predictions
+      </button>
+      <button
+        data-test="addresses-handleGetPredictionDetails"
+        onClick={() =>
+          handleGetPredictionDetails(mockPredictionDetailsResponse)
+        }
+      >
+        handle get predictions details
+      </button>
+      <button
+        data-test="addresses-handleGetAddressSchema"
+        onClick={() => handleGetAddressSchema(mockGetAddressSchemaResponse)}
+      >
+        handle get address schema
+      </button>
+      <button
+        data-test="addresses-resetPredictions"
+        onClick={() => resetPredictions()}
+      >
+        handle reset predictions
       </button>
     </Fragment>
   );
