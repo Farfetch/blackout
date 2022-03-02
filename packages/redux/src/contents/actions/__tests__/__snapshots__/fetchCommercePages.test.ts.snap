@@ -17,9 +17,15 @@ Object {
       "code": "LISTING_gender_0/brand_5030844/category_136643",
       "components": Array [
         Object {
-          "customType": "promotions",
+          "customType": "article",
           "displayOptions": Object {},
           "fields": Object {
+            "content": Object {
+              "content": "<p>What was once a keepsake from an island getaway has now become a permanent fixture in your jewellery collection thanks to Gigi Clozeau. Browsing her collection of anklets will keep you in the holiday mood all year round, so much so, you&#39;ll want one in every colour for every destination. Crafted from 18K gold, these delicate chains are perfectly accented with the addition of her signature resin beads in a mix of tropical colours. Browse Gigi Clozeau body jewellery below to be <em>vacay</em> ready at all times.</p>",
+              "displayOptions": Object {},
+              "name": "Listing Page Description 1",
+              "type": "html",
+            },
             "title": Object {
               "displayOptions": Object {},
               "name": "test",
@@ -27,7 +33,7 @@ Object {
               "value": "Commerce Page",
             },
           },
-          "name": "promotions",
+          "name": "article",
           "type": "custom",
         },
       ],
