@@ -8,8 +8,12 @@
 
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
+import type {
+  CommercePagesContent,
+  ComponentType,
+  Metadata,
+} from '@farfetch/blackout-client/contents/types';
 import type { CommercePagesContentNormalized, QueryContentHash } from './types';
-import type { Metadata } from '@farfetch/blackout-client/contents/types';
 
 /**
  * Constant that represent all possible static values to apply to an environment code variable.
@@ -82,6 +86,29 @@ export const getPageRanking = (metadata: Metadata): number => {
 };
 
 /**
+ * Method to check each page ranking and return a list of ranked commerce pages ordered by the better one.
+ *
+ * @function
+ *
+ * @param {object} result - Commerce page payload result.
+ * @returns {object[]} - List of commerce pages ranked.
+ *
+ * @example
+ * const getCommercePagesRanked = getCommercePagesRanked({ entries: [...pages] });
+ * Result of getCommercePagesRanked === { entries: [commercePagesWithRankProperty] };
+ */
+const getCommercePagesRanked = (
+  result: CommercePagesContentNormalized,
+): CommercePagesContent => {
+  const commercePagesWithRank = result.entries.map(page => ({
+    ...page,
+    ranking: getPageRanking(page.metadata),
+  }));
+
+  return commercePagesWithRank.sort((p, c) => c.ranking - p.ranking);
+};
+
+/**
  * Method to check each page ranking and return the better one.
  *
  * @function
@@ -96,12 +123,7 @@ export const getPageRanking = (metadata: Metadata): number => {
 export const getDefaultStrategy = (
   result: CommercePagesContentNormalized,
 ): CommercePagesContentNormalized => {
-  const bestRankedPage = result.entries
-    .map(page => ({
-      ...page,
-      ranking: getPageRanking(page.metadata),
-    }))
-    .reduce((p, c) => (p.ranking > c.ranking ? p : c));
+  const bestRankedPage = getCommercePagesRanked(result)[0];
 
   return {
     number: 1,
@@ -112,7 +134,7 @@ export const getDefaultStrategy = (
 };
 
 /**
- * Method to return the main page with all components from other pages.
+ * Method to return the main ranked commerce page with all components from other pages without duplicates.
  *
  * @function
  *
@@ -126,10 +148,19 @@ export const getDefaultStrategy = (
 export const getMergeStrategy = (
   result: CommercePagesContentNormalized,
 ): CommercePagesContentNormalized => {
+  const rankedCommercePages = getCommercePagesRanked(result);
   // Merge components inside the selected commerce page
-  const mergedComponents = [];
-  result.entries.forEach(content =>
-    content.components.forEach(component => mergedComponents.push(component)),
+  const mergedComponents: ComponentType[] = [];
+  rankedCommercePages.forEach(content =>
+    content.components.forEach(component => {
+      if (
+        !mergedComponents.some(
+          mergedComponent =>
+            mergedComponent.customType === component.customType,
+        )
+      )
+        mergedComponents.push(component);
+    }),
   );
 
   return {

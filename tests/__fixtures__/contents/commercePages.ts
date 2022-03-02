@@ -51,9 +51,16 @@ export const mockCommercePages = [
             name: 'test',
             displayOptions: {},
           },
+          content: {
+            type: 'html',
+            name: 'Listing Page Description 1',
+            displayOptions: {},
+            content:
+              '<p>What was once a keepsake from an island getaway has now become a permanent fixture in your jewellery collection thanks to Gigi Clozeau. Browsing her collection of anklets will keep you in the holiday mood all year round, so much so, you&#39;ll want one in every colour for every destination. Crafted from 18K gold, these delicate chains are perfectly accented with the addition of her signature resin beads in a mix of tropical colours. Browse Gigi Clozeau body jewellery below to be <em>vacay</em> ready at all times.</p>',
+          },
         },
-        customType: 'promotions',
-        name: 'promotions',
+        customType: 'article',
+        name: 'article',
         displayOptions: {},
       },
     ],
@@ -85,15 +92,45 @@ export const mockCommercePages = [
     publicationDate: '2021-08-20T15:38:20.6658783Z',
     components: [
       {
-        type: 'text',
-        name: 'Title 2',
+        type: 'custom',
+        fields: {
+          title: {
+            type: 'text',
+            value: 'Commerce Page 2',
+            name: 'test',
+            displayOptions: {},
+          },
+          content: {
+            type: 'html',
+            name: 'Listing Page Description 2',
+            displayOptions: {},
+            content:
+              '<h2>Whitelabel was born out of a deep love of fashion and a profound belief that fashion is an essential expression of individuality and what makes each of us unique.</h2>',
+          },
+        },
+        customType: 'simpleText',
+        name: 'simpleText',
         displayOptions: {},
       },
       {
-        type: 'html',
-        content:
-          '<p>What was once a keepsake from an island getaway has now become a permanent fixture in your jewellery collection thanks to Gigi Clozeau. Browsing her collection of anklets will keep you in the holiday mood all year round, so much so, you&#39;ll want one in every colour for every destination. Crafted from 18K gold, these delicate chains are perfectly accented with the addition of her signature resin beads in a mix of tropical colours. Browse Gigi Clozeau body jewellery below to be <em>vacay</em> ready at all times.</p>',
-        name: 'Listing Page Description 2',
+        type: 'custom',
+        fields: {
+          title: {
+            type: 'text',
+            value: 'Commerce Page 2',
+            name: 'test',
+            displayOptions: {},
+          },
+          content: {
+            type: 'html',
+            name: 'Listing Page Description 2',
+            displayOptions: {},
+            content:
+              '<p>What was once a keepsake from an island getaway has now become a permanent fixture in your jewellery collection thanks to Gigi Clozeau. Browsing her collection of anklets will keep you in the holiday mood all year round, so much so, you&#39;ll want one in every colour for every destination. Crafted from 18K gold, these delicate chains are perfectly accented with the addition of her signature resin beads in a mix of tropical colours. Browse Gigi Clozeau body jewellery below to be <em>vacay</em> ready at all times.</p>',
+          },
+        },
+        customType: 'article',
+        name: 'article',
         displayOptions: {},
       },
     ],
@@ -129,7 +166,7 @@ export const mergeStrategyResult = {
       ...mockCommercePages[0],
       components: [].concat(
         mockCommercePages[0].components,
-        mockCommercePages[1].components,
+        mockCommercePages[1].components[0],
       ),
     },
   ],
