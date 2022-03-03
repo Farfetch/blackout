@@ -5,8 +5,8 @@ const getId = (
   { description, type: parentType },
 ) =>
   `${description.toLowerCase()}_${value}${
-    // Special scenario when the facet type is "size by category"
-    parentType === 24 ? `_${groupsOn}` : ''
+    // Special scenario when the facet type is "sizes" or "size by category"
+    parentType === 9 || parentType === 24 ? `_${groupsOn}` : ''
   }${valueUpperBound > 0 ? `_${valueUpperBound}` : ''}`;
 
 export default new schema.Entity(
