@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.205](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.204...@farfetch/blackout-redux@1.0.0-next.205) (2022-03-04)
+
+
+### Features
+
+* **redux:** update order of components and fix ranking on merge strategy for commerce pages next ([ad96bda](https://github.com/Farfetch/blackout/commit/ad96bdaeb0ca993b03e4e80e25ac7263555f3667))
+
+
+
+
+
 # [1.0.0-next.204](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.203...@farfetch/blackout-redux@1.0.0-next.204) (2022-03-03)
 
 
