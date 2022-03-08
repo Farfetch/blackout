@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.52.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.52.0...@farfetch/blackout-core@1.52.1) (2022-03-08)
+
+
+### Bug Fixes
+
+* **core:** add `groupsOn` to the sizes facet's entity id ([7300e3d](https://github.com/Farfetch/blackout/commit/7300e3de0f15b5a713defccbe16e970ebd986ad7))
+
+
+
+
+
 # [1.52.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.51.0...@farfetch/blackout-core@1.52.0) (2022-03-01)
 
 
