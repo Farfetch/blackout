@@ -22,6 +22,7 @@ import { useSelector } from 'react-redux';
  * @param {string} params.cultureCode - Query a content by a specific language (language:en-GB).
  * @param {string} [params.benefits] - Query a content by is benefits (benefits:test).
  * @param {string} [params.contentzone] - Query a content by a specific content zone (contentzone:ROW).
+ * @param {string} [params.spaceCode] - The space where the content belongs to (website|mobileapp|emailTool...).
  * @param {number} [pageSize=60] - Size of each page, as a number between 1 and 180. The default is 60.
  *
  * @returns {object} - Returns actions and selectors for content navigation data.
@@ -31,6 +32,7 @@ export default (navKey, params, pageSize) => {
     codes: navKey,
     contentTypeCode: 'navbars',
     environmentCode: process.env.WEB_APP_CONTENT_ENV || '',
+    spaceCode: params?.spaceCode,
     'target.country': params?.countryCode,
     'target.language': params?.cultureCode,
     'target.benefits': params?.benefits,
