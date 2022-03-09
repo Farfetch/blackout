@@ -1,0 +1,36 @@
+on:
+  release:
+    types: [published]
+
+name: Send email with release notes
+
+jobs:
+  send_email:
+    name: Send email with release notes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v3
+        with:
+          # Required mail server address:
+          server_address: ${{ secrets.EMAIL_SERVER_ADDRESS }}
+          # Required mail server port:
+          server_port: ${{ secrets.EMAIL_SERVER_PORT }}
+          # Required username
+          username: ${{ secrets.EMAIL_ACCOUNT_USERNAME }}
+          # Required password
+          password: ${{ secrets.EMAIL_ACCOUNT_PASSWORD }}
+          # Required mail subject. Will be the release name.
+          subject: ${{ github.event.release.name }}
+          # Required recipients' addresses:
+          to: ${{ secrets.EMAIL_RECIPIENTS }}
+          # Required sender full name (address can be skipped):
+          from: ${{ secrets.EMAIL_FROM }}
+          # Optional whether this connection use TLS (default is true if server_port is 465)
+          secure: true
+          # Optional HTML body: Body of the release converted to markdown by use of the option 'convert_markdown'.
+          html_body: ${{ github.event.release.body }}
+          # Optional unsigned/invalid certificates allowance:
+          ignore_cert: true
+          # Optional converting Markdown to HTML (set content_type to text/html too):
+          convert_markdown: true
