@@ -1,0 +1,61 @@
+on:
+  push:
+    tags:
+      - '**'
+
+name: Create Release
+
+jobs:
+  create_release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Parse semver string
+        id: semver_parser 
+        uses: booxmedialtd/ws-action-parse-semver@v1
+        with:
+         input_string: ${{ github.ref }}  
+         version_extractor_regex: '([0-9]+.[0-9]+.[0-9]+.*)$' # The regexp must contain a capture group containing the version expression, i.e., the parenthesis are needed
+      - name: Use parsed semver # Print parsed semver data for debugging
+        run: |
+            echo "${{ steps.semver_parser.outputs.major }}"
+            echo "${{ steps.semver_parser.outputs.minor }}"
+            echo "${{ steps.semver_parser.outputs.patch }}"
+            echo "${{ steps.semver_parser.outputs.prerelease }}"
+            echo "${{ steps.semver_parser.outputs.build }}"
+            echo "${{ steps.semver_parser.outputs.fullversion }}"
+      - name: Exit early if it is a prerelease # Hack to exit the workflow when it is a prerelease. This is because Github Actions does not allow to abort workflow early
+        if: steps.semver_parser.outputs.prerelease != ''
+        run: exit 1
+      - name: Get package name # Get the package name from the tag so we can find the correct changelog file
+        id: get_package_name
+        uses: actions/github-script@v6
+        with:
+          result-encoding: string
+          script: |
+            const regex = /blackout-(.*)@/g;
+            return regex.exec(context.ref)[1];
+      - name: Test package name # Print obtained package name for debugging only 
+        run: |
+            echo "package name is: ${{ steps.get_package_name.outputs.result }}"
+      - name: Extract release notes # This step will retrieve the last entry from the changelog
+        id: extract_release_notes
+        uses: ffurrer2/extract-release-notes@v1
+        with:
+          changelog_file: "./packages/${{ steps.get_package_name.outputs.result }}/CHANGELOG.md"
+      - name: Test release notes # Print the extracted release notes for debugging
+        run: |
+          echo "release notes are: ${{ steps.extract_release_notes.outputs.release_notes }}"
+      - name: Create Release # Create release in github
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_BOT_GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: ${{ steps.extract_release_notes.outputs.release_notes }}
+          draft: false
+          prerelease: false
