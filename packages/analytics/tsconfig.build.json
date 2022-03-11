@@ -1,10 +1,9 @@
 {
-  "extends": "./tsconfig.json",
-  "exclude": ["**/__tests__/*", "**/__fixtures__/*"],
+  "extends": "../../configs/typescript/tsconfig.package-build.json",
   "files": ["package.json"],
   "compilerOptions": {
     "rootDir": ".",
-    "outDir": ".",
+    "outDir": "./dist",
     "composite": true
   }
 }

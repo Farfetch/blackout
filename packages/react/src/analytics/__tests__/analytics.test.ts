@@ -45,9 +45,9 @@ describe('analytics web', () => {
   beforeEach(async () => {
     jest.clearAllMocks();
 
-    // @ts-ignore
+    // @ts-expect-error
     analytics.isReady = false;
-    // @ts-ignore
+    // @ts-expect-error
     analytics.integrations.clear();
     analytics.currentPageCallData = null;
 
@@ -107,7 +107,7 @@ describe('analytics web', () => {
 
       expect(analytics.integration('marketingIntegration')).toBe(null);
 
-      // @ts-ignore
+      // @ts-expect-error
       const coreTrackSpy = jest.spyOn(AnalyticsCore.prototype, 'trackInternal');
       const event = 'myEvent';
       const properties = {};
@@ -145,7 +145,7 @@ describe('analytics web', () => {
   });
 
   it('Should extend the `track() method for tracking of pages`', async () => {
-    // @ts-ignore
+    // @ts-expect-error
     const coreTrackSpy = jest.spyOn(AnalyticsCore.prototype, 'trackInternal');
     const event = 'myEvent';
     const properties = {};

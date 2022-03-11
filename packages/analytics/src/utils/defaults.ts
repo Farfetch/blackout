@@ -33,6 +33,8 @@ export const getContextDefaults = (): {
  * '?colors=3|11&categories=187345'
  */
 
-export const stringifyQuery = (query: Record<string, unknown>): string => {
+export const stringifyQuery = (
+  query: Record<string, string | undefined>,
+): string => {
   return qs.stringify(query, true);
 };

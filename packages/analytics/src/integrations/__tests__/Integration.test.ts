@@ -1,28 +1,31 @@
-import { Integration } from '..';
-import { LOAD_INTEGRATION_TRACK_TYPE } from '../../utils';
-import type {
-  EventData,
+import {
+  eventTypes,
   IntegrationOptions,
   LoadIntegrationEventData,
   StrippedDownAnalytics,
-  TrackTypesValues,
 } from '../..';
+import { Integration } from '..';
+import {
+  loadIntegrationData as loadData,
+  trackEventsData,
+} from 'tests/__fixtures__/analytics';
 
+const constructorSpy = jest.fn();
 class MyIntegration extends Integration {
-  static createInstance(
+  constructor(
     options: IntegrationOptions,
     loadData: LoadIntegrationEventData,
-    analytics: StrippedDownAnalytics,
+    strippedDownAnalytics: StrippedDownAnalytics,
   ) {
-    return new MyIntegration(options, loadData, analytics);
+    super(options, loadData, strippedDownAnalytics);
+    constructorSpy();
   }
 
   static shouldLoad() {
     return true;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  track(data: EventData<TrackTypesValues>): void {
+  track(): void {
     // Do nothing
   }
 }
@@ -35,30 +38,33 @@ describe('Integration', () => {
       foo: 'foo',
     },
   };
-  const loadData: LoadIntegrationEventData = {
-    type: LOAD_INTEGRATION_TRACK_TYPE,
-    event: LOAD_INTEGRATION_TRACK_TYPE,
-    user: {},
-    properties: {},
-    consent: { marketing: false, statistics: false, preferences: false },
-    context: { library: 'xxx', version: '1.0.0', event: {} },
-    platform: 'web',
-    timestamp: 100000000000,
-  };
+
   let integration: Integration;
 
   beforeEach(() => {
-    integration = new MyIntegration(options, loadData, {
+    integration = MyIntegration.createInstance(options, loadData, {
       createEvent: type => Promise.resolve({ ...loadData, type }),
     });
+
+    expect(constructorSpy).toHaveBeenCalled();
   });
 
-  it('Should not be ready to load by default', () => {
-    expect(Integration.shouldLoad(loadData.consent)).toEqual(false);
+  it('`shouldLoad` should throw a `Method not implemented` error by default', () => {
+    expect(() => {
+      Integration.shouldLoad(loadData.consent);
+    }).toThrow('Method not implemented');
+  });
+
+  it('`track` should throw a `Method not implemented` error by default', () => {
+    expect(() => {
+      Integration.createInstance({}, loadData, {
+        createEvent: type => Promise.resolve({ ...loadData, type }),
+      }).track(trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART]);
+    }).toThrow('Method not implemented');
   });
 
   it('Should set the options passed in the constructor', () => {
-    // @ts-ignore
+    // @ts-expect-error
     expect(integration.options).toEqual(options);
   });
 

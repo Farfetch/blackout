@@ -1,40 +1,55 @@
 import get from 'lodash/get';
-import type { EventData } from '../types/analytics.types';
+import type {
+  EventData,
+  EventProperties,
+  TrackTypesValues,
+} from '../types/analytics.types';
 
-export const getEvent = (data: EventData<unknown>): string => {
-  return get(data, 'event', '') as string;
+// TODO
+type Product = Record<string, unknown>;
+
+export const getEvent = (data: EventData<TrackTypesValues>): string => {
+  return get(data, 'event', '');
 };
 
 export const getProperties = (
-  data: EventData<unknown>,
-): Record<string, unknown> => {
-  return get(data, 'properties', {}) as Record<string, unknown>;
+  data: EventData<TrackTypesValues>,
+): EventProperties => {
+  return get(data, 'properties', {});
 };
 
-export const getProducts = (data: EventData<unknown>): [] => {
-  return get(data, 'properties.products', []) as [];
+export const getProducts = (
+  data: EventData<TrackTypesValues>,
+): Array<Product> => {
+  return get(data, 'properties.products', []);
 };
 
-export const getCurrency = (data: EventData<unknown>): string => {
+export const getCurrency = (data: EventData<TrackTypesValues>): string => {
   const properties = getProperties(data);
 
-  return properties.currency as string;
+  // Validation of event properties are done before this function is called
+  // so the cast is acceptable here.
+  return get(properties, 'currency', '') as string;
 };
 
-export const getList = (data: EventData<unknown>): unknown => {
+export const getList = (data: EventData<TrackTypesValues>): string => {
   const properties = getProperties(data);
 
-  return get(properties, 'list') as unknown;
+  // Validation of event properties are done before this function is called
+  // so the cast is acceptable here.
+  return get(properties, 'list', '') as string;
 };
 
-export const getOrderId = (data: EventData<unknown>): string => {
+export const getOrderId = (data: EventData<TrackTypesValues>): string => {
   const properties = getProperties(data);
 
+  // Validation of event properties are done before this function is called
+  // so the cast is acceptable here.
   return properties.orderId as string;
 };
 
 export const getPurchaseProperties = (
-  data: EventData<unknown>,
+  data: EventData<TrackTypesValues>,
 ): {
   id: string;
   revenue: number;
@@ -44,6 +59,8 @@ export const getPurchaseProperties = (
 } => {
   const properties = getProperties(data);
 
+  // Validation of event properties are done before this function is called
+  // so the cast is acceptable here.
   return {
     id: getOrderId(data),
     revenue: properties.total as number,
@@ -54,33 +71,32 @@ export const getPurchaseProperties = (
 };
 
 export const getCheckoutProperties = (
-  data: EventData<unknown>,
+  data: EventData<TrackTypesValues>,
 ): { step: string; option: string } => {
   const properties = getProperties(data);
 
+  // Validation of event properties are done before this function is called
+  // so the cast is acceptable here.
   return {
     step: properties.step as string,
     option: properties.option as string,
   };
 };
 
-export const getProductId = (
-  unmappedProduct: Record<string, unknown>,
-): number => {
+export const getProductId = (unmappedProduct: Product): number => {
+  // Validation of event properties are done before this function is called
+  // so the cast is acceptable here.
   return unmappedProduct.id as number;
 };
 
-export const getProductName = (
-  unmappedProduct: Record<string, unknown>,
-): string => {
+export const getProductName = (unmappedProduct: Product): string => {
+  // Validation of event properties are done before this function is called
+  // so the cast is acceptable here.
   return unmappedProduct.name as string;
 };
 
 export const getLocation = (
-  data: Record<string, unknown>,
-): Record<string, unknown> => {
-  return get(data, 'context.web.window.location', {}) as Record<
-    string,
-    unknown
-  >;
+  data: EventData<TrackTypesValues>,
+): Record<string, string | undefined> => {
+  return get(data, 'context.web.window.location', {});
 };

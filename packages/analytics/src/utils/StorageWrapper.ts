@@ -2,7 +2,7 @@ import { PACKAGE_NAME } from './constants';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
 import validateStorage from './validateStorage';
-import type { Storage } from './types';
+import type { Storage, StorageData } from './types';
 
 const oldStorageKey = '@farfetch/blackout-core/analytics';
 
@@ -28,6 +28,7 @@ class StorageWrapper {
         'StorageWrapper needs a valid storage to properly persist data. Please make sure you are passing a valid storage.',
       );
     }
+
     this.storage = storage as Storage;
     this.createStorage(storage as Storage);
   }
@@ -65,7 +66,7 @@ class StorageWrapper {
     await this.preProcessStorage();
 
     const store = await this.getItem();
-    const ttlInMs = get(store, 'ttl', 0);
+    const ttlInMs: number = get(store, 'ttl', 0);
     const now = new Date();
     const nowInMs = now.getTime();
 
@@ -83,9 +84,9 @@ class StorageWrapper {
    *
    * @returns Promise that will resolve the value for the specified key.
    */
-  async getItem(
-    key?: string,
-  ): Promise<Record<string, unknown> | unknown | undefined> {
+  getItem(): Promise<StorageData>;
+  getItem(key: string): Promise<StorageData[string]>;
+  async getItem(key?: string): Promise<StorageData | StorageData[string]> {
     const storeRawValue = await this.storage.getItem(PACKAGE_NAME);
     const store = JSON.parse(storeRawValue || '{}');
 
@@ -105,7 +106,7 @@ class StorageWrapper {
    *
    * @returns Promise that will resolve with the instance that was used when calling this method to allow chaining.
    */
-  async setItem(key: string, data?: unknown): Promise<this> {
+  async setItem(key?: string, data?: unknown): Promise<this> {
     if (!key) {
       return this;
     }
@@ -128,8 +129,9 @@ class StorageWrapper {
   async removeItem(key: string): Promise<this> {
     const store = await this.getItem();
 
-    if (store && store instanceof Object)
-      delete (store as Record<string, unknown>)[key];
+    if (store && store instanceof Object) {
+      delete store[key];
+    }
 
     await this.storage.setItem(PACKAGE_NAME, JSON.stringify(store));
 

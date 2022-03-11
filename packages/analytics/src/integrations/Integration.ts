@@ -25,7 +25,7 @@ export interface IntegrationFactory {
  * Base class for integrations.
  * It ensures the base functionality in order to work with analytics.
  */
-abstract class Integration {
+class Integration {
   /**
    * @param options - Integration options.
    * @param loadData - Analytics's load event data.
@@ -46,7 +46,7 @@ abstract class Integration {
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   static shouldLoad(consent: ConsentData): boolean {
-    return false;
+    throw new Error('Method not implemented');
   }
 
   /**
@@ -56,23 +56,23 @@ abstract class Integration {
    * @param loadData  - Analytics's load event data.
    * @param analytics - Analytics instance stripped down with only helpers.
    */
-  /* eslint-disable @typescript-eslint/no-unused-vars */
   static createInstance(
     options: IntegrationOptions,
     loadData: LoadIntegrationEventData,
     analytics: StrippedDownAnalytics,
-  ): void {
-    // Do nothing
+  ): Integration {
+    return new this(options, loadData, analytics);
   }
-  /* eslint-enable @typescript-eslint/no-unused-vars */
-
   /**
    *
    * Tracks an event. This event can be a page view or a page action.
    *
    * @param data - Event data.
    */
-  abstract track(data: EventData<TrackTypesValues>): void;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  track(this: this, data: EventData<TrackTypesValues>): void {
+    throw new Error('Method not implemented');
+  }
 
   /**
    * Method to work with the consent object by the class that extends this one.
@@ -80,7 +80,7 @@ abstract class Integration {
    * @param consent - Consent object.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setConsent(consent: ConsentData): void {
+  setConsent(this: this, consent: ConsentData): void {
     // Do nothing
   }
 
@@ -90,7 +90,7 @@ abstract class Integration {
    * @param data - Event data.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onSetUser(data: SetUserEventData): void {
+  onSetUser(this: this, data: SetUserEventData): void {
     // Do nothing
   }
 }

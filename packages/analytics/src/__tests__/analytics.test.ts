@@ -7,13 +7,11 @@ import TestStorage from 'test-storage';
 import trackTypes from '../types/trackTypes';
 import type {
   ConsentData,
-  EventData,
   IntegrationOptions,
   LoadIntegrationEventData,
   StrippedDownAnalytics,
-  TrackTypesValues,
+  UserData,
 } from '../types/analytics.types';
-import type { IntegrationFactory } from '../integrations/Integration';
 import type { Storage } from '../utils/types';
 
 class MyIntegration extends Integration {
@@ -29,12 +27,12 @@ class MyIntegration extends Integration {
     return true;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  track(data: EventData<TrackTypesValues>): void {
+  track(): void {
     // Do nothing
   }
 }
 
+// @ts-expect-error
 class NullInstanceIntegration extends Integration {
   static createInstance() {
     return null;
@@ -44,12 +42,12 @@ class NullInstanceIntegration extends Integration {
     return true;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  track(data: EventData<TrackTypesValues>): void {
+  track(): void {
     // Do nothing
   }
 }
 
+// @ts-expect-error This expect error is needed so that we can test the createInstance method returning an invalid value type.
 class NoIntegrationInstanceIntegration extends Integration {
   static createInstance() {
     return String('test');
@@ -59,25 +57,13 @@ class NoIntegrationInstanceIntegration extends Integration {
     return true;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  track(data: EventData<TrackTypesValues>): void {
-    // Do nothing
-  }
-}
-
-class DefaultCreateInstanceIntegration extends Integration {
-  static shouldLoad() {
-    return true;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  track(data: EventData<TrackTypesValues>): void {
+  track(): void {
     // Do nothing
   }
 }
 
 class CreateInstanceThrowsIntegration extends Integration {
-  static createInstance() {
+  static createInstance(): never {
     throw new Error('error');
   }
 
@@ -85,8 +71,7 @@ class CreateInstanceThrowsIntegration extends Integration {
     return true;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  track(data: EventData<TrackTypesValues>): void {
+  track(): void {
     // Do nothing
   }
 }
@@ -95,8 +80,7 @@ class NotLoadableIntegration extends Integration {
   static shouldLoad() {
     return false;
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  track(data: EventData<TrackTypesValues>): void {
+  track(): void {
     // Do nothing
   }
 }
@@ -140,15 +124,14 @@ class StatisticsConsentRequiredIntegration extends Integration {
     );
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  track(data: EventData<TrackTypesValues>): void {
+  track(): void {
     // Do nothing
   }
 }
 
 // Mock logger so it does not output to the console
 jest.mock('@farfetch/blackout-client/helpers', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/helpers'),
+  ...jest.requireActual<object>('@farfetch/blackout-client/helpers'),
   Logger: class {
     warn(message: string) {
       return message;
@@ -167,7 +150,7 @@ let analytics: Analytics;
  *
  */
 async function setupAnalyticsWithFaultyStorage() {
-  // @ts-ignore
+  // @ts-expect-error
   analytics.isReady = false;
 
   const faultyStorage = new TestStorage();
@@ -191,9 +174,9 @@ describe('analytics', () => {
 
   describe('When storage is not set in analytics', () => {
     beforeEach(() => {
-      // @ts-ignore
+      // @ts-expect-error
       analytics.storage = null;
-      // @ts-ignore
+      // @ts-expect-error
       analytics.isReady = false;
     });
 
@@ -217,7 +200,7 @@ describe('analytics', () => {
     });
 
     it('should log an error if `analytics.ready` is called before `analytics.setStorage', async () => {
-      // @ts-ignore
+      // @ts-expect-error
       const loadIntegrationsSpy = jest.spyOn(analytics, 'loadIntegrations');
 
       await analytics.ready();
@@ -323,7 +306,7 @@ describe('analytics', () => {
     let storage: Storage;
 
     beforeAll(async () => {
-      // @ts-ignore
+      // @ts-expect-error
       analytics.isReady = false;
 
       storage = new TestStorage();
@@ -346,7 +329,7 @@ describe('analytics', () => {
         ) as Integration;
         const spyTrack = jest.spyOn(integrationInstance, 'track');
 
-        // @ts-ignore
+        // @ts-expect-error
         analytics.trackInternal(trackTypes.PAGE, pageTypes.HOMEPAGE);
 
         analytics.track('myEvent');
@@ -365,9 +348,9 @@ describe('analytics', () => {
       });
 
       beforeEach(() => {
-        // @ts-ignore
+        // @ts-expect-error
         analytics.integrations.clear();
-        // @ts-ignore
+        // @ts-expect-error
         analytics.isReady = false;
         const testStorageInstance = new TestStorage();
 
@@ -398,9 +381,9 @@ describe('analytics', () => {
         });
 
         it('Should log an error if useContext is used with incorrect arguments', async () => {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const newContext = { prop1: 'A', prop2: 'B' } as any;
+          const newContext = { prop1: 'A', prop2: 'B' };
 
+          // @ts-expect-error
           analytics.useContext(newContext);
 
           expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
@@ -426,10 +409,10 @@ describe('analytics', () => {
 
         it('should log an error and not prevent execution of next context functions on the chain when a context function throws', async () => {
           // Save previously set context functions in order to restore them after the test
-          // @ts-ignore
+          // @ts-expect-error
           const previousContextFns = analytics.contextFns;
 
-          // @ts-ignore
+          // @ts-expect-error
           analytics.contextFns = [];
 
           analytics.useContext(() => {
@@ -443,7 +426,7 @@ describe('analytics', () => {
           const result = await analytics.context();
 
           // Restore context functions in order to not break the tests that follow.
-          // @ts-ignore
+          // @ts-expect-error
           analytics.contextFns = previousContextFns;
 
           expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
@@ -483,7 +466,7 @@ describe('analytics', () => {
             marketing: true,
           };
 
-          // @ts-ignore
+          // @ts-expect-error
           const spyStorageSetItem = jest.spyOn(analytics.storage, 'setItem');
 
           await analytics.setConsent(consentData);
@@ -500,7 +483,7 @@ describe('analytics', () => {
             .ready();
 
           const spy = jest.spyOn(MyIntegration.prototype, 'setConsent');
-          // @ts-ignore
+          // @ts-expect-error
           const loadIntegrationsSpy = jest.spyOn(analytics, 'loadIntegrations');
           const data = {
             marketing: false,
@@ -568,20 +551,18 @@ describe('analytics', () => {
           }
 
           await analytics
-            .addIntegration(
-              'invalidIntegration',
-              InvalidIntegration as unknown as IntegrationFactory,
-            )
+            // @ts-expect-error
+            .addIntegration('invalidIntegration', InvalidIntegration)
             .ready();
 
-          // @ts-ignore
+          // @ts-expect-error
           expect(analytics.integrations.size).toBe(0);
 
           analytics.addIntegration('myIntegration', MyIntegration);
 
           await analytics.ready();
 
-          // @ts-ignore
+          // @ts-expect-error
           expect(analytics.integrations.size).toBe(1);
           expect(analytics.integration('myIntegration')).toBeInstanceOf(
             MyIntegration,
@@ -594,7 +575,7 @@ describe('analytics', () => {
           await analytics
             .addIntegration(
               'createInstanceThrowsIntegration',
-              CreateInstanceThrowsIntegration as unknown as IntegrationFactory,
+              CreateInstanceThrowsIntegration,
             )
             .ready();
 
@@ -607,10 +588,8 @@ describe('analytics', () => {
 
         it('Should log an error when an integration`s createInstance method returns null', async () => {
           await analytics
-            .addIntegration(
-              'nullInstanceIntegration',
-              NullInstanceIntegration as unknown as IntegrationFactory,
-            )
+            // @ts-expect-error
+            .addIntegration('nullInstanceIntegration', NullInstanceIntegration)
             .ready();
 
           expect(loggerErrorSpy).toBeCalledTimes(1);
@@ -622,22 +601,15 @@ describe('analytics', () => {
           await analytics
             .addIntegration(
               'noIntegrationInstanceIntegration',
-              NoIntegrationInstanceIntegration as unknown as IntegrationFactory,
-            )
-            .addIntegration(
-              'defaultCreateInstanceIntegration',
-              DefaultCreateInstanceIntegration as unknown as IntegrationFactory,
+              // @ts-expect-error
+              NoIntegrationInstanceIntegration,
             )
             .ready();
 
-          expect(loggerErrorSpy).toBeCalledTimes(2);
+          expect(loggerErrorSpy).toBeCalledTimes(1);
 
           expect(
             analytics.integration('noIntegrationInstanceIntegration'),
-          ).toBeNull();
-
-          expect(
-            analytics.integration('defaultCreateInstanceIntegration'),
           ).toBeNull();
         });
 
@@ -656,11 +628,11 @@ describe('analytics', () => {
 
           const onLoadedIntegrationsSpy = jest.spyOn(
             analytics,
-            // @ts-ignore
+            // @ts-expect-error
             'onLoadedIntegrations',
           );
 
-          // @ts-ignore
+          // @ts-expect-error
           await analytics.loadIntegrations(true);
 
           expect(onLoadedIntegrationsSpy).toBeCalled();
@@ -674,22 +646,18 @@ describe('analytics', () => {
 
           await analytics.setUser(userId, traits);
 
-          const userData = (await analytics.user()) as Record<string, unknown>;
+          const userData = (await analytics.user()) as UserData;
 
           expect(userData['id']).toEqual(userId);
           expect(userData['traits']).toEqual(traits);
         });
 
         it("Should return user's empty data structure if there's no data on storage", async () => {
-          const currentLocalId = (
-            (await analytics.user()) as Record<string, unknown>
-          ).localId;
+          const currentLocalId = ((await analytics.user()) as UserData).localId;
 
           await analytics.anonymize();
 
-          const sameLocalId = (
-            (await analytics.user()) as Record<string, unknown>
-          ).localId;
+          const sameLocalId = ((await analytics.user()) as UserData).localId;
 
           expect(currentLocalId).toEqual(sameLocalId);
 
@@ -705,7 +673,7 @@ describe('analytics', () => {
         it('Should identify an user with its data', async () => {
           await analytics.setUser();
 
-          let user = (await analytics.user()) as Record<string, unknown>;
+          let user = (await analytics.user()) as UserData;
           expect(user.id).toBeNull();
           expect(user.traits).toMatchObject({});
           expect(user.localId).not.toBeNull();
@@ -718,7 +686,7 @@ describe('analytics', () => {
 
           await analytics.setUser(userId, traits);
 
-          user = (await analytics.user()) as Record<string, unknown>;
+          user = (await analytics.user()) as UserData;
 
           expect(user.id).toEqual(userId);
           expect(user.traits).toEqual(traits);
@@ -728,15 +696,11 @@ describe('analytics', () => {
         it('Should anonymize an user', async () => {
           await analytics.setUser('12345678', { name: 'Dummy' });
 
-          const currentLocalId = (
-            (await analytics.user()) as Record<string, unknown>
-          ).localId;
+          const currentLocalId = ((await analytics.user()) as UserData).localId;
 
           await analytics.anonymize();
 
-          const sameLocalId = (
-            (await analytics.user()) as Record<string, unknown>
-          ).localId;
+          const sameLocalId = ((await analytics.user()) as UserData).localId;
 
           expect(currentLocalId).toEqual(sameLocalId);
 
@@ -853,7 +817,8 @@ describe('analytics', () => {
             productId: 123123,
           };
 
-          await analytics.track(event as unknown as string, properties);
+          // @ts-expect-error
+          await analytics.track(event, properties);
 
           expect(loggerErrorSpy).toBeCalledTimes(1);
           expect(spyTrack).not.toBeCalled();
@@ -889,7 +854,7 @@ describe('analytics', () => {
         });
 
         it("Should log an error if analytics is not ready and not call any integration's track method", async () => {
-          // @ts-ignore
+          // @ts-expect-error
           analytics.isReady = false;
 
           const spyTrack = jest.spyOn(
@@ -907,16 +872,16 @@ describe('analytics', () => {
 
       describe('Ready', () => {
         beforeEach(() => {
-          // @ts-ignore
+          // @ts-expect-error
           analytics.integrations.clear();
-          // @ts-ignore
+          // @ts-expect-error
           analytics.isReady = false;
         });
 
         it("Should load an integration if it's ready to load", async () => {
           analytics.addIntegration('myIntegration', MyIntegration);
 
-          // @ts-ignore
+          // @ts-expect-error
           expect(analytics.integrations.size).toBe(1);
 
           let myIntegrationInstance = analytics.integration('myIntegration');
@@ -933,7 +898,7 @@ describe('analytics', () => {
 
           expect(myIntegrationInstance).toBeInstanceOf(MyIntegration);
 
-          // @ts-ignore
+          // @ts-expect-error
           await analytics.track(trackTypes.PAGE, pageTypes.HOMEPAGE);
           await analytics.track(eventTypes.PRODUCT_CLICKED);
 
@@ -943,10 +908,10 @@ describe('analytics', () => {
         it("Should not load an integration if it's not ready to load", async () => {
           analytics.addIntegration(
             'notLoadableIntegration',
-            NotLoadableIntegration as unknown as IntegrationFactory,
+            NotLoadableIntegration,
           );
 
-          // @ts-ignore
+          // @ts-expect-error
           expect(analytics.integrations.size).toBe(1);
 
           expect(analytics.integration('notLoadableIntegration')).toBeNull();
@@ -967,7 +932,7 @@ describe('analytics', () => {
             'track',
           );
 
-          // @ts-ignore
+          // @ts-expect-error
           await analytics.trackInternal(trackTypes.PAGE, pageTypes.HOMEPAGE);
 
           expect(spyTrack).toBeCalled();

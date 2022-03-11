@@ -1,7 +1,6 @@
 import { StorageWrapper } from '../utils';
 import Consent from '../Consent';
 import TestStorage from 'test-storage';
-import type { ConsentData } from '../types/analytics.types';
 
 describe('Consent', () => {
   let storage: StorageWrapper;
@@ -53,6 +52,7 @@ describe('Consent', () => {
 
     expect(consentInStorage).toMatchObject(data);
 
+    // @ts-expect-error
     await consentInstance.set();
 
     consentInStorage = await storage.getItem('consent');
@@ -63,7 +63,7 @@ describe('Consent', () => {
   it('Should only set valid consent parameters on storage', async () => {
     const invalidData = {
       foo: true,
-    } as unknown as ConsentData;
+    };
 
     const inputConsentData = {
       marketing: false,
@@ -74,6 +74,7 @@ describe('Consent', () => {
       ...inputConsentData,
     };
 
+    // @ts-expect-error
     await consentInstance.set(invalidData);
 
     const consentInStorage = await storage.getItem('consent');
@@ -88,7 +89,8 @@ describe('Consent', () => {
   });
 
   it('Should throw if an invalid storage instance is passed to the constructor', () => {
-    const invalidData = undefined as unknown as StorageWrapper;
+    const invalidData = undefined;
+    // @ts-expect-error
     expect(() => new Consent(invalidData)).toThrow();
   });
 });

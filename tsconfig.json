@@ -1,5 +1,13 @@
 {
-  "include": ["packages", "tests"],
-  "exclude": ["**/node_modules/*", "./scripts", "**/docs/*", "**/__tests__/*"],
-  "extends": "./configs/typescript/tsconfig.basic.json"
+  "include": ["**/*.ts"],
+  "extends": "./configs/typescript/tsconfig.basic.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "baseUrl": "./",
+    "paths": {
+      "@farfetch/blackout-client/*": ["packages/client/src/*"],
+      "@farfetch/blackout-redux/*": ["packages/redux/src/*"],
+      "@farfetch/blackout-analytics": ["packages/analytics/src/"]
+    }
+  }
 }
