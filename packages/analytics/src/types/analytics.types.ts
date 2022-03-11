@@ -14,13 +14,15 @@ export type ConsentData = {
 };
 
 export type ContextData = {
-  library: string;
-  version: string;
-} & Record<string, unknown>;
+  library: {
+    name: string;
+    version: string;
+  } & Record<string, unknown>;
+};
 
 export type EventProperties = Record<string, unknown>;
 export type EventContextData = Record<string, unknown>;
-export type EventContext = ContextData & { event: Record<string, unknown> };
+export type EventContext = ContextData & { event?: Record<string, unknown> };
 
 export type EventData<T> = {
   type: T;
@@ -54,9 +56,9 @@ export type IntegrationOptions = Record<string, unknown>;
 export type UserTraits = Record<string, unknown>;
 
 export type UserData = {
-  id: string | null;
+  id: number | null | undefined;
   localId: string;
-  traits: UserTraits;
+  traits: UserTraits | null | undefined;
 };
 
 export type StrippedDownAnalytics = {
@@ -67,3 +69,5 @@ export type StrippedDownAnalytics = {
     eventContext?: EventContextData,
   ) => Promise<EventData<TrackTypesValues>>;
 };
+
+export type UseContextFn = () => object;

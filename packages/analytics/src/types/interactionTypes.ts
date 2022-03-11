@@ -16,6 +16,6 @@ const interactionTypes = {
   SWIPE: 'Swipe',
   DRAG: 'Drag',
   DROP: 'Drop',
-};
+} as const;
 
 export default interactionTypes;

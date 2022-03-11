@@ -8,6 +8,6 @@ const loginMethodParameterTypes = {
   TWITTER: 'Twitter',
   APPLE: 'Apple',
   OTHER: 'Other',
-};
+} as const;
 
 export default loginMethodParameterTypes;

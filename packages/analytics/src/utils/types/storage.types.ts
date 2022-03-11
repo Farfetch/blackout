@@ -27,3 +27,8 @@ export interface Storage {
    */
   clear(): Promise<void>;
 }
+
+export interface StorageData {
+  ttl: number;
+  [prop: string]: unknown;
+}

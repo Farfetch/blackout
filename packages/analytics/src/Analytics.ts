@@ -23,6 +23,7 @@ import type {
   LoadIntegrationEventData,
   SetUserEventData,
   TrackTypesValues,
+  UseContextFn,
   UserData,
   UserTraits,
 } from './types/analytics.types';
@@ -35,7 +36,7 @@ import type { Storage } from './utils/types';
 class Analytics {
   private isReady: boolean;
   private storage: StorageWrapper | null;
-  private contextFns: Array<() => unknown>;
+  private contextFns: Array<UseContextFn>;
   private userInstance: User | null;
   private consentInstance: Consent | null;
   private integrations: Map<string, IntegrationRuntimeData>;
@@ -247,7 +248,7 @@ class Analytics {
    *
    * @returns The analytics instance that was used when calling this method to allow chaining.
    */
-  useContext(contextFn: () => unknown): this {
+  useContext(contextFn: UseContextFn): this {
     if (typeof contextFn !== 'function') {
       logger.error(
         'Invalid context argument provided to `analytics.useContext`. You must provide a function.',
@@ -454,7 +455,9 @@ class Analytics {
         eventContext,
       );
 
-      this.callIntegrationsMethod(this.activeIntegrations, 'track', data);
+      this.forEachIntegrationSafe(this.activeIntegrations, integration =>
+        integration.track(data),
+      );
     } catch (error) {
       logger.error(
         `An error occurred when trying to track event: ${event}: ${error}`,
@@ -488,10 +491,19 @@ class Analytics {
         return;
       }
 
-      const shouldLoad = integration.Factory.shouldLoad(loadEventData.consent);
+      let shouldLoad;
 
-      if (!shouldLoad) {
-        // Nothing to do as well if the integration shouldn't load
+      try {
+        shouldLoad = integration.Factory.shouldLoad(loadEventData.consent);
+
+        if (!shouldLoad) {
+          // Nothing to do as well if the integration shouldn't load
+          return;
+        }
+      } catch (error) {
+        logger.error(
+          `An error occurred when calling 'shouldLoad' for Integration '${intName}': ${error}`,
+        );
         return;
       }
 
@@ -561,19 +573,17 @@ class Analytics {
   }
 
   /**
-   * Call a method in all integrations with the specified args and an optional log tag
-   * to be used in all logger calls.
+   * Executes the passed callback for each integration from the integrations
+   * parameter, handling any errors.
    *
-   * @param integrations - Integrations to call the method.
-   * @param methodName   - Name of the method to be called in all integrations.
-   * @param args         - Arguments to be passed to the method.
+   * @param integrations - Integrations to traverse.
+   * @param callback     - Callback to be executed for each integration.
    */
-  protected callIntegrationsMethod(
+  protected forEachIntegrationSafe(
     integrations:
       | Map<string, IntegrationRuntimeData>
       | IntegrationRuntimeData[],
-    methodName: string,
-    ...args: unknown[]
+    callback: (integration: Integration) => void,
   ): void {
     if (!integrations || !integrations.forEach) {
       return;
@@ -581,11 +591,14 @@ class Analytics {
 
     integrations.forEach(item => {
       try {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (item.instance as any)[methodName](...args);
+        if (!item.instance) {
+          return;
+        }
+
+        callback(item.instance);
       } catch (e) {
         logger.error(
-          `${methodName} skipped for integration: '${item.name}': Unhandled exception: ${e}`,
+          `An error occurred for integration: '${item.name}': Unhandled exception: ${e}`,
         );
       }
     });
@@ -610,7 +623,9 @@ class Analytics {
 
     const data = await this.getSetUserEventData();
 
-    this.callIntegrationsMethod(this.activeIntegrations, 'onSetUser', data);
+    this.forEachIntegrationSafe(this.activeIntegrations, integration =>
+      integration.onSetUser(data),
+    );
   }
 
   /**

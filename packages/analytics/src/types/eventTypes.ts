@@ -70,6 +70,6 @@ const eventTypes = {
   SIGNUP_FORM_VIEWED: 'Sign-up Form Viewed',
   /** Signup Newsletter should be tracked when the user signs-up the newsletter. */
   SIGNUP_NEWSLETTER: 'Sign-up Newsletter',
-};
+} as const;
 
 export default eventTypes;

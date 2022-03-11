@@ -11,7 +11,7 @@
     "src"
   ],
   "scripts": {
-    "types": "tsc --build src"
+    "types": "tsc --build src/tsconfig.build.json"
   },
   "repository": {
     "type": "git",

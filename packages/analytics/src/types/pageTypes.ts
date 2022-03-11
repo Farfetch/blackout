@@ -41,7 +41,7 @@ const pageTypes = {
   STORES: 'stores',
   UNSUBSCRIBE: 'unsubscribe',
   WISHLIST: 'wishlist',
-};
+} as const;
 
 /**
  * Validates if the pageType passed exists in `pageTypes`.

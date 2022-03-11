@@ -1,8 +1,8 @@
 {
-  "extends": "./tsconfig.json",
-  "exclude": ["**/__tests__/*", "**/__fixtures__/*"],
-  "include": ["src", "../../types"],
+  "extends": "../../configs/typescript/tsconfig.package-build.json",
   "compilerOptions": {
     "rootDir": "src"
-  }
+  },
+  "exclude": ["**/*.test.ts*", "**/*.types.ts", "**/__fixtures__/*"],
+  "include": ["src"]
 }
