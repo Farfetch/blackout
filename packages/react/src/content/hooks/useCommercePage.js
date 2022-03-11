@@ -7,7 +7,7 @@ import {
 } from '@farfetch/blackout-core/contents/redux';
 import { getCommercePages as getCommerceClient } from '@farfetch/blackout-core/contents/client';
 import { useAction } from '../../utils';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 /**
@@ -35,33 +35,55 @@ import { useSelector } from 'react-redux';
  * @returns {object} - Returns actions and selectors for commerce page data.
  */
 export default (slug, params, pageIndex, pageSize, strategy = 'default') => {
-  const queryCommerce = {
-    type: params.type,
-    id: params?.id,
-    gender: params?.gender,
-    brand: params?.brand,
-    category: params?.category,
-    priceType: params?.priceType,
-    sku: params?.sku,
-    pageSize,
-    pageIndex,
-  };
-  const queryContent = {
-    codes: slug,
-    contentTypeCode: 'commerce_pages',
-    pageIndex,
-    pageSize,
-  };
+  const queryCommerce = useMemo(() => {
+    if (!params) {
+      return null;
+    }
+
+    return {
+      type: params.type,
+      id: params?.id,
+      gender: params?.gender,
+      brand: params?.brand,
+      category: params?.category,
+      priceType: params?.priceType,
+      sku: params?.sku,
+      pageSize,
+      pageIndex,
+    };
+  }, [pageIndex, pageSize, params]);
+
+  const queryContent = useMemo(() => {
+    if (!slug) {
+      return null;
+    }
+
+    return {
+      codes: slug,
+      contentTypeCode: 'commerce_pages',
+      pageIndex,
+      pageSize,
+    };
+  }, [pageIndex, pageSize, slug]);
+
   const error = useSelector(state => getContentError(state, queryContent));
   const isLoading = useSelector(state => isContentLoading(state, queryContent));
   const commercePage = useSelector(state => getContents(state, queryContent));
   const action = useAction(doGetCommercePages(getCommerceClient));
-  const fetchCommerce = () => action(queryCommerce, slug, strategy);
   const resetContent = useAction(resetContents);
 
+  const fetchCommerce = useCallback(() => {
+    if (!queryCommerce) {
+      return null;
+    }
+
+    return action(queryCommerce, slug, strategy);
+  }, [action, queryCommerce, slug, strategy]);
+
   useEffect(() => {
-    !commercePage && fetchCommerce();
-  }, [commercePage, slug]);
+    fetchCommerce();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return {
     /**
