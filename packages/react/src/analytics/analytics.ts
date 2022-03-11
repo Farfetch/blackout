@@ -2,7 +2,7 @@ import Analytics, {
   trackTypes as analyticsTrackTypes,
   EventContextData,
   EventProperties,
-  type IntegrationRuntimeData,
+  IntegrationRuntimeData,
   platformTypes,
 } from '@farfetch/blackout-analytics';
 /**
@@ -13,8 +13,8 @@ import Analytics, {
 class AnalyticsWeb extends Analytics {
   currentPageCallData: {
     event: string;
-    properties?: Record<string, unknown>;
-    eventContext?: Record<string, unknown>;
+    properties?: EventProperties;
+    eventContext?: EventContextData;
   } | null;
 
   constructor() {
@@ -45,10 +45,8 @@ class AnalyticsWeb extends Analytics {
         properties,
       );
 
-      super.callIntegrationsMethod(
-        loadedIntegrations,
-        analyticsTrackTypes.TRACK,
-        pageEventData,
+      super.forEachIntegrationSafe(loadedIntegrations, integration =>
+        integration.track(pageEventData),
       );
     }
   }

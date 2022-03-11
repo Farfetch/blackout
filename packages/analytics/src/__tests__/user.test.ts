@@ -89,7 +89,8 @@ describe('User', () => {
   });
 
   it('Should throw if an invalid storage instance is passed to the constructor', () => {
-    const invalidData = undefined as unknown as StorageWrapper;
+    const invalidData = undefined;
+    // @ts-expect-error
     expect(() => new User(invalidData)).toThrow();
   });
 });

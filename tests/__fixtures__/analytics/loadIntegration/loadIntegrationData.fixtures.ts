@@ -3,7 +3,7 @@ import baseAnalyticsEventData from '../baseAnalyticsEventData.fixtures.json';
 
 export default {
   ...baseAnalyticsEventData,
-  type: utils.ON_SET_USER_TRACK_TYPE,
+  type: utils.LOAD_INTEGRATION_TRACK_TYPE,
   properties: {},
-  event: utils.ON_SET_USER_TRACK_TYPE,
+  event: utils.LOAD_INTEGRATION_TRACK_TYPE,
 } as const;

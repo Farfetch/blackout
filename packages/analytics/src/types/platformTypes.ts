@@ -9,6 +9,6 @@ const platformTypes = {
   Mobile: 'mobile',
   /** Web is to be used when running on a web app. Used by @farfetch/blackout-react/analytics facade. */
   Web: 'web',
-};
+} as const;
 
 export default platformTypes;

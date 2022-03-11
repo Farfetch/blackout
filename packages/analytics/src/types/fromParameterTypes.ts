@@ -12,6 +12,6 @@ const fromParameterTypes = {
   RECENTLY_VIEWED: 'Recently Viewed',
   EDITORIAL: 'Editorial',
   OTHER: 'Other',
-};
+} as const;
 
 export default fromParameterTypes;
