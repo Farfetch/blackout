@@ -1,7 +1,12 @@
-import { eventTypes, fromParameterTypes } from '@farfetch/blackout-analytics';
+import {
+  EventData,
+  eventTypes,
+  fromParameterTypes,
+  TrackTypesValues,
+} from '@farfetch/blackout-analytics';
 import baseTrackData from './baseTrackData.fixtures';
 
-export default {
+const data: EventData<TrackTypesValues> = {
   ...baseTrackData,
   event: eventTypes.PRODUCT_ADDED_TO_CART,
   properties: {
@@ -23,3 +28,5 @@ export default {
     listId: 'd3618128-5aa9-4caa-a452-1dd1377a6190',
   },
 };
+
+export default data;

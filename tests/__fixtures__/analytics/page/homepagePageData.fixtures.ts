@@ -1,7 +1,11 @@
-import { pageTypes } from '@farfetch/blackout-analytics';
+import {
+  EventData,
+  pageTypes,
+  TrackTypesValues,
+} from '@farfetch/blackout-analytics';
 import basePageData from './basePageData.fixtures';
 
-export default {
+const data: EventData<TrackTypesValues> = {
   ...basePageData,
   properties: {
     storeId: 123123,
@@ -10,3 +14,5 @@ export default {
   },
   event: pageTypes.HOMEPAGE,
 };
+
+export default data;

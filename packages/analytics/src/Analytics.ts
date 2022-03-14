@@ -344,7 +344,7 @@ class Analytics {
     Factory: IntegrationFactory,
     options: IntegrationOptions = {},
   ): this {
-    const isSubclass = Factory.prototype instanceof Integration;
+    const isSubclass = Factory && Factory.prototype instanceof Integration;
 
     if (!isSubclass) {
       logger.error(
