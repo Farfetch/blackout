@@ -15,7 +15,7 @@ const usersMockStore = (state = {}) =>
   mockStore({ users: INITIAL_STATE }, state);
 
 describe('fetchUserAttributes action creator', () => {
-  let store;
+  let store = usersMockStore();
   const userId = 123456789;
   const query = {};
   const expectedConfig = undefined;
@@ -28,7 +28,7 @@ describe('fetchUserAttributes action creator', () => {
   it('should create the correct actions for when the fetch user attributes procedure fails', async () => {
     const expectedError = new Error('fetch user attributes error');
 
-    getUserAttributes.mockRejectedValueOnce(expectedError);
+    (getUserAttributes as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
@@ -54,7 +54,9 @@ describe('fetchUserAttributes action creator', () => {
   });
 
   it('should create the correct actions for when the fetch user attributes procedure is successful', async () => {
-    getUserAttributes.mockResolvedValueOnce(mockGetUserAttributesResponse);
+    (getUserAttributes as jest.Mock).mockResolvedValueOnce(
+      mockGetUserAttributesResponse,
+    );
 
     await store.dispatch(fetchUserAttributes(userId, query));
 

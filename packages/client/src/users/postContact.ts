@@ -1,5 +1,6 @@
 import client, { adaptError } from '../helpers/client';
 import join from 'proper-url-join';
+import type { PostContact } from './types';
 
 /**
  * Method responsible for creating a new user contact.
@@ -16,7 +17,7 @@ import join from 'proper-url-join';
  * @returns {Promise} Promise that will resolve when the call to
  * the endpoint finishes.
  */
-const postContact = (userId, data, query, config) =>
+const postContact: PostContact = (userId, data, query?, config?) =>
   client
     .post(
       join('/account/v1/users', userId, 'contacts', { query }),

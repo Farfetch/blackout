@@ -2,8 +2,9 @@ import * as fromReducer from '../reducer';
 import { LOGOUT_SUCCESS } from '@farfetch/blackout-redux/authentication/actionTypes';
 import { returnId } from 'tests/__fixtures__/returns';
 import reducer, { actionTypes, entitiesMapper } from '..';
+import type { State } from '../types';
 
-let initialState;
+let initialState: State;
 const randomAction = { type: 'this_is_a_random_action' };
 
 describe('returns reducer', () => {
@@ -12,7 +13,7 @@ describe('returns reducer', () => {
   });
 
   describe('error() reducer', () => {
-    const expectedResult = 'foo';
+    const expectedResult = new Error();
 
     it('should return the initial state', () => {
       const state = reducer(undefined, randomAction).error;
@@ -39,46 +40,46 @@ describe('returns reducer', () => {
     it('should handle CREATE_RETURN_FAILURE action type', () => {
       expect(
         reducer(undefined, {
-          payload: { error: expectedResult },
+          payload: { error: new Error() },
           type: actionTypes.CREATE_RETURN_FAILURE,
         }).error,
-      ).toBe(expectedResult);
+      ).toStrictEqual(expectedResult);
     });
 
     it('should handle FETCH_PICKUP_CAPABILITIES_FAILURE action type', () => {
       expect(
         reducer(undefined, {
-          payload: { error: expectedResult },
+          payload: { error: new Error() },
           type: actionTypes.FETCH_PICKUP_CAPABILITIES_FAILURE,
         }).error,
-      ).toBe(expectedResult);
+      ).toStrictEqual(expectedResult);
     });
 
     it('should handle FETCH_RETURN_FAILURE action type', () => {
       expect(
         reducer(undefined, {
-          payload: { error: expectedResult },
+          payload: { error: new Error() },
           type: actionTypes.FETCH_RETURN_FAILURE,
         }).error,
-      ).toBe(expectedResult);
+      ).toStrictEqual(expectedResult);
     });
 
     it('should handle FETCH_REFERENCES_FAILURE action type', () => {
       expect(
         reducer(undefined, {
-          payload: { error: expectedResult },
+          payload: { error: new Error() },
           type: actionTypes.FETCH_REFERENCES_FAILURE,
         }).error,
-      ).toBe(expectedResult);
+      ).toStrictEqual(expectedResult);
     });
 
     it('should handle UPDATE_RETURN_FAILURE action type', () => {
       expect(
         reducer(undefined, {
-          payload: { error: expectedResult },
+          payload: { error: new Error() },
           type: actionTypes.UPDATE_RETURN_FAILURE,
         }).error,
-      ).toBe(expectedResult);
+      ).toStrictEqual(expectedResult);
     });
 
     it('should handle other actions by returning the previous state', () => {
@@ -97,7 +98,9 @@ describe('returns reducer', () => {
     });
 
     it('should handle CREATE_RETURN_SUCCESS action type', () => {
-      const expectedResult = { result: returnId };
+      const expectedResult = {
+        result: returnId,
+      } as unknown as string as unknown as string;
 
       expect(
         reducer(undefined, {
@@ -108,7 +111,9 @@ describe('returns reducer', () => {
     });
 
     it('should handle FETCH_RETURN_SUCCESS action type', () => {
-      const expectedResult = { result: returnId };
+      const expectedResult = {
+        result: returnId,
+      } as unknown as string as unknown as string;
 
       expect(
         reducer(undefined, {
@@ -163,7 +168,7 @@ describe('returns reducer', () => {
       expect(
         reducer(undefined, {
           type: actionTypes.FETCH_RETURN_SUCCESS,
-          payload: { result: returnId },
+          payload: { result: returnId } as unknown as string,
         }).isLoading,
       ).toBe(initialState.isLoading);
     });
@@ -172,7 +177,7 @@ describe('returns reducer', () => {
       expect(
         reducer(undefined, {
           type: actionTypes.CREATE_RETURN_SUCCESS,
-          payload: { result: returnId },
+          payload: { result: returnId } as unknown as string,
         }).isLoading,
       ).toBe(initialState.isLoading);
     });
@@ -180,7 +185,7 @@ describe('returns reducer', () => {
     it('should handle CREATE_RETURN_FAILURE action type', () => {
       expect(
         reducer(undefined, {
-          payload: { error: '' },
+          payload: { error: new Error() },
           type: actionTypes.CREATE_RETURN_FAILURE,
         }).isLoading,
       ).toBe(initialState.isLoading);
@@ -189,7 +194,7 @@ describe('returns reducer', () => {
     it('should handle FETCH_PICKUP_CAPABILITIES_FAILURE action type', () => {
       expect(
         reducer(undefined, {
-          payload: { error: '' },
+          payload: { error: new Error() },
           type: actionTypes.FETCH_PICKUP_CAPABILITIES_FAILURE,
         }).isLoading,
       ).toBe(initialState.isLoading);
@@ -198,7 +203,7 @@ describe('returns reducer', () => {
     it('should handle FETCH_RETURN_FAILURE action type', () => {
       expect(
         reducer(undefined, {
-          payload: { error: '' },
+          payload: { error: new Error() },
           type: actionTypes.FETCH_RETURN_FAILURE,
         }).isLoading,
       ).toBe(initialState.isLoading);
@@ -207,7 +212,7 @@ describe('returns reducer', () => {
     it('should handle FETCH_REFERENCES_FAILURE action type', () => {
       expect(
         reducer(undefined, {
-          payload: { error: '' },
+          payload: { error: new Error() },
           type: actionTypes.FETCH_REFERENCES_FAILURE,
         }).isLoading,
       ).toBe(initialState.isLoading);
@@ -216,7 +221,7 @@ describe('returns reducer', () => {
     it('should handle UPDATE_RETURN_FAILURE action type', () => {
       expect(
         reducer(undefined, {
-          payload: { error: '' },
+          payload: { error: new Error() },
           type: actionTypes.UPDATE_RETURN_FAILURE,
         }).isLoading,
       ).toBe(initialState.isLoading);
@@ -286,7 +291,7 @@ describe('returns reducer', () => {
 
     it('should handle LOGOUT_SUCCESS', () => {
       expect(
-        entitiesMapper[LOGOUT_SUCCESS](state, {
+        entitiesMapper[LOGOUT_SUCCESS as keyof typeof entitiesMapper](state, {
           meta: { resetEntities: false },
           type: LOGOUT_SUCCESS,
         }),
@@ -304,7 +309,7 @@ describe('returns reducer', () => {
 
   describe('getError() selector', () => {
     it('should return the `error` property from a given state', () => {
-      const error = 'foo';
+      const error = new Error();
 
       expect(fromReducer.getError({ ...initialState, error })).toBe(error);
     });
@@ -312,7 +317,7 @@ describe('returns reducer', () => {
 
   describe('getIsLoading() selector', () => {
     it('should return the `isLoading` property from a given state', () => {
-      const isLoading = 'foo';
+      const isLoading = false;
 
       expect(fromReducer.getIsLoading({ ...initialState, isLoading })).toBe(
         isLoading,

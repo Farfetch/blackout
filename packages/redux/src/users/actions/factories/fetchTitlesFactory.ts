@@ -5,6 +5,7 @@ import {
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
 import titlesSchema from '../../../entities/schemas/titles';
+import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
   GetTitles,
@@ -41,7 +42,7 @@ import type {
 
 const fetchTitlesFactory =
   (getTitles: GetTitles) =>
-  (query: GetTitlesQuery, config: Record<string, unknown>) =>
+  (query: GetTitlesQuery, config?: Config) =>
   async (dispatch: Dispatch) => {
     dispatch({
       type: FETCH_TITLES_REQUEST,

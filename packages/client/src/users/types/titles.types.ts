@@ -12,6 +12,6 @@ export type GetTitlesResponse = {
 };
 
 export type GetTitles = (
-  query: GetTitlesQuery,
+  query: GetTitlesQuery | undefined,
   config?: Config,
 ) => Promise<GetTitlesResponse>;

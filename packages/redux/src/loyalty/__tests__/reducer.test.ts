@@ -1,8 +1,16 @@
 import * as fromReducer from '../reducer';
-import { LOGOUT_SUCCESS } from '@farfetch/blackout-redux/authentication/actionTypes';
+import { LOGOUT_SUCCESS } from '../../authentication/actionTypes';
 import reducer, { actionTypes } from '..';
+import type { State } from '../types';
 
-let initialState;
+let initialState: State;
+const subAreas = {
+  programs: {},
+  membership: {},
+  replacements: {},
+  converts: {},
+  statements: {},
+};
 
 describe('loyalty reducer', () => {
   beforeEach(() => {
@@ -17,9 +25,9 @@ describe('loyalty reducer', () => {
       'converts',
       'statements',
     ])('should return the initial state of %s', subArea => {
-      const state = fromReducer.INITIAL_STATE[subArea];
+      const state = fromReducer.INITIAL_STATE[subArea as keyof typeof subAreas];
 
-      expect(state).toEqual(initialState[subArea]);
+      expect(state).toEqual(initialState[subArea as keyof typeof subAreas]);
     });
 
     it('should return the initial state when is a LOGOUT_SUCCESS action', () => {
@@ -43,14 +51,14 @@ describe('loyalty reducer', () => {
       [actionTypes.FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_REQUEST, 'statements'],
     ])('should handle %s action type', (actionType, subArea) => {
       const expectedResult = {
-        error: initialState[subArea].error,
+        error: initialState[subArea as keyof typeof subAreas].error,
         isLoading: true,
       };
 
       expect(
         reducer(undefined, {
           type: actionType,
-        })[subArea],
+        })[subArea as keyof typeof subAreas],
       ).toEqual(expectedResult);
     });
 
@@ -59,15 +67,15 @@ describe('loyalty reducer', () => {
       [actionTypes.CREATE_PROGRAM_MEMBERSHIP_REQUEST, 'membership'],
     ])('should handle %s action type', (actionType, subArea) => {
       const expectedResult = {
-        ...initialState[subArea],
-        error: initialState[subArea].error,
+        ...initialState[subArea as keyof typeof subAreas],
+        error: initialState[subArea as keyof typeof subAreas].error,
         isLoading: true,
       };
 
       expect(
         reducer(undefined, {
           type: actionType,
-        })[subArea],
+        })[subArea as keyof typeof subAreas],
       ).toEqual(expectedResult);
     });
   });
@@ -85,7 +93,7 @@ describe('loyalty reducer', () => {
       [actionTypes.FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_SUCCESS, 'statements'],
     ])('should handle %s action type', (actionType, subArea) => {
       const expectedResult = {
-        ...initialState[subArea],
+        ...initialState[subArea as keyof typeof subAreas],
         result: 'foo',
       };
 
@@ -93,7 +101,7 @@ describe('loyalty reducer', () => {
         reducer(undefined, {
           payload: { result: 'foo' },
           type: actionType,
-        })[subArea],
+        })[subArea as keyof typeof subAreas],
       ).toEqual(expectedResult);
     });
   });
@@ -109,7 +117,7 @@ describe('loyalty reducer', () => {
       [actionTypes.FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_FAILURE, 'statements'],
     ])('should handle %s action type', (actionType, subArea) => {
       const expectedResult = {
-        isLoading: initialState[subArea].isLoading,
+        isLoading: initialState[subArea as keyof typeof subAreas].isLoading,
         error: 'error',
       };
 
@@ -117,7 +125,7 @@ describe('loyalty reducer', () => {
         reducer(undefined, {
           payload: { error: 'error' },
           type: actionType,
-        })[subArea],
+        })[subArea as keyof typeof subAreas],
       ).toEqual(expectedResult);
     });
 
@@ -126,8 +134,8 @@ describe('loyalty reducer', () => {
       [actionTypes.CREATE_PROGRAM_MEMBERSHIP_FAILURE, 'membership'],
     ])('should handle %s action type', (actionType, subArea) => {
       const expectedResult = {
-        ...initialState[subArea],
-        isLoading: initialState[subArea].isLoading,
+        ...initialState[subArea as keyof typeof subAreas],
+        isLoading: initialState[subArea as keyof typeof subAreas].isLoading,
         error: 'error',
       };
 
@@ -135,7 +143,7 @@ describe('loyalty reducer', () => {
         reducer(undefined, {
           payload: { error: 'error' },
           type: actionType,
-        })[subArea],
+        })[subArea as keyof typeof subAreas],
       ).toEqual(expectedResult);
     });
   });

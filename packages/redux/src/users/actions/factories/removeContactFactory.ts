@@ -3,6 +3,7 @@ import {
   REMOVE_CONTACT_REQUEST,
   REMOVE_CONTACT_SUCCESS,
 } from '../../actionTypes';
+import type { Config } from '@farfetch/blackout-client/types';
 import type {
   DeleteContact,
   DeleteContactQuery,
@@ -32,12 +33,7 @@ import type { Dispatch } from 'redux';
 
 const removeContactFactory =
   (deleteContact: DeleteContact) =>
-  (
-    id: number,
-    contactId: string,
-    query: DeleteContactQuery,
-    config: Record<string, unknown>,
-  ) =>
+  (id: number, contactId: string, query: DeleteContactQuery, config?: Config) =>
   async (dispatch: Dispatch) => {
     dispatch({
       type: REMOVE_CONTACT_REQUEST,

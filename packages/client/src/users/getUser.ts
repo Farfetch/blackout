@@ -1,4 +1,5 @@
 import client, { adaptError } from '../helpers/client';
+import type { Config } from '../types';
 
 /**
  * Method responsible for fetching the logged user data.
@@ -12,7 +13,7 @@ import client, { adaptError } from '../helpers/client';
  * @returns {Promise} Promise that will resolve when the call to
  * the endpoint finishes.
  */
-const getUser = config =>
+const getUser = (config?: Config) =>
   client
     .get('/account/v1/users/me', config)
     .then(response => response.data)

@@ -379,11 +379,13 @@ export const entitiesMapper = {
       );
 
       return produce(state, draftState => {
-        if (!draftState.addressSchema) {
-          draftState.addressSchema = {};
-        }
+        if (draftState) {
+          if (!draftState.addressSchema) {
+            draftState.addressSchema = {};
+          }
 
-        draftState.addressSchema[countryId] = { ...countrySchema };
+          draftState.addressSchema[countryId] = { ...countrySchema };
+        }
       });
     },
   [actionTypes.SET_DEFAULT_CONTACT_ADDRESS_SUCCESS as typeof actionTypes.SET_DEFAULT_CONTACT_ADDRESS_SUCCESS]:

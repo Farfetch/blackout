@@ -39,7 +39,7 @@ const createContactFactory =
     id: number,
     data: Contact,
     query: PostContactQuery,
-    config: Record<string, unknown>,
+    config?: Record<string, unknown>,
   ) =>
   async (dispatch: Dispatch) => {
     dispatch({

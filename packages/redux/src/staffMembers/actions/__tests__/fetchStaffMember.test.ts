@@ -14,10 +14,11 @@ jest.mock('@farfetch/blackout-client/staffMembers', () => ({
   getStaffMember: jest.fn(),
 }));
 
-let store;
 const expectedConfig = undefined;
 const staffMembersMockStore = (state = {}) =>
   mockStore({ staffMembers: INITIAL_STATE }, state);
+
+let store = staffMembersMockStore(mockState);
 
 describe('fetchStaffMember() action creator', () => {
   beforeEach(() => {
@@ -28,39 +29,41 @@ describe('fetchStaffMember() action creator', () => {
   it('should create the correct actions for when the fetch staff member fail', async () => {
     const expectedError = new Error('fetch staff member error');
 
-    getStaffMember.mockRejectedValueOnce(expectedError);
+    (getStaffMember as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchStaffMember(mockStaffMemberId)).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getStaffMember).toHaveBeenCalledTimes(1);
-      expect(getStaffMember).toHaveBeenCalledWith(
-        mockStaffMemberId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          type: actionTypes.FETCH_STAFF_MEMBER_REQUEST,
-          meta: { id: mockStaffMemberId },
-        },
-        {
-          type: actionTypes.FETCH_STAFF_MEMBER_FAILURE,
-          payload: { error: expectedError },
-          meta: { id: mockStaffMemberId },
-        },
-      ]);
-    });
+    await store
+      .dispatch(fetchStaffMember(mockStaffMemberId))
+      .catch((error: Error) => {
+        expect(error).toBe(expectedError);
+        expect(getStaffMember).toHaveBeenCalledTimes(1);
+        expect(getStaffMember).toHaveBeenCalledWith(
+          mockStaffMemberId,
+          expectedConfig,
+        );
+        expect(store.getActions()).toEqual([
+          {
+            type: actionTypes.FETCH_STAFF_MEMBER_REQUEST,
+            meta: { id: mockStaffMemberId },
+          },
+          {
+            type: actionTypes.FETCH_STAFF_MEMBER_FAILURE,
+            payload: { error: expectedError },
+            meta: { id: mockStaffMemberId },
+          },
+        ]);
+      });
   });
 
   it('should create the correct actions for when the fetch staff member procedure is successful', async () => {
-    getStaffMember.mockResolvedValueOnce(mockStaffMember);
+    (getStaffMember as jest.Mock).mockResolvedValueOnce(mockStaffMember);
 
     expect.assertions(4);
 
     await store
       .dispatch(fetchStaffMember(mockStaffMemberId, expectedConfig))
-      .then(clientResult => {
+      .then((clientResult: typeof mockStaffMember) => {
         expect(clientResult).toBe(mockStaffMember);
       });
 

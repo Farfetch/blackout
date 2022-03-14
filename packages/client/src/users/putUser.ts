@@ -1,6 +1,6 @@
 import client, { adaptError } from '../helpers/client';
 import join from 'proper-url-join';
-
+import type { PutUser } from './types';
 /**
  * Method responsible for update user's data.
  *
@@ -15,7 +15,7 @@ import join from 'proper-url-join';
  * @returns {Promise} Promise that will resolve when the call to
  * the endpoint finishes.
  */
-const putUser = (id, data, config) =>
+const putUser: PutUser = (id, data, config) =>
   client
     .put(join('/account/v1/users', id), data, config)
     .then(response => response.data)

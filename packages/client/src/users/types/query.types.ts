@@ -34,3 +34,8 @@ export interface GetTitlesQuery {
   page: number;
   pageSize: number;
 }
+
+export interface GetCreditMovementsQuery {
+  id: number;
+  externalId?: string;
+}

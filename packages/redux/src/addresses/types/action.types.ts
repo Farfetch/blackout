@@ -5,6 +5,7 @@ import type {
   AddressSchemaLine,
   Prediction,
   PredictionDetails,
+  Schema,
   User,
 } from '@farfetch/blackout-client/addresses/types';
 import type { Error } from '@farfetch/blackout-client/types';
@@ -119,10 +120,7 @@ export interface FetchAddressSchemaRequestAction extends Action {
 export interface FetchAddressSchemaSuccessAction extends Action {
   payload: {
     entities: {
-      addressSchema: Record<
-        string,
-        { addressSchemaLines: AddressSchemaLine[] }
-      >;
+      addressSchema: Record<string, Schema>;
     };
     result: string;
   };

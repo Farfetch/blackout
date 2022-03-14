@@ -5,6 +5,7 @@ import {
   UPDATE_PREFERENCES_SUCCESS,
 } from '../../actionTypes';
 import userPreferencesSchema from '../../../entities/schemas/preference';
+import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
   SetPreferences,
@@ -33,7 +34,7 @@ import type {
  */
 const setPreferencesFactory =
   (updatePreferences: SetPreferences) =>
-  (userId: number, data: SetPreferencesData, config: Record<string, unknown>) =>
+  (userId: number, data: SetPreferencesData, config?: Config) =>
   async (dispatch: Dispatch) => {
     dispatch({
       type: UPDATE_PREFERENCES_REQUEST,

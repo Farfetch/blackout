@@ -1,5 +1,6 @@
 import client, { adaptError } from '../helpers/client';
 import join from 'proper-url-join';
+import type { DeleteContact } from './types';
 
 /**
  * Method responsible for deleting a user contact.
@@ -16,7 +17,7 @@ import join from 'proper-url-join';
  * @returns {Promise} Promise that will resolve when the call to
  * the endpoint finishes.
  */
-const deleteContact = (userId, contactId, query, config) =>
+const deleteContact: DeleteContact = (userId, contactId, query?, config?) =>
   client
     .delete(
       join('/account/v1/users', userId, 'contacts', contactId, {
