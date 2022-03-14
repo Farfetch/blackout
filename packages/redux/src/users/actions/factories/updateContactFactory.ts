@@ -41,7 +41,7 @@ const updateContactFactory =
     contactId: string,
     data: PatchContactData,
     query: PatchContactQuery,
-    config: Record<string, unknown>,
+    config?: Record<string, unknown>,
   ) =>
   async (dispatch: Dispatch) => {
     dispatch({

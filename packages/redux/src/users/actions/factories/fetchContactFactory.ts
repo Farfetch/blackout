@@ -5,6 +5,7 @@ import {
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
 import contactsSchema from '../../../entities/schemas/contact';
+import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
   GetContact,
@@ -34,12 +35,7 @@ import type {
  */
 const fetchContactFactory =
   (getContact: GetContact) =>
-  (
-    id: number,
-    contactId: string,
-    query: GetContactQuery,
-    config: Record<string, unknown>,
-  ) =>
+  (id: number, contactId: string, query: GetContactQuery, config?: Config) =>
   async (dispatch: Dispatch) => {
     dispatch({
       type: FETCH_CONTACT_REQUEST,

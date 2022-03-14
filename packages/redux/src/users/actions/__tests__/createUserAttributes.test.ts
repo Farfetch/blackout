@@ -15,8 +15,10 @@ const usersMockStore = (state = {}) =>
   mockStore({ users: INITIAL_STATE }, state);
 
 describe('createUserAttributes action creator', () => {
-  let store;
+  let store = usersMockStore();
+  const userId = 12345;
   const data = {
+    userId,
     type: 'Generic',
     channelCode: 'channel_abc',
     details: {
@@ -26,7 +28,6 @@ describe('createUserAttributes action creator', () => {
       },
     },
   };
-  const userId = 12345;
   const expectedConfig = undefined;
 
   beforeEach(() => {
@@ -37,7 +38,7 @@ describe('createUserAttributes action creator', () => {
   it('should create the correct actions for when the create user attributes procedure fails', async () => {
     const expectedError = new Error('create user attributes error');
 
-    postUserAttributes.mockRejectedValueOnce(expectedError);
+    (postUserAttributes as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
@@ -63,7 +64,9 @@ describe('createUserAttributes action creator', () => {
   });
 
   it('should create the correct actions for when the create user attributes procedure is successful', async () => {
-    postUserAttributes.mockResolvedValueOnce(mockPostUserAttributesResponse);
+    (postUserAttributes as jest.Mock).mockResolvedValueOnce(
+      mockPostUserAttributesResponse,
+    );
     await store.dispatch(createUserAttributes(userId, data));
 
     const actionResults = store.getActions();

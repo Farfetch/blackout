@@ -3,23 +3,40 @@ import * as fromReducer from '../reducer';
 import * as selectors from '../selectors';
 import { mockState } from 'tests/__fixtures__/loyalty';
 
-const testEntitySelector = (selector, subArea) => {
+const testEntitySelector = (selector: (n: any) => unknown, subArea: string) => {
   const spy = jest.spyOn(fromEntities, 'getEntities');
-  expect(selector(mockState)).toEqual(mockState.entities[subArea]);
+  expect(selector(mockState)).toEqual(
+    mockState.entities[subArea as keyof typeof mockState.entities],
+  );
   expect(spy).toHaveBeenCalledWith(mockState, subArea);
 };
-const testErrorSelector = (selector, subArea, spy) => {
-  const expectedResult = mockState.loyalty[subArea].error;
+const testErrorSelector = (
+  selector: (n: any) => unknown,
+  subArea: string,
+  spy: jest.SpyInstance,
+) => {
+  const expectedResult =
+    mockState.loyalty[subArea as keyof typeof mockState.loyalty].error;
   expect(selector(mockState)).toEqual(expectedResult);
   expect(spy).toHaveBeenCalledTimes(1);
 };
-const testIsLoadingSelector = (selector, subArea, spy) => {
-  const expectedResult = mockState.loyalty[subArea].isLoading;
+const testIsLoadingSelector = (
+  selector: (n: any) => unknown,
+  subArea: string,
+  spy: jest.SpyInstance,
+) => {
+  const expectedResult =
+    mockState.loyalty[subArea as keyof typeof mockState.loyalty].isLoading;
   expect(selector(mockState)).toEqual(expectedResult);
   expect(spy).toHaveBeenCalledTimes(1);
 };
-const testResultSelector = (selector, subArea, spy) => {
-  const expectedResult = mockState.loyalty[subArea].result;
+const testResultSelector = (
+  selector: (n: any) => unknown,
+  subArea: string,
+  spy: jest.SpyInstance,
+) => {
+  const expectedResult =
+    mockState.loyalty[subArea as keyof typeof mockState.loyalty].result;
   expect(selector(mockState)).toEqual(expectedResult);
   expect(spy).toHaveBeenCalledTimes(1);
 };

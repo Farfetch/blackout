@@ -3,6 +3,12 @@ import {
   FETCH_USER_REQUEST,
   FETCH_USER_SUCCESS,
 } from '../../actionTypes';
+import type { Config } from '@farfetch/blackout-client/types';
+import type { Dispatch } from 'redux';
+import type {
+  GetUser,
+  GetUserData,
+} from '@farfetch/blackout-client/users/types';
 
 /**
  * @callback FetchUserThunkFactory
@@ -24,33 +30,36 @@ import {
  *
  * @returns {FetchUserThunkFactory} Thunk factory.
  */
-const fetchUserFactory = getUser => (data, config) => async dispatch => {
-  dispatch({
-    type: FETCH_USER_REQUEST,
-  });
-
-  try {
-    const result = await getUser(data, config);
-    const userEntity = {
-      entities: { user: result },
-      result: result.id,
-    };
-
+const fetchUserFactory =
+  (getUser: GetUser) =>
+  (data: GetUserData, config?: Config) =>
+  async (dispatch: Dispatch) => {
     dispatch({
-      payload: userEntity,
-      type: FETCH_USER_SUCCESS,
-      meta: config,
+      type: FETCH_USER_REQUEST,
     });
 
-    return result;
-  } catch (error) {
-    dispatch({
-      payload: { error },
-      type: FETCH_USER_FAILURE,
-    });
+    try {
+      const result = await getUser(data, config);
+      const userEntity = {
+        entities: { user: result },
+        result: result.id,
+      };
 
-    throw error;
-  }
-};
+      dispatch({
+        payload: userEntity,
+        type: FETCH_USER_SUCCESS,
+        meta: config,
+      });
+
+      return result;
+    } catch (error) {
+      dispatch({
+        payload: { error },
+        type: FETCH_USER_FAILURE,
+      });
+
+      throw error;
+    }
+  };
 
 export default fetchUserFactory;

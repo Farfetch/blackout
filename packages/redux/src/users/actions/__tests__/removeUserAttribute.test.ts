@@ -15,7 +15,7 @@ const usersMockStore = (state = {}) =>
   mockStore({ users: INITIAL_STATE }, state);
 
 describe('removeUserAttribute action creator', () => {
-  let store;
+  let store = usersMockStore();
   const userId = 123456;
   const attributeId = '123456';
   const expectedConfig = undefined;
@@ -28,7 +28,7 @@ describe('removeUserAttribute action creator', () => {
   it('should create the correct actions for when the remove user attribute procedure fails', async () => {
     const expectedError = new Error('remove user attribute error');
 
-    deleteUserAttribute.mockRejectedValueOnce(expectedError);
+    (deleteUserAttribute as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
@@ -54,7 +54,9 @@ describe('removeUserAttribute action creator', () => {
   });
 
   it('should create the correct actions for when the remove user attribute procedure is successful', async () => {
-    deleteUserAttribute.mockResolvedValueOnce(mockDeleteUserAttributeResponse);
+    (deleteUserAttribute as jest.Mock).mockResolvedValueOnce(
+      mockDeleteUserAttributeResponse,
+    );
 
     await store.dispatch(removeUserAttribute(userId, attributeId));
 

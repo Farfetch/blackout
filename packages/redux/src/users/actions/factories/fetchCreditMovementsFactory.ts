@@ -3,6 +3,12 @@ import {
   FETCH_CREDIT_MOVEMENTS_REQUEST,
   FETCH_CREDIT_MOVEMENTS_SUCCESS,
 } from '../../actionTypes';
+import type { Config } from '@farfetch/blackout-client/types';
+import type { Dispatch } from 'redux';
+import type {
+  GetCreditMovements,
+  GetCreditMovementsQuery,
+} from '@farfetch/blackout-client/users/types';
 
 /**
  * @typedef {object} FetchCreditMovementsQuery
@@ -37,7 +43,9 @@ import {
  * @returns {FetchCreditMovementsThunkFactory} Thunk factory.
  */
 const fetchCreditMovementsFactory =
-  getCreditMovements => (id, query, config) => async dispatch => {
+  (getCreditMovements: GetCreditMovements) =>
+  (id: number, query: GetCreditMovementsQuery, config?: Config) =>
+  async (dispatch: Dispatch) => {
     dispatch({
       type: FETCH_CREDIT_MOVEMENTS_REQUEST,
     });

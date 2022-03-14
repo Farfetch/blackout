@@ -15,7 +15,7 @@ const usersMockStore = (state = {}) =>
   mockStore({ users: INITIAL_STATE }, state);
 
 describe('updateUserAttribute action creator', () => {
-  let store;
+  let store = usersMockStore();
   const userId = 123456;
   const attributeId = '123456';
   const data = [
@@ -35,7 +35,7 @@ describe('updateUserAttribute action creator', () => {
   it('should create the correct actions for when the update user attribute procedure fails', async () => {
     const expectedError = new Error('update user attribute error');
 
-    patchUserAttribute.mockRejectedValueOnce(expectedError);
+    (patchUserAttribute as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
@@ -62,7 +62,9 @@ describe('updateUserAttribute action creator', () => {
   });
 
   it('should create the correct actions for when the update user attribute procedure is successful', async () => {
-    patchUserAttribute.mockResolvedValueOnce(mockPatchUserAttributeResponse);
+    (patchUserAttribute as jest.Mock).mockResolvedValueOnce(
+      mockPatchUserAttributeResponse,
+    );
 
     await store.dispatch(updateUserAttribute(userId, attributeId, data));
 

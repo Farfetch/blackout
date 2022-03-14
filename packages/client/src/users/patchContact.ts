@@ -1,5 +1,6 @@
 import client, { adaptError } from '../helpers/client';
 import join from 'proper-url-join';
+import type { PatchContact } from './types';
 
 /**
  * Method responsible for updating a user contact.
@@ -18,7 +19,7 @@ import join from 'proper-url-join';
  * @returns {Promise} Promise that will resolve when the call to
  * the endpoint finishes.
  */
-const patchContact = (userId, contactId, data, query, config) =>
+const patchContact: PatchContact = (userId, contactId, data, query?, config?) =>
   client
     .patch(
       join('/account/v1/users', userId, 'contacts', contactId, {

@@ -3,6 +3,7 @@ import {
   FETCH_GUEST_USER_REQUEST,
   FETCH_GUEST_USER_SUCCESS,
 } from '../../actionTypes';
+import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type { GetGuestUser } from '@farfetch/blackout-client/users/types';
 
@@ -28,7 +29,7 @@ import type { GetGuestUser } from '@farfetch/blackout-client/users/types';
 
 const fetchGuestUserFactory =
   (getGuestUser: GetGuestUser) =>
-  (id: number, config: Record<string, unknown>) =>
+  (id: number, config?: Config) =>
   async (dispatch: Dispatch) => {
     dispatch({
       type: FETCH_GUEST_USER_REQUEST,

@@ -51,7 +51,7 @@ describe('useAddresses', () => {
   afterEach(cleanup);
 
   it('should return values correctly', () => {
-    const wrapper = props => (
+    const wrapper = (props:{}) => (
       <Provider store={mockStore(mockInitialState)} {...props} />
     );
     const {
