@@ -4,6 +4,7 @@ import type {
   EventProperties,
   TrackTypesValues,
 } from '../types/analytics.types';
+import type URLParse from 'url-parse';
 
 // TODO
 type Product = Record<string, unknown>;
@@ -97,6 +98,6 @@ export const getProductName = (unmappedProduct: Product): string => {
 
 export const getLocation = (
   data: EventData<TrackTypesValues>,
-): Record<string, string | undefined> => {
+): URLParse<Record<string, string | undefined>> => {
   return get(data, 'context.web.window.location', {});
 };

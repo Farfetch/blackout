@@ -22,12 +22,12 @@ const hashPlainTextString = (
  *
  * @returns - The same object with some hashed properties.
  */
-const hashUserData = (userData: UserData): UserData => {
+const hashUserData = (userData: UserData | null): UserData | null => {
   if (!isEmpty(userData)) {
     const traits: UserTraits = userData?.traits || {};
 
     return {
-      ...userData,
+      ...(userData as UserData),
       traits: {
         ...traits,
         dateOfBirth: hashPlainTextString(traits.dateOfBirth as string),

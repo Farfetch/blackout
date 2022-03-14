@@ -1,9 +1,16 @@
 import * as yup from 'yup';
 import {
   trackTypes as analyticsTrackTypes,
+  EventData,
   eventTypes,
+  IntegrationOptions,
   integrations,
+  LoadIntegrationEventData,
   pageTypes,
+  platformTypes,
+  SetUserEventData,
+  StrippedDownAnalytics,
+  TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
 import {
@@ -12,12 +19,23 @@ import {
   DEFAULT_OUT_OF_STOCK_METRIC,
   MAX_PRODUCT_CATEGORIES,
 } from '../constants';
-import { GA, validationSchemaBuilder } from '../..';
-import { pageEventsData, trackEventsData } from 'tests/__fixtures__/analytics';
+import {
+  onSetUserEventData,
+  pageEventsData,
+  trackEventsData,
+} from 'tests/__fixtures__/analytics';
+import { validationSchemaBuilder } from '../..';
 import defaultEventCommands from '../commands';
+import GA from '../GA';
+import get from 'lodash/get';
 import merge from 'lodash/merge';
+import type { GACommandList } from '../types';
 
-const mockedPageData = pageEventsData[pageTypes.HOMEPAGE];
+const mockedPageData = pageEventsData[
+  pageTypes.HOMEPAGE
+] as EventData<TrackTypesValues>;
+
+const undefinedParameter = undefined as unknown;
 
 const nonSupportedByDefaultTrackEvent = merge(
   {},
@@ -31,20 +49,34 @@ const notValidTrackEvent = merge(
   { properties: { price: -120 } }, // Negative price is invalid
 );
 
-utils.logger.error = jest.fn();
-const mockLoggerError = utils.logger.error;
+const errorTrackData: unknown = {
+  type: analyticsTrackTypes.TRACK,
+  event: 'DUMMY_EVENT',
+};
 
-utils.logger.warn = jest.fn();
-const mockLoggerWarn = utils.logger.warn;
+const mockLoggerError = jest.spyOn(utils.logger, 'error');
+const mockLoggerWarn = jest.spyOn(utils.logger, 'warn');
 
-function createGAInstance(options, loadData) {
-  const gaInstance = GA.createInstance(options, loadData);
+function createGAInstance(
+  options?: IntegrationOptions,
+  loadData?: LoadIntegrationEventData,
+  analytics?: StrippedDownAnalytics,
+) {
+  const gaInstance = GA.createInstance(
+    options || (undefinedParameter as IntegrationOptions),
+    loadData || (undefinedParameter as LoadIntegrationEventData),
+    analytics || (undefinedParameter as StrippedDownAnalytics),
+  );
 
   return gaInstance;
 }
 
-function createGAInstanceAndLoad(options, loadData) {
-  const instance = createGAInstance(options, loadData);
+function createGAInstanceAndLoad(
+  options?: IntegrationOptions,
+  loadData?: LoadIntegrationEventData,
+  analytics?: StrippedDownAnalytics,
+) {
+  const instance = createGAInstance(options, loadData, analytics);
 
   // force the onload function to mimic the `onload` event from the script tag
   instance.onloadFn();
@@ -82,7 +114,7 @@ describe('GA Integration', () => {
 
   it('`shouldLoad` should return false if there is no user consent', () => {
     expect(GA.shouldLoad({ statistics: false })).toBe(false);
-    expect(GA.shouldLoad()).toBe(false);
+    expect(GA.shouldLoad({})).toBe(false);
     expect(GA.shouldLoad({})).toBe(false);
   });
 
@@ -93,13 +125,21 @@ describe('GA Integration', () => {
   describe('GA instance', () => {
     let gaInstance;
 
-    const validOptions = {
+    const validOptions: IntegrationOptions = {
       createFields: { trackingId: 'UA-123456-12' },
     };
 
-    const loadData = {
+    const loadData: LoadIntegrationEventData = {
+      type: 'loadIntegration',
+      consent: { marketing: false, statistics: false, preferences: false },
+      timestamp: 123,
+      properties: {},
+      platform: platformTypes.Web,
+      event: 'loadIntegration',
+      context: { library: { name: '', version: '' }, event: {} },
       user: {
-        id: '12345678',
+        id: 12345678,
+        localId: 'foo',
         traits: {
           email: 'foo@biz.com',
           name: 'John Doe',
@@ -108,13 +148,21 @@ describe('GA Integration', () => {
       },
     };
 
+    const strippedDownAnalytics: StrippedDownAnalytics = {
+      createEvent: type => Promise.resolve({ ...loadData, type }),
+    };
+
     beforeEach(() => {
       // Create main script tag required to load GA script
       document.body.appendChild(document.createElement('script'));
     });
 
     afterEach(() => {
-      document.getElementsByTagName('html')[0].innerHTML = '';
+      const page = document.getElementsByTagName('html')[0];
+
+      if (page) {
+        page.innerHTML = '';
+      }
 
       delete window.ga;
       gaInstance = null;
@@ -124,9 +172,7 @@ describe('GA Integration', () => {
 
     it('Should return a GA instance from createInstance', () => {
       expect(
-        GA.createInstance({
-          createFields: { trackingId: 'UA-123456-12' },
-        }),
+        GA.createInstance(validOptions, loadData, strippedDownAnalytics),
       ).toBeInstanceOf(GA);
     });
 
@@ -169,8 +215,8 @@ describe('GA Integration', () => {
 
       const script = scriptTags[0];
 
-      expect(script.src).toBe('https://www.google-analytics.com/analytics.js');
-      expect(script.async).toBe(1);
+      expect(script?.src).toBe('https://www.google-analytics.com/analytics.js');
+      expect(script?.async).toBe(1);
 
       expect(window.ga).toBeDefined();
     });
@@ -193,7 +239,9 @@ describe('GA Integration', () => {
         const gaSpy = getWindowGaSpy(false);
 
         await gaInstance.track(
-          trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART],
+          trackEventsData[
+            eventTypes.PRODUCT_ADDED_TO_CART
+          ] as EventData<TrackTypesValues>,
         );
 
         expect(mockLoggerError).toBeCalled();
@@ -211,9 +259,9 @@ describe('GA Integration', () => {
           [
             'set',
             'page',
-            mockedPageData.context.web.window.location.pathname +
+            get(mockedPageData, 'context.web.window.location.pathname', '') +
               utils.stringifyQuery(
-                mockedPageData.context.web.window.location.query,
+                get(mockedPageData, 'context.web.window.location.query', ''),
               ),
           ],
           ['send', 'pageview'],
@@ -223,13 +271,14 @@ describe('GA Integration', () => {
       });
 
       Object.keys(defaultEventCommands).forEach(event => {
-        if (trackEventsData[event]) {
+        const eventData = trackEventsData[event];
+        if (eventData) {
           it(`Should track event '${event}'`, async () => {
             gaInstance = await createGAInstanceAndLoad(validOptions, loadData);
 
             const gaSpy = getWindowGaSpy();
 
-            await gaInstance.track(trackEventsData[event]);
+            await gaInstance.track(eventData);
 
             expect(gaSpy.mock.calls).toMatchSnapshot();
           });
@@ -243,7 +292,7 @@ describe('GA Integration', () => {
 
         await gaInstance.track({
           ...nonSupportedByDefaultTrackEvent,
-          event: undefined,
+          event: undefinedParameter as string,
         });
 
         expect(gaSpy).not.toHaveBeenCalled();
@@ -284,18 +333,18 @@ describe('GA Integration', () => {
           });
         });
 
-        describe('For added/overriden events', () => {
+        describe('For added/overridden events', () => {
           it(`Should give a warning when tracking an event that contains a product category field with more than ${MAX_PRODUCT_CATEGORIES} levels of hierarchy`, async () => {
             const scopeCommands = {
               hit: {
                 event: {
                   [nonSupportedByDefaultTrackEvent.event]: {
-                    main: data => [
-                      ['set', 'currency', data.properties.currency],
+                    main: (data: unknown) => [
+                      ['set', 'currency', get(data, 'properties.currency')],
                       [
                         'ec:addProduct',
                         {
-                          category: data.properties.category,
+                          category: get(data, 'properties.category'),
                         },
                       ],
                       ['send', 'event'],
@@ -332,14 +381,14 @@ describe('GA Integration', () => {
         describe('`scopeCommands` option', () => {
           describe('pageview hits', () => {
             it('Should allow the user to add extra commands to the default pageview hit handler', async () => {
-              let customDimensionsCommands;
+              let customDimensionsCommands: string[][] = [];
 
               const scopeCommands = {
                 hit: {
                   pageview: {
-                    extras: data => {
+                    extras: (data: unknown) => {
                       customDimensionsCommands = [
-                        ['set', 'dimension1', data.properties.size],
+                        ['set', 'dimension1', get(data, 'properties.size')],
                       ];
                       return customDimensionsCommands;
                     },
@@ -395,9 +444,13 @@ describe('GA Integration', () => {
                 hit: {
                   event: {
                     [nonSupportedByDefaultTrackEvent.event]: {
-                      main: data => [
-                        ['set', 'currency', data.properties.currency],
-                        ['ec:setAction', 'fake_action', data.properties],
+                      main: (data: unknown) => [
+                        ['set', 'currency', get(data, 'properties.currency')],
+                        [
+                          'ec:setAction',
+                          'fake_action',
+                          get(data, 'properties'),
+                        ],
                         ['send', 'event'],
                       ],
                     },
@@ -419,7 +472,7 @@ describe('GA Integration', () => {
               expect(gaSpy.mock.calls).toEqual(
                 scopeCommands.hit.event[
                   nonSupportedByDefaultTrackEvent.event
-                ].main(nonSupportedByDefaultTrackEvent),
+                ]?.main(nonSupportedByDefaultTrackEvent),
               );
             });
 
@@ -444,7 +497,9 @@ describe('GA Integration', () => {
               gaInstance = await createGAInstanceAndLoad(options, loadData);
 
               await gaInstance.track(
-                trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART],
+                trackEventsData[
+                  eventTypes.PRODUCT_ADDED_TO_CART
+                ] as EventData<TrackTypesValues>,
               );
 
               await gaInstance.track(nonSupportedByDefaultTrackEvent);
@@ -453,7 +508,7 @@ describe('GA Integration', () => {
             });
 
             it('Should check if the main command builder specified for an event hit is a function', async () => {
-              let scopeCommands = {
+              let scopeCommands: unknown = {
                 hit: {
                   event: {
                     '*': {
@@ -470,10 +525,9 @@ describe('GA Integration', () => {
 
               gaInstance = await createGAInstanceAndLoad(options, loadData);
 
-              await gaInstance.track({
-                type: analyticsTrackTypes.TRACK,
-                event: 'DUMMY_EVENT',
-              });
+              await gaInstance.track(
+                errorTrackData as EventData<TrackTypesValues>,
+              );
 
               expect(mockLoggerError).toHaveBeenCalled();
 
@@ -496,10 +550,9 @@ describe('GA Integration', () => {
 
               gaInstance = await createGAInstanceAndLoad(options, loadData);
 
-              await gaInstance.track({
-                type: analyticsTrackTypes.TRACK,
-                event: 'DUMMY_EVENT',
-              });
+              await gaInstance.track(
+                errorTrackData as EventData<TrackTypesValues>,
+              );
 
               expect(mockLoggerError).toHaveBeenCalled();
             });
@@ -525,7 +578,9 @@ describe('GA Integration', () => {
               const gaSpy = getWindowGaSpy();
 
               await gaInstance.track(
-                trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART],
+                trackEventsData[
+                  eventTypes.PRODUCT_ADDED_TO_CART
+                ] as EventData<TrackTypesValues>,
               );
 
               expect(mockLoggerError).toHaveBeenCalled();
@@ -534,15 +589,15 @@ describe('GA Integration', () => {
             });
 
             it('Should allow to add extra commands to the default event hit handler', async () => {
-              let customDimensionsCommands;
+              let customDimensionsCommands: string[][] = [];
 
               const scopeCommands = {
                 hit: {
                   event: {
                     [eventTypes.PRODUCT_ADDED_TO_CART]: {
-                      extras: data => {
+                      extras: (data: unknown) => {
                         customDimensionsCommands = [
-                          ['set', 'dimension1', data.properties.size],
+                          ['set', 'dimension1', get(data, 'properties.size')],
                         ];
                         return customDimensionsCommands;
                       },
@@ -561,7 +616,9 @@ describe('GA Integration', () => {
               const gaSpy = getWindowGaSpy();
 
               await gaInstance.track(
-                trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART],
+                trackEventsData[
+                  eventTypes.PRODUCT_ADDED_TO_CART
+                ] as EventData<TrackTypesValues>,
               );
 
               expect(gaSpy.mock.calls).toContainEqual(
@@ -574,7 +631,7 @@ describe('GA Integration', () => {
             });
 
             it('Should check if the extra commands builder specified is a function', async () => {
-              let scopeCommands = {
+              let scopeCommands: unknown = {
                 hit: {
                   event: {
                     '*': {
@@ -591,10 +648,9 @@ describe('GA Integration', () => {
 
               gaInstance = await createGAInstanceAndLoad(options, loadData);
 
-              await gaInstance.track({
-                type: analyticsTrackTypes.TRACK,
-                event: 'DUMMY_EVENT',
-              });
+              await gaInstance.track(
+                errorTrackData as EventData<TrackTypesValues>,
+              );
 
               expect(mockLoggerError).toHaveBeenCalled();
 
@@ -617,10 +673,9 @@ describe('GA Integration', () => {
 
               gaInstance = await createGAInstanceAndLoad(options, loadData);
 
-              await gaInstance.track({
-                type: analyticsTrackTypes.TRACK,
-                event: 'DUMMY_EVENT',
-              });
+              await gaInstance.track(
+                errorTrackData as EventData<TrackTypesValues>,
+              );
 
               expect(mockLoggerError).toHaveBeenCalled();
             });
@@ -644,7 +699,9 @@ describe('GA Integration', () => {
               gaInstance = await createGAInstanceAndLoad(options, loadData);
 
               await gaInstance.track(
-                trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART],
+                trackEventsData[
+                  eventTypes.PRODUCT_ADDED_TO_CART
+                ] as EventData<TrackTypesValues>,
               );
 
               expect(mockLoggerError).toHaveBeenCalled();
@@ -653,20 +710,25 @@ describe('GA Integration', () => {
 
           describe('user scope', () => {
             it('Should allow to specify user scope commands', async () => {
-              const dataGuestUser = {
+              const dataGuestUser: SetUserEventData = {
+                ...onSetUserEventData,
                 user: {
-                  id: '100',
+                  id: 100,
                   traits: {
                     isGuest: true,
                   },
+                  localId: '123',
                 },
               };
               const dataRegisteredUser = {
+                ...onSetUserEventData,
                 user: {
-                  id: '101',
+                  id: 101,
                   traits: {
                     isGuest: false,
                   },
+
+                  localId: '123',
                 },
               };
 
@@ -686,8 +748,8 @@ describe('GA Integration', () => {
 
               const setGuestUserIdCommand = ['set', 'userId', null];
 
-              const onSetUserCommands = data => {
-                return data.user.traits.isGuest
+              const onSetUserCommands = (data: SetUserEventData) => {
+                return data?.user?.traits?.isGuest
                   ? notRegisteredUserCommandList
                   : registeredUserCommandList;
               };
@@ -730,7 +792,7 @@ describe('GA Integration', () => {
 
               gaInstance = await createGAInstanceAndLoad(options, loadData);
 
-              await gaInstance.onSetUser({});
+              await gaInstance.onSetUser({} as SetUserEventData);
 
               expect(mockLoggerError).toHaveBeenCalled();
             });
@@ -739,11 +801,14 @@ describe('GA Integration', () => {
 
         describe('`schemas` option', () => {
           it('Should allow the user to override event schemas for validation', async () => {
+            const eventData = trackEventsData[
+              eventTypes.PRODUCT_ADDED_TO_CART
+            ] as EventData<TrackTypesValues>;
+
             const schemas = {
-              [trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART].event]:
-                validationSchemaBuilder.object({
-                  dummyProperty: validationSchemaBuilder.number().required(),
-                }),
+              [eventData.event]: validationSchemaBuilder.object({
+                dummyProperty: validationSchemaBuilder.number().required(),
+              }),
             };
 
             const options = {
@@ -755,9 +820,7 @@ describe('GA Integration', () => {
 
             const gaSpy = getWindowGaSpy();
 
-            await gaInstance.track(
-              trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART],
-            );
+            await gaInstance.track(eventData);
 
             expect(mockLoggerError).toHaveBeenCalled();
 
@@ -769,12 +832,17 @@ describe('GA Integration', () => {
           it('Should allow the user to transform the command list generated before sending to ga instance', async () => {
             let newCommandList;
 
-            const onPreProcessCommands = (commandList, data) => {
+            const onPreProcessCommands = (
+              commandList: GACommandList,
+              data?: EventData<TrackTypesValues> | undefined,
+            ) => {
               newCommandList = [
                 [
                   'set',
                   'dimension1',
-                  data.user.isGuest ? 'is not registered' : 'is registered',
+                  data?.user?.traits?.isGuest
+                    ? 'is not registered'
+                    : 'is registered',
                 ],
                 ...commandList,
               ];
@@ -792,7 +860,9 @@ describe('GA Integration', () => {
             const gaSpy = getWindowGaSpy();
 
             await gaInstance.track(
-              trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART],
+              trackEventsData[
+                eventTypes.PRODUCT_ADDED_TO_CART
+              ] as EventData<TrackTypesValues>,
             );
 
             expect(gaSpy.mock.calls).toEqual(newCommandList);
@@ -820,7 +890,9 @@ describe('GA Integration', () => {
             const gaSpy = getWindowGaSpy();
 
             await gaInstance.track(
-              trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART],
+              trackEventsData[
+                eventTypes.PRODUCT_ADDED_TO_CART
+              ] as EventData<TrackTypesValues>,
             );
 
             expect(mockLoggerError).toHaveBeenCalled();
@@ -844,12 +916,13 @@ describe('GA Integration', () => {
 
             const gaSpy = getWindowGaSpy();
 
-            const validTrackEvent =
-              trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART];
+            const validTrackEvent = trackEventsData[
+              eventTypes.PRODUCT_ADDED_TO_CART
+            ] as EventData<TrackTypesValues>;
 
             await gaInstance.track(validTrackEvent);
 
-            const gaCallProductData = gaSpy.mock.calls[1][1];
+            const gaCallProductData = get(gaSpy, 'mock.calls[1][1]');
 
             expect(gaCallProductData).toMatchObject({
               dimension1: validTrackEvent.properties.sku,
@@ -867,12 +940,18 @@ describe('GA Integration', () => {
 
             const gaSpy = getWindowGaSpy();
 
-            await gaInstance.track(trackEventsData[eventTypes.PRODUCT_VIEWED]);
-
-            expect(gaSpy.mock.calls[1][1][DEFAULT_OUT_OF_STOCK_METRIC]).toEqual(
-              1,
+            await gaInstance.track(
+              trackEventsData[
+                eventTypes.PRODUCT_VIEWED
+              ] as EventData<TrackTypesValues>,
             );
-            expect(gaSpy.mock.calls[1][1][DEFAULT_IN_STOCK_METRIC]).toEqual(0);
+
+            expect(
+              get(gaSpy, 'mock.calls[1][1]')[DEFAULT_OUT_OF_STOCK_METRIC],
+            ).toEqual(1);
+            expect(
+              get(gaSpy, 'mock.calls[1][1]')[DEFAULT_IN_STOCK_METRIC],
+            ).toEqual(0);
           });
 
           it('Should ignore the out of stock metric if is not defined', async () => {
@@ -888,13 +967,17 @@ describe('GA Integration', () => {
 
             const gaSpy = getWindowGaSpy();
 
-            await gaInstance.track(trackEventsData[eventTypes.PRODUCT_VIEWED]);
+            await gaInstance.track(
+              trackEventsData[
+                eventTypes.PRODUCT_VIEWED
+              ] as EventData<TrackTypesValues>,
+            );
 
             expect(
-              gaSpy.mock.calls[1][1][DEFAULT_OUT_OF_STOCK_METRIC],
+              get(gaSpy, 'mock.calls[1][1]')[DEFAULT_OUT_OF_STOCK_METRIC],
             ).toBeUndefined();
             expect(
-              gaSpy.mock.calls[1][1][DEFAULT_IN_STOCK_METRIC],
+              get(gaSpy, 'mock.calls[1][1]')[DEFAULT_IN_STOCK_METRIC],
             ).toBeUndefined();
           });
 
@@ -903,14 +986,15 @@ describe('GA Integration', () => {
 
             const gaSpy = getWindowGaSpy();
 
-            await gaInstance.track(
-              trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART],
-            );
+            const trackData = trackEventsData[
+              eventTypes.PRODUCT_ADDED_TO_CART
+            ] as EventData<TrackTypesValues>;
 
-            expect(gaSpy.mock.calls[1][1][DEFAULT_CART_VALUE_METRIC]).toEqual(
-              trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART].properties
-                .price,
-            );
+            await gaInstance.track(trackData);
+
+            expect(
+              get(gaSpy, 'mock.calls[1][1]')[DEFAULT_CART_VALUE_METRIC],
+            ).toEqual(trackData.properties.price);
           });
 
           it('Should ignore the cart value metric if is not defined', async () => {
@@ -927,11 +1011,13 @@ describe('GA Integration', () => {
             const gaSpy = getWindowGaSpy();
 
             await gaInstance.track(
-              trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART],
+              trackEventsData[
+                eventTypes.PRODUCT_ADDED_TO_CART
+              ] as EventData<TrackTypesValues>,
             );
 
             expect(
-              gaSpy.mock.calls[1][1][DEFAULT_CART_VALUE_METRIC],
+              get(gaSpy, 'mock.calls[1][1]')[DEFAULT_CART_VALUE_METRIC],
             ).toBeUndefined();
           });
         });
@@ -946,7 +1032,7 @@ describe('GA Integration', () => {
 
             const gaSpy = getWindowGaSpy(false);
 
-            await gaInstance.onSetUser();
+            await gaInstance.onSetUser(undefinedParameter as SetUserEventData);
 
             expect(mockLoggerError).toHaveBeenCalled();
 
