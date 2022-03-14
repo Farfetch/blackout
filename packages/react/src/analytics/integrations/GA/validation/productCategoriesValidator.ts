@@ -11,15 +11,16 @@ import {
 } from '../constants';
 import { utils } from '@farfetch/blackout-analytics';
 import get from 'lodash/get';
+import type { GACommandList } from '../types';
 
 /**
  * Gets the category hierarchy for a product category field.
  *
- * @param {string} productCategoryField  - String corresponding to the category field found of a product added in ec:addProduct or ec:addImpression commands.
+ * @param productCategoryField - String corresponding to the category field found of a product added in ec:addProduct or ec:addImpression commands.
  *
- * @returns {Array}                      - An array containing the category hierarchy.
+ * @returns An array containing the category hierarchy.
  */
-function getCategoryHierarchy(productCategoryField) {
+function getCategoryHierarchy(productCategoryField: string): string[] {
   return productCategoryField.split('/');
 }
 
@@ -29,9 +30,9 @@ function getCategoryHierarchy(productCategoryField) {
  * where each category is separated by a / character.
  * If the validation fails, only a warn message is logged.
  *
- * @param {Array<Array>} gaCommandList - Command list that will feed the window.ga function.
+ * @param gaCommandList - Command list that will feed the window.ga function.
  */
-function productCategoriesValidator(gaCommandList) {
+function productCategoriesValidator(gaCommandList: GACommandList): void {
   if (!gaCommandList) {
     return;
   }

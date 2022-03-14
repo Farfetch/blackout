@@ -48,6 +48,7 @@ describe('productCategoriesValidator', () => {
       expect(mockLoggerWarn).toHaveBeenCalledTimes(3);
       expect(mockLoggerWarn).toHaveBeenNthCalledWith(
         1,
+        // @ts-expect-error
         `[GA] - Product category hierarchy '${gaCommandList[1][1].category}' exceeded maximum of ${MAX_PRODUCT_CATEGORIES}. GA only allows up to ${MAX_PRODUCT_CATEGORIES} levels.`,
       );
     });
@@ -86,6 +87,7 @@ describe('productCategoriesValidator', () => {
       expect(mockLoggerWarn).toHaveBeenCalledTimes(3);
       expect(mockLoggerWarn).toHaveBeenNthCalledWith(
         1,
+        // @ts-expect-error
         `[GA] - Product category hierarchy '${gaCommandList[1][1].category}' exceeded maximum of ${MAX_PRODUCT_CATEGORIES}. GA only allows up to ${MAX_PRODUCT_CATEGORIES} levels.`,
       );
     });
@@ -111,8 +113,13 @@ describe('productCategoriesValidator', () => {
     productCategoriesValidator(gaCommandList);
 
     expect(mockLoggerWarn).toHaveBeenCalledWith(
-      `[GA] - Product category field must be a string but got a ${typeof gaCommandList[0][1]
-        .category} with value ${gaCommandList[0][1].category}.`,
+      `[GA] - Product category field must be a string but got a ${
+        /* @ts-expect-error */
+        typeof gaCommandList[0][1].category
+      } with value ${
+        /* @ts-expect-error */
+        gaCommandList[0][1].category
+      }.`,
     );
   });
 });
