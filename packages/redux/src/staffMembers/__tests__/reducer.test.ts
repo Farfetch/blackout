@@ -4,10 +4,12 @@ import {
   mockStaffMemberId,
 } from 'tests/__fixtures__/staffMembers';
 import reducer, { actionTypes } from '../';
+import type { StaffMember } from '@farfetch/blackout-client/staffMembers/types';
+import type { State } from '../types';
 
 const mockAction = { type: 'foo' };
 const meta = { id: mockStaffMemberId };
-let initialState;
+let initialState: State;
 
 describe('staff members reducer', () => {
   beforeEach(() => {
@@ -55,7 +57,10 @@ describe('staff members reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
-        error: { [mockStaffMemberId]: error },
+        error: { [mockStaffMemberId]: new Error() } as Record<
+          StaffMember['id'],
+          Error | undefined
+        >,
         isLoading: {},
         result: {},
       };

@@ -1,5 +1,6 @@
 import client, { adaptError } from '../helpers/client';
 import join from 'proper-url-join';
+import type { GetContacts } from './types';
 
 /**
  * Method responsible for getting all the user contacts.
@@ -15,7 +16,7 @@ import join from 'proper-url-join';
  * @returns {Promise} Promise that will resolve when the call to
  * the endpoint finishes.
  */
-const getContacts = (userId, query, config) =>
+const getContacts: GetContacts = (userId, query?, config?) =>
   client
     .get(join('/account/v1/users', userId, 'contacts', { query }), config)
     .then(response => response.data)

@@ -1,5 +1,6 @@
 import client, { adaptError } from '../helpers/client';
 import join from 'proper-url-join';
+import type { GetTitles } from './types';
 
 /**
  * @typedef {object} GetTitlesQuery
@@ -26,7 +27,7 @@ import join from 'proper-url-join';
  * @returns {Promise} Promise that will resolve when the call to
  * the endpoint finishes.
  */
-const getTitles = (query, config) =>
+const getTitles: GetTitles = (query, config?) =>
   client
     .get(join('/account/v1/titles', { query }), config)
     .then(response => response.data)

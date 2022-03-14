@@ -180,7 +180,7 @@ export default (auto = false, userId: number): any => {
       ) {
         const addressIdToSetDefault = getAddressIdToSetDefault(
           address,
-          addressesData,
+          addressesData as { k: any },
         );
         if (addressIdToSetDefault) {
           if (address?.isCurrentShipping) {

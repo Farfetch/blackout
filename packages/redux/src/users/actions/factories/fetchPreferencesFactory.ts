@@ -5,6 +5,7 @@ import {
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
 import userPreferencesSchema from '../../../entities/schemas/preference';
+import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type { GetPreferences } from '@farfetch/blackout-client/users/types';
 
@@ -30,7 +31,7 @@ import type { GetPreferences } from '@farfetch/blackout-client/users/types';
  */
 const fetchPreferencesFactory =
   (getPreferences: GetPreferences) =>
-  (userId: number, code: string, config: Record<string, unknown>) =>
+  (userId: number, code: string, config?: Config) =>
   async (dispatch: Dispatch) => {
     dispatch({
       type: FETCH_PREFERENCES_REQUEST,

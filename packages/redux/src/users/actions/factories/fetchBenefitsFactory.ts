@@ -5,6 +5,12 @@ import {
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
 import userBenefitsSchema from '../../../entities/schemas/benefit';
+import type { Config } from '@farfetch/blackout-client/types';
+import type { Dispatch } from 'redux';
+import type {
+  GetBenefits,
+  GetBenefitsResponse,
+} from '@farfetch/blackout-client/users/types';
 
 /**
  * @callback FetchBenefitsThunkFactory
@@ -24,28 +30,31 @@ import userBenefitsSchema from '../../../entities/schemas/benefit';
  *
  * @returns {FetchBenefitsThunkFactory} Thunk factory.
  */
-const fetchBenefitsFactory = getBenefits => config => async dispatch => {
-  dispatch({
-    type: FETCH_BENEFITS_REQUEST,
-  });
-
-  try {
-    const result = await getBenefits(config);
-
+const fetchBenefitsFactory =
+  (getBenefits: GetBenefits) =>
+  (config?: Config) =>
+  async (dispatch: Dispatch): Promise<GetBenefitsResponse> => {
     dispatch({
-      payload: normalize(result, [userBenefitsSchema]),
-      type: FETCH_BENEFITS_SUCCESS,
+      type: FETCH_BENEFITS_REQUEST,
     });
 
-    return result;
-  } catch (error) {
-    dispatch({
-      payload: { error },
-      type: FETCH_BENEFITS_FAILURE,
-    });
+    try {
+      const result = await getBenefits(config);
 
-    throw error;
-  }
-};
+      dispatch({
+        payload: normalize(result, [userBenefitsSchema]),
+        type: FETCH_BENEFITS_SUCCESS,
+      });
+
+      return result;
+    } catch (error) {
+      dispatch({
+        payload: { error },
+        type: FETCH_BENEFITS_FAILURE,
+      });
+
+      throw error;
+    }
+  };
 
 export default fetchBenefitsFactory;

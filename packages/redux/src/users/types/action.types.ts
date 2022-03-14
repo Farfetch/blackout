@@ -3,6 +3,19 @@ import type { Action } from 'redux';
 import type { LOGOUT_SUCCESS } from '../../authentication/actionTypes';
 import type { UserAttributesResponse } from '@farfetch/blackout-client/users/types';
 
+export type ActionType =
+  | LogoutAction
+  | FetchUserAction
+  | UpdateUserAction
+  | FetchGuestUserAction
+  | CreateGuestUserAction
+  | FetchUserAttributesAction
+  | CreateUserAttributesAction
+  | FetchUserAttributeAction
+  | SetUserAttributeAction
+  | UpdateUserAttributeAction
+  | RemoveUserAttributeAction;
+
 //
 // Fetch user
 //

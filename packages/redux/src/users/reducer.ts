@@ -9,6 +9,7 @@ import { combineReducers } from 'redux';
 import { LOGOUT_SUCCESS } from '../authentication/actionTypes';
 import { reducerFactory } from '../helpers';
 import type {
+  ActionType,
   CreateGuestUserAction,
   CreateGuestUserFailureAction,
   CreateGuestUserRequestAction,
@@ -443,31 +444,7 @@ const reducer = combineReducers({
  * @returns {object} New state.
  */
 
-const usersReducer = (
-  state: State,
-  action:
-    | FetchUserAttributesFailureAction
-    | FetchUserAttributesRequestAction
-    | CreateUserAttributesFailureAction
-    | CreateUserAttributesRequestAction
-    | FetchUserAttributeFailureAction
-    | FetchUserAttributeRequestAction
-    | SetUserAttributeFailureAction
-    | SetUserAttributeRequestAction
-    | UpdateUserAttributeFailureAction
-    | UpdateUserAttributeRequestAction
-    | RemoveUserAttributeFailureAction
-    | RemoveUserAttributeRequestAction
-    | FetchUserFailureAction
-    | FetchUserRequestAction
-    | UpdateUserFailureAction
-    | UpdateUserRequestAction
-    | CreateGuestUserFailureAction
-    | CreateGuestUserRequestAction
-    | FetchGuestUserFailureAction
-    | FetchGuestUserRequestAction
-    | LogoutAction,
-) => {
+const usersReducer = (state: State | undefined, action: ActionType): State => {
   if (action.type === LOGOUT_SUCCESS) {
     return INITIAL_STATE;
   }

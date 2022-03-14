@@ -3,6 +3,12 @@ import {
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
 } from '../../actionTypes';
+import type { Config } from '@farfetch/blackout-client/types';
+import type { Dispatch } from 'redux';
+import type {
+  PutUser,
+  PutUserData,
+} from '@farfetch/blackout-client/users/types';
 
 /**
  * @callback UpdateUserThunkFactory
@@ -24,32 +30,35 @@ import {
  *
  * @returns {SetUserThunkFactory} Thunk factory.
  */
-const setUserFactory = putUser => (id, data, config) => async dispatch => {
-  dispatch({
-    type: UPDATE_USER_REQUEST,
-  });
-
-  try {
-    const result = await putUser(id, data, config);
-    const userEntity = {
-      entities: { user: result },
-      result: result.id,
-    };
-
+const setUserFactory =
+  (putUser: PutUser) =>
+  (id: number, data: PutUserData, config?: Config) =>
+  async (dispatch: Dispatch) => {
     dispatch({
-      payload: userEntity,
-      type: UPDATE_USER_SUCCESS,
+      type: UPDATE_USER_REQUEST,
     });
 
-    return result;
-  } catch (error) {
-    dispatch({
-      payload: { error },
-      type: UPDATE_USER_FAILURE,
-    });
+    try {
+      const result = await putUser(id, data, config);
+      const userEntity = {
+        entities: { user: result },
+        result: result.id,
+      };
 
-    throw error;
-  }
-};
+      dispatch({
+        payload: userEntity,
+        type: UPDATE_USER_SUCCESS,
+      });
+
+      return result;
+    } catch (error) {
+      dispatch({
+        payload: { error },
+        type: UPDATE_USER_FAILURE,
+      });
+
+      throw error;
+    }
+  };
 
 export default setUserFactory;

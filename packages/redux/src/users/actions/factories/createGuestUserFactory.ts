@@ -37,7 +37,7 @@ import type {
  */
 const createGuestUser =
   (postGuestUser: PostGuestUser) =>
-  (data: PostGuestUserData, config: Record<string, unknown>) =>
+  (data: PostGuestUserData, config?: Record<string, unknown>) =>
   async (dispatch: Dispatch) => {
     dispatch({
       type: CREATE_GUEST_USER_REQUEST,

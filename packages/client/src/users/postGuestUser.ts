@@ -1,4 +1,5 @@
 import client, { adaptError } from '../helpers/client';
+import type { PostGuestUser } from './types';
 
 /**
  * @typedef {object} PostGuestUserData
@@ -24,7 +25,7 @@ import client, { adaptError } from '../helpers/client';
  * @returns {Promise} Promise that will resolve when the call to
  * the endpoint finishes.
  */
-const postGuestUser = (data, config) =>
+const postGuestUser: PostGuestUser = (data, config?) =>
   client
     .post('/account/v1/guestUsers', data, config)
     .then(response => response.data)

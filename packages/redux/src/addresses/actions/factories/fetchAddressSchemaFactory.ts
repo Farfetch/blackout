@@ -57,7 +57,7 @@ const fetchAddressSchemaFactory =
       });
 
       return result;
-    } catch (error) {
+    } catch (error: any) {
       dispatch({
         payload: { error },
         type: FETCH_ADDRESS_SCHEMA_FAILURE,
