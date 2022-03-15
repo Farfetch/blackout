@@ -18,6 +18,7 @@ import {
   getItemTags,
   getOperation,
   getOperations,
+  getOrderItem,
   getCharges as getPaidOrders,
   getPromoCode,
   getTags,
@@ -674,6 +675,29 @@ export const isOperationLoading = state =>
  * @returns {object} Operation error.
  */
 export const getOperationError = state => getOperation(state.checkout).error;
+
+/**
+ * Returns the loading status for the order item.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {boolean} Order Item Loading status.
+ */
+export const isOrderItemLoading = state =>
+  getOrderItem(state.checkout).isLoading;
+
+/**
+ * Returns the error for the order item.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {object} Order Item error.
+ */
+export const getOrderItemError = state => getOrderItem(state.checkout).error;
 
 /**
  * Returns the ISO date for the item delivery options.
