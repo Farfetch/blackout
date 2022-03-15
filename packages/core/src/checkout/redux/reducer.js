@@ -69,6 +69,10 @@ const INITIAL_STATE = {
     error: null,
     isLoading: false,
   },
+  orderItem: {
+    error: null,
+    isLoading: false,
+  },
 };
 
 const error = (state = INITIAL_STATE.error, action = {}) => {
@@ -396,6 +400,12 @@ export const operation = reducerFactory(
   actionTypes,
 );
 
+export const orderItem = reducerFactory(
+  ['UPDATE_ORDER_ITEM', 'DELETE_ORDER_ITEM'],
+  INITIAL_STATE.orderItem,
+  actionTypes,
+);
+
 export const getError = state => state.error;
 export const getId = state => state.id;
 export const getIsLoading = state => state.isLoading;
@@ -415,6 +425,7 @@ export const getUpgradeItemDeliveryProvisioning = state =>
   state.upgradeItemDeliveryProvisioning;
 export const getOperations = state => state.operations;
 export const getOperation = state => state.operation;
+export const getOrderItem = state => state.orderItem;
 
 /**
  * Reducer for checkout state.
@@ -444,4 +455,5 @@ export default combineReducers({
   upgradeItemDeliveryProvisioning,
   operations,
   operation,
+  orderItem,
 });

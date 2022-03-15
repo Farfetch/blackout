@@ -413,6 +413,7 @@ describe('checkout redux selectors', () => {
       'UpgradeItemDeliveryProvisioning',
       'Operations',
       'Operation',
+      'OrderItem',
     ];
 
     describe('sub-areas loading selectors', () => {
