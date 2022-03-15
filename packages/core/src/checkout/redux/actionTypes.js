@@ -76,6 +76,26 @@ export const GET_OPERATION_REQUEST =
 export const GET_OPERATION_SUCCESS =
   '@farfetch/blackout-core/GET_OPERATION_SUCCESS';
 
+/** Action type dispatched when the update order item request fails. */
+export const UPDATE_ORDER_ITEM_FAILURE =
+  '@farfetch/blackout-core/UPDATE_ORDER_ITEM_FAILURE';
+/** Action type dispatched when the update order item request starts. */
+export const UPDATE_ORDER_ITEM_REQUEST =
+  '@farfetch/blackout-core/UPDATE_ORDER_ITEM_REQUEST';
+/** Action type dispatched when the update order item request succeeds. */
+export const UPDATE_ORDER_ITEM_SUCCESS =
+  '@farfetch/blackout-core/UPDATE_ORDER_ITEM_SUCCESS';
+
+/** Action type dispatched when the delete order item request fails. */
+export const DELETE_ORDER_ITEM_FAILURE =
+  '@farfetch/blackout-core/DELETE_ORDER_ITEM_FAILURE';
+/** Action type dispatched when the delete order item request starts. */
+export const DELETE_ORDER_ITEM_REQUEST =
+  '@farfetch/blackout-core/DELETE_ORDER_ITEM_REQUEST';
+/** Action type dispatched when the delete order item request succeeds. */
+export const DELETE_ORDER_ITEM_SUCCESS =
+  '@farfetch/blackout-core/DELETE_ORDER_ITEM_SUCCESS';
+
 /** Action type dispatched when reseting the checkout. */
 export const RESET_CHECKOUT = '@farfetch/blackout-core/RESET_CHECKOUT';
 
