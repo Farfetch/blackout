@@ -1,6 +1,6 @@
-import React, { ComponentProps, ReactElement } from 'react';
 import { Component } from '../components';
-import type { ContentEntries } from '@farfetch/blackout-client/contents/types';
+import React, { ComponentProps, ReactElement } from 'react';
+import type { ComponentType } from '@farfetch/blackout-client/contents/types';
 
 /**
  * Render an Editorial component.
@@ -13,8 +13,10 @@ import type { ContentEntries } from '@farfetch/blackout-client/contents/types';
  * @returns {ReactElement} - A registered component.
  */
 
-const renderComponent = (type: string, data: ContentEntries, props: ComponentProps<any>): ReactElement => (
-  <Component component={{ ...data, type }} {...props} />
-);
+const renderComponent = (
+  type: string,
+  data: ComponentType,
+  props: ComponentProps<any>,
+): ReactElement => <Component component={{ ...data, type }} {...props} />;
 
 export default renderComponent;

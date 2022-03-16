@@ -24,8 +24,8 @@ export type QueryContents = IndexSignature<
 
 export interface ComponentType {
   type: string;
-  // Need to use any here because fields could have a big nested structure.
-  fields?: Record<string, any>;
+  components?: ComponentType[];
+  fields?: Record<string, unknown>;
   content?: string;
   customType?: string;
   name?: string;

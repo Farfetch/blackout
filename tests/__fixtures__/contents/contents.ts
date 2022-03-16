@@ -440,3 +440,39 @@ export const mockContentsErrorState = {
     },
   },
 };
+
+export const mockLegacyData = {
+  components: [
+    {
+      type: 'text',
+      value: 'test',
+      name: 'Text',
+      displayOptions: {},
+    },
+  ],
+};
+
+export const mockContentToolData = {
+  components: [
+    {
+      type: 'list',
+      components: [
+        {
+          type: 'list',
+          components: [
+            {
+              type: 'text',
+              value: 'test',
+              name: 'Text',
+              displayOptions: {},
+            },
+          ],
+          name: 'subsection',
+          displayOptions: {},
+        },
+      ],
+      name: 'section',
+      displayOptions: {},
+    },
+  ],
+};

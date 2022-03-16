@@ -11,7 +11,10 @@ import type { Thing } from 'schema-dts';
  *
  * @returns {ReactElement} - A script tag to JSON-LD structured data.
  */
-export default function renderScriptTag<T extends Thing>(structuredData: T, space?: number): ReactElement {
+export default function renderScriptTag<T extends Thing>(
+  structuredData: T,
+  space?: number,
+): ReactElement {
   return (
     <script type="application/ld+json">
       {JSON.stringify(structuredData, null, space)}

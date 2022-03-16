@@ -7,6 +7,6 @@ describe('renderComponent', () => {
       value: 'test',
     };
 
-    expect(renderComponent('text', data)).toMatchSnapshot();
+    expect(renderComponent('text', data, {})).toMatchSnapshot();
   });
 });
