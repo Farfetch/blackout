@@ -1,6 +1,6 @@
 {
   "name": "@farfetch/blackout-core",
-  "version": "1.52.1",
+  "version": "1.53.0",
   "description": "Clients to connect to the Farfetch Platform Solutions' services and modules to manage the application data layer and global state",
   "license": "MIT",
   "main": "src/index.js",

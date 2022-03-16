@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.53.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.52.1...@farfetch/blackout-core@1.53.0) (2022-03-16)
+
+
+### Features
+
+* **core:** add update and delete ordeer item actions ([ca74434](https://github.com/Farfetch/blackout/commit/ca74434ac176a065c11d7b5a996ff01f8b133409))
+* **core:** add update and delete order item endpoints ([bc161e1](https://github.com/Farfetch/blackout/commit/bc161e1fbb8e6356479d82e25412eabef178fa6b))
+
+
+
+
+
 ## [1.52.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.52.0...@farfetch/blackout-core@1.52.1) (2022-03-08)
 
 
