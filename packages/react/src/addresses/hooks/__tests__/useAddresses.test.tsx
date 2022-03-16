@@ -4,8 +4,6 @@ import {
   mockErrorState,
   mockInitialState,
   mockLoadingState,
-  mockPredictionDetailsResponse,
-  mockPredictionResponse,
   userId,
 } from 'tests/__fixtures__/addresses';
 import { Addresses } from './__fixtures__/Adresses.fixtures';
@@ -58,7 +56,7 @@ describe('useAddresses', () => {
     );
     const {
       result: { current },
-    } = renderHook(() => useAddresses({ userId }), {
+    } = renderHook(() => useAddresses(true, userId), {
       wrapper,
     });
 
@@ -113,7 +111,7 @@ describe('useAddresses', () => {
         .withStore(mockInitialState)
         .render();
 
-      expect(fetchAddresses).toHaveBeenCalledTimes(1);
+      expect(fetchAddresses).toHaveBeenCalledTimes(2);
       expect(queryByTestId('addresses-loading')).toBeNull();
       expect(queryByTestId('addresses-error')).toBeNull();
     });
@@ -161,7 +159,7 @@ describe('useAddresses', () => {
 
       fireEvent.click(getByTestId('addresses-getButton'));
 
-      expect(fetchAddresses).toHaveBeenCalledTimes(2);
+      expect(fetchAddresses).toHaveBeenCalledTimes(3);
       expect(queryByTestId('addresses-loading')).toBeNull();
       expect(queryByTestId('addresses-error')).toBeNull();
     });
@@ -224,7 +222,7 @@ describe('useAddresses', () => {
 
         fireEvent.click(getByTestId('addresses-handleGetAddressButton'));
 
-        expect(fetchAddresses).toHaveBeenCalledTimes(2);
+        expect(fetchAddresses).toHaveBeenCalledTimes(3);
       });
     });
 
