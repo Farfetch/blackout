@@ -5,7 +5,7 @@ import type { ComponentType } from '@farfetch/blackout-client/contents/types';
 interface ComponentProps {
   component: ComponentType;
   children?: React.ReactNode;
-};
+}
 
 type Components = Record<string, React.ElementType>;
 
@@ -19,7 +19,10 @@ export const components: Components = {};
  *
  * @returns {ReactElement} Ready component.
  */
-export const registerComponent = (type: string, component: React.ElementType): React.ElementType => {
+export const registerComponent = (
+  type: string,
+  component: React.ElementType,
+): React.ElementType => {
   if (components[type]) {
     console.warn(
       `[react-content] Component with "type=${type}" already registered on components. Will override with new component.`,
@@ -55,10 +58,13 @@ export const registerComponent = (type: string, component: React.ElementType): R
  *      component={{ type, ...data }}
  *      {...props} />
  */
-const Component = ({ component, children, ...props }: ComponentProps): ReactElement | null => {
+const Component = ({
+  component,
+  children,
+  ...props
+}: ComponentProps): ReactElement | null => {
   const { type, customType } = component;
   const typeToRender = customType || type;
-
   // Lookup a component based on the type
   const ComponentToRender = components[typeToRender];
 
