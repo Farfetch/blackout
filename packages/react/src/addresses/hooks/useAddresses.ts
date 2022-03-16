@@ -24,10 +24,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import type { StoreState } from '@farfetch/blackout-redux/types';
 
-export interface MetaData {
-  userId?: number;
-}
-
 interface Query {
   containerId?: string;
   countries?: string;
@@ -39,22 +35,15 @@ interface QueryPredictionDetails {
 }
 
 /**
- * @typedef {object} MetaData
- *
- * @alias MetaData
- *
- * @property {number} [userId]  - User to iterate over. Send nothing if you just need the actions.
- */
-
-/**
  * @function useAddresses
  * @memberof module:addresses/hooks
  *
- * @param {MetaData} data - Object containing the necessary info to use inside the hook.
+ * @param {boolean} auto - Pass this prop as true to automatically fetch user addresses (userId is mandatory in this case).
+ * @param {number} userId - User to iterate over. Send nothing if you just need the actions.
  *
  * @returns {object} All the handlers, state, actions and relevant data needed to manage address book operations.
  */
-export default ({ userId }: MetaData): any => {
+export default (auto = false, userId: number): any => {
   // Selectors
   const addressesData = useSelector((state: StoreState) =>
     selectors.getAddresses(state),
@@ -68,16 +57,14 @@ export default ({ userId }: MetaData): any => {
   const isAddressesLoading = useSelector((state: StoreState) =>
     selectors.isAddressesLoading(state),
   );
-  const addressError = useCallback((addressId: string) => {
-    useSelector((state: StoreState) =>
-      selectors.getAddressError(state, addressId),
-    );
-  }, []);
-  const isAddressLoading = useCallback((addressId: string) => {
-    useSelector((state: StoreState) =>
-      selectors.isAddressLoading(state, addressId),
-    );
-  }, []);
+  const addressError = useSelector(
+    (state: StoreState) => (addressId: string) =>
+      selectors.getAddressError(state, addressId || ''),
+  );
+  const isAddressLoading = useSelector(
+    (state: StoreState) => (addressId: string) =>
+      selectors.isAddressLoading(state, addressId || ''),
+  );
   const predictions = useSelector((state: StoreState) =>
     selectors.getPredictions(state),
   );
@@ -123,8 +110,12 @@ export default ({ userId }: MetaData): any => {
   const [deletingStatus, setDeletingStatus] = useState({});
 
   useEffect(() => {
-    getAddresses(userId);
+    auto && getAddresses(userId);
   }, []);
+
+  useEffect(() => {
+    auto && getAddresses(userId);
+  }, [userId]);
 
   // Gets the address to set as the new default address.
   // By default it is the first one.
