@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.32.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.31.1...@farfetch/blackout-react@0.32.0) (2022-03-17)
+
+
+### Features
+
+* **react:** update renderContent method ([5424912](https://github.com/Farfetch/blackout/commit/542491209226e3ed5825021307ab6921d42f0ca6))
+
+
+
+
+
 ## [0.31.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.31.0...@farfetch/blackout-react@0.31.1) (2022-02-23)
 
 
