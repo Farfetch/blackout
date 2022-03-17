@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.192](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.191...@farfetch/blackout-react@1.0.0-next.192) (2022-03-17)
+
+
+### Bug Fixes
+
+* **react:** fix useAddresses hook selectors ([ef3f4d2](https://github.com/Farfetch/blackout/commit/ef3f4d2f4975c771a01ff603c7e7826478f6953e))
+
+
+
+
+
 # [1.0.0-next.191](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.190...@farfetch/blackout-react@1.0.0-next.191) (2022-03-15)
 
 
