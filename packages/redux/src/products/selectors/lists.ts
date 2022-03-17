@@ -403,6 +403,9 @@ export const getProductsListActiveFilters = createSelector(
       const isDiscount = key === 'discount';
       let activeFilterValue = value as string | number;
 
+      // If the active filter is a discount, its value format should be a string
+      // 'value-valueUpperBound' (eg. '0-30') because that is the format needed
+      // for the query to correctly filter the products.
       if (isDiscount) {
         activeFilterValue =
           valueUpperBound !== 0 ? `${value}-${valueUpperBound}` : value;
@@ -411,9 +414,6 @@ export const getProductsListActiveFilters = createSelector(
       if (acc[key]) {
         acc[key]?.push(activeFilterValue);
       } else {
-        // @TODO: Review this to apply the same logic when is
-        // Price-range and Discount-multiple - the value should be
-        // a concatenation of value and valueUpperBound
         if (valueUpperBound !== 0 && !isDiscount) {
           acc[key] = [value, valueUpperBound];
         } else {
