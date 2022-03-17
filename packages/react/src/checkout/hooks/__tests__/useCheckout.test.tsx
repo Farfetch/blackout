@@ -52,13 +52,12 @@ describe('useCheckout', () => {
   };
 
   it('should return functions correctly', () => {
-    const wrapper = props => (
-      <Provider store={mockStore(baseTestState)} {...props} />
-    );
     const {
       result: { current },
     } = renderHook(() => useCheckout({}), {
-      wrapper,
+      wrapper: props => (
+        <Provider store={mockStore(baseTestState)} {...props} />
+      ),
     });
 
     expect(typeof current.createCheckout).toBe('function');
@@ -112,11 +111,11 @@ describe('useCheckout', () => {
         id: undefined,
       },
     };
-    const wrapper = props => (
-      <Provider store={mockStore(createCheckoutMock)} {...props} />
-    );
+
     renderHook(() => useCheckout({}), {
-      wrapper,
+      wrapper: props => (
+        <Provider store={mockStore(createCheckoutMock)} {...props} />
+      ),
     });
     expect(createCheckoutAction).toHaveBeenCalledTimes(1);
   });
@@ -129,11 +128,11 @@ describe('useCheckout', () => {
         id: undefined,
       },
     };
-    const wrapper = props => (
-      <Provider store={mockStore(createCheckoutMock)} {...props} />
-    );
+
     renderHook(() => useCheckout({ createCheckoutOnMount: false }), {
-      wrapper,
+      wrapper: props => (
+        <Provider store={mockStore(createCheckoutMock)} {...props} />
+      ),
     });
     expect(createCheckoutAction).toHaveBeenCalledTimes(0);
   });

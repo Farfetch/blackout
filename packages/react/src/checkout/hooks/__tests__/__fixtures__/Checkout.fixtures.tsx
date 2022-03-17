@@ -1,7 +1,7 @@
 import React from 'react';
 import useCheckout from '../../useCheckout';
 
-const booleanToText = boolean => (boolean ? 'yes' : 'no');
+const booleanToText = (boolean: boolean) => (boolean ? 'yes' : 'no');
 
 /* eslint-disable react/prop-types */
 export const Checkout = () => {
