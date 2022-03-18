@@ -1,5 +1,8 @@
+import type GA from './GA';
+
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 export const loadGaScript = function (
+  this: GA,
   i: any,
   s: Document,
   o: string,
@@ -15,7 +18,7 @@ export const loadGaScript = function (
       // eslint-disable-next-line prefer-rest-params
       (i[r].q = i[r].q || []).push(arguments);
     }),
-    (i[r].l = 1 * new Date());
+    (i[r].l = 1 * (new Date() as unknown as number));
   (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
   a.async = 1;
   a.src = g;

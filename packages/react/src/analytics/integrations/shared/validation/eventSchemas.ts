@@ -1,11 +1,5 @@
-/**
- * @module eventSchemas
- * @private
- */
-
 import * as yup from 'yup';
 import { eventTypes } from '@farfetch/blackout-analytics';
-import defaultTo from 'lodash/defaultTo';
 
 /**
  * Schema definitions for each event.
@@ -19,7 +13,7 @@ export const productIdSchema = yup.object({
 });
 
 export const productNameSchema = yup.object({
-  name: yup.string().strict().nullable(),
+  name: yup.string().strict(true).nullable(),
 });
 
 export const productRequiredSchema = productIdSchema
@@ -28,7 +22,7 @@ export const productRequiredSchema = productIdSchema
     'required_product_fields',
     'Must provide an id or a name field',
     value => {
-      return defaultTo(value.id, value.name);
+      return !!value.id || !!value.name;
     },
   );
 

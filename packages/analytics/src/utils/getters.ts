@@ -2,12 +2,10 @@ import get from 'lodash/get';
 import type {
   EventData,
   EventProperties,
+  Product,
   TrackTypesValues,
 } from '../types/analytics.types';
 import type URLParse from 'url-parse';
-
-// TODO
-type Product = Record<string, unknown>;
 
 export const getEvent = (data: EventData<TrackTypesValues>): string => {
   return get(data, 'event', '');
@@ -84,10 +82,10 @@ export const getCheckoutProperties = (
   };
 };
 
-export const getProductId = (unmappedProduct: Product): number => {
+export const getProductId = (unmappedProduct: Product): string => {
   // Validation of event properties are done before this function is called
   // so the cast is acceptable here.
-  return unmappedProduct.id as number;
+  return unmappedProduct.id as string;
 };
 
 export const getProductName = (unmappedProduct: Product): string => {

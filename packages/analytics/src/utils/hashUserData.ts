@@ -9,10 +9,9 @@ import type { UserData, UserTraits } from '../types/analytics.types';
  *
  * @returns The hashed result.
  */
-const hashPlainTextString = (
-  plainString: string | undefined | null,
-): string | undefined | null =>
-  plainString ? sha256(plainString).toString() : plainString;
+function hashPlainTextString(plainString?: string): string | undefined {
+  return plainString ? sha256(plainString).toString() : plainString;
+}
 
 /**
  * Hashes some user properties that we receive from the /users/me request through analytics.setUser().
@@ -30,13 +29,13 @@ const hashUserData = (userData: UserData | null): UserData | null => {
       ...(userData as UserData),
       traits: {
         ...traits,
-        dateOfBirth: hashPlainTextString(traits.dateOfBirth as string),
-        email: hashPlainTextString(traits.email as string),
-        firstName: hashPlainTextString(traits.firstName as string),
-        lastName: hashPlainTextString(traits.lastName as string),
-        name: hashPlainTextString(traits.name as string),
-        phoneNumber: hashPlainTextString(traits.phoneNumber as string),
-        username: hashPlainTextString(traits.username as string),
+        dateOfBirth: hashPlainTextString(traits.dateOfBirth),
+        email: hashPlainTextString(traits.email),
+        firstName: hashPlainTextString(traits.firstName),
+        lastName: hashPlainTextString(traits.lastName),
+        name: hashPlainTextString(traits.name),
+        phoneNumber: hashPlainTextString(traits.phoneNumber),
+        username: hashPlainTextString(traits.username),
       },
     };
   }

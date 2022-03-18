@@ -1,8 +1,3 @@
-/**
- * @module commands
- * @private
- */
-
 import {
   ADD_IMPRESSION_COMMAND,
   ADD_PRODUCT_COMMAND,
@@ -17,9 +12,10 @@ import {
   SET_ACTION_COMMAND,
 } from './constants';
 import {
-  type EventData,
+  EventData,
   eventTypes,
-  type TrackTypesValues,
+  Product,
+  TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
 import { validationSchemaBuilder } from '../shared/validation/eventSchemas';
@@ -27,6 +23,7 @@ import get from 'lodash/get';
 import isBoolean from 'lodash/isBoolean';
 import map from 'lodash/map';
 import objectMapper from './objectMapper';
+import type { ProductMappings } from './types';
 
 /**
  * Mappings.
@@ -83,7 +80,7 @@ const productViewedMappings = {
   [DEFAULT_OUT_OF_STOCK_METRIC_KEY]: DEFAULT_OUT_OF_STOCK_METRIC,
 };
 
-const productMappingsByEvent = {
+const productMappingsByEvent: Record<string, ProductMappings> = {
   [eventTypes.PRODUCT_ADDED_TO_CART]: productAddRemoveCartMappings,
   [eventTypes.PRODUCT_REMOVED_FROM_CART]: productAddRemoveCartMappings,
   [eventTypes.PRODUCT_CLICKED]: productClickedMappings,
@@ -106,9 +103,9 @@ const productMappingsByEvent = {
  * @returns - An object with default product mappings for the event merged with the custom product mappings, if specified.
  */
 const getProductMappingsForEvent = (
-  event: keyof typeof productMappingsByEvent,
-  customProductMappings: Record<string, unknown>,
-): Record<string, unknown> => {
+  event: string,
+  customProductMappings: ProductMappings,
+): ProductMappings => {
   const eventProductMappings = productMappingsByEvent[event];
 
   const productMappings = {
@@ -128,9 +125,9 @@ const getProductMappingsForEvent = (
  * @returns Converted product data to be sent to GA.
  */
 const getProductMapped = (
-  productData: Record<string, unknown>,
-  productMappings: Record<string, unknown>,
-): Record<string, unknown> => {
+  productData: Product,
+  productMappings: ProductMappings,
+): Product => {
   return objectMapper(productData, productMappings);
 };
 
@@ -143,7 +140,7 @@ const getProductMapped = (
  * @returns The event label to be sent in the event.
  */
 const getProductEventLabel = (
-  productId: string | number,
+  productId: string,
   productName: string,
 ): string => {
   return `${productId} - ${productName}`;
@@ -161,9 +158,9 @@ const getProductEventLabel = (
  * @returns The product data with the new stock related properties, if applied.
  */
 const postProcessOutOfStockProduct = (
-  productData: Record<string, unknown>,
-  productMappings: Record<string, unknown>,
-): Record<string, unknown> => {
+  productData: Product,
+  productMappings: ProductMappings,
+): Product => {
   const outOfStockMetricKey = get(
     productMappings,
     DEFAULT_OUT_OF_STOCK_METRIC_KEY,
@@ -202,10 +199,10 @@ const postProcessOutOfStockProduct = (
  * @returns The product data with the new stock related properties, if applied.
  */
 const postProcessCartValue = (
-  productData: Record<string, unknown>,
+  productData: Product,
   event: keyof typeof productMappingsByEvent,
-  productMappings: Record<string, unknown>,
-): Record<string, unknown> => {
+  productMappings: ProductMappings,
+): Product => {
   const cartValueMetric = get(
     productMappings,
     DEFAULT_CART_VALUE_METRIC_KEY,
@@ -239,7 +236,10 @@ const setCurrencyCommand = (data: EventData<TrackTypesValues>): string[] => {
   return ['set', 'currencyCode', utils.getCurrency(data)];
 };
 
-const setActionCommand = (action: string, params?: unknown): unknown[] => {
+const setActionCommand = (
+  action: string,
+  params?: Record<string, string | number>,
+) => {
   return [SET_ACTION_COMMAND, action, params];
 };
 
@@ -251,24 +251,20 @@ const sendEventCommand = (
   return ['send', 'event', eventCategory, eventAction, eventLabel];
 };
 
-const addProductCommand = (
-  productData: Record<string, unknown>,
-): [string, Record<string, unknown>] => {
+const addProductCommand = (productData: Product) => {
   return [ADD_PRODUCT_COMMAND, productData];
 };
 
-const addImpressionCommand = (
-  impressionData: Record<string, unknown>,
-): [string, Record<string, unknown>] => {
+const addImpressionCommand = (impressionData: Product) => {
   return [ADD_IMPRESSION_COMMAND, impressionData];
 };
 
 const addImpressionsCommand = (
   list: string,
-  products: Record<string, unknown>[],
-  productMappings: Record<string, unknown>,
-): [string, Record<string, unknown>][] => {
-  return map(products, (product: Record<string, unknown>) => {
+  products: Product[],
+  productMappings: ProductMappings,
+) => {
+  return map(products, (product: Product) => {
     const productMapped = getProductMapped(product, productMappings);
     productMapped.list = list;
     return addImpressionCommand(productMapped);
@@ -276,9 +272,9 @@ const addImpressionsCommand = (
 };
 
 const addCheckoutProductsCommand = (
-  products: Record<string, unknown>[],
-  productMappings: Record<string, unknown>,
-): [string, Record<string, unknown>][] => {
+  products: Product[],
+  productMappings: ProductMappings,
+) => {
   return map(products, product => {
     const productMapped = getProductMapped(product, productMappings);
     return addProductCommand(productMapped);
@@ -286,9 +282,9 @@ const addCheckoutProductsCommand = (
 };
 
 const addRefundProductsCommand = (
-  products: Record<string, unknown>[],
-  productMappings: Record<string, unknown>,
-): [string, Record<string, unknown>][] => {
+  products: Product[],
+  productMappings: ProductMappings,
+) => {
   return map(products, product => {
     const productMapped = getProductMapped(product, productMappings);
     return addProductCommand(productMapped);
@@ -301,7 +297,7 @@ const addRefundProductsCommand = (
 export default {
   [eventTypes.PRODUCT_ADDED_TO_CART]: (
     data: EventData<TrackTypesValues>,
-    customProductMappings: Record<string, unknown>,
+    customProductMappings: ProductMappings,
   ) => {
     const event = utils.getEvent(data);
     const productData = utils.getProperties(data);
@@ -334,7 +330,7 @@ export default {
 
   [eventTypes.PRODUCT_REMOVED_FROM_CART]: (
     data: EventData<TrackTypesValues>,
-    customProductMappings: Record<string, unknown>,
+    customProductMappings: ProductMappings,
   ) => {
     const event = utils.getEvent(data);
     const productData = utils.getProperties(data);
@@ -418,7 +414,7 @@ export default {
 
   [eventTypes.PRODUCT_CLICKED]: (
     data: EventData<TrackTypesValues>,
-    customProductMappings: Record<string, unknown>,
+    customProductMappings: ProductMappings,
   ) => {
     const event = utils.getEvent(data);
     const productData = utils.getProperties(data);
@@ -445,7 +441,7 @@ export default {
 
   [eventTypes.PRODUCT_VIEWED]: (
     data: EventData<TrackTypesValues>,
-    customProductMappings: Record<string, unknown>,
+    customProductMappings: ProductMappings,
   ) => {
     const event = utils.getEvent(data);
     const productData = utils.getProperties(data);
@@ -477,8 +473,8 @@ export default {
 
   [eventTypes.PRODUCT_LIST_VIEWED]: (
     data: EventData<TrackTypesValues>,
-    customProductMappings: Record<string, unknown>,
-  ): unknown[] => {
+    customProductMappings: ProductMappings,
+  ) => {
     const event = utils.getEvent(data);
     const products = utils.getProducts(data);
     const productMappings = getProductMappingsForEvent(
@@ -500,7 +496,7 @@ export default {
 
   [eventTypes.CHECKOUT_STEP_VIEWED]: (
     data: EventData<TrackTypesValues>,
-    customProductMappings: Record<string, unknown>,
+    customProductMappings: ProductMappings,
   ) => {
     const event = utils.getEvent(data);
     const products = utils.getProducts(data);
@@ -537,7 +533,7 @@ export default {
 
   [eventTypes.ORDER_COMPLETED]: (
     data: EventData<TrackTypesValues>,
-    customProductMappings: Record<string, unknown>,
+    customProductMappings: ProductMappings,
   ) => {
     const event = utils.getEvent(data);
     const products = utils.getProducts(data);
@@ -562,7 +558,7 @@ export default {
 
   [eventTypes.ORDER_REFUNDED]: (
     data: EventData<TrackTypesValues>,
-    customProductMappings: Record<string, unknown>,
+    customProductMappings: ProductMappings,
   ) => {
     const orderId = utils.getOrderId(data);
     const products = utils.getProducts(data);

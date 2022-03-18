@@ -7,19 +7,6 @@ import type {
   StrippedDownAnalytics,
   TrackTypesValues,
 } from '../types/analytics.types';
-export interface IntegrationFactory {
-  new (
-    options: IntegrationOptions,
-    loadData: LoadIntegrationEventData,
-    strippedDownAnalytics: StrippedDownAnalytics,
-  ): Integration;
-  createInstance(
-    options: IntegrationOptions,
-    loadData: LoadIntegrationEventData,
-    analytics: StrippedDownAnalytics,
-  ): Integration;
-  shouldLoad(consent: ConsentData): boolean;
-}
 
 /**
  * Base class for integrations.
