@@ -1,8 +1,3 @@
-/**
- * @module productCategoriesValidator
- * @private
- */
-
 import {
   ADD_IMPRESSION_COMMAND,
   ADD_PRODUCT_COMMAND,
@@ -45,7 +40,10 @@ function productCategoriesValidator(gaCommandList: GACommandList): void {
       commandName === ADD_PRODUCT_COMMAND
     ) {
       const productData = commandArgument;
-      const productCategoryField = get(productData, PRODUCT_CATEGORY_FIELD);
+      const productCategoryField: unknown = get(
+        productData,
+        PRODUCT_CATEGORY_FIELD,
+      );
 
       if (productCategoryField) {
         if (typeof productCategoryField === 'string') {

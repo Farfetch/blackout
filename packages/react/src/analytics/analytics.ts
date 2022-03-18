@@ -2,9 +2,13 @@ import Analytics, {
   trackTypes as analyticsTrackTypes,
   EventContextData,
   EventProperties,
+  IntegrationFactory,
+  IntegrationOptions,
   IntegrationRuntimeData,
   platformTypes,
 } from '@farfetch/blackout-analytics';
+import type { GA } from './integrations';
+import type { GAIntegrationOptions } from './integrations/GA';
 /**
  * Analytics facade for web applications.
  * Refer to \@farfetch/blackout-analytics documentation to know the
@@ -80,6 +84,24 @@ class AnalyticsWeb extends Analytics {
     );
 
     return this;
+  }
+
+  addIntegration(
+    name: string,
+    Factory: typeof GA,
+    options: GAIntegrationOptions,
+  ): this;
+  addIntegration(
+    name: string,
+    Factory: IntegrationFactory<IntegrationOptions>,
+    options?: IntegrationOptions,
+  ): this;
+  addIntegration(
+    name: string,
+    Factory: IntegrationFactory<IntegrationOptions>,
+    options?: IntegrationOptions,
+  ): this {
+    return super.addIntegration(name, Factory, options);
   }
 }
 

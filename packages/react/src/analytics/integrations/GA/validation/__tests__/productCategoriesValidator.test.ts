@@ -6,6 +6,7 @@ import {
 } from '../../constants';
 import { utils } from '@farfetch/blackout-analytics';
 import productCategoriesValidator from '../productCategoriesValidator';
+import type { GACommandList } from '../../types';
 
 utils.logger.warn = jest.fn();
 const mockLoggerWarn = utils.logger.warn;
@@ -17,7 +18,7 @@ describe('productCategoriesValidator', () => {
 
   describe(`For each ${ADD_PRODUCT_COMMAND} command`, () => {
     it('Should warn when product category field exceeds the maximum number of levels of hierarchy', () => {
-      const gaCommandList = [
+      const gaCommandList: GACommandList = [
         ['set', 'currencyCode', 'EUR'],
         [
           ADD_PRODUCT_COMMAND,
@@ -56,7 +57,7 @@ describe('productCategoriesValidator', () => {
 
   describe(`For each ${ADD_IMPRESSION_COMMAND} command`, () => {
     it('Should warn when product category field exceeds the maximum number of levels of hierarchy', () => {
-      const gaCommandList = [
+      const gaCommandList: GACommandList = [
         ['set', 'currencyCode', 'EUR'],
         [
           ADD_IMPRESSION_COMMAND,
@@ -94,7 +95,7 @@ describe('productCategoriesValidator', () => {
   });
 
   it('Should warn when product category field is not of string type', () => {
-    const gaCommandList = [
+    const gaCommandList: GACommandList = [
       [
         ADD_PRODUCT_COMMAND,
         {

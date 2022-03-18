@@ -12,20 +12,17 @@
  *  \}
  * \});
  *
- * @module GA
- * @category Analytics
- * @subcategory Integrations
  */
-
 import {
   trackTypes as analyticsTrackTypes,
   ConsentData,
   EventData,
-  IntegrationOptions,
   integrations,
   LoadIntegrationEventData,
+  PageviewEventData,
   SetUserEventData,
   StrippedDownAnalytics,
+  TrackEventData,
   TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
@@ -41,39 +38,29 @@ import get from 'lodash/get';
 import merge from 'lodash/merge';
 import productCategoriesValidator from './validation/productCategoriesValidator';
 import type {
+  EventScopeCommandsHandlers,
   GACommandList,
   GAIntegrationOptions,
+  NonInteractionEvents,
+  OnPreProcessCommandsHandler,
+  PageviewScopeExtrasCommandsHandler,
+  ProductMappings,
+  Schemas,
+  ScopeCommands,
   ValidateCommandResult,
 } from './types';
-import type { ObjectSchema } from 'yup';
-
-declare global {
-  interface Window {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ga: any;
-  }
-}
 
 /**
  * Google Analytics Integration.
- *
- * @private
- * @augments Integration
  */
 class GA extends integrations.Integration {
-  private initializePromiseResolve?: (value?: unknown) => void;
-  private initializePromise: Promise<unknown>;
-  private scopeCommands?: Record<string, unknown>;
-  private schemaEventsMap?: Record<
-    string,
-    ObjectSchema<object | null | undefined>
-  >;
-  private productMappings?: Record<string, unknown>;
-  private onPreProcessCommands?: (
-    commandList: GACommandList,
-    data?: EventData<TrackTypesValues>,
-  ) => GACommandList;
-  private nonInteractionEvents?: Record<string, unknown>;
+  private initializePromiseResolve?: (value?: void | Promise<void>) => void;
+  private initializePromise: Promise<void>;
+  private scopeCommands?: ScopeCommands;
+  private schemaEventsMap!: Schemas;
+  private productMappings!: ProductMappings;
+  private onPreProcessCommands!: OnPreProcessCommandsHandler;
+  private nonInteractionEvents!: NonInteractionEvents;
 
   /**
    * Creates an instance of Google Analytics integration.
@@ -86,19 +73,17 @@ class GA extends integrations.Integration {
    *
    */
   constructor(
-    protected options: IntegrationOptions = {},
+    protected options: GAIntegrationOptions,
     protected loadData: LoadIntegrationEventData,
     protected strippedDownAnalytics: StrippedDownAnalytics,
   ) {
     super(options, loadData, strippedDownAnalytics);
 
-    this.initializePromiseResolve = undefined;
-
     this.initializePromise = new Promise(resolve => {
       this.initializePromiseResolve = resolve;
     });
 
-    this.initialize(options as GAIntegrationOptions);
+    this.initialize(options);
     this.onSetUser(loadData);
   }
 
@@ -109,25 +94,8 @@ class GA extends integrations.Integration {
    *
    * @returns If the integration is ready to be loaded.
    */
-  static shouldLoad(consent: Partial<ConsentData>): boolean {
+  static shouldLoad(consent: ConsentData | null): boolean {
     return !!consent && !!consent.statistics;
-  }
-
-  /**
-   * Method used to create a new GA instance by analytics.
-   *
-   * @param options   - Integration options.
-   * @param loadData  - Analytics's load event data.
-   * @param analytics - Analytics instance stripped down with only helpers.
-   *
-   * @returns An instance of GA class.
-   */
-  static createInstance(
-    options: IntegrationOptions,
-    loadData: LoadIntegrationEventData,
-    analytics: StrippedDownAnalytics,
-  ): GA {
-    return new GA(options, loadData, analytics);
   }
 
   /**
@@ -135,7 +103,7 @@ class GA extends integrations.Integration {
    *
    * @param data - Event data provided by analytics.
    */
-  async trackPage(data: EventData<TrackTypesValues>) {
+  async trackPage(data: PageviewEventData) {
     await this.initializePromise;
 
     if (!window.ga || !window.ga.loaded) {
@@ -147,7 +115,7 @@ class GA extends integrations.Integration {
 
     try {
       const location = utils.getLocation(data);
-      const pageviewCommandList = [];
+      const pageviewCommandList: GACommandList = [];
 
       const extraCommands = this.getExtraCommandsForPage(
         data,
@@ -162,8 +130,7 @@ class GA extends integrations.Integration {
         [
           'set',
           'page',
-          location.pathname +
-            utils.stringifyQuery(location.query as Record<string, unknown>),
+          location.pathname + utils.stringifyQuery(location.query),
         ],
         ['send', 'pageview'],
       );
@@ -186,10 +153,10 @@ class GA extends integrations.Integration {
   async track(data: EventData<TrackTypesValues>): Promise<void> {
     switch (data.type) {
       case analyticsTrackTypes.PAGE:
-        return await this.trackPage(data);
+        return await this.trackPage(data as PageviewEventData);
 
       case analyticsTrackTypes.TRACK:
-        return await this.trackEvent(data);
+        return await this.trackEvent(data as TrackEventData);
 
       default:
         break;
@@ -201,7 +168,7 @@ class GA extends integrations.Integration {
    *
    * @param data - Event data provided by analytics.
    */
-  async trackEvent(data: EventData<TrackTypesValues>): Promise<void> {
+  async trackEvent(data: TrackEventData): Promise<void> {
     await this.initializePromise;
 
     if (!window.ga || !window.ga.loaded) {
@@ -235,7 +202,7 @@ class GA extends integrations.Integration {
     }
 
     try {
-      const eventData = {
+      const eventData: typeof data = {
         ...data,
         user: utils.hashUserData(data.user),
       };
@@ -245,16 +212,17 @@ class GA extends integrations.Integration {
 
       window.ga('set', 'userId', isGuest ? null : userId);
 
-      const userHitCommandBuilder = get(this.scopeCommands, 'user') as
-        | ((...args: unknown[]) => unknown)
-        | undefined;
+      const userHitCommandBuilder = get(
+        this.scopeCommands,
+        'user',
+      ) as ScopeCommands['user'];
 
       const commandList = this.executeCommandBuilder(
         userHitCommandBuilder,
         eventData,
       );
 
-      this.processCommandList(commandList);
+      this.processCommandList(commandList, data);
     } catch (error) {
       utils.logger.error(
         `[GA] - An error occurred when trying to process a user changed event: ${error}`,
@@ -272,7 +240,7 @@ class GA extends integrations.Integration {
    */
   isEventDataValid(data: EventData<TrackTypesValues>): boolean {
     const event = utils.getEvent(data);
-    const validationSchema = this.schemaEventsMap?.[event];
+    const validationSchema = this.schemaEventsMap[event];
     const validationResult = eventValidator(data, validationSchema);
 
     if (!validationResult.isValid) {
@@ -291,7 +259,7 @@ class GA extends integrations.Integration {
    *
    * @param data - Event data provided by analytics.
    */
-  sendEvent(data: EventData<TrackTypesValues>): void {
+  sendEvent(data: TrackEventData): void {
     try {
       const gaCommandList = this.buildCommandListForEvent(
         data,
@@ -317,7 +285,10 @@ class GA extends integrations.Integration {
    */
   processCommandList(
     gaCommandList: GACommandList | undefined,
-    data?: EventData<TrackTypesValues>,
+    data:
+      | EventData<TrackTypesValues>
+      | LoadIntegrationEventData
+      | SetUserEventData,
   ): void {
     if (gaCommandList) {
       if (this.onPreProcessCommands) {
@@ -374,9 +345,9 @@ class GA extends integrations.Integration {
    * @returns The GA command list for the event. It will return empty if there is an error or no command builders exist for the event.
    */
   buildCommandListForEvent(
-    data: EventData<TrackTypesValues>,
-    scopeCommands: Record<string, unknown> | undefined,
-    productMappings: Record<string, unknown> | undefined,
+    data: TrackEventData,
+    scopeCommands?: ScopeCommands,
+    productMappings?: ProductMappings,
   ): GACommandList {
     const commandList: GACommandList = [];
     const extraCommands = this.getExtraCommandsForEvent(data, scopeCommands);
@@ -408,13 +379,13 @@ class GA extends integrations.Integration {
    * @returns An array with the commands or null if there was an error executing the extra commands builder.
    */
   getExtraCommandsForPage(
-    data: EventData<TrackTypesValues>,
-    scopeCommands: Record<string, unknown> | undefined,
+    data: PageviewEventData,
+    scopeCommands?: ScopeCommands,
   ): GACommandList | undefined {
     const extrasCommandBuilder = get(
       scopeCommands || {},
       'hit.pageview.extras',
-    ) as ((...args: unknown[]) => unknown) | undefined;
+    ) as PageviewScopeExtrasCommandsHandler['extras'] | undefined;
 
     return this.executeCommandBuilder(extrasCommandBuilder, data);
   }
@@ -429,8 +400,8 @@ class GA extends integrations.Integration {
    * @returns An array with the commands or null if there was an error executing the extra commands builder.
    */
   getExtraCommandsForEvent(
-    data: EventData<TrackTypesValues>,
-    scopeCommands: Record<string, unknown> | undefined,
+    data: TrackEventData,
+    scopeCommands?: ScopeCommands,
   ): GACommandList | undefined {
     const event = utils.getEvent(data);
 
@@ -452,9 +423,9 @@ class GA extends integrations.Integration {
    * @returns An array with the commands or null if there was an error executing the main commands builder.
    */
   getMainCommandsForEvent(
-    data: EventData<TrackTypesValues>,
-    scopeCommands: Record<string, unknown> | undefined,
-    productMappings: Record<string, unknown> | undefined,
+    data: TrackEventData,
+    scopeCommands?: ScopeCommands,
+    productMappings?: ProductMappings,
   ): GACommandList | undefined {
     const event = get(data, 'event');
 
@@ -466,7 +437,7 @@ class GA extends integrations.Integration {
     return this.executeCommandBuilder(
       mainCommandBuilder,
       data,
-      productMappings,
+      productMappings as ProductMappings,
     );
   }
 
@@ -479,27 +450,30 @@ class GA extends integrations.Integration {
    */
   getMainCommandBuilderForEvent(
     event: string,
-    scopeCommands: Record<string, unknown> | undefined,
-  ): ((...args: unknown[]) => unknown) | undefined {
-    let commandBuilder = get(scopeCommands, `hit.event.${event}.main`) as
-      | ((...args: unknown[]) => unknown)
-      | undefined;
+    scopeCommands?: ScopeCommands,
+  ): EventScopeCommandsHandlers['main'] {
+    let commandBuilder = get(
+      scopeCommands,
+      `hit.event.${event}.main`,
+    ) as EventScopeCommandsHandlers['main'];
 
     if (commandBuilder) {
       return commandBuilder;
     }
 
-    commandBuilder = get(scopeCommands, 'hit.event.*.main') as
-      | ((...args: unknown[]) => unknown)
-      | undefined;
+    commandBuilder = get(
+      scopeCommands,
+      'hit.event.*.main',
+    ) as EventScopeCommandsHandlers['main'];
 
     if (commandBuilder) {
       return commandBuilder;
     }
 
-    return get(defaultEventCommands, event) as
-      | ((...args: unknown[]) => unknown)
-      | undefined;
+    return get(
+      defaultEventCommands,
+      event,
+    ) as EventScopeCommandsHandlers['main'];
   }
 
   /**
@@ -511,19 +485,21 @@ class GA extends integrations.Integration {
    */
   getExtrasCommandBuilderForEvent(
     event: string,
-    scopeCommands: Record<string, unknown> | undefined,
-  ): ((...args: unknown[]) => unknown) | undefined {
-    const commandBuilder = get(scopeCommands, `hit.event.${event}.extras`) as
-      | ((...args: unknown[]) => unknown)
-      | undefined;
+    scopeCommands?: ScopeCommands,
+  ): EventScopeCommandsHandlers['extras'] {
+    const commandBuilder = get(
+      scopeCommands,
+      `hit.event.${event}.extras`,
+    ) as EventScopeCommandsHandlers['extras'];
 
     if (commandBuilder) {
       return commandBuilder;
     }
 
-    return get(scopeCommands, 'hit.event.*.extras') as
-      | ((...args: unknown[]) => unknown)
-      | undefined;
+    return get(
+      scopeCommands,
+      'hit.event.*.extras',
+    ) as EventScopeCommandsHandlers['extras'];
   }
 
   /**
@@ -536,16 +512,22 @@ class GA extends integrations.Integration {
    *
    * @throws If the command builder passed is not a function or the output is not of the proper type.
    */
-  executeCommandBuilder(
-    commandBuilder: ((...args: unknown[]) => unknown) | undefined,
-    ...args: unknown[]
-  ): GACommandList | undefined {
+  executeCommandBuilder<
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    T extends ((...args: any[]) => GACommandList) | undefined,
+  >(
+    commandBuilder: T,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ...args: T extends (...args: any[]) => GACommandList
+      ? Parameters<T>
+      : undefined[]
+  ): GACommandList | undefined | never {
     if (commandBuilder) {
       if (typeof commandBuilder !== 'function') {
         throw new TypeError('Command builder is not a function.');
       }
 
-      const commandList = commandBuilder(...args) as GACommandList;
+      const commandList = commandBuilder(...args);
       const validationResult = this.validateCommandList(commandList);
 
       if (!validationResult.isValid) {

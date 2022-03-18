@@ -18,6 +18,7 @@ import type {
   EventContextData,
   EventData,
   EventProperties,
+  IntegrationFactory,
   IntegrationOptions,
   IntegrationRuntimeData,
   LoadIntegrationEventData,
@@ -27,7 +28,6 @@ import type {
   UserData,
   UserTraits,
 } from './types/analytics.types';
-import type { IntegrationFactory } from './integrations/Integration';
 import type { Storage } from './utils/types';
 
 /**
@@ -202,6 +202,8 @@ class Analytics {
       // which returns the value as first parameter
       this.activeIntegrations.forEach(
         item =>
+          // Here the cast is safe because when consentInstance.set(data) is called
+          // it will always set the consent to an object, even if no data is passed.
           item.instance && item.instance.setConsent(consented as ConsentData),
       );
 
@@ -341,10 +343,10 @@ class Analytics {
    */
   addIntegration(
     name: string,
-    Factory: IntegrationFactory,
+    Factory: IntegrationFactory<IntegrationOptions>,
     options: IntegrationOptions = {},
   ): this {
-    const isSubclass = Factory && Factory.prototype instanceof Integration;
+    const isSubclass = Factory.prototype instanceof Integration;
 
     if (!isSubclass) {
       logger.error(
@@ -655,7 +657,7 @@ class Analytics {
       type,
       context: context as EventContext,
       platform: this.platform,
-      consent: (await this.consent()) as ConsentData,
+      consent: await this.consent(),
       user: await this.user(),
       timestamp: new Date().getTime(),
     };
