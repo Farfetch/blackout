@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.206](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.205...@farfetch/blackout-redux@1.0.0-next.206) (2022-03-18)
+
+
+### Bug Fixes
+
+* **analytics|react:** fix typescript typings ([0294198](https://github.com/Farfetch/blackout/commit/02941985161075aa676cd51183480cfcfe2900dd))
+
+
+
+
+
 # [1.0.0-next.205](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.204...@farfetch/blackout-redux@1.0.0-next.205) (2022-03-04)
 
 
