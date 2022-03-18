@@ -7,11 +7,12 @@ import set from 'lodash/set';
  *
  * @param sourceObject - Object to map properties from.
  * @param mappings - Mappings of property names from source to target. If not provided, sourceObject will be returned.
+ *
  * @returns New object mapped with specified mappings or sourceObject if no mappings are provided.
  */
 const objectMapper = (
   sourceObject: Record<string, unknown>,
-  mappings?: Record<string, unknown>,
+  mappings?: Record<string, string | string[]>,
 ): Record<string, unknown> => {
   let objectMapped = sourceObject;
 

@@ -4,7 +4,6 @@ import type {
   ON_SET_USER_TRACK_TYPE,
 } from '../utils/constants';
 import type { Integration } from '../integrations';
-import type { IntegrationFactory } from '../integrations/Integration';
 import type trackTypes from '../types/trackTypes';
 
 export type TrackTypesValues = typeof trackTypes[keyof typeof trackTypes];
@@ -24,7 +23,7 @@ export type EventProperties = Record<string, unknown>;
 export type EventContextData = Record<string, unknown>;
 export type EventContext = ContextData & { event?: Record<string, unknown> };
 
-export type EventData<T> = {
+export type EventData<T extends string> = {
   type: T;
   event: T extends typeof LOAD_INTEGRATION_TRACK_TYPE
     ? typeof LOAD_INTEGRATION_TRACK_TYPE
@@ -32,7 +31,7 @@ export type EventData<T> = {
     ? typeof ON_SET_USER_TRACK_TYPE
     : string;
   user: UserData | null;
-  consent: ConsentData;
+  consent: ConsentData | null;
   context: EventContext;
   platform: string | undefined;
   timestamp: number;
@@ -44,16 +43,42 @@ export type LoadIntegrationEventData = EventData<
 >;
 export type SetUserEventData = EventData<typeof ON_SET_USER_TRACK_TYPE>;
 
+export type PageviewEventData = EventData<typeof trackTypes.PAGE>;
+export type ScreenviewEventData = EventData<typeof trackTypes.SCREEN>;
+export type TrackEventData = EventData<typeof trackTypes.TRACK>;
+
 export type IntegrationRuntimeData = {
   instance: Integration | undefined;
-  Factory: IntegrationFactory;
+  Factory: IntegrationFactory<IntegrationOptions>;
   options: Record<string, unknown>;
   name: string;
 };
 
 export type IntegrationOptions = Record<string, unknown>;
 
-export type UserTraits = Record<string, unknown>;
+export interface IntegrationFactory<T extends IntegrationOptions> {
+  new (
+    options: T,
+    loadData: LoadIntegrationEventData,
+    strippedDownAnalytics: StrippedDownAnalytics,
+  ): Integration;
+  createInstance(
+    options: T,
+    loadData: LoadIntegrationEventData,
+    analytics: StrippedDownAnalytics,
+  ): Integration;
+  shouldLoad(consent: ConsentData | null | undefined): boolean;
+}
+
+export type UserTraits = {
+  dateOfBirth?: string;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  name?: string;
+  phoneNumber?: string;
+  username?: string;
+} & Record<string, unknown>;
 
 export type UserData = {
   id: number | null | undefined;
@@ -71,3 +96,22 @@ export type StrippedDownAnalytics = {
 };
 
 export type UseContextFn = () => object;
+
+export type Product = {
+  id?: string;
+  name?: string;
+  currency?: string;
+  category?: string;
+  brand?: string;
+  variant?: string;
+  price?: number;
+  priceWithoutDiscount?: number;
+  quantity?: number;
+  affiliation?: string;
+  position?: number;
+  discountValue?: number;
+  coupon?: string;
+  list?: string;
+  listId?: string;
+  size?: string;
+} & Record<string, unknown>;

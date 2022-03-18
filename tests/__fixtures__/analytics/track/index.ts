@@ -37,7 +37,7 @@ import signupFormCompletedTrackData from './signupFormCompletedTrackData.fixture
 import signupFormViewedTrackData from './signupFormViewedTrackData.fixtures';
 import signupNewsletterTrackData from './signupNewsletterTrackData.fixtures';
 
-type TrackFixtures = {
+export type TrackFixtures = {
   [eventType in typeof eventTypes[keyof typeof eventTypes]]: EventData<TrackTypesValues> & {
     event: eventType;
   };

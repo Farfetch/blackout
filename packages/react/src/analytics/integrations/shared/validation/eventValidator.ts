@@ -1,6 +1,6 @@
-import * as yup from 'yup';
 import { get } from 'lodash';
 import type { EventData, TrackTypesValues } from '@farfetch/blackout-analytics';
+import type { Schema } from '../types/shared.types';
 
 /**
  * Validates the passed in data against the schema
@@ -16,7 +16,7 @@ import type { EventData, TrackTypesValues } from '@farfetch/blackout-analytics';
  */
 export default (
   data: EventData<TrackTypesValues>,
-  validationSchema: yup.ObjectSchema<object | null | undefined> | undefined,
+  validationSchema?: Schema,
 ) => {
   const properties = get(data, 'properties', {});
 
