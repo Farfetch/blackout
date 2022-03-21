@@ -44,6 +44,22 @@ describe('getPageRanking', () => {
 
     expect(ranking).toBe(expectedRanking);
   });
+
+  it('should correctly construct a ranking number for a specific metadata with custom as string', () => {
+    const metadata = {
+      custom: JSON.stringify({
+        gender: '1',
+        brand: '2450',
+        category: '',
+        priceType: '',
+        id: '',
+      }),
+    };
+    const expectedRanking = 110;
+    const ranking = getPageRanking(metadata);
+
+    expect(ranking).toBe(expectedRanking);
+  });
 });
 
 describe('getDefaultStrategy', () => {
@@ -71,6 +87,20 @@ describe('getRankedCommercePage', () => {
     const mergeStrategy = getRankedCommercePage(mockCommercePages, 'merge');
 
     expect(mergeStrategy).toMatchObject(mergeStrategyResult);
+  });
+
+  it('should warn user that content is legacy if custom metadata is string', () => {
+    console.warn = jest.fn();
+    const commercePages = mockCommercePages;
+    const metadataCustom = JSON.stringify(
+      commercePages.entries[0].metadata.custom,
+    );
+    commercePages.entries[0].metadata.custom = metadataCustom;
+    getRankedCommercePage(commercePages);
+
+    expect(console.warn)
+      .toHaveBeenCalledWith(`[Commerce Pages]: Seems you are trying to fetch legacy commerce page.
+      Try to republish the commerce page to update data.`);
   });
 });
 

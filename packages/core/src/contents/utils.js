@@ -56,7 +56,11 @@ export const PRICETYPE = {
  */
 export const getPageRanking = metadata => {
   let ranking = 0;
-  const { gender, brand, category, priceType, id } = metadata.custom;
+  const metadataObj =
+    typeof metadata.custom === 'string'
+      ? JSON.parse(metadata.custom)
+      : metadata.custom;
+  const { gender, brand, category, priceType, id } = metadataObj;
 
   // Return default ranking number when no data was returned from each commerce property.
   // We can't only check if it's empty from 'metadata.custom' because it could have other properties inside.
@@ -70,7 +74,7 @@ export const getPageRanking = metadata => {
   const rankingPriceType = 1000000000;
   const rankingId = 10000000000;
 
-  Object.entries(metadata.custom).forEach(entry => {
+  Object.entries(metadataObj).forEach(entry => {
     const [key, value] = entry;
 
     switch (key) {
@@ -194,6 +198,13 @@ export const getMergeStrategy = result => {
  * Result of rankedPage === { entries: [...mergedPages] };
  */
 export const getRankedCommercePage = (result, strategy) => {
+  result.entries.map(commerce => {
+    if (typeof commerce?.metadata?.custom === 'string') {
+      console.warn(`[Commerce Pages]: Seems you are trying to fetch legacy commerce page.
+      Try to republish the commerce page to update data.`);
+    }
+  });
+
   switch (strategy) {
     case 'merge':
       return getMergeStrategy(result);
