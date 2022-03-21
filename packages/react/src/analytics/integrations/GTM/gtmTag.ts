@@ -3,10 +3,10 @@
 /**
  * Script from google tag manager.
  *
- * @param {String} containerId - The GTM container ID.
+ * @param containerId - The GTM container ID.
  */
-export default containerId =>
-  (function (w, d, s, l, i) {
+export default (containerId: string) =>
+  (function (w: any, d: any, s: any, l: any, i: any) {
     w[l] = w[l] || [];
     w[l].push({
       'gtm.start': new Date().getTime(),

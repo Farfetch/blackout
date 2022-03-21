@@ -7,12 +7,28 @@ import {
   DATA_LAYER_SET_USER_EVENT,
   SET_USER_TYPE,
 } from '../constants';
-import { eventTypes, integrations, utils } from '@farfetch/blackout-analytics';
+import {
+  eventTypes,
+  integrations,
+  LoadIntegrationEventData,
+  TrackTypesValues,
+  UserTraits,
+  utils,
+} from '@farfetch/blackout-analytics';
 import { GTM, validationSchemaBuilder } from '../..';
-import { trackEventsData } from 'tests/__fixtures__/analytics';
+import {
+  loadIntegrationData,
+  trackEventsData,
+} from 'tests/__fixtures__/analytics';
 import eventsMapper from '../eventsMapper';
+import type {
+  EventMappers,
+  GTMEventData,
+  GTMIntegrationOptions,
+} from '../types';
+import type { WebContextType } from '../../../context';
 
-jest.mock('../gtmTag.js', () => jest.fn());
+jest.mock('../gtmTag', () => jest.fn());
 
 utils.logger.error = jest.fn();
 const loggerErrorSpy = utils.logger.error;
@@ -20,8 +36,13 @@ const loggerErrorSpy = utils.logger.error;
 const analyticsTrackDataMock =
   trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART];
 
+const strippedDownAnalytics = {
+  createEvent: (type: TrackTypesValues) =>
+    Promise.resolve({ ...analyticsTrackDataMock, type }),
+};
+
 describe('GTM', () => {
-  let gtm;
+  let gtm: GTM;
   const consentDefaults = {
     marketing: false,
     statistics: false,
@@ -35,21 +56,35 @@ describe('GTM', () => {
 
   const containerId = 'GTM-12345';
 
-  const createGTMInstance = (options, loadData) =>
-    GTM.createInstance(options, loadData);
-  const getDataLayerEntryByEvent = (eventName, filterOrFind = 'find') =>
-    global.dataLayer[filterOrFind](entry => entry.event === eventName);
+  const createGTMInstance = (
+    options: GTMIntegrationOptions,
+    loadData: LoadIntegrationEventData = loadIntegrationData,
+  ) =>
+    GTM.createInstance(
+      options,
+      { ...loadData, consent: consentDefaults },
+      strippedDownAnalytics,
+    ) as GTM;
+
+  const getDataLayerEntryByEvent = (
+    eventName: string,
+    filterOrFind: 'filter' | 'find' = 'find',
+  ) =>
+    window.dataLayer?.[filterOrFind](
+      (entry: object) => (entry as GTMEventData).event === eventName,
+    );
 
   beforeEach(() => {
-    global.dataLayer = [];
+    window.dataLayer = [];
 
-    gtm = createGTMInstance({ containerId }, analyticsEventMock);
+    gtm = createGTMInstance({ containerId });
 
     jest.clearAllMocks();
   });
 
   describe('GTM integration', () => {
     it('Should be ready to load', () => {
+      // @ts-expect-error
       expect(GTM.shouldLoad(consentDefaults)).toEqual(true);
     });
 
@@ -66,7 +101,8 @@ describe('GTM', () => {
 
   describe('GTM instance', () => {
     it('Should log an error if the "containerId" options is not passed', () => {
-      createGTMInstance(undefined, analyticsEventMock);
+      // @ts-expect-error
+      createGTMInstance(undefined);
 
       expect(loggerErrorSpy).toHaveBeenCalledWith(
         'Google Tag Manager - Container ID not found. Make sure you are passing a valid container ID on the integration options via "analytics.addIntegration("gtm", integrations.GTM, options)"',
@@ -89,12 +125,11 @@ describe('GTM', () => {
       it('Should allow to change the event name when writing the consent on the dataLayer', () => {
         const consentKey = 'custom.consent.event';
 
-        gtm = createGTMInstance(
-          { containerId, consentKey },
-          analyticsEventMock,
-        );
+        gtm = createGTMInstance({ containerId, consentKey });
 
-        const dataLayerEntry = getDataLayerEntryByEvent(consentKey);
+        const dataLayerEntry: GTMEventData = getDataLayerEntryByEvent(
+          consentKey,
+        ) as GTMEventData;
 
         expect(dataLayerEntry).toBeDefined();
         expect(dataLayerEntry.event).toEqual(consentKey);
@@ -118,8 +153,10 @@ describe('GTM', () => {
             currencyCode: data.context.currencyCode,
             eventContext: undefined,
             libraryVersion: data.context.library.version,
-            location: data.context.web.window.location,
-            userAgent: data.context.web.window.navigator.userAgent,
+            location: (data.context as unknown as WebContextType).web.window
+              .location,
+            userAgent: (data.context as unknown as WebContextType).web.window
+              .navigator.userAgent,
           },
         });
 
@@ -143,27 +180,21 @@ describe('GTM', () => {
       it('Should allow to change the event name when writing the context on the dataLayer', () => {
         const contextKey = 'custom.context.event';
 
-        gtm = createGTMInstance(
-          { containerId, contextKey },
-          analyticsEventMock,
-        );
+        gtm = createGTMInstance({ containerId, contextKey });
 
         const dataLayerEntry = getDataLayerEntryByEvent(contextKey);
 
         expect(dataLayerEntry).toBeDefined();
-        expect(dataLayerEntry.event).toEqual(contextKey);
+        expect((dataLayerEntry as GTMEventData).event).toEqual(contextKey);
       });
 
       it('Should allow to override the setContext method', () => {
         // Force clean the array that will be populated by 'createGTMInstance' called on beforeEach
-        global.dataLayer = [];
+        window.dataLayer = [];
 
         const myCustomContextFn = jest.fn();
 
-        gtm = createGTMInstance(
-          { containerId, setContext: myCustomContextFn },
-          analyticsEventMock,
-        );
+        gtm = createGTMInstance({ containerId, setContext: myCustomContextFn });
 
         expect(myCustomContextFn).toHaveBeenCalledWith(
           analyticsEventMock.context,
@@ -176,8 +207,8 @@ describe('GTM', () => {
         expect(defaultContextDataLayerEntry).toBeUndefined();
 
         gtm = createGTMInstance(
+          // @ts-expect-error
           { containerId, setContext: 'not a function' },
-          analyticsEventMock,
         );
 
         expect(loggerErrorSpy).toHaveBeenCalledWith(
@@ -200,10 +231,10 @@ describe('GTM', () => {
           ...data,
           user: {
             id: data.user.id,
-            name: data.user.traits.name,
+            name: (data.user.traits as UserTraits).name,
             // Hashed email
             email: expect.any(String),
-            isGuest: data.user.traits.isGuest,
+            isGuest: (data.user.traits as UserTraits).isGuest,
           },
         });
       });
@@ -211,24 +242,24 @@ describe('GTM', () => {
       it('Should allow to change the event name when writing the user data on the dataLayer', () => {
         const userKey = 'custom.user.event';
 
-        gtm = createGTMInstance({ containerId, userKey }, analyticsEventMock);
+        gtm = createGTMInstance({ containerId, userKey });
 
         const dataLayerEntry = getDataLayerEntryByEvent(userKey);
 
         expect(dataLayerEntry).toBeDefined();
-        expect(dataLayerEntry.event).toEqual(userKey);
+        expect((dataLayerEntry as GTMEventData).event).toEqual(userKey);
       });
 
       it('Should allow to override the onSetUser method', () => {
         // Force clean the array that will be populated by 'createGTMInstance' called on beforeEach
-        global.dataLayer = [];
+        window.dataLayer = [];
 
         const myCustomOnSetUserFn = jest.fn();
 
-        gtm = createGTMInstance(
-          { containerId, onSetUser: myCustomOnSetUserFn },
-          analyticsEventMock,
-        );
+        gtm = createGTMInstance({
+          containerId,
+          onSetUser: myCustomOnSetUserFn,
+        });
 
         expect(myCustomOnSetUserFn).toHaveBeenCalledWith(
           utils.hashUserData(analyticsEventMock.user),
@@ -241,8 +272,8 @@ describe('GTM', () => {
         expect(defaultUserDataLayerEntry).toBeUndefined();
 
         gtm = createGTMInstance(
+          // @ts-expect-error
           { containerId, onSetUser: 'not a function' },
-          analyticsEventMock,
         );
 
         expect(loggerErrorSpy).toHaveBeenCalledWith(
@@ -252,11 +283,11 @@ describe('GTM', () => {
     });
 
     it('Should create the dataLayer array if it does not exist', () => {
-      global.dataLayer = undefined;
+      window.dataLayer = undefined;
 
-      gtm = createGTMInstance({ containerId }, analyticsEventMock);
+      gtm = createGTMInstance({ containerId });
 
-      expect(global.dataLayer).toBeDefined();
+      expect(window.dataLayer).toBeDefined();
     });
   });
 
@@ -276,7 +307,9 @@ describe('GTM', () => {
       let dataLayerEntry = getDataLayerEntryByEvent(analyticsEvent.event);
 
       expect(dataLayerEntry).toBeDefined();
-      expect(dataLayerEntry.event).toEqual(analyticsEvent.event);
+      expect((dataLayerEntry as GTMEventData).event).toEqual(
+        analyticsEvent.event,
+      );
 
       // Invalid, unknown event
       const invalidEventName = 'this event does not exist on the mapper';
@@ -296,6 +329,7 @@ describe('GTM', () => {
       gtm = createGTMInstance({
         containerId,
         eventsMapper: {
+          // @ts-expect-error
           [invalidEvent]: 'a string instead of a function',
         },
       });
@@ -369,7 +403,10 @@ describe('GTM', () => {
 
     Object.keys(eventsMapper).forEach(event => {
       it(`Should match the snapshot for the event: ${event}`, () => {
-        expect(eventsMapper[event](mockEventData)).toMatchSnapshot();
+        expect(
+          // @ts-expect-error
+          (eventsMapper[event] as EventMappers[string])(mockEventData),
+        ).toMatchSnapshot();
       });
     });
   });
@@ -447,12 +484,12 @@ describe('GTM', () => {
     it('should try to load the gtm script with the passed containerId', () => {
       const containerId = 123;
       const mockObject = {
-        gtmScriptFn: jest.requireActual('../gtmTag.js').default,
+        gtmScriptFn: jest.requireActual('../gtmTag').default,
       };
 
       const spy = jest.spyOn(mockObject, 'gtmScriptFn');
 
-      expect.assertions = 2;
+      expect.assertions(1);
 
       try {
         mockObject.gtmScriptFn(containerId);

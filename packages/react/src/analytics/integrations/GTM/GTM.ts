@@ -4,15 +4,12 @@
  *
  * @example <caption>Adding GTM integration to analytics</caption>
  *
- * import analytics, { integrations } from '@farfetch/blackout-react/analytics';
+ * import analytics, \{ integrations \} from '\@farfetch/blackout-react/analytics';
  *
- * analytics.addIntegration('GTM', integrations.GTM, {
- *  containerId: '<google tag manager containerId>'
- * });
+ * analytics.addIntegration('GTM', integrations.GTM, \{
+ *  containerId: '\<google tag manager containerId\>'
+ * \});
  *
- * @module GTM
- * @category Analytics
- * @subcategory Integrations
  */
 
 import {
@@ -22,6 +19,8 @@ import {
   DATA_LAYER_CONSENT_EVENT,
   DATA_LAYER_CONTEXT_EVENT,
   DATA_LAYER_SET_USER_EVENT,
+  EVENT_SCHEMAS_KEY,
+  EVENTS_MAPPER_KEY,
   GTM_LABEL_PREFIX,
   GTM_TYPE_ERROR_PREFIX,
   INVALID_FUNCTION_ERROR_SUFFIX,
@@ -32,7 +31,16 @@ import {
   SET_USER_KEY,
   SET_USER_TYPE,
 } from './constants';
-import { utils as coreUtils } from '@farfetch/blackout-analytics';
+import {
+  ConsentData,
+  utils as coreUtils,
+  EventContext,
+  EventData,
+  LoadIntegrationEventData,
+  SetUserEventData,
+  StrippedDownAnalytics,
+  TrackTypesValues,
+} from '@farfetch/blackout-analytics';
 import { getContextParameters, getUserParameters } from './utils';
 import { Integration } from '@farfetch/blackout-analytics/integrations';
 import eventSchemas from '../shared/validation/eventSchemas';
@@ -43,43 +51,59 @@ import gtmTag from './gtmTag';
 import isEqual from 'lodash/isEqual';
 import isPlainObject from 'lodash/isPlainObject';
 import merge from 'lodash/merge';
+import type {
+  EventMappers,
+  GTMEventData,
+  GTMIntegrationOptions,
+} from './types';
+import type { Schemas } from '../GA';
 
 /**
  * GTM Integration.
- *
- * @private
- * @augments Integration
  */
-class GTM extends Integration {
+class GTM extends Integration<GTMIntegrationOptions> {
+  protected consentKey?: string;
+  protected contextKey?: string;
+  protected setUserKey?: string;
+  protected context?: EventContext;
+  protected eventsMapper: EventMappers;
+  protected eventSchemas: Schemas;
   /**
    * Creates an instance of GTM.
    * It will store the events mapper and the options passed.
    *
-   * @param {object} options - Config for the GTM container.
-   * @param {object} loadData - Analytics's load event data.
+   * @param options - Config for the GTM container.
+   * @param loadData - Analytics's load event data.
+   * @param analytics - Analytics instance stripped down with only helpers.
    *
    */
-  constructor(options = {}, loadData = {}) {
-    super(options, loadData);
+  constructor(
+    options: GTMIntegrationOptions,
+    loadData: LoadIntegrationEventData,
+    analytics: StrippedDownAnalytics,
+  ) {
+    super(options, loadData, analytics);
 
     this.consentKey = get(
       this.options,
       SET_CONSENT_KEY,
       DATA_LAYER_CONSENT_EVENT,
     );
+
     this.contextKey = get(
       this.options,
       SET_CONTEXT_KEY,
       DATA_LAYER_CONTEXT_EVENT,
     );
+
     this.setUserKey = get(
       this.options,
       SET_USER_KEY,
       DATA_LAYER_SET_USER_EVENT,
     );
 
-    const customEventsMapper = get(options, 'eventsMapper', {});
-    const customEventSchemas = get(options, 'eventSchemas', {});
+    const customEventsMapper = get(options, EVENTS_MAPPER_KEY, {});
+    const customEventSchemas = get(options, EVENT_SCHEMAS_KEY, {});
 
     this.eventsMapper = merge({}, eventsMapper, customEventsMapper);
     this.eventSchemas = merge({}, eventSchemas, customEventSchemas);
@@ -88,24 +112,12 @@ class GTM extends Integration {
   }
 
   /**
-   * Method used to create a new GTM instance by analytics.
-   *
-   * @param {object} options - Integration options.
-   * @param {object} loadData - Analytics's load event data.
-   *
-   * @returns {object} An instance of GTM class.
-   */
-  static createInstance(options, loadData) {
-    return new GTM(options, loadData);
-  }
-
-  /**
    * Method to check if the integration is ready to be loaded.
    * This integration should always load. Then, in the container,
    * each tag should be configured with the proper trigger according its category: Preferences, statistics or marketing.
    *
    *
-   * @returns {boolean} If the integration is ready to be loaded.
+   * @returns If the integration is ready to be loaded.
    */
   static shouldLoad() {
     return true;
@@ -115,12 +127,15 @@ class GTM extends Integration {
    * Startup the GTM script and write some properties on the dataLayer.
    * There's no need to wait for the script to load as GTM will pick up any data already written on the dataLayer once it starts running.
    *
-   * @param {object} options - Integration options.
-   * @param {object} loadData - Analytics's load event data.
+   * @param options - Integration options.
+   * @param loadData - Analytics's load event data.
    */
-  initialize(options, loadData) {
+  initialize(
+    options: GTMIntegrationOptions,
+    loadData: LoadIntegrationEventData,
+  ) {
     this.runGTMScript(options);
-    this.setConsent(loadData.consent);
+    this.setConsent(loadData.consent as ConsentData);
     this.setContext(loadData.context);
     this.onSetUser(loadData);
   }
@@ -128,11 +143,11 @@ class GTM extends Integration {
   /**
    * Loads the GTM script with the container ID passed via the integration's options.
    *
-   * @param {object} options - Integration options.
+   * @param options - Integration options.
    *
-   * @returns {GTM} This allows chaining of class methods.
+   * @returns This allows chaining of class methods.
    */
-  runGTMScript(options) {
+  runGTMScript(options: GTMIntegrationOptions) {
     const containerId = get(options, CONTAINER_ID_KEY);
 
     if (!containerId) {
@@ -157,14 +172,14 @@ class GTM extends Integration {
    * Sets the consent object.
    * This method is called by analytics whenever the consent changes, so there's no need to validate if it has changed or not.
    *
-   * @param {object} consent - Object to be written on the dataLayer.
+   * @param consent - Object to be written on the dataLayer.
    *
-   * @returns {GTM} This allows chaining of class methods.
+   * @returns This allows chaining of class methods.
    */
-  setConsent(consent) {
+  setConsent(this: this, consent: ConsentData): this {
     this.write({
       consent,
-      event: this.consentKey,
+      event: this.consentKey as string,
       type: CONSENT_TYPE,
     });
 
@@ -174,11 +189,11 @@ class GTM extends Integration {
   /**
    * Workaround to handle when the context changes. Only write when it does change, to avoid writing it on every event.
    *
-   * @param {object} context - The context passed in every event.
+   * @param context - The context passed in every event.
    *
-   * @returns {GTM} This allows chaining of class methods.
+   * @returns This allows chaining of class methods.
    */
-  setContext(context) {
+  setContext(context: EventContext) {
     const customSetContext = get(this.options, SET_CONTEXT_FN_KEY);
 
     if (!customSetContext) {
@@ -188,7 +203,7 @@ class GTM extends Integration {
 
       this.write({
         context: getContextParameters(context),
-        event: this.contextKey,
+        event: this.contextKey as string,
         type: CONTEXT_TYPE,
       });
 
@@ -214,17 +229,17 @@ class GTM extends Integration {
    * Handles whenever the user changes.
    * Will try to execute a custom "onSetUser" if passed via the integration's options.
    *
-   * @param {object} data - OnSetUser event data.
+   * @param data - OnSetUser event data.
    *
-   * @returns {GTM} This allows chaining of class methods.
+   * @returns This allows chaining of class methods.
    */
-  onSetUser(data) {
+  onSetUser(data: SetUserEventData | LoadIntegrationEventData) {
     const customOnSetUser = get(this.options, SET_USER_FN_KEY);
     const protectedUserData = coreUtils.hashUserData(data.user);
 
     if (!customOnSetUser) {
       this.write({
-        event: this.setUserKey,
+        event: this.setUserKey as string,
         type: SET_USER_TYPE,
         user: getUserParameters(protectedUserData),
       });
@@ -249,12 +264,12 @@ class GTM extends Integration {
    * Validates the event against a schema.
    * If no schema is defined for the event, assume the event is valid.
    *
-   * @param {object} data - Event data provided by analytics.
+   * @param data - Event data provided by analytics.
    *
-   * @returns {boolean} If the event passed schema validation or not.
+   * @returns If the event passed schema validation or not.
    *
    */
-  isEventDataValid(data) {
+  isEventDataValid(data: EventData<TrackTypesValues>) {
     const event = coreUtils.getEvent(data);
     const validationSchema = this.eventSchemas[event];
     const validationResult = eventValidator(data, validationSchema);
@@ -273,11 +288,11 @@ class GTM extends Integration {
   /**
    * Track a page or event and push it to the dataLayer.
    *
-   * @param {object} data - Analytics data.
+   * @param data - Analytics data.
    *
-   * @returns {GTM} This allows chaining of class methods.
+   * @returns This allows chaining of class methods.
    */
-  track(data) {
+  track(data: EventData<TrackTypesValues>) {
     const event = coreUtils.getEvent(data);
     const eventMapperFn = this.eventsMapper[event];
 
@@ -310,7 +325,7 @@ class GTM extends Integration {
     }
 
     const payload = {
-      ...eventProperties,
+      ...(eventProperties as object),
       type: data.type,
       event: data.event,
     };
@@ -325,11 +340,11 @@ class GTM extends Integration {
   /**
    * Writes data on the `dataLayer` Array.
    *
-   * @param {object} data - Data to be written on the dataLayer.
+   * @param data - Data to be written on the dataLayer.
    *
-   * @returns {GTM} This allows chaining of class methods.
+   * @returns This allows chaining of class methods.
    */
-  write(data) {
+  write(data: GTMEventData) {
     if (typeof window === 'undefined') {
       return this;
     }

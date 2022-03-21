@@ -141,7 +141,7 @@ class Analytics {
    * @param name - Name of the integration in lowerCase.
    * @returns The integration instance if it exists and was loaded, otherwise null.
    */
-  integration(name: string): Integration | null {
+  integration(name: string): Integration<IntegrationOptions> | null {
     return get(this.integrations.get(name), 'instance', null);
   }
 
@@ -585,7 +585,7 @@ class Analytics {
     integrations:
       | Map<string, IntegrationRuntimeData>
       | IntegrationRuntimeData[],
-    callback: (integration: Integration) => void,
+    callback: (integration: Integration<IntegrationOptions>) => void,
   ): void {
     if (!integrations || !integrations.forEach) {
       return;
@@ -658,7 +658,9 @@ class Analytics {
       context: context as EventContext,
       platform: this.platform,
       consent: await this.consent(),
-      user: await this.user(),
+      // This cast is safe because this.user() only returns null when the storage is not set.
+      // But when this method is called, the storage is guaranteed to be set.
+      user: (await this.user()) as UserData,
       timestamp: new Date().getTime(),
     };
 
