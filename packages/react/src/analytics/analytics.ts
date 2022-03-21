@@ -7,8 +7,9 @@ import Analytics, {
   IntegrationRuntimeData,
   platformTypes,
 } from '@farfetch/blackout-analytics';
-import type { GA } from './integrations';
+import type { GA, GTM } from './integrations';
 import type { GAIntegrationOptions } from './integrations/GA';
+import type { GTMIntegrationOptions } from './integrations/GTM';
 /**
  * Analytics facade for web applications.
  * Refer to \@farfetch/blackout-analytics documentation to know the
@@ -90,6 +91,11 @@ class AnalyticsWeb extends Analytics {
     name: string,
     Factory: typeof GA,
     options: GAIntegrationOptions,
+  ): this;
+  addIntegration(
+    name: string,
+    Factory: typeof GTM,
+    options: GTMIntegrationOptions,
   ): this;
   addIntegration(
     name: string,

@@ -14,9 +14,10 @@ import type {
 } from '../types/analytics.types';
 import type { Storage } from '../utils/types';
 
-class MyIntegration extends Integration {
-  static createInstance(
-    options: IntegrationOptions,
+// Example integration that overrides the createInstance method
+class MyIntegration<T extends IntegrationOptions> extends Integration<T> {
+  static createInstance<Options extends IntegrationOptions>(
+    options: Options,
     loadData: LoadIntegrationEventData,
     strippedDownAnalytics: StrippedDownAnalytics,
   ) {
@@ -32,8 +33,8 @@ class MyIntegration extends Integration {
   }
 }
 
-// @ts-expect-error
-class NullInstanceIntegration extends Integration {
+// @ts-expect-error This expect error is needed so that we can test the createInstance method returning an invalid value type.
+class NullInstanceIntegration extends Integration<IntegrationOptions> {
   static createInstance() {
     return null;
   }
@@ -48,7 +49,7 @@ class NullInstanceIntegration extends Integration {
 }
 
 // @ts-expect-error This expect error is needed so that we can test the createInstance method returning an invalid value type.
-class NoIntegrationInstanceIntegration extends Integration {
+class NoIntegrationInstanceIntegration extends Integration<IntegrationOptions> {
   static createInstance() {
     return String('test');
   }
@@ -62,7 +63,7 @@ class NoIntegrationInstanceIntegration extends Integration {
   }
 }
 
-class CreateInstanceThrowsIntegration extends Integration {
+class CreateInstanceThrowsIntegration extends Integration<IntegrationOptions> {
   static createInstance(): never {
     throw new Error('error');
   }
@@ -76,7 +77,7 @@ class CreateInstanceThrowsIntegration extends Integration {
   }
 }
 
-class NotLoadableIntegration extends Integration {
+class NotLoadableIntegration extends Integration<IntegrationOptions> {
   static shouldLoad() {
     return false;
   }
@@ -85,17 +86,9 @@ class NotLoadableIntegration extends Integration {
   }
 }
 
-class ErrorIntegration extends Integration {
+class ErrorIntegration extends Integration<IntegrationOptions> {
   static shouldLoad() {
     return true;
-  }
-
-  static createInstance(
-    options: IntegrationOptions,
-    loadData: LoadIntegrationEventData,
-    strippedDownAnalytics: StrippedDownAnalytics,
-  ) {
-    return new ErrorIntegration(options, loadData, strippedDownAnalytics);
   }
 
   track() {
@@ -107,21 +100,9 @@ class ErrorIntegration extends Integration {
   }
 }
 
-class StatisticsConsentRequiredIntegration extends Integration {
+class StatisticsConsentRequiredIntegration extends Integration<IntegrationOptions> {
   static shouldLoad(consent: ConsentData) {
     return !!consent && !!consent.statistics;
-  }
-
-  static createInstance(
-    options: IntegrationOptions,
-    loadData: LoadIntegrationEventData,
-    strippedDownAnalytics: StrippedDownAnalytics,
-  ) {
-    return new StatisticsConsentRequiredIntegration(
-      options,
-      loadData,
-      strippedDownAnalytics,
-    );
   }
 
   track(): void {
@@ -326,7 +307,7 @@ describe('analytics', () => {
 
         const integrationInstance = analytics.integration(
           'myIntegration',
-        ) as Integration;
+        ) as MyIntegration<IntegrationOptions>;
         const spyTrack = jest.spyOn(integrationInstance, 'track');
 
         // @ts-expect-error
@@ -742,12 +723,16 @@ describe('analytics', () => {
           await analytics.ready();
 
           const spyIntegration1 = jest.spyOn(
-            analytics.integration('integration1') as Integration,
+            analytics.integration(
+              'integration1',
+            ) as MyIntegration<IntegrationOptions>,
             'onSetUser',
           );
 
           const spyIntegration2 = jest.spyOn(
-            analytics.integration('integration2') as Integration,
+            analytics.integration(
+              'integration2',
+            ) as MyIntegration<IntegrationOptions>,
             'onSetUser',
           );
 
@@ -770,7 +755,9 @@ describe('analytics', () => {
             .ready();
 
           const spy = jest.spyOn(
-            analytics.integration('myIntegration') as Integration,
+            analytics.integration(
+              'myIntegration',
+            ) as MyIntegration<IntegrationOptions>,
             'onSetUser',
           );
 
@@ -787,7 +774,9 @@ describe('analytics', () => {
             .ready();
 
           const spy = jest.spyOn(
-            analytics.integration('myIntegration') as Integration,
+            analytics.integration(
+              'myIntegration',
+            ) as MyIntegration<IntegrationOptions>,
             'onSetUser',
           );
 
@@ -808,7 +797,9 @@ describe('analytics', () => {
 
         it('Should not track an event if the event name is not passed', async () => {
           const spyTrack = jest.spyOn(
-            analytics.integration('myIntegration') as Integration,
+            analytics.integration(
+              'myIntegration',
+            ) as MyIntegration<IntegrationOptions>,
             'track',
           );
 
@@ -858,7 +849,9 @@ describe('analytics', () => {
           analytics.isReady = false;
 
           const spyTrack = jest.spyOn(
-            analytics.integration('myIntegration') as Integration,
+            analytics.integration(
+              'myIntegration',
+            ) as MyIntegration<IntegrationOptions>,
             'track',
           );
 
@@ -892,7 +885,7 @@ describe('analytics', () => {
 
           myIntegrationInstance = analytics.integration(
             'myIntegration',
-          ) as Integration;
+          ) as MyIntegration<IntegrationOptions>;
 
           const spyTrack = jest.spyOn(myIntegrationInstance, 'track');
 
@@ -928,7 +921,9 @@ describe('analytics', () => {
             .ready();
 
           const spyTrack = jest.spyOn(
-            analytics.integration('myIntegration') as Integration,
+            analytics.integration(
+              'myIntegration',
+            ) as MyIntegration<IntegrationOptions>,
             'track',
           );
 

@@ -12,14 +12,14 @@ import type {
  * Base class for integrations.
  * It ensures the base functionality in order to work with analytics.
  */
-class Integration {
+class Integration<T extends IntegrationOptions> {
   /**
    * @param options - Integration options.
    * @param loadData - Analytics's load event data.
    * @param strippedDownAnalytics - Analytics instance stripped down with only helpers.
    */
   constructor(
-    protected options: IntegrationOptions = {},
+    protected options: T = {} as T, // Ugly but no alternative.
     protected loadData: LoadIntegrationEventData,
     protected strippedDownAnalytics: StrippedDownAnalytics,
   ) {}
@@ -43,11 +43,11 @@ class Integration {
    * @param loadData  - Analytics's load event data.
    * @param analytics - Analytics instance stripped down with only helpers.
    */
-  static createInstance(
-    options: IntegrationOptions,
+  static createInstance<Options extends IntegrationOptions>(
+    options: Options,
     loadData: LoadIntegrationEventData,
     analytics: StrippedDownAnalytics,
-  ): Integration {
+  ): Integration<Options> {
     return new this(options, loadData, analytics);
   }
   /**

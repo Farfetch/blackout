@@ -53,7 +53,7 @@ import type {
 /**
  * Google Analytics Integration.
  */
-class GA extends integrations.Integration {
+class GA extends integrations.Integration<GAIntegrationOptions> {
   private initializePromiseResolve?: (value?: void | Promise<void>) => void;
   private initializePromise: Promise<void>;
   private scopeCommands?: ScopeCommands;

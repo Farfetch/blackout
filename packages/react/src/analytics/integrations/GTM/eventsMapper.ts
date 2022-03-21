@@ -1,20 +1,21 @@
-/**
- * @module eventsMapper
- * @private
- */
-
-import { eventTypes, pageTypes } from '@farfetch/blackout-analytics';
+import {
+  EventData,
+  eventTypes,
+  pageTypes,
+  TrackTypesValues,
+} from '@farfetch/blackout-analytics';
 import { getEventProperties, getProductData } from './utils';
 import get from 'lodash/get';
+import type { EventMappers } from './types';
 
 const noPropertiesMappedFn = () => ({});
 
 /**
  * Event mapper with all supported events. This mapper can be extended via the integration's options.
- * It maps all necessary properties for each event appart from context, consent and user properties.
+ * It maps all necessary properties for each event apart from context, consent and user properties.
  */
-const eventsMapper = {
-  [eventTypes.PRODUCT_LIST_VIEWED]: data => {
+const eventsMapper: EventMappers = {
+  [eventTypes.PRODUCT_LIST_VIEWED]: (data: EventData<TrackTypesValues>) => {
     const properties = getEventProperties(data);
 
     return {
@@ -23,56 +24,64 @@ const eventsMapper = {
       currency: properties.currency,
     };
   },
-  [eventTypes.PRODUCT_VIEWED]: data => {
+  [eventTypes.PRODUCT_VIEWED]: (data: EventData<TrackTypesValues>) => {
     const properties = getEventProperties(data);
 
     return {
       product: getProductData(properties),
     };
   },
-  [eventTypes.PRODUCT_CLICKED]: data => {
+  [eventTypes.PRODUCT_CLICKED]: (data: EventData<TrackTypesValues>) => {
     const properties = getEventProperties(data);
 
     return {
       product: getProductData(properties),
     };
   },
-  [eventTypes.PRODUCT_ADDED_TO_CART]: data => {
+  [eventTypes.PRODUCT_ADDED_TO_CART]: (data: EventData<TrackTypesValues>) => {
     const properties = getEventProperties(data);
 
     return {
       product: getProductData(properties),
     };
   },
-  [eventTypes.PRODUCT_REMOVED_FROM_CART]: data => {
+  [eventTypes.PRODUCT_REMOVED_FROM_CART]: (
+    data: EventData<TrackTypesValues>,
+  ) => {
     const properties = getEventProperties(data);
 
     return {
       product: getProductData(properties),
     };
   },
-  [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: data => {
+  [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: (
+    data: EventData<TrackTypesValues>,
+  ) => {
     const properties = getEventProperties(data);
 
     return {
       product: getProductData(properties),
     };
   },
-  [eventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: data => {
+  [eventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: (
+    data: EventData<TrackTypesValues>,
+  ) => {
     const properties = getEventProperties(data);
 
     return {
       product: getProductData(properties),
     };
   },
-  [eventTypes.PRODUCT_UPDATED_WISHLIST]: data => {
+  [eventTypes.PRODUCT_UPDATED_WISHLIST]: (
+    data: EventData<TrackTypesValues>,
+  ) => {
     const properties = getEventProperties(data);
 
     return {
       product: getProductData(properties),
     };
   },
-  [eventTypes.CHECKOUT_STARTED]: data => {
+  [eventTypes.CHECKOUT_STARTED]: (data: EventData<TrackTypesValues>) => {
     const properties = getEventProperties(data);
 
     return {
@@ -80,7 +89,7 @@ const eventsMapper = {
       orderId: properties.orderId,
     };
   },
-  [eventTypes.PLACE_ORDER_STARTED]: data => {
+  [eventTypes.PLACE_ORDER_STARTED]: (data: EventData<TrackTypesValues>) => {
     const properties = getEventProperties(data);
 
     return {
@@ -89,7 +98,7 @@ const eventsMapper = {
       value: properties.value,
     };
   },
-  [eventTypes.CHECKOUT_STEP_VIEWED]: data => {
+  [eventTypes.CHECKOUT_STEP_VIEWED]: (data: EventData<TrackTypesValues>) => {
     const properties = getEventProperties(data);
 
     return {
@@ -97,7 +106,7 @@ const eventsMapper = {
       step: properties.step,
     };
   },
-  [eventTypes.CHECKOUT_STEP_COMPLETED]: data => {
+  [eventTypes.CHECKOUT_STEP_COMPLETED]: (data: EventData<TrackTypesValues>) => {
     const properties = getEventProperties(data);
 
     return {
@@ -105,7 +114,7 @@ const eventsMapper = {
       option: properties.option,
     };
   },
-  [eventTypes.PAYMENT_INFO_ADDED]: data => {
+  [eventTypes.PAYMENT_INFO_ADDED]: (data: EventData<TrackTypesValues>) => {
     const properties = getEventProperties(data);
 
     return {
@@ -113,7 +122,7 @@ const eventsMapper = {
       value: properties.value,
     };
   },
-  [eventTypes.ORDER_COMPLETED]: data => {
+  [eventTypes.ORDER_COMPLETED]: (data: EventData<TrackTypesValues>) => {
     const properties = getEventProperties(data);
 
     return {
@@ -125,7 +134,7 @@ const eventsMapper = {
       currency: properties.currency,
     };
   },
-  [eventTypes.ORDER_REFUNDED]: data => {
+  [eventTypes.ORDER_REFUNDED]: (data: EventData<TrackTypesValues>) => {
     const properties = getEventProperties(data);
 
     return {

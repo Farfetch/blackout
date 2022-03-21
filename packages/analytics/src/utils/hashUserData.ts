@@ -21,7 +21,7 @@ function hashPlainTextString(plainString?: string): string | undefined {
  *
  * @returns - The same object with some hashed properties.
  */
-const hashUserData = (userData: UserData | null): UserData | null => {
+const hashUserData = (userData: UserData): UserData => {
   if (!isEmpty(userData)) {
     const traits: UserTraits = userData?.traits || {};
 

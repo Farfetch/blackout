@@ -16,10 +16,13 @@ export type ContextData = {
   library: {
     name: string;
     version: string;
-  } & Record<string, unknown>;
-};
+  };
+} & Record<string, unknown>;
 
-export type EventProperties = Record<string, unknown>;
+export type EventProperties = { products?: Product[] } & Record<
+  string,
+  unknown
+>;
 export type EventContextData = Record<string, unknown>;
 export type EventContext = ContextData & { event?: Record<string, unknown> };
 
@@ -30,7 +33,7 @@ export type EventData<T extends string> = {
     : T extends typeof ON_SET_USER_TRACK_TYPE
     ? typeof ON_SET_USER_TRACK_TYPE
     : string;
-  user: UserData | null;
+  user: UserData;
   consent: ConsentData | null;
   context: EventContext;
   platform: string | undefined;
@@ -48,7 +51,7 @@ export type ScreenviewEventData = EventData<typeof trackTypes.SCREEN>;
 export type TrackEventData = EventData<typeof trackTypes.TRACK>;
 
 export type IntegrationRuntimeData = {
-  instance: Integration | undefined;
+  instance: Integration<IntegrationOptions> | undefined;
   Factory: IntegrationFactory<IntegrationOptions>;
   options: Record<string, unknown>;
   name: string;
@@ -61,12 +64,12 @@ export interface IntegrationFactory<T extends IntegrationOptions> {
     options: T,
     loadData: LoadIntegrationEventData,
     strippedDownAnalytics: StrippedDownAnalytics,
-  ): Integration;
+  ): Integration<T>;
   createInstance(
     options: T,
     loadData: LoadIntegrationEventData,
     analytics: StrippedDownAnalytics,
-  ): Integration;
+  ): Integration<T>;
   shouldLoad(consent: ConsentData | null | undefined): boolean;
 }
 
@@ -78,6 +81,7 @@ export type UserTraits = {
   name?: string;
   phoneNumber?: string;
   username?: string;
+  isGuest?: boolean;
 } & Record<string, unknown>;
 
 export type UserData = {
