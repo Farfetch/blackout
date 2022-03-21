@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.135](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.134...@farfetch/blackout-client@2.0.0-next.135) (2022-03-21)
+
+
+### Features
+
+* **react:** update renderContent method ([48911a4](https://github.com/Farfetch/blackout/commit/48911a49eaeb09f82781ae776479ba22a8cff8eb))
+
+
+
+
+
 # [2.0.0-next.134](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.133...@farfetch/blackout-client@2.0.0-next.134) (2022-03-18)
 
 
