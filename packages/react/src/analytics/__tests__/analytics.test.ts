@@ -4,38 +4,20 @@ import AnalyticsCore, {
   ConsentData,
   IntegrationOptions,
   integrations,
-  LoadIntegrationEventData,
-  StrippedDownAnalytics,
 } from '@farfetch/blackout-analytics';
 import TestStorage from 'test-storage';
 
-class LoadableIntegration extends integrations.Integration {
+class LoadableIntegration extends integrations.Integration<IntegrationOptions> {
   static shouldLoad() {
     return true;
-  }
-
-  static createInstance(
-    options: IntegrationOptions,
-    loadData: LoadIntegrationEventData,
-    strippedDownAnalytics: StrippedDownAnalytics,
-  ) {
-    return new LoadableIntegration(options, loadData, strippedDownAnalytics);
   }
 
   track = jest.fn();
 }
 
-class MarketingIntegration extends integrations.Integration {
+class MarketingIntegration extends integrations.Integration<IntegrationOptions> {
   static shouldLoad(consent: ConsentData) {
     return !!consent && !!consent.marketing;
-  }
-
-  static createInstance(
-    options: IntegrationOptions,
-    loadData: LoadIntegrationEventData,
-    strippedDownAnalytics: StrippedDownAnalytics,
-  ) {
-    return new MarketingIntegration(options, loadData, strippedDownAnalytics);
   }
 
   track = jest.fn();
@@ -89,7 +71,9 @@ describe('analytics web', () => {
       await analytics.page(event, properties, eventContext);
 
       expect(
-        (marketingIntegrationInstance as integrations.Integration).track,
+        (
+          marketingIntegrationInstance as integrations.Integration<IntegrationOptions>
+        ).track,
       ).toBeCalledWith(
         expect.objectContaining({
           type: analyticsTrackTypes.PAGE,
@@ -133,7 +117,9 @@ describe('analytics web', () => {
       expect(marketingIntegrationInstance).not.toBe(null);
 
       expect(
-        (marketingIntegrationInstance as integrations.Integration).track,
+        (
+          marketingIntegrationInstance as integrations.Integration<IntegrationOptions>
+        ).track,
       ).toBeCalledWith(
         expect.objectContaining({
           type: analyticsTrackTypes.PAGE,

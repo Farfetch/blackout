@@ -9,6 +9,8 @@ export const SET_CONTEXT_FN_KEY = 'setContext';
 export const SET_CONSENT_KEY = 'consentKey';
 export const SET_USER_KEY = 'userKey';
 export const SET_USER_FN_KEY = 'onSetUser';
+export const EVENTS_MAPPER_KEY = 'eventsMapper';
+export const EVENT_SCHEMAS_KEY = 'eventSchemas';
 
 export const GTM_LABEL_PREFIX = 'Google Tag Manager -';
 export const GTM_TYPE_ERROR_PREFIX = `${GTM_LABEL_PREFIX} TypeError:`;

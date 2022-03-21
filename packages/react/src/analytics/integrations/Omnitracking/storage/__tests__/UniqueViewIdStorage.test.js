@@ -117,7 +117,7 @@ describe('UniqueViewIdStorage Tests', () => {
       writable: true,
     });
 
-    expect.assertions = 3;
+    expect.assertions(3);
 
     try {
       let lStorage = new UniqueViewIdStorage(

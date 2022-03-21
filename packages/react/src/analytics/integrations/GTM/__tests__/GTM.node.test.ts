@@ -11,13 +11,17 @@
  */
 
 import { GTM } from '../..';
+import { loadIntegrationData } from 'tests/__fixtures__/analytics';
 
-jest.mock('../gtmTag.js', () => jest.fn);
+jest.mock('../gtmTag', () => jest.fn);
 
 describe('GTM integration', () => {
   it('Should not write on the dataLayer if the window is not defined', () => {
-    GTM.createInstance({ containerId: 123 }, {});
+    GTM.createInstance({ containerId: 123 }, loadIntegrationData, {
+      createEvent: type => Promise.resolve({ ...loadIntegrationData, type }),
+    });
 
+    // @ts-expect-error
     expect(global.dataLayer).toBe(undefined);
   });
 });

@@ -11,7 +11,7 @@ import {
 } from 'tests/__fixtures__/analytics';
 
 const constructorSpy = jest.fn();
-class MyIntegration extends Integration {
+class MyIntegration extends Integration<IntegrationOptions> {
   constructor(
     options: IntegrationOptions,
     loadData: LoadIntegrationEventData,
@@ -39,7 +39,7 @@ describe('Integration', () => {
     },
   };
 
-  let integration: Integration;
+  let integration: Integration<IntegrationOptions>;
 
   beforeEach(() => {
     integration = MyIntegration.createInstance(options, loadData, {
