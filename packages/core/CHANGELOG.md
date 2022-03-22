@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.53.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.53.0...@farfetch/blackout-core@1.53.1) (2022-03-22)
+
+
+### Bug Fixes
+
+* **core:** implement fallback commerce page metadata string ([a1bb4eb](https://github.com/Farfetch/blackout/commit/a1bb4eb30613773217d3e04bb41fca0e8b0da237))
+
+
+
+
+
 # [1.53.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.52.1...@farfetch/blackout-core@1.53.0) (2022-03-16)
 
 
