@@ -22,9 +22,8 @@ describe('putDefaultContactAddress', () => {
 
     expect.assertions(2);
 
-    const response = await putDefaultContactAddress(userId, id);
+    await putDefaultContactAddress(userId, id);
 
-    console.log(response);
     await expect(putDefaultContactAddress(userId, id)).resolves.toBe(204);
     expect(spy).toHaveBeenCalledWith(expectedUrl, expectedConfig);
   });
