@@ -24,6 +24,7 @@ export { default as patchGiftMessage } from './patchGiftMessage';
 export { default as patchOrderItem } from './patchOrderItem';
 export { default as postCharges } from './postCharges';
 export { default as postCheckout } from './postCheckout';
+export { default as postCheckoutSession } from './postCheckoutSession';
 export { default as putItemTags } from './putItemTags';
 export { default as putPromocode } from './putPromocode';
 export { default as putTags } from './putTags';
