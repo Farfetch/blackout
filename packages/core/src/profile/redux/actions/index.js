@@ -30,3 +30,7 @@ export { default as doGetUserAttribute } from './doGetUserAttribute';
 export { default as doPutUserAttribute } from './doPutUserAttribute';
 export { default as doPatchUserAttribute } from './doPatchUserAttribute';
 export { default as doDeleteUserAttribute } from './doDeleteUserAttribute';
+export { default as doGetPersonalIds } from './doGetPersonalIds';
+export { default as doPostPersonalIds } from './doPostPersonalIds';
+export { default as doGetDefaultPersonalId } from './doGetDefaultPersonalId';
+export { default as doPutDefaultPersonalId } from './doPutDefaultPersonalId';
