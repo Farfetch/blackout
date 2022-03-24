@@ -34,3 +34,7 @@ export { default as getPersonalIds } from './getPersonalIds';
 export { default as postPersonalIds } from './postPersonalIds';
 export { default as getDefaultPersonalId } from './getDefaultPersonalId';
 export { default as putDefaultPersonalId } from './putDefaultPersonalId';
+export { default as deletePersonalId } from './deletePersonalId';
+export { default as getPersonalId } from './getPersonalId';
+export { default as patchPersonalId } from './patchPersonalId';
+export { default as postPersonalIdImage } from './postPersonalIdImage';
