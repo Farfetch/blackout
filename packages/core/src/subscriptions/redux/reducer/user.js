@@ -6,6 +6,7 @@ export const INITIAL_STATE = {
   isLoading: false,
   result: null,
   unsubscribeRecipientFromTopicRequests: {},
+  updateSubscriptionsError: null,
 };
 
 const error = (
@@ -21,6 +22,20 @@ const error = (
     case actionTypes.PUT_USER_SUBSCRIPTIONS_REQUEST:
     case actionTypes.UNSUBSCRIBE_ALL_SUBSCRIPTIONS_REQUEST:
       return INITIAL_STATE.error;
+    default:
+      return state;
+  }
+};
+
+const updateSubscriptionsError = (
+  state = INITIAL_STATE.updateSubscriptionsError,
+  /* istanbul ignore next */ action = {},
+) => {
+  switch (action.type) {
+    case actionTypes.PUT_USER_SUBSCRIPTIONS_FAILURE:
+      return action.payload.error;
+    case actionTypes.PUT_USER_SUBSCRIPTIONS_REQUEST:
+      return INITIAL_STATE.updateSubscriptionsError;
     default:
       return state;
   }
@@ -53,8 +68,9 @@ const result = (
 ) => {
   switch (action.type) {
     case actionTypes.GET_USER_SUBSCRIPTIONS_SUCCESS:
-    case actionTypes.PUT_USER_SUBSCRIPTIONS_SUCCESS:
       return action.payload;
+    case actionTypes.PUT_USER_SUBSCRIPTIONS_SUCCESS:
+      return INITIAL_STATE.result;
     case actionTypes.UNSUBSCRIBE_ALL_SUBSCRIPTIONS_SUCCESS:
       return INITIAL_STATE.result;
     case actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_SUCCESS: {
@@ -214,10 +230,13 @@ export const getSubscriptionsIsLoading = state => state.isLoading;
 export const getSubscriptions = state => state.result;
 export const getUnsubscribeRecipientFromTopicRequests = state =>
   state.unsubscribeRecipientFromTopicRequests;
+export const getUpdateSubscriptionsError = state =>
+  state.updateSubscriptionsError;
 
 export default combineReducers({
   error,
   isLoading,
   result,
   unsubscribeRecipientFromTopicRequests,
+  updateSubscriptionsError,
 });

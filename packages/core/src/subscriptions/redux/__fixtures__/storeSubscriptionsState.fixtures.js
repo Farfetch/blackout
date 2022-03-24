@@ -67,6 +67,7 @@ export const mockUserSubscriptionsState = {
       success: true,
     },
   },
+  updateSubscriptionsError: null,
 };
 
 export default {

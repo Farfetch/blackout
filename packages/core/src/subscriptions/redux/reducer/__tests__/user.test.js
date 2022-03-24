@@ -13,6 +13,7 @@ import reducer, {
   getSubscriptionsError,
   getSubscriptionsIsLoading,
   getUnsubscribeRecipientFromTopicRequests,
+  getUpdateSubscriptionsError,
   INITIAL_STATE,
 } from '../user';
 
@@ -71,14 +72,43 @@ describe('User Subscriptions redux reducer', () => {
     });
   });
 
+  describe('updateSubscriptionsError() reducer', () => {
+    it(`should handle ${actionTypes.PUT_USER_SUBSCRIPTIONS_FAILURE} action type`, () => {
+      const expectedResult = 'This is an error';
+
+      expect(
+        reducer(mockUserSubscriptionsState, {
+          type: actionTypes.PUT_USER_SUBSCRIPTIONS_FAILURE,
+          payload: { error: expectedResult },
+        }).updateSubscriptionsError,
+      ).toBe(expectedResult);
+    });
+
+    it(`should handle ${actionTypes.PUT_USER_SUBSCRIPTIONS_REQUEST} action type`, () => {
+      expect(
+        reducer(mockUserSubscriptionsState, {
+          type: actionTypes.PUT_USER_SUBSCRIPTIONS_REQUEST,
+          payload: {},
+        }).updateSubscriptionsError,
+      ).toBe(INITIAL_STATE.updateSubscriptionsError);
+    });
+
+    it('should handle other actions by returning the previous state', () => {
+      const state = { updateSubscriptionsError: 'foo' };
+
+      expect(reducer(state).updateSubscriptionsError).toEqual(
+        state.updateSubscriptionsError,
+      );
+    });
+  });
+
   describe('result() reducer', () => {
     it(`should handle ${actionTypes.PUT_USER_SUBSCRIPTIONS_SUCCESS} action type`, () => {
       expect(
         reducer(mockUserSubscriptionsState, {
           type: actionTypes.PUT_USER_SUBSCRIPTIONS_SUCCESS,
-          payload: mockUserSubscriptionsState.result,
         }).result,
-      ).toEqual(mockUserSubscriptionsState.result);
+      ).toEqual(null);
     });
 
     it(`should handle ${actionTypes.GET_USER_SUBSCRIPTIONS_SUCCESS} action type`, () => {
@@ -488,6 +518,18 @@ describe('User Subscriptions redux reducer', () => {
           unsubscribeRecipientFromTopicRequests,
         }),
       ).toBe(unsubscribeRecipientFromTopicRequests);
+    });
+  });
+
+  describe('getUpdateSubscriptionsError() selector', () => {
+    it('should return updateSubscriptionsError state', () => {
+      const updateSubscriptionsError = {};
+
+      expect(
+        getUpdateSubscriptionsError({
+          updateSubscriptionsError,
+        }),
+      ).toBe(updateSubscriptionsError);
     });
   });
 });
