@@ -55,7 +55,6 @@ describe('Subscriptions redux actions', () => {
         { type: actionTypes.PUT_USER_SUBSCRIPTIONS_REQUEST },
         {
           type: actionTypes.PUT_USER_SUBSCRIPTIONS_SUCCESS,
-          payload: {},
         },
       ];
       const response = {};
