@@ -31,10 +31,9 @@ export default putSubscriptions =>
     });
 
     try {
-      const result = await putSubscriptions(data, config);
+      await putSubscriptions(data, config);
 
       dispatch({
-        payload: result,
         type: actionTypes.PUT_USER_SUBSCRIPTIONS_SUCCESS,
       });
     } catch (error) {

@@ -30,6 +30,17 @@ describe('Subscriptions redux selectors', () => {
       });
     });
 
+    describe('getUpdateSubscriptionsError() ', () => {
+      it('Should get the update user subscriptions error property', () => {
+        const expectedResult =
+          mockState.subscriptions.user.updateSubscriptionsError;
+
+        expect(selectors.getUpdateSubscriptionsError(mockState)).toBe(
+          expectedResult,
+        );
+      });
+    });
+
     describe('getUserSubscriptions()', () => {
       it('Should get the user subscriptions result property', () => {
         const expectedResult = mockState.subscriptions.user.result;

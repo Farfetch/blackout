@@ -16,6 +16,7 @@ import {
   getSubscriptionsError,
   getSubscriptionsIsLoading,
   getUnsubscribeRecipientFromTopicRequests as getUnsubscribeRecipientFromTopicRequestsReducer,
+  getUpdateSubscriptionsError as getUpdateSubscriptionsErrorFromReducer,
 } from './reducer/user';
 import defaultTo from 'lodash/defaultTo';
 import get from 'lodash/get';
@@ -31,6 +32,18 @@ import get from 'lodash/get';
  */
 export const getUserSubscriptionsError = state =>
   getSubscriptionsError(state.subscriptions.user);
+
+/**
+ * Returns the error when the update user subscriptions action fails.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {object | undefined} Error for the update subscription action.
+ */
+export const getUpdateSubscriptionsError = state =>
+  getUpdateSubscriptionsErrorFromReducer(state.subscriptions.user);
 
 /**
  * Returns the result of a user subscription.

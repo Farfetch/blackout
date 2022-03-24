@@ -14,7 +14,7 @@ import client, { adaptError } from '../../helpers/client';
 export default (data, config) =>
   client
     .put('/marketing/v1/subscriptions', data, config)
-    .then(response => response.data)
+    .then(() => undefined)
     .catch(error => {
       throw adaptError(error);
     });
