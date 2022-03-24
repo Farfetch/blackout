@@ -34,3 +34,7 @@ export { default as doGetPersonalIds } from './doGetPersonalIds';
 export { default as doPostPersonalIds } from './doPostPersonalIds';
 export { default as doGetDefaultPersonalId } from './doGetDefaultPersonalId';
 export { default as doPutDefaultPersonalId } from './doPutDefaultPersonalId';
+export { default as doGetPersonalId } from './doGetPersonalId';
+export { default as doPatchPersonalId } from './doPatchPersonalId';
+export { default as doDeletePersonalId } from './doDeletePersonalId';
+export { default as doPostPersonalIdImage } from './doPostPersonalIdImage';
