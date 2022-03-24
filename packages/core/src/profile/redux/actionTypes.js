@@ -237,6 +237,7 @@ export const POST_PHONE_TOKEN_VALIDATIONS_REQUEST =
 /** Action type dispatched when the post phone token validations request succeeds. */
 export const POST_PHONE_TOKEN_VALIDATIONS_SUCCESS =
   '@farfetch/blackout-core/POST_PHONE_TOKEN_VALIDATIONS_SUCCESS';
+
 /** Action type dispatched when the get personal ids request fails. */
 export const GET_PERSONAL_IDS_FAILURE =
   '@farfetch/blackout-core/GET_PERSONAL_IDS_FAILURE';
@@ -276,3 +277,42 @@ export const PUT_DEFAULT_PERSONAL_ID_REQUEST =
 /** Action type dispatched when the put default personal id request succeeds. */
 export const PUT_DEFAULT_PERSONAL_ID_SUCCESS =
   '@farfetch/blackout-core/PUT_DEFAULT_PERSONAL_ID_SUCCESS';
+/** Action type dispatched when the post personal id image request fails. */
+export const POST_PERSONAL_ID_IMAGE_FAILURE =
+  '@farfetch/blackout-core/POST_PERSONAL_ID_IMAGE_FAILURE';
+/** Action type dispatched when the post personal id image request starts. */
+export const POST_PERSONAL_ID_IMAGE_REQUEST =
+  '@farfetch/blackout-core/POST_PERSONAL_ID_IMAGE_REQUEST';
+/** Action type dispatched when the post personal id image request succeeds. */
+export const POST_PERSONAL_ID_IMAGE_SUCCESS =
+  '@farfetch/blackout-core/POST_PERSONAL_ID_IMAGE_SUCCESS';
+
+/** Action type dispatched when the get personal id request fails. */
+export const GET_PERSONAL_ID_FAILURE =
+  '@farfetch/blackout-core/GET_PERSONAL_ID_FAILURE';
+/** Action type dispatched when the get personal id request starts. */
+export const GET_PERSONAL_ID_REQUEST =
+  '@farfetch/blackout-core/GET_PERSONAL_ID_REQUEST';
+/** Action type dispatched when the get personal id request succeeds. */
+export const GET_PERSONAL_ID_SUCCESS =
+  '@farfetch/blackout-core/GET_PERSONAL_ID_SUCCESS';
+
+/** Action type dispatched when the patch personal id request fails. */
+export const PATCH_PERSONAL_ID_FAILURE =
+  '@farfetch/blackout-core/PATCH_PERSONAL_ID_FAILURE';
+/** Action type dispatched when the patch personal id request starts. */
+export const PATCH_PERSONAL_ID_REQUEST =
+  '@farfetch/blackout-core/PATCH_PERSONAL_ID_REQUEST';
+/** Action type dispatched when the patch personal id request succeeds. */
+export const PATCH_PERSONAL_ID_SUCCESS =
+  '@farfetch/blackout-core/PATCH_PERSONAL_ID_SUCCESS';
+
+/** Action type dispatched when the delete personal id request fails. */
+export const DELETE_PERSONAL_ID_FAILURE =
+  '@farfetch/blackout-core/DELETE_PERSONAL_ID_FAILURE';
+/** Action type dispatched when the delete personal id request starts. */
+export const DELETE_PERSONAL_ID_REQUEST =
+  '@farfetch/blackout-core/DELETE_PERSONAL_ID_REQUEST';
+/** Action type dispatched when the delete personal id request succeeds. */
+export const DELETE_PERSONAL_ID_SUCCESS =
+  '@farfetch/blackout-core/DELETE_PERSONAL_ID_SUCCESS';

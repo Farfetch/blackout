@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doPatchPersonalId action creator should create the correct actions for when the patch personal id procedure is successful: patch personal id success payload 1`] = `
+Object {
+  "payload": Object {
+    "backImageId": "string",
+    "expiryDate": "string",
+    "frontImageId": "string",
+    "id": "string",
+    "idNumber": "string",
+    "name": "string",
+  },
+  "type": "@farfetch/blackout-core/PATCH_PERSONAL_ID_SUCCESS",
+}
+`;

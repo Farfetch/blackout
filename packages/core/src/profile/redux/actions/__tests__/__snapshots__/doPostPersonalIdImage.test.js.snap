@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doPostPersonalIdImage action creator should create the correct actions for when the post personal id image procedure is successful: post personal id image success payload 1`] = `
+Object {
+  "payload": Object {
+    "id": "string",
+    "side": "FRONT",
+  },
+  "type": "@farfetch/blackout-core/POST_PERSONAL_ID_IMAGE_SUCCESS",
+}
+`;
