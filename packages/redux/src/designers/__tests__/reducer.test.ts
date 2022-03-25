@@ -1,8 +1,9 @@
 import * as fromReducer from '../reducer';
 import { mockDesigners, mockHash } from 'tests/__fixtures__/designers';
 import reducer, { actionTypes } from '../';
+import type { State } from '../types';
 
-let initialState;
+let initialState: State;
 const randomAction = { type: 'this_is_a_random_action' };
 
 describe('designers redux reducer', () => {

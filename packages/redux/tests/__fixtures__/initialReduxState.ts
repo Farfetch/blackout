@@ -348,11 +348,18 @@ export default {
     },
   },
   contents: {
-    error: {
-      'navbars!customerService': null,
-    },
-    isLoading: {
-      'navbars!customerService': false,
+    searchResults: {
+      'navbars!customerService': {
+        error: null,
+        isLoading: false,
+        result: {
+          hash: 'navbars!customerService',
+          number: 1,
+          totalItems: 1,
+          totalPages: 1,
+          entries: ['navbars!customerService'],
+        },
+      },
     },
     contentTypes: {
       error: {},

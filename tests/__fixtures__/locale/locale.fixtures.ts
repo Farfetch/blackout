@@ -15,7 +15,7 @@ export const mockCountry = {
   code: 'US',
   structure: '/en-us',
   platformId: 216,
-  cultureCode: ['en-US'],
+  cultures: ['en-US'],
   isDefault: true,
   newsletterSubscriptionOptionDefault: true,
   isCountryDefault: true,

@@ -1,10 +1,11 @@
 import * as fromReducer from '../reducer';
 import { mockCountryCode } from 'tests/__fixtures__/locale';
 import reducer, { actionTypes } from '..';
+import type { State } from '../types';
 
 const { INITIAL_STATE } = fromReducer;
 const mockAction = { type: 'foo' };
-let initialState;
+let initialState: State;
 
 describe('locale redux reducer', () => {
   beforeEach(() => {
@@ -40,7 +41,7 @@ describe('locale redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { countryCode: 'bar' };
+      const state = { ...initialState, countryCode: 'bar' };
 
       expect(reducer(state, mockAction).countryCode).toBe(state.countryCode);
     });
@@ -86,7 +87,8 @@ describe('locale redux reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
-        cities: { error: 'Error', isLoading: false },
+        ...initialState,
+        cities: { error: { message: 'Error', name: 'foo' }, isLoading: false },
       };
 
       expect(reducer(state, mockAction).cities).toEqual(state.cities);
@@ -164,7 +166,11 @@ describe('locale redux reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
-        countries: { error: 'Error', isLoading: false },
+        ...initialState,
+        countries: {
+          error: { message: 'Error', name: 'foo' },
+          isLoading: false,
+        },
       };
 
       expect(reducer(state, mockAction).countries).toEqual(state.countries);
@@ -211,7 +217,11 @@ describe('locale redux reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
-        currencies: { error: 'Error', isLoading: false },
+        ...initialState,
+        currencies: {
+          error: { message: 'Error', name: 'foo' },
+          isLoading: false,
+        },
       };
 
       expect(reducer(state, mockAction).currencies).toEqual(state.currencies);
@@ -227,7 +237,7 @@ describe('locale redux reducer', () => {
 
     it('should handle FETCH_COUNTRY_STATES_REQUEST action type', () => {
       expect(
-        reducer(undefined, {
+        reducer(initialState, {
           type: actionTypes.FETCH_COUNTRY_STATES_REQUEST,
           payload: { foo: 'bar' },
         }).states,
@@ -258,7 +268,8 @@ describe('locale redux reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
-        states: { error: 'Error', isLoading: false },
+        ...initialState,
+        states: { error: null, isLoading: false },
       };
 
       expect(reducer(state, mockAction).states).toEqual(state.states);
@@ -267,88 +278,136 @@ describe('locale redux reducer', () => {
 
   describe('getCountryCode() selector', () => {
     it('should return the `countryCode` property from a given state', () => {
-      expect(fromReducer.getCountryCode({ countryCode: mockCountryCode })).toBe(
-        mockCountryCode,
-      );
+      const state = { ...initialState, countryCode: mockCountryCode };
+
+      expect(fromReducer.getCountryCode(state)).toBe(mockCountryCode);
     });
   });
 
   describe('getAreCountryCitiesLoading() selector', () => {
     it('should return the `cities.isLoading` property from a given state', () => {
-      const cities = { isLoading: true };
+      const state = {
+        ...initialState,
+        cities: { isLoading: true, error: null },
+      };
 
-      expect(fromReducer.getAreCountryCitiesLoading({ cities })).toEqual(
-        cities.isLoading,
+      expect(fromReducer.getAreCountryCitiesLoading(state)).toEqual(
+        state.cities.isLoading,
       );
     });
   });
 
   describe('getCountryCitiesError() selector', () => {
     it('should return the `cities.error` property from a given state', () => {
-      const cities = { error: 'Error' };
+      const state = {
+        ...initialState,
+        cities: {
+          isLoading: false,
+          error: {
+            message: 'Error',
+            name: 'foo',
+          },
+        },
+      };
 
-      expect(fromReducer.getCountryCitiesError({ cities })).toEqual(
-        cities.error,
+      expect(fromReducer.getCountryCitiesError(state)).toEqual(
+        state.cities.error,
       );
     });
   });
 
   describe('getAreCountriesLoading() selector', () => {
     it('should return the `countries.isLoading` property from a given state', () => {
-      const countries = { isLoading: true };
+      const state = {
+        ...initialState,
+        countries: { isLoading: true, error: null },
+      };
 
-      expect(fromReducer.getAreCountriesLoading({ countries })).toEqual(
-        countries.isLoading,
+      expect(fromReducer.getAreCountriesLoading(state)).toEqual(
+        state.countries.isLoading,
       );
     });
   });
 
   describe('getCountriesError() selector', () => {
     it('should return the `countries.error` property from a given state', () => {
-      const countries = { error: 'Error' };
+      const state = {
+        ...initialState,
+        countries: {
+          isLoading: false,
+          error: {
+            message: 'Error',
+            name: 'foo',
+          },
+        },
+      };
 
-      expect(fromReducer.getCountriesError({ countries })).toEqual(
-        countries.error,
+      expect(fromReducer.getCountriesError(state)).toEqual(
+        state.countries.error,
       );
     });
   });
 
   describe('getAreCountryCurrenciesLoading() selector', () => {
     it('should return the `currencies.isLoading` property from a given state', () => {
-      const currencies = { isLoading: true };
+      const state = {
+        ...initialState,
+        currencies: { isLoading: true, error: null },
+      };
 
-      expect(
-        fromReducer.getAreCountryCurrenciesLoading({ currencies }),
-      ).toEqual(currencies.isLoading);
+      expect(fromReducer.getAreCountryCurrenciesLoading(state)).toEqual(
+        state.currencies.isLoading,
+      );
     });
   });
 
   describe('getCountryStatesError()Currenciestor', () => {
     it('should return the `currencies.error` property from a given state', () => {
-      const currencies = { error: 'Error' };
+      const state = {
+        ...initialState,
+        currencies: {
+          isLoading: false,
+          error: {
+            message: 'Error',
+            name: 'foo',
+          },
+        },
+      };
 
-      expect(fromReducer.getCountryCurrenciesError({ currencies })).toEqual(
-        currencies.error,
+      expect(fromReducer.getCountryCurrenciesError(state)).toEqual(
+        state.currencies.error,
       );
     });
   });
 
   describe('getAreCountryStatesLoading() selector', () => {
     it('should return the `states.isLoading` property from a given state', () => {
-      const states = { isLoading: true };
+      const state = {
+        ...initialState,
+        states: { isLoading: true, error: null },
+      };
 
-      expect(fromReducer.getAreCountryStatesLoading({ states })).toEqual(
-        states.isLoading,
+      expect(fromReducer.getAreCountryStatesLoading(state)).toEqual(
+        state.states.isLoading,
       );
     });
   });
 
   describe('getCountryStatesError() selector', () => {
     it('should return the `states.error` property from a given state', () => {
-      const states = { error: 'Error' };
+      const state = {
+        ...initialState,
+        states: {
+          isLoading: false,
+          error: {
+            message: 'Error',
+            name: 'foo',
+          },
+        },
+      };
 
-      expect(fromReducer.getCountryStatesError({ states })).toEqual(
-        states.error,
+      expect(fromReducer.getCountryStatesError(state)).toEqual(
+        state.states.error,
       );
     });
   });

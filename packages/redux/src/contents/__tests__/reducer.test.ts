@@ -1,9 +1,15 @@
 import * as fromReducer from '../reducer';
-import reducer, { actionTypes } from '../';
+import {
+  contentTypesResult,
+  mockContentResult,
+  seoData,
+} from 'tests/__fixtures__/contents';
+import reducer, { actionTypes } from '..';
+import type { State } from '../types';
 
 const { INITIAL_STATE } = fromReducer;
 const mockAction = { type: 'foo' };
-let initialState;
+let initialState: State;
 
 describe('contents redux reducer', () => {
   beforeEach(() => {
@@ -167,29 +173,55 @@ describe('contents redux reducer', () => {
 
   describe('getContentResult() selector', () => {
     it('should return the `content` property from a given state', () => {
-      const searchResults = 'foo';
+      const state = {
+        ...initialState,
+        searchResults: {
+          foo: {
+            error: {},
+            isLoading: false,
+            result: {
+              hash: 'foo',
+              ...mockContentResult,
+            },
+          },
+        },
+      };
 
-      expect(fromReducer.getContentResult({ searchResults })).toBe(
-        searchResults,
-      );
+      expect(fromReducer.getContentResult(state)).toBe(state.searchResults);
     });
   });
 
   describe('getContentTypes() selector', () => {
     it('should return the `contentTypes` property from a given state', () => {
-      const contentTypes = 'foo';
+      const state = {
+        ...initialState,
+        contentTypes: {
+          error: {},
+          isLoading: false,
+          result: contentTypesResult,
+        },
+      };
 
-      expect(fromReducer.getContentTypes({ contentTypes })).toEqual(
-        contentTypes,
-      );
+      expect(fromReducer.getContentTypes(state)).toEqual(state.contentTypes);
     });
   });
 
   describe('getSEOmetadata() selector', () => {
     it('should return the `SEOmetadata` property from a given state', () => {
-      const metadata = 'foo';
+      const state = {
+        ...initialState,
+        metadata: {
+          error: {},
+          isLoading: {
+            foo: false,
+          },
+          result: {
+            foo: seoData,
+          },
+        },
+      };
 
-      expect(fromReducer.getSEOmetadata({ metadata })).toEqual(metadata);
+      expect(fromReducer.getSEOmetadata(state)).toEqual(state.metadata);
     });
   });
 });
