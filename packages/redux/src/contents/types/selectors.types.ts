@@ -20,7 +20,7 @@ export type QueryContentHash = {
 
 export type QuerySEO = {
   pageType: string;
-  param: string;
+  param?: string;
   path: string;
   subPageType: string;
 };

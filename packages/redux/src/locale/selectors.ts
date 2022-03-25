@@ -55,7 +55,7 @@ export const getCountryCode = (state: StoreState): State['countryCode'] =>
  * @param {object} state - Application state.
  * @param {string} [countryCode=getCountryCode(state)] - The country code to find a specific country.
  *
- * @returns {string | undefined} - The currency code for the countryCode received.
+ * @returns {string} - The currency code for the countryCode received.
  *
  * @example
  * import { getCountryCurrencyCode } from '@farfetch/blackout-redux/locale';
@@ -82,7 +82,7 @@ export const getCountryCurrencyCode = (
  * @param {object} state - Application state.
  * @param {string} [countryCode=getCountryCode(state)] - The country code to find a specific country.
  *
- * @returns {string | undefined} - The culture code for the countryCode received.
+ * @returns {string} - The culture code for the countryCode received.
  *
  * @example
  * import { getCountryCultureCode } from '@farfetch/blackout-redux/locale';
@@ -94,7 +94,7 @@ export const getCountryCurrencyCode = (
 export const getCountryCultureCode = (
   state: StoreState,
   countryCode: string | null = getCountryCode(state),
-): string | undefined => {
+): string => {
   const country = countryCode && getCountry(state, countryCode);
 
   return get(country, 'cultures[0]');
@@ -109,7 +109,7 @@ export const getCountryCultureCode = (
  * @param {object} state - Application state.
  * @param {string} [countryCode=getCountryCode(state)] - The country code to find a specific country.
  *
- * @returns {string | undefined} - The structure for the countryCode received.
+ * @returns {string} - The structure for the countryCode received.
  *
  * @example
  * import { getCountryStructure } from '@farfetch/blackout-redux/locale';
@@ -121,7 +121,7 @@ export const getCountryCultureCode = (
 export const getCountryStructure = (
   state: StoreState,
   countryCode: string | null = getCountryCode(state),
-): string | undefined => {
+): string => {
   const country = countryCode && getCountry(state, countryCode);
 
   return get(country, 'structure');
@@ -136,7 +136,7 @@ export const getCountryStructure = (
  * @param {object} state - Application state.
  * @param {string} [countryCode=getCountryCode(state)] - The country code to find a specific country.
  *
- * @returns {Array | undefined} - The list of structures for the countryCode received.
+ * @returns {Array} - The list of structures for the countryCode received.
  *
  * @example
  * import { getCountryStructures } from '@farfetch/blackout-redux/locale';
@@ -148,7 +148,7 @@ export const getCountryStructure = (
 export const getCountryStructures = (
   state: StoreState,
   countryCode: string | null = getCountryCode(state),
-): string | undefined => {
+): string => {
   const country = countryCode && getCountry(state, countryCode);
 
   return get(country, 'structures');
@@ -319,7 +319,7 @@ export const areCountryStatesLoading = (state: StoreState): boolean =>
  * @param {object} state - Application state.
  * @param {number} stateId - The state identifier.
  *
- * @returns {Array|undefined} - All the cities related to the stateId received.
+ * @returns {Array} - All the cities related to the stateId received.
  *
  * @example
  * import { getCountryCities } from '@farfetch/blackout-redux/locale';
@@ -331,7 +331,7 @@ export const areCountryStatesLoading = (state: StoreState): boolean =>
 export const getCountryCities = (
   state: StoreState,
   stateId: number,
-): Array<Cities> | undefined => {
+): Array<Cities> => {
   const stateEntity = getState(state, stateId);
   const citiesIds = get(stateEntity, 'cities');
 
@@ -347,7 +347,7 @@ export const getCountryCities = (
  * @param {object} state - Application state.
  * @param {string} [countryCode=getCountryCode(state)] - The country code to find a specific country.
  *
- * @returns {Array|undefined} - The currencies for the countryCode received.
+ * @returns {Array} - The currencies for the countryCode received.
  *
  * @example
  * import { getCountryCurrencies } from '@farfetch/blackout-redux/locale';
@@ -359,7 +359,7 @@ export const getCountryCities = (
 export const getCountryCurrencies = (
   state: StoreState,
   countryCode: string | null = getCountryCode(state),
-): Array<Currencies> | undefined => {
+): Array<Currencies> => {
   const country = countryCode && getCountry(state, countryCode);
 
   return get(country, 'currencies');
@@ -374,7 +374,7 @@ export const getCountryCurrencies = (
  * @param {object} state - Application state.
  * @param {string} [countryCode=getCountryCode(state)] - The country code to find a specific country.
  *
- * @returns {Array|undefined} - The states for the countryCode received.
+ * @returns {Array} - The states for the countryCode received.
  *
  * @example
  * import { getCountryStates } from '@farfetch/blackout-redux/locale';
@@ -386,7 +386,7 @@ export const getCountryCurrencies = (
 export const getCountryStates = (
   state: StoreState,
   countryCode: string | null = getCountryCode(state),
-): Array<States> | undefined => {
+): Array<States> => {
   const country = countryCode && getCountry(state, countryCode);
   const statesIds = get(country, 'states');
 

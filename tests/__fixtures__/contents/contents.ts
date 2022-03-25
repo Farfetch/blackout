@@ -61,6 +61,10 @@ export const mockContents = {
       environmentCode: 'live',
       id: undefined,
       publicationId: '1fa65fb0-49bf-43b3-902e-78d104f160a3',
+      publicationDate: '2020-11-25T15:31:22.619Z',
+      metadata: {
+        custom: {},
+      },
       spaceCode: 'website',
       target: {
         contentzone: '10674',
@@ -222,6 +226,7 @@ export const mockContentType = {
       id: undefined,
       code: 'test-career',
       target: {
+        country: 'EN',
         language: 'en-GB',
       },
       publicationDate: '2020-05-11T17:22:44.375Z',
@@ -247,7 +252,7 @@ export const contentNormalizedPayload = {
   entities: {
     contents: {
       [contentHash]: {
-        ...mockContents,
+        ...mockContents.entries[0],
       },
     },
   },
@@ -267,7 +272,7 @@ export const expectedNormalizedPayload = {
         error: null,
         isLoading: false,
         result: {
-          entries: [mockContents.entries[0].publicationId],
+          entries: ['1fa65fb0-49bf-43b3-902e-78d104f160a3'],
           hash: contentHash,
           number: 1,
           totalItems: 1,
@@ -278,7 +283,7 @@ export const expectedNormalizedPayload = {
         error: null,
         isLoading: false,
         result: {
-          entries: [mockWidget.entries[0].publicationId],
+          entries: ['daada313-7908-46c8-8ea8-ad2263b41b43'],
           hash: widgetHash,
           number: 1,
           totalItems: 1,
@@ -289,7 +294,7 @@ export const expectedNormalizedPayload = {
         error: null,
         isLoading: false,
         result: {
-          entries: [mockNavbars.entries[0].publicationId],
+          entries: ['7317888f-c8ea-4770-98b3-232961af741b'],
           hash: navbarsHash,
           number: 1,
           totalItems: 1,
@@ -302,8 +307,8 @@ export const expectedNormalizedPayload = {
         result: {
           // We will need to fix this duplication when the codes is 'all'
           entries: [
-            mockContentType.entries[0].publicationId,
-            mockContentType.entries[1].publicationId,
+            '6fc6f3c1-ae2b-44d3-abec-54f0b679b19f',
+            '7255bc1f-517f-4c7d-bfdb-6e10fe037c68',
           ],
           hash: contentTypeHash,
           number: 1,
@@ -315,7 +320,7 @@ export const expectedNormalizedPayload = {
         error: null,
         isLoading: false,
         result: {
-          entries: [mockContentType.entries[1].publicationId],
+          entries: ['7255bc1f-517f-4c7d-bfdb-6e10fe037c68'],
           hash: contentTypeHashWithCodes,
           number: 1,
           totalItems: 1,
@@ -326,11 +331,11 @@ export const expectedNormalizedPayload = {
   },
   entities: {
     contents: {
-      [mockContents.entries[0].publicationId]: mockContents.entries[0],
-      [mockWidget.entries[0].publicationId]: mockWidget.entries[0],
-      [mockNavbars.entries[0].publicationId]: mockNavbars.entries[0],
-      [mockContentType.entries[0].publicationId]: mockContentType.entries[0],
-      [mockContentType.entries[1].publicationId]: mockContentType.entries[1],
+      '1fa65fb0-49bf-43b3-902e-78d104f160a3': mockContents.entries[0],
+      'daada313-7908-46c8-8ea8-ad2263b41b43': mockWidget.entries[0],
+      '7317888f-c8ea-4770-98b3-232961af741b': mockNavbars.entries[0],
+      '6fc6f3c1-ae2b-44d3-abec-54f0b679b19f': mockContentType.entries[0],
+      '7255bc1f-517f-4c7d-bfdb-6e10fe037c68': mockContentType.entries[1],
     },
   },
 };

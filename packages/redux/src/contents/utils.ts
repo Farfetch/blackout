@@ -205,7 +205,7 @@ export const getRankedCommercePage = (
  * @returns {string} - Hash built to identify a content.
  *
  * @example
- * const contentHash = generateContentHash({ codes: 'about', contentTypeCode: 'pages', target.language: 'en-US' });
+ * const contentHash = generateContentHash({ codes: 'about', contentTypeCode: 'pages', 'target.language': 'en-US' });
  * Result of contentHash === 'pages!about!en-US';
  */
 export const generateContentHash = (query: QueryContentHash): string => {

@@ -51,6 +51,9 @@ describe('getDefaultStrategy', () => {
   it('should correctly apply commerce pages default strategy to the page result', () => {
     const commercePagesResult = getDefaultStrategy({
       entries: mockCommercePages,
+      number: 0,
+      totalPages: 0,
+      totalItems: 0,
     });
 
     expect(commercePagesResult).toMatchObject(defaultStrategyResult);
@@ -61,6 +64,9 @@ describe('getMergeStrategy', () => {
   it('should correctly apply commerce pages merge strategy to the page result', () => {
     const commercePagesResult = getMergeStrategy({
       entries: mockCommercePages,
+      number: 0,
+      totalPages: 0,
+      totalItems: 0,
     });
 
     expect(commercePagesResult).toMatchObject(mergeStrategyResult);
@@ -79,6 +85,9 @@ describe('getRankedCommercePage', () => {
   it('should correctly select the commerce pages strategy return the respective page result', () => {
     const commercePagesResult = getRankedCommercePage({
       entries: mockCommercePages,
+      number: 0,
+      totalPages: 0,
+      totalItems: 0,
     });
 
     expect(commercePagesResult).toMatchObject(defaultStrategyResult);
@@ -86,6 +95,9 @@ describe('getRankedCommercePage', () => {
     const mergeStrategy = getRankedCommercePage(
       {
         entries: mockCommercePages,
+        number: 0,
+        totalPages: 0,
+        totalItems: 0,
       },
       'merge',
     );
@@ -140,7 +152,10 @@ describe('generateContentHash', () => {
   });
 
   it('should return an hash with contentType "all" when query received doesnt include contentTypeCode', () => {
-    const mockQuery = { codes: 'abc', 'target.language': 'en_US' };
+    const mockQuery = {
+      codes: 'abc',
+      'target.language': 'en_US',
+    };
     const expectedResult = 'all!abc!en_US';
     const result = generateContentHash(mockQuery);
 
@@ -166,7 +181,7 @@ describe('generateSEOPathname', () => {
   });
 
   it('should return an empty string if the query received is an empty object', () => {
-    const mockQuery = {};
+    const mockQuery = { pageType: '', path: '' };
     const expectedResult = '';
     const result = generateSEOPathname(mockQuery);
 
@@ -174,7 +189,7 @@ describe('generateSEOPathname', () => {
   });
 
   it('should return an empty string if the query received doesnt include path', () => {
-    const mockQuery = { pageType: 'pages' };
+    const mockQuery = { pageType: 'pages', path: '' };
     const expectedResult = '';
     const result = generateSEOPathname(mockQuery);
 

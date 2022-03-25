@@ -1,10 +1,11 @@
 import * as normalizr from 'normalizr';
-import { actionTypes, INITIAL_STATE } from '../..';
 import { fetchCountry } from '..';
 import { getCountry } from '@farfetch/blackout-client/locale';
 import { mockCountry, mockCountryCode } from 'tests/__fixtures__/locale';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
+import INITIAL_STATE, { actionTypes } from '../..';
+import type { Country } from '@farfetch/blackout-client/locale/types';
 
 const localeMockStore = (state = {}) =>
   mockStore({ locale: INITIAL_STATE }, state);
@@ -60,7 +61,7 @@ describe('fetchCountry() action creator', () => {
 
     await store
       .dispatch(fetchCountry(mockCountryCode))
-      .then(result => expect(result).toBe(mockCountry));
+      .then((result: Country) => expect(result).toBe(mockCountry));
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCountry).toHaveBeenCalledTimes(1);
