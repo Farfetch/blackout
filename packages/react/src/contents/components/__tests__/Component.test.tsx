@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 import Component, { registerComponent } from '../Component';
 import React from 'react';
 
-const MockComponent = () => {
+const MockComponent = (): React.ReactElement => {
   return <div>Content</div>;
 };
 
@@ -12,8 +12,8 @@ describe('<Component />', () => {
   afterEach(() => (console.warn = originalWarn));
 
   describe('with console.warn', () => {
-    let consoleOutput = [];
-    const mockedWarn = output => consoleOutput.push(output);
+    let consoleOutput: Array<string> = [];
+    const mockedWarn = (output: string) => consoleOutput.push(output);
 
     beforeEach(() => (console.warn = mockedWarn));
 

@@ -3,7 +3,7 @@ export const article = {
     publicationDate: '2020-07-13T15:01:55.4526159Z',
     modificationDate: '2020-07-13T15:01:55.4526159Z',
   },
-  breadcrumbs: [{ text: 'Homepage' }],
+  breadcrumbs: [{ text: 'Homepage', url: '/', name: 'homepage' }],
   url: '/',
   title: 'Homepage Title',
   image:

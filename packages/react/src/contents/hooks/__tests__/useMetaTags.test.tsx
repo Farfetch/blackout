@@ -7,7 +7,7 @@ import {
   query,
   result,
   resultNoSocialMeta,
-} from '../__fixtures__/useMetaTags.fixtures';
+} from './__fixtures__/useMetaTags.fixtures';
 import { mockStore } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
 import { renderHook } from '@testing-library/react-hooks';

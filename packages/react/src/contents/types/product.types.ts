@@ -13,8 +13,10 @@ export type Image = {
 };
 
 export type Price = {
-  includingTaxes: string;
-  priceValidUntil: string;
+  includingTaxes?: number;
+  includingTaxesWithoutDiscount?: number;
+  excludingTaxes?: number;
+  priceValidUntil?: string;
 };
 
 // @TODO: Replace in the future for a unique Product type.
@@ -22,7 +24,7 @@ export type Product = {
   name: string;
   description: string;
   images: Array<Image>;
-  sku: number;
+  sku: string;
   id: number;
   mpn: string;
   colors?: Array<Color>;

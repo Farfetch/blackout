@@ -2,8 +2,8 @@ import {
   breadcrumbs,
   breadcrumbsResult,
   breadcrumbsResultEmpty,
-} from '../__fixtures__/breadcrumbs.fixtures';
-import { renderScriptTag } from '../../helpers';
+  MockRenderScript,
+} from './__fixtures__';
 import structuredBreadcrumbs from '../breadcrumbs';
 
 describe('structuredBreadcrumbs', () => {
@@ -11,17 +11,17 @@ describe('structuredBreadcrumbs', () => {
     const renderScructuredBreadcrumbs = structuredBreadcrumbs(breadcrumbs);
 
     expect(renderScructuredBreadcrumbs).toEqual(
-      renderScriptTag(breadcrumbsResult),
+      MockRenderScript(JSON.stringify(breadcrumbsResult)),
     );
   });
 
   it('should return no JSON-LD for a list of breadcrumbs', () => {
     const renderScructuredBreadcrumbs = structuredBreadcrumbs([
-      { text: 'foo' },
+      { text: 'foo', url: null, name: undefined },
     ]);
 
     expect(renderScructuredBreadcrumbs).toEqual(
-      renderScriptTag(breadcrumbsResultEmpty),
+      MockRenderScript(JSON.stringify(breadcrumbsResultEmpty)),
     );
   });
 });

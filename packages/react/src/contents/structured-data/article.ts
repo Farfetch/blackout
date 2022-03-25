@@ -24,7 +24,7 @@ import type { SEOMetadata } from '@farfetch/blackout-client/contents/types';
  * @param {string} publisher.name - The name of the Article publisher.
  * @param {string} publisher.url - The url of the Article publisher.
  * @param {string} publisher.logo - The logo path of the Article publisher.
- * @param {number} space - Add whitespace and indentation to the serialized output.
+ * @param {number} [space] - Add whitespace and indentation to the serialized output.
  *
  * @returns {ReactElement} - A script tag with Article JSON-LD structured data.
  *
@@ -61,7 +61,7 @@ const article = (
   author: string,
   breadcrumbs: Breadcrumb[],
   publisher: Publisher,
-  space: number,
+  space?: number,
 ): ReactElement => {
   const generateSchemaOrgProperty = (property: string) =>
     getMetatag(property, metadata?.metatags);

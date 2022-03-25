@@ -1,8 +1,8 @@
-import { renderScriptTag } from '../../helpers';
 import {
+  MockRenderScript,
   websiteSearch,
   websiteSearchResult,
-} from '../__fixtures__/websiteSearch.fixtures';
+} from './__fixtures__';
 import structuredWebsiteSearch from '../websiteSearch';
 
 const { metadata, url, searchTitle, urlTemplate } = websiteSearch;
@@ -17,7 +17,7 @@ describe('structuredWebsiteSearch', () => {
     );
 
     expect(renderStructuredWebsiteSearch).toEqual(
-      renderScriptTag(websiteSearchResult),
+      MockRenderScript(JSON.stringify(websiteSearchResult)),
     );
   });
 });

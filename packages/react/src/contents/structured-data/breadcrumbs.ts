@@ -12,7 +12,7 @@ import type { ReactElement } from 'react';
  * @param {object} breadcrumbs - Breadcrumbs data.
  * @param {string} breadcrumbs.url - Breadcrumbs Item URL.
  * @param {string} breadcrumbs.name - Breadcrumbs Item Name.
- * @param {number} space - Add whitespace and indentation to the serialized output.
+ * @param {number} [space] - Add whitespace and indentation to the serialized output.
  *
  * @returns {ReactElement} - A script tag with Breadcrumbs JSON-LD structured data.
  *

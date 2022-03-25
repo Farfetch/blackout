@@ -28,7 +28,7 @@ import type { SEOMetadata } from '@farfetch/blackout-client/contents/types';
  * @param {string} contact.option - Contact Option (e.g. A toll-free number or support for hearing-impaired callers).
  * @param {string} contact.areaServed - The geographic area where a service or offered item is provided.
  * @param {Array}  sameAs - SameAs links of organization (e.g. Links to facebook and/or instagram).
- * @param {number} space - Add whitespace and indentation to the serialized output.
+ * @param {number} [space] - Add whitespace and indentation to the serialized output.
  *
  * @example
  * import { organization as structuredOrganization } from '@farfetch/blackout-react/content/structured-data';

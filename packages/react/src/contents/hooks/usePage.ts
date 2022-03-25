@@ -19,16 +19,16 @@ import type { StoreState } from '@farfetch/blackout-redux/types';
  * @memberof module:contents/hooks
  *
  * @param {string} slug - Slug of the page to fetch for data.
- * @param {object} params - The target parameters that a content page is configured.
- * @param {string} params.countryCode - Query a content by a specific country (country:GB).
- * @param {string} params.cultureCode - Query a content by a specific language (language:en-GB).
+ * @param {object} [params] - The target parameters that a content page is configured.
+ * @param {string} [params.countryCode] - Query a content by a specific country (country:GB).
+ * @param {string} [params.cultureCode] - Query a content by a specific language (language:en-GB).
  * @param {string} [params.benefits] - Query a content by is benefits (benefits:test).
  * @param {string} [params.contentzone] - Query a content by a specific content zone (contentzone:ROW).
  * @param {number} [pageSize=60] - Size of each page, as a number between 1 and 180. The default is 60.
  *
  * @returns {object} - Returns actions and selectors for content page data.
  */
-export default (slug: string, params: Params, pageSize?: number): UsePage => {
+export default (slug: string, params?: Params, pageSize?: number): UsePage => {
   const query = {
     codes: slug,
     contentTypeCode: 'pages',
