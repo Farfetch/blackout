@@ -22,7 +22,10 @@ describe('contents redux selectors', () => {
         [contentHash]: {
           error: 'Error - Content not loaded.',
           isLoading: false,
-          result: { ...mockContentResult },
+          result: {
+            ...mockContentResult,
+            hash: 'foo',
+          },
         },
       },
       contentTypes: {
@@ -36,7 +39,9 @@ describe('contents redux selectors', () => {
         result: { ...seoResponse },
       },
     },
-    entities: { ...contentNormalizedPayload.entities },
+    entities: {
+      ...contentNormalizedPayload.entities,
+    },
   };
 
   describe('getContentsByHash()', () => {
@@ -54,7 +59,7 @@ describe('contents redux selectors', () => {
   describe('isContentLoading()', () => {
     it('should get the loading status of a given content by query', () => {
       const expectedResult =
-        mockState.contents.searchResults[contentHash].isLoading;
+        mockState.contents.searchResults[contentHash]?.isLoading;
 
       expect(selectors.isContentLoading(mockState, contentQuery)).toEqual(
         expectedResult,
@@ -65,7 +70,7 @@ describe('contents redux selectors', () => {
   describe('getContentError()', () => {
     it('should get the content error property from state', () => {
       const expectedResult =
-        mockState.contents.searchResults[contentHash].error;
+        mockState.contents.searchResults[contentHash]?.error;
 
       expect(selectors.getContentError(mockState, contentQuery)).toEqual(
         expectedResult,
@@ -76,7 +81,7 @@ describe('contents redux selectors', () => {
   describe('getContentGroupByQuery()', () => {
     it('should get the content group according to the query', () => {
       const expectedResult =
-        mockState.contents.searchResults[contentHash].result;
+        mockState.contents.searchResults[contentHash]?.result;
 
       expect(selectors.getContentByQuery(mockState, contentQuery)).toEqual(
         expectedResult,

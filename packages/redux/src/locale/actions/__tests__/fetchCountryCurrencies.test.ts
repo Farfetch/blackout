@@ -1,10 +1,11 @@
 import * as normalizr from 'normalizr';
-import { actionTypes, INITIAL_STATE } from '../..';
 import { fetchCountryCurrencies } from '..';
 import { getCountryCurrencies } from '@farfetch/blackout-client/locale';
 import { mockCountryCode, mockCurrencies } from 'tests/__fixtures__/locale';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
+import INITIAL_STATE, { actionTypes } from '../..';
+import type { Currencies } from '@farfetch/blackout-client/locale/types';
 
 const localeMockStore = (state = {}) =>
   mockStore({ locale: INITIAL_STATE }, state);
@@ -67,7 +68,7 @@ describe('fetchCountryCurrencies() action creator', () => {
 
     await store
       .dispatch(fetchCountryCurrencies(mockCountryCode))
-      .then(result => expect(result).toBe(mockCurrencies));
+      .then((result: Currencies) => expect(result).toBe(mockCurrencies));
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCountryCurrencies).toHaveBeenCalledTimes(1);

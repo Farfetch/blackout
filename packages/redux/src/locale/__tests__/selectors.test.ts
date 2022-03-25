@@ -17,19 +17,19 @@ describe('locale redux selectors', () => {
       countryCode: mockCountryCode,
       cities: {
         isLoading: false,
-        error: '😫',
+        error: null,
       },
       countries: {
         isLoading: false,
-        error: '😫',
+        error: null,
       },
       currencies: {
         isLoading: false,
-        error: '😫',
+        error: null,
       },
       states: {
         isLoading: false,
-        error: '😫',
+        error: null,
       },
     },
     entities: {
@@ -134,7 +134,7 @@ describe('locale redux selectors', () => {
   describe('getCountryCultureCode()', () => {
     it('should get the culture code', () => {
       expect(selectors.getCountryCultureCode(mockState)).toEqual(
-        mockCountry.cultures,
+        mockCountry.cultures[0],
       );
     });
   });

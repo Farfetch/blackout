@@ -7,8 +7,10 @@ import type {
   CheckoutEntity,
   CheckoutOrderEntity,
   CheckoutOrderItemEntity,
+  CitiesEntity,
   ContentsEntity,
   ConvertEntity,
+  CountriesEntity,
   DeliveryBundlesEntity,
   DeliveryBundleUpgradesEntity,
   FacetEntity,
@@ -25,6 +27,7 @@ import type {
   ReturnOptionsEntity,
   ReturnsEntity,
   StatementEntity,
+  StatesEntity,
   SubscriptionPackageEntity,
   WishlistItemEntity,
   WishlistSetEntity,
@@ -75,10 +78,10 @@ export type StoreState = Partial<{
       CheckoutOrderItemEntity
     >;
     checkoutOrders: Record<CheckoutOrderEntity['id'], CheckoutOrderEntity>;
-    cities: Record<string, any>;
+    cities: Record<string, CitiesEntity>;
     contents: Record<string, ContentsEntity>;
     converts: Record<ConvertEntity['id'], ConvertEntity>;
-    countries: Record<string, any>;
+    countries: Record<string, CountriesEntity>;
     deliveryBundles: Record<DeliveryBundlesEntity['id'], DeliveryBundlesEntity>;
     deliveryBundleUpgrades: DeliveryBundleUpgradesEntity;
     facets: Record<FacetEntity['id'], FacetEntity>;
@@ -98,7 +101,7 @@ export type StoreState = Partial<{
     returnOptions: Record<ReturnOptionsEntity['id'], ReturnOptionsEntity>;
     sizeScales: Record<SizeScale['sizeScaleId'], SizeScale>;
     statements: Record<StatementEntity['id'], StatementEntity>;
-    states: Record<string, any>;
+    states: Record<string, StatesEntity>;
     subscriptionPackages: Record<
       SubscriptionPackageEntity['id'],
       SubscriptionPackageEntity
