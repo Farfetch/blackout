@@ -1,4 +1,4 @@
-import * as utils from '../';
+import * as utils from '..';
 
 const metadata = {
   metatags: [
@@ -20,7 +20,7 @@ describe('getMetatag', () => {
     expect(metatag).toBe(metatagResult);
   });
 
-  it('should return undefined if a specific metatag text if doesn´t exist', () => {
+  it('should return undefined if a specific metatag text if doesn`t exist', () => {
     const metatag = utils.getMetatag('og:title', metadata.metatags);
 
     expect(metatag).toBe(undefined);

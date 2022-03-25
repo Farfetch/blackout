@@ -1,10 +1,12 @@
+import { product } from './product.fixtures';
+
 export const productListing = {
   entries: [
     {
-      name: 'LSP CAMILLE BUBBLE GUM SKIRT',
-      slug: 'lsp-camille-bubble-gum-skirt-15092735',
+      ...product.productDetail,
     },
     {
+      ...product.productDetail,
       name: 'Queen Margaret GG Supreme Top Handle Bag',
       slug: 'queen-margaret-gg-supreme-top-handle-bag-15090902',
     },

@@ -16,7 +16,7 @@ import type { SEOMetadata } from '@farfetch/blackout-client/contents/types';
  * @param {string} lastCategory - Last category name.
  * @param {string} url - Relative url of the product (location.pathname).
  * @param {string} seller - Seller name for this particular product.
- * @param {number} space - Add whitespace and indentation to the serialized output.
+ * @param {number} [space] - Add whitespace and indentation to the serialized output.
  *
  * @example
  * import { product as structuredProduct } from '@farfetch/blackout-react/content/structured-data';

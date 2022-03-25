@@ -15,7 +15,7 @@ import type { VideoObject, WithContext } from 'schema-dts';
  * @param {object} media.thumbnails - Media thumbnail images.
  * @param {string} media.thumbnails.srcLg - Media thumbnail image source size.
  * @param {string} publicationDate - Publication date of the Video.
- * @param {number} space - Add whitespace and indentation to the serialized output.
+ * @param {number} [space] - Add whitespace and indentation to the serialized output.
  * @example
  * import { videoObject as structuredVideoObject } from '@farfetch/blackout-react/content/structured-data';
  *

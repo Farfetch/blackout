@@ -1,8 +1,8 @@
 import {
+  MockRenderScript,
   productListing,
   productListingResult,
-} from '../__fixtures__/productListing.fixtures';
-import { renderScriptTag } from '../../helpers';
+} from './__fixtures__';
 import structuredProductListing from '../productsListing';
 
 describe('structuredProductListing', () => {
@@ -14,7 +14,7 @@ describe('structuredProductListing', () => {
     );
 
     expect(renderStructuredProductList).toEqual(
-      renderScriptTag(productListingResult),
+      MockRenderScript(JSON.stringify(productListingResult)),
     );
   });
 });

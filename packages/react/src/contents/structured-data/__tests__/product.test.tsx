@@ -1,11 +1,11 @@
-import { metadata } from '../__fixtures__/metadata.fixtures';
 import {
+  metadata,
+  MockRenderScript,
   product,
   productResult,
   productResultWithStock,
   productWithQuantity,
-} from '../__fixtures__/product.fixtures';
-import { renderScriptTag } from '../../helpers';
+} from './__fixtures__';
 import structuredProduct from '../product';
 
 const { productDetail, lastCategory, url, seller } = product;
@@ -20,7 +20,7 @@ describe('structuredProduct', () => {
       seller,
     );
 
-    expect(renderStructuredProduct).toEqual(renderScriptTag(productResult));
+    expect(renderStructuredProduct).toEqual(MockRenderScript(JSON.stringify(productResult)));
   });
 
   it('should correctly generate JSON-LD with stock available', () => {
@@ -44,7 +44,7 @@ describe('structuredProduct', () => {
     );
 
     expect(renderStructuredProduct).toEqual(
-      renderScriptTag(productResultWithStock),
+      MockRenderScript(JSON.stringify(productResultWithStock)),
     );
   });
 });

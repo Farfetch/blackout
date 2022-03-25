@@ -18,9 +18,9 @@ import type { StoreState } from '@farfetch/blackout-redux/types';
  * @memberof module:contents/hooks
  *
  * @param {string} navKey - Key name to query for a Navbar.
- * @param {object} params - The target parameters that a content page is configured.
- * @param {string} params.countryCode - Query a content by a specific country (country:GB).
- * @param {string} params.cultureCode - Query a content by a specific language (language:en-GB).
+ * @param {object} [params] - The target parameters that a content page is configured.
+ * @param {string} [params.countryCode] - Query a content by a specific country (country:GB).
+ * @param {string} [params.cultureCode] - Query a content by a specific language (language:en-GB).
  * @param {string} [params.benefits] - Query a content by is benefits (benefits:test).
  * @param {string} [params.contentzone] - Query a content by a specific content zone (contentzone:ROW).
  * @param {number} [pageSize=60] - Size of each page, as a number between 1 and 180. The default is 60.
@@ -29,7 +29,7 @@ import type { StoreState } from '@farfetch/blackout-redux/types';
  */
 const useNavbars = (
   navKey: string,
-  params: Params,
+  params?: Params,
   pageSize?: number,
 ): UseNavbars => {
   const query = {

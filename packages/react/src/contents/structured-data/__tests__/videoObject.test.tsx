@@ -1,8 +1,8 @@
-import { renderScriptTag } from '../../helpers';
 import {
+  MockRenderScript,
   videoObject,
   videoObjectResult,
-} from '../__fixtures__/videoObject.fixtures';
+} from './__fixtures__';
 import structuredVideoObject from '../videoObject';
 
 const publicationDate = '2020-07-13T15:01:55.4526159Z';
@@ -14,6 +14,6 @@ describe('structuredVideoObject', () => {
       publicationDate,
     );
 
-    expect(renderStructuredVideo).toEqual(renderScriptTag(videoObjectResult));
+    expect(renderStructuredVideo).toEqual(MockRenderScript(JSON.stringify(videoObjectResult)));
   });
 });

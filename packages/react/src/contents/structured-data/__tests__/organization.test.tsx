@@ -1,8 +1,8 @@
 import {
+  MockRenderScript,
   organization,
   organizationResult,
-} from '../__fixtures__/organization.fixtures';
-import { renderScriptTag } from '../../helpers';
+} from './__fixtures__';
 import structuredOrganization from '../organization';
 
 const { metadata, name, url, logoUrl, address, contact, sameAs } = organization;
@@ -20,7 +20,7 @@ describe('structuredOrganization', () => {
     );
 
     expect(renderStructuredOrganization).toEqual(
-      renderScriptTag(organizationResult),
+      MockRenderScript(JSON.stringify(organizationResult)),
     );
   });
 });
