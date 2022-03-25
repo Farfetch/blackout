@@ -4,10 +4,23 @@ import {
   productWithTwoSizes,
   sizeAttributes,
 } from '../__fixtures__/adapters.fixtures';
+import { VariantAttributeTypeEnum } from '@farfetch/blackout-client/products/types';
 
 describe('adaptAttributes()', () => {
   it("should return an empty object when doesn't receive sizes", () => {
     expect(adaptAttributes([])).toEqual({});
+  });
+
+  it('should return an empty object when there is only one attribute', () => {
+    expect(
+      adaptAttributes([
+        {
+          type: VariantAttributeTypeEnum.Size,
+          value: 'value',
+          description: 'description',
+        },
+      ]),
+    ).toEqual({});
   });
 
   it('should map attributes to the corresponding structure', () => {
