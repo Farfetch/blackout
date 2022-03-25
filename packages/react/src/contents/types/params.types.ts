@@ -7,6 +7,8 @@ export type Params = {
   cultureCode?: string;
   benefits?: string;
   contentzone?: string;
+  environmentcode?: string;
+  preview?: string;
 };
 
 export type CommercePagesParams = {
