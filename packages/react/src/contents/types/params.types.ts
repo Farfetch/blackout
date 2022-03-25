@@ -3,8 +3,8 @@ import type { PriceTypeEnum } from '@farfetch/blackout-client/products/types';
 import type { Type } from '@farfetch/blackout-client/contents/types';
 
 export type Params = {
-  countryCode: string;
-  cultureCode: string;
+  countryCode?: string;
+  cultureCode?: string;
   benefits?: string;
   contentzone?: string;
 };

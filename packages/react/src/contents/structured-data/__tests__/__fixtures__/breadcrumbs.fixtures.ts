@@ -2,14 +2,17 @@ export const breadcrumbs = [
   {
     name: 'Home',
     url: '/',
+    text: 'Home',
   },
   {
     name: 'Women',
     url: '/en-pt/shopping/women',
+    text: 'Women',
   },
   {
     name: 'Clothing',
     url: '/en-pt/shopping/women-clothing',
+    text: 'Clothing',
   },
 ];
 

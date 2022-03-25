@@ -1,4 +1,3 @@
-import { contentQuery } from 'tests/__fixtures__/contents';
 import React from 'react';
 import usePage from '../../usePage';
 
@@ -24,7 +23,7 @@ export const Page = () => {
       <button data-test="page-reset" onClick={resetContent} />
       <button
         data-test="page-fetchContent"
-        onClick={() => fetchContent(contentQuery)}
+        onClick={() => fetchContent()}
       />
     </>
   );

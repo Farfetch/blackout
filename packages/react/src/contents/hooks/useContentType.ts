@@ -19,9 +19,9 @@ import type { StoreState } from '@farfetch/blackout-redux/types';
  *
  * @param {string|string[]} [codes] - List of codes that representing the content code (about-us|today-news|header|productId...).
  * @param {string} contentTypeCode - The custom content type unique code (e.g. 'careers').
- * @param {object} params - The target parameters that a content page is configured.
- * @param {string} params.countryCode - Query a content by a specific country (country:GB).
- * @param {string} params.cultureCode - Query a content by a specific language (language:en-GB).
+ * @param {object} [params] - The target parameters that a content page is configured.
+ * @param {string} [params.countryCode] - Query a content by a specific country (country:GB).
+ * @param {string} [params.cultureCode] - Query a content by a specific language (language:en-GB).
  * @param {string} [params.benefits] - Query a content by is benefits (benefits:test).
  * @param {string} [params.contentzone] - Query a content by a specific content zone (contentzone:ROW).
  * @param {number} [pageSize=60] - Size of each page, as a number between 1 and 180. The default is 60.
@@ -31,7 +31,7 @@ import type { StoreState } from '@farfetch/blackout-redux/types';
 const useContentType = (
   codes: string | string[],
   contentTypeCode: string,
-  params: Params,
+  params?: Params,
   pageSize?: number,
 ): UseContentType => {
   const query = {

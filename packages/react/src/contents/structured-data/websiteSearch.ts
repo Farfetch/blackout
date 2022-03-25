@@ -15,7 +15,7 @@ import type { WebSite, WithContext } from 'schema-dts';
  * @param {string} url - Relative URL of the page.
  * @param {string} searchTitle - Website title.
  * @param {string} urlTemplate - Complete url to query on.
- * @param {number} space - Add whitespace and indentation to the serialized output.
+ * @param {number} [space] - Add whitespace and indentation to the serialized output.
  *
  * @example
  * import { websiteSearch as structuredWebsiteSearch } from '@farfetch/blackout-react/content/structured-data';
@@ -37,7 +37,7 @@ const websiteSearch = (
   url: string,
   searchTitle: string,
   urlTemplate: string,
-  space: number,
+  space?: number,
 ): ReactElement => {
   const generateSchemaOrgProperty = (property: string) =>
     getMetatag(property, metadata?.metatags);

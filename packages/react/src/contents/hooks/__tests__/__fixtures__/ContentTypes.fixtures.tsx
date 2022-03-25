@@ -1,9 +1,8 @@
-import { params } from 'tests/__fixtures__/contents';
 import React from 'react';
 import useContentType from '../../useContentType';
 
 export const ContentTypes = ({ codes }) => {
-  const { contentType } = useContentType(codes, 'careers', params);
+  const { contentType } = useContentType(codes, 'careers');
   const title = contentType?.[0]?.components?.find(
     component => component.name === 'Title',
   );

@@ -1,4 +1,4 @@
-import { stripUrlSubfolder } from '../';
+import { stripUrlSubfolder } from '..';
 
 describe('stripUrlSubfolder', () => {
   it('should remove the subfolder of a given url', () => {

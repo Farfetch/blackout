@@ -1,6 +1,9 @@
-import { article, articleResult } from '../__fixtures__/article.fixtures';
-import { renderScriptTag } from '../../helpers';
-import metadata from '../__fixtures__/metadata.fixtures.json';
+import {
+  article,
+  articleResult,
+  metadata,
+  MockRenderScript,
+} from './__fixtures__';
 import structuredArticle from '../article';
 
 const { date, url, title, image, author, breadcrumbs, publisher } = article;
@@ -18,6 +21,8 @@ describe('structuredArticle', () => {
       publisher,
     );
 
-    expect(renderScructuredArticle).toEqual(renderScriptTag(articleResult));
+    expect(renderScructuredArticle).toEqual(
+      MockRenderScript(JSON.stringify(articleResult)),
+    );
   });
 });

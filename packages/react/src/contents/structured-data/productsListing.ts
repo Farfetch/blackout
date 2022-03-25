@@ -14,7 +14,7 @@ import type { SEOMetadata } from '@farfetch/blackout-client/contents/types';
  * @param {object} listing - All details data for the Products List.
  * @param {object} metadata - All SEO metadata for the Products List.
  * @param {string} url - Relative URL of the page.
- * @param {number} space - Add whitespace and indentation to the serialized output.
+ * @param {number} [space] - Add whitespace and indentation to the serialized output.
  *
  * @example
  * import { productListing as structuredProductListing } from '@farfetch/blackout-react/content/structured-data';
@@ -34,7 +34,7 @@ const productListing = (
   listing: Listing,
   metadata: SEOMetadata,
   url: string,
-  space: number,
+  space?: number,
 ): ReactElement => {
   const generateSchemaOrgProperty = (property: string) =>
     getMetatag(property, metadata?.metatags);
