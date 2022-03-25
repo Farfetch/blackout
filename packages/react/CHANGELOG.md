@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.196](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.195...@farfetch/blackout-react@1.0.0-next.196) (2022-03-25)
+
+
+### Bug Fixes
+
+* **blackout-analytics|blackout-react:** fix ga typings ([a107de5](https://github.com/Farfetch/blackout/commit/a107de59fdc4bfc7c0a5d8ac814fa8ce9d0e76f1))
+
+
+### Features
+
+* **analytics|react:** convert google analytics integration to ts ([a785187](https://github.com/Farfetch/blackout/commit/a78518734550c2ac42a06519640726a45214dd0c))
+
+
+
+
+
 # [1.0.0-next.195](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.194...@farfetch/blackout-react@1.0.0-next.195) (2022-03-21)
 
 
