@@ -13,7 +13,12 @@ import isEmpty from 'lodash/isEmpty';
  * @returns {object} Object with size attributes adapted.
  */
 export default (attributes, sizes) => {
-  if (isEmpty(attributes) && isEmpty(sizes)) {
+  // When a product is added to the wishlist with a size and the it becomes OOS
+  // the API instead of returning empty array of attributes, it returns one
+  // size attribute.
+  // Therefore we need to also return an empty object in this situation because
+  // an OOS product shouldn't have sizes.
+  if ((isEmpty(attributes) && isEmpty(sizes)) || attributes.length < 2) {
     return {};
   }
 

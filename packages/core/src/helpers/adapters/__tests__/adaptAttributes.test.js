@@ -10,6 +10,10 @@ describe('adaptAttributes()', () => {
     expect(adaptAttributes([])).toEqual({});
   });
 
+  it('should return an empty object when there is only one attribute', () => {
+    expect(adaptAttributes([{ name: 'Size' }])).toEqual({});
+  });
+
   it('should map attributes to the corresponding structure', () => {
     expect(
       adaptAttributes(sizeAttributes, productWithTwoSizes),
