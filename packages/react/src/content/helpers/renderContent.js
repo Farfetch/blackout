@@ -1,4 +1,5 @@
 import { Component } from '../components';
+import map from 'lodash/map';
 import React from 'react';
 
 const IS_CONTENT_TOOL = {
@@ -22,18 +23,13 @@ const IS_CONTENT_TOOL = {
 const renderContent = (
   { components },
   isContentTool = IS_CONTENT_TOOL.inactive,
-) => {
-  if (components.length === 0) {
-    return null;
-  }
-
-  return components.map((component, key) => {
+) =>
+  map(components, (component, key) => {
     if (isContentTool === IS_CONTENT_TOOL.active && component.type === 'list') {
       return renderContent(component, IS_CONTENT_TOOL.active);
     }
 
     return <Component component={component} key={key} />;
   });
-};
 
 export default renderContent;
