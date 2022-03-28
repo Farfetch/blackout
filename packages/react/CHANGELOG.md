@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.197](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.196...@farfetch/blackout-react@1.0.0-next.197) (2022-03-28)
+
+
+### Features
+
+* **blackout-analytics|blackout-react:** convert GTM integration to typescript ([bf53842](https://github.com/Farfetch/blackout/commit/bf53842720985bed8c7a2ef147c651f1f02d6ace))
+
+
+
+
+
 # [1.0.0-next.196](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.195...@farfetch/blackout-react@1.0.0-next.196) (2022-03-25)
 
 
