@@ -8,3 +8,4 @@ export * from './titles.fixtures';
 export * from './userAttribute.fixtures';
 export * from './userAttributes.fixtures';
 export * from './users.fixtures';
+export * from './personalIds.fixtures';

@@ -243,3 +243,43 @@ export const CREATE_PHONE_TOKEN_VALIDATIONS_REQUEST =
 /** Action type dispatched when the post phone token validations request succeeds. */
 export const CREATE_PHONE_TOKEN_VALIDATIONS_SUCCESS =
   '@farfetch/blackout-client/CREATE_PHONE_TOKEN_VALIDATIONS_SUCCESS';
+
+/** Action type dispatched when the fetch personal ids request fails. */
+export const FETCH_PERSONAL_IDS_FAILURE =
+  '@farfetch/blackout-client/FETCH_PERSONAL_IDS_FAILURE';
+/** Action type dispatched when the fetch personal ids request starts. */
+export const FETCH_PERSONAL_IDS_REQUEST =
+  '@farfetch/blackout-client/FETCH_PERSONAL_IDS_REQUEST';
+/** Action type dispatched when the fetch personal ids request succeeds. */
+export const FETCH_PERSONAL_IDS_SUCCESS =
+  '@farfetch/blackout-client/FETCH_PERSONAL_IDS_SUCCESS';
+
+/** Action type dispatched when the create personal ids request fails. */
+export const CREATE_PERSONAL_IDS_FAILURE =
+  '@farfetch/blackout-client/CREATE_PERSONAL_IDS_FAILURE';
+/** Action type dispatched when the create personal ids request starts. */
+export const CREATE_PERSONAL_IDS_REQUEST =
+  '@farfetch/blackout-client/CREATE_PERSONAL_IDS_REQUEST';
+/** Action type dispatched when the create personal ids request succeeds. */
+export const CREATE_PERSONAL_IDS_SUCCESS =
+  '@farfetch/blackout-client/CREATE_PERSONAL_IDS_SUCCESS';
+
+/** Action type dispatched when the fetch default personal id request fails. */
+export const FETCH_DEFAULT_PERSONAL_ID_FAILURE =
+  '@farfetch/blackout-client/FETCH_DEFAULT_PERSONAL_ID_FAILURE';
+/** Action type dispatched when the fetch default personal id request starts. */
+export const FETCH_DEFAULT_PERSONAL_ID_REQUEST =
+  '@farfetch/blackout-client/FETCH_DEFAULT_PERSONAL_ID_REQUEST';
+/** Action type dispatched when the fetch default personal id request succeeds. */
+export const FETCH_DEFAULT_PERSONAL_ID_SUCCESS =
+  '@farfetch/blackout-client/FETCH_DEFAULT_PERSONAL_ID_SUCCESS';
+
+/** Action type dispatched when the set default personal id request fails. */
+export const SET_DEFAULT_PERSONAL_ID_FAILURE =
+  '@farfetch/blackout-client/SET_DEFAULT_PERSONAL_ID_FAILURE';
+/** Action type dispatched when the set default personal id request starts. */
+export const SET_DEFAULT_PERSONAL_ID_REQUEST =
+  '@farfetch/blackout-client/SET_DEFAULT_PERSONAL_ID_REQUEST';
+/** Action type dispatched when the set default personal id request succeeds. */
+export const SET_DEFAULT_PERSONAL_ID_SUCCESS =
+  '@farfetch/blackout-client/SET_DEFAULT_PERSONAL_ID_SUCCESS';

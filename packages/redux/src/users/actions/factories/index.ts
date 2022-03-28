@@ -22,3 +22,7 @@ export { default as removeUserAttributeFactory } from './removeUserAttributeFact
 export { default as createPhoneTokensFactory } from './createPhoneTokensFactory';
 export { default as createPhoneTokenValidationsFactory } from './createPhoneTokenValidationsFactory';
 export { default as createPhoneNumberValidationsFactory } from './createPhoneNumberValidationsFactory';
+export { default as fetchPersonalIdsFactory } from './fetchPersonalIdsFactory';
+export { default as createPersonalIdsFactory } from './createPersonalIdsFactory';
+export { default as fetchDefaultPersonalIdFactory } from './fetchDefaultPersonalIdFactory';
+export { default as setDefaultPersonalIdFactory } from './setDefaultPersonalIdFactory';

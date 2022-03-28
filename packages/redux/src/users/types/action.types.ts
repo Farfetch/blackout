@@ -1,7 +1,10 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
 import type { LOGOUT_SUCCESS } from '../../authentication/actionTypes';
-import type { UserAttributesResponse } from '@farfetch/blackout-client/users/types';
+import type {
+  PersonalIdsResponse,
+  UserAttributesResponse,
+} from '@farfetch/blackout-client/users/types';
 
 export type ActionType =
   | LogoutAction
@@ -239,3 +242,91 @@ export type RemoveUserAttributeAction =
 export interface LogoutAction extends Action {
   type: typeof LOGOUT_SUCCESS;
 }
+
+//
+// Fetch personal ids
+//
+export interface FetchPersonalIdsFailureAction extends Action {
+  payload: { error: Error };
+  type: typeof actionTypes.FETCH_PERSONAL_IDS_FAILURE;
+}
+
+export interface FetchPersonalIdsRequestAction extends Action {
+  type: typeof actionTypes.FETCH_PERSONAL_IDS_REQUEST;
+}
+
+export interface FetchPersonalIdsSuccessAction extends Action {
+  payload: PersonalIdsResponse;
+  type: typeof actionTypes.FETCH_PERSONAL_IDS_SUCCESS;
+}
+
+export type FetchPersonalIdsAction =
+  | FetchPersonalIdsRequestAction
+  | FetchPersonalIdsFailureAction
+  | FetchPersonalIdsSuccessAction;
+
+//
+// Create personal ids
+//
+export interface CreatePersonalIdsFailureAction extends Action {
+  payload: { error: Error };
+  type: typeof actionTypes.CREATE_PERSONAL_IDS_FAILURE;
+}
+
+export interface CreatePersonalIdsRequestAction extends Action {
+  type: typeof actionTypes.CREATE_PERSONAL_IDS_REQUEST;
+}
+
+export interface CreatePersonalIdsSuccessAction extends Action {
+  payload: PersonalIdsResponse;
+  type: typeof actionTypes.CREATE_PERSONAL_IDS_SUCCESS;
+}
+
+export type CreatePersonalIdsAction =
+  | CreatePersonalIdsRequestAction
+  | CreatePersonalIdsFailureAction
+  | CreatePersonalIdsSuccessAction;
+
+//
+// Fetch default personal id
+//
+export interface FetchDefaultPersonalIdFailureAction extends Action {
+  payload: { error: Error };
+  type: typeof actionTypes.FETCH_DEFAULT_PERSONAL_ID_FAILURE;
+}
+
+export interface FetchDefaultPersonalIdRequestAction extends Action {
+  type: typeof actionTypes.FETCH_DEFAULT_PERSONAL_ID_REQUEST;
+}
+
+export interface FetchDefaultPersonalIdSuccessAction extends Action {
+  payload: PersonalIdsResponse;
+  type: typeof actionTypes.FETCH_DEFAULT_PERSONAL_ID_SUCCESS;
+}
+
+export type FetchDefaultPersonalIdAction =
+  | FetchDefaultPersonalIdRequestAction
+  | FetchDefaultPersonalIdFailureAction
+  | FetchDefaultPersonalIdSuccessAction;
+
+//
+// Set default personal id
+//
+export interface SetDefaultPersonalIdFailureAction extends Action {
+  payload: { error: Error };
+  type: typeof actionTypes.SET_DEFAULT_PERSONAL_ID_FAILURE;
+}
+
+export interface SetDefaultPersonalIdRequestAction extends Action {
+  type: typeof actionTypes.SET_DEFAULT_PERSONAL_ID_REQUEST;
+}
+
+export interface SetDefaultPersonalIdSuccessAction extends Action {
+  payload: number;
+  type: typeof actionTypes.SET_DEFAULT_PERSONAL_ID_SUCCESS;
+}
+
+export type SetDefaultPersonalIdAction =
+  | SetDefaultPersonalIdRequestAction
+  | SetDefaultPersonalIdFailureAction
+  | SetDefaultPersonalIdSuccessAction;

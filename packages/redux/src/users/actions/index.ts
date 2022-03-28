@@ -30,3 +30,7 @@ export { default as removeUserAttribute } from './removeUserAttribute';
 export { default as createPhoneTokens } from './createPhoneTokens';
 export { default as createPhoneTokenValidations } from './createPhoneTokenValidations';
 export { default as createPhoneNumberValidations } from './createPhoneNumberValidations';
+export { default as fetchPersonalIds } from './fetchPersonalIds';
+export { default as createPersonalIds } from './createPersonalIds';
+export { default as fetchDefaultPersonalId } from './fetchDefaultPersonalId';
+export { default as setDefaultPersonalId } from './setDefaultPersonalId';
