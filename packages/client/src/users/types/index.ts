@@ -29,3 +29,8 @@ export * from './getUser.types';
 export * from './postPhoneTokens.types';
 export * from './postPhoneNumberValidations.types';
 export * from './postPhoneTokenValidations.types';
+export * from './getPersonalIds.types';
+export * from './postPersonalIds.types';
+export * from './getDefaultPersonalId.types';
+export * from './putDefaultPersonalId.types';
+export * from './personalId.types';
