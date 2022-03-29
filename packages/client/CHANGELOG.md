@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.136](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.135...@farfetch/blackout-client@2.0.0-next.136) (2022-03-29)
+
+
+### Bug Fixes
+
+* **react:** add lodash map render content ([8b8a5cc](https://github.com/Farfetch/blackout/commit/8b8a5ccc9304d38e750bea1d00d84c5cc4258388))
+
+
+### Features
+
+* **core|react|redux:** fix typescript issues for authentication and users ([84920d2](https://github.com/Farfetch/blackout/commit/84920d2384ab387eb48e623a63beec6000cf78e7))
+
+
+
+
+
 # [2.0.0-next.135](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.134...@farfetch/blackout-client@2.0.0-next.135) (2022-03-21)
 
 
