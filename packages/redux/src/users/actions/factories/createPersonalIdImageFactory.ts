@@ -1,0 +1,57 @@
+import {
+  CREATE_PERSONAL_ID_IMAGE_FAILURE,
+  CREATE_PERSONAL_ID_IMAGE_REQUEST,
+  CREATE_PERSONAL_ID_IMAGE_SUCCESS,
+} from '../../actionTypes';
+import type { Config } from '@farfetch/blackout-client/types';
+import type { Dispatch } from 'redux';
+import type {
+  PostPersonalIdImage,
+  PostPersonalIdImageData,
+  PostPersonalIdImageResponse,
+} from '@farfetch/blackout-client/users/types';
+
+/**
+ * @param userId - User id.
+ * @param data - Personal id image object.
+ * @param config - Custom configurations to send to the client
+ * instance (axios). X-SUMMER-RequestId header is required.
+ *
+ * @returns Thunk to be dispatched to the redux store.
+ */
+
+/**
+ * Method responsible for creating a personal id image.
+ *
+ * @param postPersonalIdImage - Post user attribute client.
+ *
+ * @returns Thunk factory.
+ */
+const createPersonalIdImageFactory =
+  (postPersonalIdImage: PostPersonalIdImage) =>
+  (userId: number, data: PostPersonalIdImageData, config: Config) =>
+  async (dispatch: Dispatch): Promise<PostPersonalIdImageResponse> => {
+    dispatch({
+      type: CREATE_PERSONAL_ID_IMAGE_REQUEST,
+    });
+
+    try {
+      const result = await postPersonalIdImage(userId, data, config);
+
+      dispatch({
+        type: CREATE_PERSONAL_ID_IMAGE_SUCCESS,
+        payload: result,
+      });
+
+      return result;
+    } catch (error) {
+      dispatch({
+        payload: { error },
+        type: CREATE_PERSONAL_ID_IMAGE_FAILURE,
+      });
+
+      throw error;
+    }
+  };
+
+export default createPersonalIdImageFactory;
