@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.33.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.32.1...@farfetch/blackout-react@0.33.0) (2022-03-29)
+
+
+### Bug Fixes
+
+* **react:** add lodash map to render content ([1dc1a74](https://github.com/Farfetch/blackout/commit/1dc1a74c0a6a12e06debeb785880f77f3e4e44fe))
+
+
+### Features
+
+* **react:** include new params hook useContentType ([c6e51bc](https://github.com/Farfetch/blackout/commit/c6e51bc7109b2d584c74e579edaec3792ebdc199))
+
+
+
+
+
 ## [0.32.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.32.0...@farfetch/blackout-react@0.32.1) (2022-03-22)
 
 **Note:** Version bump only for package @farfetch/blackout-react

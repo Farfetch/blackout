@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.53.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.53.1...@farfetch/blackout-core@1.53.2) (2022-03-29)
+
+
+### Bug Fixes
+
+* **blackout-core:** fix doUpdateUserSubscriptions action ([0870025](https://github.com/Farfetch/blackout/commit/0870025ef823ec3ed2e00f31689ed3542c235729))
+
+
+
+
+
 ## [1.53.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.53.0...@farfetch/blackout-core@1.53.1) (2022-03-22)
 
 
