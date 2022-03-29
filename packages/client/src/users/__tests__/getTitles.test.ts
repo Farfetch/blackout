@@ -2,7 +2,6 @@ import * as usersClient from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getTitles.fixtures';
 import moxios from 'moxios';
-import type { GetTitlesQuery } from '../types/query.types';
 
 describe('getTitles', () => {
   const expectedConfig = undefined;
