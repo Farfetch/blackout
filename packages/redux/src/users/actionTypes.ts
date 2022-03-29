@@ -283,3 +283,43 @@ export const SET_DEFAULT_PERSONAL_ID_REQUEST =
 /** Action type dispatched when the set default personal id request succeeds. */
 export const SET_DEFAULT_PERSONAL_ID_SUCCESS =
   '@farfetch/blackout-client/SET_DEFAULT_PERSONAL_ID_SUCCESS';
+
+/** Action type disupdateed when the create personal id image request fails. */
+export const CREATE_PERSONAL_ID_IMAGE_FAILURE =
+  '@farfetch/blackout-client/CREATE_PERSONAL_ID_IMAGE_FAILURE';
+/** Action type disupdateed when the create personal id image request starts. */
+export const CREATE_PERSONAL_ID_IMAGE_REQUEST =
+  '@farfetch/blackout-client/CREATE_PERSONAL_ID_IMAGE_REQUEST';
+/** Action type disupdateed when the create personal id image request succeeds. */
+export const CREATE_PERSONAL_ID_IMAGE_SUCCESS =
+  '@farfetch/blackout-client/CREATE_PERSONAL_ID_IMAGE_SUCCESS';
+
+/** Action type disupdateed when the fetch personal id request fails. */
+export const FETCH_PERSONAL_ID_FAILURE =
+  '@farfetch/blackout-client/FETCH_PERSONAL_ID_FAILURE';
+/** Action type disupdateed when the fetch personal id request starts. */
+export const FETCH_PERSONAL_ID_REQUEST =
+  '@farfetch/blackout-client/FETCH_PERSONAL_ID_REQUEST';
+/** Action type disupdateed when the fetch personal id request succeeds. */
+export const FETCH_PERSONAL_ID_SUCCESS =
+  '@farfetch/blackout-client/FETCH_PERSONAL_ID_SUCCESS';
+
+/** Action type disupdateed when the update personal id request fails. */
+export const UPDATE_PERSONAL_ID_FAILURE =
+  '@farfetch/blackout-client/UPDATE_PERSONAL_ID_FAILURE';
+/** Action type disupdateed when the update personal id request starts. */
+export const UPDATE_PERSONAL_ID_REQUEST =
+  '@farfetch/blackout-client/UPDATE_PERSONAL_ID_REQUEST';
+/** Action type disupdateed when the update personal id request succeeds. */
+export const UPDATE_PERSONAL_ID_SUCCESS =
+  '@farfetch/blackout-client/UPDATE_PERSONAL_ID_SUCCESS';
+
+/** Action type dispatched when the remove personal id request fails. */
+export const REMOVE_PERSONAL_ID_FAILURE =
+  '@farfetch/blackout-client/REMOVE_PERSONAL_ID_FAILURE';
+/** Action type dispatched when the remove personal id request starts. */
+export const REMOVE_PERSONAL_ID_REQUEST =
+  '@farfetch/blackout-client/REMOVE_PERSONAL_ID_REQUEST';
+/** Action type dispatched when the remove personal id request succeeds. */
+export const REMOVE_PERSONAL_ID_SUCCESS =
+  '@farfetch/blackout-client/REMOVE_PERSONAL_ID_SUCCESS';

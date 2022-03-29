@@ -34,3 +34,7 @@ export { default as fetchPersonalIds } from './fetchPersonalIds';
 export { default as createPersonalIds } from './createPersonalIds';
 export { default as fetchDefaultPersonalId } from './fetchDefaultPersonalId';
 export { default as setDefaultPersonalId } from './setDefaultPersonalId';
+export { default as createPersonalIdImage } from './createPersonalIdImage';
+export { default as removePersonalId } from './removePersonalId';
+export { default as fetchPersonalId } from './fetchPersonalId';
+export { default as updatePersonalId } from './updatePersonalId';

@@ -33,4 +33,8 @@ export * from './getPersonalIds.types';
 export * from './postPersonalIds.types';
 export * from './getDefaultPersonalId.types';
 export * from './putDefaultPersonalId.types';
+export * from './postPersonalIdImage.types';
+export * from './deletePersonalId.types';
+export * from './getPersonalId.types';
+export * from './patchPersonalId.types';
 export * from './personalId.types';
