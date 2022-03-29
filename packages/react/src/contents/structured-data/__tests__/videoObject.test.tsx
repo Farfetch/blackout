@@ -14,6 +14,8 @@ describe('structuredVideoObject', () => {
       publicationDate,
     );
 
-    expect(renderStructuredVideo).toEqual(MockRenderScript(JSON.stringify(videoObjectResult)));
+    expect(renderStructuredVideo).toEqual(
+      MockRenderScript(JSON.stringify(videoObjectResult)),
+    );
   });
 });

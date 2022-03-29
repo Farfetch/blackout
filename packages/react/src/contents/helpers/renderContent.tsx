@@ -1,4 +1,5 @@
 import { Component } from '../components';
+import map from 'lodash/map';
 import React, { ReactElement } from 'react';
 import type {
   ComponentType,
@@ -27,7 +28,7 @@ const renderContent = (
   { components }: { components: ContentEntries['components'] },
   isContentTool = IS_CONTENT_TOOL.inactive,
 ): ReactElement =>
-  components.map((component, key) => {
+  map(components, (component: ComponentType, key: number) => {
     if (isContentTool === IS_CONTENT_TOOL.active && component.type === 'list') {
       return renderContent(
         component as { components: ComponentType[] },
