@@ -26,3 +26,7 @@ export { default as fetchPersonalIdsFactory } from './fetchPersonalIdsFactory';
 export { default as createPersonalIdsFactory } from './createPersonalIdsFactory';
 export { default as fetchDefaultPersonalIdFactory } from './fetchDefaultPersonalIdFactory';
 export { default as setDefaultPersonalIdFactory } from './setDefaultPersonalIdFactory';
+export { default as createPersonalIdImageFactory } from './createPersonalIdImageFactory';
+export { default as fetchPersonalIdFactory } from './fetchPersonalIdFactory';
+export { default as updatePersonalIdFactory } from './updatePersonalIdFactory';
+export { default as removePersonalIdFactory } from './removePersonalIdFactory';
