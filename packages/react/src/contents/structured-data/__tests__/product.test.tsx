@@ -20,7 +20,9 @@ describe('structuredProduct', () => {
       seller,
     );
 
-    expect(renderStructuredProduct).toEqual(MockRenderScript(JSON.stringify(productResult)));
+    expect(renderStructuredProduct).toEqual(
+      MockRenderScript(JSON.stringify(productResult)),
+    );
   });
 
   it('should correctly generate JSON-LD with stock available', () => {

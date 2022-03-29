@@ -2,7 +2,6 @@ import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
 import type {
   Address,
-  AddressSchemaLine,
   Prediction,
   PredictionDetails,
   Schema,

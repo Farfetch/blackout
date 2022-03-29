@@ -35,4 +35,13 @@ describe('renderContent', () => {
     expect(element).toBeInTheDocument();
     expect(element).toHaveTextContent('Content');
   });
+
+  it('should deal with undefined components', () => {
+    const { queryByTestId } = render(
+      renderContent({ components: undefined }),
+    );
+    const element = queryByTestId('textElement');
+
+    expect(element).not.toBeInTheDocument();
+  });
 });
