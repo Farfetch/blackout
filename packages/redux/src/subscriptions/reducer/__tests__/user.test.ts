@@ -24,17 +24,6 @@ describe('User Subscriptions redux reducer', () => {
   });
 
   describe('error() reducer', () => {
-    it(`should handle ${actionTypes.UPDATE_USER_SUBSCRIPTIONS_FAILURE} action type`, () => {
-      const expectedResult = 'This is an error';
-
-      expect(
-        reducer(mockUserSubscriptionsState, {
-          type: actionTypes.UPDATE_USER_SUBSCRIPTIONS_FAILURE,
-          payload: { error: expectedResult },
-        }).error,
-      ).toBe(expectedResult);
-    });
-
     it(`should handle ${actionTypes.FETCH_USER_SUBSCRIPTIONS_REQUEST} action type`, () => {
       expect(
         reducer(mockUserSubscriptionsState, {
@@ -76,14 +65,46 @@ describe('User Subscriptions redux reducer', () => {
     });
   });
 
+  describe('updateSubscriptionsError() reducer', () => {
+    it(`should handle ${actionTypes.UPDATE_USER_SUBSCRIPTIONS_FAILURE} action type`, () => {
+      const expectedResult = 'This is an error';
+
+      expect(
+        reducer(mockUserSubscriptionsState, {
+          type: actionTypes.UPDATE_USER_SUBSCRIPTIONS_FAILURE,
+          payload: { error: expectedResult },
+        }).updateSubscriptionsError,
+      ).toBe(expectedResult);
+    });
+
+    it(`should handle ${actionTypes.UPDATE_USER_SUBSCRIPTIONS_REQUEST} action type`, () => {
+      expect(
+        reducer(mockUserSubscriptionsState, {
+          type: actionTypes.UPDATE_USER_SUBSCRIPTIONS_REQUEST,
+          payload: {},
+        }).updateSubscriptionsError,
+      ).toBe(initialState.updateSubscriptionsError);
+    });
+
+    it('should handle other actions by returning the previous state', () => {
+      const state = {
+        ...mockUserSubscriptionsState,
+        updateSubscriptionsError: new Error('foo'),
+      };
+
+      expect(reducer(state, randomAction).updateSubscriptionsError).toEqual(
+        state.updateSubscriptionsError,
+      );
+    });
+  });
+
   describe('result() reducer', () => {
     it(`should handle ${actionTypes.UPDATE_USER_SUBSCRIPTIONS_SUCCESS} action type`, () => {
       expect(
         reducer(mockUserSubscriptionsState, {
           type: actionTypes.UPDATE_USER_SUBSCRIPTIONS_SUCCESS,
-          payload: mockUserSubscriptionsState.result,
         }).result,
-      ).toEqual(mockUserSubscriptionsState.result);
+      ).toEqual(initialState.result);
     });
 
     it(`should handle ${actionTypes.FETCH_USER_SUBSCRIPTIONS_SUCCESS} action type`, () => {
@@ -496,6 +517,19 @@ describe('User Subscriptions redux reducer', () => {
           unsubscribeRecipientFromTopicRequests,
         }),
       ).toBe(unsubscribeRecipientFromTopicRequests);
+    });
+  });
+
+  describe('getUpdateSubscriptionsError() selector', () => {
+    it('should return updateSubscriptionsError state', () => {
+      const updateSubscriptionsError = {};
+
+      expect(
+        userReducer.getUpdateSubscriptionsError({
+          ...initialState,
+          updateSubscriptionsError,
+        }),
+      ).toBe(updateSubscriptionsError);
     });
   });
 });

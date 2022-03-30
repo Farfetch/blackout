@@ -80,11 +80,7 @@ export const getWishlist = (state: StoreState): State['result'] =>
 export const getWishlistItem = createSelector(
   [
     (state: StoreState, wishlistItemId: WishlistItem['id']) =>
-      getEntityById(
-        state,
-        'wishlistItems',
-        wishlistItemId,
-      ) as WishlistItemEntity,
+      getEntityById(state, 'wishlistItems', wishlistItemId),
     (state: StoreState, wishlistItemId: WishlistItem['id']) => {
       const wishlistItem = getEntityById(
         state,

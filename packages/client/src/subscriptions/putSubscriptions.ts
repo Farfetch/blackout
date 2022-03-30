@@ -4,9 +4,6 @@ import type { PutSubscriptions } from './types';
 /**
  * Method responsible for putting data to subscriptions endpoint on MKT API.
  *
- * @function putSubscriptions
- * @memberof module:subscriptions
- *
  * @param data - Payload to be sent on the body of the put request.
  * @param config - Custom configurations to send to the client instance (axios).
  *
@@ -15,7 +12,7 @@ import type { PutSubscriptions } from './types';
 const putSubscriptions: PutSubscriptions = (data, config) => {
   return client
     .put('/marketing/v1/subscriptions', data, config)
-    .then(response => response.data)
+    .then(() => undefined)
     .catch(error => {
       throw adaptError(error);
     });
