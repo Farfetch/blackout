@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.200](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.199...@farfetch/blackout-react@1.0.0-next.200) (2022-03-30)
+
+
+### Features
+
+* **react:** include new params hook useContentType ([eebaf11](https://github.com/Farfetch/blackout/commit/eebaf11ad0dbad6968d01c72676e216f8ff9f644))
+
+
+
+
+
 # [1.0.0-next.199](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.198...@farfetch/blackout-react@1.0.0-next.199) (2022-03-29)
 
 
