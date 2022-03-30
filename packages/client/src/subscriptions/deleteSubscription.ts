@@ -5,9 +5,6 @@ import type { DeleteSubscription } from './types';
 /**
  * Method responsible for sending a delete all subscriptions request to MKT API containing the subscription id and email hash of the user to be unsubscribed.
  *
- * @function deleteSubscription
- * @memberof module:subscriptions/client
- *
  * @param query - Query object.
  * @param config - Custom configurations to send to the client instance (axios).
  *

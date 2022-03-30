@@ -51,8 +51,6 @@ describe('Subscriptions redux actions', () => {
     });
 
     it("Should create the correct actions when the user subscriptions' put request is successful", async () => {
-      putSubscriptions.mockResolvedValueOnce(mockPutSubscriptions.response);
-
       await store
         .dispatch(updateUserSubscriptions(mockPutSubscriptions.data))
         .then(clientResult => {
@@ -70,7 +68,6 @@ describe('Subscriptions redux actions', () => {
         { type: actionTypes.UPDATE_USER_SUBSCRIPTIONS_REQUEST },
         {
           type: actionTypes.UPDATE_USER_SUBSCRIPTIONS_SUCCESS,
-          payload: expect.any(Object),
         },
       ]);
       expect(

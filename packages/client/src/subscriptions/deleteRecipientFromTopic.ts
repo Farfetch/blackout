@@ -5,9 +5,6 @@ import type { DeleteRecipientFromTopic } from './types';
 /**
  * Method responsible for sending a request to remove a recipient from a subscription topic to the MKT API.
  *
- * @function deleteRecipientFromTopic
- * @memberof module:subscriptions
- *
  * @param subscriptionId - Id of the subscription to be affected.
  * @param topicId - Id of topic to remove the recipient from.
  * @param recipientId - The id of the recipient to be removed.

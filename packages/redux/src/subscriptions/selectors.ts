@@ -1,9 +1,3 @@
-/**
- * @module subscriptions/selectors
- * @category Subscriptions
- * @subcategory Selectors
- */
-
 import { createSelector } from 'reselect';
 import { getEntities } from '../entities';
 import {
@@ -16,43 +10,42 @@ import {
   getSubscriptionsError,
   getSubscriptionsIsLoading,
   getUnsubscribeRecipientFromTopicRequests as getUnsubscribeRecipientFromTopicRequestsReducer,
+  getUpdateSubscriptionsError as getUpdateSubscriptionsErrorFromReducer,
 } from './reducer/user';
 import defaultTo from 'lodash/defaultTo';
 import get from 'lodash/get';
-import type {
-  PackagesState,
-  UnsubscribeRecipientFromTopicType,
-  UserState,
-} from './types';
+import type { PackagesState, UserState } from './types';
 import type { StoreState } from '../types';
 import type { SubscriptionTopic } from '@farfetch/blackout-client/subscriptions/types';
 
 /**
  * Returns the error given a user subscription action.
  *
- * @function
- *
  * @param state - Application state.
  *
  * @returns User subscription error.
  */
-export const getUserSubscriptionsError = (
-  state: StoreState,
-): UserState['error'] | undefined =>
+export const getUserSubscriptionsError = (state: StoreState) =>
   getSubscriptionsError(state.subscriptions?.user);
 
 /**
- * Returns the result of a user subscription.
+ * Returns the error when the update user subscriptions action fails.
  *
- * @function
+ * @param state - Application state.
+ *
+ * @returns Error for the update subscription action.
+ */
+export const getUpdateSubscriptionsError = (state: StoreState) =>
+  getUpdateSubscriptionsErrorFromReducer(state.subscriptions?.user);
+
+/**
+ * Returns the result of a user subscription.
  *
  * @param state - Application state.
  *
  * @returns User subscription result.
  */
-export const getUserSubscriptions = (
-  state: StoreState,
-): UserState['result'] | undefined =>
+export const getUserSubscriptions = (state: StoreState) =>
   getSubscriptions(state.subscriptions?.user);
 
 // Default user subscriptions value for the following selectors.
@@ -61,8 +54,6 @@ const DEFAULT_USER_SUBSCRIPTIONS_VALUE: UserState['result'] = [];
 
 /**
  * Returns the user subscribed topics for the specified platform.
- *
- * @function
  *
  * @param state - Application state.
  * @param platform - Platform to filter the subscriptions.
@@ -98,8 +89,6 @@ export const getUserSubscribedTopicsForPlatform = createSelector(
 /**
  * Returns the user subscribed topics for the specified address.
  *
- * @function
- *
  * @param state - Application state.
  * @param address - Address to filter the subscriptions.
  *
@@ -132,21 +121,15 @@ export const getUserSubscribedTopicsForAddress = createSelector(
 /**
  * Returns the loading status of a user subscription.
  *
- * @function
- *
  * @param state - Application state.
  *
  * @returns User subscription loading status.
  */
-export const isUserSubscriptionsLoading = (
-  state: StoreState,
-): UserState['isLoading'] | undefined =>
+export const isUserSubscriptionsLoading = (state: StoreState) =>
   getSubscriptionsIsLoading(state.subscriptions?.user);
 
 /**
  * Returns the error given a subscription package action.
- *
- * @function
  *
  * @param state - Application state.
  *
@@ -159,8 +142,6 @@ export const getSubscriptionPackagesError = (
 
 /**
  * Returns the result of a subscription package.
- *
- * @function
  *
  * @param state - Application state.
  *
@@ -182,11 +163,9 @@ export const getSubscriptionPackages = createSelector(
 /**
  * Returns the loading status of a subscription package.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Subscription package loading status.
+ * @returns Subscription package loading status.
  */
 export const isSubscriptionPackagesLoading = (
   state: StoreState,
@@ -196,15 +175,11 @@ export const isSubscriptionPackagesLoading = (
 /**
  * Returns the supported delivery channels for all subscription packages.
  *
- * @function
- *
  * @param state - Application state.
  *
  * @returns The supported delivery channels.
  */
-export const getSupportedChannels = (
-  state: StoreState,
-): string[] | undefined => {
+export const getSupportedChannels = (state: StoreState) => {
   const result = getPackages(state.subscriptions?.packages);
 
   return (result && result.supportedChannels) || undefined;
@@ -212,8 +187,6 @@ export const getSupportedChannels = (
 
 /**
  * Returns a specific unsubscribe recipient from topic request state from the redux store.
- *
- * @function
  *
  * @param state - Application state.
  * @param recipientId - Id of the recipient (address) to get the unsubscribe request state.
@@ -223,7 +196,7 @@ export const getSupportedChannels = (
 export const getUnsubscribeRecipientFromTopicRequest = (
   state: StoreState,
   recipientId: string,
-): UnsubscribeRecipientFromTopicType | undefined => {
+) => {
   const unsubscribeRecipientFromTopicRequests =
     getUnsubscribeRecipientFromTopicRequestsReducer(state.subscriptions?.user);
 
@@ -232,8 +205,6 @@ export const getUnsubscribeRecipientFromTopicRequest = (
 
 /**
  * Returns all unsubscribe recipient from topic requests state from the redux store.
- *
- * @function
  *
  * @param state - Application state.
  *

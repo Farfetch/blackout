@@ -12,18 +12,31 @@ export const INITIAL_STATE: UserState = {
   isLoading: false,
   result: [],
   unsubscribeRecipientFromTopicRequests: {},
+  updateSubscriptionsError: null,
 };
 
 const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_USER_SUBSCRIPTIONS_FAILURE:
-    case actionTypes.UPDATE_USER_SUBSCRIPTIONS_FAILURE:
     case actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_FAILURE:
       return action.payload.error;
     case actionTypes.FETCH_USER_SUBSCRIPTIONS_REQUEST:
-    case actionTypes.UPDATE_USER_SUBSCRIPTIONS_REQUEST:
     case actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_REQUEST:
       return INITIAL_STATE.error;
+    default:
+      return state;
+  }
+};
+
+const updateSubscriptionsError = (
+  state = INITIAL_STATE.updateSubscriptionsError,
+  action: AnyAction,
+) => {
+  switch (action.type) {
+    case actionTypes.UPDATE_USER_SUBSCRIPTIONS_FAILURE:
+      return action.payload.error;
+    case actionTypes.UPDATE_USER_SUBSCRIPTIONS_REQUEST:
+      return INITIAL_STATE.updateSubscriptionsError;
     default:
       return state;
   }
@@ -50,8 +63,8 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
 const result = (state = INITIAL_STATE.result, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_USER_SUBSCRIPTIONS_SUCCESS:
-    case actionTypes.UPDATE_USER_SUBSCRIPTIONS_SUCCESS:
       return action.payload;
+    case actionTypes.UPDATE_USER_SUBSCRIPTIONS_SUCCESS:
     case actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS:
       return INITIAL_STATE.result;
     case actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_SUCCESS: {
@@ -218,25 +231,23 @@ const unsubscribeRecipientFromTopicRequests = (
   }
 };
 
-export const getSubscriptionsError = (
-  state: UserState | undefined,
-): UserState['error'] | undefined => state?.error;
-export const getSubscriptionsIsLoading = (
-  state: UserState | undefined,
-): UserState['isLoading'] | undefined => state?.isLoading;
-export const getSubscriptions = (
-  state: UserState | undefined,
-): UserState['result'] | undefined => state?.result;
+export const getSubscriptionsError = (state: UserState | undefined) =>
+  state?.error;
+export const getSubscriptionsIsLoading = (state: UserState | undefined) =>
+  state?.isLoading;
+export const getSubscriptions = (state: UserState | undefined) => state?.result;
 export const getUnsubscribeRecipientFromTopicRequests = (
   state: UserState | undefined,
-): UserState['unsubscribeRecipientFromTopicRequests'] | undefined =>
-  state?.unsubscribeRecipientFromTopicRequests;
+) => state?.unsubscribeRecipientFromTopicRequests;
+export const getUpdateSubscriptionsError = (state: UserState | undefined) =>
+  state?.updateSubscriptionsError;
 
 const reducers = combineReducers({
   error,
   isLoading,
   result,
   unsubscribeRecipientFromTopicRequests,
+  updateSubscriptionsError,
 });
 
 /**

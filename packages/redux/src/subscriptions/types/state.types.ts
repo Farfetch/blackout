@@ -15,6 +15,7 @@ export type UserState = CombinedState<{
     string,
     UnsubscribeRecipientFromTopicType
   >;
+  updateSubscriptionsError: Error | undefined | null;
 }>;
 
 export type UnsubscribeRecipientFromTopicType = {

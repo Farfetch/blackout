@@ -5,9 +5,6 @@ import type { GetSubscriptionPackages } from './types';
 /**
  * Method responsible for retrieving all topics configured for the current tenant from the subscription packages endpoint on MKT API.
  *
- * @function getSubscriptionPackages
- * @memberof module:subscriptions
- *
  * @param query - Query parameters to apply.
  * @param config - Custom configurations to send to the client instance (axios).
  *
