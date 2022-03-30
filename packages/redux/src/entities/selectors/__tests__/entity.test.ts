@@ -25,9 +25,10 @@ const state = {
 
 describe('getEntities()', () => {
   it('should throw an error if there is no valid state', () => {
+    // @ts-expect-error
     expect(getEntities(null, 'random')).toBeUndefined();
+    // @ts-expect-error
     expect(getEntities(undefined, 'random')).toBeUndefined();
-    // @ts-expect-error Need an invalid state to assert throwing the error
     expect(() => getEntities({}, 'random')).toThrow();
   });
 

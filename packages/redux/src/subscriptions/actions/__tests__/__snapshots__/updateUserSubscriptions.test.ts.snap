@@ -2,31 +2,6 @@
 
 exports[`Subscriptions redux actions updateUserSubscriptions() action creator Should create the correct actions when the user subscriptions' put request is successful: Update subscriptions success payload 1`] = `
 Object {
-  "payload": Object {
-    "id": "8c2b5c3e3acb4bdd9c26ba46",
-    "topics": Array [
-      Object {
-        "channels": Array [
-          Object {
-            "address": "user1_test1@acme.com",
-            "platform": "email",
-            "source": "My Account",
-          },
-        ],
-        "type": "Latest_News",
-      },
-      Object {
-        "channels": Array [
-          Object {
-            "address": "919191919",
-            "platform": "sms",
-            "source": "My Account",
-          },
-        ],
-        "type": "Promotions",
-      },
-    ],
-  },
   "type": "@farfetch/blackout-redux/UPDATE_USER_SUBSCRIPTIONS_SUCCESS",
 }
 `;

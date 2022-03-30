@@ -3,7 +3,7 @@ import type { StoreState } from '../../types';
 
 type StateEntities = StoreState['entities'];
 
-const throwError = (state: StoreState) =>
+const throwError = (state: StoreState) => {
   invariant(
     !state || typeof state.entities !== 'undefined',
     [
@@ -11,6 +11,7 @@ const throwError = (state: StoreState) =>
       'You need to add an `entities` reducer to the top level of your state tree.',
     ].join('\n'),
   );
+};
 
 /**
  * Gets all entities of a given schema name.
@@ -23,13 +24,18 @@ const throwError = (state: StoreState) =>
  * @returns {object|undefined} - All entities of the given schema name, undefined
  * if none is found.
  */
-export const getEntities = <SchemaName extends keyof StateEntities>(
+export const getEntities = <
+  SchemaName extends keyof NonNullable<StateEntities>,
+>(
   state: StoreState,
   name: SchemaName,
-): StateEntities[SchemaName] | undefined => {
+): NonNullable<StateEntities>[SchemaName] | never => {
   throwError(state);
 
-  return state?.entities[name];
+  // As throwError (maybe another name was more clear) throws when the entities
+  // is undefined, we can safely make the type cast. Ideally we should convert
+  // throwError function to be detected as a type guard, so we do not need the cast.
+  return state?.entities?.[name];
 };
 
 /**
@@ -45,19 +51,11 @@ export const getEntities = <SchemaName extends keyof StateEntities>(
  * if it isn't found.
  */
 export const getEntityById = <
-  SchemaName extends keyof StateEntities,
-  // EntityId extends keyof StateEntities[SchemaName]
+  SchemaName extends keyof NonNullable<StateEntities>,
+  EntityId extends keyof NonNullable<NonNullable<StateEntities>[SchemaName]>,
 >(
   state: StoreState,
   name: SchemaName,
-  // id: EntityId,
-  // @FIXME: the type of `id` should be `EntityId`, but since `StateEntities` is
-  // a `Partial`, it's always never, because it can't reach something that may
-  // not exists. Don't know how to get around this for now.
-  id: string | number,
-  // @FIXME: the return type should be `StateEntities[SchemaName][EntityId]` but
-  // again, since `StateEntities` is a `Partial`, theres no way to achieve this.
-  // When using this selector, its advisable to define your variable
-  // `as <CurrentEntity>Entity`. For example:
-  // const wishlistItem = getEntityById(state, 'wishlistItems', id) as WishlistItemEntity;
-): any | undefined => getEntities(state, name)?.[id];
+  id: EntityId,
+): NonNullable<StateEntities>[SchemaName][EntityId] | undefined =>
+  getEntities(state, name)?.[id];

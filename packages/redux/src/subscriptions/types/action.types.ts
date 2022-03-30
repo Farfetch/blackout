@@ -98,7 +98,6 @@ interface UpdateUserSubscriptionsRequestAction extends Action {
 
 interface UpdateUserSubscriptionsSuccessAction extends Action {
   type: typeof actionTypes.UPDATE_USER_SUBSCRIPTIONS_SUCCESS;
-  payload: Subscription[];
 }
 
 interface UpdateUserSubscriptionsFailureAction extends Action {

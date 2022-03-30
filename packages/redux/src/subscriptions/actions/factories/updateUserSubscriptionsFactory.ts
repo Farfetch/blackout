@@ -20,13 +20,11 @@ const updateUserSubscriptionsFactory: UpdateUserSubscriptionsFactory<
   });
 
   try {
-    const result = await putSubscriptions(data, config);
+    await putSubscriptions(data, config);
 
     dispatch({
-      payload: result,
       type: actionTypes.UPDATE_USER_SUBSCRIPTIONS_SUCCESS,
     });
-    return result;
   } catch (error) {
     dispatch({
       payload: { error },
