@@ -1,7 +1,7 @@
 import DataStore from './DataStore';
 import uuid from 'uuid';
 import type { StorageWrapper } from './utils';
-import type { UserData } from './types/analytics.types';
+import type { UserData, UserTraits } from './types/analytics.types';
 
 /**
  * Handles and persists user data on the instance.
@@ -71,7 +71,7 @@ class User {
    *
    * @returns Promise that will resolve with the instance that was used when calling this method to allow chaining.
    */
-  async set(id: string | null = null, traits = {}): Promise<User> {
+  async set(id: UserData['id'] = null, traits: UserTraits = {}): Promise<User> {
     // Generate a new localId and store it (if needed)
     await this.localId();
 

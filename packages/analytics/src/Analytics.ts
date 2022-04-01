@@ -308,7 +308,7 @@ class Analytics {
    * @returns Promise that will resolve with the instance that was used when calling this method to allow chaining.
    */
   async setUser(
-    userId: string | null = null,
+    userId: UserData['id'] = null,
     traits: UserTraits = {},
   ): Promise<this> {
     if (!this.storage) {
