@@ -348,13 +348,8 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
     data: TrackEventData,
     scopeCommands?: ScopeCommands,
     productMappings?: ProductMappings,
-  ): GACommandList {
-    const commandList: GACommandList = [];
+  ): GACommandList | undefined {
     const extraCommands = this.getExtraCommandsForEvent(data, scopeCommands);
-
-    if (extraCommands) {
-      commandList.push(...extraCommands);
-    }
 
     const mainCommands = this.getMainCommandsForEvent(
       data,
@@ -362,11 +357,21 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
       productMappings,
     );
 
-    if (mainCommands) {
-      commandList.push(...mainCommands);
+    if (extraCommands || mainCommands) {
+      const commandList: GACommandList = [];
+
+      if (extraCommands) {
+        commandList.push(...extraCommands);
+      }
+
+      if (mainCommands) {
+        commandList.push(...mainCommands);
+      }
+
+      return commandList;
     }
 
-    return commandList;
+    return undefined;
   }
 
   /**
