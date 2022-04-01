@@ -71,10 +71,15 @@ const getWishlistItemIdFromAction = (action, searchMeta = true) => {
   return Object.values(wishlistItems).find(
     wishlistItem =>
       wishlistItem.product === productIdMeta &&
+      // Do not consider merchant if it was not passed to the update wishlist item action
       wishlistItem.merchant ===
         (merchantIdMeta ? merchantIdMeta : wishlistItem.merchant) &&
-      wishlistItem.size.id === sizeIdMeta &&
-      wishlistItem.size.scale === sizeScaleMeta,
+      // Do not consider size id if it was not passed to the update wishlist item action
+      wishlistItem.size.id ===
+        (sizeIdMeta ? sizeIdMeta : wishlistItem.size.id) &&
+      // Do not consider scale id if it was not passed to the update wishlist item action
+      wishlistItem.size.scale ===
+        (sizeScaleMeta ? sizeScaleMeta : wishlistItem.size.scale),
   )?.id;
 };
 
