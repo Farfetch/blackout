@@ -319,12 +319,7 @@ class GA extends integrations.Integration {
    * @returns {Array} The GA command list for the event. It will return empty if there is an error or no command builders exist for the event.
    */
   buildCommandListForEvent(data, scopeCommands, productMappings) {
-    const commandList = [];
     const extraCommands = this.getExtraCommandsForEvent(data, scopeCommands);
-
-    if (extraCommands) {
-      commandList.push(...extraCommands);
-    }
 
     const mainCommands = this.getMainCommandsForEvent(
       data,
@@ -332,11 +327,23 @@ class GA extends integrations.Integration {
       productMappings,
     );
 
-    if (mainCommands) {
-      commandList.push(...mainCommands);
+    // Only initialize `commandList` if there were any commands generated for the event
+    // If not, return undefined.
+    if (extraCommands || mainCommands) {
+      const commandList = [];
+
+      if (extraCommands) {
+        commandList.push(...extraCommands);
+      }
+
+      if (mainCommands) {
+        commandList.push(...mainCommands);
+      }
+
+      return commandList;
     }
 
-    return commandList;
+    return undefined;
   }
 
   /**

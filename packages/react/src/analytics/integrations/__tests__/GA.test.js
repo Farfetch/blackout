@@ -817,6 +817,32 @@ describe('GA Integration', () => {
 
             expect(gaSpy).not.toHaveBeenCalled();
           });
+
+          it('Should only be called for events that generated commands', async () => {
+            const onPreProcessCommandsMock = jest.fn();
+
+            const options = {
+              ...validOptions,
+              onPreProcessCommands: onPreProcessCommandsMock,
+            };
+
+            gaInstance = await createGAInstanceAndLoad(options, loadData);
+
+            expect(onPreProcessCommandsMock).not.toHaveBeenCalled();
+
+            const gaSpy = getWindowGaSpy();
+
+            const nonDefaultSupportedEvent = {
+              ...validTrackEvents[eventTypes.PRODUCT_ADDED_TO_CART],
+              event: 'bogus event',
+            };
+
+            await gaInstance.track(nonDefaultSupportedEvent);
+
+            expect(onPreProcessCommandsMock).not.toHaveBeenCalled();
+
+            expect(gaSpy).not.toHaveBeenCalled();
+          });
         });
 
         describe('`productMappings` option', () => {

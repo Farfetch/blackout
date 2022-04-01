@@ -777,6 +777,34 @@ describe('GA4 Integration', () => {
         });
 
         describe(`${OPTION_ON_PRE_PROCESS_COMMANDS} option`, () => {
+          it('Should allow the user to transform the command list generated before sending to gtag instance', async () => {
+            let newCommandList;
+
+            const onPreProcessCommands = commandList => {
+              newCommandList = [
+                ['event', 'new_event', { dummy_prop: 'dummy_value' }],
+                ...commandList,
+              ];
+
+              return newCommandList;
+            };
+
+            const options = {
+              ...validOptions,
+              [OPTION_ON_PRE_PROCESS_COMMANDS]: onPreProcessCommands,
+            };
+
+            ga4Instance = await createGA4InstanceAndLoad(options, loadData);
+
+            const ga4Spy = getWindowGa4Spy();
+
+            await ga4Instance.track(
+              validTrackEvents[eventTypes.PRODUCT_ADDED_TO_CART],
+            );
+
+            expect(ga4Spy.mock.calls).toEqual(newCommandList);
+          });
+
           it('Should log an error when the value specified is not a function', () => {
             const options = {
               ...validOptions,
@@ -805,6 +833,32 @@ describe('GA4 Integration', () => {
             );
 
             expect(mockLoggerError).toHaveBeenCalled();
+
+            expect(ga4Spy).not.toHaveBeenCalled();
+          });
+
+          it('Should only be called for events that generated commands', async () => {
+            const onPreProcessCommandsMock = jest.fn();
+
+            const options = {
+              ...validOptions,
+              onPreProcessCommands: onPreProcessCommandsMock,
+            };
+
+            ga4Instance = await createGA4InstanceAndLoad(options, loadData);
+
+            expect(onPreProcessCommandsMock).not.toHaveBeenCalled();
+
+            const ga4Spy = getWindowGa4Spy();
+
+            const nonDefaultSupportedEvent = {
+              ...validTrackEvents[eventTypes.PRODUCT_ADDED_TO_CART],
+              event: 'bogus event',
+            };
+
+            await ga4Instance.track(nonDefaultSupportedEvent);
+
+            expect(onPreProcessCommandsMock).not.toHaveBeenCalled();
 
             expect(ga4Spy).not.toHaveBeenCalled();
           });
