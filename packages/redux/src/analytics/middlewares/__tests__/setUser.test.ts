@@ -1,5 +1,5 @@
+import { AnyAction, combineReducers, Middleware, MiddlewareAPI } from 'redux';
 import { actionTypes as authenticationActionTypes } from '../../../authentication';
-import { combineReducers } from 'redux';
 import {
   DEFAULT_TRIGGER_ANONYMIZE_ACTION_TYPES,
   DEFAULT_TRIGGER_SET_USER_ACTION_TYPES,
@@ -9,32 +9,35 @@ import {
   OPTION_TRIGGER_SET_USER_ACTIONS,
   OPTION_USER_TRAITS_PICKER,
 } from '../setUser';
-import {
-  eventTypes,
-  loginMethodParameterTypes,
-} from '@farfetch/blackout-analytics';
 import { getUser, getUserId } from '../../../entities/selectors';
 import { actionTypes as usersActionTypes } from '@farfetch/blackout-redux/users';
+import Analytics, {
+  eventTypes,
+  loginMethodParameterTypes,
+  UserData,
+  UserTraits,
+} from '@farfetch/blackout-analytics';
 import pick from 'lodash/pick';
 import TestStorage from 'test-storage';
+import type { StoreState } from '@farfetch/blackout-redux/types';
 
 // Mock logger so it does not output to the console
 jest.mock('@farfetch/blackout-client/helpers', () => ({
   ...jest.requireActual('@farfetch/blackout-client/helpers'),
   Logger: class {
-    warn(message) {
+    warn(message: string) {
       return message;
     }
-    error(message) {
+    error(message: string) {
       return message;
     }
   },
 }));
 
-let analytics;
-let setUserSpy;
-let anonymizeSpy;
-let trackSpy;
+let analytics: Analytics;
+let setUserSpy: jest.SpyInstance;
+let anonymizeSpy: jest.SpyInstance;
+let trackSpy: jest.SpyInstance;
 
 const loggedInUserId = 1;
 
@@ -80,7 +83,7 @@ const mockStateGuestUser = {
 // This version was used instead, because createEntitiesReducer
 // does not override completely user data, so makes testing
 // a little more difficult. In runtime, that is not a problem.
-const entitiesReducer = (state = {}, action = {}) => {
+const entitiesReducer = (state: StoreState = {}, action: AnyAction) => {
   if (action.payload && action.payload.entities) {
     return Object.assign({}, state, action.payload.entities);
   }
@@ -96,7 +99,10 @@ const reducer = combineReducers({
 // This was needed because our mockStore module that is based on
 // redux-mock-store package does not execute the reducers
 // which were needed for this test suite.
-const mockStore = (initialState, middlewares) => {
+const mockStore = (
+  initialState: StoreState = {},
+  middlewares: Array<Middleware>,
+) => {
   const store = {
     state: initialState,
 
@@ -104,13 +110,16 @@ const mockStore = (initialState, middlewares) => {
       return this.state;
     },
 
-    async dispatch(action) {
-      const next = action => {
-        this.state = reducer(this.state, action);
+    async dispatch(action: AnyAction) {
+      const next = <T extends AnyAction>(action: T) => {
+        this.state = reducer(this.state as Required<typeof this.state>, action);
+        return action;
       };
 
       await Promise.all(
-        middlewares.map(middleware => middleware(this)(next)(action)),
+        middlewares.map(middleware =>
+          middleware(this as MiddlewareAPI)(next)(action),
+        ),
       );
     },
   };
@@ -118,7 +127,12 @@ const mockStore = (initialState, middlewares) => {
   return store;
 };
 
-async function dispatchUserChangingAction(store, actionType, userEntity, meta) {
+async function dispatchUserChangingAction(
+  store: ReturnType<typeof mockStore>,
+  actionType: string,
+  userEntity: Record<string, unknown>,
+  meta?: Record<string, unknown>,
+) {
   return await store.dispatch({
     type: actionType,
     payload: {
@@ -130,7 +144,10 @@ async function dispatchUserChangingAction(store, actionType, userEntity, meta) {
   });
 }
 
-function assertSetUserSpyCalledWith(expectedUserId, expectedTraits) {
+function assertSetUserSpyCalledWith(
+  expectedUserId: UserData['id'],
+  expectedTraits: UserTraits,
+) {
   expect(setUserSpy).toHaveBeenCalledTimes(1);
 
   expect(setUserSpy).toHaveBeenCalledWith(expectedUserId, expectedTraits);
@@ -141,6 +158,7 @@ describe('setUserMiddleware', () => {
     jest.resetModuleRegistry();
     jest.clearAllMocks();
 
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const Analytics = require('@farfetch/blackout-analytics').default;
 
     analytics = new Analytics();
@@ -151,7 +169,9 @@ describe('setUserMiddleware', () => {
   });
 
   it('Should log an error if an analytics instance is not passed', () => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const setUserMiddleware = require('../setUser').default;
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const { logger } = require('@farfetch/blackout-analytics/utils');
     const loggerErrorSpy = jest.spyOn(logger, 'error');
 
@@ -172,6 +192,7 @@ describe('setUserMiddleware', () => {
     it.each(Array.from(DEFAULT_TRIGGER_SET_USER_ACTION_TYPES))(
       "Should call 'analytics.setUser' with the correct values by default when %s is dispatched",
       async actionType => {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
         const setUserMiddleware = require('../setUser').default;
 
         const store = mockStore(mockStateGuestUser, [
@@ -187,6 +208,7 @@ describe('setUserMiddleware', () => {
     it.each(Array.from(DEFAULT_TRIGGER_ANONYMIZE_ACTION_TYPES))(
       "Should call 'analytics.anonymize' by default when %s is dispatched",
       async actionType => {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
         const setUserMiddleware = require('../setUser').default;
 
         const store = mockStore(mockStateGuestUser, [
@@ -202,6 +224,7 @@ describe('setUserMiddleware', () => {
     );
 
     it("Should not call 'analytics.setUser' when any other action is dispatched", async () => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const setUserMiddleware = require('../setUser').default;
 
       const store = mockStore(mockStateGuestUser, [
@@ -218,6 +241,7 @@ describe('setUserMiddleware', () => {
 
   describe('When options is an array or set of action types', () => {
     it('Should allow to specify a set of action types that will be listened to instead of the default ones', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const setUserMiddleware = require('../setUser').default;
 
       const store = mockStore(mockStateGuestUser, [
@@ -247,7 +271,9 @@ describe('setUserMiddleware', () => {
     });
 
     it('Should log an error and use the default action types when the actionTypes passed in is not of the proper type', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const setUserMiddleware = require('../setUser').default;
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const { logger } = require('@farfetch/blackout-analytics/utils');
       const loggerErrorSpy = jest.spyOn(logger, 'error');
 
@@ -281,6 +307,7 @@ describe('setUserMiddleware', () => {
         [OPTION_USER_TRAITS_PICKER]: jest.fn(user => pick(user, traitsToPick)),
       };
 
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const setUserMiddleware = require('../setUser').default;
 
       const store = mockStore(mockStateGuestUser, [
@@ -289,7 +316,7 @@ describe('setUserMiddleware', () => {
 
       await dispatchUserChangingAction(
         store,
-        Array.from(triggerSetUserActions)[0],
+        Array.from(triggerSetUserActions)[0] as string,
         loggedInUserEntity,
       );
 
@@ -359,6 +386,7 @@ describe('setUserMiddleware', () => {
         [OPTION_USER_TRAITS_PICKER]: jest.fn(user => pick(user, traitsToPick)),
       };
 
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const setUserMiddleware = require('../setUser').default;
 
       const store = mockStore(mockStateGuestUser, [
@@ -387,6 +415,7 @@ describe('setUserMiddleware', () => {
         [OPTION_USER_TRAITS_PICKER]: jest.fn(user => pick(user, traitsToPick)),
       };
 
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const setUserMiddleware = require('../setUser').default;
 
       const store = mockStore(mockStateGuestUser, [
@@ -395,7 +424,7 @@ describe('setUserMiddleware', () => {
 
       await dispatchUserChangingAction(
         store,
-        triggerSetUserActions[0],
+        triggerSetUserActions[0] as string,
         loggedInUserEntity,
       );
 
@@ -417,6 +446,7 @@ describe('setUserMiddleware', () => {
 
   describe('Triggering login / logout / signup events', () => {
     it('Should trigger a login event when a login success action is dispatched', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const setUserMiddleware = require('../setUser').default;
 
       const store = mockStore(mockStateGuestUser, [
@@ -438,6 +468,7 @@ describe('setUserMiddleware', () => {
     });
 
     it('Should trigger a signup event when a register success action is dispatched', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const setUserMiddleware = require('../setUser').default;
 
       const store = mockStore(mockStateGuestUser, [
@@ -459,6 +490,7 @@ describe('setUserMiddleware', () => {
     });
 
     it('Should trigger a logout event when the user changes to a guest user from a logged in user', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const setUserMiddleware = require('../setUser').default;
 
       const store = mockStore(mockStateGuestUser, [
@@ -490,6 +522,7 @@ describe('setUserMiddleware', () => {
     });
 
     it('Should not track any event if there was not a change to the user logged-in status', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const setUserMiddleware = require('../setUser').default;
 
       const store = mockStore(mockStateLoggedInUser, [

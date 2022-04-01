@@ -2,9 +2,19 @@ import { actionTypes as authenticationActionTypes } from '../../authentication';
 import { getUser, getUserId, USER_ID_PROPERTY } from '../../entities/selectors';
 import { logger } from '@farfetch/blackout-analytics/utils';
 import { actionTypes as usersActionTypes } from '@farfetch/blackout-redux/users';
-import Analytics, { eventTypes } from '@farfetch/blackout-analytics';
+import Analytics, {
+  eventTypes,
+  UserTraits,
+} from '@farfetch/blackout-analytics';
 import get from 'lodash/get';
 import isPlainObject from 'lodash/isPlainObject';
+import type { AnyAction, Dispatch, Middleware } from 'redux';
+import type {
+  SetUserActionOptions,
+  SetUserActionTypes,
+  SetUserMiddlewareOptions,
+  UserType,
+} from './types';
 
 export const DEFAULT_TRIGGER_SET_USER_ACTION_TYPES = new Set([
   authenticationActionTypes.LOGIN_SUCCESS,
@@ -19,8 +29,10 @@ export const DEFAULT_TRIGGER_ANONYMIZE_ACTION_TYPES = new Set([
 
 // Default user traits picker
 // Will exclude id property only from the generated traits object
-const DEFAULT_USER_TRAITS_PICKER = ({ [USER_ID_PROPERTY]: id, ...rest }) =>
-  rest;
+const DEFAULT_USER_TRAITS_PICKER: (user: UserType) => UserTraits = ({
+  [USER_ID_PROPERTY]: id,
+  ...rest
+}) => rest;
 
 // Paths for the options
 export const OPTION_TRIGGER_SET_USER_ACTIONS = 'triggerSetUserActions';
@@ -34,13 +46,15 @@ export const OPTION_USER_TRAITS_PICKER = 'userTraitsPicker';
  * This is to provide backwards compatibility with the previous version of setUser
  * middleware.
  *
- * @private
- * @param {(Set|Array)} actionTypes - A set of action types for the middleware to listen to. If an array is passed, it will be used to create a Set from.
- * @param {(Set|Array)} defaultActionTypes - Default action types to be used when actionTypes cannot be used.
+ * @param actionTypes - A set of action types for the middleware to listen to. If an array is passed, it will be used to create a Set from.
+ * @param defaultActionTypes - Default action types to be used when actionTypes cannot be used.
  *
- * @returns {Set} Set of action types to apply.
+ * @returns Set of action types to apply.
  */
-const getActionTypes = (actionTypes, defaultActionTypes) => {
+const getActionTypes = (
+  actionTypes: SetUserActionTypes | undefined,
+  defaultActionTypes: Set<string>,
+): Set<string> => {
   if (actionTypes) {
     if (actionTypes instanceof Set) {
       return actionTypes;
@@ -61,38 +75,42 @@ const getActionTypes = (actionTypes, defaultActionTypes) => {
 };
 
 // Reference to the current user data
-let currentUser;
+let currentUser: UserType | null;
 
 /**
  * Middleware to call `analytics.setUser()` after any action that changes user login state is dispatched.
  *
- * @function setUserMiddleware
- * @memberof module:analytics/middlewares
- *
- * @param {Analytics} analyticsInstance - Analytics instance.
- * @param {(object | Array | Set)} actionTypesOrOptions - An options object with options to set on the middleware or a set/array of action types to override the default set of action types the middleware listens to.
- * @returns {Function} Redux middleware.
+ * @param analyticsInstance - Analytics instance.
+ * @param actionTypesOrOptions - An options object with options to set on the middleware or a set/array of action types to override the default set of action types the middleware listens to.
+ * @returns Redux middleware.
  */
-export default (analyticsInstance, actionTypesOrOptions) => {
+const setUserMiddleware = (
+  analyticsInstance: Analytics,
+  actionTypesOrOptions: SetUserMiddlewareOptions,
+): Middleware => {
   if (!analyticsInstance || !(analyticsInstance instanceof Analytics)) {
     logger.error(
       'SetUser middleware did not receive the analytics instance. Please make sure a valid analytics instance is being passed via "setUserMiddleware(analytics, customActionTypes)")',
     );
   }
 
-  let finalOptions;
+  let finalOptions: SetUserActionOptions;
 
   // To maintain backwards compatibility, check if the second parameter
   // of this function is a plain object or not
   if (isPlainObject(actionTypesOrOptions)) {
     finalOptions = {
-      ...actionTypesOrOptions,
+      ...(actionTypesOrOptions as SetUserActionOptions),
       [OPTION_TRIGGER_SET_USER_ACTIONS]: getActionTypes(
-        actionTypesOrOptions[OPTION_TRIGGER_SET_USER_ACTIONS],
+        (actionTypesOrOptions as SetUserActionOptions)[
+          OPTION_TRIGGER_SET_USER_ACTIONS
+        ],
         DEFAULT_TRIGGER_SET_USER_ACTION_TYPES,
       ),
       [OPTION_TRIGGER_ANONYMIZE_ACTIONS]: getActionTypes(
-        actionTypesOrOptions[OPTION_TRIGGER_ANONYMIZE_ACTIONS],
+        (actionTypesOrOptions as SetUserActionOptions)[
+          OPTION_TRIGGER_ANONYMIZE_ACTIONS
+        ],
         DEFAULT_TRIGGER_ANONYMIZE_ACTION_TYPES,
       ),
     };
@@ -102,19 +120,19 @@ export default (analyticsInstance, actionTypesOrOptions) => {
     // maintain compatibility with the new options format
     finalOptions = {
       [OPTION_TRIGGER_SET_USER_ACTIONS]: getActionTypes(
-        actionTypesOrOptions,
+        actionTypesOrOptions as SetUserActionTypes,
         DEFAULT_TRIGGER_SET_USER_ACTION_TYPES,
       ),
     };
   }
 
-  const triggerSetUserActions = get(
+  const triggerSetUserActions: Set<string> = get(
     finalOptions,
     OPTION_TRIGGER_SET_USER_ACTIONS,
     DEFAULT_TRIGGER_SET_USER_ACTION_TYPES,
   );
 
-  const triggerAnonymizeActions = get(
+  const triggerAnonymizeActions: Set<string> = get(
     finalOptions,
     OPTION_TRIGGER_ANONYMIZE_ACTIONS,
     DEFAULT_TRIGGER_ANONYMIZE_ACTION_TYPES,
@@ -138,12 +156,12 @@ export default (analyticsInstance, actionTypesOrOptions) => {
     DEFAULT_USER_TRAITS_PICKER,
   );
 
-  return store => next => async action => {
-    const actionType = action.type;
+  return store => (next: Dispatch) => async (action: AnyAction) => {
+    const actionType: string = action.type;
 
     if (triggerSetUserActions.has(actionType)) {
       const result = next(action);
-      const user = getUserSelector(store.getState());
+      const user: UserType = getUserSelector(store.getState());
       const userId = getUserIdSelector(user);
       const currentUserId = getUserIdSelector(currentUser);
 
@@ -151,26 +169,35 @@ export default (analyticsInstance, actionTypesOrOptions) => {
         const previousUser = currentUser;
         currentUser = user;
 
-        const isGuest = get(user, 'isGuest', true);
-        const previousIsGuest = get(previousUser, 'isGuest', true);
-        const userTraits = userTraitsPicker(user);
+        const isGuest: boolean = get(user, 'isGuest', true);
+        const previousIsGuest: boolean = get(previousUser, 'isGuest', true);
+        const userTraits: UserTraits = userTraitsPicker(user);
 
         await analyticsInstance.setUser(userId, userTraits);
 
         if (previousIsGuest && !isGuest) {
-          const isRegisterAction = get(action, 'meta.isRegisterAction', false);
-          const isLoginAction = get(action, 'meta.isLoginAction', false);
+          const isRegisterAction: boolean = get(
+            action,
+            'meta.isRegisterAction',
+            false,
+          );
 
-          const eventTypeToTrack = isRegisterAction
+          const isLoginAction: boolean = get(
+            action,
+            'meta.isLoginAction',
+            false,
+          );
+
+          const eventTypeToTrack: string | null = isRegisterAction
             ? eventTypes.SIGNUP_FORM_COMPLETED
             : isLoginAction
             ? eventTypes.LOGIN
             : null;
 
-          const eventPayload =
+          const eventPayload: { method: string } | undefined =
             isRegisterAction || isLoginAction
               ? { method: action.meta.method }
-              : null;
+              : undefined;
 
           if (eventTypeToTrack) {
             analyticsInstance.track(eventTypeToTrack, eventPayload);
@@ -191,3 +218,5 @@ export default (analyticsInstance, actionTypesOrOptions) => {
     return next(action);
   };
 };
+
+export default setUserMiddleware;
