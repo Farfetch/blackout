@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.202](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.201...@farfetch/blackout-react@1.0.0-next.202) (2022-04-04)
+
+
+### Bug Fixes
+
+* **blackout-client:** fix logout in axios interceptor ([e7352d7](https://github.com/Farfetch/blackout/commit/e7352d79dca85d84598b59bf0216ff71400cbf3c))
+
+
+
+
+
 # [1.0.0-next.201](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.200...@farfetch/blackout-react@1.0.0-next.201) (2022-04-04)
 
 
