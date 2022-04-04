@@ -444,7 +444,9 @@ describe('useAuthentication', () => {
     moxios.stubRequest(`/authentication/v1/tokens/${accessToken}`, {
       method: 'delete',
       status: 400,
-      code: '17',
+      response: {
+        errors: [{ code: '17' }],
+      },
     });
 
     await act(async () => {
