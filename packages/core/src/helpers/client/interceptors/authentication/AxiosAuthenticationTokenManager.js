@@ -708,7 +708,8 @@ class AxiosAuthenticationTokenManager {
     // return success. The token might already have been deleted.
     if (
       config[AuthenticationConfigOptions.IsLogoutRequest] &&
-      ((responseStatus === 400 && error.response.code === '17') ||
+      ((responseStatus === 400 &&
+        error.response?.data?.errors?.[0]?.code === '17') ||
         responseStatus === 404)
     ) {
       this.selectGuestTokenProvider();
