@@ -3,7 +3,7 @@
   "event": "home",
   "properties": {
     "storeId": 123123,
-    "cenas": 123123,
+    "some_property": 123123,
     "uuid": 213123,
     "didYouMean": 1123123
   },
