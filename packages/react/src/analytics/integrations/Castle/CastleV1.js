@@ -1,6 +1,6 @@
 /**
  * Castle Integration.
- * Tracks page views and user login/logut for security purposes.
+ * Tracks page views and user login/logout for security purposes.
  *
  * @example <caption>Adding Castle integration to analytics</caption>
  *
@@ -36,7 +36,7 @@ export const castleEvents = {
  */
 class Castle extends integrations.Integration {
   /**
-   * This integration is required, so it should load indenpendently of user consent.
+   * This integration is required, so it should load independently of user consent.
    *
    * @returns {boolean} If the integration should load.
    */
