@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.201](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.200...@farfetch/blackout-react@1.0.0-next.201) (2022-04-04)
+
+
+### Bug Fixes
+
+* **blackout-react:** ignore unhandled events in ga/ga4 ([029ee62](https://github.com/Farfetch/blackout/commit/029ee6248b84ff57516f8cdb4381da4b00b49df5))
+
+
+
+
+
 # [1.0.0-next.200](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.199...@farfetch/blackout-react@1.0.0-next.200) (2022-03-30)
 
 

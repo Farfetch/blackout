@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.213](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.212...@farfetch/blackout-redux@1.0.0-next.213) (2022-04-04)
+
+
+### Bug Fixes
+
+* **blackout-core:** fix `getWishlistItemIdFromAction` function ([a8e7256](https://github.com/Farfetch/blackout/commit/a8e72565008e7321bbaf5fa58121f532ec41cdbb))
+
+
+
+
+
 # [1.0.0-next.212](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.211...@farfetch/blackout-redux@1.0.0-next.212) (2022-03-29)
 
 
