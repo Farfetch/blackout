@@ -3,6 +3,58 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.138](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.137...@farfetch/blackout-client@2.0.0-next.138) (2022-04-05)
+
+
+### Bug Fixes
+
+* **blackout-client|blackout-redux:** fix updateUserSubscriptions action ([97467d1](https://github.com/Farfetch/blackout/commit/97467d1fcda36fbe15169c95ba798a2d129fb9db))
+
+
+### BREAKING CHANGES
+
+* **blackout-client|blackout-redux:** The `getUserSubscriptionsError` selector will
+not return the error when there is an error
+for the `updateUserSubscriptions`
+action. To check if there was an error
+for that action, you will need to use the
+`getUpdateSubscriptionsError` selector as the following example shows:
+
+```
+// Previously
+
+import {
+    getUserSubscriptionsError,
+} from '@farfetch/blackout-redux/subscriptions';
+
+const mapStateToProps = state => {
+    return {
+      // errorLoadingUserSubscriptions would return all errors
+      errorLoadingUserSubscriptions: getUserSubscriptionsError(state),
+    };
+};
+
+// Change to
+
+import {
+    getUserSubscriptionsError,
+    getUpdateSubscriptionsError,
+} from '@farfetch/blackout-redux/subscriptions';
+
+const mapStateToProps = state => {
+    return {
+      // Now getUserSubscriptionsError will return errors for loading / deleting actions
+      errorLoadingUserSubscriptions: getUserSubscriptionsError(state),
+      // getUpdateSubscriptionsError will return the error for the update action
+      errorUpdatingUserSubscriptions: getUpdateSubscriptionsError(state)
+   };
+};
+```
+
+
+
+
+
 # [2.0.0-next.137](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.136...@farfetch/blackout-client@2.0.0-next.137) (2022-04-04)
 
 
