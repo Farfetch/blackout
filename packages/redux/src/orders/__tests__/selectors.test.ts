@@ -1,4 +1,4 @@
-import * as fromEntities from '@farfetch/blackout-client/entities/redux/selectors/entity';
+import * as fromEntities from '../../entities/selectors/entity';
 import * as fromOrders from '../reducer';
 import * as selectors from '../selectors';
 import {

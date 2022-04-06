@@ -5,7 +5,7 @@
  */
 
 import { createSelector } from 'reselect';
-import { getEntity } from '@farfetch/blackout-client/entities/redux/selectors';
+import { getEntity } from '../entities/selectors';
 import {
   getReturnItems as getEntityReturnItems,
   getReturns as getEntityReturns,
