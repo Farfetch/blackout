@@ -17,7 +17,7 @@ import {
   getResult,
   getTrackings,
 } from './reducer';
-import { getEntity } from '@farfetch/blackout-client/entities/redux/selectors';
+import { getEntity } from '../entities/selectors';
 import get from 'lodash/get';
 import type { Error } from '@farfetch/blackout-client/types';
 import type {

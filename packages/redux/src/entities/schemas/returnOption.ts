@@ -1,5 +1,5 @@
 import { schema } from 'normalizr';
-import merchant from '@farfetch/blackout-client/entities/schemas/merchant';
+import merchant from './merchant';
 
 export default new schema.Entity(
   'returnOptions',
