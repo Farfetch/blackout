@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-next.16](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@0.1.0-next.15...@farfetch/blackout-analytics@0.1.0-next.16) (2022-04-06)
+
+
+### Features
+
+* **blackout-analytics|blackout-redux:** convert analytic's user middleware to typescript ([3a6433d](https://github.com/Farfetch/blackout/commit/3a6433d72625737a24f54797f090f279c95d2e91))
+
+
+
+
+
 # [0.1.0-next.15](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@0.1.0-next.14...@farfetch/blackout-analytics@0.1.0-next.15) (2022-04-05)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
