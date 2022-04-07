@@ -7,7 +7,8 @@ import Analytics, {
   IntegrationRuntimeData,
   platformTypes,
 } from '@farfetch/blackout-analytics';
-import type { GA, GTM } from './integrations';
+import type { Castle, GA, GTM } from './integrations';
+import type { CastleIntegrationOptions } from './integrations/Castle';
 import type { GAIntegrationOptions } from './integrations/GA';
 import type { GTMIntegrationOptions } from './integrations/GTM';
 /**
@@ -87,6 +88,11 @@ class AnalyticsWeb extends Analytics {
     return this;
   }
 
+  addIntegration(
+    name: string,
+    Factory: typeof Castle,
+    options: CastleIntegrationOptions,
+  ): this;
   addIntegration(
     name: string,
     Factory: typeof GA,

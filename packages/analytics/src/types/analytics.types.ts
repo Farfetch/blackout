@@ -82,6 +82,7 @@ export type UserTraits = {
   phoneNumber?: string;
   username?: string;
   isGuest?: boolean;
+  createdDate?: string;
 } & Record<string, unknown>;
 
 export type UserData = {
