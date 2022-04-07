@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CallToAction /> should render properly 1`] = `
+<div>
+  <a
+    href="/test"
+  >
+    foo
+  </a>
+</div>
+`;
