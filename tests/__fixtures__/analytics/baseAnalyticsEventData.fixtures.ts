@@ -12,6 +12,7 @@ export default {
       bagId: '1ff36cd1-0dac-497f-8f32-4f2f7bdd2eaf',
       gender: 1,
       dateOfBirth: '1/1/1970',
+      createdDate: '1/1/1970',
       firstName: 'foo',
       lastName: 'bar',
       phoneNumber: '+351-99999999',
