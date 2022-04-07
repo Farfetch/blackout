@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.33.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.33.0...@farfetch/blackout-react@0.33.1) (2022-04-07)
+
+
+### Bug Fixes
+
+* **blackout-core:** fix logout in axios interceptor ([ebe7738](https://github.com/Farfetch/blackout/commit/ebe7738e4b09f412a049d5938816709229a2c1f3))
+* **blackout-react:** ignore unhandled events in ga/ga4 ([27662d1](https://github.com/Farfetch/blackout/commit/27662d1517c02db92487ca31c960343302f0298e))
+
+
+
+
+
 # [0.33.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.32.1...@farfetch/blackout-react@0.33.0) (2022-03-29)
 
 

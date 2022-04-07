@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.53.3](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.53.2...@farfetch/blackout-core@1.53.3) (2022-04-07)
+
+
+### Bug Fixes
+
+* **blackout-core:** fix `getWishlistItemIdFromAction` function ([3beca11](https://github.com/Farfetch/blackout/commit/3beca11f1bc2235a3a6939e354d4e91a18b07917))
+* **blackout-core:** fix logout in axios interceptor ([ebe7738](https://github.com/Farfetch/blackout/commit/ebe7738e4b09f412a049d5938816709229a2c1f3))
+
+
+
+
+
 ## [1.53.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.53.1...@farfetch/blackout-core@1.53.2) (2022-03-29)
 
 
