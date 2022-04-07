@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ComponentsList /> should render properly 1`] = `
+<div>
+  <div>
+    <div>
+      foo
+    </div>
+    <div>
+      bar
+    </div>
+  </div>
+</div>
+`;

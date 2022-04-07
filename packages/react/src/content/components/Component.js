@@ -1,8 +1,10 @@
 /* eslint-disable no-console */
+import baseComponents from './base';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export const components = [];
+// Define default components as base components
+export const components = baseComponents;
 
 /**
  * Registers a react component to be rendered for a given CMS component type.
