@@ -19,6 +19,7 @@ export default {
     uuid: mockedUuid,
     referrer: '',
     isLogged: true,
+    clientCulture: pageMockData.context.culture,
     clientLanguage: pageMockData.context.culture.split('-')[0],
     clientCountry: pageMockData.context.culture.split('-')[1],
     basketId: pageMockData.user.traits.bagId,

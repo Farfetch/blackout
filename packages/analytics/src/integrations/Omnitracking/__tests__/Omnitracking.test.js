@@ -882,6 +882,24 @@ describe('Omnitracking', () => {
       expect(lastPayload.parameters.uniqueViewId).not.toBe(newUniqueViewId);
       expect(lastPayload.parameters.previousUniqueViewId).toBe(newUniqueViewId);
     });
+
+    it('Should allow the user to provide a value for the uniqueViewId parameter when tracking a page view', async () => {
+      omnitracking = new Omnitracking();
+      const mockUniqueViewId = '78989d11-8863-4a12-b2ce-48cab737a43b';
+      const pageEventData = generateMockData();
+      pageEventData.properties.uniqueViewId = mockUniqueViewId;
+
+      await omnitracking.track(pageEventData);
+
+      expect(postTrackingsSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          parameters: expect.objectContaining({
+            previousUniqueViewId: null,
+            uniqueViewId: mockUniqueViewId,
+          }),
+        }),
+      );
+    });
   });
 
   describe('platforms', () => {
