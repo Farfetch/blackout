@@ -118,6 +118,7 @@ const getPageMockParametersForPlatform = platform => {
     isLogged: true,
     clientLanguage: pageMockData.context.culture.split('-')[0],
     clientCountry: pageMockData.context.culture.split('-')[1],
+    clientCulture: pageMockData.context.culture,
     basketId: pageMockData.user.traits.bagId,
     userGender: userGenderValuesMapper[pageMockData.user.traits.gender],
   };

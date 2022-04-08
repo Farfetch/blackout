@@ -19,6 +19,7 @@ import {
   getCLientCountryFromCulture,
   getClientLanguageFromCulture,
   getSearchQuery,
+  getUniqueViewIdParameter,
   validateOutgoingOmnitrackingPayload,
 } from './omnitracking-helper';
 import {
@@ -27,7 +28,6 @@ import {
 } from './constants';
 import { postTrackings } from './client';
 import { trackEventsMapper, userGenderValuesMapper } from './definitions';
-import { v4 as uuidv4 } from 'uuid';
 import analyticsTrackTypes from '../../types/trackTypes';
 import get from 'lodash/get';
 import Integration from '../Integration';
@@ -146,7 +146,7 @@ class Omnitracking extends Integration {
       // Generate a new currentUniqueViewId to be used in all
       // subsequent page actions (analyticsTrackTypes.TRACK events).
       this.previousUniqueViewId = this.currentUniqueViewId;
-      this.currentUniqueViewId = uuidv4();
+      this.currentUniqueViewId = getUniqueViewIdParameter(data);
 
       precalculatedParameters.previousUniqueViewId = this.previousUniqueViewId;
       // This is a workaround to avoid calculate the parameter on helper's getPlatformSpecificParameters
@@ -187,6 +187,7 @@ class Omnitracking extends Integration {
 
       precalculatedParameters.clientLanguage = clientLanguage;
       precalculatedParameters.clientCountry = clientCountry;
+      precalculatedParameters.clientCulture = culture;
     }
 
     precalculatedParameters.uniqueViewId = this.currentUniqueViewId;
