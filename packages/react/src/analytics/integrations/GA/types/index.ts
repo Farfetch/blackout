@@ -23,7 +23,7 @@ export type OnPreProcessCommandsHandler = (
 export type NonInteractionEvents = Record<string, boolean>;
 
 export interface GAIntegrationOptions extends IntegrationOptions {
-  createFields?: { trackingId: string; name?: string };
+  createFields: { trackingId: string; name?: string };
   productMappings?: ProductMappings;
   scopeCommands?: ScopeCommands;
   schemas?: Schemas;

@@ -53,7 +53,7 @@ export type TrackEventData = EventData<typeof trackTypes.TRACK>;
 export type IntegrationRuntimeData = {
   instance: Integration<IntegrationOptions> | undefined;
   Factory: IntegrationFactory<IntegrationOptions>;
-  options: Record<string, unknown>;
+  options: IntegrationOptions;
   name: string;
 };
 
@@ -65,11 +65,12 @@ export interface IntegrationFactory<T extends IntegrationOptions> {
     loadData: LoadIntegrationEventData,
     strippedDownAnalytics: StrippedDownAnalytics,
   ): Integration<T>;
-  createInstance(
-    options: T,
+  createInstance<Options extends IntegrationOptions>(
+    this: IntegrationFactory<Options>,
+    options: Options,
     loadData: LoadIntegrationEventData,
     analytics: StrippedDownAnalytics,
-  ): Integration<T>;
+  ): Integration<Options>;
   shouldLoad(consent: ConsentData | null | undefined): boolean;
 }
 
