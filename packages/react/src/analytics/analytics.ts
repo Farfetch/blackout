@@ -2,15 +2,9 @@ import Analytics, {
   trackTypes as analyticsTrackTypes,
   EventContextData,
   EventProperties,
-  IntegrationFactory,
-  IntegrationOptions,
   IntegrationRuntimeData,
   platformTypes,
 } from '@farfetch/blackout-analytics';
-import type { Castle, GA, GTM } from './integrations';
-import type { CastleIntegrationOptions } from './integrations/Castle';
-import type { GAIntegrationOptions } from './integrations/GA';
-import type { GTMIntegrationOptions } from './integrations/GTM';
 /**
  * Analytics facade for web applications.
  * Refer to \@farfetch/blackout-analytics documentation to know the
@@ -86,34 +80,6 @@ class AnalyticsWeb extends Analytics {
     );
 
     return this;
-  }
-
-  addIntegration(
-    name: string,
-    Factory: typeof Castle,
-    options: CastleIntegrationOptions,
-  ): this;
-  addIntegration(
-    name: string,
-    Factory: typeof GA,
-    options: GAIntegrationOptions,
-  ): this;
-  addIntegration(
-    name: string,
-    Factory: typeof GTM,
-    options: GTMIntegrationOptions,
-  ): this;
-  addIntegration(
-    name: string,
-    Factory: IntegrationFactory<IntegrationOptions>,
-    options?: IntegrationOptions,
-  ): this;
-  addIntegration(
-    name: string,
-    Factory: IntegrationFactory<IntegrationOptions>,
-    options?: IntegrationOptions,
-  ): this {
-    return super.addIntegration(name, Factory, options);
   }
 }
 

@@ -31,7 +31,7 @@ describe('User', () => {
   });
 
   it('Should delete the user', async () => {
-    await userInstance.set('123123', { name: 'foo' });
+    await userInstance.set(123123, { name: 'foo' });
     const beforeAnonymizeLocalId = await userInstance.localId();
 
     await userInstance.anonymize();
@@ -44,7 +44,7 @@ describe('User', () => {
   });
 
   it('Should identify an user with parameters', async () => {
-    const userId = '12345678';
+    const userId = 12345678;
     const traits = {
       name: 'Foo',
       email: 'foo.bar@foo.bar',
@@ -54,7 +54,7 @@ describe('User', () => {
 
     const data = await userInstance.get();
 
-    expect(data.id).toMatch(userId);
+    expect(data.id).toBe(userId);
     expect(data.traits).toMatchObject(traits);
   });
 

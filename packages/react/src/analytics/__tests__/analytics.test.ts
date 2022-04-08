@@ -34,10 +34,10 @@ describe('analytics web', () => {
     analytics.currentPageCallData = null;
 
     await analytics.setStorage(new TestStorage());
-    await analytics.setUser('123');
+    await analytics.setUser(123);
 
     await analytics
-      .addIntegration('LoadableIntegration', LoadableIntegration)
+      .addIntegration('LoadableIntegration', LoadableIntegration, {})
       .ready();
   });
 
@@ -50,6 +50,7 @@ describe('analytics web', () => {
       await analytics.addIntegration(
         'marketingIntegration',
         MarketingIntegration,
+        {},
       );
 
       expect(analytics.integration('marketingIntegration')).toBe(null);
@@ -87,6 +88,7 @@ describe('analytics web', () => {
       await analytics.addIntegration(
         'marketingIntegration',
         MarketingIntegration,
+        {},
       );
 
       expect(analytics.integration('marketingIntegration')).toBe(null);

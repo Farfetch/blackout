@@ -1,6 +1,7 @@
 import type {
   ConsentData,
   EventData,
+  IntegrationFactory,
   IntegrationOptions,
   LoadIntegrationEventData,
   SetUserEventData,
@@ -44,6 +45,7 @@ class Integration<T extends IntegrationOptions> {
    * @param analytics - Analytics instance stripped down with only helpers.
    */
   static createInstance<Options extends IntegrationOptions>(
+    this: IntegrationFactory<Options>,
     options: Options,
     loadData: LoadIntegrationEventData,
     analytics: StrippedDownAnalytics,
