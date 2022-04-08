@@ -32,6 +32,7 @@ export default {
     utmSource: pageMockData.context.web.window.location.query.utm_source,
     utmTerm: pageMockData.context.web.window.location.query.utm_term,
     isLogged: true,
+    clientCulture: pageMockData.context.culture,
     clientLanguage: pageMockData.context.culture.split('-')[0],
     clientCountry: pageMockData.context.culture.split('-')[1],
     basketId: pageMockData.user.traits.bagId,
