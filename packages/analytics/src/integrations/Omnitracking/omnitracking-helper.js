@@ -25,7 +25,7 @@ import platformTypes from '../../types/platformTypes';
 /**
  * Adds common parameters to all kinds of message types.
  *
- * @param {object} data - Object to pick properties from.
+ * @param {object} data - Event data passed by analytics.
  *
  * @returns {object} Object containing common parameters.
  */
@@ -34,6 +34,20 @@ export const getCommonParameters = data => {
     clientTimestamp: new Date(data.timestamp).toJSON(),
     uuid: uuidv4(),
   };
+};
+
+/**
+ * Returns the unique view id for the event. If the event properties
+ * pass it, return that value. Else, return a newly generated uuid.
+ *
+ * @param {object} data - Event data passed by analytics.
+ *
+ * @returns {string} The unique view id for the event.
+ */
+export const getUniqueViewIdParameter = data => {
+  let uniqueViewId = get(data, 'properties.uniqueViewId');
+
+  return typeof uniqueViewId === 'string' ? uniqueViewId : uuidv4();
 };
 
 /**
@@ -99,7 +113,7 @@ export const getPageEventFromLocation = location => {
 /**
  * Returns the correct event according the page the user is in.
  *
- * @param {object} data     - Object to pick properties from.
+ * @param {object} data - Event data passed by analytics.
  *
  * @returns {string} Name of the event.
  */
@@ -190,7 +204,7 @@ const specificParametersBuilderByPlatform = {
  * These parameters are collected and inferred by analytics `data` object,
  * so there's no need to pass these properties via `analytics.page()` or `analytics.track()`.
  *
- * @param {object} data - Event object passed by Analytics.
+ * @param {object} data - Event data passed by analytics.
  *
  * @returns {object} Filtered object.
  */
@@ -212,7 +226,7 @@ export const getPlatformSpecificParameters = data => {
  * We search for parameters in many locations: context -> device -> app -> event -> properties
  * Each location can override the values of the previous one.
  *
- * @param {object} data  - Properties passed in `analytics.page(name, properties)`.
+ * @param {object} data  - Event data passed by analytics.
  * @param {string} event - Event name to filter properties by.
  * @returns {object} Result of the `pick()` method.
  */
@@ -231,7 +245,7 @@ export const pickPageParameters = (data, event) => {
  * Formats page data to be sent to omnitracking service to register a page view.
  * Merges common parameters with the filtered ones sent via `analytics.page()`, along some other properties.
  *
- * @param {object} data                     - Object to pick properties from.
+ * @param {object} data                     - Event data passed by analytics.
  * @param {object} [additionalParameters]   - Additional parameters to be considered.
  *
  * @returns {object} Formatted data.
@@ -259,7 +273,7 @@ export const formatPageEvent = (data, additionalParameters) => {
 };
 
 /**
- * @param {object} data         - Event object passed by Analytics.
+ * @param {object} data         - Event data passed by analytics.
  * @param {string} parameter    - Name of the parameter to obtain.
  *
  * @returns {*} The value of the parameter if found in event data or null if not found.
@@ -297,7 +311,7 @@ export const getValParameterForEvent = (valParameters = {}) => {
 /**
  * Generates a payment attempt reference ID based on the correlationID (user local ID) and the timestamp of the event.
  *
- * @param {object} data - Event object passed by Analytics.
+ * @param {object} data - Event data passed by analytics.
  
  * @returns {string} - The payment attempt reference ID.
  */
@@ -313,7 +327,7 @@ export const generatePaymentAttemptReferenceId = data => {
  * We search for parameters in many locations: context -> device -> app -> event -> properties
  * Each location can override the values of the previous one.
  *
- * @param {object} data                       - Event object passed by Analytics.
+ * @param {object} data                       - Event data passed by analytics.
  * @param {Array<string>} propertiesToPick    - Array of property strings to pick. By default will pick all properties defined in trackDefinitions variable.
  *
  * @returns {object} Result of the `pick()` method.
@@ -333,7 +347,7 @@ export const pickTrackParameters = (
 /**
  * Formats tracking data to be sent to omnitracking service to register a custom event.
  *
- * @param {object} data                         - Object to pick properties from.
+ * @param {object} data                         - Event data passed by analytics.
  * @param {object} [additionalParameters]       - Additional parameters to be considered.
  *
  * @returns {object} Formatted track data.
