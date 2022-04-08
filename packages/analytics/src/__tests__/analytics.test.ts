@@ -243,7 +243,7 @@ describe('analytics', () => {
     });
 
     it('should log an error when calling `analytics.setUser`', async () => {
-      await analytics.setUser('123456', {});
+      await analytics.setUser(123456, {});
 
       expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
 
@@ -303,7 +303,9 @@ describe('analytics', () => {
 
     describe('When user is not set in analytics', () => {
       it('Should buffer calls to track method and execute them when setUser is called', async () => {
-        await analytics.addIntegration('myIntegration', MyIntegration).ready();
+        await analytics
+          .addIntegration('myIntegration', MyIntegration, {})
+          .ready();
 
         const integrationInstance = analytics.integration(
           'myIntegration',
@@ -317,7 +319,7 @@ describe('analytics', () => {
 
         expect(spyTrack).not.toBeCalled();
 
-        await analytics.setUser('123456');
+        await analytics.setUser(123456);
 
         expect(spyTrack).toBeCalledTimes(2);
       });
@@ -325,7 +327,7 @@ describe('analytics', () => {
 
     describe('When user is set in analytics', () => {
       beforeAll(async () => {
-        await analytics.setUser('123456'); // We need to call setUser in order for the internal setUserPromise to be resolved
+        await analytics.setUser(123456); // We need to call setUser in order for the internal setUserPromise to be resolved
       });
 
       beforeEach(() => {
@@ -460,7 +462,7 @@ describe('analytics', () => {
 
         it('Should pass consent object to registered integrations', async () => {
           await analytics
-            .addIntegration('myIntegration', MyIntegration)
+            .addIntegration('myIntegration', MyIntegration, {})
             .ready();
 
           const spy = jest.spyOn(MyIntegration.prototype, 'setConsent');
@@ -484,6 +486,7 @@ describe('analytics', () => {
             .addIntegration(
               'statisticsConsentRequiredIntegration',
               StatisticsConsentRequiredIntegration,
+              {},
             )
             .ready();
 
@@ -539,7 +542,7 @@ describe('analytics', () => {
           // @ts-expect-error
           expect(analytics.integrations.size).toBe(0);
 
-          analytics.addIntegration('myIntegration', MyIntegration);
+          analytics.addIntegration('myIntegration', MyIntegration, {});
 
           await analytics.ready();
 
@@ -557,6 +560,7 @@ describe('analytics', () => {
             .addIntegration(
               'createInstanceThrowsIntegration',
               CreateInstanceThrowsIntegration,
+              {},
             )
             .ready();
 
@@ -584,6 +588,7 @@ describe('analytics', () => {
               'noIntegrationInstanceIntegration',
               // @ts-expect-error
               NoIntegrationInstanceIntegration,
+              {},
             )
             .ready();
 
@@ -597,14 +602,14 @@ describe('analytics', () => {
         it('Should return a integration by name', async () => {
           const name = 'myIntegration';
 
-          await analytics.addIntegration(name, MyIntegration).ready();
+          await analytics.addIntegration(name, MyIntegration, {}).ready();
 
           expect(analytics.integration(name)).toBeInstanceOf(MyIntegration);
         });
 
         it('Should call `onLoadedIntegrations()` when calling loadIntegrations(true)', async () => {
           await analytics
-            .addIntegration('myIntegration', MyIntegration)
+            .addIntegration('myIntegration', MyIntegration, {})
             .ready();
 
           const onLoadedIntegrationsSpy = jest.spyOn(
@@ -622,7 +627,7 @@ describe('analytics', () => {
 
       describe('User', () => {
         it("Should return user's data", async () => {
-          const userId = '1';
+          const userId = 1;
           const traits = { isGuest: false };
 
           await analytics.setUser(userId, traits);
@@ -659,7 +664,7 @@ describe('analytics', () => {
           expect(user.traits).toMatchObject({});
           expect(user.localId).not.toBeNull();
 
-          const userId = '12345678';
+          const userId = 12345678;
           const traits = {
             name: 'Foo',
             email: 'foo.bar@foo.bar',
@@ -675,7 +680,7 @@ describe('analytics', () => {
         });
 
         it('Should anonymize an user', async () => {
-          await analytics.setUser('12345678', { name: 'Dummy' });
+          await analytics.setUser(12345678, { name: 'Dummy' });
 
           const currentLocalId = ((await analytics.user()) as UserData).localId;
 
@@ -694,7 +699,7 @@ describe('analytics', () => {
         it('Should log an error message if setUser method throws', async () => {
           await setupAnalyticsWithFaultyStorage();
 
-          await analytics.setUser('12', { isGuest: false });
+          await analytics.setUser(12, { isGuest: false });
 
           expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
           expect(loggerErrorSpy).toBeCalledWith(
@@ -717,8 +722,8 @@ describe('analytics', () => {
       describe('onSetUser', () => {
         it("Should be called on all integrations when analytics's setUser is called", async () => {
           analytics
-            .addIntegration('integration1', MyIntegration)
-            .addIntegration('integration2', MyIntegration);
+            .addIntegration('integration1', MyIntegration, {})
+            .addIntegration('integration2', MyIntegration, {});
 
           await analytics.ready();
 
@@ -736,7 +741,7 @@ describe('analytics', () => {
             'onSetUser',
           );
 
-          const userId = '12345678';
+          const userId = 12345678;
           const traits = {
             name: 'Foo',
             email: 'foo.bar@foo.bar',
@@ -750,8 +755,8 @@ describe('analytics', () => {
 
         it('Should successfully handle when an integration`s onSetUser implementation throws', async () => {
           await analytics
-            .addIntegration('errorIntegration', ErrorIntegration)
-            .addIntegration('myIntegration', MyIntegration)
+            .addIntegration('errorIntegration', ErrorIntegration, {})
+            .addIntegration('myIntegration', MyIntegration, {})
             .ready();
 
           const spy = jest.spyOn(
@@ -761,7 +766,7 @@ describe('analytics', () => {
             'onSetUser',
           );
 
-          await analytics.setUser('123456');
+          await analytics.setUser(123456);
 
           expect(loggerErrorSpy).toBeCalled();
           expect(spy).toBeCalled();
@@ -769,8 +774,8 @@ describe('analytics', () => {
 
         it('Should successfully handle when an integration`s onSetUser implementation throws', async () => {
           await analytics
-            .addIntegration('errorIntegration', ErrorIntegration)
-            .addIntegration('myIntegration', MyIntegration)
+            .addIntegration('errorIntegration', ErrorIntegration, {})
+            .addIntegration('myIntegration', MyIntegration, {})
             .ready();
 
           const spy = jest.spyOn(
@@ -780,7 +785,7 @@ describe('analytics', () => {
             'onSetUser',
           );
 
-          await analytics.setUser('123456');
+          await analytics.setUser(123456);
 
           expect(loggerErrorSpy).toBeCalled();
 
@@ -791,7 +796,7 @@ describe('analytics', () => {
       describe('Track', () => {
         beforeEach(async () => {
           await analytics
-            .addIntegration('myIntegration', MyIntegration)
+            .addIntegration('myIntegration', MyIntegration, {})
             .ready();
         });
 
@@ -872,7 +877,7 @@ describe('analytics', () => {
         });
 
         it("Should load an integration if it's ready to load", async () => {
-          analytics.addIntegration('myIntegration', MyIntegration);
+          analytics.addIntegration('myIntegration', MyIntegration, {});
 
           // @ts-expect-error
           expect(analytics.integrations.size).toBe(1);
@@ -902,6 +907,7 @@ describe('analytics', () => {
           analytics.addIntegration(
             'notLoadableIntegration',
             NotLoadableIntegration,
+            {},
           );
 
           // @ts-expect-error
@@ -916,8 +922,8 @@ describe('analytics', () => {
 
         it('Should handle integration errors', async () => {
           await analytics
-            .addIntegration('errorIntegration', ErrorIntegration)
-            .addIntegration('myIntegration', MyIntegration)
+            .addIntegration('errorIntegration', ErrorIntegration, {})
+            .addIntegration('myIntegration', MyIntegration, {})
             .ready();
 
           const spyTrack = jest.spyOn(

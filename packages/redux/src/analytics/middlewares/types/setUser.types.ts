@@ -6,7 +6,7 @@ import type {
   OPTION_USER_TRAITS_PICKER,
 } from '../setUser';
 import type { StoreState } from '../../../types';
-import type { UserData, UserTraits } from '@farfetch/blackout-analytics/';
+import type { UserData, UserTraits } from '@farfetch/blackout-analytics';
 
 export type UserType = UserTraits & { id: UserData['id'] };
 

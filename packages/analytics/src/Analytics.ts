@@ -341,10 +341,10 @@ class Analytics {
    * @returns The analytics instance that was used when calling this method to allow chaining.
    *
    */
-  addIntegration(
+  addIntegration<N extends IntegrationOptions>(
     name: string,
-    Factory: IntegrationFactory<IntegrationOptions>,
-    options: IntegrationOptions = {},
+    Factory: IntegrationFactory<N>,
+    options: N,
   ): this {
     const isSubclass = Factory.prototype instanceof Integration;
 
@@ -358,7 +358,10 @@ class Analytics {
 
     this.integrations.set(name, {
       instance: undefined,
-      Factory,
+      // We have already ensured that options argument is of the correct type
+      // by the method signature, so we can perform the cast here safely as the
+      // Factory function will be invoked by the same options argument.
+      Factory: Factory as IntegrationFactory<IntegrationOptions>,
       options,
       name,
     });

@@ -24,7 +24,7 @@ export type EventMappers = Record<
 >;
 
 export interface GTMIntegrationOptions extends IntegrationOptions {
-  [CONTAINER_ID_KEY]?: string;
+  [CONTAINER_ID_KEY]: string;
   [SET_CONTEXT_KEY]?: string;
   [SET_CONTEXT_FN_KEY]?: (context: EventContext) => void;
   [SET_CONSENT_KEY]?: string;
