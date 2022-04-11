@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@0.1.0-next.17...@farfetch/blackout-analytics@1.0.0-next.0) (2022-04-11)
+
+
+### Features
+
+* **react:** add castle 2.0 analytics' integration ([8d5fd35](https://github.com/Farfetch/blackout/commit/8d5fd35a4675e39d0fbadd70d93834f7911b2cbc))
+
+
+### BREAKING CHANGES
+
+* **react:** From now on, the `appId` option is no longer valid.
+Please be sure to pass the new `pk` option (castle publishable key).
+
+
+
+
+
 # [0.1.0-next.17](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@0.1.0-next.16...@farfetch/blackout-analytics@0.1.0-next.17) (2022-04-08)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
