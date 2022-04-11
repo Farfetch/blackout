@@ -49,7 +49,7 @@ describe('useCommercePages', () => {
     const current = getRenderedHook();
 
     expect(current).toStrictEqual({
-      commercePage: expect.any(Array),
+      commercePage: expect.any(Object),
       resetContents: expect.any(Function),
       isLoading: undefined,
       error: undefined,
