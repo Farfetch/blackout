@@ -1,4 +1,4 @@
-export type LoginResponse = {
+export type RegisterResponse = {
   id: number;
   bagId: string;
   dateOfBirth: string;

@@ -1,5 +1,13 @@
 import isEqual from 'lodash/isEqual';
 import TokenData from './TokenData';
+import type {
+  GuestTokenRequester,
+  OptionsStorageProvider,
+  OptionsStorageSerializer,
+  UserTokenRequester,
+} from '../types/TokenManagerOptions.types';
+import type { ITokenData } from './types/TokenData.types';
+import type { TokenChangesListeners } from './types/TokenChangesListeners.types';
 
 let TokenListenerIdInternalCount = 0;
 
@@ -8,6 +16,14 @@ let TokenListenerIdInternalCount = 0;
  * Provides the base methods required to renew, save and clear tokens.
  */
 class TokenProvider {
+  canSaveTokenDataFlag: boolean;
+  requester: UserTokenRequester | GuestTokenRequester;
+  storageKey?: string;
+  storageProvider?: OptionsStorageProvider;
+  tokenChangesListeners: Array<TokenChangesListeners>;
+  tokenData: TokenData | null;
+  tokenDataSerializer?: OptionsStorageSerializer;
+  userId?: number;
   /**
    * Constructs a new TokenProvider instance.
    *
@@ -16,13 +32,18 @@ class TokenProvider {
    * @param tokenDataSerializer - An object implementing the serializeTokenData and deserializeTokenData methods. If storage provider is defined, tokenDataSerializer is required.
    * @param storageKey - The storage key that will be used on the calls to storageProvider's methods as the key argument.
    */
-  constructor(requester, storageProvider, tokenDataSerializer, storageKey) {
+  constructor(
+    requester: UserTokenRequester | GuestTokenRequester,
+    storageProvider?: OptionsStorageProvider,
+    tokenDataSerializer?: OptionsStorageSerializer,
+    storageKey?: string,
+  ) {
     this.requester = requester;
     this.storageProvider = storageProvider;
     this.tokenDataSerializer = tokenDataSerializer;
     this.storageKey = storageKey;
     this.tokenData = null;
-    this.userId = null;
+    this.userId = undefined;
     this.tokenChangesListeners = [];
     this.canSaveTokenDataFlag = true;
   }
@@ -52,7 +73,7 @@ class TokenProvider {
    *
    * @returns Promise that will be resolved after the call to onTokenDataChanged returns.
    */
-  async setTokenData(tokenData) {
+  async setTokenData(tokenData: TokenData | null) {
     if (isEqual(this.tokenData, tokenData)) {
       return;
     }
@@ -73,7 +94,7 @@ class TokenProvider {
    *
    * @returns The currently set token data.
    */
-  getTokenData() {
+  getTokenData(): ITokenData | null {
     return this.tokenData;
   }
 
@@ -89,7 +110,7 @@ class TokenProvider {
 
   async invalidateCurrentAccessToken() {
     if (this.tokenData) {
-      const newTokenData = { ...this.tokenData };
+      const newTokenData = new TokenData({ ...this.tokenData });
       delete newTokenData.accessToken;
       await this.setTokenData(newTokenData);
     }
@@ -107,7 +128,7 @@ class TokenProvider {
    *
    * @returns Promise that will be resolved after the call to onTokenDataChanged returns.
    */
-  async setUserId(userId) {
+  async setUserId(userId: number) {
     /* istanbul ignore else */
     if (this.userId !== userId) {
       this.userId = userId;
@@ -131,7 +152,7 @@ class TokenProvider {
    * @returns Promise that will be resolved after the call to onTokenDataChanged returns.
    */
   async clearData() {
-    this.tokenData = undefined;
+    this.tokenData = null;
     this.userId = undefined;
 
     await this.onTokenDataChanged();
@@ -141,12 +162,9 @@ class TokenProvider {
    * Method responsible to get valid access tokens.
    * It must be implemented by a subclass.
    *
-   * @param useCache - If cache should be used or not.
-   *
    * @returns Promise that will be resolved with a valid access token to be used.
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getAccessToken(useCache) {
+  getAccessToken() {
     throw new TypeError('Not implemented exception');
   }
 
@@ -160,11 +178,15 @@ class TokenProvider {
       return Promise.resolve(null);
     }
 
-    const savedData = await this.storageProvider.getItem(this.storageKey);
+    let savedData;
+
+    if (this.storageKey) {
+      savedData = await this.storageProvider.getItem(this.storageKey);
+    }
 
     if (savedData) {
       const deserializedTokenData =
-        this.tokenDataSerializer.deserializeTokenData(savedData);
+        this.tokenDataSerializer?.deserializeTokenData(savedData);
 
       /* istanbul ignore else */
       if (deserializedTokenData) {
@@ -187,16 +209,19 @@ class TokenProvider {
     if (!!this.storageProvider) {
       // First we check if tokenData is null because calling setItem on react native's async storage
       // with a null value, will crash
-      if (!this.tokenData) {
+      if (!this.tokenData && this.storageKey) {
         await this.storageProvider.removeItem(this.storageKey);
-      } else if (this.canSaveTokenData()) {
+      } else if (
+        this.canSaveTokenData() &&
+        this.storageKey &&
+        this.tokenDataSerializer
+      ) {
         await this.storageProvider.setItem(
           this.storageKey,
           this.tokenDataSerializer.serializeTokenData(this.tokenData),
         );
       }
     }
-
     this.invokeTokenChangedListeners(this.tokenData);
   }
 
@@ -205,8 +230,8 @@ class TokenProvider {
    *
    * @param newTokenData - The new token data.
    */
-  invokeTokenChangedListeners(newTokenData) {
-    this.tokenChangesListeners.forEach(listener => {
+  invokeTokenChangedListeners(newTokenData: ITokenData | null) {
+    this.tokenChangesListeners.forEach((listener: TokenChangesListeners) => {
       /* istanbul ignore else */
       if (typeof listener.callback === 'function') {
         try {
@@ -234,7 +259,9 @@ class TokenProvider {
    *
    * @returns The id of the listener in order to be used on the removeTokenChangesListener function.
    */
-  addTokenChangesListener(tokenChangesListener) {
+  addTokenChangesListener(
+    tokenChangesListener: (tokenData?: ITokenData | null) => void,
+  ) {
     const newListenerId = ++TokenListenerIdInternalCount;
 
     this.tokenChangesListeners.push({
@@ -250,9 +277,10 @@ class TokenProvider {
    *
    * @param tokenChangesListenerId - The id of the listener to remove.
    */
-  removeTokenChangesListener(tokenChangesListenerId) {
+  removeTokenChangesListener(tokenChangesListenerId: number) {
     const listenerIndex = this.tokenChangesListeners.findIndex(
-      listener => listener.id === tokenChangesListenerId,
+      (listener: TokenChangesListeners) =>
+        listener.id === tokenChangesListenerId,
     );
 
     if (listenerIndex !== -1) {
@@ -279,13 +307,7 @@ class TokenProvider {
    *
    * @param canSaveTokenData - If the token can be saved or not.
    */
-  setCanSaveTokenData(canSaveTokenData) {
-    if (typeof canSaveTokenData !== 'boolean') {
-      throw new TypeError(
-        `Called 'setCanSaveTokenData' with a value that is not a boolean: ${canSaveTokenData}`,
-      );
-    }
-
+  setCanSaveTokenData(canSaveTokenData: boolean) {
     if (this.canSaveTokenDataFlag !== canSaveTokenData) {
       this.canSaveTokenDataFlag = canSaveTokenData;
 
