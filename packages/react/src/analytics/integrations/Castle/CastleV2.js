@@ -7,12 +7,17 @@
  * import analytics, { integrations } from '@farfetch/blackout-react/analytics';
  *
  * analytics.addIntegration('castle', integrations.Castle, {
- *   pk: <castle publishable key>,
- *   window: <Overrides the browser window object>,
- *   avoidCookies: <Disables the usage of cookies whenever possible when set to true>,
- *   cookieDomain: <When cookies are used, set the cookie domain scope>,
- *   timeout: <Request timeout for page, form, custom events>
- *
+ *   configureOptions: {
+ *    pk: castle publishable key,
+ *    window?: Overrides the browser window object,
+ *    avoidCookies?: Disables the usage of cookies whenever possible when set to true,
+ *    cookieDomain?: When cookies are used, set the cookie domain scope,
+ *    timeout?: Request timeout for page, form, custom events,
+ *   },
+ *   debugModeOn?: Boolean - if true, will log tracked events,
+ *   httpClient?: Custom Axios instance to install the interceptor,
+ *   clientIdHeaderName?: Custom name for the header that will be appended via the interceptor,
+ *   configureHttpClient?: Custom function that will be responsible for handling the castle request token,
  * });
  *
  * @module CastleV2
@@ -91,7 +96,7 @@ class CastleV2 extends integrations.Integration {
    * @param {object} options - Integration options.
    */
   validateOptions(options) {
-    if (!options.pk) {
+    if (!options.configureOptions?.pk) {
       throw new Error(
         `${CASTLE_MESSAGE_PREFIX} Failed to initialize Castle. Please make sure a valid 'pk: string (Publishable Key)' is passed via the integration options.`,
       );
@@ -123,15 +128,7 @@ class CastleV2 extends integrations.Integration {
    */
   applyOptions(options) {
     try {
-      const castleOptions = {
-        pk: options.pk,
-        window: options.window,
-        avoidCookies: options.avoidCookies,
-        cookieDomain: options.cookieDomain,
-        timeout: options.timeout,
-      };
-
-      this.castleJS.configure(castleOptions);
+      this.castleJS.configure(options.configureOptions);
 
       this.installInterceptor(options);
     } catch (error) {
