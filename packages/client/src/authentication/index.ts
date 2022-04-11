@@ -1,9 +1,5 @@
 /**
  * Authentication clients.
- *
- * @module authentication/client
- * @category Authentication
- * @subcategory Clients
  */
 
 export { default as postLogin } from './postLogin';

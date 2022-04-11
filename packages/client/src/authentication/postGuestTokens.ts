@@ -1,37 +1,24 @@
 import client, { adaptError, configApiBlackAndWhite } from '../helpers/client';
-
-/**
- * @typedef {object} PostGuestTokensData
- *
- * @alias PostGuestTokensData
- * @memberof module:authentication/client
- *
- * @property {string} guestUserId - Guest user id.
- */
+import type { PostGuestTokens } from './types';
 
 /**
  * Method responsible for managing authentications.
  *
- * @function postGuestTokens
- * @memberof module:authentication/client
- * @param {PostGuestTokensData} data - Request data.
- * @param {number} data.guestUserId - Guest user id.
- * @param {string} data.guestUserEmail - Guest user email.
- * @param {string} data.guestUserSecret - Guest user secret (orderid).
- * @param {object} [config] - Custom configurations to send to the client
+ * @param data - Request data.
+ * @param config - Custom configurations to send to the client
  * instance (axios).
- * @returns {Promise} Promise that will resolve when the call to
+ * @returns Promise that will resolve when the call to
  * the endpoint finishes.
  */
-export default (
-  data: {
-    guestUserId: number;
-  },
-  config: { [k: string]: any } = configApiBlackAndWhite,
-): Promise<any> =>
+const postGuestTokens: PostGuestTokens = (
+  data,
+  config = configApiBlackAndWhite,
+) =>
   client
     .post('/authentication/v1/guestTokens', data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default postGuestTokens;

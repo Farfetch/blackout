@@ -1,13 +1,28 @@
-import { setAxiosAuthenticationInterceptors } from '@farfetch/blackout-client/helpers/client/interceptors/authentication';
 import { usePrevious } from '../../helpers';
 import AuthenticationContext from './AuthenticationContext';
+import AxiosAuthenticationTokenManager, {
+  setAxiosAuthenticationInterceptors,
+} from '@farfetch/blackout-client/helpers/client/interceptors/authentication';
 import client from '@farfetch/blackout-client/helpers/client';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import useUserAuthState from '../hooks/useUserAuthState';
+import type { AxiosAuthenticationTokenManagerOptions } from '@farfetch/blackout-client/helpers/client/interceptors/authentication/types/TokenManagerOptions.types';
+import type { TokenContext } from '@farfetch/blackout-client/helpers/client/interceptors/authentication/token-providers/types/TokenContext.types';
+import type UserToken from '@farfetch/blackout-client/helpers/client/interceptors/authentication/types/UserToken.types';
 
-export const CallbackNames = {
-  OnUserSessionTerminated: 'onUserSessionTerminated',
-};
+export enum CallbackNames {
+  OnUserSessionTerminated = 'onUserSessionTerminated',
+}
+
+interface Props extends AxiosAuthenticationTokenManagerOptions {
+  baseURL: string;
+  children: React.ReactNode;
+  headers: { [k: string]: string };
+  callbacks: {
+    onUserSessionTerminated: (expiredUserToken: string) => void;
+  };
+  storage: AxiosAuthenticationTokenManagerOptions['storage'];
+}
 
 /**
  * Provides support for transparent authentication to apps with access tokens by installing
@@ -24,10 +39,6 @@ export const CallbackNames = {
  * return (<AuthenticationProvider><MyComponent /></AuthenticationProvider>);
  * \}
  * @param props - Props to configure AuthenticationProvider.
- * @param props.baseURL - The baseURL to apply to the axios instance in @farfetch/blackout-client.
- * @param props.children - The children to be rendered by the provider.
- * @param props.headers - An object containing header values to be added on each request.
- * @param props.callbacks - An object containing callbacks for events that the provider will trigger.
  *
  * @returns - The authentication context provider element wrapping the passed in children.
  */
@@ -37,10 +48,12 @@ function AuthenticationProvider({
   headers,
   callbacks,
   ...tokenManagerOptions
-}) {
-  const [activeTokenData, setActiveTokenData] = useState(null);
-  const baseURLRef = useRef(null);
-  const headersRef = useRef(null);
+}: Props) {
+  const [activeTokenData, setActiveTokenData] = useState<UserToken | null>(
+    null,
+  );
+  const baseURLRef = useRef<null | string>(null);
+  const headersRef = useRef<null | { [k: string]: string }>(null);
 
   if (baseURLRef.current !== baseURL) {
     client.defaults.baseURL = baseURL;
@@ -53,10 +66,10 @@ function AuthenticationProvider({
   }
 
   const invokeCallback = useCallback(
-    (callbackName, ...args) => {
+    (callbackName: CallbackNames, expiredUserToken: string) => {
       /* istanbul ignore else */
       if (callbacks && typeof callbacks[callbackName] === 'function') {
-        callbacks[callbackName](...args);
+        callbacks[callbackName](expiredUserToken);
       }
     },
     [callbacks],
@@ -78,7 +91,7 @@ function AuthenticationProvider({
   }, [tokenManager]);
 
   const setGuestTokensContext = useCallback(
-    context => {
+    (context: TokenContext) => {
       tokenManager.setGuestTokensContext(context);
     },
     [tokenManager],
@@ -88,7 +101,7 @@ function AuthenticationProvider({
     tokenManager.resetGuestTokensContext();
   }, [tokenManager]);
 
-  const getCurrentGuestTokensContext = useCallback(() => {
+  const getCurrentGuestTokensContext = useCallback((): TokenContext => {
     return tokenManager.getCurrentGuestTokensContext();
   }, [tokenManager]);
 
@@ -100,7 +113,7 @@ function AuthenticationProvider({
   );
 
   const setGuestUserClaims = useCallback(
-    async (claims, useCache) => {
+    async (claims: TokenContext, useCache: boolean) => {
       await tokenManager.setGuestTokensContext(claims);
       return tokenManager.getAccessToken(useCache);
     },
@@ -118,20 +131,19 @@ function AuthenticationProvider({
     setActiveTokenData(newActiveTokenData);
   }, []);
 
-  const previousTokenManager = usePrevious(tokenManager);
+  const previousTokenManager: AxiosAuthenticationTokenManager =
+    usePrevious(tokenManager);
 
   useEffect(() => {
     if (previousTokenManager === tokenManager) {
       return;
     }
 
-    /* istanbul ignore if */
-    if (previousTokenManager !== tokenManager && previousTokenManager) {
+    if (!!previousTokenManager) {
       previousTokenManager.setActiveTokenDataChangedEventListener(null);
       previousTokenManager.setUserSessionTerminatedEventListener(null);
     }
 
-    /* istanbul ignore else */
     if (tokenManager) {
       tokenManager.setActiveTokenDataChangedEventListener(
         onActiveTokenChangedEventListener,
@@ -141,7 +153,6 @@ function AuthenticationProvider({
         onUserSessionTerminatedEventListener,
       );
 
-      /* istanbul ignore else */
       if (!tokenManager.isLoaded) {
         tokenManager.load();
       }
@@ -153,20 +164,20 @@ function AuthenticationProvider({
     tokenManager,
   ]);
 
+  const values = {
+    activeTokenData,
+    clearTokenData,
+    getAccessToken,
+    getCurrentGuestTokensContext,
+    resetGuestTokensContext,
+    setGuestTokensContext,
+    setGuestUserClaims,
+    tokenManager, // Remove tokenManager when the post guestTokens endpoint returns the userId in the response
+    ...authState,
+  };
+
   return (
-    <AuthenticationContext.Provider
-      value={{
-        activeTokenData,
-        clearTokenData,
-        getAccessToken,
-        getCurrentGuestTokensContext,
-        resetGuestTokensContext,
-        setGuestTokensContext,
-        setGuestUserClaims,
-        tokenManager, // Remove tokenManager when the post guestTokens endpoint returns the userId in the response
-        ...authState,
-      }}
-    >
+    <AuthenticationContext.Provider value={values}>
       {children}
     </AuthenticationContext.Provider>
   );

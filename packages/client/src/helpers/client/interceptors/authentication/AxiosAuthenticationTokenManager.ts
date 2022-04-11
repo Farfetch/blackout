@@ -7,6 +7,7 @@ import {
   ClientCredentialsTokenProvider,
   GuestTokenProvider,
   TokenData,
+  TokenKinds,
   UserTokenProvider,
 } from './token-providers';
 import {
@@ -18,8 +19,27 @@ import {
   UserSessionExpiredError,
 } from './errors';
 import AuthenticationConfigOptions from './AuthenticationConfigOptions';
-import axios from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import isNil from 'lodash/isNil';
+import type {
+  AxiosAuthenticationTokenManagerOptions,
+  OptionsStorageProvider,
+  OptionsStorageSerializer,
+} from './types/TokenManagerOptions.types';
+import type { ITokenData } from './token-providers/types/TokenData.types';
+import type { RequestConfig } from './types/AxiosAuthenticationTokenManager.types';
+import type { TokenContext } from './token-providers/types/TokenContext.types';
+import type UserToken from './types/UserToken.types';
+
+type TokenDataChangedListener =
+  | ((
+      activeToken: { kind: TokenKinds; data: ITokenData | null } | null,
+    ) => void)
+  | null;
+
+type UserSessionTerminatedEventListener =
+  | ((value: UserToken | null) => void)
+  | null;
 
 /**
  * Class responsible for installing an axios interceptor which will manage
@@ -27,23 +47,36 @@ import isNil from 'lodash/isNil';
  * access token type (user or guest).
  */
 class AxiosAuthenticationTokenManager {
+  activeTokenDataChangedListener: TokenDataChangedListener;
+  authorizationHeaderFormatter!: AxiosAuthenticationTokenManagerOptions['authorizationHeaderFormatter'];
+  axiosInstance!: AxiosInstance;
+  clientCredentialsTokenProvider!: ClientCredentialsTokenProvider;
+  currentTokenProvider: UserTokenProvider | GuestTokenProvider | null;
+  guestTokenProvider!: GuestTokenProvider;
+  isLoaded: boolean;
+  isLoading: boolean;
+  loadError: MisconfiguredTokenProviderError | null;
+  loadPromise: Promise<unknown> | null;
+  requestInterceptor!: number;
+  responseInterceptor!: number;
+  userSessionTerminatedEventListener: UserSessionTerminatedEventListener;
+  userTokenProvider!: UserTokenProvider;
   /**
    *
    * @param client - The axios instance to apply the interceptors to.
    * @param options - Options to configure this instance.
-   * @param options.authorizationHeaderFormatter - Function that will be used to format the authorization header of a request with the access token.
-   * @param options.clientCredentialsTokenRequester - A function that will produce a new client credentials token. This function can be async and will be awaited.
-   * @param options.guestTokenRequester - A function that will produce a new guest token. This function can be async and will be awaited.
-   * @param options.refreshTokenWindowOffset - A value in milliseconds to advance the access token expiration time. Use this value if you want to make a refresh access token request before the access token expiration time. By default, it will be 30 seconds.
-   * @param options.storage - Storage options.
-   * @param options.storage.provider - An object implementing the Storage API methods getItem, setItem and removeItem. If these methods are async, they will be awaited. If not specified, the tokens will not be persisted.
-   * @param options.storage.serializer - An object implementing the methods serializeTokenData and deserializeTokenData. This option is required if a valid storage.provider value is provided. The methods provided by serializer must not be async.
-   * @param options.storage.guestTokenStorageKey - A string that defines the storage key where guest user tokens data will be stored and will be used as the argument to storage.provider methods as the key argument. If not provided a default value will be used.
-   * @param options.storage.userTokenStorageKey - A string that defines the storage key where user tokens data will be stored and will be used as the argument to storage.provider methods as the key argument. If not provided a default value will be used.
-   * @param options.storage.clientCredentialsTokenStorageKey - A string that defines the storage key where client credentials tokens data will be stored and will be used as the argument to storage.provider methods as the key argument. If not provided a default value will be used.
-   * @param options.userTokenRequester - A function that will produce a new user token. This function can be async and will be awaited.
    */
-  constructor(client, options) {
+  constructor(
+    client: AxiosInstance,
+    options: AxiosAuthenticationTokenManagerOptions,
+  ) {
+    this.activeTokenDataChangedListener = null;
+    this.currentTokenProvider = null;
+    this.isLoaded = false;
+    this.isLoading = false;
+    this.loadError = null;
+    this.loadPromise = null;
+    this.userSessionTerminatedEventListener = null;
     this.initialize(client, options);
   }
 
@@ -54,7 +87,10 @@ class AxiosAuthenticationTokenManager {
    * @param client - The axios instance to apply the interceptors to.
    * @param options - The options object passed to the constructor.
    */
-  initialize(client, options) {
+  initialize(
+    client: AxiosInstance,
+    options: AxiosAuthenticationTokenManagerOptions,
+  ) {
     this.validateOptions(client, options);
 
     this.applyOptions(client, options);
@@ -68,7 +104,10 @@ class AxiosAuthenticationTokenManager {
    * @param client - The axios instance to apply the interceptors to.
    * @param options - The options object passed to the constructor.
    */
-  validateOptions(client, options) {
+  validateOptions(
+    client: AxiosInstance,
+    options: AxiosAuthenticationTokenManagerOptions,
+  ) {
     if (!client) {
       throw new TypeError(
         "Missing 'client' parameter to 'AxiosAuthenticationTokenManager' constructor call",
@@ -98,7 +137,7 @@ class AxiosAuthenticationTokenManager {
 
     assertOption(
       client,
-      value =>
+      (value: AxiosInstance) =>
         value &&
         typeof value.interceptors === 'object' &&
         value.interceptors !== null,
@@ -107,7 +146,9 @@ class AxiosAuthenticationTokenManager {
 
     assertOption(
       clientCredentialsTokenRequester,
-      value => value === undefined || typeof value === 'function',
+      (
+        value: AxiosAuthenticationTokenManagerOptions['clientCredentialsTokenRequester'],
+      ) => value === undefined || typeof value === 'function',
       'clientCredentialsTokenRequester',
     );
 
@@ -115,58 +156,60 @@ class AxiosAuthenticationTokenManager {
 
     assertOption(
       refreshTokenWindowOffset,
-      value => value === undefined || (typeof value === 'number' && value >= 0),
+      (
+        value: AxiosAuthenticationTokenManagerOptions['refreshTokenWindowOffset'],
+      ) => value === undefined || (typeof value === 'number' && value >= 0),
       'refreshTokenWindowOffset',
     );
 
     // Storage validations
     assertOption(
       storage,
-      value => value === undefined || typeof value === 'object',
+      (value: Storage) => value === undefined || typeof value === 'object',
       'storage',
-      (_, optionName) =>
+      (_: string, optionName: string) =>
         `Invalid value for option '${optionName}'. Must be either undefined or an object`,
     );
 
     if (storage) {
       assertOption(
         storage.provider,
-        value =>
+        (value: OptionsStorageProvider) =>
           value &&
           typeof value.getItem === 'function' &&
           typeof value.setItem === 'function' &&
           typeof value.removeItem === 'function',
         'storage.provider',
-        (_, optionName) =>
+        (_: string, optionName: string) =>
           `Invalid value for option '${optionName}'. Make sure the value specified is an object implementing the Storage API.`,
       );
 
       assertOption(
         storage.serializer,
-        value =>
+        (value: OptionsStorageSerializer) =>
           value &&
           typeof value.deserializeTokenData === 'function' &&
           typeof value.serializeTokenData === 'function',
         'storage.serializer',
-        (_, optionName) =>
+        (_: string, optionName: string) =>
           `Invalid value for option '${optionName}'. Make sure the value specified contains the methods 'deserializeTokenData' and 'serializeTokenData'.`,
       );
 
       assertOption(
         storage.guestTokenStorageKey,
-        value => value === undefined || typeof value === 'string',
+        (value?: string) => value === undefined || typeof value === 'string',
         'storage.guestTokenStorageKey',
       );
 
       assertOption(
         storage.userTokenStorageKey,
-        value => value === undefined || typeof value === 'string',
+        (value?: string) => value === undefined || typeof value === 'string',
         'storage.userTokenStorageKey',
       );
 
       assertOption(
         storage.clientCredentialsTokenStorageKey,
-        value => value === undefined || typeof value === 'string',
+        (value?: string) => value === undefined || typeof value === 'string',
         'storage.clientCredentialsTokenStorageKey',
       );
     }
@@ -181,7 +224,10 @@ class AxiosAuthenticationTokenManager {
    * @param client - The axios instance to apply the interceptors to.
    * @param options - The options object passed to the constructor.
    */
-  applyOptions(client, options) {
+  applyOptions(
+    client: AxiosInstance,
+    options: AxiosAuthenticationTokenManagerOptions,
+  ) {
     const {
       authorizationHeaderFormatter,
       guestTokenRequester,
@@ -246,8 +292,6 @@ class AxiosAuthenticationTokenManager {
     this.userTokenProvider.addTokenChangesListener(
       this.userTokenChangesListener,
     );
-
-    this.currentTokenProvider = null;
 
     this.installInterceptors();
   }
@@ -314,7 +358,9 @@ class AxiosAuthenticationTokenManager {
    *
    * @param newTokenProvider - The token provider instance to select.
    */
-  selectTokenProvider(newTokenProvider) {
+  selectTokenProvider(
+    newTokenProvider: UserTokenProvider | GuestTokenProvider,
+  ) {
     if (this.currentTokenProvider !== newTokenProvider) {
       const previousTokenProvider = this.currentTokenProvider;
       this.currentTokenProvider = newTokenProvider;
@@ -332,7 +378,7 @@ class AxiosAuthenticationTokenManager {
    *
    * @returns Returns the token data from the current token provider or null if there is not a current token provider.
    */
-  getActiveToken() {
+  getActiveToken(): UserToken | null {
     if (!this.currentTokenProvider) {
       return null;
     }
@@ -359,7 +405,7 @@ class AxiosAuthenticationTokenManager {
    *
    * @param newContext - Properties to set on the guest token context.
    */
-  setGuestTokensContext(newContext) {
+  setGuestTokensContext(newContext: TokenContext) {
     this.guestTokenProvider.setTokenContext(newContext);
   }
 
@@ -375,7 +421,7 @@ class AxiosAuthenticationTokenManager {
    *
    * @returns The current guest tokens context.
    */
-  getCurrentGuestTokensContext() {
+  getCurrentGuestTokensContext(): TokenContext {
     return this.guestTokenProvider.getTokenContext();
   }
 
@@ -388,7 +434,7 @@ class AxiosAuthenticationTokenManager {
    * @param useCache - Returns an access token from the cache if available, if not a new create access token request will be made.
    * @returns Promise that will resolve with a renewed or cached access token from the current provider. If the renew request fails, the promise will reject with the error.
    */
-  async getAccessToken(useCache) {
+  async getAccessToken(useCache = true) {
     return await this.currentTokenProvider?.getAccessToken(useCache);
   }
 
@@ -430,7 +476,7 @@ class AxiosAuthenticationTokenManager {
    *
    * @param listener - The new listener to apply.
    */
-  setActiveTokenDataChangedEventListener(listener) {
+  setActiveTokenDataChangedEventListener(listener: TokenDataChangedListener) {
     this.activeTokenDataChangedListener = listener;
   }
 
@@ -439,7 +485,9 @@ class AxiosAuthenticationTokenManager {
    *
    * @param listener - The new listener to apply.
    */
-  setUserSessionTerminatedEventListener(listener) {
+  setUserSessionTerminatedEventListener(
+    listener: UserSessionTerminatedEventListener,
+  ) {
     this.userSessionTerminatedEventListener = listener;
   }
 
@@ -454,7 +502,7 @@ class AxiosAuthenticationTokenManager {
    * @param userData - The user data obtained from the get profile endpoint.
    * @returns Promise that will be resolved when the user info is set on the appropriate token provider instance.
    */
-  async setUserInfo(userData) {
+  async setUserInfo(userData: { id: number; isGuest: boolean }) {
     if (!userData) {
       return;
     }
@@ -538,7 +586,7 @@ class AxiosAuthenticationTokenManager {
    * @param config - Axios request config object.
    * @returns If the request needs an acess token or not.
    */
-  requestNeedsAccessTokenMatcher(config) {
+  requestNeedsAccessTokenMatcher(config: RequestConfig) {
     if (config[AuthenticationConfigOptions.AccessToken]) {
       return true;
     }
@@ -562,7 +610,7 @@ class AxiosAuthenticationTokenManager {
    *
    * @returns Promise that will be resolved with the final config object.
    */
-  async onBeforeRequestInterceptor(config) {
+  async onBeforeRequestInterceptor(config: RequestConfig) {
     const needsAuthentication = this.requestNeedsAccessTokenMatcher(config);
 
     config[AuthenticationConfigOptions.NeedsAuthentication] =
@@ -588,10 +636,10 @@ class AxiosAuthenticationTokenManager {
 
         if (!config[AuthenticationConfigOptions.UsedAccessTokenKind]) {
           config[AuthenticationConfigOptions.UsedAccessTokenKind] =
-            this.currentTokenProvider.getSupportedTokenKind();
+            this.currentTokenProvider?.getSupportedTokenKind();
         }
 
-        accessToken = await this.currentTokenProvider.getAccessToken();
+        accessToken = await this.currentTokenProvider?.getAccessToken();
       }
 
       config.headers.Authorization =
@@ -632,14 +680,14 @@ class AxiosAuthenticationTokenManager {
    *
    * @param expiredUserToken - The expired user token data.
    */
-  raiseOnUserSessionTerminatedEvent(expiredUserToken) {
+  raiseOnUserSessionTerminatedEvent(expiredUserToken: UserToken | null) {
     if (typeof this.userSessionTerminatedEventListener === 'function') {
       this.userSessionTerminatedEventListener(expiredUserToken);
     }
   }
 
-  async onRequestSuccessfulInterceptor(result) {
-    const { config } = result;
+  async onRequestSuccessfulInterceptor(result: AxiosResponse<any>) {
+    const { config }: { config: RequestConfig } = result;
 
     if (config[AuthenticationConfigOptions.IsGetUserProfileRequest]) {
       // HACK: On a get profile request success response, we need to retrieve the user id
@@ -670,19 +718,19 @@ class AxiosAuthenticationTokenManager {
    *
    * @returns Promise that will be rejected with the original error if the retry for the 401 error was not successfull or resolved with the data from the request if the retry is successfull.
    */
-  async onRequestFailedInterceptor(error) {
+  async onRequestFailedInterceptor(error: AxiosError) {
     if (!axios.isAxiosError(error)) {
       return Promise.reject(error);
     }
 
-    const { config } = error;
+    const { config }: { config: RequestConfig } = error;
     const responseStatus = error.response?.status;
     let forceRetry = false;
 
     // Assume the refresh token expired if the response status is within the 400 range.
     // If not, throw a refresh access token error which will avoid the error recovery path and enter in a loop.
     if (config[AuthenticationConfigOptions.IsUserRefreshTokenRequest]) {
-      if (responseStatus >= 400 && responseStatus < 500) {
+      if (responseStatus && responseStatus >= 400 && responseStatus < 500) {
         this.forceLogout();
         throw new UserSessionExpiredError(error);
       }
@@ -729,7 +777,7 @@ class AxiosAuthenticationTokenManager {
       config[AuthenticationConfigOptions.UsedAccessTokenKind];
 
     if (
-      usedAccessTokenKind !== this.currentTokenProvider.getSupportedTokenKind()
+      usedAccessTokenKind !== this.currentTokenProvider?.getSupportedTokenKind()
     ) {
       return Promise.reject(error);
     }
@@ -745,14 +793,14 @@ class AxiosAuthenticationTokenManager {
       config[AuthenticationConfigOptions.IsGetUserProfileRequest] &&
       responseStatus === 400
     ) {
-      const guestTokenData = this.guestTokenProvider.getTokenData() || {};
+      const guestTokenData = this.guestTokenProvider.getTokenData();
 
       // If the request access token is equal to the current guest token
       // and the user id is set, refresh the guest token data as the guest user
       // might have expired.
       if (
-        usedAccessToken === guestTokenData.accessToken &&
-        guestTokenData.userId
+        usedAccessToken === guestTokenData?.accessToken &&
+        guestTokenData?.userId
       ) {
         try {
           await this.guestTokenProvider.clearData();
@@ -779,7 +827,7 @@ class AxiosAuthenticationTokenManager {
     ) {
       try {
         const currentAccessToken =
-          this.currentTokenProvider.getTokenData()?.accessToken;
+          this.currentTokenProvider?.getTokenData()?.accessToken;
 
         const hasToRefreshToken =
           usedAccessToken &&
@@ -787,7 +835,7 @@ class AxiosAuthenticationTokenManager {
           usedAccessToken === currentAccessToken;
 
         if (hasToRefreshToken) {
-          await this.currentTokenProvider.invalidateCurrentAccessToken();
+          await this.currentTokenProvider?.invalidateCurrentAccessToken();
         }
       } catch {
         throw error;
@@ -804,17 +852,36 @@ class AxiosAuthenticationTokenManager {
       const { baseURL, url, method } = config;
       // Remove the baseURL from the request url
       // to avoid axios re-appending it when requesting again.
-      const requestUrl = getRequestUrlWithoutBase(baseURL, url);
+      const requestUrl = getRequestUrlWithoutBase(url, baseURL);
+      // According to the AxiosRequestConfig declaration the methods could be uppercased
+      // making the rest of the code useless since AxiosInstance only accepts lowered case
+      // methods.
+      const loweredcaseMethod = method?.toLowerCase();
 
       // Re-execute the request, which will be intercepted
       // by our interceptor and apply the header with the new access token
       // to the request.
-      if (method === 'post' || method === 'put' || method === 'patch') {
-        return this.axiosInstance[method](requestUrl, config.data, config);
+      if (
+        loweredcaseMethod === 'post' ||
+        loweredcaseMethod === 'put' ||
+        loweredcaseMethod === 'patch'
+      ) {
+        return (
+          loweredcaseMethod &&
+          this.axiosInstance[loweredcaseMethod](requestUrl, config.data, config)
+        );
+      } else if (
+        loweredcaseMethod === 'get' ||
+        loweredcaseMethod === 'delete' ||
+        loweredcaseMethod === 'head' ||
+        loweredcaseMethod === 'options'
+      ) {
+        // For requests that are not post/put/patch, we just need to invoke with url and config
+        return (
+          loweredcaseMethod &&
+          this.axiosInstance[loweredcaseMethod](requestUrl, config)
+        );
       }
-
-      // For requests that are not post/put/patch, we just need to invoke with url and config
-      return this.axiosInstance[method](requestUrl, config);
     }
 
     return Promise.reject(error);
@@ -826,7 +893,7 @@ class AxiosAuthenticationTokenManager {
    *
    * @param rememberMe - The new remember me value.
    */
-  setRememberMe(rememberMe) {
+  setRememberMe(rememberMe: boolean) {
     this.userTokenProvider.setCanSaveTokenData(rememberMe);
   }
 
@@ -838,7 +905,7 @@ class AxiosAuthenticationTokenManager {
    * @param forceSwitch - If 'true' will switch the current token provider to the user token provider after setting the user token data.
    * @returns Promise that will be resolved when the token data is successfully applied to the user token provider and the switch to it is performed if forceSwitch parameter is true.
    */
-  async setUserTokenData(tokenData, forceSwitch) {
+  async setUserTokenData(tokenData: TokenData, forceSwitch: boolean) {
     const newTokenData = new TokenData(tokenData);
     await this.userTokenProvider.setTokenData(newTokenData);
 
