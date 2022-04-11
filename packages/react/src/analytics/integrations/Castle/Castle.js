@@ -67,7 +67,7 @@ class Castle extends integrations.Integration {
       return CastleV1.createInstance(options, loadData);
     }
 
-    if (options.pk) {
+    if (options.configureOptions?.pk) {
       return CastleV2.createInstance(options, loadData);
     }
 
