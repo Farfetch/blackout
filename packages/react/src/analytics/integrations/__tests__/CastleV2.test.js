@@ -10,12 +10,14 @@ import Castle, { CASTLE_MESSAGE_PREFIX } from '../Castle/CastleV2';
 const mockRequestHeaderValue = '12342342345241342423424';
 const publishableKey = 'pk_mock_111111111111111111111111111';
 const mockOptions = {
-  pk: publishableKey,
+  configureOptions: {
+    pk: publishableKey,
+    window: window,
+    avoidCookies: false,
+    cookieDomain: 'foo',
+    timeout: 1000,
+  },
   debugModeOn: true,
-  window: window,
-  avoidCookies: false,
-  cookieDomain: 'foo',
-  timeout: 1000,
 };
 const createInstance = (options = mockOptions, loadData) => {
   const castleInstance = Castle.createInstance(options, loadData);
@@ -61,7 +63,9 @@ describe('Castle integration', () => {
 
   describe('Validation', () => {
     it('Should log an error if no publishable key is passed via `options`', () => {
-      expect(() => Castle.createInstance({ pk: null })).toThrowError();
+      expect(() =>
+        Castle.createInstance({ configureOptions: { pk: null } }),
+      ).toThrowError();
     });
 
     it('Should throw an error if an invalid `configureHttpClient` is passed', () => {
@@ -87,13 +91,7 @@ describe('Castle integration', () => {
 
       instance.applyOptions(mockOptions);
 
-      expect(castleSDKSpy).toHaveBeenCalledWith({
-        pk: mockOptions.pk,
-        avoidCookies: mockOptions.avoidCookies,
-        window: mockOptions.window,
-        cookieDomain: mockOptions.cookieDomain,
-        timeout: mockOptions.timeout,
-      });
+      expect(castleSDKSpy).toHaveBeenCalledWith(mockOptions.configureOptions);
     });
 
     it('Should allow to pass a custom function to install the interceptors', async () => {

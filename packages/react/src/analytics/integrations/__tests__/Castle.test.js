@@ -23,7 +23,9 @@ describe('Castle facade class', () => {
 
   it('Should return a CastleV2 instance when passing an publishable key', async () => {
     const instance = Castle.createInstance({
-      pk: 'pk_mock_111111111111111111111111111',
+      configureOptions: {
+        pk: 'pk_mock_111111111111111111111111111',
+      },
     });
 
     expect(instance).toBeInstanceOf(CastleV2);
