@@ -6,30 +6,45 @@ import AuthenticationConfigOptions from '../AuthenticationConfigOptions';
 import TokenData from './TokenData';
 import TokenKinds from './TokenKinds';
 import TokenProvider from './TokenProvider';
+import type { AxiosResponse } from 'axios';
+import type {
+  ClientCredentialsTokenRequester,
+  OptionsStorageProvider,
+  OptionsStorageSerializer,
+} from '../types/TokenManagerOptions.types';
 
 export const DEFAULT_STORAGE_KEY = 'ClientCredentialsToken';
 
 /**
  * Token provider for client credentials.
- *
- * @augments TokenProvider
  */
 class ClientCredentialsTokenProvider extends TokenProvider {
+  requester: ClientCredentialsTokenRequester;
+  tokenData: TokenData | null;
+  storageProvider?: OptionsStorageProvider;
   /**
    * Creates a new ClientCredentialsTokenProvider instance.
    *
-   * @param {Function} requester - A function that will be responsible to request new tokens. If async, the call will be awaited.
-   * @param {object} [storageProvider] - An object implementing the Storage API's methods getItem, setItem and removeItem. If those methods are async, the calls will be awaited.
-   * @param {object} [tokenDataSerializer] - An object implementing the serializeTokenData and deserializeTokenData methods. If storage provider is defined, tokenDataSerializer is required.
-   * @param {string} [storageKey] - The storage key that will be used on the calls to storageProvider's methods as the key argument. If not provided, a default will be used.
+   * @param requester - A function that will be responsible to request new tokens. If async, the call will be awaited.
+   * @param storageProvider - An object implementing the Storage API's methods getItem, setItem and removeItem. If those methods are async, the calls will be awaited.
+   * @param tokenDataSerializer - An object implementing the serializeTokenData and deserializeTokenData methods. If storage provider is defined, tokenDataSerializer is required.
+   * @param storageKey - The storage key that will be used on the calls to storageProvider's methods as the key argument. If not provided, a default will be used.
    */
-  constructor(requester, storageProvider, tokenDataSerializer, storageKey) {
+  constructor(
+    requester: ClientCredentialsTokenRequester,
+    storageProvider?: OptionsStorageProvider,
+    tokenDataSerializer?: OptionsStorageSerializer,
+    storageKey?: string,
+  ) {
     super(
       requester,
       storageProvider,
       tokenDataSerializer,
       storageKey || DEFAULT_STORAGE_KEY,
     );
+
+    this.requester = requester;
+    this.tokenData = null;
   }
 
   /**
@@ -37,7 +52,7 @@ class ClientCredentialsTokenProvider extends TokenProvider {
    * Returns the kind of tokens that will be produced by this token provider.
    *
    * @override
-   * @returns {TokenKinds} ClientCredentials token kind.
+   * @returns ClientCredentials token kind.
    */
   getSupportedTokenKind() {
     return TokenKinds.ClientCredentials;
@@ -49,9 +64,9 @@ class ClientCredentialsTokenProvider extends TokenProvider {
    *
    * @override
    *
-   * @param {boolean} useCache - If cache should be used or not.
+   * @param useCache - If cache should be used or not.
    *
-   * @returns {Promise} Promise that will be resolved with a valid access token to be used.
+   * @returns Promise that will be resolved with a valid access token to be used.
    */
   getAccessToken(useCache = true) {
     if (
@@ -75,12 +90,12 @@ class ClientCredentialsTokenProvider extends TokenProvider {
       return this.requester(requestArgs, {
         [AuthenticationConfigOptions.NoAuthentication]: true,
         [AuthenticationConfigOptions.IsClientCredentialsTokenRequest]: true,
-      }).then(async response => {
+      }).then(async (response: AxiosResponse['data']) => {
         const responseTokenData = new TokenData(response);
 
         await this.setTokenData(responseTokenData);
 
-        return this.tokenData.accessToken;
+        return this.tokenData?.accessToken;
       });
     }
 
@@ -93,7 +108,7 @@ class ClientCredentialsTokenProvider extends TokenProvider {
    *
    * @override
    *
-   * @returns {boolean} - True if the instance is ready to retrieve tokens and false otherwise.
+   * @returns - True if the instance is ready to retrieve tokens and false otherwise.
    */
   canRetrieveTokens() {
     return !!this.requester;

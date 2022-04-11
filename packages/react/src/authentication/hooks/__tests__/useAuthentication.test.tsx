@@ -1,11 +1,7 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { ActionTypes } from '../useUserAuthState';
 import { cleanup } from '@testing-library/react';
-import {
-  LoginWithoutDataError,
-  NotLoggedInError,
-  PendingUserOperationError,
-} from '../../errors';
+import { NotLoggedInError, PendingUserOperationError } from '../../errors';
 import AuthenticationProvider, {
   CallbackNames,
 } from '../../contexts/AuthenticationProvider';
@@ -19,6 +15,17 @@ import client, {
 import moxios from 'moxios';
 import React from 'react';
 import useAuthentication from '../useAuthentication';
+import type TokenManagerOptions from '@farfetch/blackout-client/helpers/client/interceptors/authentication/types/TokenManagerOptions.types';
+
+interface Props {
+  children?: React.ReactNode;
+  baseURL?: string;
+  callbacks?: {
+    onUserSessionTerminated: (expiredUserToken: string) => void;
+  };
+  headers?: { [k: string]: string };
+  storage?: TokenManagerOptions['storage'];
+}
 
 const defaultHeaders = {
   'Accept-Language': 'en-GB',
@@ -27,7 +34,13 @@ const defaultHeaders = {
   'x-api-key': '00000000-aaaa-0000-aaaa-000000000000',
 };
 
-const wrapper = ({ children, baseURL, callbacks, headers, storage }) => (
+const loginData = {
+  username: '',
+  password: '',
+  rememberMe: false,
+};
+
+const wrapper = ({ children, baseURL, callbacks, headers, storage }: Props) => (
   <AuthenticationProvider
     baseURL={baseURL}
     callbacks={callbacks}
@@ -103,6 +116,7 @@ describe('useAuthentication', () => {
 
   it('should call the passed in callback functions when the corresponding event happens', async () => {
     const callbacksValue = {
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       [CallbackNames.OnUserSessionTerminated]: jest.fn(() => {}),
     };
 
@@ -196,7 +210,6 @@ describe('useAuthentication', () => {
     const accessToken = 'dummy_access_token';
 
     moxios.stubRequest('/authentication/v1/tokens', {
-      method: 'post',
       response: {
         accessToken,
         expiresIn: '12000',
@@ -206,7 +219,6 @@ describe('useAuthentication', () => {
     });
 
     moxios.stubRequest(`/authentication/v1/tokens/${accessToken}`, {
-      method: 'delete',
       response: {},
       status: 200,
     });
@@ -243,7 +255,6 @@ describe('useAuthentication', () => {
 
   it('should throw an error if login is called before it is terminated', async () => {
     moxios.stubRequest('/authentication/v1/tokens', {
-      method: 'post',
       response: {
         accessToken: 'dummy_access_token',
         expiresIn: '12000',
@@ -262,12 +273,14 @@ describe('useAuthentication', () => {
     await waitForNextUpdate();
 
     const loginPromise = act(() => {
-      return result.current.login({});
+      return result.current.login(loginData);
     });
 
     expect(result.current.isLoading).toBe(true);
 
-    expect(result.current.login({})).rejects.toThrow(PendingUserOperationError);
+    expect(result.current.login(loginData)).rejects.toThrow(
+      PendingUserOperationError,
+    );
 
     await loginPromise;
 
@@ -275,33 +288,8 @@ describe('useAuthentication', () => {
     expect(result.current.isLoggedIn).toBe(true);
   });
 
-  it('should throw an error if login is called with no data', async () => {
-    const { result, waitForNextUpdate } = renderHook(
-      () => useAuthentication(),
-      {
-        wrapper,
-      },
-    );
-
-    await waitForNextUpdate();
-
-    expect.assertions(2);
-
-    try {
-      await act(() => result.current.login());
-    } catch (e) {
-      expect(e).toBeInstanceOf(LoginWithoutDataError);
-    }
-
-    expect(result.current.errorData).toEqual({
-      causeError: expect.any(LoginWithoutDataError),
-      context: ActionTypes.LoginFailed,
-    });
-  });
-
   it('should set tokens context before fetching the access token', async () => {
     moxios.stubRequest('/authentication/v1/guestTokens', {
-      method: 'post',
       response: {
         accessToken: 'dummy_access_token',
         expiresIn: '12000',
@@ -334,7 +322,10 @@ describe('useAuthentication', () => {
     jest.clearAllMocks();
 
     await act(async () => {
-      await result.current.setGuestUserClaims(mockGuestUserClaimsParameter);
+      await result.current.setGuestUserClaims(
+        mockGuestUserClaimsParameter,
+        false,
+      );
     });
 
     expect(getAccessTokenSpy).toHaveBeenCalledTimes(1);
@@ -344,7 +335,7 @@ describe('useAuthentication', () => {
 
     expect(requestDataParsed).toEqual({
       ...mockGuestUserClaimsParameter,
-      guestUserId: null,
+      guestUserId: undefined,
     });
   });
 
@@ -388,7 +379,7 @@ describe('useAuthentication', () => {
       },
     });
 
-    await act(async () => result.current.login({}));
+    await act(async () => result.current.login(loginData));
 
     expect(result.current.activeTokenData.kind).toBe(TokenKinds.User);
     expect(result.current.isLoading).toBe(false);
@@ -411,7 +402,6 @@ describe('useAuthentication', () => {
     const accessToken = 'dummy_access_token';
 
     moxios.stubRequest('/authentication/v1/tokens', {
-      method: 'post',
       status: 200,
       response: {
         accessToken,
@@ -434,14 +424,13 @@ describe('useAuthentication', () => {
 
     expect.assertions(12);
 
-    await act(async () => result.current.login({}));
+    await act(async () => result.current.login(loginData));
 
     expect(result.current.activeTokenData.kind).toBe(TokenKinds.User);
     expect(result.current.isLoading).toBe(false);
     expect(result.current.isLoggedIn).toBe(true);
 
     moxios.stubRequest(`/authentication/v1/tokens/${accessToken}`, {
-      method: 'delete',
       status: 400,
       response: {
         errors: [{ code: '17' }],
@@ -455,7 +444,7 @@ describe('useAuthentication', () => {
     expect(result.current.errorData).toBeNull();
     expect(result.current.isLoggedIn).toBe(false);
 
-    await act(async () => result.current.login({}));
+    await act(async () => result.current.login(loginData));
 
     expect(result.current.activeTokenData.kind).toBe(TokenKinds.User);
     expect(result.current.isLoading).toBe(false);
@@ -467,7 +456,6 @@ describe('useAuthentication', () => {
     moxios.install(client);
 
     moxios.stubRequest(`/authentication/v1/tokens/${accessToken}`, {
-      method: 'delete',
       status: 404,
     });
 
@@ -483,7 +471,6 @@ describe('useAuthentication', () => {
     const accessToken = 'dummy_access_token';
 
     moxios.stubRequest('/authentication/v1/tokens', {
-      method: 'post',
       status: 200,
       response: {
         accessToken,
@@ -503,7 +490,7 @@ describe('useAuthentication', () => {
 
     expect.assertions(4);
 
-    await act(async () => result.current.login({}));
+    await act(async () => result.current.login(loginData));
 
     expect(result.current.activeTokenData.kind).toBe(TokenKinds.User);
     expect(result.current.isLoading).toBe(false);
@@ -515,7 +502,6 @@ describe('useAuthentication', () => {
     );
 
     moxios.stubRequest(`/authentication/v1/tokens/${accessToken}`, {
-      method: 'delete',
       status: errorResponseStatus,
     });
 

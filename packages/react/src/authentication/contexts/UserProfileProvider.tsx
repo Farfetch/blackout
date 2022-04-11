@@ -5,6 +5,30 @@ import noop from 'lodash/noop';
 import React, { useCallback, useEffect, useReducer, useRef } from 'react';
 import useAuthentication from '../hooks/useAuthentication';
 import UserProfileContext from './UserProfileContext';
+import type { GetUserResponse } from '@farfetch/blackout-client/users/types';
+
+interface Props {
+  children: React.ReactNode;
+  fetchProfileOnTokenChanges: boolean;
+  onProfileChange: (response: GetUserResponse) => void;
+}
+
+interface State {
+  isLoading: boolean;
+  error: Error | null;
+  userData: GetUserResponse | null;
+}
+
+interface Action {
+  type: string;
+  payload?: GetUserResponse | Error;
+}
+
+export interface Error {
+  code: number;
+  message: string;
+  status: number;
+}
 
 const ActionTypes = {
   GetUserRequested: 'FETCH_USER_REQUESTED',
@@ -12,13 +36,13 @@ const ActionTypes = {
   GetUserFailed: 'FETCH_USER_FAILED',
 };
 
-const initialState = {
+const initialState: State = {
   isLoading: false,
   error: null,
   userData: null,
 };
 
-const reducer = (state, action) => {
+const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case ActionTypes.GetUserRequested: {
       return {
@@ -33,14 +57,14 @@ const reducer = (state, action) => {
       return {
         ...state,
         isLoading: false,
-        userData: action.payload,
+        userData: action.payload as GetUserResponse,
       };
     }
 
     case ActionTypes.GetUserFailed: {
       return {
         ...state,
-        error: action.payload,
+        error: action.payload as Error,
         isLoading: false,
       };
     }
@@ -67,9 +91,6 @@ const reducer = (state, action) => {
  * \}
  *
  * @param props - Props for the provider.
- * @param props.children - The children to be rendered by the provider.
- * @param props.fetchProfileOnTokenChanges - Boolean to indicate if the provider should try to keep the user profile data in sync with the active token data.
- * @param props.onProfileChange - Callback that runs after the profile changes.
  *
  * @returns An element that wraps the children with the UserProfileContext.Provider element.
  */
@@ -77,36 +98,38 @@ const UserProfileProvider = ({
   children,
   fetchProfileOnTokenChanges,
   onProfileChange,
-}) => {
+}: Props) => {
   const [userProfileState, dispatch] = useReducer(reducer, initialState);
   const { activeTokenData, tokenManager } = useAuthentication();
-  const currentLoadProfilePromiseRef = useRef(null);
+  const currentLoadProfilePromiseRef = useRef<Promise<GetUserResponse> | null>(
+    null,
+  );
 
-  const loadProfileAux = useCallback(async () => {
+  const loadProfileAux = useCallback(async (): Promise<GetUserResponse> => {
     dispatch({ type: ActionTypes.GetUserRequested });
 
-    const usedAccessTokenRef = {};
+    let usedAccessToken = null;
 
-    const setAccessTokenRef = accessToken => {
-      usedAccessTokenRef.current = accessToken;
+    const setAccessTokenRef = (accessToken: string) => {
+      usedAccessToken = accessToken;
     };
 
     try {
-      const userData = await getUser({
+      const userData: GetUserResponse = await getUser({
         [AuthenticationConfigOptions.UsedAccessTokenCallback]:
           setAccessTokenRef,
         [AuthenticationConfigOptions.IsGetUserProfileRequest]: true,
       });
 
       const tokenManagerCurrentActiveToken =
-        tokenManager.getActiveToken().data?.accessToken;
+        tokenManager?.getActiveToken()?.data?.accessToken;
 
       // This is a safe check to ensure that the response obtained from the getUser
       // is still valid as there might have been a change on the active token
       // while the request has not returned. This will only happen on very extreme
       // situations like getUser taking a huge amount of time and after that a logout/login
       // happens that changes the current active token.
-      if (tokenManagerCurrentActiveToken !== usedAccessTokenRef.current) {
+      if (tokenManagerCurrentActiveToken !== usedAccessToken) {
         throw new ProfileChangedError();
       }
 
@@ -118,7 +141,7 @@ const UserProfileProvider = ({
       currentLoadProfilePromiseRef.current = null;
 
       return userData;
-    } catch (error) {
+    } catch (error: any) {
       dispatch({ type: ActionTypes.GetUserFailed, payload: error });
       throw error;
     }
@@ -169,7 +192,7 @@ const UserProfileProvider = ({
       if (!isLoading) {
         // Call loadProfile and discard the error as we do not need to handle it
         // as it will be added to the userProfileState by the loadProfile function.
-        loadProfile().then(result => onProfileChange?.(result), noop);
+        loadProfile()?.then(result => onProfileChange(result), noop);
       }
     }
   }, [

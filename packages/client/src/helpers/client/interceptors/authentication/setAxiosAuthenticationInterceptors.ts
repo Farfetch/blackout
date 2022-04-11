@@ -1,6 +1,8 @@
 import { defaultAuthorizationHeaderFormatter } from './defaults';
 import { postGuestTokens, postTokens } from '../../../../authentication';
 import AxiosAuthenticationTokenManager from './AxiosAuthenticationTokenManager';
+import type { AxiosAuthenticationTokenManagerOptions } from './types/TokenManagerOptions.types';
+import type { AxiosInstance } from 'axios';
 
 const defaultOptions = {
   authorizationHeaderFormatter: defaultAuthorizationHeaderFormatter,
@@ -21,7 +23,10 @@ const defaultOptions = {
  *
  * @returns An AxiosAuthenticationTokenManager instance which contains methods to eject the interceptors installed and clear token data.
  */
-export default function setAxiosAuthenticationInterceptors(client, options) {
+export default function setAxiosAuthenticationInterceptors(
+  client: AxiosInstance,
+  options: AxiosAuthenticationTokenManagerOptions,
+): AxiosAuthenticationTokenManager {
   const finalOptions = {
     ...defaultOptions,
     ...options,

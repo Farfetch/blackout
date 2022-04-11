@@ -1,4 +1,5 @@
 import GuestTokenProvider from '../GuestTokenProvider';
+import type { ITokenData } from '../types/TokenData.types';
 
 jest.useFakeTimers();
 
@@ -28,12 +29,11 @@ describe('GuestTokenProvider', () => {
   describe('getAccessToken', () => {
     it('should not set token data if the token context has changed between requests', async () => {
       const requester = jest.fn(() => {
-        return new Promise(resolve => {
-          // Resolve after a timeout to give a change to setTokenContext to be ran
-          // while the request is not finished.
-          setTimeout(() => {
-            resolve({ accessToken: 'dummy_access_token', expiresIn: 12000 });
-          }, 1000);
+        return new Promise<ITokenData>(resolve => {
+          resolve({
+            accessToken: 'dummy_access_token',
+            expiresIn: '12000',
+          });
         });
       });
 
@@ -59,9 +59,15 @@ describe('GuestTokenProvider', () => {
     it('should return the access token from cache if available', async () => {
       const accessToken = 'dummy_access_token';
 
-      const instance = new GuestTokenProvider(
-        jest.fn(() => Promise.resolve({ accessToken })),
-      );
+      const requester = jest.fn(() => {
+        return new Promise<ITokenData>(resolve => {
+          resolve({
+            accessToken: 'dummy_access_token',
+          });
+        });
+      });
+
+      const instance = new GuestTokenProvider(requester);
 
       expect(instance.getCachedAccessToken()).toBeUndefined();
 

@@ -1,43 +1,49 @@
+import type { AxiosError } from 'axios';
+
 export class AuthenticationManagerBaseError extends Error {
-  constructor(message, originalError = {}) {
+  originalError: AxiosError | Record<string, unknown>;
+  constructor(
+    message: string,
+    originalError?: AxiosError | Record<string, unknown>,
+  ) {
     super(message);
-    this.originalError = originalError;
+    this.originalError = originalError ? originalError : {};
   }
 }
 
 export class UserSessionExpiredError extends AuthenticationManagerBaseError {
-  constructor(originalError) {
+  constructor(originalError: AxiosError) {
     super('User session has expired.', originalError);
   }
 }
 
 export class RefreshAccessTokenError extends AuthenticationManagerBaseError {
-  constructor(message, originalError) {
+  constructor(message: string, originalError: AxiosError) {
     super(message, originalError);
   }
 }
 
 export class RefreshGuestUserAccessTokenError extends RefreshAccessTokenError {
-  constructor(originalError) {
+  constructor(originalError: AxiosError) {
     super('Unable to refresh guest user access token.', originalError);
   }
 }
 
 export class RefreshUserAccessTokenError extends RefreshAccessTokenError {
-  constructor(originalError) {
+  constructor(originalError: AxiosError) {
     super('Unable to refresh user access token.', originalError);
   }
 }
 
 export class RefreshClientCredentialsAccessTokenError extends RefreshAccessTokenError {
-  constructor(originalError) {
+  constructor(originalError: AxiosError) {
     /* istanbul ignore next */
     super('Unable to refresh client credentials access token.', originalError);
   }
 }
 
 export class MisconfiguredTokenProviderError extends AuthenticationManagerBaseError {
-  constructor(tokenProviderKind) {
+  constructor(tokenProviderKind: string) {
     super(`'${tokenProviderKind}' token provider not configured correctly.`);
   }
 }

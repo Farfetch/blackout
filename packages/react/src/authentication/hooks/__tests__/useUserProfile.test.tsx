@@ -7,6 +7,18 @@ import AuthenticationProvider from '../../contexts/AuthenticationProvider';
 import React from 'react';
 import UserProfileProvider from '../../contexts/UserProfileProvider';
 import useUserProfile from '../useUserProfile';
+import type TokenManagerOptions from '@farfetch/blackout-client/helpers/client/interceptors/authentication/types/TokenManagerOptions.types';
+
+interface Props {
+  children?: React.ReactNode;
+  baseURL?: string;
+  callbacks?: {
+    onUserSessionTerminated: (expiredUserToken: string) => void;
+  };
+  headers?: { [k: string]: string };
+  fetchProfileOnTokenChanges?: boolean;
+  storage?: TokenManagerOptions['storage'];
+}
 
 const mockUserData = {
   id: mockDefaultActiveTokenData.data.userId,
@@ -30,7 +42,7 @@ jest.mock('@farfetch/blackout-client/users', () => {
   }
 
   return {
-    ...jest.requireActual('@farfetch/blackout-client/users'),
+    ...jest.requireActual<object>('@farfetch/blackout-client/users'),
     getUser: jest.fn(mockGetUserCommon),
   };
 });
@@ -42,7 +54,7 @@ const wrapper = ({
   headers,
   storage,
   fetchProfileOnTokenChanges,
-}) => (
+}: Props) => (
   <AuthenticationProvider
     baseURL={baseURL}
     callbacks={callbacks}
@@ -51,6 +63,7 @@ const wrapper = ({
   >
     <UserProfileProvider
       fetchProfileOnTokenChanges={fetchProfileOnTokenChanges}
+      onProfileChange={jest.fn()}
     >
       {children}
     </UserProfileProvider>
@@ -103,7 +116,7 @@ describe('useUserProfile', () => {
     // from the user while the previous loadProfile call has not finished.
     const loadProfilePromise = result.current.loadProfile();
 
-    jest.runTimersToTime();
+    jest.runAllTimers();
 
     await act(async () => await loadProfilePromise);
 

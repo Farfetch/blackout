@@ -2,24 +2,33 @@ import AuthenticationConfigOptions from '../AuthenticationConfigOptions';
 import TokenData from './TokenData';
 import TokenKinds from './TokenKinds';
 import TokenProvider from './TokenProvider';
+import type {
+  OptionsStorageProvider,
+  OptionsStorageSerializer,
+  UserTokenRequester,
+} from '../types/TokenManagerOptions.types';
 
 export const DEFAULT_STORAGE_KEY = 'UserToken';
 
 /**
  * Token provider for authenticated users.
- *
- * @augments TokenProvider
  */
 class UserTokenProvider extends TokenProvider {
+  currentGetAccessTokenPromise: Promise<string | undefined> | null;
   /**
    * Creates a new UserTokenProvider instance.
    *
-   * @param {Function} requester - A function that will be responsible to request new tokens. If async, the call will be awaited.
-   * @param {object} [storageProvider] - An object implementing the Storage API's methods getItem, setItem and removeItem. If those methods are async, the calls will be awaited.
-   * @param {object} [tokenDataSerializer] - An object implementing the serializeTokenData and deserializeTokenData methods. If storage provider is defined, tokenDataSerializer is required.
-   * @param {string} [storageKey] - The storage key that will be used on the calls to storageProvider's methods as the key argument. If not provided, a default will be used.
+   * @param requester - A function that will be responsible to request new tokens. If async, the call will be awaited.
+   * @param storageProvider - An object implementing the Storage API's methods getItem, setItem and removeItem. If those methods are async, the calls will be awaited.
+   * @param tokenDataSerializer - An object implementing the serializeTokenData and deserializeTokenData methods. If storage provider is defined, tokenDataSerializer is required.
+   * @param storageKey - The storage key that will be used on the calls to storageProvider's methods as the key argument. If not provided, a default will be used.
    */
-  constructor(requester, storageProvider, tokenDataSerializer, storageKey) {
+  constructor(
+    requester: UserTokenRequester,
+    storageProvider?: OptionsStorageProvider,
+    tokenDataSerializer?: OptionsStorageSerializer,
+    storageKey?: string,
+  ) {
     super(
       requester,
       storageProvider,
@@ -35,9 +44,9 @@ class UserTokenProvider extends TokenProvider {
    * Returns the kind of tokens that will be produced by this token provider.
    *
    * @override
-   * @returns {TokenKinds} User token kind.
+   * @returns User token kind.
    */
-  getSupportedTokenKind() {
+  getSupportedTokenKind(): TokenKinds {
     return TokenKinds.User;
   }
 
@@ -47,11 +56,11 @@ class UserTokenProvider extends TokenProvider {
    *
    * @override
    *
-   * @param {boolean} useCache - If cache should be used or not.
+   * @param useCache - If cache should be used or not.
    *
-   * @returns {Promise} Promise that will be resolved with a valid access token to be used.
+   * @returns Promise that will be resolved with a valid access token to be used.
    */
-  getAccessToken(useCache = true) {
+  getAccessToken(useCache = true): Promise<string | undefined> {
     if (
       !this.tokenData ||
       !this.tokenData.accessToken ||
@@ -66,7 +75,7 @@ class UserTokenProvider extends TokenProvider {
 
       this.currentGetAccessTokenPromise = this.requester(
         {
-          refreshToken: this.tokenData.refreshToken,
+          refreshToken: this.tokenData?.refreshToken,
           grantType: 'refresh_token',
         },
         {
@@ -74,7 +83,7 @@ class UserTokenProvider extends TokenProvider {
           [AuthenticationConfigOptions.IsUserRefreshTokenRequest]: true,
         },
       ).then(
-        async response => {
+        async (response: any) => {
           this.currentGetAccessTokenPromise = null;
 
           const responseTokenData = new TokenData(response);
@@ -85,9 +94,9 @@ class UserTokenProvider extends TokenProvider {
 
           await this.setTokenData(responseTokenData);
 
-          return this.tokenData.accessToken;
+          return this.tokenData?.accessToken;
         },
-        error => {
+        (error: any) => {
           // Clear current get access token promise
           this.currentGetAccessTokenPromise = null;
 
@@ -107,7 +116,7 @@ class UserTokenProvider extends TokenProvider {
    *
    * @override
    *
-   * @returns {boolean} - True if the instance is ready to retrieve tokens and false otherwise.
+   * @returns - True if the instance is ready to retrieve tokens and false otherwise.
    */
   canRetrieveTokens() {
     return !!this.tokenData?.refreshToken && !!this.requester;
