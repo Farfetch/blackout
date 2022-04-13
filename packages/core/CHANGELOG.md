@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.54.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.53.3...@farfetch/blackout-core@1.54.0) (2022-04-13)
+
+
+### Features
+
+* **blackout-core:** update Omnitracking contract to v1.13 ([d654027](https://github.com/Farfetch/blackout/commit/d65402784e05228be311e62d06b016244d43d72d))
+
+
+
+
+
 ## [1.53.3](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.53.2...@farfetch/blackout-core@1.53.3) (2022-04-07)
 
 

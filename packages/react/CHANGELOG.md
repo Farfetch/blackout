@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.34.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.33.1...@farfetch/blackout-react@0.34.0) (2022-04-13)
+
+
+### Bug Fixes
+
+* **react:** update integration options contract ([219459b](https://github.com/Farfetch/blackout/commit/219459ba920220cc2737d576b3cdb3bd5155742d))
+
+
+### Features
+
+* **react:** add base components to render components ([698b3f0](https://github.com/Farfetch/blackout/commit/698b3f05cebd514b516ad6db95334b44425b82e7))
+* **react:** add castle 2.0 analytics' integration ([66d7b7e](https://github.com/Farfetch/blackout/commit/66d7b7e6c07384720fa47d0b78d7359ea2eafc8b))
+
+
+
+
+
 ## [0.33.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.33.0...@farfetch/blackout-react@0.33.1) (2022-04-07)
 
 
