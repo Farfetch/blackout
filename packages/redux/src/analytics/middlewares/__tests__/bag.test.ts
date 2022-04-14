@@ -1,27 +1,26 @@
 import { actionTypes as bagActionTypes, getBagItem } from '../../../bags';
-import { bagMiddleware } from '../../';
+import { bagMockData } from 'tests/__fixtures__/analytics/bag';
 import { getBrand, getCategory, getProduct } from '../../../entities/selectors';
-import {
-  initialReduxState,
-  mockBagId,
-  mockBagItemId,
-  mockBagProductId,
-  mockBrandId,
-  mockCategoryId,
-  mockStore,
-} from '../../../../tests';
 import { logger } from '@farfetch/blackout-analytics/utils';
+import { mockStore as mockSimplifiedStore } from './../tests/simplifiedStore';
+import { mockStore } from '../../../../tests';
 import Analytics, { eventTypes } from '@farfetch/blackout-analytics';
+import bagMiddleware from '../bag';
 import merge from 'lodash/merge';
+import type {
+  BagItemEntity,
+  ProductEntity,
+} from '@farfetch/blackout-redux/entities/types';
+import type { StoreState } from '@farfetch/blackout-redux/types';
 
 // Mock logger so it does not output to the console
 jest.mock('@farfetch/blackout-analytics/utils', () => ({
   ...jest.requireActual('@farfetch/blackout-analytics/utils'),
   logger: {
-    warn(message) {
+    warn(message: string) {
       return message;
     },
-    error(message) {
+    error(message: string) {
       return message;
     },
   },
@@ -31,34 +30,46 @@ const analytics = new Analytics();
 const trackSpy = jest.spyOn(analytics, 'track');
 const loggerErrorSpy = jest.spyOn(logger, 'error');
 /** Expected data to be asserted in tests **/
-const productData = getProduct(initialReduxState, mockBagProductId);
-const { name, shortDescription, sizes, sku } = productData;
-const bagItem = getBagItem(initialReduxState, mockBagItemId);
+const productData = getProduct(
+  bagMockData.mockState,
+  bagMockData.mockProductId,
+) as ProductEntity;
+const { name, shortDescription, sku } = productData;
+const sizes = bagMockData.mockSizes;
+const bagItem = getBagItem(bagMockData.mockState, bagMockData.mockBagItemId);
+const { price, quantity } = bagItem;
 const {
-  price: {
-    includingTaxes: priceWithDiscount,
-    includingTaxesWithoutDiscount: priceWithoutDiscount,
-  },
-  quantity,
-} = bagItem;
+  includingTaxes: priceWithDiscount,
+  includingTaxesWithoutDiscount: priceWithoutDiscount,
+} = price as { includingTaxes: number; includingTaxesWithoutDiscount: number };
+
 const affiliation = 'random';
-const brandName = getBrand(initialReduxState, mockBrandId).name;
-const categoryName = getCategory(initialReduxState, mockCategoryId).name;
+const brandName = getBrand(
+  bagMockData.mockState,
+  bagMockData.mockBrandId,
+)?.name;
+const categoryName = getCategory(
+  bagMockData.mockState,
+  bagMockData.mockCategoryId,
+)?.name;
 const colorName = productData.colors.find(color =>
   color.tags.includes('DesignerColor'),
-).color.name;
+)?.color.name;
 const coupon = 'super discount';
 const currencyCode = 'USD';
 const discount = priceWithoutDiscount - priceWithDiscount;
 const from = 'bag';
-const oldQuantity = 2;
+const oldQuantity =
+  bagMockData.mockState.entities?.bagItems?.[bagMockData.mockBagItemId]
+    ?.quantity || 0;
 const position = 3;
 const value = priceWithDiscount;
 const productDescription = shortDescription || name; // Color name must be the one that has a tag of 'DesignerColor'
-const getMockState = data => merge({}, initialReduxState, data);
+const getMockState = (data: Record<string, unknown> = {}): StoreState =>
+  merge({}, bagMockData.mockState, data);
 
 describe('bagMiddleware()', () => {
-  let store;
+  let store: ReturnType<typeof mockStore>;
 
   beforeEach(() => {
     store = mockStore(null, getMockState(), [bagMiddleware(analytics)]);
@@ -86,14 +97,14 @@ describe('bagMiddleware()', () => {
     });
 
     it('Should log an error if an analytics instance is not passed', () => {
-      // test undefined value
+      // @ts-expect-error test undefined value
       bagMiddleware(undefined);
 
       expect(loggerErrorSpy).toHaveBeenCalled();
 
       loggerErrorSpy.mockClear();
 
-      // test instanceof
+      // @ts-expect-error test instanceof
       bagMiddleware({});
 
       expect(loggerErrorSpy).toHaveBeenCalled();
@@ -133,12 +144,10 @@ describe('bagMiddleware()', () => {
       ).not.toThrow();
     });
 
-    it('Should log an error if the currencyCode is not set in analytics context', () => {
-      analytics.setContext({
-        currencyCode: null,
-      });
+    it('Should log an error if the currencyCode is not set in analytics context', async () => {
+      analytics.useContext(() => ({ currencyCode: null }));
 
-      store.dispatch({
+      await store.dispatch({
         type: bagActionTypes.ADD_BAG_ITEM_SUCCESS,
         payload: {},
         meta: {
@@ -152,22 +161,20 @@ describe('bagMiddleware()', () => {
 
   describe('Add item to bag', () => {
     beforeEach(() => {
-      const mockState = getMockState();
-
-      store = mockStore(null, mockState, [bagMiddleware(analytics)]);
+      store = mockStore(null, getMockState(), [bagMiddleware(analytics)]);
     });
 
     it('Should intercept the action and call `analytics.track` with the correct payload', async () => {
       await store.dispatch({
         type: bagActionTypes.ADD_BAG_ITEM_SUCCESS,
         payload: {
-          result: { id: mockBagId },
+          result: { id: bagMockData.mockBagId },
           entities: {
             bagItems: {
-              [mockBagItemId]: {
-                id: mockBagItemId,
-                product: mockBagProductId,
-                size: { id: sizes[0].id },
+              [bagMockData.mockBagItemId]: {
+                id: bagMockData.mockBagItemId,
+                product: bagMockData.mockProductId,
+                size: { id: sizes[0]?.id },
               },
             },
           },
@@ -177,11 +184,10 @@ describe('bagMiddleware()', () => {
           coupon,
           discount,
           from,
-          oldQuantity,
           position,
-          productId: mockBagProductId,
+          productId: bagMockData.mockProductId,
           quantity,
-          size: sizes[0].id,
+          size: sizes[0]?.id,
           value,
         },
       });
@@ -189,20 +195,19 @@ describe('bagMiddleware()', () => {
       expect(trackSpy).toBeCalledWith(eventTypes.PRODUCT_ADDED_TO_CART, {
         affiliation,
         brand: brandName,
-        cartId: mockBagId,
+        cartId: bagMockData.mockBagId,
         category: categoryName,
         coupon,
         currency: currencyCode,
         discountValue: discount,
         from,
-        id: mockBagProductId,
+        id: bagMockData.mockProductId,
         name: productDescription,
-        oldQuantity,
         position,
         price: priceWithDiscount,
         priceWithoutDiscount,
         quantity,
-        size: sizes[0].name,
+        size: sizes[0]?.name,
         sku,
         variant: colorName,
         value,
@@ -211,18 +216,26 @@ describe('bagMiddleware()', () => {
   });
 
   describe('Remove item from bag', () => {
-    let bagItem;
+    let bagItem: BagItemEntity;
 
     beforeEach(() => {
       const mockState = getMockState();
 
       // Test promotions with a value greater than 0
-      bagItem = merge({}, mockState.entities.bagItems[mockBagItemId]);
+      bagItem = merge(
+        {},
+        bagMockData.mockState?.entities?.bagItems?.[bagMockData.mockBagItemId],
+      ) as BagItemEntity;
       bagItem.quantity = 5;
       bagItem.promotionDetail.totalDiscountValue = 100;
-      mockState.entities.bagItems[mockBagItemId] = bagItem;
 
-      bagItem = mockState.entities.bagItems[mockBagItemId];
+      // @ts-ignore this entity is defined, so ignore possible undefined value
+      mockState.entities.bagItems[bagMockData.mockBagItemId] = bagItem;
+
+      bagItem = mockState?.entities?.bagItems?.[
+        bagMockData.mockBagItemId
+      ] as BagItemEntity;
+
       bagItem.quantity = 5;
       bagItem.promotionDetail.totalDiscountValue = 291;
 
@@ -230,40 +243,40 @@ describe('bagMiddleware()', () => {
     });
 
     it('Should intercept the action and call `analytics.track` with the correct payload', async () => {
+      const getValue = (value: number | null | undefined, defaultValue = 0) =>
+        value || defaultValue;
       const discountIncludingPromotions =
-        bagItem.price.includingTaxesWithoutDiscount -
-        bagItem.price.includingTaxes +
-        bagItem.promotionDetail.totalDiscountValue / bagItem.quantity;
+        getValue(bagItem?.price?.includingTaxesWithoutDiscount) -
+        getValue(bagItem?.price?.includingTaxes) +
+        getValue(bagItem.promotionDetail.totalDiscountValue) / bagItem.quantity;
 
       await store.dispatch({
         type: bagActionTypes.REMOVE_BAG_ITEM_SUCCESS,
         payload: {
-          result: { id: mockBagId },
+          result: { id: bagMockData.mockBagId },
         },
         meta: {
-          productId: mockBagProductId,
-          oldQuantity,
+          productId: bagMockData.mockProductId,
           quantity,
-          size: sizes[0].id,
-          bagItemId: mockBagItemId,
+          size: sizes[0]?.id,
+          bagItemId: bagMockData.mockBagItemId,
           value,
         },
       });
 
       expect(trackSpy).toBeCalledWith(eventTypes.PRODUCT_REMOVED_FROM_CART, {
         brand: brandName,
-        cartId: mockBagId,
+        cartId: bagMockData.mockBagId,
         category: categoryName,
         currency: currencyCode,
         discountValue: discountIncludingPromotions,
-        id: mockBagProductId,
+        id: bagMockData.mockProductId,
         name: productDescription,
-        oldQuantity,
         price: priceWithDiscount - discount,
         priceWithoutDiscount: priceWithoutDiscount,
         quantity,
         sku,
-        size: sizes[0].name,
+        size: sizes[0]?.name,
         value,
         variant: colorName,
       });
@@ -275,40 +288,39 @@ describe('bagMiddleware()', () => {
       await store.dispatch({
         type: bagActionTypes.UPDATE_BAG_ITEM_SUCCESS,
         payload: {
-          result: { id: mockBagId },
+          result: { id: bagMockData.mockBagId },
           entities: {
             bagItems: {
-              [mockBagItemId]: {
-                id: mockBagItemId,
-                product: mockBagProductId,
-                size: { id: sizes[0].id },
+              [bagMockData.mockBagItemAlternativeId]: {
+                id: bagMockData.mockBagItemAlternativeId,
+                product: bagMockData.mockProductAlternativeId,
+                size: { id: sizes[0]?.id },
               },
             },
           },
-          bagItemId: mockBagItemId,
+          bagItemId: bagMockData.mockBagItemAlternativeId,
         },
         meta: {
-          productId: mockBagProductId,
-          oldQuantity: 3,
+          productId: bagMockData.mockProductAlternativeId,
           quantity: 1,
-          size: sizes[0].id,
+          size: sizes[0]?.id,
         },
       });
 
       expect(trackSpy).toBeCalledWith(eventTypes.PRODUCT_REMOVED_FROM_CART, {
         brand: brandName,
-        cartId: mockBagId,
+        cartId: bagMockData.mockBagId,
         category: categoryName,
         currency: currencyCode,
         discountValue: discount,
-        id: mockBagProductId,
+        id: bagMockData.mockProductAlternativeId,
         name: productDescription,
-        oldQuantity: 3,
         price: priceWithDiscount,
         priceWithoutDiscount,
         quantity: 2,
         sku,
-        size: sizes[0].name,
+        size: sizes[0]?.name,
+        oldSize: sizes[0]?.name,
         variant: colorName,
       });
     });
@@ -317,98 +329,101 @@ describe('bagMiddleware()', () => {
       await store.dispatch({
         type: bagActionTypes.UPDATE_BAG_ITEM_SUCCESS,
         payload: {
-          result: { id: mockBagId },
+          result: { id: bagMockData.mockBagId },
           entities: {
             bagItems: {
-              [mockBagItemId]: {
-                id: mockBagItemId,
-                product: mockBagProductId,
-                size: { id: sizes[0].id },
+              [bagMockData.mockBagItemId]: {
+                id: bagMockData.mockBagItemId,
+                product: bagMockData.mockProductId,
+                size: { id: sizes[0]?.id },
               },
             },
           },
-          bagItemId: mockBagItemId,
+          bagItemId: bagMockData.mockBagItemId,
         },
         meta: {
-          productId: mockBagProductId,
-          oldQuantity: 3,
+          productId: bagMockData.mockProductId,
           quantity: 6,
-          size: sizes[0].id,
+          size: sizes[0]?.id,
         },
       });
 
       expect(trackSpy).toBeCalledWith(eventTypes.PRODUCT_ADDED_TO_CART, {
         brand: brandName,
-        cartId: mockBagId,
+        cartId: bagMockData.mockBagId,
         category: categoryName,
         currency: currencyCode,
         discountValue: discount,
-        id: mockBagProductId,
+        id: bagMockData.mockProductId,
+        name: productDescription,
+        price: priceWithDiscount,
+        priceWithoutDiscount,
+        quantity: 3,
+        sku,
+        size: sizes[0]?.name,
+        oldSize: sizes[0]?.name,
+        variant: colorName,
+      });
+    });
+
+    it('Should track a remove and an add event if the product sizes changed', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const bagMiddleware = require('../bag').default;
+
+      const simplifiedStore = mockSimplifiedStore(bagMockData.mockState, [
+        bagMiddleware(analytics),
+      ]);
+
+      await simplifiedStore.dispatch({
+        type: bagActionTypes.UPDATE_BAG_ITEM_SUCCESS,
+        payload: {
+          result: { id: bagMockData.mockBagId },
+          entities: {
+            bagItems: {
+              [bagMockData.mockBagItem().id]: bagMockData
+                .mockBagItem()
+                .getItem({ size: bagMockData.mockSizes[1] }),
+            },
+          },
+          bagItemId: bagMockData.mockBagItemId,
+        },
+        meta: {
+          bagItemId: bagMockData.mockBagItemId,
+          productId: bagMockData.mockProductId,
+          quantity: 3,
+          size: sizes[1]?.id,
+        },
+      });
+
+      const baseData = {
+        brand: brandName,
+        cartId: bagMockData.mockBagId,
+        category: categoryName,
+        currency: currencyCode,
+        discountValue: discount,
+        id: bagMockData.mockProductId,
         name: productDescription,
         oldQuantity: 3,
         price: priceWithDiscount,
         priceWithoutDiscount,
         quantity: 3,
         sku,
-        size: sizes[0].name,
+        size: sizes[1]?.name,
         variant: colorName,
-      });
-    });
-
-    it('Should track a remove and an add event if the product sizes changed', async () => {
-      await store.dispatch({
-        type: bagActionTypes.UPDATE_BAG_ITEM_SUCCESS,
-        payload: {
-          result: { id: mockBagId },
-          entities: {
-            bagItems: {
-              [mockBagItemId]: {
-                id: mockBagItemId,
-                product: mockBagProductId,
-                size: { id: sizes[0].id },
-              },
-            },
-          },
-          bagItemId: mockBagItemId,
-        },
-        meta: {
-          productId: mockBagProductId,
-          oldQuantity: 1,
-          quantity: 3,
-          size: sizes[0].id,
-          oldSize: sizes[1],
-        },
-      });
-
-      const baseData = {
-        brand: brandName,
-        cartId: mockBagId,
-        category: categoryName,
-        currency: currencyCode,
-        discountValue: discount,
-        id: mockBagProductId,
-        name: productDescription,
-        oldQuantity: 1,
-        price: priceWithDiscount,
-        priceWithoutDiscount,
-        quantity: 3,
-        sku,
-        size: sizes[0].name,
-        variant: colorName,
-        oldSize: sizes[1].name,
+        oldSize: sizes[0]?.name,
       };
 
       expect(trackSpy).nthCalledWith(1, eventTypes.PRODUCT_UPDATED, baseData);
 
       expect(trackSpy).nthCalledWith(2, eventTypes.PRODUCT_REMOVED_FROM_CART, {
         ...baseData,
-        quantity: 1,
-        size: sizes[1].name,
+        quantity: 3,
+        size: sizes[0]?.name,
       });
 
       expect(trackSpy).nthCalledWith(3, eventTypes.PRODUCT_ADDED_TO_CART, {
         ...baseData,
-        oldQuantity: 0,
+        oldQuantity: undefined,
       });
     });
   });
@@ -431,11 +446,10 @@ describe('bagMiddleware()', () => {
       await store.dispatch({
         type: myActionTypeAddToBag,
         payload: {
-          result: { id: mockBagId },
+          result: { id: bagMockData.mockBagId },
         },
         meta: {
-          productId: mockBagProductId,
-          oldQuantity,
+          productId: bagMockData.mockProductId,
           quantity,
         },
       });
@@ -444,32 +458,36 @@ describe('bagMiddleware()', () => {
     });
 
     it('should handle a custom action type for update bag action', async () => {
+      const newQuantity = 1;
       await store.dispatch({
         type: myActionTypeUpdateBag,
         payload: {
-          result: { id: mockBagId },
+          result: { id: bagMockData.mockBagId },
+          entities: {
+            bagItems: bagMockData.mockState?.entities?.bagItems,
+          },
         },
         meta: {
-          productId: mockBagProductId,
-          oldQuantity,
-          quantity,
-          size: sizes[0].id,
+          productId: bagMockData.mockProductId,
+          quantity: newQuantity,
+          size: sizes[0]?.id,
         },
       });
 
       const expectedData = {
         brand: brandName,
-        cartId: mockBagId,
+        cartId: bagMockData.mockBagId,
         category: categoryName,
         currency: currencyCode,
         discountValue: 0,
-        id: mockBagProductId,
+        id: bagMockData.mockProductId,
         name: productDescription,
-        price: productData.price.includingTaxes,
-        priceWithoutDiscount: productData.price.includingTaxesWithoutDiscount,
+        price: productData?.price?.includingTaxes,
+        priceWithoutDiscount: productData?.price?.includingTaxesWithoutDiscount,
         oldQuantity,
-        quantity,
-        size: sizes[0].name,
+        quantity: 1,
+        size: sizes[0]?.name,
+        oldSize: sizes[0]?.name,
         sku,
         variant: colorName,
       };
@@ -478,9 +496,14 @@ describe('bagMiddleware()', () => {
       expect(trackSpy).toBeCalledWith(eventTypes.PRODUCT_UPDATED, expectedData);
 
       // expect trigger analytics product removed event
+      const expectedRemovedFromCartData = {
+        ...expectedData,
+        oldQuantity: undefined,
+        quantity: 2,
+      };
       expect(trackSpy).toBeCalledWith(
         eventTypes.PRODUCT_REMOVED_FROM_CART,
-        expectedData,
+        expectedRemovedFromCartData,
       );
     });
 
@@ -488,11 +511,10 @@ describe('bagMiddleware()', () => {
       await store.dispatch({
         type: myActionTypeRemoveFromBag,
         payload: {
-          result: { id: mockBagId },
+          result: { id: bagMockData.mockBagId },
         },
         meta: {
-          productId: mockBagProductId,
-          oldQuantity,
+          productId: bagMockData.mockProductId,
           quantity,
         },
       });
