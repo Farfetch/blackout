@@ -207,3 +207,33 @@ export const DELETE_USER_ATTRIBUTE_REQUEST =
 /** Action type dispatched when the delete user attribute request succeeds. */
 export const DELETE_USER_ATTRIBUTE_SUCCESS =
   '@farfetch/blackout-core/DELETE_USER_ATTRIBUTE_SUCCESS';
+
+/** Action type dispatched when the post phone number validations request fails. */
+export const POST_PHONE_NUMBER_VALIDATIONS_FAILURE =
+  '@farfetch/blackout-core/POST_PHONE_NUMBER_VALIDATIONS_FAILURE';
+/** Action type dispatched when the post phone number validations request starts. */
+export const POST_PHONE_NUMBER_VALIDATIONS_REQUEST =
+  '@farfetch/blackout-core/POST_PHONE_NUMBER_VALIDATIONS_REQUEST';
+/** Action type dispatched when the post phone number validations request succeeds. */
+export const POST_PHONE_NUMBER_VALIDATIONS_SUCCESS =
+  '@farfetch/blackout-core/POST_PHONE_NUMBER_VALIDATIONS_SUCCESS';
+
+/** Action type dispatched when the post phone token request fails. */
+export const POST_PHONE_TOKEN_FAILURE =
+  '@farfetch/blackout-core/POST_PHONE_TOKEN_FAILURE';
+/** Action type dispatched when the post phone token request starts. */
+export const POST_PHONE_TOKEN_REQUEST =
+  '@farfetch/blackout-core/POST_PHONE_TOKEN_REQUEST';
+/** Action type dispatched when the post phone token request succeeds. */
+export const POST_PHONE_TOKEN_SUCCESS =
+  '@farfetch/blackout-core/POST_PHONE_TOKEN_SUCCESS';
+
+/** Action type dispatched when the post phone token validations request fails. */
+export const POST_PHONE_TOKEN_VALIDATIONS_FAILURE =
+  '@farfetch/blackout-core/POST_PHONE_TOKEN_VALIDATIONS_FAILURE';
+/** Action type dispatched when the post phone token validations request starts. */
+export const POST_PHONE_TOKEN_VALIDATIONS_REQUEST =
+  '@farfetch/blackout-core/POST_PHONE_TOKEN_VALIDATIONS_REQUEST';
+/** Action type dispatched when the post phone token validations request succeeds. */
+export const POST_PHONE_TOKEN_VALIDATIONS_SUCCESS =
+  '@farfetch/blackout-core/POST_PHONE_TOKEN_VALIDATIONS_SUCCESS';

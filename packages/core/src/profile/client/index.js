@@ -27,3 +27,6 @@ export { default as getUserAttribute } from './getUserAttribute';
 export { default as putUserAttribute } from './putUserAttribute';
 export { default as patchUserAttribute } from './patchUserAttribute';
 export { default as deleteUserAttribute } from './deleteUserAttribute';
+export { default as postPhoneNumberValidations } from './postPhoneNumberValidations';
+export { default as postPhoneTokens } from './postPhoneTokens';
+export { default as postPhoneTokenValidations } from './postPhoneTokenValidations';
