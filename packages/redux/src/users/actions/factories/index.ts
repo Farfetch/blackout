@@ -19,3 +19,6 @@ export { default as fetchUserAttributeFactory } from './fetchUserAttributeFactor
 export { default as setUserAttributeFactory } from './setUserAttributeFactory';
 export { default as updateUserAttributeFactory } from './updateUserAttributeFactory';
 export { default as removeUserAttributeFactory } from './removeUserAttributeFactory';
+export { default as createPhoneTokensFactory } from './createPhoneTokensFactory';
+export { default as createPhoneTokenValidationsFactory } from './createPhoneTokenValidationsFactory';
+export { default as createPhoneNumberValidationsFactory } from './createPhoneNumberValidationsFactory';

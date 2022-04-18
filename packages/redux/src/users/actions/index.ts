@@ -27,3 +27,6 @@ export { default as fetchUserAttribute } from './fetchUserAttribute';
 export { default as setUserAttribute } from './setUserAttribute';
 export { default as updateUserAttribute } from './updateUserAttribute';
 export { default as removeUserAttribute } from './removeUserAttribute';
+export { default as createPhoneTokens } from './createPhoneTokens';
+export { default as createPhoneTokenValidations } from './createPhoneTokenValidations';
+export { default as createPhoneNumberValidations } from './createPhoneNumberValidations';

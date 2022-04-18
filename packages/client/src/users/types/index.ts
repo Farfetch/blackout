@@ -26,3 +26,6 @@ export * from './getBenefits.types';
 export * from './getCredit.types';
 export * from './getCreditMovements.types';
 export * from './getUser.types';
+export * from './postPhoneTokens.types';
+export * from './postPhoneNumberValidations.types';
+export * from './postPhoneTokenValidations.types';
