@@ -213,3 +213,33 @@ export const REMOVE_USER_ATTRIBUTE_REQUEST =
 /** Action type dispatched when the remove user attribute request succeeds. */
 export const REMOVE_USER_ATTRIBUTE_SUCCESS =
   '@farfetch/blackout-client/REMOVE_USER_ATTRIBUTE_SUCCESS';
+
+/** Action type dispatched when the post phone number validations request fails. */
+export const CREATE_PHONE_NUMBER_VALIDATIONS_FAILURE =
+  '@farfetch/blackout-client/CREATE_PHONE_NUMBER_VALIDATIONS_FAILURE';
+/** Action type dispatched when the post phone number validations request starts. */
+export const CREATE_PHONE_NUMBER_VALIDATIONS_REQUEST =
+  '@farfetch/blackout-client/CREATE_PHONE_NUMBER_VALIDATIONS_REQUEST';
+/** Action type dispatched when the post phone number validations request succeeds. */
+export const CREATE_PHONE_NUMBER_VALIDATIONS_SUCCESS =
+  '@farfetch/blackout-client/CREATE_PHONE_NUMBER_VALIDATIONS_SUCCESS';
+
+/** Action type dispatched when the post phone token request fails. */
+export const CREATE_PHONE_TOKEN_FAILURE =
+  '@farfetch/blackout-client/CREATE_PHONE_TOKEN_FAILURE';
+/** Action type dispatched when the post phone token request starts. */
+export const CREATE_PHONE_TOKEN_REQUEST =
+  '@farfetch/blackout-client/CREATE_PHONE_TOKEN_REQUEST';
+/** Action type dispatched when the post phone token request succeeds. */
+export const CREATE_PHONE_TOKEN_SUCCESS =
+  '@farfetch/blackout-client/CREATE_PHONE_TOKEN_SUCCESS';
+
+/** Action type dispatched when the post phone token validations request fails. */
+export const CREATE_PHONE_TOKEN_VALIDATIONS_FAILURE =
+  '@farfetch/blackout-client/CREATE_PHONE_TOKEN_VALIDATIONS_FAILURE';
+/** Action type dispatched when the post phone token validations request starts. */
+export const CREATE_PHONE_TOKEN_VALIDATIONS_REQUEST =
+  '@farfetch/blackout-client/CREATE_PHONE_TOKEN_VALIDATIONS_REQUEST';
+/** Action type dispatched when the post phone token validations request succeeds. */
+export const CREATE_PHONE_TOKEN_VALIDATIONS_SUCCESS =
+  '@farfetch/blackout-client/CREATE_PHONE_TOKEN_VALIDATIONS_SUCCESS';
