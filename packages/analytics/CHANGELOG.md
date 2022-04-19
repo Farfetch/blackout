@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.0...@farfetch/blackout-analytics@1.0.0-next.1) (2022-04-19)
+
+
+### Features
+
+* **blackout-analytics:** update Omnitracking contract to v1.13 ([d4c1ecb](https://github.com/Farfetch/blackout/commit/d4c1ecb3b382faa00bc187776799524677d32cae))
+
+
+
+
+
 # [1.0.0-next.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@0.1.0-next.17...@farfetch/blackout-analytics@1.0.0-next.0) (2022-04-11)
 
 
