@@ -128,6 +128,58 @@ export type UpdateReturnAction =
   | UpdateReturnSuccessAction
   | UpdateReturnFailureAction;
 
+export interface FetchPickupRescheduleRequestsRequestAction extends Action {
+  type: typeof actionTypes.FETCH_PICKUP_RESCHEDULE_REQUESTS_REQUEST;
+}
+export interface FetchPickupRescheduleRequestsSuccessAction extends Action {
+  type: typeof actionTypes.FETCH_PICKUP_RESCHEDULE_REQUESTS_SUCCESS;
+}
+export interface FetchPickupRescheduleRequestsFailureAction extends Action {
+  type: typeof actionTypes.FETCH_PICKUP_RESCHEDULE_REQUESTS_FAILURE;
+  payload: { error: Error };
+}
+
+/** Actions dispatched when the fetch pickup reschedule requests is made. */
+export type FetchPickupRescheduleRequestsAction =
+  | FetchPickupRescheduleRequestsRequestAction
+  | FetchPickupRescheduleRequestsSuccessAction
+  | FetchPickupRescheduleRequestsFailureAction;
+
+export interface FetchPickupRescheduleRequestRequestAction extends Action {
+  type: typeof actionTypes.FETCH_PICKUP_RESCHEDULE_REQUEST_REQUEST;
+}
+export interface FetchPickupRescheduleRequestSuccessAction extends Action {
+  type: typeof actionTypes.FETCH_PICKUP_RESCHEDULE_REQUEST_SUCCESS;
+}
+export interface FetchPickupRescheduleRequestFailureAction extends Action {
+  type: typeof actionTypes.FETCH_PICKUP_RESCHEDULE_REQUEST_FAILURE;
+  payload: { error: Error };
+}
+
+/** Actions dispatched when the fetch pickup reschedule request is made. */
+export type FetchPickupRescheduleRequestAction =
+  | FetchPickupRescheduleRequestRequestAction
+  | FetchPickupRescheduleRequestSuccessAction
+  | FetchPickupRescheduleRequestFailureAction;
+
+export interface CreatePickupRescheduleRequestRequestAction extends Action {
+  type: typeof actionTypes.CREATE_PICKUP_RESCHEDULE_REQUEST_REQUEST;
+}
+export interface CreatePickupRescheduleRequestSuccessAction extends Action {
+  type: typeof actionTypes.CREATE_PICKUP_RESCHEDULE_REQUEST_SUCCESS;
+  payload: Payload;
+}
+export interface CreatePickupRescheduleRequestFailureAction extends Action {
+  type: typeof actionTypes.CREATE_PICKUP_RESCHEDULE_REQUEST_FAILURE;
+  payload: { error: Error };
+}
+
+/** Actions dispatched when the create pickup reschedule request is made. */
+export type CreatePickupRescheduleRequestAction =
+  | CreatePickupRescheduleRequestRequestAction
+  | CreatePickupRescheduleRequestSuccessAction
+  | CreatePickupRescheduleRequestFailureAction;
+
 /** Actions dispatched when the reset return request is made. */
 export interface ResetReturnAction extends Action {
   type: typeof actionTypes.RESET_RETURN;

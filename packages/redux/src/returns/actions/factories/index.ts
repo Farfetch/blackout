@@ -1,9 +1,5 @@
 /**
  * Returns actions factories.
- *
- * @module returns/actions/factories
- * @category Returns
- * @subcategory Actions
  */
 
 export { default as fetchReturnFactory } from './fetchReturnFactory';
@@ -12,3 +8,6 @@ export { default as fetchPickupCapabilitiesFactory } from './fetchPickupCapabili
 export { default as fetchReferencesFactory } from './fetchReferencesFactory';
 export { default as fetchReturnsFromOrderFactory } from './fetchReturnsFromOrderFactory';
 export { default as updateReturnFactory } from './updateReturnFactory';
+export { default as fetchPickupRescheduleRequestsFactory } from './fetchPickupRescheduleRequestsFactory';
+export { default as fetchPickupRescheduleRequestFactory } from './fetchPickupRescheduleRequestFactory';
+export { default as createPickupRescheduleRequestFactory } from './createPickupRescheduleRequestFactory';
