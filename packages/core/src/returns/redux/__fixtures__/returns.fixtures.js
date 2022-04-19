@@ -380,6 +380,19 @@ export const responses = {
         'https://api.blackout.com/pt/account/return/summary/?id=5926969',
     },
   },
+  postRescheduleRequests: {
+    success: 202,
+  },
+  getPickupRescheduleRequest: {
+    success: {
+      id: 'string',
+      timeWindow: {
+        start: '2022-05-05T10:25:35.611Z',
+        end: '2022-05-05T10:25:35.611Z',
+      },
+      status: 'InProgress',
+    },
+  },
 };
 
 export const orderId = responses.get.success.orderId;
