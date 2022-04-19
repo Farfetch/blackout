@@ -8,3 +8,7 @@ export * from './getReturnsFromOrder.types';
 export * from './patchReturn.types';
 export * from './postReturn.types';
 export * from './returnItem.types';
+export * from './getPickupRescheduleRequests.types';
+export * from './getPickupRescheduleRequest.types';
+export * from './postPickupRescheduleRequests.types';
+export * from './pickupRescheduleRequests.types';
