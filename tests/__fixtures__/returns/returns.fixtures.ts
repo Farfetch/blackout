@@ -1,4 +1,10 @@
 // @ts-nocheck
+enum RescheduleStatus {
+  InProgress,
+  Succeeded,
+  Failed,
+}
+
 export const responses = {
   post: {
     success: {
@@ -154,6 +160,31 @@ export const responses = {
         'https://www.test.com/pt/account/return/summary/?id=5926969',
     },
   },
+  getPickupRescheduleRequests: {
+    success: [
+      {
+        id: 'string',
+        timeWindow: {
+          start: '2022-05-06T09:45:32.623Z',
+          end: '2022-05-06T09:45:32.623Z',
+        },
+        status: RescheduleStatus.InProgress,
+      },
+    ],
+  },
+  getPickupRescheduleRequest: {
+    success: {
+      id: 'string',
+      timeWindow: {
+        start: '2022-05-06T09:40:01.115Z',
+        end: '2022-05-06T09:40:01.115Z',
+      },
+      status: RescheduleStatus.InProgress,
+    },
+  },
+  postPickupRescheduleRequests: {
+    success: 202,
+  },
 };
 
 export const orderId = responses.get.success.orderId;
@@ -298,4 +329,13 @@ export const mockPickupCapabilitiesResponse = {
       end: '2022-01-07T10:59:03.9169641Z',
     },
   ],
+};
+
+export const mockPickupReschedulePostData = {
+  id: '',
+  timeWindow: {
+    start: '',
+    end: '',
+  },
+  status: RescheduleStatus.InProgress,
 };
