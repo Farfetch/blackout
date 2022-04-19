@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.55.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.54.0...@farfetch/blackout-core@1.55.0) (2022-04-19)
+
+
+### Features
+
+* **core:** add phone token validation endpoints ([47bdf44](https://github.com/Farfetch/blackout/commit/47bdf448c38b2efa84bde6a79e2d47f831af13c3))
+
+
+
+
+
 # [1.54.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.53.3...@farfetch/blackout-core@1.54.0) (2022-04-13)
 
 
