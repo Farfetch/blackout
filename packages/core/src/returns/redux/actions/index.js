@@ -13,3 +13,6 @@ export { default as doGetReturn } from './doGetReturn';
 export { default as doGetReturnsFromOrder } from './doGetReturnsFromOrder';
 export { default as doResetReturn } from './doResetReturn';
 export { default as doUpdateReturn } from './doUpdateReturn';
+export { default as doGetPickupRescheduleRequest } from './doGetPickupRescheduleRequest';
+export { default as doGetPickupRescheduleRequests } from './doGetPickupRescheduleRequests';
+export { default as doPostPickupRescheduleRequests } from './doPostPickupRescheduleRequests';

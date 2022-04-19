@@ -63,3 +63,33 @@ export const UPDATE_RETURN_REQUEST =
 /** Action type dispatched when the update return request succeeds. */
 export const UPDATE_RETURN_SUCCESS =
   '@farfetch/blackout-core/UPDATE_RETURN_SUCCESS';
+
+/** Action type dispatched when the get pickup reschedule requests request fails. */
+export const GET_PICKUP_RESCHEDULE_REQUESTS_FAILURE =
+  '@farfetch/blackout-core/GET_PICKUP_RESCHEDULE_REQUESTS_FAILURE';
+/** Action type dispatched when the get pickup reschedule requests request starts. */
+export const GET_PICKUP_RESCHEDULE_REQUESTS_REQUEST =
+  '@farfetch/blackout-core/GET_PICKUP_RESCHEDULE_REQUESTS_REQUEST';
+/** Action type dispatched when the get pickup reschedule requests request succeeds. */
+export const GET_PICKUP_RESCHEDULE_REQUESTS_SUCCESS =
+  '@farfetch/blackout-core/GET_PICKUP_RESCHEDULE_REQUESTS_SUCCESS';
+
+/** Action type dispatched when the get pickup reschedule request request fails. */
+export const GET_PICKUP_RESCHEDULE_REQUEST_FAILURE =
+  '@farfetch/blackout-core/GET_PICKUP_RESCHEDULE_REQUEST_FAILURE';
+/** Action type dispatched when the get pickup reschedule request request starts. */
+export const GET_PICKUP_RESCHEDULE_REQUEST_REQUEST =
+  '@farfetch/blackout-core/GET_PICKUP_RESCHEDULE_REQUEST_REQUEST';
+/** Action type dispatched when the get pickup reschedule request request succeeds. */
+export const GET_PICKUP_RESCHEDULE_REQUEST_SUCCESS =
+  '@farfetch/blackout-core/GET_PICKUP_RESCHEDULE_REQUEST_SUCCESS';
+
+/** Action type dispatched when the post pickup reschedule requests request fails. */
+export const POST_PICKUP_RESCHEDULE_REQUESTS_FAILURE =
+  '@farfetch/blackout-core/POST_PICKUP_RESCHEDULE_REQUESTS_FAILURE';
+/** Action type dispatched when the post pickup reschedule requests request starts. */
+export const POST_PICKUP_RESCHEDULE_REQUESTS_REQUEST =
+  '@farfetch/blackout-core/POST_PICKUP_RESCHEDULE_REQUESTS_REQUEST';
+/** Action type dispatched when the post pickup reschedule requests request succeeds. */
+export const POST_PICKUP_RESCHEDULE_REQUESTS_SUCCESS =
+  '@farfetch/blackout-core/POST_PICKUP_RESCHEDULE_REQUESTS_SUCCESS';
