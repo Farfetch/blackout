@@ -18,7 +18,7 @@ import type {
   BagActionProcessedOptions,
   BagProductActionMetadata,
 } from './types';
-import type { BagItemEntity } from '@farfetch/blackout-redux/entities/types';
+import type { BagItemEntity } from '../../entities/types';
 import type { StoreState } from '../../types';
 
 /**

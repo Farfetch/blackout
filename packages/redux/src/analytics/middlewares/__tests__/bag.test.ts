@@ -7,11 +7,9 @@ import { mockStore } from '../../../../tests';
 import Analytics, { eventTypes } from '@farfetch/blackout-analytics';
 import bagMiddleware from '../bag';
 import merge from 'lodash/merge';
-import type {
-  BagItemEntity,
-  ProductEntity,
-} from '@farfetch/blackout-redux/entities/types';
-import type { StoreState } from '@farfetch/blackout-redux/types';
+import type { BagItemEntity, ProductEntity } from '../../../entities/types';
+import type { PriceAdapted } from '@farfetch/blackout-client/helpers/adapters/types';
+import type { StoreState } from '../../../types';
 
 // Mock logger so it does not output to the console
 jest.mock('@farfetch/blackout-analytics/utils', () => ({
@@ -41,7 +39,7 @@ const { price, quantity } = bagItem;
 const {
   includingTaxes: priceWithDiscount,
   includingTaxesWithoutDiscount: priceWithoutDiscount,
-} = price as { includingTaxes: number; includingTaxesWithoutDiscount: number };
+} = price as NonNullable<PriceAdapted>;
 
 const affiliation = 'random';
 const brandName = getBrand(

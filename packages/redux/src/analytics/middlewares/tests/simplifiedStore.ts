@@ -1,5 +1,5 @@
 import { AnyAction, combineReducers, Middleware, MiddlewareAPI } from 'redux';
-import type { StoreState } from '@farfetch/blackout-redux/types';
+import type { StoreState } from '../../../types';
 
 // This is a simplified version of our createEntitiesReducer()
 // This version was used instead, because createEntitiesReducer

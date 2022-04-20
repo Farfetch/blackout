@@ -18,17 +18,28 @@ import Analytics, {
 } from '@farfetch/blackout-analytics';
 import get from 'lodash/get';
 import isNil from 'lodash/isNil';
+import type { AnyAction, Dispatch, Middleware } from 'redux';
+import type { StoreState } from '../../types';
+import type {
+  WishlistActionMiddlewareOptions,
+  WishlistActionProcessedOptions,
+  WishlistProductUpdateSetActionMetadata,
+} from './types';
+import type {
+  WishlistItemEntity,
+  WishlistItemHydrated,
+} from '../../entities/types';
 
 /**
  * Extends the default action types with the ones passed to the middleware.
  *
- * @private
+ * @param customActionTypes - Action types to extend/replace the ones from @farfetch/blackout-redux/wishlists.
  *
- * @param {object} customActionTypes - Action types to extend/replace the ones from @farfetch/blackout-redux/wishlists.
- *
- * @returns {object} The final map for bag actions.
+ * @returns The final map for wishlist actions.
  */
-const getActionTypes = customActionTypes => ({
+const getActionTypes = (
+  customActionTypes?: WishlistActionMiddlewareOptions,
+): WishlistActionProcessedOptions => ({
   ADD_WISHLIST_ITEM_SUCCESS: wishlistActionTypes.ADD_WISHLIST_ITEM_SUCCESS,
   REMOVE_WISHLIST_ITEM_SUCCESS:
     wishlistActionTypes.REMOVE_WISHLIST_ITEM_SUCCESS,
@@ -42,14 +53,12 @@ const getActionTypes = customActionTypes => ({
  * Gets wishlist item id that corresponds to the product
  * specified in the action.
  *
- * @private
+ * @param action - The action being executed.
+ * @param searchMeta - Flag indicating if the search for the wishlist item id should look on the action.meta property. This value will be false when there is an update action because the id on the action.meta is not the id of the wishlist item after the update, as it will be changed by the server.
  *
- * @param {object} action - The action being executed.
- * @param {boolean} searchMeta - Flag indicating if the search for the wishlist item id should look on the action.meta property. This value will be false when there is an update action because the id on the action.meta is not the id of the wishlist item after the update, as it will be changed by the server.
- *
- * @returns {(number|undefined)} The wishlist item id for the product if available or undefined.
+ * @returns The wishlist item id for the product if available or undefined.
  */
-const getWishlistItemIdFromAction = (action, searchMeta = true) => {
+const getWishlistItemIdFromAction = (action: AnyAction, searchMeta = true) => {
   if (searchMeta) {
     const wishlistItemIdInMeta = get(action, 'meta.wishlistItemId');
 
@@ -58,7 +67,10 @@ const getWishlistItemIdFromAction = (action, searchMeta = true) => {
     }
   }
 
-  const wishlistItems = get(action, 'payload.entities.wishlistItems');
+  const wishlistItems = get(action, 'payload.entities.wishlistItems') as Record<
+    WishlistItemEntity['id'],
+    WishlistItemEntity
+  >;
   const productIdMeta = get(action, 'meta.productId');
   const merchantIdMeta = get(action, 'meta.merchantId');
   const sizeIdMeta = get(action, 'meta.size');
@@ -86,14 +98,15 @@ const getWishlistItemIdFromAction = (action, searchMeta = true) => {
 /**
  * Builds an object with all wishlist events data needed for tracking.
  *
- * @private
+ * @param action - The action being executed.
+ * @param wishlistItem - The wishlist item entity.
  *
- * @param {object} action - The action being executed.
- * @param {object} wishlistItem - The wishlist item entity.
- *
- * @returns {object} Event data for analytics.
+ * @returns Event data for analytics.
  */
-const getWishlistData = (action, wishlistItem) => {
+const getWishlistData = (
+  action: AnyAction,
+  wishlistItem: WishlistItemHydrated | undefined,
+) => {
   return {
     affiliation: get(action, 'meta.affiliation'),
     coupon: get(action, 'meta.coupon'),
@@ -109,14 +122,17 @@ const getWishlistData = (action, wishlistItem) => {
 /**
  * Builds an object with all product data needed for tracking.
  *
- * @private
- * @param {Analytics} analyticsInstance - Analytics instance.
- * @param {object} state - Application state.
- * @param {object} wishlistItem - The wishlist action object.
+ * @param analyticsInstance - Analytics instance.
+ * @param state - Application state.
+ * @param wishlistItem - The wishlist action object.
  *
- * @returns {object} Product data for analytics.
+ * @returns Product data for analytics.
  */
-const getProductData = async (analyticsInstance, state, wishlistItem) => {
+const getProductData = async (
+  analyticsInstance: Analytics,
+  state: StoreState,
+  wishlistItem: WishlistItemHydrated | undefined,
+) => {
   const product = get(wishlistItem, 'product');
   const priceWithDiscount = get(wishlistItem, 'price.includingTaxes');
   const quantity = get(wishlistItem, 'quantity');
@@ -147,17 +163,17 @@ const getProductData = async (analyticsInstance, state, wishlistItem) => {
 };
 
 /**
- * Middleware for @farfetch/blackout-redux/wishlists actions, to call `analyticsInstance.track()` with the correct payload.
+ * Middleware for \@farfetch/blackout-redux/wishlists actions, to call `analyticsInstance.track()` with the correct payload.
  *
- * @function wishlistMiddleware
- * @memberof module:analytics/middlewares
+ * @param analyticsInstance - Analytics instance.
+ * @param customActionTypes - Action types to extend/replace the ones from @farfetch/blackout-redux/wishlists.
  *
- * @param {Analytics} analyticsInstance - Analytics instance.
- * @param {object} customActionTypes - Action types to extend/replace the ones from @farfetch/blackout-redux/wishlists.
- *
- * @returns {Function} Redux middleware.
+ * @returns Redux middleware.
  */
-export default (analyticsInstance, customActionTypes) => {
+const wishlistMiddleware = (
+  analyticsInstance: Analytics,
+  customActionTypes?: WishlistActionMiddlewareOptions,
+): Middleware => {
   if (!analyticsInstance || !(analyticsInstance instanceof Analytics)) {
     logger.error(
       'Wishlist middleware did not receive the analytics instance. Please make sure a valid analytics instance is being passed via "wishlistMiddleware(analytics, customActionTypes)")',
@@ -166,8 +182,8 @@ export default (analyticsInstance, customActionTypes) => {
 
   const actionTypes = getActionTypes(customActionTypes);
 
-  return store => next => async action => {
-    let state;
+  return store => (next: Dispatch) => async (action: AnyAction) => {
+    let state: StoreState;
 
     switch (action.type) {
       case actionTypes.ADD_WISHLIST_ITEM_SUCCESS: {
@@ -253,11 +269,13 @@ export default (analyticsInstance, customActionTypes) => {
           wishlistId,
         };
 
+        // Track analytics Product Updated Event (from Wishlist)
         analyticsInstance.track(eventTypes.PRODUCT_UPDATED, {
           ...analyticsData,
           from: fromParameterTypes.WISHLIST,
         });
 
+        // Track analytics Wishlist Product Updated Event
         analyticsInstance.track(
           eventTypes.PRODUCT_UPDATED_WISHLIST,
           analyticsData,
@@ -270,11 +288,14 @@ export default (analyticsInstance, customActionTypes) => {
         // This action is dispatched when the user removes an item
         // from a custom wishlist set.
         state = store.getState();
-        const data = get(action, 'meta.data');
-        const isDeleteOperation = get(action, 'meta.isDeleteOperation');
-        const isAddOperation = get(action, 'meta.isAddOperation');
-        const wishlistSetId = get(action, 'meta.wishlistSetId');
-        const wishlistSet = getWishlistSet(state, wishlistSetId);
+
+        const metadata = get(
+          action,
+          'meta',
+        ) as WishlistProductUpdateSetActionMetadata;
+        const { isDeleteOperation, isAddOperation, wishlistSetId } = metadata;
+        const data = metadata.data || [];
+        const wishlistSet = getWishlistSet(state, wishlistSetId as string);
         const wishlistItemId = getWishlistItemIdFromAction(action);
 
         // Here we add support for a generic approach where
@@ -324,7 +345,7 @@ export default (analyticsInstance, customActionTypes) => {
             const pathSplit = path.split('/');
 
             const wishlistItemIndex = parseFloat(
-              pathSplit[pathSplit.length - 1],
+              pathSplit[pathSplit.length - 1] as string,
             );
 
             if (isNaN(wishlistItemIndex)) {
@@ -376,7 +397,7 @@ export default (analyticsInstance, customActionTypes) => {
 
             return getWishlistItem(state, wishlistItemId);
           })
-          .filter(Boolean);
+          .filter(Boolean) as WishlistItemHydrated[];
 
         await Promise.all(
           addedItems.map(async wishlistItem => {
@@ -397,3 +418,5 @@ export default (analyticsInstance, customActionTypes) => {
     }
   };
 };
+
+export default wishlistMiddleware;

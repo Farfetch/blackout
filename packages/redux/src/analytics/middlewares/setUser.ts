@@ -1,7 +1,7 @@
 import { actionTypes as authenticationActionTypes } from '../../authentication';
 import { getUser, getUserId, USER_ID_PROPERTY } from '../../entities/selectors';
 import { logger } from '@farfetch/blackout-analytics/utils';
-import { actionTypes as usersActionTypes } from '@farfetch/blackout-redux/users';
+import { actionTypes as usersActionTypes } from '../../users';
 import Analytics, {
   eventTypes,
   UserTraits,
