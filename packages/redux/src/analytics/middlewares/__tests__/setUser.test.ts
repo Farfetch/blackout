@@ -10,7 +10,7 @@ import {
 } from '../setUser';
 import { getUser, getUserId } from '../../../entities/selectors';
 import { mockStore } from './../tests/simplifiedStore';
-import { actionTypes as usersActionTypes } from '@farfetch/blackout-redux/users';
+import { actionTypes as usersActionTypes } from '../../../users';
 import Analytics, {
   eventTypes,
   loginMethodParameterTypes,

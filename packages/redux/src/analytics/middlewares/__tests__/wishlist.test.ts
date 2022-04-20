@@ -1,31 +1,29 @@
 import { actionTypes, getWishlistItem } from '../../../wishlists';
 import { getBrand, getCategory, getProduct } from '../../../entities';
-import {
-  initialReduxState,
-  mockBrandId,
-  mockCategoryId,
-  mockStore,
-  mockWishlistId,
-  mockWishlistItemId,
-  mockWishlistProductId,
-  mockWishlistSetId,
-} from '../../../../tests';
 import { logger } from '@farfetch/blackout-analytics/utils';
+import { mockStore, mockWishlistSetId } from '../../../../tests';
 import { wishlistMiddleware } from '../../';
+import { wishlistMockData } from 'tests/__fixtures__/analytics/wishlist';
 import Analytics, {
   eventTypes,
   fromParameterTypes,
 } from '@farfetch/blackout-analytics';
 import merge from 'lodash/merge';
+import type { PriceAdapted } from '@farfetch/blackout-client/helpers/adapters/types';
+import type {
+  ProductEntity,
+  WishlistItemHydrated,
+} from '../../../entities/types';
+import type { StoreState } from '../../../types';
 
 // Mock logger so it does not output to the console
 jest.mock('@farfetch/blackout-analytics/utils', () => ({
   ...jest.requireActual('@farfetch/blackout-analytics/utils'),
   logger: {
-    warn(message) {
+    warn(message: string) {
       return message;
     },
-    error(message) {
+    error(message: string) {
       return message;
     },
   },
@@ -34,17 +32,23 @@ jest.mock('@farfetch/blackout-analytics/utils', () => ({
 const analytics = new Analytics();
 const trackSpy = jest.spyOn(analytics, 'track');
 const loggerErrorSpy = jest.spyOn(logger, 'error');
-const productData = getProduct(initialReduxState, mockWishlistProductId);
+const productData = getProduct(
+  wishlistMockData.state,
+  wishlistMockData.productId,
+) as ProductEntity;
 const { name, shortDescription } = productData;
-const wishlistItem = getWishlistItem(initialReduxState, mockWishlistItemId);
+const wishlistItem = getWishlistItem(
+  wishlistMockData.state,
+  wishlistMockData.wishListItemId,
+) as WishlistItemHydrated;
+
+const { price, quantity, size } = wishlistItem;
+
 const {
-  price: {
-    includingTaxes: priceWithDiscount,
-    includingTaxesWithoutDiscount: priceWithoutDiscount,
-  },
-  quantity,
-  size,
-} = wishlistItem;
+  includingTaxes: priceWithDiscount,
+  includingTaxesWithoutDiscount: priceWithoutDiscount,
+} = price as NonNullable<PriceAdapted>;
+
 const discount = priceWithoutDiscount - priceWithDiscount;
 const value = priceWithDiscount;
 const affiliation = 'farfetch';
@@ -53,19 +57,26 @@ const from = fromParameterTypes.RECOMMENDATIONS;
 const position = 3;
 const productDescription = shortDescription || name;
 // Color name must be the one that has a tag of 'DesignerColor'
-const colorName = productData.colors.find(color =>
+const colorName = productData?.colors?.find(color =>
   color.tags.includes('DesignerColor'),
-).color.name;
-const brandName = getBrand(initialReduxState, mockBrandId).name;
-const categoryName = getCategory(initialReduxState, mockCategoryId).name;
+)?.color.name;
+const brandName = getBrand(
+  wishlistMockData.state,
+  wishlistMockData.brandId,
+)?.name;
+const categoryName = getCategory(
+  wishlistMockData.state,
+  wishlistMockData.categoryId,
+)?.name;
 const currencyCode = 'USD';
 const listId = 'related_products';
 const list = 'Related products';
 const wishlistName = 'my_wishlist';
-const getMockState = data => merge({}, initialReduxState, data);
+const getMockState = (data: Record<string, unknown> = {}): StoreState =>
+  merge({}, wishlistMockData.state, data);
 
 describe('wishlistMiddleware()', () => {
-  let store;
+  let store: ReturnType<typeof mockStore>;
 
   beforeEach(() => {
     store = mockStore(null, getMockState(), [wishlistMiddleware(analytics)]);
@@ -78,14 +89,14 @@ describe('wishlistMiddleware()', () => {
   });
 
   it('Should log an error if not passed the analytics instance', () => {
-    // test undefined value
+    // @ts-expect-error test undefined value
     wishlistMiddleware(undefined);
 
     expect(loggerErrorSpy).toBeCalled();
 
     loggerErrorSpy.mockClear();
 
-    // test instanceof
+    // @ts-expect-error test instanceof
     wishlistMiddleware({});
 
     expect(loggerErrorSpy).toBeCalled();
@@ -98,7 +109,7 @@ describe('wishlistMiddleware()', () => {
         getMockState({
           entities: {
             products: {
-              [mockWishlistProductId]: {
+              [wishlistMockData.productId]: {
                 colors: [
                   {
                     color: {
@@ -143,22 +154,20 @@ describe('wishlistMiddleware()', () => {
           type: actionTypes.ADD_WISHLIST_ITEM_SUCCESS,
           payload: {},
           meta: {
-            productId: mockWishlistProductId,
+            productId: wishlistMockData.productId,
           },
         }),
       ).not.toThrow();
     });
 
-    it('Should log an error if the currencyCode is not set in analytics context', () => {
-      analytics.setContext({
-        currencyCode: null,
-      });
+    it('Should log an error if the currencyCode is not set in analytics context', async () => {
+      analytics.useContext(() => ({ currencyCode: null }));
 
-      store.dispatch({
+      await store.dispatch({
         type: actionTypes.ADD_WISHLIST_ITEM_SUCCESS,
         payload: {},
         meta: {
-          productId: mockWishlistProductId,
+          productId: 123,
         },
       });
 
@@ -181,7 +190,7 @@ describe('wishlistMiddleware()', () => {
         type: actionTypes.ADD_WISHLIST_ITEM_SUCCESS,
         payload: {
           entities: {
-            wishlistItems: initialReduxState.entities.wishlistItems,
+            wishlistItems: wishlistMockData.state?.entities?.wishlistItems,
           },
         },
         meta: {
@@ -191,15 +200,18 @@ describe('wishlistMiddleware()', () => {
           list,
           listId,
           merchantId:
-            initialReduxState.entities.wishlistItems[mockWishlistItemId]
-              .merchant,
+            wishlistMockData.state?.entities?.wishlistItems?.[
+              wishlistMockData.wishListItemId
+            ]?.merchant,
           position,
-          productId: mockWishlistProductId,
-          size: initialReduxState.entities.wishlistItems[mockWishlistItemId]
-            .size.id,
+          productId: wishlistMockData.productId,
+          size: wishlistMockData.state?.entities?.wishlistItems?.[
+            wishlistMockData.wishListItemId
+          ]?.size.id,
           scale:
-            initialReduxState.entities.wishlistItems[mockWishlistItemId].size
-              .scale,
+            wishlistMockData.state?.entities?.wishlistItems?.[
+              wishlistMockData.wishListItemId
+            ]?.size.scale,
           value,
         },
       });
@@ -212,10 +224,10 @@ describe('wishlistMiddleware()', () => {
         currency: currencyCode,
         discountValue: discount,
         from,
-        id: mockWishlistProductId,
+        id: wishlistMockData.productId,
         list,
         listId,
-        name: productDescription.trim(),
+        name: productDescription?.trim(),
         position,
         price: priceWithDiscount,
         priceWithoutDiscount,
@@ -223,7 +235,7 @@ describe('wishlistMiddleware()', () => {
         size: size.name,
         value,
         variant: colorName,
-        wishlistId: mockWishlistId,
+        wishlistId: wishlistMockData.wishlistId,
       });
     });
   });
@@ -248,8 +260,8 @@ describe('wishlistMiddleware()', () => {
           list,
           listId,
           position,
-          productId: mockWishlistProductId,
-          wishlistItemId: mockWishlistItemId,
+          productId: wishlistMockData.productId,
+          wishlistItemId: wishlistMockData.wishListItemId,
         },
       });
 
@@ -263,10 +275,10 @@ describe('wishlistMiddleware()', () => {
           currency: currencyCode,
           discountValue: discount,
           from,
-          id: mockWishlistProductId,
+          id: wishlistMockData.productId,
           list,
           listId,
-          name: productDescription.trim(),
+          name: productDescription?.trim(),
           position,
           price: priceWithDiscount,
           priceWithoutDiscount,
@@ -274,7 +286,7 @@ describe('wishlistMiddleware()', () => {
           size: size.name,
           value,
           variant: colorName,
-          wishlistId: mockWishlistId,
+          wishlistId: wishlistMockData.wishlistId,
         },
       );
     });
@@ -316,10 +328,10 @@ describe('wishlistMiddleware()', () => {
             currency: currencyCode,
             discountValue: discount,
             from,
-            id: mockWishlistProductId,
+            id: wishlistMockData.productId,
             list,
             listId,
-            name: productDescription.trim(),
+            name: productDescription?.trim(),
             position,
             price: priceWithDiscount,
             priceWithoutDiscount,
@@ -346,7 +358,7 @@ describe('wishlistMiddleware()', () => {
             listId,
             position,
             wishlistSetId: mockWishlistSetId,
-            wishlistItemId: mockWishlistItemId,
+            wishlistItemId: wishlistMockData.wishListItemId,
           },
         });
 
@@ -360,10 +372,10 @@ describe('wishlistMiddleware()', () => {
             currency: currencyCode,
             discountValue: discount,
             from,
-            id: mockWishlistProductId,
+            id: wishlistMockData.productId,
             list,
             listId,
-            name: productDescription.trim(),
+            name: productDescription?.trim(),
             position,
             price: priceWithDiscount,
             priceWithoutDiscount,
@@ -454,7 +466,7 @@ describe('wishlistMiddleware()', () => {
             coupon,
             data: [
               {
-                value: { wishlistItemId: mockWishlistItemId },
+                value: { wishlistItemId: wishlistMockData.wishListItemId },
                 path: '/wishlistSetItems/-',
                 op: 'add',
               },
@@ -475,10 +487,10 @@ describe('wishlistMiddleware()', () => {
           currency: currencyCode,
           discountValue: discount,
           from,
-          id: mockWishlistProductId,
+          id: wishlistMockData.productId,
           list,
           listId,
-          name: productDescription.trim(),
+          name: productDescription?.trim(),
           price: priceWithDiscount,
           priceWithoutDiscount,
           position,
@@ -504,7 +516,7 @@ describe('wishlistMiddleware()', () => {
             listId,
             position,
             wishlistSetId: mockWishlistSetId,
-            wishlistItemId: mockWishlistItemId,
+            wishlistItemId: wishlistMockData.wishListItemId,
           },
         });
 
@@ -516,10 +528,10 @@ describe('wishlistMiddleware()', () => {
           currency: currencyCode,
           discountValue: discount,
           from,
-          id: mockWishlistProductId,
+          id: wishlistMockData.productId,
           list,
           listId,
-          name: productDescription.trim(),
+          name: productDescription?.trim(),
           price: priceWithDiscount,
           priceWithoutDiscount,
           position,
@@ -589,7 +601,7 @@ describe('wishlistMiddleware()', () => {
           includingTaxesWithoutDiscount: priceWithoutDiscount,
         },
         size: { name: newSize },
-        product: mockWishlistProductId,
+        product: wishlistMockData.productId,
         quantity: newQuantity,
       },
     };
@@ -627,10 +639,10 @@ describe('wishlistMiddleware()', () => {
           coupon,
           from,
           list: wishlistName,
-          listId: mockWishlistId,
+          listId: wishlistMockData.wishlistId,
           position,
-          productId: mockWishlistProductId,
-          wishlistItemId: mockWishlistItemId,
+          productId: wishlistMockData.productId,
+          wishlistItemId: wishlistMockData.wishListItemId,
         },
       });
 
@@ -642,10 +654,10 @@ describe('wishlistMiddleware()', () => {
         currency: currencyCode,
         discountValue: discount,
         from,
-        id: mockWishlistProductId,
+        id: wishlistMockData.productId,
         list: wishlistName,
-        listId: mockWishlistId,
-        name: productDescription.trim(),
+        listId: wishlistMockData.wishlistId,
+        name: productDescription?.trim(),
         position,
         price: priceWithDiscount,
         priceWithoutDiscount,
@@ -653,7 +665,7 @@ describe('wishlistMiddleware()', () => {
         size: newSize,
         value,
         variant: colorName,
-        wishlistId: mockWishlistId,
+        wishlistId: wishlistMockData.wishlistId,
       });
     });
   });
@@ -680,7 +692,7 @@ describe('wishlistMiddleware()', () => {
         type: myActionTypeAddToWishlist,
         payload: {},
         meta: {
-          productId: mockWishlistProductId,
+          productId: wishlistMockData.productId,
         },
       });
 
@@ -692,7 +704,7 @@ describe('wishlistMiddleware()', () => {
         type: myActionTypeUpdateWishlist,
         payload: {},
         meta: {
-          productId: mockWishlistProductId,
+          productId: wishlistMockData.productId,
         },
       });
 
@@ -704,7 +716,7 @@ describe('wishlistMiddleware()', () => {
         type: myActionTypeRemoveFromWishlist,
         payload: {},
         meta: {
-          productId: mockWishlistProductId,
+          productId: wishlistMockData.productId,
         },
       });
 
@@ -716,7 +728,7 @@ describe('wishlistMiddleware()', () => {
         type: myActionTypeUpdateWishlistSet,
         payload: {},
         meta: {
-          wishlistItemId: mockWishlistItemId,
+          wishlistItemId: wishlistMockData.wishListItemId,
           isDeleteOperation: true,
         },
       });
