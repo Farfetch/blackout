@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.141](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.140...@farfetch/blackout-client@2.0.0-next.141) (2022-04-21)
+
+
+### Features
+
+* **client|redux:** add phone token validation endpoints on next ([58edd6c](https://github.com/Farfetch/blackout/commit/58edd6c10b83890255ea93674aea42c411a2fc7b))
+
+
+
+
+
 # [2.0.0-next.140](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.139...@farfetch/blackout-client@2.0.0-next.140) (2022-04-19)
 
 **Note:** Version bump only for package @farfetch/blackout-client
