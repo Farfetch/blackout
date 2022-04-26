@@ -1,5 +1,6 @@
 import { actionTypes as bagActionTypes } from '../../../../bags/redux';
 import { bagMiddleware } from '../../';
+import { combineReducers } from 'redux';
 import { logger } from '../../../utils';
 import { mockStore } from '../../../../../tests';
 import Analytics, { eventTypes } from '../../../';
@@ -110,6 +111,57 @@ const baseMockState = {
   bag: {
     id: bagId,
   },
+};
+
+// This is a simplified version of our createEntitiesReducer()
+// This version was used instead, because createEntitiesReducer
+// does not override completely user data, so makes testing
+// a little more difficult. In runtime, that is not a problem.
+const entitiesReducer = (state = {}, action = {}) => {
+  if (action.payload && action.payload.entities) {
+    return Object.assign({}, state, action.payload.entities);
+  }
+
+  return state;
+};
+
+const bagReducer = (state = {}, action = {}) => {
+  if (action.payload && action.payload.bag) {
+    return Object.assign({}, state, action.payload.bag);
+  }
+
+  return state;
+};
+
+const reducer = combineReducers({
+  entities: entitiesReducer,
+  bag: bagReducer,
+});
+
+// This is a very simplified redux store implementation.
+// This was needed because our mockStore module that is based on
+// redux-mock-store package does not execute the reducers
+// which were needed for this test suite.
+const mockSimplifiedStore = (initialState, middlewares) => {
+  const store = {
+    state: initialState,
+
+    getState() {
+      return this.state;
+    },
+
+    async dispatch(action) {
+      const next = action => {
+        this.state = reducer(this.state, action);
+      };
+
+      await Promise.all(
+        middlewares.map(middleware => middleware(this)(next)(action)),
+      );
+    },
+  };
+
+  return store;
 };
 
 const getMockState = data => merge({}, baseMockState, data);
@@ -233,7 +285,6 @@ describe('bagMiddleware()', () => {
           affiliation,
           coupon,
           from,
-          oldQuantity,
           position,
           productId,
           quantity,
@@ -253,7 +304,6 @@ describe('bagMiddleware()', () => {
         from,
         id: productId,
         name: productDescription,
-        oldQuantity,
         position,
         price: priceWithDiscount,
         priceWithoutDiscount,
@@ -281,7 +331,6 @@ describe('bagMiddleware()', () => {
         },
         meta: {
           productId,
-          oldQuantity,
           quantity,
           size: sizes[0].id,
           bagItemId,
@@ -297,7 +346,6 @@ describe('bagMiddleware()', () => {
         discountValue: discountIncludingPromotions,
         id: productId,
         name: productDescription,
-        oldQuantity,
         price: priceWithDiscount,
         priceWithoutDiscount,
         quantity,
@@ -328,7 +376,6 @@ describe('bagMiddleware()', () => {
         },
         meta: {
           productId,
-          oldQuantity: 3,
           quantity: 1,
           size: sizes[0].id,
         },
@@ -342,12 +389,12 @@ describe('bagMiddleware()', () => {
         discountValue: discountIncludingPromotions,
         id: productId,
         name: productDescription,
-        oldQuantity: 3,
         price: priceWithDiscount,
         priceWithoutDiscount,
-        quantity: 2,
+        quantity: 4,
         sku,
         size: sizes[0].name,
+        oldSize: sizes[0].name,
         variant: colorName,
       });
     });
@@ -370,7 +417,6 @@ describe('bagMiddleware()', () => {
         },
         meta: {
           productId,
-          oldQuantity: 3,
           quantity: 6,
           size: sizes[0].id,
         },
@@ -384,18 +430,22 @@ describe('bagMiddleware()', () => {
         discountValue: discountIncludingPromotions,
         id: productId,
         name: productDescription,
-        oldQuantity: 3,
         price: priceWithDiscount,
         priceWithoutDiscount,
-        quantity: 3,
+        quantity: 1,
         sku,
         size: sizes[0].name,
+        oldSize: sizes[0]?.name,
         variant: colorName,
       });
     });
 
     it('Should track a remove and an add event if the product sizes changed', async () => {
-      await store.dispatch({
+      const simplifiedStore = mockSimplifiedStore(baseMockState, [
+        bagMiddleware(analytics),
+      ]);
+
+      await simplifiedStore.dispatch({
         type: bagActionTypes.UPDATE_BAG_ITEM_SUCCESS,
         payload: {
           result: bagId,
@@ -404,18 +454,17 @@ describe('bagMiddleware()', () => {
               [bagItemId]: {
                 id: bagItemId,
                 product: productId,
-                size: { id: sizes[0].id },
+                size: { id: sizes[1].id },
               },
             },
           },
           bagItemId,
         },
         meta: {
+          bagItemId,
           productId,
-          oldQuantity: 1,
-          quantity: 3,
-          size: sizes[0].id,
-          oldSize: sizes[1],
+          quantity: 5,
+          size: sizes[1].id,
         },
       });
 
@@ -424,30 +473,32 @@ describe('bagMiddleware()', () => {
         cartId: bagId,
         category: categoryName,
         currency: currencyCode,
-        discountValue: discountIncludingPromotions,
+        discountValue: 0,
         id: productId,
         name: productDescription,
         price: priceWithDiscount,
-        priceWithoutDiscount,
+        priceWithoutDiscount: 10,
         sku,
-        oldSize: sizes[1].name,
+        oldSize: sizes[0].name,
         variant: colorName,
-        oldQuantity: 1,
-        quantity: 3,
-        size: sizes[0].name,
+        oldQuantity: 5,
+        quantity: 5,
+        size: sizes[1].name,
       };
 
-      expect(trackSpy).nthCalledWith(1, eventTypes.PRODUCT_UPDATED, baseData);
+      expect(trackSpy).nthCalledWith(1, eventTypes.PRODUCT_UPDATED, {
+        ...baseData,
+      });
 
       expect(trackSpy).nthCalledWith(2, eventTypes.PRODUCT_REMOVED_FROM_CART, {
         ...baseData,
-        quantity: 1,
-        size: sizes[1].name,
+        quantity: 5,
+        size: sizes[0].name,
       });
 
       expect(trackSpy).nthCalledWith(3, eventTypes.PRODUCT_ADDED_TO_CART, {
         ...baseData,
-        oldQuantity: 0,
+        oldQuantity: undefined,
       });
     });
   });
@@ -506,7 +557,6 @@ describe('bagMiddleware()', () => {
         name: productDescription,
         price: priceWithDiscount,
         priceWithoutDiscount: 10,
-        oldQuantity,
         quantity,
         size: sizes[0].name,
         sku,
@@ -518,7 +568,7 @@ describe('bagMiddleware()', () => {
 
       // expect trigger analytics product removed event
       expect(trackSpy).toBeCalledWith(
-        eventTypes.PRODUCT_REMOVED_FROM_CART,
+        eventTypes.PRODUCT_ADDED_TO_CART,
         expectedData,
       );
     });
