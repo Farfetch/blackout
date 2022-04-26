@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.35.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.34.0...@farfetch/blackout-react@0.35.0) (2022-04-26)
+
+
+### Features
+
+* **react:** expose Vitorino network option ([458d1a5](https://github.com/Farfetch/blackout/commit/458d1a5923f0137b9971078432c9d31b243ba2d4))
+
+
+
+
+
 # [0.34.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.33.1...@farfetch/blackout-react@0.34.0) (2022-04-13)
 
 
