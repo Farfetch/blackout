@@ -453,7 +453,11 @@ const getPlaceOrderStartedParametersFromEvent = eventProperties => {
  */
 const getSearchParametersFromEvent = eventProperties => {
   return {
-    search_term: eventProperties.searchTerm,
+    search_term: get(
+      eventProperties,
+      'searchTerm',
+      get(eventProperties, 'searchQuery'),
+    ),
   };
 };
 
@@ -585,8 +589,18 @@ const getShareParametersFromEvent = eventProperties => ({
  * @returns {object} Parameters formatted for the GA4's sign_up_newsletter event.
  */
 const getSignupNewsletterParametersFromEvent = eventProperties => {
+  const genderArray = (
+    Array.isArray(eventProperties.gender)
+      ? eventProperties.gender
+      : new Array(eventProperties.gender)
+  ).map(
+    gender =>
+      // trying using tenant translation otherwise use custom gender mappings
+      gender.name || SignupNewsletterGenderMappings[gender?.id ?? gender],
+  );
+
   return {
-    newsletter_gender: SignupNewsletterGenderMappings[eventProperties.gender],
+    newsletter_gender: genderArray.reduce((acc, item) => `${acc},${item}`),
   };
 };
 

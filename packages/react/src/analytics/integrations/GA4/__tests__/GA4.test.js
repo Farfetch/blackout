@@ -1186,6 +1186,156 @@ describe('GA4 Integration', () => {
           });
         });
 
+        describe('Newsletter events', () => {
+          const defaultEvent = {
+            ...trackEventsData[eventTypes.SIGNUP_NEWSLETTER],
+          };
+
+          it('should track single gender event', async () => {
+            ga4Instance = await createGA4InstanceAndLoad(
+              validOptions,
+              loadData,
+            );
+            const ga4Spy = getWindowGa4Spy();
+
+            const singleGenderEvent = {
+              ...defaultEvent,
+              properties: {
+                ...defaultEvent.properties,
+                gender: '0',
+              },
+            };
+
+            await ga4Instance.track(singleGenderEvent);
+
+            expect(ga4Spy.mock.calls).toMatchSnapshot();
+          });
+
+          it('should track multiple gender event', async () => {
+            ga4Instance = await createGA4InstanceAndLoad(
+              validOptions,
+              loadData,
+            );
+            const ga4Spy = getWindowGa4Spy();
+
+            const getGenderData = genderData => ({
+              ...defaultEvent,
+              properties: {
+                ...defaultEvent.properties,
+                gender: genderData,
+              },
+            });
+
+            await ga4Instance.track(getGenderData(['0', '1']));
+
+            await ga4Instance.track(
+              getGenderData([
+                { id: '0', name: 'WOMAN' },
+                { id: '1', name: 'MAN' },
+              ]),
+            );
+
+            await ga4Instance.track(getGenderData([{ id: '0' }, { id: '1' }]));
+
+            expect(ga4Spy.mock.calls).toMatchSnapshot();
+          });
+
+          it('should not track signup_newsletter event with invalid gender data', async () => {
+            ga4Instance = await createGA4InstanceAndLoad(
+              validOptions,
+              loadData,
+            );
+            const ga4Spy = getWindowGa4Spy();
+
+            const multipleGenderEventWithInvalidGender = {
+              ...defaultEvent,
+              properties: {
+                ...defaultEvent.properties,
+                gender: ['10', '1'],
+              },
+            };
+
+            await ga4Instance.track(multipleGenderEventWithInvalidGender);
+
+            const singleGenderEventWithInvalidGender = {
+              ...defaultEvent,
+              properties: {
+                ...defaultEvent.properties,
+                gender: '10',
+              },
+            };
+
+            await ga4Instance.track(singleGenderEventWithInvalidGender);
+
+            expect(ga4Spy).not.toHaveBeenCalled();
+          });
+        });
+        describe('Search events', () => {
+          const defaultEvent = {
+            ...pageEventsData[pageTypes.SEARCH],
+          };
+          it('should not track search event with invalid search term or query, only page event.', async () => {
+            ga4Instance = await createGA4InstanceAndLoad(
+              validOptions,
+              loadData,
+            );
+            const ga4Spy = getWindowGa4Spy();
+
+            const data = {
+              ...defaultEvent,
+              properties: {
+                ...defaultEvent.properties,
+                searchTerm: undefined,
+              },
+            };
+
+            await ga4Instance.track(data);
+
+            expect(ga4Spy.mock.calls[0]).toMatchSnapshot();
+          });
+
+          it('should track search event search term instead of search query.', async () => {
+            ga4Instance = await createGA4InstanceAndLoad(
+              validOptions,
+              loadData,
+            );
+            const ga4Spy = getWindowGa4Spy();
+
+            const data = {
+              ...defaultEvent,
+              properties: {
+                ...defaultEvent.properties,
+                searchTerm: 'term',
+                searchQuery: 'query',
+              },
+            };
+
+            await ga4Instance.track(data);
+
+            expect(ga4Spy.mock.calls[0]).toMatchSnapshot();
+          });
+
+          it('should track search event search without search term but with search query instead.', async () => {
+            ga4Instance = await createGA4InstanceAndLoad(
+              validOptions,
+              loadData,
+            );
+            const ga4Spy = getWindowGa4Spy();
+
+            const data = {
+              ...defaultEvent,
+              properties: {
+                ...defaultEvent.properties,
+                searchTerm: undefined,
+                searchQuery: 'query',
+              },
+            };
+
+            await ga4Instance.track(data);
+
+            expect(ga4Spy.mock.calls[0]).toMatchSnapshot();
+          });
+        });
         describe('Navigation events', () => {
           describe('Interact Content event', () => {
             it('Should allow to track the interact_content transforming camelCase to snake_case', async () => {
