@@ -189,6 +189,23 @@ describe('Vitorino', () => {
       });
     });
 
+    describe('Network option', () => {
+      it('Should allow to pass a "network" object to pass a custom proxy to Vitorino', async () => {
+        const customNetworkProxy = {
+          proxy: 'https://johndoe.com',
+          path: '/api',
+        };
+        await getIntegrationInstance({
+          network: customNetworkProxy,
+        });
+
+        expect(window.Vitorino.track).toHaveBeenCalledWith({
+          ...generateMockVitorinoPayload(),
+          network: customNetworkProxy,
+        });
+      });
+    });
+
     describe('Script', () => {
       it('Should log an error if the development script is not present if the environment is dev', async () => {
         try {
@@ -220,7 +237,7 @@ describe('Vitorino', () => {
         // clean the body
         document.body.innerHTML = '';
 
-        // test the dev script with the implicit environment option without relying on the default behaviour
+        // test the dev script with the implicit environment option without relying on the default behavior
         const devScriptSource = 'https://google.com/';
 
         await getIntegrationInstance({

@@ -39,7 +39,7 @@ import isArray from 'lodash/isArray';
  */
 export default class Vitorino extends integrations.Integration {
   /**
-   * This integration is required, so it must be loaded indenpendently of user consent.
+   * This integration is required, so it must be loaded independently of user consent.
    *
    * @returns {boolean} If the integration should load or not.
    */
@@ -220,7 +220,7 @@ export default class Vitorino extends integrations.Integration {
       customerId: getCustomerIdFromUser(data.user),
       environment: getEnvironmentFromOptions(this.options),
       fields: this.getFieldsFromOptions(this.options),
-      network: {
+      network: this.options.network || {
         proxy: origin,
         path: `${MARKETING_API_PREFIX}${POST_TRACKINGS_PATHNAME}`,
       },
@@ -259,11 +259,11 @@ export default class Vitorino extends integrations.Integration {
   }
 
   /**
-   * Returns the correspondant Vitorino page type for the event.
+   * Returns the correspondent Vitorino page type for the event.
    *
    * @param {string} event - The analytics event to filter by.
-
-   * @returns {string | Array} - The correspondant Vitorino's page view(s).
+   
+   * @returns {string | Array} - The correspondent Vitorino's page view(s).
    */
   getPageTypeFromEvent(event) {
     const mapper = this.getEventsMapper();
