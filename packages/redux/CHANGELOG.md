@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.222](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.221...@farfetch/blackout-redux@1.0.0-next.222) (2022-04-27)
+
+
+### Features
+
+* **blackout-redux:** convert analytic's bag middleware to typescript ([c3f89fd](https://github.com/Farfetch/blackout/commit/c3f89fd27c987f5afbaf3929967fb5b1190c626e))
+
+
+
+
+
 # [1.0.0-next.221](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.220...@farfetch/blackout-redux@1.0.0-next.221) (2022-04-21)
 
 
