@@ -16,7 +16,7 @@ import client, { adaptError } from '../../helpers/client';
 
 export default (data, config) =>
   client
-    .post('/account/v1/phoneTokens', data, config)
+    .post('/account/v1/users/phoneTokens', data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
