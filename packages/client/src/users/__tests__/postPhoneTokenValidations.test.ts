@@ -27,7 +27,7 @@ describe('postPhoneTokenValidations', () => {
 
     await expect(postPhoneTokenValidations(data)).resolves.toBe(response);
     expect(spy).toHaveBeenCalledWith(
-      '/account/v1/phoneTokenValidations',
+      '/account/v1/users/phoneTokenValidations',
       data,
       expectedConfig,
     );
@@ -40,7 +40,7 @@ describe('postPhoneTokenValidations', () => {
 
     await expect(postPhoneTokenValidations(data)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      '/account/v1/phoneTokenValidations',
+      '/account/v1/users/phoneTokenValidations',
       data,
       expectedConfig,
     );
