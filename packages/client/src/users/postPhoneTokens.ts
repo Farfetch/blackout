@@ -17,7 +17,7 @@ import type { PostPhoneTokens } from './types';
 
 const postPhoneTokens: PostPhoneTokens = (data, config?) =>
   client
-    .post('/account/v1/phoneTokens', data, config)
+    .post('/account/v1/users/phoneTokens', data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);

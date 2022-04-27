@@ -3,13 +3,13 @@ import moxios from 'moxios';
 
 export default {
   success: (params: { response: Record<string, unknown> }): void => {
-    moxios.stubRequest('/api/account/v1/phoneNumberValidations', {
+    moxios.stubRequest('/api/account/v1/users/phoneNumberValidations', {
       response: get(params, 'response'),
       status: 200,
     });
   },
   failure: () => {
-    moxios.stubRequest('/api/account/v1/phoneNumberValidations', {
+    moxios.stubRequest('/api/account/v1/users/phoneNumberValidations', {
       response: 'stub error',
       status: 404,
     });
