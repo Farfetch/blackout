@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.142](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.141...@farfetch/blackout-client@2.0.0-next.142) (2022-04-27)
+
+
+### Bug Fixes
+
+* **client:** fix phone tokens endpoints requests ([b6ea348](https://github.com/Farfetch/blackout/commit/b6ea3485a9725c6f4249262e90a0c2320299b6d1))
+
+
+
+
+
 # [2.0.0-next.141](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.140...@farfetch/blackout-client@2.0.0-next.141) (2022-04-21)
 
 
