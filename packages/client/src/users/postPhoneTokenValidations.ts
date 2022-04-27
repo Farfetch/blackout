@@ -17,7 +17,7 @@ import type { PostPhoneTokenValidations } from './types';
 
 const postPhoneTokenValidations: PostPhoneTokenValidations = (data, config?) =>
   client
-    .post('/account/v1/phoneTokenValidations', data, config)
+    .post('/account/v1/users/phoneTokenValidations', data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
