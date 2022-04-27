@@ -1,5 +1,74 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Newsletter events should track multiple gender event 1`] = `
+Array [
+  Array [
+    "event",
+    "sign_up_newsletter",
+    Object {
+      "newsletter_gender": "Woman,Man",
+    },
+  ],
+  Array [
+    "event",
+    "sign_up_newsletter",
+    Object {
+      "newsletter_gender": "WOMAN,MAN",
+    },
+  ],
+  Array [
+    "event",
+    "sign_up_newsletter",
+    Object {
+      "newsletter_gender": "Woman,Man",
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Newsletter events should track single gender event 1`] = `
+Array [
+  Array [
+    "event",
+    "sign_up_newsletter",
+    Object {
+      "newsletter_gender": "Woman",
+    },
+  ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Search events should not track search event with invalid search term or query, only page event. 1`] = `
+Array [
+  "config",
+  "GA-123456-12",
+  Object {
+    "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
+    "path_clean": "/pt/",
+  },
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Search events should track search event search term instead of search query. 1`] = `
+Array [
+  "event",
+  "search",
+  Object {
+    "search_term": "term",
+  },
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Search events should track search event search without search term but with search query instead. 1`] = `
+Array [
+  "event",
+  "search",
+  Object {
+    "search_term": "query",
+  },
+]
+`;
+
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Address Info Added event correctly 1`] = `
 Array [
   Array [
