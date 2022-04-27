@@ -98,9 +98,16 @@ const purchaseAndRefundSchema = baseCheckoutSchema
   .concat(taxSchema)
   .concat(shippingSchema);
 
-const searchSchema = yup.object({
-  searchTerm: yup.string().required(),
-});
+const searchSchema = yup
+  .object({
+    searchTerm: yup.string(),
+    searchQuery: yup.string(),
+  })
+  .test(
+    'invalid_search_data',
+    'The event, must have at least searchTerm or searchQuery properties.',
+    value => !!value.searchQuery || !!value.searchTerm,
+  );
 
 const selectContentSchema = productIdSchema.concat(
   yup.object({
@@ -241,8 +248,40 @@ const interactContentSchema = yup
     },
   );
 
+const signupNewsletterSchemaGenderValidationList = {
+  basic: yup.string().oneOf(Object.keys(SignupNewsletterGenderMappings)),
+  multiple: yup
+    .array()
+    .of(yup.string().oneOf(Object.keys(SignupNewsletterGenderMappings))),
+  complex: yup.array().of(
+    yup.object({
+      id: yup.string().oneOf(Object.keys(SignupNewsletterGenderMappings)),
+      name: yup.string().notRequired(),
+    }),
+  ),
+};
+
 const signupNewsletterSchema = yup.object({
-  gender: yup.string().oneOf(Object.keys(SignupNewsletterGenderMappings)),
+  gender: yup
+    .mixed()
+    .test(
+      'gender_invalid_parameter',
+      "invalid 'gender' parameter for 'sign_up newsletter' event type. It accepts string or array of strings, but only if one is of Gender Mappings valid value.",
+      value => {
+        const validationResult = schema => {
+          try {
+            schema.validateSync(value);
+            return true;
+          } catch (e) {
+            return false;
+          }
+        };
+
+        return Object.values(signupNewsletterSchemaGenderValidationList).some(
+          validationResult,
+        );
+      },
+    ),
 });
 
 export default {
