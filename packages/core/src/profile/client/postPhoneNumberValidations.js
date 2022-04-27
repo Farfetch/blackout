@@ -16,7 +16,7 @@ import client, { adaptError } from '../../helpers/client';
 
 export default (data, config) =>
   client
-    .post('/account/v1/phoneNumberValidations', data, config)
+    .post('/account/v1/users/phoneNumberValidations', data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
