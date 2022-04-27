@@ -3,14 +3,14 @@ import moxios from 'moxios';
 
 export default {
   success: params => {
-    moxios.stubRequest('/api/account/v1/phoneNumberValidations', {
+    moxios.stubRequest('/api/account/v1/users/phoneNumberValidations', {
       method: 'post',
       response: get(params, 'response'),
       status: 200,
     });
   },
   failure: () => {
-    moxios.stubRequest('/api/account/v1/phoneNumberValidations', {
+    moxios.stubRequest('/api/account/v1/users/phoneNumberValidations', {
       method: 'post',
       response: 'stub error',
       status: 404,
