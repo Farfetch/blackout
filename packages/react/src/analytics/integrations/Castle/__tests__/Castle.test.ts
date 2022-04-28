@@ -15,7 +15,7 @@ import Castle, { CASTLE_MESSAGE_PREFIX } from '../Castle';
 import isString from 'lodash/isString';
 import pickBy from 'lodash/pickBy';
 import type { CastleIntegrationOptions } from '../types';
-import type { WebEventData } from '../../../types/analytics.types';
+import type { TrackWebEventData } from '../../../types/analytics.types';
 
 const mockRequestHeaderValue = '12342342345241342423424';
 const publishableKey = 'pk_mock_111111111111111111111111111';
@@ -159,7 +159,7 @@ describe('Castle integration', () => {
       const castlePageSpy = jest.spyOn(instance.castleJS, 'page');
       const mockPageEvent = analyticsPageData[
         pageTypes.HOMEPAGE
-      ] as WebEventData;
+      ] as TrackWebEventData;
       const expectedCallPayload = {
         referrer: mockPageEvent.context.web.document.referrer,
         name: mockPageEvent.context.web.document.title,
@@ -191,7 +191,7 @@ describe('Castle integration', () => {
       instance = createInstance();
 
       const castleFormSpy = jest.spyOn(instance.castleJS, 'form');
-      const mockEventData = analyticsTrackData[event] as WebEventData;
+      const mockEventData = analyticsTrackData[event] as TrackWebEventData;
       const expectedCallPayload = {
         user: instance.getUserData(mockEventData),
         name: event,
@@ -214,7 +214,7 @@ describe('Castle integration', () => {
       const castleCustomSpy = jest.spyOn(instance.castleJS, 'custom');
       const mockEventData = analyticsTrackData[
         eventTypes.ORDER_COMPLETED
-      ] as WebEventData;
+      ] as TrackWebEventData;
       const expectedCallPayload = {
         user: instance.getUserData(mockEventData),
         name: mockEventData.event,
