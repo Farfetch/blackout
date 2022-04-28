@@ -1,8 +1,13 @@
 import {
   pageEventsData as analyticsPageData,
   trackEventsData as analyticsTrackData,
+  loadIntegrationData,
 } from 'tests/__fixtures__/analytics';
-import { eventTypes, pageTypes } from '@farfetch/blackout-analytics';
+import {
+  eventTypes,
+  pageTypes,
+  StrippedDownAnalytics,
+} from '@farfetch/blackout-analytics';
 import { postTrackings } from '@farfetch/blackout-client/omnitracking';
 import Omnitracking from '../Omnitracking';
 import OmnitrackingCore from '@farfetch/blackout-analytics/integrations/Omnitracking/Omnitracking';
@@ -17,8 +22,12 @@ jest.mock('@farfetch/blackout-client/omnitracking', () => ({
 const mockUrl = 'https://api.blackout.com/en-pt/shopping/woman/gucci';
 const mockUniqueViewId = 'd76e46e0-39ee-49b2-bdcd-e550e51fa8f2';
 
+const strippedDownAnalytics: StrippedDownAnalytics = {
+  createEvent: type => Promise.resolve({ ...loadIntegrationData, type }),
+};
+
 describe('Omnitracking', () => {
-  let storage = new UniqueViewIdStorage(UniqueViewIdStorageOptions.default());
+  const storage = new UniqueViewIdStorage(UniqueViewIdStorageOptions.default());
 
   beforeEach(() => {
     storage.clear();
@@ -30,11 +39,23 @@ describe('Omnitracking', () => {
     });
 
     it('Should extend Omnitracking class from @farfetch/blackout-client', () => {
-      expect(Omnitracking.createInstance()).toBeInstanceOf(OmnitrackingCore);
+      expect(
+        Omnitracking.createInstance(
+          {},
+          loadIntegrationData,
+          strippedDownAnalytics,
+        ),
+      ).toBeInstanceOf(OmnitrackingCore);
     });
 
     it('Should return an instance of it in .createInstance()', () => {
-      expect(Omnitracking.createInstance()).toBeInstanceOf(Omnitracking);
+      expect(
+        Omnitracking.createInstance(
+          {},
+          loadIntegrationData,
+          strippedDownAnalytics,
+        ),
+      ).toBeInstanceOf(Omnitracking);
     });
   });
 
@@ -49,7 +70,11 @@ describe('Omnitracking', () => {
         });
 
         // Act
-        const omnitrackingInstance = Omnitracking.createInstance({});
+        const omnitrackingInstance = Omnitracking.createInstance(
+          {},
+          loadIntegrationData,
+          strippedDownAnalytics,
+        ) as Omnitracking;
 
         // Assert
         expect(omnitrackingInstance.currentUniqueViewId).toBe(mockUniqueViewId);
@@ -63,7 +88,11 @@ describe('Omnitracking', () => {
 
         expect(() => {
           // Act
-          const omnitrackingInstance = Omnitracking.createInstance({});
+          const omnitrackingInstance = Omnitracking.createInstance(
+            {},
+            loadIntegrationData,
+            strippedDownAnalytics,
+          ) as Omnitracking;
 
           // Assert
           expect(omnitrackingInstance.currentUniqueViewId).toBe(null);
@@ -82,7 +111,11 @@ describe('Omnitracking', () => {
         newStorage.set(mockUrl, mockUniqueViewId);
 
         // Act
-        Omnitracking.createInstance({});
+        Omnitracking.createInstance(
+          {},
+          loadIntegrationData,
+          strippedDownAnalytics,
+        );
 
         // Assert
         expect(newStorage.get(mockUrl)).toBe(null);
@@ -94,7 +127,11 @@ describe('Omnitracking', () => {
     describe('Page views', () => {
       it('Should persist the newly generated uniqueViewId in storage', async () => {
         // Arrange
-        const omnitrackingInstance = Omnitracking.createInstance({});
+        const omnitrackingInstance = Omnitracking.createInstance(
+          {},
+          loadIntegrationData,
+          strippedDownAnalytics,
+        ) as Omnitracking;
 
         Object.defineProperty(window, 'location', {
           value: { href: mockUrl },
@@ -117,7 +154,11 @@ describe('Omnitracking', () => {
           value: mockUrl,
         });
 
-        const omnitrackingInstance = Omnitracking.createInstance({});
+        const omnitrackingInstance = Omnitracking.createInstance(
+          {},
+          loadIntegrationData,
+          strippedDownAnalytics,
+        );
 
         // Act
         await omnitrackingInstance.track(analyticsPageData[pageTypes.HOMEPAGE]);
@@ -140,7 +181,11 @@ describe('Omnitracking', () => {
           value: { href: mockUrl },
         });
 
-        const omnitrackingInstance = Omnitracking.createInstance({});
+        const omnitrackingInstance = Omnitracking.createInstance(
+          {},
+          loadIntegrationData,
+          strippedDownAnalytics,
+        ) as Omnitracking;
 
         // This is only to remove warning 'uniqueViewId not set' when running tests.
         omnitrackingInstance.currentUniqueViewId = 'dummy-unique-view-id';

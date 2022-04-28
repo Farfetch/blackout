@@ -2,6 +2,11 @@ import * as clients from '@farfetch/blackout-client/omnitracking';
 import * as definitions from '../definitions';
 import { Integration, Omnitracking } from '../..';
 import {
+  loadIntegrationData,
+  pageEventsData,
+  trackEventsData,
+} from 'tests/__fixtures__/analytics';
+import {
   mockedUuid,
   expectedPagePayloadMobile as mockExpectedPagePayloadMobile,
   expectedPagePayloadUnknown as mockExpectedPagePayloadUnknown,
@@ -12,7 +17,6 @@ import {
   OPTION_SEARCH_QUERY_PARAMETERS,
   OPTION_TRANSFORM_PAYLOAD,
 } from '../constants';
-import { pageEventsData, trackEventsData } from 'tests/__fixtures__/analytics';
 import analyticsTrackTypes from '../../../types/trackTypes';
 import eventTypes from '../../../types/eventTypes';
 import fromParameterTypes from '../../../types/fromParameterTypes';
@@ -21,13 +25,25 @@ import mocked_view_uid from '../__fixtures__/mocked_view_uid';
 import pageTypes from '../../../types/pageTypes';
 import platformTypes from '../../../types/platformTypes';
 import uuid from 'uuid';
+import type {
+  EventContext,
+  EventData,
+  StrippedDownAnalytics,
+  TrackTypesValues,
+} from '../../../types/analytics.types';
+import type {
+  OmnitrackingRequestPayload,
+  OmnitrackingTrackEventMapper,
+  PageActionEvents,
+  PageViewEvents,
+} from '../types/Omnitracking.types';
 
 const mockLoggerError = jest.fn();
 
 jest.mock('@farfetch/blackout-client/helpers', () => ({
   ...jest.requireActual('@farfetch/blackout-client/helpers'),
   Logger: class {
-    error(message) {
+    error(message: string) {
       mockLoggerError(message);
     }
   },
@@ -45,23 +61,31 @@ jest.mock('uuid', () => ({
 const mockedPageData = pageEventsData[pageTypes.HOMEPAGE];
 const mockedTrackData = trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART];
 
+const generateMockData = (
+  data?: Partial<EventData<TrackTypesValues>>,
+): EventData<TrackTypesValues> =>
+  merge({}, mockedPageData, data) as EventData<TrackTypesValues>;
+
+const generateTrackMockData = (
+  data?: Partial<EventData<TrackTypesValues>>,
+): EventData<TrackTypesValues> => merge({}, mockedTrackData, data);
+
+let omnitracking: Omnitracking;
+const postTrackingsSpy = jest.spyOn(clients, 'postTrackings');
+
+const strippedDownAnalytics: StrippedDownAnalytics = {
+  createEvent: type => Promise.resolve({ ...loadIntegrationData, type }),
+};
+
 describe('Omnitracking', () => {
-  const generateMockData = data => merge({}, mockedPageData, data);
-  const generateTrackMockData = data => merge({}, mockedTrackData, data);
-  const localIdMock = 'd9864a1c112d-47ff-8ee4-968c-5acecae23';
-  const loadData = {
-    user: {
-      localId: localIdMock,
-    },
-  };
-
-  let omnitracking;
-  const postTrackingsSpy = jest.spyOn(clients, 'postTrackings');
-
   beforeEach(() => {
     jest.clearAllMocks();
 
-    omnitracking = Omnitracking.createInstance({}, loadData);
+    omnitracking = new Omnitracking(
+      {},
+      loadIntegrationData,
+      strippedDownAnalytics,
+    );
   });
 
   it('Should be ready to load', () => {
@@ -73,7 +97,13 @@ describe('Omnitracking', () => {
   });
 
   it('Should return an instance of it in .createInstance()', () => {
-    expect(Omnitracking.createInstance()).toBeInstanceOf(Omnitracking);
+    expect(
+      Omnitracking.createInstance(
+        {},
+        loadIntegrationData,
+        strippedDownAnalytics,
+      ),
+    ).toBeInstanceOf(Omnitracking);
   });
 
   describe('track pages', () => {
@@ -155,13 +185,24 @@ describe('Omnitracking', () => {
     });
 
     describe('searchQuery', () => {
+      type WebContext = {
+        window: { location: { query: Record<string, string> } };
+      };
+
       it('Should send searchQuery when a custom searchQueryParameters option is sent', async () => {
         const data = generateMockData();
-        data.context.web.window.location.query.customSearchQuery = 'some text';
+        (
+          data.context.web as WebContext
+        ).window.location.query.customSearchQuery = 'some text';
 
-        const omnitrackingInstance = new Omnitracking({
-          [OPTION_SEARCH_QUERY_PARAMETERS]: ['customSearchQuery'],
-        });
+        const omnitrackingInstance = new Omnitracking(
+          {
+            [OPTION_SEARCH_QUERY_PARAMETERS]: ['customSearchQuery'],
+          },
+          loadIntegrationData,
+          strippedDownAnalytics,
+        );
+
         await omnitrackingInstance.track(data);
 
         expect(postTrackingsSpy).toHaveBeenCalledWith(
@@ -175,7 +216,7 @@ describe('Omnitracking', () => {
 
       it('Should send searchQuery when no searchQueryParameters option is sent', async () => {
         const data = generateMockData();
-        data.context.web.window.location.query.q = 'some text';
+        (data.context.web as WebContext).window.location.query.q = 'some text';
 
         await omnitracking.track(data);
 
@@ -190,11 +231,18 @@ describe('Omnitracking', () => {
 
       it('Should send searchQuery when a custom searchQueryParameters option is sent', async () => {
         const data = generateMockData();
-        data.context.web.window.location.query.customSearchQuery = 'some text';
+        (
+          data.context.web as WebContext
+        ).window.location.query.customSearchQuery = 'some text';
 
-        const omnitrackingInstance = new Omnitracking({
-          [OPTION_SEARCH_QUERY_PARAMETERS]: ['customSearchQuery'],
-        });
+        const omnitrackingInstance = new Omnitracking(
+          {
+            [OPTION_SEARCH_QUERY_PARAMETERS]: ['customSearchQuery'],
+          },
+          loadIntegrationData,
+          strippedDownAnalytics,
+        );
+
         await omnitrackingInstance.track(data);
 
         expect(postTrackingsSpy).toHaveBeenCalledWith(
@@ -229,7 +277,7 @@ describe('Omnitracking', () => {
               },
             },
           },
-        },
+        } as unknown as EventContext,
       });
 
       await omnitracking.track(data);
@@ -251,7 +299,7 @@ describe('Omnitracking', () => {
               },
             },
           },
-        },
+        } as unknown as EventContext,
       });
 
       await omnitracking.track(data);
@@ -273,7 +321,7 @@ describe('Omnitracking', () => {
               },
             },
           },
-        },
+        } as unknown as EventContext,
       });
 
       await omnitracking.track(data);
@@ -307,6 +355,7 @@ describe('Omnitracking', () => {
           traits: {
             isGuest: true,
           },
+          localId: 'dummy',
         },
       });
 
@@ -376,7 +425,7 @@ describe('Omnitracking', () => {
             tid: placeOrderTid1,
             val: JSON.stringify({
               type: 'TRANSACTION',
-              paymentAttemptReferenceId: `${localIdMock}_${mockedTrackData.timestamp}`,
+              paymentAttemptReferenceId: `${loadIntegrationData.user.localId}_${mockedTrackData.timestamp}`,
             }),
           },
         };
@@ -403,7 +452,7 @@ describe('Omnitracking', () => {
           event: eventTypes.SIGNUP_FORM_VIEWED,
         });
 
-        const correlationId = localIdMock;
+        const correlationId = loadIntegrationData.user.localId;
         const paymentAttemptReferenceId = `${correlationId}_${mockedTrackData.timestamp}`;
 
         await omnitracking.track(data);
@@ -430,7 +479,7 @@ describe('Omnitracking', () => {
           event: eventTypes.CHECKOUT_STEP_VIEWED,
         });
 
-        const correlationId = localIdMock;
+        const correlationId = loadIntegrationData.user.localId;
         const paymentAttemptReferenceId = `${correlationId}_${mockedTrackData.timestamp}`;
 
         await omnitracking.track(data);
@@ -468,7 +517,7 @@ describe('Omnitracking', () => {
           parameters: {
             ...mockExpectedTrackPayload.parameters,
             tid,
-            val: productId,
+            val: `${productId}`,
           },
         };
 
@@ -494,7 +543,7 @@ describe('Omnitracking', () => {
           parameters: {
             ...mockExpectedTrackPayload.parameters,
             tid,
-            val: productId,
+            val: `${productId}`,
           },
         };
 
@@ -520,7 +569,7 @@ describe('Omnitracking', () => {
             ...mockExpectedTrackPayload.parameters,
             productId,
             tid,
-            val: productId,
+            val: `${productId}`,
           },
         };
         expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
@@ -546,7 +595,7 @@ describe('Omnitracking', () => {
             ...mockExpectedTrackPayload.parameters,
             productId,
             tid,
-            val: productId,
+            val: `${productId}`,
           },
         };
 
@@ -573,7 +622,7 @@ describe('Omnitracking', () => {
             ...mockExpectedTrackPayload.parameters,
             productId,
             tid,
-            val: productId,
+            val: `${productId}`,
           },
         };
 
@@ -600,7 +649,7 @@ describe('Omnitracking', () => {
             ...mockExpectedTrackPayload.parameters,
             productId,
             tid,
-            val: productId,
+            val: `${productId}`,
           },
         };
 
@@ -627,7 +676,7 @@ describe('Omnitracking', () => {
             ...mockExpectedTrackPayload.parameters,
             productId,
             tid,
-            val: productId,
+            val: `${productId}`,
           },
         };
 
@@ -662,10 +711,17 @@ describe('Omnitracking', () => {
       it.each(Object.keys(definitions.trackEventsMapper))(
         '`%s` return should match the snapshot',
         eventMapperKey => {
+          const eventMapperKeyTemp =
+            eventMapperKey as keyof typeof definitions.trackEventsMapper;
+
           expect(
-            definitions.trackEventsMapper[eventMapperKey](mockedTrackData),
+            (
+              definitions.trackEventsMapper[
+                eventMapperKeyTemp
+              ] as OmnitrackingTrackEventMapper
+            )(mockedTrackData),
           ).toMatchSnapshot();
-          expect(typeof definitions.trackEventsMapper[eventMapperKey]).toBe(
+          expect(typeof definitions.trackEventsMapper[eventMapperKeyTemp]).toBe(
             'function',
           );
         },
@@ -676,18 +732,29 @@ describe('Omnitracking', () => {
   describe('options', () => {
     describe('transformPayload', () => {
       it('Should allow to transform the payload for a page view before sending to Omnitracking service', async () => {
-        const transformPayload = payload => {
+        const mockEvent = 'GenericPageVisited';
+        const mockPromoCode = 'PROMO_XXX';
+
+        const transformPayload = (
+          payload: OmnitrackingRequestPayload<
+            PageViewEvents | PageActionEvents
+          >,
+        ) => {
           const payloadCopy = merge({}, payload);
 
-          payloadCopy.event = 'DummyEvent';
-          payloadCopy.parameters.testParam = 1;
+          payloadCopy.event = mockEvent;
+          payloadCopy.parameters.promoCode = mockPromoCode;
 
           return payloadCopy;
         };
 
-        omnitracking = new Omnitracking({
-          transformPayload,
-        });
+        omnitracking = new Omnitracking(
+          {
+            transformPayload,
+          },
+          loadIntegrationData,
+          strippedDownAnalytics,
+        );
 
         omnitracking.currentUniqueViewId = mocked_view_uid;
 
@@ -697,10 +764,10 @@ describe('Omnitracking', () => {
 
         expect(postTrackingsSpy).toHaveBeenCalledWith({
           ...mockExpectedPagePayloadWeb,
-          event: 'DummyEvent',
+          event: mockEvent,
           parameters: {
             ...mockExpectedPagePayloadWeb.parameters,
-            testParam: 1,
+            promoCode: mockPromoCode,
             previousUniqueViewId: mocked_view_uid,
             uniqueViewId: expect.any(String),
           },
@@ -715,8 +782,15 @@ describe('Omnitracking', () => {
         });
         const newTid = 10030;
 
-        const transformPayload = payload => {
-          const payloadCopy = merge({}, payload);
+        const transformPayload = (
+          payload: OmnitrackingRequestPayload<
+            PageActionEvents | PageViewEvents
+          >,
+        ) => {
+          const payloadCopy = merge(
+            {},
+            payload,
+          ) as OmnitrackingRequestPayload<PageActionEvents>;
 
           payloadCopy.event = newEvent;
           payloadCopy.parameters.val = newVal;
@@ -725,9 +799,13 @@ describe('Omnitracking', () => {
           return payloadCopy;
         };
 
-        omnitracking = new Omnitracking({
-          transformPayload,
-        });
+        omnitracking = new Omnitracking(
+          {
+            transformPayload,
+          },
+          loadIntegrationData,
+          strippedDownAnalytics,
+        );
 
         omnitracking.currentUniqueViewId = mocked_view_uid;
 
@@ -753,9 +831,14 @@ describe('Omnitracking', () => {
       it('Should log an error if the value specified is not a function', () => {
         const transformPayload = 'Invalid value';
 
-        omnitracking = new Omnitracking({
-          transformPayload,
-        });
+        omnitracking = new Omnitracking(
+          {
+            // @ts-expect-error
+            transformPayload,
+          },
+          loadIntegrationData,
+          strippedDownAnalytics,
+        );
 
         expect(mockLoggerError).toHaveBeenCalledWith(
           `[Omnitracking] - Invalid value provided for ${OPTION_TRANSFORM_PAYLOAD} option. It must be a function.`,
@@ -763,11 +846,16 @@ describe('Omnitracking', () => {
       });
 
       it('Should log an error if no value is returned by the function provided', async () => {
-        const transformPayload = () => {};
+        const transformPayload = () => undefined;
 
-        omnitracking = new Omnitracking({
-          transformPayload,
-        });
+        omnitracking = new Omnitracking(
+          {
+            // @ts-expect-error
+            transformPayload,
+          },
+          loadIntegrationData,
+          strippedDownAnalytics,
+        );
 
         const data = generateMockData();
 
@@ -784,20 +872,29 @@ describe('Omnitracking', () => {
       it('Should log an error if the value specified is not an array', () => {
         const searchQueryParameters = 'Invalid value';
 
-        omnitracking = new Omnitracking({
-          [OPTION_SEARCH_QUERY_PARAMETERS]: searchQueryParameters,
-        });
+        omnitracking = new Omnitracking(
+          {
+            // @ts-expect-error
+            [OPTION_SEARCH_QUERY_PARAMETERS]: searchQueryParameters,
+          },
+          loadIntegrationData,
+          strippedDownAnalytics,
+        );
 
         expect(mockLoggerError).toHaveBeenCalledWith(
           `[Omnitracking] - Invalid value provided for ${OPTION_SEARCH_QUERY_PARAMETERS} option. It must be an array.`,
         );
       });
       it('Should log an error if the value specified is an empty array', () => {
-        const searchQueryParameters = [];
+        const searchQueryParameters: never[] = [];
 
-        omnitracking = new Omnitracking({
-          [OPTION_SEARCH_QUERY_PARAMETERS]: searchQueryParameters,
-        });
+        omnitracking = new Omnitracking(
+          {
+            [OPTION_SEARCH_QUERY_PARAMETERS]: searchQueryParameters,
+          },
+          loadIntegrationData,
+          strippedDownAnalytics,
+        );
 
         expect(mockLoggerError).toHaveBeenCalledWith(
           `[Omnitracking] - Invalid value provided for ${OPTION_SEARCH_QUERY_PARAMETERS} option. It must contain a value`,
@@ -806,9 +903,14 @@ describe('Omnitracking', () => {
       it('Should log an error if the value specified has invalid data', () => {
         const searchQueryParameters = [{}];
 
-        omnitracking = new Omnitracking({
-          [OPTION_SEARCH_QUERY_PARAMETERS]: searchQueryParameters,
-        });
+        omnitracking = new Omnitracking(
+          {
+            // @ts-expect-error
+            [OPTION_SEARCH_QUERY_PARAMETERS]: searchQueryParameters,
+          },
+          loadIntegrationData,
+          strippedDownAnalytics,
+        );
 
         expect(mockLoggerError).toHaveBeenCalledWith(
           `[Omnitracking] - Invalid value provided for ${OPTION_SEARCH_QUERY_PARAMETERS} option. All parameters should be typed as string`,
@@ -819,16 +921,24 @@ describe('Omnitracking', () => {
 
   describe('parameters', () => {
     it('Should provide default values for uniqueViewId and previousUniqueViewId when tracking page views and events', async () => {
-      let lastPayload;
+      let lastPayload!: OmnitrackingRequestPayload<
+        PageViewEvents | PageActionEvents
+      >;
 
-      const transformPayload = payload => {
+      const transformPayload = (
+        payload: OmnitrackingRequestPayload<PageViewEvents | PageActionEvents>,
+      ) => {
         lastPayload = payload;
         return lastPayload;
       };
 
-      omnitracking = new Omnitracking({
-        transformPayload,
-      });
+      omnitracking = new Omnitracking(
+        {
+          transformPayload,
+        },
+        loadIntegrationData,
+        strippedDownAnalytics,
+      );
 
       const pageEventData = generateMockData();
 
@@ -865,7 +975,9 @@ describe('Omnitracking', () => {
       // the mockedUuid so the uniqueViewId changes
       // on the next omnitracking.track call with a page event.
       // Remember that v4 is jest.fn() in this test file.
-      uuid.v4.mockImplementation(() => '981945ad-b9d4-4c21-b3b0-2764b31bdc43');
+      (uuid.v4 as unknown as jest.Mock<string>).mockImplementation(
+        () => '981945ad-b9d4-4c21-b3b0-2764b31bdc43',
+      );
 
       // Track another page event to force
       // a creation of a new uniqueViewId
@@ -877,14 +989,23 @@ describe('Omnitracking', () => {
       // After this, we need to restore the mock for v4
       // to use the original implementation in other tests
       // that may be defined after this one.
-      uuid.v4.mockImplementation(() => mockedUuid);
+      (uuid.v4 as unknown as jest.Mock<string>).mockImplementation(
+        () => mockedUuid,
+      );
 
       expect(lastPayload.parameters.uniqueViewId).not.toBe(newUniqueViewId);
-      expect(lastPayload.parameters.previousUniqueViewId).toBe(newUniqueViewId);
+      expect(
+        (lastPayload as OmnitrackingRequestPayload<PageViewEvents>).parameters
+          .previousUniqueViewId,
+      ).toBe(newUniqueViewId);
     });
 
     it('Should allow the user to provide a value for the uniqueViewId parameter when tracking a page view', async () => {
-      omnitracking = new Omnitracking();
+      omnitracking = new Omnitracking(
+        {},
+        loadIntegrationData,
+        strippedDownAnalytics,
+      );
       const mockUniqueViewId = '78989d11-8863-4a12-b2ce-48cab737a43b';
       const pageEventData = generateMockData();
       pageEventData.properties.uniqueViewId = mockUniqueViewId;

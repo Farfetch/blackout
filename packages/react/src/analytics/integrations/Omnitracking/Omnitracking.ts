@@ -1,6 +1,6 @@
 /**
  * Omnitracking integration for web apps. This integration extends the Omnitracking class
- * in @farfetch/blackout-client that contains most of the business logic and adds logic to
+ * in \@farfetch/blackout-client that contains most of the business logic and adds logic to
  * persist and retrieve the unique view ids of each page view. This will fix
  * the bug where the previousUniqueViewId was null when the user opens a product
  * detail page in another tab instead of containing the uniqueViewId of the
@@ -8,27 +8,29 @@
  *
  * @example <caption>Adding Omnitracking integration to analytics</caption>
  *
- * import analytics, { integrations } from '@farfetch/blackout-react/analytics';
+ * import analytics, \{ integrations \} from '\@farfetch/blackout-react/analytics';
  *
  * analytics.addIntegration('omnitracking', integrations.Omnitracking);
  *
- * @module Omnitracking
- * @category Analytics
- * @subcategory Integrations
  */
 
-import { trackTypes } from '@farfetch/blackout-analytics';
+import {
+  EventData,
+  LoadIntegrationEventData,
+  StrippedDownAnalytics,
+  TrackTypesValues,
+  utils,
+} from '@farfetch/blackout-analytics';
 import OmnitrackingCore from '@farfetch/blackout-analytics/integrations/Omnitracking/Omnitracking';
 import UniqueViewIdStorage from './storage/UniqueViewIdStorage';
 import UniqueViewIdStorageOptions from './storage/UniqueViewIdStorageOptions';
+import type { OmnitrackingOptions } from '@farfetch/blackout-analytics/integrations/Omnitracking/types/Omnitracking.types';
 
 /**
  * Omnitracking integration.
- *
- * @private
- * @augments OmnitrackingCore
  */
 class Omnitracking extends OmnitrackingCore {
+  uniqueViewIdStorage: UniqueViewIdStorage;
   /**
    * Builds a new instance and initializes the unique view storage system.
    * It will also set the currentUniqueViewId by checking if the value from
@@ -36,13 +38,17 @@ class Omnitracking extends OmnitrackingCore {
    * must contain the full URL, so the referrer-policy header for the
    * page request must be adjusted accordinly.
    *
-   * @param {object} options   - Integration options.
-   * @param {object} loadData  - Analytics's load event data.
-   * @param {object} analytics - Stripped down analytics instance with helper methods.
+   * @param options   - Integration options.
+   * @param loadData  - Analytics's load event data.
+   * @param analytics - Stripped down analytics instance with helper methods.
    *
-   * @returns {Omnitracking} An instance of Omnitracking class.
+   * @returns An instance of Omnitracking class.
    */
-  constructor(options, loadData, analytics) {
+  constructor(
+    options: OmnitrackingOptions,
+    loadData: LoadIntegrationEventData,
+    analytics: StrippedDownAnalytics,
+  ) {
     super(options, loadData, analytics);
 
     this.uniqueViewIdStorage = new UniqueViewIdStorage(
@@ -59,35 +65,22 @@ class Omnitracking extends OmnitrackingCore {
    * Overrides Omnitracking's core track method by saving the currentUniqueViewId
    * when a page event is tracked.
    *
-   * @param {object} data - Event data provided by analytics.
+   * @param data - Event data provided by analytics.
    *
-   * @returns {Promise} Promise that will resolve when the method finishes.
+   * @returns Promise that will resolve when the method finishes.
    */
-  async track(data) {
+  async track(data: EventData<TrackTypesValues>) {
     const baseReturnValue = await super.track(data);
-    const trackType = data.type;
 
-    if (trackType === trackTypes.PAGE) {
+    if (utils.isPageEventType(data)) {
       this.uniqueViewIdStorage.set(
         window.location.href,
-        this.currentUniqueViewId,
+        // currentUniqueViewId is guaranteed to be set by the base class here
+        this.currentUniqueViewId as string,
       );
     }
 
     return baseReturnValue;
-  }
-
-  /**
-   * Method used to create a new Omnitracking instance by analytics.
-   *
-   * @param {object} options - Integration options.
-   * @param {object} loadData - Analytics's load event data.
-   * @param {object} analytics - Stripped down analytics instance with helper methods.
-   *
-   * @returns {Omnitracking} An instance of Omnitracking class.
-   */
-  static createInstance(options, loadData, analytics) {
-    return new Omnitracking(options, loadData, analytics);
   }
 }
 

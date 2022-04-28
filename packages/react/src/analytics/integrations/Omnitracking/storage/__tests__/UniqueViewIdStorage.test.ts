@@ -50,7 +50,7 @@ describe('UniqueViewIdStorage Tests', () => {
     const value2 = lStorage.get('Key2');
     expect(value2).toBe('Value2');
 
-    expect(localStorage.getItem(mockNotUniqueViewIdKey, mockDummyValue));
+    expect(localStorage.getItem(mockNotUniqueViewIdKey)).toBe(mockDummyValue);
   });
 
   it('Should not remove when same item is inserted when limit reached', () => {
@@ -81,12 +81,13 @@ describe('UniqueViewIdStorage Tests', () => {
     const mockConfig = UniqueViewIdStorageOptions.default();
     mockConfig.expires = -UniqueViewIdStorageOptions.MAX_EXPIRES;
 
-    let lStorage = new UniqueViewIdStorage(mockConfig);
+    const lStorage = new UniqueViewIdStorage(mockConfig);
 
     // Add an expired unique view id value to localStorage
     lStorage.set('ExpiredKey', 'Value');
 
     // Add a not expired unique view id value to localStorage
+    // @ts-expect-error
     lStorage.config.expires = UniqueViewIdStorageOptions.MAX_EXPIRES;
     lStorage.set('NotExpiredKey', 'NotExpiredValue');
 
@@ -120,7 +121,7 @@ describe('UniqueViewIdStorage Tests', () => {
     expect.assertions(3);
 
     try {
-      let lStorage = new UniqueViewIdStorage(
+      const lStorage = new UniqueViewIdStorage(
         UniqueViewIdStorageOptions.default(),
       );
 
@@ -200,6 +201,6 @@ describe('UniqueViewIdStorage Tests', () => {
 
     lStorage.removeOldestItem();
 
-    expect(localStorage.getItem(mockNotUniqueViewIdKey, mockDummyValue));
+    expect(localStorage.getItem(mockNotUniqueViewIdKey)).toBe(mockDummyValue);
   });
 });

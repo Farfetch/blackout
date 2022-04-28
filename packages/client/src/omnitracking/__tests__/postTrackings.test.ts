@@ -1,4 +1,4 @@
-import { postTrackings } from '../';
+import { postTrackings } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__mocks__/postTrackings.fixtures';
 import moxios from 'moxios';
