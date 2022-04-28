@@ -20,7 +20,6 @@ import {
   quantitySchema,
   shippingSchema,
   sizeSchema,
-  sortOptionSchema,
   taxSchema,
   totalRequiredSchema,
   totalSchema,
@@ -119,6 +118,10 @@ const imageCountSchema = yup.object({
 
 const errorSchema = yup.object({
   error: yup.string().notRequired(),
+});
+
+const sortOptionSchema = yup.object({
+  sortOption: yup.string().notRequired(),
 });
 
 const viewItemSchema = fullProductSchema.concat(imageCountSchema);
