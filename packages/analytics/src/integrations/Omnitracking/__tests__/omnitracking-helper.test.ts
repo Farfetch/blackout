@@ -6,6 +6,10 @@ import {
 } from '../omnitracking-helper';
 import platformTypes from '../../../types/platformTypes';
 import trackTypes from '../../../types/trackTypes';
+import type {
+  EventData,
+  TrackTypesValues,
+} from '../../../types/analytics.types';
 
 describe('getPageEventFromLocation', () => {
   it('should return null when location is not provided', () => {
@@ -13,7 +17,7 @@ describe('getPageEventFromLocation', () => {
   });
 
   it('should return null location.href is not set', () => {
-    expect(getPageEventFromLocation({})).toBe(null);
+    expect(getPageEventFromLocation({} as Location)).toBe(null);
   });
 });
 
@@ -34,7 +38,7 @@ describe('generatePaymentAttemptReferenceId', () => {
           localId: '12345',
         },
         timestamp: 123456789,
-      }),
+      } as EventData<TrackTypesValues>),
     ).toEqual(mockPaymentAttemptReferenceId);
   });
 });
@@ -44,7 +48,7 @@ describe('getPlatformSpecificParameters', () => {
     const eventData = {
       platform: platformTypes.Mobile,
       type: trackTypes.TRACK,
-    };
+    } as EventData<TrackTypesValues>;
 
     expect(getPlatformSpecificParameters(eventData)).toStrictEqual({});
   });

@@ -6,7 +6,7 @@ import { logger } from '@farfetch/blackout-analytics/utils';
 import get from 'lodash/get';
 import type { ProductEntity } from '../../entities/types';
 import type { StoreState } from '../../types';
-import type Analytics from '@farfetch/blackout-analytics/';
+import type Analytics from '@farfetch/blackout-analytics';
 
 /**
  * Returns the different product categories separated with a `/`.
@@ -89,9 +89,9 @@ export const getSize = (
 export const getCurrency = async (
   analyticsInstance: Analytics,
 ): Promise<string | undefined> => {
-  const currency: string | undefined = await analyticsInstance.context(
+  const currency: string | undefined = (await analyticsInstance.context(
     'currencyCode',
-  );
+  )) as string | undefined;
 
   if (!currency) {
     logger.error(

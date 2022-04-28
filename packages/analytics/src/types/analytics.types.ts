@@ -12,12 +12,20 @@ export type ConsentData = {
   [key in typeof CONSENT_KEYS[number]]?: boolean;
 };
 
+type CommonContextData = {
+  tenantId?: number;
+  clientId?: number;
+  culture?: string;
+  currencyCode?: string;
+};
+
 export type ContextData = {
   library: {
     name: string;
     version: string;
   };
-} & Record<string, unknown>;
+} & CommonContextData &
+  Record<string, unknown>;
 
 export type EventProperties = { products?: Product[] } & Record<
   string,
@@ -84,6 +92,7 @@ export type UserTraits = {
   username?: string;
   isGuest?: boolean;
   createdDate?: string;
+  gender?: number;
 } & Record<string, unknown>;
 
 export type UserData = {
@@ -101,7 +110,10 @@ export type StrippedDownAnalytics = {
   ) => Promise<EventData<TrackTypesValues>>;
 };
 
-export type UseContextFn = () => object;
+export type UseContextFn = () => CommonContextData & { event?: never } & Record<
+    string,
+    unknown
+  >;
 
 export type Product = {
   id?: string;

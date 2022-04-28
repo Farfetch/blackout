@@ -1,8 +1,3 @@
-/**
- * @module Omnitracking/definitions
- * @private
- */
-
 import {
   generatePaymentAttemptReferenceId,
   getParameterValueFromEvent,
@@ -11,6 +6,8 @@ import {
 import eventTypes from '../../types/eventTypes';
 import fromParameterTypes from '../../types/fromParameterTypes';
 import pageTypes from '../../types/pageTypes';
+import type { EventData, TrackTypesValues } from '../..';
+import type { OmnitrackingTrackEventsMapper } from './types/Omnitracking.types';
 
 export const PRODUCT_ID_PARAMETER = 'productId';
 export const PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST = 'id';
@@ -85,6 +82,8 @@ const commonPageParams = [
   'pricingManagement',
   'productShippingOptions',
   'pushStatus',
+  'referrer',
+  'referrerHost',
   'referrerUnionId',
   'returnDetails',
   'returnItemsSelectionList',
@@ -104,6 +103,7 @@ const commonPageParams = [
   'suggestionType',
   'uniqueViewId',
   'url',
+  'userAgent',
   'userBenefits',
   'userCountryLocation',
   'userGender',
@@ -113,8 +113,6 @@ const commonPageParams = [
   'utmMedium',
   'utmSource',
   'utmTerm',
-  'uuid',
-  'val',
   'viewCurrency',
   'viewGender',
   'viewSubType',
@@ -122,17 +120,18 @@ const commonPageParams = [
   'weChatOpenID',
   'weChatUnionId',
   'wishlistQuantity',
-];
+] as const;
 
 /**
  * Common `track` (PageAction) and `GenericPageVisited` (PageView) parameters.
  */
-const commonTrackAndPageParams = [
+export const commonTrackAndPageParams = [
   'attributesList',
   'bookmarkId',
   'bookmarkItemList',
   'categoryList',
   'categoryName',
+  'clientTimestamp',
   'colourList',
   'department',
   'designerList',
@@ -162,8 +161,9 @@ const commonTrackAndPageParams = [
   'sizeList',
   'skuItemList',
   'tagList',
+  'uuid',
   'variantId',
-];
+] as const;
 
 /**
  * Parameters dictionary by event type.
@@ -245,7 +245,7 @@ export const pageDefinitions = {
     'unitSalePrice',
     PRODUCT_ID_PARAMETER,
   ],
-};
+} as const;
 
 export const pageActionParameters = [
   'accessTier',
@@ -309,23 +309,22 @@ export const pageActionParameters = [
   'storeId',
   'targetId',
   'targetType',
+  'tid',
   'totalStock',
   'totalStockInStore',
   'uniqueViewId',
   'unitFullPrice',
   'unitSalePrice',
-  'uuid',
-];
+  'val',
+] as const;
 
-export const systemActionParameters = [];
+export const systemActionParameters = [] as const;
 
 export const trackDefinitions = [
   ...systemActionParameters,
   ...pageActionParameters,
   ...commonTrackAndPageParams,
-  'val',
-  'tid',
-];
+] as const;
 
 /**
  * Page action event types expected by Omnitracking to be sent
@@ -334,7 +333,7 @@ export const trackDefinitions = [
 export const pageActionEventTypes = {
   PAGE_ACTION: 'PageAction',
   SYSTEM_ACTION: 'SystemAction',
-};
+} as const;
 
 /**
  * Page view event types expected by Omnitracking to be sent
@@ -345,13 +344,17 @@ export const pageViewEventTypes = {
   ProductPageVisited: 'ProductPageVisited',
   ListingPageVisited: 'ListingPageVisited',
   CheckoutPageVisited: 'CheckoutPageVisited',
-};
+} as const;
 
 /**
  * Events mapper with possible keywords for each event type.
  * This keywords can match both with `window.location.href` or the page name passed via `analytics.page(name, properties)`.
  */
-export const pageEventsFilter = {
+export const pageEventsFilter: {
+  [K in keyof Omit<typeof pageViewEventTypes, 'GenericPageVisited'>]: Readonly<
+    Array<string>
+  >;
+} = {
   [pageViewEventTypes.ListingPageVisited]: [
     pageTypes.PRODUCT_LISTING,
     pageTypes.SEARCH,
@@ -375,29 +378,29 @@ export const pageEventsFilter = {
     'confirm',
     'payment',
   ],
-};
+} as const;
 
 /**
  * Interested events for tracking.
  * If there is an event that can have different TIDs depending on the `from` parameter,
  * make sure to define it, along with any specific parameter, if applicable.
  */
-export const trackEventsMapper = {
-  [eventTypes.SIGNUP_FORM_VIEWED]: data => ({
+export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
+  [eventTypes.SIGNUP_FORM_VIEWED]: (data: EventData<TrackTypesValues>) => ({
     tid: 10097,
     val: getValParameterForEvent({
       type: 'REGISTER',
       paymentAttemptReferenceId: generatePaymentAttemptReferenceId(data),
     }),
   }),
-  [eventTypes.CHECKOUT_STEP_VIEWED]: data => ({
+  [eventTypes.CHECKOUT_STEP_VIEWED]: (data: EventData<TrackTypesValues>) => ({
     tid: 10097,
     val: getValParameterForEvent({
       type: 'SUBMIT',
       paymentAttemptReferenceId: generatePaymentAttemptReferenceId(data),
     }),
   }),
-  [eventTypes.PLACE_ORDER_STARTED]: data => {
+  [eventTypes.PLACE_ORDER_STARTED]: (data: EventData<TrackTypesValues>) => {
     const val = getValParameterForEvent({
       type: 'TRANSACTION',
       paymentAttemptReferenceId: generatePaymentAttemptReferenceId(data),
@@ -417,10 +420,11 @@ export const trackEventsMapper = {
   [eventTypes.LOGOUT]: () => ({
     tid: 431,
   }),
-  [eventTypes.PRODUCT_ADDED_TO_CART]: data => {
-    const val =
+  [eventTypes.PRODUCT_ADDED_TO_CART]: (data: EventData<TrackTypesValues>) => {
+    const val = `${
       getParameterValueFromEvent(data, PRODUCT_ID_PARAMETER) ||
-      getParameterValueFromEvent(data, PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST);
+      getParameterValueFromEvent(data, PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST)
+    }`;
 
     switch (data.properties?.from) {
       case fromParameterTypes.PDP:
@@ -436,10 +440,13 @@ export const trackEventsMapper = {
         };
     }
   },
-  [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: data => {
-    const val =
+  [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: (
+    data: EventData<TrackTypesValues>,
+  ) => {
+    const val = `${
       getParameterValueFromEvent(data, PRODUCT_ID_PARAMETER) ||
-      getParameterValueFromEvent(data, PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST);
+      getParameterValueFromEvent(data, PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST)
+    }`;
 
     switch (data.properties?.from) {
       case fromParameterTypes.PDP:
@@ -473,7 +480,7 @@ export const trackEventsMapper = {
         };
     }
   },
-};
+} as const;
 
 export const userGenderValuesMapper = {
   0: 'NotDefined',
@@ -483,4 +490,4 @@ export const userGenderValuesMapper = {
   NotDefined: 'NotDefined',
   Male: 'Male',
   Female: 'Female',
-};
+} as const;

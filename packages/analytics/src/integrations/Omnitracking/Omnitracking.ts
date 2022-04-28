@@ -4,13 +4,10 @@
  *
  * @example <caption>Adding Omnitracking integration to analytics</caption>
  *
- * import analytics, { integrations } from '@farfetch/blackout-react/analytics';
+ * import analytics, \{ integrations \} from '\@farfetch/blackout-react/analytics';
  *
  * analytics.addIntegration('omnitracking', integrations.Omnitracking);
  *
- * @module Omnitracking
- * @category Analytics
- * @subcategory Integrations
  */
 
 import {
@@ -22,6 +19,7 @@ import {
   getUniqueViewIdParameter,
   validateOutgoingOmnitrackingPayload,
 } from './omnitracking-helper';
+import { isPageEventType, isScreenEventType } from '../../utils/typePredicates';
 import {
   OPTION_SEARCH_QUERY_PARAMETERS,
   OPTION_TRANSFORM_PAYLOAD,
@@ -35,22 +33,48 @@ import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
 import logger from '../../utils/logger';
 import platformTypes from '../../types/platformTypes';
+import type {
+  EventData,
+  eventTypes,
+  LoadIntegrationEventData,
+  StrippedDownAnalytics,
+  TrackTypesValues,
+  UserTraits,
+} from '../..';
+import type {
+  OmnitrackingOptions,
+  OmnitrackingPageEventParameters,
+  OmnitrackingRequestPayload,
+  OmnitrackingTrackEventParameters,
+  PageActionEvents,
+  PageViewEvents,
+} from './types/Omnitracking.types';
 
 /**
  * Omnitracking integration.
- *
- * @private
- * @augments Integration
  */
-class Omnitracking extends Integration {
+class Omnitracking extends Integration<OmnitrackingOptions> {
+  transformPayload: OmnitrackingOptions[typeof OPTION_TRANSFORM_PAYLOAD] | null;
+  searchQueryParameters:
+    | OmnitrackingOptions[typeof OPTION_SEARCH_QUERY_PARAMETERS]
+    | undefined
+    | null;
+  currentUniqueViewId: string | null;
+  previousUniqueViewId: string | null;
+  navigatedFrom: string | null;
   /**
    * Creates a new Omnitracking instance, validating its options.
    *
-   * @param {object}   [options]                  - Options passed to the Omnitracking integration.
-   * @param {Function} [options.transformPayload] - Function that will transform the data that will be posted to Omnitracking service.
+   * @param options - Options passed to the Omnitracking integration.
+   * @param loadData - Load integration event data.
+   * @param strippedDownAnalyticsInstance - Stripped down analytics instance.
    */
-  constructor(options = {}) {
-    super(options);
+  constructor(
+    options: OmnitrackingOptions,
+    loadData: LoadIntegrationEventData,
+    strippedDownAnalyticsInstance: StrippedDownAnalytics,
+  ) {
+    super(options, loadData, strippedDownAnalyticsInstance);
 
     const {
       [OPTION_TRANSFORM_PAYLOAD]: transformPayload,
@@ -97,28 +121,16 @@ class Omnitracking extends Integration {
   /**
    * Method to check if the integration is ready to be loaded.
    *
-   * @returns {boolean} If the integration is ready to be loaded.
+   * @returns If the integration is ready to be loaded.
    */
   static shouldLoad() {
     return true;
   }
 
   /**
-   * Method used to create a new Omnitracking instance by analytics.
-   *
-   * @param {object} options - Integration options.
-   * @param {object} loadData - Analytics's load event data.
-   *
-   * @returns {Omnitracking} An instance of Omnitracking class.
-   */
-  static createInstance(options, loadData) {
-    return new Omnitracking(options, loadData);
-  }
-
-  /**
    * Method that validates Omnitracking's basic business requirements before a tracking.
    *
-   * @returns {boolean} Whether the track data complies with basic requirements defined by the service.
+   * @returns Whether the track data complies with basic requirements defined by the service.
    */
   validateTrackingRequisites() {
     return !!this.currentUniqueViewId;
@@ -128,66 +140,75 @@ class Omnitracking extends Integration {
    * Gets parameters that can be pre-calculated and will be added
    * to the final payload that will be sent to Omnitracking service.
    *
-   * @param {object} data - Event data provided by analytics.
+   * @param data - Event data provided by analytics.
    *
-   * @private
-   * @returns {object} Object containing the pre-calculated parameters for the event.
+   *
+   * @returns Object containing the pre-calculated parameters for the event.
    */
-  getPrecalculatedParametersForEvent(data) {
-    const { type } = data;
-
+  getPrecalculatedParametersForEvent(
+    data: EventData<TrackTypesValues>,
+  ): OmnitrackingTrackEventParameters | OmnitrackingPageEventParameters {
     const isPageOrScreenEvent =
-      type === analyticsTrackTypes.PAGE || type === analyticsTrackTypes.SCREEN;
-    const precalculatedParameters = {};
+      isPageEventType(data) || isScreenEventType(data);
+
+    const precalculatedParameters:
+      | OmnitrackingTrackEventParameters
+      | OmnitrackingPageEventParameters = {};
 
     // First we check if we need to change the values
     // of the uniqueViewId and previousUniqueViewId
     if (isPageOrScreenEvent) {
+      // We need to cast to allow page view specific parameters to be added to the precalculatedParameters
+      // object.
+      const precalculatedPageViewParameters =
+        precalculatedParameters as OmnitrackingPageEventParameters;
+
       // Generate a new currentUniqueViewId to be used in all
       // subsequent page actions (analyticsTrackTypes.TRACK events).
       this.previousUniqueViewId = this.currentUniqueViewId;
       this.currentUniqueViewId = getUniqueViewIdParameter(data);
 
-      precalculatedParameters.previousUniqueViewId = this.previousUniqueViewId;
+      precalculatedPageViewParameters.previousUniqueViewId =
+        this.previousUniqueViewId;
       // This is a workaround to avoid calculate the parameter on helper's getPlatformSpecificParameters
       // in order to reduce the complexity of passing the options to the function
       if (data.platform === platformTypes.Web) {
         const searchQuery = getSearchQuery(data, this.searchQueryParameters);
         if (searchQuery) {
-          precalculatedParameters.searchQuery = searchQuery;
+          precalculatedPageViewParameters.searchQuery = searchQuery;
         }
       }
 
       if (this.navigatedFrom) {
-        precalculatedParameters.navigatedFrom = this.navigatedFrom;
+        precalculatedPageViewParameters.navigatedFrom = this.navigatedFrom;
       }
 
       const { event, user } = data;
 
       this.navigatedFrom = event;
 
-      const userTraits = get(user, 'traits', {});
+      const userTraits = get(user, 'traits', {}) as UserTraits;
 
-      precalculatedParameters.userGender = get(
+      precalculatedPageViewParameters.userGender = get(
         userGenderValuesMapper,
-        userTraits.gender,
+        `${userTraits.gender}`,
         userGenderValuesMapper.NotDefined,
       );
 
-      precalculatedParameters.isLogged =
+      precalculatedPageViewParameters.isLogged =
         userTraits.hasOwnProperty('isGuest') && !userTraits.isGuest;
-      precalculatedParameters.basketId = userTraits.bagId;
+      precalculatedPageViewParameters.basketId = userTraits.bagId;
 
       const { culture } = data.context;
-      let clientLanguage = '';
-      let clientCountry = '';
+      let clientLanguage: string | undefined = '';
+      let clientCountry: string | undefined = '';
 
-      clientLanguage = getClientLanguageFromCulture(culture);
-      clientCountry = getCLientCountryFromCulture(culture);
+      clientLanguage = getClientLanguageFromCulture(culture as string);
+      clientCountry = getCLientCountryFromCulture(culture as string);
 
-      precalculatedParameters.clientLanguage = clientLanguage;
-      precalculatedParameters.clientCountry = clientCountry;
-      precalculatedParameters.clientCulture = culture;
+      precalculatedPageViewParameters.clientLanguage = clientLanguage;
+      precalculatedPageViewParameters.clientCountry = clientCountry;
+      precalculatedPageViewParameters.clientCulture = culture;
     }
 
     precalculatedParameters.uniqueViewId = this.currentUniqueViewId;
@@ -198,18 +219,19 @@ class Omnitracking extends Integration {
   /**
    * Tracks events of interest.
    *
-   * @param {object} data - Event data provided by analytics.
+   * @param data - Event data provided by analytics.
    *
-   * @returns {Promise} Promise that will resolve when the method finishes.
+   * @returns Promise that will resolve when the method finishes.
    */
-  async track(data) {
-    let precalculatedParameters;
+  async track(data: EventData<TrackTypesValues>) {
+    let precalculatedParameters:
+      | OmnitrackingPageEventParameters
+      | OmnitrackingTrackEventParameters;
 
     switch (data.type) {
       case analyticsTrackTypes.PAGE:
       case analyticsTrackTypes.SCREEN: {
         // Screen is treated the same as a page in Omnitracking
-
         precalculatedParameters = this.getPrecalculatedParametersForEvent(data);
 
         return this.postTracking(
@@ -218,7 +240,10 @@ class Omnitracking extends Integration {
         );
       }
       case analyticsTrackTypes.TRACK: {
-        const eventMapperFn = trackEventsMapper[data.event];
+        const eventMapperFn =
+          trackEventsMapper[
+            data.event as typeof eventTypes[keyof typeof eventTypes]
+          ];
 
         if (eventMapperFn) {
           const mappedEvents = eventMapperFn(data);
@@ -246,14 +271,18 @@ class Omnitracking extends Integration {
   /**
    * Method that will combine all pre-calculated parameters with the ones that come from the mapper.
    *
-   * @param {object} data - Event data provided by analytics.
-   * @param {object} mappedEventData - Object with properties that come from the event mapper.
+   * @param data - Event data provided by analytics.
+   * @param mappedEventData - Object with properties that come from the event mapper.
    *
-   * @returns {Promise} Promise that will resolve when the method finishes.
+   * @returns Promise that will resolve when the method finishes.
    */
-  async processTrackEvents(data, mappedEventData) {
+  async processTrackEvents(
+    data: EventData<TrackTypesValues>,
+    mappedEventData?: OmnitrackingTrackEventParameters,
+  ) {
     const precalculatedParameters =
       this.getPrecalculatedParametersForEvent(data);
+
     const formattedEventData = formatTrackEvent(data, {
       ...precalculatedParameters,
       ...mappedEventData,
@@ -278,13 +307,15 @@ class Omnitracking extends Integration {
    * if defined to obtain the final payload data to be sent.
    * The final payload will then pass through validation before being posted to Omnitracking service.
    *
-   * @param {object} payload   - Payload data to be sent to Omnitracking service.
-   * @param {object} eventData - Data that is sent by analytics on a page/track event.
+   * @param payload   - Payload data to be sent to Omnitracking service.
+   * @param eventData - Data that is sent by analytics on a page/track event.
    *
-   * @private
-   * @returns {Promise} Promise that will resolve when the method finishes.
+   * @returns Promise that will resolve when the method finishes.
    */
-  async postTracking(payload, eventData) {
+  async postTracking(
+    payload: OmnitrackingRequestPayload<PageViewEvents | PageActionEvents>,
+    eventData: EventData<TrackTypesValues>,
+  ) {
     let finalPayload = payload;
 
     if (this.transformPayload) {

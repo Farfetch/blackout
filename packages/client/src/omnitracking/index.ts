@@ -1,10 +1,4 @@
 /**
- * @module Omnitracking/client
- * @category Analytics
- * @subcategory Clients
- */
-
-/**
  * Trackings client.
  */
 export { default as postTrackings } from './postTrackings';
