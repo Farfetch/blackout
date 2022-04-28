@@ -30,7 +30,7 @@ export const mockSearchSuggestionsResponse = [
 export const mockSearchSuggestionsState = {
   search: {
     suggestions: {
-      error: 'Error - Search request.',
+      error: { message: 'Error - Search request.' },
       isLoading: false,
       query: mockSearchSuggestionsQuery,
       result: mockSearchSuggestionsResponse,
