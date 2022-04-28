@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.224](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.223...@farfetch/blackout-redux@1.0.0-next.224) (2022-04-28)
+
+
+### Features
+
+* **blackout-redux:** convert analytic's wishlist middleware to typescript ([ab2e7a2](https://github.com/Farfetch/blackout/commit/ab2e7a20810f7548892f4c3964dc3a0946bb3d71))
+
+
+
+
+
 # [1.0.0-next.223](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.222...@farfetch/blackout-redux@1.0.0-next.223) (2022-04-27)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
