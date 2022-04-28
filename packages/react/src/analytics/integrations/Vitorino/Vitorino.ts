@@ -4,13 +4,9 @@
  *
  * @example <caption>Adding Vitorino integration to analytics</caption>
  *
- * import analytics, { integrations } from '@farfetch/blackout-react/analytics';
+ * import analytics, \{ integrations \} from '\@farfetch/blackout-react/analytics';
  *
- * analytics.addIntegration('vitorino', integrations.Vitorino, {});
- *
- * @module Vitorino
- * @category Analytics
- * @subcategory Integrations
+ * analytics.addIntegration('vitorino', integrations.Vitorino, \{\});
  */
 
 import {
@@ -26,54 +22,66 @@ import {
   VITORINO_CALL_ERROR_MESSAGE,
 } from './constants';
 import { getCustomerIdFromUser } from '@farfetch/blackout-analytics/integrations/Omnitracking/omnitracking-helper';
-import { getEnvironmentFromOptions } from './vitorino-helper';
-import { integrations, utils } from '@farfetch/blackout-analytics';
+import { Integration } from '@farfetch/blackout-analytics/integrations';
+import {
+  LoadIntegrationEventData,
+  StrippedDownAnalytics,
+  utils,
+} from '@farfetch/blackout-analytics';
 import { POST_TRACKINGS_PATHNAME } from '@farfetch/blackout-client/omnitracking';
 import isArray from 'lodash/isArray';
+import type {
+  Config,
+  VitorinoIntegrationOptions,
+  VitorinoTrackCallback,
+} from './types/types';
+import type {
+  PageWebEventData,
+  SetUserWebEventData,
+  TrackWebEventData,
+} from '../../types/analytics.types';
 
 /**
  * Vitorino integration.
- *
- * @private
- * @augments Integration
+
  */
-export default class Vitorino extends integrations.Integration {
+export default class Vitorino extends Integration<VitorinoIntegrationOptions> {
+  isScriptLoaded: boolean;
+  getEventsMapper: typeof GET_EVENTS_MAPPER_FN;
+  isVitorinoConfigured: boolean;
+  vitorinoTrackCallback: VitorinoTrackCallback;
+  initializePromiseResolve: ((value?: unknown) => void) | null;
+  userIdPromiseResolve: ((value?: unknown) => void) | null;
+  initializePromise: Promise<unknown> | null;
+  userIdPromise: Promise<unknown> | null;
+  config: Config | null;
   /**
-   * This integration is required, so it must be loaded indenpendently of user consent.
+   * This integration is required, so it must be loaded independently of user consent.
    *
-   * @returns {boolean} If the integration should load or not.
+   * @returns If the integration should load or not.
    */
   static shouldLoad() {
     return true;
   }
 
   /**
-   * Creates and returns the instance for Vitorino integration.
-   *
-   * @param {object} options - Integration options.
-   * @param {object} loadData - Analytics' load event data.
-   * @param {object} analytics - Analytics stripped down instance.
-   *
-   * @returns {Vitorino} The instance created.
-   */
-  static createInstance(options, loadData, analytics) {
-    return new Vitorino(options, loadData, analytics);
-  }
-
-  /**
    * Creates an instance of Vitorino integration.
    *
-   * @param {object} options - Integration options.
-   * @param {object} loadData - Analytics' load event data.
-   * @param {object} analytics - Analytics stripped down instance.
+   * @param options - Integration options.
+   * @param loadData - Analytics' load event data.
+   * @param analytics - Analytics stripped down instance.
    *
    */
-  constructor(options = {}, loadData, analytics) {
+  constructor(
+    options: VitorinoIntegrationOptions,
+    loadData: LoadIntegrationEventData,
+    analytics: StrippedDownAnalytics,
+  ) {
     super(options, loadData, analytics);
 
     this.isScriptLoaded = false;
 
-    this.getEventsMapper = null;
+    this.getEventsMapper = GET_EVENTS_MAPPER_FN;
 
     this.isVitorinoConfigured = false;
 
@@ -82,6 +90,8 @@ export default class Vitorino extends integrations.Integration {
     this.initializePromiseResolve = null;
 
     this.userIdPromiseResolve = null;
+
+    this.config = null;
 
     this.initializePromise = new Promise(resolve => {
       this.initializePromiseResolve = resolve;
@@ -98,11 +108,9 @@ export default class Vitorino extends integrations.Integration {
   /**
    * When the user ID is available, config the vitorino and resolve the Promise so the tracking can begin.
    *
-   * @async
-   *
-   * @param {object} data - Analytics' event data.
+   * @param data - Analytics' event data.
    */
-  async onSetUser(data) {
+  async onSetUser(data: SetUserWebEventData): Promise<void> {
     await this.initializePromise;
 
     if (data.user?.id) {
@@ -125,9 +133,9 @@ export default class Vitorino extends integrations.Integration {
    * Makes the first call to Vitorino to configure it
    * and receive the callback function to be called later when a page change occurs.
    *
-   * @param {object} data - Analytics' event data.
+   * @param data - Analytics' setUser event data.
    */
-  configVitorino(data) {
+  configVitorino(data: SetUserWebEventData) {
     this.config = this.buildConfigData(data);
 
     this.vitorinoTrackCallback = window.Vitorino.track(this.config);
@@ -138,16 +146,10 @@ export default class Vitorino extends integrations.Integration {
   /**
    * Prepares the mapper for the integration to work with.
    *
-   * @param {object} options - Integration options.
+   * @param options - Integration options.
    */
-  buildMapper(options) {
+  buildMapper(options: VitorinoIntegrationOptions) {
     const customMapperFn = options.eventsMapper;
-
-    if (!customMapperFn) {
-      this.getEventsMapper = GET_EVENTS_MAPPER_FN;
-
-      return;
-    }
 
     if (customMapperFn && typeof customMapperFn !== 'function') {
       utils.logger.error(INVALID_CUSTOM_MAPPER_ERROR_MESSAGE);
@@ -155,15 +157,17 @@ export default class Vitorino extends integrations.Integration {
       return;
     }
 
-    this.getEventsMapper = customMapperFn;
+    if (customMapperFn) {
+      this.getEventsMapper = customMapperFn;
+    }
   }
 
   /**
    * Method that will load the script and append it to the DOM.
    *
-   * @param {object} options - Integration options.
+   * @param options - Integration options.
    */
-  loadScript(options) {
+  loadScript(options: VitorinoIntegrationOptions) {
     const script = document.createElement('script');
     const environment =
       options.environment || window?.__BUILD_CONTEXT__?.env?.NODE_ENV;
@@ -199,11 +203,11 @@ export default class Vitorino extends integrations.Integration {
   /**
    * Builds the object needed for the Vitorino pixel configuration with all necessary data.
    *
-   * @param {object} data - Analytics' track data.
+   * @param data - Analytics' track data.
    *
-   * @returns {object} - The payload to be sent to the pixel.
+   * @returns - The payload to be sent to the pixel.
    */
-  buildConfigData(data) {
+  buildConfigData(data: SetUserWebEventData): Config {
     const { tenantId, clientId, web } = data.context;
     const correlationId = data.user.localId;
     const origin = web?.window?.location?.origin;
@@ -218,9 +222,12 @@ export default class Vitorino extends integrations.Integration {
       clientId,
       origin,
       customerId: getCustomerIdFromUser(data.user),
-      environment: getEnvironmentFromOptions(this.options),
-      fields: this.getFieldsFromOptions(this.options),
-      network: {
+      environment: this.getEnvironmentFromOptions(this.options),
+      fields: {
+        sensitiveFields: this.options?.sensitiveFields || [],
+        secretFields: this.options?.secretFields || [],
+      },
+      network: this.options.network || {
         proxy: origin,
         path: `${MARKETING_API_PREFIX}${POST_TRACKINGS_PATHNAME}`,
       },
@@ -228,44 +235,13 @@ export default class Vitorino extends integrations.Integration {
   }
 
   /**
-   * Returns the fields object with the correct sensitiveFields and/or secretFields.
-   * Runs every entry (event) and builds two Arrays with all the field IDs.
+   * Returns the correspondent Vitorino page type for the event.
    *
-   * TODO: on the next major version (@farfetch/blackout-react@1.0.0) we can simplify this logic and remove the events entry,
-   * so the fields can be passed directly on two Arrays for the secretFields and sensitiveFields, respectively.
-   *
-   * @param {object} options - Integration options.
-   *
-   * @returns {object} - The fields object.
+   * @param event - The analytics event to filter by.
+
+   * @returns - The correspondent Vitorino's page view(s).
    */
-  getFieldsFromOptions(options) {
-    const safeSensitiveFields = options.sensitiveFields || {};
-    const safeSecretFields = options.secretFields || {};
-    const sensitiveFieldsIDs = [];
-    const secretFieldsIDs = [];
-
-    for (let event in safeSensitiveFields) {
-      sensitiveFieldsIDs.push(...safeSensitiveFields[event]);
-    }
-
-    for (let event in safeSecretFields) {
-      secretFieldsIDs.push(...safeSecretFields[event]);
-    }
-
-    return {
-      sensitiveFields: sensitiveFieldsIDs,
-      secretFields: secretFieldsIDs,
-    };
-  }
-
-  /**
-   * Returns the correspondant Vitorino page type for the event.
-   *
-   * @param {string} event - The analytics event to filter by.
-   
-   * @returns {string | Array} - The correspondant Vitorino's page view(s).
-   */
-  getPageTypeFromEvent(event) {
+  getPageTypeFromEvent(event: PageWebEventData['event']) {
     const mapper = this.getEventsMapper();
 
     if (!mapper || typeof mapper !== 'object') {
@@ -276,16 +252,31 @@ export default class Vitorino extends integrations.Integration {
   }
 
   /**
+   * Calculates the correct environment to pass to the Vitorino configuration.
+   *
+   * @param options - Integration options.
+   *
+   * @returns The correct environment.
+   */
+  getEnvironmentFromOptions(options: VitorinoIntegrationOptions) {
+    const { environment } = options;
+    const safeEnvironment =
+      environment || window?.__BUILD_CONTEXT__?.env?.NODE_ENV;
+
+    return safeEnvironment === ENVIRONMENT_TYPES.prod
+      ? window.Vitorino.Environment.PRODUCTION
+      : window.Vitorino.Environment.SANDBOX;
+  }
+
+  /**
    * Track method that will call Vitorino with the necessary data per event.
    * If there's more than one pageType per event, it will call Vitorino with each page type at a time.
    *
-   * @async
+   * @param data - Track event data.
    *
-   * @param {object} data - Track event data.
-   *
-   * @returns {Promise} Promise that will resolve when the method finishes.
+   * @returns Promise that will resolve when the method finishes.
    */
-  async track(data) {
+  async track(data: TrackWebEventData | PageWebEventData) {
     await this.initializePromise;
     await this.userIdPromise;
 
@@ -308,10 +299,10 @@ export default class Vitorino extends integrations.Integration {
   /**
    * Calls the callback function given from the config call to register a page view change.
    *
-   * @param {string} page - The `page` parameter of the event.
+   * @param page - The `page` parameter of the event.
    */
-  callVitorino(page) {
-    if (this.isVitorinoConfigured) {
+  callVitorino(page?: string) {
+    if (this.isVitorinoConfigured && this.vitorinoTrackCallback) {
       this.vitorinoTrackCallback(page);
     }
 

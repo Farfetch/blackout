@@ -1,4 +1,5 @@
 import { eventTypes, pageTypes } from '@farfetch/blackout-analytics';
+import type { EventsMapper } from './types/types';
 
 /**
  * Error messages and other constants.
@@ -6,7 +7,7 @@ import { eventTypes, pageTypes } from '@farfetch/blackout-analytics';
 export const ERROR_MESSAGE_PREFIX = 'Vitorino: ';
 export const INVALID_MAPPER_RETURN_TYPE_ERROR = `${ERROR_MESSAGE_PREFIX} TypeError: The return from the mapper is not an object. Please make sure your mapper return a valid object.`;
 export const INVALID_CUSTOM_MAPPER_ERROR_MESSAGE = `${ERROR_MESSAGE_PREFIX} The option "eventsMapper" is not a function. Please make sure you are passing a valid function that will map the analytics' events with Vitorino's page types.`;
-export const VITORINO_CALL_ERROR_MESSAGE = `${ERROR_MESSAGE_PREFIX} An error occured while trying to track an event. Please make sure Vitorino was loaded correctly.`;
+export const VITORINO_CALL_ERROR_MESSAGE = `${ERROR_MESSAGE_PREFIX} An error occurred while trying to track an event. Please make sure Vitorino was loaded correctly.`;
 export const MISSING_CONTEXT_ERROR_MESSAGE =
   'could not find "tenantId" or "clientId". Make sure these values are being passed through "analytics.useContext(() => ({})).';
 export const MARKETING_API_PREFIX = '/api';
@@ -27,9 +28,9 @@ export const ENVIRONMENT_TYPES = {
  * with references to the window will cause the server render to crash.
  * Having it within a function we can prevent that from happening because we only access it later in runtime when its safe to do so.
  *
- * @returns {object} - The mapper itself.
+ * @returns - The mapper itself.
  */
-export const GET_EVENTS_MAPPER_FN = () => ({
+export const GET_EVENTS_MAPPER_FN = (): EventsMapper => ({
   [pageTypes.CHECKOUT_SHIPPING]: window.Vitorino.PageTypes.SHIPPING,
   [pageTypes.LOGIN]: window.Vitorino.PageTypes.LOGIN,
   [pageTypes.REGISTER]: window.Vitorino.PageTypes.REGISTER,

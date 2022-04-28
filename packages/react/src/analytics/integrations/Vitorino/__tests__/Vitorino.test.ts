@@ -13,13 +13,20 @@ import {
 import {
   eventTypes,
   integrations,
+  LoadIntegrationEventData,
   pageTypes,
+  TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
 import { getCustomerIdFromUser } from '@farfetch/blackout-analytics/integrations/Omnitracking/omnitracking-helper';
-import { onSetUserEventData as mockUserAndTrackData } from 'tests/__fixtures__/analytics';
+import {
+  loadIntegrationData,
+  onSetUserEventData as mockUserAndTrackData,
+  trackEventsData,
+} from 'tests/__fixtures__/analytics';
 import { POST_TRACKINGS_PATHNAME } from '@farfetch/blackout-client/omnitracking';
 import Vitorino from '../Vitorino';
+import type { TrackWebEventData } from '../../../types/analytics.types';
 
 utils.logger.error = jest.fn();
 utils.logger.info = jest.fn();
@@ -30,6 +37,12 @@ const customVitorinoPageType = 'pageType do vitó';
 const mockCustomEventsMapper = () => ({
   [eventTypes.CHECKOUT_STEP_VIEWED]: customVitorinoPageType,
 });
+const analyticsTrackDataMock =
+  trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART];
+const strippedDownAnalytics = {
+  createEvent: (type: TrackTypesValues) =>
+    Promise.resolve({ ...analyticsTrackDataMock, type }),
+};
 
 const generateMockVitorinoPayload = () => ({
   correlationId: mockUserAndTrackData.user.localId,
@@ -50,12 +63,15 @@ const mockVitorinoTrackCallback = jest.fn(data => {
 });
 const getIntegrationInstance = async (
   options = defaultOptions,
-  loadData = mockUserAndTrackData,
+  loadData: LoadIntegrationEventData = loadIntegrationData,
 ) => {
-  const instance = Vitorino.createInstance(options, loadData);
+  const instance = new Vitorino(options, loadData, strippedDownAnalytics);
 
   instance.scriptOnload();
-  instance.userIdPromiseResolve();
+
+  if (instance.userIdPromiseResolve) {
+    instance.userIdPromiseResolve();
+  }
 
   window.Vitorino = {
     Environment: {
@@ -72,12 +88,13 @@ const getIntegrationInstance = async (
   };
 
   // config Vitorino
+  // @ts-ignore - No need to match the types here
   await instance.onSetUser(loadData);
 
   return instance;
 };
 
-const getScriptTagFromDOM = () =>
+const getScriptTagFromDOM = (): HTMLScriptElement | null =>
   document.querySelector(`[data-test="${DATA_TEST_SELECTOR}"]`);
 
 describe('Vitorino', () => {
@@ -92,6 +109,7 @@ describe('Vitorino', () => {
 
     it('Should be an integration that loads independently of user consent', () => {
       expect(Vitorino.shouldLoad()).toBe(true);
+      // @ts-expect-error
       expect(Vitorino.shouldLoad({ marketing: true })).toBe(true);
     });
   });
@@ -122,7 +140,7 @@ describe('Vitorino', () => {
           eventsMapper: () => 'this is a no no for vitó as well',
         });
 
-        await instance.track(mockUserAndTrackData);
+        await instance.track(analyticsTrackDataMock as TrackWebEventData);
 
         expect(utils.logger.error).toHaveBeenCalledWith(
           `${VITORINO_CALL_ERROR_MESSAGE} Error: ${INVALID_MAPPER_RETURN_TYPE_ERROR}`,
@@ -136,7 +154,7 @@ describe('Vitorino', () => {
           eventsMapper: () => null,
         });
 
-        await instance.track(mockUserAndTrackData);
+        await instance.track(analyticsTrackDataMock as TrackWebEventData);
 
         expect(utils.logger.error).toHaveBeenCalledWith(
           `${VITORINO_CALL_ERROR_MESSAGE} Error: ${INVALID_MAPPER_RETURN_TYPE_ERROR}`,
@@ -152,12 +170,8 @@ describe('Vitorino', () => {
         const secretFields = ['biz', 'buz'];
 
         await getIntegrationInstance({
-          sensitiveFields: {
-            [eventTypes.CHECKOUT_STEP_VIEWED]: sensitiveFields,
-          },
-          secretFields: {
-            [pageTypes.LOGIN_REGISTER]: secretFields,
-          },
+          sensitiveFields,
+          secretFields,
         });
 
         expect(window.Vitorino.track).toHaveBeenCalledWith({
@@ -177,14 +191,31 @@ describe('Vitorino', () => {
         });
 
         await instance.track({
-          ...mockUserAndTrackData,
+          ...analyticsTrackDataMock,
           event: eventTypes.CHECKOUT_STEP_VIEWED,
-        });
+        } as TrackWebEventData);
 
         expect(utils.logger.info).toHaveBeenCalledWith('Vitorino track: ', {
           config: generateMockVitorinoPayload(),
           vitorinoPageType:
             GET_EVENTS_MAPPER_FN()[eventTypes.CHECKOUT_STEP_VIEWED],
+        });
+      });
+    });
+
+    describe('Network option', () => {
+      it('Should allow to pass a "network" object to pass a custom proxy to Vitorino', async () => {
+        const customNetworkProxy = {
+          proxy: 'https://johndoe.com',
+          path: '/api',
+        };
+        await getIntegrationInstance({
+          network: customNetworkProxy,
+        });
+
+        expect(window.Vitorino.track).toHaveBeenCalledWith({
+          ...generateMockVitorinoPayload(),
+          network: customNetworkProxy,
         });
       });
     });
@@ -215,12 +246,12 @@ describe('Vitorino', () => {
 
         let scriptTag = getScriptTagFromDOM();
 
-        expect(scriptTag.src).toEqual(PROD_SCRIPT_SRC);
+        expect(scriptTag?.src).toEqual(PROD_SCRIPT_SRC);
 
         // clean the body
         document.body.innerHTML = '';
 
-        // test the dev script with the implicit environment option without relying on the default behaviour
+        // test the dev script with the implicit environment option without relying on the default behavior
         const devScriptSource = 'https://google.com/';
 
         await getIntegrationInstance({
@@ -230,7 +261,7 @@ describe('Vitorino', () => {
 
         scriptTag = getScriptTagFromDOM();
 
-        expect(scriptTag.src).toEqual(devScriptSource);
+        expect(scriptTag?.src).toEqual(devScriptSource);
       });
     });
 
@@ -252,9 +283,9 @@ describe('Vitorino', () => {
         const mockEvent = eventTypes.CHECKOUT_STEP_VIEWED;
 
         await instance.track({
-          ...mockUserAndTrackData,
+          ...analyticsTrackDataMock,
           event: mockEvent,
-        });
+        } as TrackWebEventData);
 
         expect(instance.vitorinoTrackCallback).toHaveBeenCalledWith(
           GET_EVENTS_MAPPER_FN()[mockEvent],
@@ -266,20 +297,20 @@ describe('Vitorino', () => {
         const mockEvent = pageTypes.LOGIN_REGISTER;
 
         await instance.track({
-          ...mockUserAndTrackData,
+          ...analyticsTrackDataMock,
           event: mockEvent,
-        });
+        } as TrackWebEventData);
 
         const pageTypesList = GET_EVENTS_MAPPER_FN()[mockEvent];
 
         expect(mockVitorinoTrackCallback).toHaveBeenCalledTimes(2);
 
         expect(mockVitorinoTrackCallback).toHaveBeenCalledWith(
-          pageTypesList[0],
+          pageTypesList?.[0],
         );
 
         expect(mockVitorinoTrackCallback).toHaveBeenCalledWith(
-          pageTypesList[1],
+          pageTypesList?.[1],
         );
       });
 
@@ -288,9 +319,9 @@ describe('Vitorino', () => {
         const mockEvent = eventTypes.PRODUCT_REMOVED_FROM_WISHLIST;
 
         await instance.track({
-          ...mockUserAndTrackData,
+          ...analyticsTrackDataMock,
           event: mockEvent,
-        });
+        } as TrackWebEventData);
 
         expect(mockVitorinoTrackCallback).toHaveBeenCalledWith(undefined);
       });
@@ -304,23 +335,24 @@ describe('Vitorino', () => {
         });
 
         await instance.track({
-          ...mockUserAndTrackData,
+          ...analyticsTrackDataMock,
           event: mockEvent,
-        });
+        } as TrackWebEventData);
 
         expect(mockVitorinoTrackCallback).toHaveBeenCalledWith(undefined);
       });
 
       it('Should not track an event if there is no tenantId and/or clientId', async () => {
         const instance = await getIntegrationInstance(defaultOptions, {
-          ...mockUserAndTrackData,
+          ...loadIntegrationData,
+          // @ts-expect-error
           context: {
             tenantId: undefined,
             clientId: undefined,
           },
         });
 
-        await instance.track(mockUserAndTrackData);
+        await instance.track(analyticsTrackDataMock as TrackWebEventData);
 
         expect(utils.logger.error).toHaveBeenCalledWith(
           `${ERROR_MESSAGE_PREFIX} There was an error when trying to config Vitorino: Error: ${MISSING_CONTEXT_ERROR_MESSAGE}`,
