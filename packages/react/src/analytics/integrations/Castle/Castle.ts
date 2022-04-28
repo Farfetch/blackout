@@ -46,7 +46,10 @@ import type {
   Thenable,
   UserParams,
 } from '@castleio/castle-js';
-import type { WebEventData } from '../../types/analytics.types';
+import type {
+  PageWebEventData,
+  TrackWebEventData,
+} from '../../types/analytics.types';
 
 export const CLIENT_ID_HEADER_NAME = 'X-Castle-Request-Token';
 export const CASTLE_MESSAGE_PREFIX = 'Castle 2.x -';
@@ -195,7 +198,7 @@ class Castle extends Integration<CastleIntegrationOptions> {
    *
    * @returns - The formatted user object.
    */
-  getUserData(data: WebEventData) {
+  getUserData(data: TrackWebEventData) {
     const userData: UserData = data.user || {};
     const userTraits: UserTraits = userData.traits || {};
 
@@ -222,7 +225,7 @@ class Castle extends Integration<CastleIntegrationOptions> {
    * @returns - Promise that will resolve when the method finishes.
    */
   async track(
-    data: WebEventData,
+    data: TrackWebEventData | PageWebEventData,
   ): Promise<Thenable<boolean | null | undefined>> {
     switch (data.type) {
       case trackTypes.PAGE:
@@ -243,7 +246,7 @@ class Castle extends Integration<CastleIntegrationOptions> {
    *
    * @returns - The resolved promise of each castle call method.
    */
-  async trackEvent(data: WebEventData): Promise<Thenable<boolean | null>> {
+  async trackEvent(data: TrackWebEventData): Promise<Thenable<boolean | null>> {
     const user = this.getUserData(data);
 
     switch (data.event) {
@@ -302,7 +305,7 @@ class Castle extends Integration<CastleIntegrationOptions> {
    *
    * @returns - The resolved promise of each castle call method.
    */
-  async trackPage(data: WebEventData): Promise<Thenable<boolean | null>> {
+  async trackPage(data: PageWebEventData): Promise<Thenable<boolean | null>> {
     const user = this.getUserData(data);
 
     const pageData: PageParams = {
