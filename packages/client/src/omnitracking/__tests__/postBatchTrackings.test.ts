@@ -1,4 +1,4 @@
-import { postBatchTrackings } from '../';
+import { postBatchTrackings } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__mocks__/postBatchTrackings.fixtures';
 import moxios from 'moxios';

@@ -1,5 +1,6 @@
 import { getTimeInMinutes } from '../../../../helpers';
 import { utils } from '@farfetch/blackout-analytics';
+import type UniqueViewIdStorageOptions from './UniqueViewIdStorageOptions';
 
 const CACHE_PREFIX = 'UniqueViewId_';
 
@@ -12,21 +13,19 @@ class UniqueViewIdStorage {
    * Creates an instance of the storage with the
    * passed configuration.
    *
-   * @param {module:UniqueViewIdStorageOptions} config - Config parameters.
+   * @param config - Config parameters.
    */
-  constructor(config) {
-    this.config = config;
-  }
+  constructor(private config: UniqueViewIdStorageOptions) {}
 
   /**
    * Gets the unique view id associated with
    * the url received on the key argument from localStorage
    * or null if not found/expired/does not support localStorage.
    *
-   * @param {string} key - The url string to retrieve the unique view id from.
-   * @returns {(string|null)} - The associated unique view id for the key or null if not found/expired/does not support localStorage.
+   * @param key - The url string to retrieve the unique view id from.
+   * @returns - The associated unique view id for the key or null if not found/expired/does not support localStorage.
    */
-  get(key) {
+  get(key: string): string | null {
     if (!this.supportsLocalStorage()) {
       return null;
     }
@@ -36,7 +35,7 @@ class UniqueViewIdStorage {
       return null;
     }
 
-    const obj = JSON.parse(localStorage.getItem(CACHE_PREFIX + key));
+    const obj = JSON.parse(localStorage.getItem(CACHE_PREFIX + key) as string);
 
     if (obj) {
       return obj.id;
@@ -50,12 +49,12 @@ class UniqueViewIdStorage {
    * if supported. Will remove oldest entries if items limit has been
    * reached in order to accomodate the new entry.
    *
-   * @param {string} key - The url to save the unique view id value.
-   * @param {string} value - The unique view id to save.
+   * @param key - The url to save the unique view id value.
+   * @param value - The unique view id to save.
    *
-   * @returns {boolean} - True if item was saved in localStorage, false otherwise.
+   * @returns True if item was saved in localStorage, false otherwise.
    */
-  set(key, value) {
+  set(key: string, value: string) {
     if (!this.supportsLocalStorage()) {
       return false;
     }
@@ -78,7 +77,7 @@ class UniqueViewIdStorage {
 
     // Loop in reverse as removing items will change indices of tail
     for (let i = localStorage.length - 1; i >= 0; --i) {
-      const keyWithPrefix = localStorage.key(i);
+      const keyWithPrefix = localStorage.key(i) as string;
       if (keyWithPrefix.indexOf(CACHE_PREFIX) === 0) {
         const key = keyWithPrefix.replace(CACHE_PREFIX, '');
 
@@ -97,9 +96,9 @@ class UniqueViewIdStorage {
     let oldestTimestamp = getTimeInMinutes() + this.config.expires + 1;
 
     for (let i = 0; i < localStorage.length; i++) {
-      const keyWithPrefix = localStorage.key(i);
+      const keyWithPrefix = localStorage.key(i) as string;
       if (keyWithPrefix.indexOf(CACHE_PREFIX) === 0) {
-        const obj = JSON.parse(localStorage.getItem(keyWithPrefix));
+        const obj = JSON.parse(localStorage.getItem(keyWithPrefix) as string);
 
         if (obj && obj.expires < oldestTimestamp) {
           oldestKey = keyWithPrefix.replace(CACHE_PREFIX, '');
@@ -117,12 +116,12 @@ class UniqueViewIdStorage {
    * Checks if the currently unique view id items stored in localStorage
    * have hit the limit specified in config.
    *
-   * @returns {boolean} - True if the max limit of items stored in localStorage is greater or equal than the maxItems config.
+   * @returns True if the max limit of items stored in localStorage is greater or equal than the maxItems config.
    */
   hasLimitReached() {
     let count = 0;
     for (let i = localStorage.length - 1; i >= 0; --i) {
-      const key = localStorage.key(i);
+      const key = localStorage.key(i) as string;
       if (key.indexOf(CACHE_PREFIX) === 0) {
         count++;
       }
@@ -134,12 +133,12 @@ class UniqueViewIdStorage {
   /**
    * Check if a url key entry in localStorage has expired.
    *
-   * @param {string} key - The url key to check.
+   * @param key - The url key to check.
    *
-   * @returns {boolean} - True if the expires time of the entry has been reached, false otherwise.
+   * @returns True if the expires time of the entry has been reached, false otherwise.
    */
-  isExpired(key) {
-    const obj = JSON.parse(localStorage.getItem(CACHE_PREFIX + key));
+  isExpired(key: string) {
+    const obj = JSON.parse(localStorage.getItem(CACHE_PREFIX + key) as string);
 
     if (obj) {
       // Check if we should actually kick item out of storage
@@ -154,12 +153,10 @@ class UniqueViewIdStorage {
   /**
    * Auxiliar method used by set method to store the entry in localStorage.
    *
-   * @private
-   *
-   * @param {string} key - The url key to save the unique view id value.
-   * @param {string} value - The unique view id value for the url key.
+   * @param key - The url key to save the unique view id value.
+   * @param value - The unique view id value for the url key.
    */
-  setItem(key, value) {
+  setItem(key: string, value: string) {
     try {
       const obj = {
         id: value,
@@ -182,16 +179,16 @@ class UniqueViewIdStorage {
   /**
    * Removes an item from localStorage.
    *
-   * @param {string} key - The url key to remove.
+   * @param key - The url key to remove.
    */
-  removeItem(key) {
+  removeItem(key: string) {
     localStorage.removeItem(CACHE_PREFIX + key);
   }
 
   /**
    * Checks if the runtime environment supports localStorage.
    *
-   * @returns {boolean} True if localStorage is supported, false otherwise.
+   * @returns True if localStorage is supported, false otherwise.
    */
   supportsLocalStorage() {
     try {
@@ -228,7 +225,7 @@ class UniqueViewIdStorage {
   clear() {
     // Loop in reverse as removing items will change indices of tail
     for (let i = localStorage.length - 1; i >= 0; --i) {
-      const keyWithPrefix = localStorage.key(i);
+      const keyWithPrefix = localStorage.key(i) as string;
       if (keyWithPrefix.indexOf(CACHE_PREFIX) === 0) {
         const key = keyWithPrefix.replace(CACHE_PREFIX, '');
         this.removeItem(key);

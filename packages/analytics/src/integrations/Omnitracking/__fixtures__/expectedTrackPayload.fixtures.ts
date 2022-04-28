@@ -9,7 +9,7 @@ export default {
   clientId: trackMockData.context.clientId,
   tenantId: trackMockData.context.tenantId,
   correlationId: trackMockData.user.localId,
-  customerId: trackMockData.user.id,
+  customerId: `${trackMockData.user.id}`,
   event: 'PageAction',
   parameters: {
     clientTimestamp: new Date(trackMockData.timestamp).toJSON(),

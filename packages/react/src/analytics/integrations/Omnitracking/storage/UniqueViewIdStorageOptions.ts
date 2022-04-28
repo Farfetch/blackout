@@ -12,9 +12,9 @@ class UniqueViewIdStorageOptions {
   /**
    * Gets an instance with default values applied.
    *
-   * @returns {UniqueViewIdStorageOptions} An instance with default values applied.
+   * @returns An instance with default values applied.
    */
-  static default() {
+  static default(): UniqueViewIdStorageOptions {
     return new UniqueViewIdStorageOptions();
   }
 

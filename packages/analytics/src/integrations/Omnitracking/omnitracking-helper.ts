@@ -1,13 +1,9 @@
-/**
- * @module Omnitracking/omnitracking-helper
- * @private
- */
-
 import {
   CLIENT_LANGUAGES_LIST,
   DEFAULT_CLIENT_LANGUAGE,
   DEFAULT_SEARCH_QUERY_PARAMETERS,
 } from './constants';
+import { isPageEventType, isScreenEventType } from '../../utils/typePredicates';
 import {
   pageActionEventTypes,
   pageDefinitions,
@@ -17,35 +13,53 @@ import {
   trackDefinitions,
 } from './definitions';
 import { v4 as uuidv4 } from 'uuid';
-import analyticsTrackTypes from '../../types/trackTypes';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
 import platformTypes from '../../types/platformTypes';
+import type { EventContext, EventData, TrackTypesValues } from '../..';
+import type {
+  OmnitrackingCommonEventParameters,
+  OmnitrackingPageEventParameters,
+  OmnitrackingRequestPayload,
+  OmnitrackingTrackEventParameters,
+  PageActionEvents,
+  PageViewEvents,
+  SearchQueryParameters,
+  SpecificParametersBuilderByPlatform,
+  SpecificParametersForEventType,
+  ValParameter,
+} from './types/Omnitracking.types';
 
 /**
  * Adds common parameters to all kinds of message types.
  *
- * @param {object} data - Event data passed by analytics.
+ * @param data - Event data passed by analytics.
  *
- * @returns {object} Object containing common parameters.
+ * @returns Object containing common parameters.
  */
-export const getCommonParameters = data => {
-  return {
+export const getCommonParameters = (
+  data: EventData<TrackTypesValues>,
+): OmnitrackingCommonEventParameters => {
+  const parameters: OmnitrackingCommonEventParameters = {
     clientTimestamp: new Date(data.timestamp).toJSON(),
     uuid: uuidv4(),
   };
+
+  return parameters;
 };
 
 /**
  * Returns the unique view id for the event. If the event properties
  * pass it, return that value. Else, return a newly generated uuid.
  *
- * @param {object} data - Event data passed by analytics.
+ * @param data - Event data passed by analytics.
  *
- * @returns {string} The unique view id for the event.
+ * @returns The unique view id for the event.
  */
-export const getUniqueViewIdParameter = data => {
-  let uniqueViewId = get(data, 'properties.uniqueViewId');
+export const getUniqueViewIdParameter = (
+  data: EventData<TrackTypesValues>,
+): string => {
+  const uniqueViewId = get(data, 'properties.uniqueViewId');
 
   return typeof uniqueViewId === 'string' ? uniqueViewId : uuidv4();
 };
@@ -53,28 +67,34 @@ export const getUniqueViewIdParameter = data => {
 /**
  * Returns the customer id for tracking of the passed user instance.
  *
- * @param {User} user - The user instance.
+ * @param user - The user instance.
  *
- * @returns {(string|number)} The formatted customer ID.
+ * @returns The formatted customer ID.
  */
-export const getCustomerIdFromUser = user => {
+export const getCustomerIdFromUser = (
+  user: EventData<TrackTypesValues>['user'],
+): string => {
   const customerId = user.id;
-  const isGuest = user.traits.isGuest;
+  const isGuest = user.traits?.isGuest;
 
-  return customerId && isGuest ? `g_${customerId}` : customerId;
+  return customerId && isGuest ? `g_${customerId}` : `${customerId}`;
 };
 
 /**
  * This method tries to match the name passed by `analytics.page(name)` with the `pageEventsFilter` keywords.
  *
- * @param {string} pageType - Page type passed to analytics.
+ * @param pageType - Page type passed to analytics.
  *
- * @returns {string} The event for the page type.
+ * @returns The event for the page type.
  */
-export const getPageEventFromPageType = pageType => {
-  let event = '';
+export const getPageEventFromPageType = (
+  pageType: EventData<TrackTypesValues>['event'],
+): PageViewEvents | null => {
+  let event: PageViewEvents | null = null;
 
-  Object.keys(pageEventsFilter).forEach(key => {
+  (
+    Object.keys(pageEventsFilter) as Array<keyof typeof pageEventsFilter>
+  ).forEach(key => {
     if (pageEventsFilter[key].indexOf(pageType) >= 0) {
       event = key;
     }
@@ -86,18 +106,22 @@ export const getPageEventFromPageType = pageType => {
 /**
  * This method tries to match some keyword from `eventMapper` with any word on the `location.href`.
  *
- * @param {object} location - Location object to check if there is any keyword that matches the `eventMapper`.
+ * @param location - Location object to check if there is any keyword that matches the `eventMapper`.
  *
- * @returns {string} The event for the page.
+ * @returns The event for the page.
  */
-export const getPageEventFromLocation = location => {
+export const getPageEventFromLocation = (
+  location?: Location,
+): PageViewEvents | null => {
   if (!location || !location.href) {
     return null;
   }
 
-  let event = '';
+  let event = null;
 
-  Object.keys(pageEventsFilter).forEach(key => {
+  (
+    Object.keys(pageEventsFilter) as Array<keyof typeof pageEventsFilter>
+  ).forEach(key => {
     pageEventsFilter[key].forEach(keyword => {
       if (
         location.href.toLowerCase().indexOf(keyword.toLocaleLowerCase()) >= 0
@@ -113,11 +137,13 @@ export const getPageEventFromLocation = location => {
 /**
  * Returns the correct event according the page the user is in.
  *
- * @param {object} data - Event data passed by analytics.
+ * @param data - Event data passed by analytics.
  *
- * @returns {string} Name of the event.
+ * @returns Name of the event.
  */
-export const getPageEvent = data => {
+export const getPageEvent = (
+  data: EventData<TrackTypesValues>,
+): PageViewEvents => {
   const location = get(data, 'context.web.window.location', {});
   const event =
     getPageEventFromPageType(data.event) || getPageEventFromLocation(location);
@@ -128,16 +154,17 @@ export const getPageEvent = data => {
 /**
  * Creates an object with specific parameters for a web app.
  *
- * @param {object} data - Event data passed by analytics.
+ * @param data - Event data passed by analytics.
  *
- * @returns {object} Filtered object.
+ * @returns Filtered object.
  */
-const getSpecificWebParameters = data => {
-  let commonParameters = {};
+function getSpecificWebParameters(
+  data: EventData<TrackTypesValues>,
+): SpecificParametersForEventType<typeof data> {
+  let commonParameters: SpecificParametersForEventType<typeof data> =
+    {} as SpecificParametersForEventType<typeof data>;
 
-  const type = get(data, 'type');
-
-  if (type === analyticsTrackTypes.PAGE) {
+  if (isPageEventType(data)) {
     const referrer = get(data, 'context.web.document.referrer', '');
     const location = get(data, 'context.web.window.location', {});
     const query = get(location, 'query', {});
@@ -165,54 +192,64 @@ const getSpecificWebParameters = data => {
       utmMedium: query.utm_medium,
       utmContent: query.utm_content,
       utmCampaign: query.utm_campaign,
-    };
+    } as SpecificParametersForEventType<typeof data>;
   }
 
   return commonParameters;
-};
+}
 
 /**
  * Creates an object with specific parameters for a native app.
  *
- * @param {object} data - Event data passed by analytics.
+ * @param data - Event data passed by analytics.
  *
- * @returns {object} Filtered object.
+ * @returns Filtered object.
  */
-const getSpecificMobileParameters = data => {
-  const commonParameters = {};
-  const type = get(data, 'type');
+function getSpecificMobileParameters(
+  data: EventData<TrackTypesValues>,
+): SpecificParametersForEventType<typeof data> {
+  const commonParameters: SpecificParametersForEventType<typeof data> =
+    {} as SpecificParametersForEventType<typeof data>;
 
-  if (type === analyticsTrackTypes.SCREEN) {
+  if (isScreenEventType(data)) {
+    const screenParameters = commonParameters as SpecificParametersForEventType<
+      typeof data
+    >;
     // Referrer must be sent with an empty string when we don't have a value for it.
     const referrer = get(data, 'context.app.referrer', '');
-    commonParameters.referrer = referrer;
+    screenParameters.referrer = referrer;
   }
 
   return commonParameters;
-};
+}
 
 /**
  * Defines the common parameters builder by platform.
  */
-const specificParametersBuilderByPlatform = {
-  [platformTypes.Web]: getSpecificWebParameters,
-  [platformTypes.Mobile]: getSpecificMobileParameters,
-};
+const specificParametersBuilderByPlatform: SpecificParametersBuilderByPlatform =
+  {
+    [platformTypes.Web]: getSpecificWebParameters,
+    [platformTypes.Mobile]: getSpecificMobileParameters,
+  } as const;
 
 /**
  * Creates an object with parameters that are specific to a platform.
  * These parameters are collected and inferred by analytics `data` object,
  * so there's no need to pass these properties via `analytics.page()` or `analytics.track()`.
  *
- * @param {object} data - Event data passed by analytics.
+ * @param data - Event data passed by analytics.
  *
- * @returns {object} Filtered object.
+ * @returns Filtered object.
  */
-export const getPlatformSpecificParameters = data => {
+export const getPlatformSpecificParameters = (
+  data: EventData<TrackTypesValues>,
+): SpecificParametersForEventType<typeof data> => {
   const platform = get(data, 'platform', platformTypes.Web);
 
   const specificPlatformParametersBuilder =
-    specificParametersBuilderByPlatform[platform];
+    specificParametersBuilderByPlatform[
+      platform as typeof platformTypes[keyof typeof platformTypes]
+    ];
 
   if (!specificPlatformParametersBuilder) {
     return {};
@@ -223,14 +260,17 @@ export const getPlatformSpecificParameters = data => {
 
 /**
  * Filters the properties object with the `parameters` dictionary, so we don't pass unecessary information for the event.
- * We search for parameters in many locations: context -> device -> app -> event -> properties
+ * We search for parameters in many locations: context -\> device -\> app -\> event -\> properties
  * Each location can override the values of the previous one.
  *
- * @param {object} data  - Event data passed by analytics.
- * @param {string} event - Event name to filter properties by.
- * @returns {object} Result of the `pick()` method.
+ * @param data  - Event data passed by analytics.
+ * @param event - Event name to filter properties by.
+ * @returns Result of the `pick()` method.
  */
-export const pickPageParameters = (data, event) => {
+export const pickPageParameters = (
+  data: EventData<TrackTypesValues>,
+  event: PageViewEvents,
+): OmnitrackingPageEventParameters => {
   const eventPageDefinitions = pageDefinitions[event];
 
   return {
@@ -245,24 +285,27 @@ export const pickPageParameters = (data, event) => {
  * Formats page data to be sent to omnitracking service to register a page view.
  * Merges common parameters with the filtered ones sent via `analytics.page()`, along some other properties.
  *
- * @param {object} data                     - Event data passed by analytics.
- * @param {object} [additionalParameters]   - Additional parameters to be considered.
+ * @param data                   - Event data passed by analytics.
+ * @param additionalParameters   - Additional parameters to be considered.
  *
- * @returns {object} Formatted data.
+ * @returns Formatted data.
  */
-export const formatPageEvent = (data, additionalParameters) => {
+export const formatPageEvent = (
+  data: EventData<TrackTypesValues>,
+  additionalParameters: OmnitrackingPageEventParameters,
+): OmnitrackingRequestPayload<PageViewEvents> => {
   const correlationId = get(data, 'user.localId', null);
-  const user = get(data, 'user', { id: '', traits: {} });
+  const user = get(data, 'user', { id: -1, traits: {}, localId: '' });
   const customerId = getCustomerIdFromUser(user);
-  const context = get(data, 'context', {});
+  const context: EventContext = get(data, 'context', {}) as EventContext;
   const event = getPageEvent(data);
 
   return {
     event,
     customerId,
     correlationId,
-    tenantId: context.tenantId,
-    clientId: context.clientId,
+    tenantId: context.tenantId as number,
+    clientId: context.clientId as number,
     parameters: {
       ...additionalParameters,
       ...getPlatformSpecificParameters(data),
@@ -273,12 +316,15 @@ export const formatPageEvent = (data, additionalParameters) => {
 };
 
 /**
- * @param {object} data         - Event data passed by analytics.
- * @param {string} parameter    - Name of the parameter to obtain.
+ * @param data         - Event data passed by analytics.
+ * @param parameter    - Name of the parameter to obtain.
  *
- * @returns {*} The value of the parameter if found in event data or null if not found.
+ * @returns The value of the parameter if found in event data or null if not found.
  */
-export const getParameterValueFromEvent = (data, parameter) => {
+export const getParameterValueFromEvent = (
+  data: EventData<TrackTypesValues>,
+  parameter: string,
+): unknown => {
   let value;
 
   const searchLocations = [
@@ -300,22 +346,26 @@ export const getParameterValueFromEvent = (data, parameter) => {
 };
 
 /**
- * @param {object} valParameters - Properties to be appended to the stringified "val" parameter.
+ * @param valParameters - Properties to be appended to the stringified "val" parameter.
  *
- * @returns {string} The object stringified.
+ * @returns The object stringified.
  */
-export const getValParameterForEvent = (valParameters = {}) => {
+export const getValParameterForEvent = (
+  valParameters: ValParameter = {},
+): string => {
   return JSON.stringify(valParameters);
 };
 
 /**
  * Generates a payment attempt reference ID based on the correlationID (user local ID) and the timestamp of the event.
  *
- * @param {object} data - Event data passed by analytics.
+ * @param data - Event data passed by analytics.
  
- * @returns {string} - The payment attempt reference ID.
+ * @returns The payment attempt reference ID.
  */
-export const generatePaymentAttemptReferenceId = data => {
+export const generatePaymentAttemptReferenceId = (
+  data: EventData<TrackTypesValues>,
+): string => {
   const correlationId = get(data, 'user.localId', null);
   const timestamp = data.timestamp;
 
@@ -324,39 +374,42 @@ export const generatePaymentAttemptReferenceId = data => {
 
 /**
  * Filters the properties object with the `parameters` dictionary, so we don't pass unecessary information for the event.
- * We search for parameters in many locations: context -> device -> app -> event -> properties
+ * We search for parameters in many locations: context -\> device -\> app -\> event -\> properties
  * Each location can override the values of the previous one.
  *
- * @param {object} data                       - Event data passed by analytics.
- * @param {Array<string>} propertiesToPick    - Array of property strings to pick. By default will pick all properties defined in trackDefinitions variable.
+ * @param data                - Event data passed by analytics.
+ * @param propertiesToPick    - Array of property strings to pick. By default will pick all properties defined in trackDefinitions variable.
  *
- * @returns {object} Result of the `pick()` method.
+ * @returns Result of the `pick()` method.
  */
 export const pickTrackParameters = (
-  data,
+  data: EventData<TrackTypesValues>,
   propertiesToPick = trackDefinitions,
-) => {
+): OmnitrackingTrackEventParameters => {
   return {
     ...pick(data.context, propertiesToPick),
     ...pick(data.context.app, propertiesToPick),
     ...pick(data.context.event, propertiesToPick),
     ...pick(data.properties, propertiesToPick),
-  };
+  } as OmnitrackingTrackEventParameters;
 };
 
 /**
  * Formats tracking data to be sent to omnitracking service to register a custom event.
  *
- * @param {object} data                         - Event data passed by analytics.
- * @param {object} [additionalParameters]       - Additional parameters to be considered.
+ * @param data                       - Event data passed by analytics.
+ * @param additionalParameters       - Additional parameters to be considered.
  *
- * @returns {object} Formatted track data.
+ * @returns Formatted track data.
  */
-export const formatTrackEvent = (data, additionalParameters) => {
-  const user = get(data, 'user', { id: '', traits: {} });
+export const formatTrackEvent = (
+  data: EventData<TrackTypesValues>,
+  additionalParameters: OmnitrackingTrackEventParameters,
+): OmnitrackingRequestPayload<PageActionEvents> => {
+  const user = get(data, 'user', { id: -1, traits: {}, localId: '' });
   const customerId = getCustomerIdFromUser(user);
   const correlationId = get(data, 'user.localId', null);
-  const context = get(data, 'context', {});
+  const context = get(data, 'context', {}) as EventContext;
 
   const parameters = {
     ...additionalParameters,
@@ -385,8 +438,8 @@ export const formatTrackEvent = (data, additionalParameters) => {
     : pageActionEventTypes.PAGE_ACTION;
 
   return {
-    tenantId: context.tenantId,
-    clientId: context.clientId,
+    tenantId: context.tenantId as number,
+    clientId: context.clientId as number,
     correlationId,
     customerId,
     event,
@@ -395,23 +448,41 @@ export const formatTrackEvent = (data, additionalParameters) => {
 };
 
 /**
+ * Type predicate that narrows the type of the passed in payload
+ * to a page action payload.
+ *
+ * @param payload - Omnitracking payload to validate
+ *
+ * @returns True if the payload is for a page action.
+ */
+const isPageActionPayload = (
+  payload: OmnitrackingRequestPayload<PageViewEvents | PageActionEvents>,
+): payload is OmnitrackingRequestPayload<PageActionEvents> => {
+  const event = get(payload, 'event', '');
+
+  return Object.values(pageActionEventTypes).some(value => value === event);
+};
+
+/**
  * Validates if the payload to be sent to Omnitracking is correctly formed.
  * For now, it will only check if PageAction events contains the required tid
  * parameter.
  *
- * @param {object} payload - Object corresponding to the payload that Omnitracking service expects.
+ * @param payload - Object corresponding to the payload that Omnitracking service expects.
  *
- * @returns {boolean} True if the payload is correctly formed, false otherwise.
+ * @returns True if the payload is correctly formed, false otherwise.
  */
-export const validateOutgoingOmnitrackingPayload = payload => {
-  const event = get(payload, 'event', '');
+export const validateOutgoingOmnitrackingPayload = (
+  payload: OmnitrackingRequestPayload<PageViewEvents | PageActionEvents>,
+) => {
+  const isPageAction = isPageActionPayload(payload);
 
-  const isPageActionEvent = Object.values(pageActionEventTypes).some(
-    value => value === event,
-  );
-
-  if (isPageActionEvent) {
-    const parameters = get(payload, 'parameters', {});
+  if (isPageAction) {
+    const parameters = get(
+      payload,
+      'parameters',
+      {},
+    ) as OmnitrackingTrackEventParameters;
 
     return !!parameters.tid;
   }
@@ -423,12 +494,15 @@ export const validateOutgoingOmnitrackingPayload = payload => {
  * Fetches the searchQuery taking in account the option searchQueryParameters
  * passed by the user or by the default ones.
  *
- * @param {object} data - Object corresponding to the payload that Omnitracking service expects.
- * @param {Array} searchQueryParameters - List of possible searchQueryParameters passed by user.
+ * @param data                  - Object corresponding to the payload that Omnitracking service expects.
+ * @param searchQueryParameters - List of possible searchQueryParameters passed by user.
  *
- * @returns {string} The searchQuery used on the page.
+ * @returns The searchQuery used on the page.
  */
-export const getSearchQuery = (data, searchQueryParameters) => {
+export const getSearchQuery = (
+  data: EventData<TrackTypesValues>,
+  searchQueryParameters: SearchQueryParameters | undefined | null,
+): string | void => {
   const searchQueryParams =
     searchQueryParameters ?? DEFAULT_SEARCH_QUERY_PARAMETERS;
 
@@ -436,7 +510,7 @@ export const getSearchQuery = (data, searchQueryParameters) => {
     const searchQuery = get(
       data,
       `context.web.window.location.query.${searchQueryParams[i]}`,
-    );
+    ) as string;
 
     if (searchQuery) {
       return searchQuery;
@@ -448,15 +522,15 @@ export const getSearchQuery = (data, searchQueryParameters) => {
  * Returns the client language from the culture code, if matches one of the possible client language values.
  * If not, return the default one (en).
  *
- * @param {string} culture - The current culture code.
+ * @param culture - The current culture code.
  *
- * @returns {string} The clientLanguage to be sent on the event.
+ * @returns The clientLanguage to be sent on the event.
  */
-export const getClientLanguageFromCulture = culture => {
+export const getClientLanguageFromCulture = (culture: string) => {
   const cultureSplit = (culture || '').split('-');
   const clientLanguage = cultureSplit[0];
 
-  return CLIENT_LANGUAGES_LIST.includes(clientLanguage)
+  return CLIENT_LANGUAGES_LIST.includes(clientLanguage as string)
     ? clientLanguage
     : DEFAULT_CLIENT_LANGUAGE;
 };
@@ -464,11 +538,11 @@ export const getClientLanguageFromCulture = culture => {
 /**
  * Returns the client country from the culture code.
  *
- * @param {string} culture - The current culture code.
+ * @param culture - The current culture code.
  *
- * @returns {string} The clientCountry to be sent on the event.
+ * @returns The clientCountry to be sent on the event.
  */
-export const getCLientCountryFromCulture = culture => {
+export const getCLientCountryFromCulture = (culture: string) => {
   const cultureSplit = (culture || '').split('-');
   const clientCountry = cultureSplit[1];
 

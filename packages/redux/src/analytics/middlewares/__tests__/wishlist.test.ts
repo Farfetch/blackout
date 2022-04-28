@@ -161,6 +161,7 @@ describe('wishlistMiddleware()', () => {
     });
 
     it('Should log an error if the currencyCode is not set in analytics context', async () => {
+      // @ts-expect-error
       analytics.useContext(() => ({ currencyCode: null }));
 
       await store.dispatch({
