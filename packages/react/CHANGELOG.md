@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.213](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.212...@farfetch/blackout-react@1.0.0-next.213) (2022-04-29)
+
+
+### Features
+
+* **blackout-react:** add support multigender ga4's signup newsletter ([8ac1b9a](https://github.com/Farfetch/blackout/commit/8ac1b9a92ab698fe6297d0948a122dc59dafd434))
+
+
+
+
+
 # [1.0.0-next.212](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.211...@farfetch/blackout-react@1.0.0-next.212) (2022-04-28)
 
 **Note:** Version bump only for package @farfetch/blackout-react
