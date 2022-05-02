@@ -17,6 +17,7 @@ type CommonContextData = {
   clientId?: number;
   culture?: string;
   currencyCode?: string;
+  clientCountry?: string;
 };
 
 export type ContextData = {
