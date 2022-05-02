@@ -1,31 +1,30 @@
 import client, { adaptError } from '../helpers/client';
+import type { AxiosRequestConfig } from 'axios';
 
 /**
  * Method responsible for posting data to /analytics endpoint on MKT API.
  *
- * @memberof module:AnalyticsService/client
- *
- * @param {object} data - Payload to be sent on the body of the post request.
- * @param {object} [config] - Custom configurations to send to the client
+ * @param data - Payload to be sent on the body of the post request.
+ * @param config - Custom configurations to send to the client
  * instance (axios).
  *
  * @example
- * import { postAnalytics } from '@farfetch/blackout-client/analyticsService';
+ * import \{ postAnalytics \} from '\@farfetch/blackout-client/analyticsService';
  *
- *  postAnalytics({
- *       type: '@farfetch/blackout-client/analytics',
+ *  postAnalytics(\{
+ *       type: '\@farfetch/blackout-client/analytics',
  *       version: '1.0.0.0',
- *       data: {
+ *       data: \{
  *          type: trackTypes.PAGE,
- *          properties: {},
+ *          properties: \{\},
  *          event: pageTypes.HOMEPAGE,
  *          ... More analytics event fields
- *      }
- *  });
+ *      \}
+ *  \});
  *
- * @returns {Promise} Promise object.
+ * @returns Promise object.
  */
-const postAnalytics = (data, config) =>
+const postAnalytics = (data: object, config?: AxiosRequestConfig) =>
   client
     .post('/marketing/v1/analytics', data, config)
     .then(response => response.data)

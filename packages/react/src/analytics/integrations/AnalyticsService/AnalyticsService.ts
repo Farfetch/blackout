@@ -1,47 +1,31 @@
 /**
- * Analytics service integration will send data to fps Analytics service.
+ * Analytics service integration will send data to Analytics service.
  *
  * @example <caption>Adding AnalyticsService integration to analytics</caption>
  *
- * import analytics, { integrations } from '@farfetch/blackout-react/analytics';
+ * import analytics, \{ integrations \} from '\@farfetch/blackout-react/analytics';
  *
  * analytics.addIntegration('analyticsService', integrations.AnalyticsService);
- *
- * @module AnalyticsServiceWeb
- * @category Analytics
- * @subcategory Integrations
  */
 
-import { integrations, trackTypes } from '@farfetch/blackout-analytics';
+import {
+  EventData,
+  integrations,
+  SetUserEventData,
+  TrackTypesValues,
+} from '@farfetch/blackout-analytics';
+import { isPageEventType } from '@farfetch/blackout-analytics/utils';
 
 /**
  * Analytics service integration.
- *
- * @private
- * @augments integrations.AnalyticsService
  */
 class AnalyticsServiceWeb extends integrations.AnalyticsService {
   /**
-   * Method used to create a new AnalyticsService instance by analytics.
-   *
-   * @param {object} options - Integration options.
-   * @param {object} loadData - Analytics's load event data.
-   * @param {object} analytics - Analytics instance stripped down with only helpers.
-   *
-   * @returns {AnalyticsServiceWeb} An instance of GTM class.
-   */
-  static createInstance(options, loadData, analytics) {
-    return new AnalyticsServiceWeb(options, loadData, analytics);
-  }
-
-  /**
    * Function that will create and store the interval.
    *
-   * @param {number} interval - The interval in milliseconds for the queue flush.
-   *
-   * @override
+   * @param interval - The interval in milliseconds for the queue flush.
    */
-  setup(interval) {
+  setup(interval: number) {
     this.interval = setInterval(this.flushQueue, interval);
 
     window.addEventListener('beforeunload', this.flushQueue);
@@ -51,12 +35,10 @@ class AnalyticsServiceWeb extends integrations.AnalyticsService {
    * Controls the queue by flushing it when a new page is tracked.
    * This will make sure all previously tracked events (that were not flushed yet) are persisted properly when a page change occurs.
    *
-   * @param {object} data - Event data provided by analytics.
-   *
-   * @override
+   * @param data - Event data provided by analytics.
    */
-  controlQueue(data) {
-    if (data.type === trackTypes.PAGE) {
+  controlQueue(data: EventData<TrackTypesValues> | SetUserEventData) {
+    if (isPageEventType(data as EventData<TrackTypesValues>)) {
       this.flushQueue();
     }
   }
@@ -70,7 +52,9 @@ class AnalyticsServiceWeb extends integrations.AnalyticsService {
    * @override
    */
   clearInterval() {
-    clearInterval(this.interval);
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
 
     this.interval = undefined;
   }
