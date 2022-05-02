@@ -26,7 +26,6 @@ import {
 } from 'tests/__fixtures__/analytics';
 import { POST_TRACKINGS_PATHNAME } from '@farfetch/blackout-client/omnitracking';
 import Vitorino from '../Vitorino';
-import type { TrackWebEventData } from '../../../types/analytics.types';
 
 utils.logger.error = jest.fn();
 utils.logger.info = jest.fn();
@@ -140,7 +139,7 @@ describe('Vitorino', () => {
           eventsMapper: () => 'this is a no no for vitó as well',
         });
 
-        await instance.track(analyticsTrackDataMock as TrackWebEventData);
+        await instance.track(analyticsTrackDataMock);
 
         expect(utils.logger.error).toHaveBeenCalledWith(
           `${VITORINO_CALL_ERROR_MESSAGE} Error: ${INVALID_MAPPER_RETURN_TYPE_ERROR}`,
@@ -154,7 +153,7 @@ describe('Vitorino', () => {
           eventsMapper: () => null,
         });
 
-        await instance.track(analyticsTrackDataMock as TrackWebEventData);
+        await instance.track(analyticsTrackDataMock);
 
         expect(utils.logger.error).toHaveBeenCalledWith(
           `${VITORINO_CALL_ERROR_MESSAGE} Error: ${INVALID_MAPPER_RETURN_TYPE_ERROR}`,
@@ -193,7 +192,7 @@ describe('Vitorino', () => {
         await instance.track({
           ...analyticsTrackDataMock,
           event: eventTypes.CHECKOUT_STEP_VIEWED,
-        } as TrackWebEventData);
+        });
 
         expect(utils.logger.info).toHaveBeenCalledWith('Vitorino track: ', {
           config: generateMockVitorinoPayload(),
@@ -285,7 +284,7 @@ describe('Vitorino', () => {
         await instance.track({
           ...analyticsTrackDataMock,
           event: mockEvent,
-        } as TrackWebEventData);
+        });
 
         expect(instance.vitorinoTrackCallback).toHaveBeenCalledWith(
           GET_EVENTS_MAPPER_FN()[mockEvent],
@@ -299,7 +298,7 @@ describe('Vitorino', () => {
         await instance.track({
           ...analyticsTrackDataMock,
           event: mockEvent,
-        } as TrackWebEventData);
+        });
 
         const pageTypesList = GET_EVENTS_MAPPER_FN()[mockEvent];
 
@@ -321,7 +320,7 @@ describe('Vitorino', () => {
         await instance.track({
           ...analyticsTrackDataMock,
           event: mockEvent,
-        } as TrackWebEventData);
+        });
 
         expect(mockVitorinoTrackCallback).toHaveBeenCalledWith(undefined);
       });
@@ -337,7 +336,7 @@ describe('Vitorino', () => {
         await instance.track({
           ...analyticsTrackDataMock,
           event: mockEvent,
-        } as TrackWebEventData);
+        });
 
         expect(mockVitorinoTrackCallback).toHaveBeenCalledWith(undefined);
       });
@@ -352,7 +351,7 @@ describe('Vitorino', () => {
           },
         });
 
-        await instance.track(analyticsTrackDataMock as TrackWebEventData);
+        await instance.track(analyticsTrackDataMock);
 
         expect(utils.logger.error).toHaveBeenCalledWith(
           `${ERROR_MESSAGE_PREFIX} There was an error when trying to config Vitorino: Error: ${MISSING_CONTEXT_ERROR_MESSAGE}`,
