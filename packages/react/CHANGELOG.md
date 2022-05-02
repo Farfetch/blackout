@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.215](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.214...@farfetch/blackout-react@1.0.0-next.215) (2022-05-02)
+
+
+### Features
+
+* **react:** convert Vitorino integration to typescript ([021f12f](https://github.com/Farfetch/blackout/commit/021f12f084e63bb62cc42d5c3d48c75865480993))
+
+
+### BREAKING CHANGES
+
+* **react:** - Removed unnecessary logic for sensitive and secret fields - now the
+integration accepts the array of IDs on both options, regardless of
+the events logic.
+
+```
+// Previously
+
+analytics.addIntegration('vitorino', Vitorino, {
+    sensitiveFields: {
+        [eventTypes.LOGIN]: ['passwordInput']
+    },
+    secretFields: {
+        [eventTypes.PURCHASE]: ['cvv']
+    }
+});
+
+// Change to
+
+analytics.addIntegration('vitorino', Vitorino, {
+    sensitiveFields: ['passwordInput'],
+    secretFields: ['cvv']
+});
+```
+
+
+
+
+
 # [1.0.0-next.214](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.213...@farfetch/blackout-react@1.0.0-next.214) (2022-05-02)
 
 
