@@ -4,14 +4,22 @@ import {
   MINIMUM_REQUEST_INTERVAL,
   REQUEST_INTERVAL_KEY,
 } from '../constants';
-import { eventTypes } from '../../../';
 import {
+  EventData,
+  eventTypes,
+  SetUserEventData,
+  StrippedDownAnalytics,
+  TrackTypesValues,
+} from '../../..';
+import {
+  loadIntegrationData,
   onSetUserEventData,
   trackEventsData,
 } from 'tests/__fixtures__/analytics';
 import { postAnalytics } from '@farfetch/blackout-client/analyticsService';
 import { utils } from '@farfetch/blackout-analytics';
 import AnalyticsService from '../AnalyticsService';
+import type { AnalyticsServiceOptions } from '../types/AnalyticsService.types';
 
 jest.mock('@farfetch/blackout-client/analyticsService', () => ({
   ...jest.requireActual('@farfetch/blackout-client/analyticsService'),
@@ -30,13 +38,25 @@ const trackPayload = {
 };
 
 class SafeAnalyticsSubclass extends AnalyticsService {
-  setup() {}
-  clearInterval() {}
-  controlQueue() {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  setup(interval: number) {
+    // Do nothing
+  }
+  clearInterval() {
+    // Do nothing
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  controlQueue(data: EventData<TrackTypesValues> | SetUserEventData) {
+    // Do nothing
+  }
 }
 
-function getAnalyticsServiceInstance(options, loadData, analytics) {
-  return new SafeAnalyticsSubclass(options, loadData, analytics);
+function getAnalyticsServiceInstance(options: AnalyticsServiceOptions) {
+  return new SafeAnalyticsSubclass(
+    options,
+    loadIntegrationData,
+    {} as StrippedDownAnalytics,
+  );
 }
 
 describe('AnalyticsService', () => {
@@ -46,10 +66,12 @@ describe('AnalyticsService', () => {
 
   describe('shouldLoad method', () => {
     it('Should return true no matter which consent was given', () => {
+      // @ts-expect-error
       let shouldLoadResponse = AnalyticsService.shouldLoad({});
 
       expect(shouldLoadResponse).toBe(true);
 
+      // @ts-expect-error
       shouldLoadResponse = AnalyticsService.shouldLoad({
         marketing: false,
         statistics: false,
@@ -62,7 +84,7 @@ describe('AnalyticsService', () => {
 
   describe('createInstance method', () => {
     it('Should create an instance of this integration', () => {
-      const instance = getAnalyticsServiceInstance();
+      const instance = getAnalyticsServiceInstance({});
 
       expect(instance).toBeInstanceOf(AnalyticsService);
     });
@@ -70,6 +92,7 @@ describe('AnalyticsService', () => {
     it('Should throw a TypeError if passed an invalid type of "requestInterval"', () => {
       expect(() =>
         getAnalyticsServiceInstance({
+          // @ts-expect-error
           requestInterval: 'foo',
         }),
       ).toThrow(
@@ -102,7 +125,9 @@ describe('AnalyticsService', () => {
   describe('controlQueue method', () => {
     it('Should have a placeholder for the method with the purpose of being extended', () => {
       // bypass the constructor to dodge the .setup() throw
-      expect(() => AnalyticsService.prototype.controlQueue()).toThrow(
+      expect(() =>
+        AnalyticsService.prototype.controlQueue({} as SetUserEventData),
+      ).toThrow(
         "This method should be implemented by the subclass. If you are getting this error, make sure you are using the correct integration from '@farfetch/blackout-client/react' or '@farfetch/blackout-react-native-analytics'.",
       );
     });
@@ -110,7 +135,7 @@ describe('AnalyticsService', () => {
 
   describe('setup method', () => {
     it('Should have a placeholder for the method with the purpose of being extended', () => {
-      expect(() => AnalyticsService.createInstance()).toThrow(
+      expect(() => AnalyticsService.prototype.setup(0)).toThrow(
         "This method should be implemented by the subclass. If you are getting this error, make sure you are using the correct integration from '@farfetch/blackout-client/react' or '@farfetch/blackout-react-native-analytics'.",
       );
     });
@@ -119,7 +144,7 @@ describe('AnalyticsService', () => {
   describe('onSetUser method', () => {
     it('Should send event data to Analytics service', () => {
       jest.useFakeTimers();
-      const instance = getAnalyticsServiceInstance();
+      const instance = getAnalyticsServiceInstance({});
       const payload = {
         data: {
           ...onSetUserEventData,
@@ -142,7 +167,7 @@ describe('AnalyticsService', () => {
 
   describe('track method', () => {
     it('Should send a track event data to Analytics service', () => {
-      const instance = getAnalyticsServiceInstance();
+      const instance = getAnalyticsServiceInstance({});
 
       instance.track(trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART]);
 
@@ -153,7 +178,7 @@ describe('AnalyticsService', () => {
 
       expect(postAnalytics).toHaveBeenCalledWith([trackPayload]);
 
-      postAnalytics.mockClear();
+      (postAnalytics as jest.Mock).mockClear();
 
       // force a new flush to ensure the postAnalytics is not being called again
       instance.flushQueue();
@@ -166,19 +191,27 @@ describe('AnalyticsService', () => {
 
       // Extend the class implementing a setTimeout for the setup
       const MyAnalyticsService = class extends AnalyticsService {
-        setup(interval) {
+        setup(interval: number) {
           this.interval = setTimeout(this.flushQueue, interval);
         }
 
         clearInterval() {
-          clearInterval(this.interval);
+          if (this.interval) {
+            clearInterval(this.interval);
+          }
 
           this.interval = undefined;
         }
 
-        controlQueue() {}
+        controlQueue() {
+          // Do nothing
+        }
       };
-      const instance = new MyAnalyticsService();
+      const instance = new MyAnalyticsService(
+        {},
+        loadIntegrationData,
+        {} as StrippedDownAnalytics,
+      );
 
       expect(instance.interval).toBeDefined();
 
