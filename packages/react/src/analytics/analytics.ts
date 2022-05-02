@@ -5,6 +5,7 @@ import Analytics, {
   IntegrationRuntimeData,
   platformTypes,
 } from '@farfetch/blackout-analytics';
+import webContext from './context';
 /**
  * Analytics facade for web applications.
  * Refer to \@farfetch/blackout-analytics documentation to know the
@@ -22,6 +23,9 @@ class AnalyticsWeb extends Analytics {
 
     // Stores the last page call
     this.currentPageCallData = null;
+
+    // Add default contexts for the web platform
+    this.useContext(webContext);
   }
 
   /**

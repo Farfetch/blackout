@@ -21,13 +21,16 @@ import {
   PROD_SCRIPT_SRC,
   VITORINO_CALL_ERROR_MESSAGE,
 } from './constants';
-import { getCustomerIdFromUser } from '@farfetch/blackout-analytics/integrations/Omnitracking/omnitracking-helper';
-import { Integration } from '@farfetch/blackout-analytics/integrations';
 import {
+  EventData,
   LoadIntegrationEventData,
+  SetUserEventData,
   StrippedDownAnalytics,
+  TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
+import { getCustomerIdFromUser } from '@farfetch/blackout-analytics/integrations/Omnitracking/omnitracking-helper';
+import { Integration } from '@farfetch/blackout-analytics/integrations';
 import { POST_TRACKINGS_PATHNAME } from '@farfetch/blackout-client/omnitracking';
 import isArray from 'lodash/isArray';
 import type {
@@ -35,11 +38,7 @@ import type {
   VitorinoIntegrationOptions,
   VitorinoTrackCallback,
 } from './types/types';
-import type {
-  PageWebEventData,
-  SetUserWebEventData,
-  TrackWebEventData,
-} from '../../types/analytics.types';
+import type { WebContextType } from '../../context';
 
 /**
  * Vitorino integration.
@@ -110,7 +109,7 @@ export default class Vitorino extends Integration<VitorinoIntegrationOptions> {
    *
    * @param data - Analytics' event data.
    */
-  async onSetUser(data: SetUserWebEventData): Promise<void> {
+  async onSetUser(data: SetUserEventData): Promise<void> {
     await this.initializePromise;
 
     if (data.user?.id) {
@@ -135,7 +134,7 @@ export default class Vitorino extends Integration<VitorinoIntegrationOptions> {
    *
    * @param data - Analytics' setUser event data.
    */
-  configVitorino(data: SetUserWebEventData) {
+  configVitorino(data: SetUserEventData) {
     this.config = this.buildConfigData(data);
 
     this.vitorinoTrackCallback = window.Vitorino.track(this.config);
@@ -207,9 +206,12 @@ export default class Vitorino extends Integration<VitorinoIntegrationOptions> {
    *
    * @returns - The payload to be sent to the pixel.
    */
-  buildConfigData(data: SetUserWebEventData): Config {
-    const { tenantId, clientId, web } = data.context;
+  buildConfigData(data: SetUserEventData): Config {
+    const dataWithWebEventType = data as SetUserEventData & {
+      context: WebContextType;
+    };
     const correlationId = data.user.localId;
+    const { tenantId, clientId, web } = dataWithWebEventType.context;
     const origin = web?.window?.location?.origin;
 
     if (!tenantId || !clientId) {
@@ -241,7 +243,7 @@ export default class Vitorino extends Integration<VitorinoIntegrationOptions> {
 
    * @returns - The correspondent Vitorino's page view(s).
    */
-  getPageTypeFromEvent(event: PageWebEventData['event']) {
+  getPageTypeFromEvent(event: EventData<TrackTypesValues>['event']) {
     const mapper = this.getEventsMapper();
 
     if (!mapper || typeof mapper !== 'object') {
@@ -276,7 +278,7 @@ export default class Vitorino extends Integration<VitorinoIntegrationOptions> {
    *
    * @returns Promise that will resolve when the method finishes.
    */
-  async track(data: TrackWebEventData | PageWebEventData) {
+  async track(data: EventData<TrackTypesValues>) {
     await this.initializePromise;
     await this.userIdPromise;
 

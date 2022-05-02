@@ -23,10 +23,14 @@
 
 import * as castleJS from '@castleio/castle-js';
 import {
+  EventData,
   eventTypes,
   LoadIntegrationEventData,
+  PageviewEventData,
   StrippedDownAnalytics,
+  TrackEventData,
   trackTypes,
+  TrackTypesValues,
   UserData,
   UserTraits,
   utils,
@@ -46,10 +50,7 @@ import type {
   Thenable,
   UserParams,
 } from '@castleio/castle-js';
-import type {
-  PageWebEventData,
-  TrackWebEventData,
-} from '../../types/analytics.types';
+import type { WebContextType } from '../../context';
 
 export const CLIENT_ID_HEADER_NAME = 'X-Castle-Request-Token';
 export const CASTLE_MESSAGE_PREFIX = 'Castle 2.x -';
@@ -103,12 +104,6 @@ class Castle extends Integration<CastleIntegrationOptions> {
    * @param options - Integration options.
    */
   validateOptions(options: CastleIntegrationOptions) {
-    if (!options.configureOptions?.pk) {
-      throw new Error(
-        `${CASTLE_MESSAGE_PREFIX} Failed to initialize Castle. Please make sure a valid 'pk: string (Publishable Key)' is passed via the integration options.`,
-      );
-    }
-
     if (
       options.configureHttpClient &&
       typeof options.configureHttpClient !== 'function'
@@ -198,7 +193,7 @@ class Castle extends Integration<CastleIntegrationOptions> {
    *
    * @returns - The formatted user object.
    */
-  getUserData(data: TrackWebEventData) {
+  getUserData(data: TrackEventData | PageviewEventData) {
     const userData: UserData = data.user || {};
     const userTraits: UserTraits = userData.traits || {};
 
@@ -225,14 +220,14 @@ class Castle extends Integration<CastleIntegrationOptions> {
    * @returns - Promise that will resolve when the method finishes.
    */
   async track(
-    data: TrackWebEventData | PageWebEventData,
+    data: EventData<TrackTypesValues>,
   ): Promise<Thenable<boolean | null | undefined>> {
     switch (data.type) {
       case trackTypes.PAGE:
-        return this.trackPage(data);
+        return this.trackPage(data as PageviewEventData);
 
       case trackTypes.TRACK:
-        return this.trackEvent(data);
+        return this.trackEvent(data as TrackEventData);
       /* istanbul ignore next */
       default:
         return;
@@ -246,7 +241,7 @@ class Castle extends Integration<CastleIntegrationOptions> {
    *
    * @returns - The resolved promise of each castle call method.
    */
-  async trackEvent(data: TrackWebEventData): Promise<Thenable<boolean | null>> {
+  async trackEvent(data: TrackEventData): Promise<Thenable<boolean | null>> {
     const user = this.getUserData(data);
 
     switch (data.event) {
@@ -305,13 +300,16 @@ class Castle extends Integration<CastleIntegrationOptions> {
    *
    * @returns - The resolved promise of each castle call method.
    */
-  async trackPage(data: PageWebEventData): Promise<Thenable<boolean | null>> {
+  async trackPage(data: PageviewEventData): Promise<Thenable<boolean | null>> {
     const user = this.getUserData(data);
+    const dataWithWebEventType = data as PageviewEventData & {
+      context: WebContextType;
+    };
 
     const pageData: PageParams = {
-      url: data.context.web.window.location.href,
-      name: data.context.web.document.title,
-      referrer: data.context.web.document.referrer,
+      url: dataWithWebEventType.context.web.window.location.href,
+      name: dataWithWebEventType.context.web.document.title,
+      referrer: dataWithWebEventType.context.web.document.referrer,
       user,
     };
 
