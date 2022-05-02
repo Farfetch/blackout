@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.5](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.4...@farfetch/blackout-analytics@1.0.0-next.5) (2022-05-02)
+
+
+### Features
+
+* **analytics|client|react:** transform Omnitracking integration to typescript ([c987863](https://github.com/Farfetch/blackout/commit/c98786396f6c82a07f6f3359fb994128bdb5f37e))
+
+
+
+
+
 # [1.0.0-next.4](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.3...@farfetch/blackout-analytics@1.0.0-next.4) (2022-04-27)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
