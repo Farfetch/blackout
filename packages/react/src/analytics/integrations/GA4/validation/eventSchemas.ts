@@ -20,7 +20,6 @@ import {
   quantitySchema,
   shippingSchema,
   sizeSchema,
-  sortOptionSchema,
   taxSchema,
   totalRequiredSchema,
   totalSchema,
@@ -34,7 +33,9 @@ import {
 } from '@farfetch/blackout-analytics';
 import { SignupNewsletterGenderMappings } from '../../shared/dataMappings/';
 import isElement from 'lodash/isElement';
+import type { AnySchema } from 'yup';
 
+// Error codes
 export const errorCodes = {
   InvalidSize: 'ga4_invalid_size',
   InvalidQuantity: 'ga4_invalid_quantity',
@@ -128,6 +129,10 @@ const errorSchema = yup.object({
   error: yup.string().notRequired(),
 });
 
+const sortOptionSchema = yup.object({
+  sortOption: yup.string().notRequired(),
+});
+
 const viewItemSchema = fullProductSchema.concat(imageCountSchema);
 
 const viewItemListSchema = productsSchema
@@ -207,7 +212,6 @@ const placeOrderStartedSchema = currencyRequiredSchema
 
 const shippingMethodAddedSchema = checkoutShippingStepSchema;
 const addressInfoAddedSchema = checkoutShippingStepSchema;
-
 const interactContentSchema = yup
   .object({
     interactionType: yup
@@ -215,13 +219,16 @@ const interactContentSchema = yup
       .test(
         'match_interaction_type',
         'The interactionType must match one of the built-in "interationTypes"',
-        value => Object.values(interactionTypes).includes(value),
+        value =>
+          (Object.values(interactionTypes) as Array<string>).includes(
+            value as string,
+          ),
       ),
   })
   .test(
     'scroll_invalid_target_parameter',
     "invalid 'target' parameter for 'SCROLL' interaction type. It must be a DOM Element.",
-    value => {
+    (value: Record<string, unknown>) => {
       if (value.interactionType === interactionTypes.SCROLL) {
         return isElement(value.target);
       }
@@ -232,7 +239,7 @@ const interactContentSchema = yup
   .test(
     'scroll_invalid_percentage_scrolled_parameter',
     "invalid 'percentageScrolled' parameter for 'SCROLL' interaction type. It must be a number representing a percentage between [0,100].",
-    value => {
+    (value: Record<string, unknown>) => {
       if (value.interactionType === interactionTypes.SCROLL) {
         return (
           typeof value.percentageScrolled === 'number' &&
@@ -265,7 +272,7 @@ const signupNewsletterSchema = yup.object({
       'gender_invalid_parameter',
       "invalid 'gender' parameter for 'sign_up newsletter' event type. It accepts string or array of strings, but only if one is of Gender Mappings valid value.",
       value => {
-        const validationResult = schema => {
+        const validationResult = (schema: AnySchema) => {
           try {
             schema.validateSync(value);
             return true;
