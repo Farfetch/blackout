@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.36.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.35.0...@farfetch/blackout-react@0.36.0) (2022-05-03)
+
+
+### Bug Fixes
+
+* **blackout-react:** fix missing ga4 sort option schema ([6a58db7](https://github.com/Farfetch/blackout/commit/6a58db7f3946beeda81f67ca99bb223cfe92f12f))
+
+
+### Features
+
+* **blackout-react:** add support multigender ga4's signup newsletter ([6feae4f](https://github.com/Farfetch/blackout/commit/6feae4f451374ce1c75f688b346cfefa3b670372))
+
+
+
+
+
 # [0.35.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.34.0...@farfetch/blackout-react@0.35.0) (2022-04-26)
 
 

@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.56.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.55.0...@farfetch/blackout-core@1.56.0) (2022-05-03)
+
+
+### Bug Fixes
+
+* **core:** fix phone tokens endpoints requests ([fca7d8b](https://github.com/Farfetch/blackout/commit/fca7d8b53a1090b85d88e74e03e5f83c0bd4ceca))
+
+
+### Features
+
+* **blackout-core:** use previous store data of analytics bag on update event ([a3f5823](https://github.com/Farfetch/blackout/commit/a3f582313959303017182b544c80db25b9101322))
+* **core:** add personal id and image endpoints ([34f66f9](https://github.com/Farfetch/blackout/commit/34f66f9801870364400cafc561edabf0e1e8c83b))
+* **core:** add personal ids endpoints ([1e6ab58](https://github.com/Farfetch/blackout/commit/1e6ab582e5a09fd7fcb63f21d7d40300a460c4f8))
+
+
+
+
+
 # [1.55.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.54.0...@farfetch/blackout-core@1.55.0) (2022-04-19)
 
 
