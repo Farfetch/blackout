@@ -119,7 +119,6 @@ describe('GA Integration', () => {
   it('`shouldLoad` should return false if there is no user consent', () => {
     expect(GA.shouldLoad({ statistics: false })).toBe(false);
     expect(GA.shouldLoad({})).toBe(false);
-    expect(GA.shouldLoad({})).toBe(false);
   });
 
   it('`shouldLoad` should return true if there is user consent', () => {

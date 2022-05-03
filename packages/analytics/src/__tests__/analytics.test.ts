@@ -123,7 +123,9 @@ jest.mock('@farfetch/blackout-client/helpers', () => ({
   },
 }));
 
-const loggerErrorSpy = jest.spyOn(logger, 'error');
+const loggerErrorSpy = jest
+  .spyOn(logger, 'error')
+  .mockImplementation(message => message);
 
 let analytics: Analytics;
 
