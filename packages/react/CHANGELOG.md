@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.216](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.215...@farfetch/blackout-react@1.0.0-next.216) (2022-05-03)
+
+
+### Features
+
+* add `useSearchSuggestions` hook ([a4cff18](https://github.com/Farfetch/blackout/commit/a4cff187cb722e36c1d7228c8bfdd4cdb134e13b))
+
+
+
+
+
 # [1.0.0-next.215](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.214...@farfetch/blackout-react@1.0.0-next.215) (2022-05-02)
 
 
