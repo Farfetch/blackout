@@ -1,4 +1,11 @@
-import { eventTypes, pageTypes, utils } from '@farfetch/blackout-analytics';
+import {
+  EventProperties,
+  eventTypes,
+  pageTypes,
+  Product,
+  TrackEventData,
+  utils,
+} from '@farfetch/blackout-analytics';
 import { MAX_PRODUCT_CATEGORIES } from './constants';
 import { SignupNewsletterGenderMappings } from '../shared/dataMappings/';
 import get from 'lodash/get';
@@ -62,11 +69,19 @@ export default {
 /**
  * Formats product categories as required from GA4 ecommerce events.
  *
- * @param {string} productCategoryString - Product category raw string.
+ * @param productCategoryString - Product category raw string.
  *
- * @returns {object} A list of all product's categories split by attributes as required per GA4 api.
+ * @returns A list of all product's categories split by attributes as required per GA4 api.
  */
-const getProductCategories = productCategoryString => {
+const getProductCategories = (
+  productCategoryString: string,
+): {
+  item_category?: string;
+  item_category2?: string;
+  item_category3?: string;
+  item_category4?: string;
+  item_category5?: string;
+} => {
   if (typeof productCategoryString !== 'string') {
     return {};
   }
@@ -82,37 +97,46 @@ const getProductCategories = productCategoryString => {
 
     // Use the first and the last four categories
     productCategories = [
+      // @ts-ignore when length are higher then max categories defined, then has at least one category.
       productCategories[0],
       ...productCategories.slice(-MAX_PRODUCT_CATEGORIES + 1),
     ];
   }
 
   // GA4 only supports 5 level of categories
-  return productCategories.reduce((acc, category, index) => {
-    acc[`item_category${index === 0 ? '' : index + 1}`] = category;
+  return productCategories.reduce(
+    (acc: Record<string, unknown>, category: string, index: number) => {
+      const itemCategoryId = `item_category${index === 0 ? '' : index + 1}`;
+      acc[itemCategoryId] = category;
 
-    return acc;
-  }, {});
+      return acc;
+    },
+    {},
+  );
 };
 
 /**
  * Returns the total event value for GA4 ecommerce events.
  *
- * @param {object} eventProperties - Properties from a track event.
- * @param {Array} items - Items contained on event tracking.
+ * @param eventProperties - Properties from a track event.
+ * @param items - Items contained on event tracking.
  *
- * @returns {number} Event total value calculated.
+ * @returns Event total value calculated.
  */
-const getEventTotalValue = (eventProperties, items) => {
+const getEventTotalValue = (
+  eventProperties: EventProperties,
+  items: Array<Product>,
+): number => {
   // There could be cases where the client is not using the bag middleware and wants to pass a value.
   if (typeof eventProperties.value === 'number') {
     return eventProperties.value;
   }
 
   return items?.reduce((acc, item) => {
-    const value =
-      (get(item, 'price', 0) - get(item, 'discount', 0)) *
-      get(item, 'quantity', 1);
+    const price = get(item, 'price', 0) as number;
+    const discount = get(item, 'discount', 0) as number;
+    const quantity = get(item, 'quantity', 1) as number;
+    const value = (price - discount) * quantity;
 
     return acc + value;
   }, 0);
@@ -121,17 +145,17 @@ const getEventTotalValue = (eventProperties, items) => {
 /**
  * Returns product properties formatted to GA4 ecommerce events.
  *
- * @param {object} properties - Properties from a track event.
- * @param {boolean} [addListParameters=true] - Boolean flag to indicate if list properties should be added to the resulting mapped product object.
+ * @param properties - Properties from a track event.
+ * @param addListParameters - Boolean flag to indicate if list properties should be added to the resulting mapped product object.
  *
- * @returns {object} Product properties formatted to GA4 ecommerce events.
+ * @returns Product properties formatted to GA4 ecommerce events.
  */
 const getProductParametersFromEvent = (
-  properties,
+  properties: Product,
   addListParameters = true,
-) => {
-  const result = {
-    ...getProductCategories(properties.category),
+): Product => {
+  const result: Product = {
+    ...getProductCategories(properties.category as string),
     affiliation: properties.affiliation,
     coupon: properties.coupon,
     currency: properties.currency,
@@ -164,11 +188,13 @@ const getProductParametersFromEvent = (
 /**
  * Retrieves the product (or products) from the eventProperties in an Array.
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {Array} Product list with properties formatted for GA4 ecommerce events.
+ * @returns Product list with properties formatted for GA4 ecommerce events.
  */
-const getProductItemsFromEvent = eventProperties => {
+const getProductItemsFromEvent = (
+  eventProperties: EventProperties,
+): Array<Product> => {
   return Array.isArray(eventProperties.products)
     ? eventProperties.products.map(product =>
         getProductParametersFromEvent(product),
@@ -179,13 +205,16 @@ const getProductItemsFromEvent = eventProperties => {
 /**
  * Returns product updated event parameters for GA4 custom events (change_size, change_colour, change_quantity).
  *
- * @param {string} event - Event name.
- * @param {object} eventProperties - Properties from a track event.
+ * @param event - Event name.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Parameters for GA4's custom product updated events.
+ * @returns Parameters for GA4's custom product updated events.
  */
-const getProductUpdatedParametersFromEvent = (event, eventProperties) => {
-  const parameters = {
+const getProductUpdatedParametersFromEvent = (
+  event: string,
+  eventProperties: EventProperties,
+) => {
+  const parameters: Record<string, unknown> = {
     from: eventProperties.from,
     item_id: utils.getProductId(eventProperties),
     item_name: utils.getProductName(eventProperties),
@@ -217,11 +246,13 @@ const getProductUpdatedParametersFromEvent = (event, eventProperties) => {
  *
  * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/ecommerce#pre-purchase_interactions}
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Common properties formatted to GA4's pre-purchased ecommerce events.
+ * @returns Common properties formatted to GA4's pre-purchased ecommerce events.
  */
-const getPrePurchaseParametersFromEvent = eventProperties => {
+const getPrePurchaseParametersFromEvent = (
+  eventProperties: EventProperties,
+) => {
   const items = getProductItemsFromEvent(eventProperties);
 
   return {
@@ -239,11 +270,13 @@ const getPrePurchaseParametersFromEvent = eventProperties => {
 /**
  * Returns view wishlist event parameters formatted for GA4 event.
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Parameters for GA4's view wishlist custom event.
+ * @returns Parameters for GA4's view wishlist custom event.
  */
-const getViewWishlistParametersFromEvent = eventProperties => {
+const getViewWishlistParametersFromEvent = (
+  eventProperties: EventProperties,
+) => {
   return {
     wishlist_id: eventProperties.wishlistId,
   };
@@ -252,11 +285,11 @@ const getViewWishlistParametersFromEvent = eventProperties => {
 /**
  * Returns product removed from wishlist parameters formatted for GA4 event.
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Parameters for GA4's remove_from_wishlist event.
+ * @returns Parameters for GA4's remove_from_wishlist event.
  */
-const getProductRemovedFromWishlist = eventProperties => {
+const getProductRemovedFromWishlist = (eventProperties: EventProperties) => {
   const productParameters = getProductParametersFromEvent(
     eventProperties,
     false,
@@ -278,11 +311,11 @@ const getProductRemovedFromWishlist = eventProperties => {
  *
  * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/ecommerce#purchases_checkouts_and_refunds}
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Common properties formatted to GA4's checkout ecommerce events.
+ * @returns Common properties formatted to GA4's checkout ecommerce events.
  */
-const getCheckoutParametersFromEvent = eventProperties => {
+const getCheckoutParametersFromEvent = (eventProperties: EventProperties) => {
   const items = getProductItemsFromEvent(eventProperties);
 
   return {
@@ -298,11 +331,13 @@ const getCheckoutParametersFromEvent = eventProperties => {
  *
  * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/ecommerce#purchases_checkouts_and_refunds}
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Common properties formatted to GA4's checkout ecommerce events.
+ * @returns Common properties formatted to GA4's checkout ecommerce events.
  */
-const getCheckoutPaymentStepParametersFromEvent = eventProperties => {
+const getCheckoutPaymentStepParametersFromEvent = (
+  eventProperties: EventProperties,
+) => {
   return {
     ...getCheckoutParametersFromEvent(eventProperties),
     payment_type: eventProperties.paymentType,
@@ -314,11 +349,13 @@ const getCheckoutPaymentStepParametersFromEvent = eventProperties => {
  *
  * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/ecommerce#purchases_checkouts_and_refunds}
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Properties formatted for the GA4's shipping step checkout ecommerce event.
+ * @returns Properties formatted for the GA4's shipping step checkout ecommerce event.
  */
-const getCheckoutShippingStepParametersFromEvent = eventProperties => {
+const getCheckoutShippingStepParametersFromEvent = (
+  eventProperties: EventProperties,
+) => {
   return {
     currency: eventProperties.currency,
     coupon: eventProperties.coupon,
@@ -335,11 +372,13 @@ const getCheckoutShippingStepParametersFromEvent = eventProperties => {
  *
  * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/ecommerce?client_type=gtag#add_shipping_info}
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Parameters for the GA4's add_shipping_info event.
+ * @returns Parameters for the GA4's add_shipping_info event.
  */
-const getShippingInfoAddedParametersFromEvent = eventProperties => {
+const getShippingInfoAddedParametersFromEvent = (
+  eventProperties: EventProperties,
+) => {
   return {
     ...getCheckoutParametersFromEvent(eventProperties),
     shipping_tier: eventProperties.shippingTier,
@@ -352,11 +391,13 @@ const getShippingInfoAddedParametersFromEvent = eventProperties => {
 /**
  * Returns the checkout abandoned custom event parameters formatted for the GA4 event.
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Parameters for the GA4's checkout abandoned custom event.
+ * @returns Parameters for the GA4's checkout abandoned custom event.
  */
-const getCheckoutAbandonedParametersFromEvent = eventProperties => {
+const getCheckoutAbandonedParametersFromEvent = (
+  eventProperties: EventProperties,
+) => {
   return {
     currency: eventProperties.currency,
     coupon: eventProperties.coupon,
@@ -367,24 +408,18 @@ const getCheckoutAbandonedParametersFromEvent = eventProperties => {
 /**
  * Returns the Interact Content parameters for the (custom) event.
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Properties formatted from camelCase to snake_case for GA4's event.
+ * @returns Properties formatted from camelCase to snake_case for GA4's event.
  */
-const getInteractContentParametersFromEvent = eventProperties => {
-  const formattedProperties = {};
-
-  Object.keys(eventProperties).forEach(key => {
-    const value = eventProperties[key];
-
-    if (isObject(value)) {
-      return;
-    }
-
-    formattedProperties[snakeCase(key)] = value;
-  });
-
-  return formattedProperties;
+const getInteractContentParametersFromEvent = (
+  eventProperties: EventProperties,
+) => {
+  return Object.keys(eventProperties)
+    .filter(key => !isObject(eventProperties[key]))
+    .reduce((acc, key) => {
+      return { ...acc, [snakeCase(key)]: eventProperties[key] };
+    }, {});
 };
 
 /**
@@ -393,11 +428,13 @@ const getInteractContentParametersFromEvent = eventProperties => {
  * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/reference/events#login}
  * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/reference/events#sign_up}
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Common properties formatted to GA4's recommended events, login and signup.
+ * @returns Common properties formatted to GA4's recommended events, login and signup.
  */
-const getLoginAndSignupParametersFromEvent = eventProperties => {
+const getLoginAndSignupParametersFromEvent = (
+  eventProperties: EventProperties,
+) => {
   return {
     method: eventProperties.method,
   };
@@ -408,11 +445,13 @@ const getLoginAndSignupParametersFromEvent = eventProperties => {
  *
  * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/ecommerce#purchases_checkouts_and_refunds}
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Properties formatted for the GA4's order completed/refunded ecommerce events.
+ * @returns Properties formatted for the GA4's order completed/refunded ecommerce events.
  */
-const getOrderPurchaseOrRefundParametersFromEvent = eventProperties => {
+const getOrderPurchaseOrRefundParametersFromEvent = (
+  eventProperties: EventProperties,
+) => {
   return {
     ...getCheckoutParametersFromEvent(eventProperties),
     transaction_id: eventProperties.orderId,
@@ -426,11 +465,13 @@ const getOrderPurchaseOrRefundParametersFromEvent = eventProperties => {
  * Returns the place order started custom event properties formatted for the GA4 ecommerce events.
  * As it returns the same properties of a purchase event, it uses the same mapping function for that event.
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Properties formatted for the GA4's place order started custom event.
+ * @returns Properties formatted for the GA4's place order started custom event.
  */
-const getPlaceOrderStartedParametersFromEvent = eventProperties => {
+const getPlaceOrderStartedParametersFromEvent = (
+  eventProperties: EventProperties,
+) => {
   return {
     currency: eventProperties.currency,
     coupon: eventProperties.coupon,
@@ -447,11 +488,11 @@ const getPlaceOrderStartedParametersFromEvent = eventProperties => {
  *
  * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/reference/events#search}
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Properties formatted for the GA4's search event.
+ * @returns Properties formatted for the GA4's search event.
  */
-const getSearchParametersFromEvent = eventProperties => {
+const getSearchParametersFromEvent = (eventProperties: EventProperties) => {
   return {
     search_term: get(
       eventProperties,
@@ -466,11 +507,13 @@ const getSearchParametersFromEvent = eventProperties => {
  *
  * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/reference/events#select_content}
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Properties formatted for the GA4's select content.
+ * @returns Properties formatted for the GA4's select content.
  */
-const getSelectContentParametersFromEvent = eventProperties => ({
+const getSelectContentParametersFromEvent = (
+  eventProperties: EventProperties,
+) => ({
   content_type: eventProperties.contentType,
   item_id: eventProperties.id,
 });
@@ -480,11 +523,13 @@ const getSelectContentParametersFromEvent = eventProperties => ({
  *
  * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/ecommerce?client_type=gtag#product_views_and_interactions}
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Properties formatted for the GA4's select item.
+ * @returns Properties formatted for the GA4's select item.
  */
-const getProductClickedParametersFromEvent = eventProperties => ({
+const getProductClickedParametersFromEvent = (
+  eventProperties: EventProperties,
+) => ({
   from: eventProperties.from,
   items: getProductItemsFromEvent(eventProperties),
   item_list_id: eventProperties.listId,
@@ -496,11 +541,11 @@ const getProductClickedParametersFromEvent = eventProperties => ({
  *
  * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/ecommerce?client_type=gtag#product_views_and_interactions}
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Properties formatted for the GA4's view item.
+ * @returns Properties formatted for the GA4's view item.
  */
-const getViewItemParametersFromEvent = eventProperties => {
+const getViewItemParametersFromEvent = (eventProperties: EventProperties) => {
   const items = getProductItemsFromEvent(eventProperties);
 
   return {
@@ -515,11 +560,11 @@ const getViewItemParametersFromEvent = eventProperties => {
 /**
  * Returns the filter properties from an event.
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Object containing the filter properties.
+ * @returns Object containing the filter properties.
  */
-const getFilterParametersFromEvent = eventProperties => ({
+const getFilterParametersFromEvent = (eventProperties: EventProperties) => ({
   filters: eventProperties.filters
     ? JSON.stringify(eventProperties.filters)
     : undefined,
@@ -528,11 +573,11 @@ const getFilterParametersFromEvent = eventProperties => ({
 /**
  * Returns the sort properties from an event.
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Object containing the sort properties.
+ * @returns Object containing the sort properties.
  */
-const getSortParametersFromEvent = eventProperties => ({
+const getSortParametersFromEvent = (eventProperties: EventProperties) => ({
   sort_option: eventProperties.sortOption,
 });
 
@@ -541,11 +586,13 @@ const getSortParametersFromEvent = eventProperties => ({
  *
  * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/ecommerce?client_type=gtag#product_views_and_interactions}
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Properties formatted for the GA4's view item list.
+ * @returns Properties formatted for the GA4's view item list.
  */
-const getViewItemListParametersFromEvent = eventProperties => ({
+const getViewItemListParametersFromEvent = (
+  eventProperties: EventProperties,
+) => ({
   from: eventProperties.from,
   error: eventProperties.error,
   items: getProductItemsFromEvent(eventProperties),
@@ -558,11 +605,13 @@ const getViewItemListParametersFromEvent = eventProperties => ({
 /**
  * Returns the checkout step editing properties from an event.
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Object containing the sort properties.
+ * @returns Object containing the sort properties.
  */
-const getCheckoutStepEditingParametersFromEvent = eventProperties => {
+const getCheckoutStepEditingParametersFromEvent = (
+  eventProperties: EventProperties,
+) => {
   return {
     checkout_step: eventProperties.step,
   };
@@ -571,11 +620,11 @@ const getCheckoutStepEditingParametersFromEvent = eventProperties => {
 /**
  * Returns the share properties formatted for the GA4 event.
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Properties formatted for the GA4's share event.
+ * @returns Properties formatted for the GA4's share event.
  */
-const getShareParametersFromEvent = eventProperties => ({
+const getShareParametersFromEvent = (eventProperties: EventProperties) => ({
   method: eventProperties.method,
   content_type: eventProperties.contentType,
   item_id: eventProperties.id,
@@ -584,20 +633,26 @@ const getShareParametersFromEvent = eventProperties => ({
 /**
  * Returns the signup newsletter parameters formatted for the GA4 event.
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Parameters formatted for the GA4's sign_up_newsletter event.
+ * @returns Parameters formatted for the GA4's sign_up_newsletter event.
  */
-const getSignupNewsletterParametersFromEvent = eventProperties => {
-  const genderArray = (
+const getSignupNewsletterParametersFromEvent = (
+  eventProperties: EventProperties,
+) => {
+  type GenderValues = keyof typeof SignupNewsletterGenderMappings;
+  type GenderObject = { id: GenderValues; name?: string };
+
+  const genderArray: Array<string> = (
     Array.isArray(eventProperties.gender)
       ? eventProperties.gender
       : new Array(eventProperties.gender)
-  ).map(
-    gender =>
-      // trying using tenant translation otherwise use custom gender mappings
-      gender.name || SignupNewsletterGenderMappings[gender?.id ?? gender],
-  );
+  ).map((gender: GenderValues | GenderObject) => {
+    return (
+      (gender as GenderObject).name ||
+      SignupNewsletterGenderMappings[(gender as GenderObject).id ?? gender]
+    );
+  });
 
   return {
     newsletter_gender: genderArray.reduce((acc, item) => `${acc},${item}`),
@@ -607,11 +662,11 @@ const getSignupNewsletterParametersFromEvent = eventProperties => {
 /**
  * Returns the scroll parameters formatted for the GA4 event.
  *
- * @param {object} eventProperties - Properties from a track event.
+ * @param eventProperties - Properties from a track event.
  *
- * @returns {object} Parameters formatted for the GA4's scroll event.
+ * @returns Parameters formatted for the GA4's scroll event.
  */
-const getScrollParametersFromEvent = eventProperties => {
+const getScrollParametersFromEvent = (eventProperties: EventProperties) => {
   return {
     percent_scrolled: `${eventProperties.percentageScrolled}%`,
   };
@@ -620,12 +675,15 @@ const getScrollParametersFromEvent = eventProperties => {
 /**
  * Returns event properties mapping by GA4 event name.
  *
- * @param {string} event - Event name.
- * @param {object} data - Commands by scope configuration.
+ * @param event - Event name.
+ * @param data - Commands by scope configuration.
  *
- * @returns {object} The event property required and formatted to desired GA4 event.
+ * @returns The event property required and formatted to desired GA4 event.
  */
-export function getEventProperties(event, data) {
+export function getEventProperties(
+  event: string,
+  data: TrackEventData,
+): Record<string, unknown> | undefined {
   const eventProperties = utils.getProperties(data);
 
   switch (event) {

@@ -1,8 +1,4 @@
-import {
-  EventData,
-  eventTypes,
-  TrackTypesValues,
-} from '@farfetch/blackout-analytics';
+import { eventTypes, TrackEventData } from '@farfetch/blackout-analytics';
 import addressInfoAddedTrackData from './addressInfoAddedTrackData.fixtures';
 import checkoutAbandonedTrackData from './checkoutAbandonedTrackData.fixtures';
 import checkoutStartedTrackData from './checkoutStartedTrackData.fixtures';
@@ -38,7 +34,7 @@ import signupFormViewedTrackData from './signupFormViewedTrackData.fixtures';
 import signupNewsletterTrackData from './signupNewsletterTrackData.fixtures';
 
 export type TrackFixtures = {
-  [eventType in typeof eventTypes[keyof typeof eventTypes]]: EventData<TrackTypesValues> & {
+  [eventType in typeof eventTypes[keyof typeof eventTypes]]: TrackEventData & {
     event: eventType;
   };
 };

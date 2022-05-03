@@ -1,11 +1,7 @@
-import {
-  EventData,
-  pageTypes,
-  TrackTypesValues,
-} from '@farfetch/blackout-analytics';
+import { pageTypes } from '@farfetch/blackout-analytics';
 import basePageData from './basePageData.fixtures';
 
-const data: EventData<TrackTypesValues> = {
+const data = {
   ...basePageData,
   properties: {
     storeId: 123123,

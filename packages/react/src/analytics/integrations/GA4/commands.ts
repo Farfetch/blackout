@@ -1,10 +1,7 @@
-/**
- * @module commands
- * @private
- */
 import {
   eventTypes,
   interactionTypes,
+  TrackEventData,
   utils,
 } from '@farfetch/blackout-analytics';
 import { validationSchemaBuilder } from '../shared/validation/eventSchemas';
@@ -12,14 +9,28 @@ import ga4EventNameMapping, {
   getEventProperties,
   InternalEventTypes,
 } from './eventMapping';
+import type { GA4CommandList } from './types';
 
-const genericCommandsBuilder = data => {
-  const eventName = ga4EventNameMapping[data.event];
+/**
+ * Returns GA4's event data from analytics data, into ga4 final mapping result.
+ *
+ * @param data - Analytics event data.
+ * @returns Ga4's event data result.
+ */
+const genericCommandsBuilder = (data: TrackEventData): GA4CommandList => {
+  const eventName = ga4EventNameMapping[data.event] as string;
 
   return [['event', eventName, getEventProperties(data.event, data)]];
 };
 
-const getProductUpdatedEventList = data => {
+/**
+ * Returns event list to track from update product event. This event, can trigger multiple events to ga4, depending of his data conditions.
+ *
+ * @param data - Event data.
+ *
+ * @returns List of events which will be triggered.
+ */
+const getProductUpdatedEventList = (data: TrackEventData): Array<string> => {
   const eventProperties = utils.getProperties(data);
   const dispatchGA4EventList = [];
 
@@ -50,17 +61,33 @@ const getProductUpdatedEventList = data => {
   return dispatchGA4EventList;
 };
 
-const productUpdatedEventCommandsBuilder = data => {
+/**
+ * Product updated custom command builder.
+ * It check with internal properties and trigger internal events that needs to trigger.
+ *
+ * @param data - Analytics event data.
+ * @returns Event command list.
+ */
+const productUpdatedEventCommandsBuilder = (
+  data: TrackEventData,
+): GA4CommandList => {
   const internalEvents = getProductUpdatedEventList(data);
 
   const commands = internalEvents.map(internalEvent =>
     genericCommandsBuilder({ ...data, event: internalEvent })?.shift(),
-  );
+  ) as GA4CommandList;
 
   return commands;
 };
 
-const interactContentEventCommandsBuilder = data => {
+/**
+ * Interact Content custom command builder.
+ * It check with internal properties and trigger internal events that needs to trigger.
+ *
+ * @param data - Analytics event data.
+ * @returns Event command list.
+ */
+const interactContentEventCommandsBuilder = (data: TrackEventData) => {
   const eventProperties = data.properties;
 
   if (
@@ -76,24 +103,12 @@ const interactContentEventCommandsBuilder = data => {
   return genericCommandsBuilder(data);
 };
 
-const specializedCommandsBuilderByEvent = {
+// Custom command builder events List.
+const specializedCommandsBuilderByEvent: {
+  [event: string]: (data: TrackEventData) => GA4CommandList;
+} = {
   [eventTypes.PRODUCT_UPDATED]: productUpdatedEventCommandsBuilder,
   [eventTypes.INTERACT_CONTENT]: interactContentEventCommandsBuilder,
-};
-
-export default event => {
-  const specializedEventCommandsBuilder =
-    specializedCommandsBuilderByEvent[event];
-
-  if (specializedEventCommandsBuilder) {
-    return specializedEventCommandsBuilder;
-  }
-
-  if (ga4EventNameMapping[event]) {
-    return genericCommandsBuilder;
-  }
-
-  return null;
 };
 
 // Schema used to validate the output of command functions
@@ -107,3 +122,26 @@ export const nonInteractionEvents = {
   [eventTypes.PRODUCT_LIST_VIEWED]: true,
   [eventTypes.PRODUCT_VIEWED]: true,
 };
+
+/**
+ * Check which command builder needs current event.
+ *
+ * @param data - event name.
+ * @returns command result.
+ */
+const commands = (event: string) => {
+  const specializedEventCommandsBuilder =
+    specializedCommandsBuilderByEvent[event];
+
+  if (specializedEventCommandsBuilder) {
+    return specializedEventCommandsBuilder;
+  }
+
+  if (ga4EventNameMapping[event]) {
+    return genericCommandsBuilder;
+  }
+
+  return undefined;
+};
+
+export default commands;
