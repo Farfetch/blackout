@@ -278,6 +278,87 @@ export const mockContentType = {
   ],
 };
 
+export const mockModel = {
+  slug: '/cttpage?json=true',
+  subfolder: '/',
+  searchContentRequests: [
+    {
+      filters: {
+        spaceCode: 'website',
+        codes: ['cttpage', 'boutiques'],
+        contentTypeCode: 'pages',
+        environmentCode: 'live',
+        sort: 'publicationDate:desc',
+        target: {},
+        searchTags: [],
+        metadataCustom: {},
+      },
+      searchResponse: mockContents,
+    },
+    {
+      filters: {
+        spaceCode: 'website',
+        codes: 'newsletter-terms-and-conditions-widget',
+        contentTypeCode: 'widgets',
+        environmentCode: 'live',
+        sort: 'publicationDate:desc',
+        target: {},
+        searchTags: [],
+        metadataCustom: {},
+      },
+      searchResponse: mockWidget,
+    },
+    {
+      filters: {
+        spaceCode: 'website',
+        codes: 'footer',
+        contentTypeCode: 'navbars',
+        environmentCode: 'live',
+        sort: 'publicationDate:desc',
+        target: {},
+        searchTags: [],
+        metadataCustom: {},
+      },
+      searchResponse: mockNavbars,
+    },
+    {
+      filters: {
+        spaceCode: 'website',
+        contentTypeCode: 'careers',
+        environmentCode: 'live',
+        sort: 'publicationDate:desc',
+        target: {},
+        searchTags: [],
+        metadataCustom: {},
+      },
+      searchResponse: mockContentType,
+    },
+    {
+      filters: {
+        spaceCode: 'website',
+        codes: 'test-career',
+        contentTypeCode: 'careers',
+        environmentCode: 'live',
+        sort: 'publicationDate:desc',
+        target: {},
+        searchTags: [],
+        metadataCustom: {},
+      },
+      searchResponse: {
+        number: 1,
+        totalItems: 1,
+        totalPages: 1,
+        entries: [mockContentType.entries[1]],
+      },
+    },
+  ],
+  seoMetadata: {
+    title: 'Whitelabel',
+    h1: "Men's & Women's Designer Fashion",
+    canonicalUrl: 'https://blackandwhite-ff.com',
+  },
+};
+
 export const expectedNormalizedPayload = {
   entities: {
     contentGroups: {
@@ -353,81 +434,18 @@ export const expectedNormalizedPayload = {
       'widgets!newsletter-terms-and-conditions-widget': false,
     },
     error: {},
+    metadata: {
+      error: {},
+      isLoading: {
+        'pages!/cttpage': false,
+      },
+      result: {
+        'pages!/cttpage': {
+          ...mockModel.seoMetadata,
+        },
+      },
+    },
   },
-};
-
-export const mockModel = {
-  searchContentRequests: [
-    {
-      filters: {
-        spaceCode: 'website',
-        codes: ['cttpage', 'boutiques'],
-        contentTypeCode: 'pages',
-        environmentCode: 'live',
-        sort: 'publicationDate:desc',
-        target: {},
-        searchTags: [],
-        metadataCustom: {},
-      },
-      searchResponse: mockContents,
-    },
-    {
-      filters: {
-        spaceCode: 'website',
-        codes: 'newsletter-terms-and-conditions-widget',
-        contentTypeCode: 'widgets',
-        environmentCode: 'live',
-        sort: 'publicationDate:desc',
-        target: {},
-        searchTags: [],
-        metadataCustom: {},
-      },
-      searchResponse: mockWidget,
-    },
-    {
-      filters: {
-        spaceCode: 'website',
-        codes: 'footer',
-        contentTypeCode: 'navbars',
-        environmentCode: 'live',
-        sort: 'publicationDate:desc',
-        target: {},
-        searchTags: [],
-        metadataCustom: {},
-      },
-      searchResponse: mockNavbars,
-    },
-    {
-      filters: {
-        spaceCode: 'website',
-        contentTypeCode: 'careers',
-        environmentCode: 'live',
-        sort: 'publicationDate:desc',
-        target: {},
-        searchTags: [],
-        metadataCustom: {},
-      },
-      searchResponse: mockContentType,
-    },
-    {
-      filters: {
-        spaceCode: 'website',
-        codes: 'test-career',
-        contentTypeCode: 'careers',
-        environmentCode: 'live',
-        sort: 'publicationDate:desc',
-        target: {},
-        searchTags: [],
-        metadataCustom: {},
-      },
-      searchResponse: {
-        number: 1,
-        totalItems: 1,
-        totalPages: 1,
-        entries: [mockContentType.entries[1]],
-      },
-    },
-  ],
 };
 
 export const mockContentsInitialState = {
