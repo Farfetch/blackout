@@ -196,7 +196,7 @@ class CastleV2 extends integrations.Integration {
       email: userTraits.email,
       phone: userTraits.phoneNumber,
       name: userTraits.name,
-      registered_at: userTraits.createdDate,
+      registered_at: this.getNormalizedCreatedDate(userTraits.createdDate),
       traits: {
         isGuest: userTraits.isGuest,
       },
@@ -204,6 +204,42 @@ class CastleV2 extends integrations.Integration {
 
     // clean "falsy" values to ensure the SDK accepts the request.
     return pickBy(formattedUserData, identity);
+  }
+
+  /**
+   * Calculates the correct user account created date, if possible.
+   *
+   * TODO: Remove this 🔨 when the backend starts to send the correct format date on all endpoints.
+   *
+   * @param {string|undefined} createdDate - The user trait.
+   *
+   * @returns {string} - The ISO date string.
+   */
+  getNormalizedCreatedDate(createdDate) {
+    // If no date is received, send a default valid date
+    if (!createdDate) {
+      return new Date(0).toISOString();
+    }
+
+    const isCreatedDateNaN = isNaN(new Date(createdDate).getTime());
+
+    if (isCreatedDateNaN) {
+      // Remove all non-numeric characters and convert the timestamp into a valid date format
+      const extractedTimestamp = parseInt(createdDate.replace(/[^0-9]/g, ''));
+
+      // If the timestamp is a valid number, create a date with it,
+      // If its not, send a default valid date
+      if (
+        typeof extractedTimestamp === 'number' &&
+        !isNaN(extractedTimestamp)
+      ) {
+        return new Date(extractedTimestamp).toISOString();
+      }
+
+      return new Date(0).toISOString();
+    }
+
+    return createdDate;
   }
 
   /**
@@ -233,11 +269,9 @@ class CastleV2 extends integrations.Integration {
    *
    * @param {object} data - Data Track event data.
    *
-   * @returns {Promise<object>} - The resolved promise of each castle call method.
+   * @returns {Promise<object>|undefined} - The resolved promise of `form` castle method call for events of interest or undefined for other events.
    */
-  async trackEvent(data) {
-    const user = this.getUserData(data);
-
+  trackEvent(data) {
     switch (data.event) {
       case eventTypes.ADDRESS_INFO_ADDED:
       case eventTypes.CHECKOUT_STEP_COMPLETED:
@@ -248,6 +282,8 @@ class CastleV2 extends integrations.Integration {
       case eventTypes.SHIPPING_METHOD_ADDED:
       case eventTypes.SIGNUP_FORM_COMPLETED:
       case eventTypes.SIGNUP_NEWSLETTER: {
+        const user = this.getUserData(data);
+
         const formData = {
           user,
           name: data.event,
@@ -266,24 +302,8 @@ class CastleV2 extends integrations.Integration {
           );
       }
 
-      default: {
-        const eventData = {
-          user,
-          name: data.event,
-          properties: data.properties,
-        };
-
-        return this.castleJS
-          .custom(eventData)
-          .then(
-            () =>
-              this.debugModeOn &&
-              utils.logger.info(
-                `${CASTLE_MESSAGE_PREFIX} Custom event track success. Payload:`,
-                eventData,
-              ),
-          );
-      }
+      default:
+        break;
     }
   }
 
