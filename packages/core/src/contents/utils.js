@@ -198,7 +198,7 @@ export const getMergeStrategy = result => {
  * Result of rankedPage === { entries: [...mergedPages] };
  */
 export const getRankedCommercePage = (result, strategy) => {
-  result.entries.map(commerce => {
+  result.entries.forEach(commerce => {
     if (typeof commerce?.metadata?.custom === 'string') {
       console.warn(`[Commerce Pages]: Seems you are trying to fetch legacy commerce page.
       Try to republish the commerce page to update data.`);
@@ -267,4 +267,23 @@ export const buildSEOPathname = query => {
   const pageType = get(query, 'pageType', 'all');
 
   return `${pageType}!${query.path}`;
+};
+
+/**
+ * Strip the slug to remove the subfolder and json=true.
+ *
+ * @param {string} slug - The slug of url.
+ * @param {string} subfolder - The subforlder of url.
+ *
+ * @returns {string} - The slug without subfolder / json=true.
+ */
+export const stripSlugSubfolderJsonTrue = (slug, subfolder) => {
+  let slugMetada = slug;
+
+  if (subfolder !== '/') {
+    slugMetada = slug.replace(subfolder, '');
+  }
+
+  // Remove json=true from slug
+  return slugMetada.replace('?json=true', '').replace('&json=true', '');
 };

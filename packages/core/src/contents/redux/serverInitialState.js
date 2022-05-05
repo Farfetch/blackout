@@ -1,4 +1,8 @@
-import { buildContentGroupHash } from '../utils';
+import {
+  buildContentGroupHash,
+  buildSEOPathname,
+  stripSlugSubfolderJsonTrue,
+} from '../utils';
 import { INITIAL_STATE } from './reducer';
 import { normalize } from 'normalizr';
 import contentGroup from '../../entities/schemas/contentGroup';
@@ -16,13 +20,13 @@ import merge from 'lodash/merge';
  * @returns {object} Initial state for the contents reducer.
  */
 export default ({ model }) => {
-  if (!get(model, 'searchContentRequests')) {
+  if (!get(model, 'searchContentRequests') || !get(model, 'seoMetadata')) {
     return { contents: INITIAL_STATE };
   }
 
-  const { searchContentRequests } = model;
+  const { searchContentRequests, seoMetadata, slug, subfolder } = model;
 
-  return searchContentRequests.reduce((acc, item) => {
+  const contents = searchContentRequests.reduce((acc, item) => {
     const {
       filters: { codes, contentTypeCode },
       searchResponse,
@@ -42,4 +46,26 @@ export default ({ model }) => {
       },
     });
   }, {});
+
+  const metadataSlug = stripSlugSubfolderJsonTrue(slug, subfolder);
+  const metadataHash = buildSEOPathname({
+    path: metadataSlug,
+    pageType: 'pages',
+  });
+
+  const metadata = {
+    contents: {
+      metadata: {
+        isLoading: {
+          [metadataHash]: false,
+        },
+        error: {},
+        result: {
+          [metadataHash]: { ...seoMetadata },
+        },
+      },
+    },
+  };
+
+  return merge(contents, metadata);
 };
