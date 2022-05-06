@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.56.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.56.0...@farfetch/blackout-core@1.56.1) (2022-05-06)
+
+
+### Bug Fixes
+
+* **core:** include metadata into contents redux from first render ([ae4e47e](https://github.com/Farfetch/blackout/commit/ae4e47ebc75ddad962681a40a3aadf927ea94f56))
+
+
+
+
+
 # [1.56.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.55.0...@farfetch/blackout-core@1.56.0) (2022-05-03)
 
 
