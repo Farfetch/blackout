@@ -4,8 +4,9 @@ import {
   expectedRemotePayload,
 } from 'tests/__fixtures__/recentlyViewed';
 import reducer, { actionTypes } from '..';
+import type { State } from '../types';
 
-let initialState;
+let initialState: State;
 const mockAction = { type: 'this_is_a_mock_action' };
 
 describe('Recently Viewed reducer', () => {
@@ -159,10 +160,10 @@ describe('Recently Viewed reducer', () => {
     });
 
     it(`should handle ${actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS} action type`, () => {
-      const state = {
+      const state: State = {
         ...initialState,
         result: {
-          ...initialState,
+          ...initialState.result,
           remote: expectedRemotePayload,
           computed: expectedLocalPayload,
         },
@@ -187,9 +188,8 @@ describe('Recently Viewed reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = {
+      const state: State = {
         ...initialState,
-        result: { foo: 'bar' },
       };
 
       expect(reducer(state, mockAction).result).toEqual(state.result);
@@ -216,9 +216,6 @@ describe('Recently Viewed reducer', () => {
     it('should return the `recentlyViewed.result` property from a given state', () => {
       const state = {
         ...initialState,
-        result: {
-          foo: 'bar',
-        },
       };
 
       expect(fromReducer.getResult(state)).toEqual(state.result);

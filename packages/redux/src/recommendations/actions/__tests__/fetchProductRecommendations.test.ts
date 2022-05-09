@@ -27,7 +27,7 @@ jest.mock('@farfetch/blackout-client/recommendations', () => {
 });
 
 describe('fetchProductRecommendations() action creator', () => {
-  let store;
+  let store: ReturnType<typeof mockProductRecommendationsStore>;
   const expectedConfig = undefined;
 
   beforeEach(() => {
@@ -38,63 +38,59 @@ describe('fetchProductRecommendations() action creator', () => {
   it('should create the correct actions for when the fetch product recommendations fail', async () => {
     const expectedError = new Error('fetch recommendations error');
 
-    getProductRecommendations.mockRejectedValueOnce(expectedError);
+    (getProductRecommendations as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
-    await store
-      .dispatch(
-        fetchProductRecommendations({
+    await fetchProductRecommendations({
+      productId: mockProductId,
+      strategyName: mockRecommendationsStrategy,
+    })(store.dispatch).catch(error => {
+      expect(error).toBe(expectedError);
+      expect(getProductRecommendations).toHaveBeenCalledTimes(1);
+      expect(getProductRecommendations).toHaveBeenCalledWith(
+        {
           productId: mockProductId,
           strategyName: mockRecommendationsStrategy,
-        }),
-      )
-      .catch(error => {
-        expect(error).toBe(expectedError);
-        expect(getProductRecommendations).toHaveBeenCalledTimes(1);
-        expect(getProductRecommendations).toHaveBeenCalledWith(
-          {
-            productId: mockProductId,
-            strategyName: mockRecommendationsStrategy,
-          },
-          expectedConfig,
-        );
+        },
+        expectedConfig,
+      );
 
-        expect(store.getActions()).toEqual(
-          expect.arrayContaining([
-            {
-              type: actionTypes.FETCH_PRODUCT_RECOMMENDATIONS_REQUEST,
-              meta: { strategyName: mockRecommendationsStrategy },
-            },
-            {
-              type: actionTypes.FETCH_PRODUCT_RECOMMENDATIONS_FAILURE,
-              payload: { error: expectedError },
-              meta: { strategyName: mockRecommendationsStrategy },
-            },
-          ]),
-        );
-      });
+      expect(store.getActions()).toEqual(
+        expect.arrayContaining([
+          {
+            type: actionTypes.FETCH_PRODUCT_RECOMMENDATIONS_REQUEST,
+            meta: { strategyName: mockRecommendationsStrategy },
+          },
+          {
+            type: actionTypes.FETCH_PRODUCT_RECOMMENDATIONS_FAILURE,
+            payload: { error: expectedError },
+            meta: { strategyName: mockRecommendationsStrategy },
+          },
+        ]),
+      );
+    });
   });
 
   it('should create the correct actions for when the fetch product recommendations procedure is successful', async () => {
-    getProductRecommendations.mockResolvedValueOnce(expectedPayload);
+    (getProductRecommendations as jest.Mock).mockResolvedValueOnce(
+      expectedPayload,
+    );
 
     const actionResults = store.getActions();
     const adaptedPayload = adaptProductRecommendations(expectedPayload);
 
-    await store
-      .dispatch(
-        fetchProductRecommendations(
-          {
-            productId: mockProductId,
-            strategyName: mockRecommendationsStrategy,
-          },
+    await fetchProductRecommendations(
+      {
+        productId: mockProductId,
+        strategyName: mockRecommendationsStrategy,
+      },
 
-          expectedConfig,
-        ),
-      )
-      .then(clientResult => {
-        expect(clientResult).toBe(expectedPayload);
-      });
+      expectedConfig,
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toBe(expectedPayload);
+    });
 
     expect(getProductRecommendations).toHaveBeenCalledTimes(1);
     expect(getProductRecommendations).toHaveBeenCalledWith(

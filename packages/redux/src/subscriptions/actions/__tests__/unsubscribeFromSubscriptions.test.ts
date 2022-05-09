@@ -17,7 +17,7 @@ const subscriptionsMockStore = (state = {}) =>
   mockStore({ subscriptions: reducer(undefined, randomAction) }, state);
 
 describe('Subscriptions redux actions', () => {
-  let store;
+  let store: ReturnType<typeof subscriptionsMockStore>;
 
   beforeEach(jest.clearAllMocks);
 
@@ -36,19 +36,17 @@ describe('Subscriptions redux actions', () => {
         },
       ];
 
-      deleteSubscription.mockRejectedValueOnce(expectedError);
+      (deleteSubscription as jest.Mock).mockRejectedValueOnce(expectedError);
 
-      try {
-        await store.dispatch(
-          unsubscribeFromSubscription(mockDeleteSubscription.query),
-        );
-      } catch (error) {
+      await unsubscribeFromSubscription(mockDeleteSubscription.query)(
+        store.dispatch,
+      ).catch(error => {
         expect(error).toBe(expectedError);
         expect(deleteSubscription).toBeCalled();
         expect(store.getActions()).toEqual(
           expect.arrayContaining(expectedActions),
         );
-      }
+      });
     });
 
     it('Should create the correct actions when the unsubscribe all subscriptions request is successful', async () => {
@@ -60,10 +58,10 @@ describe('Subscriptions redux actions', () => {
       ];
       const response = {};
 
-      deleteSubscription.mockResolvedValueOnce(response);
+      (deleteSubscription as jest.Mock).mockResolvedValueOnce(response);
 
-      await store.dispatch(
-        unsubscribeFromSubscription(mockDeleteSubscription.query),
+      await unsubscribeFromSubscription(mockDeleteSubscription.query)(
+        store.dispatch,
       );
 
       expect(deleteSubscription).toBeCalled();

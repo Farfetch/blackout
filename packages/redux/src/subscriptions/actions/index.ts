@@ -1,9 +1,5 @@
 /**
  * Subscriptions actions.
- *
- * @module subscriptions/actions
- * @category Subscriptions
- * @subcategory Actions
  */
 
 export { default as clearAllUnsubscribeRecipientFromTopic } from './clearAllUnsubscribeRecipientFromTopicRequests';

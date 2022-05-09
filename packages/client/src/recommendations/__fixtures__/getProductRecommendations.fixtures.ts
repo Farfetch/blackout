@@ -1,29 +1,31 @@
 import join from 'proper-url-join';
 import moxios from 'moxios';
+import type { GetProductRecommendationQuery } from '../types/getProductRecommendations.types';
 
 /**
  * Response payloads.
  */
 export default {
-  success: params => {
+  success: (params: {
+    query: GetProductRecommendationQuery;
+    response: Record<string, unknown>;
+  }) => {
     moxios.stubRequest(
       join('/api/marketing/v1/recommendations/products', {
         query: params.query,
       }),
       {
-        method: 'get',
         response: params.response,
         status: 200,
       },
     );
   },
-  failure: params => {
+  failure: (params: { query: GetProductRecommendationQuery }) => {
     moxios.stubRequest(
       join('/api/marketing/v1/recommendations/products', {
         query: params.query,
       }),
       {
-        method: 'get',
         response: 'stub error',
         status: 404,
       },

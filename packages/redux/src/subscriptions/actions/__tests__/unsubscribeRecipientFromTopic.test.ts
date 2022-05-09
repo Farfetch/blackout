@@ -21,7 +21,7 @@ const subscriptionsMockStore = (state = {}) =>
   mockStore({ subscriptions: reducer(undefined, randomAction) }, state);
 
 describe('Subscriptions redux actions', () => {
-  let store;
+  let store: ReturnType<typeof subscriptionsMockStore>;
 
   const meta = { trackRequestState: true };
 
@@ -50,24 +50,22 @@ describe('Subscriptions redux actions', () => {
         },
       ];
 
-      deleteRecipientFromTopic.mockRejectedValueOnce(expectedError);
+      (deleteRecipientFromTopic as jest.Mock).mockRejectedValueOnce(
+        expectedError,
+      );
 
-      try {
-        await store.dispatch(
-          unsubscribeRecipientFromTopic(
-            subscriptionId,
-            topicId,
-            recipientId,
-            meta,
-          ),
-        );
-      } catch (error) {
+      await unsubscribeRecipientFromTopic(
+        subscriptionId,
+        topicId,
+        recipientId,
+        meta,
+      )(store.dispatch).catch(error => {
         expect(error).toBe(expectedError);
         expect(deleteRecipientFromTopic).toBeCalled();
         expect(store.getActions()).toEqual(
           expect.arrayContaining(expectedActions),
         );
-      }
+      });
     });
 
     it('Should create the correct actions when the unsubscribe recipient from subscription topic request is successful', async () => {
@@ -88,16 +86,14 @@ describe('Subscriptions redux actions', () => {
       ];
       const response = {};
 
-      deleteRecipientFromTopic.mockResolvedValueOnce(response);
+      (deleteRecipientFromTopic as jest.Mock).mockResolvedValueOnce(response);
 
-      await store.dispatch(
-        unsubscribeRecipientFromTopic(
-          subscriptionId,
-          topicId,
-          recipientId,
-          meta,
-        ),
-      );
+      await unsubscribeRecipientFromTopic(
+        subscriptionId,
+        topicId,
+        recipientId,
+        meta,
+      )(store.dispatch);
 
       expect(deleteRecipientFromTopic).toBeCalled();
       expect(store.getActions()).toEqual(expectedActions);

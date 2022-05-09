@@ -218,7 +218,7 @@ const interactContentSchema = yup
       .string()
       .test(
         'match_interaction_type',
-        'The interactionType must match one of the built-in "interationTypes"',
+        'The interactionType must match one of the built-in "interactionTypes"',
         value =>
           (Object.values(interactionTypes) as Array<string>).includes(
             value as string,

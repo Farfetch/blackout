@@ -3,6 +3,7 @@ import { pageEventsData } from 'tests/__fixtures__/analytics/';
 import { userGenderValuesMapper } from '../definitions';
 import mockedUuid from './mocked_uuid';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type PageMockData = EventData<TrackTypesValues> & { context: { web: any } };
 
 const pageMockData: PageMockData = pageEventsData[

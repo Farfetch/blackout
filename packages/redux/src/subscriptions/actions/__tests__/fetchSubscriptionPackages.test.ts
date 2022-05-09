@@ -18,7 +18,7 @@ const subscriptionsMockStore = (state = {}) =>
   mockStore({ subscriptions: reducer(undefined, randomAction) }, state);
 
 describe('Subscriptions redux actions', () => {
-  let store;
+  let store: ReturnType<typeof subscriptionsMockStore>;
 
   beforeEach(jest.clearAllMocks);
 
@@ -30,14 +30,14 @@ describe('Subscriptions redux actions', () => {
     it('Should create the correct actions for when the get subscription packages fails', async () => {
       const expectedError = new Error('get subscriptions error');
 
-      getSubscriptionPackages.mockRejectedValueOnce(expectedError);
+      (getSubscriptionPackages as jest.Mock).mockRejectedValueOnce(
+        expectedError,
+      );
       expect.assertions(4);
 
-      try {
-        await store.dispatch(
-          fetchSubscriptionPackages(mockGetSubscriptionPackages.query),
-        );
-      } catch (error) {
+      await fetchSubscriptionPackages(mockGetSubscriptionPackages.query)(
+        store.dispatch,
+      ).catch(error => {
         expect(error).toBe(expectedError);
         expect(getSubscriptionPackages).toHaveBeenCalledTimes(1);
         expect(getSubscriptionPackages).toHaveBeenCalledWith(
@@ -55,19 +55,19 @@ describe('Subscriptions redux actions', () => {
             },
           ]),
         );
-      }
+      });
     });
 
     it('Should create the correct actions for when the get subscription packages is successful', async () => {
-      getSubscriptionPackages.mockResolvedValueOnce(
+      (getSubscriptionPackages as jest.Mock).mockResolvedValueOnce(
         mockGetSubscriptionPackages.response,
       );
 
-      await store
-        .dispatch(fetchSubscriptionPackages(mockGetSubscriptionPackages.query))
-        .then(clientResult => {
-          expect(clientResult).toBe(mockGetSubscriptionPackages.response);
-        });
+      await fetchSubscriptionPackages(mockGetSubscriptionPackages.query)(
+        store.dispatch,
+      ).then(clientResult => {
+        expect(clientResult).toBe(mockGetSubscriptionPackages.response);
+      });
 
       const actionResults = store.getActions();
 

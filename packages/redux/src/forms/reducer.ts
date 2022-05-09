@@ -1,8 +1,3 @@
-/**
- * @module forms/reducer
- * @category Forms
- * @subcategory Reducer
- */
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import type { FormResult, State } from './types';
@@ -112,15 +107,19 @@ const submitFormError = (state = INITIAL_STATE.error, action: AnyAction) => {
   }
 };
 
-export const getFormsSchemas = (state: State): State['result'] => state.result;
-export const getFormsError = (state: State): State['error'] => state.error;
-export const getFormsIsLoading = (state: State): State['isLoading'] =>
-  state.isLoading;
+export const getFormsSchemas = (
+  state: State = INITIAL_STATE,
+): State['result'] => state.result;
+export const getFormsError = (state: State = INITIAL_STATE): State['error'] =>
+  state.error;
+export const getFormsIsLoading = (
+  state: State = INITIAL_STATE,
+): State['isLoading'] => state.isLoading;
 export const getSubmitFormDataIsLoading = (
-  state: State,
+  state: State = INITIAL_STATE,
 ): State['isSubmitFormLoading'] => state.isSubmitFormLoading;
 export const getSubmitFormDataError = (
-  state: State,
+  state: State = INITIAL_STATE,
 ): State['submitFormError'] => state.submitFormError;
 
 const reducers = combineReducers({

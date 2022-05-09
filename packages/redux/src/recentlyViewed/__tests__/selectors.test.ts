@@ -4,9 +4,9 @@ import {
   expectedLocalPayload,
   expectedRemotePayload,
 } from 'tests/__fixtures__/recentlyViewed';
-import { StoreState } from '../../types';
 import omit from 'lodash/omit';
 import uniqBy from 'lodash/uniqBy';
+import type { StoreState } from '@farfetch/blackout-redux/types';
 
 describe('RecentlyViewed redux selectors', () => {
   const mockState: StoreState = {
@@ -52,7 +52,7 @@ describe('RecentlyViewed redux selectors', () => {
         ...expectedLocalPayload,
         // mimic the lodash `uniqBy` method effect for the given payload
         ...expectedRemotePayload.entries.filter(
-          item => item.productId !== expectedLocalPayload[0].productId,
+          item => item.productId !== expectedLocalPayload?.[0]?.productId,
         ),
       ]);
       expect(spy).toHaveBeenCalledTimes(1);
@@ -111,7 +111,7 @@ describe('RecentlyViewed redux selectors', () => {
       const spy = jest.spyOn(fromReducer, 'getResult');
 
       expect(selectors.getRecentlyViewedProductsPagination(mockState)).toBe(
-        mockState.recentlyViewed.result.pagination,
+        mockState?.recentlyViewed?.result?.pagination,
       );
       expect(spy).toHaveBeenCalledTimes(1);
     });

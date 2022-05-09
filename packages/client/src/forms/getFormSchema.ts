@@ -17,12 +17,15 @@ const getFormSchema: GetFormSchema = (
   query = undefined,
   config = undefined,
 ) => {
-  return client
-    .get(join(`/communication/v1/forms/${schemaCode}`, { query }), config)
-    .then(response => response.data)
-    .catch(error => {
-      throw adaptError(error);
-    });
+  return (
+    client
+      // @ts-expect-error
+      .get(join(`/communication/v1/forms/${schemaCode}`, { query }), config)
+      .then(response => response.data)
+      .catch(error => {
+        throw adaptError(error);
+      })
+  );
 };
 
 export default getFormSchema;

@@ -216,7 +216,7 @@ class Analytics {
   }
 
   /**
-   * This method will be called whenever integrations are loaded into analytics. To be overriden by subclasses.
+   * This method will be called whenever integrations are loaded into analytics. To be overridden by subclasses.
    *
    * @param loadedIntegrations - Array of containing the integrations that were loaded.
    *

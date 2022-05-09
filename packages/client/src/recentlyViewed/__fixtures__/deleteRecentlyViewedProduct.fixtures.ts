@@ -5,21 +5,19 @@ import moxios from 'moxios';
  * Response payloads.
  */
 export default {
-  success: params => {
+  success: (params: { id: number; response: Record<string, unknown> }) => {
     moxios.stubRequest(
       join('/api/marketing/v1/recentlyViewed/products', params.id),
       {
-        method: 'delete',
         response: params.response,
         status: 200,
       },
     );
   },
-  failure: params => {
+  failure: (params: { id: number }) => {
     moxios.stubRequest(
       join('/api/marketing/v1/recentlyViewed/products', params.id),
       {
-        method: 'delete',
         response: 'stub error',
         status: 404,
       },

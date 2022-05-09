@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 /**
  * @jest-environment node
  */

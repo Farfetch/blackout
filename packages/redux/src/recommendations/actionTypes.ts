@@ -1,9 +1,3 @@
-/**
- * @module recommendations/actionTypes
- * @category Recommendations
- * @subcategory Actions
- */
-
 /** Action type dispatched when the fetch product recommendations request fails. */
 export const FETCH_PRODUCT_RECOMMENDATIONS_FAILURE =
   '@farfetch/blackout-redux/FETCH_PRODUCT_RECOMMENDATIONS_FAILURE';

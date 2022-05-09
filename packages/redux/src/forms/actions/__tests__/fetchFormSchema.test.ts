@@ -12,7 +12,7 @@ import find from 'lodash/find';
 const formsMockStore = (state = {}) =>
   mockStore({ forms: INITIAL_STATE }, state);
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof formsMockStore>;
 
 jest.mock('@farfetch/blackout-client/forms', () => {
   return {
@@ -31,54 +31,46 @@ describe('fetchFormSchema() action creator', () => {
   it('should create the correct actions when fetch get form schemas procedure fails', async () => {
     const expectedError = new Error('Fetch form schema error');
 
-    getFormSchema.mockRejectedValueOnce(expectedError);
+    (getFormSchema as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store
-      .dispatch(
-        fetchFormSchema(
-          formSchemaResponse.code,
-          getFormSchemasQuery,
-          expectedConfig,
-        ),
-      )
-      .catch(error => {
-        expect(error).toBe(expectedError);
-        expect(getFormSchema).toHaveBeenCalledTimes(1);
-        expect(getFormSchema).toHaveBeenCalledWith(
-          formSchemaResponse.code,
-          getFormSchemasQuery,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual(
-          expect.arrayContaining([
-            expect.objectContaining({
-              type: actionTypes.FETCH_FORM_SCHEMA_FAILURE,
-              meta: { schemaCode: formSchemaResponse.code },
-            }),
-          ]),
-        );
-      });
+    await fetchFormSchema(
+      formSchemaResponse.code,
+      getFormSchemasQuery,
+      expectedConfig,
+    )(store.dispatch).catch(error => {
+      expect(error).toBe(expectedError);
+      expect(getFormSchema).toHaveBeenCalledTimes(1);
+      expect(getFormSchema).toHaveBeenCalledWith(
+        formSchemaResponse.code,
+        getFormSchemasQuery,
+        expectedConfig,
+      );
+      expect(store.getActions()).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            type: actionTypes.FETCH_FORM_SCHEMA_FAILURE,
+            meta: { schemaCode: formSchemaResponse.code },
+          }),
+        ]),
+      );
+    });
   });
 
   it('should create the correct actions for when the fetch form schemas procedure is successful', async () => {
     const mockResult = {
       foo: 'bar',
     };
-    getFormSchema.mockResolvedValueOnce(mockResult);
+    (getFormSchema as jest.Mock).mockResolvedValueOnce(mockResult);
 
-    await store
-      .dispatch(
-        fetchFormSchema(
-          formSchemaResponse.code,
-          getFormSchemasQuery,
-          expectedConfig,
-        ),
-      )
-      .then(clientResult => {
-        expect(clientResult).toBe(mockResult);
-      });
+    await fetchFormSchema(
+      formSchemaResponse.code,
+      getFormSchemasQuery,
+      expectedConfig,
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toBe(mockResult);
+    });
 
     const actionResults = store.getActions();
 

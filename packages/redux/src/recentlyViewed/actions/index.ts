@@ -1,9 +1,5 @@
 /**
  * Recently Viewed actions.
- *
- * @module recentlyViewed/actions
- * @category Recently Viewed
- * @subcategory Actions
  */
 
 export { default as fetchRecentlyViewedProducts } from './fetchRecentlyViewedProducts';

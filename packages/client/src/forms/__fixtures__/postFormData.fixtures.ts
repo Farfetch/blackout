@@ -1,20 +1,19 @@
 import moxios from 'moxios';
+import type { SubmitFormSchema } from '../types';
 
 /**
  * Response payloads.
  */
 export default {
   post: {
-    success: (schemaCode, response) => {
+    success: (schemaCode: string, response: SubmitFormSchema) => {
       moxios.stubRequest(`/api/communication/v1/forms/${schemaCode}/data`, {
-        method: 'post',
         response: response,
         status: 200,
       });
     },
-    error: schemaCode => {
+    error: (schemaCode: string) => {
       moxios.stubRequest(`/api/communication/v1/forms/${schemaCode}/data`, {
-        method: 'post',
         response: 'stub error',
         status: 404,
       });

@@ -6,9 +6,6 @@ import type { GetRecentlyViewedProducts } from './types';
  * Method responsible for retrieving data from recently viewed products
  * endpoint on MKT API.
  *
- * @function getRecentlyViewedProducts
- * @memberof module:recentlyViewed
- *
  * @param query - Query parameters to apply.
  * @param config - Custom configurations to send to the client
  * instance (axios).

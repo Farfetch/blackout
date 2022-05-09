@@ -5,6 +5,7 @@ import { saveRecentlyViewedProduct } from '../';
 import reducer from '../../reducer';
 
 const mockAction = { type: 'this_is_a_mock_action' };
+const productId = expectedLocalPayload[0]?.productId as number;
 
 const mockRecentlyViewedStore = (state = {}) =>
   mockStore(
@@ -15,7 +16,7 @@ const mockRecentlyViewedStore = (state = {}) =>
   );
 
 describe('saveRecentlyViewedProduct() action creator', () => {
-  let store;
+  let store: ReturnType<typeof mockRecentlyViewedStore>;
   const action = saveRecentlyViewedProduct();
 
   beforeEach(() => {
@@ -24,7 +25,7 @@ describe('saveRecentlyViewedProduct() action creator', () => {
   });
 
   it('should create the correct action', () => {
-    store.dispatch(action(expectedLocalPayload[0].productId));
+    action(productId)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -33,7 +34,7 @@ describe('saveRecentlyViewedProduct() action creator', () => {
         type: actionTypes.SAVE_RECENTLY_VIEWED_PRODUCT,
         payload: [
           {
-            productId: expectedLocalPayload[0].productId,
+            productId,
             lastVisitDate: expect.any(String),
           },
         ],

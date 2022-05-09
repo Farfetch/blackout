@@ -4,11 +4,11 @@
  *
  * @example <caption>Adding GA4 integration to analytics</caption>
  *
- * import analytics, { integrations } from '@farfetch/blackout-react/analytics';
+ * import analytics, \{ integrations \} from '\@farfetch/blackout-react/analytics';
  *
- * analytics.addIntegration('GA4', integrations.GA4, {
+ * analytics.addIntegration('GA4', integrations.GA4, \{
     measurementId: 'G-XXXXX',
- * });
+ * \});
  */
 import {
   pageTypes as analyticsPageTypes,

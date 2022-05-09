@@ -1,8 +1,9 @@
 import { getRecentlyViewedProducts } from '../';
 import client from '../../helpers/client';
-import fixtures from '../__mocks__/getRecentlyViewedProducts.fixtures';
+import fixtures from '../__fixtures__/getRecentlyViewedProducts.fixtures';
 import join from 'proper-url-join';
 import moxios from 'moxios';
+import type { RecentlyViewedProducts } from '../types';
 
 describe('getRecentlyViewedProducts', () => {
   const query = { page: 1, pageSize: 10 };
@@ -17,7 +18,12 @@ describe('getRecentlyViewedProducts', () => {
   afterEach(() => moxios.uninstall(client));
 
   it('should handle a client request successfully', async () => {
-    const response = {};
+    const response: RecentlyViewedProducts = {
+      totalPages: 1,
+      totalItems: 10,
+      number: 1,
+      entries: [],
+    };
 
     fixtures.success({
       response,
@@ -35,7 +41,12 @@ describe('getRecentlyViewedProducts', () => {
   });
 
   it('should handle a client request successfully assuming default parameters', async () => {
-    const response = {};
+    const response: RecentlyViewedProducts = {
+      totalPages: 1,
+      totalItems: 10,
+      number: 1,
+      entries: [],
+    };
 
     fixtures.success({
       response,

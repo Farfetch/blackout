@@ -1,7 +1,8 @@
 import * as fromReducer from '../reducer';
 import reducer, { actionTypes } from '..';
+import type { State } from '../types';
 
-let initialState;
+let initialState: State;
 const randomAction = { type: 'this_is_a_random_action' };
 
 describe('forms redux reducer', () => {
@@ -48,7 +49,11 @@ describe('forms redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, error: { 'foo-biz': false } };
+      const errorCode = 'foo-biz';
+      const state: State = {
+        ...initialState,
+        error: { [errorCode]: { message: 'error' } },
+      };
 
       expect(reducer(state, randomAction).error).toEqual(state.error);
     });

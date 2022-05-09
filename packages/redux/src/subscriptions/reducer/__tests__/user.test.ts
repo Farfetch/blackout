@@ -59,6 +59,7 @@ describe('User Subscriptions redux reducer', () => {
         isLoading: false,
         result: [],
         unsubscribeRecipientFromTopicRequests: {},
+        updateSubscriptionsError: undefined,
       };
 
       expect(reducer(state, randomAction).error).toEqual(state.error);
@@ -137,15 +138,15 @@ describe('User Subscriptions redux reducer', () => {
 
       const subscription = mockUserSubscriptionsState.result[0];
 
-      const topicIndex = subscription.topics.findIndex(
+      const topicIndex = subscription?.topics.findIndex(
         topic => topic.id === mockTopicId1,
-      );
+      ) as number;
 
-      const topic = subscription.topics[topicIndex];
+      const topic = subscription?.topics[topicIndex];
 
-      const channelIndex = topic.channels.findIndex(
-        channel => channel.id === mockRecipientId1TopicId1,
-      );
+      const channelIndex = topic?.channels.findIndex(
+        (channel: { id: string }) => channel.id === mockRecipientId1TopicId1,
+      ) as number;
 
       const expectedResult = [...mockUserSubscriptionsState.result];
 
@@ -153,17 +154,20 @@ describe('User Subscriptions redux reducer', () => {
         ...subscription,
       };
 
-      const newChannels = [...topic.channels];
+      const newChannels = [...(topic?.channels || [])];
       newChannels.splice(channelIndex, 1);
 
       const newTopic = {
+        // @ts-expect-error
         ...newSubscription.topics[topicIndex],
         channels: newChannels,
       };
 
-      newSubscription.topics = [...newSubscription.topics];
+      newSubscription.topics = [...(newSubscription.topics || [])];
+      // @ts-expect-error
       newSubscription.topics[topicIndex] = newTopic;
 
+      // @ts-expect-error
       expectedResult[0] = newSubscription;
 
       let state = reducer(mockUserSubscriptionsState, action);
@@ -201,7 +205,7 @@ describe('User Subscriptions redux reducer', () => {
 
       // Case 5: Dispatching an action with a topic id that does not exist in result state
       action.payload.subscriptionId = mockSubscriptionId;
-      action.payload.topicId = 11111;
+      action.payload.topicId = '11111';
 
       state = reducer(mockUserSubscriptionsState, action);
 
@@ -210,7 +214,7 @@ describe('User Subscriptions redux reducer', () => {
 
       // Case 6: Dispatching an action with a recipient id that does not exist in result state
       action.payload.topicId = mockTopicId1;
-      action.payload.recipientId = 11111;
+      action.payload.recipientId = '11111';
 
       state = reducer(mockUserSubscriptionsState, action);
 
@@ -308,7 +312,13 @@ describe('User Subscriptions redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { isLoading: false };
+      const state: UserState = {
+        isLoading: false,
+        updateSubscriptionsError: undefined,
+        unsubscribeRecipientFromTopicRequests: {},
+        error: undefined,
+        result: [],
+      };
 
       expect(reducer(state, randomAction).isLoading).toEqual(state.isLoading);
     });
@@ -445,6 +455,7 @@ describe('User Subscriptions redux reducer', () => {
         ...mockUserSubscriptionsState.unsubscribeRecipientFromTopicRequests,
       };
 
+      // @ts-expect-error
       delete expectedState[mockRecipientId1TopicId1];
 
       expect(state.unsubscribeRecipientFromTopicRequests).toStrictEqual(

@@ -5,6 +5,9 @@ import {
   mockRecommendationsStrategy,
   mockState,
 } from 'tests/__fixtures__/recommendations';
+import type { StoreState } from '@farfetch/blackout-redux/types';
+
+const mockStore = merge({} as StoreState, mockState);
 
 describe('Recommendations redux selectors', () => {
   beforeEach(jest.clearAllMocks);
@@ -18,7 +21,7 @@ describe('Recommendations redux selectors', () => {
 
       expect(
         selectors.isProductRecommendationLoading(
-          merge(mockState, {
+          merge(mockStore, {
             recommendations: {
               isLoading: {
                 [mockRecommendationsStrategy]: false,
@@ -38,7 +41,7 @@ describe('Recommendations redux selectors', () => {
 
       expect(
         selectors.getProductRecommendationsError(
-          mockState,
+          mockStore,
           mockRecommendationsStrategy,
         ),
       ).toBe(undefined);
@@ -50,7 +53,7 @@ describe('Recommendations redux selectors', () => {
     it('should get the result', () => {
       const spy = jest.spyOn(fromRecommendations, 'getRecommendations');
 
-      expect(selectors.getProductRecommendations(mockState)).toEqual(
+      expect(selectors.getProductRecommendations(mockStore)).toEqual(
         mockState.recommendations.result,
       );
       expect(spy).toHaveBeenCalledTimes(1);
@@ -63,7 +66,7 @@ describe('Recommendations redux selectors', () => {
 
       expect(
         selectors.getProductRecommendationsByStrategyName(
-          mockState,
+          mockStore,
           mockRecommendationsStrategy,
         ),
       ).toEqual(mockState.recommendations.result[mockRecommendationsStrategy]);
@@ -77,7 +80,7 @@ describe('Recommendations redux selectors', () => {
 
       expect(
         selectors.getProductRecommendationsId(
-          mockState,
+          mockStore,
           mockRecommendationsStrategy,
         ),
       ).toEqual(
