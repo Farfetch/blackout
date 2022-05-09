@@ -1,5 +1,6 @@
 import client, { adaptError } from '../helpers/client';
 import type { AxiosRequestConfig } from 'axios';
+import type { TrackingData } from './types';
 
 /**
  * Method responsible for posting a batch of data to /batch/trackings endpoint on MKT API.
@@ -24,7 +25,10 @@ import type { AxiosRequestConfig } from 'axios';
  *
  * @returns Promise object.
  */
-const postBatchTrackings = (data: Array<object>, config?: AxiosRequestConfig) =>
+const postBatchTrackings = (
+  data: Array<TrackingData>,
+  config?: AxiosRequestConfig,
+) =>
   client
     .post('/marketing/v1/batch/trackings', data, config)
     .then(response => response.data)

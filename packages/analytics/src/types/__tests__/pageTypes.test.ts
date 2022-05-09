@@ -12,7 +12,7 @@ describe('pageTypes', () => {
     expect(result).toEqual(true);
   });
 
-  it('Should return false if passed an ivalid pageType', () => {
+  it('Should return false if passed an invalid pageType', () => {
     const type = 'this is an invalid type page';
     const result = isValidPageType(pageTypes, type);
 

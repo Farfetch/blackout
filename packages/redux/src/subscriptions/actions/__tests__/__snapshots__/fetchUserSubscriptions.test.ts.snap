@@ -9,25 +9,30 @@ Object {
         "channels": Array [
           Object {
             "address": "user1_test1@acme.com",
+            "id": "email",
             "platform": "email",
             "source": "My Account",
           },
         ],
+        "id": "Latest_News",
         "type": "Latest_News",
       },
       Object {
         "channels": Array [
           Object {
             "address": "user1_test1@acme.com",
+            "id": "email",
             "platform": "email",
             "source": "My Account",
           },
           Object {
             "address": "1234567890",
+            "id": "sms",
             "platform": "sms",
             "source": "My Account",
           },
         ],
+        "id": "Promotions",
         "type": "Promotions",
       },
     ],

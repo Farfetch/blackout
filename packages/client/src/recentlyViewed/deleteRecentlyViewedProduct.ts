@@ -5,13 +5,10 @@ import type { DeleteRecentlyViewedProducts } from './types';
 /**
  * Method responsible for deleting the data of a recently viewed product endpoint on the Marketing API.
  *
- * @function deleteRecentlyViewedProduct
- * @memberof module:recentlyViewed
+ * @param id - Identification number of the recently viewed product to delete.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {number} id - Identification number of the recently viewed product to delete.
- * @param {object} [config] - Custom configurations to send to the client instance (axios).
- *
- * @returns {Promise} Promise that will be resolved when the call to the endpoint finishes.
+ * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
 
 const deleteRecentlyViewedProduct: DeleteRecentlyViewedProducts = (

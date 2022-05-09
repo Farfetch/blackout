@@ -1,9 +1,3 @@
-/**
- * @module recommendations/selectors
- * @category Recommendations
- * @subcategory Selectors
- */
-
 import {
   getAreRecommendationsLoading,
   getRecommendations,
@@ -17,12 +11,10 @@ import type { StoreState } from '../types';
 /**
  * Checks if product recommendations has error by strategy name.
  *
- * @function
- *
  * @param state - Application state.
  * @param strategyName - The strategy name for the specific set of recommendations.
  *
- * @returns {(object | undefined)} Product recommendations error.
+ * @returns Product recommendations error.
  */
 export const getProductRecommendationsError = (
   state: StoreState,
@@ -32,8 +24,6 @@ export const getProductRecommendationsError = (
 
 /**
  * Checks if product recommendations are loading based on a strategy name.
- *
- * @function
  *
  * @param state - Application state.
  * @param strategyName - The strategy name for the specific set of recommendations.
@@ -49,8 +39,6 @@ export const isProductRecommendationLoading = (
 /**
  * Gets all the product recommendations results.
  *
- * @function
- *
  * @param state - Application state.
  *
  * @returns The result object containing the product recommendations.
@@ -62,8 +50,6 @@ export const getProductRecommendations = (
 
 /**
  * Gets the product recommendations for a specific strategy.
- *
- * @function
  *
  * @param  state - Application state.
  * @param  strategyName - The strategy name for the specific set of recommendations.
@@ -78,8 +64,6 @@ export const getProductRecommendationsByStrategyName = (
 /**
  * Gets the product recommendation id by strategy name.
  *
- * @function
- *
  * @param state - Application state.
  * @param strategyName - The strategy name for the specific set of recommendations.
  *
@@ -89,4 +73,4 @@ export const getProductRecommendationsId = (
   state: StoreState,
   strategyName: string,
 ): string | undefined =>
-  get(getProductRecommendations(state), strategyName, {}).id;
+  get(getProductRecommendations(state), strategyName)?.id;

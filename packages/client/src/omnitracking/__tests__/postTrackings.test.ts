@@ -1,6 +1,6 @@
 import { postTrackings } from '..';
 import client from '../../helpers/client';
-import fixtures from '../__mocks__/postTrackings.fixtures';
+import fixtures from '../__fixtures__/postTrackings.fixtures';
 import moxios from 'moxios';
 
 describe('postTrackings()', () => {

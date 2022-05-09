@@ -31,7 +31,7 @@ utils.logger.error = jest.fn();
 utils.logger.info = jest.fn();
 
 const defaultOptions = {};
-const customVitorinoPageType = 'pageType do vitó';
+const customVitorinoPageType = "vitorino's pageType";
 
 const mockCustomEventsMapper = () => ({
   [eventTypes.CHECKOUT_STEP_VIEWED]: customVitorinoPageType,
@@ -124,7 +124,7 @@ describe('Vitorino', () => {
       });
       it('Should log an error if passed an invalid mapper', async () => {
         await getIntegrationInstance({
-          eventsMapper: 'this is a no no for vitó',
+          eventsMapper: 'this is a no no for vitorino',
         });
 
         expect(utils.logger.error).toHaveBeenCalledWith(
@@ -136,7 +136,7 @@ describe('Vitorino', () => {
 
       it('Should log an error if the custom mapper returns an invalid type or null', async () => {
         let instance = await getIntegrationInstance({
-          eventsMapper: () => 'this is a no no for vitó as well',
+          eventsMapper: () => 'this is a no no for vitorino as well',
         });
 
         await instance.track(analyticsTrackDataMock);

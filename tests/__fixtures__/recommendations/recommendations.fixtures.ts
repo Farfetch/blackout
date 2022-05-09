@@ -7,12 +7,16 @@ export const expectedPayload = [
           id: '123',
         },
         score: 0.9,
+        trackers: [],
+        productRecommendationType: 0,
       },
       {
         product: {
           id: '321',
         },
         score: 0.8,
+        trackers: [],
+        productRecommendationType: 0,
       },
     ],
   },

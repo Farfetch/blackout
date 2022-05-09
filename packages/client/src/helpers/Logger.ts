@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 /**
- * @class Logger - Outputs objects with a prefix on the console
+ * Outputs objects with a prefix on the console
  */
 class Logger {
   prefix: string;
@@ -13,61 +13,51 @@ class Logger {
   /**
    * Formats objects with the prefix.
    *
-   * @param {*} args - Parameters to be outputed on the console.
+   * @param args - Parameters to be outputted on the console.
    *
-   * @returns {Array} - Array with the prefix, along with the rest of the arguments to be outputed.
-   *
-   * @memberof Logger
+   * @returns Array with the prefix, along with the rest of the arguments to be outputted.
    */
-  format(args: any[]): any[] {
+  format(args: unknown[]): unknown[] {
     return [`${this.prefix}: `, ...args];
   }
 
   /**
    * Logs objects with console.log.
    *
-   * @param {*} args - Items to be outputed on the console.
-   * This parameter needs to be spreaded so we can send multiple arguments to the console.
-   *
-   * @memberof Logger
+   * @param args - Items to be outputted on the console.
+   * This parameter needs to be spread so we can send multiple arguments to the console.
    */
-  log(...args: any[]): void {
+  log(...args: unknown[]): void {
     console.log(...this.format(args));
   }
 
   /**
    * Logs objects with console.info.
    *
-   * @param {*} args - Items to be outputed on the console.
-   * This parameter needs to be spreaded so we can send multiple arguments to the console.
-   *
-   * @memberof Logger
+   * @param args - Items to be outputted on the console.
+   * This parameter needs to be spread so we can send multiple arguments to the console.
    */
-  info(...args: any[]): void {
+  info(...args: unknown[]): void {
     console.info(...this.format(args));
   }
 
   /**
    * Logs objects with console.warn.
    *
-   * @param {*} args - Items to be outputed on the console.
-   * This parameter needs to be spreaded so we can send multiple arguments to the console.
-   *
-   * @memberof Logger
+   * @param args - Items to be outputted on the console.
+   * This parameter needs to be spread so we can send multiple arguments to the console.
    */
-  warn(...args: any[]): void {
+  warn(...args: unknown[]): void {
     console.warn(...this.format(args));
   }
 
   /**
    * Logs objects with console.error.
    *
-   * @param {*} args - Items to be outputed on the console.
-   * This parameter needs to be spreaded so we can send multiple arguments to the console.
-   *
-   * @memberof Logger
+   * @param args - Items to be outputted on the console.
+   * This parameter needs to be spread so we can send multiple arguments to the console.
    */
-  error(...args: any[]) {
+  error(...args: unknown[]): void {
     console.error(...this.format(args));
   }
 }

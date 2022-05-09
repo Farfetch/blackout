@@ -55,8 +55,6 @@ class StorageWrapper {
    * Creates the store with the time-to-live.
    * Checks if there's a previous TTL stored, and if it's expired, stores a new one.
    *
-   * @param storage - The actual storage that will hold the data, like the browser localStorage.
-   *
    * @returns Promise that will resolve when the method finishes.
    */
   async createStorage(): Promise<void> {
@@ -67,7 +65,7 @@ class StorageWrapper {
     const now = new Date();
     const nowInMs = now.getTime();
 
-    // If store has expired, clear it and renew it with one year time-to-live, so it's GDPR complient.
+    // If store has expired, clear it and renew it with one year time-to-live, so it's GDPR compliant.
     if (ttlInMs < nowInMs) {
       await this.clear();
       await this.setItem('ttl', now.setFullYear(now.getFullYear() + 1));

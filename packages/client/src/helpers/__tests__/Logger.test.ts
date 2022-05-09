@@ -8,7 +8,7 @@ describe('Logger', () => {
   console.warn = jest.fn();
   console.error = jest.fn();
   const defaultPrefix = 'Logger: ';
-  let logger;
+  let logger: Logger;
 
   beforeEach(() => {
     logger = new Logger();

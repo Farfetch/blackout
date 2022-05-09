@@ -1,9 +1,3 @@
-/**
- * @module subscriptions/reducer
- * @category Subscriptions
- * @subcategory Reducer
- */
-
 import * as actionTypes from '../actionTypes';
 import * as authenticationActionTypes from '../../authentication/actionTypes';
 import { AnyAction, combineReducers } from 'redux';
@@ -26,12 +20,7 @@ const reducer = combineReducers({
 
 const removeSubscriptionPackagesFromEntities = (
   state: StoreState['entities'],
-) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { subscriptionPackages, ...rest } = state;
-
-  return rest;
-};
+) => ({ ...state, subscriptionPackages: undefined });
 
 export const entitiesMapper = {
   [actionTypes.RESET_SUBSCRIPTIONS]: removeSubscriptionPackagesFromEntities,

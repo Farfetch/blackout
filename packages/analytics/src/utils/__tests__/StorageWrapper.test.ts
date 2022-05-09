@@ -49,8 +49,7 @@ describe('Storage', () => {
 
     expect(testStorage.items[oldKey]).toEqual(data);
 
-    // @ts-expect-error
-    await storage.createStorage(testStorage);
+    await storage.createStorage();
 
     expect(testStorage.items[oldKey]).toBeUndefined();
   });
@@ -77,8 +76,7 @@ describe('Storage', () => {
     const ttl = storage.getItem('ttl');
 
     // Force the createStorage flow with the same store, to ensure the ttl is not updated
-    // @ts-expect-error
-    storage.createStorage(testStorage);
+    storage.createStorage();
 
     const newTtl = storage.getItem('ttl');
 
@@ -93,8 +91,7 @@ describe('Storage', () => {
     await storage.setItem('foo', 'bar');
 
     // Force the createStorage flow with the same store, to ensure the ttl is not updated
-    // @ts-expect-error
-    storage.createStorage(testStorage);
+    storage.createStorage();
 
     // Ensure the store is intact
     expect(await storage.getItem()).toMatchObject({
@@ -107,8 +104,7 @@ describe('Storage', () => {
     jest.spyOn(global, 'Date').mockImplementation(() => twoYearsFromNow);
 
     // Force the createStorage flow with the same store, to ensure the ttl is updated, as the `new Date()` will return a date two years from now
-    // @ts-expect-error
-    await storage.createStorage(testStorage);
+    await storage.createStorage();
     const newTtl = await storage.getItem('ttl');
     const updatedStorage = await storage.getItem();
 

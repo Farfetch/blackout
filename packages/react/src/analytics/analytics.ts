@@ -6,6 +6,7 @@ import Analytics, {
   platformTypes,
 } from '@farfetch/blackout-analytics';
 import webContext from './context';
+
 /**
  * Analytics facade for web applications.
  * Refer to \@farfetch/blackout-analytics documentation to know the

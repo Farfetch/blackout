@@ -24,7 +24,7 @@ import type { StoreState } from '../../types';
 /**
  * Extends the default action types with the ones passed to the middleware.
  *
- * @param customActionTypes - Action types to extend/replace the ones from @farfetch/blackout-redux/bags.
+ * @param customActionTypes - Action types to extend/replace the ones from \@farfetch/blackout-redux/bags.
  *
  * @returns The final map for bag actions.
  */
@@ -212,10 +212,10 @@ const getBagData = (action: AnyAction) => ({
 });
 
 /**
- * Middleware for @farfetch/blackout-redux/bags actions, to call `analyticsInstance.track()` with the correct payload.
+ * Middleware for \@farfetch/blackout-redux/bags actions, to call `analyticsInstance.track()` with the correct payload.
  *
  * @param analyticsInstance - Analytics instance.
- * @param customActionTypes - Action types to extend/replace the ones from @farfetch/blackout-redux/bags.
+ * @param customActionTypes - Action types to extend/replace the ones from \@farfetch/blackout-redux/bags.
  *
  * @returns Redux middleware.
  */

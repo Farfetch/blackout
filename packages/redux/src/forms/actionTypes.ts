@@ -1,9 +1,3 @@
-/**
- * @module forms/actionTypes
- * @category Forms
- * @subcategory Actions
- */
-
 /** Action type dispatched when the fetch form schema request starts. */
 export const FETCH_FORM_SCHEMA_REQUEST =
   '@farfetch/blackout-redux/FETCH_FORM_SCHEMA_REQUEST';
@@ -24,5 +18,5 @@ export const SUBMIT_FORM_SUCCESS =
 export const SUBMIT_FORM_FAILURE =
   '@farfetch/blackout-redux/SUBMIT_FORM_FAILURE';
 
-/** Action type dispatched by [resetFormSchema]{@link module:forms/actions.resetFormSchema} thunk. */
+/** Action type dispatched by [resetFormSchema]\{(\@link module:forms/actions.resetFormSchema)\} thunk. */
 export const RESET_SCHEMAS = '@farfetch/blackout-redux/RESET_SCHEMAS';

@@ -4,9 +4,6 @@ import type { Dispatch } from 'redux';
 /**
  * Method responsible for clearing a specific unsubscribe recipient from topic request state from the redux store.
  *
- * @function clearUnsubscribeRecipientFromTopicRequest
- * @memberof module:subscriptions/actions
- *
  * @param recipientId - The id of the recipient (address) whose unsubscribe request state is to be removed.
  *
  * @returns Dispatch clear unsubscribe recipient from topic action.

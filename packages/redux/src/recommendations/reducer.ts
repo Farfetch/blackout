@@ -1,10 +1,5 @@
-/**
- * @module recommendations/reducer
- * @category Recommendations
- * @subcategory Reducer
- */
-
 import * as actionTypes from './actionTypes';
+import * as authenticationActionTypes from '../authentication/actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import type { ProductRecommendationResult, State } from './types';
 import type { ReducerSwitch } from '../types';
@@ -97,7 +92,11 @@ const recommendationsReducer: ReducerSwitch<State, AnyAction> = (
   state = INITIAL_STATE,
   action,
 ): State => {
-  if (action.type === actionTypes.RESET_RECOMMENDATIONS) {
+  if (
+    action.type === actionTypes.RESET_RECOMMENDATIONS ||
+    action.type === authenticationActionTypes.LOGOUT_SUCCESS
+  ) {
+    // initial state should return when reset_recommendations or logout actions are called.
     return reducers(INITIAL_STATE, action);
   }
 

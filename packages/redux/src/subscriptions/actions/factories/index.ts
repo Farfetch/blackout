@@ -1,9 +1,5 @@
 /**
  * Subscriptions action factories.
- *
- * @module subscriptions/actions/factories
- * @category Subscriptions
- * @subcategory Actions
  */
 
 export { default as fetchSubscriptionPackagesFactory } from './fetchSubscriptionPackagesFactory';

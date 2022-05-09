@@ -1,25 +1,18 @@
 import join from 'proper-url-join';
 import moxios from 'moxios';
+import type { DeleteSubscriptionQuery } from '../types';
 
 export default {
-  success: ({ id, emailHash }, response) => {
-    moxios.stubRequest(
-      join('/api/marketing/v1/subscriptions', { query: { id, emailHash } }),
-      {
-        method: 'delete',
-        status: 200,
-        response,
-      },
-    );
+  success: (query: DeleteSubscriptionQuery, response: unknown) => {
+    moxios.stubRequest(join('/api/marketing/v1/subscriptions', { query }), {
+      status: 200,
+      response,
+    });
   },
-  failure: ({ id, emailHash }) => {
-    moxios.stubRequest(
-      join('/api/marketing/v1/subscriptions', { query: { id, emailHash } }),
-      {
-        method: 'delete',
-        response: 'stub error',
-        status: 404,
-      },
-    );
+  failure: (query: DeleteSubscriptionQuery) => {
+    moxios.stubRequest(join('/api/marketing/v1/subscriptions', { query }), {
+      response: 'stub error',
+      status: 404,
+    });
   },
 };

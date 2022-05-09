@@ -24,7 +24,10 @@ import type { AxiosRequestConfig } from 'axios';
  *
  * @returns Promise object.
  */
-const postAnalytics = (data: object, config?: AxiosRequestConfig) =>
+const postAnalytics = (
+  data: Record<string, unknown> | Record<string, unknown>[],
+  config?: AxiosRequestConfig,
+) =>
   client
     .post('/marketing/v1/analytics', data, config)
     .then(response => response.data)

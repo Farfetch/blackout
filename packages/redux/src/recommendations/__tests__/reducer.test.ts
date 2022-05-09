@@ -126,7 +126,7 @@ describe('recommendations reducer', () => {
       id: '0000-0000-0000-000',
       values: [
         {
-          id: 12312312,
+          id: '12312312',
           score: 0.97,
         },
       ],

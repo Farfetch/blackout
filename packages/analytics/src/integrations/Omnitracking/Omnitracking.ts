@@ -332,7 +332,7 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
     }
 
     if (validateOutgoingOmnitrackingPayload(finalPayload)) {
-      postTrackings(finalPayload);
+      postTrackings({ ...finalPayload });
     }
   }
 }

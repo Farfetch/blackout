@@ -1,9 +1,3 @@
-/**
- * @module recentlyViewed/selectors
- * @category Recently Viewed
- * @subcategory Selectors
- */
-
 import { getError, getIsLoading, getResult } from './reducer';
 import get from 'lodash/get';
 import type {
@@ -15,11 +9,9 @@ import type { StoreState } from '../types';
 /**
  * Check if recently viewed products request has an error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {StoreState} state - Application state.
- *
- * @returns {object | undefined} Recently viewed products error.
+ * @returns Recently viewed products error.
  */
 export const getRecentlyViewedProductsError = (
   state: StoreState,
@@ -28,11 +20,9 @@ export const getRecentlyViewedProductsError = (
 /**
  * Check if recently viewed products are loading.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {StoreState} state - Application state.
- *
- * @returns {boolean} If the recently viewed products are loading or not.
+ * @returns If the recently viewed products are loading or not.
  */
 export const areRecentlyViewedProductsLoading = (
   state: StoreState,
@@ -41,11 +31,9 @@ export const areRecentlyViewedProductsLoading = (
 /**
  * Get all the recently viewed products results previously merged ("remote" and "local" ones).
  *
- * @function
+ * @param state - Application state.
  *
- * @param {StoreState} state - Application state.
- *
- * @returns {Array} The result object containing the recently viewed products.
+ * @returns The result object containing the recently viewed products.
  */
 export const getRecentlyViewedProducts = (
   state: StoreState,
@@ -54,11 +42,9 @@ export const getRecentlyViewedProducts = (
 /**
  * Returns if the recently viewed products were already fetched or not.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {StoreState} state - Application state.
- *
- * @returns {boolean} If the recently viewed products were already fetched.
+ * @returns If the recently viewed products were already fetched.
  */
 export const areRecentlyViewedProductsFetched = (
   state: StoreState,
@@ -72,11 +58,9 @@ export const areRecentlyViewedProductsFetched = (
 /**
  * Returns the pagination for the recently viewed products.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {StoreState} state - Application state.
- *
- * @returns {object} The pagination object.
+ * @returns The pagination object.
  */
 export const getRecentlyViewedProductsPagination = (
   state: StoreState,

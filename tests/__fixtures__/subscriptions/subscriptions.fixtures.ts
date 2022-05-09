@@ -33,15 +33,20 @@ export const mockGetSubscriptionPackages = {
 
 export const mockGetSubscriptions = {
   query: {
-    customerId: 'user@email.com',
+    customerId: 123,
+    id: 'c3e39b1f-69a8-47e3-ab7f-743ddd1278bc',
+    recipientHash:
+      '1ca9c02be7e27f42bdfdca1afef2618003bbdc7d08fe2e9b54d2ac5af8b37127',
   },
   response: {
     id: '8c2b5c3e3acb4bdd9c26ba46',
     topics: [
       {
         type: 'Latest_News',
+        id: 'Latest_News',
         channels: [
           {
+            id: 'email',
             platform: 'email',
             address: 'user1_test1@acme.com',
             source: 'My Account',
@@ -50,13 +55,16 @@ export const mockGetSubscriptions = {
       },
       {
         type: 'Promotions',
+        id: 'Promotions',
         channels: [
           {
+            id: 'email',
             platform: 'email',
             address: 'user1_test1@acme.com',
             source: 'My Account',
           },
           {
+            id: 'sms',
             platform: 'sms',
             address: '1234567890',
             source: 'My Account',
