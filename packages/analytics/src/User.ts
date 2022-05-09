@@ -27,8 +27,6 @@ class User {
 
     this.storage = storage;
     this.dataStore = new DataStore();
-
-    this.set();
   }
 
   /**
@@ -93,6 +91,19 @@ class User {
     this.dataStore.set({ id: null, traits: {} }, true);
 
     return this;
+  }
+
+  /**
+   * Initializes the user instance while allowing to set the localId to be set for the user.
+   *
+   * @param localId - The localId to be set.
+   */
+  async initialize(localId?: string): Promise<void> {
+    if (localId) {
+      await this.storage.setItem('localId', localId);
+    }
+
+    this.set();
   }
 }
 

@@ -30,7 +30,6 @@ class StorageWrapper {
     }
 
     this.storage = storage as Storage;
-    this.createStorage(storage as Storage);
   }
 
   /**
@@ -60,9 +59,7 @@ class StorageWrapper {
    *
    * @returns Promise that will resolve when the method finishes.
    */
-  private async createStorage(storage: Storage): Promise<void> {
-    this.storage = storage;
-
+  async createStorage(): Promise<void> {
     await this.preProcessStorage();
 
     const store = await this.getItem();

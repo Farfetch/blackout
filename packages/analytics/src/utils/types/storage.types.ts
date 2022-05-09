@@ -1,6 +1,4 @@
 export interface Storage {
-  items: Record<string, string>;
-
   /** @returns Returns the current value associated with the given key, or null if the given key does not exist. */
   getItem(key: string): Promise<string | null>;
 

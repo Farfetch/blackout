@@ -135,7 +135,7 @@ async function setupAnalyticsWithFaultyStorage() {
   analytics.isReady = false;
 
   const faultyStorage = new TestStorage();
-  analytics.setStorage(faultyStorage);
+  await analytics.setStorage(faultyStorage);
   await analytics.ready();
 
   loggerErrorSpy.mockClear();
@@ -170,8 +170,8 @@ describe('analytics', () => {
       );
     });
 
-    it('should log an error if calling `analytics.setStorage` with an invalid value', () => {
-      analytics.setStorage(null);
+    it('should log an error if calling `analytics.setStorage` with an invalid value', async () => {
+      await analytics.setStorage(null);
 
       expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
 
@@ -195,7 +195,7 @@ describe('analytics', () => {
 
     it('should log an error if calling `analytics.setStorage` after `analytics.ready` is called', async () => {
       // Set storage before ready is called in order for ready to succeed.
-      analytics.setStorage(new TestStorage());
+      await analytics.setStorage(new TestStorage());
 
       await analytics.ready();
 
@@ -203,7 +203,7 @@ describe('analytics', () => {
       loggerErrorSpy.mockClear();
 
       // Call setStorage again with a new storage instance.
-      analytics.setStorage(new TestStorage());
+      await analytics.setStorage(new TestStorage());
 
       expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
 
@@ -283,6 +283,19 @@ describe('analytics', () => {
     });
   });
 
+  it('Should allow to set localId through setStorage', async () => {
+    // @ts-expect-error
+    analytics.isReady = false;
+
+    const externalLocalId = '273a7d4d-e801-4a64-a016-517367eae76a';
+
+    await analytics.setStorage(new TestStorage(), externalLocalId);
+
+    const localId = await analytics.user('localId');
+
+    expect(localId).toBe(externalLocalId);
+  });
+
   describe('When storage is set in analytics', () => {
     let storage: Storage;
 
@@ -292,9 +305,7 @@ describe('analytics', () => {
 
       storage = new TestStorage();
 
-      analytics.setStorage(storage);
-
-      await Promise.resolve(true);
+      await analytics.setStorage(storage);
     });
 
     beforeEach(() => {
@@ -330,14 +341,14 @@ describe('analytics', () => {
         await analytics.setUser(123456); // We need to call setUser in order for the internal setUserPromise to be resolved
       });
 
-      beforeEach(() => {
+      beforeEach(async () => {
         // @ts-expect-error
         analytics.integrations.clear();
         // @ts-expect-error
         analytics.isReady = false;
         const testStorageInstance = new TestStorage();
 
-        analytics.setStorage(testStorageInstance);
+        await analytics.setStorage(testStorageInstance);
       });
 
       describe('Context', () => {
