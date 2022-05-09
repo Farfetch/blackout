@@ -60,7 +60,9 @@ describe('Storage', () => {
 
     // Despite the `storage.items` being a specific part of our TestStorage
     // we need to validate that it writes the key correctly
-    expect(Object.keys(storage.storage.items)[0]).toEqual(PACKAGE_NAME);
+    expect(Object.keys((storage.storage as TestStorage).items)[0]).toEqual(
+      PACKAGE_NAME,
+    );
   });
 
   it('Should create a store with 1 year ttl', async () => {
