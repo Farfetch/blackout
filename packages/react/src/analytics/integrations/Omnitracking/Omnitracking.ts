@@ -36,7 +36,7 @@ class Omnitracking extends OmnitrackingCore {
    * It will also set the currentUniqueViewId by checking if the value from
    * document.referrer is available in storage. Note that document.referrer
    * must contain the full URL, so the referrer-policy header for the
-   * page request must be adjusted accordinly.
+   * page request must be adjusted accordingly.
    *
    * @param options   - Integration options.
    * @param loadData  - Analytics's load event data.

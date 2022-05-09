@@ -42,7 +42,6 @@ import type { WebContextType } from '../../context';
 
 /**
  * Vitorino integration.
-
  */
 export default class Vitorino extends Integration<VitorinoIntegrationOptions> {
   isScriptLoaded: boolean;
@@ -54,6 +53,7 @@ export default class Vitorino extends Integration<VitorinoIntegrationOptions> {
   initializePromise: Promise<unknown> | null;
   userIdPromise: Promise<unknown> | null;
   config: Config | null;
+
   /**
    * This integration is required, so it must be loaded independently of user consent.
    *

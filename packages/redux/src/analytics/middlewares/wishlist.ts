@@ -33,7 +33,7 @@ import type {
 /**
  * Extends the default action types with the ones passed to the middleware.
  *
- * @param customActionTypes - Action types to extend/replace the ones from @farfetch/blackout-redux/wishlists.
+ * @param customActionTypes - Action types to extend/replace the ones from \@farfetch/blackout-redux/wishlists.
  *
  * @returns The final map for wishlist actions.
  */
@@ -166,7 +166,7 @@ const getProductData = async (
  * Middleware for \@farfetch/blackout-redux/wishlists actions, to call `analyticsInstance.track()` with the correct payload.
  *
  * @param analyticsInstance - Analytics instance.
- * @param customActionTypes - Action types to extend/replace the ones from @farfetch/blackout-redux/wishlists.
+ * @param customActionTypes - Action types to extend/replace the ones from \@farfetch/blackout-redux/wishlists.
  *
  * @returns Redux middleware.
  */

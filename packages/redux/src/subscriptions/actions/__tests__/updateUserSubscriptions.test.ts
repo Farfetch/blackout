@@ -18,7 +18,7 @@ const subscriptionsMockStore = (state = {}) =>
   mockStore({ subscriptions: reducer(undefined, randomAction) }, state);
 
 describe('Subscriptions redux actions', () => {
-  let store;
+  let store: ReturnType<typeof subscriptionsMockStore>;
 
   beforeEach(jest.clearAllMocks);
 
@@ -37,25 +37,20 @@ describe('Subscriptions redux actions', () => {
         },
       ];
 
-      putSubscriptions.mockRejectedValueOnce(expectedError);
+      (putSubscriptions as jest.Mock).mockRejectedValueOnce(expectedError);
 
-      try {
-        await store.dispatch(updateUserSubscriptions());
-      } catch (error) {
+      // @ts-expect-error
+      await updateUserSubscriptions()(store.dispatch).catch(error => {
         expect(error).toBe(expectedError);
         expect(putSubscriptions).toBeCalled();
         expect(store.getActions()).toEqual(
           expect.arrayContaining(expectedActions),
         );
-      }
+      });
     });
 
     it("Should create the correct actions when the user subscriptions' put request is successful", async () => {
-      await store
-        .dispatch(updateUserSubscriptions(mockPutSubscriptions.data))
-        .then(clientResult => {
-          expect(clientResult).toBe(mockPutSubscriptions.response);
-        });
+      await updateUserSubscriptions(mockPutSubscriptions.data)(store.dispatch);
 
       const actionResults = store.getActions();
 

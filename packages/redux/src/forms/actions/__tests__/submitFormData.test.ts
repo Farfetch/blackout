@@ -12,7 +12,7 @@ import find from 'lodash/find';
 const formsMockStore = (state = {}) =>
   mockStore({ forms: INITIAL_STATE }, state);
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof formsMockStore>;
 
 jest.mock('@farfetch/blackout-client/forms', () => {
   return {
@@ -31,53 +31,45 @@ describe('submitFormData() action creator', () => {
   it('should create the correct actions when the submit form data procedure fails', async () => {
     const expectedError = new Error('Submit form data error');
 
-    postFormData.mockRejectedValueOnce(expectedError);
+    (postFormData as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store
-      .dispatch(
-        submitFormData(
-          formSchemaResponse.code,
-          postFormDataPayload,
-          expectedConfig,
-        ),
-      )
-      .catch(error => {
-        expect(error).toBe(expectedError);
-        expect(postFormData).toHaveBeenCalledTimes(1);
-        expect(postFormData).toHaveBeenCalledWith(
-          formSchemaResponse.code,
-          postFormDataPayload,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual(
-          expect.arrayContaining([
-            expect.objectContaining({
-              type: actionTypes.SUBMIT_FORM_REQUEST,
-            }),
-          ]),
-        );
-      });
+    await submitFormData(
+      formSchemaResponse.code,
+      postFormDataPayload,
+      expectedConfig,
+    )(store.dispatch).catch(error => {
+      expect(error).toBe(expectedError);
+      expect(postFormData).toHaveBeenCalledTimes(1);
+      expect(postFormData).toHaveBeenCalledWith(
+        formSchemaResponse.code,
+        postFormDataPayload,
+        expectedConfig,
+      );
+      expect(store.getActions()).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            type: actionTypes.SUBMIT_FORM_REQUEST,
+          }),
+        ]),
+      );
+    });
   });
 
   it('should create the correct actions for when the submit form data procedure is successful', async () => {
     const mockResult = {
       foo: 'bar',
     };
-    postFormData.mockResolvedValueOnce(mockResult);
+    (postFormData as jest.Mock).mockResolvedValueOnce(mockResult);
 
-    await store
-      .dispatch(
-        submitFormData(
-          formSchemaResponse.code,
-          postFormDataPayload,
-          expectedConfig,
-        ),
-      )
-      .then(clientResult => {
-        expect(clientResult).toBe(mockResult);
-      });
+    await submitFormData(
+      formSchemaResponse.code,
+      postFormDataPayload,
+      expectedConfig,
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toBe(mockResult);
+    });
 
     const actionResults = store.getActions();
 

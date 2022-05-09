@@ -1,6 +1,6 @@
 import type { CombinedState } from 'redux';
 import type { Error } from '@farfetch/blackout-client/types';
-import type { ProductRecommendation } from '@farfetch/blackout-client/recommendation/types';
+import type { ProductRecommendation } from '@farfetch/blackout-client/recommendations/types';
 
 export type State = CombinedState<{
   error: Record<string, Error | null | undefined>;

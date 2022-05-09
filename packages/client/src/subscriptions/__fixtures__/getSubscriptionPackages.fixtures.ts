@@ -1,22 +1,27 @@
 import join from 'proper-url-join';
 import moxios from 'moxios';
+import type {
+  GetSubscriptionPackagesQuery,
+  SubscriptionPackagesResult,
+} from '../types';
 
 export default {
-  success: (query, response) => {
+  success: (
+    query: GetSubscriptionPackagesQuery,
+    response: SubscriptionPackagesResult,
+  ) => {
     moxios.stubRequest(
       join('/api/marketing/v1/subscriptionpackages', { query }),
       {
-        method: 'get',
         status: 200,
         response,
       },
     );
   },
-  failure: query => {
+  failure: (query: GetSubscriptionPackagesQuery) => {
     moxios.stubRequest(
       join('/api/marketing/v1/subscriptionpackages', { query }),
       {
-        method: 'get',
         response: 'stub error',
         status: 404,
       },

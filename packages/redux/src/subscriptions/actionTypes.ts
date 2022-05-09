@@ -1,9 +1,3 @@
-/**
- * @module subscriptions/actionTypes
- * @category Subscriptions
- * @subcategory Actions
- */
-
 /** Action type dispatched when the fetch subscription packages request fails. */
 export const FETCH_SUBSCRIPTION_PACKAGES_FAILURE =
   '@farfetch/blackout-redux/FETCH_SUBSCRIPTION_PACKAGES_FAILURE';

@@ -4,22 +4,19 @@ import type { Dispatch } from 'redux';
 /**
  * Reset subscriptions state and related entities to its initial value.
  *
- * @function resetSubscriptions
- * @memberof module:subscriptions/actions
- *
  * @example
- * import { resetSubscriptions } from '@farfetch/blackout-redux/subscriptions/redux';
+ * import \{ resetSubscriptions \} from '\@farfetch/blackout-redux/subscriptions/redux';
  *
  * // State object before executing action
- * const state = { user: { result: [{ ... }], error: null, isLoading: false }, packages: { result: [{ ... }], error: null, isLoading: false } };
+ * const state = \{ user: \{ result: [\{ ... \}], error: null, isLoading: false \}, packages: \{ result: [\{ ... \}], error: null, isLoading: false \} \};
  *
- * // Entities in store: { entities: {
- *  subscriptionPackages: { Newsletter: {...} }
- * } }
+ * // Entities in store: \{ entities: \{
+ *  subscriptionPackages: \{ Newsletter: \{...\} \}
+ * \} \}
  *
  * // Result:
- *  State: { user: { result: null, error: null, isLoading: false }, packages: { result: null, error: null, isLoading: false } };
- *  Store: { entities: { } }
+ *  State: \{ user: \{ result: null, error: null, isLoading: false \}, packages: \{ result: null, error: null, isLoading: false \} \};
+ *  Store: \{ entities: \{ \} \}
  *
  * dispatch(resetSubscriptions());
  *

@@ -32,6 +32,7 @@ describe('schemas client', () => {
       ).resolves.toEqual(successResponse);
 
       expect(spy).toHaveBeenCalledWith(
+        // @ts-expect-error
         join(`/communication/v1/forms/${schemaCode}`, {
           query,
         }),
@@ -40,9 +41,7 @@ describe('schemas client', () => {
     });
 
     it('should receive a client request error', async () => {
-      fixtures.get.failure({
-        query,
-      });
+      fixtures.get.failure();
 
       expect.assertions(2);
 
@@ -51,6 +50,7 @@ describe('schemas client', () => {
       ).rejects.toMatchSnapshot();
 
       expect(spy).toHaveBeenCalledWith(
+        // @ts-expect-error
         join(`/communication/v1/forms/${schemaCode}`, {
           query,
         }),

@@ -20,7 +20,6 @@ const fetchProductRecommendationsFactory: FetchProductRecommendationsFactory<
   GetProductRecommendations
 > =
   getProductRecommendations =>
-  // (productId, strategyName, config) =>
   (query, config) =>
   async (
     dispatch: Dispatch<FetchProductRecommendationsAction>,

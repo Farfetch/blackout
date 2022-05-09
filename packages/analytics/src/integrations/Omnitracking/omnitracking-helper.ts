@@ -12,7 +12,7 @@ import {
   systemActionParameters,
   trackDefinitions,
 } from './definitions';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidV4 } from 'uuid';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
 import platformTypes from '../../types/platformTypes';
@@ -42,7 +42,7 @@ export const getCommonParameters = (
 ): OmnitrackingCommonEventParameters => {
   const parameters: OmnitrackingCommonEventParameters = {
     clientTimestamp: new Date(data.timestamp).toJSON(),
-    uuid: uuidv4(),
+    uuid: uuidV4(),
   };
 
   return parameters;
@@ -61,7 +61,7 @@ export const getUniqueViewIdParameter = (
 ): string => {
   const uniqueViewId = get(data, 'properties.uniqueViewId');
 
-  return typeof uniqueViewId === 'string' ? uniqueViewId : uuidv4();
+  return typeof uniqueViewId === 'string' ? uniqueViewId : uuidV4();
 };
 
 /**
@@ -259,7 +259,7 @@ export const getPlatformSpecificParameters = (
 };
 
 /**
- * Filters the properties object with the `parameters` dictionary, so we don't pass unecessary information for the event.
+ * Filters the properties object with the `parameters` dictionary, so we don't pass unnecessary information for the event.
  * We search for parameters in many locations: context -\> device -\> app -\> event -\> properties
  * Each location can override the values of the previous one.
  *
@@ -373,7 +373,7 @@ export const generatePaymentAttemptReferenceId = (
 };
 
 /**
- * Filters the properties object with the `parameters` dictionary, so we don't pass unecessary information for the event.
+ * Filters the properties object with the `parameters` dictionary, so we don't pass unnecessary information for the event.
  * We search for parameters in many locations: context -\> device -\> app -\> event -\> properties
  * Each location can override the values of the previous one.
  *

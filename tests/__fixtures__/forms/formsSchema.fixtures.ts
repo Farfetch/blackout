@@ -29,6 +29,7 @@ export const formSchemaResponse = {
   active: true,
   createdAt: '2020-02-11T16:07:43.647Z',
   updatedAt: '2020-02-11T16:07:43.647Z',
+  uiSchema: {},
 };
 
 export const postFormDataPayload = {
@@ -55,6 +56,9 @@ export const postFormDataResponse = {
   tenantId: 0,
   createdAt: '2020-02-05T15:56:36.494Z',
   updatedAt: '2020-02-05T15:56:36.494Z',
+  userId: '123',
+  formCode: '123',
+  fileIds: {},
 };
 
 export const mockState = {

@@ -1,0 +1,20 @@
+{
+  "version": "0.2",
+  "ignorePaths": ["**/node_modules/**", "**/*.snap"],
+  "language": "en,en-GB",
+  "dictionaryDefinitions": [],
+  "dictionaries": [],
+  "words": [
+    "castleio",
+    "middlewares",
+    "Omnitracking",
+    "pageviews",
+    "Promocode",
+    "Screenview",
+    "stockpoint",
+    "subscriptionpackages",
+    "Vitorino"
+  ],
+  "ignoreWords": ["tsdoc", "moxios", "normalizr", "lodash"],
+  "import": []
+}

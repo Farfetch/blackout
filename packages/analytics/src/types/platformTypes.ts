@@ -5,9 +5,9 @@
  * data that Analytics will generate for all Integrations registered.
  */
 const platformTypes = {
-  /** Mobile is to be used when running on a native app. Used by @farfetch/blackout-react-native-analytics facade. */
+  /** Mobile is to be used when running on a native app. Used by \@farfetch/blackout-react-native-analytics facade. */
   Mobile: 'mobile',
-  /** Web is to be used when running on a web app. Used by @farfetch/blackout-react/analytics facade. */
+  /** Web is to be used when running on a web app. Used by \@farfetch/blackout-react/analytics facade. */
   Web: 'web',
 } as const;
 

@@ -1,18 +1,23 @@
 import join from 'proper-url-join';
 import moxios from 'moxios';
+import type { FormSchema, FormSchemaQuery } from '../types';
 
 /**
  * Response payloads.
  */
 export default {
   get: {
-    success: (schemaCode, query, response) => {
+    success: (
+      schemaCode: string,
+      query: FormSchemaQuery,
+      response: FormSchema,
+    ) => {
       moxios.stubRequest(
+        // @ts-expect-error
         join(`api/communication/v1/forms/${schemaCode}`, {
           query,
         }),
         {
-          method: 'get',
           response,
           status: 200,
         },
@@ -20,7 +25,6 @@ export default {
     },
     failure: () => {
       moxios.stubRequest(/.*v1\/forms\/*./, {
-        method: 'get',
         response: 'stub error',
         status: 404,
       });

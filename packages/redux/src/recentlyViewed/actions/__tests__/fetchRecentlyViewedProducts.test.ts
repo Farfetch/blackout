@@ -25,7 +25,7 @@ const mockRecentlyViewedStore = (state: StoreState = {}) =>
   );
 
 describe('fetchRecentlyViewedProducts() action creator', () => {
-  let store;
+  let store: ReturnType<typeof mockRecentlyViewedStore>;
   const expectedConfig = undefined;
   const query = {
     page: 1,
@@ -40,43 +40,48 @@ describe('fetchRecentlyViewedProducts() action creator', () => {
   it('should create the correct actions for when the fetch recently viewed products fail', async () => {
     const expectedError = new Error('fetch recently viewed products error');
 
-    getRecentlyViewedProducts.mockRejectedValueOnce(expectedError);
+    (getRecentlyViewedProducts as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
 
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchRecentlyViewedProducts(query));
-    } catch (error) {
+    await fetchRecentlyViewedProducts(query)(
+      store.dispatch,
+      store.getState as () => StoreState,
+    ).catch(error => {
       expect(error).toBe(expectedError);
       expect(getRecentlyViewedProducts).toHaveBeenCalledTimes(1);
       expect(getRecentlyViewedProducts).toHaveBeenCalledWith(
         query,
         expectedConfig,
       );
+    });
 
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST,
-          },
-          {
-            type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    }
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST,
+        },
+        {
+          type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch recently viewed products procedure is successful', async () => {
     console.warn = jest.fn();
 
-    getRecentlyViewedProducts.mockResolvedValueOnce(expectedRemotePayload);
-
-    const result = await store.dispatch(
-      fetchRecentlyViewedProducts(query, expectedConfig),
+    (getRecentlyViewedProducts as jest.Mock).mockResolvedValueOnce(
+      expectedRemotePayload,
     );
 
+    const result = await fetchRecentlyViewedProducts(query, expectedConfig)(
+      store.dispatch,
+      store.getState as () => StoreState,
+    );
     const actionResults = store.getActions();
 
     expect(result).toBe(expectedRemotePayload);
@@ -117,7 +122,10 @@ describe('fetchRecentlyViewedProducts() action creator', () => {
       },
     });
 
-    await store.dispatch(fetchRecentlyViewedProducts(query, expectedConfig));
+    await fetchRecentlyViewedProducts(query, expectedConfig)(
+      store.dispatch,
+      store.getState as () => StoreState,
+    );
 
     expect(console.warn).toHaveBeenCalledWith(`
             @farfetch/blackout-redux/recentlyViewed - Seems you are trying to fetch recently viewed products more than once.

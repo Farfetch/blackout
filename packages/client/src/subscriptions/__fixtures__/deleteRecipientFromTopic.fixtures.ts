@@ -2,7 +2,12 @@ import join from 'proper-url-join';
 import moxios from 'moxios';
 
 export default {
-  success: (subscriptionId, topicId, recipientId, response) => {
+  success: (
+    subscriptionId: string,
+    topicId: string,
+    recipientId: string,
+    response: unknown,
+  ) => {
     moxios.stubRequest(
       join(
         '/api/marketing/v1/subscriptions/',
@@ -13,13 +18,12 @@ export default {
         recipientId,
       ),
       {
-        method: 'delete',
         response,
         status: 200,
       },
     );
   },
-  failure: (subscriptionId, topicId, recipientId) => {
+  failure: (subscriptionId: string, topicId: string, recipientId: string) => {
     moxios.stubRequest(
       join(
         '/api/marketing/v1/subscriptions/',
@@ -30,7 +34,6 @@ export default {
         recipientId,
       ),
       {
-        method: 'delete',
         response: 'stub error',
         status: 404,
       },

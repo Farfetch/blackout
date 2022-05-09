@@ -35,7 +35,7 @@ const submitFormDataFactory: SubmitFormSchemaFactory<PostFormSchema> =
       });
 
       return result;
-    } catch (error: any) {
+    } catch (error) {
       dispatch({
         meta: { schemaCode, data },
         payload: { error },

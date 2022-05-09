@@ -1,9 +1,5 @@
-/**
- * @module recentlyViewed/reducer
- * @category Recently Viewed
- * @subcategory Reducer
- */
 import * as actionTypes from './actionTypes';
+import * as authenticationActionTypes from '../authentication/actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import omit from 'lodash/omit';
 import uniqBy from 'lodash/uniqBy';
@@ -89,10 +85,13 @@ const result = (
   }
 };
 
-export const getError = (state: State): State['error'] => state.error;
-export const getIsLoading = (state: State): State['isLoading'] =>
-  state.isLoading;
-export const getResult = (state: State): State['result'] => state.result;
+export const getError = (state: State = INITIAL_STATE): State['error'] =>
+  state.error;
+export const getIsLoading = (
+  state: State = INITIAL_STATE,
+): State['isLoading'] => state.isLoading;
+export const getResult = (state: State = INITIAL_STATE): State['result'] =>
+  state.result;
 const reducers = combineReducers({
   error,
   isLoading,
@@ -101,9 +100,6 @@ const reducers = combineReducers({
 
 /**
  * Reducer for recently viewed state.
- *
- * @function recentlyViewedReducer
- * @static
  *
  * @param state - Current redux state.
  * @param action - Action dispatched.
@@ -114,6 +110,14 @@ const formsReducer: ReducerSwitch<State, AnyAction> = (
   state = INITIAL_STATE,
   action,
 ): State => {
+  if (
+    action.type === actionTypes.RESET_RECENTLY_VIEWED_PRODUCT ||
+    action.type === authenticationActionTypes.LOGOUT_SUCCESS
+  ) {
+    // initial state should return when reset_recently_viewed or logout actions are called.
+    return reducers(INITIAL_STATE, action);
+  }
+
   return reducers(state, action);
 };
 

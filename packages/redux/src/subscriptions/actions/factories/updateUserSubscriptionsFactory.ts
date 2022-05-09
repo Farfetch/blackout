@@ -5,9 +5,6 @@ import type { UpdateUserSubscriptionsFactory } from './types';
 /**
  * Method to create a thunk factory configured with the specified client.
  *
- * @function updateUserSubscriptionsFactory
- * @memberof module:subscriptions/actions/factories
- *
  * @param putSubscriptions - Put subscriptions client.
  *
  * @returns Thunk factory.

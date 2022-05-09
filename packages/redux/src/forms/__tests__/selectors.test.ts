@@ -1,6 +1,11 @@
 import * as formReducer from '../reducer';
 import * as selectors from '../selectors';
 import { formSchemaResponse, mockState } from 'tests/__fixtures__/forms';
+import merge from 'lodash/merge';
+import type { FormResult } from '../types';
+import type { StoreState } from '@farfetch/blackout-redux/types';
+
+const mockStore = merge({} as StoreState, mockState);
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -15,7 +20,7 @@ describe('contents redux selectors', () => {
           mockState.forms.isLoading[formSchemaResponse.code];
 
         expect(
-          selectors.isFormSchemaLoading(mockState, formSchemaResponse.code),
+          selectors.isFormSchemaLoading(mockStore, formSchemaResponse.code),
         ).toEqual(expectedResult);
         expect(spy).toHaveBeenCalledTimes(1);
       });
@@ -27,7 +32,7 @@ describe('contents redux selectors', () => {
         const expectedResult = mockState.forms.error[formSchemaResponse.code];
 
         expect(
-          selectors.getFormSchemaError(mockState, formSchemaResponse.code),
+          selectors.getFormSchemaError(mockStore, formSchemaResponse.code),
         ).toEqual(expectedResult);
         expect(spy).toHaveBeenCalledTimes(1);
       });
@@ -38,14 +43,13 @@ describe('contents redux selectors', () => {
         const expectedResult = formSchemaResponse.jsonSchema;
 
         expect(
-          selectors.getFormSchemaByCode(mockState, formSchemaResponse.code),
+          selectors.getFormSchemaByCode(mockStore, formSchemaResponse.code),
         ).toEqual(expectedResult);
       });
     });
 
     describe('getFormSchemas()', () => {
-      let formsResultState;
-
+      let formsResultState: FormResult;
       beforeEach(() => {
         const sampleSchema = { ...formSchemaResponse };
         sampleSchema.code = 'sample';
@@ -53,11 +57,13 @@ describe('contents redux selectors', () => {
           [sampleSchema.code]: sampleSchema,
           [formSchemaResponse.code]: formSchemaResponse,
         };
-        mockState.forms.result = formsResultState;
+
+        // @ts-expect-error
+        mockStore.forms.result = { ...formsResultState };
       });
 
       it('should retrieve all form schemas', () => {
-        expect(selectors.getFormSchemas(mockState)).toEqual(formsResultState);
+        expect(selectors.getFormSchemas(mockStore)).toEqual(formsResultState);
       });
     });
   });
@@ -69,7 +75,7 @@ describe('contents redux selectors', () => {
         mockState.forms.submitFormError[formSchemaResponse.code];
 
       expect(
-        selectors.getSubmitFormDataError(mockState, formSchemaResponse.code),
+        selectors.getSubmitFormDataError(mockStore, formSchemaResponse.code),
       ).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -82,7 +88,7 @@ describe('contents redux selectors', () => {
         mockState.forms.isSubmitFormLoading[formSchemaResponse.code];
 
       expect(
-        selectors.isSubmitFormDataLoading(mockState, formSchemaResponse.code),
+        selectors.isSubmitFormDataLoading(mockStore, formSchemaResponse.code),
       ).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });

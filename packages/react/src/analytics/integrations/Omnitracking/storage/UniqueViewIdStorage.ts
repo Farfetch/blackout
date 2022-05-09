@@ -47,7 +47,7 @@ class UniqueViewIdStorage {
   /**
    * Sets the unique view id value of the url key in localStorage,
    * if supported. Will remove oldest entries if items limit has been
-   * reached in order to accomodate the new entry.
+   * reached in order to accommodate the new entry.
    *
    * @param key - The url to save the unique view id value.
    * @param value - The unique view id to save.
@@ -151,7 +151,7 @@ class UniqueViewIdStorage {
   }
 
   /**
-   * Auxiliar method used by set method to store the entry in localStorage.
+   * Auxiliary method used by set method to store the entry in localStorage.
    *
    * @param key - The url key to save the unique view id value.
    * @param value - The unique view id value for the url key.

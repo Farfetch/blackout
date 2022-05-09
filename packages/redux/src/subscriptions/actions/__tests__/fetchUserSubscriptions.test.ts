@@ -17,7 +17,7 @@ const subscriptionsMockStore = (state = {}) =>
   mockStore({ subscriptions: reducer(undefined, randomAction) }, state);
 
 describe('Subscriptions redux actions', () => {
-  let store;
+  let store: ReturnType<typeof subscriptionsMockStore>;
 
   beforeEach(jest.clearAllMocks);
 
@@ -29,14 +29,12 @@ describe('Subscriptions redux actions', () => {
     it('Should create the correct actions for when the get subscription fails', async () => {
       const expectedError = new Error('get subscriptions error');
 
-      getSubscriptions.mockRejectedValueOnce(expectedError);
+      (getSubscriptions as jest.Mock).mockRejectedValueOnce(expectedError);
       expect.assertions(4);
 
-      try {
-        await store.dispatch(
-          fetchUserSubscriptions(mockGetSubscriptions.query),
-        );
-      } catch (error) {
+      await fetchUserSubscriptions(mockGetSubscriptions.query)(
+        store.dispatch,
+      ).catch(error => {
         expect(error).toBe(expectedError);
         expect(getSubscriptions).toHaveBeenCalledTimes(1);
         expect(getSubscriptions).toHaveBeenCalledWith(
@@ -52,17 +50,19 @@ describe('Subscriptions redux actions', () => {
             },
           ]),
         );
-      }
+      });
     });
 
     it('Should create the correct actions for when the get subscriptions is successful', async () => {
-      getSubscriptions.mockResolvedValueOnce(mockGetSubscriptions.response);
+      (getSubscriptions as jest.Mock).mockResolvedValueOnce(
+        mockGetSubscriptions.response,
+      );
 
-      await store
-        .dispatch(fetchUserSubscriptions(mockGetSubscriptions.query))
-        .then(clientResult => {
-          expect(clientResult).toBe(mockGetSubscriptions.response);
-        });
+      await fetchUserSubscriptions(mockGetSubscriptions.query)(
+        store.dispatch,
+      ).then(clientResult => {
+        expect(clientResult).toBe(mockGetSubscriptions.response);
+      });
 
       const actionResults = store.getActions();
 
