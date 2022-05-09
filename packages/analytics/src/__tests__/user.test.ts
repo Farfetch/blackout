@@ -9,6 +9,7 @@ describe('User', () => {
   beforeEach(async () => {
     storage = await new StorageWrapper(new TestStorage());
     userInstance = new User(storage);
+    await userInstance.initialize();
   });
 
   it('Should return the user data', async () => {
