@@ -216,9 +216,8 @@ class CastleV2 extends integrations.Integration {
    * @returns {string} - The ISO date string.
    */
   getNormalizedCreatedDate(createdDate) {
-    // If no date is received, send a default valid date
     if (!createdDate) {
-      return new Date(0).toISOString();
+      return undefined;
     }
 
     const isCreatedDateNaN = isNaN(new Date(createdDate).getTime());
@@ -228,7 +227,7 @@ class CastleV2 extends integrations.Integration {
       const extractedTimestamp = parseInt(createdDate.replace(/[^0-9]/g, ''));
 
       // If the timestamp is a valid number, create a date with it,
-      // If its not, send a default valid date
+      // If its not, send undefined
       if (
         typeof extractedTimestamp === 'number' &&
         !isNaN(extractedTimestamp)
@@ -236,7 +235,7 @@ class CastleV2 extends integrations.Integration {
         return new Date(extractedTimestamp).toISOString();
       }
 
-      return new Date(0).toISOString();
+      return undefined;
     }
 
     return createdDate;
