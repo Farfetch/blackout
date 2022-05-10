@@ -255,8 +255,8 @@ describe('Castle integration', () => {
         };
 
         const expectedCallPayload = {
-          user: expect.objectContaining({
-            registered_at: new Date(0).toISOString(),
+          user: expect.not.objectContaining({
+            createdDate: 'gibberish', // Invalid date value
           }),
           name: mockEventData.event,
           values: mockEventData.properties,
@@ -275,8 +275,8 @@ describe('Castle integration', () => {
 
         mockEventData.user.traits.createdDate = null; // No createdDate value
 
-        expectedCallPayload.user = expect.objectContaining({
-          registered_at: new Date(0).toISOString(),
+        expectedCallPayload.user = expect.not.objectContaining({
+          registered_at: null,
         });
 
         await instance.track(mockEventData);
