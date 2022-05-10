@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.57.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.56.1...@farfetch/blackout-core@1.57.0) (2022-05-10)
+
+
+### Features
+
+* **core:** add reschedule endpoints ([c1fee3e](https://github.com/Farfetch/blackout/commit/c1fee3eb7c95d5ceb5ae558bca3e4068f0d25cc9))
+
+
+
+
+
 ## [1.56.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.56.0...@farfetch/blackout-core@1.56.1) (2022-05-06)
 
 

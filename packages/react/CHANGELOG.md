@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.36.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.36.1...@farfetch/blackout-react@0.36.2) (2022-05-10)
+
+
+### Bug Fixes
+
+* **blackout-react:** remove Castle's default Date when no valid 'createdDate' is passed ([66b8517](https://github.com/Farfetch/blackout/commit/66b8517a6384177effd326a21dfd376567928251))
+
+
+
+
+
 ## [0.36.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.36.0...@farfetch/blackout-react@0.36.1) (2022-05-05)
 
 
