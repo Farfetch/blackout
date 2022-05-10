@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.7](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.6...@farfetch/blackout-analytics@1.0.0-next.7) (2022-05-10)
+
+
+### Features
+
+* **blackout-react:** convert ga4 integration to typescript ([547de0a](https://github.com/Farfetch/blackout/commit/547de0a80d0380737af786ced86f993a9509cd86))
+
+
+
+
+
 # [1.0.0-next.6](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.5...@farfetch/blackout-analytics@1.0.0-next.6) (2022-05-04)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
