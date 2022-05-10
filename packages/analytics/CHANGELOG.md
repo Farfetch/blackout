@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.8](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.7...@farfetch/blackout-analytics@1.0.0-next.8) (2022-05-10)
+
+
+### Bug Fixes
+
+* **blackout-analytics:** analytics fixes for HPP ([2b47808](https://github.com/Farfetch/blackout/commit/2b47808d7f2cee8b55dba2d2fd5c4cb6cfb199a6))
+
+
+
+
+
 # [1.0.0-next.7](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.6...@farfetch/blackout-analytics@1.0.0-next.7) (2022-05-10)
 
 
