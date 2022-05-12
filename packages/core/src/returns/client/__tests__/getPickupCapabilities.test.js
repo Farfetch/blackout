@@ -3,6 +3,7 @@ import client from '../../../helpers/client';
 import fixture from '../__fixtures__/getPickupCapabilities.fixtures';
 import join from 'proper-url-join';
 import moxios from 'moxios';
+import parsePickupDate from '../../../helpers/parsePickupDate';
 
 describe('getPickupCapabilities', () => {
   const spy = jest.spyOn(client, 'get');
@@ -16,7 +17,7 @@ describe('getPickupCapabilities', () => {
   afterEach(() => moxios.uninstall(client));
 
   describe('Account SVC', () => {
-    const id = 123456;
+    const id = '123456';
     const pickupDay = '2020-04-20';
 
     it('should handle a client request successfully', async () => {
@@ -54,28 +55,38 @@ describe('getPickupCapabilities', () => {
 
   describe('Legacy', () => {
     const query = { pickupDay: 1519211809934 };
+    const pickupDay = 1519211809934;
+    const parsedPickupDay = parsePickupDate(pickupDay);
     const id = '123456';
 
     it('should handle a client request successfully', async () => {
       const response = {};
 
-      fixture.legacy.success({ id, query, response });
+      fixture.legacy.success({ id, parsedPickupDay, response });
 
       expect.assertions(2);
-      await expect(getPickupCapabilities(id, query)).resolves.toBe(response);
+      await expect(getPickupCapabilities(id, pickupDay, query)).resolves.toBe(
+        response,
+      );
       expect(spy).toHaveBeenCalledWith(
-        join('/legacy/v1/returns', id, 'pickupcapabilities', { query }),
+        join(`/legacy/v1/returns/${id}/pickupcapabilities/`, {
+          query: { pickupDay: parsedPickupDay },
+        }),
         expectedConfig,
       );
     });
 
     it('should receive a client request error', async () => {
-      fixture.legacy.failure({ id, query });
+      fixture.legacy.failure({ id, parsedPickupDay });
 
       expect.assertions(2);
-      await expect(getPickupCapabilities(id, query)).rejects.toMatchSnapshot();
+      await expect(
+        getPickupCapabilities(id, pickupDay, query),
+      ).rejects.toMatchSnapshot();
       expect(spy).toHaveBeenCalledWith(
-        join('/legacy/v1/returns', id, 'pickupcapabilities', { query }),
+        join('/legacy/v1/returns', id, 'pickupcapabilities', {
+          query: { pickupDay: parsedPickupDay },
+        }),
         expectedConfig,
       );
     });
