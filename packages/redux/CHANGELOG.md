@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.230](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.229...@farfetch/blackout-redux@1.0.0-next.230) (2022-05-12)
+
+
+### Features
+
+* **client|redux:** add personal id and image endpoints ([d295f55](https://github.com/Farfetch/blackout/commit/d295f5576a23d8b1bd8b057ef392fe23234f1961))
+
+
+
+
+
 # [1.0.0-next.229](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.228...@farfetch/blackout-redux@1.0.0-next.229) (2022-05-11)
 
 
