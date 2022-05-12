@@ -17,7 +17,8 @@ import {
 /**
  * @callback GetPickupCapabilitiesThunkFactory
  * @param {number} id - Return identifier.
- * @param {string} pickupDay - Day of the pickup. Format: YYYY-MM-DD.
+ * @param {string|number} pickupDay - Day of the pickup. Format: YYYY-MM-DD.
+ * @param {GetPickupCapabilitiesQuery} [query] - Query object for the request.
  * @param {object} [config] - Custom configurations to send to the client
  * instance (axios).
  *
@@ -35,7 +36,7 @@ import {
  * @returns {GetPickupCapabilitiesThunkFactory} Thunk factory.
  */
 export default getPickupCapabilities =>
-  (id, pickupDay, config) =>
+  (id, pickupDay, query = {}, config) =>
   async dispatch => {
     dispatch({
       type: GET_PICKUP_CAPABILITIES_REQUEST,
@@ -47,7 +48,7 @@ export default getPickupCapabilities =>
         availableStartHours,
         availableTimeSlots,
         pickupDate,
-      } = await getPickupCapabilities(id, pickupDay, config);
+      } = await getPickupCapabilities(id, pickupDay, query, config);
 
       dispatch({
         meta: { id },

@@ -38,7 +38,7 @@ export default {
     success: params => {
       moxios.stubRequest(
         join('/api/legacy/v1/returns', params.id, 'pickupcapabilities/', {
-          query: params.query,
+          query: { pickupDay: params.parsedPickupDay },
         }),
         {
           method: 'get',
@@ -50,7 +50,7 @@ export default {
     failure: params => {
       moxios.stubRequest(
         join('/api/legacy/v1/returns', params.id, 'pickupcapabilities/', {
-          query: params.query,
+          query: { pickupDay: params.parsedPickupDay },
         }),
         {
           method: 'get',
