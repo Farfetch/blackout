@@ -10,6 +10,7 @@ const returnsMockStore = (state = {}) =>
 describe('doGetPickupCapabilities action creator', () => {
   const pickupDay = '1974-11-29';
   const expectedConfig = undefined;
+  const query = {};
   let store;
 
   const getPickupCapabilities = jest.fn();
@@ -28,13 +29,14 @@ describe('doGetPickupCapabilities action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(action(returnId, pickupDay));
+      await store.dispatch(action(returnId, pickupDay, query));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(getPickupCapabilities).toHaveBeenCalledTimes(1);
       expect(getPickupCapabilities).toHaveBeenCalledWith(
         returnId,
         pickupDay,
+        query,
         expectedConfig,
       );
       expect(store.getActions()).toEqual(
@@ -91,7 +93,7 @@ describe('doGetPickupCapabilities action creator', () => {
     getPickupCapabilities.mockResolvedValueOnce(
       responses.getPickupCapabilities.success,
     );
-    await store.dispatch(action(returnId, pickupDay));
+    await store.dispatch(action(returnId, pickupDay, query));
 
     const actionResults = store.getActions();
 
@@ -99,6 +101,7 @@ describe('doGetPickupCapabilities action creator', () => {
     expect(getPickupCapabilities).toHaveBeenCalledWith(
       returnId,
       pickupDay,
+      query,
       expectedConfig,
     );
     expect(actionResults).toMatchObject([
