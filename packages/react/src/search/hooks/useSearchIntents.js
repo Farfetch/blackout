@@ -30,10 +30,10 @@ const DEFAULT_BASE_URL = '/shopping';
  * Gets the URL to redirect according to the search intents result. In a
  * nutshell, the logic is based on types:
  * <ul>
- * <li><b>Redirect:</b> not much to say, redirect to the received url;</li>
- * <li><b>Product:</b> builds the url for the respective product's PDP;</li>
- * <li><b>Listing:</b> builds the url, with the correct slugs, for the
- * respective listing.</li>
+ *    <li><b>Redirect:</b> not much to say, redirect to the received url;</li>
+ *    <li><b>Product:</b> builds the url for the respective product's PDP;</li>
+ *    <li><b>Listing:</b> builds the url, with the correct slugs, for the
+ *    respective listing.</li>
  * </ul>.
  *
  * @function getSearchRedirectUrl
@@ -56,7 +56,7 @@ const getSearchRedirectUrl = (searchIntents, baseUrl) => {
   } = searchIntents;
 
   // Prevent mutation on the original resources
-  const resources = [...originalResources];
+  const resources = originalResources ? [...originalResources] : [];
 
   switch (typeRequest) {
     // If the typeRequest is of the type "Redirect", automatically redirects to the url received.
@@ -73,7 +73,7 @@ const getSearchRedirectUrl = (searchIntents, baseUrl) => {
       let resourcesWithSlug = [];
 
       // If the resources are possible to transform in slug - they have to follow a
-      // specific contruction order: Gender (3) / Brand (1) / Category (2)
+      // specific construction order: Gender (3) / Brand (1) / Category (2)
       FILTER_SLUGS_ORDER.forEach(filterSlugType => {
         // To transform a resource into a slug is necessary that resource only have 1 value associated with slug and the filter type should be
         // one of these types: Gender (3), brand (1) or category (2) (FILTER_SLUGS_ORDER).
@@ -119,7 +119,7 @@ const getSearchRedirectUrl = (searchIntents, baseUrl) => {
         return acc;
       }, {});
 
-      // With this util we transform all the queryParms in a queryString
+      // With this util we transform all the queryParams in a queryString
       const { queryString } = buildSetFilters({}, queryParams);
 
       // Finally we navigate to a specific listing
