@@ -32,10 +32,10 @@ const DEFAULT_BASE_URL = '/shopping';
  * Gets the URL to redirect according to the search intents result. In a
  * nutshell, the logic is based on types:
  * <ul>
- * <li><b>Redirect:</b> not much to say, redirect to the received url;</li>
- * <li><b>Product:</b> builds the url for the respective product's PDP;</li>
- * <li><b>Listing:</b> builds the url, with the correct slugs, for the
- * respective listing.</li>
+ *    <li><b>Redirect:</b> not much to say, redirect to the received url;</li>
+ *    <li><b>Product:</b> builds the url for the respective product's PDP;</li>
+ *    <li><b>Listing:</b> builds the url, with the correct slugs, for the
+ *    respective listing.</li>
  * </ul>.
  *
  * @memberof module:useSearchIntents
@@ -56,7 +56,7 @@ const getSearchRedirectUrl: GetSearchRedirectUrl = (searchIntents, baseUrl) => {
     resources: originalResources,
   } = searchIntents;
   // Prevent mutation on the original resources
-  const resources = [...originalResources];
+  const resources = originalResources ? [...originalResources] : [];
 
   switch (typeRequest) {
     // If the typeRequest is of the type "Redirect", automatically redirects to the url received.
