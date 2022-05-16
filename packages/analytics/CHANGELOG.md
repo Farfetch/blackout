@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.11](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.10...@farfetch/blackout-analytics@1.0.0-next.11) (2022-05-16)
+
+
+### Bug Fixes
+
+* **blackout-analytics:** fix omnitracking parameters ([a41bd5c](https://github.com/Farfetch/blackout/commit/a41bd5c4e22ee6a5e1b6fe4de73f4a57145d9213))
+
+
+
+
+
 # [1.0.0-next.10](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.9...@farfetch/blackout-analytics@1.0.0-next.10) (2022-05-12)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
