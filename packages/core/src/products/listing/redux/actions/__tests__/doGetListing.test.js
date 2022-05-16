@@ -1,7 +1,6 @@
 import { doGetListing } from '../';
 import {
   mockListingHash,
-  mockListingModel,
   mockListingNormalizedPayload,
   mockListingSlug,
   mockQuery,
@@ -171,7 +170,7 @@ describe('doGetListing() action creator', () => {
 
   it('should reset state when listing is in cache but cache is not activated', async () => {
     store = productListingMockStore({
-      listing: { hash: mockListingModel },
+      listing: { hash: mockListingHash },
       entities: {
         searchResults: { [mockListingHash]: { id: mockListingHash } },
       },
