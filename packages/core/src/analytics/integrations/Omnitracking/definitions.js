@@ -313,10 +313,12 @@ export const pageActionParameters = [
   'sourceWasSeen',
   'targetId',
   'targetType',
+  'tid',
   'totalStock',
   'totalStockInStore',
   'unitFullPrice',
   'unitSalePrice',
+  'val',
   PRODUCT_ID_PARAMETER,
 ];
 
