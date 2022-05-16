@@ -1,6 +1,6 @@
 import { schema } from 'normalizr';
 
-const getId = (
+export const getId = (
   { value, valueUpperBound, groupsOn },
   { description, type: parentType },
 ) =>
