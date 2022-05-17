@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.58.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.57.0...@farfetch/blackout-core@1.58.0) (2022-05-17)
+
+
+### Bug Fixes
+
+* **blackout-core:** fix omnitracking parameters ([b6720d3](https://github.com/Farfetch/blackout/commit/b6720d35cef2b0532d9e3123a2c61e9772d248cd))
+* **core:** fix pickup capabilities timestamp parsing ([d77bdf8](https://github.com/Farfetch/blackout/commit/d77bdf848b91ad5905d64b0c00258f0ebc9d9250))
+
+
+### Features
+
+* add the `facetId` to the `filterSegments` on the `searchResult` entity ([08024c4](https://github.com/Farfetch/blackout/commit/08024c4bf27de2087e213c6fb75ffa5921d1dbc2))
+
+
+
+
+
 # [1.57.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.56.1...@farfetch/blackout-core@1.57.0) (2022-05-10)
 
 

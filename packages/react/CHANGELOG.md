@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.36.3](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.36.2...@farfetch/blackout-react@0.36.3) (2022-05-17)
+
+
+### Bug Fixes
+
+* only use the `resources` to build the `searchRedirectUrl` if they exist ([06912f6](https://github.com/Farfetch/blackout/commit/06912f67dafd8e4b188cf440350d3b769fd729e7))
+
+
+
+
+
 ## [0.36.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.36.1...@farfetch/blackout-react@0.36.2) (2022-05-10)
 
 
