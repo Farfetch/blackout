@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.147](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.146...@farfetch/blackout-client@2.0.0-next.147) (2022-05-17)
+
+
+### Features
+
+* **client|redux:** add reschedule endpoints ([2365af9](https://github.com/Farfetch/blackout/commit/2365af968fd8ae6578acf0ac4af008bfd90b8b8a))
+
+
+
+
+
 # [2.0.0-next.146](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.145...@farfetch/blackout-client@2.0.0-next.146) (2022-05-12)
 
 
