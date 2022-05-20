@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Media /> should render correctly with audio 1`] = `
+<div>
+  <div
+    data-test="media"
+    style="display: block; width: 100%; height: 100%;"
+  >
+    Audio
+  </div>
+</div>
+`;
+
+exports[`<Media /> should render correctly with image 1`] = `
+<div>
+  <div
+    data-test="media"
+    style="display: block; width: 100%; height: 100%;"
+  >
+    Image
+  </div>
+</div>
+`;
+
+exports[`<Media /> should render correctly with video 1`] = `
+<div>
+  <div
+    data-test="media"
+    style="display: block; width: 100%; height: 100%;"
+  >
+    Video
+  </div>
+</div>
+`;
+
+exports[`<Media /> should render null when no image, audio or video 1`] = `<div />`;

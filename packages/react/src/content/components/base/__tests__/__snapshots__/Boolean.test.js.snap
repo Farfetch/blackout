@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Boolean /> should render properly 1`] = `
+<div>
+  <div
+    style="display: flex; align-items: center;"
+  >
+    <input
+      checked=""
+      data-test="boolean-Boolean"
+      id="boolean"
+      label="Boolean"
+      name="boolean"
+      style="margin: 5px;"
+      type="checkbox"
+    />
+    <label
+      for="boolean"
+    >
+      Boolean
+    </label>
+  </div>
+</div>
+`;

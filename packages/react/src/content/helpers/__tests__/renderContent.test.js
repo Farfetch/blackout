@@ -7,6 +7,9 @@ import { registerComponent } from '../../components/Component';
 import React from 'react';
 import renderContent from '../renderContent';
 
+const location = {
+  pathname: '/',
+};
 const MockComponent = () => <p data-test="textElement">Content</p>;
 
 describe('renderContent', () => {
@@ -17,13 +20,15 @@ describe('renderContent', () => {
   afterEach(cleanup);
 
   it('should not render any component if components are empty', () => {
-    const { queryByTestId } = render(renderContent({ components: [] }));
+    const { queryByTestId } = render(
+      renderContent({ components: [] }, location),
+    );
 
     expect(queryByTestId('textElement')).not.toBeInTheDocument();
   });
 
   it('should render a component element with legacy data', () => {
-    const { getByTestId } = render(renderContent(mockLegacyData));
+    const { getByTestId } = render(renderContent(mockLegacyData, location));
 
     expect(getByTestId('textElement')).toBeInTheDocument();
     expect(getByTestId('textElement')).toHaveTextContent('Content');
@@ -31,7 +36,7 @@ describe('renderContent', () => {
 
   it('should render a component with content tool data structure', () => {
     const { getByTestId } = render(
-      renderContent(mockContentToolData, 'active'),
+      renderContent(mockContentToolData, location, 'lg', 'active'),
     );
 
     expect(getByTestId('textElement')).toBeInTheDocument();
