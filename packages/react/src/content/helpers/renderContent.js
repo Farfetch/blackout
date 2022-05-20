@@ -16,20 +16,36 @@ const IS_CONTENT_TOOL = {
  *
  * @param {object} data - Data to render.
  * @param {object[]} data.components - Collection of components to render.
- * @param {'active'|'inactive'} isContentTool - Site key to identify if Content Tool is active or not.
+ * @param {object} [location] - Router location object.
+ * @param {string} [viewportBreakpoint] - Screen size (xs | sm | md | lg) .
+ * @param {'active'|'inactive'} [isContentTool] - Site key to identify if Content Tool is active or not.
  *
  * @returns {object} Rendered components.
  */
 const renderContent = (
   { components },
+  location,
+  viewportBreakpoint,
   isContentTool = IS_CONTENT_TOOL.inactive,
 ) =>
   map(components, (component, key) => {
     if (isContentTool === IS_CONTENT_TOOL.active && component.type === 'list') {
-      return renderContent(component, IS_CONTENT_TOOL.active);
+      return renderContent(
+        component,
+        location,
+        viewportBreakpoint,
+        IS_CONTENT_TOOL.active,
+      );
     }
 
-    return <Component component={component} key={key} />;
+    return (
+      <Component
+        component={component}
+        location={location}
+        viewportBreakpoint={viewportBreakpoint || 'lg'}
+        key={key}
+      />
+    );
   });
 
 export default renderContent;
