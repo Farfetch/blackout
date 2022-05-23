@@ -10,9 +10,7 @@ jest.mock('react-redux', () => ({
 describe('useAction', () => {
   it('should call the action', () => {
     const mockAction = jest.fn();
-    const { getByTestId } = wrap(
-      <Action mockAction={mockAction} />
-    ).render();
+    const { getByTestId } = wrap(<Action mockAction={mockAction} />).render();
 
     fireEvent.click(getByTestId('button'));
 

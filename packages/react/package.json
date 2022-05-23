@@ -35,7 +35,7 @@
     "@farfetch/blackout-client": "^2.0.0-next.139",
     "@farfetch/blackout-redux": "^1.0.0-next.217",
     "lodash": "^4.17.21",
-    "react": "^16.7.0",
+    "react": "^16.7.0 || ^17.0 || ^18.0",
     "react-redux": "^7.2.0",
     "redux": "^4.1.0"
   },

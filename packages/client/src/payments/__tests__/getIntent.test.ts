@@ -1,10 +1,4 @@
-import {
-  Classification,
-  Intent,
-  Intents,
-  IntentStatus,
-  LineItemsType,
-} from '../types';
+import { Classification, Intent, IntentStatus, LineItemsType } from '../types';
 import { getIntent } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getIntent.fixtures';
@@ -24,7 +18,7 @@ describe('getIntent', () => {
   afterEach(() => moxios.uninstall(client));
 
   it('should handle a client request successfully', async () => {
-    const intent: Intent = {
+    const response: Intent = {
       id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
       reference: 'string',
       currency: 'string',
@@ -109,8 +103,6 @@ describe('getIntent', () => {
       },
       fingerprint: 'string',
     };
-
-    const response: Intents = [intent, intent];
 
     fixtures.success({ id, response });
 

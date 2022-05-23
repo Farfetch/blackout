@@ -1,4 +1,4 @@
-import { cleanup } from '@testing-library/react';
+import { cleanup, renderHook } from '@testing-library/react';
 import { getSlug } from '@farfetch/blackout-redux/products/utils';
 import {
   mockProductsListPathname,
@@ -7,7 +7,6 @@ import {
 } from 'tests/__fixtures__/products';
 import { mockStore } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
-import { renderHook } from '@testing-library/react-hooks';
 import React from 'react';
 import useProductsList from '../useProductsList';
 import type { UseProductsListParams } from '../types';

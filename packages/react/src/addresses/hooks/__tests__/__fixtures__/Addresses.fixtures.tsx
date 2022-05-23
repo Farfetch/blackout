@@ -11,11 +11,11 @@ import {
 import React, { Fragment } from 'react';
 import useAddresses from '../../useAddresses';
 
-const booleanToText = (boolean:boolean) => (boolean ? 'yes' : 'no');
+const booleanToText = (boolean: boolean) => (boolean ? 'yes' : 'no');
 
 type Props = {
-  userId:number
-}
+  userId: number;
+};
 
 export const Addresses = ({ userId }: Props) => {
   const {

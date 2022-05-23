@@ -37,9 +37,7 @@ describe('renderContent', () => {
   });
 
   it('should deal with undefined components', () => {
-    const { queryByTestId } = render(
-      renderContent({ components: undefined }),
-    );
+    const { queryByTestId } = render(renderContent({ components: undefined }));
     const element = queryByTestId('textElement');
 
     expect(element).not.toBeInTheDocument();

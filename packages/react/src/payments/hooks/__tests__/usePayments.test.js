@@ -1,4 +1,4 @@
-import { cleanup, fireEvent } from '@testing-library/react';
+import { cleanup, fireEvent, renderHook } from '@testing-library/react';
 import {
   createInstruments as createInstrumentsAction,
   fetchInstruments as fetchInstrumentsAction,
@@ -15,7 +15,6 @@ import { mockStore, wrap } from '../../../../tests/helpers';
 import { mockUsersResponse } from 'tests/__fixtures__/users';
 import { Payments } from './__fixtures__/Payments.fixtures';
 import { Provider } from 'react-redux';
-import { renderHook } from '@testing-library/react-hooks';
 import { usePayments } from '../../';
 import React from 'react';
 

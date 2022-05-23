@@ -11,6 +11,7 @@ import {
   cleanup,
   fireEvent,
   waitForElementToBeRemoved,
+  renderHook,
 } from '@testing-library/react';
 import {
   createAddress as createAddressAction,
@@ -27,7 +28,6 @@ import {
 } from '@farfetch/blackout-redux/addresses';
 import { mockStore, wrap } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
-import { renderHook } from '@testing-library/react-hooks';
 import { useAddresses } from '../..';
 import React from 'react';
 
@@ -51,13 +51,12 @@ describe('useAddresses', () => {
   afterEach(cleanup);
 
   it('should return values correctly', () => {
-    const wrapper = (props: {}) => (
-      <Provider store={mockStore(mockInitialState)} {...props} />
-    );
     const {
       result: { current },
     } = renderHook(() => useAddresses(true, userId), {
-      wrapper,
+      wrapper: props => (
+        <Provider store={mockStore(mockInitialState)} {...props} />
+      ),
     });
 
     expect(typeof current.deleteAddress).toBe('function');

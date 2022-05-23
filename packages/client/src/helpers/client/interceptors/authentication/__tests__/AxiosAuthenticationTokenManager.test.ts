@@ -714,9 +714,9 @@ describe('AxiosAuthenticationTokenManager', () => {
     it('should throw an error if a request is performed before token manager is loaded', () => {
       tokenManagerInstance = createAndSetTokenManagerInstance(client);
 
-      expect(tokenManagerInstance.isLoaded).toBeFalsy();
+      expect.assertions(2);
 
-      expect.assertions(1);
+      expect(tokenManagerInstance.isLoaded).toBeFalsy();
 
       expect(getUser()).rejects.toThrow(TokenManagerNotLoadedException);
     });
