@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.37.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.36.3...@farfetch/blackout-react@0.37.0) (2022-05-23)
+
+
+### Features
+
+* **react:** add more base components ([397d2e2](https://github.com/Farfetch/blackout/commit/397d2e2d33b8f5fff7189f95fb5ed6a8e79d5a92))
+
+
+
+
+
 ## [0.36.3](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.36.2...@farfetch/blackout-react@0.36.3) (2022-05-17)
 
 
