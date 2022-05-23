@@ -1,7 +1,4 @@
-import {
-  DEFAULT_ZARAZ_INIT_SCRIPT_ENDPOINT,
-  OPTION_EVENTS_MAPPER,
-} from '../constants';
+import { DEFAULT_ZARAZ_INIT_SCRIPT_ENDPOINT } from '../constants';
 import {
   EventData,
   eventTypes,
@@ -10,7 +7,11 @@ import {
 } from '@farfetch/blackout-analytics';
 import { trackEventsData } from 'tests/__fixtures__/analytics';
 import loadIntegrationDataFixtures from 'tests/__fixtures__/analytics/loadIntegration';
-import ZarazIntegration, { OPTION_ZARAZ_INIT_SCRIPT_ENDPOINT } from '..';
+import ZarazIntegration, {
+  OPTION_ENVIRONMENT,
+  OPTION_EVENTS_MAPPER,
+  OPTION_ZARAZ_INIT_SCRIPT_ENDPOINT,
+} from '..';
 import type { ZarazEventData, ZarazIntegrationOptions } from '../types/types';
 
 const analyticsTrackDataMock =
@@ -26,6 +27,12 @@ const loggerErrorSpy = jest
   .mockImplementation(message => message);
 
 beforeEach(() => {
+  window.__BUILD_CONTEXT__ = {
+    env: {
+      NODE_ENV: 'production',
+    },
+  };
+
   // Set window to a new instance where we can set the location property
   // to what we want.
   global.window = Object.create(window);
@@ -135,8 +142,8 @@ describe('Zaraz integration', () => {
     // TODO: Add a test validating that zaraz.(track|ecommerce) is not called before the initialize promise
     //       is resolved when we have events implemented on the integration.
 
-    describe('if running behind a proxy', () => {
-      it('should change requests that are not to localhost to localhost', async () => {
+    describe('when testing in development', () => {
+      it('should change zaraz requests that are not for the host which the application is running', async () => {
         // @ts-expect-error
         jest.spyOn(window, 'location', 'get').mockImplementation(() => {
           return {
@@ -162,6 +169,13 @@ describe('Zaraz integration', () => {
               ),
           });
         });
+
+        // Force development environment
+        window.__BUILD_CONTEXT__ = {
+          env: {
+            NODE_ENV: 'development',
+          },
+        };
 
         const integration = createZarazInstance({});
 
@@ -189,6 +203,20 @@ describe('Zaraz integration', () => {
           'https://localhost:3000/cdn-cgi/zaraz/t',
           undefined,
         );
+
+        jest.clearAllMocks();
+
+        window.zaraz.ecommerce = () =>
+          fetch(
+            'https://preview-whitelabel.blackandwhite-ff.com/another/resource',
+          );
+
+        window.zaraz.ecommerce();
+
+        expect(fetchSpy).toHaveBeenCalledWith(
+          'https://preview-whitelabel.blackandwhite-ff.com/another/resource',
+          undefined,
+        );
       });
     });
   });
@@ -206,6 +234,16 @@ describe('Zaraz integration', () => {
       expect(window.fetch).toHaveBeenCalledWith(customZarazEndpoint);
 
       expect(window.zaraz).toBeDefined();
+    });
+
+    it('should allow to specify the environment', async () => {
+      const integration = createZarazInstance({
+        [OPTION_ENVIRONMENT]: 'development',
+      });
+
+      await integration.initializePromise;
+
+      expect(integration.isDevelopment()).toBe(true);
     });
 
     describe(`${OPTION_EVENTS_MAPPER} option`, () => {
