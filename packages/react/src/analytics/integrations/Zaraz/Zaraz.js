@@ -1,11 +1,12 @@
 import {
   DEFAULT_ZARAZ_INIT_SCRIPT_ENDPOINT,
   INTERNAL_ZARAZ_EVENT,
+  OPTION_ENVIRONMENT,
   OPTION_EVENTS_MAPPER,
   OPTION_ZARAZ_INIT_SCRIPT_ENDPOINT,
   ZARAZ_REQUEST_REGEX,
 } from './constants';
-import { extractHostFromScript, isLocalNetwork } from './utils';
+import { extractHostFromScript } from './utils';
 import { integrations, utils } from '@farfetch/blackout-core/analytics';
 import defaultEventsMapper from './eventsMapper';
 import merge from 'lodash/merge';
@@ -61,6 +62,19 @@ class Zaraz extends integrations.Integration {
   }
 
   /**
+   * Checks if the code is running under development environment.
+   *
+   * @returns {boolean} True if it is under a development environment, false otherwise.
+   */
+  isDevelopment() {
+    const environment =
+      this.options[OPTION_ENVIRONMENT] ||
+      window?.__BUILD_CONTEXT__?.env?.NODE_ENV;
+
+    return environment === 'development';
+  }
+
+  /**
    * Tracks interested events with Zaraz.
    *
    * @param {object} data - Event data from analytics.
@@ -108,7 +122,7 @@ class Zaraz extends integrations.Integration {
    * with Cloudflare when calling either zaraz.track or zaraz.ecommerce methods.
    */
   setupDevelopmentFetchInterceptor() {
-    if (isLocalNetwork(window.location.hostname)) {
+    if (this.isDevelopment()) {
       const originalFetch = window.fetch;
 
       const newFetch = (input, init) => {
@@ -150,9 +164,7 @@ class Zaraz extends integrations.Integration {
           INTERNAL_ZARAZ_EVENT,
         );
 
-        const isLocalhost = isLocalNetwork(window.location.hostname);
-
-        if (isLocalhost) {
+        if (this.isDevelopment()) {
           const host = extractHostFromScript(modifiedScript);
 
           if (host) {
