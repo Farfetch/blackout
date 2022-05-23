@@ -10,11 +10,12 @@ import {
 import {
   DEFAULT_ZARAZ_INIT_SCRIPT_ENDPOINT,
   INTERNAL_ZARAZ_EVENT,
+  OPTION_ENVIRONMENT,
   OPTION_EVENTS_MAPPER,
   OPTION_ZARAZ_INIT_SCRIPT_ENDPOINT,
   ZARAZ_REQUEST_REGEX,
 } from './constants';
-import { extractHostFromScript, isLocalNetwork } from './utils';
+import { extractHostFromScript } from './utils';
 import defaultEventsMapper from './eventsMapper';
 import merge from 'lodash/merge';
 import type { EventsMapper, ZarazIntegrationOptions } from './types/types';
@@ -59,6 +60,19 @@ class Zaraz extends integrations.Integration<ZarazIntegrationOptions> {
    */
   static shouldLoad(consent: ConsentData) {
     return !!consent?.marketing;
+  }
+
+  /**
+   * Checks if the code is running under development environment.
+   *
+   * @returns True if it is under a development environment, false otherwise.
+   */
+  isDevelopment() {
+    const environment =
+      this.options[OPTION_ENVIRONMENT] ||
+      window?.__BUILD_CONTEXT__?.env?.NODE_ENV;
+
+    return environment === 'development';
   }
 
   /**
@@ -109,7 +123,7 @@ class Zaraz extends integrations.Integration<ZarazIntegrationOptions> {
    * with Cloudflare when calling either zaraz.track or zaraz.ecommerce methods.
    */
   setupDevelopmentFetchInterceptor() {
-    if (isLocalNetwork(window.location.hostname)) {
+    if (this.isDevelopment()) {
       const originalFetch = window.fetch;
 
       const newFetch = (input: RequestInfo, init?: RequestInit) => {
@@ -151,9 +165,7 @@ class Zaraz extends integrations.Integration<ZarazIntegrationOptions> {
           INTERNAL_ZARAZ_EVENT,
         );
 
-        const isLocalhost = isLocalNetwork(window.location.hostname);
-
-        if (isLocalhost) {
+        if (this.isDevelopment()) {
           const host = extractHostFromScript(modifiedScript);
 
           if (host) {
