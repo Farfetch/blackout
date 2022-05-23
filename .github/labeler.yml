@@ -1,31 +1,31 @@
-":package: analytics":
+':package: analytics':
   - 'packages/analytics/**/*'
   - 'packages/analytics/**/.*'
   - 'packages/analytics/.**/*'
   - 'packages/analytics/.**/.*'
 
-":package: client":
+':package: client':
   - 'packages/client/**/*'
   - 'packages/client/**/.*'
   - 'packages/client/.**/*'
   - 'packages/client/.**/.*'
 
-":package: react":
+':package: react':
   - 'packages/react/**/*'
   - 'packages/react/**/.*'
   - 'packages/react/.**/*'
   - 'packages/react/.**/.*'
 
-":package: redux":
+':package: redux':
   - 'packages/redux/**/*'
   - 'packages/redux/**/.*'
   - 'packages/redux/.**/*'
   - 'packages/redux/.**/.*'
 
-"type: maintenance":
+'type: maintenance':
   - any: ['.github/**/*', '!**/*.md', '!.**/*.md']
 
-"type: documentation":
+'type: documentation':
   - '**/*.md'
   - '**/.*.md'
   - '.**/*.md'

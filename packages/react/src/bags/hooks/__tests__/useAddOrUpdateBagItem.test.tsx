@@ -1,9 +1,8 @@
-import { cleanup } from '@testing-library/react';
+import { cleanup, renderHook } from '@testing-library/react';
 import { getBagItems } from '@farfetch/blackout-redux/bags';
 import { mockBagItem, mockInitialState } from 'tests/__fixtures__/bags';
 import { mockStore } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
-import { renderHook } from '@testing-library/react-hooks';
 import { useAddOrUpdateBagItem } from '../..';
 import React from 'react';
 

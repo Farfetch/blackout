@@ -1,4 +1,4 @@
-import { cleanup } from '@testing-library/react';
+import { cleanup, renderHook } from '@testing-library/react';
 import {
   mockCategories,
   mockCategoriesErrorState,
@@ -12,7 +12,6 @@ import {
 } from 'tests/__fixtures__/categories';
 import { mockStore } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
-import { renderHook } from '@testing-library/react-hooks';
 import { useCategories } from '../../';
 import React from 'react';
 

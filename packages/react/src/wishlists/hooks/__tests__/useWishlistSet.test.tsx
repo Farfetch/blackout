@@ -1,4 +1,4 @@
-import { cleanup } from '@testing-library/react';
+import { cleanup, renderHook } from '@testing-library/react';
 import { mockStore } from '../../../../tests/helpers';
 import {
   mockWishlistSetId,
@@ -6,7 +6,6 @@ import {
   mockWishlistState,
 } from 'tests/__fixtures__/wishlists';
 import { Provider } from 'react-redux';
-import { renderHook } from '@testing-library/react-hooks';
 import React from 'react';
 import useWishlistSet from '../useWishlistSet';
 

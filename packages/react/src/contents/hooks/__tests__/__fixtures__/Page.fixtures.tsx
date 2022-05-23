@@ -21,10 +21,7 @@ export const Page = () => {
     <>
       {page && <span data-test="page-data">{pageContent.content}</span>}
       <button data-test="page-reset" onClick={resetContent} />
-      <button
-        data-test="page-fetchContent"
-        onClick={() => fetchContent()}
-      />
+      <button data-test="page-fetchContent" onClick={() => fetchContent()} />
     </>
   );
 };

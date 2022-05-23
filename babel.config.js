@@ -11,7 +11,12 @@ module.exports = {
         },
       },
     ],
-    '@babel/preset-react',
+    [
+      '@babel/preset-react',
+      {
+        runtime: 'automatic', // Starting from Babel 8, "automatic" will be the default runtime
+      },
+    ],
     '@babel/preset-typescript',
   ],
   plugins: [
@@ -21,5 +26,12 @@ module.exports = {
         loose: true,
       },
     ],
+    [
+      '@babel/plugin-proposal-private-methods',
+      {
+        loose: true,
+      },
+    ],
+    ['@babel/plugin-proposal-private-property-in-object', { loose: true }],
   ],
 };

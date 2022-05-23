@@ -1,6 +1,5 @@
-import { act, renderHook } from '@testing-library/react-hooks';
 import { ActionTypes } from '../useUserAuthState';
-import { cleanup } from '@testing-library/react';
+import { act, cleanup, renderHook, waitFor } from '@testing-library/react';
 import { NotLoggedInError, PendingUserOperationError } from '../../errors';
 import AuthenticationProvider, {
   CallbackNames,
@@ -12,10 +11,11 @@ import AxiosAuthenticationTokenManager, {
 import client, {
   configApiBlackAndWhite,
 } from '@farfetch/blackout-client/helpers/client';
-import moxios from 'moxios';
 import React from 'react';
 import useAuthentication from '../useAuthentication';
 import type TokenManagerOptions from '@farfetch/blackout-client/helpers/client/interceptors/authentication/types/TokenManagerOptions.types';
+import { DefaultRequestBody, rest } from 'msw';
+import mswServer from '../../../../tests/mswServer';
 
 interface Props {
   children?: React.ReactNode;
@@ -40,78 +40,65 @@ const loginData = {
   rememberMe: false,
 };
 
-const wrapper = ({ children, baseURL, callbacks, headers, storage }: Props) => (
-  <AuthenticationProvider
-    baseURL={baseURL}
-    callbacks={callbacks}
-    headers={headers}
-    storage={storage}
-  >
-    {children}
-  </AuthenticationProvider>
-);
+const getRenderedHook = (props: Props = {}) => {
+  const { baseURL, callbacks, headers, storage } = props;
+  return renderHook(() => useAuthentication(), {
+    wrapper: ({ children }) => (
+      <AuthenticationProvider
+        baseURL={baseURL}
+        callbacks={callbacks}
+        headers={headers}
+        storage={storage}
+      >
+        {children}
+      </AuthenticationProvider>
+    ),
+  });
+};
 
-jest.useFakeTimers();
-
-beforeEach(() => {
-  moxios.install(client);
-});
+beforeEach(() => jest.useFakeTimers());
 
 afterEach(() => {
-  moxios.uninstall(client);
+  jest.useRealTimers();
   cleanup();
 });
 
 describe('useAuthentication', () => {
   it('should return the correct values', async () => {
-    const { result, waitForNextUpdate } = renderHook(
-      () => useAuthentication(),
-      {
-        wrapper,
-      },
+    const { result } = getRenderedHook();
+
+    await waitFor(() =>
+      expect(result.current).toStrictEqual({
+        activeTokenData: expect.any(Object),
+        clearTokenData: expect.any(Function),
+        errorData: expect.any(Object),
+        getAccessToken: expect.any(Function),
+        getCurrentGuestTokensContext: expect.any(Function),
+        isLoading: expect.any(Boolean),
+        isLoggedIn: expect.any(Boolean),
+        login: expect.any(Function),
+        logout: expect.any(Function),
+        resetGuestTokensContext: expect.any(Function),
+        setGuestTokensContext: expect.any(Function),
+        setGuestUserClaims: expect.any(Function),
+        tokenManager: expect.any(AxiosAuthenticationTokenManager),
+      }),
     );
-
-    await waitForNextUpdate();
-
-    expect(result.current).toStrictEqual({
-      activeTokenData: expect.any(Object),
-      clearTokenData: expect.any(Function),
-      errorData: expect.any(Object),
-      getAccessToken: expect.any(Function),
-      getCurrentGuestTokensContext: expect.any(Function),
-      isLoading: expect.any(Boolean),
-      isLoggedIn: expect.any(Boolean),
-      login: expect.any(Function),
-      logout: expect.any(Function),
-      resetGuestTokensContext: expect.any(Function),
-      setGuestTokensContext: expect.any(Function),
-      setGuestUserClaims: expect.any(Function),
-      tokenManager: expect.any(AxiosAuthenticationTokenManager),
-    });
   });
 
   it("should set the baseURL and headers on the client with the ones provided on the provider's props and load the tokenManagerInstance", async () => {
     const expectedBaseUrl = configApiBlackAndWhite.baseURL;
 
-    const { result, waitForNextUpdate } = renderHook(
-      () => useAuthentication(),
-      {
-        wrapper,
-        initialProps: {
-          baseURL: expectedBaseUrl,
-          headers: defaultHeaders,
-        },
-      },
-    );
+    const { result } = getRenderedHook({
+      baseURL: expectedBaseUrl,
+      headers: defaultHeaders,
+    });
 
     const { tokenManager } = result.current;
-
     expect(client.defaults.baseURL).toBe(expectedBaseUrl);
     expect(client.defaults.headers.common).toBe(defaultHeaders);
 
-    await waitForNextUpdate();
-
-    expect(tokenManager.isLoaded).toBe(true);
+    await waitFor(() => expect(tokenManager.isLoaded).toBe(true));
   });
 
   it('should call the passed in callback functions when the corresponding event happens', async () => {
@@ -120,17 +107,9 @@ describe('useAuthentication', () => {
       [CallbackNames.OnUserSessionTerminated]: jest.fn(() => {}),
     };
 
-    const { result, waitForNextUpdate } = renderHook(
-      () => useAuthentication(),
-      {
-        wrapper,
-        initialProps: {
-          callbacks: callbacksValue,
-        },
-      },
-    );
-
-    await waitForNextUpdate();
+    const { result } = getRenderedHook({
+      callbacks: callbacksValue,
+    });
 
     const { tokenManager } = result.current;
 
@@ -171,21 +150,15 @@ describe('useAuthentication', () => {
       },
     };
 
-    const { result, waitForNextUpdate } = renderHook(
-      () => useAuthentication(),
-      {
-        wrapper,
-        initialProps: {
-          storage: mockStorageOptions,
-        },
-      },
-    );
-
-    await waitForNextUpdate();
+    const { result } = getRenderedHook({
+      storage: mockStorageOptions,
+    });
 
     const { tokenManager } = result.current;
 
-    expect(mockStorageOptions.provider.getItem).toHaveBeenCalled();
+    await waitFor(() =>
+      expect(mockStorageOptions.provider.getItem).toHaveBeenCalled(),
+    );
 
     const mockUserTokenData = new TokenData({
       accessToken: 'dummy_access_token',
@@ -209,28 +182,25 @@ describe('useAuthentication', () => {
   it("should update the value of 'isLoggedIn' value whenever user login status changed", async () => {
     const accessToken = 'dummy_access_token';
 
-    moxios.stubRequest('/authentication/v1/tokens', {
-      response: {
-        accessToken,
-        expiresIn: '12000',
-        refreshToken: 'dummy_refresh_token',
-      },
-      status: 200,
-    });
-
-    moxios.stubRequest(`/authentication/v1/tokens/${accessToken}`, {
-      response: {},
-      status: 200,
-    });
-
-    const { result, waitForNextUpdate } = renderHook(
-      () => useAuthentication(),
-      {
-        wrapper,
-      },
+    mswServer.use(
+      rest.post('/authentication/v1/tokens', (_req, res, ctx) => {
+        return res(
+          ctx.json({
+            accessToken,
+            expiresIn: '12000',
+            refreshToken: 'dummy_refresh_token',
+          }),
+        );
+      }),
+      rest.delete(
+        `/authentication/v1/tokens/${accessToken}`,
+        (_req, res, ctx) => {
+          return res(ctx.json({}));
+        },
+      ),
     );
 
-    await waitForNextUpdate();
+    const { result } = getRenderedHook();
 
     expect(result.current.isLoggedIn).toBe(false);
 
@@ -242,7 +212,7 @@ describe('useAuthentication', () => {
       });
     });
 
-    expect(result.current.isLoggedIn).toBe(true);
+    await waitFor(() => expect(result.current.isLoggedIn).toBe(true));
     expect(result.current.isLoading).toBe(false);
 
     await act(async () => {
@@ -254,64 +224,56 @@ describe('useAuthentication', () => {
   });
 
   it('should throw an error if login is called before it is terminated', async () => {
-    moxios.stubRequest('/authentication/v1/tokens', {
-      response: {
-        accessToken: 'dummy_access_token',
-        expiresIn: '12000',
-        refreshToken: 'dummy_refresh_token',
-      },
-      status: 200,
-    });
-
-    const { result, waitForNextUpdate } = renderHook(
-      () => useAuthentication(),
-      {
-        wrapper,
-      },
+    mswServer.use(
+      rest.post('/authentication/v1/tokens', (_req, res, ctx) => {
+        return res(
+          ctx.json({
+            accessToken: 'dummy_access_token',
+            expiresIn: '12000',
+            refreshToken: 'dummy_refresh_token',
+          }),
+          ctx.delay(1000),
+        );
+      }),
     );
 
-    await waitForNextUpdate();
+    const { result } = getRenderedHook();
 
-    const loginPromise = act(() => {
-      return result.current.login(loginData);
-    });
+    const loginPromise = result.current.login(loginData);
 
-    expect(result.current.isLoading).toBe(true);
-
-    expect(result.current.login(loginData)).rejects.toThrow(
+    await waitFor(() => expect(result.current.isLoading).toBe(true));
+    await expect(result.current.login(loginData)).rejects.toThrow(
       PendingUserOperationError,
     );
 
     await loginPromise;
 
-    expect(result.current.isLoading).toBe(false);
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
     expect(result.current.isLoggedIn).toBe(true);
   });
 
   it('should set tokens context before fetching the access token', async () => {
-    moxios.stubRequest('/authentication/v1/guestTokens', {
-      response: {
-        accessToken: 'dummy_access_token',
-        expiresIn: '12000',
-      },
-      status: 200,
-    });
+    let guestTokenRequestBody: DefaultRequestBody; // Request info for checking later if the endpoint was called with correct data
+    mswServer.use(
+      rest.post('/authentication/v1/guestTokens', (req, res, ctx) => {
+        guestTokenRequestBody = req.body;
+        return res(
+          ctx.json({
+            accessToken: 'dummy_access_token',
+            expiresIn: '12000',
+          }),
+        );
+      }),
+    );
 
     const mockGuestUserClaimsParameter = {
       guestUserEmail: 'user@email.com',
       guestUserSecret: 'A1B2C3',
     };
 
-    const { result, waitForNextUpdate } = renderHook(
-      () => useAuthentication(),
-      {
-        wrapper,
-      },
-    );
+    const { result } = getRenderedHook();
 
-    await waitForNextUpdate();
-
-    expect(result.current.activeTokenData).toBeTruthy();
+    await waitFor(() => expect(result.current.activeTokenData).toBeTruthy());
     expect(result.current.activeTokenData.kind).toBe(TokenKinds.Guest);
 
     const getAccessTokenSpy = jest.spyOn(
@@ -330,35 +292,26 @@ describe('useAuthentication', () => {
 
     expect(getAccessTokenSpy).toHaveBeenCalledTimes(1);
 
-    const request = moxios.requests.mostRecent();
-    const requestDataParsed = JSON.parse(request.config.data);
-
-    expect(requestDataParsed).toEqual({
+    expect(guestTokenRequestBody).toEqual({
       ...mockGuestUserClaimsParameter,
       guestUserId: undefined,
     });
   });
 
   it('should throw an error if logout is called but the current user is not logged in', async () => {
-    const { result, waitForNextUpdate } = renderHook(
-      () => useAuthentication(),
-      {
-        wrapper,
-      },
-    );
+    const { result } = getRenderedHook();
 
-    await waitForNextUpdate();
-
-    expect(result.current.activeTokenData).toBeTruthy();
+    await waitFor(() => expect(result.current.activeTokenData).toBeTruthy());
     expect(result.current.activeTokenData.kind).toBe(TokenKinds.Guest);
-
-    expect.assertions(8);
 
     try {
       await act(async () => {
         await result.current.logout();
       });
     } catch (e) {
+      await waitFor(() => {
+        expect(result.current.errorData).toBeTruthy();
+      });
       expect(e).toBeInstanceOf(NotLoggedInError);
     }
 
@@ -370,25 +323,33 @@ describe('useAuthentication', () => {
     // Make the login endpoint return invalid data
     // to test when the user token data does not contain
     // an access token case.
-    moxios.stubRequest('/authentication/v1/tokens', {
-      status: 200,
-      response: {
-        refreshToken: 'dummy_refresh_token',
-        expiresIn: '12000',
-        accessToken: null,
-      },
-    });
+    mswServer.use(
+      rest.post('/authentication/v1/tokens', (_req, res, ctx) => {
+        return res(
+          ctx.json({
+            accessToken: null,
+            expiresIn: '12000',
+            refreshToken: 'dummy_refresh_token',
+          }),
+        );
+      }),
+    );
 
     await act(async () => result.current.login(loginData));
 
     expect(result.current.activeTokenData.kind).toBe(TokenKinds.User);
     expect(result.current.isLoading).toBe(false);
 
+    expect.assertions(14);
+
     try {
       await act(async () => {
         await result.current.logout();
       });
     } catch (e) {
+      await waitFor(() => {
+        expect(result.current.errorData).toBeTruthy();
+      });
       expect(e).toBeInstanceOf(NotLoggedInError);
     }
 
@@ -401,41 +362,36 @@ describe('useAuthentication', () => {
   it("should _NOT_ throw an error if logout request fails but the error is of the kind 'user token is not found'", async () => {
     const accessToken = 'dummy_access_token';
 
-    moxios.stubRequest('/authentication/v1/tokens', {
-      status: 200,
-      response: {
-        accessToken,
-        expiresIn: '12000',
-        refreshToken: 'dummy_refresh_token',
-      },
-    });
-
-    const { result, waitForNextUpdate } = renderHook(
-      () => useAuthentication(),
-      {
-        wrapper,
-      },
+    mswServer.use(
+      rest.post('/authentication/v1/tokens', (_req, res, ctx) => {
+        return res(
+          ctx.json({
+            accessToken,
+            expiresIn: '12000',
+            refreshToken: 'dummy_refresh_token',
+          }),
+        );
+      }),
+      rest.delete(
+        `/authentication/v1/tokens/${accessToken}`,
+        (_req, res, ctx) => {
+          return res.once(ctx.json({ errors: [{ code: '17' }] }));
+        },
+      ),
     );
 
-    await waitForNextUpdate();
+    const { result } = getRenderedHook();
 
-    expect(result.current.activeTokenData).toBeTruthy();
+    await waitFor(() => expect(result.current.activeTokenData).toBeTruthy());
     expect(result.current.activeTokenData.kind).toBe(TokenKinds.Guest);
 
-    expect.assertions(12);
+    expect.assertions(14);
 
     await act(async () => result.current.login(loginData));
 
     expect(result.current.activeTokenData.kind).toBe(TokenKinds.User);
     expect(result.current.isLoading).toBe(false);
     expect(result.current.isLoggedIn).toBe(true);
-
-    moxios.stubRequest(`/authentication/v1/tokens/${accessToken}`, {
-      status: 400,
-      response: {
-        errors: [{ code: '17' }],
-      },
-    });
 
     await act(async () => {
       await result.current.logout();
@@ -450,14 +406,15 @@ describe('useAuthentication', () => {
     expect(result.current.isLoading).toBe(false);
     expect(result.current.isLoggedIn).toBe(true);
 
-    // Need to reinstall moxios so that we can mock a new response for delete request again.
-    // By the way, the method stubOnce was already tried and did not work.
-    moxios.uninstall(client);
-    moxios.install(client);
-
-    moxios.stubRequest(`/authentication/v1/tokens/${accessToken}`, {
-      status: 404,
-    });
+    // Mock a new response for the delete request
+    mswServer.use(
+      rest.delete(
+        `/authentication/v1/tokens/${accessToken}`,
+        (_req, res, ctx) => {
+          return res(ctx.json({ status: 404 }));
+        },
+      ),
+    );
 
     await act(async () => {
       await result.current.logout();
@@ -468,48 +425,48 @@ describe('useAuthentication', () => {
   });
 
   it("should throw an error if logout fails for other reason than 'user token is not found'", async () => {
+    const errorResponseStatus = 500;
     const accessToken = 'dummy_access_token';
 
-    moxios.stubRequest('/authentication/v1/tokens', {
-      status: 200,
-      response: {
-        accessToken,
-        expiresIn: '12000',
-        refreshToken: 'dummy_refresh_token',
-      },
-    });
-
-    const { result, waitForNextUpdate } = renderHook(
-      () => useAuthentication(),
-      {
-        wrapper,
-      },
+    mswServer.use(
+      rest.post('/authentication/v1/tokens', (_req, res, ctx) => {
+        return res(
+          ctx.json({
+            accessToken,
+            expiresIn: '12000',
+            refreshToken: 'dummy_refresh_token',
+          }),
+        );
+      }),
+      rest.delete(
+        `/authentication/v1/tokens/${accessToken}`,
+        (_req, res, ctx) => {
+          return res(ctx.status(errorResponseStatus));
+        },
+      ),
     );
 
-    await waitForNextUpdate();
-
-    expect.assertions(4);
+    const { result } = getRenderedHook();
 
     await act(async () => result.current.login(loginData));
 
     expect(result.current.activeTokenData.kind).toBe(TokenKinds.User);
     expect(result.current.isLoading).toBe(false);
 
-    const errorResponseStatus = 500;
-
     const mockError = new Error(
       `Request failed with status code ${errorResponseStatus}`,
     );
 
-    moxios.stubRequest(`/authentication/v1/tokens/${accessToken}`, {
-      status: errorResponseStatus,
-    });
+    expect.assertions(6);
 
     try {
       await act(async () => {
         await result.current.logout();
       });
     } catch (e) {
+      await waitFor(() => {
+        expect(result.current.errorData).toBeTruthy();
+      });
       expect(e).toStrictEqual(mockError);
     }
 
