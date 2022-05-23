@@ -11,23 +11,3 @@ export function extractHostFromScript(script) {
   const match = URL_HOST_REGEX.exec(script);
   return match?.[1];
 }
-
-/**
- * Helper function to check if the hostname is from a local network or not.
- *
- * @param hostname - The hostname to analyze.
- *
- * @returns If the hostname is from a local network or not.
- */
-export function isLocalNetwork(hostname) {
-  if (!hostname) {
-    return false;
-  }
-
-  return (
-    ['localhost', '127.0.0.1', '', '::1'].includes(hostname) ||
-    hostname.startsWith('192.168.') ||
-    hostname.startsWith('10.0.') ||
-    hostname.endsWith('.local')
-  );
-}
