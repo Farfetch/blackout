@@ -1,4 +1,4 @@
-import { cleanup } from '@testing-library/react';
+import { cleanup, renderHook } from '@testing-library/react';
 import {
   mockSearchIntentsErrorState,
   mockSearchIntentsInitialState,
@@ -15,7 +15,6 @@ import {
 } from 'tests/__fixtures__/search';
 import { mockStore } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
-import { renderHook } from '@testing-library/react-hooks';
 import { useSearchIntents } from '../../';
 import React from 'react';
 

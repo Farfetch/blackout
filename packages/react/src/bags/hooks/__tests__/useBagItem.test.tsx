@@ -1,4 +1,4 @@
-import { cleanup } from '@testing-library/react';
+import { cleanup, renderHook } from '@testing-library/react';
 import {
   mockBagItem,
   mockBagItemId,
@@ -8,7 +8,6 @@ import {
 } from 'tests/__fixtures__/bags';
 import { mockStore } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
-import { renderHook } from '@testing-library/react-hooks';
 import { useBagItem } from '../..';
 import React from 'react';
 

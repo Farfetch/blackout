@@ -1,17 +1,10 @@
 module.exports = {
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  setupFiles: [
-    './.enzymerc',
-    './tests/setupReactTestingLibrary',
-    'jest-localstorage-mock',
-  ],
+  setupFiles: ['./tests/setupReactTestingLibrary', 'jest-localstorage-mock'],
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
   setupFilesAfterEnv: ['./tests/setupAfterEnv'],
   // A list of paths to snapshot serializer modules Jest should use for snapshot testing
-  snapshotSerializers: [
-    'enzyme-to-json/serializer',
-    './tests/axiosErrorSerializer',
-  ],
+  snapshotSerializers: ['./tests/axiosErrorSerializer'],
   // The test environment that will be used for testing
   testEnvironment: 'jsdom',
   // The regexp pattern or array of patterns that Jest uses to detect test files
@@ -53,7 +46,7 @@ module.exports = {
     '^tests(.*)$': '<rootDir>/tests$1',
   },
   // Add custom reporters to Jest
-  reporters: ['default', 'jest-junit'],
+  reporters: ['default'],
   // Allows the usage of custom watch plugins
   watchPlugins: [
     'jest-watch-typeahead/filename',

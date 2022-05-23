@@ -1,4 +1,4 @@
-import { cleanup } from '@testing-library/react';
+import { cleanup, renderHook } from '@testing-library/react';
 import { fetchSEO } from '@farfetch/blackout-redux/contents';
 import {
   mockInitialState,
@@ -10,7 +10,6 @@ import {
 } from './__fixtures__/useMetaTags.fixtures';
 import { mockStore } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
-import { renderHook } from '@testing-library/react-hooks';
 import { useMetaTags } from '..';
 import React from 'react';
 

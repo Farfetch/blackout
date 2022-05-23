@@ -1,5 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks';
-import { cleanup } from '@testing-library/react';
+import { act, cleanup, renderHook, waitFor } from '@testing-library/react';
 import { getUser } from '@farfetch/blackout-client/users';
 import { mockDefaultActiveTokenData } from '../../contexts/__fixtures__/AuthenticationProvider.fixtures';
 import { ProfileChangedError } from '../../errors';
@@ -47,28 +46,31 @@ jest.mock('@farfetch/blackout-client/users', () => {
   };
 });
 
-const wrapper = ({
-  children,
+const getRenderedHook = ({
   baseURL,
   callbacks,
   headers,
   storage,
   fetchProfileOnTokenChanges,
-}: Props) => (
-  <AuthenticationProvider
-    baseURL={baseURL}
-    callbacks={callbacks}
-    headers={headers}
-    storage={storage}
-  >
-    <UserProfileProvider
-      fetchProfileOnTokenChanges={fetchProfileOnTokenChanges}
-      onProfileChange={jest.fn()}
-    >
-      {children}
-    </UserProfileProvider>
-  </AuthenticationProvider>
-);
+}: Props) => {
+  return renderHook(() => useUserProfile(), {
+    wrapper: ({ children }) => (
+      <AuthenticationProvider
+        baseURL={baseURL}
+        callbacks={callbacks}
+        headers={headers}
+        storage={storage}
+      >
+        <UserProfileProvider
+          fetchProfileOnTokenChanges={fetchProfileOnTokenChanges}
+          onProfileChange={jest.fn()}
+        >
+          {children}
+        </UserProfileProvider>
+      </AuthenticationProvider>
+    ),
+  });
+};
 
 afterEach(cleanup);
 
@@ -76,19 +78,18 @@ jest.useFakeTimers();
 
 describe('useUserProfile', () => {
   it('should return the correct values', async () => {
-    const { result } = renderHook(() => useUserProfile(), {
-      wrapper,
-      initialProps: {
-        fetchProfileOnTokenChanges: false,
-      },
+    const { result } = getRenderedHook({
+      fetchProfileOnTokenChanges: false,
     });
 
-    expect(result.current).toStrictEqual({
-      error: expect.any(Object),
-      isLoading: expect.any(Boolean),
-      loadProfile: expect.any(Function),
-      userData: expect.any(Object),
-    });
+    await waitFor(() =>
+      expect(result.current).toStrictEqual({
+        error: expect.any(Object),
+        isLoading: expect.any(Boolean),
+        loadProfile: expect.any(Function),
+        userData: expect.any(Object),
+      }),
+    );
   });
 
   it('should _NOT_ call getUser again if there is a pending loadProfile operation and another call to loadProfile is made again', async () => {
@@ -100,17 +101,14 @@ describe('useUserProfile', () => {
       });
     });
 
-    const { result } = renderHook(() => useUserProfile(), {
-      wrapper,
-      initialProps: {
-        fetchProfileOnTokenChanges: true,
-      },
+    const { result } = getRenderedHook({
+      fetchProfileOnTokenChanges: true,
     });
 
     // As fetchProfileOnTokenChanges = true, the hook when first rendered will proceed to call loadProfile
     // in a useEffect because the initial userData state is different
     // from the user on the current active token data.
-    expect(result.current.isLoading).toBe(true);
+    await waitFor(() => expect(result.current.isLoading).toBe(true));
 
     // Call the loadProfile function directly to simulate a second call
     // from the user while the previous loadProfile call has not finished.
@@ -120,7 +118,7 @@ describe('useUserProfile', () => {
 
     await act(async () => await loadProfilePromise);
 
-    expect(result.current.isLoading).toBe(false);
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
     expect(result.current.userData).toBe(mockUserData);
 
     expect(getUser).toHaveBeenCalledTimes(1);
@@ -135,23 +133,24 @@ describe('useUserProfile', () => {
       });
     });
 
-    const { result } = renderHook(() => useUserProfile(), {
-      wrapper,
-      initialProps: {
-        fetchUserOnTokenChanges: false,
-      },
+    const { result } = getRenderedHook({
+      fetchProfileOnTokenChanges: false,
     });
 
-    expect(result.current.isLoading).toBe(false);
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
     expect(result.current.error).toBeNull();
 
-    expect.assertions(5);
+    expect.assertions(8);
 
     try {
       await act(() => {
         return result.current.loadProfile();
       });
     } catch (e) {
+      await waitFor(() => {
+        expect(result.current.error).toBeTruthy();
+      });
+      await waitFor(() => expect(result.current.isLoading).toBe(false));
       expect(e).toBe(expectedError);
     }
 
@@ -170,23 +169,21 @@ describe('useUserProfile', () => {
       return Promise.resolve(mockUserData);
     });
 
-    const { result } = renderHook(() => useUserProfile(), {
-      wrapper,
-      initialProps: {
-        fetchProfileOnTokenChanges: false,
-      },
+    const { result } = getRenderedHook({
+      fetchProfileOnTokenChanges: false,
     });
 
-    expect(result.current.isLoading).toBe(false);
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
     expect(result.current.error).toBeNull();
 
-    expect.assertions(5);
+    expect.assertions(7);
 
     try {
       await act(() => {
         return result.current.loadProfile();
       });
     } catch (e) {
+      await waitFor(() => expect(result.current.error).toBeTruthy());
       expect(e).toBeInstanceOf(ProfileChangedError);
     }
 

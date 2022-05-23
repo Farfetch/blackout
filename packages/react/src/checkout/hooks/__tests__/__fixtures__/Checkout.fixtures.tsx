@@ -3,7 +3,6 @@ import useCheckout from '../../useCheckout';
 
 const booleanToText = (boolean: boolean) => (boolean ? 'yes' : 'no');
 
-/* eslint-disable react/prop-types */
 export const Checkout = () => {
   const {
     // State
@@ -96,4 +95,3 @@ export const Checkout = () => {
     </div>
   );
 };
-/* eslint-enable react/prop-types */

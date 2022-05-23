@@ -106,7 +106,7 @@ function assertSetUserSpyCalledWith(
 
 describe('setUserMiddleware', () => {
   beforeEach(() => {
-    jest.resetModuleRegistry();
+    jest.resetModules();
     jest.clearAllMocks();
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires

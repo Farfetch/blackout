@@ -1,5 +1,10 @@
 import { Checkout } from './__fixtures__/Checkout.fixtures';
-import { cleanup, fireEvent, waitFor } from '@testing-library/react';
+import {
+  cleanup,
+  fireEvent,
+  waitFor,
+  renderHook,
+} from '@testing-library/react';
 import {
   createCheckout as createCheckoutAction,
   fetchCheckout as fetchCheckoutAction,
@@ -19,7 +24,6 @@ import {
 } from 'tests/__fixtures__/checkout';
 import { mockStore, wrap } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
-import { renderHook } from '@testing-library/react-hooks';
 import { useCheckout } from '../..';
 import React from 'react';
 
