@@ -3,22 +3,15 @@ import Color from '../color/Color';
 import React from 'react';
 
 describe('<Color />', () => {
-  const data = {
-    displayOptions: {
-      displayName: 'Color',
-    },
-    hex: '#000',
-  };
-
   it('should render properly', () => {
-    const { container } = render(<Color data={data} />);
+    const { getByText } = render(<Color data={{ hex: '#000000' }} />);
 
-    expect(container).toMatchSnapshot();
+    expect(getByText('#000000')).toBeInTheDocument();
   });
 
-  it('should not render text if it is not a display name', () => {
-    const { queryByText } = render(<Color data={data} />);
+  it('should not render if hex is null', () => {
+    const { container } = render(<Color data={{ hex: null }} />);
 
-    expect(queryByText('Color')).not.toBeInTheDocument();
+    expect(container.firstChild).toBeNull();
   });
 });

@@ -1,29 +1,17 @@
-import { fireEvent, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import Boolean from '../boolean/Boolean';
 import React from 'react';
 
 describe('<Boolean />', () => {
-  const data = {
-    displayOptions: {
-      displayName: 'Boolean',
-    },
-    value: true,
-  };
+  it('should render properly', () => {
+    const { getByText } = render(<Boolean data={{ value: true }} />);
 
-  it('should render properly', async () => {
-    const { container } = render(<Boolean data={data} />);
-
-    expect(container).toMatchSnapshot();
+    expect(getByText('true')).toBeInTheDocument();
   });
 
-  it('should change checked to false on click checkbox', () => {
-    const { getByLabelText } = render(<Boolean data={data} />);
-    const checkbox = getByLabelText('Boolean');
+  it('should not render if value is null', () => {
+    const { container } = render(<Boolean data={{ value: null }} />);
 
-    expect(checkbox).toBeInTheDocument();
-
-    fireEvent.click(checkbox);
-
-    expect(checkbox.checked).toEqual(false);
+    expect(container.firstChild).toBeNull();
   });
 });
