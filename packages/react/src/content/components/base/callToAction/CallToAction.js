@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const CallToAction = ({ children, data: { text, href, target } }) => {
-  if (!href && !text) {
+const CallToAction = ({ children, data: { text, url, target } }) => {
+  if (!url && !text) {
     return <span>{children || null}</span>;
   }
 
   const anchorTarget = target === '_self' ? null : target;
 
   return (
-    <a href={href} target={anchorTarget}>
+    <a href={url} target={anchorTarget}>
       {children || text}
     </a>
   );

@@ -36,7 +36,7 @@ describe('renderContent', () => {
 
   it('should render a component with content tool data structure', () => {
     const { getByTestId } = render(
-      renderContent(mockContentToolData, location, 'lg', 'active'),
+      renderContent(mockContentToolData, location, 'lg'),
     );
 
     expect(getByTestId('textElement')).toBeInTheDocument();
