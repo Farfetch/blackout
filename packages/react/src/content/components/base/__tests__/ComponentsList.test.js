@@ -17,8 +17,9 @@ describe('<ComponentsList />', () => {
   };
 
   it('should render properly', () => {
-    const { container } = render(<ComponentsList data={data} />);
+    const { getByText } = render(<ComponentsList data={data} />);
 
-    expect(container).toMatchSnapshot();
+    expect(getByText('foo')).toBeInTheDocument();
+    expect(getByText('bar')).toBeInTheDocument();
   });
 });

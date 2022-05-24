@@ -12,15 +12,14 @@
  *
  * @returns {Array} - Sorted list of content types.
  */
-export const sortContentType = (contentType, sortBy) => {
-  return contentType.sort((a, b) => {
+export default (contentType, sortBy) =>
+  contentType.sort((a, b) => {
     switch (sortBy) {
       case 'PublishDate':
-        return b.publicationDate - a.publicationDate;
+        return b?.publicationDate - a?.publicationDate;
       case 'EventDate':
-        return b.metadata.custom.eventDate - a.metadata.custom.eventDate;
+        return b?.metadata?.custom?.eventDate - a?.metadata?.custom?.eventDate;
       default:
-        return contentType;
+        return 0;
     }
   });
-};

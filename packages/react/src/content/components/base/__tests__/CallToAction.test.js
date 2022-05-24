@@ -8,16 +8,16 @@ describe('<CallToAction />', () => {
   it('should render properly', () => {
     const data = {
       text: 'foo',
-      href: '/test',
+      url: '/test',
       target: '_self',
     };
 
-    const { container } = render(<CallToAction data={data} />);
+    const { getByText } = render(<CallToAction data={data} />);
 
-    expect(container).toMatchSnapshot();
+    expect(getByText('foo')).toBeInTheDocument();
   });
 
-  it('should render span if not pass href and text', () => {
+  it('should render span if not pass url and text', () => {
     const data = {};
     const { getByText } = render(<CallToAction data={data}>foo</CallToAction>);
 
@@ -27,7 +27,7 @@ describe('<CallToAction />', () => {
   it('should render a with target blank to open in another tab', () => {
     const data = {
       text: 'foo',
-      href: 'https://foo.com',
+      url: 'https://foo.com',
       target: '_blank',
     };
 

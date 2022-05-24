@@ -9,7 +9,9 @@ describe('<Html />', () => {
 
   it('should render properly', () => {
     const { container } = render(<Html data={data} />);
+    const element = container.querySelector('p');
 
-    expect(container).toMatchSnapshot();
+    expect(element).toBeInTheDocument();
+    expect(element).toHaveTextContent('foo');
   });
 });

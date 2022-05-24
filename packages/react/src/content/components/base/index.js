@@ -5,19 +5,20 @@ import ComponentsList from './componentsList/ComponentsList';
 import ContentList from './contentList/ContentList';
 import DateTime from './dateTime/DateTime';
 import Html from './html/Html';
+import LongText from './longText/LongText';
 import Media from './media/Media';
 import Number from './number/Number';
 import Text from './text/Text';
 
 export default {
   bool: Boolean,
-  'call-to-action': CallToAction,
   color: Color,
-  'components-list': ComponentsList,
   ContentListComponent: ContentList,
   date: DateTime,
   html: Html,
-  longtext: Text,
+  link: CallToAction,
+  list: ComponentsList,
+  longtext: LongText,
   MediaComponent: Media,
   number: Number,
   text: Text,
