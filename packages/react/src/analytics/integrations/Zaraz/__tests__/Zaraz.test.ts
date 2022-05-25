@@ -6,6 +6,7 @@ import {
   utils,
 } from '@farfetch/blackout-analytics';
 import { trackEventsData } from 'tests/__fixtures__/analytics';
+import eventsMapper from '../eventsMapper';
 import loadIntegrationDataFixtures from 'tests/__fixtures__/analytics/loadIntegration';
 import ZarazIntegration, {
   OPTION_ENVIRONMENT,
@@ -26,7 +27,12 @@ const loggerErrorSpy = jest
   .spyOn(utils.logger, 'error')
   .mockImplementation(message => message);
 
+const originalWindow = window;
+
 beforeEach(() => {
+  // @ts-expect-error
+  window.zaraz = null;
+
   window.__BUILD_CONTEXT__ = {
     env: {
       NODE_ENV: 'production',
@@ -35,7 +41,7 @@ beforeEach(() => {
 
   // Set window to a new instance where we can set the location property
   // to what we want.
-  global.window = Object.create(window);
+  global.window = Object.create(originalWindow);
 
   Object.defineProperty(window, 'location', {
     get: jest.fn(() => {
@@ -56,7 +62,7 @@ beforeEach(() => {
         Promise.resolve(
           `window.addEventListener('DOMContentLoaded', () => {
             window.zaraz = { track: () => {}, ecommerce: () => {} };
-        });`,
+        }, { once: true });`,
         ),
     }),
   );
@@ -93,9 +99,9 @@ describe('Zaraz integration', () => {
 
   describe('initialization', () => {
     it('should load the zaraz integration by using the default endpoint for the zaraz initialization script', async () => {
-      const integration = createZarazInstance({});
+      const instance = createZarazInstance({});
 
-      await integration.initializePromise;
+      await instance.initializePromise;
 
       expect(window.fetch).toHaveBeenCalledWith(
         DEFAULT_ZARAZ_INIT_SCRIPT_ENDPOINT,
@@ -116,10 +122,10 @@ describe('Zaraz integration', () => {
 
       loggerErrorSpy.mockImplementation(message => message);
 
-      const integration = createZarazInstance({});
+      const instance = createZarazInstance({});
 
       try {
-        await integration.initializePromise;
+        await instance.initializePromise;
       } catch {
         // Discard error...
       }
@@ -131,7 +137,7 @@ describe('Zaraz integration', () => {
 
       jest.clearAllMocks();
 
-      await integration.track(analyticsTrackDataMock);
+      await instance.track(analyticsTrackDataMock);
 
       expect(loggerErrorSpy).toHaveBeenCalledWith(
         "[Zaraz] - An error occurred when trying to track event 'Product Added to Cart' with Zaraz: ",
@@ -139,8 +145,41 @@ describe('Zaraz integration', () => {
       );
     });
 
-    // TODO: Add a test validating that zaraz.(track|ecommerce) is not called before the initialize promise
-    //       is resolved when we have events implemented on the integration.
+    it('should not invoke a zaraz method while the initialization promise is not resolved', async () => {
+      // Create a dummy zaraz in window to be used as a target of our expects.
+      // @ts-expect-error
+      window.zaraz = {
+        ecommerce: jest.fn(),
+      };
+
+      // Mock window.fetch to not reset the window.zaraz value so we can inspect it
+      (window.fetch as ReturnType<typeof jest.fn>).mockImplementation(() =>
+        Promise.resolve({
+          text: () =>
+            Promise.resolve(
+              "window.addEventListener('DOMContentLoaded', () => {}, { once: true });",
+            ),
+        }),
+      );
+
+      const instance = createZarazInstance({});
+
+      const zarazEcommerceSpy = window.zaraz.ecommerce as ReturnType<
+        typeof jest.fn
+      >;
+
+      // Invoke track method for a default supported event.
+      instance.track(analyticsTrackDataMock);
+
+      // No invocations to zaraz.ecommerce should be made because the track
+      // method is still awaiting the initialize promise.
+      expect(zarazEcommerceSpy).not.toHaveBeenCalled();
+
+      // Await the initialize promise so the track call can proceed and invoke zaraz.ecommerce.
+      await instance.initializePromise;
+
+      expect(zarazEcommerceSpy).toHaveBeenCalled();
+    });
 
     describe('when testing in development', () => {
       it('should change zaraz requests that are not for the host which the application is running', async () => {
@@ -177,9 +216,9 @@ describe('Zaraz integration', () => {
           },
         };
 
-        const integration = createZarazInstance({});
+        const instance = createZarazInstance({});
 
-        await integration.initializePromise;
+        await instance.initializePromise;
 
         jest.clearAllMocks();
 
@@ -221,83 +260,117 @@ describe('Zaraz integration', () => {
     });
   });
 
-  describe('options', () => {
-    it('should allow to specify the endpoint for the zaraz initialization script', async () => {
-      const customZarazEndpoint = '/my/endpoint/i.js';
+  describe('default events mapper', () => {
+    it.each(
+      Object.keys(eventsMapper).filter(
+        eventType => eventType in trackEventsData,
+      ),
+    )('should map the %s event correctly', async eventType => {
+      const instance = createZarazInstance({});
 
-      const integration = createZarazInstance({
-        [OPTION_ZARAZ_INIT_SCRIPT_ENDPOINT]: customZarazEndpoint,
-      });
+      await instance.initializePromise;
 
-      await integration.initializePromise;
+      const zarazEcommerceSpy = jest.spyOn(zaraz, 'ecommerce');
 
-      expect(window.fetch).toHaveBeenCalledWith(customZarazEndpoint);
+      await instance.track(
+        trackEventsData[eventType as keyof typeof trackEventsData],
+      );
 
-      expect(window.zaraz).toBeDefined();
+      expect(zarazEcommerceSpy.mock.calls).toMatchSnapshot();
     });
 
-    it('should allow to specify the environment', async () => {
-      const integration = createZarazInstance({
-        [OPTION_ENVIRONMENT]: 'development',
-      });
+    it('should not log an error if an event is tracked and there is not a mapper for it', async () => {
+      const instance = createZarazInstance({});
 
-      await integration.initializePromise;
+      await instance.initializePromise;
 
-      expect(integration.isDevelopment()).toBe(true);
+      const zarazEcommerceSpy = jest.spyOn(window.zaraz, 'ecommerce');
+      const zarazTrackSpy = jest.spyOn(window.zaraz, 'track');
+
+      await instance.track(trackEventsData[eventTypes.SELECT_CONTENT]);
+
+      expect(zarazTrackSpy).not.toHaveBeenCalled();
+      expect(zarazEcommerceSpy).not.toHaveBeenCalled();
+
+      expect(loggerErrorSpy).not.toHaveBeenCalled();
+    });
+  });
+});
+
+describe('options', () => {
+  it('should allow to specify the endpoint for the zaraz initialization script', async () => {
+    const customZarazEndpoint = '/my/endpoint/i.js';
+
+    const instance = createZarazInstance({
+      [OPTION_ZARAZ_INIT_SCRIPT_ENDPOINT]: customZarazEndpoint,
     });
 
-    describe(`${OPTION_EVENTS_MAPPER} option`, () => {
-      it('should allow to specify custom mappers for events', async () => {
-        const integration = createZarazInstance({
-          [OPTION_EVENTS_MAPPER]: {
-            [eventTypes.PRODUCT_ADDED_TO_CART]: (
-              data: EventData<TrackTypesValues>,
-            ) => ['ecommerce', data.properties as unknown as ZarazEventData[1]],
-          },
-        });
+    await instance.initializePromise;
 
-        await integration.initializePromise;
+    expect(window.fetch).toHaveBeenCalledWith(customZarazEndpoint);
 
-        const zarazSpy = jest.spyOn(window.zaraz, 'ecommerce');
+    expect(window.zaraz).toBeDefined();
+  });
 
-        await integration.track(analyticsTrackDataMock);
+  it('should allow to specify the environment', async () => {
+    const instance = createZarazInstance({
+      [OPTION_ENVIRONMENT]: 'development',
+    });
 
-        expect(zarazSpy).toHaveBeenCalledWith(
-          analyticsTrackDataMock.properties,
-        );
+    await instance.initializePromise;
+
+    expect(instance.isDevelopment()).toBe(true);
+  });
+
+  describe(`${OPTION_EVENTS_MAPPER} option`, () => {
+    it('should allow to specify custom mappers for events', async () => {
+      const instance = createZarazInstance({
+        [OPTION_EVENTS_MAPPER]: {
+          [eventTypes.PRODUCT_ADDED_TO_CART]: (
+            data: EventData<TrackTypesValues>,
+          ) => ['ecommerce', data.properties as unknown as ZarazEventData[1]],
+        },
       });
 
-      it('should log an error and discard an event that has an invalid mapper', async () => {
-        let instance = createZarazInstance({
-          [OPTION_EVENTS_MAPPER]: {
-            // @ts-expect-error
-            [eventTypes.PRODUCT_ADDED_TO_CART]: 'invalid_value',
-          },
-        });
+      await instance.initializePromise;
 
-        await instance.initializePromise;
+      const zarazSpy = jest.spyOn(window.zaraz, 'ecommerce');
 
-        await instance.track(analyticsTrackDataMock);
+      await instance.track(analyticsTrackDataMock);
 
-        expect(loggerErrorSpy)
-          .toHaveBeenCalledWith(`[Zaraz] - Invalid mapper value configured for the event 'Product Added to Cart'. Value is: invalid_value.
-          This event will be discarded.`);
+      expect(zarazSpy).toHaveBeenCalledWith(analyticsTrackDataMock.properties);
+    });
 
-        jest.clearAllMocks();
-
-        instance = createZarazInstance({
-          [OPTION_EVENTS_MAPPER]: {
-            // @ts-expect-error
-            [eventTypes.PRODUCT_ADDED_TO_CART]: () => ['invalid_value', {}],
-          },
-        });
-
-        await instance.track(analyticsTrackDataMock);
-
-        expect(loggerErrorSpy)
-          .toHaveBeenCalledWith(`[Zaraz] - Invalid value for the zaraz method returned from mapper for event 'Product Added to Cart': 'invalid_value' is not a function in window.zaraz.
-          This event will be discarded.`);
+    it('should log an error and discard an event that has an invalid mapper', async () => {
+      let instance = createZarazInstance({
+        [OPTION_EVENTS_MAPPER]: {
+          // @ts-expect-error
+          [eventTypes.PRODUCT_ADDED_TO_CART]: 'invalid_value',
+        },
       });
+
+      await instance.initializePromise;
+
+      await instance.track(analyticsTrackDataMock);
+
+      expect(loggerErrorSpy)
+        .toHaveBeenCalledWith(`[Zaraz] - Invalid mapper value configured for the event 'Product Added to Cart'. Value is: invalid_value.
+          This event will be discarded.`);
+
+      jest.clearAllMocks();
+
+      instance = createZarazInstance({
+        [OPTION_EVENTS_MAPPER]: {
+          // @ts-expect-error
+          [eventTypes.PRODUCT_ADDED_TO_CART]: () => ['invalid_value', {}],
+        },
+      });
+
+      await instance.track(analyticsTrackDataMock);
+
+      expect(loggerErrorSpy)
+        .toHaveBeenCalledWith(`[Zaraz] - Invalid value for the zaraz method returned from mapper for event 'Product Added to Cart': 'invalid_value' is not a function in window.zaraz.
+          This event will be discarded.`);
     });
   });
 });
