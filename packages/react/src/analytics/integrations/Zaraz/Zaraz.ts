@@ -85,6 +85,11 @@ class Zaraz extends integrations.Integration<ZarazIntegrationOptions> {
       await this.initializePromise;
 
       const event = data.event;
+
+      if (!Object.prototype.hasOwnProperty.call(this.eventsMapper, event)) {
+        return;
+      }
+
       const mapper = this.eventsMapper[event];
 
       if (typeof mapper !== 'function') {
