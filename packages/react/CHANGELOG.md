@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.38.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.37.0...@farfetch/blackout-react@0.38.0) (2022-05-25)
+
+
+### Bug Fixes
+
+* **blackout-react:** use env instead of host ([2f24011](https://github.com/Farfetch/blackout/commit/2f24011e748099c2e38dc6d1e2c194a3157d2b1c))
+
+
+### Features
+
+* **blackout-react:** add Zaraz integration ([f29a445](https://github.com/Farfetch/blackout/commit/f29a44590ebfecdd85b3cc1940ba8f52efc5b18c))
+
+
+
+
+
 # [0.37.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.36.3...@farfetch/blackout-react@0.37.0) (2022-05-23)
 
 
