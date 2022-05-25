@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Zaraz integration default events mapper should map the Product Added to Cart event correctly 1`] = `
+Array [
+  Array [
+    Object {
+      "currency": "USD",
+      "name": "Gareth McConnell Dreamscape T-Shirt",
+      "price": 19,
+      "product_id": "507f1f77bcf86cd799439011",
+    },
+  ],
+]
+`;
+
+exports[`Zaraz integration default events mapper should map the Product Added to Wishlist event correctly 1`] = `
+Array [
+  Array [
+    Object {
+      "category": "Clothing/Tops/T-shirts",
+      "currency": "USD",
+      "name": "Gareth McConnell Dreamscape T-Shirt",
+      "price": 19,
+      "product_id": "507f1f77bcf86cd799439011",
+    },
+  ],
+]
+`;
