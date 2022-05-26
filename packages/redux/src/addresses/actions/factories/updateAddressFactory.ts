@@ -1,4 +1,5 @@
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import {
   UPDATE_ADDRESS_FAILURE,
   UPDATE_ADDRESS_REQUEST,
@@ -39,12 +40,12 @@ const updateAddressFactory =
     config?: Config,
   ) =>
   async (dispatch: Dispatch<UpdateAddressAction>): Promise<Address> => {
-    dispatch({
-      meta: { addressId },
-      type: UPDATE_ADDRESS_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: { addressId },
+        type: UPDATE_ADDRESS_REQUEST,
+      });
+
       const result = await putAddress({ userId, id: addressId }, data, config);
 
       dispatch({
@@ -57,7 +58,7 @@ const updateAddressFactory =
     } catch (error) {
       dispatch({
         meta: { addressId },
-        payload: { error },
+        payload: { error: toError(error) },
         type: UPDATE_ADDRESS_FAILURE,
       });
 

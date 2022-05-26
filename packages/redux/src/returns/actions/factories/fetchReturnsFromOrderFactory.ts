@@ -4,6 +4,7 @@ import {
   FETCH_RETURNS_FROM_ORDER_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import returnSchema from '../../../entities/schemas/return';
 import type { Dispatch } from 'redux';
 import type {
@@ -31,11 +32,11 @@ const fetchReturnsFromOrderFactory =
   (getReturnsFromOrder: GetReturnsFromOrder) =>
   (orderId: string, query?: Query, config?: Record<string, unknown>) =>
   async (dispatch: Dispatch): Promise<Return> => {
-    dispatch({
-      type: FETCH_RETURNS_FROM_ORDER_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_RETURNS_FROM_ORDER_REQUEST,
+      });
+
       const result = await getReturnsFromOrder(orderId, query, config);
 
       dispatch({
@@ -45,7 +46,7 @@ const fetchReturnsFromOrderFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_RETURNS_FROM_ORDER_FAILURE,
       });
 

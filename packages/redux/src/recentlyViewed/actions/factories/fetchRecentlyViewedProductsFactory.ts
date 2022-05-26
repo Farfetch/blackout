@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { areRecentlyViewedProductsFetched } from '../../selectors';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type { FetchRecentlyViewedProductsAction } from '../../types';
 import type { FetchRecentlyViewedProductsFactory } from './types';
@@ -26,20 +27,20 @@ const fetchRecentlyViewedProducts: FetchRecentlyViewedProductsFactory<
     dispatch: Dispatch<FetchRecentlyViewedProductsAction>,
     getState: () => StoreState,
   ): Promise<RecentlyViewedProducts> => {
-    if (areRecentlyViewedProductsFetched(getState())) {
-      console.warn(`
-            @farfetch/blackout-redux/recentlyViewed - Seems you are trying to fetch recently viewed products more than once.
-            Please make sure you only request the products once, and use the "saveRecentlyViewedProduct" action to mark the product as viewed when a product page is visited.
-            Keep in mind that "saveRecentlyViewedProduct" will only store locally the recently viewed product and will not persist it on the server.
-            For that, make sure you are using analytics with Omnitracking integration.
-        `);
-    }
-
-    dispatch({
-      type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST,
-    });
-
     try {
+      if (areRecentlyViewedProductsFetched(getState())) {
+        console.warn(`
+              @farfetch/blackout-redux/recentlyViewed - Seems you are trying to fetch recently viewed products more than once.
+              Please make sure you only request the products once, and use the "saveRecentlyViewedProduct" action to mark the product as viewed when a product page is visited.
+              Keep in mind that "saveRecentlyViewedProduct" will only store locally the recently viewed product and will not persist it on the server.
+              For that, make sure you are using analytics with Omnitracking integration.
+          `);
+      }
+
+      dispatch({
+        type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST,
+      });
+
       const result = await getRecentlyViewedProducts(query, config);
 
       dispatch({
@@ -51,7 +52,7 @@ const fetchRecentlyViewedProducts: FetchRecentlyViewedProductsFactory<
     } catch (error) {
       dispatch({
         type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE,
-        payload: { error },
+        payload: { error: toError(error) },
       });
 
       throw error;

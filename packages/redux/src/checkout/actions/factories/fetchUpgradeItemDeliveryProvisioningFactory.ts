@@ -4,6 +4,7 @@ import {
   FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import itemDeliveryProvisioningSchema from '../../../entities/schemas/itemDeliveryProvisioning';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -33,11 +34,11 @@ export default (
   ) =>
   (id: number, deliveryBundleId: string, upgradeId: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<GetItemDeliveryProvisioningResponse> => {
-    dispatch({
-      type: FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_REQUEST,
+      });
+
       const result = await getUpgradeItemDeliveryProvisioning(
         id,
         deliveryBundleId,
@@ -53,7 +54,7 @@ export default (
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_FAILURE,
       });
 

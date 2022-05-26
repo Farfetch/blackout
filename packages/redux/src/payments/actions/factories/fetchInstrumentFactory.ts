@@ -4,6 +4,7 @@ import {
   FETCH_INSTRUMENT_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import instrumentSchema from '../../../entities/schemas/instrument';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -33,11 +34,11 @@ const fetchInstrumentFactory =
   (getInstrument: GetInstrument) =>
   (intentId: Intent['id'], instrumentId: Instrument['id'], config?: Config) =>
   async (dispatch: Dispatch<FetchInstrumentAction>): Promise<Instrument> => {
-    dispatch({
-      type: FETCH_INSTRUMENT_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_INSTRUMENT_REQUEST,
+      });
+
       const result = await getInstrument(intentId, instrumentId, config);
 
       dispatch({
@@ -48,7 +49,7 @@ const fetchInstrumentFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_INSTRUMENT_FAILURE,
       });
 

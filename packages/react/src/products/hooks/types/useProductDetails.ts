@@ -1,8 +1,8 @@
+import type { BlackoutError } from '@farfetch/blackout-client/src/types';
 import type {
   BreadCrumb,
   Product,
 } from '@farfetch/blackout-client/src/products/types';
-import type { Error } from '@farfetch/blackout-client/src/types';
 import type {
   GroupedEntriesAdapted,
   ProductEntity,
@@ -12,7 +12,7 @@ import type { SizesAdapted } from '@farfetch/blackout-client/src/helpers/adapter
 export type UseProductDetails = (id: number) => {
   availableSizes: SizesAdapted;
   breadcrumbs: BreadCrumb[] | undefined;
-  error: Error | undefined;
+  error: BlackoutError | undefined;
   groupedEntries: GroupedEntriesAdapted;
   isDuplicated: boolean | undefined;
   isFetched: boolean;

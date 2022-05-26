@@ -7,7 +7,7 @@ import type {
   Schema,
   User,
 } from '@farfetch/blackout-client/addresses/types';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { NormalizedSchema } from 'normalizr';
 
 /**
@@ -25,7 +25,7 @@ type CreateAddressPayload = NormalizedSchema<
   Address['id']
 >;
 export interface CreateAddressFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.CREATE_ADDRESS_FAILURE;
 }
 
@@ -54,7 +54,7 @@ type FetchAddressesPayload = NormalizedSchema<
   Array<Address['id']>
 >;
 export interface FetchAddressesFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_ADDRESSES_FAILURE;
 }
 
@@ -83,7 +83,7 @@ type FetchAddressPayload = NormalizedSchema<
 >;
 export interface FetchAddressFailureAction extends Action {
   meta: { addressId: Address['id'] };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_ADDRESS_FAILURE;
 }
 
@@ -107,7 +107,7 @@ export type FetchAddressSchemaAction =
   | FetchAddressSchemaSuccessAction;
 
 export interface FetchAddressSchemaFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_ADDRESS_SCHEMA_FAILURE;
 }
 
@@ -135,7 +135,7 @@ export type FetchDefaultContactAddressAction =
   | FetchDefaultContactAddressSuccessAction;
 
 export interface FetchDefaultContactAddressFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_DEFAULT_CONTACT_ADDRESS_FAILURE;
 }
 
@@ -157,7 +157,7 @@ export type FetchPredictionDetailsAction =
   | FetchPredictionDetailsSuccessAction;
 
 export interface FetchPredictionDetailsFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_PREDICTION_DETAILS_FAILURE;
 }
 
@@ -179,7 +179,7 @@ export type FetchPredictionAction =
   | FetchPredictionSuccessAction;
 
 export interface FetchPredictionFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_PREDICTION_FAILURE;
 }
 
@@ -202,7 +202,7 @@ export type RemoveAddressAction =
 
 export interface RemoveAddressFailureAction extends Action {
   meta: { addressId: Address['id'] };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.REMOVE_ADDRESS_FAILURE;
 }
 
@@ -226,7 +226,7 @@ export type RemoveDefaultContactAddressAction =
 
 export interface RemoveDefaultContactAddressFailureAction extends Action {
   meta: { userId: User['id']; addressId: Address['id'] };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.REMOVE_DEFAULT_CONTACT_ADDRESS_FAILURE;
 }
 
@@ -250,7 +250,7 @@ export type SetDefaultBillingAddressAction =
 
 export interface SetDefaultBillingAddressFailureAction extends Action {
   meta: { addressId: Address['id'] };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.SET_DEFAULT_BILLING_ADDRESS_FAILURE;
 }
 
@@ -274,7 +274,7 @@ export type SetDefaultContactAddressAction =
 
 export interface SetDefaultContactAddressFailureAction extends Action {
   meta: { addressId: Address['id'] };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.SET_DEFAULT_CONTACT_ADDRESS_FAILURE;
 }
 
@@ -298,7 +298,7 @@ export type SetDefaultShippingAddressAction =
 
 export interface SetDefaultShippingAddressFailureAction extends Action {
   meta: { addressId: Address['id'] };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.SET_DEFAULT_SHIPPING_ADDRESS_FAILURE;
 }
 
@@ -328,7 +328,7 @@ type UpdateAddressPayload = NormalizedSchema<
 >;
 export interface UpdateAddressFailureAction extends Action {
   meta: { addressId: Address['id'] };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.UPDATE_ADDRESS_FAILURE;
 }
 

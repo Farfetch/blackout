@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import subscriptionSchema from '../../../entities/schemas/subscriptions';
 import type { FetchSubscriptionPackagesFactory } from './types';
 import type { GetSubscriptionPackages } from '@farfetch/blackout-client/subscriptions/types';
@@ -18,6 +19,7 @@ const fetchSubscriptionPackagesFactory: FetchSubscriptionPackagesFactory<
     dispatch({
       type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_REQUEST,
     });
+
     const result = await getSubscriptionPackages(query, config);
 
     dispatch({
@@ -27,7 +29,7 @@ const fetchSubscriptionPackagesFactory: FetchSubscriptionPackagesFactory<
     return result;
   } catch (error) {
     dispatch({
-      payload: { error },
+      payload: { error: toError(error) },
       type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_FAILURE,
     });
 

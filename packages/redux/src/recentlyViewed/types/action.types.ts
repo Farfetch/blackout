@@ -1,6 +1,6 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { RecentlyViewedProducts } from '@farfetch/blackout-client/recentlyViewed/types';
 
 interface FetchRecentlyViewedProductsRequestAction extends Action {
@@ -12,7 +12,7 @@ interface FetchRecentlyViewedProductsSuccessAction extends Action {
 }
 interface FetchRecentlyViewedProductsFailureAction extends Action {
   type: typeof actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -33,7 +33,7 @@ interface RemoveRecentlyViewedProductSuccessAction extends Action {
 }
 interface RemoveRecentlyViewedProductFailureAction extends Action {
   type: typeof actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   meta: { productId: number };
 }
 

@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { getWishlistId } from '../../selectors';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type {
   DeleteWishlistSet,
   WishlistSet,
@@ -30,19 +31,19 @@ const removeWishlistSetFactory =
     dispatch: Dispatch<RemoveWishlistSetAction>,
     getState: () => StoreState,
   ): Promise<undefined> => {
-    const state = getState();
-    const wishlistId = getWishlistId(state);
-
-    if (!wishlistId) {
-      throw new Error('No wishlist id is set');
-    }
-
-    dispatch({
-      meta: { wishlistSetId },
-      type: actionTypes.REMOVE_WISHLIST_SET_REQUEST,
-    });
-
     try {
+      const state = getState();
+      const wishlistId = getWishlistId(state);
+
+      if (!wishlistId) {
+        throw new Error('No wishlist id is set');
+      }
+
+      dispatch({
+        meta: { wishlistSetId },
+        type: actionTypes.REMOVE_WISHLIST_SET_REQUEST,
+      });
+
       await deleteWishlistSet(wishlistId, wishlistSetId, config);
 
       dispatch({
@@ -54,7 +55,7 @@ const removeWishlistSetFactory =
     } catch (error) {
       dispatch({
         meta: { wishlistSetId },
-        payload: { error },
+        payload: { error: toError(error) },
         type: actionTypes.REMOVE_WISHLIST_SET_FAILURE,
       });
 

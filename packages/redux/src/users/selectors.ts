@@ -12,7 +12,7 @@ import {
   getUserAttributes as getUserAttributesGetter,
 } from './reducer';
 import { getEntities, getEntityById } from '../entities/selectors';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { StoreState } from '../types';
 import type { UserAttributesResponse } from '@farfetch/blackout-client/users/types';
 
@@ -269,8 +269,9 @@ export const isUserAttributesLoading = (state: StoreState): boolean =>
  *
  * @returns User attributes operation error.
  */
-export const getUserAttributesError = (state: StoreState): Error | null =>
-  getUserAttributesGetter(state.users).error;
+export const getUserAttributesError = (
+  state: StoreState,
+): BlackoutError | null => getUserAttributesGetter(state.users).error;
 
 /**
  * Returns the user attributes.

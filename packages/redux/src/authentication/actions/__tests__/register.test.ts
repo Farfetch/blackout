@@ -6,6 +6,7 @@ import {
 import { mockStore } from '../../../../tests';
 import { postRegister } from '@farfetch/blackout-client/authentication';
 import { register } from '..';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
 
@@ -61,7 +62,7 @@ describe('register() action creator', () => {
           { type: actionTypes.REGISTER_REQUEST },
           {
             type: actionTypes.REGISTER_FAILURE,
-            payload: { error: errorObject },
+            payload: { error: toError(errorObject) },
           },
         ]),
       );

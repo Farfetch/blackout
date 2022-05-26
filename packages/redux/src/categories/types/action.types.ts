@@ -1,7 +1,7 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { Category } from '@farfetch/blackout-client/categories/types';
-import type { Error } from '@farfetch/blackout-client/types';
 import type { NormalizedSchema } from 'normalizr';
 
 type Payload = NormalizedSchema<
@@ -18,7 +18,7 @@ export interface FetchCategoriesSuccessAction extends Action {
 }
 export interface FetchCategoriesFailureAction extends Action {
   type: typeof actionTypes.FETCH_CATEGORIES_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -38,7 +38,7 @@ export interface FetchTopCategoriesSuccessAction extends Action {
 }
 export interface FetchTopCategoriesFailureAction extends Action {
   type: typeof actionTypes.FETCH_TOP_CATEGORIES_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**

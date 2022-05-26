@@ -3,6 +3,7 @@ import {
   DELETE_USER_IMPERSONATION_REQUEST,
   DELETE_USER_IMPERSONATION_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 
 /**
@@ -27,11 +28,10 @@ export default (deleteUserImpersonation: any) =>
     },
   ) =>
   async (dispatch: Dispatch): Promise<any> => {
-    dispatch({
-      type: DELETE_USER_IMPERSONATION_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: DELETE_USER_IMPERSONATION_REQUEST,
+      });
       const result = await deleteUserImpersonation(
         impersonatedAccessTokenId,
         config,
@@ -45,7 +45,7 @@ export default (deleteUserImpersonation: any) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: DELETE_USER_IMPERSONATION_FAILURE,
       });
 

@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import categorySchema from '../../../entities/schemas/category';
 import type {
   Category,
@@ -26,11 +27,11 @@ const fetchCategoriesFactory =
   (getCategories: GetCategories) =>
   (config?: Record<string, unknown>) =>
   async (dispatch: Dispatch<FetchCategoriesAction>): Promise<Category[]> => {
-    dispatch({
-      type: actionTypes.FETCH_CATEGORIES_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: actionTypes.FETCH_CATEGORIES_REQUEST,
+      });
+
       const result = await getCategories(config);
 
       dispatch({
@@ -41,7 +42,7 @@ const fetchCategoriesFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: actionTypes.FETCH_CATEGORIES_FAILURE,
       });
 

@@ -1,3 +1,4 @@
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import {
   UPDATE_PERSONAL_ID_FAILURE,
   UPDATE_PERSONAL_ID_REQUEST,
@@ -37,11 +38,11 @@ const updatePersonalIdFactory =
     config: Config,
   ) =>
   async (dispatch: Dispatch): Promise<PatchPersonalIdResponse> => {
-    dispatch({
-      type: UPDATE_PERSONAL_ID_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: UPDATE_PERSONAL_ID_REQUEST,
+      });
+
       const result = await patchPersonalId(userId, personalId, data, config);
 
       dispatch({
@@ -52,7 +53,7 @@ const updatePersonalIdFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: UPDATE_PERSONAL_ID_FAILURE,
       });
 

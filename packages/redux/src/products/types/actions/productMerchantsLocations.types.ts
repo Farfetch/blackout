@@ -1,6 +1,6 @@
 import type * as actionTypes from '../../actionTypes';
 import type { Action } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { NormalizedSchema } from 'normalizr';
 import type { ProductEntity } from '../../../entities/types';
 
@@ -22,7 +22,7 @@ export interface FetchProductMerchantsLocationsSuccessAction extends Action {
 
 export interface FetchProductMerchantsLocationsFailureAction extends Action {
   meta: { productId: ProductEntity['id'] };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_FAILURE;
 }
 

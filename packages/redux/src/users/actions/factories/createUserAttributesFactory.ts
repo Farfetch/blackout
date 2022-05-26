@@ -3,6 +3,7 @@ import {
   CREATE_USER_ATTRIBUTES_REQUEST,
   CREATE_USER_ATTRIBUTES_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type {
   PostUserAttributes,
@@ -33,11 +34,11 @@ const createUserAttributesFactory =
     config?: Record<string, unknown>,
   ) =>
   async (dispatch: Dispatch): Promise<UserAttributesResponse> => {
-    dispatch({
-      type: CREATE_USER_ATTRIBUTES_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: CREATE_USER_ATTRIBUTES_REQUEST,
+      });
+
       const result = await postUserAttributes(userId, data, config);
 
       dispatch({
@@ -48,7 +49,7 @@ const createUserAttributesFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: CREATE_USER_ATTRIBUTES_FAILURE,
       });
 

@@ -3,6 +3,7 @@ import {
   DELETE_USER_TOKEN_REQUEST,
   DELETE_USER_TOKEN_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 
 /**
@@ -27,11 +28,10 @@ export default (deleteTokens: any) =>
     },
   ) =>
   async (dispatch: Dispatch): Promise<any> => {
-    dispatch({
-      type: DELETE_USER_TOKEN_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: DELETE_USER_TOKEN_REQUEST,
+      });
       const result = await deleteTokens(userTokenId, config);
 
       dispatch({
@@ -42,7 +42,7 @@ export default (deleteTokens: any) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: DELETE_USER_TOKEN_FAILURE,
       });
 

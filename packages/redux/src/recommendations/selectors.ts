@@ -4,7 +4,7 @@ import {
   getRecommendationsError,
 } from './reducer';
 import get from 'lodash/get';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { ProductRecommendationResult } from './types';
 import type { StoreState } from '../types';
 
@@ -19,7 +19,7 @@ import type { StoreState } from '../types';
 export const getProductRecommendationsError = (
   state: StoreState,
   strategyName: string,
-): Error | null | undefined =>
+): BlackoutError | null | undefined =>
   get(getRecommendationsError(state.recommendations), strategyName);
 
 /**

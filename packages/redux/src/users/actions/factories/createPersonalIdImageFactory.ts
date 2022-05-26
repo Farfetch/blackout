@@ -3,6 +3,7 @@ import {
   CREATE_PERSONAL_ID_IMAGE_REQUEST,
   CREATE_PERSONAL_ID_IMAGE_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
@@ -31,11 +32,11 @@ const createPersonalIdImageFactory =
   (postPersonalIdImage: PostPersonalIdImage) =>
   (userId: number, data: PostPersonalIdImageData, config: Config) =>
   async (dispatch: Dispatch): Promise<PostPersonalIdImageResponse> => {
-    dispatch({
-      type: CREATE_PERSONAL_ID_IMAGE_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: CREATE_PERSONAL_ID_IMAGE_REQUEST,
+      });
+
       const result = await postPersonalIdImage(userId, data, config);
 
       dispatch({
@@ -46,7 +47,7 @@ const createPersonalIdImageFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: CREATE_PERSONAL_ID_IMAGE_FAILURE,
       });
 

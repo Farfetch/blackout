@@ -1,5 +1,6 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { LOGOUT_SUCCESS } from '../../authentication/actionTypes';
 import type {
   PersonalIdsResponse,
@@ -23,7 +24,7 @@ export type ActionType =
 // Fetch user
 //
 export interface FetchUserFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_USER_FAILURE;
 }
 
@@ -45,7 +46,7 @@ export type FetchUserAction =
 // Update user
 //
 export interface UpdateUserFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.UPDATE_USER_FAILURE;
 }
 
@@ -67,7 +68,7 @@ export type UpdateUserAction =
 // Fetch guest user
 //
 export interface FetchGuestUserFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_GUEST_USER_FAILURE;
 }
 
@@ -89,7 +90,7 @@ export type FetchGuestUserAction =
 // Create guest user
 //
 export interface CreateGuestUserFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.CREATE_GUEST_USER_FAILURE;
 }
 
@@ -111,7 +112,7 @@ export type CreateGuestUserAction =
 // Fetch all user attributes
 //
 export interface FetchUserAttributesFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_USER_ATTRIBUTES_FAILURE;
 }
 
@@ -133,7 +134,7 @@ export type FetchUserAttributesAction =
 // Create user attributes
 //
 export interface CreateUserAttributesFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.CREATE_USER_ATTRIBUTES_FAILURE;
 }
 
@@ -155,7 +156,7 @@ export type CreateUserAttributesAction =
 // Fetch a specific user attribute
 //
 export interface FetchUserAttributeFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_USER_ATTRIBUTE_FAILURE;
 }
 
@@ -177,7 +178,7 @@ export type FetchUserAttributeAction =
 // Set user attribute
 //
 export interface SetUserAttributeFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.SET_USER_ATTRIBUTE_FAILURE;
 }
 
@@ -199,7 +200,7 @@ export type SetUserAttributeAction =
 // Update user attribute
 //
 export interface UpdateUserAttributeFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.UPDATE_USER_ATTRIBUTE_FAILURE;
 }
 
@@ -221,7 +222,7 @@ export type UpdateUserAttributeAction =
 // Remove user attribute
 //
 export interface RemoveUserAttributeFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.REMOVE_USER_ATTRIBUTE_FAILURE;
 }
 
@@ -247,7 +248,7 @@ export interface LogoutAction extends Action {
 // Fetch personal ids
 //
 export interface FetchPersonalIdsFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_PERSONAL_IDS_FAILURE;
 }
 
@@ -269,7 +270,7 @@ export type FetchPersonalIdsAction =
 // Create personal ids
 //
 export interface CreatePersonalIdsFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.CREATE_PERSONAL_IDS_FAILURE;
 }
 
@@ -291,7 +292,7 @@ export type CreatePersonalIdsAction =
 // Fetch default personal id
 //
 export interface FetchDefaultPersonalIdFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_DEFAULT_PERSONAL_ID_FAILURE;
 }
 
@@ -313,7 +314,7 @@ export type FetchDefaultPersonalIdAction =
 // Set default personal id
 //
 export interface SetDefaultPersonalIdFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.SET_DEFAULT_PERSONAL_ID_FAILURE;
 }
 

@@ -1,21 +1,22 @@
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { CombinedState } from 'redux';
 
 export type State = CombinedState<{
   countryCode: string | null;
   cities: {
-    error: Error | null;
+    error: BlackoutError | null;
     isLoading: boolean;
   };
   countries: {
-    error: Error | null;
+    error: BlackoutError | null;
     isLoading: boolean;
   };
   currencies: {
-    error: Error | null;
+    error: BlackoutError | null;
     isLoading: boolean;
   };
   states: {
-    error: Error | null;
+    error: BlackoutError | null;
     isLoading: boolean;
   };
 }>;

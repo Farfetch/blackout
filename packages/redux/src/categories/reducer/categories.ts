@@ -3,7 +3,7 @@ import { AnyAction, combineReducers } from 'redux';
 import topCategoryReducer, {
   INITIAL_STATE as TOP_CATEGORIES_INITIAL_STATE,
 } from './topCategories';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type {
   FetchCategoriesAction,
   ResetCategoriesStateAction,
@@ -18,9 +18,9 @@ export const INITIAL_STATE: State = {
 };
 
 const error = (
-  state: Error | null = INITIAL_STATE.error,
+  state: BlackoutError | null = INITIAL_STATE.error,
   action: FetchCategoriesAction,
-): Error | null => {
+): BlackoutError | null => {
   switch (action.type) {
     case actionTypes.FETCH_CATEGORIES_REQUEST:
       return INITIAL_STATE.error;

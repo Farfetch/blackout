@@ -4,6 +4,7 @@ import {
   FETCH_PRODUCT_ATTRIBUTES_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import productSchema from '../../../entities/schemas/product';
 import type { Dispatch } from 'redux';
 import type {
@@ -31,12 +32,12 @@ const fetchProductAttributesFactory =
   (getProductAttributes: GetProductAttributes) =>
   (productId: Product['result']['id'], config?: Record<string, unknown>) =>
   async (dispatch: Dispatch): Promise<ProductAttribute[]> => {
-    dispatch({
-      meta: { productId },
-      type: FETCH_PRODUCT_ATTRIBUTES_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: { productId },
+        type: FETCH_PRODUCT_ATTRIBUTES_REQUEST,
+      });
+
       const result = await getProductAttributes(productId, config);
       const productWithAttributes = {
         id: productId,
@@ -53,7 +54,7 @@ const fetchProductAttributesFactory =
     } catch (error) {
       dispatch({
         meta: { productId },
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_PRODUCT_ATTRIBUTES_FAILURE,
       });
 

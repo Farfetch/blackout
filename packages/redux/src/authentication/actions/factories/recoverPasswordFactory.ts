@@ -3,6 +3,7 @@ import {
   PASSWORD_RECOVER_REQUEST,
   PASSWORD_RECOVER_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 
 /**
@@ -30,11 +31,10 @@ export default (postPasswordRecover: any) =>
     },
   ) =>
   async (dispatch: Dispatch): Promise<any> => {
-    dispatch({
-      type: PASSWORD_RECOVER_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: PASSWORD_RECOVER_REQUEST,
+      });
       const result = await postPasswordRecover(data, config);
 
       dispatch({
@@ -44,7 +44,7 @@ export default (postPasswordRecover: any) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: PASSWORD_RECOVER_FAILURE,
       });
 

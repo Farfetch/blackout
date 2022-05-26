@@ -1,4 +1,5 @@
 import * as actionTypes from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { DeleteRecentlyViewedProducts } from '@farfetch/blackout-client/src/recentlyViewed/types';
 import type { Dispatch } from 'redux';
 import type { RemoveRecentlyViewedProductAction } from '../../types';
@@ -35,7 +36,7 @@ const removeRecentlyViewedProductFactory: RemoveRecentlyViewedProductsFactory<
     } catch (error) {
       dispatch({
         meta: { productId },
-        payload: { error },
+        payload: { error: toError(error) },
         type: actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE,
       });
 

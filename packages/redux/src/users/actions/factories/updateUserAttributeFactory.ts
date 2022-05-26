@@ -1,3 +1,4 @@
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import {
   UPDATE_USER_ATTRIBUTE_FAILURE,
   UPDATE_USER_ATTRIBUTE_REQUEST,
@@ -34,11 +35,11 @@ const updateUserAttributeFactory =
     config?: Record<string, unknown>,
   ) =>
   async (dispatch: Dispatch): Promise<number> => {
-    dispatch({
-      type: UPDATE_USER_ATTRIBUTE_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: UPDATE_USER_ATTRIBUTE_REQUEST,
+      });
+
       const result = await patchUserAttribute(
         userId,
         attributeId,
@@ -54,7 +55,7 @@ const updateUserAttributeFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: UPDATE_USER_ATTRIBUTE_FAILURE,
       });
 

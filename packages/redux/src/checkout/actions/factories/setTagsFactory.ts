@@ -4,6 +4,7 @@ import {
   SET_TAGS_REQUEST,
   SET_TAGS_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import checkoutSchema from '../../../entities/schemas/checkout';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -31,11 +32,11 @@ const setTagsFactory =
   (putTags: PutTags) =>
   (id: number, data: string[], config?: Config) =>
   async (dispatch: Dispatch): Promise<GetCheckoutResponse> => {
-    dispatch({
-      type: SET_TAGS_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: SET_TAGS_REQUEST,
+      });
+
       const result = await putTags(id, data, config);
 
       dispatch({
@@ -46,7 +47,7 @@ const setTagsFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: SET_TAGS_FAILURE,
       });
 

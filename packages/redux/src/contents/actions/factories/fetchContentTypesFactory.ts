@@ -1,4 +1,5 @@
 import * as actionTypes from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type {
   ContentTypes,
@@ -24,11 +25,11 @@ import type { Dispatch } from 'redux';
 export default (getContentTypes: GetContentTypes) =>
   (spaceCode: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<ContentTypes> => {
-    dispatch({
-      type: actionTypes.FETCH_CONTENT_TYPES_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: actionTypes.FETCH_CONTENT_TYPES_REQUEST,
+      });
+
       const contentTypes = await getContentTypes(spaceCode, config);
 
       dispatch({
@@ -41,7 +42,7 @@ export default (getContentTypes: GetContentTypes) =>
       return contentTypes;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: actionTypes.FETCH_CONTENT_TYPES_FAILURE,
       });
 

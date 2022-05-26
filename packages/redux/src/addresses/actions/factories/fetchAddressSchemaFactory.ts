@@ -3,6 +3,7 @@ import {
   FETCH_ADDRESS_SCHEMA_REQUEST,
   FETCH_ADDRESS_SCHEMA_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type { FetchAddressSchemaAction } from '../../types';
@@ -29,12 +30,11 @@ const fetchAddressSchemaFactory =
   (getSchema: GetSchema) =>
   (isoCode: string, config?: Config) =>
   async (dispatch: Dispatch<FetchAddressSchemaAction>): Promise<Schema> => {
-    dispatch({
-      meta: { isoCode },
-      type: FETCH_ADDRESS_SCHEMA_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: { isoCode },
+        type: FETCH_ADDRESS_SCHEMA_REQUEST,
+      });
       const result = await getSchema(isoCode, config);
 
       const schemaEntity = {
@@ -52,9 +52,9 @@ const fetchAddressSchemaFactory =
       });
 
       return result;
-    } catch (error: any) {
+    } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_ADDRESS_SCHEMA_FAILURE,
       });
 

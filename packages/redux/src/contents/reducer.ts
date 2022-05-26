@@ -12,7 +12,7 @@ import type { ReducerSwitch } from '../types';
 export const INITIAL_STATE: State = {
   searchResults: {},
   contentTypes: {
-    error: {},
+    error: undefined,
     isLoading: false,
     result: null,
   },

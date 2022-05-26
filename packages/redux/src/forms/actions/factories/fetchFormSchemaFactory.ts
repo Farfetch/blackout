@@ -1,4 +1,5 @@
 import * as actionTypes from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type { FetchFormSchemaAction } from '../../types';
 import type { FetchFormSchemaFactory } from './types';
@@ -19,12 +20,12 @@ const fetchFormSchemaFactory: FetchFormSchemaFactory<GetFormSchema> =
   getFormSchema =>
   (schemaCode, query, config) =>
   async (dispatch: Dispatch<FetchFormSchemaAction>): Promise<FormSchema> => {
-    dispatch({
-      meta: { schemaCode },
-      type: actionTypes.FETCH_FORM_SCHEMA_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: { schemaCode },
+        type: actionTypes.FETCH_FORM_SCHEMA_REQUEST,
+      });
+
       const result = await getFormSchema(schemaCode, query, config);
 
       dispatch({
@@ -37,7 +38,7 @@ const fetchFormSchemaFactory: FetchFormSchemaFactory<GetFormSchema> =
     } catch (error) {
       dispatch({
         meta: { schemaCode },
-        payload: { error },
+        payload: { error: toError(error) },
         type: actionTypes.FETCH_FORM_SCHEMA_FAILURE,
       });
 

@@ -3,6 +3,7 @@ import {
   FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST,
   FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type { GetOrderItemAvailableActivities } from '@farfetch/blackout-client/orders/types';
@@ -11,11 +12,11 @@ const fetchOrderItemAvailableActivities =
   (getOrderItemAvailableActivities: GetOrderItemAvailableActivities) =>
   (orderId: string, itemId: string, config?: Config) =>
   async (dispatch: Dispatch) => {
-    dispatch({
-      type: FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST,
+      });
+
       const result = await getOrderItemAvailableActivities(
         orderId,
         itemId,
@@ -29,7 +30,7 @@ const fetchOrderItemAvailableActivities =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE,
       });
 

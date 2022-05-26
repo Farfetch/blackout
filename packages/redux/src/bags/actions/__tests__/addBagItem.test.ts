@@ -40,7 +40,7 @@ describe('addBagItem() action creator', () => {
 
     await store.dispatch(addBagItem(mockData)).catch(error => {
       expect(error).toMatchSnapshot();
-      expect(store.getActions()).toHaveLength(0);
+      expect(store.getActions()).toHaveLength(1);
     });
   });
 

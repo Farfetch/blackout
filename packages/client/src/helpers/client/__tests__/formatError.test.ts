@@ -1,4 +1,4 @@
-import { adaptError } from '../';
+import { adaptError } from '..';
 import {
   ApiErrorData,
   ApiErrorDataNoMessage,
@@ -9,7 +9,7 @@ import {
   errorAxios,
   legacyApiErrorData,
 } from '../__fixtures__/errors.fixtures';
-import { defaultErrorCode } from '../formatError';
+import { defaultError, toError } from '../formatError';
 
 describe('formatError()', () => {
   beforeEach(jest.clearAllMocks);
@@ -73,7 +73,7 @@ describe('formatError()', () => {
 
     expect(result).toEqual(
       expect.objectContaining({
-        code: defaultErrorCode,
+        code: defaultError.code,
         message: ApiErrorString.response.data,
         status: 400,
       }),
@@ -103,7 +103,7 @@ describe('formatError()', () => {
 
     expect(result).toEqual(
       expect.objectContaining({
-        code: defaultErrorCode,
+        code: defaultError.code,
         message: description,
         status,
       }),
@@ -116,9 +116,36 @@ describe('formatError()', () => {
 
     expect(result).toEqual(
       expect.objectContaining({
-        code: defaultErrorCode,
+        code: defaultError.code,
         message: errorAxios.message,
         status: null,
+      }),
+    );
+  });
+
+  it('should convert error to BlackoutError', () => {
+    const genericError = new Error();
+    const customError = Object.assign(genericError, { ...legacyApiErrorData });
+    const adaptAxiosError = adaptError(customError);
+    const axiosErrorResult = toError(adaptAxiosError);
+
+    expect(axiosErrorResult).toEqual(customError);
+
+    const errorResult = toError(new Error('foo'));
+
+    expect(errorResult).toEqual(
+      expect.objectContaining({
+        code: defaultError.code,
+        message: 'foo',
+      }),
+    );
+
+    const unknownErrorResult = toError({ foo: 'bar' });
+
+    expect(unknownErrorResult).toEqual(
+      expect.objectContaining({
+        code: defaultError.code,
+        message: defaultError.message,
       }),
     );
   });

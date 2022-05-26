@@ -1,6 +1,6 @@
 import { getError, getIsLoading } from '../reducer/sizeGuides';
 import { getProduct } from '../../entities/selectors';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { ProductEntity } from '../../entities/types';
 import type { ProductSizeGuide } from '@farfetch/blackout-client/products/types';
 import type { StoreState } from '../../types';
@@ -44,7 +44,7 @@ export const areProductSizeGuidesFetched = (
 export const getProductSizeGuidesError = (
   state: StoreState,
   id: ProductEntity['id'],
-): Error | undefined => getError(state.products.sizeGuides)[id];
+): BlackoutError | undefined => getError(state.products.sizeGuides)[id];
 
 /**
  * Returns the most specific size guide for a given product id.

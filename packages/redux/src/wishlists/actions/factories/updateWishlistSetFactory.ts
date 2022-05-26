@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { getWishlistId } from '../../selectors';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import fetchWishlistSetFactory from './fetchWishlistSetFactory';
 import type {
   FetchWishlistSetAction,
@@ -46,19 +47,19 @@ const updateWishlistSetFactory =
     >,
     getState: () => StoreState,
   ): Promise<WishlistSet | undefined> => {
-    const state = getState();
-    const wishlistId = getWishlistId(state);
-
-    if (!wishlistId) {
-      throw new Error('No wishlist id is set');
-    }
-
-    dispatch({
-      meta: { wishlistSetId },
-      type: actionTypes.UPDATE_WISHLIST_SET_REQUEST,
-    });
-
     try {
+      const state = getState();
+      const wishlistId = getWishlistId(state);
+
+      if (!wishlistId) {
+        throw new Error('No wishlist id is set');
+      }
+
+      dispatch({
+        meta: { wishlistSetId },
+        type: actionTypes.UPDATE_WISHLIST_SET_REQUEST,
+      });
+
       await patchWishlistSet(wishlistId, wishlistSetId, data, config);
 
       dispatch({
@@ -76,7 +77,7 @@ const updateWishlistSetFactory =
     } catch (error) {
       dispatch({
         meta: { wishlistSetId },
-        payload: { error },
+        payload: { error: toError(error) },
         type: actionTypes.UPDATE_WISHLIST_SET_FAILURE,
       });
 

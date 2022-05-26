@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import isEmpty from 'lodash/isEmpty';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type {
   FetchSizeScaleAction,
   FetchSizeScaleMappingsAction,
@@ -26,7 +26,7 @@ export const INITIAL_STATE: State = {
 };
 
 const error = (
-  state: Error | null = INITIAL_STATE.error,
+  state: BlackoutError | null = INITIAL_STATE.error,
   action: FetchSizeScalesAction,
 ) => {
   switch (action.type) {

@@ -1,3 +1,4 @@
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import {
   UPDATE_CONTACT_FAILURE,
   UPDATE_CONTACT_REQUEST,
@@ -39,11 +40,11 @@ const updateContactFactory =
     config?: Record<string, unknown>,
   ) =>
   async (dispatch: Dispatch) => {
-    dispatch({
-      type: UPDATE_CONTACT_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: UPDATE_CONTACT_REQUEST,
+      });
+
       const result = await patchContact(id, contactId, data, query, config);
 
       dispatch({
@@ -53,7 +54,7 @@ const updateContactFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: UPDATE_CONTACT_FAILURE,
       });
 

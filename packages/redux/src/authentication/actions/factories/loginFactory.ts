@@ -1,5 +1,6 @@
 import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS } from '../../actionTypes';
 import { loginMethodParameterTypes } from '@farfetch/blackout-analytics';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 
 const UNVERIFIED_USER = 4;
@@ -30,11 +31,10 @@ export default (postLogin: any) =>
     },
   ) =>
   async (dispatch: Dispatch): Promise<any> => {
-    dispatch({
-      type: LOGIN_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: LOGIN_REQUEST,
+      });
       const result = await postLogin(data, config);
       const isUnverifiedUser = result.status === UNVERIFIED_USER && !result.id;
       const user = isUnverifiedUser ? {} : result;
@@ -53,7 +53,7 @@ export default (postLogin: any) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: LOGIN_FAILURE,
       });
 

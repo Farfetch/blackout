@@ -4,6 +4,7 @@ import {
   CREATE_CHECKOUT_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import checkoutSchema from '../../../entities/schemas/checkout';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -33,11 +34,11 @@ const createCheckoutFactory =
   (postCheckout: PostCheckout) =>
   (data: PostCheckoutData, config?: Config) =>
   async (dispatch: Dispatch): Promise<GetCheckoutResponse> => {
-    dispatch({
-      type: CREATE_CHECKOUT_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: CREATE_CHECKOUT_REQUEST,
+      });
+
       const result = await postCheckout(data, config);
 
       dispatch({
@@ -48,7 +49,7 @@ const createCheckoutFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: CREATE_CHECKOUT_FAILURE,
       });
 

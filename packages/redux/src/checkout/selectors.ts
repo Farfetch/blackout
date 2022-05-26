@@ -18,6 +18,7 @@ import {
 import { getEntities, getEntityById, getProduct } from '../entities/selectors';
 import findKey from 'lodash/findKey';
 import get from 'lodash/get';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type {
   CheckoutDetailsEntity,
   CheckoutEntity,
@@ -31,7 +32,6 @@ import type {
   GetChargesResponse,
   ItemDeliveryOption,
 } from '@farfetch/blackout-client/checkout/types';
-import type { Error } from '@farfetch/blackout-client/types';
 import type { State } from './types';
 import type { StoreState } from '../types';
 
@@ -405,7 +405,7 @@ export const isCompletePaymentCheckoutLoading = (state: StoreState): boolean =>
  */
 export const getCompletePaymentCheckoutError = (
   state: StoreState,
-): Error | null => getCompletePaymentCheckout(state.checkout).error;
+): BlackoutError | null => getCompletePaymentCheckout(state.checkout).error;
 
 /**
  * Returns the loading status for the checkout details operation.
@@ -424,8 +424,9 @@ export const isCheckoutDetailsLoading = (state: StoreState): boolean =>
  *
  * @returns Checkout details operation error.
  */
-export const getCheckoutDetailsError = (state: StoreState): Error | null =>
-  getCheckoutDetails(state.checkout).error;
+export const getCheckoutDetailsError = (
+  state: StoreState,
+): BlackoutError | null => getCheckoutDetails(state.checkout).error;
 
 /**
  * Returns the loading status for the collect points operation.
@@ -444,8 +445,9 @@ export const isCollectPointsLoading = (state: StoreState): boolean =>
  *
  * @returns Collect points operation error.
  */
-export const getCollectPointsError = (state: StoreState): Error | null =>
-  getCollectPoints(state.checkout).error;
+export const getCollectPointsError = (
+  state: StoreState,
+): BlackoutError | null => getCollectPoints(state.checkout).error;
 
 /**
  * Returns the loading status for the item tags operation.
@@ -464,7 +466,7 @@ export const isItemTagsLoading = (state: StoreState): boolean =>
  *
  * @returns Items tags operation error.
  */
-export const getItemTagsError = (state: StoreState): Error | null =>
+export const getItemTagsError = (state: StoreState): BlackoutError | null =>
   getItemTags(state.checkout).error;
 
 /**
@@ -484,7 +486,7 @@ export const isPromoCodeLoading = (state: StoreState): boolean =>
  *
  * @returns Promocode operation error.
  */
-export const getPromoCodeError = (state: StoreState): Error | null =>
+export const getPromoCodeError = (state: StoreState): BlackoutError | null =>
   getPromoCode(state.checkout).error;
 
 /**
@@ -504,7 +506,7 @@ export const isTagsLoading = (state: StoreState): boolean =>
  *
  * @returns Tags operation error.
  */
-export const getTagsError = (state: StoreState): Error | null =>
+export const getTagsError = (state: StoreState): BlackoutError | null =>
   getTags(state.checkout).error;
 
 /**
@@ -524,7 +526,7 @@ export const isGiftMessageLoading = (state: StoreState): boolean =>
  *
  * @returns Gift message operation error.
  */
-export const getGiftMessageError = (state: StoreState): Error | null =>
+export const getGiftMessageError = (state: StoreState): BlackoutError | null =>
   getGiftMessage(state.checkout).error;
 
 /**
@@ -544,7 +546,7 @@ export const isChargesLoading = (state: StoreState): boolean =>
  *
  * @returns Charges operation error.
  */
-export const getChargesError = (state: StoreState): Error | null =>
+export const getChargesError = (state: StoreState): BlackoutError | null =>
   getPaidOrders(state.checkout).error;
 
 /**
@@ -577,7 +579,7 @@ export const isDeliveryBundleUpgradesLoading = (state: StoreState): boolean =>
  */
 export const getDeliveryBundleUpgradesError = (
   state: StoreState,
-): Error | null => getDeliveryBundleUpgrades(state.checkout).error;
+): BlackoutError | null => getDeliveryBundleUpgrades(state.checkout).error;
 
 /**
  * Returns the loading status for the item delivery provisioning operation.
@@ -598,7 +600,7 @@ export const isItemDeliveryProvisioningLoading = (state: StoreState): boolean =>
  */
 export const getItemDeliveryProvisioningError = (
   state: StoreState,
-): Error | null => getItemDeliveryProvisioning(state.checkout).error;
+): BlackoutError | null => getItemDeliveryProvisioning(state.checkout).error;
 
 /**
  * Returns the loading status for the upgrade item delivery provisioning operation.
@@ -620,7 +622,8 @@ export const isUpgradeItemDeliveryProvisioningLoading = (
  */
 export const getUpgradeItemDeliveryProvisioningError = (
   state: StoreState,
-): Error | null => getUpgradeItemDeliveryProvisioning(state.checkout).error;
+): BlackoutError | null =>
+  getUpgradeItemDeliveryProvisioning(state.checkout).error;
 
 /**
  * Returns the ISO date for the item delivery options.

@@ -4,6 +4,7 @@ import {
   FETCH_PICKUP_CAPABILITIES_REQUEST,
   FETCH_PICKUP_CAPABILITIES_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type {
   GetPickupCapabilities,
@@ -29,11 +30,11 @@ const fetchPickupCapabilitiesFactory =
   (getPickupCapabilities: GetPickupCapabilities) =>
   (id: number, pickupDay: string, config?: Record<string, unknown>) =>
   async (dispatch: Dispatch): Promise<PickupCapabilities> => {
-    dispatch({
-      type: FETCH_PICKUP_CAPABILITIES_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_PICKUP_CAPABILITIES_REQUEST,
+      });
+
       const result = await getPickupCapabilities(id, pickupDay, config);
       const { availableTimeSlots } = result;
 
@@ -52,7 +53,7 @@ const fetchPickupCapabilitiesFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_PICKUP_CAPABILITIES_FAILURE,
       });
 

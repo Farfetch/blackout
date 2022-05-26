@@ -3,6 +3,7 @@ import {
   REMOVE_CONTACT_REQUEST,
   REMOVE_CONTACT_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type {
   DeleteContact,
@@ -30,11 +31,11 @@ const removeContactFactory =
   (deleteContact: DeleteContact) =>
   (id: number, contactId: string, query: DeleteContactQuery, config?: Config) =>
   async (dispatch: Dispatch) => {
-    dispatch({
-      type: REMOVE_CONTACT_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: REMOVE_CONTACT_REQUEST,
+      });
+
       const result = await deleteContact(id, contactId, query, config);
 
       dispatch({
@@ -44,7 +45,7 @@ const removeContactFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: REMOVE_CONTACT_FAILURE,
       });
 

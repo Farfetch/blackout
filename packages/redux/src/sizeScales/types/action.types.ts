@@ -1,6 +1,6 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { NormalizedSchema } from 'normalizr';
 import type {
   SizeScale,
@@ -16,7 +16,7 @@ type Payload = NormalizedSchema<
 
 interface FetchSizeScaleFailureAction extends Action {
   meta: { sizeScaleId: SizeScale['sizeScaleId'] };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_SIZE_SCALE_FAILURE;
 }
 interface FetchSizeScaleSuccessAction extends Action {
@@ -48,7 +48,7 @@ interface FetchSizeScalesSuccessAction extends Action {
 }
 interface FetchSizeScalesFailureAction extends Action {
   meta: { query: SizeScalesQuery };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_SIZE_SCALES_FAILURE;
 }
 
@@ -71,7 +71,7 @@ interface FetchSizeScaleMappingsSuccessAction extends Action {
 }
 interface FetchSizeScaleMappingsFailureAction extends Action {
   meta: { hash: string; query: SizeScaleMappingsQuery };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_SIZESCALE_MAPPINGS_FAILURE;
 }
 

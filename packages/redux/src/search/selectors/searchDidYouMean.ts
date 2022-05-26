@@ -1,5 +1,5 @@
 import * as fromSearchDidYouMeanReducer from '../reducer/searchDidYouMean';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type {
   SearchDidYouMean,
   SearchDidYouMeanQuery,
@@ -23,7 +23,9 @@ import type { StoreState } from '../../types';
  *
  * @returns Search error.
  */
-export const getSearchDidYouMeanError = (state: StoreState): Error | null =>
+export const getSearchDidYouMeanError = (
+  state: StoreState,
+): BlackoutError | null =>
   fromSearchDidYouMeanReducer.getError(state.search.didYouMean);
 
 /**

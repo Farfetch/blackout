@@ -3,6 +3,7 @@ import {
   FETCH_DEFAULT_CONTACT_ADDRESS_REQUEST,
   FETCH_DEFAULT_CONTACT_ADDRESS_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type {
   Address,
   GetDefaultContactAddress,
@@ -32,11 +33,11 @@ const fetchDefaultContactAddressFactory =
   async (
     dispatch: Dispatch<FetchDefaultContactAddressAction>,
   ): Promise<Address> => {
-    dispatch({
-      type: FETCH_DEFAULT_CONTACT_ADDRESS_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_DEFAULT_CONTACT_ADDRESS_REQUEST,
+      });
+
       const result = await getDefaultContactAddress(userId, config);
 
       dispatch({
@@ -47,7 +48,7 @@ const fetchDefaultContactAddressFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_DEFAULT_CONTACT_ADDRESS_FAILURE,
       });
 

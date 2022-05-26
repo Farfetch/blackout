@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import wishlistItemSchema from '../../../entities/schemas/wishlistItem';
 import type { Dispatch } from 'redux';
 import type { FetchWishlistAction } from '../../types';
@@ -34,11 +35,11 @@ const fetchWishlistFactory =
       getOptions = ({ productImgQueryParam }) => ({ productImgQueryParam }),
     }: GetOptionsArgument,
   ): Promise<Wishlist | undefined> => {
-    dispatch({
-      type: actionTypes.FETCH_WISHLIST_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: actionTypes.FETCH_WISHLIST_REQUEST,
+      });
+
       const result = await getWishlist(wishlistId, config);
       const { productImgQueryParam } = getOptions(getState);
       const newItems = result.items.map(item => ({
@@ -57,7 +58,7 @@ const fetchWishlistFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: actionTypes.FETCH_WISHLIST_FAILURE,
       });
 

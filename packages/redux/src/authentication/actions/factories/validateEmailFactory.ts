@@ -1,3 +1,4 @@
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import {
   VALIDATE_EMAIL_FAILURE,
   VALIDATE_EMAIL_REQUEST,
@@ -30,11 +31,10 @@ export default (postValidateEmail: any) =>
     },
   ) =>
   async (dispatch: Dispatch): Promise<any> => {
-    dispatch({
-      type: VALIDATE_EMAIL_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: VALIDATE_EMAIL_REQUEST,
+      });
       const result = await postValidateEmail(data, config);
 
       dispatch({
@@ -44,7 +44,7 @@ export default (postValidateEmail: any) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: VALIDATE_EMAIL_FAILURE,
       });
 

@@ -1,3 +1,4 @@
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import {
   UPDATE_USER_FAILURE,
   UPDATE_USER_REQUEST,
@@ -29,11 +30,11 @@ const setUserFactory =
   (putUser: PutUser) =>
   (id: number, data: PutUserData, config?: Config) =>
   async (dispatch: Dispatch) => {
-    dispatch({
-      type: UPDATE_USER_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: UPDATE_USER_REQUEST,
+      });
+
       const result = await putUser(id, data, config);
       const userEntity = {
         entities: { user: result },
@@ -48,7 +49,7 @@ const setUserFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: UPDATE_USER_FAILURE,
       });
 

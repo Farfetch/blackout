@@ -3,6 +3,7 @@ import {
   FETCH_REFERENCES_REQUEST,
   FETCH_REFERENCES_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type {
   GetReferences,
@@ -30,11 +31,11 @@ const fetchReferencesFactory =
   (getReferences: GetReferences) =>
   (id: string, name: string, query?: Query, config?: Record<string, unknown>) =>
   async (dispatch: Dispatch): Promise<string> => {
-    dispatch({
-      type: FETCH_REFERENCES_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_REFERENCES_REQUEST,
+      });
+
       const result = await getReferences(id, name, query, config);
 
       dispatch({
@@ -43,7 +44,7 @@ const fetchReferencesFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_REFERENCES_FAILURE,
       });
 

@@ -1,4 +1,5 @@
 import * as actionTypes from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type { FetchSizeGuidesAction } from '../../types';
 import type {
@@ -29,12 +30,12 @@ const fetchSizeGuidesFactory =
   (getSizeGuides: GetSizeGuides) =>
   (query?: SizeGuidesQuery, config?: Record<string, unknown>) =>
   async (dispatch: Dispatch<FetchSizeGuidesAction>): Promise<SizeGuide[]> => {
-    dispatch({
-      meta: { query },
-      type: actionTypes.FETCH_SIZE_GUIDES_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: { query },
+        type: actionTypes.FETCH_SIZE_GUIDES_REQUEST,
+      });
+
       const result = await getSizeGuides(query, config);
 
       dispatch({
@@ -49,7 +50,7 @@ const fetchSizeGuidesFactory =
     } catch (error) {
       dispatch({
         meta: { query },
-        payload: { error },
+        payload: { error: toError(error) },
         type: actionTypes.FETCH_SIZE_GUIDES_FAILURE,
       });
 

@@ -4,6 +4,7 @@ import {
   FETCH_ADDRESSES_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import addressesSchema from '../../../entities/schemas/addresses';
 import type {
   Address,
@@ -32,11 +33,10 @@ const fetchAddressesFactory =
   (getAddresses: GetAddresses) =>
   (userId: User['id'], config?: Config) =>
   async (dispatch: Dispatch<FetchAddressesAction>): Promise<Address[]> => {
-    dispatch({
-      type: FETCH_ADDRESSES_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_ADDRESSES_REQUEST,
+      });
       const result = await getAddresses({ userId }, config);
 
       dispatch({
@@ -47,7 +47,7 @@ const fetchAddressesFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_ADDRESSES_FAILURE,
       });
 

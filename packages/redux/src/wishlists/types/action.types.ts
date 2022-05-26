@@ -1,8 +1,8 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { Brand } from '@farfetch/blackout-client/brands/types';
 import type { Category } from '@farfetch/blackout-client/categories/types';
-import type { Error } from '@farfetch/blackout-client/types';
 import type {
   MerchantEntity,
   ProductEntity,
@@ -43,7 +43,7 @@ export type WishlistSetNormalizedPayload = NormalizedSchema<
 // Fetch wishlist
 //
 export interface FetchWishlistFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_WISHLIST_FAILURE;
 }
 
@@ -79,7 +79,7 @@ export interface AddWishlistItemFailureAction extends Action {
   meta: {
     productId: ProductEntity['id'];
   };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.ADD_WISHLIST_ITEM_FAILURE;
 }
 
@@ -111,7 +111,7 @@ export interface RemoveWishlistItemFailureAction extends Action {
     productId: ProductEntity['id'];
     wishlistItemId: WishlistItem['id'];
   };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.REMOVE_WISHLIST_ITEM_FAILURE;
 }
 
@@ -145,7 +145,7 @@ export interface UpdateWishlistItemFailureAction extends Action {
     productId: ProductEntity['id'];
     wishlistItemId: WishlistItem['id'];
   };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.UPDATE_WISHLIST_ITEM_FAILURE;
 }
 
@@ -186,7 +186,7 @@ export interface ResetWishlistEntitiesAction extends Action {
 // Fetch wishlist sets
 //
 export interface FetchWishlistSetsFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_WISHLIST_SETS_FAILURE;
 }
 
@@ -208,7 +208,7 @@ export type FetchWishlistSetsAction =
 // Add wishlist set
 //
 export interface AddWishlistSetFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.ADD_WISHLIST_SET_FAILURE;
 }
 
@@ -231,7 +231,7 @@ export type AddWishlistSetAction =
 //
 export interface FetchWishlistSetFailureAction extends Action {
   meta: { wishlistSetId: WishlistSet['setId'] };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_WISHLIST_SET_FAILURE;
 }
 
@@ -256,7 +256,7 @@ export type FetchWishlistSetAction =
 //
 export interface RemoveWishlistSetFailureAction extends Action {
   meta: { wishlistSetId: WishlistSet['setId'] };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.REMOVE_WISHLIST_SET_FAILURE;
 }
 
@@ -280,7 +280,7 @@ export type RemoveWishlistSetAction =
 //
 export interface UpdateWishlistSetFailureAction extends Action {
   meta: { wishlistSetId: WishlistSet['setId'] };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.UPDATE_WISHLIST_SET_FAILURE;
 }
 

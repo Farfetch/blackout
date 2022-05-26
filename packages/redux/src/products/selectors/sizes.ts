@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { getError, getIsLoading } from '../reducer/sizes';
 import { getProduct } from '../../entities/selectors';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { ProductEntity } from '../../entities/types';
 import type { StoreState } from '../../types';
 
@@ -44,7 +44,7 @@ export const areProductSizesFetched = (
 export const getProductSizesError = (
   state: StoreState,
   id: ProductEntity['id'],
-): Error | undefined => getError(state.products.sizes)[id];
+): BlackoutError | undefined => getError(state.products.sizes)[id];
 
 /**
  * Returns the sizes for a given product id.

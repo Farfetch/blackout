@@ -1,6 +1,7 @@
 import { deleteTokens } from '@farfetch/blackout-client/authentication';
 import { mockStore } from '../../../../tests';
 import { removeUserToken } from '..';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
 
@@ -46,7 +47,7 @@ describe('removeUserToken() action creator', () => {
           { type: actionTypes.DELETE_USER_TOKEN_REQUEST },
           {
             type: actionTypes.DELETE_USER_TOKEN_FAILURE,
-            payload: { error: errorObject },
+            payload: { error: toError(errorObject) },
           },
         ]),
       );

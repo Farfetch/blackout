@@ -1,6 +1,6 @@
 import { getError, getIsLoading } from '../reducer/measurements';
 import { getProduct } from '../../entities/selectors';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { ProductEntity } from '../../entities/types';
 import type { StoreState } from '../../types';
 
@@ -43,7 +43,7 @@ export const areProductMeasurementsFetched = (
 export const getProductMeasurementsError = (
   state: StoreState,
   id: ProductEntity['id'],
-): Error | undefined => getError(state.products.measurements)[id];
+): BlackoutError | undefined => getError(state.products.measurements)[id];
 
 /**
  * Returns the measurements for a given product id.

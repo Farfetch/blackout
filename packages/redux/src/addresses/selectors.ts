@@ -16,7 +16,7 @@ import type {
   AddressSchemaEntity,
   SchemaEntity,
 } from '../entities/types';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { State } from './types';
 import type { StoreState } from '../types';
 
@@ -197,7 +197,8 @@ export const isAddressLoading = (
 export const getAddressError = (
   state: StoreState,
   addressId: AddressEntity['id'],
-): Error | null | undefined => addressGetter(state.addresses).error[addressId];
+): BlackoutError | null | undefined =>
+  addressGetter(state.addresses).error[addressId];
 
 /**
  * @param state - Application state.

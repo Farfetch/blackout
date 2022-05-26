@@ -3,6 +3,7 @@ import {
   CREATE_PHONE_NUMBER_VALIDATIONS_REQUEST,
   CREATE_PHONE_NUMBER_VALIDATIONS_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type {
   PostPhoneNumberValidations,
@@ -28,11 +29,11 @@ const createPhoneNumberValidations =
   (postPhoneNumberValidations: PostPhoneNumberValidations) =>
   (data: PostPhoneNumberValidationsData, config?: Record<string, unknown>) =>
   async (dispatch: Dispatch) => {
-    dispatch({
-      type: CREATE_PHONE_NUMBER_VALIDATIONS_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: CREATE_PHONE_NUMBER_VALIDATIONS_REQUEST,
+      });
+
       const result = await postPhoneNumberValidations(data, config);
 
       dispatch({
@@ -43,7 +44,7 @@ const createPhoneNumberValidations =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: CREATE_PHONE_NUMBER_VALIDATIONS_FAILURE,
       });
 

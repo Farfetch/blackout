@@ -3,6 +3,7 @@ import {
   FETCH_PREDICTION_DETAILS_REQUEST,
   FETCH_PREDICTION_DETAILS_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type { FetchPredictionDetailsAction } from '../../types';
@@ -38,11 +39,11 @@ const fetchPredictionDetailsFactory =
   async (
     dispatch: Dispatch<FetchPredictionDetailsAction>,
   ): Promise<PredictionDetails> => {
-    dispatch({
-      type: FETCH_PREDICTION_DETAILS_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_PREDICTION_DETAILS_REQUEST,
+      });
+
       const result = await getPredictionDetails(props, query, config);
 
       dispatch({
@@ -53,7 +54,7 @@ const fetchPredictionDetailsFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_PREDICTION_DETAILS_FAILURE,
       });
 

@@ -4,6 +4,7 @@ import {
   FETCH_ORDER_DETAILS_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import orderItem from '../../../entities/schemas/orderItem';
 import trim from 'lodash/trim';
 import type { Config } from '@farfetch/blackout-client/types';
@@ -36,12 +37,12 @@ const fetchOrderDetailsFactory =
     getState: State,
     { getOptions = arg => ({ arg }) },
   ): Promise<Order> => {
-    dispatch({
-      meta: { orderId },
-      type: FETCH_ORDER_DETAILS_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: { orderId },
+        type: FETCH_ORDER_DETAILS_REQUEST,
+      });
+
       const result = await getOrderDetails(orderId, config);
       const { productImgQueryParam } = getOptions(getState);
       // This is needed since the Farfetch Checkout service is merging
@@ -84,7 +85,7 @@ const fetchOrderDetailsFactory =
     } catch (error) {
       dispatch({
         meta: { orderId },
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_ORDER_DETAILS_FAILURE,
       });
 

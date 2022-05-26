@@ -3,6 +3,7 @@ import {
   FETCH_DELIVERY_BUNDLE_UPGRADES_REQUEST,
   FETCH_DELIVERY_BUNDLE_UPGRADES_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
@@ -28,11 +29,11 @@ import type {
 export default (getDeliveryBundleUpgrades: GetDeliveryBundleUpgrades) =>
   (id: number, deliveryBundleId: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<GetDeliveryBundleUpgradesResponse> => {
-    dispatch({
-      type: FETCH_DELIVERY_BUNDLE_UPGRADES_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_DELIVERY_BUNDLE_UPGRADES_REQUEST,
+      });
+
       const result = await getDeliveryBundleUpgrades(
         id,
         deliveryBundleId,
@@ -56,7 +57,7 @@ export default (getDeliveryBundleUpgrades: GetDeliveryBundleUpgrades) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_DELIVERY_BUNDLE_UPGRADES_FAILURE,
       });
 

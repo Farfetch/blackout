@@ -1,11 +1,11 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type {
   Brand,
   BrandsQuery,
 } from '@farfetch/blackout-client/brands/types';
 import type { BrandsResultNormalized } from './state.types';
-import type { Error } from '@farfetch/blackout-client/types';
 import type { NormalizedSchema } from 'normalizr';
 
 type BrandsMeta = {
@@ -53,7 +53,7 @@ export interface SetBrandsHashAction extends Action {
 //
 export interface FetchBrandFailureAction extends Action {
   meta: { brandId: Brand['id'] };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_BRAND_FAILURE;
 }
 
@@ -78,7 +78,7 @@ export type FetchBrandAction =
 //
 export interface FetchBrandsFailureAction extends Action {
   meta: BrandsMeta;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_BRANDS_FAILURE;
 }
 

@@ -4,6 +4,7 @@ import {
   SET_PROMOCODE_REQUEST,
   SET_PROMOCODE_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import checkoutSchema from '../../../entities/schemas/checkout';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -32,11 +33,11 @@ const setPromocodeFactory =
   (putPromocode: PutPromocode) =>
   (id: number, data: PutPromocodeData, config?: Config) =>
   async (dispatch: Dispatch): Promise<GetCheckoutResponse> => {
-    dispatch({
-      type: SET_PROMOCODE_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: SET_PROMOCODE_REQUEST,
+      });
+
       const result = await putPromocode(id, data, config);
 
       dispatch({
@@ -47,7 +48,7 @@ const setPromocodeFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: SET_PROMOCODE_FAILURE,
       });
 

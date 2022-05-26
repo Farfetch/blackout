@@ -19,11 +19,11 @@ import type {
   ProductEntity,
 } from '../entities/types';
 import type { BagItemsState, State } from './types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type {
   CustomAttributesAdapted,
   SizeAdapted,
 } from '@farfetch/blackout-client/helpers/adapters/types';
-import type { Error } from '@farfetch/blackout-client/types';
 import type { StoreState } from '../types';
 
 /**
@@ -141,7 +141,7 @@ export const getBagItem = createSelector(
 export const getBagItemError = (
   state: StoreState,
   bagItemId: BagItem['id'],
-): Error | null | undefined => getItemsError(state.bag)[bagItemId];
+): BlackoutError | null | undefined => getItemsError(state.bag)[bagItemId];
 
 /**
  * Retrieves all bag items ids from the current user's bag.
