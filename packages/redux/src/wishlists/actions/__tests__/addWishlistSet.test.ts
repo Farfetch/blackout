@@ -32,7 +32,7 @@ describe('addWishlistSet()', () => {
     await expect(
       store.dispatch(addWishlistSet(data)),
     ).rejects.toThrowErrorMatchingInlineSnapshot('"No wishlist id is set"');
-    expect(store.getActions()).toHaveLength(0);
+    expect(store.getActions()).toHaveLength(1);
   });
 
   it('should create the correct actions for when adding a wishlist set procedure fails', async () => {

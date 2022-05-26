@@ -92,7 +92,7 @@ describe('contents redux reducer', () => {
 
       expect(state).toEqual(initialState.contentTypes);
       expect(state).toEqual({
-        error: {},
+        error: undefined,
         isLoading: false,
         result: null,
       });
@@ -103,7 +103,7 @@ describe('contents redux reducer', () => {
         reducer(undefined, {
           type: actionTypes.FETCH_CONTENT_TYPES_REQUEST,
         }).contentTypes,
-      ).toEqual({ isLoading: true, error: {} });
+      ).toEqual({ isLoading: true, error: undefined });
     });
 
     it('should handle FETCH_CONTENT_TYPES_SUCCESS action type', () => {

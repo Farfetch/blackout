@@ -4,6 +4,7 @@ import {
   FETCH_SIZE_SCALE_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import sizeScale from '../../../entities/schemas/sizeScale';
 import type { Dispatch } from 'redux';
 import type { FetchSizeScaleAction } from '../../types';
@@ -31,12 +32,12 @@ const fetchSizeScaleFactory =
   (getSizeScale: GetSizeScale) =>
   (sizeScaleId: number, config?: Record<string, unknown>) =>
   async (dispatch: Dispatch<FetchSizeScaleAction>): Promise<SizeScale> => {
-    dispatch({
-      meta: { sizeScaleId },
-      type: FETCH_SIZE_SCALE_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: { sizeScaleId },
+        type: FETCH_SIZE_SCALE_REQUEST,
+      });
+
       const result = await getSizeScale(sizeScaleId, config);
 
       dispatch({
@@ -49,7 +50,7 @@ const fetchSizeScaleFactory =
     } catch (error) {
       dispatch({
         meta: { sizeScaleId },
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_SIZE_SCALE_FAILURE,
       });
 

@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import country from '../../../entities/schemas/country';
 import type { Config } from '@farfetch/blackout-client/types';
 import type {
@@ -26,12 +27,12 @@ const fetchCountryFactory =
   (getCountry: GetCountry) =>
   (countryCode: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<Country> => {
-    dispatch({
-      meta: { countryCode },
-      type: actionTypes.FETCH_COUNTRY_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: { countryCode },
+        type: actionTypes.FETCH_COUNTRY_REQUEST,
+      });
+
       const result = await getCountry(countryCode, config);
 
       dispatch({
@@ -46,7 +47,7 @@ const fetchCountryFactory =
     } catch (error) {
       dispatch({
         meta: { countryCode },
-        payload: { error },
+        payload: { error: toError(error) },
         type: actionTypes.FETCH_COUNTRY_FAILURE,
       });
 

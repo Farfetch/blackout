@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import state from '../../../entities/schemas/state';
 import type {
   Cities,
@@ -27,15 +28,15 @@ const fetchCountryCitiesFactory =
   (getCountryCities: GetCountryCities) =>
   (countryCode: string, stateId: number, config?: Config) =>
   async (dispatch: Dispatch): Promise<Cities> => {
-    dispatch({
-      meta: {
-        countryCode,
-        stateId,
-      },
-      type: actionTypes.FETCH_COUNTRY_CITIES_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: {
+          countryCode,
+          stateId,
+        },
+        type: actionTypes.FETCH_COUNTRY_CITIES_REQUEST,
+      });
+
       const result = await getCountryCities(countryCode, stateId, config);
       const stateWithCities = {
         id: stateId,
@@ -60,7 +61,7 @@ const fetchCountryCitiesFactory =
           countryCode,
           stateId,
         },
-        payload: { error },
+        payload: { error: toError(error) },
         type: actionTypes.FETCH_COUNTRY_CITIES_FAILURE,
       });
 

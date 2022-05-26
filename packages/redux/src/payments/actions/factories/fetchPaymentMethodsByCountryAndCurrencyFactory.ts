@@ -3,6 +3,7 @@ import {
   FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_REQUEST,
   FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type { FetchPaymentMethodsByCountryAndCurrencyAction } from '../../types';
@@ -33,11 +34,11 @@ const fetchPaymentMethodsByCountryAndCurrencyFactory =
   async (
     dispatch: Dispatch<FetchPaymentMethodsByCountryAndCurrencyAction>,
   ): Promise<PaymentMethods> => {
-    dispatch({
-      type: FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_REQUEST,
+      });
+
       const result = await getPaymentMethodsByCountryAndCurrency(config);
 
       dispatch({
@@ -48,7 +49,7 @@ const fetchPaymentMethodsByCountryAndCurrencyFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_FAILURE,
       });
 

@@ -13,7 +13,7 @@ import {
 } from './reducer';
 import { getEntities, getEntityById } from '../entities/selectors';
 import get from 'lodash/get';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type {
   LabelTracking,
   Order,
@@ -39,7 +39,7 @@ export const isOrdersLoading = (state: StoreState): boolean =>
  *
  * @returns Orders error.
  */
-export const getOrdersError = (state: StoreState): Error | null =>
+export const getOrdersError = (state: StoreState): BlackoutError | null =>
   getError(state.orders);
 
 /**
@@ -371,7 +371,7 @@ export const isOrdersListLoading = (state: StoreState): boolean =>
  *
  * @returns Orders list operation error.
  */
-export const getOrdersListError = (state: StoreState): Error =>
+export const getOrdersListError = (state: StoreState): BlackoutError =>
   getOrdersList(state.orders).error;
 
 /**
@@ -398,7 +398,7 @@ export const isOrderDetailsLoading = (
 export const getOrderDetailsError = (
   state: StoreState,
   orderId: string,
-): Error => getOrderDetails(state.orders).error[orderId];
+): BlackoutError => getOrderDetails(state.orders).error[orderId];
 
 /**
  * Returns the loading status for the order return options operation.
@@ -424,7 +424,7 @@ export const isOrderReturnOptionsLoading = (
 export const getOrderReturnOptionsError = (
   state: StoreState,
   orderId: string,
-): Error => getOrderReturnOptions(state.orders).error[orderId];
+): BlackoutError => getOrderReturnOptions(state.orders).error[orderId];
 
 /**
  * Returns the loading status for the tracking operation.
@@ -443,7 +443,7 @@ export const isTrackingsLoading = (state: StoreState): boolean =>
  *
  * @returns Trackings operation error.
  */
-export const getTrackingsError = (state: StoreState): Error =>
+export const getTrackingsError = (state: StoreState): BlackoutError =>
   getTrackings(state.orders).error;
 
 /**
@@ -463,7 +463,7 @@ export const isDocumentsLoading = (state: StoreState): boolean =>
  *
  * @returns Trackings operation error.
  */
-export const getDocumentsError = (state: StoreState): Error =>
+export const getDocumentsError = (state: StoreState): BlackoutError =>
   getDocuments(state.orders).error;
 
 /**
@@ -483,8 +483,9 @@ export const isAvailableItemsActivitiesLoading = (state: StoreState): boolean =>
  *
  * @returns Trackings operation error.
  */
-export const getAvailableItemsActivitiesError = (state: StoreState): Error =>
-  getOrderAvailableItemsActivities(state.orders).error;
+export const getAvailableItemsActivitiesError = (
+  state: StoreState,
+): BlackoutError => getOrderAvailableItemsActivities(state.orders).error;
 
 /**
  * Returns the loading status for the order item available activities operations.
@@ -506,4 +507,4 @@ export const isOrderItemAvailableActivitiesLoading = (
  */
 export const getOrderItemAvailableActivitiesError = (
   state: StoreState,
-): Error => getOrderItemAvailableActivities(state.orders).error;
+): BlackoutError => getOrderItemAvailableActivities(state.orders).error;

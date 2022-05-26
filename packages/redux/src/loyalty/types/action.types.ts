@@ -1,6 +1,6 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { NormalizedSchema } from 'normalizr';
 import type {
   Program,
@@ -25,7 +25,7 @@ type CreateProgramMembershipConvertPayload = NormalizedSchema<
   ProgramMembershipConvert['id']
 >;
 export interface CreateProgramMembershipConvertFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.CREATE_PROGRAM_MEMBERSHIP_CONVERT_FAILURE;
 }
 
@@ -53,7 +53,7 @@ type CreateProgramMembershipPayload = NormalizedSchema<
   ProgramMembership['id']
 >;
 export interface CreateProgramMembershipFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.CREATE_PROGRAM_MEMBERSHIP_FAILURE;
 }
 
@@ -85,7 +85,7 @@ type CreateProgramMembershipReplacementPayload = NormalizedSchema<
 >;
 export interface CreateProgramMembershipReplacementFailureAction
   extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_FAILURE;
 }
 
@@ -118,7 +118,7 @@ type FetchProgramMembershipStatementsPayload = NormalizedSchema<
   Array<ProgramMembershipStatement['id']>
 >;
 export interface FetchProgramMembershipStatementsFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_FAILURE;
 }
 
@@ -146,7 +146,7 @@ type FetchProgramsPayload = NormalizedSchema<
   Array<Program['id']>
 >;
 export interface FetchProgramsFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_PROGRAMS_FAILURE;
 }
 
@@ -174,7 +174,7 @@ type FetchProgramUsersMembershipPayload = NormalizedSchema<
   ProgramMembership['id']
 >;
 export interface FetchProgramUsersMembershipFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_PROGRAM_USERS_MEMBERSHIP_FAILURE;
 }
 

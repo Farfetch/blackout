@@ -1,7 +1,7 @@
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { CombinedState } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
 
 export type State = CombinedState<{
-  error: Error | null;
+  error: BlackoutError | null;
   isLoading: boolean;
 }>;

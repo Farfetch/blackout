@@ -7,7 +7,7 @@ import {
 } from '../../bags';
 import { getError, getIsHydrated, getIsLoading } from '../reducer/details';
 import { getProduct } from '../../entities/selectors';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { ProductEntity } from '../../entities/types';
 import type { SizeAdapted } from '@farfetch/blackout-client/helpers/adapters/types';
 import type { StoreState } from '../../types';
@@ -23,7 +23,7 @@ import type { StoreState } from '../../types';
 export const getProductError = (
   state: StoreState,
   id: ProductEntity['id'],
-): Error | undefined => getError(state.products.details)[id];
+): BlackoutError | undefined => getError(state.products.details)[id];
 
 /**
  * Returns the hydrated condition from product details.

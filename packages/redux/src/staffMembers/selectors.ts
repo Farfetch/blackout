@@ -1,5 +1,5 @@
 import { getError, getIsLoading, getResult } from './reducer';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { StaffMember } from '@farfetch/blackout-client/staffMembers/types';
 import type { StoreState } from '../types';
 
@@ -14,7 +14,7 @@ import type { StoreState } from '../types';
 export const getStaffMemberError = (
   state: StoreState,
   id: StaffMember['id'],
-): Error | undefined => getError(state.staffMembers)?.[id];
+): BlackoutError | undefined => getError(state.staffMembers)?.[id];
 
 /**
  * Checks if staff member is loading.

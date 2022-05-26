@@ -1,4 +1,5 @@
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import {
   UPDATE_CHECKOUT_FAILURE,
   UPDATE_CHECKOUT_REQUEST,
@@ -43,11 +44,11 @@ const updateCheckoutFactory =
   (patchCheckout: PatchCheckout) =>
   (id: number, data: PatchCheckoutData, config?: Config) =>
   async (dispatch: Dispatch): Promise<GetCheckoutResponse> => {
-    dispatch({
-      type: UPDATE_CHECKOUT_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: UPDATE_CHECKOUT_REQUEST,
+      });
+
       const result = await patchCheckout(id, data, config);
 
       dispatch({
@@ -58,7 +59,7 @@ const updateCheckoutFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: UPDATE_CHECKOUT_FAILURE,
       });
 

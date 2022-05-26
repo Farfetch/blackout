@@ -1,4 +1,5 @@
 import * as actionTypes from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type { FetchStaffMemberAction } from '../../types';
 import type {
@@ -25,12 +26,12 @@ const fetchStaffMemberFactory =
   (getStaffMember: GetStaffMember) =>
   (id: StaffMember['id'], config?: Record<string, unknown>) =>
   async (dispatch: Dispatch<FetchStaffMemberAction>): Promise<StaffMember> => {
-    dispatch({
-      type: actionTypes.FETCH_STAFF_MEMBER_REQUEST,
-      meta: { id },
-    });
-
     try {
+      dispatch({
+        type: actionTypes.FETCH_STAFF_MEMBER_REQUEST,
+        meta: { id },
+      });
+
       const result = await getStaffMember(id, config);
 
       dispatch({
@@ -43,7 +44,7 @@ const fetchStaffMemberFactory =
     } catch (error) {
       dispatch({
         type: actionTypes.FETCH_STAFF_MEMBER_FAILURE,
-        payload: { error },
+        payload: { error: toError(error) },
         meta: { id },
       });
 

@@ -4,6 +4,7 @@ import {
   CREATE_ADDRESS_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import addressesSchema from '../../../entities/schemas/addresses';
 import type {
   Address,
@@ -33,11 +34,10 @@ const createAddressFactory =
   (postAddress: PostAddress) =>
   (userId: User['id'], data: Address, config?: Config) =>
   async (dispatch: Dispatch<CreateAddressAction>): Promise<Address> => {
-    dispatch({
-      type: CREATE_ADDRESS_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: CREATE_ADDRESS_REQUEST,
+      });
       const result = await postAddress({ userId }, data, config);
 
       dispatch({
@@ -49,7 +49,7 @@ const createAddressFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: CREATE_ADDRESS_FAILURE,
       });
 

@@ -5,9 +5,9 @@ import type {
   PatchBagItemData,
   PostBagItemData,
 } from '@farfetch/blackout-client/bags/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { Brand } from '@farfetch/blackout-client/brands/types';
 import type { Category } from '@farfetch/blackout-client/categories/types';
-import type { Error } from '@farfetch/blackout-client/types';
 import type { MerchantEntity, ProductEntity } from '../../entities/types';
 import type { NormalizedBag } from '../types';
 import type { NormalizedSchema } from 'normalizr';
@@ -34,7 +34,7 @@ export interface AddBagItemSuccessAction extends Action {
 }
 export interface AddBagItemFailureAction extends Action {
   type: typeof actionTypes.ADD_BAG_ITEM_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   meta: { bagId: NormalizedBag['id'] } & PostBagItemData;
 }
 
@@ -55,7 +55,7 @@ export interface FetchBagSuccessAction extends Action {
 }
 export interface FetchBagFailureAction extends Action {
   type: typeof actionTypes.FETCH_BAG_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -77,7 +77,7 @@ export interface RemoveBagItemSuccessAction extends Action {
 }
 export interface RemoveBagItemFailureAction extends Action {
   type: typeof actionTypes.REMOVE_BAG_ITEM_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   meta: { bagId: NormalizedBag['id']; bagItemId: BagItem['id'] };
 }
 
@@ -106,7 +106,7 @@ export interface UpdateBagItemSuccessAction extends Action {
 }
 export interface UpdateBagItemFailureAction extends Action {
   type: typeof actionTypes.UPDATE_BAG_ITEM_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   meta: {
     bagId: NormalizedBag['id'];
     bagItemId: BagItem['id'];

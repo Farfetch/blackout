@@ -1,13 +1,13 @@
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { CombinedState } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
 import type { FormSchema } from '@farfetch/blackout-client/forms/types';
 
 export type State = CombinedState<{
   result: FormResult;
-  error: Record<string, Error | undefined | null>;
+  error: Record<string, BlackoutError | undefined | null>;
   isLoading: Record<string, boolean>;
   isSubmitFormLoading: Record<string, boolean>;
-  submitFormError: Record<string, Error | undefined | null>;
+  submitFormError: Record<string, BlackoutError | undefined | null>;
 }>;
 
 export type FormResult = Record<string, FormSchema>;

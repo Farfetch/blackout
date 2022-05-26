@@ -1,4 +1,5 @@
 import * as actionTypes from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type { FetchSearchDidYouMeanAction } from '../../types';
 import type {
@@ -28,12 +29,12 @@ const fetchSearchDidYouMeanFactory =
   async (
     dispatch: Dispatch<FetchSearchDidYouMeanAction>,
   ): Promise<SearchDidYouMean[]> => {
-    dispatch({
-      meta: { query },
-      type: actionTypes.FETCH_SEARCH_DID_YOU_MEAN_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: { query },
+        type: actionTypes.FETCH_SEARCH_DID_YOU_MEAN_REQUEST,
+      });
+
       const result = await getSearchDidYouMean(query, config);
 
       dispatch({
@@ -46,7 +47,7 @@ const fetchSearchDidYouMeanFactory =
     } catch (error) {
       dispatch({
         meta: { query },
-        payload: { error },
+        payload: { error: toError(error) },
         type: actionTypes.FETCH_SEARCH_DID_YOU_MEAN_FAILURE,
       });
 

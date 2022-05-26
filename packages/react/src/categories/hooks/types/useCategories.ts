@@ -1,5 +1,5 @@
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { Category } from '@farfetch/blackout-client/categories/types';
-import type { Error } from '@farfetch/blackout-client/types';
 
 export type GetRootCategory = (
   categoryId: Category['id'],
@@ -11,12 +11,12 @@ export type UseCategories = () => {
   areTopCategoriesFetched: boolean | undefined;
   areTopCategoriesLoading: boolean | undefined;
   categories: Category[];
-  categoriesError: Error | null;
+  categoriesError: BlackoutError | null;
   fetchCategories: () => Promise<Category[]>;
   fetchTopCategories: () => Promise<Category[]>;
   getCategory: (id: Category['id']) => Category | undefined;
   getRootCategory: GetRootCategory;
   resetCategoriesState: () => void;
   topCategories: Array<Category | undefined>;
-  topCategoriesError: Error | null;
+  topCategoriesError: BlackoutError | null;
 };

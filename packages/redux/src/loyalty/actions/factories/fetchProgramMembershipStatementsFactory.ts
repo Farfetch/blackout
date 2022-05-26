@@ -4,6 +4,7 @@ import {
   FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import statementSchema from '../../../entities/schemas/statement';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -43,11 +44,11 @@ const fetchProgramMembershipStatementsFactory =
   async (
     dispatch: Dispatch<FetchProgramMembershipStatementsAction>,
   ): Promise<ProgramMembershipStatement[]> => {
-    dispatch({
-      type: FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_REQUEST,
+      });
+
       const result = await getProgramMembershipStatements(
         programId,
         membershipId,
@@ -63,7 +64,7 @@ const fetchProgramMembershipStatementsFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_FAILURE,
       });
 

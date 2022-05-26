@@ -6,6 +6,7 @@ import {
 } from '../../actionTypes';
 import { isProductHydrated } from '../../selectors';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import productSchema from '../../../entities/schemas/product';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
@@ -48,26 +49,26 @@ const fetchProductDetailsFactory =
       getOptions = arg => ({ productImgQueryParam: arg.productImgQueryParam }),
     }: GetOptionsArgument,
   ): Promise<Product | undefined> => {
-    const isHydrated = isProductHydrated(getState(), productId);
-    // Check if product data is already fetched, if we don't want
-    // to force the dispatch.
-    // If yes, let the calling code know there's nothing to wait for.
-    // If not, dispatch an action to fetch the product data.
-    if (isHydrated && !forceDispatch) {
+    try {
+      const isHydrated = isProductHydrated(getState(), productId);
+      // Check if product data is already fetched, if we don't want
+      // to force the dispatch.
+      // If yes, let the calling code know there's nothing to wait for.
+      // If not, dispatch an action to fetch the product data.
+      if (isHydrated && !forceDispatch) {
+        dispatch({
+          meta: { productId },
+          type: DEHYDRATE_PRODUCT_DETAILS,
+        });
+
+        return;
+      }
+
       dispatch({
         meta: { productId },
-        type: DEHYDRATE_PRODUCT_DETAILS,
+        type: FETCH_PRODUCT_DETAILS_REQUEST,
       });
 
-      return;
-    }
-
-    dispatch({
-      meta: { productId },
-      type: FETCH_PRODUCT_DETAILS_REQUEST,
-    });
-
-    try {
       const result = await getProductDetails(productId, query, config);
       const {
         result: { id, ...productData },
@@ -95,7 +96,7 @@ const fetchProductDetailsFactory =
     } catch (error) {
       dispatch({
         meta: { productId },
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_PRODUCT_DETAILS_FAILURE,
       });
 

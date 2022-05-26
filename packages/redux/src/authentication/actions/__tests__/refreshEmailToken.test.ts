@@ -1,6 +1,7 @@
 import { mockStore } from '../../../../tests';
 import { postRefreshEmailToken } from '@farfetch/blackout-client/authentication';
 import { refreshEmailToken } from '..';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
 
@@ -56,7 +57,7 @@ describe('refreshEmailToken() action creator', () => {
           { type: actionTypes.REFRESH_EMAIL_TOKEN_REQUEST },
           {
             type: actionTypes.REFRESH_EMAIL_TOKEN_FAILURE,
-            payload: { error: errorObject },
+            payload: { error: toError(errorObject) },
           },
         ]),
       );

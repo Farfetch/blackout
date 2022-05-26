@@ -3,7 +3,7 @@ import {
   getIsLoading,
 } from '../reducer/variantsByMerchantsLocations';
 import { getProduct } from '../../entities/selectors';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { ProductEntity } from '../../entities/types';
 import type {
   ProductVariant,
@@ -52,7 +52,7 @@ export const areProductVariantsByMerchantsLocationsFetched = (
 export const getProductVariantsByMerchantsLocationsError = (
   state: StoreState,
   id: ProductEntity['id'],
-): Error | undefined =>
+): BlackoutError | undefined =>
   getError(state.products.variantsByMerchantsLocations)[id];
 
 /**

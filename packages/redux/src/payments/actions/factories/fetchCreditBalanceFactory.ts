@@ -3,6 +3,7 @@ import {
   FETCH_CREDIT_BALANCE_REQUEST,
   FETCH_CREDIT_BALANCE_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type {
   Balance,
   PostCheckCreditBalance,
@@ -30,11 +31,11 @@ const fetchCreditBalanceFactory =
   (postCheckCreditBalance: PostCheckCreditBalance) =>
   (data: PostCheckCreditBalanceData, config?: Config) =>
   async (dispatch: Dispatch<FetchCreditBalanceAction>): Promise<Balance> => {
-    dispatch({
-      type: FETCH_CREDIT_BALANCE_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_CREDIT_BALANCE_REQUEST,
+      });
+
       const result = await postCheckCreditBalance(data, config);
 
       dispatch({
@@ -45,7 +46,7 @@ const fetchCreditBalanceFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_CREDIT_BALANCE_FAILURE,
       });
 

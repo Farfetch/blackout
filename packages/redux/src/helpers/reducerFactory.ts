@@ -1,6 +1,6 @@
 import { LOGOUT_SUCCESS } from '../authentication/actionTypes';
+import type { BlackoutError } from '@farfetch/blackout-client/src/types';
 import type { CombinedState } from 'redux';
-import type { Error } from '@farfetch/blackout-client/src/types';
 
 export const validateReset = (
   type: string | string[],
@@ -23,7 +23,10 @@ export const createReducerWithResult =
   ) =>
   (
     state = initialState,
-    action: { type?: string; payload?: { error: Error; result: any } } = {},
+    action: {
+      type?: string;
+      payload?: { error: BlackoutError; result: any };
+    } = {},
   ): CombinedState<any> => {
     const isActionTypeAnArray = Array.isArray(actionType);
     const actionTypesArray = isActionTypeAnArray ? actionType : [actionType];
@@ -73,7 +76,7 @@ const createReducer =
   ) =>
   (
     state = initialState,
-    action: { type?: string; payload?: { error: Error } } = {},
+    action: { type?: string; payload?: { error: BlackoutError } } = {},
   ): CombinedState<any> => {
     const isActionTypeAnArray = Array.isArray(actionType);
     const actionTypesArray = isActionTypeAnArray ? actionType : [actionType];

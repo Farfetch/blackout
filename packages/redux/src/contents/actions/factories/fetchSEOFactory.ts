@@ -4,6 +4,8 @@ import {
   FETCH_SEO_SUCCESS,
 } from '../../actionTypes';
 import { generateSEOPathname } from '../../utils';
+import { toError } from '@farfetch/blackout-client/helpers/client';
+import type { ActionFetchSEO } from '../../types';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
@@ -11,6 +13,7 @@ import type {
   QuerySEO,
   SEOMetadata,
 } from '@farfetch/blackout-client/contents/types';
+import type { Nullable } from '@farfetch/blackout-redux/types';
 
 /**
  * @param query  - Query object with search terms to apply.
@@ -28,16 +31,18 @@ import type {
  */
 export default (getSEO: GetSEO) =>
   (query: QuerySEO, config?: Config) =>
-  async (dispatch: Dispatch): Promise<SEOMetadata> => {
-    const pathname = generateSEOPathname(query);
-
-    dispatch({
-      meta: { query },
-      payload: { pathname },
-      type: FETCH_SEO_REQUEST,
-    });
+  async (dispatch: Dispatch<ActionFetchSEO>): Promise<SEOMetadata> => {
+    let pathname: Nullable<string> = null;
 
     try {
+      pathname = generateSEOPathname(query);
+
+      dispatch({
+        meta: { query },
+        payload: { pathname },
+        type: FETCH_SEO_REQUEST,
+      });
+
       const result = await getSEO(query, config);
 
       dispatch({
@@ -50,7 +55,7 @@ export default (getSEO: GetSEO) =>
     } catch (error) {
       dispatch({
         meta: { query },
-        payload: { error, pathname },
+        payload: { error: toError(error), pathname: pathname as string },
         type: FETCH_SEO_FAILURE,
       });
 

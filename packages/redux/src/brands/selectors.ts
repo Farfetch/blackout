@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 import { getBrands } from '../entities';
 import { getError, getHash, getIsLoading, getResult } from './reducer';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { Brand, Brands } from '@farfetch/blackout-client/brands/types';
-import type { Error } from '@farfetch/blackout-client/types';
 import type { State } from './types';
 import type { StoreState } from '../types';
 
@@ -27,7 +27,7 @@ export const getBrandsHash = (state: StoreState): State['hash'] =>
 export const getBrandError = (
   state: StoreState,
   id: Brand['id'],
-): Error | undefined => getError(state.brands)?.[id];
+): BlackoutError | undefined => getError(state.brands)?.[id];
 
 /**
  * Returns the error for brands - fetchBrands request.
@@ -40,7 +40,8 @@ export const getBrandError = (
 export const getBrandsError = (
   state: StoreState,
   hash = getBrandsHash(state),
-): Error | undefined => (hash ? getError(state.brands)[hash] : undefined);
+): BlackoutError | undefined =>
+  hash ? getError(state.brands)[hash] : undefined;
 
 /**
  * Returns the loading status for one brand - fetchBrand request.

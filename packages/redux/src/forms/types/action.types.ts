@@ -1,6 +1,6 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type {
   FormSchema,
   SubmitFormSchema,
@@ -17,7 +17,7 @@ interface FetchFormSchemaSuccessAction extends Action {
 }
 interface FetchFormSchemaFailureAction extends Action {
   type: typeof actionTypes.FETCH_FORM_SCHEMA_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   meta: { schemaCode: string };
 }
 
@@ -40,7 +40,7 @@ interface SubmitFormSchemaSuccessAction extends Action {
 }
 interface SubmitFormSchemaFailureAction extends Action {
   type: typeof actionTypes.SUBMIT_FORM_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   meta: { schemaCode: string; data: unknown };
 }
 

@@ -3,6 +3,7 @@ import {
   CREATE_PHONE_TOKEN_REQUEST,
   CREATE_PHONE_TOKEN_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type {
   PostPhoneTokens,
@@ -28,11 +29,11 @@ const createPhoneToken =
   (postPhoneToken: PostPhoneTokens) =>
   (data: PostPhoneTokensData, config?: Record<string, unknown>) =>
   async (dispatch: Dispatch) => {
-    dispatch({
-      type: CREATE_PHONE_TOKEN_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: CREATE_PHONE_TOKEN_REQUEST,
+      });
+
       const result = await postPhoneToken(data, config);
 
       dispatch({
@@ -43,7 +44,7 @@ const createPhoneToken =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: CREATE_PHONE_TOKEN_FAILURE,
       });
 

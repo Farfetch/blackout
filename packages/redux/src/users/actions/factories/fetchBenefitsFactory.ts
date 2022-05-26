@@ -4,6 +4,7 @@ import {
   FETCH_BENEFITS_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import userBenefitsSchema from '../../../entities/schemas/benefit';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -29,11 +30,11 @@ const fetchBenefitsFactory =
   (getBenefits: GetBenefits) =>
   (config?: Config) =>
   async (dispatch: Dispatch): Promise<GetBenefitsResponse> => {
-    dispatch({
-      type: FETCH_BENEFITS_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_BENEFITS_REQUEST,
+      });
+
       const result = await getBenefits(config);
 
       dispatch({
@@ -44,7 +45,7 @@ const fetchBenefitsFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_BENEFITS_FAILURE,
       });
 

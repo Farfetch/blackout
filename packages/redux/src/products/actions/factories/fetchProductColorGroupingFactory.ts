@@ -4,6 +4,7 @@ import {
   FETCH_PRODUCT_COLOR_GROUPING_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import productSchema from '../../../entities/schemas/product';
 import type {
   ColorGroupingQuery,
@@ -37,12 +38,12 @@ const fetchProductColorGroupingFactory =
     config?: Record<string, unknown>,
   ) =>
   async (dispatch: Dispatch): Promise<ProductColorGrouping> => {
-    dispatch({
-      meta: { productId },
-      type: FETCH_PRODUCT_COLOR_GROUPING_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: { productId },
+        type: FETCH_PRODUCT_COLOR_GROUPING_REQUEST,
+      });
+
       const result = await getProductColorGrouping(productId, query, config);
 
       // Replace all the color grouping data with the new one
@@ -61,7 +62,7 @@ const fetchProductColorGroupingFactory =
     } catch (error) {
       dispatch({
         meta: { productId },
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_PRODUCT_COLOR_GROUPING_FAILURE,
       });
 

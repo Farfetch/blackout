@@ -1,6 +1,6 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { MerchantLocation } from '@farfetch/blackout-client/merchantsLocations/types';
 import type { NormalizedSchema } from 'normalizr';
 
@@ -16,7 +16,7 @@ export interface FetchMerchantsLocationsSuccessAction extends Action {
 }
 export interface FetchMerchantsLocationsFailureAction extends Action {
   type: typeof actionTypes.FETCH_MERCHANTS_LOCATIONS_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**

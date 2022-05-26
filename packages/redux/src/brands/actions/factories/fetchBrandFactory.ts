@@ -4,6 +4,7 @@ import {
   FETCH_BRAND_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import brand from '../../../entities/schemas/brand';
 import type { Brand, GetBrand } from '@farfetch/blackout-client/brands/types';
 import type { Dispatch } from 'redux';
@@ -28,12 +29,12 @@ const fetchBrandFactory =
   (getBrand: GetBrand) =>
   (brandId: Brand['id'], config?: Record<string, unknown>) =>
   async (dispatch: Dispatch<FetchBrandAction>): Promise<Brand> => {
-    dispatch({
-      meta: { brandId },
-      type: FETCH_BRAND_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: { brandId },
+        type: FETCH_BRAND_REQUEST,
+      });
+
       const result = await getBrand(brandId, config);
 
       dispatch({
@@ -46,7 +47,7 @@ const fetchBrandFactory =
     } catch (error) {
       dispatch({
         meta: { brandId },
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_BRAND_FAILURE,
       });
 

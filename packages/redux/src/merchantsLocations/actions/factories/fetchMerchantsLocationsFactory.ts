@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import merchantLocationSchema from '../../../entities/schemas/merchantLocation';
 import type { FetchMerchantsLocationsAction } from '../../types';
 import type {
@@ -31,11 +32,11 @@ const fetchMerchantsLocationsFactory =
   async (
     dispatch: ThunkDispatch<StoreState, any, FetchMerchantsLocationsAction>,
   ): Promise<MerchantLocation[]> => {
-    dispatch({
-      type: actionTypes.FETCH_MERCHANTS_LOCATIONS_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: actionTypes.FETCH_MERCHANTS_LOCATIONS_REQUEST,
+      });
+
       const result = await getMerchantsLocations(query, config);
 
       dispatch({
@@ -46,7 +47,7 @@ const fetchMerchantsLocationsFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: actionTypes.FETCH_MERCHANTS_LOCATIONS_FAILURE,
       });
 

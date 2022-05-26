@@ -3,6 +3,7 @@ import {
   CREATE_USER_IMPERSONATION_REQUEST,
   CREATE_USER_IMPERSONATION_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 
 /**
@@ -31,11 +32,10 @@ export default (postUserImpersonation: any) =>
     },
   ) =>
   async (dispatch: Dispatch): Promise<any> => {
-    dispatch({
-      type: CREATE_USER_IMPERSONATION_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: CREATE_USER_IMPERSONATION_REQUEST,
+      });
       const result = await postUserImpersonation(data, config);
 
       dispatch({
@@ -46,7 +46,7 @@ export default (postUserImpersonation: any) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: CREATE_USER_IMPERSONATION_FAILURE,
       });
 

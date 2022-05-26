@@ -1,4 +1,5 @@
 import * as actionTypes from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { DeleteSubscription } from '@farfetch/blackout-client/subscriptions/types';
 import type { UnsubscribeFromSubscriptionFactory } from './types';
 
@@ -24,7 +25,7 @@ const unsubscribeFromSubscriptionFactory: UnsubscribeFromSubscriptionFactory<
     });
   } catch (error) {
     dispatch({
-      payload: { error },
+      payload: { error: toError(error) },
       type: actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_FAILURE,
     });
 

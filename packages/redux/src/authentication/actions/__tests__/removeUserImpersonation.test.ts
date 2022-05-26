@@ -1,6 +1,7 @@
 import { deleteUserImpersonation } from '@farfetch/blackout-client/authentication';
 import { mockStore } from '../../../../tests';
 import { removeUserImpersonation } from '..';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
 
@@ -49,7 +50,7 @@ describe('removeUserImpersonation() action creator', () => {
           { type: actionTypes.DELETE_USER_IMPERSONATION_REQUEST },
           {
             type: actionTypes.DELETE_USER_IMPERSONATION_FAILURE,
-            payload: { error: errorObject },
+            payload: { error: toError(errorObject) },
           },
         ]),
       );

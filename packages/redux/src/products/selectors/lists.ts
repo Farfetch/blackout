@@ -21,7 +21,7 @@ import flatten from 'lodash/flatten';
 import flattenDeep from 'lodash/flattenDeep';
 import isEmpty from 'lodash/isEmpty';
 import sortBy from 'lodash/sortBy';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type {
   FacetEntity,
   FacetGroupsNormalized,
@@ -68,7 +68,7 @@ export const getProductsListHash = (
 export const getProductsListError = (
   state: StoreState,
   hash: string | number | null = getProductsListHash(state),
-): Error | undefined => getError(state.products.lists)[checkHash(hash)];
+): BlackoutError | undefined => getError(state.products.lists)[checkHash(hash)];
 
 /**
  * Retrieves the hydration condition from current products list.

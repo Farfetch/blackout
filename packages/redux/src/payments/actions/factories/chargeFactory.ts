@@ -3,6 +3,7 @@ import {
   CHARGE_REQUEST,
   CHARGE_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { ChargesAction } from '../../types';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -33,11 +34,11 @@ const postChargesFactory =
   (postCharges: PostCharges) =>
   (id: Intent['id'], data: PostChargesData, config?: Config) =>
   async (dispatch: Dispatch<ChargesAction>): Promise<PostChargesResponse> => {
-    dispatch({
-      type: CHARGE_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: CHARGE_REQUEST,
+      });
+
       const result = await postCharges(id, data, config);
       // The chargeId is only accessible through the 'location' header.
       const chargeId = result?.headers['location']?.split('charges/')[1] || '';
@@ -51,7 +52,7 @@ const postChargesFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: CHARGE_FAILURE,
       });
 

@@ -4,6 +4,7 @@ import {
   FETCH_PAYMENT_TOKENS_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import paymentTokenSchema from '../../../entities/schemas/paymentToken';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -35,11 +36,11 @@ const fetchPaymentTokensFactory =
   async (
     dispatch: Dispatch<FetchPaymentTokensAction>,
   ): Promise<PaymentTokens> => {
-    dispatch({
-      type: FETCH_PAYMENT_TOKENS_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_PAYMENT_TOKENS_REQUEST,
+      });
+
       const result = await getPaymentTokens(query, config);
 
       dispatch({
@@ -50,7 +51,7 @@ const fetchPaymentTokensFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_PAYMENT_TOKENS_FAILURE,
       });
 

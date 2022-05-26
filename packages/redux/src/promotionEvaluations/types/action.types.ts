@@ -1,6 +1,6 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type {
   PromotionEvaluationId,
   PromotionEvaluationItem,
@@ -9,7 +9,7 @@ import type {
 export interface FetchPromotionEvaluationItemsFailureAction extends Action {
   meta: { promotionEvaluationId: PromotionEvaluationId };
   type: typeof actionTypes.FETCH_PROMOTION_EVALUATION_ITEMS_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 export interface FetchPromotionEvaluationItemsRequestAction extends Action {
   meta: { promotionEvaluationId: PromotionEvaluationId };

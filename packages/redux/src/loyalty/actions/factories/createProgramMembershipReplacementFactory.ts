@@ -4,6 +4,7 @@ import {
   CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import replacementSchema from '../../../entities/schemas/replacement';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { CreateProgramMembershipReplacementAction } from '../../types';
@@ -43,11 +44,11 @@ const createProgramMembershipReplacementFactory =
   async (
     dispatch: Dispatch<CreateProgramMembershipReplacementAction>,
   ): Promise<ProgramMembershipReplacement> => {
-    dispatch({
-      type: CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_REQUEST,
+      });
+
       const result = await postProgramMembershipReplacement(
         programId,
         membershipId,
@@ -63,7 +64,7 @@ const createProgramMembershipReplacementFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_FAILURE,
       });
 

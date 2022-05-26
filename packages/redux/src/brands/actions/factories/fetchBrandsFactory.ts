@@ -8,6 +8,7 @@ import {
 import { generateBrandsHash } from '../../utils';
 import { isBrandsResultCached } from '../../selectors';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import brand from '../../../entities/schemas/brand';
 import type {
   Brands,
@@ -47,43 +48,44 @@ const fetchBrandsFactory =
     dispatch: Dispatch<FetchBrandsAction>,
     getState: () => StoreState,
   ): Promise<Brands | undefined> => {
-    const hash = generateBrandsHash(query);
+    let hash: string | undefined = undefined;
 
-    // Check if brands data is already fetched.
-    // If it is, let the calling code know there's nothing to wait for.
-    // If not, dispatch an action to fetch the brands data.
-    if (isBrandsResultCached(getState(), hash)) {
-      if (useCache) {
-        if (!setBrandsHash) {
+    try {
+      hash = generateBrandsHash(query);
+      // Check if brands data is already fetched.
+      // If it is, let the calling code know there's nothing to wait for.
+      // If not, dispatch an action to fetch the brands data.
+      if (isBrandsResultCached(getState(), hash)) {
+        if (useCache) {
+          if (!setBrandsHash) {
+            return;
+          }
+
+          dispatch({
+            meta: { hash, query },
+            type: SET_BRANDS_HASH,
+          });
+
           return;
+        } else {
+          dispatch({
+            type: RESET_BRANDS_STATE,
+          });
         }
+      }
 
+      if (setBrandsHash) {
         dispatch({
           meta: { hash, query },
           type: SET_BRANDS_HASH,
         });
-
-        return;
-      } else {
-        dispatch({
-          type: RESET_BRANDS_STATE,
-        });
       }
-    }
 
-    if (setBrandsHash) {
       dispatch({
         meta: { hash, query },
-        type: SET_BRANDS_HASH,
+        type: FETCH_BRANDS_REQUEST,
       });
-    }
 
-    dispatch({
-      meta: { hash, query },
-      type: FETCH_BRANDS_REQUEST,
-    });
-
-    try {
       const result = await getBrands(query, config);
 
       dispatch({
@@ -97,8 +99,8 @@ const fetchBrandsFactory =
       return result;
     } catch (error) {
       dispatch({
-        meta: { hash, query },
-        payload: { error },
+        meta: { hash: hash as string, query },
+        payload: { error: toError(error) },
         type: FETCH_BRANDS_FAILURE,
       });
 

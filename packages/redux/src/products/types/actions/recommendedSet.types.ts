@@ -1,6 +1,6 @@
 import type * as actionTypes from '../../actionTypes';
 import type { Action } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { RecommendedSet } from '@farfetch/blackout-client/products/types';
 
 export interface FetchRecommendedSetRequestAction extends Action {
@@ -16,7 +16,7 @@ export interface FetchRecommendedSetSuccessAction extends Action {
 
 export interface FetchRecommendedSetFailureAction extends Action {
   meta: { recommendedSetId: RecommendedSet['id'] };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_RECOMMENDED_SET_FAILURE;
 }
 

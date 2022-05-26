@@ -3,6 +3,7 @@ import {
   FETCH_ORDER_DOCUMENTS_REQUEST,
   FETCH_ORDER_DOCUMENTS_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
@@ -29,11 +30,11 @@ const fetchOrderDocuments =
   (getOrderDocuments: GetOrderDocuments) =>
   (orderId: string, types: string[], config?: Config) =>
   async (dispatch: Dispatch): Promise<OrderDocuments[]> => {
-    dispatch({
-      type: FETCH_ORDER_DOCUMENTS_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_ORDER_DOCUMENTS_REQUEST,
+      });
+
       const result = await getOrderDocuments(orderId, types, config);
 
       dispatch({
@@ -43,7 +44,7 @@ const fetchOrderDocuments =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_ORDER_DOCUMENTS_FAILURE,
       });
 

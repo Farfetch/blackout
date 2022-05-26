@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { adaptProductRecommendations } from '@farfetch/blackout-client/helpers/adapters';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type { FetchProductRecommendationsAction } from '../../types';
 import type { FetchProductRecommendationsFactory } from './types';
@@ -50,7 +51,7 @@ const fetchProductRecommendationsFactory: FetchProductRecommendationsFactory<
     } catch (error) {
       dispatch({
         type: actionTypes.FETCH_PRODUCT_RECOMMENDATIONS_FAILURE,
-        payload: { error },
+        payload: { error: toError(error) },
         meta: { strategyName },
       });
 

@@ -1,5 +1,5 @@
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { CombinedState } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
 import type { Nullable, StateWithoutResult } from '../../types';
 import type {
   Order,
@@ -7,12 +7,12 @@ import type {
 } from '@farfetch/blackout-client/orders/types';
 
 export type OrderDetailsState = CombinedState<{
-  error: Record<Order['id'], Error | null>;
+  error: Record<Order['id'], BlackoutError | null>;
   isLoading: Record<Order['id'], boolean>;
 }>;
 
 export type State = CombinedState<{
-  error: Error | null;
+  error: BlackoutError | null;
   isLoading: boolean;
   result: Nullable<OrderSummary>;
   orderDetails: OrderDetailsState;

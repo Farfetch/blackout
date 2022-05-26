@@ -3,6 +3,7 @@ import {
   FETCH_USER_REQUEST,
   FETCH_USER_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
@@ -28,11 +29,11 @@ const fetchUserFactory =
   (getUser: GetUser) =>
   (data: GetUserData, config?: Config) =>
   async (dispatch: Dispatch) => {
-    dispatch({
-      type: FETCH_USER_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_USER_REQUEST,
+      });
+
       const result = await getUser(data, config);
       const userEntity = {
         entities: { user: result },
@@ -48,7 +49,7 @@ const fetchUserFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_USER_FAILURE,
       });
 

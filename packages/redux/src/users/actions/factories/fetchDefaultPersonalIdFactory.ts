@@ -3,6 +3,7 @@ import {
   FETCH_DEFAULT_PERSONAL_ID_REQUEST,
   FETCH_DEFAULT_PERSONAL_ID_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type {
   DefaultPersonalIdResponse,
@@ -28,11 +29,11 @@ const fetchDefaultPersonalIdFactory =
   (getDefaultPersonalId: GetDefaultPersonalId) =>
   (id: number, config: Config) =>
   async (dispatch: Dispatch): Promise<DefaultPersonalIdResponse> => {
-    dispatch({
-      type: FETCH_DEFAULT_PERSONAL_ID_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_DEFAULT_PERSONAL_ID_REQUEST,
+      });
+
       const result = await getDefaultPersonalId(id, config);
 
       dispatch({
@@ -43,7 +44,7 @@ const fetchDefaultPersonalIdFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_DEFAULT_PERSONAL_ID_FAILURE,
       });
 

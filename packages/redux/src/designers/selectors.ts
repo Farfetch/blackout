@@ -1,6 +1,6 @@
 import { getError, getHash, getIsLoading, getResult } from './reducer';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { Designers } from '@farfetch/blackout-client/designers/types';
-import type { Error } from '@farfetch/blackout-client/types';
 import type { StoreState } from '../types';
 
 /**
@@ -24,7 +24,8 @@ import type { StoreState } from '../types';
 export const getDesignersError = (
   state: StoreState,
   hash = getDesignersResultHash(state),
-): Error | undefined => (hash ? getError(state.designers)[hash] : undefined);
+): BlackoutError | undefined =>
+  hash ? getError(state.designers)[hash] : undefined;
 
 /**
  * Returns the loading status for the designers.

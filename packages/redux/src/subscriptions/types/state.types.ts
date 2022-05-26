@@ -1,5 +1,5 @@
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { CombinedState } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
 import type { Subscription } from '@farfetch/blackout-client/subscriptions/types';
 
 export type SubscriptionState = CombinedState<{
@@ -8,14 +8,14 @@ export type SubscriptionState = CombinedState<{
 }>;
 
 export type UserState = CombinedState<{
-  error: Error | undefined | null;
+  error: BlackoutError | undefined | null;
   isLoading: boolean;
   result: Subscription[];
   unsubscribeRecipientFromTopicRequests: Record<
     string,
     UnsubscribeRecipientFromTopicType
   >;
-  updateSubscriptionsError: Error | undefined | null;
+  updateSubscriptionsError: BlackoutError | undefined | null;
 }>;
 
 export type UnsubscribeRecipientFromTopicType = {
@@ -23,12 +23,12 @@ export type UnsubscribeRecipientFromTopicType = {
   topicId: string;
   isFetching: boolean;
   success?: boolean;
-  error: Error | undefined | null;
+  error: BlackoutError | undefined | null;
 };
 
 export type PackagesState = CombinedState<{
   result: NormalizedSubscriptionPackage | null;
-  error: Error | undefined | null;
+  error: BlackoutError | undefined | null;
   isLoading: boolean;
 }>;
 

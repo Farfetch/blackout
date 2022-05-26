@@ -4,6 +4,7 @@ import {
   FETCH_SIZESCALE_MAPPINGS_SUCCESS,
 } from '../../actionTypes';
 import { generateSizeScaleMappingsHash } from '../../utils';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type { FetchSizeScaleMappingsAction } from '../../types';
 import type {
@@ -11,6 +12,7 @@ import type {
   SizeScaleMapping,
   SizeScaleMappingsQuery,
 } from '@farfetch/blackout-client/sizeScales/types';
+import type { Nullable } from '@farfetch/blackout-redux/types';
 
 /**
  * @param query  - Query with parameters to apply to the request.
@@ -33,14 +35,15 @@ const fetchSizeScaleMappingsFactory =
   async (
     dispatch: Dispatch<FetchSizeScaleMappingsAction>,
   ): Promise<SizeScaleMapping> => {
-    const hash = generateSizeScaleMappingsHash(query);
-
-    dispatch({
-      meta: { hash, query },
-      type: FETCH_SIZESCALE_MAPPINGS_REQUEST,
-    });
+    let hash: Nullable<string> = null;
 
     try {
+      hash = generateSizeScaleMappingsHash(query);
+      dispatch({
+        meta: { hash, query },
+        type: FETCH_SIZESCALE_MAPPINGS_REQUEST,
+      });
+
       const result = await getSizeScaleMappings(query, config);
 
       dispatch({
@@ -52,8 +55,8 @@ const fetchSizeScaleMappingsFactory =
       return result;
     } catch (error) {
       dispatch({
-        meta: { hash, query },
-        payload: { error },
+        meta: { hash: hash as string, query },
+        payload: { error: toError(error) },
         type: FETCH_SIZESCALE_MAPPINGS_FAILURE,
       });
 

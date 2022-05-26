@@ -6,6 +6,7 @@ import {
 import { login } from '..';
 import { mockStore } from '../../../../tests';
 import { postLogin } from '@farfetch/blackout-client/authentication';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
 
@@ -55,7 +56,7 @@ describe('login() action creator', () => {
           { type: actionTypes.LOGIN_REQUEST },
           {
             type: actionTypes.LOGIN_FAILURE,
-            payload: { error: errorObject },
+            payload: { error: toError(errorObject) },
           },
         ]),
       );

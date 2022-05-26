@@ -1,5 +1,5 @@
 import * as fromSearchIntentsReducer from '../reducer/searchIntents';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { SearchIntents } from '@farfetch/blackout-client/search/types';
 import type { StoreState } from '../../types';
 
@@ -20,7 +20,9 @@ import type { StoreState } from '../../types';
  *
  * @returns Search error.
  */
-export const getSearchIntentsError = (state: StoreState): Error | null =>
+export const getSearchIntentsError = (
+  state: StoreState,
+): BlackoutError | null =>
   fromSearchIntentsReducer.getError(state.search.intents);
 
 /**

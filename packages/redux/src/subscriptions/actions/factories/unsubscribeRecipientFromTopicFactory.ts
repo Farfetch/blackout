@@ -1,4 +1,5 @@
 import * as actionTypes from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { DeleteRecipientFromTopic } from '@farfetch/blackout-client/subscriptions/types';
 import type { UnsubscribeRecipientFromTopicFactory } from './types';
 
@@ -41,7 +42,7 @@ const unsubscribeRecipientFromTopic: UnsubscribeRecipientFromTopicFactory<
       });
     } catch (error) {
       dispatch({
-        payload: { recipientId, error },
+        payload: { recipientId, error: toError(error) },
         type: actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_FAILURE,
       });
 

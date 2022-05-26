@@ -2,6 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import { contentEntries } from '../../../entities/schemas/content';
 import { generateContentHash, getRankedCommercePage } from '../../utils';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type {
   ActionFetchCommercePages,
   CommercePagesContentNormalized,
@@ -40,19 +41,20 @@ export default (getCommercePages: GetCommercePages) =>
   async (
     dispatch: Dispatch<ActionFetchCommercePages>,
   ): Promise<CommercePagesContentNormalized> => {
-    const hash = generateContentHash({
-      contentTypeCode: 'commerce_pages',
-      codes: slug,
-      pageSize: query?.pageSize,
-    });
-
-    dispatch({
-      meta: { query },
-      payload: { hash },
-      type: actionTypes.FETCH_COMMERCE_PAGES_REQUEST,
-    });
-
+    let hash: string | undefined = undefined;
     try {
+      hash = generateContentHash({
+        contentTypeCode: 'commerce_pages',
+        codes: slug,
+        pageSize: query?.pageSize,
+      });
+
+      dispatch({
+        meta: { query },
+        payload: { hash },
+        type: actionTypes.FETCH_COMMERCE_PAGES_REQUEST,
+      });
+
       const result = await getCommercePages(query, config);
       const normalizedResult = {
         number: 1,
@@ -75,7 +77,7 @@ export default (getCommercePages: GetCommercePages) =>
     } catch (error) {
       dispatch({
         meta: { query },
-        payload: { error, hash },
+        payload: { error: toError(error), hash: hash as string },
         type: actionTypes.FETCH_COMMERCE_PAGES_FAILURE,
       });
 

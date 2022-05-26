@@ -1,4 +1,5 @@
 import { adaptTimestamp } from '@farfetch/blackout-client/helpers/adapters';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import {
   UPDATE_RETURN_FAILURE,
   UPDATE_RETURN_REQUEST,
@@ -37,11 +38,11 @@ const updateReturnFactory =
     config?: Record<string, unknown>,
   ) =>
   async (dispatch: Dispatch): Promise<Return> => {
-    dispatch({
-      type: UPDATE_RETURN_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: UPDATE_RETURN_REQUEST,
+      });
+
       const adaptedData = {
         start: adaptTimestamp(data.start) || '',
         end: adaptTimestamp(data.end) || '',
@@ -55,7 +56,7 @@ const updateReturnFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: UPDATE_RETURN_FAILURE,
       });
 

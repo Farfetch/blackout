@@ -3,6 +3,7 @@ import {
   adaptError,
   defaultErrorAdapter,
   legacyErrorAdapter,
+  toError,
 } from './formatError';
 import { configApiBlackAndWhite } from './configs';
 import client from './axiosInstance';
@@ -13,6 +14,7 @@ export {
   defaultErrorAdapter,
   headers,
   legacyErrorAdapter,
+  toError,
 };
 
 export default client;

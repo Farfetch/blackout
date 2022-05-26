@@ -9,7 +9,7 @@ import type {
   PaymentMethods,
   PaymentToken,
 } from '@farfetch/blackout-client/payments/types';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { NormalizedSchema } from 'normalizr';
 
 /**
@@ -21,7 +21,7 @@ export type ChargesAction =
   | ChargesSuccessAction;
 
 export interface ChargesFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.CHARGE_FAILURE;
 }
 
@@ -44,7 +44,7 @@ export type CreateInstrumentsAction =
   | CreateInstrumentsSuccessAction;
 
 export interface CreateInstrumentsFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.CREATE_INSTRUMENT_FAILURE;
 }
 
@@ -65,7 +65,7 @@ export type FetchCreditBalanceAction =
   | FetchCreditBalanceSuccessAction;
 
 export interface FetchCreditBalanceFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_CREDIT_BALANCE_FAILURE;
 }
 
@@ -87,7 +87,7 @@ export type FetchGiftCardBalanceAction =
   | FetchGiftCardBalanceSuccessAction;
 
 export interface FetchGiftCardBalanceFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_GIFT_CARD_BALANCE_FAILURE;
 }
 
@@ -109,7 +109,7 @@ export type FetchChargesAction =
   | FetchChargesSuccessAction;
 
 export interface FetchChargesFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_CHARGES_FAILURE;
 }
 
@@ -146,7 +146,7 @@ export type FetchInstrumentAction =
   | FetchInstrumentSuccessAction;
 
 export interface FetchInstrumentFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_INSTRUMENT_FAILURE;
 }
 
@@ -168,7 +168,7 @@ export type FetchInstrumentsAction =
   | FetchInstrumentsSuccessAction;
 
 export interface FetchInstrumentsFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_INSTRUMENTS_FAILURE;
 }
 
@@ -190,7 +190,7 @@ export type FetchIntentAction =
   | FetchIntentSuccessAction;
 
 export interface FetchIntentFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_INTENT_FAILURE;
 }
 
@@ -219,7 +219,7 @@ export type FetchPaymentTokensAction =
   | FetchPaymentTokensSuccessAction;
 
 export interface FetchPaymentTokensFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_PAYMENT_TOKENS_FAILURE;
 }
 
@@ -241,7 +241,7 @@ export type FetchPaymentMethodsAction =
   | FetchPaymentMethodsSuccessAction;
 
 export interface FetchPaymentMethodsFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_PAYMENT_METHODS_FAILURE;
 }
 
@@ -268,7 +268,7 @@ export type FetchPaymentMethodsByCountryAndCurrencyAction =
 
 export interface FetchPaymentMethodsByCountryAndCurrencyFailureAction
   extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_FAILURE;
 }
 
@@ -292,7 +292,7 @@ export type FetchPaymentMethodsByIntentAction =
   | FetchPaymentMethodsByIntentSuccessAction;
 
 export interface FetchPaymentMethodsByIntentFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_PAYMENT_METHODS_BY_INTENT_FAILURE;
 }
 
@@ -314,7 +314,7 @@ export type RemoveInstrumentAction =
   | RemoveInstrumentSuccessAction;
 
 export interface RemoveInstrumentFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.REMOVE_INSTRUMENT_FAILURE;
 }
 
@@ -336,7 +336,7 @@ export type RemovePaymentTokensAction =
   | RemovePaymentTokensSuccessAction;
 
 export interface RemovePaymentTokensFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.REMOVE_PAYMENT_TOKEN_FAILURE;
 }
 
@@ -358,7 +358,7 @@ export type UpdateInstrumentAction =
   | UpdateInstrumentSuccessAction;
 
 export interface UpdateInstrumentFailureAction extends Action {
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.UPDATE_INSTRUMENT_FAILURE;
 }
 

@@ -3,6 +3,7 @@ import {
   CREATE_INSTRUMENT_REQUEST,
   CREATE_INSTRUMENT_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { CreateInstrumentsAction } from '../../types';
 import type { Dispatch } from 'redux';
@@ -34,11 +35,11 @@ const createInstrumentsFactory =
   async (
     dispatch: Dispatch<CreateInstrumentsAction>,
   ): Promise<PostInstrumentsResponse> => {
-    dispatch({
-      type: CREATE_INSTRUMENT_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: CREATE_INSTRUMENT_REQUEST,
+      });
+
       const result = await postInstruments(id, data, config);
 
       dispatch({
@@ -48,7 +49,7 @@ const createInstrumentsFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: CREATE_INSTRUMENT_FAILURE,
       });
 

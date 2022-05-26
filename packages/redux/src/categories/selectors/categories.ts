@@ -1,5 +1,5 @@
 import { getError, getIsFetched, getIsLoading } from '../reducer/categories';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { StoreState } from '../../types';
 
 /**
@@ -18,7 +18,7 @@ import type { StoreState } from '../../types';
  *
  * @returns Error information (`null` if there are no errors).
  */
-export const getCategoriesError = (state: StoreState): Error | null =>
+export const getCategoriesError = (state: StoreState): BlackoutError | null =>
   getError(state.categories);
 
 /**

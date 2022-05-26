@@ -4,6 +4,7 @@ import {
   FETCH_PROGRAMS_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import programSchema from '../../../entities/schemas/program';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -31,11 +32,11 @@ const fetchProgramsFactory =
   (getPrograms: GetPrograms) =>
   (config?: Config) =>
   async (dispatch: Dispatch<FetchProgramsAction>): Promise<Program[]> => {
-    dispatch({
-      type: FETCH_PROGRAMS_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_PROGRAMS_REQUEST,
+      });
+
       const result = await getPrograms(config);
 
       dispatch({
@@ -46,7 +47,7 @@ const fetchProgramsFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_PROGRAMS_FAILURE,
       });
 

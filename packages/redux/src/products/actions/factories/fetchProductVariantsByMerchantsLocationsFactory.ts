@@ -5,6 +5,7 @@ import {
 } from '../../actionTypes';
 import { getProduct } from '../../../entities/selectors';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import productSchema from '../../../entities/schemas/product';
 import type { Dispatch } from 'redux';
 import type {
@@ -43,15 +44,15 @@ const fetchProductVariantsByMerchantsLocationsFactory =
     dispatch: Dispatch,
     getState: () => StoreState,
   ): Promise<ProductVariantByMerchantLocation[]> => {
-    const state = getState();
-    const variants = getProduct(state, productId)?.variants;
-
-    dispatch({
-      meta: { productId },
-      type: FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
-    });
-
     try {
+      const state = getState();
+      const variants = getProduct(state, productId)?.variants;
+
+      dispatch({
+        meta: { productId },
+        type: FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
+      });
+
       const result = await getProductVariantsByMerchantsLocations(
         productId,
         variantId,
@@ -87,7 +88,7 @@ const fetchProductVariantsByMerchantsLocationsFactory =
     } catch (error) {
       dispatch({
         meta: { productId },
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_PRODUCT_MERCHANTS_LOCATIONS_FAILURE,
       });
 

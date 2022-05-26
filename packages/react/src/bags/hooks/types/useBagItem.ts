@@ -5,7 +5,7 @@ import type {
   Query,
 } from '@farfetch/blackout-client/bags/types';
 import type { BagItemHydrated } from '@farfetch/blackout-redux/entities/types';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 
 export type HandleQuantityChangeType = (
   newQuantity: number,
@@ -41,7 +41,7 @@ export type UseBagItem = (
     config?: Record<string, unknown>,
   ) => Promise<Bag>;
   bagItem: BagItemHydrated;
-  error: Error | null | undefined;
+  error: BlackoutError | null | undefined;
   isLoading: boolean | undefined;
   handleQuantityChange: HandleQuantityChangeType;
   handleSizeChange: HandleSizeChangeType;

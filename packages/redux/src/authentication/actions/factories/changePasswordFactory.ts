@@ -3,6 +3,7 @@ import {
   PASSWORD_CHANGE_REQUEST,
   PASSWORD_CHANGE_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 
 /**
@@ -30,11 +31,10 @@ export default (postPasswordChange: any) =>
     config?: { [k: string]: any },
   ) =>
   async (dispatch: Dispatch): Promise<any> => {
-    dispatch({
-      type: PASSWORD_CHANGE_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: PASSWORD_CHANGE_REQUEST,
+      });
       const result = await postPasswordChange(data, config);
 
       dispatch({
@@ -44,7 +44,7 @@ export default (postPasswordChange: any) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: PASSWORD_CHANGE_FAILURE,
       });
 

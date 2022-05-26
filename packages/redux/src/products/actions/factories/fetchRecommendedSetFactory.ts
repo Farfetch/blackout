@@ -3,6 +3,7 @@ import {
   FETCH_RECOMMENDED_SET_REQUEST,
   FETCH_RECOMMENDED_SET_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type { FetchRecommendedSetAction } from '../../types';
 import type {
@@ -31,12 +32,12 @@ const fetchRecommendedSet =
   async (
     dispatch: Dispatch<FetchRecommendedSetAction>,
   ): Promise<RecommendedSet> => {
-    dispatch({
-      meta: { recommendedSetId },
-      type: FETCH_RECOMMENDED_SET_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: { recommendedSetId },
+        type: FETCH_RECOMMENDED_SET_REQUEST,
+      });
+
       const result = await getRecommendedSet(recommendedSetId, config);
 
       dispatch({
@@ -49,7 +50,7 @@ const fetchRecommendedSet =
     } catch (error) {
       dispatch({
         meta: { recommendedSetId },
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_RECOMMENDED_SET_FAILURE,
       });
 

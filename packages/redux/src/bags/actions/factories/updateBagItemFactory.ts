@@ -1,5 +1,6 @@
 import { getBagId } from '../../selectors';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import {
   UPDATE_BAG_ITEM_FAILURE,
   UPDATE_BAG_ITEM_REQUEST,
@@ -13,7 +14,7 @@ import type {
   Query,
 } from '@farfetch/blackout-client/bags/types';
 import type { Dispatch } from 'redux';
-import type { GetOptionsArgument, StoreState } from '../../../types';
+import type { GetOptionsArgument, Nullable, StoreState } from '../../../types';
 
 /**
  * @param bagItemId - Bag item id.
@@ -47,19 +48,20 @@ const updateBagItemFactory =
       getOptions = arg => ({ productImgQueryParam: arg.productImgQueryParam }),
     }: GetOptionsArgument,
   ): Promise<Bag> => {
-    const state = getState();
-    const bagId = getBagId(state);
-
-    dispatch({
-      meta: {
-        ...data,
-        bagItemId,
-        bagId,
-      },
-      type: UPDATE_BAG_ITEM_REQUEST,
-    });
+    let bagId: Nullable<string> = null;
 
     try {
+      const state = getState();
+      bagId = getBagId(state);
+
+      dispatch({
+        meta: {
+          ...data,
+          bagItemId,
+          bagId,
+        },
+        type: UPDATE_BAG_ITEM_REQUEST,
+      });
       const result = await patchBagItem(bagId, bagItemId, data, query, config);
       const { productImgQueryParam } = getOptions(getState);
       const newItems = result.items.map(item => ({
@@ -84,7 +86,7 @@ const updateBagItemFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         meta: {
           ...data,
           bagItemId,

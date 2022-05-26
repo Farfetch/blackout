@@ -4,6 +4,7 @@ import {
   FETCH_TITLES_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import titlesSchema from '../../../entities/schemas/titles';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -31,11 +32,11 @@ const fetchTitlesFactory =
   (getTitles: GetTitles) =>
   (query: GetTitlesQuery, config?: Config) =>
   async (dispatch: Dispatch) => {
-    dispatch({
-      type: FETCH_TITLES_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_TITLES_REQUEST,
+      });
+
       const result = await getTitles(query, config);
 
       dispatch({
@@ -46,7 +47,7 @@ const fetchTitlesFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_TITLES_FAILURE,
       });
 

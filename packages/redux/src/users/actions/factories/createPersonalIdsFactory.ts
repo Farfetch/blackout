@@ -3,6 +3,7 @@ import {
   CREATE_PERSONAL_IDS_REQUEST,
   CREATE_PERSONAL_IDS_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
@@ -30,11 +31,11 @@ const createPersonalIdsFactory =
   (postPersonalIds: PostPersonalIds) =>
   (userId: number, data: PostPersonalIdsData, config: Config) =>
   async (dispatch: Dispatch): Promise<PostPersonalIdsResponse> => {
-    dispatch({
-      type: CREATE_PERSONAL_IDS_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: CREATE_PERSONAL_IDS_REQUEST,
+      });
+
       const result = await postPersonalIds(userId, data, config);
 
       dispatch({
@@ -45,7 +46,7 @@ const createPersonalIdsFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: CREATE_PERSONAL_IDS_FAILURE,
       });
 

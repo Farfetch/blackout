@@ -20,7 +20,7 @@ describe('contents serverInitialState()', () => {
       contents: {
         searchResults: {},
         contentTypes: {
-          error: {},
+          error: undefined,
           isLoading: false,
           result: null,
         },

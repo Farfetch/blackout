@@ -3,6 +3,7 @@ import {
   FETCH_USER_ATTRIBUTES_REQUEST,
   FETCH_USER_ATTRIBUTES_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type {
   GetUserAttributes,
@@ -29,11 +30,11 @@ const fetchUserAttributesFactory =
   (getUserAttributes: GetUserAttributes) =>
   (id: number, query?: UserAttributesQuery, config?: Record<string, unknown>) =>
   async (dispatch: Dispatch): Promise<UserAttributesResponse> => {
-    dispatch({
-      type: FETCH_USER_ATTRIBUTES_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_USER_ATTRIBUTES_REQUEST,
+      });
+
       const result = await getUserAttributes(id, query, config);
 
       dispatch({
@@ -44,7 +45,7 @@ const fetchUserAttributesFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_USER_ATTRIBUTES_FAILURE,
       });
 
