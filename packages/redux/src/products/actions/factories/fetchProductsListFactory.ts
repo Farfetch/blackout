@@ -9,6 +9,7 @@ import {
 import { generateProductsListHash } from '../../utils';
 import { isProductsListCached, isProductsListHydrated } from '../../selectors';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import productsListSchema from '../../../entities/schemas/productsList';
 import type { Dispatch } from 'redux';
 import type {
@@ -19,7 +20,7 @@ import type {
   Set,
   SetQuery,
 } from '@farfetch/blackout-client/products/types';
-import type { GetOptionsArgument, StoreState } from '../../../types';
+import type { GetOptionsArgument, Nullable, StoreState } from '../../../types';
 import type { ProductsListActionOptions } from '../../types';
 
 /**
@@ -54,55 +55,56 @@ const fetchProductsListFactory = async (
   }: GetOptionsArgument,
   isSet: boolean,
 ): Promise<Listing | Set | undefined> => {
-  const { productImgQueryParam } = getOptions(getState);
-  const hash = generateProductsListHash(slug, query, { isSet });
-  const isHydrated = isProductsListHydrated(getState(), hash);
+  let hash: Nullable<string> = null;
+  try {
+    hash = generateProductsListHash(slug, query, { isSet });
+    const { productImgQueryParam } = getOptions(getState);
+    const isHydrated = isProductsListHydrated(getState(), hash);
 
-  // Check if listing data is already fetched.
-  // If it is, let the calling code know there's nothing to wait for.
-  // If not, dispatch an action to fetch the listing data.
-  if (isHydrated) {
-    dispatch({
-      meta: { hash },
-      type: DEHYDRATE_PRODUCTS_LIST,
-    });
+    // Check if listing data is already fetched.
+    // If it is, let the calling code know there's nothing to wait for.
+    // If not, dispatch an action to fetch the listing data.
+    if (isHydrated) {
+      dispatch({
+        meta: { hash },
+        type: DEHYDRATE_PRODUCTS_LIST,
+      });
 
-    return;
-  }
+      return;
+    }
 
-  // Verify if this set already exists on the products lists
-  if (isProductsListCached(getState(), hash)) {
-    if (useCache) {
-      if (!setProductsListHash) {
+    // Verify if this set already exists on the products lists
+    if (isProductsListCached(getState(), hash)) {
+      if (useCache) {
+        if (!setProductsListHash) {
+          return;
+        }
+
+        dispatch({
+          meta: { hash },
+          type: SET_PRODUCTS_LIST_HASH,
+        });
+
         return;
+      } else {
+        dispatch({
+          type: RESET_PRODUCTS_LISTS_STATE,
+        });
       }
+    }
 
+    if (setProductsListHash) {
       dispatch({
         meta: { hash },
         type: SET_PRODUCTS_LIST_HASH,
       });
-
-      return;
-    } else {
-      dispatch({
-        type: RESET_PRODUCTS_LISTS_STATE,
-      });
     }
-  }
 
-  if (setProductsListHash) {
     dispatch({
       meta: { hash },
-      type: SET_PRODUCTS_LIST_HASH,
+      type: FETCH_PRODUCTS_LIST_REQUEST,
     });
-  }
 
-  dispatch({
-    meta: { hash },
-    type: FETCH_PRODUCTS_LIST_REQUEST,
-  });
-
-  try {
     // @ts-expect-error Property slug can be a string or a number.
     const result = await client(slug, query, config);
 
@@ -123,8 +125,8 @@ const fetchProductsListFactory = async (
     return result;
   } catch (error) {
     dispatch({
-      meta: { hash },
-      payload: { error },
+      meta: { hash: hash as string },
+      payload: { error: toError(error) },
       type: FETCH_PRODUCTS_LIST_FAILURE,
     });
 

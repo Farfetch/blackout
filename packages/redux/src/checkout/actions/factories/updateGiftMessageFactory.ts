@@ -1,3 +1,4 @@
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import {
   UPDATE_GIFT_MESSAGE_FAILURE,
   UPDATE_GIFT_MESSAGE_REQUEST,
@@ -31,11 +32,11 @@ const updateGiftMessageFactory =
   (patchGiftMessage: PatchGiftMessage) =>
   (id: number, data: PatchGiftMessageData, config?: Config) =>
   async (dispatch: Dispatch): Promise<number> => {
-    dispatch({
-      type: UPDATE_GIFT_MESSAGE_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: UPDATE_GIFT_MESSAGE_REQUEST,
+      });
+
       const result = await patchGiftMessage(id, data, config);
 
       dispatch({
@@ -45,7 +46,7 @@ const updateGiftMessageFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: UPDATE_GIFT_MESSAGE_FAILURE,
       });
 

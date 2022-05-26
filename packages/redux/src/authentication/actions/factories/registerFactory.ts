@@ -4,6 +4,7 @@ import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 
 const UNVERIFIED_USER = 4;
@@ -41,11 +42,10 @@ export default (postRegister: any) =>
     },
   ) =>
   async (dispatch: Dispatch): Promise<any> => {
-    dispatch({
-      type: REGISTER_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: REGISTER_REQUEST,
+      });
       const result = await postRegister(data, config);
       const isUnverifiedUser = result.status === UNVERIFIED_USER && !result.id;
       const user = isUnverifiedUser ? {} : result;
@@ -67,7 +67,7 @@ export default (postRegister: any) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: REGISTER_FAILURE,
       });
 

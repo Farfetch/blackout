@@ -1,11 +1,12 @@
 import axios from 'axios';
 import isArray from 'lodash/isArray';
+import type { BlackoutError } from '../../types';
 import type { DefaultErrorAdapterData, LegacyErrorAdapterData } from './types';
 
-// This is the default error code it's used for axios errors and all the errors
-// that don't return an error code. This should be used to display a generic
-// error on the application.
-export const defaultErrorCode = -1;
+export const defaultError = {
+  code: -1,
+  message: 'Unexpected error',
+};
 
 /**
  * Method responsible for adapting the request error to fit the application error
@@ -19,7 +20,7 @@ export const defaultErrorCode = -1;
 export const legacyErrorAdapter = (
   {
     errorMessage,
-    errorCode = defaultErrorCode,
+    errorCode = defaultError.code,
     ...rest
   }: LegacyErrorAdapterData,
   status: number,
@@ -42,14 +43,14 @@ export const legacyErrorAdapter = (
 export const defaultErrorAdapter = (
   {
     message,
-    code = defaultErrorCode,
+    code = defaultError.code,
     developerMessage,
     ...rest
   }: DefaultErrorAdapterData,
   status: number,
 ) => ({
   code,
-  message: message || developerMessage || 'Unexpected error',
+  message: message || developerMessage || defaultError.message,
   status,
   ...rest,
 });
@@ -69,6 +70,15 @@ export const adaptError = (error: {
     return error;
   }
 
+  const extraParameters: {
+    transportLayerErrorCode?: string;
+    [key: string]: unknown;
+  } = {};
+
+  if (error.code) {
+    extraParameters.transportLayerErrorCode = error.code;
+  }
+
   if (error.response && error.response.data) {
     const { status, data } = error.response;
 
@@ -76,7 +86,8 @@ export const adaptError = (error: {
     // the FO service and only a string is returned).
     if (typeof data === 'string') {
       return Object.assign(error, {
-        code: defaultErrorCode,
+        ...extraParameters,
+        code: defaultError.code,
         message: data,
         status,
       });
@@ -93,14 +104,19 @@ export const adaptError = (error: {
       ? legacyErrorAdapter(dataResponse, status)
       : defaultErrorAdapter(dataResponse, status);
 
-    return Object.assign(error, { ...convertedData, status });
+    return Object.assign(error, {
+      ...convertedData,
+      ...extraParameters,
+      status,
+    });
   }
 
   if (error.request) {
     const { response, status } = error.request;
 
     Object.assign(error, {
-      code: defaultErrorCode,
+      ...extraParameters,
+      code: defaultError.code,
       message: response.description || error.message,
       status,
       ...response,
@@ -110,7 +126,43 @@ export const adaptError = (error: {
   }
 
   return Object.assign(error, {
-    code: defaultErrorCode,
+    code: defaultError.code,
     status: null,
+  });
+};
+
+/**
+ * Check and cast Error to BlackoutError if it is type.
+ *
+ * @param error - error data.
+ * @returns Error typed as BlackoutError
+ */
+export const isBlackoutErrorType = (error: unknown): error is BlackoutError => {
+  return (
+    error instanceof Error &&
+    Object.prototype.hasOwnProperty.call(error, 'code')
+  );
+};
+
+/**
+ * Method responsible for cast any error to known Error type.
+ *
+ * @param error - Error ocurred.
+ * @returns casted error to known error type.
+ */
+
+export const toError = (error: unknown): BlackoutError => {
+  if (isBlackoutErrorType(error)) {
+    return error;
+  }
+
+  if (error instanceof Error) {
+    return Object.assign(error, {
+      code: defaultError.code,
+    });
+  }
+
+  return Object.assign(new Error(defaultError.message), {
+    code: defaultError.code,
   });
 };

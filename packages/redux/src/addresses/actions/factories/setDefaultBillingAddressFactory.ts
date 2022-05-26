@@ -3,6 +3,7 @@ import {
   SET_DEFAULT_BILLING_ADDRESS_REQUEST,
   SET_DEFAULT_BILLING_ADDRESS_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type {
   Address,
   PutDefaultBillingAddress,
@@ -31,12 +32,12 @@ const setDefaultBillingAddressFactory =
   (putDefaultBillingAddress: PutDefaultBillingAddress) =>
   (userId: User['id'], addressId: Address['id'], config?: Config) =>
   async (dispatch: Dispatch<SetDefaultBillingAddressAction>): Promise<void> => {
-    dispatch({
-      meta: { addressId },
-      type: SET_DEFAULT_BILLING_ADDRESS_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: { addressId },
+        type: SET_DEFAULT_BILLING_ADDRESS_REQUEST,
+      });
+
       const result = await putDefaultBillingAddress(
         { id: addressId, userId },
         config,
@@ -51,7 +52,7 @@ const setDefaultBillingAddressFactory =
     } catch (error) {
       dispatch({
         meta: { addressId },
-        payload: { error },
+        payload: { error: toError(error) },
         type: SET_DEFAULT_BILLING_ADDRESS_FAILURE,
       });
 

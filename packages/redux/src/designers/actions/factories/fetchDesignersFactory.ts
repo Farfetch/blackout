@@ -1,6 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import { generateDesignerResultHash } from '../../utils';
 import { isDesignersResultCached } from '../../selectors';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import resetDesignersState from '../resetDesignersState';
 import type {
   Designers,
@@ -11,7 +12,7 @@ import type {
   FetchDesignersAction,
   SetDesignersResultHashAction,
 } from '../../types';
-import type { StoreState } from '../../../types';
+import type { Nullable, StoreState } from '../../../types';
 import type { ThunkDispatch } from 'redux-thunk';
 
 /**
@@ -46,28 +47,30 @@ const fetchDesignersFactory =
     >,
     getState: () => StoreState,
   ): Promise<{ designers: Designers } | undefined> => {
-    const hash = generateDesignerResultHash(query);
-
-    dispatch({
-      meta: { hash },
-      type: actionTypes.SET_DESIGNERS_RESULT_HASH,
-    });
-
-    // Verify if this designer result already exists
-    if (useCache) {
-      if (isDesignersResultCached(getState(), hash)) {
-        return;
-      }
-    } else {
-      dispatch(resetDesignersState());
-    }
-
-    dispatch({
-      meta: { hash },
-      type: actionTypes.FETCH_DESIGNERS_REQUEST,
-    });
+    let hash: Nullable<string> = null;
 
     try {
+      hash = generateDesignerResultHash(query);
+
+      dispatch({
+        meta: { hash },
+        type: actionTypes.SET_DESIGNERS_RESULT_HASH,
+      });
+
+      // Verify if this designer result already exists
+      if (useCache) {
+        if (isDesignersResultCached(getState(), hash)) {
+          return;
+        }
+      } else {
+        dispatch(resetDesignersState());
+      }
+
+      dispatch({
+        meta: { hash },
+        type: actionTypes.FETCH_DESIGNERS_REQUEST,
+      });
+
       const result = await getDesigners(query, config);
 
       dispatch({
@@ -79,8 +82,8 @@ const fetchDesignersFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
-        meta: { hash },
+        payload: { error: toError(error) },
+        meta: { hash: hash as string },
         type: actionTypes.FETCH_DESIGNERS_FAILURE,
       });
 

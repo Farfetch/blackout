@@ -1,5 +1,5 @@
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { CombinedState } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
 import type {
   RecentlyViewedProducts,
   RecentlyViewedProductsEntriesItem,
@@ -7,7 +7,7 @@ import type {
 } from '@farfetch/blackout-client/src/recentlyViewed/types';
 
 export type State = CombinedState<{
-  error: Error | undefined | null;
+  error: BlackoutError | undefined | null;
   isLoading: boolean;
   result: RecentlyViewedResult;
 }>;

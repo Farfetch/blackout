@@ -1,6 +1,7 @@
 import { createUserImpersonation } from '..';
 import { mockStore } from '../../../../tests';
 import { postUserImpersonation } from '@farfetch/blackout-client/authentication';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
 
@@ -50,7 +51,7 @@ describe('createUserImpersonation() action creator', () => {
           { type: actionTypes.CREATE_USER_IMPERSONATION_REQUEST },
           {
             type: actionTypes.CREATE_USER_IMPERSONATION_FAILURE,
-            payload: { error: errorObject },
+            payload: { error: toError(errorObject) },
           },
         ]),
       );

@@ -1,5 +1,5 @@
 import { getError, getIsLoading, getResult } from '../reducer/recommendedSet';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { RecommendedSet } from '@farfetch/blackout-client/products/types';
 import type { StoreState } from '../../types';
 
@@ -42,7 +42,8 @@ export const isRecommendedSetFetched = (
 export const getRecommendedSetError = (
   state: StoreState,
   id: RecommendedSet['id'],
-): Error | null | undefined => getError(state.products.recommendedSets)[id];
+): BlackoutError | null | undefined =>
+  getError(state.products.recommendedSets)[id];
 
 /**
  * Returns the recommended set for the given id.

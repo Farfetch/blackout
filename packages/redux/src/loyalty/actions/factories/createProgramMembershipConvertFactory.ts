@@ -4,6 +4,7 @@ import {
   CREATE_PROGRAM_MEMBERSHIP_CONVERT_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import convertSchema from '../../../entities/schemas/convert';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { CreateProgramMembershipConvertAction } from '../../types';
@@ -41,11 +42,11 @@ const createProgramMembershipConvertFactory =
   async (
     dispatch: Dispatch<CreateProgramMembershipConvertAction>,
   ): Promise<ProgramMembershipConvert> => {
-    dispatch({
-      type: CREATE_PROGRAM_MEMBERSHIP_CONVERT_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: CREATE_PROGRAM_MEMBERSHIP_CONVERT_REQUEST,
+      });
+
       const result = await postProgramMembershipConvert(
         programId,
         membershipId,
@@ -60,7 +61,7 @@ const createProgramMembershipConvertFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: CREATE_PROGRAM_MEMBERSHIP_CONVERT_FAILURE,
       });
 

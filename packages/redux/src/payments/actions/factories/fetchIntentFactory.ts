@@ -3,6 +3,7 @@ import {
   FETCH_INTENT_REQUEST,
   FETCH_INTENT_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type { FetchIntentAction } from '../../types';
@@ -29,11 +30,11 @@ const fetchIntentFactory =
   (getIntent: GetIntent) =>
   (intentId: Intent['id'], config?: Config) =>
   async (dispatch: Dispatch<FetchIntentAction>): Promise<Intent> => {
-    dispatch({
-      type: FETCH_INTENT_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_INTENT_REQUEST,
+      });
+
       const result = await getIntent(intentId, config);
 
       dispatch({
@@ -44,7 +45,7 @@ const fetchIntentFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_INTENT_FAILURE,
       });
 

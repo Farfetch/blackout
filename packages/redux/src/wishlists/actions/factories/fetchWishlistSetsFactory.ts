@@ -1,6 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import { getWishlistId } from '../../selectors';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import wishlistSetSchema from '../../../entities/schemas/wishlistSet';
 import type { Dispatch } from 'redux';
 import type { FetchWishlistSetsAction } from '../../types';
@@ -31,18 +32,18 @@ const fetchWishlistSetsFactory =
     dispatch: Dispatch<FetchWishlistSetsAction>,
     getState: () => StoreState,
   ): Promise<WishlistSets | undefined> => {
-    const state = getState();
-    const wishlistId = getWishlistId(state);
-
-    if (!wishlistId) {
-      throw new Error('No wishlist id is set');
-    }
-
-    dispatch({
-      type: actionTypes.FETCH_WISHLIST_SETS_REQUEST,
-    });
-
     try {
+      const state = getState();
+      const wishlistId = getWishlistId(state);
+
+      if (!wishlistId) {
+        throw new Error('No wishlist id is set');
+      }
+
+      dispatch({
+        type: actionTypes.FETCH_WISHLIST_SETS_REQUEST,
+      });
+
       const result = await getWishlistSets(wishlistId, config);
 
       dispatch({
@@ -53,7 +54,7 @@ const fetchWishlistSetsFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: actionTypes.FETCH_WISHLIST_SETS_FAILURE,
       });
 

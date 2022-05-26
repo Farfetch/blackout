@@ -3,6 +3,7 @@ import {
   SET_DEFAULT_SHIPPING_ADDRESS_REQUEST,
   SET_DEFAULT_SHIPPING_ADDRESS_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type {
   Address,
   PutDefaultShippingAddress,
@@ -33,12 +34,12 @@ const setDefaultShippingAddressFactory =
   async (
     dispatch: Dispatch<SetDefaultShippingAddressAction>,
   ): Promise<void> => {
-    dispatch({
-      meta: { addressId },
-      type: SET_DEFAULT_SHIPPING_ADDRESS_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: { addressId },
+        type: SET_DEFAULT_SHIPPING_ADDRESS_REQUEST,
+      });
+
       const result = await putDefaultShippingAddress(
         { userId, id: addressId },
         config,
@@ -53,7 +54,7 @@ const setDefaultShippingAddressFactory =
     } catch (error) {
       dispatch({
         meta: { addressId },
-        payload: { error },
+        payload: { error: toError(error) },
         type: SET_DEFAULT_SHIPPING_ADDRESS_FAILURE,
       });
 

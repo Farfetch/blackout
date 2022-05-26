@@ -1,5 +1,6 @@
 import { mockStore } from '../../../../tests';
 import { postValidateEmail } from '@farfetch/blackout-client/authentication';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import { validateEmail } from '..';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
@@ -57,7 +58,7 @@ describe('validateEmailFactory() action creator', () => {
           { type: actionTypes.VALIDATE_EMAIL_REQUEST },
           {
             type: actionTypes.VALIDATE_EMAIL_FAILURE,
-            payload: { error: errorObject },
+            payload: { error: toError(errorObject) },
           },
         ]),
       );

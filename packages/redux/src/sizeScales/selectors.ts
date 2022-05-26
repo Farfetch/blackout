@@ -10,8 +10,8 @@ import {
   getSizeScaleIsLoading as getSizeScaleIsLoadingByIdentifier,
 } from './reducer';
 import { getSizeScales } from '../entities/selectors';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { Category } from '@farfetch/blackout-client/categories/types';
-import type { Error } from '@farfetch/blackout-client/types';
 import type {
   SizeScale,
   SizeScaleMapping,
@@ -84,7 +84,7 @@ export const isSizeScaleLoading = (
  *
  * @returns Size scales error state.
  */
-export const getSizeScalesError = (state: StoreState): Error | null =>
+export const getSizeScalesError = (state: StoreState): BlackoutError | null =>
   getError(state.sizeScales);
 
 /**
@@ -98,7 +98,7 @@ export const getSizeScalesError = (state: StoreState): Error | null =>
 export const getSizeScaleError = (
   state: StoreState,
   scaleIdentifier: number | SizeScalesQuery,
-): Error | undefined => {
+): BlackoutError | undefined => {
   let identifier;
 
   if (typeof scaleIdentifier === 'object') {
@@ -150,7 +150,7 @@ export const isSizeScaleFetched = (
 export const getSizeScaleMappingError = (
   state: StoreState,
   query: SizeScaleMappingsQuery,
-): Error | undefined =>
+): BlackoutError | undefined =>
   getMappingError(state.sizeScales)[generateSizeScaleMappingsHash(query)];
 
 /**

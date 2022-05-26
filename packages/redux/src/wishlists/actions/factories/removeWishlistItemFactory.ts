@@ -1,6 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import { getWishlistId, getWishlistItem } from '../../selectors';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import wishlistItemSchema from '../../../entities/schemas/wishlistItem';
 import type {
   DeleteWishlistItem,
@@ -10,6 +11,7 @@ import type {
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
 import type { RemoveWishlistItemAction } from '../../types';
+import type { WishlistItemHydrated } from '@farfetch/blackout-redux/entities/types';
 
 /**
  * @param wishlistItemId - Wishlist item id.
@@ -36,24 +38,25 @@ const removeWishlistItemFactory =
       getOptions = ({ productImgQueryParam }) => ({ productImgQueryParam }),
     }: GetOptionsArgument,
   ): Promise<Wishlist | undefined> => {
-    const state = getState();
-    const wishlistId = getWishlistId(state);
-
-    if (!wishlistId) {
-      throw new Error('No wishlist id is set');
-    }
-
-    const wishlistItem = getWishlistItem(state, wishlistItemId);
-
-    dispatch({
-      meta: {
-        productId: wishlistItem?.product?.id,
-        wishlistItemId,
-      },
-      type: actionTypes.REMOVE_WISHLIST_ITEM_REQUEST,
-    });
-
+    let wishlistItem: WishlistItemHydrated | undefined;
     try {
+      const state = getState();
+      const wishlistId = getWishlistId(state);
+
+      if (!wishlistId) {
+        throw new Error('No wishlist id is set');
+      }
+
+      wishlistItem = getWishlistItem(state, wishlistItemId);
+
+      dispatch({
+        meta: {
+          productId: wishlistItem?.product?.id,
+          wishlistItemId,
+        },
+        type: actionTypes.REMOVE_WISHLIST_ITEM_REQUEST,
+      });
+
       const result = await deleteWishlistItem(
         wishlistId,
         wishlistItemId,
@@ -86,7 +89,7 @@ const removeWishlistItemFactory =
           productId: wishlistItem?.product?.id,
           wishlistItemId,
         },
-        payload: { error },
+        payload: { error: toError(error) },
         type: actionTypes.REMOVE_WISHLIST_ITEM_FAILURE,
       });
 

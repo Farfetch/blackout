@@ -3,6 +3,7 @@ import {
   CREATE_PICKUP_RESCHEDULE_REQUEST_REQUEST,
   CREATE_PICKUP_RESCHEDULE_REQUEST_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
@@ -21,11 +22,11 @@ const createPickupRescheduleRequestFactory =
   (postPickupRescheduleRequest: PostPickupRescheduleRequest) =>
   (id: string, data: PickupRescheduleRequest, config?: Config) =>
   async (dispatch: Dispatch): Promise<number> => {
-    dispatch({
-      type: CREATE_PICKUP_RESCHEDULE_REQUEST_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: CREATE_PICKUP_RESCHEDULE_REQUEST_REQUEST,
+      });
+
       const result = await postPickupRescheduleRequest(id, data, config);
 
       dispatch({
@@ -36,7 +37,7 @@ const createPickupRescheduleRequestFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: CREATE_PICKUP_RESCHEDULE_REQUEST_FAILURE,
       });
 

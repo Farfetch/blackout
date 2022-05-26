@@ -3,6 +3,7 @@ import {
   CREATE_CLIENT_CREDENTIALS_TOKEN_REQUEST,
   CREATE_CLIENT_CREDENTIALS_TOKEN_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 
 /**
@@ -22,11 +23,10 @@ import type { Dispatch } from 'redux';
 export default (postTokens: any) =>
   (config?: { [k: string]: any }) =>
   async (dispatch: Dispatch): Promise<any> => {
-    dispatch({
-      type: CREATE_CLIENT_CREDENTIALS_TOKEN_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: CREATE_CLIENT_CREDENTIALS_TOKEN_REQUEST,
+      });
       const result = await postTokens(
         { grantType: 'client_credentials' },
         config,
@@ -40,7 +40,7 @@ export default (postTokens: any) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: CREATE_CLIENT_CREDENTIALS_TOKEN_FAILURE,
       });
 

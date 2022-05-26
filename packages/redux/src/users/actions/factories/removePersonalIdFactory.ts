@@ -3,6 +3,7 @@ import {
   REMOVE_PERSONAL_ID_REQUEST,
   REMOVE_PERSONAL_ID_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { DeletePersonalId } from '@farfetch/blackout-client/users/types';
 import type { Dispatch } from 'redux';
@@ -27,11 +28,11 @@ const removePersonalIdFactory =
   (deletePersonalId: DeletePersonalId) =>
   (userId: number, personalId: string, config: Config) =>
   async (dispatch: Dispatch): Promise<number> => {
-    dispatch({
-      type: REMOVE_PERSONAL_ID_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: REMOVE_PERSONAL_ID_REQUEST,
+      });
+
       const result = await deletePersonalId(userId, personalId, config);
 
       dispatch({
@@ -42,7 +43,7 @@ const removePersonalIdFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: REMOVE_PERSONAL_ID_FAILURE,
       });
 

@@ -1,13 +1,13 @@
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { Nullable } from '../../types';
 
 export type StateWithoutResult = {
-  error: Nullable<Error>;
+  error: Nullable<BlackoutError>;
   isLoading: boolean;
 };
 
 export type State = {
-  error: Error | null;
+  error: BlackoutError | null;
   id: string | number | null;
   isLoading: boolean;
   returns: StateWithoutResult;

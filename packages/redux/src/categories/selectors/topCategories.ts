@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 import { getCategories } from '../../entities';
 import { getError, getIsLoading, getResult } from '../reducer/topCategories';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { Category } from '@farfetch/blackout-client/categories/types';
-import type { Error } from '@farfetch/blackout-client/types';
 import type { StoreState } from '../../types';
 
 /**
@@ -21,8 +21,9 @@ import type { StoreState } from '../../types';
  *
  * @returns Error information (`null` if there are no errors).
  */
-export const getTopCategoriesError = (state: StoreState): Error | null =>
-  getError(state.categories);
+export const getTopCategoriesError = (
+  state: StoreState,
+): BlackoutError | null => getError(state.categories);
 
 /**
  * Retrieves a list of all the top categories (without a parent category).

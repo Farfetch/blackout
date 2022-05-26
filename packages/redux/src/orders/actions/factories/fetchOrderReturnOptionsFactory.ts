@@ -4,6 +4,7 @@ import {
   FETCH_ORDER_RETURN_OPTIONS_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import returnOption from '../../../entities/schemas/returnOption';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -30,12 +31,12 @@ const fetchOrderReturnOptions =
   (getOrderReturnOptions: GetOrderReturnOptions) =>
   (orderId: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<OrderReturn[]> => {
-    dispatch({
-      meta: { orderId },
-      type: FETCH_ORDER_RETURN_OPTIONS_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: { orderId },
+        type: FETCH_ORDER_RETURN_OPTIONS_REQUEST,
+      });
+
       const result = await getOrderReturnOptions(orderId, config);
 
       dispatch({
@@ -48,7 +49,7 @@ const fetchOrderReturnOptions =
     } catch (error) {
       dispatch({
         meta: { orderId },
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_ORDER_RETURN_OPTIONS_FAILURE,
       });
 

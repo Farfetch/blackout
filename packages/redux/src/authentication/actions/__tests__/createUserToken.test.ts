@@ -1,6 +1,7 @@
 import { createUserToken } from '..';
 import { mockStore } from '../../../../tests';
 import { postTokens } from '@farfetch/blackout-client/authentication';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
 
@@ -55,7 +56,7 @@ describe('createUserToken() action creator', () => {
           { type: actionTypes.CREATE_USER_TOKEN_REQUEST },
           {
             type: actionTypes.CREATE_USER_TOKEN_FAILURE,
-            payload: { error: errorObject },
+            payload: { error: toError(errorObject) },
           },
         ]),
       );

@@ -1,5 +1,5 @@
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { CombinedState } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
 import type {
   Wishlist,
   WishlistSet,
@@ -11,24 +11,24 @@ type NormalizedWishlist = Omit<Wishlist, 'items'> & {
 };
 
 export type SetsState = CombinedState<{
-  error: Error | null;
+  error: BlackoutError | null;
   ids: Array<WishlistSet['setId']> | null;
   isLoading: boolean;
   set: {
-    error: Record<WishlistSet['setId'], Error | null | undefined>;
+    error: Record<WishlistSet['setId'], BlackoutError | null | undefined>;
     isLoading: Record<WishlistSet['setId'], boolean | undefined>;
   };
 }>;
 
 export type State = CombinedState<{
-  error: Error | null;
+  error: BlackoutError | null;
   id: Wishlist['id'] | null;
   isLoading: boolean;
   result: NormalizedWishlist | Record<string, never>;
   items: {
     ids: Array<WishlistItemEntity['id']> | null;
     item: {
-      error: Record<WishlistItemEntity['id'], Error | null | undefined>;
+      error: Record<WishlistItemEntity['id'], BlackoutError | null | undefined>;
       isLoading: Record<WishlistItemEntity['id'], boolean | undefined>;
     };
   };

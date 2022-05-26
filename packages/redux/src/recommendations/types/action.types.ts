@@ -1,6 +1,6 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { ProductRecommendation } from '@farfetch/blackout-client/recommendations/types';
 
 interface FetchProductRecommendationsRequestAction extends Action {
@@ -16,7 +16,7 @@ interface FetchProductRecommendationsSuccessAction extends Action {
 
 interface FetchProductRecommendationsFailureAction extends Action {
   type: typeof actionTypes.FETCH_PRODUCT_RECOMMENDATIONS_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   meta: { strategyName: string };
 }
 

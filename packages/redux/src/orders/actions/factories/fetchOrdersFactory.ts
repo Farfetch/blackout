@@ -4,6 +4,7 @@ import {
   FETCH_ORDERS_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import order from '../../../entities/schemas/order';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -32,11 +33,11 @@ const fetchOrders =
   (getOrders: GetOrders) =>
   (userId: number, query?: Query, config?: Config) =>
   async (dispatch: Dispatch): Promise<OrderSummary> => {
-    dispatch({
-      type: FETCH_ORDERS_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_ORDERS_REQUEST,
+      });
+
       const result = await getOrders(userId, query, config);
       const normalizedOrders = normalize(result, {
         entries: [order],
@@ -50,7 +51,7 @@ const fetchOrders =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_ORDERS_FAILURE,
       });
 

@@ -4,6 +4,7 @@ import {
   FETCH_CHECKOUT_DETAILS_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import checkoutDetailsSchema from '../../../entities/schemas/checkoutDetails';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -31,11 +32,11 @@ import type {
 export default (getCheckoutDetails: GetCheckoutDetails) =>
   (id: number, config?: Config) =>
   async (dispatch: Dispatch): Promise<GetCheckoutDetailsResponse> => {
-    dispatch({
-      type: FETCH_CHECKOUT_DETAILS_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_CHECKOUT_DETAILS_REQUEST,
+      });
+
       const result = await getCheckoutDetails(id, config);
 
       dispatch({
@@ -47,7 +48,7 @@ export default (getCheckoutDetails: GetCheckoutDetails) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_CHECKOUT_DETAILS_FAILURE,
       });
 

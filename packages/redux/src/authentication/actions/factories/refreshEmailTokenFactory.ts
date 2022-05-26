@@ -3,6 +3,7 @@ import {
   REFRESH_EMAIL_TOKEN_REQUEST,
   REFRESH_EMAIL_TOKEN_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 
 /**
@@ -31,11 +32,10 @@ export default (postRefreshEmailToken: any) =>
     },
   ) =>
   async (dispatch: Dispatch): Promise<any> => {
-    dispatch({
-      type: REFRESH_EMAIL_TOKEN_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: REFRESH_EMAIL_TOKEN_REQUEST,
+      });
       const result = await postRefreshEmailToken(data, config);
 
       dispatch({
@@ -45,7 +45,7 @@ export default (postRefreshEmailToken: any) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: REFRESH_EMAIL_TOKEN_FAILURE,
       });
 

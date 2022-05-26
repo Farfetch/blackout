@@ -1,6 +1,6 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { LOGOUT_SUCCESS } from '../../authentication/actionTypes';
 import type { NormalizedReturns } from './return.types';
 import type { NormalizedSchema } from 'normalizr';
@@ -26,7 +26,7 @@ export interface CreateReturnSuccessAction extends Action {
 }
 export interface CreateReturnFailureAction extends Action {
   type: typeof actionTypes.CREATE_RETURN_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -47,7 +47,7 @@ export interface GetPickupCapabilitiesSuccessAction extends Action {
 }
 export interface GetPickupCapabilitiesFailureAction extends Action {
   type: typeof actionTypes.FETCH_PICKUP_CAPABILITIES_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -67,7 +67,7 @@ export interface GetReferencesSuccessAction extends Action {
 }
 export interface GetReferencesFailureAction extends Action {
   type: typeof actionTypes.FETCH_REFERENCES_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -87,7 +87,7 @@ export interface GetReturnSuccessAction extends Action {
 }
 export interface GetReturnFailureAction extends Action {
   type: typeof actionTypes.FETCH_RETURN_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -107,7 +107,7 @@ export interface GetReturnsFromOrderSuccessAction extends Action {
 }
 export interface GetReturnsFromOrderFailureAction extends Action {
   type: typeof actionTypes.FETCH_RETURNS_FROM_ORDER_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -129,7 +129,7 @@ export interface UpdateReturnSuccessAction extends Action {
 }
 export interface UpdateReturnFailureAction extends Action {
   type: typeof actionTypes.UPDATE_RETURN_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -148,7 +148,7 @@ export interface FetchPickupRescheduleRequestsSuccessAction extends Action {
 }
 export interface FetchPickupRescheduleRequestsFailureAction extends Action {
   type: typeof actionTypes.FETCH_PICKUP_RESCHEDULE_REQUESTS_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -167,7 +167,7 @@ export interface FetchPickupRescheduleRequestSuccessAction extends Action {
 }
 export interface FetchPickupRescheduleRequestFailureAction extends Action {
   type: typeof actionTypes.FETCH_PICKUP_RESCHEDULE_REQUEST_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -187,7 +187,7 @@ export interface CreatePickupRescheduleRequestSuccessAction extends Action {
 }
 export interface CreatePickupRescheduleRequestFailureAction extends Action {
   type: typeof actionTypes.CREATE_PICKUP_RESCHEDULE_REQUEST_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**

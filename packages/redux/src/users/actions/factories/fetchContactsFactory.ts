@@ -4,6 +4,7 @@ import {
   FETCH_CONTACTS_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import contactsSchema from '../../../entities/schemas/contact';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -31,11 +32,11 @@ const fetchContactsFactory =
   (getContacts: GetContacts) =>
   (id: number, query: GetContactsQuery, config?: Config) =>
   async (dispatch: Dispatch) => {
-    dispatch({
-      type: FETCH_CONTACTS_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_CONTACTS_REQUEST,
+      });
+
       const result = await getContacts(id, query, config);
 
       dispatch({
@@ -46,7 +47,7 @@ const fetchContactsFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_CONTACTS_FAILURE,
       });
 

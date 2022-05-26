@@ -3,6 +3,7 @@ import {
   FETCH_GIFT_CARD_BALANCE_REQUEST,
   FETCH_GIFT_CARD_BALANCE_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type {
   Balance,
   PostCheckGiftCardBalance,
@@ -30,11 +31,11 @@ const fetchGiftCardBalanceFactory =
   (postCheckGiftCardBalance: PostCheckGiftCardBalance) =>
   (data: PostCheckGiftCardBalanceData, config?: Config) =>
   async (dispatch: Dispatch<FetchGiftCardBalanceAction>): Promise<Balance> => {
-    dispatch({
-      type: FETCH_GIFT_CARD_BALANCE_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_GIFT_CARD_BALANCE_REQUEST,
+      });
+
       const result = await postCheckGiftCardBalance(data, config);
 
       dispatch({
@@ -45,7 +46,7 @@ const fetchGiftCardBalanceFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_GIFT_CARD_BALANCE_FAILURE,
       });
 

@@ -4,6 +4,7 @@ import {
   FETCH_PREFERENCES_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import userPreferencesSchema from '../../../entities/schemas/preference';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -28,11 +29,11 @@ const fetchPreferencesFactory =
   (getPreferences: GetPreferences) =>
   (userId: number, code: string, config?: Config) =>
   async (dispatch: Dispatch) => {
-    dispatch({
-      type: FETCH_PREFERENCES_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_PREFERENCES_REQUEST,
+      });
+
       const result = await getPreferences(userId, code, config);
 
       dispatch({
@@ -43,7 +44,7 @@ const fetchPreferencesFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_PREFERENCES_FAILURE,
       });
 

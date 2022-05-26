@@ -48,7 +48,19 @@ describe('updateWishlistItem()', () => {
     await expect(
       store.dispatch(updateWishlistItem(mockWishlistItemId, data)),
     ).rejects.toThrowErrorMatchingInlineSnapshot('"No wishlist id is set"');
-    expect(store.getActions()).toHaveLength(0);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          type: actionTypes.UPDATE_WISHLIST_ITEM_FAILURE,
+          payload: {
+            error: expect.objectContaining({
+              message: 'No wishlist id is set',
+              code: -1,
+            }),
+          },
+        }),
+      ]),
+    );
   });
 
   it('should create the correct actions for when updating a wishlist item procedure fails', async () => {

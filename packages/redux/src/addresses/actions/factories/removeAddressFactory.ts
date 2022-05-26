@@ -3,6 +3,7 @@ import {
   REMOVE_ADDRESS_REQUEST,
   REMOVE_ADDRESS_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type {
   Address,
   DeleteAddress,
@@ -31,12 +32,12 @@ const removeAddressFactory =
   (deleteAddress: DeleteAddress) =>
   (userId: User['id'], addressId: Address['id'], config?: Config) =>
   async (dispatch: Dispatch<RemoveAddressAction>): Promise<void> => {
-    dispatch({
-      meta: { addressId },
-      type: REMOVE_ADDRESS_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: { addressId },
+        type: REMOVE_ADDRESS_REQUEST,
+      });
+
       const result = await deleteAddress({ userId, id: addressId }, config);
 
       dispatch({
@@ -48,7 +49,7 @@ const removeAddressFactory =
     } catch (error) {
       dispatch({
         meta: { addressId },
-        payload: { error },
+        payload: { error: toError(error) },
         type: REMOVE_ADDRESS_FAILURE,
       });
 

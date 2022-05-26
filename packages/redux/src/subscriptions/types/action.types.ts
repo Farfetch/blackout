@@ -1,6 +1,6 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { NormalizedSchema } from 'normalizr';
 import type { NormalizedSubscriptionPackage } from './state.types';
 import type {
@@ -19,7 +19,7 @@ interface FetchSubscriptionPackagesSuccessAction extends Action {
 }
 interface FetchSubscriptionPackagesFailureAction extends Action {
   type: typeof actionTypes.FETCH_SUBSCRIPTION_PACKAGES_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -40,7 +40,7 @@ interface FetchUserSubscriptionsSuccessAction extends Action {
 }
 interface FetchUserSubscriptionsFailureAction extends Action {
   type: typeof actionTypes.FETCH_USER_SUBSCRIPTIONS_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -60,7 +60,7 @@ interface UnsubscribeFromSubscriptionSuccessAction extends Action {
 }
 interface UnsubscribeFromSubscriptionFailureAction extends Action {
   type: typeof actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -89,7 +89,7 @@ interface UnsubscribeRecipientFromTopicSuccessAction extends Action {
 }
 interface UnsubscribeRecipientFromTopicFailureAction extends Action {
   type: typeof actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_FAILURE;
-  payload: { recipientId?: string; error: Error };
+  payload: { recipientId?: string; error: BlackoutError };
 }
 
 /**
@@ -110,7 +110,7 @@ interface UpdateUserSubscriptionsSuccessAction extends Action {
 
 interface UpdateUserSubscriptionsFailureAction extends Action {
   type: typeof actionTypes.UPDATE_USER_SUBSCRIPTIONS_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**

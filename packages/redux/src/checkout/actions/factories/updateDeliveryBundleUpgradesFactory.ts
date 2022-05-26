@@ -1,3 +1,4 @@
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import {
   UPDATE_DELIVERY_BUNDLE_UPGRADES_FAILURE,
   UPDATE_DELIVERY_BUNDLE_UPGRADES_REQUEST,
@@ -54,11 +55,11 @@ const updateDeliveryBundleUpgradesFactory =
     config?: Config,
   ) =>
   async (dispatch: Dispatch): Promise<number> => {
-    dispatch({
-      type: UPDATE_DELIVERY_BUNDLE_UPGRADES_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: UPDATE_DELIVERY_BUNDLE_UPGRADES_REQUEST,
+      });
+
       const result = await patchDeliveryBundleUpgrades(
         id,
         deliveryBundleId,
@@ -72,7 +73,7 @@ const updateDeliveryBundleUpgradesFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: UPDATE_DELIVERY_BUNDLE_UPGRADES_FAILURE,
       });
 

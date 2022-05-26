@@ -3,6 +3,7 @@ import {
   REMOVE_DEFAULT_CONTACT_ADDRESS_REQUEST,
   REMOVE_DEFAULT_CONTACT_ADDRESS_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type {
   Address,
   DeleteDefaultContactAddress,
@@ -33,12 +34,12 @@ const removeDefaultContactAddressFactory =
   async (
     dispatch: Dispatch<RemoveDefaultContactAddressAction>,
   ): Promise<void> => {
-    dispatch({
-      meta: { userId, addressId },
-      type: REMOVE_DEFAULT_CONTACT_ADDRESS_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: { userId, addressId },
+        type: REMOVE_DEFAULT_CONTACT_ADDRESS_REQUEST,
+      });
+
       const result = await deleteDefaultContactAddress(userId, config);
 
       dispatch({
@@ -50,7 +51,7 @@ const removeDefaultContactAddressFactory =
     } catch (error) {
       dispatch({
         meta: { userId, addressId },
-        payload: { error },
+        payload: { error: toError(error) },
         type: REMOVE_DEFAULT_CONTACT_ADDRESS_FAILURE,
       });
 

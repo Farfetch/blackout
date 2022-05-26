@@ -1,13 +1,13 @@
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type {
   ContentEntries,
   ContentTypesEntries,
   SEOMetadata,
   Targets,
 } from '@farfetch/blackout-client/contents/types';
-import type { Error } from '@farfetch/blackout-client/types';
 import type { SearchResultsReducer } from '../types';
 
-type DefaultError = Error | null | undefined;
+type DefaultError = BlackoutError | null | undefined;
 type DefaultBoolean = boolean | undefined;
 
 export type QueryContentHash = {

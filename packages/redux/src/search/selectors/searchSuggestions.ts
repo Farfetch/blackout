@@ -1,5 +1,5 @@
 import * as fromSearchSuggestionsReducer from '../reducer/searchSuggestions';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type {
   SearchSuggestion,
   SearchSuggestionsQuery,
@@ -23,7 +23,9 @@ import type { StoreState } from '../../types';
  *
  * @returns Search error.
  */
-export const getSearchSuggestionsError = (state: StoreState): Error | null =>
+export const getSearchSuggestionsError = (
+  state: StoreState,
+): BlackoutError | null =>
   fromSearchSuggestionsReducer.getError(state.search.suggestions);
 
 /**

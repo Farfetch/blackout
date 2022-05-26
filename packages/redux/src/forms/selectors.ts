@@ -6,7 +6,7 @@ import {
   getSubmitFormDataError as getSubmitFormDataErrorFromReducer,
   getSubmitFormDataIsLoading,
 } from './reducer';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { FormResult } from './types';
 import type { StoreState } from '../types';
 
@@ -31,7 +31,7 @@ import type { StoreState } from '../types';
 export const getFormSchemaError = (
   state: StoreState,
   schemaCode: string,
-): Error | null | undefined => {
+): BlackoutError | null | undefined => {
   return getFormsError(state.forms)[schemaCode];
 };
 

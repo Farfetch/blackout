@@ -3,6 +3,7 @@ import {
   FETCH_CHARGES_REQUEST,
   FETCH_CHARGES_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type {
   Charge,
   GetCharges,
@@ -31,11 +32,11 @@ const fetchChargesFactory =
   (getCharges: GetCharges) =>
   (intentId: Intent['id'], chargeId: string, config?: Config) =>
   async (dispatch: Dispatch<FetchChargesAction>): Promise<Charge> => {
-    dispatch({
-      type: FETCH_CHARGES_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_CHARGES_REQUEST,
+      });
+
       const result = await getCharges(intentId, chargeId, config);
 
       dispatch({
@@ -47,7 +48,7 @@ const fetchChargesFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_CHARGES_FAILURE,
       });
 

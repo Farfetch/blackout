@@ -4,6 +4,7 @@ import {
   FETCH_PRODUCT_SIZES_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import productSchema from '../../../entities/schemas/product';
 import type { Dispatch } from 'redux';
 import type {
@@ -37,12 +38,12 @@ const fetchProductSizesFactory =
     config?: Record<string, unknown>,
   ) =>
   async (dispatch: Dispatch): Promise<Size[]> => {
-    dispatch({
-      meta: { productId },
-      type: FETCH_PRODUCT_SIZES_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: { productId },
+        type: FETCH_PRODUCT_SIZES_REQUEST,
+      });
+
       const result = await getProductSizes(productId, query, config);
       const productWithSizes = {
         id: productId,
@@ -59,7 +60,7 @@ const fetchProductSizesFactory =
     } catch (error) {
       dispatch({
         meta: { productId },
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_PRODUCT_SIZES_FAILURE,
       });
 

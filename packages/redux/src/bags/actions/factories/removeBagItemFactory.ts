@@ -5,6 +5,7 @@ import {
   REMOVE_BAG_ITEM_REQUEST,
   REMOVE_BAG_ITEM_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import bagItemSchema from '../../../entities/schemas/bagItem';
 import type {
   Bag,
@@ -13,7 +14,7 @@ import type {
   Query,
 } from '@farfetch/blackout-client/bags/types';
 import type { Dispatch } from 'redux';
-import type { GetOptionsArgument, StoreState } from '../../../types';
+import type { GetOptionsArgument, Nullable, StoreState } from '../../../types';
 
 /**
  * @param bagItemId - Bag item id.
@@ -46,18 +47,19 @@ const removeBagItemFactory =
       getOptions = arg => ({ productImgQueryParam: arg.productImgQueryParam }),
     }: GetOptionsArgument,
   ): Promise<Bag> => {
-    const state = getState();
-    const bagId = getBagId(state);
-
-    dispatch({
-      meta: {
-        bagId,
-        bagItemId,
-      },
-      type: REMOVE_BAG_ITEM_REQUEST,
-    });
+    let bagId: Nullable<string> = null;
 
     try {
+      const state = getState();
+      bagId = getBagId(state);
+
+      dispatch({
+        meta: {
+          bagId,
+          bagItemId,
+        },
+        type: REMOVE_BAG_ITEM_REQUEST,
+      });
       const result = await deleteBagItem(bagId, bagItemId, query, config);
       const { productImgQueryParam } = getOptions(getState);
       const newItems = result.items.map(item => ({
@@ -82,7 +84,7 @@ const removeBagItemFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         meta: { bagId, bagItemId },
         type: REMOVE_BAG_ITEM_FAILURE,
       });

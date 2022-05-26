@@ -1,6 +1,6 @@
 import { getError, getIsLoading } from '../reducer/fittings';
 import { getProduct } from '../../entities/selectors';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { ProductEntity } from '../../entities/types';
 import type { StoreState } from '../../types';
 
@@ -43,7 +43,7 @@ export const areProductFittingsFetched = (
 export const getProductFittingsError = (
   state: StoreState,
   id: ProductEntity['id'],
-): Error | undefined => getError(state.products.fittings)[id];
+): BlackoutError | undefined => getError(state.products.fittings)[id];
 
 /**
  * Returns the fittings information for a given product id.

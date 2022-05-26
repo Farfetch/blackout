@@ -2,6 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import { getWishlistId } from '../../selectors';
 import { normalize } from 'normalizr';
 import { omit } from 'lodash';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import wishlistItemSchema from '../../../entities/schemas/wishlistItem';
 import type {
   AddWishlistItemAction,
@@ -40,20 +41,20 @@ const addWishlistItemFactory =
       getOptions = ({ productImgQueryParam }) => ({ productImgQueryParam }),
     }: GetOptionsArgument,
   ): Promise<Wishlist | undefined> => {
-    const state = getState();
-    const wishlistId = getWishlistId(state);
-
-    // Do not add product if there's no wishlist set yet
-    if (!wishlistId) {
-      throw new Error('No wishlist id is set');
-    }
-
-    dispatch({
-      meta: { productId: data.productId },
-      type: actionTypes.ADD_WISHLIST_ITEM_REQUEST,
-    });
-
     try {
+      const state = getState();
+      const wishlistId = getWishlistId(state);
+
+      // Do not add product if there's no wishlist set yet
+      if (!wishlistId) {
+        throw new Error('No wishlist id is set');
+      }
+
+      dispatch({
+        meta: { productId: data.productId },
+        type: actionTypes.ADD_WISHLIST_ITEM_REQUEST,
+      });
+
       const dataToSend: PostWishlistItemData = omit(data, [
         'affiliation',
         'coupon',
@@ -82,7 +83,7 @@ const addWishlistItemFactory =
     } catch (error) {
       dispatch({
         meta: { productId: data.productId },
-        payload: { error },
+        payload: { error: toError(error) },
         type: actionTypes.ADD_WISHLIST_ITEM_FAILURE,
       });
 

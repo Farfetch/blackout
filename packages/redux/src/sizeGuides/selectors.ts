@@ -1,9 +1,9 @@
 import { findSpecificSizeGuide } from './utils';
 import { getCategory } from '../entities/selectors';
 import { getError, getIsLoading, getResult } from './reducer';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { Brand } from '@farfetch/blackout-client/brands/types';
 import type { Category } from '@farfetch/blackout-client/categories/types';
-import type { Error } from '@farfetch/blackout-client/types';
 import type { SizeGuide } from '@farfetch/blackout-client/sizeGuides/types';
 import type { StoreState } from '../types';
 
@@ -31,7 +31,7 @@ export const areSizeGuidesLoading = (state: StoreState): boolean =>
  *
  * @returns The sizeGuides error object or null if there's no error.
  */
-export const getSizeGuidesError = (state: StoreState): Error | null =>
+export const getSizeGuidesError = (state: StoreState): BlackoutError | null =>
   getError(state.sizeGuides);
 
 /**

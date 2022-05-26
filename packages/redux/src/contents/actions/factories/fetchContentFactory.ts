@@ -2,6 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import { contentEntries } from '../../../entities/schemas/content';
 import { generateContentHash } from '../../utils';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type {
   Contents,
@@ -27,16 +28,18 @@ import type { Dispatch } from 'redux';
 export default (getContent: GetContent) =>
   (query: QueryContents, config?: Config) =>
   async (dispatch: Dispatch): Promise<Contents> => {
-    // Aggregate contents with a hash representing the query object received.
-    const hash = generateContentHash(query);
-
-    dispatch({
-      meta: { query },
-      payload: { hash },
-      type: actionTypes.FETCH_CONTENT_REQUEST,
-    });
+    let hash: string | undefined = undefined;
 
     try {
+      // Aggregate contents with a hash representing the query object received.
+      hash = generateContentHash(query);
+
+      dispatch({
+        meta: { query },
+        payload: { hash },
+        type: actionTypes.FETCH_CONTENT_REQUEST,
+      });
+
       const result = await getContent(query, config);
 
       dispatch({
@@ -52,7 +55,7 @@ export default (getContent: GetContent) =>
     } catch (error) {
       dispatch({
         meta: { query },
-        payload: { error, hash },
+        payload: { error: toError(error), hash: hash as string },
         type: actionTypes.FETCH_CONTENT_FAILURE,
       });
 

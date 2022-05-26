@@ -1,4 +1,5 @@
 import * as actionTypes from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type { FetchSearchSuggestionsAction } from '../../types';
 import type {
@@ -28,12 +29,12 @@ const fetchSearchSuggestionsFactory =
   async (
     dispatch: Dispatch<FetchSearchSuggestionsAction>,
   ): Promise<SearchSuggestion[]> => {
-    dispatch({
-      meta: { query },
-      type: actionTypes.FETCH_SEARCH_SUGGESTIONS_REQUEST,
-    });
-
     try {
+      dispatch({
+        meta: { query },
+        type: actionTypes.FETCH_SEARCH_SUGGESTIONS_REQUEST,
+      });
+
       const result = await getSearchSuggestions(query, config);
 
       dispatch({
@@ -46,7 +47,7 @@ const fetchSearchSuggestionsFactory =
     } catch (error) {
       dispatch({
         meta: { query },
-        payload: { error },
+        payload: { error: toError(error) },
         type: actionTypes.FETCH_SEARCH_SUGGESTIONS_FAILURE,
       });
 

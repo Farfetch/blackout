@@ -5,6 +5,7 @@ import {
 } from '../../actionTypes';
 import { getBagId } from '../../selectors';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import bagItemSchema from '../../../entities/schemas/bagItem';
 import type {
   Bag,
@@ -13,7 +14,7 @@ import type {
   Query,
 } from '@farfetch/blackout-client/bags/types';
 import type { Dispatch } from 'redux';
-import type { GetOptionsArgument, StoreState } from '../../../types';
+import type { GetOptionsArgument, Nullable, StoreState } from '../../../types';
 
 /**
  * @param data   - Details of the product to add to the bag.
@@ -40,23 +41,23 @@ const addBagItemFactory =
       getOptions = arg => ({ productImgQueryParam: arg.productImgQueryParam }),
     }: GetOptionsArgument,
   ): Promise<Bag> => {
-    const state = getState();
-    const bagId = getBagId(state);
-
-    // Do not add product if there's no bag set yet
-    if (!bagId) {
-      throw new Error('No bag id is set');
-    }
-
-    dispatch({
-      type: ADD_BAG_ITEM_REQUEST,
-      meta: {
-        ...data,
-        bagId,
-      },
-    });
-
+    let bagId: Nullable<string> = null;
     try {
+      const state = getState();
+      bagId = getBagId(state);
+
+      // Do not add product if there's no bag set yet
+      if (!bagId) {
+        throw new Error('No bag id is set');
+      }
+
+      dispatch({
+        type: ADD_BAG_ITEM_REQUEST,
+        meta: {
+          ...data,
+          bagId,
+        },
+      });
       const result = await postBagItem(bagId, data, query, config);
       const { productImgQueryParam } = getOptions(getState);
       const newItems = result.items.map(item => ({
@@ -80,7 +81,7 @@ const addBagItemFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: ADD_BAG_ITEM_FAILURE,
         meta: {
           ...data,

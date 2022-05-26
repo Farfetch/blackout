@@ -3,8 +3,8 @@ import * as fromWishlistSetsReducer from '../reducer/wishlistsSets';
 import { buildWishlistItem, generateWishlistItemHash } from '../utils';
 import { createSelector } from 'reselect';
 import { getEntityById, getProduct } from '../../entities/selectors';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { BuildWishlistItemData } from '../utils/buildWishlistItem';
-import type { Error } from '@farfetch/blackout-client/types';
 import type {
   ProductEntity,
   WishlistItemEntity,
@@ -340,7 +340,7 @@ export const isWishlistItemLoading = (
 export const getWishlistItemError = (
   state: StoreState,
   itemId: WishlistItem['id'],
-): Error | null | undefined =>
+): BlackoutError | null | undefined =>
   fromWishlistReducer.getItemsError(state.wishlist)[itemId];
 
 /**

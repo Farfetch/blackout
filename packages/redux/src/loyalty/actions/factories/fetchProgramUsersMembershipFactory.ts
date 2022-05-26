@@ -4,6 +4,7 @@ import {
   FETCH_PROGRAM_USERS_MEMBERSHIP_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import membershipSchema from '../../../entities/schemas/membership';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -35,11 +36,11 @@ const fetchProgramUsersMembershipFactory =
   async (
     dispatch: Dispatch<FetchProgramUsersMembershipAction>,
   ): Promise<ProgramMembership> => {
-    dispatch({
-      type: FETCH_PROGRAM_USERS_MEMBERSHIP_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_PROGRAM_USERS_MEMBERSHIP_REQUEST,
+      });
+
       const result = await getProgramUsersMembership(programId, config);
 
       dispatch({
@@ -50,7 +51,7 @@ const fetchProgramUsersMembershipFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_PROGRAM_USERS_MEMBERSHIP_FAILURE,
       });
 

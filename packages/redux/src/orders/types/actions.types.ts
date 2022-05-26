@@ -1,6 +1,6 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { LOGOUT_SUCCESS } from '../../authentication/actionTypes';
 import type { NormalizedSchema } from 'normalizr';
 import type { Order } from '@farfetch/blackout-client/orders/types';
@@ -34,7 +34,7 @@ export interface FetchOrderDetailsSuccessAction extends Action {
 }
 export interface FetchOrderDetailsFailureAction extends Action {
   type: typeof actionTypes.FETCH_ORDER_DETAILS_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   meta: { orderId: string };
 }
 
@@ -57,7 +57,7 @@ export interface FetchOrderReturnOptionsSuccessAction extends Action {
 }
 export interface FetchOrderReturnOptionsFailureAction extends Action {
   type: typeof actionTypes.FETCH_ORDER_RETURN_OPTIONS_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   meta: { orderId: string };
 }
 
@@ -78,7 +78,7 @@ export interface FetchOrdersSuccessAction extends Action {
 }
 export interface FetchOrdersFailureAction extends Action {
   type: typeof actionTypes.FETCH_ORDERS_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -98,7 +98,7 @@ export interface FetchTrackingsSuccessAction extends Action {
 }
 export interface FetchTrackingsFailureAction extends Action {
   type: typeof actionTypes.FETCH_TRACKINGS_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -118,7 +118,7 @@ export interface FetchOrderDocumentsSuccessAction extends Action {
 }
 export interface FetchOrderDocumentsFailureAction extends Action {
   type: typeof actionTypes.FETCH_ORDER_DOCUMENTS_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -138,7 +138,7 @@ export interface FetchOrderDocumentSuccessAction extends Action {
 }
 export interface FetchOrderDocumentFailureAction extends Action {
   type: typeof actionTypes.FETCH_ORDER_DOCUMENT_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -158,7 +158,7 @@ export interface AddOrderDocumentSuccessAction extends Action {
 }
 export interface AddOrderDocumentFailureAction extends Action {
   type: typeof actionTypes.ADD_ORDER_DOCUMENT_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -205,7 +205,7 @@ export interface FetchOrderAvailableItemsActivitiesSuccessAction
 export interface FetchOrderAvailableItemsActivitiesFailureAction
   extends Action {
   type: typeof actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -226,5 +226,5 @@ export interface FetchOrderItemAvailableActivitiesSuccessAction extends Action {
 }
 export interface FetchOrderItemAvailableActivitiesFailureAction extends Action {
   type: typeof actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }

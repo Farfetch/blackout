@@ -1,7 +1,7 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { Designers } from '@farfetch/blackout-client/designers/types';
-import type { Error } from '@farfetch/blackout-client/types';
 
 export interface FetchDesignersRequestAction extends Action {
   type: typeof actionTypes.FETCH_DESIGNERS_REQUEST;
@@ -14,7 +14,7 @@ export interface FetchDesignersSuccessAction extends Action {
 }
 export interface FetchDesignersFailureAction extends Action {
   type: typeof actionTypes.FETCH_DESIGNERS_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   meta: { hash: string };
 }
 

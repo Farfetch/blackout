@@ -4,6 +4,7 @@ import {
   FETCH_TRACKINGS_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import labelTracking from '../../../entities/schemas/labelTracking';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -30,11 +31,11 @@ const fetchTrackings =
   (getTrackings: GetTrackings) =>
   (trackingNumbers: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<Tracking[]> => {
-    dispatch({
-      type: FETCH_TRACKINGS_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_TRACKINGS_REQUEST,
+      });
+
       const result = await getTrackings(trackingNumbers, config);
 
       dispatch({
@@ -47,7 +48,7 @@ const fetchTrackings =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_TRACKINGS_FAILURE,
       });
 

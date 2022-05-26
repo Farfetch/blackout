@@ -4,6 +4,7 @@ import {
   CREATE_PROGRAM_MEMBERSHIP_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import membershipSchema from '../../../entities/schemas/membership';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { CreateProgramMembershipAction } from '../../types';
@@ -36,11 +37,11 @@ const createProgramMembershipFactory =
   async (
     dispatch: Dispatch<CreateProgramMembershipAction>,
   ): Promise<ProgramMembership> => {
-    dispatch({
-      type: CREATE_PROGRAM_MEMBERSHIP_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: CREATE_PROGRAM_MEMBERSHIP_REQUEST,
+      });
+
       const result = await postProgramMembership(programId, data, config);
 
       dispatch({
@@ -51,7 +52,7 @@ const createProgramMembershipFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: CREATE_PROGRAM_MEMBERSHIP_FAILURE,
       });
 

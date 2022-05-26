@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { getError, getIsLoading } from '../reducer/colorGrouping';
 import { getProduct } from '../../entities/selectors';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { ProductEntity } from '../../entities/types';
 import type { StoreState } from '../../types';
 
@@ -29,7 +29,7 @@ export const isProductColorGroupingLoading = (
 export const getProductColorGroupingError = (
   state: StoreState,
   id: ProductEntity['id'],
-): Error | undefined => getError(state.products.colorGrouping)[id];
+): BlackoutError | undefined => getError(state.products.colorGrouping)[id];
 
 /**
  * Returns the color grouping requested, without manipulations, for a given product

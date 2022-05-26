@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type {
   FetchSizeGuidesAction,
   ResetSizeGuidesStateAction,
@@ -16,9 +16,9 @@ export const INITIAL_STATE: State = {
 };
 
 const error = (
-  state: Error | null = INITIAL_STATE.error,
+  state: BlackoutError | null = INITIAL_STATE.error,
   action: FetchSizeGuidesAction,
-): Error | null => {
+): BlackoutError | null => {
   switch (action.type) {
     case actionTypes.FETCH_SIZE_GUIDES_REQUEST:
       return INITIAL_STATE.error;

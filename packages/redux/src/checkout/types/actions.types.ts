@@ -1,5 +1,6 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type {
   CheckoutDetailsEntity,
   CheckoutEntity,
@@ -8,7 +9,6 @@ import type {
   DeliveryBundlesEntity,
   DeliveryBundleUpgradesEntity,
 } from '../../entities/types';
-import type { Error } from '@farfetch/blackout-client/types';
 import type {
   GetChargesResponse,
   GetItemDeliveryProvisioningResponse,
@@ -68,7 +68,7 @@ export interface GenericCheckoutFailureAction extends Action {
     | typeof actionTypes.SET_ITEM_TAGS_FAILURE
     | typeof actionTypes.SET_PROMOCODE_FAILURE
     | typeof actionTypes.SET_TAGS_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /**
@@ -94,7 +94,7 @@ export interface FetchCheckoutDetailsSuccessAction extends Action {
 }
 export interface FetchCheckoutDetailsFailureAction extends Action {
   type: typeof actionTypes.FETCH_CHECKOUT_DETAILS_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 export interface FetchCheckoutDetailsRequestAction extends Action {
@@ -124,7 +124,7 @@ export interface FetchItemDeliveryProvisioningSuccessAction extends Action {
 
 export interface FetchItemDeliveryProvisioningFailureAction extends Action {
   type: typeof actionTypes.FETCH_ITEM_DELIVERY_PROVISIONING_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 export interface FetchItemDeliveryProvisioningRequestAction extends Action {
@@ -147,7 +147,7 @@ export interface FetchChargesSuccessAction extends Action {
 
 export interface FetchChargesFailureAction extends Action {
   type: typeof actionTypes.FETCH_CHARGES_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 export interface FetchChargesRequestAction extends Action {
@@ -169,7 +169,7 @@ export interface ChargeSuccessAction extends Action {
 
 export interface ChargeFailureAction extends Action {
   type: typeof actionTypes.CHARGE_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 export interface ChargeRequestAction extends Action {
@@ -200,7 +200,7 @@ export interface DeliveryBundleFailureAction extends Action {
     | typeof actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_FAILURE
     | typeof actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADES_FAILURE
     | typeof actionTypes.FETCH_DELIVERY_BUNDLE_UPGRADES_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 export interface DeliveryBundleRequestAction extends Action {

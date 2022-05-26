@@ -1,4 +1,5 @@
 import * as actionTypes from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { PutSubscriptions } from '@farfetch/blackout-client/subscriptions/types';
 import type { UpdateUserSubscriptionsFactory } from './types';
 
@@ -12,11 +13,11 @@ import type { UpdateUserSubscriptionsFactory } from './types';
 const updateUserSubscriptionsFactory: UpdateUserSubscriptionsFactory<
   PutSubscriptions
 > = putSubscriptions => (data, config) => async dispatch => {
-  dispatch({
-    type: actionTypes.UPDATE_USER_SUBSCRIPTIONS_REQUEST,
-  });
-
   try {
+    dispatch({
+      type: actionTypes.UPDATE_USER_SUBSCRIPTIONS_REQUEST,
+    });
+
     await putSubscriptions(data, config);
 
     dispatch({
@@ -24,7 +25,7 @@ const updateUserSubscriptionsFactory: UpdateUserSubscriptionsFactory<
     });
   } catch (error) {
     dispatch({
-      payload: { error },
+      payload: { error: toError(error) },
       type: actionTypes.UPDATE_USER_SUBSCRIPTIONS_FAILURE,
     });
 

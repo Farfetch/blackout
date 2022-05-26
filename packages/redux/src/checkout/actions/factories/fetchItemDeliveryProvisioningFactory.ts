@@ -4,6 +4,7 @@ import {
   FETCH_ITEM_DELIVERY_PROVISIONING_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import itemDeliveryProvisioningSchema from '../../../entities/schemas/itemDeliveryProvisioning';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -30,11 +31,11 @@ import type {
 export default (getItemDeliveryProvisioning: GetItemDeliveryProvisioning) =>
   (id: number, deliveryBundleId: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<GetItemDeliveryProvisioningResponse> => {
-    dispatch({
-      type: FETCH_ITEM_DELIVERY_PROVISIONING_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_ITEM_DELIVERY_PROVISIONING_REQUEST,
+      });
+
       const result = await getItemDeliveryProvisioning(
         id,
         deliveryBundleId,
@@ -49,7 +50,7 @@ export default (getItemDeliveryProvisioning: GetItemDeliveryProvisioning) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_ITEM_DELIVERY_PROVISIONING_FAILURE,
       });
 

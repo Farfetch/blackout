@@ -1,4 +1,5 @@
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import {
   UPDATE_PREFERENCES_FAILURE,
   UPDATE_PREFERENCES_REQUEST,
@@ -31,11 +32,11 @@ const setPreferencesFactory =
   (updatePreferences: SetPreferences) =>
   (userId: number, data: SetPreferencesData, config?: Config) =>
   async (dispatch: Dispatch) => {
-    dispatch({
-      type: UPDATE_PREFERENCES_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: UPDATE_PREFERENCES_REQUEST,
+      });
+
       const result = await updatePreferences(userId, data, config);
 
       dispatch({
@@ -46,7 +47,7 @@ const setPreferencesFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: UPDATE_PREFERENCES_FAILURE,
       });
 

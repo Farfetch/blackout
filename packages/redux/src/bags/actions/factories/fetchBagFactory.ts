@@ -4,6 +4,7 @@ import {
   FETCH_BAG_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import bagItemSchema from '../../../entities/schemas/bagItem';
 import type { Bag, GetBag, Query } from '@farfetch/blackout-client/bags/types';
 import type { Dispatch } from 'redux';
@@ -34,11 +35,10 @@ const fetchBagFactory =
       getOptions = arg => ({ productImgQueryParam: arg.productImgQueryParam }),
     }: GetOptionsArgument,
   ): Promise<Bag> => {
-    dispatch({
-      type: FETCH_BAG_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_BAG_REQUEST,
+      });
       const result = await getBag(bagId, query, config);
       const { productImgQueryParam } = getOptions(getState);
       const newItems = result.items.map(item => ({
@@ -58,7 +58,7 @@ const fetchBagFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_BAG_FAILURE,
       });
 

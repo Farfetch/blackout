@@ -3,6 +3,7 @@ import {
   SET_USER_ATTRIBUTE_REQUEST,
   SET_USER_ATTRIBUTE_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type {
   PutUserAttribute,
@@ -34,11 +35,11 @@ const setUserAttributeFactory =
     config?: Record<string, unknown>,
   ) =>
   async (dispatch: Dispatch): Promise<number> => {
-    dispatch({
-      type: SET_USER_ATTRIBUTE_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: SET_USER_ATTRIBUTE_REQUEST,
+      });
+
       const result = await putUserAttribute(userId, attributeId, data, config);
 
       dispatch({
@@ -49,7 +50,7 @@ const setUserAttributeFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: SET_USER_ATTRIBUTE_FAILURE,
       });
 

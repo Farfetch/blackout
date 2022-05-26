@@ -1,6 +1,7 @@
 import { mockStore } from '../../../../tests';
 import { postTokens } from '@farfetch/blackout-client/authentication';
 import { refreshToken } from '..';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
 
@@ -48,7 +49,7 @@ describe('refreshToken() action creator', () => {
           { type: actionTypes.REFRESH_USER_TOKEN_REQUEST },
           {
             type: actionTypes.REFRESH_USER_TOKEN_FAILURE,
-            payload: { error: errorObject },
+            payload: { error: toError(errorObject) },
           },
         ]),
       );

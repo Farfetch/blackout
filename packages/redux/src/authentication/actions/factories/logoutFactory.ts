@@ -3,6 +3,7 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 
 /**
@@ -21,11 +22,10 @@ import type { Dispatch } from 'redux';
 export default (postLogout: any) =>
   (config?: { [k: string]: any }) =>
   async (dispatch: Dispatch): Promise<any> => {
-    dispatch({
-      type: LOGOUT_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: LOGOUT_REQUEST,
+      });
       const result = await postLogout(config);
 
       dispatch({
@@ -35,7 +35,7 @@ export default (postLogout: any) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: LOGOUT_FAILURE,
       });
 

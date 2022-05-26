@@ -1,6 +1,6 @@
 import type * as actionTypes from '../../actionTypes';
 import type { Action } from 'redux';
-import type { Error } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type {
   FacetEntity,
   ProductEntity,
@@ -32,7 +32,7 @@ export interface FetchProductsListSuccessAction extends Action {
 }
 export interface FetchProductsListFailureAction extends Action {
   meta: { hash: ProductsListEntity['hash'] };
-  payload: { error: Error };
+  payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_PRODUCTS_LIST_FAILURE;
 }
 

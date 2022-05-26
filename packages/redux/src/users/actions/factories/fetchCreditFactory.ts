@@ -3,6 +3,7 @@ import {
   FETCH_CREDIT_REQUEST,
   FETCH_CREDIT_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import isEmpty from 'lodash/isEmpty';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -27,17 +28,17 @@ const fetchCreditFactory =
   (getCredit: GetCredit) =>
   (id: number, config?: Config) =>
   async (dispatch: Dispatch) => {
-    const defaultZeroBalanceCredit = {
-      currency: null,
-      value: 0,
-      formattedValue: null,
-    };
-
-    dispatch({
-      type: FETCH_CREDIT_REQUEST,
-    });
-
     try {
+      const defaultZeroBalanceCredit = {
+        currency: null,
+        value: 0,
+        formattedValue: null,
+      };
+
+      dispatch({
+        type: FETCH_CREDIT_REQUEST,
+      });
+
       const result = await getCredit(id, config);
       const credit = isEmpty(result[0]) ? defaultZeroBalanceCredit : result[0];
 
@@ -49,7 +50,7 @@ const fetchCreditFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_CREDIT_FAILURE,
       });
 

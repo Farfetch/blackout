@@ -1,3 +1,4 @@
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import {
   UPDATE_INSTRUMENT_FAILURE,
   UPDATE_INSTRUMENT_REQUEST,
@@ -38,11 +39,11 @@ const updateInstrumentsFactory =
     config?: Config,
   ) =>
   async (dispatch: Dispatch<UpdateInstrumentAction>): Promise<void> => {
-    dispatch({
-      type: UPDATE_INSTRUMENT_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: UPDATE_INSTRUMENT_REQUEST,
+      });
+
       const result = await putInstruments(intentId, instrumentId, data, config);
 
       dispatch({
@@ -52,7 +53,7 @@ const updateInstrumentsFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: UPDATE_INSTRUMENT_FAILURE,
       });
 

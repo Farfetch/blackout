@@ -1,5 +1,5 @@
+import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { Brand, Brands } from '@farfetch/blackout-client/brands/types';
-import type { Error } from '@farfetch/blackout-client/types';
 
 // Override `Brands` to have entries as an array of ids
 export type BrandsResultNormalized = Omit<Brands, 'entries'> & {
@@ -7,7 +7,7 @@ export type BrandsResultNormalized = Omit<Brands, 'entries'> & {
 };
 
 export type State = {
-  error: Record<Brand['id'] | string, Error | undefined>;
+  error: Record<Brand['id'] | string, BlackoutError | undefined>;
   hash: string | null;
   isLoading: Record<Brand['id'] | string, boolean | undefined>;
   // A single brand has no result, as it's normalized and it's a single entity

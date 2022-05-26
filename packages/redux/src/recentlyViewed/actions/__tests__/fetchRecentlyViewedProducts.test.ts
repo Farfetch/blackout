@@ -128,10 +128,10 @@ describe('fetchRecentlyViewedProducts() action creator', () => {
     );
 
     expect(console.warn).toHaveBeenCalledWith(`
-            @farfetch/blackout-redux/recentlyViewed - Seems you are trying to fetch recently viewed products more than once.
-            Please make sure you only request the products once, and use the "saveRecentlyViewedProduct" action to mark the product as viewed when a product page is visited.
-            Keep in mind that "saveRecentlyViewedProduct" will only store locally the recently viewed product and will not persist it on the server.
-            For that, make sure you are using analytics with Omnitracking integration.
-        `);
+              @farfetch/blackout-redux/recentlyViewed - Seems you are trying to fetch recently viewed products more than once.
+              Please make sure you only request the products once, and use the "saveRecentlyViewedProduct" action to mark the product as viewed when a product page is visited.
+              Keep in mind that "saveRecentlyViewedProduct" will only store locally the recently viewed product and will not persist it on the server.
+              For that, make sure you are using analytics with Omnitracking integration.
+          `);
   });
 });

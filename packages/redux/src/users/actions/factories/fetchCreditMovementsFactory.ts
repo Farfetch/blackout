@@ -3,6 +3,7 @@ import {
   FETCH_CREDIT_MOVEMENTS_REQUEST,
   FETCH_CREDIT_MOVEMENTS_SUCCESS,
 } from '../../actionTypes';
+import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
@@ -29,11 +30,11 @@ const fetchCreditMovementsFactory =
   (getCreditMovements: GetCreditMovements) =>
   (id: number, query: GetCreditMovementsQuery, config?: Config) =>
   async (dispatch: Dispatch) => {
-    dispatch({
-      type: FETCH_CREDIT_MOVEMENTS_REQUEST,
-    });
-
     try {
+      dispatch({
+        type: FETCH_CREDIT_MOVEMENTS_REQUEST,
+      });
+
       const result = await getCreditMovements(id, query, config);
 
       dispatch({
@@ -44,7 +45,7 @@ const fetchCreditMovementsFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error },
+        payload: { error: toError(error) },
         type: FETCH_CREDIT_MOVEMENTS_FAILURE,
       });
 
