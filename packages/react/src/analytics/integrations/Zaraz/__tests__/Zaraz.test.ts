@@ -5,7 +5,7 @@ import {
   TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
-import { trackEventsData } from 'tests/__fixtures__/analytics';
+import { pageEventsData, trackEventsData } from 'tests/__fixtures__/analytics';
 import eventsMapper from '../eventsMapper';
 import loadIntegrationDataFixtures from 'tests/__fixtures__/analytics/loadIntegration';
 import ZarazIntegration, {
@@ -263,7 +263,8 @@ describe('Zaraz integration', () => {
   describe('default events mapper', () => {
     it.each(
       Object.keys(eventsMapper).filter(
-        eventType => eventType in trackEventsData,
+        eventType =>
+          eventType in trackEventsData || eventType in pageEventsData,
       ),
     )('should map the %s event correctly', async eventType => {
       const instance = createZarazInstance({});
@@ -272,9 +273,11 @@ describe('Zaraz integration', () => {
 
       const zarazEcommerceSpy = jest.spyOn(zaraz, 'ecommerce');
 
-      await instance.track(
-        trackEventsData[eventType as keyof typeof trackEventsData],
-      );
+      const eventData: EventData<TrackTypesValues> =
+        trackEventsData[eventType as keyof typeof trackEventsData] ||
+        pageEventsData[eventType as keyof typeof pageEventsData];
+
+      await instance.track(eventData);
 
       expect(zarazEcommerceSpy.mock.calls).toMatchSnapshot();
     });

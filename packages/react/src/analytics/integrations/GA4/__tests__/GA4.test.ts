@@ -1411,7 +1411,7 @@ describe('GA4 Integration', () => {
               ...defaultEvent,
               properties: {
                 ...defaultEvent.properties,
-                searchTerm: undefined,
+                searchQuery: undefined,
               },
             };
 
