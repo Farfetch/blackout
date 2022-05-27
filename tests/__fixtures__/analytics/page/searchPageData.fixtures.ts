@@ -4,7 +4,9 @@ import basePageData from './basePageData.fixtures';
 export default {
   ...basePageData,
   properties: {
-    searchTerm: 'shoes',
+    searchQuery: 'shoes',
+    currency: 'EUR',
+    products: [{ id: 10000 }, { id: 20000 }],
   },
   event: pageTypes.SEARCH,
 };
