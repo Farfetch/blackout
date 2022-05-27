@@ -492,7 +492,9 @@ const validTrackEvents = {
     type: analyticsTrackTypes.PAGE,
     event: pageTypes.SEARCH,
     properties: {
-      searchTerm: 'shoes',
+      searchQuery: 'shoes',
+      currency: 'EUR',
+      products: [{ id: 10000 }, { id: 20000 }],
     },
   },
 
