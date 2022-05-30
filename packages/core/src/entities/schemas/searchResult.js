@@ -35,14 +35,14 @@ export default new schema.Entity(
           ({ type, deep }) =>
             type === filterSegment.type && deep === filterSegment.deep,
         );
-        const facet = facetGroup.values[0].find(
+        const facet = facetGroup?.values[0].find(
           ({ value }) => value === filterSegment.value,
         );
 
         return {
           ...filterSegment,
-          description: facet.description,
-          facetId: getId(facet, facetGroup),
+          description: facet?.description,
+          facetId: facet ? getId(facet, facetGroup) : undefined,
         };
       });
       const searchResult = {
