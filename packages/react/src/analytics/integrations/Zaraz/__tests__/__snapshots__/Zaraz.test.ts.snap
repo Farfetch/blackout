@@ -3,6 +3,7 @@
 exports[`Zaraz integration default events mapper should map the Product Added to Cart event correctly 1`] = `
 Array [
   Array [
+    "Product Added",
     Object {
       "currency": "USD",
       "name": "Gareth McConnell Dreamscape T-Shirt",
@@ -16,6 +17,7 @@ Array [
 exports[`Zaraz integration default events mapper should map the Product Added to Wishlist event correctly 1`] = `
 Array [
   Array [
+    "Product Added to Wishlist",
     Object {
       "category": "Clothing/Tops/T-shirts",
       "currency": "USD",
@@ -30,6 +32,7 @@ Array [
 exports[`Zaraz integration default events mapper should map the Product Viewed event correctly 1`] = `
 Array [
   Array [
+    "Product Viewed",
     Object {
       "currency": "USD",
       "name": "Gareth McConnell Dreamscape T-Shirt",
@@ -43,6 +46,7 @@ Array [
 exports[`Zaraz integration default events mapper should map the search event correctly 1`] = `
 Array [
   Array [
+    "Products Searched",
     Object {
       "currency": "EUR",
       "price": 0,

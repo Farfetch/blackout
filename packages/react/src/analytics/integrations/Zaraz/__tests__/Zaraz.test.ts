@@ -1,4 +1,7 @@
-import { DEFAULT_ZARAZ_INIT_SCRIPT_ENDPOINT } from '../constants';
+import {
+  DEFAULT_ZARAZ_INIT_SCRIPT_ENDPOINT,
+  ZARAZ_ECOMMERCE_EVENTS,
+} from '../constants';
 import {
   EventData,
   eventTypes,
@@ -222,7 +225,7 @@ describe('Zaraz integration', () => {
 
         jest.clearAllMocks();
 
-        window.zaraz.ecommerce();
+        window.zaraz.ecommerce(ZARAZ_ECOMMERCE_EVENTS.CART_VIEWED);
 
         expect(fetchSpy).toHaveBeenCalledWith(
           'https://localhost:3000/cdn-cgi/zaraz/t',
@@ -236,7 +239,7 @@ describe('Zaraz integration', () => {
             'https://preview-whitelabel.blackandwhite-ff.com/cdn-cgi/zaraz/t',
           );
 
-        window.zaraz.ecommerce();
+        window.zaraz.ecommerce(ZARAZ_ECOMMERCE_EVENTS.CART_VIEWED);
 
         expect(fetchSpy).toHaveBeenCalledWith(
           'https://localhost:3000/cdn-cgi/zaraz/t',
@@ -250,7 +253,7 @@ describe('Zaraz integration', () => {
             'https://preview-whitelabel.blackandwhite-ff.com/another/resource',
           );
 
-        window.zaraz.ecommerce();
+        window.zaraz.ecommerce(ZARAZ_ECOMMERCE_EVENTS.CART_VIEWED);
 
         expect(fetchSpy).toHaveBeenCalledWith(
           'https://preview-whitelabel.blackandwhite-ff.com/another/resource',
@@ -331,7 +334,11 @@ describe('options', () => {
         [OPTION_EVENTS_MAPPER]: {
           [eventTypes.PRODUCT_ADDED_TO_CART]: (
             data: EventData<TrackTypesValues>,
-          ) => ['ecommerce', data.properties as unknown as ZarazEventData[1]],
+          ) => [
+            'ecommerce',
+            ZARAZ_ECOMMERCE_EVENTS.CART_VIEWED,
+            data.properties as unknown as ZarazEventData<'ecommerce'>[2],
+          ],
         },
       });
 
@@ -341,13 +348,16 @@ describe('options', () => {
 
       await instance.track(analyticsTrackDataMock);
 
-      expect(zarazSpy).toHaveBeenCalledWith(analyticsTrackDataMock.properties);
+      expect(zarazSpy).toHaveBeenCalledWith(
+        ZARAZ_ECOMMERCE_EVENTS.CART_VIEWED,
+        analyticsTrackDataMock.properties,
+      );
     });
 
     it('should log an error and discard an event that has an invalid mapper', async () => {
       let instance = createZarazInstance({
         [OPTION_EVENTS_MAPPER]: {
-          // @ts-expect-error
+          // @ts-expect-error Invalid value for a mapper (should be a function)
           [eventTypes.PRODUCT_ADDED_TO_CART]: 'invalid_value',
         },
       });
@@ -364,7 +374,7 @@ describe('options', () => {
 
       instance = createZarazInstance({
         [OPTION_EVENTS_MAPPER]: {
-          // @ts-expect-error
+          // @ts-expect-error Invalid zaraz method (should be ecommerce | track)
           [eventTypes.PRODUCT_ADDED_TO_CART]: () => ['invalid_value', {}],
         },
       });
@@ -373,6 +383,21 @@ describe('options', () => {
 
       expect(loggerErrorSpy)
         .toHaveBeenCalledWith(`[Zaraz] - Invalid value for the zaraz method returned from mapper for event 'Product Added to Cart': 'invalid_value' is not a function in window.zaraz.
+          This event will be discarded.`);
+
+      jest.clearAllMocks();
+
+      instance = createZarazInstance({
+        [OPTION_EVENTS_MAPPER]: {
+          // @ts-expect-error Invalid event name (should be a string)
+          [eventTypes.PRODUCT_ADDED_TO_CART]: () => ['ecommerce', 123, {}],
+        },
+      });
+
+      await instance.track(analyticsTrackDataMock);
+
+      expect(loggerErrorSpy)
+        .toHaveBeenCalledWith(`[Zaraz] - Invalid value for the zaraz event name returned from mapper for event 'Product Added to Cart': '123' is not a string.
           This event will be discarded.`);
     });
   });

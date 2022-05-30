@@ -4,6 +4,7 @@ import {
   pageTypes,
   TrackTypesValues,
 } from '@farfetch/blackout-analytics';
+import { ZARAZ_ECOMMERCE_EVENTS } from './constants';
 import type { EventsMapper } from './types/types';
 
 export default {
@@ -12,6 +13,7 @@ export default {
 
     return [
       'ecommerce',
+      ZARAZ_ECOMMERCE_EVENTS.PRODUCT_ADDED,
       {
         currency: eventProperties.currency,
         name: eventProperties.name,
@@ -27,6 +29,7 @@ export default {
 
     return [
       'ecommerce',
+      ZARAZ_ECOMMERCE_EVENTS.PRODUCT_ADDED_TO_WISHLIST,
       {
         category: eventProperties.category,
         currency: eventProperties.currency,
@@ -41,6 +44,7 @@ export default {
 
     return [
       'ecommerce',
+      ZARAZ_ECOMMERCE_EVENTS.PRODUCT_VIEWED,
       {
         currency: eventProperties.currency,
         name: eventProperties.name,
@@ -54,6 +58,7 @@ export default {
 
     return [
       'ecommerce',
+      ZARAZ_ECOMMERCE_EVENTS.PRODUCTS_SEARCHED,
       {
         price: 0, // This was required by Zaraz
         currency: eventProperties.currency,
