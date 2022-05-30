@@ -99,7 +99,7 @@ class Zaraz extends integrations.Integration {
       }
 
       const mappedEventData = mapper(data);
-      const [zarazMethod, zarazData] = mappedEventData;
+      const [zarazMethod, zarazEventName, zarazData] = mappedEventData;
 
       if (typeof window.zaraz[zarazMethod] !== 'function') {
         utils.logger
@@ -108,7 +108,14 @@ class Zaraz extends integrations.Integration {
         return;
       }
 
-      window.zaraz[zarazMethod](zarazData);
+      if (typeof zarazEventName !== 'string') {
+        utils.logger
+          .error(`[Zaraz] - Invalid value for the zaraz event name returned from mapper for event '${data.event}': '${zarazEventName}' is not a string.
+          This event will be discarded.`);
+        return;
+      }
+
+      window.zaraz[zarazMethod](zarazEventName, zarazData);
     } catch (e) {
       utils.logger.error(
         `[Zaraz] - An error occurred when trying to track event '${data.event}' with Zaraz: `,
