@@ -16,8 +16,10 @@ import type { StoreState } from '../../types';
  *
  * @returns {object} - Country normalized.
  */
-export const getCountry = (state: StoreState, countryCode: string): Country =>
-  getEntityById(state, 'countries', countryCode);
+export const getCountry = (
+  state: StoreState,
+  countryCode: string,
+): Country | undefined => getEntityById(state, 'countries', countryCode);
 
 /**
  * Returns all countries from state.

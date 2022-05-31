@@ -172,8 +172,11 @@ export const isWishlistSetFetched = (
 export const getWishlistSet = createSelector(
   [
     (state: StoreState) => getEntities(state, 'wishlistItems'),
-    (state: StoreState, setId: WishlistSet['setId']) =>
-      getEntityById(state, 'wishlistSets', setId) as WishlistSetEntity,
+    (
+      state: StoreState,
+      setId: WishlistSet['setId'],
+    ): WishlistSetEntity | undefined =>
+      getEntityById(state, 'wishlistSets', setId),
     (state: StoreState) => getEntities(state, 'products'),
   ],
   (wishlistItems, wishlistSet, products) => {
@@ -248,11 +251,11 @@ export const getWishlistSetItemsCounter = (
   state: StoreState,
   setId: WishlistSet['setId'],
 ): number => {
-  const wishlistSet = getEntityById(
+  const wishlistSet: WishlistSetEntity | undefined = getEntityById(
     state,
     'wishlistSets',
     setId,
-  ) as WishlistSetEntity;
+  );
 
   if (!wishlistSet || wishlistSet.wishlistSetItems.length === 0) {
     return 0;
