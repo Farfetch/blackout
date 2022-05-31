@@ -1,4 +1,6 @@
+export * from './base.types';
 export * from './breadcrumb.types';
+export * from './component.types';
 export * from './date.types';
 export * from './listing.types';
 export * from './media.types';

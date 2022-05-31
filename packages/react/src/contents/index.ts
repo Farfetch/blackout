@@ -6,5 +6,5 @@ export {
   getListingSeoMetadataParams,
   getProductSeoMetadataParams,
 } from './utils';
-
+export * from './structured-data';
 export * from './types';

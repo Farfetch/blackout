@@ -35,7 +35,7 @@ Object {
             "custom": Object {
               "brand": "5030844",
               "category": "136643",
-              "eventDate": "0001-01-01T00:00:00Z",
+              "eventDate": -62135596800000,
               "gender": "0",
               "id": "",
               "none": "",
@@ -45,7 +45,7 @@ Object {
               "type": "LISTING",
             },
           },
-          "publicationDate": "2021-08-20T15:40:39.0000132Z",
+          "publicationDate": 1629474039000,
           "publicationId": "dc9c0c95-9485-45c2-a76c-6923bb39b544",
           "spaceCode": "website",
           "target": Object {

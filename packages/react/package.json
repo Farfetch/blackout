@@ -22,7 +22,9 @@
   "dependencies": {
     "@castleio/castle-js": "^2.1.15",
     "@types/proper-url-join": "2.1.1",
+    "dompurify": "^2.3.8",
     "proper-url-join": "^2.1.1",
+    "react-player": "^2.10.1",
     "schema-dts": "^0.8.3",
     "url-parse": "^1.4.4",
     "yup": "^0.32.11"
@@ -31,6 +33,7 @@
     "@farfetch/blackout-analytics": "^1.0.0-next.93",
     "@farfetch/blackout-client": "^2.0.0-next.220",
     "@farfetch/blackout-redux": "^1.0.0-next.341",
+    "@types/dompurify": "^2.3.3",
     "axios": "^0.21.4",
     "lodash": "^4.17.21",
     "react": "^16.7.0 || ^17.0 || ^18.0",
