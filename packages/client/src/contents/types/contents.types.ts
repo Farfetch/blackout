@@ -5,6 +5,7 @@ export type Targets = {
   language?: string;
   country?: string;
   benefits?: string;
+  channel?: string;
 } & Record<string, string | undefined>;
 
 export type QuerySearchContents = {
@@ -49,6 +50,7 @@ export interface Metadata {
     brand: string;
     priceType: string;
     category: string;
+    eventDate?: string;
   };
 }
 

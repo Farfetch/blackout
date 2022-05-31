@@ -2,28 +2,28 @@ import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
 import type {
   BlackoutError,
-  ContentEntry,
   Contents,
   ContentType,
   SEOMetadata,
 } from '@farfetch/blackout-client';
+import type { ContentsEntity } from '../../entities';
 import type { Hash, Pathname } from './reducers.types';
 import type { NormalizedSchema } from 'normalizr';
 
 export type ContentsNormalized = Omit<Contents, 'entries'> & {
-  entries: ContentEntry['publicationId'];
+  entries: ContentsEntity['publicationId'];
   hash: Hash;
 };
 
 export type ContentsPayload = NormalizedSchema<
   {
-    contents: Record<ContentEntry['publicationId'], ContentEntry>;
+    contents: Record<ContentsEntity['publicationId'], ContentsEntity>;
   },
   ContentsNormalized
 > & { hash: Hash };
 
 /**
- * Fetch Content Pages Action
+ * Fetch Content Page Action
  */
 export type FetchContentPageAction =
   | FetchContentPageFailureAction

@@ -46,7 +46,6 @@
     "@commitlint/config-conventional": "^17.0.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^13.3.0",
-    "@types/fs-extra": "^9.0.13",
     "@types/invariant": "^2.2.34",
     "@types/jest": "^27.5.1",
     "@types/lodash": "^4.14.168",

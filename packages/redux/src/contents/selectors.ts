@@ -1,16 +1,15 @@
 /**
  * Contents selectors.
  */
+import { ContentsEntity, getEntityById } from '../entities';
 import { generateContentHash, generateSEOPathname } from './utils';
 import { getContentResult, getContentTypes, getSEOmetadata } from './reducer';
-import { getEntityById } from '../entities';
+import type { ContentsState, Hash } from './types';
 import type {
-  ContentEntry,
   GetSEOMetadataQuery,
   QueryCommercePages,
   QuerySearchContents,
 } from '@farfetch/blackout-client';
-import type { ContentsState, Hash } from './types';
 import type { StoreState } from '../types';
 
 /**
@@ -145,7 +144,7 @@ export const getContents = <T>(
     result &&
     (result.entries
       .map((hash: Hash) => getContent<T>(state, hash))
-      .filter(Boolean) as ContentEntry<T>[])
+      .filter(Boolean) as ContentsEntity<T>[])
   );
 };
 
@@ -317,4 +316,4 @@ export const getSEOMetadataResult = (
  * @returns Content normalized.
  */
 export const getContent = <T>(state: StoreState, hash: string) =>
-  getEntityById(state, 'contents', hash) as ContentEntry<T> | undefined;
+  getEntityById(state, 'contents', hash) as ContentsEntity<T> | undefined;

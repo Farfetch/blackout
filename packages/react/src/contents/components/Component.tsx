@@ -1,15 +1,11 @@
 /* eslint-disable no-console */
+import baseComponents from './base';
 import React, { ReactElement } from 'react';
-import type { ComponentType } from '@farfetch/blackout-client';
-
-interface ComponentProps {
-  component: ComponentType;
-  children?: React.ReactNode;
-}
+import type { ComponentProps } from '../types';
 
 type Components = Record<string, React.ElementType>;
 
-export const components: Components = {};
+export const components: Components = baseComponents;
 
 /**
  * Registers a react component to be rendered for a given CMS component type.
@@ -40,7 +36,7 @@ export const registerComponent = (
  *
  * @example
  * ```
- * import Component from '@farfetch/blackout-react/content/component';
+ * import { Component } from '@farfetch/blackout-react';
  * ```
  * @example
  * ```
