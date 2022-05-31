@@ -61,4 +61,55 @@ export default {
       },
     ];
   },
+  [eventTypes.CHECKOUT_STARTED]: data => {
+    const eventProperties = data.properties;
+
+    return [
+      'ecommerce',
+      ZARAZ_ECOMMERCE_EVENTS.CHECKOUT_STARTED,
+      {
+        value: eventProperties.total,
+        currency: eventProperties.currency,
+        products: eventProperties.products?.map(product => ({
+          product_id: `${product.id}`, // Zaraz's product_id is a string
+        })),
+      },
+    ];
+  },
+  [eventTypes.PAYMENT_INFO_ADDED]: data => {
+    const eventProperties = data.properties;
+
+    return [
+      'ecommerce',
+      ZARAZ_ECOMMERCE_EVENTS.PAYMENT_INFO_ENTERED,
+      {
+        value: eventProperties.total,
+        currency: eventProperties.currency,
+        products: eventProperties.products?.map(product => ({
+          product_id: `${product.id}`, // Zaraz's product_id is a string
+        })),
+      },
+    ];
+  },
+  [eventTypes.ORDER_COMPLETED]: data => {
+    const eventProperties = data.properties;
+
+    return [
+      'ecommerce',
+      ZARAZ_ECOMMERCE_EVENTS.ORDER_COMPLETED,
+      {
+        value: eventProperties.total,
+        currency: eventProperties.currency,
+        order_id: eventProperties.orderId,
+        name: eventProperties.orderId,
+        subtotal:
+          eventProperties.total -
+          eventProperties.tax -
+          eventProperties.shipping,
+        products: eventProperties.products?.map(product => ({
+          product_id: `${product.id}`, // Zaraz's product_id is a string
+        })),
+      },
+    ];
+  },
 };
