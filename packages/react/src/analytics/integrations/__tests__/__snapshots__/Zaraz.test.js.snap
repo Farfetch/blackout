@@ -1,5 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Zaraz integration default events mapper should map the Checkout Started event correctly 1`] = `
+Array [
+  Array [
+    "Checkout Started",
+    Object {
+      "currency": "USD",
+      "products": Array [
+        Object {
+          "product_id": "507f1f77bcf86cd799439011",
+        },
+      ],
+      "value": 24.64,
+    },
+  ],
+]
+`;
+
+exports[`Zaraz integration default events mapper should map the Order Completed event correctly 1`] = `
+Array [
+  Array [
+    "Order Completed",
+    Object {
+      "currency": "USD",
+      "name": "50314b8e9bcf000000000000",
+      "order_id": "50314b8e9bcf000000000000",
+      "products": Array [
+        Object {
+          "product_id": "507f1f77bcf86cd799439011",
+        },
+      ],
+      "subtotal": 19,
+      "value": 24.64,
+    },
+  ],
+]
+`;
+
+exports[`Zaraz integration default events mapper should map the Payment Info Added event correctly 1`] = `
+Array [
+  Array [
+    "Payment Info Entered",
+    Object {
+      "currency": "USD",
+      "products": Array [
+        Object {
+          "product_id": "507f1f77bcf86cd799439011",
+        },
+      ],
+      "value": 24.64,
+    },
+  ],
+]
+`;
+
 exports[`Zaraz integration default events mapper should map the Product Added to Cart event correctly 1`] = `
 Array [
   Array [
