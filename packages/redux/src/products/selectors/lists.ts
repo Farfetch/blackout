@@ -146,7 +146,8 @@ export const isProductsListFetched = (
 export const getProductsListResult = (
   state: StoreState,
   hash: string | number | null = getProductsListHash(state),
-): ProductsListEntity => getEntityById(state, 'productsLists', checkHash(hash));
+): ProductsListEntity | undefined =>
+  getEntityById(state, 'productsLists', checkHash(hash));
 
 /**
  * Retrieves product id's from the current products list.

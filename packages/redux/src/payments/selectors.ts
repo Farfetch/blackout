@@ -48,7 +48,8 @@ export const getPaymentTokens = (state: StoreState): PaymentTokensEntity =>
 export const getPaymentToken = (
   state: StoreState,
   paymentTokenId: PaymentTokenEntity['id'],
-): PaymentTokenEntity => getEntityById(state, 'paymentTokens', paymentTokenId);
+): PaymentTokenEntity | undefined =>
+  getEntityById(state, 'paymentTokens', paymentTokenId);
 
 /**
  * Returns the payment tokens error.
@@ -114,7 +115,8 @@ export const getInstruments = (state: StoreState): InstrumentsEntity =>
 export const getInstrument = (
   state: StoreState,
   instrumentId: InstrumentEntity['id'],
-): InstrumentEntity => getEntityById(state, 'instruments', instrumentId);
+): InstrumentEntity | undefined =>
+  getEntityById(state, 'instruments', instrumentId);
 
 /**
  * Returns the loading status of the instruments.

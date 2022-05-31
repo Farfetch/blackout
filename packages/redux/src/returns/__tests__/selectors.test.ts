@@ -14,7 +14,7 @@ describe('returns redux selectors', () => {
 
   describe('getReturnItem()', () => {
     it('should get the return item from state', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spy = jest.spyOn(fromEntities, 'getEntityById');
       expect(selectors.getReturnItem(mockState, returnItemId)).toEqual(
         returnItem,
       );
