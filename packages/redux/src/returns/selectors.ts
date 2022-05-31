@@ -5,7 +5,7 @@
  */
 
 import { createSelector } from 'reselect';
-import { getEntity } from '../entities/selectors';
+import { getEntityById } from '../entities/selectors';
 import {
   getReturnItems as getEntityReturnItems,
   getReturns as getEntityReturns,
@@ -19,6 +19,7 @@ import {
   getReturns,
 } from './reducer';
 import get from 'lodash/get';
+import type { ReturnItem } from '@farfetch/blackout-client/returns/types';
 import type { StoreState } from '../types';
 
 /**
@@ -68,8 +69,10 @@ export const getReturnError = (state: StoreState) => getError(state.returns);
  *
  * @returns {object} Return item.
  */
-export const getReturnItem = (state: StoreState, returnItemId: string) =>
-  getEntity(state, 'returnItems', returnItemId);
+export const getReturnItem = (
+  state: StoreState,
+  returnItemId: string,
+): ReturnItem | undefined => getEntityById(state, 'returnItems', returnItemId);
 
 /**
  * Returns all the return items ids.

@@ -104,16 +104,20 @@ export const getBagId = (state: StoreState): State['id'] => getId(state.bag);
  *     bagItem: getBagItem(state, id)
  * });
  */
-
+// @TODO Remove cast from functions
 export const getBagItem = createSelector(
   [
-    (state: StoreState, bagItemId: BagItem['id']): BagItemEntity =>
-      getEntityById(state, 'bagItems', bagItemId),
+    (state: StoreState, bagItemId: BagItem['id']) =>
+      getEntityById(state, 'bagItems', bagItemId) as BagItemEntity,
     (
       state: StoreState,
       bagItemId: BagItem['id'],
     ): ProductEntity | undefined => {
-      const bagItem = getEntityById(state, 'bagItems', bagItemId);
+      const bagItem = getEntityById(
+        state,
+        'bagItems',
+        bagItemId,
+      ) as BagItemEntity;
 
       return getProduct(state, bagItem?.product);
     },

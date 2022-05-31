@@ -221,7 +221,7 @@ describe('orders redux selectors', () => {
   describe('getOrders()', () => {
     it('should get the orders from state', () => {
       const expectedResult = mockState.entities.orders;
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spy = jest.spyOn(fromEntities, 'getEntities');
 
       expect(selectors.getOrders(mockState)).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledWith(mockState, 'orders');
@@ -230,7 +230,7 @@ describe('orders redux selectors', () => {
 
   describe('getOrder()', () => {
     it('should get the order from state', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(selectors.getOrder(mockState, orderId)).toEqual(orderEntity);
       expect(spy).toHaveBeenCalledWith(mockState, 'orders', orderId);
@@ -239,7 +239,7 @@ describe('orders redux selectors', () => {
 
   describe('getLabelTracking()', () => {
     it('should get the label tracking property from state', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(selectors.getLabelTracking(mockState, trackingNumber)).toBe(
         labelTrackingEntity,
@@ -250,7 +250,7 @@ describe('orders redux selectors', () => {
 
   describe('getCourier()', () => {
     it('should get the courier property from state', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(selectors.getCourier(mockState, courierId)).toBe(courierEntity);
       expect(spy).toHaveBeenCalledTimes(1);
@@ -260,7 +260,7 @@ describe('orders redux selectors', () => {
   describe('getMerchants()', () => {
     it('should get the merchants from state', () => {
       const expectedResult = mockState.entities.merchants;
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spy = jest.spyOn(fromEntities, 'getEntities');
 
       expect(selectors.getMerchants(mockState)).toBe(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
@@ -269,7 +269,7 @@ describe('orders redux selectors', () => {
 
   describe('getMerchant()', () => {
     it('should get the merchant from state', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(selectors.getMerchant(mockState, merchantId)).toEqual(
         merchantEntity,
@@ -281,7 +281,7 @@ describe('orders redux selectors', () => {
   describe('getOrderItems()', () => {
     it('should get the courier property from state', () => {
       const expectedResult = mockState.entities.orderItems;
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spy = jest.spyOn(fromEntities, 'getEntities');
 
       expect(selectors.getOrderItems(mockState)).toBe(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
@@ -290,7 +290,7 @@ describe('orders redux selectors', () => {
 
   describe('getOrderItem()', () => {
     it('should get the merchant from state', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(selectors.getOrderItem(mockState, orderItemId)).toEqual(
         orderItemEntity,
@@ -302,7 +302,7 @@ describe('orders redux selectors', () => {
   describe('getCountries()', () => {
     it('should get the countries from state', () => {
       const expectedResult = mockState.entities.countries;
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spy = jest.spyOn(fromEntities, 'getEntities');
 
       expect(selectors.getCountries(mockState)).toBe(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
@@ -311,7 +311,7 @@ describe('orders redux selectors', () => {
 
   describe('getCountry()', () => {
     it('should get the country from state', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(selectors.getCountry(mockState, countryId)).toBe(countryEntity);
       expect(spy).toHaveBeenCalledTimes(1);
@@ -321,7 +321,7 @@ describe('orders redux selectors', () => {
   describe('getReturnOptions()', () => {
     it('should get the return options from state', () => {
       const expectedResult = mockState.entities.returnOptions;
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spy = jest.spyOn(fromEntities, 'getEntities');
 
       expect(selectors.getReturnOptions(mockState)).toBe(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
@@ -330,7 +330,7 @@ describe('orders redux selectors', () => {
 
   describe('getReturnOption()', () => {
     it('should get the return option from state', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(selectors.getReturnOption(mockState, returnOptionId)).toBe(
         returnOptionEntity,
@@ -341,59 +341,70 @@ describe('orders redux selectors', () => {
 
   describe('getReturnOptionsFromOrder()', () => {
     it('should get the return options from state', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spyGetOrder = jest.spyOn(fromEntities, 'getEntityById');
+      const spyGetReturnOptions = jest.spyOn(fromEntities, 'getEntities');
 
       expect(
         selectors.getReturnOptionsFromOrder(mockState, orderId, merchantId),
       ).toEqual([returnOptionEntity]);
-      expect(spy).toHaveBeenCalledTimes(2);
+      expect(spyGetOrder).toHaveBeenCalledTimes(1);
+      expect(spyGetReturnOptions).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('getMerchantsFromOrder()', () => {
     it('should get the merchants from state', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spyGetOrder = jest.spyOn(fromEntities, 'getEntityById');
+      const spyGetMerchant = jest.spyOn(fromEntities, 'getEntities');
 
       expect(selectors.getMerchantsFromOrder(mockState, orderId)).toEqual([
         merchantEntity,
       ]);
-      expect(spy).toHaveBeenCalledTimes(2);
+      expect(spyGetOrder).toHaveBeenCalledTimes(1);
+      expect(spyGetMerchant).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('getOrderItemsByOrder()', () => {
     it('should get the order items by order from state', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spyGetOrder = jest.spyOn(fromEntities, 'getEntityById');
+      const spyGetOrderItems = jest.spyOn(fromEntities, 'getEntities');
 
       expect(selectors.getOrderItemsByOrder(mockState, orderId)).toEqual([
         orderItemEntity,
       ]);
-      expect(spy).toHaveBeenCalledTimes(2);
+      expect(spyGetOrder).toHaveBeenCalledTimes(1);
+      expect(spyGetOrderItems).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('getOrderItemsByMerchant()', () => {
     it('should get the order items by merchant from state', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spyGetOrder = jest.spyOn(fromEntities, 'getEntityById');
+      const spyGetOrderItems = jest.spyOn(fromEntities, 'getEntities');
 
       expect(selectors.getOrderItemsByMerchant(mockState, orderId)).toEqual({
         [merchantId]: [orderItemEntity],
       });
-      expect(spy).toHaveBeenCalledTimes(2);
+      expect(spyGetOrder).toHaveBeenCalledTimes(1);
+      expect(spyGetOrderItems).toHaveBeenCalledTimes(1);
     });
     it('should get undefined if there are no orderDetails from that order', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spyGetOrder = jest.spyOn(fromEntities, 'getEntityById');
+      const spyGetOrderItems = jest.spyOn(fromEntities, 'getEntities');
 
       expect(
         selectors.getOrderItemsByMerchant(mockState, 'randomOrderId'),
       ).toBe(undefined);
-      expect(spy).toHaveBeenCalledTimes(2);
+      expect(spyGetOrder).toHaveBeenCalledTimes(1);
+      expect(spyGetOrderItems).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('getOrderItemQuantity()', () => {
     it('should get the order item quantity as undefined from state', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spyGetOrder = jest.spyOn(fromEntities, 'getEntityById');
+      const spyGetOrderItems = jest.spyOn(fromEntities, 'getEntities');
 
       const newState = {
         entities: {
@@ -404,25 +415,30 @@ describe('orders redux selectors', () => {
       expect(
         selectors.getOrderItemQuantity(newState, orderId, orderItemId),
       ).toBe(undefined);
-      expect(spy).toHaveBeenCalledTimes(3);
+      expect(spyGetOrder).toHaveBeenCalledTimes(2);
+      expect(spyGetOrderItems).toHaveBeenCalledTimes(1);
     });
 
     it('should get the order item quantity from state', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spyGetOrder = jest.spyOn(fromEntities, 'getEntityById');
+      const spyGetOrderItems = jest.spyOn(fromEntities, 'getEntities');
 
       expect(
         selectors.getOrderItemQuantity(mockState, orderId, orderItemId),
       ).toBe(1);
-      expect(spy).toHaveBeenCalledTimes(3);
+      expect(spyGetOrder).toHaveBeenCalledTimes(2);
+      expect(spyGetOrderItems).toHaveBeenCalledTimes(1);
     });
 
     it('should get undefined if the order was not fetched', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const spyGetOrder = jest.spyOn(fromEntities, 'getEntityById');
+      const spyGetOrderItems = jest.spyOn(fromEntities, 'getEntities');
 
       expect(
         selectors.getOrderItemQuantity(mockState, 'randomOrderId', orderItemId),
       ).toBe(undefined);
-      expect(spy).toHaveBeenCalledTimes(3);
+      expect(spyGetOrder).toHaveBeenCalledTimes(2);
+      expect(spyGetOrderItems).toHaveBeenCalledTimes(1);
     });
   });
 });

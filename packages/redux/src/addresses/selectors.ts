@@ -31,7 +31,7 @@ import type { StoreState } from '../types';
  *
  * @function
  *
- * @param {object} state        - Application state.
+ * @param {object} state - Application state.
  *
  * @returns {Array} Array containing the loaded addresses id.
  */
@@ -43,7 +43,7 @@ export const getResult = (state: StoreState): State['result'] =>
  *
  * @function
  *
- * @param {object} state        - Application state.
+ * @param {object} state - Application state.
  *
  * @returns {object} Address information object.
  */
@@ -55,7 +55,7 @@ export const getError = (state: StoreState): State['error'] =>
  *
  * @function
  *
- * @param {object} state        - Application state.
+ * @param {object} state - Application state.
  *
  * @returns {boolean} Loader status.
  */
@@ -67,7 +67,7 @@ export const isAddressesLoading = (state: StoreState): State['isLoading'] =>
  *
  * @function
  *
- * @param {object} state        - Application state.
+ * @param {object} state - Application state.
  *
  * @returns {object} Object containing all the currently loaded addresses.
  */
@@ -79,15 +79,15 @@ export const getAddresses = (state: StoreState): AddressesEntity =>
  *
  * @function
  *
- * @param {object} state        - Application state.
- * @param {string} addressId    - Address id.
+ * @param {object} state - Application state.
+ * @param {string} addressId - Address id.
  *
  * @returns {object} Address information object.
  */
 export const getAddress = (
   state: StoreState,
   addressId: AddressEntity['id'],
-): AddressEntity => getEntityById(state, 'addresses', addressId);
+): AddressEntity | undefined => getEntityById(state, 'addresses', addressId);
 
 /**
  * Returns a list with all addresses schemas in the application state.
@@ -107,13 +107,15 @@ export const getSchemas = (state: StoreState): AddressSchemaEntity =>
  *
  * @function
  *
- * @param {object} state     - Application state.
- * @param {string} isoCode   - Iso code or CountryId (deprecated).
+ * @param {object} state - Application state.
+ * @param {string} isoCode - Iso code or CountryId (deprecated).
  *
  * @returns {object} Schema information object.
  */
-export const getSchema = (state: StoreState, isoCode: string): SchemaEntity =>
-  getEntityById(state, 'addressSchema', isoCode);
+export const getSchema = (
+  state: StoreState,
+  isoCode: string,
+): SchemaEntity | undefined => getEntityById(state, 'addressSchema', isoCode);
 
 /**
  * Returns the error or loading status of each sub-area.

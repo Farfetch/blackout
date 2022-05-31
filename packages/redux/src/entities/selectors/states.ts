@@ -13,5 +13,5 @@ import type { StoreState } from '../../types';
  *
  * @returns {object} - State normalized.
  */
-export const getState = (state: StoreState, id: number): State =>
+export const getState = (state: StoreState, id: number): State | undefined =>
   getEntityById(state, 'states', id);

@@ -77,6 +77,7 @@ export const getWishlist = (state: StoreState): State['result'] =>
  *     wishlistItem: getWishlistItem(state, id)
  * });
  */
+// @TODO Remove cast from functions
 export const getWishlistItem = createSelector(
   [
     (state: StoreState, wishlistItemId: WishlistItem['id']) =>

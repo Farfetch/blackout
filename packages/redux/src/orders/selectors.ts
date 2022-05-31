@@ -17,7 +17,7 @@ import {
   getResult,
   getTrackings,
 } from './reducer';
-import { getEntity } from '../entities/selectors';
+import { getEntities, getEntityById } from '../entities/selectors';
 import get from 'lodash/get';
 import type { Error } from '@farfetch/blackout-client/types';
 import type {
@@ -62,7 +62,7 @@ export const getOrdersError = (state: StoreState): Error | null =>
  * @returns {object} Object with orders with its orderId as the key.
  */
 export const getOrders = (state: StoreState): OrderSummary =>
-  getEntity(state, 'orders');
+  getEntities(state, 'orders');
 
 /**
  * Returns a specific order identified by its id.
@@ -74,8 +74,10 @@ export const getOrders = (state: StoreState): OrderSummary =>
  *
  * @returns {object} Order object.
  */
-export const getOrder = (state: StoreState, orderId: string): Order =>
-  getEntity(state, 'orders', orderId);
+export const getOrder = (
+  state: StoreState,
+  orderId: string,
+): Order | undefined => getEntityById(state, 'orders', orderId);
 
 /**
  * Returns a label tracking with the order tracking events.
@@ -90,7 +92,8 @@ export const getOrder = (state: StoreState, orderId: string): Order =>
 export const getLabelTracking = (
   state: StoreState,
   trackingNumber: string,
-): LabelTracking => getEntity(state, 'labelTracking', trackingNumber);
+): LabelTracking | undefined =>
+  getEntityById(state, 'labelTracking', trackingNumber);
 
 /**
  * Retrieves pagination information of the user orders.
@@ -141,7 +144,7 @@ export const getOrdersPagination = createSelector(
  * @returns {object} Courier object.
  */
 export const getCourier = (state: StoreState, courierId: string) =>
-  getEntity(state, 'courier', courierId);
+  getEntityById(state, 'courier', courierId);
 
 /**
  * Returns all the merchants in the application state.
@@ -153,7 +156,7 @@ export const getCourier = (state: StoreState, courierId: string) =>
  * @returns {object} Object with all merchants with its merchantId as the key.
  */
 export const getMerchants = (state: StoreState) =>
-  getEntity(state, 'merchants');
+  getEntities(state, 'merchants');
 
 /**
  * Returns a specific merchant identified by its id.
@@ -166,7 +169,7 @@ export const getMerchants = (state: StoreState) =>
  * @returns {object} Merchant object.
  */
 export const getMerchant = (state: StoreState, merchantId: string) =>
-  getEntity(state, 'merchants', merchantId);
+  getEntityById(state, 'merchants', merchantId);
 
 /**
  * Returns all the order items in the application state.
@@ -178,7 +181,7 @@ export const getMerchant = (state: StoreState, merchantId: string) =>
  * @returns {object} Object with all order items with its orderItemId as the key.
  */
 export const getOrderItems = (state: StoreState): Order =>
-  getEntity(state, 'orderItems');
+  getEntities(state, 'orderItems');
 
 /**
  * Returns a specific order item identified by its id.
@@ -193,7 +196,7 @@ export const getOrderItems = (state: StoreState): Order =>
 export const getOrderItem = (
   state: StoreState,
   orderItemId: string,
-): OrderItem => getEntity(state, 'orderItems', orderItemId);
+): OrderItem | undefined => getEntityById(state, 'orderItems', orderItemId);
 
 /**
  * Returns all the countries in the application state.
@@ -205,7 +208,7 @@ export const getOrderItem = (
  * @returns {object} Object with all countries with its countryId as the key.
  */
 export const getCountries = (state: StoreState) =>
-  getEntity(state, 'countries');
+  getEntities(state, 'countries');
 
 /**
  * Returns a specific country identified by its id.
@@ -218,7 +221,7 @@ export const getCountries = (state: StoreState) =>
  * @returns {object} Country object.
  */
 export const getCountry = (state: StoreState, countryId: string) =>
-  getEntity(state, 'countries', countryId);
+  getEntityById(state, 'countries', countryId);
 
 /**
  * Returns all the return options in the application state.
@@ -231,7 +234,7 @@ export const getCountry = (state: StoreState, countryId: string) =>
  * its orderId_merchantId_type as the key.
  */
 export const getReturnOptions = (state: StoreState) =>
-  getEntity(state, 'returnOptions');
+  getEntities(state, 'returnOptions');
 
 /**
  * Returns a specific return option identified by its id.
@@ -244,7 +247,7 @@ export const getReturnOptions = (state: StoreState) =>
  * @returns {object} Return option object.
  */
 export const getReturnOption = (state: StoreState, returnOptionId: string) =>
-  getEntity(state, 'returnOptions', returnOptionId);
+  getEntityById(state, 'returnOptions', returnOptionId);
 
 /**
  * Returns all return options from a specific order and merchant.

@@ -80,7 +80,7 @@ export const getCheckoutId = (state: StoreState): State['id'] =>
 export const getCheckout = (state: StoreState): CheckoutEntity | undefined => {
   const checkoutId = getCheckoutId(state);
 
-  return checkoutId && getEntityById(state, 'checkout', checkoutId);
+  return checkoutId ? getEntityById(state, 'checkout', checkoutId) : undefined;
 };
 
 /**
@@ -109,7 +109,9 @@ export const getCheckoutOrder = (
 ): CheckoutOrderEntity | undefined => {
   const checkoutId = getCheckoutId(state);
 
-  return checkoutId && getEntityById(state, 'checkoutOrders', checkoutId);
+  return checkoutId
+    ? getEntityById(state, 'checkoutOrders', checkoutId)
+    : undefined;
 };
 
 /**
@@ -126,7 +128,9 @@ export const getCheckoutDetail = (
 ): CheckoutDetailsEntity | undefined => {
   const checkoutId = getCheckoutId(state);
 
-  return checkoutId && getEntityById(state, 'checkoutDetails', checkoutId);
+  return checkoutId
+    ? getEntityById(state, 'checkoutDetails', checkoutId)
+    : undefined;
 };
 
 /**
