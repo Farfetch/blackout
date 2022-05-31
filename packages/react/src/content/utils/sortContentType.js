@@ -12,7 +12,7 @@
  *
  * @returns {Array} - Sorted list of content types.
  */
-export default (contentType, sortBy) =>
+const sortContentType = (contentType, sortBy) =>
   contentType.sort((a, b) => {
     switch (sortBy) {
       case 'PublishDate':
@@ -23,3 +23,5 @@ export default (contentType, sortBy) =>
         return 0;
     }
   });
+
+export default sortContentType;
