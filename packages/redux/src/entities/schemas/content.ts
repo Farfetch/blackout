@@ -1,3 +1,4 @@
+import { adaptDate } from '../../helpers/adapters';
 import { schema } from 'normalizr';
 
 export const content = new schema.Entity(
@@ -5,6 +6,24 @@ export const content = new schema.Entity(
   {},
   {
     idAttribute: ({ publicationId }) => publicationId,
+    processStrategy: value => {
+      const processedValue = {
+        ...value,
+        publicationDate: adaptDate(value.publicationDate),
+      };
+
+      if (processedValue.metadata?.custom) {
+        processedValue.metadata = {
+          ...processedValue.metadata,
+          custom: {
+            ...processedValue.metadata.custom,
+            eventDate: adaptDate(processedValue.metadata.custom.eventDate),
+          },
+        };
+      }
+
+      return processedValue;
+    },
   },
 );
 
