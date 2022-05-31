@@ -4,7 +4,6 @@ const { Integration } = integrations;
 
 export { Integration };
 
-export { default as AnalyticsService } from './AnalyticsService';
 export { default as GA, validationSchemaBuilder } from './GA';
 export { default as GTM } from './GTM';
 export { default as Castle } from './Castle';

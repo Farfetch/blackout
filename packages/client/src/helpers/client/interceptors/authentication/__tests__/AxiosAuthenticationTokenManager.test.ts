@@ -11,9 +11,8 @@ import {
   TokenManagerNotLoadedException,
   UserSessionExpiredError,
 } from '../errors';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module '../.... Remove this comment to see the full error message
-import { postAnalytics } from '../../../../../analyticsService';
 import { postGuestTokens } from '../../../../../authentication';
+import { postTrackings } from '../../../../../omnitracking';
 import { DEFAULT_STORAGE_KEY as UserTokenDefaultStorageKey } from '../token-providers/UserTokenProvider';
 import AuthenticationConfigOptions from '../AuthenticationConfigOptions';
 import AxiosAuthenticationTokenManager from '..';
@@ -565,13 +564,13 @@ describe('AxiosAuthenticationTokenManager', () => {
       it('should create a new user token when a request fails with 401 and retry the request with the new token', async () => {
         stubMoxiosRequestOnce(
           'post',
-          '/api/marketing/v1/analytics',
+          '/api/marketing/v1/trackings',
           { status: 401 },
           { status: 200, response: {} },
         );
 
-        // We use postAnalytics client here to test for other method of requests instead of only GETs.
-        await postAnalytics({});
+        // We use postTrackings client here to test for other method of requests instead of only GETs.
+        await postTrackings({});
 
         expect(mockUserTokenRequester).toHaveBeenCalledTimes(1);
 
