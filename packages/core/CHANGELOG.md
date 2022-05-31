@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.58.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.58.0...@farfetch/blackout-core@1.58.1) (2022-05-31)
+
+
+### Bug Fixes
+
+* add fallback for filter segments without facet ([1c18283](https://github.com/Farfetch/blackout/commit/1c18283b3434f28336b2475f275d727ad6999587))
+
+
+
+
+
 # [1.58.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.57.0...@farfetch/blackout-core@1.58.0) (2022-05-17)
 
 

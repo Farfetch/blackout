@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.39.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.38.0...@farfetch/blackout-react@0.39.0) (2022-05-31)
+
+
+### Bug Fixes
+
+* **blackout-react:** fix missing event name parameter for Zaraz events ([f122207](https://github.com/Farfetch/blackout/commit/f122207222dd06a04861f413a3c68d7aae298663))
+* **react:** base components ([07bbf2b](https://github.com/Farfetch/blackout/commit/07bbf2b7dae6ab65de8f80a35eb02d8caf681789))
+
+
+### Features
+
+* **blackout-react:** add product added to cart/wishlist mappings in Zaraz ([f4639f2](https://github.com/Farfetch/blackout/commit/f4639f2b7cf2b63663058a7487d6134e7f3aa6d6))
+* **blackout-react:** add product viewed/search mappings in Zaraz ([94337a4](https://github.com/Farfetch/blackout/commit/94337a47a980844ee54711a9a0fade7a33b85d65))
+* **react:** add exports contents ([bda521a](https://github.com/Farfetch/blackout/commit/bda521a4caf30a220c720c723c4254b44352b1ed))
+
+
+
+
+
 # [0.38.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.37.0...@farfetch/blackout-react@0.38.0) (2022-05-25)
 
 
