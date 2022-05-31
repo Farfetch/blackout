@@ -2,7 +2,7 @@ import {
   responseWithEventDate,
   responseWithMultipleCodes,
 } from '../../components/base/__fixtures__/contentList.fixtures';
-import { sortContentType } from '../';
+import sortContentType from '../sortContentType';
 
 describe('sortContentType', () => {
   it('should sort by the most recent publication', () => {
