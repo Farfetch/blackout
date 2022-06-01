@@ -1,8 +1,3 @@
-/**
- * @module sizeGuides/selectors
- * @category SizeGuides
- * @subcategory Selectors
- */
 import { findSpecificSizeGuide } from './utils';
 import { getCategory } from '../entities/selectors';
 import { getError, getIsLoading, getResult } from './reducer';
@@ -12,15 +7,19 @@ import type { Error } from '@farfetch/blackout-client/types';
 import type { SizeGuide } from '@farfetch/blackout-client/sizeGuides/types';
 import type { StoreState } from '../types';
 
+type GetSpecificSizeGuideParams = {
+  // Brand ids to search for size guides.
+  brandIds: Array<Brand['id']>;
+  // Category ids to search for size guides.
+  categoryIds: Array<Category['id']>;
+};
+
 /**
  * Returns the loading sizeGuides condition.
  *
- * @function
- * @memberof module:sizeGuides/selectors
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} If the sizeGuides are loading or not.
+ * @returns If the sizeGuides are loading or not.
  */
 export const areSizeGuidesLoading = (state: StoreState): boolean =>
   getIsLoading(state.sizeGuides);
@@ -28,12 +27,9 @@ export const areSizeGuidesLoading = (state: StoreState): boolean =>
 /**
  * Returns the error sizeGuide condition.
  *
- * @function
- * @memberof module:sizeGuides/selectors
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object | null} The sizeGuides error object or null if there's no error.
+ * @returns The sizeGuides error object or null if there's no error.
  */
 export const getSizeGuidesError = (state: StoreState): Error | null =>
   getError(state.sizeGuides);
@@ -41,36 +37,25 @@ export const getSizeGuidesError = (state: StoreState): Error | null =>
 /**
  * Retrieves the result of all sizeGuides.
  *
- * @function
- * @memberof module:sizeGuides/selectors
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {Array | null} All sizeGuides fetched or null if nothing fetched yet.
+ * @returns All sizeGuides fetched or null if nothing fetched yet.
  */
 export const getSizeGuides = (state: StoreState): SizeGuide[] | null =>
   getResult(state.sizeGuides);
 
 /**
- * Returns the most specific size guide for the given categories and brand id
- * of a product.
+ * Returns the most specific size guide for the given categories and brand id of a
+ * product.
  *
- * @function
- * @memberof module:sizeGuides/selectors
+ * @param state  - Application state.
+ * @param params - Parameters to match with a specific size guide.
  *
- * @param {object} state - Application state.
- * @param {object} params - Parameters to match with a specific size guide.
- * @param {Array} params.brandIds - Brand ids to search for size guides.
- * @param {Array} params.categoryIds - Category ids to search for size guides.
- *
- * @returns {Array | undefined} The most specific size guide.
+ * @returns The most specific size guide.
  */
 export const getSpecificSizeGuide = (
   state: StoreState,
-  {
-    brandIds,
-    categoryIds,
-  }: { brandIds: Array<Brand['id']>; categoryIds: Array<Category['id']> },
+  { brandIds, categoryIds }: GetSpecificSizeGuideParams,
 ): SizeGuide['maps'] | undefined => {
   const sizeGuides = getSizeGuides(state);
 

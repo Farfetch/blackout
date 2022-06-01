@@ -1,10 +1,6 @@
 /**
- * Hook to provide all kinds of data for the business logic attached to the
- * search functionality (search intents).
- *
- * @module useSearchIntents
- * @category Search
- * @subcategory Hooks
+ * Hook to provide all kinds of data for the business logic attached to the search
+ * functionality (search intents).
  */
 import {
   areSearchIntentsLoading,
@@ -29,8 +25,9 @@ import type { searchIntentsResource } from '@farfetch/blackout-client/search/typ
 const DEFAULT_BASE_URL = '/shopping';
 
 /**
- * Gets the URL to redirect according to the search intents result. In a
- * nutshell, the logic is based on types:
+ * Gets the URL to redirect according to the search intents result. In a nutshell,
+ * the logic is based on types:
+ *
  * <ul>
  *    <li><b>Redirect:</b> not much to say, redirect to the received url;</li>
  *    <li><b>Product:</b> builds the url for the respective product's PDP;</li>
@@ -38,12 +35,10 @@ const DEFAULT_BASE_URL = '/shopping';
  *    respective listing.</li>
  * </ul>.
  *
- * @memberof module:useSearchIntents
+ * @param searchIntents - Search intents result.
+ * @param baseUrl       - Base url to prepend to the final redirect url.
  *
- * @param {object} searchIntents - Search intents result.
- * @param {string} baseUrl - Base url to prepend to the final redirect url.
- *
- * @returns {string|undefined} The URL to redirect the user into.
+ * @returns The URL to redirect the user into.
  */
 const getSearchRedirectUrl: GetSearchRedirectUrl = (searchIntents, baseUrl) => {
   if (!searchIntents) {
@@ -137,14 +132,10 @@ const getSearchRedirectUrl: GetSearchRedirectUrl = (searchIntents, baseUrl) => {
 };
 
 /**
- * @function useSearchIntents
- * @memberof module:search/hooks
+ * @param baseUrl - Base url to prepend to the final redirect url. Defaults to
+ *                  <code>'/shopping'</code>.
  *
- * @param {number} [baseUrl='/shopping'] - Base url to prepend to the final
- * redirect url. Defaults to <code>'/shopping'</code>.
- *
- * @returns {object} All the handlers, state, actions and relevant data needed
- * to manage a search request.
+ * @returns All the handlers, state, actions and relevant data needed to manage a search request.
  */
 const useSearchIntents: UseSearchIntents = (baseUrl = DEFAULT_BASE_URL) => {
   const error = useSelector(getSearchIntentsError);
@@ -159,42 +150,27 @@ const useSearchIntents: UseSearchIntents = (baseUrl = DEFAULT_BASE_URL) => {
   return {
     /**
      * Gets the search intents.
-     *
-     * @type {Function}
      */
     fetchSearchIntents,
     /**
      * Resets the search intents result.
-     *
-     * @type {Function}
      */
     resetSearchIntents,
     /**
      * Search intents error.
-     *
-     * @type {object|undefined}
      */
     error,
     /**
      * Whether the search intents request is loading.
-     *
-     * @type {boolean}
      */
     isLoading,
     /**
      * Search intents result received.
-     *
-     * @type {?object}
      */
     searchIntents,
     /**
-     * Redirect url where the user should be redirected with the
-     * intents received.
+     * Redirect url where the user should be redirected with the intents received.
      *
-     * @type {string}
-     * @variation Member
-     *
-     * @see {@link module:useSearchIntents.getSearchRedirectUrl|getSearchRedirectUrl} method
      */
     searchRedirectUrl,
   };

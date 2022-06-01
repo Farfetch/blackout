@@ -20,7 +20,9 @@ export interface FetchRecommendedSetFailureAction extends Action {
   type: typeof actionTypes.FETCH_RECOMMENDED_SET_FAILURE;
 }
 
-/** Actions dispatched when the fetch a recommended set request is made. */
+/**
+ * Actions dispatched when the fetch a recommended set request is made.
+ */
 export type FetchRecommendedSetAction =
   | FetchRecommendedSetRequestAction
   | FetchRecommendedSetSuccessAction

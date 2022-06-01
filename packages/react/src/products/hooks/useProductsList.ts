@@ -1,9 +1,6 @@
 /**
- * Hook to provide all kinds of data for the business logic attached to a product list.
- *
- * @module useProductsList
- * @category Products
- * @subcategory Hooks
+ * Hook to provide all kinds of data for the business logic attached to a product
+ * list.
  */
 import {
   fetchListing,
@@ -34,14 +31,9 @@ const PRODUCTS_LIST_TYPES: ProductsListTypes = {
 /**
  * Hook to handle listing logic.
  *
- * @param {object} props - Object containing the necessary info to use inside the hook.
- * @param {string} [props.slug] - The slug of the given product list.
- * @param {Object} [props.query] - The query parameters of the given product list.
- * @param {string} [props.type='listing'] - Listing type ('listing' or 'set').
- * @param {boolean} [props.useCache=true] - To use cache when fetching a product list.
- * @param {boolean} [props.setProductsListHash=true] - Wether to set the reducer's hash on the store when requesting a product list.
+ * @param props - Object containing the necessary info to use inside the hook.
  *
- * @returns {Object} All the info needed to get listing results and information.
+ * @returns All the info needed to get listing results and information.
  */
 const useProductsList: UseProductsList = ({
   query,
@@ -87,38 +79,26 @@ const useProductsList: UseProductsList = ({
   return {
     /**
      * Error state of a product list.
-     *
-     * @type {object|undefined}
      */
     error,
     /**
      * Whether the product list is fetched.
-     *
-     * @type {boolean|undefined}
      */
     isFetched,
     /**
      * Whether the product list is loading.
-     *
-     * @type {boolean|undefined}
      */
     isLoading,
     /**
      * The hash of the product list.
-     *
-     * @type {string}
      */
     productsListHash,
     /**
      * Array of products that belong to the product list.
-     *
-     * @type {Array}
      */
     products,
     /**
      * Information about the fetched product list.
-     *
-     * @type {Object}
      */
     result,
   };

@@ -5,13 +5,10 @@ import type { StoreState } from '../../types';
 /**
  * Returns a specific brand by its id.
  *
- * @function getBrand
- * @memberof module:entities/selectors
+ * @param state   - Application state.
+ * @param brandId - Brand id.
  *
- * @param {object} state - Application state.
- * @param {number} brandId - Brand id.
- *
- * @returns {object} Brand normalized.
+ * @returns Brand normalized.
  */
 export const getBrand = (
   state: StoreState,
@@ -21,13 +18,9 @@ export const getBrand = (
 /**
  * Returns all brands from state.
  *
- * @function getBrands
- * @memberof module:entities/selectors
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Object with key values pairs
- * representing brandId and brand properties.
+ * @returns Object with key values pairs representing brandId and brand properties.
  */
 export const getBrands = (
   state: StoreState,

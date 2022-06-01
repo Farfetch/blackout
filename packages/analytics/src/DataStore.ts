@@ -3,7 +3,8 @@ import merge from 'lodash/merge';
 type Data = Record<string, unknown>;
 
 /**
- * This is a simple helper class to hold data in memory and encapsulates get/set data logic.
+ * This is a simple helper class to hold data in memory and encapsulates get/set
+ * data logic.
  */
 class DataStore {
   data: Data;
@@ -26,10 +27,10 @@ class DataStore {
   }
 
   /**
-   * Stores data received.
-   * Merge into a new empty object to break any existing memory reference.
+   * Stores data received. Merge into a new empty object to break any existing memory
+   * reference.
    *
-   * @param data - New data to be merged and stored.
+   * @param data  - New data to be merged and stored.
    * @param force - Force a new data structure.
    *
    * @returns The instance that was used when calling this method to allow chaining.

@@ -23,7 +23,9 @@ export interface FetchPromotionEvaluationItemsSuccessAction extends Action {
   };
 }
 
-/** Actions dispatched when the fetch categories request is made. */
+/**
+ * Actions dispatched when the fetch categories request is made.
+ */
 export type FetchPromotionEvaluationItemsAction =
   | FetchPromotionEvaluationItemsFailureAction
   | FetchPromotionEvaluationItemsRequestAction

@@ -13,34 +13,19 @@ import type {
 } from '@farfetch/blackout-client/addresses/types';
 
 /**
- * @typedef {object} GetPredictionsQuery
- * @property {string} [containerId] - Container identifier to fetch
- * information from.
- * @property {string} [countries] - List of country codes, separated by
- * comma to limit the search within. E.g. United Kingdom, Portugal.
- * @property {number} [sampleSize] - Maximum containers iterations when
- * searching for an address, as a number between 1 and 100. Default is 10.
- */
-
-/**
- * @callback FetchPredictionsThunkFactory
- * @param {string} text - Inserted text.
- * @param {GetPredictionsQuery} [query] - Query params.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param text   - Inserted text.
+ * @param query  - Query params.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Load Predictions based in the inserted text.
  *
- * @function doGetPredictions
- * @memberof module:addresses/actions/factories
+ * @param getPredictions - Get predictions client.
  *
- * @param {Function} getPredictions - Get predictions client.
- *
- * @returns {FetchPredictionsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchPredictionsFactory =
   (getPredictions: GetPredictions) =>

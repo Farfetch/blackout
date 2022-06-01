@@ -9,26 +9,8 @@ import type { SEOMetadata } from '@farfetch/blackout-client/contents/types';
 /**
  * Generate Structured Data (JSON-LD) for an Article.
  *
- * @memberof module:contents/structured-data
- *
- * @param {object} metadata - All SEO metadata for the Article.
- * @param {object} date - All information about Article date.
- * @param {string} date.publicationDate - Publication date of the Article.
- * @param {string} date.modificationDate - Modification date of the Article.
- * @param {string} url - Relative url of the page (location.pathname).
- * @param {string} title - Title of the first component in the Page (e.g. Hero Title, or H1).
- * @param {string} image - Image URL to describe the content of the Page.
- * @param {string} author - Author name of the Article.
- * @param {Array}  breadcrumbs - Breadcrumbs list with all url Texts.
- * @param {object} publisher - Object with publisher data.
- * @param {string} publisher.name - The name of the Article publisher.
- * @param {string} publisher.url - The url of the Article publisher.
- * @param {string} publisher.logo - The logo path of the Article publisher.
- * @param {number} [space] - Add whitespace and indentation to the serialized output.
- *
- * @returns {ReactElement} - A script tag with Article JSON-LD structured data.
- *
  * @example
+ * ```
  * import { article as structuredArticle } from '@farfetch/blackout-react/content/structured-data';
  *
  * <Helmet>
@@ -51,6 +33,19 @@ import type { SEOMetadata } from '@farfetch/blackout-client/contents/types';
  *    2
  *  )}
  * </Helmet>
+ * ```
+ *
+ * @param metadata    - All SEO metadata for the Article.
+ * @param date        - All information about Article date.
+ * @param url         - Relative url of the page (location.pathname).
+ * @param title       - Title of the first component in the Page (e.g. Hero Title, or H1).
+ * @param image       - Image URL to describe the content of the Page.
+ * @param author      - Author name of the Article.
+ * @param breadcrumbs - Breadcrumbs list with all url Texts.
+ * @param publisher   - Object with publisher data.
+ * @param space       - Add whitespace and indentation to the serialized output.
+ *
+ * @returns - A script tag with Article JSON-LD structured data.
  */
 const article = (
   metadata: SEOMetadata,

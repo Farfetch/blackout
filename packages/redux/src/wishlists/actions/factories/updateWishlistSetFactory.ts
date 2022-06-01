@@ -15,25 +15,21 @@ import type { StoreState } from '../../../types';
 import type { ThunkDispatch } from 'redux-thunk';
 
 /**
- * @callback UpdateWishlistSetThunkFactory
- * @param {string} wishlistSetId - Wishlist set id to retrieve information from.
- * @param {object} data - Data to update the wishlist set.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param wishlistSetId - Wishlist set id to retrieve information from.
+ * @param data          - Data to update the wishlist set.
+ * @param config        - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * Creates a thunk factory configured with the specified client
- * to update information of a set from the wishlist.
+ * Creates a thunk factory configured with the specified client to update
+ * information of a set from the wishlist.
  *
- * @memberof module:wishlists/actions/factories
+ * @param patchWishlistSet - Patch wishlists set client.
+ * @param getWishlistSet   - Get wishlists set client.
  *
- * @param {Function} patchWishlistSet - Patch wishlists set client.
- * @param {Function} getWishlistSet - Get wishlists set client.
- *
- * @returns {UpdateWishlistSetThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const updateWishlistSetFactory =
   (patchWishlistSet: PatchWishlistSet, getWishlistSet: GetWishlistSet) =>

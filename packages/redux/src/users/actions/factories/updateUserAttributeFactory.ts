@@ -10,36 +10,20 @@ import type {
 } from '@farfetch/blackout-client/users/types';
 
 /**
- * @typedef {object} UserAttributeData
+ * @param userId      - User's id to be filtered for.
+ * @param attributeId - The attribute id to be filtered for.
+ * @param data        - User attribute data.
+ * @param config      - Custom configurations to send to the client instance (axios).
  *
- * @alias UserAttributeData
- * @memberof module:profile/client
- *
- * @property {string} op - Type of operation, i.e replace.
- * @property {string} path - Path of the value to change.
- * @property {string} value - New value.
- */
-
-/**
- * @callback PatchUserAttributeThunkFactory
- * @param {number} userId - User's id to be filtered for.
- * @param {string} attributeId - The attribute id to be filtered for.
- * @param {UserAttributeData[]} data - User attribute data.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Updates a specific user attribute.
  *
- * @function doPatchUserAttribute
- * @memberof module:users/actions
+ * @param patchUserAttribute - Update a specific user attribute.
  *
- * @param {Function} patchUserAttribute - Update a specific user attribute.
- *
- * @returns {PatchUserAttributeThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const updateUserAttributeFactory =
   (patchUserAttribute: PatchUserAttribute) =>

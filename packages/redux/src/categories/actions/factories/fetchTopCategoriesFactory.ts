@@ -9,21 +9,18 @@ import type { Dispatch } from 'redux';
 import type { FetchTopCategoriesAction } from '../../types';
 
 /**
- * @callback FetchTopCategoriesThunkFactory
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * Creates a thunk factory configured with the specified client to fetch all top categories.
+ * Creates a thunk factory configured with the specified client to fetch all top
+ * categories.
  *
- * @memberof module:categories/actions
+ * @param getTopCategories - Get categories top client.
  *
- * @param {Function} getTopCategories - Get categories top client.
- *
- * @returns {FetchTopCategoriesThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchTopCategoriesFactory =
   (getTopCategories: GetCategories) =>

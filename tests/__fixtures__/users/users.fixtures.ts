@@ -47,7 +47,7 @@ export const mockUserAttributesResponse = {
   id: '',
   type: '',
   channelCode: '',
-  tenandId: 0,
+  tenantId: 0,
   userId: 0,
   details: {
     referralToken: '',
@@ -60,7 +60,7 @@ export const mockUserAttributesData = {
   id: '',
   type: '',
   channelCode: '',
-  tenandId: 0,
+  tenantId: 0,
   userId: 0,
   details: {
     referralToken: '',

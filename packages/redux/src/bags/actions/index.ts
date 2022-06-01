@@ -1,9 +1,5 @@
 /**
  * Bags actions.
- *
- * @module bags/actions
- * @category Bags
- * @subcategory Actions
  */
 
 export { default as addBagItem } from './addBagItem';

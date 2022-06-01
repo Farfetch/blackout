@@ -142,7 +142,7 @@ export const getOperationResult = (event, stateUpdaterFn) => {
  *
  * import React, { useEffect, useReducer } from 'react';
  *
- * // reate reducer to handle state
+ * // create reducer to handle state
  * const [paymentGatewayState, paymentGatewayDispatch] = useReducer(
  *    paymentGatewayReducer,
  *    paymentGatewayInitialState
@@ -218,7 +218,7 @@ export const addPaymentGatewayListener = stateUpdaterFn => {
  *
  * import React, { useEffect, useReducer } from 'react';
  *
- * // reate reducer to handle state
+ * // create reducer to handle state
  * const [paymentGatewayState, paymentGatewayDispatch] = useReducer(
  *    paymentGatewayReducer,
  *    paymentGatewayInitialState

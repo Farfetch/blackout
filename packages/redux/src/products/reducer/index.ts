@@ -1,8 +1,3 @@
-/**
- * @module products/reducer
- * @category Products
- * @subcategory Reducer
- */
 import { combineReducers } from 'redux';
 import { recommendedSetsReducer } from './recommendedSet';
 import attributesReducer from './attributes';

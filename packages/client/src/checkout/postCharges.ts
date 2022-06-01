@@ -3,34 +3,13 @@ import join from 'proper-url-join';
 import type { PostCharges } from './types';
 
 /**
- * @typedef {object} ChargeOrderRequest
- * @property {string} redirectUrl - Url to redirect to an external page to complete the payment.
- * @property {string} returnUrl - After the customer completes the payment, ask the payment service to redirect the browser of the customer to this URL..
- * @property {string} cancelUrl - If the customer cancels the payment, ask the payment service to redirect the browser of the customer to this URL.
- */
-
-/**
- * @typedef {object} PostChargesData
- *
- * @alias PostChargesData
- * @memberof module:checkout/client
- *
- * @property {ChargeOrderRequest} chargeOrderRequest - Required information to charge an order.
- */
-
-/**
  * Method responsible for creating an order charge.
  *
- * @function postCharges
- * @memberof module:checkout/client
+ * @param id     - Numeric identifier of the checkout order.
+ * @param data   - Request data.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} id - Numeric identifier of the checkout order.
- * @param {PostChargesData} data - Request data.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const postCharges: PostCharges = (id, data, config) =>
   client

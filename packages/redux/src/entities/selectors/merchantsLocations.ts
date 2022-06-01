@@ -6,13 +6,10 @@ import type { StoreState } from '../../types';
 /**
  * Returns a specific merchant location by its id.
  *
- * @function getMerchantLocation
- * @memberof module:entities/selectors
+ * @param state - Application state.
+ * @param id    - Merchant Location id.
  *
- * @param {object} state - Application state.
- * @param {string} id - Merchant Location id.
- *
- * @returns {object} - Merchant location.
+ * @returns - Merchant location.
  */
 export const getMerchantLocation = (
   state: StoreState,
@@ -23,13 +20,10 @@ export const getMerchantLocation = (
 /**
  * Returns all merchants locations from state.
  *
- * @function getMerchantsLocations
- * @memberof module:entities/selectors
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} - Object with key values pairs representing merchant
- * location id and merchant location properties.
+ * @returns - Object with key values pairs representing merchant location id and merchant location
+ * properties.
  */
 export const getMerchantsLocations = (
   state: StoreState,
@@ -39,12 +33,10 @@ export const getMerchantsLocations = (
 /**
  * Returns all the merchants locations corresponding to the provided ids.
  *
- * @function
+ * @param state - Application state.
+ * @param ids   - Merchants locations ids.
  *
- * @param {object} state - Application state.
- * @param {Array} ids - Merchants locations ids.
- *
- * @returns {Array} Merchants locations of the provided ids.
+ * @returns Merchants locations of the provided ids.
  */
 export const getMerchantsLocationsByIds = createSelector(
   [

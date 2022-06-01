@@ -20,7 +20,9 @@ interface FetchProductRecommendationsFailureAction extends Action {
   meta: { strategyName: string };
 }
 
-/** Actions dispatched when the fetch form schema request is made. */
+/**
+ * Actions dispatched when the fetch form schema request is made.
+ */
 export type FetchProductRecommendationsAction =
   | FetchProductRecommendationsRequestAction
   | FetchProductRecommendationsSuccessAction

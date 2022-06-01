@@ -6,23 +6,19 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @callback PostTokensRefreshThunkFactory
- * @param {string} refreshToken - Refresh Token.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param refreshToken - Refresh Token.
+ * @param config       - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Refreshes user or client's token.
  *
- * @function refreshToken
- * @param postTokens
- * @memberof module:authentication/actions/factories
+ * @param postTokens    -
+ * @param postUserToken - Post User token client guest credentials.
  *
- * @param {Function} postUserToken - Post User token client guest credentials.
- * @returns {PostTokensRefreshThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 export default (postTokens: any) =>
   (

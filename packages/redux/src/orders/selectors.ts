@@ -1,9 +1,3 @@
-/**
- * @module orders/selectors
- * @category Orders
- * @subcategory Selectors
- */
-
 import { createSelector } from 'reselect';
 import {
   getDocuments,
@@ -31,11 +25,9 @@ import type { StoreState } from '../types';
 /**
  * Returns the loading flag for the orders area actions.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Loading.
+ * @returns Loading.
  */
 export const isOrdersLoading = (state: StoreState): boolean =>
   getIsLoading(state.orders);
@@ -43,11 +35,9 @@ export const isOrdersLoading = (state: StoreState): boolean =>
 /**
  * Returns the error for the orders area actions.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Orders error.
+ * @returns Orders error.
  */
 export const getOrdersError = (state: StoreState): Error | null =>
   getError(state.orders);
@@ -55,11 +45,9 @@ export const getOrdersError = (state: StoreState): Error | null =>
 /**
  * Returns all the orders in the application state.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Object with orders with its orderId as the key.
+ * @returns Object with orders with its orderId as the key.
  */
 export const getOrders = (state: StoreState): OrderSummary =>
   getEntities(state, 'orders');
@@ -67,12 +55,10 @@ export const getOrders = (state: StoreState): OrderSummary =>
 /**
  * Returns a specific order identified by its id.
  *
- * @function
+ * @param state   - Application state.
+ * @param orderId - Order id.
  *
- * @param {object} state - Application state.
- * @param {string} orderId - Order id.
- *
- * @returns {object} Order object.
+ * @returns Order object.
  */
 export const getOrder = (
   state: StoreState,
@@ -82,12 +68,10 @@ export const getOrder = (
 /**
  * Returns a label tracking with the order tracking events.
  *
- * @function
+ * @param state          - Application state.
+ * @param trackingNumber - Tracking number.
  *
- * @param {object} state - Application state.
- * @param {string} trackingNumber - Tracking number.
- *
- * @returns {object} Label tracking object.
+ * @returns Label tracking object.
  */
 export const getLabelTracking = (
   state: StoreState,
@@ -98,20 +82,17 @@ export const getLabelTracking = (
 /**
  * Retrieves pagination information of the user orders.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {object | undefined} Pagination object.
- *
  * @example
+ * ```
  * import { getOrdersPagination } from '@farfetch/blackout-client/orders/redux';
  *
  * const mapStateToProps = (state: StoreState) => ({
  *     pagination: getOrdersPagination(state)
  * });
  *
+ * ```
  * @example
+ * ```
  * // Object returned for the orders
  * {
  *     number: 1, // Current page
@@ -119,6 +100,11 @@ export const getLabelTracking = (
  *     totalPages: 5 // Total of pages
  * };
  *
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns Pagination object.
  */
 export const getOrdersPagination = createSelector(
   [state => getResult(state.orders)],
@@ -136,12 +122,10 @@ export const getOrdersPagination = createSelector(
 /**
  * Returns a courier with its name and id.
  *
- * @function
+ * @param state     - Application state.
+ * @param courierId - Courier Id.
  *
- * @param {object} state - Application state.
- * @param {string} courierId - Courier Id.
- *
- * @returns {object} Courier object.
+ * @returns Courier object.
  */
 export const getCourier = (state: StoreState, courierId: string) =>
   getEntityById(state, 'courier', courierId);
@@ -149,11 +133,9 @@ export const getCourier = (state: StoreState, courierId: string) =>
 /**
  * Returns all the merchants in the application state.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Object with all merchants with its merchantId as the key.
+ * @returns Object with all merchants with its merchantId as the key.
  */
 export const getMerchants = (state: StoreState) =>
   getEntities(state, 'merchants');
@@ -161,12 +143,10 @@ export const getMerchants = (state: StoreState) =>
 /**
  * Returns a specific merchant identified by its id.
  *
- * @function
+ * @param state      - Application state.
+ * @param merchantId - Merchant id.
  *
- * @param {object} state - Application state.
- * @param {number} merchantId - Merchant id.
- *
- * @returns {object} Merchant object.
+ * @returns Merchant object.
  */
 export const getMerchant = (state: StoreState, merchantId: string) =>
   getEntityById(state, 'merchants', merchantId);
@@ -174,11 +154,9 @@ export const getMerchant = (state: StoreState, merchantId: string) =>
 /**
  * Returns all the order items in the application state.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Object with all order items with its orderItemId as the key.
+ * @returns Object with all order items with its orderItemId as the key.
  */
 export const getOrderItems = (state: StoreState): Order =>
   getEntities(state, 'orderItems');
@@ -186,12 +164,10 @@ export const getOrderItems = (state: StoreState): Order =>
 /**
  * Returns a specific order item identified by its id.
  *
- * @function
+ * @param state       - Application state.
+ * @param orderItemId - Order item id.
  *
- * @param {object} state - Application state.
- * @param {number} orderItemId - Order item id.
- *
- * @returns {object} Order item object.
+ * @returns Order item object.
  */
 export const getOrderItem = (
   state: StoreState,
@@ -201,11 +177,9 @@ export const getOrderItem = (
 /**
  * Returns all the countries in the application state.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Object with all countries with its countryId as the key.
+ * @returns Object with all countries with its countryId as the key.
  */
 export const getCountries = (state: StoreState) =>
   getEntities(state, 'countries');
@@ -213,12 +187,10 @@ export const getCountries = (state: StoreState) =>
 /**
  * Returns a specific country identified by its id.
  *
- * @function
+ * @param state     - Application state.
+ * @param countryId - Country id.
  *
- * @param {object} state - Application state.
- * @param {number} countryId - Country id.
- *
- * @returns {object} Country object.
+ * @returns Country object.
  */
 export const getCountry = (state: StoreState, countryId: string) =>
   getEntityById(state, 'countries', countryId);
@@ -226,12 +198,9 @@ export const getCountry = (state: StoreState, countryId: string) =>
 /**
  * Returns all the return options in the application state.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Object with all returnOptions with
- * its orderId_merchantId_type as the key.
+ * @returns Object with all returnOptions with its orderId_merchantId_type as the key.
  */
 export const getReturnOptions = (state: StoreState) =>
   getEntities(state, 'returnOptions');
@@ -239,12 +208,10 @@ export const getReturnOptions = (state: StoreState) =>
 /**
  * Returns a specific return option identified by its id.
  *
- * @function
+ * @param state          - Application state.
+ * @param returnOptionId - Return option id.
  *
- * @param {object} state - Application state.
- * @param {number} returnOptionId - Return option id.
- *
- * @returns {object} Return option object.
+ * @returns Return option object.
  */
 export const getReturnOption = (state: StoreState, returnOptionId: string) =>
   getEntityById(state, 'returnOptions', returnOptionId);
@@ -252,12 +219,12 @@ export const getReturnOption = (state: StoreState, returnOptionId: string) =>
 /**
  * Returns all return options from a specific order and merchant.
  *
- * @function
- * @param {object} state - Application state.
- * @param _
- * @param {string} orderId - Order id.
- * @param {number} merchantId - Merchant id.
- * @returns {Array|undefined} List of return options objects.
+ * @param state      - Application state.
+ * @param _          -
+ * @param orderId    - Order id.
+ * @param merchantId - Merchant id.
+ *
+ * @returns List of return options objects.
  */
 export const getReturnOptionsFromOrder = createSelector(
   [
@@ -281,12 +248,10 @@ export const getReturnOptionsFromOrder = createSelector(
 /**
  * Returns all the merchants from a specific order.
  *
- * @function
+ * @param state   - Application state.
+ * @param orderId - Order id.
  *
- * @param {object} state - Application state.
- * @param {string} orderId - Order id.
- *
- * @returns {Array|undefined} List of merchants objects.
+ * @returns List of merchants objects.
  */
 export const getMerchantsFromOrder = createSelector(
   [(state, orderId) => getOrder(state, orderId), getMerchants],
@@ -303,12 +268,10 @@ export const getMerchantsFromOrder = createSelector(
 /**
  * Returns all the order items from a specific order.
  *
- * @function
+ * @param state   - Application state.
+ * @param orderId - Order id.
  *
- * @param {object} state - Application state.
- * @param {string} orderId - Order id.
- *
- * @returns {Array|undefined} List of order items objects.
+ * @returns List of order items objects.
  */
 export const getOrderItemsByOrder = createSelector(
   [(state, orderId) => getOrder(state, orderId), getOrderItems],
@@ -324,12 +287,10 @@ export const getOrderItemsByOrder = createSelector(
 /**
  * Returns all the order items from a specific order and merchant.
  *
- * @function
+ * @param state   - Application state.
+ * @param orderId - Order id.
  *
- * @param {object} state - Application state.
- * @param {string} orderId - Order id.
- *
- * @returns {object | undefined} Order items objects.
+ * @returns Order items objects.
  */
 export const getOrderItemsByMerchant = createSelector(
   [(state, orderId) => getOrder(state, orderId), getOrderItems],
@@ -362,12 +323,12 @@ export const getOrderItemsByMerchant = createSelector(
 /**
  * Returns the quantity of orderItems in the order.
  *
- * @function
- * @param {object} state - Application state.
- * @param _
- * @param {string} orderId - Order id.
- * @param {number} orderItemId - Order item id.
- * @returns {number | undefined} Number of orderItems in the order.
+ * @param state       - Application state.
+ * @param _           -
+ * @param orderId     - Order id.
+ * @param orderItemId - Order item id.
+ *
+ * @returns Number of orderItems in the order.
  */
 export const getOrderItemQuantity = createSelector(
   [
@@ -396,11 +357,9 @@ export const getOrderItemQuantity = createSelector(
 /**
  * Returns the loading status for the orders list operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Orders list Loading status.
+ * @returns Orders list Loading status.
  */
 export const isOrdersListLoading = (state: StoreState): boolean =>
   getOrdersList(state.orders).isLoading;
@@ -408,11 +367,9 @@ export const isOrdersListLoading = (state: StoreState): boolean =>
 /**
  * Returns the error for the orders list operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Orders list operation error.
+ * @returns Orders list operation error.
  */
 export const getOrdersListError = (state: StoreState): Error =>
   getOrdersList(state.orders).error;
@@ -420,12 +377,10 @@ export const getOrdersListError = (state: StoreState): Error =>
 /**
  * Returns the loading status for the orders list operation.
  *
- * @function
+ * @param state   - Application state.
+ * @param orderId - Order identifier.
  *
- * @param {object} state - Application state.
- * @param {string} orderId - Order identifier.
- *
- * @returns {boolean} Orders list Loading status.
+ * @returns Orders list Loading status.
  */
 export const isOrderDetailsLoading = (
   state: StoreState,
@@ -435,12 +390,10 @@ export const isOrderDetailsLoading = (
 /**
  * Returns the error for the order details operation.
  *
- * @function
+ * @param state   - Application state.
+ * @param orderId - Order identifier.
  *
- * @param {object} state - Application state.
- * @param {string} orderId - Order identifier.
- *
- * @returns {object} Order details operation error.
+ * @returns Order details operation error.
  */
 export const getOrderDetailsError = (
   state: StoreState,
@@ -450,12 +403,10 @@ export const getOrderDetailsError = (
 /**
  * Returns the loading status for the order return options operation.
  *
- * @function
+ * @param state   - Application state.
+ * @param orderId - Order identifier.
  *
- * @param {object} state - Application state.
- * @param {string} orderId - Order identifier.
- *
- * @returns {boolean} Order return options Loading status.
+ * @returns Order return options Loading status.
  */
 export const isOrderReturnOptionsLoading = (
   state: StoreState,
@@ -465,12 +416,10 @@ export const isOrderReturnOptionsLoading = (
 /**
  * Returns the error for the order return options operation.
  *
- * @function
+ * @param state   - Application state.
+ * @param orderId - Order identifier.
  *
- * @param {object} state - Application state.
- * @param {string} orderId - Order identifier.
- *
- * @returns {object} Order return options operation error.
+ * @returns Order return options operation error.
  */
 export const getOrderReturnOptionsError = (
   state: StoreState,
@@ -480,11 +429,9 @@ export const getOrderReturnOptionsError = (
 /**
  * Returns the loading status for the tracking operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Tracking Loading status.
+ * @returns Tracking Loading status.
  */
 export const isTrackingsLoading = (state: StoreState): boolean =>
   getTrackings(state.orders).isLoading;
@@ -492,11 +439,9 @@ export const isTrackingsLoading = (state: StoreState): boolean =>
 /**
  * Returns the error for the trackings operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Trackings operation error.
+ * @returns Trackings operation error.
  */
 export const getTrackingsError = (state: StoreState): Error =>
   getTrackings(state.orders).error;
@@ -504,11 +449,9 @@ export const getTrackingsError = (state: StoreState): Error =>
 /**
  * Returns the loading status for the documents operations.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Tracking Loading status.
+ * @returns Tracking Loading status.
  */
 export const isDocumentsLoading = (state: StoreState): boolean =>
   getDocuments(state.orders).isLoading;
@@ -516,11 +459,9 @@ export const isDocumentsLoading = (state: StoreState): boolean =>
 /**
  * Returns the error for the documents operations.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Trackings operation error.
+ * @returns Trackings operation error.
  */
 export const getDocumentsError = (state: StoreState): Error =>
   getDocuments(state.orders).error;
@@ -528,11 +469,9 @@ export const getDocumentsError = (state: StoreState): Error =>
 /**
  * Returns the loading status for the available items activities operations.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Tracking Loading status.
+ * @returns Tracking Loading status.
  */
 export const isAvailableItemsActivitiesLoading = (state: StoreState): boolean =>
   getOrderAvailableItemsActivities(state.orders).isLoading;
@@ -540,11 +479,9 @@ export const isAvailableItemsActivitiesLoading = (state: StoreState): boolean =>
 /**
  * Returns the error for the available items activities operations.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Trackings operation error.
+ * @returns Trackings operation error.
  */
 export const getAvailableItemsActivitiesError = (state: StoreState): Error =>
   getOrderAvailableItemsActivities(state.orders).error;
@@ -552,11 +489,9 @@ export const getAvailableItemsActivitiesError = (state: StoreState): Error =>
 /**
  * Returns the loading status for the order item available activities operations.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Tracking Loading status.
+ * @returns Tracking Loading status.
  */
 export const isOrderItemAvailableActivitiesLoading = (
   state: StoreState,
@@ -565,11 +500,9 @@ export const isOrderItemAvailableActivitiesLoading = (
 /**
  * Returns the error for the order item available activities operations.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Trackings operation error.
+ * @returns Trackings operation error.
  */
 export const getOrderItemAvailableActivitiesError = (
   state: StoreState,

@@ -10,23 +10,19 @@ import type {
 } from '@farfetch/blackout-client/wishlists/types';
 
 /**
- * @callback FetchWishlistThunkFactory
- * @param {number} wishlistId - Wishlist id.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param wishlistId - Wishlist id.
+ * @param config     - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * Creates a thunk factory configured with the specified client
- * to fetch wishlist with given id.
+ * Creates a thunk factory configured with the specified client to fetch wishlist
+ * with given id.
  *
- * @memberof module:wishlists/actions/factories
+ * @param getWishlist - Get wishlist client.
  *
- * @param {Function} getWishlist - Get wishlist client.
- *
- * @returns {FetchWishlistThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchWishlistFactory =
   (getWishlist: GetWishlist) =>

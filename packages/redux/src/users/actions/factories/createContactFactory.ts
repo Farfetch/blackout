@@ -13,25 +13,20 @@ import type {
 import type { Dispatch } from 'redux';
 
 /**
- * @callback CreateContactThunkFactory
- * @param {object} id - User's id to get the contacts from.
- * @param {object} [data] - Object containing the new contact.
- * @param {object} [query] - Query parameters for creating a new user contact.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - User's id to get the contacts from.
+ * @param data   - Object containing the new contact.
+ * @param query  - Query parameters for creating a new user contact.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Creates a user contact.
  *
- * @function createContact
- * @memberof module:users/actions
+ * @param postContact - Post contact client.
  *
- * @param {Function} postContact - Post contact client.
- *
- * @returns {CreateContactThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const createContactFactory =
   (postContact: PostContact) =>

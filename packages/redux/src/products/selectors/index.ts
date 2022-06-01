@@ -1,8 +1,3 @@
-/**
- * @module products/selectors
- * @category Products
- * @subcategory Selectors
- */
 export * from './attributes';
 export * from './colorGrouping';
 export * from './details';

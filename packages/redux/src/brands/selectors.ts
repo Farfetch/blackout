@@ -1,9 +1,3 @@
-/**
- * @module brands/selectors
- * @category Brands
- * @subcategory Selectors
- */
-
 import { createSelector } from 'reselect';
 import { getBrands } from '../entities';
 import { getError, getHash, getIsLoading, getResult } from './reducer';
@@ -15,13 +9,9 @@ import type { StoreState } from '../types';
 /**
  * Retrieves the current brands hash.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @see {module:brands/actions.fetchBrands}
- *
- * @returns {string} Brands identifier to the last request for fetchBrands.
+ * @returns Brands identifier to the last request for fetchBrands.
  */
 export const getBrandsHash = (state: StoreState): State['hash'] =>
   getHash(state.brands);
@@ -29,14 +19,10 @@ export const getBrandsHash = (state: StoreState): State['hash'] =>
 /**
  * Returns error for one brand - fetchBrand request.
  *
- * @function
+ * @param state - Application state.
+ * @param id    - Brand identifier.
  *
- * @param {object} state - Application state.
- * @param {number} id - Brand identifier.
- *
- * @see {module:brands/actions.fetchBrand}
- *
- * @returns {object|undefined} Brand error.
+ * @returns Brand error.
  */
 export const getBrandError = (
   state: StoreState,
@@ -46,14 +32,10 @@ export const getBrandError = (
 /**
  * Returns the error for brands - fetchBrands request.
  *
- * @function
+ * @param state - Application state.
+ * @param hash  - Brands identifier for fetch brands request composed by query.
  *
- * @param {object} state - Application state.
- * @param {string} hash - Brands identifier for fetch brands request composed by query.
- *
- * @see {module:brands/actions.fetchsBrand}
- *
- * @returns {object|undefined} Brands error.
+ * @returns Brands error.
  */
 export const getBrandsError = (
   state: StoreState,
@@ -63,14 +45,10 @@ export const getBrandsError = (
 /**
  * Returns the loading status for one brand - fetchBrand request.
  *
- * @function
+ * @param state - Application state.
+ * @param id    - Brand identifier.
  *
- * @param {object} state - Application state.
- * @param {number} id - Brand identifier.
- *
- * @see {module:brands/actions.fetchBrand}
- *
- * @returns {boolean|undefined} Loading status corresponding to a fetchBrand request.
+ * @returns Loading status corresponding to a fetchBrand request.
  */
 export const isBrandLoading = (
   state: StoreState,
@@ -80,14 +58,10 @@ export const isBrandLoading = (
 /**
  * Returns the loading status for brands - fetchBrands request.
  *
- * @function
+ * @param state - Application state.
+ * @param hash  - Brands identifier for fetch brands request composed by query.
  *
- * @param {object} state - Application state.
- * @param {string} hash - Brands identifier for fetch brands request composed by query.
- *
- * @see {module:brands/actions.fetchBrands}
- *
- * @returns {boolean|undefined} Loading status corresponding to a fetchBrands request.
+ * @returns Loading status corresponding to a fetchBrands request.
  */
 export const areBrandsLoading = (
   state: StoreState,
@@ -96,16 +70,12 @@ export const areBrandsLoading = (
   hash ? getIsLoading(state.brands)?.[hash] : undefined;
 
 /**
- * Returns the brands result provenient from the `fetchBrands` request.
+ * Returns the brands result descendant from the `fetchBrands` request.
  *
- * @function
+ * @param state - Application state.
+ * @param hash  - Brands identifier for fetch brands request composed by query.
  *
- * @param {object} state - Application state.
- * @param {string} hash - Brands identifier for fetch brands request composed by query.
- *
- * @see {module:brands/actions.fetchBrands}
- *
- * @returns {object|undefined} Brands result with pagination.
+ * @returns Brands result with pagination.
  */
 export const getBrandsResult = createSelector(
   [
@@ -133,14 +103,10 @@ export const getBrandsResult = createSelector(
 /**
  * Retrieves if a brands result is cached by its hash.
  *
- * @function
+ * @param state - Application state.
+ * @param hash  - Brands identifier for fetch brands request composed by query.
  *
- * @param {object} state - Application state.
- * @param {string} hash - Brands identifier for fetch brands request composed by query.
- *
- * @see {module:brands/actions.fetchBrands}
- *
- * @returns {boolean} Whether the brands result is cached or not.
+ * @returns Whether the brands result is cached or not.
  */
 export const isBrandsResultCached = (
   state: StoreState,

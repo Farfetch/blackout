@@ -4,15 +4,12 @@ import type { Config } from '../types';
 import type { ContentTypes } from './types';
 
 /**
- * Method to receive all the content types available for a particulary space code.
+ * Method to receive all the content types available for a particularly space code.
  *
- * @memberof module:contents
+ * @param spaceCode - The space the content belongs to (website|mobileapp|emailTool...).
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @param {string} spaceCode - The space the content belongs to (website|mobileapp|emailTool...).
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise<ContentTypes>} Promise that will resolve when the call to the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getContentTypes = (
   spaceCode: string,

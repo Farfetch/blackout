@@ -1,9 +1,3 @@
-/**
- * @module locale/reducer
- * @category Locale
- * @subcategory Reducer
- */
-
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import get from 'lodash/get';
@@ -187,13 +181,10 @@ const reducers = combineReducers({
 /**
  * Reducer for locale state.
  *
- * @function localeReducer
- * @static
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
  *
- * @param {object} state - Current redux state.
- * @param {object} action - Action dispatched.
- *
- * @returns {object} New state.
+ * @returns New state.
  */
 export default (state: State, action: AnyAction): State => {
   if (action.type === actionTypes.RESET_LOCALE_STATE) {

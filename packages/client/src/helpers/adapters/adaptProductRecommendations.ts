@@ -5,12 +5,8 @@ import type {
 /**
  * Formats and simplifies the recommendations object structure.
  *
- * @function adaptProductRecommendations
- * @memberof module:helpers/adapters
- *
- * @param result - The payload received by the endpoint to be formatted.
- *
  * @example
+ * ```
  * const recommendations = adaptProductRecommendations(result);
  * Result of recommendations === {
  *      id: '0000-00000-0000-0000-000',
@@ -19,6 +15,10 @@ import type {
  *          score: 1
  *      }]
  * }
+ * ```
+ *
+ * @param result - The payload received by the endpoint to be formatted.
+ *
  * @returns The formatted result including the ID of the recommendation.
  */
 export default (result: GetProductRecommendation[]): ProductRecommendation => ({

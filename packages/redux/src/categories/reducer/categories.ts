@@ -1,8 +1,3 @@
-/**
- * @module categories/reducer
- * @category Categories
- * @subcategory Reducer
- */
 import * as actionTypes from '../actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import topCategoryReducer, {
@@ -83,12 +78,10 @@ const reducers = combineReducers({
 /**
  * Reducer for categories state.
  *
- * @static
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
  *
- * @param {object} state - Current redux state.
- * @param {object} action - Action dispatched.
- *
- * @returns {object} New state.
+ * @returns New state.
  */
 const categoriesReducer = (
   state: State,

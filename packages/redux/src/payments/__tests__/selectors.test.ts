@@ -87,7 +87,7 @@ describe('Payments redux selectors', () => {
   });
 
   describe('Instruments', () => {
-    describe('getIntruments()', () => {
+    describe('getInstruments()', () => {
       it('should get the instruments item from state', () => {
         const spy = jest.spyOn(fromEntities, 'getEntities');
         expect(selectors.getInstruments(mockState)).toEqual(

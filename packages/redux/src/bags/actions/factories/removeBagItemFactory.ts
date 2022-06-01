@@ -16,34 +16,20 @@ import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
 
 /**
- * @typedef {object} RemoveBagItemQuery
+ * @param bagItemId - Bag item id.
+ * @param query     - Query with parameters to get the bag.
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @alias RemoveBagItemQuery
- * @memberof module:bags/client
- *
- * @property {boolean} [includeOutOfStock=false] - If the response should
- * include sold out items in the bag.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * @callback RemoveBagItemThunkFactory
- * @param {number} bagItemId - Bag item id.
- * @param {RemoveBagItemQuery} [query] - Query with parameters to get the bag.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * Creates a thunk factory configured with the specified client to remove a bag
+ * item.
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
- */
-
-/**
- * Creates a thunk factory configured with the specified client to remove
- * a bag item.
+ * @param deleteBagItem - Delete bag item client.
  *
- * @memberof module:bags/actions/factories
- *
- * @param {Function} deleteBagItem - Delete bag item client.
- *
- * @returns {RemoveBagItemThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const removeBagItemFactory =
   (deleteBagItem: DeleteBagItem) =>

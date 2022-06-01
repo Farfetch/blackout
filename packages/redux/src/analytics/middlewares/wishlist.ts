@@ -33,7 +33,8 @@ import type {
 /**
  * Extends the default action types with the ones passed to the middleware.
  *
- * @param customActionTypes - Action types to extend/replace the ones from \@farfetch/blackout-redux/wishlists.
+ * @param customActionTypes - Action types to extend/replace the ones from
+ *                            \@farfetch/blackout-redux/wishlists.
  *
  * @returns The final map for wishlist actions.
  */
@@ -50,11 +51,13 @@ const getActionTypes = (
 });
 
 /**
- * Gets wishlist item id that corresponds to the product
- * specified in the action.
+ * Gets wishlist item id that corresponds to the product specified in the action.
  *
- * @param action - The action being executed.
- * @param searchMeta - Flag indicating if the search for the wishlist item id should look on the action.meta property. This value will be false when there is an update action because the id on the action.meta is not the id of the wishlist item after the update, as it will be changed by the server.
+ * @param action     - The action being executed.
+ * @param searchMeta - Flag indicating if the search for the wishlist item id should look on the
+ *                     action.meta property. This value will be false when there is an update action
+ *                     because the id on the action.meta is not the id of the wishlist item after the
+ *                     update, as it will be changed by the server.
  *
  * @returns The wishlist item id for the product if available or undefined.
  */
@@ -98,7 +101,7 @@ const getWishlistItemIdFromAction = (action: AnyAction, searchMeta = true) => {
 /**
  * Builds an object with all wishlist events data needed for tracking.
  *
- * @param action - The action being executed.
+ * @param action       - The action being executed.
  * @param wishlistItem - The wishlist item entity.
  *
  * @returns Event data for analytics.
@@ -123,8 +126,8 @@ const getWishlistData = (
  * Builds an object with all product data needed for tracking.
  *
  * @param analyticsInstance - Analytics instance.
- * @param state - Application state.
- * @param wishlistItem - The wishlist action object.
+ * @param state             - Application state.
+ * @param wishlistItem      - The wishlist action object.
  *
  * @returns Product data for analytics.
  */
@@ -163,10 +166,12 @@ const getProductData = async (
 };
 
 /**
- * Middleware for \@farfetch/blackout-redux/wishlists actions, to call `analyticsInstance.track()` with the correct payload.
+ * Middleware for \@farfetch/blackout-redux/wishlists actions, to call
+ * `analyticsInstance.track()` with the correct payload.
  *
  * @param analyticsInstance - Analytics instance.
- * @param customActionTypes - Action types to extend/replace the ones from \@farfetch/blackout-redux/wishlists.
+ * @param customActionTypes - Action types to extend/replace the ones from
+ *                            \@farfetch/blackout-redux/wishlists.
  *
  * @returns Redux middleware.
  */

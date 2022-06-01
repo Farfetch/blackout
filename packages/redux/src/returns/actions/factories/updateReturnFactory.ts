@@ -13,41 +13,20 @@ import type {
 } from '@farfetch/blackout-client/src/returns/types';
 
 /**
- * @typedef {object} UpdateReturnData
- * @property {object} [start] - The date of the start of the return slot.
- * The value should be a timestamp.
- * @property {object} [end] - The date of the end of the return slot.
- * The value should be a timestamp.
- */
-
-/**
- * @typedef {object} UpdateReturnQuery
- * @property {string} [guestOrderId] - Order identifier. Only required if
- * the user is not registered (guest).
- * @property {string} [guestUserEmail] - User email. Only required if
- * the user is not registered (guest).
- */
-
-/**
- * @callback UpdateReturnThunkFactory
- * @param {number} id - Return identifier.
- * @param {UpdateReturnData} data - Details of the return to be updated.
- * @param {UpdateReturnQuery} query - Query parameters for updating the return.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - Return identifier.
+ * @param data   - Details of the return to be updated.
+ * @param query  - Query parameters for updating the return.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Method responsible for updating the pickup schedule of a return.
  *
- * @function updateReturn
- * @memberof module:returns/actions
+ * @param patchReturn - Patch return client.
  *
- * @param {Function} patchReturn - Patch return client.
- *
- * @returns {UpdateReturnThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const updateReturnFactory =
   (patchReturn: PatchReturn) =>

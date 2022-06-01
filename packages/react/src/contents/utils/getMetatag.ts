@@ -4,17 +4,18 @@ import type { Metatag } from '@farfetch/blackout-client/contents/types';
 /**
  * Check the existance of a specific meta property inside all metatags.
  *
- * @memberof module:contents/utils
- *
  * @example
+ * ```
  * const property = 'og:title';
  * const metatags = [{ property: { type: 'property', description: 'og:title' } }];
  * Result of categories = 'Title of the page';
  *
- * @param {string} property - Selected meta property.
- * @param {Array}  metatags - List of all metatags for a specific page.
+ * ```
  *
- * @returns {string | undefined} - Metatag content for a specific metatag.
+ * @param property - Selected meta property.
+ * @param metatags - List of all metatags for a specific page.
+ *
+ * @returns - Metatag content for a specific metatag.
  */
 const getMetatag = memoize((property, metatags) => {
   const metaContent = metatags

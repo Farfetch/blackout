@@ -2,7 +2,7 @@ import type { CheckoutOrderMerchant, FlatAddress, Item } from '.';
 
 export enum ShippingMode {
   ByMerchant,
-  ByBunlde,
+  ByBundle,
 }
 
 export enum CheckoutOrderStatus {

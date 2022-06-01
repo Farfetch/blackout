@@ -5,16 +5,11 @@ import type { GetCountryCities } from './types';
 /**
  * Gets all the country cities by state id.
  *
- * @function getCountryCities
- * @memberof module:locale
+ * @param countryCode - Country identifier (ISO 3166-1 alpha-2) to find the cities related.
+ * @param stateId     - State identifier to find the cities related.
+ * @param config      - Custom configurations to send to the client instance (axios).
  *
- * @param {string} countryCode - Country identifier (ISO 3166-1 alpha-2) to
- * find the cities related.
- * @param {number} stateId - State identifier to find the cities related.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getCountryCities: GetCountryCities = (countryCode, stateId, config) =>
   client

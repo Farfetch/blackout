@@ -6,10 +6,10 @@ const { DAY, DELIMITER, MONTH, YEAR } = dateFormatTokens;
 /**
  * Returns the date format for a specific locale.
  *
- * @param {string} [cultureCode='en-US'] - The cultureCode for the date format.
- * @param {boolean} [includeYear=true] - Whether the year is to include on the date format or not.
+ * @param cultureCode - The cultureCode for the date format.
+ * @param includeYear - Whether the year is to include on the date format or not.
  *
- * @returns {string} The date format for the specified culture code, following the moment.js specification.
+ * @returns The date format for the specified culture code, following the moment.js specification.
  */
 export default (cultureCode = 'en-US', includeYear = true): string => {
   // After getting the locale formatted date, remove the U+200E char which IE11 introduces.

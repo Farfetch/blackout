@@ -1,18 +1,20 @@
 import isEmpty from 'lodash/isEmpty';
 
 /**
- * Construct a query string with all query parameters received in a form of an object.
- * This is particularly useful for the listing filters where the different values of the same
- * facet are separated by `|`.
- *
- * @param   {object} obj - All query parameters applied to an URL.
- * @param   {boolean} [useQuestionMark=true] - If the query string should be prefixed by a question mark.
- *
- * @returns {string} Query string with all parameters received.
+ * Construct a query string with all query parameters received in a form of an
+ * object. This is particularly useful for the listing filters where the different
+ * values of the same facet are separated by `|`.
  *
  * @example
+ * ```
  * const queryString = buildQueryStringFromObject({sort: 'price', sortdirection: 'desc', pageIndex: 2});
  * Result of queryString === '?pageindex=2&sort=price&sortdirection=desc';
+ * ```
+ *
+ * @param obj             - All query parameters applied to an URL.
+ * @param useQuestionMark - If the query string should be prefixed by a question mark.
+ *
+ * @returns Query string with all parameters received.
  */
 export default (
   obj: Record<string, unknown>,

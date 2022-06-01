@@ -11,36 +11,19 @@ import type { StoreState } from '../../../types';
 import type { ThunkDispatch } from 'redux-thunk';
 
 /**
- * @typedef {object} FetchMerchantsLocationsQuery
+ * @param query  - Query with parameters to fetch the merchants locations.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @property {string} [merchantIds] - Pipe separated list of merchant location
- * identifiers to filter for. For example: `3456|9687|12455`.
- * @property {string} [merchantLocationIds] - Pipe separated list of merchant
- * location identifiers to filter for. For example: `9111|9222|9333`.
- * @property {number} [countryId] - Numeric country identifier to filter for.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * @callback FetchMerchantsLocationsThunkFactory
+ * Creates a thunk factory configured with the specified client to fetch merchants
+ * locations for the given merchant, merchantLocation and/or country ids.
  *
- * @param {FetchMerchantsLocationsQuery} [query] - Query with parameters to
- * fetch the merchants locations.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param getMerchantsLocations - Get merchants locations client.
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
- */
-
-/**
- * Creates a thunk factory configured with the specified client to fetch
- * merchants locations for the given merchant, merchantLocation and/or
- * country ids.
- *
- * @memberof module:merchantsLocations/actions/factories
- *
- * @param {Function} getMerchantsLocations - Get merchants locations client.
- *
- * @returns {FetchMerchantsLocationsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchMerchantsLocationsFactory =
   (getMerchantsLocations: GetMerchantsLocations) =>

@@ -1,9 +1,5 @@
 /**
  * Brands actions.
- *
- * @module brands/actions
- * @category Brands
- * @subcategory Actions
  */
 
 export { default as fetchBrand } from './fetchBrand';

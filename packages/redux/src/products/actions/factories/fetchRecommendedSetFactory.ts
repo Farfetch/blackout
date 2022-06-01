@@ -11,24 +11,19 @@ import type {
 } from '@farfetch/blackout-client/products/types';
 
 /**
- * @callback FetchRecommendedSetThunkFactory
+ * @param recommendedSetId - Numeric identifier of the product.
+ * @param config           - Custom configurations to send to the client instance (axios).
  *
- * @param {number} recommendedSetId - Numeric identifier of the product.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Creates a thunk factory configured with the specified client to fetch product
  * sizes for a given product id.
  *
- * @memberof module:products/actions
+ * @param getRecommendedSet - Get product sizes client.
  *
- * @param {Function} getRecommendedSet - Get product sizes client.
- *
- * @returns {FetchRecommendedSetThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchRecommendedSet =
   (getRecommendedSet: GetRecommendedSet) =>

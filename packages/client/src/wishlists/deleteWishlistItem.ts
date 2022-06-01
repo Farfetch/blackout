@@ -5,15 +5,11 @@ import type { DeleteWishlistItem } from './types';
 /**
  * Method responsible for deleting an item from a wishlist.
  *
- * @memberof module:wishlists
+ * @param id     - Universal identifier of the wishlist.
+ * @param itemId - Numeric identifier of the item to delete.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} id - Universal identifier of the wishlist.
- * @param {number} itemId - Numeric identifier of the item to delete.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will be resolved when the call to the
- * endpoint finishes.
+ * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
 const deleteWishlistItem: DeleteWishlistItem = (id, itemId, config) =>
   client

@@ -1,9 +1,5 @@
 /**
  * SizeScales actions.
- *
- * @module sizeScales/actions
- * @category SizeScales
- * @subcategory Actions
  */
 export { default as fetchSizeScale } from './fetchSizeScale';
 export { default as fetchSizeScaleMappings } from './fetchSizeScaleMappings';

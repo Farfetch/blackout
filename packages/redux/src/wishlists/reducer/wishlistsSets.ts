@@ -214,13 +214,10 @@ export const reducer = combineReducers({
 /**
  * Reducer for wishlistsSets state.
  *
- * @static
- * @memberof module:wishlists/reducer
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
  *
- * @param {object} state - Current redux state.
- * @param {object} action - Action dispatched.
- *
- * @returns {object} New state.
+ * @returns New state.
  */
 const wishlistsSetsReducer: ReducerSwitch<SetsState> = (state, action) => {
   if (action.type === LOGOUT_SUCCESS) {

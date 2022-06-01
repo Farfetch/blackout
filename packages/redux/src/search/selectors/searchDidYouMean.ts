@@ -9,19 +9,19 @@ import type { StoreState } from '../../types';
 /**
  * Retrieves the error thrown by current search term.
  *
- * @memberof module:search/selectors
- *
- * @param {object} state - Application state.
- *
- * @returns {?object} Search error.
- *
  * @example
+ * ```
  * import { getSearchDidYouMeanError } from '@farfetch/blackout-redux/search';
  *
  * const mapStateToProps = state => ({
  *     error: getSearchDidYouMeanError(state)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns Search error.
  */
 export const getSearchDidYouMeanError = (state: StoreState): Error | null =>
   fromSearchDidYouMeanReducer.getError(state.search.didYouMean);
@@ -29,19 +29,19 @@ export const getSearchDidYouMeanError = (state: StoreState): Error | null =>
 /**
  * Retrieves the loading condition from current search term.
  *
- * @memberof module:search/selectors
- *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Whether a search term response is loading or not.
- *
  * @example
+ * ```
  * import { isSearchDidYouMeanLoading } from '@farfetch/blackout-redux/search';
  *
  * const mapStateToProps = state => ({
  *     isLoading: isSearchDidYouMeanLoading(state)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns Whether a search term response is loading or not.
  */
 export const isSearchDidYouMeanLoading = (state: StoreState): boolean =>
   fromSearchDidYouMeanReducer.getIsLoading(state.search.didYouMean);
@@ -49,19 +49,19 @@ export const isSearchDidYouMeanLoading = (state: StoreState): boolean =>
 /**
  * Retrieves the current query applied to get did you mean results.
  *
- * @memberof module:search/selectors
- *
- * @param {object} state - Application state.
- *
- * @returns {?object} The current query.
- *
  * @example
+ * ```
  * import { getSearchDidYouMeanQuery } from '@farfetch/blackout-redux/search';
  *
  * const mapStateToProps = state => ({
  *     query: getSearchDidYouMeanQuery(state)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns The current query.
  */
 export const getSearchDidYouMeanQuery = (
   state: StoreState,
@@ -71,19 +71,19 @@ export const getSearchDidYouMeanQuery = (
 /**
  * Retrieves the facets of a specific search for did you mean.
  *
- * @memberof module:search/selectors
- *
- * @param {object} state - Application state.
- *
- * @returns {?Array} Facets of a specific search.
- *
  * @example
+ * ```
  * import { getSearchDidYouMeanResult } from '@farfetch/blackout-redux/search';
  *
  * const mapStateToProps = state => ({
  *     result: getSearchDidYouMeanResult(state)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns Facets of a specific search.
  */
 export const getSearchDidYouMeanResult = (
   state: StoreState,

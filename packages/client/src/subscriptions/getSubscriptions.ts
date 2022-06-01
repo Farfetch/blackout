@@ -5,7 +5,7 @@ import type { GetSubscriptions } from './types';
 /**
  * Method responsible for retrieving data from subscriptions endpoint on MKT API.
  *
- * @param query - Query parameters to apply.
+ * @param query  - Query parameters to apply.
  * @param config - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.

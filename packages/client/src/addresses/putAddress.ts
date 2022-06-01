@@ -4,18 +4,11 @@ import type { PutAddress } from './types';
 /**
  * Responsible for updating the address information with the specified 'id'.
  *
- * @function putAddress
- * @memberof module:addresses/client
+ * @param props  - Put address query.
+ * @param data   - Object containing the address information.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {Object} props
- * @param {string} props.id - Identifier of the address.
- * @param {number} props.userId - Identifier of the user.
- * @param {object} data - Object containing the address information.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise<string|object>} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const putAddress: PutAddress = ({ userId, id }, data, config) =>
   client

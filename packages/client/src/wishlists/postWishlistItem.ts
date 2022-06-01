@@ -5,15 +5,11 @@ import type { PostWishlistItem } from './types';
 /**
  * Method responsible for adding a product to the wishlist.
  *
- * @memberof module:wishlists
+ * @param id     - Universal identifier of the wishlist.
+ * @param data   - Details of the product to add to the wishlist.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} id - Universal identifier of the wishlist.
- * @param {object} data - Details of the product to add to the wishlist.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will be resolved when the call to the
- * endpoint finishes.
+ * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
 const postWishlistItem: PostWishlistItem = (id, data, config) =>
   client

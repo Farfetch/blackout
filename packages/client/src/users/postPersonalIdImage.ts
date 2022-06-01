@@ -6,12 +6,11 @@ import type { PostPersonalIdImage } from './types';
  * Method responsible for creating personal id image.
  *
  * @param userId - User's id to set personal id image.
- * @param data - Personal id image object.
- * @param config - Custom configurations to send to the client
- * instance (axios). X-SUMMER-RequestId header is required.
+ * @param data   - Personal id image object.
+ * @param config - Custom configurations to send to the client instance (axios). X-SUMMER-RequestId
+ *                 header is required.
  *
- * @returns Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const postPersonalIdImage: PostPersonalIdImage = (userId, data, config) =>
   client

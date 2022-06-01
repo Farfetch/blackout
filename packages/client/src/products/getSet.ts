@@ -5,15 +5,11 @@ import type { GetSet } from './types';
 /**
  * Method responsible for getting a set data.
  *
- * @memberof module:products/client
+ * @param slug   - Set identifier (ID, slug or gender/slug).
+ * @param query  - Query parameters to apply.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string|number} slug - Set identifier (ID, slug or gender/slug).
- * @param {object} [query] - Query parameters to apply.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will be resolved when the call to the
- * endpoint finishes.
+ * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
 const getSet: GetSet = (slug, query, config) =>
   client

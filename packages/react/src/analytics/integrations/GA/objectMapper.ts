@@ -6,7 +6,8 @@ import set from 'lodash/set';
  * Obtain a new object by applying the specified mappings to a source object.
  *
  * @param sourceObject - Object to map properties from.
- * @param mappings - Mappings of property names from source to target. If not provided, sourceObject will be returned.
+ * @param mappings     - Mappings of property names from source to target. If not provided,
+ *                       sourceObject will be returned.
  *
  * @returns New object mapped with specified mappings or sourceObject if no mappings are provided.
  */

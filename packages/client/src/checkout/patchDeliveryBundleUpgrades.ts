@@ -2,41 +2,34 @@ import client, { adaptError } from '../helpers/client';
 import type { PatchDeliveryBundleUpgrades } from './types';
 
 /**
- * Method responsible for applying the selected delivery bundle upgrade for
- * the specified bundle.
+ * Method responsible for applying the selected delivery bundle upgrade for the
+ * specified bundle.
  *
- * @function patchDeliveryBundleUpgrades
- * @memberof module:checkout/client
+ * @param id               - Identifier of the checkout order.
+ * @param deliveryBundleId - Identifier of the delivery bundle.
+ * @param data             - JSON Patch document to update a list of upgrades JSONPatch document as
+ *                           defined by RFC 6902 using: op: replace and test path: \{index\}/isSelected
+ *                           and \{index\}/id where \{index\} is the index (zero-based) of the delivery
+ *                           bundle upgrade to select.
  *
- * @param {number} id - Identifier of the checkout order.
- * @param {string} deliveryBundleId - Identifier of the delivery bundle.
- * @param {Array} data - JSON Patch document to update a list of upgrades
- *    JSONPatch document as defined by RFC 6902 using:
- *      op: replace and test
- *      path: {index}/isSelected and {index}/id
- *      where {index} is the index (zero-based) of the
- *      delivery bundle upgrade to select.
+ *                                                         It's recommended to add a test operation to the request to
+ *                                                         guarantee the index is the upgrade to be selected.
+ *                                                         Example:
+ *                                                           [
+ *                                                              \{
+ *                                                                 "op":"replace",
+ *                                                                 "path": "0/isSelected",
+ *                                                                 "value": "true"
+ *                                                              \}
+ *                                                              \{
+ *                                                                 "op":"test",
+ *                                                                 "path": "0/id",
+ *                                                                 "value": "25314851"
+ *                                                              \}
+ *                                                           ].
+ * @param config           - Custom configurations to send to the client instance (axios).
  *
- *     It's recomended to add a test operation to the request to
- *     guarantee the index is the upgrade to be selected.
- *     Example:
- *       [
- *          {
- *             "op":"replace",
- *             "path": "0/isSelected",
- *             "value": "true"
- *          }
- *          {
- *             "op":"test",
- *             "path": "0/id",
- *             "value": "25314851"
- *          }
- *       ].
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const patchDeliveryBundleUpgrades: PatchDeliveryBundleUpgrades = (
   id,

@@ -6,13 +6,11 @@ import type { StoreState } from '../../types';
 /**
  * Gets the related sets of a specific type from a given product.
  *
- * @memberof module:products/selectors
+ * @param state     - Application state.
+ * @param productId - Product id to get the related sets from.
+ * @param setType   - Desired set type to filter.
  *
- * @param {object} state - Application state.
- * @param {number} productId - Product id to get the related sets from.
- * @param {number} setType - Desired set type to filter.
- *
- * @returns {Array} Related sets of the given type.
+ * @returns Related sets of the given type.
  */
 export const getProductRelatedSetsIdsByType = createSelector(
   (state: StoreState, productId: ProductEntity['id']) =>

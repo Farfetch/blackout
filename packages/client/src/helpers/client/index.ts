@@ -1,9 +1,3 @@
-/**
- * @module helpers/client
- * @category Helpers
- * @subcategory Client
- */
-
 import * as headers from './headers';
 import {
   adaptError,

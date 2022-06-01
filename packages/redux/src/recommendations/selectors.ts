@@ -11,7 +11,7 @@ import type { StoreState } from '../types';
 /**
  * Checks if product recommendations has error by strategy name.
  *
- * @param state - Application state.
+ * @param state        - Application state.
  * @param strategyName - The strategy name for the specific set of recommendations.
  *
  * @returns Product recommendations error.
@@ -25,7 +25,7 @@ export const getProductRecommendationsError = (
 /**
  * Checks if product recommendations are loading based on a strategy name.
  *
- * @param state - Application state.
+ * @param state        - Application state.
  * @param strategyName - The strategy name for the specific set of recommendations.
  *
  * @returns If the product recommendations are loading or not.
@@ -51,8 +51,8 @@ export const getProductRecommendations = (
 /**
  * Gets the product recommendations for a specific strategy.
  *
- * @param  state - Application state.
- * @param  strategyName - The strategy name for the specific set of recommendations.
+ * @param state        - Application state.
+ * @param strategyName - The strategy name for the specific set of recommendations.
  *
  * @returns The result object containing the product recommendations.
  */
@@ -64,7 +64,7 @@ export const getProductRecommendationsByStrategyName = (
 /**
  * Gets the product recommendation id by strategy name.
  *
- * @param state - Application state.
+ * @param state        - Application state.
  * @param strategyName - The strategy name for the specific set of recommendations.
  *
  * @returns The id of the product recommendations for a specific strategy.

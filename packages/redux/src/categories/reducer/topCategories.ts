@@ -1,8 +1,3 @@
-/**
- * @module categories/reducer
- * @category Categories
- * @subcategory Reducer
- */
 import * as actionTypes from '../actionTypes';
 import { AnyAction, combineReducers, Reducer } from 'redux';
 import type { Category } from '@farfetch/blackout-client/categories/types';

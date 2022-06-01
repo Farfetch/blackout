@@ -5,15 +5,10 @@ import type { Config } from '../types';
 /**
  * Gets the guest user details with the specified id.
  *
- * @function getGuestUser
- * @memberof module:users/client
+ * @param id     - Universal identifier of the user.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} id - Universal identifier of the user.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getGuestUser = (id: string, config?: Config) =>
   client

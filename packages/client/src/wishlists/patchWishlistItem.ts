@@ -6,16 +6,12 @@ import type { PatchWishlistItem } from './types';
  * Method responsible for setting the quantity and the size of a product in a
  * wishlist.
  *
- * @memberof module:wishlists
+ * @param id     - Universal identifier of the wishlist.
+ * @param itemId - Numeric identifier of the item to patch.
+ * @param data   - Details to update, namely quantity and size.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} id - Universal identifier of the wishlist.
- * @param {number} itemId - Numeric identifier of the item to patch.
- * @param {object} data - Details to update, namely quantity and size.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will be resolved when the call to the
- * endpoint finishes.
+ * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
 const patchWishlistItem: PatchWishlistItem = (id, itemId, data, config) =>
   client

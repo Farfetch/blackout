@@ -3,16 +3,14 @@ import join from 'proper-url-join';
 import type { GetOrderItemAvailableActivities } from './types';
 
 /**
- * Method responsible for fetching the activities that are available for the order item.
+ * Method responsible for fetching the activities that are available for the order
+ * item.
  *
- * @function getOrderItemAvailableActivities
- * @memberof module:orders/client
- * @param {string} orderId - The identifier of the order.
- * @param {string} itemId - The identifier of the item.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @param orderId - The identifier of the order.
+ * @param itemId  - The identifier of the item.
+ * @param config  - Custom configurations to send to the client instance (axios).
+ *
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getOrderItemAvailableActivities: GetOrderItemAvailableActivities = (
   orderId,

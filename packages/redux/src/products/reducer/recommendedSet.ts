@@ -1,8 +1,3 @@
-/**
- * @module products/reducer
- * @category Recommended Set
- * @subcategory Reducer
- */
 import * as actionTypes from '../actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import type {

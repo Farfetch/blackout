@@ -8,10 +8,9 @@ const DEFAULT_ACTION_TYPES = new Set([actionTypes.SET_COUNTRY_CODE]);
 /**
  * Gets the final set of action types the middleware should listen to.
  *
- * @private
- * @param {Set} actionTypes - A set of action types for the middleware to listen to.
+ * @param actionTypes - A set of action types for the middleware to listen to.
  *
- * @returns {Set} Set of action types to apply.
+ * @returns Set of action types to apply.
  */
 const getActionTypes = (actionTypes: Set<string>): Set<string> => {
   if (actionTypes) {
@@ -30,12 +29,10 @@ const getActionTypes = (actionTypes: Set<string>): Set<string> => {
 /**
  * Middleware to update the defaults after the provided actions.
  *
- * @function setCountryCode
- * @memberof module:locale/middlewares
+ * @param customActionTypes - A set of action types to override the default set of action types the
+ *                            middleware listens to.
  *
- * @param {Set} customActionTypes - A set of action types to override the default set of action types the middleware listens to.
- *
- * @returns {Function} Redux middleware.
+ * @returns Redux middleware.
  */
 const setCountryCode = (customActionTypes: Set<string>): Middleware => {
   const actionTypes = getActionTypes(customActionTypes);

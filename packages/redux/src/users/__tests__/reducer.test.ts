@@ -338,7 +338,7 @@ describe('users redux reducer', () => {
           id: '',
           type: '',
           channelCode: '',
-          tenandId: 0,
+          tenantId: 0,
           userId: 0,
           details: {
             referralToken: '',
@@ -378,7 +378,7 @@ describe('users redux reducer', () => {
         id: '',
         type: '',
         channelCode: '',
-        tenandId: 0,
+        tenantId: 0,
         userId: 0,
         details: {
           referralToken: '',
@@ -416,7 +416,7 @@ describe('users redux reducer', () => {
         id: '',
         type: '',
         channelCode: '',
-        tenandId: 0,
+        tenantId: 0,
         userId: 0,
         details: {
           referralToken: '',

@@ -3,13 +3,17 @@ import merge from 'lodash/merge';
 
 /**
  * Creates a new object with the following properties:
- *  - All target properties that are also on source are merged and have new references
- *  - All target properties that are not on source are preserved and have the same reference.
  *
- * @param {object} target - Object that will be used as the base for the new object.
- * @param {object} source - Object that will merge the target props with new values.
+ * - All target properties that are also on source are merged and have new
+ *   references
+ * - All target properties that are not on source are preserved and have the same
+ *   reference.
  *
- * @returns {object} - A new object that contains both target and source properties merged (see description for more info).
+ * @param target - Object that will be used as the base for the new object.
+ * @param source - Object that will merge the target props with new values.
+ *
+ * @returns - A new object that contains both target and source properties merged (see description for
+ * more info).
  */
 export default function createMergedObject(
   target: { [k: string]: any },

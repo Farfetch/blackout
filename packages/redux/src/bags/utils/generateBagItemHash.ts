@@ -20,11 +20,9 @@ type Params = Partial<{
 /**
  * Creates a hash based on the merchant, product, size ids and custom attributes.
  *
- * @memberof module:bags/utils
+ * @param params - The params needed to create a hash.
  *
- * @param {object} params - The params needed to create a hash.
- *
- * @returns {string} The hash created.
+ * @returns The hash created.
  */
 const generateBagItemHash = (params: Params): string => {
   const productId = params.productId || params.product?.id;

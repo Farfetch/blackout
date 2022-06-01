@@ -5,16 +5,11 @@ import type { PutDefaultContactAddress } from './types';
 /**
  * Sets the address specified with 'id', as the default contact address.
  *
- * @function putDefaultContactAddress
- * @memberof module:addresses/client
+ * @param userId    - Identifier of the user.
+ * @param addressId - Identifier of the address.
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @param {string} userId - Identifier of the user.
- * @param {string} addressId - Identifier of the address.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const putDefaultContactAddress: PutDefaultContactAddress = (
   userId,

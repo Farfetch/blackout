@@ -3,35 +3,15 @@ import join from 'proper-url-join';
 import type { PatchBagItem } from './types';
 
 /**
- * @typedef {object} PatchBagItemQuery
+ * Method responsible for updating the quantity and the size of an item in the bag.
  *
- * @alias PatchBagItemQuery
- * @memberof module:bags/client
+ * @param id     - Universal identifier of the bag.
+ * @param itemId - Numeric identifier of the item to patch.
+ * @param data   - Details of the product to update a bag item.
+ * @param query  - Query with parameters to get the bag.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @property {boolean} [includeOutOfStock=false] - If the response should
- * include sold out items in the bag.
- */
-
-/**
- * Method responsible for updating the quantity and the size of an item
- * in the bag.
- *
- * @memberof module:bags/client
- *
- * @param {string} id - Universal identifier of the bag.
- * @param {number} itemId - Numeric identifier of the item to patch.
- * @param {object} data - Details of the product to update a bag item.
- * @param {number} data.productId - Product identifier.
- * @param {number} data.merchantId - Merchant identifier.
- * @param {number} data.quantity - Bag item quantity.
- * @param {number} data.size - Bag item size.
- * @param {number} data.scale - Bag item scale.
- * @param {PatchBagItemQuery} [query] - Query with parameters to get the bag.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will be resolved when the call to the
- * endpoint finishes.
+ * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
 const patchBagItem: PatchBagItem = (id, itemId, data, query, config) =>
   client

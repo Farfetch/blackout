@@ -1,8 +1,3 @@
-/**
- * @module search/reducer
- * @category Search
- * @subcategory Reducer
- */
 import { combineReducers } from 'redux';
 import searchDidYouMeanReducer from './searchDidYouMean';
 import searchIntentsReducer from './searchIntents';

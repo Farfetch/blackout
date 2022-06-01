@@ -1,9 +1,5 @@
 /**
  * Orders actions factories.
- *
- * @module orders/actions/factories
- * @category Products
- * @subcategory Actions Factories
  */
 
 export { default as fetchTrackingsFactory } from './fetchTrackingsFactory';

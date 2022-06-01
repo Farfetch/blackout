@@ -5,16 +5,11 @@ import type { GetOrders } from './types';
 /**
  * Method responsible for fetching orders.
  *
- * @function getOrders
- * @memberof module:orders/client
+ * @param id     - The current user id.
+ * @param query  - Pagination information. Possible values: "page", "pageSize".
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {number} id - The current user id.
- * @param {object} [query] - Pagination information. Possible values: "page", "pageSize".
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getOrders: GetOrders = (id, query, config) =>
   client

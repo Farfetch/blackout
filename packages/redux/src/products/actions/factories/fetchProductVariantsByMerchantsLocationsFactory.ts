@@ -15,26 +15,20 @@ import type {
 import type { StoreState } from '../../../types';
 
 /**
- * @callback FetchProductVariantsByMerchantsLocationsThunkFactory
+ * @param productId - Numeric identifier of the product.
+ * @param variantId - Universal unique identifier of the variant.
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @param {number} productId - Numeric identifier of the product.
- * @param {string} variantId - Universal unique identifier of the variant.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Creates a thunk factory configured with the specified client to fetch the
  * merchants locations for a specific product variant.
  *
- * @memberof module:products/actions/factories
+ * @param getProductVariantsByMerchantsLocations - Get product variants by merchants locations clients.
  *
- * @param {Function} getProductVariantsByMerchantsLocations - Get product variants by merchants
- * locations clients.
- *
- * @returns {FetchProductVariantsByMerchantsLocationsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchProductVariantsByMerchantsLocationsFactory =
   (

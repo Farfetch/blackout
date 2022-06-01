@@ -42,11 +42,11 @@ export const OPTION_FETCH_USER_ID_SELECTOR = 'getUserIdSelector';
 export const OPTION_USER_TRAITS_PICKER = 'userTraitsPicker';
 
 /**
- * Gets the final set of action types the middleware should listen to.
- * This is to provide backwards compatibility with the previous version of setUser
- * middleware.
+ * Gets the final set of action types the middleware should listen to. This is to
+ * provide backwards compatibility with the previous version of setUser middleware.
  *
- * @param actionTypes - A set of action types for the middleware to listen to. If an array is passed, it will be used to create a Set from.
+ * @param actionTypes        - A set of action types for the middleware to listen to. If an array is
+ *                             passed, it will be used to create a Set from.
  * @param defaultActionTypes - Default action types to be used when actionTypes cannot be used.
  *
  * @returns Set of action types to apply.
@@ -78,10 +78,14 @@ const getActionTypes = (
 let currentUser: UserType | null;
 
 /**
- * Middleware to call `analytics.setUser()` after any action that changes user login state is dispatched.
+ * Middleware to call `analytics.setUser()` after any action that changes user
+ * login state is dispatched.
  *
- * @param analyticsInstance - Analytics instance.
- * @param actionTypesOrOptions - An options object with options to set on the middleware or a set/array of action types to override the default set of action types the middleware listens to.
+ * @param analyticsInstance    - Analytics instance.
+ * @param actionTypesOrOptions - An options object with options to set on the middleware or a set/array
+ *                               of action types to override the default set of action types the
+ *                               middleware listens to.
+ *
  * @returns Redux middleware.
  */
 const setUserMiddleware = (

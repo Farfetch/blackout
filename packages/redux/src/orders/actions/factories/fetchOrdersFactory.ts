@@ -14,24 +14,19 @@ import type {
 } from '@farfetch/blackout-client/orders/types';
 
 /**
- * @callback FetchOrdersThunkFactory
- * @param {number} userId - Identifier of the user.
- * @param {object} query - Pagination information. Possible values: "page", "pageSize".
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param userId - Identifier of the user.
+ * @param query  - Pagination information. Possible values: "page", "pageSize".
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Fetches orders.
  *
- * @function fetchOrders
- * @memberof module:orders/actions
+ * @param getOrders - Get orders client.
  *
- * @param {Function} getOrders - Get orders client.
- *
- * @returns {FetchOrdersThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchOrders =
   (getOrders: GetOrders) =>

@@ -5,14 +5,10 @@ import type { Size } from '../../products/types';
 /**
  * Convert legacy size attributes to an object.
  *
- * @function
- * @memberof module:helpers/adapters
+ * @param attributes - Attributes to adapt.
+ * @param sizes      - Sizes of the product to build the current size attribute quantity.
  *
- * @param {Array} attributes - Attributes to adapt.
- * @param {Array} [sizes] - Sizes of the product to build the current size
- * attribute quantity.
- *
- * @returns {object} Object with size attributes adapted.
+ * @returns Object with size attributes adapted.
  */
 const adaptAttributes: AdaptAttributes = (attributes, sizes) => {
   if (isEmpty(attributes) && isEmpty(sizes)) {

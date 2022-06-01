@@ -13,18 +13,20 @@ import type { StoreState } from '../types';
 /**
  * Retrieves the error thrown by the fetchFormSchema request, by schemaCode.
  *
- * @param state - Application state.
- * @param schemaCode - Schema code to be filtered for.
- *
- * @returns Content error.
- *
  * @example
+ * ```
  * import \{ getFormSchemaError \} from '\@farfetch/blackout-redux/forms';
  *
  * const mapStateToProps = (state, \{ query \}) =\> (\{
  *     error: getFormSchemaError(state, query)
  * \});
  *
+ * ```
+ *
+ * @param state      - Application state.
+ * @param schemaCode - Schema code to be filtered for.
+ *
+ * @returns Content error.
  */
 export const getFormSchemaError = (
   state: StoreState,
@@ -36,17 +38,19 @@ export const getFormSchemaError = (
 /**
  * Retrieves the loading condition to the fetchFormSchema request, by schema code.
  *
- * @param state - Application state.
- * @param schemaCode - Schema code to be filtered for.
- *
- * @returns If the form schema is loading or not.
- *
  * @example
+ * ```
  * import \{ isFormSchemaLoading \} from '\@farfetch/blackout-redux/forms';
  *
  * const mapStateToProps = (state, \{ query \}) =\> (\{
  *     isLoading: isFormSchemaLoading(state, query)
  * \});
+ * ```
+ *
+ * @param state      - Application state.
+ * @param schemaCode - Schema code to be filtered for.
+ *
+ * @returns If the form schema is loading or not.
  */
 export const isFormSchemaLoading = (
   state: StoreState,
@@ -56,17 +60,19 @@ export const isFormSchemaLoading = (
 /**
  * Retrieves all form schemas.
  *
- * @param state - Application state.
- *
- * @returns All form schemas.
- *
  * @example
+ * ```
  * import \{ getFormSchemaByCode \} from '\@farfetch/blackout-redux/forms';
  *
  * const mapStateToProps = (state, \{ query \}) =\> (\{
  *     form-code: getFormSchemaByCode('sample-code', state)
  * \});
  *
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns All form schemas.
  */
 export const getFormSchemas = (state: StoreState): FormResult =>
   getFormsSchemas(state.forms);
@@ -74,18 +80,20 @@ export const getFormSchemas = (state: StoreState): FormResult =>
 /**
  * Retrieves a schema.
  *
- * @param state - Application state.
- * @param schemaCode - Form code to filter for.
- *
- * @returns Forms schemas with a given schemaCode.
- *
  * @example
+ * ```
  * import \{ getFormSchemaByCode \} from '\@farfetch/blackout-redux/forms';
  *
  * const mapStateToProps = (state, \{ query \}) =\> (\{
  *     form-code: getFormSchemaByCode('sample-code', state)
  * \});
  *
+ * ```
+ *
+ * @param state      - Application state.
+ * @param schemaCode - Form code to filter for.
+ *
+ * @returns Forms schemas with a given schemaCode.
  */
 export const getFormSchemaByCode = (
   state: StoreState,
@@ -95,18 +103,20 @@ export const getFormSchemaByCode = (
 /**
  * Retrieves the error thrown by the postFormData request, by schemaCode.
  *
- * @param state - Application state.
- * @param schemaCode - Schema code to be filtered for.
- *
- * @returns Form data error.
- *
  * @example
+ * ```
  * import \{ getSubmitFormDataError \} from '\@farfetch/blackout-redux/forms';
  *
  * const mapStateToProps = (state, \{ query \}) =\> (\{
  *     error: submitFormSchemaError(state, query)
  * \});
  *
+ * ```
+ *
+ * @param state      - Application state.
+ * @param schemaCode - Schema code to be filtered for.
+ *
+ * @returns Form data error.
  */
 export const getSubmitFormDataError = (
   state: StoreState,
@@ -118,17 +128,19 @@ export const getSubmitFormDataError = (
 /**
  * Retrieves the loading condition to the getFormsSchemas request, by schema code.
  *
- * @param state - Application state.
- * @param schemaCode - Schema code to be filtered for.
- *
- * @returns If the form submit is loading or not.
- *
  * @example
+ * ```
  * import \{ isSubmitFormDataLoading \} from '\@farfetch/blackout-redux/forms';
  *
  * const mapStateToProps = (state, \{ query \}) =\> (\{
  *     isLoading: isSubmitFormDataLoading(state, query)
  * \});
+ * ```
+ *
+ * @param state      - Application state.
+ * @param schemaCode - Schema code to be filtered for.
+ *
+ * @returns If the form submit is loading or not.
  */
 export const isSubmitFormDataLoading = (
   state: StoreState,

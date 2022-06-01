@@ -1,9 +1,5 @@
 /**
  * Bags actions factories.
- *
- * @module bags/actions/factories
- * @category Bags
- * @subcategory Actions
  */
 
 export { default as addBagItemFactory } from './addBagItemFactory';

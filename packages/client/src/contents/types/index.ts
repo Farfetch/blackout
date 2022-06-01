@@ -1,8 +1,5 @@
 /**
  * Content types.
- *
- * @module content
- * @category Types
  */
 
 export * from './commercePages.types';

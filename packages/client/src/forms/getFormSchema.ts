@@ -6,9 +6,8 @@ import type { GetFormSchema } from './types';
  * Method responsible for fetching schemas by code.
  *
  * @param schemaCode - Schema code to filter for.
- * @param query - Query object with search terms to apply.
- * @param config - Custom configurations to send to the client
- * instance (axios).
+ * @param query      - Query object with search terms to apply.
+ * @param config     - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */

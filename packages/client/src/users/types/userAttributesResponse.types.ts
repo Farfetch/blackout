@@ -16,7 +16,7 @@ export type UserAttributesResponse = {
   id: string;
   type: string;
   channelCode: string;
-  tenandId: number;
+  tenantId: number;
   userId: number;
   details: GenericDetails | ReferralDetails;
 };

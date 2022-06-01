@@ -3,28 +3,13 @@ import join from 'proper-url-join';
 import type { GetReturnsFromOrder } from './types';
 
 /**
- * @typedef {object} GetReturnsFromOrderQuery
- *
- * @alias GetReturnsFromOrderQuery
- * @memberof module:returns/client
- *
- * @property {string} [guestUserEmail] - User email. Only required if
- * the user is not registered (guest).
- */
-
-/**
  * Method responsible for obtaining returns from a specific order.
  *
- * @function getReturnsFromOrder
- * @memberof module:returns/client
+ * @param orderId - Order identifier.
+ * @param query   - Query parameters.
+ * @param config  - Custom configurations to send to the client instance (axios).
  *
- * @param {string} orderId - Order identifier.
- * @param {GetReturnsFromOrderQuery} query - Query parameters.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getReturnsFromOrder: GetReturnsFromOrder = (orderId, query, config) =>
   client

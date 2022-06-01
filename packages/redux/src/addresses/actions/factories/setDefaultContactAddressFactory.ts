@@ -13,25 +13,19 @@ import type { Dispatch } from 'redux';
 import type { SetDefaultContactAddressAction } from '../../types';
 
 /**
- * @callback SetDefaultContactAddressThunkFactory
- * @param {string} userId - Identifier of the user.
- * @param {string} addressId - Identifier of the address.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param userId    - Identifier of the user.
+ * @param addressId - Identifier of the address.
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Sets the address specified with 'addressId', as the default contact address.
  *
- * @function doSetDefaultContactAddress
- * @memberof module:addresses/actions/factories
+ * @param putDefaultContactAddress - Put default contact address client.
  *
- * @param {Function} putDefaultContactAddress - Put default contact
- * address client.
- *
- * @returns {SetDefaultContactAddressThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const setDefaultContactAddressFactory =
   (putDefaultContactAddress: PutDefaultContactAddress) =>

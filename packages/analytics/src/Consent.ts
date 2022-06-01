@@ -40,9 +40,11 @@ class Consent {
   /**
    * Merges consent default properties with incoming ones from data received.
    *
-   * @param data - Object with properties for the different types of preferences (Marketing, preferences or statistics).
+   * @param data - Object with properties for the different types of preferences (Marketing, preferences
+   *               or statistics).
    *
-   * @returns Promise that will resolve with the instance that was used when calling this method to allow chaining.
+   * @returns Promise that will resolve with the instance that was used when calling this method to allow
+   * chaining.
    */
   async set(data: ConsentData | undefined): Promise<Consent> {
     const consent = pick(data, CONSENT_KEYS);

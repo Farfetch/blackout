@@ -1,9 +1,5 @@
 /**
  * Products utils.
- *
- * @module products/utils
- * @category Products
- * @subcategory Utils
  */
 export { default as buildFacetTree } from './buildFacetTree';
 export { default as buildSetFiltersQueryParams } from './buildSetFiltersQueryParams';

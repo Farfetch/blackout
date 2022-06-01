@@ -1,16 +1,14 @@
-/**
- * @module sizeGuides/utils
- * @category SizeScales
- * @subcategory Utils
- */
 import findIndex from 'lodash/findIndex';
 import type { Brand } from '@farfetch/blackout-client/brands/types';
 import type { Category } from '@farfetch/blackout-client/categories/types';
 import type { SizeGuide } from '@farfetch/blackout-client/sizeGuides/types';
 
 type FindSpecificSizeGuideParams = {
+  // All size guides to find the most specific.
   sizeGuides?: SizeGuide[];
+  // All categories to match with a specific size guide.
   categories: Array<Category | undefined>;
+  // The brand id to match with a specific size guide.
   brandId?: Brand['id'];
 };
 
@@ -18,16 +16,9 @@ type FindSpecificSizeGuideParams = {
  * Among the size guides received, find the most specific/accurate to the given
  * categories and brand.
  *
- * @function
+ * @param params - Parameters to find the specific size guide.
  *
- * @param {object} params - Parameters to find the specific size guide.
- * @param {Array} params.sizeGuides - All size guides to find the most specific.
- * @param {Array} params.categories - All categories to match with a specific
- * size guide.
- * @param {number} params.brandId - The brand id to match with a specific
- * size guide.
- *
- * @returns {object | undefined} - The most specific size guide or undefined if there are no size guides.
+ * @returns - The most specific size guide or undefined if there are no size guides.
  */
 export const findSpecificSizeGuide = ({
   sizeGuides,

@@ -1,9 +1,5 @@
 /**
  * Payments actions.
- *
- * @module payments/actions
- * @category Payments
- * @subcategory Actions
  */
 
 export { default as charge } from './charge';

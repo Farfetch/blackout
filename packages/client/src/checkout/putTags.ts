@@ -5,16 +5,11 @@ import type { PutTags } from './types';
 /**
  * Method responsible for adding tags information.
  *
- * @function putTags
- * @memberof module:checkout/client
+ * @param id     - Universal identifier of the Checkout.
+ * @param data   - Array of strings representing the tags you want to add.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} id - Universal identifier of the Checkout.
- * @param {Array} data - Array of strings representing the tags you want to add.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const putTags: PutTags = (id, data, config) =>
   client

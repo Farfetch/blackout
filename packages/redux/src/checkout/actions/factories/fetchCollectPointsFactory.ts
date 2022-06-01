@@ -12,31 +12,18 @@ import type {
 } from '@farfetch/blackout-client/checkout/types';
 
 /**
- * @typedef {object} FetchCollectPointsQuery
+ * @param query  - Query params to retrieve the collect points.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @alias FetchCollectPointsQuery
- *
- * @property {number} [orderId] - Universal identifier of the Order.
- */
-
-/**
- * @callback FetchCollectPointsThunkFactory
- * @param {FetchCollectPointsQuery} [query] - Query params to retrieve the collect points.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Method responsible for obtaining the collect points.
  *
- * @function fetchCollectPointsFactory
- * @memberof module:checkout/actions/factories
+ * @param getCollectPoints - Get collect points client.
  *
- * @param {Function} getCollectPoints - Get collect points client.
- *
- * @returns {FetchCollectPointsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 export default (getCollectPoints: GetCollectPoints) =>
   (query: GetCollectPointsQuery, config?: Config) =>

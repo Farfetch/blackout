@@ -10,13 +10,13 @@ import type {
 } from '../types/analytics.types';
 
 /**
- * Base class for integrations.
- * It ensures the base functionality in order to work with analytics.
+ * Base class for integrations. It ensures the base functionality in order to work
+ * with analytics.
  */
 class Integration<T extends IntegrationOptions> {
   /**
-   * @param options - Integration options.
-   * @param loadData - Analytics's load event data.
+   * @param options               - Integration options.
+   * @param loadData              - Analytics's load event data.
    * @param strippedDownAnalytics - Analytics instance stripped down with only helpers.
    */
   constructor(
@@ -53,7 +53,6 @@ class Integration<T extends IntegrationOptions> {
     return new this(options, loadData, analytics);
   }
   /**
-   *
    * Tracks an event. This event can be a page view or a page action.
    *
    * @param data - Event data.

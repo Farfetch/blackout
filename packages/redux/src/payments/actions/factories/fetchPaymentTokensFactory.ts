@@ -15,36 +15,19 @@ import type {
 } from '@farfetch/blackout-client/payments/types';
 
 /**
- * @typedef {object} FetchPaymentTokensQuery
+ * @param query  - Object containing the necessary information to retrieve the tokens.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @alias FetchPaymentTokensQuery
- * @memberof module:payments/actions/factories
- *
- * @property {string} [orderId] - Universal identifier of the order.
- * @property {boolean} [showExpiredCards] - Indicates if the result should
- * have expired cards.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * @callback FetchPaymentTokensThunkFactory
- * @param {FetchPaymentTokensQuery} query - Object containing the necessary
- * information to retrieve the tokens.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * Method responsible for loading payment tokens. This is used for selecting the
+ * credit card.
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
- */
-
-/**
- * Method responsible for loading payment tokens.
- * This is used for selecting the credit card.
+ * @param getPaymentTokens - Get payment tokens client.
  *
- * @function fetchPaymentTokensFactory
- * @memberof module:payments/actions/factories
- *
- * @param {Function} getPaymentTokens - Get payment tokens client.
- *
- * @returns {FetchPaymentTokensThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchPaymentTokensFactory =
   (getPaymentTokens: GetPaymentTokens) =>

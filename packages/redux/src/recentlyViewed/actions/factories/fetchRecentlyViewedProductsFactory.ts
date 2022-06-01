@@ -10,7 +10,8 @@ import type {
 import type { StoreState } from '../../../types';
 
 /**
- * Method to create a thunk factory configured with the specified client fo fetch recently viewed products.
+ * Method to create a thunk factory configured with the specified client fo fetch
+ * recently viewed products.
  *
  * @param getRecentlyViewedProducts - Get recently viewed products client.
  *

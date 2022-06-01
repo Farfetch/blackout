@@ -6,8 +6,9 @@ describe('getLocaleDateFormat', () => {
 
   beforeAll(() => {
     /**
-     * When running the Node within jest, only small-icu intl is imported, making only es-* locales available.
-     * Because of that, the `toLocaleDateString()` must be mocked for these unit tests.
+     * When running the Node within jest, only small-icu intl is imported, making only
+     * es-\* locales available. Because of that, the `toLocaleDateString()` must be
+     * mocked for these unit tests.
      */
     global.Date.prototype.toLocaleDateString = toLocaleDateStringMock;
   });

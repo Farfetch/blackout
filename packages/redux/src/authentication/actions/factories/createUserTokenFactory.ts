@@ -6,29 +6,18 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @typedef {object} PostUserTokenData
- * @property {string} username - User's email.
- * @property {string} password - User's password.
- * @property {string} grantType - Identity GrantType.
- * @property {string} refreshToken - Refresh Token.
- */
-
-/**
- * @callback PostTokensThunkFactory
- * @param {PostUserTokenData} data - Request data.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param data   - Request data.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Creates a user token.
  *
- * @function createUserTokenFactory
- * @memberof module:authentication/actions/factories
- * @param {Function} postTokens - Post user token client.
- * @returns {PostTokensThunkFactory} Thunk factory.
+ * @param postTokens - Post user token client.
+ *
+ * @returns Thunk factory.
  */
 export default (postTokens: any) =>
   (

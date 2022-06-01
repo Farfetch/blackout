@@ -3,20 +3,15 @@ import join from 'proper-url-join';
 import type { PatchGiftMessage } from './types';
 
 /**
- * Method responsible for adding, editing and removing gift
- * messages to the current checkout order.
+ * Method responsible for adding, editing and removing gift messages to the current
+ * checkout order.
  *
- * @function patchGiftMessage
- * @memberof module:checkout/client
+ * @param id     - Universal identifier of the Checkout.
+ * @param data   - Array of objects containing the checkout order id and the checkout item patch
+ *                 document reflecting the changes to be made.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} id - Universal identifier of the Checkout.
- * @param {Array} data - Array of objects containing the checkout order id and
- * the checkout item patch document reflecting the changes to be made.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const patchGiftMessage: PatchGiftMessage = (id, data, config) =>
   client

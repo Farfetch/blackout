@@ -43,8 +43,8 @@ type UserSessionTerminatedEventListener =
 
 /**
  * Class responsible for installing an axios interceptor which will manage
- * authentication of any requests that require it with the correct
- * access token type (user or guest).
+ * authentication of any requests that require it with the correct access token
+ * type (user or guest).
  */
 class AxiosAuthenticationTokenManager {
   activeTokenDataChangedListener: TokenDataChangedListener;
@@ -62,8 +62,7 @@ class AxiosAuthenticationTokenManager {
   userSessionTerminatedEventListener: UserSessionTerminatedEventListener;
   userTokenProvider!: UserTokenProvider;
   /**
-   *
-   * @param client - The axios instance to apply the interceptors to.
+   * @param client  - The axios instance to apply the interceptors to.
    * @param options - Options to configure this instance.
    */
   constructor(
@@ -81,10 +80,10 @@ class AxiosAuthenticationTokenManager {
   }
 
   /**
-   * Initializes the instance with the passed in options by validating them first
-   * and then applying them.
+   * Initializes the instance with the passed in options by validating them first and
+   * then applying them.
    *
-   * @param client - The axios instance to apply the interceptors to.
+   * @param client  - The axios instance to apply the interceptors to.
    * @param options - The options object passed to the constructor.
    */
   initialize(
@@ -99,9 +98,10 @@ class AxiosAuthenticationTokenManager {
   /**
    * Validates the passed options.
    *
-   * @throws Will throw an error if an option does not contain a valid value.
+   * @throws
+   * Will throw an error if an option does not contain a valid value.
    *
-   * @param client - The axios instance to apply the interceptors to.
+   * @param client  - The axios instance to apply the interceptors to.
    * @param options - The options object passed to the constructor.
    */
   validateOptions(
@@ -218,10 +218,10 @@ class AxiosAuthenticationTokenManager {
   }
 
   /**
-   * Applies the options and makes the call to the function that will install the axios
-   * interceptors to the axios instance.
+   * Applies the options and makes the call to the function that will install the
+   * axios interceptors to the axios instance.
    *
-   * @param client - The axios instance to apply the interceptors to.
+   * @param client  - The axios instance to apply the interceptors to.
    * @param options - The options object passed to the constructor.
    */
   applyOptions(
@@ -343,18 +343,18 @@ class AxiosAuthenticationTokenManager {
   }
 
   /**
-   * Select the guest token provider as the current token provider.
-   * Used when performing a logout.
+   * Select the guest token provider as the current token provider. Used when
+   * performing a logout.
    */
   selectGuestTokenProvider() {
     this.selectTokenProvider(this.guestTokenProvider);
   }
 
   /**
-   * Switches the current token provider to the new one.
-   * This method is used internally to switch the current token
-   * provider context from guest to authenticated users and vice-versa.
-   * Make sure you know what you are doing before calling this method yourself.
+   * Switches the current token provider to the new one. This method is used
+   * internally to switch the current token provider context from guest to
+   * authenticated users and vice-versa. Make sure you know what you are doing before
+   * calling this method yourself.
    *
    * @param newTokenProvider - The token provider instance to select.
    */
@@ -376,7 +376,8 @@ class AxiosAuthenticationTokenManager {
   /**
    * Gets the token from the current token provider.
    *
-   * @returns Returns the token data from the current token provider or null if there is not a current token provider.
+   * @returns Returns the token data from the current token provider or null if there is not a current
+   * token provider.
    */
   getActiveToken(): UserToken | null {
     if (!this.currentTokenProvider) {
@@ -426,21 +427,22 @@ class AxiosAuthenticationTokenManager {
   }
 
   /**
-   * Returns an access token from the current token provider.
-   * If useCache is false, a new create access token request
-   * will be made.
+   * Returns an access token from the current token provider. If useCache is false, a
+   * new create access token request will be made.
    *
+   * @param useCache - Returns an access token from the cache if available, if not a new create access
+   *                   token request will be made.
    *
-   * @param useCache - Returns an access token from the cache if available, if not a new create access token request will be made.
-   * @returns Promise that will resolve with a renewed or cached access token from the current provider. If the renew request fails, the promise will reject with the error.
+   * @returns Promise that will resolve with a renewed or cached access token from the current provider.
+   * If the renew request fails, the promise will reject with the error.
    */
   async getAccessToken(useCache = true) {
     return await this.currentTokenProvider?.getAccessToken(useCache);
   }
 
   /**
-   * Listener for client credentials token data changes.
-   * Will raise an active token data changed event if it is the current token provider.
+   * Listener for client credentials token data changes. Will raise an active token
+   * data changed event if it is the current token provider.
    */
   // Ignore coverage for client credentials token data changes as it was
   // scrapped. We will leave the code here if it is necessary in the future.
@@ -452,8 +454,8 @@ class AxiosAuthenticationTokenManager {
   };
 
   /**
-   * Listener for guest token data changes.
-   * Will raise an active token data changed event if it is the current token provider.
+   * Listener for guest token data changes. Will raise an active token data changed
+   * event if it is the current token provider.
    */
   guestTokenChangesListener = () => {
     if (this.currentTokenProvider === this.guestTokenProvider) {
@@ -462,8 +464,8 @@ class AxiosAuthenticationTokenManager {
   };
 
   /**
-   * Listener for user token data changes.
-   * Will raise an active token data changed event if it is the current token provider.
+   * Listener for user token data changes. Will raise an active token data changed
+   * event if it is the current token provider.
    */
   userTokenChangesListener = () => {
     if (this.currentTokenProvider === this.userTokenProvider) {
@@ -492,15 +494,15 @@ class AxiosAuthenticationTokenManager {
   }
 
   /**
-   * Sets the user info to the correct token.
-   * The token data received by invoking an endpoint that creates tokens
-   * do not return a userId but we need a userId to associate the tokens
-   * with in order to persist sessions.
-   * This function must be called after the user data is retrieved for
-   * an access token.
+   * Sets the user info to the correct token. The token data received by invoking an
+   * endpoint that creates tokens do not return a userId but we need a userId to
+   * associate the tokens with in order to persist sessions. This function must be
+   * called after the user data is retrieved for an access token.
    *
    * @param userData - The user data obtained from the get profile endpoint.
-   * @returns Promise that will be resolved when the user info is set on the appropriate token provider instance.
+   *
+   * @returns Promise that will be resolved when the user info is set on the appropriate token provider
+   * instance.
    */
   async setUserInfo(userData: { id: number; isGuest: boolean }) {
     if (!userData) {
@@ -521,12 +523,12 @@ class AxiosAuthenticationTokenManager {
   }
 
   /**
-   * Loads all token providers and sets the current provider
-   * to the either the user token provider if it can retrieve tokens
-   * (i.e. It has a refresh token field) or the client credentials
-   * token provider if not.
+   * Loads all token providers and sets the current provider to the either the user
+   * token provider if it can retrieve tokens (i.e. It has a refresh token field) or
+   * the client credentials token provider if not.
    *
-   * @throws MisconfiguredTokenProviderError.
+   * @throws
+   * MisconfiguredTokenProviderError.
    *
    * @returns Promise that will be resolved when the load method completes.
    */
@@ -578,13 +580,15 @@ class AxiosAuthenticationTokenManager {
 
   /**
    * Checks if a request needs an access token from the axios request config object.
-   * It does it by checking if:
-   *  1 - The config object contains an access token property. If it does, then that access token will be used.
-   *  2 - The config object contains a no authentication property. If it does, no access token will be added to the request. This is necessary on certain requests that do not need an access token.
-   *  3 - The config object already contains an authorization header.
+   * It does it by checking if: 1 - The config object contains an access token
+   * property. If it does, then that access token will be used. 2 - The config object
+   * contains a no authentication property. If it does, no access token will be added
+   * to the request. This is necessary on certain requests that do not need an access
+   * token. 3 - The config object already contains an authorization header.
    *
    * @param config - Axios request config object.
-   * @returns If the request needs an acess token or not.
+   *
+   * @returns If the request needs an access token or not.
    */
   requestNeedsAccessTokenMatcher(config: RequestConfig) {
     if (config[AuthenticationConfigOptions.AccessToken]) {
@@ -603,8 +607,9 @@ class AxiosAuthenticationTokenManager {
   }
 
   /**
-   * Installed request fulfilled axios interceptor which will be called before every request that is dispatched.
-   * Will add an access token if the request is flagged as needing it.
+   * Installed request fulfilled axios interceptor which will be called before every
+   * request that is dispatched. Will add an access token if the request is flagged
+   * as needing it.
    *
    * @param config - Axios request config object.
    *
@@ -659,9 +664,8 @@ class AxiosAuthenticationTokenManager {
   }
 
   /**
-   * Called when the currently logged in user's refresh token
-   * expires. Will set the guest token provider as the current
-   * and raise the on user forced logout event.
+   * Called when the currently logged in user's refresh token expires. Will set the
+   * guest token provider as the current and raise the on user forced logout event.
    */
   forceLogout() {
     if (this.currentTokenProvider !== this.userTokenProvider) {
@@ -710,13 +714,15 @@ class AxiosAuthenticationTokenManager {
   }
 
   /**
-   * Response rejected axios interceptor which will be called after a request has failed.
-   * This method will look for 401 errors and retry the original request one more time with a new access token.
-   * If after that the method still fails, the original error will be returned to the caller.
+   * Response rejected axios interceptor which will be called after a request has
+   * failed. This method will look for 401 errors and retry the original request one
+   * more time with a new access token. If after that the method still fails, the
+   * original error will be returned to the caller.
    *
    * @param error - Axios error object.
    *
-   * @returns Promise that will be rejected with the original error if the retry for the 401 error was not successfull or resolved with the data from the request if the retry is successfull.
+   * @returns Promise that will be rejected with the original error if the retry for the 401 error was
+   * not successful or resolved with the data from the request if the retry is successful.
    */
   async onRequestFailedInterceptor(error: AxiosError) {
     if (!axios.isAxiosError(error)) {
@@ -856,30 +862,30 @@ class AxiosAuthenticationTokenManager {
       // According to the AxiosRequestConfig declaration the methods could be uppercased
       // making the rest of the code useless since AxiosInstance only accepts lowered case
       // methods.
-      const loweredcaseMethod = method?.toLowerCase();
+      const loweredCaseMethod = method?.toLowerCase();
 
       // Re-execute the request, which will be intercepted
       // by our interceptor and apply the header with the new access token
       // to the request.
       if (
-        loweredcaseMethod === 'post' ||
-        loweredcaseMethod === 'put' ||
-        loweredcaseMethod === 'patch'
+        loweredCaseMethod === 'post' ||
+        loweredCaseMethod === 'put' ||
+        loweredCaseMethod === 'patch'
       ) {
         return (
-          loweredcaseMethod &&
-          this.axiosInstance[loweredcaseMethod](requestUrl, config.data, config)
+          loweredCaseMethod &&
+          this.axiosInstance[loweredCaseMethod](requestUrl, config.data, config)
         );
       } else if (
-        loweredcaseMethod === 'get' ||
-        loweredcaseMethod === 'delete' ||
-        loweredcaseMethod === 'head' ||
-        loweredcaseMethod === 'options'
+        loweredCaseMethod === 'get' ||
+        loweredCaseMethod === 'delete' ||
+        loweredCaseMethod === 'head' ||
+        loweredCaseMethod === 'options'
       ) {
         // For requests that are not post/put/patch, we just need to invoke with url and config
         return (
-          loweredcaseMethod &&
-          this.axiosInstance[loweredcaseMethod](requestUrl, config)
+          loweredCaseMethod &&
+          this.axiosInstance[loweredCaseMethod](requestUrl, config)
         );
       }
     }
@@ -888,8 +894,8 @@ class AxiosAuthenticationTokenManager {
   }
 
   /**
-   * Sets if the user token provider can persist user tokens on the storage.
-   * Note: Guest tokens are always preserved, ignoring this value.
+   * Sets if the user token provider can persist user tokens on the storage. Note:
+   * Guest tokens are always preserved, ignoring this value.
    *
    * @param rememberMe - The new remember me value.
    */
@@ -898,12 +904,15 @@ class AxiosAuthenticationTokenManager {
   }
 
   /**
-   * Sets user token data and optionally switches the current token provider
-   * to the user token provider.
+   * Sets user token data and optionally switches the current token provider to the
+   * user token provider.
    *
-   * @param tokenData - The new user token data.
-   * @param forceSwitch - If 'true' will switch the current token provider to the user token provider after setting the user token data.
-   * @returns Promise that will be resolved when the token data is successfully applied to the user token provider and the switch to it is performed if forceSwitch parameter is true.
+   * @param tokenData   - The new user token data.
+   * @param forceSwitch - If 'true' will switch the current token provider to the user token provider
+   *                      after setting the user token data.
+   *
+   * @returns Promise that will be resolved when the token data is successfully applied to the user token
+   * provider and the switch to it is performed if forceSwitch parameter is true.
    */
   async setUserTokenData(tokenData: TokenData, forceSwitch: boolean) {
     const newTokenData = new TokenData(tokenData);

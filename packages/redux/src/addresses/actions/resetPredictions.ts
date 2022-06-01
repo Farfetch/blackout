@@ -5,11 +5,7 @@ import type { ResetPredictionAction } from '../types';
 /**
  * Method responsible for resetting predictions.
  *
- * @memberof module:addresses/actions
- *
- * @name resetPredictions
- *
- * @returns {Function} Thunk factory.
+ * @returns Thunk factory.
  */
 export default () =>
   (dispatch: Dispatch<ResetPredictionAction>): void => {

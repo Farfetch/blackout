@@ -4,10 +4,15 @@ import type { Product } from '../../products/types';
 import type { Query } from './query.types';
 
 export type PatchBagItemData = {
+  // Product identifier.
   productId: Product['result']['id'];
+  // Merchant identifier.
   merchantId: number;
+  // Bag item quantity.
   quantity: number;
+  // Bag item size.
   size: number;
+  // Bag item scale.
   scale: number;
 };
 

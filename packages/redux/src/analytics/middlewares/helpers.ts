@@ -11,7 +11,7 @@ import type Analytics from '@farfetch/blackout-analytics';
 /**
  * Returns the different product categories separated with a `/`.
  *
- * @param state - The current application state.
+ * @param state   - The current application state.
  * @param product - The product object.
  *
  * @returns String with all category names joined with a '/' character.
@@ -27,7 +27,7 @@ export const getCategory = (
 /**
  * Returns the product brand name.
  *
- * @param state - The current application state.
+ * @param state   - The current application state.
  * @param product - The product object.
  *
  * @returns The brand name for the product.s
@@ -66,7 +66,7 @@ export const getVariant = (
  * Returns the product size by the selected size id.
  *
  * @param product - The product object.
- * @param sizeId - The selected size ID.
+ * @param sizeId  - The selected size ID.
  *
  * @returns The size name.
  */
@@ -103,17 +103,18 @@ export const getCurrency = async (
 };
 
 /**
- * Calculates the price discount absolute value by subtracting the price
- * with discount value from the price without discount value.
- * Using the price.discount.rate or even the price.discount.includingTaxes
- * was considered but they introduce additional complexity as they might
- * not exist in the store or cause rounding errors in the case of the price.discount.rate
- * as it is a percentage.
+ * Calculates the price discount absolute value by subtracting the price with
+ * discount value from the price without discount value. Using the
+ * price.discount.rate or even the price.discount.includingTaxes was considered but
+ * they introduce additional complexity as they might not exist in the store or
+ * cause rounding errors in the case of the price.discount.rate as it is a
+ * percentage.
  *
- * @param priceWithDiscount - The price value with discount.
+ * @param priceWithDiscount    - The price value with discount.
  * @param priceWithoutDiscount - The price value without discount.
  *
- * @returns The absolute discount value or 0 if either priceWithDiscount or priceWithoutDiscount are not numbers.
+ * @returns The absolute discount value or 0 if either priceWithDiscount or priceWithoutDiscount are
+ * not numbers.
  */
 export const calculatePriceDiscount = (
   priceWithDiscount: number,

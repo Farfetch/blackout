@@ -13,35 +13,19 @@ import type {
 } from '@farfetch/blackout-client/returns/types';
 
 /**
- * @typedef {object} CreateReturnData
- * @property {object} [currentReturn] - Details of the return.
- */
-
-/**
- * @typedef {object} CreateReturnQuery
- * @property {string} [guestUserEmail] - User email. Only required if
- * the user is not registered (guest).
- */
-
-/**
- * @callback CreateReturnThunkFactory
- * @param {CreateReturnData} data  - Details of the Return to be created.
- * @param {CreateReturnQuery} query - Query parameters for creating the return.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param data   - Details of the Return to be created.
+ * @param query  - Query parameters for creating the return.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Method responsible for creating a return.
  *
- * @function createReturnFactory
- * @memberof module:returns/actions
+ * @param postReturn - Post return client.
  *
- * @param {Function} postReturn  - Post return client.
- *
- * @returns {CreateReturnThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const createReturnFactory =
   (postReturn: PostReturn) =>

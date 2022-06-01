@@ -1,17 +1,19 @@
 /**
- * Omnitracking integration for web apps. This integration extends the Omnitracking class
- * in \@farfetch/blackout-client that contains most of the business logic and adds logic to
- * persist and retrieve the unique view ids of each page view. This will fix
- * the bug where the previousUniqueViewId was null when the user opens a product
- * detail page in another tab instead of containing the uniqueViewId of the
+ * Omnitracking integration for web apps. This integration extends the Omnitracking
+ * class in \@farfetch/blackout-client that contains most of the business logic and
+ * adds logic to persist and retrieve the unique view ids of each page view. This
+ * will fix the bug where the previousUniqueViewId was null when the user opens a
+ * product detail page in another tab instead of containing the uniqueViewId of the
  * referrer page.
  *
  * @example <caption>Adding Omnitracking integration to analytics</caption>
+ * ```
  *
  * import analytics, \{ integrations \} from '\@farfetch/blackout-react/analytics';
  *
  * analytics.addIntegration('omnitracking', integrations.Omnitracking);
  *
+ * ```
  */
 
 import {
@@ -32,11 +34,10 @@ import type { OmnitrackingOptions } from '@farfetch/blackout-analytics/integrati
 class Omnitracking extends OmnitrackingCore {
   uniqueViewIdStorage: UniqueViewIdStorage;
   /**
-   * Builds a new instance and initializes the unique view storage system.
-   * It will also set the currentUniqueViewId by checking if the value from
-   * document.referrer is available in storage. Note that document.referrer
-   * must contain the full URL, so the referrer-policy header for the
-   * page request must be adjusted accordingly.
+   * Builds a new instance and initializes the unique view storage system. It will
+   * also set the currentUniqueViewId by checking if the value from document.referrer
+   * is available in storage. Note that document.referrer must contain the full URL,
+   * so the referrer-policy header for the page request must be adjusted accordingly.
    *
    * @param options   - Integration options.
    * @param loadData  - Analytics's load event data.

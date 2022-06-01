@@ -1,7 +1,6 @@
 /**
- * Contains some page types that are supported by default
- * by the integrations included in this package.
- * To be used in analytics.page calls.
+ * Contains some page types that are supported by default by the integrations
+ * included in this package. To be used in analytics.page calls.
  */
 const pageTypes = {
   ABOUT: 'about',
@@ -47,7 +46,7 @@ const pageTypes = {
  * Validates if the pageType passed exists in `pageTypes`.
  *
  * @param types - PageTypes list.
- * @param type - Page type to validate.
+ * @param type  - Page type to validate.
  *
  * @returns The page type matched.
  */

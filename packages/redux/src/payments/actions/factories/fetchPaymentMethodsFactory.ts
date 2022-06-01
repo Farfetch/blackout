@@ -12,23 +12,18 @@ import type {
 } from '@farfetch/blackout-client/payments/types';
 
 /**
- * @callback FetchPaymentMethodsThunkFactory
- * @param {string} id - Universal identifier of the order.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - Universal identifier of the order.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Method responsible for loading the payment methods.
  *
- * @function fetchPaymentMethodsFactory
- * @memberof module:payments/actions/factories
+ * @param getPaymentMethods - Get payment methods client.
  *
- * @param {Function} getPaymentMethods - Get payment methods client.
- *
- * @returns {FetchPaymentMethodsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchPaymentMethodsFactory =
   (getPaymentMethods: GetPaymentMethods) =>

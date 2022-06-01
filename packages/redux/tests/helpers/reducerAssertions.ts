@@ -11,8 +11,8 @@ let initialState;
 /**
  * Asserts the initial state of the reducer.
  *
- * @param {Function} reducer
- * @param {string} prop
+ * @param reducer -
+ * @param prop    -
  */
 const assertInitialState = (reducer, prop) => {
   it('should return the initial state', () => {
@@ -28,8 +28,8 @@ const assertInitialState = (reducer, prop) => {
 /**
  * Asserts the previous state of the reducer.
  *
- * @param {Function} reducer
- * @param {string} prop
+ * @param reducer -
+ * @param prop    -
  */
 const assertPreviousState = (reducer, prop) => {
   it('should handle other actions by returning the previous state', () => {
@@ -43,10 +43,10 @@ const assertPreviousState = (reducer, prop) => {
 /**
  * Asserts the current state of the reducer for each action type.
  *
- * @param {Function} reducer
- * @param {object} actionTypes
- * @param {string} prop
- * @param {string} isNormalised
+ * @param reducer      -
+ * @param actionTypes  -
+ * @param prop         -
+ * @param isNormalised -
  */
 const assertActionTypes = (reducer, actionTypes, prop, isNormalised = true) => {
   it.each(actionTypes)('should handle %s action type', actionType => {
@@ -65,9 +65,9 @@ const assertActionTypes = (reducer, actionTypes, prop, isNormalised = true) => {
 /**
  * Asserts the reset of the request action types.
  *
- * @param {Function} reducer
- * @param {object} actionTypes
- * @param {string} prop
+ * @param reducer     -
+ * @param actionTypes -
+ * @param prop        -
  */
 const assertResetActionTypes = (reducer, actionTypes, prop) => {
   it.each(actionTypes)('should handle %s action type', actionType => {
@@ -87,8 +87,8 @@ const assertResetActionTypes = (reducer, actionTypes, prop) => {
 /**
  * Asserts the current state of the reducer for each `Loading Request` action type.
  *
- * @param {Function} reducer
- * @param {object} actionTypes
+ * @param reducer     -
+ * @param actionTypes -
  */
 const assertLoadingRequestActionTypes = (reducer, actionTypes) => {
   it.each(actionTypes)('should handle %s action type', actionType => {
@@ -103,8 +103,8 @@ const assertLoadingRequestActionTypes = (reducer, actionTypes) => {
 /**
  * Asserts the current state of the reducer for each `Loading Success` action type.
  *
- * @param {Function} reducer
- * @param {object} actionTypes
+ * @param reducer     -
+ * @param actionTypes -
  */
 const assertLoadingSuccessActionTypes = (reducer, actionTypes) => {
   it.each(actionTypes)('should handle %s action type', actionType => {
@@ -120,8 +120,8 @@ const assertLoadingSuccessActionTypes = (reducer, actionTypes) => {
 /**
  * Asserts the current state of the reducer for each `Loading Failure` action type.
  *
- * @param {Function} reducer
- * @param {object} actionTypes
+ * @param reducer     -
+ * @param actionTypes -
  */
 const assertLoadingFailureActionTypes = (reducer, actionTypes) => {
   it.each(actionTypes)('should handle %s action type', actionType => {
@@ -137,8 +137,8 @@ const assertLoadingFailureActionTypes = (reducer, actionTypes) => {
 /**
  * Asserts the getter functions of the reducer.
  *
- * @param {Function} reducer
- * @param {string} prop
+ * @param reducer -
+ * @param prop    -
  */
 const assertGetter = (reducer, prop) => {
   it(`should return the ${prop} property from a given state`, () => {
@@ -216,15 +216,15 @@ export const assertGetters = (reducer, props = defaultProps) => {
 };
 
 /**
- * Tests if the the selectors responsible for obtaining the reducer state
- * (i.e get_subAreaHere()) returns the correct state.
+ * Tests if the the selectors responsible for obtaining the reducer state (i.e
+ * get_subAreaHere()) returns the correct state.
  *
- * @param {*} fromReducer - Object containing all reducers.
- * @param {*} subAreaNames - Array of strings with all the subareas to test.
- * @param {*} subAreasExpectedStates - Object containg each subarea  to test
- * and its expected state, as a result of invoking the selector.
- * @param {*} subAreaCurrentState - Object with the current state for a specific
- * subarea, for example { error: null, isLoading: false }.
+ * @param fromReducer            - Object containing all reducers.
+ * @param subAreaNames           - Array of strings with all the subareas to test.
+ * @param subAreasExpectedStates - Object containing each subarea to test and its expected state, as a
+ *                                 result of invoking the selector.
+ * @param subAreaCurrentState    - Object with the current state for a specific subarea,
+ *                                 for example \{ error: null, isLoading: false \}.
  */
 export const assertSubAreasReducer = (
   fromReducer,

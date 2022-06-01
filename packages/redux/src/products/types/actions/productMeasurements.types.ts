@@ -26,7 +26,9 @@ export interface FetchProductMeasurementsFailureAction extends Action {
   type: typeof actionTypes.FETCH_PRODUCT_MEASUREMENTS_FAILURE;
 }
 
-/** Actions dispatched when the fetch product measurements request is made. */
+/**
+ * Actions dispatched when the fetch product measurements request is made.
+ */
 export type FetchProductMeasurementsAction =
   | FetchProductMeasurementsRequestAction
   | FetchProductMeasurementsSuccessAction

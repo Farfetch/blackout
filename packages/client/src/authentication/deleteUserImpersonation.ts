@@ -5,12 +5,10 @@ import type { DeleteUserImpersonation } from './types';
 /**
  * Deletes an user impersonation.
  *
- * @param id - The impersonated access token.
- * @param config - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - The impersonated access token.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const deleteUserImpersonation: DeleteUserImpersonation = (id, config?) =>
   client

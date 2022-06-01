@@ -11,22 +11,18 @@ import type {
 import type { StoreState } from '../../../types';
 
 /**
- * @callback FetchWishlistSetsThunkFactory
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * Creates a thunk factory configured with the specified client
- * to load wishlist sets for a given wishlist id.
+ * Creates a thunk factory configured with the specified client to load wishlist
+ * sets for a given wishlist id.
  *
- * @memberof module:wishlists/actions/factories
+ * @param getWishlistSets - Get wishlists sets client.
  *
- * @param {Function} getWishlistSets - Get wishlists sets client.
- *
- * @returns {FetchWishlistSetsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchWishlistSetsFactory =
   (getWishlistSets: GetWishlistSets) =>

@@ -5,7 +5,8 @@ import type { RemoveRecentlyViewedProductAction } from '../../types';
 import type { RemoveRecentlyViewedProductsFactory } from './types';
 
 /**
- * Method to create a thunk factory configured with the specified client for deleting a recently viewed product, both locally and on the server.
+ * Method to create a thunk factory configured with the specified client for
+ * deleting a recently viewed product, both locally and on the server.
  *
  * @param deleteRecentlyViewedProduct - Delete recently viewed client.
  *

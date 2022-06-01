@@ -13,9 +13,9 @@ import type {
 
 /**
  * @param userId - User id.
- * @param data - Personal id image object.
- * @param config - Custom configurations to send to the client
- * instance (axios). X-SUMMER-RequestId header is required.
+ * @param data   - Personal id image object.
+ * @param config - Custom configurations to send to the client instance (axios). X-SUMMER-RequestId
+ *                 header is required.
  *
  * @returns Thunk to be dispatched to the redux store.
  */

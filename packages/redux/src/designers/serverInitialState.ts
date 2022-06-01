@@ -7,15 +7,9 @@ import type { Model, StoreState } from '../types';
 /**
  * Converts server data from designers to store state.
  *
- * @function serverInitialState
+ * @param page - Params from the `page` object injected by the server.
  *
- * @param {object} page - Params from the `page` object injected by the server.
- * @param {object} page.model - Page model.
- * @param {object} page.model.designers - Page model.
- * @param {string} page.model.slug - Page model.
- * @param {string} page.model.subfolder - Page model.
- *
- * @returns {object} Initial state for the designers reducer.
+ * @returns Initial state for the designers reducer.
  */
 const serverInitialState = ({
   model,

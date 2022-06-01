@@ -9,23 +9,19 @@ import type { RemoveWishlistSetAction } from '../../types';
 import type { StoreState } from '../../../types';
 
 /**
- * @callback RemoveWishlistSetThunkFactory
- * @param {string} wishlistSetId - Wishlist set id to remove.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param wishlistSetId - Wishlist set id to remove.
+ * @param config        - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * Creates a thunk factory configured with the specified client
- * to remove a set from the wishlist.
+ * Creates a thunk factory configured with the specified client to remove a set
+ * from the wishlist.
  *
- * @memberof module:wishlists/actions/factories
+ * @param deleteWishlistSet - Delete wishlists set client.
  *
- * @param {Function} deleteWishlistSet - Delete wishlists set client.
- *
- * @returns {RemoveWishlistSetThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const removeWishlistSetFactory =
   (deleteWishlistSet: DeleteWishlistSet) =>

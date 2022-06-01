@@ -1,9 +1,3 @@
-/**
- * @module returns/selectors
- * @category Returns
- * @subcategory Selectors
- */
-
 import { createSelector } from 'reselect';
 import { getEntityById } from '../entities/selectors';
 import {
@@ -25,22 +19,18 @@ import type { StoreState } from '../types';
 /**
  * Returns a specific return identified by its id.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {number} Return id.
+ * @returns Return id.
  */
 export const getReturnId = (state: StoreState) => getId(state.returns);
 
 /**
  * Returns the 'returns' entity details in the application state.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Return object.
+ * @returns Return object.
  */
 export const getReturn = createSelector(
   [getEntityReturns, getReturnId],
@@ -51,23 +41,19 @@ export const getReturn = createSelector(
 /**
  * Returns the error for the 'returns' area actions.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Return error.
+ * @returns Return error.
  */
 export const getReturnError = (state: StoreState) => getError(state.returns);
 
 /**
  * Returns the 'returnItems' entity in the application state.
  *
- * @function
+ * @param state        - Application state.
+ * @param returnItemId - Return item identifier.
  *
- * @param {object} state - Application state.
- * @param {string} returnItemId - Return item identifier.
- *
- * @returns {object} Return item.
+ * @returns Return item.
  */
 export const getReturnItem = (
   state: StoreState,
@@ -77,11 +63,9 @@ export const getReturnItem = (
 /**
  * Returns all the return items ids.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {Array|undefined} List of return items ids.
+ * @returns List of return items ids.
  */
 export const getReturnItemsIds = createSelector([getReturn], returnObject =>
   get(returnObject, 'items'),
@@ -90,11 +74,9 @@ export const getReturnItemsIds = createSelector([getReturn], returnObject =>
 /**
  * Returns all the return items.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {Array|undefined} List of return items.
+ * @returns List of return items.
  */
 export const getReturnItems = createSelector(
   [getEntityReturnItems, getReturnItemsIds],
@@ -107,37 +89,31 @@ export const getReturnItems = createSelector(
 /**
  * Returns the loading status for the returns.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Loading status.
+ * @returns Loading status.
  */
 export const isReturnLoading = (state: StoreState) =>
   getIsLoading(state.returns);
 
 /**
- * Returns the loading status for the returns requests.
- * This handles the get, create and update return requests.
+ * Returns the loading status for the returns requests. This handles the get,
+ * create and update return requests.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Loading status.
+ * @returns Loading status.
  */
 export const isReturnsLoading = (state: StoreState) =>
   getReturns(state.returns).isLoading;
 
 /**
- * Returns the error for the returns requests.
- * This handles the get, create and update return requests.
+ * Returns the error for the returns requests. This handles the get, create and
+ * update return requests.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Return error.
+ * @returns Return error.
  */
 export const getReturnsError = (state: StoreState) =>
   getReturns(state.returns).error;
@@ -145,11 +121,9 @@ export const getReturnsError = (state: StoreState) =>
 /**
  * Returns the loading status for the get capabilities request.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Loading status.
+ * @returns Loading status.
  */
 export const isPickupCapabilitiesLoading = (state: StoreState) =>
   getPickupCapabilities(state.returns).isLoading;
@@ -157,11 +131,9 @@ export const isPickupCapabilitiesLoading = (state: StoreState) =>
 /**
  * Returns the error for the get capabilities request.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Capabilities error.
+ * @returns Capabilities error.
  */
 export const getPickupCapabilitiesError = (state: StoreState) =>
   getPickupCapabilities(state.returns).error;
@@ -169,11 +141,9 @@ export const getPickupCapabilitiesError = (state: StoreState) =>
 /**
  * Returns the loading status for the get references request.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Loading status.
+ * @returns Loading status.
  */
 export const isReferencesLoading = (state: StoreState) =>
   getReferences(state.returns).isLoading;
@@ -181,11 +151,9 @@ export const isReferencesLoading = (state: StoreState) =>
 /**
  * Returns the error for the get references request.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} References error.
+ * @returns References error.
  */
 export const getReferencesError = (state: StoreState) =>
   getReferences(state.returns).error;

@@ -73,12 +73,10 @@ const reducer = combineReducers({
 /**
  * Reducer for search intents state.
  *
- * @static
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
  *
- * @param {object} state - Current redux state.
- * @param {object} action - Action dispatched.
- *
- * @returns {object} New state.
+ * @returns New state.
  */
 const searchIntentsReducer = (
   state: SearchIntentsState,

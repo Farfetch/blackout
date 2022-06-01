@@ -12,17 +12,14 @@ const IS_CONTENT_TOOL = {
 };
 
 /**
- * Render an Editorial Content.
- * Renders Editorial Content by going through all it's components and rendering them using the Editorial Component.
+ * Render an Editorial Content. Renders Editorial Content by going through all it's
+ * components and rendering them using the Editorial Component.
  *
- * @function
- * @memberof module:content/helpers
+ * @param data            - Data to render.
+ * @param data.components - Collection of components to render.
+ * @param isContentTool   - Site key to identify if Content Tool is active or not.
  *
- * @param {object} data - Data to render.
- * @param {object[]} data.components - Collection of components to render.
- * @param {'active'|'inactive'} isContentTool - Site key to identify if Content Tool is active or not.
- *
- * @returns {ReactElement} Rendered components.
+ * @returns Rendered components.
  */
 const renderContent = (
   { components }: { components: ContentEntries['components'] },

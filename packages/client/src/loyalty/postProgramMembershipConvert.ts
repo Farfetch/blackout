@@ -5,16 +5,11 @@ import type { PostProgramMembershipConvert } from './types';
 /**
  * Method responsible for creating a convert for a membership.
  *
- * @function postProgramMembershipConvert
- * @memberof module:loyalty/client
+ * @param programId    - Program identifier.
+ * @param membershipId - Membership identifier.
+ * @param config       - Custom configurations to send to the client instance (axios).
  *
- * @param {string} programId - Program identifier.
- * @param {string} membershipId - Membership identifier.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const postProgramMembershipConvert: PostProgramMembershipConvert = (
   programId,

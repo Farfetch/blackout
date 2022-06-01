@@ -6,31 +6,18 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @typedef {object} PasswordChangeData
- * @property {string} oldPassword - Old Password.
- * @property {string} newPassword - New Password.
- * @property {string} userId - User's identifier.
- * @property {string} username - User's email.
- */
-
-/**
- * @callback ChangePasswordThunkFactory
- * @param {PasswordChangeData} data - Password details.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param data   - Password details.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Method responsible for changing a user password.
  *
- * @function changePassword
- * @memberof module:authentication/actions/factories
+ * @param postPasswordChange - Post password change client.
  *
- * @param {Function} postPasswordChange - Post password change client.
- *
- * @returns {ChangePasswordThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 export default (postPasswordChange: any) =>
   (

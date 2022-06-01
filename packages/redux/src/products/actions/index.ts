@@ -1,9 +1,5 @@
 /**
  * Products actions.
- *
- * @module products/actions
- * @category Products
- * @subcategory Actions
  */
 export { default as fetchListing } from './fetchListing';
 export { default as fetchProductAttributes } from './fetchProductAttributes';

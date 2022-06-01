@@ -13,32 +13,19 @@ import type {
 } from '@farfetch/blackout-client/returns/types';
 
 /**
- * @typedef {object} GetReturnQuery
- * @property {string} [guestOrderId] - Order identifier. Only required if
- * the user is not registered (guest).
- * @property {string} [guestUserEmail] - User email. Only required if
- * the user is not registered (guest).
- */
-
-/**
- * @callback FetchReturnThunkFactory
- * @param {number} id - Return identifier.
- * @param {GetReturnQuery} query - Query parameters for retrieving the return.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - Return identifier.
+ * @param query  - Query parameters for retrieving the return.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Method responsible for obtaining a specific return.
  *
- * @function fetchReturnFactory
- * @memberof module:returns/actions
+ * @param getReturn - Get return client.
  *
- * @param {Function} getReturn - Get return client.
- *
- * @returns {FetcbReturnThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchReturnFactory =
   (getReturn: GetReturn) =>

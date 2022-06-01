@@ -5,12 +5,10 @@ import type { DeleteTokens } from './types';
 /**
  * Deletes an user token.
  *
- * @param id - The user token id.
- * @param config - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - The user token id.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const deleteTokens: DeleteTokens = (id, config = configApiBlackAndWhite) =>
   client

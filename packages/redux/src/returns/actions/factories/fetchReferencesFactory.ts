@@ -10,34 +10,21 @@ import type {
 } from '@farfetch/blackout-client/src/returns/types';
 
 /**
- * @typedef {object} GetReferencesQuery
- * @property {string} [guestOrderId] - Order identifier. Only required if
- * the user is not registered (guest).
- * @property {string} [guestUserEmail] - User email. Only required if
- * the user is not registered (guest).
- */
-
-/**
- * @callback GetReferencesThunkFactory
- * @param {string} id - Return identifier.
- * @param {string} name - Reference name. Possible values: `ReturnNote`,
- * `ReturnCustomerRequestedAWB`,`ReturnLabelAWB`, `DropOffLocationsPage`.
- * @param {GetReferencesQuery} query - Query parameters.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - Return identifier.
+ * @param name   - Reference name. Possible values: `ReturnNote`,
+ *                 `ReturnCustomerRequestedAWB`,`ReturnLabelAWB`, `DropOffLocationsPage`.
+ * @param query  - Query parameters.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Method responsible for obtaining a specific return reference.
  *
- * @function fetchReferencesFactory
- * @memberof module:returns/actions
+ * @param getReferences - Get references client.
  *
- * @param {Function} getReferences - Get references client.
- *
- * @returns {FetchReferencesThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchReferencesFactory =
   (getReferences: GetReferences) =>

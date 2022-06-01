@@ -9,28 +9,8 @@ import type { SEOMetadata } from '@farfetch/blackout-client/contents/types';
 /**
  * Generate Structured Data (JSON-LD) for Organization.
  *
- * @memberof module:contents/structured-data
- *
- * @param {object} metadata - SEO metadata for type Organization on Homepage.
- * @param {object} name - Name of the Organization.
- * @param {string} url - Relative url of the page (location.pathname).
- * @param {string} logoUrl - Complete url for logotype.
- * @param {object} address - Full address information.
- * @param {string} address.street - Stress Address name.
- * @param {string} address.locality - Stress Locality name.
- * @param {string} address.region - Stress Region name.
- * @param {string} address.postalCode - Stress Postal Code name.
- * @param {string} address.country - Stress Country name.
- * @param {object} contact - Full Contact information.
- * @param {string} contact.phone - Phone number contact.
- * @param {string} contact.type - Contact type (e.g. Customer Service).
- * @param {string} contact.email - E-mail contact.
- * @param {string} contact.option - Contact Option (e.g. A toll-free number or support for hearing-impaired callers).
- * @param {string} contact.areaServed - The geographic area where a service or offered item is provided.
- * @param {Array}  sameAs - SameAs links of organization (e.g. Links to facebook and/or instagram).
- * @param {number} [space] - Add whitespace and indentation to the serialized output.
- *
  * @example
+ * ```
  * import { organization as structuredOrganization } from '@farfetch/blackout-react/content/structured-data';
  *
  * <Helmet>
@@ -54,7 +34,18 @@ import type { SEOMetadata } from '@farfetch/blackout-client/contents/types';
  *   }
  * </Helmet>
  *
- * @returns {ReactElement} - A script tag with Organization JSON-LD structured data.
+ * ```
+ *
+ * @param metadata - SEO metadata for type Organization on Homepage.
+ * @param name     - Name of the Organization.
+ * @param url      - Relative url of the page (location.pathname).
+ * @param logoUrl  - Complete url for logotype.
+ * @param address  - Full address information.
+ * @param contact  - Full Contact information.
+ * @param sameAs   - SameAs links of organization (e.g. Links to facebook and/or instagram).
+ * @param space    - Add whitespace and indentation to the serialized output.
+ *
+ * @returns - A script tag with Organization JSON-LD structured data.
  */
 const organization = (
   metadata: SEOMetadata,

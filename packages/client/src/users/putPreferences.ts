@@ -6,16 +6,11 @@ import type { PutPreferencesData } from './types';
 /**
  * Method responsible for update user preferences.
  *
- * @function updatePreferences
- * @memberof module:users/client
+ * @param userId - User's id to be filtered for.
+ * @param data   - User preferences data.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {object} userId - User's id to be filtered for.
- * @param {object} data - User preferences data.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const putPreferences = (
   userId: number,

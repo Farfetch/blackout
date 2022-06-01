@@ -11,11 +11,7 @@ import type { ThunkDispatch } from 'redux-thunk';
 /**
  * Reset wishlist related entities to its initial value.
  *
- * @private
- * @function
- * @memberof module:wishlists/actions
- *
- * @returns {Function} Dispatch reset state and entities action.
+ * @returns Dispatch reset state and entities action.
  */
 const resetEntities =
   () => (dispatch: Dispatch<ResetWishlistEntitiesAction>) => {
@@ -27,9 +23,8 @@ const resetEntities =
 /**
  * Reset wishlist state and related entities to its initial value.
  *
- * @memberof module:wishlists/actions
- *
  * @example
+ * ```
  * import { resetWishlist } from '@farfetch/blackout-redux/wishlists';
  *
  * // State object before executing action
@@ -47,7 +42,9 @@ const resetEntities =
  *
  * dispatch(resetWishlist());
  *
- * @returns {Function} Dispatch reset state and entities action.
+ * ```
+ *
+ * @returns Dispatch reset state and entities action.
  */
 const resetWishlist =
   () =>

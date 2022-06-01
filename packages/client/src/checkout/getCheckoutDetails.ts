@@ -3,18 +3,13 @@ import join from 'proper-url-join';
 import type { GetCheckoutDetails } from './types';
 
 /**
- * Method responsible for loading the checkout details.
- * These are used for the order confirmation.
+ * Method responsible for loading the checkout details. These are used for the
+ * order confirmation.
  *
- * @function getCheckoutDetails
- * @memberof module:checkout/client
+ * @param id     - Universal identifier of the Checkout.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} id       - Universal identifier of the Checkout.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getCheckoutDetails: GetCheckoutDetails = (id, config) =>
   client

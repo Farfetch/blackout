@@ -4,10 +4,7 @@ import type { Dispatch } from 'redux';
 /**
  * Reset state to its initial value.
  *
- * @function resetSizeGuidesState
- * @memberof module:sizeGuides/actions
- *
- * @returns {Function} Dispatch reset action.
+ * @returns Dispatch reset action.
  */
 export default () =>
   (dispatch: Dispatch): void => {

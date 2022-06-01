@@ -14,35 +14,20 @@ import type {
 import type { Dispatch } from 'redux';
 
 /**
- * @typedef {object} FetchProductColorGroupingQuery
+ * @param productId - Numeric identifier of the product.
+ * @param query     - Query parameters to apply to the request.
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @property {number} [pageIndex=1] - The current page - defaults to 1 on
- * the backend side.
- * @property {number} [pageSize=10] - Size of each page, as a number -
- * defaults to 10 on the backend side.
- */
-
-/**
- * @callback FetchProductColorGroupingThunkFactory
- *
- * @param {number} productId - Numeric identifier of the product.
- * @param {FetchProductColorGroupingQuery} [query] - Query parameters to apply to the
- * request.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Creates a thunk factory configured with the specified client to fetch product
  * color grouping for a given product id.
  *
- * @memberof module:products/actions/factories
+ * @param getProductColorGrouping - Get color grouping client.
  *
- * @param {Function} getProductColorGrouping - Get color grouping client.
- *
- * @returns {FetchProductColorGroupingThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchProductColorGroupingFactory =
   (getProductColorGrouping: GetProductColorGrouping) =>

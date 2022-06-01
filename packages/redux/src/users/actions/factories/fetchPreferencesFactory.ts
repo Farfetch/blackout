@@ -10,24 +10,19 @@ import type { Dispatch } from 'redux';
 import type { GetPreferences } from '@farfetch/blackout-client/users/types';
 
 /**
- * @callback FetchPreferencesThunkFactory
- * @param {string} userId - User's id to.
- * @param {string} code - Preference code to be filtered.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param userId - User's id to.
+ * @param code   - Preference code to be filtered.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Fetch the user preferences.
  *
- * @function fetchPreferences
- * @memberof module:users/actions
+ * @param getPreferences - Get preferences client.
  *
- * @param {Function} getPreferences - Get preferences client.
- *
- * @returns {FetchPreferencesThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchPreferencesFactory =
   (getPreferences: GetPreferences) =>

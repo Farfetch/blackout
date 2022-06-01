@@ -13,24 +13,19 @@ import type {
 } from '@farfetch/blackout-client/products/types';
 
 /**
- * @callback FetchMeasurementsThunkFactory
+ * @param productId - Numeric identifier of the product.
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @param {number} productId - Numeric identifier of the product.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Creates a thunk factory configured with the specified client to fetch product
  * measurements for a given product id.
  *
- * @memberof module:products/actions/factories
+ * @param getMeasurements - Get measurements client.
  *
- * @param {Function} getMeasurements - Get measurements client.
- *
- * @returns {FetchMeasurementsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchProductMeasurementsFactory =
   (getMeasurements: GetProductVariantsMeasurements) =>

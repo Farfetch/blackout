@@ -1,9 +1,3 @@
-/**
- * @module categories/selectors
- * @category Categories
- * @subcategory Selectors
- */
-
 import { createSelector } from 'reselect';
 import { getCategories } from '../../entities';
 import { getError, getIsLoading, getResult } from '../reducer/topCategories';
@@ -14,18 +8,18 @@ import type { StoreState } from '../../types';
 /**
  * Retrieves the error status of top categories.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {object | null} Error information (`null` if there are no errors).
- *
  * @example
+ * ```
  * import { getTopCategoriesError } from '@farfetch/blackout-redux/categories';
  *
  * const mapStateToProps = state => ({
  *     error: getTopCategoriesError(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns Error information (`null` if there are no errors).
  */
 export const getTopCategoriesError = (state: StoreState): Error | null =>
   getError(state.categories);
@@ -33,18 +27,18 @@ export const getTopCategoriesError = (state: StoreState): Error | null =>
 /**
  * Retrieves a list of all the top categories (without a parent category).
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {Array} - Top categories list.
- *
  * @example
+ * ```
  * import { getTopCategories } from '@farfetch/blackout-redux/categories';
  *
  * const mapStateToProps = state => ({
  *     topCategories: getTopCategories(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - Top categories list.
  */
 export const getTopCategories = createSelector(
   [
@@ -63,18 +57,18 @@ export const getTopCategories = createSelector(
 /**
  * Retrieves the loading state of top categories.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {boolean} - Loading status of categories.
- *
  * @example
+ * ```
  * import { areTopCategoriesLoading } from '@farfetch/blackout-redux/categories';
  *
  * const mapStateToProps = state => ({
  *     isLoading: areTopCategoriesLoading(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - Loading status of categories.
  */
 export const areTopCategoriesLoading = (state: StoreState): boolean =>
   getIsLoading(state.categories);
@@ -82,18 +76,18 @@ export const areTopCategoriesLoading = (state: StoreState): boolean =>
 /**
  * Returns the fetched status of top categories.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {boolean} - If top categories are fetched or not.
- *
  * @example
+ * ```
  * import { areTopCategoriesFetched } from '@farfetch/blackout-redux/categories';
  *
  * const mapStateToProps = state => ({
  *     areTopCategoriesFetched: areTopCategoriesFetched(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - If top categories are fetched or not.
  */
 export const areTopCategoriesFetched = (state: StoreState): boolean =>
   getResult(state.categories) !== null;

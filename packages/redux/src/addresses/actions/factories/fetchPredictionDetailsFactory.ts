@@ -14,34 +14,19 @@ import type {
 } from '@farfetch/blackout-client/addresses/types';
 
 /**
- * @typedef {object} PropsObject
+ * @param props  - Object containing predictionId.
+ * @param query  - Query params.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @alias PropsObject
- * @memberof module:addresses/client
- *
- * @property {string} predictionId - Prediction identifier.
- */
-
-/**
- * @callback FetchPredictionDetailsThunkFactory
- *
- * @param {PropsObject|object} props - Object containing predictionId.
- * @param {GetPredictionDetailsQuery} [query] - Query params.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Load Address details based in the prediction id.
  *
- * @function doGetPredictionDetails
- * @memberof module:addresses/actions/factories
+ * @param getPredictionDetails - Get prediction details client.
  *
- * @param {Function} getPredictionDetails - Get prediction details client.
- *
- * @returns {FetchPredictionDetailsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchPredictionDetailsFactory =
   (getPredictionDetails: GetPredictionDetails) =>

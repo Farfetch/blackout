@@ -14,34 +14,19 @@ import type {
 } from '@farfetch/blackout-client/checkout/types';
 
 /**
- * @typedef {object} FetchCheckoutQuery
+ * @param id     - Universal identifier of the Checkout.
+ * @param query  - Query params to retrieve the checkout.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @alias FetchCheckoutQuery
- *
- * @property {string} [fields] - Get the order only with the specified
- * fields, separated by commas. Possible values: checkoutOrder, paymentMethods,
- * shippingOptions or deliveryBundles, userPaymentTokens.
- */
-
-/**
- * @callback FetchCheckoutThunkFactory
- * @param {string} id - Universal identifier of the Checkout.
- * @param {FetchCheckoutQuery} [query] - Query params to retrieve the checkout.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Method responsible for obtaining the checkout.
  *
- * @function fetchCheckoutFactory
- * @memberof module:checkout/actions/factories
+ * @param getCheckout - Get checkout client.
  *
- * @param {Function} getCheckout - Get checkout client.
- *
- * @returns {FetchCheckoutThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 export default (getCheckout: GetCheckout) =>
   (id: number, query: GetCheckoutQuery, config?: Config) =>

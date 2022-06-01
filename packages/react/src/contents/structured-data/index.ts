@@ -1,9 +1,5 @@
 /**
  * SEO Structured Data.
- *
- * @module contents/structured-data
- * @category Contents
- * @subcategory Structured Data
  */
 export { default as article } from './article';
 export { default as breadcrumbs } from './breadcrumbs';

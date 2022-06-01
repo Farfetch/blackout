@@ -1,9 +1,3 @@
-/**
- * @module entities/selectors
- * @category Entities
- * @subcategory Selectors
- */
-
 export * from './brands';
 export * from './categories';
 export * from './cities';

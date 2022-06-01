@@ -1,9 +1,5 @@
 /**
  * Contents utils.
- *
- * @module contents/utils
- * @category Contents
- * @subcategory Utils
  */
 
 import get from 'lodash/get';
@@ -13,12 +9,15 @@ import type {
   ComponentType,
   Metadata,
 } from '@farfetch/blackout-client/contents/types';
-import type { CommercePagesContentNormalized, QueryContentHash } from './types';
+import type {
+  CommercePagesContentNormalized,
+  GenerateSEOPathnameQuery,
+  QueryContentHash,
+} from './types';
 
 /**
- * Constant that represent all possible static values to apply to an environment code variable.
- *
- * @type {object}
+ * Constant that represent all possible static values to apply to an environment
+ * code variable.
  */
 export const ENVIRONMENT_CODES = {
   LIVE: 'live',
@@ -28,14 +27,15 @@ export const ENVIRONMENT_CODES = {
 /**
  * Generate a ranking number for each commerce page.
  *
- * @function
- *
- * @param {object} metadata - Metadata object with custom attributes.
- * @returns {number} Ranking number for a specific commerce page.
- *
  * @example
+ * ```
  * const pageRanking = getPageRanking({ custom: { type: "listing" } });
  * Result of pageRanking === 0;
+ * ```
+ *
+ * @param metadata - Metadata object with custom attributes.
+ *
+ * @returns Ranking number for a specific commerce page.
  */
 export const getPageRanking = (metadata: Metadata): number => {
   let ranking = 0;
@@ -86,16 +86,18 @@ export const getPageRanking = (metadata: Metadata): number => {
 };
 
 /**
- * Method to check each page ranking and return a list of ranked commerce pages ordered by the better one.
- *
- * @function
- *
- * @param {object} result - Commerce page payload result.
- * @returns {object[]} - List of commerce pages ranked.
+ * Method to check each page ranking and return a list of ranked commerce pages
+ * ordered by the better one.
  *
  * @example
+ * ```
  * const getCommercePagesRanked = getCommercePagesRanked({ entries: [...pages] });
  * Result of getCommercePagesRanked === { entries: [commercePagesWithRankProperty] };
+ * ```
+ *
+ * @param result - Commerce page payload result.
+ *
+ * @returns - List of commerce pages ranked.
  */
 const getCommercePagesRanked = (
   result: CommercePagesContentNormalized,
@@ -111,14 +113,15 @@ const getCommercePagesRanked = (
 /**
  * Method to check each page ranking and return the better one.
  *
- * @function
- *
- * @param {object} result - Commerce page payload result.
- * @returns {object} Selected page with better ranking.
- *
  * @example
+ * ```
  * const defaultStrategy = getDefaultStrategy({ entries: [...pages] });
  * Result of defaultStrategy === { entries: [...bestRankedPage] };
+ * ```
+ *
+ * @param result - Commerce page payload result.
+ *
+ * @returns Selected page with better ranking.
  */
 export const getDefaultStrategy = (
   result: CommercePagesContentNormalized,
@@ -134,16 +137,18 @@ export const getDefaultStrategy = (
 };
 
 /**
- * Method to return the main ranked commerce page with all components from other pages without duplicates.
- *
- * @function
- *
- * @param {object} result - Commerce page payload result.
- * @returns {object} Selected page with merged components.
+ * Method to return the main ranked commerce page with all components from other
+ * pages without duplicates.
  *
  * @example
+ * ```
  * const mergeStrategy = getMergeStrategy({ entries: [...pages] });
  * Result of mergeStrategy === { entries: [...mergedPages] };
+ * ```
+ *
+ * @param result - Commerce page payload result.
+ *
+ * @returns Selected page with merged components.
  */
 export const getMergeStrategy = (
   result: CommercePagesContentNormalized,
@@ -172,18 +177,19 @@ export const getMergeStrategy = (
 };
 
 /**
- * Method to calculate the ranking for commerce pages, according to the selected strategy
- * and returning only the selected one.
- *
- * @function
- *
- * @param {object} result - Commerce page payload result.
- * @param {string} [strategy] - The selected ranking strategy (E.g. 'default | merge').
- * @returns {object} Selected page with best ranking.
+ * Method to calculate the ranking for commerce pages, according to the selected
+ * strategy and returning only the selected one.
  *
  * @example
+ * ```
  * const rankedPage = getRankedCommercePage({ entries: [...pages] }, 'merge');
  * Result of rankedPage === { entries: [...mergedPages] };
+ * ```
+ *
+ * @param result   - Commerce page payload result.
+ * @param strategy - The selected ranking strategy (E.g. 'default | merge').
+ *
+ * @returns Selected page with best ranking.
  */
 export const getRankedCommercePage = (
   result: CommercePagesContentNormalized,
@@ -198,15 +204,18 @@ export const getRankedCommercePage = (
 };
 
 /**
- * Build a hash with query object received to identify the type of content, when searching for contents.
- *
- * @param   {object} query - Object with query parameters applied to search contents.
- *
- * @returns {string} - Hash built to identify a content.
+ * Build a hash with query object received to identify the type of content, when
+ * searching for contents.
  *
  * @example
+ * ```
  * const contentHash = generateContentHash({ codes: 'about', contentTypeCode: 'pages', 'target.language': 'en-US' });
  * Result of contentHash === 'pages!about!en-US';
+ * ```
+ *
+ * @param query - Object with query parameters applied to search contents.
+ *
+ * @returns - Hash built to identify a content.
  */
 export const generateContentHash = (query: QueryContentHash): string => {
   if (
@@ -233,22 +242,22 @@ export const generateContentHash = (query: QueryContentHash): string => {
 };
 
 /**
- * Build a hash with query object received to identify the page of the metadata selected.
- *
- * @param   {object} query - Object with query parameters applied to search for metadata.
- * @param   {string} query.path - The pathname of the location.
- * @param   {string} query.pageType - The type of the page (pages|stories...).
- *
- * @returns {string} - Hash built to identify the metadata for a specific page and pageType.
+ * Build a hash with query object received to identify the page of the metadata
+ * selected.
  *
  * @example
+ * ```
  * const pathname = generateSEOPathname({ path: '/about', pageType: 'pages'});
  * Result of pathname === 'pages!/about';
+ * ```
+ *
+ * @param query - Object with query parameters applied to search for metadata.
+ *
+ * @returns - Hash built to identify the metadata for a specific page and pageType.
  */
-export const generateSEOPathname = (query: {
-  path: string;
-  pageType: string;
-}): string => {
+export const generateSEOPathname = (
+  query: GenerateSEOPathnameQuery,
+): string => {
   if (isEmpty(query) || !get(query, 'path')) {
     return '';
   }

@@ -13,30 +13,18 @@ import type { Dispatch } from 'redux';
 import type { FetchGiftCardBalanceAction } from '../../types';
 
 /**
- * @typedef {object} FetchGiftCardBalanceData
- * @property {string} giftCardNumber - Gift card number.
- * @property {string} giftCardCsc - Gift card csc.
- */
-
-/**
- * @callback FetchGiftCardBalanceThunkFactory
- * @param {FetchGiftCardBalanceData} data - Details of the gift card balance.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param data   - Details of the gift card balance.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Method responsible for getting the gift card balance.
  *
- * @function fetchGiftCardBalanceFactory
- * @memberof module:payments/actions/factories
+ * @param postCheckGiftCardBalance - Post check gift card balance client.
  *
- * @param {Function} postCheckGiftCardBalance - Post check gift card balance
- * client.
- *
- * @returns {FetchGiftCardBalanceThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchGiftCardBalanceFactory =
   (postCheckGiftCardBalance: PostCheckGiftCardBalance) =>

@@ -13,28 +13,18 @@ import type { Dispatch } from 'redux';
 import type { FetchCreditBalanceAction } from '../../types';
 
 /**
- * @typedef {object} FetchCreditBalanceData
- * @property {string} creditUserId - Identifier of the Credit User.
- */
-
-/**
- * @callback FetchCreditBalanceThunkFactory
- * @param {FetchCreditBalanceData} data - Details for obtaining credit balance.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param data   - Details for obtaining credit balance.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Method responsible for getting the user credit balance.
  *
- * @function fetchCreditBalanceFactory
- * @memberof module:payments/actions/factories
+ * @param postCheckCreditBalance - Post check credit balance client.
  *
- * @param {Function} postCheckCreditBalance - Post check credit balance client.
- *
- * @returns {FetchCreditBalanceThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchCreditBalanceFactory =
   (postCheckCreditBalance: PostCheckCreditBalance) =>

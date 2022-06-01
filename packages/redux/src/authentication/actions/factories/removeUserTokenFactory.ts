@@ -6,23 +6,18 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @callback DeleteTokenThunkFactory
- * @param {number} userTokenId - The user token Id.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param userTokenId - The user token Id.
+ * @param config      - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Deletes a user or client's token.
  *
- * @function removeUserToken
- * @memberof module:authentication/actions/factories
+ * @param deleteTokens - Delete user token client.
  *
- * @param {Function} deleteTokens - Delete user token client.
- *
- * @returns {DeleteTokenThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 export default (deleteTokens: any) =>
   (

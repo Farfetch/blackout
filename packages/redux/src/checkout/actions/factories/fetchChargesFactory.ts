@@ -11,23 +11,18 @@ import type {
 } from '@farfetch/blackout-client/checkout/types';
 
 /**
- * @callback FetchChargesThunkFactory
- * @param {string} id - Numeric identifier of the checkout order.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - Numeric identifier of the checkout order.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Method responsible for getting the order charge.
  *
- * @function fetchChargesFactory
- * @memberof module:checkout/actions/factories
+ * @param getCharges - Get charges client.
  *
- * @param {Function} getCharges - Get charges client.
- *
- * @returns {FetchChargesThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchChargesFactory =
   (getCharges: GetCharges) =>

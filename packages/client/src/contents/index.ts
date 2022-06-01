@@ -1,8 +1,5 @@
 /**
  * Contents clients.
- *
- * @module contents
- * @category Contents
  */
 
 export { default as getCommercePages } from './getCommercePages';

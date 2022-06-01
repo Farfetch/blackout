@@ -3,43 +3,24 @@ import join from 'proper-url-join';
 import type { PatchCheckout } from './types';
 
 /**
- * @typedef {object} PatchCheckoutData
+ * Method responsible for changing the checkout information. This is used for any
+ * type of changes to the checkout object. This also replaces the deprecated
+ * putShippingOption function.
  *
- * @alias PatchCheckoutData
- * @memberof module:checkout/client
+ * @param id     - Universal identifier of the Checkout.
+ * @param data   - Request data.
+ * @param config - Custom configurations to send to the client instance (axios). In this case is truly
+ *                 recommended to update your axios config to your new shipping or billing address,
+ *                 like this:
+ *                  const config = \{
+ *                    headers:\{
+ *                      'Accept-Language': cultureCode,
+ *                      'FF-Country': countryCode,
+ *                      'FF-Currency': currencyCode
+ *                     \}
+ *                  \}.
  *
- * @property {string} [email] - Email.
- * @property {object} [shippingAddress] - Shipping Address Data.
- * @property {object} [billingAddress] - Billing Address Data.
- * @property {object} [clickAndCollect] - Click and collect Data.
- * @property {object} [shippingOption] - Shipping Option Data.
- * @property {object} [deliveryBundleUpdate] - Delivery Bundle Update.
- */
-
-/**
- * Method responsible for changing the checkout information.
- * This is used for any type of changes to the checkout object.
- * This also replaces the deprecated putShippingOption function.
- *
- * @function patchCheckout
- * @memberof module:checkout/client
- *
- * @param {string} id - Universal identifier of the Checkout.
- * @param {PatchCheckoutData} data - Request data.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- * In this case is truly recommended to update your axios config to
- * your new shipping or billing address, like this:
- * const config = {
- *     headers: {
- *          'Accept-Language': cultureCode,
- *          'FF-Country': countryCode,
- *          'FF-Currency': currencyCode
- *     }.
- * }.
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const patchCheckout: PatchCheckout = (id, data, config) =>
   client

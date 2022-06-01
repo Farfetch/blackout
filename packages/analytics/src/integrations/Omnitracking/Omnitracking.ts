@@ -1,13 +1,16 @@
 /**
- * Omnitracking integration will send data to Marketing API, so it can later be consumed by internal services.
- * This integration is compatible with Omnitracking Service v1.9.
+ * Omnitracking integration will send data to Marketing API, so it can later be
+ * consumed by internal services. This integration is compatible with Omnitracking
+ * Service v1.9.
  *
  * @example <caption>Adding Omnitracking integration to analytics</caption>
+ * ```
  *
  * import analytics, \{ integrations \} from '\@farfetch/blackout-react/analytics';
  *
  * analytics.addIntegration('omnitracking', integrations.Omnitracking);
  *
+ * ```
  */
 
 import {
@@ -65,8 +68,8 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
   /**
    * Creates a new Omnitracking instance, validating its options.
    *
-   * @param options - Options passed to the Omnitracking integration.
-   * @param loadData - Load integration event data.
+   * @param options                       - Options passed to the Omnitracking integration.
+   * @param loadData                      - Load integration event data.
    * @param strippedDownAnalyticsInstance - Stripped down analytics instance.
    */
   constructor(
@@ -128,7 +131,8 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
   }
 
   /**
-   * Method that validates Omnitracking's basic business requirements before a tracking.
+   * Method that validates Omnitracking's basic business requirements before a
+   * tracking.
    *
    * @returns Whether the track data complies with basic requirements defined by the service.
    */
@@ -137,11 +141,10 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
   }
 
   /**
-   * Gets parameters that can be pre-calculated and will be added
-   * to the final payload that will be sent to Omnitracking service.
+   * Gets parameters that can be pre-calculated and will be added to the final
+   * payload that will be sent to Omnitracking service.
    *
    * @param data - Event data provided by analytics.
-   *
    *
    * @returns Object containing the pre-calculated parameters for the event.
    */
@@ -269,9 +272,10 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
   }
 
   /**
-   * Method that will combine all pre-calculated parameters with the ones that come from the mapper.
+   * Method that will combine all pre-calculated parameters with the ones that come
+   * from the mapper.
    *
-   * @param data - Event data provided by analytics.
+   * @param data            - Event data provided by analytics.
    * @param mappedEventData - Object with properties that come from the event mapper.
    *
    * @returns Promise that will resolve when the method finishes.
@@ -304,8 +308,8 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
 
   /**
    * Posts event data to Omnitracking service. Will call `options.transformPayload`
-   * if defined to obtain the final payload data to be sent.
-   * The final payload will then pass through validation before being posted to Omnitracking service.
+   * if defined to obtain the final payload data to be sent. The final payload will
+   * then pass through validation before being posted to Omnitracking service.
    *
    * @param payload   - Payload data to be sent to Omnitracking service.
    * @param eventData - Data that is sent by analytics on a page/track event.

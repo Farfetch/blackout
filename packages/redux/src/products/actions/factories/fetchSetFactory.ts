@@ -9,28 +9,21 @@ import type {
 import type { ProductsListActionOptions } from '../../types';
 
 /**
- * @callback FetchSetThunkFactory
+ * @param slug          - Set identifier (ID, slug or gender/slug).
+ * @param query         - Query parameters to apply.
+ * @param actionOptions - Additional options to apply to the action.
+ * @param config        - Custom configurations to send to the client instance (axios).
  *
- * @param {string|number} slug - Set identifier (ID, slug or gender/slug).
- * @param {object} [query] - Query parameters to apply.
- * @param {object} [actionOptions] - Additional options to apply to the action.
- * @param {string} [actionOptions.useCache=false] - If the request result will be cached.
- * @param {string} [actionOptions.setProductsListHash=true] - Allows the listing hash to be set.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * Creates a thunk factory configured with the specified client to fetch a
- * specific set by its id.
+ * Creates a thunk factory configured with the specified client to fetch a specific
+ * set by its id.
  *
- * @memberof module:products/actions/factories
+ * @param getSet - Get set client.
  *
- * @param {Function} getSet - Get set client.
- *
- * @returns {FetchSetThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchSetFactory =
   (getSet: GetSet) =>

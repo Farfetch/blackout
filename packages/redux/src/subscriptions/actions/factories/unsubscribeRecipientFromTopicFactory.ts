@@ -5,9 +5,6 @@ import type { UnsubscribeRecipientFromTopicFactory } from './types';
 /**
  * Method to create a thunk factory configured with the specified client.
  *
- * @function unsubscribeRecipientFromTopicFactory
- * @memberof module:subscriptions/actions/factories
- *
  * @param deleteRecipientFromTopic - Delete recipient from subscription topic client.
  *
  * @returns Thunk factory.

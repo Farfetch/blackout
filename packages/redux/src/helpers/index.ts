@@ -1,7 +1,5 @@
 /**
  * Helpers.
- *
- * @module helpers
  */
 import * as dateFormatTokens from './dateFormatTokens';
 import * as regex from './regex';

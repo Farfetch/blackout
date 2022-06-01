@@ -5,14 +5,13 @@ import type { PatchPersonalId } from './types';
 /**
  * Method responsible for updating specific personal id.
  *
- * @param userId - User identifier.
+ * @param userId     - User identifier.
  * @param personalId - Personal identifier.
- * @param data - Personal id data.
- * @param config - Custom configurations to send to the client
- * instance (axios). X-SUMMER-RequestId header is required.
+ * @param data       - Personal id data.
+ * @param config     - Custom configurations to send to the client instance (axios). X-SUMMER-RequestId
+ *                     header is required.
  *
- * @returns Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const patchPersonalId: PatchPersonalId = (userId, personalId, data, config) =>
   client

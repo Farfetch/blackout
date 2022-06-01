@@ -1,12 +1,12 @@
 /**
- * Validation for the `id` prop, it is required if `labelContent` is provided
- *  and should have 'string' as type.
+ * Validation for the `id` prop, it is required if `labelContent` is provided and
+ * should have 'string' as type.
  *
- * @param {object} props - Component props.
- * @param {string} propName - Name of the prop being validated.
- * @param {string} componentName - Component name.
+ * @param props         - Component props.
+ * @param propName      - Name of the prop being validated.
+ * @param componentName - Component name.
  *
- * @returns {Error | undefined } - When the props is valid, nothing is returned.
+ * @returns - When the props is valid, nothing is returned.
  */
 export const idWithLabelValidation = (
   props: Record<string, unknown>,
@@ -23,15 +23,16 @@ export const idWithLabelValidation = (
 };
 
 /**
- * Validates if the given prop exists when `neededProp` is provided and ensures it has `propType` type,.
+ * Validates if the given prop exists when `neededProp` is provided and ensures it
+ * has `propType` type,.
  *
- * @param {string} neededProp - Prop name that makes the validated prop required.
- * @param {string} propType - Validated prop type.
- * @param {object} props - Component props.
- * @param {string} propName - Name of the prop being validated.
- * @param {string} componentName - Component name.
+ * @param neededProp    - Prop name that makes the validated prop required.
+ * @param propType      - Validated prop type.
+ * @param props         - Component props.
+ * @param propName      - Name of the prop being validated.
+ * @param componentName - Component name.
  *
- * @returns {Error | undefined} - When the props is valid, nothing is returned.
+ * @returns - When the props is valid, nothing is returned.
  */
 const conditionalRequiredAndType = (
   neededProp: string,

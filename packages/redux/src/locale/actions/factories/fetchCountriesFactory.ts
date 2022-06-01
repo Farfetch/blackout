@@ -9,31 +9,18 @@ import type {
 import type { Dispatch } from 'redux';
 
 /**
- * @typedef {object} FetchCountriesQuery
- * @property {number} [pageIndex=1] - The current page.
- * @property {number} [pageSize=15] - Size of each page, as a number.
- */
-
-/**
- * @callback FetchCountriesThunkFactory
+ * @param query  - Query parameters to apply to the request.
+ * @param config - Custom configurations to send to the client instance.
  *
- * @memberof module:locale/actions/factories
- *
- * @param {FetchCountriesQuery} [query] - Query parameters to apply to the request.
- * @param {Object} [config] - Custom configurations to send to the client
- * instance.
- *
- * @returns {FetchCountriesThunkFactory} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Fetch all countries.
  *
- * @memberof module:locale/actions/factories
+ * @param getCountries - Get countries client.
  *
- * @param {Function} getCountries - Get countries client.
- *
- * @returns {FetchCountriesThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchCountriesFactory =
   (getCountries: GetCountries) =>

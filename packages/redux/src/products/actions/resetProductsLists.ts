@@ -10,13 +10,8 @@ import type { ThunkDispatch } from 'redux-thunk';
 /**
  * Reset products lists related entities to its initial value.
  *
- * @private
- *
- * @memberof module:products/actions
- *
- * @name resetProductsListsEntities
- *
  * @example
+ * ```
  * // Store before executing action
  * const store = {
  *     entities: {
@@ -28,7 +23,9 @@ import type { ThunkDispatch } from 'redux-thunk';
  * // Result of reset entities:
  * const store = { entities: { products: { 123: {...} } } }
  *
- * @returns {Function} Dispatch reset productsLists entities action.
+ * ```
+ *
+ * @returns Dispatch reset productsLists entities action.
  */
 const resetProductsListsEntities =
   () =>
@@ -47,11 +44,8 @@ const resetProductsListsEntities =
 /**
  * Reset products lists state and related entities to its initial value.
  *
- * @memberof module:products/actions
- *
- * @name resetProductsLists
- *
  * @example
+ * ```
  * import { resetProductsLists } from '@farfetch/blackout-redux/products';
  *
  * // State and store before executing action
@@ -75,7 +69,9 @@ const resetProductsListsEntities =
  * // Usage
  * dispatch(resetProductsLists());
  *
- * @returns {Function} Dispatch reset products lists state and entities action.
+ * ```
+ *
+ * @returns Dispatch reset products lists state and entities action.
  */
 const resetProductsLists =
   () =>

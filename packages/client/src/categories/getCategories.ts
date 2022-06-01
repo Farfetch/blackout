@@ -4,13 +4,9 @@ import type { GetCategories } from './types';
 /**
  * Method responsible for getting all the categories.
  *
- * @memberof module:categories/client
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will be resolved when the call to the
- * endpoint finishes.
+ * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
 const getCategories: GetCategories = config =>
   client

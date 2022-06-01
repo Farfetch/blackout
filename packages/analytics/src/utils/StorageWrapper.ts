@@ -13,16 +13,19 @@ class StorageWrapper {
   storage: Storage;
 
   /**
-   * Constructs a new instance with the passed in storage instance and initializes the store.
-   * This storage instance must implement the methods async getItem(key), async setItem(key, data) and async removeItem(key) methods.
-   * For now it validates only if the storage is defined and if not, an error will be thrown.
-   * In the future, the validation logic will be changed to ensure the required methods are implemented on the passed in instance.
+   * Constructs a new instance with the passed in storage instance and initializes
+   * the store. This storage instance must implement the methods async getItem(key),
+   * async setItem(key, data) and async removeItem(key) methods. For now it validates
+   * only if the storage is defined and if not, an error will be thrown. In the
+   * future, the validation logic will be changed to ensure the required methods are
+   * implemented on the passed in instance.
    *
    * @param storage - The underlying storage instance that will store the data.
    *
-   * //TODO: Change validateStorage function to validate if the storage instance contains the required methods.
    */
   constructor(storage?: Storage) {
+    // TODO: Change validateStorage function to validate if the storage instance
+    // contains the required methods.
     if (!validateStorage(storage)) {
       throw new Error(
         'StorageWrapper needs a valid storage to properly persist data. Please make sure you are passing a valid storage.',
@@ -33,11 +36,13 @@ class StorageWrapper {
   }
 
   /**
-   * As our package naming changes, we should ensure retro-compatibility regarding the previous storage entry name,
-   * so for that we have this method that fetches the data from the storage with the previous package name (`oldStorageKey`, if available)
-   * and sets its value with the new one.
+   * As our package naming changes, we should ensure retro-compatibility regarding
+   * the previous storage entry name, so for that we have this method that fetches
+   * the data from the storage with the previous package name (`oldStorageKey`, if
+   * available) and sets its value with the new one.
    *
-   * @returns Promise that will resolve with the instance that was used when calling this method to allow chaining.
+   * @returns Promise that will resolve with the instance that was used when calling this method to allow
+   * chaining.
    */
   private async preProcessStorage(): Promise<this> {
     const oldStorage = await this.storage.getItem(oldStorageKey);
@@ -52,8 +57,8 @@ class StorageWrapper {
   }
 
   /**
-   * Creates the store with the time-to-live.
-   * Checks if there's a previous TTL stored, and if it's expired, stores a new one.
+   * Creates the store with the time-to-live. Checks if there's a previous TTL
+   * stored, and if it's expired, stores a new one.
    *
    * @returns Promise that will resolve when the method finishes.
    */
@@ -93,13 +98,15 @@ class StorageWrapper {
   }
 
   /**
-   * Sets a value with a key on the storage. If you want to clear the value for the key,
-   * use the `removeItem` method instead of setting the key to null or undefined.
+   * Sets a value with a key on the storage. If you want to clear the value for the
+   * key, use the `removeItem` method instead of setting the key to null or
+   * undefined.
    *
-   * @param key - The key to store.
+   * @param key  - The key to store.
    * @param data - The data to store with the passed key.
    *
-   * @returns Promise that will resolve with the instance that was used when calling this method to allow chaining.
+   * @returns Promise that will resolve with the instance that was used when calling this method to allow
+   * chaining.
    */
   async setItem(key?: string, data?: unknown): Promise<this> {
     if (!key) {
@@ -119,7 +126,8 @@ class StorageWrapper {
    *
    * @param key - The key to the item that will be removed.
    *
-   * @returns Promise that will resolve with the instance that was used when calling this method to allow chaining.
+   * @returns Promise that will resolve with the instance that was used when calling this method to allow
+   * chaining.
    */
   async removeItem(key: string): Promise<this> {
     const store = await this.getItem();
@@ -136,7 +144,8 @@ class StorageWrapper {
   /**
    * Removes the whole entry form the storage.
    *
-   * @returns Promise that will resolve with the instance that was used when calling this method to allow chaining.
+   * @returns Promise that will resolve with the instance that was used when calling this method to allow
+   * chaining.
    */
   async clear(): Promise<this> {
     await this.storage.removeItem(PACKAGE_NAME);

@@ -5,14 +5,8 @@ import type { ResetBagStateAction } from '../types';
 /**
  * Reset bag state to its initial value.
  *
- * @memberof module:bags/actions
- *
- * @name resetBagState
- *
- * @param {Array} [fieldsToReset] - List of fields to reset during the reset
- * operation.
- *
  * @example <caption>Reset with no fields to reset, resetting all</caption>
+ * ```
  * import { resetBagState } from '@farfetch/blackout-redux/bags';
  *
  * // State before executing action
@@ -56,7 +50,9 @@ import type { ResetBagStateAction } from '../types';
  * // Usage
  * dispatch(resetBagState());
  *
+ * ```
  * @example <caption>Reset with fields to reset</caption>
+ * ```
  * import { resetBagState } from '@farfetch/blackout-redux/bags';
  *
  * // State object before executing action
@@ -104,7 +100,11 @@ import type { ResetBagStateAction } from '../types';
  * // Usage
  * dispatch(resetBagState(["error"]));
  *
- * @returns {Function} Dispatch reset bag state action.
+ * ```
+ *
+ * @param fieldsToReset - List of fields to reset during the reset operation.
+ *
+ * @returns Dispatch reset bag state action.
  */
 const resetBagState =
   (fieldsToReset?: string[]) =>

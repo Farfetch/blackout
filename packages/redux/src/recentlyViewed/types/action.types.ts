@@ -15,7 +15,9 @@ interface FetchRecentlyViewedProductsFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the fetch recently viewed products request is made. */
+/**
+ * Actions dispatched when the fetch recently viewed products request is made.
+ */
 export type FetchRecentlyViewedProductsAction =
   | FetchRecentlyViewedProductsRequestAction
   | FetchRecentlyViewedProductsSuccessAction
@@ -35,13 +37,18 @@ interface RemoveRecentlyViewedProductFailureAction extends Action {
   meta: { productId: number };
 }
 
-/** Actions dispatched when remove recently viewed product is made. */
+/**
+ * Actions dispatched when remove recently viewed product is made.
+ */
 export type RemoveRecentlyViewedProductAction =
   | RemoveRecentlyViewedProductRequestAction
   | RemoveRecentlyViewedProductSuccessAction
   | RemoveRecentlyViewedProductFailureAction;
 
-/** Actions dispatched when the save remove recently viewed product action is called. */
+/**
+ * Actions dispatched when the save remove recently viewed product action is
+ * called.
+ */
 export interface SaveRecentlyViewedProductSchemaStateAction extends Action {
   type: typeof actionTypes.SAVE_RECENTLY_VIEWED_PRODUCT;
 }

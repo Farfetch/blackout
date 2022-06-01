@@ -19,47 +19,21 @@ import type { FetchBrandsAction } from '../../types';
 import type { StoreState } from '../../../types';
 
 /**
- * @typedef {object} FetchBrandsQuery
+ * @param query         - Query with parameters to fetch brands.
+ * @param useCache      - If the request result will be cached.
+ * @param setBrandsHash - Allows the brands hash to be set.
+ * @param config        - Custom configurations to send to the client instance (axios).
  *
- * @alias FetchBrandsQuery
- * @memberof module:brands/actions/factories
- *
- * @property {number} [page = 1] - Number of the page to get.
- * @property {number} [pageSize = 10000] - Size of each page.
- * @property {number} [gender] - Fetch brands with specific gender.
- * @property {string} [id] - Fetch brands with the specified identifiers,
- * separated by commas.
- * @property {number} [exclusive] - Fetch brands with exclusive products:
- * 0 = Not exclusive, 1 = Exclusive.
- * @property {number} [categoryId] - Fetch brands with specific category.
- * @property {number} [departmentId] - Fetch brands with Luxe (2920) or
- * Lab (2921) products.
- * @property {number} [priceType] - Fetch brands with priceType:
- * 0 = full price, 1 = sale, 2 = private sale.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * @callback FetchBrandsThunkFactory
+ * Creates a thunk factory configured with the specified client to fetch brands for
+ * a given query or all brands if no query is provided.
  *
- * @param {FetchBrandsQuery} [query] - Query with parameters to fetch brands.
- * @param {boolean} [useCache=false] - If the request result will be cached.
- * @param {object} [setBrandsHash=true] - Allows the brands hash to be set.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param getBrands - Get brands client.
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
- */
-
-/**
- * Creates a thunk factory configured with the specified client to fetch brands
- * for a given query or all brands if no query is provided.
- *
- * @function fetchBrands
- * @memberof module:brands/actions/factories
- *
- * @param {Function} getBrands - Get brands client.
- *
- * @returns {FetchBrandsThunkFactory} - Thunk factory.
+ * @returns - Thunk factory.
  */
 const fetchBrandsFactory =
   (getBrands: GetBrands) =>

@@ -12,9 +12,8 @@ import type {
 
 /**
  * @param userId - User's id.
- * @param data - User preferences data.
- * @param config - Custom configurations to send to the client
- * instance (axios).
+ * @param data   - User preferences data.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
  * @returns Thunk to be dispatched to the redux store.
  */

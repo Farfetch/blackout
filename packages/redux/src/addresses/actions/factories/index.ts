@@ -1,9 +1,5 @@
 /**
  * Addresses actions factories.
- *
- * @module addresses/actions/factories
- * @category Addresses
- * @subcategory Actions factories
  */
 
 export { default as createAddressFactory } from './createAddressFactory';

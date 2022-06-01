@@ -5,16 +5,11 @@ import type { DeleteUserAttribute } from './types';
 /**
  * Method responsible for deleting specific user attribute.
  *
- * @function deleteUserAttribute
- * @memberof module:users/client
+ * @param userId      - User's id to be filtered for.
+ * @param attributeId - The attribute id to be filtered for.
+ * @param config      - Custom configurations to send to the client instance (axios).
  *
- * @param {number} userId - User's id to be filtered for.
- * @param {string} attributeId - The attribute id to be filtered for.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const deleteUserAttribute: DeleteUserAttribute = (
   userId,

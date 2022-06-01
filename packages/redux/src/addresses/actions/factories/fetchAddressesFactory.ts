@@ -15,23 +15,18 @@ import type { Dispatch } from 'redux';
 import type { FetchAddressesAction } from '../../types';
 
 /**
- * @callback FetchAddressesThunkFactory
- * @param {number} userId - Identifier of the user.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param userId - Identifier of the user.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Responsible for getting all the addresses of the current user.
  *
- * @function doGetAddresses
- * @memberof module:addresses/actions/factories
+ * @param getAddresses - Get addresses client.
  *
- * @param {Function} getAddresses - Get addresses client.
- *
- * @returns {FetchAddressesThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchAddressesFactory =
   (getAddresses: GetAddresses) =>

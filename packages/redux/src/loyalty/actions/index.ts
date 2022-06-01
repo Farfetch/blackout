@@ -1,9 +1,5 @@
 /**
  * Loyalty actions.
- *
- * @module loyalty/actions
- * @category Loyalty
- * @subcategory Actions
  */
 export { default as createProgramMembership } from './createProgramMembership';
 export { default as createProgramMembershipConvert } from './createProgramMembershipConvert';

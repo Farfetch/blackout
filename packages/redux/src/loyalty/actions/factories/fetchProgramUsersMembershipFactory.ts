@@ -15,24 +15,18 @@ import type {
 } from '@farfetch/blackout-client/loyalty/types';
 
 /**
- * @callback FetchProgramUsersMembershipThunkFactory
- * @param {string} programId - Program identifier.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param programId - Program identifier.
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Load program membership statements.
  *
- * @function fetchProgramUsersMembershipFactory
- * @memberof module:loyalty/actions/factories
+ * @param getProgramUsersMembership - Get program users membership client.
  *
- * @param {Function} getProgramUsersMembership - Get program users membership
- *  client.
- *
- * @returns {FetchProgramUsersMembershipThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 
 const fetchProgramUsersMembershipFactory =

@@ -57,7 +57,7 @@ export const mockWishlistSetName = 'This is a set';
 export const mockWishlistSetDescription = 'This is a set description';
 
 // This will be used for the regular listing and as "parent listing", because of
-// the desabled filters
+// the disabled filters
 export const mockListingEntity = {
   breadCrumbs: [
     {

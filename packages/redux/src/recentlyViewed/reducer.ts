@@ -101,10 +101,10 @@ const reducers = combineReducers({
 /**
  * Reducer for recently viewed state.
  *
- * @param state - Current redux state.
+ * @param state  - Current redux state.
  * @param action - Action dispatched.
  *
- * @returns  New state.
+ * @returns New state.
  */
 const formsReducer: ReducerSwitch<State, AnyAction> = (
   state = INITIAL_STATE,

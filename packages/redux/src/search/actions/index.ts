@@ -1,9 +1,5 @@
 /**
  * Search actions.
- *
- * @module search/actions
- * @category Search
- * @subcategory Actions
  */
 export { default as fetchSearchDidYouMean } from './fetchSearchDidYouMean';
 export { default as fetchSearchIntents } from './fetchSearchIntents';

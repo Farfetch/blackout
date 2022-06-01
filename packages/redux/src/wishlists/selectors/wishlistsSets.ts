@@ -15,20 +15,18 @@ import type { WishlistSetsErrors } from './types/wishlistsSets.types';
 /**
  * Retrieves the error state of the current user's wishlist sets.
  *
- * @function
- * @memberof module:wishlists/selectors
- *
- * @param {object} state - Application state.
- *
- * @returns {object|undefined} Error information, `undefined` if there are no
- * errors.
- *
  * @example
+ * ```
  * import { getWishlistSetsError } from '@farfetch/blackout-redux/wishlists';
  *
  * const mapStateToProps = state => ({
  *     setsError: getWishlistSetsError(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns Error information, `undefined` if there are no errors.
  */
 export const getWishlistSetsError = (
   state: StoreState,
@@ -38,20 +36,18 @@ export const getWishlistSetsError = (
 /**
  * Retrieves the ids of the wishlist sets for the current wishlist.
  *
- * @function
- * @memberof module:wishlists/selectors
- *
- * @param {object} state - Application state.
- *
- * @returns {Array|undefined} Ids of the wishlist sets for the current
- * wishlist.
- *
  * @example
+ * ```
  * import { getWishlistSetsIds } from '@farfetch/blackout-redux/wishlists';
  *
  * const mapStateToProps = state => ({
  *     wishlistSetsIds: getWishlistSetsIds(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns Ids of the wishlist sets for the current wishlist.
  */
 export const getWishlistSetsIds = (
   state: StoreState,
@@ -61,22 +57,21 @@ export const getWishlistSetsIds = (
 /**
  * Retrieves the loading status of the wishlist sets.
  *
- * This status is affected by the loading of the wishlist sets themselves,
- * as well as any "add" operation.
- *
- * @function
- * @memberof module:wishlists/selectors
- *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Loading status of the wishlist sets.
+ * This status is affected by the loading of the wishlist sets themselves, as well
+ * as any "add" operation.
  *
  * @example
+ * ```
  * import { areWishlistSetsLoading } from '@farfetch/blackout-redux/wishlists';
  *
  * const mapStateToProps = state => ({
  *     areWishlistSetsLoading: areWishlistSetsLoading(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns Loading status of the wishlist sets.
  */
 export const areWishlistSetsLoading = (
   state: StoreState,
@@ -86,21 +81,19 @@ export const areWishlistSetsLoading = (
 /**
  * Retrieves the error state of a specific wishlist set by its id.
  *
- * @function
- * @memberof module:wishlists/selectors
- *
- * @param {object} state - Application state.
- * @param {string} setId - Global identifier of the set in the wishlist.
- *
- * @returns {object|undefined} Error information, `undefined` if there are no
- * errors.
- *
  * @example
+ * ```
  * import { getWishlistSetError } from '@farfetch/blackout-redux/wishlists';
  *
  * const mapStateToProps = (state, { wishlistSet: { id } }) => ({
  *     error: getWishlistSetError(state, id)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ * @param setId - Global identifier of the set in the wishlist.
+ *
+ * @returns Error information, `undefined` if there are no errors.
  */
 export const getWishlistSetError = (
   state: StoreState,
@@ -111,20 +104,19 @@ export const getWishlistSetError = (
 /**
  * Retrieves the loading status of a specific wishlist set by its id.
  *
- * @function
- * @memberof module:wishlists/selectors
- *
- * @param {object} state - Application state.
- * @param {string} setId - Global identifier of the set in the wishlist.
- *
- * @returns {boolean|undefined} Whether the given wishlist set is loading.
- *
  * @example
+ * ```
  * import { isWishlistSetLoading } from '@farfetch/blackout-redux/wishlists';
  *
  * const mapStateToProps = (state, { wishlistSet: { id } }) => ({
  *     isLoading: isWishlistSetLoading(state, id)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ * @param setId - Global identifier of the set in the wishlist.
+ *
+ * @returns Whether the given wishlist set is loading.
  */
 export const isWishlistSetLoading = (
   state: StoreState,
@@ -135,12 +127,10 @@ export const isWishlistSetLoading = (
 /**
  * Returns the fetched status of a specific wishlist set.
  *
- * @memberof module:wishlists/selectors
+ * @param state - Application state.
+ * @param setId - Global identifier of the set in the wishlist.
  *
- * @param {object} state - Application state.
- * @param {string} setId - Global identifier of the set in the wishlist.
- *
- * @returns {boolean} If a certain set has been fetched or not.
+ * @returns If a certain set has been fetched or not.
  */
 export const isWishlistSetFetched = (
   state: StoreState,
@@ -151,23 +141,22 @@ export const isWishlistSetFetched = (
     .hasOwnProperty(setId) && isWishlistSetLoading(state, setId) === false;
 
 /**
- * Retrieves a specific wishlist set by its id, with all properties populated
- * (ie, the wishlist item and product).
- *
- * @function
- * @memberof module:wishlists/selectors
- *
- * @param {object} state - Application state.
- * @param {string} setId - Global identifier of the set in the wishlist.
- *
- * @returns {object} Wishlist set entity for the given id.
+ * Retrieves a specific wishlist set by its id, with all properties populated (ie,
+ * the wishlist item and product).
  *
  * @example
+ * ```
  * import { getWishlistSet } from '@farfetch/blackout-redux/wishlists';
  *
  * const mapStateToProps = (state, { wishlistSet: { id } }) => ({
  *     wishlistSet: getWishlistSet(state, id)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ * @param setId - Global identifier of the set in the wishlist.
+ *
+ * @returns Wishlist set entity for the given id.
  */
 export const getWishlistSet = createSelector(
   [
@@ -206,19 +195,18 @@ export const getWishlistSet = createSelector(
 /**
  * Retrieves current user's wishlist sets, hydrated.
  *
- * @function
- * @memberof module:wishlists/selectors
- *
- * @param {object} state - Application state.
- *
- * @returns {Array | undefined} List of wishlist sets.
- *
  * @example
+ * ```
  * import { getWishlistSets } from '@farfetch/blackout-redux/wishlists';
  *
  * const mapStateToProps = state => ({
  *     wishlistSets: getWishlistSets(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns List of wishlist sets.
  */
 export const getWishlistSets = createSelector(
   [getWishlistSetsIds, state => state],
@@ -229,23 +217,22 @@ export const getWishlistSets = createSelector(
 );
 
 /**
- * Retrieves the number of different items in the wishlist set, regardless of
- * each one's quantity.
- *
- * @function
- * @memberof module:wishlists/selectors
- *
- * @param {object} state - Application state.
- * @param {string} setId - Global identifier of the set in the wishlist.
- *
- * @returns {number} Count of the items in the wishlist set.
+ * Retrieves the number of different items in the wishlist set, regardless of each
+ * one's quantity.
  *
  * @example
+ * ```
  * import { getWishlistSetItemsCounter } from '@farfetch/blackout-redux/wishlists';
  *
  * const mapStateToProps = state => ({
  *     wishlistSetItemsCounter: getWishlistSetItemsCounter(state),
  * });
+ * ```
+ *
+ * @param state - Application state.
+ * @param setId - Global identifier of the set in the wishlist.
+ *
+ * @returns Count of the items in the wishlist set.
  */
 export const getWishlistSetItemsCounter = (
   state: StoreState,
@@ -265,23 +252,22 @@ export const getWishlistSetItemsCounter = (
 };
 
 /**
- * Retrieves the total quantity of products in the give wishlist set,
- * accounting with each item's quantity.
- *
- * @function
- * @memberof module:wishlists/selectors
- *
- * @param {object} state - Application state.
- * @param {string} setId - Global identifier of the set in the wishlist.
- *
- * @returns {number} Total quantity of products in the wishlist set.
+ * Retrieves the total quantity of products in the give wishlist set, accounting
+ * with each item's quantity.
  *
  * @example
+ * ```
  * import { getWishlistSetTotalQuantity } from '@farfetch/blackout-redux/wishlists';
  *
  * const mapStateToProps = state => ({
  *     wishlistSetTotalQuantity: getWishlistSetTotalQuantity(state),
  * });
+ * ```
+ *
+ * @param state - Application state.
+ * @param setId - Global identifier of the set in the wishlist.
+ *
+ * @returns Total quantity of products in the wishlist set.
  */
 export const getWishlistSetTotalQuantity = (
   state: StoreState,
@@ -300,23 +286,22 @@ export const getWishlistSetTotalQuantity = (
 };
 
 /**
- * Checks if either the root or any wishlist set is loading.
- * This is useful when handling multiple wishlist sets at the same time,
- * for example when adding a product to several wishlist sets.
- *
- * @function
- * @memberof module:wishlists/selectors
- *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Whether something is loading within wishlist sets.
+ * Checks if either the root or any wishlist set is loading. This is useful when
+ * handling multiple wishlist sets at the same time, for example when adding a
+ * product to several wishlist sets.
  *
  * @example
+ * ```
  * import { isAnyWishlistSetLoading } from '@farfetch/blackout-redux/wishlists';
  *
  * const mapStateToProps = state => ({
  *     isAnyWishlistSetLoading: isAnyWishlistSetLoading(state),
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns Whether something is loading within wishlist sets.
  */
 export const isAnyWishlistSetLoading = (state: StoreState): boolean => {
   const wishlistSetsIds = getWishlistSetsIds(state) || [];
@@ -329,23 +314,22 @@ export const isAnyWishlistSetLoading = (state: StoreState): boolean => {
 
 /**
  * Checks if is something in the wishlist sets has errors, being it the root's
- * error or any set in particular.
- * This is useful when handling multiple wishlist sets at the same time,
- * for example when adding a product to several wishlist sets.
- *
- * @function
- * @memberof module:wishlists/selectors
- *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Whether something errored within wishlist sets.
+ * error or any set in particular. This is useful when handling multiple wishlist
+ * sets at the same time, for example when adding a product to several wishlist
+ * sets.
  *
  * @example
+ * ```
  * import { areWishlistSetsWithAnyError } from '@farfetch/blackout-redux/wishlists';
  *
  * const mapStateToProps = state => ({
  *     areWishlistSetsWithAnyError: areWishlistSetsWithAnyError(state),
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns Whether something errored within wishlist sets.
  */
 export const areWishlistSetsWithAnyError = (state: StoreState): boolean => {
   const wishlistSetsIds = getWishlistSetsIds(state) || [];
@@ -357,28 +341,25 @@ export const areWishlistSetsWithAnyError = (state: StoreState): boolean => {
 };
 
 /**
- * Gets all errors that occurred for each wishlist set, with the information
- * about the actual error and the respective wishlist set id and name.
- * This is useful when handling multiple wishlist sets at the same time,
- * for example when adding a product to several wishlist sets and some
- * of them fail. This allows retrieving each failed error and display which
- * sets had problems, for example.
- *
- * @function
- * @memberof module:wishlists/selectors
- *
- * @param {object} state - Application state.
- *
- * @returns {Array|undefined} Errors that occurred for a specific wishlist set,
- * with the "id", "name" and "error" information. Undefined if there are no
- * errors.
+ * Gets all errors that occurred for each wishlist set, with the information about
+ * the actual error and the respective wishlist set id and name. This is useful
+ * when handling multiple wishlist sets at the same time, for example when adding a
+ * product to several wishlist sets and some of them fail. This allows retrieving
+ * each failed error and display which sets had problems, for example.
  *
  * @example
+ * ```
  * import { getAllWishlistSetsErrors } from '@farfetch/blackout-redux/wishlists';
  *
  * const mapStateToProps = state => ({
  *     allWishlistSetsErrors: getAllWishlistSetsErrors(state),
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns Errors that occurred for a specific wishlist set, with the "id", "name" and "error"
+ * information. Undefined if there are no errors.
  */
 export const getAllWishlistSetsErrors = createSelector(
   [

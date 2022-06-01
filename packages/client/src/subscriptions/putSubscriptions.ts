@@ -4,7 +4,7 @@ import type { PutSubscriptions } from './types';
 /**
  * Method responsible for putting data to subscriptions endpoint on MKT API.
  *
- * @param data - Payload to be sent on the body of the put request.
+ * @param data   - Payload to be sent on the body of the put request.
  * @param config - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise object.

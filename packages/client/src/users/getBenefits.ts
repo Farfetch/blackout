@@ -4,14 +4,9 @@ import type { Config } from '../types';
 /**
  * Method responsible for getting user benefits.
  *
- * @function getBenefits
- * @memberof module:users/client
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getBenefits = (config?: Config) =>
   client

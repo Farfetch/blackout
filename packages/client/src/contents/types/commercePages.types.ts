@@ -9,14 +9,23 @@ export enum Type {
 }
 
 export type QueryCommercePages = {
+  // Query by a page type.
   type: Type;
+  // Query by a specified product or set identifier.
   id?: number;
+  // Query by a gender (E.g. 0 = Woman, 1 = Man, 2 = Unisex, 3 = Kid).
   gender?: GenderEnum;
+  // Query by a specified brand identifier.
   brand?: number;
+  // Query by a specified category identifiers, separated by commas (E.g. 139065,139088).
   category?: string;
+  // Query by a specified price type, separated by commas (E.g. 0,1,2).
   priceType?: PriceTypeEnum;
+  // Query by a specified sku identifier.
   sku?: number;
+  // Number of the page to get, starting at 1. The default is 1.
   pageIndex?: number;
+  // Size of each page, as a number between 1 and 180. The default is 60.
   pageSize?: number;
 };
 

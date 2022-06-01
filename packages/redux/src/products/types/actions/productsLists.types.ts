@@ -9,7 +9,9 @@ import type {
 import type { NormalizedSchema } from 'normalizr';
 
 export type ProductsListActionOptions = {
+  // If the request result will be cached.
   useCache?: boolean;
+  // Allows the listing hash to be set.
   setProductsListHash?: boolean;
 };
 export interface FetchProductsListRequestAction extends Action {
@@ -34,7 +36,9 @@ export interface FetchProductsListFailureAction extends Action {
   type: typeof actionTypes.FETCH_PRODUCTS_LIST_FAILURE;
 }
 
-/** Actions dispatched when the fetch products list request is made. */
+/**
+ * Actions dispatched when the fetch products list request is made.
+ */
 export type FetchProductsListAction =
   | FetchProductsListRequestAction
   | FetchProductsListSuccessAction
@@ -50,12 +54,16 @@ export interface SetProductsListHashAction extends Action {
   type: typeof actionTypes.SET_PRODUCTS_LIST_HASH;
 }
 
-/** Actions dispatched when the reset products lists state is called. */
+/**
+ * Actions dispatched when the reset products lists state is called.
+ */
 export interface ResetProductsListsStateAction extends Action {
   type: typeof actionTypes.RESET_PRODUCTS_LISTS_STATE;
 }
 
-/** Actions dispatched when the reset products lists entities is called. */
+/**
+ * Actions dispatched when the reset products lists entities is called.
+ */
 export interface ResetProductsListsEntitiesAction extends Action {
   type: typeof actionTypes.RESET_PRODUCTS_LISTS_ENTITIES;
 }

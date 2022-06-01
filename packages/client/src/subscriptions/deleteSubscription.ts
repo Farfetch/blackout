@@ -3,9 +3,10 @@ import join from 'proper-url-join';
 import type { DeleteSubscription } from './types';
 
 /**
- * Method responsible for sending a delete all subscriptions request to MKT API containing the subscription id and email hash of the user to be unsubscribed.
+ * Method responsible for sending a delete all subscriptions request to MKT API
+ * containing the subscription id and email hash of the user to be unsubscribed.
  *
- * @param query - Query object.
+ * @param query  - Query object.
  * @param config - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise object.

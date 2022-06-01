@@ -4,17 +4,10 @@ import type { PutDefaultBillingAddress } from './types';
 /**
  * Sets the address specified with 'id', as the default billing address.
  *
- * @function putDefaultBillingAddress
- * @memberof module:addresses/client
+ * @param props  - Put default billing Address query.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {Object} props
- * @param {string} props.id - Identifier of the address.
- * @param {number} props.userId - Identifier of the user.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise<string|object>} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const putDefaultBillingAddress: PutDefaultBillingAddress = (
   { userId, id },

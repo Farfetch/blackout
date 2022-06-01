@@ -1,12 +1,9 @@
 /**
  * Converts a timestamp value to a date string.
  *
- * @function adaptTimestamp
- * @memberof module:helpers/adapters
+ * @param timestamp - Date to be adapted.
  *
- * @param {string} timestamp - Date to be adapted.
- *
- * @returns {(string | null)} The date timestamp (`null ` if the date to be adapted is invalid).
+ * @returns The date timestamp (`null ` if the date to be adapted is invalid).
  */
 export default (timestamp: any): string | null => {
   const sTimestamp = String(timestamp);

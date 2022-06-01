@@ -13,25 +13,19 @@ import type {
 } from '@farfetch/blackout-client/checkout/types';
 
 /**
- * @callback CompletePaymentCheckoutThunkFactory
- * @param {object} id - Checkout order id to complete the payment.
- * @param {object} data - Relevant data for validations.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - Checkout order id to complete the payment.
+ * @param data   - Relevant data for validations.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Attempts to complete the payment of a checkout order.
  *
- * @function completePaymentCheckoutFactory
- * @memberof module:checkout/actions/factories
+ * @param patchCheckoutCompletePayment - Patch checkout complete payment.
  *
- * @param {Function} patchCheckoutCompletePayment - Patch checkout complete
- * payment.
- *
- * @returns {CompletePaymentCheckoutThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 export default (patchCheckoutCompletePayment: PatchCheckoutCompletePayment) =>
   (id: string, data: PatchCheckoutCompletePaymentData, config?: Config) =>

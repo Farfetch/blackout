@@ -75,13 +75,13 @@ const reducer = (state: State, action: Action): State => {
 };
 
 /**
- * Provides user profile state and a function to load it. Optionally,
- * it can keep the user profile data in sync with access token changes.
- * The user profile state data and loadProfile function will be accessible through
- * the useUserProfile hook.
- * This provider depends on the AuthenticationProvider to work.
+ * Provides user profile state and a function to load it. Optionally, it can keep
+ * the user profile data in sync with access token changes. The user profile state
+ * data and loadProfile function will be accessible through the useUserProfile
+ * hook. This provider depends on the AuthenticationProvider to work.
  *
  * @example <caption>Adding the UserProfileProvider to your app</caption>
+ * ```
  *
  * import \{ AuthenticationProvider, UserProfileProvider \} from '\@farfetch/blackout-react/authentication/contexts';
  * import \{ useUserProfile \} from '\@farfetch/blackout-react/authentication/hooks';
@@ -89,6 +89,8 @@ const reducer = (state: State, action: Action): State => {
  * const App = () =\> \{
  * return (<AuthenticationProvider><UserProfileProvider><MyComponent /></UserProfileProvider></AuthenticationProvider>);
  * \}
+ *
+ * ```
  *
  * @param props - Props for the provider.
  *

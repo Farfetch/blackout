@@ -19,10 +19,9 @@ const throwError = (state: StoreState) => {
  * Gets all entities of a given schema name.
  *
  * @param state - Application state.
- * @param name - Entity/schema name.
+ * @param name  - Entity/schema name.
  *
- * @returns - All entities of the given schema name, undefined
- * if none is found.
+ * @returns - All entities of the given schema name, undefined if none is found.
  */
 export const getEntities = (
   state: StoreState,
@@ -40,11 +39,10 @@ export const getEntities = (
  * Gets a specific entity of the given schema name, by id.
  *
  * @param state - Application state.
- * @param name - Entity/schema name.
- * @param id - Entity identifier.
+ * @param name  - Entity/schema name.
+ * @param id    - Entity identifier.
  *
- * @returns - The specific entity of the given id, undefined
- * if it isn't found.
+ * @returns - The specific entity of the given id, undefined if it isn't found.
  */
 export const getEntityById = <T>(
   state: StoreState,

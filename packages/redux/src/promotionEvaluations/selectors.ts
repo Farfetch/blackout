@@ -1,9 +1,3 @@
-/**
- * @module promotionEvaluations/selectors
- * @category Promotion Evaluations
- * @subcategory Selectors
- */
-
 import { getError, getId, getIsLoading, getResult } from './reducer';
 import type {
   PromotionEvaluationId,
@@ -15,18 +9,18 @@ import type { StoreState } from '../types';
 /**
  * Retrieves a list of all the promotion evaluations items available.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {Array} - List of promotion evaluations items.
- *
  * @example
+ * ```
  * import { getPromotionEvaluationItems } from '@farfetch/blackout-redux/promotionEvaluations';
  *
  * const mapStateToProps = state => ({
  *   promotionEvaluationsItems: getPromotionEvaluationItems(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - List of promotion evaluations items.
  */
 export const getPromotionEvaluationItems = (
   state: StoreState,
@@ -35,19 +29,19 @@ export const getPromotionEvaluationItems = (
 /**
  * Retrieves a promotion evaluation item given an id.
  *
- * @function
- *
- * @param {object} state - Application state.
- * @param {string} id - Promotion evaluation item identifier to retrieve.
- *
- * @returns {object | undefined} - Promotion evaluations item.
- *
  * @example
+ * ```
  * import { getPromotionEvaluationItemById } from '@farfetch/blackout-redux/promotionEvaluations';
  *
  * const mapStateToProps = (state, { id } ) => ({
  *   promotionEvaluationsItem: getPromotionEvaluationItemById(state, id)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ * @param id    - Promotion evaluation item identifier to retrieve.
+ *
+ * @returns - Promotion evaluations item.
  */
 export const getPromotionEvaluationItemById = (
   state: StoreState,
@@ -61,18 +55,18 @@ export const getPromotionEvaluationItemById = (
 /**
  * Retrieves the promotion evaluation id stored.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {string} - Promotion evaluation id.
- *
  * @example
+ * ```
  * import { getPromotionEvaluationId } from '@farfetch/blackout-redux/promotionEvaluations';
  *
  * const mapStateToProps = state => ({
  *   promotionEvaluationId: getPromotionEvaluationId(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - Promotion evaluation id.
  */
 export const getPromotionEvaluationId = (state: StoreState): State['id'] =>
   getId(state.promotionEvaluations);
@@ -80,18 +74,18 @@ export const getPromotionEvaluationId = (state: StoreState): State['id'] =>
 /**
  * Retrieves the error status of promotion evaluations items.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {object | null} Error information (`null` if there are no errors).
- *
  * @example
+ * ```
  * import { getPromotionEvaluationItemsError } from '@farfetch/blackout-redux/promotionEvaluations';
  *
  * const mapStateToProps = state => ({
  *   error: getPromotionEvaluationItemsError(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns Error information (`null` if there are no errors).
  */
 export const getPromotionEvaluationItemsError = (
   state: StoreState,
@@ -100,18 +94,18 @@ export const getPromotionEvaluationItemsError = (
 /**
  * Retrieves the loading state of promotion evaluations items.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {boolean} - Loading status of promotion evaluations items.
- *
  * @example
+ * ```
  * import { arePromotionEvaluationItemsLoading } from '@farfetch/blackout-redux/promotionEvaluations';
  *
  * const mapStateToProps = state => ({
  *   isLoading: arePromotionEvaluationItemsLoading(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - Loading status of promotion evaluations items.
  */
 export const arePromotionEvaluationItemsLoading = (
   state: StoreState,

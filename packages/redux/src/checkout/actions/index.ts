@@ -1,9 +1,5 @@
 /**
  * Checkout actions.
- *
- * @module checkout/actions
- * @category Checkout
- * @subcategory Actions
  */
 
 export { default as charge } from './charge';

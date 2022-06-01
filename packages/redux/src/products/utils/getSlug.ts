@@ -3,15 +3,16 @@ import join from 'proper-url-join';
 /**
  * Construct slug for a given pathname.
  *
- * @memberof module:products/utils
- *
  * @example
+ * ```
  * const slug = getSlug('/us/shopping/woman');
  * Result of slug === 'woman';
  *
- * @param {string} pathname - Pathname.
+ * ```
  *
- * @returns {string} Result with the correct path do call the endpoint.
+ * @param pathname - Pathname.
+ *
+ * @returns Result with the correct path do call the endpoint.
  */
 const getSlug = (pathname: string): string => {
   const segments = pathname.replace(/\/+$/, '').split('/');

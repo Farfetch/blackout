@@ -5,11 +5,11 @@
 
 /*
  * The typeRequest property is a numeric that classifies the search intents
- * results in a type, which allow consumers to react diffetently:
+ * results in a type, which allow consumers to react differently:
  * - listing (typeRequest=0)
  * - product (typeRequest=1)
  * - redirect (typeRequest=2)
- * .*/
+ */
 export const TYPE_REQUEST = {
   LISTING: 0,
   PRODUCT: 1,

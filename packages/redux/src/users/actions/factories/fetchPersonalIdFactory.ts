@@ -11,10 +11,10 @@ import type {
 } from '@farfetch/blackout-client/users/types';
 
 /**
- * @param id - The user's id.
+ * @param id         - The user's id.
  * @param personalId - Alphanumeric identifier of the personal id.
- * @param config - Custom configurations to send to the client
- * instance (axios). X-SUMMER-RequestId header is required.
+ * @param config     - Custom configurations to send to the client instance (axios). X-SUMMER-RequestId
+ *                     header is required.
  *
  * @returns Thunk to be dispatched to the redux store.
  */
