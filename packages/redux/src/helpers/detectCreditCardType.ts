@@ -5,11 +5,11 @@ import type { CreditCardType } from 'credit-card-type/src/types';
 /**
  * Detect credit card type based on the value received.
  *
- * @see https://github.com/braintree/credit-card-type#creditcardtypenumber-string
+ * @see {@link https://github.com/braintree/credit-card-type#creditcardtypenumber-string}
  *
- * @param  {string} value - Credit card number.
+ * @param value - Credit card number.
  *
- * @returns {object}  Credit card type for the given value.
+ * @returns Credit card type for the given value.
  */
 const detectCreditCardType = (
   value: string,

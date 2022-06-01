@@ -1,12 +1,13 @@
 /**
- * Vitorino Integration.
- * Loads the Vitorino script and calls its methods.
+ * Vitorino Integration. Loads the Vitorino script and calls its methods.
  *
  * @example <caption>Adding Vitorino integration to analytics</caption>
+ * ```
  *
  * import analytics, \{ integrations \} from '\@farfetch/blackout-react/analytics';
  *
  * analytics.addIntegration('vitorino', integrations.Vitorino, \{\});
+ * ```
  */
 
 import {
@@ -55,7 +56,8 @@ export default class Vitorino extends Integration<VitorinoIntegrationOptions> {
   config: Config | null;
 
   /**
-   * This integration is required, so it must be loaded independently of user consent.
+   * This integration is required, so it must be loaded independently of user
+   * consent.
    *
    * @returns If the integration should load or not.
    */
@@ -66,10 +68,9 @@ export default class Vitorino extends Integration<VitorinoIntegrationOptions> {
   /**
    * Creates an instance of Vitorino integration.
    *
-   * @param options - Integration options.
-   * @param loadData - Analytics' load event data.
+   * @param options   - Integration options.
+   * @param loadData  - Analytics' load event data.
    * @param analytics - Analytics stripped down instance.
-   *
    */
   constructor(
     options: VitorinoIntegrationOptions,
@@ -105,7 +106,8 @@ export default class Vitorino extends Integration<VitorinoIntegrationOptions> {
   }
 
   /**
-   * When the user ID is available, config the vitorino and resolve the Promise so the tracking can begin.
+   * When the user ID is available, config the vitorino and resolve the Promise so
+   * the tracking can begin.
    *
    * @param data - Analytics' event data.
    */
@@ -129,8 +131,8 @@ export default class Vitorino extends Integration<VitorinoIntegrationOptions> {
   }
 
   /**
-   * Makes the first call to Vitorino to configure it
-   * and receive the callback function to be called later when a page change occurs.
+   * Makes the first call to Vitorino to configure it and receive the callback
+   * function to be called later when a page change occurs.
    *
    * @param data - Analytics' setUser event data.
    */
@@ -200,7 +202,8 @@ export default class Vitorino extends Integration<VitorinoIntegrationOptions> {
   };
 
   /**
-   * Builds the object needed for the Vitorino pixel configuration with all necessary data.
+   * Builds the object needed for the Vitorino pixel configuration with all necessary
+   * data.
    *
    * @param data - Analytics' track data.
    *
@@ -240,7 +243,7 @@ export default class Vitorino extends Integration<VitorinoIntegrationOptions> {
    * Returns the correspondent Vitorino page type for the event.
    *
    * @param event - The analytics event to filter by.
-
+   *
    * @returns - The correspondent Vitorino's page view(s).
    */
   getPageTypeFromEvent(event: EventData<TrackTypesValues>['event']) {
@@ -271,8 +274,9 @@ export default class Vitorino extends Integration<VitorinoIntegrationOptions> {
   }
 
   /**
-   * Track method that will call Vitorino with the necessary data per event.
-   * If there's more than one pageType per event, it will call Vitorino with each page type at a time.
+   * Track method that will call Vitorino with the necessary data per event. If
+   * there's more than one pageType per event, it will call Vitorino with each page
+   * type at a time.
    *
    * @param data - Track event data.
    *
@@ -299,7 +303,8 @@ export default class Vitorino extends Integration<VitorinoIntegrationOptions> {
   }
 
   /**
-   * Calls the callback function given from the config call to register a page view change.
+   * Calls the callback function given from the config call to register a page view
+   * change.
    *
    * @param page - The `page` parameter of the event.
    */

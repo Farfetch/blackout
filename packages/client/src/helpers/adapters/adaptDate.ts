@@ -3,33 +3,24 @@
  * Example: '1580828400000-0600', where the timezone is after the '-' sign.
  *
  * The '-' indicates that we should subtract the amount of hours from the
- * timestamp.
- * Similarly the '+' means it needs to be added.
+ * timestamp. Similarly the '+' means it needs to be added.
  *
- * @private
- * @function
- * @memberof module:helpers/adapters
+ * @param timestamp - Timestamp to be checked.
  *
- * @param {string} timestamp - Timestamp to be checked.
- *
- * @returns {boolean} Indicates if the timestamp has the timezone.
+ * @returns Indicates if the timestamp has the timezone.
  */
 const timestampHasTimezone = (timestamp: string): boolean =>
   !!timestamp && !!/\d[+-]\d/.exec(timestamp);
 
 /**
  * Extracts and returns an object indicating:
- *  - The index of the separator ('+' ou '-').
- *  - The type of operation (subtraction or addition).
  *
- * @private
- * @function
- * @memberof module:helpers/adapters
+ * - The index of the separator ('+' ou '-').
+ * - The type of operation (subtraction or addition).
  *
- * @param {string} timestamp - Timestamp in the '1580828400000-hhmm' format.
+ * @param timestamp - Timestamp in the '1580828400000-hhmm' format.
  *
- * @returns {object} Object containing the index and type of operation to be
- * applied in the timestamp.
+ * @returns Object containing the index and type of operation to be applied in the timestamp.
  */
 const getTimezoneSeparator = (timestamp: string): { [k: string]: any } => {
   const isNegativeTimestamp = timestamp[0] === '-';
@@ -60,27 +51,11 @@ const getTimezoneSeparator = (timestamp: string): { [k: string]: any } => {
 };
 
 /**
- * Gets the time details when given a timestamp in the format
- * '1580828400000-0600'.
+ * Gets the time details when given a timestamp in the format '1580828400000-0600'.
  *
- * @private
- * @function
- * @memberof module:helpers/adapters
+ * @param timestamp - Timestamp to get time details.
  *
- * This format contains:
- *  - timestamp: '1580828400000'
- *  - time in hours and minutes: '0600'. The first 2 digits represent the hours.
- *  The last 2 represent the minutes.
- *  - type: '-' or '+'. This indicates the time to add or subtract to the
- * timestamp.
- *
- * After separating the time from the timestamp, a new timestamp is calculated.
- *
- * If the timezone 'separator' is not found the original timestamp is returned.
- *
- * @param {string} timestamp - Timestamp to get time details.
- *
- * @returns {string} Converted timestamp.
+ * @returns Converted timestamp.
  */
 const getTimestampWithTimezone = (timestamp: string): string => {
   try {
@@ -126,12 +101,9 @@ const getTimestampWithTimezone = (timestamp: string): string => {
 /**
  * Converts a date string into a timestamp value.
  *
- * @function
- * @memberof module:helpers/adapters
+ * @param str - Date to be adapted.
  *
- * @param {string} str - Date to be adapted.
- *
- * @returns {(number | null)} The date timestamp (`null ` if the date to be adapted is invalid).
+ * @returns The date timestamp (`null ` if the date to be adapted is invalid).
  */
 export const adaptDate = (str: string): number | null => {
   if (str && !str.includes('Date')) {

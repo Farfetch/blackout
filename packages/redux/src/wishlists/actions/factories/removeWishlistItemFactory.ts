@@ -12,24 +12,19 @@ import type { GetOptionsArgument, StoreState } from '../../../types';
 import type { RemoveWishlistItemAction } from '../../types';
 
 /**
- * @callback RemoveWishlistItemThunkFactory
- * @param {string} wishlistItemId - Wishlist item id.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param wishlistItemId - Wishlist item id.
+ * @param config         - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * Creates a thunk factory configured with the specified client
- * to remove a wishlist item with given id.
+ * Creates a thunk factory configured with the specified client to remove a
+ * wishlist item with given id.
  *
- * @function removeWishlistItemFactory
- * @memberof module:wishlists/actions/factories
+ * @param deleteWishlistItem - Delete wishlist item client.
  *
- * @param {Function} deleteWishlistItem - Delete wishlist item client.
- *
- * @returns {RemoveWishlistItemThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const removeWishlistItemFactory =
   (deleteWishlistItem: DeleteWishlistItem) =>

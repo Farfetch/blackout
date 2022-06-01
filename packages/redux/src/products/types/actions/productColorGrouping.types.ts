@@ -26,7 +26,9 @@ export interface FetchProductColorGroupingFailureAction extends Action {
   type: typeof actionTypes.FETCH_PRODUCT_COLOR_GROUPING_FAILURE;
 }
 
-/** Actions dispatched when the fetch product color grouping request is made. */
+/**
+ * Actions dispatched when the fetch product color grouping request is made.
+ */
 export type FetchProductColorGroupingAction =
   | FetchProductColorGroupingRequestAction
   | FetchProductColorGroupingSuccessAction

@@ -1,9 +1,5 @@
 /**
  * Hook to provide all kinds of data for the business logic attached to addresses.
- *
- * @module useAddresses
- * @category Addresses
- * @subcategory Hooks
  */
 import * as selectors from '@farfetch/blackout-redux/addresses/selectors';
 import {
@@ -22,6 +18,7 @@ import {
 import { useAction } from '../../helpers';
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import type { DeleteAddressHandlerData } from './types';
 import type { StoreState } from '@farfetch/blackout-redux/types';
 
 interface Query {
@@ -35,13 +32,12 @@ interface QueryPredictionDetails {
 }
 
 /**
- * @function useAddresses
- * @memberof module:addresses/hooks
+ * @param auto   - Pass this prop as true to automatically fetch user addresses (userId is mandatory in
+ *                 this case).
+ * @param userId - User to iterate over. Send nothing if you just need the actions.
  *
- * @param {boolean} auto - Pass this prop as true to automatically fetch user addresses (userId is mandatory in this case).
- * @param {number} userId - User to iterate over. Send nothing if you just need the actions.
- *
- * @returns {object} All the handlers, state, actions and relevant data needed to manage address book operations.
+ * @returns All the handlers, state, actions and relevant data needed to manage address book
+ * operations.
  */
 export default (auto = false, userId: number): any => {
   // Selectors
@@ -103,9 +99,9 @@ export default (auto = false, userId: number): any => {
   const resetPredictions = useAction(resetPredictionsAction);
   const getAddressSchema = useAction(fetchAddressSchema);
   /**
-   * Deleting status is used to differentiate between different addresses currently being removed
-   * Whenever someone clicks the delete button it adds a boolean associated to the address id
-   * to determine if it's currently loading or not.
+   * Deleting status is used to differentiate between different addresses currently
+   * being removed Whenever someone clicks the delete button it adds a boolean
+   * associated to the address id to determine if it's currently loading or not.
    */
   const [deletingStatus, setDeletingStatus] = useState({});
 
@@ -154,19 +150,9 @@ export default (auto = false, userId: number): any => {
   /**
    * Deletes the given address.
    *
-   * @function handleDeleteAddress
-   * @param {object} address                        - The address.
-   * @param {string} [address.id]                   - The id of the address.
-   * @param {boolean} [address.isCurrentShipping]   - If this is the current shipping address.
-   * @param {boolean} [address.isCurrentBilling]    - If this is the current billing address.
-   * @param {boolean} [address.isCurrentPreferred]  - If this is the current contact address.
+   * @param address - The address.
    */
-  const handleDeleteAddress = async (address: {
-    id: string;
-    isCurrentShipping?: boolean;
-    isCurrentBilling?: boolean;
-    isCurrentPreferred?: boolean;
-  }): Promise<any> => {
+  const handleDeleteAddress: DeleteAddressHandlerData = async address => {
     // Mark the loading as active for the delete operation
     setDeletingStatus({ ...deletingStatus, [address.id]: true });
     try {
@@ -254,82 +240,22 @@ export default (auto = false, userId: number): any => {
     addressSchema,
     isAddressSchemaLoading,
     addressSchemaError,
-    /**
-     * @type {Function}
-     * @variation Member
-     *
-     * @see {@link module:useAddresses~handleDeleteAddress|handleDeleteAddress} method
-     */
+
     handleDeleteAddress,
-    /**
-     * @type {Function}
-     * @variation Member
-     *
-     * @see {@link module:useAddresses~handleSetDefaultShippingAddress|handleSetDefaultShippingAddress} method
-     */
     handleCreateAddress,
-    /**
-     * @type {Function}
-     * @variation Member
-     *
-     * @see {@link module:useAddresses~handleCreateAddress|handleCreateAddress} method
-     */
     handleSetDefaultShippingAddress,
-    /**
-     * @type {Function}
-     * @variation Member
-     *
-     * @see {@link module:useAddresses~handleSetDefaultBillingAddress|handleSetDefaultBillingAddress} method
-     */
     handleSetDefaultBillingAddress,
-    /**
-     * @type {Function}
-     * @variation Member
-     *
-     * @see {@link module:useAddresses~handleSetDefaultContactAddress|handleSetDefaultContactAddress} method
-     */
     handleSetDefaultContactAddress,
-    /**
-     * @type {Function}
-     * @variation Member
-     *
-     * @see {@link module:useAddresses~handleUpdateAddress|handleUpdateAddress} method
-     */
     handleUpdateAddress,
-    /**
-     * @type {Function}
-     * @variation Member
-     *
-     * @see {@link module:useAddresses~handleGetAddress|handleGetAddress} method
-     */
+
     handleGetAddress,
-    /**
-     * @type {Function}
-     * @variation Member
-     *
-     * @see {@link module:useAddresses~handleGetPredictions|handleGetPredictions} method
-     */
+
     handleGetPredictions,
-    /**
-     * @type {Function}
-     * @variation Member
-     *
-     * @see {@link module:useAddresses~handleGetPredictionDetails|handleGetPredictionDetails} method
-     */
+
     handleGetPredictionDetails,
-    /**
-     * @type {Function}
-     * @variation Member
-     *
-     * @see {@link module:useAddresses~resetPredictions|resetPredictions} method
-     */
+
     resetPredictions,
-    /**
-     * @type {Function}
-     * @variation Member
-     *
-     * @see {@link module:useAddresses~handleGetAddressSchema|handleGetAddressSchema} method
-     */
+
     handleGetAddressSchema,
   };
 };

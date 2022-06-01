@@ -5,11 +5,11 @@ import { useEffect, useRef } from 'react';
  * `componentDidUpdate`, which receives previous props and state as arguments,
  * allowing comparing the previous value against the current one.
  *
- * @see https://reactjs.org/docs/hooks-faq.html#how-to-get-the-previous-props-or-state
+ * @see {@link https://reactjs.org/docs/hooks-faq.html#how-to-get-the-previous-props-or-state}
  *
- * @param {*} value - Any value to be stored as the previous.
+ * @param value - Any value to be stored as the previous.
  *
- * @returns {*} - The previous value stored.
+ * @returns - The previous value stored.
  */
 export default (value: any): any => {
   const ref = useRef();

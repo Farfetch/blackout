@@ -13,25 +13,19 @@ import type { Dispatch } from 'redux';
 import type { SetDefaultBillingAddressAction } from '../../types';
 
 /**
- * @callback SetDefaultBillingAddressThunkFactory
- * @param {string} addressId - Identifier of the address.
- * @param {number} userId - Identifier of the user.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param addressId - Identifier of the address.
+ * @param userId    - Identifier of the user.
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Sets the address specified with 'addressId', as the default billing address.
  *
- * @function doSetDefaultBillingAddress
- * @memberof module:addresses/actions/factories
+ * @param putDefaultBillingAddress - Put default billing address client.
  *
- * @param {Function} putDefaultBillingAddress - Put default billing
- * address client.
- *
- * @returns {SetDefaultBillingAddressThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const setDefaultBillingAddressFactory =
   (putDefaultBillingAddress: PutDefaultBillingAddress) =>

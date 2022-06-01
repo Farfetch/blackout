@@ -1,9 +1,5 @@
 /**
  * Locale actions.
- *
- * @module locale/actions
- * @category Locale
- * @subcategory Actions
  */
 
 export { default as fetchCountries } from './fetchCountries';

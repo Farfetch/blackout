@@ -4,12 +4,6 @@ import type { ResetChargesAction } from '../types';
 
 /**
  * Method responsible for resetting the charges state.
- *
- * @memberof module:payments/actions
- *
- * @name resetChargesState
- *
- * @returns {ResetChargesStateThunkFactory}
  */
 const resetChargesState =
   () =>

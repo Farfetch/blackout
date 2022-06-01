@@ -2,23 +2,19 @@ import type { Countries } from '@farfetch/blackout-client/locale/types';
 
 /**
  * Locale utils.
- *
- * @module locale/utils
- * @category Locale
- * @subcategory Utils
  */
 
 /**
  * Build a list with all continents and respective countries.
  *
- * @function
- *
- * @param {object} countries - Object with a list of all countries by countryCode.
- *
- * @returns {object[]} - List of continents with respective id and countries list.
- *
  * @example
+ * ```
  * const continents = createContinentsList({ US: { continentId: 1 } });
+ * ```
+ *
+ * @param countries - Object with a list of all countries by countryCode.
+ *
+ * @returns - List of continents with respective id and countries list.
  */
 export const createContinentsList = (
   countries: Countries,

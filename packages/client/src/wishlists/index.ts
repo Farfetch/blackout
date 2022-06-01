@@ -1,8 +1,5 @@
 /**
  * Wishlists clients.
- *
- * @module wishlists
- * @category Wishlists
  */
 // Wishlists
 export { default as getWishlist } from './getWishlist';

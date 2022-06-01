@@ -26,7 +26,9 @@ export interface FetchProductFittingsFailureAction extends Action {
   type: typeof actionTypes.FETCH_PRODUCT_FITTINGS_FAILURE;
 }
 
-/** Actions dispatched when the fetch product fittings request is made. */
+/**
+ * Actions dispatched when the fetch product fittings request is made.
+ */
 export type FetchProductFittingsAction =
   | FetchProductFittingsRequestAction
   | FetchProductFittingsSuccessAction

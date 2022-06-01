@@ -8,7 +8,8 @@ import type {
 } from '@farfetch/blackout-client/forms/types';
 
 /**
- * Method to create a thunk factory configured with the specified client fo fetch form schemas.
+ * Method to create a thunk factory configured with the specified client fo fetch
+ * form schemas.
  *
  * @param getFormSchema - Get form schema client.
  *

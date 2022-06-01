@@ -5,15 +5,10 @@ import type { GetOrderReturnOptions } from './types';
 /**
  * Method responsible for fetching the order return options.
  *
- * @function getOrderReturnOptions
- * @memberof module:orders/client
+ * @param orderId - The orderID.
+ * @param config  - Custom configurations to send to the client instance (axios).
  *
- * @param {string} orderId - The orderID.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getOrderReturnOptions: GetOrderReturnOptions = (orderId, config) =>
   client

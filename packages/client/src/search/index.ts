@@ -1,9 +1,5 @@
 /**
  * Search clients.
- *
- * @module search/client
- * @category Search
- * @subcategory Clients
  */
 
 export { default as getSearchDidYouMean } from './getSearchDidYouMean';

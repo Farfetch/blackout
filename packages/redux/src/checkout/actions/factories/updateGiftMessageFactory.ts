@@ -11,26 +11,21 @@ import type {
 } from '@farfetch/blackout-client/checkout/types';
 
 /**
- * @callback UpdateGiftMessageThunkFactory
- * @param {string} id - Universal identifier of the Checkout.
- * @param {Array} data - Array of objects containing the checkout order id and
- * the checkout item patch document reflecting the changes to be made.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - Universal identifier of the Checkout.
+ * @param data   - Array of objects containing the checkout order id and the checkout item patch
+ *                 document reflecting the changes to be made.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * Method responsible for adding, editing and removing gift
- * messages to the current checkout order.
+ * Method responsible for adding, editing and removing gift messages to the current
+ * checkout order.
  *
- * @function updateGiftMessageFactory
- * @memberof module:checkout/actions/factories
+ * @param patchGiftMessage - Patch gift message client.
  *
- * @param {Function} patchGiftMessage - Patch gift message client.
- *
- * @returns {UpdateGiftMessageThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const updateGiftMessageFactory =
   (patchGiftMessage: PatchGiftMessage) =>

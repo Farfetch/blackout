@@ -1,9 +1,5 @@
 /**
  * Loyalty actions factories.
- *
- * @module loyalty/actions/factories
- * @category Products
- * @subcategory Actions Factories
  */
 
 export { default as createProgramMembershipConvertFactory } from './createProgramMembershipConvertFactory';

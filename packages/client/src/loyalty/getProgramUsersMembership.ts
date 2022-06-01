@@ -5,15 +5,10 @@ import type { GetProgramUsersMembership } from './types';
 /**
  * Method responsible for loading the user membership.
  *
- * @function getProgramUsersMembership
- * @memberof module:loyalty/client
+ * @param programId - Program identifier.
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @param {string} programId - Program identifier.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getProgramUsersMembership: GetProgramUsersMembership = (
   programId,

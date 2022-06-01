@@ -27,7 +27,9 @@ jest.mock('@farfetch/blackout-analytics/utils', () => ({
 const analytics = new Analytics();
 const trackSpy = jest.spyOn(analytics, 'track');
 const loggerErrorSpy = jest.spyOn(logger, 'error');
-/** Expected data to be asserted in tests **/
+/**
+ * Expected data to be asserted in tests \*
+ */
 const productData = getProduct(
   bagMockData.mockState,
   bagMockData.mockProductId,

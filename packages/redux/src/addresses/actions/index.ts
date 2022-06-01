@@ -1,9 +1,5 @@
 /**
  * Addresses actions.
- *
- * @module addresses/actions
- * @category Addresses
- * @subcategory Actions
  */
 
 export { default as createAddress } from './createAddress';

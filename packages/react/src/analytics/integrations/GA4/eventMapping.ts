@@ -22,9 +22,7 @@ export const InternalEventTypes = {
 };
 
 /**
- *
  * Exports a map of core's events track names and GA4 events track names.
- *
  */
 export default {
   [eventTypes.PRODUCT_ADDED_TO_CART]: 'add_to_cart',
@@ -119,7 +117,7 @@ const getProductCategories = (
  * Returns the total event value for GA4 ecommerce events.
  *
  * @param eventProperties - Properties from a track event.
- * @param items - Items contained on event tracking.
+ * @param items           - Items contained on event tracking.
  *
  * @returns Event total value calculated.
  */
@@ -145,8 +143,9 @@ const getEventTotalValue = (
 /**
  * Returns product properties formatted to GA4 ecommerce events.
  *
- * @param properties - Properties from a track event.
- * @param addListParameters - Boolean flag to indicate if list properties should be added to the resulting mapped product object.
+ * @param properties        - Properties from a track event.
+ * @param addListParameters - Boolean flag to indicate if list properties should be added to the
+ *                            resulting mapped product object.
  *
  * @returns Product properties formatted to GA4 ecommerce events.
  */
@@ -203,9 +202,10 @@ const getProductItemsFromEvent = (
 };
 
 /**
- * Returns product updated event parameters for GA4 custom events (change_size, change_colour, change_quantity).
+ * Returns product updated event parameters for GA4 custom events (change_size,
+ * change_colour, change_quantity).
  *
- * @param event - Event name.
+ * @param event           - Event name.
  * @param eventProperties - Properties from a track event.
  *
  * @returns Parameters for GA4's custom product updated events.
@@ -345,7 +345,8 @@ const getCheckoutPaymentStepParametersFromEvent = (
 };
 
 /**
- * Returns the checkout shipping step event properties formatted for the GA4 ecommerce event.
+ * Returns the checkout shipping step event properties formatted for the GA4
+ * ecommerce event.
  *
  * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/ecommerce#purchases_checkouts_and_refunds}
  *
@@ -389,7 +390,8 @@ const getShippingInfoAddedParametersFromEvent = (
 };
 
 /**
- * Returns the checkout abandoned custom event parameters formatted for the GA4 event.
+ * Returns the checkout abandoned custom event parameters formatted for the GA4
+ * event.
  *
  * @param eventProperties - Properties from a track event.
  *
@@ -441,7 +443,8 @@ const getLoginAndSignupParametersFromEvent = (
 };
 
 /**
- * Returns the checkout order completed/refunded event properties formatted for the GA4 ecommerce events.
+ * Returns the checkout order completed/refunded event properties formatted for the
+ * GA4 ecommerce events.
  *
  * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/ecommerce#purchases_checkouts_and_refunds}
  *
@@ -462,8 +465,9 @@ const getOrderPurchaseOrRefundParametersFromEvent = (
 };
 
 /**
- * Returns the place order started custom event properties formatted for the GA4 ecommerce events.
- * As it returns the same properties of a purchase event, it uses the same mapping function for that event.
+ * Returns the place order started custom event properties formatted for the GA4
+ * ecommerce events. As it returns the same properties of a purchase event, it uses
+ * the same mapping function for that event.
  *
  * @param eventProperties - Properties from a track event.
  *
@@ -676,7 +680,7 @@ const getScrollParametersFromEvent = (eventProperties: EventProperties) => {
  * Returns event properties mapping by GA4 event name.
  *
  * @param event - Event name.
- * @param data - Commands by scope configuration.
+ * @param data  - Commands by scope configuration.
  *
  * @returns The event property required and formatted to desired GA4 event.
  */

@@ -221,7 +221,7 @@ export const assertGetters = (reducer, props = defaultProps) => {
  *
  * @param {*} fromReducer - Object containing all reducers.
  * @param {*} subAreaNames - Array of strings with all the subareas to test.
- * @param {*} subAreasExpectedStates - Object containg each subarea  to test
+ * @param {*} subAreasExpectedStates - Object containing each subarea  to test
  * and its expected state, as a result of invoking the selector.
  * @param {*} subAreaCurrentState - Object with the current state for a specific
  * subarea, for example { error: null, isLoading: false }.

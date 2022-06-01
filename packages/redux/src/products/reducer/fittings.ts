@@ -1,8 +1,3 @@
-/**
- * @module products/reducer
- * @category Products fittings
- * @subcategory Reducer
- */
 import * as actionTypes from '../actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import type {
@@ -66,12 +61,10 @@ export const getIsLoading = (
 /**
  * Reducer for products fittings.
  *
- * @static
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
  *
- * @param {object} state - Current redux state.
- * @param {object} action - Action dispatched.
- *
- * @returns {object} New state.
+ * @returns New state.
  */
 const productsFittingsReducer = combineReducers({
   error,

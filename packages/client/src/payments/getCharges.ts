@@ -5,16 +5,11 @@ import type { GetCharges } from './types';
 /**
  * Gets the payment intent charges.
  *
- * @function getCharges
- * @memberof module:payments/client
+ * @param id       - Id of the payment intent.
+ * @param chargeId - Id of the intent charge.
+ * @param config   - Custom configurations to send to the client instance (axios).
  *
- * @param {string} id       - Id of the payment intent.
- * @param {string} chargeId - Id of the intent charge.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getCharges: GetCharges = (id, chargeId, config) =>
   client

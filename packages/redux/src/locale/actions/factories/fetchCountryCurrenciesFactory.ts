@@ -9,25 +9,18 @@ import type {
 import type { Dispatch } from 'redux';
 
 /**
- * @callback FetchCountryCurrenciesThunkFactory
+ * @param countryCode - Country identifier (ISO 3166-1 alpha-2) to find the currencies related.
+ * @param config      - Custom configurations to send to the client instance.
  *
- * @memberof module:locale/actions/factories
- *
- * @param {string} countryCode - Country identifier (ISO 3166-1 alpha-2) to find the currencies related.
- * @param {Object} [config] - Custom configurations to send to the client
- * instance.
- *
- * @returns {FetchCountryCurrenciesThunkFactory} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Fetch all currencies from a specific country.
  *
- * @memberof module:locale/actions/factories
+ * @param getCountryCurrencies - Get currencies client.
  *
- * @param {Function} getCountryCurrencies - Get currencies client.
- *
- * @returns {FetchCountryCurrenciesThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchCountryCurrenciesFactory =
   (getCountryCurrencies: GetCountryCurrencies) =>

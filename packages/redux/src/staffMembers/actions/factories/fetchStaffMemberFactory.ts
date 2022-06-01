@@ -7,28 +7,19 @@ import type {
 } from '@farfetch/blackout-client/staffMembers/types';
 
 /**
- * @callback FetchStaffMemberThunkFactory
+ * @param id     - Staff member identifier.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @alias FetchStaffMemberThunkFactory
- * @memberof module:staffMembers/actions/factories
- *
- * @param {string} id - Staff member identifier.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * Creates a thunk factory configured with the specified
- * client to fetch a staff member based on an id.
+ * Creates a thunk factory configured with the specified client to fetch a staff
+ * member based on an id.
  *
- * @function fetchStaffMember
- * @memberof module:staffMembers/actions/factories
+ * @param getStaffMember - Get staff member client.
  *
- * @param {Function} getStaffMember - Get staff member client.
- *
- * @returns {FetchStaffMemberThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchStaffMemberFactory =
   (getStaffMember: GetStaffMember) =>

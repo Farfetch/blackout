@@ -16,45 +16,19 @@ import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
 
 /**
- * @typedef {object} AddBagItemQuery
+ * @param data   - Details of the product to add to the bag.
+ * @param query  - Query with parameters to get the bag.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @alias AddBagItemQuery
- * @memberof module:bags/client
- *
- * @property {boolean} [includeOutOfStock=false] - If the response should
- * include sold out items in the bag.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * @callback AddBagItemThunkFactory
+ * Creates a thunk factory configured with the specified client to add a bag item.
  *
- * @param {object} data - Details of the product to add to the bag.
- * @param {number} data.productId - Product identifier.
- * @param {number} [data.productAggregatorId] - Product aggregator identifier.
- * @param {number} [data.merchantId] - Merchant identifier.
- * @param {number} [data.quantity=1] - Bag item quantity.
- * @param {number} data.size - Bag item size.
- * @param {number} data.scale - Bag item scale.
- * @param {string} [data.customAttributes] - For customizable products, string describing the
- * product customization, typically in JSON format. For example, users may be able to customize
- * the materials and colors of parts of the product.
- * @param {string} [data.authCode] - For restriction product. This value is a code, received by
- * the user, used to unlock the AddToBag operation.
- * @param {AddBagItemQuery} [query] - Query with parameters to get the bag.
- * @param {object} [config] - Custom configurations to send to the client instance (axios).
+ * @param postBagItem - Post bag item client.
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
- */
-
-/**
- * Creates a thunk factory configured with the specified client to add
- * a bag item.
- *
- * @memberof module:bags/actions/factories
- *
- * @param {Function} postBagItem - Post bag item client.
- *
- * @returns {AddBagItemThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const addBagItemFactory =
   (postBagItem: PostBagItem) =>

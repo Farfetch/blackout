@@ -5,14 +5,10 @@ import type { GetSizeScale } from './types';
 /**
  * Method responsible for loading the size scale that a product belongs to.
  *
- * @memberof module:sizeScales/client
+ * @param id     - Scale Identifier.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {number} id - Scale Identifier.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will be resolved when the call to the
- * endpoint finishes.
+ * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
 const getSizeScale: GetSizeScale = (id, config) =>
   client

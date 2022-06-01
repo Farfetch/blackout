@@ -1,9 +1,5 @@
 /**
  * Locale actions factories.
- *
- * @module locale/actions/factories
- * @category Locale
- * @subcategory Actions
  */
 
 export { default as fetchCountriesFactory } from './fetchCountriesFactory';

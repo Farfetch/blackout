@@ -8,9 +8,8 @@ import Analytics, {
 import webContext from './context';
 
 /**
- * Analytics facade for web applications.
- * Refer to \@farfetch/blackout-analytics documentation to know the
- * inherited methods from Analytics.
+ * Analytics facade for web applications. Refer to \@farfetch/blackout-analytics
+ * documentation to know the inherited methods from Analytics.
  */
 class AnalyticsWeb extends Analytics {
   currentPageCallData: {
@@ -30,8 +29,9 @@ class AnalyticsWeb extends Analytics {
   }
 
   /**
-   * Whenever the integrations are loaded at a certain point in time, we fetch them and send the page track information.
-   * This can happen whenever the user gives consent for a specific category mid session.
+   * Whenever the integrations are loaded at a certain point in time, we fetch them
+   * and send the page track information. This can happen whenever the user gives
+   * consent for a specific category mid session.
    *
    * @param loadedIntegrations - List of integrations that were loaded.
    *
@@ -59,11 +59,12 @@ class AnalyticsWeb extends Analytics {
   /**
    * Tracks a page view.
    *
-   * @param event - Name of the event.
-   * @param properties - Properties of the event.
+   * @param event        - Name of the event.
+   * @param properties   - Properties of the event.
    * @param eventContext - Context data that is specific for this event.
    *
-   * @returns Promise that will resolve with the instance that was used when calling this method to allow chaining.
+   * @returns Promise that will resolve with the instance that was used when calling this method to allow
+   * chaining.
    */
   async page(
     event: string,

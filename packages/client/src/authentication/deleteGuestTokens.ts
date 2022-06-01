@@ -4,15 +4,10 @@ import join from 'proper-url-join';
 /**
  * Deletes a guest user token.
  *
- * @function deleteGuestTokens
- * @memberof module:authentication/client
+ * @param id     - The guest user token id.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} id - The guest user token id.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 export default (
   id: number,

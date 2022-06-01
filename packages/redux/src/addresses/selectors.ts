@@ -1,9 +1,3 @@
-/**
- * @module addresses/selectors
- * @category Addresses
- * @subcategory Selectors
- */
-
 import {
   getAddresses as addressesGetter,
   getAddress as addressGetter,
@@ -29,11 +23,9 @@ import type { StoreState } from '../types';
 /**
  * Returns the result of the addresses area.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {Array} Array containing the loaded addresses id.
+ * @returns Array containing the loaded addresses id.
  */
 export const getResult = (state: StoreState): State['result'] =>
   Result(state.addresses);
@@ -41,11 +33,9 @@ export const getResult = (state: StoreState): State['result'] =>
 /**
  * Returns the error of the addresses area.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Address information object.
+ * @returns Address information object.
  */
 export const getError = (state: StoreState): State['error'] =>
   errorGetter(state.addresses);
@@ -53,11 +43,9 @@ export const getError = (state: StoreState): State['error'] =>
 /**
  * Returns the loading status of the addresses area.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Loader status.
+ * @returns Loader status.
  */
 export const isAddressesLoading = (state: StoreState): State['isLoading'] =>
   getIsLoading(state.addresses);
@@ -65,11 +53,9 @@ export const isAddressesLoading = (state: StoreState): State['isLoading'] =>
 /**
  * Returns the addresses entity that contains all user addresses.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Object containing all the currently loaded addresses.
+ * @returns Object containing all the currently loaded addresses.
  */
 export const getAddresses = (state: StoreState): AddressesEntity =>
   getEntities(state, 'addresses');
@@ -77,12 +63,10 @@ export const getAddresses = (state: StoreState): AddressesEntity =>
 /**
  * Returns a specific address with the specified 'addressId'.
  *
- * @function
+ * @param state     - Application state.
+ * @param addressId - Address id.
  *
- * @param {object} state - Application state.
- * @param {string} addressId - Address id.
- *
- * @returns {object} Address information object.
+ * @returns Address information object.
  */
 export const getAddress = (
   state: StoreState,
@@ -92,12 +76,9 @@ export const getAddress = (
 /**
  * Returns a list with all addresses schemas in the application state.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} - Schemas with the correspondent Iso code.
- *
+ * @returns - Schemas with the correspondent Iso code.
  */
 export const getSchemas = (state: StoreState): AddressSchemaEntity =>
   getEntities(state, 'addressSchema');
@@ -105,12 +86,10 @@ export const getSchemas = (state: StoreState): AddressSchemaEntity =>
 /**
  * Returns a specific schema with the specified 'Iso code'.
  *
- * @function
+ * @param state   - Application state.
+ * @param isoCode - Iso code or CountryId (deprecated).
  *
- * @param {object} state - Application state.
- * @param {string} isoCode - Iso code or CountryId (deprecated).
- *
- * @returns {object} Schema information object.
+ * @returns Schema information object.
  */
 export const getSchema = (
   state: StoreState,
@@ -122,36 +101,27 @@ export const getSchema = (
  */
 
 /**
+ * @param state - Application state.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {object} Predictions details.
+ * @returns Predictions details.
  */
 export const getPredictions = (
   state: StoreState,
 ): State['predictions']['result'] => predictionsGetter(state.addresses).result;
 
 /**
+ * @param state - Application state.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {object} Error details.
+ * @returns Error details.
  */
 export const getPredictionsError = (
   state: StoreState,
 ): State['predictions']['error'] => predictionsGetter(state.addresses).error;
 
 /**
+ * @param state - Application state.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Loader status.
+ * @returns Loader status.
  */
 export const isPredictionsLoading = (
   state: StoreState,
@@ -159,12 +129,9 @@ export const isPredictionsLoading = (
   predictionsGetter(state.addresses).isLoading;
 
 /**
+ * @param state - Application state.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {object} Predictions details.
+ * @returns Predictions details.
  */
 export const getPredictionDetails = (
   state: StoreState,
@@ -172,12 +139,9 @@ export const getPredictionDetails = (
   predictionsDetailsGetter(state.addresses).result;
 
 /**
+ * @param state - Application state.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {object} Error details.
+ * @returns Error details.
  */
 export const getPredictionDetailsError = (
   state: StoreState,
@@ -185,12 +149,9 @@ export const getPredictionDetailsError = (
   predictionsDetailsGetter(state.addresses).error;
 
 /**
+ * @param state - Application state.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Loader status.
+ * @returns Loader status.
  */
 export const isPredictionDetailsLoading = (
   state: StoreState,
@@ -198,12 +159,9 @@ export const isPredictionDetailsLoading = (
   predictionsDetailsGetter(state.addresses).isLoading;
 
 /**
+ * @param state - Application state.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Loader status.
+ * @returns Loader status.
  */
 export const isAddressesListLoading = (
   state: StoreState,
@@ -211,25 +169,19 @@ export const isAddressesListLoading = (
   addressesGetter(state.addresses).isLoading;
 
 /**
+ * @param state - Application state.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {object} Error details.
+ * @returns Error details.
  */
 export const getAddressesListError = (
   state: StoreState,
 ): State['addresses']['error'] => addressesGetter(state.addresses).error;
 
 /**
+ * @param state     - Application state.
+ * @param addressId - Address identifier.
  *
- * @function
- *
- * @param {object} state - Application state.
- * @param {string} addressId - Address identifier.
- *
- * @returns {boolean} Loader status.
+ * @returns Loader status.
  */
 export const isAddressLoading = (
   state: StoreState,
@@ -237,14 +189,10 @@ export const isAddressLoading = (
 ): boolean | undefined => addressGetter(state.addresses).isLoading[addressId];
 
 /**
+ * @param state     - Application state.
+ * @param addressId - Address identifier.
  *
- * @function
- *
- * @param {object} state - Application state.
- * @param {string} addressId - Address identifier.
- *
- *
- * @returns {object} Error details.
+ * @returns Error details.
  */
 export const getAddressError = (
   state: StoreState,
@@ -252,12 +200,9 @@ export const getAddressError = (
 ): Error | null | undefined => addressGetter(state.addresses).error[addressId];
 
 /**
+ * @param state - Application state.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Loader status.
+ * @returns Loader status.
  */
 export const isAddressSchemaLoading = (
   state: StoreState,
@@ -265,12 +210,9 @@ export const isAddressSchemaLoading = (
   addressSchemaGetter(state.addresses).isLoading;
 
 /**
+ * @param state - Application state.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {object} Error details.
+ * @returns Error details.
  */
 export const getAddressSchemaError = (
   state: StoreState,
@@ -278,12 +220,9 @@ export const getAddressSchemaError = (
   addressSchemaGetter(state.addresses).error;
 
 /**
+ * @param state - Application state.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Loader status.
+ * @returns Loader status.
  */
 export const isDefaultAddressDetailsLoading = (
   state: StoreState,
@@ -291,12 +230,9 @@ export const isDefaultAddressDetailsLoading = (
   getDefaultAddressDetails(state.addresses).isLoading;
 
 /**
+ * @param state - Application state.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {object} Error details.
+ * @returns Error details.
  */
 export const getDefaultAddressDetailsError = (
   state: StoreState,
@@ -304,12 +240,9 @@ export const getDefaultAddressDetailsError = (
   getDefaultAddressDetails(state.addresses).error;
 
 /**
+ * @param state - Application state.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {object} Address details result.
+ * @returns Address details result.
  */
 export const getDefaultAddressDetailsResult = (
   state: StoreState,

@@ -4,12 +4,9 @@ import type { Dispatch } from 'redux';
 /**
  * Method responsible for resetting the fetched returns.
  *
- * @function doResetReturn
- * @memberof module:returns/actions
+ * @param resetEntities - If return entities should also be resetted.
  *
- * @param {boolean} resetEntities - If return entities should also be resetted.
- *
- * @returns {Function} Thunk factory.
+ * @returns Thunk factory.
  */
 export default (resetEntities = false) =>
   (dispatch: Dispatch): void => {

@@ -5,11 +5,9 @@ import { useMemo } from 'react';
 /**
  * Memoizes the action received and binds the dispatch.
  *
- * @function useAction
+ * @param action - Action to be wrapped by a dispatch.
  *
- * @param   {Function} action - Action to be wrapped by a dispatch.
- *
- * @returns {Function} Memoized version of the action, with a dispatch.
+ * @returns Memoized version of the action, with a dispatch.
  */
 export default (action: any) => {
   const dispatch = useDispatch();

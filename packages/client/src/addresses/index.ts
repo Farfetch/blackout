@@ -1,9 +1,5 @@
 /**
  * Addresses clients.
- *
- * @module addresses/client
- * @category Addresses
- * @subcategory Clients
  */
 
 export { default as getPredictions } from './getPredictions';

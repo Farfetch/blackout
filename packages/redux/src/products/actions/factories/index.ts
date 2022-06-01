@@ -1,9 +1,5 @@
 /**
  * Products actions factories.
- *
- * @module products/actions/factories
- * @category Products
- * @subcategory Actions Factories
  */
 
 export { default as fetchListingFactory } from './fetchListingFactory';

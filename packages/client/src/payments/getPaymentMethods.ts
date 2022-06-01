@@ -5,15 +5,10 @@ import type { GetPaymentMethods } from './types';
 /**
  * Method responsible for fetching the available payment methods.
  *
- * @function getPaymentMethods
- * @memberof module:payments/client
+ * @param id     - Universal identifier of the order.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {number} id       - Universal identifier of the order.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getPaymentMethods: GetPaymentMethods = (id, config) =>
   client

@@ -1,9 +1,3 @@
-/**
- * @module authentication/reducer
- * @category Authentication
- * @subcategory Reducer
- */
-
 import * as actionTypes from './actionTypes';
 import { CombinedState, combineReducers } from 'redux';
 import { reducerFactory } from '../helpers';
@@ -277,13 +271,10 @@ export const getUserImpersonation = (state: { userImpersonation: any }): any =>
 /**
  * Reducer for authentication state.
  *
- * @function authenticationReducer
- * @static
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
  *
- * @param {object} state - Current redux state.
- * @param {object} action - Action dispatched.
- *
- * @returns {object} New state.
+ * @returns New state.
  */
 export default combineReducers({
   error,

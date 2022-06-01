@@ -1,9 +1,5 @@
 /**
  * Orders clients.
- *
- * @module orders/client
- * @category Orders
- * @subcategory Clients
  */
 export { default as getOrderDetails } from './getOrderDetails';
 export { default as getOrderDocument } from './getOrderDocument';

@@ -8,38 +8,22 @@ import type {
 } from '@farfetch/blackout-client/sizeGuides/types';
 
 /**
- * @typedef {object} FetchSizeGuidesQuery
+ * @param query  - Query parameters to apply to the request.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @alias FetchSizeGuidesQuery
- * @memberof module:sizeGuides/actions
- *
- * @property {Array} [brandIds] - Brand ids to search for sizeGuides.
- * @property {Array} [categoryIds] - Category ids to search for sizeGuides.
- */
-
-/**
- * @callback FetchSizeGuidesThunkFactory
- *
- * @param {FetchSizeGuidesQuery} [query] - Query parameters to apply to the
- * request.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Creates a thunk factory configured with the specified client to fetch size
- * guides for a given set of brand ids and category ids.
- * This size guides logic should be used in cases that the project does not have
- * a specific category tree. If your project has a category tree you should use
- * the respective logic from `@farfetch/blackout-redux/products`.
+ * guides for a given set of brand ids and category ids. This size guides logic
+ * should be used in cases that the project does not have a specific category tree.
+ * If your project has a category tree you should use the respective logic from
+ * `@farfetch/blackout-redux/products`.
  *
- * @memberof module:sizeGuides/actions/factories
+ * @param getSizeGuides - Get size guides client.
  *
- * @param {Function} getSizeGuides - Get size guides client.
- *
- * @returns {FetchSizeGuidesThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchSizeGuidesFactory =
   (getSizeGuides: GetSizeGuides) =>

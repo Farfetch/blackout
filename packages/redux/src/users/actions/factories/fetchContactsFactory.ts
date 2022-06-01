@@ -13,24 +13,19 @@ import type {
 } from '@farfetch/blackout-client/users/types';
 
 /**
- * @callback FetchContactsThunkFactory
- * @param {object} id - The user's id.
- * @param {object} [query] - Query parameters for get contacts.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - The user's id.
+ * @param query  - Query parameters for get contacts.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Fetch all the contacts from user.
  *
- * @function fetchContacts
- * @memberof module:users/actions
+ * @param getContacts - Get contacts client.
  *
- * @param {Function} getContacts - Get contacts client.
- *
- * @returns {FetchContactsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchContactsFactory =
   (getContacts: GetContacts) =>

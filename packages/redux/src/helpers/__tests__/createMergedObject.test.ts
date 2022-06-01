@@ -7,13 +7,14 @@ import createMergedObject from '../createMergedObject';
 import isPlainObject from 'lodash/isPlainObject';
 
 /**
- * Test deep references of mergedObject to ensure that only the props that came from the sourceObject
- * get new references and that the props that did not keep the same references from target.
- * This method uses jest's expect methods to make assertions to the mergedObject.
+ * Test deep references of mergedObject to ensure that only the props that came
+ * from the sourceObject get new references and that the props that did not keep
+ * the same references from target. This method uses jest's expect methods to make
+ * assertions to the mergedObject.
  *
- * @param {object} mergedObject     - Final result object of merging target with source.
- * @param {object} target           - Target object of the merge operation.
- * @param {object} source           - Source object with the props to merge into target.
+ * @param mergedObject - Final result object of merging target with source.
+ * @param target       - Target object of the merge operation.
+ * @param source       - Source object with the props to merge into target.
  */
 function testMergedObjectDeepReferences(mergedObject, target, source) {
   Object.keys(mergedObject).forEach(prop => {

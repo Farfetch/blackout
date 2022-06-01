@@ -6,17 +6,10 @@ import type { QuerySEO, SEOMetadata } from './types';
 /**
  * Method responsible for searching the seo metadata for a specific page type.
  *
- * @memberof module:contents
+ * @param query  - Query object with search terms to apply.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {QuerySEO} query - Query object with search terms to apply.
- * @param {string} query.pageType - The type of the page we are searching (pages|stories...).
- * @param {object} query.param - An object containing some parameters for product listing (BrandName|CategoryName|TotalNumberItems...).
- * @param {string} query.path - The pathname of the location.
- * @param {string} query.subPageType - The sub group of pages about products.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise<SEOMetadata>} Promise that will resolve when the call to the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getSEO = (query: QuerySEO, config?: Config): Promise<SEOMetadata> =>
   client

@@ -89,6 +89,7 @@ const reducer = (state: State, action: Action): State => {
  * Helper hook used by AuthenticationProvider to manage user login status.
  *
  * @param params - Parameters object.
+ *
  * @returns An object containing the user login status state and login/logout functions.
  */
 const useUserAuthState = ({

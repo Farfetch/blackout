@@ -29,7 +29,8 @@ export const areRecentlyViewedProductsLoading = (
 ): RecentlyViewedState['isLoading'] => getIsLoading(state.recentlyViewed);
 
 /**
- * Get all the recently viewed products results previously merged ("remote" and "local" ones).
+ * Get all the recently viewed products results previously merged ("remote" and
+ * "local" ones).
  *
  * @param state - Application state.
  *

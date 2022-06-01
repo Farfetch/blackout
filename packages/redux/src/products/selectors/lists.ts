@@ -32,13 +32,11 @@ import type { FacetGroup } from '@farfetch/blackout-client/products/types';
 import type { StoreState } from '../../types';
 
 /**
- * Checks if the type of the hash is a number or not.
- * If it's a number, converts to a final hash to make possible identify the
- * products list entity.
+ * Checks if the type of the hash is a number or not. If it's a number, converts to
+ * a final hash to make possible identify the products list entity.
  *
- * @param {string|number} [hash] - Products list identifier composed by a list
- * identifier (listing or sets), slug and query. Could be a string (listing or
- * sets hash) or a number (set id).
+ * @param hash - Products list identifier composed by a list identifier (listing or sets), slug and
+ *               query. Could be a string (listing or sets hash) or a number (set id).
  *
  * @returns - Final hash to identify a products list entity.
  */
@@ -50,12 +48,9 @@ const checkHash = (hash: string | number | null): ProductsListEntity['hash'] =>
 /**
  * Retrieves the current products list hash.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {string?} Products list identifier composed by a list identifier
- * (listing or sets), slug and query.
+ * @returns Products list identifier composed by a list identifier (listing or sets), slug and query.
  */
 export const getProductsListHash = (
   state: StoreState,
@@ -64,14 +59,11 @@ export const getProductsListHash = (
 /**
  * Retrieves the error thrown by current products list.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ *                query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @param {object} state - Application state.
- * @param {string|number} [hash] - Products list identifier composed by a list
- * identifier (listing or sets), slug and query. Could be a string (listing or
- * sets hash) or a number (set id).
- *
- * @returns {?object} Products list error.
+ * @returns Products list error.
  */
 export const getProductsListError = (
   state: StoreState,
@@ -81,14 +73,11 @@ export const getProductsListError = (
 /**
  * Retrieves the hydration condition from current products list.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ *                query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @param {object} state - Application state.
- * @param {string|number} [hash] - Products list identifier composed by a list
- * identifier (listing or sets), slug and query. Could be a string (listing or
- * sets hash) or a number (set id).
- *
- * @returns {boolean} Whether a products list is hydrated or not.
+ * @returns Whether a products list is hydrated or not.
  */
 export const isProductsListHydrated = (
   state: StoreState,
@@ -98,14 +87,11 @@ export const isProductsListHydrated = (
 /**
  * Retrieves the loading condition from current products list.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ *                query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @param {object} state - Application state.
- * @param {string|number} [hash] - Products list identifier composed by a list
- * identifier (listing or sets), slug and query. Could be a string (listing or
- * sets hash) or a number (set id).
- *
- * @returns {boolean} Whether a products list is loading or not.
+ * @returns Whether a products list is loading or not.
  */
 export const isProductsListLoading = (
   state: StoreState,
@@ -115,14 +101,11 @@ export const isProductsListLoading = (
 /**
  * Retrieves the fetched status to a specific products list.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ *                query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @param {object} state - Application state.
- * @param {string|number} [hash] - Products list identifier composed by a list
- * identifier (listing or sets), slug and query. Could be a string (listing or
- * sets hash) or a number (set id).
- *
- * @returns {boolean} Whether a products list is fetched or not.
+ * @returns Whether a products list is fetched or not.
  */
 export const isProductsListFetched = (
   state: StoreState,
@@ -134,14 +117,11 @@ export const isProductsListFetched = (
 /**
  * Retrieves the result of a specific products list identified by its hash or id.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ *                query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @param {object} state - Application state.
- * @param {string|number} [hash] - Products list identifier composed by a list
- * identifier (listing or sets), slug and query. Could be a string (listing or
- * sets hash) or a number (set id).
- *
- * @returns {?object} - Products list result.
+ * @returns - Products list result.
  */
 export const getProductsListResult = (
   state: StoreState,
@@ -152,14 +132,11 @@ export const getProductsListResult = (
 /**
  * Retrieves product id's from the current products list.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ *                query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @param {object} state - Application state.
- * @param {string|number} [hash] - Products list identifier composed by a list
- * identifier (listing or sets), slug and query. Could be a string (listing or
- * sets hash) or a number (set id).
- *
- * @returns {(Array|undefined)} List of products ids.
+ * @returns List of products ids.
  */
 export const getProductsListProductsIds = createSelector(
   [
@@ -175,14 +152,11 @@ export const getProductsListProductsIds = createSelector(
 /**
  * Retrieves a list of products for the current products list.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ *                query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @param {object} state - Application state.
- * @param {string|number} [hash] - Products list identifier composed by a list
- * identifier (listing or sets), slug and query. Could be a string (listing or
- * sets hash) or a number (set id).
- *
- * @returns {?Array} Array of products.
+ * @returns Array of products.
  */
 export const getProductsListProducts = createSelector(
   [
@@ -193,19 +167,16 @@ export const getProductsListProducts = createSelector(
   (listProductsIds, products) => listProductsIds?.map(id => products?.[id]),
 ) as (state: StoreState, hash?: string | number | null) => ProductEntity[];
 /**
- * Retrieves a list of all products of multiple pages (of a single products
- * list - listings or sets) to allow the tenant to build an infinite scroll
- * layout. This join every products list with the same pathname/hash in the
- * store, but with a different page index.
+ * Retrieves a list of all products of multiple pages (of a single products list -
+ * listings or sets) to allow the tenant to build an infinite scroll layout. This
+ * join every products list with the same pathname/hash in the store, but with a
+ * different page index.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ *                query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @param {object} state - Application state.
- * @param {string|number} [hash] - Products list identifier composed by a list
- * identifier (listing or sets), slug and query. Could be a string (listing or
- * sets hash) or a number (set id).
- *
- * @returns {Array} Array of products.
+ * @returns Array of products.
  */
 export const getProductsListProductsFromAllPages = createSelector(
   [
@@ -215,12 +186,11 @@ export const getProductsListProductsFromAllPages = createSelector(
   ],
   (state, hash, productsLists) => {
     /**
-     * Auxiliary function to retrieve the final hash without the
-     * page index parameter.
+     * Auxiliary function to retrieve the final hash without the page index parameter.
      *
-     * @param {string} hash - Hash to remove the page index.
+     * @param hash - Hash to remove the page index.
      *
-     * @returns {string} Hash without the page index.
+     * @returns Hash without the page index.
      */
     const getHashWithoutPageIndex = (hash: string) => {
       // Remove the page index parameter
@@ -273,17 +243,8 @@ export const getProductsListProductsFromAllPages = createSelector(
 /**
  * Retrieves pagination information about current products list.
  *
- * @function
- * @memberof module:products/selectors
- *
- * @param {object} state - Application state.
- * @param {string|number} [hash] - Products list identifier composed by a list
- * identifier (listing or sets), slug and query. Could be a string (listing or
- * sets hash) or a number (set id).
- *
- * @returns {(object|undefined)} Pagination object.
- *
  * @example
+ * ```
  * // Object returned
  * {
  *     number: 1, // Current page
@@ -291,6 +252,13 @@ export const getProductsListProductsFromAllPages = createSelector(
  *     totalItems: 89, // Total of products
  *     totalPages: 5 // Total of pages
  * };
+ * ```
+ *
+ * @param state - Application state.
+ * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ *                query. Could be a string (listing or sets hash) or a number (set id).
+ *
+ * @returns Pagination object.
  */
 export const getProductsListPagination = createSelector(
   [
@@ -324,29 +292,26 @@ export const getProductsListPagination = createSelector(
 /**
  * Retrieves breadcrumbs information about current products list.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ *                query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @param {object} state - Application state.
- * @param {string|number} [hash] - Products list identifier composed by a list
- * identifier (listing or sets), slug and query. Could be a string (listing or
- * sets hash) or a number (set id).
- *
- * @returns {(object|undefined)} Breadcrumbs info.
+ * @returns Breadcrumbs info.
  *
  * // Array returned for an accessories products list
  * [
- *  {
+ *  \{
  *    text: "Woman",
  *    slug: null,
  *    link: '/en-pt/shopping/woman'
  *    parent: false
- *  },
- *  {
+ *  \},
+ *  \{
  *    text: "Accessories",
  *    slug: null,
  *    link: '/en-pt/shopping/woman/accessories'
  *    parent: false
- *  },
+ *  \},
  * ].
  */
 export const getProductsListBreadcrumbs = (
@@ -358,14 +323,11 @@ export const getProductsListBreadcrumbs = (
 /**
  * Retrieves if a products list is cached by its hash.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ *                query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @param {object} state - Application state.
- * @param {string|number} [hash] - Products list identifier composed by a list
- * identifier (listing or sets), slug and query. Could be a string (listing or
- * sets hash) or a number (set id).
- *
- * @returns {boolean} Whether the products list is cached or not.
+ * @returns Whether the products list is cached or not.
  */
 export const isProductsListCached = (
   state: StoreState,
@@ -373,26 +335,24 @@ export const isProductsListCached = (
 ): boolean | undefined => !!getProductsListResult(state, checkHash(hash));
 
 /**
- * Retrieves the current applied filters (known as `filterSegments`) of the
- * current products list.
- *
- * @memberof module:products/selectors
- *
- * @param {object} state - Application state.
- * @param {string|number} [hash] - Products list identifier composed by a list
- * identifier (listing or sets), slug and query. Could be a string (listing or
- * sets hash) or a number (set id).
- *
- * @returns {(object|undefined)} Applied filters in the format of
- * `{ facetKey: [valueId] }`.
+ * Retrieves the current applied filters (known as `filterSegments`) of the current
+ * products list.
  *
  * @example
+ * ```
  * // Array returned for a products list with active filters on colors and
  * // categories
  * {
  *   colors: [3, 11],
  *   categories: [187345]
  * }
+ * ```
+ *
+ * @param state - Application state.
+ * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ *                query. Could be a string (listing or sets hash) or a number (set id).
+ *
+ * @returns Applied filters in the format of `{ facetKey: [valueId] }`.
  */
 export const getProductsListActiveFilters = createSelector(
   [
@@ -430,20 +390,17 @@ export const getProductsListActiveFilters = createSelector(
 ) => Record<string, Array<string | number>>;
 
 /**
- * Retrieves the count of the current selected filters by the user - i.e.
- * Number of filters applied that are also facets, meaning the user can
- * select and unselect them in the products list filters.
- * This not only considers "fromQueryString" filters, but also filter slugs.
- * This may be useful to know when to show a "Clear filters" button.
+ * Retrieves the count of the current selected filters by the user - i.e. Number of
+ * filters applied that are also facets, meaning the user can select and unselect
+ * them in the products list filters. This not only considers "fromQueryString"
+ * filters, but also filter slugs. This may be useful to know when to show a "Clear
+ * filters" button.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ *                query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @param {object} state - Application state.
- * @param {string|number} [hash] - Products list identifier composed by a list
- * identifier (listing or sets), slug and query. Could be a string (listing or
- * sets hash) or a number (set id).
- *
- * @returns {(number|undefined)} Total count of selected filters.
+ * @returns Total count of selected filters.
  */
 export const getProductsListSelectedFiltersCount = (
   state: StoreState,
@@ -479,14 +436,11 @@ export const getProductsListSelectedFiltersCount = (
 /**
  * Retrieves the current products list sorting order.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ *                query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @param {object} state - Application state.
- * @param {string|number} [hash] - Products list identifier composed by a list
- * identifier (listing or sets), slug and query. Could be a string (listing or
- * sets hash) or a number (set id).
- *
- * @returns {object} Sort and sort direction.
+ * @returns Sort and sort direction.
  */
 export const getProductsListSort = createSelector(
   [
@@ -510,16 +464,13 @@ export const getProductsListSort = createSelector(
 /**
  * Find all facets groups belonging to the specific type.
  *
- * @memberof module:products/selectors
+ * @param state          - Application state.
+ * @param facetGroupType - Facet group type to find.
+ * @param hash           - Products list identifier composed by a list identifier (listing or sets),
+ *                         slug and query. Could be a string (listing or sets hash) or a number (set
+ *                         id).
  *
- * @param {object} state - Application state.
- * @param {number} facetGroupType - Facet group type to find.
- * @param {string|number} [hash] - Products list identifier composed by a list
- * identifier (listing or sets), slug and query. Could be a string (listing or
- * sets hash) or a number (set id).
- *
- * @returns {(Array|undefined)} Array with all facets groups filtered by the
- * type received, undefined otherwise.
+ * @returns Array with all facets groups filtered by the type received, undefined otherwise.
  */
 export const getProductsListFacetsGroupsByType = createSelector(
   [
@@ -543,16 +494,13 @@ export const getProductsListFacetsGroupsByType = createSelector(
 /**
  * Find all facets belonging to the specific facet group type.
  *
- * @memberof module:products/selectors
+ * @param state          - Application state.
+ * @param facetGroupType - Facet group type to find.
+ * @param hash           - Products list identifier composed by a list identifier (listing or sets),
+ *                         slug and query. Could be a string (listing or sets hash) or a number (set
+ *                         id).
  *
- * @param {object} state - Application state.
- * @param {number} facetGroupType - Facet group type to find.
- * @param {string|number} [hash] - Products list identifier composed by a list
- * identifier (listing or sets), slug and query. Could be a string (listing or
- * sets hash) or a number (set id).
- *
- * @returns {(Array|undefined)} Array with all facets content filtered by the
- * type received, undefined otherwise.
+ * @returns Array with all facets content filtered by the type received, undefined otherwise.
  */
 export const getProductsListFacetsByFacetGroupType = (
   state: StoreState,
@@ -582,32 +530,19 @@ export const getProductsListFacetsByFacetGroupType = (
 };
 
 /**
- * Construct all hierarchical facets with children. As the name states, this
- * only works with filters of the 'hierarchical' format (which are the ones that
- * have a parent/children relationship).
- * This is particularly useful if you want to build, for example, a category
- * filter tree to display. Something like:
- * [ ] Clothing
- * [ ] Jackets
- * [ ] Blazers
- * [ ] Pants
- * [ ] Tailored pants
- * [ ] Regular-Fit & Straight Leg Pants
- * This will not work with any other format because the `parentId` is always 0.
+ * Construct all hierarchical facets with children. As the name states, this only
+ * works with filters of the 'hierarchical' format (which are the ones that have a
+ * parent/children relationship). This is particularly useful if you want to build,
+ * for example, a category filter tree to display. Something like: [ ] Clothing [ ]
+ * Jackets [ ] Blazers [ ] Pants [ ] Tailored pants [ ] Regular-Fit & Straight Leg
+ * Pants This will not work with any other format because the `parentId` is
+ * always 0.
  *
- * @memberof module:products/selectors
+ * @param state          - Application state.
+ * @param facetGroupType - Facet group type to find.
+ * @param options        - Additional options to refine the desired facets.
  *
- * @param {object} state - Application state.
- * @param {number} facetGroupType - Facet group type to find.
- * @param {object} [options] - Additional options to refine the desired facets.
- * @param {string} [options.hash] - Hash identifying the list of products we
- * want the facets from. Defaults to the current listing.
- * @param {number} [options.initialDepth] - First facet group depth level.
- * @param {number} [options.dynamic] - Dynamic of the facet group we want.
- * Useful when handling with different genders.
- *
- * @returns {(Array|undefined)} - All facets built with children, undefined
- * otherwise.
+ * @returns - All facets built with children, undefined otherwise.
  */
 export const getHierarchicalFacetsWithChildren = createSelector(
   [

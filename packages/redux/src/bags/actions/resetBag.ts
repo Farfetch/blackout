@@ -8,11 +8,8 @@ import type { ThunkDispatch } from 'redux-thunk';
 /**
  * Reset bag related entities to its initial value.
  *
- * @private
- *
- * @name resetEntities
- *
  * @example
+ * ```
  * // Store before executing action
  * const store = {
  *  entities: {
@@ -22,7 +19,9 @@ import type { ThunkDispatch } from 'redux-thunk';
  *
  * // Result of reset entities:
  * const store = { entities: {} }
- * @returns {Function} Dispatch reset bag entities action.
+ * ```
+ *
+ * @returns Dispatch reset bag entities action.
  */
 const resetEntities = () => (dispatch: Dispatch<ResetBagEntitiesAction>) => {
   dispatch({
@@ -33,11 +32,8 @@ const resetEntities = () => (dispatch: Dispatch<ResetBagEntitiesAction>) => {
 /**
  * Reset bag state and related entities to its initial value.
  *
- * @memberof module:bags/actions
- *
- * @name resetBag
- *
  * @example
+ * ```
  * import { resetBag } from '@farfetch/blackout-redux/bags';
  *
  * // State and store before executing action
@@ -55,7 +51,9 @@ const resetEntities = () => (dispatch: Dispatch<ResetBagEntitiesAction>) => {
  * // Usage
  * dispatch(resetBag());
  *
- * @returns {Function} Dispatch reset bag state and entities action.
+ * ```
+ *
+ * @returns Dispatch reset bag state and entities action.
  */
 const resetBag =
   () =>

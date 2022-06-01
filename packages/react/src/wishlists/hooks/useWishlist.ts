@@ -1,9 +1,6 @@
 /**
- * Hook to provide all kinds of data for the business logic attached to the wishlists.
- *
- * @module useWishlist
- * @category Wishlists
- * @subcategory Hooks
+ * Hook to provide all kinds of data for the business logic attached to the
+ * wishlists.
  */
 import {
   addWishlistItem as addWishlistItemAction,
@@ -26,10 +23,7 @@ import type { UseWishlist } from './types';
  * Provides Redux actions and state access, as well as handlers for dealing with
  * wishlist business logic.
  *
- * @memberof module:wishlists/hooks
- *
- * @returns {object} All the handlers, state, actions and relevant data needed
- * to manage any wishlist operation.
+ * @returns All the handlers, state, actions and relevant data needed to manage any wishlist operation.
  */
 const useWishlist: UseWishlist = () => {
   // Selectors
@@ -55,81 +49,57 @@ const useWishlist: UseWishlist = () => {
   return {
     /**
      * Add item to wishlist.
-     *
-     * @type {Function}
      */
     addWishlistItem,
     /**
      * Error state of the fetched wishlist.
-     *
-     * @type {object|undefined}
      */
     error,
     /**
      * Fetches the wishlist.
-     *
-     * @type {Function}
      */
     fetchWishlist,
     /**
      * Identifier of the fetched wishlist.
-     *
-     * @type {object}
      */
     id,
     /**
      * Whether the wishlist is empty, ie, with no items.
-     *
-     * @type {boolean}
      */
     isEmpty,
     /**
      * Whether the wishlist is loading.
-     *
-     * @type {boolean}
      */
     isLoading,
     /**
-     * The number of different items in the wishlist, regardless of each one's quantity.
-     *
-     * @type {number}
+     * The number of different items in the wishlist, regardless of each one's
+     * quantity.
      */
     itemCount,
     /**
      * Wishlist items of the fetched wishlist.
-     *
-     * @type {Array|undefined}
      */
     items,
     /**
-     * Wishlist items of the fetched wishlist, with the respective parent wishlist set data.
-     *
-     * @type {Array|undefined}
+     * Wishlist items of the fetched wishlist, with the respective parent wishlist set
+     * data.
      */
     itemsWithSetsInfo,
     /**
      * Resets the wishlist.
-     *
-     * @type {Function}
      */
     resetWishlist,
     /**
      * Resets the wishlist state.
-     *
-     * @type {Function}
      */
     resetWishlistState,
     /**
-     * The total quantity of products in the current user's wishlist,
-     * accounting with each item's quantity.
-     *
-     * @type {number}
+     * The total quantity of products in the current user's wishlist, accounting with
+     * each item's quantity.
      */
     totalQuantity,
     /**
      * Fetched wishlist data.
-     *
-     * @type {object}
      */
     wishlist,
   };

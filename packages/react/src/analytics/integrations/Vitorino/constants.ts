@@ -24,9 +24,10 @@ export const ENVIRONMENT_TYPES = {
 };
 
 /**
- * This mapper is stored in a function because having a direct assignment to a variable
- * with references to the window will cause the server render to crash.
- * Having it within a function we can prevent that from happening because we only access it later in runtime when its safe to do so.
+ * This mapper is stored in a function because having a direct assignment to a
+ * variable with references to the window will cause the server render to crash.
+ * Having it within a function we can prevent that from happening because we only
+ * access it later in runtime when its safe to do so.
  *
  * @returns - The mapper itself.
  */

@@ -1,14 +1,16 @@
 /**
- * Google Analytics 4 Integration.
- * Will load the google analytics 4 script and apply the ecommerce recommended events.
+ * Google Analytics 4 Integration. Will load the google analytics 4 script and
+ * apply the ecommerce recommended events.
  *
  * @example <caption>Adding GA4 integration to analytics</caption>
+ * ```
  *
  * import analytics, \{ integrations \} from '\@farfetch/blackout-react/analytics';
  *
  * analytics.addIntegration('GA4', integrations.GA4, \{
-    measurementId: 'G-XXXXX',
+ *     measurementId: 'G-XXXXX',
  * \});
+ * ```
  */
 import {
   pageTypes as analyticsPageTypes,
@@ -84,14 +86,13 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
   private customLoadScriptFn?: () => Promise<void> | undefined;
 
   /**
-   * Creates an instance of Google Analytics 4 integration.
-   * Setup Google Analytics 4 and initializes event commands map that will be used
-   * to obtain the command list associated with an event.
+   * Creates an instance of Google Analytics 4 integration. Setup Google Analytics 4
+   * and initializes event commands map that will be used to obtain the command list
+   * associated with an event.
    *
-   * @param options - User configured options.
-   * @param loadData - Analytics's load event data.
+   * @param options               - User configured options.
+   * @param loadData              - Analytics's load event data.
    * @param strippedDownAnalytics - Analytics stripped down instance.
-   *
    */
   constructor(
     protected options: GA4IntegrationOptions,
@@ -115,7 +116,8 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
   }
 
   /**
-   * Initializes member variables from options and tries to initialize Google Analytics 4.
+   * Initializes member variables from options and tries to initialize Google
+   * Analytics 4.
    *
    * @param options - Options passed for the GA4 integration.
    */
@@ -251,10 +253,10 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
   }
 
   /**
-   * Tracks an event. Send event to GA4 if the input event data passes schema validation.
+   * Tracks an event. Send event to GA4 if the input event data passes schema
+   * validation.
    *
    * @param data - Event data provided by analytics.
-   *
    */
   async trackEvent(data: TrackEventData) {
     if (!window.gtag) {
@@ -269,8 +271,8 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
   }
 
   /**
-   * Validates the event against a schema.
-   * If no schema is defined for the event, assume the event is valid.
+   * Validates the event against a schema. If no schema is defined for the event,
+   * assume the event is valid.
    *
    * @param data - Event data provided by analytics.
    *
@@ -292,8 +294,8 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
   }
 
   /**
-   * Execute user scope commands builder if there is any specified.
-   * The command list returned by the builder will be sent to GA4 instance.
+   * Execute user scope commands builder if there is any specified. The command list
+   * returned by the builder will be sent to GA4 instance.
    *
    * @param data - Event data provided by analytics.
    */
@@ -349,7 +351,7 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
    * Feeds the gtag instance with the command list passed in.
    *
    * @param commandList - List of commands to be executed by ga instance.
-   * @param data - Event data provided by analytics.
+   * @param data        - Event data provided by analytics.
    */
   processCommandList(
     commandList: GA4CommandList | undefined,
@@ -381,11 +383,11 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
   }
 
   /**
-   * Process the command list to check if there is an event that should receive the command `nonInteraction`.
-   * If so, append the command to the list.
+   * Process the command list to check if there is an event that should receive the
+   * command `nonInteraction`. If so, append the command to the list.
    *
    * @param commandList - List of commands to be executed by gtag instance.
-   * @param eventName - The event name passed.
+   * @param eventName   - The event name passed.
    */
   processInteractionEvents(commandList: GA4CommandList, eventName: string) {
     each(commandList, ga4Command => {
@@ -423,11 +425,12 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
   /**
    * Return a GA4 command list for the event.
    *
-   * @param data - Event data provided by analytics.
-   * @param scopeCommands - Commands by scope configuration.
+   * @param data            - Event data provided by analytics.
+   * @param scopeCommands   - Commands by scope configuration.
    * @param productMappings - User-configured product property mappings.
    *
-   * @returns The GA4 command list for the event. It will return empty if there is an error or no command builders exist for the event.
+   * @returns The GA4 command list for the event. It will return empty if there is an error or no command
+   * builders exist for the event.
    */
   buildCommandListForEvent(
     data: TrackEventData,
@@ -462,10 +465,10 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
   }
 
   /**
-   * Returns extra commands to be sent to GA4 along with the main commands for a pageview if there is an `extras`
-   * option configured for pageviews.
+   * Returns extra commands to be sent to GA4 along with the main commands for a
+   * pageview if there is an `extras` option configured for pageviews.
    *
-   * @param data - Event data provided by analytics.
+   * @param data          - Event data provided by analytics.
    * @param scopeCommands - Commands by scope configuration.
    *
    * @returns An array with the commands or undefined if there is no extra commands builder function.
@@ -481,10 +484,10 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
   }
 
   /**
-   * Returns extra commands to be sent to GA4 along with the main commands for an event if there is an `extras`
-   * option configured for the specified event.
+   * Returns extra commands to be sent to GA4 along with the main commands for an
+   * event if there is an `extras` option configured for the specified event.
    *
-   * @param data - Event data provided by analytics.
+   * @param data          - Event data provided by analytics.
    * @param scopeCommands - Commands by scope configuration.
    *
    * @returns An array with the commands or undefined if there is no extra commands builder function.
@@ -506,8 +509,8 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
   /**
    * Returns the main commands that correspond to the event analytics has passed in.
    *
-   * @param data - Event data provided by analytics.
-   * @param scopeCommands - Commands by scope configuration.
+   * @param data            - Event data provided by analytics.
+   * @param scopeCommands   - Commands by scope configuration.
    * @param productMappings - User-configured product property mappings.
    *
    * @returns An array with the commands or undefined if there is no extra commands builder function.
@@ -534,8 +537,9 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
   /**
    * Returns the main command builder for an event.
    *
-   * @param event - Event name.
+   * @param event         - Event name.
    * @param scopeCommands - Commands by scope configuration.
+   *
    * @returns Main command builder for the event if there is one, undefined otherwise.
    */
   getMainCommandBuilderForEvent(
@@ -565,8 +569,9 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
   /**
    * Returns the extra commands builder for an event.
    *
-   * @param event - Event name.
+   * @param event         - Event name.
    * @param scopeCommands - Commands by scope configuration.
+   *
    * @returns Extra commands builder for the event if there is one, undefined otherwise.
    */
   getExtrasCommandBuilderForEvent(
@@ -588,12 +593,14 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
   /**
    * Executes a command builder.
    *
+   * @throws
+   * If the command builder passed is not a function or the output is not of the
+   * proper type.
+   *
    * @param commandBuilder - The command builder to execute.
-   * @param args - Arguments to be passed to the command builder.
+   * @param args           - Arguments to be passed to the command builder.
    *
    * @returns Output of the command builder execution.
-   *
-   * @throws If the command builder passed is not a function or the output is not of the proper type.
    */
   executeCommandBuilder<T>(
     commandBuilder: T,
@@ -622,7 +629,8 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
    *
    * @param commandList - The command list to validate.
    *
-   * @returns An object with a boolean `isValid` with the result of the validation and a string `errorMessage` with the validation error if available.
+   * @returns An object with a boolean `isValid` with the result of the validation and a string
+   * `errorMessage` with the validation error if available.
    */
   validateCommandList(commandList: GA4CommandList): {
     isValid: boolean;
@@ -641,10 +649,10 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
   }
 
   /**
-   * Method that will resolve which way gtag script should be loaded, default or custom.
+   * Method that will resolve which way gtag script should be loaded, default or
+   * custom.
    *
    * @param options - User configured options.
-   *
    */
 
   loadGtagScript(options: GA4IntegrationOptions): void {
@@ -676,7 +684,6 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
    * Method that will load the script and append it to the DOM.
    *
    * @param options - User configured options.
-   *
    */
   internalLoadScript(options: GA4IntegrationOptions) {
     const customDataLayerAttr = options[OPTION_DATA_LAYER_NAME]

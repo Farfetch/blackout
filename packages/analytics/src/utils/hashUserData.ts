@@ -14,8 +14,9 @@ function hashPlainTextString(plainString?: string): string | undefined {
 }
 
 /**
- * Hashes some user properties that we receive from the /users/me request through analytics.setUser().
- * This might be necessary in cases where we pass user PII data to third-parties.
+ * Hashes some user properties that we receive from the /users/me request through
+ * analytics.setUser(). This might be necessary in cases where we pass user PII
+ * data to third-parties.
  *
  * @param userData - The analytics user data object.
  *

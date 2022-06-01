@@ -1,9 +1,5 @@
 /**
  * Wishlists actions.
- *
- * @module wishlists/actions/factories
- * @category Wishlists
- * @subcategory Actions
  */
 
 // Wishlists

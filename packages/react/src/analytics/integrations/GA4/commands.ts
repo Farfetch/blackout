@@ -15,6 +15,7 @@ import type { GA4CommandList } from './types';
  * Returns GA4's event data from analytics data, into ga4 final mapping result.
  *
  * @param data - Analytics event data.
+ *
  * @returns Ga4's event data result.
  */
 const genericCommandsBuilder = (data: TrackEventData): GA4CommandList => {
@@ -24,7 +25,8 @@ const genericCommandsBuilder = (data: TrackEventData): GA4CommandList => {
 };
 
 /**
- * Returns event list to track from update product event. This event, can trigger multiple events to ga4, depending of his data conditions.
+ * Returns event list to track from update product event. This event, can trigger
+ * multiple events to ga4, depending of his data conditions.
  *
  * @param data - Event data.
  *
@@ -62,10 +64,11 @@ const getProductUpdatedEventList = (data: TrackEventData): Array<string> => {
 };
 
 /**
- * Product updated custom command builder.
- * It check with internal properties and trigger internal events that needs to trigger.
+ * Product updated custom command builder. It check with internal properties and
+ * trigger internal events that needs to trigger.
  *
  * @param data - Analytics event data.
+ *
  * @returns Event command list.
  */
 const productUpdatedEventCommandsBuilder = (
@@ -81,10 +84,11 @@ const productUpdatedEventCommandsBuilder = (
 };
 
 /**
- * Interact Content custom command builder.
- * It check with internal properties and trigger internal events that needs to trigger.
+ * Interact Content custom command builder. It check with internal properties and
+ * trigger internal events that needs to trigger.
  *
  * @param data - Analytics event data.
+ *
  * @returns Event command list.
  */
 const interactContentEventCommandsBuilder = (data: TrackEventData) => {
@@ -127,6 +131,7 @@ export const nonInteractionEvents = {
  * Check which command builder needs current event.
  *
  * @param data - event name.
+ *
  * @returns command result.
  */
 const commands = (event: string) => {

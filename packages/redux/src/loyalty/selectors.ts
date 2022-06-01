@@ -1,9 +1,3 @@
-/**
- * @module loyalty/selectors
- * @category Loyalty
- * @subcategory Selectors
- */
-
 import * as fromReducer from './reducer';
 import { getEntities } from '../entities/selectors';
 import type {
@@ -19,11 +13,9 @@ import type { StoreState } from '../types';
 /**
  * Returns the user's programs.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Programs object.
+ * @returns Programs object.
  */
 export const getPrograms = (state: StoreState): ProgramsEntity =>
   getEntities(state, 'programs');
@@ -31,11 +23,9 @@ export const getPrograms = (state: StoreState): ProgramsEntity =>
 /**
  * Returns the programs error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state    - Application state.
- *
- * @returns {object}        - Programs error.
+ * @returns - Programs error.
  */
 export const getProgramsError = (
   state: StoreState,
@@ -44,11 +34,9 @@ export const getProgramsError = (
 /**
  * Returns the result of the programs.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state    - Application state.
- *
- * @returns {Array}         - Array of programs ids.
+ * @returns - Array of programs ids.
  */
 export const getProgramsResult = (
   state: StoreState,
@@ -57,11 +45,9 @@ export const getProgramsResult = (
 /**
  * Returns the loading status for the programs.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state    - Application state.
- *
- * @returns {boolean}       - Loading status.
+ * @returns - Loading status.
  */
 export const isProgramsLoading = (
   state: StoreState,
@@ -71,11 +57,9 @@ export const isProgramsLoading = (
 /**
  * Returns the membership.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Membership object.
+ * @returns Membership object.
  */
 export const getMembership = (state: StoreState): MembershipEntity =>
   getEntities(state, 'membership');
@@ -83,11 +67,9 @@ export const getMembership = (state: StoreState): MembershipEntity =>
 /**
  * Returns the membership error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state    - Application state.
- *
- * @returns {object}        - Membership error.
+ * @returns - Membership error.
  */
 export const getMembershipError = (
   state: StoreState,
@@ -97,11 +79,9 @@ export const getMembershipError = (
 /**
  * Returns the result of the membership.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state    - Application state.
- *
- * @returns {number}         - Membership id.
+ * @returns - Membership id.
  */
 export const getMembershipResult = (
   state: StoreState,
@@ -111,11 +91,9 @@ export const getMembershipResult = (
 /**
  * Returns the loading status for the membership.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state    - Application state.
- *
- * @returns {boolean}       - Loading status.
+ * @returns - Loading status.
  */
 export const isMembershipLoading = (
   state: StoreState,
@@ -125,11 +103,9 @@ export const isMembershipLoading = (
 /**
  * Returns the replacements.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Replacements object.
+ * @returns Replacements object.
  */
 export const getReplacements = (state: StoreState): ReplacementsEntity =>
   getEntities(state, 'replacements');
@@ -137,11 +113,9 @@ export const getReplacements = (state: StoreState): ReplacementsEntity =>
 /**
  * Returns the replacements error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state    - Application state.
- *
- * @returns {object}        - Replacements error.
+ * @returns - Replacements error.
  */
 export const getReplacementsError = (
   state: StoreState,
@@ -151,11 +125,9 @@ export const getReplacementsError = (
 /**
  * Returns the result of the replacements.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state    - Application state.
- *
- * @returns {Array}         - Array of replacements ids.
+ * @returns - Array of replacements ids.
  */
 export const getReplacementsResult = (
   state: StoreState,
@@ -165,11 +137,9 @@ export const getReplacementsResult = (
 /**
  * Returns the loading status for the replacements.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state    - Application state.
- *
- * @returns {boolean}       - Loading status.
+ * @returns - Loading status.
  */
 export const isReplacementsLoading = (
   state: StoreState,
@@ -179,11 +149,9 @@ export const isReplacementsLoading = (
 /**
  * Returns the statements.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Converts object.
+ * @returns Converts object.
  */
 export const getConverts = (state: StoreState): ConvertsEntity =>
   getEntities(state, 'converts');
@@ -191,11 +159,9 @@ export const getConverts = (state: StoreState): ConvertsEntity =>
 /**
  * Returns the converts error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state    - Application state.
- *
- * @returns {object}        - Converts error.
+ * @returns - Converts error.
  */
 export const getConvertsError = (
   state: StoreState,
@@ -204,11 +170,9 @@ export const getConvertsError = (
 /**
  * Returns the result of the converts.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state    - Application state.
- *
- * @returns {Array}         - Array of converts ids.
+ * @returns - Array of converts ids.
  */
 export const getConvertsResult = (
   state: StoreState,
@@ -217,11 +181,9 @@ export const getConvertsResult = (
 /**
  * Returns the loading status for the converts.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state    - Application state.
- *
- * @returns {boolean}       - Loading status.
+ * @returns - Loading status.
  */
 export const isConvertsLoading = (
   state: StoreState,
@@ -231,11 +193,9 @@ export const isConvertsLoading = (
 /**
  * Returns the statements.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Statements object.
+ * @returns Statements object.
  */
 export const getStatements = (state: StoreState): StatementsEntity =>
   getEntities(state, 'statements');
@@ -243,11 +203,9 @@ export const getStatements = (state: StoreState): StatementsEntity =>
 /**
  * Returns the statements error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state    - Application state.
- *
- * @returns {object}        - Statements error.
+ * @returns - Statements error.
  */
 export const getStatementsError = (
   state: StoreState,
@@ -257,11 +215,9 @@ export const getStatementsError = (
 /**
  * Returns the result of the statements.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state    - Application state.
- *
- * @returns {Array}         - Array of statements ids.
+ * @returns - Array of statements ids.
  */
 export const getStatementsResult = (
   state: StoreState,
@@ -271,11 +227,9 @@ export const getStatementsResult = (
 /**
  * Returns the loading status for the statements.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state    - Application state.
- *
- * @returns {boolean}       - Loading status.
+ * @returns - Loading status.
  */
 export const isStatementsLoading = (
   state: StoreState,

@@ -49,8 +49,8 @@ export const getCommonParameters = (
 };
 
 /**
- * Returns the unique view id for the event. If the event properties
- * pass it, return that value. Else, return a newly generated uuid.
+ * Returns the unique view id for the event. If the event properties pass it,
+ * return that value. Else, return a newly generated uuid.
  *
  * @param data - Event data passed by analytics.
  *
@@ -81,7 +81,8 @@ export const getCustomerIdFromUser = (
 };
 
 /**
- * This method tries to match the name passed by `analytics.page(name)` with the `pageEventsFilter` keywords.
+ * This method tries to match the name passed by `analytics.page(name)` with the
+ * `pageEventsFilter` keywords.
  *
  * @param pageType - Page type passed to analytics.
  *
@@ -104,7 +105,8 @@ export const getPageEventFromPageType = (
 };
 
 /**
- * This method tries to match some keyword from `eventMapper` with any word on the `location.href`.
+ * This method tries to match some keyword from `eventMapper` with any word on the
+ * `location.href`.
  *
  * @param location - Location object to check if there is any keyword that matches the `eventMapper`.
  *
@@ -233,9 +235,9 @@ const specificParametersBuilderByPlatform: SpecificParametersBuilderByPlatform =
   } as const;
 
 /**
- * Creates an object with parameters that are specific to a platform.
- * These parameters are collected and inferred by analytics `data` object,
- * so there's no need to pass these properties via `analytics.page()` or `analytics.track()`.
+ * Creates an object with parameters that are specific to a platform. These
+ * parameters are collected and inferred by analytics `data` object, so there's no
+ * need to pass these properties via `analytics.page()` or `analytics.track()`.
  *
  * @param data - Event data passed by analytics.
  *
@@ -259,12 +261,14 @@ export const getPlatformSpecificParameters = (
 };
 
 /**
- * Filters the properties object with the `parameters` dictionary, so we don't pass unnecessary information for the event.
- * We search for parameters in many locations: context -\> device -\> app -\> event -\> properties
- * Each location can override the values of the previous one.
+ * Filters the properties object with the `parameters` dictionary, so we don't pass
+ * unnecessary information for the event. We search for parameters in many
+ * locations: context -\> device -\> app -\> event -\> properties Each location can
+ * override the values of the previous one.
  *
  * @param data  - Event data passed by analytics.
  * @param event - Event name to filter properties by.
+ *
  * @returns Result of the `pick()` method.
  */
 export const pickPageParameters = (
@@ -283,10 +287,11 @@ export const pickPageParameters = (
 
 /**
  * Formats page data to be sent to omnitracking service to register a page view.
- * Merges common parameters with the filtered ones sent via `analytics.page()`, along some other properties.
+ * Merges common parameters with the filtered ones sent via `analytics.page()`,
+ * along some other properties.
  *
- * @param data                   - Event data passed by analytics.
- * @param additionalParameters   - Additional parameters to be considered.
+ * @param data                 - Event data passed by analytics.
+ * @param additionalParameters - Additional parameters to be considered.
  *
  * @returns Formatted data.
  */
@@ -316,8 +321,8 @@ export const formatPageEvent = (
 };
 
 /**
- * @param data         - Event data passed by analytics.
- * @param parameter    - Name of the parameter to obtain.
+ * @param data      - Event data passed by analytics.
+ * @param parameter - Name of the parameter to obtain.
  *
  * @returns The value of the parameter if found in event data or null if not found.
  */
@@ -357,10 +362,11 @@ export const getValParameterForEvent = (
 };
 
 /**
- * Generates a payment attempt reference ID based on the correlationID (user local ID) and the timestamp of the event.
+ * Generates a payment attempt reference ID based on the correlationID (user local
+ * ID) and the timestamp of the event.
  *
  * @param data - Event data passed by analytics.
- 
+ *
  * @returns The payment attempt reference ID.
  */
 export const generatePaymentAttemptReferenceId = (
@@ -373,12 +379,14 @@ export const generatePaymentAttemptReferenceId = (
 };
 
 /**
- * Filters the properties object with the `parameters` dictionary, so we don't pass unnecessary information for the event.
- * We search for parameters in many locations: context -\> device -\> app -\> event -\> properties
- * Each location can override the values of the previous one.
+ * Filters the properties object with the `parameters` dictionary, so we don't pass
+ * unnecessary information for the event. We search for parameters in many
+ * locations: context -\> device -\> app -\> event -\> properties Each location can
+ * override the values of the previous one.
  *
- * @param data                - Event data passed by analytics.
- * @param propertiesToPick    - Array of property strings to pick. By default will pick all properties defined in trackDefinitions variable.
+ * @param data             - Event data passed by analytics.
+ * @param propertiesToPick - Array of property strings to pick. By default will pick all properties
+ *                           defined in trackDefinitions variable.
  *
  * @returns Result of the `pick()` method.
  */
@@ -395,10 +403,11 @@ export const pickTrackParameters = (
 };
 
 /**
- * Formats tracking data to be sent to omnitracking service to register a custom event.
+ * Formats tracking data to be sent to omnitracking service to register a custom
+ * event.
  *
- * @param data                       - Event data passed by analytics.
- * @param additionalParameters       - Additional parameters to be considered.
+ * @param data                 - Event data passed by analytics.
+ * @param additionalParameters - Additional parameters to be considered.
  *
  * @returns Formatted track data.
  */
@@ -448,8 +457,8 @@ export const formatTrackEvent = (
 };
 
 /**
- * Type predicate that narrows the type of the passed in payload
- * to a page action payload.
+ * Type predicate that narrows the type of the passed in payload to a page action
+ * payload.
  *
  * @param payload - Omnitracking payload to validate
  *
@@ -464,8 +473,8 @@ const isPageActionPayload = (
 };
 
 /**
- * Validates if the payload to be sent to Omnitracking is correctly formed.
- * For now, it will only check if PageAction events contains the required tid
+ * Validates if the payload to be sent to Omnitracking is correctly formed. For
+ * now, it will only check if PageAction events contains the required tid
  * parameter.
  *
  * @param payload - Object corresponding to the payload that Omnitracking service expects.
@@ -494,7 +503,8 @@ export const validateOutgoingOmnitrackingPayload = (
  * Fetches the searchQuery taking in account the option searchQueryParameters
  * passed by the user or by the default ones.
  *
- * @param data                  - Object corresponding to the payload that Omnitracking service expects.
+ * @param data                  - Object corresponding to the payload that Omnitracking service
+ *                                expects.
  * @param searchQueryParameters - List of possible searchQueryParameters passed by user.
  *
  * @returns The searchQuery used on the page.
@@ -519,8 +529,8 @@ export const getSearchQuery = (
 };
 
 /**
- * Returns the client language from the culture code, if matches one of the possible client language values.
- * If not, return the default one (en).
+ * Returns the client language from the culture code, if matches one of the
+ * possible client language values. If not, return the default one (en).
  *
  * @param culture - The current culture code.
  *

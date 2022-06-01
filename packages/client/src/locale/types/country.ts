@@ -14,6 +14,8 @@ export interface Country {
 }
 
 export type GetCountry = (
+  // The current page.
   countryCode: string,
+  // Size of each page, as a number.
   config?: Config,
 ) => Promise<Country>;

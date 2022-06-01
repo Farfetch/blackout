@@ -5,15 +5,11 @@ import type { DeleteWishlistSet } from './types';
 /**
  * Method responsible for deleting a set from the wishlist.
  *
- * @memberof module:wishlists
+ * @param id     - Universal identifier of the wishlist.
+ * @param setId  - Global identifier of the set to remove.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} id - Universal identifier of the wishlist.
- * @param {string} setId - Global identifier of the set to remove.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will be resolved when the call to the
- * endpoint finishes.
+ * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
 const deleteWishlistSet: DeleteWishlistSet = (id, setId, config) =>
   client

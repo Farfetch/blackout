@@ -12,22 +12,18 @@ import type {
 } from '@farfetch/blackout-client/payments/types';
 
 /**
- * @callback FetchPaymentMethodsByCountryAndCurrencyThunkFactory
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * Obtains all the payment methods available for the current country and currency context.
+ * Obtains all the payment methods available for the current country and currency
+ * context.
  *
- * @function fetchPaymentMethodsByCountryAndCurrencyFactory
- * @memberof module:payments/actions/factories
+ * @param getPaymentMethodsByCountryAndCurrency - Get payment methods by country and currency client.
  *
- * @param {Function} getPaymentMethodsByCountryAndCurrency - Get payment methods by country and currency client.
- *
- * @returns {FetchPaymentMethodsByCountryAndCurrencyThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchPaymentMethodsByCountryAndCurrencyFactory =
   (

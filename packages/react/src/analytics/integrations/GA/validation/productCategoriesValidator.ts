@@ -11,7 +11,8 @@ import type { GACommandList } from '../types';
 /**
  * Gets the category hierarchy for a product category field.
  *
- * @param productCategoryField - String corresponding to the category field found of a product added in ec:addProduct or ec:addImpression commands.
+ * @param productCategoryField - String corresponding to the category field found of a product added in
+ *                               ec:addProduct or ec:addImpression commands.
  *
  * @returns An array containing the category hierarchy.
  */
@@ -20,10 +21,11 @@ function getCategoryHierarchy(productCategoryField: string): string[] {
 }
 
 /**
- * Validates if the category field of a product added in ec:addProduct or in ec:addImpression commands does
- * not exceed the maximum number of levels for the category hierarchy. A category hierarchy is a string
- * where each category is separated by a / character.
- * If the validation fails, only a warn message is logged.
+ * Validates if the category field of a product added in ec:addProduct or in
+ * ec:addImpression commands does not exceed the maximum number of levels for the
+ * category hierarchy. A category hierarchy is a string where each category is
+ * separated by a / character. If the validation fails, only a warn message is
+ * logged.
  *
  * @param gaCommandList - Command list that will feed the window.ga function.
  */

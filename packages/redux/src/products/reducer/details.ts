@@ -1,8 +1,3 @@
-/**
- * @module products/reducer
- * @category Products details
- * @subcategory Reducer
- */
 import * as actionTypes from '../actionTypes';
 import { combineReducers } from 'redux';
 import type {
@@ -101,13 +96,10 @@ const reducers = combineReducers({
 /**
  * Reducer for products details state.
  *
- * @function productsDetailsReducer
- * @static
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
  *
- * @param {object} state - Current redux state.
- * @param {object} action - Action dispatched.
- *
- * @returns {object} New state.
+ * @returns New state.
  */
 const productsDetailsReducer = (
   state: ProductsDetailsState,

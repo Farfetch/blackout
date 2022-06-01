@@ -10,7 +10,7 @@ const { date, url, title, image, author, breadcrumbs, publisher } = article;
 
 describe('structuredArticle', () => {
   it('should correctly generate JSON-LD for a list of Editorial Pages', () => {
-    const renderScructuredArticle = structuredArticle(
+    const renderStructuredArticle = structuredArticle(
       metadata,
       date,
       url,
@@ -21,7 +21,7 @@ describe('structuredArticle', () => {
       publisher,
     );
 
-    expect(renderScructuredArticle).toEqual(
+    expect(renderStructuredArticle).toEqual(
       MockRenderScript(JSON.stringify(articleResult)),
     );
   });

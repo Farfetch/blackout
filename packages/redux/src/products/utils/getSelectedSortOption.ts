@@ -1,23 +1,10 @@
-type SortOption = {
-  key: string;
-  sort: string;
-  sortDirection?: string;
-  value: number;
-};
+import type { GetSelectedSortOption } from './types';
 
 /**
  * Get which sort option is currently selected.
  *
- * @memberof module:products/utils
- *
- * @param {Array} sortOptions - All sort options with value.
- * @param {object} selectedSort - Sort and sort direction of the selected sort.
- * @param {object} selectedSort.sort - Sort of the selected sort.
- * @param {object} selectedSort.sortDirection - Sort direction of the selected sort.
- *
- * @returns {object} Selected sort option.
- *
  * @example
+ * ```
  * const selectedSort = {
  *    sort: "PRICE",
  *    sortDirection: "ASC"
@@ -34,14 +21,20 @@ type SortOption = {
  * ]
  *
  * const selectedSortOption = getSelectedSortOption(sortOptions, selectedSort);
+ * ```
+ *
+ * @param sortOptions  - All sort options with value.
+ * @param selectedSort - Sort and sort direction of the selected sort.
+ *
+ * @returns Selected sort option.
  */
 const getSelectedSortOption = (
-  sortOptions: Array<SortOption>,
+  sortOptions: Array<GetSelectedSortOption>,
   selectedSort: {
-    sort: SortOption['sort'];
-    sortDirection: SortOption['sortDirection'];
+    sort: GetSelectedSortOption['sort'];
+    sortDirection: GetSelectedSortOption['sortDirection'];
   },
-): SortOption | undefined =>
+): GetSelectedSortOption | undefined =>
   sortOptions.find(
     ({ sort, sortDirection }) =>
       sort?.toLowerCase() === selectedSort.sort?.toLowerCase() &&

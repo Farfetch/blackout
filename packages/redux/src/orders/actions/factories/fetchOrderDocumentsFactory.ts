@@ -11,25 +11,19 @@ import type {
 } from '@farfetch/blackout-client/orders/types';
 
 /**
- * @callback FetchOrderDocumentsThunkFactory
- * @param {object} props - Props object.
- * @param {string} props.orderId - The order id to get details from.
- * @param {Array} props.types - A list of document types to filter (Ex: ['CommercialInvoice']).
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param orderId - The order id to get details from.
+ * @param types   - A list of document types to filter (Ex: ['CommercialInvoice']).
+ * @param config  - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Action responsible for fetching the documents of the respective order.
  *
- * @function fetchOrderDocuments
- * @memberof module:orders/actions
+ * @param getOrderDocuments - Get order documents client.
  *
- * @param {Function} getOrderDocuments - Get order documents client.
- *
- * @returns {FetchOrderDocumentsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchOrderDocuments =
   (getOrderDocuments: GetOrderDocuments) =>

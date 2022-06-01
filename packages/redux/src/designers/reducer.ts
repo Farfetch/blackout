@@ -1,8 +1,3 @@
-/**
- * @module designers/reducer
- * @category Designers
- * @subcategory Reducer
- */
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import type {
@@ -108,12 +103,10 @@ const reducers = combineReducers({
 /**
  * Switch for designers state.
  *
- * @static
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
  *
- * @param {object} state - Current redux state.
- * @param {object} action - Action dispatched.
- *
- * @returns {object} New state.
+ * @returns New state.
  */
 const designersReducer: ReducerSwitch<
   State,

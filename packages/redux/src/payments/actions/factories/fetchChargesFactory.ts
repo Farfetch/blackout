@@ -13,24 +13,19 @@ import type { Dispatch } from 'redux';
 import type { FetchChargesAction } from '../../types';
 
 /**
- * @callback FetchChargesThunkFactory
- * @param {string} intentId - Id of the payment intent.
- * @param {string} chargeId - Id of the intent charge.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param intentId - Id of the payment intent.
+ * @param chargeId - Id of the intent charge.
+ * @param config   - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Gets the payment intent charges.
  *
- * @function fetchChargesFactory
- * @memberof module:payments/actions/factories
+ * @param getCharges - Get charges client.
  *
- * @param {Function} getCharges - Get charges client.
- *
- * @returns {FetchChargesThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchChargesFactory =
   (getCharges: GetCharges) =>

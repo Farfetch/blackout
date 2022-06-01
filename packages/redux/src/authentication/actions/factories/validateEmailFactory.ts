@@ -6,29 +6,18 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @typedef {object} ValidateEmailData
- * @property {string} username - User's email.
- * @property {string} token - User's validation token.
- */
-
-/**
- * @callback ValidateEmailThunkFactory
- * @param {ValidateEmailData} data - Details to validate user's e-mail.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param data   - Details to validate user's e-mail.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Method responsible for validating the user's e-mail, activating the account.
  *
- * @function validateEmail
- * @memberof module:authentication/actions/factories
+ * @param postValidateEmail - Post validate email client.
  *
- * @param {Function} postValidateEmail - Post validate email client.
- *
- * @returns {ValidateEmailThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 export default (postValidateEmail: any) =>
   (

@@ -5,8 +5,9 @@ import type { ITokenData } from './types/TokenData.types';
  */
 class TokenData implements ITokenData {
   /**
-   * Default value for the refresh token window offet. This value will be subtracted from the
-   * token's expiresIn value to advance the window for refreshing the access token.
+   * Default value for the refresh token window offset. This value will be subtracted
+   * from the token's expiresIn value to advance the window for refreshing the access
+   * token.
    */
   static REFRESH_TOKEN_WINDOW_OFFSET = 30000;
 
@@ -17,8 +18,9 @@ class TokenData implements ITokenData {
   userId?: number;
 
   /**
-   * Constructs a new TokenData instance with the passed in data.
-   * If expiresTimeUtc is not provided, it is assumed that the token was just created and will expire after now + expiresIn seconds.
+   * Constructs a new TokenData instance with the passed in data. If expiresTimeUtc
+   * is not provided, it is assumed that the token was just created and will expire
+   * after now + expiresIn seconds.
    *
    * @param data - Token data.
    */
@@ -57,10 +59,9 @@ class TokenData implements ITokenData {
   }
 
   /**
-   * Returns if the token data (access token) needs to be refreshed.
-   * It will take in account not only the token's expiresTimeUtc but also
-   * the refresh token window offset value to advance the creation of the
-   * token before it is expired.
+   * Returns if the token data (access token) needs to be refreshed. It will take in
+   * account not only the token's expiresTimeUtc but also the refresh token window
+   * offset value to advance the creation of the token before it is expired.
    *
    * @returns True if the token is within the refresh token window or false otherwise.
    */

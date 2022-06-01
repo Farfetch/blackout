@@ -5,13 +5,9 @@ import type { ResetWishlistSetsStateAction } from '../types';
 /**
  * Reset wishlist sets state to its initial value.
  *
- * @function resetWishlistSetsState
- * @memberof module:wishlists/actions
+ * @param fieldsToReset - List of fields to reset during the reset operation.
  *
- * @param {Array} [fieldsToReset] List of fields to reset during the reset
- * operation.
- *
- * @returns {Function} Dispatch reset wishlists sets state action.
+ * @returns Dispatch reset wishlists sets state action.
  */
 export default (fieldsToReset?: string[]) =>
   (dispatch: Dispatch<ResetWishlistSetsStateAction>): void => {

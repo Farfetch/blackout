@@ -11,36 +11,19 @@ import type {
 } from '@farfetch/blackout-client/users/types';
 
 /**
- * @typedef {object} FetchCreditMovementsQuery
- * @property {string} [from] - Get movements created after the
- * specified ISO 8601 moment. For example, 2017-07-01T00:00:00.
- * @property {string} [to] - Get movements created before the specified
- * ISO 8601 moment. For example, 2017-07-31T23:59:59.
- * @property {number} [page=1] - Number of the page to get, starting at 1.
- * The default is 1.
- * @property {number} [pageSize=10000] - Size of each page, as a number.
- * The default is 10000.
- */
-
-/**
- * @callback FetchCreditMovementsThunkFactory
- * @param {string} id - User identifier.
- * @param {FetchCreditMovementsQuery} [query] - Query parameters.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - User identifier.
+ * @param query  - Query parameters.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Create get user credit movements.
  *
- * @function fetchCreditMovements
- * @memberof module:users/actions
+ * @param getCreditMovements - Get credit movements client.
  *
- * @param {Function} getCreditMovements - Get credit movements client.
- *
- * @returns {FetchCreditMovementsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchCreditMovementsFactory =
   (getCreditMovements: GetCreditMovements) =>

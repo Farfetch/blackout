@@ -5,16 +5,10 @@ import type { GetCountries } from './types';
 /**
  * Gets all countries.
  *
- * @function getCountries
- * @memberof module:locale
+ * @param query  - Query parameters to apply to the listing.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {LocaleQuery} [query] - Query parameters to apply to the listing.
- * @param {number} [query.pageIndex=1] - The current page.
- * @param {number} [query.pageSize=15] - Size of each page, as a number.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getCountries: GetCountries = (query, config) =>
   client

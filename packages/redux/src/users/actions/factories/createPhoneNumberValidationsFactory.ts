@@ -10,23 +10,18 @@ import type {
 } from '@farfetch/blackout-client/users/types';
 
 /**
- * @callback CreatePhoneNumberValidationsThunkFactory
- * @param {CreatePhoneNumberValidationsData} data - User to be registered.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param data   - User to be registered.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Creates a new guest user.
  *
- * @function createPhoneNumberValidations
- * @memberof module:users/actions
+ * @param postPhoneNumberValidations - Post guest user client.
  *
- * @param {Function} postPhoneNumberValidations - Post guest user client.
- *
- * @returns {CreatePhoneNumberValidationsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 
 const createPhoneNumberValidations =

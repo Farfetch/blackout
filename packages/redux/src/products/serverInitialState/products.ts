@@ -9,15 +9,9 @@ import type { ProductsServerInitialState } from './types';
 /**
  * Converts server data for details of a product to store state.
  *
- * @memberof module:products/reducer
+ * @param data - Params injected by the server.
  *
- * @param {object} data - Params injected by the server.
- * @param {object} data.model - Page model with product details data.
- * @param {object} data.options - General options for any modification.
- * @param {object} data.options.productImgQueryParam - Query parameter to be
- * appended to each product image URL.
- *
- * @returns {object} Initial state for the product details reducer.
+ * @returns Initial state for the product details reducer.
  */
 const serverInitialState: ProductsServerInitialState = ({
   model,

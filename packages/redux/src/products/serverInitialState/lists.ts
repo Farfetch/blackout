@@ -9,16 +9,9 @@ import type { ListsServerInitialState } from './types';
 /**
  * Converts server data for a products list (listing or sets) to store state.
  *
- * @memberof module:products/serverInitialState
+ * @param data - Params injected by the server.
  *
- * @param {object} data - Params injected by the server.
- * @param {object} data.model - Page model with products list (listing or sets)
- * data.
- * @param {object} data.options - General options for any modification.
- * @param {object} data.options.productImgQueryParam - Query parameter to be
- * appended to each product image URL.
- *
- * @returns {object} Initial state for the products lists reducer.
+ * @returns Initial state for the products lists reducer.
  */
 const serverInitialState: ListsServerInitialState = ({
   model,

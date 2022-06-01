@@ -15,24 +15,19 @@ import type {
 } from '@farfetch/blackout-client/payments/types';
 
 /**
- * @callback FetchInstrumentThunkFactory
- * @param {string} intentId - Id of the payment Intent.
- * @param {string} instrumentId - Id of the payment Instrument.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param intentId     - Id of the payment Intent.
+ * @param instrumentId - Id of the payment Instrument.
+ * @param config       - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Action responsible for fetching an instrument.
  *
- * @function fetchInstrumentFactory
- * @memberof module:payments/actions/factories
+ * @param getInstrument - Get instrument client.
  *
- * @param {Function} getInstrument - Get instrument client.
- *
- * @returns {FetchInstrumentThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchInstrumentFactory =
   (getInstrument: GetInstrument) =>

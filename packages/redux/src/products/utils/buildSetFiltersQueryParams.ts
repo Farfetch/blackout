@@ -4,15 +4,8 @@ import type { ListingQuery } from '@farfetch/blackout-client/products/types';
 /**
  * Build the correct query object with the received filters to add.
  *
- * @memberof module:products/utils
- *
- * @param {object} query - Query params provided in the form of `{ key: value }`.
- * @param {object} filterParams - Filters to apply in the form of `{ facet: [values] }`.
- *
- * @returns {object} Query object and query string built with the previous active
- * filters plus the ones provided.
- *
  * @example
+ * ```
  * // Returned object
  * {
  *    colors: [3, 11],
@@ -29,6 +22,13 @@ import type { ListingQuery } from '@farfetch/blackout-client/products/types';
  *
  * If you need a queryString, you can use the `buildQueryStringFromObject` util.
  * const queryString = buildQueryStringFromObject(queryParams);
+ * ```
+ *
+ * @param query        - Query params provided in the form of `{ key: value }`.
+ * @param filterParams - Filters to apply in the form of `{ facet: [values] }`.
+ *
+ * @returns Query object and query string built with the previous active filters plus the ones
+ * provided.
  */
 const buildSetFiltersQueryParams = (
   query: ListingQuery,

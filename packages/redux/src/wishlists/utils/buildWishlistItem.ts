@@ -1,14 +1,22 @@
 import type { ProductEntity } from '../../entities/types';
 
 export type BuildWishlistItemData = {
+  // Product with all its information.
   product: ProductEntity;
+  // Quantity to add to the wishlist.
   quantity?: number;
+  // Selected product size to add to the wishlist.
   size?: {
+    // Size id.
     id: number;
+    // Size scale id.
     scale: number;
   };
+  // Selected product old size to add to the wishlist.
   oldSize?: {
+    // Old size id.
     id: number;
+    // Old size scale id.
     name?: string;
   };
 };
@@ -26,22 +34,12 @@ type BuildWishlistItem = (data: BuildWishlistItemData) => {
 };
 
 /**
- * Build the wishlist item object ready to perform wishlist requests
- * (add or update).
+ * Build the wishlist item object ready to perform wishlist requests (add or
+ * update).
  *
- * @memberof module:wishlists/utils
+ * @param data - Details of the wishlist item to build.
  *
- * @param {object} data - Details of the wishlist item to build.
- * @param {object} data.product - Product with all its information.
- * @param {object} [data.size={}] - Selected product size to add to the wishlist.
- * @param {object} [data.size.id] - Size id.
- * @param {object} [data.size.scale] - Size scale id.
- * @param {number} [data.quantity=1] - Quantity to add to the wishlist.
- * @param {object} [data.oldSize={}] - Selected product old size to add to the wishlist.
- * @param {object} [data.oldSize.id] - Size id.
- * @param {object} [data.oldSize.name] - Size scale id.
- *
- * @returns {object} Wishlist item object ready to wishlist requests.
+ * @returns Wishlist item object ready to wishlist requests.
  */
 const buildWishlistItem: BuildWishlistItem = ({
   product,

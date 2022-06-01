@@ -3,12 +3,6 @@ import { getProductVariantsByMerchantsLocations } from '@farfetch/blackout-clien
 
 /**
  * Fetch the merchants locations for a specific product variant.
- *
- * @memberof module:products/actions
- *
- * @name fetchProductVariantsByMerchants
- *
- * @type {FetchProductMerchantsLocationsThunkFactory}
  */
 export default fetchProductVariantsByMerchantsLocationsFactory(
   getProductVariantsByMerchantsLocations,

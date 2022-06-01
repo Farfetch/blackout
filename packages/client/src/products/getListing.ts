@@ -5,15 +5,11 @@ import type { GetListing } from './types';
 /**
  * Method responsible for loading the listing.
  *
- * @memberof module:products/client
+ * @param slug   - Slug to load the products.
+ * @param query  - Query parameters to apply to the listing.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} slug - Slug to load the products.
- * @param {object} [query] - Query parameters to apply to the listing.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will be resolved when the call to the
- * endpoint finishes.
+ * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
 const getListing: GetListing = (slug, query, config) =>
   client

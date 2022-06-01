@@ -5,11 +5,8 @@ import type { ResetProductDetailsStateAction } from '../types';
 /**
  * Reset details state to its initial value.
  *
- * @memberof module:products/actions
- *
- * @name resetProductDetailsState
- *
  * @example
+ * ```
  * import { resetProductDetailsState } from '@farfetch/blackout-redux/products';
  *
  * // State before executing action
@@ -21,7 +18,9 @@ import type { ResetProductDetailsStateAction } from '../types';
  * // Usage
  * dispatch(resetProductDetailsState());
  *
- * @returns {Function} Dispatch reset details state action.
+ * ```
+ *
+ * @returns Dispatch reset details state action.
  */
 const resetProductDetailsState =
   () =>

@@ -26,7 +26,9 @@ export interface FetchProductSizeGuidesFailureAction extends Action {
   type: typeof actionTypes.FETCH_PRODUCT_SIZEGUIDES_FAILURE;
 }
 
-/** Actions dispatched when the fetch product sizeguides request is made. */
+/**
+ * Actions dispatched when the fetch product sizeguides request is made.
+ */
 export type FetchProductSizeGuidesAction =
   | FetchProductSizeGuidesRequestAction
   | FetchProductSizeGuidesSuccessAction

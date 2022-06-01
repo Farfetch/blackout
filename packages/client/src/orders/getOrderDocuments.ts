@@ -5,14 +5,11 @@ import type { GetOrderDocuments } from './types';
 /**
  * Method responsible for fetching the documents of the respective order.
  *
- * @function getOrderDocuments
- * @memberof module:orders/client
- * @param {string} id - The identifier of the order.
- * @param {Array} [types] - A list of document types to filter (Ex: ['ComercialInvoice']).+.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @param id     - The identifier of the order.
+ * @param types  - A list of document types to filter (Ex: ['ComercialInvoice']).+.
+ * @param config - Custom configurations to send to the client instance (axios).
+ *
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getOrderDocuments: GetOrderDocuments = (id, types, config) =>
   client

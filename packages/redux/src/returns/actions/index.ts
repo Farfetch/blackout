@@ -1,9 +1,5 @@
 /**
  * Returns actions.
- *
- * @module returns/actions
- * @category Returns
- * @subcategory Actions
  */
 
 export { default as fetchReturn } from './fetchReturn';

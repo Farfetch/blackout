@@ -1,8 +1,3 @@
-/**
- * @module payments/reducer
- * @category Payments
- * @subcategory Reducer
- */
 import * as actionTypes from './actionTypes';
 import { combineReducers } from 'redux';
 import { createReducerWithResult } from '../helpers';
@@ -331,13 +326,10 @@ const reducers = combineReducers({
 /**
  * Reducer for payments state.
  *
- * @function paymentsReducer
- * @static
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
  *
- * @param {object} state - Current redux state.
- * @param {object} action - Action dispatched.
- *
- * @returns {object} New state.
+ * @returns New state.
  */
 const paymentsReducer: ReducerSwitch<
   T.State,

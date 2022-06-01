@@ -3,18 +3,14 @@ import join from 'proper-url-join';
 import type { GetProductVariantsByMerchantsLocations } from './types';
 
 /**
- * Method responsible for fetching the merchants locations for a specific
- * product variant.
+ * Method responsible for fetching the merchants locations for a specific product
+ * variant.
  *
- * @memberof module:products/client
+ * @param id        - Product identifier.
+ * @param variantId - Variant identifier.
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @param {number} id - Product identifier.
- * @param {string} variantId - Variant identifier.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will be resolved when the call to the
- * endpoint finishes.
+ * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
 const getProductVariantsByMerchantsLocations: GetProductVariantsByMerchantsLocations =
   (id, variantId, config) =>

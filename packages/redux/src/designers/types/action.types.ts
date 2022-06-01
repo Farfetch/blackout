@@ -23,7 +23,9 @@ export interface SetDesignersResultHashAction extends Action {
   meta: { hash: string };
 }
 
-/** Actions dispatched when the fetch designers request is made. */
+/**
+ * Actions dispatched when the fetch designers request is made.
+ */
 export type FetchDesignersAction =
   | FetchDesignersRequestAction
   | FetchDesignersSuccessAction

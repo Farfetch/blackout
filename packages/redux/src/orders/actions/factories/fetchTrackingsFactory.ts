@@ -13,23 +13,18 @@ import type {
 } from '@farfetch/blackout-client/orders/types';
 
 /**
- * @callback FetchTrackingsThunkFactory
- * @param {Array} trackingNumbers - Array containing all the tracking numbers.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param trackingNumbers - Array containing all the tracking numbers.
+ * @param config          - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Fetch all tracking events for the tracking numbers.
  *
- * @function fetchTrackings
- * @memberof module:orders/actions
+ * @param getTrackings - Get trackings client.
  *
- * @param {Function} getTrackings - Get trackings client.
- *
- * @returns {FetchTrackingsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchTrackings =
   (getTrackings: GetTrackings) =>

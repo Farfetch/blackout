@@ -1,9 +1,3 @@
-/**
- * @module checkout/selectors
- * @category Checkout
- * @subcategory Selectors
- */
-
 import { createSelector } from 'reselect';
 import {
   getCheckoutDetails,
@@ -59,11 +53,9 @@ interface INITIAL_VALUE {
 /**
  * Returns the checkout id.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {number} Checkout id.
+ * @returns Checkout id.
  */
 export const getCheckoutId = (state: StoreState): State['id'] =>
   getId(state.checkout);
@@ -71,11 +63,9 @@ export const getCheckoutId = (state: StoreState): State['id'] =>
 /**
  * Returns the checkout.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Checkout object.
+ * @returns Checkout object.
  */
 export const getCheckout = (state: StoreState): CheckoutEntity | undefined => {
   const checkoutId = getCheckoutId(state);
@@ -86,11 +76,9 @@ export const getCheckout = (state: StoreState): CheckoutEntity | undefined => {
 /**
  * Returns the charge.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Charge object.
+ * @returns Charge object.
  */
 export const getCharges = (state: StoreState): State['charges'] =>
   getPaidOrders(state.checkout);
@@ -98,11 +86,9 @@ export const getCharges = (state: StoreState): State['charges'] =>
 /**
  * Returns the checkout order.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Checkout error.
+ * @returns Checkout error.
  */
 export const getCheckoutOrder = (
   state: StoreState,
@@ -117,11 +103,9 @@ export const getCheckoutOrder = (
 /**
  * Returns the checkout detail.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Checkout error.
+ * @returns Checkout error.
  */
 export const getCheckoutDetail = (
   state: StoreState,
@@ -136,12 +120,10 @@ export const getCheckoutDetail = (
 /**
  * Returns a specific checkout order item identified by its id.
  *
- * @function
+ * @param state               - Application state.
+ * @param checkoutOrderItemId - Checkout order item id.
  *
- * @param {object} state - Application state.
- * @param {number} checkoutOrderItemId - Checkout order item id.
- *
- * @returns {object} Checkout order item object.
+ * @returns Checkout order item object.
  */
 export const getCheckoutOrderItem = (
   state: StoreState,
@@ -152,12 +134,10 @@ export const getCheckoutOrderItem = (
 /**
  * Returns the product identified by the checkout order item id.
  *
- * @function
+ * @param state               - Application state.
+ * @param checkoutOrderItemId - Checkout order item id.
  *
- * @param {object} state - Application state.
- * @param {number} checkoutOrderItemId - Checkout order item id.
- *
- * @returns {object | undefined} Product object.
+ * @returns Product object.
  */
 export const getCheckoutOrderItemProduct = (
   state: StoreState,
@@ -172,11 +152,9 @@ export const getCheckoutOrderItemProduct = (
 /**
  * Returns all the checkout order items ids.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {Array|undefined} List of checkout order items ids.
+ * @returns List of checkout order items ids.
  */
 export const getCheckoutOrderItemsIds = createSelector(
   [getCheckoutOrder],
@@ -186,11 +164,9 @@ export const getCheckoutOrderItemsIds = createSelector(
 /**
  * Returns all the checkout order items.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {Array} List of checkout order items.
+ * @returns List of checkout order items.
  */
 export const getCheckoutOrderItems = createSelector(
   [
@@ -206,11 +182,9 @@ export const getCheckoutOrderItems = createSelector(
 /**
  * Returns all the checkout collect points.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {Array|undefined} List of checkout collect points.
+ * @returns List of checkout collect points.
  */
 export const getCheckoutOrderCollectPoints = createSelector(
   [getCheckoutOrder],
@@ -220,11 +194,9 @@ export const getCheckoutOrderCollectPoints = createSelector(
 /**
  * Returns the selected collect point.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object | undefined} Selected collect point.
+ * @returns Selected collect point.
  */
 export const getCheckoutOrderSelectedCollectPoint = createSelector(
   [getCheckoutOrder],
@@ -234,11 +206,9 @@ export const getCheckoutOrderSelectedCollectPoint = createSelector(
 /**
  * Returns the checkout shipping options.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object | undefined} Checkout shipping options.
+ * @returns Checkout shipping options.
  */
 export const getCheckoutShippingOptions = createSelector(
   [getCheckout],
@@ -248,12 +218,10 @@ export const getCheckoutShippingOptions = createSelector(
 /**
  * Returns a specific checkout delivery bundle identified by its id.
  *
- * @function
+ * @param state            - Application state.
+ * @param deliveryBundleId - Delivery bundle id.
  *
- * @param {object} state - Application state.
- * @param {string} deliveryBundleId - Delivery bundle id.
- *
- * @returns {object} Delivery bundle.
+ * @returns Delivery bundle.
  */
 export const getCheckoutDeliveryBundle = (
   state: StoreState,
@@ -264,11 +232,9 @@ export const getCheckoutDeliveryBundle = (
 /**
  * Returns the selected checkout delivery bundle identified by its id.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Selected delivery bundle id.
+ * @returns Selected delivery bundle id.
  */
 export const getCheckoutSelectedDeliveryBundleId = createSelector(
   [(state: StoreState) => getEntities(state, 'deliveryBundles')],
@@ -278,11 +244,9 @@ export const getCheckoutSelectedDeliveryBundleId = createSelector(
 /**
  * Returns the checkout delivery bundles.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {Array|undefined} Checkout delivery bundles ids.
+ * @returns Checkout delivery bundles ids.
  */
 export const getCheckoutDeliveryBundlesIds = createSelector(
   [getCheckout],
@@ -292,11 +256,9 @@ export const getCheckoutDeliveryBundlesIds = createSelector(
 /**
  * Returns the checkout delivery bundles.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object | undefined} Checkout delivery bundles.
+ * @returns Checkout delivery bundles.
  */
 export const getCheckoutDeliveryBundles = createSelector(
   [
@@ -310,12 +272,10 @@ export const getCheckoutDeliveryBundles = createSelector(
 /**
  * Returns all the delivery upgrades identified by its delivery bundle.
  *
- * @function
+ * @param state            - Application state.
+ * @param deliveryBundleId - Delivery bundle id.
  *
- * @param {object} state            - Application state.
- * @param {number} deliveryBundleId - Delivery bundle id.
- *
- * @returns {object} Delivery bundle upgrades.
+ * @returns Delivery bundle upgrades.
  */
 export const getCheckoutDeliveryBundleUpgrades = (
   state: StoreState,
@@ -326,13 +286,13 @@ export const getCheckoutDeliveryBundleUpgrades = (
 /**
  * Returns a specific delivery bundle upgrade.
  *
- * @function
- * @param {object} state            - Application state.
- * @param {string} deliveryBundleId - Delivery bundle id.
- * @param {number} itemId           - Item id.
- * @param {DeliveryWindowType} upgradeType      - Upgrade type ('Estimated' or 'Nominated').
- * @param {string} upgradeId        - Upgrade id.
- * @returns {object} Delivery bundle upgrade.
+ * @param state            - Application state.
+ * @param deliveryBundleId - Delivery bundle id.
+ * @param itemId           - Item id.
+ * @param upgradeType      - Upgrade type ('Estimated' or 'Nominated').
+ * @param upgradeId        - Upgrade id.
+ *
+ * @returns Delivery bundle upgrade.
  */
 export const getCheckoutDeliveryBundleUpgrade = createSelector(
   [
@@ -361,14 +321,11 @@ export const getCheckoutDeliveryBundleUpgrade = createSelector(
 );
 
 /**
- * Returns the checkout estimated delivery period for
- * the selected collect point.
+ * Returns the checkout estimated delivery period for the selected collect point.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object | undefined} Checkout estimated delivery period.
+ * @returns Checkout estimated delivery period.
  */
 export const getCheckoutCollectPointEstimatedDeliveryPeriod = createSelector(
   [getCheckoutOrderSelectedCollectPoint, getCheckoutShippingOptions],
@@ -408,11 +365,9 @@ export const getCheckoutCollectPointEstimatedDeliveryPeriod = createSelector(
 /**
  * Returns the checkout error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Checkout error.
+ * @returns Checkout error.
  */
 export const getCheckoutError = (state: StoreState): State['error'] =>
   getError(state.checkout);
@@ -420,11 +375,9 @@ export const getCheckoutError = (state: StoreState): State['error'] =>
 /**
  * Returns the loading status for the checkout.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Loading status.
+ * @returns Loading status.
  */
 export const isCheckoutLoading = (state: StoreState): boolean =>
   getIsLoading(state.checkout);
@@ -436,11 +389,9 @@ export const isCheckoutLoading = (state: StoreState): boolean =>
 /**
  * Returns the loading status for the complete payment checkout operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Complete payment checkout operation Loading status.
+ * @returns Complete payment checkout operation Loading status.
  */
 export const isCompletePaymentCheckoutLoading = (state: StoreState): boolean =>
   getCompletePaymentCheckout(state.checkout).isLoading;
@@ -448,11 +399,9 @@ export const isCompletePaymentCheckoutLoading = (state: StoreState): boolean =>
 /**
  * Returns the error for the complete payment checkout operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Complete payment checkout operation error.
+ * @returns Complete payment checkout operation error.
  */
 export const getCompletePaymentCheckoutError = (
   state: StoreState,
@@ -461,11 +410,9 @@ export const getCompletePaymentCheckoutError = (
 /**
  * Returns the loading status for the checkout details operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Checkout details operation Loading status.
+ * @returns Checkout details operation Loading status.
  */
 export const isCheckoutDetailsLoading = (state: StoreState): boolean =>
   getCheckoutDetails(state.checkout).isLoading;
@@ -473,11 +420,9 @@ export const isCheckoutDetailsLoading = (state: StoreState): boolean =>
 /**
  * Returns the error for the checkout details operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Checkout details operation error.
+ * @returns Checkout details operation error.
  */
 export const getCheckoutDetailsError = (state: StoreState): Error | null =>
   getCheckoutDetails(state.checkout).error;
@@ -485,11 +430,9 @@ export const getCheckoutDetailsError = (state: StoreState): Error | null =>
 /**
  * Returns the loading status for the collect points operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Collect points operation Loading status.
+ * @returns Collect points operation Loading status.
  */
 export const isCollectPointsLoading = (state: StoreState): boolean =>
   getCollectPoints(state.checkout).isLoading;
@@ -497,11 +440,9 @@ export const isCollectPointsLoading = (state: StoreState): boolean =>
 /**
  * Returns the error for the collect points operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Collect points operation error.
+ * @returns Collect points operation error.
  */
 export const getCollectPointsError = (state: StoreState): Error | null =>
   getCollectPoints(state.checkout).error;
@@ -509,11 +450,9 @@ export const getCollectPointsError = (state: StoreState): Error | null =>
 /**
  * Returns the loading status for the item tags operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Item tags operation Loading status.
+ * @returns Item tags operation Loading status.
  */
 export const isItemTagsLoading = (state: StoreState): boolean =>
   getItemTags(state.checkout).isLoading;
@@ -521,11 +460,9 @@ export const isItemTagsLoading = (state: StoreState): boolean =>
 /**
  * Returns the error for the items tags operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Items tags operation error.
+ * @returns Items tags operation error.
  */
 export const getItemTagsError = (state: StoreState): Error | null =>
   getItemTags(state.checkout).error;
@@ -533,11 +470,9 @@ export const getItemTagsError = (state: StoreState): Error | null =>
 /**
  * Returns the loading status for the promocode operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Promocode operation Loading status.
+ * @returns Promocode operation Loading status.
  */
 export const isPromoCodeLoading = (state: StoreState): boolean =>
   getPromoCode(state.checkout).isLoading;
@@ -545,11 +480,9 @@ export const isPromoCodeLoading = (state: StoreState): boolean =>
 /**
  * Returns the error for the promocode operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Promocode operation error.
+ * @returns Promocode operation error.
  */
 export const getPromoCodeError = (state: StoreState): Error | null =>
   getPromoCode(state.checkout).error;
@@ -557,11 +490,9 @@ export const getPromoCodeError = (state: StoreState): Error | null =>
 /**
  * Returns the loading status for the tags operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Tags operation Loading status.
+ * @returns Tags operation Loading status.
  */
 export const isTagsLoading = (state: StoreState): boolean =>
   getTags(state.checkout).isLoading;
@@ -569,11 +500,9 @@ export const isTagsLoading = (state: StoreState): boolean =>
 /**
  * Returns the error for the tags operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Tags operation error.
+ * @returns Tags operation error.
  */
 export const getTagsError = (state: StoreState): Error | null =>
   getTags(state.checkout).error;
@@ -581,11 +510,9 @@ export const getTagsError = (state: StoreState): Error | null =>
 /**
  * Returns the loading status for the gift message operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Gift message operation Loading status.
+ * @returns Gift message operation Loading status.
  */
 export const isGiftMessageLoading = (state: StoreState): boolean =>
   getGiftMessage(state.checkout).isLoading;
@@ -593,11 +520,9 @@ export const isGiftMessageLoading = (state: StoreState): boolean =>
 /**
  * Returns the error for the gift message operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Gift message operation error.
+ * @returns Gift message operation error.
  */
 export const getGiftMessageError = (state: StoreState): Error | null =>
   getGiftMessage(state.checkout).error;
@@ -605,11 +530,9 @@ export const getGiftMessageError = (state: StoreState): Error | null =>
 /**
  * Returns the loading status for the charges operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Charges operation Loading status.
+ * @returns Charges operation Loading status.
  */
 export const isChargesLoading = (state: StoreState): boolean =>
   getPaidOrders(state.checkout).isLoading;
@@ -617,11 +540,9 @@ export const isChargesLoading = (state: StoreState): boolean =>
 /**
  * Returns the charges error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Charges operation error.
+ * @returns Charges operation error.
  */
 export const getChargesError = (state: StoreState): Error | null =>
   getPaidOrders(state.checkout).error;
@@ -629,11 +550,9 @@ export const getChargesError = (state: StoreState): Error | null =>
 /**
  * Returns the result for the charges operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Charges operation result.
+ * @returns Charges operation result.
  */
 export const getChargesResult = (
   state: StoreState,
@@ -642,11 +561,9 @@ export const getChargesResult = (
 /**
  * Returns the loading status for the delivery bundle upgrades operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Delivery bundle upgrades operation Loading status.
+ * @returns Delivery bundle upgrades operation Loading status.
  */
 export const isDeliveryBundleUpgradesLoading = (state: StoreState): boolean =>
   getDeliveryBundleUpgrades(state.checkout).isLoading;
@@ -654,11 +571,9 @@ export const isDeliveryBundleUpgradesLoading = (state: StoreState): boolean =>
 /**
  * Returns the delivery bundle upgrades error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Delivery bundle upgrades operation error.
+ * @returns Delivery bundle upgrades operation error.
  */
 export const getDeliveryBundleUpgradesError = (
   state: StoreState,
@@ -667,11 +582,9 @@ export const getDeliveryBundleUpgradesError = (
 /**
  * Returns the loading status for the item delivery provisioning operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Item delivery provisioning operation Loading status.
+ * @returns Item delivery provisioning operation Loading status.
  */
 export const isItemDeliveryProvisioningLoading = (state: StoreState): boolean =>
   getItemDeliveryProvisioning(state.checkout).isLoading;
@@ -679,11 +592,9 @@ export const isItemDeliveryProvisioningLoading = (state: StoreState): boolean =>
 /**
  * Returns the item delivery provisioning error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Item delivery provisioning operation error.
+ * @returns Item delivery provisioning operation error.
  */
 export const getItemDeliveryProvisioningError = (
   state: StoreState,
@@ -692,11 +603,9 @@ export const getItemDeliveryProvisioningError = (
 /**
  * Returns the loading status for the upgrade item delivery provisioning operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Upgrade item delivery provisioning operation Loading status.
+ * @returns Upgrade item delivery provisioning operation Loading status.
  */
 export const isUpgradeItemDeliveryProvisioningLoading = (
   state: StoreState,
@@ -705,11 +614,9 @@ export const isUpgradeItemDeliveryProvisioningLoading = (
 /**
  * Returns the upgrade item delivery provisioning error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Upgrade item delivery provisioning operation error.
+ * @returns Upgrade item delivery provisioning operation error.
  */
 export const getUpgradeItemDeliveryProvisioningError = (
   state: StoreState,
@@ -718,12 +625,10 @@ export const getUpgradeItemDeliveryProvisioningError = (
 /**
  * Returns the ISO date for the item delivery options.
  *
- * @function
+ * @param timeLimitType        - Time limit type. Possible values: min, max.
+ * @param itemsDeliveryOptions - Array with delivery options.
  *
- * @param {TimeLimitType} timeLimitType - Time limit type. Possible values: min, max.
- * @param {Array} itemsDeliveryOptions - Array with delivery options.
- *
- * @returns {string} Items delivery options formatted date.
+ * @returns Items delivery options formatted date.
  */
 const getItemsDeliveryOptionsDate = (
   timeLimitType: TimeLimitType | string,
@@ -756,12 +661,10 @@ const getItemsDeliveryOptionsDate = (
 /**
  * Returns the specified delivery bundle window.
  *
- * @function
+ * @param state            - Application state.
+ * @param deliveryBundleId - Delivery bundle identifier.
  *
- * @param {object} state - Application state.
- * @param {string} deliveryBundleId - Delivery bundle identifier.
- *
- * @returns {object | undefined} Object with the minimum and maximum delivery days.
+ * @returns Object with the minimum and maximum delivery days.
  */
 export const getBundleDeliveryWindow = (
   state: StoreState,

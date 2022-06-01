@@ -6,15 +6,11 @@ import type {
 } from './types';
 
 /**
- * Generate an object with a composed key like size#scale#merchantId, which will be unique per product/merchant.
- *
- * @private
- * @function
- * @memberof module:helpers/adapters
- *
- * @param {Array} variants - [[]] Product variants to add additional info to sizes.
+ * Generate an object with a composed key like size#scale#merchantId, which will be
+ * unique per product/merchant.
  *
  * @example
+ * ```
  * const purchaseChannels = composePurchaseChannels(variants);
  * Result of purchaseChannels === {
  *      '21#206#10973': 0,
@@ -23,7 +19,11 @@ import type {
  *      '27#206#10973': 0
  *  }
  *
- * @returns {object} With keys (size#scale#merchantId), where the value represents a purchaseChannel.
+ * ```
+ *
+ * @param variants - [[]] Product variants to add additional info to sizes.
+ *
+ * @returns With keys (size#scale#merchantId), where the value represents a purchaseChannel.
  */
 export const composePurchaseChannels: ComposePurchaseChannels = variants => {
   const purchaseChannels: Record<string, number> = {};
@@ -39,13 +39,8 @@ export const composePurchaseChannels: ComposePurchaseChannels = variants => {
 /**
  * Construct attributes for a given size, using the respective variant.
  *
- * @function
- * @memberof module:helpers/adapters
- *
- * @param {number} sizeId - Size id.
- * @param {Array} variants - Variants to fill the respective size attributes.
- *
  * @example
+ * ```
  * const attributes = getAttributesBySizeId(sizeId, variants);
  * Result of attributes === {
  *     Size: '23',
@@ -55,7 +50,12 @@ export const composePurchaseChannels: ComposePurchaseChannels = variants => {
  *     ScaleAbbreviation: 'IT'
  * }
  *
- * @returns {object} Size attributes of the given size.
+ * ```
+ *
+ * @param sizeId   - Size id.
+ * @param variants - Variants to fill the respective size attributes.
+ *
+ * @returns Size attributes of the given size.
  */
 export const getAttributesBySizeId: GetAttributesBySizeId = (
   sizeId,
@@ -77,15 +77,11 @@ export const getAttributesBySizeId: GetAttributesBySizeId = (
 };
 
 /**
- * Returns a array with all sizes adapted to fit all site areas, for the sake of consistency.
- *
- * @function
- * @memberof module:helpers/adapters
- *
- * @param {Array} sizes - Product sizes to adapt.
- * @param {Array} variants - [[]] Product variants to add additional info to sizes.
+ * Returns a array with all sizes adapted to fit all site areas, for the sake of
+ * consistency.
  *
  * @example
+ * ```
  * const sizes = adaptProductSizes(sizes, variants);
  * Result of sizes === [
  *      {
@@ -113,7 +109,12 @@ export const getAttributesBySizeId: GetAttributesBySizeId = (
  *      }
  *  ];
  *
- * @returns {Array} Sizes adapted.
+ * ```
+ *
+ * @param sizes    - Product sizes to adapt.
+ * @param variants - [[]] Product variants to add additional info to sizes.
+ *
+ * @returns Sizes adapted.
  */
 const adaptProductSizes: AdaptProductSizes = (sizes, variants = []) => {
   if (!sizes) {

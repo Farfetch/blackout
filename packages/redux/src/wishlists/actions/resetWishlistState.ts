@@ -5,12 +5,8 @@ import type { ResetWishlistStateAction } from '../types';
 /**
  * Reset wishlist state to its initial value.
  *
- * @memberof module:wishlists/actions
- *
- * @param {string[]} [fieldsToReset] - List of fields to reset during the reset
- * operation.
- *
  * @example <caption>Reset with no fields to reset, resetting all</caption>
+ * ```
  * import { resetWishlistState } from '@farfetch/blackout-redux/wishlists';
  *
  * dispatch(resetWishlistState());
@@ -48,7 +44,9 @@ import type { ResetWishlistStateAction } from '../types';
  *   }
  *  };
  *
+ * ```
  * @example <caption>Reset with fields to reset</caption>
+ * ```
  * import { resetWishlistState } from '@farfetch/blackout-redux/wishlists';
  *
  * dispatch(resetWishlistState(["error"]));
@@ -89,7 +87,11 @@ import type { ResetWishlistStateAction } from '../types';
  *   }
  *  };
  *
- * @returns {Function} Dispatch reset state action.
+ * ```
+ *
+ * @param fieldsToReset - List of fields to reset during the reset operation.
+ *
+ * @returns Dispatch reset state action.
  */
 const resetWishlistState =
   (fieldsToReset?: string[]) =>

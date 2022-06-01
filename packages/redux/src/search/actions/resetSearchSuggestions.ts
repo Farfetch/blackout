@@ -4,11 +4,7 @@ import type { Dispatch } from 'redux';
 /**
  * Reset search suggestions state to its initial value.
  *
- * @memberof module:search/actions
- *
- * @name resetSearchSuggestions
- *
- * @returns {Function} Thunk factory.
+ * @returns Thunk factory.
  */
 export default () =>
   (dispatch: Dispatch): void => {

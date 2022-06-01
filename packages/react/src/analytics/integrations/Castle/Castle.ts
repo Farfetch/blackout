@@ -1,8 +1,9 @@
 /**
- * Castle Integration.
- * Tracks page views and user login/logout for security purposes.
+ * Castle Integration. Tracks page views and user login/logout for security
+ * purposes.
  *
  * @example <caption>Adding Castle integration to analytics</caption>
+ * ```
  *
  * import analytics, \{ integrations \} from '\@farfetch/blackout-react/analytics';
  *
@@ -19,6 +20,7 @@
  *   clientIdHeaderName?: Custom name for the header that will be appended via the interceptor,
  *   configureHttpClient?: Custom function that will be responsible for handling the castle request token,
  * \});
+ * ```
  */
 
 import * as castleJS from '@castleio/castle-js';
@@ -69,7 +71,7 @@ class Castle extends Integration<CastleIntegrationOptions> {
   /**
    * This integration is required, so it should load independently of user consent.
    *
-   * @returns  If the integration should load.
+   * @returns If the integration should load.
    */
   static shouldLoad() {
     return true;
@@ -78,8 +80,8 @@ class Castle extends Integration<CastleIntegrationOptions> {
   /**
    * Creates an instance of Castle integration.
    *
-   * @param options - Integration options.
-   * @param loadData - Analytics's load event data.
+   * @param options   - Integration options.
+   * @param loadData  - Analytics's load event data.
    * @param analytics - Stripped down analytics instance.
    */
   constructor(
@@ -124,7 +126,8 @@ class Castle extends Integration<CastleIntegrationOptions> {
   }
 
   /**
-   * After the validations, this method will apply the options passed in and install the interceptor.
+   * After the validations, this method will apply the options passed in and install
+   * the interceptor.
    *
    * @param options - Integration options.
    */
@@ -166,7 +169,8 @@ class Castle extends Integration<CastleIntegrationOptions> {
   }
 
   /**
-   * Callback that is used on the Axios interceptor to add the correct Castle token header.
+   * Callback that is used on the Axios interceptor to add the correct Castle token
+   * header.
    *
    * @param config - Axios config object.
    *

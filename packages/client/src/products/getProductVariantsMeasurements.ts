@@ -5,15 +5,10 @@ import type { GetProductVariantsMeasurements } from './types';
 /**
  * Method responsible for loading the measurements for a specific product.
  *
- * @function getProductVariantsMeasurements
- * @memberof module:products/client
+ * @param id     - Product identifier.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {number} id - Product identifier.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will be resolved when the call to the
- * endpoint finishes.
+ * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
 const getProductVariantsMeasurements: GetProductVariantsMeasurements = (
   id,

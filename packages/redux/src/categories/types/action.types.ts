@@ -21,7 +21,9 @@ export interface FetchCategoriesFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the fetch categories request is made. */
+/**
+ * Actions dispatched when the fetch categories request is made.
+ */
 export type FetchCategoriesAction =
   | FetchCategoriesRequestAction
   | FetchCategoriesSuccessAction
@@ -39,13 +41,17 @@ export interface FetchTopCategoriesFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the fetch top categories request is made. */
+/**
+ * Actions dispatched when the fetch top categories request is made.
+ */
 export type FetchTopCategoriesAction =
   | FetchTopCategoriesRequestAction
   | FetchTopCategoriesSuccessAction
   | FetchTopCategoriesFailureAction;
 
-/** Actions dispatched when the reset categories is called. */
+/**
+ * Actions dispatched when the reset categories is called.
+ */
 export interface ResetCategoriesStateAction extends Action {
   type: typeof actionTypes.RESET_CATEGORIES_STATE;
 }

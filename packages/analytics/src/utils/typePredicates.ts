@@ -1,6 +1,6 @@
 /**
- * Some type predicates which helps in narrowing down the
- * type of the event when using typescript.
+ * Some type predicates which helps in narrowing down the type of the event when
+ * using typescript.
  */
 
 import get from 'lodash/get';

@@ -3,17 +3,12 @@ import type { GetUpgradeItemDeliveryProvisioning } from './types';
 /**
  * Obtains the items delivery provisioning available for a upgrade.
  *
- * @function getUpgradeItemDeliveryProvisioning
- * @memberof module:checkout/client
+ * @param id               - Identifier of the checkout order.
+ * @param deliveryBundleId - Identifier of the delivery bundle.
+ * @param upgradeId        - Identifier of the upgrade.
+ * @param config           - Custom configurations to send to the client instance (axios).
  *
- * @param {number} id - Identifier of the checkout order.
- * @param {string} deliveryBundleId - Identifier of the delivery bundle.
- * @param {number} upgradeId - Identifier of the upgrade.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getUpgradeItemDeliveryProvisioning: GetUpgradeItemDeliveryProvisioning = (
   id,

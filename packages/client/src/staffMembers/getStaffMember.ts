@@ -5,14 +5,10 @@ import type { GetStaffMember } from './types';
 /**
  * Method responsible for getting the staff member given its identifier.
  *
- * @memberof module:staffMembers/client
+ * @param id     - Staff member identifier.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} id - Staff member identifier.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will be resolved when the call to the
- * endpoint finishes.
+ * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
 const getStaffMember: GetStaffMember = (id, config) =>
   client

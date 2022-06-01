@@ -14,32 +14,19 @@ import type {
 } from '@farfetch/blackout-client/checkout/types';
 
 /**
- * @typedef {object} SetPromocodeData
+ * @param id     - Universal identifier of the Checkout.
+ * @param data   - Data to add a promocode.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @alias SetPromocodeData
- *
- * @property {string} promocode - Promocode.
- */
-
-/**
- * @callback SetPromocodeThunkFactory
- * @param {number} id - Universal identifier of the Checkout.
- * @param {SetPromocodeData} data - Data to add a promocode.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Method responsible for adding promo code information.
  *
- * @function setPromocodeFactory
- * @memberof module:checkout/actions/factories
+ * @param putPromocode - Put promocode client.
  *
- * @param {Function} putPromocode - Put promocode client.
- *
- * @returns {SetPromocodeThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const setPromocodeFactory =
   (putPromocode: PutPromocode) =>

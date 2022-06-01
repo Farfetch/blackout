@@ -3,12 +3,6 @@ import { getProgramMembershipStatements } from '@farfetch/blackout-client/loyalt
 
 /**
  * Load program membership statements.
- *
- * @memberof module:loyalty/actions
- *
- * @name fetchProgramMembershipStatements
- *
- * @type {FetchProgramMembershipStatementsThunkFactory}
  */
 export default fetchProgramMembershipStatementsFactory(
   getProgramMembershipStatements,

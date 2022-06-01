@@ -1,9 +1,5 @@
 /**
  * Contents hooks.
- *
- * @module contents/hooks
- * @category Contents
- * @subcategory hooks
  */
 
 export { default as useCommercePages } from './useCommercePages';

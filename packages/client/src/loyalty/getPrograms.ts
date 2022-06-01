@@ -4,14 +4,9 @@ import type { GetPrograms } from './types';
 /**
  * Method responsible for loading the programs.
  *
- * @function getPrograms
- * @memberof module:loyalty/client
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getPrograms: GetPrograms = config =>
   client

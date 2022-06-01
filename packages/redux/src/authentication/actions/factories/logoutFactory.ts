@@ -6,22 +6,17 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @callback LogoutThunkFactory
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Performs logout operation for the user.
  *
- * @function logout
- * @memberof module:authentication/actions/factories
+ * @param postLogout - Post logout client.
  *
- * @param {Function} postLogout - Post logout client.
- *
- * @returns {LogoutThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 export default (postLogout: any) =>
   (config?: { [k: string]: any }) =>

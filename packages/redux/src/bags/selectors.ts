@@ -1,8 +1,3 @@
-/**
- * @module bags/selectors
- * @category Bags
- * @subcategory Selectors
- */
 import { buildBagItem, generateBagItemHash } from './utils';
 import { createSelector } from 'reselect';
 import {
@@ -34,18 +29,18 @@ import type { StoreState } from '../types';
 /**
  * Retrieves current user's bag.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {object} - Bag result.
- *
  * @example
+ * ```
  * import { getBag } from '@farfetch/blackout-redux/bags';
  *
  * const mapStateToProps = state => ({
  *     bag: getBag(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - Bag result.
  */
 export const getBag = (state: StoreState): State['result'] =>
   getResult(state.bag);
@@ -53,18 +48,18 @@ export const getBag = (state: StoreState): State['result'] =>
 /**
  * Retrieves the error state of the current user's bag.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {object | undefined} Error information, `undefined` if there are no errors.
- *
  * @example
+ * ```
  * import { getBagError } from '@farfetch/blackout-redux/bags';
  *
  * const mapStateToProps = state => ({
  *     error: getBagError(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns Error information, `undefined` if there are no errors.
  */
 export const getBagError = (state: StoreState): State['error'] | undefined =>
   getError(state.bag) || undefined;
@@ -72,37 +67,38 @@ export const getBagError = (state: StoreState): State['error'] | undefined =>
 /**
  * Retrieves the universal identifier of the current user's bag.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {string} - Universal identifier of the bag.
- *
  * @example
+ * ```
  * import { getBagId } from '@farfetch/blackout-redux/bags';
  *
  * const mapStateToProps = state => ({
  *     bagId: getBagId(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - Universal identifier of the bag.
  */
 export const getBagId = (state: StoreState): State['id'] => getId(state.bag);
 
 /**
- * Retrieves a specific bag item by its id, with all properties populated (ie, the product).
- *
- * @function
- *
- * @param {object} state - Application state.
- * @param {number} bagItemId - Numeric identifier of the bag item in the bag.
- *
- * @returns {object} - Bag item entity for the given id.
+ * Retrieves a specific bag item by its id, with all properties populated (ie, the
+ * product).
  *
  * @example
+ * ```
  * import { getBagItem } from '@farfetch/blackout-redux/bags';
  *
  * const mapStateToProps = (state, { bagItem: { id } }) => ({
  *     bagItem: getBagItem(state, id)
  * });
+ * ```
+ *
+ * @param state     - Application state.
+ * @param bagItemId - Numeric identifier of the bag item in the bag.
+ *
+ * @returns - Bag item entity for the given id.
  */
 // @TODO Remove cast from functions
 export const getBagItem = createSelector(
@@ -128,19 +124,19 @@ export const getBagItem = createSelector(
 /**
  * Retrieves the error state of a specific bag item product by its id.
  *
- * @function
- *
- * @param {object} state - Application state.
- * @param {number} bagItemId - Numeric identifier of the bag item in the bag.
- *
- * @returns {object | undefined} - Error information, `undefined` if there are no errors.
- *
  * @example
+ * ```
  * import { getBagItemError } from '@farfetch/blackout-redux/bags';
  *
  * const mapStateToProps = (state, { bagItem: { bagItem: { id } } }) => ({
  *     error: getBagItemError(state, id)
  * });
+ * ```
+ *
+ * @param state     - Application state.
+ * @param bagItemId - Numeric identifier of the bag item in the bag.
+ *
+ * @returns - Error information, `undefined` if there are no errors.
  */
 export const getBagItemError = (
   state: StoreState,
@@ -152,18 +148,18 @@ export const getBagItemError = (
  *
  * This is typically used as a helper for other selectors.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {Array} - List of bag items ids.
- *
  * @example
+ * ```
  * import { getBagItemsIds } from '@farfetch/blackout-redux/bags';
  *
  * const mapStateToProps = (state) => ({
  *     error: getBagItemsIds(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - List of bag items ids.
  */
 export const getBagItemsIds = (state: StoreState): BagItemsState['ids'] =>
   getItemsIds(state.bag);
@@ -171,18 +167,18 @@ export const getBagItemsIds = (state: StoreState): BagItemsState['ids'] =>
 /**
  * Retrieves all bag items from the current user's bag.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {Array} - List of each bag item entity (with the respective products) from the current user's bag.
- *
  * @example
+ * ```
  * import { getBagItems } from '@farfetch/blackout-redux/bags';
  *
  * const mapStateToProps = state => ({
  *     bagItems: getBagItems(state),
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - List of each bag item entity (with the respective products) from the current user's bag.
  */
 export const getBagItems = createSelector(
   [
@@ -213,33 +209,32 @@ export const getBagItems = createSelector(
  * Retrieves the number of different items in the bag, regardless of each one's
  * quantity.
  *
- * @function
- *
- * @param {object} state - Application state.
- * @param {Array} excludeProductTypes - List of product types to exclude from
- * the counter.
- *
- * Product types supported:<br/>.
- *
- * | Type | Description |
- * |------|-------------|
- * | **0**    | Standard        |
- * | **1**    | BundleProduct   |
- * | **2**    | BundleVariant   |
- * | **3**    | ProductGroup    |
- * | **4**    | Sample          |
- * <br/>.
- *
- * @returns {number} - Count of the items in the bag.
- *
- *
  * @example
+ * ```
  * import { getBagItemsCounter } from '@farfetch/blackout-redux/bags';
  *
  * const excludeProductTypes = [3];
  * const mapStateToProps = state => ({
  *     bagItemsCounter: getBagItemsCounter(state, excludeProductTypes),
  * });
+ * ```
+ *
+ * @param state               - Application state.
+ * @param excludeProductTypes - List of product types to exclude from the counter.
+ *
+ *                              Product types supported:<br/>.
+ *
+ *                              | Type  | Description   |
+ *                              | ----- | ------------- |
+ *                              | **0** | Standard      |
+ *                              | **1** | BundleProduct |
+ *                              | **2** | BundleVariant |
+ *                              | **3** | ProductGroup  |
+ *                              | **4** | Sample        |
+ *
+ *                              <br/>.
+ *
+ * @returns - Count of the items in the bag.
  */
 export const getBagItemsCounter = (
   state: StoreState,
@@ -263,53 +258,54 @@ export const getBagItemsCounter = (
 /**
  * Retrieves the unavailable bag items, if any, from the current user's bag.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {Array|undefined} - List of each bag unavailable item entity (with the respective products) from the current user's bag.
- *
  * @example
+ * ```
  * import { getBagItemsUnavailable } from '@farfetch/blackout-redux/bags';
  *
  * const mapStateToProps = state => ({
  *     unavailableItems: getBagItemsUnavailable(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - List of each bag unavailable item entity (with the respective products) from the current
+ * user's bag.
  */
 export const getBagItemsUnavailable = createSelector([getBagItems], bagItems =>
   bagItems.filter(bagItem => !bagItem?.isAvailable),
 );
 
 /**
- * Retrieves the total quantity of products in the current user's bag,
- * accounting with each item's quantity.
- *
- * @function
- *
- * @param {object} state - Application state.
- * @param {Array} excludeProductTypes - List of product types to exclude from
- * the counter.
- *
- * Product types supported:<br/>.
- *
- * | Type | Description |
- * |------|-------------|
- * | **0**    | Standard        |
- * | **1**    | BundleProduct   |
- * | **2**    | BundleVariant   |
- * | **3**    | ProductGroup    |
- * | **4**    | Sample          |
- * <br/>.
- *
- * @returns {number} - Total quantity of products in the bag.
+ * Retrieves the total quantity of products in the current user's bag, accounting
+ * with each item's quantity.
  *
  * @example
+ * ```
  * import { getBagTotalQuantity } from '@farfetch/blackout-redux/bags';
  *
  * const excludeProductTypes = [3];
  * const mapStateToProps = state => ({
  *     bagItemsCount: getBagTotalQuantity(state, excludeProductTypes),
  * });
+ * ```
+ *
+ * @param state               - Application state.
+ * @param excludeProductTypes - List of product types to exclude from the counter.
+ *
+ *                              Product types supported:<br/>.
+ *
+ *                              | Type  | Description   |
+ *                              | ----- | ------------- |
+ *                              | **0** | Standard      |
+ *                              | **1** | BundleProduct |
+ *                              | **2** | BundleVariant |
+ *                              | **3** | ProductGroup  |
+ *                              | **4** | Sample        |
+ *
+ *                              <br/>.
+ *
+ * @returns - Total quantity of products in the bag.
  */
 export const getBagTotalQuantity = (
   state: StoreState,
@@ -331,19 +327,19 @@ export const getBagTotalQuantity = (
 /**
  * Retrieves the loading status of a specific bag item by its id.
  *
- * @function
- *
- * @param {object} state - Application state.
- * @param {number} itemId - Numeric identifier of the bag item in the bag.
- *
- * @returns {boolean} - Whether the given bag item is loading.
- *
  * @example
+ * ```
  * import { isBagItemLoading } from '@farfetch/blackout-redux/bags';
  *
  * const mapStateToProps = (state, { bagItem: { id } }) => ({
  *     isLoading: isBagItemLoading(state, id)
  * });
+ * ```
+ *
+ * @param state  - Application state.
+ * @param itemId - Numeric identifier of the bag item in the bag.
+ *
+ * @returns - Whether the given bag item is loading.
  */
 export const isBagItemLoading = (
   state: StoreState,
@@ -353,20 +349,21 @@ export const isBagItemLoading = (
 /**
  * Retrieves the loading status of the bag.
  *
- * This status is affected by the loading of the bag itself, as well as any "add" operation.
- *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {boolean} - Loading status of the bag.
+ * This status is affected by the loading of the bag itself, as well as any "add"
+ * operation.
  *
  * @example
+ * ```
  * import { isBagLoading } from '@farfetch/blackout-redux/bags';
  *
  * const mapStateToProps = state => ({
  *     isLoading: isBagLoading(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - Loading status of the bag.
  */
 export const isBagLoading = (state: StoreState): boolean =>
   getIsLoading(state.bag);
@@ -374,22 +371,22 @@ export const isBagLoading = (state: StoreState): boolean =>
 /**
  * Retrieves the available sizes of a bag item.
  *
- * If there are two or more bag items of the same product, the size
- * selected by one will be unavailable for the other.
- *
- * @function
- *
- * @param {object} state - Application state.
- * @param {number} itemId - Item id.
- *
- * @returns {Array} - Available sizes for the given item.
+ * If there are two or more bag items of the same product, the size selected by one
+ * will be unavailable for the other.
  *
  * @example
+ * ```
  * import { getBagItemAvailableSizes } from '@farfetch/blackout-redux/bags';
  *
  * const mapStateToProps = (state, { bagItem: { id } }) => ({
  *     availableSizes: getBagItemAvailableSizes(state, id)
  * });
+ * ```
+ *
+ * @param state  - Application state.
+ * @param itemId - Item id.
+ *
+ * @returns - Available sizes for the given item.
  */
 export const getBagItemAvailableSizes = createSelector(
   [
@@ -423,30 +420,25 @@ export const getBagItemAvailableSizes = createSelector(
 );
 
 /**
- * Creates a function responsible for checking if a certain product exists in the bag.
- * This selector uses the `buildBagItem` util, so there are some `productParams`
- * that are optional like `quantity` and `customAttributes`, because in the `buildBagItem`
- * util there are default values.
- *
- * @function
- *
- * @param   {object} state - Application state.
- * @param   {object} productParams - Product params needed to this selector.
- * @param   {object} productParams.product - Product object with its id.
- * @param   {object} productParams.size - Size selected, with id and scale.
- * @param   {number} productParams.size.id - Id of selected size.
- * @param   {number} productParams.size.scale - Scale of selected size.
- * @param   {string} [productParams.customAttributes] - Custom attributes of the product.
- *
- * @returns {Object | undefined} - Bag item matching provided product params.
+ * Creates a function responsible for checking if a certain product exists in the
+ * bag. This selector uses the `buildBagItem` util, so there are some
+ * `productParams` that are optional like `quantity` and `customAttributes`,
+ * because in the `buildBagItem` util there are default values.
  *
  * @example
+ * ```
  * import { findProductInBag } from '@farfetch/blackout-redux/bags';
  *
  * const mapStateToProps = (state, {size, product}) => ({
  *     bagItem: findProductInBag(state, {size, product})
  * });
  *
+ * ```
+ *
+ * @param state         - Application state.
+ * @param productParams - Product params needed to this selector.
+ *
+ * @returns - Bag item matching provided product params.
  */
 export const findProductInBag = createSelector(
   [
@@ -471,18 +463,18 @@ export const findProductInBag = createSelector(
 /**
  * Checks if there is a general error in the bag or in one of the bag items.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {boolean} - Whether there is an error within the bag or not.
- *
  * @example
+ * ```
  * import { isBagWithAnyError } from '@farfetch/blackout-redux/bags';
  *
  * const mapStateToProps = (state) => ({
  *     hasBagError: isBagWithAnyError(state),
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - Whether there is an error within the bag or not.
  */
 export const isBagWithAnyError = (state: StoreState): boolean => {
   const items = getBagItems(state) || [];
@@ -496,20 +488,21 @@ export const isBagWithAnyError = (state: StoreState): boolean => {
  * Gets item whole quantity. This is needed when there are more than one bag items
  * who share the same product id and size but not the same merchant.
  *
- * @function
- * @param {object} state - Application state.
- * @param {number} productId - Numeric identifier of the bag item product.
- * @param {number} sizeId - Numeric identifier of bag item size.
- *
- * @returns {number} Number of products with the same bag item product and size as the one provided.
- *
- *  @example
+ * @example
+ * ```
  * import { getProductQuantityInBag } from '@farfetch/blackout-redux/bags';
  *
  * const mapStateToProps = (state, { productId, sizeId }) => ({
  * itemWholeQuantity: getProductQuantityInBag(state, productId, sizeId),
  * });
  *
+ * ```
+ *
+ * @param state     - Application state.
+ * @param productId - Numeric identifier of the bag item product.
+ * @param sizeId    - Numeric identifier of bag item size.
+ *
+ * @returns Number of products with the same bag item product and size as the one provided.
  */
 export const getProductQuantityInBag = (
   state: StoreState,
@@ -530,21 +523,16 @@ export const getProductQuantityInBag = (
 };
 
 /**
- * Searches the bag items for a specific product. This doesn't care about the
- * size of the product, it just finds the bag item that matches the given
- * product id.
+ * Searches the bag items for a specific product. This doesn't care about the size
+ * of the product, it just finds the bag item that matches the given product id.
  * This is useful, for example, for the listing page, where you don't care which
- * size of the product is in the bag, you just need to know if that product
- * is already there.
+ * size of the product is in the bag, you just need to know if that product is
+ * already there.
  *
- * @function
- * @memberof module:bags/selectors
+ * @param state     - Application state.
+ * @param productId - Numeric identifier of the product.
  *
- * @param {object} state - Application state.
- * @param {number} productId - Numeric identifier of the product.
- *
- * @returns {boolean} Item at the bag if search had results, undefined
- * otherwise.
+ * @returns Item at the bag if search had results, undefined otherwise.
  */
 export const isProductInBag = (
   state: StoreState,

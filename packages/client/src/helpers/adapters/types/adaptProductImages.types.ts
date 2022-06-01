@@ -17,10 +17,15 @@ type LegacyImages =
     }
   | Image[];
 
+export type AdaptProductImagesConfigData = {
+  // Query parameter to be appended to each image URL, useful to set the image compression via site key, for example.
+  productImgQueryParam?: string;
+};
+
 export type GenerateSourcesByOrder = (
   order: string,
   originalSources: Image[],
-  config?: { productImgQueryParam?: string },
+  config?: AdaptProductImagesConfigData,
 ) => {
   order: number;
   sources: Record<string, string>;
@@ -37,5 +42,5 @@ export type ProductImagesAdapted =
 
 export type AdaptProductImages = (
   legacyImages?: LegacyImages,
-  config?: { productImgQueryParam?: string },
+  config?: AdaptProductImagesConfigData,
 ) => ProductImagesAdapted;

@@ -8,32 +8,13 @@ const getReqUrl = params =>
   });
 
 /**
- * @typedef {object} GetPredictionsQuery
- *
- * @alias GetPredictionsQuery
- * @memberof module:addresses/client
- *
- * @property {string} [containerId] - Container identifier to fetch
- * information from.
- * @property {string} [countries] - List of country codes, separated by
- * comma to limit the search within. E.g. United Kingdom, Portugal.
- * @property {number} [sampleSize] - Maximum containers iterations when
- * searching for an address, as a number between 1 and 100. Default is 10.
- */
-
-/**
  * Method responsible for getting the predictions.
  *
- * @function getPredictions
- * @memberof module:addresses/client
+ * @param text   - String to search for.
+ * @param query  - Query params.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} text - String to search for.
- * @param {GetPredictionsQuery} [query] - Query params.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getPredictions: GetPredictions = (text, query, config) =>
   client

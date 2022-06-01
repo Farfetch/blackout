@@ -3,9 +3,13 @@ import type { Config } from '../../types';
 export type GetSEO = (query: QuerySEO, config?: Config) => Promise<SEOMetadata>;
 
 export type QuerySEO = {
+  // The type of the page we are searching (pages|stories...).
   pageType: string;
+  // An object containing some parameters for product listing (BrandName|CategoryName|TotalNumberItems...).
   param: string | null;
+  // The pathname of the location.
   path: string;
+  // The sub group of pages about products.
   subPageType: string;
 };
 

@@ -38,7 +38,9 @@ export interface FetchOrderDetailsFailureAction extends Action {
   meta: { orderId: string };
 }
 
-/** Actions dispatched when the fetch order request is made. */
+/**
+ * Actions dispatched when the fetch order request is made.
+ */
 export type FetchOrderDetailsAction =
   | FetchOrderDetailsRequestAction
   | FetchOrderDetailsSuccessAction
@@ -59,7 +61,9 @@ export interface FetchOrderReturnOptionsFailureAction extends Action {
   meta: { orderId: string };
 }
 
-/** Actions dispatched when the fetch order return request is made. */
+/**
+ * Actions dispatched when the fetch order return request is made.
+ */
 export type FetchOrderReturnOptionsAction =
   | FetchOrderReturnOptionsRequestAction
   | FetchOrderReturnOptionsSuccessAction
@@ -77,7 +81,9 @@ export interface FetchOrdersFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the fetch orders request is made. */
+/**
+ * Actions dispatched when the fetch orders request is made.
+ */
 export type FetchOrdersAction =
   | FetchOrdersRequestAction
   | FetchOrdersSuccessAction
@@ -95,7 +101,9 @@ export interface FetchTrackingsFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the fetch trackings request is made. */
+/**
+ * Actions dispatched when the fetch trackings request is made.
+ */
 export type FetchTrackingsAction =
   | FetchTrackingsRequestAction
   | FetchTrackingsSuccessAction
@@ -113,7 +121,9 @@ export interface FetchOrderDocumentsFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the fetch order documents request is made. */
+/**
+ * Actions dispatched when the fetch order documents request is made.
+ */
 export type FetchOrderDocumentsAction =
   | FetchOrderDocumentsRequestAction
   | FetchOrderDocumentsSuccessAction
@@ -131,7 +141,9 @@ export interface FetchOrderDocumentFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the fetch order document request is made. */
+/**
+ * Actions dispatched when the fetch order document request is made.
+ */
 export type FetchOrderDocumentAction =
   | FetchOrderDocumentRequestAction
   | FetchOrderDocumentSuccessAction
@@ -149,24 +161,33 @@ export interface AddOrderDocumentFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the add order document request is made. */
+/**
+ * Actions dispatched when the add order document request is made.
+ */
 export type AddOrderDocumentAction =
   | AddOrderDocumentRequestAction
   | AddOrderDocumentSuccessAction
   | AddOrderDocumentFailureAction;
 
-/** Actions dispatched when the reset orders request is made. */
+/**
+ * Actions dispatched when the reset orders request is made.
+ */
 export interface ResetOrdersAction extends Action {
   type: typeof actionTypes.RESET_ORDERS;
   meta: { resetEntities: boolean };
 }
 
-/** Action dispatched when the logout request is made. */
+/**
+ * Action dispatched when the logout request is made.
+ */
 export interface LogoutAction extends Action {
   type: typeof LOGOUT_SUCCESS;
 }
 
-/** Actions dispatched when the fetch order available items activities request is made. */
+/**
+ * Actions dispatched when the fetch order available items activities request is
+ * made.
+ */
 export type FetchOrderAvailableItemsActivitiesAction =
   | FetchOrderAvailableItemsActivitiesRequestAction
   | FetchOrderAvailableItemsActivitiesSuccessAction
@@ -187,7 +208,10 @@ export interface FetchOrderAvailableItemsActivitiesFailureAction
   payload: { error: Error };
 }
 
-/** Actions dispatched when the fetch order available items activities request is made. */
+/**
+ * Actions dispatched when the fetch order available items activities request is
+ * made.
+ */
 export type FetchOrderItemAvailableActivitiesAction =
   | FetchOrderItemAvailableActivitiesRequestAction
   | FetchOrderItemAvailableActivitiesSuccessAction

@@ -5,17 +5,12 @@ import type { DeleteContact } from './types';
 /**
  * Method responsible for deleting a user contact.
  *
- * @function deleteContact
- * @memberof module:users/client
+ * @param userId    - The user's id.
+ * @param contactId - The contact id.
+ * @param query     - Query parameters for the delete contact.
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @param {string} userId - The user's id.
- * @param {string} contactId - The contact id.
- * @param {object} [query] - Query parameters for the delete contact.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const deleteContact: DeleteContact = (userId, contactId, query?, config?) =>
   client

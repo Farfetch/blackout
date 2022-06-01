@@ -3,11 +3,11 @@
  */
 
 /**
- * We need to test if the global variable `window` is not defined,
- * so we can have the full coverage needed for `gtm.js` file.
- * For that, we need to specify with the comment above that the environment is different from `jsdom` (node).
- * This comment only works if we specify the environment for the whole file, so we divided the tests in different files
- * for different environments.
+ * We need to test if the global variable `window` is not defined, so we can have
+ * the full coverage needed for `gtm.js` file. For that, we need to specify with
+ * the comment above that the environment is different from `jsdom` (node). This
+ * comment only works if we specify the environment for the whole file, so we
+ * divided the tests in different files for different environments.
  */
 
 import { GTM } from '../..';

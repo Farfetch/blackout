@@ -8,23 +8,18 @@ import type {
 import type { Dispatch } from 'redux';
 
 /**
- * @callback FetchContentTypesThunkFactory
- * @param {string} spaceCode - The space where the content belongs to (website|mobileapp|emailTool...).
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param spaceCode - The space where the content belongs to (website|mobileapp|emailTool...).
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Fetch content types.
  *
- * @function fetchContentTypesFactory
- * @memberof module:contents/actions/factories
+ * @param getContentTypes - Fetch content types client.
  *
- * @param {Function} getContentTypes - Fetch content types client.
- *
- * @returns {FetchContentTypesThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 export default (getContentTypes: GetContentTypes) =>
   (spaceCode: string, config?: Config) =>

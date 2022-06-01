@@ -26,7 +26,9 @@ export interface FetchProductDetailsFailureAction extends Action {
   type: typeof actionTypes.FETCH_PRODUCT_DETAILS_FAILURE;
 }
 
-/** Actions dispatched when the fetch product details request is made. */
+/**
+ * Actions dispatched when the fetch product details request is made.
+ */
 export type FetchProductDetailsAction =
   | FetchProductDetailsRequestAction
   | FetchProductDetailsSuccessAction
@@ -37,12 +39,16 @@ export interface DehydrateProductDetailsAction extends Action {
   type: typeof actionTypes.DEHYDRATE_PRODUCT_DETAILS;
 }
 
-/** Actions dispatched when the reset product details state is called. */
+/**
+ * Actions dispatched when the reset product details state is called.
+ */
 export interface ResetProductDetailsStateAction extends Action {
   type: typeof actionTypes.RESET_PRODUCT_DETAILS_STATE;
 }
 
-/** Actions dispatched when the reset product details entities is called. */
+/**
+ * Actions dispatched when the reset product details entities is called.
+ */
 export interface ResetProductDetailsEntitiesAction extends Action {
   type: typeof actionTypes.RESET_PRODUCT_DETAILS_ENTITIES;
 }

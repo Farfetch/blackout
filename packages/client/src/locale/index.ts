@@ -1,8 +1,5 @@
 /**
  * Locale clients.
- *
- * @module locale
- * @category Locale
  */
 
 export { default as getCountryCities } from './getCountryCities';

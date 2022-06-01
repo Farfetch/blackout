@@ -21,7 +21,8 @@ import merge from 'lodash/merge';
 import type { EventsMapper, ZarazIntegrationOptions } from './types/types';
 
 /**
- * Analytics integration with Cloudflare's Zaraz {@link https://developers.cloudflare.com/zaraz/}.
+ * Analytics integration with Cloudflare's Zaraz {@link
+ * https://developers.cloudflare.com/zaraz/}.
  */
 class Zaraz extends integrations.Integration<ZarazIntegrationOptions> {
   initializePromise: Promise<void> | null = null;
@@ -32,8 +33,8 @@ class Zaraz extends integrations.Integration<ZarazIntegrationOptions> {
   /**
    * Creates an instance of Zaraz integration.
    *
-   * @param options - Integration options.
-   * @param loadData - Analytics's load event data.
+   * @param options   - Integration options.
+   * @param loadData  - Analytics's load event data.
    * @param analytics - Analytics stripped down instance.
    */
   constructor(
@@ -126,13 +127,13 @@ class Zaraz extends integrations.Integration<ZarazIntegrationOptions> {
   }
 
   /**
-   * This sets up a fetch interceptor for development
-   * when testing locally (i.e. Host is localhost/127.0.0.1/192.168.X.X)
-   * The interceptor will change any zaraz fetches for hosts that are not
-   * localhost to go through localhost. This is because zaraz debug mode
-   * sets a cookie that needs to be sent to the server call to have any effect and
-   * Zaraz's script contains a call hardcoded to the domain that it is associated
-   * with Cloudflare when calling either zaraz.track or zaraz.ecommerce methods.
+   * This sets up a fetch interceptor for development when testing locally (i.e. Host
+   * is localhost/127.0.0.1/192.168.X.X) The interceptor will change any zaraz
+   * fetches for hosts that are not localhost to go through localhost. This is
+   * because zaraz debug mode sets a cookie that needs to be sent to the server call
+   * to have any effect and Zaraz's script contains a call hardcoded to the domain
+   * that it is associated with Cloudflare when calling either zaraz.track or
+   * zaraz.ecommerce methods.
    */
   setupDevelopmentFetchInterceptor() {
     if (this.isDevelopment()) {
@@ -155,10 +156,11 @@ class Zaraz extends integrations.Integration<ZarazIntegrationOptions> {
   }
 
   /**
-   * Loads zaraz script. The Zaraz's initialization script waits for the DOMContentLoaded
-   * event to dispatch the call to load the final script, which has already happened. To fix this,
-   * we fetch the code directly and replace the DOMContentLoaded event with a custom event
-   * which will be triggered by this method after appending the code to the DOM.
+   * Loads zaraz script. The Zaraz's initialization script waits for the
+   * DOMContentLoaded event to dispatch the call to load the final script, which has
+   * already happened. To fix this, we fetch the code directly and replace the
+   * DOMContentLoaded event with a custom event which will be triggered by this
+   * method after appending the code to the DOM.
    */
   async loadZarazScript() {
     const zarazInitializationScriptEndpoint =

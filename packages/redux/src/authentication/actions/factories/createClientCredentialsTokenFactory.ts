@@ -6,22 +6,18 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @callback PostTokensCredentialThunkFactory
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Creates client credentials token.
  *
- * @function createClientCredentialsToken
- * @param postTokens
- * @memberof module:authentication/actions/factories
+ * @param postTokens    -
+ * @param postUserToken - Post User token client guest credentials.
  *
- * @param {Function} postUserToken - Post User token client guest credentials.
- * @returns {PostTokensCredentialThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 export default (postTokens: any) =>
   (config?: { [k: string]: any }) =>

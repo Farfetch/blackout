@@ -6,29 +6,18 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @typedef {object} PasswordRecoveryData
- * @property {string} username - User's email.
- * @property {string} uri - URI where the user will reset its password.
- */
-
-/**
- * @callback PasswordRecoveryThunkFactory
- * @param {PasswordRecoveryData} data - User details.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param data   - User details.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Method responsible for sending an email for the user to reset the password.
  *
- * @function recoverPassword
- * @memberof module:authentication/actions/factories
+ * @param postPasswordRecover - Post password recover client.
  *
- * @param {Function} postPasswordRecover - Post password recover client.
- *
- * @returns {PasswordRecoveryThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 export default (postPasswordRecover: any) =>
   (

@@ -15,12 +15,10 @@ import type { StoreState } from '../../types';
 /**
  * Returns the error given by product actions.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {object} Product details error.
+ * @returns Product details error.
  */
 export const getProductError = (
   state: StoreState,
@@ -30,12 +28,10 @@ export const getProductError = (
 /**
  * Returns the hydrated condition from product details.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {boolean} If a certain product is hydrated or not.
+ * @returns If a certain product is hydrated or not.
  */
 export const isProductHydrated = (
   state: StoreState,
@@ -45,12 +41,10 @@ export const isProductHydrated = (
 /**
  * Returns the loading condition from product details.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {boolean} If a certain product is loading or not.
+ * @returns If a certain product is loading or not.
  */
 export const isProductLoading = (
   state: StoreState,
@@ -60,12 +54,10 @@ export const isProductLoading = (
 /**
  * Returns the fetched status of a specific product.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {boolean} If a certain product has been fetched or not.
+ * @returns If a certain product has been fetched or not.
  */
 export const isProductFetched = (
   state: StoreState,
@@ -78,12 +70,10 @@ export const isProductFetched = (
 /**
  * Returns if the product is duplicated or not.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {boolean|undefined} If a certain product is duplicated or not.
+ * @returns If a certain product is duplicated or not.
  */
 export const isProductDuplicated = (
   state: StoreState,
@@ -97,12 +87,10 @@ export const isProductDuplicated = (
 /**
  * Returns all the info about breadcrumbs at PDP.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {object|undefined} Breadcrumbs info.
+ * @returns Breadcrumbs info.
  */
 export const getProductBreadcrumbs = (
   state: StoreState,
@@ -114,21 +102,17 @@ export const getProductBreadcrumbs = (
 };
 
 /**
- * Function responsible for checking the remaining available quantity
- * of a product of a given size, based on its quantity in the bag.
+ * Function responsible for checking the remaining available quantity of a product
+ * of a given size, based on its quantity in the bag.
  *
- * To use this selector you should be using products and bag reducers
- * at the same time.
+ * To use this selector you should be using products and bag reducers at the same
+ * time.
  *
- * @memberof module:products/selectors
+ * @param state     - Application state.
+ * @param productId - Numeric identifier of the product.
+ * @param sizeId    - Numeric identifier of the size.
  *
- * @param {object} state - Application state.
- * @param {number} productId - Numeric identifier of the product.
- * @param {number} sizeId - Numeric identifier of the size.
- *
- * @returns {number} Difference between the total quantity of product size and the
- * respective bag quantity.
- *
+ * @returns Difference between the total quantity of product size and the respective bag quantity.
  */
 export const getProductSizeRemainingQuantity = (
   state: StoreState,
@@ -150,20 +134,17 @@ export const getProductSizeRemainingQuantity = (
 };
 
 /**
- * Function responsible for checking the remaining available quantity
- * for each size of the provided product, based on its quantity in the bag.
+ * Function responsible for checking the remaining available quantity for each size
+ * of the provided product, based on its quantity in the bag.
  *
- * To use this selector you should be using products and bag reducers
- * at the same time.
+ * To use this selector you should be using products and bag reducers at the same
+ * time.
  *
- * @memberof module:products/selectors
+ * @param state     - Application state.
+ * @param productId - Numeric identifier of the product.
  *
- * @param {object} state - Application state.
- * @param {number} productId - Numeric identifier of the product.
- *
- * @returns {Array} Product sizes array with updated quantity, as the difference
- * between the total quantity of product size and the respective bag quantity.
- *
+ * @returns Product sizes array with updated quantity, as the difference between the total quantity of
+ * product size and the respective bag quantity.
  */
 export const getAllProductSizesRemainingQuantity = createSelector(
   [
@@ -214,26 +195,22 @@ export const getAllProductSizesRemainingQuantity = createSelector(
 );
 
 /**
- * Returns all the info about color grouping for the given product id.
- * This selector should be used on listing pages to get the grouped entries.
- * This information comes from the listing endpoint and is attached to the
- * products entity by product id.
- *
- * @memberof module:products/selectors
- *
- * @param {object} state - Application state.
- * @param {number} productId - Product identifier.
- *
- * @returns {object|undefined} Color grouping object.
+ * Returns all the info about color grouping for the given product id. This
+ * selector should be used on listing pages to get the grouped entries. This
+ * information comes from the listing endpoint and is attached to the products
+ * entity by product id.
  *
  * @example
+ * ```
  * import { getListingGroupedEntries } from '@farfetch/blackout-redux/products';
  *
  * const mapStateToProps = state => ({
  *     groupedEntries: getListingGroupedEntries(state, productId)
  * });
  *
+ * ```
  * @example
+ * ```
  * // Result of color grouping
  * {
  *  totalItems: 20, // Total colors available
@@ -252,8 +229,14 @@ export const getAllProductSizesRemainingQuantity = createSelector(
  *          ]
  *      }
  *  ]
- *};
+ * };
  *
+ * ```
+ *
+ * @param state     - Application state.
+ * @param productId - Product identifier.
+ *
+ * @returns Color grouping object.
  */
 export const getProductGroupedEntries = createSelector(
   [

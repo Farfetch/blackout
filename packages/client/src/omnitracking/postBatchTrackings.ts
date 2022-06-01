@@ -3,13 +3,11 @@ import type { AxiosRequestConfig } from 'axios';
 import type { TrackingData } from './types';
 
 /**
- * Method responsible for posting a batch of data to /batch/trackings endpoint on MKT API.
- *
- * @param data   - Payload to be sent on the body of the post request.
- * @param config - Custom configurations to send to the client
- * instance (axios).
+ * Method responsible for posting a batch of data to /batch/trackings endpoint on
+ * MKT API.
  *
  * @example
+ * ```
  * import \{ postBatchTrackings \} from '\@farfetch/blackout-client/omnitracking';
  *
  *  postBatchTrackings([
@@ -22,6 +20,11 @@ import type { TrackingData } from './types';
  *          parameters: \{\}
  *      \}
  * ]);
+ *
+ * ```
+ *
+ * @param data   - Payload to be sent on the body of the post request.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise object.
  */

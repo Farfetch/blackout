@@ -1,8 +1,3 @@
-/**
- * @module promotionEvaluations/reducer
- * @category Promotion Evaluations
- * @subcategory Reducer
- */
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import type {

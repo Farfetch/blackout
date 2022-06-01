@@ -6,12 +6,10 @@ import type { StoreState } from '../../types';
 /**
  * Returns a specific facet by its id.
  *
- * @memberof module:entities/selectors
+ * @param state   - Application state.
+ * @param facetId - Facet id.
  *
- * @param {object} state - Application state.
- * @param {number} facetId - Facet id.
- *
- * @returns {object} Facet normalized.
+ * @returns Facet normalized.
  */
 export const getFacet = (
   state: StoreState,
@@ -21,12 +19,9 @@ export const getFacet = (
 /**
  * Returns all facets from state.
  *
- * @memberof module:entities/selectors
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Object with key values pairs
- * representing facetId and facet properties.
+ * @returns Object with key values pairs representing facetId and facet properties.
  */
 export const getFacets = (
   state: StoreState,
@@ -36,12 +31,10 @@ export const getFacets = (
 /**
  * Returns required facets by ids received by parameter.
  *
- * @memberof module:entities/selectors
+ * @param state    - Application state.
+ * @param facetIds - Facets ids.
  *
- * @param {object} state - Application state.
- * @param {Array} facetIds - Facets ids.
- *
- * @returns {Array} Array with all facets content requested.
+ * @returns Array with all facets content requested.
  */
 export const getFacetsByIds = createSelector(
   [

@@ -3,12 +3,9 @@ import type { AdaptCustomAttributes } from './types';
 /**
  * Adapts a string with custom attributes to a JSON object.
  *
- * @function
- * @memberof module:helpers/adapters
+ * @param attributes - String with the attributes to parse.
  *
- * @param {string} attributes - String with the attributes to parse.
- *
- * @returns {object} Custom attributes adapted.
+ * @returns Custom attributes adapted.
  */
 const adaptCustomAttributes: AdaptCustomAttributes = attributes => {
   try {

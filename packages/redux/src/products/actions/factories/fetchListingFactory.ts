@@ -9,28 +9,21 @@ import type { GetOptionsArgument, StoreState } from '../../../types';
 import type { ProductsListActionOptions } from '../../types';
 
 /**
- * @callback FetchListingThunkFactory
+ * @param slug          - Slug to load listing for.
+ * @param query         - Query parameters to apply.
+ * @param actionOptions - Additional options to apply to the action.
+ * @param config        - Custom configurations to send to the client instance (axios).
  *
- * @param {string} slug - Slug to load listing for.
- * @param {object} [query] - Query parameters to apply.
- * @param {object} [actionOptions] - Additional options to apply to the action.
- * @param {string} [actionOptions.useCache=false] - If the request result will be cached.
- * @param {string} [actionOptions.setProductsListHash=true] - Allows the listing hash to be set.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * Creates a thunk factory configured with the specified client to fetch a
- * product listing for a given slug with specific query parameters.
+ * Creates a thunk factory configured with the specified client to fetch a product
+ * listing for a given slug with specific query parameters.
  *
- * @memberof module:products/actions/factories
+ * @param getListing - Get listing client.
  *
- * @param {Function} getListing - Get listing client.
- *
- * @returns {FetchListingThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchListingFactory =
   (getListing: GetListing) =>

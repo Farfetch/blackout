@@ -6,13 +6,21 @@ import type { UnsubscribeRecipientFromTopicAction } from '../../../types';
 export type UnsubscribeRecipientFromTopicFactory<
   T extends DeleteRecipientFromTopic,
 > = (deleteRecipientFromTopic: T) => (
-  /** Id of the subscription to be affected. */
+  /**
+   * Id of the subscription to be affected.
+   */
   subscriptionId: string,
-  /** Id of topic to remove the recipient from. */
+  /**
+   * Id of topic to remove the recipient from.
+   */
   topicId: string,
-  /** The id of the recipient to be removed. */
+  /**
+   * The id of the recipient to be removed.
+   */
   recipientId: string,
-  /** Additional metadata to action. */
+  /**
+   * Additional metadata to action.
+   */
   meta?: UnsubscribeRecipientFromTopicMeta,
   config?: Config,
 ) => (dispatch: Dispatch<UnsubscribeRecipientFromTopicAction>) => ReturnType<T>;

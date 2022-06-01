@@ -1,10 +1,6 @@
 /**
- * Hook to provide all kinds of data for the business logic attached to the
- * actions of adding or updating an item to the bag.
- *
- * @module useAddOrUpdateItem
- * @category Bags
- * @subcategory Hooks
+ * Hook to provide all kinds of data for the business logic attached to the actions
+ * of adding or updating an item to the bag.
  */
 import {
   addBagItem as addBagItemAction,
@@ -22,11 +18,9 @@ import type { HandleAddOrUpdateItem, UseAddOrUpdateBagItem } from './types';
 /**
  * Provides handler for adding or updating a bag item.
  *
- * @memberof module:bags/hooks
+ * @param bagItem - Bag item to work on.
  *
- * @param {number} [bagItem] - Bag item to work on.
- *
- * @returns {Function} Handle to manage bag item related operations.
+ * @returns Handle to manage bag item related operations.
  */
 const useAddOrUpdateBagItem: UseAddOrUpdateBagItem = bagItem => {
   // Selectors
@@ -39,33 +33,18 @@ const useAddOrUpdateBagItem: UseAddOrUpdateBagItem = bagItem => {
   );
 
   /**
-   * Automatically manages the merchant available, according to its stock,
-   * to be used in both "add" and "update" operations. It starts with the
-   * preferred merchant, skips to the next when the previous runs out of
-   * stock, and so on.
+   * Automatically manages the merchant available, according to its stock, to be used
+   * in both "add" and "update" operations. It starts with the preferred merchant,
+   * skips to the next when the previous runs out of stock, and so on.
+   * <br /> This is
+   * useful for when the operation is done outside the bag, for example, on the "move
+   * to bag" from the wishlist.
    * <br />
-   * This is useful for when the operation is done outside the bag, for
-   * example, on the "move to bag" from the wishlist.
    * <br />
-   * <br />
-   * <i><small>This operation is over the bag item that instantiated the hook by
-   * default.</small></i>.
+   * <i><small>This operation is over the
+   * bag item that instantiated the hook by default.</small></i>.
    *
-   * @param {object} [item] - Item to add/update the bag with.
-   * @param {string} [item.customAttributes=bagItem.customAttributes] - Custom attributes
-   * of the bag item to handle.
-   * @param {string} [item.from] - Provenience of action.
-   * @param {object} [item.product=bagItem.product] - Product of the bag item
-   * to handle. Defaults to the product of the bag item that instantiated the
-   * hook.
-   * @param {number} [item.productAggregatorId = bagItem.productAggregator.id] - Product
-   * aggregator id that represents the bundle variant that owns it.
-   * @param {number} [item.quantity=bagItem.quantity] - Quantity of the
-   * product to add/update. Defaults to the quantity of the bag item that
-   * instantiated the hook or 1 when adding an item for the first time.
-   * @param {object} [item.size=productSize] - Size of the product to
-   * add/update. Defaults to the size of the bag item that instantiated the
-   * hook.
+   * @param item - Item to add/update the bag with.
    */
   const handleAddOrUpdateItem: HandleAddOrUpdateItem = async ({
     customAttributes = bagItem?.customAttributes,

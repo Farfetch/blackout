@@ -13,8 +13,8 @@ export const PRODUCT_ID_PARAMETER = 'productId';
 export const PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST = 'id';
 
 /**
- * Common parameters to any event.
- * This list is extended by each page event definition.
+ * Common parameters to any event. This list is extended by each page event
+ * definition.
  */
 const commonPageParams = [
   'abTests',
@@ -329,8 +329,8 @@ export const trackDefinitions = [
 ] as const;
 
 /**
- * Page action event types expected by Omnitracking to be sent
- * on the 'event' parameter.
+ * Page action event types expected by Omnitracking to be sent on the 'event'
+ * parameter.
  */
 export const pageActionEventTypes = {
   PAGE_ACTION: 'PageAction',
@@ -338,8 +338,8 @@ export const pageActionEventTypes = {
 } as const;
 
 /**
- * Page view event types expected by Omnitracking to be sent
- * on the 'event' parameter.
+ * Page view event types expected by Omnitracking to be sent on the 'event'
+ * parameter.
  */
 export const pageViewEventTypes = {
   GenericPageVisited: 'GenericPageVisited',
@@ -349,8 +349,9 @@ export const pageViewEventTypes = {
 } as const;
 
 /**
- * Events mapper with possible keywords for each event type.
- * This keywords can match both with `window.location.href` or the page name passed via `analytics.page(name, properties)`.
+ * Events mapper with possible keywords for each event type. This keywords can
+ * match both with `window.location.href` or the page name passed via
+ * `analytics.page(name, properties)`.
  */
 export const pageEventsFilter: {
   [K in keyof Omit<typeof pageViewEventTypes, 'GenericPageVisited'>]: Readonly<
@@ -383,9 +384,9 @@ export const pageEventsFilter: {
 } as const;
 
 /**
- * Interested events for tracking.
- * If there is an event that can have different TIDs depending on the `from` parameter,
- * make sure to define it, along with any specific parameter, if applicable.
+ * Interested events for tracking. If there is an event that can have different
+ * TIDs depending on the `from` parameter, make sure to define it, along with any
+ * specific parameter, if applicable.
  */
 export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   [eventTypes.SIGNUP_FORM_VIEWED]: (data: EventData<TrackTypesValues>) => ({

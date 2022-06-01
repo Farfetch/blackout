@@ -2,19 +2,13 @@ import { buildQueryStringFromObject } from '../../helpers';
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import parse from 'url-parse';
-import type {
-  ListingQuery,
-  SetQuery,
-} from '@farfetch/blackout-client/products/types';
-import type { ProductsListEntity } from '../../entities/types';
+import type { GenerateProductsListHash } from './types';
 
 /**
- * Build a hash with slug and query to identify products lists
- * (listings or sets).
- *
- * @memberof module:products/utils
+ * Build a hash with slug and query to identify products lists (listings or sets).
  *
  * @example
+ * ```
  * const query = { sort: 'price' };
  * const productsListHash = generateProductsListHash(slug, query);
  * const productsListHash = generateProductsListHash(slug, query, {
@@ -23,18 +17,19 @@ import type { ProductsListEntity } from '../../entities/types';
  *
  * Result of productsListHash === 'listing/woman/clothing?sort=price';
  *
- * @param {string|number|null} slug - Slug from pathname.
- * @param {object|string} [query] - Object or string with query parameters.
- * @param {object} [hashOptions] - Options to generate the hash.
- * @param {bool} [hashOptions.isSet] - If the hash represents a set or not.
+ * ```
  *
- * @returns {string} Hash builded to identify a products list.
+ * @param slug        - Slug from pathname.
+ * @param query       - Object or string with query parameters.
+ * @param hashOptions - Options to generate the hash.
+ *
+ * @returns Hash builded to identify a products list.
  */
-const generateProductsListHash = (
-  slug: string | number | null,
-  query?: ListingQuery | SetQuery,
-  { isSet }: { isSet?: boolean } = {},
-): ProductsListEntity['hash'] => {
+const generateProductsListHash: GenerateProductsListHash = (
+  slug,
+  query,
+  { isSet } = {},
+) => {
   let finalQuery = {};
   let productsListScope = 'listing';
 

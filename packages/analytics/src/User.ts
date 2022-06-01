@@ -4,8 +4,8 @@ import type { StorageWrapper } from './utils';
 import type { UserData, UserTraits } from './types/analytics.types';
 
 /**
- * Handles and persists user data on the instance.
- * Persists localId on the passed in storage.
+ * Handles and persists user data on the instance. Persists localId on the passed
+ * in storage.
  */
 class User {
   storage: StorageWrapper;
@@ -30,8 +30,9 @@ class User {
   }
 
   /**
-   * Creates a new guid if there's none already created and stored.
-   * This ID will be persisted as long as the TTL(time-to-live) set in the storage (Max. Up to one year, due to GDPR regulations).
+   * Creates a new guid if there's none already created and stored. This ID will be
+   * persisted as long as the TTL(time-to-live) set in the storage (Max. Up to one
+   * year, due to GDPR regulations).
    *
    * @returns Promise that will resolve with the user local ID (GUID).
    */
@@ -47,8 +48,8 @@ class User {
   }
 
   /**
-   * Returns the user data.
-   * Fetches localId from storage and merges with super.get() object.
+   * Returns the user data. Fetches localId from storage and merges with super.get()
+   * object.
    *
    * @returns Promise that will resolve with the user's data.
    */
@@ -64,10 +65,11 @@ class User {
   /**
    * Allows to update user data to be merged with existing ones on the store.
    *
-   * @param id - Id of the user.
+   * @param id     - Id of the user.
    * @param traits - Properties like name, email, etc of the user.
    *
-   * @returns Promise that will resolve with the instance that was used when calling this method to allow chaining.
+   * @returns Promise that will resolve with the instance that was used when calling this method to allow
+   * chaining.
    */
   async set(id: UserData['id'] = null, traits: UserTraits = {}): Promise<User> {
     // Generate a new localId and store it (if needed)
@@ -84,7 +86,8 @@ class User {
   /**
    * Deletes user data.
    *
-   * @returns Promise that will resolve with the instance that was used when calling this method to allow chaining.
+   * @returns Promise that will resolve with the instance that was used when calling this method to allow
+   * chaining.
    */
   async anonymize(): Promise<User> {
     // Reset the user with defaults
@@ -94,7 +97,8 @@ class User {
   }
 
   /**
-   * Initializes the user instance while allowing to set the localId to be set for the user.
+   * Initializes the user instance while allowing to set the localId to be set for
+   * the user.
    *
    * @param localId - The localId to be set.
    */

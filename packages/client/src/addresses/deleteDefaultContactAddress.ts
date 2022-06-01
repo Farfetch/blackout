@@ -5,15 +5,10 @@ import type { DeleteDefaultContactAddress } from './types';
 /**
  * Responsible for unsetting the users default contact address.
  *
- * @function deleteDefaultContactAddress
- * @memberof module:addresses/client
+ * @param userId - Identifier of the user.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} userId - Identifier of the user.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise<number|object>} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const deleteDefaultContactAddress: DeleteDefaultContactAddress = (
   userId,

@@ -5,15 +5,10 @@ import type { GetOrderDetails } from './types';
 /**
  * Method responsible for fetching the details of an order.
  *
- * @function getOrderDetails
- * @memberof module:orders/client
+ * @param orderId - The orderID to get the details.
+ * @param config  - Custom configurations to send to the client instance (axios).
  *
- * @param {string} orderId - The orderID to get the details.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getOrderDetails: GetOrderDetails = (orderId, config) =>
   client

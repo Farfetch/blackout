@@ -1,9 +1,3 @@
-/**
- * @module orders/reducer
- * @category Orders
- * @subcategory Reducer
- */
-
 import * as actionTypes from './actionTypes';
 import { adaptDate } from '@farfetch/blackout-client/helpers/adapters';
 import { combineReducers } from 'redux';
@@ -461,13 +455,10 @@ const reducer = combineReducers({
 /**
  * Reducer for orders state.
  *
- * @function ordersReducer
- * @static
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
  *
- * @param {object} state - Current redux state.
- * @param {object} action - Action dispatched.
- *
- * @returns {object} New state.
+ * @returns New state.
  */
 const ordersReducer = (state: T.State, action: T.LogoutAction) => {
   if (action.type === LOGOUT_SUCCESS) {

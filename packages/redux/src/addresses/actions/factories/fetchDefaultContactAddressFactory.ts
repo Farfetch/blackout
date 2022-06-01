@@ -13,24 +13,18 @@ import type { Dispatch } from 'redux';
 import type { FetchDefaultContactAddressAction } from '../../types';
 
 /**
- * @callback FetchDefaultContactAddressThunkFactory
- * @param {number} userId - Identifier of the user.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param userId - Identifier of the user.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Responsible for obtaining the default contact address of the user.
  *
- * @function doGetDefaultContactAddress
- * @memberof module:addresses/actions/factories
+ * @param getDefaultContactAddress - Get default contact address client.
  *
- * @param {Function} getDefaultContactAddress - Get default contact
- * address client.
- *
- * @returns {FetchDefaultContactAddressThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchDefaultContactAddressFactory =
   (getDefaultContactAddress: GetDefaultContactAddress) =>

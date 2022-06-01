@@ -7,12 +7,10 @@ import type { StoreState } from '../../types';
 /**
  * Returns the loading measurements condition to a specific product.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {boolean} If the product measurements are loading or not.
+ * @returns If the product measurements are loading or not.
  */
 export const areProductMeasurementsLoading = (
   state: StoreState,
@@ -22,12 +20,10 @@ export const areProductMeasurementsLoading = (
 /**
  * Returns the fetched status of a specific product measurements.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {boolean} If the product measurements has been fetched or not.
+ * @returns If the product measurements has been fetched or not.
  */
 export const areProductMeasurementsFetched = (
   state: StoreState,
@@ -39,12 +35,10 @@ export const areProductMeasurementsFetched = (
 /**
  * Returns the error measurements condition to a specific product.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {object} The measurements error associated to a specific product.
+ * @returns The measurements error associated to a specific product.
  */
 export const getProductMeasurementsError = (
   state: StoreState,
@@ -54,12 +48,10 @@ export const getProductMeasurementsError = (
 /**
  * Returns the measurements for a given product id.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {Array|undefined} The measurements for a given product id.
+ * @returns The measurements for a given product id.
  */
 export const getProductMeasurements = (
   state: StoreState,

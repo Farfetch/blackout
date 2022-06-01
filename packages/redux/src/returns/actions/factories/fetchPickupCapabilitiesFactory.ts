@@ -11,33 +11,19 @@ import type {
 } from '@farfetch/blackout-client/src/returns/types';
 
 /**
- * @typedef {object} GetPickupCapabilitiesQuery
- * @property {Date} pickupDay - Timestamp for the day of pickup.
- * @property {string} [guestOrderId] - Order identifier. Only required if
- * the user is not registered (guest).
- * @property {string} [guestUserEmail] - User email. Only required if
- * the user is not registered (guest).
- */
-
-/**
- * @callback GetPickupCapabilitiesThunkFactory
- * @param {string} id - Return identifier.
- * @param {GetPickupCapabilitiesQuery} [query] - Query parameters for the pickup capabilities.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - Return identifier.
+ * @param query  - Query parameters for the pickup capabilities.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Obtains the pickup capabilities for a specific order.
  *
- * @function fetchPickupCapabilitiesFactory
- * @memberof module:returns/actions
+ * @param getPickupCapabilities - Get pickup capabilities client.
  *
- * @param {Function} getPickupCapabilities - Get pickup capabilities client.
- *
- * @returns {GetPickupCapabilitiesThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchPickupCapabilitiesFactory =
   (getPickupCapabilities: GetPickupCapabilities) =>

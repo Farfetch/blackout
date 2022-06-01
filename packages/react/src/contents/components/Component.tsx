@@ -14,10 +14,10 @@ export const components: Components = {};
 /**
  * Registers a react component to be rendered for a given CMS component type.
  *
- * @param  {string} type - Component type. Should be the exact component type in the CMS.
- * @param  {ReactElement} component - Component to be registered.
+ * @param type      - Component type. Should be the exact component type in the CMS.
+ * @param component - Component to be registered.
  *
- * @returns {ReactElement} Ready component.
+ * @returns Ready component.
  */
 export const registerComponent = (
   type: string,
@@ -34,29 +34,26 @@ export const registerComponent = (
   return component;
 };
 
-/**
- * @typedef ComponentProps
- * @property {object} component - Object containing the data needed to render.
- * @property {React.ReactNode} children - A React Node.
- */
+
 
 /**
- * Editorial component.
- * Renders a component by looking it up in the registered types.
- *
- * @component
- * @memberof module:contents/components
- *
- * @param {ComponentProps} props - All props of component.
- *
- * @returns {ReactElement} - A registered component.
+ * Editorial component. Renders a component by looking it up in the registered
+ * types.
  *
  * @example
+ * ```
  * import Component from '@farfetch/blackout-react/content/component';
+ * ```
  * @example
+ * ```
  * <Component
  *      component={{ type, ...data }}
  *      {...props} />
+ * ```
+ *
+ * @param props - All props of component.
+ *
+ * @returns - A registered component.
  */
 const Component = ({
   component,

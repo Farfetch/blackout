@@ -1,8 +1,3 @@
-/**
- * @module designers/selectors
- * @category Designers
- * @subcategory Selectors
- */
 import { getError, getHash, getIsLoading, getResult } from './reducer';
 import type { Designers } from '@farfetch/blackout-client/designers/types';
 import type { Error } from '@farfetch/blackout-client/types';
@@ -11,20 +6,20 @@ import type { StoreState } from '../types';
 /**
  * Returns the designers error.
  *
- * @function
- *
- * @param {object} state - Application state.
- * @param {string} hash - Designer result identifier composed by subfolder and query.
- *
- * @returns {object} Designers error.
- *
  * @example
+ * ```
  * import { getDesignersError } from '@farfetch/blackout-redux/designers';
  *
  * const mapStateToProps = state => ({
  *     error: getDesignersError(state)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ * @param hash  - Designer result identifier composed by subfolder and query.
+ *
+ * @returns Designers error.
  */
 export const getDesignersError = (
   state: StoreState,
@@ -34,20 +29,20 @@ export const getDesignersError = (
 /**
  * Returns the loading status for the designers.
  *
- * @function
- *
- * @param {object} state - Application state.
- * @param {string} hash - Designer result identifier composed by subfolder and query.
- *
- * @returns {boolean} Loading status.
- *
  * @example
+ * ```
  * import { areDesignersLoading } from '@farfetch/blackout-redux/designers';
  *
  * const mapStateToProps = state => ({
  *     isLoading: areDesignersLoading(state)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ * @param hash  - Designer result identifier composed by subfolder and query.
+ *
+ * @returns Loading status.
  */
 export const areDesignersLoading = (
   state: StoreState,
@@ -58,18 +53,19 @@ export const areDesignersLoading = (
 /**
  * Returns the designers.
  *
- * @function
- *
- * @param {object} state - Application state.
- * @param {string} hash - Designer result identifier composed by subfolder and query.
- *
- * @returns {Array} Designers.
  * @example
+ * ```
  * import { getDesignersResult } from '@farfetch/blackout-redux/designers';
  *
  * const mapStateToProps = state => ({
  * result: getDesignersResult(state, hash)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ * @param hash  - Designer result identifier composed by subfolder and query.
+ *
+ * @returns Designers.
  */
 export const getDesignersResult = (
   state: StoreState,
@@ -80,19 +76,19 @@ export const getDesignersResult = (
 /**
  * Retrieves the current designer result hash.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {string} - Designers result identifier composed by subfolder and query.
- *
  * @example
+ * ```
  * import { getDesignersResultHash } from '@farfetch/blackout-redux/designers';
  *
  * const mapStateToProps = state => ({
  *     hash: getDesignersResultHash(state)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - Designers result identifier composed by subfolder and query.
  */
 export const getDesignersResultHash = (state: StoreState): string | null =>
   getHash(state.designers);
@@ -100,20 +96,20 @@ export const getDesignersResultHash = (state: StoreState): string | null =>
 /**
  * Retrieves if a designers result is cached by its hash.
  *
- * @function
- *
- * @param {object} state - Application state.
- * @param {string} hash - Designer result identifier composed by subfolder and query.
- *
- * @returns {boolean} - Whether the designers result is cached or not.
- *
  * @example
+ * ```
  * import { isDesignersResultCached } from '@farfetch/blackout-redux/designers';
  *
  * const mapStateToProps = state => ({
  *     isDesignersResultCached: isDesignersResultCached(state, hash)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ * @param hash  - Designer result identifier composed by subfolder and query.
+ *
+ * @returns - Whether the designers result is cached or not.
  */
 export const isDesignersResultCached = (
   state: StoreState,

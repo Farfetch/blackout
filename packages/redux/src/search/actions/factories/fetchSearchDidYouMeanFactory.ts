@@ -8,34 +8,19 @@ import type {
 } from '@farfetch/blackout-client/search/types';
 
 /**
- * @typedef {object} FetchSearchDidYouMeanQuery
+ * @param query  - Query parameters to apply to the search.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @property {string} searchTerms - Free text to find in products, including in
- * the description, shortDescription, categories, colors, and attributes.
- * @property {string[]} genders - Get suggestions for genders, separated by
- * commas: 0 = Woman, 1 = Man, 2 = Unisex, 3 = Kid.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * @callback FetchSearchDidYouMeanThunkFactory
+ * Creates a thunk factory configured with the specified client to fetch the facets
+ * available to a given search.
  *
- * @param {FetchSearchDidYouMeanQuery} query - Query parameters to apply to
- * the search.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param getSearchDidYouMean - Get search did you mean client.
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
- */
-
-/**
- * Creates a thunk factory configured with the specified client to fetch the
- * facets available to a given search.
- *
- * @memberof module:search/actions/factories
- *
- * @param {Function} getSearchDidYouMean - Get search did you mean client.
- *
- * @returns {FetchSearchDidYouMeanThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchSearchDidYouMeanFactory =
   (getSearchDidYouMean: GetSearchDidYouMean) =>

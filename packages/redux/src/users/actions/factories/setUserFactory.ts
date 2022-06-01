@@ -11,24 +11,19 @@ import type {
 } from '@farfetch/blackout-client/users/types';
 
 /**
- * @callback UpdateUserThunkFactory
- * @param {number} id - User identifier.
- * @param {object} data - User data.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - User identifier.
+ * @param data   - User data.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Updates the user data.
  *
- * @function fetchUser
- * @memberof module:users/actions
+ * @param putUser - Put user client.
  *
- * @param {Function} putUser - Put user client.
- *
- * @returns {SetUserThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const setUserFactory =
   (putUser: PutUser) =>

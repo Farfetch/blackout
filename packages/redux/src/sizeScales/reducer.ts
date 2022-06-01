@@ -1,8 +1,3 @@
-/**
- * @module sizeScales/reducer
- * @category SizeScales
- * @subcategory Reducer
- */
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import isEmpty from 'lodash/isEmpty';
@@ -229,12 +224,10 @@ const reducers = combineReducers({
 /**
  * Reducer for sizeScales state.
  *
- * @static
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
  *
- * @param {object} state - Current redux state.
- * @param {object} action - Action dispatched.
- *
- * @returns {object} New state.
+ * @returns New state.
  */
 const sizeScalesReducer: ReducerSwitch<
   State,

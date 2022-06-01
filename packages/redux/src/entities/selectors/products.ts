@@ -9,12 +9,10 @@ import type { StoreState } from '../../types';
 /**
  * Returns a specific product by its id.
  *
- * @memberof module:entities/selectors
+ * @param state     - Application state.
+ * @param productId - Numeric identifier of the product.
  *
- * @param {object} state - Application state.
- * @param {number} productId - Numeric identifier of the product.
- *
- * @returns {object} Product normalized.
+ * @returns Product normalized.
  */
 export const getProduct = (
   state: StoreState,
@@ -24,12 +22,10 @@ export const getProduct = (
 /**
  * Checks if a specific product is "one size" by its id.
  *
- * @memberof module:entities/selectors
+ * @param state     - Application state.
+ * @param productId - Numeric identifier of the product.
  *
- * @param {object} state - Application state.
- * @param {number} productId - Numeric identifier of the product.
- *
- * @returns {boolean} If a certain product is one size or not.
+ * @returns If a certain product is one size or not.
  */
 export const isProductOneSize = (
   state: StoreState,
@@ -43,12 +39,10 @@ export const isProductOneSize = (
 /**
  * Checks if a specific wishlist product is "out of stock" by its id.
  *
- * @memberof module:entities/selectors
+ * @param state     - Application state.
+ * @param productId - Numeric identifier of the product.
  *
- * @param {object} state - Application state.
- * @param {number} productId - Numeric identifier of the product.
- *
- * @returns {boolean} If a certain product is out of stock or not.
+ * @returns If a certain product is out of stock or not.
  */
 export const isProductOutOfStock = (
   state: StoreState,
@@ -66,12 +60,10 @@ export const isProductOutOfStock = (
 /**
  * Returns the list of promotions for a product given its id.
  *
- * @memberof module:entities/selectors
+ * @param state     - Application state.
+ * @param productId - Numeric identifier of the product.
  *
- * @param {object} state - Application state.
- * @param {number} productId - Numeric identifier of the product.
- *
- * @returns {Array} List of product promotions for the given ID.
+ * @returns List of product promotions for the given ID.
  */
 export const getProductPromotions = createSelector(
   [
@@ -84,13 +76,11 @@ export const getProductPromotions = createSelector(
 /**
  * Gets all labels of a given product, sorted by the given priority order.
  *
- * @memberof module:entities/selectors
+ * @param state     - Application state.
+ * @param productId - Numeric identifier of the product.
+ * @param sortOrder - Sorting order; can be 'asc' or 'desc'.
  *
- * @param {object} state - Application state.
- * @param {number} productId - Numeric identifier of the product.
- * @param {string} [sortOrder='asc'] - Sorting order; can be 'asc' or 'desc'.
- *
- * @returns {Array} Labels sorted by the given order.
+ * @returns Labels sorted by the given order.
  */
 export const getProductLabelsByPriority = createSelector(
   [

@@ -1,9 +1,3 @@
-/**
- * @module contents/reducer
- * @category Contents
- * @subcategory Reducer
- */
-
 import * as actionTypes from './actionTypes';
 import { combineReducers } from 'redux';
 import type {
@@ -156,13 +150,10 @@ const reducers = combineReducers({
 /**
  * Reducer for contents state.
  *
- * @function contentsReducer
- * @static
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
  *
- * @param {object} state - Current redux state.
- * @param {object} action - Action dispatched.
- *
- * @returns {object} New state.
+ * @returns New state.
  */
 const contentsReducer: ReducerSwitch<
   State,

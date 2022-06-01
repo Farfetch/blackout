@@ -13,23 +13,19 @@ import type {
 } from '@farfetch/blackout-client/sizeScales/types';
 
 /**
- * @callback FetchSizeScaleThunkFactory
- * @param {number} sizeScaleId - Numeric identifier of the size scale.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param sizeScaleId - Numeric identifier of the size scale.
+ * @param config      - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * Creates a thunk factory configured with the specified client to fetch a
- * specific size scale for a given size scale id.
+ * Creates a thunk factory configured with the specified client to fetch a specific
+ * size scale for a given size scale id.
  *
- * @memberof module:sizeScales/actions/factories
+ * @param getSizeScale - Get size scale client.
  *
- * @param {Function} getSizeScale - Get size scale client.
- *
- * @returns {FetchSizeScaleThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchSizeScaleFactory =
   (getSizeScale: GetSizeScale) =>

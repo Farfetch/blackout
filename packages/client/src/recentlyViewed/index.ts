@@ -1,6 +1,5 @@
 /**
  * Recently Viewed clients.
- *
  */
 
 export { default as getRecentlyViewedProducts } from './getRecentlyViewedProducts';

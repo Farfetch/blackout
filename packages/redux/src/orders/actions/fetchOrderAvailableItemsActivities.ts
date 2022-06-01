@@ -3,12 +3,6 @@ import { getOrderAvailableItemsActivities } from '@farfetch/blackout-client/orde
 
 /**
  * Fetch available items activities of a certain order.
- *
- * @memberof module:orders/actions
- *
- * @name getOrderAvailableItemsActivities
- *
- * @type {GetOrderAvailableItemsActivitiesThunkFactory}
  */
 export default fetchOrderAvailableItemsActivitiesFactory(
   getOrderAvailableItemsActivities,

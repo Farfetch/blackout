@@ -5,15 +5,10 @@ import type { GetDefaultContactAddress } from './types';
 /**
  * Responsible for obtaining the user's default contact address.
  *
- * @function getDefaultContactAddress
- * @memberof module:addresses/client
+ * @param userId - Identifier of the user.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} userId - Identifier of the user.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise<string|object>} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getDefaultContactAddress: GetDefaultContactAddress = (userId, config) =>
   client

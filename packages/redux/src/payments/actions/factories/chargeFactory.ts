@@ -14,29 +14,19 @@ import type {
 } from '@farfetch/blackout-client/payments/types';
 
 /**
- * @typedef {object} ChargeData
- * @property {object} chargeTransaction - Charge transaction data.
- */
-
-/**
- * @callback ChargeThunkFactory
- * @param {string} id - Numeric identifier of the payment intent.
- * @param {ChargeData} data - Details for the charge.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - Numeric identifier of the payment intent.
+ * @param data   - Details for the charge.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Method responsible for creating an intent charge.
  *
- * @function chargeFactory
- * @memberof module:payments/actions/factories
+ * @param postCharges - Post charges client.
  *
- * @param {Function} postCharges - Post charges client.
- *
- * @returns {ChargeThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 
 const postChargesFactory =

@@ -13,22 +13,17 @@ import type {
 } from '@farfetch/blackout-client/users/types';
 
 /**
- * @callback FetchBenefitsThunkFactory
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Create get user benefits.
  *
- * @function fetchBenefits
- * @memberof module:users/actions
+ * @param getBenefits - Get benefits client.
  *
- * @param {Function} getBenefits - Get benefits client.
- *
- * @returns {FetchBenefitsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchBenefitsFactory =
   (getBenefits: GetBenefits) =>

@@ -232,13 +232,10 @@ const reducer = combineReducers({
 /**
  * Reducer for wishlists state.
  *
- * @static
- * @memberof module:wishlists/reducer
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
  *
- * @param {object} state - Current redux state.
- * @param {object} action - Action dispatched.
- *
- * @returns {object} New state.
+ * @returns New state.
  */
 const wishlistsReducer: ReducerSwitch<State> = (state, action) => {
   if (action.type === LOGOUT_SUCCESS) {

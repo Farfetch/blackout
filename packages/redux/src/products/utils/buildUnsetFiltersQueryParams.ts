@@ -5,15 +5,8 @@ export const PRICE_FACET_KEY = 'price';
 /**
  * Build the correct query object with the received filters to remove.
  *
- * @memberof module:products/utils
- *
- * @param {object} query - Query params provided in the form of `{ key: value }`.
- * @param {object} filterParams - Filters to remove in the form of `{ facet: [values] }`.
- *
- * @returns {object} Query object built with the previous active
- * filters minus the ones provided.
- *
  * @example
+ * ```
  * // Returned object
  * {
  *    categories: [187345]
@@ -28,6 +21,12 @@ export const PRICE_FACET_KEY = 'price';
  *
  * If you need a queryString, you can use the `buildQueryStringFromObject` util.
  * const queryString = buildQueryStringFromObject(queryParams);
+ * ```
+ *
+ * @param query        - Query params provided in the form of `{ key: value }`.
+ * @param filterParams - Filters to remove in the form of `{ facet: [values] }`.
+ *
+ * @returns Query object built with the previous active filters minus the ones provided.
  */
 const buildUnsetFiltersQueryParams = (
   query: ListingQuery,

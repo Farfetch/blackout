@@ -15,23 +15,18 @@ import type {
 import type { State } from '../../';
 
 /**
- * @callback FetchOrderDetailsThunkFactory
- * @param {string} orderId - The order id to get details from.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param orderId - The order id to get details from.
+ * @param config  - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Fetches order details.
  *
- * @function fetchOrderDetails
- * @memberof module:orders/actions
+ * @param getOrderDetails - Get order details client.
  *
- * @param {Function} getOrderDetails - Get order details client.
- *
- * @returns {FetchOrderDetailsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchOrderDetailsFactory =
   (getOrderDetails: GetOrderDetails) =>

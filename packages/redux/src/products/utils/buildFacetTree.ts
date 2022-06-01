@@ -2,16 +2,13 @@ import isEmpty from 'lodash/isEmpty';
 import type { FacetEntity } from '../../entities/types';
 
 /**
- * Build all the children below a certain facetId, by facetId received.
- * This is a recursive function to be able to find children at all facet levels.
+ * Build all the children below a certain facetId, by facetId received. This is a
+ * recursive function to be able to find children at all facet levels.
  *
- * @memberof module:products/utils
+ * @param facets  - All facets existent.
+ * @param facetId - Facet id to discover all the children.
  *
- * @param {Array} facets - All facets existent.
- * @param {number} facetId - Facet id to discover all the children.
- *
- * @returns {Array|undefined} Array with objects that representing all the
- * children encountered.
+ * @returns Array with objects that representing all the children encountered.
  */
 const buildFacetTree = (
   facets: FacetEntity[] | undefined,

@@ -6,8 +6,12 @@ export type DeleteSubscription = (
 ) => Promise<void>;
 
 export type DeleteSubscriptionQuery = {
-  /** The identifier of the subscription. */
+  /**
+   * The identifier of the subscription.
+   */
   id: string;
-  /**  SHA256 hash of the user's email to be unsubscribed. */
+  /**
+   * SHA256 hash of the user's email to be unsubscribed.
+   */
   emailHash: string;
 };

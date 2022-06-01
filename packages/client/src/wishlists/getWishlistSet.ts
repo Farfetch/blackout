@@ -5,16 +5,11 @@ import type { GetWishlistSet } from './types';
 /**
  * Method responsible for loading the information of a set from the wishlist.
  *
- * @memberof module:wishlists
+ * @param id     - Universal identifier of the wishlist.
+ * @param setId  - Global identifier of the set to retrieve information from.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} id - Universal identifier of the wishlist.
- * @param {string} setId - Global identifier of the set to retrieve information
- * from.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will be resolved when the call to the
- * endpoint finishes.
+ * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
 const getWishlistSet: GetWishlistSet = (id, setId, config) =>
   client

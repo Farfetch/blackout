@@ -2,26 +2,12 @@ import client, { adaptError } from '../helpers/client';
 import type { PostCheckCreditBalance } from './types';
 
 /**
- * @typedef {object} PostCheckCreditBalanceData
- *
- * @alias PostCheckCreditBalanceData
- * @memberof module:payments/client
- *
- * @property {string} creditUserId - Identifier of the Credit User.
- */
-
-/**
  * Method responsible for getting the user credit balance.
  *
- * @function postCheckCreditBalance
- * @memberof module:payments/client
+ * @param data   - Request data.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {PostCheckCreditBalanceData} data - Request data.
- * @param {object} [config]                 - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const postCheckCreditBalance: PostCheckCreditBalance = (data, config) =>
   client

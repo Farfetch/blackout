@@ -8,12 +8,11 @@ import type { ServerInitialState } from './types';
 /**
  * Converts server data for locale into store state.
  *
- * @param {object} data       - Params injected by the server.
- * @param {object} data.model - Page model with locale data.
+ * @param data - Params injected by the server.
  *
- * @returns {object} - Initial state for the locale reducer.
+ * @returns - Initial state for the locale reducer.
  */
-export default ({ model }: Model): ServerInitialState => {
+export default ({ model }: { model: Model }): ServerInitialState => {
   if (isEmpty(model)) {
     return { locale: INITIAL_STATE };
   }

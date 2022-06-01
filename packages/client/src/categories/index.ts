@@ -1,9 +1,5 @@
 /**
  * Categories clients.
- *
- * @module categories/client
- * @category Categories
- * @subcategory Clients
  */
 
 export { default as getCategories } from './getCategories';

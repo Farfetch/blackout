@@ -1,8 +1,5 @@
 /**
  * Model types.
- *
- * @module redux/types
- * @category Types
  */
 
 export * from './GetOptionsArgument.types';

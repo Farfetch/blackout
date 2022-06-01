@@ -1,8 +1,9 @@
 /**
- * Google Analytics Integration.
- * Will load the google analytics script and apply the enhanced ecommerce plugin.
+ * Google Analytics Integration. Will load the google analytics script and apply
+ * the enhanced ecommerce plugin.
  *
  * @example <caption>Adding GA integration to analytics</caption>
+ * ```
  *
  * import analytics, \{ integrations \} from '\@farfetch/blackout-react/analytics';
  *
@@ -12,6 +13,7 @@
  *  \}
  * \});
  *
+ * ```
  */
 import {
   trackTypes as analyticsTrackTypes,
@@ -63,14 +65,13 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
   private nonInteractionEvents!: NonInteractionEvents;
 
   /**
-   * Creates an instance of Google Analytics integration.
-   * Setup google analytics and initializes event commands map that will be used
-   * to obtain the command list associated with an event.
+   * Creates an instance of Google Analytics integration. Setup google analytics and
+   * initializes event commands map that will be used to obtain the command list
+   * associated with an event.
    *
-   * @param options - User configured options.
-   * @param loadData - Analytics's load event data.
+   * @param options               - User configured options.
+   * @param loadData              - Analytics's load event data.
    * @param strippedDownAnalytics - Analytics stripped down instance.
-   *
    */
   constructor(
     protected options: GAIntegrationOptions,
@@ -164,7 +165,8 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
   }
 
   /**
-   * Tracks an event. Send event hits to GA if the input event data passes schema validation.
+   * Tracks an event. Send event hits to GA if the input event data passes schema
+   * validation.
    *
    * @param data - Event data provided by analytics.
    */
@@ -184,8 +186,8 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
   }
 
   /**
-   * Execute user scope commands builder if there is any specified.
-   * The command list returned by the builder will be sent to GA instance.
+   * Execute user scope commands builder if there is any specified. The command list
+   * returned by the builder will be sent to GA instance.
    *
    * @param data - Event data provided by analytics.
    */
@@ -231,8 +233,8 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
   }
 
   /**
-   * Validates the event against a schema.
-   * If no schema is defined for the event, assume the event is valid.
+   * Validates the event against a schema. If no schema is defined for the event,
+   * assume the event is valid.
    *
    * @param data - Event data provided by analytics.
    *
@@ -254,8 +256,8 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
   }
 
   /**
-   * Send event data to GA by compiling the data to a command list that will feed
-   * the ga function.
+   * Send event data to GA by compiling the data to a command list that will feed the
+   * ga function.
    *
    * @param data - Event data provided by analytics.
    */
@@ -281,7 +283,7 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
    * Feeds the ga instance with the command list passed in.
    *
    * @param gaCommandList - List of commands to be executed by ga instance.
-   * @param data - Event data provided by analytics.
+   * @param data          - Event data provided by analytics.
    */
   processCommandList(
     gaCommandList: GACommandList | undefined,
@@ -312,8 +314,8 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
   }
 
   /**
-   * Process the command list to check if there is an event that should receive the command `nonInteraction`.
-   * If so, append the command to the list.
+   * Process the command list to check if there is an event that should receive the
+   * command `nonInteraction`. If so, append the command to the list.
    *
    * @param gaCommandList - List of commands to be executed by ga instance.
    */
@@ -338,11 +340,12 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
   /**
    * Return a GA command list for the event.
    *
-   * @param data - Event data provided by analytics.
-   * @param scopeCommands - Commands by scope configuration.
+   * @param data            - Event data provided by analytics.
+   * @param scopeCommands   - Commands by scope configuration.
    * @param productMappings - User-configured product property mappings.
    *
-   * @returns The GA command list for the event. It will return empty if there is an error or no command builders exist for the event.
+   * @returns The GA command list for the event. It will return empty if there is an error or no command
+   * builders exist for the event.
    */
   buildCommandListForEvent(
     data: TrackEventData,
@@ -375,13 +378,14 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
   }
 
   /**
-   * Returns extra commands to be sent to GA along with the main commands for a pageview hit if there is an `extras`
-   * option configured for pageviews.
+   * Returns extra commands to be sent to GA along with the main commands for a
+   * pageview hit if there is an `extras` option configured for pageviews.
    *
-   * @param data - Event data provided by analytics.
+   * @param data          - Event data provided by analytics.
    * @param scopeCommands - Commands by scope configuration.
    *
-   * @returns An array with the commands or null if there was an error executing the extra commands builder.
+   * @returns An array with the commands or null if there was an error executing the extra commands
+   * builder.
    */
   getExtraCommandsForPage(
     data: PageviewEventData,
@@ -396,13 +400,14 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
   }
 
   /**
-   * Returns extra commands to be sent to GA along with the main commands for an event hit if there is an `extras`
-   * option configured for the specified event.
+   * Returns extra commands to be sent to GA along with the main commands for an
+   * event hit if there is an `extras` option configured for the specified event.
    *
-   * @param data - Event data provided by analytics.
+   * @param data          - Event data provided by analytics.
    * @param scopeCommands - Commands by scope configuration.
    *
-   * @returns An array with the commands or null if there was an error executing the extra commands builder.
+   * @returns An array with the commands or null if there was an error executing the extra commands
+   * builder.
    */
   getExtraCommandsForEvent(
     data: TrackEventData,
@@ -421,11 +426,12 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
   /**
    * Returns the main commands that correspond to the event analytics has passed in.
    *
-   * @param data - Event data provided by analytics.
-   * @param scopeCommands - Commands by scope configuration.
+   * @param data            - Event data provided by analytics.
+   * @param scopeCommands   - Commands by scope configuration.
    * @param productMappings - User-configured product property mappings.
    *
-   * @returns An array with the commands or null if there was an error executing the main commands builder.
+   * @returns An array with the commands or null if there was an error executing the main commands
+   * builder.
    */
   getMainCommandsForEvent(
     data: TrackEventData,
@@ -449,8 +455,9 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
   /**
    * Returns the main command builder for an event hit.
    *
-   * @param event - Event name.
+   * @param event         - Event name.
    * @param scopeCommands - Commands by scope configuration.
+   *
    * @returns Main command builder for the hit if there is one, undefined otherwise.
    */
   getMainCommandBuilderForEvent(
@@ -484,8 +491,9 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
   /**
    * Returns the extra commands builder for an event hit.
    *
-   * @param event - Event name.
+   * @param event         - Event name.
    * @param scopeCommands - Commands by scope configuration.
+   *
    * @returns Extra commands builder for the hit if there is one, undefined otherwise.
    */
   getExtrasCommandBuilderForEvent(
@@ -510,12 +518,14 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
   /**
    * Executes a command builder.
    *
+   * @throws
+   * If the command builder passed is not a function or the output is not of the
+   * proper type.
+   *
    * @param commandBuilder - The command builder to execute.
-   * @param  args - Arguments to be passed to the command builder.
+   * @param args           - Arguments to be passed to the command builder.
    *
    * @returns Output of the command builder execution.
-   *
-   * @throws If the command builder passed is not a function or the output is not of the proper type.
    */
   executeCommandBuilder<
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -546,12 +556,14 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
   }
 
   /**
-   * Validates if the provided command list is in the expected format and
-   * if the product category hierarchy values does not exceed the maximum supported levels in GA.
+   * Validates if the provided command list is in the expected format and if the
+   * product category hierarchy values does not exceed the maximum supported levels
+   * in GA.
    *
    * @param commandList - The command list to validate.
    *
-   * @returns An object with a boolean `isValid` with the result of the validation and a string `errorMessage` with the validation error if available.
+   * @returns An object with a boolean `isValid` with the result of the validation and a string
+   * `errorMessage` with the validation error if available.
    */
   validateCommandList(commandList: GACommandList): ValidateCommandResult {
     try {
@@ -569,8 +581,8 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
   }
 
   /**
-   * Initializes member variables from options and initializes google analytics
-   * with Enhanced Ecommerce plugin.
+   * Initializes member variables from options and initializes google analytics with
+   * Enhanced Ecommerce plugin.
    *
    * @param options - Options passed for the GA integration.
    */

@@ -1,9 +1,3 @@
-/**
- * @module users/selectors
- * @category Users
- * @subcategory Selectors
- */
-
 import {
   getBenefits as getBenefitsGetter,
   getContacts as getContactsGetter,
@@ -25,44 +19,36 @@ import type { UserAttributesResponse } from '@farfetch/blackout-client/users/typ
 /**
  * Returns the loading status for the users operations.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Users operation Loading status.
+ * @returns Users operation Loading status.
  */
 export const areUsersLoading = (state: StoreState) => getIsLoading(state.users);
 
 /**
  * Returns the users error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Users operation error.
+ * @returns Users operation error.
  */
 export const getUsersError = (state: StoreState) => getError(state.users);
 
 /**
  * Returns the user id.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} User id.
+ * @returns User id.
  */
 export const getUserId = (state: StoreState) => getResult(state.users);
 
 /**
  * Returns the loading status for the benefits operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Benefits operation Loading status.
+ * @returns Benefits operation Loading status.
  */
 export const isBenefitsLoading = (state: StoreState) =>
   getBenefitsGetter(state.users).isLoading;
@@ -70,11 +56,9 @@ export const isBenefitsLoading = (state: StoreState) =>
 /**
  * Returns the benefits error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Benefits operation error.
+ * @returns Benefits operation error.
  */
 export const getBenefitsError = (state: StoreState) =>
   getBenefitsGetter(state.users).error;
@@ -82,11 +66,9 @@ export const getBenefitsError = (state: StoreState) =>
 /**
  * Returns the benefits entity.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Benefits entity.
+ * @returns Benefits entity.
  */
 export const getBenefits = (state: StoreState) =>
   getEntities(state, 'benefits');
@@ -94,11 +76,9 @@ export const getBenefits = (state: StoreState) =>
 /**
  * Returns the loading status for the preferences operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Preferences operation Loading status.
+ * @returns Preferences operation Loading status.
  */
 export const isPreferencesLoading = (state: StoreState) =>
   getPreferencesGetter(state.users).isLoading;
@@ -106,11 +86,9 @@ export const isPreferencesLoading = (state: StoreState) =>
 /**
  * Returns the preferences error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Preferences operation error.
+ * @returns Preferences operation error.
  */
 export const getPreferencesError = (state: StoreState) =>
   getPreferencesGetter(state.users).error;
@@ -118,11 +96,9 @@ export const getPreferencesError = (state: StoreState) =>
 /**
  * Returns the loading status for the update preferences operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Update preferences operation Loading status.
+ * @returns Update preferences operation Loading status.
  */
 export const isUpdatingPreferences = (state: StoreState) =>
   getUpdatePreferencesGetter(state.users).isLoading;
@@ -130,11 +106,9 @@ export const isUpdatingPreferences = (state: StoreState) =>
 /**
  * Returns the update preferences error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Update preferences operation error.
+ * @returns Update preferences operation error.
  */
 export const getUpdatePreferencesError = (state: StoreState) =>
   getUpdatePreferencesGetter(state.users).error;
@@ -142,11 +116,9 @@ export const getUpdatePreferencesError = (state: StoreState) =>
 /**
  * Returns the preferences entity.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Preferences entity.
+ * @returns Preferences entity.
  */
 export const getPreferences = (state: StoreState) =>
   getEntities(state, 'preferences');
@@ -154,11 +126,9 @@ export const getPreferences = (state: StoreState) =>
 /**
  * Returns the loading status for the titles operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Titles operation Loading status.
+ * @returns Titles operation Loading status.
  */
 export const areTitlesLoading = (state: StoreState) =>
   getTitlesGetter(state.users).isLoading;
@@ -166,11 +136,9 @@ export const areTitlesLoading = (state: StoreState) =>
 /**
  * Returns the titles error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Titles operation error.
+ * @returns Titles operation error.
  */
 export const getTitlesError = (state: StoreState) =>
   getTitlesGetter(state.users).error;
@@ -178,23 +146,19 @@ export const getTitlesError = (state: StoreState) =>
 /**
  * Returns the titles entity.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Titles entity.
+ * @returns Titles entity.
  */
 export const getTitles = (state: StoreState) => getEntities(state, 'titles');
 
 /**
  * Returns the specified title from titles entity .
  *
- * @function
+ * @param state   - Application state.
+ * @param titleId - Title identifier.
  *
- * @param {object} state - Application state.
- * @param {string} titleId - Title identifier.
- *
- * @returns {object} Title details.
+ * @returns Title details.
  */
 export const getTitleById = (state: StoreState, titleId: string) =>
   getEntityById(state, 'titles', titleId);
@@ -202,11 +166,9 @@ export const getTitleById = (state: StoreState, titleId: string) =>
 /**
  * Returns the loading status for the credit operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Credit operation Loading status.
+ * @returns Credit operation Loading status.
  */
 export const isCreditLoading = (state: StoreState) =>
   getCreditGetter(state.users).isLoading;
@@ -214,11 +176,9 @@ export const isCreditLoading = (state: StoreState) =>
 /**
  * Returns the credit error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Credit operation error.
+ * @returns Credit operation error.
  */
 export const getCreditError = (state: StoreState) =>
   getCreditGetter(state.users).error;
@@ -226,22 +186,18 @@ export const getCreditError = (state: StoreState) =>
 /**
  * Returns the credits entity.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Credits entity.
+ * @returns Credits entity.
  */
 export const getCredit = (state: StoreState) => getEntities(state, 'credit');
 
 /**
  * Returns the loading status for the credit movements operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Credit movements operation Loading status.
+ * @returns Credit movements operation Loading status.
  */
 export const isCreditMovementsLoading = (state: StoreState) =>
   getCreditMovementsGetter(state.users).isLoading;
@@ -249,11 +205,9 @@ export const isCreditMovementsLoading = (state: StoreState) =>
 /**
  * Returns the credit movements error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Credit movements operation error.
+ * @returns Credit movements operation error.
  */
 export const getCreditMovementsError = (state: StoreState) =>
   getCreditMovementsGetter(state.users).error;
@@ -261,11 +215,9 @@ export const getCreditMovementsError = (state: StoreState) =>
 /**
  * Returns the credit movements entity.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Credit movements entity.
+ * @returns Credit movements entity.
  */
 export const getCreditMovements = (state: StoreState) =>
   getEntities(state, 'creditMovements');
@@ -273,11 +225,9 @@ export const getCreditMovements = (state: StoreState) =>
 /**
  * Returns the loading status for the contacts operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Contacts operation Loading status.
+ * @returns Contacts operation Loading status.
  */
 export const isContactsLoading = (state: StoreState) =>
   getContactsGetter(state.users).isLoading;
@@ -285,11 +235,9 @@ export const isContactsLoading = (state: StoreState) =>
 /**
  * Returns the contacts error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Contacts operation error.
+ * @returns Contacts operation error.
  */
 export const getContactsError = (state: StoreState) =>
   getContactsGetter(state.users).error;
@@ -297,11 +245,9 @@ export const getContactsError = (state: StoreState) =>
 /**
  * Returns the contacts entity.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Contacts entity.
+ * @returns Contacts entity.
  */
 export const getContacts = (state: StoreState) =>
   getEntities(state, 'contacts');
@@ -309,11 +255,9 @@ export const getContacts = (state: StoreState) =>
 /**
  * Returns the loading status for the user attributes operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} User attributes operation Loading status.
+ * @returns User attributes operation Loading status.
  */
 export const isUserAttributesLoading = (state: StoreState): boolean =>
   getUserAttributesGetter(state.users).isLoading;
@@ -321,11 +265,9 @@ export const isUserAttributesLoading = (state: StoreState): boolean =>
 /**
  * Returns the user attributes error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} User attributes operation error.
+ * @returns User attributes operation error.
  */
 export const getUserAttributesError = (state: StoreState): Error | null =>
   getUserAttributesGetter(state.users).error;
@@ -333,11 +275,9 @@ export const getUserAttributesError = (state: StoreState): Error | null =>
 /**
  * Returns the user attributes.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} User attributes.
+ * @returns User attributes.
  */
 export const getUserAttributes = (
   state: StoreState,

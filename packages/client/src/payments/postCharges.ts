@@ -3,27 +3,13 @@ import join from 'proper-url-join';
 import type { PostCharges } from './types';
 
 /**
- * @typedef {object} PostChargesData
- *
- * @alias PostChargesData
- * @memberof module:payments/client
- *
- * @property {object} charge - Charge intent data.
- */
-
-/**
  * Method responsible for creating an intent charge.
  *
- * @function postCharges
- * @memberof module:payments/client
+ * @param id     - Id of the payment intent.
+ * @param data   - Request data.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} id            - Id of the payment intent.
- * @param {PostChargesData} data - Request data.
- * @param {object} [config]      - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const postCharges: PostCharges = (id, data, config) =>
   client

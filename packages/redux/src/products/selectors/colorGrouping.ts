@@ -8,12 +8,10 @@ import type { StoreState } from '../../types';
 /**
  * Returns the color grouping loading condition to a specific product.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {boolean} If the product color grouping is loading or not.
+ * @returns If the product color grouping is loading or not.
  */
 export const isProductColorGroupingLoading = (
   state: StoreState,
@@ -23,12 +21,10 @@ export const isProductColorGroupingLoading = (
 /**
  * Returns the error condition from color grouping to a specific product.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {object} The color grouping error associated to a specific product.
+ * @returns The color grouping error associated to a specific product.
  */
 export const getProductColorGroupingError = (
   state: StoreState,
@@ -36,14 +32,13 @@ export const getProductColorGroupingError = (
 ): Error | undefined => getError(state.products.colorGrouping)[id];
 
 /**
- * Returns the color grouping requested, without manipulations, for a given product id.
+ * Returns the color grouping requested, without manipulations, for a given product
+ * id.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {Array|undefined} The color grouping requested for a given product id.
+ * @returns The color grouping requested for a given product id.
  */
 export const getProductColorGrouping = (
   state: StoreState,
@@ -55,15 +50,13 @@ export const getProductColorGrouping = (
 };
 
 /**
- * Determines if a given product has color grouping associations.
- * This is useful to know if the color grouping request is needed.
+ * Determines if a given product has color grouping associations. This is useful to
+ * know if the color grouping request is needed.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {boolean|undefined} If the product has colors grouping to request.
+ * @returns If the product has colors grouping to request.
  */
 export const hasProductColorGrouping = (
   state: StoreState,
@@ -78,11 +71,10 @@ export const hasProductColorGrouping = (
  * Retrieves pagination information about current color grouping for a specific
  * product.
  *
- * @memberof module:products/selectors
- * @param {object} state - Application state.
- * @param {number} id - Product id.
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @returns {(object|undefined)} Pagination object.
+ * @returns Pagination object.
  */
 export const getProductColorGroupingPagination = createSelector(
   [

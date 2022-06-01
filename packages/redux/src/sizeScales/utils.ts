@@ -1,19 +1,13 @@
-/**
- * @module sizeScales/utils
- * @category SizeScales
- * @subcategory Utils
- */
 import join from 'proper-url-join';
 import type { SizeScaleMappingsQuery } from '@farfetch/blackout-client/sizeScales/types';
 
 /**
- * Generate a hash with the query to identify size scale mapings results. It
- * uses `join` from `proper-url-join` because it already sorts and concatenates
- * the object to a string.
- *
- * @function
+ * Generate a hash with the query to identify size scale mappings results. It uses
+ * `join` from `proper-url-join` because it already sorts and concatenates the
+ * object to a string.
  *
  * @example
+ * ```
  * const sizeScaleMappingsHash = generateSizeScaleMappingsHash({
  *   gender: 0,
  *   sizeScale: 453,
@@ -21,10 +15,11 @@ import type { SizeScaleMappingsQuery } from '@farfetch/blackout-client/sizeScale
  * });
  * Result of sizeScaleMappingsHash === '?brand=1664&gender=0&sizeScale=453';
  *
- * @param {object} query - Query parameters applied to a size scale mapings
- * request.
+ * ```
  *
- * @returns {string} Generated hash to identify the size scale mapings request.
+ * @param query - Query parameters applied to a size scale mappings request.
+ *
+ * @returns Generated hash to identify the size scale mappings request.
  */
 export const generateSizeScaleMappingsHash = (
   query: SizeScaleMappingsQuery,

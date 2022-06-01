@@ -13,26 +13,20 @@ import type {
 } from '@farfetch/blackout-client/checkout/types';
 
 /**
- * @callback FetchUpgradeItemDeliveryProvisioningThunkFactory
- * @param {number} id - Identifier of the checkout order.
- * @param {string} deliveryBundleId - Identifier of the delivery bundle.
- * @param {string} upgradeId - Identifier of the upgrade.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id               - Identifier of the checkout order.
+ * @param deliveryBundleId - Identifier of the delivery bundle.
+ * @param upgradeId        - Identifier of the upgrade.
+ * @param config           - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Obtains the items delivery provisioning available for a upgrade.
  *
- * @function fetchUpgradeItemDeliveryProvisioningFactory
- * @memberof module:checkout/actions/factories
+ * @param getUpgradeItemDeliveryProvisioning - Get upgrade item delivery provisioning client.
  *
- * @param {Function} getUpgradeItemDeliveryProvisioning - Get upgrade item
- * delivery provisioning client.
- *
- * @returns {FetchUpgradeItemDeliveryProvisioningThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 export default (
     getUpgradeItemDeliveryProvisioning: GetUpgradeItemDeliveryProvisioning,

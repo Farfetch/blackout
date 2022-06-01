@@ -3,12 +3,10 @@ import join from 'proper-url-join';
 import type { GetProductRecommendations } from './types';
 
 /**
- * Method responsible for retrieving data from recommendations endpoint on
- * MKT API.
+ * Method responsible for retrieving data from recommendations endpoint on MKT API.
  *
- * @param query - Query object with product recommendation parameters to apply.
- * @param config - Custom configurations to send to the client
- * instance (axios).
+ * @param query  - Query object with product recommendation parameters to apply.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise object.
  */

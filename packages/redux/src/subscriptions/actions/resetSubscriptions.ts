@@ -5,6 +5,7 @@ import type { Dispatch } from 'redux';
  * Reset subscriptions state and related entities to its initial value.
  *
  * @example
+ * ```
  * import \{ resetSubscriptions \} from '\@farfetch/blackout-redux/subscriptions/redux';
  *
  * // State object before executing action
@@ -19,6 +20,8 @@ import type { Dispatch } from 'redux';
  *  Store: \{ entities: \{ \} \}
  *
  * dispatch(resetSubscriptions());
+ *
+ * ```
  *
  * @returns Dispatch reset state and entities action.
  */
