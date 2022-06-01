@@ -1,9 +1,5 @@
 /**
  * Payments clients.
- *
- * @module payments/client
- * @category Payments
- * @subcategory Clients
  */
 export { default as deleteInstrument } from './deleteInstrument';
 export { default as deletePaymentToken } from './deletePaymentToken';

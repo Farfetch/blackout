@@ -2,8 +2,7 @@ import * as yup from 'yup';
 import { eventTypes } from '@farfetch/blackout-analytics';
 
 /**
- * Schema definitions for each event.
- * Defined using yup.
+ * Schema definitions for each event. Defined using yup.
  *
  * @see {@link https://github.com/jquense/yup} for more information
  */

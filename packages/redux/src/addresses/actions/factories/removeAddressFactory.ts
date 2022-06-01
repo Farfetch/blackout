@@ -13,24 +13,19 @@ import type { Dispatch } from 'redux';
 import type { RemoveAddressAction } from '../../types';
 
 /**
- * @callback RemoveAddressThunkFactory
- * @param {string} addressId - Identifier of the address.
- * @param {number} userId - Identifier of the user.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param addressId - Identifier of the address.
+ * @param userId    - Identifier of the user.
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Responsible for removing the address with the specified 'addressId'.
  *
- * @function doDeleteAddress
- * @memberof module:addresses/actions/factories
+ * @param deleteAddress - Delete address client.
  *
- * @param {Function} deleteAddress - Delete address client.
- *
- * @returns {RemoveAddressThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const removeAddressFactory =
   (deleteAddress: DeleteAddress) =>

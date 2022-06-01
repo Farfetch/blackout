@@ -3,26 +3,14 @@ import join from 'proper-url-join';
 import type { PostOrderItemActivities } from './types';
 
 /**
- * @typedef {object} PostOrderItemActivityData
- *
- * @alias PostOrderItemActivityData
- * @memberof module:orders/client
- *
- * @property {string} type - Type of activity.
- */
-
-/**
  * Method responsible for creating an activity to perform on the order item.
  *
- * @function postOrderItemActivities
- * @memberof module:orders/client
- * @param {string} orderId - The identifier of the order.
- * @param {string} itemId - The identifier of the item.
- * @param {PostOrderItemActivityData} data - Request data.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @param orderId - The identifier of the order.
+ * @param itemId  - The identifier of the item.
+ * @param data    - Request data.
+ * @param config  - Custom configurations to send to the client instance (axios).
+ *
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const postOrderItemActivities: PostOrderItemActivities = (
   orderId,

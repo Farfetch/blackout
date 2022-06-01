@@ -10,24 +10,19 @@ import type {
 } from '@farfetch/blackout-client/users/types';
 
 /**
- * @callback GetUserAttributeThunkFactory
- * @param {number} id - The user's id.
- * @param {string} attributeId - The attribute id.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id          - The user's id.
+ * @param attributeId - The attribute id.
+ * @param config      - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Get a specific attribute from user.
  *
- * @function doGetUserAttribute
- * @memberof module:users/actions
+ * @param getUserAttribute - Get a specific attribute client.
  *
- * @param {Function} getUserAttribute - Get a specific attribute client.
- *
- * @returns {GetUserAttributeThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchUserAttributeFactory =
   (getUserAttribute: GetUserAttribute) =>

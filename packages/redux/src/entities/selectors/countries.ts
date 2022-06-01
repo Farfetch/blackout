@@ -8,13 +8,10 @@ import type { StoreState } from '../../types';
 /**
  * Returns a specific country by its countryCode.
  *
- * @function getCountry
- * @memberof module:entities/selectors
+ * @param state       - Application state.
+ * @param countryCode - Identifier of the country.
  *
- * @param {object} state - Application state.
- * @param {string} countryCode - Identifier of the country.
- *
- * @returns {object} - Country normalized.
+ * @returns - Country normalized.
  */
 export const getCountry = (
   state: StoreState,
@@ -24,12 +21,9 @@ export const getCountry = (
 /**
  * Returns all countries from state.
  *
- * @function getCountries
- * @memberof module:entities/selectors
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} - Object with key values pairs representing countryCode and country properties.
+ * @returns - Object with key values pairs representing countryCode and country properties.
  */
 export const getCountries = (state: StoreState): Countries =>
   getEntities(state, 'countries');

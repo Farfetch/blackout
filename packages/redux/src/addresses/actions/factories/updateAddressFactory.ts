@@ -15,25 +15,20 @@ import type { Dispatch } from 'redux';
 import type { UpdateAddressAction } from '../../types';
 
 /**
- * @callback UpdateAddressThunkFactory
- * @param {string} addressId - Identifier of the address.
- * @param {number} userId - Identifier of the user.
- * @param {object} data - Object containing the address information.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param addressId - Identifier of the address.
+ * @param userId    - Identifier of the user.
+ * @param data      - Object containing the address information.
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Updates the address information with the specified 'addressId'.
  *
- * @function doUpdateAddress
- * @memberof module:addresses/actions/factories
+ * @param putAddress - Put address client.
  *
- * @param {Function} putAddress - Put address client.
- *
- * @returns {UpdateAddressThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const updateAddressFactory =
   (putAddress: PutAddress) =>

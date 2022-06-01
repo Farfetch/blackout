@@ -5,13 +5,10 @@ import type { StoreState } from '../../types';
 /**
  * Returns a specific category by its id.
  *
- * @function getCategory
- * @memberof module:entities/selectors
+ * @param state      - Application state.
+ * @param categoryId - Category id.
  *
- * @param {object} state - Application state.
- * @param {number} categoryId - Category id.
- *
- * @returns {object | undefined} Category normalized or undefined is nothing found.
+ * @returns Category normalized or undefined is nothing found.
  */
 export const getCategory = (
   state: StoreState,
@@ -21,18 +18,18 @@ export const getCategory = (
 /**
  * Retrieves a list of all the categories available.
  *
- * @function
- *
- * @param {object} state - Application state.
- *
- * @returns {object} - Categories by id.
- *
  * @example
+ * ```
  * import { getCategories } from '@farfetch/blackout-redux/entities/selectors';
  *
  * const mapStateToProps = state => ({
  *     categories: getCategories(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - Categories by id.
  */
 export const getCategories = (
   state: StoreState,

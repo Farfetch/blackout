@@ -25,13 +25,17 @@ export interface FetchSearchDidYouMeanFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the fetch search did you mean request is made. */
+/**
+ * Actions dispatched when the fetch search did you mean request is made.
+ */
 export type FetchSearchDidYouMeanAction =
   | FetchSearchDidYouMeanRequestAction
   | FetchSearchDidYouMeanSuccessAction
   | FetchSearchDidYouMeanFailureAction;
 
-/** Actions dispatched when the reset search did you mean is called. */
+/**
+ * Actions dispatched when the reset search did you mean is called.
+ */
 export interface ResetSearchDidYouMeanAction extends Action {
   type: typeof actionTypes.RESET_SEARCH_DID_YOU_MEAN;
 }
@@ -49,13 +53,17 @@ export interface FetchSearchIntentsFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the fetch search intents request is made. */
+/**
+ * Actions dispatched when the fetch search intents request is made.
+ */
 export type FetchSearchIntentsAction =
   | FetchSearchIntentsRequestAction
   | FetchSearchIntentsSuccessAction
   | FetchSearchIntentsFailureAction;
 
-/** Actions dispatched when the reset search intents is called. */
+/**
+ * Actions dispatched when the reset search intents is called.
+ */
 export interface ResetSearchIntentsAction extends Action {
   type: typeof actionTypes.RESET_SEARCH_INTENTS;
 }
@@ -76,13 +84,17 @@ export interface FetchSearchSuggestionsFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the fetch search suggestions request is made. */
+/**
+ * Actions dispatched when the fetch search suggestions request is made.
+ */
 export type FetchSearchSuggestionsAction =
   | FetchSearchSuggestionsRequestAction
   | FetchSearchSuggestionsSuccessAction
   | FetchSearchSuggestionsFailureAction;
 
-/** Actions dispatched when the reset search suggestions is called. */
+/**
+ * Actions dispatched when the reset search suggestions is called.
+ */
 export interface ResetSearchSuggestionsAction extends Action {
   type: typeof actionTypes.RESET_SEARCH_SUGGESTIONS;
 }

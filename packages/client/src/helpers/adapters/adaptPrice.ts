@@ -9,12 +9,9 @@ import type {
 /**
  * Returns a price object adapted to all site areas (plp, pdp, bag, etc).
  *
- * @function
- * @memberof module:helpers/adapters
+ * @param priceToAdapt - Price to adapt.
  *
- * @param {object} priceToAdapt - Price to adapt.
- *
- * @returns {object|undefined} Price adapted to fit all site areas.
+ * @returns Price adapted to fit all site areas.
  */
 const adaptPrice: AdaptPrice = priceToAdapt => {
   if (!priceToAdapt || isEmpty(priceToAdapt)) {

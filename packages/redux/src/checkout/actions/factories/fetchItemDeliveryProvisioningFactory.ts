@@ -13,25 +13,19 @@ import type {
 } from '@farfetch/blackout-client/checkout/types';
 
 /**
- * @callback FetchItemDeliveryProvisioningThunkFactory
- * @param {number} id - Identifier of the checkout order.
- * @param {string} deliveryBundleId - Identifier of the delivery bundle.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id               - Identifier of the checkout order.
+ * @param deliveryBundleId - Identifier of the delivery bundle.
+ * @param config           - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Obtains the item's provisioning for the specified bundle.
  *
- * @function fetchItemDeliveryProvisioningFactory
- * @memberof module:checkout/actions/factories
+ * @param getItemDeliveryProvisioning - Get item delivery provisioning client.
  *
- * @param {Function} getItemDeliveryProvisioning - Get item delivery
- * provisioning client.
- *
- * @returns {FetchItemDeliveryProvisioningThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 export default (getItemDeliveryProvisioning: GetItemDeliveryProvisioning) =>
   (id: number, deliveryBundleId: string, config?: Config) =>

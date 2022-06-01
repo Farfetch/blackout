@@ -10,25 +10,20 @@ import type {
 } from '@farfetch/blackout-client/users/types';
 import type { Dispatch } from 'redux';
 /**
- * @callback RemoveContactThunkFactory
- * @param {string} id - The user's id.
- * @param {string} contactId - The contact id.
- * @param {object} [query] - Query parameters for the delete contact.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id        - The user's id.
+ * @param contactId - The contact id.
+ * @param query     - Query parameters for the delete contact.
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Remove a user contact.
  *
- * @function removeContact
- * @memberof module:users/actions
+ * @param deleteContact - Delete contact client.
  *
- * @param {Function} deleteContact - Delete contact client.
- *
- * @returns {RemoveContactThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 
 const removeContactFactory =

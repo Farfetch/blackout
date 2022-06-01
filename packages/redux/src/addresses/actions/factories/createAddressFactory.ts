@@ -15,24 +15,19 @@ import type { CreateAddressAction } from '../../types';
 import type { Dispatch } from 'redux';
 
 /**
- * @callback CreateAddressThunkFactory
- * @param {number} userId - Identifier of the user.
- * @param {object} data - Object containing the address information.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param userId - Identifier of the user.
+ * @param data   - Object containing the address information.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Responsible for creating an address for the current user.
  *
- * @function doCreateAddress
- * @memberof module:addresses/actions/factories
+ * @param postAddress - PostAddress client.
  *
- * @param {Function} postAddress - PostAddress client.
- *
- * @returns {CreateAddressThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const createAddressFactory =
   (postAddress: PostAddress) =>

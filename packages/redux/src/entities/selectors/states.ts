@@ -5,13 +5,10 @@ import type { StoreState } from '../../types';
 /**
  * Returns a specific state by its id.
  *
- * @function getState
- * @memberof module:entities/selectors
+ * @param state - Application state.
+ * @param id    - Identifier of the state.
  *
- * @param {object} state - Application state.
- * @param {number} id - Identifier of the state.
- *
- * @returns {object} - State normalized.
+ * @returns - State normalized.
  */
 export const getState = (state: StoreState, id: number): State | undefined =>
   getEntityById(state, 'states', id);

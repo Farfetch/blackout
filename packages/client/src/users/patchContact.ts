@@ -5,19 +5,14 @@ import type { PatchContact } from './types';
 /**
  * Method responsible for updating a user contact.
  *
- * @function patchContact
- * @memberof module:users/client
+ * @param userId    - The user's id.
+ * @param contactId - The contact id.
+ * @param data      - Array of objects containing the item patch document reflecting the changes to be
+ *                    made to the contact.
+ * @param query     - Query parameters for the update contact.
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @param {object} userId - The user's id.
- * @param {object} contactId - The contact id.
- * @param {Array} data - Array of objects containing the item patch document
- *  reflecting the changes to be made to the contact.
- * @param {object} [query] - Query parameters for the update contact.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const patchContact: PatchContact = (userId, contactId, data, query?, config?) =>
   client

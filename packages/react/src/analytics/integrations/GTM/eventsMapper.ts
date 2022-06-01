@@ -11,8 +11,9 @@ import type { EventMappers } from './types';
 const noPropertiesMappedFn = () => ({});
 
 /**
- * Event mapper with all supported events. This mapper can be extended via the integration's options.
- * It maps all necessary properties for each event apart from context, consent and user properties.
+ * Event mapper with all supported events. This mapper can be extended via the
+ * integration's options. It maps all necessary properties for each event apart
+ * from context, consent and user properties.
  */
 const eventsMapper: EventMappers = {
   [eventTypes.PRODUCT_LIST_VIEWED]: (data: EventData<TrackTypesValues>) => {

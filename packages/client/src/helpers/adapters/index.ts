@@ -1,9 +1,5 @@
 /**
  * Helpers adapters.
- *
- * @module helpers/adapters
- * @category Helpers
- * @subcategory Adapters
  */
 export { default as adaptAttributes } from './adaptAttributes';
 export { default as adaptCustomAttributes } from './adaptCustomAttributes';

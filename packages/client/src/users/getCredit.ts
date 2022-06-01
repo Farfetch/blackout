@@ -5,15 +5,10 @@ import type { Config } from '../types';
 /**
  * Method responsible to get the credit balance of the user.
  *
- * @function getCredit
- * @memberof module:users/client
+ * @param id     - User identifier.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} id - User identifier.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getCredit = (id: string, config?: Config) =>
   client

@@ -18,28 +18,11 @@ import type {
 import type { StoreState } from '@farfetch/blackout-redux/types';
 
 /**
- * @typedef {object} MetaData
- *
- * @alias MetaData
- *
- * @property {object}   query - Query object with search terms to apply.
- * @property {string}   query.pageType - The type of the page we are searching (pages|stories...).
- * @property {object}   query.param - An object containing some parameters for product listing (BrandName|CategoryName|TotalNumberItems...).
- * @property {string}   query.path - The pathname of the location.
- * @property {string}   query.subPageType - The sub group of pages about products.
- * @property {object}   [appIconLinks] - Link tags, related to icons.
- * @property {object[]} [links] - More Link tags.
- * @property {object[]} [metas] - More Meta tags.
- */
-
-/**
  * Hook to return metadata to populate document head.
  *
- * @memberof module:contents/hooks
+ * @param data - Meta data.
  *
- * @param {MetaData} data - Meta data.
- *
- * @returns {object} - Returns actions and selectors for the SEO metadata.
+ * @returns - Returns actions and selectors for the SEO metadata.
  */
 const useMetaTags = ({
   query,
@@ -180,20 +163,14 @@ const useMetaTags = ({
   return {
     /**
      * SEO error status.
-     *
-     * @type {object}
      */
     error,
     /**
      * SEO loading status.
-     *
-     * @type {boolean}
      */
     isLoading,
     /**
      * Meta result/payload.
-     *
-     * @type {object}
      */
     meta,
   };

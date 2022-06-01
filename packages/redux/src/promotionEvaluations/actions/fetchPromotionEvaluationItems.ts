@@ -3,12 +3,6 @@ import { getPromotionEvaluationItems } from '@farfetch/blackout-client/promotion
 
 /**
  * Fetches promotion evaluation items given a promotion evaluation id.
- *
- * @memberof module:promotionEvaluations/actions
- *
- * @function fetchPromotionEvaluationItemsFactory
- *
- * @type {FetchPromotionEvaluationItemsThunkFactory}
  */
 
 export default fetchPromotionEvaluationItemsFactory(

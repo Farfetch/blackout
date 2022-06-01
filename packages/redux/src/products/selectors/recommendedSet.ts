@@ -6,13 +6,10 @@ import type { StoreState } from '../../types';
 /**
  * Returns the recommended set with out of stock loading condition.
  *
- * @function
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Recommended set id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Recommended set id.
- *
- * @returns {boolean | undefined} If the recommended set with out of stock is loading or not.
+ * @returns If the recommended set with out of stock is loading or not.
  */
 export const isRecommendedSetLoading = (
   state: StoreState,
@@ -22,13 +19,10 @@ export const isRecommendedSetLoading = (
 /**
  * Returns the fetched status of a specific recommended set with out of stock.
  *
- * @function
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Recommended set id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Recommended set id.
- *
- * @returns {boolean} If a certain recommended set with out of stock has been fetched or not.
+ * @returns If a certain recommended set with out of stock has been fetched or not.
  */
 export const isRecommendedSetFetched = (
   state: StoreState,
@@ -40,13 +34,10 @@ export const isRecommendedSetFetched = (
 /**
  * Returns the error of a specific recommended set with out of stock.
  *
- * @function
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Recommended set id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Recommended set id.
- *
- * @returns {object} The error associated to a specific recommended set with out of stock.
+ * @returns The error associated to a specific recommended set with out of stock.
  */
 export const getRecommendedSetError = (
   state: StoreState,
@@ -56,13 +47,10 @@ export const getRecommendedSetError = (
 /**
  * Returns the recommended set for the given id.
  *
- * @function
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Recommended set id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Recommended set id.
- *
- * @returns {object} The recommended set for the given id.
+ * @returns The recommended set for the given id.
  */
 export const getRecommendedSet = (
   state: StoreState,

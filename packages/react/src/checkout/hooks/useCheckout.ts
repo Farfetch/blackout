@@ -1,9 +1,5 @@
 /**
  * Hook to provide all kinds of data for the business logic attached to checkout.
- *
- * @module useCheckout
- * @category Checkout
- * @subcategory Hooks
  */
 import * as selectors from '@farfetch/blackout-redux/checkout/selectors';
 import {
@@ -37,22 +33,9 @@ export interface MetaData {
 }
 
 /**
- * @typedef {object} MetaData
+ * @param data - Object containing the necessary info to use inside the hook.
  *
- * @alias MetaData
- *
- * @property {string} [guestEmail]  - The guest email address.
- * @property {string} [shippingMode]  - The shipping mode for the order, byMerchant (default) or byBundle.
- * @property {boolean} [createCheckoutOnMount]  - List of items to checkout.
- */
-
-/**
- * @function useCheckout
- * @memberof module:checkout/hooks
- *
- * @param {MetaData} data - Object containing the necessary info to use inside the hook.
- *
- * @returns {object} All the handlers, state, actions and relevant data needed to manage checkout.
+ * @returns All the handlers, state, actions and relevant data needed to manage checkout.
  */
 export default ({
   guestEmail,
@@ -249,33 +232,13 @@ export default ({
     updateGiftMessage,
     setPromocode,
     setTags,
-    /**
-     * @type {Function}
-     * @variation Member
-     *
-     * @see {@link module:useCheckout~handleGetCollectPoints|handleGetCollectPoints} method
-     */
+
     handleGetCollectPoints,
-    /**
-     * @type {Function}
-     * @variation Member
-     *
-     * @see {@link module:useCheckout~handleSelectCollectPoint|handleSelectCollectPoint} method
-     */
+
     handleSelectCollectPoint,
-    /**
-     * @type {Function}
-     * @variation Member
-     *
-     * @see {@link module:useCheckout~handleSetShippingAddress|handleSetShippingAddress} method
-     */
+
     handleSetShippingAddress,
-    /**
-     * @type {Function}
-     * @variation Member
-     *
-     * @see {@link module:useCheckout~handleSetBillingAddress|handleSetBillingAddress} method
-     */
+
     handleSetBillingAddress,
   };
 };

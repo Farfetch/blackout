@@ -95,12 +95,14 @@ const productMappingsByEvent: Record<string, ProductMappings> = {
 };
 
 /**
- * Gets all the product mappings applicable for the specified event, merged with the user specified product mappings.
+ * Gets all the product mappings applicable for the specified event, merged with
+ * the user specified product mappings.
  *
- * @param event - Event name.
+ * @param event                 - Event name.
  * @param customProductMappings - Product mappings specified by the user.
  *
- * @returns - An object with default product mappings for the event merged with the custom product mappings, if specified.
+ * @returns - An object with default product mappings for the event merged with the custom product
+ * mappings, if specified.
  */
 const getProductMappingsForEvent = (
   event: string,
@@ -117,9 +119,10 @@ const getProductMappingsForEvent = (
 };
 
 /**
- * Convert the event product data to a new product data structure to be sent to GA using the specified mappings.
+ * Convert the event product data to a new product data structure to be sent to GA
+ * using the specified mappings.
  *
- * @param productData - Event product data to be converted.
+ * @param productData     - Event product data to be converted.
  * @param productMappings - Product mappings to be used by the conversion process.
  *
  * @returns Converted product data to be sent to GA.
@@ -134,7 +137,7 @@ const getProductMapped = (
 /**
  * Gets a product event label to be sent to GA.
  *
- * @param productId - Id of the product.
+ * @param productId   - Id of the product.
  * @param productName - Name of the product.
  *
  * @returns The event label to be sent in the event.
@@ -147,12 +150,13 @@ const getProductEventLabel = (
 };
 
 /**
- * Checks if there is the 'outOfStock' property on the product data payload.
- * If it exists, transform the boolean value into a '0' for the out of stock metric and '1' for the inStock metric.
- * These properties should always have opposite values. If one has '0', the other one must have '1', and vice-versa.
+ * Checks if there is the 'outOfStock' property on the product data payload. If it
+ * exists, transform the boolean value into a '0' for the out of stock metric and
+ * '1' for the inStock metric. These properties should always have opposite values.
+ * If one has '0', the other one must have '1', and vice-versa.
  *
- * @param productData - The product data for the event.
- * @param productData - The product data for the event.
+ * @param productData     - The product data for the event.
+ * @param productData     - The product data for the event.
  * @param productMappings - Product mappings to be used by the conversion process.
  *
  * @returns The product data with the new stock related properties, if applied.
@@ -186,14 +190,15 @@ const postProcessOutOfStockProduct = (
 };
 
 /**
- * Calculates the cart value according to the operation and the quantity that is being added/removed.
- * If the product is being added, we need to multiply the value for the quantity.
- * If the product is being removed, we need to do the same but set the value as negative, so it can be subtracted on the GA side properly.
+ * Calculates the cart value according to the operation and the quantity that is
+ * being added/removed. If the product is being added, we need to multiply the
+ * value for the quantity. If the product is being removed, we need to do the same
+ * but set the value as negative, so it can be subtracted on the GA side properly.
  *
- * @see https://www.simoahava.com/analytics/measure-cart-value-in-enhanced-ecommerce/
+ * @see {@link https://www.simoahava.com/analytics/measure-cart-value-in-enhanced-ecommerce/}
  *
- * @param productData - The product data for the event.
- * @param event - The event being processed.
+ * @param productData     - The product data for the event.
+ * @param event           - The event being processed.
  * @param productMappings - Product mappings to be used by the conversion process.
  *
  * @returns The product data with the new stock related properties, if applied.

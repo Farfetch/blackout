@@ -5,16 +5,11 @@ import type { GetInstrument } from './types';
 /**
  * Method responsible for fetching an instrument.
  *
- * @function getInstrument
- * @memberof module:payments/client
+ * @param id           - Id of the payment intent.
+ * @param instrumentId - Id of the payment instrument.
+ * @param config       - Custom configurations to send to the client instance (axios).
  *
- * @param {string} id           - Id of the payment intent.
- * @param {string} instrumentId - Id of the payment instrument.
- * @param {object} [config]     - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getInstrument: GetInstrument = (id, instrumentId, config) =>
   client

@@ -26,7 +26,9 @@ export interface FetchProductMerchantsLocationsFailureAction extends Action {
   type: typeof actionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_FAILURE;
 }
 
-/** Actions dispatched when the fetch product merchants locations request is made. */
+/**
+ * Actions dispatched when the fetch product merchants locations request is made.
+ */
 export type FetchProductMerchantsLocationsAction =
   | FetchProductMerchantsLocationsRequestAction
   | FetchProductMerchantsLocationsSuccessAction

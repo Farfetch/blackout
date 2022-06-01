@@ -29,7 +29,9 @@ interface FetchSizeScaleRequestAction extends Action {
   type: typeof actionTypes.FETCH_SIZE_SCALE_REQUEST;
 }
 
-/** Actions dispatched when the fetch size scale request is made. */
+/**
+ * Actions dispatched when the fetch size scale request is made.
+ */
 export type FetchSizeScaleAction =
   | FetchSizeScaleRequestAction
   | FetchSizeScaleSuccessAction
@@ -50,7 +52,9 @@ interface FetchSizeScalesFailureAction extends Action {
   type: typeof actionTypes.FETCH_SIZE_SCALES_FAILURE;
 }
 
-/** Actions dispatched when the fetch size scales request is made. */
+/**
+ * Actions dispatched when the fetch size scales request is made.
+ */
 export type FetchSizeScalesAction =
   | FetchSizeScalesRequestAction
   | FetchSizeScalesSuccessAction
@@ -71,13 +75,17 @@ interface FetchSizeScaleMappingsFailureAction extends Action {
   type: typeof actionTypes.FETCH_SIZESCALE_MAPPINGS_FAILURE;
 }
 
-/** Actions dispatched when the fetch size scale mappings request is made. */
+/**
+ * Actions dispatched when the fetch size scale mappings request is made.
+ */
 export type FetchSizeScaleMappingsAction =
   | FetchSizeScaleMappingsRequestAction
   | FetchSizeScaleMappingsSuccessAction
   | FetchSizeScaleMappingsFailureAction;
 
-/** Actions dispatched when the reset size scales is called. */
+/**
+ * Actions dispatched when the reset size scales is called.
+ */
 export interface ResetSizeScalesStateAction extends Action {
   type: typeof actionTypes.RESET_SIZE_SCALES_STATE;
 }

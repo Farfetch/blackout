@@ -1,9 +1,5 @@
 /**
  * Orders actions.
- *
- * @module orders/actions
- * @category Orders
- * @subcategory Actions
  */
 
 export { default as addOrderDocument } from './addOrderDocument';

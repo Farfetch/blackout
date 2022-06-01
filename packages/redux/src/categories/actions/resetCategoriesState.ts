@@ -4,9 +4,7 @@ import type { Dispatch } from 'redux';
 /**
  * Reset categories state to its initial value.
  *
- * @memberof module:categories/actions
- *
- * @returns {Function} - Dispatch reset action.
+ * @returns - Dispatch reset action.
  */
 const resetCategoriesState =
   () =>

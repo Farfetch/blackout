@@ -6,25 +6,46 @@ export type GetProductRecommendations = (
 ) => Promise<GetProductRecommendation[]>;
 
 export type GetProductRecommendationQuery = {
-  /** Get recommendation products to specified product ID. */
+  /**
+   * Get recommendation products to specified product ID.
+   */
   productId: number;
-  /** Strategy name to get recommendation items. */
+  /**
+   * Strategy name to get recommendation items.
+   */
   strategyName: string;
-  /** Set how many recommendation products will be returned. */
+  /**
+   * Set how many recommendation products will be returned.
+   */
   howMany?: number;
-  /** Get recommendation products to specified country. */
+  /**
+   * Get recommendation products to specified country.
+   */
   countryCode?: string;
-  /** Get recommendations with products or brands to a specific gender: None, Women, Men, Unisex, Kids. */
+  /**
+   * Get recommendations with products or brands to a specific gender: None, Women,
+   * Men, Unisex, Kids.
+   */
   gender?: string;
-  /** Type of user identifier. One cookieID, userID, deviceID, or emailHash. */
+  /**
+   * Type of user identifier. One cookieID, userID, deviceID, or emailHash.
+   */
   userType?: string;
-  /** Get recommendations with products or brands to a specific user. */
+  /**
+   * Get recommendations with products or brands to a specific user.
+   */
   userIdentifier?: string;
-  /** Get recommendations for products with the categoryId as context. */
+  /**
+   * Get recommendations for products with the categoryId as context.
+   */
   categoryId?: number;
-  /** Get recommendations with products with brandId as context. */
+  /**
+   * Get recommendations with products with brandId as context.
+   */
   brandId?: string;
-  /** Get recommendations with products with merchantId as context. */
+  /**
+   * Get recommendations with products with merchantId as context.
+   */
   merchantId?: number;
 };
 

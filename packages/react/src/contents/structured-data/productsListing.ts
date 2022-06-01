@@ -9,14 +9,8 @@ import type { SEOMetadata } from '@farfetch/blackout-client/contents/types';
 /**
  * Generate Structured Data (JSON-LD) for Products Listing.
  *
- * @memberof module:contents/structured-data
- *
- * @param {object} listing - All details data for the Products List.
- * @param {object} metadata - All SEO metadata for the Products List.
- * @param {string} url - Relative URL of the page.
- * @param {number} [space] - Add whitespace and indentation to the serialized output.
- *
  * @example
+ * ```
  * import { productListing as structuredProductListing } from '@farfetch/blackout-react/content/structured-data';
  *
  * <Helmet>
@@ -28,7 +22,14 @@ import type { SEOMetadata } from '@farfetch/blackout-client/contents/types';
  *   }
  * </Helmet>
  *
- * @returns {ReactElement} - A script tag with Product Listing JSON-LD structured data.
+ * ```
+ *
+ * @param listing  - All details data for the Products List.
+ * @param metadata - All SEO metadata for the Products List.
+ * @param url      - Relative URL of the page.
+ * @param space    - Add whitespace and indentation to the serialized output.
+ *
+ * @returns - A script tag with Product Listing JSON-LD structured data.
  */
 const productListing = (
   listing: Listing,

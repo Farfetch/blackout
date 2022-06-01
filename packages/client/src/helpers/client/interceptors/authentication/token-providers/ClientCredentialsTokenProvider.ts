@@ -25,10 +25,15 @@ class ClientCredentialsTokenProvider extends TokenProvider {
   /**
    * Creates a new ClientCredentialsTokenProvider instance.
    *
-   * @param requester - A function that will be responsible to request new tokens. If async, the call will be awaited.
-   * @param storageProvider - An object implementing the Storage API's methods getItem, setItem and removeItem. If those methods are async, the calls will be awaited.
-   * @param tokenDataSerializer - An object implementing the serializeTokenData and deserializeTokenData methods. If storage provider is defined, tokenDataSerializer is required.
-   * @param storageKey - The storage key that will be used on the calls to storageProvider's methods as the key argument. If not provided, a default will be used.
+   * @param requester           - A function that will be responsible to request new tokens. If async,
+   *                              the call will be awaited.
+   * @param storageProvider     - An object implementing the Storage API's methods getItem, setItem and
+   *                              removeItem. If those methods are async, the calls will be awaited.
+   * @param tokenDataSerializer - An object implementing the serializeTokenData and deserializeTokenData
+   *                              methods. If storage provider is defined, tokenDataSerializer is
+   *                              required.
+   * @param storageKey          - The storage key that will be used on the calls to storageProvider's
+   *                              methods as the key argument. If not provided, a default will be used.
    */
   constructor(
     requester: ClientCredentialsTokenRequester,
@@ -48,10 +53,9 @@ class ClientCredentialsTokenProvider extends TokenProvider {
   }
 
   /**
-   * Overrides TokenProvider's getSupportedTokenKind method.
-   * Returns the kind of tokens that will be produced by this token provider.
+   * Overrides TokenProvider's getSupportedTokenKind method. Returns the kind of
+   * tokens that will be produced by this token provider.
    *
-   * @override
    * @returns ClientCredentials token kind.
    */
   getSupportedTokenKind() {
@@ -59,10 +63,8 @@ class ClientCredentialsTokenProvider extends TokenProvider {
   }
 
   /**
-   * Overrides TokenProvider's getAccessToken method.
-   * Will retrieve valid access token from either the cache or through the requester.
-   *
-   * @override
+   * Overrides TokenProvider's getAccessToken method. Will retrieve valid access
+   * token from either the cache or through the requester.
    *
    * @param useCache - If cache should be used or not.
    *
@@ -103,10 +105,8 @@ class ClientCredentialsTokenProvider extends TokenProvider {
   }
 
   /**
-   * Overrides TokenProvider's canRetrieveTokens method.
-   * Will return true if there is a requester available and false otherwise.
-   *
-   * @override
+   * Overrides TokenProvider's canRetrieveTokens method. Will return true if there is
+   * a requester available and false otherwise.
    *
    * @returns - True if the instance is ready to retrieve tokens and false otherwise.
    */

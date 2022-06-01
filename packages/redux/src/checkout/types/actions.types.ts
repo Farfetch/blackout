@@ -177,7 +177,7 @@ export interface ChargeRequestAction extends Action {
 }
 
 /**
- *  Charge Action.
+ * Charge Action.
  */
 export type ChargeAction =
   | ChargeFailureAction
@@ -211,7 +211,7 @@ export interface DeliveryBundleRequestAction extends Action {
 }
 
 /**
- *  DeliveryBundle Action.
+ * DeliveryBundle Action.
  */
 export type DeliveryBundleAction =
   | DeliveryBundleFailureAction

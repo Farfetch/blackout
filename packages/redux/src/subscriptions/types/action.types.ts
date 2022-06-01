@@ -22,7 +22,9 @@ interface FetchSubscriptionPackagesFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the fetch subscription packages request is made. */
+/**
+ * Actions dispatched when the fetch subscription packages request is made.
+ */
 export type FetchSubscriptionPackagesAction =
   | FetchSubscriptionPackagesRequestAction
   | FetchSubscriptionPackagesSuccessAction
@@ -41,7 +43,9 @@ interface FetchUserSubscriptionsFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the fetch user subscriptions request is made. */
+/**
+ * Actions dispatched when the fetch user subscriptions request is made.
+ */
 export type FetchUserSubscriptionsAction =
   | FetchUserSubscriptionsRequestAction
   | FetchUserSubscriptionsSuccessAction
@@ -59,7 +63,9 @@ interface UnsubscribeFromSubscriptionFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the unsubscribe from subscription request is made. */
+/**
+ * Actions dispatched when the unsubscribe from subscription request is made.
+ */
 export type UnsubscribeFromSubscriptionAction =
   | UnsubscribeFromSubscriptionRequestAction
   | UnsubscribeFromSubscriptionSuccessAction
@@ -86,7 +92,9 @@ interface UnsubscribeRecipientFromTopicFailureAction extends Action {
   payload: { recipientId?: string; error: Error };
 }
 
-/** Actions dispatched when the unsubscribe recipient from topic request is made. */
+/**
+ * Actions dispatched when the unsubscribe recipient from topic request is made.
+ */
 export type UnsubscribeRecipientFromTopicAction =
   | UnsubscribeRecipientFromTopicRequestAction
   | UnsubscribeRecipientFromTopicSuccessAction
@@ -105,13 +113,17 @@ interface UpdateUserSubscriptionsFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the unsubscribe from subscription request is made. */
+/**
+ * Actions dispatched when the unsubscribe from subscription request is made.
+ */
 export type UpdateUserSubscriptionsAction =
   | UpdateUserSubscriptionsRequestAction
   | UpdateUserSubscriptionsSuccessAction
   | UpdateUserSubscriptionsFailureAction;
 
-/** Actions dispatched when the reset subscriptions action is called. */
+/**
+ * Actions dispatched when the reset subscriptions action is called.
+ */
 export interface ResetFormSchemaStateAction extends Action {
   type: typeof actionTypes.RESET_SUBSCRIPTIONS;
 }

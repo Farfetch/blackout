@@ -253,7 +253,7 @@ const reducers = combineReducers({
 /**
  * Reducer for user subscription state.
  *
- * @param state - Current redux state.
+ * @param state  - Current redux state.
  * @param action - Action dispatched.
  *
  * @returns New state.

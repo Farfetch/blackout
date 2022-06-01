@@ -6,30 +6,18 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @typedef {object} PasswordResetData
- * @property {string} username - User's email.
- * @property {string} token - Reset password token.
- * @property {string} password - User's new password.
- */
-
-/**
- * @callback ResetPasswordThunkFactory
- * @param {PasswordResetData} data - User details.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param data   - User details.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Method responsible for resetting and setting a new password.
  *
- * @function resetPassword
- * @memberof module:authentication/actions/factories
+ * @param postPasswordReset - Post password reset client.
  *
- * @param {Function} postPasswordReset - Post password reset client.
- *
- * @returns {ResetPasswordThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 export default (postPasswordReset: any) =>
   (

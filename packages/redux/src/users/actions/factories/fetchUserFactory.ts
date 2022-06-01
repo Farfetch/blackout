@@ -11,24 +11,18 @@ import type {
 } from '@farfetch/blackout-client/users/types';
 
 /**
- * @callback FetchUserThunkFactory
- * @param {(Array | string)} params - Possibilites are: `bag`, `membership`,
- * `wishlist`.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param params - Possibilities are: `bag`, `membership`, `wishlist`.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Fetch the user data.
  *
- * @function fetchUser
- * @memberof module:users/actions
+ * @param getUser - Get user client.
  *
- * @param {Function} getUser - Get user client.
- *
- * @returns {FetchUserThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchUserFactory =
   (getUser: GetUser) =>

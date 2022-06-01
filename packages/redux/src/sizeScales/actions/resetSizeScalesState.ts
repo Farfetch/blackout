@@ -5,9 +5,7 @@ import type { ResetSizeScalesStateAction } from '../types';
 /**
  * Reset state to its initial value.
  *
- * @memberof module:sizeScales/actions
- *
- * @returns {Function} Thunk factory.
+ * @returns Thunk factory.
  */
 const resetSizeScalesState =
   () =>

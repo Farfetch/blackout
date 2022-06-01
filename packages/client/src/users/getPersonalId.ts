@@ -5,13 +5,12 @@ import type { GetPersonalId } from './types';
 /**
  * Method responsible for getting a personal id.
  *
- * @param userId - The user's id.
+ * @param userId     - The user's id.
  * @param personalId - Personal identifier.
- * @param config - Custom configurations to send to the client
- * instance (axios). X-SUMMER-RequestId header is required.
+ * @param config     - Custom configurations to send to the client instance (axios). X-SUMMER-RequestId
+ *                     header is required.
  *
- * @returns Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 
 const getPersonalId: GetPersonalId = (userId, personalId, config) =>

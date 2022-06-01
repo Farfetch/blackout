@@ -15,34 +15,19 @@ import type {
 } from '@farfetch/blackout-client/loyalty/types';
 
 /**
- * @typedef {object} CreateMembershipData
- * @property {string} id - Membership identifier.
- * @property {string} externalId - External identifier.
- * @property {number} userId - User identifier.
- * @property {number} rewardPoints - Reward Points.
- * @property {number} cashBalance - Cash balance.
- * @property {('Unverified'|'Activated'|'Invalid'|'Canceled')} status - Membership status.
- */
-
-/**
- * @callback CreateProgramMembershipThunkFactory
- * @param {string} programId - Program identifier.
- * @param {CreateMembershipData} data - Membership to be created.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param programId - Program identifier.
+ * @param data      - Membership to be created.
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Create program membership.
  *
- * @function createProgramMembershipFactory
- * @memberof module:loyalty/actions/factories
+ * @param postProgramMembership - Post program membership client.
  *
- * @param {Function} postProgramMembership - Post program membership client.
- *
- * @returns {CreateProgramMembershipThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 
 const createProgramMembershipFactory =

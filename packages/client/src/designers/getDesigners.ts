@@ -5,14 +5,10 @@ import type { GetDesigners } from './types';
 /**
  * Method responsible for retrieving all designers grouped by their first letter.
  *
- * @memberof module:designers/client
+ * @param query  - Query parameters to apply.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param   {object} [query] - Query parameters to apply.
- * @param   {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will be resolved when the call to the
- * endpoint finishes.
+ * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
 const getDesigners: GetDesigners = (query, config) =>
   client

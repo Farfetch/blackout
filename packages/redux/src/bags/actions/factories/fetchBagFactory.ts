@@ -10,34 +10,19 @@ import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
 
 /**
- * @typedef {object} FetchBagQuery
+ * @param bagId  - Bag id.
+ * @param query  - Query with parameters to get the bag.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @alias FetchBagQuery
- * @memberof module:bags/client
- *
- * @property {boolean} [includeOutOfStock=false] - If the response should
- * include sold out items in the bag.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * @callback FetchBagThunkFactory
- * @param {number} bagId - Bag id.
- * @param {FetchBagQuery} [query] - Query with parameters to get the bag.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * Creates a thunk factory configured with the specified client to fetch a bag.
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
- */
-
-/**
- * Creates a thunk factory configured with the specified client to fetch
- * a bag.
+ * @param getBag - Get bag client.
  *
- * @memberof module:bags/actions/factories
- *
- * @param {Function} getBag - Get bag client.
- *
- * @returns {FetchBagThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchBagFactory =
   (getBag: GetBag) =>

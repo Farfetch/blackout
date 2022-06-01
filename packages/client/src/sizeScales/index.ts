@@ -1,9 +1,5 @@
 /**
  * SizeScales clients.
- *
- * @module sizeScales/client
- * @category SizeScales
- * @subcategory Clients
  */
 
 export { default as getSizeScale } from './getSizeScale';

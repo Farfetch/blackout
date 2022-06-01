@@ -9,26 +9,19 @@ import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 
 /**
- * @callback FetchCountryCitiesThunkFactory
+ * @param countryCode - Country identifier (ISO 3166-1 alpha-2) to find the cities related.
+ * @param stateId     - State identifier to find the cities related.
+ * @param config      - Custom configurations to send to the client instance.
  *
- * @memberof module:locale/actions/factories
- *
- * @param {string} countryCode - Country identifier (ISO 3166-1 alpha-2) to find the cities related.
- * @param {number} stateId - State identifier to find the cities related.
- * @param {Object} [config] - Custom configurations to send to the client
- * instance.
- *
- * @returns {FetchCountryCitiesThunkFactory} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Fetch all cities from an specific country and state.
  *
- * @memberof module:locale/actions/factories
+ * @param getCountryCities - Get cities client.
  *
- * @param {Function} getCountryCities - Get cities client.
- *
- * @returns {FetchCountryCitiesThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchCountryCitiesFactory =
   (getCountryCities: GetCountryCities) =>

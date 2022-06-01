@@ -6,30 +6,20 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @typedef {object} RefreshEmailTokenData
- * @property {string} username - User's email.
+ * @param data   - Details to refresh the user's validation token.
+ * @param config - Custom configurations to send to the client instance (axios).
+ *
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * @callback RefreshEmailTokenThunkFactory
- * @param {RefreshEmailTokenData} data - Details to refresh the user's validation token.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * Refreshes the user's validation token. To be used when the user went past the
+ * token's expiration date or there was other kind of error validation the user's
+ * email.
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
- */
-
-/**
- * Refreshes the user's validation token.
- * To be used when the user went past the token's expiration date or
- * there was other kind of error validation the user's email.
+ * @param postRefreshEmailToken - Post refresh email token client.
  *
- * @function refreshEmailToken
- * @memberof module:authentication/actions/factories
- *
- * @param {Function} postRefreshEmailToken - Post refresh email token client.
- *
- * @returns {RefreshEmailTokenThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 export default (postRefreshEmailToken: any) =>
   (

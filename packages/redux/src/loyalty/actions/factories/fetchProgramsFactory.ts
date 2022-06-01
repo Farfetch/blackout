@@ -14,22 +14,17 @@ import type {
 } from '@farfetch/blackout-client/loyalty/types';
 
 /**
- * @callback FetchProgramUsersThunkFactory
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Load programs.
  *
- * @function fetchProgramsFactory
- * @memberof module:loyalty/actions/factories
+ * @param getPrograms - Get programs client.
  *
- * @param {Function} getPrograms - Get programs client.
- *
- * @returns {FetchProgramUsersThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 
 const fetchProgramsFactory =

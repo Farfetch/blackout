@@ -21,13 +21,17 @@ interface FetchSizeGuidesFailureAction extends Action {
   meta: { query?: SizeGuidesQuery };
 }
 
-/** Actions dispatched when the fetch size guides request is made. */
+/**
+ * Actions dispatched when the fetch size guides request is made.
+ */
 export type FetchSizeGuidesAction =
   | FetchSizeGuidesRequestAction
   | FetchSizeGuidesSuccessAction
   | FetchSizeGuidesFailureAction;
 
-/** Actions dispatched when the reset size guides is called. */
+/**
+ * Actions dispatched when the reset size guides is called.
+ */
 export interface ResetSizeGuidesStateAction extends Action {
   type: typeof actionTypes.RESET_SIZE_GUIDES_STATE;
 }

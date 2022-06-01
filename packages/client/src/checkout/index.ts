@@ -1,9 +1,5 @@
 /**
  * Checkout clients.
- *
- * @module checkout/client
- * @category Checkout
- * @subcategory Clients
  */
 
 export { default as getCheckout } from './getCheckout';

@@ -1,9 +1,5 @@
 /**
  * Products clients.
- *
- * @module products/client
- * @category Products
- * @subcategory Clients
  */
 export { default as getListing } from './getListing';
 export { default as getProductAttributes } from './getProductAttributes';

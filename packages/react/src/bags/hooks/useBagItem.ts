@@ -1,10 +1,6 @@
 /**
  * Hook to provide all kinds of data for the business logic attached to the bag
  * items.
- *
- * @module useBagItem
- * @category Bags
- * @subcategory Hooks
  */
 import {
   addBagItem as addBagItemAction,
@@ -32,12 +28,10 @@ import type { StoreState } from '@farfetch/blackout-redux/types';
  * Provides Redux actions and state access, as well as handlers for dealing with
  * bag items business logic.
  *
- * @memberof module:bags/hooks
+ * @param bagItemId - Bag item id to work on.
  *
- * @param {number} [bagItemId] - Bag item id to work on.
- *
- * @returns {object} All the handlers, state, actions and relevant data needed
- * to manage any bag item or product bag-related operation.
+ * @returns All the handlers, state, actions and relevant data needed to manage any bag item or product
+ * bag-related operation.
  */
 const useBagItem: UseBagItem = bagItemId => {
   // Selectors
@@ -57,21 +51,18 @@ const useBagItem: UseBagItem = bagItemId => {
   const updateBagItem = useAction(updateBagItemAction);
   const handleAddOrUpdateItem = useAddOrUpdateBagItem(bagItem);
   /**
-   * Handles the quantity update of a bag item. If the quantity to
-   * update is bigger than the stock of the current merchant, it'll be
-   * automatically managed.
+   * Handles the quantity update of a bag item. If the quantity to update is bigger
+   * than the stock of the current merchant, it'll be automatically managed.
    * <br />
-   * This is useful for when the quantity is updated isolatedly, for example
-   * in the bag page.
+   * This is useful for when the quantity is updated isolated, for example in the
+   * bag page.
    * <br />
    * <br />
-   * <i><small>This operation is over the bag item that instantiated the
-   * hook.</small></i>.
+   * <i><small>This operation is over the bag item that
+   * instantiated the hook.</small></i>.
    *
-   * @function handleQuantityChange
-   *
-   * @param {number} newQuantity - Quantity to update the bag item into.
-   * @param {string} [from] - Provenience of action.
+   * @param newQuantity - Quantity to update the bag item into.
+   * @param from        - Provenience of action.
    */
   const handleQuantityChange: HandleQuantityChangeType = (
     newQuantity,
@@ -104,21 +95,18 @@ const useBagItem: UseBagItem = bagItemId => {
   };
 
   /**
-   * Handles the size update of a bag item. It automatically manages if the
-   * item we're changing the size is already in the bag, and updates/removes
-   * accordingly. The quantity/merchant stock is automatically managed.
-   * <br />
-   * This is useful for when the size is updated isolated,
-   * for example in the bag page.
+   * Handles the size update of a bag item. It automatically manages if the item
+   * we're changing the size is already in the bag, and updates/removes accordingly.
+   * The quantity/merchant stock is automatically managed.
+   * <br /> This is useful for
+   * when the size is updated isolated, for example in the bag page.
    * <br />
    * <br />
    * <i><small>This operation is over the bag item that instantiated the
    * hook.</small></i>.
    *
-   * @function handleSizeChange
-   *
-   * @param {number} newSize - Size to update the bag item into.
-   * @param {string} [from] - Provenience of action.
+   * @param newSize - Size to update the bag item into.
+   * @param from    - Provenience of action.
    */
   const handleSizeChange: HandleSizeChangeType = async (newSize, from) => {
     // This extra logic is due to the fact that when changing sizes,
@@ -191,21 +179,19 @@ const useBagItem: UseBagItem = bagItemId => {
   };
 
   /**
-   * Handles the size and quantity update at the same time on a bag item,
-   * managing automatically the merchant to use.
+   * Handles the size and quantity update at the same time on a bag item, managing
+   * automatically the merchant to use.
+   * <br /> This is useful for when the size and
+   * quantity are updated simultaneously, for example in the bag page with a modal to
+   * choose size and quantity.
    * <br />
-   * This is useful for when the size and quantity are updated simultaneously,
-   * for example in the bag page with a modal to choose size and quantity.
    * <br />
-   * <br />
-   * <i><small>This operation is over the bag item that instantiated the
-   * hook.</small></i>.
+   * <i><small>This operation is over the bag
+   * item that instantiated the hook.</small></i>.
    *
-   * @function handleFullUpdate
-   *
-   * @param {number} newSizeId - Size to update the bag item into.
-   * @param {number} newQty - Quantity to update the bag item into.
-   * @param {string} [from] - Provenience of action.
+   * @param newSizeId - Size to update the bag item into.
+   * @param newQty    - Quantity to update the bag item into.
+   * @param from      - Provenience of action.
    */
   const handleFullUpdate: HandleFullUpdateType = async (
     newSizeId,
@@ -272,12 +258,10 @@ const useBagItem: UseBagItem = bagItemId => {
    * Handles the removal of the bag item.
    * <br />
    * <br />
-   * <i><small>This operation is over the bag item that instantiated the
-   * hook.</small></i>.
+   * <i><small>This operation is
+   * over the bag item that instantiated the hook.</small></i>.
    *
-   * @function handleDeleteBagItem
-   *
-   * @param {string} [from] - Provenience of action.
+   * @param from - Provenience of action.
    */
   const handleDeleteBagItem: HandleDeleteBagItemType = from => {
     deleteBagItem(bagItem.id, { from });
@@ -286,67 +270,35 @@ const useBagItem: UseBagItem = bagItemId => {
   return {
     /**
      * Adds a specific product to the bag.
-     *
-     * @type {Function}
      */
     addBagItem,
     /**
      * Deletes a specific item from the bag.
-     *
-     * @type {Function}
      */
     deleteBagItem,
     /**
      * Updates a specific item in the bag.
-     *
-     * @type {Function}
      */
     updateBagItem,
     /**
      * Bag item data.
-     *
-     * @type {object}
      */
     bagItem,
     /**
      * Bag item error, if any.
-     *
-     * @type {object|undefined}
      */
     error,
     /**
      * Whether the given bag item is loading.
-     *
-     * @type {boolean}
      */
     isLoading,
-    /**
-     * @type {Function}
-     * @variation Member
-     *
-     * @see {@link module:useBagItem~handleQuantityChange|handleQuantityChange} method
-     */
+
     handleQuantityChange,
-    /**
-     * @type {Function}
-     * @variation Member
-     *
-     * @see {@link module:useBagItem~handleSizeChange|handleSizeChange} method
-     */
+
     handleSizeChange,
-    /**
-     * @type {Function}
-     * @variation Member
-     *
-     * @see {@link module:useBagItem~handleFullUpdate|handleFullUpdate} method
-     */
+
     handleFullUpdate,
-    /**
-     * @type {Function}
-     * @variation Member
-     *
-     * @see {@link module:useBagItem~handleDeleteBagItem|handleDeleteBagItem} method
-     */
+
     handleDeleteBagItem,
   };
 };

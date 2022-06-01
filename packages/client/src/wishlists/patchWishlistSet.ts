@@ -3,26 +3,11 @@ import join from 'proper-url-join';
 import type { PatchWishlistSet } from './types';
 
 /**
- * Method responsible for udpdating information of a set from the wishlist.
- * Please note that this PATCH endpoint use the JsonPatch format to send data.
+ * Method responsible for updating information of a set from the wishlist. Please
+ * note that this PATCH endpoint use the JsonPatch format to send data.
  *
- * @see https://docs.microsoft.com/en-us/aspnet/core/web-api/jsonpatch
- *
- * @memberof module:wishlists
- *
- * @param {string} id - Universal identifier of the wishlist.
- * @param {string} setId - Global identifier of the set to update.
- * @param {object} data - Details to update.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will be resolved when the call to the
- * endpoint finishes.
- *
- * @example
- * <caption>
- *  Example `data` to edit the name of the set
- * </caption>
+ * @example <caption> Example `data` to edit the name of the set</caption>
+ * ```
  * [
  *      {
  *          value: 'My custom set name',
@@ -30,10 +15,10 @@ import type { PatchWishlistSet } from './types';
  *          op: 'add'
  *      }
  *  ]
+ * ```
  *
- * <caption>
- *  Example `data` to edit the name and description of the set
- * </caption>
+ * @example <caption>Example `data` to edit the name and description of the set</caption>
+ * ```
  * [
  *      {
  *          value: 'My custom set name',
@@ -46,10 +31,10 @@ import type { PatchWishlistSet } from './types';
  *          op: 'add'
  *      }
  *  ]
+ * ```
  *
- * <caption>
- *  Example `data` to add wishlist items to the set
- * </caption>
+ * @example <caption>Example `data` to add wishlist items to the set</caption>
+ * ```
  * [
  *      {
  *          value: { wishlistItemId: 269002001 },
@@ -57,26 +42,36 @@ import type { PatchWishlistSet } from './types';
  *          op: 'add'
  *      }
  *  ]
+ * ```
  *
- * <caption>
- *  Example `data` to remove a specific wishlist items from the set
- * </caption>
+ * @example <caption>Example `data` to remove a specific wishlist items from the set</caption>
+ * ```
  * [
  *      {
  *          path: '/wishlistSetItems/0',
  *          op: 'remove'
  *      }
  *  ]
+ * ```
  *
- * <caption>
- *  Example `data` to remove all wishlist items from the set
- * </caption>
+ * @example <caption>Example `data` to remove all wishlist items from the set</caption>
+ * ```
  * [
  *      {
  *          path: '/wishlistSetItems/',
  *          op: 'remove'
  *      }
  *  ]
+ * ```
+ *
+ * @see {@link https://docs.microsoft.com/en-us/aspnet/core/web-api/jsonpatch}
+ *
+ * @param id     - Universal identifier of the wishlist.
+ * @param setId  - Global identifier of the set to update.
+ * @param data   - Details to update.
+ * @param config - Custom configurations to send to the client instance (axios).
+ *
+ * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
 const patchWishlistSet: PatchWishlistSet = (id, setId, data, config) =>
   client

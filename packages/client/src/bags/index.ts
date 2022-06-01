@@ -1,9 +1,5 @@
 /**
  * Bags clients.
- *
- * @module bags/client
- * @category Bags
- * @subcategory Clients
  */
 
 export { default as getBag } from './getBag';

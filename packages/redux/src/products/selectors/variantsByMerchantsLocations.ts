@@ -14,12 +14,10 @@ import type { StoreState } from '../../types';
 /**
  * Returns the merchants locations loading condition for a specific product.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {boolean} If the product's merchants locations are loading.
+ * @returns If the product's merchants locations are loading.
  */
 export const areProductVariantsByMerchantsLocationsLoading = (
   state: StoreState,
@@ -30,12 +28,10 @@ export const areProductVariantsByMerchantsLocationsLoading = (
 /**
  * Returns the fetched status of a specific product's merchants locations.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {boolean} If the product's merchants locations are fetched.
+ * @returns If the product's merchants locations are fetched.
  */
 export const areProductVariantsByMerchantsLocationsFetched = (
   state: StoreState,
@@ -48,13 +44,10 @@ export const areProductVariantsByMerchantsLocationsFetched = (
 /**
  * Returns the error of a product's merchants locations.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {object} The merchants locations error associated with a specific
- * product.
+ * @returns The merchants locations error associated with a specific product.
  */
 export const getProductVariantsByMerchantsLocationsError = (
   state: StoreState,
@@ -65,14 +58,11 @@ export const getProductVariantsByMerchantsLocationsError = (
 /**
  * Returns the merchants' locations given a product variant.
  *
- * @memberof module:products/selectors
+ * @param state     - Application state.
+ * @param productId - Product id.
+ * @param variantId - Variant id.
  *
- * @param {object} state - Application state.
- * @param {number} productId - Product id.
- * @param {number} variantId - Variant id.
- *
- * @returns {object|undefined} Merchants' locations for a given product and
- * variant id.
+ * @returns Merchants' locations for a given product and variant id.
  */
 export const getProductVariantsByMerchantsLocations = (
   state: StoreState,

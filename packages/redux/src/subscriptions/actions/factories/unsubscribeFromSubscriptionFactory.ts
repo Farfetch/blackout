@@ -5,10 +5,8 @@ import type { UnsubscribeFromSubscriptionFactory } from './types';
 /**
  * Method to create a thunk factory configured with the specified client.
  *
- * @function unsubscribeFromSubscriptionFactory
- * @memberof module:subscriptions/actions/factories
- *
  * @param deleteSubscription - Delete subscription client.
+ *
  * @returns Thunk factory.
  */
 const unsubscribeFromSubscriptionFactory: UnsubscribeFromSubscriptionFactory<

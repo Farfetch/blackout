@@ -7,12 +7,10 @@ import type { StoreState } from '../../types';
 /**
  * Returns the loading product attributes condition to a specific product.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {boolean} If the product attributes are loading or not.
+ * @returns If the product attributes are loading or not.
  */
 export const areProductAttributesLoading = (
   state: StoreState,
@@ -22,12 +20,10 @@ export const areProductAttributesLoading = (
 /**
  * Returns the fetched status of a specific product attributes.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {boolean} If the product attributes has been fetched or not.
+ * @returns If the product attributes has been fetched or not.
  */
 export const areProductAttributesFetched = (
   state: StoreState,
@@ -39,12 +35,10 @@ export const areProductAttributesFetched = (
 /**
  * Returns the error attributes condition to a specific product.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {object} The attributes error associated to a specific product.
+ * @returns The attributes error associated to a specific product.
  */
 export const getProductAttributesError = (
   state: StoreState,
@@ -54,12 +48,10 @@ export const getProductAttributesError = (
 /**
  * Returns the attributes for a given product id.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {Array|undefined} The attributes for a given product id.
+ * @returns The attributes for a given product id.
  */
 export const getProductAttributes = (
   state: StoreState,

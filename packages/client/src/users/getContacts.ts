@@ -5,16 +5,11 @@ import type { GetContacts } from './types';
 /**
  * Method responsible for getting all the user contacts.
  *
- * @function getContacts
- * @memberof module:users/client
+ * @param userId - The user's id.
+ * @param query  - Query parameters for get contacts.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {object} userId - The user's id.
- * @param {object} [query] - Query parameters for get contacts.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getContacts: GetContacts = (userId, query?, config?) =>
   client

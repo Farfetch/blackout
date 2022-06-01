@@ -5,15 +5,10 @@ import type { GetIntent } from './types';
 /**
  * Gets the payment intent details.
  *
- * @function getIntent
- * @memberof module:payments/client
+ * @param id     - Id of the payment intent.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} id       - Id of the payment intent.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getIntent: GetIntent = (id, config) =>
   client

@@ -1,9 +1,5 @@
 /**
  * Loyalty clients.
- *
- * @module loyalty/client
- * @category Loyalty
- * @subcategory Clients
  */
 
 export { default as getProgramMembershipStatements } from './getProgramMembershipStatements';

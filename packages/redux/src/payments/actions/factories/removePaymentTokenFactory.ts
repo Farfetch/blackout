@@ -12,24 +12,19 @@ import type { Dispatch } from 'redux';
 import type { RemovePaymentTokensAction } from '../../types';
 
 /**
- * @callback RemovePaymentTokenThunkFactory
- * @param {string} tokenId - Universal identifier of the token to be deleted.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param tokenId - Universal identifier of the token to be deleted.
+ * @param config  - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * Method responsible for deleting a user payment token.
- * This is used for deleting a credit card.
+ * Method responsible for deleting a user payment token. This is used for deleting
+ * a credit card.
  *
- * @function removePaymentTokenFactory
- * @memberof module:payments/actions/factories
+ * @param deletePaymentToken - Delete payment token client.
  *
- * @param {Function} deletePaymentToken - Delete payment token client.
- *
- * @returns {RemovePaymentTokenThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const removePaymentTokenFactory =
   (deletePaymentToken: DeletePaymentToken) =>

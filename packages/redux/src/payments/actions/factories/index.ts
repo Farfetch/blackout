@@ -1,9 +1,5 @@
 /**
  * Payments actions factories.
- *
- * @module payments/actions/factories
- * @category Payments
- * @subcategory Actions Factories
  */
 export { default as chargeFactory } from './chargeFactory';
 export { default as createInstrumentsFactory } from './createInstrumentsFactory';

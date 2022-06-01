@@ -16,23 +16,19 @@ import type {
 } from '@farfetch/blackout-client/wishlists/types';
 
 /**
- * @callback AddWishlistItemThunkFactory
- * @param {object} data - Item data used to add it to wishlist.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param data   - Item data used to add it to wishlist.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * Creates a thunk factory configured with the specified client to add
- * an item with the given data to the wishlist.
+ * Creates a thunk factory configured with the specified client to add an item with
+ * the given data to the wishlist.
  *
- * @memberof module:wishlists/actions
+ * @param postWishlistItem - Post wishlist item client.
  *
- * @param {Function} postWishlistItem - Post wishlist item client.
- *
- * @returns {AddWishlistItemThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const addWishlistItemFactory =
   (postWishlistItem: PostWishlistItem) =>

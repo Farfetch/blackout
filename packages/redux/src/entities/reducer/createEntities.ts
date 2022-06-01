@@ -1,9 +1,3 @@
-/**
- * @module entities/reducer
- * @category Entities
- * @subcategory Reducer
- */
-
 import * as actionTypes from '../actionTypes';
 import { createMergedObject } from '../../helpers';
 import isFunction from 'lodash/isFunction';

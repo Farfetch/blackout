@@ -11,31 +11,19 @@ import type {
 } from '@farfetch/blackout-client/users/types';
 
 /**
- * @typedef {object} GetUserAttributesQuery
- * @property {string} channelCode - Channel code.
- * @property {string} type - Possible value: Castle, Generic,
- * AddressPredictionProvider, FarfetchLogin.
- */
-
-/**
- * @callback GetUserAttributesThunkFactory
- * @param {string} id - The user's id.
- * @param {GetUserAttributesQuery} [query] - Query parameters for fetching user attributes.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - The user's id.
+ * @param query  - Query parameters for fetching user attributes.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Get user attributes from user.
  *
- * @function doGetUserAttributes
- * @memberof module:users/actions
+ * @param getUserAttributes - Get user attributes client.
  *
- * @param {Function} getUserAttributes - Get user attributes client.
- *
- * @returns {GetUserAttributesThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchUserAttributesFactory =
   (getUserAttributes: GetUserAttributes) =>

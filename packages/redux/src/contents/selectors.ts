@@ -1,9 +1,5 @@
 /**
  * Contents selectors.
- *
- * @module contents/selectors
- * @category Contents
- * @subcategory Selectors
  */
 import { generateContentHash, generateSEOPathname } from './utils';
 import { getContent } from '../entities';
@@ -27,20 +23,20 @@ import type { StoreState } from '../types';
 /**
  * Retrieves the content result from a specific hash.
  *
- * @memberof contents/selectors
- *
- * @param {object} state - Application state.
- * @param {string} hash - Hash key for each content.
- *
- * @returns {?object} - Content from a specific hash.
- *
  * @example
+ * ```
  * import { getContentsByHash } from '@bw/redux/contents';
  *
  * const mapStateToProps = (state, { hash }) => ({
  *     result: getContentsByHash(state, hash)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ * @param hash  - Hash key for each content.
+ *
+ * @returns - Content from a specific hash.
  */
 export const getContentsByHash = (
   state: StoreState,
@@ -50,22 +46,19 @@ export const getContentsByHash = (
 /**
  * Returns the error thrown by the getContent request, by query.
  *
- * @param {object} state - Application state.
- * @param {object} query - Query applied to search the contents.
- * @param {string} query.spaceCode - The space where the content belongs to (website|mobileapp|emailTool...).
- * @param {string} query.environmentCode - The environment identifier (live | preview).
- * @param {string} query.contentTypeCode - The content type unique code (page|post|menu|pages|posts|widgets|waterproof...).
- * @param {Array}  query.codes - List of codes that representing the content code (about-us|today-news|header|productId...).
- * @param {object} query.target - The targets and respective values that a content type is configured (contentzone:ROW | country:GB | language:en-GB | benefits:test).
- * @param {number} [query.page=1] - Number of the page to get, starting at 1. The default is 1.
- * @param {number} [query.pageSize=60] - Size of each page, as a number between 1 and 180. The default is 60.
- * @returns {?object} - Content error.
  * @example
+ * ```
  * import { getContentError } from '@farfetch/blackout-redux/contents';
  *
  * const mapStateToProps = (state, { query }) => ({
  * error: getContentError(state, query)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ * @param query - Query applied to search the contents.
+ *
+ * @returns - Content error.
  */
 export const getContentError = (
   state: StoreState,
@@ -80,16 +73,19 @@ export const getContentError = (
 /**
  * Returns the loading condition to the getContent request, by query.
  *
- * @param {object} state - Application state.
- * @param {object} query - Query applied to search the contents.
- *
- * @returns {boolean} - If the content is loading or not.
  * @example
+ * ```
  * import { isContentLoading } from '@farfetch/blackout-redux/contents';
  *
  * const mapStateToProps = (state, { query }) => ({
  * isLoading: isContentLoading(state, query)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ * @param query - Query applied to search the contents.
+ *
+ * @returns - If the content is loading or not.
  */
 export const isContentLoading = (
   state: StoreState,
@@ -104,18 +100,20 @@ export const isContentLoading = (
 /**
  * Find the content corresponding to a specific query.
  *
- * @param {object} state - Application state.
- * @param {object} query - Query applied to search the contents.
- *
- * @returns {object} - Content entry that aggregates all contents for the query received.
- *
  * @example
+ * ```
  * import { getContentByQuery } from '@bw/redux/contents';
  *
  * const mapStateToProps = (state, { query }) => ({
  *     contentEntry: getContentByQuery(state, query)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ * @param query - Query applied to search the contents.
+ *
+ * @returns - Content entry that aggregates all contents for the query received.
  */
 export const getContentByQuery = (
   state: StoreState,
@@ -128,20 +126,23 @@ export const getContentByQuery = (
 };
 
 /**
- * Retrieves the contents result from a certain content entry retrieved by its query/hash.
- *
- * @param {object} state - Application state.
- * @param {object} query - Query applied to search the contents.
- *
- * @returns {Array} - All the contents for the given content entry.
+ * Retrieves the contents result from a certain content entry retrieved by its
+ * query/hash.
  *
  * @example
+ * ```
  * import { getContents } from '@farfetch/blackout-redux/contents';
  *
  * const mapStateToProps = (state, { query }) => ({
  *     contents: getContents(state, query)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ * @param query - Query applied to search the contents.
+ *
+ * @returns - All the contents for the given content entry.
  */
 export const getContents = (
   state: StoreState,
@@ -153,18 +154,20 @@ export const getContents = (
 };
 
 /**
- * Retrives an array with the content types available.
- *
- * @param {object} state - Application state.
- *
- * @returns {Array} - All the content types.
+ * Retrieves an array with the content types available.
  *
  * @example
+ * ```
  * import { getContentTypes } from '@farfetch/blackout-redux/contents';
  *
  * const mapStateToProps = state => ({
  *      contentTypes: getContentTypes(state)
  * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - All the content types.
  */
 export const getAllContentTypes = (state: StoreState): GetAllContentTypes =>
   getContentTypes(state.contents).result;
@@ -172,18 +175,20 @@ export const getAllContentTypes = (state: StoreState): GetAllContentTypes =>
 /**
  * Returns the error thrown to the getSEO request.
  *
- * @param {object} state - Application state.
- * @param {object} query - Query applied to search the contents.
- *
- * @returns {?object} - Content error.
- *
  * @example
+ * ```
  * import { getSEOError } from '@farfetch/blackout-redux/contents';
  *
  * const mapStateToProps = (state, { query }) => ({
  *     seoError: getSEOError(state, query)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ * @param query - Query applied to search the contents.
+ *
+ * @returns - Content error.
  */
 export const getSEOError = (
   state: StoreState,
@@ -198,18 +203,20 @@ export const getSEOError = (
 /**
  * Returns the loading status to the getSEO request.
  *
- * @param {object} state - Application state.
- * @param {object} query - Query applied to search the contents.
- *
- * @returns {boolean} - If the content is loading or not.
- *
  * @example
+ * ```
  * import { isSEOLoading } from '@farfetch/blackout-redux/contents';
  *
  * const mapStateToProps = (state, { query }) => ({
  *     isSEOLoading: isSEOLoading(state, query)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ * @param query - Query applied to search the contents.
+ *
+ * @returns - If the content is loading or not.
  */
 export const isSEOLoading = (
   state: StoreState,
@@ -223,18 +230,20 @@ export const isSEOLoading = (
 /**
  * Returns the metadata content of that page.
  *
- * @param {object} state - Application state.
- * @param {object} query - Query applied to search for the metadata.
- *
- * @returns {object} - All metadata for that page.
- *
  * @example
+ * ```
  * import { getSEO } from '@farfetch/blackout-redux/contents';
  *
  * const mapStateToProps = (state, { query }) => ({
  *     seo: getSEO(state, query)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ * @param query - Query applied to search for the metadata.
+ *
+ * @returns - All metadata for that page.
  */
 export const getSEO = (state: StoreState, query: QuerySEO): GetSEO => {
   const pathname = generateSEOPathname(query);

@@ -1,9 +1,5 @@
 /**
  * Contents helpers.
- *
- * @module contents/helpers
- * @category Contents
- * @subcategory Helpers
  */
 
 export { default as renderScriptTag } from './renderScriptTag';

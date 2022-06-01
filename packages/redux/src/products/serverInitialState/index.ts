@@ -1,9 +1,5 @@
 /**
  * Products serverInitialState.
- *
- * @module products/serverInitialState
- * @category Products
- * @subcategory ServerInitialState
  */
 import listsServerInitialState from './lists';
 import productsServerInitialState from './products';

@@ -1,8 +1,3 @@
-/**
- * @module products/reducer
- * @category Products measurements
- * @subcategory Reducer
- */
 import * as actionTypes from '../actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import { createMergedObject } from '../../helpers';
@@ -101,12 +96,10 @@ export const getIsLoading = (
 /**
  * Reducer for products measurements.
  *
- * @static
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
  *
- * @param {object} state - Current redux state.
- * @param {object} action - Action dispatched.
- *
- * @returns {object} New state.
+ * @returns New state.
  */
 const productsMeasurementsReducer = combineReducers({
   error,

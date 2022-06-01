@@ -16,41 +16,22 @@ import type {
 } from '@farfetch/blackout-client/products/types';
 
 /**
- * @typedef {object} FetchProductDetailsQuery
+ * @param productId     - Numeric identifier of the product.
+ * @param query         - Query parameters to apply to the request.
+ * @param forceDispatch - If true, the request should be done and the data from first render should be
+ *                        ignored (isHydrated).
+ * @param config        - Custom configurations to send to the client instance (axios).
  *
- * @alias FetchProductDetailsQuery
- * @memberof module:products/client
- *
- * @property {string} [fields] - (To be exposed by BE) - Get the specified
- * field of the product, separated by commas, improving performance
- * (e.g., id, shortDescription, brand).
- * @property {number} [merchantId] - Specific merchant id to get the product.
- * @property {string} [perferredSize] - Specific size to get the product.
- */
-
-/**
- * @callback FetchProductDetailsThunkFactory
- *
- * @param {number} productId - Numeric identifier of the product.
- * @param {FetchProductDetailsQuery} [query] - Query parameters to apply to the
- * request.
- * @param {boolean} forceDispatch - If true, the request should be done and the
- * data from first render should be ignored (isHydrated).
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Creates a thunk factory configured with the specified client to fetch product
  * details for a given product id.
  *
- * @memberof module:products/actions/factories
+ * @param getProductDetails - Get product details client.
  *
- * @param {Function} getProductDetails - Get product details client.
- *
- * @returns {FetchProductDetailsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchProductDetailsFactory =
   (getProductDetails: GetProductDetails) =>

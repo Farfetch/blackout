@@ -4,16 +4,11 @@ import type { PutUser } from './types';
 /**
  * Method responsible for update user's data.
  *
- * @function putUser
- * @memberof module:users/client
+ * @param id     - User identifier.
+ * @param data   - User data.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {number} id - User identifier.
- * @param {object} data - User data.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const putUser: PutUser = (id, data, config) =>
   client

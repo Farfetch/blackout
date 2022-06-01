@@ -5,15 +5,10 @@ import type { GetCountry } from './types';
 /**
  * Gets the country information by its country code.
  *
- * @function getCountry
- * @memberof module:locale
+ * @param countryCode - Country identifier (ISO 3166-1 alpha-2) to find country related.
+ * @param config      - Custom configurations to send to the client instance (axios).
  *
- * @param {string} countryCode - Country identifier (ISO 3166-1 alpha-2) to
- * find country related.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getCountry: GetCountry = (countryCode, config) =>
   client

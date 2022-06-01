@@ -1,9 +1,3 @@
-/**
- * @module staffMembers/selectors
- * @category Staff Members
- * @subcategory Selectors
- */
-
 import { getError, getIsLoading, getResult } from './reducer';
 import type { Error } from '@farfetch/blackout-client/types';
 import type { StaffMember } from '@farfetch/blackout-client/staffMembers/types';
@@ -12,12 +6,10 @@ import type { StoreState } from '../types';
 /**
  * Checks if a staff member is loading.
  *
- * @function
+ * @param state - Application state.
+ * @param id    - The staff member identifier.
  *
- * @param {object} state - Application state.
- * @param {string} id - The staff member identifier.
- *
- * @returns {(object | undefined)} Staff member error.
+ * @returns Staff member error.
  */
 export const getStaffMemberError = (
   state: StoreState,
@@ -27,12 +19,10 @@ export const getStaffMemberError = (
 /**
  * Checks if staff member is loading.
  *
- * @function
+ * @param state - Application state.
+ * @param id    - The staff member identifier.
  *
- * @param {object} state - Application state.
- * @param {string} id - The staff member identifier.
- *
- * @returns {boolean|undefined} If the staff member is loading or not.
+ * @returns If the staff member is loading or not.
  */
 export const isStaffMemberLoading = (
   state: StoreState,
@@ -42,12 +32,10 @@ export const isStaffMemberLoading = (
 /**
  * Gets a staff member.
  *
- * @function
+ * @param state - Application state.
+ * @param id    - The staff member identifier.
  *
- * @param {object} state - Application state.
- * @param {string} id - The staff member identifier.
- *
- * @returns {object|undefined} The staff member.
+ * @returns The staff member.
  */
 export const getStaffMember = (
   state: StoreState,

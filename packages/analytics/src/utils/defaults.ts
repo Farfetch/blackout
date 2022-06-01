@@ -15,15 +15,13 @@ export const getContextDefaults = (): {
 };
 
 /**
- * Stringifies query objects obtained by parsing a url string with url-parse's parse method.
- * It uses the qs named export from url-parse (that is used by the url-parse's parse method internally to build the query object)
- * to stringify the passed in query object.
- *
- * @param query - Query object to stringify.
- *
- * @returns Returns the query string object stringified.
+ * Stringifies query objects obtained by parsing a url string with url-parse's
+ * parse method. It uses the qs named export from url-parse (that is used by the
+ * url-parse's parse method internally to build the query object) to stringify the
+ * passed in query object.
  *
  * @example
+ * ```
  * Input query object
  * \{
  *   colors: '3|11',
@@ -31,6 +29,11 @@ export const getContextDefaults = (): {
  * \}
  * Output query string
  * '?colors=3|11&categories=187345'
+ * ```
+ *
+ * @param query - Query object to stringify.
+ *
+ * @returns Returns the query string object stringified.
  */
 
 export const stringifyQuery = (

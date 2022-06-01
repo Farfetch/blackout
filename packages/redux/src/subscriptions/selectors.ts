@@ -55,7 +55,7 @@ const DEFAULT_USER_SUBSCRIPTIONS_VALUE: UserState['result'] = [];
 /**
  * Returns the user subscribed topics for the specified platform.
  *
- * @param state - Application state.
+ * @param state    - Application state.
  * @param platform - Platform to filter the subscriptions.
  *
  * @returns User subscribed topics for the specified platform.
@@ -89,7 +89,7 @@ export const getUserSubscribedTopicsForPlatform = createSelector(
 /**
  * Returns the user subscribed topics for the specified address.
  *
- * @param state - Application state.
+ * @param state   - Application state.
  * @param address - Address to filter the subscriptions.
  *
  * @returns User subscribed topics for the specified address.
@@ -186,9 +186,10 @@ export const getSupportedChannels = (state: StoreState) => {
 };
 
 /**
- * Returns a specific unsubscribe recipient from topic request state from the redux store.
+ * Returns a specific unsubscribe recipient from topic request state from the redux
+ * store.
  *
- * @param state - Application state.
+ * @param state       - Application state.
  * @param recipientId - Id of the recipient (address) to get the unsubscribe request state.
  *
  * @returns The unsubscribe request state if available on the redux store or undefined.
@@ -204,7 +205,8 @@ export const getUnsubscribeRecipientFromTopicRequest = (
 };
 
 /**
- * Returns all unsubscribe recipient from topic requests state from the redux store.
+ * Returns all unsubscribe recipient from topic requests state from the redux
+ * store.
  *
  * @param state - Application state.
  *

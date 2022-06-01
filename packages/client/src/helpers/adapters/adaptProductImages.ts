@@ -10,17 +10,8 @@ import type {
 /**
  * Returns the corresponding images sources by size for a given order.
  *
- * @private
- * @function
- * @memberof module:helpers/adapters
- *
- * @param {number | string} order - The appearance order for the image sources.
- * @param {object} originalSources - The original images sources, containing its size and URL.
- * @param {object} [config] - Additional configurations.
- * @param {object} [config.productImgQueryParam] - Query parameter to be appended to each image URL,
- *                                          useful to set the image compression via site key, for example.
- *
  * @example
+ * ```
  * const productImagesOrder = generateSourcesByOrder(order, imagesSources);
  * productImagesOrder === {
  *      order: 1,
@@ -30,7 +21,13 @@ import type {
  *      },
  * };
  *
- * @returns {object} Object containing the order and sources collection, where each size has its own URL.
+ * ```
+ *
+ * @param order           - The appearance order for the image sources.
+ * @param originalSources - The original images sources, containing its size and URL.
+ * @param config          - Additional configurations.
+ *
+ * @returns Object containing the order and sources collection, where each size has its own URL.
  */
 const generateSourcesByOrder: GenerateSourcesByOrder = (
   order,
@@ -61,19 +58,11 @@ const generateSourcesByOrder: GenerateSourcesByOrder = (
 };
 
 /**
- * Returns an object with all product images grouped by its order, to be used
- * on multiple site areas.
- *
- * @function
- * @memberof module:helpers/adapters
- *
- * @param {Array} [legacyImages] - All product images to be adapted.
- * @param {object} [config] - Additional configurations.
- * @param {object} [config.productImgQueryParam] - Query parameter to be
- * appended to each image URL, useful to set the image compression via site key,
- * for example.
+ * Returns an object with all product images grouped by its order, to be used on
+ * multiple site areas.
  *
  * @example
+ * ```
  * const productImages = adaptProductImages(legacyImages);
  * Result of productImages === [
  *      {
@@ -97,8 +86,12 @@ const generateSourcesByOrder: GenerateSourcesByOrder = (
  *      }
  * ];
  *
- * @returns {Array} Product images list adapted to be used on multiple site
- * areas.
+ * ```
+ *
+ * @param legacyImages - All product images to be adapted.
+ * @param config       - Additional configurations.
+ *
+ * @returns Product images list adapted to be used on multiple site areas.
  */
 const adaptProductImages: AdaptProductImages = (
   legacyImages,

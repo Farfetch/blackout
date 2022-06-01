@@ -1,8 +1,9 @@
 /**
- * GTM Integration.
- * Will load the GTM script and write data on `window.dataLayer` array.
+ * GTM Integration. Will load the GTM script and write data on `window.dataLayer`
+ * array.
  *
  * @example <caption>Adding GTM integration to analytics</caption>
+ * ```
  *
  * import analytics, \{ integrations \} from '\@farfetch/blackout-react/analytics';
  *
@@ -10,6 +11,7 @@
  *  containerId: '\<google tag manager containerId\>'
  * \});
  *
+ * ```
  */
 
 import {
@@ -69,13 +71,12 @@ class GTM extends Integration<GTMIntegrationOptions> {
   protected eventsMapper: EventMappers;
   protected eventSchemas: Schemas;
   /**
-   * Creates an instance of GTM.
-   * It will store the events mapper and the options passed.
+   * Creates an instance of GTM. It will store the events mapper and the options
+   * passed.
    *
-   * @param options - Config for the GTM container.
-   * @param loadData - Analytics's load event data.
+   * @param options   - Config for the GTM container.
+   * @param loadData  - Analytics's load event data.
    * @param analytics - Analytics instance stripped down with only helpers.
-   *
    */
   constructor(
     options: GTMIntegrationOptions,
@@ -112,10 +113,9 @@ class GTM extends Integration<GTMIntegrationOptions> {
   }
 
   /**
-   * Method to check if the integration is ready to be loaded.
-   * This integration should always load. Then, in the container,
-   * each tag should be configured with the proper trigger according its category: Preferences, statistics or marketing.
-   *
+   * Method to check if the integration is ready to be loaded. This integration
+   * should always load. Then, in the container, each tag should be configured with
+   * the proper trigger according its category: Preferences, statistics or marketing.
    *
    * @returns If the integration is ready to be loaded.
    */
@@ -124,10 +124,11 @@ class GTM extends Integration<GTMIntegrationOptions> {
   }
 
   /**
-   * Startup the GTM script and write some properties on the dataLayer.
-   * There's no need to wait for the script to load as GTM will pick up any data already written on the dataLayer once it starts running.
+   * Startup the GTM script and write some properties on the dataLayer. There's no
+   * need to wait for the script to load as GTM will pick up any data already written
+   * on the dataLayer once it starts running.
    *
-   * @param options - Integration options.
+   * @param options  - Integration options.
    * @param loadData - Analytics's load event data.
    */
   initialize(
@@ -169,8 +170,8 @@ class GTM extends Integration<GTMIntegrationOptions> {
   }
 
   /**
-   * Sets the consent object.
-   * This method is called by analytics whenever the consent changes, so there's no need to validate if it has changed or not.
+   * Sets the consent object. This method is called by analytics whenever the consent
+   * changes, so there's no need to validate if it has changed or not.
    *
    * @param consent - Object to be written on the dataLayer.
    *
@@ -187,7 +188,8 @@ class GTM extends Integration<GTMIntegrationOptions> {
   }
 
   /**
-   * Workaround to handle when the context changes. Only write when it does change, to avoid writing it on every event.
+   * Workaround to handle when the context changes. Only write when it does change,
+   * to avoid writing it on every event.
    *
    * @param context - The context passed in every event.
    *
@@ -226,8 +228,8 @@ class GTM extends Integration<GTMIntegrationOptions> {
   }
 
   /**
-   * Handles whenever the user changes.
-   * Will try to execute a custom "onSetUser" if passed via the integration's options.
+   * Handles whenever the user changes. Will try to execute a custom "onSetUser" if
+   * passed via the integration's options.
    *
    * @param data - OnSetUser event data.
    *
@@ -261,13 +263,12 @@ class GTM extends Integration<GTMIntegrationOptions> {
   }
 
   /**
-   * Validates the event against a schema.
-   * If no schema is defined for the event, assume the event is valid.
+   * Validates the event against a schema. If no schema is defined for the event,
+   * assume the event is valid.
    *
    * @param data - Event data provided by analytics.
    *
    * @returns If the event passed schema validation or not.
-   *
    */
   isEventDataValid(data: EventData<TrackTypesValues>) {
     const event = coreUtils.getEvent(data);

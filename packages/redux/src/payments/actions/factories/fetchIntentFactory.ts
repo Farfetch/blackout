@@ -12,23 +12,18 @@ import type {
 } from '@farfetch/blackout-client/payments/types';
 
 /**
- * @callback FetchIntentThunkFactory
- * @param {string} intentId - Id of the payment Intent.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param intentId - Id of the payment Intent.
+ * @param config   - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Gets the payment intent details.
  *
- * @function fetchIntentFactory
- * @memberof module:payments/actions/factories
+ * @param getIntent - Get intent client.
  *
- * @param {Function} getIntent - Get intent client.
- *
- * @returns {FetchIntentThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchIntentFactory =
   (getIntent: GetIntent) =>

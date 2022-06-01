@@ -5,14 +5,10 @@ import type { GetWishlist } from './types';
 /**
  * Method responsible for loading the wishlist.
  *
- * @memberof module:wishlists
+ * @param id     - Universal identifier of the wishlist.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} id - Universal identifier of the wishlist.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will be resolved when the call to the
- * endpoint finishes.
+ * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
 const getWishlist: GetWishlist = (id, config) =>
   client

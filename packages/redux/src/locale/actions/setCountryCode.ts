@@ -4,12 +4,9 @@ import type { Dispatch } from 'redux';
 /**
  * Sets the app country code.
  *
- * @function setCountryCode
- * @memberof module:locale/actions
+ * @param countryCode - Country identifier (ISO 3166-1 alpha-2).
  *
- * @param {string} countryCode - Country identifier (ISO 3166-1 alpha-2).
- *
- * @returns {Function} - Dispatch set country code action.
+ * @returns - Dispatch set country code action.
  */
 
 export default (countryCode: string) => (dispatch: Dispatch) => {

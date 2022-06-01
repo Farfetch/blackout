@@ -20,6 +20,8 @@ export type SubscriptionPackageTopic = {
 };
 
 export type GetSubscriptionPackagesQuery = {
-  /** An array of ids of the subscription packages to be fetched. */
+  /**
+   * An array of ids of the subscription packages to be fetched.
+   */
   id: string[];
 };

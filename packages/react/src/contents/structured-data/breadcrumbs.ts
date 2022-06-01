@@ -7,27 +7,25 @@ import type { ReactElement } from 'react';
 /**
  * Generate Structured Data (JSON-LD) for Breadcrumbs.
  *
- * @memberof module:contents/structured-data
- *
- * @param {object} breadcrumbs - Breadcrumbs data.
- * @param {string} breadcrumbs.url - Breadcrumbs Item URL.
- * @param {string} breadcrumbs.name - Breadcrumbs Item Name.
- * @param {number} [space] - Add whitespace and indentation to the serialized output.
- *
- * @returns {ReactElement} - A script tag with Breadcrumbs JSON-LD structured data.
- *
  * @example
+ * ```
  * import { breadcrumbs as structuredBreadcrumbs } from '@farfetch/blackout-react/content/structured-data';
  *
  * <Helmet>
  *  {structuredBreadcrumbs(breadcrumbsList, 2)}
  * </Helmet>
+ * ```
+ *
+ * @param breadcrumbs - Breadcrumbs data.
+ * @param space       - Add whitespace and indentation to the serialized output.
+ *
+ * @returns - A script tag with Breadcrumbs JSON-LD structured data.
  */
 const breadcrumbs = (
   breadcrumbs: Breadcrumb[],
   space?: number,
 ): ReactElement => {
-  const BREADCRUMBLIST: WithContext<BreadcrumbList> = {
+  const BreadcrumbListTag: WithContext<BreadcrumbList> = {
     '@context': schemaProperties.DEFAULT_CONTEXT,
     '@type': 'BreadcrumbList',
     itemListElement: breadcrumbs
@@ -42,7 +40,7 @@ const breadcrumbs = (
       })),
   };
 
-  return renderScriptTag(BREADCRUMBLIST, space);
+  return renderScriptTag(BreadcrumbListTag, space);
 };
 
 export default breadcrumbs;

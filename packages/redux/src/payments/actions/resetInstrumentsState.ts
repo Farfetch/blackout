@@ -4,12 +4,6 @@ import type { ResetInstrumentsAction } from '../types';
 
 /**
  * Method responsible for resetting the instruments state.
- *
- * @memberof module:payments/actions
- *
- * @name resetInstrumentsState
- *
- * @returns {ResetInstrumentsStateThunkFactory}
  */
 const resetInstrumentsState =
   () =>

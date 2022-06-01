@@ -12,24 +12,19 @@ import type {
 } from '@farfetch/blackout-client/promotionEvaluations/types';
 
 /**
- * @callback FetchPromotionEvaluationItemsThunkFactory
+ * @param promotionEvaluationId - Promotion evaluation identifier.
+ * @param config                - Custom configurations to send to the client instance (axios).
  *
- * @param {string} promotionEvaluationId - Promotion evaluation identifier.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * Creates a thunk factory configured with the specified client to fetch
- * promotion evaluation items for a given promotion evaluation id.
+ * Creates a thunk factory configured with the specified client to fetch promotion
+ * evaluation items for a given promotion evaluation id.
  *
- * @memberof module:promotionEvaluations/actions/factories
+ * @param getPromotionEvaluationItems - Get promotion evaluation items client.
  *
- * @param {Function} getPromotionEvaluationItems - Get promotion evaluation items client.
- *
- * @returns {FetchPromotionEvaluationItemsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchPromotionEvaluationItemsFactory =
   (getPromotionEvaluationItems: GetPromotionEvaluationItems) =>

@@ -19,13 +19,17 @@ export interface FetchMerchantsLocationsFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the fetch merchants locations request is made. */
+/**
+ * Actions dispatched when the fetch merchants locations request is made.
+ */
 export type FetchMerchantsLocationsAction =
   | FetchMerchantsLocationsRequestAction
   | FetchMerchantsLocationsSuccessAction
   | FetchMerchantsLocationsFailureAction;
 
-/** Actions dispatched when the reset merchants locations state is called. */
+/**
+ * Actions dispatched when the reset merchants locations state is called.
+ */
 export interface ResetMerchantsLocationsStateAction extends Action {
   type: typeof actionTypes.RESET_MERCHANTS_LOCATIONS_STATE;
 }

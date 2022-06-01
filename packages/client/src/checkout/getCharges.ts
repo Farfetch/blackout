@@ -5,15 +5,10 @@ import type { GetCharges } from './types';
 /**
  * Method responsible for getting the orderCharge.
  *
- * @function getCharges
- * @memberof module:checkout/client
+ * @param id     - Id of the checkout order.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {string} id       - Id of the checkout order.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getCharges: GetCharges = (id, config) =>
   client

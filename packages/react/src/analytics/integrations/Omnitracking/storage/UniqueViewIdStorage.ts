@@ -5,25 +5,25 @@ import type UniqueViewIdStorageOptions from './UniqueViewIdStorageOptions';
 const CACHE_PREFIX = 'UniqueViewId_';
 
 /**
- * A localStorage wrapper which contains logic to manage
- * Omnitracking's unique view ids lifetime.
+ * A localStorage wrapper which contains logic to manage Omnitracking's unique view
+ * ids lifetime.
  */
 class UniqueViewIdStorage {
   /**
-   * Creates an instance of the storage with the
-   * passed configuration.
+   * Creates an instance of the storage with the passed configuration.
    *
    * @param config - Config parameters.
    */
   constructor(private config: UniqueViewIdStorageOptions) {}
 
   /**
-   * Gets the unique view id associated with
-   * the url received on the key argument from localStorage
-   * or null if not found/expired/does not support localStorage.
+   * Gets the unique view id associated with the url received on the key argument
+   * from localStorage or null if not found/expired/does not support localStorage.
    *
    * @param key - The url string to retrieve the unique view id from.
-   * @returns - The associated unique view id for the key or null if not found/expired/does not support localStorage.
+   *
+   * @returns - The associated unique view id for the key or null if not found/expired/does not support
+   * localStorage.
    */
   get(key: string): string | null {
     if (!this.supportsLocalStorage()) {
@@ -45,11 +45,11 @@ class UniqueViewIdStorage {
   }
 
   /**
-   * Sets the unique view id value of the url key in localStorage,
-   * if supported. Will remove oldest entries if items limit has been
-   * reached in order to accommodate the new entry.
+   * Sets the unique view id value of the url key in localStorage, if supported. Will
+   * remove oldest entries if items limit has been reached in order to accommodate
+   * the new entry.
    *
-   * @param key - The url to save the unique view id value.
+   * @param key   - The url to save the unique view id value.
    * @param value - The unique view id to save.
    *
    * @returns True if item was saved in localStorage, false otherwise.
@@ -113,10 +113,11 @@ class UniqueViewIdStorage {
   }
 
   /**
-   * Checks if the currently unique view id items stored in localStorage
-   * have hit the limit specified in config.
+   * Checks if the currently unique view id items stored in localStorage have hit the
+   * limit specified in config.
    *
-   * @returns True if the max limit of items stored in localStorage is greater or equal than the maxItems config.
+   * @returns True if the max limit of items stored in localStorage is greater or equal than the maxItems
+   * config.
    */
   hasLimitReached() {
     let count = 0;
@@ -153,7 +154,7 @@ class UniqueViewIdStorage {
   /**
    * Auxiliary method used by set method to store the entry in localStorage.
    *
-   * @param key - The url key to save the unique view id value.
+   * @param key   - The url key to save the unique view id value.
    * @param value - The unique view id value for the url key.
    */
   setItem(key: string, value: string) {

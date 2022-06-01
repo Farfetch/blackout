@@ -35,10 +35,11 @@ const optionsInterface: {
 };
 
 /**
- * Validates if a field is valid taking in account the properties defined on the option interface.
+ * Validates if a field is valid taking in account the properties defined on the
+ * option interface.
  *
  * @param fieldName - Field name to be validated.
- * @param options - Field interface properties.
+ * @param options   - Field interface properties.
  *
  * @returns Returns true if validation passes.
  */
@@ -71,7 +72,8 @@ const validateField = (
 };
 
 /**
- * Iterates all fields defined on optionsInterface and creates a map with each validation.
+ * Iterates all fields defined on optionsInterface and creates a map with each
+ * validation.
  *
  * @param options - Field interface properties.
  *

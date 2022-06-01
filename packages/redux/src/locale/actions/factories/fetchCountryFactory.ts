@@ -9,25 +9,18 @@ import type {
 import type { Dispatch } from 'redux';
 
 /**
- * @callback FetchCountryThunkFactory
+ * @param countryCode - Country identifier (ISO 3166-1 alpha-2).
+ * @param config      - Custom configurations to send to the client instance.
  *
- * @memberof module:locale/actions/factories
- *
- * @param {string} countryCode - Country identifier (ISO 3166-1 alpha-2).
- * @param {Object} [config] - Custom configurations to send to the client
- * instance.
- *
- * @returns {FetchCountryThunkFactory} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Fetch a specific country, by its country code.
  *
- * @memberof module:locale/actions/factories
+ * @param getCountry - Get country client.
  *
- * @param {Function} getCountry - Get country client.
- *
- * @returns {FetchCountryThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchCountryFactory =
   (getCountry: GetCountry) =>

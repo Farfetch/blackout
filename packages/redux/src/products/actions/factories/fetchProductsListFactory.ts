@@ -23,28 +23,20 @@ import type { GetOptionsArgument, StoreState } from '../../../types';
 import type { ProductsListActionOptions } from '../../types';
 
 /**
- * Creates a thunk configured with the specified client to fetch a
- * product listing for a given slug with specific query parameters.
+ * Creates a thunk configured with the specified client to fetch a product listing
+ * for a given slug with specific query parameters.
  *
- * @memberof module:products/actions/factories
+ * @param client        - Get listing or sets client.
+ * @param slug          - Slug to load products list for.
+ * @param query         - Query parameters to apply.
+ * @param actionOptions - Additional options to apply to the action.
+ * @param config        - Custom configurations to send to the client instance (axios).
+ * @param dispatch      - Redux dispatch.
+ * @param getState      - Store state.
+ * @param options       - Thunk options.
+ * @param isSet         - If is sets scope or not.
  *
- * @private
- *
- * @param {Function} client - Get listing or sets client.
- * @param {string} slug - Slug to load products list for.
- * @param {object} query - Query parameters to apply.
- * @param {object} actionOptions - Additional options to apply to the action.
- * @param {string} [actionOptions.useCache=false] - If the request result will be cached.
- * @param {string} [actionOptions.setProductsListHash=true] - Allows the listing hash to be set.
- * @param {object} config - Custom configurations to send to the client
- * instance (axios).
- * @param {Function} dispatch - Redux dispatch.
- * @param {Function} getState - Store state.
- * @param {object} options - Thunk options.
- * @param {Function} [options.getOptions] - Options to manipulate store data.
- * @param {boolean} isSet - If is sets scope or not.
- *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 const fetchProductsListFactory = async (
   client: GetListing | GetSet,

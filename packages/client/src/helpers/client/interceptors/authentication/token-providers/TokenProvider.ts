@@ -12,8 +12,8 @@ import type { TokenChangesListeners } from './types/TokenChangesListeners.types'
 let TokenListenerIdInternalCount = 0;
 
 /**
- * Base class for a token provider.
- * Provides the base methods required to renew, save and clear tokens.
+ * Base class for a token provider. Provides the base methods required to renew,
+ * save and clear tokens.
  */
 class TokenProvider {
   canSaveTokenDataFlag: boolean;
@@ -27,10 +27,15 @@ class TokenProvider {
   /**
    * Constructs a new TokenProvider instance.
    *
-   * @param requester - A function that will be responsible to request new tokens. If async, the call will be awaited.
-   * @param storageProvider - An object implementing the Storage API's methods getItem, setItem and removeItem. If those methods are async, the calls will be awaited.
-   * @param tokenDataSerializer - An object implementing the serializeTokenData and deserializeTokenData methods. If storage provider is defined, tokenDataSerializer is required.
-   * @param storageKey - The storage key that will be used on the calls to storageProvider's methods as the key argument.
+   * @param requester           - A function that will be responsible to request new tokens. If async,
+   *                              the call will be awaited.
+   * @param storageProvider     - An object implementing the Storage API's methods getItem, setItem and
+   *                              removeItem. If those methods are async, the calls will be awaited.
+   * @param tokenDataSerializer - An object implementing the serializeTokenData and deserializeTokenData
+   *                              methods. If storage provider is defined, tokenDataSerializer is
+   *                              required.
+   * @param storageKey          - The storage key that will be used on the calls to storageProvider's
+   *                              methods as the key argument.
    */
   constructor(
     requester: UserTokenRequester | GuestTokenRequester,
@@ -58,7 +63,8 @@ class TokenProvider {
   }
 
   /**
-   * Returns the most recently cached access token or undefined if no access token is available.
+   * Returns the most recently cached access token or undefined if no access token is
+   * available.
    *
    * @returns The most recently cached access token or undefined if no access token is available.
    */
@@ -67,7 +73,8 @@ class TokenProvider {
   }
 
   /**
-   * Sets token data with this instance which will trigger the onTokenDataChanged method.
+   * Sets token data with this instance which will trigger the onTokenDataChanged
+   * method.
    *
    * @param tokenData - Token data to be set.
    *
@@ -99,8 +106,7 @@ class TokenProvider {
   }
 
   /**
-   * Gets the kind of tokens that are supported by this
-   * provider.
+   * Gets the kind of tokens that are supported by this provider.
    *
    * @returns The kind of tokens supported.
    */
@@ -119,10 +125,11 @@ class TokenProvider {
   }
 
   /**
-   * Sets user id with this instance. Will trigger a call to onTokenDataChanged if the passed user id
-   * is different than the current one set. This is what will make the association of a previously obtained
-   * access token with a user id because the data returned from the token creation endpoints
-   * does not contain the user id yet.
+   * Sets user id with this instance. Will trigger a call to onTokenDataChanged if
+   * the passed user id is different than the current one set. This is what will make
+   * the association of a previously obtained access token with a user id because the
+   * data returned from the token creation endpoints does not contain the user id
+   * yet.
    *
    * @param userId - The user id to set.
    *
@@ -147,7 +154,8 @@ class TokenProvider {
   }
 
   /**
-   * Clears all data from memory and triggers onTokenDataChanged to remove data from storage, if provided.
+   * Clears all data from memory and triggers onTokenDataChanged to remove data from
+   * storage, if provided.
    *
    * @returns Promise that will be resolved after the call to onTokenDataChanged returns.
    */
@@ -159,8 +167,8 @@ class TokenProvider {
   }
 
   /**
-   * Method responsible to get valid access tokens.
-   * It must be implemented by a subclass.
+   * Method responsible to get valid access tokens. It must be implemented by a
+   * subclass.
    *
    * @returns Promise that will be resolved with a valid access token to be used.
    */
@@ -200,8 +208,8 @@ class TokenProvider {
   }
 
   /**
-   * Called after the token data has changed.
-   * Will persist token data if a storage provider instance is provided.
+   * Called after the token data has changed. Will persist token data if a storage
+   * provider instance is provided.
    *
    * @returns Promise that will be resolved when the call to storageProvider's methods are finished.
    */
@@ -244,7 +252,8 @@ class TokenProvider {
   }
 
   /**
-   * Method that checks if this instance is fully configured to accept retrieve access token requests.
+   * Method that checks if this instance is fully configured to accept retrieve
+   * access token requests.
    *
    * @returns True if the instance is ready to retrieve tokens and false otherwise.
    */
@@ -291,7 +300,8 @@ class TokenProvider {
   /**
    * Returns if the current token data can be persisted in storage.
    *
-   * By default returns true only if both the storage provider and canSaveTokenDataFlag are true.
+   * By default returns true only if both the storage provider and
+   * canSaveTokenDataFlag are true.
    *
    * @returns If the token can be saved.
    */
@@ -300,10 +310,10 @@ class TokenProvider {
   }
 
   /**
-   * Sets the flag that enables/disables the saving of token data
-   * in storage.
+   * Sets the flag that enables/disables the saving of token data in storage.
    *
-   * @throws TypeError if not receiving a boolean.
+   * @throws
+   * TypeError if not receiving a boolean.
    *
    * @param canSaveTokenData - If the token can be saved or not.
    */

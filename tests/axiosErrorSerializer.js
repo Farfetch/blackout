@@ -7,7 +7,7 @@ const axiosSpecificProperties = [
   'isAxiosError',
 ];
 
-// This is a serializer for error snapshots that will mimick the previous behaviour
+// This is a serializer for error snapshots that will mimic the previous behaviour
 // when adaptError function was returning plain objects instead of axios errors. This is to
 // avoid having the snapshots ending up containing axios specific properties that are not relevant for the
 // test itself.

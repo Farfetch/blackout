@@ -1,8 +1,8 @@
 import type { TokenKinds } from '../token-providers';
 
 /**
- * Options that can be applied to the axios config object and will
- * be used by the interceptor.
+ * Options that can be applied to the axios config object and will be used by the
+ * interceptor.
  */
 export default interface AuthenticationConfigOptions {
   // This means do not add an access token to the Authorization header of the request.

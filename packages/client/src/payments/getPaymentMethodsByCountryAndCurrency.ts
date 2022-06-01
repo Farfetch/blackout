@@ -2,16 +2,12 @@ import client, { adaptError } from '../helpers/client';
 import type { GetPaymentMethodsByCountryAndCurrency } from './types';
 
 /**
- * Method responsible for fetching payment methods available for given country and currency context.
+ * Method responsible for fetching payment methods available for given country and
+ * currency context.
  *
- * @function getPaymentMethodsByCountryAndCurrency
- * @memberof module:payments/client
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getPaymentMethodsByCountryAndCurrency: GetPaymentMethodsByCountryAndCurrency =
   config =>

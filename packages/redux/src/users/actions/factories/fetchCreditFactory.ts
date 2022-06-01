@@ -9,23 +9,18 @@ import type { Dispatch } from 'redux';
 import type { GetCredit } from '@farfetch/blackout-client/users/types';
 
 /**
- * @callback FetchCreditThunkFactory
- * @param {string} id - User identifier.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - User identifier.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Fetch user credit balance.
  *
- * @function fetchCredit
- * @memberof module:users/actions
+ * @param getCredit - Get credit client.
  *
- * @param {Function} getCredit - Get credit client.
- *
- * @returns {FetchCreditThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 
 const fetchCreditFactory =

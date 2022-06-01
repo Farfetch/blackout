@@ -16,31 +16,20 @@ import type {
 } from '@farfetch/blackout-client/loyalty/types';
 
 /**
- * @typedef {object} CreateProgramMembershipReplacementData
- * @property {string} reason - Reason of replacement.
- */
-
-/**
- * @callback CreateProgramMembershipReplacementThunkFactory
- * @param {string} programId - Program identifier.
- * @param {string} membershipId - Membership identifier.
- * @param {CreateProgramMembershipReplacementData} data - Replacement to be created.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param programId    - Program identifier.
+ * @param membershipId - Membership identifier.
+ * @param data         - Replacement to be created.
+ * @param config       - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Request a new membership id by replacement.
  *
- * @function createProgramMembershipReplacementFactory
- * @memberof module:loyalty/actions/factories
+ * @param postProgramMembershipReplacement - Post program membership replacement client.
  *
- * @param {Function} postProgramMembershipReplacement - Post program membership
- * replacement client.
- *
- * @returns {CreateProgramMembershipReplacementThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 
 const createProgramMembershipReplacementFactory =

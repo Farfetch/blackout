@@ -1,8 +1,5 @@
 /**
  * Locale types.
- *
- * @module locale
- * @category Types
  */
 
 export * from './cities';

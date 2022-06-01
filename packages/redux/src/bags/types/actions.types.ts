@@ -38,7 +38,9 @@ export interface AddBagItemFailureAction extends Action {
   meta: { bagId: NormalizedBag['id'] } & PostBagItemData;
 }
 
-/** Actions dispatched when the add bag item request is made. */
+/**
+ * Actions dispatched when the add bag item request is made.
+ */
 export type AddBagItemAction =
   | AddBagItemRequestAction
   | AddBagItemSuccessAction
@@ -56,7 +58,9 @@ export interface FetchBagFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the fetch bag request is made. */
+/**
+ * Actions dispatched when the fetch bag request is made.
+ */
 export type FetchBagAction =
   | FetchBagRequestAction
   | FetchBagSuccessAction
@@ -77,7 +81,9 @@ export interface RemoveBagItemFailureAction extends Action {
   meta: { bagId: NormalizedBag['id']; bagItemId: BagItem['id'] };
 }
 
-/** Actions dispatched when the remove bag item request is made. */
+/**
+ * Actions dispatched when the remove bag item request is made.
+ */
 export type RemoveBagItemAction =
   | RemoveBagItemRequestAction
   | RemoveBagItemSuccessAction
@@ -107,7 +113,9 @@ export interface UpdateBagItemFailureAction extends Action {
   } & PatchBagItemData;
 }
 
-/** Actions dispatched when the remove bag item request is made. */
+/**
+ * Actions dispatched when the remove bag item request is made.
+ */
 export type UpdateBagItemAction =
   | UpdateBagItemRequestAction
   | UpdateBagItemSuccessAction

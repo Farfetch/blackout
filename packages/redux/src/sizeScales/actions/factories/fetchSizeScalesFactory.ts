@@ -14,33 +14,19 @@ import type {
 } from '@farfetch/blackout-client/sizeScales/types';
 
 /**
- * @typedef {object} FetchSizeScalesQuery
+ * @param query  - Query with parameters to apply to the request.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @alias FetchSizeScalesQuery
- * @memberof module:sizeScales/actions
- *
- * @property {number} [categoryId] - Category id to search for size scale.
- */
-
-/**
- * @callback FetchSizeScalesThunkFactory
- * @param {FetchSizeScalesQuery} [query] - Query with parameters to apply to the
- * request.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Creates a thunk factory configured with the specified client to fetch size
  * scales.
  *
- * @memberof module:sizeScales/actions/factories
+ * @param getSizeScales - Get size scales client.
  *
- * @param {Function} getSizeScales - Get size scales client.
- *
- * @returns {FetchSizeScalesThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchSizeScalesFactory =
   (getSizeScales: GetSizeScales) =>

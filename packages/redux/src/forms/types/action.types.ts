@@ -21,7 +21,9 @@ interface FetchFormSchemaFailureAction extends Action {
   meta: { schemaCode: string };
 }
 
-/** Actions dispatched when the fetch form schema request is made. */
+/**
+ * Actions dispatched when the fetch form schema request is made.
+ */
 export type FetchFormSchemaAction =
   | FetchFormSchemaRequestAction
   | FetchFormSchemaSuccessAction
@@ -42,13 +44,17 @@ interface SubmitFormSchemaFailureAction extends Action {
   meta: { schemaCode: string; data: unknown };
 }
 
-/** Actions dispatched when submits form schema request is made. */
+/**
+ * Actions dispatched when submits form schema request is made.
+ */
 export type SubmitFormSchemaAction =
   | SubmitFormSchemaRequestAction
   | SubmitFormSchemaSuccessAction
   | SubmitFormSchemaFailureAction;
 
-/** Actions dispatched when the reset form schemas action is called. */
+/**
+ * Actions dispatched when the reset form schemas action is called.
+ */
 export interface ResetFormSchemaStateAction extends Action {
   type: typeof actionTypes.RESET_SCHEMAS;
 }

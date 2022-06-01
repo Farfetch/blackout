@@ -1,9 +1,3 @@
-/**
- * @remarks
- * Hook to provide all kinds of data for the business logic attached to the
- * search suggestions functionality.
- *
- */
 import {
   areSearchSuggestionsLoading,
   fetchSearchSuggestions as fetchSearchSuggestionsAction,

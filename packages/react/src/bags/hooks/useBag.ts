@@ -1,9 +1,5 @@
 /**
  * Hook to provide all kinds of data for the business logic attached to the bag.
- *
- * @module useBag
- * @category Bags
- * @subcategory Hooks
  */
 import {
   fetchBag as fetchBagAction,
@@ -26,10 +22,7 @@ import type { UseBag } from './types';
  * Provides Redux actions and state access, as well as handlers for dealing with
  * bag business logic.
  *
- * @memberof module:bags/hooks
- *
- * @returns {object} All the handlers, state, actions and relevant data needed
- * to manage any bag operation.
+ * @returns All the handlers, state, actions and relevant data needed to manage any bag operation.
  */
 const useBag: UseBag = () => {
   // Selectors
@@ -51,74 +44,50 @@ const useBag: UseBag = () => {
   return {
     /**
      * Fetched bag.
-     *
-     * @type {object}
      */
     bag,
     /**
      * Bag error.
-     *
-     * @type {object|undefined}
      */
     error,
     /**
      * Fetches the bag.
-     *
-     * @type {Function}
      */
     fetchBag,
     /**
      * Whether the bag is empty (doesn't have items).
-     *
-     * @type {boolean}
      */
     id,
     /**
      * Whether the bag is loading.
-     *
-     * @type {boolean}
      */
     isEmpty,
     /**
      * Bag identifier.
-     *
-     * @type {string}
      */
     isLoading,
     /**
      * Whether the bag is with any error.
-     *
-     * @type {boolean}
      */
     isWithAnyError,
     /**
      * Bag items result.
-     *
-     * @type {Array}
      */
     items,
     /**
      * Bag items identifiers.
-     *
-     * @type {Array}
      */
     itemsIds,
     /**
      * Bag items that are unavailable.
-     *
-     * @type {Array}
      */
     itemsUnavailable,
     /**
      * Resets the bag.
-     *
-     * @type {Function}
      */
     resetBag,
     /**
      * Resets the bag state.
-     *
-     * @type {Function}
      */
     resetBagState,
   };

@@ -3,13 +3,24 @@ import type { Product } from '../../products/types';
 import type { Query } from './query.types';
 
 export type PostBagItemData = {
+  // Product identifier.
   productId: Product['result']['id'];
+  // Product aggregator identifier.
   productAggregatorId?: number;
+  // Merchant identifier.
   merchantId?: number;
+  // Bag item quantity.
   quantity?: number;
+  // Bag item size.
   size: number;
+  // Bag item scale.
   scale: number;
+  // For customizable products, string describing the product
+  // customization, typically in JSON format. For example, users may be
+  // able to customize the materials and colors of parts of the product.
   customAttributes?: string;
+  // For restriction product. This value is a code, received by the
+  // user, used to unlock the AddToBag operation.
   authCode?: string;
 };
 

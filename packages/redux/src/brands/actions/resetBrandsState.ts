@@ -4,9 +4,7 @@ import type { Dispatch } from 'redux';
 /**
  * Reset state to its initial value.
  *
- * @memberof module:brands/actions
- *
- * @returns {Function} - Dispatch reset action.
+ * @returns - Dispatch reset action.
  */
 const resetBrandsState =
   () =>

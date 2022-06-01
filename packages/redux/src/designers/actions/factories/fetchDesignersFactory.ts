@@ -15,30 +15,21 @@ import type { StoreState } from '../../../types';
 import type { ThunkDispatch } from 'redux-thunk';
 
 /**
- * @callback FetchDesignersThunkFactory
+ * @param query    - Query parameters to apply.
+ * @param useCache - Flag to allow a caching mechanism for the designers content, to prevent new
+ *                   requests of content already fetched.
+ * @param config   - Custom configurations to send to the client instance (axios).
  *
- * @param {object} [query] - Query parameters to apply.
- * @param {string} [query.gender] - Gender: 0 = Woman, 1 = Man, 2 = Unisex, 3 = Kid.
- * @param {number} [query.priceType] - Price type: 0 = full price, 1 = sale, 2 = private sale.
- * @param {number} [query.categoryId] - Category identifier.
- * @param {boolean} [useCache=false] - Flag to allow a caching mechanism for
- * the designers content, to prevent new requests of content already fetched.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * Creates a thunk factory configured with the specified client to fetch all designers grouped
- * by their first letter.
+ * Creates a thunk factory configured with the specified client to fetch all
+ * designers grouped by their first letter.
  *
+ * @param getDesigners - Get designers client.
  *
- * @memberof module:designers/actions
- *
- * @param {Function} getDesigners - Get designers client.
- *
- * @returns {FetchDesignersThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchDesignersFactory =
   (getDesigners: GetDesigners) =>

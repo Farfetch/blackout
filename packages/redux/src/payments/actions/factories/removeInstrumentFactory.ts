@@ -13,24 +13,19 @@ import type { Dispatch } from 'redux';
 import type { RemoveInstrumentAction } from '../../types';
 
 /**
- * @callback RemoveInstrumentThunkFactory
- * @param {string} intentId - Id of the payment Intent.
- * @param {string} instrumentId - Id of the payment Instrument.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param intentId     - Id of the payment Intent.
+ * @param instrumentId - Id of the payment Instrument.
+ * @param config       - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Action responsible for deleting an instrument.
  *
- * @function removeInstrumentFactory
- * @memberof module:payments/actions/factories
+ * @param deleteInstrument - Delete instrument client.
  *
- * @param {Function} deleteInstrument - Delete instrument client.
- *
- * @returns {RemoveInstrumentThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const removeInstrumentFactory =
   (deleteInstrument: DeleteInstrument) =>

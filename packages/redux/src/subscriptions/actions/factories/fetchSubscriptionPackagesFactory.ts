@@ -7,9 +7,6 @@ import type { GetSubscriptionPackages } from '@farfetch/blackout-client/subscrip
 /**
  * Method to create a thunk factory configured with the specified client.
  *
- * @function fetchSubscriptionPackagesFactory
- * @memberof module:subscriptions/actions/factories
- *
  * @param getSubscriptionPackages - Get subscription packages client.
  *
  * @returns Thunk factory.

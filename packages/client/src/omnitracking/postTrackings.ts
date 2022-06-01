@@ -6,11 +6,8 @@ export const POST_TRACKINGS_PATHNAME = '/marketing/v1/trackings';
 /**
  * Method responsible for posting data to /trackings endpoint on MKT API.
  *
- * @param data   - Payload to be sent on the body of the post request.
- * @param config - Custom configurations to send to the client
- * instance (axios).
- *
  * @example
+ * ```
  * import \{ postTrackings \} from '\@farfetch/blackout-client/omnitracking';
  *
  *  postTrackings(\{
@@ -21,6 +18,11 @@ export const POST_TRACKINGS_PATHNAME = '/marketing/v1/trackings';
  *       customerId: 'g_123',
  *       parameters: \{\}
  *   \});
+ *
+ * ```
+ *
+ * @param data   - Payload to be sent on the body of the post request.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise object.
  */

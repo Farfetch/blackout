@@ -1,9 +1,5 @@
 /**
  * Authentication action factories.
- *
- * @module authentication/actions/factories
- * @category Authentication
- * @subcategory Actions
  */
 export { default as loginFactory } from './loginFactory';
 export { default as logoutFactory } from './logoutFactory';

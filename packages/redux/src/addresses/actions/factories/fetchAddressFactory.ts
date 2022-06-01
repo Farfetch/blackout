@@ -15,23 +15,18 @@ import type { Dispatch } from 'redux';
 import type { FetchAddressAction } from '../../types';
 
 /**
- * @callback FetchAddressThunkFactory
- * @param {string} addressId - Identifier of the address.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param addressId - Identifier of the address.
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Gets the details of the address with the specified 'addressId'.
  *
- * @function doGetAddress
- * @memberof module:addresses/actions/factories
+ * @param getAddress - Get address client.
  *
- * @param {Function} getAddress - Get address client.
- *
- * @returns {FetchAddressThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchAddressFactory =
   (getAddress: GetAddress) =>

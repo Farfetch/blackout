@@ -13,26 +13,20 @@ import type {
 } from '@farfetch/blackout-client/checkout/types';
 
 /**
- * @callback SetItemTagsThunkFactory
- * @param {number} id - Universal identifier of the Checkout.
- * @param {number} itemId - Universal identifier of the Item.
- * @param {Array} data - Array of strings representing the tags that
- * you want to persist and/or add.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - Universal identifier of the Checkout.
+ * @param itemId - Universal identifier of the Item.
+ * @param data   - Array of strings representing the tags that you want to persist and/or add.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Method responsible for updating the checkout item tags.
  *
- * @function setItemTagsFactory
- * @memberof module:checkout/actions/factories
+ * @param putItemTags - Put item tags client.
  *
- * @param {Function} putItemTags - Put item tags client.
- *
- * @returns {SetItemTagsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const setItemTagsFactory =
   (putItemTags: PutItemTags) =>

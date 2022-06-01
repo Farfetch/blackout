@@ -12,23 +12,18 @@ import type {
 } from '@farfetch/blackout-client/addresses/types';
 
 /**
- * @callback FetchAddressSchemaThunkFactory
- * @param {string|number} isoCode - IsoCode.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param isoCode - IsoCode.
+ * @param config  - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Obtains the address schema for a country specified with 'id'.
  *
- * @function doGetAddressSchema
- * @memberof module:addresses/actions/factories
+ * @param getSchema - Get schema client.
  *
- * @param {Function} getSchema - Get schema client.
- *
- * @returns {FetchAddressSchemaThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchAddressSchemaFactory =
   (getSchema: GetSchema) =>

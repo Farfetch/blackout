@@ -3,12 +3,6 @@ import type { Dispatch } from 'redux';
 
 /**
  * Reset the checkout state.
- *
- * @memberof module:checkout/actions
- *
- * @name resetCheckoutState
- *
- * @returns {ResetCheckoutStateThunkFactory}
  */
 export default () =>
   (dispatch: Dispatch): void => {

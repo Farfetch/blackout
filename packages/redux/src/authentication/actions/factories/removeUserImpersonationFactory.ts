@@ -6,23 +6,18 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @callback DeleteUserImpersonationThunkFactory
- * @param {string} impersonatedAccessTokenId - The impersonated access token.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param impersonatedAccessTokenId - The impersonated access token.
+ * @param config                    - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Deletes an user impersonation.
  *
- * @function removeUserImpersonation
- * @memberof module:authentication/actions/factories
+ * @param deleteUserImpersonation - Delete user impersonation client.
  *
- * @param {Function} deleteUserImpersonation - Delete user impersonation client.
- *
- * @returns {DeleteUserImpersonationThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 export default (deleteUserImpersonation: any) =>
   (

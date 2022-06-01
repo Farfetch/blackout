@@ -3,12 +3,6 @@ import { getUpgradeItemDeliveryProvisioning } from '@farfetch/blackout-client/ch
 
 /**
  * Fetch Upgrade Item Delivery Provisioning.
- *
- * @memberof module:checkout/actions
- *
- * @name fetchUpgradeItemDeliveryProvisioning
- *
- * @type {FetchUpgradeItemDeliveryProvisioningThunkFactory}
  */
 export default fetchUpgradeItemDeliveryProvisioningFactory(
   getUpgradeItemDeliveryProvisioning,

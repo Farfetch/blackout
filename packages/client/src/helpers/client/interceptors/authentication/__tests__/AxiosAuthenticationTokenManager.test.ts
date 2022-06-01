@@ -84,10 +84,11 @@ const defaultOptions: AxiosAuthenticationTokenManagerOptions = {
 };
 
 /**
- * Stubs an axios request using moxios with a response for the first and subsequent requests.
+ * Stubs an axios request using moxios with a response for the first and subsequent
+ * requests.
  *
- * @param method - Method of the request to mock (GET, POST, PATCH...)
- * @param url - The expected url of the request to match.
+ * @param method               - Method of the request to mock (GET, POST, PATCH...)
+ * @param url                  - The expected url of the request to match.
  * @param firstRequestResponse - The response for the first request.
  * @param nextRequestsResponse - The response for the subsequent requests.
  */

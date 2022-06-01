@@ -5,10 +5,8 @@ import type { ResetProductsListsStateAction } from '../types';
 /**
  * Reset products lists state to its initial value.
  *
- * @function resetProductsListState
- * @memberof module:products/actions
- *
  * @example
+ * ```
  * import { resetProductsListsState } from '@farfetch/blackout-redux/products';
  *
  * // State before executing action
@@ -25,7 +23,9 @@ import type { ResetProductsListsStateAction } from '../types';
  * // Usage
  * dispatch(resetProductsListsState());
  *
- * @returns {Function} Dispatch reset products list state action.
+ * ```
+ *
+ * @returns Dispatch reset products list state action.
  */
 export default () =>
   (dispatch: Dispatch<ResetProductsListsStateAction>): void => {

@@ -5,14 +5,11 @@ import type { GetProductFittings } from './types';
 /**
  * Method responsible for getting a product fittings information.
  *
- * @memberof module:products/client
- * @param {number} id - Product ID we want to know the fittings
- * information.
- * @param id
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- * @returns {Promise} Promise that will be resolved when the call to the
- * endpoint finishes.
+ * @param id     - Product ID we want to know the fittings information.
+ * @param id     -
+ * @param config - Custom configurations to send to the client instance (axios).
+ *
+ * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
 const getProductFittings: GetProductFittings = (id, config) =>
   client

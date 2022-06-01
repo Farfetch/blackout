@@ -13,23 +13,18 @@ import type {
 } from '@farfetch/blackout-client/orders/types';
 
 /**
- * @callback FetchOrderReturnOptionsThunkFactory
- * @param {string} orderId - The order id to get details from.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param orderId - The order id to get details from.
+ * @param config  - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Fetches order return options.
  *
- * @function fetchOrderReturnOptions
- * @memberof module:orders/actions
+ * @param getOrderReturnOptions - Get order return options client.
  *
- * @param {Function} getOrderReturnOptions - Get order return options client.
- *
- * @returns {FetchOrderReturnOptionsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchOrderReturnOptions =
   (getOrderReturnOptions: GetOrderReturnOptions) =>

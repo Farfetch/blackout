@@ -4,11 +4,7 @@ import type { Dispatch } from 'redux';
 /**
  * Reset search did you mean state to its initial value.
  *
- * @memberof module:search/actions
- *
- * @name resetSearchDidYouMean
- *
- * @returns {Function} Thunk factory.
+ * @returns Thunk factory.
  */
 export default () =>
   (dispatch: Dispatch): void => {

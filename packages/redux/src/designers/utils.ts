@@ -1,9 +1,5 @@
 /**
  * Designers utils.
- *
- * @module designers/utils
- * @category Designers
- * @subcategory Utils
  */
 
 import { buildQueryStringFromObject } from '../helpers';
@@ -17,17 +13,17 @@ export const DEFAULT_DESIGNER_RESULT_HASH = 'root';
 /**
  * Build a hash with the query to identify designers results.
  *
- * @function
- *
- * @param {object | string} query - Object or string with query parameters applied to a designers page.
- *
- * @returns {string} Hash builded to identify a designers page.
- *
  * @example
+ * ```
  * const designerResultsHash = generateDesignerResultHash({ categoryId: '123' });
  * const designerResultsHash = generateDesignerResultHash('?categoryId=123');
  *
  * Result of designerResultsHash === '?categoryId=123';
+ * ```
+ *
+ * @param query - Object or string with query parameters applied to a designers page.
+ *
+ * @returns Hash builded to identify a designers page.
  */
 export const generateDesignerResultHash = (
   query?: GetDesignersQuery | string,

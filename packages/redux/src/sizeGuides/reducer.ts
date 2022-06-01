@@ -1,8 +1,3 @@
-/**
- * @module sizeGuides/reducer
- * @category SizeGuides
- * @subcategory Reducer
- */
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import type { Error } from '@farfetch/blackout-client/types';
@@ -75,12 +70,10 @@ const reducers = combineReducers({
 /**
  * Reducer for sizeGuides state.
  *
- * @static
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
  *
- * @param {object} state - Current redux state.
- * @param {object} action - Action dispatched.
- *
- * @returns {object} New state.
+ * @returns New state.
  */
 const sizeGuidesReducer: ReducerSwitch<
   State,

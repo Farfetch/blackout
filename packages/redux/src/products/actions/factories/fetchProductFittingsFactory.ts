@@ -13,27 +13,19 @@ import type {
 } from '@farfetch/blackout-client/products/types';
 
 /**
- * @callback FetchProductFittingsThunkFactory
+ * @param productId - Numeric identifier of the product.
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @alias FetchProductFittingsThunkFactory
- * @memberof module:products/actions/factories
- *
- * @param {number} productId - Numeric identifier of the product.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Creates a thunk factory configured with the specified client to load product
  * fittings for a given product id.
  *
- * @memberof module:products/actions/factories
+ * @param getProductFittings - Get product fittings client.
  *
- * @param {Function} getProductFittings - Get product fittings client.
- *
- * @returns {FetchProductFittingsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchProductFittingsFactory =
   (getProductFittings: GetProductFittings) =>

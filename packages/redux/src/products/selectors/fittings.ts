@@ -7,12 +7,10 @@ import type { StoreState } from '../../types';
 /**
  * Returns the loading product fittings condition to a specific product.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {boolean} If the product fittings is loading or not.
+ * @returns If the product fittings is loading or not.
  */
 export const areProductFittingsLoading = (
   state: StoreState,
@@ -22,12 +20,10 @@ export const areProductFittingsLoading = (
 /**
  * Returns the fetched status of a specific product fittings.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {boolean} If the product fittings has been fetched or not.
+ * @returns If the product fittings has been fetched or not.
  */
 export const areProductFittingsFetched = (
   state: StoreState,
@@ -39,12 +35,10 @@ export const areProductFittingsFetched = (
 /**
  * Returns the error fittings condition to a specific product.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {object} The fittings error associated to a specific product.
+ * @returns The fittings error associated to a specific product.
  */
 export const getProductFittingsError = (
   state: StoreState,
@@ -54,12 +48,10 @@ export const getProductFittingsError = (
 /**
  * Returns the fittings information for a given product id.
  *
- * @memberof module:products/selectors
+ * @param state - Application state.
+ * @param id    - Product id.
  *
- * @param {object} state - Application state.
- * @param {number} id - Product id.
- *
- * @returns {Array|undefined} The fittings information for a given product id.
+ * @returns The fittings information for a given product id.
  */
 export const getProductFittings = (
   state: StoreState,

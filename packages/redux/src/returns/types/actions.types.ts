@@ -29,7 +29,9 @@ export interface CreateReturnFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the create return request is made. */
+/**
+ * Actions dispatched when the create return request is made.
+ */
 export type CreateReturnAction =
   | CreateReturnRequestAction
   | CreateReturnSuccessAction
@@ -48,7 +50,9 @@ export interface GetPickupCapabilitiesFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the get pickup capabilities request is made. */
+/**
+ * Actions dispatched when the get pickup capabilities request is made.
+ */
 export type GetPickupCapabilitiesAction =
   | GetPickupCapabilitiesRequestAction
   | GetPickupCapabilitiesSuccessAction
@@ -66,7 +70,9 @@ export interface GetReferencesFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the get references request is made. */
+/**
+ * Actions dispatched when the get references request is made.
+ */
 export type GetReferencesAction =
   | GetReferencesRequestAction
   | GetReferencesSuccessAction
@@ -84,7 +90,9 @@ export interface GetReturnFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the get return request is made. */
+/**
+ * Actions dispatched when the get return request is made.
+ */
 export type GetReturnAction =
   | GetReturnRequestAction
   | GetReturnSuccessAction
@@ -102,7 +110,9 @@ export interface GetReturnsFromOrderFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the get returns from order request is made. */
+/**
+ * Actions dispatched when the get returns from order request is made.
+ */
 export type GetReturnsFromOrderAction =
   | GetReturnsFromOrderRequestAction
   | GetReturnsFromOrderSuccessAction
@@ -122,7 +132,9 @@ export interface UpdateReturnFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the update return request is made. */
+/**
+ * Actions dispatched when the update return request is made.
+ */
 export type UpdateReturnAction =
   | UpdateReturnRequestAction
   | UpdateReturnSuccessAction
@@ -139,7 +151,9 @@ export interface FetchPickupRescheduleRequestsFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the fetch pickup reschedule requests is made. */
+/**
+ * Actions dispatched when the fetch pickup reschedule requests is made.
+ */
 export type FetchPickupRescheduleRequestsAction =
   | FetchPickupRescheduleRequestsRequestAction
   | FetchPickupRescheduleRequestsSuccessAction
@@ -156,7 +170,9 @@ export interface FetchPickupRescheduleRequestFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the fetch pickup reschedule request is made. */
+/**
+ * Actions dispatched when the fetch pickup reschedule request is made.
+ */
 export type FetchPickupRescheduleRequestAction =
   | FetchPickupRescheduleRequestRequestAction
   | FetchPickupRescheduleRequestSuccessAction
@@ -174,19 +190,25 @@ export interface CreatePickupRescheduleRequestFailureAction extends Action {
   payload: { error: Error };
 }
 
-/** Actions dispatched when the create pickup reschedule request is made. */
+/**
+ * Actions dispatched when the create pickup reschedule request is made.
+ */
 export type CreatePickupRescheduleRequestAction =
   | CreatePickupRescheduleRequestRequestAction
   | CreatePickupRescheduleRequestSuccessAction
   | CreatePickupRescheduleRequestFailureAction;
 
-/** Actions dispatched when the reset return request is made. */
+/**
+ * Actions dispatched when the reset return request is made.
+ */
 export interface ResetReturnAction extends Action {
   type: typeof actionTypes.RESET_RETURN;
   meta: { resetEntities: boolean };
 }
 
-/** Action dispatched when the logout request is made. */
+/**
+ * Action dispatched when the logout request is made.
+ */
 export interface LogoutAction extends Action {
   type: typeof LOGOUT_SUCCESS;
 }

@@ -1,11 +1,9 @@
 /**
- * Parses a timestamp value into a commnon date string.
+ * Parses a timestamp value into a common date string.
  *
- * @memberof module:helpers
+ * @param timestamp - Timestamp to parse.
  *
- * @param {number} timestamp - Timestamp to parse.
- *
- * @returns {string} Date in "YYYY-M-D" format.
+ * @returns Date in "YYYY-M-D" format.
  */
 const parsePickupDate = (timestamp: number): string => {
   const date = new Date(timestamp);

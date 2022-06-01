@@ -14,48 +14,30 @@ import type {
 } from '@farfetch/blackout-client/checkout/types';
 
 /**
- * @typedef {object} UpdateCheckoutData
+ * @param id     - Universal identifier of the Checkout.
+ * @param data   - Checkout object.
+ * @param config - Custom configurations to send to the client instance (axios). In this case is truly
+ *                 recommended to update your axios config to your new shipping or billing address,
+ *                 like this:
+ *                  const config = \{
+ *                    headers:\{
+ *                      'Accept-Language': cultureCode,
+ *                      'FF-Country': countryCode,
+ *                      'FF-Currency': currencyCode
+ *                     \}
+ *                  \}.
  *
- * @alias UpdateCheckoutData
- *
- * @property {string} [email] - Email.
- * @property {object} [shippingAddress] - Shipping Address.
- * @property {object} [billingAddress] - Billing Address.
- * @property {object} [clickAndCollect] - Click and Collect.
- * @property {object} [shippingOption] - Shipping Option.
- * @property {object} [deliveryBundleUpdate] - Delivery Bundle Update.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * @callback UpdateCheckoutThunkFactory
- * @param {number} id - Universal identifier of the Checkout.
- * @param {UpdateCheckoutData} data - Checkout object.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- * In this case is truly recommended to update your axios config to
- * your new shipping or billing address, like this:
- * const config = {
- *     headers: {
- *          'Accept-Language': cultureCode,
- *          'FF-Country': countryCode,
- *          'FF-Currency': currencyCode
- *     }.
- * }.
+ * Method responsible for changing the checkout information. This is used for any
+ * type of changes to the checkout object. This also replaces the deprecated
+ * putShippingOption function.
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
- */
-
-/**
- * Method responsible for changing the checkout information.
- * This is used for any type of changes to the checkout object.
- * This also replaces the deprecated putShippingOption function.
+ * @param patchCheckout - Patch checkout client.
  *
- * @function updateCheckoutFactory
- * @memberof module:checkout/actions/factories
- *
- * @param {Function} patchCheckout - Patch checkout client.
- *
- * @returns {UpdateCheckoutThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const updateCheckoutFactory =
   (patchCheckout: PatchCheckout) =>

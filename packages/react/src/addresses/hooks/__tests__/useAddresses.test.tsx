@@ -6,7 +6,7 @@ import {
   mockLoadingState,
   userId,
 } from 'tests/__fixtures__/addresses';
-import { Addresses } from './__fixtures__/Adresses.fixtures';
+import { Addresses } from './__fixtures__/Addresses.fixtures';
 import {
   cleanup,
   fireEvent,
@@ -51,7 +51,7 @@ describe('useAddresses', () => {
   afterEach(cleanup);
 
   it('should return values correctly', () => {
-    const wrapper = (props:{}) => (
+    const wrapper = (props: {}) => (
       <Provider store={mockStore(mockInitialState)} {...props} />
     );
     const {

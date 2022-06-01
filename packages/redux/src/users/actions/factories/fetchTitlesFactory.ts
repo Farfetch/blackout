@@ -13,31 +13,18 @@ import type {
 } from '@farfetch/blackout-client/users/types';
 
 /**
- * @typedef {object} GetTitlesQuery
- * @property {number} [page=1] - Number of the page to get, starting at 1.
- * The default is 1.
- * @property {number} [pageSize=10000] - Size of each page, as a number.
- * The default is 10000.
- */
-
-/**
- * @callback GetTitlesThunkFactory
- * @param {GetTitlesQuery} [query] - Query parameters for get titles.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param query  - Query parameters for get titles.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Fetch a list of titles.
  *
- * @function fetchTitles
- * @memberof module:users/actions
+ * @param getTitles - Get titles client.
  *
- * @param {Function} getTitles - Get titles client.
- *
- * @returns {FetchTitlesThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 
 const fetchTitlesFactory =

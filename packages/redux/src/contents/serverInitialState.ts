@@ -10,10 +10,9 @@ import type { ServerInitialState } from './types';
 /**
  * Converts server data from searchContents to store state.
  *
- * @param {object} page - Params from the `page` object injected by the server.
- * @param {object} page.model - Page model.
+ * @param page - Params from the `page` object injected by the server.
  *
- * @returns {object} Initial state for the contents reducer.
+ * @returns Initial state for the contents reducer.
  */
 const serverInitialState = ({
   model,

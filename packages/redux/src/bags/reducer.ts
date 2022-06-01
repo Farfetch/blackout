@@ -1,8 +1,3 @@
-/**
- * @module bags/reducer
- * @category Bags
- * @subcategory Reducer
- */
 import * as actionTypes from './actionTypes';
 import { combineReducers } from 'redux';
 import { LOGOUT_SUCCESS } from '../authentication/actionTypes';
@@ -221,12 +216,10 @@ const reducer = combineReducers({
 /**
  * Reducer for bag state.
  *
- * @static
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
  *
- * @param {object} state - Current redux state.
- * @param {object} action - Action dispatched.
- *
- * @returns {object} New state.
+ * @returns New state.
  */
 const bagReducer: ReducerSwitch<State> = (state, action) => {
   if (action.type === LOGOUT_SUCCESS) {

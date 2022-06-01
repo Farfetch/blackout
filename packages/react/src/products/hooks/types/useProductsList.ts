@@ -14,10 +14,15 @@ export type ProductsListTypes = {
 };
 
 export type UseProductsListParams = {
+  // The query parameters of the given product list.
   query: ListingQuery | SetQuery;
+  // Wether to set the reducer's hash on the store when requesting a product list.
   setProductsListHash?: boolean;
+  // The slug of the given product list.
   slug: string;
+  // Listing type ('listing' or 'set').
   type: ProductsListTypes['LISTING'] | ProductsListTypes['SET'];
+  // To use cache when fetching a product list.
   useCache?: boolean;
 };
 

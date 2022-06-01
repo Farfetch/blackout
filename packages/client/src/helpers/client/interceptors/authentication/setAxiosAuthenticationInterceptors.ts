@@ -12,16 +12,18 @@ const defaultOptions = {
 };
 
 /**
- * Installs the authentication axios interceptors on the passed in client by instantiating a new AxiosAuthenticationTokenManager
- * instance with some defaults, merged with the caller's options argument. The properties specified on
- * the passed in options object will override the default values.
+ * Installs the authentication axios interceptors on the passed in client by
+ * instantiating a new AxiosAuthenticationTokenManager instance with some defaults,
+ * merged with the caller's options argument. The properties specified on the
+ * passed in options object will override the default values.
  *
  * @see AxiosAuthenticationTokenManager constructor for more information about the available options.
  *
- * @param client - The axios instance where to install the authentication interceptors.
+ * @param client  - The axios instance where to install the authentication interceptors.
  * @param options - Options object to AxiosAuthenticationTokenManager constructor.
  *
- * @returns An AxiosAuthenticationTokenManager instance which contains methods to eject the interceptors installed and clear token data.
+ * @returns An AxiosAuthenticationTokenManager instance which contains methods to eject the
+ * interceptors installed and clear token data.
  */
 export default function setAxiosAuthenticationInterceptors(
   client: AxiosInstance,

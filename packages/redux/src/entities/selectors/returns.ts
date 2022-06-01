@@ -9,11 +9,9 @@ import type { StoreState } from '../../types';
 /**
  * Returns the 'returns' entity from the application state.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Returns entity.
+ * @returns Returns entity.
  */
 export const getReturns = (state: StoreState): Return | undefined =>
   getEntities(state, 'returns');
@@ -21,11 +19,9 @@ export const getReturns = (state: StoreState): Return | undefined =>
 /**
  * Returns the 'returnItems' entity from the application state.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} ReturnsItems entity.
+ * @returns ReturnsItems entity.
  */
 export const getReturnItems = (state: StoreState): ReturnItem | undefined =>
   getEntities(state, 'returnItems');
@@ -33,11 +29,9 @@ export const getReturnItems = (state: StoreState): ReturnItem | undefined =>
 /**
  * Returns the 'availableTimeSlots' entity from the application state.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} AvailableTimeSlots entity.
+ * @returns AvailableTimeSlots entity.
  */
 export const getTimeSlots = (state: StoreState): TimeSlots[] | undefined =>
   getEntities(state, 'availableTimeSlots');

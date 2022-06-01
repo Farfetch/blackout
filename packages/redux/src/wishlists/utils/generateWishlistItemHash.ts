@@ -12,11 +12,9 @@ type WishlistItemHashData = Partial<{
 /**
  * Creates a hash based on the merchant, product and size, if any.
  *
- * @memberof module:wishlists/utils
+ * @param data - The data needed to create a hash.
  *
- * @param {object} data - The data needed to create a hash.
- *
- * @returns {string} The hash created.
+ * @returns The hash created.
  */
 const generateWishlistItemHash = (data: WishlistItemHashData): string => {
   // The left-hand side of the `||` operator is for the data received when

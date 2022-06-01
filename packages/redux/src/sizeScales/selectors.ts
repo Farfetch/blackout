@@ -1,8 +1,3 @@
-/**
- * @module sizeScales/selectors
- * @category SizeScales
- * @subcategory Selectors
- */
 import { createSelector } from 'reselect';
 import { generateSizeScaleMappingsHash } from './utils';
 import {
@@ -28,13 +23,10 @@ import type { StoreState } from '../types';
 /**
  * Returns a list of size scales for the provided category id.
  *
- * @function
- * @memberof module:sizeScales/selectors
+ * @param state      - Application state.
+ * @param categoryId - Category id.
  *
- * @param {object} state - Application state.
- * @param {number} categoryId - Category id.
- *
- * @returns {Array} Size scales for the provided category id.
+ * @returns Size scales for the provided category id.
  */
 export const getSizeScalesByCategory = createSelector(
   [
@@ -55,12 +47,9 @@ export const getSizeScalesByCategory = createSelector(
 /**
  * Returns the loading state of size scales.
  *
- * @function
- * @memberof module:sizeScales/selectors
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Size scales loading state.
+ * @returns Size scales loading state.
  */
 export const areSizeScalesLoading = (state: StoreState): boolean =>
   getIsLoading(state.sizeScales);
@@ -68,14 +57,10 @@ export const areSizeScalesLoading = (state: StoreState): boolean =>
 /**
  * Returns the loading state of the size scale.
  *
- * @function
- * @memberof module:sizeScales/selectors
+ * @param state           - Application state.
+ * @param scaleIdentifier - Size scale id or the query object used to fetch the size scale.
  *
- * @param {object} state - Application state.
- * @param {number|object} scaleIdentifier - Size scale id or the query object
- * used to fetch the size scale.
- *
- * @returns {boolean} The scale loading state.
+ * @returns The scale loading state.
  */
 export const isSizeScaleLoading = (
   state: StoreState,
@@ -95,12 +80,9 @@ export const isSizeScaleLoading = (
 /**
  * Returns the error state of size scales.
  *
- * @function
- * @memberof module:sizeScales/selectors
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object | null} Size scales error state.
+ * @returns Size scales error state.
  */
 export const getSizeScalesError = (state: StoreState): Error | null =>
   getError(state.sizeScales);
@@ -108,14 +90,10 @@ export const getSizeScalesError = (state: StoreState): Error | null =>
 /**
  * Returns the error of the size scale.
  *
- * @function
- * @memberof module:sizeScales/selectors
+ * @param state           - Application state.
+ * @param scaleIdentifier - Size scale id or the query object used to fetch the size scale.
  *
- * @param {object} state - Application state.
- * @param {number|object} scaleIdentifier - Size scale id or the query object
- * used to fetch the size scale.
- *
- * @returns {object|undefined} The scale error.
+ * @returns The scale error.
  */
 export const getSizeScaleError = (
   state: StoreState,
@@ -135,13 +113,10 @@ export const getSizeScaleError = (
 /**
  * Checks if a specific size scale is fetched.
  *
- * @function
- * @memberof module:sizeScales/selectors
+ * @param state   - Application state.
+ * @param scaleId - Size scale id.
  *
- * @param {object} state - Application state.
- * @param {number} scaleId - Size scale id.
- *
- * @returns {boolean} If the scale was requested or not.
+ * @returns If the scale was requested or not.
  */
 export const isSizeScaleFetched = (
   state: StoreState,
@@ -152,14 +127,8 @@ export const isSizeScaleFetched = (
 /**
  * Returns a specific size scale mapping error.
  *
- * @function
- *
- * @param {object} state - Application state.
- * @param {object} query - Query identifying the size scale mapping request.
- *
- * @returns {object|undefined} Size scale mapping error.
- *
  * @example
+ * ```
  * import { getSizeScaleMappingError } from '@farfetch/blackout-client/sizeScales/redux';
  *
  * const query = {
@@ -171,6 +140,12 @@ export const isSizeScaleFetched = (
  *   error: getSizeScaleMappingError(state, query)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ * @param query - Query identifying the size scale mapping request.
+ *
+ * @returns Size scale mapping error.
  */
 export const getSizeScaleMappingError = (
   state: StoreState,
@@ -181,14 +156,8 @@ export const getSizeScaleMappingError = (
 /**
  * Returns the loading status of specific size scale mapping.
  *
- * @function
- *
- * @param {object} state - Application state.
- * @param {object} query - Query identifying the size scale mapping request.
- *
- * @returns {object} Size scale mapping loading status.
- *
  * @example
+ * ```
  * import { isSizeScaleMappingLoading } from '@farfetch/blackout-client/sizeScales/redux';
  *
  * const query = {
@@ -200,6 +169,12 @@ export const getSizeScaleMappingError = (
  *   isLoading: isSizeScaleMappingLoading(state, query)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ * @param query - Query identifying the size scale mapping request.
+ *
+ * @returns Size scale mapping loading status.
  */
 export const isSizeScaleMappingLoading = (
   state: StoreState,
@@ -210,14 +185,8 @@ export const isSizeScaleMappingLoading = (
 /**
  * Returns a specific size scale mapping.
  *
- * @function
- *
- * @param {object} state - Application state.
- * @param {object} query - Query identifying the size scale mapping request.
- *
- * @returns {object} Size scale mapping result.
- *
  * @example
+ * ```
  * import { getSizeScaleMapping } from '@farfetch/blackout-client/sizeScales/redux';
  *
  * const query = {
@@ -229,6 +198,12 @@ export const isSizeScaleMappingLoading = (
  *   sizeScaleMapping: getSizeScaleMapping(state, query)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ * @param query - Query identifying the size scale mapping request.
+ *
+ * @returns Size scale mapping result.
  */
 export const getSizeScaleMapping = (
   state: StoreState,

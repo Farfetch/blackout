@@ -1,9 +1,5 @@
 /**
  * Users actions.
- *
- * @module users/actions
- * @category Users
- * @subcategory Actions
  */
 
 export { default as createContact } from './createContact';

@@ -26,7 +26,9 @@ export interface FetchProductAttributesFailureAction extends Action {
   type: typeof actionTypes.FETCH_PRODUCT_ATTRIBUTES_FAILURE;
 }
 
-/** Actions dispatched when the fetch product attributes request is made. */
+/**
+ * Actions dispatched when the fetch product attributes request is made.
+ */
 export type FetchProductAttributesAction =
   | FetchProductAttributesRequestAction
   | FetchProductAttributesSuccessAction

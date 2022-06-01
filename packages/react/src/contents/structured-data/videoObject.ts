@@ -7,16 +7,8 @@ import type { VideoObject, WithContext } from 'schema-dts';
 /**
  * Generate Structured Data (JSON-LD) for Video Objects.
  *
- * @memberof module:contents/structured-data
- *
- * @param {object} media - All details data for the current Video.
- * @param {string} media.alt - Media file description text.
- * @param {string} media.source - Media source file path.
- * @param {object} media.thumbnails - Media thumbnail images.
- * @param {string} media.thumbnails.srcLg - Media thumbnail image source size.
- * @param {string} publicationDate - Publication date of the Video.
- * @param {number} [space] - Add whitespace and indentation to the serialized output.
  * @example
+ * ```
  * import { videoObject as structuredVideoObject } from '@farfetch/blackout-react/content/structured-data';
  *
  * <Helmet>
@@ -30,7 +22,13 @@ import type { VideoObject, WithContext } from 'schema-dts';
  * 2)
  * }
  * </Helmet>
- * @returns {ReactElement} - A script tag with Video Object JSON-LD structured data.
+ * ```
+ *
+ * @param media           - All details data for the current Video.
+ * @param publicationDate - Publication date of the Video.
+ * @param space           - Add whitespace and indentation to the serialized output.
+ *
+ * @returns - A script tag with Video Object JSON-LD structured data.
  */
 const videoObject = (
   media: Media,

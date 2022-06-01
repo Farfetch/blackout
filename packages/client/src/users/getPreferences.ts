@@ -5,16 +5,11 @@ import type { GetPreferences } from './types';
 /**
  * Method responsible for getting user preferences.
  *
- * @function getPreferences
- * @memberof module:users/client
+ * @param userId - User's id to.
+ * @param code   - Preference code to be filtered.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {number} userId - User's id to.
- * @param {string} code - Preference code to be filtered.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getPreferences: GetPreferences = (userId, code?, config?) =>
   client

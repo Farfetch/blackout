@@ -16,41 +16,21 @@ import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
 
 /**
- * @typedef {object} UpdateBagItemQuery
+ * @param bagItemId - Bag item id.
+ * @param data      - Details of the product to update a bag item.
+ * @param query     - Query with parameters to get the bag.
+ * @param config    - Custom configurations to send to the client instance (axios).
  *
- * @alias UpdateBagItemQuery
- * @memberof module:bags/client
- *
- * @property {boolean} [includeOutOfStock=false] - If the response should
- * include sold out items in the bag.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * @callback UpdateBagItemThunkFactory
- * @param {number} bagItemId - Bag item id.
- * @param {object} data - Details of the product to update a bag item.
- * @param {number} [data.productId] - Product identifier.
- * @param {number} [data.merchantId] - Merchant identifier.
- * @param {number} [data.quantity] - Bag item quantity.
- * @param {number} [data.size] - Bag item size.
- * @param {number} [data.scale] - Bag item scale.
- * @param {UpdateBagItemQuery} [query] - Query with parameters to get the bag.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * Creates a thunk factory configured with the specified client to update a bag
+ * item with given data.
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
- */
-
-/**
- * Creates a thunk factory configured with the specified client to update
- * a bag item with given data.
+ * @param patchBagItem - Patch bag item client.
  *
- * @function updateBagItemFactory
- * @memberof module:bags/actions/factories
- *
- * @param {Function} patchBagItem - Patch bag item client.
- *
- * @returns {UpdateBagItemThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const updateBagItemFactory =
   (patchBagItem: PatchBagItem) =>

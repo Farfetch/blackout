@@ -9,17 +9,25 @@ import type {
 } from '@farfetch/blackout-client/helpers/adapters/types';
 
 type BuildBagItemParams = {
+  // Authorization code (for SMS restrictions, for example).
   authCode?: string;
+  // Custom attributes.
   customAttributes?: CustomAttributesAdapted;
+  // Specific merchant id.
   merchantId?: number;
+  // Product with all information.
   product: ProductEntity;
+  // Product bundle aggregator id.
   productAggregatorId?: Exclude<BagItemEntity['productAggregator'], null>['id'];
+  // Number of units.
   quantity?: number;
+  // Size information.
   size: SizeAdapted | BagItemEntity['size'];
+  // Provenience of action.
   from?: string;
 };
 
-type BuildBagItem = (arg0: BuildBagItemParams) => {
+type BuildBagItem = (params: BuildBagItemParams) => {
   authCode?: string;
   customAttributes: CustomAttributesAdapted | string;
   merchantId?: MerchantEntity['id'];
@@ -33,20 +41,9 @@ type BuildBagItem = (arg0: BuildBagItemParams) => {
 /**
  * Build a bag item ready to bag requests (add or update).
  *
- * @memberof module:bags/utils
+ * @param data - Details of the bag item to build.
  *
- * @param {object} data - Details of the bag item to build.
- * @param {string} [data.authCode] - Authorization code (for SMS
- * restrictions, for example).
- * @param {string} [data.customAttributes=''] - Custom attributes.
- * @param {number} [data.merchantId] - Specific merchant id.
- * @param {object} [data.product] - Product with all information.
- * @param {number} [data.productAggregatorId] - Product bundle aggregator id.
- * @param {number} [data.quantity=1] - Number of units.
- * @param {object} [data.size] - Size information.
- * @param {string} [data.from] - Provenience of action.
- *
- * @returns {object} Bag item data ready to perform add or update requests.
+ * @returns Bag item data ready to perform add or update requests.
  */
 const buildBagItem: BuildBagItem = ({
   authCode,

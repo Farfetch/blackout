@@ -5,17 +5,12 @@ import type { PostContact } from './types';
 /**
  * Method responsible for creating a new user contact.
  *
- * @function postContact
- * @memberof module:users/client
+ * @param userId - User's id to get the contacts from.
+ * @param data   - Object containing the new contact.
+ * @param query  - Query parameters for creating a new user contact.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {object} userId - User's id to get the contacts from.
- * @param {object} [data] - Object containing the new contact.
- * @param {object} [query] - Query parameters for creating a new user contact.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const postContact: PostContact = (userId, data, query?, config?) =>
   client

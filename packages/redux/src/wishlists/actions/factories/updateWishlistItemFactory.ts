@@ -13,24 +13,20 @@ import type {
 import type { UpdateWishlistItemAction } from '../../types';
 
 /**
- * @callback UpdateWishlistItemThunkFactory
- * @param {string} wishlistItemId - Wishlist item id.
- * @param {object} data - Data to update the wishlist item.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param wishlistItemId - Wishlist item id.
+ * @param data           - Data to update the wishlist item.
+ * @param config         - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * Creates a thunk factory configured with the specified client
- * to update a wishlist item with given `data`.
+ * Creates a thunk factory configured with the specified client to update a
+ * wishlist item with given `data`.
  *
- * @memberof module:wishlists/actions/factories
+ * @param patchWishlistItem - Patch wishlist item client.
  *
- * @param {Function} patchWishlistItem - Patch wishlist item client.
- *
- * @returns {UpdateWishlistItemThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const updateWishlistItemFactory =
   (patchWishlistItem: PatchWishlistItem) =>

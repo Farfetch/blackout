@@ -1,5 +1,6 @@
 import axios from 'axios';
 import isArray from 'lodash/isArray';
+import type { DefaultErrorAdapterData, LegacyErrorAdapterData } from './types';
 
 // This is the default error code it's used for axios errors and all the errors
 // that don't return an error code. This should be used to display a generic
@@ -7,23 +8,22 @@ import isArray from 'lodash/isArray';
 export const defaultErrorCode = -1;
 
 /**
- * Method responsible for adapting the request error to fit the
- * application error format.
+ * Method responsible for adapting the request error to fit the application error
+ * format.
  *
- * @function
- * @memberof module:helpers/client
+ * @param data   - Error data.
+ * @param status - The request status code.
  *
- * @param {object} data - Error data.
- * @param {string} data.errorMessage - Error message received.
- * @param {number} data.errorCode - Error code received.
- * @param {object} status - The request status code.
- *
- * @returns {object} Error in a new format to apply to the application.
+ * @returns Error in a new format to apply to the application.
  */
 export const legacyErrorAdapter = (
-  { errorMessage, errorCode = defaultErrorCode, ...rest }: any,
-  status: any,
-): { [k: string]: any } => ({
+  {
+    errorMessage,
+    errorCode = defaultErrorCode,
+    ...rest
+  }: LegacyErrorAdapterData,
+  status: number,
+): { [k: string]: unknown } => ({
   code: errorCode,
   message: errorMessage,
   status,
@@ -31,23 +31,22 @@ export const legacyErrorAdapter = (
 });
 
 /**
- * Method responsible for adapting the FO type request error to fit the
- * application error format.
+ * Method responsible for adapting the FO type request error to fit the application
+ * error format.
  *
- * @function
- * @memberof module:helpers/client
+ * @param data   - Error data.
+ * @param status - The request status code.
  *
- * @param {object} data - Error data.
- * @param {string} data.message - Message received.
- * @param {number} data.code - Code received.
- * @param {string} data.developerMessage - Developer message received.
- * @param {object} status - The request status code.
- *
- * @returns {object} Error in a new format to apply to the application.
+ * @returns Error in a new format to apply to the application.
  */
 export const defaultErrorAdapter = (
-  { message, code = defaultErrorCode, developerMessage, ...rest }: any,
-  status: any,
+  {
+    message,
+    code = defaultErrorCode,
+    developerMessage,
+    ...rest
+  }: DefaultErrorAdapterData,
+  status: number,
 ) => ({
   code,
   message: message || developerMessage || 'Unexpected error',
@@ -56,19 +55,16 @@ export const defaultErrorAdapter = (
 });
 
 /**
- * Method responsible for adapting error thrown either it was thrown by the API
- * or by Axios to fit the application error format.
+ * Method responsible for adapting error thrown either it was thrown by the API or
+ * by Axios to fit the application error format.
  *
- * @function
- * @memberof module:helpers/client
+ * @param error - Error thrown.
  *
- * @param {object} error - Error thrown.
- *
- * @returns {object} Error adapted.
+ * @returns Error adapted.
  */
 export const adaptError = (error: {
-  [k: string]: any;
-}): { [k: string]: any } => {
+  [k: string]: unknown;
+}): { [k: string]: unknown } => {
   if (!axios.isAxiosError(error)) {
     return error;
   }

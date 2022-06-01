@@ -4,11 +4,10 @@ import type { PostPasswordChange } from './types';
 /**
  * Method responsible for changing a user password.
  *
- * @param data - Request data.
- * @param config - Custom configurations to send to the client
- * instance (axios).
- * @returns Promise that will resolve when the call to
- * the endpoint finishes.
+ * @param data   - Request data.
+ * @param config - Custom configurations to send to the client instance (axios).
+ *
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const postPasswordChange: PostPasswordChange = (data, config?) =>
   client

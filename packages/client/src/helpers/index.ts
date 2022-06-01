@@ -1,7 +1,5 @@
 /**
  * Helpers.
- *
- * @module helpers
  */
 
 import Logger from './Logger';

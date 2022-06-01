@@ -1,9 +1,5 @@
 /**
  * Authentication actions.
- *
- * @module authentication/actions
- * @category Authentication
- * @subcategory Actions
  */
 export { default as changePassword } from './changePassword';
 export { default as createClientCredentialsToken } from './createClientCredentialsToken';

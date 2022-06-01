@@ -1,9 +1,5 @@
 /**
  * Content actions.
- *
- * @module contents/actions
- * @category Contents
- * @subcategory Actions
  */
 export { default as fetchCommercePages } from './fetchCommercePages';
 export { default as fetchContent } from './fetchContent';

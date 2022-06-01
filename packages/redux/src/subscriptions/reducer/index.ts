@@ -31,7 +31,7 @@ export const entitiesMapper = {
 /**
  * Reducer for subscriptions state.
  *
- * @param state - Current redux state.
+ * @param state  - Current redux state.
  * @param action - Action dispatched.
  *
  * @returns New state.

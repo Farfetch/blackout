@@ -8,23 +8,18 @@ import type { Dispatch } from 'redux';
 import type { GetGuestUser } from '@farfetch/blackout-client/users/types';
 
 /**
- * @callback FetchGuestUserThunkFactory
- * @param {string} id - Universal identifier of the user.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - Universal identifier of the user.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Fetch the guest user details with the specified id.
  *
- * @function fetchGuestUser
- * @memberof module:users/actions
+ * @param getGuestUser - Get guest user client.
  *
- * @param {Function} getGuestUser - Get guest user client.
- *
- * @returns {FetchGuestUserThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 
 const fetchGuestUserFactory =

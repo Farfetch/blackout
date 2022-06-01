@@ -24,7 +24,8 @@ import type { StoreState } from '../../types';
 /**
  * Extends the default action types with the ones passed to the middleware.
  *
- * @param customActionTypes - Action types to extend/replace the ones from \@farfetch/blackout-redux/bags.
+ * @param customActionTypes - Action types to extend/replace the ones from
+ *                            \@farfetch/blackout-redux/bags.
  *
  * @returns The final map for bag actions.
  */
@@ -38,11 +39,13 @@ const getActionTypes = (
 });
 
 /**
- * Gets bag item id that corresponds to the product
- * specified in the action.
+ * Gets bag item id that corresponds to the product specified in the action.
  *
- * @param action - The action being executed.
- * @param searchMeta - Flag indicating if the search for the bag item id should look on the action.meta property. This value will be false when there is an update action because the id on the action.meta is not the id of the bag item after the update, as it will be changed by the server.
+ * @param action     - The action being executed.
+ * @param searchMeta - Flag indicating if the search for the bag item id should look on the action.meta
+ *                     property. This value will be false when there is an update action because the id
+ *                     on the action.meta is not the id of the bag item after the update, as it will be
+ *                     changed by the server.
  *
  * @returns The bag item id for the product if available or undefined.
  */
@@ -86,8 +89,8 @@ const getBagItemIdFromAction = (action: AnyAction, searchMeta = true) => {
  * Builds an object with all product data needed for tracking.
  *
  * @param analyticsInstance - Analytics instance.
- * @param state - Application state.
- * @param action - The action being executed.
+ * @param state             - Application state.
+ * @param action            - The action being executed.
  *
  * @returns Product data for analytics.
  */
@@ -212,10 +215,12 @@ const getBagData = (action: AnyAction) => ({
 });
 
 /**
- * Middleware for \@farfetch/blackout-redux/bags actions, to call `analyticsInstance.track()` with the correct payload.
+ * Middleware for \@farfetch/blackout-redux/bags actions, to call
+ * `analyticsInstance.track()` with the correct payload.
  *
  * @param analyticsInstance - Analytics instance.
- * @param customActionTypes - Action types to extend/replace the ones from \@farfetch/blackout-redux/bags.
+ * @param customActionTypes - Action types to extend/replace the ones from
+ *                            \@farfetch/blackout-redux/bags.
  *
  * @returns Redux middleware.
  */

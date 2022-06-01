@@ -3,36 +3,14 @@ import join from 'proper-url-join';
 import type { GetProgramMembershipStatements } from './types';
 
 /**
- * @typedef {object} GetProgramMembershipStatementsQuery
- *
- * @alias GetProgramMembershipStatementsQuery
- * @memberof module:loyalty/client
- *
- * @property {string} [Category] - Gets/Sets the Category Add or Convert
- * statement.Possible Values: Purchase, Misc, Transfer, Bonus, Partner, Convert.
- * @property {string} [InitialDate] - Gets/Sets the InitialDate (Ex. 2017-07-20).
- * @property {string} [FinalDate] - Gets or sets the FinalDate (Ex. 2017-07-21).
- * @property {object} [PageFilter] - PageFilter data.
- * @property {string} [PageFilter.PageIndex] - Gets or sets the
- * PageIndex (The default is 1).
- * @property {string} [PageFilter.PageSize] - Gets or sets the
- * PageSize (The default is 60).
- */
-
-/**
  * Method responsible for loading the statements for a membership.
  *
- * @function getProgramMembershipStatements
- * @memberof module:loyalty/client
+ * @param programId    - Program identifier.
+ * @param membershipId - Membership identifier.
+ * @param query        - Query params.
+ * @param config       - Custom configurations to send to the client instance (axios).
  *
- * @param {string} programId - Program identifier.
- * @param {string} membershipId - Memberhip identifier.
- * @param {GetProgramMembershipStatementsQuery} query - Query params.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getProgramMembershipStatements: GetProgramMembershipStatements = (
   programId,

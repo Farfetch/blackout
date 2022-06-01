@@ -1,9 +1,3 @@
-/**
- * @module authentication/selectors
- * @category Authentication
- * @subcategory Selectors
- */
-
 import {
   getChangePassword,
   getError,
@@ -19,20 +13,16 @@ import {
   getValidateEmail,
 } from './reducer';
 import { getUser } from '../entities/selectors';
+import type { StoreState } from '../types';
 
 /**
  * Returns the status of the user authentication status.
  *
- * @function
- * @param {object} state - Application state.
- * @param {object} state.user - User entity.
- * @param {boolean} state.user.isGuest - User type.
- * @param {number} state.user.id - User id.
- * @returns {boolean} IsAuthenticated.
+ * @param state - Application state.
+ *
+ * @returns IsAuthenticated.
  */
-export const isAuthenticated = (state: {
-  user: { isGuest: boolean; id: number };
-}): boolean =>
+export const isAuthenticated = (state: StoreState): boolean =>
   Boolean(getUser(state) && !getUser(state).isGuest && getUser(state).id);
 
 /**
@@ -42,11 +32,9 @@ export const isAuthenticated = (state: {
 /**
  * Returns the loading status for the login operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Login Loading status.
+ * @returns Login Loading status.
  */
 export const isLoginLoading = (state: any): boolean =>
   getLogin(state.authentication).isLoading;
@@ -54,11 +42,9 @@ export const isLoginLoading = (state: any): boolean =>
 /**
  * Returns the error for the login operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Login operation error.
+ * @returns Login operation error.
  */
 export const getLoginError = (state: any): Record<string, unknown> =>
   getLogin(state.authentication).error;
@@ -66,11 +52,9 @@ export const getLoginError = (state: any): Record<string, unknown> =>
 /**
  * Returns the loading status for the logout operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Logout Loading status.
+ * @returns Logout Loading status.
  */
 export const isLogoutLoading = (state: any): boolean =>
   getLogout(state.authentication).isLoading;
@@ -78,11 +62,9 @@ export const isLogoutLoading = (state: any): boolean =>
 /**
  * Returns the error for the logout operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Logout operation error.
+ * @returns Logout operation error.
  */
 export const getLogoutError = (state: any): Record<string, unknown> =>
   getLogout(state.authentication).error;
@@ -90,11 +72,9 @@ export const getLogoutError = (state: any): Record<string, unknown> =>
 /**
  * Returns the loading status for the change password operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Change password Loading status.
+ * @returns Change password Loading status.
  */
 export const isChangePasswordLoading = (state: any): boolean =>
   getChangePassword(state.authentication).isLoading;
@@ -102,11 +82,9 @@ export const isChangePasswordLoading = (state: any): boolean =>
 /**
  * Returns the error for the change password operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Change password operation error.
+ * @returns Change password operation error.
  */
 export const getChangePasswordError = (state: any): Record<string, unknown> =>
   getChangePassword(state.authentication).error;
@@ -114,11 +92,9 @@ export const getChangePasswordError = (state: any): Record<string, unknown> =>
 /**
  * Returns the loading status for the recover password operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Recover password Loading status.
+ * @returns Recover password Loading status.
  */
 export const isRecoverPasswordLoading = (state: any): boolean =>
   getRecoverPassword(state.authentication).isLoading;
@@ -126,11 +102,9 @@ export const isRecoverPasswordLoading = (state: any): boolean =>
 /**
  * Returns the error for the recover password operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Recover password operation error.
+ * @returns Recover password operation error.
  */
 export const getRecoverPasswordError = (state: any): Record<string, unknown> =>
   getRecoverPassword(state.authentication).error;
@@ -138,11 +112,9 @@ export const getRecoverPasswordError = (state: any): Record<string, unknown> =>
 /**
  * Returns the loading status for the reset password operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Reset password Loading status.
+ * @returns Reset password Loading status.
  */
 export const isResetPasswordLoading = (state: any): boolean =>
   getResetPassword(state.authentication).isLoading;
@@ -150,11 +122,9 @@ export const isResetPasswordLoading = (state: any): boolean =>
 /**
  * Returns the error for the reset password.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Reset password error.
+ * @returns Reset password error.
  */
 export const getResetPasswordError = (state: any): Record<string, unknown> =>
   getResetPassword(state.authentication).error;
@@ -162,11 +132,9 @@ export const getResetPasswordError = (state: any): Record<string, unknown> =>
 /**
  * Returns the loading status for the register operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Register Loading status.
+ * @returns Register Loading status.
  */
 export const isRegisterLoading = (state: any): boolean =>
   getRegister(state.authentication).isLoading;
@@ -174,11 +142,9 @@ export const isRegisterLoading = (state: any): boolean =>
 /**
  * Returns the error for the register operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Register operation error.
+ * @returns Register operation error.
  */
 export const getRegisterError = (state: any): Record<string, unknown> =>
   getRegister(state.authentication).error;
@@ -186,11 +152,9 @@ export const getRegisterError = (state: any): Record<string, unknown> =>
 /**
  * Returns the loading status for the validate email operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Validate email Loading status.
+ * @returns Validate email Loading status.
  */
 export const isValidateEmailLoading = (state: any): boolean =>
   getValidateEmail(state.authentication).isLoading;
@@ -198,11 +162,9 @@ export const isValidateEmailLoading = (state: any): boolean =>
 /**
  * Returns the error for the validate email operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Validate email error.
+ * @returns Validate email error.
  */
 export const getValidateEmailError = (state: any): Record<string, unknown> =>
   getValidateEmail(state.authentication).error;
@@ -210,11 +172,9 @@ export const getValidateEmailError = (state: any): Record<string, unknown> =>
 /**
  * Returns the loading status for the refresh email token operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Refresh email token operation Loading status.
+ * @returns Refresh email token operation Loading status.
  */
 export const isRefreshEmailTokenLoading = (state: any): boolean =>
   getRefreshEmailToken(state.authentication).isLoading;
@@ -222,11 +182,9 @@ export const isRefreshEmailTokenLoading = (state: any): boolean =>
 /**
  * Returns the refresh email token error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Refresh email token operation error.
+ * @returns Refresh email token operation error.
  */
 export const getRefreshEmailTokenError = (
   state: any,
@@ -235,11 +193,9 @@ export const getRefreshEmailTokenError = (
 /**
  * Returns the loading status for the user token operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} User token operation Loading status.
+ * @returns User token operation Loading status.
  */
 export const isUserTokenLoading = (state: any): boolean =>
   getUserToken(state.authentication).isLoading;
@@ -247,11 +203,9 @@ export const isUserTokenLoading = (state: any): boolean =>
 /**
  * Returns the get user token error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Get user token operation error.
+ * @returns Get user token operation error.
  */
 export const getUserTokenError = (state: any): Record<string, unknown> =>
   getUserToken(state.authentication).error;
@@ -259,11 +213,9 @@ export const getUserTokenError = (state: any): Record<string, unknown> =>
 /**
  * Returns the result for the get user token operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Get user token operation result.
+ * @returns Get user token operation result.
  */
 export const getUserTokenResult = (state: any): Record<string, unknown> =>
   getUserToken(state.authentication).result;
@@ -271,11 +223,9 @@ export const getUserTokenResult = (state: any): Record<string, unknown> =>
 /**
  * Returns the loading status for the user impersonation operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} User impersonation operation Loading status.
+ * @returns User impersonation operation Loading status.
  */
 export const isUserImpersonationLoading = (state: any): boolean =>
   getUserImpersonation(state.authentication).isLoading;
@@ -283,11 +233,9 @@ export const isUserImpersonationLoading = (state: any): boolean =>
 /**
  * Returns the get user impersonation error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} User impersonation operation error.
+ * @returns User impersonation operation error.
  */
 export const getUserImpersonationError = (
   state: any,
@@ -296,24 +244,20 @@ export const getUserImpersonationError = (
 /**
  * Returns the result for the user impersonation operation.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} User impersonation operation result.
+ * @returns User impersonation operation result.
  */
 export const getUserImpersonationResult = (
   state: any,
 ): Record<string, unknown> => getUserImpersonation(state.authentication).result;
 
 /**
- * Returns the loading  for the authentication.
+ * Returns the loading for the authentication.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Authentication Loading status.
+ * @returns Authentication Loading status.
  */
 export const isAuthenticationLoading = (state: any): boolean =>
   getIsLoading(state.authentication);
@@ -321,11 +265,9 @@ export const isAuthenticationLoading = (state: any): boolean =>
 /**
  * Returns the authentication error.
  *
- * @function
+ * @param state - Application state.
  *
- * @param {object} state - Application state.
- *
- * @returns {object} Authentication error.
+ * @returns Authentication error.
  */
 export const getAuthenticationError = (state: any): Record<string, unknown> =>
   getError(state.authentication);

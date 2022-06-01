@@ -5,14 +5,10 @@ import type { GetBrand } from './types';
 /**
  * Method responsible for get a specific brand.
  *
- * @memberof module:brands/client
+ * @param id     - Brand identifier.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {number} id - Brand identifier.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will be resolved when the call to the
- * endpoint finishes.
+ * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
 const getBrand: GetBrand = (id, config) =>
   client

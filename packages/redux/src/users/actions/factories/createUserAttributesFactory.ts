@@ -11,44 +11,19 @@ import type {
 } from '@farfetch/blackout-client/users/types';
 
 /**
- * @typedef {object} UserAttributesDetailsGeneric
- * @property {object} items - Items with key value pair, ie: "key1": "value1".
- */
-
-/**
- * @typedef {object} UserAttributesDetailsReferral
- * @property {string} referralToken - Token.
- * @property {string} rewardsCardNumber - Rewards card number.
- * @property {boolean} joinRewards - Join rewards.
- */
-
-/**
- * @typedef {object} PostUserAttributesData
- * @property {string} channelCode - Channel code.
- * @property {string} type - Possible value: Generic, Referral.
- * @property {number} userId - Identifier of the user.
- * @property {UserAttributesDetailsGeneric|UserAttributesDetailsReferral} details - New user attributes details.
- */
-
-/**
- * @callback PostUserAttributesThunkFactory
- * @param {string} userId - User id.
- * @param {PostUserAttributesData} data - User attributes object.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param userId - User id.
+ * @param data   - User attributes object.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Method responsible for creating an user attribute.
  *
- * @function doPostUserAttributes
- * @memberof module:users/actions
+ * @param postUserAttributes - Post user attribute client.
  *
- * @param {Function} postUserAttributes - Post user attribute client.
- *
- * @returns {PostUserAttributesThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const createUserAttributesFactory =
   (postUserAttributes: PostUserAttributes) =>

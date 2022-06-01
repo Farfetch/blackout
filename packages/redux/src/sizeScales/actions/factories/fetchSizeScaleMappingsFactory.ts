@@ -13,44 +13,19 @@ import type {
 } from '@farfetch/blackout-client/sizeScales/types';
 
 /**
- * @typedef {object} FetchSizeScaleMappingsQuery
+ * @param query  - Query with parameters to apply to the request.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @alias FetchSizeScaleMappingsQuery
- * @memberof module:sizeScales/actions
- *
- * @property {number} [gender] - Filter size scales mappings for a gender:
- * 0 = Woman, 1 = Man, 2 = Unisex, 3 = Kid.
- * @property {number} [brand] - Filter size scales mappings for a given brand,
- * specified by its numeric identifier. If Brand has value, the API ignores the
- * category value.
- * @property {number} sizeScale - Filter size scales mappings for a specific
- * size scale, specified by its numeric identifier.
- * @property {number} [category] - For a given category, will filter size scale
- * mapping for the primary brand associated with it on these type settings. If
- * no settings are configured, will fallback to return only size scales without
- * brand association. If brand value is null this category value is use to find
- * a brand associated.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * @callback FetchSizeScaleMappingsThunkFactory
- * @param {FetchSizeScaleMappingsQuery} query - Query with parameters to
- * apply to the request.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * Creates a thunk factory configured with the specified client to fetch size scale
+ * mappings.
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
- */
-
-/**
- * Creates a thunk factory configured with the specified client to fetch size
- * scale mappings.
+ * @param getSizeScaleMappings - Get size scale mappings client.
  *
- * @memberof module:sizeScales/actions/factories
- *
- * @param {Function} getSizeScaleMappings - Get size scale mappings client.
- *
- * @returns {FetchSizeScaleMappingsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchSizeScaleMappingsFactory =
   (getSizeScaleMappings: GetSizeScaleMappings) =>

@@ -9,19 +9,19 @@ import type { StoreState } from '../../types';
 /**
  * Retrieves the error thrown by current search term.
  *
- * @memberof module:search/selectors
- *
- * @param {object} state - Application state.
- *
- * @returns {?object} Search error.
- *
  * @example
+ * ```
  * import { getSearchSuggestionsError } from '@farfetch/blackout-redux/search';
  *
  * const mapStateToProps = state => ({
  *     error: getSearchSuggestionsError(state)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns Search error.
  */
 export const getSearchSuggestionsError = (state: StoreState): Error | null =>
   fromSearchSuggestionsReducer.getError(state.search.suggestions);
@@ -29,19 +29,19 @@ export const getSearchSuggestionsError = (state: StoreState): Error | null =>
 /**
  * Retrieves the loading condition from current search term.
  *
- * @memberof module:search/selectors
- *
- * @param {object} state - Application state.
- *
- * @returns {boolean} Whether a search term response is loading or not.
- *
  * @example
+ * ```
  * import { areSearchSuggestionsLoading } from '@farfetch/blackout-redux/search';
  *
  * const mapStateToProps = state => ({
  *     isLoading: areSearchSuggestionsLoading(state)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns Whether a search term response is loading or not.
  */
 export const areSearchSuggestionsLoading = (state: StoreState): boolean =>
   fromSearchSuggestionsReducer.getIsLoading(state.search.suggestions);
@@ -49,19 +49,19 @@ export const areSearchSuggestionsLoading = (state: StoreState): boolean =>
 /**
  * Retrieves the current query applied to get suggestions.
  *
- * @memberof module:search/selectors
- *
- * @param {object} state - Application state.
- *
- * @returns {?object} The current query.
- *
  * @example
+ * ```
  * import { getSearchSuggestionsQuery } from '@farfetch/blackout-redux/search';
  *
  * const mapStateToProps = state => ({
  *     query: getSearchSuggestionsQuery(state)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns The current query.
  */
 export const getSearchSuggestionsQuery = (
   state: StoreState,
@@ -71,19 +71,19 @@ export const getSearchSuggestionsQuery = (
 /**
  * Retrieves the suggestions of a specific search.
  *
- * @memberof module:search/selectors
- *
- * @param {object} state - Application state.
- *
- * @returns {?Array} Search suggestions.
- *
  * @example
+ * ```
  * import { getSearchSuggestionsResult } from '@farfetch/blackout-redux/search';
  *
  * const mapStateToProps = state => ({
  *     suggestions: getSearchSuggestionsResult(state)
  * });
  *
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns Search suggestions.
  */
 export const getSearchSuggestionsResult = (
   state: StoreState,

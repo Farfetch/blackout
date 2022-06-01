@@ -1,9 +1,3 @@
-/**
- * @module loyalty/reducer
- * @category Loyalty
- * @subcategory Reducer
- */
-
 import * as actionTypes from './actionTypes';
 import { combineReducers } from 'redux';
 import { createReducerWithResult } from '../helpers';
@@ -123,13 +117,10 @@ const reducers = combineReducers({
 /**
  * Reducer for loyalty state.
  *
- * @function loyaltyReducer
- * @static
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
  *
- * @param {object} state - Current redux state.
- * @param {object} action - Action dispatched.
- *
- * @returns {object} New state.
+ * @returns New state.
  */
 
 const loyaltyReducer: ReducerSwitch<T.State> = (state, action) => {

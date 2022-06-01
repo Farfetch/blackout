@@ -3,11 +3,5 @@ import { getProductVariantsMeasurements } from '@farfetch/blackout-client/produc
 
 /**
  * Fetch product measurements for a given product id.
- *
- * @memberof module:products/actions
- *
- * @name fetchProductMeasurements
- *
- * @type {FetchProductMeasurementsThunkFactory}
  */
 export default fetchProductMeasurementsFactory(getProductVariantsMeasurements);

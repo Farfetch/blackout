@@ -1,9 +1,5 @@
 /**
  * Users clients.
- *
- * @module users/client
- * @category Users
- * @subcategory Clients
  */
 
 export { default as deleteContact } from './deleteContact';

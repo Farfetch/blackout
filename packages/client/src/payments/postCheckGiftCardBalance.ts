@@ -2,27 +2,12 @@ import client, { adaptError } from '../helpers/client';
 import type { PostCheckGiftCardBalance } from './types';
 
 /**
- * @typedef {object} PostCheckGiftCardBalanceData
- *
- * @alias PostCheckGiftCardBalanceData
- * @memberof module:payments/client
- *
- * @property {string} giftCardNumber - Giftcard number.
- * @property {string} giftCardCsc - Gitfcard Csc.
- */
-
-/**
  * Method responsible for getting the gift card balance.
  *
- * @function postCheckGiftCardBalance
- * @memberof module:payments/client
+ * @param data   - Request data.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {PostCheckGiftCardBalanceData} data - Request data.
- * @param {object} [config]                   - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const postCheckGiftCardBalance: PostCheckGiftCardBalance = (data, config) =>
   client

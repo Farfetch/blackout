@@ -8,37 +8,21 @@ import type {
 } from '@farfetch/blackout-client/search/types';
 
 /**
- * @typedef {object} FetchSearchIntentsQuery
+ * @param query  - Query parameters to apply.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @property {string} searchTerms - Free text to find terms, including
- * listings, pdps, stopwords, percolations, and content pages redirects. The
- * maximum characters length is 200. Queries above 200 characters will be
- * truncated.
- * @property {number} [gender] - Gender context to find these terms,
- * allowing for a more narrow search.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
- * @callback FetchSearchIntentsThunkFactory
+ * Creates a thunk factory configured with the specified client to fetch the search
+ * intents for the given query with search terms. With these results is possible to
+ * know the next action to perform - redirect to a pdp, plp or another
+ * `redirectUrl`.
  *
- * @param {FetchSearchIntentsQuery} query - Query parameters to apply.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param getSearchIntents - Get search intents client.
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
- */
-
-/**
- * Creates a thunk factory configured with the specified client to fetch the
- * search intents for the given query with search terms. With these results is
- * possible to know the next action to perform - redirect to a pdp, plp or
- * another `redirectUrl`.
- *
- * @memberof module:search/actions/factories
- *
- * @param {Function} getSearchIntents - Get search intents client.
- *
- * @returns {FetchSearchIntentsThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const fetchSearchIntentsFactory =
   (getSearchIntents: GetSearchIntents) =>

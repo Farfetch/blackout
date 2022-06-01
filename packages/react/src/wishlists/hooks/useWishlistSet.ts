@@ -1,9 +1,6 @@
 /**
- * Hook to provide all kinds of data for the business logic attached to the wishlist set.
- *
- * @module useWishlistSet
- * @category Wishlists
- * @subcategory Hooks
+ * Hook to provide all kinds of data for the business logic attached to the
+ * wishlist set.
  */
 import {
   fetchWishlistSet as fetchWishlistSetAction,
@@ -22,15 +19,12 @@ import { useSelector } from 'react-redux';
 import type { UseWishlistSet } from './types';
 
 /**
- * Provides Redux actions and state access to deal with
- * wishlist set business logic.
+ * Provides Redux actions and state access to deal with wishlist set business
+ * logic.
  *
- * @memberof module:wishlists/hooks
+ * @param setId - Wishlist set identifier.
  *
- * @param {number} setId - Wishlist set identifier.
- *
- * @returns {object} All the state, actions and relevant data needed
- * to manage a wishlist set.
+ * @returns All the state, actions and relevant data needed to manage a wishlist set.
  */
 const useWishlistSet: UseWishlistSet = setId => {
   const error = useSelector(state => getWishlistSetError(state, setId));
@@ -56,50 +50,34 @@ const useWishlistSet: UseWishlistSet = setId => {
   return {
     /**
      * Error state of the fetched wishlist set.
-     *
-     * @type {object|undefined}
      */
     error,
     /**
      * Whether the wishlist set is fetched.
-     *
-     * @type {boolean}
      */
     isFetched,
     /**
      * Whether the wishlist set is loading.
-     *
-     * @type {boolean}
      */
     isLoading,
     /**
      * Number of different items in the wishlist set.
-     *
-     * @type {number}
      */
     itemsCounter,
     /**
      * Removes the wishlist set.
-     *
-     * @type {Function}
      */
     removeWishlistSet,
     /**
      * Total quantity of the items in the wishlist set.
-     *
-     * @type {number}
      */
     totalQuantity,
     /**
      * Updates the wishlist set.
-     *
-     * @type {Function}
      */
     updateWishlistSet,
     /**
      * Fetched wishlist set.
-     *
-     * @type {object}
      */
     wishlistSet,
   };

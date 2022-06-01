@@ -4,16 +4,10 @@ import type { GetAddresses } from './types';
 /**
  * Responsible for getting all the addresses of the current user.
  *
- * @function getAddresses
- * @memberof module:addresses/client
+ * @param props  - Get addresses query.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @param {Object} props
- * @param {number} props.userId - Identifier of the user.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
- *
- * @returns {Promise<string|object>} Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getAddresses: GetAddresses = ({ userId }, config) =>
   client

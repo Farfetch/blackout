@@ -5,12 +5,10 @@ import type { GetPickupRescheduleRequests } from './types';
 /**
  * Obtains the pickup reschedule requests.
  *
- * @param id - Return identifier.
- * @param config - Custom configurations to send to the client
- * instance (axios).
+ * @param id     - Return identifier.
+ * @param config - Custom configurations to send to the client instance (axios).
  *
- * @returns Promise that will resolve when the call to
- * the endpoint finishes.
+ * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getPickupRescheduleRequests: GetPickupRescheduleRequests = (id, config) =>
   client

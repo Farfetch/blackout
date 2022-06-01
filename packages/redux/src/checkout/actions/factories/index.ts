@@ -1,9 +1,5 @@
 /**
  * Checkout actions factories.
- *
- * @module checkout/actions/factories
- * @category Checkout
- * @subcategory Actions Factories
  */
 
 export { default as chargeFactory } from './chargeFactory';

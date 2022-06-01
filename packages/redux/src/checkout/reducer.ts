@@ -1,9 +1,3 @@
-/**
- * @module checkout/reducer
- * @category Checkout
- * @subcategory Reducer
- */
-
 import * as actionTypes from './actionTypes';
 import { combineReducers } from 'redux';
 import { createMergedObject, reducerFactory } from '../helpers';
@@ -281,7 +275,7 @@ export const entitiesMapper = {
       );
       const { result: itemsId, entities } = action.payload;
 
-      const upgradesWithItemsDeliveryProvisioing = itemsId.reduce(
+      const upgradesWithItemsDeliveryProvisioning = itemsId.reduce(
         (acc: { [x: string]: any }, itemID: string) => {
           const currentItemDeliveryProvisioning = get(
             entities,
@@ -306,7 +300,7 @@ export const entitiesMapper = {
         deliveryBundleUpgrades: {
           ...currentDeliveryUpgrades,
           [deliveryBundleId]: {
-            ...upgradesWithItemsDeliveryProvisioing,
+            ...upgradesWithItemsDeliveryProvisioning,
           },
         },
       };
@@ -551,14 +545,10 @@ export const getUpgradeItemDeliveryProvisioning = (
 /**
  * Reducer for checkout state.
  *
- * @function checkoutReducer
- * @static
- * @param {object} state - Current redux state.
- * // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'state' implicitly has an 'any' type.
- * @param {object} action - Action dispatched.
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
  *
- * // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'state' implicitly has an 'any' type.
- * @returns {object} New state.
+ * @returns New state.
  */
 export default combineReducers({
   error,

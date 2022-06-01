@@ -1,9 +1,5 @@
 /**
  * Categories actions.
- *
- * @module categories/actions
- * @category Categories
- * @subcategory Actions
  */
 
 export { default as fetchCategories } from './fetchCategories';

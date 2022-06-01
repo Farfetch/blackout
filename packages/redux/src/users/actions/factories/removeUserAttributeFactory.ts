@@ -7,24 +7,19 @@ import type { DeleteUserAttribute } from '@farfetch/blackout-client/users/types'
 import type { Dispatch } from 'redux';
 
 /**
- * @callback DeleteUserAttributeThunkFactory
- * @param {number} userId - User's id to be filtered for.
- * @param {string} attributeId - The attribute id to be filtered for.
- * @param {object} [config] - Custom configurations to send to the client
- * instance (axios).
+ * @param userId      - User's id to be filtered for.
+ * @param attributeId - The attribute id to be filtered for.
+ * @param config      - Custom configurations to send to the client instance (axios).
  *
- * @returns {Function} Thunk to be dispatched to the redux store.
+ * @returns Thunk to be dispatched to the redux store.
  */
 
 /**
  * Deletes a specific user attribute.
  *
- * @function doDeleteUserAttribute
- * @memberof module:users/actions
+ * @param deleteUserAttribute - Delete a specific user attribute.
  *
- * @param {Function} deleteUserAttribute - Delete a specific user attribute.
- *
- * @returns {DeleteUserAttributeThunkFactory} Thunk factory.
+ * @returns Thunk factory.
  */
 const removeUserAttributeFactory =
   (deleteUserAttribute: DeleteUserAttribute) =>
