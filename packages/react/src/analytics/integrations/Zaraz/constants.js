@@ -27,3 +27,7 @@ export const ZARAZ_ECOMMERCE_EVENTS = {
   CLICKED_PROMOTION: 'Clicked Promotion',
   VIEWED_PROMOTION: 'Viewed Promotion',
 };
+
+export const ZARAZ_TRACK_EVENTS = {
+  SIGNUP_FORM_COMPLETED: 'Sign-up Form Completed',
+};

@@ -247,11 +247,16 @@ describe('Zaraz integration', () => {
 
       await instance.initializePromise;
 
+      const zarazTrackSpy = jest.spyOn(window.zaraz, 'track');
       const zarazEcommerceSpy = jest.spyOn(window.zaraz, 'ecommerce');
 
       await instance.track(validTrackEvents[eventType]);
 
-      expect(zarazEcommerceSpy.mock.calls).toMatchSnapshot();
+      if (zarazEcommerceSpy.mock.calls.length > 0) {
+        expect(zarazEcommerceSpy.mock.calls).toMatchSnapshot();
+      } else if (zarazTrackSpy.mock.calls.length > 0) {
+        expect(zarazTrackSpy.mock.calls).toMatchSnapshot();
+      }
     });
 
     it('should not log an error if an event is tracked and there is not a mapper for it', async () => {
