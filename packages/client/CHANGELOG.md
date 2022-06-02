@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.149](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.148...@farfetch/blackout-client@2.0.0-next.149) (2022-06-02)
+
+
+### Features
+
+* **client:** add checkout operation clients ([02e902b](https://github.com/Farfetch/blackout/commit/02e902b01ef97d699e2315645f78cdccd3442154))
+
+
+
+
+
 # [2.0.0-next.148](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.147...@farfetch/blackout-client@2.0.0-next.148) (2022-05-25)
 
 
