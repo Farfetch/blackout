@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.234](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.233...@farfetch/blackout-redux@1.0.0-next.234) (2022-06-02)
+
+
+### Bug Fixes
+
+* **redux:** get entity selectors errors ([30ef8e4](https://github.com/Farfetch/blackout/commit/30ef8e4cd8777fa4de03d15d9f226974bebd959b))
+
+
+
+
+
 # [1.0.0-next.233](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.232...@farfetch/blackout-redux@1.0.0-next.233) (2022-05-25)
 
 
