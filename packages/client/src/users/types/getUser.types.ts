@@ -1,12 +1,5 @@
 import type { Config } from '../../types';
 
-export type GetUserData = {
-  id?: number;
-  bagId?: string;
-  wishlistId?: string;
-  userExtraInfo?: string;
-};
-
 export type GetUserResponse = {
   bagId: string;
   dateOfBirth: string;
@@ -27,7 +20,4 @@ export type GetUserResponse = {
   };
 };
 
-export type GetUser = (
-  data: GetUserData,
-  config?: Config,
-) => Promise<GetUserResponse>;
+export type GetUser = (config?: Config) => Promise<GetUserResponse>;
