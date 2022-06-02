@@ -4,7 +4,7 @@ import {
   pageTypes,
   TrackTypesValues,
 } from '@farfetch/blackout-analytics';
-import { ZARAZ_ECOMMERCE_EVENTS } from './constants';
+import { ZARAZ_ECOMMERCE_EVENTS, ZARAZ_TRACK_EVENTS } from './constants';
 import type { EventsMapper } from './types/types';
 
 export default {
@@ -117,6 +117,17 @@ export default {
         products: eventProperties.products?.map(product => ({
           product_id: `${product.id}`, // Zaraz's product_id is a string
         })),
+      },
+    ];
+  },
+  [eventTypes.SIGNUP_FORM_COMPLETED]: (data: EventData<TrackTypesValues>) => {
+    const eventProperties = data.properties;
+
+    return [
+      'track',
+      ZARAZ_TRACK_EVENTS.SIGNUP_FORM_COMPLETED,
+      {
+        method: eventProperties.method,
       },
     ];
   },
