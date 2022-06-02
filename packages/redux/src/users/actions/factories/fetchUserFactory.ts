@@ -6,14 +6,12 @@ import {
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
-import type {
-  GetUser,
-  GetUserData,
-} from '@farfetch/blackout-client/users/types';
+import type { GetUser } from '@farfetch/blackout-client/users/types';
 
 /**
- * @param params - Possibilities are: `bag`, `membership`, `wishlist`.
- * @param config - Custom configurations to send to the client instance (axios).
+ * @callback FetchUserThunkFactory
+ * @param {object} [config] - Custom configurations to send to the client
+ * instance (axios).
  *
  * @returns Thunk to be dispatched to the redux store.
  */
@@ -26,15 +24,13 @@ import type {
  * @returns Thunk factory.
  */
 const fetchUserFactory =
-  (getUser: GetUser) =>
-  (data: GetUserData, config?: Config) =>
-  async (dispatch: Dispatch) => {
-    try {
-      dispatch({
-        type: FETCH_USER_REQUEST,
-      });
+  (getUser: GetUser) => (config?: Config) => async (dispatch: Dispatch) => {
+    dispatch({
+      type: FETCH_USER_REQUEST,
+    });
 
-      const result = await getUser(data, config);
+    try {
+      const result = await getUser(config);
       const userEntity = {
         entities: { user: result },
         result: result.id,
