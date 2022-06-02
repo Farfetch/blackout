@@ -275,6 +275,7 @@ describe('Zaraz integration', () => {
       await instance.initializePromise;
 
       const zarazEcommerceSpy = jest.spyOn(zaraz, 'ecommerce');
+      const zarazTrackSpy = jest.spyOn(zaraz, 'track');
 
       const eventData: EventData<TrackTypesValues> =
         trackEventsData[eventType as keyof typeof trackEventsData] ||
@@ -282,7 +283,11 @@ describe('Zaraz integration', () => {
 
       await instance.track(eventData);
 
-      expect(zarazEcommerceSpy.mock.calls).toMatchSnapshot();
+      if (zarazEcommerceSpy.mock.calls.length > 0) {
+        expect(zarazEcommerceSpy.mock.calls).toMatchSnapshot();
+      } else if (zarazTrackSpy.mock.calls.length > 0) {
+        expect(zarazTrackSpy.mock.calls).toMatchSnapshot();
+      }
     });
 
     it('should not log an error if an event is tracked and there is not a mapper for it', async () => {
