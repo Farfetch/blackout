@@ -20,8 +20,6 @@ const expectedConfig = undefined;
 let store = usersMockStore();
 
 describe('fetchUser action creator', () => {
-  const params = { userExtraInfo: 'Membership' };
-
   beforeEach(() => {
     jest.clearAllMocks();
     store = usersMockStore();
@@ -34,11 +32,11 @@ describe('fetchUser action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(fetchUser(params));
+      await store.dispatch(fetchUser());
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(getUser).toHaveBeenCalledTimes(1);
-      expect(getUser).toHaveBeenCalledWith(params, expectedConfig);
+      expect(getUser).toHaveBeenCalledWith(expectedConfig);
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
           { type: actionTypes.FETCH_USER_REQUEST },
@@ -54,12 +52,12 @@ describe('fetchUser action creator', () => {
   it('should create the correct actions for when the get user procedure is successful', async () => {
     (getUser as jest.Mock).mockResolvedValueOnce(mockUsersResponse);
 
-    await store.dispatch(fetchUser(params));
+    await store.dispatch(fetchUser());
 
     const actionResults = store.getActions();
 
     expect(getUser).toHaveBeenCalledTimes(1);
-    expect(getUser).toHaveBeenCalledWith(params, expectedConfig);
+    expect(getUser).toHaveBeenCalledWith(expectedConfig);
     expect(actionResults).toMatchObject([
       { type: actionTypes.FETCH_USER_REQUEST },
       {
