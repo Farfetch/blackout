@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.15](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.14...@farfetch/blackout-analytics@1.0.0-next.15) (2022-06-03)
+
+
+### Features
+
+* **blackout-react:** add checkout events mappings to Zaraz ([9c166db](https://github.com/Farfetch/blackout/commit/9c166dba3bebee23b99d920a99597923f0f791b5))
+
+
+
+
+
 # [1.0.0-next.14](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.13...@farfetch/blackout-analytics@1.0.0-next.14) (2022-06-02)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
