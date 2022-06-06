@@ -37,46 +37,42 @@ export type CreateReturnAction =
   | CreateReturnSuccessAction
   | CreateReturnFailureAction;
 
-export interface GetPickupCapabilitiesRequestAction extends Action {
-  type: typeof actionTypes.FETCH_PICKUP_CAPABILITIES_REQUEST;
+export interface GetReturnPickupCapabilitiesRequestAction extends Action {
+  type: typeof actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST;
 }
-export interface GetPickupCapabilitiesSuccessAction extends Action {
-  type: typeof actionTypes.FETCH_PICKUP_CAPABILITIES_SUCCESS;
+export interface GetReturnPickupCapabilitiesSuccessAction extends Action {
+  type: typeof actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_SUCCESS;
   meta: { id: string };
   payload: PickupCapabilities;
 }
-export interface GetPickupCapabilitiesFailureAction extends Action {
-  type: typeof actionTypes.FETCH_PICKUP_CAPABILITIES_FAILURE;
-  payload: { error: BlackoutError };
+export interface GetReturnPickupCapabilitiesFailureAction extends Action {
+  type: typeof actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_FAILURE;
+  payload: { error: Error };
 }
 
-/**
- * Actions dispatched when the get pickup capabilities request is made.
- */
-export type GetPickupCapabilitiesAction =
-  | GetPickupCapabilitiesRequestAction
-  | GetPickupCapabilitiesSuccessAction
-  | GetPickupCapabilitiesFailureAction;
+/** Actions dispatched when the get pickup capabilities request is made. */
+export type GetReturnPickupCapabilitiesAction =
+  | GetReturnPickupCapabilitiesRequestAction
+  | GetReturnPickupCapabilitiesSuccessAction
+  | GetReturnPickupCapabilitiesFailureAction;
 
-export interface GetReferencesRequestAction extends Action {
-  type: typeof actionTypes.FETCH_REFERENCES_REQUEST;
+export interface GetReturnReferencesRequestAction extends Action {
+  type: typeof actionTypes.FETCH_RETURN_REFERENCES_REQUEST;
 }
-export interface GetReferencesSuccessAction extends Action {
-  type: typeof actionTypes.FETCH_REFERENCES_SUCCESS;
+export interface GetReturnReferencesSuccessAction extends Action {
+  type: typeof actionTypes.FETCH_RETURN_REFERENCES_SUCCESS;
   payload: string;
 }
-export interface GetReferencesFailureAction extends Action {
-  type: typeof actionTypes.FETCH_REFERENCES_FAILURE;
-  payload: { error: BlackoutError };
+export interface GetReturnReferencesFailureAction extends Action {
+  type: typeof actionTypes.FETCH_RETURN_REFERENCES_FAILURE;
+  payload: { error: Error };
 }
 
-/**
- * Actions dispatched when the get references request is made.
- */
-export type GetReferencesAction =
-  | GetReferencesRequestAction
-  | GetReferencesSuccessAction
-  | GetReferencesFailureAction;
+/** Actions dispatched when the get references request is made. */
+export type GetReturnReferencesAction =
+  | GetReturnReferencesRequestAction
+  | GetReturnReferencesSuccessAction
+  | GetReturnReferencesFailureAction;
 
 export interface GetReturnRequestAction extends Action {
   type: typeof actionTypes.FETCH_RETURN_REQUEST;
@@ -140,63 +136,66 @@ export type UpdateReturnAction =
   | UpdateReturnSuccessAction
   | UpdateReturnFailureAction;
 
-export interface FetchPickupRescheduleRequestsRequestAction extends Action {
-  type: typeof actionTypes.FETCH_PICKUP_RESCHEDULE_REQUESTS_REQUEST;
+export interface FetchReturnPickupRescheduleRequestsRequestAction
+  extends Action {
+  type: typeof actionTypes.FETCH_RETURN_PICKUP_RESCHEDULE_REQUESTS_REQUEST;
 }
-export interface FetchPickupRescheduleRequestsSuccessAction extends Action {
-  type: typeof actionTypes.FETCH_PICKUP_RESCHEDULE_REQUESTS_SUCCESS;
+export interface FetchReturnPickupRescheduleRequestsSuccessAction
+  extends Action {
+  type: typeof actionTypes.FETCH_RETURN_PICKUP_RESCHEDULE_REQUESTS_SUCCESS;
 }
-export interface FetchPickupRescheduleRequestsFailureAction extends Action {
-  type: typeof actionTypes.FETCH_PICKUP_RESCHEDULE_REQUESTS_FAILURE;
-  payload: { error: BlackoutError };
-}
-
-/**
- * Actions dispatched when the fetch pickup reschedule requests is made.
- */
-export type FetchPickupRescheduleRequestsAction =
-  | FetchPickupRescheduleRequestsRequestAction
-  | FetchPickupRescheduleRequestsSuccessAction
-  | FetchPickupRescheduleRequestsFailureAction;
-
-export interface FetchPickupRescheduleRequestRequestAction extends Action {
-  type: typeof actionTypes.FETCH_PICKUP_RESCHEDULE_REQUEST_REQUEST;
-}
-export interface FetchPickupRescheduleRequestSuccessAction extends Action {
-  type: typeof actionTypes.FETCH_PICKUP_RESCHEDULE_REQUEST_SUCCESS;
-}
-export interface FetchPickupRescheduleRequestFailureAction extends Action {
-  type: typeof actionTypes.FETCH_PICKUP_RESCHEDULE_REQUEST_FAILURE;
-  payload: { error: BlackoutError };
+export interface FetchReturnPickupRescheduleRequestsFailureAction
+  extends Action {
+  type: typeof actionTypes.FETCH_RETURN_PICKUP_RESCHEDULE_REQUESTS_FAILURE;
+  payload: { error: Error };
 }
 
-/**
- * Actions dispatched when the fetch pickup reschedule request is made.
- */
-export type FetchPickupRescheduleRequestAction =
-  | FetchPickupRescheduleRequestRequestAction
-  | FetchPickupRescheduleRequestSuccessAction
-  | FetchPickupRescheduleRequestFailureAction;
+/** Actions dispatched when the fetch pickup reschedule requests is made. */
+export type FetchReturnPickupRescheduleRequestsAction =
+  | FetchReturnPickupRescheduleRequestsRequestAction
+  | FetchReturnPickupRescheduleRequestsSuccessAction
+  | FetchReturnPickupRescheduleRequestsFailureAction;
 
-export interface CreatePickupRescheduleRequestRequestAction extends Action {
-  type: typeof actionTypes.CREATE_PICKUP_RESCHEDULE_REQUEST_REQUEST;
+export interface FetchReturnPickupRescheduleRequestRequestAction
+  extends Action {
+  type: typeof actionTypes.FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_REQUEST;
 }
-export interface CreatePickupRescheduleRequestSuccessAction extends Action {
-  type: typeof actionTypes.CREATE_PICKUP_RESCHEDULE_REQUEST_SUCCESS;
+export interface FetchReturnPickupRescheduleRequestSuccessAction
+  extends Action {
+  type: typeof actionTypes.FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_SUCCESS;
+}
+export interface FetchReturnPickupRescheduleRequestFailureAction
+  extends Action {
+  type: typeof actionTypes.FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_FAILURE;
+  payload: { error: Error };
+}
+
+/** Actions dispatched when the fetch pickup reschedule request is made. */
+export type FetchReturnPickupRescheduleRequestAction =
+  | FetchReturnPickupRescheduleRequestRequestAction
+  | FetchReturnPickupRescheduleRequestSuccessAction
+  | FetchReturnPickupRescheduleRequestFailureAction;
+
+export interface CreateReturnPickupRescheduleRequestRequestAction
+  extends Action {
+  type: typeof actionTypes.CREATE_RETURN_PICKUP_RESCHEDULE_REQUEST_REQUEST;
+}
+export interface CreateReturnPickupRescheduleRequestSuccessAction
+  extends Action {
+  type: typeof actionTypes.CREATE_RETURN_PICKUP_RESCHEDULE_REQUEST_SUCCESS;
   payload: Payload;
 }
-export interface CreatePickupRescheduleRequestFailureAction extends Action {
-  type: typeof actionTypes.CREATE_PICKUP_RESCHEDULE_REQUEST_FAILURE;
-  payload: { error: BlackoutError };
+export interface CreateReturnPickupRescheduleRequestFailureAction
+  extends Action {
+  type: typeof actionTypes.CREATE_RETURN_PICKUP_RESCHEDULE_REQUEST_FAILURE;
+  payload: { error: Error };
 }
 
-/**
- * Actions dispatched when the create pickup reschedule request is made.
- */
-export type CreatePickupRescheduleRequestAction =
-  | CreatePickupRescheduleRequestRequestAction
-  | CreatePickupRescheduleRequestSuccessAction
-  | CreatePickupRescheduleRequestFailureAction;
+/** Actions dispatched when the create pickup reschedule request is made. */
+export type CreateReturnPickupRescheduleRequestAction =
+  | CreateReturnPickupRescheduleRequestRequestAction
+  | CreateReturnPickupRescheduleRequestSuccessAction
+  | CreateReturnPickupRescheduleRequestFailureAction;
 
 /**
  * Actions dispatched when the reset return request is made.

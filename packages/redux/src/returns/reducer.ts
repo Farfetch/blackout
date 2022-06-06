@@ -7,14 +7,14 @@ import type {
   CreateReturnFailureAction,
   CreateReturnRequestAction,
   CreateReturnSuccessAction,
-  GetPickupCapabilitiesAction,
-  GetPickupCapabilitiesFailureAction,
-  GetPickupCapabilitiesRequestAction,
-  GetReferencesAction,
-  GetReferencesFailureAction,
-  GetReferencesRequestAction,
   GetReturnAction,
   GetReturnFailureAction,
+  GetReturnPickupCapabilitiesAction,
+  GetReturnPickupCapabilitiesFailureAction,
+  GetReturnPickupCapabilitiesRequestAction,
+  GetReturnReferencesAction,
+  GetReturnReferencesFailureAction,
+  GetReturnReferencesRequestAction,
   GetReturnRequestAction,
   GetReturnsFromOrderAction,
   GetReturnsFromOrderFailureAction,
@@ -51,34 +51,34 @@ const error = (
   state = INITIAL_STATE.error,
   action:
     | CreateReturnFailureAction
-    | GetPickupCapabilitiesFailureAction
+    | GetReturnPickupCapabilitiesFailureAction
     | GetReturnFailureAction
     | GetReturnsFromOrderFailureAction
     | UpdateReturnFailureAction
-    | GetReferencesFailureAction
+    | GetReturnReferencesFailureAction
     | CreateReturnRequestAction
-    | GetPickupCapabilitiesRequestAction
+    | GetReturnPickupCapabilitiesRequestAction
     | GetReturnRequestAction
     | GetReturnsFromOrderRequestAction
     | UpdateReturnRequestAction
-    | GetReferencesRequestAction
+    | GetReturnReferencesRequestAction
     | ResetReturnAction
     | LogoutAction,
 ) => {
   switch (action.type) {
     case actionTypes.CREATE_RETURN_FAILURE:
-    case actionTypes.FETCH_PICKUP_CAPABILITIES_FAILURE:
+    case actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_FAILURE:
     case actionTypes.FETCH_RETURN_FAILURE:
     case actionTypes.FETCH_RETURNS_FROM_ORDER_FAILURE:
     case actionTypes.UPDATE_RETURN_FAILURE:
-    case actionTypes.FETCH_REFERENCES_FAILURE:
+    case actionTypes.FETCH_RETURN_REFERENCES_FAILURE:
       return action.payload.error;
     case actionTypes.CREATE_RETURN_REQUEST:
-    case actionTypes.FETCH_PICKUP_CAPABILITIES_REQUEST:
+    case actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST:
     case actionTypes.FETCH_RETURN_REQUEST:
     case actionTypes.FETCH_RETURNS_FROM_ORDER_REQUEST:
     case actionTypes.UPDATE_RETURN_REQUEST:
-    case actionTypes.FETCH_REFERENCES_REQUEST:
+    case actionTypes.FETCH_RETURN_REFERENCES_REQUEST:
     case actionTypes.RESET_RETURN:
     case LOGOUT_SUCCESS:
       return INITIAL_STATE.error;
@@ -113,34 +113,34 @@ const isLoading = (
   state = INITIAL_STATE.isLoading,
   action:
     | CreateReturnAction
-    | GetPickupCapabilitiesAction
+    | GetReturnPickupCapabilitiesAction
     | GetReturnAction
     | GetReturnsFromOrderAction
     | UpdateReturnAction
-    | GetReferencesAction
+    | GetReturnReferencesAction
     | ResetReturnAction
     | LogoutAction,
 ) => {
   switch (action.type) {
     case actionTypes.CREATE_RETURN_REQUEST:
-    case actionTypes.FETCH_PICKUP_CAPABILITIES_REQUEST:
+    case actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST:
     case actionTypes.FETCH_RETURN_REQUEST:
     case actionTypes.FETCH_RETURNS_FROM_ORDER_REQUEST:
     case actionTypes.UPDATE_RETURN_REQUEST:
-    case actionTypes.FETCH_REFERENCES_REQUEST:
+    case actionTypes.FETCH_RETURN_REFERENCES_REQUEST:
       return true;
     case actionTypes.CREATE_RETURN_SUCCESS:
     case actionTypes.CREATE_RETURN_FAILURE:
-    case actionTypes.FETCH_PICKUP_CAPABILITIES_SUCCESS:
-    case actionTypes.FETCH_PICKUP_CAPABILITIES_FAILURE:
+    case actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_SUCCESS:
+    case actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_FAILURE:
     case actionTypes.FETCH_RETURN_SUCCESS:
     case actionTypes.FETCH_RETURNS_FROM_ORDER_SUCCESS:
     case actionTypes.FETCH_RETURN_FAILURE:
     case actionTypes.FETCH_RETURNS_FROM_ORDER_FAILURE:
     case actionTypes.UPDATE_RETURN_SUCCESS:
     case actionTypes.UPDATE_RETURN_FAILURE:
-    case actionTypes.FETCH_REFERENCES_SUCCESS:
-    case actionTypes.FETCH_REFERENCES_FAILURE:
+    case actionTypes.FETCH_RETURN_REFERENCES_SUCCESS:
+    case actionTypes.FETCH_RETURN_REFERENCES_FAILURE:
     case actionTypes.RESET_RETURN:
     case LOGOUT_SUCCESS:
       return INITIAL_STATE.isLoading;
