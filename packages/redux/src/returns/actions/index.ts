@@ -4,11 +4,11 @@
 
 export { default as fetchReturn } from './fetchReturn';
 export { default as createReturn } from './createReturn';
-export { default as fetchPickupCapabilities } from './fetchPickupCapabilities';
-export { default as fetchReferences } from './fetchReferences';
+export { default as fetchReturnPickupCapabilities } from './fetchReturnPickupCapabilities';
+export { default as fetchReturnReferences } from './fetchReturnReferences';
 export { default as fetchReturnsFromOrder } from './fetchReturnsFromOrder';
 export { default as resetReturn } from './resetReturn';
 export { default as updateReturn } from './updateReturn';
-export { default as fetchPickupRescheduleRequest } from './fetchPickupRescheduleRequest';
-export { default as fetchPickupRescheduleRequests } from './fetchPickupRescheduleRequests';
-export { default as createPickupRescheduleRequest } from './createPickupRescheduleRequest';
+export { default as fetchReturnPickupRescheduleRequest } from './fetchReturnPickupRescheduleRequest';
+export { default as fetchReturnPickupRescheduleRequests } from './fetchReturnPickupRescheduleRequests';
+export { default as createReturnPickupRescheduleRequest } from './createReturnPickupRescheduleRequest';
