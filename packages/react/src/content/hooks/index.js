@@ -6,6 +6,7 @@
  * @subcategory hooks
  */
 
+export { default as useContentPage } from './useContentPage';
 export { default as useCommercePage } from './useCommercePage';
 export { default as useContentType } from './useContentType';
 export { default as useNavbars } from './useNavbars';
