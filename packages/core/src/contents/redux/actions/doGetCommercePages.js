@@ -6,6 +6,11 @@ import {
   PRICETYPE,
 } from '../../utils';
 import { normalize } from 'normalizr';
+import {
+  name as PCKG_NAME,
+  version as PCKG_VERSION,
+} from '../../../../package.json';
+import { warnDeprecatedMethod } from '../../../helpers';
 import contentGroup from '../../../entities/schemas/contentGroup';
 
 /**
@@ -62,6 +67,12 @@ let PriceType = PRICETYPE;
 export default getCommercePages =>
   (query, slug, strategy, config) =>
   async dispatch => {
+    warnDeprecatedMethod(
+      `${PCKG_NAME}@${PCKG_VERSION}`,
+      '@farfetch/blackout-core/contents/redux/doGetCommercePages',
+      '@farfetch/blackout-core/contents/redux/doGetContentPages',
+    );
+
     const hash = buildContentGroupHash({
       contentTypeCode: 'commerce_pages',
       codes: slug,

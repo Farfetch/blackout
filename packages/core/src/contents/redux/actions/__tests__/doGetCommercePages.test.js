@@ -6,6 +6,7 @@ import {
 import { doGetCommercePages } from '../';
 import { getRankedCommercePage } from '../../../utils';
 import { mockStore } from '../../../../../tests';
+import { warnDeprecatedMethod } from '../../../../helpers';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../../';
 
@@ -13,6 +14,11 @@ jest.mock('../../../utils', () => ({
   buildContentGroupHash: () => 'commerce_pages!woman',
   buildSEOPathname: jest.fn(),
   getRankedCommercePage: jest.fn(),
+}));
+
+jest.mock('../../../../helpers', () => ({
+  ...jest.requireActual('../../../../helpers'),
+  warnDeprecatedMethod: jest.fn(),
 }));
 
 const commercePagesMockStore = (state = {}) =>
@@ -67,10 +73,13 @@ describe('doGetCommercePages() action creator', () => {
     getCommercePages.mockResolvedValueOnce(mockCommercePages);
     getRankedCommercePage.mockResolvedValueOnce(mockCommercePages);
 
+    expect.assertions(6);
+
     await store.dispatch(action(commercePagesQuery));
 
     const actionResults = store.getActions();
 
+    expect(warnDeprecatedMethod).toHaveBeenCalledTimes(1);
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCommercePages).toHaveBeenCalledTimes(1);
     expect(getCommercePages).toHaveBeenCalledWith(

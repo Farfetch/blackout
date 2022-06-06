@@ -44,6 +44,15 @@ describe('contents redux reducer', () => {
       ).toEqual({ 'foo-biz': null });
     });
 
+    it('should handle GET_CONTENT_PAGES_REQUEST action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.GET_CONTENT_PAGES_REQUEST,
+          payload: { foo: 'bar', hash: 'foo-biz' },
+        }).error,
+      ).toEqual({ 'foo-biz': null });
+    });
+
     it('should handle GET_CONTENT_TYPES_REQUEST action type', () => {
       expect(
         reducer(undefined, {
@@ -65,6 +74,15 @@ describe('contents redux reducer', () => {
       expect(
         reducer(undefined, {
           type: actionTypes.GET_COMMERCE_PAGES_FAILURE,
+          payload: { error: 'Error - not loaded', hash: 'foo-biz' },
+        }).error,
+      ).toEqual({ 'foo-biz': 'Error - not loaded' });
+    });
+
+    it('should handle GET_CONTENT_PAGES_FAILURE action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.GET_CONTENT_PAGES_FAILURE,
           payload: { error: 'Error - not loaded', hash: 'foo-biz' },
         }).error,
       ).toEqual({ 'foo-biz': 'Error - not loaded' });
@@ -92,6 +110,15 @@ describe('contents redux reducer', () => {
       expect(
         reducer(undefined, {
           type: actionTypes.GET_COMMERCE_PAGES_SUCCESS,
+          payload: { result: { foo: 'bar' }, hash: 'foo-biz' },
+        }).error,
+      ).toEqual({});
+    });
+
+    it('should handle GET_CONTENT_PAGES_SUCCESS action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.GET_CONTENT_PAGES_SUCCESS,
           payload: { result: { foo: 'bar' }, hash: 'foo-biz' },
         }).error,
       ).toEqual({});
@@ -139,6 +166,15 @@ describe('contents redux reducer', () => {
       ).toEqual({ 'foo-biz': true });
     });
 
+    it('should handle GET_CONTENT_PAGES_REQUEST action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.GET_CONTENT_PAGES_REQUEST,
+          payload: { foo: 'bar', hash: 'foo-biz' },
+        }).isLoading,
+      ).toEqual({ 'foo-biz': true });
+    });
+
     it('should handle GET_CONTENT_FAILURE action type', () => {
       expect(
         reducer(undefined, {
@@ -157,6 +193,15 @@ describe('contents redux reducer', () => {
       ).toEqual({ 'foo-biz': undefined });
     });
 
+    it('should handle GET_CONTENT_PAGES_FAILURE action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.GET_CONTENT_PAGES_FAILURE,
+          payload: { error: '', hash: 'foo-biz' },
+        }).isLoading,
+      ).toEqual({ 'foo-biz': undefined });
+    });
+
     it('should handle GET_CONTENT_SUCCESS action type', () => {
       expect(
         reducer(undefined, {
@@ -170,6 +215,15 @@ describe('contents redux reducer', () => {
       expect(
         reducer(undefined, {
           type: actionTypes.GET_COMMERCE_PAGES_SUCCESS,
+          payload: { result: { foo: 'bar' }, hash: 'foo-biz' },
+        }).isLoading,
+      ).toEqual({ 'foo-biz': false });
+    });
+
+    it('should handle GET_CONTENT_PAGES_SUCCESS action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.GET_CONTENT_PAGES_SUCCESS,
           payload: { result: { foo: 'bar' }, hash: 'foo-biz' },
         }).isLoading,
       ).toEqual({ 'foo-biz': false });
