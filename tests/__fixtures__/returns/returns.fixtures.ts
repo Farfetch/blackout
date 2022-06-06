@@ -86,7 +86,7 @@ export const responses = {
       ],
     },
   },
-  getPickupCapabilities: {
+  getReturnPickupCapabilities: {
     success: [
       {
         start: '/Date(1549987200000)/',
@@ -160,7 +160,7 @@ export const responses = {
         'https://www.test.com/pt/account/return/summary/?id=5926969',
     },
   },
-  getPickupRescheduleRequests: {
+  getReturnPickupRescheduleRequests: {
     success: [
       {
         id: 'string',
@@ -172,7 +172,7 @@ export const responses = {
       },
     ],
   },
-  getPickupRescheduleRequest: {
+  getReturnPickupRescheduleRequest: {
     success: {
       id: 'string',
       timeWindow: {
@@ -182,7 +182,7 @@ export const responses = {
       status: RescheduleStatus.InProgress,
     },
   },
-  postPickupRescheduleRequests: {
+  postReturnPickupRescheduleRequests: {
     success: 202,
   },
 };

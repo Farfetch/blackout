@@ -1,0 +1,84 @@
+import { actionTypes } from '../..';
+import { fetchReturnPickupRescheduleRequests } from '..';
+import { getReturnPickupRescheduleRequests } from '@farfetch/blackout-client/returns';
+import { INITIAL_STATE } from '../../reducer';
+import { mockPickupCapabilitiesResponse } from 'tests/__fixtures__/returns';
+import { mockStore } from '../../../../tests';
+import find from 'lodash/find';
+
+jest.mock('@farfetch/blackout-client/returns', () => ({
+  ...jest.requireActual('@farfetch/blackout-client/returns'),
+  getReturnPickupRescheduleRequests: jest.fn(),
+}));
+
+const returnsMockStore = (state = {}) =>
+  mockStore({ returns: INITIAL_STATE }, state);
+
+describe('getReturnPickupRescheduleRequests action creator', () => {
+  let store = returnsMockStore();
+  const id = '12345';
+  const expectedConfig = undefined;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    store = returnsMockStore();
+  });
+
+  it('should create the correct actions for when the fetch pickup reschedule requests procedure fails', async () => {
+    const expectedError = new Error('fetch pickup reschedule requests error');
+
+    (getReturnPickupRescheduleRequests as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
+    expect.assertions(4);
+
+    try {
+      await store.dispatch(fetchReturnPickupRescheduleRequests(id));
+    } catch (error) {
+      expect(error).toBe(expectedError);
+      expect(getReturnPickupRescheduleRequests).toHaveBeenCalledTimes(1);
+      expect(getReturnPickupRescheduleRequests).toHaveBeenCalledWith(
+        id,
+        expectedConfig,
+      );
+      expect(store.getActions()).toEqual(
+        expect.arrayContaining([
+          {
+            type: actionTypes.FETCH_RETURN_PICKUP_RESCHEDULE_REQUESTS_REQUEST,
+          },
+          {
+            type: actionTypes.FETCH_RETURN_PICKUP_RESCHEDULE_REQUESTS_FAILURE,
+            payload: { error: expectedError },
+          },
+        ]),
+      );
+    }
+  });
+
+  it('should create the correct actions for when the fetch pickup reschedule requests procedure is successful', async () => {
+    (getReturnPickupRescheduleRequests as jest.Mock).mockResolvedValueOnce(
+      mockPickupCapabilitiesResponse,
+    );
+
+    await store.dispatch(fetchReturnPickupRescheduleRequests(id));
+
+    const actionResults = store.getActions();
+
+    expect(getReturnPickupRescheduleRequests).toHaveBeenCalledTimes(1);
+    expect(getReturnPickupRescheduleRequests).toHaveBeenCalledWith(
+      id,
+      expectedConfig,
+    );
+    expect(actionResults).toMatchObject([
+      { type: actionTypes.FETCH_RETURN_PICKUP_RESCHEDULE_REQUESTS_REQUEST },
+      {
+        type: actionTypes.FETCH_RETURN_PICKUP_RESCHEDULE_REQUESTS_SUCCESS,
+      },
+    ]);
+    expect(
+      find(actionResults, {
+        type: actionTypes.FETCH_RETURN_PICKUP_RESCHEDULE_REQUESTS_SUCCESS,
+      }),
+    ).toMatchSnapshot('fetch pickup reschedule requests success payload');
+  });
+});

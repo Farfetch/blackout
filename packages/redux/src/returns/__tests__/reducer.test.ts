@@ -24,10 +24,10 @@ describe('returns reducer', () => {
 
     it.each([
       actionTypes.CREATE_RETURN_REQUEST,
-      actionTypes.FETCH_PICKUP_CAPABILITIES_REQUEST,
+      actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST,
       actionTypes.FETCH_RETURN_REQUEST,
       actionTypes.UPDATE_RETURN_REQUEST,
-      actionTypes.FETCH_REFERENCES_REQUEST,
+      actionTypes.FETCH_RETURN_REFERENCES_REQUEST,
       LOGOUT_SUCCESS,
     ])('should handle %s action type', actionType => {
       expect(
@@ -50,7 +50,7 @@ describe('returns reducer', () => {
       expect(
         reducer(undefined, {
           payload: { error: new Error() },
-          type: actionTypes.FETCH_PICKUP_CAPABILITIES_FAILURE,
+          type: actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_FAILURE,
         }).error,
       ).toStrictEqual(expectedResult);
     });
@@ -68,7 +68,7 @@ describe('returns reducer', () => {
       expect(
         reducer(undefined, {
           payload: { error: new Error() },
-          type: actionTypes.FETCH_REFERENCES_FAILURE,
+          type: actionTypes.FETCH_RETURN_REFERENCES_FAILURE,
         }).error,
       ).toStrictEqual(expectedResult);
     });
@@ -140,9 +140,9 @@ describe('returns reducer', () => {
 
     it.each([
       actionTypes.CREATE_RETURN_REQUEST,
-      actionTypes.FETCH_PICKUP_CAPABILITIES_REQUEST,
+      actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST,
       actionTypes.FETCH_RETURN_REQUEST,
-      actionTypes.FETCH_REFERENCES_REQUEST,
+      actionTypes.FETCH_RETURN_REFERENCES_REQUEST,
       actionTypes.UPDATE_RETURN_REQUEST,
     ])('should handle %s action type', actionType => {
       expect(
@@ -153,8 +153,8 @@ describe('returns reducer', () => {
     });
 
     it.each([
-      actionTypes.FETCH_PICKUP_CAPABILITIES_SUCCESS,
-      actionTypes.FETCH_REFERENCES_SUCCESS,
+      actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_SUCCESS,
+      actionTypes.FETCH_RETURN_REFERENCES_SUCCESS,
       actionTypes.UPDATE_RETURN_SUCCESS,
     ])('should handle %s action type', actionType => {
       expect(
@@ -195,7 +195,7 @@ describe('returns reducer', () => {
       expect(
         reducer(undefined, {
           payload: { error: new Error() },
-          type: actionTypes.FETCH_PICKUP_CAPABILITIES_FAILURE,
+          type: actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_FAILURE,
         }).isLoading,
       ).toBe(initialState.isLoading);
     });
@@ -213,7 +213,7 @@ describe('returns reducer', () => {
       expect(
         reducer(undefined, {
           payload: { error: new Error() },
-          type: actionTypes.FETCH_REFERENCES_FAILURE,
+          type: actionTypes.FETCH_RETURN_REFERENCES_FAILURE,
         }).isLoading,
       ).toBe(initialState.isLoading);
     });
