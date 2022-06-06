@@ -1,3 +1,8 @@
+import {
+  name as PCKG_NAME,
+  version as PCKG_VERSION,
+} from '../../../package.json';
+import { warnDeprecatedMethod } from '../../helpers';
 import client, { adaptError } from '../../helpers/client';
 import join from 'proper-url-join';
 
@@ -24,10 +29,17 @@ import join from 'proper-url-join';
  *
  * @returns {Promise} Promise that will resolve when the call to the endpoint finishes.
  */
-export default (query, config) =>
-  client
+export default (query, config) => {
+  warnDeprecatedMethod(
+    `${PCKG_NAME}@${PCKG_VERSION}`,
+    '@farfetch/blackout-core/contents/client/getCommercePages',
+    '@farfetch/blackout-core/contents/client/getContentPages',
+  );
+
+  return client
     .get(join('content/v1/commercepages', { query }), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+};
