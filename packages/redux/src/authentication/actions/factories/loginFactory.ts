@@ -1,7 +1,12 @@
 import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS } from '../../actionTypes';
 import { loginMethodParameterTypes } from '@farfetch/blackout-analytics';
 import { toError } from '@farfetch/blackout-client/helpers/client';
+import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
+import type {
+  LoginData,
+  PostLogin,
+} from '@farfetch/blackout-client/authentication/types';
 
 const UNVERIFIED_USER = 4;
 
@@ -19,17 +24,8 @@ const UNVERIFIED_USER = 4;
  *
  * @returns Thunk factory.
  */
-export default (postLogin: any) =>
-  (
-    data: {
-      username: string;
-      password: string;
-      rememberMe: boolean;
-    },
-    config?: {
-      [k: string]: any;
-    },
-  ) =>
+export default (postLogin: PostLogin) =>
+  (data: LoginData, config?: Config) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({

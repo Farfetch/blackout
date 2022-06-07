@@ -4,7 +4,12 @@ import {
   CREATE_USER_IMPERSONATION_SUCCESS,
 } from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
+import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
+import type {
+  PostUserImpersonation,
+  PostUserImpersonationData,
+} from '@farfetch/blackout-client/authentication/types';
 
 /**
  * @param data   - The impersonate data.
@@ -20,17 +25,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default (postUserImpersonation: any) =>
-  (
-    data: {
-      username: string;
-      password: string;
-      impersonateeUserName: string;
-    },
-    config?: {
-      [k: string]: any;
-    },
-  ) =>
+export default (postUserImpersonation: PostUserImpersonation) =>
+  (data: PostUserImpersonationData, config?: Config) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({

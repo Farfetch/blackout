@@ -4,7 +4,12 @@ import {
   PASSWORD_RESET_SUCCESS,
 } from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
+import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
+import type {
+  PostPasswordReset,
+  PostPasswordResetData,
+} from '@farfetch/blackout-client/authentication/types';
 
 /**
  * @param data   - User details.
@@ -20,17 +25,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default (postPasswordReset: any) =>
-  (
-    data: {
-      username: string;
-      token: string;
-      password: string;
-    },
-    config?: {
-      [k: string]: any;
-    },
-  ) =>
+export default (postPasswordReset: PostPasswordReset) =>
+  (data: PostPasswordResetData, config?: Config) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({

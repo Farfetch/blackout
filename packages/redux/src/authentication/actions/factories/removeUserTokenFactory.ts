@@ -4,6 +4,8 @@ import {
   DELETE_USER_TOKEN_SUCCESS,
 } from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
+import type { Config } from '@farfetch/blackout-client/types';
+import type { DeleteTokens } from '@farfetch/blackout-client/authentication/types';
 import type { Dispatch } from 'redux';
 
 /**
@@ -20,13 +22,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default (deleteTokens: any) =>
-  (
-    userTokenId: number,
-    config?: {
-      [k: string]: any;
-    },
-  ) =>
+export default (deleteTokens: DeleteTokens) =>
+  (userTokenId: number, config?: Config) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({

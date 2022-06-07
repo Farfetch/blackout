@@ -1,13 +1,13 @@
 import type { AxiosResponse } from 'axios';
 import type { Config } from '../../types';
 
-interface Data {
+export interface PostPasswordResetData {
   username: string;
   token: string;
   password: string;
 }
 
 export type PostPasswordReset = (
-  data: Data,
+  data: PostPasswordResetData,
   config?: Config,
 ) => Promise<AxiosResponse>;

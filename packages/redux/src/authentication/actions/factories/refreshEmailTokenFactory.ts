@@ -4,7 +4,12 @@ import {
   REFRESH_EMAIL_TOKEN_SUCCESS,
 } from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
+import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
+import type {
+  PostRefreshEmailToken,
+  PostRefreshEmailTokenData,
+} from '@farfetch/blackout-client/authentication/types';
 
 /**
  * @param data   - Details to refresh the user's validation token.
@@ -22,15 +27,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default (postRefreshEmailToken: any) =>
-  (
-    data: {
-      username: string;
-    },
-    config?: {
-      [k: string]: any;
-    },
-  ) =>
+export default (postRefreshEmailToken: PostRefreshEmailToken) =>
+  (data: PostRefreshEmailTokenData, config?: Config) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({

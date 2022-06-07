@@ -4,7 +4,12 @@ import {
   PASSWORD_RECOVER_SUCCESS,
 } from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
+import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
+import type {
+  PostPasswordRecover,
+  PostPasswordRecoverData,
+} from '@farfetch/blackout-client/authentication/types';
 
 /**
  * @param data   - User details.
@@ -20,16 +25,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default (postPasswordRecover: any) =>
-  (
-    data: {
-      username: string;
-      uri: string;
-    },
-    config?: {
-      [k: string]: any;
-    },
-  ) =>
+export default (postPasswordRecover: PostPasswordRecover) =>
+  (data: PostPasswordRecoverData, config?: Config) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({

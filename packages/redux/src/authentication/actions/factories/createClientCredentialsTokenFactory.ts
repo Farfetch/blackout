@@ -4,7 +4,9 @@ import {
   CREATE_CLIENT_CREDENTIALS_TOKEN_SUCCESS,
 } from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
+import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
+import type { PostTokens } from '@farfetch/blackout-client/authentication/types';
 
 /**
  * @param config - Custom configurations to send to the client instance (axios).
@@ -20,8 +22,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default (postTokens: any) =>
-  (config?: { [k: string]: any }) =>
+export default (postTokens: PostTokens) =>
+  (config?: Config) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({
