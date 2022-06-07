@@ -4,7 +4,12 @@ import {
   VALIDATE_EMAIL_REQUEST,
   VALIDATE_EMAIL_SUCCESS,
 } from '../../actionTypes';
+import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
+import type {
+  PostValidateEmail,
+  PostValidateEmailData,
+} from '@farfetch/blackout-client/authentication/types';
 
 /**
  * @param data   - Details to validate user's e-mail.
@@ -20,16 +25,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default (postValidateEmail: any) =>
-  (
-    data: {
-      username: string;
-      token: string;
-    },
-    config?: {
-      [k: string]: any;
-    },
-  ) =>
+export default (postValidateEmail: PostValidateEmail) =>
+  (data: PostValidateEmailData, config?: Config) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({

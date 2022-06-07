@@ -1,7 +1,7 @@
 import type { Config } from '../../types';
 import type { RegisterResponse } from './register.types';
 
-interface Data {
+export interface PostRegisterData {
   countryCode: string;
   email: string;
   password: string;
@@ -15,6 +15,6 @@ interface Data {
 }
 
 export type PostRegister = (
-  data: Data,
+  data: PostRegisterData,
   config?: Config,
 ) => Promise<RegisterResponse>;

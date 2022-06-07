@@ -4,6 +4,8 @@ import {
   DELETE_USER_IMPERSONATION_SUCCESS,
 } from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
+import type { Config } from '@farfetch/blackout-client/types';
+import type { DeleteUserImpersonation } from '@farfetch/blackout-client/authentication/types';
 import type { Dispatch } from 'redux';
 
 /**
@@ -20,13 +22,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default (deleteUserImpersonation: any) =>
-  (
-    impersonatedAccessTokenId: string,
-    config?: {
-      [k: string]: any;
-    },
-  ) =>
+export default (deleteUserImpersonation: DeleteUserImpersonation) =>
+  (impersonatedAccessTokenId: number, config?: Config) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({

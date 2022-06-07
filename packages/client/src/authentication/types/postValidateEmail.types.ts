@@ -1,12 +1,12 @@
 import type { AxiosResponse } from 'axios';
 import type { Config } from '../../types';
 
-interface Data {
+export interface PostValidateEmailData {
   username: string;
   token: string;
 }
 
 export type PostValidateEmail = (
-  data: Data,
+  data: PostValidateEmailData,
   config?: Config,
 ) => Promise<AxiosResponse>;

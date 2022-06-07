@@ -4,7 +4,9 @@ import {
   LOGOUT_SUCCESS,
 } from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
+import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
+import type { PostLogout } from '@farfetch/blackout-client/authentication/types';
 
 /**
  * @param config - Custom configurations to send to the client instance (axios).
@@ -19,8 +21,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default (postLogout: any) =>
-  (config?: { [k: string]: any }) =>
+export default (postLogout: PostLogout) =>
+  (config?: Config) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({

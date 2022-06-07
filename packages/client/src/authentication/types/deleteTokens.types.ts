@@ -1,3 +1,6 @@
 import type { Config } from '../../types';
 
-export type DeleteTokens = (id: string, config: Config) => Promise<number>;
+export type DeleteTokens = (
+  id: string | number,
+  config?: Config,
+) => Promise<number>;

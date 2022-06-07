@@ -15,7 +15,7 @@ export type RegisterResponse = {
   whishlistId: string;
   isExternalLogin: boolean;
   isGuest: boolean;
-  status: string;
+  status: string | number;
   lastName: string;
   firstName: string;
   countryCode: string;
