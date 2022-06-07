@@ -17,6 +17,11 @@ export const INITIAL_STATE = {
     error: {},
     isLoading: {},
   },
+  grouping: {
+    currentPageIndex: {},
+    error: {},
+    isLoading: {},
+  },
   error: {},
   fittings: {
     error: {},
@@ -535,6 +540,49 @@ const merchantsLocations = (
   }
 };
 
+const grouping = (
+  state = INITIAL_STATE.grouping,
+  /* istanbul ignore next */ action = {},
+) => {
+  switch (action.type) {
+    case actionTypes.GET_PRODUCT_GROUPING_REQUEST:
+      return {
+        ...state,
+        isLoading: {
+          ...state.isLoading,
+          [action.payload.productId]: true,
+        },
+        error: INITIAL_STATE.grouping.error,
+      };
+    case actionTypes.GET_PRODUCT_GROUPING_SUCCESS:
+      return {
+        ...state,
+        currentPageIndex: {
+          ...state.currentPageIndex,
+          [action.payload.productId]: action.meta.number,
+        },
+        isLoading: {
+          ...state.isLoading,
+          [action.payload.productId]: false,
+        },
+      };
+    case actionTypes.GET_PRODUCT_GROUPING_FAILURE:
+      return {
+        ...state,
+        isLoading: {
+          ...state.isLoading,
+          [action.payload.productId]: undefined,
+        },
+        error: {
+          ...state.error,
+          [action.payload.productId]: action.payload.error,
+        },
+      };
+    default:
+      return state;
+  }
+};
+
 export const entitiesMapper = {
   // The motivation for this was some data mismatch:
   // the `/api/products{id}/variantsMeasurements`
@@ -581,6 +629,11 @@ export const getColorGroupingError = state => state.colorGrouping.error;
 export const getIsColorGroupingLoading = state => state.colorGrouping.isLoading;
 export const getColorGroupingCurrentPageIndex = state =>
   state.colorGrouping.currentPageIndex;
+// Grouping
+export const getGroupingError = state => state.grouping.error;
+export const getIsGroupingLoading = state => state.grouping.isLoading;
+export const getGroupingCurrentPageIndex = state =>
+  state.grouping.currentPageIndex;
 // Fittings
 export const getFittingsError = state => state.fittings.error;
 export const getAreFittingsLoading = state => state.fittings.isLoading;
@@ -619,6 +672,7 @@ const reducers = combineReducers({
   colorGrouping,
   error,
   fittings,
+  grouping,
   id,
   isHydrated,
   isLoading,

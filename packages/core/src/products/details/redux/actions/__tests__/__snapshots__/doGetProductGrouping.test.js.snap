@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`doGetColorGrouping() action creator should create the correct actions for when the get color grouping procedure is successful: Get color grouping success payload 1`] = `
+exports[`doGetProductGrouping() action creator should create the correct actions for when the get grouping procedure is successful: Get grouping success payload 1`] = `
 Object {
   "meta": Object {
     "number": 1,
@@ -10,11 +10,13 @@ Object {
       "products": Object {
         "11766695": Object {
           "DEPRECATED_images": undefined,
-          "colorGrouping": Array [
+          "colorGrouping": undefined,
+          "customAttributes": undefined,
+          "groupedEntries": undefined,
+          "grouping": Array [
             Object {
               "entries": Array [
                 Object {
-                  "color": "9075 WHITE",
                   "digitalAssets": Array [
                     Object {
                       "displayOrder": 1,
@@ -34,9 +36,17 @@ Object {
                   "order": 1,
                   "slug": "woman-scarf-14260835",
                   "variantId": null,
+                  "variationProperties": Array [
+                    Object {
+                      "property": Object {
+                        "id": "6cbc34da-e44c-49c2-9e2e-c4511f494d61",
+                        "value": "9075 WHITE",
+                      },
+                      "type": "Color",
+                    },
+                  ],
                 },
                 Object {
-                  "color": "9075 PINK",
                   "digitalAssets": Array [
                     Object {
                       "displayOrder": 1,
@@ -56,6 +66,22 @@ Object {
                   "order": 1,
                   "slug": "woman-scarf-14260834",
                   "variantId": null,
+                  "variationProperties": Array [
+                    Object {
+                      "property": Object {
+                        "id": "6cbc34da-e44c-49c2-9e2e-c4511f494d61",
+                        "value": "50 ml",
+                      },
+                      "type": "Volume",
+                    },
+                    Object {
+                      "property": Object {
+                        "id": "6cbc34da-e44c-49c2-9e2e-c4511f494d61",
+                        "value": "9075 PINK",
+                      },
+                      "type": "Color",
+                    },
+                  ],
                 },
               ],
               "number": 0,
@@ -65,7 +91,6 @@ Object {
             Object {
               "entries": Array [
                 Object {
-                  "color": "9075 YELLOW",
                   "digitalAssets": Array [
                     Object {
                       "displayOrder": 1,
@@ -85,9 +110,17 @@ Object {
                   "order": 1,
                   "slug": "woman-scarf-14260835",
                   "variantId": null,
+                  "variationProperties": Array [
+                    Object {
+                      "property": Object {
+                        "id": "6cbc34da-e44c-49c2-9e2e-c4511f494d61",
+                        "value": "9075 YELLOW",
+                      },
+                      "type": "Color",
+                    },
+                  ],
                 },
                 Object {
-                  "color": "9075 BLACK",
                   "digitalAssets": Array [
                     Object {
                       "displayOrder": 1,
@@ -107,6 +140,15 @@ Object {
                   "order": 1,
                   "slug": "woman-scarf-14260834",
                   "variantId": null,
+                  "variationProperties": Array [
+                    Object {
+                      "property": Object {
+                        "id": "6cbc34da-e44c-49c2-9e2e-c4511f494d61",
+                        "value": "9075 BLACK",
+                      },
+                      "type": "Color",
+                    },
+                  ],
                 },
               ],
               "number": 1,
@@ -114,9 +156,6 @@ Object {
               "totalPages": 1,
             },
           ],
-          "customAttributes": undefined,
-          "groupedEntries": undefined,
-          "grouping": undefined,
           "id": 11766695,
           "images": undefined,
           "merchant": undefined,
@@ -134,6 +173,6 @@ Object {
     "productId": 11766695,
     "result": 11766695,
   },
-  "type": "@farfetch/blackout-core/GET_COLOR_GROUPING_SUCCESS",
+  "type": "@farfetch/blackout-core/GET_PRODUCT_GROUPING_SUCCESS",
 }
 `;

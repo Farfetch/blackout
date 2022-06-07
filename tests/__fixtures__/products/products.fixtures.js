@@ -279,6 +279,95 @@ export const mockColorGrouping = [
   },
 ];
 
+export const mockGrouping = [
+  {
+    entries: [
+      {
+        digitalAssets: null,
+        variationProperties: [
+          {
+            type: 'Volume',
+            property: {
+              id: '6cbc34da-e44c-49c2-9e2e-c4511f494d61',
+              value: '10 ml',
+            },
+          },
+        ],
+        slug: 'woman-scarf-14260835',
+        hasStock: true,
+        id: 14260832,
+        order: 1,
+        isDefault: true,
+        variantId: null,
+      },
+      {
+        digitalAssets: null,
+        variationProperties: [
+          {
+            type: 'Volume',
+            property: {
+              id: '6cbc34da-e44c-49c2-9e2e-c4511f494d61',
+              value: '20 ml',
+            },
+          },
+        ],
+        slug: 'woman-scarf-14260834',
+        hasStock: true,
+        id: 14260833,
+        order: 1,
+        isDefault: null,
+        variantId: null,
+      },
+    ],
+    number: 0,
+    totalItems: 2,
+    totalPages: 1,
+  },
+  {
+    entries: [
+      {
+        digitalAssets: null,
+        variationProperties: [
+          {
+            type: 'Volume',
+            property: {
+              id: '6cbc34da-e44c-49c2-9e2e-c4511f494d61',
+              value: '30 ml',
+            },
+          },
+        ],
+        slug: 'woman-scarf-14260835',
+        hasStock: true,
+        id: 14260834,
+        order: 1,
+        isDefault: true,
+        variantId: null,
+      },
+      {
+        digitalAssets: null,
+        variationProperties: [
+          {
+            type: 'Volume',
+            property: {
+              id: '6cbc34da-e44c-49c2-9e2e-c4511f494d61',
+              value: '40 ml',
+            },
+          },
+        ],
+        slug: 'woman-scarf-14260834',
+        hasStock: true,
+        id: 14260835,
+        order: 1,
+        isDefault: null,
+        variantId: null,
+      },
+    ],
+    number: 1,
+    totalItems: 2,
+    totalPages: 1,
+  },
+];
+
 export const mockAttributes = [
   {
     id: 7,
@@ -482,6 +571,7 @@ export const mockProduct = {
   labels: mockLabels,
   measurements: mockMeasurements,
   colorGrouping: mockColorGrouping,
+  grouping: mockGrouping,
   attributes: mockAttributes,
   variants: mockVariants,
   fittings: mockFittings,
@@ -502,5 +592,6 @@ export const mockProduct = {
   isDuplicated: false,
   associationsInformation: {
     hasColorGrouping: true,
+    hasGrouping: true,
   },
 };
