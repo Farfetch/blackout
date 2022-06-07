@@ -1,5 +1,5 @@
 import { CommercePagesType, GenderCode } from '@farfetch/blackout-client';
-import { generateContentHash } from '@farfetch/blackout-redux/src/contents/utils';
+import { generateContentHash } from '@farfetch/blackout-redux';
 
 export const commercePagesQuery = {
   type: CommercePagesType.LISTING,

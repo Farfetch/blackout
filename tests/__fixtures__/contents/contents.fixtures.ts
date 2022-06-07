@@ -1,4 +1,4 @@
-import { generateContentHash } from '@farfetch/blackout-redux/src/contents/utils';
+import { generateContentHash } from '@farfetch/blackout-redux';
 import type { ContentEntry } from '@farfetch/blackout-client';
 
 export const contentPublicationId = '1fa65fb0-49bf-43b3-902e-78d104f160a3';

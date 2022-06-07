@@ -10,6 +10,7 @@ import { contentEntries } from '../../../entities/schemas/content';
 import { generateContentHash } from '../../utils';
 import { normalize } from 'normalizr';
 import type { Dispatch } from 'redux';
+import type { FetchContentsAction } from '../../types';
 
 /**
  * Fetch contents for a specific query object received.
@@ -21,7 +22,7 @@ import type { Dispatch } from 'redux';
 const fetchContentsFactory =
   (getContent: GetSearchContents) =>
   (query: QuerySearchContents, config?: Config) =>
-  async (dispatch: Dispatch): Promise<Contents> => {
+  async (dispatch: Dispatch<FetchContentsAction>): Promise<Contents> => {
     let hash: string | undefined = undefined;
 
     try {
@@ -29,7 +30,6 @@ const fetchContentsFactory =
       hash = generateContentHash(query);
 
       dispatch({
-        meta: { query },
         payload: { hash },
         type: actionTypes.FETCH_CONTENTS_REQUEST,
       });
@@ -37,7 +37,6 @@ const fetchContentsFactory =
       const result = await getContent(query, config);
 
       dispatch({
-        meta: { query },
         payload: {
           ...normalize({ hash, ...result }, contentEntries),
           hash,
@@ -48,7 +47,6 @@ const fetchContentsFactory =
       return result;
     } catch (error) {
       dispatch({
-        meta: { query },
         payload: { error: toBlackoutError(error), hash: hash as string },
         type: actionTypes.FETCH_CONTENTS_FAILURE,
       });

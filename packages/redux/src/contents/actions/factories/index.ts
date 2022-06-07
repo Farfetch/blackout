@@ -3,5 +3,6 @@
  */
 export { default as fetchCommercePagesFactory } from './fetchCommercePagesFactory';
 export { default as fetchContentsFactory } from './fetchContentsFactory';
+export { default as fetchContentPageFactory } from './fetchContentPageFactory';
 export { default as fetchContentTypesFactory } from './fetchContentTypesFactory';
 export { default as fetchSEOMetadataFactory } from './fetchSEOMetadataFactory';

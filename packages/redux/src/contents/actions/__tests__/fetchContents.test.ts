@@ -24,7 +24,7 @@ const contentsMockStore = (state = {}) =>
 const expectedConfig = undefined;
 let store: ReturnType<typeof contentsMockStore>;
 
-describe('fetchContent() action creator', () => {
+describe('fetchContents() action creator', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     store = contentsMockStore();
@@ -46,12 +46,10 @@ describe('fetchContent() action creator', () => {
       );
       expect(store.getActions()).toEqual([
         {
-          meta: { query: contentQuery },
           payload: { hash: contentHash },
           type: actionTypes.FETCH_CONTENTS_REQUEST,
         },
         {
-          meta: { query: contentQuery },
           payload: { error: expectedError, hash: contentHash },
           type: actionTypes.FETCH_CONTENTS_FAILURE,
         },
@@ -77,12 +75,10 @@ describe('fetchContent() action creator', () => {
 
     expect(actionResults).toEqual([
       {
-        meta: { query: contentQuery },
         payload: { hash: contentHash },
         type: actionTypes.FETCH_CONTENTS_REQUEST,
       },
       {
-        meta: { query: contentQuery },
         payload: { ...contentNormalizedPayload, hash: contentHash },
         type: actionTypes.FETCH_CONTENTS_SUCCESS,
       },

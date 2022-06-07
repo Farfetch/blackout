@@ -1,12 +1,11 @@
-import type { Config, QueryCommercePages } from '@farfetch/blackout-client';
+import type {
+  CommercePagesStrategy,
+  Config,
+  QueryCommercePages,
+} from '@farfetch/blackout-client';
 
 export interface UseCommercePagesOptions extends QueryCommercePages {
   enableAutoFetch?: boolean;
-  strategy?: string;
+  strategy?: CommercePagesStrategy;
   fetchConfig?: Config;
-}
-
-export enum CommercePagesStrategy {
-  Default = 'default',
-  Merge = 'merge',
 }

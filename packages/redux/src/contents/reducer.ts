@@ -22,6 +22,7 @@ const searchResults = (
 ): ContentsState['searchResults'] => {
   switch (action.type) {
     case actionTypes.FETCH_CONTENTS_REQUEST:
+    case actionTypes.FETCH_CONTENT_PAGES_REQUEST:
     case actionTypes.FETCH_COMMERCE_PAGES_REQUEST:
       return {
         ...state,
@@ -31,6 +32,7 @@ const searchResults = (
         },
       };
     case actionTypes.FETCH_CONTENTS_SUCCESS:
+    case actionTypes.FETCH_CONTENT_PAGES_SUCCESS:
     case actionTypes.FETCH_COMMERCE_PAGES_SUCCESS:
       return {
         ...state,
@@ -40,6 +42,7 @@ const searchResults = (
         },
       };
     case actionTypes.FETCH_CONTENTS_FAILURE:
+    case actionTypes.FETCH_CONTENT_PAGES_FAILURE:
     case actionTypes.FETCH_COMMERCE_PAGES_FAILURE:
       return {
         ...state,
@@ -83,7 +86,7 @@ const metadata = (
   action: AnyAction,
 ): ContentsState['metadata'] => {
   switch (action.type) {
-    case actionTypes.FETCH_SEO_REQUEST:
+    case actionTypes.FETCH_SEO_METADATA_REQUEST:
       return {
         ...state,
         isLoading: {
@@ -95,7 +98,7 @@ const metadata = (
           [action.payload.pathname]: null,
         },
       };
-    case actionTypes.FETCH_SEO_SUCCESS:
+    case actionTypes.FETCH_SEO_METADATA_SUCCESS:
       return {
         ...state,
         result: {
@@ -107,7 +110,7 @@ const metadata = (
           [action.payload.pathname]: false,
         },
       };
-    case actionTypes.FETCH_SEO_FAILURE:
+    case actionTypes.FETCH_SEO_METADATA_FAILURE:
       return {
         ...state,
         isLoading: {

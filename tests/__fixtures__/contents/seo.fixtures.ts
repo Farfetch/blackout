@@ -1,4 +1,4 @@
-import { generateSEOPathname } from '@farfetch/blackout-redux/src/contents/utils';
+import { generateSEOPathname } from '@farfetch/blackout-redux';
 import { SeoPageType } from '@farfetch/blackout-client';
 
 export const seoQuery = {

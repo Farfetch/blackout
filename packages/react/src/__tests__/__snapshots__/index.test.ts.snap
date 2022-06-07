@@ -189,6 +189,7 @@ Object {
   "useCommercePages": [Function],
   "useConfiguration": [Function],
   "useConfigurations": [Function],
+  "useContentPage": [Function],
   "useContentType": [Function],
   "useCountries": [Function],
   "useCountryAddressSchemas": [Function],

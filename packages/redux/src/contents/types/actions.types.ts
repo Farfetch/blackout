@@ -2,113 +2,142 @@ import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
 import type {
   BlackoutError,
+  ContentEntry,
+  Contents,
   ContentType,
-  GetSEOMetadataQuery,
-  QueryCommercePages,
-  QuerySearchContents,
   SEOMetadata,
 } from '@farfetch/blackout-client';
-import type { Hash, Pathname, SearchResultsState } from '../types';
+import type { Hash, Pathname } from './reducers.types';
+import type { NormalizedSchema } from 'normalizr';
 
-export interface ActionFetchContentsRequest extends Action {
+export type ContentsNormalized = Omit<Contents, 'entries'> & {
+  entries: ContentEntry['publicationId'];
+  hash: Hash;
+};
+
+export type ContentsPayload = NormalizedSchema<
+  {
+    contents: Record<ContentEntry['publicationId'], ContentEntry>;
+  },
+  ContentsNormalized
+> & { hash: Hash };
+
+/**
+ * Fetch Content Pages Action
+ */
+export type FetchContentPageAction =
+  | FetchContentPageFailureAction
+  | FetchContentPageRequestAction
+  | FetchContentPageSuccessAction;
+
+export interface FetchContentPageFailureAction extends Action {
+  payload: { error: BlackoutError; hash: Hash };
+  type: typeof actionTypes.FETCH_CONTENT_PAGES_FAILURE;
+}
+
+export interface FetchContentPageRequestAction extends Action {
+  payload: { hash: Hash };
+  type: typeof actionTypes.FETCH_CONTENT_PAGES_REQUEST;
+}
+
+export interface FetchContentPageSuccessAction extends Action {
+  payload: ContentsPayload;
+  type: typeof actionTypes.FETCH_CONTENT_PAGES_SUCCESS;
+}
+
+/**
+ * Fetch Contents Action
+ */
+export type FetchContentsAction =
+  | FetchContentsRequestAction
+  | FetchContentsSuccessAction
+  | FetchContentsFailureAction;
+
+export interface FetchContentsRequestAction extends Action {
   type: typeof actionTypes.FETCH_CONTENTS_REQUEST;
-  meta: { query: QuerySearchContents };
   payload: { hash: Hash };
 }
 
-export interface ActionFetchContentsRequestSuccess extends Action {
+export interface FetchContentsSuccessAction extends Action {
   type: typeof actionTypes.FETCH_CONTENTS_SUCCESS;
-  meta: { query: QuerySearchContents };
-  payload: {
-    result: SearchResultsState['result'];
-    hash: Hash;
-  };
+  payload: ContentsPayload;
 }
 
-export interface ActionFetchContentsRequestFailure extends Action {
+export interface FetchContentsFailureAction extends Action {
   type: typeof actionTypes.FETCH_CONTENTS_FAILURE;
-  meta: { query: QuerySearchContents };
-  payload: {
-    error: BlackoutError;
-    hash: Hash;
-  };
+  payload: { error: BlackoutError; hash: Hash };
 }
 
-export interface ActionFetchCommercePagesRequest extends Action {
+/**
+ * Fetch Commerce Pages Action
+ */
+export type FetchCommercePagesAction =
+  | FetchCommercePagesRequestAction
+  | FetchCommercePagesSuccessAction
+  | FetchCommercePagesFailureAction;
+
+export interface FetchCommercePagesRequestAction extends Action {
   type: typeof actionTypes.FETCH_COMMERCE_PAGES_REQUEST;
-  meta: { query: QueryCommercePages };
   payload: { hash: Hash };
 }
 
-export interface ActionFetchCommercePagesSuccess extends Action {
+export interface FetchCommercePagesSuccessAction extends Action {
   type: typeof actionTypes.FETCH_COMMERCE_PAGES_SUCCESS;
-  meta: { query: QueryCommercePages };
-  payload: {
-    result: SearchResultsState['result'];
-    hash: Hash;
-  };
+  payload: ContentsPayload;
 }
 
-export interface ActionFetchCommercePagesFailure extends Action {
+export interface FetchCommercePagesFailureAction extends Action {
   type: typeof actionTypes.FETCH_COMMERCE_PAGES_FAILURE;
-  meta: { query: QueryCommercePages };
-  payload: {
-    error: BlackoutError;
-    hash: Hash;
-  };
+  payload: { error: BlackoutError; hash: Hash };
 }
 
-export interface ActionFetchSEORequest extends Action {
-  meta: { query: GetSEOMetadataQuery };
+/**
+ * Fetch SEO Metadata Action
+ */
+export type FetchSEOMetadataAction =
+  | FetchSEOMetadataRequestAction
+  | FetchSEOMetadataSuccessAction
+  | FetchSEOMetadataFailureAction;
+
+export interface FetchSEOMetadataRequestAction extends Action {
   payload: { pathname: Pathname };
-  type: typeof actionTypes.FETCH_SEO_REQUEST;
+  type: typeof actionTypes.FETCH_SEO_METADATA_REQUEST;
 }
 
-export interface ActionFetchSEOSuccess extends Action {
-  meta: { query: GetSEOMetadataQuery };
+export interface FetchSEOMetadataSuccessAction extends Action {
   payload: {
     pathname: Pathname;
     result: SEOMetadata;
   };
-  type: typeof actionTypes.FETCH_SEO_SUCCESS;
+  type: typeof actionTypes.FETCH_SEO_METADATA_SUCCESS;
 }
 
-export interface ActionFetchSEOFailure extends Action {
-  meta: { query: GetSEOMetadataQuery };
+export interface FetchSEOMetadataFailureAction extends Action {
   payload: {
     error: BlackoutError;
     pathname: Pathname;
   };
-  type: typeof actionTypes.FETCH_SEO_FAILURE;
+  type: typeof actionTypes.FETCH_SEO_METADATA_FAILURE;
 }
 
-export interface ActionFetchContentTypesRequest extends Action {
+/**
+ * Fetch Content Types Action
+ */
+export type FetchContentTypesAction =
+  | FetchContentTypesRequestAction
+  | FetchContentTypesSuccessAction
+  | FetchContentTypesFailureAction;
+
+export interface FetchContentTypesRequestAction extends Action {
   type: typeof actionTypes.FETCH_CONTENT_TYPES_REQUEST;
 }
 
-export interface ActionFetchContentTypesSuccess extends Action {
+export interface FetchContentTypesSuccessAction extends Action {
   payload: Array<ContentType['code']>;
   type: typeof actionTypes.FETCH_CONTENT_TYPES_SUCCESS;
 }
 
-export interface ActionFetchContentTypesFailure extends Action {
+export interface FetchContentTypesFailureAction extends Action {
   payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_CONTENT_TYPES_FAILURE;
 }
-
-export type ActionFetchContents =
-  | ActionFetchContentsRequest
-  | ActionFetchContentsRequestSuccess
-  | ActionFetchContentsRequestFailure;
-export type ActionFetchCommercePages =
-  | ActionFetchCommercePagesRequest
-  | ActionFetchCommercePagesSuccess
-  | ActionFetchCommercePagesFailure;
-export type ActionFetchSEO =
-  | ActionFetchSEORequest
-  | ActionFetchSEOSuccess
-  | ActionFetchSEOFailure;
-export type ActionFetchContentTypes =
-  | ActionFetchContentTypesRequest
-  | ActionFetchContentTypesSuccess
-  | ActionFetchContentTypesFailure;

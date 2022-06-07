@@ -51,6 +51,10 @@ Object {
     "International": 2,
     "Standard": 0,
   },
+  "CommercePagesStrategy": Object {
+    "Default": "default",
+    "Merge": "merge",
+  },
   "CommercePagesType": Object {
     "LISTING": "LISTING",
     "PRODUCT": "PRODUCT",
@@ -61,6 +65,15 @@ Object {
     "Number": "number",
     "Object": "object",
     "String": "string",
+  },
+  "ContentPageStrategy": Object {
+    "Default": "default",
+    "Merge": "merge",
+  },
+  "ContentPageType": Object {
+    "Listing": "LISTING",
+    "Product": "PRODUCT",
+    "Set": "SET",
   },
   "CreationChannel": Object {
     "Catalog": "Catalog",
@@ -695,6 +708,7 @@ Object {
   "getCommercePages": [Function],
   "getConfiguration": [Function],
   "getConfigurations": [Function],
+  "getContentPage": [Function],
   "getContentTypes": [Function],
   "getCountries": [Function],
   "getCountry": [Function],
