@@ -6,6 +6,7 @@
  * @subcategory Actions
  */
 export { default as doGetColorGrouping } from './doGetColorGrouping';
+export { default as doGetProductGrouping } from './doGetProductGrouping';
 export { default as doGetMeasurements } from './doGetMeasurements';
 export { default as doGetProductAttributes } from './doGetProductAttributes';
 export { default as fetchProductFittings } from './fetchProductFittings';

@@ -138,3 +138,13 @@ export const FETCH_PRODUCT_FITTINGS_REQUEST =
 /** Action type dispatched when the get product fittings request succeeds. */
 export const FETCH_PRODUCT_FITTINGS_SUCCESS =
   '@farfetch/blackout-core/FETCH_PRODUCT_FITTINGS_SUCCESS';
+
+/** Action type dispatched when the get grouping request fails. */
+export const GET_PRODUCT_GROUPING_FAILURE =
+  '@farfetch/blackout-core/GET_PRODUCT_GROUPING_FAILURE';
+/** Action type dispatched when the get grouping request starts. */
+export const GET_PRODUCT_GROUPING_REQUEST =
+  '@farfetch/blackout-core/GET_PRODUCT_GROUPING_REQUEST';
+/** Action type dispatched when the get grouping request succeeds. */
+export const GET_PRODUCT_GROUPING_SUCCESS =
+  '@farfetch/blackout-core/GET_PRODUCT_GROUPING_SUCCESS';
