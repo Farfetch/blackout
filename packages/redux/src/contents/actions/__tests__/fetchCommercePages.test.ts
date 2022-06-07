@@ -56,18 +56,12 @@ describe('fetchCommercePages() action creator', () => {
       );
       expect(store.getActions()).toEqual([
         {
-          meta: {
-            query: commercePagesQuery,
-          },
           payload: {
             hash: 'commerce_pages!woman',
           },
           type: actionTypes.FETCH_COMMERCE_PAGES_REQUEST,
         },
         {
-          meta: {
-            query: commercePagesQuery,
-          },
           payload: {
             error: expectedError,
             hash: 'commerce_pages!woman',
@@ -97,18 +91,12 @@ describe('fetchCommercePages() action creator', () => {
     );
     expect(actionResults).toMatchObject([
       {
-        meta: {
-          query: commercePagesQuery,
-        },
         payload: {
           hash: 'commerce_pages!woman',
         },
         type: actionTypes.FETCH_COMMERCE_PAGES_REQUEST,
       },
       {
-        meta: {
-          query: commercePagesQuery,
-        },
         payload: expectedCommercePagesNormalizedPayload,
         type: actionTypes.FETCH_COMMERCE_PAGES_SUCCESS,
       },

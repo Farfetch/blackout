@@ -1,5 +1,5 @@
-import type { Config, GenderCode, PagedResponse } from '../../types';
-import type { ContentEntry } from './contents.types';
+import type { Config, GenderCode } from '../../types';
+import type { Contents } from './contents.types';
 import type { PriceType } from '../../products/types';
 
 export enum CommercePagesType {
@@ -29,9 +29,14 @@ export type QueryCommercePages = {
   pageSize?: number;
 };
 
-export type CommercePages = PagedResponse<ContentEntry>;
+export type CommercePages = Contents;
 
 export type CommercePagesContent = CommercePages['entries'];
+
+export enum CommercePagesStrategy {
+  Default = 'default',
+  Merge = 'merge',
+}
 
 export type GetCommercePages = (
   query: QueryCommercePages,

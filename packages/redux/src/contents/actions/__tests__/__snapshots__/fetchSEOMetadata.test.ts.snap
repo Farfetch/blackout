@@ -2,13 +2,6 @@
 
 exports[`fetchSEOMetadata action creator should create the correct actions for when the fetch SEO procedure is successful: Get SEO payload 1`] = `
 Object {
-  "meta": Object {
-    "query": Object {
-      "pageType": 5,
-      "path": "/about",
-      "subPageType": "",
-    },
-  },
   "payload": Object {
     "pathname": "/about",
     "result": Object {
@@ -38,6 +31,6 @@ Object {
       },
     },
   },
-  "type": "@farfetch/blackout-redux/FETCH_SEO_SUCCESS",
+  "type": "@farfetch/blackout-redux/FETCH_SEO_METADATA_SUCCESS",
 }
 `;

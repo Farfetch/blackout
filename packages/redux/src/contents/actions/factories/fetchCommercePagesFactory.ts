@@ -1,13 +1,14 @@
 import * as actionTypes from '../../actionTypes';
-import { ActionFetchCommercePages, ContentTypeCode } from '../../types';
 import {
   CommercePages,
+  CommercePagesStrategy,
   Config,
   GetCommercePages,
   QueryCommercePages,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { contentEntries } from '../../../entities/schemas/content';
+import { ContentTypeCode, FetchCommercePagesAction } from '../../types';
 import { generateContentHash, getRankedCommercePage } from '../../utils';
 import { normalize } from 'normalizr';
 import type { Dispatch } from 'redux';
@@ -21,9 +22,13 @@ import type { Dispatch } from 'redux';
  */
 const fetchCommercePagesFactory =
   (getCommercePages: GetCommercePages) =>
-  (query: QueryCommercePages, strategy?: string, config?: Config) =>
+  (
+    query: QueryCommercePages,
+    strategy?: CommercePagesStrategy,
+    config?: Config,
+  ) =>
   async (
-    dispatch: Dispatch<ActionFetchCommercePages>,
+    dispatch: Dispatch<FetchCommercePagesAction>,
   ): Promise<CommercePages> => {
     let hash: string | undefined;
     try {
@@ -33,7 +38,6 @@ const fetchCommercePagesFactory =
       });
 
       dispatch({
-        meta: { query },
         payload: { hash },
         type: actionTypes.FETCH_COMMERCE_PAGES_REQUEST,
       });
@@ -42,7 +46,6 @@ const fetchCommercePagesFactory =
       const rankedResult = getRankedCommercePage(result, strategy);
 
       dispatch({
-        meta: { query },
         payload: {
           ...normalize({ hash, ...rankedResult }, contentEntries),
           hash,
@@ -53,7 +56,6 @@ const fetchCommercePagesFactory =
       return result;
     } catch (error) {
       dispatch({
-        meta: { query },
         payload: { error: toBlackoutError(error), hash: hash as string },
         type: actionTypes.FETCH_COMMERCE_PAGES_FAILURE,
       });

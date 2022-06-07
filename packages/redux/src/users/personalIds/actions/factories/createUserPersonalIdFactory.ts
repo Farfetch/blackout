@@ -6,7 +6,7 @@ import {
   toBlackoutError,
   UserPersonalIdPartial,
 } from '@farfetch/blackout-client';
-import type { CreateUserPersonalIdAction } from '../../types/action.types';
+import type { CreateUserPersonalIdAction } from '../../types/actions.types';
 import type { Dispatch } from 'redux';
 
 /**

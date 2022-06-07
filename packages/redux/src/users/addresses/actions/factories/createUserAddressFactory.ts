@@ -9,7 +9,7 @@ import {
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
 import addressesSchema from '../../../../entities/schemas/addresses';
-import type { CreateUserAddressAction } from '../../types/action.types';
+import type { CreateUserAddressAction } from '../../types/actions.types';
 import type { Dispatch } from 'redux';
 
 /**
