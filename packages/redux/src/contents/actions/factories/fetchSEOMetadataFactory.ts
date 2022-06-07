@@ -7,9 +7,8 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { generateSEOPathname } from '../../utils';
-import type { ActionFetchSEO } from '../../types';
 import type { Dispatch } from 'redux';
-import type { Nullable } from '../../../types';
+import type { FetchSEOMetadataAction } from '../../types';
 
 /**
  * Fetch SEO metadata content with a specific query object.
@@ -21,35 +20,32 @@ import type { Nullable } from '../../../types';
 const fetchSEOMetadataFactory =
   (getSEOMetadata: GetSEOMetadata) =>
   (query: GetSEOMetadataQuery, config?: Config) =>
-  async (dispatch: Dispatch<ActionFetchSEO>): Promise<SEOMetadata> => {
-    let pathname: Nullable<string> = null;
+  async (dispatch: Dispatch<FetchSEOMetadataAction>): Promise<SEOMetadata> => {
+    let pathname = '';
 
     try {
       pathname = generateSEOPathname(query);
 
       dispatch({
-        meta: { query },
         payload: { pathname },
-        type: actionTypes.FETCH_SEO_REQUEST,
+        type: actionTypes.FETCH_SEO_METADATA_REQUEST,
       });
 
       const result = await getSEOMetadata(query, config);
 
       dispatch({
-        meta: { query },
         payload: { pathname, result },
-        type: actionTypes.FETCH_SEO_SUCCESS,
+        type: actionTypes.FETCH_SEO_METADATA_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
-        meta: { query },
         payload: {
           error: toBlackoutError(error),
-          pathname: pathname as string,
+          pathname,
         },
-        type: actionTypes.FETCH_SEO_FAILURE,
+        type: actionTypes.FETCH_SEO_METADATA_FAILURE,
       });
 
       throw error;

@@ -137,34 +137,34 @@ describe('contents redux reducer', () => {
       });
     });
 
-    it('should handle FETCH_SEO_REQUEST action type', () => {
+    it('should handle FETCH_SEO_METADATA_REQUEST action type', () => {
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_SEO_REQUEST,
+          type: actionTypes.FETCH_SEO_METADATA_REQUEST,
           payload: { foo: 'bar', pathname: 'about' },
         }).metadata.isLoading,
       ).toEqual({ about: true });
     });
 
-    it('should handle FETCH_SEO_SUCCESS action type', () => {
+    it('should handle FETCH_SEO_METADATA_SUCCESS action type', () => {
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_SEO_SUCCESS,
+          type: actionTypes.FETCH_SEO_METADATA_SUCCESS,
           payload: { result: { foo: 'bar' }, pathname: 'about' },
         }).metadata.isLoading,
       ).toEqual({ about: false });
     });
 
-    it('should handle FETCH_SEO_FAILURE action type', () => {
+    it('should handle FETCH_SEO_METADATA_FAILURE action type', () => {
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_SEO_FAILURE,
+          type: actionTypes.FETCH_SEO_METADATA_FAILURE,
           payload: { result: { foo: 'bar' }, pathname: 'about' },
         }).metadata.isLoading,
       ).toEqual({ about: undefined });
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_SEO_FAILURE,
+          type: actionTypes.FETCH_SEO_METADATA_FAILURE,
           payload: { error: '', pathname: 'about' },
         }).metadata.error,
       ).toEqual({ about: '' });

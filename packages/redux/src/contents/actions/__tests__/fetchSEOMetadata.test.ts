@@ -35,14 +35,12 @@ describe('fetchSEOMetadata action creator', () => {
       expect(getSEOMetadata).toHaveBeenCalledWith(seoQuery, expectedConfig);
       expect(store.getActions()).toEqual([
         {
-          meta: { query: seoQuery },
           payload: { pathname },
-          type: actionTypes.FETCH_SEO_REQUEST,
+          type: actionTypes.FETCH_SEO_METADATA_REQUEST,
         },
         {
-          meta: { query: seoQuery },
           payload: { error: expectedError, pathname },
-          type: actionTypes.FETCH_SEO_FAILURE,
+          type: actionTypes.FETCH_SEO_METADATA_FAILURE,
         },
       ]);
     });
@@ -61,18 +59,16 @@ describe('fetchSEOMetadata action creator', () => {
     expect(getSEOMetadata).toHaveBeenCalledWith(seoQuery, expectedConfig);
     expect(actionResults).toEqual([
       {
-        meta: { query: seoQuery },
         payload: { pathname },
-        type: actionTypes.FETCH_SEO_REQUEST,
+        type: actionTypes.FETCH_SEO_METADATA_REQUEST,
       },
       {
-        meta: { query: seoQuery },
         payload: { result: seoResponse, pathname },
-        type: actionTypes.FETCH_SEO_SUCCESS,
+        type: actionTypes.FETCH_SEO_METADATA_SUCCESS,
       },
     ]);
     expect(
-      find(actionResults, { type: actionTypes.FETCH_SEO_SUCCESS }),
+      find(actionResults, { type: actionTypes.FETCH_SEO_METADATA_SUCCESS }),
     ).toMatchSnapshot('Get SEO payload');
   });
 });

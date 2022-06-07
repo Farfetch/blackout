@@ -7,7 +7,7 @@ import type {
 } from '@farfetch/blackout-client';
 import type { NormalizedSchema } from 'normalizr';
 import type { SubscriptionPackagesResultNormalized } from './state.types';
-import type { UnsubscribeSubscriptionTopicRecipientMeta } from './../actions/factories/types';
+import type { UnsubscribeSubscriptionTopicRecipientMeta } from '../actions/factories/types';
 
 interface FetchSubscriptionPackagesRequestAction extends Action {
   type: typeof actionTypes.FETCH_SUBSCRIPTION_PACKAGES_REQUEST;

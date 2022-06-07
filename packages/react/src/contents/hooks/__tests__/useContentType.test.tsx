@@ -16,9 +16,7 @@ jest.mock('@farfetch/blackout-redux', () => ({
 }));
 
 describe('useContentType', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+  beforeEach(jest.clearAllMocks);
 
   afterEach(cleanup);
 
