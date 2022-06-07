@@ -86,6 +86,7 @@ Object {
           "customAttributes": undefined,
           "description": "Classic oxford shirt",
           "groupedEntries": undefined,
+          "grouping": undefined,
           "id": 11766695,
           "images": Object {},
           "labels": Array [],

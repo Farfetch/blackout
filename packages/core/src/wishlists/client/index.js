@@ -10,7 +10,7 @@ import { warnDeprecatedMethod } from '../../helpers';
 warnDeprecatedMethod(
   '@farfetch/blackout-core',
   '@farfetch/blackout-core/wishlists/client',
-  '@farfetch/blackout-core/wishlists',
+  '@farfetch/blackout-client/wishlists',
 );
 
 // Wishlists

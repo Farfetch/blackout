@@ -3,10 +3,11 @@ import { warnDeprecatedMethod } from '../../../helpers';
 warnDeprecatedMethod(
   '@farfetch/blackout-core',
   '@farfetch/blackout-core/products/details/client',
-  '@farfetch/blackout-core/products/details',
+  '@farfetch/blackout-client/products',
 );
 
 export { default as getColorGrouping } from './getColorGrouping';
+export { default as getProductGrouping } from './getProductGrouping';
 export { default as getMeasurements } from './getMeasurements';
 export { default as getProductAttributes } from './getProductAttributes';
 export { default as getProductDetails } from './getProductDetails';

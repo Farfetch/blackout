@@ -269,6 +269,68 @@ describe('details redux reducer', () => {
     });
   });
 
+  describe('grouping() reducer', () => {
+    it('should return the initial state', () => {
+      const state = reducer().grouping;
+
+      expect(state).toEqual(initialState.grouping);
+      expect(state).toEqual({
+        currentPageIndex: {},
+        error: {},
+        isLoading: {},
+      });
+    });
+
+    it('should handle GET_PRODUCT_GROUPING_REQUEST action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.GET_PRODUCT_GROUPING_REQUEST,
+          payload: { productId: mockProductId },
+        }).grouping,
+      ).toEqual({
+        currentPageIndex: {},
+        error: {},
+        isLoading: { [mockProductId]: true },
+      });
+    });
+
+    it('should handle GET_PRODUCT_GROUPING_FAILURE action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.GET_PRODUCT_GROUPING_FAILURE,
+          payload: { error: '', productId: mockProductId },
+        }).grouping,
+      ).toEqual({
+        currentPageIndex: {},
+        error: { [mockProductId]: '' },
+        isLoading: { [mockProductId]: undefined },
+      });
+    });
+
+    it('should handle GET_PRODUCT_GROUPING_SUCCESS action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.GET_PRODUCT_GROUPING_SUCCESS,
+          payload: {
+            productId: mockProductId,
+            result: mockProductId,
+          },
+          meta: { number: 1 },
+        }).grouping,
+      ).toEqual({
+        currentPageIndex: { [mockProductId]: 1 },
+        error: {},
+        isLoading: { [mockProductId]: false },
+      });
+    });
+
+    it('should handle other actions by returning the previous state', () => {
+      const state = { grouping: { isLoading: { 456: false } } };
+
+      expect(reducer(state).grouping).toEqual(state.grouping);
+    });
+  });
+
   describe('fittings() reducer', () => {
     it('should return the initial state', () => {
       const state = reducer().fittings;

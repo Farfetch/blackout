@@ -100,6 +100,7 @@ Object {
           "colorGrouping": undefined,
           "customAttributes": undefined,
           "groupedEntries": undefined,
+          "grouping": undefined,
           "id": 12913172,
           "images": Array [
             Object {
@@ -162,6 +163,7 @@ Object {
             "remaining": 15,
             "totalItems": 20,
           },
+          "grouping": undefined,
           "id": 12913174,
           "images": Array [
             Object {
@@ -453,6 +455,7 @@ Object {
           "colorGrouping": undefined,
           "customAttributes": undefined,
           "groupedEntries": undefined,
+          "grouping": undefined,
           "id": 12913172,
           "images": Array [
             Object {
@@ -515,6 +518,7 @@ Object {
             "remaining": 15,
             "totalItems": 20,
           },
+          "grouping": undefined,
           "id": 12913174,
           "images": Array [
             Object {
@@ -797,6 +801,7 @@ Object {
           "colorGrouping": undefined,
           "customAttributes": undefined,
           "groupedEntries": undefined,
+          "grouping": undefined,
           "id": 12913172,
           "images": Array [
             Object {
@@ -859,6 +864,7 @@ Object {
             "remaining": 15,
             "totalItems": 20,
           },
+          "grouping": undefined,
           "id": 12913174,
           "images": Array [
             Object {

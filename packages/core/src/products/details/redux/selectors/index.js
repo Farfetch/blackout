@@ -6,6 +6,7 @@
 export * from './attributes';
 export * from './colorGrouping';
 export * from './fittings';
+export * from './grouping';
 export * from './measurements';
 export * from './merchantsLocations';
 export * from './products';

@@ -125,6 +125,18 @@ export const mockDetailsState = {
         [mockProductId]: 4,
       },
     },
+    grouping: {
+      isLoading: {
+        [mockProductId]: false,
+        456: false,
+      },
+      error: {
+        [mockProductId]: 'Error',
+      },
+      currentPageIndex: {
+        [mockProductId]: 4,
+      },
+    },
     fittings: {
       isLoading: {
         [mockProductId]: false,

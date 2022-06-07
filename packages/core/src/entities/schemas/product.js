@@ -21,6 +21,15 @@ const adaptColorGrouping = colorGrouping =>
       digitalAssets: adaptProductImages(entry.digitalAssets),
     })),
   }));
+const adaptGrouping = grouping =>
+  grouping &&
+  grouping.map(group => ({
+    ...group,
+    entries: group.entries.map(entry => ({
+      ...entry,
+      digitalAssets: adaptProductImages(entry.digitalAssets),
+    })),
+  }));
 const adaptGroupedEntries = groupedEntries =>
   groupedEntries && {
     ...groupedEntries,
@@ -48,16 +57,16 @@ export default new schema.Entity(
   {
     processStrategy: value => {
       const {
-        customAttributes,
         colorGrouping,
+        customAttributes,
         discountInclTaxes,
         discountRate,
         formattedPrice,
         formattedPriceWithoutDiscount,
         groupedEntries,
+        grouping,
         imageGroups,
         images,
-        productImgQueryParam,
         merchantId,
         merchantName,
         merchantShoppingUrl,
@@ -68,6 +77,7 @@ export default new schema.Entity(
         prices,
         priceType,
         priceWithoutDiscount,
+        productImgQueryParam,
         promocodeDiscountPercentage,
         promotionPercentage,
         sizes,
@@ -85,6 +95,7 @@ export default new schema.Entity(
       const imagesToAdapt = imageGroups || get(images, 'images') || images;
 
       return {
+        grouping: adaptGrouping(grouping),
         colorGrouping: adaptColorGrouping(colorGrouping),
         customAttributes: adaptCustomAttributes(customAttributes),
         groupedEntries: adaptGroupedEntries(groupedEntries),
