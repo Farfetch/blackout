@@ -1,7 +1,7 @@
 import type { AxiosResponse } from 'axios';
 import type { Config } from '../../types';
 
-interface Data {
+export interface PostPasswordChangeData {
   oldPassword: string;
   newPassword: string;
   userId: number;
@@ -9,6 +9,6 @@ interface Data {
 }
 
 export type PostPasswordChange = (
-  data: Data,
+  data: PostPasswordChangeData,
   config?: Config,
 ) => Promise<AxiosResponse>;

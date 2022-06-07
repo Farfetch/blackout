@@ -4,7 +4,9 @@ import {
   REFRESH_USER_TOKEN_SUCCESS,
 } from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
+import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
+import type { PostTokens } from '@farfetch/blackout-client/authentication/types';
 
 /**
  * @param refreshToken - Refresh Token.
@@ -21,13 +23,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default (postTokens: any) =>
-  (
-    refreshToken: string,
-    config?: {
-      [k: string]: any;
-    },
-  ) =>
+export default (postTokens: PostTokens) =>
+  (refreshToken: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({

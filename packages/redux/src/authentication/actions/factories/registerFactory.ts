@@ -5,7 +5,12 @@ import {
   REGISTER_SUCCESS,
 } from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
+import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
+import type {
+  PostRegister,
+  PostRegisterData,
+} from '@farfetch/blackout-client/authentication/types';
 
 const UNVERIFIED_USER = 4;
 
@@ -23,24 +28,8 @@ const UNVERIFIED_USER = 4;
  *
  * @returns Thunk factory.
  */
-export default (postRegister: any) =>
-  (
-    data: {
-      countryCode: string;
-      email: string;
-      password: string;
-      username: string;
-      name: string;
-      phoneNumber?: string;
-      titleId?: string;
-      firstName?: string;
-      lastName?: string;
-      receiveNewsletters?: boolean;
-    },
-    config?: {
-      [k: string]: any;
-    },
-  ) =>
+export default (postRegister: PostRegister) =>
+  (data: PostRegisterData, config?: Config) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({

@@ -4,7 +4,12 @@ import {
   CREATE_USER_TOKEN_SUCCESS,
 } from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
+import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
+import type {
+  PostTokens,
+  PostTokensData,
+} from '@farfetch/blackout-client/authentication/types';
 
 /**
  * @param data   - Request data.
@@ -20,18 +25,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default (postTokens: any) =>
-  (
-    data: {
-      username: string;
-      password: string;
-      grantType: string;
-      refreshToken: string;
-    },
-    config?: {
-      [k: string]: any;
-    },
-  ) =>
+export default (postTokens: PostTokens) =>
+  (data: PostTokensData, config?: Config) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({

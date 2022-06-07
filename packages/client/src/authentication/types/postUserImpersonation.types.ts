@@ -1,13 +1,13 @@
 import type { Config } from '../../types';
 import type { PostTokenResponse } from './tokens.types';
 
-interface Data {
+export interface PostUserImpersonationData {
   impersonatorUserName: string;
   impersonatorPassword: string;
   impersonateeUserName: string;
 }
 
 export type PostUserImpersonation = (
-  data: Data,
+  data: PostUserImpersonationData,
   config?: Config,
 ) => Promise<PostTokenResponse>;

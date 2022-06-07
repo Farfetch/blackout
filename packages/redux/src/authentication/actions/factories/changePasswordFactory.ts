@@ -4,7 +4,12 @@ import {
   PASSWORD_CHANGE_SUCCESS,
 } from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
+import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
+import type {
+  PostPasswordChange,
+  PostPasswordChangeData,
+} from '@farfetch/blackout-client/authentication/types';
 
 /**
  * @param data   - Password details.
@@ -20,16 +25,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default (postPasswordChange: any) =>
-  (
-    data: {
-      oldPassword: string;
-      newPassword: string;
-      userId: string;
-      username: string;
-    },
-    config?: { [k: string]: any },
-  ) =>
+export default (postPasswordChange: PostPasswordChange) =>
+  (data: PostPasswordChangeData, config?: Config) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({
