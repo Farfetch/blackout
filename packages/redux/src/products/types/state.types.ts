@@ -1,7 +1,12 @@
 import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { CombinedState } from 'redux';
 import type { ProductEntity, ProductsListEntity } from '../../entities/types';
-import type { RecommendedSet } from '@farfetch/blackout-client/products/types';
+import type {
+  RecentlyViewedProducts,
+  RecentlyViewedProductsEntriesItem,
+  RecentlyViewedProductsPaginationData,
+  RecommendedSet,
+} from '@farfetch/blackout-client/src/products/types';
 
 export type ProductsAttributesState = CombinedState<{
   error: Record<ProductEntity['id'], BlackoutError | undefined>;
@@ -57,6 +62,16 @@ export type ProductsVariantsByMerchantsLocationsState = CombinedState<{
   isLoading: Record<ProductEntity['id'], boolean | undefined>;
 }>;
 
+export type RecentlyViewedState = CombinedState<{
+  error: BlackoutError | undefined | null;
+  isLoading: boolean;
+  result: {
+    remote: RecentlyViewedProducts | null | undefined;
+    computed: RecentlyViewedProductsEntriesItem[] | null | undefined;
+    pagination: RecentlyViewedProductsPaginationData | null | undefined;
+  };
+}>;
+
 export type State = CombinedState<{
   attributes: ProductsAttributesState;
   colorGrouping: ProductsColorGroupingState;
@@ -68,4 +83,5 @@ export type State = CombinedState<{
   sizeGuides: ProductsSizeGuidesState;
   sizes: ProductsSizesState;
   variantsByMerchantsLocations: ProductsVariantsByMerchantsLocationsState;
+  recentlyViewed: RecentlyViewedState;
 }>;

@@ -10,6 +10,7 @@ import listsReducer, { entitiesMapper as listsEntitiesMapper } from './lists';
 import measurementsReducer, {
   entitiesMapper as measurementsEntitiesMapper,
 } from './measurements';
+import recentlyViewedProducts from './recentlyViewedProducts';
 import sizeGuidesReducer from './sizeGuides';
 import sizesReducer from './sizes';
 import variantsByMerchantsLocationsReducer from './variantsByMerchantsLocations';
@@ -20,7 +21,7 @@ export const entitiesMapper = {
   ...measurementsEntitiesMapper,
 };
 
-export default combineReducers({
+const reducers = combineReducers({
   attributes: attributesReducer,
   colorGrouping: colorGroupingReducer,
   details: detailsReducer,
@@ -31,4 +32,7 @@ export default combineReducers({
   sizeGuides: sizeGuidesReducer,
   sizes: sizesReducer,
   variantsByMerchantsLocations: variantsByMerchantsLocationsReducer,
+  recentlyViewed: recentlyViewedProducts,
 });
+
+export default reducers;

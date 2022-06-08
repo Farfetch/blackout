@@ -1,13 +1,15 @@
-import * as actionTypes from './actionTypes';
-import * as authenticationActionTypes from '../authentication/actionTypes';
+import * as actionTypes from '../actionTypes';
+import * as authenticationActionTypes from '../../authentication/actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import omit from 'lodash/omit';
 import uniqBy from 'lodash/uniqBy';
-import type { RecentlyViewedProductsPaginationData } from '@farfetch/blackout-client/recentlyViewed/types';
-import type { RecentlyViewedResult, State } from './types';
-import type { ReducerSwitch } from '../types';
+import type { RecentlyViewedProductsPaginationData } from '@farfetch/blackout-client/products/types';
+import type { ReducerSwitch } from '../../types';
+import type { State } from '../types';
 
-export const INITIAL_STATE: State = {
+type RecentlyViewedState = State['recentlyViewed'];
+
+export const INITIAL_STATE: RecentlyViewedState = {
   error: null,
   isLoading: false,
   result: {
@@ -17,7 +19,10 @@ export const INITIAL_STATE: State = {
   },
 };
 
-const error = (state = INITIAL_STATE.error, action: AnyAction) => {
+const error = (
+  state = INITIAL_STATE.error,
+  action: AnyAction,
+): RecentlyViewedState['error'] => {
   switch (action.type) {
     case actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE:
     case actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE:
@@ -27,7 +32,10 @@ const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   }
 };
 
-const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
+const isLoading = (
+  state = INITIAL_STATE.isLoading,
+  action: AnyAction,
+): RecentlyViewedState['isLoading'] => {
   switch (action.type) {
     case actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST:
     case actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_REQUEST:
@@ -45,7 +53,7 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
 const result = (
   state = INITIAL_STATE.result,
   action: AnyAction,
-): RecentlyViewedResult => {
+): RecentlyViewedState['result'] => {
   switch (action.type) {
     case actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS: {
       const computed = state.computed || [];
@@ -85,13 +93,16 @@ const result = (
   }
 };
 
-export const getError = (state: State = INITIAL_STATE): State['error'] =>
-  state.error;
+export const getError = (
+  state: RecentlyViewedState = INITIAL_STATE,
+): RecentlyViewedState['error'] => state.error;
 export const getIsLoading = (
-  state: State = INITIAL_STATE,
-): State['isLoading'] => state.isLoading;
-export const getResult = (state: State = INITIAL_STATE): State['result'] =>
-  state.result;
+  state: RecentlyViewedState = INITIAL_STATE,
+): RecentlyViewedState['isLoading'] => state.isLoading;
+export const getResult = (
+  state: RecentlyViewedState = INITIAL_STATE,
+): RecentlyViewedState['result'] => state.result;
+
 const reducers = combineReducers({
   error,
   isLoading,
@@ -106,12 +117,12 @@ const reducers = combineReducers({
  *
  * @returns New state.
  */
-const formsReducer: ReducerSwitch<State, AnyAction> = (
+const recentlyViewedReducer: ReducerSwitch<RecentlyViewedState, AnyAction> = (
   state = INITIAL_STATE,
-  action,
-): State => {
+  action: AnyAction,
+): RecentlyViewedState => {
   if (
-    action.type === actionTypes.RESET_RECENTLY_VIEWED_PRODUCT ||
+    action.type === actionTypes.RESET_RECENTLY_VIEWED_PRODUCTS ||
     action.type === authenticationActionTypes.LOGOUT_SUCCESS
   ) {
     // initial state should return when reset_recently_viewed or logout actions are called.
@@ -121,4 +132,4 @@ const formsReducer: ReducerSwitch<State, AnyAction> = (
   return reducers(state, action);
 };
 
-export default formsReducer;
+export default recentlyViewedReducer;

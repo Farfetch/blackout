@@ -1,10 +1,11 @@
-import { getError, getIsLoading, getResult } from './reducer';
+import {
+  getError,
+  getIsLoading,
+  getResult,
+} from '../reducer/recentlyViewedProducts';
 import get from 'lodash/get';
-import type {
-  RecentlyViewedResult,
-  State as RecentlyViewedState,
-} from './types';
-import type { StoreState } from '../types';
+import type { RecentlyViewedState } from '../types';
+import type { StoreState } from '../../types';
 
 /**
  * Check if recently viewed products request has an error.
@@ -15,7 +16,7 @@ import type { StoreState } from '../types';
  */
 export const getRecentlyViewedProductsError = (
   state: StoreState,
-): RecentlyViewedState['error'] => getError(state.recentlyViewed);
+): RecentlyViewedState['error'] => getError(state.products?.recentlyViewed);
 
 /**
  * Check if recently viewed products are loading.
@@ -26,7 +27,8 @@ export const getRecentlyViewedProductsError = (
  */
 export const areRecentlyViewedProductsLoading = (
   state: StoreState,
-): RecentlyViewedState['isLoading'] => getIsLoading(state.recentlyViewed);
+): RecentlyViewedState['isLoading'] =>
+  getIsLoading(state.products?.recentlyViewed);
 
 /**
  * Get all the recently viewed products results previously merged ("remote" and
@@ -38,7 +40,8 @@ export const areRecentlyViewedProductsLoading = (
  */
 export const getRecentlyViewedProducts = (
   state: StoreState,
-): RecentlyViewedResult['computed'] => getResult(state.recentlyViewed).computed;
+): RecentlyViewedState['result']['computed'] =>
+  getResult(state.products?.recentlyViewed).computed;
 
 /**
  * Returns if the recently viewed products were already fetched or not.
@@ -50,7 +53,7 @@ export const getRecentlyViewedProducts = (
 export const areRecentlyViewedProductsFetched = (
   state: StoreState,
 ): boolean => {
-  const products = getResult(state.recentlyViewed);
+  const products = getResult(state.products?.recentlyViewed);
   const remoteEntries = get(products, 'remote');
 
   return remoteEntries !== null;
@@ -65,5 +68,5 @@ export const areRecentlyViewedProductsFetched = (
  */
 export const getRecentlyViewedProductsPagination = (
   state: StoreState,
-): RecentlyViewedResult['pagination'] =>
-  getResult(state.recentlyViewed).pagination;
+): RecentlyViewedState['result']['pagination'] =>
+  getResult(state.products?.recentlyViewed).pagination;
