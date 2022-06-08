@@ -21,17 +21,22 @@ import client, { adaptError } from '../../helpers/client';
  * @memberof module:authentication/client
  *
  * @param {PostPasswordRecoverData} data - Request data.
+ * @param {boolean} [newRecover] - Boolean to validate if it should use the new recover endpoint.
  * @param {object} [config] - Custom configurations to send to the client
  * instance (axios).
  *
  * @returns {Promise} Promise that will resolve when the call to
  * the endpoint finishes.
  */
-export default (data, config) => {
+export default (data, newRecover = false, config) => {
   const hasURI = !!data?.uri;
-  const args = hasURI
+  let args = hasURI
     ? ['/account/v1/users/passwordrecover', data, config]
     : ['/legacy/v1/account/password/recover', data, config];
+
+  if (newRecover) {
+    args = ['/legacy/v1/account/password/retrieve', data, config];
+  }
 
   !hasURI &&
     console.warn(

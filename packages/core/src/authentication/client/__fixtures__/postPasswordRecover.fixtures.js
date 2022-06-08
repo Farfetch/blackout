@@ -31,3 +31,19 @@ export const legacy = {
     });
   },
 };
+
+export const newRecover = {
+  success: () => {
+    moxios.stubRequest('/api/legacy/v1/account/password/retrieve', {
+      method: 'post',
+      status: 200,
+    });
+  },
+  failure: () => {
+    moxios.stubRequest('/api/legacy/v1/account/password/retrieve', {
+      method: 'post',
+      response: 'stub error',
+      status: 404,
+    });
+  },
+};
