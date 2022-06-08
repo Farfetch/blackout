@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.40.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.39.0...@farfetch/blackout-react@0.40.0) (2022-06-08)
+
+
+### Features
+
+* **blackout-react:** add checkout events mappings to Zaraz ([9bfa98c](https://github.com/Farfetch/blackout/commit/9bfa98c71286544534c71d88f5aa8d9917181117))
+* **blackout-react:** implement signup form completed mappings in zaraz ([ad66df0](https://github.com/Farfetch/blackout/commit/ad66df0a188f34cacfeb5f510ddea9e0a2c266d7))
+
+
+
+
+
 # [0.39.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.38.0...@farfetch/blackout-react@0.39.0) (2022-05-31)
 
 

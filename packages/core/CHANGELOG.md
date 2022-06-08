@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.58.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.58.1...@farfetch/blackout-core@1.58.2) (2022-06-08)
+
+
+### Bug Fixes
+
+* fix gender filter segment without description ([5f4e7f9](https://github.com/Farfetch/blackout/commit/5f4e7f9e641324253f2488fc9b394d3bd7bfd6b8))
+
+
+
+
+
 ## [1.58.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.58.0...@farfetch/blackout-core@1.58.1) (2022-05-31)
 
 
