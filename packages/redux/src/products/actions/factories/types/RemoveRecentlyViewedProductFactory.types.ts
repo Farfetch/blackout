@@ -1,11 +1,11 @@
-import type { DeleteRecentlyViewedProducts } from '@farfetch/blackout-client/recentlyViewed/types';
+import type { DeleteRecentlyViewedProduct } from '@farfetch/blackout-client/products/types';
 import type { Dispatch } from 'redux';
 import type { RemoveRecentlyViewedProductAction } from '../../../types';
 
-export type RemoveRecentlyViewedProductsFactory<
-  T extends DeleteRecentlyViewedProducts,
+export type RemoveRecentlyViewedProductFactory<
+  T extends DeleteRecentlyViewedProduct,
 > = (
-  deleteRecentlyViewedProducts: T,
+  deleteRecentlyViewedProduct: T,
 ) => (
   ...args: Parameters<T>
 ) => (dispatch: Dispatch<RemoveRecentlyViewedProductAction>) => ReturnType<T>;

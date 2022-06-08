@@ -1,11 +1,11 @@
 import { actionTypes } from '../../';
-import { expectedLocalPayload } from 'tests/__fixtures__/recentlyViewed';
+import { expectedRecentlyViewedLocalPayload } from 'tests/__fixtures__/products';
 import { mockStore } from '../../../../tests';
 import { saveRecentlyViewedProduct } from '../';
 import reducer from '../../reducer';
 
 const mockAction = { type: 'this_is_a_mock_action' };
-const productId = expectedLocalPayload[0]?.productId as number;
+const productId = expectedRecentlyViewedLocalPayload[0]?.productId as number;
 
 const mockRecentlyViewedStore = (state = {}) =>
   mockStore(

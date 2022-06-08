@@ -8,3 +8,4 @@ export * from './productSizeGuides.types';
 export * from './productSizes.types';
 export * from './productsLists.types';
 export * from './recommendedSet.types';
+export * from './recentlyViewedProducts.types';
