@@ -34,6 +34,7 @@ describe('doPasswordRecover() action creator', () => {
       expect(postPasswordRecover).toHaveBeenCalledTimes(1);
       expect(postPasswordRecover).toHaveBeenCalledWith(
         passwordRecoverData,
+        undefined,
         expectedConfig,
       );
       expect(store.getActions()).toEqual(
@@ -57,6 +58,7 @@ describe('doPasswordRecover() action creator', () => {
     expect(postPasswordRecover).toHaveBeenCalledTimes(1);
     expect(postPasswordRecover).toHaveBeenCalledWith(
       passwordRecoverData,
+      undefined,
       expectedConfig,
     );
 

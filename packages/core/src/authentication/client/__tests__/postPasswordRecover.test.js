@@ -1,4 +1,8 @@
-import { accsvc, legacy } from '../__fixtures__/postPasswordRecover.fixtures';
+import {
+  accsvc,
+  legacy,
+  newRecover,
+} from '../__fixtures__/postPasswordRecover.fixtures';
 import { postPasswordRecover } from '../';
 import client from '../../../helpers/client';
 import moxios from 'moxios';
@@ -75,6 +79,40 @@ describe('postPasswordRecover', () => {
       await expect(postPasswordRecover(data)).rejects.toMatchSnapshot();
       expect(spy).toHaveBeenCalledWith(
         '/legacy/v1/account/password/recover',
+        data,
+        expectedConfig,
+      );
+    });
+  });
+
+  describe('new recovery', () => {
+    const data = {
+      username: 'pepe@acme.com',
+    };
+
+    it('should handle a client request successfully', async () => {
+      newRecover.success();
+
+      expect.assertions(2);
+      await expect(postPasswordRecover(data, true)).resolves.toMatchObject(
+        expect.objectContaining({
+          status: 200,
+        }),
+      );
+      expect(spy).toHaveBeenCalledWith(
+        '/legacy/v1/account/password/retrieve',
+        data,
+        expectedConfig,
+      );
+    });
+
+    it('should receive a client request error', async () => {
+      newRecover.failure();
+
+      expect.assertions(2);
+      await expect(postPasswordRecover(data, true)).rejects.toMatchSnapshot();
+      expect(spy).toHaveBeenCalledWith(
+        '/legacy/v1/account/password/retrieve',
         data,
         expectedConfig,
       );
