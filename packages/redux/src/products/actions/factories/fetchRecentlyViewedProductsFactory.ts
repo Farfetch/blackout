@@ -7,7 +7,7 @@ import type { FetchRecentlyViewedProductsFactory } from './types';
 import type {
   GetRecentlyViewedProducts,
   RecentlyViewedProducts,
-} from '@farfetch/blackout-client/recentlyViewed/types';
+} from '@farfetch/blackout-client/products/types';
 import type { StoreState } from '../../../types';
 
 /**
@@ -30,7 +30,7 @@ const fetchRecentlyViewedProducts: FetchRecentlyViewedProductsFactory<
     try {
       if (areRecentlyViewedProductsFetched(getState())) {
         console.warn(`
-              @farfetch/blackout-redux/recentlyViewed - Seems you are trying to fetch recently viewed products more than once.
+              @farfetch/blackout-redux/products - Seems you are trying to fetch recently viewed products more than once.
               Please make sure you only request the products once, and use the "saveRecentlyViewedProduct" action to mark the product as viewed when a product page is visited.
               Keep in mind that "saveRecentlyViewedProduct" will only store locally the recently viewed product and will not persist it on the server.
               For that, make sure you are using analytics with Omnitracking integration.

@@ -1,4 +1,4 @@
-export const expectedRemotePayload = {
+export const expectedRecentlyViewedRemotePayload = {
   number: 1,
   totalPages: 1,
   totalItems: 1,
@@ -14,7 +14,7 @@ export const expectedRemotePayload = {
   ],
 };
 
-export const expectedLocalPayload = [
+export const expectedRecentlyViewedLocalPayload = [
   {
     productId: 22222222,
     lastVisitDate: '2020-02-03T11:08:50.010Z',

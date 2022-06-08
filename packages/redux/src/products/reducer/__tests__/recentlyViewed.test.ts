@@ -1,10 +1,16 @@
-import * as fromReducer from '../reducer';
+import { actionTypes } from '../..';
 import {
-  expectedLocalPayload,
-  expectedRemotePayload,
-} from 'tests/__fixtures__/recentlyViewed';
-import reducer, { actionTypes } from '..';
-import type { State } from '../types';
+  expectedRecentlyViewedLocalPayload,
+  expectedRecentlyViewedRemotePayload,
+} from 'tests/__fixtures__/products';
+import reducer, {
+  getError,
+  getIsLoading,
+  getResult,
+} from '../recentlyViewedProducts';
+import type { State as ProductState } from '../../types';
+
+type State = ProductState['recentlyViewed'];
 
 let initialState: State;
 const mockAction = { type: 'this_is_a_mock_action' };
@@ -84,7 +90,7 @@ describe('Recently Viewed reducer', () => {
       const expectedIsLoading = false;
       const state = reducer(undefined, {
         type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
-        payload: expectedRemotePayload,
+        payload: expectedRecentlyViewedRemotePayload,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
@@ -94,7 +100,7 @@ describe('Recently Viewed reducer', () => {
       const expectedIsLoading = false;
       const state = reducer(undefined, {
         type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
-        payload: expectedRemotePayload,
+        payload: expectedRecentlyViewedRemotePayload,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
@@ -144,19 +150,19 @@ describe('Recently Viewed reducer', () => {
     it(`should handle ${actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS} action type`, () => {
       const state = reducer(undefined, {
         type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
-        payload: expectedRemotePayload,
+        payload: expectedRecentlyViewedRemotePayload,
       });
 
-      expect(state.result.remote).toEqual(expectedRemotePayload);
+      expect(state.result.remote).toEqual(expectedRecentlyViewedRemotePayload);
     });
 
     it(`should handle ${actionTypes.SAVE_RECENTLY_VIEWED_PRODUCT} action type`, () => {
       const state = reducer(undefined, {
         type: actionTypes.SAVE_RECENTLY_VIEWED_PRODUCT,
-        payload: expectedLocalPayload,
+        payload: expectedRecentlyViewedLocalPayload,
       });
 
-      expect(state.result.computed).toEqual(expectedLocalPayload);
+      expect(state.result.computed).toEqual(expectedRecentlyViewedLocalPayload);
     });
 
     it(`should handle ${actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS} action type`, () => {
@@ -164,8 +170,8 @@ describe('Recently Viewed reducer', () => {
         ...initialState,
         result: {
           ...initialState.result,
-          remote: expectedRemotePayload,
-          computed: expectedLocalPayload,
+          remote: expectedRecentlyViewedRemotePayload,
+          computed: expectedRecentlyViewedLocalPayload,
         },
       };
       const productId = 33333333;
@@ -200,7 +206,7 @@ describe('Recently Viewed reducer', () => {
     it('should return the `recentlyViewed.error` property from a given state', () => {
       const state = { ...initialState, error: { message: 'This is an error' } };
 
-      expect(fromReducer.getError(state)).toEqual(state.error);
+      expect(getError(state)).toEqual(state.error);
     });
   });
 
@@ -208,7 +214,7 @@ describe('Recently Viewed reducer', () => {
     it('should return the `recentlyViewed.isLoading` property from a given state', () => {
       const state = { ...initialState, isLoading: true };
 
-      expect(fromReducer.getIsLoading(state)).toEqual(state.isLoading);
+      expect(getIsLoading(state)).toEqual(state.isLoading);
     });
   });
 
@@ -218,7 +224,7 @@ describe('Recently Viewed reducer', () => {
         ...initialState,
       };
 
-      expect(fromReducer.getResult(state)).toEqual(state.result);
+      expect(getResult(state)).toEqual(state.result);
     });
   });
 });

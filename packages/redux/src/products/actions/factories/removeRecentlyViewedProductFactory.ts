@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { DeleteRecentlyViewedProducts } from '@farfetch/blackout-client/src/recentlyViewed/types';
+import type { DeleteRecentlyViewedProduct } from '@farfetch/blackout-client/products/types';
 import type { Dispatch } from 'redux';
 import type { RemoveRecentlyViewedProductAction } from '../../types';
-import type { RemoveRecentlyViewedProductsFactory } from './types';
+import type { RemoveRecentlyViewedProductFactory } from './types';
 
 /**
  * Method to create a thunk factory configured with the specified client for
@@ -13,8 +13,8 @@ import type { RemoveRecentlyViewedProductsFactory } from './types';
  *
  * @returns Thunk factory.
  */
-const removeRecentlyViewedProductFactory: RemoveRecentlyViewedProductsFactory<
-  DeleteRecentlyViewedProducts
+const removeRecentlyViewedProductFactory: RemoveRecentlyViewedProductFactory<
+  DeleteRecentlyViewedProduct
 > =
   deleteRecentlyViewedProduct =>
   (productId, config) =>

@@ -16,3 +16,8 @@ export { default as resetProductDetails } from './resetProductDetails';
 export { default as resetProductDetailsState } from './resetProductDetailsState';
 export { default as resetProductsLists } from './resetProductsLists';
 export { default as resetProductsListsState } from './resetProductsListsState';
+
+// Recently Viewed Products
+export { default as fetchRecentlyViewedProducts } from './fetchRecentlyViewedProducts';
+export { default as saveRecentlyViewedProduct } from './saveRecentlyViewedProduct';
+export { default as removeRecentlyViewedProduct } from './removeRecentlyViewedProduct';

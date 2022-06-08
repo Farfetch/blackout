@@ -3601,42 +3601,7 @@ export default {
       isLoading: false,
     },
   },
-  recentlyViewed: {
-    error: null,
-    isLoading: false,
-    result: {
-      remote: {
-        number: 1,
-        totalPages: 1,
-        totalItems: 2,
-        entries: [
-          {
-            productId: mockProductId,
-            lastVisitDate: '2020-11-18T16:09:51.934Z',
-          },
-          {
-            productId: mockProductDetailsId,
-            lastVisitDate: '2020-11-18T16:04:41.59Z',
-          },
-        ],
-      },
-      pagination: {
-        number: 1,
-        totalPages: 1,
-        totalItems: 2,
-      },
-      computed: [
-        {
-          productId: mockProductId,
-          lastVisitDate: '2020-11-18T16:09:51.934Z',
-        },
-        {
-          productId: mockProductDetailsId,
-          lastVisitDate: '2020-11-18T16:04:41.59Z',
-        },
-      ],
-    },
-  },
+
   recommendations: {
     error: {},
     isLoading: {},
