@@ -1,6 +1,6 @@
 import type { Config } from '../../types';
 
-export type DeleteRecentlyViewedProducts = (
+export type DeleteRecentlyViewedProduct = (
   id: number,
   config?: Config,
 ) => Promise<void>;

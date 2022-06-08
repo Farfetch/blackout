@@ -1,4 +1,4 @@
-import { deleteRecentlyViewedProduct } from '@farfetch/blackout-client/recentlyViewed';
+import { deleteRecentlyViewedProduct } from '@farfetch/blackout-client/products';
 import { removeRecentlyViewedProductFactory } from './factories';
 
 /**

@@ -1,15 +1,15 @@
 import { actionTypes } from '../../';
-import { expectedRemotePayload } from 'tests/__fixtures__/recentlyViewed';
+import { expectedRecentlyViewedRemotePayload } from 'tests/__fixtures__/products';
 import { fetchRecentlyViewedProducts } from '../';
-import { getRecentlyViewedProducts } from '@farfetch/blackout-client/recentlyViewed';
+import { getRecentlyViewedProducts } from '@farfetch/blackout-client/products';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 import reducer from '../../reducer';
 import type { StoreState } from '../../../types';
 
-jest.mock('@farfetch/blackout-client/recentlyViewed', () => {
+jest.mock('@farfetch/blackout-client/products', () => {
   return {
-    ...jest.requireActual('@farfetch/blackout-client/recentlyViewed'),
+    ...jest.requireActual('@farfetch/blackout-client/products'),
     getRecentlyViewedProducts: jest.fn(),
   };
 });
@@ -19,7 +19,9 @@ const mockAction = { type: 'this_is_a_mock_action' };
 const mockRecentlyViewedStore = (state: StoreState = {}) =>
   mockStore(
     {
-      recentlyViewed: reducer(undefined, mockAction),
+      products: {
+        recentlyViewed: reducer(undefined, mockAction),
+      },
     },
     state,
   );
@@ -75,7 +77,7 @@ describe('fetchRecentlyViewedProducts() action creator', () => {
     console.warn = jest.fn();
 
     (getRecentlyViewedProducts as jest.Mock).mockResolvedValueOnce(
-      expectedRemotePayload,
+      expectedRecentlyViewedRemotePayload,
     );
 
     const result = await fetchRecentlyViewedProducts(query, expectedConfig)(
@@ -84,7 +86,7 @@ describe('fetchRecentlyViewedProducts() action creator', () => {
     );
     const actionResults = store.getActions();
 
-    expect(result).toBe(expectedRemotePayload);
+    expect(result).toBe(expectedRecentlyViewedRemotePayload);
     expect(getRecentlyViewedProducts).toHaveBeenCalledTimes(1);
     expect(getRecentlyViewedProducts).toHaveBeenCalledWith(
       query,
@@ -96,7 +98,7 @@ describe('fetchRecentlyViewedProducts() action creator', () => {
       },
       {
         type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
-        payload: expectedRemotePayload,
+        payload: expectedRecentlyViewedRemotePayload,
       },
     ]);
     expect(
@@ -106,21 +108,23 @@ describe('fetchRecentlyViewedProducts() action creator', () => {
     ).toMatchSnapshot('fetch recently viewed products success payload');
 
     store = mockRecentlyViewedStore({
-      recentlyViewed: {
-        result: {
-          remote: {
-            entries: [{ productId: 123123, lastVisitDate: '10000' }],
-            totalItems: 1,
-            totalPages: 1,
-            number: 1,
+      products: {
+        recentlyViewed: {
+          result: {
+            remote: {
+              entries: [{ productId: 123123, lastVisitDate: '10000' }],
+              totalItems: 1,
+              totalPages: 1,
+              number: 1,
+            },
+            computed: undefined,
+            pagination: undefined,
           },
-          computed: undefined,
-          pagination: undefined,
+          error: undefined,
+          isLoading: false,
         },
-        error: undefined,
-        isLoading: false,
       },
-    });
+    } as StoreState);
 
     await fetchRecentlyViewedProducts(query, expectedConfig)(
       store.dispatch,
@@ -128,7 +132,7 @@ describe('fetchRecentlyViewedProducts() action creator', () => {
     );
 
     expect(console.warn).toHaveBeenCalledWith(`
-              @farfetch/blackout-redux/recentlyViewed - Seems you are trying to fetch recently viewed products more than once.
+              @farfetch/blackout-redux/products - Seems you are trying to fetch recently viewed products more than once.
               Please make sure you only request the products once, and use the "saveRecentlyViewedProduct" action to mark the product as viewed when a product page is visited.
               Keep in mind that "saveRecentlyViewedProduct" will only store locally the recently viewed product and will not persist it on the server.
               For that, make sure you are using analytics with Omnitracking integration.

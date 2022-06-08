@@ -12,3 +12,5 @@ export { default as getProductVariantsByMerchantsLocations } from './getProductV
 export { default as getProductVariantsMeasurements } from './getProductVariantsMeasurements';
 export { default as getRecommendedSet } from './getRecommendedSet';
 export { default as getSet } from './getSet';
+export { default as getRecentlyViewedProducts } from './getRecentlyViewedProducts';
+export { default as deleteRecentlyViewedProduct } from './deleteRecentlyViewedProduct';

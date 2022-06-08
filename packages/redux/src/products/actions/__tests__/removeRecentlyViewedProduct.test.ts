@@ -1,12 +1,12 @@
 import { actionTypes } from '../..';
-import { deleteRecentlyViewedProduct } from '@farfetch/blackout-client/recentlyViewed';
+import { deleteRecentlyViewedProduct } from '@farfetch/blackout-client/products';
 import { mockStore } from '../../../../tests';
 import { removeRecentlyViewedProduct } from '..';
 import reducer from '../../reducer';
 
-jest.mock('@farfetch/blackout-client/recentlyViewed', () => {
+jest.mock('@farfetch/blackout-client/products', () => {
   return {
-    ...jest.requireActual('@farfetch/blackout-client/recentlyViewed'),
+    ...jest.requireActual('@farfetch/blackout-client/products'),
     deleteRecentlyViewedProduct: jest.fn(),
   };
 });
