@@ -16,7 +16,6 @@ describe('postPasswordRecover', () => {
 
   const data = {
     username: 'pepe@acme.com',
-    uri: 'http://some.url.com/account/forgotpassword/reset',
   };
 
   it('should handle a client request successfully', async () => {
@@ -29,7 +28,7 @@ describe('postPasswordRecover', () => {
       }),
     );
     expect(spy).toHaveBeenCalledWith(
-      '/account/v1/users/passwordrecover',
+      '/legacy/v1/account/password/retrieve',
       data,
       expectedConfig,
     );
@@ -41,7 +40,7 @@ describe('postPasswordRecover', () => {
     expect.assertions(2);
     await expect(postPasswordRecover(data)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      '/account/v1/users/passwordrecover',
+      '/legacy/v1/account/password/retrieve',
       data,
       expectedConfig,
     );

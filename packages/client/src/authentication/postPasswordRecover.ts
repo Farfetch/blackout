@@ -12,7 +12,7 @@ import type { PostPasswordRecover } from './types';
  */
 const postPasswordRecover: PostPasswordRecover = (data, config?) =>
   client
-    .post('/account/v1/users/passwordrecover', data, config)
+    .post('/legacy/v1/account/password/retrieve', data, config)
     .catch(error => {
       throw adaptError(error);
     });
