@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.17](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.16...@farfetch/blackout-analytics@1.0.0-next.17) (2022-06-09)
+
+
+### Features
+
+* **blackout-*:** convert jsdocs to tsdocs ([7936d24](https://github.com/Farfetch/blackout/commit/7936d24fad2138d5cd0610da624116d31a9cdb93))
+
+
+
+
+
 # [1.0.0-next.16](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.15...@farfetch/blackout-analytics@1.0.0-next.16) (2022-06-07)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
