@@ -8,6 +8,7 @@ import {
 } from './reducer';
 import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { FormResult } from './types';
+import type { FormSchema } from '@farfetch/blackout-client/forms/types';
 import type { StoreState } from '../types';
 
 /**
@@ -98,7 +99,8 @@ export const getFormSchemas = (state: StoreState): FormResult =>
 export const getFormSchemaByCode = (
   state: StoreState,
   schemaCode: string,
-): [] => get(getFormSchemas(state)[schemaCode], 'jsonSchema', []) as [];
+): FormSchema | undefined =>
+  get(getFormSchemas(state)[schemaCode], 'jsonSchema');
 
 /**
  * Retrieves the error thrown by the postFormData request, by schemaCode.

@@ -52,7 +52,7 @@ describe('forms redux reducer', () => {
       const errorCode = 'foo-biz';
       const state: State = {
         ...initialState,
-        error: { [errorCode]: { message: 'error' } },
+        error: { [errorCode]: { code: -1, name: 'Error', message: 'error' } },
       };
 
       expect(reducer(state, randomAction).error).toEqual(state.error);
