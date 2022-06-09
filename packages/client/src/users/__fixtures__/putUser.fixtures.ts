@@ -1,20 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
 import type { PutUserResponse } from '../types';
 
+const path = '/api/account/v1/users/:userId';
+
 export default {
-  put: {
-    success: (params: { userId: number; response: PutUserResponse }): void => {
-      moxios.stubRequest(join('/api/account/v1/users', params.userId), {
-        response: params.response,
-        status: 200,
-      });
-    },
-    failure: (params: { userId: number }): void => {
-      moxios.stubRequest(join('/api/account/v1/users', params.userId), {
-        response: 'stub error',
-        status: 404,
-      });
-    },
-  },
+  success: (response: PutUserResponse): RestHandler =>
+    rest.put(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.put(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

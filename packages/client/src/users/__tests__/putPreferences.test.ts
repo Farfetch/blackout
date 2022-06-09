@@ -1,7 +1,7 @@
 import * as usersClient from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/putPreferences.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 import type { PutPreferencesData } from '../types';
 
 describe('putPreferences', () => {
@@ -17,15 +17,10 @@ describe('putPreferences', () => {
   const spy = jest.spyOn(client, 'put');
   const userId = 0;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    fixtures.success({ userId });
+    mswServer.use(fixtures.success());
 
     expect.assertions(2);
 
@@ -44,7 +39,7 @@ describe('putPreferences', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ userId });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

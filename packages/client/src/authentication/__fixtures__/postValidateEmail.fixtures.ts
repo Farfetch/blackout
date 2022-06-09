@@ -1,15 +1,12 @@
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
+
+const path = '/api/account/v1/emailtokensvalidation';
 
 export default {
-  success: (): void => {
-    moxios.stubRequest('/api/account/v1/emailtokensvalidation', {
-      status: 204,
-    });
-  },
-  failure: (): void => {
-    moxios.stubRequest('/api/account/v1/emailtokensvalidation', {
-      response: 'stub error',
-      status: 404,
-    });
-  },
+  success: (): RestHandler =>
+    rest.post(path, async (_req, res, ctx) => res(ctx.status(204))),
+  failure: (): RestHandler =>
+    rest.post(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

@@ -1,7 +1,7 @@
 import { postPhoneTokens } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postPhoneTokens.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('postPhoneTokens', () => {
   const expectedConfig = undefined;
@@ -10,21 +10,16 @@ describe('postPhoneTokens', () => {
   };
   const spy = jest.spyOn(client, 'post');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response = {};
 
-    fixtures.success({ response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(postPhoneTokens(data)).resolves.toBe(response);
+    await expect(postPhoneTokens(data)).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(
       '/account/v1/users/phoneTokens',
       data,
@@ -33,7 +28,7 @@ describe('postPhoneTokens', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure();
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

@@ -1,31 +1,15 @@
-import get from 'lodash/get';
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { OrderSummary, Query } from '../types';
+import { rest, RestHandler } from 'msw';
+import type { OrderSummary } from '../types';
+
+const path = '/api/account/v1/users/:userId/orders';
 
 export default {
-  success: (params: {
-    userId: number;
-    query?: Query;
-    response: OrderSummary;
-  }): void => {
-    moxios.stubRequest(
-      join('/api/account/v1/users/', params.userId, 'orders', {
-        query: get(params, 'query'),
-      }),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { userId: number }): void => {
-    moxios.stubRequest(
-      join('/api/account/v1/users/', params.userId, 'orders'),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: OrderSummary): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

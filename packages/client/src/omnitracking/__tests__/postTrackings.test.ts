@@ -1,17 +1,12 @@
 import { postTrackings } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postTrackings.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('postTrackings()', () => {
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   const spy = jest.spyOn(client, 'post');
   const data = {
@@ -26,9 +21,9 @@ describe('postTrackings()', () => {
   it('should handle a client request successfully', async () => {
     const response = {};
 
-    fixtures.success({ response });
+    mswServer.use(fixtures.success(response));
 
-    await expect(postTrackings(data)).resolves.toBe(response);
+    await expect(postTrackings(data)).resolves.toStrictEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
       '/marketing/v1/trackings',
@@ -38,7 +33,7 @@ describe('postTrackings()', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure();
+    mswServer.use(fixtures.failure());
 
     await expect(postTrackings(data)).rejects.toMatchSnapshot();
 

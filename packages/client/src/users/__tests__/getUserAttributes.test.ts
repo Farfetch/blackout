@@ -2,7 +2,7 @@ import { getUserAttributes } from '..';
 import { mockUserAttributesResponse } from 'tests/__fixtures__/users';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getUserAttributes.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getUserAttributes', () => {
   const expectedConfig = undefined;
@@ -10,21 +10,18 @@ describe('getUserAttributes', () => {
   const query = {};
   const spy = jest.spyOn(client, 'get');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response = mockUserAttributesResponse;
 
-    fixtures.success({ userId, query, response });
+    mswServer.use(fixtures.success(mockUserAttributesResponse));
 
     expect.assertions(2);
 
-    await expect(getUserAttributes(userId, query)).resolves.toBe(response);
+    await expect(getUserAttributes(userId, query)).resolves.toStrictEqual(
+      response,
+    );
 
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/attributes`,
@@ -33,7 +30,7 @@ describe('getUserAttributes', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ userId, query });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
     await expect(getUserAttributes(userId, query)).rejects.toMatchSnapshot();

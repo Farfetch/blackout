@@ -1,7 +1,7 @@
 import * as usersClient from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getTitles.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getTitles', () => {
   const expectedConfig = undefined;
@@ -23,17 +23,12 @@ describe('getTitles', () => {
     ],
   };
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    fixtures.success({ response });
+    mswServer.use(fixtures.success(response));
 
-    await expect(usersClient.getTitles()).resolves.toBe(response);
+    await expect(usersClient.getTitles()).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(expectedBaseUrl, expectedConfig);
   });
 
@@ -44,16 +39,16 @@ describe('getTitles', () => {
     };
     const expectedUrl = `${expectedBaseUrl}?page=${query.page}&pageSize=${query.pageSize}`;
 
-    fixtures.success({ query, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(usersClient.getTitles(query)).resolves.toBe(response);
+    await expect(usersClient.getTitles(query)).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(expectedUrl, expectedConfig);
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure();
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

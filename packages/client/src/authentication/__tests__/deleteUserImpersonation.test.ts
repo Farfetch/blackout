@@ -1,22 +1,17 @@
 import { deleteUserImpersonation } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/deleteUserImpersonation.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('deleteUserImpersonation', () => {
   const id = '1';
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'delete');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    fixtures.success({ id });
+    mswServer.use(fixtures.success());
 
     expect.assertions(2);
 
@@ -29,7 +24,7 @@ describe('deleteUserImpersonation', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ id });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

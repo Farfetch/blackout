@@ -1,25 +1,20 @@
 import { getOrderDocument } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getOrderDocument.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 const orderId = '24BJKS';
 const fileId = '8e02707d-42c8-45d6-8407-b3727a6670cb';
 const expectedConfig = undefined;
 const response = '';
 
-beforeEach(() => {
-  moxios.install(client);
-  jest.clearAllMocks();
-});
-
-afterEach(() => moxios.uninstall(client));
+beforeEach(() => jest.clearAllMocks());
 
 describe('getOrderDocument', () => {
   const spy = jest.spyOn(client, 'get');
 
   it('should handle a client request successfully', async () => {
-    fixtures.success({ orderId, fileId, response });
+    mswServer.use(fixtures.success(response));
 
     await expect(getOrderDocument(orderId, fileId)).resolves.toBe(response);
     expect(spy).toHaveBeenCalledWith(
@@ -29,7 +24,7 @@ describe('getOrderDocument', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ orderId, fileId });
+    mswServer.use(fixtures.failure());
 
     await expect(getOrderDocument(orderId, fileId)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(

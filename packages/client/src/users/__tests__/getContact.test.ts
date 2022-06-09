@@ -1,7 +1,7 @@
 import * as usersClient from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getContact.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getContact', () => {
   const expectedConfig = undefined;
@@ -9,12 +9,7 @@ describe('getContact', () => {
   const contactId = '78910';
   const spy = jest.spyOn(client, 'get');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response = {
@@ -28,13 +23,13 @@ describe('getContact', () => {
       description: 'TEST',
     };
 
-    fixtures.success({ userId, contactId, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(usersClient.getContact(userId, contactId)).resolves.toBe(
-      response,
-    );
+    await expect(
+      usersClient.getContact(userId, contactId),
+    ).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/contacts/${contactId}`,
       expectedConfig,
@@ -42,7 +37,7 @@ describe('getContact', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ userId, contactId });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

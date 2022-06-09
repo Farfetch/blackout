@@ -1,20 +1,15 @@
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
 import type { Program } from '../types';
 
-/**
- * Response payloads.
- */
+const path = '/api/loyalty/v1/programs';
+
 export default {
-  success: (params: { response: Program[] }): void => {
-    moxios.stubRequest('/api/loyalty/v1/programs', {
-      response: params.response,
-      status: 200,
-    });
-  },
-  failure: (): void => {
-    moxios.stubRequest('/api/loyalty/v1/programs', {
-      response: 'stub error',
-      status: 404,
-    });
-  },
+  success: (response: Program[]): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

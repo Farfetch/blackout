@@ -13,11 +13,12 @@ import {
 } from '../errors';
 import { postGuestTokens } from '../../../../../authentication';
 import { postTrackings } from '../../../../../omnitracking';
+import { rest } from 'msw';
 import { DEFAULT_STORAGE_KEY as UserTokenDefaultStorageKey } from '../token-providers/UserTokenProvider';
 import AuthenticationConfigOptions from '../AuthenticationConfigOptions';
 import AxiosAuthenticationTokenManager from '..';
 import client from '../../../../client';
-import moxios from 'moxios';
+import mswServer from '../../../../../../tests/mswServer';
 import TokenData from '../token-providers/TokenData';
 import TokenKinds from '../token-providers/TokenKinds';
 import type {
@@ -83,36 +84,6 @@ const defaultOptions: AxiosAuthenticationTokenManagerOptions = {
   refreshTokenWindowOffset: 0,
 };
 
-/**
- * Stubs an axios request using moxios with a response for the first and subsequent
- * requests.
- *
- * @param method               - Method of the request to mock (GET, POST, PATCH...)
- * @param url                  - The expected url of the request to match.
- * @param firstRequestResponse - The response for the first request.
- * @param nextRequestsResponse - The response for the subsequent requests.
- */
-function stubMoxiosRequestOnce(
-  method: any,
-  url: any,
-  firstRequestResponse: any,
-  nextRequestsResponse: any,
-) {
-  moxios.stubOnce(method, url, {});
-
-  const obj = moxios.stubs.mostRecent();
-  let count = 0;
-  Object.defineProperty(obj, 'response', {
-    get: () => {
-      count++;
-      if (count > 1) {
-        return nextRequestsResponse;
-      }
-      return firstRequestResponse;
-    },
-  });
-}
-
 describe('AxiosAuthenticationTokenManager', () => {
   let tokenManagerInstance: any;
 
@@ -132,7 +103,6 @@ describe('AxiosAuthenticationTokenManager', () => {
   }
 
   beforeEach(async () => {
-    moxios.install(client);
     jest.clearAllMocks();
 
     tokenManagerInstance = createAndSetTokenManagerInstance(client);
@@ -144,17 +114,16 @@ describe('AxiosAuthenticationTokenManager', () => {
     if (tokenManagerInstance) {
       tokenManagerInstance.ejectInterceptors();
     }
-
-    moxios.uninstall(client);
   });
 
   describe('Flows', () => {
     describe('Guest flow', () => {
       it('should create new guest tokens when there are no tokens and a request that needs authentication is made', async () => {
-        moxios.stubRequest('/api/account/v1/users/me', {
-          response: { id: 10000, isGuest: true },
-          status: 200,
-        });
+        mswServer.use(
+          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+            res(ctx.status(200), ctx.json({ id: 10000, isGuest: true })),
+          ),
+        );
 
         await getUser();
 
@@ -176,10 +145,11 @@ describe('AxiosAuthenticationTokenManager', () => {
       it('should create a new guest token when a previously requested guest token expired and with the same user id', async () => {
         const mockUserId = 10000;
 
-        moxios.stubRequest('/api/account/v1/users/me', {
-          response: { id: mockUserId, isGuest: true },
-          status: 200,
-        });
+        mswServer.use(
+          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+            res(ctx.status(200), ctx.json({ id: mockUserId, isGuest: true })),
+          ),
+        );
 
         mockGuestTokenRequester.mockImplementationOnce(() => {
           return Promise.resolve({
@@ -215,10 +185,11 @@ describe('AxiosAuthenticationTokenManager', () => {
       });
 
       it('should wait for pending access token request if there is one', async () => {
-        moxios.stubRequest('/api/account/v1/users/me', {
-          response: { id: 10000, isGuest: true },
-          status: 200,
-        });
+        mswServer.use(
+          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+            res(ctx.status(200), ctx.json({ id: 10000, isGuest: true })),
+          ),
+        );
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         let mockGuestTokenRequesterPromiseResolve = (value: ITokenData) =>
@@ -255,10 +226,17 @@ describe('AxiosAuthenticationTokenManager', () => {
       });
 
       it('should not create a new guest token if the request does not need authentication and there are no guest tokens', async () => {
-        moxios.stubRequest('/api/authentication/v1/guestTokens', {
-          response: { accessToken: 'dummy_access_token', expiresIn: '12000' },
-          status: 200,
-        });
+        mswServer.use(
+          rest.post('/api/authentication/v1/guestTokens', (_req, res, ctx) =>
+            res(
+              ctx.status(200),
+              ctx.json({
+                accessToken: 'dummy_access_token',
+                expiresIn: '12000',
+              }),
+            ),
+          ),
+        );
 
         await postGuestTokens(
           { guestUserId: 0, guestUserEmail: '', guestUserSecret: '' },
@@ -272,11 +250,13 @@ describe('AxiosAuthenticationTokenManager', () => {
       });
 
       it('should create a new guest token when a request fails with 401 and retry the request with the new token', async () => {
-        stubMoxiosRequestOnce(
-          'get',
-          '/api/account/v1/users/me',
-          { status: 401 },
-          { status: 200, response: { id: 10000, isGuest: true } },
+        mswServer.use(
+          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+            res.once(ctx.status(401)),
+          ),
+          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+            res(ctx.status(200), ctx.json({ id: 10000, isGuest: true })),
+          ),
         );
 
         await getUser();
@@ -308,11 +288,13 @@ describe('AxiosAuthenticationTokenManager', () => {
       });
 
       it('should return an error if after refreshing an access token successfully the request still fails', async () => {
-        stubMoxiosRequestOnce(
-          'get',
-          '/api/account/v1/users/me',
-          { status: 401 },
-          { status: 500 },
+        mswServer.use(
+          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+            res.once(ctx.status(401)),
+          ),
+          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+            res(ctx.status(500)),
+          ),
         );
 
         expect.assertions(3);
@@ -328,9 +310,11 @@ describe('AxiosAuthenticationTokenManager', () => {
       });
 
       it('should return an error if a request fails with 401 and the access token refresh fails', async () => {
-        moxios.stubRequest('/api/account/v1/users/me', {
-          status: 401,
-        });
+        mswServer.use(
+          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+            res(ctx.status(401)),
+          ),
+        );
 
         mockGuestTokenRequester.mockImplementationOnce(() => {
           return Promise.resolve({
@@ -364,10 +348,11 @@ describe('AxiosAuthenticationTokenManager', () => {
       it('should refresh guest token data when the get profile request fails because the guest user has expired', async () => {
         // Set initial users/me request mock to return a successful result
         // so that guest token data is set.
-        moxios.stubRequest('/api/account/v1/users/me', {
-          response: { id: 10000, isGuest: true },
-          status: 200,
-        });
+        mswServer.use(
+          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+            res.once(ctx.status(200), ctx.json({ id: 10000, isGuest: true })),
+          ),
+        );
 
         // Before any requests it should be null as it is not loading from storage.
         expect(tokenManagerInstance.guestTokenProvider.getTokenData()).toBe(
@@ -396,26 +381,13 @@ describe('AxiosAuthenticationTokenManager', () => {
           }),
         );
 
-        // Reinstall moxios on the client to clear mocks.
-        // Without this, we are unable to mock a successful response again.
-        moxios.uninstall(client);
-
-        moxios.install(client);
-
-        // Mock first a 400 error for the first users/me request mimicking the
-        // case where the guest user has expired.
-        // Then return a successful result for the next requests with a different
-        // user id.
-        stubMoxiosRequestOnce(
-          'get',
-          '/api/account/v1/users/me',
-          {
-            status: 400,
-          },
-          {
-            status: 200,
-            response: { id: 20000, isGuest: true },
-          },
+        mswServer.use(
+          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+            res.once(ctx.status(400)),
+          ),
+          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+            res(ctx.status(200), ctx.json({ id: 20000, isGuest: true })),
+          ),
         );
 
         // Clear mock data from mockGuestTokenRequester mock
@@ -487,10 +459,11 @@ describe('AxiosAuthenticationTokenManager', () => {
           tokenManagerInstance.userTokenProvider,
         );
 
-        moxios.stubRequest('/api/account/v1/users/me', {
-          response: { id: 10000, isGuest: false },
-          status: 200,
-        });
+        mswServer.use(
+          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+            res(ctx.status(200), ctx.json({ id: 10000, isGuest: false })),
+          ),
+        );
 
         await getUser();
 
@@ -522,10 +495,11 @@ describe('AxiosAuthenticationTokenManager', () => {
           tokenManagerInstance.userTokenProvider,
         );
 
-        moxios.stubRequest('/api/account/v1/users/me', {
-          response: { id: 10000, isGuest: false },
-          status: 200,
-        });
+        mswServer.use(
+          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+            res(ctx.status(200), ctx.json({ id: 10000, isGuest: false })),
+          ),
+        );
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         let mockUserTokenRequesterPromiseResolve = (value: ITokenData) =>
@@ -563,11 +537,13 @@ describe('AxiosAuthenticationTokenManager', () => {
       });
 
       it('should create a new user token when a request fails with 401 and retry the request with the new token', async () => {
-        stubMoxiosRequestOnce(
-          'post',
-          '/api/marketing/v1/trackings',
-          { status: 401 },
-          { status: 200, response: {} },
+        mswServer.use(
+          rest.post('/api/marketing/v1/trackings', (_req, res, ctx) =>
+            res.once(ctx.status(401)),
+          ),
+          rest.post('/api/marketing/v1/trackings', (_req, res, ctx) =>
+            res(ctx.status(200), ctx.json({})),
+          ),
         );
 
         // We use postTrackings client here to test for other method of requests instead of only GETs.
@@ -662,11 +638,13 @@ describe('AxiosAuthenticationTokenManager', () => {
       });
 
       it('should return an error if after refreshing an access token successfully the request still fails', async () => {
-        stubMoxiosRequestOnce(
-          'get',
-          '/api/account/v1/users/me',
-          { status: 401 },
-          { status: 500 },
+        mswServer.use(
+          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+            res.once(ctx.status(401)),
+          ),
+          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+            res(ctx.status(500)),
+          ),
         );
 
         expect.assertions(4);
@@ -682,9 +660,11 @@ describe('AxiosAuthenticationTokenManager', () => {
       });
 
       it('should return an error if a request fails with 401 and the access token refresh fails', async () => {
-        moxios.stubRequest('/api/account/v1/users/me', {
-          status: 401,
-        });
+        mswServer.use(
+          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+            res(ctx.status(401)),
+          ),
+        );
 
         mockUserTokenRequester.mockImplementationOnce(
           (data: any, config: any) => {
@@ -760,10 +740,11 @@ describe('AxiosAuthenticationTokenManager', () => {
 
       expect(tokenManagerInstance.isLoading).toBe(true);
 
-      moxios.stubRequest('/api/account/v1/users/me', {
-        response: mockGetUserResponse,
-        status: 200,
-      });
+      mswServer.use(
+        rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          res(ctx.status(200), ctx.json(mockGetUserResponse)),
+        ),
+      );
 
       const getUserPromise = getUser();
 
@@ -927,9 +908,6 @@ describe('AxiosAuthenticationTokenManager', () => {
       await tokenManagerInstance.setUserTokenData(mockUserTokenData, true);
 
       // Simulate a rejection of the postTokens endpoint call
-      // We need to send AuthenticationConfigOptions.IsUserRefreshTokenRequest to true here
-      // because moxios default adapter will not add the config parameter passed by the token provider call
-      // to indicate it is a user token refresh request.
       mockUserTokenRequester.mockImplementationOnce(() => {
         return Promise.reject({
           config: {
@@ -1004,15 +982,6 @@ describe('AxiosAuthenticationTokenManager', () => {
       const tokenDataSerializer =
         getDefaultTokenDataSerializer('my_secret_key');
 
-      /*  const mockGetItem = jest.fn(() =>
-        tokenDataSerializer.serializeTokenData({
-          accessToken: 'dummy_access_token',
-          refreshToken: 'dummy_refresh_token',
-          expiresIn: '12000',
-          expiresTimeUtc: new Date().getTime() + 12000000,
-          userId: 10000,
-        }),
-      ); */
       const mockGetItem = jest.fn(
         () =>
           new Promise<string>(resolve => {
@@ -1418,10 +1387,11 @@ describe('AxiosAuthenticationTokenManager', () => {
         expectedGuestContext,
       );
 
-      moxios.stubRequest('/api/account/v1/users/me', {
-        response: mockGetUserResponse,
-        status: 200,
-      });
+      mswServer.use(
+        rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          res(ctx.status(200), ctx.json(mockGetUserResponse)),
+        ),
+      );
 
       await getUser();
 
@@ -1461,10 +1431,11 @@ describe('AxiosAuthenticationTokenManager', () => {
         guestUserId: mockGetUserResponse.id,
       });
 
-      moxios.stubRequest('/api/account/v1/users/me', {
-        response: mockGetUserResponse,
-        status: 200,
-      });
+      mswServer.use(
+        rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          res(ctx.status(200), ctx.json(mockGetUserResponse)),
+        ),
+      );
 
       await getUser();
 
@@ -1539,10 +1510,11 @@ describe('AxiosAuthenticationTokenManager', () => {
         }),
       );
 
-      moxios.stubRequest('/api/account/v1/users/me', {
-        response: {},
-        status: 200,
-      });
+      mswServer.use(
+        rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          res(ctx.status(200), ctx.json({})),
+        ),
+      );
 
       await getUser({
         [AuthenticationConfigOptions.AccessToken]: mockAccessToken,

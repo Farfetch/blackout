@@ -1,7 +1,7 @@
 import { getPredictionDetails } from '..';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/getPredictionDetails.fixtures';
-import moxios from 'moxios';
+import fixtures from '../__fixtures__/getPredictionDetails.fixtures';
+import mswServer from '../../../tests/mswServer';
 
 describe('getPredictionDetails', () => {
   const predictionId = '123456789';
@@ -15,22 +15,17 @@ describe('getPredictionDetails', () => {
     type: 'Address',
   };
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   describe('with query params', () => {
     it('should handle a client request successfully', async () => {
-      fixture.withQuery.success({ predictionId, query, response });
+      mswServer.use(fixtures.success(response));
 
       expect.assertions(2);
 
-      await expect(getPredictionDetails({ predictionId }, query)).resolves.toBe(
-        response,
-      );
+      await expect(
+        getPredictionDetails({ predictionId }, query),
+      ).resolves.toStrictEqual(response);
 
       expect(spy).toHaveBeenCalledWith(
         `/account/v1/addressesprediction/${predictionId}/address?sessionToken=${query.sessionToken}`,
@@ -39,7 +34,7 @@ describe('getPredictionDetails', () => {
     });
 
     it('should receive a client request error', async () => {
-      fixture.withQuery.failure({ predictionId, query });
+      mswServer.use(fixtures.failure());
 
       expect.assertions(2);
 
@@ -56,13 +51,13 @@ describe('getPredictionDetails', () => {
 
   describe('without query params', () => {
     it('should handle a client request successfully', async () => {
-      fixture.withoutQuery.success({ predictionId, response });
+      mswServer.use(fixtures.success(response));
 
       expect.assertions(2);
 
-      await expect(getPredictionDetails({ predictionId })).resolves.toBe(
-        response,
-      );
+      await expect(
+        getPredictionDetails({ predictionId }),
+      ).resolves.toStrictEqual(response);
 
       expect(spy).toHaveBeenCalledWith(
         `/account/v1/addressesprediction/${predictionId}/address`,
@@ -71,7 +66,7 @@ describe('getPredictionDetails', () => {
     });
 
     it('should receive a client request error', async () => {
-      fixture.withoutQuery.failure({ predictionId });
+      mswServer.use(fixtures.failure());
 
       expect.assertions(2);
 

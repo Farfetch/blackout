@@ -1,31 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { Charge, ChargeInstruments, Intent } from '../types';
+import { rest, RestHandler } from 'msw';
+import type { Charge } from '../types';
+
+const path = '/api/payment/v1/intents/:id/charges/:chargeId';
 
 export default {
-  success: (params: {
-    id: Intent['id'];
-    chargeId: ChargeInstruments['id'];
-    response: Charge;
-  }): void => {
-    moxios.stubRequest(
-      join('api/payment/v1/intents', params.id, 'charges', params.chargeId),
-      {
-        response: params.response,
-        status: 201,
-      },
-    );
-  },
-  failure: (params: {
-    id: Intent['id'];
-    chargeId: ChargeInstruments['id'];
-  }): void => {
-    moxios.stubRequest(
-      join('api/payment/v1/intents', params.id, 'charges', params.chargeId),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: Charge): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(201), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

@@ -2,19 +2,14 @@ import * as usersClient from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCreditMovements.fixtures';
 import join from 'proper-url-join';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getCreditMovements', () => {
   const expectedConfig = undefined;
   const id = 123456;
   const spy = jest.spyOn(client, 'get');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response = {
@@ -25,13 +20,13 @@ describe('getCreditMovements', () => {
     };
     const query = {};
 
-    fixtures.success({ id, query, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(usersClient.getCreditMovements(id, query)).resolves.toBe(
-      response,
-    );
+    await expect(
+      usersClient.getCreditMovements(id, query),
+    ).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(
       `/legacy/v1/users/${id}/creditMovements`,
       expectedConfig,
@@ -50,13 +45,13 @@ describe('getCreditMovements', () => {
       pageSize: 1,
     };
     const expectedUrl = `/legacy/v1/users/${id}/creditMovements?page=${query.page}&pageSize=${query.pageSize}`;
-    fixtures.success({ id, query, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(usersClient.getCreditMovements(id, query)).resolves.toBe(
-      response,
-    );
+    await expect(
+      usersClient.getCreditMovements(id, query),
+    ).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(expectedUrl, expectedConfig);
   });
 
@@ -100,19 +95,19 @@ describe('getCreditMovements', () => {
       query,
     });
 
-    fixtures.success({ id, query, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(usersClient.getCreditMovements(id, query)).resolves.toBe(
-      response,
-    );
+    await expect(
+      usersClient.getCreditMovements(id, query),
+    ).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(expectedUrl, expectedConfig);
   });
 
   it('should receive a client request error', async () => {
     const query = {};
-    fixtures.failure({ id, query });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

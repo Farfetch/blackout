@@ -1,12 +1,10 @@
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/getOperation.fixture';
+import fixtures from '../__fixtures__/getOperation.fixtures';
 import getOperation from '../getOperation';
 import mswServer from '../../../tests/mswServer';
 
 describe('checkout client', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+  beforeEach(() => jest.clearAllMocks());
 
   describe('getOperation', () => {
     const orderId = 123456;
@@ -18,14 +16,14 @@ describe('checkout client', () => {
     const response = { id: operationId };
 
     it('should handle a client request successfully', async () => {
-      mswServer.use(fixture.success({ response }));
+      mswServer.use(fixtures.success(response));
 
       await expect(getOperation(params)).resolves.toEqual(response);
       expect(getSpy).toBeCalledWith(expectedUrl, expectedConfig);
     });
 
     it('should receive a client request error', async () => {
-      mswServer.use(fixture.failure());
+      mswServer.use(fixtures.failure());
 
       expect.assertions(2);
       await expect(getOperation(params)).rejects.toMatchSnapshot();

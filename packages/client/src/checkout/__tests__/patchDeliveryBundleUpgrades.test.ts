@@ -5,15 +5,10 @@ import {
 } from '../types';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/patchDeliveryBundleUpgrades.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('patchDeliveryBundleUpgrades', () => {
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   const spy = jest.spyOn(client, 'patch');
   const expectedConfig = undefined;
@@ -35,11 +30,7 @@ describe('patchDeliveryBundleUpgrades', () => {
   const urlToBeCalled = `/checkout/v1/orders/${id}/deliveryBundles/${deliveryBundleId}/upgrades`;
 
   it('should handle a client request successfully', async () => {
-    fixtures.success({
-      id,
-      deliveryBundleId,
-      data,
-    });
+    mswServer.use(fixtures.success());
 
     expect.assertions(2);
     await expect(
@@ -49,11 +40,7 @@ describe('patchDeliveryBundleUpgrades', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({
-      id,
-      deliveryBundleId,
-      data,
-    });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
     await expect(

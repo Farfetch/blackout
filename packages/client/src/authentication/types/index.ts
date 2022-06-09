@@ -1,6 +1,5 @@
 export * from './login.types';
 export * from './tokens.types';
-export * from './fixtures.types';
 export * from './register.types';
 export * from './deleteTokens.types';
 export * from './deleteGuestTokens.types';

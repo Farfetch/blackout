@@ -5,7 +5,7 @@ import {
 } from '../types';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getDeliveryBundleUpgrades.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getDeliveryBundleUpgrades', () => {
   const spy = jest.spyOn(client, 'get');
@@ -14,12 +14,7 @@ describe('getDeliveryBundleUpgrades', () => {
   const deliveryBundleId = '3742-ds12-njnj-j21j';
   const urlToBeCalled = `/checkout/v1/orders/${id}/deliveryBundles/${deliveryBundleId}/upgrades`;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response: GetDeliveryBundleUpgradesResponse = {
@@ -139,24 +134,17 @@ describe('getDeliveryBundleUpgrades', () => {
       },
     };
 
-    fixtures.success({
-      id,
-      deliveryBundleId,
-      response,
-    });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
     await expect(
       checkoutClient.getDeliveryBundleUpgrades(id, deliveryBundleId),
-    ).resolves.toBe(response);
+    ).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(urlToBeCalled, expectedConfig);
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({
-      id,
-      deliveryBundleId,
-    });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
     await expect(

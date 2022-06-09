@@ -1,7 +1,7 @@
 import { deleteGuestTokens } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/deleteGuestTokens.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('deleteGuestTokens', () => {
   const id = '1';
@@ -14,15 +14,10 @@ describe('deleteGuestTokens', () => {
   const spy = jest.spyOn(client, 'delete');
   const endpoint = '/authentication/v1/guestTokens';
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    fixtures.success({ id });
+    mswServer.use(fixtures.success());
 
     expect.assertions(2);
 
@@ -32,7 +27,7 @@ describe('deleteGuestTokens', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ id });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

@@ -5,6 +5,7 @@ Object {
   "code": -1,
   "message": "stub error",
   "status": 404,
+  "toJSON": [Function],
 }
 `;
 
@@ -13,5 +14,6 @@ Object {
   "code": -1,
   "message": "stub error",
   "status": 404,
+  "toJSON": [Function],
 }
 `;

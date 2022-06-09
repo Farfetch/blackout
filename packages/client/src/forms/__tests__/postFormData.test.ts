@@ -2,7 +2,7 @@ import { postFormData } from '../';
 import { postFormDataResponse } from 'tests/__fixtures__/forms';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postFormData.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('schemas client', () => {
   const expectedConfig = undefined;
@@ -12,24 +12,19 @@ describe('schemas client', () => {
     formData: { ...postFormDataResponse.formData },
   };
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   describe('postFormData()', () => {
     const spy = jest.spyOn(client, 'post');
 
     it('should handle a client request successfully', async () => {
-      fixtures.post.success({ schemaCode, response: postFormDataResponse });
+      mswServer.use(fixtures.success(postFormDataResponse));
 
       expect.assertions(2);
 
       await expect(
         postFormData(schemaCode, payload, expectedConfig),
-      ).resolves.toBe(postFormDataResponse);
+      ).resolves.toStrictEqual(postFormDataResponse);
 
       expect(spy).toHaveBeenCalledWith(
         `/communication/v1/forms/${schemaCode}/data`,
@@ -39,7 +34,7 @@ describe('schemas client', () => {
     });
 
     it('should receive a client request error', async () => {
-      fixtures.post.error({ schemaCode });
+      mswServer.use(fixtures.failure());
 
       expect.assertions(2);
 

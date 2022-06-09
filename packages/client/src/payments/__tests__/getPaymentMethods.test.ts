@@ -1,7 +1,7 @@
 import { getPaymentMethods } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getPaymentMethods.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 import type { PaymentMethod } from '../types';
 
 describe('getPaymentMethods', () => {
@@ -10,12 +10,7 @@ describe('getPaymentMethods', () => {
   const spy = jest.spyOn(client, 'get');
   const urlToBeCalled = `/checkout/v1/orders/${id}?fields=paymentMethods`;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response: PaymentMethod = {
@@ -40,16 +35,16 @@ describe('getPaymentMethods', () => {
       },
     };
 
-    fixtures.success({ id, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(getPaymentMethods(id)).resolves.toBe(response);
+    await expect(getPaymentMethods(id)).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(urlToBeCalled, expectedConfig);
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ id });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

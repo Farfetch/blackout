@@ -5,11 +5,11 @@ const path = '/api/commerce/v1/wishlists/:wishlistId/items/:wishlistItemId';
 
 export default {
   success: (response: Wishlist): RestHandler =>
-    rest.patch(path, async (req, res, ctx) =>
+    rest.patch(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),
   failure: (): RestHandler =>
-    rest.patch(path, async (req, res, ctx) =>
+    rest.patch(path, async (_req, res, ctx) =>
       res(ctx.status(404), ctx.json({ message: 'stub error' })),
     ),
 };

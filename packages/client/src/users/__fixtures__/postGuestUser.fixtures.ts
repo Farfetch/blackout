@@ -1,17 +1,15 @@
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
 import type { GuestUserResponse } from '../types';
 
+const path = '/api/account/v1/guestUsers';
+
 export default {
-  success: (params: { response: GuestUserResponse }): void => {
-    moxios.stubRequest('/api/account/v1/guestUsers', {
-      response: params.response,
-      status: 200,
-    });
-  },
-  failure: (): void => {
-    moxios.stubRequest('/api/account/v1/guestUsers', {
-      response: 'stub error',
-      status: 404,
-    });
-  },
+  success: (response: GuestUserResponse): RestHandler =>
+    rest.post(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.post(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

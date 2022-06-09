@@ -1,8 +1,8 @@
 import { AddressType } from '../types';
 import { postAddress } from '..';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/postAddress.fixtures';
-import moxios from 'moxios';
+import fixtures from '../__fixtures__/postAddress.fixtures';
+import mswServer from '../../../tests/mswServer';
 
 const response = {
   id: 'd3e59c54-6f49-4140-a491-ffe2c62afc51',
@@ -29,41 +29,39 @@ const response = {
   isCurrentPreferred: false,
   createdDate: '2021-11-04T10:34:49.891Z',
 };
+const data = response;
 const userId = 78910;
 
 describe('postAddress', () => {
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'post');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    fixture.success({ userId, data: response, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(postAddress({ userId }, response)).resolves.toBe(response);
+    await expect(postAddress({ userId }, data)).resolves.toStrictEqual(
+      response,
+    );
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/addresses`,
-      response,
+      data,
       expectedConfig,
     );
   });
 
   it('should receive a client request error', async () => {
-    fixture.failure({ userId, data: response });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 
-    await expect(postAddress({ userId }, response)).rejects.toMatchSnapshot();
+    await expect(postAddress({ userId }, data)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/addresses`,
-      response,
+      data,
       expectedConfig,
     );
   });

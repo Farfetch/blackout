@@ -1,25 +1,20 @@
 import { mockPutSubscriptions } from 'tests/__fixtures__/subscriptions';
 import { putSubscriptions } from '..';
 import client from '../../helpers/client';
-import moxios from 'moxios';
-import moxiosFixtures from '../__fixtures__/putSubscriptions.fixtures';
+import fixtures from '../__fixtures__/putSubscriptions.fixtures';
+import mswServer from '../../../tests/mswServer';
 
 describe('putSubscriptions', () => {
   const spy = jest.spyOn(client, 'put');
 
-  beforeEach(() => {
-    moxios.install(client);
-  });
-
-  afterEach(() => moxios.uninstall(client));
-
   it('should handle a client request successfully', async () => {
-    const mockResponse = undefined;
-    moxiosFixtures.success({ response: mockResponse });
+    const response = {};
 
-    await expect(putSubscriptions(mockPutSubscriptions.data)).resolves.toBe(
-      mockResponse,
-    );
+    mswServer.use(fixtures.success(response));
+
+    await expect(
+      putSubscriptions(mockPutSubscriptions.data),
+    ).resolves.toStrictEqual(undefined);
 
     expect(spy).toHaveBeenCalledWith(
       '/marketing/v1/subscriptions',
@@ -29,7 +24,7 @@ describe('putSubscriptions', () => {
   });
 
   it('should receive a client request error', async () => {
-    moxiosFixtures.failure();
+    mswServer.use(fixtures.failure());
 
     await expect(
       putSubscriptions(mockPutSubscriptions.data),

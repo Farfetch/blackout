@@ -1,7 +1,7 @@
 import { getCommercePages } from '..';
 import { Type } from '../types';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/commercepages.fixtures';
+import fixtures from '../__fixtures__/commercepages.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('getCommercePages()', () => {
@@ -56,7 +56,7 @@ describe('getCommercePages()', () => {
   };
 
   it('should handle a client request successfully', async () => {
-    mswServer.use(fixture.get.success(response));
+    mswServer.use(fixtures.get.success(response));
 
     expect.assertions(2);
 
@@ -69,7 +69,7 @@ describe('getCommercePages()', () => {
   });
 
   it('should handle a client request error', async () => {
-    mswServer.use(fixture.get.failure());
+    mswServer.use(fixtures.get.failure());
 
     expect.assertions(2);
 

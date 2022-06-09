@@ -2,17 +2,12 @@
 import { getSiteFeatures } from '../';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/getSiteFeatures.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../../tests/mswServer';
 
 describe('sitefeatures client', () => {
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   describe('getSiteFeatures', () => {
     const spy = jest.spyOn(client, 'get');
@@ -20,13 +15,11 @@ describe('sitefeatures client', () => {
     it('should handle a client request successfully', async () => {
       const response = {};
 
-      fixtures.success({
-        response,
-      });
+      mswServer.use(fixtures.success(response));
 
       expect.assertions(2);
 
-      await expect(getSiteFeatures()).resolves.toBe(response);
+      await expect(getSiteFeatures()).resolves.toStrictEqual(response);
 
       expect(spy).toHaveBeenCalledWith(
         '/settings/v1/sitefeatures',
@@ -35,7 +28,7 @@ describe('sitefeatures client', () => {
     });
 
     it('should receive a client request error', async () => {
-      fixtures.failure();
+      mswServer.use(fixtures.failure());
 
       expect.assertions(2);
 

@@ -1,38 +1,16 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
 import type { PickupRescheduleRequest } from '../types';
 
+const path =
+  '/api/account/v1/returns/:id/pickupRescheduleRequests/:rescheduleRequestId';
+
 export default {
-  success: (params: {
-    id: string;
-    rescheduleRequestId: string;
-    response: PickupRescheduleRequest;
-  }): void => {
-    moxios.stubRequest(
-      join(
-        '/api/account/v1/returns',
-        params.id,
-        'pickupRescheduleRequests/',
-        params.rescheduleRequestId,
-      ),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { id: string; rescheduleRequestId: string }): void => {
-    moxios.stubRequest(
-      join(
-        '/api/account/v1/returns',
-        params.id,
-        'pickupRescheduleRequests/',
-        params.rescheduleRequestId,
-      ),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: PickupRescheduleRequest): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

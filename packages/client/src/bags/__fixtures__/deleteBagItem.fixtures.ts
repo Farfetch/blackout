@@ -12,7 +12,7 @@ export default {
   }): RestHandler =>
     rest.delete(
       join(path, params.bagId, 'items', params.bagItemId),
-      async (req, res, ctx) => res(ctx.status(200), ctx.json(params.response)),
+      async (_req, res, ctx) => res(ctx.status(200), ctx.json(params.response)),
     ),
   failure: (params: {
     bagId: Bag['id'];
@@ -20,7 +20,7 @@ export default {
   }): RestHandler =>
     rest.delete(
       join(path, params.bagId, 'items', params.bagItemId),
-      async (req, res, ctx) =>
+      async (_req, res, ctx) =>
         res(ctx.status(404), ctx.json({ message: 'stub error' })),
     ),
 };

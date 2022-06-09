@@ -1,17 +1,15 @@
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
 import type { PostTokenResponse } from '../types';
 
+const path = '/api/authentication/v1/userImpersonations';
+
 export default {
-  success: (params: { response: PostTokenResponse }): void => {
-    moxios.stubRequest('/api/authentication/v1/userImpersonations', {
-      response: params.response,
-      status: 200,
-    });
-  },
-  failure: (): void => {
-    moxios.stubRequest('/api/authentication/v1/userImpersonations', {
-      response: 'stub error',
-      status: 404,
-    });
-  },
+  success: (response: PostTokenResponse): RestHandler =>
+    rest.post(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.post(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

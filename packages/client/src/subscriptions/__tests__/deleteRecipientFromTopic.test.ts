@@ -7,26 +7,20 @@ import {
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/deleteRecipientFromTopic.fixtures';
 import join from 'proper-url-join';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('deleteRecipientFromTopic', () => {
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'delete');
 
-  beforeEach(() => {
-    moxios.install(client);
-  });
-
-  afterEach(() => moxios.uninstall(client));
-
   it('should handle a client request successfully', async () => {
     const response = {};
 
-    fixtures.success({ subscriptionId, topicId, recipientId, response });
+    mswServer.use(fixtures.success(response));
 
     await expect(
       deleteRecipientFromTopic(subscriptionId, topicId, recipientId),
-    ).resolves.toBe(response);
+    ).resolves.toStrictEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
       join(
@@ -42,7 +36,7 @@ describe('deleteRecipientFromTopic', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ subscriptionId, topicId, recipientId });
+    mswServer.use(fixtures.failure());
 
     await expect(
       deleteRecipientFromTopic(subscriptionId, topicId, recipientId),

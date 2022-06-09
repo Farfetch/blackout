@@ -1,9 +1,9 @@
 import { getReturnPickupCapabilities } from '..';
 import { responses } from 'tests/__fixtures__/returns';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/getReturnPickupCapabilities.fixtures';
+import fixtures from '../__fixtures__/getReturnPickupCapabilities.fixtures';
 import join from 'proper-url-join';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getReturnPickupCapabilities', () => {
   const spy = jest.spyOn(client, 'get');
@@ -11,26 +11,17 @@ describe('getReturnPickupCapabilities', () => {
   const pickupDay = '2020-04-20';
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response = responses.getReturnPickupCapabilities.success;
 
-    fixture.success({
-      id,
-      pickupDay,
-      response,
-    });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
-    await expect(getReturnPickupCapabilities(id, pickupDay)).resolves.toBe(
-      response,
-    );
+    await expect(
+      getReturnPickupCapabilities(id, pickupDay),
+    ).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(
       join(`/account/v1/returns/${id}/pickupcapabilities/${pickupDay}`),
       expectedConfig,
@@ -38,7 +29,7 @@ describe('getReturnPickupCapabilities', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixture.failure({ id, pickupDay });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
     await expect(

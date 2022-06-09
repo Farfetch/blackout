@@ -1,17 +1,15 @@
-import moxios from 'moxios';
-import type { Address, User } from '../types';
+import { rest, RestHandler } from 'msw';
+import type { Address } from '../types';
+
+const path = '/api/account/v1/users/:userId/addresses';
 
 export default {
-  success: (params: { userId: User['id']; response: Address[] }): void => {
-    moxios.stubRequest(`/api/account/v1/users/${params.userId}/addresses`, {
-      response: params.response,
-      status: 200,
-    });
-  },
-  failure: (params: { userId: User['id'] }): void => {
-    moxios.stubRequest(`/api/account/v1/users/${params.userId}/addresses`, {
-      response: 'stub error',
-      status: 404,
-    });
-  },
+  success: (response: Address[]): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };
