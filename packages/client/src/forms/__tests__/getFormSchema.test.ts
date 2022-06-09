@@ -6,24 +6,19 @@ import {
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getFormSchema.fixtures';
 import join from 'proper-url-join';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('schemas client', () => {
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   describe('getFormSchema()', () => {
     const spy = jest.spyOn(client, 'get');
     const schemaCode = 'test';
 
     it('should handle a client request successfully', async () => {
-      fixtures.get.success({ schemaCode, query, response: successResponse });
+      mswServer.use(fixtures.success(successResponse));
 
       expect.assertions(2);
 
@@ -40,7 +35,7 @@ describe('schemas client', () => {
     });
 
     it('should receive a client request error', async () => {
-      fixtures.get.failure();
+      mswServer.use(fixtures.failure());
 
       expect.assertions(2);
 

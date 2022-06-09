@@ -1,26 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { GetTitlesQuery, GetTitlesResponse } from '../types';
+import { rest, RestHandler } from 'msw';
+import type { GetTitlesResponse } from '../types';
+
+const path = '/api/account/v1/titles';
 
 export default {
-  success: (params: {
-    query?: GetTitlesQuery;
-    response: GetTitlesResponse;
-  }): void => {
-    moxios.stubRequest(
-      join('/api/account/v1/titles', {
-        query: params.query,
-      }),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (): void => {
-    moxios.stubRequest(join('/api/account/v1/titles'), {
-      response: 'stub error',
-      status: 404,
-    });
-  },
+  success: (response: GetTitlesResponse): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

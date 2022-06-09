@@ -2,7 +2,7 @@ import { getPersonalIds } from '..';
 import { mockGetPersonalIdsResponse } from 'tests/__fixtures__/users';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getPersonalIds.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getPersonalIds', () => {
   const expectedConfig = {
@@ -14,21 +14,18 @@ describe('getPersonalIds', () => {
   };
   const spy = jest.spyOn(client, 'get');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response = mockGetPersonalIdsResponse;
 
-    fixtures.success({ userId, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(getPersonalIds(userId, config)).resolves.toBe(response);
+    await expect(getPersonalIds(userId, config)).resolves.toStrictEqual(
+      response,
+    );
 
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/personalIds`,
@@ -37,7 +34,7 @@ describe('getPersonalIds', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ userId });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
     await expect(getPersonalIds(userId, config)).rejects.toMatchSnapshot();

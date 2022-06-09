@@ -1,8 +1,8 @@
 import { getReturnReferences } from '..';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/getReturnReferences.fixtures';
+import fixtures from '../__fixtures__/getReturnReferences.fixtures';
 import join from 'proper-url-join';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getReturnReferences', () => {
   const name = 'ReturnNote';
@@ -11,22 +11,12 @@ describe('getReturnReferences', () => {
   const expectedConfig = undefined;
   const query = { guestUserEmail: 'test@email.com' };
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response = '';
 
-    fixture.success({
-      id,
-      name,
-      query,
-      response,
-    });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
     await expect(getReturnReferences(id, name, query)).resolves.toBe(response);
@@ -37,7 +27,7 @@ describe('getReturnReferences', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixture.failure({ id, name, query });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
     await expect(

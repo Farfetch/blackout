@@ -1,46 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
+
+const path =
+  '/api/marketing/v1/subscriptions/:subscriptionId/topics/:topicId/addresses/:recipientId';
 
 export default {
-  success: (params: {
-    subscriptionId: string;
-    topicId: string;
-    recipientId: string;
-    response: unknown;
-  }) => {
-    moxios.stubRequest(
-      join(
-        '/api/marketing/v1/subscriptions/',
-        params.subscriptionId,
-        '/topics/',
-        params.topicId,
-        '/addresses/',
-        params.recipientId,
-      ),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: {
-    subscriptionId: string;
-    topicId: string;
-    recipientId: string;
-  }) => {
-    moxios.stubRequest(
-      join(
-        '/api/marketing/v1/subscriptions/',
-        params.subscriptionId,
-        '/topics/',
-        params.topicId,
-        '/addresses/',
-        params.recipientId,
-      ),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: Record<string, unknown>): RestHandler =>
+    rest.delete(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.delete(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

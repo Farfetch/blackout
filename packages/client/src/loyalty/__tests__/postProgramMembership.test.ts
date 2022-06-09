@@ -6,16 +6,11 @@ import { postProgramMembership } from '..';
 import { ProgramMembershipStatus } from '../types';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postProgramMembership.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 const expectedConfig = undefined;
 
-beforeEach(() => {
-  moxios.install(client);
-  jest.clearAllMocks();
-});
-
-afterEach(() => moxios.uninstall(client));
+beforeEach(() => jest.clearAllMocks());
 
 describe('postProgramMembership', () => {
   const spy = jest.spyOn(client, 'post');
@@ -30,23 +25,19 @@ describe('postProgramMembership', () => {
   };
 
   it('should handle a client request successfully', async () => {
-    fixtures.success({
-      programId,
-      data: membershipData,
-      response: mockResponseProgramUsersMembership,
-    });
+    mswServer.use(fixtures.success(mockResponseProgramUsersMembership));
 
     expect.assertions(2);
     await expect(
       postProgramMembership(programId, membershipData),
-    ).resolves.toBe(mockResponseProgramUsersMembership);
+    ).resolves.toStrictEqual(mockResponseProgramUsersMembership);
     expect(spy).toHaveBeenCalledWith(apiPath, membershipData, expectedConfig);
   });
 
   it('should receive a client request error', async () => {
     const spy = jest.spyOn(client, 'post');
 
-    fixtures.failure({ programId });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
     await expect(

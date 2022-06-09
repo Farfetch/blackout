@@ -1,22 +1,14 @@
-import { PatchCheckoutCompletePaymentData } from '../types';
-import join from 'proper-url-join';
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
+
+const path = '/api/payment/v1/payments/:id';
 
 export default {
-  success: (params: {
-    id: string;
-    data: PatchCheckoutCompletePaymentData;
-    response: Record<string, unknown>;
-  }): void => {
-    moxios.stubRequest(join('/api/payment/v1/payments', params.id), {
-      response: params.response,
-      status: 200,
-    });
-  },
-  failure: (params: { id: string }): void => {
-    moxios.stubRequest(join('/api/payment/v1/payments', params.id), {
-      response: 'stub error',
-      status: 404,
-    });
-  },
+  success: (response: Record<string, unknown>): RestHandler =>
+    rest.patch(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.patch(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

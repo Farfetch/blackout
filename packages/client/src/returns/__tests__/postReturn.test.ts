@@ -1,9 +1,9 @@
 import { mockPostData, responses } from 'tests/__fixtures__/returns';
 import { postReturn } from '..';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/postReturn.fixtures';
+import fixtures from '../__fixtures__/postReturn.fixtures';
 import join from 'proper-url-join';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('postReturn()', () => {
   const data = mockPostData;
@@ -11,20 +11,15 @@ describe('postReturn()', () => {
   const expectedConfig = undefined;
   const query = { guestUserEmail: 'test@email.com' };
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response = responses.post.success;
 
-    fixture.success({ data, query, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
-    await expect(postReturn(data, query)).resolves.toBe(response);
+    await expect(postReturn(data, query)).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(
       join('/account/v1/returns/', { query }),
       data,
@@ -33,7 +28,7 @@ describe('postReturn()', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixture.failure({ data, query });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
     await expect(postReturn(data, query)).rejects.toMatchSnapshot();

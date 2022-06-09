@@ -1,16 +1,14 @@
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
+
+const path = '/api/account/v1/users/phoneTokenValidations';
 
 export default {
-  success: (params: { response: Record<string, unknown> }): void => {
-    moxios.stubRequest('/api/account/v1/users/phoneTokenValidations', {
-      response: params.response,
-      status: 200,
-    });
-  },
-  failure: (): void => {
-    moxios.stubRequest('/api/account/v1/users/phoneTokenValidations', {
-      response: 'stub error',
-      status: 404,
-    });
-  },
+  success: (response: Record<string, unknown>): RestHandler =>
+    rest.post(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.post(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

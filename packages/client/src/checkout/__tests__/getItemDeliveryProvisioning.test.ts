@@ -1,16 +1,11 @@
 import * as checkoutClient from '..';
-import { GetItemDeliveryProvisioningResponse } from '../types';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getItemDeliveryProvisioning.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
+import type { GetItemDeliveryProvisioningResponse } from '../types';
 
 describe('getItemDeliveryProvisioning', () => {
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   const spy = jest.spyOn(client, 'get');
   const id = 123456;
@@ -35,17 +30,18 @@ describe('getItemDeliveryProvisioning', () => {
       },
     ];
 
-    fixtures.success({ id, deliveryBundleId, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
+
     await expect(
       checkoutClient.getItemDeliveryProvisioning(id, deliveryBundleId),
-    ).resolves.toBe(response);
+    ).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(urlToBeCalled, expectedConfig);
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ id, deliveryBundleId });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
     await expect(

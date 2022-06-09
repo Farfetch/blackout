@@ -1,7 +1,7 @@
 import { putDefaultContactAddress } from '..';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/putDefaultContactAddress.fixtures';
-import moxios from 'moxios';
+import fixtures from '../__fixtures__/putDefaultContactAddress.fixtures';
+import mswServer from '../../../tests/mswServer';
 
 describe('putDefaultContactAddress', () => {
   const id = '123456';
@@ -10,15 +10,10 @@ describe('putDefaultContactAddress', () => {
   const expectedConfig = undefined;
   const expectedUrl = `/account/v1/users/${userId}/addresses/preferred/${id}`;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    fixture.success({ id, userId });
+    mswServer.use(fixtures.success());
 
     expect.assertions(2);
 
@@ -27,7 +22,7 @@ describe('putDefaultContactAddress', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixture.failure({ id, userId });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

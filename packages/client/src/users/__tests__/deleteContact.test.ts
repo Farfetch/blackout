@@ -1,7 +1,7 @@
 import * as usersClient from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/deleteContact.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('deleteContact', () => {
   const expectedConfig = undefined;
@@ -9,21 +9,16 @@ describe('deleteContact', () => {
   const contactId = '78910';
   const spy = jest.spyOn(client, 'delete');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    fixtures.success({ userId, contactId });
+    mswServer.use(fixtures.success());
 
     expect.assertions(2);
 
-    await expect(
-      usersClient.deleteContact(userId, contactId),
-    ).resolves.toBeUndefined();
+    await expect(usersClient.deleteContact(userId, contactId)).resolves.toEqual(
+      expect.objectContaining({ status: 204 }),
+    );
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/contacts/${contactId}`,
       expectedConfig,
@@ -31,7 +26,7 @@ describe('deleteContact', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ userId, contactId });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

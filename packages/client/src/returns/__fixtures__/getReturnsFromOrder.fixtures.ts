@@ -1,34 +1,15 @@
-import get from 'lodash/get';
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { Query } from '../types/query.types';
+import { rest, RestHandler } from 'msw';
 import type { Return } from '../types/return.types';
 
+const path = '/api/account/v1/orders/:orderId/returns';
+
 export default {
-  success: (params: {
-    orderId: string;
-    query: Query;
-    response: Return;
-  }): void => {
-    moxios.stubRequest(
-      join('/api/account/v1/orders', params.orderId, 'returns', {
-        query: get(params, 'query'),
-      }),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { orderId: string; query: Query }): void => {
-    moxios.stubRequest(
-      join('/api/account/v1/orders', params.orderId, 'returns', {
-        query: get(params, 'query'),
-      }),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: Return): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

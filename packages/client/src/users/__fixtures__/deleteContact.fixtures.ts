@@ -1,32 +1,12 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
+
+const path = '/api/account/v1/users/:userId/contacts/:contactId';
 
 export default {
-  success: (params: { userId: number; contactId: string }): void => {
-    moxios.stubRequest(
-      join(
-        '/api/account/v1/users',
-        params.userId,
-        'contacts',
-        params.contactId,
-      ),
-      {
-        status: 204,
-      },
-    );
-  },
-  failure: (params: { userId: number; contactId: string }): void => {
-    moxios.stubRequest(
-      join(
-        '/api/account/v1/users',
-        params.userId,
-        'contacts',
-        params.contactId,
-      ),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (): RestHandler =>
+    rest.delete(path, async (_req, res, ctx) => res(ctx.status(204))),
+  failure: (): RestHandler =>
+    rest.delete(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

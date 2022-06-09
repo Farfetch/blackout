@@ -11,7 +11,7 @@ import {
 import { getInstrument } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getInstrument.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getInstrument', () => {
   const id = '123456';
@@ -20,12 +20,7 @@ describe('getInstrument', () => {
   const spy = jest.spyOn(client, 'get');
   const urlToBeCalled = `/payment/v1/intents/${id}/instruments/${instrumentId}`;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const country: Country = {
@@ -105,16 +100,18 @@ describe('getInstrument', () => {
       shopperInteraction: ShopperInteraction.Ecommerce,
     };
 
-    fixtures.success({ id, instrumentId, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
-    await expect(getInstrument(id, instrumentId)).resolves.toBe(response);
+    await expect(getInstrument(id, instrumentId)).resolves.toStrictEqual(
+      response,
+    );
 
     expect(spy).toHaveBeenCalledWith(urlToBeCalled, expectedConfig);
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ id, instrumentId });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

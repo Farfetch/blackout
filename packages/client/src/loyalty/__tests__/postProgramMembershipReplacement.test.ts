@@ -7,16 +7,11 @@ import { postProgramMembershipReplacement } from '..';
 import { ProgramMembershipReplacementReason } from '../types';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postProgramMembershipReplacement.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 const expectedConfig = undefined;
 
-beforeEach(() => {
-  moxios.install(client);
-  jest.clearAllMocks();
-});
-
-afterEach(() => moxios.uninstall(client));
+beforeEach(() => jest.clearAllMocks());
 
 describe('postProgramMembershipReplacement', () => {
   const spy = jest.spyOn(client, 'post');
@@ -27,12 +22,7 @@ describe('postProgramMembershipReplacement', () => {
   };
 
   it('should handle a client request successfully', async () => {
-    fixtures.success({
-      programId,
-      membershipId,
-      data: replacementData,
-      response: mockResponseProgramMembershipReplacement,
-    });
+    mswServer.use(fixtures.success(mockResponseProgramMembershipReplacement));
 
     expect.assertions(2);
     await expect(
@@ -41,14 +31,14 @@ describe('postProgramMembershipReplacement', () => {
         membershipId,
         replacementData,
       ),
-    ).resolves.toBe(mockResponseProgramMembershipReplacement);
+    ).resolves.toStrictEqual(mockResponseProgramMembershipReplacement);
     expect(spy).toHaveBeenCalledWith(apiPath, replacementData, expectedConfig);
   });
 
   it('should receive a client request error', async () => {
     const spy = jest.spyOn(client, 'post');
 
-    fixtures.failure({ programId, membershipId });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
     await expect(

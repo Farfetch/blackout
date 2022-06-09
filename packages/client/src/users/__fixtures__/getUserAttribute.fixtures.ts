@@ -1,38 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
 import type { UserAttributesResponse } from '../types/userAttributesResponse.types';
 
+const path = '/api/account/v1/users/:userId/attributes/:attributeId';
+
 export default {
-  success: (params: {
-    userId: number;
-    attributeId: string;
-    response: UserAttributesResponse;
-  }): void => {
-    moxios.stubRequest(
-      join(
-        '/api/account/v1/users',
-        params.userId,
-        '/attributes',
-        params.attributeId,
-      ),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { userId: number; attributeId: string }): void => {
-    moxios.stubRequest(
-      join(
-        '/api/account/v1/users',
-        params.userId,
-        '/attributes',
-        params.attributeId,
-      ),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: UserAttributesResponse): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

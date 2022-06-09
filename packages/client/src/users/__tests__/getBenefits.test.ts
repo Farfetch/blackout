@@ -1,18 +1,13 @@
 import * as usersClient from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getBenefits.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getBenefits', () => {
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'get');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response = {
@@ -23,16 +18,16 @@ describe('getBenefits', () => {
       benefitType: 'price',
     };
 
-    fixtures.success({ response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(usersClient.getBenefits()).resolves.toBe(response);
+    await expect(usersClient.getBenefits()).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith('/legacy/v1/userbenefits', expectedConfig);
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure();
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

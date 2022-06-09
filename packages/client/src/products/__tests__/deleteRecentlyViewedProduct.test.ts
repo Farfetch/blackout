@@ -2,31 +2,25 @@ import { deleteRecentlyViewedProduct } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/deleteRecentlyViewedProduct.fixtures';
 import join from 'proper-url-join';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('deleteRecentlyViewedProduct', () => {
   const id = 1345678;
   const spy = jest.spyOn(client, 'delete');
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response = {};
 
-    fixtures.success({
-      response,
-      id,
-    });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(deleteRecentlyViewedProduct(id)).resolves.toBe(response);
+    await expect(deleteRecentlyViewedProduct(id)).resolves.toStrictEqual(
+      response,
+    );
 
     expect(spy).toHaveBeenCalledWith(
       join('/marketing/v1/recentlyViewed/products', id),
@@ -35,7 +29,7 @@ describe('deleteRecentlyViewedProduct', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ id });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

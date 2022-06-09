@@ -1,7 +1,7 @@
 import { getConfigurations } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getConfigurations.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getConfigurations', () => {
   const expectedConfig = undefined;
@@ -9,12 +9,7 @@ describe('getConfigurations', () => {
   const query = { tenantId: WHITELABEL_TENANT_ID };
   const spy = jest.spyOn(client, 'get');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response = {
@@ -48,14 +43,11 @@ describe('getConfigurations', () => {
       ],
     };
 
-    fixtures.success({
-      query,
-      response,
-    });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(getConfigurations(query)).resolves.toBe(response);
+    await expect(getConfigurations(query)).resolves.toStrictEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
       `/settings/v1/configurations?tenantId=${WHITELABEL_TENANT_ID}`,
@@ -64,7 +56,7 @@ describe('getConfigurations', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ query });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

@@ -1,30 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type {
-  GetSubscriptionPackagesQuery,
-  SubscriptionPackagesResult,
-} from '../types';
+import { rest, RestHandler } from 'msw';
+import type { SubscriptionPackagesResult } from '../types';
+
+const path = '/api/marketing/v1/subscriptionpackages';
 
 export default {
-  success: (params: {
-    query: GetSubscriptionPackagesQuery;
-    response: SubscriptionPackagesResult;
-  }): void => {
-    moxios.stubRequest(
-      join('/api/marketing/v1/subscriptionpackages', { query: params.query }),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { query: GetSubscriptionPackagesQuery }): void => {
-    moxios.stubRequest(
-      join('/api/marketing/v1/subscriptionpackages', { query: params.query }),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: SubscriptionPackagesResult): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

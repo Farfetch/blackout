@@ -1,27 +1,22 @@
 import { getSubscriptions } from '..';
 import { mockGetSubscriptions } from 'tests/__fixtures__/subscriptions';
 import client from '../../helpers/client';
+import fixtures from '../__fixtures__/getSubscriptions.fixtures';
 import join from 'proper-url-join';
-import moxios from 'moxios';
-import moxiosFixtures from '../__fixtures__/getSubscriptions.fixtures';
+import mswServer from '../../../tests/mswServer';
 
 describe('getSubscriptions', () => {
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'get');
 
-  beforeEach(() => {
-    moxios.install(client);
-  });
-
-  afterEach(() => moxios.uninstall(client));
-
   it('should handle a client request successfully', async () => {
     const response = [{ ...mockGetSubscriptions.response }];
-    moxiosFixtures.success({ query: mockGetSubscriptions.query, response });
 
-    await expect(getSubscriptions(mockGetSubscriptions.query)).resolves.toBe(
-      response,
-    );
+    mswServer.use(fixtures.success(response));
+
+    await expect(
+      getSubscriptions(mockGetSubscriptions.query),
+    ).resolves.toStrictEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
       join('/marketing/v1/subscriptions', {
@@ -32,7 +27,7 @@ describe('getSubscriptions', () => {
   });
 
   it('should receive a client request error', async () => {
-    moxiosFixtures.failure({ query: mockGetSubscriptions.query });
+    mswServer.use(fixtures.failure());
 
     await expect(
       getSubscriptions(mockGetSubscriptions.query),

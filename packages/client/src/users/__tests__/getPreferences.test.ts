@@ -1,7 +1,7 @@
 import * as usersClient from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getPreferences.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getPreferences', () => {
   const expectedConfig = undefined;
@@ -17,19 +17,14 @@ describe('getPreferences', () => {
     },
   ];
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    fixtures.success({ response, userId: mockUserId });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(usersClient.getPreferences(mockUserId)).resolves.toBe(
+    await expect(usersClient.getPreferences(mockUserId)).resolves.toStrictEqual(
       response,
     );
     expect(spy).toHaveBeenCalledWith(
@@ -39,13 +34,13 @@ describe('getPreferences', () => {
   });
 
   it('should filter by code and handle a client request successfully', async () => {
-    fixtures.success({ response, userId: mockUserId, code: mockCode });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
     await expect(
       usersClient.getPreferences(mockUserId, mockCode),
-    ).resolves.toBe(response);
+    ).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${mockUserId}/preferences?code=${mockCode}`,
       expectedConfig,
@@ -53,7 +48,7 @@ describe('getPreferences', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ userId: mockUserId });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 
@@ -67,7 +62,7 @@ describe('getPreferences', () => {
   });
 
   it('should receive a client request error when filtered by code', async () => {
-    fixtures.failure({ userId: mockUserId, code: mockCode });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

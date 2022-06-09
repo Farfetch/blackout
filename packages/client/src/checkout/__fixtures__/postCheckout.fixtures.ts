@@ -1,20 +1,15 @@
-import { GetCheckoutResponse, PostCheckoutData } from '../types';
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
+import type { GetCheckoutResponse } from '../types';
+
+const path = '/api/checkout/v1/orders';
 
 export default {
-  success: (params: {
-    data: PostCheckoutData;
-    response: GetCheckoutResponse;
-  }): void => {
-    moxios.stubRequest('/api/checkout/v1/orders', {
-      response: params.response,
-      status: 200,
-    });
-  },
-  failure: (): void => {
-    moxios.stubRequest('/api/checkout/v1/orders', {
-      response: 'stub error',
-      status: 404,
-    });
-  },
+  success: (response: GetCheckoutResponse): RestHandler =>
+    rest.post(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.post(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

@@ -1,7 +1,7 @@
 import { postUserImpersonation } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postUserImpersonation.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('postUserImpersonation', () => {
   const spy = jest.spyOn(client, 'post');
@@ -17,18 +17,13 @@ describe('postUserImpersonation', () => {
     refreshToken: '',
   };
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    fixtures.success({ response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
-    await expect(postUserImpersonation(data)).resolves.toBe(response);
+    await expect(postUserImpersonation(data)).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(
       '/authentication/v1/userImpersonations',
       data,
@@ -37,7 +32,7 @@ describe('postUserImpersonation', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure();
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
     await expect(postUserImpersonation(data)).rejects.toMatchSnapshot();

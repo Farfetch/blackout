@@ -1,7 +1,7 @@
 import * as usersClient from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postContact.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('postContact', () => {
   const expectedConfig = undefined;
@@ -18,12 +18,7 @@ describe('postContact', () => {
   const userId = 123456;
   const spy = jest.spyOn(client, 'post');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response = {
@@ -37,11 +32,13 @@ describe('postContact', () => {
       description: 'TEST',
     };
 
-    fixtures.success({ userId, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(usersClient.postContact(userId, data)).resolves.toBe(response);
+    await expect(usersClient.postContact(userId, data)).resolves.toStrictEqual(
+      response,
+    );
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/contacts`,
       data,
@@ -50,7 +47,7 @@ describe('postContact', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ userId });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

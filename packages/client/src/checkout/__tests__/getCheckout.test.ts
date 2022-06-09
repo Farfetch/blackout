@@ -1,20 +1,15 @@
 import * as checkoutClient from '..';
 import { GetCheckoutResponse, OrderStatusError } from '../types';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/getCheckout.fixtures';
-import moxios from 'moxios';
+import fixtures from '../__fixtures__/getCheckout.fixtures';
+import mswServer from '../../../tests/mswServer';
 
 describe('checkout client', () => {
   const id = 123456;
   const expectedConfig = undefined;
   const query = {};
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   describe('getCheckout', () => {
     const spy = jest.spyOn(client, 'get');
@@ -25,19 +20,20 @@ describe('checkout client', () => {
         id: 123,
         orderStatus: OrderStatusError.NoError,
       };
-      fixture.success({ id, response, query });
+      mswServer.use(fixtures.success(response));
 
       expect.assertions(2);
-      await expect(checkoutClient.getCheckout(id, query)).resolves.toBe(
-        response,
-      );
+      await expect(
+        checkoutClient.getCheckout(id, query),
+      ).resolves.toStrictEqual(response);
       expect(spy).toHaveBeenCalledWith(urlToBeCalled, expectedConfig);
     });
 
     it('should receive a client request error', async () => {
-      fixture.failure({ id, query });
+      mswServer.use(fixtures.failure());
 
       expect.assertions(2);
+
       await expect(
         checkoutClient.getCheckout(id, query),
       ).rejects.toMatchSnapshot();

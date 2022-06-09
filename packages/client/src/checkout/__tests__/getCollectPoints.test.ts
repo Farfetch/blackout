@@ -1,19 +1,14 @@
 import * as checkoutClient from '..';
 import { CollectPoint, Weekday } from '../types';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/getCollectPoints.fixtures';
-import moxios from 'moxios';
+import fixtures from '../__fixtures__/getCollectPoints.fixtures';
+import mswServer from '../../../tests/mswServer';
 
 describe('checkout client', () => {
   const id = 123456;
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   describe('getCollectPoints', () => {
     const spy = jest.spyOn(client, 'get');
@@ -82,17 +77,17 @@ describe('checkout client', () => {
         ],
       };
 
-      fixture.success({ response, query });
+      mswServer.use(fixtures.success(response));
 
       expect.assertions(2);
-      await expect(checkoutClient.getCollectPoints(query)).resolves.toBe(
-        response,
-      );
+      await expect(
+        checkoutClient.getCollectPoints(query),
+      ).resolves.toStrictEqual(response);
       expect(spy).toHaveBeenCalledWith(urlToBeCalled, expectedConfig);
     });
 
     it('should receive a client request error', async () => {
-      fixture.failure({ query });
+      mswServer.use(fixtures.failure());
 
       await expect(
         checkoutClient.getCollectPoints(query),

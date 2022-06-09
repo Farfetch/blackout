@@ -1,24 +1,15 @@
-import { CollectPoint, Query } from '../types';
-import join from 'proper-url-join';
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
+import type { CollectPoint } from '../types';
+
+const path = '/api/checkout/v1/collectpoints';
 
 export default {
-  success: (params: { query: Query; response: CollectPoint }): void => {
-    moxios.stubRequest(
-      join('/api/checkout/v1/collectpoints', { query: params.query }),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { query: Query }): void => {
-    moxios.stubRequest(
-      join('/api/checkout/v1/collectpoints', { query: params.query }),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: CollectPoint): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

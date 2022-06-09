@@ -5,7 +5,7 @@ import {
 import { putDefaultPersonalId } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/putDefaultPersonalId.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('putDefaultPersonalId', () => {
   const expectedConfig = {
@@ -18,23 +18,18 @@ describe('putDefaultPersonalId', () => {
   };
   const spy = jest.spyOn(client, 'put');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response = mockPutDefaultPersonalIdResponse;
 
-    fixtures.success({ userId, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(putDefaultPersonalId(userId, data, config)).resolves.toBe(
-      response,
-    );
+    await expect(
+      putDefaultPersonalId(userId, data, config),
+    ).resolves.toStrictEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/personalIds/default`,
@@ -44,7 +39,7 @@ describe('putDefaultPersonalId', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ userId });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
     await expect(

@@ -1,7 +1,7 @@
 import { postCheckCreditBalance } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postCreditBalance.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 import type { Balance } from '../types';
 
 describe('postCheckCreditBalance', () => {
@@ -10,12 +10,7 @@ describe('postCheckCreditBalance', () => {
   const spy = jest.spyOn(client, 'post');
   const urlToBeCalled = '/payment/v1/checkCreditBalance';
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response: Balance = {
@@ -23,17 +18,17 @@ describe('postCheckCreditBalance', () => {
       value: 0,
     };
 
-    fixtures.success({ response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(postCheckCreditBalance(data)).resolves.toBe(response);
+    await expect(postCheckCreditBalance(data)).resolves.toStrictEqual(response);
 
     expect(spy).toHaveBeenCalledWith(urlToBeCalled, data, expectedConfig);
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure();
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

@@ -1,6 +1,6 @@
 import { patchCheckoutOrderItem } from '..';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/patchCheckoutOrderItem.fixture';
+import fixtures from '../__fixtures__/patchCheckoutOrderItem.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('checkout client', () => {
@@ -19,7 +19,7 @@ describe('checkout client', () => {
     const getSpy = jest.spyOn(client, 'patch');
 
     it('should handle a client request successfully', async () => {
-      mswServer.use(fixture.success());
+      mswServer.use(fixtures.success());
 
       await expect(
         patchCheckoutOrderItem(checkoutOrderId, itemId, data),
@@ -28,7 +28,7 @@ describe('checkout client', () => {
     });
 
     it('should receive a client request error', async () => {
-      mswServer.use(fixture.failure());
+      mswServer.use(fixtures.failure());
 
       expect.assertions(2);
       await expect(

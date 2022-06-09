@@ -1,30 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { GetPredictionsQuery, Prediction } from '../types';
+import { rest, RestHandler } from 'msw';
+import type { Prediction } from '../types';
 
-const getReqUrl = (params: {
-  text: string;
-  query?: GetPredictionsQuery;
-}): string =>
-  join('/api/account/v1/addressesprediction/', params.text, {
-    query: params.query,
-  });
+const path = '/api/account/v1/addressesprediction/:text';
 
 export default {
-  success: (params: {
-    text: string;
-    query?: GetPredictionsQuery;
-    response: Prediction[];
-  }): void => {
-    moxios.stubRequest(getReqUrl(params), {
-      response: params.response,
-      status: 200,
-    });
-  },
-  failure: (params: { text: string; query: GetPredictionsQuery }): void => {
-    moxios.stubRequest(getReqUrl(params), {
-      response: 'stub error',
-      status: 404,
-    });
-  },
+  success: (response: Prediction[]): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

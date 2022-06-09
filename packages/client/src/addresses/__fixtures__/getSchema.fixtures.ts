@@ -1,23 +1,15 @@
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
 import type { Schema } from '../types';
 
+const path = '/api/account/v1/countries/:isoCode/addressSchemas';
+
 export default {
-  success: (params: { isoCode: string; response: Schema }): void => {
-    moxios.stubRequest(
-      `/api/account/v1/countries/${params.isoCode}/addressSchemas`,
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { isoCode: string }): void => {
-    moxios.stubRequest(
-      `/api/account/v1/countries/${params.isoCode}/addressSchemas`,
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: Schema): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

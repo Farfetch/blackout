@@ -1,27 +1,12 @@
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
 
-type ParamsData = {
-  data: {
-    userId: number;
-  };
-};
+const path = '/api/account/v1/users/:userId/passwordchange';
 
 export default {
-  success: (params: ParamsData): void => {
-    moxios.stubRequest(
-      `/api/account/v1/users/${params.data.userId}/passwordchange`,
-      {
-        status: 200,
-      },
-    );
-  },
-  failure: (params: ParamsData): void => {
-    moxios.stubRequest(
-      `/api/account/v1/users/${params.data.userId}/passwordchange`,
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (): RestHandler =>
+    rest.post(path, async (_req, res, ctx) => res(ctx.status(200))),
+  failure: (): RestHandler =>
+    rest.post(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

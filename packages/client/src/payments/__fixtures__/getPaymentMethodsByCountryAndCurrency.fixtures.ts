@@ -1,17 +1,15 @@
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
 import type { PaymentMethods } from '../types';
 
+const path = '/api/payment/v1/paymentmethods';
+
 export default {
-  success: (params: { response: PaymentMethods }): void => {
-    moxios.stubRequest('/api/payment/v1/paymentmethods', {
-      response: params.response,
-      status: 200,
-    });
-  },
-  failure: (): void => {
-    moxios.stubRequest('/api/payment/v1/paymentmethods', {
-      response: 'stub error',
-      status: 404,
-    });
-  },
+  success: (response: PaymentMethods): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

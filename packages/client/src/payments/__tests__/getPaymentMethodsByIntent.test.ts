@@ -1,7 +1,7 @@
 import { getPaymentMethodsByIntent } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getPaymentMethodsByIntent.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 import type { PaymentMethod } from '../types';
 
 describe('getPaymentMethodsByIntent', () => {
@@ -10,12 +10,7 @@ describe('getPaymentMethodsByIntent', () => {
   const spy = jest.spyOn(client, 'get');
   const urlToBeCalled = `/payment/v1/intents/${id}/paymentmethods`;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response: PaymentMethod = {
@@ -40,16 +35,18 @@ describe('getPaymentMethodsByIntent', () => {
       },
     };
 
-    fixtures.success({ id, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(getPaymentMethodsByIntent(id)).resolves.toBe(response);
+    await expect(getPaymentMethodsByIntent(id)).resolves.toStrictEqual(
+      response,
+    );
     expect(spy).toHaveBeenCalledWith(urlToBeCalled, expectedConfig);
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ id });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

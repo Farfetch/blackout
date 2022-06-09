@@ -2,7 +2,7 @@ import { getPaymentTokens } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getPaymentTokens.fixtures';
 import join from 'proper-url-join';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 import type {
   GetPaymentTokensQuery,
   PaymentToken,
@@ -15,12 +15,7 @@ describe('getPaymentTokens', () => {
   const spy = jest.spyOn(client, 'get');
   const expectedUrl = join('/payment/v1/tokens', { query });
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const paymentToken: PaymentToken = {
@@ -81,16 +76,16 @@ describe('getPaymentTokens', () => {
 
     const response: PaymentTokens = [paymentToken, paymentToken];
 
-    fixtures.success({ query, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(getPaymentTokens(query)).resolves.toBe(response);
+    await expect(getPaymentTokens(query)).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(expectedUrl, expectedConfig);
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ query });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

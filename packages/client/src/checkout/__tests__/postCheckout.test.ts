@@ -6,8 +6,8 @@ import {
   ShippingMode,
 } from '../types';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/postCheckout.fixtures';
-import moxios from 'moxios';
+import fixtures from '../__fixtures__/postCheckout.fixtures';
+import mswServer from '../../../tests/mswServer';
 
 describe('checkout client', () => {
   const data: PostCheckoutData = {
@@ -18,12 +18,7 @@ describe('checkout client', () => {
   };
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   describe('postCheckout', () => {
     const spy = jest.spyOn(client, 'post');
@@ -35,15 +30,17 @@ describe('checkout client', () => {
         orderStatus: OrderStatusError.NoError,
       };
 
-      fixture.success({ data, response });
+      mswServer.use(fixtures.success(response));
 
       expect.assertions(2);
-      await expect(checkoutClient.postCheckout(data)).resolves.toBe(response);
+      await expect(checkoutClient.postCheckout(data)).resolves.toStrictEqual(
+        response,
+      );
       expect(spy).toHaveBeenCalledWith(urlToBeCalled, data, expectedConfig);
     });
 
     it('should receive a client request error', async () => {
-      fixture.failure();
+      mswServer.use(fixtures.failure());
 
       expect.assertions(2);
       await expect(checkoutClient.postCheckout(data)).rejects.toMatchSnapshot();

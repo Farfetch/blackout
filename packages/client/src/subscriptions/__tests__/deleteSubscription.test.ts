@@ -1,29 +1,20 @@
 import { deleteSubscription } from '..';
 import { mockDeleteSubscription } from 'tests/__fixtures__/subscriptions';
 import client from '../../helpers/client';
+import fixtures from '../__fixtures__/deleteSubscription.fixtures';
 import join from 'proper-url-join';
-import moxios from 'moxios';
-import moxiosFixtures from '../__fixtures__/deleteSubscription.fixtures';
+import mswServer from '../../../tests/mswServer';
 
 describe('deleteSubscription', () => {
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'delete');
 
-  beforeEach(() => {
-    moxios.install(client);
-  });
-
-  afterEach(() => moxios.uninstall(client));
-
   it('should handle a client request successfully', async () => {
-    moxiosFixtures.success({
-      query: mockDeleteSubscription.query,
-      response: mockDeleteSubscription.response,
-    });
+    mswServer.use(fixtures.success(mockDeleteSubscription.response));
 
     await expect(
       deleteSubscription(mockDeleteSubscription.query),
-    ).resolves.toBe(mockDeleteSubscription.response);
+    ).resolves.toStrictEqual(mockDeleteSubscription.response);
 
     expect(spy).toHaveBeenCalledWith(
       join('/marketing/v1/subscriptions', {
@@ -34,7 +25,7 @@ describe('deleteSubscription', () => {
   });
 
   it('should receive a client request error', async () => {
-    moxiosFixtures.failure(mockDeleteSubscription);
+    mswServer.use(fixtures.failure());
 
     await expect(
       deleteSubscription(mockDeleteSubscription.query),

@@ -4,9 +4,9 @@ import {
 } from 'tests/__fixtures__/returns';
 import { postReturnPickupRescheduleRequest } from '..';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/postReturnPickupRescheduleRequest.fixtures';
+import fixtures from '../__fixtures__/postReturnPickupRescheduleRequest.fixtures';
 import join from 'proper-url-join';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('postReturnPickupRescheduleRequests()', () => {
   const data = mockPickupReschedulePostData;
@@ -14,17 +14,12 @@ describe('postReturnPickupRescheduleRequests()', () => {
   const expectedConfig = undefined;
   const id = '123456';
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response = responses.postReturnPickupRescheduleRequests.success;
 
-    fixture.success({ id, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
@@ -40,7 +35,7 @@ describe('postReturnPickupRescheduleRequests()', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixture.failure({ id });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

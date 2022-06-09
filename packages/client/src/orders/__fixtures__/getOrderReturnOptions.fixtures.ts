@@ -1,23 +1,14 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
+
+const path = '/api/legacy/v1/orders/:id/returnoptions';
 
 export default {
-  success: (params: { id: string; response: any }): void => {
-    moxios.stubRequest(
-      join('/api/legacy/v1/orders', params.id, 'returnoptions'),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { id: string }): void => {
-    moxios.stubRequest(
-      join('/api/legacy/v1/orders', params.id, 'returnoptions'),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: any): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

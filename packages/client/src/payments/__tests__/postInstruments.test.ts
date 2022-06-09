@@ -11,7 +11,7 @@ import {
 import { postInstruments } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postInstruments.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('postInstruments', () => {
   const id = '123456';
@@ -94,20 +94,15 @@ describe('postInstruments', () => {
   const spy = jest.spyOn(client, 'post');
   const urlToBeCalled = `/payment/v1/intents/${id}/instruments`;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response: PostInstrumentsResponse = {
       data: {},
-      headers: { location: '' },
+      headers: { location: 'https://somelocation.com' },
     };
 
-    fixtures.success({ id, data, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
@@ -117,7 +112,7 @@ describe('postInstruments', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ id, data });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

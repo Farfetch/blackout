@@ -1,27 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
 import type { DefaultPersonalIdResponse } from '../types';
 
+const path = '/api/account/v1/users/:userId/personalids/default';
+
 export default {
-  success: (params: {
-    userId: number;
-    response: DefaultPersonalIdResponse;
-  }): void => {
-    moxios.stubRequest(
-      join('/api/account/v1/users', params.userId, '/personalids/default'),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { userId: number }): void => {
-    moxios.stubRequest(
-      join('/api/account/v1/users', params.userId, '/personalids/default'),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: DefaultPersonalIdResponse): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };
