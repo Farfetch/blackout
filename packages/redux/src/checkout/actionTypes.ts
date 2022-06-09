@@ -168,6 +168,38 @@ export const FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_SUCCESS =
   '@farfetch/blackout-redux/FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_SUCCESS';
 
 /**
+ * Action type dispatched when the fetch order operation request fails.
+ */
+export const FETCH_CHECKOUT_ORDER_OPERATION_FAILURE =
+  '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_OPERATION_FAILURE';
+/**
+ * Action type dispatched when the fetch order operation request starts.
+ */
+export const FETCH_CHECKOUT_ORDER_OPERATION_REQUEST =
+  '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_OPERATION_REQUEST';
+/**
+ * Action type dispatched when the fetch order operation request succeeds.
+ */
+export const FETCH_CHECKOUT_ORDER_OPERATION_SUCCESS =
+  '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_OPERATION_SUCCESS';
+
+/**
+ * Action type dispatched when the fetch order operations request fails.
+ */
+export const FETCH_CHECKOUT_ORDER_OPERATIONS_FAILURE =
+  '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_OPERATIONS_FAILURE';
+/**
+ * Action type dispatched when the fetch order operations request starts.
+ */
+export const FETCH_CHECKOUT_ORDER_OPERATIONS_REQUEST =
+  '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_OPERATIONS_REQUEST';
+/**
+ * Action type dispatched when the fetch order operations request succeeds.
+ */
+export const FETCH_CHECKOUT_ORDER_OPERATIONS_SUCCESS =
+  '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_OPERATIONS_SUCCESS';
+
+/**
  * Action type dispatched when the set item tags request fails.
  */
 export const SET_ITEM_TAGS_FAILURE =

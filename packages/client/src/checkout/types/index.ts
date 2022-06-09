@@ -15,6 +15,8 @@ export * from './getDeliveryBundleUpgrades.types';
 export * from './getDeliveryBundleUpgradesResponse.types';
 export * from './getItemDeliveryProvisioning.types';
 export * from './getItemDeliveryProvisioningResponse.types';
+export * from './getOperation.types';
+export * from './getOperations.types';
 export * from './getUpgradeItemDeliveryProvisioning.types';
 export * from './item.types';
 export * from './itemDeliveryProvisioning.types';

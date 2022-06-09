@@ -7,6 +7,7 @@ import type {
   CheckoutEntity,
   CheckoutOrderEntity,
   CheckoutOrderItemEntity,
+  CheckoutOrderOperationEntity,
   CitiesEntity,
   ContentsEntity,
   ConvertEntity,
@@ -77,6 +78,7 @@ export type StoreState = Partial<{
       CheckoutOrderItemEntity['id'],
       CheckoutOrderItemEntity
     >;
+    checkoutOrderOperations: Record<string, CheckoutOrderOperationEntity>;
     checkoutOrders: Record<CheckoutOrderEntity['id'], CheckoutOrderEntity>;
     cities: Record<string, CitiesEntity>;
     contents: Record<string, ContentsEntity>;

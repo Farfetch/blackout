@@ -12,9 +12,11 @@ import {
   deliveryBundleUpgradesEntity,
   itemId1,
   mockCheckoutState,
+  operation,
   productId,
   shippingOption,
 } from 'tests/__fixtures__/checkout';
+import type { StoreState } from '@farfetch/blackout-redux/types';
 
 describe('checkout redux selectors', () => {
   beforeEach(jest.clearAllMocks);
@@ -535,6 +537,64 @@ describe('checkout redux selectors', () => {
 
         expect(selectors[selectorName](mockCheckoutState)).toBe(expectedResult);
       });
+    });
+  });
+
+  describe('operation selectors', () => {
+    let state: { checkout: Partial<StoreState['checkout']> };
+
+    beforeEach(() => {
+      state = {
+        checkout: {
+          operation: {
+            isLoading: true,
+            error: null,
+          },
+        },
+      };
+    });
+
+    it('should return loading status', () => {
+      expect(selectors.isOperationLoading(state as StoreState)).toBe(true);
+    });
+
+    it('should return error', () => {
+      expect(selectors.getOperationError(state as StoreState)).toBeNull();
+    });
+  });
+
+  describe('operations selectors', () => {
+    let state: { checkout: Partial<StoreState['checkout']> };
+
+    beforeEach(() => {
+      state = {
+        checkout: {
+          operations: {
+            isLoading: true,
+            error: null,
+            result: {
+              entries: [operation.id],
+              number: 2,
+              totalItems: 60,
+              totalPages: 3,
+            },
+          },
+        },
+      };
+    });
+
+    it('should return loading status', () => {
+      expect(selectors.isOperationsLoading(state as StoreState)).toBe(true);
+    });
+
+    it('should return error', () => {
+      expect(selectors.getOperationsError(state as StoreState)).toBeNull();
+    });
+
+    it('should return pagination object', () => {
+      expect(selectors.getOperationsPagination(state as StoreState)).toBe(
+        state.checkout?.operations?.result,
+      );
     });
   });
 });
