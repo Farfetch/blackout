@@ -1,6 +1,10 @@
 import * as actionTypes from './actionTypes';
 import { combineReducers } from 'redux';
-import { createMergedObject, reducerFactory } from '../helpers';
+import {
+  createMergedObject,
+  createReducerWithResult,
+  reducerFactory,
+} from '../helpers';
 import { LOGOUT_SUCCESS } from '../authentication/actionTypes';
 import assignWith from 'lodash/assignWith';
 import get from 'lodash/get';
@@ -82,6 +86,15 @@ export const INITIAL_STATE = {
   upgradeItemDeliveryProvisioning: {
     error: null,
     isLoading: false,
+  },
+  operation: {
+    error: null,
+    isLoading: false,
+  },
+  operations: {
+    error: null,
+    isLoading: false,
+    result: null,
   },
 };
 
@@ -306,34 +319,17 @@ export const entitiesMapper = {
       };
     },
   [actionTypes.UPDATE_CHECKOUT_SUCCESS as typeof actionTypes.UPDATE_CHECKOUT_SUCCESS]:
-    (
-      state: StoreState['entities'],
-      action: GenericCheckoutSuccessAction,
-    ): StoreState['entities'] => convertCheckoutOrder(state, action),
+    convertCheckoutOrder,
   [actionTypes.CREATE_CHECKOUT_SUCCESS as typeof actionTypes.CREATE_CHECKOUT_SUCCESS]:
-    (
-      state: StoreState['entities'],
-      action: GenericCheckoutSuccessAction,
-    ): StoreState['entities'] => convertCheckoutOrder(state, action),
+    convertCheckoutOrder,
   [actionTypes.SET_PROMOCODE_SUCCESS as typeof actionTypes.SET_PROMOCODE_SUCCESS]:
-    (
-      state: StoreState['entities'],
-      action: GenericCheckoutSuccessAction,
-    ): StoreState['entities'] => convertCheckoutOrder(state, action),
+    convertCheckoutOrder,
   [actionTypes.FETCH_CHECKOUT_SUCCESS as typeof actionTypes.FETCH_CHECKOUT_SUCCESS]:
-    (
-      state: StoreState['entities'],
-      action: GenericCheckoutSuccessAction,
-    ): StoreState['entities'] => convertCheckoutOrder(state, action),
+    convertCheckoutOrder,
   [actionTypes.SET_ITEM_TAGS_SUCCESS as typeof actionTypes.SET_ITEM_TAGS_SUCCESS]:
-    (
-      state: StoreState['entities'],
-      action: GenericCheckoutSuccessAction,
-    ): StoreState['entities'] => convertCheckoutOrder(state, action),
-  [actionTypes.SET_TAGS_SUCCESS as typeof actionTypes.SET_TAGS_SUCCESS]: (
-    state: StoreState['entities'],
-    action: GenericCheckoutSuccessAction,
-  ): StoreState['entities'] => convertCheckoutOrder(state, action),
+    convertCheckoutOrder,
+  [actionTypes.SET_TAGS_SUCCESS as typeof actionTypes.SET_TAGS_SUCCESS]:
+    convertCheckoutOrder,
   [actionTypes.RESET_CHECKOUT_STATE as typeof actionTypes.RESET_CHECKOUT_STATE]:
     (state: StoreState['entities']): StoreState['entities'] => {
       const {
@@ -512,6 +508,21 @@ export const upgradeItemDeliveryProvisioning = reducerFactory(
   true,
 );
 
+export const operation = reducerFactory(
+  'FETCH_CHECKOUT_ORDER_OPERATION',
+  INITIAL_STATE.operation,
+  actionTypes,
+  true,
+);
+
+export const operations = createReducerWithResult(
+  'FETCH_CHECKOUT_ORDER_OPERATIONS',
+  INITIAL_STATE.operations,
+  actionTypes,
+  true,
+  true,
+);
+
 export const getError = (state: State): State['error'] => state.error;
 export const getId = (state: State): State['id'] => state.id;
 export const getIsLoading = (state: State): State['isLoading'] =>
@@ -541,6 +552,10 @@ export const getUpgradeItemDeliveryProvisioning = (
   state: State,
 ): State['upgradeItemDeliveryProvisioning'] =>
   state.upgradeItemDeliveryProvisioning;
+export const getOperation = (state: State): State['operation'] =>
+  state.operation;
+export const getOperations = (state: State): State['operations'] =>
+  state.operations;
 
 /**
  * Reducer for checkout state.
@@ -565,4 +580,6 @@ export default combineReducers({
   deliveryBundleUpgrades,
   itemDeliveryProvisioning,
   upgradeItemDeliveryProvisioning,
+  operation,
+  operations,
 });

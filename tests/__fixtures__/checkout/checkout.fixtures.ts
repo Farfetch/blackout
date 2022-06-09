@@ -439,6 +439,56 @@ export const mockDeliveryBundleUpgradesResponse = {
   },
 };
 
+export const operation = {
+  id: 'ee8d4602-e0cf-11ec-85eb-74d29fa32cbf',
+  createdDate: '2022-05-31T10:53:40.6730754Z',
+  changes: [
+    {
+      changeType: 'ItemDiscountChanged',
+      currency: 'GBP',
+      oldValue: '0',
+      newValue: '0.96',
+    },
+    {
+      changeType: 'TotalDiscountChanged',
+      currency: 'GBP',
+      oldValue: '0',
+      newValue: '1.92',
+    },
+  ],
+  violations: [],
+};
+
+export const mockGetOperationsResponse = {
+  number: 1,
+  totalPages: 1,
+  totalItems: 1,
+  entries: [operation],
+};
+
+export const mockGetOperationActionPayload = {
+  entities: {
+    checkoutOrderOperations: {
+      [operation.id]: operation,
+    },
+  },
+  result: operation.id,
+};
+
+export const mockGetOperationsActionPayload = {
+  entities: {
+    checkoutOrderOperations: {
+      [operation.id]: operation,
+    },
+  },
+  result: {
+    number: 1,
+    totalPages: 1,
+    totalItems: 1,
+    entries: [operation.id],
+  },
+};
+
 export const expectedNormalizedPayload = {
   entities: {
     checkout: {

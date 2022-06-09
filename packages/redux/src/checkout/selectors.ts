@@ -10,6 +10,8 @@ import {
   getIsLoading,
   getItemDeliveryProvisioning,
   getItemTags,
+  getOperation,
+  getOperations,
   getCharges as getPaidOrders,
   getPromoCode,
   getTags,
@@ -691,3 +693,70 @@ export const getBundleDeliveryWindow = (
     ),
   };
 };
+
+/**
+ * Returns the loading status for the order operation fetch process.
+ *
+ * @param state - Application state.
+ *
+ * @returns Order operation fetch process loading status.
+ */
+export const isOperationLoading = (state: StoreState): boolean =>
+  getOperation(state.checkout).isLoading;
+
+/**
+ * Returns the order operation error.
+ *
+ * @param state - Application state.
+ *
+ * @returns Order operation error.
+ */
+export const getOperationError = (state: StoreState): Error | null =>
+  getOperation(state.checkout).error;
+
+/**
+ * Returns the loading status for the order operations fetch process.
+ *
+ * @param state - Application state.
+ *
+ * @returns Order operation fetch process loading status.
+ */
+export const isOperationsLoading = (state: StoreState): boolean =>
+  getOperations(state.checkout).isLoading;
+
+/**
+ * Returns the order operations error.
+ *
+ * @function
+ *
+ * @param state - Application state.
+ *
+ * @returns Order operation error.
+ */
+export const getOperationsError = (state: StoreState): Error | null =>
+  getOperations(state.checkout).error;
+
+/**
+ * Retrieves pagination information of order operations.
+ *
+ * @param state - Application state.
+ *
+ * @returns Pagination object.
+ *
+ * @example
+ * // Object returned for the orders
+ * {
+ *     number: 1, // Current page
+ *     totalItems: 89, // Total of orders
+ *     totalPages: 5 // Total of pages
+ *     entries: ['ee8d4602-e0cf-11ec-85eb-74d29fa32cbf']
+ * };
+ *
+ */
+export const getOperationsPagination = createSelector(
+  [state => getOperations(state.checkout)],
+  operations => {
+    if (!operations || !operations.result) return;
+    return operations.result;
+  },
+);

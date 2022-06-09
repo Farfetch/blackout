@@ -2,16 +2,17 @@ import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { CombinedState } from 'redux';
 import type { GetChargesResponse } from '@farfetch/blackout-client/checkout/types';
 import type { Nullable } from '../../types';
+import type { OperationsSuccessResult } from './actions.types';
 
 export interface StateWithoutResult {
   error: Nullable<BlackoutError>;
   isLoading: boolean;
 }
 
-export interface StateWithResult {
+export interface StateWithResult<T> {
   error: Nullable<BlackoutError>;
   isLoading: boolean;
-  result: GetChargesResponse | string | null;
+  result: T | null;
 }
 
 export type State = CombinedState<{
@@ -27,6 +28,8 @@ export type State = CombinedState<{
   giftMessage: StateWithoutResult;
   itemDeliveryProvisioning: StateWithoutResult;
   upgradeItemDeliveryProvisioning: StateWithoutResult;
-  charges: StateWithResult;
-  deliveryBundleUpgrades: StateWithResult;
+  charges: StateWithResult<GetChargesResponse>;
+  deliveryBundleUpgrades: StateWithResult<string>;
+  operation: StateWithoutResult;
+  operations: StateWithResult<OperationsSuccessResult>;
 }>;
