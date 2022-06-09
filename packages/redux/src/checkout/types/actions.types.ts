@@ -1,4 +1,4 @@
-import type * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
 import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type {
@@ -12,6 +12,7 @@ import type {
 import type {
   GetChargesResponse,
   GetItemDeliveryProvisioningResponse,
+  GetOperationsResponse,
 } from '@farfetch/blackout-client/checkout/types';
 import type { LOGOUT_SUCCESS } from '../../authentication/actionTypes';
 import type { NormalizedSchema } from 'normalizr';
@@ -230,3 +231,12 @@ export interface FetchCollectPointsSuccessAction extends Action {
   meta: { id: number };
   payload: Payload;
 }
+
+// Checkout Operations Actions
+export type OperationsSuccessResult = Omit<GetOperationsResponse, 'entries'> & {
+  /**
+   * Operation ids in the page of the response. Pages have between 1 and 180 items,
+   * typically depending on the parameter pageSize. By default, pages have 60 items.
+   */
+  entries: string[];
+};

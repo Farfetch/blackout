@@ -8,6 +8,7 @@ export * from './checkout.types';
 export * from './checkoutDetails.types';
 export * from './checkoutOrder.types';
 export * from './checkoutOrderItem.types';
+export * from './checkoutOrderOperation.types';
 export * from './cities.types';
 export * from './contents.types';
 export * from './convert.types';

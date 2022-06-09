@@ -1,8 +1,13 @@
 import * as fromReducer from '../reducer';
 import { LOGOUT_SUCCESS } from '@farfetch/blackout-redux/authentication/actionTypes';
+import {
+  mockGetOperationActionPayload,
+  mockGetOperationsActionPayload,
+} from 'tests/__fixtures__/checkout';
 import reducer, { actionTypes, entitiesMapper } from '..';
+import type { State } from '../types';
 
-let initialState;
+let initialState: State;
 
 describe('checkout reducer', () => {
   beforeEach(() => {
@@ -487,6 +492,73 @@ describe('checkout reducer', () => {
         isLoading: false,
         result: mockResult.result,
       });
+    });
+  });
+
+  describe('operation() reducer', () => {
+    it('should handle @farfetch/blackout-client/FETCH_CHECKOUT_ORDER_OPERATION_REQUEST action', () => {
+      const action = {
+        type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATION_REQUEST,
+      };
+      const state = reducer(undefined, action);
+      expect(state.operation.isLoading).toBe(true);
+      expect(state.operation.error).toBeNull();
+    });
+
+    it('should handle @farfetch/blackout-client/FETCH_CHECKOUT_ORDER_OPERATION_FAILURE action', () => {
+      const action = {
+        type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATION_FAILURE,
+        payload: {
+          error: 'error',
+        },
+      };
+      const state = reducer(undefined, action);
+      expect(state.operation.isLoading).toBe(false);
+      expect(state.operation.error).toBe(action.payload.error);
+    });
+
+    it('should handle @farfetch/blackout-client/FETCH_CHECKOUT_ORDER_OPERATION_SUCCESS action', () => {
+      const action = {
+        type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATION_SUCCESS,
+        payload: mockGetOperationActionPayload,
+      };
+      const state = reducer(undefined, action);
+      expect(state.operation.isLoading).toBe(false);
+      expect(state.operation.error).toBeNull();
+    });
+  });
+
+  describe('operations() reducer', () => {
+    it('should handle @farfetch/blackout-client/FETCH_CHECKOUT_ORDER_OPERATIONS_REQUEST action', () => {
+      const action = {
+        type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATIONS_REQUEST,
+      };
+      const state = reducer(undefined, action);
+      expect(state.operations.isLoading).toBe(true);
+      expect(state.operations.error).toBeNull();
+    });
+
+    it('should handle @farfetch/blackout-client/FETCH_CHECKOUT_ORDER_OPERATIONS_FAILURE action', () => {
+      const action = {
+        type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATIONS_FAILURE,
+        payload: {
+          error: 'error',
+        },
+      };
+      const state = reducer(undefined, action);
+      expect(state.operations.isLoading).toBe(false);
+      expect(state.operations.error).toBe(action.payload.error);
+    });
+
+    it('should handle @farfetch/blackout-client/FETCH_CHECKOUT_ORDER_OPERATIONS_SUCCESS action', () => {
+      const action = {
+        type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATIONS_SUCCESS,
+        payload: mockGetOperationsActionPayload,
+      };
+      const state = reducer(undefined, action);
+      expect(state.operations.isLoading).toBe(false);
+      expect(state.operations.error).toBeNull();
+      expect(state.operations.result).toBe(action.payload.result);
     });
   });
 
