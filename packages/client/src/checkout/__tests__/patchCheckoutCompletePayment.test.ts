@@ -1,8 +1,8 @@
 import * as checkoutClient from '..';
-import { PatchCheckoutCompletePaymentData } from '../types';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/patchCheckoutCompletePayment.fixtures';
-import moxios from 'moxios';
+import fixtures from '../__fixtures__/patchCheckoutCompletePayment.fixtures';
+import mswServer from '../../../tests/mswServer';
+import type { PatchCheckoutCompletePaymentData } from '../types';
 
 describe('checkout client', () => {
   const id = '123456';
@@ -13,12 +13,7 @@ describe('checkout client', () => {
   };
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   describe('patchCheckoutCompletePayment', () => {
     const spy = jest.spyOn(client, 'patch');
@@ -26,13 +21,13 @@ describe('checkout client', () => {
     it('should handle a client request successfully', async () => {
       const response = {};
 
-      fixture.success({ id, data, response });
+      mswServer.use(fixtures.success(response));
 
       expect.assertions(2);
 
       await expect(
         checkoutClient.patchCheckoutCompletePayment(id, data),
-      ).resolves.toBe(response);
+      ).resolves.toStrictEqual(response);
       expect(spy).toHaveBeenCalledWith(
         `/payment/v1/payments/${id}`,
         data,
@@ -41,7 +36,7 @@ describe('checkout client', () => {
     });
 
     it('should receive a client request error', async () => {
-      fixture.failure({ id });
+      mswServer.use(fixtures.failure());
 
       expect.assertions(2);
 

@@ -1,52 +1,15 @@
-import moxios from 'moxios';
-import type { GetPredictionsQuery, Prediction } from '../types';
+import { rest, RestHandler } from 'msw';
+import type { Prediction } from '../types';
+
+const path = '/api/account/v1/addressesprediction/:predictionId/address';
 
 export default {
-  withQuery: {
-    success: (params: {
-      predictionId: string;
-      query?: GetPredictionsQuery;
-      response: Prediction;
-    }): void => {
-      moxios.stubRequest(
-        `/api/account/v1/addressesprediction/${params.predictionId}/address?sessionToken=${params?.query?.sessionToken}`,
-        {
-          response: params.response,
-          status: 200,
-        },
-      );
-    },
-    failure: (params: {
-      predictionId: string;
-      query?: GetPredictionsQuery;
-    }): void => {
-      moxios.stubRequest(
-        `/api/account/v1/addressesprediction/${params.predictionId}/address?sessionToken=${params?.query?.sessionToken}`,
-        {
-          response: 'stub error',
-          status: 404,
-        },
-      );
-    },
-  },
-  withoutQuery: {
-    success: (params: { predictionId: string; response: Prediction }): void => {
-      moxios.stubRequest(
-        `/api/account/v1/addressesprediction/${params?.predictionId}/address`,
-        {
-          response: params.response,
-          status: 200,
-        },
-      );
-    },
-    failure: (params: { predictionId: string }): void => {
-      moxios.stubRequest(
-        `/api/account/v1/addressesprediction/${params?.predictionId}/address`,
-        {
-          response: 'stub error',
-          status: 404,
-        },
-      );
-    },
-  },
+  success: (response: Prediction): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

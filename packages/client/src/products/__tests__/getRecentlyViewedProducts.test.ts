@@ -2,7 +2,7 @@ import { getRecentlyViewedProducts } from '../';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getRecentlyViewedProducts.fixtures';
 import join from 'proper-url-join';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 import type { RecentlyViewedProducts } from '../types';
 
 describe('getRecentlyViewedProducts', () => {
@@ -10,12 +10,7 @@ describe('getRecentlyViewedProducts', () => {
   const spy = jest.spyOn(client, 'get');
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response: RecentlyViewedProducts = {
@@ -25,14 +20,13 @@ describe('getRecentlyViewedProducts', () => {
       entries: [],
     };
 
-    fixtures.success({
-      response,
-      query,
-    });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(getRecentlyViewedProducts(query)).resolves.toBe(response);
+    await expect(getRecentlyViewedProducts(query)).resolves.toStrictEqual(
+      response,
+    );
 
     expect(spy).toHaveBeenCalledWith(
       join('/marketing/v1/recentlyViewed/products', { query }),
@@ -48,14 +42,11 @@ describe('getRecentlyViewedProducts', () => {
       entries: [],
     };
 
-    fixtures.success({
-      response,
-      query,
-    });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(getRecentlyViewedProducts()).resolves.toBe(response);
+    await expect(getRecentlyViewedProducts()).resolves.toStrictEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
       join('/marketing/v1/recentlyViewed/products', { query }),
@@ -63,12 +54,12 @@ describe('getRecentlyViewedProducts', () => {
     );
   });
 
-  it('should receive a client request error', () => {
-    fixtures.failure({ query });
+  it('should receive a client request error', async () => {
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 
-    expect(getRecentlyViewedProducts(query)).rejects.toMatchSnapshot();
+    await expect(getRecentlyViewedProducts(query)).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(
       join('/marketing/v1/recentlyViewed/products', { query }),

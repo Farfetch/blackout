@@ -1,8 +1,8 @@
 import * as checkoutClient from '..';
-import { PatchGiftMessageData } from '../types';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/patchGiftMessage.fixtures';
-import moxios from 'moxios';
+import fixtures from '../__fixtures__/patchGiftMessage.fixtures';
+import mswServer from '../../../tests/mswServer';
+import type { PatchGiftMessageData } from '../types';
 
 describe('checkout client', () => {
   const id = 123456;
@@ -44,12 +44,7 @@ describe('checkout client', () => {
     },
   ];
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   describe('patchGiftMessage', () => {
     const spy = jest.spyOn(client, 'patch');
@@ -58,19 +53,19 @@ describe('checkout client', () => {
     it('should handle a client request successfully', async () => {
       const response = 204;
 
-      fixture.success({ id, data });
+      mswServer.use(fixtures.success());
 
       expect.assertions(2);
 
-      await expect(checkoutClient.patchGiftMessage(id, data)).resolves.toBe(
-        response,
-      );
+      await expect(
+        checkoutClient.patchGiftMessage(id, data),
+      ).resolves.toStrictEqual(response);
 
       expect(spy).toHaveBeenCalledWith(urlToBeCalled, data, expectedConfig);
     });
 
     it('should receive a client request error', async () => {
-      fixture.failure({ id, data });
+      mswServer.use(fixtures.failure());
 
       expect.assertions(2);
 

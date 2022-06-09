@@ -6,16 +6,11 @@ import {
 } from 'tests/__fixtures__/loyalty';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getProgramMembershipStatements.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 const expectedConfig = undefined;
 
-beforeEach(() => {
-  moxios.install(client);
-  jest.clearAllMocks();
-});
-
-afterEach(() => moxios.uninstall(client));
+beforeEach(() => jest.clearAllMocks());
 
 describe('getProgramMembershipStatements', () => {
   const spy = jest.spyOn(client, 'get');
@@ -23,24 +18,19 @@ describe('getProgramMembershipStatements', () => {
   const query = { initialDate: '2017-07-20' };
 
   it('should handle a client request successfully', async () => {
-    fixtures.success({
-      programId,
-      membershipId,
-      query,
-      response: [mockResponseProgramMembershipStatement],
-    });
+    mswServer.use(fixtures.success([mockResponseProgramMembershipStatement]));
 
     expect.assertions(2);
     await expect(
       getProgramMembershipStatements(programId, membershipId, query),
-    ).resolves.toContain(mockResponseProgramMembershipStatement);
+    ).resolves.toContainEqual(mockResponseProgramMembershipStatement);
     expect(spy).toHaveBeenCalledWith(apiPath, expectedConfig);
   });
 
   it('should receive a client request error', async () => {
     const spy = jest.spyOn(client, 'get');
 
-    fixtures.failure({ programId, membershipId, query });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
     await expect(

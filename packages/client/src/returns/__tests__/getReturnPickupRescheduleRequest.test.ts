@@ -1,9 +1,9 @@
 import { getReturnPickupRescheduleRequest } from '..';
 import { responses } from 'tests/__fixtures__/returns';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/getReturnPickupRescheduleRequest.fixtures';
+import fixtures from '../__fixtures__/getReturnPickupRescheduleRequest.fixtures';
 import join from 'proper-url-join';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getReturnPickupRescheduleRequest', () => {
   const spy = jest.spyOn(client, 'get');
@@ -11,22 +11,17 @@ describe('getReturnPickupRescheduleRequest', () => {
   const rescheduleRequestId = '1654321';
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response = responses.getReturnPickupRescheduleRequest.success;
 
-    fixture.success({ id, rescheduleRequestId, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
     await expect(
       getReturnPickupRescheduleRequest(id, rescheduleRequestId),
-    ).resolves.toBe(response);
+    ).resolves.toStrictEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
       join(
@@ -37,7 +32,7 @@ describe('getReturnPickupRescheduleRequest', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixture.failure({ id, rescheduleRequestId });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
     await expect(

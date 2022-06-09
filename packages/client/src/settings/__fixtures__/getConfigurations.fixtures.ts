@@ -1,28 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { Configurations, Query } from '../types';
+import { rest, RestHandler } from 'msw';
+import type { Configurations } from '../types';
+
+const path = '/api/settings/v1/configurations';
 
 export default {
-  success: (params: { query: Query; response: Configurations }): void => {
-    moxios.stubRequest(
-      join('/api/settings/v1/configurations', {
-        query: params.query,
-      }),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { query: Query }): void => {
-    moxios.stubRequest(
-      join('/api/settings/v1/configurations', {
-        query: params.query,
-      }),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: Configurations): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

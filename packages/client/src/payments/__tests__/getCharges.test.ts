@@ -2,7 +2,7 @@ import { Charge, DeclineCode, GetChargesStatus } from '../types';
 import { getCharges } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCharges.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getCharges', () => {
   const id = '123456';
@@ -11,12 +11,7 @@ describe('getCharges', () => {
   const spy = jest.spyOn(client, 'get');
   const urlToBeCalled = `/payment/v1/intents/${id}/charges/${chargeId}`;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response: Charge = {
@@ -33,16 +28,16 @@ describe('getCharges', () => {
       ],
     };
 
-    fixtures.success({ id, chargeId, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
-    await expect(getCharges(id, chargeId)).resolves.toBe(response);
+    await expect(getCharges(id, chargeId)).resolves.toStrictEqual(response);
 
     expect(spy).toHaveBeenCalledWith(urlToBeCalled, expectedConfig);
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ id, chargeId });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

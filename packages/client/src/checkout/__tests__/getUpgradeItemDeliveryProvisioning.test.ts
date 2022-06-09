@@ -1,16 +1,11 @@
 import * as checkoutClient from '..';
-import { GetItemDeliveryProvisioningResponse } from '../types';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getUpgradeItemDeliveryProvisioning.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
+import type { GetItemDeliveryProvisioningResponse } from '../types';
 
 describe('getUpgradeItemDeliveryProvisioning', () => {
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   const spy = jest.spyOn(client, 'get');
   const id = 123456;
@@ -36,12 +31,7 @@ describe('getUpgradeItemDeliveryProvisioning', () => {
       },
     ];
 
-    fixtures.success({
-      id,
-      deliveryBundleId,
-      upgradeId,
-      response,
-    });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
     await expect(
@@ -50,16 +40,12 @@ describe('getUpgradeItemDeliveryProvisioning', () => {
         deliveryBundleId,
         upgradeId,
       ),
-    ).resolves.toBe(response);
+    ).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(urlToBeCalled, expectedConfig);
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({
-      id,
-      deliveryBundleId,
-      upgradeId,
-    });
+    mswServer.use(fixtures.failure());
 
     await expect(
       checkoutClient.getUpgradeItemDeliveryProvisioning(

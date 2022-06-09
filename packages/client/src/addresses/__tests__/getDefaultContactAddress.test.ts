@@ -1,8 +1,8 @@
 import { AddressType } from '../types';
 import { getDefaultContactAddress } from '..';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/getDefaultContactAddress.fixtures';
-import moxios from 'moxios';
+import fixtures from '../__fixtures__/getDefaultContactAddress.fixtures';
+import mswServer from '../../../tests/mswServer';
 
 describe('getDefaultContactAddress', () => {
   const userId = 123456;
@@ -45,23 +45,20 @@ describe('getDefaultContactAddress', () => {
     updatedDate: '2021-11-04T15:47:32.986Z',
   };
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    fixture.success({ userId, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
-    await expect(getDefaultContactAddress(userId)).resolves.toBe(response);
+    await expect(getDefaultContactAddress(userId)).resolves.toStrictEqual(
+      response,
+    );
     expect(spy).toHaveBeenCalledWith(expectedUrl, expectedConfig);
   });
 
   it('should receive a client request error', async () => {
-    fixture.failure({ userId });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

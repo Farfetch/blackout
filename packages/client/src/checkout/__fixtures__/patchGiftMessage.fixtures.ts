@@ -1,23 +1,12 @@
-import { CheckoutOrder, PatchGiftMessageData } from '../types';
-import join from 'proper-url-join';
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
+
+const path = '/api/checkout/v1/orders/:id/items';
 
 export default {
-  success: (params: {
-    id: CheckoutOrder['id'];
-    data: PatchGiftMessageData;
-  }): void => {
-    moxios.stubRequest(join('/api/checkout/v1/orders/', params.id, 'items'), {
-      status: 204,
-    });
-  },
-  failure: (params: {
-    id: CheckoutOrder['id'];
-    data: PatchGiftMessageData;
-  }): void => {
-    moxios.stubRequest(join('/api/checkout/v1/orders/', params.id, 'items'), {
-      response: 'stub error',
-      status: 404,
-    });
-  },
+  success: (): RestHandler =>
+    rest.patch(path, async (_req, res, ctx) => res(ctx.status(204))),
+  failure: (): RestHandler =>
+    rest.patch(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

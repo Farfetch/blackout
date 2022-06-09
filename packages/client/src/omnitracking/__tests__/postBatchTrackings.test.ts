@@ -1,17 +1,12 @@
 import { postBatchTrackings } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postBatchTrackings.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('postBatchTrackings()', () => {
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   const spy = jest.spyOn(client, 'post');
   const data = [
@@ -28,9 +23,9 @@ describe('postBatchTrackings()', () => {
   it('should handle a client request successfully', async () => {
     const response = {};
 
-    fixtures.success({ response });
+    mswServer.use(fixtures.success(response));
 
-    await expect(postBatchTrackings(data)).resolves.toBe(response);
+    await expect(postBatchTrackings(data)).resolves.toStrictEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
       '/marketing/v1/batch/trackings',
@@ -40,7 +35,7 @@ describe('postBatchTrackings()', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure();
+    mswServer.use(fixtures.failure());
 
     await expect(postBatchTrackings(data)).rejects.toMatchSnapshot();
 

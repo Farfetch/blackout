@@ -2,7 +2,7 @@ import { getProductRecommendations } from '../';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getProductRecommendations.fixtures';
 import join from 'proper-url-join';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getProductRecommendations', () => {
   const productId = 3030;
@@ -11,26 +11,18 @@ describe('getProductRecommendations', () => {
   const spy = jest.spyOn(client, 'get');
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response = {};
 
-    fixtures.success({
-      response,
-      query,
-    });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
     await expect(
       getProductRecommendations({ productId, strategyName }),
-    ).resolves.toBe(response);
+    ).resolves.toStrictEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
       join('/marketing/v1/recommendations/products', { query }),
@@ -38,14 +30,12 @@ describe('getProductRecommendations', () => {
     );
   });
 
-  it('should receive a client request error', () => {
-    fixtures.failure({
-      query,
-    });
+  it('should receive a client request error', async () => {
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 
-    expect(
+    await expect(
       getProductRecommendations({ productId, strategyName }),
     ).rejects.toMatchSnapshot();
 

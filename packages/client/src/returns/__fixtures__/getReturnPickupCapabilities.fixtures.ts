@@ -1,38 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
 import type { PickupCapabilities } from '../types/pickupCapabilities.types';
 
+const path = '/api/account/v1/returns/:id/pickupcapabilities/:pickupDay';
+
 export default {
-  success: (params: {
-    id: number;
-    pickupDay: string;
-    response: PickupCapabilities;
-  }): void => {
-    moxios.stubRequest(
-      join(
-        '/api/account/v1/returns',
-        params.id,
-        'pickupcapabilities/',
-        params.pickupDay,
-      ),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { id: number; pickupDay: string }): void => {
-    moxios.stubRequest(
-      join(
-        '/api/account/v1/returns',
-        params.id,
-        'pickupcapabilities/',
-        params.pickupDay,
-      ),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: PickupCapabilities): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

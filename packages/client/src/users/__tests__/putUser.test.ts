@@ -1,7 +1,7 @@
 import * as usersClient from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/putUser.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('putUser', () => {
   const expectedConfig = undefined;
@@ -12,12 +12,7 @@ describe('putUser', () => {
   };
   const spy = jest.spyOn(client, 'put');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response = {
@@ -46,11 +41,13 @@ describe('putUser', () => {
       receiveNewsletters: false,
     };
 
-    fixtures.put.success({ response, userId });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(usersClient.putUser(userId, data)).resolves.toBe(response);
+    await expect(usersClient.putUser(userId, data)).resolves.toStrictEqual(
+      response,
+    );
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}`,
       data,
@@ -59,7 +56,7 @@ describe('putUser', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.put.failure({ userId });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

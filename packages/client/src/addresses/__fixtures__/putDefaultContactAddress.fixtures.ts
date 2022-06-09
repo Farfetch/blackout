@@ -1,31 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { Address, User } from '../types';
+import { rest, RestHandler } from 'msw';
+
+const path = '/api/account/v1/users/:userId/addresses/preferred/:id';
 
 export default {
-  success: (params: { id: Address['id']; userId: User['id'] }): void => {
-    moxios.stubRequest(
-      join(
-        '/api/account/v1/users',
-        params.userId,
-        'addresses/preferred',
-        params.id,
-      ),
-      {
-        status: 204,
-      },
-    );
-  },
-  failure: (params: { id: Address['id']; userId: User['id'] }): void => {
-    moxios.stubRequest(
-      join(
-        '/api/account/v1/users',
-        params.userId,
-        'addresses/preferred',
-        params.id,
-      ),
-      {
-        response: {
+  success: (): RestHandler =>
+    rest.put(path, async (_req, res, ctx) => res(ctx.status(204))),
+  failure: (): RestHandler =>
+    rest.put(path, async (_req, res, ctx) =>
+      res(
+        ctx.status(400),
+        ctx.json({
           errors: [
             {
               code: 0,
@@ -35,9 +19,7 @@ export default {
               exception: {},
             },
           ],
-        },
-        status: 400,
-      },
-    );
-  },
+        }),
+      ),
+    ),
 };

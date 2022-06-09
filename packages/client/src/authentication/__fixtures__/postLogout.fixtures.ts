@@ -1,15 +1,12 @@
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
+
+const path = '/api/legacy/v1/account/logout';
 
 export default {
-  success: (): void => {
-    moxios.stubRequest('/api/legacy/v1/account/logout', {
-      status: 200,
-    });
-  },
-  failure: (): void => {
-    moxios.stubRequest('/api/legacy/v1/account/logout', {
-      response: 'stub error',
-      status: 404,
-    });
-  },
+  success: (): RestHandler =>
+    rest.post(path, async (_req, res, ctx) => res(ctx.status(200))),
+  failure: (): RestHandler =>
+    rest.post(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

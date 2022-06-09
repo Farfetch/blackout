@@ -2,7 +2,7 @@ import { Classification, Intent, IntentStatus, LineItemsType } from '../types';
 import { getIntent } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getIntent.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getIntent', () => {
   const id = '123456';
@@ -10,12 +10,7 @@ describe('getIntent', () => {
   const spy = jest.spyOn(client, 'get');
   const urlToBeCalled = `/payment/v1/intents/${id}`;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response: Intent = {
@@ -104,16 +99,16 @@ describe('getIntent', () => {
       fingerprint: 'string',
     };
 
-    fixtures.success({ id, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
-    await expect(getIntent(id)).resolves.toBe(response);
+    await expect(getIntent(id)).resolves.toStrictEqual(response);
 
     expect(spy).toHaveBeenCalledWith(urlToBeCalled, expectedConfig);
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ id });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

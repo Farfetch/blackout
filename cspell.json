@@ -67,7 +67,6 @@
     "immer",
     "localstorage",
     "lodash",
-    "moxios",
     "normalizr",
     "Omnitracking",
     "rimraf",

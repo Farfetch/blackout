@@ -1,18 +1,13 @@
 import { postPasswordChange } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postPasswordChange.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('postPasswordChange', () => {
   const spy = jest.spyOn(client, 'post');
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   const userId = 123123;
   const data = {
@@ -23,7 +18,7 @@ describe('postPasswordChange', () => {
   };
 
   it('should handle a client request successfully', async () => {
-    fixtures.success({ data });
+    mswServer.use(fixtures.success());
 
     expect.assertions(2);
     await expect(postPasswordChange(data)).resolves.toMatchObject(
@@ -39,7 +34,7 @@ describe('postPasswordChange', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ data });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
     await expect(postPasswordChange(data)).rejects.toMatchSnapshot();

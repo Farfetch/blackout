@@ -1,8 +1,8 @@
 import { AddressType } from '../types';
 import { getAddress } from '..';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/getAddress.fixtures';
-import moxios from 'moxios';
+import fixtures from '../__fixtures__/getAddress.fixtures';
+import mswServer from '../../../tests/mswServer';
 
 describe('getAddress', () => {
   const expectedConfig = undefined;
@@ -45,16 +45,11 @@ describe('getAddress', () => {
     updatedDate: '2021-11-04T10:13:44.782Z',
   };
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   describe('getAddress', () => {
     it('should handle a client request successfully', async () => {
-      fixture.success({ id, userId, response });
+      mswServer.use(fixtures.success(response));
 
       expect.assertions(2);
 
@@ -66,7 +61,7 @@ describe('getAddress', () => {
     });
 
     it('should receive a client request error', async () => {
-      fixture.failure({ id, userId });
+      mswServer.use(fixtures.failure());
 
       expect.assertions(2);
 

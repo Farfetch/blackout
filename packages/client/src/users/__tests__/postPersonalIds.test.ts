@@ -5,7 +5,7 @@ import {
 import { postPersonalIds } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postPersonalIds.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('postPersonalIds', () => {
   const expectedConfig = {
@@ -18,21 +18,18 @@ describe('postPersonalIds', () => {
   };
   const spy = jest.spyOn(client, 'post');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response = mockPostPersonalIdsResponse;
 
-    fixtures.success({ userId, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(postPersonalIds(userId, data, config)).resolves.toBe(response);
+    await expect(postPersonalIds(userId, data, config)).resolves.toStrictEqual(
+      response,
+    );
 
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/personalids`,
@@ -42,7 +39,7 @@ describe('postPersonalIds', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ userId });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

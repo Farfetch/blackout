@@ -1,7 +1,7 @@
 import { postOrderDocument } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postOrderDocument.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 const orderId = '24BJKS';
 const fileId = '8e02707d-42c8-45d6-8407-b3727a6670cb';
@@ -12,18 +12,13 @@ const data = {
 };
 const expectedConfig = undefined;
 
-beforeEach(() => {
-  moxios.install(client);
-  jest.clearAllMocks();
-});
-
-afterEach(() => moxios.uninstall(client));
+beforeEach(() => jest.clearAllMocks());
 
 describe('postOrderDocument', () => {
   const spy = jest.spyOn(client, 'post');
 
   it('should handle a client request successfully', async () => {
-    fixtures.success({ orderId, fileId, response });
+    mswServer.use(fixtures.success(response));
 
     await expect(postOrderDocument(orderId, fileId, data)).resolves.toBe(
       response,
@@ -36,7 +31,7 @@ describe('postOrderDocument', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ orderId, fileId });
+    mswServer.use(fixtures.failure());
 
     await expect(
       postOrderDocument(orderId, fileId, data),

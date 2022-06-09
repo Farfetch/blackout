@@ -1,7 +1,7 @@
 import { getSchema } from '..';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/getSchema.fixtures';
-import moxios from 'moxios';
+import fixtures from '../__fixtures__/getSchema.fixtures';
+import mswServer from '../../../tests/mswServer';
 
 describe('getSchema', () => {
   const expectedConfig = undefined;
@@ -141,19 +141,14 @@ describe('getSchema', () => {
     },
   ];
   const isoCode = 'PT';
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   describe('getSchema', () => {
     it('should handle a client request successfully', async () => {
-      fixture.success({ isoCode, response });
+      mswServer.use(fixtures.success(response));
 
       expect.assertions(2);
-      await expect(getSchema(isoCode)).resolves.toBe(response);
+      await expect(getSchema(isoCode)).resolves.toStrictEqual(response);
       expect(spy).toHaveBeenCalledWith(
         `/account/v1/countries/${isoCode}/addressSchemas`,
         expectedConfig,
@@ -161,7 +156,7 @@ describe('getSchema', () => {
     });
 
     it('should receive a client request error', async () => {
-      fixture.failure({ isoCode });
+      mswServer.use(fixtures.failure());
 
       expect.assertions(2);
 

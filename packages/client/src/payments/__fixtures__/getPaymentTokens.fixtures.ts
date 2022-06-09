@@ -1,31 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { GetPaymentTokensQuery, PaymentTokens } from '../types';
+import { rest, RestHandler } from 'msw';
+import type { PaymentTokens } from '../types';
+
+const path = '/api/payment/v1/tokens';
 
 export default {
-  success: (params: {
-    query: GetPaymentTokensQuery;
-    response: PaymentTokens;
-  }): void => {
-    moxios.stubRequest(
-      join('/api/payment/v1/tokens', {
-        query: params.query,
-      }),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { query: GetPaymentTokensQuery }): void => {
-    moxios.stubRequest(
-      join('/api/payment/v1/tokens', {
-        query: params.query,
-      }),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: PaymentTokens): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

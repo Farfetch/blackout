@@ -1,31 +1,15 @@
-import { CheckoutOrder, GetCheckoutResponse, PutPromocodeData } from '../types';
-import join from 'proper-url-join';
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
+import type { GetCheckoutResponse } from '../types';
+
+const path = '/api/checkout/v1/orders/:id/promocodes';
 
 export default {
-  success: (params: {
-    id: CheckoutOrder['id'];
-    data: PutPromocodeData;
-    response: GetCheckoutResponse;
-  }): void => {
-    moxios.stubRequest(
-      join('/api/checkout/v1/orders/', params.id, 'promocodes'),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: {
-    id: CheckoutOrder['id'];
-    data: PutPromocodeData;
-  }): void => {
-    moxios.stubRequest(
-      join('/api/checkout/v1/orders/', params.id, 'promocodes'),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: GetCheckoutResponse): RestHandler =>
+    rest.put(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.put(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

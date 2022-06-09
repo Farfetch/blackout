@@ -1,27 +1,14 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { DeleteSubscriptionQuery } from '../types';
+import { rest, RestHandler } from 'msw';
+
+const path = '/api/marketing/v1/subscriptions';
 
 export default {
-  success: (params: {
-    query: DeleteSubscriptionQuery;
-    response: unknown;
-  }): void => {
-    moxios.stubRequest(
-      join('/api/marketing/v1/subscriptions', { query: params.query }),
-      {
-        status: 200,
-        response: params.response,
-      },
-    );
-  },
-  failure: (params: { query: DeleteSubscriptionQuery }) => {
-    moxios.stubRequest(
-      join('/api/marketing/v1/subscriptions', { query: params.query }),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: Record<string, unknown>): RestHandler =>
+    rest.delete(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.delete(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

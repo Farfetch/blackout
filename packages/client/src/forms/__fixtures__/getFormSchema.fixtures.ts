@@ -1,32 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { FormSchema, FormSchemaQuery } from '../types';
+import { rest, RestHandler } from 'msw';
+import type { FormSchema } from '../types';
 
-/**
- * Response payloads.
- */
+const path = '/api/communication/v1/forms/:schemaCode';
+
 export default {
-  get: {
-    success: (params: {
-      schemaCode: string;
-      query: FormSchemaQuery;
-      response: FormSchema;
-    }) => {
-      moxios.stubRequest(
-        join(`api/communication/v1/forms/${params.schemaCode}`, {
-          query: params.query,
-        }),
-        {
-          response: params.response,
-          status: 200,
-        },
-      );
-    },
-    failure: (): void => {
-      moxios.stubRequest(/.*v1\/forms\/*./, {
-        response: 'stub error',
-        status: 404,
-      });
-    },
-  },
+  success: (response: FormSchema): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

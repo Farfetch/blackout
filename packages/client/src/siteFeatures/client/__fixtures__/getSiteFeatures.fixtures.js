@@ -1,22 +1,15 @@
 // @TODO: Remove this file in version 2.0.0.
-import moxios from 'moxios';
+import { rest } from 'msw';
 
-/**
- * Response payloads.
- */
+const path = '/api/settings/v1/sitefeatures';
+
 export default {
-  success: params => {
-    moxios.stubRequest('/api/settings/v1/sitefeatures', {
-      method: 'get',
-      response: params.response,
-      status: 200,
-    });
-  },
-  failure: () => {
-    moxios.stubRequest('/api/settings/v1/sitefeatures', {
-      method: 'get',
-      response: 'stub error',
-      status: 404,
-    });
-  },
+  success: response =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: () =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

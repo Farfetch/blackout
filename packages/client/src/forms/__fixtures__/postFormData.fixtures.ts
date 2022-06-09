@@ -1,31 +1,15 @@
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
 import type { SubmitFormSchema } from '../types';
 
-/**
- * Response payloads.
- */
+const path = '/api/communication/v1/forms/:schemaCode/data';
+
 export default {
-  post: {
-    success: (params: {
-      schemaCode: string;
-      response: SubmitFormSchema;
-    }): void => {
-      moxios.stubRequest(
-        `/api/communication/v1/forms/${params.schemaCode}/data`,
-        {
-          response: params.response,
-          status: 200,
-        },
-      );
-    },
-    error: (params: { schemaCode: string }): void => {
-      moxios.stubRequest(
-        `/api/communication/v1/forms/${params.schemaCode}/data`,
-        {
-          response: 'stub error',
-          status: 404,
-        },
-      );
-    },
-  },
+  success: (response: SubmitFormSchema): RestHandler =>
+    rest.post(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.post(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

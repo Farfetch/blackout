@@ -1,20 +1,15 @@
 import * as checkoutClient from '..';
 import { GetCheckoutResponse, OrderStatusError } from '../types';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/putTags.fixtures';
-import moxios from 'moxios';
+import fixtures from '../__fixtures__/putTags.fixtures';
+import mswServer from '../../../tests/mswServer';
 
 describe('checkout client', () => {
   const id = 123456;
   const data = ['string'];
   const expectedConfig = undefined;
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   describe('putTags', () => {
     const spy = jest.spyOn(client, 'put');
@@ -26,18 +21,21 @@ describe('checkout client', () => {
         orderStatus: OrderStatusError.NoError,
       };
 
-      fixture.success({ id, data, response });
+      mswServer.use(fixtures.success(response));
 
       expect.assertions(2);
-      await expect(checkoutClient.putTags(id, data)).resolves.toBe(response);
+      await expect(checkoutClient.putTags(id, data)).resolves.toStrictEqual(
+        response,
+      );
 
       expect(spy).toHaveBeenCalledWith(urlToBeCalled, data, expectedConfig);
     });
 
     it('should receive a client request error', async () => {
-      fixture.failure({ id, data });
+      mswServer.use(fixtures.failure());
 
       expect.assertions(2);
+
       await expect(checkoutClient.putTags(id, data)).rejects.toMatchSnapshot();
 
       expect(spy).toHaveBeenCalledWith(urlToBeCalled, data, expectedConfig);

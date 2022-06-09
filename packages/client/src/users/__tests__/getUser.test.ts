@@ -1,19 +1,14 @@
 import * as usersClient from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getUser.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('getUser', () => {
   const expectedConfig = undefined;
   const responseUrl = '/account/v1/users/me';
   const spy = jest.spyOn(client, 'get');
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
     const response = {
@@ -36,17 +31,17 @@ describe('getUser', () => {
       genderId: 0,
     };
 
-    fixtures.success({ response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(usersClient.getUser()).resolves.toBe(response);
+    await expect(usersClient.getUser()).resolves.toStrictEqual(response);
 
     expect(spy).toHaveBeenCalledWith(responseUrl, expectedConfig);
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure();
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

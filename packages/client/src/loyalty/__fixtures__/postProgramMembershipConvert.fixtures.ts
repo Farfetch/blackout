@@ -1,50 +1,16 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type {
-  Program,
-  ProgramMembership,
-  ProgramMembershipConvert,
-} from '../types';
+import { rest, RestHandler } from 'msw';
+import type { ProgramMembershipConvert } from '../types';
 
-/**
- * Response payloads.
- */
+const path =
+  '/api/loyalty/v1/programs/:programId/memberships/:membershipId/converts';
+
 export default {
-  success: (params: {
-    programId: Program['id'];
-    membershipId: ProgramMembership['id'];
-    response: ProgramMembershipConvert;
-  }): void => {
-    moxios.stubRequest(
-      join(
-        '/api/loyalty/v1/programs',
-        params.programId,
-        'memberships',
-        params.membershipId,
-        'converts',
-      ),
-      {
-        response: params.response,
-        status: 201,
-      },
-    );
-  },
-  failure: (params: {
-    programId: Program['id'];
-    membershipId: ProgramMembership['id'];
-  }): void => {
-    moxios.stubRequest(
-      join(
-        '/api/loyalty/v1/programs',
-        params.programId,
-        'memberships',
-        params.membershipId,
-        'converts',
-      ),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: ProgramMembershipConvert): RestHandler =>
+    rest.post(path, async (_req, res, ctx) =>
+      res(ctx.status(201), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.post(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

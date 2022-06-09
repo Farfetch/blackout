@@ -1,7 +1,7 @@
 import { getPredictions } from '..';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/getPredictions.fixtures';
-import moxios from 'moxios';
+import fixtures from '../__fixtures__/getPredictions.fixtures';
+import mswServer from '../../../tests/mswServer';
 
 describe('getPredictions', () => {
   const text = 'dummy%20text';
@@ -23,19 +23,14 @@ describe('getPredictions', () => {
     },
   ];
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully when receiving a query param', async () => {
-    fixture.success({ text, query, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(getPredictions(text, query)).resolves.toBe(response);
+    await expect(getPredictions(text, query)).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/addressesprediction/${text}?countries=US&sampleSize=10&sessionToken=12132`,
       expectedConfig,
@@ -43,11 +38,11 @@ describe('getPredictions', () => {
   });
 
   it('should handle a client request successfully when not receiving a query param', async () => {
-    fixture.success({ text, response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
-    await expect(getPredictions(text)).resolves.toBe(response);
+    await expect(getPredictions(text)).resolves.toStrictEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/addressesprediction/${text}`,
@@ -56,7 +51,7 @@ describe('getPredictions', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixture.failure({ text, query });
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

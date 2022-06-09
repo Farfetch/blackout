@@ -2,7 +2,7 @@ import { postLogin } from '..';
 import { mockResponse as response } from '../__fixtures__/login.fixtures';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postLogin.fixtures';
-import moxios from 'moxios';
+import mswServer from '../../../tests/mswServer';
 
 describe('postLogin', () => {
   const spy = jest.spyOn(client, 'post');
@@ -13,18 +13,13 @@ describe('postLogin', () => {
     rememberMe: true,
   };
 
-  beforeEach(() => {
-    moxios.install(client);
-    jest.clearAllMocks();
-  });
-
-  afterEach(() => moxios.uninstall(client));
+  beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    fixtures.success({ response });
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
-    await expect(postLogin(data)).resolves.toBe(response);
+    await expect(postLogin(data)).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(
       '/legacy/v1/account/login',
       data,
@@ -33,7 +28,7 @@ describe('postLogin', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure();
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
     await expect(postLogin(data)).rejects.toMatchSnapshot();

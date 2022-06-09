@@ -1,47 +1,16 @@
-import {
-  CheckoutOrder,
-  DeliveryBundle,
-  GetItemDeliveryProvisioningResponse,
-} from '../types';
-import join from 'proper-url-join';
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
+import type { GetItemDeliveryProvisioningResponse } from '../types';
+
+const path =
+  '/api/checkout/v1/orders/:id/deliveryBundles/:deliveryBundleId/itemDeliveryProvisioning';
 
 export default {
-  success: (params: {
-    id: CheckoutOrder['id'];
-    deliveryBundleId: DeliveryBundle['id'];
-    response: GetItemDeliveryProvisioningResponse;
-  }): void => {
-    moxios.stubRequest(
-      join(
-        '/api/checkout/v1/orders/',
-        params.id,
-        'deliveryBundles',
-        params.deliveryBundleId,
-        'itemDeliveryProvisioning',
-      ),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: {
-    id: CheckoutOrder['id'];
-    deliveryBundleId: DeliveryBundle['id'];
-  }): void => {
-    moxios.stubRequest(
-      join(
-        '/api/checkout/v1/orders/',
-        params.id,
-        'deliveryBundles',
-        params.deliveryBundleId,
-        'itemDeliveryProvisioning',
-      ),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: GetItemDeliveryProvisioningResponse): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

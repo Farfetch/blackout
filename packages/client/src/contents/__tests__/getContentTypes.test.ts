@@ -1,6 +1,6 @@
 import { getContentTypes } from '../';
 import client from '../../helpers/client';
-import fixture from '../__fixtures__/contentTypes.fixtures';
+import fixtures from '../__fixtures__/contentTypes.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('getContentTypes()', () => {
@@ -63,7 +63,7 @@ describe('getContentTypes()', () => {
   };
 
   it('should handle a client request successfully', async () => {
-    mswServer.use(fixture.get.success(response));
+    mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
 
@@ -76,7 +76,7 @@ describe('getContentTypes()', () => {
   });
 
   it('should handle a client request error', async () => {
-    mswServer.use(fixture.get.failure());
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

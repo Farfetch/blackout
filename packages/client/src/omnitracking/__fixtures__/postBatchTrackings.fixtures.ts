@@ -1,19 +1,14 @@
-import moxios from 'moxios';
+import { rest, RestHandler } from 'msw';
 
-/**
- * Response payloads.
- */
+const path = '/api/marketing/v1/batch/trackings';
+
 export default {
-  success: (params: { response: Record<string, unknown> }): void => {
-    moxios.stubRequest('/api/marketing/v1/batch/trackings', {
-      response: params.response,
-      status: 200,
-    });
-  },
-  failure: (): void => {
-    moxios.stubRequest('/api/marketing/v1/batch/trackings', {
-      response: 'stub error',
-      status: 404,
-    });
-  },
+  success: (response: Record<string, unknown>): RestHandler =>
+    rest.post(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.post(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

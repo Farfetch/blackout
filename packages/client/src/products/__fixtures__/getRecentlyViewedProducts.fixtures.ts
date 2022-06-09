@@ -1,34 +1,15 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type {
-  GetRecentlyViewedProductsQuery,
-  RecentlyViewedProducts,
-} from '../types';
+import { rest, RestHandler } from 'msw';
+import type { RecentlyViewedProducts } from '../types';
+
+const path = '/api/marketing/v1/recentlyViewed/products';
 
 export default {
-  success: (params: {
-    query: GetRecentlyViewedProductsQuery;
-    response: RecentlyViewedProducts;
-  }): void => {
-    moxios.stubRequest(
-      join('/api/marketing/v1/recentlyViewed/products', {
-        query: params.query,
-      }),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { query: GetRecentlyViewedProductsQuery }): void => {
-    moxios.stubRequest(
-      join('/api/marketing/v1/recentlyViewed/products', {
-        query: params.query,
-      }),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: RecentlyViewedProducts): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

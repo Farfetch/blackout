@@ -1,34 +1,14 @@
-import join from 'proper-url-join';
-import moxios from 'moxios';
-import type { GetProductRecommendationQuery } from '../types/getProductRecommendations.types';
+import { rest, RestHandler } from 'msw';
 
-/**
- * Response payloads.
- */
+const path = '/api/marketing/v1/recommendations/products';
+
 export default {
-  success: (params: {
-    query: GetProductRecommendationQuery;
-    response: Record<string, unknown>;
-  }) => {
-    moxios.stubRequest(
-      join('/api/marketing/v1/recommendations/products', {
-        query: params.query,
-      }),
-      {
-        response: params.response,
-        status: 200,
-      },
-    );
-  },
-  failure: (params: { query: GetProductRecommendationQuery }): void => {
-    moxios.stubRequest(
-      join('/api/marketing/v1/recommendations/products', {
-        query: params.query,
-      }),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
-  },
+  success: (response: Record<string, unknown>): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
+    ),
+  failure: (): RestHandler =>
+    rest.get(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
+    ),
 };

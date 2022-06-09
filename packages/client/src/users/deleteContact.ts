@@ -20,7 +20,6 @@ const deleteContact: DeleteContact = (userId, contactId, query?, config?) =>
       }),
       config,
     )
-    .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
