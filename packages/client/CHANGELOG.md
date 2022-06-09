@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.153](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.152...@farfetch/blackout-client@2.0.0-next.153) (2022-06-09)
+
+
+### Features
+
+* **blackout-client|blackout-redux:** fix error handling on blackout client and redux ([7b1f92f](https://github.com/Farfetch/blackout/commit/7b1f92fa3d7d03ca3085087d4ac1574d254fe5c0))
+
+
+
+
+
 # [2.0.0-next.152](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.151...@farfetch/blackout-client@2.0.0-next.152) (2022-06-09)
 
 
