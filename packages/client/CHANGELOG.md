@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.154](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.153...@farfetch/blackout-client@2.0.0-next.154) (2022-06-09)
+
+
+### Features
+
+* **client:** new reset password endpoint ([5d0ced9](https://github.com/Farfetch/blackout/commit/5d0ced90c31a8ea5473a1c88496484f63b30ef2c))
+
+
+
+
+
 # [2.0.0-next.153](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.152...@farfetch/blackout-client@2.0.0-next.153) (2022-06-09)
 
 
