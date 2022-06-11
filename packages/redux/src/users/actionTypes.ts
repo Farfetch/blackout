@@ -323,3 +323,9 @@ export const REMOVE_PERSONAL_ID_REQUEST =
 /** Action type dispatched when the remove personal id request succeeds. */
 export const REMOVE_PERSONAL_ID_SUCCESS =
   '@farfetch/blackout-client/REMOVE_PERSONAL_ID_SUCCESS';
+
+/** Action type dispatched when the reset bag state occurs. */
+export const RESET_USER_STATE = '@farfetch/blackout-redux/RESET_USER_STATE';
+/** Action type dispatched when the reset bag state entities occurs. */
+export const RESET_USER_ENTITIES =
+  '@farfetch/blackout-redux/RESET_USER_ENTITIES';

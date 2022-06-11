@@ -38,3 +38,5 @@ export { default as createPersonalIdImage } from './createPersonalIdImage';
 export { default as removePersonalId } from './removePersonalId';
 export { default as fetchPersonalId } from './fetchPersonalId';
 export { default as updatePersonalId } from './updatePersonalId';
+export { default as resetUser } from './resetUser';
+export { default as resetUserState } from './resetUserState';

@@ -330,3 +330,14 @@ export type SetDefaultPersonalIdAction =
   | SetDefaultPersonalIdRequestAction
   | SetDefaultPersonalIdFailureAction
   | SetDefaultPersonalIdSuccessAction;
+
+export interface ResetUserStateAction extends Action {
+  type: typeof actionTypes.RESET_USER_STATE;
+  payload: { fieldsToReset: string[] | undefined };
+}
+
+export interface ResetUserEntitiesAction extends Action {
+  type: typeof actionTypes.RESET_USER_ENTITIES;
+}
+
+export type ResetUserAction = ResetUserStateAction | ResetUserEntitiesAction;
