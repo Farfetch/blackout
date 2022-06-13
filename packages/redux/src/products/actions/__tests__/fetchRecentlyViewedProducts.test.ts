@@ -1,15 +1,15 @@
-import { actionTypes } from '../../';
+import { actionTypesProducts } from '../../';
 import { expectedRecentlyViewedRemotePayload } from 'tests/__fixtures__/products';
 import { fetchRecentlyViewedProducts } from '../';
-import { getRecentlyViewedProducts } from '@farfetch/blackout-client/products';
+import { getRecentlyViewedProducts } from '@farfetch/blackout-client';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 import reducer from '../../reducer';
 import type { StoreState } from '../../../types';
 
-jest.mock('@farfetch/blackout-client/products', () => {
+jest.mock('@farfetch/blackout-client', () => {
   return {
-    ...jest.requireActual('@farfetch/blackout-client/products'),
+    ...jest.requireActual('@farfetch/blackout-client'),
     getRecentlyViewedProducts: jest.fn(),
   };
 });
@@ -63,10 +63,10 @@ describe('fetchRecentlyViewedProducts() action creator', () => {
     expect(store.getActions()).toEqual(
       expect.arrayContaining([
         {
-          type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST,
+          type: actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST,
         },
         {
-          type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE,
+          type: actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE,
           payload: { error: expectedError },
         },
       ]),
@@ -94,16 +94,16 @@ describe('fetchRecentlyViewedProducts() action creator', () => {
     );
     expect(actionResults).toEqual([
       {
-        type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST,
+        type: actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST,
       },
       {
-        type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
+        type: actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
         payload: expectedRecentlyViewedRemotePayload,
       },
     ]);
     expect(
       find(actionResults, {
-        type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
+        type: actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
       }),
     ).toMatchSnapshot('fetch recently viewed products success payload');
 

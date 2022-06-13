@@ -3,6 +3,7 @@
   "version": "1.0.0-next.253",
   "description": "Modules to manage the application global state",
   "license": "MIT",
+  "main": "./src/index.ts",
   "exports": {
     "./*": "./dist/*"
   },

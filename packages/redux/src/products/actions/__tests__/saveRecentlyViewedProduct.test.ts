@@ -1,4 +1,4 @@
-import { actionTypes } from '../../';
+import { actionTypesProducts } from '../../';
 import { expectedRecentlyViewedLocalPayload } from 'tests/__fixtures__/products';
 import { mockStore } from '../../../../tests';
 import { saveRecentlyViewedProduct } from '../';
@@ -31,7 +31,7 @@ describe('saveRecentlyViewedProduct() action creator', () => {
 
     expect(actionResults).toEqual([
       {
-        type: actionTypes.SAVE_RECENTLY_VIEWED_PRODUCT,
+        type: actionTypesProducts.SAVE_RECENTLY_VIEWED_PRODUCT,
         payload: [
           {
             productId,

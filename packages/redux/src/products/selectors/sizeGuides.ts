@@ -2,7 +2,7 @@ import { getError, getIsLoading } from '../reducer/sizeGuides';
 import { getProduct } from '../../entities/selectors';
 import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { ProductEntity } from '../../entities/types';
-import type { ProductSizeGuide } from '@farfetch/blackout-client/products/types';
+import type { ProductSizeGuide } from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 /**

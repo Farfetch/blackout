@@ -9,7 +9,7 @@ import type { FetchRecommendedSetAction } from '../../types';
 import type {
   GetRecommendedSet,
   RecommendedSet,
-} from '@farfetch/blackout-client/products/types';
+} from '@farfetch/blackout-client';
 
 /**
  * @param recommendedSetId - Numeric identifier of the product.
@@ -26,7 +26,7 @@ import type {
  *
  * @returns Thunk factory.
  */
-const fetchRecommendedSet =
+export const fetchRecommendedSetFactory =
   (getRecommendedSet: GetRecommendedSet) =>
   (recommendedSetId: number, config?: Record<string, unknown>) =>
   async (
@@ -57,5 +57,3 @@ const fetchRecommendedSet =
       throw error;
     }
   };
-
-export default fetchRecommendedSet;

@@ -1,5 +1,5 @@
 import type { GenderEnum } from '@farfetch/blackout-client/types';
-import type { PriceTypeEnum } from '@farfetch/blackout-client/products/types';
+import type { PriceTypeEnum } from '@farfetch/blackout-client';
 import type { Type } from '@farfetch/blackout-client/contents/types';
 
 export type Params = {

@@ -10,7 +10,7 @@ import {
   resetSearchIntents as resetSearchIntentsAction,
 } from '@farfetch/blackout-redux/search';
 import { buildQueryStringFromObject } from '@farfetch/blackout-redux/helpers';
-import { buildSetFiltersQueryParams } from '@farfetch/blackout-redux/products/utils';
+import { buildSetFiltersQueryParams } from '@farfetch/blackout-redux';
 import {
   FILTER_SLUGS_ORDER,
   TYPE_FILTER,

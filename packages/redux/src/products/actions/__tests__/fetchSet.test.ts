@@ -1,7 +1,7 @@
 import * as normalizr from 'normalizr';
-import { actionTypes } from '../..';
+import { actionTypesProducts } from '../..';
 import { fetchSet } from '..';
-import { getSet } from '@farfetch/blackout-client/products';
+import { getSet } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/lists';
 import {
   mockProductsListForSetsWithIdNormalized,
@@ -13,8 +13,8 @@ import {
 import { mockStore } from '../../../../tests';
 import thunk from 'redux-thunk';
 
-jest.mock('@farfetch/blackout-client/products', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/products'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getSet: jest.fn(),
 }));
 
@@ -89,18 +89,18 @@ describe('fetchSet() action creator', () => {
       expect(store.getActions()).toEqual([
         {
           meta: { hash: mockProductsListHashForSetsWithId },
-          type: actionTypes.SET_PRODUCTS_LIST_HASH,
+          type: actionTypesProducts.SET_PRODUCTS_LIST_HASH,
         },
         {
           meta: { hash: mockProductsListHashForSetsWithId },
-          type: actionTypes.FETCH_PRODUCTS_LIST_REQUEST,
+          type: actionTypesProducts.FETCH_PRODUCTS_LIST_REQUEST,
         },
         {
           meta: { hash: mockProductsListHashForSetsWithId },
           payload: {
             error: expectedError,
           },
-          type: actionTypes.FETCH_PRODUCTS_LIST_FAILURE,
+          type: actionTypesProducts.FETCH_PRODUCTS_LIST_FAILURE,
         },
       ]);
     });
@@ -121,16 +121,16 @@ describe('fetchSet() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: actionTypes.SET_PRODUCTS_LIST_HASH,
+        type: actionTypesProducts.SET_PRODUCTS_LIST_HASH,
       },
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: actionTypes.FETCH_PRODUCTS_LIST_REQUEST,
+        type: actionTypesProducts.FETCH_PRODUCTS_LIST_REQUEST,
       },
       {
         meta: { hash: mockProductsListHashForSetsWithId },
         payload: mockProductsListForSetsWithIdNormalized,
-        type: actionTypes.FETCH_PRODUCTS_LIST_SUCCESS,
+        type: actionTypesProducts.FETCH_PRODUCTS_LIST_SUCCESS,
       },
     ]);
   });
@@ -151,16 +151,16 @@ describe('fetchSet() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: actionTypes.SET_PRODUCTS_LIST_HASH,
+        type: actionTypesProducts.SET_PRODUCTS_LIST_HASH,
       },
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: actionTypes.FETCH_PRODUCTS_LIST_REQUEST,
+        type: actionTypesProducts.FETCH_PRODUCTS_LIST_REQUEST,
       },
       {
         meta: { hash: mockProductsListHashForSetsWithId },
         payload: mockProductsListForSetsWithIdNormalizedWithoutImageOptions,
-        type: actionTypes.FETCH_PRODUCTS_LIST_SUCCESS,
+        type: actionTypesProducts.FETCH_PRODUCTS_LIST_SUCCESS,
       },
     ]);
   });
@@ -192,20 +192,20 @@ describe('fetchSet() action creator', () => {
     expect(getSet).toHaveBeenCalledWith(mockSetId, {}, expectedConfig);
     expect(store.getActions()).toEqual([
       {
-        type: actionTypes.RESET_PRODUCTS_LISTS_STATE,
+        type: actionTypesProducts.RESET_PRODUCTS_LISTS_STATE,
       },
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: actionTypes.SET_PRODUCTS_LIST_HASH,
+        type: actionTypesProducts.SET_PRODUCTS_LIST_HASH,
       },
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: actionTypes.FETCH_PRODUCTS_LIST_REQUEST,
+        type: actionTypesProducts.FETCH_PRODUCTS_LIST_REQUEST,
       },
       {
         meta: { hash: mockProductsListHashForSetsWithId },
         payload: mockProductsListForSetsWithIdNormalized,
-        type: actionTypes.FETCH_PRODUCTS_LIST_SUCCESS,
+        type: actionTypesProducts.FETCH_PRODUCTS_LIST_SUCCESS,
       },
     ]);
   });
@@ -232,7 +232,7 @@ describe('fetchSet() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: actionTypes.DEHYDRATE_PRODUCTS_LIST,
+        type: actionTypesProducts.DEHYDRATE_PRODUCTS_LIST,
       },
     ]);
   });
@@ -261,7 +261,7 @@ describe('fetchSet() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: actionTypes.SET_PRODUCTS_LIST_HASH,
+        type: actionTypesProducts.SET_PRODUCTS_LIST_HASH,
       },
     ]);
   });
@@ -291,12 +291,12 @@ describe('fetchSet() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: actionTypes.FETCH_PRODUCTS_LIST_REQUEST,
+        type: actionTypesProducts.FETCH_PRODUCTS_LIST_REQUEST,
       },
       {
         meta: { hash: mockProductsListHashForSetsWithId },
         payload: mockProductsListForSetsWithIdNormalized,
-        type: actionTypes.FETCH_PRODUCTS_LIST_SUCCESS,
+        type: actionTypesProducts.FETCH_PRODUCTS_LIST_SUCCESS,
       },
     ]);
   });

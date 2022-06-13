@@ -12,7 +12,7 @@ import type {
   GetProductVariantsByMerchantsLocations,
   Product,
   ProductVariantByMerchantLocation,
-} from '@farfetch/blackout-client/products/types';
+} from '@farfetch/blackout-client';
 import type { StoreState } from '../../../types';
 
 /**
@@ -31,7 +31,7 @@ import type { StoreState } from '../../../types';
  *
  * @returns Thunk factory.
  */
-const fetchProductVariantsByMerchantsLocationsFactory =
+export const fetchProductVariantsByMerchantsLocationsFactory =
   (
     getProductVariantsByMerchantsLocations: GetProductVariantsByMerchantsLocations,
   ) =>
@@ -95,5 +95,3 @@ const fetchProductVariantsByMerchantsLocationsFactory =
       throw error;
     }
   };
-
-export default fetchProductVariantsByMerchantsLocationsFactory;

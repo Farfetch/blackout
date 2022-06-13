@@ -1,4 +1,4 @@
-import { actionTypes } from '../..';
+import { actionTypesProducts } from '../..';
 import { mockProductId } from 'tests/__fixtures__/products';
 import reducer, {
   getError,
@@ -31,7 +31,7 @@ describe('colorGrouping redux reducer', () => {
       const expectedResult = { [mockProductId]: undefined };
       const state = reducer(undefined, {
         meta,
-        type: actionTypes.FETCH_PRODUCT_COLOR_GROUPING_REQUEST,
+        type: actionTypesProducts.FETCH_PRODUCT_COLOR_GROUPING_REQUEST,
       });
 
       expect(state.error).toEqual(expectedResult);
@@ -41,7 +41,7 @@ describe('colorGrouping redux reducer', () => {
       const state = reducer(undefined, {
         meta,
         payload: { error },
-        type: actionTypes.FETCH_PRODUCT_COLOR_GROUPING_FAILURE,
+        type: actionTypesProducts.FETCH_PRODUCT_COLOR_GROUPING_FAILURE,
       });
 
       expect(state.error).toEqual(expectedError);
@@ -70,7 +70,7 @@ describe('colorGrouping redux reducer', () => {
       };
       const state = reducer(undefined, {
         meta,
-        type: actionTypes.FETCH_PRODUCT_COLOR_GROUPING_REQUEST,
+        type: actionTypesProducts.FETCH_PRODUCT_COLOR_GROUPING_REQUEST,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
@@ -83,7 +83,7 @@ describe('colorGrouping redux reducer', () => {
       const state = reducer(undefined, {
         meta,
         payload: { error: '' },
-        type: actionTypes.FETCH_PRODUCT_COLOR_GROUPING_FAILURE,
+        type: actionTypesProducts.FETCH_PRODUCT_COLOR_GROUPING_FAILURE,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
@@ -98,7 +98,7 @@ describe('colorGrouping redux reducer', () => {
         payload: {
           result: mockProductId,
         },
-        type: actionTypes.FETCH_PRODUCT_COLOR_GROUPING_SUCCESS,
+        type: actionTypesProducts.FETCH_PRODUCT_COLOR_GROUPING_SUCCESS,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);

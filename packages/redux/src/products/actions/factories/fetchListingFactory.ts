@@ -1,10 +1,10 @@
-import fetchProductsListFactory from './fetchProductsListFactory';
+import { fetchProductsListFactory } from './fetchProductsListFactory';
 import type { Dispatch } from 'redux';
 import type {
   GetListing,
   Listing,
   ListingQuery,
-} from '@farfetch/blackout-client/products/types';
+} from '@farfetch/blackout-client';
 import type { GetOptionsArgument, StoreState } from '../../../types';
 import type { ProductsListActionOptions } from '../../types';
 
@@ -25,7 +25,7 @@ import type { ProductsListActionOptions } from '../../types';
  *
  * @returns Thunk factory.
  */
-const fetchListingFactory =
+export const fetchListingFactory =
   (getListing: GetListing) =>
   (
     slug: string,
@@ -50,5 +50,3 @@ const fetchListingFactory =
       options,
       false,
     );
-
-export default fetchListingFactory;

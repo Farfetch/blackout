@@ -3,11 +3,7 @@ import type {
   QueryContents,
 } from '@farfetch/blackout-client/contents/types';
 import type { Designers } from '@farfetch/blackout-client/designers/types';
-import type {
-  Listing,
-  Product,
-  Set,
-} from '@farfetch/blackout-client/products/types';
+import type { Listing, Product, Set } from '@farfetch/blackout-client';
 
 type Common = {
   countryCode: string;

@@ -1,12 +1,12 @@
-import { actionTypes } from '../..';
-import { deleteRecentlyViewedProduct } from '@farfetch/blackout-client/products';
+import { actionTypesProducts } from '../..';
+import { deleteRecentlyViewedProduct } from '@farfetch/blackout-client';
 import { mockStore } from '../../../../tests';
 import { removeRecentlyViewedProduct } from '..';
 import reducer from '../../reducer';
 
-jest.mock('@farfetch/blackout-client/products', () => {
+jest.mock('@farfetch/blackout-client', () => {
   return {
-    ...jest.requireActual('@farfetch/blackout-client/products'),
+    ...jest.requireActual('@farfetch/blackout-client'),
     deleteRecentlyViewedProduct: jest.fn(),
   };
 });
@@ -55,12 +55,12 @@ describe('removeRecentlyViewedProduct() action creator', () => {
       expect.arrayContaining([
         {
           meta: { productId },
-          type: actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_REQUEST,
+          type: actionTypesProducts.REMOVE_RECENTLY_VIEWED_PRODUCT_REQUEST,
         },
         {
           meta: { productId },
           payload: { error: expectedError },
-          type: actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE,
+          type: actionTypesProducts.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE,
         },
       ]),
     );
@@ -84,11 +84,11 @@ describe('removeRecentlyViewedProduct() action creator', () => {
     expect(actionResults).toEqual([
       {
         meta: { productId },
-        type: actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_REQUEST,
+        type: actionTypesProducts.REMOVE_RECENTLY_VIEWED_PRODUCT_REQUEST,
       },
       {
         meta: { productId },
-        type: actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS,
+        type: actionTypesProducts.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS,
       },
     ]);
   });

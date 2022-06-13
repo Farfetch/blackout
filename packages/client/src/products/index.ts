@@ -1,6 +1,8 @@
 /**
  * Products clients.
  */
+export * from './types';
+
 export { default as getListing } from './getListing';
 export { default as getProductAttributes } from './getProductAttributes';
 export { default as getProductColorGrouping } from './getProductColorGrouping';

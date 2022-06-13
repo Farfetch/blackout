@@ -1,2 +1,5 @@
-declare const react: string;
-export default react;
+/**
+ * Blackout React.
+ */
+
+export * from './products';
