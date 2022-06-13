@@ -1,7 +1,7 @@
 import * as normalizr from 'normalizr';
-import { actionTypes } from '../..';
+import { actionTypesProducts } from '../..';
 import { fetchProductColorGrouping } from '..';
-import { getProductColorGrouping } from '@farfetch/blackout-client/products';
+import { getProductColorGrouping } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/colorGrouping';
 import {
   mockProductColorGrouping,
@@ -10,8 +10,8 @@ import {
 } from 'tests/__fixtures__/products';
 import { mockStore } from '../../../../tests';
 
-jest.mock('@farfetch/blackout-client/products', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/products'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getProductColorGrouping: jest.fn(),
 }));
 
@@ -57,12 +57,12 @@ describe('fetchProductColorGrouping() action creator', () => {
         expect(store.getActions()).toEqual([
           {
             meta: { productId: mockProductId },
-            type: actionTypes.FETCH_PRODUCT_COLOR_GROUPING_REQUEST,
+            type: actionTypesProducts.FETCH_PRODUCT_COLOR_GROUPING_REQUEST,
           },
           {
             meta: { productId: mockProductId },
             payload: { error: expectedError },
-            type: actionTypes.FETCH_PRODUCT_COLOR_GROUPING_FAILURE,
+            type: actionTypesProducts.FETCH_PRODUCT_COLOR_GROUPING_FAILURE,
           },
         ]);
       });
@@ -89,12 +89,12 @@ describe('fetchProductColorGrouping() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { productId: mockProductId },
-        type: actionTypes.FETCH_PRODUCT_COLOR_GROUPING_REQUEST,
+        type: actionTypesProducts.FETCH_PRODUCT_COLOR_GROUPING_REQUEST,
       },
       {
         meta: { productId: mockProductId },
         payload: mockProductColorGroupingNormalizedResponse,
-        type: actionTypes.FETCH_PRODUCT_COLOR_GROUPING_SUCCESS,
+        type: actionTypesProducts.FETCH_PRODUCT_COLOR_GROUPING_SUCCESS,
       },
     ]);
   });

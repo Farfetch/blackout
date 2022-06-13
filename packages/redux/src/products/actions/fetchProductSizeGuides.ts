@@ -1,5 +1,5 @@
 import { fetchProductSizeGuidesFactory } from './factories';
-import { getProductSizeGuides } from '@farfetch/blackout-client/products';
+import { getProductSizeGuides } from '@farfetch/blackout-client';
 
 /**
  * Fetch product size guides for a given product id. This sizeguides logic should
@@ -7,4 +7,5 @@ import { getProductSizeGuides } from '@farfetch/blackout-client/products';
  * category tree you should use the size guides logic from
  * \@farfetch/blackout-redux/sizeGuides.
  */
-export default fetchProductSizeGuidesFactory(getProductSizeGuides);
+export const fetchProductSizeGuides =
+  fetchProductSizeGuidesFactory(getProductSizeGuides);

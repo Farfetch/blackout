@@ -12,7 +12,7 @@ import type {
   Product,
   ProductSizesQuery,
   Size,
-} from '@farfetch/blackout-client/products/types';
+} from '@farfetch/blackout-client';
 
 /**
  * @param productId - Numeric identifier of the product.
@@ -30,7 +30,7 @@ import type {
  *
  * @returns Thunk factory.
  */
-const fetchProductSizesFactory =
+export const fetchProductSizesFactory =
   (getProductSizes: GetProductSizes) =>
   (
     productId: Product['result']['id'],
@@ -67,5 +67,3 @@ const fetchProductSizesFactory =
       throw error;
     }
   };
-
-export default fetchProductSizesFactory;

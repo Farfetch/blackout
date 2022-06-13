@@ -5,19 +5,16 @@
 import {
   fetchListing,
   fetchSet,
+  generateProductsListHash,
   getProductsListError,
   getProductsListProducts,
   getProductsListResult,
   isProductsListFetched,
   isProductsListLoading,
-} from '@farfetch/blackout-redux/products';
-import { generateProductsListHash } from '@farfetch/blackout-redux/products/utils';
+} from '@farfetch/blackout-redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import type {
-  ListingQuery,
-  SetQuery,
-} from '@farfetch/blackout-client/products/types';
+import type { ListingQuery, SetQuery } from '@farfetch/blackout-client';
 import type {
   ProductsListTypes,
   UseProductsList,

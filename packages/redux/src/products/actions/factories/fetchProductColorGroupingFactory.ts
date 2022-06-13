@@ -11,7 +11,7 @@ import type {
   GetProductColorGrouping,
   Product,
   ProductColorGrouping,
-} from '@farfetch/blackout-client/products/types';
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
 /**
@@ -30,7 +30,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-const fetchProductColorGroupingFactory =
+export const fetchProductColorGroupingFactory =
   (getProductColorGrouping: GetProductColorGrouping) =>
   (
     productId: Product['result']['id'],
@@ -69,5 +69,3 @@ const fetchProductColorGroupingFactory =
       throw error;
     }
   };
-
-export default fetchProductColorGroupingFactory;

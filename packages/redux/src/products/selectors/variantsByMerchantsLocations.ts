@@ -8,7 +8,7 @@ import type { ProductEntity } from '../../entities/types';
 import type {
   ProductVariant,
   ProductVariantByMerchantLocation,
-} from '@farfetch/blackout-client/products/types';
+} from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 /**

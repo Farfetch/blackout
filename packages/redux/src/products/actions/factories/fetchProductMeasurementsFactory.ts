@@ -11,7 +11,7 @@ import type {
   GetProductVariantsMeasurements,
   Product,
   ProductVariantMeasurement,
-} from '@farfetch/blackout-client/products/types';
+} from '@farfetch/blackout-client';
 
 /**
  * @param productId - Numeric identifier of the product.
@@ -28,7 +28,7 @@ import type {
  *
  * @returns Thunk factory.
  */
-const fetchProductMeasurementsFactory =
+export const fetchProductMeasurementsFactory =
   (getMeasurements: GetProductVariantsMeasurements) =>
   (productId: Product['result']['id'], config?: Record<string, unknown>) =>
   async (dispatch: Dispatch): Promise<ProductVariantMeasurement[]> => {
@@ -61,5 +61,3 @@ const fetchProductMeasurementsFactory =
       throw error;
     }
   };
-
-export default fetchProductMeasurementsFactory;

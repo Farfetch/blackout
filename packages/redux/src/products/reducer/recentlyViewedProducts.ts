@@ -3,7 +3,7 @@ import * as authenticationActionTypes from '../../authentication/actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import omit from 'lodash/omit';
 import uniqBy from 'lodash/uniqBy';
-import type { RecentlyViewedProductsPaginationData } from '@farfetch/blackout-client/products/types';
+import type { RecentlyViewedProductsPaginationData } from '@farfetch/blackout-client';
 import type { ReducerSwitch } from '../../types';
 import type { State } from '../types';
 

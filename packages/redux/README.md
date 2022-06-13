@@ -37,7 +37,7 @@ import { bagMiddleware } from '@farfetch/blackout-redux/analytics/middlewares';
 import { entitiesMapperReducer } from '@farfetch/blackout-redux/entities';
 import bag from '@farfetch/blackout-redux/bags';
 import otherScopeReducer from './other-scope';
-import products from '@farfetch/blackout-redux/products';
+import products from '@farfetch/blackout-redux';
 
 // Create your reducer based on a combination of other reducers and entities
 const reducers = combineReducers({
