@@ -1,4 +1,4 @@
-import { actionTypes } from '../..';
+import { actionTypesProducts } from '../..';
 import { mockStore } from '../../../../tests';
 import { resetProductDetailsState } from '..';
 
@@ -11,7 +11,7 @@ describe('resetProductDetailsState() action creator', () => {
 
     expect(store.getActions()).toEqual([
       {
-        type: actionTypes.RESET_PRODUCT_DETAILS_STATE,
+        type: actionTypesProducts.RESET_PRODUCT_DETAILS_STATE,
       },
     ]);
   });

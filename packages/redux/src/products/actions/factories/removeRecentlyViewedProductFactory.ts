@@ -1,6 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { DeleteRecentlyViewedProduct } from '@farfetch/blackout-client/products/types';
+import type { DeleteRecentlyViewedProduct } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { RemoveRecentlyViewedProductAction } from '../../types';
 import type { RemoveRecentlyViewedProductFactory } from './types';
@@ -13,7 +13,7 @@ import type { RemoveRecentlyViewedProductFactory } from './types';
  *
  * @returns Thunk factory.
  */
-const removeRecentlyViewedProductFactory: RemoveRecentlyViewedProductFactory<
+export const removeRecentlyViewedProductFactory: RemoveRecentlyViewedProductFactory<
   DeleteRecentlyViewedProduct
 > =
   deleteRecentlyViewedProduct =>
@@ -43,5 +43,3 @@ const removeRecentlyViewedProductFactory: RemoveRecentlyViewedProductFactory<
       throw error;
     }
   };
-
-export default removeRecentlyViewedProductFactory;

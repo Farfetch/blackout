@@ -1,9 +1,10 @@
 import { fetchProductVariantsByMerchantsLocationsFactory } from './factories';
-import { getProductVariantsByMerchantsLocations } from '@farfetch/blackout-client/products';
+import { getProductVariantsByMerchantsLocations } from '@farfetch/blackout-client';
 
 /**
  * Fetch the merchants locations for a specific product variant.
  */
-export default fetchProductVariantsByMerchantsLocationsFactory(
-  getProductVariantsByMerchantsLocations,
-);
+export const fetchProductVariantsByMerchantsLocations =
+  fetchProductVariantsByMerchantsLocationsFactory(
+    getProductVariantsByMerchantsLocations,
+  );

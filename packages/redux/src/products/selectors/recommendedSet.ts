@@ -1,6 +1,6 @@
 import { getError, getIsLoading, getResult } from '../reducer/recommendedSet';
 import type { BlackoutError } from '@farfetch/blackout-client/types';
-import type { RecommendedSet } from '@farfetch/blackout-client/products/types';
+import type { RecommendedSet } from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 /**

@@ -1,4 +1,4 @@
-import { actionTypes } from '../..';
+import { actionTypesProducts } from '../..';
 import {
   mockProductId,
   mockProductsListHash,
@@ -25,7 +25,7 @@ describe('lists redux reducer', () => {
     it('should return the initial state', () => {
       expect(
         reducer(undefined, {
-          type: actionTypes.RESET_PRODUCTS_LISTS_STATE,
+          type: actionTypesProducts.RESET_PRODUCTS_LISTS_STATE,
         }),
       ).toEqual(initialState);
     });
@@ -47,7 +47,7 @@ describe('lists redux reducer', () => {
       const expectedResult = { [mockProductsListHash]: undefined };
       const state = reducer(undefined, {
         meta,
-        type: actionTypes.FETCH_PRODUCTS_LIST_REQUEST,
+        type: actionTypesProducts.FETCH_PRODUCTS_LIST_REQUEST,
       });
 
       expect(state.error).toEqual(expectedResult);
@@ -57,7 +57,7 @@ describe('lists redux reducer', () => {
       const state = reducer(undefined, {
         meta,
         payload: { error },
-        type: actionTypes.FETCH_PRODUCTS_LIST_FAILURE,
+        type: actionTypesProducts.FETCH_PRODUCTS_LIST_FAILURE,
       });
 
       expect(state.error).toEqual(expectedError);
@@ -85,7 +85,7 @@ describe('lists redux reducer', () => {
     it('should handle SET_PRODUCTS_LIST_HASH action type', () => {
       const state = reducer(undefined, {
         meta,
-        type: actionTypes.SET_PRODUCTS_LIST_HASH,
+        type: actionTypesProducts.SET_PRODUCTS_LIST_HASH,
       });
 
       expect(state.hash).toBe(mockProductsListHash);
@@ -95,7 +95,7 @@ describe('lists redux reducer', () => {
       const state = reducer(undefined, {
         meta,
         payload: { error: {} },
-        type: actionTypes.FETCH_PRODUCTS_LIST_FAILURE,
+        type: actionTypesProducts.FETCH_PRODUCTS_LIST_FAILURE,
       });
 
       expect(state.hash).toBe(initialState.hash);
@@ -123,7 +123,7 @@ describe('lists redux reducer', () => {
       const expectedIsHydrated = { [mockProductsListHash]: false };
       const state = reducer(undefined, {
         meta,
-        type: actionTypes.DEHYDRATE_PRODUCTS_LIST,
+        type: actionTypesProducts.DEHYDRATE_PRODUCTS_LIST,
       });
 
       expect(state.isHydrated).toEqual(expectedIsHydrated);
@@ -152,7 +152,7 @@ describe('lists redux reducer', () => {
       const expectedIsLoading = { [mockProductsListHash]: true };
       const state = reducer(undefined, {
         meta,
-        type: actionTypes.FETCH_PRODUCTS_LIST_REQUEST,
+        type: actionTypesProducts.FETCH_PRODUCTS_LIST_REQUEST,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
@@ -163,7 +163,7 @@ describe('lists redux reducer', () => {
       const state = reducer(undefined, {
         meta,
         payload: { error: '' },
-        type: actionTypes.FETCH_PRODUCTS_LIST_FAILURE,
+        type: actionTypesProducts.FETCH_PRODUCTS_LIST_FAILURE,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
@@ -174,7 +174,7 @@ describe('lists redux reducer', () => {
       const state = reducer(undefined, {
         meta,
         payload: { result: { foo: 'bar' } },
-        type: actionTypes.FETCH_PRODUCTS_LIST_SUCCESS,
+        type: actionTypesProducts.FETCH_PRODUCTS_LIST_SUCCESS,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
@@ -193,7 +193,7 @@ describe('lists redux reducer', () => {
   });
 
   describe('entitiesMapper()', () => {
-    it(`should handle ${actionTypes.RESET_PRODUCTS_LISTS_ENTITIES} action type`, () => {
+    it(`should handle ${actionTypesProducts.RESET_PRODUCTS_LISTS_ENTITIES} action type`, () => {
       const state = {
         productsLists: {
           [mockProductsListHash]: { id: mockProductsListHash },
@@ -222,7 +222,9 @@ describe('lists redux reducer', () => {
       };
 
       expect(
-        entitiesMapper[actionTypes.RESET_PRODUCTS_LISTS_ENTITIES](state),
+        entitiesMapper[actionTypesProducts.RESET_PRODUCTS_LISTS_ENTITIES](
+          state,
+        ),
       ).toEqual(expectedResult);
     });
   });

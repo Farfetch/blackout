@@ -3,7 +3,7 @@ import type {
   FacetGroup,
   Listing as OriginalListing,
   Set as OriginalSet,
-} from '@farfetch/blackout-client/products/types';
+} from '@farfetch/blackout-client';
 import type { ProductEntity } from './product.types';
 
 export type FacetGroupsNormalized = Array<

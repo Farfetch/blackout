@@ -7,7 +7,7 @@ import type { ResetProductsListsStateAction } from '../types';
  *
  * @example
  * ```
- * import { resetProductsListsState } from '@farfetch/blackout-redux/products';
+ * import { resetProductsListsState } from '@farfetch/blackout-redux';
  *
  * // State before executing action
  * const state = {
@@ -27,7 +27,8 @@ import type { ResetProductsListsStateAction } from '../types';
  *
  * @returns Dispatch reset products list state action.
  */
-export default () =>
+export const resetProductsListsState =
+  () =>
   (dispatch: Dispatch<ResetProductsListsStateAction>): void => {
     dispatch({
       type: RESET_PRODUCTS_LISTS_STATE,

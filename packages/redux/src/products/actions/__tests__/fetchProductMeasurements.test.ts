@@ -1,7 +1,7 @@
 import * as normalizr from 'normalizr';
-import { actionTypes } from '../..';
+import { actionTypesProducts } from '../..';
 import { fetchProductMeasurements } from '..';
-import { getProductVariantsMeasurements } from '@farfetch/blackout-client/products';
+import { getProductVariantsMeasurements } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/measurements';
 import {
   mockProductId,
@@ -10,8 +10,8 @@ import {
 } from 'tests/__fixtures__/products';
 import { mockStore } from '../../../../tests';
 
-jest.mock('@farfetch/blackout-client/products', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/products'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getProductVariantsMeasurements: jest.fn(),
 }));
 
@@ -58,12 +58,12 @@ describe('fetchProductMeasurements() action creator', () => {
         expect(store.getActions()).toEqual([
           {
             meta: { productId: mockProductId },
-            type: actionTypes.FETCH_PRODUCT_MEASUREMENTS_REQUEST,
+            type: actionTypesProducts.FETCH_PRODUCT_MEASUREMENTS_REQUEST,
           },
           {
             meta: { productId: mockProductId },
             payload: { error: expectedError },
-            type: actionTypes.FETCH_PRODUCT_MEASUREMENTS_FAILURE,
+            type: actionTypesProducts.FETCH_PRODUCT_MEASUREMENTS_FAILURE,
           },
         ]);
       });
@@ -91,12 +91,12 @@ describe('fetchProductMeasurements() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { productId: mockProductId },
-        type: actionTypes.FETCH_PRODUCT_MEASUREMENTS_REQUEST,
+        type: actionTypesProducts.FETCH_PRODUCT_MEASUREMENTS_REQUEST,
       },
       {
         meta: { productId: mockProductId },
         payload: mockProductVariantsMeasurementsNormalizedResponse,
-        type: actionTypes.FETCH_PRODUCT_MEASUREMENTS_SUCCESS,
+        type: actionTypesProducts.FETCH_PRODUCT_MEASUREMENTS_SUCCESS,
       },
     ]);
   });

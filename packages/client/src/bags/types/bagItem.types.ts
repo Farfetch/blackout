@@ -1,7 +1,7 @@
 import type { Brand } from '../../brands/types';
 import type { Category } from '../../categories/types';
 import type { GenderEnum } from '../../types';
-import type { Product } from '../../products/types';
+import type { Product } from '../../products';
 
 export type BagItem = {
   id: number;

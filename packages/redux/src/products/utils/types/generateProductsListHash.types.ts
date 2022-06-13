@@ -1,7 +1,4 @@
-import type {
-  ListingQuery,
-  SetQuery,
-} from '@farfetch/blackout-client/products/types';
+import type { ListingQuery, SetQuery } from '@farfetch/blackout-client';
 import type { ProductsListEntity } from '../../../entities/types';
 
 export type GenerateProductsListHash = (

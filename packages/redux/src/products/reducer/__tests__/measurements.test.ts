@@ -1,4 +1,4 @@
-import { actionTypes } from '../..';
+import { actionTypesProducts } from '../..';
 import {
   mockProductId,
   mockProductVariantsMeasurements,
@@ -36,7 +36,7 @@ describe('measurements redux reducer', () => {
       const expectedResult = { [mockProductId]: undefined };
       const state = reducer(undefined, {
         meta,
-        type: actionTypes.FETCH_PRODUCT_MEASUREMENTS_REQUEST,
+        type: actionTypesProducts.FETCH_PRODUCT_MEASUREMENTS_REQUEST,
       });
 
       expect(state.error).toEqual(expectedResult);
@@ -46,7 +46,7 @@ describe('measurements redux reducer', () => {
       const state = reducer(undefined, {
         meta,
         payload: { error },
-        type: actionTypes.FETCH_PRODUCT_MEASUREMENTS_FAILURE,
+        type: actionTypesProducts.FETCH_PRODUCT_MEASUREMENTS_FAILURE,
       });
 
       expect(state.error).toEqual(expectedError);
@@ -75,7 +75,7 @@ describe('measurements redux reducer', () => {
       };
       const state = reducer(undefined, {
         meta,
-        type: actionTypes.FETCH_PRODUCT_MEASUREMENTS_REQUEST,
+        type: actionTypesProducts.FETCH_PRODUCT_MEASUREMENTS_REQUEST,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
@@ -88,7 +88,7 @@ describe('measurements redux reducer', () => {
       const state = reducer(undefined, {
         meta,
         payload: { error: '' },
-        type: actionTypes.FETCH_PRODUCT_MEASUREMENTS_FAILURE,
+        type: actionTypesProducts.FETCH_PRODUCT_MEASUREMENTS_FAILURE,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
@@ -103,7 +103,7 @@ describe('measurements redux reducer', () => {
         payload: {
           result: mockProductId,
         },
-        type: actionTypes.FETCH_PRODUCT_MEASUREMENTS_SUCCESS,
+        type: actionTypesProducts.FETCH_PRODUCT_MEASUREMENTS_SUCCESS,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
@@ -143,11 +143,11 @@ describe('measurements redux reducer', () => {
           entities: newMeasurements,
           result: mockProductId,
         },
-        type: actionTypes.FETCH_PRODUCT_MEASUREMENTS_SUCCESS,
+        type: actionTypesProducts.FETCH_PRODUCT_MEASUREMENTS_SUCCESS,
       };
 
       expect(
-        entitiesMapper[actionTypes.FETCH_PRODUCT_MEASUREMENTS_SUCCESS](
+        entitiesMapper[actionTypesProducts.FETCH_PRODUCT_MEASUREMENTS_SUCCESS](
           state,
           action,
         ),

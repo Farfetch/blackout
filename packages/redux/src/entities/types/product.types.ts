@@ -20,7 +20,7 @@ import type {
   ProductSummaryPrice,
   ProductVariant,
   ProductVariantByMerchantLocation,
-} from '@farfetch/blackout-client/products/types';
+} from '@farfetch/blackout-client';
 import type { WishlistItem } from '@farfetch/blackout-client/wishlists/types';
 
 export type ColorGroupingAdapted =

@@ -202,7 +202,7 @@ export const getAllProductSizesRemainingQuantity = createSelector(
  *
  * @example
  * ```
- * import { getListingGroupedEntries } from '@farfetch/blackout-redux/products';
+ * import { getListingGroupedEntries } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     groupedEntries: getListingGroupedEntries(state, productId)
