@@ -1,5 +1,5 @@
 import { RESET_PRODUCTS_LISTS_ENTITIES } from '../actionTypes';
-import resetProductsListsState from './resetProductsListsState';
+import { resetProductsListsState } from './resetProductsListsState';
 import type {
   ResetProductsListsEntitiesAction,
   ResetProductsListsStateAction,
@@ -46,7 +46,7 @@ const resetProductsListsEntities =
  *
  * @example
  * ```
- * import { resetProductsLists } from '@farfetch/blackout-redux/products';
+ * import { resetProductsLists } from '@farfetch/blackout-redux';
  *
  * // State and store before executing action
  * const state = {
@@ -73,7 +73,7 @@ const resetProductsListsEntities =
  *
  * @returns Dispatch reset products lists state and entities action.
  */
-const resetProductsLists =
+export const resetProductsLists =
   () =>
   (
     dispatch: ThunkDispatch<
@@ -85,5 +85,3 @@ const resetProductsLists =
     dispatch(resetProductsListsState());
     dispatch(resetProductsListsEntities());
   };
-
-export default resetProductsLists;

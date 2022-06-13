@@ -1,4 +1,4 @@
-import { actionTypes } from '../..';
+import { actionTypesProducts } from '../..';
 import {
   expectedRecentlyViewedLocalPayload,
   expectedRecentlyViewedRemotePayload,
@@ -29,9 +29,9 @@ describe('Recently Viewed reducer', () => {
       expect(state.error).toEqual(initialState.error);
     });
 
-    it(`should handle ${actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE} action type`, () => {
+    it(`should handle ${actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE} action type`, () => {
       const state = reducer(undefined, {
-        type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE,
+        type: actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE,
         payload: {
           error: expectedError,
         },
@@ -40,9 +40,9 @@ describe('Recently Viewed reducer', () => {
       expect(state.error).toEqual(expectedError);
     });
 
-    it(`should handle ${actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE} action type`, () => {
+    it(`should handle ${actionTypesProducts.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE} action type`, () => {
       const state = reducer(undefined, {
-        type: actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE,
+        type: actionTypesProducts.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE,
         payload: {
           error: expectedError,
         },
@@ -68,48 +68,48 @@ describe('Recently Viewed reducer', () => {
       expect(state.isLoading).toEqual(initialState.isLoading);
     });
 
-    it(`should handle ${actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST} action type`, () => {
+    it(`should handle ${actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST} action type`, () => {
       const expectedIsLoading = true;
       const state = reducer(undefined, {
-        type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST,
+        type: actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
     });
 
-    it(`should handle ${actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_REQUEST} action type`, () => {
+    it(`should handle ${actionTypesProducts.REMOVE_RECENTLY_VIEWED_PRODUCT_REQUEST} action type`, () => {
       const expectedIsLoading = true;
       const state = reducer(undefined, {
-        type: actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_REQUEST,
+        type: actionTypesProducts.REMOVE_RECENTLY_VIEWED_PRODUCT_REQUEST,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
     });
 
-    it(`should handle ${actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS} action type`, () => {
+    it(`should handle ${actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS} action type`, () => {
       const expectedIsLoading = false;
       const state = reducer(undefined, {
-        type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
+        type: actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
         payload: expectedRecentlyViewedRemotePayload,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
     });
 
-    it(`should handle ${actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS} action type`, () => {
+    it(`should handle ${actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS} action type`, () => {
       const expectedIsLoading = false;
       const state = reducer(undefined, {
-        type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
+        type: actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
         payload: expectedRecentlyViewedRemotePayload,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
     });
 
-    it(`should handle ${actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE} action type`, () => {
+    it(`should handle ${actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE} action type`, () => {
       const expectedIsLoading = false;
       const state = reducer(undefined, {
-        type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE,
+        type: actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE,
         payload: {
           error: 'this is an error',
         },
@@ -118,10 +118,10 @@ describe('Recently Viewed reducer', () => {
       expect(state.isLoading).toEqual(expectedIsLoading);
     });
 
-    it(`should handle ${actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE} action type`, () => {
+    it(`should handle ${actionTypesProducts.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE} action type`, () => {
       const expectedIsLoading = false;
       const state = reducer(undefined, {
-        type: actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE,
+        type: actionTypesProducts.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE,
         payload: {
           error: 'this is an error',
         },
@@ -147,25 +147,25 @@ describe('Recently Viewed reducer', () => {
       expect(state.result).toEqual(initialState.result);
     });
 
-    it(`should handle ${actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS} action type`, () => {
+    it(`should handle ${actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS} action type`, () => {
       const state = reducer(undefined, {
-        type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
+        type: actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
         payload: expectedRecentlyViewedRemotePayload,
       });
 
       expect(state.result.remote).toEqual(expectedRecentlyViewedRemotePayload);
     });
 
-    it(`should handle ${actionTypes.SAVE_RECENTLY_VIEWED_PRODUCT} action type`, () => {
+    it(`should handle ${actionTypesProducts.SAVE_RECENTLY_VIEWED_PRODUCT} action type`, () => {
       const state = reducer(undefined, {
-        type: actionTypes.SAVE_RECENTLY_VIEWED_PRODUCT,
+        type: actionTypesProducts.SAVE_RECENTLY_VIEWED_PRODUCT,
         payload: expectedRecentlyViewedLocalPayload,
       });
 
       expect(state.result.computed).toEqual(expectedRecentlyViewedLocalPayload);
     });
 
-    it(`should handle ${actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS} action type`, () => {
+    it(`should handle ${actionTypesProducts.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS} action type`, () => {
       const state: State = {
         ...initialState,
         result: {
@@ -188,7 +188,7 @@ describe('Recently Viewed reducer', () => {
       expect(
         reducer(state, {
           meta: { productId },
-          type: actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS,
+          type: actionTypesProducts.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS,
         }).result,
       ).toEqual(expectedResult);
     });

@@ -1,7 +1,7 @@
 import * as normalizr from 'normalizr';
-import { actionTypes } from '../..';
+import { actionTypesProducts } from '../..';
 import { fetchProductVariantsByMerchantsLocations } from '..';
-import { getProductVariantsByMerchantsLocations } from '@farfetch/blackout-client/products';
+import { getProductVariantsByMerchantsLocations } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/variantsByMerchantsLocations';
 import {
   mockProductId,
@@ -12,8 +12,8 @@ import {
 } from 'tests/__fixtures__/products';
 import { mockStore } from '../../../../tests';
 
-jest.mock('@farfetch/blackout-client/products', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/products'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getProductVariantsByMerchantsLocations: jest.fn(),
 }));
 
@@ -53,12 +53,12 @@ describe('fetchProductVariantsByMerchantsLocations() action creator', () => {
         expect(store.getActions()).toEqual([
           {
             meta: { productId: mockProductId },
-            type: actionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
+            type: actionTypesProducts.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
           },
           {
             meta: { productId: mockProductId },
             payload: { error: expectedError },
-            type: actionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_FAILURE,
+            type: actionTypesProducts.FETCH_PRODUCT_MERCHANTS_LOCATIONS_FAILURE,
           },
         ]);
       });
@@ -89,12 +89,12 @@ describe('fetchProductVariantsByMerchantsLocations() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { productId: mockProductId },
-        type: actionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
+        type: actionTypesProducts.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
       },
       {
         meta: { productId: mockProductId },
         payload: mockProductVariantsByMerchantsLocationsNormalizedResponse,
-        type: actionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_SUCCESS,
+        type: actionTypesProducts.FETCH_PRODUCT_MERCHANTS_LOCATIONS_SUCCESS,
       },
     ]);
   });
@@ -128,12 +128,12 @@ describe('fetchProductVariantsByMerchantsLocations() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { productId: mockProductId },
-        type: actionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
+        type: actionTypesProducts.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
       },
       {
         meta: { productId: mockProductId },
         payload: mockProductVariantsByMerchantsLocationsNormalizedResponse,
-        type: actionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_SUCCESS,
+        type: actionTypesProducts.FETCH_PRODUCT_MERCHANTS_LOCATIONS_SUCCESS,
       },
     ]);
   });

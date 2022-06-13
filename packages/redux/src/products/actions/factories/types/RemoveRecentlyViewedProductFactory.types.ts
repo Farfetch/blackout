@@ -1,4 +1,4 @@
-import type { DeleteRecentlyViewedProduct } from '@farfetch/blackout-client/products/types';
+import type { DeleteRecentlyViewedProduct } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { RemoveRecentlyViewedProductAction } from '../../../types';
 

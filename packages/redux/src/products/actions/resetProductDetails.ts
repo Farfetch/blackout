@@ -1,5 +1,5 @@
 import { RESET_PRODUCT_DETAILS_ENTITIES } from '../actionTypes';
-import resetProductDetailsState from './resetProductDetailsState';
+import { resetProductDetailsState } from './resetProductDetailsState';
 import type {
   ResetProductDetailsEntitiesAction,
   ResetProductDetailsStateAction,
@@ -45,7 +45,7 @@ const resetProductEntities =
  *
  * @example
  * ```
- * import { resetProductDetails } from '@farfetch/blackout-redux/products';
+ * import { resetProductDetails } from '@farfetch/blackout-redux';
  *
  * // State and store before executing action
  * const state = { id: '123', error: null, isLoading: false, isHydrated: ... };
@@ -66,7 +66,7 @@ const resetProductEntities =
  *
  * @returns Dispatch reset details state and entities action.
  */
-const resetProductDetails =
+export const resetProductDetails =
   () =>
   (
     dispatch: ThunkDispatch<
@@ -78,5 +78,3 @@ const resetProductDetails =
     dispatch(resetProductDetailsState());
     dispatch(resetProductEntities());
   };
-
-export default resetProductDetails;

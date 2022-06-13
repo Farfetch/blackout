@@ -28,7 +28,7 @@ import type {
   ProductEntity,
   ProductsListEntity,
 } from '../../entities/types';
-import type { FacetGroup } from '@farfetch/blackout-client/products/types';
+import type { FacetGroup } from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 /**

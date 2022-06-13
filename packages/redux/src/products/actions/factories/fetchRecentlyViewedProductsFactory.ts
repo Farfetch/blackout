@@ -7,7 +7,7 @@ import type { FetchRecentlyViewedProductsFactory } from './types';
 import type {
   GetRecentlyViewedProducts,
   RecentlyViewedProducts,
-} from '@farfetch/blackout-client/products/types';
+} from '@farfetch/blackout-client';
 import type { StoreState } from '../../../types';
 
 /**
@@ -18,7 +18,7 @@ import type { StoreState } from '../../../types';
  *
  * @returns Thunk factory.
  */
-const fetchRecentlyViewedProducts: FetchRecentlyViewedProductsFactory<
+export const fetchRecentlyViewedProductsFactory: FetchRecentlyViewedProductsFactory<
   GetRecentlyViewedProducts
 > =
   getRecentlyViewedProducts =>
@@ -58,5 +58,3 @@ const fetchRecentlyViewedProducts: FetchRecentlyViewedProductsFactory<
       throw error;
     }
   };
-
-export default fetchRecentlyViewedProducts;

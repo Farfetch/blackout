@@ -1,4 +1,4 @@
-import type { FacetValue } from '@farfetch/blackout-client/products/types';
+import type { FacetValue } from '@farfetch/blackout-client';
 
 export type FacetEntity = FacetValue & {
   id: string;

@@ -3,6 +3,7 @@
   "version": "2.0.0-next.163",
   "description": "Clients to connect to the Farfetch Platform Solutions' services",
   "license": "MIT",
+  "main": "src/index.ts",
   "exports": {
     "./*": "./dist/*"
   },

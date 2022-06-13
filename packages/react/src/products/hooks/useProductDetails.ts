@@ -12,7 +12,7 @@ import {
   isProductFetched,
   isProductHydrated,
   isProductLoading,
-} from '@farfetch/blackout-redux/products';
+} from '@farfetch/blackout-redux';
 import {
   getProduct,
   getProductLabelsByPriority,

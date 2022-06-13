@@ -19,7 +19,7 @@ import type {
   ListingQuery,
   Set,
   SetQuery,
-} from '@farfetch/blackout-client/products/types';
+} from '@farfetch/blackout-client';
 import type { GetOptionsArgument, Nullable, StoreState } from '../../../types';
 import type { ProductsListActionOptions } from '../../types';
 
@@ -39,7 +39,7 @@ import type { ProductsListActionOptions } from '../../types';
  *
  * @returns Thunk to be dispatched to the redux store.
  */
-const fetchProductsListFactory = async (
+export const fetchProductsListFactory = async (
   client: GetListing | GetSet,
   slug: string | number,
   query: ListingQuery | SetQuery | Record<string, never>,
@@ -133,5 +133,3 @@ const fetchProductsListFactory = async (
     throw error;
   }
 };
-
-export default fetchProductsListFactory;

@@ -1,5 +1,5 @@
 import { cleanup, renderHook } from '@testing-library/react';
-import { getSlug } from '@farfetch/blackout-redux/products/utils';
+import { getSlug } from '@farfetch/blackout-redux';
 import {
   mockProductsListPathname,
   mockProductsState,
@@ -11,8 +11,8 @@ import React from 'react';
 import useProductsList from '../useProductsList';
 import type { UseProductsListParams } from '../types';
 
-jest.mock('@farfetch/blackout-redux/products', () => ({
-  ...jest.requireActual('@farfetch/blackout-redux/products'),
+jest.mock('@farfetch/blackout-redux', () => ({
+  ...jest.requireActual('@farfetch/blackout-redux'),
   fetchListing: jest.fn(() => ({ type: 'fetchListing' })),
   fetchSet: jest.fn(() => ({ type: 'fetchSet' })),
 }));
