@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.241](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.240...@farfetch/blackout-redux@1.0.0-next.241) (2022-06-14)
+
+
+### Bug Fixes
+
+* **redux:** remove unsupported params from FetchUserFactory ([7278675](https://github.com/Farfetch/blackout/commit/7278675df9baf8e488ca464f8f33296c053ebad9))
+
+
+
+
+
 # [1.0.0-next.240](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.239...@farfetch/blackout-redux@1.0.0-next.240) (2022-06-09)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
