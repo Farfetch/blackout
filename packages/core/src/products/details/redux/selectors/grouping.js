@@ -36,9 +36,9 @@ export const getProductGroupingError = (state, id) =>
 
 /**
  * Gets the current page index of the given product grouping, ie, gets the last page fetched.
- * This is useful for the consumer to know were certain PDP was regarding grouping, in order to continue from here
+ * This is useful for the consumer to know where certain PDP was regarding grouping, in order to continue from there
  * when returning to that same PDP (similar to the cache behavior - the product entity already has the grouping info;
- * with this the tenant avoids requesting the  from the beginning).
+ * with this the tenant avoids requesting the product grouping from the beginning).
  *
  * @summary Retrieves the current page index of the given product grouping.
  *
@@ -117,7 +117,7 @@ export const getGroupingByPageIndex = (state, id, pageIndex) => {
 /**
  * Returns the number of total pages of the grouping for a specific product.
  * This assumes that the requests always have the same `pageSize`,
- * since this trust on the first `grouping` entry to get the total pages.
+ * thus this trust on the first `grouping` entry to get the total pages.
  *
  * @function
  * @memberof module:products/details/selectors
