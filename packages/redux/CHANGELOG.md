@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.242](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.241...@farfetch/blackout-redux@1.0.0-next.242) (2022-06-14)
+
+
+### Bug Fixes
+
+* **blackout-client|blackout-redux:** fix getFormSchemaByCode selector ([5e209c4](https://github.com/Farfetch/blackout/commit/5e209c467f091496b02446e64f78e45667c167d5))
+
+
+
+
+
 # [1.0.0-next.241](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.240...@farfetch/blackout-redux@1.0.0-next.241) (2022-06-14)
 
 
