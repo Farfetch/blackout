@@ -4,10 +4,8 @@ import { toError } from '@farfetch/blackout-client/helpers/client';
 import titlesSchema from '../../../entities/schemas/titles';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
-import type {
-  GetTitles,
-  GetTitlesQuery,
-} from '@farfetch/blackout-client/users/types';
+import type { GetTitles } from '@farfetch/blackout-client/users/titles/types';
+import type { GetTitlesQuery } from '@farfetch/blackout-client/users/types';
 
 /**
  * @param query  - Query parameters for get titles.

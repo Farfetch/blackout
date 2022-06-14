@@ -8,12 +8,10 @@ import type { Config } from '../types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getUser = (config?: Config) =>
+export const getUser = (config?: Config) =>
   client
     .get('/account/v1/users/me', config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
-
-export default getUser;

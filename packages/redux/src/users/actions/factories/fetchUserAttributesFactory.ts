@@ -3,9 +3,9 @@ import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type {
   GetUserAttributes,
-  UserAttributesQuery,
   UserAttributesResponse,
-} from '@farfetch/blackout-client/users/types';
+} from '@farfetch/blackout-client/users/attributes/types';
+import type { UserAttributesQuery } from '@farfetch/blackout-client/users/types';
 
 /**
  * @param id     - The user's id.

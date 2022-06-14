@@ -4,7 +4,7 @@ import type { Dispatch } from 'redux';
 import type {
   GetUserAttribute,
   UserAttributesResponse,
-} from '@farfetch/blackout-client/users/types';
+} from '@farfetch/blackout-client/users/attributes/types';
 
 /**
  * @param id          - The user's id.

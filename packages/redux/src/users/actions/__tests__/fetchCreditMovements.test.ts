@@ -4,14 +4,14 @@ import {
   mockGetCreditMovementsResponse,
 } from 'tests/__fixtures__/users';
 import { fetchCreditMovements } from '..';
-import { getCreditMovements } from '@farfetch/blackout-client/users';
+import { getUserCreditMovements } from '@farfetch/blackout-client/users';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 
 jest.mock('@farfetch/blackout-client/users', () => ({
   ...jest.requireActual('@farfetch/blackout-client/users'),
-  getCreditMovements: jest.fn(),
+  getUserCreditMovements: jest.fn(),
 }));
 
 const usersMockStore = (state = {}) =>
@@ -33,15 +33,15 @@ describe('fetchCreditMovements action creator', () => {
   it('should create the correct actions for when the get credit movements procedure fails', async () => {
     const expectedError = new Error('get credit movements error');
 
-    (getCreditMovements as jest.Mock).mockRejectedValueOnce(expectedError);
+    (getUserCreditMovements as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
       await store.dispatch(fetchCreditMovements(id, query));
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(getCreditMovements).toHaveBeenCalledTimes(1);
-      expect(getCreditMovements).toHaveBeenCalledWith(
+      expect(getUserCreditMovements).toHaveBeenCalledTimes(1);
+      expect(getUserCreditMovements).toHaveBeenCalledWith(
         id,
         query,
         expectedConfig,
@@ -59,7 +59,7 @@ describe('fetchCreditMovements action creator', () => {
   });
 
   it('should create the correct actions for when the get credit movements procedure is successful', async () => {
-    (getCreditMovements as jest.Mock).mockResolvedValueOnce(
+    (getUserCreditMovements as jest.Mock).mockResolvedValueOnce(
       mockGetCreditMovementsResponse,
     );
 
@@ -67,8 +67,12 @@ describe('fetchCreditMovements action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect(getCreditMovements).toHaveBeenCalledTimes(1);
-    expect(getCreditMovements).toHaveBeenCalledWith(id, query, expectedConfig);
+    expect(getUserCreditMovements).toHaveBeenCalledTimes(1);
+    expect(getUserCreditMovements).toHaveBeenCalledWith(
+      id,
+      query,
+      expectedConfig,
+    );
     expect(actionResults).toMatchObject([
       { type: actionTypes.FETCH_CREDIT_MOVEMENTS_REQUEST },
       {

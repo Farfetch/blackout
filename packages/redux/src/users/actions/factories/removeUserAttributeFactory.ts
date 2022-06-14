@@ -1,6 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { DeleteUserAttribute } from '@farfetch/blackout-client/users/types';
+import type { DeleteUserAttribute } from '@farfetch/blackout-client/users/attributes/types';
 import type { Dispatch } from 'redux';
 
 /**

@@ -1,7 +1,7 @@
 import { fetchPreferencesFactory } from './factories';
-import { getPreferences } from '@farfetch/blackout-client/users';
+import { getUserPreferences } from '@farfetch/blackout-client/users';
 
 /**
  * Fetch the user preferences.
  */
-export default fetchPreferencesFactory(getPreferences);
+export default fetchPreferencesFactory(getUserPreferences);

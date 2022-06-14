@@ -10,12 +10,10 @@ import type { PutUser } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const putUser: PutUser = (id, data, config) =>
+export const putUser: PutUser = (id, data, config) =>
   client
     .put(join('/account/v1/users', id), data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
-
-export default putUser;

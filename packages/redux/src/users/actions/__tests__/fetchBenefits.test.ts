@@ -5,14 +5,14 @@ import {
   mockGetBenefitsResponse,
 } from 'tests/__fixtures__/users';
 import { fetchBenefits } from '..';
-import { getBenefits } from '@farfetch/blackout-client/users';
+import { getUserBenefits } from '@farfetch/blackout-client/users';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 
 jest.mock('@farfetch/blackout-client/users', () => ({
   ...jest.requireActual('@farfetch/blackout-client/users'),
-  getBenefits: jest.fn(),
+  getUserBenefits: jest.fn(),
 }));
 
 const usersMockStore = (state = {}) =>
@@ -32,15 +32,15 @@ describe('fetchBenefits action creator', () => {
   it('should create the correct actions for when the get benefits procedure fails', async () => {
     const expectedError = new Error('get benefits error');
 
-    (getBenefits as jest.Mock).mockRejectedValueOnce(expectedError);
+    (getUserBenefits as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
       await store.dispatch(fetchBenefits());
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(getBenefits).toHaveBeenCalledTimes(1);
-      expect(getBenefits).toHaveBeenCalledWith(expectedConfig);
+      expect(getUserBenefits).toHaveBeenCalledTimes(1);
+      expect(getUserBenefits).toHaveBeenCalledWith(expectedConfig);
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
           { type: actionTypes.FETCH_BENEFITS_REQUEST },
@@ -54,15 +54,17 @@ describe('fetchBenefits action creator', () => {
   });
 
   it('should create the correct actions for when the get benefits procedure is successful', async () => {
-    (getBenefits as jest.Mock).mockResolvedValueOnce(mockGetBenefitsResponse);
+    (getUserBenefits as jest.Mock).mockResolvedValueOnce(
+      mockGetBenefitsResponse,
+    );
 
     await store.dispatch(fetchBenefits());
 
     const actionResults = store.getActions();
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
-    expect(getBenefits).toHaveBeenCalledTimes(1);
-    expect(getBenefits).toHaveBeenCalledWith(expectedConfig);
+    expect(getUserBenefits).toHaveBeenCalledTimes(1);
+    expect(getUserBenefits).toHaveBeenCalledWith(expectedConfig);
     expect(actionResults).toMatchObject([
       { type: actionTypes.FETCH_BENEFITS_REQUEST },
       {

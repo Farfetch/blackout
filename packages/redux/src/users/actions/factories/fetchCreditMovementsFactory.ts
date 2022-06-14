@@ -2,11 +2,8 @@ import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
-import type {
-  GetCreditMovements,
-  GetCreditMovementsQuery,
-} from '@farfetch/blackout-client/users/types';
-
+import type { GetUserCreditMovements } from '@farfetch/blackout-client/users/credits/types';
+import type { GetUserCreditMovementsQuery } from '@farfetch/blackout-client/users/types';
 /**
  * @param id     - User identifier.
  * @param query  - Query parameters.
@@ -23,8 +20,8 @@ import type {
  * @returns Thunk factory.
  */
 const fetchCreditMovementsFactory =
-  (getCreditMovements: GetCreditMovements) =>
-  (id: number, query: GetCreditMovementsQuery, config?: Config) =>
+  (getCreditMovements: GetUserCreditMovements) =>
+  (id: string, query: GetUserCreditMovementsQuery, config?: Config) =>
   async (dispatch: Dispatch) => {
     try {
       dispatch({

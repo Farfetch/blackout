@@ -3,10 +3,10 @@ import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
-  PostPersonalIdImage,
-  PostPersonalIdImageData,
-  PostPersonalIdImageResponse,
-} from '@farfetch/blackout-client/users/types';
+  PostUserPersonalIdImage,
+  PostUserPersonalIdImageData,
+  PostUserPersonalIdImageResponse,
+} from '@farfetch/blackout-client/users/personalIds/types';
 
 /**
  * @param userId - User id.
@@ -25,9 +25,9 @@ import type {
  * @returns Thunk factory.
  */
 const createPersonalIdImageFactory =
-  (postPersonalIdImage: PostPersonalIdImage) =>
-  (userId: number, data: PostPersonalIdImageData, config: Config) =>
-  async (dispatch: Dispatch): Promise<PostPersonalIdImageResponse> => {
+  (postPersonalIdImage: PostUserPersonalIdImage) =>
+  (userId: number, data: PostUserPersonalIdImageData, config: Config) =>
+  async (dispatch: Dispatch): Promise<PostUserPersonalIdImageResponse> => {
     try {
       dispatch({
         type: actionTypes.CREATE_PERSONAL_ID_IMAGE_REQUEST,

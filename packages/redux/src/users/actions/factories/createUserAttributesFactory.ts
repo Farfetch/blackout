@@ -5,7 +5,7 @@ import type {
   PostUserAttributes,
   UserAttributesData,
   UserAttributesResponse,
-} from '@farfetch/blackout-client/users/types';
+} from '@farfetch/blackout-client/users/attributes/types';
 
 /**
  * @param userId - User id.

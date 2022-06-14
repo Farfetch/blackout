@@ -4,7 +4,7 @@ import { toError } from '@farfetch/blackout-client/helpers/client';
 import userPreferencesSchema from '../../../entities/schemas/preference';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
-import type { GetPreferences } from '@farfetch/blackout-client/users/types';
+import type { GetUserPreferences } from '@farfetch/blackout-client/users/preferences/types';
 
 /**
  * @param userId - User's id to.
@@ -22,7 +22,7 @@ import type { GetPreferences } from '@farfetch/blackout-client/users/types';
  * @returns Thunk factory.
  */
 const fetchPreferencesFactory =
-  (getPreferences: GetPreferences) =>
+  (getPreferences: GetUserPreferences) =>
   (userId: number, code: string, config?: Config) =>
   async (dispatch: Dispatch) => {
     try {
