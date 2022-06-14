@@ -2,12 +2,12 @@ import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import contactsSchema from '../../../entities/schemas/contact';
-import type {
-  Contact,
-  PostContact,
-  PostContactQuery,
-} from '@farfetch/blackout-client/users/types';
 import type { Dispatch } from 'redux';
+import type {
+  PostUserContact,
+  UserContact,
+} from '@farfetch/blackout-client/users/contacts/types';
+import type { PostUserContactQuery } from '@farfetch/blackout-client/users/types';
 
 /**
  * @param id     - User's id to get the contacts from.
@@ -26,11 +26,11 @@ import type { Dispatch } from 'redux';
  * @returns Thunk factory.
  */
 const createContactFactory =
-  (postContact: PostContact) =>
+  (postContact: PostUserContact) =>
   (
     id: number,
-    data: Contact,
-    query: PostContactQuery,
+    data: UserContact,
+    query: PostUserContactQuery,
     config?: Record<string, unknown>,
   ) =>
   async (dispatch: Dispatch) => {

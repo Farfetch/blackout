@@ -3,7 +3,7 @@ import { toError } from '@farfetch/blackout-client/helpers/client';
 import isEmpty from 'lodash/isEmpty';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
-import type { GetCredit } from '@farfetch/blackout-client/users/types';
+import type { GetUserCredit } from '@farfetch/blackout-client/users/credits/types';
 
 /**
  * @param id     - User identifier.
@@ -21,8 +21,8 @@ import type { GetCredit } from '@farfetch/blackout-client/users/types';
  */
 
 const fetchCreditFactory =
-  (getCredit: GetCredit) =>
-  (id: number, config?: Config) =>
+  (getCredit: GetUserCredit) =>
+  (id: string, config?: Config) =>
   async (dispatch: Dispatch) => {
     try {
       const defaultZeroBalanceCredit = {

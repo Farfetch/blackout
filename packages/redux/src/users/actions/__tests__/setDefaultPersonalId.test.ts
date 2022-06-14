@@ -2,13 +2,13 @@ import { actionTypes } from '../..';
 import { INITIAL_STATE } from '../../reducer';
 import { mockPutDefaultPersonalIdResponse } from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../tests';
-import { putDefaultPersonalId } from '@farfetch/blackout-client/users';
+import { putUserDefaultPersonalId } from '@farfetch/blackout-client/users';
 import { setDefaultPersonalId } from '../';
 import find from 'lodash/find';
 
 jest.mock('@farfetch/blackout-client/users', () => ({
   ...jest.requireActual('@farfetch/blackout-client/users'),
-  putDefaultPersonalId: jest.fn(),
+  putUserDefaultPersonalId: jest.fn(),
 }));
 
 const usersMockStore = (state = {}) =>
@@ -35,15 +35,17 @@ describe('setDefaultPersonalId action creator', () => {
   it('should create the correct actions for when the set default personal id procedure fails', async () => {
     const expectedError = new Error('set default personal id error');
 
-    (putDefaultPersonalId as jest.Mock).mockRejectedValueOnce(expectedError);
+    (putUserDefaultPersonalId as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
     try {
       await store.dispatch(setDefaultPersonalId(userId, data, config));
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(putDefaultPersonalId).toHaveBeenCalledTimes(1);
-      expect(putDefaultPersonalId).toHaveBeenCalledWith(
+      expect(putUserDefaultPersonalId).toHaveBeenCalledTimes(1);
+      expect(putUserDefaultPersonalId).toHaveBeenCalledWith(
         userId,
         data,
         expectedConfig,
@@ -61,15 +63,15 @@ describe('setDefaultPersonalId action creator', () => {
   });
 
   it('should create the correct actions for when the set default personal id procedure is successful', async () => {
-    (putDefaultPersonalId as jest.Mock).mockResolvedValueOnce(
+    (putUserDefaultPersonalId as jest.Mock).mockResolvedValueOnce(
       mockPutDefaultPersonalIdResponse,
     );
     await store.dispatch(setDefaultPersonalId(userId, data, config));
 
     const actionResults = store.getActions();
 
-    expect(putDefaultPersonalId).toHaveBeenCalledTimes(1);
-    expect(putDefaultPersonalId).toHaveBeenCalledWith(
+    expect(putUserDefaultPersonalId).toHaveBeenCalledTimes(1);
+    expect(putUserDefaultPersonalId).toHaveBeenCalledWith(
       userId,
       data,
       expectedConfig,

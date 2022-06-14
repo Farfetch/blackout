@@ -4,10 +4,8 @@ import { toError } from '@farfetch/blackout-client/helpers/client';
 import contactsSchema from '../../../entities/schemas/contact';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
-import type {
-  GetContact,
-  GetContactQuery,
-} from '@farfetch/blackout-client/users/types';
+import type { GetUserContact } from '@farfetch/blackout-client/users/contacts/types';
+import type { GetUserContactQuery } from '@farfetch/blackout-client/users/types';
 
 /**
  * @param id        - The user's id.
@@ -26,8 +24,13 @@ import type {
  * @returns Thunk factory.
  */
 const fetchContactFactory =
-  (getContact: GetContact) =>
-  (id: number, contactId: string, query: GetContactQuery, config?: Config) =>
+  (getContact: GetUserContact) =>
+  (
+    id: number,
+    contactId: string,
+    query: GetUserContactQuery,
+    config?: Config,
+  ) =>
   async (dispatch: Dispatch) => {
     try {
       dispatch({

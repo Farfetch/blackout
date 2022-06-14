@@ -3,10 +3,10 @@ import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
-  PostPersonalIds,
-  PostPersonalIdsData,
-  PostPersonalIdsResponse,
-} from '@farfetch/blackout-client/users/types';
+  PostUserPersonalIds,
+  PostUserPersonalIdsData,
+  PostUserPersonalIdsResponse,
+} from '@farfetch/blackout-client/users/personalIds/types';
 
 /**
  * @param userId - User id.
@@ -24,9 +24,9 @@ import type {
  * @returns Thunk factory.
  */
 const createPersonalIdsFactory =
-  (postPersonalIds: PostPersonalIds) =>
-  (userId: number, data: PostPersonalIdsData, config: Config) =>
-  async (dispatch: Dispatch): Promise<PostPersonalIdsResponse> => {
+  (postPersonalIds: PostUserPersonalIds) =>
+  (userId: number, data: PostUserPersonalIdsData, config: Config) =>
+  async (dispatch: Dispatch): Promise<PostUserPersonalIdsResponse> => {
     try {
       dispatch({
         type: actionTypes.CREATE_PERSONAL_IDS_REQUEST,

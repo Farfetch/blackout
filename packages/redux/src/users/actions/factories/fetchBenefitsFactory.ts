@@ -5,9 +5,9 @@ import userBenefitsSchema from '../../../entities/schemas/benefit';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
-  GetBenefits,
-  GetBenefitsResponse,
-} from '@farfetch/blackout-client/users/types';
+  GetUserBenefits,
+  GetUserBenefitsResponse,
+} from '@farfetch/blackout-client/users/benefits/types';
 
 /**
  * @param config - Custom configurations to send to the client instance (axios).
@@ -23,9 +23,9 @@ import type {
  * @returns Thunk factory.
  */
 const fetchBenefitsFactory =
-  (getBenefits: GetBenefits) =>
+  (getBenefits: GetUserBenefits) =>
   (config?: Config) =>
-  async (dispatch: Dispatch): Promise<GetBenefitsResponse> => {
+  async (dispatch: Dispatch): Promise<GetUserBenefitsResponse> => {
     try {
       dispatch({
         type: actionTypes.FETCH_BENEFITS_REQUEST,

@@ -4,7 +4,7 @@ import type { Dispatch } from 'redux';
 import type {
   PatchUserAttribute,
   PatchUserAttributeData,
-} from '@farfetch/blackout-client/users/types';
+} from '@farfetch/blackout-client/users/attributes/types';
 
 /**
  * @param userId      - User's id to be filtered for.

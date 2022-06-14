@@ -1,4 +1,7 @@
-import { Side, VerifyLevel } from '@farfetch/blackout-client/users/types';
+import {
+  Side,
+  VerifyLevel,
+} from '@farfetch/blackout-client/users/personalIds/types';
 
 export const mockPersonalIdResponse = {
   backImageId: '',
@@ -11,7 +14,7 @@ export const mockPersonalIdResponse = {
   verifyLevel: VerifyLevel.VALID,
 };
 
-export const mockGetDefaultPersonalIdResponse = {
+export const mockGetUserDefaultPersonalIdResponse = {
   backImageId: 'string',
   expiryDate: 'string',
   frontImageId: 'string',

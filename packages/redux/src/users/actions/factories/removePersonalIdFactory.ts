@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
-import type { DeletePersonalId } from '@farfetch/blackout-client/users/types';
+import type { DeleteUserPersonalId } from '@farfetch/blackout-client/users/personalIds/types';
 import type { Dispatch } from 'redux';
 
 /**
@@ -21,7 +21,7 @@ import type { Dispatch } from 'redux';
  * @returns Thunk factory.
  */
 const removePersonalIdFactory =
-  (deletePersonalId: DeletePersonalId) =>
+  (deletePersonalId: DeleteUserPersonalId) =>
   (userId: number, personalId: string, config: Config) =>
   async (dispatch: Dispatch): Promise<number> => {
     try {

@@ -2,13 +2,13 @@ import { actionTypes } from '../..';
 import { INITIAL_STATE } from '../../reducer';
 import { mockPersonalIdResponse } from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../tests';
-import { patchPersonalId } from '@farfetch/blackout-client/users';
+import { patchUserPersonalId } from '@farfetch/blackout-client/users';
 import { updatePersonalId } from '../';
 import find from 'lodash/find';
 
 jest.mock('@farfetch/blackout-client/users', () => ({
   ...jest.requireActual('@farfetch/blackout-client/users'),
-  patchPersonalId: jest.fn(),
+  patchUserPersonalId: jest.fn(),
 }));
 
 const usersMockStore = (state = {}) =>
@@ -40,15 +40,15 @@ describe('updatePersonalId action creator', () => {
   it('should create the correct actions for when the update personal id procedure fails', async () => {
     const expectedError = new Error('update personal id error');
 
-    (patchPersonalId as jest.Mock).mockRejectedValueOnce(expectedError);
+    (patchUserPersonalId as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
       await store.dispatch(updatePersonalId(userId, personalId, data, config));
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(patchPersonalId).toHaveBeenCalledTimes(1);
-      expect(patchPersonalId).toHaveBeenCalledWith(
+      expect(patchUserPersonalId).toHaveBeenCalledTimes(1);
+      expect(patchUserPersonalId).toHaveBeenCalledWith(
         userId,
         personalId,
         data,
@@ -67,7 +67,7 @@ describe('updatePersonalId action creator', () => {
   });
 
   it('should create the correct actions for when the update personal id procedure is successful', async () => {
-    (patchPersonalId as jest.Mock).mockResolvedValueOnce(
+    (patchUserPersonalId as jest.Mock).mockResolvedValueOnce(
       mockPersonalIdResponse,
     );
 
@@ -75,8 +75,8 @@ describe('updatePersonalId action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect(patchPersonalId).toHaveBeenCalledTimes(1);
-    expect(patchPersonalId).toHaveBeenCalledWith(
+    expect(patchUserPersonalId).toHaveBeenCalledTimes(1);
+    expect(patchUserPersonalId).toHaveBeenCalledWith(
       userId,
       personalId,
       data,

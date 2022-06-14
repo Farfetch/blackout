@@ -1,7 +1,7 @@
 import { fetchCreditMovementsFactory } from './factories';
-import { getCreditMovements } from '@farfetch/blackout-client/users';
+import { getUserCreditMovements } from '@farfetch/blackout-client/users';
 
 /**
  * Fetch user credit movements.
  */
-export default fetchCreditMovementsFactory(getCreditMovements);
+export default fetchCreditMovementsFactory(getUserCreditMovements);

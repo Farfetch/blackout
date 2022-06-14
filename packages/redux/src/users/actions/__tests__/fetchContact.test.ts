@@ -4,14 +4,14 @@ import {
   mockGetContactResponse,
 } from 'tests/__fixtures__/users';
 import { fetchContact } from '..';
-import { getContact } from '@farfetch/blackout-client/users';
+import { getUserContact } from '@farfetch/blackout-client/users';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 
 jest.mock('@farfetch/blackout-client/users', () => ({
   ...jest.requireActual('@farfetch/blackout-client/users'),
-  getContact: jest.fn(),
+  getUserContact: jest.fn(),
 }));
 
 const usersMockStore = (state = {}) =>
@@ -35,15 +35,15 @@ describe('fetchContact action creator', () => {
   it('should create the correct actions for when the get contact procedure fails', async () => {
     const expectedError = new Error('get contact error');
 
-    (getContact as jest.Mock).mockRejectedValueOnce(expectedError);
+    (getUserContact as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
       await store.dispatch(fetchContact(userId, contactId, query));
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(getContact).toHaveBeenCalledTimes(1);
-      expect(getContact).toHaveBeenCalledWith(
+      expect(getUserContact).toHaveBeenCalledTimes(1);
+      expect(getUserContact).toHaveBeenCalledWith(
         userId,
         contactId,
         query,
@@ -62,7 +62,7 @@ describe('fetchContact action creator', () => {
   });
 
   it('should create the correct actions for when the get contact procedure is successful', async () => {
-    (getContact as jest.Mock).mockResolvedValueOnce(mockGetContactResponse);
+    (getUserContact as jest.Mock).mockResolvedValueOnce(mockGetContactResponse);
 
     await store.dispatch(
       fetchContact(userId, contactId, query, expectedConfig),
@@ -70,8 +70,8 @@ describe('fetchContact action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect(getContact).toHaveBeenCalledTimes(1);
-    expect(getContact).toHaveBeenCalledWith(
+    expect(getUserContact).toHaveBeenCalledTimes(1);
+    expect(getUserContact).toHaveBeenCalledWith(
       userId,
       contactId,
       query,

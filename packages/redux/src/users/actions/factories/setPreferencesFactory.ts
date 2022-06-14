@@ -5,9 +5,9 @@ import userPreferencesSchema from '../../../entities/schemas/preference';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
-  SetPreferences,
-  SetPreferencesData,
-} from '@farfetch/blackout-client/users/types';
+  SetUserPreferences,
+  SetUserPreferencesData,
+} from '@farfetch/blackout-client/users/preferences/types';
 
 /**
  * @param userId - User's id to be filtered for.
@@ -25,8 +25,8 @@ import type {
  * @returns Thunk factory.
  */
 const setPreferencesFactory =
-  (updatePreferences: SetPreferences) =>
-  (userId: number, data: SetPreferencesData, config?: Config) =>
+  (updatePreferences: SetUserPreferences) =>
+  (userId: number, data: SetUserPreferencesData, config?: Config) =>
   async (dispatch: Dispatch) => {
     try {
       dispatch({

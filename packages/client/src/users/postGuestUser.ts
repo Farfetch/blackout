@@ -9,12 +9,10 @@ import type { PostGuestUser } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const postGuestUser: PostGuestUser = (data, config?) =>
+export const postGuestUser: PostGuestUser = (data, config?) =>
   client
     .post('/account/v1/guestUsers', data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
-
-export default postGuestUser;
