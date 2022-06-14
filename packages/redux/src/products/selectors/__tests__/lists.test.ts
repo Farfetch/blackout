@@ -333,10 +333,7 @@ describe('products list redux selectors', () => {
 
     it('should return the respective active filters', () => {
       const expectedResult = {
-        categories: [136003],
-        colors: [6, 12],
-        gender: [0],
-        sizes: [22],
+        categories: [144307],
       };
 
       expect(
@@ -349,10 +346,7 @@ describe('products list redux selectors', () => {
 
     it('should return the respective active filters without hash', () => {
       const expectedResult = {
-        categories: [136003],
-        colors: [6, 12],
-        gender: [0],
-        sizes: [22],
+        categories: [144307],
       };
 
       expect(selectors.getProductsListActiveFilters(mockProductsState)).toEqual(
@@ -453,13 +447,13 @@ describe('products list redux selectors', () => {
           mockProductsState,
           mockProductsListHash,
         ),
-      ).toBe(4);
+      ).toBe(1);
     });
 
     it('should return the count of the selected filters without hash', () => {
       expect(
         selectors.getProductsListSelectedFiltersCount(mockProductsState),
-      ).toBe(4);
+      ).toBe(1);
     });
   });
 
@@ -554,9 +548,9 @@ describe('products list redux selectors', () => {
 
   describe('getProductsListFacetsByFacetGroupType()', () => {
     const mockFacet1 =
-      mockProductsListNormalizedPayload.entities.facets[mockFacets[2].id];
+      mockProductsListNormalizedPayload.entities.facets[mockFacets[0].id];
     const mockFacet2 =
-      mockProductsListNormalizedPayload.entities.facets[mockFacets[3].id];
+      mockProductsListNormalizedPayload.entities.facets[mockFacets[1].id];
     const mockFacetGroup =
       mockProductsListNormalizedPayload.entities.productsLists[
         mockProductsListHash
@@ -619,9 +613,9 @@ describe('products list redux selectors', () => {
 
   describe('getHierarchicalFacetsWithChildren()', () => {
     const mockFacet1 =
-      mockProductsListNormalizedPayload.entities.facets[mockFacets[2].id];
+      mockProductsListNormalizedPayload.entities.facets[mockFacets[0].id];
     const mockFacet2 =
-      mockProductsListNormalizedPayload.entities.facets[mockFacets[3].id];
+      mockProductsListNormalizedPayload.entities.facets[mockFacets[1].id];
     const mockFacetGroup =
       mockProductsListNormalizedPayload.entities.productsLists[
         mockProductsListHash
