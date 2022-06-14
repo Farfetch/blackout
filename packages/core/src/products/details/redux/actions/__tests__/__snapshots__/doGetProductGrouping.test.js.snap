@@ -17,19 +17,7 @@ Object {
             Object {
               "entries": Array [
                 Object {
-                  "digitalAssets": Array [
-                    Object {
-                      "displayOrder": 1,
-                      "mediaType": "image/jpeg",
-                      "order": 1,
-                      "size": "54",
-                      "sources": Object {
-                        "54": "https://api.blackout.com/14/26/08/35/14260835_20007113_54.jpg",
-                      },
-                      "type": 0,
-                      "url": "https://api.blackout.com/14/26/08/35/14260835_20007113_54.jpg",
-                    },
-                  ],
+                  "digitalAssets": undefined,
                   "hasStock": true,
                   "id": 14260832,
                   "isDefault": true,
@@ -40,26 +28,14 @@ Object {
                     Object {
                       "property": Object {
                         "id": "6cbc34da-e44c-49c2-9e2e-c4511f494d61",
-                        "value": "9075 WHITE",
+                        "value": "10 ml",
                       },
-                      "type": "Color",
+                      "type": "Volume",
                     },
                   ],
                 },
                 Object {
-                  "digitalAssets": Array [
-                    Object {
-                      "displayOrder": 1,
-                      "mediaType": "image/jpeg",
-                      "order": 1,
-                      "size": "54",
-                      "sources": Object {
-                        "54": "https://api.blackout.com/14/26/08/34/14260834_20007111_54.jpg",
-                      },
-                      "type": 0,
-                      "url": "https://api.blackout.com/14/26/08/34/14260834_20007111_54.jpg",
-                    },
-                  ],
+                  "digitalAssets": undefined,
                   "hasStock": true,
                   "id": 14260833,
                   "isDefault": null,
@@ -70,16 +46,9 @@ Object {
                     Object {
                       "property": Object {
                         "id": "6cbc34da-e44c-49c2-9e2e-c4511f494d61",
-                        "value": "50 ml",
+                        "value": "20 ml",
                       },
                       "type": "Volume",
-                    },
-                    Object {
-                      "property": Object {
-                        "id": "6cbc34da-e44c-49c2-9e2e-c4511f494d61",
-                        "value": "9075 PINK",
-                      },
-                      "type": "Color",
                     },
                   ],
                 },
@@ -91,19 +60,7 @@ Object {
             Object {
               "entries": Array [
                 Object {
-                  "digitalAssets": Array [
-                    Object {
-                      "displayOrder": 1,
-                      "mediaType": "image/jpeg",
-                      "order": 1,
-                      "size": "54",
-                      "sources": Object {
-                        "54": "https://api.blackout.com/14/26/08/35/14260835_20007113_54.jpg",
-                      },
-                      "type": 0,
-                      "url": "https://api.blackout.com/14/26/08/35/14260835_20007113_54.jpg",
-                    },
-                  ],
+                  "digitalAssets": undefined,
                   "hasStock": true,
                   "id": 14260834,
                   "isDefault": true,
@@ -114,26 +71,14 @@ Object {
                     Object {
                       "property": Object {
                         "id": "6cbc34da-e44c-49c2-9e2e-c4511f494d61",
-                        "value": "9075 YELLOW",
+                        "value": "30 ml",
                       },
-                      "type": "Color",
+                      "type": "Volume",
                     },
                   ],
                 },
                 Object {
-                  "digitalAssets": Array [
-                    Object {
-                      "displayOrder": 1,
-                      "mediaType": "image/jpeg",
-                      "order": 1,
-                      "size": "54",
-                      "sources": Object {
-                        "54": "https://api.blackout.com/14/26/08/34/14260834_20007111_54.jpg",
-                      },
-                      "type": 0,
-                      "url": "https://api.blackout.com/14/26/08/34/14260834_20007111_54.jpg",
-                    },
-                  ],
+                  "digitalAssets": undefined,
                   "hasStock": true,
                   "id": 14260835,
                   "isDefault": null,
@@ -144,9 +89,9 @@ Object {
                     Object {
                       "property": Object {
                         "id": "6cbc34da-e44c-49c2-9e2e-c4511f494d61",
-                        "value": "9075 BLACK",
+                        "value": "40 ml",
                       },
-                      "type": "Color",
+                      "type": "Volume",
                     },
                   ],
                 },

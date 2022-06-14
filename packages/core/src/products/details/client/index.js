@@ -3,7 +3,7 @@ import { warnDeprecatedMethod } from '../../../helpers';
 warnDeprecatedMethod(
   '@farfetch/blackout-core',
   '@farfetch/blackout-core/products/details/client',
-  '@farfetch/blackout-client/products',
+  '@farfetch/blackout-core/products/details',
 );
 
 export { default as getColorGrouping } from './getColorGrouping';
