@@ -112,6 +112,23 @@ export const mockSet = {
       key: 'categories',
     },
   ],
+  filterSegments: [
+    {
+      deep: 1,
+      description: 'Women',
+      facetId: undefined,
+      fromQueryString: false,
+      gender: 0,
+      key: 'categories',
+      negativeFilter: false,
+      order: 0,
+      parentId: 0,
+      slug: 'women',
+      type: 6,
+      value: 144307,
+      valueUpperBound: 0,
+    },
+  ],
 };
 
 export const mockProduct = {
