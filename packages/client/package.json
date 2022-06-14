@@ -1,6 +1,6 @@
 {
   "name": "@farfetch/blackout-client",
-  "version": "2.0.0-next.156",
+  "version": "2.0.0-next.157",
   "description": "Clients to connect to the Farfetch Platform Solutions' services",
   "license": "MIT",
   "exports": {
