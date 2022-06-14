@@ -2,10 +2,10 @@ import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type {
-  PatchContact,
-  PatchContactData,
-  PatchContactQuery,
-} from '@farfetch/blackout-client/users/types';
+  PatchUserContact,
+  PatchUserContactData,
+} from '@farfetch/blackout-client/users/contacts/types';
+import type { PatchUserContactQuery } from '@farfetch/blackout-client/users/types';
 
 /**
  * @param id        - The user's id.
@@ -27,12 +27,12 @@ import type {
  */
 
 const updateContactFactory =
-  (patchContact: PatchContact) =>
+  (patchContact: PatchUserContact) =>
   (
     id: number,
     contactId: string,
-    data: PatchContactData,
-    query: PatchContactQuery,
+    data: PatchUserContactData,
+    query: PatchUserContactQuery,
     config?: Record<string, unknown>,
   ) =>
   async (dispatch: Dispatch) => {

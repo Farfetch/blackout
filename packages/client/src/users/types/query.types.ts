@@ -1,44 +1,43 @@
-import type { Contact } from './contact.types';
-
-export type UserAttributesQuery = {
+import type { UserContact } from '../contacts/types/userContact.types';
+export interface UserAttributesQuery {
   channelCode?: string;
   interface?: string;
-};
+}
 
-export type PostContactQuery = {
+export interface PostUserContactQuery {
   id: number;
-  body: Contact;
-};
+  body: UserContact;
+}
 
-export type GetContactQuery = {
+export interface GetUserContactQuery {
   id: number;
   contactId: string;
-};
+}
 
-export type GetContactsQuery = {
+export interface GetUserContactsQuery {
   id: number;
   externalId?: string;
-};
+}
 
-export type PatchContactQuery = {
+export interface PatchUserContactQuery {
   id: number;
   contactId: string;
-  body: Contact;
-};
+  body: UserContact;
+}
 
-export type DeleteContactQuery = {
+export interface DeleteUserContactQuery {
   id: number;
   contactId: string;
-};
+}
 
 export type GetTitlesQuery = {
   page?: number;
   pageSize?: number;
 };
 
-export type GetCreditMovementsQuery = {
+export interface GetUserCreditMovementsQuery {
   from?: string;
   to?: string;
   page?: number;
   pageSize?: number;
-};
+}

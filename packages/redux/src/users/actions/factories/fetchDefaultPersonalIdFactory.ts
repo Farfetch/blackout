@@ -1,12 +1,11 @@
 import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
-import type {
-  DefaultPersonalIdResponse,
-  GetDefaultPersonalId,
-} from '@farfetch/blackout-client/users/types';
 import type { Dispatch } from 'redux';
-
+import type {
+  GetUserDefaultPersonalId,
+  UserDefaultPersonalIdResponse,
+} from '@farfetch/blackout-client/users/personalIds/types';
 /**
  * @param id     - The user's id.
  * @param config - Custom configurations to send to the client instance (axios).
@@ -22,9 +21,9 @@ import type { Dispatch } from 'redux';
  * @returns Thunk factory.
  */
 const fetchDefaultPersonalIdFactory =
-  (getDefaultPersonalId: GetDefaultPersonalId) =>
+  (getDefaultPersonalId: GetUserDefaultPersonalId) =>
   (id: number, config: Config) =>
-  async (dispatch: Dispatch): Promise<DefaultPersonalIdResponse> => {
+  async (dispatch: Dispatch): Promise<UserDefaultPersonalIdResponse> => {
     try {
       dispatch({
         type: actionTypes.FETCH_DEFAULT_PERSONAL_ID_REQUEST,

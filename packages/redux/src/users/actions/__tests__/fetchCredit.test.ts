@@ -4,14 +4,14 @@ import {
   mockGetCreditResponse,
 } from 'tests/__fixtures__/users';
 import { fetchCredit } from '..';
-import { getCredit } from '@farfetch/blackout-client/users';
+import { getUserCredit } from '@farfetch/blackout-client/users';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 
 jest.mock('@farfetch/blackout-client/users', () => ({
   ...jest.requireActual('@farfetch/blackout-client/users'),
-  getCredit: jest.fn(),
+  getUserCredit: jest.fn(),
 }));
 
 const usersMockStore = (state = {}) =>
@@ -30,15 +30,15 @@ describe('fetchCredit action creator', () => {
   it('should create the correct actions for when the get credit procedure fails', async () => {
     const expectedError = new Error('get credit error');
 
-    (getCredit as jest.Mock).mockRejectedValueOnce(expectedError);
+    (getUserCredit as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
       await store.dispatch(fetchCredit(id));
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(getCredit).toHaveBeenCalledTimes(1);
-      expect(getCredit).toHaveBeenCalledWith(id, expectedConfig);
+      expect(getUserCredit).toHaveBeenCalledTimes(1);
+      expect(getUserCredit).toHaveBeenCalledWith(id, expectedConfig);
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
           { type: actionTypes.FETCH_CREDIT_REQUEST },
@@ -52,14 +52,14 @@ describe('fetchCredit action creator', () => {
   });
 
   it('should create the correct actions for when the get credit procedure is successful', async () => {
-    (getCredit as jest.Mock).mockResolvedValueOnce(mockGetCreditResponse);
+    (getUserCredit as jest.Mock).mockResolvedValueOnce(mockGetCreditResponse);
 
     await store.dispatch(fetchCredit(id));
 
     const actionResults = store.getActions();
 
-    expect(getCredit).toHaveBeenCalledTimes(1);
-    expect(getCredit).toHaveBeenCalledWith(id, expectedConfig);
+    expect(getUserCredit).toHaveBeenCalledTimes(1);
+    expect(getUserCredit).toHaveBeenCalledWith(id, expectedConfig);
     expect(actionResults).toMatchObject([
       { type: actionTypes.FETCH_CREDIT_REQUEST },
       {
@@ -75,14 +75,14 @@ describe('fetchCredit action creator', () => {
   });
 
   it('should create the correct actions for when the get credit procedure is successful with empty data', async () => {
-    (getCredit as jest.Mock).mockResolvedValueOnce([]);
+    (getUserCredit as jest.Mock).mockResolvedValueOnce([]);
 
     await store.dispatch(fetchCredit(id));
 
     const actionResults = store.getActions();
 
-    expect(getCredit).toHaveBeenCalledTimes(1);
-    expect(getCredit).toHaveBeenCalledWith(id, expectedConfig);
+    expect(getUserCredit).toHaveBeenCalledTimes(1);
+    expect(getUserCredit).toHaveBeenCalledWith(id, expectedConfig);
     expect(actionResults).toMatchObject([
       { type: actionTypes.FETCH_CREDIT_REQUEST },
       {

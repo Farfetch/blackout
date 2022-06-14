@@ -10,12 +10,10 @@ import type { GetGuestUser } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getGuestUser: GetGuestUser = (id, config) =>
+export const getGuestUser: GetGuestUser = (id, config) =>
   client
     .get(join('/account/v1/guestUsers', id), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
-
-export default getGuestUser;

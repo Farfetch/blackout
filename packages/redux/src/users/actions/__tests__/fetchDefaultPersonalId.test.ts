@@ -1,14 +1,14 @@
 import { actionTypes } from '../..';
 import { fetchDefaultPersonalId } from '../';
-import { getDefaultPersonalId } from '@farfetch/blackout-client/users';
+import { getUserDefaultPersonalId } from '@farfetch/blackout-client/users';
 import { INITIAL_STATE } from '../../reducer';
-import { mockGetDefaultPersonalIdResponse } from 'tests/__fixtures__/users';
+import { mockGetUserDefaultPersonalIdResponse } from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 
 jest.mock('@farfetch/blackout-client/users', () => ({
   ...jest.requireActual('@farfetch/blackout-client/users'),
-  getDefaultPersonalId: jest.fn(),
+  getUserDefaultPersonalId: jest.fn(),
 }));
 
 const usersMockStore = (state = {}) =>
@@ -31,16 +31,20 @@ describe('fetchDefaultPersonalId action creator', () => {
 
   it('should create the correct actions for when the fetch default personal id procedure fails', async () => {
     const expectedError = new Error('fetch default personal id error');
-
-    (getDefaultPersonalId as jest.Mock).mockRejectedValueOnce(expectedError);
+    (getUserDefaultPersonalId as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
     try {
       await store.dispatch(fetchDefaultPersonalId(userId, config));
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(getDefaultPersonalId).toHaveBeenCalledTimes(1);
-      expect(getDefaultPersonalId).toHaveBeenCalledWith(userId, expectedConfig);
+      expect(getUserDefaultPersonalId).toHaveBeenCalledTimes(1);
+      expect(getUserDefaultPersonalId).toHaveBeenCalledWith(
+        userId,
+        expectedConfig,
+      );
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
           { type: actionTypes.FETCH_DEFAULT_PERSONAL_ID_REQUEST },
@@ -54,20 +58,23 @@ describe('fetchDefaultPersonalId action creator', () => {
   });
 
   it('should create the correct actions for when the fetch default personal id procedure is successful', async () => {
-    (getDefaultPersonalId as jest.Mock).mockResolvedValueOnce(
-      mockGetDefaultPersonalIdResponse,
+    (getUserDefaultPersonalId as jest.Mock).mockResolvedValueOnce(
+      mockGetUserDefaultPersonalIdResponse,
     );
     await store.dispatch(fetchDefaultPersonalId(userId, config));
 
     const actionResults = store.getActions();
 
-    expect(getDefaultPersonalId).toHaveBeenCalledTimes(1);
-    expect(getDefaultPersonalId).toHaveBeenCalledWith(userId, expectedConfig);
+    expect(getUserDefaultPersonalId).toHaveBeenCalledTimes(1);
+    expect(getUserDefaultPersonalId).toHaveBeenCalledWith(
+      userId,
+      expectedConfig,
+    );
 
     expect(actionResults).toMatchObject([
       { type: actionTypes.FETCH_DEFAULT_PERSONAL_ID_REQUEST },
       {
-        payload: mockGetDefaultPersonalIdResponse,
+        payload: mockGetUserDefaultPersonalIdResponse,
         type: actionTypes.FETCH_DEFAULT_PERSONAL_ID_SUCCESS,
       },
     ]);

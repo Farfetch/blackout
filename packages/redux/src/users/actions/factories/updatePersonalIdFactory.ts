@@ -3,10 +3,10 @@ import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
-  PatchPersonalId,
-  PatchPersonalIdData,
-  PatchPersonalIdResponse,
-} from '@farfetch/blackout-client/users/types';
+  PatchUserPersonalId,
+  PatchUserPersonalIdData,
+  PatchUserPersonalIdResponse,
+} from '@farfetch/blackout-client/users/personalIds/types';
 
 /**
  * @param userId     - User identifier.
@@ -26,14 +26,14 @@ import type {
  * @returns Thunk factory.
  */
 const updatePersonalIdFactory =
-  (patchPersonalId: PatchPersonalId) =>
+  (patchPersonalId: PatchUserPersonalId) =>
   (
     userId: number,
     personalId: string,
-    data: PatchPersonalIdData,
+    data: PatchUserPersonalIdData,
     config: Config,
   ) =>
-  async (dispatch: Dispatch): Promise<PatchPersonalIdResponse> => {
+  async (dispatch: Dispatch): Promise<PatchUserPersonalIdResponse> => {
     try {
       dispatch({
         type: actionTypes.UPDATE_PERSONAL_ID_REQUEST,

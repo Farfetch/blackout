@@ -3,9 +3,9 @@ import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
-  PutDefaultPersonalId,
-  PutDefaultPersonalIdData,
-} from '@farfetch/blackout-client/users/types';
+  PutUserDefaultPersonalId,
+  PutUserDefaultPersonalIdData,
+} from '@farfetch/blackout-client/users/personalIds/types';
 
 /**
  * @param userId - User's id.
@@ -23,8 +23,8 @@ import type {
  * @returns Thunk factory.
  */
 const setDefaultPersonalIdFactory =
-  (putDefaultPersonalId: PutDefaultPersonalId) =>
-  (userId: number, data: PutDefaultPersonalIdData, config: Config) =>
+  (putDefaultPersonalId: PutUserDefaultPersonalId) =>
+  (userId: number, data: PutUserDefaultPersonalIdData, config: Config) =>
   async (dispatch: Dispatch) => {
     try {
       dispatch({

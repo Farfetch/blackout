@@ -1,5 +1,5 @@
 import { actionTypes } from '../..';
-import { deleteContact } from '@farfetch/blackout-client/users';
+import { deleteUserContact } from '@farfetch/blackout-client/users';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import { removeContact } from '..';
@@ -7,7 +7,7 @@ import find from 'lodash/find';
 
 jest.mock('@farfetch/blackout-client/users', () => ({
   ...jest.requireActual('@farfetch/blackout-client/users'),
-  deleteContact: jest.fn(),
+  deleteUserContact: jest.fn(),
 }));
 
 const usersMockStore = (state = {}) =>
@@ -31,15 +31,15 @@ describe('removeContact action creator', () => {
   it('should create the correct actions for when the get contact procedure fails', async () => {
     const expectedError = new Error('get contact error');
 
-    (deleteContact as jest.Mock).mockRejectedValueOnce(expectedError);
+    (deleteUserContact as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
       await store.dispatch(removeContact(userId, contactId, query));
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(deleteContact).toHaveBeenCalledTimes(1);
-      expect(deleteContact).toHaveBeenCalledWith(
+      expect(deleteUserContact).toHaveBeenCalledTimes(1);
+      expect(deleteUserContact).toHaveBeenCalledWith(
         userId,
         contactId,
         query,
@@ -58,7 +58,7 @@ describe('removeContact action creator', () => {
   });
 
   it('should create the correct actions for when the get contact procedure is successful', async () => {
-    (deleteContact as jest.Mock).mockResolvedValueOnce({});
+    (deleteUserContact as jest.Mock).mockResolvedValueOnce({});
 
     await store.dispatch(
       removeContact(userId, contactId, query, expectedConfig),
@@ -66,8 +66,8 @@ describe('removeContact action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect(deleteContact).toHaveBeenCalledTimes(1);
-    expect(deleteContact).toHaveBeenCalledWith(
+    expect(deleteUserContact).toHaveBeenCalledTimes(1);
+    expect(deleteUserContact).toHaveBeenCalledWith(
       userId,
       contactId,
       query,

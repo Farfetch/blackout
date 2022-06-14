@@ -10,7 +10,7 @@ import type { PostPhoneNumberValidations } from './types';
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 
-const postPhoneNumberValidations: PostPhoneNumberValidations = (
+export const postPhoneNumberValidations: PostPhoneNumberValidations = (
   data,
   config?,
 ) =>
@@ -20,5 +20,3 @@ const postPhoneNumberValidations: PostPhoneNumberValidations = (
     .catch(error => {
       throw adaptError(error);
     });
-
-export default postPhoneNumberValidations;

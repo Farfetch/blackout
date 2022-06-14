@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`doUpdateContact action creator should create the correct actions for when the update contact procedure is successful: update contact success payload 1`] = `
+exports[`updateContact action creator should create the correct actions for when the update contact procedure is successful: update contact success payload 1`] = `
 Object {
   "type": "@farfetch/blackout-client/UPDATE_CONTACT_SUCCESS",
 }

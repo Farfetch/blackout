@@ -6,12 +6,12 @@ import {
 } from 'tests/__fixtures__/users';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import { postContact } from '@farfetch/blackout-client/users';
+import { postUserContact } from '@farfetch/blackout-client/users';
 import find from 'lodash/find';
 
 jest.mock('@farfetch/blackout-client/users', () => ({
   ...jest.requireActual('@farfetch/blackout-client/users'),
-  postContact: jest.fn(),
+  postUserContact: jest.fn(),
 }));
 
 const usersMockStore = (state = {}) =>
@@ -41,15 +41,15 @@ describe('createContact action creator', () => {
   it('should create the correct actions for when the create contact procedure fails', async () => {
     const expectedError = new Error('post contact error');
 
-    (postContact as jest.Mock).mockRejectedValueOnce(expectedError);
+    (postUserContact as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
       await store.dispatch(createContact(userId, data, query));
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(postContact).toHaveBeenCalledTimes(1);
-      expect(postContact).toHaveBeenCalledWith(
+      expect(postUserContact).toHaveBeenCalledTimes(1);
+      expect(postUserContact).toHaveBeenCalledWith(
         userId,
         data,
         query,
@@ -68,14 +68,16 @@ describe('createContact action creator', () => {
   });
 
   it('should create the correct actions for when the create contact procedure is successful', async () => {
-    (postContact as jest.Mock).mockResolvedValueOnce(mockPostContactResponse);
+    (postUserContact as jest.Mock).mockResolvedValueOnce(
+      mockPostContactResponse,
+    );
 
     await store.dispatch(createContact(userId, data, query, expectedConfig));
 
     const actionResults = store.getActions();
 
-    expect(postContact).toHaveBeenCalledTimes(1);
-    expect(postContact).toHaveBeenCalledWith(
+    expect(postUserContact).toHaveBeenCalledTimes(1);
+    expect(postUserContact).toHaveBeenCalledWith(
       userId,
       data,
       query,

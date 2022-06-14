@@ -5,14 +5,14 @@ import {
   mockGetPreferencesResponse,
 } from 'tests/__fixtures__/users';
 import { fetchPreferences } from '..';
-import { getPreferences } from '@farfetch/blackout-client/users';
+import { getUserPreferences } from '@farfetch/blackout-client/users';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 
 jest.mock('@farfetch/blackout-client/users', () => ({
   ...jest.requireActual('@farfetch/blackout-client/users'),
-  getPreferences: jest.fn(),
+  getUserPreferences: jest.fn(),
 }));
 
 const usersMockStore = (state = {}) =>
@@ -33,15 +33,15 @@ describe('fetchPreferences action creator', () => {
   it('should create the correct actions for when the get preferences procedure fails', async () => {
     const expectedError = new Error('get preferences error');
 
-    (getPreferences as jest.Mock).mockRejectedValueOnce(expectedError);
+    (getUserPreferences as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
       await store.dispatch(fetchPreferences(userId, mockCode, expectedConfig));
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(getPreferences).toHaveBeenCalledTimes(1);
-      expect(getPreferences).toHaveBeenCalledWith(
+      expect(getUserPreferences).toHaveBeenCalledTimes(1);
+      expect(getUserPreferences).toHaveBeenCalledWith(
         userId,
         mockCode,
         expectedConfig,
@@ -61,7 +61,7 @@ describe('fetchPreferences action creator', () => {
   });
 
   it('should create the correct actions for when the get preferences procedure is successful', async () => {
-    (getPreferences as jest.Mock).mockResolvedValueOnce(
+    (getUserPreferences as jest.Mock).mockResolvedValueOnce(
       mockGetPreferencesResponse,
     );
 
@@ -70,8 +70,8 @@ describe('fetchPreferences action creator', () => {
     const actionResults = store.getActions();
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
-    expect(getPreferences).toHaveBeenCalledTimes(1);
-    expect(getPreferences).toHaveBeenCalledWith(
+    expect(getUserPreferences).toHaveBeenCalledTimes(1);
+    expect(getUserPreferences).toHaveBeenCalledWith(
       userId,
       mockCode,
       expectedConfig,

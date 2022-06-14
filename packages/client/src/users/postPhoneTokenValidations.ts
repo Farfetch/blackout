@@ -10,12 +10,13 @@ import type { PostPhoneTokenValidations } from './types';
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 
-const postPhoneTokenValidations: PostPhoneTokenValidations = (data, config?) =>
+export const postPhoneTokenValidations: PostPhoneTokenValidations = (
+  data,
+  config?,
+) =>
   client
     .post('/account/v1/users/phoneTokenValidations', data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
-
-export default postPhoneTokenValidations;

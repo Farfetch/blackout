@@ -1,14 +1,14 @@
 import { actionTypes } from '../..';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import { putPreferences } from '@farfetch/blackout-client/users';
+import { putUserPreferences } from '@farfetch/blackout-client/users';
 import { setPreferences } from '..';
 import find from 'lodash/find';
-import type { SetPreferencesData } from '@farfetch/blackout-client/users/types';
+import type { SetUserPreferencesData } from '@farfetch/blackout-client/users/preferences/types';
 
 jest.mock('@farfetch/blackout-client/users', () => ({
   ...jest.requireActual('@farfetch/blackout-client/users'),
-  putPreferences: jest.fn(),
+  putUserPreferences: jest.fn(),
 }));
 
 const usersMockStore = (state = {}) =>
@@ -32,17 +32,21 @@ describe('updatePreferences action creator', () => {
   it('should create the correct actions for when the update preferences procedure fails', async () => {
     const expectedError = new Error('update preferences error');
 
-    (putPreferences as jest.Mock).mockRejectedValueOnce(expectedError);
+    (putUserPreferences as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
       await store.dispatch(
-        setPreferences(userId, {} as SetPreferencesData, expectedConfig),
+        setPreferences(userId, {} as SetUserPreferencesData, expectedConfig),
       );
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(putPreferences).toHaveBeenCalledTimes(1);
-      expect(putPreferences).toHaveBeenCalledWith(userId, {}, expectedConfig);
+      expect(putUserPreferences).toHaveBeenCalledTimes(1);
+      expect(putUserPreferences).toHaveBeenCalledWith(
+        userId,
+        {},
+        expectedConfig,
+      );
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
           { type: actionTypes.UPDATE_PREFERENCES_REQUEST },
@@ -67,14 +71,18 @@ describe('updatePreferences action creator', () => {
       },
       result: ['FFA'],
     };
-    (putPreferences as jest.Mock).mockResolvedValueOnce({});
+    (putUserPreferences as jest.Mock).mockResolvedValueOnce({});
 
     await store.dispatch(setPreferences(userId, data, expectedConfig));
 
     const actionResults = store.getActions();
 
-    expect(putPreferences).toHaveBeenCalledTimes(1);
-    expect(putPreferences).toHaveBeenCalledWith(userId, data, expectedConfig);
+    expect(putUserPreferences).toHaveBeenCalledTimes(1);
+    expect(putUserPreferences).toHaveBeenCalledWith(
+      userId,
+      data,
+      expectedConfig,
+    );
     expect(actionResults).toMatchObject([
       { type: actionTypes.UPDATE_PREFERENCES_REQUEST },
       {
