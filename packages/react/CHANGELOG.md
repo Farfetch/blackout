@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.239](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.238...@farfetch/blackout-react@1.0.0-next.239) (2022-06-14)
+
+**Note:** Version bump only for package @farfetch/blackout-react
+
+
+
+
+
 # [1.0.0-next.238](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.237...@farfetch/blackout-react@1.0.0-next.238) (2022-06-14)
 
 **Note:** Version bump only for package @farfetch/blackout-react
