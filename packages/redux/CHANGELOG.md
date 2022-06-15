@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.248](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.247...@farfetch/blackout-redux@1.0.0-next.248) (2022-06-15)
+
+
+### Features
+
+* add `totalQuantity` and `itemsCount` to `useBag` hook ([e71fd5b](https://github.com/Farfetch/blackout/commit/e71fd5bb91bef6c194d215a86d28c76c94006e91))
+
+
+
+
+
 # [1.0.0-next.247](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.246...@farfetch/blackout-redux@1.0.0-next.247) (2022-06-15)
 
 
