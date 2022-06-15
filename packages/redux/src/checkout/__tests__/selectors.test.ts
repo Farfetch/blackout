@@ -208,7 +208,8 @@ describe('checkout redux selectors', () => {
 
   describe('getCheckoutOrderItemProduct()', () => {
     it('should return the checkout order item product content from state', () => {
-      const expectedResult = mockCheckoutState.entities.products[productId];
+      const expectedResult =
+        mockCheckoutState.entities.checkoutOrderItemProducts[productId];
 
       expect(
         selectors.getCheckoutOrderItemProduct(

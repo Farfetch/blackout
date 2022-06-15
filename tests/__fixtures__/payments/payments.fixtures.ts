@@ -376,7 +376,7 @@ export const expectedFetchTransactionNormalizedPayload = {
         tags: ['GIFT'],
       },
     },
-    products: { [productId]: { id: productId } },
+    checkoutOrderItemProducts: { [productId]: { id: productId } },
   },
   result: transactionId,
 };

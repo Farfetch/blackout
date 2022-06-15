@@ -828,6 +828,9 @@ describe('checkout reducer', () => {
           checkoutOrderItems: {
             1: { data: 'checkout order item' },
           },
+          checkoutOrderItemProducts: {
+            1: { data: 'checkout order item products' },
+          },
           dummy: {
             1: { data: 'dummy' },
           },
