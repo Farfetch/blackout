@@ -7,13 +7,14 @@ import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
-  GetCharges,
-  GetChargesResponse,
+  GetCheckoutOrderCharge,
+  GetCheckoutOrderChargeResponse,
 } from '@farfetch/blackout-client/checkout/types';
 
 /**
- * @param id     - Numeric identifier of the checkout order.
- * @param config - Custom configurations to send to the client instance (axios).
+ * @param id       - Numeric identifier of the checkout order.
+ * @param chargeId - Alphanumeric guid of the charge.
+ * @param config   - Custom configurations to send to the client instance (axios).
  *
  * @returns Thunk to be dispatched to the redux store.
  */
@@ -21,20 +22,20 @@ import type {
 /**
  * Method responsible for getting the order charge.
  *
- * @param getCharges - Get charges client.
+ * @param getCheckoutOrderCharge - Get charges client.
  *
  * @returns Thunk factory.
  */
-const fetchChargesFactory =
-  (getCharges: GetCharges) =>
-  (id: string, config?: Config) =>
-  async (dispatch: Dispatch): Promise<GetChargesResponse> => {
+const fetchChargeFactory =
+  (getCheckoutOrderCharge: GetCheckoutOrderCharge) =>
+  (id: string, chargeId: string, config?: Config) =>
+  async (dispatch: Dispatch): Promise<GetCheckoutOrderChargeResponse> => {
     try {
       dispatch({
         type: FETCH_CHARGES_REQUEST,
       });
 
-      const result = await getCharges(id, config);
+      const result = await getCheckoutOrderCharge(id, chargeId, config);
 
       dispatch({
         payload: result,
@@ -52,4 +53,4 @@ const fetchChargesFactory =
     }
   };
 
-export default fetchChargesFactory;
+export default fetchChargeFactory;
