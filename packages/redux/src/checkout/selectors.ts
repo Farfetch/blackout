@@ -17,7 +17,7 @@ import {
   getTags,
   getUpgradeItemDeliveryProvisioning,
 } from './reducer';
-import { getEntities, getEntityById, getProduct } from '../entities/selectors';
+import { getEntities, getEntityById } from '../entities/selectors';
 import findKey from 'lodash/findKey';
 import get from 'lodash/get';
 import type { BlackoutError } from '@farfetch/blackout-client/types';
@@ -148,7 +148,9 @@ export const getCheckoutOrderItemProduct = (
   const checkoutOrderItem = getCheckoutOrderItem(state, checkoutOrderItemId);
   const productId = get(checkoutOrderItem, 'product');
 
-  return productId && getProduct(state, productId);
+  return (
+    productId && getEntityById(state, 'checkoutOrderItemProducts', productId)
+  );
 };
 
 /**
