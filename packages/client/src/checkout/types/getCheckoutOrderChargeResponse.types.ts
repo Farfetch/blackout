@@ -1,4 +1,4 @@
-export enum GetChargesStatus {
+export enum GetChargeStatus {
   Processing,
   Completed,
   Error,
@@ -17,13 +17,13 @@ export enum DeclineCode {
 
 export type ChargeInstrument = {
   id: string;
-  operationStatus: GetChargesStatus;
+  operationStatus: GetChargeStatus;
   declineCode: DeclineCode;
 };
 
-export type GetChargesResponse = {
+export type GetCheckoutOrderChargeResponse = {
   chargeId: string;
-  status: GetChargesStatus;
+  status: GetChargeStatus;
   redirectUrl: string;
   returnUrl: string;
   cancelUrl: string;

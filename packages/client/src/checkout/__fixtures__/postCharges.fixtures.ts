@@ -1,12 +1,16 @@
-import { CheckoutOrder, GetChargesResponse, PostChargesData } from '../types';
 import join from 'proper-url-join';
 import moxios from 'moxios';
+import type {
+  CheckoutOrder,
+  GetCheckoutOrderChargeResponse,
+  PostChargesData,
+} from '../types';
 
 export default {
   success: (params: {
     id: CheckoutOrder['id'];
     data: PostChargesData;
-    response: GetChargesResponse;
+    response: GetCheckoutOrderChargeResponse;
   }): void => {
     moxios.stubRequest(join('/api/checkout/v1/orders', params.id, 'charges'), {
       response: params.response,
