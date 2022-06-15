@@ -90,7 +90,7 @@ let currentUser: UserType | null;
  */
 const setUserMiddleware = (
   analyticsInstance: Analytics,
-  actionTypesOrOptions: SetUserMiddlewareOptions,
+  actionTypesOrOptions?: SetUserMiddlewareOptions,
 ): Middleware => {
   if (!analyticsInstance || !(analyticsInstance instanceof Analytics)) {
     logger.error(
