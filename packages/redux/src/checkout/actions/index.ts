@@ -5,7 +5,7 @@
 export { default as charge } from './charge';
 export { default as completePaymentCheckout } from './completePaymentCheckout';
 export { default as createCheckout } from './createCheckout';
-export { default as fetchCharges } from './fetchCharges';
+export { default as fetchCharge } from './fetchCharge';
 export { default as fetchCheckout } from './fetchCheckout';
 export { default as fetchCheckoutDetails } from './fetchCheckoutDetails';
 export { default as fetchCheckoutOrderOperations } from './fetchCheckoutOrderOperations';
