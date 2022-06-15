@@ -24,6 +24,7 @@ import type {
   CustomAttributesAdapted,
   SizeAdapted,
 } from '@farfetch/blackout-client/helpers/adapters/types';
+import type { ProductTypeEnum } from '@farfetch/blackout-client/products/types';
 import type { StoreState } from '../types';
 
 /**
@@ -238,7 +239,7 @@ export const getBagItems = createSelector(
  */
 export const getBagItemsCounter = (
   state: StoreState,
-  excludeProductTypes: number[] = [],
+  excludeProductTypes: ProductTypeEnum[] = [],
 ): number => {
   const bagItems = getBagItems(state);
 
@@ -309,7 +310,7 @@ export const getBagItemsUnavailable = createSelector([getBagItems], bagItems =>
  */
 export const getBagTotalQuantity = (
   state: StoreState,
-  excludeProductTypes: number[] = [],
+  excludeProductTypes: ProductTypeEnum[] = [],
 ): number => {
   const bagItems = getBagItems(state);
 

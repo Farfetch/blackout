@@ -19,10 +19,7 @@ export type HandleFullUpdateType = (
 ) => void;
 export type HandleDeleteBagItemType = (from?: string) => void;
 
-export type UseBagItem = (
-  bagItemId: number,
-  from?: string,
-) => {
+export type UseBagItem = (bagItemId: number) => {
   addBagItem: (
     data: PostBagItemData,
     query?: Query,
