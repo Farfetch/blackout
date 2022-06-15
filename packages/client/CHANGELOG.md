@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.160](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.159...@farfetch/blackout-client@2.0.0-next.160) (2022-06-15)
+
+
+### Features
+
+* add logic for operation endpoints ([5f3d28b](https://github.com/Farfetch/blackout/commit/5f3d28b6d1702b9ba0c2146f606194ab92cab368))
+
+
+
+
+
 # [2.0.0-next.159](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.158...@farfetch/blackout-client@2.0.0-next.159) (2022-06-15)
 
 **Note:** Version bump only for package @farfetch/blackout-client
