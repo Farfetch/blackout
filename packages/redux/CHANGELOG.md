@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.245](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.244...@farfetch/blackout-redux@1.0.0-next.245) (2022-06-15)
+
+
+### Features
+
+* add `facetId` to `filterSegments` in `productsList` entity ([f8bdfd8](https://github.com/Farfetch/blackout/commit/f8bdfd854e2ebdecbaed589590f9524929344cdb))
+
+
+
+
+
 # [1.0.0-next.244](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.243...@farfetch/blackout-redux@1.0.0-next.244) (2022-06-15)
 
 
