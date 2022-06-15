@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.247](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.246...@farfetch/blackout-redux@1.0.0-next.247) (2022-06-15)
+
+
+### Bug Fixes
+
+* **redux:** remove setUser middleware mandatory parameter ([1bd38bc](https://github.com/Farfetch/blackout/commit/1bd38bceaa63c0191986faa2b86af82c598beb9e))
+
+
+
+
+
 # [1.0.0-next.246](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.245...@farfetch/blackout-redux@1.0.0-next.246) (2022-06-15)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
