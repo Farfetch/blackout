@@ -1,6 +1,6 @@
 import { actionTypes } from '../..';
-import { fetchCharges } from '..';
-import { getCharges } from '@farfetch/blackout-client/checkout';
+import { fetchCharge } from '..';
+import { getCheckoutOrderCharge } from '@farfetch/blackout-client/checkout';
 import { INITIAL_STATE } from '../../reducer';
 import { mockCharges } from 'tests/__fixtures__/checkout';
 import { mockStore } from '../../../../tests';
@@ -8,13 +8,14 @@ import find from 'lodash/find';
 
 jest.mock('@farfetch/blackout-client/checkout', () => ({
   ...jest.requireActual('@farfetch/blackout-client/checkout'),
-  getCharges: jest.fn(),
+  getCheckoutOrderCharge: jest.fn(),
 }));
 
-describe('fetchCharges() action creator', () => {
+describe('fetchCharge() action creator', () => {
   const checkoutMockStore = (state = {}) =>
     mockStore({ checkout: INITIAL_STATE }, state);
   const orderId = '12345';
+  const chargeId = 'eb92d414-68de-496e-96db-a0c6582b74d4';
   const expectedConfig = undefined;
   let store;
 
@@ -26,15 +27,19 @@ describe('fetchCharges() action creator', () => {
   it('should create the correct actions for when the charge procedure fails', async () => {
     const expectedError = new Error('charges error');
 
-    getCharges.mockRejectedValueOnce(expectedError);
+    getCheckoutOrderCharge.mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
-      await store.dispatch(fetchCharges(orderId));
+      await store.dispatch(fetchCharge(orderId, chargeId));
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(getCharges).toHaveBeenCalledTimes(1);
-      expect(getCharges).toHaveBeenCalledWith(orderId, expectedConfig);
+      expect(getCheckoutOrderCharge).toHaveBeenCalledTimes(1);
+      expect(getCheckoutOrderCharge).toHaveBeenCalledWith(
+        orderId,
+        chargeId,
+        expectedConfig,
+      );
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
           { type: actionTypes.FETCH_CHARGES_REQUEST },
@@ -48,13 +53,17 @@ describe('fetchCharges() action creator', () => {
   });
 
   it('should create the correct actions for when the charge procedure is successful', async () => {
-    getCharges.mockResolvedValueOnce(mockCharges);
-    await store.dispatch(fetchCharges(orderId));
+    getCheckoutOrderCharge.mockResolvedValueOnce(mockCharges);
+    await store.dispatch(fetchCharge(orderId, chargeId));
 
     const actionResults = store.getActions();
 
-    expect(getCharges).toHaveBeenCalledTimes(1);
-    expect(getCharges).toHaveBeenCalledWith(orderId, expectedConfig);
+    expect(getCheckoutOrderCharge).toHaveBeenCalledTimes(1);
+    expect(getCheckoutOrderCharge).toHaveBeenCalledWith(
+      orderId,
+      chargeId,
+      expectedConfig,
+    );
 
     expect(actionResults).toMatchObject([
       { type: actionTypes.FETCH_CHARGES_REQUEST },
