@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.249](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.248...@farfetch/blackout-redux@1.0.0-next.249) (2022-06-15)
+
+
+### Features
+
+* add logic for operation endpoints ([5f3d28b](https://github.com/Farfetch/blackout/commit/5f3d28b6d1702b9ba0c2146f606194ab92cab368))
+
+
+
+
+
 # [1.0.0-next.248](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.247...@farfetch/blackout-redux@1.0.0-next.248) (2022-06-15)
 
 
