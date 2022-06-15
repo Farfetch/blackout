@@ -3,9 +3,9 @@
  */
 
 export { default as deleteCheckoutOrderItem } from './deleteCheckoutOrderItem';
-export { default as getCharges } from './getCharges';
 export { default as getCheckout } from './getCheckout';
 export { default as getCheckoutDetails } from './getCheckoutDetails';
+export { default as getCheckoutOrderCharge } from './getCheckoutOrderCharge';
 export { default as getCollectPoints } from './getCollectPoints';
 export { default as getDeliveryBundleUpgrades } from './getDeliveryBundleUpgrades';
 export { default as getItemDeliveryProvisioning } from './getItemDeliveryProvisioning';

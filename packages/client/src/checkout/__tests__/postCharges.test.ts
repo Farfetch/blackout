@@ -1,8 +1,8 @@
 import * as checkoutClient from '..';
 import {
   DeclineCode,
-  GetChargesResponse,
-  GetChargesStatus,
+  GetChargeStatus,
+  GetCheckoutOrderChargeResponse,
   PostChargesData,
 } from '../types';
 import client from '../../helpers/client';
@@ -30,16 +30,16 @@ describe('checkout client', () => {
     const urlToBeCalled = `/checkout/v1/orders/${id}/charges`;
 
     it('should handle a client request successfully', async () => {
-      const response: GetChargesResponse = {
+      const response: GetCheckoutOrderChargeResponse = {
         chargeId: '00000000-0000-0000-0000-000000000000',
-        status: GetChargesStatus.Processing,
+        status: GetChargeStatus.Processing,
         redirectUrl: 'string',
         returnUrl: 'string',
         cancelUrl: 'string',
         chargeInstruments: [
           {
             id: '00000000-0000-0000-0000-000000000000',
-            operationStatus: GetChargesStatus.Processing,
+            operationStatus: GetChargeStatus.Processing,
             declineCode: DeclineCode.NotApplicable,
           },
         ],
