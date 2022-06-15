@@ -5,7 +5,7 @@
 export { default as chargeFactory } from './chargeFactory';
 export { default as completePaymentCheckoutFactory } from './completePaymentCheckoutFactory';
 export { default as createCheckoutFactory } from './createCheckoutFactory';
-export { default as fetchChargesFactory } from './fetchChargesFactory';
+export { default as fetchChargeFactory } from './fetchChargeFactory';
 export { default as fetchCheckoutDetailsFactory } from './fetchCheckoutDetailsFactory';
 export { default as fetchCheckoutFactory } from './fetchCheckoutFactory';
 export { default as fetchCheckoutOrderOperationFactory } from './fetchCheckoutOrderOperationFactory';
