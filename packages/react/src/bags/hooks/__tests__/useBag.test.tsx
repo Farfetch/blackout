@@ -1,5 +1,6 @@
 import { cleanup } from '@testing-library/react';
 import {
+  mockBagId,
   mockInitialState,
   mockLoadingState,
   mockState,
@@ -50,10 +51,12 @@ describe('useBag', () => {
       isLoading: expect.any(Boolean),
       isWithAnyError: expect.any(Boolean),
       items: expect.any(Array),
+      itemsCount: expect.any(Number),
       itemsIds: expect.any(Array),
       itemsUnavailable: expect.any(Array),
       resetBag: expect.any(Function),
       resetBagState: expect.any(Function),
+      totalQuantity: expect.any(Number),
     });
   });
 
@@ -76,7 +79,7 @@ describe('useBag', () => {
     it('should call `fetchBag` action', () => {
       const { fetchBag } = getRenderedHook();
 
-      fetchBag();
+      fetchBag(mockBagId);
 
       expect(mockDispatch).toHaveBeenCalledWith({ type: 'fetch' });
     });
