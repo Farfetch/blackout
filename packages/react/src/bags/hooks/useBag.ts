@@ -7,8 +7,10 @@ import {
   getBagError,
   getBagId,
   getBagItems,
+  getBagItemsCounter,
   getBagItemsIds,
   getBagItemsUnavailable,
+  getBagTotalQuantity,
   isBagLoading as isBagLoadingSelector,
   isBagWithAnyError,
   resetBag as resetBagAction,
@@ -22,9 +24,11 @@ import type { UseBag } from './types';
  * Provides Redux actions and state access, as well as handlers for dealing with
  * bag business logic.
  *
+ * @param excludeProductTypes - List of product types to exclude from the counters.
+ *
  * @returns All the handlers, state, actions and relevant data needed to manage any bag operation.
  */
-const useBag: UseBag = () => {
+const useBag: UseBag = excludeProductTypes => {
   // Selectors
   const bag = useSelector(getBag);
   const error = useSelector(getBagError);
@@ -34,6 +38,12 @@ const useBag: UseBag = () => {
   const items = useSelector(getBagItems);
   const itemsIds = useSelector(getBagItemsIds);
   const itemsUnavailable = useSelector(getBagItemsUnavailable);
+  const itemsCount = useSelector(state =>
+    getBagItemsCounter(state, excludeProductTypes),
+  );
+  const totalQuantity = useSelector(state =>
+    getBagTotalQuantity(state, excludeProductTypes),
+  );
   const isEmpty = items?.length === 0;
   const isLoading = (!bag && !error) || isBagLoading;
   // Actions
@@ -75,6 +85,10 @@ const useBag: UseBag = () => {
      */
     items,
     /**
+     * Count of the items in the bag.
+     */
+    itemsCount,
+    /**
      * Bag items identifiers.
      */
     itemsIds,
@@ -90,6 +104,10 @@ const useBag: UseBag = () => {
      * Resets the bag state.
      */
     resetBagState,
+    /**
+     * Total quantity of products in the bag.
+     */
+    totalQuantity,
   };
 };
 
