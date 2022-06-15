@@ -5,12 +5,12 @@ import {
   adaptProductImages,
 } from '@farfetch/blackout-client/helpers/adapters';
 import { schema } from 'normalizr';
+import checkoutOrderItemProduct from './checkoutOrderItemProduct';
 import merchant from './merchant';
-import product from './product';
 
 export default new schema.Entity(
   'checkoutOrderItems',
-  { product, merchant },
+  { product: checkoutOrderItemProduct, merchant },
   {
     processStrategy: value => {
       const {

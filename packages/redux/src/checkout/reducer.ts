@@ -337,6 +337,7 @@ export const entitiesMapper = {
         checkoutDetails,
         checkoutOrders,
         checkoutOrderItems,
+        checkoutOrderItemProducts,
         ...rest
       } = state;
 
@@ -350,6 +351,7 @@ export const entitiesMapper = {
       checkoutDetails,
       checkoutOrders,
       checkoutOrderItems,
+      checkoutOrderItemProducts,
       ...rest
     } = state;
 

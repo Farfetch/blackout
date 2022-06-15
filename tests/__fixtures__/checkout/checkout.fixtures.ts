@@ -508,7 +508,7 @@ export const expectedNormalizedPayload = {
         tags: ['GIFT'],
       },
     },
-    products: { [productId]: { id: productId } },
+    checkoutOrderItemProducts: { [productId]: { id: productId } },
   },
   result: checkoutId,
 };
@@ -631,7 +631,7 @@ export const expectedDetailsNormalizedPayload = {
         registered: true,
       },
     },
-    products: { [productId]: { id: productId } },
+    checkoutOrderItemProducts: { [productId]: { id: productId } },
   },
   result: checkoutId,
 };

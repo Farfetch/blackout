@@ -9,10 +9,12 @@ export const deliveryBundleUpgradeId_1 = 111;
 export const deliveryBundleUpgradeId_2 = 222;
 export const itemId1 = 0;
 export const itemId2 = 1;
+
 const collectPoint = {
   clickAndCollect: { collectPointId },
   storeAdress: { firstName: 'ACME LONDON' },
 };
+
 export const shippingOption = {
   currency: 'string',
   discount: 0,
@@ -32,6 +34,7 @@ export const shippingOption = {
   shippingWithoutCapped: 0,
   baseFlatRate: 0,
 };
+
 const selectedCollectPoint = { id: collectPointId, merchantLocationId };
 
 const deliveryBundle = {
@@ -60,12 +63,14 @@ const deliveryBundle = {
     },
   ],
 };
+
 export const checkoutEntity = {
   checkoutOrder: checkoutOrderId,
   id: checkoutId,
   shippingOptions: [shippingOption],
   deliveryBundles: [deliveryBundleId],
 };
+
 export const deliveryBundlesEntity = {
   [deliveryBundleId]: deliveryBundle,
   '090998': {
@@ -91,6 +96,7 @@ export const checkoutDetailEntity = {
   checkoutOrder: checkoutOrderId,
   registered: true,
 };
+
 export const deliveryBundleUpgradesEntity = {
   [deliveryBundleId]: {
     [itemId1]: {
@@ -113,7 +119,12 @@ export const deliveryBundleUpgradesEntity = {
     },
   },
 };
-export const productEntity = { id: productId, description: 'foo product' };
+
+export const checkoutOrderItemProductEntity = {
+  id: productId,
+  description: 'foo product',
+};
+
 export const mockCheckoutState = {
   checkout: {
     error: null,
@@ -177,13 +188,15 @@ export const mockCheckoutState = {
     checkoutOrderItems: {
       [checkoutOrderItemId]: checkoutOrderItemEntity,
     },
+    checkoutOrderItemProducts: {
+      [productId]: checkoutOrderItemProductEntity,
+    },
     checkoutDetails: {
       [checkoutId]: {
         checkoutOrder: checkoutOrderId,
         registered: true,
       },
     },
-    products: { [productId]: productEntity },
     deliveryBundles: deliveryBundlesEntity,
     deliveryBundleUpgrades: deliveryBundleUpgradesEntity,
   },
