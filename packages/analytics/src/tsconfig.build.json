@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "outDir": "../dist/"
-  },
-  "extends": "../../../configs/typescript/tsconfig.package-build.json",
-  "exclude": ["**/*.test.ts*", "**/*.types.ts", "**/__fixtures__/*"],
-  "include": ["**/*.ts"],
-  "references": [{ "path": "../tsconfig.build.json" }]
-}

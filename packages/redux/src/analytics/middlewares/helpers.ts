@@ -2,11 +2,10 @@ import {
   getBrand as getBrandSelector,
   getCategory as getCategorySelector,
 } from '../../entities/selectors';
-import { logger } from '@farfetch/blackout-analytics/utils';
+import Analytics, { utils } from '@farfetch/blackout-analytics';
 import get from 'lodash/get';
 import type { ProductEntity } from '../../entities/types';
 import type { StoreState } from '../../types';
-import type Analytics from '@farfetch/blackout-analytics';
 
 /**
  * Returns the different product categories separated with a `/`.
@@ -75,7 +74,9 @@ export const getSize = (
   sizeId: number,
 ): string | undefined =>
   get(
-    get(product, 'sizes', []).find(size => get(size, 'id') === sizeId),
+    get(product, 'sizes', []).find(
+      (size: ProductEntity['sizes'][number]) => get(size, 'id') === sizeId,
+    ),
     'name',
   );
 
@@ -94,7 +95,7 @@ export const getCurrency = async (
   )) as string | undefined;
 
   if (!currency) {
-    logger.error(
+    utils.logger.error(
       'Track event failed. Make sure to set `currencyCode` via `analytics.useContext()`.',
     );
   }

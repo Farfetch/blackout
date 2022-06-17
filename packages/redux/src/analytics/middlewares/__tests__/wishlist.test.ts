@@ -1,8 +1,8 @@
 import { actionTypes, getWishlistItem } from '../../../wishlists';
+import { analyticsWishlistMiddleware } from '../../';
 import { getBrand, getCategory, getProduct } from '../../../entities';
 import { logger } from '@farfetch/blackout-analytics/utils';
 import { mockStore, mockWishlistSetId } from '../../../../tests';
-import { wishlistMiddleware } from '../../';
 import { wishlistMockData } from 'tests/__fixtures__/analytics/wishlist';
 import Analytics, {
   eventTypes,
@@ -75,11 +75,13 @@ const wishlistName = 'my_wishlist';
 const getMockState = (data: Record<string, unknown> = {}): StoreState =>
   merge({}, wishlistMockData.state, data);
 
-describe('wishlistMiddleware()', () => {
+describe('analyticsWishlistMiddleware', () => {
   let store: ReturnType<typeof mockStore>;
 
   beforeEach(() => {
-    store = mockStore(null, getMockState(), [wishlistMiddleware(analytics)]);
+    store = mockStore(null, getMockState(), [
+      analyticsWishlistMiddleware(analytics),
+    ]);
 
     jest.clearAllMocks();
 
@@ -90,14 +92,14 @@ describe('wishlistMiddleware()', () => {
 
   it('Should log an error if not passed the analytics instance', () => {
     // @ts-expect-error test undefined value
-    wishlistMiddleware(undefined);
+    analyticsWishlistMiddleware(undefined);
 
     expect(loggerErrorSpy).toBeCalled();
 
     loggerErrorSpy.mockClear();
 
     // @ts-expect-error test instanceof
-    wishlistMiddleware({});
+    analyticsWishlistMiddleware({});
 
     expect(loggerErrorSpy).toBeCalled();
   });
@@ -122,7 +124,7 @@ describe('wishlistMiddleware()', () => {
             },
           },
         }),
-        [wishlistMiddleware(analytics)],
+        [analyticsWishlistMiddleware(analytics)],
       );
     });
 
@@ -178,7 +180,9 @@ describe('wishlistMiddleware()', () => {
 
   describe('Add item to wishlist', () => {
     beforeEach(() => {
-      store = mockStore(null, getMockState(), [wishlistMiddleware(analytics)]);
+      store = mockStore(null, getMockState(), [
+        analyticsWishlistMiddleware(analytics),
+      ]);
     });
 
     it('Should intercept the action and call `analytics.track` with the correct payload', async () => {
@@ -243,7 +247,9 @@ describe('wishlistMiddleware()', () => {
 
   describe('Remove item from wishlist', () => {
     beforeEach(() => {
-      store = mockStore(null, getMockState(), [wishlistMiddleware(analytics)]);
+      store = mockStore(null, getMockState(), [
+        analyticsWishlistMiddleware(analytics),
+      ]);
     });
 
     it('Should intercept the action and call `analytics.track` with the correct payload', async () => {
@@ -295,7 +301,9 @@ describe('wishlistMiddleware()', () => {
 
   describe('Remove item from wishlist set', () => {
     beforeEach(() => {
-      store = mockStore(null, getMockState(), [wishlistMiddleware(analytics)]);
+      store = mockStore(null, getMockState(), [
+        analyticsWishlistMiddleware(analytics),
+      ]);
     });
 
     describe('When the `UPDATE_WISHLIST_SET_SUCCESS` action does _NOT_ indicate explicitly it is a remove operation', () => {
@@ -455,7 +463,9 @@ describe('wishlistMiddleware()', () => {
 
   describe('Add item to wishlist set', () => {
     beforeEach(() => {
-      store = mockStore(null, getMockState(), [wishlistMiddleware(analytics)]);
+      store = mockStore(null, getMockState(), [
+        analyticsWishlistMiddleware(analytics),
+      ]);
     });
 
     describe('When the `UPDATE_WISHLIST_SET_SUCCESS` action does _NOT_ indicate explicitly it is an add operation', () => {
@@ -623,7 +633,7 @@ describe('wishlistMiddleware()', () => {
             wishlistItems: newWishlistItemEntity,
           },
         },
-        [wishlistMiddleware(analytics)],
+        [analyticsWishlistMiddleware(analytics)],
       );
     });
 
@@ -679,7 +689,7 @@ describe('wishlistMiddleware()', () => {
 
     beforeEach(() => {
       store = mockStore(null, getMockState(), [
-        wishlistMiddleware(analytics, {
+        analyticsWishlistMiddleware(analytics, {
           ADD_WISHLIST_ITEM_SUCCESS: myActionTypeAddToWishlist,
           UPDATE_WISHLIST_ITEM_SUCCESS: myActionTypeUpdateWishlist,
           REMOVE_WISHLIST_ITEM_SUCCESS: myActionTypeRemoveFromWishlist,

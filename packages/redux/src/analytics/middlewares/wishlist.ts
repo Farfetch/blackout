@@ -175,10 +175,10 @@ const getProductData = async (
  *
  * @returns Redux middleware.
  */
-const wishlistMiddleware = (
+export function analyticsWishlistMiddleware(
   analyticsInstance: Analytics,
   customActionTypes?: WishlistActionMiddlewareOptions,
-): Middleware => {
+): Middleware {
   if (!analyticsInstance || !(analyticsInstance instanceof Analytics)) {
     logger.error(
       'Wishlist middleware did not receive the analytics instance. Please make sure a valid analytics instance is being passed via "wishlistMiddleware(analytics, customActionTypes)")',
@@ -422,6 +422,4 @@ const wishlistMiddleware = (
         return next(action);
     }
   };
-};
-
-export default wishlistMiddleware;
+}

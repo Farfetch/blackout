@@ -80,7 +80,9 @@ export type SpecificParametersForEventType<
   : OmnitrackingRequestPayload<PageActionEvents>['parameters'];
 
 export type SpecificParametersBuilderByPlatform = {
-  [K in typeof platformTypes[keyof typeof platformTypes]]: (
-    data: EventData<TrackTypesValues>,
-  ) => SpecificParametersForEventType<typeof data>;
+  [K in typeof platformTypes[keyof typeof platformTypes]]: <
+    T extends EventData<TrackTypesValues>,
+  >(
+    data: T,
+  ) => SpecificParametersForEventType<T>;
 };

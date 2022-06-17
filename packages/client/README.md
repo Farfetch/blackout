@@ -61,6 +61,39 @@ Since this package is published in its original structure, all the source code i
   });
   ```
 
+### Using `fetch` with axios
+
+By default, all the clients exported by this package use [`axios`](https://github.com/axios/axios) with its default adapters, which `fetch` is not a part of.
+
+If you need to use this package in an environment which only supports `fetch` API for making requests (e.g. Cloudflare Workers), we recommend you to use a custom adapter:
+
+1. Install the package `@vespaiach/axios-fetch-adapter`:
+
+**yarn**
+
+```sh
+yarn add @vespaiach/axios-fetch-adapter
+```
+
+**npm**
+
+```sh
+npm i @vespaiach/axios-fetch-adapter
+```
+
+2. Add the following code before any client requests are performed (for example, in your entry point file):
+
+```js
+import { client } from '@farfetch/blackout-client';
+import fetchAdapter from '@vespaiach/axios-fetch-adapter';
+
+client.defaults.adapter = fetchAdapter;
+```
+
+This sets the custom adapter to the axios instance used in @farfetch/blackout-client.
+
+All set! Now you should see all requests from `@farfetch/blackout-client` clients using `fetch` under the hood.
+
 ## Contributing
 
 Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.

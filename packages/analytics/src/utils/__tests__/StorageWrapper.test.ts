@@ -5,8 +5,8 @@ import TestStorage from 'test-storage';
 import type { Storage } from '../types/storage.types';
 
 // Mock logger so it does not output to the console
-jest.mock('@farfetch/blackout-client/helpers', () => ({
-  ...jest.requireActual<object>('@farfetch/blackout-client/helpers'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual<object>('@farfetch/blackout-client'),
   Logger: class {
     warn(message: string) {
       return message;

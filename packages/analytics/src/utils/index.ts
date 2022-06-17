@@ -6,3 +6,4 @@ export { default as logger } from './logger';
 export { default as StorageWrapper } from './StorageWrapper';
 export { default as validateStorage } from './validateStorage';
 export { default as hashUserData } from './hashUserData';
+export { default as getCustomerIdFromUser } from './getCustomerIdFromUser';

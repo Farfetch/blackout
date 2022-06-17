@@ -24,15 +24,14 @@ import {
 } from './constants';
 import {
   EventData,
+  integrations,
   LoadIntegrationEventData,
   SetUserEventData,
   StrippedDownAnalytics,
   TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
-import { getCustomerIdFromUser } from '@farfetch/blackout-analytics/integrations/Omnitracking/omnitracking-helper';
-import { Integration } from '@farfetch/blackout-analytics/integrations';
-import { POST_TRACKINGS_PATHNAME } from '@farfetch/blackout-client/omnitracking';
+import { postTrackings } from '@farfetch/blackout-client';
 import isArray from 'lodash/isArray';
 import type {
   Config,
@@ -44,7 +43,7 @@ import type { WebContextType } from '../../context';
 /**
  * Vitorino integration.
  */
-export default class Vitorino extends Integration<VitorinoIntegrationOptions> {
+export default class Vitorino extends integrations.Integration<VitorinoIntegrationOptions> {
   isScriptLoaded: boolean;
   getEventsMapper: typeof GET_EVENTS_MAPPER_FN;
   isVitorinoConfigured: boolean;
@@ -226,7 +225,7 @@ export default class Vitorino extends Integration<VitorinoIntegrationOptions> {
       tenantId,
       clientId,
       origin,
-      customerId: getCustomerIdFromUser(data.user),
+      customerId: utils.getCustomerIdFromUser(data.user),
       environment: this.getEnvironmentFromOptions(this.options),
       fields: {
         sensitiveFields: this.options?.sensitiveFields || [],
@@ -234,7 +233,7 @@ export default class Vitorino extends Integration<VitorinoIntegrationOptions> {
       },
       network: this.options.network || {
         proxy: origin,
-        path: `${MARKETING_API_PREFIX}${POST_TRACKINGS_PATHNAME}`,
+        path: `${MARKETING_API_PREFIX}${postTrackings.POST_TRACKINGS_PATHNAME}`,
       },
     };
   }

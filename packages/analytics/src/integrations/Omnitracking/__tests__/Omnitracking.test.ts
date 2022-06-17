@@ -1,4 +1,4 @@
-import * as clients from '@farfetch/blackout-client/omnitracking';
+import * as clients from '@farfetch/blackout-client';
 import * as definitions from '../definitions';
 import { Integration, Omnitracking } from '../..';
 import {
@@ -40,17 +40,13 @@ import type {
 
 const mockLoggerError = jest.fn();
 
-jest.mock('@farfetch/blackout-client/helpers', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/helpers'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   Logger: class {
     error(message: string) {
       mockLoggerError(message);
     }
   },
-}));
-
-jest.mock('@farfetch/blackout-client/omnitracking', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/omnitracking'),
   postTrackings: jest.fn(),
 }));
 

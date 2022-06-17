@@ -2,7 +2,7 @@ import client, { adaptError } from '../helpers/client';
 import type { AxiosRequestConfig } from 'axios';
 import type { TrackingData } from './types';
 
-export const POST_TRACKINGS_PATHNAME = '/marketing/v1/trackings';
+const POST_TRACKINGS_PATHNAME = '/marketing/v1/trackings';
 /**
  * Method responsible for posting data to /trackings endpoint on MKT API.
  *
@@ -33,5 +33,7 @@ const postTrackings = (data: TrackingData, config?: AxiosRequestConfig) =>
     .catch(error => {
       throw adaptError(error);
     });
+
+postTrackings.POST_TRACKINGS_PATHNAME = POST_TRACKINGS_PATHNAME;
 
 export default postTrackings;
