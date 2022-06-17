@@ -4,18 +4,18 @@ import {
   loadIntegrationData,
 } from 'tests/__fixtures__/analytics';
 import {
+  integrations as coreIntegrations,
   eventTypes,
   pageTypes,
   StrippedDownAnalytics,
 } from '@farfetch/blackout-analytics';
-import { postTrackings } from '@farfetch/blackout-client/omnitracking';
+import { postTrackings } from '@farfetch/blackout-client';
 import Omnitracking from '../Omnitracking';
-import OmnitrackingCore from '@farfetch/blackout-analytics/integrations/Omnitracking/Omnitracking';
 import UniqueViewIdStorage from '../Omnitracking/storage/UniqueViewIdStorage';
 import UniqueViewIdStorageOptions from '../Omnitracking/storage/UniqueViewIdStorageOptions';
 
-jest.mock('@farfetch/blackout-client/omnitracking', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/omnitracking'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   postTrackings: jest.fn(),
 }));
 
@@ -45,7 +45,7 @@ describe('Omnitracking', () => {
           loadIntegrationData,
           strippedDownAnalytics,
         ),
-      ).toBeInstanceOf(OmnitrackingCore);
+      ).toBeInstanceOf(coreIntegrations.Omnitracking);
     });
 
     it('Should return an instance of it in .createInstance()', () => {

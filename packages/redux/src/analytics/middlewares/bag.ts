@@ -8,8 +8,7 @@ import {
   getVariant,
 } from './helpers';
 import { getProduct } from '../../entities/selectors';
-import { logger } from '@farfetch/blackout-analytics/utils';
-import Analytics, { eventTypes } from '@farfetch/blackout-analytics';
+import Analytics, { eventTypes, utils } from '@farfetch/blackout-analytics';
 import get from 'lodash/get';
 import isNil from 'lodash/isNil';
 import type { AnyAction, Dispatch, Middleware } from 'redux';
@@ -224,12 +223,12 @@ const getBagData = (action: AnyAction) => ({
  *
  * @returns Redux middleware.
  */
-const bagMiddleware = (
+export function analyticsBagMiddleware(
   analyticsInstance: Analytics,
   customActionTypes?: BagActionMiddlewareOptions,
-): Middleware => {
+): Middleware {
   if (!analyticsInstance || !(analyticsInstance instanceof Analytics)) {
-    logger.error(
+    utils.logger.error(
       'Bag middleware did not receive the analytics instance. Please make sure a valid analytics instance is being passed via "bagMiddleware(analytics, customActionTypes)")',
     );
   }
@@ -334,6 +333,4 @@ const bagMiddleware = (
 
     return next(action);
   };
-};
-
-export default bagMiddleware;
+}

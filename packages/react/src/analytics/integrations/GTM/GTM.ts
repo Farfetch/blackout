@@ -38,13 +38,13 @@ import {
   utils as coreUtils,
   EventContext,
   EventData,
+  integrations,
   LoadIntegrationEventData,
   SetUserEventData,
   StrippedDownAnalytics,
   TrackTypesValues,
 } from '@farfetch/blackout-analytics';
 import { getContextParameters, getUserParameters } from './utils';
-import { Integration } from '@farfetch/blackout-analytics/integrations';
 import eventSchemas from '../shared/validation/eventSchemas';
 import eventsMapper from './eventsMapper';
 import eventValidator from '../shared/validation/eventValidator';
@@ -63,7 +63,7 @@ import type { Schemas } from '../GA';
 /**
  * GTM Integration.
  */
-class GTM extends Integration<GTMIntegrationOptions> {
+class GTM extends integrations.Integration<GTMIntegrationOptions> {
   protected consentKey?: string;
   protected contextKey?: string;
   protected setUserKey?: string;

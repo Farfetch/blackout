@@ -1,10 +1,10 @@
 import { actionTypes as authenticationActionTypes } from '../../authentication';
 import { getUser, getUserId, USER_ID_PROPERTY } from '../../entities/selectors';
-import { logger } from '@farfetch/blackout-analytics/utils';
 import { actionTypes as usersActionTypes } from '../../users';
 import Analytics, {
   eventTypes,
   UserTraits,
+  utils,
 } from '@farfetch/blackout-analytics';
 import get from 'lodash/get';
 import isPlainObject from 'lodash/isPlainObject';
@@ -64,7 +64,7 @@ const getActionTypes = (
       return new Set(actionTypes);
     }
 
-    logger.error(
+    utils.logger.error(
       `[setUser middleware] - Received an invalid value for the 'actionTypes' parameter: ${actionTypes}. ActionTypes must be a Set or an Array instance.`,
     );
 
@@ -88,12 +88,12 @@ let currentUser: UserType | null;
  *
  * @returns Redux middleware.
  */
-const setUserMiddleware = (
+export function analyticsSetUserMiddleware(
   analyticsInstance: Analytics,
   actionTypesOrOptions?: SetUserMiddlewareOptions,
-): Middleware => {
+): Middleware {
   if (!analyticsInstance || !(analyticsInstance instanceof Analytics)) {
-    logger.error(
+    utils.logger.error(
       'SetUser middleware did not receive the analytics instance. Please make sure a valid analytics instance is being passed via "setUserMiddleware(analytics, customActionTypes)")',
     );
   }
@@ -221,6 +221,4 @@ const setUserMiddleware = (
 
     return next(action);
   };
-};
-
-export default setUserMiddleware;
+}

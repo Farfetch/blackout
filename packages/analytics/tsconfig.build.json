@@ -1,9 +1,0 @@
-{
-  "extends": "../../configs/typescript/tsconfig.package-build.json",
-  "files": ["package.json"],
-  "compilerOptions": {
-    "rootDir": ".",
-    "outDir": "./dist",
-    "composite": true
-  }
-}

@@ -21,8 +21,8 @@ import pick from 'lodash/pick';
 import TestStorage from 'test-storage';
 
 // Mock logger so it does not output to the console
-jest.mock('@farfetch/blackout-client/helpers', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/helpers'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   Logger: class {
     warn(message: string) {
       return message;
@@ -104,7 +104,7 @@ function assertSetUserSpyCalledWith(
   expect(setUserSpy).toHaveBeenCalledWith(expectedUserId, expectedTraits);
 }
 
-describe('setUserMiddleware', () => {
+describe('analyticsSetUserMiddleware', () => {
   beforeEach(() => {
     jest.resetModules();
     jest.clearAllMocks();
@@ -121,20 +121,20 @@ describe('setUserMiddleware', () => {
 
   it('Should log an error if an analytics instance is not passed', () => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const setUserMiddleware = require('../setUser').default;
+    const { analyticsSetUserMiddleware } = require('../setUser');
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const { logger } = require('@farfetch/blackout-analytics/utils');
     const loggerErrorSpy = jest.spyOn(logger, 'error');
 
     // test undefined value
-    setUserMiddleware(undefined);
+    analyticsSetUserMiddleware(undefined);
 
     expect(loggerErrorSpy).toBeCalled();
 
     jest.clearAllMocks();
 
     // test instanceof
-    setUserMiddleware({});
+    analyticsSetUserMiddleware({});
 
     expect(loggerErrorSpy).toBeCalled();
   });
@@ -144,10 +144,10 @@ describe('setUserMiddleware', () => {
       "Should call 'analytics.setUser' with the correct values by default when %s is dispatched",
       async actionType => {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const setUserMiddleware = require('../setUser').default;
+        const { analyticsSetUserMiddleware } = require('../setUser');
 
         const store = mockStore(mockStateGuestUser, [
-          setUserMiddleware(analytics),
+          analyticsSetUserMiddleware(analytics),
         ]);
 
         await dispatchUserChangingAction(store, actionType, loggedInUserEntity);
@@ -160,10 +160,10 @@ describe('setUserMiddleware', () => {
       "Should call 'analytics.anonymize' by default when %s is dispatched",
       async actionType => {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const setUserMiddleware = require('../setUser').default;
+        const { analyticsSetUserMiddleware } = require('../setUser');
 
         const store = mockStore(mockStateGuestUser, [
-          setUserMiddleware(analytics),
+          analyticsSetUserMiddleware(analytics),
         ]);
 
         await store.dispatch({
@@ -176,10 +176,10 @@ describe('setUserMiddleware', () => {
 
     it("Should not call 'analytics.setUser' when any other action is dispatched", async () => {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const setUserMiddleware = require('../setUser').default;
+      const { analyticsSetUserMiddleware } = require('../setUser');
 
       const store = mockStore(mockStateGuestUser, [
-        setUserMiddleware(analytics),
+        analyticsSetUserMiddleware(analytics),
       ]);
 
       await store.dispatch({
@@ -193,10 +193,10 @@ describe('setUserMiddleware', () => {
   describe('When options is an array or set of action types', () => {
     it('Should allow to specify a set of action types that will be listened to instead of the default ones', async () => {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const setUserMiddleware = require('../setUser').default;
+      const { analyticsSetUserMiddleware } = require('../setUser');
 
       const store = mockStore(mockStateGuestUser, [
-        setUserMiddleware(
+        analyticsSetUserMiddleware(
           analytics,
           new Set(['NEW_LOGIN_SUCCESS_TYPE', 'NEW_ACTION_TYPE']),
         ),
@@ -223,13 +223,13 @@ describe('setUserMiddleware', () => {
 
     it('Should log an error and use the default action types when the actionTypes passed in is not of the proper type', async () => {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const setUserMiddleware = require('../setUser').default;
+      const { analyticsSetUserMiddleware } = require('../setUser');
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const { logger } = require('@farfetch/blackout-analytics/utils');
       const loggerErrorSpy = jest.spyOn(logger, 'error');
 
       const store = mockStore(mockStateGuestUser, [
-        setUserMiddleware(analytics, 'NEW_ACTION_TYPE'),
+        analyticsSetUserMiddleware(analytics, 'NEW_ACTION_TYPE'),
       ]);
 
       expect(loggerErrorSpy).toHaveBeenCalled();
@@ -259,10 +259,10 @@ describe('setUserMiddleware', () => {
       };
 
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const setUserMiddleware = require('../setUser').default;
+      const { analyticsSetUserMiddleware } = require('../setUser');
 
       const store = mockStore(mockStateGuestUser, [
-        setUserMiddleware(analytics, options),
+        analyticsSetUserMiddleware(analytics, options),
       ]);
 
       await dispatchUserChangingAction(
@@ -338,10 +338,10 @@ describe('setUserMiddleware', () => {
       };
 
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const setUserMiddleware = require('../setUser').default;
+      const { analyticsSetUserMiddleware } = require('../setUser');
 
       const store = mockStore(mockStateGuestUser, [
-        setUserMiddleware(analytics, options),
+        analyticsSetUserMiddleware(analytics, options),
       ]);
 
       // Check for anonymize actions
@@ -367,10 +367,10 @@ describe('setUserMiddleware', () => {
       };
 
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const setUserMiddleware = require('../setUser').default;
+      const { analyticsSetUserMiddleware } = require('../setUser');
 
       const store = mockStore(mockStateGuestUser, [
-        setUserMiddleware(analytics, options),
+        analyticsSetUserMiddleware(analytics, options),
       ]);
 
       await dispatchUserChangingAction(
@@ -398,10 +398,10 @@ describe('setUserMiddleware', () => {
   describe('Triggering login / logout / signup events', () => {
     it('Should trigger a login event when a login success action is dispatched', async () => {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const setUserMiddleware = require('../setUser').default;
+      const { analyticsSetUserMiddleware } = require('../setUser');
 
       const store = mockStore(mockStateGuestUser, [
-        setUserMiddleware(analytics),
+        analyticsSetUserMiddleware(analytics),
       ]);
 
       await dispatchUserChangingAction(
@@ -420,10 +420,10 @@ describe('setUserMiddleware', () => {
 
     it('Should trigger a signup event when a register success action is dispatched', async () => {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const setUserMiddleware = require('../setUser').default;
+      const { analyticsSetUserMiddleware } = require('../setUser');
 
       const store = mockStore(mockStateGuestUser, [
-        setUserMiddleware(analytics),
+        analyticsSetUserMiddleware(analytics),
       ]);
 
       await dispatchUserChangingAction(
@@ -442,10 +442,10 @@ describe('setUserMiddleware', () => {
 
     it('Should trigger a logout event when the user changes to a guest user from a logged in user', async () => {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const setUserMiddleware = require('../setUser').default;
+      const { analyticsSetUserMiddleware } = require('../setUser');
 
       const store = mockStore(mockStateGuestUser, [
-        setUserMiddleware(analytics),
+        analyticsSetUserMiddleware(analytics),
       ]);
 
       // Set user as logged in
@@ -474,10 +474,10 @@ describe('setUserMiddleware', () => {
 
     it('Should not track any event if there was not a change to the user logged-in status', async () => {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const setUserMiddleware = require('../setUser').default;
+      const { analyticsSetUserMiddleware } = require('../setUser');
 
       const store = mockStore(mockStateLoggedInUser, [
-        setUserMiddleware(analytics),
+        analyticsSetUserMiddleware(analytics),
       ]);
 
       await dispatchUserChangingAction(

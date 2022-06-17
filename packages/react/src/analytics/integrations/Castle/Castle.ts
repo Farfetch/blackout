@@ -27,6 +27,7 @@ import * as castleJS from '@castleio/castle-js';
 import {
   EventData,
   eventTypes,
+  integrations,
   LoadIntegrationEventData,
   PageviewEventData,
   StrippedDownAnalytics,
@@ -37,7 +38,6 @@ import {
   UserTraits,
   utils,
 } from '@farfetch/blackout-analytics';
-import { Integration } from '@farfetch/blackout-analytics/integrations';
 import coreClient from '@farfetch/blackout-client/helpers/client';
 import identity from 'lodash/identity';
 import isString from 'lodash/isString';
@@ -60,7 +60,7 @@ export const CASTLE_MESSAGE_PREFIX = 'Castle 2.x -';
 /**
  * Castle integration.
  */
-class Castle extends Integration<CastleIntegrationOptions> {
+class Castle extends integrations.Integration<CastleIntegrationOptions> {
   httpClientInterceptor?: number;
   isInterceptorAttached?: boolean;
   debugModeOn: boolean;
