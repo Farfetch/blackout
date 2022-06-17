@@ -1,3 +1,4 @@
+import { analyticsBagMiddleware } from '../bag';
 import { actionTypes as bagActionTypes, getBagItem } from '../../../bags';
 import { bagMockData } from 'tests/__fixtures__/analytics/bag';
 import { getBrand, getCategory, getProduct } from '../../../entities/selectors';
@@ -5,7 +6,6 @@ import { logger } from '@farfetch/blackout-analytics/utils';
 import { mockStore as mockSimplifiedStore } from './../tests/simplifiedStore';
 import { mockStore } from '../../../../tests';
 import Analytics, { eventTypes } from '@farfetch/blackout-analytics';
-import bagMiddleware from '../bag';
 import merge from 'lodash/merge';
 import type { BagItemEntity, ProductEntity } from '../../../entities/types';
 import type { PriceAdapted } from '@farfetch/blackout-client/helpers/adapters/types';
@@ -68,11 +68,13 @@ const productDescription = shortDescription || name; // Color name must be the o
 const getMockState = (data: Record<string, unknown> = {}): StoreState =>
   merge({}, bagMockData.mockState, data);
 
-describe('bagMiddleware()', () => {
+describe('analyticsBagMiddleware', () => {
   let store: ReturnType<typeof mockStore>;
 
   beforeEach(() => {
-    store = mockStore(null, getMockState(), [bagMiddleware(analytics)]);
+    store = mockStore(null, getMockState(), [
+      analyticsBagMiddleware(analytics),
+    ]);
 
     jest.clearAllMocks();
 
@@ -92,20 +94,20 @@ describe('bagMiddleware()', () => {
             },
           },
         }),
-        [bagMiddleware(analytics)],
+        [analyticsBagMiddleware(analytics)],
       );
     });
 
     it('Should log an error if an analytics instance is not passed', () => {
       // @ts-expect-error test undefined value
-      bagMiddleware(undefined);
+      analyticsBagMiddleware(undefined);
 
       expect(loggerErrorSpy).toHaveBeenCalled();
 
       loggerErrorSpy.mockClear();
 
       // @ts-expect-error test instanceof
-      bagMiddleware({});
+      analyticsBagMiddleware({});
 
       expect(loggerErrorSpy).toHaveBeenCalled();
     });
@@ -162,7 +164,9 @@ describe('bagMiddleware()', () => {
 
   describe('Add item to bag', () => {
     beforeEach(() => {
-      store = mockStore(null, getMockState(), [bagMiddleware(analytics)]);
+      store = mockStore(null, getMockState(), [
+        analyticsBagMiddleware(analytics),
+      ]);
     });
 
     it('Should intercept the action and call `analytics.track` with the correct payload', async () => {
@@ -240,7 +244,7 @@ describe('bagMiddleware()', () => {
       bagItem.quantity = 5;
       bagItem.promotionDetail.totalDiscountValue = 291;
 
-      store = mockStore(null, mockState, [bagMiddleware(analytics)]);
+      store = mockStore(null, mockState, [analyticsBagMiddleware(analytics)]);
     });
 
     it('Should intercept the action and call `analytics.track` with the correct payload', async () => {
@@ -369,10 +373,10 @@ describe('bagMiddleware()', () => {
 
     it('Should track a remove and an add event if the product sizes changed', async () => {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const bagMiddleware = require('../bag').default;
+      const { analyticsBagMiddleware } = require('../bag');
 
       const simplifiedStore = mockSimplifiedStore(bagMockData.mockState, [
-        bagMiddleware(analytics),
+        analyticsBagMiddleware(analytics),
       ]);
 
       await simplifiedStore.dispatch({
@@ -436,7 +440,7 @@ describe('bagMiddleware()', () => {
 
     beforeEach(() => {
       store = mockStore(null, getMockState(), [
-        bagMiddleware(analytics, {
+        analyticsBagMiddleware(analytics, {
           ADD_BAG_ITEM_SUCCESS: myActionTypeAddToBag,
           UPDATE_BAG_ITEM_SUCCESS: myActionTypeUpdateBag,
           REMOVE_BAG_ITEM_SUCCESS: myActionTypeRemoveFromBag,

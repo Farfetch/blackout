@@ -18,13 +18,12 @@ import {
   TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
-import { getCustomerIdFromUser } from '@farfetch/blackout-analytics/integrations/Omnitracking/omnitracking-helper';
 import {
   loadIntegrationData,
   onSetUserEventData as mockUserAndTrackData,
   trackEventsData,
 } from 'tests/__fixtures__/analytics';
-import { POST_TRACKINGS_PATHNAME } from '@farfetch/blackout-client/omnitracking';
+import { postTrackings } from '@farfetch/blackout-client';
 import Vitorino from '../Vitorino';
 
 utils.logger.error = jest.fn();
@@ -48,12 +47,12 @@ const generateMockVitorinoPayload = () => ({
   tenantId: mockUserAndTrackData.context.tenantId,
   clientId: mockUserAndTrackData.context.clientId,
   origin: mockUserAndTrackData.context.web.window.location.origin,
-  customerId: getCustomerIdFromUser(mockUserAndTrackData.user),
+  customerId: utils.getCustomerIdFromUser(mockUserAndTrackData.user),
   environment: window.Vitorino.Environment.SANDBOX,
   fields: { sensitiveFields: [], secretFields: [] },
   network: {
     proxy: mockUserAndTrackData.context.web.window.location.origin,
-    path: `${MARKETING_API_PREFIX}${POST_TRACKINGS_PATHNAME}`,
+    path: `${MARKETING_API_PREFIX}${postTrackings.POST_TRACKINGS_PATHNAME}`,
   },
 });
 

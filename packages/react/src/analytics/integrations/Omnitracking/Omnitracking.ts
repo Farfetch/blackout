@@ -18,20 +18,20 @@
 
 import {
   EventData,
+  integrations,
   LoadIntegrationEventData,
+  OmnitrackingOptions,
   StrippedDownAnalytics,
   TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
-import OmnitrackingCore from '@farfetch/blackout-analytics/integrations/Omnitracking/Omnitracking';
 import UniqueViewIdStorage from './storage/UniqueViewIdStorage';
 import UniqueViewIdStorageOptions from './storage/UniqueViewIdStorageOptions';
-import type { OmnitrackingOptions } from '@farfetch/blackout-analytics/integrations/Omnitracking/types/Omnitracking.types';
 
 /**
  * Omnitracking integration.
  */
-class Omnitracking extends OmnitrackingCore {
+class Omnitracking extends integrations.Omnitracking {
   uniqueViewIdStorage: UniqueViewIdStorage;
   /**
    * Builds a new instance and initializes the unique view storage system. It will

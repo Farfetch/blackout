@@ -3,6 +3,7 @@ import {
   DEFAULT_CLIENT_LANGUAGE,
   DEFAULT_SEARCH_QUERY_PARAMETERS,
 } from './constants';
+import { getCustomerIdFromUser } from '../../utils';
 import { isPageEventType, isScreenEventType } from '../../utils/typePredicates';
 import {
   pageActionEventTypes,
@@ -62,22 +63,6 @@ export const getUniqueViewIdParameter = (
   const uniqueViewId = get(data, 'properties.uniqueViewId');
 
   return typeof uniqueViewId === 'string' ? uniqueViewId : uuidV4();
-};
-
-/**
- * Returns the customer id for tracking of the passed user instance.
- *
- * @param user - The user instance.
- *
- * @returns The formatted customer ID.
- */
-export const getCustomerIdFromUser = (
-  user: EventData<TrackTypesValues>['user'],
-): string => {
-  const customerId = user.id;
-  const isGuest = user.traits?.isGuest;
-
-  return customerId && isGuest ? `g_${customerId}` : `${customerId}`;
 };
 
 /**
@@ -160,11 +145,11 @@ export const getPageEvent = (
  *
  * @returns Filtered object.
  */
-function getSpecificWebParameters(
-  data: EventData<TrackTypesValues>,
-): SpecificParametersForEventType<typeof data> {
-  let commonParameters: SpecificParametersForEventType<typeof data> =
-    {} as SpecificParametersForEventType<typeof data>;
+function getSpecificWebParameters<T extends EventData<TrackTypesValues>>(
+  data: T,
+): SpecificParametersForEventType<T> {
+  let commonParameters: SpecificParametersForEventType<T> =
+    {} as SpecificParametersForEventType<T>;
 
   if (isPageEventType(data)) {
     const referrer = get(data, 'context.web.document.referrer', '');
@@ -207,15 +192,15 @@ function getSpecificWebParameters(
  *
  * @returns Filtered object.
  */
-function getSpecificMobileParameters(
-  data: EventData<TrackTypesValues>,
-): SpecificParametersForEventType<typeof data> {
-  const commonParameters: SpecificParametersForEventType<typeof data> =
-    {} as SpecificParametersForEventType<typeof data>;
+function getSpecificMobileParameters<T extends EventData<TrackTypesValues>>(
+  data: T,
+): SpecificParametersForEventType<T> {
+  const commonParameters: SpecificParametersForEventType<T> =
+    {} as SpecificParametersForEventType<T>;
 
   if (isScreenEventType(data)) {
     const screenParameters = commonParameters as SpecificParametersForEventType<
-      typeof data
+      EventData<'screen'>
     >;
     // Referrer must be sent with an empty string when we don't have a value for it.
     const referrer = get(data, 'context.app.referrer', '');
