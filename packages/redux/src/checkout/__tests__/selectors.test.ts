@@ -598,4 +598,54 @@ describe('checkout redux selectors', () => {
       );
     });
   });
+
+  describe('removeOrderItem selectors', () => {
+    let state: { checkout: Partial<StoreState['checkout']> };
+
+    beforeEach(() => {
+      state = {
+        checkout: {
+          removeOrderItem: {
+            isLoading: true,
+            error: null,
+          },
+        },
+      };
+    });
+
+    it('should return loading status', () => {
+      expect(selectors.isRemoveOrderItemLoading(state as StoreState)).toBe(
+        true,
+      );
+    });
+
+    it('should return error', () => {
+      expect(selectors.getRemoveOrderItemError(state as StoreState)).toBeNull();
+    });
+  });
+
+  describe('updateOrderItem selectors', () => {
+    let state: { checkout: Partial<StoreState['checkout']> };
+
+    beforeEach(() => {
+      state = {
+        checkout: {
+          updateOrderItem: {
+            isLoading: true,
+            error: null,
+          },
+        },
+      };
+    });
+
+    it('should return loading status', () => {
+      expect(selectors.isUpdateOrderItemLoading(state as StoreState)).toBe(
+        true,
+      );
+    });
+
+    it('should return error', () => {
+      expect(selectors.getUpdateOrderItemError(state as StoreState)).toBeNull();
+    });
+  });
 });
