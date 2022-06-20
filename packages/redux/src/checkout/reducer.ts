@@ -9,6 +9,7 @@ import { LOGOUT_SUCCESS } from '../authentication/actionTypes';
 import assignWith from 'lodash/assignWith';
 import get from 'lodash/get';
 import mergeWith from 'lodash/mergeWith';
+import produce from 'immer';
 import type {
   ChargeFailureAction,
   ChargeRequestAction,
@@ -29,10 +30,12 @@ import type {
   GenericCheckoutRequestAction,
   GenericCheckoutSuccessAction,
   LogoutAction,
+  RemoveCheckoutOrderItemSuccessAction,
   ResetChargesStateAction,
   ResetCheckoutStateAction,
   State,
   StateWithResult,
+  UpdateCheckoutOrderItemSuccessAction,
   UpdateDeliveryBundleSuccessAction,
 } from './types';
 import type { StoreState } from '../types';
@@ -95,6 +98,14 @@ export const INITIAL_STATE = {
     error: null,
     isLoading: false,
     result: null,
+  },
+  removeOrderItem: {
+    error: null,
+    isLoading: false,
+  },
+  updateOrderItem: {
+    error: null,
+    isLoading: false,
   },
 };
 
@@ -231,6 +242,35 @@ const mergeCheckoutOrder = (
   };
 };
 
+const handleRemoveCheckoutOrderItemSuccess = produce<
+  StoreState['entities'],
+  [RemoveCheckoutOrderItemSuccessAction]
+>((draftState, action) => {
+  if (!draftState || !draftState.checkoutOrderItems) {
+    return;
+  }
+
+  const { id } = action.meta;
+  delete draftState.checkoutOrderItems[id];
+});
+
+const handleUpdateCheckoutOrderItemSuccess = produce<
+  StoreState['entities'],
+  [UpdateCheckoutOrderItemSuccessAction]
+>((draftState, action) => {
+  if (!draftState || !draftState.checkoutOrderItems) {
+    return;
+  }
+
+  const { id } = action.meta;
+  const checkoutOrderItem = draftState.checkoutOrderItems[id];
+  if (!checkoutOrderItem) {
+    return;
+  }
+
+  Object.assign(checkoutOrderItem, action.payload);
+});
+
 export const entitiesMapper = {
   [actionTypes.COMPLETE_PAYMENT_CHECKOUT_SUCCESS as typeof actionTypes.COMPLETE_PAYMENT_CHECKOUT_SUCCESS]:
     mergeCheckoutOrder,
@@ -357,6 +397,10 @@ export const entitiesMapper = {
 
     return { ...rest };
   },
+  [actionTypes.REMOVE_CHECKOUT_ORDER_ITEM_SUCCESS]:
+    handleRemoveCheckoutOrderItemSuccess,
+  [actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS]:
+    handleUpdateCheckoutOrderItemSuccess,
 };
 
 export const completePaymentCheckout = reducerFactory(
@@ -525,6 +569,20 @@ export const operations = createReducerWithResult(
   true,
 );
 
+export const removeOrderItem = reducerFactory(
+  'REMOVE_CHECKOUT_ORDER_ITEM',
+  INITIAL_STATE.removeOrderItem,
+  actionTypes,
+  true,
+);
+
+export const updateOrderItem = reducerFactory(
+  'UPDATE_CHECKOUT_ORDER_ITEM',
+  INITIAL_STATE.updateOrderItem,
+  actionTypes,
+  true,
+);
+
 export const getError = (state: State): State['error'] => state.error;
 export const getId = (state: State): State['id'] => state.id;
 export const getIsLoading = (state: State): State['isLoading'] =>
@@ -558,6 +616,10 @@ export const getOperation = (state: State): State['operation'] =>
   state.operation;
 export const getOperations = (state: State): State['operations'] =>
   state.operations;
+export const getRemoveOrderItem = (state: State): State['removeOrderItem'] =>
+  state.removeOrderItem;
+export const getUpdateOrderItem = (state: State): State['updateOrderItem'] =>
+  state.updateOrderItem;
 
 /**
  * Reducer for checkout state.
@@ -584,4 +646,6 @@ export default combineReducers({
   upgradeItemDeliveryProvisioning,
   operation,
   operations,
+  removeOrderItem,
+  updateOrderItem,
 });

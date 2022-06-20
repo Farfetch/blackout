@@ -14,10 +14,12 @@ export { default as fetchCollectPointsFactory } from './fetchCollectPointsFactor
 export { default as fetchDeliveryBundleUpgradesFactory } from './fetchDeliveryBundleUpgradesFactory';
 export { default as fetchItemDeliveryProvisioningFactory } from './fetchItemDeliveryProvisioningFactory';
 export { default as fetchUpgradeItemDeliveryProvisioningFactory } from './fetchUpgradeItemDeliveryProvisioningFactory';
+export { default as removeCheckoutOrderItemFactory } from './removeCheckoutOrderItemFactory';
 export { default as resetCheckoutFactory } from '../resetCheckoutState';
 export { default as setItemTagsFactory } from './setItemTagsFactory';
 export { default as setPromocodeFactory } from './setPromocodeFactory';
 export { default as setTagsFactory } from './setTagsFactory';
 export { default as updateCheckoutFactory } from './updateCheckoutFactory';
+export { default as updateCheckoutOrderItemFactory } from './updateCheckoutOrderItemFactory';
 export { default as updateDeliveryBundleUpgradesFactory } from './updateDeliveryBundleUpgradesFactory';
 export { default as updateGiftMessageFactory } from './updateGiftMessageFactory';

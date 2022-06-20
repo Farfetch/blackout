@@ -14,7 +14,9 @@ import {
   getOperations,
   getCharges as getPaidOrders,
   getPromoCode,
+  getRemoveOrderItem,
   getTags,
+  getUpdateOrderItem,
   getUpgradeItemDeliveryProvisioning,
 } from './reducer';
 import { getEntities, getEntityById } from '../entities/selectors';
@@ -729,8 +731,6 @@ export const isOperationsLoading = (state: StoreState): boolean =>
 /**
  * Returns the order operations error.
  *
- * @function
- *
  * @param state - Application state.
  *
  * @returns Order operation error.
@@ -762,3 +762,43 @@ export const getOperationsPagination = createSelector(
     return operations.result;
   },
 );
+
+/**
+ * Returns the loading status for the order item removing operation.
+ *
+ * @param state - Application state.
+ *
+ * @returns Order operation fetch process loading status.
+ */
+export const isRemoveOrderItemLoading = (state: StoreState): boolean =>
+  getRemoveOrderItem(state.checkout).isLoading;
+
+/**
+ * Returns the error for the order item removing operation.
+ *
+ * @param state - Application state.
+ *
+ * @returns Order operation error.
+ */
+export const getRemoveOrderItemError = (state: StoreState): Error | null =>
+  getRemoveOrderItem(state.checkout).error;
+
+/**
+ * Returns the loading status for the order item updating operation.
+ *
+ * @param state - Application state.
+ *
+ * @returns Order operation fetch process loading status.
+ */
+export const isUpdateOrderItemLoading = (state: StoreState): boolean =>
+  getUpdateOrderItem(state.checkout).isLoading;
+
+/**
+ * Returns the error for the order item updating operation.
+ *
+ * @param state - Application state.
+ *
+ * @returns Order operation error.
+ */
+export const getUpdateOrderItemError = (state: StoreState): Error | null =>
+  getUpdateOrderItem(state.checkout).error;
