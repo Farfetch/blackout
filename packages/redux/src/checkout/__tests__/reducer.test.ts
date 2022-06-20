@@ -1,11 +1,18 @@
 import * as fromReducer from '../reducer';
-import { LOGOUT_SUCCESS } from '@farfetch/blackout-redux/authentication/actionTypes';
 import {
+  checkoutOrderItemId,
   mockGetOperationActionPayload,
   mockGetOperationsActionPayload,
 } from 'tests/__fixtures__/checkout';
+import { LOGOUT_SUCCESS } from '@farfetch/blackout-redux/authentication/actionTypes';
 import reducer, { actionTypes, entitiesMapper } from '..';
-import type { State } from '../types';
+import type { CheckoutOrderItemEntity } from '@farfetch/blackout-redux/entities/types';
+import type {
+  RemoveCheckoutOrderItemSuccessAction,
+  State,
+  UpdateCheckoutOrderItemSuccessAction,
+} from '../types';
+import type { StoreState } from '@farfetch/blackout-redux/types';
 
 let initialState: State;
 
@@ -562,6 +569,72 @@ describe('checkout reducer', () => {
     });
   });
 
+  describe('removeOrderItem() reducer', () => {
+    it('should handle @farfetch/blackout-client/REMOVE_CHECKOUT_ORDER_ITEM_REQUEST action', () => {
+      const action = {
+        type: actionTypes.REMOVE_CHECKOUT_ORDER_ITEM_REQUEST,
+      };
+      const state = reducer(undefined, action);
+      expect(state.removeOrderItem.isLoading).toBe(true);
+      expect(state.removeOrderItem.error).toBeNull();
+    });
+
+    it('should handle @farfetch/blackout-client/REMOVE_CHECKOUT_ORDER_ITEM_FAILURE action', () => {
+      const action = {
+        type: actionTypes.REMOVE_CHECKOUT_ORDER_ITEM_FAILURE,
+        payload: {
+          error: 'error',
+        },
+      };
+      const state = reducer(undefined, action);
+      expect(state.removeOrderItem.isLoading).toBe(false);
+      expect(state.removeOrderItem.error).toBe(action.payload.error);
+    });
+
+    it('should handle @farfetch/blackout-client/REMOVE_CHECKOUT_ORDER_ITEM_SUCCESS action', () => {
+      const action = {
+        type: actionTypes.REMOVE_CHECKOUT_ORDER_ITEM_SUCCESS,
+        payload: { quantity: 2 },
+      };
+      const state = reducer(undefined, action);
+      expect(state.removeOrderItem.isLoading).toBe(false);
+      expect(state.removeOrderItem.error).toBeNull();
+    });
+  });
+
+  describe('updateOrderItem() reducer', () => {
+    it('should handle @farfetch/blackout-client/UPDATE_CHECKOUT_ORDER_ITEM_REQUEST action', () => {
+      const action = {
+        type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_REQUEST,
+      };
+      const state = reducer(undefined, action);
+      expect(state.updateOrderItem.isLoading).toBe(true);
+      expect(state.updateOrderItem.error).toBeNull();
+    });
+
+    it('should handle @farfetch/blackout-client/UPDATE_CHECKOUT_ORDER_ITEM_FAILURE action', () => {
+      const action = {
+        type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_FAILURE,
+        payload: {
+          error: 'error',
+        },
+      };
+      const state = reducer(undefined, action);
+      expect(state.updateOrderItem.isLoading).toBe(false);
+      expect(state.updateOrderItem.error).toBe(action.payload.error);
+    });
+
+    it('should handle @farfetch/blackout-client/UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS action', () => {
+      const action = {
+        type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS,
+        payload: mockGetOperationActionPayload,
+      };
+      const state = reducer(undefined, action);
+      expect(state.updateOrderItem.isLoading).toBe(false);
+      expect(state.updateOrderItem.error).toBeNull();
+    });
+  });
+
   describe('entitiesMapper()', () => {
     describe('without convertCheckoutOrder', () => {
       const entities = {
@@ -959,6 +1032,106 @@ describe('checkout reducer', () => {
         };
 
         expect(entitiesMapper[LOGOUT_SUCCESS](state)).toEqual(expectedResult);
+      });
+    });
+
+    describe('handle UpdateCheckoutOrderItemSuccessAction', () => {
+      let state: StoreState['entities'];
+      let action: UpdateCheckoutOrderItemSuccessAction;
+
+      beforeEach(() => {
+        state = {
+          checkoutOrderItems: {
+            [checkoutOrderItemId]: {
+              id: checkoutOrderItemId,
+              quantity: 1,
+            } as CheckoutOrderItemEntity,
+          },
+        };
+        action = {
+          type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS,
+          meta: { id: checkoutOrderItemId },
+          payload: { quantity: 2 },
+        };
+      });
+
+      it('should update existing checkout order item', () => {
+        const expectedState = {
+          checkoutOrderItems: {
+            [checkoutOrderItemId]: {
+              id: checkoutOrderItemId,
+              quantity: 2,
+            },
+          },
+        };
+
+        expect(
+          entitiesMapper[actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS](
+            state,
+            action,
+          ),
+        ).toEqual(expectedState);
+      });
+
+      it('should do nothing when there is not items on state', () => {
+        state = {};
+        expect(
+          entitiesMapper[actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS](
+            state,
+            action,
+          ),
+        ).toBe(state);
+      });
+
+      it('should do nothing when item is not on state', () => {
+        state = { checkoutOrderItems: {} };
+        expect(
+          entitiesMapper[actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS](
+            state,
+            action,
+          ),
+        ).toBe(state);
+      });
+    });
+
+    describe('handle RemoveCheckoutOrderItemSuccessAction', () => {
+      let state: StoreState['entities'];
+      let action: RemoveCheckoutOrderItemSuccessAction;
+
+      beforeEach(() => {
+        state = {
+          checkoutOrderItems: {
+            [checkoutOrderItemId]: {
+              id: checkoutOrderItemId,
+              quantity: 1,
+            } as CheckoutOrderItemEntity,
+          },
+        };
+        action = {
+          type: actionTypes.REMOVE_CHECKOUT_ORDER_ITEM_SUCCESS,
+          meta: { id: checkoutOrderItemId },
+        };
+      });
+
+      it('should remove existing checkout order item', () => {
+        const expectedState = { checkoutOrderItems: {} };
+
+        expect(
+          entitiesMapper[actionTypes.REMOVE_CHECKOUT_ORDER_ITEM_SUCCESS](
+            state,
+            action,
+          ),
+        ).toEqual(expectedState);
+      });
+
+      it('should do nothing when there is not items on state', () => {
+        delete state?.checkoutOrderItems;
+        expect(
+          entitiesMapper[actionTypes.REMOVE_CHECKOUT_ORDER_ITEM_SUCCESS](
+            state,
+            action,
+          ),
+        ).toBe(state);
       });
     });
   });

@@ -32,4 +32,6 @@ export type State = CombinedState<{
   deliveryBundleUpgrades: StateWithResult<string>;
   operation: StateWithoutResult;
   operations: StateWithResult<OperationsSuccessResult>;
+  removeOrderItem: StateWithoutResult;
+  updateOrderItem: StateWithoutResult;
 }>;

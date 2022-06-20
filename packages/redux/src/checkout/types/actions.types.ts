@@ -16,6 +16,7 @@ import type {
 } from '@farfetch/blackout-client/checkout/types';
 import type { LOGOUT_SUCCESS } from '../../authentication/actionTypes';
 import type { NormalizedSchema } from 'normalizr';
+import type { PatchCheckoutOrderItemData } from '@farfetch/blackout-client/checkout/types/patchCheckoutOrderItem.types';
 
 type Payload = NormalizedSchema<
   {
@@ -240,3 +241,16 @@ export type OperationsSuccessResult = Omit<GetOperationsResponse, 'entries'> & {
    */
   entries: string[];
 };
+
+// Remove Checkout Order Item Action
+export interface RemoveCheckoutOrderItemSuccessAction extends Action {
+  type: typeof actionTypes.REMOVE_CHECKOUT_ORDER_ITEM_SUCCESS;
+  meta: { id: CheckoutOrderItemEntity['id'] };
+}
+
+// Update Checkout Order Item Action
+export interface UpdateCheckoutOrderItemSuccessAction extends Action {
+  type: typeof actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS;
+  meta: { id: CheckoutOrderItemEntity['id'] };
+  payload: PatchCheckoutOrderItemData;
+}
