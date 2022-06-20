@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.251](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.250...@farfetch/blackout-redux@1.0.0-next.251) (2022-06-20)
+
+
+### Bug Fixes
+
+* **redux:** add chargeId param on checkout fetchCharges action ([25709c7](https://github.com/Farfetch/blackout/commit/25709c79875c21147de9223c7cef525a03308c71))
+
+
+
+
+
 # [1.0.0-next.250](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.249...@farfetch/blackout-redux@1.0.0-next.250) (2022-06-20)
 
 **Note:** Version bump only for package @farfetch/blackout-redux

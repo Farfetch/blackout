@@ -1,6 +1,6 @@
 {
   "name": "@farfetch/blackout-redux",
-  "version": "1.0.0-next.250",
+  "version": "1.0.0-next.251",
   "description": "Modules to manage the application global state",
   "license": "MIT",
   "exports": {
@@ -23,8 +23,8 @@
     "url-parse": "^1.4.7"
   },
   "devDependencies": {
-    "@farfetch/blackout-analytics": "^1.0.0-next.26",
-    "@farfetch/blackout-client": "^2.0.0-next.161",
+    "@farfetch/blackout-analytics": "^1.0.0-next.27",
+    "@farfetch/blackout-client": "^2.0.0-next.162",
     "redux-mock-store": "^1.5.4",
     "redux-thunk": "^2.4.1",
     "reselect": "^4.0.0"
