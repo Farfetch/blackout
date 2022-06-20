@@ -1,6 +1,6 @@
 import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { CombinedState } from 'redux';
-import type { Nullable } from './';
+import type { Nullable } from '.';
 
 export type StateWithoutResult = CombinedState<{
   error: Nullable<BlackoutError>;
