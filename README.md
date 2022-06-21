@@ -37,7 +37,6 @@ Blackout is a project maintained by some awesome [contributors](https://github.c
 - [Helder Burato Berto](https://github.com/helderburato)
 - [João Ramalho Costa](https://github.com/joaoprcosta)
 - [Nelson Leite](https://github.com/nelsonleite)
-- [Ricardo Jorge Figueiredo](https://github.com/ricardojmf)
 - [Rui Nunes](https://github.com/ruifcnunes)
 
 ## License
