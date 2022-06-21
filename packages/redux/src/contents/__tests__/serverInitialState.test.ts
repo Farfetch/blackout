@@ -2,7 +2,7 @@ import {
   expectedNormalizedPayload,
   mockModel,
 } from 'tests/__fixtures__/contents';
-import { serverInitialState } from '..';
+import { serverInitialStateContent as serverInitialState } from '..';
 
 describe('contents serverInitialState()', () => {
   it('should initialize server state for the contents', () => {

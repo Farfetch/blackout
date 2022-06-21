@@ -1,4 +1,4 @@
-import { actionTypes } from '../..';
+import { actionTypesLocale as actionTypes } from '../..';
 import { mockCountryCode } from 'tests/__fixtures__/locale';
 import { mockStore } from '../../../../tests';
 import { setCountryCode } from '..';

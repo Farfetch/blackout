@@ -1,5 +1,5 @@
 import { mockModel } from 'tests/__fixtures__/locale';
-import { serverInitialState } from '..';
+import { serverInitialStateLocale as serverInitialState } from '..';
 
 describe('local serverInitialState()', () => {
   it('should initialize server state for the locale', () => {

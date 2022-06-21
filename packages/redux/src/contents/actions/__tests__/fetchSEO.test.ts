@@ -1,7 +1,7 @@
-import { actionTypes } from '../..';
+import { actionTypesContent as actionTypes } from '../..';
 import { fetchSEO } from '..';
 import { getSEO } from '@farfetch/blackout-client/contents';
-import { INITIAL_STATE } from '../../reducer';
+import { INITIAL_STATE_CONTENT } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import { seoQuery, seoResponse } from 'tests/__fixtures__/contents';
 import find from 'lodash/find';
@@ -11,7 +11,7 @@ jest.mock('@farfetch/blackout-client/contents', () => ({
   getSEO: jest.fn(),
 }));
 const contentsSEOMockStore = (state = {}) =>
-  mockStore({ contents: INITIAL_STATE }, state);
+  mockStore({ contents: INITIAL_STATE_CONTENT }, state);
 
 const expectedConfig = undefined;
 let store;
