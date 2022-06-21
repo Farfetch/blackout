@@ -1,6 +1,6 @@
 {
   "name": "@farfetch/blackout-redux",
-  "version": "1.0.0-next.251",
+  "version": "1.0.0-next.252",
   "description": "Modules to manage the application global state",
   "license": "MIT",
   "exports": {
