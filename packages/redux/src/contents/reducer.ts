@@ -9,7 +9,7 @@ import type {
 } from './types';
 import type { ReducerSwitch } from '../types';
 
-export const INITIAL_STATE: State = {
+export const INITIAL_STATE_CONTENT: State = {
   searchResults: {},
   contentTypes: {
     error: undefined,
@@ -24,7 +24,7 @@ export const INITIAL_STATE: State = {
 };
 
 const searchResults = (
-  state = INITIAL_STATE.searchResults,
+  state = INITIAL_STATE_CONTENT.searchResults,
   action: ActionFetchContent | ActionFetchCommercePages,
 ): State['searchResults'] => {
   switch (action.type) {
@@ -61,14 +61,14 @@ const searchResults = (
 };
 
 const contentTypes = (
-  state = INITIAL_STATE.contentTypes,
+  state = INITIAL_STATE_CONTENT.contentTypes,
   action: ActionFetchContentTypes,
 ): State['contentTypes'] => {
   switch (action.type) {
     case actionTypes.FETCH_CONTENT_TYPES_REQUEST:
       return {
         isLoading: true,
-        error: INITIAL_STATE.contentTypes.error,
+        error: INITIAL_STATE_CONTENT.contentTypes.error,
       };
     case actionTypes.FETCH_CONTENT_TYPES_SUCCESS:
       return {
@@ -86,7 +86,7 @@ const contentTypes = (
 };
 
 const metadata = (
-  state = INITIAL_STATE.metadata,
+  state = INITIAL_STATE_CONTENT.metadata,
   action: ActionFetchSEO,
 ): State['metadata'] => {
   switch (action.type) {
@@ -160,7 +160,7 @@ const contentsReducer: ReducerSwitch<
   ActionFetchContent | ActionFetchContentTypes | ActionFetchSEO
 > = (state, action): State => {
   if (action.type === actionTypes.RESET_CONTENTS) {
-    return reducers(INITIAL_STATE, action);
+    return reducers(INITIAL_STATE_CONTENT, action);
   }
 
   return reducers(state, action);

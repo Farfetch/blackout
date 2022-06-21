@@ -1,19 +1,22 @@
 import * as fromReducer from '../reducer';
 import {
+  actionTypesContent as actionTypes,
+  reducerContent as reducer,
+} from '..';
+import {
   contentTypesResult,
   mockContentResult,
   seoData,
 } from 'tests/__fixtures__/contents';
-import reducer, { actionTypes } from '..';
 import type { State } from '../types';
 
-const { INITIAL_STATE } = fromReducer;
+const { INITIAL_STATE_CONTENT } = fromReducer;
 const mockAction = { type: 'foo' };
 let initialState: State;
 
 describe('contents redux reducer', () => {
   beforeEach(() => {
-    initialState = reducer(INITIAL_STATE, mockAction);
+    initialState = reducer(INITIAL_STATE_CONTENT, mockAction);
   });
 
   describe('reset handling', () => {
@@ -28,7 +31,7 @@ describe('contents redux reducer', () => {
 
   describe('searchResults() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(INITIAL_STATE, mockAction).searchResults;
+      const state = reducer(INITIAL_STATE_CONTENT, mockAction).searchResults;
 
       expect(state).toEqual(initialState.searchResults);
       expect(state).toEqual({});
@@ -88,7 +91,7 @@ describe('contents redux reducer', () => {
 
   describe('contentTypes() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(INITIAL_STATE, mockAction).contentTypes;
+      const state = reducer(INITIAL_STATE_CONTENT, mockAction).contentTypes;
 
       expect(state).toEqual(initialState.contentTypes);
       expect(state).toEqual({
@@ -127,7 +130,7 @@ describe('contents redux reducer', () => {
 
   describe('metadata() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(INITIAL_STATE, mockAction).metadata;
+      const state = reducer(INITIAL_STATE_CONTENT, mockAction).metadata;
 
       expect(state).toEqual(initialState.metadata);
       expect(state).toEqual({

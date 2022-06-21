@@ -1,8 +1,8 @@
-import { actionTypes } from '../..';
+import { actionTypesContent as actionTypes } from '../..';
 import { contentTypesResult, types } from 'tests/__fixtures__/contents';
 import { fetchContentTypes } from '..';
 import { getContentTypes } from '@farfetch/blackout-client/contents';
-import { INITIAL_STATE } from '../../reducer';
+import { INITIAL_STATE_CONTENT } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 
@@ -12,7 +12,7 @@ jest.mock('@farfetch/blackout-client/contents', () => ({
 }));
 
 const contentTypesMockStore = (state = {}) =>
-  mockStore({ contents: INITIAL_STATE }, state);
+  mockStore({ contents: INITIAL_STATE_CONTENT }, state);
 const expectedConfig = undefined;
 const spaceCode = 'website';
 let store;

@@ -1,6 +1,6 @@
 import { contentEntries } from '../entities/schemas/content';
 import { generateContentHash } from './utils';
-import { INITIAL_STATE } from './reducer';
+import { INITIAL_STATE_CONTENT } from './reducer';
 import { normalize } from 'normalizr';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
@@ -20,7 +20,7 @@ const serverInitialState = ({
   model: Model;
 }): ServerInitialState => {
   if (!get(model, 'searchContentRequests')) {
-    return { contents: INITIAL_STATE };
+    return { contents: INITIAL_STATE_CONTENT };
   }
 
   const { searchContentRequests } = model;

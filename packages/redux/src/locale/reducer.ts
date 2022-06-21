@@ -11,7 +11,7 @@ import type {
   State,
 } from './types';
 
-export const INITIAL_STATE: State = {
+export const INITIAL_STATE_LOCALE: State = {
   countryCode: null,
   cities: {
     error: null,
@@ -32,35 +32,39 @@ export const INITIAL_STATE: State = {
 };
 
 const countryCode = (
-  state = INITIAL_STATE.countryCode,
+  state = INITIAL_STATE_LOCALE.countryCode,
   action: ActionSetCountryCode,
 ): State['countryCode'] => {
   switch (action.type) {
     case actionTypes.SET_COUNTRY_CODE:
-      return get(action, 'payload.countryCode', INITIAL_STATE.countryCode);
+      return get(
+        action,
+        'payload.countryCode',
+        INITIAL_STATE_LOCALE.countryCode,
+      );
     default:
       return state;
   }
 };
 
 const cities = (
-  state = INITIAL_STATE.cities,
+  state = INITIAL_STATE_LOCALE.cities,
   action: ActionFetchCountryCities,
 ): State['cities'] => {
   switch (action.type) {
     case actionTypes.FETCH_COUNTRY_CITIES_REQUEST:
       return {
         isLoading: true,
-        error: INITIAL_STATE.cities.error,
+        error: INITIAL_STATE_LOCALE.cities.error,
       };
     case actionTypes.FETCH_COUNTRY_CITIES_SUCCESS:
       return {
         ...state,
-        isLoading: INITIAL_STATE.cities.isLoading,
+        isLoading: INITIAL_STATE_LOCALE.cities.isLoading,
       };
     case actionTypes.FETCH_COUNTRY_CITIES_FAILURE:
       return {
-        isLoading: INITIAL_STATE.cities.isLoading,
+        isLoading: INITIAL_STATE_LOCALE.cities.isLoading,
         error: action.payload.error,
       };
     default:
@@ -69,7 +73,7 @@ const cities = (
 };
 
 const countries = (
-  state = INITIAL_STATE.countries,
+  state = INITIAL_STATE_LOCALE.countries,
   action: ActionFetchCountries | ActionFetchCountry,
 ): State['countries'] => {
   switch (action.type) {
@@ -77,18 +81,18 @@ const countries = (
     case actionTypes.FETCH_COUNTRIES_REQUEST:
       return {
         isLoading: true,
-        error: INITIAL_STATE.countries.error,
+        error: INITIAL_STATE_LOCALE.countries.error,
       };
     case actionTypes.FETCH_COUNTRY_SUCCESS:
     case actionTypes.FETCH_COUNTRIES_SUCCESS:
       return {
         ...state,
-        isLoading: INITIAL_STATE.countries.isLoading,
+        isLoading: INITIAL_STATE_LOCALE.countries.isLoading,
       };
     case actionTypes.FETCH_COUNTRY_FAILURE:
     case actionTypes.FETCH_COUNTRIES_FAILURE:
       return {
-        isLoading: INITIAL_STATE.countries.isLoading,
+        isLoading: INITIAL_STATE_LOCALE.countries.isLoading,
         error: action.payload.error,
       };
     default:
@@ -97,23 +101,23 @@ const countries = (
 };
 
 const currencies = (
-  state = INITIAL_STATE.currencies,
+  state = INITIAL_STATE_LOCALE.currencies,
   action: ActionFetchCountryCurrencies,
 ): State['currencies'] => {
   switch (action.type) {
     case actionTypes.FETCH_COUNTRY_CURRENCIES_REQUEST:
       return {
         isLoading: true,
-        error: INITIAL_STATE.currencies.error,
+        error: INITIAL_STATE_LOCALE.currencies.error,
       };
     case actionTypes.FETCH_COUNTRY_CURRENCIES_SUCCESS:
       return {
         ...state,
-        isLoading: INITIAL_STATE.currencies.isLoading,
+        isLoading: INITIAL_STATE_LOCALE.currencies.isLoading,
       };
     case actionTypes.FETCH_COUNTRY_CURRENCIES_FAILURE:
       return {
-        isLoading: INITIAL_STATE.currencies.isLoading,
+        isLoading: INITIAL_STATE_LOCALE.currencies.isLoading,
         error: action.payload.error,
       };
     default:
@@ -122,23 +126,23 @@ const currencies = (
 };
 
 const states = (
-  state = INITIAL_STATE.states,
+  state = INITIAL_STATE_LOCALE.states,
   action: ActionFetchCountryStates,
 ): State['states'] => {
   switch (action.type) {
     case actionTypes.FETCH_COUNTRY_STATES_REQUEST:
       return {
         isLoading: true,
-        error: INITIAL_STATE.states.error,
+        error: INITIAL_STATE_LOCALE.states.error,
       };
     case actionTypes.FETCH_COUNTRY_STATES_SUCCESS:
       return {
         ...state,
-        isLoading: INITIAL_STATE.states.isLoading,
+        isLoading: INITIAL_STATE_LOCALE.states.isLoading,
       };
     case actionTypes.FETCH_COUNTRY_STATES_FAILURE:
       return {
-        isLoading: INITIAL_STATE.states.isLoading,
+        isLoading: INITIAL_STATE_LOCALE.states.isLoading,
         error: action.payload.error,
       };
     default:
@@ -188,7 +192,7 @@ const reducers = combineReducers({
  */
 export default (state: State, action: AnyAction): State => {
   if (action.type === actionTypes.RESET_LOCALE_STATE) {
-    return reducers(INITIAL_STATE, action);
+    return reducers(INITIAL_STATE_LOCALE, action);
   }
 
   return reducers(state, action);

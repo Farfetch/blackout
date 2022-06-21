@@ -1,10 +1,8 @@
-import * as actionTypes from './actionTypes';
-import reducer from './reducer';
-import serverInitialState from './serverInitialState';
+import * as actionTypesContent from './actionTypes';
+import reducerContent from './reducer';
+import serverInitialStateContent from './serverInitialState';
 
 export * from './actions';
 export * from './selectors';
 
-export { actionTypes, serverInitialState };
-
-export default reducer;
+export { actionTypesContent, serverInitialStateContent, reducerContent };
