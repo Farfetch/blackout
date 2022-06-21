@@ -13,7 +13,7 @@ import type { PostOrderItemActivity } from './types/index.js';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const postOrderItemActivities: PostOrderItemActivity = (
+const postOrderItemActivity: PostOrderItemActivity = (
   orderId,
   itemId,
   data,
@@ -30,4 +30,4 @@ const postOrderItemActivities: PostOrderItemActivity = (
       throw adaptError(error);
     });
 
-export default postOrderItemActivities;
+export default postOrderItemActivity;

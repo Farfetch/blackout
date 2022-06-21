@@ -6,3 +6,5 @@ export { default as fetchUserPersonalIds } from './fetchUserPersonalIds.js';
 export { default as removeUserPersonalId } from './removeUserPersonalId.js';
 export { default as setUserDefaultPersonalId } from './setUserDefaultPersonalId.js';
 export { default as updateUserPersonalId } from './updateUserPersonalId.js';
+
+export * from './factories/index.js';

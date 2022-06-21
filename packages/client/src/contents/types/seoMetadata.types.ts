@@ -33,8 +33,7 @@ export enum SeoSubPageType {
 
 export type GetSEOMetadataQuery = {
   // The host and protocol of the client (https://hostname.com).
-  // This parameter is optional, but is recommended to always use it.
-  baseUrl?: string;
+  baseUrl: string;
   // The pathname of the location.
   path?: string;
   // The type of the page we are searching (pages|stores...).

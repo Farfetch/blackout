@@ -121,7 +121,7 @@ export const getSizeScalesError = (state: StoreState) =>
  */
 export const getSizeScaleError = (
   state: StoreState,
-  scaleIdentifier: number | SizeScalesQuery,
+  scaleIdentifier: SizeScale['sizeScaleId'] | SizeScalesQuery,
 ) => {
   let identifier;
 
