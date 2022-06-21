@@ -1,4 +1,4 @@
-import { INITIAL_STATE } from './reducer';
+import { INITIAL_STATE_LOCALE } from './reducer';
 import { normalize } from 'normalizr';
 import country from '../entities/schemas/country';
 import isEmpty from 'lodash/isEmpty';
@@ -14,7 +14,7 @@ import type { ServerInitialState } from './types';
  */
 export default ({ model }: { model: Model }): ServerInitialState => {
   if (isEmpty(model)) {
-    return { locale: INITIAL_STATE };
+    return { locale: INITIAL_STATE_LOCALE };
   }
 
   const {

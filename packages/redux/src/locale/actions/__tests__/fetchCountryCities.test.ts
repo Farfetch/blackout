@@ -1,4 +1,8 @@
 import * as normalizr from 'normalizr';
+import {
+  actionTypesLocale as actionTypes,
+  reducerLocale as INITIAL_STATE,
+} from '../..';
 import { fetchCountryCities } from '..';
 import { getCountryCities } from '@farfetch/blackout-client/locale';
 import {
@@ -8,7 +12,6 @@ import {
 } from 'tests/__fixtures__/locale';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
-import INITIAL_STATE, { actionTypes } from '../..';
 import type { Cities } from '@farfetch/blackout-client/locale/types';
 
 const localeMockStore = (state = {}) =>
