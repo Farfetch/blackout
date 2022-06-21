@@ -10,3 +10,4 @@ export * from './productSizes.actionTypes';
 export * from './productsLists.actionTypes';
 export * from './recentlyViewedProducts.actionTypes';
 export * from './recommendedSet.actionTypes';
+export * from './recommendedProducts.actionTypes';

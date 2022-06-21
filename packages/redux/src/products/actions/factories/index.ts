@@ -19,3 +19,5 @@ export * from './fetchSetFactory';
 // Recently Viewed Products
 export * from './fetchRecentlyViewedProductsFactory';
 export * from './removeRecentlyViewedProductFactory';
+
+export * from './fetchRecommendedProductsFactory';

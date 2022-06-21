@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchRecommendedProducts() action creator should create the correct actions for when the fetch product recommendations procedure is successful: fetch product recommendations success payload 1`] = `
+Object {
+  "meta": Object {
+    "strategyName": "fpswhitelabel_pdp_generic_a",
+  },
+  "payload": Object {
+    "id": "000-00000-0000-0000",
+    "values": Array [
+      Object {
+        "id": "123",
+        "score": 0.9,
+      },
+      Object {
+        "id": "321",
+        "score": 0.8,
+      },
+    ],
+  },
+  "type": "@farfetch/blackout-redux/FETCH_RECOMMENDED_PRODUCTS_SUCCESS",
+}
+`;

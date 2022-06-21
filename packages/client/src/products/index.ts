@@ -17,3 +17,4 @@ export { default as getRecommendedSet } from './getRecommendedSet';
 export { default as getSet } from './getSet';
 export { default as getRecentlyViewedProducts } from './getRecentlyViewedProducts';
 export { default as deleteRecentlyViewedProduct } from './deleteRecentlyViewedProduct';
+export { default as getRecommendedProducts } from './getRecommendedProducts';

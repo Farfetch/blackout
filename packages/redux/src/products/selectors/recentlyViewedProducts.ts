@@ -4,8 +4,10 @@ import {
   getResult,
 } from '../reducer/recentlyViewedProducts';
 import get from 'lodash/get';
-import type { RecentlyViewedState } from '../types';
+import type { State } from '../types';
 import type { StoreState } from '../../types';
+
+type RecentlyViewedState = State['recentlyViewed'];
 
 /**
  * Check if recently viewed products request has an error.
