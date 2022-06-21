@@ -1,15 +1,15 @@
 import * as fromReducer from '../reducer';
+import { actionTypesLocale as actionTypes, reducerLocale as reducer } from '..';
 import { mockCountryCode } from 'tests/__fixtures__/locale';
-import reducer, { actionTypes } from '..';
 import type { State } from '../types';
 
-const { INITIAL_STATE } = fromReducer;
+const { INITIAL_STATE_LOCALE } = fromReducer;
 const mockAction = { type: 'foo' };
 let initialState: State;
 
 describe('locale redux reducer', () => {
   beforeEach(() => {
-    initialState = reducer(INITIAL_STATE, mockAction);
+    initialState = reducer(INITIAL_STATE_LOCALE, mockAction);
   });
 
   describe('reset handling', () => {
@@ -25,7 +25,7 @@ describe('locale redux reducer', () => {
 
   describe('countryCode() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(INITIAL_STATE, mockAction).countryCode;
+      const state = reducer(INITIAL_STATE_LOCALE, mockAction).countryCode;
 
       expect(state).toBe(initialState.countryCode);
       expect(state).toBeNull();
@@ -49,7 +49,7 @@ describe('locale redux reducer', () => {
 
   describe('cities() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(INITIAL_STATE, mockAction).cities;
+      const state = reducer(INITIAL_STATE_LOCALE, mockAction).cities;
 
       expect(state).toEqual(initialState.cities);
     });
@@ -97,7 +97,7 @@ describe('locale redux reducer', () => {
 
   describe('countries() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(INITIAL_STATE, mockAction).countries;
+      const state = reducer(INITIAL_STATE_LOCALE, mockAction).countries;
 
       expect(state).toEqual(initialState.countries);
     });
@@ -179,7 +179,7 @@ describe('locale redux reducer', () => {
 
   describe('currencies() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(INITIAL_STATE, mockAction).currencies;
+      const state = reducer(INITIAL_STATE_LOCALE, mockAction).currencies;
 
       expect(state).toEqual(initialState.currencies);
     });
@@ -230,7 +230,7 @@ describe('locale redux reducer', () => {
 
   describe('states() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(INITIAL_STATE, mockAction).states;
+      const state = reducer(INITIAL_STATE_LOCALE, mockAction).states;
 
       expect(state).toEqual(initialState.states);
     });

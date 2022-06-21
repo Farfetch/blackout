@@ -1,5 +1,5 @@
 import * as normalizr from 'normalizr';
-import { actionTypes } from '../..';
+import { actionTypesContent as actionTypes } from '../..';
 import {
   contentNormalizedPayload,
   contentQuery,
@@ -7,7 +7,7 @@ import {
 } from 'tests/__fixtures__/contents';
 import { fetchContent } from '..';
 import { getSearchContents } from '@farfetch/blackout-client/contents';
-import { INITIAL_STATE } from '../../reducer';
+import { INITIAL_STATE_CONTENT } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 
@@ -18,7 +18,7 @@ jest.mock('@farfetch/blackout-client/contents', () => ({
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 
 const contentsMockStore = (state = {}) =>
-  mockStore({ contents: INITIAL_STATE }, state);
+  mockStore({ contents: INITIAL_STATE_CONTENT }, state);
 
 const expectedConfig = undefined;
 let store;
