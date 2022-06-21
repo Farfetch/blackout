@@ -14,3 +14,4 @@ export * from './productVariantsMeasurements.fixtures';
 export * from './recommendedSet.fixtures';
 export * from './state.fixtures';
 export * from './recentlyViewed.fixtures';
+export * from './recommendedProducts.fixtures';

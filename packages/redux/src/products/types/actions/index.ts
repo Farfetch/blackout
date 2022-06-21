@@ -8,5 +8,6 @@ export * from './productMerchantsLocations.types';
 export * from './productSizeGuides.types';
 export * from './productSizes.types';
 export * from './productsLists.types';
-export * from './recommendedSet.types';
 export * from './recentlyViewedProducts.types';
+export * from './recommendedProducts.types';
+export * from './recommendedSet.types';

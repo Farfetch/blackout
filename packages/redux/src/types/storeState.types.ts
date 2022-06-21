@@ -52,7 +52,6 @@ import type { State as PaymentsState } from '../payments/types';
 import type { State as ProductsState } from '../products/types';
 import type { ProgramMembership } from '@farfetch/blackout-client/src/loyalty/types';
 import type { State as PromotionEvaluationsState } from '../promotionEvaluations/types';
-import type { State as RecommendationsState } from '../recommendations/types';
 import type { State as ReturnsState } from '../returns/types';
 import type { State as SearchState } from '../search/types';
 import type { State as SizeGuidesState } from '../sizeGuides/types';
@@ -125,7 +124,6 @@ export type StoreState = Partial<{
   payments: PaymentsState;
   products: ProductsState;
   promotionEvaluations: PromotionEvaluationsState;
-  recommendations: RecommendationsState;
   returns: ReturnsState;
   search: SearchState;
   sizeGuides: SizeGuidesState;
