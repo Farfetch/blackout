@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.252](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.251...@farfetch/blackout-redux@1.0.0-next.252) (2022-06-21)
+
+
+### Features
+
+* add patch checkout order item and delete checkout order item action creators ([40baaa3](https://github.com/Farfetch/blackout/commit/40baaa392ffffc7a3bb3e26d70f0fccf47d922ca))
+
+
+
+
+
 # [1.0.0-next.251](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.250...@farfetch/blackout-redux@1.0.0-next.251) (2022-06-20)
 
 
