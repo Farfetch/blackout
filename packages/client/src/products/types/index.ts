@@ -42,7 +42,10 @@ export * from './shoppingConfig.types';
 export * from './size.types';
 export * from './sizeVariant.types';
 export * from './variantAttribute.types';
-// recently Viewed
+// recently Viewed products
 export * from './recentlyViewedProducts.types';
 export * from './getRecentlyViewedProducts.types';
 export * from './deleteRecentlyViewedProduct.types';
+
+// recommended products
+export * from './getRecommendedProducts.types';

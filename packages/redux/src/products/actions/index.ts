@@ -25,3 +25,5 @@ export * from './resetProductsListsState';
 export * from './fetchRecentlyViewedProducts';
 export * from './saveRecentlyViewedProduct';
 export * from './removeRecentlyViewedProduct';
+
+export * from './fetchRecommendedProducts';

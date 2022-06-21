@@ -11,7 +11,8 @@ import listsReducer, { entitiesMapper as listsEntitiesMapper } from './lists';
 import measurementsReducer, {
   entitiesMapper as measurementsEntitiesMapper,
 } from './measurements';
-import recentlyViewedProducts from './recentlyViewedProducts';
+import recentlyViewedProductsReducer from './recentlyViewedProducts';
+import recommendedProductsReducer from './recommendedProducts';
 import sizeGuidesReducer from './sizeGuides';
 import sizesReducer from './sizes';
 import variantsByMerchantsLocationsReducer from './variantsByMerchantsLocations';
@@ -30,11 +31,12 @@ const reducers = combineReducers({
   fittings: fittingsReducer,
   lists: listsReducer,
   measurements: measurementsReducer,
+  recentlyViewed: recentlyViewedProductsReducer,
+  recommendedProducts: recommendedProductsReducer,
   recommendedSets: recommendedSetsReducer,
   sizeGuides: sizeGuidesReducer,
   sizes: sizesReducer,
   variantsByMerchantsLocations: variantsByMerchantsLocationsReducer,
-  recentlyViewed: recentlyViewedProducts,
 });
 
 export default reducers;

@@ -4,6 +4,7 @@ import {
   mockProductsListHash,
   mockProductsListNormalizedPayload,
 } from './productsLists.fixtures';
+import { mockRecommendedProductsState } from './recommendedProducts.fixtures';
 import { mockRecommendedSetState } from './recommendedSet.fixtures';
 
 export const mockAttributesState = {
@@ -126,6 +127,7 @@ export const mockProductsState = {
     ...mockSizeGuidesState,
     ...mockSizesState,
     ...mockVariantsByMerchantsLocationsState,
+    ...mockRecommendedProductsState,
   },
   bag: {
     id: 1,
