@@ -82,8 +82,8 @@ describe('contents redux selectors', () => {
     });
   });
 
-  describe('getContentGroupByQuery()', () => {
-    it('should get the content group according to the query', () => {
+  describe('getContentByQuery()', () => {
+    it('should get the content according to the query', () => {
       const expectedResult =
         mockState.contents.searchResults[contentHash]?.result;
 

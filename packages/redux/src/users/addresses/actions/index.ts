@@ -9,3 +9,5 @@ export { default as setUserDefaultBillingAddress } from './setUserDefaultBilling
 export { default as setUserDefaultContactAddress } from './setUserDefaultContactAddress.js';
 export { default as setUserDefaultShippingAddress } from './setUserDefaultShippingAddress.js';
 export { default as updateUserAddress } from './updateUserAddress.js';
+
+export * from './factories/index.js';

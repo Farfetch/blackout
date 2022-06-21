@@ -20,8 +20,17 @@ npm i @farfetch/blackout-client
 
 Make sure that you have installed the correct peer dependencies of this package:
 
-- [`axios`](https://www.npmjs.com/package/axios)
-- [`lodash-es`](https://www.npmjs.com/package/lodash-es)
+**yarn**
+
+```sh
+yarn add lodash-es axios@1.3.1
+```
+
+**npm**
+
+```sh
+npm i lodash-es axios@1.3.1
+```
 
 ## Usage
 

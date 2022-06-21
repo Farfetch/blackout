@@ -4,3 +4,5 @@ export { default as fetchUserAttributes } from './fetchUserAttributes.js';
 export { default as removeUserAttribute } from './removeUserAttribute.js';
 export { default as setUserAttribute } from './setUserAttribute.js';
 export { default as updateUserAttribute } from './updateUserAttribute.js';
+
+export * from './factories/index.js';

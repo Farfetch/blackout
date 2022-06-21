@@ -209,23 +209,23 @@ export const getAllProductSizesRemainingQuantity: (
 );
 
 /**
- * Returns all the info about color grouping for the given product id. This
+ * Returns all the info about grouping for the given product id. This
  * selector should be used on listing pages to get the grouped entries. This
  * information comes from the listing endpoint and is attached to the products
  * entity by product id.
  *
  * @example
  * ```
- * import { getListingGroupedEntries } from '@farfetch/blackout-redux';
+ * import { getProductGroupedEntries } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
- *     groupedEntries: getListingGroupedEntries(state, productId)
+ *     groupedEntries: getProductGroupedEntries(state, productId)
  * });
  *
  * ```
  * @example
  * ```
- * // Result of color grouping
+ * // Result of grouping
  * {
  *  totalItems: 20, // Total colors available
  *  remaining: 15, // Number of remaining colors available
@@ -250,7 +250,7 @@ export const getAllProductSizesRemainingQuantity: (
  * @param state     - Application state.
  * @param productId - Product identifier.
  *
- * @returns Color grouping object.
+ * @returns Product grouped entries object.
  */
 export const getProductGroupedEntries: (
   state: StoreState,

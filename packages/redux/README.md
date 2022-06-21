@@ -18,17 +18,21 @@ yarn add @farfetch/blackout-redux
 npm i @farfetch/blackout-redux
 ```
 
-### Peer dependencies
-
 Make sure that you have installed the correct peer dependencies of this package:
 
-- [`@farfetch/blackout-analytics`](https://www.npmjs.com/package/@farfetch/blackout-analytics)
-- [`@farfetch/blackout-client`](https://www.npmjs.com/package/@farfetch/blackout-client)
-- [`lodash-es`](https://www.npmjs.com/package/lodash-es)
-- [`redux`](https://www.npmjs.com/package/redux)
-- [`redux-thunk`](https://www.npmjs.com/package/redux-thunk)
-- [`immer`](https://www.npmjs.com/package/immer)
-- [`reselect`](https://www.npmjs.com/package/reselect)
+**yarn**
+
+```sh
+yarn add @farfetch/blackout-analytics @farfetch/blackout-client immer@^9.0.19 lodash-es redux@^4.1.0 redux-thunk@^2.4.2 reselect@^4.1.5
+```
+
+**npm**
+
+```sh
+npm i add @farfetch/blackout-analytics @farfetch/blackout-client immer@^9.0.19 lodash-es redux@^4.1.0 redux-thunk@^2.4.2 reselect@^4.1.5
+```
+
+Note: You might also need to install the peer dependencies of both [@farfetch/blackout-analytics](../analytics/README.md#installation) and [@farfetch/blackout-client](../client/README.md#installation) packages if you do not have them installed yet.
 
 ### Configuration
 

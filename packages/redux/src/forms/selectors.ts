@@ -14,7 +14,7 @@ import type { StoreState } from '../types/index.js';
  *
  * @example
  * ```
- * import \{ getFormSchemaError \} from '\@farfetch/blackout-redux/forms';
+ * import \{ getFormSchemaError \} from '\@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, \{ query \}) =\> (\{
  *     error: getFormSchemaError(state, query)
@@ -36,7 +36,7 @@ export const getFormSchemaError = (state: StoreState, schemaCode: string) => {
  *
  * @example
  * ```
- * import \{ isFormSchemaLoading \} from '\@farfetch/blackout-redux/forms';
+ * import \{ isFormSchemaLoading \} from '\@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, \{ query \}) =\> (\{
  *     isLoading: isFormSchemaLoading(state, query)
@@ -56,7 +56,7 @@ export const isFormSchemaLoading = (state: StoreState, schemaCode: string) =>
  *
  * @example
  * ```
- * import \{ getFormSchemaByCode \} from '\@farfetch/blackout-redux/forms';
+ * import \{ getFormSchemaByCode \} from '\@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, \{ query \}) =\> (\{
  *     form-code: getFormSchemaByCode('sample-code', state)
@@ -76,7 +76,7 @@ export const getFormSchemas = (state: StoreState) =>
  *
  * @example
  * ```
- * import \{ getFormSchemaByCode \} from '\@farfetch/blackout-redux/forms';
+ * import \{ getFormSchemaByCode \} from '\@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, \{ query \}) =\> (\{
  *     form-code: getFormSchemaByCode('sample-code', state)
@@ -100,7 +100,7 @@ export const getFormSchemaByCode = (
  *
  * @example
  * ```
- * import \{ getSubmitFormDataError \} from '\@farfetch/blackout-redux/forms';
+ * import \{ getSubmitFormDataError \} from '\@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, \{ query \}) =\> (\{
  *     error: submitFormSchemaError(state, query)
@@ -125,7 +125,7 @@ export const getSubmitFormDataError = (
  *
  * @example
  * ```
- * import \{ isSubmitFormDataLoading \} from '\@farfetch/blackout-redux/forms';
+ * import \{ isSubmitFormDataLoading \} from '\@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, \{ query \}) =\> (\{
  *     isLoading: isSubmitFormDataLoading(state, query)

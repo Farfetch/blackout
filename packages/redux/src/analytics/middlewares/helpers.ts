@@ -32,7 +32,7 @@ export const getCategory = (
 export const getBrand = (
   state: StoreState,
   product: ProductEntity | undefined,
-): string | undefined => {
+) => {
   const productBrand = get(product, 'brand');
 
   const brand = productBrand
@@ -51,7 +51,7 @@ export const getBrand = (
  */
 export const getVariant = (
   product: ProductEntity | ProductEntityDenormalized | undefined,
-): string | undefined => {
+) => {
   const mainVariant = get(product, 'colors', []).find(color =>
     get(color, 'tags', []).some(tag => tag === 'DesignerColor'),
   );

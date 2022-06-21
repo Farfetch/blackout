@@ -18,12 +18,21 @@ yarn add @farfetch/blackout-analytics
 npm i @farfetch/blackout-analytics
 ```
 
-### Peer dependencies
-
 Make sure that you have installed the correct peer dependencies of this package:
 
-- [`@farfetch/blackout-client`](https://www.npmjs.com/package/@farfetch/blackout-client)
-- [`lodash-es`](https://www.npmjs.com/package/lodash-es)
+**yarn**
+
+```sh
+yarn add @farfetch/blackout-client lodash-es
+```
+
+**npm**
+
+```sh
+npm i add @farfetch/blackout-client lodash-es
+```
+
+Note: You might also need to install the peer dependencies of [@farfetch/blackout-client](../client/README.md#installation) package if you do not have them installed yet.
 
 ### Configuration
 

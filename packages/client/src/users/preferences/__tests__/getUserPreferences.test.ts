@@ -8,7 +8,7 @@ import client from '../../../helpers/client/index.js';
 import fixtures from '../__fixtures__/getUserPreferences.fixtures.js';
 import mswServer from '../../../../tests/mswServer.js';
 
-describe('getPreferences', () => {
+describe('getUserPreferences', () => {
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'get');
 
