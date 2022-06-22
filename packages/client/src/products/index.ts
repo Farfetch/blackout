@@ -8,6 +8,7 @@ export { default as getProductAttributes } from './getProductAttributes';
 export { default as getProductColorGrouping } from './getProductColorGrouping';
 export { default as getProductDetails } from './getProductDetails';
 export { default as getProductFittings } from './getProductFittings';
+export { default as getProductGrouping } from './getProductGrouping';
 export { default as getProductSizeGuides } from './getProductSizeGuides';
 export { default as getProductSizes } from './getProductSizes';
 export { default as getProductVariantsByMerchantsLocations } from './getProductVariantsByMerchantsLocations';
