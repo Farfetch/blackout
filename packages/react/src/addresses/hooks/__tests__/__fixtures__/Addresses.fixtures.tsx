@@ -18,6 +18,7 @@ type Props = {
 };
 
 export const Addresses = ({ userId }: Props) => {
+  const auto = true;
   const {
     addressesError,
     isAddressesLoading,
@@ -40,7 +41,7 @@ export const Addresses = ({ userId }: Props) => {
     handleGetPredictionDetails,
     handleGetAddressSchema,
     resetPredictions,
-  } = useAddresses(true, userId);
+  } = useAddresses({ auto, userId });
 
   if (isAddressesLoading) {
     return (
