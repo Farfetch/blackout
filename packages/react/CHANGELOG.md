@@ -3,6 +3,60 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.250](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.249...@farfetch/blackout-react@1.0.0-next.250) (2022-06-22)
+
+
+### Features
+
+* **redux:** refactoring of exports in products ([a17e25a](https://github.com/Farfetch/blackout/commit/a17e25ad07cb40d7112f986a3d8a7d4866b377fd))
+
+
+### BREAKING CHANGES
+
+* **redux:** - Client:
+    - All modules related to recently viewed must now be imported from the root of the package.
+        ```js
+       // previously
+       import{ getRecentlyViewedProducts } from ‘@farfetch/blackout-client/recentlyViewed’;
+
+       // now
+       import{ getRecentlyViewedProducts } from ‘@farfetch/blackout-client’;
+       ```
+
+- Redux:
+    - Like client package, recentlyViewed now be imported from root package: Applied
+to reducer, actions, selectors, and types as well.
+        - imports from products now can be imported from root package. Product's `actionTypes`,
+`entitiesMapper`, and `serverInitialState`, need to be changed to `actionTypesProducts`,
+`entitiesMapperProducts`, and `serverInitialStateProducts`, to deal with name ambiguity as
+a result of allowing import from the root of each blackout package
+
+        ```js
+       // previously
+       import {
+          fetchRecentlyViewedProducts,
+          areRecentlyViewedProductsFetched
+       } from ‘@farfetch/blackout-redux/recentlyViewed’;
+       import {
+           actionTypes,
+           serverInitialState,
+           entitiesMapper
+       } from ‘@farfetch/blackout-redux/products’;
+
+       // now
+       import {
+            fetchRecentlyViewedProducts,
+            areRecentlyViewedProductsFetched,
+            actionTypesProducts,
+            serverInitialStateProducts,
+            entitiesMapperProducts
+       } from ‘@farfetch/blackout-redux’;
+       ```
+
+
+
+
+
 # [1.0.0-next.249](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.248...@farfetch/blackout-react@1.0.0-next.249) (2022-06-22)
 
 **Note:** Version bump only for package @farfetch/blackout-react
