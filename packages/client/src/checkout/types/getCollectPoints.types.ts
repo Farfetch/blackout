@@ -4,9 +4,9 @@ import type { Config } from '../../types';
 export type GetCollectPointsResponse = CollectPoint[];
 
 export type GetCollectPointsQuery = {
-  orderId: number;
-  IsStockAvailable: boolean;
-  IsClickAndCollectAvailable: boolean;
+  orderId?: number;
+  IsStockAvailable?: boolean;
+  IsClickAndCollectAvailable?: boolean;
 };
 
 export type GetCollectPoints = (

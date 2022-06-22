@@ -1,24 +1,27 @@
 /**
  * Checkout clients.
  */
+export * from './deleteCheckoutOrderItem';
+export * from './getCheckoutOrder';
+export * from './getCheckoutOrderDetails';
+export * from './getCheckoutOrderCharge';
+export * from './getCollectPoints';
+export * from './getCheckoutOrderDeliveryBundleUpgrades';
+export * from './getCheckoutOrderDeliveryBundleProvisioning';
+export * from './getCheckoutOrderOperation';
+export * from './getCheckoutOrderOperations';
+export * from './getCheckoutOrderDeliveryBundleUpgradeProvisioning';
+export * from './patchCheckoutOrder';
+export * from './patchCheckoutOrderItem';
+export * from './patchCheckoutOrderDeliveryBundleUpgrades';
+export * from './patchCheckoutOrderItems';
+export * from './postCheckoutOrderCharges';
+export * from './postCheckoutOrder';
+export * from './putCheckoutOrderItemTags';
+export * from './putCheckoutOrderPromocode';
+export * from './putCheckoutOrderTags';
 
-export { default as deleteCheckoutOrderItem } from './deleteCheckoutOrderItem';
-export { default as getCheckout } from './getCheckout';
-export { default as getCheckoutDetails } from './getCheckoutDetails';
-export { default as getCheckoutOrderCharge } from './getCheckoutOrderCharge';
-export { default as getCollectPoints } from './getCollectPoints';
-export { default as getDeliveryBundleUpgrades } from './getDeliveryBundleUpgrades';
-export { default as getItemDeliveryProvisioning } from './getItemDeliveryProvisioning';
-export { default as getOperation } from './getOperation';
-export { default as getOperations } from './getOperations';
-export { default as getUpgradeItemDeliveryProvisioning } from './getUpgradeItemDeliveryProvisioning';
-export { default as patchCheckout } from './patchCheckout';
-export { default as patchCheckoutCompletePayment } from './patchCheckoutCompletePayment';
-export { default as patchCheckoutOrderItem } from './patchCheckoutOrderItem';
-export { default as patchDeliveryBundleUpgrades } from './patchDeliveryBundleUpgrades';
-export { default as patchGiftMessage } from './patchGiftMessage';
-export { default as postCharges } from './postCharges';
-export { default as postCheckout } from './postCheckout';
-export { default as putItemTags } from './putItemTags';
-export { default as putPromocode } from './putPromocode';
-export { default as putTags } from './putTags';
+/**
+ * Checkout types.
+ */
+export * from './types';

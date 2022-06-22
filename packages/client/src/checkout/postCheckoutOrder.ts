@@ -1,18 +1,15 @@
 import client, { adaptError } from '../helpers/client';
-import join from 'proper-url-join';
-import type { GetCollectPoints } from './types';
+import type { PostCheckoutOrder } from './types';
 
 /**
- * Method responsible for loading the collect points.
- *
- * @param query  - Query params.
+ * @param data   - Request data.
  * @param config - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getCollectPoints: GetCollectPoints = (query, config) =>
+export const postCheckoutOrder: PostCheckoutOrder = (data, config) =>
   client
-    .get(join('/checkout/v1/collectpoints', { query }), config)
+    .post('/checkout/v1/orders', data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);

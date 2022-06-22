@@ -1,17 +1,3 @@
-enum CheckoutOrderOperationChangeType {
-  ItemDiscountChanged = 'ItemDiscountChanged',
-  ItemIsUnavailable = 'ItemIsUnavailable',
-  ItemOriginChanged = 'ItemOriginChanged',
-  ItemPriceChanged = 'ItemPriceChanged',
-  ItemQuantityChanged = 'ItemQuantityChanged',
-  NotEnoughStock = 'NotEnoughStock',
-  PromoCodeEligibilityChanged = 'PromoCodeEligibilityChanged',
-  PromotionNotApplied = 'PromotionNotApplied',
-  ShippingCostChanged = 'ShippingCostChanged',
-  ShippingFlatRateEligibilityChanged = 'ShippingFlatRateEligibilityChanged',
-  TotalDiscountChanged = 'TotalDiscountChanged',
-}
-
 enum CheckoutOrderChangeReason {
   LackOfBenefits = 'LackOfBenefits',
   InvalidPromocode = 'InvalidPromocode',
@@ -48,27 +34,27 @@ interface OperationChange {
 }
 
 type ChangeTypeItemDiscountChanged = {
-  changeType: CheckoutOrderOperationChangeType.ItemDiscountChanged;
+  changeType: 'ItemDiscountChanged';
   itemId?: OperationChange['itemId'];
   newValue?: OperationChange['newValue'];
   oldValue?: OperationChange['oldValue'];
 };
 
 type ChangeTypeItemIsUnavailable = {
-  changeType: CheckoutOrderOperationChangeType.ItemIsUnavailable;
+  changeType: 'ItemIsUnavailable';
   productId?: OperationChange['productId'];
   variantId?: OperationChange['variantId'];
   reason?: OperationChange['reason'];
 };
 
 type ChangeTypeItemOriginChanged = {
-  changeType: CheckoutOrderOperationChangeType.ItemOriginChanged;
+  changeType: 'ItemOriginChanged';
   productId?: OperationChange['productId'];
   variantId?: OperationChange['variantId'];
 };
 
 type ChangeTypeItemPriceChanged = {
-  changeType: CheckoutOrderOperationChangeType.ItemPriceChanged;
+  changeType: 'ItemPriceChanged';
   itemId?: OperationChange['itemId'];
   newValue?: OperationChange['newValue'];
   oldValue?: OperationChange['oldValue'];
@@ -77,38 +63,38 @@ type ChangeTypeItemPriceChanged = {
 };
 
 type ChangeTypeItemQuantityChanged = {
-  changeType: CheckoutOrderOperationChangeType.ItemQuantityChanged;
+  changeType: 'ItemQuantityChanged';
   itemId?: OperationChange['itemId'];
   newValue?: OperationChange['newValue'];
   oldValue?: OperationChange['oldValue'];
 };
 
 type ChangeTypeItemNotEnoughStock = {
-  changeType: CheckoutOrderOperationChangeType.NotEnoughStock;
+  changeType: 'NotEnoughStock';
   itemId?: OperationChange['itemId'];
   stockAvailable?: OperationChange['stockAvailable'];
 };
 
 type ChangeTypePromoCodeEligibilityChanged = {
-  changeType: CheckoutOrderOperationChangeType.PromoCodeEligibilityChanged;
+  changeType: 'PromoCodeEligibilityChanged';
   promocode?: OperationChange['promocode'];
   reason?: OperationChange['reason'];
 };
 
 type ChangeTypePromotionNotApplied = {
-  changeType: CheckoutOrderOperationChangeType.PromotionNotApplied;
+  changeType: 'PromotionNotApplied';
 };
 
 type ChangeTypeShippingCostChanged = {
-  changeType: CheckoutOrderOperationChangeType.ShippingCostChanged;
+  changeType: 'ShippingCostChanged';
 };
 
 type ChangeTypeShippingFlatRateEligibilityChanged = {
-  changeType: CheckoutOrderOperationChangeType.ShippingFlatRateEligibilityChanged;
+  changeType: 'ShippingFlatRateEligibilityChanged';
 };
 
 type ChangeTypeTotalDiscountChanged = {
-  changeType: CheckoutOrderOperationChangeType.TotalDiscountChanged;
+  changeType: 'TotalDiscountChanged';
   newValue?: OperationChange['newValue'];
   oldValue?: OperationChange['oldValue'];
 };
