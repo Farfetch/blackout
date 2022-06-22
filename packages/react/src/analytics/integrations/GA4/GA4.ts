@@ -725,12 +725,6 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
    * Method that will be called when the GA4 script loads.
    */
   scriptOnload = () => {
-    if (!window.gtag && !!this.customLoadScriptFn) {
-      throw new Error(
-        `${MESSAGE_PREFIX}${INIT_ERROR} Custom load script function finished but 'window.gtag' is not defined.`,
-      );
-    }
-
     if (this.initializePromiseResolve) {
       this.initializePromiseResolve();
       this.initializePromiseResolve = null;
