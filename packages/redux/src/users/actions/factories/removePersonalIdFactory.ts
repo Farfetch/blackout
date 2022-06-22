@@ -1,8 +1,4 @@
-import {
-  REMOVE_PERSONAL_ID_FAILURE,
-  REMOVE_PERSONAL_ID_REQUEST,
-  REMOVE_PERSONAL_ID_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { DeletePersonalId } from '@farfetch/blackout-client/users/types';
@@ -30,13 +26,13 @@ const removePersonalIdFactory =
   async (dispatch: Dispatch): Promise<number> => {
     try {
       dispatch({
-        type: REMOVE_PERSONAL_ID_REQUEST,
+        type: actionTypes.REMOVE_PERSONAL_ID_REQUEST,
       });
 
       const result = await deletePersonalId(userId, personalId, config);
 
       dispatch({
-        type: REMOVE_PERSONAL_ID_SUCCESS,
+        type: actionTypes.REMOVE_PERSONAL_ID_SUCCESS,
         payload: result,
       });
 
@@ -44,7 +40,7 @@ const removePersonalIdFactory =
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: REMOVE_PERSONAL_ID_FAILURE,
+        type: actionTypes.REMOVE_PERSONAL_ID_FAILURE,
       });
 
       throw error;

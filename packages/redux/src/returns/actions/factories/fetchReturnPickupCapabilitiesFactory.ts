@@ -1,9 +1,5 @@
+import * as actionTypes from '../../actionTypes';
 import { adaptDate } from '@farfetch/blackout-client/helpers/adapters';
-import {
-  FETCH_RETURN_PICKUP_CAPABILITIES_FAILURE,
-  FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST,
-  FETCH_RETURN_PICKUP_CAPABILITIES_SUCCESS,
-} from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type {
@@ -23,7 +19,7 @@ const fetchReturnPickupCapabilitiesFactory =
   (id: number, pickupDay: string, config?: Record<string, unknown>) =>
   async (dispatch: Dispatch): Promise<PickupCapabilities> => {
     dispatch({
-      type: FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST,
+      type: actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST,
     });
 
     try {
@@ -39,14 +35,14 @@ const fetchReturnPickupCapabilitiesFactory =
             })),
           },
         },
-        type: FETCH_RETURN_PICKUP_CAPABILITIES_SUCCESS,
+        type: actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_RETURN_PICKUP_CAPABILITIES_FAILURE,
+        type: actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_FAILURE,
       });
 
       throw error;

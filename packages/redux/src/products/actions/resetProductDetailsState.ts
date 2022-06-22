@@ -1,4 +1,4 @@
-import { RESET_PRODUCT_DETAILS_STATE } from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 import type { Dispatch } from 'redux';
 import type { ResetProductDetailsStateAction } from '../types';
 
@@ -26,6 +26,6 @@ export const resetProductDetailsState =
   () =>
   (dispatch: Dispatch<ResetProductDetailsStateAction>): void => {
     dispatch({
-      type: RESET_PRODUCT_DETAILS_STATE,
+      type: actionTypes.RESET_PRODUCT_DETAILS_STATE,
     });
   };

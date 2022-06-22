@@ -1,4 +1,4 @@
-import { RESET_ENTITIES } from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 import type { Dispatch } from 'redux';
 
 /**
@@ -9,6 +9,6 @@ import type { Dispatch } from 'redux';
 export default () =>
   (dispatch: Dispatch): void => {
     dispatch({
-      type: RESET_ENTITIES,
+      type: actionTypes.RESET_ENTITIES,
     });
   };

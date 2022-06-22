@@ -1,9 +1,5 @@
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import {
-  UPDATE_INSTRUMENT_FAILURE,
-  UPDATE_INSTRUMENT_REQUEST,
-  UPDATE_INSTRUMENT_SUCCESS,
-} from '../../actionTypes';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
@@ -41,20 +37,20 @@ const updateInstrumentsFactory =
   async (dispatch: Dispatch<UpdateInstrumentAction>): Promise<void> => {
     try {
       dispatch({
-        type: UPDATE_INSTRUMENT_REQUEST,
+        type: actionTypes.UPDATE_INSTRUMENT_REQUEST,
       });
 
       const result = await putInstruments(intentId, instrumentId, data, config);
 
       dispatch({
-        type: UPDATE_INSTRUMENT_SUCCESS,
+        type: actionTypes.UPDATE_INSTRUMENT_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: UPDATE_INSTRUMENT_FAILURE,
+        type: actionTypes.UPDATE_INSTRUMENT_FAILURE,
       });
 
       throw error;

@@ -1,8 +1,4 @@
-import {
-  FETCH_BRAND_FAILURE,
-  FETCH_BRAND_REQUEST,
-  FETCH_BRAND_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import brand from '../../../entities/schemas/brand';
@@ -32,7 +28,7 @@ const fetchBrandFactory =
     try {
       dispatch({
         meta: { brandId },
-        type: FETCH_BRAND_REQUEST,
+        type: actionTypes.FETCH_BRAND_REQUEST,
       });
 
       const result = await getBrand(brandId, config);
@@ -40,7 +36,7 @@ const fetchBrandFactory =
       dispatch({
         meta: { brandId },
         payload: normalize(result, brand),
-        type: FETCH_BRAND_SUCCESS,
+        type: actionTypes.FETCH_BRAND_SUCCESS,
       });
 
       return result;
@@ -48,7 +44,7 @@ const fetchBrandFactory =
       dispatch({
         meta: { brandId },
         payload: { error: toError(error) },
-        type: FETCH_BRAND_FAILURE,
+        type: actionTypes.FETCH_BRAND_FAILURE,
       });
 
       throw error;

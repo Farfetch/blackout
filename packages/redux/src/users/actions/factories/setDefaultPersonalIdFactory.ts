@@ -1,8 +1,4 @@
-import {
-  SET_DEFAULT_PERSONAL_ID_FAILURE,
-  SET_DEFAULT_PERSONAL_ID_REQUEST,
-  SET_DEFAULT_PERSONAL_ID_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -32,13 +28,13 @@ const setDefaultPersonalIdFactory =
   async (dispatch: Dispatch) => {
     try {
       dispatch({
-        type: SET_DEFAULT_PERSONAL_ID_REQUEST,
+        type: actionTypes.SET_DEFAULT_PERSONAL_ID_REQUEST,
       });
 
       const result = await putDefaultPersonalId(userId, data, config);
 
       dispatch({
-        type: SET_DEFAULT_PERSONAL_ID_SUCCESS,
+        type: actionTypes.SET_DEFAULT_PERSONAL_ID_SUCCESS,
         payload: result,
       });
 
@@ -46,7 +42,7 @@ const setDefaultPersonalIdFactory =
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: SET_DEFAULT_PERSONAL_ID_FAILURE,
+        type: actionTypes.SET_DEFAULT_PERSONAL_ID_FAILURE,
       });
 
       throw error;

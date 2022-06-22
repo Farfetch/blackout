@@ -1,8 +1,4 @@
-import {
-  FETCH_RETURN_REFERENCES_FAILURE,
-  FETCH_RETURN_REFERENCES_REQUEST,
-  FETCH_RETURN_REFERENCES_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type {
@@ -22,20 +18,20 @@ const fetchReturnReferencesFactory =
   (id: string, name: string, query?: Query, config?: Record<string, unknown>) =>
   async (dispatch: Dispatch): Promise<string> => {
     dispatch({
-      type: FETCH_RETURN_REFERENCES_REQUEST,
+      type: actionTypes.FETCH_RETURN_REFERENCES_REQUEST,
     });
 
     try {
       const result = await getReturnReferences(id, name, query, config);
 
       dispatch({
-        type: FETCH_RETURN_REFERENCES_SUCCESS,
+        type: actionTypes.FETCH_RETURN_REFERENCES_SUCCESS,
       });
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_RETURN_REFERENCES_FAILURE,
+        type: actionTypes.FETCH_RETURN_REFERENCES_FAILURE,
       });
 
       throw error;

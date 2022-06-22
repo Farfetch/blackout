@@ -1,8 +1,4 @@
-import {
-  REMOVE_PAYMENT_TOKEN_FAILURE,
-  REMOVE_PAYMENT_TOKEN_REQUEST,
-  REMOVE_PAYMENT_TOKEN_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type {
@@ -33,21 +29,21 @@ const removePaymentTokenFactory =
   async (dispatch: Dispatch<RemovePaymentTokensAction>): Promise<void> => {
     try {
       dispatch({
-        type: REMOVE_PAYMENT_TOKEN_REQUEST,
+        type: actionTypes.REMOVE_PAYMENT_TOKEN_REQUEST,
       });
 
       const result = await deletePaymentToken(id, config);
 
       dispatch({
         meta: { id },
-        type: REMOVE_PAYMENT_TOKEN_SUCCESS,
+        type: actionTypes.REMOVE_PAYMENT_TOKEN_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: REMOVE_PAYMENT_TOKEN_FAILURE,
+        type: actionTypes.REMOVE_PAYMENT_TOKEN_FAILURE,
       });
 
       throw error;

@@ -1,8 +1,4 @@
-import {
-  FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_FAILURE,
-  FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_REQUEST,
-  FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -23,7 +19,7 @@ const fetchReturnPickupRescheduleRequestFactory =
   (id: string, rescheduleRequestId: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<PickupRescheduleRequest> => {
     dispatch({
-      type: FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_REQUEST,
+      type: actionTypes.FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_REQUEST,
     });
 
     try {
@@ -35,14 +31,14 @@ const fetchReturnPickupRescheduleRequestFactory =
 
       dispatch({
         payload: result,
-        type: FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_SUCCESS,
+        type: actionTypes.FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_FAILURE,
+        type: actionTypes.FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_FAILURE,
       });
 
       throw error;

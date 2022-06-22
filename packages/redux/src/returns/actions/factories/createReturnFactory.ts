@@ -1,8 +1,4 @@
-import {
-  CREATE_RETURN_FAILURE,
-  CREATE_RETURN_REQUEST,
-  CREATE_RETURN_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import returnSchema from '../../../entities/schemas/return';
@@ -34,20 +30,20 @@ const createReturnFactory =
   async (dispatch: Dispatch): Promise<Return> => {
     try {
       dispatch({
-        type: CREATE_RETURN_REQUEST,
+        type: actionTypes.CREATE_RETURN_REQUEST,
       });
 
       const result = await postReturn(data, query, config);
 
       dispatch({
         payload: normalize(result, returnSchema),
-        type: CREATE_RETURN_SUCCESS,
+        type: actionTypes.CREATE_RETURN_SUCCESS,
       });
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: CREATE_RETURN_FAILURE,
+        type: actionTypes.CREATE_RETURN_FAILURE,
       });
 
       throw error;

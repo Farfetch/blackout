@@ -1,10 +1,6 @@
+import * as actionTypes from '../../actionTypes';
 import { getBagId } from '../../selectors';
 import { normalize } from 'normalizr';
-import {
-  REMOVE_BAG_ITEM_FAILURE,
-  REMOVE_BAG_ITEM_REQUEST,
-  REMOVE_BAG_ITEM_SUCCESS,
-} from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import bagItemSchema from '../../../entities/schemas/bagItem';
 import type {
@@ -58,7 +54,7 @@ const removeBagItemFactory =
           bagId,
           bagItemId,
         },
-        type: REMOVE_BAG_ITEM_REQUEST,
+        type: actionTypes.REMOVE_BAG_ITEM_REQUEST,
       });
       const result = await deleteBagItem(bagId, bagItemId, query, config);
       const { productImgQueryParam } = getOptions(getState);
@@ -73,7 +69,7 @@ const removeBagItemFactory =
 
       dispatch({
         payload: normalizedBag,
-        type: REMOVE_BAG_ITEM_SUCCESS,
+        type: actionTypes.REMOVE_BAG_ITEM_SUCCESS,
         meta: {
           ...data,
           bagId,
@@ -86,7 +82,7 @@ const removeBagItemFactory =
       dispatch({
         payload: { error: toError(error) },
         meta: { bagId, bagItemId },
-        type: REMOVE_BAG_ITEM_FAILURE,
+        type: actionTypes.REMOVE_BAG_ITEM_FAILURE,
       });
 
       throw error;

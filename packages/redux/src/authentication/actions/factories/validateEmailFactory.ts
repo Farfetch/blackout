@@ -1,9 +1,5 @@
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import {
-  VALIDATE_EMAIL_FAILURE,
-  VALIDATE_EMAIL_REQUEST,
-  VALIDATE_EMAIL_SUCCESS,
-} from '../../actionTypes';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
@@ -30,19 +26,19 @@ export default (postValidateEmail: PostValidateEmail) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({
-        type: VALIDATE_EMAIL_REQUEST,
+        type: actionTypes.VALIDATE_EMAIL_REQUEST,
       });
       const result = await postValidateEmail(data, config);
 
       dispatch({
-        type: VALIDATE_EMAIL_SUCCESS,
+        type: actionTypes.VALIDATE_EMAIL_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: VALIDATE_EMAIL_FAILURE,
+        type: actionTypes.VALIDATE_EMAIL_FAILURE,
       });
 
       throw error;

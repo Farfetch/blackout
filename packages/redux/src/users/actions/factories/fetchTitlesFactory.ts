@@ -1,8 +1,4 @@
-import {
-  FETCH_TITLES_FAILURE,
-  FETCH_TITLES_REQUEST,
-  FETCH_TITLES_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import titlesSchema from '../../../entities/schemas/titles';
@@ -34,21 +30,21 @@ const fetchTitlesFactory =
   async (dispatch: Dispatch) => {
     try {
       dispatch({
-        type: FETCH_TITLES_REQUEST,
+        type: actionTypes.FETCH_TITLES_REQUEST,
       });
 
       const result = await getTitles(query, config);
 
       dispatch({
         payload: normalize(result, titlesSchema),
-        type: FETCH_TITLES_SUCCESS,
+        type: actionTypes.FETCH_TITLES_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_TITLES_FAILURE,
+        type: actionTypes.FETCH_TITLES_FAILURE,
       });
 
       throw error;

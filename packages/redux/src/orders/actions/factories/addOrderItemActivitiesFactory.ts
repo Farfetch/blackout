@@ -1,8 +1,4 @@
-import {
-  ADD_ORDER_ITEM_ACTIVITIES_FAILURE,
-  ADD_ORDER_ITEM_ACTIVITIES_REQUEST,
-  ADD_ORDER_ITEM_ACTIVITIES_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -34,18 +30,18 @@ const addOrderItemActivities =
   async (dispatch: Dispatch) => {
     try {
       dispatch({
-        type: ADD_ORDER_ITEM_ACTIVITIES_REQUEST,
+        type: actionTypes.ADD_ORDER_ITEM_ACTIVITIES_REQUEST,
       });
 
       await postOrderItemActivities(orderId, itemId, data, config);
 
       dispatch({
-        type: ADD_ORDER_ITEM_ACTIVITIES_SUCCESS,
+        type: actionTypes.ADD_ORDER_ITEM_ACTIVITIES_SUCCESS,
       });
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: ADD_ORDER_ITEM_ACTIVITIES_FAILURE,
+        type: actionTypes.ADD_ORDER_ITEM_ACTIVITIES_FAILURE,
       });
 
       throw error;

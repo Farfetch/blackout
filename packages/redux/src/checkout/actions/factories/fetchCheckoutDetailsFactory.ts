@@ -1,8 +1,4 @@
-import {
-  FETCH_CHECKOUT_DETAILS_FAILURE,
-  FETCH_CHECKOUT_DETAILS_REQUEST,
-  FETCH_CHECKOUT_DETAILS_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import checkoutDetailsSchema from '../../../entities/schemas/checkoutDetails';
@@ -34,7 +30,7 @@ export default (getCheckoutDetails: GetCheckoutDetails) =>
   async (dispatch: Dispatch): Promise<GetCheckoutDetailsResponse> => {
     try {
       dispatch({
-        type: FETCH_CHECKOUT_DETAILS_REQUEST,
+        type: actionTypes.FETCH_CHECKOUT_DETAILS_REQUEST,
       });
 
       const result = await getCheckoutDetails(id, config);
@@ -42,14 +38,14 @@ export default (getCheckoutDetails: GetCheckoutDetails) =>
       dispatch({
         meta: { id },
         payload: normalize(result, checkoutDetailsSchema),
-        type: FETCH_CHECKOUT_DETAILS_SUCCESS,
+        type: actionTypes.FETCH_CHECKOUT_DETAILS_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_CHECKOUT_DETAILS_FAILURE,
+        type: actionTypes.FETCH_CHECKOUT_DETAILS_FAILURE,
       });
 
       throw error;

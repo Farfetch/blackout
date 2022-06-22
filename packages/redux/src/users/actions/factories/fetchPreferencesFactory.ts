@@ -1,8 +1,4 @@
-import {
-  FETCH_PREFERENCES_FAILURE,
-  FETCH_PREFERENCES_REQUEST,
-  FETCH_PREFERENCES_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import userPreferencesSchema from '../../../entities/schemas/preference';
@@ -31,21 +27,21 @@ const fetchPreferencesFactory =
   async (dispatch: Dispatch) => {
     try {
       dispatch({
-        type: FETCH_PREFERENCES_REQUEST,
+        type: actionTypes.FETCH_PREFERENCES_REQUEST,
       });
 
       const result = await getPreferences(userId, code, config);
 
       dispatch({
         payload: normalize(result, [userPreferencesSchema]),
-        type: FETCH_PREFERENCES_SUCCESS,
+        type: actionTypes.FETCH_PREFERENCES_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_PREFERENCES_FAILURE,
+        type: actionTypes.FETCH_PREFERENCES_FAILURE,
       });
 
       throw error;

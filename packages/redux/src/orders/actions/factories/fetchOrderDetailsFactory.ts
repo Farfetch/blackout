@@ -1,8 +1,4 @@
-import {
-  FETCH_ORDER_DETAILS_FAILURE,
-  FETCH_ORDER_DETAILS_REQUEST,
-  FETCH_ORDER_DETAILS_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import orderItem from '../../../entities/schemas/orderItem';
@@ -40,7 +36,7 @@ const fetchOrderDetailsFactory =
     try {
       dispatch({
         meta: { orderId },
-        type: FETCH_ORDER_DETAILS_REQUEST,
+        type: actionTypes.FETCH_ORDER_DETAILS_REQUEST,
       });
 
       const result = await getOrderDetails(orderId, config);
@@ -77,7 +73,7 @@ const fetchOrderDetailsFactory =
             items: [orderItem],
           },
         ),
-        type: FETCH_ORDER_DETAILS_SUCCESS,
+        type: actionTypes.FETCH_ORDER_DETAILS_SUCCESS,
         guest: false,
       });
 
@@ -86,7 +82,7 @@ const fetchOrderDetailsFactory =
       dispatch({
         meta: { orderId },
         payload: { error: toError(error) },
-        type: FETCH_ORDER_DETAILS_FAILURE,
+        type: actionTypes.FETCH_ORDER_DETAILS_FAILURE,
       });
 
       throw error;

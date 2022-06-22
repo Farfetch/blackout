@@ -1,4 +1,4 @@
-import { RESET_CHECKOUT_STATE } from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 import type { Dispatch } from 'redux';
 
 /**
@@ -7,6 +7,6 @@ import type { Dispatch } from 'redux';
 export default () =>
   (dispatch: Dispatch): void => {
     dispatch({
-      type: RESET_CHECKOUT_STATE,
+      type: actionTypes.RESET_CHECKOUT_STATE,
     });
   };

@@ -1,8 +1,4 @@
-import {
-  SET_DEFAULT_SHIPPING_ADDRESS_FAILURE,
-  SET_DEFAULT_SHIPPING_ADDRESS_REQUEST,
-  SET_DEFAULT_SHIPPING_ADDRESS_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type {
   Address,
@@ -37,7 +33,7 @@ const setDefaultShippingAddressFactory =
     try {
       dispatch({
         meta: { addressId },
-        type: SET_DEFAULT_SHIPPING_ADDRESS_REQUEST,
+        type: actionTypes.SET_DEFAULT_SHIPPING_ADDRESS_REQUEST,
       });
 
       const result = await putDefaultShippingAddress(
@@ -47,7 +43,7 @@ const setDefaultShippingAddressFactory =
 
       dispatch({
         meta: { addressId },
-        type: SET_DEFAULT_SHIPPING_ADDRESS_SUCCESS,
+        type: actionTypes.SET_DEFAULT_SHIPPING_ADDRESS_SUCCESS,
       });
 
       return result;
@@ -55,7 +51,7 @@ const setDefaultShippingAddressFactory =
       dispatch({
         meta: { addressId },
         payload: { error: toError(error) },
-        type: SET_DEFAULT_SHIPPING_ADDRESS_FAILURE,
+        type: actionTypes.SET_DEFAULT_SHIPPING_ADDRESS_FAILURE,
       });
 
       throw error;

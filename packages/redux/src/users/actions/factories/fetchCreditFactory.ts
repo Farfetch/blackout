@@ -1,8 +1,4 @@
-import {
-  FETCH_CREDIT_FAILURE,
-  FETCH_CREDIT_REQUEST,
-  FETCH_CREDIT_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import isEmpty from 'lodash/isEmpty';
 import type { Config } from '@farfetch/blackout-client/types';
@@ -36,7 +32,7 @@ const fetchCreditFactory =
       };
 
       dispatch({
-        type: FETCH_CREDIT_REQUEST,
+        type: actionTypes.FETCH_CREDIT_REQUEST,
       });
 
       const result = await getCredit(id, config);
@@ -44,14 +40,14 @@ const fetchCreditFactory =
 
       dispatch({
         payload: { credit },
-        type: FETCH_CREDIT_SUCCESS,
+        type: actionTypes.FETCH_CREDIT_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_CREDIT_FAILURE,
+        type: actionTypes.FETCH_CREDIT_FAILURE,
       });
 
       throw error;

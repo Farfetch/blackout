@@ -1,4 +1,4 @@
-import { RESET_USER_ENTITIES } from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 import resetUserState from './resetUserState';
 import type { Dispatch } from 'redux';
 import type { ResetUserAction, ResetUserEntitiesAction } from '../types';
@@ -26,7 +26,7 @@ import type { ThunkDispatch } from 'redux-thunk';
  */
 const resetEntities = () => (dispatch: Dispatch<ResetUserEntitiesAction>) => {
   dispatch({
-    type: RESET_USER_ENTITIES,
+    type: actionTypes.RESET_USER_ENTITIES,
   });
 };
 

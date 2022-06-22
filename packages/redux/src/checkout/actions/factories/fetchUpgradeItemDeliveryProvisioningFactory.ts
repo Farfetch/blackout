@@ -1,8 +1,4 @@
-import {
-  FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_FAILURE,
-  FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_REQUEST,
-  FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import itemDeliveryProvisioningSchema from '../../../entities/schemas/itemDeliveryProvisioning';
@@ -36,7 +32,7 @@ export default (
   async (dispatch: Dispatch): Promise<GetItemDeliveryProvisioningResponse> => {
     try {
       dispatch({
-        type: FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_REQUEST,
+        type: actionTypes.FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_REQUEST,
       });
 
       const result = await getUpgradeItemDeliveryProvisioning(
@@ -48,14 +44,14 @@ export default (
       dispatch({
         meta: { deliveryBundleId, upgradeId },
         payload: normalize(result, itemDeliveryProvisioningSchema),
-        type: FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_SUCCESS,
+        type: actionTypes.FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_FAILURE,
+        type: actionTypes.FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_FAILURE,
       });
 
       throw error;

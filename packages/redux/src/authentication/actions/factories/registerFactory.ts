@@ -1,9 +1,5 @@
+import * as actionTypes from '../../actionTypes';
 import { loginMethodParameterTypes } from '@farfetch/blackout-analytics';
-import {
-  REGISTER_FAILURE,
-  REGISTER_REQUEST,
-  REGISTER_SUCCESS,
-} from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -33,7 +29,7 @@ export default (postRegister: PostRegister) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({
-        type: REGISTER_REQUEST,
+        type: actionTypes.REGISTER_REQUEST,
       });
       const result = await postRegister(data, config);
       const isUnverifiedUser = result.status === UNVERIFIED_USER && !result.id;
@@ -46,7 +42,7 @@ export default (postRegister: PostRegister) =>
 
       dispatch({
         payload: userEntity,
-        type: REGISTER_SUCCESS,
+        type: actionTypes.REGISTER_SUCCESS,
         meta: {
           isRegisterAction: true,
           method: loginMethodParameterTypes.TENANT,
@@ -57,7 +53,7 @@ export default (postRegister: PostRegister) =>
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: REGISTER_FAILURE,
+        type: actionTypes.REGISTER_FAILURE,
       });
 
       throw error;

@@ -1,8 +1,4 @@
-import {
-  FETCH_PROMOTION_EVALUATION_ITEMS_FAILURE,
-  FETCH_PROMOTION_EVALUATION_ITEMS_REQUEST,
-  FETCH_PROMOTION_EVALUATION_ITEMS_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type { FetchPromotionEvaluationItemsAction } from '../../types';
@@ -39,7 +35,7 @@ const fetchPromotionEvaluationItemsFactory =
     try {
       dispatch({
         meta: { promotionEvaluationId },
-        type: FETCH_PROMOTION_EVALUATION_ITEMS_REQUEST,
+        type: actionTypes.FETCH_PROMOTION_EVALUATION_ITEMS_REQUEST,
       });
 
       const result = await getPromotionEvaluationItems(
@@ -50,7 +46,7 @@ const fetchPromotionEvaluationItemsFactory =
       dispatch({
         meta: { promotionEvaluationId },
         payload: { result },
-        type: FETCH_PROMOTION_EVALUATION_ITEMS_SUCCESS,
+        type: actionTypes.FETCH_PROMOTION_EVALUATION_ITEMS_SUCCESS,
       });
 
       return result;
@@ -58,7 +54,7 @@ const fetchPromotionEvaluationItemsFactory =
       dispatch({
         meta: { promotionEvaluationId },
         payload: { error: toError(error) },
-        type: FETCH_PROMOTION_EVALUATION_ITEMS_FAILURE,
+        type: actionTypes.FETCH_PROMOTION_EVALUATION_ITEMS_FAILURE,
       });
 
       throw error;

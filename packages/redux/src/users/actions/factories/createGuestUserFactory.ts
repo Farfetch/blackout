@@ -1,8 +1,4 @@
-import {
-  CREATE_GUEST_USER_FAILURE,
-  CREATE_GUEST_USER_REQUEST,
-  CREATE_GUEST_USER_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type {
@@ -30,7 +26,7 @@ const createGuestUser =
   async (dispatch: Dispatch) => {
     try {
       dispatch({
-        type: CREATE_GUEST_USER_REQUEST,
+        type: actionTypes.CREATE_GUEST_USER_REQUEST,
       });
 
       const result = await postGuestUser(data, config);
@@ -40,14 +36,14 @@ const createGuestUser =
       };
       dispatch({
         payload: userEntity,
-        type: CREATE_GUEST_USER_SUCCESS,
+        type: actionTypes.CREATE_GUEST_USER_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: CREATE_GUEST_USER_FAILURE,
+        type: actionTypes.CREATE_GUEST_USER_FAILURE,
       });
 
       throw error;
