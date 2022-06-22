@@ -2,6 +2,7 @@ export * from './productAttributes.actionTypes';
 export * from './productColorGrouping.actionTypes';
 export * from './productDetails.actionTypes';
 export * from './productFittings.actionTypes';
+export * from './productGrouping.actionTypes';
 export * from './productMeasurements.actionTypes';
 export * from './productMerchantsLocations.actionTypes';
 export * from './productSizeGuides.actionTypes';

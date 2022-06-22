@@ -24,6 +24,7 @@ Object {
           "customAttributes": undefined,
           "description": undefined,
           "groupedEntries": undefined,
+          "grouping": undefined,
           "id": 12129099,
           "images": undefined,
           "labels": undefined,

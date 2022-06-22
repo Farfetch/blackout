@@ -9,6 +9,7 @@ export * from './fetchProductAttributes';
 export * from './fetchProductColorGrouping';
 export * from './fetchProductDetails';
 export * from './fetchProductFittings';
+export * from './fetchProductGrouping';
 export * from './fetchProductMeasurements';
 export * from './fetchProductSizeGuides';
 export * from './fetchProductSizes';

@@ -96,6 +96,7 @@ Object {
         "description": "Luxury Italian",
         "gender": 0,
         "groupedEntries": undefined,
+        "grouping": undefined,
         "id": 11766695,
         "images": Array [
           Object {
