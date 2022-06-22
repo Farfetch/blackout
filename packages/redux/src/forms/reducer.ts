@@ -1,9 +1,9 @@
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers } from 'redux';
-import type { FormResult, State } from './types';
+import type { FormsResult, FormsState } from './types';
 import type { ReducerSwitch } from '../types';
 
-export const INITIAL_STATE: State = {
+export const INITIAL_STATE: FormsState = {
   result: {},
   error: {},
   isLoading: {},
@@ -53,7 +53,7 @@ const error = (state = INITIAL_STATE.error, action: AnyAction) => {
 const result = (
   state = INITIAL_STATE.result,
   action: AnyAction,
-): FormResult => {
+): FormsResult => {
   switch (action.type) {
     case actionTypes.FETCH_FORM_SCHEMA_SUCCESS:
       return {
@@ -108,19 +108,20 @@ const submitFormError = (state = INITIAL_STATE.error, action: AnyAction) => {
 };
 
 export const getFormsSchemas = (
-  state: State = INITIAL_STATE,
-): State['result'] => state.result;
-export const getFormsError = (state: State = INITIAL_STATE): State['error'] =>
-  state.error;
+  state: FormsState = INITIAL_STATE,
+): FormsState['result'] => state.result;
+export const getFormsError = (
+  state: FormsState = INITIAL_STATE,
+): FormsState['error'] => state.error;
 export const getFormsIsLoading = (
-  state: State = INITIAL_STATE,
-): State['isLoading'] => state.isLoading;
+  state: FormsState = INITIAL_STATE,
+): FormsState['isLoading'] => state.isLoading;
 export const getSubmitFormDataIsLoading = (
-  state: State = INITIAL_STATE,
-): State['isSubmitFormLoading'] => state.isSubmitFormLoading;
+  state: FormsState = INITIAL_STATE,
+): FormsState['isSubmitFormLoading'] => state.isSubmitFormLoading;
 export const getSubmitFormDataError = (
-  state: State = INITIAL_STATE,
-): State['submitFormError'] => state.submitFormError;
+  state: FormsState = INITIAL_STATE,
+): FormsState['submitFormError'] => state.submitFormError;
 
 const reducers = combineReducers({
   isLoading,
@@ -139,11 +140,11 @@ const reducers = combineReducers({
  * @returns New state.
  */
 
-const formsReducer: ReducerSwitch<State, AnyAction> = (
+const formsReducer: ReducerSwitch<FormsState, AnyAction> = (
   state = INITIAL_STATE,
   action,
-): State => {
-  if (action.type === actionTypes.RESET_SCHEMAS) {
+): FormsState => {
+  if (action.type === actionTypes.RESET_FORM_SCHEMAS) {
     return reducers(INITIAL_STATE, action);
   }
 

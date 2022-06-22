@@ -29,7 +29,7 @@ import type {
   ReturnsEntity,
   StatementEntity,
   StatesEntity,
-  SubscriptionPackageEntity,
+  SubscriptionPackagesEntity,
   WishlistItemEntity,
   WishlistSetEntity,
 } from '../entities/types';
@@ -42,7 +42,7 @@ import type { Category } from '@farfetch/blackout-client/categories/types';
 import type { State as CheckoutState } from '../checkout/types';
 import type { State as ContentsState } from '../contents/types';
 import type { State as DesignersState } from '../designers/types';
-import type { State as FormsState } from '../forms/types';
+import type { FormsState } from '../forms/types';
 import type { State as LocaleState } from '../locale/types';
 import type { State as LoyaltyState } from '../loyalty/types';
 import type { MerchantLocation } from '@farfetch/blackout-client/merchantsLocations/types';
@@ -103,10 +103,7 @@ export type StoreState = Partial<{
     sizeScales: Record<SizeScale['sizeScaleId'], SizeScale>;
     statements: Record<StatementEntity['id'], StatementEntity>;
     states: Record<string, StatesEntity>;
-    subscriptionPackages: Record<
-      SubscriptionPackageEntity['id'],
-      SubscriptionPackageEntity
-    >;
+    subscriptionPackages: SubscriptionPackagesEntity;
     user: Record<string, any>;
     wishlistItems: Record<WishlistItemEntity['id'], WishlistItemEntity>;
     wishlistSets: Record<WishlistSetEntity['id'], WishlistSetEntity>;

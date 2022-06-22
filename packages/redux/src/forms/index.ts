@@ -1,10 +1,11 @@
 import * as actionTypes from './actionTypes';
-import reducer from './reducer';
 
 export * from './actions';
 export * from './actions/factories';
 export * from './selectors';
 
-export { actionTypes };
+export * from './types';
 
-export default reducer;
+export { actionTypes as formsActionTypes };
+
+export { default as formsReducer } from './reducer';

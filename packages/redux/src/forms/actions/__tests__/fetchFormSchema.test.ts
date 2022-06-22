@@ -1,10 +1,10 @@
-import { actionTypes } from '../..';
 import { fetchFormSchema } from '..';
+import { formsActionTypes } from '../..';
 import {
   formSchemaResponse,
   query as getFormSchemasQuery,
 } from 'tests/__fixtures__/forms';
-import { getFormSchema } from '@farfetch/blackout-client/forms';
+import { getFormSchema } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
@@ -14,9 +14,9 @@ const formsMockStore = (state = {}) =>
 const expectedConfig = undefined;
 let store: ReturnType<typeof formsMockStore>;
 
-jest.mock('@farfetch/blackout-client/forms', () => {
+jest.mock('@farfetch/blackout-client', () => {
   return {
-    ...jest.requireActual('@farfetch/blackout-client/forms'),
+    ...jest.requireActual('@farfetch/blackout-client'),
     getFormSchema: jest.fn(),
   };
 });
@@ -50,7 +50,7 @@ describe('fetchFormSchema() action creator', () => {
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
           expect.objectContaining({
-            type: actionTypes.FETCH_FORM_SCHEMA_FAILURE,
+            type: formsActionTypes.FETCH_FORM_SCHEMA_FAILURE,
             meta: { schemaCode: formSchemaResponse.code },
           }),
         ]),
@@ -83,14 +83,14 @@ describe('fetchFormSchema() action creator', () => {
     expect(store.getActions()).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          type: actionTypes.FETCH_FORM_SCHEMA_REQUEST,
+          type: formsActionTypes.FETCH_FORM_SCHEMA_REQUEST,
           meta: { schemaCode: formSchemaResponse.code },
         }),
       ]),
     );
     expect(
       find(actionResults, {
-        type: actionTypes.FETCH_FORM_SCHEMA_SUCCESS,
+        type: formsActionTypes.FETCH_FORM_SCHEMA_SUCCESS,
       }),
     ).toMatchSnapshot('Fetch form schemas payload');
   });

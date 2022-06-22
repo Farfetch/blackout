@@ -1,4 +1,4 @@
-import { postFormData } from '@farfetch/blackout-client/forms';
+import { postFormData } from '@farfetch/blackout-client';
 import { submitFormDataFactory } from './factories';
 
 /**
