@@ -11,7 +11,7 @@
 const warnDeprecatedMethod = (
   packageInfo: string,
   deprecatedMethod: string,
-  newMethod: string,
+  newMethod?: string,
 ): void => {
   let message = `${packageInfo}: DEPRECATED method "${deprecatedMethod}".`;
 
