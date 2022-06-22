@@ -1,10 +1,4 @@
-import {
-  FETCH_BRANDS_FAILURE,
-  FETCH_BRANDS_REQUEST,
-  FETCH_BRANDS_SUCCESS,
-  RESET_BRANDS_STATE,
-  SET_BRANDS_HASH,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { generateBrandsHash } from '../../utils';
 import { isBrandsResultCached } from '../../selectors';
 import { normalize } from 'normalizr';
@@ -63,13 +57,13 @@ const fetchBrandsFactory =
 
           dispatch({
             meta: { hash, query },
-            type: SET_BRANDS_HASH,
+            type: actionTypes.SET_BRANDS_HASH,
           });
 
           return;
         } else {
           dispatch({
-            type: RESET_BRANDS_STATE,
+            type: actionTypes.RESET_BRANDS_STATE,
           });
         }
       }
@@ -77,13 +71,13 @@ const fetchBrandsFactory =
       if (setBrandsHash) {
         dispatch({
           meta: { hash, query },
-          type: SET_BRANDS_HASH,
+          type: actionTypes.SET_BRANDS_HASH,
         });
       }
 
       dispatch({
         meta: { hash, query },
-        type: FETCH_BRANDS_REQUEST,
+        type: actionTypes.FETCH_BRANDS_REQUEST,
       });
 
       const result = await getBrands(query, config);
@@ -93,7 +87,7 @@ const fetchBrandsFactory =
         payload: normalize(result, {
           entries: [brand],
         }),
-        type: FETCH_BRANDS_SUCCESS,
+        type: actionTypes.FETCH_BRANDS_SUCCESS,
       });
 
       return result;
@@ -101,7 +95,7 @@ const fetchBrandsFactory =
       dispatch({
         meta: { hash: hash as string, query },
         payload: { error: toError(error) },
-        type: FETCH_BRANDS_FAILURE,
+        type: actionTypes.FETCH_BRANDS_FAILURE,
       });
 
       throw error;

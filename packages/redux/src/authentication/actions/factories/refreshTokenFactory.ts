@@ -1,8 +1,4 @@
-import {
-  REFRESH_USER_TOKEN_FAILURE,
-  REFRESH_USER_TOKEN_REQUEST,
-  REFRESH_USER_TOKEN_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -28,7 +24,7 @@ export default (postTokens: PostTokens) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({
-        type: REFRESH_USER_TOKEN_REQUEST,
+        type: actionTypes.REFRESH_USER_TOKEN_REQUEST,
       });
       const result = await postTokens(
         { refreshToken, grantType: 'refresh_token' },
@@ -37,14 +33,14 @@ export default (postTokens: PostTokens) =>
 
       dispatch({
         payload: result,
-        type: REFRESH_USER_TOKEN_SUCCESS,
+        type: actionTypes.REFRESH_USER_TOKEN_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: REFRESH_USER_TOKEN_FAILURE,
+        type: actionTypes.REFRESH_USER_TOKEN_FAILURE,
       });
 
       throw error;

@@ -1,4 +1,4 @@
-import { RESET_WISHLIST_STATE } from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 import type { Dispatch } from 'redux';
 import type { ResetWishlistStateAction } from '../types';
 
@@ -98,7 +98,7 @@ const resetWishlistState =
   (dispatch: Dispatch<ResetWishlistStateAction>): void => {
     dispatch({
       payload: { fieldsToReset },
-      type: RESET_WISHLIST_STATE,
+      type: actionTypes.RESET_WISHLIST_STATE,
     });
   };
 

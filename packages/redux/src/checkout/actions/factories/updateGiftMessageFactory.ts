@@ -1,9 +1,5 @@
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import {
-  UPDATE_GIFT_MESSAGE_FAILURE,
-  UPDATE_GIFT_MESSAGE_REQUEST,
-  UPDATE_GIFT_MESSAGE_SUCCESS,
-} from '../../actionTypes';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
@@ -34,20 +30,20 @@ const updateGiftMessageFactory =
   async (dispatch: Dispatch): Promise<number> => {
     try {
       dispatch({
-        type: UPDATE_GIFT_MESSAGE_REQUEST,
+        type: actionTypes.UPDATE_GIFT_MESSAGE_REQUEST,
       });
 
       const result = await patchGiftMessage(id, data, config);
 
       dispatch({
-        type: UPDATE_GIFT_MESSAGE_SUCCESS,
+        type: actionTypes.UPDATE_GIFT_MESSAGE_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: UPDATE_GIFT_MESSAGE_FAILURE,
+        type: actionTypes.UPDATE_GIFT_MESSAGE_FAILURE,
       });
 
       throw error;

@@ -1,8 +1,4 @@
-import {
-  ADD_ORDER_DOCUMENT_FAILURE,
-  ADD_ORDER_DOCUMENT_REQUEST,
-  ADD_ORDER_DOCUMENT_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -33,20 +29,20 @@ const addOrderDocumentFactory =
   async (dispatch: Dispatch): Promise<string> => {
     try {
       dispatch({
-        type: ADD_ORDER_DOCUMENT_REQUEST,
+        type: actionTypes.ADD_ORDER_DOCUMENT_REQUEST,
       });
 
       const result = await postOrderDocument(orderId, fileId, data, config);
 
       dispatch({
-        type: ADD_ORDER_DOCUMENT_SUCCESS,
+        type: actionTypes.ADD_ORDER_DOCUMENT_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: ADD_ORDER_DOCUMENT_FAILURE,
+        type: actionTypes.ADD_ORDER_DOCUMENT_FAILURE,
       });
 
       throw error;

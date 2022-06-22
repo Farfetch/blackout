@@ -1,8 +1,4 @@
-import {
-  FETCH_COLLECT_POINTS_FAILURE,
-  FETCH_COLLECT_POINTS_REQUEST,
-  FETCH_COLLECT_POINTS_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -31,7 +27,7 @@ export default (getCollectPoints: GetCollectPoints) =>
   async (dispatch: Dispatch): Promise<GetCollectPointsResponse> => {
     try {
       dispatch({
-        type: FETCH_COLLECT_POINTS_REQUEST,
+        type: actionTypes.FETCH_COLLECT_POINTS_REQUEST,
       });
 
       const result = await getCollectPoints(query, config);
@@ -43,14 +39,14 @@ export default (getCollectPoints: GetCollectPoints) =>
             collectpoints: result,
           },
         },
-        type: FETCH_COLLECT_POINTS_SUCCESS,
+        type: actionTypes.FETCH_COLLECT_POINTS_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_COLLECT_POINTS_FAILURE,
+        type: actionTypes.FETCH_COLLECT_POINTS_FAILURE,
       });
 
       throw error;

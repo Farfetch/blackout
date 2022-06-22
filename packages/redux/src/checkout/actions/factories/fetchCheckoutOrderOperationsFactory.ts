@@ -1,8 +1,4 @@
-import {
-  FETCH_CHECKOUT_ORDER_OPERATIONS_FAILURE,
-  FETCH_CHECKOUT_ORDER_OPERATIONS_REQUEST,
-  FETCH_CHECKOUT_ORDER_OPERATIONS_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import checkoutOrderOperation from '@farfetch/blackout-redux/entities/schemas/checkoutOrderOperation';
 import type { Config } from '@farfetch/blackout-client/types';
@@ -32,7 +28,7 @@ export const fetchCheckoutOrderOperationsFactory =
   (id: number, query?: GetOperationsQuery, config?: Config) =>
   async (dispatch: Dispatch): Promise<GetOperationsResponse> => {
     dispatch({
-      type: FETCH_CHECKOUT_ORDER_OPERATIONS_REQUEST,
+      type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATIONS_REQUEST,
     });
 
     try {
@@ -40,14 +36,14 @@ export const fetchCheckoutOrderOperationsFactory =
 
       dispatch({
         payload: normalize(result, { entries: [checkoutOrderOperation] }),
-        type: FETCH_CHECKOUT_ORDER_OPERATIONS_SUCCESS,
+        type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATIONS_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error },
-        type: FETCH_CHECKOUT_ORDER_OPERATIONS_FAILURE,
+        type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATIONS_FAILURE,
       });
 
       throw error;

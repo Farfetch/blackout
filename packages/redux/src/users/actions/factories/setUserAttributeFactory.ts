@@ -1,8 +1,4 @@
-import {
-  SET_USER_ATTRIBUTE_FAILURE,
-  SET_USER_ATTRIBUTE_REQUEST,
-  SET_USER_ATTRIBUTE_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type {
@@ -37,13 +33,13 @@ const setUserAttributeFactory =
   async (dispatch: Dispatch): Promise<number> => {
     try {
       dispatch({
-        type: SET_USER_ATTRIBUTE_REQUEST,
+        type: actionTypes.SET_USER_ATTRIBUTE_REQUEST,
       });
 
       const result = await putUserAttribute(userId, attributeId, data, config);
 
       dispatch({
-        type: SET_USER_ATTRIBUTE_SUCCESS,
+        type: actionTypes.SET_USER_ATTRIBUTE_SUCCESS,
         payload: result,
       });
 
@@ -51,7 +47,7 @@ const setUserAttributeFactory =
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: SET_USER_ATTRIBUTE_FAILURE,
+        type: actionTypes.SET_USER_ATTRIBUTE_FAILURE,
       });
 
       throw error;

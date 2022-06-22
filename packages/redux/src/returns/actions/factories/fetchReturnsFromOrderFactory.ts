@@ -1,8 +1,4 @@
-import {
-  FETCH_RETURNS_FROM_ORDER_FAILURE,
-  FETCH_RETURNS_FROM_ORDER_REQUEST,
-  FETCH_RETURNS_FROM_ORDER_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import returnSchema from '../../../entities/schemas/return';
@@ -34,20 +30,20 @@ const fetchReturnsFromOrderFactory =
   async (dispatch: Dispatch): Promise<Return> => {
     try {
       dispatch({
-        type: FETCH_RETURNS_FROM_ORDER_REQUEST,
+        type: actionTypes.FETCH_RETURNS_FROM_ORDER_REQUEST,
       });
 
       const result = await getReturnsFromOrder(orderId, query, config);
 
       dispatch({
         payload: normalize(result, [returnSchema]),
-        type: FETCH_RETURNS_FROM_ORDER_SUCCESS,
+        type: actionTypes.FETCH_RETURNS_FROM_ORDER_SUCCESS,
       });
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_RETURNS_FROM_ORDER_FAILURE,
+        type: actionTypes.FETCH_RETURNS_FROM_ORDER_FAILURE,
       });
 
       throw error;

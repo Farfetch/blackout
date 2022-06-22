@@ -1,8 +1,4 @@
-import {
-  PASSWORD_RESET_FAILURE,
-  PASSWORD_RESET_REQUEST,
-  PASSWORD_RESET_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -30,19 +26,19 @@ export default (postPasswordReset: PostPasswordReset) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({
-        type: PASSWORD_RESET_REQUEST,
+        type: actionTypes.PASSWORD_RESET_REQUEST,
       });
       const result = await postPasswordReset(data, config);
 
       dispatch({
-        type: PASSWORD_RESET_SUCCESS,
+        type: actionTypes.PASSWORD_RESET_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: PASSWORD_RESET_FAILURE,
+        type: actionTypes.PASSWORD_RESET_FAILURE,
       });
 
       throw error;

@@ -1,8 +1,4 @@
-import {
-  FETCH_SEO_FAILURE,
-  FETCH_SEO_REQUEST,
-  FETCH_SEO_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { generateSEOPathname } from '../../utils';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { ActionFetchSEO } from '../../types';
@@ -40,7 +36,7 @@ export default (getSEO: GetSEO) =>
       dispatch({
         meta: { query },
         payload: { pathname },
-        type: FETCH_SEO_REQUEST,
+        type: actionTypes.FETCH_SEO_REQUEST,
       });
 
       const result = await getSEO(query, config);
@@ -48,7 +44,7 @@ export default (getSEO: GetSEO) =>
       dispatch({
         meta: { query },
         payload: { pathname, result },
-        type: FETCH_SEO_SUCCESS,
+        type: actionTypes.FETCH_SEO_SUCCESS,
       });
 
       return result;
@@ -56,7 +52,7 @@ export default (getSEO: GetSEO) =>
       dispatch({
         meta: { query },
         payload: { error: toError(error), pathname: pathname as string },
-        type: FETCH_SEO_FAILURE,
+        type: actionTypes.FETCH_SEO_FAILURE,
       });
 
       throw error;

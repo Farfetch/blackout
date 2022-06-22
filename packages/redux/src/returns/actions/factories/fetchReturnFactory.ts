@@ -1,8 +1,4 @@
-import {
-  FETCH_RETURN_FAILURE,
-  FETCH_RETURN_REQUEST,
-  FETCH_RETURN_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import returnSchema from '../../../entities/schemas/return';
@@ -34,19 +30,19 @@ const fetchReturnFactory =
   async (dispatch: Dispatch): Promise<Return> => {
     try {
       dispatch({
-        type: FETCH_RETURN_REQUEST,
+        type: actionTypes.FETCH_RETURN_REQUEST,
       });
       const result = await getReturn(id, query, config);
 
       dispatch({
         payload: normalize(result, returnSchema),
-        type: FETCH_RETURN_SUCCESS,
+        type: actionTypes.FETCH_RETURN_SUCCESS,
       });
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_RETURN_FAILURE,
+        type: actionTypes.FETCH_RETURN_FAILURE,
       });
 
       throw error;

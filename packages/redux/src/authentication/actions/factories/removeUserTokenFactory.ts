@@ -1,8 +1,4 @@
-import {
-  DELETE_USER_TOKEN_FAILURE,
-  DELETE_USER_TOKEN_REQUEST,
-  DELETE_USER_TOKEN_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { DeleteTokens } from '@farfetch/blackout-client/authentication/types';
@@ -27,20 +23,20 @@ export default (deleteTokens: DeleteTokens) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({
-        type: DELETE_USER_TOKEN_REQUEST,
+        type: actionTypes.DELETE_USER_TOKEN_REQUEST,
       });
       const result = await deleteTokens(userTokenId, config);
 
       dispatch({
         meta: { userTokenId },
-        type: DELETE_USER_TOKEN_SUCCESS,
+        type: actionTypes.DELETE_USER_TOKEN_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: DELETE_USER_TOKEN_FAILURE,
+        type: actionTypes.DELETE_USER_TOKEN_FAILURE,
       });
 
       throw error;

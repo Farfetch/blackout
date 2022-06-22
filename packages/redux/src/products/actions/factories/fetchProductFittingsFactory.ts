@@ -1,8 +1,4 @@
-import {
-  FETCH_PRODUCT_FITTINGS_FAILURE,
-  FETCH_PRODUCT_FITTINGS_REQUEST,
-  FETCH_PRODUCT_FITTINGS_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import productSchema from '../../../entities/schemas/product';
@@ -35,7 +31,7 @@ export const fetchProductFittingsFactory =
     try {
       dispatch({
         meta: { productId },
-        type: FETCH_PRODUCT_FITTINGS_REQUEST,
+        type: actionTypes.FETCH_PRODUCT_FITTINGS_REQUEST,
       });
 
       const result = await getProductFittings(productId, config);
@@ -47,7 +43,7 @@ export const fetchProductFittingsFactory =
       dispatch({
         meta: { productId },
         payload: normalize(productWithFittings, productSchema),
-        type: FETCH_PRODUCT_FITTINGS_SUCCESS,
+        type: actionTypes.FETCH_PRODUCT_FITTINGS_SUCCESS,
       });
 
       return result;
@@ -55,7 +51,7 @@ export const fetchProductFittingsFactory =
       dispatch({
         meta: { productId },
         payload: { error: toError(error) },
-        type: FETCH_PRODUCT_FITTINGS_FAILURE,
+        type: actionTypes.FETCH_PRODUCT_FITTINGS_FAILURE,
       });
 
       throw error;

@@ -1,4 +1,4 @@
-import { RESET_ADDRESSES } from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 import type { Dispatch } from 'redux';
 import type { ResetAddressesAction } from '../types';
 
@@ -10,6 +10,6 @@ import type { ResetAddressesAction } from '../types';
 export default () =>
   (dispatch: Dispatch<ResetAddressesAction>): void => {
     dispatch({
-      type: RESET_ADDRESSES,
+      type: actionTypes.RESET_ADDRESSES,
     });
   };

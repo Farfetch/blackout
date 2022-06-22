@@ -1,8 +1,4 @@
-import {
-  FETCH_TRACKINGS_FAILURE,
-  FETCH_TRACKINGS_REQUEST,
-  FETCH_TRACKINGS_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import labelTracking from '../../../entities/schemas/labelTracking';
@@ -33,7 +29,7 @@ const fetchTrackings =
   async (dispatch: Dispatch): Promise<Tracking[]> => {
     try {
       dispatch({
-        type: FETCH_TRACKINGS_REQUEST,
+        type: actionTypes.FETCH_TRACKINGS_REQUEST,
       });
 
       const result = await getTrackings(trackingNumbers, config);
@@ -42,14 +38,14 @@ const fetchTrackings =
         payload: normalize(result, {
           entries: [{ labelTrackings: [labelTracking] }],
         }),
-        type: FETCH_TRACKINGS_SUCCESS,
+        type: actionTypes.FETCH_TRACKINGS_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_TRACKINGS_FAILURE,
+        type: actionTypes.FETCH_TRACKINGS_FAILURE,
       });
 
       throw error;

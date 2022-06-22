@@ -1,4 +1,4 @@
-import { RESET_RETURN } from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 import type { Dispatch } from 'redux';
 
 /**
@@ -12,6 +12,6 @@ export default (resetEntities = false) =>
   (dispatch: Dispatch): void => {
     dispatch({
       meta: { resetEntities },
-      type: RESET_RETURN,
+      type: actionTypes.RESET_RETURN,
     });
   };

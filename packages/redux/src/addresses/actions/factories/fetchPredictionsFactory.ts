@@ -1,8 +1,4 @@
-import {
-  FETCH_PREDICTION_FAILURE,
-  FETCH_PREDICTION_REQUEST,
-  FETCH_PREDICTION_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -34,21 +30,21 @@ const fetchPredictionsFactory =
   async (dispatch: Dispatch<FetchPredictionAction>): Promise<Prediction[]> => {
     try {
       dispatch({
-        type: FETCH_PREDICTION_REQUEST,
+        type: actionTypes.FETCH_PREDICTION_REQUEST,
       });
 
       const result = await getPredictions(text, query, config);
 
       dispatch({
         payload: result,
-        type: FETCH_PREDICTION_SUCCESS,
+        type: actionTypes.FETCH_PREDICTION_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_PREDICTION_FAILURE,
+        type: actionTypes.FETCH_PREDICTION_FAILURE,
       });
 
       throw error;

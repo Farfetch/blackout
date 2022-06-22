@@ -1,8 +1,4 @@
-import {
-  FETCH_USER_ATTRIBUTE_FAILURE,
-  FETCH_USER_ATTRIBUTE_REQUEST,
-  FETCH_USER_ATTRIBUTE_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type {
@@ -31,21 +27,21 @@ const fetchUserAttributeFactory =
   async (dispatch: Dispatch): Promise<UserAttributesResponse> => {
     try {
       dispatch({
-        type: FETCH_USER_ATTRIBUTE_REQUEST,
+        type: actionTypes.FETCH_USER_ATTRIBUTE_REQUEST,
       });
 
       const result = await getUserAttribute(id, attributeId, config);
 
       dispatch({
         payload: result,
-        type: FETCH_USER_ATTRIBUTE_SUCCESS,
+        type: actionTypes.FETCH_USER_ATTRIBUTE_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_USER_ATTRIBUTE_FAILURE,
+        type: actionTypes.FETCH_USER_ATTRIBUTE_FAILURE,
       });
 
       throw error;

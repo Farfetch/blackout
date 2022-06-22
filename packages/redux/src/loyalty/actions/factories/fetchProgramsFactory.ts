@@ -1,8 +1,4 @@
-import {
-  FETCH_PROGRAMS_FAILURE,
-  FETCH_PROGRAMS_REQUEST,
-  FETCH_PROGRAMS_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import programSchema from '../../../entities/schemas/program';
@@ -34,21 +30,21 @@ const fetchProgramsFactory =
   async (dispatch: Dispatch<FetchProgramsAction>): Promise<Program[]> => {
     try {
       dispatch({
-        type: FETCH_PROGRAMS_REQUEST,
+        type: actionTypes.FETCH_PROGRAMS_REQUEST,
       });
 
       const result = await getPrograms(config);
 
       dispatch({
         payload: normalize(result, [programSchema]),
-        type: FETCH_PROGRAMS_SUCCESS,
+        type: actionTypes.FETCH_PROGRAMS_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_PROGRAMS_FAILURE,
+        type: actionTypes.FETCH_PROGRAMS_FAILURE,
       });
 
       throw error;

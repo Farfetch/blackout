@@ -1,11 +1,4 @@
-import {
-  DEHYDRATE_PRODUCTS_LIST,
-  FETCH_PRODUCTS_LIST_FAILURE,
-  FETCH_PRODUCTS_LIST_REQUEST,
-  FETCH_PRODUCTS_LIST_SUCCESS,
-  RESET_PRODUCTS_LISTS_STATE,
-  SET_PRODUCTS_LIST_HASH,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { generateProductsListHash } from '../../utils';
 import { isProductsListCached, isProductsListHydrated } from '../../selectors';
 import { normalize } from 'normalizr';
@@ -67,7 +60,7 @@ export const fetchProductsListFactory = async (
     if (isHydrated) {
       dispatch({
         meta: { hash },
-        type: DEHYDRATE_PRODUCTS_LIST,
+        type: actionTypes.DEHYDRATE_PRODUCTS_LIST,
       });
 
       return;
@@ -82,13 +75,13 @@ export const fetchProductsListFactory = async (
 
         dispatch({
           meta: { hash },
-          type: SET_PRODUCTS_LIST_HASH,
+          type: actionTypes.SET_PRODUCTS_LIST_HASH,
         });
 
         return;
       } else {
         dispatch({
-          type: RESET_PRODUCTS_LISTS_STATE,
+          type: actionTypes.RESET_PRODUCTS_LISTS_STATE,
         });
       }
     }
@@ -96,13 +89,13 @@ export const fetchProductsListFactory = async (
     if (setProductsListHash) {
       dispatch({
         meta: { hash },
-        type: SET_PRODUCTS_LIST_HASH,
+        type: actionTypes.SET_PRODUCTS_LIST_HASH,
       });
     }
 
     dispatch({
       meta: { hash },
-      type: FETCH_PRODUCTS_LIST_REQUEST,
+      type: actionTypes.FETCH_PRODUCTS_LIST_REQUEST,
     });
 
     // @ts-expect-error Property slug can be a string or a number.
@@ -119,7 +112,7 @@ export const fetchProductsListFactory = async (
         },
         productsListSchema,
       ),
-      type: FETCH_PRODUCTS_LIST_SUCCESS,
+      type: actionTypes.FETCH_PRODUCTS_LIST_SUCCESS,
     });
 
     return result;
@@ -127,7 +120,7 @@ export const fetchProductsListFactory = async (
     dispatch({
       meta: { hash: hash as string },
       payload: { error: toError(error) },
-      type: FETCH_PRODUCTS_LIST_FAILURE,
+      type: actionTypes.FETCH_PRODUCTS_LIST_FAILURE,
     });
 
     throw error;

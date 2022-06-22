@@ -1,8 +1,4 @@
-import {
-  CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_FAILURE,
-  CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_REQUEST,
-  CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import replacementSchema from '../../../entities/schemas/replacement';
@@ -46,7 +42,7 @@ const createProgramMembershipReplacementFactory =
   ): Promise<ProgramMembershipReplacement> => {
     try {
       dispatch({
-        type: CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_REQUEST,
+        type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_REQUEST,
       });
 
       const result = await postProgramMembershipReplacement(
@@ -58,14 +54,14 @@ const createProgramMembershipReplacementFactory =
 
       dispatch({
         payload: normalize(result, replacementSchema),
-        type: CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_SUCCESS,
+        type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_FAILURE,
+        type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_FAILURE,
       });
 
       throw error;

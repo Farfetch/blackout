@@ -1,9 +1,5 @@
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import {
-  UPDATE_USER_FAILURE,
-  UPDATE_USER_REQUEST,
-  UPDATE_USER_SUCCESS,
-} from '../../actionTypes';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
@@ -32,7 +28,7 @@ const setUserFactory =
   async (dispatch: Dispatch) => {
     try {
       dispatch({
-        type: UPDATE_USER_REQUEST,
+        type: actionTypes.UPDATE_USER_REQUEST,
       });
 
       const result = await putUser(id, data, config);
@@ -43,14 +39,14 @@ const setUserFactory =
 
       dispatch({
         payload: userEntity,
-        type: UPDATE_USER_SUCCESS,
+        type: actionTypes.UPDATE_USER_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: UPDATE_USER_FAILURE,
+        type: actionTypes.UPDATE_USER_FAILURE,
       });
 
       throw error;

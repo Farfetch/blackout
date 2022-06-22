@@ -1,8 +1,4 @@
-import {
-  CREATE_PHONE_TOKEN_FAILURE,
-  CREATE_PHONE_TOKEN_REQUEST,
-  CREATE_PHONE_TOKEN_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type {
@@ -31,21 +27,21 @@ const createPhoneToken =
   async (dispatch: Dispatch) => {
     try {
       dispatch({
-        type: CREATE_PHONE_TOKEN_REQUEST,
+        type: actionTypes.CREATE_PHONE_TOKEN_REQUEST,
       });
 
       const result = await postPhoneToken(data, config);
 
       dispatch({
         payload: result,
-        type: CREATE_PHONE_TOKEN_SUCCESS,
+        type: actionTypes.CREATE_PHONE_TOKEN_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: CREATE_PHONE_TOKEN_FAILURE,
+        type: actionTypes.CREATE_PHONE_TOKEN_FAILURE,
       });
 
       throw error;

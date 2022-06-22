@@ -1,10 +1,6 @@
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import {
-  UPDATE_ADDRESS_FAILURE,
-  UPDATE_ADDRESS_REQUEST,
-  UPDATE_ADDRESS_SUCCESS,
-} from '../../actionTypes';
 import addressesSchema from '../../../entities/schemas/addresses';
 import type {
   Address,
@@ -43,7 +39,7 @@ const updateAddressFactory =
     try {
       dispatch({
         meta: { addressId },
-        type: UPDATE_ADDRESS_REQUEST,
+        type: actionTypes.UPDATE_ADDRESS_REQUEST,
       });
 
       const result = await putAddress({ userId, id: addressId }, data, config);
@@ -51,7 +47,7 @@ const updateAddressFactory =
       dispatch({
         meta: { addressId },
         payload: normalize(result, addressesSchema),
-        type: UPDATE_ADDRESS_SUCCESS,
+        type: actionTypes.UPDATE_ADDRESS_SUCCESS,
       });
 
       return result;
@@ -59,7 +55,7 @@ const updateAddressFactory =
       dispatch({
         meta: { addressId },
         payload: { error: toError(error) },
-        type: UPDATE_ADDRESS_FAILURE,
+        type: actionTypes.UPDATE_ADDRESS_FAILURE,
       });
 
       throw error;

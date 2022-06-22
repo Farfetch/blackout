@@ -1,10 +1,6 @@
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import {
-  UPDATE_PREFERENCES_FAILURE,
-  UPDATE_PREFERENCES_REQUEST,
-  UPDATE_PREFERENCES_SUCCESS,
-} from '../../actionTypes';
 import userPreferencesSchema from '../../../entities/schemas/preference';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -34,13 +30,13 @@ const setPreferencesFactory =
   async (dispatch: Dispatch) => {
     try {
       dispatch({
-        type: UPDATE_PREFERENCES_REQUEST,
+        type: actionTypes.UPDATE_PREFERENCES_REQUEST,
       });
 
       const result = await updatePreferences(userId, data, config);
 
       dispatch({
-        type: UPDATE_PREFERENCES_SUCCESS,
+        type: actionTypes.UPDATE_PREFERENCES_SUCCESS,
         payload: normalize(data, [userPreferencesSchema]),
       });
 
@@ -48,7 +44,7 @@ const setPreferencesFactory =
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: UPDATE_PREFERENCES_FAILURE,
+        type: actionTypes.UPDATE_PREFERENCES_FAILURE,
       });
 
       throw error;

@@ -1,4 +1,4 @@
-import { RESET_PREDICTION } from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 import type { Dispatch } from 'redux';
 import type { ResetPredictionAction } from '../types';
 
@@ -10,6 +10,6 @@ import type { ResetPredictionAction } from '../types';
 export default () =>
   (dispatch: Dispatch<ResetPredictionAction>): void => {
     dispatch({
-      type: RESET_PREDICTION,
+      type: actionTypes.RESET_PREDICTION,
     });
   };

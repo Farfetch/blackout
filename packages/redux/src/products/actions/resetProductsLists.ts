@@ -1,4 +1,4 @@
-import { RESET_PRODUCTS_LISTS_ENTITIES } from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 import { resetProductsListsState } from './resetProductsListsState';
 import type {
   ResetProductsListsEntitiesAction,
@@ -37,7 +37,7 @@ const resetProductsListsEntities =
     >,
   ): void => {
     dispatch({
-      type: RESET_PRODUCTS_LISTS_ENTITIES,
+      type: actionTypes.RESET_PRODUCTS_LISTS_ENTITIES,
     });
   };
 

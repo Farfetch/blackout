@@ -1,9 +1,5 @@
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import {
-  UPDATE_USER_ATTRIBUTE_FAILURE,
-  UPDATE_USER_ATTRIBUTE_REQUEST,
-  UPDATE_USER_ATTRIBUTE_SUCCESS,
-} from '../../actionTypes';
 import type { Dispatch } from 'redux';
 import type {
   PatchUserAttribute,
@@ -37,7 +33,7 @@ const updateUserAttributeFactory =
   async (dispatch: Dispatch): Promise<number> => {
     try {
       dispatch({
-        type: UPDATE_USER_ATTRIBUTE_REQUEST,
+        type: actionTypes.UPDATE_USER_ATTRIBUTE_REQUEST,
       });
 
       const result = await patchUserAttribute(
@@ -48,7 +44,7 @@ const updateUserAttributeFactory =
       );
 
       dispatch({
-        type: UPDATE_USER_ATTRIBUTE_SUCCESS,
+        type: actionTypes.UPDATE_USER_ATTRIBUTE_SUCCESS,
         payload: result,
       });
 
@@ -56,7 +52,7 @@ const updateUserAttributeFactory =
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: UPDATE_USER_ATTRIBUTE_FAILURE,
+        type: actionTypes.UPDATE_USER_ATTRIBUTE_FAILURE,
       });
 
       throw error;

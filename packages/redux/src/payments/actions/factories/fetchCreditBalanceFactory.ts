@@ -1,8 +1,4 @@
-import {
-  FETCH_CREDIT_BALANCE_FAILURE,
-  FETCH_CREDIT_BALANCE_REQUEST,
-  FETCH_CREDIT_BALANCE_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type {
   Balance,
@@ -33,21 +29,21 @@ const fetchCreditBalanceFactory =
   async (dispatch: Dispatch<FetchCreditBalanceAction>): Promise<Balance> => {
     try {
       dispatch({
-        type: FETCH_CREDIT_BALANCE_REQUEST,
+        type: actionTypes.FETCH_CREDIT_BALANCE_REQUEST,
       });
 
       const result = await postCheckCreditBalance(data, config);
 
       dispatch({
         payload: result,
-        type: FETCH_CREDIT_BALANCE_SUCCESS,
+        type: actionTypes.FETCH_CREDIT_BALANCE_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_CREDIT_BALANCE_FAILURE,
+        type: actionTypes.FETCH_CREDIT_BALANCE_FAILURE,
       });
 
       throw error;

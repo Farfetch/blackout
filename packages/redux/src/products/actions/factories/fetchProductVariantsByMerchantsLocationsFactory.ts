@@ -1,8 +1,4 @@
-import {
-  FETCH_PRODUCT_MERCHANTS_LOCATIONS_FAILURE,
-  FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
-  FETCH_PRODUCT_MERCHANTS_LOCATIONS_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { getProduct } from '../../../entities/selectors';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
@@ -50,7 +46,7 @@ export const fetchProductVariantsByMerchantsLocationsFactory =
 
       dispatch({
         meta: { productId },
-        type: FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
+        type: actionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
       });
 
       const result = await getProductVariantsByMerchantsLocations(
@@ -81,7 +77,7 @@ export const fetchProductVariantsByMerchantsLocationsFactory =
           productWithVariantsByMerchantsLocations,
           productSchema,
         ),
-        type: FETCH_PRODUCT_MERCHANTS_LOCATIONS_SUCCESS,
+        type: actionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_SUCCESS,
       });
 
       return result;
@@ -89,7 +85,7 @@ export const fetchProductVariantsByMerchantsLocationsFactory =
       dispatch({
         meta: { productId },
         payload: { error: toError(error) },
-        type: FETCH_PRODUCT_MERCHANTS_LOCATIONS_FAILURE,
+        type: actionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_FAILURE,
       });
 
       throw error;

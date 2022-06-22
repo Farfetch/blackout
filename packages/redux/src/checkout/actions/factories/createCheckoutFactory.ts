@@ -1,8 +1,4 @@
-import {
-  CREATE_CHECKOUT_FAILURE,
-  CREATE_CHECKOUT_REQUEST,
-  CREATE_CHECKOUT_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import checkoutSchema from '../../../entities/schemas/checkout';
@@ -36,21 +32,21 @@ const createCheckoutFactory =
   async (dispatch: Dispatch): Promise<GetCheckoutResponse> => {
     try {
       dispatch({
-        type: CREATE_CHECKOUT_REQUEST,
+        type: actionTypes.CREATE_CHECKOUT_REQUEST,
       });
 
       const result = await postCheckout(data, config);
 
       dispatch({
         payload: normalize(result, checkoutSchema),
-        type: CREATE_CHECKOUT_SUCCESS,
+        type: actionTypes.CREATE_CHECKOUT_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: CREATE_CHECKOUT_FAILURE,
+        type: actionTypes.CREATE_CHECKOUT_FAILURE,
       });
 
       throw error;

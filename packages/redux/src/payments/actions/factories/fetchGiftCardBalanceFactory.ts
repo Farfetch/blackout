@@ -1,8 +1,4 @@
-import {
-  FETCH_GIFT_CARD_BALANCE_FAILURE,
-  FETCH_GIFT_CARD_BALANCE_REQUEST,
-  FETCH_GIFT_CARD_BALANCE_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type {
   Balance,
@@ -33,21 +29,21 @@ const fetchGiftCardBalanceFactory =
   async (dispatch: Dispatch<FetchGiftCardBalanceAction>): Promise<Balance> => {
     try {
       dispatch({
-        type: FETCH_GIFT_CARD_BALANCE_REQUEST,
+        type: actionTypes.FETCH_GIFT_CARD_BALANCE_REQUEST,
       });
 
       const result = await postCheckGiftCardBalance(data, config);
 
       dispatch({
         payload: result,
-        type: FETCH_GIFT_CARD_BALANCE_SUCCESS,
+        type: actionTypes.FETCH_GIFT_CARD_BALANCE_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_GIFT_CARD_BALANCE_FAILURE,
+        type: actionTypes.FETCH_GIFT_CARD_BALANCE_FAILURE,
       });
 
       throw error;

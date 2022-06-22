@@ -1,8 +1,4 @@
-import {
-  FETCH_INSTRUMENT_FAILURE,
-  FETCH_INSTRUMENT_REQUEST,
-  FETCH_INSTRUMENT_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import instrumentSchema from '../../../entities/schemas/instrument';
@@ -36,21 +32,21 @@ const fetchInstrumentFactory =
   async (dispatch: Dispatch<FetchInstrumentAction>): Promise<Instrument> => {
     try {
       dispatch({
-        type: FETCH_INSTRUMENT_REQUEST,
+        type: actionTypes.FETCH_INSTRUMENT_REQUEST,
       });
 
       const result = await getInstrument(intentId, instrumentId, config);
 
       dispatch({
         payload: normalize(result, instrumentSchema),
-        type: FETCH_INSTRUMENT_SUCCESS,
+        type: actionTypes.FETCH_INSTRUMENT_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_INSTRUMENT_FAILURE,
+        type: actionTypes.FETCH_INSTRUMENT_FAILURE,
       });
 
       throw error;

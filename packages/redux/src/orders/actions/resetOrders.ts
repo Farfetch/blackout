@@ -1,4 +1,4 @@
-import { RESET_ORDERS } from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 
 /**
  * Reset state to its initial value.
@@ -7,6 +7,6 @@ import { RESET_ORDERS } from '../actionTypes';
  */
 export default () => dispatch => {
   dispatch({
-    type: RESET_ORDERS,
+    type: actionTypes.RESET_ORDERS,
   });
 };

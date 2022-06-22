@@ -1,11 +1,7 @@
+import * as actionTypes from '../../actionTypes';
 import { getBagId } from '../../selectors';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import {
-  UPDATE_BAG_ITEM_FAILURE,
-  UPDATE_BAG_ITEM_REQUEST,
-  UPDATE_BAG_ITEM_SUCCESS,
-} from '../../actionTypes';
 import bagItemSchema from '../../../entities/schemas/bagItem';
 import type {
   Bag,
@@ -60,7 +56,7 @@ const updateBagItemFactory =
           bagItemId,
           bagId,
         },
-        type: UPDATE_BAG_ITEM_REQUEST,
+        type: actionTypes.UPDATE_BAG_ITEM_REQUEST,
       });
       const result = await patchBagItem(bagId, bagItemId, data, query, config);
       const { productImgQueryParam } = getOptions(getState);
@@ -75,7 +71,7 @@ const updateBagItemFactory =
 
       dispatch({
         payload: normalizedBag,
-        type: UPDATE_BAG_ITEM_SUCCESS,
+        type: actionTypes.UPDATE_BAG_ITEM_SUCCESS,
         meta: {
           ...data,
           bagItemId,
@@ -92,7 +88,7 @@ const updateBagItemFactory =
           bagItemId,
           bagId,
         },
-        type: UPDATE_BAG_ITEM_FAILURE,
+        type: actionTypes.UPDATE_BAG_ITEM_FAILURE,
       });
 
       throw error;

@@ -1,8 +1,4 @@
-import {
-  FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_FAILURE,
-  FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_REQUEST,
-  FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import statementSchema from '../../../entities/schemas/statement';
@@ -46,7 +42,7 @@ const fetchProgramMembershipStatementsFactory =
   ): Promise<ProgramMembershipStatement[]> => {
     try {
       dispatch({
-        type: FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_REQUEST,
+        type: actionTypes.FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_REQUEST,
       });
 
       const result = await getProgramMembershipStatements(
@@ -58,14 +54,14 @@ const fetchProgramMembershipStatementsFactory =
 
       dispatch({
         payload: normalize(result, [statementSchema]),
-        type: FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_SUCCESS,
+        type: actionTypes.FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_FAILURE,
+        type: actionTypes.FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_FAILURE,
       });
 
       throw error;

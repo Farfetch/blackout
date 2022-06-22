@@ -1,9 +1,4 @@
-import {
-  DEHYDRATE_PRODUCT_DETAILS,
-  FETCH_PRODUCT_DETAILS_FAILURE,
-  FETCH_PRODUCT_DETAILS_REQUEST,
-  FETCH_PRODUCT_DETAILS_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { isProductHydrated } from '../../selectors';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
@@ -58,7 +53,7 @@ export const fetchProductDetailsFactory =
       if (isHydrated && !forceDispatch) {
         dispatch({
           meta: { productId },
-          type: DEHYDRATE_PRODUCT_DETAILS,
+          type: actionTypes.DEHYDRATE_PRODUCT_DETAILS,
         });
 
         return;
@@ -66,7 +61,7 @@ export const fetchProductDetailsFactory =
 
       dispatch({
         meta: { productId },
-        type: FETCH_PRODUCT_DETAILS_REQUEST,
+        type: actionTypes.FETCH_PRODUCT_DETAILS_REQUEST,
       });
 
       const result = await getProductDetails(productId, query, config);
@@ -89,7 +84,7 @@ export const fetchProductDetailsFactory =
       dispatch({
         meta: { productId },
         payload: normalize(details, productSchema),
-        type: FETCH_PRODUCT_DETAILS_SUCCESS,
+        type: actionTypes.FETCH_PRODUCT_DETAILS_SUCCESS,
       });
 
       return result;
@@ -97,7 +92,7 @@ export const fetchProductDetailsFactory =
       dispatch({
         meta: { productId },
         payload: { error: toError(error) },
-        type: FETCH_PRODUCT_DETAILS_FAILURE,
+        type: actionTypes.FETCH_PRODUCT_DETAILS_FAILURE,
       });
 
       throw error;

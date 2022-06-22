@@ -1,8 +1,4 @@
-import {
-  FETCH_PAYMENT_METHODS_FAILURE,
-  FETCH_PAYMENT_METHODS_REQUEST,
-  FETCH_PAYMENT_METHODS_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -34,7 +30,7 @@ const fetchPaymentMethodsFactory =
   ): Promise<PaymentMethod> => {
     try {
       dispatch({
-        type: FETCH_PAYMENT_METHODS_REQUEST,
+        type: actionTypes.FETCH_PAYMENT_METHODS_REQUEST,
       });
 
       const result = await getPaymentMethods(orderId, config);
@@ -49,14 +45,14 @@ const fetchPaymentMethodsFactory =
             },
           },
         },
-        type: FETCH_PAYMENT_METHODS_SUCCESS,
+        type: actionTypes.FETCH_PAYMENT_METHODS_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_PAYMENT_METHODS_FAILURE,
+        type: actionTypes.FETCH_PAYMENT_METHODS_FAILURE,
       });
 
       throw error;

@@ -1,4 +1,4 @@
-import { RESET_CHARGES_STATE } from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 import type { Dispatch } from 'redux';
 import type { ResetChargesAction } from '../types';
 
@@ -9,7 +9,7 @@ const resetChargesState =
   () =>
   (dispatch: Dispatch<ResetChargesAction>): void => {
     dispatch({
-      type: RESET_CHARGES_STATE,
+      type: actionTypes.RESET_CHARGES_STATE,
     });
   };
 

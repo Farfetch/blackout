@@ -1,8 +1,4 @@
-import {
-  FETCH_BENEFITS_FAILURE,
-  FETCH_BENEFITS_REQUEST,
-  FETCH_BENEFITS_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import userBenefitsSchema from '../../../entities/schemas/benefit';
@@ -32,21 +28,21 @@ const fetchBenefitsFactory =
   async (dispatch: Dispatch): Promise<GetBenefitsResponse> => {
     try {
       dispatch({
-        type: FETCH_BENEFITS_REQUEST,
+        type: actionTypes.FETCH_BENEFITS_REQUEST,
       });
 
       const result = await getBenefits(config);
 
       dispatch({
         payload: normalize(result, [userBenefitsSchema]),
-        type: FETCH_BENEFITS_SUCCESS,
+        type: actionTypes.FETCH_BENEFITS_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_BENEFITS_FAILURE,
+        type: actionTypes.FETCH_BENEFITS_FAILURE,
       });
 
       throw error;

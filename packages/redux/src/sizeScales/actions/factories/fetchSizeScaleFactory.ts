@@ -1,8 +1,4 @@
-import {
-  FETCH_SIZE_SCALE_FAILURE,
-  FETCH_SIZE_SCALE_REQUEST,
-  FETCH_SIZE_SCALE_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import sizeScale from '../../../entities/schemas/sizeScale';
@@ -35,7 +31,7 @@ const fetchSizeScaleFactory =
     try {
       dispatch({
         meta: { sizeScaleId },
-        type: FETCH_SIZE_SCALE_REQUEST,
+        type: actionTypes.FETCH_SIZE_SCALE_REQUEST,
       });
 
       const result = await getSizeScale(sizeScaleId, config);
@@ -43,7 +39,7 @@ const fetchSizeScaleFactory =
       dispatch({
         meta: { sizeScaleId },
         payload: normalize(result, sizeScale),
-        type: FETCH_SIZE_SCALE_SUCCESS,
+        type: actionTypes.FETCH_SIZE_SCALE_SUCCESS,
       });
 
       return result;
@@ -51,7 +47,7 @@ const fetchSizeScaleFactory =
       dispatch({
         meta: { sizeScaleId },
         payload: { error: toError(error) },
-        type: FETCH_SIZE_SCALE_FAILURE,
+        type: actionTypes.FETCH_SIZE_SCALE_FAILURE,
       });
 
       throw error;

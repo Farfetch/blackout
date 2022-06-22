@@ -1,9 +1,5 @@
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import {
-  UPDATE_PERSONAL_ID_FAILURE,
-  UPDATE_PERSONAL_ID_REQUEST,
-  UPDATE_PERSONAL_ID_SUCCESS,
-} from '../../actionTypes';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
@@ -40,13 +36,13 @@ const updatePersonalIdFactory =
   async (dispatch: Dispatch): Promise<PatchPersonalIdResponse> => {
     try {
       dispatch({
-        type: UPDATE_PERSONAL_ID_REQUEST,
+        type: actionTypes.UPDATE_PERSONAL_ID_REQUEST,
       });
 
       const result = await patchPersonalId(userId, personalId, data, config);
 
       dispatch({
-        type: UPDATE_PERSONAL_ID_SUCCESS,
+        type: actionTypes.UPDATE_PERSONAL_ID_SUCCESS,
         payload: result,
       });
 
@@ -54,7 +50,7 @@ const updatePersonalIdFactory =
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: UPDATE_PERSONAL_ID_FAILURE,
+        type: actionTypes.UPDATE_PERSONAL_ID_FAILURE,
       });
 
       throw error;
