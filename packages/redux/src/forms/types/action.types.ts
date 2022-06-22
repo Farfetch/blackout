@@ -1,10 +1,10 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type {
+  BlackoutError,
   FormSchema,
   SubmitFormSchema,
-} from '@farfetch/blackout-client/forms/types';
+} from '@farfetch/blackout-client';
 
 interface FetchFormSchemaRequestAction extends Action {
   type: typeof actionTypes.FETCH_FORM_SCHEMA_REQUEST;
@@ -56,5 +56,5 @@ export type SubmitFormSchemaAction =
  * Actions dispatched when the reset form schemas action is called.
  */
 export interface ResetFormSchemaStateAction extends Action {
-  type: typeof actionTypes.RESET_SCHEMAS;
+  type: typeof actionTypes.RESET_FORM_SCHEMAS;
 }

@@ -4,7 +4,7 @@ import type { Dispatch } from 'redux';
 import type {
   PostFormSchema,
   SubmitFormSchema,
-} from '@farfetch/blackout-client/src/forms/types';
+} from '@farfetch/blackout-client';
 import type { SubmitFormSchemaAction } from '../../types';
 import type { SubmitFormSchemaFactory } from './types';
 

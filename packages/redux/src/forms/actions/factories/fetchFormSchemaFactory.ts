@@ -3,10 +3,7 @@ import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type { FetchFormSchemaAction } from '../../types';
 import type { FetchFormSchemaFactory } from './types';
-import type {
-  FormSchema,
-  GetFormSchema,
-} from '@farfetch/blackout-client/forms/types';
+import type { FormSchema, GetFormSchema } from '@farfetch/blackout-client';
 
 /**
  * Method to create a thunk factory configured with the specified client fo fetch

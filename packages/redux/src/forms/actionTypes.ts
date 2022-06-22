@@ -31,7 +31,6 @@ export const SUBMIT_FORM_FAILURE =
   '@farfetch/blackout-redux/SUBMIT_FORM_FAILURE';
 
 /**
- * Action type dispatched by [resetFormSchema]\{(\@link
- * module:forms/actions.resetFormSchema)\} thunk.
+ * Action type dispatched by resetFormSchema thunk.
  */
-export const RESET_SCHEMAS = '@farfetch/blackout-redux/RESET_SCHEMAS';
+export const RESET_FORM_SCHEMAS = '@farfetch/blackout-redux/RESET_FORM_SCHEMAS';

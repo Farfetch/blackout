@@ -1,11 +1,11 @@
-import { actionTypes } from '../..';
+import { formsActionTypes } from '../..';
 import {
   formSchemaResponse,
   postFormDataPayload,
 } from 'tests/__fixtures__/forms';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import { postFormData } from '@farfetch/blackout-client/forms';
+import { postFormData } from '@farfetch/blackout-client';
 import { submitFormData } from '..';
 import find from 'lodash/find';
 
@@ -50,7 +50,7 @@ describe('submitFormData() action creator', () => {
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
           expect.objectContaining({
-            type: actionTypes.SUBMIT_FORM_REQUEST,
+            type: formsActionTypes.SUBMIT_FORM_REQUEST,
           }),
         ]),
       );
@@ -82,13 +82,13 @@ describe('submitFormData() action creator', () => {
     expect(store.getActions()).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          type: actionTypes.SUBMIT_FORM_REQUEST,
+          type: formsActionTypes.SUBMIT_FORM_REQUEST,
         }),
       ]),
     );
     expect(
       find(actionResults, {
-        type: actionTypes.SUBMIT_FORM_SUCCESS,
+        type: formsActionTypes.SUBMIT_FORM_SUCCESS,
       }),
     ).toMatchSnapshot('Submit form schemas payload');
   });
