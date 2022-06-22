@@ -18,6 +18,11 @@ export type ProductsColorGroupingState = CombinedState<{
   isLoading: Record<ProductEntity['id'], boolean | undefined>;
 }>;
 
+export type ProductsGroupingState = CombinedState<{
+  error: Record<ProductEntity['id'], BlackoutError | undefined>;
+  isLoading: Record<ProductEntity['id'], boolean | undefined>;
+}>;
+
 export type ProductsDetailsState = CombinedState<{
   error: Record<ProductEntity['id'], BlackoutError | undefined>;
   isHydrated: Record<ProductEntity['id'], boolean | never>;
@@ -75,6 +80,7 @@ export type RecentlyViewedState = CombinedState<{
 export type State = CombinedState<{
   attributes: ProductsAttributesState;
   colorGrouping: ProductsColorGroupingState;
+  grouping: ProductsGroupingState;
   details: ProductsDetailsState;
   fittings: ProductsFittingsState;
   lists: ProductsListsState;
