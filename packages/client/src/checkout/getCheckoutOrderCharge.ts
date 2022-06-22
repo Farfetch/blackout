@@ -11,12 +11,14 @@ import type { GetCheckoutOrderCharge } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getCheckoutOrderCharge: GetCheckoutOrderCharge = (id, chargeId, config) =>
+export const getCheckoutOrderCharge: GetCheckoutOrderCharge = (
+  id,
+  chargeId,
+  config,
+) =>
   client
     .get(join('/checkout/v1/orders', id, 'charges', chargeId), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
-
-export default getCheckoutOrderCharge;

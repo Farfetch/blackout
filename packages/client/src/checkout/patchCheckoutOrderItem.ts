@@ -17,7 +17,7 @@ import type { PatchCheckoutOrderItem } from './types/patchCheckoutOrderItem.type
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const patchCheckoutOrderItem: PatchCheckoutOrderItem = (
+export const patchCheckoutOrderItem: PatchCheckoutOrderItem = (
   checkoutOrderId,
   itemId,
   data,
@@ -33,5 +33,3 @@ const patchCheckoutOrderItem: PatchCheckoutOrderItem = (
     .catch(error => {
       throw adaptError(error);
     });
-
-export default patchCheckoutOrderItem;
