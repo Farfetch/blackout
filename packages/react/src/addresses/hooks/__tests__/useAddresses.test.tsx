@@ -51,12 +51,16 @@ describe('useAddresses', () => {
   afterEach(cleanup);
 
   it('should return values correctly', () => {
+    const auto = true;
+    const addressId = '123456';
+    const isoCode = 'PT';
+    const wrapper = (props: {}) => (
+      <Provider store={mockStore(mockInitialState)} {...props} />
+    );
     const {
       result: { current },
-    } = renderHook(() => useAddresses(true, userId), {
-      wrapper: props => (
-        <Provider store={mockStore(mockInitialState)} {...props} />
-      ),
+    } = renderHook(() => useAddresses({ auto, userId, addressId, isoCode }), {
+      wrapper,
     });
 
     expect(typeof current.deleteAddress).toBe('function');
@@ -68,8 +72,8 @@ describe('useAddresses', () => {
     expect(current.addressesIds).toBeNull();
     expect(current.addressesError).toBeNull();
     expect(current.isAddressesLoading).toBeFalsy();
-    expect(typeof current.addressError).toBe('function');
-    expect(typeof current.isAddressLoading).toBe('function');
+    expect(current.addressError).toBeUndefined();
+    expect(current.isAddressLoading).toBeFalsy();
     expect(current.predictionsError).toBeNull();
     expect(current.isPredictionsLoading).toBeFalsy();
     expect(current.predictionDetailsError).toBeNull();
@@ -78,7 +82,7 @@ describe('useAddresses', () => {
     expect(typeof current.handleGetPredictions).toBe('function');
     expect(typeof current.handleGetPredictionDetails).toBe('function');
     expect(typeof current.resetPredictions).toBe('function');
-    expect(typeof current.addressSchema).toBe('function');
+    expect(current.addressSchema).toBeUndefined();
     expect(current.isAddressSchemaLoading).toBeFalsy();
     expect(current.addressSchemaError).toBeNull();
     expect(typeof current.handleGetAddressSchema).toBe('function');
@@ -110,7 +114,7 @@ describe('useAddresses', () => {
         .withStore(mockInitialState)
         .render();
 
-      expect(fetchAddresses).toHaveBeenCalledTimes(2);
+      expect(fetchAddresses).toHaveBeenCalledTimes(1);
       expect(queryByTestId('addresses-loading')).toBeNull();
       expect(queryByTestId('addresses-error')).toBeNull();
     });
@@ -158,7 +162,7 @@ describe('useAddresses', () => {
 
       fireEvent.click(getByTestId('addresses-getButton'));
 
-      expect(fetchAddresses).toHaveBeenCalledTimes(3);
+      expect(fetchAddresses).toHaveBeenCalledTimes(2);
       expect(queryByTestId('addresses-loading')).toBeNull();
       expect(queryByTestId('addresses-error')).toBeNull();
     });
@@ -221,7 +225,7 @@ describe('useAddresses', () => {
 
         fireEvent.click(getByTestId('addresses-handleGetAddressButton'));
 
-        expect(fetchAddresses).toHaveBeenCalledTimes(3);
+        expect(fetchAddresses).toHaveBeenCalledTimes(2);
       });
     });
 
