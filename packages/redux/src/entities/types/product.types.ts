@@ -16,6 +16,8 @@ import type {
   ProductFitting,
   ProductGroup,
   ProductGroupEntry,
+  ProductGrouping,
+  ProductGroupingEntry,
   ProductSizeGuide,
   ProductSummaryPrice,
   ProductVariant,
@@ -33,9 +35,21 @@ export type ColorGroupingAdapted =
     })
   | undefined;
 
+export type GroupingAdapted =
+  | (Omit<ProductGrouping, 'entries'> & {
+      entries: Array<
+        Omit<ProductGroupingEntry, 'digitalAssets'> & {
+          digitalAssets: ProductImagesAdapted;
+        }
+      >;
+    })
+  | undefined;
+
 export type AdaptColorGrouping = (
   colorGrouping: ProductColorGrouping,
 ) => ColorGroupingAdapted;
+
+export type AdaptGrouping = (grouping: ProductGrouping) => GroupingAdapted;
 
 export type GroupedEntriesAdapted =
   | (Omit<ProductGroup, 'entries'> & {
@@ -142,6 +156,8 @@ export type ProductEntity = {
   //
   // This is only populated after requesting for a product color grouping (`fetchProductColorGrouping`)
   colorGrouping?: ColorGroupingAdapted;
+  // This is only populated after requesting for a product grouping (`fetchProductGrouping`)
+  grouping?: GroupingAdapted;
   customAttributes: CustomAttributesAdapted;
   groupedEntries: GroupedEntriesAdapted;
   images: ProductImagesAdapted;

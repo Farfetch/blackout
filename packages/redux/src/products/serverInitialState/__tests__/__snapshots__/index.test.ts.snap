@@ -88,6 +88,7 @@ Object {
         "colorGrouping": undefined,
         "customAttributes": undefined,
         "groupedEntries": undefined,
+        "grouping": undefined,
         "id": 123,
         "images": undefined,
         "merchant": undefined,
@@ -130,6 +131,7 @@ Object {
         "colorGrouping": undefined,
         "customAttributes": undefined,
         "groupedEntries": undefined,
+        "grouping": undefined,
         "id": 321,
         "images": undefined,
         "merchant": undefined,
@@ -414,6 +416,7 @@ Object {
         "description": "Luxury Italian",
         "gender": 0,
         "groupedEntries": undefined,
+        "grouping": undefined,
         "id": 11766695,
         "images": Array [
           Object {

@@ -13,6 +13,7 @@ import merchant from './merchant';
 import type {
   AdaptColorGrouping,
   AdaptGroupedEntries,
+  AdaptGrouping,
   AdaptPrices,
   AdaptVariants,
 } from '../types';
@@ -21,6 +22,15 @@ const adaptColorGrouping: AdaptColorGrouping = colorGrouping =>
   colorGrouping && {
     ...colorGrouping,
     entries: colorGrouping.entries.map(entry => ({
+      ...entry,
+      digitalAssets: adaptProductImages(entry.digitalAssets),
+    })),
+  };
+
+const adaptGrouping: AdaptGrouping = grouping =>
+  grouping && {
+    ...grouping,
+    entries: grouping.entries.map(entry => ({
       ...entry,
       digitalAssets: adaptProductImages(entry.digitalAssets),
     })),
@@ -51,16 +61,16 @@ export default new schema.Entity(
   {
     processStrategy: value => {
       const {
-        customAttributes,
         colorGrouping,
+        customAttributes,
         discountInclTaxes,
         discountRate,
         formattedPrice,
         formattedPriceWithoutDiscount,
         groupedEntries,
+        grouping,
         imageGroups,
         images,
-        productImgQueryParam,
         merchantId,
         merchantName,
         merchantShoppingUrl,
@@ -71,6 +81,7 @@ export default new schema.Entity(
         prices,
         priceType,
         priceWithoutDiscount,
+        productImgQueryParam,
         promocodeDiscountPercentage,
         promotionPercentage,
         sizes,
@@ -89,6 +100,7 @@ export default new schema.Entity(
 
       return {
         colorGrouping: adaptColorGrouping(colorGrouping),
+        grouping: adaptGrouping(grouping),
         customAttributes: adaptCustomAttributes(customAttributes),
         groupedEntries: adaptGroupedEntries(groupedEntries),
         images: adaptProductImages(imagesToAdapt, {

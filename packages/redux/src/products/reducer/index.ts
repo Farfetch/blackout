@@ -6,6 +6,7 @@ import detailsReducer, {
   entitiesMapper as detailsEntitiesMapper,
 } from './details';
 import fittingsReducer from './fittings';
+import groupingReducer from './grouping';
 import listsReducer, { entitiesMapper as listsEntitiesMapper } from './lists';
 import measurementsReducer, {
   entitiesMapper as measurementsEntitiesMapper,
@@ -24,6 +25,7 @@ export const entitiesMapper = {
 const reducers = combineReducers({
   attributes: attributesReducer,
   colorGrouping: colorGroupingReducer,
+  grouping: groupingReducer,
   details: detailsReducer,
   fittings: fittingsReducer,
   lists: listsReducer,

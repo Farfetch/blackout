@@ -8,6 +8,7 @@ export * from './fetchProductAttributesFactory';
 export * from './fetchProductColorGroupingFactory';
 export * from './fetchProductDetailsFactory';
 export * from './fetchProductFittingsFactory';
+export * from './fetchProductGroupingFactory';
 export * from './fetchProductMeasurementsFactory';
 export * from './fetchProductSizeGuidesFactory';
 export * from './fetchProductSizesFactory';
