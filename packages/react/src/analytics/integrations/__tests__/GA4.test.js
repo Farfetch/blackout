@@ -150,21 +150,6 @@ describe('GA4 Integration', () => {
           );
         }
       });
-
-      it('Should throw if custom script did not instantiate gtag properly', () => {
-        const options = {
-          ...validOptions,
-          [OPTION_LOAD_SCRIPT_FUNCTION]: () => Promise.resolve(),
-        };
-
-        try {
-          ga4Instance = createGA4Instance(options);
-        } catch (e) {
-          expect(e.message).toContain(
-            `${MESSAGE_PREFIX}${INIT_ERROR}Custom load script function finished but 'window.gtag' is not defined.`,
-          );
-        }
-      });
     });
 
     it('Should throw when tracking event if gtag is not defined', async () => {
