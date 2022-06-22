@@ -41,4 +41,4 @@ export type CommercePages = {
 export type GetCommercePages = (
   query: QueryCommercePages,
   config?: Config,
-) => Promise<CommercePagesContent>;
+) => Promise<CommercePages>;
