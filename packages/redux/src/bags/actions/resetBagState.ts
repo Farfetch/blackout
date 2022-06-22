@@ -1,4 +1,4 @@
-import { RESET_BAG_STATE } from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 import type { Dispatch } from 'redux';
 import type { ResetBagStateAction } from '../types';
 
@@ -111,7 +111,7 @@ const resetBagState =
   (dispatch: Dispatch<ResetBagStateAction>): void => {
     dispatch({
       payload: { fieldsToReset },
-      type: RESET_BAG_STATE,
+      type: actionTypes.RESET_BAG_STATE,
     });
   };
 

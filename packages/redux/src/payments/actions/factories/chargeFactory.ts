@@ -1,8 +1,4 @@
-import {
-  CHARGE_FAILURE,
-  CHARGE_REQUEST,
-  CHARGE_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { ChargesAction } from '../../types';
 import type { Config } from '@farfetch/blackout-client/types';
@@ -36,7 +32,7 @@ const postChargesFactory =
   async (dispatch: Dispatch<ChargesAction>): Promise<PostChargesResponse> => {
     try {
       dispatch({
-        type: CHARGE_REQUEST,
+        type: actionTypes.CHARGE_REQUEST,
       });
 
       const result = await postCharges(id, data, config);
@@ -46,14 +42,14 @@ const postChargesFactory =
       dispatch({
         payload: result.data,
         meta: { chargeId },
-        type: CHARGE_SUCCESS,
+        type: actionTypes.CHARGE_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: CHARGE_FAILURE,
+        type: actionTypes.CHARGE_FAILURE,
       });
 
       throw error;

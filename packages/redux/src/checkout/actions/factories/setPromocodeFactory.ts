@@ -1,9 +1,5 @@
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
-import {
-  SET_PROMOCODE_FAILURE,
-  SET_PROMOCODE_REQUEST,
-  SET_PROMOCODE_SUCCESS,
-} from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import checkoutSchema from '../../../entities/schemas/checkout';
 import type { Config } from '@farfetch/blackout-client/types';
@@ -35,21 +31,21 @@ const setPromocodeFactory =
   async (dispatch: Dispatch): Promise<GetCheckoutResponse> => {
     try {
       dispatch({
-        type: SET_PROMOCODE_REQUEST,
+        type: actionTypes.SET_PROMOCODE_REQUEST,
       });
 
       const result = await putPromocode(id, data, config);
 
       dispatch({
         payload: normalize(result, checkoutSchema),
-        type: SET_PROMOCODE_SUCCESS,
+        type: actionTypes.SET_PROMOCODE_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: SET_PROMOCODE_FAILURE,
+        type: actionTypes.SET_PROMOCODE_FAILURE,
       });
 
       throw error;

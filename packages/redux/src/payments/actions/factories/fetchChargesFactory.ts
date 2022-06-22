@@ -1,8 +1,4 @@
-import {
-  FETCH_CHARGES_FAILURE,
-  FETCH_CHARGES_REQUEST,
-  FETCH_CHARGES_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type {
   Charge,
@@ -34,7 +30,7 @@ const fetchChargesFactory =
   async (dispatch: Dispatch<FetchChargesAction>): Promise<Charge> => {
     try {
       dispatch({
-        type: FETCH_CHARGES_REQUEST,
+        type: actionTypes.FETCH_CHARGES_REQUEST,
       });
 
       const result = await getCharges(intentId, chargeId, config);
@@ -42,14 +38,14 @@ const fetchChargesFactory =
       dispatch({
         payload: result,
         meta: { chargeId },
-        type: FETCH_CHARGES_SUCCESS,
+        type: actionTypes.FETCH_CHARGES_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_CHARGES_FAILURE,
+        type: actionTypes.FETCH_CHARGES_FAILURE,
       });
 
       throw error;

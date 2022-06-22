@@ -1,8 +1,4 @@
-import {
-  REMOVE_USER_ATTRIBUTE_FAILURE,
-  REMOVE_USER_ATTRIBUTE_REQUEST,
-  REMOVE_USER_ATTRIBUTE_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { DeleteUserAttribute } from '@farfetch/blackout-client/users/types';
 import type { Dispatch } from 'redux';
@@ -28,13 +24,13 @@ const removeUserAttributeFactory =
   async (dispatch: Dispatch): Promise<number> => {
     try {
       dispatch({
-        type: REMOVE_USER_ATTRIBUTE_REQUEST,
+        type: actionTypes.REMOVE_USER_ATTRIBUTE_REQUEST,
       });
 
       const result = await deleteUserAttribute(userId, attributeId, config);
 
       dispatch({
-        type: REMOVE_USER_ATTRIBUTE_SUCCESS,
+        type: actionTypes.REMOVE_USER_ATTRIBUTE_SUCCESS,
         payload: result,
       });
 
@@ -42,7 +38,7 @@ const removeUserAttributeFactory =
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: REMOVE_USER_ATTRIBUTE_FAILURE,
+        type: actionTypes.REMOVE_USER_ATTRIBUTE_FAILURE,
       });
 
       throw error;

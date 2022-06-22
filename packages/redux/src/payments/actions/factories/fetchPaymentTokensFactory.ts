@@ -1,8 +1,4 @@
-import {
-  FETCH_PAYMENT_TOKENS_FAILURE,
-  FETCH_PAYMENT_TOKENS_REQUEST,
-  FETCH_PAYMENT_TOKENS_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import paymentTokenSchema from '../../../entities/schemas/paymentToken';
@@ -38,21 +34,21 @@ const fetchPaymentTokensFactory =
   ): Promise<PaymentTokens> => {
     try {
       dispatch({
-        type: FETCH_PAYMENT_TOKENS_REQUEST,
+        type: actionTypes.FETCH_PAYMENT_TOKENS_REQUEST,
       });
 
       const result = await getPaymentTokens(query, config);
 
       dispatch({
         payload: normalize(result, [paymentTokenSchema]),
-        type: FETCH_PAYMENT_TOKENS_SUCCESS,
+        type: actionTypes.FETCH_PAYMENT_TOKENS_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_PAYMENT_TOKENS_FAILURE,
+        type: actionTypes.FETCH_PAYMENT_TOKENS_FAILURE,
       });
 
       throw error;

@@ -1,8 +1,4 @@
-import {
-  FETCH_ORDERS_FAILURE,
-  FETCH_ORDERS_REQUEST,
-  FETCH_ORDERS_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import order from '../../../entities/schemas/order';
@@ -35,7 +31,7 @@ const fetchOrders =
   async (dispatch: Dispatch): Promise<OrderSummary> => {
     try {
       dispatch({
-        type: FETCH_ORDERS_REQUEST,
+        type: actionTypes.FETCH_ORDERS_REQUEST,
       });
 
       const result = await getOrders(userId, query, config);
@@ -45,14 +41,14 @@ const fetchOrders =
 
       dispatch({
         payload: normalizedOrders,
-        type: FETCH_ORDERS_SUCCESS,
+        type: actionTypes.FETCH_ORDERS_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_ORDERS_FAILURE,
+        type: actionTypes.FETCH_ORDERS_FAILURE,
       });
 
       throw error;

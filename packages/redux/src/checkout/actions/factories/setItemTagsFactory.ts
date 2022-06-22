@@ -1,9 +1,5 @@
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
-import {
-  SET_ITEM_TAGS_FAILURE,
-  SET_ITEM_TAGS_REQUEST,
-  SET_ITEM_TAGS_SUCCESS,
-} from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import checkoutSchema from '../../../entities/schemas/checkout';
 import type { Config } from '@farfetch/blackout-client/types';
@@ -35,21 +31,21 @@ const setItemTagsFactory =
   async (dispatch: Dispatch): Promise<GetCheckoutResponse> => {
     try {
       dispatch({
-        type: SET_ITEM_TAGS_REQUEST,
+        type: actionTypes.SET_ITEM_TAGS_REQUEST,
       });
 
       const result = await putItemTags(id, itemId, data, config);
 
       dispatch({
         payload: normalize(result, checkoutSchema),
-        type: SET_ITEM_TAGS_SUCCESS,
+        type: actionTypes.SET_ITEM_TAGS_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: SET_ITEM_TAGS_FAILURE,
+        type: actionTypes.SET_ITEM_TAGS_FAILURE,
       });
 
       throw error;

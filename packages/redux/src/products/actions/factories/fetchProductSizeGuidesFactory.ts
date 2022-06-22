@@ -1,8 +1,4 @@
-import {
-  FETCH_PRODUCT_SIZEGUIDES_FAILURE,
-  FETCH_PRODUCT_SIZEGUIDES_REQUEST,
-  FETCH_PRODUCT_SIZEGUIDES_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import productSchema from '../../../entities/schemas/product';
@@ -37,7 +33,7 @@ export const fetchProductSizeGuidesFactory =
     try {
       dispatch({
         meta: { productId },
-        type: FETCH_PRODUCT_SIZEGUIDES_REQUEST,
+        type: actionTypes.FETCH_PRODUCT_SIZEGUIDES_REQUEST,
       });
 
       const result = await getProductSizeGuides(productId, config);
@@ -50,7 +46,7 @@ export const fetchProductSizeGuidesFactory =
       dispatch({
         meta: { productId },
         payload: normalize(productWithSizeGuide, productSchema),
-        type: FETCH_PRODUCT_SIZEGUIDES_SUCCESS,
+        type: actionTypes.FETCH_PRODUCT_SIZEGUIDES_SUCCESS,
       });
 
       return result;
@@ -58,7 +54,7 @@ export const fetchProductSizeGuidesFactory =
       dispatch({
         meta: { productId },
         payload: { error: toError(error) },
-        type: FETCH_PRODUCT_SIZEGUIDES_FAILURE,
+        type: actionTypes.FETCH_PRODUCT_SIZEGUIDES_FAILURE,
       });
 
       throw error;

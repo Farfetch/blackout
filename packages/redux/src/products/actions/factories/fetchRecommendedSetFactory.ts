@@ -1,8 +1,4 @@
-import {
-  FETCH_RECOMMENDED_SET_FAILURE,
-  FETCH_RECOMMENDED_SET_REQUEST,
-  FETCH_RECOMMENDED_SET_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type { FetchRecommendedSetAction } from '../../types';
@@ -35,7 +31,7 @@ export const fetchRecommendedSetFactory =
     try {
       dispatch({
         meta: { recommendedSetId },
-        type: FETCH_RECOMMENDED_SET_REQUEST,
+        type: actionTypes.FETCH_RECOMMENDED_SET_REQUEST,
       });
 
       const result = await getRecommendedSet(recommendedSetId, config);
@@ -43,7 +39,7 @@ export const fetchRecommendedSetFactory =
       dispatch({
         meta: { recommendedSetId },
         payload: { result },
-        type: FETCH_RECOMMENDED_SET_SUCCESS,
+        type: actionTypes.FETCH_RECOMMENDED_SET_SUCCESS,
       });
 
       return result;
@@ -51,7 +47,7 @@ export const fetchRecommendedSetFactory =
       dispatch({
         meta: { recommendedSetId },
         payload: { error: toError(error) },
-        type: FETCH_RECOMMENDED_SET_FAILURE,
+        type: actionTypes.FETCH_RECOMMENDED_SET_FAILURE,
       });
 
       throw error;

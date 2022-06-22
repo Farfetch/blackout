@@ -1,10 +1,6 @@
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import {
-  UPDATE_CHECKOUT_FAILURE,
-  UPDATE_CHECKOUT_REQUEST,
-  UPDATE_CHECKOUT_SUCCESS,
-} from '../../actionTypes';
 import checkoutSchema from '../../../entities/schemas/checkout';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -46,21 +42,21 @@ const updateCheckoutFactory =
   async (dispatch: Dispatch): Promise<GetCheckoutResponse> => {
     try {
       dispatch({
-        type: UPDATE_CHECKOUT_REQUEST,
+        type: actionTypes.UPDATE_CHECKOUT_REQUEST,
       });
 
       const result = await patchCheckout(id, data, config);
 
       dispatch({
         payload: normalize(result, checkoutSchema),
-        type: UPDATE_CHECKOUT_SUCCESS,
+        type: actionTypes.UPDATE_CHECKOUT_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: UPDATE_CHECKOUT_FAILURE,
+        type: actionTypes.UPDATE_CHECKOUT_FAILURE,
       });
 
       throw error;

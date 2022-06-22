@@ -1,8 +1,4 @@
-import {
-  SET_DEFAULT_CONTACT_ADDRESS_FAILURE,
-  SET_DEFAULT_CONTACT_ADDRESS_REQUEST,
-  SET_DEFAULT_CONTACT_ADDRESS_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type {
   Address,
@@ -35,14 +31,14 @@ const setDefaultContactAddressFactory =
     try {
       dispatch({
         meta: { addressId },
-        type: SET_DEFAULT_CONTACT_ADDRESS_REQUEST,
+        type: actionTypes.SET_DEFAULT_CONTACT_ADDRESS_REQUEST,
       });
 
       const result = await putDefaultContactAddress(userId, addressId, config);
 
       dispatch({
         meta: { addressId },
-        type: SET_DEFAULT_CONTACT_ADDRESS_SUCCESS,
+        type: actionTypes.SET_DEFAULT_CONTACT_ADDRESS_SUCCESS,
       });
 
       return result;
@@ -50,7 +46,7 @@ const setDefaultContactAddressFactory =
       dispatch({
         meta: { addressId },
         payload: { error: toError(error) },
-        type: SET_DEFAULT_CONTACT_ADDRESS_FAILURE,
+        type: actionTypes.SET_DEFAULT_CONTACT_ADDRESS_FAILURE,
       });
 
       throw error;

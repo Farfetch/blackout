@@ -1,4 +1,4 @@
-import { RESET_USER_STATE } from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 import type { Dispatch } from 'redux';
 import type { ResetUserStateAction } from '../types';
 
@@ -111,7 +111,7 @@ const resetUserState =
   (dispatch: Dispatch<ResetUserStateAction>): void => {
     dispatch({
       payload: { fieldsToReset },
-      type: RESET_USER_STATE,
+      type: actionTypes.RESET_USER_STATE,
     });
   };
 

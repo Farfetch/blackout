@@ -1,8 +1,4 @@
-import {
-  FETCH_BAG_FAILURE,
-  FETCH_BAG_REQUEST,
-  FETCH_BAG_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import bagItemSchema from '../../../entities/schemas/bagItem';
@@ -37,7 +33,7 @@ const fetchBagFactory =
   ): Promise<Bag> => {
     try {
       dispatch({
-        type: FETCH_BAG_REQUEST,
+        type: actionTypes.FETCH_BAG_REQUEST,
       });
       const result = await getBag(bagId, query, config);
       const { productImgQueryParam } = getOptions(getState);
@@ -52,14 +48,14 @@ const fetchBagFactory =
 
       dispatch({
         payload: normalizedBag,
-        type: FETCH_BAG_SUCCESS,
+        type: actionTypes.FETCH_BAG_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_BAG_FAILURE,
+        type: actionTypes.FETCH_BAG_FAILURE,
       });
 
       throw error;

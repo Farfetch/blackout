@@ -1,8 +1,4 @@
-import {
-  FETCH_PERSONAL_IDS_FAILURE,
-  FETCH_PERSONAL_IDS_REQUEST,
-  FETCH_PERSONAL_IDS_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -31,21 +27,21 @@ const fetchPersonalIdsFactory =
   async (dispatch: Dispatch): Promise<PersonalIdsResponse> => {
     try {
       dispatch({
-        type: FETCH_PERSONAL_IDS_REQUEST,
+        type: actionTypes.FETCH_PERSONAL_IDS_REQUEST,
       });
 
       const result = await getPersonalIds(id, config);
 
       dispatch({
         payload: result,
-        type: FETCH_PERSONAL_IDS_SUCCESS,
+        type: actionTypes.FETCH_PERSONAL_IDS_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_PERSONAL_IDS_FAILURE,
+        type: actionTypes.FETCH_PERSONAL_IDS_FAILURE,
       });
 
       throw error;

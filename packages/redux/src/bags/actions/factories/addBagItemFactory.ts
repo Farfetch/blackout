@@ -1,8 +1,4 @@
-import {
-  ADD_BAG_ITEM_FAILURE,
-  ADD_BAG_ITEM_REQUEST,
-  ADD_BAG_ITEM_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { getBagId } from '../../selectors';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
@@ -52,7 +48,7 @@ const addBagItemFactory =
       }
 
       dispatch({
-        type: ADD_BAG_ITEM_REQUEST,
+        type: actionTypes.ADD_BAG_ITEM_REQUEST,
         meta: {
           ...data,
           bagId,
@@ -71,7 +67,7 @@ const addBagItemFactory =
 
       dispatch({
         payload: normalizedBag,
-        type: ADD_BAG_ITEM_SUCCESS,
+        type: actionTypes.ADD_BAG_ITEM_SUCCESS,
         meta: {
           ...data,
           bagId,
@@ -82,7 +78,7 @@ const addBagItemFactory =
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: ADD_BAG_ITEM_FAILURE,
+        type: actionTypes.ADD_BAG_ITEM_FAILURE,
         meta: {
           ...data,
           bagId,

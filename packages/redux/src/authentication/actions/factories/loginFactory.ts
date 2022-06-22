@@ -1,4 +1,4 @@
-import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS } from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { loginMethodParameterTypes } from '@farfetch/blackout-analytics';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
@@ -29,7 +29,7 @@ export default (postLogin: PostLogin) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({
-        type: LOGIN_REQUEST,
+        type: actionTypes.LOGIN_REQUEST,
       });
       const result = await postLogin(data, config);
       const isUnverifiedUser = result.status === UNVERIFIED_USER && !result.id;
@@ -42,7 +42,7 @@ export default (postLogin: PostLogin) =>
 
       dispatch({
         payload: userEntity,
-        type: LOGIN_SUCCESS,
+        type: actionTypes.LOGIN_SUCCESS,
         meta: { isLoginAction: true, method: loginMethodParameterTypes.TENANT },
       });
 
@@ -50,7 +50,7 @@ export default (postLogin: PostLogin) =>
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: LOGIN_FAILURE,
+        type: actionTypes.LOGIN_FAILURE,
       });
 
       throw error;

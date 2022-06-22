@@ -1,10 +1,6 @@
+import * as actionTypes from '../../actionTypes';
 import { adaptTimestamp } from '@farfetch/blackout-client/helpers/adapters';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import {
-  UPDATE_RETURN_FAILURE,
-  UPDATE_RETURN_REQUEST,
-  UPDATE_RETURN_SUCCESS,
-} from '../../actionTypes';
 import type { Dispatch } from 'redux';
 import type {
   PatchReturn,
@@ -40,7 +36,7 @@ const updateReturnFactory =
   async (dispatch: Dispatch): Promise<Return> => {
     try {
       dispatch({
-        type: UPDATE_RETURN_REQUEST,
+        type: actionTypes.UPDATE_RETURN_REQUEST,
       });
 
       const adaptedData = {
@@ -51,13 +47,13 @@ const updateReturnFactory =
       const result = await patchReturn(id, adaptedData, query, config);
 
       dispatch({
-        type: UPDATE_RETURN_SUCCESS,
+        type: actionTypes.UPDATE_RETURN_SUCCESS,
       });
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: UPDATE_RETURN_FAILURE,
+        type: actionTypes.UPDATE_RETURN_FAILURE,
       });
 
       throw error;

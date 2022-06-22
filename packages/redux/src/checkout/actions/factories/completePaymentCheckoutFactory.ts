@@ -1,9 +1,5 @@
+import * as actionTypes from '../../actionTypes';
 import { adaptDate } from '@farfetch/blackout-client/helpers/adapters';
-import {
-  COMPLETE_PAYMENT_CHECKOUT_FAILURE,
-  COMPLETE_PAYMENT_CHECKOUT_REQUEST,
-  COMPLETE_PAYMENT_CHECKOUT_SUCCESS,
-} from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -33,7 +29,7 @@ export default (patchCheckoutCompletePayment: PatchCheckoutCompletePayment) =>
   async (dispatch: Dispatch): Promise<PatchCheckoutCompletePaymentResponse> => {
     try {
       dispatch({
-        type: COMPLETE_PAYMENT_CHECKOUT_REQUEST,
+        type: actionTypes.COMPLETE_PAYMENT_CHECKOUT_REQUEST,
       });
 
       const result = await patchCheckoutCompletePayment(id, data, config);
@@ -46,14 +42,14 @@ export default (patchCheckoutCompletePayment: PatchCheckoutCompletePayment) =>
             createdDate: result.createdDate && adaptDate(result.createdDate),
           },
         },
-        type: COMPLETE_PAYMENT_CHECKOUT_SUCCESS,
+        type: actionTypes.COMPLETE_PAYMENT_CHECKOUT_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: COMPLETE_PAYMENT_CHECKOUT_FAILURE,
+        type: actionTypes.COMPLETE_PAYMENT_CHECKOUT_FAILURE,
       });
 
       throw error;

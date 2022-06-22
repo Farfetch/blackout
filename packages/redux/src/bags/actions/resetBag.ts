@@ -1,4 +1,4 @@
-import { RESET_BAG_ENTITIES } from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 import resetBagState from './resetBagState';
 import type { Dispatch } from 'redux';
 import type { ResetBagAction, ResetBagEntitiesAction } from '../types';
@@ -25,7 +25,7 @@ import type { ThunkDispatch } from 'redux-thunk';
  */
 const resetEntities = () => (dispatch: Dispatch<ResetBagEntitiesAction>) => {
   dispatch({
-    type: RESET_BAG_ENTITIES,
+    type: actionTypes.RESET_BAG_ENTITIES,
   });
 };
 

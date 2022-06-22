@@ -1,8 +1,4 @@
-import {
-  CREATE_PROGRAM_MEMBERSHIP_CONVERT_FAILURE,
-  CREATE_PROGRAM_MEMBERSHIP_CONVERT_REQUEST,
-  CREATE_PROGRAM_MEMBERSHIP_CONVERT_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import convertSchema from '../../../entities/schemas/convert';
@@ -44,7 +40,7 @@ const createProgramMembershipConvertFactory =
   ): Promise<ProgramMembershipConvert> => {
     try {
       dispatch({
-        type: CREATE_PROGRAM_MEMBERSHIP_CONVERT_REQUEST,
+        type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_CONVERT_REQUEST,
       });
 
       const result = await postProgramMembershipConvert(
@@ -55,14 +51,14 @@ const createProgramMembershipConvertFactory =
 
       dispatch({
         payload: normalize(result, convertSchema),
-        type: CREATE_PROGRAM_MEMBERSHIP_CONVERT_SUCCESS,
+        type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_CONVERT_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: CREATE_PROGRAM_MEMBERSHIP_CONVERT_FAILURE,
+        type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_CONVERT_FAILURE,
       });
 
       throw error;

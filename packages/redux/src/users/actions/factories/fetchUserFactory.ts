@@ -1,8 +1,4 @@
-import {
-  FETCH_USER_FAILURE,
-  FETCH_USER_REQUEST,
-  FETCH_USER_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
@@ -26,7 +22,7 @@ import type { GetUser } from '@farfetch/blackout-client/users/types';
 const fetchUserFactory =
   (getUser: GetUser) => (config?: Config) => async (dispatch: Dispatch) => {
     dispatch({
-      type: FETCH_USER_REQUEST,
+      type: actionTypes.FETCH_USER_REQUEST,
     });
 
     try {
@@ -38,7 +34,7 @@ const fetchUserFactory =
 
       dispatch({
         payload: userEntity,
-        type: FETCH_USER_SUCCESS,
+        type: actionTypes.FETCH_USER_SUCCESS,
         meta: config,
       });
 
@@ -46,7 +42,7 @@ const fetchUserFactory =
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_USER_FAILURE,
+        type: actionTypes.FETCH_USER_FAILURE,
       });
 
       throw error;

@@ -1,10 +1,10 @@
-import { RESET_CHARGES_STATE } from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 
 /**
  * Reset the charges state.
  */
 export default () => (dispatch: any) => {
   dispatch({
-    type: RESET_CHARGES_STATE,
+    type: actionTypes.RESET_CHARGES_STATE,
   });
 };

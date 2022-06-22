@@ -1,8 +1,4 @@
-import {
-  REMOVE_INSTRUMENT_FAILURE,
-  REMOVE_INSTRUMENT_REQUEST,
-  REMOVE_INSTRUMENT_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type {
@@ -34,21 +30,21 @@ const removeInstrumentFactory =
   async (dispatch: Dispatch<RemoveInstrumentAction>): Promise<void> => {
     try {
       dispatch({
-        type: REMOVE_INSTRUMENT_REQUEST,
+        type: actionTypes.REMOVE_INSTRUMENT_REQUEST,
       });
 
       const result = await deleteInstrument(intentId, instrumentId, config);
 
       dispatch({
         meta: { instrumentId },
-        type: REMOVE_INSTRUMENT_SUCCESS,
+        type: actionTypes.REMOVE_INSTRUMENT_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: REMOVE_INSTRUMENT_FAILURE,
+        type: actionTypes.REMOVE_INSTRUMENT_FAILURE,
       });
 
       throw error;

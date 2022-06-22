@@ -1,8 +1,4 @@
-import {
-  DELETE_USER_IMPERSONATION_FAILURE,
-  DELETE_USER_IMPERSONATION_REQUEST,
-  DELETE_USER_IMPERSONATION_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { DeleteUserImpersonation } from '@farfetch/blackout-client/authentication/types';
@@ -27,7 +23,7 @@ export default (deleteUserImpersonation: DeleteUserImpersonation) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({
-        type: DELETE_USER_IMPERSONATION_REQUEST,
+        type: actionTypes.DELETE_USER_IMPERSONATION_REQUEST,
       });
       const result = await deleteUserImpersonation(
         impersonatedAccessTokenId,
@@ -36,14 +32,14 @@ export default (deleteUserImpersonation: DeleteUserImpersonation) =>
 
       dispatch({
         meta: { impersonatedAccessTokenId },
-        type: DELETE_USER_IMPERSONATION_SUCCESS,
+        type: actionTypes.DELETE_USER_IMPERSONATION_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: DELETE_USER_IMPERSONATION_FAILURE,
+        type: actionTypes.DELETE_USER_IMPERSONATION_FAILURE,
       });
 
       throw error;

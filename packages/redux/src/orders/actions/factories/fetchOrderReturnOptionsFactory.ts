@@ -1,8 +1,4 @@
-import {
-  FETCH_ORDER_RETURN_OPTIONS_FAILURE,
-  FETCH_ORDER_RETURN_OPTIONS_REQUEST,
-  FETCH_ORDER_RETURN_OPTIONS_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import returnOption from '../../../entities/schemas/returnOption';
@@ -34,7 +30,7 @@ const fetchOrderReturnOptions =
     try {
       dispatch({
         meta: { orderId },
-        type: FETCH_ORDER_RETURN_OPTIONS_REQUEST,
+        type: actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST,
       });
 
       const result = await getOrderReturnOptions(orderId, config);
@@ -42,7 +38,7 @@ const fetchOrderReturnOptions =
       dispatch({
         meta: { orderId },
         payload: normalize(result, [{ options: [returnOption] }]),
-        type: FETCH_ORDER_RETURN_OPTIONS_SUCCESS,
+        type: actionTypes.FETCH_ORDER_RETURN_OPTIONS_SUCCESS,
       });
 
       return result;
@@ -50,7 +46,7 @@ const fetchOrderReturnOptions =
       dispatch({
         meta: { orderId },
         payload: { error: toError(error) },
-        type: FETCH_ORDER_RETURN_OPTIONS_FAILURE,
+        type: actionTypes.FETCH_ORDER_RETURN_OPTIONS_FAILURE,
       });
 
       throw error;

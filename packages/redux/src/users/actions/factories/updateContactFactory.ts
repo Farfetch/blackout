@@ -1,9 +1,5 @@
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import {
-  UPDATE_CONTACT_FAILURE,
-  UPDATE_CONTACT_REQUEST,
-  UPDATE_CONTACT_SUCCESS,
-} from '../../actionTypes';
 import type { Dispatch } from 'redux';
 import type {
   PatchContact,
@@ -42,20 +38,20 @@ const updateContactFactory =
   async (dispatch: Dispatch) => {
     try {
       dispatch({
-        type: UPDATE_CONTACT_REQUEST,
+        type: actionTypes.UPDATE_CONTACT_REQUEST,
       });
 
       const result = await patchContact(id, contactId, data, query, config);
 
       dispatch({
-        type: UPDATE_CONTACT_SUCCESS,
+        type: actionTypes.UPDATE_CONTACT_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: UPDATE_CONTACT_FAILURE,
+        type: actionTypes.UPDATE_CONTACT_FAILURE,
       });
 
       throw error;

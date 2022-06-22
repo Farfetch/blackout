@@ -1,8 +1,4 @@
-import {
-  CREATE_CONTACT_FAILURE,
-  CREATE_CONTACT_REQUEST,
-  CREATE_CONTACT_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import contactsSchema from '../../../entities/schemas/contact';
@@ -40,13 +36,13 @@ const createContactFactory =
   async (dispatch: Dispatch) => {
     try {
       dispatch({
-        type: CREATE_CONTACT_REQUEST,
+        type: actionTypes.CREATE_CONTACT_REQUEST,
       });
 
       const result = await postContact(id, data, query, config);
 
       dispatch({
-        type: CREATE_CONTACT_SUCCESS,
+        type: actionTypes.CREATE_CONTACT_SUCCESS,
         payload: normalize(result, contactsSchema),
       });
 
@@ -54,7 +50,7 @@ const createContactFactory =
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: CREATE_CONTACT_FAILURE,
+        type: actionTypes.CREATE_CONTACT_FAILURE,
       });
 
       throw error;

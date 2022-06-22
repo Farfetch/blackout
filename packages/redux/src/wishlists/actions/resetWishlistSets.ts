@@ -1,4 +1,4 @@
-import { RESET_WISHLIST_SETS_ENTITIES } from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 import resetWishlistSetsState from './resetWishlistSetsState';
 import type { Dispatch } from 'redux';
 import type {
@@ -16,7 +16,7 @@ import type { ThunkDispatch } from 'redux-thunk';
 const resetEntities =
   () => (dispatch: Dispatch<ResetWishlistSetsEntitiesAction>) => {
     dispatch({
-      type: RESET_WISHLIST_SETS_ENTITIES,
+      type: actionTypes.RESET_WISHLIST_SETS_ENTITIES,
     });
   };
 

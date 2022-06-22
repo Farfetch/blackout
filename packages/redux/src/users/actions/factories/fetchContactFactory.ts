@@ -1,8 +1,4 @@
-import {
-  FETCH_CONTACT_FAILURE,
-  FETCH_CONTACT_REQUEST,
-  FETCH_CONTACT_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import contactsSchema from '../../../entities/schemas/contact';
@@ -35,21 +31,21 @@ const fetchContactFactory =
   async (dispatch: Dispatch) => {
     try {
       dispatch({
-        type: FETCH_CONTACT_REQUEST,
+        type: actionTypes.FETCH_CONTACT_REQUEST,
       });
 
       const result = await getContact(id, contactId, query, config);
 
       dispatch({
         payload: normalize(result, contactsSchema),
-        type: FETCH_CONTACT_SUCCESS,
+        type: actionTypes.FETCH_CONTACT_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: FETCH_CONTACT_FAILURE,
+        type: actionTypes.FETCH_CONTACT_FAILURE,
       });
 
       throw error;

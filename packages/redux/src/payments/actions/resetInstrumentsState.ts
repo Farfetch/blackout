@@ -1,4 +1,4 @@
-import { RESET_INSTRUMENTS_STATE } from '../actionTypes';
+import * as actionTypes from '../actionTypes';
 import type { Dispatch } from 'redux';
 import type { ResetInstrumentsAction } from '../types';
 
@@ -9,7 +9,7 @@ const resetInstrumentsState =
   () =>
   (dispatch: Dispatch<ResetInstrumentsAction>): void => {
     dispatch({
-      type: RESET_INSTRUMENTS_STATE,
+      type: actionTypes.RESET_INSTRUMENTS_STATE,
     });
   };
 

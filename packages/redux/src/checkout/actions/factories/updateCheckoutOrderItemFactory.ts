@@ -1,8 +1,4 @@
-import {
-  UPDATE_CHECKOUT_ORDER_ITEM_FAILURE,
-  UPDATE_CHECKOUT_ORDER_ITEM_REQUEST,
-  UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import type {
   CheckoutOrderItemUpdateRequest,
   PatchCheckoutOrderItem,
@@ -35,7 +31,7 @@ const updateCheckoutOrderItemFactory =
   ) =>
   async (dispatch: Dispatch): Promise<number> => {
     dispatch({
-      type: UPDATE_CHECKOUT_ORDER_ITEM_REQUEST,
+      type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_REQUEST,
     });
 
     try {
@@ -47,14 +43,14 @@ const updateCheckoutOrderItemFactory =
       );
 
       dispatch({
-        type: UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS,
+        type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error },
-        type: UPDATE_CHECKOUT_ORDER_ITEM_FAILURE,
+        type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_FAILURE,
       });
 
       throw error;

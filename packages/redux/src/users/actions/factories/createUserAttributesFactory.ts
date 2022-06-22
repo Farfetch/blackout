@@ -1,8 +1,4 @@
-import {
-  CREATE_USER_ATTRIBUTES_FAILURE,
-  CREATE_USER_ATTRIBUTES_REQUEST,
-  CREATE_USER_ATTRIBUTES_SUCCESS,
-} from '../../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Dispatch } from 'redux';
 import type {
@@ -36,13 +32,13 @@ const createUserAttributesFactory =
   async (dispatch: Dispatch): Promise<UserAttributesResponse> => {
     try {
       dispatch({
-        type: CREATE_USER_ATTRIBUTES_REQUEST,
+        type: actionTypes.CREATE_USER_ATTRIBUTES_REQUEST,
       });
 
       const result = await postUserAttributes(userId, data, config);
 
       dispatch({
-        type: CREATE_USER_ATTRIBUTES_SUCCESS,
+        type: actionTypes.CREATE_USER_ATTRIBUTES_SUCCESS,
         payload: result,
       });
 
@@ -50,7 +46,7 @@ const createUserAttributesFactory =
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },
-        type: CREATE_USER_ATTRIBUTES_FAILURE,
+        type: actionTypes.CREATE_USER_ATTRIBUTES_FAILURE,
       });
 
       throw error;

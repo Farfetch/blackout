@@ -1,6 +1,6 @@
+import * as actionTypes from '../actionTypes';
 import { fetchWishlistSets } from '../actions';
 import { getUser, getUserIsGuest } from '../../entities/selectors';
-import { REMOVE_WISHLIST_ITEM_SUCCESS } from '../actionTypes';
 import type {
   FetchWishlistSetsAction,
   RemoveWishlistItemAction,
@@ -27,7 +27,7 @@ const updateWishlistSetsUponItemDeletion: Middleware =
   ({ dispatch, getState }: UpdateWishlistSetsUponItemDeletionParams) =>
   next =>
   (action: RemoveWishlistItemAction) => {
-    if (action.type === REMOVE_WISHLIST_ITEM_SUCCESS) {
+    if (action.type === actionTypes.REMOVE_WISHLIST_ITEM_SUCCESS) {
       const user = getUser(getState());
       const isGuestUser = getUserIsGuest(user);
 
