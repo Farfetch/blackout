@@ -6,9 +6,13 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk to dispatch reset schemas.
  */
-export default () =>
+
+const resetFormSchema =
+  () =>
   (dispatch: Dispatch): void => {
     dispatch({
-      type: actionTypes.RESET_SCHEMAS,
+      type: actionTypes.RESET_FORM_SCHEMAS,
     });
   };
+
+export default resetFormSchema;

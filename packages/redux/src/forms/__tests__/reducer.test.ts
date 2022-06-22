@@ -1,8 +1,8 @@
 import * as fromReducer from '../reducer';
-import reducer, { actionTypes } from '..';
-import type { State } from '../types';
+import { formsActionTypes, formsReducer } from '..';
+import type { FormsState } from '../types';
 
-let initialState: State;
+let initialState: FormsState;
 const randomAction = { type: 'this_is_a_random_action' };
 
 describe('forms redux reducer', () => {
@@ -13,8 +13,8 @@ describe('forms redux reducer', () => {
   describe('reset handling', () => {
     it('should return the initial state', () => {
       expect(
-        reducer(undefined, {
-          type: actionTypes.RESET_SCHEMAS,
+        formsReducer(undefined, {
+          type: formsActionTypes.RESET_FORM_SCHEMAS,
         }),
       ).toEqual(initialState);
     });
@@ -22,7 +22,7 @@ describe('forms redux reducer', () => {
 
   describe('error() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(undefined, randomAction).error;
+      const state = formsReducer(undefined, randomAction).error;
 
       expect(state).toEqual(initialState.error);
       expect(state).toEqual({});
@@ -30,8 +30,8 @@ describe('forms redux reducer', () => {
 
     it('should handle FETCH_FORM_SCHEMA_FAILURE action type', () => {
       expect(
-        reducer(undefined, {
-          type: actionTypes.FETCH_FORM_SCHEMA_FAILURE,
+        formsReducer(undefined, {
+          type: formsActionTypes.FETCH_FORM_SCHEMA_FAILURE,
           meta: { schemaCode: 'foo-biz' },
           payload: { error: 'Error - not loaded', hash: 'foo-biz' },
         }).error,
@@ -40,8 +40,8 @@ describe('forms redux reducer', () => {
 
     it('should handle FETCH_FORM_SCHEMA_SUCCESS action type', () => {
       expect(
-        reducer(undefined, {
-          type: actionTypes.FETCH_FORM_SCHEMA_SUCCESS,
+        formsReducer(undefined, {
+          type: formsActionTypes.FETCH_FORM_SCHEMA_SUCCESS,
           meta: { schemaCode: 'foo-biz' },
           payload: { result: { foo: 'bar' }, hash: 'foo-biz' },
         }).error,
@@ -50,18 +50,18 @@ describe('forms redux reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const errorCode = 'foo-biz';
-      const state: State = {
+      const state: FormsState = {
         ...initialState,
         error: { [errorCode]: { code: -1, name: 'Error', message: 'error' } },
       };
 
-      expect(reducer(state, randomAction).error).toEqual(state.error);
+      expect(formsReducer(state, randomAction).error).toEqual(state.error);
     });
   });
 
   describe('isLoading() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(undefined, randomAction).isLoading;
+      const state = formsReducer(undefined, randomAction).isLoading;
 
       expect(state).toEqual(initialState.isLoading);
       expect(state).toEqual({});
@@ -69,8 +69,8 @@ describe('forms redux reducer', () => {
 
     it('should handle FETCH_FORM_SCHEMA_REQUEST action type', () => {
       expect(
-        reducer(undefined, {
-          type: actionTypes.FETCH_FORM_SCHEMA_REQUEST,
+        formsReducer(undefined, {
+          type: formsActionTypes.FETCH_FORM_SCHEMA_REQUEST,
           meta: { schemaCode: 'foo-biz' },
           payload: { foo: 'bar', hash: 'foo-biz' },
         }).isLoading,
@@ -79,8 +79,8 @@ describe('forms redux reducer', () => {
 
     it('should handle FETCH_FORM_SCHEMA_FAILURE action type', () => {
       expect(
-        reducer(undefined, {
-          type: actionTypes.FETCH_FORM_SCHEMA_FAILURE,
+        formsReducer(undefined, {
+          type: formsActionTypes.FETCH_FORM_SCHEMA_FAILURE,
           meta: { schemaCode: 'foo-biz' },
           payload: { error: '', hash: 'foo-biz' },
         }).isLoading,
@@ -89,8 +89,8 @@ describe('forms redux reducer', () => {
 
     it('should handle FETCH_FORM_SCHEMA_SUCCESS action type', () => {
       expect(
-        reducer(undefined, {
-          type: actionTypes.FETCH_FORM_SCHEMA_SUCCESS,
+        formsReducer(undefined, {
+          type: formsActionTypes.FETCH_FORM_SCHEMA_SUCCESS,
           meta: { schemaCode: 'foo-biz' },
           payload: { result: { foo: 'bar' } },
         }).isLoading,
@@ -100,7 +100,9 @@ describe('forms redux reducer', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = { ...initialState, isLoading: { 'foo-biz': false } };
 
-      expect(reducer(state, randomAction).isLoading).toEqual(state.isLoading);
+      expect(formsReducer(state, randomAction).isLoading).toEqual(
+        state.isLoading,
+      );
     });
   });
 });
