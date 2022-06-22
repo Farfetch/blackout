@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.163](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.162...@farfetch/blackout-client@2.0.0-next.163) (2022-06-22)
+
+
+### Features
+
+* **client|redux:** export clients and actions on root for content area ([3e4913f](https://github.com/Farfetch/blackout/commit/3e4913f972e5bcfeede59c97a790e0062395fb20))
+
+
+### BREAKING CHANGES
+
+* **client|redux:** renamed exports and removed default exports on contents folder.
+
+package/redux
+- removed reducer default export
+- all exports are now in the following format '*Content'.
+- actionTypes to actionTypesContent
+- reducer to reducerContent
+- serverInitialState to serverInitialStateContent
+
+
+
+
+
 # [2.0.0-next.162](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.161...@farfetch/blackout-client@2.0.0-next.162) (2022-06-20)
 
 
