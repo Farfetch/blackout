@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.60.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.59.0...@farfetch/blackout-core@1.60.0) (2022-06-22)
+
+
+### Features
+
+* add client and redux for commerce grouping endpoint ([a5bfd12](https://github.com/Farfetch/blackout/commit/a5bfd126b0747dcee957bb77dd59e4dd64e82f7f))
+
+
+
+
+
 # [1.59.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.58.2...@farfetch/blackout-core@1.59.0) (2022-06-14)
 
 
