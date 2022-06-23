@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.251](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.250...@farfetch/blackout-react@1.0.0-next.251) (2022-06-23)
+
+
+### Bug Fixes
+
+* **react:** remove unnecessary custom GA script validation ([07d0c5f](https://github.com/Farfetch/blackout/commit/07d0c5f25c1095fca8f7e9a6faffb75dd76de8db))
+
+
+
+
+
 # [1.0.0-next.250](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.249...@farfetch/blackout-react@1.0.0-next.250) (2022-06-22)
 
 
