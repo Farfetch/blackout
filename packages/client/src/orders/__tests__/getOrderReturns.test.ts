@@ -1,10 +1,10 @@
-import { getReturnsFromOrder } from '..';
+import { getOrderReturns } from '..';
 import { mockOrderId, responses } from 'tests/__fixtures__/returns';
 import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getReturnsFromOrder.fixtures';
+import fixtures from '../__fixtures__/getOrderReturns.fixtures';
 import mswServer from '../../../tests/mswServer';
 
-describe('getReturnsFromOrder', () => {
+describe('getOrderReturns', () => {
   const spy = jest.spyOn(client, 'get');
   const expectedConfig = undefined;
   const response = responses.get.success;
@@ -15,9 +15,7 @@ describe('getReturnsFromOrder', () => {
     mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
-    await expect(getReturnsFromOrder(mockOrderId)).resolves.toStrictEqual(
-      response,
-    );
+    await expect(getOrderReturns(mockOrderId)).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/orders/${mockOrderId}/returns`,
       expectedConfig,
@@ -28,7 +26,7 @@ describe('getReturnsFromOrder', () => {
     mswServer.use(fixtures.failure());
 
     expect.assertions(2);
-    await expect(getReturnsFromOrder(mockOrderId)).rejects.toMatchSnapshot();
+    await expect(getOrderReturns(mockOrderId)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/orders/${mockOrderId}/returns`,
       expectedConfig,

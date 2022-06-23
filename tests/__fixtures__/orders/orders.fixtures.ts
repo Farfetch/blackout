@@ -1720,6 +1720,10 @@ export const mockState = {
       error: { [orderId]: null },
       isLoading: { [orderId]: false },
     },
+    orderReturns: {
+      error: { [orderId]: null },
+      isLoading: { [orderId]: false },
+    },
     orderReturnOptions: {
       error: { [orderId]: null },
       isLoading: { [orderId]: false },

@@ -1,6 +1,6 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { BlackoutError } from '@farfetch/blackout-client';
+import type { BlackoutError, Order } from '@farfetch/blackout-client';
 import type { NormalizedSchema } from 'normalizr';
 import type {
   OrderItemEntity,
@@ -31,42 +31,65 @@ type TrackingsPayload = NormalizedSchema<
   TrackingsNormalized
 >;
 
-export interface FetchOrderDetailsRequestAction extends Action {
-  type: typeof actionTypes.FETCH_ORDER_DETAILS_REQUEST;
-  meta: { orderId: string };
+export interface FetchOrderRequestAction extends Action {
+  type: typeof actionTypes.FETCH_ORDER_REQUEST;
+  meta: { orderId: Order['id'] };
 }
-export interface FetchOrderDetailsSuccessAction extends Action {
-  type: typeof actionTypes.FETCH_ORDER_DETAILS_SUCCESS;
+export interface FetchOrderSuccessAction extends Action {
+  type: typeof actionTypes.FETCH_ORDER_SUCCESS;
   payload: Payload;
   meta: { orderId: string; guest: boolean };
 }
-export interface FetchOrderDetailsFailureAction extends Action {
-  type: typeof actionTypes.FETCH_ORDER_DETAILS_FAILURE;
+export interface FetchOrderFailureAction extends Action {
+  type: typeof actionTypes.FETCH_ORDER_FAILURE;
   payload: { error: BlackoutError };
-  meta: { orderId: string };
+  meta: { orderId: Order['id'] };
 }
 
 /**
  * Actions dispatched when the fetch order request is made.
  */
-export type FetchOrderDetailsAction =
-  | FetchOrderDetailsRequestAction
-  | FetchOrderDetailsSuccessAction
-  | FetchOrderDetailsFailureAction;
+export type FetchOrderAction =
+  | FetchOrderRequestAction
+  | FetchOrderSuccessAction
+  | FetchOrderFailureAction;
+
+export interface FetchOrderReturnsRequestAction extends Action {
+  type: typeof actionTypes.FETCH_ORDER_RETURNS_REQUEST;
+  meta: { orderId: Order['id'] };
+}
+export interface FetchOrderReturnsSuccessAction extends Action {
+  type: typeof actionTypes.FETCH_ORDER_RETURNS_SUCCESS;
+  payload: Payload;
+  meta: { orderId: Order['id'] };
+}
+export interface FetchOrderReturnsFailureAction extends Action {
+  type: typeof actionTypes.FETCH_ORDER_RETURNS_FAILURE;
+  payload: { error: BlackoutError };
+  meta: { orderId: Order['id'] };
+}
+
+/**
+ * Actions dispatched when the order returns request is made.
+ */
+export type FetchOrderReturnsAction =
+  | FetchOrderReturnsRequestAction
+  | FetchOrderReturnsSuccessAction
+  | FetchOrderReturnsFailureAction;
 
 export interface FetchOrderReturnOptionsRequestAction extends Action {
   type: typeof actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST;
-  meta: { orderId: string };
+  meta: { orderId: Order['id'] };
 }
 export interface FetchOrderReturnOptionsSuccessAction extends Action {
   type: typeof actionTypes.FETCH_ORDER_RETURN_OPTIONS_SUCCESS;
   payload: Payload;
-  meta: { orderId: string };
+  meta: { orderId: Order['id'] };
 }
 export interface FetchOrderReturnOptionsFailureAction extends Action {
   type: typeof actionTypes.FETCH_ORDER_RETURN_OPTIONS_FAILURE;
   payload: { error: BlackoutError };
-  meta: { orderId: string };
+  meta: { orderId: Order['id'] };
 }
 
 /**
@@ -98,14 +121,14 @@ export type FetchOrdersAction =
   | FetchOrdersFailureAction;
 
 export interface FetchTrackingsRequestAction extends Action {
-  type: typeof actionTypes.FETCH_TRACKINGS_REQUEST;
+  type: typeof actionTypes.FETCH_SHIPMENT_TRACKINGS_REQUEST;
 }
 export interface FetchTrackingsSuccessAction extends Action {
-  type: typeof actionTypes.FETCH_TRACKINGS_SUCCESS;
+  type: typeof actionTypes.FETCH_SHIPMENT_TRACKINGS_SUCCESS;
   payload: TrackingsPayload;
 }
 export interface FetchTrackingsFailureAction extends Action {
-  type: typeof actionTypes.FETCH_TRACKINGS_FAILURE;
+  type: typeof actionTypes.FETCH_SHIPMENT_TRACKINGS_FAILURE;
   payload: { error: BlackoutError };
 }
 

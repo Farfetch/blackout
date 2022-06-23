@@ -2,7 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import { adaptDate } from '../../../helpers/adapters';
 import {
   Config,
-  GetOrderDetails,
+  GetOrder,
   Order,
   toBlackoutError,
 } from '@farfetch/blackout-client';
@@ -15,12 +15,12 @@ import type { GetOptionsArgument, StoreState } from '../../../types';
 /**
  * Fetches order details.
  *
- * @param getOrderDetails - Get order details client.
+ * @param getOrder - Get order details client.
  *
  * @returns Thunk factory.
  */
-const fetchOrderDetailsFactory =
-  (getOrderDetails: GetOrderDetails) =>
+const fetchOrderFactory =
+  (getOrder: GetOrder) =>
   (orderId: string, config?: Config) =>
   async (
     dispatch: Dispatch,
@@ -32,10 +32,10 @@ const fetchOrderDetailsFactory =
     try {
       dispatch({
         meta: { orderId },
-        type: actionTypes.FETCH_ORDER_DETAILS_REQUEST,
+        type: actionTypes.FETCH_ORDER_REQUEST,
       });
 
-      const result = await getOrderDetails(orderId, config);
+      const result = await getOrder(orderId, config);
       const { productImgQueryParam } = getOptions(getState);
       // This is needed since the Farfetch Checkout service is merging
       // both Address Line 2 and Address Line 3 not checking correctly if the
@@ -71,7 +71,7 @@ const fetchOrderDetailsFactory =
             items: [orderItem],
           },
         ),
-        type: actionTypes.FETCH_ORDER_DETAILS_SUCCESS,
+        type: actionTypes.FETCH_ORDER_SUCCESS,
       });
 
       return normalizedResult;
@@ -79,11 +79,11 @@ const fetchOrderDetailsFactory =
       dispatch({
         meta: { orderId },
         payload: { error: toBlackoutError(error) },
-        type: actionTypes.FETCH_ORDER_DETAILS_FAILURE,
+        type: actionTypes.FETCH_ORDER_FAILURE,
       });
 
       throw error;
     }
   };
 
-export default fetchOrderDetailsFactory;
+export default fetchOrderFactory;

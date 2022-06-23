@@ -16,6 +16,7 @@ export type OrdersState = CombinedState<{
   isLoading: boolean;
   result: Nullable<OrderSummary>;
   orderDetails: OrderDetailsState;
+  orderReturns: OrderDetailsState;
   orderReturnOptions: OrderDetailsState;
   ordersList: StateWithoutResult;
   trackings: StateWithoutResult;

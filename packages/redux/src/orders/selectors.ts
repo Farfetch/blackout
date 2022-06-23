@@ -7,9 +7,10 @@ import {
   getOrderDetails,
   getOrderItemAvailableActivities,
   getOrderReturnOptions,
+  getOrderReturns,
   getOrdersList,
   getResult,
-  getTrackings,
+  getShipmentTrackings,
 } from './reducer';
 import {
   getEntities,
@@ -22,6 +23,7 @@ import type {
   OrderItemEntity,
   OrderMerchantNormalized,
 } from '../entities/types';
+import type { Order } from '@farfetch/blackout-client';
 import type { OrdersState } from './types';
 import type { StoreState } from '../types';
 
@@ -32,7 +34,7 @@ import type { StoreState } from '../types';
  *
  * @returns Loading.
  */
-export const isOrdersLoading = (state: StoreState) =>
+export const areOrdersLoading = (state: StoreState) =>
   getIsLoading(state.orders as OrdersState);
 
 /**
@@ -62,7 +64,7 @@ export const getOrders = (state: StoreState) => getEntities(state, 'orders');
  *
  * @returns Order object.
  */
-export const getOrder = (state: StoreState, orderId: string) =>
+export const getOrder = (state: StoreState, orderId: Order['id']) =>
   getEntityById(state, 'orders', orderId);
 
 /**
@@ -73,8 +75,10 @@ export const getOrder = (state: StoreState, orderId: string) =>
  *
  * @returns Label tracking object.
  */
-export const getLabelTracking = (state: StoreState, trackingNumber: string) =>
-  getEntityById(state, 'labelTracking', trackingNumber);
+export const getShipmentTrackingLabel = (
+  state: StoreState,
+  trackingNumber: string,
+) => getEntityById(state, 'labelTracking', trackingNumber);
 
 /**
  * Retrieves pagination information of the user orders.
@@ -355,26 +359,50 @@ export const getOrdersListError = (state: StoreState) =>
   getOrdersList(state.orders as OrdersState).error;
 
 /**
- * Returns the loading status for the orders list operation.
+ * Returns the loading status for the order operation.
  *
  * @param state   - Application state.
  * @param orderId - Order identifier.
  *
  * @returns Orders list Loading status.
  */
-export const isOrderDetailsLoading = (state: StoreState, orderId: string) =>
+export const isOrderLoading = (state: StoreState, orderId: Order['id']) =>
   getOrderDetails(state.orders as OrdersState).isLoading[orderId];
 
 /**
- * Returns the error for the order details operation.
+ * Returns the error for the order operation.
  *
  * @param state   - Application state.
  * @param orderId - Order identifier.
  *
  * @returns Order details operation error.
  */
-export const getOrderDetailsError = (state: StoreState, orderId: string) =>
+export const getOrderError = (state: StoreState, orderId: Order['id']) =>
   getOrderDetails(state.orders as OrdersState).error[orderId];
+
+/**
+ * Returns the loading status for the order returns operation.
+ *
+ * @param state   - Application state.
+ * @param orderId - Order identifier.
+ *
+ * @returns Order returns Loading status.
+ */
+export const areOrderReturnsLoading = (
+  state: StoreState,
+  orderId: Order['id'],
+) => getOrderReturns(state.orders as OrdersState).isLoading[orderId];
+
+/**
+ * Returns the error for the order returns operation.
+ *
+ * @param state   - Application state.
+ * @param orderId - Order identifier.
+ *
+ * @returns Order returns operation error.
+ */
+export const getOrderReturnsError = (state: StoreState, orderId: Order['id']) =>
+  getOrderReturns(state.orders as OrdersState).error[orderId];
 
 /**
  * Returns the loading status for the order return options operation.
@@ -384,9 +412,9 @@ export const getOrderDetailsError = (state: StoreState, orderId: string) =>
  *
  * @returns Order return options Loading status.
  */
-export const isOrderReturnOptionsLoading = (
+export const areOrderReturnOptionsLoading = (
   state: StoreState,
-  orderId: string,
+  orderId: Order['id'],
 ) => getOrderReturnOptions(state.orders as OrdersState).isLoading[orderId];
 
 /**
@@ -409,8 +437,8 @@ export const getOrderReturnOptionsError = (
  *
  * @returns Tracking Loading status.
  */
-export const isTrackingsLoading = (state: StoreState) =>
-  getTrackings(state.orders as OrdersState).isLoading;
+export const areShipmentTrackingsLoading = (state: StoreState) =>
+  getShipmentTrackings(state.orders as OrdersState).isLoading;
 
 /**
  * Returns the error for the trackings operation.
@@ -419,8 +447,8 @@ export const isTrackingsLoading = (state: StoreState) =>
  *
  * @returns Trackings operation error.
  */
-export const getTrackingsError = (state: StoreState) =>
-  getTrackings(state.orders as OrdersState).error;
+export const getShipmentTrackingsError = (state: StoreState) =>
+  getShipmentTrackings(state.orders as OrdersState).error;
 
 /**
  * Returns the loading status for the documents operations.
@@ -429,7 +457,7 @@ export const getTrackingsError = (state: StoreState) =>
  *
  * @returns Tracking Loading status.
  */
-export const isDocumentsLoading = (state: StoreState) =>
+export const areDocumentsLoading = (state: StoreState) =>
   getDocuments(state.orders as OrdersState).isLoading;
 
 /**
@@ -449,7 +477,7 @@ export const getDocumentsError = (state: StoreState) =>
  *
  * @returns Tracking Loading status.
  */
-export const isAvailableItemsActivitiesLoading = (state: StoreState) =>
+export const areAvailableItemsActivitiesLoading = (state: StoreState) =>
   getOrderAvailableItemsActivities(state.orders as OrdersState).isLoading;
 
 /**
@@ -469,7 +497,7 @@ export const getAvailableItemsActivitiesError = (state: StoreState) =>
  *
  * @returns Tracking Loading status.
  */
-export const isOrderItemAvailableActivitiesLoading = (state: StoreState) =>
+export const areOrderItemAvailableActivitiesLoading = (state: StoreState) =>
   getOrderItemAvailableActivities(state.orders as OrdersState).isLoading;
 
 /**

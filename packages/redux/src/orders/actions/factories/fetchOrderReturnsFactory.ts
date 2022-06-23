@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import {
   Config,
-  GetReturnsFromOrder,
+  GetOrderReturns,
   Return,
   toBlackoutError,
 } from '@farfetch/blackout-client';
@@ -12,34 +12,37 @@ import type { Dispatch } from 'redux';
 /**
  * Method responsible for returns from a specific order.
  *
- * @param getReturnsFromOrder - Get returns from order client.
+ * @param getOrderReturns - Get order returns client.
  *
  * @returns Thunk factory.
  */
-const fetchReturnsFromOrderFactory =
-  (getReturnsFromOrder: GetReturnsFromOrder) =>
+const fetchOrderReturnsFactory =
+  (getOrderReturns: GetOrderReturns) =>
   (orderId: string, config?: Config) =>
-  async (dispatch: Dispatch): Promise<Return> => {
+  async (dispatch: Dispatch): Promise<Return[]> => {
     try {
       dispatch({
-        type: actionTypes.FETCH_RETURNS_FROM_ORDER_REQUEST,
+        meta: { orderId },
+        type: actionTypes.FETCH_ORDER_RETURNS_REQUEST,
       });
 
-      const result = await getReturnsFromOrder(orderId, config);
+      const result = await getOrderReturns(orderId, config);
 
       dispatch({
+        meta: { orderId },
         payload: normalize(result, [returnSchema]),
-        type: actionTypes.FETCH_RETURNS_FROM_ORDER_SUCCESS,
+        type: actionTypes.FETCH_ORDER_RETURNS_SUCCESS,
       });
       return result;
     } catch (error) {
       dispatch({
+        meta: { orderId },
         payload: { error: toBlackoutError(error) },
-        type: actionTypes.FETCH_RETURNS_FROM_ORDER_FAILURE,
+        type: actionTypes.FETCH_ORDER_RETURNS_FAILURE,
       });
 
       throw error;
     }
   };
 
-export default fetchReturnsFromOrderFactory;
+export default fetchOrderReturnsFactory;
