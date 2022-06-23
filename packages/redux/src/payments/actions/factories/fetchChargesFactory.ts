@@ -1,11 +1,10 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { Config, toBlackoutError } from '@farfetch/blackout-client';
 import type {
   Charge,
   GetCharges,
   Intent,
 } from '@farfetch/blackout-client/payments/types';
-import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type { FetchChargesAction } from '../../types';
 
@@ -44,7 +43,7 @@ const fetchChargesFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_CHARGES_FAILURE,
       });
 

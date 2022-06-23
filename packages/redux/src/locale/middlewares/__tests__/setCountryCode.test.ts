@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
+import { client, headers } from '@farfetch/blackout-client';
 import { mockStore } from '../../../../tests';
 import { setCountryCodeMiddleware } from '..';
-import client, { headers } from '@farfetch/blackout-client/helpers/client';
 
 const mockCountryCode = 'US';
 const mockCurrencyCode = 'USD';

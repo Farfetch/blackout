@@ -1,5 +1,5 @@
 import type { CombinedState } from 'redux';
-import type { RecommendedProductsResultNormalized } from '@farfetch/blackout-client/helpers/client/adapters';
+import type { RecommendedProductsResultNormalized } from '../../../helpers/adapters';
 import type { StateWithoutResult } from '../../../types';
 
 type RecommendedProductsResultsByStrategy = Record<

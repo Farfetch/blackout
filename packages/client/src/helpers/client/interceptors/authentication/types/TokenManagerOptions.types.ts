@@ -1,5 +1,5 @@
 import type { ITokenData } from '../token-providers/types/TokenData.types';
-import type { RequestConfig } from './AxiosAuthenticationTokenManager.types';
+import type { RequestConfig } from './AuthenticationTokenManager.types';
 import type { TokenContext } from '../token-providers/types/TokenContext.types';
 
 export interface OptionsStorageProvider {
@@ -20,7 +20,8 @@ export type UserParams = {
   refreshToken?: string;
 };
 
-export type ClientCredentialsParams = {
+// This type is not used right now
+type ClientCredentialsParams = {
   username?: string;
   password?: string;
   grantType?: string;
@@ -37,7 +38,9 @@ export type UserTokenRequester = (
   config?: RequestConfig,
 ) => Promise<ITokenData>;
 
-export type ClientCredentialsTokenRequester = (
+// This type is not used right now
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+type ClientCredentialsTokenRequester = (
   data: ClientCredentialsParams,
   config?: RequestConfig,
 ) => Promise<ITokenData>;
@@ -55,7 +58,6 @@ export interface AxiosAuthenticationTokenManagerOptions {
     serializer: OptionsStorageSerializer;
     guestTokenStorageKey?: string;
     userTokenStorageKey?: string;
-    clientCredentialsTokenStorageKey?: string;
   };
   baseUrl?: string;
   callBacks?: {
@@ -65,6 +67,5 @@ export interface AxiosAuthenticationTokenManagerOptions {
   authorizationHeaderFormatter: (accessToken?: string) => string | null;
   guestTokenRequester: GuestTokenRequester;
   userTokenRequester: UserTokenRequester;
-  clientCredentialsTokenRequester: ClientCredentialsTokenRequester;
   refreshTokenWindowOffset: number;
 }

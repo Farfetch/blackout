@@ -1,11 +1,11 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import {
+  GetProductRecommendedSet,
+  RecommendedSet,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { FetchRecommendedSetAction } from '../../types';
-import type {
-  GetRecommendedSet,
-  RecommendedSet,
-} from '@farfetch/blackout-client';
 
 /**
  * @param recommendedSetId - Numeric identifier of the product.
@@ -23,7 +23,7 @@ import type {
  * @returns Thunk factory.
  */
 export const fetchRecommendedSetFactory =
-  (getRecommendedSet: GetRecommendedSet) =>
+  (getRecommendedSet: GetProductRecommendedSet) =>
   (recommendedSetId: number, config?: Record<string, unknown>) =>
   async (
     dispatch: Dispatch<FetchRecommendedSetAction>,
@@ -46,7 +46,7 @@ export const fetchRecommendedSetFactory =
     } catch (error) {
       dispatch({
         meta: { recommendedSetId },
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_RECOMMENDED_SET_FAILURE,
       });
 

@@ -1,9 +1,8 @@
 import * as actionTypes from '../../actionTypes';
+import { Config, toBlackoutError } from '@farfetch/blackout-client';
 import { contentEntries } from '../../../entities/schemas/content';
 import { generateContentHash } from '../../utils';
 import { normalize } from 'normalizr';
-import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { Config } from '@farfetch/blackout-client/types';
 import type {
   Contents,
   GetContent,
@@ -55,7 +54,7 @@ export default (getContent: GetContent) =>
     } catch (error) {
       dispatch({
         meta: { query },
-        payload: { error: toError(error), hash: hash as string },
+        payload: { error: toBlackoutError(error), hash: hash as string },
         type: actionTypes.FETCH_CONTENT_FAILURE,
       });
 

@@ -1,11 +1,10 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { Config, toBlackoutError } from '@farfetch/blackout-client';
 import type {
   Address,
   GetDefaultContactAddress,
   User,
 } from '@farfetch/blackout-client/addresses/types';
-import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type { FetchDefaultContactAddressAction } from '../../types';
 
@@ -44,7 +43,7 @@ const fetchDefaultContactAddressFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_DEFAULT_CONTACT_ADDRESS_FAILURE,
       });
 

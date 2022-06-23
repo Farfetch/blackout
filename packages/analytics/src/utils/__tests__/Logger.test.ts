@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import Logger from '../Logger';
+import { Logger } from '../logger';
 
 describe('Logger', () => {
   console.log = jest.fn();

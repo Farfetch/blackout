@@ -1,4 +1,5 @@
-import client, { adaptError, configApiBlackAndWhite } from '../helpers/client';
+import { adaptError } from '../helpers/client/formatError';
+import client, { configApiBlackAndWhite } from '../helpers/client';
 import join from 'proper-url-join';
 import type { DeleteGuestTokens } from './types';
 

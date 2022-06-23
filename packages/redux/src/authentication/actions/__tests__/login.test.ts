@@ -5,13 +5,12 @@ import {
 } from 'tests/__fixtures__/authentication';
 import { login } from '..';
 import { mockStore } from '../../../../tests';
-import { postLogin } from '@farfetch/blackout-client/authentication';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { postLogin, toBlackoutError } from '@farfetch/blackout-client';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
 
-jest.mock('@farfetch/blackout-client/authentication', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/authentication'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   postLogin: jest.fn(),
 }));
 
@@ -56,7 +55,7 @@ describe('login() action creator', () => {
           { type: actionTypes.LOGIN_REQUEST },
           {
             type: actionTypes.LOGIN_FAILURE,
-            payload: { error: toError(errorObject) },
+            payload: { error: toBlackoutError(errorObject) },
           },
         ]),
       );

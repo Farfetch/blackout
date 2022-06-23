@@ -1,12 +1,10 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { Config } from '@farfetch/blackout-client/types';
+import { Config, toBlackoutError } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { GetUser } from '@farfetch/blackout-client/users/types';
 
 /**
- * @callback FetchUserThunkFactory
- * @param {object} [config] - Custom configurations to send to the client
+ * @param config - Custom configurations to send to the client
  * instance (axios).
  *
  * @returns Thunk to be dispatched to the redux store.
@@ -41,7 +39,7 @@ const fetchUserFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_USER_FAILURE,
       });
 

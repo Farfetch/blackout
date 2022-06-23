@@ -1,6 +1,6 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { MerchantLocation } from '@farfetch/blackout-client/merchantsLocations/types';
 import type { NormalizedSchema } from 'normalizr';
 

@@ -1,5 +1,5 @@
 import * as fromSearchSuggestionsReducer from '../reducer/searchSuggestions';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type {
   SearchSuggestion,
   SearchSuggestionsQuery,

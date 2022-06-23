@@ -2,7 +2,7 @@ import type {
   GetSEOError,
   IsSEOLoading,
 } from '@farfetch/blackout-redux/contents/types';
-import type { IndexSignature } from '@farfetch/blackout-client/types';
+import type { IndexSignature } from '@farfetch/blackout-client';
 
 type MaskIcon = {
   rel: string;

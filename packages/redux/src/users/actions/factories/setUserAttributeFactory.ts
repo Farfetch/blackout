@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type {
   PutUserAttribute,
   UserAttributesData,
-} from '@farfetch/blackout-client/users/attributes/types';
+} from '@farfetch/blackout-client/src/users/attributes/types';
 
 /**
  * @param userId      - User's id to be filtered for.
@@ -46,7 +46,7 @@ const setUserAttributeFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.SET_USER_ATTRIBUTE_FAILURE,
       });
 

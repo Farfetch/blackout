@@ -1,7 +1,9 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { Config } from '@farfetch/blackout-client/types';
-import type { DeleteUserImpersonation } from '@farfetch/blackout-client/authentication/types';
+import {
+  Config,
+  DeleteUserImpersonation,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
 /**
@@ -38,7 +40,7 @@ export default (deleteUserImpersonation: DeleteUserImpersonation) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.DELETE_USER_IMPERSONATION_FAILURE,
       });
 

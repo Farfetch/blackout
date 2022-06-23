@@ -1,4 +1,4 @@
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { Category } from '@farfetch/blackout-client/categories/types';
 
 export type GetRootCategory = (

@@ -1,11 +1,11 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { Config } from '@farfetch/blackout-client/types';
-import type { Dispatch } from 'redux';
-import type {
+import {
+  Config,
   PostPasswordChange,
   PostPasswordChangeData,
-} from '@farfetch/blackout-client/authentication/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
 
 /**
  * @param data   - Password details.
@@ -37,7 +37,7 @@ export default (postPasswordChange: PostPasswordChange) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.PASSWORD_CHANGE_FAILURE,
       });
 

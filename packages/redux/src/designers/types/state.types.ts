@@ -1,4 +1,4 @@
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
 import type { DesignersResponse } from '@farfetch/blackout-client/designers/types';
 

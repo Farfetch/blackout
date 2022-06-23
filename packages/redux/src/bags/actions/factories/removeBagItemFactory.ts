@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import { getBagId } from '../../selectors';
 import { normalize } from 'normalizr';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import bagItemSchema from '../../../entities/schemas/bagItem';
 import type {
   Bag,
@@ -80,7 +80,7 @@ const removeBagItemFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         meta: { bagId, bagItemId },
         type: actionTypes.REMOVE_BAG_ITEM_FAILURE,
       });

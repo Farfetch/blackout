@@ -1,21 +1,21 @@
-import { ActionTypes } from '../useUserAuthState';
 import { act, cleanup, renderHook, waitFor } from '@testing-library/react';
+import { ActionTypes } from '../useUserAuthState';
+import {
+  AuthenticationTokenManager,
+  AxiosAuthenticationTokenManagerOptions,
+  client,
+  configApiBlackAndWhite,
+  TokenData,
+  TokenKinds,
+} from '@farfetch/blackout-client';
+import { DefaultRequestBody, rest } from 'msw';
 import { NotLoggedInError, PendingUserOperationError } from '../../errors';
 import AuthenticationProvider, {
   CallbackNames,
 } from '../../contexts/AuthenticationProvider';
-import AxiosAuthenticationTokenManager, {
-  TokenData,
-  TokenKinds,
-} from '@farfetch/blackout-client/helpers/client/interceptors/authentication';
-import client, {
-  configApiBlackAndWhite,
-} from '@farfetch/blackout-client/helpers/client';
+import mswServer from '../../../../tests/mswServer';
 import React from 'react';
 import useAuthentication from '../useAuthentication';
-import type TokenManagerOptions from '@farfetch/blackout-client/helpers/client/interceptors/authentication/types/TokenManagerOptions.types';
-import { DefaultRequestBody, rest } from 'msw';
-import mswServer from '../../../../tests/mswServer';
 
 interface Props {
   children?: React.ReactNode;
@@ -24,7 +24,7 @@ interface Props {
     onUserSessionTerminated: (expiredUserToken: string) => void;
   };
   headers?: { [k: string]: string };
-  storage?: TokenManagerOptions['storage'];
+  storage?: AxiosAuthenticationTokenManagerOptions['storage'];
 }
 
 const defaultHeaders = {
@@ -81,7 +81,7 @@ describe('useAuthentication', () => {
         resetGuestTokensContext: expect.any(Function),
         setGuestTokensContext: expect.any(Function),
         setGuestUserClaims: expect.any(Function),
-        tokenManager: expect.any(AxiosAuthenticationTokenManager),
+        tokenManager: expect.any(AuthenticationTokenManager),
       }),
     );
   });

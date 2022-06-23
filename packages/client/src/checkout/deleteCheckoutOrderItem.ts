@@ -1,4 +1,5 @@
-import client, { adaptError } from '../helpers/client';
+import { adaptError } from '../helpers/client/formatError';
+import client from '../helpers/client';
 import urlJoin from 'proper-url-join';
 import type { DeleteCheckoutOrderItem } from './types/deleteCheckoutOrderItem.types';
 

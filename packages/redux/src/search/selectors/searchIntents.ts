@@ -1,5 +1,5 @@
 import * as fromSearchIntentsReducer from '../reducer/searchIntents';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { SearchIntents } from '@farfetch/blackout-client/search/types';
 import type { StoreState } from '../../types';
 

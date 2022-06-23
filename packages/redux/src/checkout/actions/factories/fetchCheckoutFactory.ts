@@ -1,13 +1,13 @@
 import * as actionTypes from '../../actionTypes';
-import { normalize } from 'normalizr';
-import { toError } from '@farfetch/blackout-client/helpers/client';
-import checkoutSchema from '../../../entities/schemas/checkout';
-import type {
+import {
   Config,
   GetCheckoutOrder,
   GetCheckoutOrderQuery,
   GetCheckoutOrderResponse,
+  toBlackoutError,
 } from '@farfetch/blackout-client';
+import { normalize } from 'normalizr';
+import checkoutSchema from '../../../entities/schemas/checkout';
 import type { Dispatch } from 'redux';
 
 /**
@@ -43,7 +43,7 @@ export default (getCheckoutOrder: GetCheckoutOrder) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_CHECKOUT_FAILURE,
       });
 

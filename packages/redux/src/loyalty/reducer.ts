@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import { createReducerWithResult } from '../helpers';
 import { LOGOUT_SUCCESS } from '../authentication/actionTypes';
 import type * as T from './types';
-import type { ProgramMembership } from '@farfetch/blackout-client/src/loyalty/types';
+import type { ProgramMembership } from '@farfetch/blackout-client/loyalty/types';
 import type { ReducerSwitch, StateWithResult } from '../types';
 
 const isNormalized = true;

@@ -1,11 +1,11 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { Config } from '@farfetch/blackout-client/types';
-import type { Dispatch } from 'redux';
-import type {
+import {
+  Config,
   PostTokens,
   PostTokensData,
-} from '@farfetch/blackout-client/authentication/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
 
 /**
  * @param data   - Request data.
@@ -41,7 +41,7 @@ export default (postTokens: PostTokens) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.CREATE_USER_TOKEN_FAILURE,
       });
 

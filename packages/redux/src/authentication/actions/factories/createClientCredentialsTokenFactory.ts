@@ -1,8 +1,6 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { Config } from '@farfetch/blackout-client/types';
+import { Config, PostTokens, toBlackoutError } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { PostTokens } from '@farfetch/blackout-client/authentication/types';
 
 /**
  * @param config - Custom configurations to send to the client instance (axios).
@@ -38,7 +36,7 @@ export default (postTokens: PostTokens) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.CREATE_CLIENT_CREDENTIALS_TOKEN_FAILURE,
       });
 

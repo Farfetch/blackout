@@ -1,6 +1,5 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { Config } from '@farfetch/blackout-client/types';
+import { Config, toBlackoutError } from '@farfetch/blackout-client';
 import type { DeleteUserPersonalId } from '@farfetch/blackout-client/users/personalIds/types';
 import type { Dispatch } from 'redux';
 
@@ -39,7 +38,7 @@ const removePersonalIdFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.REMOVE_PERSONAL_ID_FAILURE,
       });
 

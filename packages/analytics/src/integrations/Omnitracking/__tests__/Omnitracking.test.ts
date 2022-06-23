@@ -40,13 +40,16 @@ import type {
 
 const mockLoggerError = jest.fn();
 
-jest.mock('@farfetch/blackout-client', () => ({
-  ...jest.requireActual('@farfetch/blackout-client'),
-  Logger: class {
+jest.mock('../../../utils/logger', () => {
+  return {
     error(message: string) {
       mockLoggerError(message);
-    }
-  },
+    },
+  };
+});
+
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   postTrackings: jest.fn(),
 }));
 

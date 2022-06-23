@@ -1,7 +1,4 @@
-import type {
-  AttributesAdapted,
-  PriceAdapted,
-} from '@farfetch/blackout-client/helpers/adapters/types';
+import type { AttributesAdapted, PriceAdapted } from '../../helpers/adapters';
 import type { WishlistItem as OriginalWishlistItem } from '@farfetch/blackout-client/wishlists/types';
 import type { ProductEntity } from './product.types';
 

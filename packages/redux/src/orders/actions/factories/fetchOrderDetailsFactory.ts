@@ -1,9 +1,8 @@
 import * as actionTypes from '../../actionTypes';
+import { Config, toBlackoutError } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import { toError } from '@farfetch/blackout-client/helpers/client';
 import orderItem from '../../../entities/schemas/orderItem';
 import trim from 'lodash/trim';
-import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
   GetOrderDetails,
@@ -81,7 +80,7 @@ const fetchOrderDetailsFactory =
     } catch (error) {
       dispatch({
         meta: { orderId },
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_ORDER_DETAILS_FAILURE,
       });
 

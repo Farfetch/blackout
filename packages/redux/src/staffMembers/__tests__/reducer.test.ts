@@ -3,7 +3,7 @@ import {
   mockStaffMember,
   mockStaffMemberId,
 } from 'tests/__fixtures__/staffMembers';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, { actionTypes } from '../';
 import type { State } from '../types';
 
@@ -57,7 +57,7 @@ describe('staff members reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
-        error: { [mockStaffMemberId]: toError(new Error('error')) },
+        error: { [mockStaffMemberId]: toBlackoutError(new Error('error')) },
         isLoading: {},
         result: {},
       };

@@ -1,4 +1,4 @@
-import { adaptDate } from '@farfetch/blackout-client/helpers/adapters';
+import { adaptDate } from '../../helpers/adapters';
 import { schema } from 'normalizr';
 import checkoutOrderItem from './checkoutOrderItem';
 import merchant from './merchant';

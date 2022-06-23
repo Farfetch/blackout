@@ -1,8 +1,7 @@
 import * as actionTypes from '../../actionTypes';
+import { Config, toBlackoutError } from '@farfetch/blackout-client';
 import { generateSEOPathname } from '../../utils';
-import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { ActionFetchSEO } from '../../types';
-import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type {
   GetSEO,
@@ -51,7 +50,10 @@ export default (getSEO: GetSEO) =>
     } catch (error) {
       dispatch({
         meta: { query },
-        payload: { error: toError(error), pathname: pathname as string },
+        payload: {
+          error: toBlackoutError(error),
+          pathname: pathname as string,
+        },
         type: actionTypes.FETCH_SEO_FAILURE,
       });
 

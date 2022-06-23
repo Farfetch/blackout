@@ -1,8 +1,9 @@
+import { AuthenticationTokenManager } from '..';
 import {
   defaultAuthorizationHeaderFormatter,
   getDefaultTokenDataSerializer,
 } from '../defaults';
-import { getUser } from '../../../../../users/';
+import { getUser } from '../../../../../users';
 import { DEFAULT_STORAGE_KEY as GuestTokenDefaultStorageKey } from '../token-providers/GuestTokenProvider';
 import {
   MisconfiguredTokenProviderError,
@@ -16,8 +17,7 @@ import { postTrackings } from '../../../../../omnitracking';
 import { rest } from 'msw';
 import { DEFAULT_STORAGE_KEY as UserTokenDefaultStorageKey } from '../token-providers/UserTokenProvider';
 import AuthenticationConfigOptions from '../AuthenticationConfigOptions';
-import AxiosAuthenticationTokenManager from '..';
-import client from '../../../../client';
+import client from '../../..';
 import mswServer from '../../../../../../tests/mswServer';
 import TokenData from '../token-providers/TokenData';
 import TokenKinds from '../token-providers/TokenKinds';
@@ -26,7 +26,7 @@ import type {
   UserParams,
 } from '../types/TokenManagerOptions.types';
 import type { ITokenData } from '../token-providers/types/TokenData.types';
-import type { RequestConfig } from '../types/AxiosAuthenticationTokenManager.types';
+import type { RequestConfig } from '../types/AuthenticationTokenManager.types';
 import type { TokenContext } from '../token-providers/types/TokenContext.types';
 
 jest.useFakeTimers();
@@ -66,25 +66,14 @@ const mockUserTokenRequester = jest.fn(
   },
 );
 
-const mockClientCredentialsTokenRequester = jest.fn(() => {
-  return new Promise<ITokenData>(resolve => {
-    resolve({
-      accessToken: 'dummy_access_token',
-      expiresIn: '12000',
-      refreshToken: 'dummy_refresh_token',
-    });
-  });
-});
-
 const defaultOptions: AxiosAuthenticationTokenManagerOptions = {
   authorizationHeaderFormatter: defaultAuthorizationHeaderFormatter,
   guestTokenRequester: mockGuestTokenRequester,
   userTokenRequester: mockUserTokenRequester,
-  clientCredentialsTokenRequester: mockClientCredentialsTokenRequester,
   refreshTokenWindowOffset: 0,
 };
 
-describe('AxiosAuthenticationTokenManager', () => {
+describe('AuthenticationTokenManager', () => {
   let tokenManagerInstance: any;
 
   function createAndSetTokenManagerInstance(
@@ -95,7 +84,7 @@ describe('AxiosAuthenticationTokenManager', () => {
       tokenManagerInstance.ejectInterceptors();
     }
 
-    tokenManagerInstance = new AxiosAuthenticationTokenManager(
+    tokenManagerInstance = new AuthenticationTokenManager(
       axiosInstance,
       options,
     );
@@ -1181,7 +1170,7 @@ describe('AxiosAuthenticationTokenManager', () => {
         );
       });
 
-      it("should call 'storage.provider.removeItem' if '.clearData()' is called on 'AxiosAuthenticationTokenManager' instance", async () => {
+      it("should call 'storage.provider.removeItem' if '.clearData()' is called on 'AuthenticationTokenManager' instance", async () => {
         tokenManagerInstance = createAndSetTokenManagerInstance(
           client,
           optionsWithValidStorageProvider,

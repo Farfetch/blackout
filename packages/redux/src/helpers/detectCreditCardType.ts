@@ -1,6 +1,5 @@
 import { NON_DIGIT } from './regex';
 import creditCardType from 'credit-card-type';
-import type { CreditCardType } from 'credit-card-type/src/types';
 
 /**
  * Detect credit card type based on the value received.
@@ -13,7 +12,7 @@ import type { CreditCardType } from 'credit-card-type/src/types';
  */
 const detectCreditCardType = (
   value: string,
-): CreditCardType | undefined | false => {
+): ReturnType<typeof creditCardType>[number] | undefined | false => {
   const valueWithoutSpaces = value.replace(NON_DIGIT, '');
   const detectedCardTypes = creditCardType(valueWithoutSpaces);
   const cardType = detectedCardTypes.length > 0 && detectedCardTypes[0];

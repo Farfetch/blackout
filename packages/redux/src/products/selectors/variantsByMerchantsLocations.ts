@@ -3,12 +3,12 @@ import {
   getIsLoading,
 } from '../reducer/variantsByMerchantsLocations';
 import { getProduct } from '../../entities/selectors';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
-import type { ProductEntity } from '../../entities/types';
 import type {
+  BlackoutError,
   ProductVariant,
   ProductVariantByMerchantLocation,
 } from '@farfetch/blackout-client';
+import type { ProductEntity } from '../../entities/types';
 import type { StoreState } from '../../types';
 
 /**

@@ -1,4 +1,5 @@
 import { act, cleanup, renderHook, waitFor } from '@testing-library/react';
+import { AxiosAuthenticationTokenManagerOptions } from '@farfetch/blackout-client';
 import { getUser } from '@farfetch/blackout-client/users';
 import { mockDefaultActiveTokenData } from '../../contexts/__fixtures__/AuthenticationProvider.fixtures';
 import { ProfileChangedError } from '../../errors';
@@ -6,7 +7,6 @@ import AuthenticationProvider from '../../contexts/AuthenticationProvider';
 import React from 'react';
 import UserProfileProvider from '../../contexts/UserProfileProvider';
 import useUserProfile from '../useUserProfile';
-import type TokenManagerOptions from '@farfetch/blackout-client/helpers/client/interceptors/authentication/types/TokenManagerOptions.types';
 
 interface Props {
   children?: React.ReactNode;
@@ -16,7 +16,7 @@ interface Props {
   };
   headers?: { [k: string]: string };
   fetchProfileOnTokenChanges?: boolean;
-  storage?: TokenManagerOptions['storage'];
+  storage?: AxiosAuthenticationTokenManagerOptions['storage'];
 }
 
 const mockUserData = {

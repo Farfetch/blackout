@@ -2,9 +2,9 @@
  * Helpers.
  */
 
-import Logger from './Logger';
-import parsePickupDate from './parsePickupDate';
-import warnDeprecatedMethod from './warnDeprecatedMethod';
-import warnDeprecatedProp from './warnDeprecatedProp';
+export * from './client';
+export { default as client } from './client';
 
-export { Logger, parsePickupDate, warnDeprecatedMethod, warnDeprecatedProp };
+// These need to be exported from here instead of inside /client folder
+// to avoid circular dependencies
+export * from './client/interceptors/authentication';

@@ -1,6 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { getWishlistId } from '../../selectors';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import type {
   DeleteWishlistSet,
   WishlistSet,
@@ -55,7 +55,7 @@ const removeWishlistSetFactory =
     } catch (error) {
       dispatch({
         meta: { wishlistSetId },
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.REMOVE_WISHLIST_SET_FAILURE,
       });
 

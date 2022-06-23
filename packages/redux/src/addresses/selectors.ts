@@ -16,7 +16,7 @@ import type {
   AddressSchemaEntity,
   SchemaEntity,
 } from '../entities/types';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { State } from './types';
 import type { StoreState } from '../types';
 

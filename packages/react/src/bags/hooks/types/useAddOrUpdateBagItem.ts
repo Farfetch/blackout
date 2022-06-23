@@ -5,7 +5,7 @@ import type {
 import type {
   CustomAttributesAdapted,
   SizeAdapted,
-} from '@farfetch/blackout-client/helpers/adapters/types';
+} from '@farfetch/blackout-redux/types';
 
 export type HandleAddOrUpdateItem = ({
   customAttributes,

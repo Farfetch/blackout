@@ -20,18 +20,15 @@ import Analytics, {
 import pick from 'lodash/pick';
 import TestStorage from 'test-storage';
 
-// Mock logger so it does not output to the console
-jest.mock('@farfetch/blackout-client', () => ({
-  ...jest.requireActual('@farfetch/blackout-client'),
-  Logger: class {
-    warn(message: string) {
-      return message;
-    }
-    error(message: string) {
-      return message;
-    }
-  },
-}));
+jest.mock('@farfetch/blackout-analytics/utils', () => {
+  return {
+    ...jest.requireActual('@farfetch/blackout-analytics/utils'),
+    logger: {
+      error: jest.fn(),
+      warn: jest.fn(),
+    },
+  };
+});
 
 let analytics: Analytics;
 let setUserSpy: jest.SpyInstance;

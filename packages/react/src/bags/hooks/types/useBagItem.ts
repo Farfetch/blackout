@@ -4,7 +4,7 @@ import type {
   Query,
 } from '@farfetch/blackout-client/bags/types';
 import type { BagItemHydrated } from '@farfetch/blackout-redux/entities/types';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 
 export type HandleQuantityChangeType = (
   newQuantity: number,

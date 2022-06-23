@@ -18,7 +18,7 @@ export const defaultAuthorizationHeaderFormatter = (accessToken?: string) => {
 };
 
 /**
- * Creates a token data serializer to be used in AxiosAuthenticationTokenManager's
+ * Creates a token data serializer to be used in AuthenticationTokenManager's
  * storage.serializer option. It uses cryptojs's AES algorithm to encrypt data with
  * the passed in secret key. Please notice that as the key lives on the front-end,
  * an attacker will always be able to obtain it and get access to the decrypted
@@ -28,7 +28,7 @@ export const defaultAuthorizationHeaderFormatter = (accessToken?: string) => {
  * @param secretKey - The key to be used to encrypt token data.
  *
  * @returns Object implementing serializeTokenData and deserializeTokenData methods to be used in
- * AxiosAuthenticationTokenManager's storage.serializer option.
+ * AuthenticationTokenManager's storage.serializer option.
  */
 export const getDefaultTokenDataSerializer = (
   secretKey: string,

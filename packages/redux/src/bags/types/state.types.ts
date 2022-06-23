@@ -1,5 +1,5 @@
 import type { BagItem } from '@farfetch/blackout-client/bags/types';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
 import type { NormalizedBag } from '../types';
 

@@ -1,4 +1,4 @@
-import { AuthenticationConfigOptions } from '@farfetch/blackout-client/helpers/client/interceptors/authentication';
+import { AuthenticationConfigOptions } from '@farfetch/blackout-client';
 import { getUser } from '@farfetch/blackout-client/users';
 import { ProfileChangedError } from '../errors';
 import noop from 'lodash/noop';

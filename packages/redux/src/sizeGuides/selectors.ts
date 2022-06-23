@@ -1,7 +1,7 @@
 import { findSpecificSizeGuide } from './utils';
 import { getCategory } from '../entities/selectors';
 import { getError, getIsLoading, getResult } from './reducer';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { Brand } from '@farfetch/blackout-client/brands/types';
 import type { Category } from '@farfetch/blackout-client/categories/types';
 import type { SizeGuide } from '@farfetch/blackout-client/sizeGuides/types';

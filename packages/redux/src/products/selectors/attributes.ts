@@ -1,6 +1,6 @@
 import { getError, getIsLoading } from '../reducer/attributes';
 import { getProduct } from '../../entities/selectors';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { ProductEntity } from '../../entities/types';
 import type { StoreState } from '../../types';
 

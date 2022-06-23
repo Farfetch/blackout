@@ -1,7 +1,6 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { GetSubscriptions, toBlackoutError } from '@farfetch/blackout-client';
 import type { FetchUserSubscriptionsFactory } from './types';
-import type { GetSubscriptions } from '@farfetch/blackout-client';
 
 /**
  * Method to create a thunk factory configured with the specified client.
@@ -27,7 +26,7 @@ export const fetchUserSubscriptionsFactory: FetchUserSubscriptionsFactory<
     return result;
   } catch (error) {
     dispatch({
-      payload: { error: toError(error) },
+      payload: { error: toBlackoutError(error) },
       type: actionTypes.FETCH_USER_SUBSCRIPTIONS_FAILURE,
     });
 

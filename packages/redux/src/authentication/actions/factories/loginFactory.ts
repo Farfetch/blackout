@@ -1,12 +1,12 @@
 import * as actionTypes from '../../actionTypes';
-import { loginMethodParameterTypes } from '@farfetch/blackout-analytics';
-import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { Config } from '@farfetch/blackout-client/types';
-import type { Dispatch } from 'redux';
-import type {
+import {
+  Config,
   LoginData,
   PostLogin,
-} from '@farfetch/blackout-client/authentication/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import { loginMethodParameterTypes } from '@farfetch/blackout-analytics';
+import type { Dispatch } from 'redux';
 
 const UNVERIFIED_USER = 4;
 
@@ -49,7 +49,7 @@ export default (postLogin: PostLogin) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.LOGIN_FAILURE,
       });
 

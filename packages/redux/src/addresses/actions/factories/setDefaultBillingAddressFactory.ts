@@ -1,11 +1,10 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { Config, toBlackoutError } from '@farfetch/blackout-client';
 import type {
   Address,
   PutDefaultBillingAddress,
   User,
 } from '@farfetch/blackout-client/addresses/types';
-import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type { SetDefaultBillingAddressAction } from '../../types';
 
@@ -48,7 +47,7 @@ const setDefaultBillingAddressFactory =
     } catch (error) {
       dispatch({
         meta: { addressId },
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.SET_DEFAULT_BILLING_ADDRESS_FAILURE,
       });
 

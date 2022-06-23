@@ -1,13 +1,12 @@
 import { createContext } from 'react';
-import type { ErrorData } from '../hooks/useUserAuthState';
 import type {
+  AuthenticationTokenManager,
   LoginData,
   PostTokenResponse,
-} from '@farfetch/blackout-client/authentication/types';
-import type { TokenContext } from '@farfetch/blackout-client/helpers/client/interceptors/authentication/token-providers/types/TokenContext.types';
-import type AxiosAuthenticationTokenManager from '@farfetch/blackout-client/helpers/client/interceptors/authentication';
-import type UserToken from '@farfetch/blackout-client/helpers/client/interceptors/authentication/types/UserToken.types';
-
+  TokenContext,
+  UserToken,
+} from '@farfetch/blackout-client';
+import type { ErrorData } from '../hooks/useUserAuthState';
 export interface ContextProps {
   activeTokenData?: UserToken | null;
   clearTokenData?: () => void;
@@ -19,7 +18,7 @@ export interface ContextProps {
     claims: TokenContext,
     useCache: boolean,
   ) => Promise<string | undefined>;
-  tokenManager?: AxiosAuthenticationTokenManager;
+  tokenManager?: AuthenticationTokenManager;
   login?: (data: LoginData) => Promise<PostTokenResponse>;
   logout?: () => Promise<void>;
   isLoggedIn?: boolean;

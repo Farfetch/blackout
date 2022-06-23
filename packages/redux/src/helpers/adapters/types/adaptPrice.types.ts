@@ -1,9 +1,9 @@
-import type { Item as CheckoutOrderItem } from '../../../checkout/types';
+import type { Item as CheckoutOrderItem } from '@farfetch/blackout-client/checkout/types';
 import type {
   Price,
   ProductSummaryPrice,
   ProductSummaryTypedPrice,
-} from '../../../products/types';
+} from '@farfetch/blackout-client/products/types';
 
 export type PlpPrice = ProductSummaryPrice & ProductSummaryTypedPrice;
 

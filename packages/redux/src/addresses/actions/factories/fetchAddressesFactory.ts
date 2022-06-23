@@ -1,13 +1,12 @@
 import * as actionTypes from '../../actionTypes';
+import { Config, toBlackoutError } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import { toError } from '@farfetch/blackout-client/helpers/client';
 import addressesSchema from '../../../entities/schemas/addresses';
 import type {
   Address,
   GetAddresses,
   User,
 } from '@farfetch/blackout-client/addresses/types';
-import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type { FetchAddressesAction } from '../../types';
 
@@ -43,7 +42,7 @@ const fetchAddressesFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_ADDRESSES_FAILURE,
       });
 
