@@ -1,4 +1,4 @@
 import type { Config } from '../../types';
 import type { Order } from './order.types';
 
-export type GetOrderDetails = (id: string, config?: Config) => Promise<Order>;
+export type GetOrder = (id: string, config?: Config) => Promise<Order>;

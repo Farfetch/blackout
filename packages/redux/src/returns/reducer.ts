@@ -16,10 +16,6 @@ import type {
   GetReturnReferencesFailureAction,
   GetReturnReferencesRequestAction,
   GetReturnRequestAction,
-  GetReturnsFromOrderAction,
-  GetReturnsFromOrderFailureAction,
-  GetReturnsFromOrderRequestAction,
-  GetReturnsFromOrderSuccessAction,
   GetReturnSuccessAction,
   ResetReturnAction,
   ReturnsState,
@@ -54,13 +50,11 @@ const error = (
     | CreateReturnFailureAction
     | GetReturnPickupCapabilitiesFailureAction
     | GetReturnFailureAction
-    | GetReturnsFromOrderFailureAction
     | UpdateReturnFailureAction
     | GetReturnReferencesFailureAction
     | CreateReturnRequestAction
     | GetReturnPickupCapabilitiesRequestAction
     | GetReturnRequestAction
-    | GetReturnsFromOrderRequestAction
     | UpdateReturnRequestAction
     | GetReturnReferencesRequestAction
     | ResetReturnAction
@@ -70,14 +64,12 @@ const error = (
     case actionTypes.CREATE_RETURN_FAILURE:
     case actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_FAILURE:
     case actionTypes.FETCH_RETURN_FAILURE:
-    case actionTypes.FETCH_RETURNS_FROM_ORDER_FAILURE:
     case actionTypes.UPDATE_RETURN_FAILURE:
     case actionTypes.FETCH_RETURN_REFERENCES_FAILURE:
       return action.payload.error;
     case actionTypes.CREATE_RETURN_REQUEST:
     case actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST:
     case actionTypes.FETCH_RETURN_REQUEST:
-    case actionTypes.FETCH_RETURNS_FROM_ORDER_REQUEST:
     case actionTypes.UPDATE_RETURN_REQUEST:
     case actionTypes.FETCH_RETURN_REFERENCES_REQUEST:
     case actionTypes.RESET_RETURN:
@@ -93,14 +85,12 @@ const id = (
   action:
     | CreateReturnSuccessAction
     | GetReturnSuccessAction
-    | GetReturnsFromOrderSuccessAction
     | ResetReturnAction
     | LogoutSuccessAction,
 ) => {
   switch (action.type) {
     case actionTypes.CREATE_RETURN_SUCCESS:
     case actionTypes.FETCH_RETURN_SUCCESS:
-    case actionTypes.FETCH_RETURNS_FROM_ORDER_SUCCESS:
       return action.payload.result;
     case actionTypes.RESET_RETURN:
     case LOGOUT_SUCCESS:
@@ -116,7 +106,6 @@ const isLoading = (
     | CreateReturnAction
     | GetReturnPickupCapabilitiesAction
     | GetReturnAction
-    | GetReturnsFromOrderAction
     | UpdateReturnAction
     | GetReturnReferencesAction
     | ResetReturnAction
@@ -126,7 +115,6 @@ const isLoading = (
     case actionTypes.CREATE_RETURN_REQUEST:
     case actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST:
     case actionTypes.FETCH_RETURN_REQUEST:
-    case actionTypes.FETCH_RETURNS_FROM_ORDER_REQUEST:
     case actionTypes.UPDATE_RETURN_REQUEST:
     case actionTypes.FETCH_RETURN_REFERENCES_REQUEST:
       return true;
@@ -135,9 +123,7 @@ const isLoading = (
     case actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_SUCCESS:
     case actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_FAILURE:
     case actionTypes.FETCH_RETURN_SUCCESS:
-    case actionTypes.FETCH_RETURNS_FROM_ORDER_SUCCESS:
     case actionTypes.FETCH_RETURN_FAILURE:
-    case actionTypes.FETCH_RETURNS_FROM_ORDER_FAILURE:
     case actionTypes.UPDATE_RETURN_SUCCESS:
     case actionTypes.UPDATE_RETURN_FAILURE:
     case actionTypes.FETCH_RETURN_REFERENCES_SUCCESS:
@@ -178,7 +164,7 @@ export const entitiesMapper = {
 };
 
 const returns = reducerFactory(
-  ['CREATE_RETURN', 'FETCH_RETURN', 'FETCH_RETURNS_FROM_ORDER'],
+  ['CREATE_RETURN', 'FETCH_RETURN'],
   INITIAL_STATE.returns,
   actionTypes,
 );

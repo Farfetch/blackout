@@ -27,8 +27,8 @@ Object {
   },
   "orders": Object {
     "@farfetch/blackout-redux/FETCH_ORDERS_SUCCESS": [Function],
-    "@farfetch/blackout-redux/FETCH_ORDER_DETAILS_SUCCESS": [Function],
     "@farfetch/blackout-redux/FETCH_ORDER_RETURN_OPTIONS_SUCCESS": [Function],
+    "@farfetch/blackout-redux/FETCH_ORDER_SUCCESS": [Function],
     "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
     "@farfetch/blackout-redux/RESET_ORDERS": [Function],
   },

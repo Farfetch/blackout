@@ -7,8 +7,7 @@ import type { GetOrderAvailableItemsActivities } from './types';
  * Method responsible for fetching the activities that are available for each item
  * in the order.
  *
- * @param id      - The identifier of the order.
- * @param orderId -
+ * @param orderId - The identifier of the order.
  * @param config  - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.

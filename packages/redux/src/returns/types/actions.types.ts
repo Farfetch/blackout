@@ -93,26 +93,6 @@ export type GetReturnAction =
   | GetReturnSuccessAction
   | GetReturnFailureAction;
 
-export interface GetReturnsFromOrderRequestAction extends Action {
-  type: typeof actionTypes.FETCH_RETURNS_FROM_ORDER_REQUEST;
-}
-export interface GetReturnsFromOrderSuccessAction extends Action {
-  type: typeof actionTypes.FETCH_RETURNS_FROM_ORDER_SUCCESS;
-  payload: Payload;
-}
-export interface GetReturnsFromOrderFailureAction extends Action {
-  type: typeof actionTypes.FETCH_RETURNS_FROM_ORDER_FAILURE;
-  payload: { error: BlackoutError };
-}
-
-/**
- * Actions dispatched when the get returns from order request is made.
- */
-export type GetReturnsFromOrderAction =
-  | GetReturnsFromOrderRequestAction
-  | GetReturnsFromOrderSuccessAction
-  | GetReturnsFromOrderFailureAction;
-
 export interface UpdateReturnRequestAction extends Action {
   type: typeof actionTypes.UPDATE_RETURN_REQUEST;
   meta: { id: string };

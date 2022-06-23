@@ -1,6 +1,6 @@
 import { adaptError } from '../helpers/client/formatError';
 import client from '../helpers/client';
-import type { GetTrackings } from './types';
+import type { GetShipmentTrackings } from './types';
 
 /**
  * Gets all tracking events based on the tracking numbers.
@@ -10,7 +10,7 @@ import type { GetTrackings } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getTrackings: GetTrackings = (trackingCodes, config) =>
+const getShipmentTrackings: GetShipmentTrackings = (trackingCodes, config) =>
   client
     .get(`/account/v1/trackings?trackingNumbers=${trackingCodes}`, config)
     .then(response => response.data)
@@ -18,4 +18,4 @@ const getTrackings: GetTrackings = (trackingCodes, config) =>
       throw adaptError(error);
     });
 
-export default getTrackings;
+export default getShipmentTrackings;
