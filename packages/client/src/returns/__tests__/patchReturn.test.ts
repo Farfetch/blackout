@@ -8,7 +8,7 @@ import moxios from 'moxios';
 describe('patchReturn', () => {
   const data = mockPatchData;
   const spy = jest.spyOn(client, 'patch');
-  const id = '123456';
+  const id = 123456;
   const expectedConfig = undefined;
   const query = { guestUserEmail: 'test@email.com' };
 

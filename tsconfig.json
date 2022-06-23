@@ -1,7 +1,14 @@
 {
-  "include": ["**/*.ts"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "packages/client/src/siteFeatures/client/index.js",
+    "packages/client/src/siteFeatures/client/getSiteFeatures.js",
+    "packages/client/src/siteFeatures/client/__fixtures__/getSiteFeatures.fixtures.js"
+  ],
   "extends": "./configs/typescript/tsconfig.basic.json",
   "compilerOptions": {
+    "skipLibCheck": true,
     "outDir": "dist",
     "baseUrl": "./",
     "paths": {

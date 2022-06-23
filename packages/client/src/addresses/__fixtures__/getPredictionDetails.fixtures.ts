@@ -9,7 +9,7 @@ export default {
       response: Prediction;
     }): void => {
       moxios.stubRequest(
-        `/api/account/v1/addressesprediction/${params.predictionId}/address?sessionToken=${params.query.sessionToken}`,
+        `/api/account/v1/addressesprediction/${params.predictionId}/address?sessionToken=${params?.query?.sessionToken}`,
         {
           response: params.response,
           status: 200,
@@ -21,7 +21,7 @@ export default {
       query?: GetPredictionsQuery;
     }): void => {
       moxios.stubRequest(
-        `/api/account/v1/addressesprediction/${params.predictionId}/address?sessionToken=${params.query.sessionToken}`,
+        `/api/account/v1/addressesprediction/${params.predictionId}/address?sessionToken=${params?.query?.sessionToken}`,
         {
           response: 'stub error',
           status: 404,
@@ -32,7 +32,7 @@ export default {
   withoutQuery: {
     success: (params: { predictionId: string; response: Prediction }): void => {
       moxios.stubRequest(
-        `/api/account/v1/addressesprediction/${params.predictionId}/address`,
+        `/api/account/v1/addressesprediction/${params?.predictionId}/address`,
         {
           response: params.response,
           status: 200,
@@ -41,7 +41,7 @@ export default {
     },
     failure: (params: { predictionId: string }): void => {
       moxios.stubRequest(
-        `/api/account/v1/addressesprediction/${params.predictionId}/address`,
+        `/api/account/v1/addressesprediction/${params?.predictionId}/address`,
         {
           response: 'stub error',
           status: 404,

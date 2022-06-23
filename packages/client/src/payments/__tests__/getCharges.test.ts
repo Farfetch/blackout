@@ -1,4 +1,4 @@
-import { DeclineCode, GetChargesResponse, GetChargesStatus } from '../types';
+import { Charge, DeclineCode, GetChargesStatus } from '../types';
 import { getCharges } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCharges.fixtures';
@@ -19,7 +19,7 @@ describe('getCharges', () => {
   afterEach(() => moxios.uninstall(client));
 
   it('should handle a client request successfully', async () => {
-    const response: GetChargesResponse = {
+    const response: Charge = {
       status: GetChargesStatus.Processing,
       redirectUrl: 'string',
       returnUrl: 'string',

@@ -87,28 +87,56 @@ export const responses = {
     },
   },
   getReturnPickupCapabilities: {
-    success: [
-      {
-        start: '/Date(1549987200000)/',
-        end: '/Date(1549962000000)/',
-      },
-      {
-        start: '/Date(1549987200000)/',
-        end: '/Date(1549965600000)/',
-      },
-      {
-        start: '/Date(1549987200000)/',
-        end: '/Date(1549969200000)/',
-      },
-      {
-        start: '/Date(1549987200000)/',
-        end: '/Date(1549972800000)/',
-      },
-      {
-        start: '/Date(1549987200000)/',
-        end: '/Date(1549976400000)/',
-      },
-    ],
+    success: {
+      availableTimeSlots: [
+        {
+          start: '/Date(1549987200000)/',
+          end: '/Date(1549962000000)/',
+        },
+        {
+          start: '/Date(1549987200000)/',
+          end: '/Date(1549965600000)/',
+        },
+        {
+          start: '/Date(1549987200000)/',
+          end: '/Date(1549969200000)/',
+        },
+        {
+          start: '/Date(1549987200000)/',
+          end: '/Date(1549972800000)/',
+        },
+        {
+          start: '/Date(1549987200000)/',
+          end: '/Date(1549976400000)/',
+        },
+      ],
+    },
+  },
+  getPickupCapabilities: {
+    success: {
+      availableTimeSlots: [
+        {
+          start: '/Date(1549987200000)/',
+          end: '/Date(1549962000000)/',
+        },
+        {
+          start: '/Date(1549987200000)/',
+          end: '/Date(1549965600000)/',
+        },
+        {
+          start: '/Date(1549987200000)/',
+          end: '/Date(1549969200000)/',
+        },
+        {
+          start: '/Date(1549987200000)/',
+          end: '/Date(1549972800000)/',
+        },
+        {
+          start: '/Date(1549987200000)/',
+          end: '/Date(1549976400000)/',
+        },
+      ],
+    },
   },
   getReturnsFromOrder: {
     get: {

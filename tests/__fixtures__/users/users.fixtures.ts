@@ -1,6 +1,6 @@
 export const mockUsersResponse = {
   bagId: '3a52edfe-5b17-46b9-ba5d-ed87cb36aa67',
-  dateOfBirth: null,
+  dateOfBirth: '/Date(631152000000)/',
   email: 'teste@conta.com',
   gender: 0,
   id: 29538482,
@@ -9,7 +9,7 @@ export const mockUsersResponse = {
     value: 'Dr.',
   },
   name: 'Ivo Mota',
-  phoneNumber: null,
+  phoneNumber: '910000000',
   segments: [],
   username: 'teste@conta.com',
   wishlistId: '8e091868-b74b-47e1-ab27-a2c247c92242',
@@ -22,7 +22,7 @@ export const expectedNormalizedUserPayload = {
   entities: {
     user: {
       bagId: '3a52edfe-5b17-46b9-ba5d-ed87cb36aa67',
-      dateOfBirth: null,
+      dateOfBirth: '/Date(631152000000)/',
       email: 'teste@conta.com',
       gender: 0,
       genderId: 0,
@@ -30,7 +30,7 @@ export const expectedNormalizedUserPayload = {
       id: 29538482,
       isExternalLogin: false,
       name: 'Ivo Mota',
-      phoneNumber: null,
+      phoneNumber: '910000000',
       segments: [],
       username: 'teste@conta.com',
       wishlistId: '8e091868-b74b-47e1-ab27-a2c247c92242',

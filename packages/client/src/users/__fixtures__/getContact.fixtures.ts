@@ -1,9 +1,13 @@
-import get from 'lodash/get';
 import join from 'proper-url-join';
 import moxios from 'moxios';
+import type { ContactResponse } from '../types';
 
 export default {
-  success: params => {
+  success: (params: {
+    userId: number;
+    contactId: string;
+    response: ContactResponse;
+  }): void => {
     moxios.stubRequest(
       join(
         '/api/account/v1/users',
@@ -12,12 +16,12 @@ export default {
         params.contactId,
       ),
       {
-        response: get(params, 'response'),
+        response: params.response,
         status: 200,
       },
     );
   },
-  failure: params => {
+  failure: (params: { userId: number; contactId: string }): void => {
     moxios.stubRequest(
       join(
         '/api/account/v1/users',

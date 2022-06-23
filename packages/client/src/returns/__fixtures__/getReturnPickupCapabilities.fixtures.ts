@@ -1,4 +1,3 @@
-import get from 'lodash/get';
 import join from 'proper-url-join';
 import moxios from 'moxios';
 import type { PickupCapabilities } from '../types/pickupCapabilities.types';
@@ -7,7 +6,7 @@ export default {
   success: (params: {
     id: number;
     pickupDay: string;
-    response: PickupCapabilities[];
+    response: PickupCapabilities;
   }): void => {
     moxios.stubRequest(
       join(
@@ -17,7 +16,7 @@ export default {
         params.pickupDay,
       ),
       {
-        response: get(params, 'response'),
+        response: params.response,
         status: 200,
       },
     );

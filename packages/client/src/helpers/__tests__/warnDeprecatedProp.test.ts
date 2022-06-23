@@ -1,8 +1,14 @@
 import warnDeprecatedProp from '../warnDeprecatedProp';
 
 describe('warnDeprecatedProp()', () => {
+  const spy = jest.fn();
+  console.warn = spy;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should warn a deprecated prop successfully', () => {
-    const spy = jest.spyOn(console, 'warn');
     const mockPackageInfo = '@bw/utils@0.0.0';
     const mockComponentName = 'Component';
     const mockDeprecatedProp = 'deprecatedProp';

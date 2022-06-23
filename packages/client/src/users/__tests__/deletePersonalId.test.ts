@@ -7,7 +7,7 @@ describe('deletePersonalId', () => {
   const expectedConfig = {
     'X-SUMMER-RequestId': 'test',
   };
-  const id = 123456;
+  const userId = 123456;
   const personalId = '123456';
   const config = {
     'X-SUMMER-RequestId': 'test',
@@ -24,31 +24,31 @@ describe('deletePersonalId', () => {
   it('should handle a client request successfully', async () => {
     const response = 200;
 
-    fixtures.success(id, personalId, response);
+    fixtures.success({ userId, personalId, response });
 
     expect.assertions(2);
 
     await expect(
-      profileClient.deletePersonalId(id, personalId, config),
+      profileClient.deletePersonalId(userId, personalId, config),
     ).resolves.toBe(response);
 
     expect(spy).toHaveBeenCalledWith(
-      `/account/v1/users/${id}/personalIds/${personalId}`,
+      `/account/v1/users/${userId}/personalIds/${personalId}`,
       expectedConfig,
     );
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure(id, personalId);
+    fixtures.failure({ userId, personalId });
 
     expect.assertions(2);
 
     await expect(
-      profileClient.deletePersonalId(id, personalId, config),
+      profileClient.deletePersonalId(userId, personalId, config),
     ).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(
-      `/account/v1/users/${id}/personalIds/${personalId}`,
+      `/account/v1/users/${userId}/personalIds/${personalId}`,
       expectedConfig,
     );
   });

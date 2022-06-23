@@ -1,5 +1,5 @@
 export type GuestUserResponse = {
-  id: 0;
+  id: number;
   bagId: string;
   wishlistId: string;
   ip: string;

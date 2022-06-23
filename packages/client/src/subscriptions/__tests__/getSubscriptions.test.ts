@@ -17,7 +17,7 @@ describe('getSubscriptions', () => {
 
   it('should handle a client request successfully', async () => {
     const response = [{ ...mockGetSubscriptions.response }];
-    moxiosFixtures.success(mockGetSubscriptions.query, response);
+    moxiosFixtures.success({ query: mockGetSubscriptions.query, response });
 
     await expect(getSubscriptions(mockGetSubscriptions.query)).resolves.toBe(
       response,
@@ -32,7 +32,7 @@ describe('getSubscriptions', () => {
   });
 
   it('should receive a client request error', async () => {
-    moxiosFixtures.failure(mockGetSubscriptions.query);
+    moxiosFixtures.failure({ query: mockGetSubscriptions.query });
 
     await expect(
       getSubscriptions(mockGetSubscriptions.query),

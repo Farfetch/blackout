@@ -15,7 +15,13 @@ describe('getBenefits', () => {
   afterEach(() => moxios.uninstall(client));
 
   it('should handle a client request successfully', async () => {
-    const response = {};
+    const response = {
+      id: '00000000-0000-0000-0000-000000000000',
+      code: 'SummerParty2017',
+      isActive: true,
+      metadata: { 'dress-code': 'green' },
+      benefitType: 'price',
+    };
 
     fixtures.success({ response });
 

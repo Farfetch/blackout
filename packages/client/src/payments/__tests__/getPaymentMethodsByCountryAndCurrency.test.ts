@@ -1,8 +1,8 @@
 import { getPaymentMethodsByCountryAndCurrency } from '..';
-import { PaymentMethod, PaymentMethods } from '../types';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getPaymentMethodsByCountryAndCurrency.fixtures';
 import moxios from 'moxios';
+import type { PaymentMethod, PaymentMethods } from '../types';
 
 describe('getPaymentMethodsByCountryAndCurrency', () => {
   const expectedConfig = undefined;

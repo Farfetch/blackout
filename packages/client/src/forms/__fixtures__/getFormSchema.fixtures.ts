@@ -7,23 +7,22 @@ import type { FormSchema, FormSchemaQuery } from '../types';
  */
 export default {
   get: {
-    success: (
-      schemaCode: string,
-      query: FormSchemaQuery,
-      response: FormSchema,
-    ) => {
+    success: (params: {
+      schemaCode: string;
+      query: FormSchemaQuery;
+      response: FormSchema;
+    }) => {
       moxios.stubRequest(
-        // @ts-expect-error
-        join(`api/communication/v1/forms/${schemaCode}`, {
-          query,
+        join(`api/communication/v1/forms/${params.schemaCode}`, {
+          query: params.query,
         }),
         {
-          response,
+          response: params.response,
           status: 200,
         },
       );
     },
-    failure: () => {
+    failure: (): void => {
       moxios.stubRequest(/.*v1\/forms\/*./, {
         response: 'stub error',
         status: 404,

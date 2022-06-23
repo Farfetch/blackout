@@ -2,36 +2,40 @@ import join from 'proper-url-join';
 import moxios from 'moxios';
 
 export default {
-  success: (
-    subscriptionId: string,
-    topicId: string,
-    recipientId: string,
-    response: unknown,
-  ) => {
+  success: (params: {
+    subscriptionId: string;
+    topicId: string;
+    recipientId: string;
+    response: unknown;
+  }) => {
     moxios.stubRequest(
       join(
         '/api/marketing/v1/subscriptions/',
-        subscriptionId,
+        params.subscriptionId,
         '/topics/',
-        topicId,
+        params.topicId,
         '/addresses/',
-        recipientId,
+        params.recipientId,
       ),
       {
-        response,
+        response: params.response,
         status: 200,
       },
     );
   },
-  failure: (subscriptionId: string, topicId: string, recipientId: string) => {
+  failure: (params: {
+    subscriptionId: string;
+    topicId: string;
+    recipientId: string;
+  }) => {
     moxios.stubRequest(
       join(
         '/api/marketing/v1/subscriptions/',
-        subscriptionId,
+        params.subscriptionId,
         '/topics/',
-        topicId,
+        params.topicId,
         '/addresses/',
-        recipientId,
+        params.recipientId,
       ),
       {
         response: 'stub error',

@@ -5,14 +5,11 @@ import type {
   RecentlyViewedProducts,
 } from '../types';
 
-/**
- * Response payloads.
- */
 export default {
   success: (params: {
     query: GetRecentlyViewedProductsQuery;
     response: RecentlyViewedProducts;
-  }) => {
+  }): void => {
     moxios.stubRequest(
       join('/api/marketing/v1/recentlyViewed/products', {
         query: params.query,
@@ -23,7 +20,7 @@ export default {
       },
     );
   },
-  failure: (params: { query: GetRecentlyViewedProductsQuery }) => {
+  failure: (params: { query: GetRecentlyViewedProductsQuery }): void => {
     moxios.stubRequest(
       join('/api/marketing/v1/recentlyViewed/products', {
         query: params.query,

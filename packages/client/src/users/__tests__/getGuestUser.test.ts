@@ -5,7 +5,7 @@ import moxios from 'moxios';
 
 describe('getGuestUser', () => {
   const expectedConfig = undefined;
-  const userId = '1';
+  const userId = 123;
   const spy = jest.spyOn(client, 'get');
 
   beforeEach(() => {
@@ -16,7 +16,16 @@ describe('getGuestUser', () => {
   afterEach(() => moxios.uninstall(client));
 
   it('should handle a client request successfully', async () => {
-    const response = {};
+    const response = {
+      id: userId,
+      bagId: 'string',
+      wishlistId: 'string',
+      ip: 'string',
+      countryCode: 'string',
+      externalId: 'string',
+      friendId: 'string',
+      expiryDate: '2020-03-31T15:21:55.109Z',
+    };
 
     fixtures.success({ userId, response });
 

@@ -14,10 +14,11 @@ describe('putSubscriptions', () => {
   afterEach(() => moxios.uninstall(client));
 
   it('should handle a client request successfully', async () => {
-    moxiosFixtures.success(undefined);
+    const mockResponse = undefined;
+    moxiosFixtures.success({ response: mockResponse });
 
     await expect(putSubscriptions(mockPutSubscriptions.data)).resolves.toBe(
-      undefined,
+      mockResponse,
     );
 
     expect(spy).toHaveBeenCalledWith(

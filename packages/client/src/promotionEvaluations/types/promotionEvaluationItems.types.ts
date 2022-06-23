@@ -3,7 +3,7 @@ export type PromotionEvaluationId = string;
 export type PromotionEvaluationItem = {
   id: string;
   eligiblePromotions: Array<{
-    promocode: string;
+    promocode?: string;
     displayName: string;
     eligibleOffers: Array<{
       type: number;

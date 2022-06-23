@@ -1,9 +1,13 @@
-import get from 'lodash/get';
 import join from 'proper-url-join';
 import moxios from 'moxios';
+import type { PreferencesResponse } from '../types';
 
 export default {
-  success: params => {
+  success: (params: {
+    userId: number;
+    code?: string;
+    response: PreferencesResponse;
+  }): void => {
     moxios.stubRequest(
       join('/api/account/v1/users/', params.userId, '/preferences', {
         query: {
@@ -11,12 +15,12 @@ export default {
         },
       }),
       {
-        response: get(params, 'response'),
+        response: params.response,
         status: 200,
       },
     );
   },
-  failure: params => {
+  failure: (params: { userId: number; code?: string }): void => {
     moxios.stubRequest(
       join('/api/account/v1/users/', params.userId, '/preferences', {
         query: {

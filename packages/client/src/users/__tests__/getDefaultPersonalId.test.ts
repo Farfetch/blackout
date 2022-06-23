@@ -24,7 +24,7 @@ describe('getDefaultPersonalId', () => {
   it('should handle a client request successfully', async () => {
     const response = mockGetDefaultPersonalIdResponse;
 
-    fixtures.success(userId, response);
+    fixtures.success({ userId, response });
 
     expect.assertions(2);
 
@@ -37,7 +37,7 @@ describe('getDefaultPersonalId', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure(userId);
+    fixtures.failure({ userId });
 
     expect.assertions(2);
     await expect(

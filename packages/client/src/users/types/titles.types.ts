@@ -8,10 +8,10 @@ export type GetTitlesResponse = {
   entries: {
     id: string;
     value: string;
-  };
+  }[];
 };
 
 export type GetTitles = (
-  query: GetTitlesQuery | undefined,
+  query?: GetTitlesQuery,
   config?: Config,
 ) => Promise<GetTitlesResponse>;

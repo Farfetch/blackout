@@ -7,6 +7,21 @@ describe('getTitles', () => {
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'get');
   const expectedBaseUrl = '/account/v1/titles';
+  const response = {
+    number: 1,
+    totalPages: 1,
+    totalItems: 2,
+    entries: [
+      {
+        id: '123',
+        value: 'foo',
+      },
+      {
+        id: '456',
+        value: 'bar',
+      },
+    ],
+  };
 
   beforeEach(() => {
     moxios.install(client);
@@ -16,22 +31,19 @@ describe('getTitles', () => {
   afterEach(() => moxios.uninstall(client));
 
   it('should handle a client request successfully', async () => {
-    const response = {};
-    const query = undefined;
-
     fixtures.success({ response });
 
-    await expect(usersClient.getTitles(query)).resolves.toBe(response);
+    await expect(usersClient.getTitles()).resolves.toBe(response);
     expect(spy).toHaveBeenCalledWith(expectedBaseUrl, expectedConfig);
   });
 
   it('should handle a client request successfully with pagination', async () => {
-    const response = {};
     const query = {
       page: 1,
       pageSize: 1,
     };
     const expectedUrl = `${expectedBaseUrl}?page=${query.page}&pageSize=${query.pageSize}`;
+
     fixtures.success({ query, response });
 
     expect.assertions(2);
@@ -41,12 +53,12 @@ describe('getTitles', () => {
   });
 
   it('should receive a client request error', async () => {
-    const query = undefined;
-    fixtures.failure({ query });
+    fixtures.failure();
 
     expect.assertions(2);
 
-    await expect(usersClient.getTitles(query)).rejects.toMatchSnapshot();
+    await expect(usersClient.getTitles()).rejects.toMatchSnapshot();
+
     expect(spy).toHaveBeenCalledWith(expectedBaseUrl, expectedConfig);
   });
 });

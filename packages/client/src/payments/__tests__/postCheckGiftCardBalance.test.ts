@@ -1,8 +1,8 @@
-import { Balance } from '../types';
 import { postCheckGiftCardBalance } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postGiftCardBalance.fixtures';
 import moxios from 'moxios';
+import type { Balance } from '../types';
 
 describe('postGiftCardBalance', () => {
   const expectedConfig = undefined;

@@ -1,6 +1,6 @@
 import client, { adaptError } from '../helpers/client';
 import join from 'proper-url-join';
-import type { Config } from '../types';
+import type { GetGuestUser } from './types';
 
 /**
  * Gets the guest user details with the specified id.
@@ -10,7 +10,7 @@ import type { Config } from '../types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getGuestUser = (id: string, config?: Config) =>
+const getGuestUser: GetGuestUser = (id, config) =>
   client
     .get(join('/account/v1/guestUsers', id), config)
     .then(response => response.data)

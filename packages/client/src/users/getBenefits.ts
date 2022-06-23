@@ -1,5 +1,5 @@
 import client, { adaptError } from '../helpers/client';
-import type { Config } from '../types';
+import type { GetBenefits } from './types';
 
 /**
  * Method responsible for getting user benefits.
@@ -8,7 +8,7 @@ import type { Config } from '../types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getBenefits = (config?: Config) =>
+const getBenefits: GetBenefits = config =>
   client
     .get('/legacy/v1/userbenefits', config)
     .then(response => response.data)

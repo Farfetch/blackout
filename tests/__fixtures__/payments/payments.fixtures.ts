@@ -99,19 +99,20 @@ export const mockFetchInstrumentsResponse = [
 export const mockFetchInstrumentsNormalizedPayload = {
   entities: {
     instruments: {
-      [mockFetchInstrumentsResponse[0].id]: mockFetchInstrumentsResponse[0],
+      [mockFetchInstrumentsResponse[0]?.id as string]:
+        mockFetchInstrumentsResponse[0],
     },
   },
-  result: [mockFetchInstrumentsResponse[0].id],
+  result: [mockFetchInstrumentsResponse[0]?.id],
 };
 export const mockFetchInstrumentResponse = mockFetchInstrumentsResponse[0];
 export const mockFetchInstrumentNormalizedPayload = {
   entities: {
     instruments: {
-      [mockFetchInstrumentResponse.id]: mockFetchInstrumentResponse,
+      [mockFetchInstrumentResponse?.id as string]: mockFetchInstrumentResponse,
     },
   },
-  result: mockFetchInstrumentResponse.id,
+  result: mockFetchInstrumentResponse?.id,
 };
 export const mockFetchIntentResponse = {
   id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',

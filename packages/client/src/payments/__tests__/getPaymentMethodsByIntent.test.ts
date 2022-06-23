@@ -1,8 +1,8 @@
 import { getPaymentMethodsByIntent } from '..';
-import { PaymentMethod } from '../types';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getPaymentMethodsByIntent.fixtures';
 import moxios from 'moxios';
+import type { PaymentMethod } from '../types';
 
 describe('getPaymentMethodsByIntent', () => {
   const expectedConfig = undefined;

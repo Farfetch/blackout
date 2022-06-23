@@ -1,0 +1,13 @@
+diff --git a/node_modules/@types/proper-url-join/index.d.ts b/node_modules/@types/proper-url-join/index.d.ts
+index aea8fd2..3882aa9 100755
+--- a/node_modules/@types/proper-url-join/index.d.ts
++++ b/node_modules/@types/proper-url-join/index.d.ts
+@@ -30,7 +30,7 @@ export interface Options {
+      * It will be merged with the query string in the url, if it exists.
+      */
+     query?: {
+-        [k: string]: string|number|ReadonlyArray<string|number>;
++        [k: string]: string|number|boolean|ReadonlyArray<string>|null|undefined;
+     } | undefined;
+     /**
+      * [query-string](https://github.com/sindresorhus/query-string#stringifyobject-options) singify method options to be considered when stringifying the query.

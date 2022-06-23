@@ -1,8 +1,11 @@
 import client, { adaptError } from '../helpers/client';
 import join from 'proper-url-join';
-import type { GetPredictions } from './types';
+import type { GetPredictions, GetPredictionsQuery } from './types';
 
-const getReqUrl = params =>
+const getReqUrl = (params: {
+  text: string;
+  query?: GetPredictionsQuery;
+}): string =>
   join('/account/v1/addressesprediction/', params.text, {
     query: params.query,
   });

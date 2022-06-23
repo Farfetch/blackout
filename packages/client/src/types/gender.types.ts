@@ -1,8 +1,8 @@
 export enum GenderEnum {
-  Woman,
-  Man,
-  Unisex,
-  Kid,
+  Woman = 'Woman',
+  Man = 'Man',
+  Unisex = 'Unisex',
+  Kid = 'Kid',
 }
 
 export type GenderString = 'Woman' | 'Man' | 'Unisex' | 'Kid';

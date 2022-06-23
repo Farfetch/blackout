@@ -2,7 +2,7 @@
 export type Price = {
   discountExclTaxes: number;
   discountInclTaxes: number;
-  discountRate: number;
+  discountRate?: number;
   formattedPrice: string;
   formattedPriceWithoutCurrency: string;
   formattedPriceWithoutDiscount: string;

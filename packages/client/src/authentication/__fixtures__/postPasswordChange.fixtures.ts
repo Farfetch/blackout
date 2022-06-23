@@ -7,7 +7,7 @@ type ParamsData = {
 };
 
 export default {
-  success: (params: ParamsData) => {
+  success: (params: ParamsData): void => {
     moxios.stubRequest(
       `/api/account/v1/users/${params.data.userId}/passwordchange`,
       {
@@ -15,7 +15,7 @@ export default {
       },
     );
   },
-  failure: (params: ParamsData) => {
+  failure: (params: ParamsData): void => {
     moxios.stubRequest(
       `/api/account/v1/users/${params.data.userId}/passwordchange`,
       {

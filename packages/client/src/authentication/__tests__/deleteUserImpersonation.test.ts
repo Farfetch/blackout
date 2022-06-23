@@ -4,7 +4,7 @@ import fixtures from '../__fixtures__/deleteUserImpersonation.fixtures';
 import moxios from 'moxios';
 
 describe('deleteUserImpersonation', () => {
-  const id = 1;
+  const id = '1';
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'delete');
 

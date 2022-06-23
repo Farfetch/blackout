@@ -1,15 +1,15 @@
-import get from 'lodash/get';
 import join from 'proper-url-join';
 import moxios from 'moxios';
+import type { GuestUserResponse } from '../types';
 
 export default {
-  success: params => {
+  success: (params: { userId: number; response: GuestUserResponse }): void => {
     moxios.stubRequest(join('/api/account/v1/guestUsers', params.userId), {
-      response: get(params, 'response'),
+      response: params.response,
       status: 200,
     });
   },
-  failure: params => {
+  failure: (params: { userId: number }): void => {
     moxios.stubRequest(join('/api/account/v1/guestUsers', params.userId), {
       response: 'stub error',
       status: 404,

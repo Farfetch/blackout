@@ -6,21 +6,21 @@ import type {
 } from '../types';
 
 export default {
-  success: (
-    query: GetSubscriptionPackagesQuery,
-    response: SubscriptionPackagesResult,
-  ) => {
+  success: (params: {
+    query: GetSubscriptionPackagesQuery;
+    response: SubscriptionPackagesResult;
+  }): void => {
     moxios.stubRequest(
-      join('/api/marketing/v1/subscriptionpackages', { query }),
+      join('/api/marketing/v1/subscriptionpackages', { query: params.query }),
       {
+        response: params.response,
         status: 200,
-        response,
       },
     );
   },
-  failure: (query: GetSubscriptionPackagesQuery) => {
+  failure: (params: { query: GetSubscriptionPackagesQuery }): void => {
     moxios.stubRequest(
-      join('/api/marketing/v1/subscriptionpackages', { query }),
+      join('/api/marketing/v1/subscriptionpackages', { query: params.query }),
       {
         response: 'stub error',
         status: 404,

@@ -16,7 +16,16 @@ describe('postGuestUser', () => {
   afterEach(() => moxios.uninstall(client));
 
   it('should handle a client request successfully', async () => {
-    const response = {};
+    const response = {
+      id: 123,
+      bagId: 'string',
+      wishlistId: 'string',
+      ip: 'string',
+      countryCode: 'string',
+      externalId: 'string',
+      friendId: 'string',
+      expiryDate: '2020-03-31T15:21:55.109Z',
+    };
 
     fixtures.success({ response });
 
