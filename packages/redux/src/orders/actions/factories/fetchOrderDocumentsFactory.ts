@@ -14,7 +14,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-const fetchOrderDocuments =
+const fetchOrderDocumentsFactory =
   (getOrderDocuments: GetOrderDocuments) =>
   (orderId: string, types: string[], config?: Config) =>
   async (dispatch: Dispatch): Promise<OrderDocuments[]> => {
@@ -40,4 +40,4 @@ const fetchOrderDocuments =
     }
   };
 
-export default fetchOrderDocuments;
+export default fetchOrderDocumentsFactory;

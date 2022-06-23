@@ -1,11 +1,11 @@
-export type Trackings = {
+export type ShipmentTrackings = {
   number: number;
   totalPages: number;
   totalItems: number;
-  entries: Tracking[];
+  entries: ShipmentTracking[];
 };
 
-export type Tracking = {
+export type ShipmentTracking = {
   id: string;
   numberOfTrackings: number;
   parcels: number;

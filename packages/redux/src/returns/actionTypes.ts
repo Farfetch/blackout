@@ -51,22 +51,6 @@ export const FETCH_RETURN_SUCCESS =
   '@farfetch/blackout-redux/FETCH_RETURN_SUCCESS';
 
 /**
- * Action type dispatched when the get returns from order request fails.
- */
-export const FETCH_RETURNS_FROM_ORDER_FAILURE =
-  '@farfetch/blackout-redux/FETCH_RETURNS__FAILURE';
-/**
- * Action type dispatched when the get returns from order request starts.
- */
-export const FETCH_RETURNS_FROM_ORDER_REQUEST =
-  '@farfetch/blackout-redux/FETCH_RETURNS_FROM_ORDER_REQUEST';
-/**
- * Action type dispatched when the get returns from order request succeeds.
- */
-export const FETCH_RETURNS_FROM_ORDER_SUCCESS =
-  '@farfetch/blackout-redux/FETCH_RETURNS_FROM_ORDER_SUCCESS';
-
-/**
  * Action type dispatched when resetting the return.
  */
 export const RESET_RETURN = '@farfetch/blackout-redux/RESET_RETURN';

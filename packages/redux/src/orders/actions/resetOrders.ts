@@ -6,7 +6,6 @@ import type { Dispatch } from 'redux';
  *
  * @returns - Thunk.
  */
-
 const resetOrders = () => (dispatch: Dispatch) => {
   dispatch({
     type: actionTypes.RESET_ORDERS,

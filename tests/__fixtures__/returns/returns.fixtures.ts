@@ -262,7 +262,7 @@ export const returnsNormalizedPayload = {
   },
 };
 
-export const returnsFromOrderNormalizedPayload = {
+export const orderReturnsNormalizedPayload = {
   ...returnsNormalizedPayload,
   result: [returnId],
 };

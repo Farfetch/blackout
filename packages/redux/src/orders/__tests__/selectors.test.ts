@@ -21,11 +21,11 @@ import omit from 'lodash/omit';
 describe('orders redux selectors', () => {
   beforeEach(jest.clearAllMocks);
 
-  describe('isOrdersLoading()', () => {
+  describe('areOrdersLoading()', () => {
     it('should get the orders isLoading property from state', () => {
       const spy = jest.spyOn(fromOrders, 'getIsLoading');
 
-      expect(selectors.isOrdersLoading(mockState)).toEqual(false);
+      expect(selectors.areOrdersLoading(mockState)).toEqual(false);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -84,36 +84,55 @@ describe('orders redux selectors', () => {
     });
   });
 
-  describe('isOrderDetails()', () => {
-    it('should get the orderDetails isLoading property from state', () => {
+  describe('isOrderLoading()', () => {
+    it('should get the order isLoading property from state', () => {
       const spy = jest.spyOn(fromOrders, 'getOrderDetails');
 
-      expect(selectors.isOrderDetailsLoading(mockState, orderId)).toEqual(
+      expect(selectors.isOrderLoading(mockState, orderId)).toEqual(false);
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('getOrderError()', () => {
+    it('should get the order error property from state', () => {
+      const expectedResult = mockState.orders.orderDetails.error[orderId];
+      const spy = jest.spyOn(fromOrders, 'getOrderDetails');
+
+      expect(selectors.getOrderError(mockState, orderId)).toBe(expectedResult);
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('areOrderReturnsLoading()', () => {
+    it('should get the orderReturns isLoading property from state', () => {
+      const spy = jest.spyOn(fromOrders, 'getOrderReturns');
+
+      expect(selectors.areOrderReturnsLoading(mockState, orderId)).toEqual(
         false,
       );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getOrderDetailsError()', () => {
-    it('should get the orderDetails error property from state', () => {
-      const expectedResult = mockState.orders.orderDetails.error[orderId];
-      const spy = jest.spyOn(fromOrders, 'getOrderDetails');
+  describe('getOrderReturnsError()', () => {
+    it('should get the orderReturns error property from state', () => {
+      const expectedResult = mockState.orders.orderReturns.error[orderId];
+      const spy = jest.spyOn(fromOrders, 'getOrderReturns');
 
-      expect(selectors.getOrderDetailsError(mockState, orderId)).toBe(
+      expect(selectors.getOrderReturnsError(mockState, orderId)).toEqual(
         expectedResult,
       );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('isOrderReturnOptionsLoading()', () => {
+  describe('areOrderReturnOptionsLoading()', () => {
     it('should get the orderReturnOptions isLoading property from state', () => {
       const spy = jest.spyOn(fromOrders, 'getOrderReturnOptions');
 
-      expect(selectors.isOrderReturnOptionsLoading(mockState, orderId)).toEqual(
-        false,
-      );
+      expect(
+        selectors.areOrderReturnOptionsLoading(mockState, orderId),
+      ).toEqual(false);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -130,30 +149,32 @@ describe('orders redux selectors', () => {
     });
   });
 
-  describe('isTrackingsLoading()', () => {
+  describe('areShipmentTrackingsLoading()', () => {
     it('should get the trackings isLoading property from state', () => {
-      const spy = jest.spyOn(fromOrders, 'getTrackings');
+      const spy = jest.spyOn(fromOrders, 'getShipmentTrackings');
 
-      expect(selectors.isTrackingsLoading(mockState)).toEqual(false);
+      expect(selectors.areShipmentTrackingsLoading(mockState)).toEqual(false);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getTrackingsError()', () => {
+  describe('getShipmentTrackingsError()', () => {
     it('should get the trackings error property from state', () => {
       const expectedResult = mockState.orders.trackings.error;
-      const spy = jest.spyOn(fromOrders, 'getTrackings');
+      const spy = jest.spyOn(fromOrders, 'getShipmentTrackings');
 
-      expect(selectors.getTrackingsError(mockState)).toBe(expectedResult);
+      expect(selectors.getShipmentTrackingsError(mockState)).toBe(
+        expectedResult,
+      );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('isDocumentsLoading()', () => {
+  describe('areDocumentsLoading()', () => {
     it('should get the documents isLoading property from state', () => {
       const spy = jest.spyOn(fromOrders, 'getDocuments');
 
-      expect(selectors.isDocumentsLoading(mockState)).toEqual(false);
+      expect(selectors.areDocumentsLoading(mockState)).toEqual(false);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -168,11 +189,11 @@ describe('orders redux selectors', () => {
     });
   });
 
-  describe('isAvailableItemsActivitiesLoading()', () => {
+  describe('areAvailableItemsActivitiesLoading()', () => {
     it('should get the orderAvailableItemsActivities isLoading property from state', () => {
       const spy = jest.spyOn(fromOrders, 'getOrderAvailableItemsActivities');
 
-      expect(selectors.isAvailableItemsActivitiesLoading(mockState)).toEqual(
+      expect(selectors.areAvailableItemsActivitiesLoading(mockState)).toEqual(
         false,
       );
       expect(spy).toHaveBeenCalledTimes(1);
@@ -192,12 +213,12 @@ describe('orders redux selectors', () => {
     });
   });
 
-  describe('isOrderItemAvailableActivitiesLoading()', () => {
+  describe('areOrderItemAvailableActivitiesLoading()', () => {
     it('should get the orderAvailableItemsActivities isLoading property from state', () => {
       const spy = jest.spyOn(fromOrders, 'getOrderItemAvailableActivities');
 
       expect(
-        selectors.isOrderItemAvailableActivitiesLoading(mockState),
+        selectors.areOrderItemAvailableActivitiesLoading(mockState),
       ).toEqual(false);
       expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -235,13 +256,13 @@ describe('orders redux selectors', () => {
     });
   });
 
-  describe('getLabelTracking()', () => {
+  describe('getShipmentTrackingLabel()', () => {
     it('should get the label tracking property from state', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
-      expect(selectors.getLabelTracking(mockState, trackingNumber)).toBe(
-        labelTrackingEntity,
-      );
+      expect(
+        selectors.getShipmentTrackingLabel(mockState, trackingNumber),
+      ).toBe(labelTrackingEntity);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });

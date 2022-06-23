@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchOrderReturns() action creator should create the correct actions for when the get order returns procedure is successful: get order returns success payload 1`] = `
+Object {
+  "meta": Object {
+    "orderId": "8VXRHN",
+  },
+  "payload": Object {
+    "entities": Object {
+      "returnItems": Object {
+        "49427539": Object {
+          "description": "Fits too big",
+          "id": 32283248,
+          "orderItemId": 49427539,
+          "reason": "Item doesn't fit",
+          "status": "Created",
+        },
+      },
+      "returns": Object {
+        "25741579": Object {
+          "availableDates": Array [
+            1641553143916,
+            1641553143916,
+            1641553143916,
+            1641553143916,
+            1641553143916,
+            1641553143916,
+          ],
+          "availableEndHours": undefined,
+          "availableStartHours": undefined,
+          "awbUrl": "/account/v1/returns/25741579/AWB",
+          "courier": "NotKnown",
+          "createdDate": 1641222613660,
+          "id": 25741579,
+          "invoiceUrl": "/account/v1/returns/25741579/Invoice",
+          "items": Array [
+            49427539,
+          ],
+          "maximumDateForPickup": 1641654613690,
+          "merchantId": 11554,
+          "numberOfBoxes": 0,
+          "numberOfItems": 1,
+          "orderId": "8HYCEV",
+          "pickupDate": undefined,
+          "pickupSchedule": Object {
+            "end": undefined,
+            "start": undefined,
+          },
+          "references": Array [
+            Object {
+              "name": "ReturnNote",
+              "url": "/account/v1/returns/25741579/references/ReturnNote",
+            },
+          ],
+          "status": "Accepted",
+          "type": "Courier",
+          "userId": 34113438,
+        },
+      },
+    },
+    "result": Array [
+      25741579,
+    ],
+  },
+  "type": "@farfetch/blackout-redux/FETCH_ORDER_RETURNS_SUCCESS",
+}
+`;
