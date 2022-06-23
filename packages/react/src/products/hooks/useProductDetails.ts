@@ -24,7 +24,7 @@ import { isProductInBag } from '@farfetch/blackout-redux/bags';
 import { useAction } from '../../helpers';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import type { StoreState } from '@farfetch/blackout-redux/src/types';
+import type { StoreState } from '@farfetch/blackout-client/types';
 import type { UseProductDetails } from './types';
 
 /**

@@ -3,7 +3,7 @@ import type {
   Prediction,
   PredictionDetails,
 } from '@farfetch/blackout-client/addresses/types';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
 import type {
   Nullable,

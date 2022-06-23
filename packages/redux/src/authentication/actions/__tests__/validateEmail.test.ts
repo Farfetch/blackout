@@ -1,12 +1,11 @@
 import { mockStore } from '../../../../tests';
-import { postValidateEmail } from '@farfetch/blackout-client/authentication';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { postValidateEmail, toBlackoutError } from '@farfetch/blackout-client';
 import { validateEmail } from '..';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
 
-jest.mock('@farfetch/blackout-client/authentication', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/authentication'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   postValidateEmail: jest.fn(),
 }));
 
@@ -58,7 +57,7 @@ describe('validateEmailFactory() action creator', () => {
           { type: actionTypes.VALIDATE_EMAIL_REQUEST },
           {
             type: actionTypes.VALIDATE_EMAIL_FAILURE,
-            payload: { error: toError(errorObject) },
+            payload: { error: toBlackoutError(errorObject) },
           },
         ]),
       );

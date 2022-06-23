@@ -1,5 +1,7 @@
-export { default as setAxiosAuthenticationInterceptors } from './setAxiosAuthenticationInterceptors';
 export * from './errors';
-export * from './token-providers';
+export { TokenKinds, TokenData } from './token-providers';
+export type { ITokenData, TokenContext } from './token-providers';
 export { default as AuthenticationConfigOptions } from './AuthenticationConfigOptions';
-export { default } from './AxiosAuthenticationTokenManager';
+export { default as AuthenticationTokenManager } from './AuthenticationTokenManager';
+export * from './defaults';
+export * from './types';

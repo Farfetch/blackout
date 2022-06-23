@@ -1,12 +1,14 @@
 import { createUserImpersonation } from '..';
 import { mockStore } from '../../../../tests';
-import { postUserImpersonation } from '@farfetch/blackout-client/authentication';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import {
+  postUserImpersonation,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
 
-jest.mock('@farfetch/blackout-client/authentication', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/authentication'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   postUserImpersonation: jest.fn(),
 }));
 
@@ -51,7 +53,7 @@ describe('createUserImpersonation() action creator', () => {
           { type: actionTypes.CREATE_USER_IMPERSONATION_REQUEST },
           {
             type: actionTypes.CREATE_USER_IMPERSONATION_FAILURE,
-            payload: { error: toError(errorObject) },
+            payload: { error: toBlackoutError(errorObject) },
           },
         ]),
       );

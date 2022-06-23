@@ -1,6 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import type { AdaptAttributes, AttributesAdapted } from './types';
-import type { Size } from '../../products/types';
+import type { Size } from '@farfetch/blackout-client/products/types';
 
 /**
  * Convert legacy size attributes to an object.

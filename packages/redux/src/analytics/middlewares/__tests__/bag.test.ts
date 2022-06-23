@@ -8,7 +8,7 @@ import { mockStore } from '../../../../tests';
 import Analytics, { eventTypes } from '@farfetch/blackout-analytics';
 import merge from 'lodash/merge';
 import type { BagItemEntity, ProductEntity } from '../../../entities/types';
-import type { PriceAdapted } from '@farfetch/blackout-client/helpers/adapters/types';
+import type { PriceAdapted } from '../../../helpers/adapters';
 import type { StoreState } from '../../../types';
 
 // Mock logger so it does not output to the console

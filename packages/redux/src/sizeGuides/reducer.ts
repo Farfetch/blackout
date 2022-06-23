@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers } from 'redux';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type {
   FetchSizeGuidesAction,
   ResetSizeGuidesStateAction,

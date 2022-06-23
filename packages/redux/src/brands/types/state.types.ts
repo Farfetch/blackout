@@ -1,4 +1,4 @@
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { Brand, Brands } from '@farfetch/blackout-client/brands/types';
 
 // Override `Brands` to have entries as an array of ids

@@ -24,6 +24,7 @@
  */
 
 import * as castleJS from '@castleio/castle-js';
+import { client as coreClient } from '@farfetch/blackout-client';
 import {
   EventData,
   eventTypes,
@@ -38,7 +39,6 @@ import {
   UserTraits,
   utils,
 } from '@farfetch/blackout-analytics';
-import coreClient from '@farfetch/blackout-client/helpers/client';
 import identity from 'lodash/identity';
 import isString from 'lodash/isString';
 import pickBy from 'lodash/pickBy';

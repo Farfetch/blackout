@@ -2,7 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import { getWishlistId } from '../../selectors';
 import { normalize } from 'normalizr';
 import { omit } from 'lodash';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import wishlistItemSchema from '../../../entities/schemas/wishlistItem';
 import type {
   AddWishlistItemAction,
@@ -83,7 +83,7 @@ const addWishlistItemFactory =
     } catch (error) {
       dispatch({
         meta: { productId: data.productId },
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.ADD_WISHLIST_ITEM_FAILURE,
       });
 

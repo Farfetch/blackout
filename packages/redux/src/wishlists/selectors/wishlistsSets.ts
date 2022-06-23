@@ -1,7 +1,7 @@
 import * as fromWishlistSetsReducer from '../reducer/wishlistsSets';
 import { createSelector } from 'reselect';
 import { getEntities, getEntityById } from '../../entities/selectors';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { SetsState } from '../types';
 import type { StoreState } from '../../types';
 import type { WishlistSet } from '@farfetch/blackout-client/wishlists/types';

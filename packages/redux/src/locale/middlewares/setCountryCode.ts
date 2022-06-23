@@ -1,6 +1,6 @@
 import * as actionTypes from '../actionTypes';
 import * as selectors from '../selectors';
-import client, { headers } from '@farfetch/blackout-client/helpers/client';
+import { client, headers } from '@farfetch/blackout-client';
 import type { Dispatch, Middleware, MiddlewareAPI } from 'redux';
 
 const DEFAULT_ACTION_TYPES = new Set([actionTypes.SET_COUNTRY_CODE]);

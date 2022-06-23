@@ -1,4 +1,4 @@
-import { postRefreshEmailToken } from '@farfetch/blackout-client/authentication';
+import { postRefreshEmailToken } from '@farfetch/blackout-client';
 import { refreshEmailTokenFactory } from './factories';
 
 /**

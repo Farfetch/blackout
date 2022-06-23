@@ -1,6 +1,5 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { Config } from '@farfetch/blackout-client/types';
+import { Config, toBlackoutError } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { GetGuestUser } from '@farfetch/blackout-client/users/types';
 
@@ -42,7 +41,7 @@ const fetchGuestUserFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_GUEST_USER_FAILURE,
       });
 

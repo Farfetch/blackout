@@ -1,12 +1,11 @@
-import { deleteTokens } from '@farfetch/blackout-client/authentication';
+import { deleteTokens, toBlackoutError } from '@farfetch/blackout-client';
 import { mockStore } from '../../../../tests';
 import { removeUserToken } from '..';
-import { toError } from '@farfetch/blackout-client/helpers/client';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
 
-jest.mock('@farfetch/blackout-client/authentication', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/authentication'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   deleteTokens: jest.fn(),
 }));
 
@@ -47,7 +46,7 @@ describe('removeUserToken() action creator', () => {
           { type: actionTypes.DELETE_USER_TOKEN_REQUEST },
           {
             type: actionTypes.DELETE_USER_TOKEN_FAILURE,
-            payload: { error: toError(errorObject) },
+            payload: { error: toBlackoutError(errorObject) },
           },
         ]),
       );

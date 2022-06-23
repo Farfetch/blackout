@@ -3,7 +3,7 @@ import { AnyAction, combineReducers } from 'redux';
 import topCategoryReducer, {
   INITIAL_STATE as TOP_CATEGORIES_INITIAL_STATE,
 } from './topCategories';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type {
   FetchCategoriesAction,
   ResetCategoriesStateAction,

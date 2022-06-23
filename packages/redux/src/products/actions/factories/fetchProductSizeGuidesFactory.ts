@@ -1,13 +1,13 @@
 import * as actionTypes from '../../actionTypes';
-import { normalize } from 'normalizr';
-import { toError } from '@farfetch/blackout-client/helpers/client';
-import productSchema from '../../../entities/schemas/product';
-import type { Dispatch } from 'redux';
-import type {
+import {
   GetProductSizeGuides,
   Product,
   ProductSizeGuide,
+  toBlackoutError,
 } from '@farfetch/blackout-client';
+import { normalize } from 'normalizr';
+import productSchema from '../../../entities/schemas/product';
+import type { Dispatch } from 'redux';
 
 /**
  * @param productId - Numeric identifier of the product.
@@ -53,7 +53,7 @@ export const fetchProductSizeGuidesFactory =
     } catch (error) {
       dispatch({
         meta: { productId },
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_PRODUCT_SIZEGUIDES_FAILURE,
       });
 

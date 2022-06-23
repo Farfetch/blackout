@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import { getWishlistId, getWishlistItem } from '../../selectors';
 import { normalize } from 'normalizr';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import wishlistItemSchema from '../../../entities/schemas/wishlistItem';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
@@ -96,7 +96,7 @@ const updateWishlistItemFactory =
           productId: wishlistItem?.product?.id,
           wishlistItemId,
         },
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.UPDATE_WISHLIST_ITEM_FAILURE,
       });
 

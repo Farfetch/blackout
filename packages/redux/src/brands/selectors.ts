@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { getBrands } from '../entities';
 import { getError, getHash, getIsLoading, getResult } from './reducer';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { Brand, Brands } from '@farfetch/blackout-client/brands/types';
 import type { State } from './types';
 import type { StoreState } from '../types';

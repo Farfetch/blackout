@@ -7,9 +7,9 @@ import {
 } from '../../bags';
 import { getError, getIsHydrated, getIsLoading } from '../reducer/details';
 import { getProduct } from '../../entities/selectors';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { ProductEntity } from '../../entities/types';
-import type { SizeAdapted } from '@farfetch/blackout-client/helpers/adapters/types';
+import type { SizeAdapted } from '../../helpers/adapters';
 import type { StoreState } from '../../types';
 
 /**

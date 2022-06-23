@@ -9,7 +9,7 @@ import type {
   PaymentMethods,
   PaymentToken,
 } from '@farfetch/blackout-client/payments/types';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { NormalizedSchema } from 'normalizr';
 
 /**

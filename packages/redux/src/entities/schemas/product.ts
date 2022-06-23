@@ -4,7 +4,7 @@ import {
   adaptPrice,
   adaptProductImages,
   adaptProductSizes,
-} from '@farfetch/blackout-client/helpers/adapters';
+} from '../../helpers/adapters';
 import { schema } from 'normalizr';
 import brand from './brand';
 import category from './category';

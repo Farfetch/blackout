@@ -9,7 +9,7 @@ import Analytics, {
   fromParameterTypes,
 } from '@farfetch/blackout-analytics';
 import merge from 'lodash/merge';
-import type { PriceAdapted } from '@farfetch/blackout-client/helpers/adapters/types';
+import type { PriceAdapted } from '../../../helpers/adapters';
 import type {
   ProductEntity,
   WishlistItemHydrated,

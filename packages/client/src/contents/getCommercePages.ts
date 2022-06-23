@@ -1,4 +1,5 @@
-import client, { adaptError } from '../helpers/client';
+import { adaptError } from '../helpers/client/formatError';
+import client from '../helpers/client';
 import join from 'proper-url-join';
 import type { CommercePagesContent, QueryCommercePages } from './types';
 import type { Config } from '../types';

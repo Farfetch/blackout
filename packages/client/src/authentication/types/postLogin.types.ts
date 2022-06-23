@@ -4,7 +4,7 @@ import type { LoginResponse } from './login.types';
 export interface LoginData {
   username: string;
   password: string;
-  rememberme?: boolean;
+  rememberMe?: boolean;
 }
 
 export type PostLogin = (

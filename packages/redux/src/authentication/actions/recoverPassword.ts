@@ -1,4 +1,4 @@
-import { postPasswordRecover } from '@farfetch/blackout-client/authentication';
+import { postPasswordRecover } from '@farfetch/blackout-client';
 import { recoverPasswordFactory } from './factories';
 
 /**

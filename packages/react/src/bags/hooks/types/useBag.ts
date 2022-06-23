@@ -2,10 +2,10 @@ import type {
   Bag,
   PostBagItemData,
   Query,
-} from '@farfetch/blackout-client/src/bags/types';
-import type { BagItemHydrated } from '@farfetch/blackout-redux/src/entities/types';
+} from '@farfetch/blackout-client/bags/types';
+import type { BagItemHydrated } from '@farfetch/blackout-redux/entities/types';
 import type { ProductTypeEnum } from '@farfetch/blackout-client/products/types';
-import type { State } from '@farfetch/blackout-redux/src/bags/types';
+import type { State } from '@farfetch/blackout-redux/bags/types';
 
 export type UseBag = (excludeProductTypes?: ProductTypeEnum[]) => {
   bag: State['result'];

@@ -1,12 +1,12 @@
-import type { Error } from '@farfetch/blackout-client/src/types';
+import type { Error } from '@farfetch/blackout-client';
 import type {
   ListingQuery,
   SetQuery,
-} from '@farfetch/blackout-client/src/products/types';
+} from '@farfetch/blackout-client/products/types';
 import type {
   ProductEntity,
   ProductsListEntity,
-} from '@farfetch/blackout-redux/src/entities/types';
+} from '@farfetch/blackout-client/entities/types';
 
 export type ProductsListTypes = {
   LISTING: 'listing';

@@ -1,4 +1,4 @@
-import { postValidateEmail } from '@farfetch/blackout-client/authentication';
+import { postValidateEmail } from '@farfetch/blackout-client';
 import { validateEmailFactory } from './factories';
 
 /**

@@ -1,19 +1,18 @@
 import {
   AuthenticationConfigOptions,
-  TokenKinds,
-} from '@farfetch/blackout-client/helpers/client/interceptors/authentication';
-import {
+  AuthenticationTokenManager,
   deleteTokens,
+  LoginData,
   postTokens,
-} from '@farfetch/blackout-client/authentication';
+  TokenKinds,
+  UserToken,
+} from '@farfetch/blackout-client';
 import {
   LoginWithoutDataError,
   NotLoggedInError,
   PendingUserOperationError,
 } from '../errors';
 import { useCallback, useMemo, useReducer } from 'react';
-import type AxiosAuthenticationTokenManager from '@farfetch/blackout-client/helpers/client/interceptors/authentication/AxiosAuthenticationTokenManager';
-import type UserToken from '@farfetch/blackout-client/helpers/client/interceptors/authentication/types/UserToken.types';
 
 export const ActionTypes = {
   LoginRequested: 'LOGIN_REQUESTED',
@@ -97,7 +96,7 @@ const useUserAuthState = ({
   tokenManager,
 }: {
   activeTokenData: UserToken | null;
-  tokenManager: AxiosAuthenticationTokenManager;
+  tokenManager: AuthenticationTokenManager;
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -110,7 +109,7 @@ const useUserAuthState = ({
   }, [state]);
 
   const login = useCallback(
-    async data => {
+    async (data: LoginData) => {
       assertNotLoading();
 
       try {

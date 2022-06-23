@@ -1,5 +1,5 @@
 import { loginFactory } from './factories';
-import { postLogin } from '@farfetch/blackout-client/authentication';
+import { postLogin } from '@farfetch/blackout-client';
 
 /**
  * Performs login operation for the user.

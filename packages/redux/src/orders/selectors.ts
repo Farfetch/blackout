@@ -13,7 +13,7 @@ import {
 } from './reducer';
 import { getEntities, getEntityById } from '../entities/selectors';
 import get from 'lodash/get';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type {
   LabelTracking,
   Order,

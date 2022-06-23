@@ -21,7 +21,12 @@ import {
 import { getEntities, getEntityById } from '../entities/selectors';
 import findKey from 'lodash/findKey';
 import get from 'lodash/get';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type {
+  BlackoutError,
+  DeliveryWindowType,
+  GetCheckoutOrderChargeResponse,
+  ItemDeliveryOption,
+} from '@farfetch/blackout-client';
 import type {
   CheckoutDetailsEntity,
   CheckoutEntity,
@@ -30,11 +35,6 @@ import type {
   DeliveryBundlesEntity,
   DeliveryBundleUpgradesEntity,
 } from '../entities/types';
-import type {
-  DeliveryWindowType,
-  GetCheckoutOrderChargeResponse,
-  ItemDeliveryOption,
-} from '@farfetch/blackout-client';
 import type { State } from './types';
 import type { StoreState } from '../types';
 

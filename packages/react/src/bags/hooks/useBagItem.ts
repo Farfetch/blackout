@@ -21,8 +21,7 @@ import type {
   HandleSizeChangeType,
   UseBagItem,
 } from './types';
-import type { SizeAdapted } from '@farfetch/blackout-client/helpers/adapters/types';
-import type { StoreState } from '@farfetch/blackout-redux/types';
+import type { SizeAdapted, StoreState } from '@farfetch/blackout-redux/types';
 
 /**
  * Provides Redux actions and state access, as well as handlers for dealing with

@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
-import type {
+import {
   Config,
   GetCollectPoints,
   GetCollectPointsQuery,
   GetCollectPointsResponse,
+  toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
@@ -45,7 +45,7 @@ export default (getCollectPoints: GetCollectPoints) =>
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_COLLECT_POINTS_FAILURE,
       });
 

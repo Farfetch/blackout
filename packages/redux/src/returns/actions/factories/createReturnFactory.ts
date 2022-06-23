@@ -1,6 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import returnSchema from '../../../entities/schemas/return';
 import type { Dispatch } from 'redux';
 import type {
@@ -42,7 +42,7 @@ const createReturnFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.CREATE_RETURN_FAILURE,
       });
 

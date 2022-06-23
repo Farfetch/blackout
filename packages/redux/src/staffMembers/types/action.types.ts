@@ -1,6 +1,6 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { StaffMember } from '@farfetch/blackout-client/staffMembers/types';
 
 export interface FetchStaffMemberFailureAction extends Action {

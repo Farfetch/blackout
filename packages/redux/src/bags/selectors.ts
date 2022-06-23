@@ -19,11 +19,8 @@ import type {
   ProductEntity,
 } from '../entities/types';
 import type { BagItemsState, State } from './types';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
-import type {
-  CustomAttributesAdapted,
-  SizeAdapted,
-} from '@farfetch/blackout-client/helpers/adapters/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
+import type { CustomAttributesAdapted, SizeAdapted } from '../helpers/adapters';
 import type { ProductTypeEnum } from '@farfetch/blackout-client/products/types';
 import type { StoreState } from '../types';
 

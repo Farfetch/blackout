@@ -50,7 +50,7 @@ import type { State as MerchantsLocationsState } from '../merchantsLocations/typ
 import type { State as OrdersState } from '../orders/types';
 import type { State as PaymentsState } from '../payments/types';
 import type { State as ProductsState } from '../products/types';
-import type { ProgramMembership } from '@farfetch/blackout-client/src/loyalty/types';
+import type { ProgramMembership } from '@farfetch/blackout-client/loyalty/types';
 import type { State as PromotionEvaluationsState } from '../promotionEvaluations/types';
 import type { State as ReturnsState } from '../returns/types';
 import type { State as SearchState } from '../search/types';

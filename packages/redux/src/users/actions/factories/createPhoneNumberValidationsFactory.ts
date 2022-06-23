@@ -1,5 +1,5 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type {
   PostPhoneNumberValidations,
@@ -40,7 +40,7 @@ const createPhoneNumberValidations =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.CREATE_PHONE_NUMBER_VALIDATIONS_FAILURE,
       });
 

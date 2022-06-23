@@ -1,12 +1,11 @@
 import * as actionTypes from '../../actionTypes';
+import { Config, toBlackoutError } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import { toError } from '@farfetch/blackout-client/helpers/client';
 import state from '../../../entities/schemas/state';
 import type {
   Cities,
   GetCountryCities,
 } from '@farfetch/blackout-client/locale/types';
-import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 
 /**
@@ -61,7 +60,7 @@ const fetchCountryCitiesFactory =
           countryCode,
           stateId,
         },
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_COUNTRY_CITIES_FAILURE,
       });
 

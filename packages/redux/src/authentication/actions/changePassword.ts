@@ -1,5 +1,5 @@
 import { changePasswordFactory } from './factories';
-import { postPasswordChange } from '@farfetch/blackout-client/authentication';
+import { postPasswordChange } from '@farfetch/blackout-client';
 
 /**
  * Change the user's password.

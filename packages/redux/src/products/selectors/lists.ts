@@ -21,14 +21,13 @@ import flatten from 'lodash/flatten';
 import flattenDeep from 'lodash/flattenDeep';
 import isEmpty from 'lodash/isEmpty';
 import sortBy from 'lodash/sortBy';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError, FacetGroup } from '@farfetch/blackout-client';
 import type {
   FacetEntity,
   FacetGroupsNormalized,
   ProductEntity,
   ProductsListEntity,
 } from '../../entities/types';
-import type { FacetGroup } from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 /**

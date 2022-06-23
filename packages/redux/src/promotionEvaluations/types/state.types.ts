@@ -1,4 +1,4 @@
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
 import type { PromotionEvaluationItem } from '@farfetch/blackout-client/promotionEvaluations/types';
 

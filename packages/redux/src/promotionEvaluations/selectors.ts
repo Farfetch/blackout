@@ -2,7 +2,7 @@ import { getError, getId, getIsLoading, getResult } from './reducer';
 import type {
   PromotionEvaluationId,
   PromotionEvaluationItem,
-} from '@farfetch/blackout-client/src/promotionEvaluations/types';
+} from '@farfetch/blackout-client/promotionEvaluations/types';
 import type { State } from './types';
 import type { StoreState } from '../types';
 

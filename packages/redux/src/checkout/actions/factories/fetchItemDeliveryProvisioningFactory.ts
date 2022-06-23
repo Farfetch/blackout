@@ -1,12 +1,11 @@
 import * as actionTypes from '../../actionTypes';
-import { normalize } from 'normalizr';
-import { toError } from '@farfetch/blackout-client/helpers/client';
-import itemDeliveryProvisioningSchema from '../../../entities/schemas/itemDeliveryProvisioning';
-import type {
-  Config,
+import {
   GetCheckoutOrderDeliveryBundleProvisioning,
   GetCheckoutOrderDeliveryBundleProvisioningResponse,
+  toBlackoutError,
 } from '@farfetch/blackout-client';
+import { normalize } from 'normalizr';
+import itemDeliveryProvisioningSchema from '../../../entities/schemas/itemDeliveryProvisioning';
 import type { Dispatch } from 'redux';
 
 /**
@@ -50,7 +49,7 @@ export default (
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_ITEM_DELIVERY_PROVISIONING_FAILURE,
       });
 

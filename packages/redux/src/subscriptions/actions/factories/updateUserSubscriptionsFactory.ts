@@ -1,6 +1,5 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { PutSubscriptions } from '@farfetch/blackout-client';
+import { PutSubscriptions, toBlackoutError } from '@farfetch/blackout-client';
 import type { UpdateUserSubscriptionsFactory } from './types';
 
 /**
@@ -25,7 +24,7 @@ export const updateUserSubscriptionsFactory: UpdateUserSubscriptionsFactory<
     });
   } catch (error) {
     dispatch({
-      payload: { error: toError(error) },
+      payload: { error: toBlackoutError(error) },
       type: actionTypes.UPDATE_USER_SUBSCRIPTIONS_FAILURE,
     });
 

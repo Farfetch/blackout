@@ -6,7 +6,7 @@ import type {
   PriceAdapted,
   ProductImagesAdapted,
   SizesAdapted,
-} from '@farfetch/blackout-client/helpers/adapters/types';
+} from '../../helpers/adapters';
 import type { MerchantEntity } from './merchant.types';
 import type {
   Product as OriginalProduct,

@@ -1,13 +1,13 @@
 import * as actionTypes from '../../actionTypes';
-import { adaptRecommendedProducts } from '@farfetch/blackout-client/helpers/adapters';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { adaptRecommendedProducts } from '../../../helpers/adapters';
+import {
+  GetRecommendedProducts,
+  RecommendedProductsResult,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { FetchRecommendedProductsAction } from '../../types';
 import type { FetchRecommendedProductsFactory } from './types';
-import type {
-  GetRecommendedProducts,
-  RecommendedProductsResult,
-} from '@farfetch/blackout-client';
 
 /**
  * Method responsible for retrieving recommendations for a product based on a
@@ -51,7 +51,7 @@ export const fetchRecommendedProductsFactory: FetchRecommendedProductsFactory<
     } catch (error) {
       dispatch({
         type: actionTypes.FETCH_RECOMMENDED_PRODUCTS_FAILURE,
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         meta: { strategyName },
       });
 

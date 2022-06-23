@@ -1,7 +1,9 @@
 import type * as actionTypes from '../../actionTypes';
 import type { Action } from 'redux';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
-import type { RecentlyViewedProducts } from '@farfetch/blackout-client';
+import type {
+  BlackoutError,
+  RecentlyViewedProducts,
+} from '@farfetch/blackout-client';
 
 interface FetchRecentlyViewedProductsRequestAction extends Action {
   type: typeof actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST;

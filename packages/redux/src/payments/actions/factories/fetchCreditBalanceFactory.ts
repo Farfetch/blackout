@@ -1,11 +1,10 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { Config, toBlackoutError } from '@farfetch/blackout-client';
 import type {
   Balance,
   PostCheckCreditBalance,
   PostCheckCreditBalanceData,
 } from '@farfetch/blackout-client/payments/types';
-import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type { FetchCreditBalanceAction } from '../../types';
 
@@ -42,7 +41,7 @@ const fetchCreditBalanceFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_CREDIT_BALANCE_FAILURE,
       });
 

@@ -2,7 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import { generateBrandsHash } from '../../utils';
 import { isBrandsResultCached } from '../../selectors';
 import { normalize } from 'normalizr';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import brand from '../../../entities/schemas/brand';
 import type {
   Brands,
@@ -94,7 +94,7 @@ const fetchBrandsFactory =
     } catch (error) {
       dispatch({
         meta: { hash: hash as string, query },
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_BRANDS_FAILURE,
       });
 
