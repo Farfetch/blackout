@@ -1,14 +1,21 @@
+import {
+  AuthenticationTokenManager,
+  AxiosAuthenticationTokenManagerOptions,
+  client,
+  TokenContext,
+  UserToken,
+} from '@farfetch/blackout-client';
 import { usePrevious } from '../../helpers';
 import AuthenticationContext from './AuthenticationContext';
-import AxiosAuthenticationTokenManager, {
-  setAxiosAuthenticationInterceptors,
-} from '@farfetch/blackout-client/helpers/client/interceptors/authentication';
-import client from '@farfetch/blackout-client/helpers/client';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import setAuthenticationInterceptors from './helpers/setAuthenticationInterceptors';
 import useUserAuthState from '../hooks/useUserAuthState';
-import type { AxiosAuthenticationTokenManagerOptions } from '@farfetch/blackout-client/helpers/client/interceptors/authentication/types/TokenManagerOptions.types';
-import type { TokenContext } from '@farfetch/blackout-client/helpers/client/interceptors/authentication/token-providers/types/TokenContext.types';
-import type UserToken from '@farfetch/blackout-client/helpers/client/interceptors/authentication/types/UserToken.types';
 
 export enum CallbackNames {
   OnUserSessionTerminated = 'onUserSessionTerminated',
@@ -19,7 +26,7 @@ interface Props extends AxiosAuthenticationTokenManagerOptions {
   children: React.ReactNode;
   headers: { [k: string]: string };
   callbacks: {
-    onUserSessionTerminated: (expiredUserToken: string) => void;
+    onUserSessionTerminated: (expiredUserToken: UserToken | null) => void;
   };
   storage: AxiosAuthenticationTokenManagerOptions['storage'];
 }
@@ -70,18 +77,8 @@ function AuthenticationProvider({
     headersRef.current = headers;
   }
 
-  const invokeCallback = useCallback(
-    (callbackName: CallbackNames, expiredUserToken: string) => {
-      /* istanbul ignore else */
-      if (callbacks && typeof callbacks[callbackName] === 'function') {
-        callbacks[callbackName](expiredUserToken);
-      }
-    },
-    [callbacks],
-  );
-
   const [tokenManager] = useState(() => {
-    const tokenManagerInstance = setAxiosAuthenticationInterceptors(
+    const tokenManagerInstance = setAuthenticationInterceptors(
       client,
       tokenManagerOptions,
     );
@@ -111,7 +108,7 @@ function AuthenticationProvider({
   }, [tokenManager]);
 
   const getAccessToken = useCallback(
-    useCache => {
+    (useCache: boolean) => {
       return tokenManager.getAccessToken(useCache);
     },
     [tokenManager],
@@ -126,17 +123,25 @@ function AuthenticationProvider({
   );
 
   const onUserSessionTerminatedEventListener = useCallback(
-    expiredUserToken => {
-      invokeCallback(CallbackNames.OnUserSessionTerminated, expiredUserToken);
+    (expiredUserToken: UserToken | null) => {
+      const onUserSessionTerminatedCallback =
+        callbacks[CallbackNames.OnUserSessionTerminated];
+
+      if (typeof onUserSessionTerminatedCallback === 'function') {
+        onUserSessionTerminatedCallback(expiredUserToken);
+      }
     },
-    [invokeCallback],
+    [callbacks],
   );
 
-  const onActiveTokenChangedEventListener = useCallback(newActiveTokenData => {
-    setActiveTokenData(newActiveTokenData);
-  }, []);
+  const onActiveTokenChangedEventListener = useCallback(
+    (newActiveTokenData: SetStateAction<UserToken | null>) => {
+      setActiveTokenData(newActiveTokenData);
+    },
+    [],
+  );
 
-  const previousTokenManager: AxiosAuthenticationTokenManager =
+  const previousTokenManager: AuthenticationTokenManager =
     usePrevious(tokenManager);
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import { logoutFactory } from './factories';
-import { postLogout } from '@farfetch/blackout-client/authentication';
+import { postLogout } from '@farfetch/blackout-client';
 
 /**
  * Performs logout operation for the user.

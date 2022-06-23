@@ -1,13 +1,13 @@
 import * as actionTypes from '../../actionTypes';
 import { areRecentlyViewedProductsFetched } from '../../selectors';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import {
+  GetRecentlyViewedProducts,
+  RecentlyViewedProducts,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { FetchRecentlyViewedProductsAction } from '../../types';
 import type { FetchRecentlyViewedProductsFactory } from './types';
-import type {
-  GetRecentlyViewedProducts,
-  RecentlyViewedProducts,
-} from '@farfetch/blackout-client';
 import type { StoreState } from '../../../types';
 
 /**
@@ -52,7 +52,7 @@ export const fetchRecentlyViewedProductsFactory: FetchRecentlyViewedProductsFact
     } catch (error) {
       dispatch({
         type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE,
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
       });
 
       throw error;

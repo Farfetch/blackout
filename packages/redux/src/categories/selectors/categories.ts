@@ -1,5 +1,5 @@
 import { getError, getIsFetched, getIsLoading } from '../reducer/categories';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 /**

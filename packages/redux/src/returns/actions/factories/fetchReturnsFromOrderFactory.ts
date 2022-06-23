@@ -1,13 +1,13 @@
 import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import returnSchema from '../../../entities/schemas/return';
 import type { Dispatch } from 'redux';
 import type {
   GetReturnsFromOrder,
   Query,
   Return,
-} from '@farfetch/blackout-client/src/returns/types';
+} from '@farfetch/blackout-client/returns/types';
 
 /**
  * @param orderId - Order identifier.
@@ -42,7 +42,7 @@ const fetchReturnsFromOrderFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_RETURNS_FROM_ORDER_FAILURE,
       });
 

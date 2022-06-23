@@ -7,7 +7,7 @@ import type {
   Schema,
   User,
 } from '@farfetch/blackout-client/addresses/types';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { NormalizedSchema } from 'normalizr';
 
 /**

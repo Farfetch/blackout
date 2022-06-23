@@ -1,12 +1,11 @@
 import { createUserToken } from '..';
 import { mockStore } from '../../../../tests';
-import { postTokens } from '@farfetch/blackout-client/authentication';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { postTokens, toBlackoutError } from '@farfetch/blackout-client';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
 
-jest.mock('@farfetch/blackout-client/authentication', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/authentication'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   postTokens: jest.fn(),
 }));
 
@@ -56,7 +55,7 @@ describe('createUserToken() action creator', () => {
           { type: actionTypes.CREATE_USER_TOKEN_REQUEST },
           {
             type: actionTypes.CREATE_USER_TOKEN_FAILURE,
-            payload: { error: toError(errorObject) },
+            payload: { error: toBlackoutError(errorObject) },
           },
         ]),
       );

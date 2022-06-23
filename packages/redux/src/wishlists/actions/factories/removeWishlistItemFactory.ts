@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import { getWishlistId, getWishlistItem } from '../../selectors';
 import { normalize } from 'normalizr';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import wishlistItemSchema from '../../../entities/schemas/wishlistItem';
 import type {
   DeleteWishlistItem,
@@ -89,7 +89,7 @@ const removeWishlistItemFactory =
           productId: wishlistItem?.product?.id,
           wishlistItemId,
         },
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.REMOVE_WISHLIST_ITEM_FAILURE,
       });
 

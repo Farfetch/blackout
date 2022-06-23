@@ -1,5 +1,5 @@
 import { createUserImpersonationFactory } from './factories';
-import { postUserImpersonation } from '@farfetch/blackout-client/authentication';
+import { postUserImpersonation } from '@farfetch/blackout-client';
 
 /**
  * Creates user impersonation.

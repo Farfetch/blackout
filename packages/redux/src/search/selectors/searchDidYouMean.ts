@@ -1,5 +1,5 @@
 import * as fromSearchDidYouMeanReducer from '../reducer/searchDidYouMean';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type {
   SearchDidYouMean,
   SearchDidYouMeanQuery,

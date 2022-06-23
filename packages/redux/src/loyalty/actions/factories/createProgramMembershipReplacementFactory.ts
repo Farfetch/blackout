@@ -1,8 +1,7 @@
 import * as actionTypes from '../../actionTypes';
+import { Config, toBlackoutError } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import { toError } from '@farfetch/blackout-client/helpers/client';
 import replacementSchema from '../../../entities/schemas/replacement';
-import type { Config } from '@farfetch/blackout-client/types';
 import type { CreateProgramMembershipReplacementAction } from '../../types';
 import type { Dispatch } from 'redux';
 import type {
@@ -60,7 +59,7 @@ const createProgramMembershipReplacementFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_FAILURE,
       });
 

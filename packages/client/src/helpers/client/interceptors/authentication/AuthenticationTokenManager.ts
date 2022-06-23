@@ -4,7 +4,6 @@ import {
   getRequestUrlWithoutBase,
 } from './utils';
 import {
-  ClientCredentialsTokenProvider,
   GuestTokenProvider,
   TokenData,
   TokenKinds,
@@ -27,30 +26,25 @@ import type {
   OptionsStorageSerializer,
 } from './types/TokenManagerOptions.types';
 import type { ITokenData } from './token-providers/types/TokenData.types';
-import type { RequestConfig } from './types/AxiosAuthenticationTokenManager.types';
+import type { RequestConfig } from './types/AuthenticationTokenManager.types';
 import type { TokenContext } from './token-providers/types/TokenContext.types';
-import type UserToken from './types/UserToken.types';
+import type { UserToken } from './types';
 
-type TokenDataChangedListener =
-  | ((
-      activeToken: { kind: TokenKinds; data: ITokenData | null } | null,
-    ) => void)
-  | null;
+type TokenDataChangedListener = (
+  activeToken: { kind: TokenKinds; data: ITokenData | null } | null,
+) => void;
 
-type UserSessionTerminatedEventListener =
-  | ((value: UserToken | null) => void)
-  | null;
+type UserSessionTerminatedEventListener = (value: UserToken | null) => void;
 
 /**
  * Class responsible for installing an axios interceptor which will manage
  * authentication of any requests that require it with the correct access token
  * type (user or guest).
  */
-class AxiosAuthenticationTokenManager {
-  activeTokenDataChangedListener: TokenDataChangedListener;
+class AuthenticationTokenManager {
+  activeTokenDataChangedListener: TokenDataChangedListener | null;
   authorizationHeaderFormatter!: AxiosAuthenticationTokenManagerOptions['authorizationHeaderFormatter'];
   axiosInstance!: AxiosInstance;
-  clientCredentialsTokenProvider!: ClientCredentialsTokenProvider;
   currentTokenProvider: UserTokenProvider | GuestTokenProvider | null;
   guestTokenProvider!: GuestTokenProvider;
   isLoaded: boolean;
@@ -59,7 +53,7 @@ class AxiosAuthenticationTokenManager {
   loadPromise: Promise<unknown> | null;
   requestInterceptor!: number;
   responseInterceptor!: number;
-  userSessionTerminatedEventListener: UserSessionTerminatedEventListener;
+  userSessionTerminatedEventListener: UserSessionTerminatedEventListener | null;
   userTokenProvider!: UserTokenProvider;
   /**
    * @param client  - The axios instance to apply the interceptors to.
@@ -110,19 +104,18 @@ class AxiosAuthenticationTokenManager {
   ) {
     if (!client) {
       throw new TypeError(
-        "Missing 'client' parameter to 'AxiosAuthenticationTokenManager' constructor call",
+        "Missing 'client' parameter to 'AuthenticationTokenManager' constructor call",
       );
     }
 
     if (!options) {
       throw new TypeError(
-        "Missing 'options' parameter to 'AxiosAuthenticationTokenManager' constructor call",
+        "Missing 'options' parameter to 'AuthenticationTokenManager' constructor call",
       );
     }
 
     const {
       authorizationHeaderFormatter,
-      clientCredentialsTokenRequester,
       guestTokenRequester,
       refreshTokenWindowOffset,
       storage,
@@ -142,14 +135,6 @@ class AxiosAuthenticationTokenManager {
         typeof value.interceptors === 'object' &&
         value.interceptors !== null,
       'client',
-    );
-
-    assertOption(
-      clientCredentialsTokenRequester,
-      (
-        value: AxiosAuthenticationTokenManagerOptions['clientCredentialsTokenRequester'],
-      ) => value === undefined || typeof value === 'function',
-      'clientCredentialsTokenRequester',
     );
 
     assertOptionType(guestTokenRequester, 'function', 'guestTokenRequester');
@@ -206,12 +191,6 @@ class AxiosAuthenticationTokenManager {
         (value?: string) => value === undefined || typeof value === 'string',
         'storage.userTokenStorageKey',
       );
-
-      assertOption(
-        storage.clientCredentialsTokenStorageKey,
-        (value?: string) => value === undefined || typeof value === 'string',
-        'storage.clientCredentialsTokenStorageKey',
-      );
     }
 
     assertOptionType(userTokenRequester, 'function', 'userTokenRequester');
@@ -234,7 +213,6 @@ class AxiosAuthenticationTokenManager {
       refreshTokenWindowOffset,
       storage,
       userTokenRequester,
-      clientCredentialsTokenRequester,
     } = options;
 
     if (!isNil(refreshTokenWindowOffset)) {
@@ -248,28 +226,13 @@ class AxiosAuthenticationTokenManager {
     let tokenDataSerializer;
     let guestTokenStorageKey;
     let userTokenStorageKey;
-    let clientCredentialsTokenStorageKey;
 
     if (storage) {
       storageProvider = storage.provider;
       tokenDataSerializer = storage.serializer;
       guestTokenStorageKey = storage.guestTokenStorageKey;
       userTokenStorageKey = storage.userTokenStorageKey;
-      clientCredentialsTokenStorageKey =
-        storage.clientCredentialsTokenStorageKey;
     }
-
-    // Not used right now but might be interesting for the future, so do not remove it.
-    this.clientCredentialsTokenProvider = new ClientCredentialsTokenProvider(
-      clientCredentialsTokenRequester,
-      storageProvider,
-      tokenDataSerializer,
-      clientCredentialsTokenStorageKey,
-    );
-
-    this.clientCredentialsTokenProvider.addTokenChangesListener(
-      this.clientCredentialsTokenChangesListener,
-    );
 
     this.guestTokenProvider = new GuestTokenProvider(
       guestTokenRequester,
@@ -441,19 +404,6 @@ class AxiosAuthenticationTokenManager {
   }
 
   /**
-   * Listener for client credentials token data changes. Will raise an active token
-   * data changed event if it is the current token provider.
-   */
-  // Ignore coverage for client credentials token data changes as it was
-  // scrapped. We will leave the code here if it is necessary in the future.
-  /* istanbul ignore next */
-  clientCredentialsTokenChangesListener = () => {
-    if (this.currentTokenProvider === this.clientCredentialsTokenProvider) {
-      this.raiseOnActiveTokenDataChangedEvent();
-    }
-  };
-
-  /**
    * Listener for guest token data changes. Will raise an active token data changed
    * event if it is the current token provider.
    */
@@ -478,7 +428,9 @@ class AxiosAuthenticationTokenManager {
    *
    * @param listener - The new listener to apply.
    */
-  setActiveTokenDataChangedEventListener(listener: TokenDataChangedListener) {
+  setActiveTokenDataChangedEventListener(
+    listener: TokenDataChangedListener | null,
+  ) {
     this.activeTokenDataChangedListener = listener;
   }
 
@@ -488,7 +440,7 @@ class AxiosAuthenticationTokenManager {
    * @param listener - The new listener to apply.
    */
   setUserSessionTerminatedEventListener(
-    listener: UserSessionTerminatedEventListener,
+    listener: UserSessionTerminatedEventListener | null,
   ) {
     this.userSessionTerminatedEventListener = listener;
   }
@@ -924,4 +876,4 @@ class AxiosAuthenticationTokenManager {
   }
 }
 
-export default AxiosAuthenticationTokenManager;
+export default AuthenticationTokenManager;

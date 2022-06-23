@@ -24,7 +24,7 @@ export const legacyErrorAdapter = (
     ...rest
   }: LegacyErrorAdapterData,
   status: number,
-): { [k: string]: unknown } => ({
+): { code: number } & Record<string, unknown> => ({
   code: errorCode,
   message: errorMessage,
   status,
@@ -48,7 +48,7 @@ export const defaultErrorAdapter = (
     ...rest
   }: DefaultErrorAdapterData,
   status: number,
-) => ({
+): { code: number } & Record<string, unknown> => ({
   code,
   message: message || developerMessage || defaultError.message,
   status,
@@ -63,11 +63,9 @@ export const defaultErrorAdapter = (
  *
  * @returns Error adapted.
  */
-export const adaptError = (error: {
-  [k: string]: unknown;
-}): { [k: string]: unknown } => {
+export const adaptError = (error: unknown): BlackoutError => {
   if (!axios.isAxiosError(error)) {
-    return error;
+    return toBlackoutError(error);
   }
 
   const extraParameters: {
@@ -75,8 +73,9 @@ export const adaptError = (error: {
     [key: string]: unknown;
   } = {};
 
-  if (error.code) {
+  if (Object.prototype.hasOwnProperty.call(error, 'code')) {
     extraParameters.transportLayerErrorCode = error.code;
+    delete error.code;
   }
 
   if (error.response && error.response.data) {
@@ -114,20 +113,18 @@ export const adaptError = (error: {
   if (error.request) {
     const { response, status } = error.request;
 
-    Object.assign(error, {
+    return Object.assign(error, {
       ...extraParameters,
       code: defaultError.code,
       message: response.description || error.message,
       status,
       ...response,
     });
-
-    return error;
   }
 
   return Object.assign(error, {
     code: defaultError.code,
-    status: null,
+    status: undefined,
   });
 };
 
@@ -151,7 +148,7 @@ export const isBlackoutErrorType = (error: unknown): error is BlackoutError => {
  * @returns casted error to known error type.
  */
 
-export const toError = (error: unknown): BlackoutError => {
+export const toBlackoutError = (error: unknown): BlackoutError => {
   if (isBlackoutErrorType(error)) {
     return error;
   }

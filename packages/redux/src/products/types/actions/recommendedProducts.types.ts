@@ -1,7 +1,7 @@
 import type * as actionTypes from '../../actionTypes';
 import type { Action } from 'redux';
 import type { BlackoutError } from '@farfetch/blackout-client';
-import type { RecommendedProductsResultNormalized } from '@farfetch/blackout-client/helpers/adapters/types';
+import type { RecommendedProductsResultNormalized } from '../../../helpers/adapters/types';
 
 interface FetchRecommendedProductsRequestAction extends Action {
   type: typeof actionTypes.FETCH_RECOMMENDED_PRODUCTS_REQUEST;

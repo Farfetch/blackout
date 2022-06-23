@@ -4,7 +4,7 @@ import {
   FETCH_PRODUCT_GROUPING_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import productSchema from '../../../entities/schemas/product';
 import type { Dispatch } from 'redux';
 import type {
@@ -61,7 +61,7 @@ export const fetchProductGroupingFactory =
     } catch (error) {
       dispatch({
         meta: { productId },
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: FETCH_PRODUCT_GROUPING_FAILURE,
       });
 

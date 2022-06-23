@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import { generateDesignerResultHash } from '../../utils';
 import { isDesignersResultCached } from '../../selectors';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import resetDesignersState from '../resetDesignersState';
 import type {
   Designers,
@@ -82,7 +82,7 @@ const fetchDesignersFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         meta: { hash: hash as string },
         type: actionTypes.FETCH_DESIGNERS_FAILURE,
       });

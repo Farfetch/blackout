@@ -4,8 +4,7 @@ import type {
   CategoryEntity,
   ProductEntity,
 } from '@farfetch/blackout-redux/entities/types';
-import type { SizeAdapted } from '@farfetch/blackout-client/helpers/adapters/types';
-import type { StoreState } from '@farfetch/blackout-redux/types';
+import type { SizeAdapted, StoreState } from '@farfetch/blackout-redux/types';
 
 const mockProductId = 1234567;
 const mockProductAlternativeId = 7654321;

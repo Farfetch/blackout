@@ -1,5 +1,5 @@
 import { LOGOUT_SUCCESS } from '../authentication/actionTypes';
-import type { BlackoutError } from '@farfetch/blackout-client/src/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
 
 export const validateReset = (

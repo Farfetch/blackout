@@ -1,4 +1,4 @@
-import { postTokens } from '@farfetch/blackout-client/authentication';
+import { postTokens } from '@farfetch/blackout-client';
 import { refreshTokenFactory } from './factories';
 
 /**

@@ -10,7 +10,7 @@ import {
   getSizeScaleIsLoading as getSizeScaleIsLoadingByIdentifier,
 } from './reducer';
 import { getSizeScales } from '../entities/selectors';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { Category } from '@farfetch/blackout-client/categories/types';
 import type {
   SizeScale,

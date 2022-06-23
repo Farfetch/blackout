@@ -4,14 +4,13 @@ import {
   mockUnverifiedUserResponse,
 } from 'tests/__fixtures__/authentication';
 import { mockStore } from '../../../../tests';
-import { postRegister } from '@farfetch/blackout-client/authentication';
+import { postRegister, toBlackoutError } from '@farfetch/blackout-client';
 import { register } from '..';
-import { toError } from '@farfetch/blackout-client/helpers/client';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
 
-jest.mock('@farfetch/blackout-client/authentication', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/authentication'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   postRegister: jest.fn(),
 }));
 
@@ -62,7 +61,7 @@ describe('register() action creator', () => {
           { type: actionTypes.REGISTER_REQUEST },
           {
             type: actionTypes.REGISTER_FAILURE,
-            payload: { error: toError(errorObject) },
+            payload: { error: toBlackoutError(errorObject) },
           },
         ]),
       );

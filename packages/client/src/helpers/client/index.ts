@@ -1,20 +1,11 @@
 import * as headers from './headers';
-import {
-  adaptError,
-  defaultErrorAdapter,
-  legacyErrorAdapter,
-  toError,
-} from './formatError';
 import { configApiBlackAndWhite } from './configs';
-import client from './axiosInstance';
+import { isBlackoutErrorType, toBlackoutError } from './formatError';
 
 export {
-  adaptError,
   configApiBlackAndWhite,
-  defaultErrorAdapter,
   headers,
-  legacyErrorAdapter,
-  toError,
+  isBlackoutErrorType,
+  toBlackoutError,
 };
-
-export default client;
+export { default } from './axiosInstance';

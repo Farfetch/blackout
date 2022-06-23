@@ -1,6 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import sizeScale from '../../../entities/schemas/sizeScale';
 import type { Dispatch } from 'redux';
 import type { FetchSizeScaleAction } from '../../types';
@@ -46,7 +46,7 @@ const fetchSizeScaleFactory =
     } catch (error) {
       dispatch({
         meta: { sizeScaleId },
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_SIZE_SCALE_FAILURE,
       });
 

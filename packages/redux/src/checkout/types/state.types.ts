@@ -1,4 +1,4 @@
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
 import type { GetChargesResponse } from '@farfetch/blackout-client/checkout/types';
 import type { Nullable } from '../../types';

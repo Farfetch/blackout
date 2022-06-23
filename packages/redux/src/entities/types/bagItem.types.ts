@@ -3,7 +3,7 @@ import type {
   CustomAttributesAdapted,
   PriceAdapted,
   SizeAdapted,
-} from '@farfetch/blackout-client/helpers/adapters/types';
+} from '../../helpers/adapters';
 import type { MerchantEntity } from './merchant.types';
 import type { ProductEntity } from './product.types';
 

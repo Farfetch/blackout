@@ -1,12 +1,14 @@
-import { deleteUserImpersonation } from '@farfetch/blackout-client/authentication';
+import {
+  deleteUserImpersonation,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import { mockStore } from '../../../../tests';
 import { removeUserImpersonation } from '..';
-import { toError } from '@farfetch/blackout-client/helpers/client';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
 
-jest.mock('@farfetch/blackout-client/authentication', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/authentication'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   deleteUserImpersonation: jest.fn(),
 }));
 
@@ -50,7 +52,7 @@ describe('removeUserImpersonation() action creator', () => {
           { type: actionTypes.DELETE_USER_IMPERSONATION_REQUEST },
           {
             type: actionTypes.DELETE_USER_IMPERSONATION_FAILURE,
-            payload: { error: toError(errorObject) },
+            payload: { error: toBlackoutError(errorObject) },
           },
         ]),
       );

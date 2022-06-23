@@ -1,4 +1,4 @@
-import { postPasswordReset } from '@farfetch/blackout-client/authentication';
+import { postPasswordReset } from '@farfetch/blackout-client';
 import { resetPasswordFactory } from './factories';
 
 /**

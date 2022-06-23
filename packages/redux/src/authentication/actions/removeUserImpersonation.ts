@@ -1,4 +1,4 @@
-import { deleteUserImpersonation } from '@farfetch/blackout-client/authentication';
+import { deleteUserImpersonation } from '@farfetch/blackout-client';
 import { removeUserImpersonationFactory } from './factories';
 
 /**

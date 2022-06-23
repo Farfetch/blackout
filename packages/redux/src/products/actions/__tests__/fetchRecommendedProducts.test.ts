@@ -1,4 +1,4 @@
-import { adaptRecommendedProducts } from '@farfetch/blackout-client/helpers/adapters';
+import { adaptRecommendedProducts } from '../../../helpers/adapters';
 import {
   expectedRecommendedProductsPayload,
   mockRecommendedProductsProductId,

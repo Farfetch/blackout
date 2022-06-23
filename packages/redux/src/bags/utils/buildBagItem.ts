@@ -6,7 +6,7 @@ import type {
 import type {
   CustomAttributesAdapted,
   SizeAdapted,
-} from '@farfetch/blackout-client/helpers/adapters/types';
+} from '../../helpers/adapters';
 
 type BuildBagItemParams = {
   // Authorization code (for SMS restrictions, for example).

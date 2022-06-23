@@ -1,13 +1,13 @@
 import * as actionTypes from '../../actionTypes';
-import { adaptTimestamp } from '@farfetch/blackout-client/helpers/adapters';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { adaptTimestamp } from '../../../helpers/adapters';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type {
   PatchReturn,
   PatchReturnData,
   Query,
   Return,
-} from '@farfetch/blackout-client/src/returns/types';
+} from '@farfetch/blackout-client/returns/types';
 
 /**
  * @param id     - Return identifier.
@@ -52,7 +52,7 @@ const updateReturnFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.UPDATE_RETURN_FAILURE,
       });
 

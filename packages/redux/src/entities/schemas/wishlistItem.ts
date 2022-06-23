@@ -3,7 +3,7 @@ import {
   adaptDate,
   adaptMerchant,
   adaptPrice,
-} from '@farfetch/blackout-client/helpers/adapters';
+} from '../../helpers/adapters';
 import { schema } from 'normalizr';
 import merchant from './merchant';
 import product from './product';

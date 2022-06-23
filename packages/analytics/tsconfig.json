@@ -5,6 +5,5 @@
     "outDir": "dist",
     "composite": true
   },
-  "exclude": ["**/*.test.ts*", "**/__fixtures__/*", "**/__mocks__/*"],
   "include": ["**/*.ts"]
 }

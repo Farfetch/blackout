@@ -1,4 +1,4 @@
-import { postRegister } from '@farfetch/blackout-client/authentication';
+import { postRegister } from '@farfetch/blackout-client';
 import { registerFactory } from './factories';
 
 /**

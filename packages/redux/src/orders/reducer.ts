@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { adaptDate } from '@farfetch/blackout-client/helpers/adapters';
+import { adaptDate } from '../helpers/adapters';
 import { combineReducers } from 'redux';
 import { LOGOUT_SUCCESS } from '../authentication/actionTypes';
 import { reducerFactory } from '../helpers';

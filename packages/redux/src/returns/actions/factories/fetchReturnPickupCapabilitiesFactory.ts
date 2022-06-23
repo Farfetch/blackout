@@ -1,11 +1,11 @@
 import * as actionTypes from '../../actionTypes';
-import { adaptDate } from '@farfetch/blackout-client/helpers/adapters';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import { adaptDate } from '../../../helpers/adapters';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type {
   GetReturnPickupCapabilities,
   PickupCapabilities,
-} from '@farfetch/blackout-client/src/returns/types';
+} from '@farfetch/blackout-client/returns/types';
 
 /**
  * Obtains the pickup capabilities for a specific order.
@@ -41,7 +41,7 @@ const fetchReturnPickupCapabilitiesFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_FAILURE,
       });
 

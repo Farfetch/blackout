@@ -1,6 +1,5 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { Config } from '@farfetch/blackout-client/types';
+import { Config, toBlackoutError } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type {
   PutUser,
@@ -45,7 +44,7 @@ const setUserFactory =
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.UPDATE_USER_FAILURE,
       });
 

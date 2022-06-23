@@ -1,18 +1,18 @@
 import * as actionTypes from '../../actionTypes';
 import { generateProductsListHash } from '../../utils';
-import { isProductsListCached, isProductsListHydrated } from '../../selectors';
-import { normalize } from 'normalizr';
-import { toError } from '@farfetch/blackout-client/helpers/client';
-import productsListSchema from '../../../entities/schemas/productsList';
-import type { Dispatch } from 'redux';
-import type {
-  GetListing,
+import {
+  GetProductListing,
   GetSet,
   Listing,
   ListingQuery,
   Set,
   SetQuery,
+  toBlackoutError,
 } from '@farfetch/blackout-client';
+import { isProductsListCached, isProductsListHydrated } from '../../selectors';
+import { normalize } from 'normalizr';
+import productsListSchema from '../../../entities/schemas/productsList';
+import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, Nullable, StoreState } from '../../../types';
 import type { ProductsListActionOptions } from '../../types';
 
@@ -33,7 +33,7 @@ import type { ProductsListActionOptions } from '../../types';
  * @returns Thunk to be dispatched to the redux store.
  */
 export const fetchProductsListFactory = async (
-  client: GetListing | GetSet,
+  client: GetProductListing | GetSet,
   slug: string | number,
   query: ListingQuery | SetQuery | Record<string, never>,
   {
@@ -119,7 +119,7 @@ export const fetchProductsListFactory = async (
   } catch (error) {
     dispatch({
       meta: { hash: hash as string },
-      payload: { error: toError(error) },
+      payload: { error: toBlackoutError(error) },
       type: actionTypes.FETCH_PRODUCTS_LIST_FAILURE,
     });
 

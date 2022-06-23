@@ -1,13 +1,13 @@
 import * as actionTypes from '../../actionTypes';
-import { normalize } from 'normalizr';
-import { toError } from '@farfetch/blackout-client/helpers/client';
-import productSchema from '../../../entities/schemas/product';
-import type {
+import {
   ColorGroupingQuery,
   GetProductColorGrouping,
   Product,
   ProductColorGrouping,
+  toBlackoutError,
 } from '@farfetch/blackout-client';
+import { normalize } from 'normalizr';
+import productSchema from '../../../entities/schemas/product';
 import type { Dispatch } from 'redux';
 
 /**
@@ -58,7 +58,7 @@ export const fetchProductColorGroupingFactory =
     } catch (error) {
       dispatch({
         meta: { productId },
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_PRODUCT_COLOR_GROUPING_FAILURE,
       });
 

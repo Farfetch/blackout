@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
-import type {
+import {
   Config,
   GetCheckoutOrderDeliveryBundleUpgrades,
   GetCheckoutOrderDeliveryBundleUpgradesResponse,
+  toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
@@ -57,7 +57,7 @@ export default (
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_DELIVERY_BUNDLE_UPGRADES_FAILURE,
       });
 

@@ -1,4 +1,4 @@
-import { deleteTokens } from '@farfetch/blackout-client/authentication';
+import { deleteTokens } from '@farfetch/blackout-client';
 import { removeUserTokenFactory } from './factories';
 
 /**

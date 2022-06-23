@@ -1,9 +1,12 @@
 import * as actionTypes from '../../actionTypes';
-import { toError } from '@farfetch/blackout-client/helpers/client';
+import {
+  FormSchema,
+  GetFormSchema,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { FetchFormSchemaAction } from '../../types';
 import type { FetchFormSchemaFactory } from './types';
-import type { FormSchema, GetFormSchema } from '@farfetch/blackout-client';
 
 /**
  * Method to create a thunk factory configured with the specified client fo fetch
@@ -35,7 +38,7 @@ const fetchFormSchemaFactory: FetchFormSchemaFactory<GetFormSchema> =
     } catch (error) {
       dispatch({
         meta: { schemaCode },
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_FORM_SCHEMA_FAILURE,
       });
 

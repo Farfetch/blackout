@@ -19,7 +19,7 @@ import type {
   UpdateBagItemRequestAction,
   UpdateBagItemSuccessAction,
 } from './types';
-import type { BagItem } from '@farfetch/blackout-client/src/bags/types';
+import type { BagItem } from '@farfetch/blackout-client/bags/types';
 import type { ReducerSwitch, StoreState } from '../types';
 
 export const INITIAL_STATE: State = {

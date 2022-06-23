@@ -1,4 +1,7 @@
-import type { Size, VariantAttribute } from '../../../products/types';
+import type {
+  Size,
+  VariantAttribute,
+} from '@farfetch/blackout-client/products/types';
 
 export type AttributesAdapted =
   | {

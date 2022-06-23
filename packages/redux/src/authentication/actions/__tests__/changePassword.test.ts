@@ -1,11 +1,11 @@
 import { changePassword } from '..';
 import { mockStore } from '../../../../tests';
-import { postPasswordChange } from '@farfetch/blackout-client/authentication';
+import { postPasswordChange } from '@farfetch/blackout-client';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../..';
 
-jest.mock('@farfetch/blackout-client/authentication', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/authentication'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   postPasswordChange: jest.fn(),
 }));
 

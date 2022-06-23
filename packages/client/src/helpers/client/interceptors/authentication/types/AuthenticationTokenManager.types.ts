@@ -1,5 +1,5 @@
+import type { AuthenticationConfigOptions } from './AuthenticationConfigOptions.types';
 import type { AxiosRequestConfig } from 'axios';
-import type AuthenticationConfigOptions from './AuthenticationConfigOptions.types';
 
 interface CurrentRetry {
   currentRetry?: number;

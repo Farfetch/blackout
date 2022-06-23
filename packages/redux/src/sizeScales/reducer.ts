@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import isEmpty from 'lodash/isEmpty';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type {
   FetchSizeScaleAction,
   FetchSizeScaleMappingsAction,

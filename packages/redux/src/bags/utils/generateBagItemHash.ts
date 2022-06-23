@@ -3,7 +3,7 @@ import type {
   MerchantEntity,
   ProductEntity,
 } from '../../entities/types';
-import type { CustomAttributesAdapted } from '@farfetch/blackout-client/helpers/adapters/types';
+import type { CustomAttributesAdapted } from '../../helpers/adapters';
 
 type Params = Partial<{
   productId: ProductEntity['id'];

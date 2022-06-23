@@ -1,5 +1,6 @@
-import type { RecommendedProductsResult } from '../../products';
+import type { RecommendedProductsResult } from '@farfetch/blackout-client/products/types';
 import type { RecommendedProductsResultNormalized } from './types';
+
 /**
  * Formats and simplifies the recommendations object structure.
  *

@@ -12,3 +12,4 @@ export * from './omnitracking';
 export * from './forms';
 export * from './types';
 export * from './subscriptions';
+export * from './authentication';

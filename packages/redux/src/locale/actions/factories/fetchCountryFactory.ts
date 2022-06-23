@@ -1,8 +1,7 @@
 import * as actionTypes from '../../actionTypes';
+import { Config, toBlackoutError } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import { toError } from '@farfetch/blackout-client/helpers/client';
 import country from '../../../entities/schemas/country';
-import type { Config } from '@farfetch/blackout-client/types';
 import type {
   Country,
   GetCountry,
@@ -47,7 +46,7 @@ const fetchCountryFactory =
     } catch (error) {
       dispatch({
         meta: { countryCode },
-        payload: { error: toError(error) },
+        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_COUNTRY_FAILURE,
       });
 
