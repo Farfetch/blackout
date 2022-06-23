@@ -47,7 +47,7 @@ describe('getPredictions', () => {
 
     expect.assertions(2);
 
-    await expect(getPredictions(text, null)).resolves.toBe(response);
+    await expect(getPredictions(text)).resolves.toBe(response);
 
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/addressesprediction/${text}`,

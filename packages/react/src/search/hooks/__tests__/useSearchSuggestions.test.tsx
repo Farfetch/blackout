@@ -2,9 +2,9 @@ import { cleanup, renderHook } from '@testing-library/react';
 import { mockSearchSuggestionsState } from 'tests/__fixtures__/search';
 import { mockStore } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
-import { UseSearchSuggestionsReturn } from '../types';
 import React from 'react';
 import useSearchSuggestions from '../useSearchSuggestions';
+import type { UseSearchSuggestionsReturn } from '../types';
 
 jest.mock('@farfetch/blackout-redux/search', () => ({
   ...jest.requireActual('@farfetch/blackout-redux/search'),

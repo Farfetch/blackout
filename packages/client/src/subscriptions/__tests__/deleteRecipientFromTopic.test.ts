@@ -22,7 +22,7 @@ describe('deleteRecipientFromTopic', () => {
   it('should handle a client request successfully', async () => {
     const response = {};
 
-    fixtures.success(subscriptionId, topicId, recipientId, response);
+    fixtures.success({ subscriptionId, topicId, recipientId, response });
 
     await expect(
       deleteRecipientFromTopic(subscriptionId, topicId, recipientId),
@@ -42,7 +42,7 @@ describe('deleteRecipientFromTopic', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure(subscriptionId, topicId, recipientId);
+    fixtures.failure({ subscriptionId, topicId, recipientId });
 
     await expect(
       deleteRecipientFromTopic(subscriptionId, topicId, recipientId),

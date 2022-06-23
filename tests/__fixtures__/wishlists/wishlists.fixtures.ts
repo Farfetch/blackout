@@ -1,3 +1,5 @@
+import type { WishlistItem } from '@farfetch/blackout-client/wishlists/types';
+
 export const mockWishlistId = 'b1a13891-6084-489f-96ed-300eed45b948';
 export const mockWishlistItemId = 481426747;
 export const mockProductId = 12129099;
@@ -6,21 +8,21 @@ const mockWishlistSetId = '77fae745-7608-4b7d-8e7d-4f6923e032ef';
 
 export const mockProductImgQueryParam = '?c=2';
 
+const mockWishlistItem = {
+  id: mockWishlistItemId,
+  productId: mockProductId,
+  productName: '251 sneakers',
+  quantity: 2,
+  createdByStaffMemberId: null,
+  dateCreated: '/Date(1612194217929)/',
+  brandId: 10533,
+  brandName: 'Valentino',
+} as WishlistItem;
+
 export const mockWishlistsResponse = {
   count: 1,
   id: mockWishlistId,
-  items: [
-    {
-      id: mockWishlistItemId,
-      productId: mockProductId,
-      productName: '251 sneakers',
-      quantity: 2,
-      createdByStaffMemberId: null,
-      dateCreated: '/Date(1612194217929)/',
-      brandId: 10533,
-      brandName: 'Valentino',
-    },
-  ],
+  items: [mockWishlistItem],
   userId: null,
 };
 
@@ -40,7 +42,7 @@ export const mockWishlistItemPostData = {
 };
 
 const { productId, productName, brandId, brandName, ...wishlistItemEntity } =
-  mockWishlistsResponse.items[0];
+  mockWishlistsResponse.items[0] || mockWishlistItem;
 
 export const mockWishlistNormalizedPayload = {
   entities: {

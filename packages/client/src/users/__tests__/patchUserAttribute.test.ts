@@ -5,7 +5,13 @@ import moxios from 'moxios';
 
 describe('patchUserAttribute', () => {
   const expectedConfig = undefined;
-  const data = [];
+  const data = [
+    {
+      path: 'string',
+      op: 'string',
+      value: 'string',
+    },
+  ];
   const userId = 123456;
   const attributeId = '123456';
   const spy = jest.spyOn(client, 'patch');

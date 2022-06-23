@@ -20,7 +20,7 @@ describe('getReturnPickupRescheduleRequests', () => {
   it('should handle a client request successfully', async () => {
     const response = responses.getReturnPickupRescheduleRequests.success;
 
-    fixture.success(id, response);
+    fixture.success({ id, response });
 
     expect.assertions(2);
 
@@ -33,7 +33,7 @@ describe('getReturnPickupRescheduleRequests', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixture.failure(id);
+    fixture.failure({ id });
 
     expect.assertions(2);
 

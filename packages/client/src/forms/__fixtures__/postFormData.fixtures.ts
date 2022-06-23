@@ -6,17 +6,26 @@ import type { SubmitFormSchema } from '../types';
  */
 export default {
   post: {
-    success: (schemaCode: string, response: SubmitFormSchema) => {
-      moxios.stubRequest(`/api/communication/v1/forms/${schemaCode}/data`, {
-        response: response,
-        status: 200,
-      });
+    success: (params: {
+      schemaCode: string;
+      response: SubmitFormSchema;
+    }): void => {
+      moxios.stubRequest(
+        `/api/communication/v1/forms/${params.schemaCode}/data`,
+        {
+          response: params.response,
+          status: 200,
+        },
+      );
     },
-    error: (schemaCode: string) => {
-      moxios.stubRequest(`/api/communication/v1/forms/${schemaCode}/data`, {
-        response: 'stub error',
-        status: 404,
-      });
+    error: (params: { schemaCode: string }): void => {
+      moxios.stubRequest(
+        `/api/communication/v1/forms/${params.schemaCode}/data`,
+        {
+          response: 'stub error',
+          status: 404,
+        },
+      );
     },
   },
 };

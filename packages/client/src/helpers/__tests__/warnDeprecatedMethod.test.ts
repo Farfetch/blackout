@@ -1,10 +1,12 @@
 import warnDeprecatedMethod from '../warnDeprecatedMethod';
 
 describe('warnDeprecatedMethod()', () => {
-  const spy = jest.spyOn(console, 'warn');
+  const spy = jest.fn();
   const mockPackageInfo = '@farfetch/orange@0.0.0';
   const mockDeprecatedMethod = 'deprecatedFoo';
   const mockNewMethod = 'newFoo';
+
+  console.warn = spy;
 
   beforeEach(() => {
     jest.clearAllMocks();

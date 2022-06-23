@@ -1,6 +1,6 @@
 export type ProductRecommendation = {
-  id: string;
-  values: ProductItem[];
+  id?: string;
+  values?: ProductItem[];
 };
 
 export type ProductItem = {

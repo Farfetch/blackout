@@ -107,9 +107,9 @@ export const mockState = {
   },
   entities: {
     categories: {
-      [mockCategoriesIds[0]]: mockCategories[0],
-      [mockCategoriesIds[1]]: mockCategories[1],
-      [mockCategoriesIds[2]]: mockCategories[2],
+      [mockCategoriesIds[0] as number]: mockCategories[0],
+      [mockCategoriesIds[1] as number]: mockCategories[1],
+      [mockCategoriesIds[2] as number]: mockCategories[2],
     },
   },
 };

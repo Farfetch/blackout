@@ -6,7 +6,7 @@ import moxios from 'moxios';
 
 describe('getCreditMovements', () => {
   const expectedConfig = undefined;
-  const id = '123456';
+  const id = 123456;
   const spy = jest.spyOn(client, 'get');
 
   beforeEach(() => {
@@ -17,7 +17,12 @@ describe('getCreditMovements', () => {
   afterEach(() => moxios.uninstall(client));
 
   it('should handle a client request successfully', async () => {
-    const response = {};
+    const response = {
+      entries: [],
+      number: 0,
+      totalItems: 0,
+      totalPages: 0,
+    };
     const query = {};
 
     fixtures.success({ id, query, response });
@@ -34,7 +39,12 @@ describe('getCreditMovements', () => {
   });
 
   it('should handle a client request successfully with pagination', async () => {
-    const response = {};
+    const response = {
+      entries: [],
+      number: 0,
+      totalItems: 0,
+      totalPages: 0,
+    };
     const query = {
       page: 1,
       pageSize: 1,

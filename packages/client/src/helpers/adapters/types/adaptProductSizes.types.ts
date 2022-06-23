@@ -39,6 +39,6 @@ export type GetAttributesBySizeId = (
 ) => Record<string, string> | Record<string, never>;
 
 export type AdaptProductSizes = (
-  sizes: Size[],
+  sizes?: Size[],
   variants?: ProductVariant[],
 ) => SizesAdapted;

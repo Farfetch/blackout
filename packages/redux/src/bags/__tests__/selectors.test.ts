@@ -160,8 +160,8 @@ describe('bags redux selectors', () => {
       const expectedResult = 0;
 
       expect(
-        // @ts-expect-error Changing only what's necessary for this test
         selectors.getBagItemsCounter({
+          // @ts-expect-error Changing only what's necessary for this test
           bag: { ...mockState.bag, items: { ...mockState.bag.items, ids: [] } },
           entities: {},
         }),
@@ -189,8 +189,8 @@ describe('bags redux selectors', () => {
       const expectedResult = 0;
 
       expect(
-        // @ts-expect-error Changing only what's necessary for this test
         selectors.getBagTotalQuantity({
+          // @ts-expect-error Changing only what's necessary for this test
           bag: { ...mockState.bag, items: { ...mockState.bag.items, ids: [] } },
           entities: { bagItems: {} },
         }),
@@ -228,8 +228,8 @@ describe('bags redux selectors', () => {
 
     it('should return an empty array if there is no bag loaded', () => {
       expect(
-        // @ts-expect-error Changing only what's necessary for this test
         selectors.getBagItemsUnavailable({
+          // @ts-expect-error Changing only what's necessary for this test
           bag: fromBag.INITIAL_STATE,
           entities: {},
         }),
@@ -238,7 +238,6 @@ describe('bags redux selectors', () => {
 
     it('should return an empty array if bag items does not exist', () => {
       expect(
-        // @ts-expect-error Changing only what's necessary for this test
         selectors.getBagItemsUnavailable({
           bag: {
             ...fromBag.INITIAL_STATE,

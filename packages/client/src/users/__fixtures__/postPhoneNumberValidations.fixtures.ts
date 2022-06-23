@@ -1,14 +1,13 @@
-import get from 'lodash/get';
 import moxios from 'moxios';
 
 export default {
   success: (params: { response: Record<string, unknown> }): void => {
     moxios.stubRequest('/api/account/v1/users/phoneNumberValidations', {
-      response: get(params, 'response'),
+      response: params.response,
       status: 200,
     });
   },
-  failure: () => {
+  failure: (): void => {
     moxios.stubRequest('/api/account/v1/users/phoneNumberValidations', {
       response: 'stub error',
       status: 404,

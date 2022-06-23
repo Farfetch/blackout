@@ -3,31 +3,31 @@ import moxios from 'moxios';
 import type { PickupRescheduleRequest } from '../types';
 
 export default {
-  success: (
-    id: string,
-    rescheduleRequestId: string,
-    response: PickupRescheduleRequest,
-  ): void => {
+  success: (params: {
+    id: string;
+    rescheduleRequestId: string;
+    response: PickupRescheduleRequest;
+  }): void => {
     moxios.stubRequest(
       join(
         '/api/account/v1/returns',
-        id,
+        params.id,
         'pickupRescheduleRequests/',
-        rescheduleRequestId,
+        params.rescheduleRequestId,
       ),
       {
-        response: response,
+        response: params.response,
         status: 200,
       },
     );
   },
-  failure: (id: string, rescheduleRequestId: string): void => {
+  failure: (params: { id: string; rescheduleRequestId: string }): void => {
     moxios.stubRequest(
       join(
         '/api/account/v1/returns',
-        id,
+        params.id,
         'pickupRescheduleRequests/',
-        rescheduleRequestId,
+        params.rescheduleRequestId,
       ),
       {
         response: 'stub error',

@@ -4,7 +4,7 @@ import fixtures from '../__fixtures__/deleteTokens.fixtures';
 import moxios from 'moxios';
 
 describe('deleteTokens', () => {
-  const id = 1;
+  const id = '1';
   const expectedConfig = {
     baseURL: 'https://api.blackandwhite-ff.com',
     headers: {

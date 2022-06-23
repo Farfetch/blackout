@@ -1,9 +1,13 @@
 import { getPaymentTokens } from '..';
-import { GetPaymentTokensQuery, PaymentToken, PaymentTokens } from '../types';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getPaymentTokens.fixtures';
 import join from 'proper-url-join';
 import moxios from 'moxios';
+import type {
+  GetPaymentTokensQuery,
+  PaymentToken,
+  PaymentTokens,
+} from '../types';
 
 describe('getPaymentTokens', () => {
   const query: GetPaymentTokensQuery = { orderId: 1, showExpiredCards: false };

@@ -2,7 +2,10 @@ import join from 'proper-url-join';
 import moxios from 'moxios';
 import type { GetPredictionsQuery, Prediction } from '../types';
 
-const getReqUrl = params =>
+const getReqUrl = (params: {
+  text: string;
+  query?: GetPredictionsQuery;
+}): string =>
   join('/api/account/v1/addressesprediction/', params.text, {
     query: params.query,
   });

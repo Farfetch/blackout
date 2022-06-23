@@ -1,4 +1,5 @@
 import { generateContentHash } from '@farfetch/blackout-redux/contents/utils';
+import type { ComponentType } from '@farfetch/blackout-client/contents/types';
 
 export const commercePagesQuery = {
   type: 'LISTING',
@@ -164,10 +165,10 @@ export const mergeStrategyResult = {
   entries: [
     {
       ...mockCommercePages[0],
-      components: [].concat(
-        mockCommercePages[0].components,
-        mockCommercePages[1].components[0],
-      ),
+      components: [
+        ...(mockCommercePages[0]?.components as ComponentType[]),
+        mockCommercePages[1]?.components[0],
+      ],
     },
   ],
 };
@@ -179,7 +180,7 @@ export const mergeStrategyResultOneEntry = {
   entries: [
     {
       ...mockCommercePages[0],
-      components: mockCommercePages[0].components,
+      components: mockCommercePages[0]?.components,
     },
   ],
 };

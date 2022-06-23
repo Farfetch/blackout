@@ -16,7 +16,13 @@ describe('getCredit', () => {
   afterEach(() => moxios.uninstall(client));
 
   it('should handle a client request successfully', async () => {
-    const response = {};
+    const response = [
+      {
+        currency: 'GB',
+        value: 50,
+        formattedValue: '£50',
+      },
+    ];
 
     fixtures.success({ id, response });
 

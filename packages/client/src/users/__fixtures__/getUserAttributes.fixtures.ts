@@ -3,9 +3,6 @@ import moxios from 'moxios';
 import type { UserAttributesQuery } from '../types/query.types';
 import type { UserAttributesResponse } from '../types/userAttributesResponse.types';
 
-/**
- * Response payloads.
- */
 export default {
   success: (params: {
     userId: number;

@@ -1,13 +1,13 @@
 import moxios from 'moxios';
 
 export default {
-  success: (response: unknown) => {
+  success: (params: { response: unknown }): void => {
     moxios.stubRequest('/api/marketing/v1/subscriptions', {
+      response: params.response,
       status: 200,
-      response,
     });
   },
-  failure: () => {
+  failure: (): void => {
     moxios.stubRequest('/api/marketing/v1/subscriptions', {
       response: 'stub error',
       status: 404,

@@ -66,8 +66,8 @@ export const mockStates = [
   },
 ];
 export const mockStatesEntities = {
-  3: { ...mockStates[0], cities: [mockCities[0].id] },
-  6: { ...mockStates[1], cities: [mockCities[1].id] },
+  3: { ...mockStates[0], cities: [mockCities[0]?.id] },
+  6: { ...mockStates[1], cities: [mockCities[1]?.id] },
 };
 export const mockModel = {
   subfolder: '/en-us',

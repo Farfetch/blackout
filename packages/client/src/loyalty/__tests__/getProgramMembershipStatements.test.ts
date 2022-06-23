@@ -27,13 +27,13 @@ describe('getProgramMembershipStatements', () => {
       programId,
       membershipId,
       query,
-      response: mockResponseProgramMembershipStatement,
+      response: [mockResponseProgramMembershipStatement],
     });
 
     expect.assertions(2);
     await expect(
       getProgramMembershipStatements(programId, membershipId, query),
-    ).resolves.toBe(mockResponseProgramMembershipStatement);
+    ).resolves.toContain(mockResponseProgramMembershipStatement);
     expect(spy).toHaveBeenCalledWith(apiPath, expectedConfig);
   });
 

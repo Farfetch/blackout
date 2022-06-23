@@ -20,7 +20,7 @@ export default {
       },
     );
   },
-  failure: (params: { query: GetProductRecommendationQuery }) => {
+  failure: (params: { query: GetProductRecommendationQuery }): void => {
     moxios.stubRequest(
       join('/api/marketing/v1/recommendations/products', {
         query: params.query,

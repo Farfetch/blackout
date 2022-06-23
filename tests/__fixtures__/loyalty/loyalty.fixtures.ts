@@ -1,10 +1,12 @@
+import { ProgramMembershipStatementCategory } from '@farfetch/blackout-client/loyalty/types';
+
 export const programId = '1';
 export const membershipId = '1';
 export const replacementId = '1';
 export const convertId = '1';
 export const statementId = '1';
 
-const statementCategory = 'Purchase';
+const statementCategory = ProgramMembershipStatementCategory.Purchase;
 
 export const mockResponsePrograms = [
   {

@@ -1,25 +1,30 @@
-import get from 'lodash/get';
 import join from 'proper-url-join';
 import moxios from 'moxios';
-
-const getQuery = params => get(params, 'query');
+import type {
+  GetCreditMovementsQuery,
+  GetCreditMovementsResponse,
+} from '../types';
 
 export default {
-  success: params => {
+  success: (params: {
+    id: number;
+    query: GetCreditMovementsQuery;
+    response: GetCreditMovementsResponse;
+  }): void => {
     moxios.stubRequest(
-      join('api/legacy/v1', 'users', params.id, 'creditMovements', {
-        query: getQuery(params),
+      join('api/legacy/v1/users', params.id, 'creditMovements', {
+        query: params.query,
       }),
       {
-        response: get(params, 'response'),
+        response: params.response,
         status: 200,
       },
     );
   },
-  failure: params => {
+  failure: (params: { id: number; query: GetCreditMovementsQuery }): void => {
     moxios.stubRequest(
-      join('api/legacy/v1', 'users', params.id, 'creditMovements', {
-        query: getQuery(params),
+      join('api/legacy/v1/users', params.id, 'creditMovements', {
+        query: params.query,
       }),
       {
         response: 'stub error',

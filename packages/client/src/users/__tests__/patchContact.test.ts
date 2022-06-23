@@ -23,7 +23,16 @@ describe('patchContact', () => {
   afterEach(() => moxios.uninstall(client));
 
   it('should handle a client request successfully', async () => {
-    const response = {};
+    const response = {
+      id: '4c46a918-303b-4847-8825-dfb295acb6c8',
+      value: 'TEST',
+      countryDetails: {
+        countryCode: 'PT',
+        countryCallingCode: '351',
+      },
+      type: 'Phone',
+      description: 'TEST',
+    };
 
     fixtures.success({ userId, contactId, response });
 

@@ -15,7 +15,7 @@ export type GetUserResponse = {
   username: string;
   wishlistId: string;
   title: {
-    id: number;
+    id: string;
     value: string;
   };
 };

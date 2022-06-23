@@ -3,18 +3,21 @@ import moxios from 'moxios';
 import type { PutDefaultPersonalIdResponse } from '../types';
 
 export default {
-  success: (userId: number, response: PutDefaultPersonalIdResponse): void => {
+  success: (params: {
+    userId: number;
+    response: PutDefaultPersonalIdResponse;
+  }): void => {
     moxios.stubRequest(
-      join('/api/account/v1/users/', userId, '/personalIds/default/'),
+      join('/api/account/v1/users/', params.userId, '/personalIds/default/'),
       {
-        response: response,
+        response: params.response,
         status: 200,
       },
     );
   },
-  failure: (userId: number): void => {
+  failure: (params: { userId: number }): void => {
     moxios.stubRequest(
-      join('/api/account/v1/users/', userId, '/personalIds/default/'),
+      join('/api/account/v1/users/', params.userId, '/personalIds/default/'),
       {
         response: 'stub error',
         status: 404,

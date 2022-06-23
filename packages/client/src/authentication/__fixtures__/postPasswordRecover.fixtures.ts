@@ -1,12 +1,12 @@
 import moxios from 'moxios';
 
 export default {
-  success: () => {
+  success: (): void => {
     moxios.stubRequest('/api/legacy/v1/account/password/retrieve', {
       status: 200,
     });
   },
-  failure: () => {
+  failure: (): void => {
     moxios.stubRequest('/api/legacy/v1/account/password/retrieve', {
       response: 'stub error',
       status: 404,

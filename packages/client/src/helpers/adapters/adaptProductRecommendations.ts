@@ -2,6 +2,7 @@ import type {
   GetProductRecommendation,
   ProductRecommendation,
 } from '../../recommendations/types';
+
 /**
  * Formats and simplifies the recommendations object structure.
  *
@@ -22,8 +23,8 @@ import type {
  * @returns The formatted result including the ID of the recommendation.
  */
 export default (result: GetProductRecommendation[]): ProductRecommendation => ({
-  id: result[0].id,
-  values: result[0].products.map(
+  id: result[0]?.id,
+  values: result[0]?.products.map(
     (item: { product: { id: string }; score: number }) => ({
       id: item.product.id,
       score: item.score,
