@@ -43,12 +43,12 @@ describe('adaptPrice()', () => {
   });
 
   it('should adapt a price object for a price range', () => {
-    expect(adaptPrice(pricesForPriceRange[0]).type).toBe(0);
+    expect(adaptPrice(pricesForPriceRange[0])?.type).toBe(0);
     expect(adaptPrice(pricesForPriceRange[0])).toMatchSnapshot(
       'price range - min',
     );
 
-    expect(adaptPrice(pricesForPriceRange[1]).type).toBe(1);
+    expect(adaptPrice(pricesForPriceRange[1])?.type).toBe(1);
     expect(adaptPrice(pricesForPriceRange[1])).toMatchSnapshot(
       'price range - max',
     );

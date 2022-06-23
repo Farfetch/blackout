@@ -8,9 +8,10 @@ export type Return = {
   userId: number;
   type: string;
   status: string;
+  courier: string;
   numberOfBoxes: number;
   numberOfItems: number;
-  userPickupAddress: {
+  userPickupAddress?: {
     id: string;
     firstName: string;
     lastName: string;
@@ -71,20 +72,21 @@ export type Return = {
     createdDate: string;
     updatedDate: string;
   };
-  maximumDateForPickup: Date;
-  pickupSchedule: {
-    start: Date;
-    end: Date;
+  maximumDateForPickup: string;
+  pickupSchedule?: {
+    start: string;
+    end: string;
   };
-  merchantLocationId: string;
+  merchantLocationId?: string;
   items: ReturnItem[];
-  createdDate: Date;
+  createdDate: string;
   awbUrl: string;
   invoiceUrl: string;
   references: {
     name: string;
-  };
-  refundPreference: {
+    url: string;
+  }[];
+  refundPreference?: {
     paymentType: string;
   };
 };

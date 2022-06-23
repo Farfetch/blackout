@@ -1,8 +1,8 @@
-import { Balance } from '../types';
 import { postCheckCreditBalance } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postCreditBalance.fixtures';
 import moxios from 'moxios';
+import type { Balance } from '../types';
 
 describe('postCheckCreditBalance', () => {
   const expectedConfig = undefined;

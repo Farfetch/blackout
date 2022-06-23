@@ -12,7 +12,7 @@ Object {
       "?categoryid=123": Object {
         "designers": Array [
           Object {
-            "gender": "",
+            "gender": "Woman",
             "list": Array [
               Object {
                 "description": "Yup",

@@ -1,26 +1,28 @@
+import { GenderEnum } from '@farfetch/blackout-client/types';
+
 export const mockCategoryId = 135981;
 export const mockCategory = {
   id: 135981,
   name: 'Trousers',
   parentId: 135967,
-  gender: 'Woman',
+  gender: GenderEnum.Woman,
 };
 
 export const mockTopCategories = [
   {
     id: 135973,
     name: 'Accessories',
-    gender: 'Woman',
+    gender: GenderEnum.Woman,
   },
   {
     id: 135967,
     name: 'Clothing',
-    gender: 'Woman',
+    gender: GenderEnum.Woman,
   },
   {
     id: 136330,
     name: 'Clothing',
-    gender: 'Man',
+    gender: GenderEnum.Man,
   },
 ];
 
@@ -30,13 +32,13 @@ export const mockChildrenCategories = [
     id: 136338,
     name: 'Trousers',
     parentId: 136330,
-    gender: 'Man',
+    gender: GenderEnum.Man,
   },
   {
     id: 136337,
     name: 'Denim',
     parentId: 136330,
-    gender: 'Man',
+    gender: GenderEnum.Man,
   },
 ];
 
@@ -70,10 +72,13 @@ export const mockCategoriesState = {
     },
   },
   entities: {
-    categories: mockCategories.reduce((entity, category) => {
-      entity[category.id] = category;
-      return entity;
-    }, {}),
+    categories: mockCategories.reduce(
+      (entity: Record<string, unknown>, category) => {
+        entity[category.id] = category;
+        return entity;
+      },
+      {},
+    ),
   },
 };
 
@@ -116,11 +121,14 @@ export const mockNormalizedResponse = {
 
 export const normalizedTopResponse = {
   entities: {
-    categories: mockTopCategories.reduce((entity, category) => {
-      entity[category.id] = category;
+    categories: mockTopCategories.reduce(
+      (entity: Record<string, unknown>, category) => {
+        entity[category.id] = category;
 
-      return entity;
-    }, {}),
+        return entity;
+      },
+      {},
+    ),
   },
   result: mockTopCategories.map(({ id }) => id),
 };

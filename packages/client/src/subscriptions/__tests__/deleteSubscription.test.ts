@@ -16,10 +16,10 @@ describe('deleteSubscription', () => {
   afterEach(() => moxios.uninstall(client));
 
   it('should handle a client request successfully', async () => {
-    moxiosFixtures.success(
-      mockDeleteSubscription.query,
-      mockDeleteSubscription.response,
-    );
+    moxiosFixtures.success({
+      query: mockDeleteSubscription.query,
+      response: mockDeleteSubscription.response,
+    });
 
     await expect(
       deleteSubscription(mockDeleteSubscription.query),
@@ -34,7 +34,7 @@ describe('deleteSubscription', () => {
   });
 
   it('should receive a client request error', async () => {
-    moxiosFixtures.failure(mockDeleteSubscription.query);
+    moxiosFixtures.failure(mockDeleteSubscription);
 
     await expect(
       deleteSubscription(mockDeleteSubscription.query),

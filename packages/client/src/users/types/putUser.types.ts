@@ -14,7 +14,7 @@ export type PutUserResponse = {
   phoneNumber: string;
   segments: string[];
   username: string;
-  whishlistId: string;
+  wishlistId: string;
   isExternalLogin: boolean;
   isGuest: boolean;
   status: string;
@@ -22,7 +22,7 @@ export type PutUserResponse = {
   firstName: string;
   countryCode: string;
   receiveNewsletters: boolean;
-  personalShopperId: number;
+  personalShopperId?: number;
   createdDate: string;
   updatedDate: string;
 };

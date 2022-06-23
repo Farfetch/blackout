@@ -25,7 +25,7 @@ import {
 import { mockStore, wrap } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
 import { useCheckout } from '../..';
-import React from 'react';
+// import React from 'react';
 
 jest.mock('@farfetch/blackout-redux/checkout', () => ({
   ...jest.requireActual('@farfetch/blackout-redux/checkout'),

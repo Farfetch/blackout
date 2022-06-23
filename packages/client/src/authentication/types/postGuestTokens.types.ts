@@ -9,5 +9,5 @@ interface Data {
 
 export type PostGuestTokens = (
   data: Data,
-  config: Config,
+  config?: Config,
 ) => Promise<PostGuestTokenResponse>;

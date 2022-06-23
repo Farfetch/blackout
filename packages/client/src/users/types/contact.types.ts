@@ -4,7 +4,7 @@ export type CountryDetails = {
 };
 
 export type ContactResponse = {
-  id: number;
+  id: string;
   value: string;
   countryDetails: CountryDetails;
   type: string;

@@ -1,19 +1,17 @@
 import type { GenderString } from '../../types';
 
-export type Designers = [
-  {
+export type Designers = {
+  title: string;
+  slug: string;
+  gender: GenderString;
+  list: {
     title: string;
+    description: string;
+    image: string;
     slug: string;
-    gender: GenderString;
-    list: {
-      title: string;
-      description: string;
-      image: string;
-      slug: string;
-      slugSuffix: null;
-    }[];
-  },
-];
+    slugSuffix: null;
+  }[];
+}[];
 
 export type DesignersResponse = {
   designers: Designers;

@@ -4,7 +4,7 @@ export type GetBenefitsResponse = {
   id: string;
   code: string;
   isActive: boolean;
-  metadata: string;
+  metadata: Record<string, string>;
   benefitType: string;
 };
 

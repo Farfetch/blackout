@@ -6,16 +6,12 @@ import type {
   ProgramMembershipStatementCategory,
 } from '.';
 
-export type PageFilter = {
-  pageIndex?: number;
-  pageSize?: number;
-};
-
 export type GetProgramMembershipStatementsQuery = {
   category?: ProgramMembershipStatementCategory;
   initialDate?: string;
   finalDate?: string;
-  pageFilter?: PageFilter;
+  'pageFilter.pageIndex'?: number;
+  'pageFilter.pageSize'?: number;
 };
 
 export type GetProgramMembershipStatements = (

@@ -31,7 +31,7 @@ const generateSizeAttributes = (
   { type: 4, description: 'ScaleAbbreviation', value: 'IT' },
 ];
 
-const generateMockImg = (size, pos, name = 'foo') => ({
+const generateMockImg = (size: number, pos: number, name = 'foo') => ({
   size: String(size),
   url: `https://cdn-images.farfetch.com/${name}_${pos}_${size}.jpg`,
 });
@@ -152,6 +152,8 @@ const generateProductVariant = (quantity = 10, merchantId = 10001) => ({
   merchantId,
   formattedPrice: '€ 100.00',
   formattedPriceWithoutDiscount: '€ 100.00',
+  priceInclTaxes: 100,
+  priceInclTaxesWithoutDiscount: 100,
 });
 
 export const twoSizesProductVariants = [

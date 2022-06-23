@@ -1,18 +1,15 @@
-import { entitiesMapper as addressesEntitiesMapper } from '../../addresses';
-import { entitiesMapper as authenticationEntitiesMapper } from '../../authentication';
-import { entitiesMapper as bagEntitiesMapper } from '../../bags';
-import { entitiesMapper as checkoutEntitiesMapper } from '../../checkout';
-import { entitiesMapper as merchantsLocationsEntitiesMapper } from '../../merchantsLocations';
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '@farfetch/blackout-client/orders/redux' or its... Remove this comment to see the full error message
-import { entitiesMapper as ordersEntitiesMapper } from '../../orders';
-import { entitiesMapper as paymentsEntitiesMapper } from '../../payments';
-import { entitiesMapperProducts as productsEntitiesMapper } from '../../products';
-import { entitiesMapper as usersEntitiesMapper } from '../../users';
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '@farfetch/blackout-client/returns/redux' or it... Remove this comment to see the full error message
-import { entitiesMapper as returnsEntitiesMapper } from '../../returns';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module '../.... Remove this comment to see the full error message
-import { entitiesMapper as subscriptionsEntitiesMapper } from '../../subscriptions/reducer';
-import { entitiesMapper as wishlistEntitiesMapper } from '../../wishlists';
+import { entitiesMapper as entitiesMapperAddresses } from '../../addresses';
+import { entitiesMapper as entitiesMapperAuthentication } from '../../authentication';
+import { entitiesMapper as entitiesMapperBag } from '../../bags';
+import { entitiesMapper as entitiesMapperCheckout } from '../../checkout';
+import { entitiesMapper as entitiesMapperMerchantsLocations } from '../../merchantsLocations';
+import { entitiesMapper as entitiesMapperOrders } from '../../orders';
+import { entitiesMapper as entitiesMapperPayments } from '../../payments';
+import { entitiesMapperProducts } from '../../products';
+import { entitiesMapper as entitiesMapperReturns } from '../../returns';
+import { entitiesMapper as entitiesMapperSubscriptions } from '../../subscriptions';
+import { entitiesMapper as entitiesMapperUsers } from '../../users';
+import { entitiesMapper as entitiesMapperWishlist } from '../../wishlists';
 import createEntitiesReducer from './createEntities';
 import type { Reducer } from 'redux';
 import type { StoreState } from '../../types';
@@ -33,34 +30,34 @@ type EntitiesMapper = (data?: {
 // module but cannot be named.)"
 // Playground representation - https://tinyurl.com/a8srpa4u
 export const defaultMappers = {
-  addresses: addressesEntitiesMapper,
-  authentication: authenticationEntitiesMapper,
-  bag: bagEntitiesMapper,
-  checkout: checkoutEntitiesMapper,
-  merchantsLocations: merchantsLocationsEntitiesMapper,
-  orders: ordersEntitiesMapper,
-  payments: paymentsEntitiesMapper,
-  products: productsEntitiesMapper,
-  users: usersEntitiesMapper,
-  returns: returnsEntitiesMapper,
-  subscriptions: subscriptionsEntitiesMapper,
-  wishlist: wishlistEntitiesMapper,
+  addresses: entitiesMapperAddresses,
+  authentication: entitiesMapperAuthentication,
+  bag: entitiesMapperBag,
+  checkout: entitiesMapperCheckout,
+  merchantsLocations: entitiesMapperMerchantsLocations,
+  orders: entitiesMapperOrders,
+  payments: entitiesMapperPayments,
+  products: entitiesMapperProducts,
+  users: entitiesMapperUsers,
+  returns: entitiesMapperReturns,
+  subscriptions: entitiesMapperSubscriptions,
+  wishlist: entitiesMapperWishlist,
 };
 
 const entitiesMapper: EntitiesMapper = ({ ...extraMappers }) =>
   createEntitiesReducer({
-    ...addressesEntitiesMapper,
-    ...authenticationEntitiesMapper,
-    ...bagEntitiesMapper,
-    ...checkoutEntitiesMapper,
-    ...merchantsLocationsEntitiesMapper,
-    ...ordersEntitiesMapper,
-    ...paymentsEntitiesMapper,
-    ...productsEntitiesMapper,
-    ...usersEntitiesMapper,
-    ...returnsEntitiesMapper,
-    ...subscriptionsEntitiesMapper,
-    ...wishlistEntitiesMapper,
+    ...entitiesMapperAddresses,
+    ...entitiesMapperAuthentication,
+    ...entitiesMapperBag,
+    ...entitiesMapperCheckout,
+    ...entitiesMapperMerchantsLocations,
+    ...entitiesMapperOrders,
+    ...entitiesMapperPayments,
+    ...entitiesMapperProducts,
+    ...entitiesMapperUsers,
+    ...entitiesMapperReturns,
+    ...entitiesMapperSubscriptions,
+    ...entitiesMapperWishlist,
     // These are overrides - must be in the last position
     ...extraMappers,
   });

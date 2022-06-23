@@ -6,7 +6,7 @@ Object {
   "id": 17,
   "name": "One Size",
   "scale": 14,
-  "scaleAbbreviation": undefined,
+  "scaleAbbreviation": "IT",
   "scaleDescription": "Clothing standard",
 }
 `;

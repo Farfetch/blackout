@@ -17,10 +17,10 @@ describe('getSubscriptionPackages', () => {
   afterEach(() => moxios.uninstall(client));
 
   it('should handle a client request successfully', async () => {
-    moxiosFixtures.success(
-      mockGetSubscriptionPackages.query,
-      mockGetSubscriptionPackages.response,
-    );
+    moxiosFixtures.success({
+      query: mockGetSubscriptionPackages.query,
+      response: mockGetSubscriptionPackages.response,
+    });
 
     await expect(
       getSubscriptionPackages(mockGetSubscriptionPackages.query),
@@ -35,7 +35,7 @@ describe('getSubscriptionPackages', () => {
   });
 
   it('should receive a client request error', async () => {
-    moxiosFixtures.failure(mockGetSubscriptionPackages.query);
+    moxiosFixtures.failure({ query: mockGetSubscriptionPackages.query });
 
     await expect(
       getSubscriptionPackages(mockGetSubscriptionPackages.query),

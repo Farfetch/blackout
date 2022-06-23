@@ -1,5 +1,6 @@
 import client, { adaptError } from '../helpers/client';
 import join from 'proper-url-join';
+import type { GetCreditMovements } from './types';
 
 /**
  * Method responsible to get the credit movements of the user.
@@ -10,7 +11,7 @@ import join from 'proper-url-join';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getCreditMovements = (id, query, config) =>
+const getCreditMovements: GetCreditMovements = (id, query, config) =>
   client
     .get(join('/legacy/v1/users', id, 'creditMovements', { query }), config)
     .then(response => response.data)

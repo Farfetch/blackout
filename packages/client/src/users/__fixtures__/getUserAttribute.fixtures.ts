@@ -2,9 +2,6 @@ import join from 'proper-url-join';
 import moxios from 'moxios';
 import type { UserAttributesResponse } from '../types/userAttributesResponse.types';
 
-/**
- * Response payloads.
- */
 export default {
   success: (params: {
     userId: number;

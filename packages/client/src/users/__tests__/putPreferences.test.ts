@@ -15,7 +15,7 @@ describe('putPreferences', () => {
     },
   ];
   const spy = jest.spyOn(client, 'put');
-  const mockUserId = 0;
+  const userId = 0;
 
   beforeEach(() => {
     moxios.install(client);
@@ -25,34 +25,34 @@ describe('putPreferences', () => {
   afterEach(() => moxios.uninstall(client));
 
   it('should handle a client request successfully', async () => {
-    fixtures.success(mockUserId);
+    fixtures.success({ userId });
 
     expect.assertions(2);
 
     await expect(
-      usersClient.putPreferences(mockUserId, data),
+      usersClient.putPreferences(userId, data),
     ).resolves.toMatchObject(
       expect.objectContaining({
         status: 200,
       }),
     );
     expect(spy).toHaveBeenCalledWith(
-      `/account/v1/users/${mockUserId}/preferences`,
+      `/account/v1/users/${userId}/preferences`,
       data,
       expectedConfig,
     );
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure(mockUserId);
+    fixtures.failure({ userId });
 
     expect.assertions(2);
 
     await expect(
-      usersClient.putPreferences(mockUserId, data),
+      usersClient.putPreferences(userId, data),
     ).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      `/account/v1/users/${mockUserId}/preferences`,
+      `/account/v1/users/${userId}/preferences`,
       data,
       expectedConfig,
     );

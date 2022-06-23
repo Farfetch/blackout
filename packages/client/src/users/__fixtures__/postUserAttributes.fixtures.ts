@@ -1,4 +1,3 @@
-import get from 'lodash/get';
 import join from 'proper-url-join';
 import moxios from 'moxios';
 import type { UserAttributesResponse } from '../types';
@@ -11,7 +10,7 @@ export default {
     moxios.stubRequest(
       join('/api/account/v1/users', params.userId, 'attributes'),
       {
-        response: get(params, 'response'),
+        response: params.response,
         status: 200,
       },
     );

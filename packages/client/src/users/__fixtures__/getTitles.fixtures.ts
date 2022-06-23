@@ -1,30 +1,26 @@
-import get from 'lodash/get';
 import join from 'proper-url-join';
 import moxios from 'moxios';
-
-const getQuery = params => get(params, 'query');
+import type { GetTitlesQuery, GetTitlesResponse } from '../types';
 
 export default {
-  success: params => {
+  success: (params: {
+    query?: GetTitlesQuery;
+    response: GetTitlesResponse;
+  }): void => {
     moxios.stubRequest(
       join('/api/account/v1/titles', {
-        query: getQuery(params),
+        query: params.query,
       }),
       {
-        response: get(params, 'response'),
+        response: params.response,
         status: 200,
       },
     );
   },
-  failure: params => {
-    moxios.stubRequest(
-      join('/api/account/v1/titles', {
-        query: getQuery(params),
-      }),
-      {
-        response: 'stub error',
-        status: 404,
-      },
-    );
+  failure: (): void => {
+    moxios.stubRequest(join('/api/account/v1/titles'), {
+      response: 'stub error',
+      status: 404,
+    });
   },
 };

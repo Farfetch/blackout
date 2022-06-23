@@ -8,6 +8,14 @@ describe('getPreferences', () => {
   const spy = jest.spyOn(client, 'get');
   const mockUserId = 0;
   const mockCode = 'Test';
+  const response = [
+    {
+      code: mockCode,
+      values: ['136968', '136831', '136908'],
+      groupId: 'mobile',
+      updatedDate: '2019-08-19T10:46:59.543Z',
+    },
+  ];
 
   beforeEach(() => {
     moxios.install(client);
@@ -17,8 +25,6 @@ describe('getPreferences', () => {
   afterEach(() => moxios.uninstall(client));
 
   it('should handle a client request successfully', async () => {
-    const response = {};
-
     fixtures.success({ response, userId: mockUserId });
 
     expect.assertions(2);
@@ -33,8 +39,6 @@ describe('getPreferences', () => {
   });
 
   it('should filter by code and handle a client request successfully', async () => {
-    const response = {};
-
     fixtures.success({ response, userId: mockUserId, code: mockCode });
 
     expect.assertions(2);

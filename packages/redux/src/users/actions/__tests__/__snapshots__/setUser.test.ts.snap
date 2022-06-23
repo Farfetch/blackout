@@ -6,7 +6,7 @@ Object {
     "entities": Object {
       "user": Object {
         "bagId": "3a52edfe-5b17-46b9-ba5d-ed87cb36aa67",
-        "dateOfBirth": null,
+        "dateOfBirth": "/Date(631152000000)/",
         "email": "teste@conta.com",
         "gender": 0,
         "genderId": 0,
@@ -18,7 +18,7 @@ Object {
         "id": 29538482,
         "isExternalLogin": false,
         "name": "Ivo Mota",
-        "phoneNumber": null,
+        "phoneNumber": "910000000",
         "segments": Array [],
         "title": Object {
           "id": "111",

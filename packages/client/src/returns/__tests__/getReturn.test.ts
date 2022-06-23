@@ -7,7 +7,7 @@ import moxios from 'moxios';
 
 describe('getReturn', () => {
   const spy = jest.spyOn(client, 'get');
-  const id = '123456';
+  const id = 123456;
   const expectedConfig = undefined;
   const query = { guestUserEmail: 'test@email.com' };
 

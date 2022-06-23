@@ -4,6 +4,7 @@ import {
   groupedProductImages,
   productImages,
 } from '../__fixtures__/adapters.fixtures';
+import type { ProductImages } from '../types';
 
 describe('adaptProductImages()', () => {
   const adapterMatcher = expect.arrayContaining([
@@ -42,11 +43,12 @@ describe('adaptProductImages()', () => {
 
   it('should adapt legacy product images with a query param', () => {
     const mockParam = 'c=0';
+
     const result = adaptProductImages(groupedProductImages, {
       productImgQueryParam: mockParam,
-    });
+    }) as Array<ProductImages>;
 
-    result.forEach(image => {
+    result.forEach((image: ProductImages) => {
       expect(image.sources['250']).toEqual(expect.stringMatching(/.jpg\?c=0$/));
     });
   });
@@ -55,10 +57,13 @@ describe('adaptProductImages()', () => {
     const mockParam = '?c=0';
     const result = adaptProductImages(groupedProductImages, {
       productImgQueryParam: mockParam,
-    });
+    }) as Array<ProductImages>;
 
-    result.forEach(image => {
-      expect(image.sources['250']).toEqual(expect.stringMatching(/.jpg\?c=0$/));
-    });
+    Array.isArray(result) &&
+      result.forEach(image => {
+        expect(image.sources['250']).toEqual(
+          expect.stringMatching(/.jpg\?c=0$/),
+        );
+      });
   });
 });

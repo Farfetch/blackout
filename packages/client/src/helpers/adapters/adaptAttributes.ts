@@ -54,7 +54,10 @@ const adaptAttributes: AdaptAttributes = (attributes, sizes) => {
       attributesAdapted.id = Number(currentSize.sizeId);
       attributesAdapted.name = currentSize.sizeDescription;
       attributesAdapted.scale = Number(currentSize.scale);
-      attributesAdapted.scaleAbbreviation = currentSize.scaleAbbreviation;
+
+      if (currentSize.scaleAbbreviation) {
+        attributesAdapted.scaleAbbreviation = currentSize.scaleAbbreviation;
+      }
     } else {
       // Otherwise use the given size
       currentSize = sizes.find(

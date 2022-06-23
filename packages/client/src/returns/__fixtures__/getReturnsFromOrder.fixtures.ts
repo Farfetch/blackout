@@ -15,7 +15,7 @@ export default {
         query: get(params, 'query'),
       }),
       {
-        response: get(params, 'response'),
+        response: params.response,
         status: 200,
       },
     );

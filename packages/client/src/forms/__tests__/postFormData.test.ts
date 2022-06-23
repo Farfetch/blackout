@@ -23,7 +23,7 @@ describe('schemas client', () => {
     const spy = jest.spyOn(client, 'post');
 
     it('should handle a client request successfully', async () => {
-      fixtures.post.success(schemaCode, postFormDataResponse);
+      fixtures.post.success({ schemaCode, response: postFormDataResponse });
 
       expect.assertions(2);
 
@@ -39,7 +39,7 @@ describe('schemas client', () => {
     });
 
     it('should receive a client request error', async () => {
-      fixtures.post.error(schemaCode);
+      fixtures.post.error({ schemaCode });
 
       expect.assertions(2);
 

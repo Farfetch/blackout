@@ -27,7 +27,7 @@ describe('postPersonalIdImage', () => {
   it('should handle a client request successfully', async () => {
     const response = mockPostPersonalIdImageResponse;
 
-    fixtures.success(userId, response);
+    fixtures.success({ userId, response });
 
     expect.assertions(2);
 
@@ -43,7 +43,7 @@ describe('postPersonalIdImage', () => {
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure(userId);
+    fixtures.failure({ userId });
 
     expect.assertions(2);
 

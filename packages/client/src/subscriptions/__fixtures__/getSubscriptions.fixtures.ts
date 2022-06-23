@@ -3,21 +3,24 @@ import moxios from 'moxios';
 import type { GetSubscriptionsQuery, Subscription } from '../types';
 
 export default {
-  success: (query: GetSubscriptionsQuery, response: Subscription[]) => {
+  success: (params: {
+    query: GetSubscriptionsQuery;
+    response: Subscription[];
+  }): void => {
     moxios.stubRequest(
       join('/api/marketing/v1/subscriptions', {
-        query,
+        query: params.query,
       }),
       {
-        response,
+        response: params.response,
         status: 200,
       },
     );
   },
-  failure: (query: GetSubscriptionsQuery) => {
+  failure: (params: { query: GetSubscriptionsQuery }): void => {
     moxios.stubRequest(
       join('/api/marketing/v1/subscriptions', {
-        query,
+        query: params.query,
       }),
       {
         response: 'stub error',

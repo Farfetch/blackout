@@ -1,14 +1,14 @@
-import get from 'lodash/get';
 import moxios from 'moxios';
+import type { GetBenefitsResponse } from '../types';
 
 export default {
-  success: params => {
+  success: (params: { response: GetBenefitsResponse }): void => {
     moxios.stubRequest('/api/legacy/v1/userbenefits', {
-      response: get(params, 'response'),
+      response: params.response,
       status: 200,
     });
   },
-  failure: () => {
+  failure: (): void => {
     moxios.stubRequest('/api/legacy/v1/userbenefits', {
       response: 'stub error',
       status: 404,

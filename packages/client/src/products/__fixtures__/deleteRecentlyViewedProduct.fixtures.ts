@@ -5,7 +5,10 @@ import moxios from 'moxios';
  * Response payloads.
  */
 export default {
-  success: (params: { id: number; response: Record<string, unknown> }) => {
+  success: (params: {
+    id: number;
+    response: Record<string, unknown>;
+  }): void => {
     moxios.stubRequest(
       join('/api/marketing/v1/recentlyViewed/products', params.id),
       {
@@ -14,7 +17,7 @@ export default {
       },
     );
   },
-  failure: (params: { id: number }) => {
+  failure: (params: { id: number }): void => {
     moxios.stubRequest(
       join('/api/marketing/v1/recentlyViewed/products', params.id),
       {
