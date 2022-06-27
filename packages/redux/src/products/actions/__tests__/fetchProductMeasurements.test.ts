@@ -1,5 +1,4 @@
 import * as normalizr from 'normalizr';
-import { actionTypesProducts } from '../..';
 import { fetchProductMeasurements } from '..';
 import { getProductVariantsMeasurements } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/measurements';
@@ -9,6 +8,7 @@ import {
   mockProductVariantsMeasurementsNormalizedResponse,
 } from 'tests/__fixtures__/products';
 import { mockStore } from '../../../../tests';
+import { productsActionTypes } from '../..';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -58,12 +58,12 @@ describe('fetchProductMeasurements() action creator', () => {
         expect(store.getActions()).toEqual([
           {
             meta: { productId: mockProductId },
-            type: actionTypesProducts.FETCH_PRODUCT_MEASUREMENTS_REQUEST,
+            type: productsActionTypes.FETCH_PRODUCT_MEASUREMENTS_REQUEST,
           },
           {
             meta: { productId: mockProductId },
             payload: { error: expectedError },
-            type: actionTypesProducts.FETCH_PRODUCT_MEASUREMENTS_FAILURE,
+            type: productsActionTypes.FETCH_PRODUCT_MEASUREMENTS_FAILURE,
           },
         ]);
       });
@@ -91,12 +91,12 @@ describe('fetchProductMeasurements() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { productId: mockProductId },
-        type: actionTypesProducts.FETCH_PRODUCT_MEASUREMENTS_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCT_MEASUREMENTS_REQUEST,
       },
       {
         meta: { productId: mockProductId },
         payload: mockProductVariantsMeasurementsNormalizedResponse,
-        type: actionTypesProducts.FETCH_PRODUCT_MEASUREMENTS_SUCCESS,
+        type: productsActionTypes.FETCH_PRODUCT_MEASUREMENTS_SUCCESS,
       },
     ]);
   });

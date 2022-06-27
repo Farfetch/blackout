@@ -1,8 +1,8 @@
-import { actionTypesProducts } from '../../';
 import { expectedRecentlyViewedRemotePayload } from 'tests/__fixtures__/products';
 import { fetchRecentlyViewedProducts } from '../';
 import { getRecentlyViewedProducts } from '@farfetch/blackout-client';
 import { mockStore } from '../../../../tests';
+import { productsActionTypes } from '../../';
 import find from 'lodash/find';
 import reducer from '../../reducer';
 import type { StoreState } from '../../../types';
@@ -63,10 +63,10 @@ describe('fetchRecentlyViewedProducts() action creator', () => {
     expect(store.getActions()).toEqual(
       expect.arrayContaining([
         {
-          type: actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST,
+          type: productsActionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST,
         },
         {
-          type: actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE,
+          type: productsActionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE,
           payload: { error: expectedError },
         },
       ]),
@@ -94,16 +94,16 @@ describe('fetchRecentlyViewedProducts() action creator', () => {
     );
     expect(actionResults).toEqual([
       {
-        type: actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST,
+        type: productsActionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST,
       },
       {
-        type: actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
+        type: productsActionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
         payload: expectedRecentlyViewedRemotePayload,
       },
     ]);
     expect(
       find(actionResults, {
-        type: actionTypesProducts.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
+        type: productsActionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
       }),
     ).toMatchSnapshot('fetch recently viewed products success payload');
 

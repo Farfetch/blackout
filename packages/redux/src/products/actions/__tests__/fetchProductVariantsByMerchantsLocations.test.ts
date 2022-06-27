@@ -1,5 +1,4 @@
 import * as normalizr from 'normalizr';
-import { actionTypesProducts } from '../..';
 import { fetchProductVariantsByMerchantsLocations } from '..';
 import { getProductVariantsByMerchantsLocations } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/variantsByMerchantsLocations';
@@ -11,6 +10,7 @@ import {
   mockVariantId,
 } from 'tests/__fixtures__/products';
 import { mockStore } from '../../../../tests';
+import { productsActionTypes } from '../..';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -53,12 +53,12 @@ describe('fetchProductVariantsByMerchantsLocations() action creator', () => {
         expect(store.getActions()).toEqual([
           {
             meta: { productId: mockProductId },
-            type: actionTypesProducts.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
+            type: productsActionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
           },
           {
             meta: { productId: mockProductId },
             payload: { error: expectedError },
-            type: actionTypesProducts.FETCH_PRODUCT_MERCHANTS_LOCATIONS_FAILURE,
+            type: productsActionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_FAILURE,
           },
         ]);
       });
@@ -89,12 +89,12 @@ describe('fetchProductVariantsByMerchantsLocations() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { productId: mockProductId },
-        type: actionTypesProducts.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
       },
       {
         meta: { productId: mockProductId },
         payload: mockProductVariantsByMerchantsLocationsNormalizedResponse,
-        type: actionTypesProducts.FETCH_PRODUCT_MERCHANTS_LOCATIONS_SUCCESS,
+        type: productsActionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_SUCCESS,
       },
     ]);
   });
@@ -128,12 +128,12 @@ describe('fetchProductVariantsByMerchantsLocations() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { productId: mockProductId },
-        type: actionTypesProducts.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
       },
       {
         meta: { productId: mockProductId },
         payload: mockProductVariantsByMerchantsLocationsNormalizedResponse,
-        type: actionTypesProducts.FETCH_PRODUCT_MERCHANTS_LOCATIONS_SUCCESS,
+        type: productsActionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_SUCCESS,
       },
     ]);
   });

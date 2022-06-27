@@ -1,5 +1,4 @@
 import * as normalizr from 'normalizr';
-import { actionTypesProducts } from '../..';
 import { fetchProductDetails } from '..';
 import { getProductDetails } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/details';
@@ -10,6 +9,7 @@ import {
   mockResponse,
 } from 'tests/__fixtures__/products';
 import { mockStore } from '../../../../tests';
+import { productsActionTypes } from '../..';
 import thunk from 'redux-thunk';
 
 jest.mock('@farfetch/blackout-client', () => ({
@@ -56,12 +56,12 @@ describe('fetchProductDetails() action creator', () => {
       expect(store.getActions()).toEqual([
         {
           meta: { productId: mockProductId },
-          type: actionTypesProducts.FETCH_PRODUCT_DETAILS_REQUEST,
+          type: productsActionTypes.FETCH_PRODUCT_DETAILS_REQUEST,
         },
         {
           meta: { productId: mockProductId },
           payload: { error: expectedError },
-          type: actionTypesProducts.FETCH_PRODUCT_DETAILS_FAILURE,
+          type: productsActionTypes.FETCH_PRODUCT_DETAILS_FAILURE,
         },
       ]);
     });
@@ -86,12 +86,12 @@ describe('fetchProductDetails() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { productId: mockProductId },
-        type: actionTypesProducts.FETCH_PRODUCT_DETAILS_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCT_DETAILS_REQUEST,
       },
       {
         meta: { productId: mockProductId },
         payload: mockProductResponseNormalized,
-        type: actionTypesProducts.FETCH_PRODUCT_DETAILS_SUCCESS,
+        type: productsActionTypes.FETCH_PRODUCT_DETAILS_SUCCESS,
       },
     ]);
   });
@@ -121,12 +121,12 @@ describe('fetchProductDetails() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { productId: mockProductId },
-        type: actionTypesProducts.FETCH_PRODUCT_DETAILS_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCT_DETAILS_REQUEST,
       },
       {
         meta: { productId: mockProductId },
         payload: mockProductResponseNormalizedWithoutImageOptions,
-        type: actionTypesProducts.FETCH_PRODUCT_DETAILS_SUCCESS,
+        type: productsActionTypes.FETCH_PRODUCT_DETAILS_SUCCESS,
       },
     ]);
   });
@@ -153,7 +153,7 @@ describe('fetchProductDetails() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { productId: mockProductId },
-        type: actionTypesProducts.DEHYDRATE_PRODUCT_DETAILS,
+        type: productsActionTypes.DEHYDRATE_PRODUCT_DETAILS,
       },
     ]);
   });
@@ -186,19 +186,19 @@ describe('fetchProductDetails() action creator', () => {
       {
         meta: { productId: mockProductId },
         payload: mockProductResponseNormalized,
-        type: actionTypesProducts.DEHYDRATE_PRODUCT_DETAILS,
+        type: productsActionTypes.DEHYDRATE_PRODUCT_DETAILS,
       },
     ]);
 
     expect(actionResults).toEqual([
       {
         meta: { productId: mockProductId },
-        type: actionTypesProducts.FETCH_PRODUCT_DETAILS_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCT_DETAILS_REQUEST,
       },
       {
         meta: { productId: mockProductId },
         payload: mockProductResponseNormalized,
-        type: actionTypesProducts.FETCH_PRODUCT_DETAILS_SUCCESS,
+        type: productsActionTypes.FETCH_PRODUCT_DETAILS_SUCCESS,
       },
     ]);
   });
