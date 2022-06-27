@@ -3,7 +3,7 @@ import type { Return } from '../types/return.types';
 
 const path = '/api/account/v1/returns/:id';
 
-export default {
+const fixtures = {
   success: (response: Return): RestHandler =>
     rest.patch(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
@@ -13,3 +13,5 @@ export default {
       res(ctx.status(404), ctx.json({ message: 'stub error' })),
     ),
 };
+
+export default fixtures;

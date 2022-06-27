@@ -3,7 +3,7 @@ import type { PostTokenResponse } from '../types';
 
 const path = '/api/authentication/v1/userImpersonations';
 
-export default {
+const fixtures = {
   success: (response: PostTokenResponse): RestHandler =>
     rest.post(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
@@ -13,3 +13,5 @@ export default {
       res(ctx.status(404), ctx.json({ message: 'stub error' })),
     ),
 };
+
+export default fixtures;

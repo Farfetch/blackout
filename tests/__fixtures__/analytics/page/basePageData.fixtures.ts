@@ -1,7 +1,9 @@
 import { trackTypes } from '@farfetch/blackout-analytics';
 import baseAnalyticsEventData from '../baseAnalyticsEventData.fixtures';
 
-export default {
+const fixtures = {
   ...baseAnalyticsEventData,
   type: trackTypes.PAGE,
 };
+
+export default fixtures;
