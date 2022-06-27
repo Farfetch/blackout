@@ -1,7 +1,9 @@
 import { eventTypes } from '@farfetch/blackout-analytics';
 import baseTrackData from './baseTrackData.fixtures';
 
-export default {
+const fixtures = {
   ...baseTrackData,
   event: eventTypes.SIGNUP_FORM_VIEWED,
 };
+
+export default fixtures;

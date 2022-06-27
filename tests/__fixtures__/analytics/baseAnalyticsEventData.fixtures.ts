@@ -1,4 +1,4 @@
-export default {
+const fixtures = {
   type: null,
   properties: {},
   event: null,
@@ -74,3 +74,5 @@ export default {
   timestamp: 1567010265879,
   platform: 'web',
 };
+
+export default fixtures;

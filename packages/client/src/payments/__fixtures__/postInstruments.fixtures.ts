@@ -3,7 +3,7 @@ import type { PostInstrumentsResponse } from '../types';
 
 const path = '/api/payment/v1/intents/:id/instruments';
 
-export default {
+const fixtures = {
   success: (response: PostInstrumentsResponse): RestHandler =>
     rest.post(path, async (_req, res, ctx) =>
       res(
@@ -17,3 +17,5 @@ export default {
       res(ctx.status(404), ctx.json({ message: 'stub error' })),
     ),
 };
+
+export default fixtures;

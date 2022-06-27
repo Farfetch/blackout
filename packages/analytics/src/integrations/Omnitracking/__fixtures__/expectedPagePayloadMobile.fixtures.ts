@@ -5,7 +5,7 @@ import mockedUuid from './mocked_uuid';
 
 const pageMockData = pageEventsData[pageTypes.HOMEPAGE];
 
-export default {
+const fixtures = {
   clientId: pageMockData.context.clientId,
   tenantId: pageMockData.context.tenantId,
   correlationId: pageMockData.user.localId,
@@ -29,3 +29,5 @@ export default {
       ],
   },
 };
+
+export default fixtures;

@@ -5,7 +5,7 @@ import mockedUuid from './mocked_uuid';
 
 const trackMockData = trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART];
 
-export default {
+const fixtures = {
   clientId: trackMockData.context.clientId,
   tenantId: trackMockData.context.tenantId,
   correlationId: trackMockData.user.localId,
@@ -17,3 +17,5 @@ export default {
     uniqueViewId: mocked_view_uid,
   },
 };
+
+export default fixtures;

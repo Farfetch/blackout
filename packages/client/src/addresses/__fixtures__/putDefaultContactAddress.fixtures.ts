@@ -2,7 +2,7 @@ import { rest, RestHandler } from 'msw';
 
 const path = '/api/account/v1/users/:userId/addresses/preferred/:id';
 
-export default {
+const fixtures = {
   success: (): RestHandler =>
     rest.put(path, async (_req, res, ctx) => res(ctx.status(204))),
   failure: (): RestHandler =>
@@ -23,3 +23,5 @@ export default {
       ),
     ),
 };
+
+export default fixtures;

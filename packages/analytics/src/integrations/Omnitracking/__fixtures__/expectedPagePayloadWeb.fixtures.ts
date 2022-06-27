@@ -10,7 +10,7 @@ const pageMockData: PageMockData = pageEventsData[
   pageTypes.HOMEPAGE
 ] as PageMockData;
 
-export default {
+const fixtures = {
   clientId: pageMockData.context.clientId,
   tenantId: pageMockData.context.tenantId,
   correlationId: pageMockData.user.localId,
@@ -47,3 +47,5 @@ export default {
       ],
   },
 };
+
+export default fixtures;

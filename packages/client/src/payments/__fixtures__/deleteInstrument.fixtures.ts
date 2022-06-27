@@ -2,7 +2,7 @@ import { rest, RestHandler } from 'msw';
 
 const path = '/api/payment/v1/intents/:id/instruments/:instrumentId';
 
-export default {
+const fixtures = {
   success: (): RestHandler =>
     rest.delete(path, async (_req, res, ctx) => res(ctx.status(200))),
   failure: (): RestHandler =>
@@ -10,3 +10,5 @@ export default {
       res(ctx.status(404), ctx.json({ message: 'stub error' })),
     ),
 };
+
+export default fixtures;

@@ -3,10 +3,7 @@ import type { Currencies } from '../types';
 
 const path = '/api/settings/v1/countries/:countryCode/currencies';
 
-/**
- * Response payloads.
- */
-export default {
+const fixtures = {
   get: {
     success: (response: Array<Currencies>): RestHandler =>
       rest.get(path, async (_req, res, ctx) =>
@@ -18,3 +15,5 @@ export default {
       ),
   },
 };
+
+export default fixtures;

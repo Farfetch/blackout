@@ -3,10 +3,7 @@ import type { Contents } from '../types';
 
 const path = '/api/content/v1/search/contents';
 
-/**
- * Response payloads.
- */
-export default {
+const fixtures = {
   get: {
     success: (response: Contents): RestHandler =>
       rest.get(path, async (_req, res, ctx) =>
@@ -18,3 +15,5 @@ export default {
       ),
   },
 };
+
+export default fixtures;

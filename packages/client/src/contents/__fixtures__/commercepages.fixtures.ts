@@ -3,10 +3,7 @@ import type { CommercePages } from '../types';
 
 const path = '/api/content/v1/commercepages';
 
-/**
- * Response payloads.
- */
-export default {
+const fixtures = {
   get: {
     success: (response: CommercePages): RestHandler =>
       rest.get(path, async (_req, res, ctx) =>
@@ -18,3 +15,5 @@ export default {
       ),
   },
 };
+
+export default fixtures;

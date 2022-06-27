@@ -1,7 +1,7 @@
 import { fromParameterTypes, pageTypes } from '@farfetch/blackout-analytics';
 import basePageData from './basePageData.fixtures';
 
-export default {
+const fixtures = {
   ...basePageData,
   event: pageTypes.BAG,
   properties: {
@@ -25,3 +25,5 @@ export default {
     ],
   },
 };
+
+export default fixtures;

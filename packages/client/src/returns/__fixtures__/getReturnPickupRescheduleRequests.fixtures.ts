@@ -3,7 +3,7 @@ import type { PickupRescheduleRequests } from '../types';
 
 const path = '/api/account/v1/returns/:id/pickupRescheduleRequests';
 
-export default {
+const fixtures = {
   success: (response: PickupRescheduleRequests): RestHandler =>
     rest.get(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
@@ -13,3 +13,5 @@ export default {
       res(ctx.status(404), ctx.json({ message: 'stub error' })),
     ),
 };
+
+export default fixtures;
