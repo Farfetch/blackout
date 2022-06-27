@@ -4,7 +4,7 @@ import type { Bag, BagItem } from '../types';
 
 const path = '/api/commerce/v1/bags';
 
-export default {
+const fixtures = {
   success: (params: {
     bagId: Bag['id'];
     bagItemId: BagItem['id'];
@@ -24,3 +24,5 @@ export default {
         res(ctx.status(404), ctx.json({ message: 'stub error' })),
     ),
 };
+
+export default fixtures;

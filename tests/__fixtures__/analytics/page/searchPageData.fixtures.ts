@@ -1,7 +1,7 @@
 import { pageTypes } from '@farfetch/blackout-analytics';
 import basePageData from './basePageData.fixtures';
 
-export default {
+const fixtures = {
   ...basePageData,
   properties: {
     searchQuery: 'shoes',
@@ -10,3 +10,5 @@ export default {
   },
   event: pageTypes.SEARCH,
 };
+
+export default fixtures;

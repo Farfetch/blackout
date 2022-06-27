@@ -3,10 +3,7 @@ import type { ContentTypes } from '../types';
 
 const path = '/api/content/v1/spaces/:spaceCode/contentTypes';
 
-/**
- * Response payloads.
- */
-export default {
+const fixtures = {
   success: (response: ContentTypes): RestHandler =>
     rest.get(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
@@ -16,3 +13,5 @@ export default {
       res(ctx.status(404), ctx.json({ message: 'stub error' })),
     ),
 };
+
+export default fixtures;

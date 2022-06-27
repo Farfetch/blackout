@@ -3,7 +3,7 @@ import type { Address } from '../types';
 
 const path = '/api/account/v1/users/:userId/addresses';
 
-export default {
+const fixtures = {
   success: (response: Address): RestHandler =>
     rest.post(path, async (_req, res, ctx) =>
       res(ctx.status(201), ctx.json(response)),
@@ -13,3 +13,5 @@ export default {
       res(ctx.status(404), ctx.json({ message: 'stub error' })),
     ),
 };
+
+export default fixtures;

@@ -3,7 +3,7 @@ import type { CheckoutOrderOperation } from '../types/checkoutOrderOperation.typ
 
 const path = '/api/checkout/v1/orders/:orderId/operations/:operationId';
 
-export default {
+const fixtures = {
   success: (response: CheckoutOrderOperation): RestHandler =>
     rest.get(path, (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
@@ -13,3 +13,5 @@ export default {
       res(ctx.status(404), ctx.json({ message: 'stub error' })),
     ),
 };
+
+export default fixtures;

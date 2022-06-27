@@ -1,7 +1,7 @@
 import { eventTypes } from '@farfetch/blackout-analytics';
 import baseTrackData from './baseTrackData.fixtures';
 
-export default {
+const fixtures = {
   ...baseTrackData,
   event: eventTypes.CHECKOUT_ABANDONED,
   properties: {
@@ -13,3 +13,5 @@ export default {
     currency: 'USD',
   },
 };
+
+export default fixtures;

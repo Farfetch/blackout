@@ -1,7 +1,7 @@
 import { eventTypes, fromParameterTypes } from '@farfetch/blackout-analytics';
 import baseTrackData from './baseTrackData.fixtures';
 
-export default {
+const fixtures = {
   ...baseTrackData,
   event: eventTypes.PRODUCT_CLICKED,
   properties: {
@@ -17,3 +17,5 @@ export default {
     priceWithoutDiscount: 25,
   },
 };
+
+export default fixtures;

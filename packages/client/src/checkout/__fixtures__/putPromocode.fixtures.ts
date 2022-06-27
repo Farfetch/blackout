@@ -3,7 +3,7 @@ import type { GetCheckoutResponse } from '../types';
 
 const path = '/api/checkout/v1/orders/:id/promocodes';
 
-export default {
+const fixtures = {
   success: (response: GetCheckoutResponse): RestHandler =>
     rest.put(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
@@ -13,3 +13,5 @@ export default {
       res(ctx.status(404), ctx.json({ message: 'stub error' })),
     ),
 };
+
+export default fixtures;

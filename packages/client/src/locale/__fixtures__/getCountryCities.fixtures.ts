@@ -3,10 +3,7 @@ import type { Cities } from '../types';
 
 const path = '/api/settings/v1/countries/:countryCode/states/:stateId/cities';
 
-/**
- * Response payloads.
- */
-export default {
+const fixtures = {
   get: {
     success: (response: Array<Cities>): RestHandler =>
       rest.get(path, async (_req, res, ctx) =>
@@ -18,3 +15,5 @@ export default {
       ),
   },
 };
+
+export default fixtures;

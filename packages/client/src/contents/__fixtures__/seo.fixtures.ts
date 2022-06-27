@@ -3,10 +3,7 @@ import type { SEOMetadata } from '../types';
 
 const path = '/api/seo/metadata';
 
-/**
- * Response payloads.
- */
-export default {
+const fixtures = {
   get: {
     success: (response: SEOMetadata): RestHandler =>
       rest.get(path, async (_req, res, ctx) =>
@@ -18,3 +15,5 @@ export default {
       ),
   },
 };
+
+export default fixtures;

@@ -3,7 +3,7 @@ import type { ContactResponse } from '../types';
 
 const path = '/api/account/v1/users/:userId/contacts/:contactId';
 
-export default {
+const fixtures = {
   success: (response: ContactResponse): RestHandler =>
     rest.patch(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
@@ -13,3 +13,5 @@ export default {
       res(ctx.status(404), ctx.json({ message: 'stub error' })),
     ),
 };
+
+export default fixtures;

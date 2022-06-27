@@ -3,7 +3,7 @@ import type { Address } from '../types';
 
 const path = '/api/account/v1/users/:userId/addresses/preferred/current';
 
-export default {
+const fixtures = {
   success: (response: Address): RestHandler =>
     rest.get(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
@@ -26,3 +26,5 @@ export default {
       ),
     ),
 };
+
+export default fixtures;

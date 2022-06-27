@@ -2,7 +2,7 @@ import { rest, RestHandler } from 'msw';
 
 const path = '/api/account/v1/returns/:id/pickupRescheduleRequests';
 
-export default {
+const fixtures = {
   success: (response: number): RestHandler =>
     rest.post(path, async (_req, res, ctx) =>
       res(ctx.status(202), ctx.json(response)),
@@ -12,3 +12,5 @@ export default {
       res(ctx.status(404), ctx.json({ message: 'stub error' })),
     ),
 };
+
+export default fixtures;
