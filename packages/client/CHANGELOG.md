@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.165](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.164...@farfetch/blackout-client@2.0.0-next.165) (2022-06-27)
+
+
+### Features
+
+* **client:** add product grouping client ([f69e9bc](https://github.com/Farfetch/blackout/commit/f69e9bc5769c1f34163e0a43434fed5e889ed0c6))
+
+
+
+
+
 # [2.0.0-next.164](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.163...@farfetch/blackout-client@2.0.0-next.164) (2022-06-22)
 
 
