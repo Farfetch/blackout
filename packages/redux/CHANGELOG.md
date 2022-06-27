@@ -3,6 +3,74 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.258](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.257...@farfetch/blackout-redux@1.0.0-next.258) (2022-06-27)
+
+
+### Features
+
+* **blackout-client|blackout-react|blackout-redux:** export analytics modules in root index file ([45e97d2](https://github.com/Farfetch/blackout/commit/45e97d27f42ae4137d99a3015a04590d4991820e))
+
+
+### BREAKING CHANGES
+
+* **blackout-client|blackout-react|blackout-redux:** - Analytics imports from `@farfetch/blackout-react/analytics`
+
+All analytics modules that were being imported from
+`@farfetch/blackout-react/analytics` must now be imported
+from the root of the package:
+
+```js
+// Previously
+import analytics, { eventTypes } from "@farfetch/blackout-
+react/analytics"
+
+// Now
+import { analytics, eventTypes } from "@farfetch/blackout-
+react"
+```
+
+- Analytics redux middlewares from @farfetch/blackout-core/analytics/redux/middlewares
+
+All analytics middlewares that were being imported from
+`@farfetch/blackout-core/analytics/redux/middlewares` were renamed and moved
+to the `@farfetch/blackout-redux` package:
+
+```js
+// Previously
+import {
+  bagMiddleware,
+  setUserMiddleware,
+  wishlistMiddleware,
+} from '@farfetch/blackout-core/analytics/redux/middlewares';
+
+// Now
+import {
+  analyticsBagMiddleware,
+  analyticsSetUserMiddleware,
+  analyticsWishlistMiddleware,
+} from '@farfetch/blackout-redux';
+```
+
+- Omnitracking clients
+
+Omnitracking clients `postTrackings` and `postBatchTrackings` now
+must be imported from `@farfetch/blackout-client` package:
+
+```js
+// Previously
+import { postTrackings } from "@farfetch/blackout-core/analytics/integrations/Omnitracking/client"
+import { postBatchTrackings }
+	from "@farfetch/blackout-core/analytics/integrations/Omnitracking/client"
+
+// Now
+import { postTrackings } from "@farfetch/blackout-client"
+import { postBatchTrackings } from "@farfetch/blackout-client"
+```
+
+
+
+
+
 # [1.0.0-next.257](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.256...@farfetch/blackout-redux@1.0.0-next.257) (2022-06-27)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
