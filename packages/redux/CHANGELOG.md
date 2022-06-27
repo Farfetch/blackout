@@ -3,6 +3,86 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.259](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.258...@farfetch/blackout-redux@1.0.0-next.259) (2022-06-27)
+
+
+### Features
+
+* **blackout-client|blackout-redux:** export forms modules in root index file ([1180d3e](https://github.com/Farfetch/blackout/commit/1180d3e3b18e1d2337e302dfe194c691479b422c))
+
+
+### BREAKING CHANGES
+
+* **blackout-client|blackout-redux:** - Imports of form modules now must be done from the root
+for both @farfetch/blackout-client and @farfetch/blackout-redux
+packages.
+
+```js
+// Previously
+
+import {
+getFormSchema,
+postFormData,
+} from '@farfetch/blackout-core/forms/client';
+
+import {
+  fetchFormSchema,
+  getFormSchemaByCode,
+  getFormSchemaError,
+  getSubmitFormDataError,
+  isFormSchemaLoading,
+  isSubmitFormDataLoading,
+  resetFormSchema,
+  submitFormData,
+} from '@farfetch/blackout-core/forms/redux';
+
+// Now
+
+import {
+getFormSchema,
+postFormData,
+} from '@farfetch/blackout-client';
+
+import {
+  fetchFormSchema,
+  getFormSchemaByCode,
+  getFormSchemaError,
+  getSubmitFormDataError,
+  isFormSchemaLoading,
+  isSubmitFormDataLoading,
+  resetFormSchema,
+  submitFormData,
+} from '@farfetch/blackout-redux';
+```
+
+- The modules `actionTypes` and `reducer` from `@farfetch/blackout-core/forms/redux`
+were renamed to `formsActionTypes` and `formsReducer` respectively.
+
+```js
+
+// Previously
+import reducer, { actionTypes } from '@farfetch/blackout-core/forms/redux;
+
+// Now
+import { actionTypesForms, formsReducer } from '@farfetch/blackout-redux';
+```
+
+- The action type `RESET_SCHEMAS` was renamed to `RESET_FORM_SCHEMAS`
+
+```js
+
+// Previously
+import { RESET_SCHEMAS } from '@farfetch/blackout-core/forms/redux';
+
+// Now
+import { RESET_FORM_SCHEMAS } from '@farfetch/blackout-redux';
+
+```
+
+
+
+
+
 # [1.0.0-next.258](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.257...@farfetch/blackout-redux@1.0.0-next.258) (2022-06-27)
 
 
