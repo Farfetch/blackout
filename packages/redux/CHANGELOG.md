@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.261](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.260...@farfetch/blackout-redux@1.0.0-next.261) (2022-06-27)
+
+
+### Bug Fixes
+
+* **blackout-redux:** fix reset recently viewed action naming ([9a90fef](https://github.com/Farfetch/blackout/commit/9a90fefd9bc7c28d9f8b1a54375d53fa2cedaa33))
+
+
+### BREAKING CHANGES
+
+* **blackout-redux:** - The following exports were renamed:
+
+```js
+// Previously
+import { actionTypesProducts, entitiesMapperProducts,
+serverInitialStateProducts } from '@farfetch/blackout-redux';
+
+// Now
+import { productsActionTypes, productsEntitiesMapper,
+productsServerInitialState } from '@farfetch/blackout-redux';
+```
+
+
+
+
+
 # [1.0.0-next.260](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.259...@farfetch/blackout-redux@1.0.0-next.260) (2022-06-27)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
