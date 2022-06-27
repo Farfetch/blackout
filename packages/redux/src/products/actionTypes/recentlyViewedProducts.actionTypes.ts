@@ -37,5 +37,5 @@ export const REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS =
 /**
  * Action type dispatched when the fetch product recently viewed needs to reset.
  */
-export const RESET_RECENTLY_VIEWED_PRODUCT =
-  '@farfetch/blackout-redux/RESET_RECENTLY_VIEWED_PRODUCT';
+export const RESET_RECENTLY_VIEWED_PRODUCTS =
+  '@farfetch/blackout-redux/RESET_RECENTLY_VIEWED_PRODUCTS';

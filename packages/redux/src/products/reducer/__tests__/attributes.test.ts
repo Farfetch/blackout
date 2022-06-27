@@ -1,5 +1,5 @@
-import { actionTypesProducts } from '../..';
 import { mockProductId } from 'tests/__fixtures__/products';
+import { productsActionTypes } from '../..';
 import reducer, { getError, getIsLoading, INITIAL_STATE } from '../attributes';
 
 const mockAction = { type: 'foo' };
@@ -27,7 +27,7 @@ describe('attributes redux reducer', () => {
       const expectedResult = { [mockProductId]: undefined };
       const state = reducer(undefined, {
         meta,
-        type: actionTypesProducts.FETCH_PRODUCT_ATTRIBUTES_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCT_ATTRIBUTES_REQUEST,
       });
 
       expect(state.error).toEqual(expectedResult);
@@ -37,7 +37,7 @@ describe('attributes redux reducer', () => {
       const state = reducer(undefined, {
         meta,
         payload: { error },
-        type: actionTypesProducts.FETCH_PRODUCT_ATTRIBUTES_FAILURE,
+        type: productsActionTypes.FETCH_PRODUCT_ATTRIBUTES_FAILURE,
       });
 
       expect(state.error).toEqual(expectedError);
@@ -66,7 +66,7 @@ describe('attributes redux reducer', () => {
       };
       const state = reducer(undefined, {
         meta,
-        type: actionTypesProducts.FETCH_PRODUCT_ATTRIBUTES_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCT_ATTRIBUTES_REQUEST,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
@@ -79,7 +79,7 @@ describe('attributes redux reducer', () => {
       const state = reducer(undefined, {
         meta,
         payload: { error: '' },
-        type: actionTypesProducts.FETCH_PRODUCT_ATTRIBUTES_FAILURE,
+        type: productsActionTypes.FETCH_PRODUCT_ATTRIBUTES_FAILURE,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
@@ -94,7 +94,7 @@ describe('attributes redux reducer', () => {
         payload: {
           result: mockProductId,
         },
-        type: actionTypesProducts.FETCH_PRODUCT_ATTRIBUTES_SUCCESS,
+        type: productsActionTypes.FETCH_PRODUCT_ATTRIBUTES_SUCCESS,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);

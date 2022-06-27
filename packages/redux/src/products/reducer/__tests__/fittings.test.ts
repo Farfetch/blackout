@@ -1,5 +1,5 @@
-import { actionTypesProducts } from '../..';
 import { mockProductId } from 'tests/__fixtures__/products';
+import { productsActionTypes } from '../..';
 import reducer, { getError, getIsLoading, INITIAL_STATE } from '../fittings';
 
 const mockAction = { type: 'foo' };
@@ -27,7 +27,7 @@ describe('fittings redux reducer', () => {
       const expectedResult = { [mockProductId]: undefined };
       const state = reducer(undefined, {
         meta,
-        type: actionTypesProducts.FETCH_PRODUCT_FITTINGS_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCT_FITTINGS_REQUEST,
       });
 
       expect(state.error).toEqual(expectedResult);
@@ -37,7 +37,7 @@ describe('fittings redux reducer', () => {
       const state = reducer(undefined, {
         meta,
         payload: { error },
-        type: actionTypesProducts.FETCH_PRODUCT_FITTINGS_FAILURE,
+        type: productsActionTypes.FETCH_PRODUCT_FITTINGS_FAILURE,
       });
 
       expect(state.error).toEqual(expectedError);
@@ -65,7 +65,7 @@ describe('fittings redux reducer', () => {
       };
       const state = reducer(undefined, {
         meta,
-        type: actionTypesProducts.FETCH_PRODUCT_FITTINGS_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCT_FITTINGS_REQUEST,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
@@ -78,7 +78,7 @@ describe('fittings redux reducer', () => {
       const state = reducer(undefined, {
         meta,
         payload: { error: '' },
-        type: actionTypesProducts.FETCH_PRODUCT_FITTINGS_FAILURE,
+        type: productsActionTypes.FETCH_PRODUCT_FITTINGS_FAILURE,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
@@ -93,7 +93,7 @@ describe('fittings redux reducer', () => {
         payload: {
           result: mockProductId,
         },
-        type: actionTypesProducts.FETCH_PRODUCT_FITTINGS_SUCCESS,
+        type: productsActionTypes.FETCH_PRODUCT_FITTINGS_SUCCESS,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);

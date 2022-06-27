@@ -1,5 +1,5 @@
-import { actionTypesProducts } from '../..';
 import { mockProductId } from 'tests/__fixtures__/products';
+import { productsActionTypes } from '../..';
 import reducer, {
   getError,
   getIsLoading,
@@ -31,7 +31,7 @@ describe('variantsByMerchantsLocations redux reducer', () => {
       const expectedResult = { [mockProductId]: undefined };
       const state = reducer(undefined, {
         meta,
-        type: actionTypesProducts.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
       });
 
       expect(state.error).toEqual(expectedResult);
@@ -41,7 +41,7 @@ describe('variantsByMerchantsLocations redux reducer', () => {
       const state = reducer(undefined, {
         meta: { productId: mockProductId },
         payload: { error },
-        type: actionTypesProducts.FETCH_PRODUCT_MERCHANTS_LOCATIONS_FAILURE,
+        type: productsActionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_FAILURE,
       });
 
       expect(state.error).toEqual(expectedError);
@@ -70,7 +70,7 @@ describe('variantsByMerchantsLocations redux reducer', () => {
       };
       const state = reducer(undefined, {
         meta,
-        type: actionTypesProducts.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
@@ -83,7 +83,7 @@ describe('variantsByMerchantsLocations redux reducer', () => {
       const state = reducer(undefined, {
         meta,
         payload: { error: '' },
-        type: actionTypesProducts.FETCH_PRODUCT_MERCHANTS_LOCATIONS_FAILURE,
+        type: productsActionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_FAILURE,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
@@ -98,7 +98,7 @@ describe('variantsByMerchantsLocations redux reducer', () => {
         payload: {
           result: mockProductId,
         },
-        type: actionTypesProducts.FETCH_PRODUCT_MERCHANTS_LOCATIONS_SUCCESS,
+        type: productsActionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_SUCCESS,
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);

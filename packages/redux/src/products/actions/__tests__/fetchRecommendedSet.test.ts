@@ -1,4 +1,3 @@
-import { actionTypesProducts } from '../..';
 import { fetchRecommendedSet } from '..';
 import { getRecommendedSet } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/recommendedSet';
@@ -7,6 +6,7 @@ import {
   mockRecommendedSetId,
 } from 'tests/__fixtures__/products';
 import { mockStore } from '../../../../tests';
+import { productsActionTypes } from '../..';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -43,12 +43,12 @@ describe('fetchRecommendedSet() action creator', () => {
         expect(store.getActions()).toEqual([
           {
             meta: { recommendedSetId: mockRecommendedSetId },
-            type: actionTypesProducts.FETCH_RECOMMENDED_SET_REQUEST,
+            type: productsActionTypes.FETCH_RECOMMENDED_SET_REQUEST,
           },
           {
             meta: { recommendedSetId: mockRecommendedSetId },
             payload: { error: expectedError },
-            type: actionTypesProducts.FETCH_RECOMMENDED_SET_FAILURE,
+            type: productsActionTypes.FETCH_RECOMMENDED_SET_FAILURE,
           },
         ]);
       });
@@ -73,12 +73,12 @@ describe('fetchRecommendedSet() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { recommendedSetId: mockRecommendedSetId },
-        type: actionTypesProducts.FETCH_RECOMMENDED_SET_REQUEST,
+        type: productsActionTypes.FETCH_RECOMMENDED_SET_REQUEST,
       },
       {
         meta: { recommendedSetId: mockRecommendedSetId },
         payload: { result: mockRecommendedSet },
-        type: actionTypesProducts.FETCH_RECOMMENDED_SET_SUCCESS,
+        type: productsActionTypes.FETCH_RECOMMENDED_SET_SUCCESS,
       },
     ]);
   });
