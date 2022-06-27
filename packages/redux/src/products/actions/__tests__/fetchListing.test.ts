@@ -1,5 +1,4 @@
 import * as normalizr from 'normalizr';
-import { actionTypesProducts } from '../..';
 import { fetchListing } from '..';
 import { getListing } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/lists';
@@ -13,6 +12,7 @@ import {
   mockQuery,
 } from 'tests/__fixtures__/products';
 import { mockStore } from '../../../../tests';
+import { productsActionTypes } from '../..';
 import thunk from 'redux-thunk';
 
 jest.mock('@farfetch/blackout-client', () => ({
@@ -95,16 +95,16 @@ describe('fetchListing() action creator', () => {
         expect(store.getActions()).toEqual([
           {
             meta: { hash: mockProductsListHash },
-            type: actionTypesProducts.SET_PRODUCTS_LIST_HASH,
+            type: productsActionTypes.SET_PRODUCTS_LIST_HASH,
           },
           {
             meta: { hash: mockProductsListHash },
-            type: actionTypesProducts.FETCH_PRODUCTS_LIST_REQUEST,
+            type: productsActionTypes.FETCH_PRODUCTS_LIST_REQUEST,
           },
           {
             meta: { hash: mockProductsListHash },
             payload: { error: expectedError },
-            type: actionTypesProducts.FETCH_PRODUCTS_LIST_FAILURE,
+            type: productsActionTypes.FETCH_PRODUCTS_LIST_FAILURE,
           },
         ]);
       });
@@ -131,16 +131,16 @@ describe('fetchListing() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHash },
-        type: actionTypesProducts.SET_PRODUCTS_LIST_HASH,
+        type: productsActionTypes.SET_PRODUCTS_LIST_HASH,
       },
       {
         meta: { hash: mockProductsListHash },
-        type: actionTypesProducts.FETCH_PRODUCTS_LIST_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCTS_LIST_REQUEST,
       },
       {
         meta: { hash: mockProductsListHash },
         payload: mockProductsListNormalized,
-        type: actionTypesProducts.FETCH_PRODUCTS_LIST_SUCCESS,
+        type: productsActionTypes.FETCH_PRODUCTS_LIST_SUCCESS,
       },
     ]);
   });
@@ -169,16 +169,16 @@ describe('fetchListing() action creator', () => {
     expect(actionResults).toEqual([
       {
         meta: { hash: mockProductsListHash },
-        type: actionTypesProducts.SET_PRODUCTS_LIST_HASH,
+        type: productsActionTypes.SET_PRODUCTS_LIST_HASH,
       },
       {
         meta: { hash: mockProductsListHash },
-        type: actionTypesProducts.FETCH_PRODUCTS_LIST_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCTS_LIST_REQUEST,
       },
       {
         meta: { hash: mockProductsListHash },
         payload: mockProductsListNormalizedWithoutImageOptions,
-        type: actionTypesProducts.FETCH_PRODUCTS_LIST_SUCCESS,
+        type: productsActionTypes.FETCH_PRODUCTS_LIST_SUCCESS,
       },
     ]);
   });
@@ -214,20 +214,20 @@ describe('fetchListing() action creator', () => {
     );
     expect(store.getActions()).toEqual([
       {
-        type: actionTypesProducts.RESET_PRODUCTS_LISTS_STATE,
+        type: productsActionTypes.RESET_PRODUCTS_LISTS_STATE,
       },
       {
         meta: { hash: mockProductsListHash },
-        type: actionTypesProducts.SET_PRODUCTS_LIST_HASH,
+        type: productsActionTypes.SET_PRODUCTS_LIST_HASH,
       },
       {
         meta: { hash: mockProductsListHash },
-        type: actionTypesProducts.FETCH_PRODUCTS_LIST_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCTS_LIST_REQUEST,
       },
       {
         meta: { hash: mockProductsListHash },
         payload: mockProductsListNormalized,
-        type: actionTypesProducts.FETCH_PRODUCTS_LIST_SUCCESS,
+        type: productsActionTypes.FETCH_PRODUCTS_LIST_SUCCESS,
       },
     ]);
   });
@@ -256,7 +256,7 @@ describe('fetchListing() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHash },
-        type: actionTypesProducts.DEHYDRATE_PRODUCTS_LIST,
+        type: productsActionTypes.DEHYDRATE_PRODUCTS_LIST,
       },
     ]);
   });
@@ -287,7 +287,7 @@ describe('fetchListing() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHash },
-        type: actionTypesProducts.SET_PRODUCTS_LIST_HASH,
+        type: productsActionTypes.SET_PRODUCTS_LIST_HASH,
       },
     ]);
   });
@@ -317,12 +317,12 @@ describe('fetchListing() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHash },
-        type: actionTypesProducts.FETCH_PRODUCTS_LIST_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCTS_LIST_REQUEST,
       },
       {
         meta: { hash: mockProductsListHash },
         payload: mockProductsListNormalized,
-        type: actionTypesProducts.FETCH_PRODUCTS_LIST_SUCCESS,
+        type: productsActionTypes.FETCH_PRODUCTS_LIST_SUCCESS,
       },
     ]);
   });

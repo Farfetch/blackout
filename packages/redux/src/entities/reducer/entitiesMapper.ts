@@ -5,11 +5,11 @@ import { entitiesMapper as entitiesMapperCheckout } from '../../checkout';
 import { entitiesMapper as entitiesMapperMerchantsLocations } from '../../merchantsLocations';
 import { entitiesMapper as entitiesMapperOrders } from '../../orders';
 import { entitiesMapper as entitiesMapperPayments } from '../../payments';
-import { entitiesMapperProducts } from '../../products';
 import { entitiesMapper as entitiesMapperReturns } from '../../returns';
 import { entitiesMapper as entitiesMapperSubscriptions } from '../../subscriptions';
 import { entitiesMapper as entitiesMapperUsers } from '../../users';
 import { entitiesMapper as entitiesMapperWishlist } from '../../wishlists';
+import { productsEntitiesMapper } from '../../products';
 import createEntitiesReducer from './createEntities';
 import type { Reducer } from 'redux';
 import type { StoreState } from '../../types';
@@ -37,7 +37,7 @@ export const defaultMappers = {
   merchantsLocations: entitiesMapperMerchantsLocations,
   orders: entitiesMapperOrders,
   payments: entitiesMapperPayments,
-  products: entitiesMapperProducts,
+  products: productsEntitiesMapper,
   users: entitiesMapperUsers,
   returns: entitiesMapperReturns,
   subscriptions: entitiesMapperSubscriptions,
@@ -53,7 +53,7 @@ const entitiesMapper: EntitiesMapper = ({ ...extraMappers }) =>
     ...entitiesMapperMerchantsLocations,
     ...entitiesMapperOrders,
     ...entitiesMapperPayments,
-    ...entitiesMapperProducts,
+    ...productsEntitiesMapper,
     ...entitiesMapperUsers,
     ...entitiesMapperReturns,
     ...entitiesMapperSubscriptions,

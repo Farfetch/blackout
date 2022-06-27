@@ -1,6 +1,6 @@
-import { actionTypesProducts } from '../..';
 import { deleteRecentlyViewedProduct } from '@farfetch/blackout-client';
 import { mockStore } from '../../../../tests';
+import { productsActionTypes } from '../..';
 import { removeRecentlyViewedProduct } from '..';
 import reducer from '../../reducer';
 
@@ -55,12 +55,12 @@ describe('removeRecentlyViewedProduct() action creator', () => {
       expect.arrayContaining([
         {
           meta: { productId },
-          type: actionTypesProducts.REMOVE_RECENTLY_VIEWED_PRODUCT_REQUEST,
+          type: productsActionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_REQUEST,
         },
         {
           meta: { productId },
           payload: { error: expectedError },
-          type: actionTypesProducts.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE,
+          type: productsActionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE,
         },
       ]),
     );
@@ -84,11 +84,11 @@ describe('removeRecentlyViewedProduct() action creator', () => {
     expect(actionResults).toEqual([
       {
         meta: { productId },
-        type: actionTypesProducts.REMOVE_RECENTLY_VIEWED_PRODUCT_REQUEST,
+        type: productsActionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_REQUEST,
       },
       {
         meta: { productId },
-        type: actionTypesProducts.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS,
+        type: productsActionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS,
       },
     ]);
   });
