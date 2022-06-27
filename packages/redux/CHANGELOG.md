@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.255](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.254...@farfetch/blackout-redux@1.0.0-next.255) (2022-06-27)
+
+
+### Features
+
+* **redux:** add `grouping` state management ([1398356](https://github.com/Farfetch/blackout/commit/1398356a49807446d67ce0dfaed039de87105639))
+
+
+
+
+
 # [1.0.0-next.254](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.253...@farfetch/blackout-redux@1.0.0-next.254) (2022-06-22)
 
 
