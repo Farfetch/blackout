@@ -1,11 +1,11 @@
 import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { Config } from '@farfetch/blackout-client/types';
-import type { Dispatch } from 'redux';
 import type {
-  GetDeliveryBundleUpgrades,
-  GetDeliveryBundleUpgradesResponse,
-} from '@farfetch/blackout-client/checkout/types';
+  Config,
+  GetCheckoutOrderDeliveryBundleUpgrades,
+  GetCheckoutOrderDeliveryBundleUpgradesResponse,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
 
 /**
  * @param id               - Identifier of the checkout order.
@@ -18,19 +18,23 @@ import type {
 /**
  * Obtains the delivery upgrades available for the specified bundle.
  *
- * @param getDeliveryBundleUpgrades - Get delivery bundle upgrades client.
+ * @param getCheckoutOrderDeliveryBundleUpgrades - Get delivery bundle upgrades client.
  *
  * @returns Thunk factory.
  */
-export default (getDeliveryBundleUpgrades: GetDeliveryBundleUpgrades) =>
+export default (
+    getCheckoutOrderDeliveryBundleUpgrades: GetCheckoutOrderDeliveryBundleUpgrades,
+  ) =>
   (id: number, deliveryBundleId: string, config?: Config) =>
-  async (dispatch: Dispatch): Promise<GetDeliveryBundleUpgradesResponse> => {
+  async (
+    dispatch: Dispatch,
+  ): Promise<GetCheckoutOrderDeliveryBundleUpgradesResponse> => {
     try {
       dispatch({
         type: actionTypes.FETCH_DELIVERY_BUNDLE_UPGRADES_REQUEST,
       });
 
-      const result = await getDeliveryBundleUpgrades(
+      const result = await getCheckoutOrderDeliveryBundleUpgrades(
         id,
         deliveryBundleId,
         config,

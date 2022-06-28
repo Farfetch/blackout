@@ -1,7 +1,7 @@
-import { patchGiftMessage } from '@farfetch/blackout-client/checkout';
+import { patchCheckoutOrderItems } from '@farfetch/blackout-client';
 import { updateGiftMessageFactory } from './factories';
 
 /**
  * Update Gift Message.
  */
-export default updateGiftMessageFactory(patchGiftMessage);
+export default updateGiftMessageFactory(patchCheckoutOrderItems);

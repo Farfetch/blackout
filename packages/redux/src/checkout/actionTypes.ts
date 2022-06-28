@@ -49,22 +49,6 @@ export const RESET_CHARGES_STATE =
   '@farfetch/blackout-redux/RESET_CHARGES_STATE';
 
 /**
- * Action type dispatched when the complete payment checkout request fails.
- */
-export const COMPLETE_PAYMENT_CHECKOUT_FAILURE =
-  '@farfetch/blackout-redux/COMPLETE_PAYMENT_CHECKOUT_FAILURE';
-/**
- * Action type dispatched when the complete payment checkout request starts.
- */
-export const COMPLETE_PAYMENT_CHECKOUT_REQUEST =
-  '@farfetch/blackout-redux/COMPLETE_PAYMENT_CHECKOUT_REQUEST';
-/**
- * Action type dispatched when the complete payment checkout request succeeds.
- */
-export const COMPLETE_PAYMENT_CHECKOUT_SUCCESS =
-  '@farfetch/blackout-redux/COMPLETE_PAYMENT_CHECKOUT_SUCCESS';
-
-/**
  * Action type dispatched when the fetch checkout request fails.
  */
 export const FETCH_CHECKOUT_FAILURE =

@@ -6,20 +6,20 @@ import {
 } from 'tests/__fixtures__/checkout';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import { patchCheckout } from '@farfetch/blackout-client/checkout';
+import { patchCheckoutOrder } from '@farfetch/blackout-client';
 import { updateCheckout } from '..';
 import find from 'lodash/find';
 
-jest.mock('@farfetch/blackout-client/checkout', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/checkout'),
-  patchCheckout: jest.fn(),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
+  patchCheckoutOrder: jest.fn(),
 }));
 
 describe('updateCheckout() action creator', () => {
   const checkoutMockStore = (state = {}) =>
     mockStore({ checkout: INITIAL_STATE }, state);
   const data = {
-    something: 'something',
+    email: 'something@mail.com',
   };
   const expectedConfig = undefined;
   let store;
@@ -32,15 +32,15 @@ describe('updateCheckout() action creator', () => {
   it('should create the correct actions for when the update checkout procedure fails', async () => {
     const expectedError = new Error('update checkout error');
 
-    patchCheckout.mockRejectedValueOnce(expectedError);
+    patchCheckoutOrder.mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
       await store.dispatch(updateCheckout(checkoutId, data));
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(patchCheckout).toHaveBeenCalledTimes(1);
-      expect(patchCheckout).toHaveBeenCalledWith(
+      expect(patchCheckoutOrder).toHaveBeenCalledTimes(1);
+      expect(patchCheckoutOrder).toHaveBeenCalledWith(
         checkoutId,
         data,
         expectedConfig,
@@ -58,13 +58,13 @@ describe('updateCheckout() action creator', () => {
   });
 
   it('should create the correct actions for when the update checkout procedure is successful', async () => {
-    patchCheckout.mockResolvedValueOnce(mockResponse);
+    patchCheckoutOrder.mockResolvedValueOnce(mockResponse);
     await store.dispatch(updateCheckout(checkoutId, data));
 
     const actionResults = store.getActions();
 
-    expect(patchCheckout).toHaveBeenCalledTimes(1);
-    expect(patchCheckout).toHaveBeenCalledWith(
+    expect(patchCheckoutOrder).toHaveBeenCalledTimes(1);
+    expect(patchCheckoutOrder).toHaveBeenCalledWith(
       checkoutId,
       data,
       expectedConfig,
@@ -92,13 +92,13 @@ describe('updateCheckout() action creator', () => {
       },
     };
 
-    patchCheckout.mockResolvedValueOnce(mockResponse);
+    patchCheckoutOrder.mockResolvedValueOnce(mockResponse);
     await store.dispatch(updateCheckout(checkoutId, data, configWithHeaders));
 
     const actionResults = store.getActions();
 
-    expect(patchCheckout).toHaveBeenCalledTimes(1);
-    expect(patchCheckout).toHaveBeenCalledWith(
+    expect(patchCheckoutOrder).toHaveBeenCalledTimes(1);
+    expect(patchCheckoutOrder).toHaveBeenCalledWith(
       checkoutId,
       data,
       configWithHeaders,

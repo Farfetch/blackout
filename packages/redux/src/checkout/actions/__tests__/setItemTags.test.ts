@@ -7,21 +7,19 @@ import {
 } from 'tests/__fixtures__/checkout';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import { putItemTags } from '@farfetch/blackout-client/checkout';
+import { putCheckoutOrderItemTags } from '@farfetch/blackout-client';
 import { setItemTags } from '..';
 import find from 'lodash/find';
 
-jest.mock('@farfetch/blackout-client/checkout', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/checkout'),
-  putItemTags: jest.fn(),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
+  putCheckoutOrderItemTags: jest.fn(),
 }));
 
 describe('setItemTags() action creator', () => {
   const checkoutMockStore = (state = {}) =>
     mockStore({ checkout: INITIAL_STATE }, state);
-  const data = {
-    something: 'something',
-  };
+  const data = ['something'];
   const expectedConfig = undefined;
   let store;
 
@@ -33,15 +31,15 @@ describe('setItemTags() action creator', () => {
   it('should create the correct actions for when the set items tags procedure fails', async () => {
     const expectedError = new Error('set item tags error');
 
-    putItemTags.mockRejectedValueOnce(expectedError);
+    putCheckoutOrderItemTags.mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
       await store.dispatch(setItemTags(checkoutId, checkoutOrderItemId, data));
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(putItemTags).toHaveBeenCalledTimes(1);
-      expect(putItemTags).toHaveBeenCalledWith(
+      expect(putCheckoutOrderItemTags).toHaveBeenCalledTimes(1);
+      expect(putCheckoutOrderItemTags).toHaveBeenCalledWith(
         checkoutId,
         checkoutOrderItemId,
         data,
@@ -60,14 +58,14 @@ describe('setItemTags() action creator', () => {
   });
 
   it('should create the correct actions for when the set items tags procedure is successful', async () => {
-    putItemTags.mockResolvedValueOnce(mockResponse);
+    putCheckoutOrderItemTags.mockResolvedValueOnce(mockResponse);
     await store.dispatch(setItemTags(checkoutId, checkoutOrderItemId, data));
 
     const actionResults = store.getActions();
 
     expect.assertions(4);
-    expect(putItemTags).toHaveBeenCalledTimes(1);
-    expect(putItemTags).toHaveBeenCalledWith(
+    expect(putCheckoutOrderItemTags).toHaveBeenCalledTimes(1);
+    expect(putCheckoutOrderItemTags).toHaveBeenCalledWith(
       checkoutId,
       checkoutOrderItemId,
       data,

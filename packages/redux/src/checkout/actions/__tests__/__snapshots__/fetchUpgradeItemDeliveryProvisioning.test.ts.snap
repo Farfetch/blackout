@@ -4,7 +4,7 @@ exports[`fetchUpgradeItemDeliveryProvisioning() action creator should create the
 Object {
   "meta": Object {
     "deliveryBundleId": "12345678",
-    "upgradeId": 1234,
+    "upgradeId": "1234",
   },
   "payload": Object {
     "entities": Object {

@@ -1,7 +1,7 @@
 import { chargeFactory } from './factories';
-import { postCharges } from '@farfetch/blackout-client/checkout';
+import { postCheckoutOrderCharges } from '@farfetch/blackout-client';
 
 /**
  * Charge checkout.
  */
-export default chargeFactory(postCharges);
+export default chargeFactory(postCheckoutOrderCharges);

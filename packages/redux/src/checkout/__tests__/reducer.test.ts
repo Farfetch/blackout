@@ -691,15 +691,12 @@ describe('checkout reducer', () => {
         },
       };
 
-      it.each([
-        actionTypes.COMPLETE_PAYMENT_CHECKOUT_SUCCESS,
-        actionTypes.FETCH_COLLECT_POINTS_SUCCESS,
-      ])('should handle %s action type', actionType => {
+      it(`should handle ${actionTypes.FETCH_COLLECT_POINTS_SUCCESS}`, () => {
         expect(
-          entitiesMapper[actionType](state, {
+          entitiesMapper[actionTypes.FETCH_COLLECT_POINTS_SUCCESS](state, {
             meta: { id: 1 },
             payload: { entities },
-            type: actionType,
+            type: actionTypes.FETCH_COLLECT_POINTS_SUCCESS,
           }),
         ).toEqual(expectedResult);
       });
@@ -1167,7 +1164,6 @@ describe('checkout reducer', () => {
     };
 
     const subAreas = {
-      completePaymentCheckout: { ...subAreaResult },
       checkoutDetails: { ...subAreaResult },
       collectPoints: { ...subAreaResult },
       itemTags: { ...subAreaResult },
@@ -1181,7 +1177,6 @@ describe('checkout reducer', () => {
     };
 
     const subAreaNames = [
-      'CompletePaymentCheckout',
       'CheckoutDetails',
       'CollectPoints',
       'ItemTags',

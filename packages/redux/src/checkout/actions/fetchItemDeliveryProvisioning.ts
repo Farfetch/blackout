@@ -1,9 +1,9 @@
 import { fetchItemDeliveryProvisioningFactory } from './factories';
-import { getItemDeliveryProvisioning } from '@farfetch/blackout-client/checkout';
+import { getCheckoutOrderDeliveryBundleProvisioning } from '@farfetch/blackout-client';
 
 /**
  * Fetch item delivery provisioning.
  */
 export default fetchItemDeliveryProvisioningFactory(
-  getItemDeliveryProvisioning,
+  getCheckoutOrderDeliveryBundleProvisioning,
 );

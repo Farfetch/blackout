@@ -2,22 +2,54 @@ import { actionTypes } from '../..';
 import { checkoutId } from 'tests/__fixtures__/checkout';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import { patchGiftMessage } from '@farfetch/blackout-client/checkout';
+import { patchCheckoutOrderItems } from '@farfetch/blackout-client';
 import { updateGiftMessage } from '..';
 import find from 'lodash/find';
 
-jest.mock('@farfetch/blackout-client/checkout', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/checkout'),
-  patchGiftMessage: jest.fn(),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
+  patchCheckoutOrderItems: jest.fn(),
 }));
 
 describe('updateGiftMessage() action creator', () => {
   const checkoutMockStore = (state = {}) =>
     mockStore({ checkout: INITIAL_STATE }, state);
   const expectedConfig = undefined;
-  const data = {
-    something: 'something',
-  };
+  const data = [
+    {
+      checkoutOrderItemId: 1,
+      checkoutItemPatchDocument: {
+        operations: [
+          {
+            value: {
+              from: 'string',
+              to: 'string',
+              message: 'string',
+            },
+            path: 'string',
+            op: 'string',
+            from: 'string',
+          },
+        ],
+      },
+    },
+    {
+      checkoutOrderItemId: 2,
+      checkoutItemPatchDocument: {
+        operations: [
+          {
+            value: {
+              from: 'string',
+              to: 'string',
+            },
+            path: 'string',
+            op: 'string',
+            from: 'string',
+          },
+        ],
+      },
+    },
+  ];
   let store;
 
   beforeEach(() => {
@@ -28,15 +60,15 @@ describe('updateGiftMessage() action creator', () => {
   it('should create the correct actions for when the update gift message procedure fails', async () => {
     const expectedError = new Error('update gift message error');
 
-    patchGiftMessage.mockRejectedValueOnce(expectedError);
+    patchCheckoutOrderItems.mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
       await store.dispatch(updateGiftMessage(checkoutId, data));
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(patchGiftMessage).toHaveBeenCalledTimes(1);
-      expect(patchGiftMessage).toHaveBeenCalledWith(
+      expect(patchCheckoutOrderItems).toHaveBeenCalledTimes(1);
+      expect(patchCheckoutOrderItems).toHaveBeenCalledWith(
         checkoutId,
         data,
         expectedConfig,
@@ -54,13 +86,13 @@ describe('updateGiftMessage() action creator', () => {
   });
 
   it('should create the correct actions for when the update gift message procedure is successful', async () => {
-    patchGiftMessage.mockResolvedValueOnce();
+    patchCheckoutOrderItems.mockResolvedValueOnce();
     await store.dispatch(updateGiftMessage(checkoutId, data));
 
     const actionResults = store.getActions();
 
-    expect(patchGiftMessage).toHaveBeenCalledTimes(1);
-    expect(patchGiftMessage).toHaveBeenCalledWith(
+    expect(patchCheckoutOrderItems).toHaveBeenCalledTimes(1);
+    expect(patchCheckoutOrderItems).toHaveBeenCalledWith(
       checkoutId,
       data,
       expectedConfig,

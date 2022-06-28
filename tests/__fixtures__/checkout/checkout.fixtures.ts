@@ -445,15 +445,14 @@ export const operation = {
   changes: [
     {
       changeType: 'ItemDiscountChanged',
-      currency: 'GBP',
-      oldValue: '0',
+      itemId: 12343,
       newValue: '0.96',
+      oldValue: '0',
     },
     {
       changeType: 'TotalDiscountChanged',
-      currency: 'GBP',
-      oldValue: '0',
       newValue: '1.92',
+      oldValue: '0',
     },
   ],
   violations: [],

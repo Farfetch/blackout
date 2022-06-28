@@ -1,4 +1,4 @@
-import { deleteCheckoutOrderItem } from '@farfetch/blackout-client/checkout';
+import { deleteCheckoutOrderItem } from '@farfetch/blackout-client';
 import removeCheckoutOrderItemFactory from './factories/removeCheckoutOrderItemFactory';
 
 /**

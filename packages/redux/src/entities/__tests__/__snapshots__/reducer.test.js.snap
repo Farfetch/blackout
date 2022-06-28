@@ -21,7 +21,6 @@ Object {
     "@farfetch/blackout-redux/RESET_BAG_ENTITIES": [Function],
   },
   "checkout": Object {
-    "@farfetch/blackout-redux/COMPLETE_PAYMENT_CHECKOUT_SUCCESS": [Function],
     "@farfetch/blackout-redux/CREATE_CHECKOUT_SUCCESS": [Function],
     "@farfetch/blackout-redux/FETCH_CHECKOUT_DETAILS_SUCCESS": [Function],
     "@farfetch/blackout-redux/FETCH_CHECKOUT_SUCCESS": [Function],

@@ -1,7 +1,7 @@
-import { putItemTags } from '@farfetch/blackout-client/checkout';
+import { putCheckoutOrderItemTags } from '@farfetch/blackout-client';
 import { setItemTagsFactory } from './factories';
 
 /**
  * Set item tags.
  */
-export default setItemTagsFactory(putItemTags);
+export default setItemTagsFactory(putCheckoutOrderItemTags);
