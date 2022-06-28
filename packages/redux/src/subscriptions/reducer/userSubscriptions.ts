@@ -1,13 +1,16 @@
 import * as actionTypes from '../actionTypes';
+import * as authenticationActionTypes from '../../authentication/actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import type { ReducerSwitch } from '../../types';
 import type {
   Subscription,
   SubscriptionTopic,
-} from '@farfetch/blackout-client/subscriptions/types';
-import type { UserState } from '../types';
+} from '@farfetch/blackout-client';
+import type { SubscriptionsState } from '../types';
 
-export const INITIAL_STATE: UserState = {
+type UserSubscriptionsState = SubscriptionsState['user'];
+
+export const INITIAL_STATE: UserSubscriptionsState = {
   error: null,
   isLoading: false,
   result: [],
@@ -15,7 +18,10 @@ export const INITIAL_STATE: UserState = {
   updateSubscriptionsError: null,
 };
 
-const error = (state = INITIAL_STATE.error, action: AnyAction) => {
+const error = (
+  state = INITIAL_STATE.error,
+  action: AnyAction,
+): UserSubscriptionsState['error'] => {
   switch (action.type) {
     case actionTypes.FETCH_USER_SUBSCRIPTIONS_FAILURE:
     case actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_FAILURE:
@@ -31,7 +37,7 @@ const error = (state = INITIAL_STATE.error, action: AnyAction) => {
 const updateSubscriptionsError = (
   state = INITIAL_STATE.updateSubscriptionsError,
   action: AnyAction,
-) => {
+): UserSubscriptionsState['updateSubscriptionsError'] => {
   switch (action.type) {
     case actionTypes.UPDATE_USER_SUBSCRIPTIONS_FAILURE:
       return action.payload.error;
@@ -42,7 +48,10 @@ const updateSubscriptionsError = (
   }
 };
 
-const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
+const isLoading = (
+  state = INITIAL_STATE.isLoading,
+  action: AnyAction,
+): UserSubscriptionsState['isLoading'] => {
   switch (action.type) {
     case actionTypes.FETCH_USER_SUBSCRIPTIONS_REQUEST:
     case actionTypes.UPDATE_USER_SUBSCRIPTIONS_REQUEST:
@@ -60,7 +69,10 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   }
 };
 
-const result = (state = INITIAL_STATE.result, action: AnyAction) => {
+const result = (
+  state = INITIAL_STATE.result,
+  action: AnyAction,
+): UserSubscriptionsState['result'] => {
   switch (action.type) {
     case actionTypes.FETCH_USER_SUBSCRIPTIONS_SUCCESS:
       return action.payload;
@@ -145,7 +157,7 @@ const result = (state = INITIAL_STATE.result, action: AnyAction) => {
 const unsubscribeRecipientFromTopicRequests = (
   state = INITIAL_STATE.unsubscribeRecipientFromTopicRequests,
   action: AnyAction,
-) => {
+): UserSubscriptionsState['unsubscribeRecipientFromTopicRequests'] => {
   switch (action.type) {
     case actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUEST: {
       const trackRequestState = action.meta?.trackRequestState;
@@ -231,18 +243,25 @@ const unsubscribeRecipientFromTopicRequests = (
   }
 };
 
-export const getSubscriptionsError = (state: UserState | undefined) =>
-  state?.error;
-export const getSubscriptionsIsLoading = (state: UserState | undefined) =>
-  state?.isLoading;
-export const getSubscriptions = (state: UserState | undefined) => state?.result;
+export const getUserSubscriptionsError = (
+  state: UserSubscriptionsState = INITIAL_STATE,
+): UserSubscriptionsState['error'] => state.error;
+export const getUserSubscriptionsIsLoading = (
+  state: UserSubscriptionsState = INITIAL_STATE,
+): UserSubscriptionsState['isLoading'] => state.isLoading;
+export const getUserSubscriptions = (
+  state: UserSubscriptionsState = INITIAL_STATE,
+): UserSubscriptionsState['result'] => state.result;
 export const getUnsubscribeRecipientFromTopicRequests = (
-  state: UserState | undefined,
-) => state?.unsubscribeRecipientFromTopicRequests;
-export const getUpdateSubscriptionsError = (state: UserState | undefined) =>
-  state?.updateSubscriptionsError;
+  state: UserSubscriptionsState = INITIAL_STATE,
+): UserSubscriptionsState['unsubscribeRecipientFromTopicRequests'] =>
+  state.unsubscribeRecipientFromTopicRequests;
+export const getUpdateSubscriptionsError = (
+  state: UserSubscriptionsState = INITIAL_STATE,
+): UserSubscriptionsState['updateSubscriptionsError'] =>
+  state.updateSubscriptionsError;
 
-const reducers = combineReducers({
+const reducer = combineReducers({
   error,
   isLoading,
   result,
@@ -259,11 +278,18 @@ const reducers = combineReducers({
  * @returns New state.
  */
 
-const userSubscriptionReducer: ReducerSwitch<UserState, AnyAction> = (
-  state = INITIAL_STATE,
-  action,
-): UserState => {
-  return reducers(state, action);
+const userSubscriptionsReducer: ReducerSwitch<
+  UserSubscriptionsState,
+  AnyAction
+> = (state = INITIAL_STATE, action): UserSubscriptionsState => {
+  switch (action.type) {
+    case actionTypes.RESET_SUBSCRIPTIONS:
+    case authenticationActionTypes.LOGOUT_SUCCESS:
+      return INITIAL_STATE;
+
+    default:
+      return reducer(state, action);
+  }
 };
 
-export default userSubscriptionReducer;
+export default userSubscriptionsReducer;

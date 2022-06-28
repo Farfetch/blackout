@@ -6,7 +6,7 @@ import type { Dispatch } from 'redux';
  *
  * @example
  * ```
- * import \{ resetSubscriptions \} from '\@farfetch/blackout-redux/subscriptions/redux';
+ * import \{ resetSubscriptions \} from '\@farfetch/blackout-redux';
  *
  * // State object before executing action
  * const state = \{ user: \{ result: [\{ ... \}], error: null, isLoading: false \}, packages: \{ result: [\{ ... \}], error: null, isLoading: false \} \};
@@ -25,10 +25,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Dispatch reset state and entities action.
  */
-const resetSubscriptions =
+export const resetSubscriptions =
   () =>
   (dispatch: Dispatch): void => {
     dispatch({ type: actionTypes.RESET_SUBSCRIPTIONS });
   };
-
-export default resetSubscriptions;

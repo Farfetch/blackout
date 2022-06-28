@@ -1,4 +1,4 @@
-import type { DeleteSubscription } from '@farfetch/blackout-client/subscriptions/types';
+import type { DeleteSubscription } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { UnsubscribeFromSubscriptionAction } from '../../../types';
 

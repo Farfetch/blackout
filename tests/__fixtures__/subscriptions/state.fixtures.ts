@@ -87,8 +87,8 @@ export const mockState = {
       [mockSubscriptionPackageId]: {
         id: mockSubscriptionPackageId,
         topics: [
-          { id: 'Sale', channels: ['email', 'sms'] },
-          { id: 'Weekly_Newsletters', channels: ['email'] },
+          { type: 'Sale', channels: ['email', 'sms'] },
+          { type: 'Weekly_Newsletters', channels: ['email'] },
         ],
       },
     },
