@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.41.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.40.1...@farfetch/blackout-react@0.41.0) (2022-06-28)
+
+
+### Features
+
+* **core:** add new client contentpages ([c21896c](https://github.com/Farfetch/blackout/commit/c21896c80a4b0afecfc57c53b0ed09d443cbe077))
+
+
+
+
+
 ## [0.40.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.40.0...@farfetch/blackout-react@0.40.1) (2022-06-22)
 
 

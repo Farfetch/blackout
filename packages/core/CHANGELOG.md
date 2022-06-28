@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.61.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.60.0...@farfetch/blackout-core@1.61.0) (2022-06-28)
+
+
+### Features
+
+* **core:** add new client contentpages ([c21896c](https://github.com/Farfetch/blackout/commit/c21896c80a4b0afecfc57c53b0ed09d443cbe077))
+
+
+
+
+
 # [1.60.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.59.0...@farfetch/blackout-core@1.60.0) (2022-06-22)
 
 
