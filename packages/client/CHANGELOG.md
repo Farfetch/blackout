@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.170](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.169...@farfetch/blackout-client@2.0.0-next.170) (2022-06-28)
+
+
+### Bug Fixes
+
+* update size prop to optional ([1f5e6b6](https://github.com/Farfetch/blackout/commit/1f5e6b6bd65b7d6ea3100dcb6a1fb664b34ee553))
+
+
+
+
+
 # [2.0.0-next.169](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.168...@farfetch/blackout-client@2.0.0-next.169) (2022-06-28)
 
 **Note:** Version bump only for package @farfetch/blackout-client
