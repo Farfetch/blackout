@@ -31,6 +31,7 @@ import type {
   RemoveUserAttributeAction,
   RemoveUserAttributeFailureAction,
   RemoveUserAttributeRequestAction,
+  ResetUserAction,
   SetUserAttributeAction,
   SetUserAttributeFailureAction,
   SetUserAttributeRequestAction,
@@ -85,6 +86,12 @@ export const INITIAL_STATE: State = {
 };
 
 export const entitiesMapper = {
+  [actionTypes.RESET_USER_ENTITIES]: (state: StoreState['entities']) => {
+    const { user, ...rest } = state;
+    return {
+      ...rest,
+    };
+  },
   [actionTypes.FETCH_BENEFITS_SUCCESS]: (
     state: StoreState['entities'],
     action: any,
@@ -212,6 +219,7 @@ const error = (
     | CreateGuestUserRequestAction
     | FetchGuestUserFailureAction
     | FetchGuestUserRequestAction
+    | ResetUserAction
     | LogoutAction,
 ): State['error'] => {
   switch (action.type) {
@@ -236,6 +244,7 @@ const error = (
     case actionTypes.SET_USER_ATTRIBUTE_REQUEST:
     case actionTypes.UPDATE_USER_ATTRIBUTE_REQUEST:
     case actionTypes.REMOVE_USER_ATTRIBUTE_REQUEST:
+    case actionTypes.RESET_USER_STATE:
     case LOGOUT_SUCCESS:
       return INITIAL_STATE.error;
     default:
@@ -275,7 +284,8 @@ const isLoading = (
     | UpdateUserAction
     | CreateGuestUserAction
     | FetchGuestUserAction
-    | LogoutAction,
+    | LogoutAction
+    | ResetUserAction,
 ) => {
   switch (action.type) {
     case actionTypes.FETCH_USER_REQUEST:
@@ -309,6 +319,7 @@ const isLoading = (
     case actionTypes.UPDATE_USER_ATTRIBUTE_SUCCESS:
     case actionTypes.REMOVE_USER_ATTRIBUTE_FAILURE:
     case actionTypes.REMOVE_USER_ATTRIBUTE_SUCCESS:
+    case actionTypes.RESET_USER_STATE:
     case LOGOUT_SUCCESS:
       return INITIAL_STATE.isLoading;
     default:
@@ -436,7 +447,10 @@ const reducer = combineReducers({
  */
 
 const usersReducer = (state: State | undefined, action: ActionType): State => {
-  if (action.type === LOGOUT_SUCCESS) {
+  if (
+    action.type === LOGOUT_SUCCESS ||
+    action.type === actionTypes.RESET_USER_STATE
+  ) {
     return INITIAL_STATE;
   }
 
