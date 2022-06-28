@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.261](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.260...@farfetch/blackout-react@1.0.0-next.261) (2022-06-28)
+
+
+### Bug Fixes
+
+* **react:** fix useAddresses functions and export types ([d1941d5](https://github.com/Farfetch/blackout/commit/d1941d5e00d54e9da0bc0512d8106d58322bb9c2))
+
+
+### BREAKING CHANGES
+
+* **react:** - Now the hook receives an object as a parameter, since the number of properties
+increased and are all optional. Its easier to manage as an object other than passing
+all properties as undefined if you want to use only the last one.
+
+
+
+
+
 # [1.0.0-next.260](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.259...@farfetch/blackout-react@1.0.0-next.260) (2022-06-28)
 
 **Note:** Version bump only for package @farfetch/blackout-react
