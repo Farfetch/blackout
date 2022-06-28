@@ -32,13 +32,13 @@ export type GenerateSourcesByOrder = (
   [k: string]: unknown;
 };
 
-export type ProductImages = {
-  order: number;
-  sources: Record<string, string>;
-};
-
 export type ProductImagesAdapted =
-  | Array<ProductImages>
+  | Array<
+      Image & {
+        order: number;
+        sources: Record<string, string>;
+      }
+    >
   | LegacyImages
   | undefined;
 

@@ -116,7 +116,7 @@ const adaptProductImages: AdaptProductImages = (
     // wishlist, bag, ...
     // Format: [{ order: 1, size: x, url: y }, ...]
     // Note that the `colorGrouping`'s `digitalAssets` has a `displayOrder`
-    // instead of`order`
+    // instead of `order`
     const groupedByOrder = groupBy(
       legacyImages,
       (image: Image) => image.order || image.displayOrder,
