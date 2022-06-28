@@ -12,7 +12,7 @@ const DEFAULT_ACTION_TYPES = new Set([actionTypes.SET_COUNTRY_CODE]);
  *
  * @returns Set of action types to apply.
  */
-const getActionTypes = (actionTypes: Set<string>): Set<string> => {
+const getActionTypes = (actionTypes?: Set<string>): Set<string> => {
   if (actionTypes) {
     if (actionTypes instanceof Set) {
       return actionTypes;
@@ -34,7 +34,7 @@ const getActionTypes = (actionTypes: Set<string>): Set<string> => {
  *
  * @returns Redux middleware.
  */
-const setCountryCode = (customActionTypes: Set<string>): Middleware => {
+const setCountryCode = (customActionTypes?: Set<string>): Middleware => {
   const actionTypes = getActionTypes(customActionTypes);
 
   return ({ getState }: MiddlewareAPI) =>
