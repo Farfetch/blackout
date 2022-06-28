@@ -2,12 +2,12 @@ import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import itemDeliveryProvisioningSchema from '../../../entities/schemas/itemDeliveryProvisioning';
-import type { Config } from '@farfetch/blackout-client/types';
-import type { Dispatch } from 'redux';
 import type {
-  GetItemDeliveryProvisioning,
-  GetItemDeliveryProvisioningResponse,
-} from '@farfetch/blackout-client/checkout/types';
+  Config,
+  GetCheckoutOrderDeliveryBundleProvisioning,
+  GetCheckoutOrderDeliveryBundleProvisioningResponse,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
 
 /**
  * @param id               - Identifier of the checkout order.
@@ -20,19 +20,23 @@ import type {
 /**
  * Obtains the item's provisioning for the specified bundle.
  *
- * @param getItemDeliveryProvisioning - Get item delivery provisioning client.
+ * @param getCheckoutOrderDeliveryBundleProvisioning - Get item delivery provisioning client.
  *
  * @returns Thunk factory.
  */
-export default (getItemDeliveryProvisioning: GetItemDeliveryProvisioning) =>
+export default (
+    getCheckoutOrderDeliveryBundleProvisioning: GetCheckoutOrderDeliveryBundleProvisioning,
+  ) =>
   (id: number, deliveryBundleId: string, config?: Config) =>
-  async (dispatch: Dispatch): Promise<GetItemDeliveryProvisioningResponse> => {
+  async (
+    dispatch: Dispatch,
+  ): Promise<GetCheckoutOrderDeliveryBundleProvisioningResponse> => {
     try {
       dispatch({
         type: actionTypes.FETCH_ITEM_DELIVERY_PROVISIONING_REQUEST,
       });
 
-      const result = await getItemDeliveryProvisioning(
+      const result = await getCheckoutOrderDeliveryBundleProvisioning(
         id,
         deliveryBundleId,
         config,

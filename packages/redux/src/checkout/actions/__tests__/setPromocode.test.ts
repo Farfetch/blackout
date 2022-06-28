@@ -6,13 +6,13 @@ import {
 } from 'tests/__fixtures__/checkout';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import { putPromocode } from '@farfetch/blackout-client/checkout';
+import { putCheckoutOrderPromocode } from '@farfetch/blackout-client';
 import { setPromocode } from '..';
 import find from 'lodash/find';
 
-jest.mock('@farfetch/blackout-client/checkout', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/checkout'),
-  putPromocode: jest.fn(),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
+  putCheckoutOrderPromocode: jest.fn(),
 }));
 
 describe('setPromocode() action creator', () => {
@@ -33,15 +33,15 @@ describe('setPromocode() action creator', () => {
   it('should create the correct actions for when the set promocode procedure fails', async () => {
     const expectedError = new Error('set promocode error');
 
-    putPromocode.mockRejectedValueOnce(expectedError);
+    putCheckoutOrderPromocode.mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
       await store.dispatch(setPromocode(checkoutId, data));
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(putPromocode).toHaveBeenCalledTimes(1);
-      expect(putPromocode).toHaveBeenCalledWith(
+      expect(putCheckoutOrderPromocode).toHaveBeenCalledTimes(1);
+      expect(putCheckoutOrderPromocode).toHaveBeenCalledWith(
         checkoutId,
         data,
         expectedConfig,
@@ -59,14 +59,18 @@ describe('setPromocode() action creator', () => {
   });
 
   it('should create the correct actions for when the set promocode procedure is successful', async () => {
-    putPromocode.mockResolvedValueOnce(mockResponse);
+    putCheckoutOrderPromocode.mockResolvedValueOnce(mockResponse);
     await store.dispatch(setPromocode(checkoutId, data));
 
     const actionResults = store.getActions();
 
     expect.assertions(4);
-    expect(putPromocode).toHaveBeenCalledTimes(1);
-    expect(putPromocode).toHaveBeenCalledWith(checkoutId, data, expectedConfig);
+    expect(putCheckoutOrderPromocode).toHaveBeenCalledTimes(1);
+    expect(putCheckoutOrderPromocode).toHaveBeenCalledWith(
+      checkoutId,
+      data,
+      expectedConfig,
+    );
     expect(actionResults).toMatchObject([
       { type: actionTypes.SET_PROMOCODE_REQUEST },
       {

@@ -1,10 +1,19 @@
 import * as actionTypes from '../../actionTypes';
 import type {
-  CheckoutOrderItemUpdateRequest,
+  Config,
   PatchCheckoutOrderItem,
-} from '@farfetch/blackout-client/checkout/types/patchCheckoutOrderItem.types';
-import type { Config } from '@farfetch/blackout-client/types';
+  PatchCheckoutOrderItemData,
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
+
+/**
+ * @param checkoutOrderId - Universal identifier of the Checkout Order
+ * @param itemId - Checkout Order item Identifier
+ * @param data - Checkout Order item properties to update
+ * @param config - Custom configurations to send to the client instance (axios).
+ *
+ * @returns Thunk to be dispatched to the redux store.
+ */
 
 /**
  * Method responsible for updating a checkout order item.
@@ -15,18 +24,10 @@ import type { Dispatch } from 'redux';
  */
 const updateCheckoutOrderItemFactory =
   (patchCheckoutOrderItem: PatchCheckoutOrderItem) =>
-  /**
-   * @param checkoutOrderId - Universal identifier of the Checkout Order
-   * @param itemId - Checkout Order item Identifier
-   * @param data - Checkout Order item properties to update
-   * @param config - Custom configurations to send to the client instance (axios).
-   *
-   * @returns Thunk to be dispatched to the redux store.
-   */
   (
     checkoutOrderId: number,
     itemId: number,
-    data: CheckoutOrderItemUpdateRequest,
+    data: PatchCheckoutOrderItemData,
     config?: Config,
   ) =>
   async (dispatch: Dispatch): Promise<number> => {

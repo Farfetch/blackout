@@ -5,13 +5,13 @@ import {
 } from 'tests/__fixtures__/checkout';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import { patchDeliveryBundleUpgrades } from '@farfetch/blackout-client/checkout';
+import { patchCheckoutOrderDeliveryBundleUpgrades } from '@farfetch/blackout-client';
 import { updateDeliveryBundleUpgrades } from '..';
 import find from 'lodash/find';
 
-jest.mock('@farfetch/blackout-client/checkout', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/checkout'),
-  patchDeliveryBundleUpgrades: jest.fn(),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
+  patchCheckoutOrderDeliveryBundleUpgrades: jest.fn(),
 }));
 
 describe('updateDeliveryBundleUpgrades() action creator', () => {
@@ -51,7 +51,9 @@ describe('updateDeliveryBundleUpgrades() action creator', () => {
   it('should create the correct actions for when the update delivery bundle upgrades procedure fails', async () => {
     const expectedError = new Error('update delivery bundle upgrades error');
 
-    patchDeliveryBundleUpgrades.mockRejectedValueOnce(expectedError);
+    patchCheckoutOrderDeliveryBundleUpgrades.mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
     try {
@@ -60,8 +62,8 @@ describe('updateDeliveryBundleUpgrades() action creator', () => {
       );
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(patchDeliveryBundleUpgrades).toHaveBeenCalledTimes(1);
-      expect(patchDeliveryBundleUpgrades).toHaveBeenCalledWith(
+      expect(patchCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledTimes(1);
+      expect(patchCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledWith(
         checkoutId,
         deliveryBundleId,
         data,
@@ -82,15 +84,15 @@ describe('updateDeliveryBundleUpgrades() action creator', () => {
   });
 
   it('should create the correct actions for when the update delivery bundle upgrades procedure is successful', async () => {
-    patchDeliveryBundleUpgrades.mockResolvedValueOnce();
+    patchCheckoutOrderDeliveryBundleUpgrades.mockResolvedValueOnce();
     await store.dispatch(
       updateDeliveryBundleUpgrades(checkoutId, deliveryBundleId, data),
     );
     const actionResults = store.getActions();
 
     expect.assertions(4);
-    expect(patchDeliveryBundleUpgrades).toHaveBeenCalledTimes(1);
-    expect(patchDeliveryBundleUpgrades).toHaveBeenCalledWith(
+    expect(patchCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledTimes(1);
+    expect(patchCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledWith(
       checkoutId,
       deliveryBundleId,
       data,

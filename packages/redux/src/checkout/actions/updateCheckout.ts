@@ -1,7 +1,7 @@
-import { patchCheckout } from '@farfetch/blackout-client/checkout';
+import { patchCheckoutOrder } from '@farfetch/blackout-client';
 import { updateCheckoutFactory } from './factories';
 
 /**
  * Update checkout.
  */
-export default updateCheckoutFactory(patchCheckout);
+export default updateCheckoutFactory(patchCheckoutOrder);

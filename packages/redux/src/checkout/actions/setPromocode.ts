@@ -1,7 +1,7 @@
-import { putPromocode } from '@farfetch/blackout-client/checkout';
+import { putCheckoutOrderPromocode } from '@farfetch/blackout-client';
 import { setPromocodeFactory } from './factories';
 
 /**
  * Set promocode.
  */
-export default setPromocodeFactory(putPromocode);
+export default setPromocodeFactory(putCheckoutOrderPromocode);

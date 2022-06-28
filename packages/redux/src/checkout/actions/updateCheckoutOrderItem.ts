@@ -1,4 +1,4 @@
-import { patchCheckoutOrderItem } from '@farfetch/blackout-client/checkout';
+import { patchCheckoutOrderItem } from '@farfetch/blackout-client';
 import updateCheckoutOrderItemFactory from './factories/updateCheckoutOrderItemFactory';
 
 /**

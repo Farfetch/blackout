@@ -6,14 +6,14 @@ import {
   mockDetailsResponse,
 } from 'tests/__fixtures__/checkout';
 import { fetchCheckoutDetails } from '..';
-import { getCheckoutDetails } from '@farfetch/blackout-client/checkout';
+import { getCheckoutOrderDetails } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 
-jest.mock('@farfetch/blackout-client/checkout', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/checkout'),
-  getCheckoutDetails: jest.fn(),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
+  getCheckoutOrderDetails: jest.fn(),
 }));
 
 describe('fetchCheckoutDetails() action creator', () => {
@@ -31,15 +31,15 @@ describe('fetchCheckoutDetails() action creator', () => {
   it('should create the correct actions for when the fetch checkout details procedure fails', async () => {
     const expectedError = new Error('fetch checkout details error');
 
-    getCheckoutDetails.mockRejectedValueOnce(expectedError);
+    getCheckoutOrderDetails.mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
       await store.dispatch(fetchCheckoutDetails(checkoutId));
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(getCheckoutDetails).toHaveBeenCalledTimes(1);
-      expect(getCheckoutDetails).toHaveBeenCalledWith(
+      expect(getCheckoutOrderDetails).toHaveBeenCalledTimes(1);
+      expect(getCheckoutOrderDetails).toHaveBeenCalledWith(
         checkoutId,
         expectedConfig,
       );
@@ -56,15 +56,18 @@ describe('fetchCheckoutDetails() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch checkout details procedure is successful', async () => {
-    getCheckoutDetails.mockResolvedValueOnce(mockDetailsResponse);
+    getCheckoutOrderDetails.mockResolvedValueOnce(mockDetailsResponse);
     await store.dispatch(fetchCheckoutDetails(checkoutId));
 
     const actionResults = store.getActions();
 
     expect.assertions(5);
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
-    expect(getCheckoutDetails).toHaveBeenCalledTimes(1);
-    expect(getCheckoutDetails).toHaveBeenCalledWith(checkoutId, expectedConfig);
+    expect(getCheckoutOrderDetails).toHaveBeenCalledTimes(1);
+    expect(getCheckoutOrderDetails).toHaveBeenCalledWith(
+      checkoutId,
+      expectedConfig,
+    );
     expect(actionResults).toMatchObject([
       { type: actionTypes.FETCH_CHECKOUT_DETAILS_REQUEST },
       {

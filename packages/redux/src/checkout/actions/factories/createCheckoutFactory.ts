@@ -2,13 +2,13 @@ import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import checkoutSchema from '../../../entities/schemas/checkout';
-import type { Config } from '@farfetch/blackout-client/types';
-import type { Dispatch } from 'redux';
 import type {
-  GetCheckoutResponse,
-  PostCheckout,
-  PostCheckoutData,
-} from '@farfetch/blackout-client/checkout/types';
+  Config,
+  GetCheckoutOrderResponse,
+  PostCheckoutOrder,
+  PostCheckoutOrderData,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
 
 /**
  * @param data   - Data to create the checkout.
@@ -22,20 +22,20 @@ import type {
  * state will contains the orderStatus which is used to keep track of the latest
  * error when creating a new checkout order.
  *
- * @param postCheckout - Post checkout client.
+ * @param postCheckoutOrder - Post checkout client.
  *
  * @returns Thunk factory.
  */
 const createCheckoutFactory =
-  (postCheckout: PostCheckout) =>
-  (data: PostCheckoutData, config?: Config) =>
-  async (dispatch: Dispatch): Promise<GetCheckoutResponse> => {
+  (postCheckoutOrder: PostCheckoutOrder) =>
+  (data: PostCheckoutOrderData, config?: Config) =>
+  async (dispatch: Dispatch): Promise<GetCheckoutOrderResponse> => {
     try {
       dispatch({
         type: actionTypes.CREATE_CHECKOUT_REQUEST,
       });
 
-      const result = await postCheckout(data, config);
+      const result = await postCheckoutOrder(data, config);
 
       dispatch({
         payload: normalize(result, checkoutSchema),

@@ -1,12 +1,12 @@
 import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { Config } from '@farfetch/blackout-client/types';
-import type { Dispatch } from 'redux';
 import type {
+  Config,
   GetCollectPoints,
   GetCollectPointsQuery,
   GetCollectPointsResponse,
-} from '@farfetch/blackout-client/checkout/types';
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
 
 /**
  * @param query  - Query params to retrieve the collect points.

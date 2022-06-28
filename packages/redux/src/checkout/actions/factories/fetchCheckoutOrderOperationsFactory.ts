@@ -1,23 +1,23 @@
 import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import checkoutOrderOperation from '@farfetch/blackout-redux/entities/schemas/checkoutOrderOperation';
-import type { Config } from '@farfetch/blackout-client/types';
-import type { Dispatch } from 'redux';
 import type {
-  GetOperations,
-  GetOperationsQuery,
-  GetOperationsResponse,
-} from '@farfetch/blackout-client/checkout/types';
+  Config,
+  GetCheckoutOrderOperations,
+  GetCheckoutOrderOperationsQuery,
+  GetCheckoutOrderOperationsResponse,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
 
 /**
  * Method responsible for obtaining the checkout order operations.
  *
- * @param getOperations - Get checkout operations client.
+ * @param getCheckoutOrderOperations - Get checkout operations client.
  *
  * @returns Thunk factory.
  */
 export const fetchCheckoutOrderOperationsFactory =
-  (getOperations: GetOperations) =>
+  (getCheckoutOrderOperations: GetCheckoutOrderOperations) =>
   /**
    * @param id - Universal identifier of the Checkout order.
    * @param query - Query params to retrieve the checkout operations.
@@ -25,14 +25,14 @@ export const fetchCheckoutOrderOperationsFactory =
    *
    * @returns Thunk to be dispatched to the redux store.
    */
-  (id: number, query?: GetOperationsQuery, config?: Config) =>
-  async (dispatch: Dispatch): Promise<GetOperationsResponse> => {
+  (id: number, query?: GetCheckoutOrderOperationsQuery, config?: Config) =>
+  async (dispatch: Dispatch): Promise<GetCheckoutOrderOperationsResponse> => {
     dispatch({
       type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATIONS_REQUEST,
     });
 
     try {
-      const result = await getOperations(id, query, config);
+      const result = await getCheckoutOrderOperations(id, query, config);
 
       dispatch({
         payload: normalize(result, { entries: [checkoutOrderOperation] }),

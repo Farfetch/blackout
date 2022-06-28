@@ -1,5 +1,5 @@
 import { fetchCollectPointsFactory } from './factories';
-import { getCollectPoints } from '@farfetch/blackout-client/checkout';
+import { getCollectPoints } from '@farfetch/blackout-client';
 
 /**
  * Fetch collect points.
