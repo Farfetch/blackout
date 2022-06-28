@@ -18,7 +18,8 @@ export type ActionType =
   | FetchUserAttributeAction
   | SetUserAttributeAction
   | UpdateUserAttributeAction
-  | RemoveUserAttributeAction;
+  | RemoveUserAttributeAction
+  | ResetUserAction;
 
 //
 // Fetch user
@@ -334,7 +335,6 @@ export type SetDefaultPersonalIdAction =
 
 export interface ResetUserStateAction extends Action {
   type: typeof actionTypes.RESET_USER_STATE;
-  payload: { fieldsToReset: string[] | undefined };
 }
 
 export interface ResetUserEntitiesAction extends Action {
