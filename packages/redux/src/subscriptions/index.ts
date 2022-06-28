@@ -1,10 +1,12 @@
-import * as actionTypes from './actionTypes';
-import reducer, { entitiesMapper } from './reducer';
+import * as subscriptionsActionTypes from './actionTypes';
+import reducer, {
+  entitiesMapper as subscriptionsEntitiesMapper,
+} from './reducer';
 
 export * from './actions';
-export * from './actions/factories';
 export * from './selectors';
+export * from './types';
 
-export { actionTypes, entitiesMapper };
+export { subscriptionsActionTypes, subscriptionsEntitiesMapper };
 
 export default reducer;

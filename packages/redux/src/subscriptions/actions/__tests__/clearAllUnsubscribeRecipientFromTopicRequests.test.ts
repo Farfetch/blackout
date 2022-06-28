@@ -1,6 +1,6 @@
+import { clearAllUnsubscribeRecipientFromTopic } from '../clearAllUnsubscribeRecipientFromTopicRequests';
 import { mockStore } from '../../../../tests';
-import clearAllUnsubscribeRecipientFromTopicRequests from '../clearAllUnsubscribeRecipientFromTopicRequests';
-import reducer, { actionTypes } from '../..';
+import reducer, { subscriptionsActionTypes } from '../..';
 
 describe('reset()', () => {
   let store: ReturnType<typeof mockStore>;
@@ -10,11 +10,11 @@ describe('reset()', () => {
   });
 
   it('should dispatch the correct action', () => {
-    clearAllUnsubscribeRecipientFromTopicRequests()(store.dispatch);
+    clearAllUnsubscribeRecipientFromTopic()(store.dispatch);
 
     expect(store.getActions()).toEqual([
       {
-        type: actionTypes.CLEAR_ALL_UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUESTS,
+        type: subscriptionsActionTypes.CLEAR_ALL_UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUESTS,
       },
     ]);
   });

@@ -1,24 +1,24 @@
 import type { BlackoutError } from '@farfetch/blackout-client';
-import type { CombinedState } from 'redux';
+import type { CombinedState, EmptyObject } from 'redux';
 import type { Nullable } from './';
 
-type BaseStateType = {
+type BaseStateType<S> = {
   error: Nullable<BlackoutError>;
   isLoading: boolean;
-};
+} & S;
 
-export type StateWithoutResult<T = undefined> = CombinedState<
-  T extends undefined ? BaseStateType : BaseStateType & T
+export type StateWithoutResult<T = EmptyObject> = CombinedState<
+  BaseStateType<T>
 >;
 
-export type StateWithResultArray<T> = CombinedState<
-  BaseStateType & {
-    result: Nullable<Array<T>> | undefined;
+export type StateWithResultArray<T, S = EmptyObject> = CombinedState<
+  BaseStateType<S> & {
+    result?: Nullable<Array<T>>;
   }
 >;
 
-export type StateWithResult<T> = CombinedState<
-  BaseStateType & {
+export type StateWithResult<T, S = EmptyObject> = CombinedState<
+  BaseStateType<S> & {
     result: Nullable<T>;
   }
 >;

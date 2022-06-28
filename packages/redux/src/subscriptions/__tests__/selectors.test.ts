@@ -8,6 +8,11 @@ import {
   mockTopicWithEmailChannel,
   mockTopicWithSmsAndEmailChannels,
 } from 'tests/__fixtures__/subscriptions';
+import type { StoreState } from '../../types';
+
+const mockStore: StoreState = {
+  ...mockState,
+};
 
 describe('Subscriptions redux selectors', () => {
   beforeEach(jest.clearAllMocks);
@@ -17,18 +22,18 @@ describe('Subscriptions redux selectors', () => {
       it('Should get the user subscriptions error property', () => {
         const expectedResult = mockState.subscriptions.user.error;
 
-        expect(selectors.getUserSubscriptionsError(mockState)).toBe(
+        expect(selectors.getUserSubscriptionsError(mockStore)).toBe(
           expectedResult,
         );
       });
     });
 
-    describe('getUpdateSubscriptionsError() ', () => {
+    describe('getUpdateUserSubscriptionsError() ', () => {
       it('Should get the update user subscriptions error property', () => {
         const expectedResult =
           mockState.subscriptions.user.updateSubscriptionsError;
 
-        expect(selectors.getUpdateSubscriptionsError(mockState)).toBe(
+        expect(selectors.getUpdateUserSubscriptionsError(mockStore)).toBe(
           expectedResult,
         );
       });
@@ -36,9 +41,7 @@ describe('Subscriptions redux selectors', () => {
 
     describe('getSubscriptionPackagesError() ', () => {
       it('Should get the subscription packages error property', () => {
-        expect(
-          selectors.getSubscriptionPackagesError(mockState),
-        ).toBeUndefined();
+        expect(selectors.getSubscriptionPackagesError(mockStore)).toBeNull();
       });
     });
 
@@ -46,7 +49,7 @@ describe('Subscriptions redux selectors', () => {
       it('Should get the user subscriptions result property', () => {
         const expectedResult = mockState.subscriptions.user.result;
 
-        expect(selectors.getUserSubscriptions(mockState)).toBe(expectedResult);
+        expect(selectors.getUserSubscriptions(mockStore)).toBe(expectedResult);
       });
     });
 
@@ -56,7 +59,7 @@ describe('Subscriptions redux selectors', () => {
           mockState.entities.subscriptionPackages['Newsletter'],
         ];
 
-        expect(selectors.getSubscriptionPackages(mockState)).toEqual(
+        expect(selectors.getSubscriptionPackages(mockStore)).toEqual(
           expectedResult,
         );
       });
@@ -66,17 +69,17 @@ describe('Subscriptions redux selectors', () => {
       it('Should get the user subscriptions isLoading property', () => {
         const expectedResult = mockState.subscriptions.user.isLoading;
 
-        expect(selectors.isUserSubscriptionsLoading(mockState)).toBe(
+        expect(selectors.isUserSubscriptionsLoading(mockStore)).toBe(
           expectedResult,
         );
       });
     });
 
-    describe('isSubscriptionPackagesLoading()', () => {
+    describe('areSubscriptionPackagesLoading()', () => {
       it('Should get the subscription packages isLoading property', () => {
         const expectedResult = mockState.subscriptions.packages.isLoading;
 
-        expect(selectors.isSubscriptionPackagesLoading(mockState)).toBe(
+        expect(selectors.areSubscriptionPackagesLoading(mockStore)).toBe(
           expectedResult,
         );
       });
@@ -85,11 +88,11 @@ describe('Subscriptions redux selectors', () => {
     describe('getUserSubscribedTopicsForPlatform()', () => {
       it('Should return the user subscriptions filtered by a platform', () => {
         expect(
-          selectors.getUserSubscribedTopicsForPlatform(mockState, 'sms'),
+          selectors.getUserSubscribedTopicsForPlatform(mockStore, 'sms'),
         ).toEqual([mockTopicWithSmsAndEmailChannels]);
 
         expect(
-          selectors.getUserSubscribedTopicsForPlatform(mockState, 'email'),
+          selectors.getUserSubscribedTopicsForPlatform(mockStore, 'email'),
         ).toEqual([
           mockTopicWithSmsAndEmailChannels,
           mockTopicWithEmailChannel,
@@ -101,14 +104,14 @@ describe('Subscriptions redux selectors', () => {
       it('Should return the user subscriptions filtered by an address', () => {
         expect(
           selectors.getUserSubscribedTopicsForAddress(
-            mockState,
+            mockStore,
             mockSmsAddress,
           ),
         ).toEqual([mockTopicWithSmsAndEmailChannels]);
 
         expect(
           selectors.getUserSubscribedTopicsForAddress(
-            mockState,
+            mockStore,
             mockEmailAddress,
           ),
         ).toEqual([
@@ -118,11 +121,11 @@ describe('Subscriptions redux selectors', () => {
       });
     });
 
-    describe('getSupportedChannels()', () => {
+    describe('getSubscriptionPackagesSupportedChannels()', () => {
       it('Should return the subscription packages supported delivery channels', () => {
-        expect(selectors.getSupportedChannels(mockState)).toBe(
-          mockState.subscriptions.packages.result.supportedChannels,
-        );
+        expect(
+          selectors.getSubscriptionPackagesSupportedChannels(mockStore),
+        ).toBe(mockState.subscriptions.packages.result.supportedChannels);
       });
     });
 
@@ -135,7 +138,7 @@ describe('Subscriptions redux selectors', () => {
 
         expect(
           selectors.getUnsubscribeRecipientFromTopicRequest(
-            mockState,
+            mockStore,
             mockRecipientId1TopicId1,
           ),
         ).toBe(expectedResult);
@@ -158,7 +161,7 @@ describe('Subscriptions redux selectors', () => {
         ];
 
         expect(
-          selectors.getUnsubscribeRecipientFromTopicRequests(mockState),
+          selectors.getUnsubscribeRecipientFromTopicRequests(mockStore),
         ).toStrictEqual(expectedResult);
       });
     });

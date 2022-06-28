@@ -2,11 +2,11 @@ import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
 import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type { NormalizedSchema } from 'normalizr';
-import type { NormalizedSubscriptionPackage } from './state.types';
+import type { NormalizedSubscriptionPackages } from './state.types';
 import type {
   Subscription,
   SubscriptionPackage,
-} from '@farfetch/blackout-client/subscriptions/types';
+} from '@farfetch/blackout-client';
 import type { UnsubscribeRecipientFromTopicMeta } from './../actions/factories/types';
 
 interface FetchSubscriptionPackagesRequestAction extends Action {
@@ -15,7 +15,10 @@ interface FetchSubscriptionPackagesRequestAction extends Action {
 
 interface FetchSubscriptionPackagesSuccessAction extends Action {
   type: typeof actionTypes.FETCH_SUBSCRIPTION_PACKAGES_SUCCESS;
-  payload: NormalizedSchema<SubscriptionPackage, NormalizedSubscriptionPackage>;
+  payload: NormalizedSchema<
+    SubscriptionPackage,
+    NormalizedSubscriptionPackages
+  >;
 }
 interface FetchSubscriptionPackagesFailureAction extends Action {
   type: typeof actionTypes.FETCH_SUBSCRIPTION_PACKAGES_FAILURE;
@@ -124,6 +127,6 @@ export type UpdateUserSubscriptionsAction =
 /**
  * Actions dispatched when the reset subscriptions action is called.
  */
-export interface ResetFormSchemaStateAction extends Action {
+export interface ResetSubscriptionsStateAction extends Action {
   type: typeof actionTypes.RESET_SUBSCRIPTIONS;
 }

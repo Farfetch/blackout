@@ -21,7 +21,11 @@ describe('Recently Viewed reducer', () => {
   });
 
   describe('error() reducer', () => {
-    const expectedError = 'An error occurred';
+    const expectedError = {
+      message: 'An error occurred',
+      name: 'error',
+      code: -1,
+    };
 
     it('should return the initial state', () => {
       const state = reducer(undefined, mockAction);
@@ -153,7 +157,7 @@ describe('Recently Viewed reducer', () => {
         payload: expectedRecentlyViewedRemotePayload,
       });
 
-      expect(state.result.remote).toEqual(expectedRecentlyViewedRemotePayload);
+      expect(state.result?.remote).toEqual(expectedRecentlyViewedRemotePayload);
     });
 
     it(`should handle ${productsActionTypes.SAVE_RECENTLY_VIEWED_PRODUCT} action type`, () => {
@@ -162,14 +166,16 @@ describe('Recently Viewed reducer', () => {
         payload: expectedRecentlyViewedLocalPayload,
       });
 
-      expect(state.result.computed).toEqual(expectedRecentlyViewedLocalPayload);
+      expect(state.result?.computed).toEqual(
+        expectedRecentlyViewedLocalPayload,
+      );
     });
 
     it(`should handle ${productsActionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS} action type`, () => {
       const state: State = {
         ...initialState,
         result: {
-          ...initialState.result,
+          pagination: initialState.result?.pagination,
           remote: expectedRecentlyViewedRemotePayload,
           computed: expectedRecentlyViewedLocalPayload,
         },
@@ -204,7 +210,10 @@ describe('Recently Viewed reducer', () => {
 
   describe('getRecentlyViewedProductsError()', () => {
     it('should return the `recentlyViewed.error` property from a given state', () => {
-      const state = { ...initialState, error: { message: 'This is an error' } };
+      const state = {
+        ...initialState,
+        error: { message: 'This is an error', name: 'error', code: -1 },
+      };
 
       expect(getError(state)).toEqual(state.error);
     });

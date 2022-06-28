@@ -10,7 +10,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Dispatch clear unsubscribe recipient from topic action.
  */
-const clearUnsubscribeRecipientFromTopicRequest =
+export const clearUnsubscribeRecipientFromTopic =
   (recipientId: string) =>
   (dispatch: Dispatch): void => {
     dispatch({
@@ -18,5 +18,3 @@ const clearUnsubscribeRecipientFromTopicRequest =
       type: actionTypes.CLEAR_UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUEST,
     });
   };
-
-export default clearUnsubscribeRecipientFromTopicRequest;

@@ -1,15 +1,18 @@
 import * as actionTypes from '../../actionTypes';
-import * as packagesReducer from '../packages';
-import reducer, { INITIAL_STATE } from '..';
-import type { PackagesState, SubscriptionState } from '../../types';
+import reducer, {
+  getSubscriptionPackages,
+  getSubscriptionPackagesIsLoading,
+  INITIAL_STATE,
+} from '../subscriptionPackages';
+import type { SubscriptionsState } from '../../types';
 
-const initialState: PackagesState = INITIAL_STATE.packages;
+const initialState: SubscriptionsState['packages'] = INITIAL_STATE;
 const randomAction = { type: 'this_is_a_random_action' };
 
 describe('Subscription Packages redux reducer', () => {
   describe('error() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(undefined, randomAction).packages.error;
+      const state = reducer(undefined, randomAction).error;
 
       expect(state).toBe(initialState.error);
       expect(state).toBeNull();
@@ -22,7 +25,7 @@ describe('Subscription Packages redux reducer', () => {
         reducer(undefined, {
           type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_FAILURE,
           payload: { error: expectedResult },
-        }).packages.error,
+        }).error,
       ).toBe(expectedResult);
     });
 
@@ -31,25 +34,23 @@ describe('Subscription Packages redux reducer', () => {
         reducer(undefined, {
           type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_REQUEST,
           payload: {},
-        }).packages.error,
+        }).error,
       ).toBe(initialState.error);
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state: SubscriptionState = {
+      const state: SubscriptionsState['packages'] = {
         ...INITIAL_STATE,
-        packages: { ...INITIAL_STATE.packages, error: { message: 'foo' } },
+        error: { message: 'foo', name: 'error', code: -1 },
       };
 
-      expect(reducer(state, randomAction).packages.error).toBe(
-        state.packages.error,
-      );
+      expect(reducer(state, randomAction).error).toBe(state.error);
     });
   });
 
   describe('result() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(undefined, randomAction).packages.result;
+      const state = reducer(undefined, randomAction).result;
 
       expect(state).toBe(initialState.result);
       expect(state).toBeNull();
@@ -60,14 +61,14 @@ describe('Subscription Packages redux reducer', () => {
         reducer(undefined, {
           type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_SUCCESS,
           payload: { result: {} },
-        }).packages.result,
+        }).result,
       ).toEqual({});
     });
   });
 
   describe('isLoading() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(undefined, randomAction).packages.isLoading;
+      const state = reducer(undefined, randomAction).isLoading;
 
       expect(state).toEqual(initialState.isLoading);
     });
@@ -77,73 +78,71 @@ describe('Subscription Packages redux reducer', () => {
         reducer(undefined, {
           type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_REQUEST,
           payload: {},
-        }).packages.isLoading,
+        }).isLoading,
       ).toEqual(true);
     });
 
     it(`should handle ${actionTypes.FETCH_SUBSCRIPTION_PACKAGES_SUCCESS} action type`, () => {
-      const state = {
+      const state: SubscriptionsState['packages'] = {
         ...INITIAL_STATE,
-        packages: { ...INITIAL_STATE.packages, isLoading: true },
+        isLoading: true,
       };
 
       expect(
         reducer(state, {
           type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_SUCCESS,
           payload: { result: {} },
-        }).packages.isLoading,
+        }).isLoading,
       ).toEqual(initialState.isLoading);
     });
 
     it(`should handle ${actionTypes.FETCH_SUBSCRIPTION_PACKAGES_FAILURE} action type`, () => {
-      const state = {
+      const state: SubscriptionsState['packages'] = {
         ...INITIAL_STATE,
-        packages: { ...INITIAL_STATE.packages, isLoading: true },
+        isLoading: true,
       };
 
       expect(
         reducer(state, {
           type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_FAILURE,
           payload: { error: '' },
-        }).packages.isLoading,
+        }).isLoading,
       ).toEqual(initialState.isLoading);
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = {
+      const state: SubscriptionsState['packages'] = {
         ...INITIAL_STATE,
-        packages: { ...INITIAL_STATE.packages, isLoading: false },
+        isLoading: false,
       };
 
-      expect(reducer(state, randomAction).packages.isLoading).toEqual(
-        state.packages.isLoading,
-      );
+      expect(reducer(state, randomAction).isLoading).toEqual(state.isLoading);
     });
   });
 
-  describe('getPackagesIsLoading() selector', () => {
+  describe('getSubscriptionPackagesIsLoading() selector', () => {
     it('should return the loading state', () => {
       const isLoading = true;
 
       expect(
-        packagesReducer.getPackagesIsLoading({
-          ...INITIAL_STATE.packages,
+        getSubscriptionPackagesIsLoading({
+          ...INITIAL_STATE,
           isLoading,
         }),
       ).toBe(isLoading);
     });
   });
 
-  describe('getPackages() selector', () => {
+  describe('getSubscriptionPackages() selector', () => {
     it('should return the result state', () => {
       const result = {
         supportedChannels: ['some_channel'],
         packages: ['some_package'],
       };
 
-      expect(
-        packagesReducer.getPackages({ ...INITIAL_STATE.packages, result }),
-      ).toBe(result);
+      expect(getSubscriptionPackages({ ...INITIAL_STATE, result })).toBe(
+        result,
+      );
     });
   });
 });

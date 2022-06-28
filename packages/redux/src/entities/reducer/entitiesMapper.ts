@@ -7,10 +7,10 @@ import { entitiesMapper as entitiesMapperMerchantsLocations } from '../../mercha
 import { entitiesMapper as entitiesMapperOrders } from '../../orders';
 import { entitiesMapper as entitiesMapperPayments } from '../../payments';
 import { entitiesMapper as entitiesMapperReturns } from '../../returns';
-import { entitiesMapper as entitiesMapperSubscriptions } from '../../subscriptions';
 import { entitiesMapper as entitiesMapperUsers } from '../../users';
 import { entitiesMapper as entitiesMapperWishlist } from '../../wishlists';
 import { productsEntitiesMapper } from '../../products';
+import { subscriptionsEntitiesMapper } from '../../subscriptions';
 import createEntitiesReducer from './createEntities';
 import type { Reducer } from 'redux';
 import type { StoreState } from '../../types';
@@ -46,7 +46,7 @@ export const defaultMappers = {
   products: productsEntitiesMapper,
   users: entitiesMapperUsers,
   returns: entitiesMapperReturns,
-  subscriptions: entitiesMapperSubscriptions,
+  subscriptions: subscriptionsEntitiesMapper,
   wishlist: entitiesMapperWishlist,
 };
 
@@ -99,7 +99,7 @@ const entitiesMapper: EntitiesMapper = (extraMappers = []) =>
       entitiesMapperPayments,
       productsEntitiesMapper,
       entitiesMapperReturns,
-      entitiesMapperSubscriptions,
+      subscriptionsEntitiesMapper,
       entitiesMapperUsers,
       entitiesMapperWishlist,
       // These are overrides - must be in the last position

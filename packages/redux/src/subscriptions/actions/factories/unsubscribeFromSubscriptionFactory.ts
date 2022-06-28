@@ -1,6 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { DeleteSubscription } from '@farfetch/blackout-client/subscriptions/types';
+import type { DeleteSubscription } from '@farfetch/blackout-client';
 import type { UnsubscribeFromSubscriptionFactory } from './types';
 
 /**
@@ -10,7 +10,7 @@ import type { UnsubscribeFromSubscriptionFactory } from './types';
  *
  * @returns Thunk factory.
  */
-const unsubscribeFromSubscriptionFactory: UnsubscribeFromSubscriptionFactory<
+export const unsubscribeFromSubscriptionFactory: UnsubscribeFromSubscriptionFactory<
   DeleteSubscription
 > = deleteSubscription => (query, config) => async dispatch => {
   try {
@@ -32,5 +32,3 @@ const unsubscribeFromSubscriptionFactory: UnsubscribeFromSubscriptionFactory<
     throw error;
   }
 };
-
-export default unsubscribeFromSubscriptionFactory;

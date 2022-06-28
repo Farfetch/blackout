@@ -1,3 +1,5 @@
+export * from './types';
+
 export { default as putSubscriptions } from './putSubscriptions';
 export { default as getSubscriptions } from './getSubscriptions';
 export { default as getSubscriptionPackages } from './getSubscriptionPackages';

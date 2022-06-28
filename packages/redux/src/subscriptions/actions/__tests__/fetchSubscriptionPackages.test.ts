@@ -1,14 +1,14 @@
-import { actionTypes } from '../..';
+import { subscriptionsActionTypes as actionTypes } from '../..';
 import { fetchSubscriptionPackages } from '..';
-import { getSubscriptionPackages } from '@farfetch/blackout-client/subscriptions';
+import { getSubscriptionPackages } from '@farfetch/blackout-client';
 import { mockGetSubscriptionPackages } from 'tests/__fixtures__/subscriptions/';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 import reducer from '../../reducer';
 
-jest.mock('@farfetch/blackout-client/subscriptions', () => {
+jest.mock('@farfetch/blackout-client', () => {
   return {
-    ...jest.requireActual('@farfetch/blackout-client/subscriptions'),
+    ...jest.requireActual('@farfetch/blackout-client'),
     getSubscriptionPackages: jest.fn(),
   };
 });

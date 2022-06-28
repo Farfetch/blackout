@@ -3,7 +3,7 @@ import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import subscriptionSchema from '../../../entities/schemas/subscriptions';
 import type { FetchSubscriptionPackagesFactory } from './types';
-import type { GetSubscriptionPackages } from '@farfetch/blackout-client/subscriptions/types';
+import type { GetSubscriptionPackages } from '@farfetch/blackout-client';
 
 /**
  * Method to create a thunk factory configured with the specified client.
@@ -12,7 +12,7 @@ import type { GetSubscriptionPackages } from '@farfetch/blackout-client/subscrip
  *
  * @returns Thunk factory.
  */
-const fetchSubscriptionPackagesFactory: FetchSubscriptionPackagesFactory<
+export const fetchSubscriptionPackagesFactory: FetchSubscriptionPackagesFactory<
   GetSubscriptionPackages
 > = getSubscriptionPackages => (query, config) => async dispatch => {
   try {
@@ -36,5 +36,3 @@ const fetchSubscriptionPackagesFactory: FetchSubscriptionPackagesFactory<
     throw error;
   }
 };
-
-export default fetchSubscriptionPackagesFactory;

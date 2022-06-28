@@ -58,7 +58,7 @@ import type { State as SizeGuidesState } from '../sizeGuides/types';
 import type { SizeScale } from '@farfetch/blackout-client/sizeScales/types';
 import type { State as SizeScalesState } from '../sizeScales/types';
 import type { State as StaffMembersState } from '../staffMembers/types';
-import type { SubscriptionState } from '../subscriptions/types';
+import type { SubscriptionsState } from '../subscriptions';
 import type { State as UsersState } from '../users/types';
 import type { State as WishlistsState } from '../wishlists/types';
 
@@ -129,7 +129,7 @@ export type StoreState = Partial<{
   sizeGuides: SizeGuidesState;
   sizeScales: SizeScalesState;
   staffMembers: StaffMembersState;
-  subscriptions: SubscriptionState;
+  subscriptions: SubscriptionsState;
   users: UsersState;
   wishlist: WishlistsState;
   // Keep adding here as we migrate chunks

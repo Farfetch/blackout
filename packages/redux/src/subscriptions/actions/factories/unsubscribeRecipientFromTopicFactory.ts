@@ -1,6 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { DeleteRecipientFromTopic } from '@farfetch/blackout-client/subscriptions/types';
+import type { DeleteRecipientFromTopic } from '@farfetch/blackout-client';
 import type { UnsubscribeRecipientFromTopicFactory } from './types';
 
 /**
@@ -10,7 +10,7 @@ import type { UnsubscribeRecipientFromTopicFactory } from './types';
  *
  * @returns Thunk factory.
  */
-const unsubscribeRecipientFromTopic: UnsubscribeRecipientFromTopicFactory<
+export const unsubscribeRecipientFromTopicFactory: UnsubscribeRecipientFromTopicFactory<
   DeleteRecipientFromTopic
 > =
   deleteRecipientFromTopic =>
@@ -49,5 +49,3 @@ const unsubscribeRecipientFromTopic: UnsubscribeRecipientFromTopicFactory<
       throw error;
     }
   };
-
-export default unsubscribeRecipientFromTopic;

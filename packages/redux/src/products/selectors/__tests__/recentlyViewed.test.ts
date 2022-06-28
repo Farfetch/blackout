@@ -76,7 +76,7 @@ describe('RecentlyViewed redux selectors', () => {
                 pagination: null,
               },
               isLoading: false,
-              error: undefined,
+              error: null,
             },
           },
         } as StoreState),
@@ -96,7 +96,7 @@ describe('RecentlyViewed redux selectors', () => {
               computed: undefined,
             },
             isLoading: false,
-            error: undefined,
+            error: null,
           },
         },
       } as StoreState;

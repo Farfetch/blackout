@@ -4,7 +4,7 @@ import {
   getResult,
 } from '../reducer/recentlyViewedProducts';
 import get from 'lodash/get';
-import type { State } from '../types';
+import type { RecentlyViewedProductsResult, State } from '../types';
 import type { StoreState } from '../../types';
 
 type RecentlyViewedState = State['recentlyViewed'];
@@ -42,8 +42,8 @@ export const areRecentlyViewedProductsLoading = (
  */
 export const getRecentlyViewedProducts = (
   state: StoreState,
-): RecentlyViewedState['result']['computed'] =>
-  getResult(state.products?.recentlyViewed).computed;
+): RecentlyViewedProductsResult['computed'] =>
+  getResult(state.products?.recentlyViewed)?.computed;
 
 /**
  * Returns if the recently viewed products were already fetched or not.
@@ -70,5 +70,5 @@ export const areRecentlyViewedProductsFetched = (
  */
 export const getRecentlyViewedProductsPagination = (
   state: StoreState,
-): RecentlyViewedState['result']['pagination'] =>
-  getResult(state.products?.recentlyViewed).pagination;
+): RecentlyViewedProductsResult['pagination'] =>
+  getResult(state.products?.recentlyViewed)?.pagination;

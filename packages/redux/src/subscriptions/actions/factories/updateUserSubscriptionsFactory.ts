@@ -1,6 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { PutSubscriptions } from '@farfetch/blackout-client/subscriptions/types';
+import type { PutSubscriptions } from '@farfetch/blackout-client';
 import type { UpdateUserSubscriptionsFactory } from './types';
 
 /**
@@ -10,7 +10,7 @@ import type { UpdateUserSubscriptionsFactory } from './types';
  *
  * @returns Thunk factory.
  */
-const updateUserSubscriptionsFactory: UpdateUserSubscriptionsFactory<
+export const updateUserSubscriptionsFactory: UpdateUserSubscriptionsFactory<
   PutSubscriptions
 > = putSubscriptions => (data, config) => async dispatch => {
   try {
@@ -32,5 +32,3 @@ const updateUserSubscriptionsFactory: UpdateUserSubscriptionsFactory<
     throw error;
   }
 };
-
-export default updateUserSubscriptionsFactory;
