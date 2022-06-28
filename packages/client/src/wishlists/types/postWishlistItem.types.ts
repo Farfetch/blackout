@@ -2,10 +2,10 @@ import type { Product } from '../../products/types';
 import type { Wishlist } from './wishlist.types';
 
 export type PostWishlistItemData = {
-  merchantId: number;
+  merchantId?: number;
   productId: Product['result']['id'];
   quantity: number;
-  size: number;
+  size?: number;
 };
 
 export type PostWishlistItem = (
