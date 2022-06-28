@@ -1,6 +1,4 @@
-import * as userReducer from '../user';
-import { actionTypes } from '../..';
-import { INITIAL_STATE } from '..';
+import { subscriptionsActionTypes as actionTypes } from '../..';
 import {
   mockRecipientId1TopicId1,
   mockRecipientId2,
@@ -10,11 +8,19 @@ import {
   mockTopicId2,
   mockUserSubscriptionsState,
 } from 'tests/__fixtures__/subscriptions';
-import type { UserState } from '../../types';
+import reducer, {
+  getUnsubscribeRecipientFromTopicRequests,
+  getUpdateSubscriptionsError,
+  getUserSubscriptions,
+  getUserSubscriptionsError,
+  getUserSubscriptionsIsLoading,
+  INITIAL_STATE,
+} from '../userSubscriptions';
+import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { SubscriptionsState } from '../../types';
 
-const initialState: UserState = INITIAL_STATE.user;
+const initialState: SubscriptionsState['user'] = INITIAL_STATE;
 const randomAction = { type: 'this_is_a_random_action' };
-const reducer = userReducer.default;
 
 describe('User Subscriptions redux reducer', () => {
   it('should return the initial state', () => {
@@ -54,8 +60,8 @@ describe('User Subscriptions redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state: UserState = {
-        error: { message: 'foo' },
+      const state: SubscriptionsState['user'] = {
+        error: { message: 'foo', name: 'error', code: -1 },
         isLoading: false,
         result: [],
         unsubscribeRecipientFromTopicRequests: {},
@@ -88,9 +94,9 @@ describe('User Subscriptions redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = {
+      const state: SubscriptionsState['user'] = {
         ...mockUserSubscriptionsState,
-        updateSubscriptionsError: new Error('foo'),
+        updateSubscriptionsError: { code: -1, name: 'foo', message: 'bar' },
       };
 
       expect(reducer(state, randomAction).updateSubscriptionsError).toEqual(
@@ -312,11 +318,11 @@ describe('User Subscriptions redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state: UserState = {
+      const state: SubscriptionsState['user'] = {
         isLoading: false,
         updateSubscriptionsError: undefined,
         unsubscribeRecipientFromTopicRequests: {},
-        error: undefined,
+        error: null,
         result: [],
       };
 
@@ -486,11 +492,9 @@ describe('User Subscriptions redux reducer', () => {
 
   describe('getSubscriptionsError() selector', () => {
     it('should return the error state', () => {
-      const error = { message: 'This is an error' };
+      const error = { message: 'This is an error', name: 'error', code: -1 };
 
-      expect(
-        userReducer.getSubscriptionsError({ ...initialState, error }),
-      ).toBe(error);
+      expect(getUserSubscriptionsError({ ...initialState, error })).toBe(error);
     });
   });
 
@@ -499,7 +503,7 @@ describe('User Subscriptions redux reducer', () => {
       const isLoading = true;
 
       expect(
-        userReducer.getSubscriptionsIsLoading({
+        getUserSubscriptionsIsLoading({
           ...initialState,
           isLoading,
         }),
@@ -509,21 +513,19 @@ describe('User Subscriptions redux reducer', () => {
 
   describe('getSubscriptions() selector', () => {
     it('should return the result state', () => {
-      const result: UserState['result'] = [];
+      const result: SubscriptionsState['user']['result'] = [];
 
-      expect(userReducer.getSubscriptions({ ...initialState, result })).toBe(
-        result,
-      );
+      expect(getUserSubscriptions({ ...initialState, result })).toBe(result);
     });
   });
 
   describe('getUnsubscribeRecipientFromTopicRequests() selector', () => {
     it('should return unsubscribeRecipientFromTopicRequests state', () => {
-      const unsubscribeRecipientFromTopicRequests: UserState['unsubscribeRecipientFromTopicRequests'] =
+      const unsubscribeRecipientFromTopicRequests: SubscriptionsState['user']['unsubscribeRecipientFromTopicRequests'] =
         {};
 
       expect(
-        userReducer.getUnsubscribeRecipientFromTopicRequests({
+        getUnsubscribeRecipientFromTopicRequests({
           ...initialState,
           unsubscribeRecipientFromTopicRequests,
         }),
@@ -533,10 +535,14 @@ describe('User Subscriptions redux reducer', () => {
 
   describe('getUpdateSubscriptionsError() selector', () => {
     it('should return updateSubscriptionsError state', () => {
-      const updateSubscriptionsError = {};
+      const updateSubscriptionsError: BlackoutError = {
+        name: 'error',
+        message: 'foo',
+        code: -1,
+      };
 
       expect(
-        userReducer.getUpdateSubscriptionsError({
+        getUpdateSubscriptionsError({
           ...initialState,
           updateSubscriptionsError,
         }),

@@ -12,11 +12,12 @@ type RecentlyViewedState = State['recentlyViewed'];
 export const INITIAL_STATE: RecentlyViewedState = {
   error: null,
   isLoading: false,
-  result: {
-    remote: null,
-    computed: null,
-    pagination: null,
-  },
+  result: null,
+  // result: {
+  //   remote: null,
+  //   computed: null,
+  //   pagination: null,
+  // },
 };
 
 const error = (
@@ -56,7 +57,7 @@ const result = (
 ): RecentlyViewedState['result'] => {
   switch (action.type) {
     case actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS: {
-      const computed = state.computed || [];
+      const computed = state?.computed || [];
 
       // Merge the new payload after the previously computed entries and filter the repeated ones
       return {
@@ -69,22 +70,24 @@ const result = (
       };
     }
     case actionTypes.SAVE_RECENTLY_VIEWED_PRODUCT: {
-      const computed = state.computed || [];
+      const computed = state?.computed || [];
 
       // Merge the new payload before the previously computed entries and filter the repeated ones
       return {
-        ...state,
+        remote: state?.remote,
+        pagination: state?.pagination,
         computed: uniqBy([...action.payload, ...computed], 'productId'),
       };
     }
     case actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS: {
-      const computed = (state.computed || []).filter(
+      const computed = (state?.computed || []).filter(
         ({ productId }) => productId !== action.meta.productId,
       );
 
       // Removes the productId from the local reference, as the action doesn't provide a payload
       return {
-        ...state,
+        remote: state?.remote,
+        pagination: state?.pagination,
         computed,
       };
     }

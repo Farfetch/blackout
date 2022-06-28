@@ -1,6 +1,6 @@
 import type { Dispatch } from 'redux';
 import type { FetchSubscriptionPackagesAction } from '../../../types';
-import type { GetSubscriptionPackages } from '@farfetch/blackout-client/subscriptions/types';
+import type { GetSubscriptionPackages } from '@farfetch/blackout-client';
 
 export type FetchSubscriptionPackagesFactory<
   T extends GetSubscriptionPackages,

@@ -1,13 +1,13 @@
-import { actionTypes } from '../..';
-import { deleteSubscription } from '@farfetch/blackout-client/subscriptions';
+import { subscriptionsActionTypes as actionTypes } from '../..';
+import { deleteSubscription } from '@farfetch/blackout-client';
 import { mockDeleteSubscription } from 'tests/__fixtures__/subscriptions';
 import { mockStore } from '../../../../tests';
 import { unsubscribeFromSubscription } from '../';
 import reducer from '../../reducer';
 
-jest.mock('@farfetch/blackout-client/subscriptions', () => {
+jest.mock('@farfetch/blackout-client', () => {
   return {
-    ...jest.requireActual('@farfetch/blackout-client/subscriptions'),
+    ...jest.requireActual('@farfetch/blackout-client'),
     deleteSubscription: jest.fn(),
   };
 });

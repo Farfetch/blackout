@@ -1,22 +1,17 @@
+import * as subscriptionPackagesReducer from './reducer/subscriptionPackages';
+import * as userSubscriptionReducer from './reducer/userSubscriptions';
 import { createSelector } from 'reselect';
 import { getEntities } from '../entities';
-import {
-  getPackages,
-  getPackagesError,
-  getPackagesIsLoading,
-} from './reducer/packages';
-import {
-  getSubscriptions,
-  getSubscriptionsError,
-  getSubscriptionsIsLoading,
-  getUnsubscribeRecipientFromTopicRequests as getUnsubscribeRecipientFromTopicRequestsReducer,
-  getUpdateSubscriptionsError as getUpdateSubscriptionsErrorFromReducer,
-} from './reducer/user';
 import defaultTo from 'lodash/defaultTo';
 import get from 'lodash/get';
-import type { PackagesState, UserState } from './types';
 import type { StoreState } from '../types';
-import type { SubscriptionTopic } from '@farfetch/blackout-client/subscriptions/types';
+import type { SubscriptionsState } from './types';
+import type { SubscriptionTopic } from '@farfetch/blackout-client';
+
+// Default user subscriptions value for the following selectors.
+// It is outside of each selector to keep reference integrity.
+const DEFAULT_USER_SUBSCRIPTIONS_VALUE: SubscriptionsState['user']['result'] =
+  [];
 
 /**
  * Returns the error given a user subscription action.
@@ -26,7 +21,7 @@ import type { SubscriptionTopic } from '@farfetch/blackout-client/subscriptions/
  * @returns User subscription error.
  */
 export const getUserSubscriptionsError = (state: StoreState) =>
-  getSubscriptionsError(state.subscriptions?.user);
+  userSubscriptionReducer.getUserSubscriptionsError(state.subscriptions?.user);
 
 /**
  * Returns the error when the update user subscriptions action fails.
@@ -35,8 +30,10 @@ export const getUserSubscriptionsError = (state: StoreState) =>
  *
  * @returns Error for the update subscription action.
  */
-export const getUpdateSubscriptionsError = (state: StoreState) =>
-  getUpdateSubscriptionsErrorFromReducer(state.subscriptions?.user);
+export const getUpdateUserSubscriptionsError = (state: StoreState) =>
+  userSubscriptionReducer.getUpdateSubscriptionsError(
+    state.subscriptions?.user,
+  );
 
 /**
  * Returns the result of a user subscription.
@@ -46,11 +43,7 @@ export const getUpdateSubscriptionsError = (state: StoreState) =>
  * @returns User subscription result.
  */
 export const getUserSubscriptions = (state: StoreState) =>
-  getSubscriptions(state.subscriptions?.user);
-
-// Default user subscriptions value for the following selectors.
-// It is outside of each selector to keep reference integrity.
-const DEFAULT_USER_SUBSCRIPTIONS_VALUE: UserState['result'] = [];
+  userSubscriptionReducer.getUserSubscriptions(state.subscriptions?.user);
 
 /**
  * Returns the user subscribed topics for the specified platform.
@@ -126,7 +119,9 @@ export const getUserSubscribedTopicsForAddress = createSelector(
  * @returns User subscription loading status.
  */
 export const isUserSubscriptionsLoading = (state: StoreState) =>
-  getSubscriptionsIsLoading(state.subscriptions?.user);
+  userSubscriptionReducer.getUserSubscriptionsIsLoading(
+    state.subscriptions?.user,
+  );
 
 /**
  * Returns the error given a subscription package action.
@@ -137,8 +132,13 @@ export const isUserSubscriptionsLoading = (state: StoreState) =>
  */
 export const getSubscriptionPackagesError = (
   state: StoreState,
-): PackagesState['error'] =>
-  defaultTo(getPackagesError(state.subscriptions?.packages), undefined);
+): SubscriptionsState['packages']['error'] =>
+  defaultTo(
+    subscriptionPackagesReducer.getSubscriptionPackagesError(
+      state.subscriptions?.packages,
+    ),
+    null,
+  );
 
 /**
  * Returns the result of a subscription package.
@@ -148,7 +148,10 @@ export const getSubscriptionPackagesError = (
  * @returns Subscription package result.
  */
 export const getSubscriptionPackages = createSelector(
-  (state: StoreState) => getPackages(state.subscriptions?.packages),
+  (state: StoreState) =>
+    subscriptionPackagesReducer.getSubscriptionPackages(
+      state.subscriptions?.packages,
+    ),
   (state: StoreState) => getEntities(state, 'subscriptionPackages'),
   (subscriptionPackagesResult, subscriptionPackagesEntity) => {
     return (
@@ -167,10 +170,12 @@ export const getSubscriptionPackages = createSelector(
  *
  * @returns Subscription package loading status.
  */
-export const isSubscriptionPackagesLoading = (
+export const areSubscriptionPackagesLoading = (
   state: StoreState,
-): PackagesState['isLoading'] | undefined =>
-  getPackagesIsLoading(state.subscriptions?.packages);
+): SubscriptionsState['packages']['isLoading'] | undefined =>
+  subscriptionPackagesReducer.getSubscriptionPackagesIsLoading(
+    state.subscriptions?.packages,
+  );
 
 /**
  * Returns the supported delivery channels for all subscription packages.
@@ -179,8 +184,10 @@ export const isSubscriptionPackagesLoading = (
  *
  * @returns The supported delivery channels.
  */
-export const getSupportedChannels = (state: StoreState) => {
-  const result = getPackages(state.subscriptions?.packages);
+export const getSubscriptionPackagesSupportedChannels = (state: StoreState) => {
+  const result = subscriptionPackagesReducer.getSubscriptionPackages(
+    state.subscriptions?.packages,
+  );
 
   return (result && result.supportedChannels) || undefined;
 };
@@ -199,7 +206,9 @@ export const getUnsubscribeRecipientFromTopicRequest = (
   recipientId: string,
 ) => {
   const unsubscribeRecipientFromTopicRequests =
-    getUnsubscribeRecipientFromTopicRequestsReducer(state.subscriptions?.user);
+    userSubscriptionReducer.getUnsubscribeRecipientFromTopicRequests(
+      state.subscriptions?.user,
+    );
 
   return unsubscribeRecipientFromTopicRequests?.[recipientId];
 };
@@ -214,7 +223,9 @@ export const getUnsubscribeRecipientFromTopicRequest = (
  */
 export const getUnsubscribeRecipientFromTopicRequests = createSelector(
   (state: StoreState) =>
-    getUnsubscribeRecipientFromTopicRequestsReducer(state.subscriptions?.user),
+    userSubscriptionReducer.getUnsubscribeRecipientFromTopicRequests(
+      state.subscriptions?.user,
+    ),
   unsubscribeRecipientFromTopicRequests =>
     Object.entries(unsubscribeRecipientFromTopicRequests || {}).map(
       ([recipientId, unsubscribeRequestState]) => {

@@ -1,4 +1,4 @@
-import { actionTypes } from '../..';
+import { subscriptionsActionTypes as actionTypes } from '../..';
 import { mockStore } from '../../../../tests';
 import { resetSubscriptions } from '..';
 import reducer from '../../reducer';

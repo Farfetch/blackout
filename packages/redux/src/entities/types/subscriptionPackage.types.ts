@@ -1,4 +1,4 @@
-import type { SubscriptionPackage } from '@farfetch/blackout-client/subscriptions/types';
+import type { SubscriptionPackage } from '@farfetch/blackout-client';
 
 export type SubscriptionPackageEntity = SubscriptionPackage;
 
