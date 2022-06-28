@@ -5,22 +5,24 @@ import {
   FETCH_CHECKOUT_ORDER_OPERATIONS_SUCCESS,
 } from '../../actionTypes';
 import { fetchCheckoutOrderOperations } from '..';
+import {
+  GetCheckoutOrderOperationsQuery,
+  getCheckoutOrderOperations as originalGetOperations,
+} from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import {
   mockGetOperationsActionPayload,
   mockGetOperationsResponse,
 } from 'tests/__fixtures__/checkout';
 import { mockStore } from '../../../../tests';
-import { getOperations as originalGetOperations } from '@farfetch/blackout-client/checkout';
 import type { AnyAction } from 'redux';
-import type { GetOperationsQuery } from '@farfetch/blackout-client/checkout/types';
 import type { MockStoreEnhanced } from 'redux-mock-store';
 import type { StoreState } from '../../../types';
 import type { ThunkDispatch } from 'redux-thunk';
 
-jest.mock('@farfetch/blackout-client/checkout', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/checkout'),
-  getOperations: jest.fn(),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
+  getCheckoutOrderOperations: jest.fn(),
 }));
 
 const getOperations = originalGetOperations as jest.MockedFunction<
@@ -29,7 +31,7 @@ const getOperations = originalGetOperations as jest.MockedFunction<
 
 describe('fetchCheckoutOrderOperations() action creator', () => {
   const orderId = 1;
-  const query: GetOperationsQuery = {
+  const query: GetCheckoutOrderOperationsQuery = {
     page: 1,
     pageSize: 10,
     sort: ['createdDate:asc'],
@@ -75,6 +77,7 @@ describe('fetchCheckoutOrderOperations() action creator', () => {
 
   it('should create the correct actions for when the fetch checkout order operations procedure is successful', async () => {
     getOperations.mockResolvedValueOnce(mockGetOperationsResponse);
+
     await store.dispatch(fetchCheckoutOrderOperations(orderId, query));
 
     const actionResults = store.getActions();

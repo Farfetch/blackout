@@ -1,12 +1,12 @@
 import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { Config } from '@farfetch/blackout-client/types';
-import type { Dispatch } from 'redux';
 import type {
-  GetChargesResponse,
-  PostCharges,
-  PostChargesData,
-} from '@farfetch/blackout-client/checkout/types';
+  Config,
+  GetCheckoutOrderChargeResponse,
+  PostCheckoutOrderCharges,
+  PostCheckoutOrderChargesData,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
 
 /**
  * @param id     - Numeric identifier of the checkout order.
@@ -25,15 +25,15 @@ import type {
  * @returns Thunk factory.
  */
 const chargeFactory =
-  (postCharges: PostCharges) =>
-  (id: string, data: PostChargesData, config?: Config) =>
-  async (dispatch: Dispatch): Promise<GetChargesResponse> => {
+  (postCheckoutOrderCharges: PostCheckoutOrderCharges) =>
+  (id: number, data: PostCheckoutOrderChargesData, config?: Config) =>
+  async (dispatch: Dispatch): Promise<GetCheckoutOrderChargeResponse> => {
     try {
       dispatch({
         type: actionTypes.CHARGE_REQUEST,
       });
 
-      const result = await postCharges(id, data, config);
+      const result = await postCheckoutOrderCharges(id, data, config);
 
       dispatch({
         payload: result,

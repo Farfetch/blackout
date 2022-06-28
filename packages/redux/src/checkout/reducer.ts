@@ -14,7 +14,6 @@ import type {
   ChargeFailureAction,
   ChargeRequestAction,
   ChargeSuccessAction,
-  CompletePaymentCheckoutSuccessAction,
   DeliveryBundleFailureAction,
   DeliveryBundleRequestAction,
   FetchChargesFailureAction,
@@ -38,16 +37,16 @@ import type {
   UpdateCheckoutOrderItemSuccessAction,
   UpdateDeliveryBundleSuccessAction,
 } from './types';
+import type {
+  GetCheckoutOrderChargeResponse,
+  GetCheckoutOrderDeliveryBundleUpgradesResponse,
+} from '@farfetch/blackout-client';
 import type { StoreState } from '../types';
 
 export const INITIAL_STATE = {
   error: null,
   id: null,
   isLoading: false,
-  completePaymentCheckout: {
-    error: null,
-    isLoading: false,
-  },
   checkoutDetails: {
     error: null,
     isLoading: false,
@@ -224,9 +223,7 @@ const convertCheckoutOrder = (
 
 const mergeCheckoutOrder = (
   state: StoreState['entities'],
-  action:
-    | CompletePaymentCheckoutSuccessAction
-    | FetchCollectPointsSuccessAction,
+  action: FetchCollectPointsSuccessAction,
 ): StoreState['entities'] => {
   const { id } = action.meta;
   const currentCheckoutOrder = get(state, `checkoutOrders[${id}]`);
@@ -272,8 +269,6 @@ const handleUpdateCheckoutOrderItemSuccess = produce<
 });
 
 export const entitiesMapper = {
-  [actionTypes.COMPLETE_PAYMENT_CHECKOUT_SUCCESS as typeof actionTypes.COMPLETE_PAYMENT_CHECKOUT_SUCCESS]:
-    mergeCheckoutOrder,
   [actionTypes.FETCH_COLLECT_POINTS_SUCCESS as typeof actionTypes.FETCH_COLLECT_POINTS_SUCCESS]:
     mergeCheckoutOrder,
   [actionTypes.FETCH_CHECKOUT_DETAILS_SUCCESS as typeof actionTypes.FETCH_CHECKOUT_DETAILS_SUCCESS]:
@@ -403,13 +398,6 @@ export const entitiesMapper = {
     handleUpdateCheckoutOrderItemSuccess,
 };
 
-export const completePaymentCheckout = reducerFactory(
-  'COMPLETE_PAYMENT_CHECKOUT',
-  INITIAL_STATE.completePaymentCheckout,
-  actionTypes,
-  true,
-);
-
 export const checkoutDetails = reducerFactory(
   'FETCH_CHECKOUT_DETAILS',
   INITIAL_STATE.checkoutDetails,
@@ -463,7 +451,7 @@ export const charges = (
     | ChargeFailureAction
     | ChargeRequestAction
     | ResetChargesStateAction,
-): StateWithResult => {
+): StateWithResult<GetCheckoutOrderChargeResponse> => {
   switch (action?.type) {
     case actionTypes.CHARGE_REQUEST:
     case actionTypes.FETCH_CHARGES_REQUEST:
@@ -502,7 +490,7 @@ export const deliveryBundleUpgrades = (
     | UpdateDeliveryBundleSuccessAction
     | FetchDeliveryBundleSuccessAction
     | DeliveryBundleFailureAction,
-): StateWithResult => {
+): StateWithResult<GetCheckoutOrderDeliveryBundleUpgradesResponse> => {
   switch (action?.type) {
     case actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_REQUEST:
     case actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADES_REQUEST:
@@ -588,9 +576,6 @@ export const getId = (state: State): State['id'] => state.id;
 export const getIsLoading = (state: State): State['isLoading'] =>
   state.isLoading;
 
-export const getCompletePaymentCheckout = (
-  state: State,
-): State['completePaymentCheckout'] => state.completePaymentCheckout;
 export const getCheckoutDetails = (state: State): State['checkoutDetails'] =>
   state.checkoutDetails;
 export const getCollectPoints = (state: State): State['collectPoints'] =>
@@ -633,7 +618,6 @@ export default combineReducers({
   error,
   id,
   isLoading,
-  completePaymentCheckout,
   checkoutDetails,
   collectPoints,
   itemTags,

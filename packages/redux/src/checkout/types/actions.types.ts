@@ -221,12 +221,6 @@ export type DeliveryBundleAction =
   | FetchDeliveryBundleSuccessAction
   | DeliveryBundleRequestAction;
 
-export interface CompletePaymentCheckoutSuccessAction extends Action {
-  type: typeof actionTypes.COMPLETE_PAYMENT_CHECKOUT_SUCCESS;
-  meta: { id: number };
-  payload: Payload;
-}
-
 export interface FetchCollectPointsSuccessAction extends Action {
   type: typeof actionTypes.FETCH_COLLECT_POINTS_SUCCESS;
   meta: { id: number };

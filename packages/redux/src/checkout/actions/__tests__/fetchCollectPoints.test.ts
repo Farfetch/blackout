@@ -4,13 +4,13 @@ import {
   mockCollectPointsResponse,
 } from 'tests/__fixtures__/checkout';
 import { fetchCollectPoints } from '..';
-import { getCollectPoints } from '@farfetch/blackout-client/checkout';
+import { getCollectPoints } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 
-jest.mock('@farfetch/blackout-client/checkout', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/checkout'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getCollectPoints: jest.fn(),
 }));
 

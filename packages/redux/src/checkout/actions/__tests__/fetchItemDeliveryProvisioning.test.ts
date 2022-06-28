@@ -7,14 +7,14 @@ import {
   mockItemDeliveryPorvisioningResponse,
 } from 'tests/__fixtures__/checkout';
 import { fetchItemDeliveryProvisioning } from '..';
-import { getItemDeliveryProvisioning } from '@farfetch/blackout-client/checkout';
+import { getCheckoutOrderDeliveryBundleProvisioning } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 
-jest.mock('@farfetch/blackout-client/checkout', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/checkout'),
-  getItemDeliveryProvisioning: jest.fn(),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
+  getCheckoutOrderDeliveryBundleProvisioning: jest.fn(),
 }));
 
 describe('fetchItemDeliveryProvisioning() action creator', () => {
@@ -33,7 +33,9 @@ describe('fetchItemDeliveryProvisioning() action creator', () => {
   it('should create the correct actions for when the fetch item delivery provisioning procedure fails', async () => {
     const expectedError = new Error('fetch item delivery provisioning error');
 
-    getItemDeliveryProvisioning.mockRejectedValueOnce(expectedError);
+    getCheckoutOrderDeliveryBundleProvisioning.mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
     try {
@@ -42,8 +44,10 @@ describe('fetchItemDeliveryProvisioning() action creator', () => {
       );
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(getItemDeliveryProvisioning).toHaveBeenCalledTimes(1);
-      expect(getItemDeliveryProvisioning).toHaveBeenCalledWith(
+      expect(getCheckoutOrderDeliveryBundleProvisioning).toHaveBeenCalledTimes(
+        1,
+      );
+      expect(getCheckoutOrderDeliveryBundleProvisioning).toHaveBeenCalledWith(
         checkoutId,
         deliveryBundleId,
         expectedConfig,
@@ -63,7 +67,7 @@ describe('fetchItemDeliveryProvisioning() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch item delivery provisioning procedure is successful', async () => {
-    getItemDeliveryProvisioning.mockResolvedValueOnce(
+    getCheckoutOrderDeliveryBundleProvisioning.mockResolvedValueOnce(
       mockItemDeliveryPorvisioningResponse,
     );
     await store.dispatch(
@@ -73,8 +77,8 @@ describe('fetchItemDeliveryProvisioning() action creator', () => {
 
     expect.assertions(5);
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
-    expect(getItemDeliveryProvisioning).toHaveBeenCalledTimes(1);
-    expect(getItemDeliveryProvisioning).toHaveBeenCalledWith(
+    expect(getCheckoutOrderDeliveryBundleProvisioning).toHaveBeenCalledTimes(1);
+    expect(getCheckoutOrderDeliveryBundleProvisioning).toHaveBeenCalledWith(
       checkoutId,
       deliveryBundleId,
       expectedConfig,

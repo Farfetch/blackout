@@ -10,16 +10,16 @@ import {
   operation,
 } from 'tests/__fixtures__/checkout';
 import { mockStore } from '../../../../tests';
-import { getOperation as originalGetOperation } from '@farfetch/blackout-client/checkout';
+import { getCheckoutOrderOperation as originalGetOperation } from '@farfetch/blackout-client';
 import fetchCheckoutOrderOperation from '../fetchCheckoutOrderOperation';
 import type { AnyAction } from 'redux';
 import type { MockStoreEnhanced } from 'redux-mock-store';
 import type { StoreState } from '../../../types';
 import type { ThunkDispatch } from 'redux-thunk';
 
-jest.mock('@farfetch/blackout-client/checkout', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/checkout'),
-  getOperation: jest.fn(),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
+  getCheckoutOrderOperation: jest.fn(),
 }));
 
 const getOperation = originalGetOperation as jest.MockedFunction<

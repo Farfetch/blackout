@@ -1,4 +1,4 @@
-import { getOperations } from '@farfetch/blackout-client/checkout';
+import { getCheckoutOrderOperations } from '@farfetch/blackout-client';
 import fetchCheckoutOrderOperationsFactory from './factories/fetchCheckoutOrderOperationsFactory';
 
 /**
@@ -10,4 +10,4 @@ import fetchCheckoutOrderOperationsFactory from './factories/fetchCheckoutOrderO
  *
  * @type {FetchCheckoutOrderOperationsThunkFactory}
  */
-export default fetchCheckoutOrderOperationsFactory(getOperations);
+export default fetchCheckoutOrderOperationsFactory(getCheckoutOrderOperations);

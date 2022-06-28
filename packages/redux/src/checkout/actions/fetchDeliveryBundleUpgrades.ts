@@ -1,7 +1,9 @@
 import { fetchDeliveryBundleUpgradesFactory } from './factories';
-import { getDeliveryBundleUpgrades } from '@farfetch/blackout-client/checkout';
+import { getCheckoutOrderDeliveryBundleUpgrades } from '@farfetch/blackout-client';
 
 /**
  * Fetch Delivery Bundle Upgrades.
  */
-export default fetchDeliveryBundleUpgradesFactory(getDeliveryBundleUpgrades);
+export default fetchDeliveryBundleUpgradesFactory(
+  getCheckoutOrderDeliveryBundleUpgrades,
+);

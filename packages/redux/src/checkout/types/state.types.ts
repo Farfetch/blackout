@@ -19,7 +19,6 @@ export type State = CombinedState<{
   error: Nullable<BlackoutError>;
   id: number | null;
   isLoading: boolean;
-  completePaymentCheckout: StateWithoutResult;
   collectPoints: StateWithoutResult;
   itemTags: StateWithoutResult;
   promoCode: StateWithoutResult;

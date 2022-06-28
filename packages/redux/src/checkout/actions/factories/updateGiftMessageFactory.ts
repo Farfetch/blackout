@@ -1,11 +1,11 @@
 import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { Config } from '@farfetch/blackout-client/types';
-import type { Dispatch } from 'redux';
 import type {
-  PatchGiftMessage,
-  PatchGiftMessageData,
-} from '@farfetch/blackout-client/checkout/types';
+  Config,
+  PatchCheckoutOrderItems,
+  PatchCheckoutOrderItemsData,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
 
 /**
  * @param id     - Universal identifier of the Checkout.
@@ -20,20 +20,20 @@ import type {
  * Method responsible for adding, editing and removing gift messages to the current
  * checkout order.
  *
- * @param patchGiftMessage - Patch gift message client.
+ * @param patchCheckoutOrderItems - Patch gift message client.
  *
  * @returns Thunk factory.
  */
 const updateGiftMessageFactory =
-  (patchGiftMessage: PatchGiftMessage) =>
-  (id: number, data: PatchGiftMessageData, config?: Config) =>
+  (patchCheckoutOrderItems: PatchCheckoutOrderItems) =>
+  (id: number, data: PatchCheckoutOrderItemsData, config?: Config) =>
   async (dispatch: Dispatch): Promise<number> => {
     try {
       dispatch({
         type: actionTypes.UPDATE_GIFT_MESSAGE_REQUEST,
       });
 
-      const result = await patchGiftMessage(id, data, config);
+      const result = await patchCheckoutOrderItems(id, data, config);
 
       dispatch({
         type: actionTypes.UPDATE_GIFT_MESSAGE_SUCCESS,

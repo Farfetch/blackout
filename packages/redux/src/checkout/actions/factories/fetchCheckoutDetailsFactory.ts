@@ -2,12 +2,12 @@ import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import checkoutDetailsSchema from '../../../entities/schemas/checkoutDetails';
-import type { Config } from '@farfetch/blackout-client/types';
-import type { Dispatch } from 'redux';
 import type {
-  GetCheckoutDetails,
-  GetCheckoutDetailsResponse,
-} from '@farfetch/blackout-client/checkout/types';
+  Config,
+  GetCheckoutOrderDetails,
+  GetCheckoutOrderDetailsResponse,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
 
 /**
  * @param id     - Universal identifier of the Checkout.
@@ -21,19 +21,19 @@ import type {
  * Method responsible for obtaining the checkout details. These are used for the
  * order confirmation.
  *
- * @param getCheckoutDetails - Get checkout details client.
+ * @param getCheckoutOrderDetails - Get checkout details client.
  *
  * @returns Thunk factory.
  */
-export default (getCheckoutDetails: GetCheckoutDetails) =>
+export default (getCheckoutOrderDetails: GetCheckoutOrderDetails) =>
   (id: number, config?: Config) =>
-  async (dispatch: Dispatch): Promise<GetCheckoutDetailsResponse> => {
+  async (dispatch: Dispatch): Promise<GetCheckoutOrderDetailsResponse> => {
     try {
       dispatch({
         type: actionTypes.FETCH_CHECKOUT_DETAILS_REQUEST,
       });
 
-      const result = await getCheckoutDetails(id, config);
+      const result = await getCheckoutOrderDetails(id, config);
 
       dispatch({
         meta: { id },

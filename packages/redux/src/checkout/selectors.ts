@@ -2,7 +2,6 @@ import { createSelector } from 'reselect';
 import {
   getCheckoutDetails,
   getCollectPoints,
-  getCompletePaymentCheckout,
   getDeliveryBundleUpgrades,
   getError,
   getGiftMessage,
@@ -33,9 +32,9 @@ import type {
 } from '../entities/types';
 import type {
   DeliveryWindowType,
-  GetChargesResponse,
+  GetCheckoutOrderChargeResponse,
   ItemDeliveryOption,
-} from '@farfetch/blackout-client/checkout/types';
+} from '@farfetch/blackout-client';
 import type { State } from './types';
 import type { StoreState } from '../types';
 
@@ -345,7 +344,18 @@ export const getCheckoutCollectPointEstimatedDeliveryPeriod = createSelector(
     };
 
     const selectedShippingService = shippingOptions?.reduce(
-      (service, shippingOption) => {
+      (
+        service: {
+          minEstimatedDeliveryHour: string;
+          maxEstimatedDeliveryHour: string;
+        },
+        shippingOption: {
+          shippingService: {
+            minEstimatedDeliveryHour: string;
+            maxEstimatedDeliveryHour: string;
+          };
+        },
+      ) => {
         const emptyArray: number[] = [];
         const merchants = get(shippingOption, 'merchants', emptyArray);
         if (merchants.includes(merchantLocationId)) {
@@ -391,27 +401,6 @@ export const isCheckoutLoading = (state: StoreState): boolean =>
 /**
  * Returns the error or loading status of each sub-area.
  */
-
-/**
- * Returns the loading status for the complete payment checkout operation.
- *
- * @param state - Application state.
- *
- * @returns Complete payment checkout operation Loading status.
- */
-export const isCompletePaymentCheckoutLoading = (state: StoreState): boolean =>
-  getCompletePaymentCheckout(state.checkout).isLoading;
-
-/**
- * Returns the error for the complete payment checkout operation.
- *
- * @param state - Application state.
- *
- * @returns Complete payment checkout operation error.
- */
-export const getCompletePaymentCheckoutError = (
-  state: StoreState,
-): BlackoutError | null => getCompletePaymentCheckout(state.checkout).error;
 
 /**
  * Returns the loading status for the checkout details operation.
@@ -564,7 +553,8 @@ export const getChargesError = (state: StoreState): BlackoutError | null =>
  */
 export const getChargesResult = (
   state: StoreState,
-): string | GetChargesResponse | null => getPaidOrders(state.checkout).result;
+): string | GetCheckoutOrderChargeResponse | null =>
+  getPaidOrders(state.checkout).result;
 
 /**
  * Returns the loading status for the delivery bundle upgrades operation.

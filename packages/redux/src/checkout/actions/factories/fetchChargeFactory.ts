@@ -1,11 +1,11 @@
 import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { Config } from '@farfetch/blackout-client/types';
-import type { Dispatch } from 'redux';
 import type {
+  Config,
   GetCheckoutOrderCharge,
   GetCheckoutOrderChargeResponse,
-} from '@farfetch/blackout-client/checkout/types';
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
 
 /**
  * @param id       - Numeric identifier of the checkout order.

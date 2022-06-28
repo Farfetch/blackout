@@ -1,11 +1,11 @@
 import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
-import type { Config } from '@farfetch/blackout-client/types';
-import type { Dispatch } from 'redux';
 import type {
-  PatchDeliveryBundleUpgrades,
-  PatchDeliveryBundleUpgradesData,
-} from '@farfetch/blackout-client/checkout/types';
+  Config,
+  PatchCheckoutOrderDeliveryBundleUpgrades,
+  PatchCheckoutOrderDeliveryBundleUpgradesData,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
 
 /**
  * @param id               - Identifier of the checkout order.
@@ -15,21 +15,21 @@ import type {
  *                           and \{index\}/id where \{index\} is the index (zero-based) of the delivery
  *                           bundle upgrade to select.
  *
- *                               It's recommended to add a test operation to the request to
- *                               guarantee the index is the upgrade to be selected.
- *                               Example:
- *                                 [
- *                                    \{
- *                                       "op":"replace",
- *                                       "path": "0/isSelected",
- *                                       "value": "true"
- *                                    \}
- *                                    \{
- *                                       "op":"test",
- *                                       "path": "0/id",
- *                                       "value": "25314851"
- *                                    \}
- *                                 ].
+ *                           It's recommended to add a test operation to the request to
+ *                           guarantee the index is the upgrade to be selected.
+ *                           Example:
+ *                             [
+ *                                \{
+ *                                   "op":"replace",
+ *                                   "path": "0/isSelected",
+ *                                   "value": "true"
+ *                                \}
+ *                                \{
+ *                                   "op":"test",
+ *                                   "path": "0/id",
+ *                                   "value": "25314851"
+ *                                \}
+ *                             ].
  * @param config           - Custom configurations to send to the client instance (axios).
  *
  * @returns Thunk to be dispatched to the redux store.
@@ -38,16 +38,18 @@ import type {
 /**
  * Updates a list of delivery bundle upgrades available for a delivery bundle.
  *
- * @param patchDeliveryBundleUpgrades - Patch delivery bundle upgrades client.
+ * @param patchCheckoutOrderDeliveryBundleUpgrades - Patch delivery bundle upgrades client.
  *
  * @returns Thunk factory.
  */
 const updateDeliveryBundleUpgradesFactory =
-  (patchDeliveryBundleUpgrades: PatchDeliveryBundleUpgrades) =>
+  (
+    patchCheckoutOrderDeliveryBundleUpgrades: PatchCheckoutOrderDeliveryBundleUpgrades,
+  ) =>
   (
     id: number,
     deliveryBundleId: string,
-    data: PatchDeliveryBundleUpgradesData,
+    data: Array<PatchCheckoutOrderDeliveryBundleUpgradesData>,
     config?: Config,
   ) =>
   async (dispatch: Dispatch): Promise<number> => {
@@ -56,7 +58,7 @@ const updateDeliveryBundleUpgradesFactory =
         type: actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADES_REQUEST,
       });
 
-      const result = await patchDeliveryBundleUpgrades(
+      const result = await patchCheckoutOrderDeliveryBundleUpgrades(
         id,
         deliveryBundleId,
         data,

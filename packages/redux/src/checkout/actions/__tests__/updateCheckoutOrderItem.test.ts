@@ -1,6 +1,6 @@
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import { patchCheckoutOrderItem as orginalPatchCheckoutOrderItem } from '@farfetch/blackout-client/checkout';
+import { patchCheckoutOrderItem as orginalPatchCheckoutOrderItem } from '@farfetch/blackout-client';
 import {
   UPDATE_CHECKOUT_ORDER_ITEM_FAILURE,
   UPDATE_CHECKOUT_ORDER_ITEM_REQUEST,
@@ -12,8 +12,8 @@ import type { MockStoreEnhanced } from 'redux-mock-store';
 import type { StoreState } from '../../../types';
 import type { ThunkDispatch } from 'redux-thunk';
 
-jest.mock('@farfetch/blackout-client/checkout', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/checkout'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   patchCheckoutOrderItem: jest.fn(),
 }));
 

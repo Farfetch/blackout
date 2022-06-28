@@ -496,7 +496,6 @@ describe('checkout redux selectors', () => {
 
   describe('Sub-areas selectors', () => {
     const subAreaNames = [
-      'CompletePaymentCheckout',
       'CheckoutDetails',
       'CollectPoints',
       'ItemTags',

@@ -1,7 +1,7 @@
 import { createCheckoutFactory } from './factories';
-import { postCheckout } from '@farfetch/blackout-client/checkout';
+import { postCheckoutOrder } from '@farfetch/blackout-client';
 
 /**
  * Create checkout.
  */
-export default createCheckoutFactory(postCheckout);
+export default createCheckoutFactory(postCheckoutOrder);

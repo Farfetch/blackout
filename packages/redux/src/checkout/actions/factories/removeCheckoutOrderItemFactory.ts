@@ -1,6 +1,8 @@
 import * as actionTypes from '../../actionTypes';
-import type { Config } from '@farfetch/blackout-client/types';
-import type { DeleteCheckoutOrderItem } from '@farfetch/blackout-client/checkout/types/deleteCheckoutOrderItem.types';
+import type {
+  Config,
+  DeleteCheckoutOrderItem,
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
 /**

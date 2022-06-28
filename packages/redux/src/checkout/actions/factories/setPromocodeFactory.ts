@@ -2,13 +2,13 @@ import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import checkoutSchema from '../../../entities/schemas/checkout';
-import type { Config } from '@farfetch/blackout-client/types';
-import type { Dispatch } from 'redux';
 import type {
-  GetCheckoutResponse,
-  PutPromocode,
-  PutPromocodeData,
-} from '@farfetch/blackout-client/checkout/types';
+  Config,
+  GetCheckoutOrderResponse,
+  PutCheckoutOrderPromocode,
+  PutCheckoutOrderPromocodeData,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
 
 /**
  * @param id     - Universal identifier of the Checkout.
@@ -21,20 +21,20 @@ import type {
 /**
  * Method responsible for adding promo code information.
  *
- * @param putPromocode - Put promocode client.
+ * @param putCheckoutOrderPromocode - Put promocode client.
  *
  * @returns Thunk factory.
  */
 const setPromocodeFactory =
-  (putPromocode: PutPromocode) =>
-  (id: number, data: PutPromocodeData, config?: Config) =>
-  async (dispatch: Dispatch): Promise<GetCheckoutResponse> => {
+  (putCheckoutOrderPromocode: PutCheckoutOrderPromocode) =>
+  (id: number, data: PutCheckoutOrderPromocodeData, config?: Config) =>
+  async (dispatch: Dispatch): Promise<GetCheckoutOrderResponse> => {
     try {
       dispatch({
         type: actionTypes.SET_PROMOCODE_REQUEST,
       });
 
-      const result = await putPromocode(id, data, config);
+      const result = await putCheckoutOrderPromocode(id, data, config);
 
       dispatch({
         payload: normalize(result, checkoutSchema),

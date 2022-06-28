@@ -2,13 +2,13 @@ import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import checkoutSchema from '../../../entities/schemas/checkout';
-import type { Config } from '@farfetch/blackout-client/types';
-import type { Dispatch } from 'redux';
 import type {
-  GetCheckout,
-  GetCheckoutQuery,
-  GetCheckoutResponse,
-} from '@farfetch/blackout-client/checkout/types';
+  Config,
+  GetCheckoutOrder,
+  GetCheckoutOrderQuery,
+  GetCheckoutOrderResponse,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
 
 /**
  * @param id     - Universal identifier of the Checkout.
@@ -21,19 +21,19 @@ import type {
 /**
  * Method responsible for obtaining the checkout.
  *
- * @param getCheckout - Get checkout client.
+ * @param getCheckoutOrder - Get checkout client.
  *
  * @returns Thunk factory.
  */
-export default (getCheckout: GetCheckout) =>
-  (id: number, query: GetCheckoutQuery, config?: Config) =>
-  async (dispatch: Dispatch): Promise<GetCheckoutResponse> => {
+export default (getCheckoutOrder: GetCheckoutOrder) =>
+  (id: number, query: GetCheckoutOrderQuery, config?: Config) =>
+  async (dispatch: Dispatch): Promise<GetCheckoutOrderResponse> => {
     try {
       dispatch({
         type: actionTypes.FETCH_CHECKOUT_REQUEST,
       });
 
-      const result = await getCheckout(id, query, config);
+      const result = await getCheckoutOrder(id, query, config);
 
       dispatch({
         payload: normalize(result, checkoutSchema),

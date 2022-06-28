@@ -2,13 +2,13 @@ import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import checkoutSchema from '../../../entities/schemas/checkout';
-import type { Config } from '@farfetch/blackout-client/types';
-import type { Dispatch } from 'redux';
 import type {
-  GetCheckoutResponse,
-  PatchCheckout,
-  PatchCheckoutData,
-} from '@farfetch/blackout-client/checkout/types';
+  Config,
+  GetCheckoutOrderResponse,
+  PatchCheckoutOrder,
+  PatchCheckoutOrderData,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
 
 /**
  * @param id     - Universal identifier of the Checkout.
@@ -32,20 +32,20 @@ import type {
  * type of changes to the checkout object. This also replaces the deprecated
  * putShippingOption function.
  *
- * @param patchCheckout - Patch checkout client.
+ * @param patchCheckoutOrder - Patch checkout client.
  *
  * @returns Thunk factory.
  */
 const updateCheckoutFactory =
-  (patchCheckout: PatchCheckout) =>
-  (id: number, data: PatchCheckoutData, config?: Config) =>
-  async (dispatch: Dispatch): Promise<GetCheckoutResponse> => {
+  (patchCheckoutOrder: PatchCheckoutOrder) =>
+  (id: number, data: PatchCheckoutOrderData, config?: Config) =>
+  async (dispatch: Dispatch): Promise<GetCheckoutOrderResponse> => {
     try {
       dispatch({
         type: actionTypes.UPDATE_CHECKOUT_REQUEST,
       });
 
-      const result = await patchCheckout(id, data, config);
+      const result = await patchCheckoutOrder(id, data, config);
 
       dispatch({
         payload: normalize(result, checkoutSchema),

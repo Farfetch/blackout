@@ -1,7 +1,7 @@
 import { fetchCheckoutDetailsFactory } from './factories';
-import { getCheckoutDetails } from '@farfetch/blackout-client/checkout';
+import { getCheckoutOrderDetails } from '@farfetch/blackout-client';
 
 /**
  * Fetch checkout details.
  */
-export default fetchCheckoutDetailsFactory(getCheckoutDetails);
+export default fetchCheckoutDetailsFactory(getCheckoutOrderDetails);

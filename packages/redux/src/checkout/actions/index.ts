@@ -3,7 +3,6 @@
  */
 
 export { default as charge } from './charge';
-export { default as completePaymentCheckout } from './completePaymentCheckout';
 export { default as createCheckout } from './createCheckout';
 export { default as fetchCharge } from './fetchCharge';
 export { default as fetchCheckout } from './fetchCheckout';

@@ -7,21 +7,21 @@ import {
   mockItemDeliveryPorvisioningResponse,
 } from 'tests/__fixtures__/checkout';
 import { fetchUpgradeItemDeliveryProvisioning } from '..';
-import { getUpgradeItemDeliveryProvisioning } from '@farfetch/blackout-client/checkout';
+import { getCheckoutOrderDeliveryBundleUpgradeProvisioning } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 
-jest.mock('@farfetch/blackout-client/checkout', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/checkout'),
-  getUpgradeItemDeliveryProvisioning: jest.fn(),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
+  getCheckoutOrderDeliveryBundleUpgradeProvisioning: jest.fn(),
 }));
 
 describe('fetchUpgradeItemDeliveryProvisioning() action creator', () => {
   const checkoutMockStore = (state = {}) =>
     mockStore({ checkout: INITIAL_STATE }, state);
   const deliveryBundleId = mockDeliveryBundlesResponse[0].id;
-  const upgradeId = 1234;
+  const upgradeId = '1234';
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
   const expectedConfig = undefined;
   let store;
@@ -36,7 +36,9 @@ describe('fetchUpgradeItemDeliveryProvisioning() action creator', () => {
       'fetch upgrade item delivery provisioning error',
     );
 
-    getUpgradeItemDeliveryProvisioning.mockRejectedValueOnce(expectedError);
+    getCheckoutOrderDeliveryBundleUpgradeProvisioning.mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
     try {
@@ -49,8 +51,12 @@ describe('fetchUpgradeItemDeliveryProvisioning() action creator', () => {
       );
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(getUpgradeItemDeliveryProvisioning).toHaveBeenCalledTimes(1);
-      expect(getUpgradeItemDeliveryProvisioning).toHaveBeenCalledWith(
+      expect(
+        getCheckoutOrderDeliveryBundleUpgradeProvisioning,
+      ).toHaveBeenCalledTimes(1);
+      expect(
+        getCheckoutOrderDeliveryBundleUpgradeProvisioning,
+      ).toHaveBeenCalledWith(
         checkoutId,
         deliveryBundleId,
         upgradeId,
@@ -71,7 +77,7 @@ describe('fetchUpgradeItemDeliveryProvisioning() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch upgrade item delivery provisioning procedure is successful', async () => {
-    getUpgradeItemDeliveryProvisioning.mockResolvedValueOnce(
+    getCheckoutOrderDeliveryBundleUpgradeProvisioning.mockResolvedValueOnce(
       mockItemDeliveryPorvisioningResponse,
     );
     await store.dispatch(
@@ -85,8 +91,12 @@ describe('fetchUpgradeItemDeliveryProvisioning() action creator', () => {
 
     expect.assertions(5);
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
-    expect(getUpgradeItemDeliveryProvisioning).toHaveBeenCalledTimes(1);
-    expect(getUpgradeItemDeliveryProvisioning).toHaveBeenCalledWith(
+    expect(
+      getCheckoutOrderDeliveryBundleUpgradeProvisioning,
+    ).toHaveBeenCalledTimes(1);
+    expect(
+      getCheckoutOrderDeliveryBundleUpgradeProvisioning,
+    ).toHaveBeenCalledWith(
       checkoutId,
       deliveryBundleId,
       upgradeId,
