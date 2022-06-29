@@ -8,7 +8,7 @@ export type RecommendedSet = {
   products: Array<Product['result']['id']>;
 };
 
-export type GetRecommendedSet = (
+export type GetProductRecommendedSet = (
   id: number,
   config?: Record<string, unknown>,
 ) => Promise<RecommendedSet>;

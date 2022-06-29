@@ -1,10 +1,10 @@
-import { getRecommendedSet } from '../';
+import { getProductRecommendedSet } from '..';
 import {
   mockRecommendedSet,
   mockRecommendedSetId,
 } from 'tests/__fixtures__/products';
 import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getRecommendedSet.fixtures';
+import fixtures from '../__fixtures__/getProductRecommendedSet.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('recommended sets client', () => {
@@ -12,7 +12,7 @@ describe('recommended sets client', () => {
 
   beforeEach(jest.clearAllMocks);
 
-  describe('getRecommendedSet()', () => {
+  describe('getProductRecommendedSet()', () => {
     const spy = jest.spyOn(client, 'get');
 
     it('should handle a client request successfully', async () => {
@@ -20,9 +20,9 @@ describe('recommended sets client', () => {
 
       expect.assertions(2);
 
-      await expect(getRecommendedSet(mockRecommendedSetId)).resolves.toEqual(
-        mockRecommendedSet,
-      );
+      await expect(
+        getProductRecommendedSet(mockRecommendedSetId),
+      ).resolves.toEqual(mockRecommendedSet);
       expect(spy).toHaveBeenCalledWith(
         `/commerce/v1/recommendedsets/${mockRecommendedSetId}`,
         expectedConfig,
@@ -35,7 +35,7 @@ describe('recommended sets client', () => {
       expect.assertions(2);
 
       await expect(
-        getRecommendedSet(mockRecommendedSetId),
+        getProductRecommendedSet(mockRecommendedSetId),
       ).rejects.toMatchSnapshot();
       expect(spy).toHaveBeenCalledWith(
         `/commerce/v1/recommendedsets/${mockRecommendedSetId}`,

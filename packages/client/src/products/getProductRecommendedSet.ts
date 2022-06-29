@@ -1,6 +1,6 @@
 import client, { adaptError } from '../helpers/client';
 import join from 'proper-url-join';
-import type { GetRecommendedSet } from './types';
+import type { GetProductRecommendedSet } from './types';
 
 /**
  * Method responsible for getting the information of a specific recommended set.
@@ -13,7 +13,7 @@ import type { GetRecommendedSet } from './types';
  *
  * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
-const getRecommendedSet: GetRecommendedSet = (id, config) =>
+const getProductRecommendedSet: GetProductRecommendedSet = (id, config) =>
   client
     .get(join('/commerce/v1/recommendedsets', id), config)
     .then(response => response.data)
@@ -21,4 +21,4 @@ const getRecommendedSet: GetRecommendedSet = (id, config) =>
       throw adaptError(error);
     });
 
-export default getRecommendedSet;
+export default getProductRecommendedSet;

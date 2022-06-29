@@ -1,11 +1,11 @@
 import { rest, RestHandler } from 'msw';
-import type { ProductVariantByMerchantLocation } from '../types';
+import type { ProductVariantMerchantLocation } from '../types';
 
 const path =
   '/api/commerce/v1/products/:productId/variants/:variantId/merchantsLocations';
 
 const fixtures = {
-  success: (response: ProductVariantByMerchantLocation[]): RestHandler =>
+  success: (response: ProductVariantMerchantLocation[]): RestHandler =>
     rest.get(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),

@@ -1,14 +1,14 @@
-import { getProductVariantsByMerchantsLocations } from '..';
+import { getProductVariantsMerchantsLocations } from '..';
 import {
   mockProductId,
-  mockProductVariantsByMerchantsLocationsNormalizedResponse,
+  mockProductVariantsMerchantsLocationsNormalizedResponse,
   mockVariantId,
 } from 'tests/__fixtures__/products';
 import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getProductVariantsByMerchantsLocations.fixtures';
+import fixtures from '../__fixtures__/getProductVariantMerchantsLocations.fixtures';
 import mswServer from '../../../tests/mswServer';
 
-describe('getProductVariantsByMerchantsLocations', () => {
+describe('getProductVariantsMerchantsLocations', () => {
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'get');
 
@@ -16,18 +16,14 @@ describe('getProductVariantsByMerchantsLocations', () => {
 
   it('should handle a client request successfully', async () => {
     mswServer.use(
-      fixtures.success(
-        mockProductVariantsByMerchantsLocationsNormalizedResponse,
-      ),
+      fixtures.success(mockProductVariantsMerchantsLocationsNormalizedResponse),
     );
 
     expect.assertions(2);
 
     await expect(
-      getProductVariantsByMerchantsLocations(mockProductId, mockVariantId),
-    ).resolves.toEqual(
-      mockProductVariantsByMerchantsLocationsNormalizedResponse,
-    );
+      getProductVariantsMerchantsLocations(mockProductId, mockVariantId),
+    ).resolves.toEqual(mockProductVariantsMerchantsLocationsNormalizedResponse);
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/products/${mockProductId}/variants/${mockVariantId}/merchantsLocations`,
       expectedConfig,
@@ -40,7 +36,7 @@ describe('getProductVariantsByMerchantsLocations', () => {
     expect.assertions(2);
 
     await expect(
-      getProductVariantsByMerchantsLocations(mockProductId, mockVariantId),
+      getProductVariantsMerchantsLocations(mockProductId, mockVariantId),
     ).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/products/${mockProductId}/variants/${mockVariantId}/merchantsLocations`,

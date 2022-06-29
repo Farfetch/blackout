@@ -1,7 +1,7 @@
 import { mockPriceAdaptedEmpty } from './price.fixtures';
 import { mockProductId, mockVariantId } from './ids.fixtures';
 
-export const mockProductVariantsByMerchantsLocations = [
+export const mockProductVariantsMerchantsLocations = [
   { merchantLocationId: 1, quantity: 0, variantId: mockVariantId },
   { merchantLocationId: 2, quantity: 1, variantId: 123 },
   { merchantLocationId: 3, quantity: 99, variantId: 456 },
@@ -17,11 +17,11 @@ export const mockProductVariants = [
       },
     },
     size: '25',
-    merchantsLocations: mockProductVariantsByMerchantsLocations,
+    merchantsLocations: mockProductVariantsMerchantsLocations,
   },
 ];
 
-export const mockProductVariantsByMerchantsLocationsNormalizedResponse = {
+export const mockProductVariantsMerchantsLocationsNormalizedResponse = {
   entities: {
     products: {
       [mockProductId]: {
@@ -42,7 +42,7 @@ export const mockProductVariantsByMerchantsLocationsNormalizedResponse = {
           {
             id: mockVariantId,
             merchantId: 10948,
-            merchantsLocations: mockProductVariantsByMerchantsLocations,
+            merchantsLocations: mockProductVariantsMerchantsLocations,
             price: mockPriceAdaptedEmpty,
             size: '25',
           },
