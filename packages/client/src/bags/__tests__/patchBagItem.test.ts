@@ -1,7 +1,7 @@
 import {
   mockBagId,
+  mockBagItemData,
   mockBagItemId,
-  mockData,
   mockResponse,
 } from 'tests/__fixtures__/bags';
 import { patchBagItem } from '../';
@@ -21,12 +21,12 @@ describe('patchBagItem', () => {
     expect.assertions(2);
 
     await expect(
-      patchBagItem(mockBagId, mockBagItemId, mockData),
+      patchBagItem(mockBagId, mockBagItemId, mockBagItemData),
     ).resolves.toEqual(mockResponse);
 
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/bags/${mockBagId}/items/${mockBagItemId}`,
-      mockData,
+      mockBagItemData,
       expectedConfig,
     );
   });
@@ -37,12 +37,12 @@ describe('patchBagItem', () => {
     expect.assertions(2);
 
     await expect(
-      patchBagItem(mockBagId, mockBagItemId, mockData),
+      patchBagItem(mockBagId, mockBagItemId, mockBagItemData),
     ).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/bags/${mockBagId}/items/${mockBagItemId}`,
-      mockData,
+      mockBagItemData,
       expectedConfig,
     );
   });
