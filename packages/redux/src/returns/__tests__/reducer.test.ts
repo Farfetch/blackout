@@ -289,13 +289,12 @@ describe('returns reducer', () => {
       ).toEqual(state);
     });
 
-    it('should handle LOGOUT_SUCCESS', () => {
-      expect(
-        entitiesMapper[LOGOUT_SUCCESS as keyof typeof entitiesMapper](state, {
-          meta: { resetEntities: false },
-          type: LOGOUT_SUCCESS,
-        }),
-      ).toEqual(state);
+    it('should handle LOGOUT_SUCCESS action type', () => {
+      const { returns, returnItems, ...rest } = state;
+
+      expect(fromReducer.entitiesMapper[LOGOUT_SUCCESS](state)).toEqual({
+        ...rest,
+      });
     });
   });
 

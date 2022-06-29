@@ -1,3 +1,4 @@
+import { compose } from 'lodash/fp';
 import { entitiesMapper as entitiesMapperAddresses } from '../../addresses';
 import { entitiesMapper as entitiesMapperAuthentication } from '../../authentication';
 import { entitiesMapper as entitiesMapperBag } from '../../bags';
@@ -14,12 +15,17 @@ import createEntitiesReducer from './createEntities';
 import type { Reducer } from 'redux';
 import type { StoreState } from '../../types';
 
-type EntitiesMapper = (data?: {
-  extraMappers: Record<
-    string,
-    (state: StoreState['entities']) => StoreState['entities']
-  >;
-}) => Reducer<StoreState['entities']>;
+type EntityReducer = (state: any, action: any) => StoreState['entities'];
+
+export type EntityMapper = Record<string, EntityReducer>;
+
+type EntitiesMapper = (
+  extraMappers: EntityMapper[],
+) => Reducer<StoreState['entities']>;
+
+type EntitiesMapperAdapter = (
+  entitiesMappers: EntityMapper[],
+) => Record<string, EntityReducer>;
 
 // Default entities mappers for all redux functionalities.
 // Each `entitiesMapper` has to have an `typeof` in the object key to allow TS to understand
@@ -44,22 +50,61 @@ export const defaultMappers = {
   wishlist: entitiesMapperWishlist,
 };
 
-const entitiesMapper: EntitiesMapper = ({ ...extraMappers }) =>
-  createEntitiesReducer({
-    ...entitiesMapperAddresses,
-    ...entitiesMapperAuthentication,
-    ...entitiesMapperBag,
-    ...entitiesMapperCheckout,
-    ...entitiesMapperMerchantsLocations,
-    ...entitiesMapperOrders,
-    ...entitiesMapperPayments,
-    ...productsEntitiesMapper,
-    ...entitiesMapperUsers,
-    ...entitiesMapperReturns,
-    ...entitiesMapperSubscriptions,
-    ...entitiesMapperWishlist,
-    // These are overrides - must be in the last position
-    ...extraMappers,
+// Function that merges entities mappers and runs duplicate action keys.
+export const mergeEntitiesMapper: EntitiesMapperAdapter = entitiesMappers => {
+  const result: EntityMapper = {};
+  const duplicatedEntitiesReducers: Record<string, EntityReducer[]> = {};
+
+  entitiesMappers.forEach(entityMapper => {
+    for (const actionType in entityMapper) {
+      if (actionType in result) {
+        if (actionType in duplicatedEntitiesReducers) {
+          duplicatedEntitiesReducers[actionType]?.push(
+            entityMapper[actionType] as EntityReducer,
+          );
+        } else {
+          duplicatedEntitiesReducers[actionType] = [
+            result[actionType] as EntityReducer,
+            entityMapper[actionType] as EntityReducer,
+          ];
+        }
+      } else {
+        result[actionType] = entityMapper[actionType] as EntityReducer;
+      }
+    }
   });
+
+  for (const actionType in duplicatedEntitiesReducers) {
+    const newEntityReducer: EntityReducer = (state, action) => {
+      return compose(
+        ...(duplicatedEntitiesReducers[actionType] as EntityReducer[]),
+      )(state, action);
+    };
+
+    result[actionType] = newEntityReducer;
+  }
+
+  return result;
+};
+
+const entitiesMapper: EntitiesMapper = (extraMappers = []) =>
+  createEntitiesReducer(
+    mergeEntitiesMapper([
+      entitiesMapperAddresses,
+      entitiesMapperAuthentication,
+      entitiesMapperBag,
+      entitiesMapperCheckout,
+      entitiesMapperMerchantsLocations,
+      entitiesMapperOrders,
+      entitiesMapperPayments,
+      productsEntitiesMapper,
+      entitiesMapperReturns,
+      entitiesMapperSubscriptions,
+      entitiesMapperUsers,
+      entitiesMapperWishlist,
+      // These are overrides - must be in the last position
+      ...extraMappers,
+    ]),
+  );
 
 export default entitiesMapper;
