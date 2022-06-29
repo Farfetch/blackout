@@ -5,9 +5,9 @@ import { toError } from '@farfetch/blackout-client/helpers/client';
 import productSchema from '../../../entities/schemas/product';
 import type { Dispatch } from 'redux';
 import type {
-  GetProductVariantsByMerchantsLocations,
+  GetProductVariantMerchantsLocations,
   Product,
-  ProductVariantByMerchantLocation,
+  ProductVariantMerchantLocation,
 } from '@farfetch/blackout-client';
 import type { StoreState } from '../../../types';
 
@@ -28,9 +28,7 @@ import type { StoreState } from '../../../types';
  * @returns Thunk factory.
  */
 export const fetchProductVariantsByMerchantsLocationsFactory =
-  (
-    getProductVariantsByMerchantsLocations: GetProductVariantsByMerchantsLocations,
-  ) =>
+  (getProductVariantMerchantsLocations: GetProductVariantMerchantsLocations) =>
   (
     productId: Product['result']['id'],
     variantId: string,
@@ -39,7 +37,7 @@ export const fetchProductVariantsByMerchantsLocationsFactory =
   async (
     dispatch: Dispatch,
     getState: () => StoreState,
-  ): Promise<ProductVariantByMerchantLocation[]> => {
+  ): Promise<ProductVariantMerchantLocation[]> => {
     try {
       const state = getState();
       const variants = getProduct(state, productId)?.variants;
@@ -49,7 +47,7 @@ export const fetchProductVariantsByMerchantsLocationsFactory =
         type: actionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
       });
 
-      const result = await getProductVariantsByMerchantsLocations(
+      const result = await getProductVariantMerchantsLocations(
         productId,
         variantId,
         config,

@@ -2,7 +2,7 @@ import * as selectors from '../variantsByMerchantsLocations';
 import {
   mockProductId,
   mockProductsState,
-  mockProductVariantsByMerchantsLocations,
+  mockProductVariantsMerchantsLocations,
   mockVariantId,
 } from 'tests/__fixtures__/products';
 
@@ -15,7 +15,7 @@ describe('Merchants Locations', () => {
           mockProductId,
           mockVariantId,
         ),
-      ).toEqual(mockProductVariantsByMerchantsLocations);
+      ).toEqual(mockProductVariantsMerchantsLocations);
     });
 
     it('should not get the merchants locations if product without variant', () => {

@@ -1,12 +1,12 @@
 import * as normalizr from 'normalizr';
 import { fetchProductVariantsByMerchantsLocations } from '..';
-import { getProductVariantsByMerchantsLocations } from '@farfetch/blackout-client';
+import { getProductVariantsMerchantsLocations } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/variantsByMerchantsLocations';
 import {
   mockProductId,
   mockProductsState,
-  mockProductVariantsByMerchantsLocations,
-  mockProductVariantsByMerchantsLocationsNormalizedResponse,
+  mockProductVariantsMerchantsLocations,
+  mockProductVariantsMerchantsLocationsNormalizedResponse,
   mockVariantId,
 } from 'tests/__fixtures__/products';
 import { mockStore } from '../../../../tests';
@@ -14,7 +14,7 @@ import { productsActionTypes } from '../..';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
-  getProductVariantsByMerchantsLocations: jest.fn(),
+  getProductVariantsMerchantsLocations: jest.fn(),
 }));
 
 const productDetailsMockStore = (state = {}) =>
@@ -34,7 +34,7 @@ describe('fetchProductVariantsByMerchantsLocations() action creator', () => {
   it('should create the correct actions for when the fetch product merchants locations procedure fails', async () => {
     const expectedError = new Error('Fetch product merchants locations error');
 
-    getProductVariantsByMerchantsLocations.mockRejectedValueOnce(expectedError);
+    getProductVariantsMerchantsLocations.mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
@@ -44,8 +44,8 @@ describe('fetchProductVariantsByMerchantsLocations() action creator', () => {
       )
       .catch(error => {
         expect(error).toBe(expectedError);
-        expect(getProductVariantsByMerchantsLocations).toHaveBeenCalledTimes(1);
-        expect(getProductVariantsByMerchantsLocations).toHaveBeenCalledWith(
+        expect(getProductVariantsMerchantsLocations).toHaveBeenCalledTimes(1);
+        expect(getProductVariantsMerchantsLocations).toHaveBeenCalledWith(
           mockProductId,
           mockVariantId,
           expectedConfig,
@@ -65,8 +65,8 @@ describe('fetchProductVariantsByMerchantsLocations() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch product merchants locations procedure is successful', async () => {
-    getProductVariantsByMerchantsLocations.mockResolvedValueOnce(
-      mockProductVariantsByMerchantsLocations,
+    getProductVariantsMerchantsLocations.mockResolvedValueOnce(
+      mockProductVariantsMerchantsLocations,
     );
 
     expect.assertions(5);
@@ -76,12 +76,12 @@ describe('fetchProductVariantsByMerchantsLocations() action creator', () => {
         fetchProductVariantsByMerchantsLocations(mockProductId, mockVariantId),
       )
       .then(clientResult => {
-        expect(clientResult).toBe(mockProductVariantsByMerchantsLocations);
+        expect(clientResult).toBe(mockProductVariantsMerchantsLocations);
       });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
-    expect(getProductVariantsByMerchantsLocations).toHaveBeenCalledTimes(1);
-    expect(getProductVariantsByMerchantsLocations).toHaveBeenCalledWith(
+    expect(getProductVariantsMerchantsLocations).toHaveBeenCalledTimes(1);
+    expect(getProductVariantsMerchantsLocations).toHaveBeenCalledWith(
       mockProductId,
       mockVariantId,
       expectedConfig,
@@ -93,15 +93,15 @@ describe('fetchProductVariantsByMerchantsLocations() action creator', () => {
       },
       {
         meta: { productId: mockProductId },
-        payload: mockProductVariantsByMerchantsLocationsNormalizedResponse,
+        payload: mockProductVariantsMerchantsLocationsNormalizedResponse,
         type: productsActionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_SUCCESS,
       },
     ]);
   });
 
   it('should create the correct actions for when the fetch product merchants locations receives an unknown variant id', async () => {
-    getProductVariantsByMerchantsLocations.mockResolvedValueOnce(
-      mockProductVariantsByMerchantsLocations,
+    getProductVariantsMerchantsLocations.mockResolvedValueOnce(
+      mockProductVariantsMerchantsLocations,
     );
     const mockUnknownVariantId = '1234-cs';
 
@@ -115,12 +115,12 @@ describe('fetchProductVariantsByMerchantsLocations() action creator', () => {
         ),
       )
       .then(clientResult => {
-        expect(clientResult).toBe(mockProductVariantsByMerchantsLocations);
+        expect(clientResult).toBe(mockProductVariantsMerchantsLocations);
       });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
-    expect(getProductVariantsByMerchantsLocations).toHaveBeenCalledTimes(1);
-    expect(getProductVariantsByMerchantsLocations).toHaveBeenCalledWith(
+    expect(getProductVariantsMerchantsLocations).toHaveBeenCalledTimes(1);
+    expect(getProductVariantsMerchantsLocations).toHaveBeenCalledWith(
       mockProductId,
       mockUnknownVariantId,
       expectedConfig,
@@ -132,7 +132,7 @@ describe('fetchProductVariantsByMerchantsLocations() action creator', () => {
       },
       {
         meta: { productId: mockProductId },
-        payload: mockProductVariantsByMerchantsLocationsNormalizedResponse,
+        payload: mockProductVariantsMerchantsLocationsNormalizedResponse,
         type: productsActionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_SUCCESS,
       },
     ]);

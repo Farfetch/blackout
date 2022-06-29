@@ -1,7 +1,7 @@
 import { fetchSetFactory } from './factories';
-import { getSet } from '@farfetch/blackout-client';
+import { getProductSet } from '@farfetch/blackout-client';
 
 /**
  * Fetch a specific set by its id.
  */
-export const fetchSet = fetchSetFactory(getSet);
+export const fetchSet = fetchSetFactory(getProductSet);
