@@ -1,7 +1,6 @@
 import type {
   Bag,
   PatchBagItemData,
-  PostBagItemData,
   Query,
 } from '@farfetch/blackout-client/bags/types';
 import type { BagItemHydrated } from '@farfetch/blackout-redux/entities/types';
@@ -20,11 +19,6 @@ export type HandleFullUpdateType = (
 export type HandleDeleteBagItemType = (from?: string) => void;
 
 export type UseBagItem = (bagItemId: number) => {
-  addBagItem: (
-    data: PostBagItemData,
-    query?: Query,
-    config?: Record<string, unknown>,
-  ) => Promise<Bag>;
   deleteBagItem: (
     bagItemId: number,
     data?: PatchBagItemData,
