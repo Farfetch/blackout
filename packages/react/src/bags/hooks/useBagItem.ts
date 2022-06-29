@@ -269,10 +269,6 @@ const useBagItem: UseBagItem = bagItemId => {
 
   return {
     /**
-     * Adds a specific product to the bag.
-     */
-    addBagItem,
-    /**
      * Deletes a specific item from the bag.
      */
     deleteBagItem,

@@ -45,7 +45,6 @@ describe('useBagItem', () => {
     const current = getRenderedHook();
 
     expect(current).toStrictEqual({
-      addBagItem: expect.any(Function),
       bagItem: expect.any(Object),
       deleteBagItem: expect.any(Function),
       error: undefined,
@@ -74,14 +73,6 @@ describe('useBagItem', () => {
 
   describe('actions', () => {
     const mockData = {};
-
-    it('should call `add` action', () => {
-      const { addBagItem } = getRenderedHook();
-
-      addBagItem(mockData);
-
-      expect(mockDispatch).toHaveBeenCalledWith({ type: 'add' });
-    });
 
     it('should call `delete` action', () => {
       const { deleteBagItem } = getRenderedHook();
