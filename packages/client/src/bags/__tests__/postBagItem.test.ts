@@ -1,4 +1,8 @@
-import { mockBagId, mockData, mockResponse } from 'tests/__fixtures__/bags';
+import {
+  mockBagId,
+  mockBagItemData,
+  mockResponse,
+} from 'tests/__fixtures__/bags';
 import { postBagItem } from '../';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postBagItem.fixtures';
@@ -15,13 +19,13 @@ describe('postBagItem', () => {
 
     expect.assertions(2);
 
-    await expect(postBagItem(mockBagId, mockData)).resolves.toEqual(
+    await expect(postBagItem(mockBagId, mockBagItemData)).resolves.toEqual(
       mockResponse,
     );
 
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/bags/${mockBagId}/items`,
-      mockData,
+      mockBagItemData,
       expectedConfig,
     );
   });
@@ -31,11 +35,13 @@ describe('postBagItem', () => {
 
     expect.assertions(2);
 
-    await expect(postBagItem(mockBagId, mockData)).rejects.toMatchSnapshot();
+    await expect(
+      postBagItem(mockBagId, mockBagItemData),
+    ).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/bags/${mockBagId}/items`,
-      mockData,
+      mockBagItemData,
       expectedConfig,
     );
   });
