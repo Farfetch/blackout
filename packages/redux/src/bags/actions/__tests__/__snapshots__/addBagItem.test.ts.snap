@@ -4,17 +4,11 @@ exports[`addBagItem() action creator should create the correct actions for when 
 Object {
   "meta": Object {
     "bagId": "7894746",
-    "merchant": Object {
-      "id": 1,
-    },
-    "product": Object {
-      "id": 1,
-    },
-    "quantity": 1,
-    "scale": "1",
-    "size": Object {
-      "id": 1,
-    },
+    "merchantId": 4,
+    "productId": 1,
+    "quantity": 99,
+    "scale": 3,
+    "size": 2,
   },
   "payload": Object {
     "entities": Object {
@@ -215,17 +209,11 @@ exports[`addBagItem() action creator should create the correct actions for when 
 Object {
   "meta": Object {
     "bagId": "7894746",
-    "merchant": Object {
-      "id": 1,
-    },
-    "product": Object {
-      "id": 1,
-    },
-    "quantity": 1,
-    "scale": "1",
-    "size": Object {
-      "id": 1,
-    },
+    "merchantId": 4,
+    "productId": 1,
+    "quantity": 99,
+    "scale": 3,
+    "size": 2,
   },
   "payload": Object {
     "entities": Object {

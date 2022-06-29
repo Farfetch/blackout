@@ -3,7 +3,7 @@ import { addBagItem } from '..';
 import { INITIAL_STATE } from '../../reducer';
 import {
   mockBagId,
-  mockData,
+  mockBagItemData,
   mockNormalizedPayload,
   mockResponse,
   mockState,
@@ -38,7 +38,7 @@ describe('addBagItem() action creator', () => {
     store = bagMockStore({ bag: { id: null } });
     expect.assertions(2);
 
-    await store.dispatch(addBagItem(mockData)).catch(error => {
+    await store.dispatch(addBagItem(mockBagItemData)).catch(error => {
       expect(error).toMatchSnapshot();
       expect(store.getActions()).toHaveLength(1);
     });
@@ -52,12 +52,12 @@ describe('addBagItem() action creator', () => {
 
     expect.assertions(4);
 
-    await store.dispatch(addBagItem(mockData)).catch(error => {
+    await store.dispatch(addBagItem(mockBagItemData)).catch(error => {
       expect(error).toBe(expectedError);
       expect(postBagItem).toHaveBeenCalledTimes(1);
       expect(postBagItem).toHaveBeenCalledWith(
         mockBagId,
-        mockData,
+        mockBagItemData,
         expectedQuery,
         expectedConfig,
       );
@@ -65,14 +65,14 @@ describe('addBagItem() action creator', () => {
         {
           type: actionTypes.ADD_BAG_ITEM_REQUEST,
           meta: {
-            ...mockData,
+            ...mockBagItemData,
             bagId: mockBagId,
           },
         },
         {
           payload: { error: expectedError },
           meta: {
-            ...mockData,
+            ...mockBagItemData,
             bagId: mockBagId,
           },
           type: actionTypes.ADD_BAG_ITEM_FAILURE,
@@ -87,7 +87,7 @@ describe('addBagItem() action creator', () => {
 
     expect.assertions(5);
 
-    await store.dispatch(addBagItem(mockData)).then(clientResult => {
+    await store.dispatch(addBagItem(mockBagItemData)).then(clientResult => {
       expect(clientResult).toBe(mockResponse);
     });
 
@@ -96,7 +96,7 @@ describe('addBagItem() action creator', () => {
     expect(postBagItem).toHaveBeenCalledTimes(1);
     expect(postBagItem).toHaveBeenCalledWith(
       mockBagId,
-      mockData,
+      mockBagItemData,
       expectedQuery,
       expectedConfig,
     );
@@ -104,7 +104,7 @@ describe('addBagItem() action creator', () => {
       {
         type: actionTypes.ADD_BAG_ITEM_REQUEST,
         meta: {
-          ...mockData,
+          ...mockBagItemData,
           bagId: mockBagId,
         },
       },
@@ -112,7 +112,7 @@ describe('addBagItem() action creator', () => {
         payload: mockNormalizedPayload,
         type: actionTypes.ADD_BAG_ITEM_SUCCESS,
         meta: {
-          ...mockData,
+          ...mockBagItemData,
           bagId: mockBagId,
         },
       },
@@ -130,7 +130,7 @@ describe('addBagItem() action creator', () => {
 
     expect.assertions(5);
 
-    await store.dispatch(addBagItem(mockData)).then(clientResult => {
+    await store.dispatch(addBagItem(mockBagItemData)).then(clientResult => {
       expect(clientResult).toBe(mockResponse);
     });
 
@@ -139,7 +139,7 @@ describe('addBagItem() action creator', () => {
     expect(postBagItem).toHaveBeenCalledTimes(1);
     expect(postBagItem).toHaveBeenCalledWith(
       mockBagId,
-      mockData,
+      mockBagItemData,
       expectedQuery,
       expectedConfig,
     );
@@ -147,7 +147,7 @@ describe('addBagItem() action creator', () => {
       {
         type: actionTypes.ADD_BAG_ITEM_REQUEST,
         meta: {
-          ...mockData,
+          ...mockBagItemData,
           bagId: mockBagId,
         },
       },
@@ -155,7 +155,7 @@ describe('addBagItem() action creator', () => {
         payload: mockNormalizedPayload,
         type: actionTypes.ADD_BAG_ITEM_SUCCESS,
         meta: {
-          ...mockData,
+          ...mockBagItemData,
           bagId: mockBagId,
         },
       },

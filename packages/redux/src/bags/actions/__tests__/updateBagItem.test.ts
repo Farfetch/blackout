@@ -2,8 +2,8 @@ import { actionTypes } from '../..';
 import { INITIAL_STATE } from '../../reducer';
 import {
   mockBagId,
+  mockBagItemData,
   mockBagItemId,
-  mockData,
   mockNormalizedPayload,
   mockResponse,
   mockState,
@@ -46,14 +46,14 @@ describe('updateBagItem() action creator', () => {
     expect.assertions(4);
 
     await store
-      .dispatch(updateBagItem(mockBagItemId, mockData))
+      .dispatch(updateBagItem(mockBagItemId, mockBagItemData))
       .catch(error => {
         expect(error).toBe(expectedError);
         expect(patchBagItem).toHaveBeenCalledTimes(1);
         expect(patchBagItem).toHaveBeenCalledWith(
           mockBagId,
           mockBagItemId,
-          mockData,
+          mockBagItemData,
           expectedQuery,
           expectedConfig,
         );
@@ -61,7 +61,7 @@ describe('updateBagItem() action creator', () => {
           expect.arrayContaining([
             {
               meta: {
-                ...mockData,
+                ...mockBagItemData,
                 bagId: mockBagId,
                 bagItemId: mockBagItemId,
               },
@@ -72,7 +72,7 @@ describe('updateBagItem() action creator', () => {
                 error: expectedError,
               },
               meta: {
-                ...mockData,
+                ...mockBagItemData,
                 bagId: mockBagId,
                 bagItemId: mockBagItemId,
               },
@@ -89,7 +89,7 @@ describe('updateBagItem() action creator', () => {
     expect.assertions(5);
 
     await store
-      .dispatch(updateBagItem(mockBagItemId, mockData))
+      .dispatch(updateBagItem(mockBagItemId, mockBagItemData))
       .then(clientResult => {
         expect(clientResult).toBe(mockResponse);
       });
@@ -100,7 +100,7 @@ describe('updateBagItem() action creator', () => {
     expect(patchBagItem).toHaveBeenCalledWith(
       mockBagId,
       mockBagItemId,
-      mockData,
+      mockBagItemData,
       expectedQuery,
       expectedConfig,
     );
@@ -110,7 +110,7 @@ describe('updateBagItem() action creator', () => {
         payload: mockNormalizedPayload,
         type: actionTypes.UPDATE_BAG_ITEM_SUCCESS,
         meta: {
-          ...mockData,
+          ...mockBagItemData,
           bagId: mockBagId,
           bagItemId: mockBagItemId,
         },
@@ -131,7 +131,7 @@ describe('updateBagItem() action creator', () => {
     expect.assertions(5);
 
     await store
-      .dispatch(updateBagItem(mockBagItemId, mockData))
+      .dispatch(updateBagItem(mockBagItemId, mockBagItemData))
       .then(clientResult => {
         expect(clientResult).toBe(mockResponse);
       });
@@ -142,7 +142,7 @@ describe('updateBagItem() action creator', () => {
     expect(patchBagItem).toHaveBeenCalledWith(
       mockBagId,
       mockBagItemId,
-      mockData,
+      mockBagItemData,
       expectedQuery,
       expectedConfig,
     );
@@ -152,7 +152,7 @@ describe('updateBagItem() action creator', () => {
         payload: mockNormalizedPayload,
         type: actionTypes.UPDATE_BAG_ITEM_SUCCESS,
         meta: {
-          ...mockData,
+          ...mockBagItemData,
           bagId: mockBagId,
           bagItemId: mockBagItemId,
         },
