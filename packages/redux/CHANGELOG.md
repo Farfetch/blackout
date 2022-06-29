@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.265](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.264...@farfetch/blackout-redux@1.0.0-next.265) (2022-06-29)
+
+
+### Features
+
+* review users structure in clients ([551274f](https://github.com/Farfetch/blackout/commit/551274f0c1b3277918e17e03698f839550c9fb75))
+
+
+### BREAKING CHANGES
+
+* The users clients naming strategy and folders structure was changed.
+
+
+
+
+
 # [1.0.0-next.264](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.263...@farfetch/blackout-redux@1.0.0-next.264) (2022-06-29)
 
 
