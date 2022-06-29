@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.172](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.171...@farfetch/blackout-client@2.0.0-next.172) (2022-06-29)
+
+
+### Bug Fixes
+
+* fix `adaptProductImages` type ([24e5e04](https://github.com/Farfetch/blackout/commit/24e5e0431adb578491bad7d15aecda4675ceb1c5))
+
+
+
+
+
 # [2.0.0-next.171](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.170...@farfetch/blackout-client@2.0.0-next.171) (2022-06-29)
 
 
