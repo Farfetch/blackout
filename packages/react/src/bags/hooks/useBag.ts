@@ -2,6 +2,7 @@
  * Hook to provide all kinds of data for the business logic attached to the bag.
  */
 import {
+  addBagItem as addBagItemAction,
   fetchBag as fetchBagAction,
   getBag,
   getBagError,
@@ -47,6 +48,7 @@ const useBag: UseBag = excludeProductTypes => {
   const isEmpty = items?.length === 0;
   const isLoading = (!bag && !error) || isBagLoading;
   // Actions
+  const addBagItem = useAction(addBagItemAction);
   const fetchBag = useAction(fetchBagAction);
   const resetBag = useAction(resetBagAction);
   const resetBagState = useAction(resetBagStateAction);
@@ -60,6 +62,10 @@ const useBag: UseBag = excludeProductTypes => {
      * Bag error.
      */
     error,
+    /**
+     * Add item to bag.
+     */
+    addBagItem,
     /**
      * Fetches the bag.
      */

@@ -1,6 +1,7 @@
 import { cleanup, renderHook } from '@testing-library/react';
 import {
   mockBagId,
+  mockData,
   mockInitialState,
   mockLoadingState,
   mockState,
@@ -12,6 +13,7 @@ import useBag from '../useBag';
 
 jest.mock('@farfetch/blackout-redux/bags', () => ({
   ...jest.requireActual('@farfetch/blackout-redux/bags'),
+  addBagItem: jest.fn(() => ({ type: 'add-bag-item' })),
   fetchBag: jest.fn(() => ({ type: 'fetch' })),
   resetBag: jest.fn(() => ({ type: 'reset' })),
   resetBagState: jest.fn(() => ({ type: 'resetState' })),
@@ -44,6 +46,7 @@ describe('useBag', () => {
     expect(current).toStrictEqual({
       bag: expect.any(Object),
       error: expect.any(Object),
+      addBagItem: expect.any(Function),
       fetchBag: expect.any(Function),
       id: expect.any(String),
       isEmpty: expect.any(Boolean),
@@ -75,6 +78,14 @@ describe('useBag', () => {
   });
 
   describe('actions', () => {
+    it('should call `addBagItem` action', () => {
+      const { addBagItem } = getRenderedHook();
+
+      addBagItem(mockData);
+
+      expect(mockDispatch).toHaveBeenCalledWith({ type: 'add-bag-item' });
+    });
+
     it('should call `fetchBag` action', () => {
       const { fetchBag } = getRenderedHook();
 
