@@ -1,6 +1,6 @@
 import * as normalizr from 'normalizr';
 import { fetchSet } from '..';
-import { getSet } from '@farfetch/blackout-client';
+import { getProductSet } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/lists';
 import {
   mockProductsListForSetsWithIdNormalized,
@@ -15,7 +15,7 @@ import thunk from 'redux-thunk';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
-  getSet: jest.fn(),
+  getProductSet: jest.fn(),
 }));
 
 const mockMiddlewares = [
@@ -72,20 +72,20 @@ describe('fetchSet() action creator', () => {
     );
 
     expect(normalizeSpy).not.toHaveBeenCalled();
-    expect(getSet).not.toHaveBeenCalled();
+    expect(getProductSet).not.toHaveBeenCalled();
   });
 
   it('should create the correct actions for when the fetch set procedure fails', async () => {
     const expectedError = new Error('Fetch set error');
 
-    getSet.mockRejectedValueOnce(expectedError);
+    getProductSet.mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
     await store.dispatch(fetchSet(mockSetId)).catch(error => {
       expect(error).toBe(expectedError);
-      expect(getSet).toHaveBeenCalledTimes(1);
-      expect(getSet).toHaveBeenCalledWith(mockSetId, {}, expectedConfig);
+      expect(getProductSet).toHaveBeenCalledTimes(1);
+      expect(getProductSet).toHaveBeenCalledWith(mockSetId, {}, expectedConfig);
       expect(store.getActions()).toEqual([
         {
           meta: { hash: mockProductsListHashForSetsWithId },
@@ -107,7 +107,7 @@ describe('fetchSet() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch set procedure is successful', async () => {
-    getSet.mockResolvedValueOnce(mockSet);
+    getProductSet.mockResolvedValueOnce(mockSet);
 
     expect.assertions(5);
 
@@ -116,8 +116,8 @@ describe('fetchSet() action creator', () => {
     });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
-    expect(getSet).toHaveBeenCalledTimes(1);
-    expect(getSet).toHaveBeenCalledWith(mockSetId, {}, expectedConfig);
+    expect(getProductSet).toHaveBeenCalledTimes(1);
+    expect(getProductSet).toHaveBeenCalledWith(mockSetId, {}, expectedConfig);
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHashForSetsWithId },
@@ -137,7 +137,7 @@ describe('fetchSet() action creator', () => {
 
   it('should create the correct actions for when the fetch set procedure is successful without receiving options', async () => {
     store = productsListsMockStoreWithoutMiddlewares(state);
-    getSet.mockResolvedValueOnce(mockSet);
+    getProductSet.mockResolvedValueOnce(mockSet);
 
     expect.assertions(5);
 
@@ -146,8 +146,8 @@ describe('fetchSet() action creator', () => {
     });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
-    expect(getSet).toHaveBeenCalledTimes(1);
-    expect(getSet).toHaveBeenCalledWith(mockSetId, {}, expectedConfig);
+    expect(getProductSet).toHaveBeenCalledTimes(1);
+    expect(getProductSet).toHaveBeenCalledWith(mockSetId, {}, expectedConfig);
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHashForSetsWithId },
@@ -179,7 +179,7 @@ describe('fetchSet() action creator', () => {
       },
     });
 
-    getSet.mockResolvedValueOnce(mockSet);
+    getProductSet.mockResolvedValueOnce(mockSet);
 
     expect.assertions(5);
 
@@ -188,8 +188,8 @@ describe('fetchSet() action creator', () => {
     });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
-    expect(getSet).toHaveBeenCalledTimes(1);
-    expect(getSet).toHaveBeenCalledWith(mockSetId, {}, expectedConfig);
+    expect(getProductSet).toHaveBeenCalledTimes(1);
+    expect(getProductSet).toHaveBeenCalledWith(mockSetId, {}, expectedConfig);
     expect(store.getActions()).toEqual([
       {
         type: productsActionTypes.RESET_PRODUCTS_LISTS_STATE,
@@ -228,7 +228,7 @@ describe('fetchSet() action creator', () => {
     expect.assertions(4);
 
     expect(normalizeSpy).not.toHaveBeenCalled();
-    expect(getSet).not.toHaveBeenCalled();
+    expect(getProductSet).not.toHaveBeenCalled();
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHashForSetsWithId },
@@ -257,7 +257,7 @@ describe('fetchSet() action creator', () => {
       });
 
     expect(normalizeSpy).not.toHaveBeenCalled();
-    expect(getSet).not.toHaveBeenCalled();
+    expect(getProductSet).not.toHaveBeenCalled();
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHashForSetsWithId },
@@ -267,7 +267,7 @@ describe('fetchSet() action creator', () => {
   });
 
   it('should create the correct actions for a successful request without setting the list', async () => {
-    getSet.mockResolvedValueOnce(mockSet);
+    getProductSet.mockResolvedValueOnce(mockSet);
 
     expect.assertions(5);
 
@@ -286,8 +286,8 @@ describe('fetchSet() action creator', () => {
       });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
-    expect(getSet).toHaveBeenCalledTimes(1);
-    expect(getSet).toHaveBeenCalledWith(mockSetId, {}, expectedConfig);
+    expect(getProductSet).toHaveBeenCalledTimes(1);
+    expect(getProductSet).toHaveBeenCalledWith(mockSetId, {}, expectedConfig);
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHashForSetsWithId },

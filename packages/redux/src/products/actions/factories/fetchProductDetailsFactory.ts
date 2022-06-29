@@ -6,7 +6,7 @@ import productSchema from '../../../entities/schemas/product';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
 import type {
-  GetProductDetails,
+  GetProduct,
   Product,
   ProductDetailsQuery,
 } from '@farfetch/blackout-client';
@@ -30,7 +30,7 @@ import type {
  * @returns Thunk factory.
  */
 export const fetchProductDetailsFactory =
-  (getProductDetails: GetProductDetails) =>
+  (getProductDetails: GetProduct) =>
   (
     productId: Product['result']['id'],
     query: ProductDetailsQuery = {},
