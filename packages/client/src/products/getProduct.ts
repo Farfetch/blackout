@@ -1,22 +1,22 @@
 import client, { adaptError } from '../helpers/client';
 import join from 'proper-url-join';
-import type { GetListing } from './types';
+import type { GetProduct } from './types';
 
 /**
- * Method responsible for loading the listing.
+ * Method responsible for loading the product.
  *
- * @param slug   - Slug to load the products.
- * @param query  - Query parameters to apply to the listing.
+ * @param id     - Product identifier.
+ * @param query  - Query parameters to apply to the request.
  * @param config - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
-const getListing: GetListing = (slug, query, config) =>
+const getProduct: GetProduct = (id, query, config) =>
   client
-    .get(join('/commerce/v1/listing', slug, { query }), config)
+    .get(join('/commerce/v1/products', id, { query }), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
 
-export default getListing;
+export default getProduct;

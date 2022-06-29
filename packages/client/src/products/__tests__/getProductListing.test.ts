@@ -1,13 +1,13 @@
-import { getListing } from '../';
+import { getProductListing } from '..';
 import {
   mockProductsListResponse,
   mockProductsListSlug,
 } from 'tests/__fixtures__/products';
 import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getListing.fixtures';
+import fixtures from '../__fixtures__/getProductListing.fixtures';
 import mswServer from '../../../tests/mswServer';
 
-describe('getListing', () => {
+describe('getProductListing', () => {
   const query = {};
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'get');
@@ -19,9 +19,9 @@ describe('getListing', () => {
 
     expect.assertions(2);
 
-    await expect(getListing(mockProductsListSlug, query)).resolves.toEqual(
-      mockProductsListResponse,
-    );
+    await expect(
+      getProductListing(mockProductsListSlug, query),
+    ).resolves.toEqual(mockProductsListResponse);
 
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/listing${mockProductsListSlug}`,
@@ -35,7 +35,7 @@ describe('getListing', () => {
     expect.assertions(2);
 
     await expect(
-      getListing(mockProductsListSlug, query),
+      getProductListing(mockProductsListSlug, query),
     ).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(
