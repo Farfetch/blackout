@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.267](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.266...@farfetch/blackout-redux@1.0.0-next.267) (2022-06-29)
+
+
+### Bug Fixes
+
+* **redux:** add users reset actions to reducer ([fd60cb8](https://github.com/Farfetch/blackout/commit/fd60cb87d17776fc180493a70abb3859e226d416))
+
+
+
+
+
 # [1.0.0-next.266](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.265...@farfetch/blackout-redux@1.0.0-next.266) (2022-06-29)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
