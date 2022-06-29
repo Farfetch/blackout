@@ -11,12 +11,12 @@ export const mockError = {
   message: 'Unexpected Error',
 };
 
-export const mockData = {
-  merchant: { id: 1 },
-  product: { id: 1 },
-  size: { id: 1 },
-  scale: '1',
-  quantity: 1,
+export const mockBagItemData = {
+  productId: 1,
+  size: 2,
+  scale: 3,
+  merchantId: 4,
+  quantity: 99,
 };
 
 export const mockInitialState = {
