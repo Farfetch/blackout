@@ -164,19 +164,12 @@ export const entitiesMapper = {
 
     return state;
   },
-  [LOGOUT_SUCCESS]: (state, action) => {
-    const {
-      meta: { resetEntities },
-    } = action;
+  [LOGOUT_SUCCESS]: (state: State) => {
     const { returns, returnItems, ...rest } = state;
 
-    if (resetEntities) {
-      return {
-        ...rest,
-      };
-    }
-
-    return state;
+    return {
+      ...rest,
+    };
   },
 };
 
