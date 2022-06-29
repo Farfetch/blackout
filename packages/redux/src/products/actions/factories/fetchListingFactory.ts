@@ -1,11 +1,11 @@
 import { fetchProductsListFactory } from './fetchProductsListFactory';
 import type { Dispatch } from 'redux';
+import type { GetOptionsArgument, StoreState } from '../../../types';
 import type {
-  GetListing,
+  GetProductListing,
   Listing,
   ListingQuery,
 } from '@farfetch/blackout-client';
-import type { GetOptionsArgument, StoreState } from '../../../types';
 import type { ProductsListActionOptions } from '../../types';
 
 /**
@@ -21,12 +21,12 @@ import type { ProductsListActionOptions } from '../../types';
  * Creates a thunk factory configured with the specified client to fetch a product
  * listing for a given slug with specific query parameters.
  *
- * @param getListing - Get listing client.
+ * @param getProductListing - Get listing client.
  *
  * @returns Thunk factory.
  */
 export const fetchListingFactory =
-  (getListing: GetListing) =>
+  (getProductListing: GetProductListing) =>
   (
     slug: string,
     query: ListingQuery = {},
@@ -40,7 +40,7 @@ export const fetchListingFactory =
   ): Promise<Listing | undefined> =>
     // @ts-expect-error The auxiliary function could return a Promise<Listing | Set | undefined>
     fetchProductsListFactory(
-      getListing,
+      getProductListing,
       slug,
       query,
       actionOptions,

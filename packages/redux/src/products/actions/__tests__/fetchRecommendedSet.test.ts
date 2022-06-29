@@ -1,5 +1,5 @@
 import { fetchRecommendedSet } from '..';
-import { getRecommendedSet } from '@farfetch/blackout-client';
+import { getProductRecommendedSet } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/recommendedSet';
 import {
   mockRecommendedSet,
@@ -10,7 +10,7 @@ import { productsActionTypes } from '../..';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
-  getRecommendedSet: jest.fn(),
+  getProductRecommendedSet: jest.fn(),
 }));
 
 const recommendedSetMockStore = (state = {}) =>
@@ -27,7 +27,7 @@ describe('fetchRecommendedSet() action creator', () => {
   it('should create the correct actions for when the fetch recommended set procedure fails', async () => {
     const expectedError = new Error('Fetch recommended set error');
 
-    getRecommendedSet.mockRejectedValueOnce(expectedError);
+    getProductRecommendedSet.mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
@@ -35,8 +35,8 @@ describe('fetchRecommendedSet() action creator', () => {
       .dispatch(fetchRecommendedSet(mockRecommendedSetId))
       .catch(error => {
         expect(error).toBe(expectedError);
-        expect(getRecommendedSet).toHaveBeenCalledTimes(1);
-        expect(getRecommendedSet).toHaveBeenCalledWith(
+        expect(getProductRecommendedSet).toHaveBeenCalledTimes(1);
+        expect(getProductRecommendedSet).toHaveBeenCalledWith(
           mockRecommendedSetId,
           expectedConfig,
         );
@@ -55,7 +55,7 @@ describe('fetchRecommendedSet() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch recommended set procedure is successful', async () => {
-    getRecommendedSet.mockResolvedValueOnce(mockRecommendedSet);
+    getProductRecommendedSet.mockResolvedValueOnce(mockRecommendedSet);
 
     expect.assertions(4);
 
@@ -65,8 +65,8 @@ describe('fetchRecommendedSet() action creator', () => {
         expect(clientResult).toEqual(mockRecommendedSet);
       });
 
-    expect(getRecommendedSet).toHaveBeenCalledTimes(1);
-    expect(getRecommendedSet).toHaveBeenCalledWith(
+    expect(getProductRecommendedSet).toHaveBeenCalledTimes(1);
+    expect(getProductRecommendedSet).toHaveBeenCalledWith(
       mockRecommendedSetId,
       expectedConfig,
     );

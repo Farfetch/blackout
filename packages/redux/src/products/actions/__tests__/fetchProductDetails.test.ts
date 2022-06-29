@@ -1,6 +1,6 @@
 import * as normalizr from 'normalizr';
 import { fetchProductDetails } from '..';
-import { getProductDetails } from '@farfetch/blackout-client';
+import { getProduct } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/details';
 import {
   mockProductId,
@@ -14,7 +14,7 @@ import thunk from 'redux-thunk';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
-  getProductDetails: jest.fn(),
+  getProduct: jest.fn(),
 }));
 
 const mockMiddlewares = [
@@ -41,14 +41,14 @@ describe('fetchProductDetails() action creator', () => {
   it('should create the correct actions for when the fetch product details procedure fails', async () => {
     const expectedError = new Error('Fetch product details error');
 
-    getProductDetails.mockRejectedValueOnce(expectedError);
+    getProduct.mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
     await store.dispatch(fetchProductDetails(mockProductId)).catch(error => {
       expect(error).toBe(expectedError);
-      expect(getProductDetails).toHaveBeenCalledTimes(1);
-      expect(getProductDetails).toHaveBeenCalledWith(
+      expect(getProduct).toHaveBeenCalledTimes(1);
+      expect(getProduct).toHaveBeenCalledWith(
         mockProductId,
         {},
         expectedConfig,
@@ -68,7 +68,7 @@ describe('fetchProductDetails() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch product details procedure is successful', async () => {
-    getProductDetails.mockResolvedValueOnce(mockResponse);
+    getProduct.mockResolvedValueOnce(mockResponse);
 
     const query = { merchantId: 'foo' };
 
@@ -77,8 +77,8 @@ describe('fetchProductDetails() action creator', () => {
     await store.dispatch(fetchProductDetails(mockProductId, query));
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
-    expect(getProductDetails).toHaveBeenCalledTimes(1);
-    expect(getProductDetails).toHaveBeenCalledWith(
+    expect(getProduct).toHaveBeenCalledTimes(1);
+    expect(getProduct).toHaveBeenCalledWith(
       mockProductId,
       query,
       expectedConfig,
@@ -99,7 +99,7 @@ describe('fetchProductDetails() action creator', () => {
   it('should create the correct actions for when the fetch product details procedure is successful without receiving options', async () => {
     store = productDetailsMockStoreWithoutMiddlewares();
 
-    getProductDetails.mockResolvedValueOnce(mockResponse);
+    getProduct.mockResolvedValueOnce(mockResponse);
 
     const query = { merchantId: 'foo' };
 
@@ -112,8 +112,8 @@ describe('fetchProductDetails() action creator', () => {
       });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
-    expect(getProductDetails).toHaveBeenCalledTimes(1);
-    expect(getProductDetails).toHaveBeenCalledWith(
+    expect(getProduct).toHaveBeenCalledTimes(1);
+    expect(getProduct).toHaveBeenCalledWith(
       mockProductId,
       query,
       expectedConfig,
@@ -149,7 +149,7 @@ describe('fetchProductDetails() action creator', () => {
       });
 
     expect(normalizeSpy).not.toHaveBeenCalled();
-    expect(getProductDetails).not.toHaveBeenCalled();
+    expect(getProduct).not.toHaveBeenCalled();
     expect(store.getActions()).toEqual([
       {
         meta: { productId: mockProductId },
@@ -159,7 +159,7 @@ describe('fetchProductDetails() action creator', () => {
   });
 
   it('should create the correct actions for when we want to force the dispatch', async () => {
-    getProductDetails.mockResolvedValueOnce(mockResponse);
+    getProduct.mockResolvedValueOnce(mockResponse);
 
     const query = { merchantId: 'foo' };
     const forceDispatch = true;
@@ -175,8 +175,8 @@ describe('fetchProductDetails() action creator', () => {
     const actionResults = store.getActions();
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
-    expect(getProductDetails).toHaveBeenCalledTimes(1);
-    expect(getProductDetails).toHaveBeenCalledWith(
+    expect(getProduct).toHaveBeenCalledTimes(1);
+    expect(getProduct).toHaveBeenCalledWith(
       mockProductId,
       query,
       expectedConfig,
