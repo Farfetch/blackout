@@ -11,7 +11,7 @@ import { mockProductColorGrouping } from './productColorGrouping.fixtures';
 import { mockProductFittings } from './productFittings.fixtures';
 import { mockProductSizeGuides } from './productSizeGuides.fixtures';
 import { mockProductSizesAdapted } from './productSizes.fixtures';
-import { mockProductVariants } from './productVariantsByMerchantsLocations.fixtures';
+import { mockProductVariants } from './productVariantsMerchantsLocations.fixtures';
 import { mockProductVariantsMeasurements } from './productVariantsMeasurements.fixtures';
 
 export const mockTag = { name: 'NewSeason', id: 1 };

@@ -1,23 +1,23 @@
-import { getSet } from '..';
-import { mockSet, mockSetId } from 'tests/__fixtures__/products';
+import { getProduct } from '..';
+import { mockProductId, mockResponse } from 'tests/__fixtures__/products';
 import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getSet.fixtures';
+import fixtures from '../__fixtures__/getProduct.fixtures';
 import mswServer from '../../../tests/mswServer';
 
-describe('getSet', () => {
+describe('getProduct', () => {
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'get');
 
   beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
-    mswServer.use(fixtures.success(mockSet));
+    mswServer.use(fixtures.success(mockResponse));
 
     expect.assertions(2);
 
-    await expect(getSet(mockSetId)).resolves.toEqual(mockSet);
+    await expect(getProduct(mockProductId, {})).resolves.toEqual(mockResponse);
     expect(spy).toHaveBeenCalledWith(
-      `/commerce/v1/sets/${mockSetId}`,
+      `/commerce/v1/products/${mockProductId}`,
       expectedConfig,
     );
   });
@@ -27,9 +27,9 @@ describe('getSet', () => {
 
     expect.assertions(2);
 
-    await expect(getSet(mockSetId, {})).rejects.toMatchSnapshot();
+    await expect(getProduct(mockProductId, {})).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      `/commerce/v1/sets/${mockSetId}`,
+      `/commerce/v1/products/${mockProductId}`,
       expectedConfig,
     );
   });

@@ -1,6 +1,6 @@
 import client, { adaptError } from '../helpers/client';
 import join from 'proper-url-join';
-import type { GetProductVariantsByMerchantsLocations } from './types';
+import type { GetProductVariantMerchantsLocations } from './types';
 
 /**
  * Method responsible for fetching the merchants locations for a specific product
@@ -12,7 +12,7 @@ import type { GetProductVariantsByMerchantsLocations } from './types';
  *
  * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
-const getProductVariantsByMerchantsLocations: GetProductVariantsByMerchantsLocations =
+const getProductVariantMerchantsLocations: GetProductVariantMerchantsLocations =
   (id, variantId, config) =>
     client
       .get(
@@ -30,4 +30,4 @@ const getProductVariantsByMerchantsLocations: GetProductVariantsByMerchantsLocat
         throw adaptError(error);
       });
 
-export default getProductVariantsByMerchantsLocations;
+export default getProductVariantMerchantsLocations;

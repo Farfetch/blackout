@@ -9,7 +9,7 @@ export * from './products.fixtures';
 export * from './productSizeGuides.fixtures';
 export * from './productSizes.fixtures';
 export * from './productsLists.fixtures';
-export * from './productVariantsByMerchantsLocations.fixtures';
+export * from './productVariantsMerchantsLocations.fixtures';
 export * from './productVariantsMeasurements.fixtures';
 export * from './recommendedSet.fixtures';
 export * from './state.fixtures';
