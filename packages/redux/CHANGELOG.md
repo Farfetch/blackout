@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.270](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.269...@farfetch/blackout-redux@1.0.0-next.270) (2022-06-30)
+
+
+### Features
+
+* **client|redux:** recommendations in product's scope ([10ad661](https://github.com/Farfetch/blackout/commit/10ad6610dfa35eb13c3706f60a57de02813b53b1))
+
+
+
+
+
 # [1.0.0-next.269](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.268...@farfetch/blackout-redux@1.0.0-next.269) (2022-06-30)
 
 
