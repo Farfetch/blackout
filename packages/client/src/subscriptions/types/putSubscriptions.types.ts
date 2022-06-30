@@ -1,26 +1,32 @@
 import type { Config } from '../../types';
 import type {
   Subscription,
+  SubscriptionDeliveryChannel,
   SubscriptionTopic,
-  SubscriptionTopicChannel,
 } from '.';
 
-type SubscriptionTopicChannelsWithoutId = Omit<SubscriptionTopicChannel, 'id'>;
-
-type SubscriptionTopicWithoutId = Omit<SubscriptionTopic, 'id'>;
-
-export type PutSubscriptionTopic = Omit<
-  SubscriptionTopicWithoutId,
-  'channels'
+export type SubscriptionDeliveryChannelRequest = Omit<
+  SubscriptionDeliveryChannel,
+  'id'
 > & {
-  channels: SubscriptionTopicChannelsWithoutId[];
+  active: boolean;
 };
 
-export type PutSubscriptionsData = Omit<Subscription, 'topics'> & {
-  topics: PutSubscriptionTopic[];
+export type SubscriptionTopicSpecificationRequest = Record<string, string>;
+
+export type TopicRequest = Omit<SubscriptionTopic, 'channels' | 'id'> & {
+  channels: SubscriptionDeliveryChannelRequest[];
+  specification: SubscriptionTopicSpecificationRequest;
+};
+
+export type SubscriptionRequest = Omit<Subscription, 'topics' | 'id'> & {
+  id?: Subscription['id'];
+  topics: TopicRequest[];
+  customerId: string;
+  cultureCode: string;
 };
 
 export type PutSubscriptions = (
-  data: PutSubscriptionsData,
+  data: SubscriptionRequest,
   config?: Config,
 ) => Promise<void>;

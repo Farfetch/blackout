@@ -1,5 +1,7 @@
-import type { Config } from '@farfetch/blackout-client/types';
-import type { DeleteRecipientFromTopic } from '@farfetch/blackout-client';
+import type {
+  Config,
+  DeleteRecipientFromTopic,
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { UnsubscribeRecipientFromTopicAction } from '../../../types';
 

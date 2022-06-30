@@ -1,12 +1,12 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
-import type { NormalizedSchema } from 'normalizr';
-import type { NormalizedSubscriptionPackages } from './state.types';
 import type {
+  BlackoutError,
   Subscription,
   SubscriptionPackage,
 } from '@farfetch/blackout-client';
+import type { NormalizedSchema } from 'normalizr';
+import type { SubscriptionPackagesResultNormalized } from './state.types';
 import type { UnsubscribeRecipientFromTopicMeta } from './../actions/factories/types';
 
 interface FetchSubscriptionPackagesRequestAction extends Action {
@@ -17,7 +17,7 @@ interface FetchSubscriptionPackagesSuccessAction extends Action {
   type: typeof actionTypes.FETCH_SUBSCRIPTION_PACKAGES_SUCCESS;
   payload: NormalizedSchema<
     SubscriptionPackage,
-    NormalizedSubscriptionPackages
+    SubscriptionPackagesResultNormalized
   >;
 }
 interface FetchSubscriptionPackagesFailureAction extends Action {
