@@ -137,6 +137,14 @@ describe('locale redux selectors', () => {
     });
   });
 
+  describe('getCountryCultures()', () => {
+    it('should get cultures', () => {
+      expect(selectors.getCountryCultures(mockState)).toEqual(
+        mockCountry.cultures,
+      );
+    });
+  });
+
   describe('getCurrencyCode()', () => {
     it('should get the currency code', () => {
       expect(selectors.getCurrencyCode(mockState)).toEqual(
