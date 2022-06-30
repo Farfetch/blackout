@@ -1,6 +1,6 @@
 {
   "name": "@farfetch/blackout-analytics",
-  "version": "1.0.0-next.38",
+  "version": "1.0.0-next.39",
   "description": "Centralized and agnostic way of tracking data with built-in integrations",
   "license": "MIT",
   "exports": {
@@ -24,7 +24,7 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "@farfetch/blackout-client": "^2.0.0-next.173",
+    "@farfetch/blackout-client": "^2.0.0-next.174",
     "lodash": "^4.17.21"
   },
   "peerDependencies": {
