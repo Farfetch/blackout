@@ -9,6 +9,7 @@ export type SubscriptionPackagesResult = {
   supportedChannels: string[];
   packages: SubscriptionPackage[];
 };
+
 export type SubscriptionPackage = {
   id: string;
   topics: SubscriptionPackageTopic[];

@@ -5,7 +5,7 @@ import join from 'proper-url-join';
 import mswServer from '../../../tests/mswServer';
 
 describe('getRecommendedProducts', () => {
-  const productId = 3030;
+  const productId = '3030';
   const strategyName = 'a_strategy_name';
   const query = { strategyName, productId };
   const spy = jest.spyOn(client, 'get');

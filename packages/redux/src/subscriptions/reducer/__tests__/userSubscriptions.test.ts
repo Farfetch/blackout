@@ -17,6 +17,7 @@ import reducer, {
   INITIAL_STATE,
 } from '../userSubscriptions';
 import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { Subscription } from '@farfetch/blackout-client';
 import type { SubscriptionsState } from '../../types';
 
 const initialState: SubscriptionsState['user'] = INITIAL_STATE;
@@ -142,7 +143,7 @@ describe('User Subscriptions redux reducer', () => {
         },
       };
 
-      const subscription = mockUserSubscriptionsState.result[0];
+      const subscription = mockUserSubscriptionsState.result[0] as Subscription;
 
       const topicIndex = subscription?.topics.findIndex(
         topic => topic.id === mockTopicId1,
@@ -164,7 +165,6 @@ describe('User Subscriptions redux reducer', () => {
       newChannels.splice(channelIndex, 1);
 
       const newTopic = {
-        // @ts-expect-error
         ...newSubscription.topics[topicIndex],
         channels: newChannels,
       };
@@ -173,7 +173,6 @@ describe('User Subscriptions redux reducer', () => {
       // @ts-expect-error
       newSubscription.topics[topicIndex] = newTopic;
 
-      // @ts-expect-error
       expectedResult[0] = newSubscription;
 
       let state = reducer(mockUserSubscriptionsState, action);
@@ -461,7 +460,6 @@ describe('User Subscriptions redux reducer', () => {
         ...mockUserSubscriptionsState.unsubscribeRecipientFromTopicRequests,
       };
 
-      // @ts-expect-error
       delete expectedState[mockRecipientId1TopicId1];
 
       expect(state.unsubscribeRecipientFromTopicRequests).toStrictEqual(

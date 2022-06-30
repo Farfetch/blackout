@@ -7,9 +7,7 @@ type BaseStateType<S> = {
   isLoading: boolean;
 } & S;
 
-export type StateWithoutResult<T = EmptyObject> = CombinedState<
-  BaseStateType<T>
->;
+export type StateWithoutResult<T = EmptyObject> = BaseStateType<T>;
 
 export type StateWithResultArray<T, S = EmptyObject> = CombinedState<
   BaseStateType<S> & {

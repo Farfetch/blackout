@@ -13,7 +13,7 @@ type UserSubscriptionsState = SubscriptionsState['user'];
 export const INITIAL_STATE: UserSubscriptionsState = {
   error: null,
   isLoading: false,
-  result: [],
+  result: null,
   unsubscribeRecipientFromTopicRequests: {},
   updateSubscriptionsError: null,
 };
@@ -81,6 +81,10 @@ const result = (
       return INITIAL_STATE.result;
     case actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_SUCCESS: {
       const { subscriptionId, topicId, recipientId } = action.payload;
+
+      if (!state) {
+        return state;
+      }
 
       const subscription = state.find(
         subscription => subscription.id === subscriptionId,
