@@ -1,11 +1,10 @@
 import { deleteInstrument } from '..';
+import { id, instrumentId } from 'tests/__fixtures__/payments';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/deleteInstrument.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('deleteInstrument', () => {
-  const id = '123456';
-  const instrumentId = '654321';
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'delete');
   const urlToBeCalled = `/payment/v1/intents/${id}/instruments/${instrumentId}`;

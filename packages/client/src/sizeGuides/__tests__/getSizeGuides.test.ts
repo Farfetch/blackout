@@ -16,12 +16,10 @@ describe('getProductSizeGuides', () => {
   beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
-    const response = mockSizeGuides;
-
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockSizeGuides));
     expect.assertions(2);
 
-    await expect(getSizeGuides(mockQuery)).resolves.toEqual(response);
+    await expect(getSizeGuides(mockQuery)).resolves.toEqual(mockSizeGuides);
 
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/sizeGuides?brandIds=${mockBrandId}&categoryIds=${mockCategoriesIds[0]}&categoryIds=${mockCategoriesIds[1]}&categoryIds=${mockCategoriesIds[2]}`,

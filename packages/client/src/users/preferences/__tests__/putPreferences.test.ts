@@ -1,4 +1,5 @@
-import * as usersClient from '..';
+import { putUserPreferences } from '..';
+import { mockGetPreferencesResponse, userId } from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/putUserPreferences.fixtures';
 import mswServer from '../../../../tests/mswServer';
@@ -6,16 +7,7 @@ import type { PutUserPreferencesData } from '../types';
 
 describe('putPreferences', () => {
   const expectedConfig = undefined;
-  const data: PutUserPreferencesData = [
-    {
-      code: '',
-      values: ['value1', 'value2'],
-      groupId: '',
-      updatedDate: '',
-    },
-  ];
   const spy = jest.spyOn(client, 'put');
-  const userId = 0;
 
   beforeEach(() => jest.clearAllMocks());
 
@@ -25,7 +17,10 @@ describe('putPreferences', () => {
     expect.assertions(2);
 
     await expect(
-      usersClient.putUserPreferences(userId, data),
+      putUserPreferences(
+        userId,
+        mockGetPreferencesResponse as PutUserPreferencesData,
+      ),
     ).resolves.toMatchObject(
       expect.objectContaining({
         status: 200,
@@ -33,7 +28,7 @@ describe('putPreferences', () => {
     );
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/preferences`,
-      data,
+      mockGetPreferencesResponse,
       expectedConfig,
     );
   });
@@ -44,11 +39,14 @@ describe('putPreferences', () => {
     expect.assertions(2);
 
     await expect(
-      usersClient.putUserPreferences(userId, data),
+      putUserPreferences(
+        userId,
+        mockGetPreferencesResponse as PutUserPreferencesData,
+      ),
     ).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/preferences`,
-      data,
+      mockGetPreferencesResponse,
       expectedConfig,
     );
   });

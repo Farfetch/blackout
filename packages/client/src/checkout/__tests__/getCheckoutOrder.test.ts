@@ -1,11 +1,11 @@
 import * as checkoutClient from '..';
 import { GetCheckoutOrderResponse, OrderStatusError } from '../types';
+import { id } from 'tests/__fixtures__/checkout';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCheckoutOrder.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('checkout client', () => {
-  const id = 123456;
   const expectedConfig = undefined;
   const query = {};
 

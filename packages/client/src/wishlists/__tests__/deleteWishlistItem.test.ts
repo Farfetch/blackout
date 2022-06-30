@@ -10,23 +10,20 @@ import mswServer from '../../../tests/mswServer';
 
 describe('deleteWishlistItem', () => {
   const expectedConfig = undefined;
-  const wishlistId = mockWishlistId;
-  const wishlistItemId = mockWishlistItemId;
   const spy = jest.spyOn(client, 'delete');
 
   beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
-    const response = mockWishlistsResponse;
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockWishlistsResponse));
     expect.assertions(2);
 
     await expect(
-      deleteWishlistItem(wishlistId, wishlistItemId),
-    ).resolves.toEqual(response);
+      deleteWishlistItem(mockWishlistId, mockWishlistItemId),
+    ).resolves.toEqual(mockWishlistsResponse);
 
     expect(spy).toHaveBeenCalledWith(
-      `/commerce/v1/wishlists/${wishlistId}/items/${wishlistItemId}`,
+      `/commerce/v1/wishlists/${mockWishlistId}/items/${mockWishlistItemId}`,
       expectedConfig,
     );
   });
@@ -36,11 +33,11 @@ describe('deleteWishlistItem', () => {
     expect.assertions(2);
 
     await expect(
-      deleteWishlistItem(wishlistId, wishlistItemId),
+      deleteWishlistItem(mockWishlistId, mockWishlistItemId),
     ).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(
-      `/commerce/v1/wishlists/${wishlistId}/items/${wishlistItemId}`,
+      `/commerce/v1/wishlists/${mockWishlistId}/items/${mockWishlistItemId}`,
       expectedConfig,
     );
   });

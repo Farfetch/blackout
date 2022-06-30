@@ -1,3 +1,5 @@
+export const id = '1';
+export const userId = 123123;
 export const mockResponse = {
   bagId: 'cb805dc8-86f5-409e-84d1-3209c2be9517',
   dateOfBirth: null,

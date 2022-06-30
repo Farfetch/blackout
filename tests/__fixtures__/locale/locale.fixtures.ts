@@ -32,6 +32,14 @@ export const mockCountries = [mockCountry];
 export const mockCountriesEntities = {
   [mockCountry.code]: mockCountryNormalized,
 };
+
+export const mockCity = {
+  id: 515,
+  name: 'Atlanta',
+  stateId: 17,
+  countryId: 216,
+};
+
 export const mockCities = [
   {
     id: 516,

@@ -1,11 +1,10 @@
 import { getSizeScale } from '../';
-import { mockSizeScale } from 'tests/__fixtures__/sizeScales';
+import { mockScaleId, mockSizeScale } from 'tests/__fixtures__/sizeScales';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getSizeScale.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('sizeScales client', () => {
-  const scaleId = 117;
   const expectedConfig = undefined;
 
   beforeEach(jest.clearAllMocks);
@@ -14,15 +13,13 @@ describe('sizeScales client', () => {
     const spy = jest.spyOn(client, 'get');
 
     it('should handle a client request successfully', async () => {
-      const response = mockSizeScale;
-
-      mswServer.use(fixtures.success(response));
+      mswServer.use(fixtures.success(mockSizeScale));
       expect.assertions(2);
 
-      await expect(getSizeScale(scaleId)).resolves.toEqual(response);
+      await expect(getSizeScale(mockScaleId)).resolves.toEqual(mockSizeScale);
 
       expect(spy).toHaveBeenCalledWith(
-        `/commerce/v1/sizeScales/${scaleId}`,
+        `/commerce/v1/sizeScales/${mockScaleId}`,
         expectedConfig,
       );
     });
@@ -31,10 +28,10 @@ describe('sizeScales client', () => {
       mswServer.use(fixtures.failure());
       expect.assertions(2);
 
-      await expect(getSizeScale(scaleId)).rejects.toMatchSnapshot();
+      await expect(getSizeScale(mockScaleId)).rejects.toMatchSnapshot();
 
       expect(spy).toHaveBeenCalledWith(
-        `/commerce/v1/sizeScales/${scaleId}`,
+        `/commerce/v1/sizeScales/${mockScaleId}`,
         expectedConfig,
       );
     });

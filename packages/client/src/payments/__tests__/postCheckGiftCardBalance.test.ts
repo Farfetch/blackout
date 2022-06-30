@@ -1,3 +1,4 @@
+import { mockCreditBalanceResponse } from 'tests/__fixtures__/payments';
 import { postCheckGiftCardBalance } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postGiftCardBalance.fixtures';
@@ -13,10 +14,7 @@ describe('postGiftCardBalance', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const response: Balance = {
-      currency: 'string',
-      value: 0,
-    };
+    const response: Balance = mockCreditBalanceResponse;
 
     mswServer.use(fixtures.success(response));
 

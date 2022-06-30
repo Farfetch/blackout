@@ -15,14 +15,12 @@ describe('getProductGrouping', () => {
   beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
-    const response = mockProductGrouping;
-
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockProductGrouping));
 
     expect.assertions(2);
 
     await expect(getProductGrouping(mockProductId, query)).resolves.toEqual(
-      response,
+      mockProductGrouping,
     );
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/products/${mockProductId}/grouping?pageSize=10`,

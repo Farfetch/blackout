@@ -1,11 +1,11 @@
 import { DeclineCode, GetChargesStatus, PostChargesResponse } from '../types';
+import { id } from 'tests/__fixtures__/payments';
 import { postCharges } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postCharges.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('post charges', () => {
-  const id = '123456';
   const data = {
     returnUrl: '',
     cancelUrl: '',

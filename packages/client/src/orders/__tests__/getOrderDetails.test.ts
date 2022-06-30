@@ -1,10 +1,9 @@
 import { getOrderDetails } from '..';
-import { mockOrderDetailsResponse } from 'tests/__fixtures__/orders';
+import { mockOrderDetailsResponse, orderId } from 'tests/__fixtures__/orders';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getOrderDetails.fixtures';
 import mswServer from '../../../tests/mswServer';
 
-const id = '24BJKS';
 const expectedConfig = undefined;
 
 beforeEach(() => jest.clearAllMocks());
@@ -15,11 +14,11 @@ describe('getOrderDetails', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockOrderDetailsResponse));
 
-    await expect(getOrderDetails(id)).resolves.toStrictEqual(
+    await expect(getOrderDetails(orderId)).resolves.toStrictEqual(
       mockOrderDetailsResponse,
     );
     expect(spy).toHaveBeenCalledWith(
-      `/account/v1/orders/${id}`,
+      `/account/v1/orders/${orderId}`,
       expectedConfig,
     );
   });
@@ -27,9 +26,9 @@ describe('getOrderDetails', () => {
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
 
-    await expect(getOrderDetails(id)).rejects.toMatchSnapshot();
+    await expect(getOrderDetails(orderId)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      `/account/v1/orders/${id}`,
+      `/account/v1/orders/${orderId}`,
       expectedConfig,
     );
   });

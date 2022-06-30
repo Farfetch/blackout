@@ -1,4 +1,9 @@
-import * as usersClient from '../..';
+import { getUserPreferences } from '..';
+import {
+  code,
+  mockGetPreferencesResponse,
+  userId,
+} from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/getUserPreferences.fixtures';
 import mswServer from '../../../../tests/mswServer';
@@ -6,43 +11,33 @@ import mswServer from '../../../../tests/mswServer';
 describe('getPreferences', () => {
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'get');
-  const mockUserId = 0;
-  const mockCode = 'Test';
-  const response = [
-    {
-      code: mockCode,
-      values: ['136968', '136831', '136908'],
-      groupId: 'mobile',
-      updatedDate: '2019-08-19T10:46:59.543Z',
-    },
-  ];
 
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockGetPreferencesResponse));
 
     expect.assertions(2);
 
-    await expect(
-      usersClient.getUserPreferences(mockUserId),
-    ).resolves.toStrictEqual(response);
+    await expect(getUserPreferences(userId)).resolves.toStrictEqual(
+      mockGetPreferencesResponse,
+    );
     expect(spy).toHaveBeenCalledWith(
-      `/account/v1/users/${mockUserId}/preferences`,
+      `/account/v1/users/${userId}/preferences`,
       expectedConfig,
     );
   });
 
   it('should filter by code and handle a client request successfully', async () => {
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockGetPreferencesResponse));
 
     expect.assertions(2);
 
-    await expect(
-      usersClient.getUserPreferences(mockUserId, mockCode),
-    ).resolves.toStrictEqual(response);
+    await expect(getUserPreferences(userId, code)).resolves.toStrictEqual(
+      mockGetPreferencesResponse,
+    );
     expect(spy).toHaveBeenCalledWith(
-      `/account/v1/users/${mockUserId}/preferences?code=${mockCode}`,
+      `/account/v1/users/${userId}/preferences?code=${code}`,
       expectedConfig,
     );
   });
@@ -52,11 +47,9 @@ describe('getPreferences', () => {
 
     expect.assertions(2);
 
-    await expect(
-      usersClient.getUserPreferences(mockUserId),
-    ).rejects.toMatchSnapshot();
+    await expect(getUserPreferences(userId)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      `/account/v1/users/${mockUserId}/preferences`,
+      `/account/v1/users/${userId}/preferences`,
       expectedConfig,
     );
   });
@@ -66,11 +59,9 @@ describe('getPreferences', () => {
 
     expect.assertions(2);
 
-    await expect(
-      usersClient.getUserPreferences(mockUserId, mockCode),
-    ).rejects.toMatchSnapshot();
+    await expect(getUserPreferences(userId, code)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      `/account/v1/users/${mockUserId}/preferences?code=${mockCode}`,
+      `/account/v1/users/${userId}/preferences?code=${code}`,
       expectedConfig,
     );
   });

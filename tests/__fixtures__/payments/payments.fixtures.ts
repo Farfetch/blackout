@@ -1,4 +1,5 @@
 export const chargeId = '43b059df-898e-4407-8347-b075b645bf6c';
+export const id = '123456';
 export const instrumentId = '316bc538-e7e5-4f6c-943f-686350fac5ae';
 export const checkoutId = 15338048;
 export const transactionId = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
@@ -7,6 +8,7 @@ export const checkoutOrderId = 15338048;
 export const merchantId = 10658;
 export const productId = 12640693;
 export const brandId = 121212;
+export const orderId = 1;
 export const paymentTokenId = '5ccbb098-e4ef-cb30-701b-4cbbd347c472';
 export const paymentTokenId2 = '0a1cbb02-091f-ef49-1c75-2239b9c361b1';
 export const mockCharge = {
@@ -605,4 +607,58 @@ export const mockErrorState = {
     },
   },
   entities: {},
+};
+
+export const country = {
+  alpha2Code: 'string',
+  alpha3Code: 'string',
+  culture: 'string',
+  id: 0,
+  name: 'string',
+  nativeName: 'string',
+  region: 'string',
+  subRegion: 'string',
+  regionId: 0,
+  subfolder: 'string',
+  continentId: 0,
+};
+export const address2 = {
+  addressLine1: 'string',
+  addressLine2: 'string',
+  addressLine3: 'string',
+  vatNumber: 'string',
+  zipCode: 'string',
+  phone: 'string',
+  neighbourhood: 'string',
+  ddd: 'string',
+  city: {
+    countryId: 0,
+    id: 0,
+    name: 'string',
+    stateId: 0,
+  },
+  state: {
+    code: 'string',
+    countryId: 0,
+    id: 0,
+    name: 'string',
+  },
+  country,
+  continent: {
+    id: 0,
+    name: 'string',
+    countries: [country],
+  },
+};
+export const payer = {
+  id: 'string',
+  firstName: 'string',
+  lastName: 'string',
+  email: 'string',
+  address: address,
+};
+export const amounts = {
+  value: 0,
+  settledValue: 0,
+  refundedValue: 0,
 };

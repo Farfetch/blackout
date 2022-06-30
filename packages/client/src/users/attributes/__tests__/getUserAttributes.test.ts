@@ -1,26 +1,23 @@
 import { getUserAttributes } from '..';
-import { mockUserAttributesResponse } from 'tests/__fixtures__/users';
+import { mockUserAttributesResponse, userId } from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/getUserAttributes.fixtures';
 import mswServer from '../../../../tests/mswServer';
 
 describe('getUserAttributes', () => {
   const expectedConfig = undefined;
-  const userId = 123456;
   const query = {};
   const spy = jest.spyOn(client, 'get');
 
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const response = mockUserAttributesResponse;
-
     mswServer.use(fixtures.success(mockUserAttributesResponse));
 
     expect.assertions(2);
 
     await expect(getUserAttributes(userId, query)).resolves.toStrictEqual(
-      response,
+      mockUserAttributesResponse,
     );
 
     expect(spy).toHaveBeenCalledWith(

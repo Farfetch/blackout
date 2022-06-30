@@ -1,14 +1,15 @@
 import * as profileClient from '..';
-import { mockUserAttributesData } from 'tests/__fixtures__/users';
+import {
+  attributeId,
+  mockUserAttributesData,
+  userId,
+} from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/putUserAttribute.fixtures';
 import mswServer from '../../../../tests/mswServer';
 
 describe('putUserAttribute', () => {
   const expectedConfig = undefined;
-  const data = mockUserAttributesData;
-  const userId = 123456;
-  const attributeId = '123456';
   const spy = jest.spyOn(client, 'put');
 
   beforeEach(() => jest.clearAllMocks());
@@ -21,11 +22,15 @@ describe('putUserAttribute', () => {
     expect.assertions(2);
 
     await expect(
-      profileClient.putUserAttribute(userId, attributeId, data),
+      profileClient.putUserAttribute(
+        userId,
+        attributeId,
+        mockUserAttributesData,
+      ),
     ).resolves.toBe(response);
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/attributes/${attributeId}`,
-      data,
+      mockUserAttributesData,
       expectedConfig,
     );
   });
@@ -36,11 +41,15 @@ describe('putUserAttribute', () => {
     expect.assertions(2);
 
     await expect(
-      profileClient.putUserAttribute(userId, attributeId, data),
+      profileClient.putUserAttribute(
+        userId,
+        attributeId,
+        mockUserAttributesData,
+      ),
     ).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/attributes/${attributeId}`,
-      data,
+      mockUserAttributesData,
       expectedConfig,
     );
   });

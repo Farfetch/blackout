@@ -1,4 +1,5 @@
 import * as checkoutClient from '..';
+import { deliveryBundleId, id } from 'tests/__fixtures__/checkout';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCheckoutOrderDeliveryBundleProvisioning.fixtures';
 import mswServer from '../../../tests/mswServer';
@@ -8,9 +9,7 @@ describe('getCheckoutOrderDeliveryBundleProvisioning', () => {
   beforeEach(() => jest.clearAllMocks());
 
   const spy = jest.spyOn(client, 'get');
-  const id = 123456;
   const expectedConfig = undefined;
-  const deliveryBundleId = '12345';
   const urlToBeCalled = `/checkout/v1/orders/${id}/deliveryBundles/${deliveryBundleId}/itemDeliveryProvisioning`;
 
   it('should handle a client request successfully', async () => {

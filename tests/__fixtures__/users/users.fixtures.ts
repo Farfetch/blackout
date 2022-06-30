@@ -1,3 +1,8 @@
+export const userId = 123456;
+export const contactId = '78910';
+export const personalId = '123456';
+export const attributeId = '123456';
+
 export const mockUsersResponse = {
   bagId: '3a52edfe-5b17-46b9-ba5d-ed87cb36aa67',
   dateOfBirth: '/Date(631152000000)/',

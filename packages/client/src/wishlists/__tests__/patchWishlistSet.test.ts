@@ -10,9 +10,6 @@ import mswServer from '../../../tests/mswServer';
 
 describe('patchWishlistSet', () => {
   const expectedConfig = undefined;
-  const wishlistId = mockWishlistId;
-  const wishlistSetId = mockWishlistSetId;
-  const data = mockWishlistSetPatchData;
   const spy = jest.spyOn(client, 'patch');
 
   beforeEach(jest.clearAllMocks);
@@ -22,12 +19,16 @@ describe('patchWishlistSet', () => {
     expect.assertions(2);
 
     await expect(
-      patchWishlistSet(wishlistId, wishlistSetId, data),
+      patchWishlistSet(
+        mockWishlistId,
+        mockWishlistSetId,
+        mockWishlistSetPatchData,
+      ),
     ).resolves.toEqual(expect.objectContaining({ status: 204 }));
 
     expect(spy).toHaveBeenCalledWith(
-      `/commerce/v1/wishlists/${wishlistId}/sets/${wishlistSetId}`,
-      data,
+      `/commerce/v1/wishlists/${mockWishlistId}/sets/${mockWishlistSetId}`,
+      mockWishlistSetPatchData,
       expectedConfig,
     );
   });
@@ -37,12 +38,16 @@ describe('patchWishlistSet', () => {
     expect.assertions(2);
 
     await expect(
-      patchWishlistSet(wishlistId, wishlistSetId, data),
+      patchWishlistSet(
+        mockWishlistId,
+        mockWishlistSetId,
+        mockWishlistSetPatchData,
+      ),
     ).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(
-      `/commerce/v1/wishlists/${wishlistId}/sets/${wishlistSetId}`,
-      data,
+      `/commerce/v1/wishlists/${mockWishlistId}/sets/${mockWishlistSetId}`,
+      mockWishlistSetPatchData,
       expectedConfig,
     );
   });

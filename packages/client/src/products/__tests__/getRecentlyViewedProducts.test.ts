@@ -1,3 +1,4 @@
+import { expectedRecentlyViewedRemotePayload } from 'tests/__fixtures__/products';
 import { getRecentlyViewedProducts } from '../';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getRecentlyViewedProducts.fixtures';
@@ -13,12 +14,8 @@ describe('getRecentlyViewedProducts', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const response: RecentlyViewedProducts = {
-      totalPages: 1,
-      totalItems: 10,
-      number: 1,
-      entries: [],
-    };
+    const response: RecentlyViewedProducts =
+      expectedRecentlyViewedRemotePayload;
 
     mswServer.use(fixtures.success(response));
 

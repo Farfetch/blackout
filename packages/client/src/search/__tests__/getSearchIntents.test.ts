@@ -1,7 +1,7 @@
 import { getSearchIntents } from '../';
 import {
-  mockSearchIntentsQuery,
-  mockSearchIntentsResponse,
+  mockSearchIntentsQuery as query,
+  mockSearchIntentsResponse as response,
 } from 'tests/__fixtures__/search';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getSearchIntents.fixtures';
@@ -9,7 +9,6 @@ import mswServer from '../../../tests/mswServer';
 
 describe('search intents client', () => {
   const expectedConfig = undefined;
-  const query = mockSearchIntentsQuery;
 
   beforeEach(jest.clearAllMocks);
 
@@ -17,8 +16,6 @@ describe('search intents client', () => {
     const spy = jest.spyOn(client, 'get');
 
     it('should handle a client request successfully', async () => {
-      const response = mockSearchIntentsResponse;
-
       mswServer.use(fixtures.success(response));
       expect.assertions(2);
 

@@ -1,3 +1,8 @@
+import {
+  mockCountryCode as countryCode,
+  mockCity,
+  mockStateId as stateId,
+} from 'tests/__fixtures__/locale';
 import { getCountryCities } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCountryCities.fixtures';
@@ -5,8 +10,6 @@ import join from 'proper-url-join';
 import mswServer from '../../../tests/mswServer';
 
 describe('locale client', () => {
-  const countryCode = 'US';
-  const stateId = 3;
   const expectedConfig = undefined;
 
   beforeEach(() => {
@@ -17,21 +20,12 @@ describe('locale client', () => {
     const spy = jest.spyOn(client, 'get');
 
     it('should handle a client request successfully', async () => {
-      const response = [
-        {
-          id: 515,
-          name: 'Atlanta',
-          stateId: 17,
-          countryId: 216,
-        },
-      ];
-
-      mswServer.use(fixtures.get.success(response));
+      mswServer.use(fixtures.get.success(mockCity));
 
       expect.assertions(2);
 
       await expect(getCountryCities(countryCode, stateId)).resolves.toEqual(
-        response,
+        mockCity,
       );
 
       expect(spy).toHaveBeenCalledWith(

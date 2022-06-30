@@ -1,10 +1,10 @@
 import { deletePaymentToken } from '..';
+import { id } from 'tests/__fixtures__/payments';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/deletePaymentToken.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('deletePaymentToken', () => {
-  const id = '123456';
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'delete');
   const expectedUrl = `/payment/v1/tokens/${id}`;

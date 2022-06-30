@@ -1,4 +1,5 @@
 import { getPaymentMethods } from '..';
+import { orderId as id } from 'tests/__fixtures__/payments';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getPaymentMethods.fixtures';
 import mswServer from '../../../tests/mswServer';
@@ -6,7 +7,6 @@ import type { PaymentMethod } from '../types';
 
 describe('getPaymentMethods', () => {
   const expectedConfig = undefined;
-  const id = 1;
   const spy = jest.spyOn(client, 'get');
   const urlToBeCalled = `/checkout/v1/orders/${id}?fields=paymentMethods`;
 

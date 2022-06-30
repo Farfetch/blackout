@@ -1,6 +1,7 @@
 import { getFormSchema } from '../';
 import {
   query,
+  schemaCode,
   formSchemaResponse as successResponse,
 } from 'tests/__fixtures__/forms';
 import client from '../../helpers/client';
@@ -15,7 +16,6 @@ describe('schemas client', () => {
 
   describe('getFormSchema()', () => {
     const spy = jest.spyOn(client, 'get');
-    const schemaCode = 'test';
 
     it('should handle a client request successfully', async () => {
       mswServer.use(fixtures.success(successResponse));

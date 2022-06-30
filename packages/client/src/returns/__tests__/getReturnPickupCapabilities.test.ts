@@ -1,14 +1,13 @@
 import { getReturnPickupCapabilities } from '..';
-import { responses } from 'tests/__fixtures__/returns';
+import { id, responses } from 'tests/__fixtures__/returns';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getReturnPickupCapabilities.fixtures';
 import join from 'proper-url-join';
 import mswServer from '../../../tests/mswServer';
 
 describe('getReturnPickupCapabilities', () => {
-  const spy = jest.spyOn(client, 'get');
-  const id = 123456;
   const pickupDay = '2020-04-20';
+  const spy = jest.spyOn(client, 'get');
   const expectedConfig = undefined;
 
   beforeEach(() => jest.clearAllMocks());

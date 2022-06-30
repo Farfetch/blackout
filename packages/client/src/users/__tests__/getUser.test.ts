@@ -1,4 +1,5 @@
 import * as usersClient from '..';
+import { mockUsersResponse } from 'tests/__fixtures__/users';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getUser.fixtures';
 import mswServer from '../../../tests/mswServer';
@@ -11,31 +12,13 @@ describe('getUser', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const response = {
-      bagId: '3a52edfe-5b17-46b9-ba5d-ed87cb36aa67',
-      dateOfBirth: '/Date(631152000000)/',
-      email: 'teste@conta.com',
-      gender: 0,
-      id: 29538482,
-      title: {
-        id: '111',
-        value: 'Dr.',
-      },
-      name: 'Ivo Mota',
-      phoneNumber: '910000000',
-      segments: [],
-      username: 'teste@conta.com',
-      wishlistId: '8e091868-b74b-47e1-ab27-a2c247c92242',
-      isExternalLogin: false,
-      genders: ['NotDefined', 'Male', 'Female'],
-      genderId: 0,
-    };
-
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockUsersResponse));
 
     expect.assertions(2);
 
-    await expect(usersClient.getUser()).resolves.toStrictEqual(response);
+    await expect(usersClient.getUser()).resolves.toStrictEqual(
+      mockUsersResponse,
+    );
 
     expect(spy).toHaveBeenCalledWith(responseUrl, expectedConfig);
   });

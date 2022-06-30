@@ -4,12 +4,12 @@ import {
   OrderStatusError,
   PatchCheckoutOrderData,
 } from '../types';
+import { id } from 'tests/__fixtures__/checkout';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/patchCheckoutOrder.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('checkout client', () => {
-  const id = 123456;
   const data: PatchCheckoutOrderData = {};
   const expectedConfig = undefined;
 

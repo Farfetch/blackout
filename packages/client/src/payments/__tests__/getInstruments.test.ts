@@ -10,12 +10,12 @@ import {
   ShopperInteraction,
 } from '../types';
 import { getInstruments } from '..';
+import { id } from 'tests/__fixtures__/payments';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getInstruments.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('getInstruments', () => {
-  const id = '123456';
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'get');
   const urlToBeCalled = `/payment/v1/intents/${id}/instruments`;
