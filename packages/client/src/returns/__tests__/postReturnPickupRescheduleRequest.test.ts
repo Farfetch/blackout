@@ -1,4 +1,5 @@
 import {
+  mockReturnId as id,
   mockPickupReschedulePostData,
   responses,
 } from 'tests/__fixtures__/returns';
@@ -9,10 +10,8 @@ import join from 'proper-url-join';
 import mswServer from '../../../tests/mswServer';
 
 describe('postReturnPickupRescheduleRequests()', () => {
-  const data = mockPickupReschedulePostData;
   const spy = jest.spyOn(client, 'post');
   const expectedConfig = undefined;
-  const id = '123456';
 
   beforeEach(() => jest.clearAllMocks());
 
@@ -23,13 +22,13 @@ describe('postReturnPickupRescheduleRequests()', () => {
 
     expect.assertions(2);
 
-    await expect(postReturnPickupRescheduleRequest(id, data)).resolves.toBe(
-      response,
-    );
+    await expect(
+      postReturnPickupRescheduleRequest(id, mockPickupReschedulePostData),
+    ).resolves.toBe(response);
 
     expect(spy).toHaveBeenCalledWith(
       join(`/account/v1/returns/${id}/pickupRescheduleRequests`),
-      data,
+      mockPickupReschedulePostData,
       expectedConfig,
     );
   });
@@ -40,12 +39,12 @@ describe('postReturnPickupRescheduleRequests()', () => {
     expect.assertions(2);
 
     await expect(
-      postReturnPickupRescheduleRequest(id, data),
+      postReturnPickupRescheduleRequest(id, mockPickupReschedulePostData),
     ).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(
       join(`/account/v1/returns/${id}/pickupRescheduleRequests`),
-      data,
+      mockPickupReschedulePostData,
       expectedConfig,
     );
   });

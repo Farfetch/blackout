@@ -6,14 +6,13 @@ import {
   PayerAddressType,
   ShopperInteraction,
 } from '../types';
+import { id, instrumentId } from 'tests/__fixtures__/payments';
 import { putInstruments } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/putInstruments.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('putInstruments', () => {
-  const id = '123456';
-  const instrumentId = '654321';
   const expectedConfig = undefined;
   const country: Country = {
     alpha2Code: 'string',

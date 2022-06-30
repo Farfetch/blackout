@@ -1,10 +1,9 @@
 import { getOrderDocuments } from '..';
-import { mockOrderDocumentsResponse } from 'tests/__fixtures__/orders';
+import { mockOrderDocumentsResponse, orderId } from 'tests/__fixtures__/orders';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getOrderDocuments.fixtures';
 import mswServer from '../../../tests/mswServer';
 
-const orderId = '24BJKS';
 const expectedConfig = undefined;
 const types = ['ComercialInvoice'];
 const response = mockOrderDocumentsResponse;

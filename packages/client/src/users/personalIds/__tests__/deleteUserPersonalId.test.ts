@@ -1,14 +1,13 @@
-import * as usersClient from '../..';
+import { deleteUserPersonalId } from '..';
+import { personalId, userId } from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/deleteUserPersonalId.fixtures';
 import mswServer from '../../../../tests/mswServer';
 
-describe('deletePersonalId', () => {
+describe('deleteUserPersonalId', () => {
   const expectedConfig = {
     'X-SUMMER-RequestId': 'test',
   };
-  const userId = 123456;
-  const personalId = '123456';
   const config = {
     'X-SUMMER-RequestId': 'test',
   };
@@ -24,7 +23,7 @@ describe('deletePersonalId', () => {
     expect.assertions(2);
 
     await expect(
-      usersClient.deleteUserPersonalId(userId, personalId, config),
+      deleteUserPersonalId(userId, personalId, config),
     ).resolves.toBe(response);
 
     expect(spy).toHaveBeenCalledWith(
@@ -39,7 +38,7 @@ describe('deletePersonalId', () => {
     expect.assertions(2);
 
     await expect(
-      usersClient.deleteUserPersonalId(userId, personalId, config),
+      deleteUserPersonalId(userId, personalId, config),
     ).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(

@@ -5,12 +5,12 @@ import {
   GetCheckoutOrderChargeResponse,
   PostCheckoutOrderChargesData,
 } from '../types';
+import { id } from 'tests/__fixtures__/checkout';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postCheckoutOrderCharges.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('checkout client', () => {
-  const id = 123456;
   const data: PostCheckoutOrderChargesData = {
     redirectUrl: 'string',
     returnUrl: 'string',

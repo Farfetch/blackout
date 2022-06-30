@@ -2,7 +2,7 @@ import { actionTypes } from '../..';
 import { fetchPredictions } from '..';
 import { getPredictions } from '@farfetch/blackout-client/addresses';
 import { INITIAL_STATE } from '../../reducer';
-import { mockPredictionResponse } from 'tests/__fixtures__/addresses';
+import { mockPredictionsResponse } from 'tests/__fixtures__/addresses';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 
@@ -48,7 +48,7 @@ describe('fetchPredictions() action creator', () => {
   });
 
   it('should create the correct actions for when the get payment procedure is successful', async () => {
-    getPredictions.mockResolvedValueOnce(mockPredictionResponse);
+    getPredictions.mockResolvedValueOnce(mockPredictionsResponse);
     await store.dispatch(fetchPredictions('', ''));
 
     const actionResults = store.getActions();
@@ -59,7 +59,7 @@ describe('fetchPredictions() action creator', () => {
       { type: actionTypes.FETCH_PREDICTION_REQUEST },
       {
         type: actionTypes.FETCH_PREDICTION_SUCCESS,
-        payload: mockPredictionResponse,
+        payload: mockPredictionsResponse,
       },
     ]);
     expect(

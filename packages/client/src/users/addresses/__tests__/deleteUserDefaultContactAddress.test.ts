@@ -1,10 +1,10 @@
-import { deleteUserDefaultContactAddress } from '../.';
+import { deleteUserDefaultContactAddress } from '..';
+import { userId } from 'tests/__fixtures__/addresses';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/deleteUserDefaultContactAddress.fixtures';
 import mswServer from '../../../../tests/mswServer';
 
 describe('deleteUserDefaultContactAddress', () => {
-  const userId = 78910;
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'delete');
   const expectedUrl = `/account/v1/users/${userId}/addresses/preferred/current`;

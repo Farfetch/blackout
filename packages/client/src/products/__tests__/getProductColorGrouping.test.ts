@@ -15,15 +15,13 @@ describe('getProductColorGrouping', () => {
   beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
-    const response = mockProductColorGrouping;
-
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockProductColorGrouping));
 
     expect.assertions(2);
 
     await expect(
       getProductColorGrouping(mockProductId, query),
-    ).resolves.toEqual(response);
+    ).resolves.toEqual(mockProductColorGrouping);
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/products/${mockProductId}/colorgrouping?pageSize=10`,
       expectedConfig,

@@ -54,7 +54,7 @@ describe('fetchAddressSchema() action creator', () => {
     }
   });
 
-  it('should create the correct actions for when the get address details procedure is successful', async () => {
+  it('should create the correct actions for when the get address schema procedure is successful', async () => {
     getSchema.mockResolvedValueOnce(mockGetAddressSchemaResponse);
     await store.dispatch(fetchAddressSchema(isoCode));
 

@@ -1,3 +1,5 @@
+export const schemaCode = 'test';
+
 export const query = {
   resolveJsonSchemaPresets: false,
   includeJsonSchema: false,

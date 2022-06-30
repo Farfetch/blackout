@@ -1,5 +1,9 @@
 import { getReturnPickupRescheduleRequest } from '..';
-import { responses } from 'tests/__fixtures__/returns';
+import {
+  mockReturnId as id,
+  rescheduleRequestId,
+  responses,
+} from 'tests/__fixtures__/returns';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getReturnPickupRescheduleRequest.fixtures';
 import join from 'proper-url-join';
@@ -7,8 +11,6 @@ import mswServer from '../../../tests/mswServer';
 
 describe('getReturnPickupRescheduleRequest', () => {
   const spy = jest.spyOn(client, 'get');
-  const id = '123456';
-  const rescheduleRequestId = '1654321';
   const expectedConfig = undefined;
 
   beforeEach(() => jest.clearAllMocks());

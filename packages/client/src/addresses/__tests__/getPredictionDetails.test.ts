@@ -1,4 +1,5 @@
 import { getPredictionDetails } from '..';
+import { mockPredictionResponse } from 'tests/__fixtures__/addresses';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getPredictionDetails.fixtures';
 import mswServer from '../../../tests/mswServer';
@@ -8,24 +9,18 @@ describe('getPredictionDetails', () => {
   const spy = jest.spyOn(client, 'get');
   const expectedConfig = undefined;
   const query = { sessionToken: 'imatest' };
-  const response = {
-    id: 'EiZSdWEgZGUgU2FudGEgQ2F0YXJpbmEsIFBvcnRvLCBQb3J0dWdhbCIuKiwKFAoSCVHmX236ZCQNEWtKUad5WOBGEhQKEgnBU-HEq2UkDRG8FLFAVtlIpg',
-    text: 'Rua de Santa Catarina',
-    description: 'Rua de Santa Catarina, Porto, Portugal',
-    type: 'Address',
-  };
 
   beforeEach(() => jest.clearAllMocks());
 
   describe('with query params', () => {
     it('should handle a client request successfully', async () => {
-      mswServer.use(fixtures.success(response));
+      mswServer.use(fixtures.success(mockPredictionResponse));
 
       expect.assertions(2);
 
       await expect(
         getPredictionDetails({ predictionId }, query),
-      ).resolves.toStrictEqual(response);
+      ).resolves.toStrictEqual(mockPredictionResponse);
 
       expect(spy).toHaveBeenCalledWith(
         `/account/v1/addressesprediction/${predictionId}/address?sessionToken=${query.sessionToken}`,
@@ -51,13 +46,13 @@ describe('getPredictionDetails', () => {
 
   describe('without query params', () => {
     it('should handle a client request successfully', async () => {
-      mswServer.use(fixtures.success(response));
+      mswServer.use(fixtures.success(mockPredictionResponse));
 
       expect.assertions(2);
 
       await expect(
         getPredictionDetails({ predictionId }),
-      ).resolves.toStrictEqual(response);
+      ).resolves.toStrictEqual(mockPredictionResponse);
 
       expect(spy).toHaveBeenCalledWith(
         `/account/v1/addressesprediction/${predictionId}/address`,

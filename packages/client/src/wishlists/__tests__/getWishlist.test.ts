@@ -9,21 +9,20 @@ import mswServer from '../../../tests/mswServer';
 
 describe('getWishlist', () => {
   const expectedConfig = undefined;
-  const wishlistId = mockWishlistId;
   const spy = jest.spyOn(client, 'get');
 
   beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
-    const response = mockWishlistsResponse;
-
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockWishlistsResponse));
     expect.assertions(2);
 
-    await expect(getWishlist(wishlistId)).resolves.toEqual(response);
+    await expect(getWishlist(mockWishlistId)).resolves.toEqual(
+      mockWishlistsResponse,
+    );
 
     expect(spy).toHaveBeenCalledWith(
-      `/commerce/v1/wishlists/${wishlistId}?hydrate=true`,
+      `/commerce/v1/wishlists/${mockWishlistId}?hydrate=true`,
       expectedConfig,
     );
   });
@@ -32,10 +31,10 @@ describe('getWishlist', () => {
     mswServer.use(fixtures.failure());
     expect.assertions(2);
 
-    await expect(getWishlist(wishlistId)).rejects.toMatchSnapshot();
+    await expect(getWishlist(mockWishlistId)).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(
-      `/commerce/v1/wishlists/${wishlistId}?hydrate=true`,
+      `/commerce/v1/wishlists/${mockWishlistId}?hydrate=true`,
       expectedConfig,
     );
   });

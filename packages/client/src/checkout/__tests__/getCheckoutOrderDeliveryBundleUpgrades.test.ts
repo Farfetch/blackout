@@ -1,4 +1,5 @@
 import * as checkoutClient from '..';
+import { deliveryBundleId, id } from 'tests/__fixtures__/checkout';
 import {
   DeliveryWindowType,
   GetCheckoutOrderDeliveryBundleUpgradesResponse,
@@ -10,8 +11,6 @@ import mswServer from '../../../tests/mswServer';
 describe('getCheckoutOrderDeliveryBundleUpgrades', () => {
   const spy = jest.spyOn(client, 'get');
   const expectedConfig = undefined;
-  const id = 123456;
-  const deliveryBundleId = '3742-ds12-njnj-j21j';
   const urlToBeCalled = `/checkout/v1/orders/${id}/deliveryBundles/${deliveryBundleId}/upgrades`;
 
   beforeEach(() => jest.clearAllMocks());

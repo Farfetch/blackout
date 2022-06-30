@@ -1,4 +1,5 @@
 import * as profileClient from '..';
+import { attributeId, userId } from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/patchUserAttribute.fixtures';
 import mswServer from '../../../../tests/mswServer';
@@ -12,8 +13,7 @@ describe('patchUserAttribute', () => {
       value: 'string',
     },
   ];
-  const userId = 123456;
-  const attributeId = '123456';
+
   const spy = jest.spyOn(client, 'patch');
 
   beforeEach(() => jest.clearAllMocks());

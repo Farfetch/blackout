@@ -8,13 +8,13 @@ import {
   PostInstrumentsResponse,
   ShopperInteraction,
 } from '../types';
+import { id } from 'tests/__fixtures__/payments';
 import { postInstruments } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postInstruments.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('postInstruments', () => {
-  const id = '123456';
   const expectedConfig = undefined;
   const country: Country = {
     alpha2Code: 'string',

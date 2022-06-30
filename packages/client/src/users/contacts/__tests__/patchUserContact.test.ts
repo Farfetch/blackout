@@ -1,4 +1,9 @@
-import * as usersClient from '..';
+import { patchUserContact } from '..';
+import {
+  contactId,
+  mockGetContactResponse,
+  userId,
+} from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/patchUserContact.fixtures';
 import mswServer from '../../../../tests/mswServer';
@@ -11,31 +16,18 @@ describe('patchUserContact', () => {
     op: '',
     from: '',
   };
-  const userId = 123456;
-  const contactId = '78910';
   const spy = jest.spyOn(client, 'patch');
 
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const response = {
-      id: '4c46a918-303b-4847-8825-dfb295acb6c8',
-      value: 'TEST',
-      countryDetails: {
-        countryCode: 'PT',
-        countryCallingCode: '351',
-      },
-      type: 'Phone',
-      description: 'TEST',
-    };
-
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockGetContactResponse));
 
     expect.assertions(2);
 
     await expect(
-      usersClient.patchUserContact(userId, contactId, data),
-    ).resolves.toStrictEqual(response);
+      patchUserContact(userId, contactId, data),
+    ).resolves.toStrictEqual(mockGetContactResponse);
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/contacts/${contactId}`,
       data,
@@ -49,7 +41,7 @@ describe('patchUserContact', () => {
     expect.assertions(2);
 
     await expect(
-      usersClient.patchUserContact(userId, contactId, data),
+      patchUserContact(userId, contactId, data),
     ).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/contacts/${contactId}`,

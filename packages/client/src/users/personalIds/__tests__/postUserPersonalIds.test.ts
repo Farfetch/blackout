@@ -1,6 +1,7 @@
 import {
   mockPostPersonalIdsData,
   mockPostPersonalIdsResponse,
+  userId,
 } from 'tests/__fixtures__/users';
 import { postUserPersonalIds } from '..';
 import client from '../../../helpers/client';
@@ -12,7 +13,6 @@ describe('postPersonalIds', () => {
     'X-SUMMER-RequestId': 'test',
   };
   const data = mockPostPersonalIdsData;
-  const userId = 123456;
   const config = {
     'X-SUMMER-RequestId': 'test',
   };
@@ -21,15 +21,13 @@ describe('postPersonalIds', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const response = mockPostPersonalIdsResponse;
-
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockPostPersonalIdsResponse));
 
     expect.assertions(2);
 
     await expect(
       postUserPersonalIds(userId, data, config),
-    ).resolves.toStrictEqual(response);
+    ).resolves.toStrictEqual(mockPostPersonalIdsResponse);
 
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/personalids`,

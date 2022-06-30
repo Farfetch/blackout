@@ -1,5 +1,9 @@
 import { getUserPersonalId } from '..';
-import { mockPersonalIdResponse } from 'tests/__fixtures__/users';
+import {
+  mockPersonalIdResponse,
+  personalId,
+  userId,
+} from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/getUserPersonalId.fixtures';
 import mswServer from '../../../../tests/mswServer';
@@ -8,8 +12,6 @@ describe('getPersonalId', () => {
   const expectedConfig = {
     'X-SUMMER-RequestId': 'test',
   };
-  const userId = 123456;
-  const personalId = '123456';
   const config = {
     'X-SUMMER-RequestId': 'test',
   };
@@ -18,15 +20,13 @@ describe('getPersonalId', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const response = mockPersonalIdResponse;
-
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockPersonalIdResponse));
 
     expect.assertions(2);
 
     await expect(
       getUserPersonalId(userId, personalId, config),
-    ).resolves.toStrictEqual(response);
+    ).resolves.toStrictEqual(mockPersonalIdResponse);
 
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/personalIds/${personalId}`,

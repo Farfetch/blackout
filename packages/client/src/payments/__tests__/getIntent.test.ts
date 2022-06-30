@@ -1,11 +1,11 @@
 import { Classification, Intent, IntentStatus, LineItemsType } from '../types';
 import { getIntent } from '..';
+import { id } from 'tests/__fixtures__/payments';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getIntent.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('getIntent', () => {
-  const id = '123456';
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'get');
   const urlToBeCalled = `/payment/v1/intents/${id}`;

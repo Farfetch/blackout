@@ -1,3 +1,4 @@
+import { checkoutOrderId, itemId } from 'tests/__fixtures__/checkout';
 import { deleteCheckoutOrderItem } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/deleteCheckoutOrderItem.fixtures';
@@ -9,8 +10,6 @@ describe('checkout client', () => {
   });
 
   describe('deleteCheckoutOrderItem', () => {
-    const checkoutOrderId = 123456;
-    const itemId = 987654321;
     const expectedUrl = `/checkout/v1/orders/${checkoutOrderId}/items/${itemId}`;
     const expectedConfig = undefined;
     const getSpy = jest.spyOn(client, 'delete');

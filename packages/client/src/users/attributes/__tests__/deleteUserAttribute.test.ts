@@ -1,12 +1,11 @@
 import * as profileClient from '..';
+import { attributeId, userId } from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/deleteUserAttribute.fixtures';
 import mswServer from '../../../../tests/mswServer';
 
 describe('deleteUserAttribute', () => {
   const expectedConfig = undefined;
-  const userId = 123456;
-  const attributeId = '123456';
   const spy = jest.spyOn(client, 'delete');
 
   beforeEach(() => jest.clearAllMocks());

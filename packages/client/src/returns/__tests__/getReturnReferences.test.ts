@@ -1,4 +1,5 @@
 import { getReturnReferences } from '..';
+import { mockReturnId as id } from 'tests/__fixtures__/returns';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getReturnReferences.fixtures';
 import join from 'proper-url-join';
@@ -7,7 +8,6 @@ import mswServer from '../../../tests/mswServer';
 describe('getReturnReferences', () => {
   const name = 'ReturnNote';
   const spy = jest.spyOn(client, 'get');
-  const id = '123456';
   const expectedConfig = undefined;
   const query = { guestUserEmail: 'test@email.com' };
 

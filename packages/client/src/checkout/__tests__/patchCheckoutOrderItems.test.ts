@@ -1,48 +1,17 @@
 import * as checkoutClient from '..';
+import {
+  id,
+  mockResponsePatchOrderItemsGiftMessage,
+} from 'tests/__fixtures__/checkout';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/patchCheckoutOrderItems.fixtures';
 import mswServer from '../../../tests/mswServer';
 import type { PatchCheckoutOrderItemsData } from '../types';
 
 describe('checkout client', () => {
-  const id = 123456;
   const expectedConfig = undefined;
-  const data: PatchCheckoutOrderItemsData = [
-    {
-      checkoutOrderItemId: 1,
-      checkoutItemPatchDocument: {
-        operations: [
-          {
-            value: {
-              from: 'string',
-              to: 'string',
-              message: 'string',
-            },
-            path: 'string',
-            op: 'string',
-            from: 'string',
-          },
-        ],
-      },
-    },
-    {
-      checkoutOrderItemId: 2,
-      checkoutItemPatchDocument: {
-        operations: [
-          {
-            value: {
-              from: 'string',
-              to: 'string',
-              message: 'string',
-            },
-            path: 'string',
-            op: 'string',
-            from: 'string',
-          },
-        ],
-      },
-    },
-  ];
+  const data: PatchCheckoutOrderItemsData =
+    mockResponsePatchOrderItemsGiftMessage;
 
   beforeEach(() => jest.clearAllMocks());
 

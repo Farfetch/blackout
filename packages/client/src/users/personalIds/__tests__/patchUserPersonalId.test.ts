@@ -1,4 +1,8 @@
-import { mockPatchPersonalIdResponse } from 'tests/__fixtures__/users';
+import {
+  mockPatchPersonalIdResponse,
+  personalId,
+  userId,
+} from 'tests/__fixtures__/users';
 import { patchUserPersonalId } from '..';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/patchUserPersonalId.fixtures';
@@ -8,8 +12,7 @@ describe('patchPersonalId', () => {
   const expectedConfig = {
     'X-SUMMER-RequestId': 'test',
   };
-  const userId = 123456;
-  const personalId = '123456';
+
   const data = {
     backImageId: 'string',
     expiryDate: 'string',
@@ -25,15 +28,13 @@ describe('patchPersonalId', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const response = mockPatchPersonalIdResponse;
-
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockPatchPersonalIdResponse));
 
     expect.assertions(2);
 
     await expect(
       patchUserPersonalId(userId, personalId, data, config),
-    ).resolves.toStrictEqual(response);
+    ).resolves.toStrictEqual(mockPatchPersonalIdResponse);
 
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/personalIds/${personalId}`,

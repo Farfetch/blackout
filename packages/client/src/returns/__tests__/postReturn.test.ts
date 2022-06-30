@@ -6,7 +6,6 @@ import join from 'proper-url-join';
 import mswServer from '../../../tests/mswServer';
 
 describe('postReturn()', () => {
-  const data = mockPostData;
   const spy = jest.spyOn(client, 'post');
   const expectedConfig = undefined;
   const query = { guestUserEmail: 'test@email.com' };
@@ -19,10 +18,12 @@ describe('postReturn()', () => {
     mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
-    await expect(postReturn(data, query)).resolves.toStrictEqual(response);
+    await expect(postReturn(mockPostData, query)).resolves.toStrictEqual(
+      response,
+    );
     expect(spy).toHaveBeenCalledWith(
       join('/account/v1/returns/', { query }),
-      data,
+      mockPostData,
       expectedConfig,
     );
   });
@@ -31,10 +32,10 @@ describe('postReturn()', () => {
     mswServer.use(fixtures.failure());
 
     expect.assertions(2);
-    await expect(postReturn(data, query)).rejects.toMatchSnapshot();
+    await expect(postReturn(mockPostData, query)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       join('/account/v1/returns/', { query }),
-      data,
+      mockPostData,
       expectedConfig,
     );
   });

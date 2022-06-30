@@ -15,12 +15,12 @@ describe('getStaffMember', () => {
   beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
-    const response = mockStaffMember;
-
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockStaffMember));
     expect.assertions(2);
 
-    await expect(getStaffMember(mockStaffMemberId)).resolves.toEqual(response);
+    await expect(getStaffMember(mockStaffMemberId)).resolves.toEqual(
+      mockStaffMember,
+    );
 
     expect(spy).toHaveBeenCalledWith(
       join('/account/v1/staffMembers', mockStaffMemberId),

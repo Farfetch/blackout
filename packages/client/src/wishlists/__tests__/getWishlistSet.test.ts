@@ -10,24 +10,20 @@ import mswServer from '../../../tests/mswServer';
 
 describe('getWishlistSet', () => {
   const expectedConfig = undefined;
-  const wishlistId = mockWishlistId;
-  const wishlistSetId = mockWishlistSetId;
   const spy = jest.spyOn(client, 'get');
 
   beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
-    const response = mockWishlistsSetResponse;
-
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockWishlistsSetResponse));
     expect.assertions(2);
 
-    await expect(getWishlistSet(wishlistId, wishlistSetId)).resolves.toEqual(
-      response,
-    );
+    await expect(
+      getWishlistSet(mockWishlistId, mockWishlistSetId),
+    ).resolves.toEqual(mockWishlistsSetResponse);
 
     expect(spy).toHaveBeenCalledWith(
-      `/commerce/v1/wishlists/${wishlistId}/sets/${wishlistSetId}`,
+      `/commerce/v1/wishlists/${mockWishlistId}/sets/${mockWishlistSetId}`,
       expectedConfig,
     );
   });
@@ -37,11 +33,11 @@ describe('getWishlistSet', () => {
     expect.assertions(2);
 
     await expect(
-      getWishlistSet(wishlistId, wishlistSetId),
+      getWishlistSet(mockWishlistId, mockWishlistSetId),
     ).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(
-      `/commerce/v1/wishlists/${wishlistId}/sets/${wishlistSetId}`,
+      `/commerce/v1/wishlists/${mockWishlistId}/sets/${mockWishlistSetId}`,
       expectedConfig,
     );
   });

@@ -5,6 +5,11 @@ enum RescheduleStatus {
   Failed,
 }
 
+export const id = 123456;
+export const rescheduleRequestId = '1654321';
+export const mockReturnId = '123456';
+export const mockOrderId = '123456';
+
 export const responses = {
   post: {
     success: {

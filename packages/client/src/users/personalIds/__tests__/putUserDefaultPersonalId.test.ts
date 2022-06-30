@@ -1,6 +1,7 @@
 import {
   mockPutDefaultPersonalIdData,
   mockPutDefaultPersonalIdResponse,
+  userId,
 } from 'tests/__fixtures__/users';
 import { putUserDefaultPersonalId } from '..';
 import client from '../../../helpers/client';
@@ -11,8 +12,7 @@ describe('putDefaultPersonalId', () => {
   const expectedConfig = {
     'X-SUMMER-RequestId': 'test',
   };
-  const userId = 123456;
-  const data = mockPutDefaultPersonalIdData;
+
   const config = {
     'X-SUMMER-RequestId': 'test',
   };
@@ -21,19 +21,17 @@ describe('putDefaultPersonalId', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const response = mockPutDefaultPersonalIdResponse;
-
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockPutDefaultPersonalIdResponse));
 
     expect.assertions(2);
 
     await expect(
-      putUserDefaultPersonalId(userId, data, config),
-    ).resolves.toStrictEqual(response);
+      putUserDefaultPersonalId(userId, mockPutDefaultPersonalIdData, config),
+    ).resolves.toStrictEqual(mockPutDefaultPersonalIdResponse);
 
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/personalIds/default`,
-      data,
+      mockPutDefaultPersonalIdData,
       expectedConfig,
     );
   });
@@ -43,12 +41,12 @@ describe('putDefaultPersonalId', () => {
 
     expect.assertions(2);
     await expect(
-      putUserDefaultPersonalId(userId, data, config),
+      putUserDefaultPersonalId(userId, mockPutDefaultPersonalIdData, config),
     ).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/personalIds/default`,
-      data,
+      mockPutDefaultPersonalIdData,
       expectedConfig,
     );
   });

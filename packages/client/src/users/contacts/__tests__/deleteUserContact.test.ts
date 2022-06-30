@@ -1,12 +1,11 @@
-import * as usersClient from '../..';
+import { deleteUserContact } from '..';
+import { contactId, userId } from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/deleteUserContact.fixtures';
 import mswServer from '../../../../tests/mswServer';
 
 describe('deleteUserContact', () => {
   const expectedConfig = undefined;
-  const userId = 123456;
-  const contactId = '78910';
   const spy = jest.spyOn(client, 'delete');
 
   beforeEach(() => jest.clearAllMocks());
@@ -16,9 +15,9 @@ describe('deleteUserContact', () => {
 
     expect.assertions(2);
 
-    await expect(
-      usersClient.deleteUserContact(userId, contactId),
-    ).resolves.toEqual(expect.objectContaining({ status: 204 }));
+    await expect(deleteUserContact(userId, contactId)).resolves.toEqual(
+      expect.objectContaining({ status: 204 }),
+    );
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/contacts/${contactId}`,
       expectedConfig,
@@ -31,7 +30,7 @@ describe('deleteUserContact', () => {
     expect.assertions(2);
 
     await expect(
-      usersClient.deleteUserContact(userId, contactId),
+      deleteUserContact(userId, contactId),
     ).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/contacts/${contactId}`,

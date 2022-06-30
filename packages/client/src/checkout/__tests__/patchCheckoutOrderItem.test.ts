@@ -1,3 +1,4 @@
+import { checkoutOrderId, itemId } from 'tests/__fixtures__/checkout';
 import { patchCheckoutOrderItem } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/patchCheckoutOrderItem.fixtures';
@@ -9,8 +10,6 @@ describe('checkout client', () => {
   });
 
   describe('patchCheckoutOrderItem', () => {
-    const checkoutOrderId = 123456;
-    const itemId = 987654321;
     const data = {
       quantity: 10,
     };

@@ -1,3 +1,4 @@
+import { mockCountryCode as countryCode } from 'tests/__fixtures__/locale';
 import { getCountry } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCountry.fixtures';
@@ -5,7 +6,6 @@ import join from 'proper-url-join';
 import mswServer from '../../../tests/mswServer';
 
 describe('locale client', () => {
-  const countryCode = 'US';
   const expectedConfig = undefined;
 
   beforeEach(() => {

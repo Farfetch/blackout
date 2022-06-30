@@ -1,11 +1,10 @@
+import { addressId as id, userId } from 'tests/__fixtures__/addresses';
 import { putUserDefaultContactAddress } from '..';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/putUserDefaultContactAddress.fixtures';
 import mswServer from '../../../../tests/mswServer';
 
 describe('putUserDefaultContactAddress', () => {
-  const id = '123456';
-  const userId = 1213;
   const spy = jest.spyOn(client, 'put');
   const expectedConfig = undefined;
   const expectedUrl = `/account/v1/users/${userId}/addresses/preferred/${id}`;

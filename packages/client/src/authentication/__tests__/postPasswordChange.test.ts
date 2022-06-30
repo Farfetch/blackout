@@ -1,4 +1,5 @@
 import { postPasswordChange } from '..';
+import { userId } from 'tests/__fixtures__/authentication';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postPasswordChange.fixtures';
 import mswServer from '../../../tests/mswServer';
@@ -9,7 +10,6 @@ describe('postPasswordChange', () => {
 
   beforeEach(() => jest.clearAllMocks());
 
-  const userId = 123123;
   const data = {
     oldPassword: 'thisisOLDpassword',
     newPassword: 'thisisNEWpassword',

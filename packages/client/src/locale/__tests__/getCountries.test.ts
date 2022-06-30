@@ -1,4 +1,5 @@
 import { getCountries } from '..';
+import { mockCountry, mockQuery as query } from 'tests/__fixtures__/locale';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCountries.fixtures';
 import join from 'proper-url-join';
@@ -6,10 +7,6 @@ import mswServer from '../../../tests/mswServer';
 
 describe('locale client', () => {
   const expectedConfig = undefined;
-  const query = {
-    pageIndex: 0,
-    pageSize: 5,
-  };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -19,26 +16,7 @@ describe('locale client', () => {
     const spy = jest.spyOn(client, 'get');
 
     it('should handle a client request successfully', async () => {
-      const response = [
-        {
-          code: 'US',
-          structure: '/',
-          platformId: 216,
-          cultureCode: 'en-US',
-          isDefault: true,
-          newsletterSubscriptionOptionDefault: true,
-          isCountryDefault: true,
-          continentId: 5,
-          currencies: [
-            {
-              id: 2,
-              name: 'United States Dollar',
-              isoCode: 'USD',
-              cultureCode: 'en-US',
-            },
-          ],
-        },
-      ];
+      const response = [mockCountry];
 
       mswServer.use(fixtures.get.success(response));
 

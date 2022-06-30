@@ -1,4 +1,7 @@
-import { mockPostPersonalIdImageResponse } from 'tests/__fixtures__/users';
+import {
+  mockPostPersonalIdImageResponse,
+  userId,
+} from 'tests/__fixtures__/users';
 import { postUserPersonalIdImage } from '..';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/postUserPersonalIdImage.fixtures';
@@ -8,7 +11,6 @@ describe('postPersonalIdImage', () => {
   const expectedConfig = {
     'X-SUMMER-RequestId': 'test',
   };
-  const userId = 123456;
   const data = {
     file: 'string',
   };
@@ -20,15 +22,13 @@ describe('postPersonalIdImage', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const response = mockPostPersonalIdImageResponse;
-
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockPostPersonalIdImageResponse));
 
     expect.assertions(2);
 
     await expect(
       postUserPersonalIdImage(userId, data, config),
-    ).resolves.toStrictEqual(response);
+    ).resolves.toStrictEqual(mockPostPersonalIdImageResponse);
 
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/personalIds/images`,

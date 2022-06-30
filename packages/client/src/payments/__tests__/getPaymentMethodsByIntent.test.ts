@@ -1,4 +1,5 @@
 import { getPaymentMethodsByIntent } from '..';
+import { id } from 'tests/__fixtures__/payments';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getPaymentMethodsByIntent.fixtures';
 import mswServer from '../../../tests/mswServer';
@@ -6,7 +7,6 @@ import type { PaymentMethod } from '../types';
 
 describe('getPaymentMethodsByIntent', () => {
   const expectedConfig = undefined;
-  const id = '12345';
   const spy = jest.spyOn(client, 'get');
   const urlToBeCalled = `/payment/v1/intents/${id}/paymentmethods`;
 
