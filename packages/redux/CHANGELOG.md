@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.269](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.268...@farfetch/blackout-redux@1.0.0-next.269) (2022-06-30)
+
+
+### Bug Fixes
+
+* **redux:** merge entities and run duplicate keys ([941ae7e](https://github.com/Farfetch/blackout/commit/941ae7e8cb37702cc412d23873a3f431161bc4cc))
+
+
+### BREAKING CHANGES
+
+* **redux:** - entitiesMapper signature has changed. Now it receives an array
+of extraMappers instead of an object.
+
+
+
+
+
 # [1.0.0-next.268](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.267...@farfetch/blackout-redux@1.0.0-next.268) (2022-06-30)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
