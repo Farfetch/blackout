@@ -1,4 +1,5 @@
 import * as checkoutClient from '..';
+import { deliveryBundleId, id, upgradeId } from 'tests/__fixtures__/checkout';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/patchCheckoutOrderDeliveryBundleUpgrades.fixtures';
 import mswServer from '../../../tests/mswServer';
@@ -9,9 +10,6 @@ describe('patchCheckoutOrderDeliveryBundleUpgrades', () => {
 
   const spy = jest.spyOn(client, 'patch');
   const expectedConfig = undefined;
-  const id = 123456;
-  const deliveryBundleId = '3742-ds12-njnj-j21j';
-  const upgradeId = '1234';
   const data: Array<PatchCheckoutOrderDeliveryBundleUpgradesData> = [
     {
       op: 'replace',

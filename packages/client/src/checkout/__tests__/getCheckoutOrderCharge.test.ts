@@ -1,3 +1,4 @@
+import { chargeId, id } from 'tests/__fixtures__/checkout';
 import {
   DeclineCode,
   GetChargeStatus,
@@ -9,8 +10,6 @@ import fixtures from '../__fixtures__/getCheckoutOrderCharge.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('checkout client', () => {
-  const id = 123456;
-  const chargeId = 'eb92d414-68de-496e-96db-a0c6582b74d4';
   const expectedConfig = undefined;
 
   beforeEach(() => jest.clearAllMocks());

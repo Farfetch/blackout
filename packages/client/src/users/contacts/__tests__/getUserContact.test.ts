@@ -1,12 +1,11 @@
 import { getUserContact } from '..';
+import { contactId, userId } from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/getUserContact.fixtures';
 import mswServer from '../../../../tests/mswServer';
 
 describe('getUserContact', () => {
   const expectedConfig = undefined;
-  const userId = 123456;
-  const contactId = '78910';
   const spy = jest.spyOn(client, 'get');
 
   beforeEach(() => jest.clearAllMocks());

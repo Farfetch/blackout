@@ -1,5 +1,5 @@
 import { getReturn } from '..';
-import { responses } from 'tests/__fixtures__/returns';
+import { id, responses } from 'tests/__fixtures__/returns';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getReturn.fixtures';
 import join from 'proper-url-join';
@@ -7,7 +7,6 @@ import mswServer from '../../../tests/mswServer';
 
 describe('getReturn', () => {
   const spy = jest.spyOn(client, 'get');
-  const id = 123456;
   const expectedConfig = undefined;
   const query = { guestUserEmail: 'test@email.com' };
 

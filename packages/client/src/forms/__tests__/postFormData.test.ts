@@ -1,12 +1,11 @@
 import { postFormData } from '../';
-import { postFormDataResponse } from 'tests/__fixtures__/forms';
+import { postFormDataResponse, schemaCode } from 'tests/__fixtures__/forms';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postFormData.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('schemas client', () => {
   const expectedConfig = undefined;
-  const schemaCode = 'test';
 
   const payload = {
     formData: { ...postFormDataResponse.formData },

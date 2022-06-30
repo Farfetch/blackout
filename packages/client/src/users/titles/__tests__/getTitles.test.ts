@@ -1,4 +1,5 @@
-import * as usersClient from '../..';
+import { getTitles } from '..';
+import { mockGetTitlesResponse } from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/getTitles.fixtures';
 import mswServer from '../../../../tests/mswServer';
@@ -7,28 +8,13 @@ describe('getTitles', () => {
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'get');
   const expectedBaseUrl = '/account/v1/titles';
-  const response = {
-    number: 1,
-    totalPages: 1,
-    totalItems: 2,
-    entries: [
-      {
-        id: '123',
-        value: 'foo',
-      },
-      {
-        id: '456',
-        value: 'bar',
-      },
-    ],
-  };
 
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockGetTitlesResponse));
 
-    await expect(usersClient.getTitles()).resolves.toStrictEqual(response);
+    await expect(getTitles()).resolves.toStrictEqual(mockGetTitlesResponse);
     expect(spy).toHaveBeenCalledWith(expectedBaseUrl, expectedConfig);
   });
 
@@ -39,11 +25,13 @@ describe('getTitles', () => {
     };
     const expectedUrl = `${expectedBaseUrl}?page=${query.page}&pageSize=${query.pageSize}`;
 
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockGetTitlesResponse));
 
     expect.assertions(2);
 
-    await expect(usersClient.getTitles(query)).resolves.toStrictEqual(response);
+    await expect(getTitles(query)).resolves.toStrictEqual(
+      mockGetTitlesResponse,
+    );
     expect(spy).toHaveBeenCalledWith(expectedUrl, expectedConfig);
   });
 
@@ -52,7 +40,7 @@ describe('getTitles', () => {
 
     expect.assertions(2);
 
-    await expect(usersClient.getTitles()).rejects.toMatchSnapshot();
+    await expect(getTitles()).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(expectedBaseUrl, expectedConfig);
   });

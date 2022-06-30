@@ -15,14 +15,12 @@ describe('getPromotionEvaluationItems()', () => {
   const spy = jest.spyOn(client, 'get');
 
   it('should handle a client request successfully', async () => {
-    const response = mockPromotionEvaluationsItemsResponse;
-
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockPromotionEvaluationsItemsResponse));
     expect.assertions(2);
 
     await expect(
       getPromotionEvaluationItems(mockPromotionEvaluationId),
-    ).resolves.toEqual(response);
+    ).resolves.toEqual(mockPromotionEvaluationsItemsResponse);
 
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/promotionEvaluations/${mockPromotionEvaluationId}/promotionEvaluationItems`,

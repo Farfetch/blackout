@@ -1,11 +1,11 @@
 import { deleteRecentlyViewedProduct } from '..';
+import { id } from 'tests/__fixtures__/products';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/deleteRecentlyViewedProduct.fixtures';
 import join from 'proper-url-join';
 import mswServer from '../../../tests/mswServer';
 
 describe('deleteRecentlyViewedProduct', () => {
-  const id = 1345678;
   const spy = jest.spyOn(client, 'delete');
   const expectedConfig = undefined;
 

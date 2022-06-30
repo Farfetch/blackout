@@ -1,12 +1,11 @@
 import { Charge, DeclineCode, GetChargesStatus } from '../types';
+import { chargeId, id } from 'tests/__fixtures__/payments';
 import { getCharges } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCharges.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('getCharges', () => {
-  const id = '123456';
-  const chargeId = '98776';
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'get');
   const urlToBeCalled = `/payment/v1/intents/${id}/charges/${chargeId}`;

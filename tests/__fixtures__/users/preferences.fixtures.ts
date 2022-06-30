@@ -1,4 +1,4 @@
-const code = 'codee1';
+export const code = 'codee1';
 
 export const mockGetPreferencesResponse = [
   {

@@ -14,14 +14,12 @@ describe('getProductAttributes', () => {
   beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
-    const response = mockProductAttributes;
-
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockProductAttributes));
 
     expect.assertions(2);
 
     await expect(getProductAttributes(mockProductId)).resolves.toEqual(
-      response,
+      mockProductAttributes,
     );
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/products/${mockProductId}/attributes`,

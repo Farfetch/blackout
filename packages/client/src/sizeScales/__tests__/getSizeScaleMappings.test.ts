@@ -19,14 +19,12 @@ describe('sizeScaleMappings client', () => {
     const spy = jest.spyOn(client, 'get');
 
     it('should handle a client request successfully', async () => {
-      const response = mockSizeScaleMappings;
-
-      mswServer.use(fixtures.success(response));
+      mswServer.use(fixtures.success(mockSizeScaleMappings));
       expect.assertions(2);
 
       await expect(
         getSizeScaleMappings(mockSizeScaleMappingsQuery),
-      ).resolves.toEqual(response);
+      ).resolves.toEqual(mockSizeScaleMappings);
 
       expect(spy).toHaveBeenCalledWith(
         `/commerce/v1/sizeScaleMappings?brand=${mockSizeScaleMappingsBrandId}&gender=${mockSizeScaleMappingsGenderId}&sizeScale=${mockSizeScaleMappingsScaleId}`,

@@ -1,4 +1,5 @@
-import * as usersClient from '..';
+import { getUserContacts } from '..';
+import { userId } from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/getUserContacts.fixtures';
 import mswServer from '../../../../tests/mswServer';
@@ -6,7 +7,6 @@ import type { UserContactResponse } from '../types';
 
 describe('getUserContacts', () => {
   const expectedConfig = undefined;
-  const userId = 123456;
   const spy = jest.spyOn(client, 'get');
 
   beforeEach(() => jest.clearAllMocks());
@@ -29,9 +29,7 @@ describe('getUserContacts', () => {
 
     expect.assertions(2);
 
-    await expect(usersClient.getUserContacts(userId)).resolves.toStrictEqual(
-      response,
-    );
+    await expect(getUserContacts(userId)).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/contacts`,
       expectedConfig,
@@ -43,7 +41,7 @@ describe('getUserContacts', () => {
 
     expect.assertions(2);
 
-    await expect(usersClient.getUserContacts(userId)).rejects.toMatchSnapshot();
+    await expect(getUserContacts(userId)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/contacts`,
       expectedConfig,

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`getUserAddresses getUserAddresses Account Service should receive a client request error 1`] = `
+exports[`getUserAddresses should receive a client request error 1`] = `
 Object {
   "code": -1,
   "message": "stub error",

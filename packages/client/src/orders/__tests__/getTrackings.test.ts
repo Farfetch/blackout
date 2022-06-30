@@ -1,10 +1,12 @@
 import { getTrackings } from '..';
-import { mockTrackingResponse } from 'tests/__fixtures__/orders';
+import {
+  mockTrackingResponse,
+  trackingNumber,
+} from 'tests/__fixtures__/orders';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getTrackings.fixtures';
 import mswServer from '../../../tests/mswServer';
 
-const trackingCodes = '1';
 const expectedConfig = undefined;
 
 beforeEach(() => jest.clearAllMocks());
@@ -13,12 +15,13 @@ describe('getTrackings', () => {
   const spy = jest.spyOn(client, 'get');
 
   it('should handle a client request successfully', async () => {
-    const response = mockTrackingResponse;
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockTrackingResponse));
 
-    await expect(getTrackings(trackingCodes)).resolves.toStrictEqual(response);
+    await expect(getTrackings(trackingNumber)).resolves.toStrictEqual(
+      mockTrackingResponse,
+    );
     expect(spy).toHaveBeenCalledWith(
-      `/account/v1/trackings?trackingNumbers=${trackingCodes}`,
+      `/account/v1/trackings?trackingNumbers=${trackingNumber}`,
       expectedConfig,
     );
   });
@@ -26,9 +29,9 @@ describe('getTrackings', () => {
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
 
-    await expect(getTrackings(trackingCodes)).rejects.toMatchSnapshot();
+    await expect(getTrackings(trackingNumber)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      `/account/v1/trackings?trackingNumbers=${trackingCodes}`,
+      `/account/v1/trackings?trackingNumbers=${trackingNumber}`,
       expectedConfig,
     );
   });

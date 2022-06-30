@@ -1,10 +1,9 @@
+import { fileId, orderId } from 'tests/__fixtures__/orders';
 import { getOrderDocument } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getOrderDocument.fixtures';
 import mswServer from '../../../tests/mswServer';
 
-const orderId = '24BJKS';
-const fileId = '8e02707d-42c8-45d6-8407-b3727a6670cb';
 const expectedConfig = undefined;
 const response = '';
 

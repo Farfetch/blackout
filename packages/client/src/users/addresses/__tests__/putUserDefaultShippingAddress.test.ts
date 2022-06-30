@@ -1,3 +1,4 @@
+import { addressId as id, userId } from 'tests/__fixtures__/addresses';
 import { putUserDefaultShippingAddress } from '..';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/putUserDefaultShippingAddress.fixtures';
@@ -5,8 +6,6 @@ import mswServer from '../../../../tests/mswServer';
 
 describe('putUserDefaultShippingAddress', () => {
   const expectedConfig = undefined;
-  const id = '123456';
-  const userId = 78910;
   const spy = jest.spyOn(client, 'put');
 
   beforeEach(() => jest.clearAllMocks());

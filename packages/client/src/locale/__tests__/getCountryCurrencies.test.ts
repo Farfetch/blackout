@@ -1,3 +1,7 @@
+import {
+  mockCountryCode as countryCode,
+  mockCurrencies,
+} from 'tests/__fixtures__/locale';
 import { getCountryCurrencies } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCountryCurrencies.fixtures';
@@ -5,7 +9,6 @@ import join from 'proper-url-join';
 import mswServer from '../../../tests/mswServer';
 
 describe('locale client', () => {
-  const countryCode = 'US';
   const expectedConfig = undefined;
 
   beforeEach(() => {
@@ -16,21 +19,12 @@ describe('locale client', () => {
     const spy = jest.spyOn(client, 'get');
 
     it('should handle a client request successfully', async () => {
-      const response = [
-        {
-          id: 2,
-          name: 'United States Dollar',
-          isoCode: 'USD',
-          cultureCode: 'en-US',
-        },
-      ];
-
-      mswServer.use(fixtures.get.success(response));
+      mswServer.use(fixtures.get.success(mockCurrencies));
 
       expect.assertions(2);
 
       await expect(getCountryCurrencies(countryCode)).resolves.toEqual(
-        response,
+        mockCurrencies,
       );
 
       expect(spy).toHaveBeenCalledWith(

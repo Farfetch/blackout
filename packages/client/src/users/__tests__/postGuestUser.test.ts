@@ -1,3 +1,4 @@
+import { mockGuestUserResponse } from 'tests/__fixtures__/users/guestUsers.fixtures';
 import { postGuestUser } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postGuestUser.fixtures';
@@ -11,22 +12,13 @@ describe('postGuestUser', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const response = {
-      id: 123,
-      bagId: 'string',
-      wishlistId: 'string',
-      ip: 'string',
-      countryCode: 'string',
-      externalId: 'string',
-      friendId: 'string',
-      expiryDate: '2020-03-31T15:21:55.109Z',
-    };
-
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockGuestUserResponse));
 
     expect.assertions(2);
 
-    await expect(postGuestUser(data)).resolves.toStrictEqual(response);
+    await expect(postGuestUser(data)).resolves.toStrictEqual(
+      mockGuestUserResponse,
+    );
     expect(spy).toHaveBeenCalledWith(
       '/account/v1/guestUsers',
       data,

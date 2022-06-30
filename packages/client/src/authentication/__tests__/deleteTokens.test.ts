@@ -1,10 +1,10 @@
 import { deleteTokens } from '..';
+import { id } from 'tests/__fixtures__/authentication';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/deleteTokens.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('deleteTokens', () => {
-  const id = '1';
   const expectedConfig = {
     baseURL: 'https://api.blackandwhite-ff.com',
     headers: {

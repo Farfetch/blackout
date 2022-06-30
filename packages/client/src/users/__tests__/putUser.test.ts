@@ -1,11 +1,11 @@
 import * as usersClient from '..';
+import { userId } from 'tests/__fixtures__/users';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/putUser.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('putUser', () => {
   const expectedConfig = undefined;
-  const userId = 123456;
   const data = {
     name: 'New Name',
     email: 'teste@conta.com',

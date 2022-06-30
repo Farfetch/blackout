@@ -9,7 +9,6 @@ import mswServer from '../../../tests/mswServer';
 
 describe('search did you mean client', () => {
   const expectedConfig = undefined;
-  const query = mockSearchDidYouMeanQuery;
 
   beforeEach(jest.clearAllMocks);
 
@@ -17,12 +16,12 @@ describe('search did you mean client', () => {
     const spy = jest.spyOn(client, 'get');
 
     it('should handle a client request successfully', async () => {
-      const response = mockSearchDidYouMeanResponse;
-
-      mswServer.use(fixtures.success(response));
+      mswServer.use(fixtures.success(mockSearchDidYouMeanResponse));
       expect.assertions(2);
 
-      await expect(getSearchDidYouMean(query)).resolves.toEqual(response);
+      await expect(
+        getSearchDidYouMean(mockSearchDidYouMeanQuery),
+      ).resolves.toEqual(mockSearchDidYouMeanResponse);
 
       expect(spy).toHaveBeenCalledWith(
         '/commerce/v1/search/didyoumean?genders=0&genders=1&searchTerms=balenciga',
@@ -34,7 +33,9 @@ describe('search did you mean client', () => {
       mswServer.use(fixtures.failure());
       expect.assertions(2);
 
-      await expect(getSearchDidYouMean(query)).rejects.toMatchSnapshot();
+      await expect(
+        getSearchDidYouMean(mockSearchDidYouMeanQuery),
+      ).rejects.toMatchSnapshot();
 
       expect(spy).toHaveBeenCalledWith(
         '/commerce/v1/search/didyoumean?genders=0&genders=1&searchTerms=balenciga',

@@ -1,7 +1,12 @@
 export const checkoutId = 15338048;
 export const transactionId = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
-const checkoutOrderId = 15338048;
+export const checkoutOrderId = 15338048;
 export const checkoutOrderItemId = 30380051;
+export const itemId = 987654321;
+export const id = 123456;
+export const operationId = '987654321';
+export const upgradeId = '123456';
+export const chargeId = 'eb92d414-68de-496e-96db-a0c6582b74d4';
 const merchantId = 10658;
 const productId = 12640693;
 const brandId = 121212;
@@ -634,3 +639,40 @@ export const expectedDetailsNormalizedPayload = {
   },
   result: checkoutId,
 };
+
+export const mockResponsePatchOrderItemsGiftMessage = [
+  {
+    checkoutOrderItemId: 1,
+    checkoutItemPatchDocument: {
+      operations: [
+        {
+          value: {
+            from: 'string',
+            to: 'string',
+            message: 'string',
+          },
+          path: 'string',
+          op: 'string',
+          from: 'string',
+        },
+      ],
+    },
+  },
+  {
+    checkoutOrderItemId: 2,
+    checkoutItemPatchDocument: {
+      operations: [
+        {
+          value: {
+            from: 'string',
+            to: 'string',
+            message: 'string',
+          },
+          path: 'string',
+          op: 'string',
+          from: 'string',
+        },
+      ],
+    },
+  },
+];

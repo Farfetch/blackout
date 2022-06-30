@@ -9,8 +9,6 @@ import mswServer from '../../../tests/mswServer';
 
 describe('postWishlistSet', () => {
   const expectedConfig = undefined;
-  const wishlistId = mockWishlistId;
-  const data = mockWishlistsSetResponse;
   const spy = jest.spyOn(client, 'post');
 
   beforeEach(jest.clearAllMocks);
@@ -21,11 +19,13 @@ describe('postWishlistSet', () => {
     mswServer.use(fixtures.success(response));
     expect.assertions(2);
 
-    await expect(postWishlistSet(wishlistId, data)).resolves.toEqual(response);
+    await expect(
+      postWishlistSet(mockWishlistId, mockWishlistsSetResponse),
+    ).resolves.toEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
-      `/commerce/v1/wishlists/${wishlistId}/sets`,
-      data,
+      `/commerce/v1/wishlists/${mockWishlistId}/sets`,
+      mockWishlistsSetResponse,
       expectedConfig,
     );
   });
@@ -34,11 +34,13 @@ describe('postWishlistSet', () => {
     mswServer.use(fixtures.failure());
     expect.assertions(2);
 
-    await expect(postWishlistSet(wishlistId, data)).rejects.toMatchSnapshot();
+    await expect(
+      postWishlistSet(mockWishlistId, mockWishlistsSetResponse),
+    ).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(
-      `/commerce/v1/wishlists/${wishlistId}/sets`,
-      data,
+      `/commerce/v1/wishlists/${mockWishlistId}/sets`,
+      mockWishlistsSetResponse,
       expectedConfig,
     );
   });

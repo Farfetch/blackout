@@ -13,12 +13,10 @@ describe('brands client', () => {
     const spy = jest.spyOn(client, 'get');
 
     it('should handle a client request successfully', async () => {
-      const response = mockBrandsResponse;
-
-      mswServer.use(fixtures.success(response));
+      mswServer.use(fixtures.success(mockBrandsResponse));
       expect.assertions(2);
 
-      await expect(getBrands(mockQuery)).resolves.toEqual(response);
+      await expect(getBrands(mockQuery)).resolves.toEqual(mockBrandsResponse);
 
       expect(spy).toHaveBeenCalledWith(
         '/commerce/v1/brands?id=211376%2C%20110127',

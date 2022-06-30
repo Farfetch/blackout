@@ -1,4 +1,5 @@
 import * as checkoutClient from '..';
+import { id } from 'tests/__fixtures__/checkout';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCheckoutOrderOperations.fixtures';
 import mswServer from '../../../tests/mswServer';
@@ -7,7 +8,6 @@ describe('checkout client', () => {
   beforeEach(() => jest.clearAllMocks());
 
   describe('getCheckoutOrderOperations', () => {
-    const id = 123456;
     const expectedUrl = `/checkout/v1/orders/${id}/operations`;
     const expectedConfig = undefined;
     const getSpy = jest.spyOn(client, 'get');

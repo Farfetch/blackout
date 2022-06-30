@@ -1,4 +1,8 @@
 import * as checkoutClient from '..';
+import {
+  operationId,
+  checkoutOrderId as orderId,
+} from 'tests/__fixtures__/checkout';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCheckoutOrderOperation.fixtures';
 import mswServer from '../../../tests/mswServer';
@@ -8,8 +12,6 @@ describe('checkout client', () => {
   beforeEach(() => jest.clearAllMocks());
 
   describe('getCheckoutOrderOperation', () => {
-    const orderId = 123456;
-    const operationId = '987654321';
     const params = { orderId, operationId };
     const expectedUrl = `/checkout/v1/orders/${orderId}/operations/${operationId}`;
     const expectedConfig = undefined;

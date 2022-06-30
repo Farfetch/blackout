@@ -1,12 +1,11 @@
 import { deleteUserAddress } from '..';
+import { addressId as id, userId } from 'tests/__fixtures__/addresses';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/deleteUserAddress.fixtures';
 import mswServer from '../../../../tests/mswServer';
 
 describe('deleteUserAddress', () => {
   const expectedConfig = undefined;
-  const id = 'c9ce5410-58d9-4298-a385-231a79373e4a';
-  const userId = 78910;
   const spy = jest.spyOn(client, 'delete');
 
   beforeEach(() => jest.clearAllMocks());
