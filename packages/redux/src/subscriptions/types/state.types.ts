@@ -1,36 +1,43 @@
-import type { BlackoutError } from '@farfetch/blackout-client/types';
-import type { CombinedState } from 'redux';
+import type {
+  BlackoutError,
+  Subscription,
+  SubscriptionPackage,
+  SubscriptionPackagesResult,
+} from '@farfetch/blackout-client';
 import type { StateWithResult } from '../../types';
-import type { Subscription } from '@farfetch/blackout-client';
 
-export type SubscriptionsState = CombinedState<{
+export type SubscriptionsState = {
   user: UserSubscriptionsState;
   packages: SubscriptionPackagesState;
-}>;
+};
 
 export type UserSubscriptionsState = StateWithResult<
   Subscription[],
   {
-    unsubscribeRecipientFromTopicRequests: Record<
-      string,
-      UnsubscribeRecipientFromTopicType
-    >;
+    unsubscribeRecipientFromTopicRequests: UnsubscribeRecipientFromTopicRequests;
     updateSubscriptionsError: BlackoutError | undefined | null;
   }
+>;
+
+export type SubscriptionPackagesResultNormalized = Omit<
+  SubscriptionPackagesResult,
+  'packages'
+> & {
+  packages: Array<SubscriptionPackage['id']>;
+};
+
+export type SubscriptionPackagesState =
+  StateWithResult<SubscriptionPackagesResultNormalized>;
+
+export type UnsubscribeRecipientFromTopicRequests = Record<
+  string,
+  UnsubscribeRecipientFromTopicType
 >;
 
 export type UnsubscribeRecipientFromTopicType = {
   subscriptionId: string;
   topicId: string;
   isFetching: boolean;
-  success?: boolean;
+  success: boolean | undefined;
   error: BlackoutError | undefined | null;
-};
-
-export type SubscriptionPackagesState =
-  StateWithResult<NormalizedSubscriptionPackages>;
-
-export type NormalizedSubscriptionPackages = {
-  supportedChannels: string[];
-  packages: string[];
 };

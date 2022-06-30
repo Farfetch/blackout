@@ -7,21 +7,23 @@ export type GetSubscriptions = (
 
 export type Subscription = {
   id: string;
-  metadata?: Record<string, object>;
+  metadata?: SubscriptionMetadata;
   topics: SubscriptionTopic[];
 };
 
+export type SubscriptionMetadata = Record<string, string>;
+
 export type SubscriptionTopic = {
   id: string;
-  type?: string;
-  channels: SubscriptionTopicChannel[];
+  type: string;
+  channels: SubscriptionDeliveryChannel[];
 };
 
-export type SubscriptionTopicChannel = {
+export type SubscriptionDeliveryChannel = {
   id: string;
   address: string;
   platform: string;
-  source: string;
+  source?: string;
 };
 
 export type GetSubscriptionsQuery = {

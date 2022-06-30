@@ -13,11 +13,6 @@ export const INITIAL_STATE: RecentlyViewedState = {
   error: null,
   isLoading: false,
   result: null,
-  // result: {
-  //   remote: null,
-  //   computed: null,
-  //   pagination: null,
-  // },
 };
 
 const error = (
