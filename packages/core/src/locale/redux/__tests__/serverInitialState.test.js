@@ -24,6 +24,7 @@ describe('local serverInitialState()', () => {
             code: 'US',
             newsletterSubscriptionOptionDefault: false,
             structure: '/en-us',
+            sourceCountryCode: 'PT',
           },
         },
       },

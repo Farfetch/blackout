@@ -23,6 +23,7 @@ export default ({ model }) => {
     currencyCode,
     currencyCultureCode,
     newsletterSubscriptionOptionDefault,
+    requestSourceCountryCode,
     subfolder,
   } = model;
   // Normalize it
@@ -39,6 +40,7 @@ export default ({ model }) => {
       newsletterSubscriptionOptionDefault,
       platformId: countryId,
       structure: subfolder,
+      sourceCountryCode: requestSourceCountryCode,
     },
     country,
   );

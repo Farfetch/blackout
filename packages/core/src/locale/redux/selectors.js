@@ -114,6 +114,31 @@ export const getCultureCode = (state, countryCode = getCountryCode(state)) => {
 };
 
 /**
+ * Returns the culture list for the given countryCode. By default, returns the
+ * culture of the current country.
+ *
+ * @example
+ * import { getCountryCultures } from '@farfetch/blackout-core/locale/redux';
+ *
+ * const mapStateToProps = state => ({
+ *     countryCultures: getCountryCultures(state)
+ * });
+ *
+ * @param {object} state - Application state.
+ * @param {string} [countryCode=getCountryCode(state)] - The country code to find a specific country.
+ *
+ * @returns {Array | undefined} - The list of cultures for the countryCode received.
+ */
+export const getCountryCultures = (
+  state,
+  countryCode = getCountryCode(state),
+) => {
+  const country = countryCode && getCountry(state, countryCode);
+
+  return get(country, 'cultures');
+};
+
+/**
  * Returns the subfolder for the given countryCode.
  * By default, returns the subfolder of the current country.
  *

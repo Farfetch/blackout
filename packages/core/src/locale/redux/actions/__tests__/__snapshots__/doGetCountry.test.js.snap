@@ -12,6 +12,9 @@ Object {
           "code": "US",
           "continentId": 5,
           "cultureCode": "en-US",
+          "cultures": Array [
+            "en-US",
+          ],
           "currencies": Array [
             Object {
               "cultureCode": "en-US",
