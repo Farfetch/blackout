@@ -3,6 +3,55 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.173](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.172...@farfetch/blackout-client@2.0.0-next.173) (2022-06-30)
+
+
+### chore
+
+* **client:** update checkout client names ([69b8961](https://github.com/Farfetch/blackout/commit/69b896166d8690014af737474842803259d9b102))
+
+
+### BREAKING CHANGES
+
+* **client:** The following clients, imported from
+`@farfetch/blackout-client/checkout`
+
+changed its name to:
+- getCheckout → getCheckoutOrder
+- getCharges → getCheckoutOrderCharges
+- getDeliveryBundleUpgrades → getCheckoutOrderDeliveryBundleUpgrades
+- getItemDeliveryProvisioning → getCheckoutOrderDeliveryBundleProvisioning
+- getOperation → getCheckoutOrderOperation
+- getOperations → getCheckoutOrderOperations
+- getUpgradeItemDeliveryProvisioning → getCheckoutOrderDeliveryBundleUpgradeProvisioning
+- patchCheckout → patchCheckoutOrder
+- patchDeliveryBundleUpgrades → patchCheckoutOrderDeliveryBundleUpgrades
+- patchGiftMessage → patchCheckoutOrderItems
+- postCharges → postCheckoutOrderCharges
+- postCheckout → postCheckoutOrder
+- putItemTags → putCheckoutOrderItemTags
+- putPromocode → putCheckoutOrderPromocode
+- putTags → putCheckoutOrderTags
+
+removed:
+- patchCheckoutCompletePayment
+
+All checkout client functions should be now imported
+direcly from '@farfetch/blackout-client'
+
+// example
+import {
+  getCheckoutOrder,
+  getCheckoutOrderCharges,
+  patchCheckoutOrderItems,
+  putCheckoutOrderPromocode,
+} from '@farfetch/blackout-client';
+```
+
+
+
+
+
 # [2.0.0-next.172](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.171...@farfetch/blackout-client@2.0.0-next.172) (2022-06-29)
 
 
