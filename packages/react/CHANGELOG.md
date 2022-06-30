@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.266](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.265...@farfetch/blackout-react@1.0.0-next.266) (2022-06-30)
+
+
+### Features
+
+* **react:** add `addBagItem` to `useBag` ([00b24c5](https://github.com/Farfetch/blackout/commit/00b24c5ea02b02f54fb552e42597a784dbd6deae))
+* **react:** remove `addBagItem` from `useBagItem` ([45d41ac](https://github.com/Farfetch/blackout/commit/45d41ac275f0ed9658afb84718e7a2e35e293ef0))
+
+
+
+
+
 # [1.0.0-next.265](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.264...@farfetch/blackout-react@1.0.0-next.265) (2022-06-29)
 
 **Note:** Version bump only for package @farfetch/blackout-react
