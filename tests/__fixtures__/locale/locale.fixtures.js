@@ -21,6 +21,7 @@ export const mockCountry = {
   isCountryDefault: true,
   continentId: 5,
   currencies: mockCurrencies,
+  cultures: ['en-US'],
 };
 
 export const mockCountryNormalized = {
@@ -34,6 +35,7 @@ export const mockCountryNormalized = {
   continentId: 5,
   currencies: mockCurrencies,
   states: [3, 6],
+  cultures: ['en-US'],
 };
 export const mockCountries = [mockCountry];
 export const mockCountriesEntities = {
@@ -84,4 +86,5 @@ export const mockModel = {
   countryId: 216,
   cultureCode: 'en-US',
   newsletterSubscriptionOptionDefault: false,
+  requestSourceCountryCode: 'PT',
 };
