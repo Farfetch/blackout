@@ -12,12 +12,10 @@ import type { PostReturn } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const postReturn: PostReturn = (data, query, config) =>
+export const postReturn: PostReturn = (data, query, config) =>
   client
     .post(join('/account/v1/returns', { query }), data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
-
-export default postReturn;

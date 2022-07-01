@@ -4,6 +4,5 @@ import { getReturnPickupCapabilities } from '@farfetch/blackout-client/returns';
 /**
  * Fetch pickup capabilities with given id.
  */
-export default fetchReturnPickupCapabilitiesFactory(
-  getReturnPickupCapabilities,
-);
+export const fetchReturnPickupCapabilities =
+  fetchReturnPickupCapabilitiesFactory(getReturnPickupCapabilities);

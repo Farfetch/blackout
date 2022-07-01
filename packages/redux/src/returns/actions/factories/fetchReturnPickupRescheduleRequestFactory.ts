@@ -13,7 +13,7 @@ import type {
  *
  * @returns Thunk factory.
  */
-const fetchReturnPickupRescheduleRequestFactory =
+export const fetchReturnPickupRescheduleRequestFactory =
   (getReturnPickupRescheduleRequest: GetReturnPickupRescheduleRequest) =>
   (id: string, rescheduleRequestId: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<PickupRescheduleRequest> => {
@@ -43,5 +43,3 @@ const fetchReturnPickupRescheduleRequestFactory =
       throw error;
     }
   };
-
-export default fetchReturnPickupRescheduleRequestFactory;

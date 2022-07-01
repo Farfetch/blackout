@@ -4,4 +4,4 @@ import { updateReturnFactory } from './factories';
 /**
  * Update the pickup schedule of a return.
  */
-export default updateReturnFactory(patchReturn);
+export const updateReturn = updateReturnFactory(patchReturn);

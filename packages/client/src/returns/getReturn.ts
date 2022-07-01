@@ -12,12 +12,10 @@ import type { GetReturn } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getReturn: GetReturn = (id, query, config) =>
+export const getReturn: GetReturn = (id, query, config) =>
   client
     .get(join('/account/v1/returns', id, { query }), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
-
-export default getReturn;

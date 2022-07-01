@@ -14,7 +14,7 @@ import type {
  *
  * @returns Thunk factory.
  */
-const fetchReturnPickupCapabilitiesFactory =
+export const fetchReturnPickupCapabilitiesFactory =
   (getReturnPickupCapabilities: GetReturnPickupCapabilities) =>
   (id: number, pickupDay: string, config?: Record<string, unknown>) =>
   async (dispatch: Dispatch): Promise<PickupCapabilities> => {
@@ -48,5 +48,3 @@ const fetchReturnPickupCapabilitiesFactory =
       throw error;
     }
   };
-
-export default fetchReturnPickupCapabilitiesFactory;

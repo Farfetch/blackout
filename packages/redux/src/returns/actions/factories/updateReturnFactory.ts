@@ -25,7 +25,7 @@ import type {
  *
  * @returns Thunk factory.
  */
-const updateReturnFactory =
+export const updateReturnFactory =
   (patchReturn: PatchReturn) =>
   (
     id: number,
@@ -59,5 +59,3 @@ const updateReturnFactory =
       throw error;
     }
   };
-
-export default updateReturnFactory;
