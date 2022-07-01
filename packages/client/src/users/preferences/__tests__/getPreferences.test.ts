@@ -1,9 +1,9 @@
-import { getUserPreferences } from '..';
 import {
   code,
   mockGetPreferencesResponse,
   userId,
 } from 'tests/__fixtures__/users';
+import { getUserPreferences } from '..';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/getUserPreferences.fixtures';
 import mswServer from '../../../../tests/mswServer';
