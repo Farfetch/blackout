@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.176](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.175...@farfetch/blackout-client@2.0.0-next.176) (2022-07-01)
+
+
+### Features
+
+* **client:** change e-commerce clients naming ([aa65b31](https://github.com/Farfetch/blackout/commit/aa65b31472e52a82728068d88faa6fd3a2873abc))
+
+
+### BREAKING CHANGES
+
+* **client:** The following clients, imported from
+`@farfetch/blackout-client/products`, changed its name to:
+
+getProductsDetails → getProduct
+getProductVariantsByMerchantsLocations → getProductVariantMerchantsLocations
+getListing → getProductListing
+getSets → getProductSets
+getRecommendedSets → getProductRecommendedSets
+
+
+
+
+
 # [2.0.0-next.175](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.174...@farfetch/blackout-client@2.0.0-next.175) (2022-07-01)
 
 
