@@ -50,7 +50,7 @@ Array [
     "name": "M",
     "scale": 115,
     "scaleAbbreviation": "IT",
-    "scaleDescription": undefined,
+    "scaleDescription": "Clothing standard",
     "stock": Array [
       Object {
         "barcodes": Array [

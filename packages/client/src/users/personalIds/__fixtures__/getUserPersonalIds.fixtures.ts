@@ -1,10 +1,10 @@
 import { rest, RestHandler } from 'msw';
-import type { PersonalIdsResponse } from '../types';
+import type { UserPersonalIdsResponse } from '../types';
 
 const path = '/api/account/v1/users/:userId/personalIds';
 
 const fixtures = {
-  success: (response: PersonalIdsResponse): RestHandler =>
+  success: (response: UserPersonalIdsResponse): RestHandler =>
     rest.get(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),

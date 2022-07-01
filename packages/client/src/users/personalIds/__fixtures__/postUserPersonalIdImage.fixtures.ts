@@ -1,10 +1,10 @@
 import { rest, RestHandler } from 'msw';
-import type { PostPersonalIdImageResponse } from '../types';
+import type { PostUserPersonalIdImageResponse } from '../types';
 
 const path = '/api/account/v1/users/:userId/personalIds/images';
 
 const fixtures = {
-  success: (response: PostPersonalIdImageResponse): RestHandler =>
+  success: (response: PostUserPersonalIdImageResponse): RestHandler =>
     rest.post(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),

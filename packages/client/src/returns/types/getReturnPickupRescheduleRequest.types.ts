@@ -1,4 +1,4 @@
-import type { Config } from '@farfetch/blackout-client/types';
+import type { Config } from '../../types';
 import type { PickupRescheduleRequest } from './pickupRescheduleRequests.types';
 
 export type GetReturnPickupRescheduleRequest = (

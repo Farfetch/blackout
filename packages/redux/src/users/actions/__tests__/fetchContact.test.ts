@@ -22,10 +22,6 @@ let store = usersMockStore();
 describe('fetchContact action creator', () => {
   const userId = 123456789;
   const contactId = 'abcdefghi';
-  const query = {
-    id: userId,
-    contactId,
-  };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -39,14 +35,13 @@ describe('fetchContact action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(fetchContact(userId, contactId, query));
+      await store.dispatch(fetchContact(userId, contactId));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(getUserContact).toHaveBeenCalledTimes(1);
       expect(getUserContact).toHaveBeenCalledWith(
         userId,
         contactId,
-        query,
         expectedConfig,
       );
       expect(store.getActions()).toEqual(
@@ -64,9 +59,7 @@ describe('fetchContact action creator', () => {
   it('should create the correct actions for when the get contact procedure is successful', async () => {
     (getUserContact as jest.Mock).mockResolvedValueOnce(mockGetContactResponse);
 
-    await store.dispatch(
-      fetchContact(userId, contactId, query, expectedConfig),
-    );
+    await store.dispatch(fetchContact(userId, contactId, expectedConfig));
 
     const actionResults = store.getActions();
 
@@ -74,7 +67,6 @@ describe('fetchContact action creator', () => {
     expect(getUserContact).toHaveBeenCalledWith(
       userId,
       contactId,
-      query,
       expectedConfig,
     );
     expect(actionResults).toMatchObject([

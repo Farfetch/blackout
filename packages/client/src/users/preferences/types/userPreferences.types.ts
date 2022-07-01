@@ -1,8 +1,6 @@
-export type UserPreferencesResponse = [
-  {
-    code: string;
-    values: string[];
-    groupId: string;
-    updatedDate: string;
-  },
-];
+export type UserPreferencesResponse = {
+  code: string;
+  values: string[];
+  groupId: string;
+  updatedDate: string;
+}[];

@@ -1,8 +1,16 @@
-import { name as PCKG_NAME, version as PCKG_VERSION } from '../../package.json';
 import { warnDeprecatedMethod } from '../helpers';
 import client, { adaptError } from '../helpers/client';
 import join from 'proper-url-join';
 import type { GetProductColorGrouping } from './types';
+
+// We use a require here to avoid typescript complaining of `package.json` is not
+// under rootDir that we would get if we used an import. Typescript apparently ignores
+// requires.
+const {
+  name: PCKG_NAME,
+  version: PCKG_VERSION,
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+} = require('../../package.json');
 
 /**
  * Method responsible for loading the color grouping for a specific product.
