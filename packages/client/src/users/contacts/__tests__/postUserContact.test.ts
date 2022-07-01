@@ -1,5 +1,5 @@
-import { postUserContact } from '..';
 import { mockGetContactResponse, userId } from 'tests/__fixtures__/users';
+import { postUserContact } from '..';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/postUserContact.fixtures';
 import mswServer from '../../../../tests/mswServer';

@@ -1,9 +1,9 @@
-import { patchUserContact } from '..';
 import {
   contactId,
   mockGetContactResponse,
   userId,
 } from 'tests/__fixtures__/users';
+import { patchUserContact } from '..';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/patchUserContact.fixtures';
 import mswServer from '../../../../tests/mswServer';

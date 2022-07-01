@@ -27,12 +27,14 @@ export const removeRecentlyViewedProductFactory: RemoveRecentlyViewedProductFact
         type: actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_REQUEST,
       });
 
-      await deleteRecentlyViewedProduct(productId, config);
+      const result = await deleteRecentlyViewedProduct(productId, config);
 
       dispatch({
         meta: { productId },
         type: actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS,
       });
+
+      return result;
     } catch (error) {
       dispatch({
         meta: { productId },

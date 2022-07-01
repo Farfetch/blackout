@@ -18,11 +18,13 @@ export const unsubscribeFromSubscriptionFactory: UnsubscribeFromSubscriptionFact
       type: actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_REQUEST,
     });
 
-    await deleteSubscription(query, config);
+    const result = await deleteSubscription(query, config);
 
     dispatch({
       type: actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS,
     });
+
+    return result;
   } catch (error) {
     dispatch({
       payload: { error: toError(error) },

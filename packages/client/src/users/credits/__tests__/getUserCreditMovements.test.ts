@@ -1,7 +1,7 @@
 import { getUserCreditMovements } from '..';
 import {
-  userId,
   mockGetCreditMovementsResponse,
+  userId,
 } from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/getUserCreditMovements.fixtures';

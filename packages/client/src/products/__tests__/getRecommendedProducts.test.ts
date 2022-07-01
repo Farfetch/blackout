@@ -1,7 +1,7 @@
 import { getRecommendedProducts } from '../';
 import {
-  mockRecommendedProductsProductId,
-  mockRecommendedProductsStrategy,
+  mockRecommendedProductsProductId as productId,
+  mockRecommendedProductsStrategy as strategyName,
 } from 'tests/__fixtures__/products';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getRecommendedProducts.fixtures';
@@ -9,8 +9,6 @@ import join from 'proper-url-join';
 import mswServer from '../../../tests/mswServer';
 
 describe('getRecommendedProducts', () => {
-  const productId = mockRecommendedProductsProductId;
-  const strategyName = mockRecommendedProductsStrategy;
   const query = { strategyName, productId };
   const spy = jest.spyOn(client, 'get');
   const expectedConfig = undefined;

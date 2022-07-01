@@ -1,5 +1,5 @@
 import { getUserCredit } from '..';
-import { userId, mockGetCreditResponse } from 'tests/__fixtures__/users';
+import { mockGetCreditResponse, userId } from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/getUserCredit.fixtures';
 import mswServer from '../../../../tests/mswServer';
