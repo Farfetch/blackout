@@ -1,4 +1,10 @@
+import createDefaultEntitiesReducer, {
+  defaultEntitiesReducers,
+} from './createDefaultEntitiesReducer';
 import createEntitiesReducer from './createEntities';
-import entitiesMapperReducer, { defaultMappers } from './entitiesMapper';
 
-export { createEntitiesReducer, entitiesMapperReducer, defaultMappers };
+export {
+  createDefaultEntitiesReducer,
+  createEntitiesReducer,
+  defaultEntitiesReducers,
+};

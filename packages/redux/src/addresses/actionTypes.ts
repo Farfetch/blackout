@@ -17,18 +17,18 @@ export const FETCH_ADDRESS_PREDICTIONS_SUCCESS =
 /**
  * Action type dispatched when the fetch prediction details request fails.
  */
-export const FETCH_ADDRESS_PREDICTION_FAILURE =
-  '@farfetch/blackout-redux/FETCH_ADDRESS_PREDICTION_FAILURE';
+export const FETCH_ADDRESS_PREDICTION_DETAILS_FAILURE =
+  '@farfetch/blackout-redux/FETCH_ADDRESS_PREDICTION_DETAILS_FAILURE';
 /**
  * Action type dispatched when the fetch prediction details request starts.
  */
-export const FETCH_ADDRESS_PREDICTION_REQUEST =
-  '@farfetch/blackout-redux/FETCH_ADDRESS_PREDICTION_REQUEST';
+export const FETCH_ADDRESS_PREDICTION_DETAILS_REQUEST =
+  '@farfetch/blackout-redux/FETCH_ADDRESS_PREDICTION_DETAILS_REQUEST';
 /**
  * Action type dispatched when the fetch prediction details request succeeds.
  */
-export const FETCH_ADDRESS_PREDICTION_SUCCESS =
-  '@farfetch/blackout-redux/FETCH_ADDRESS_PREDICTION_SUCCESS';
+export const FETCH_ADDRESS_PREDICTION_DETAILS_SUCCESS =
+  '@farfetch/blackout-redux/FETCH_ADDRESS_PREDICTION_DETAILS_SUCCESS';
 
 /**
  * Action type dispatched when resetting the address prediction.

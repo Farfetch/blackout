@@ -158,7 +158,7 @@ export const mockCheckoutState = {
       error: null,
       isLoading: false,
     },
-    charges: {
+    checkoutOrderCharge: {
       error: null,
       isLoading: false,
       result: {

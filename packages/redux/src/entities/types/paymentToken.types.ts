@@ -1,3 +1,3 @@
-import type { PaymentToken } from '@farfetch/blackout-client/payments/types';
+import type { PaymentToken } from '@farfetch/blackout-client';
 
 export type PaymentTokenEntity = PaymentToken;

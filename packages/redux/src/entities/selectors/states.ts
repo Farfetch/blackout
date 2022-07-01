@@ -1,5 +1,4 @@
 import { getEntityById } from './entity';
-import type { State } from '@farfetch/blackout-client/locale/types';
 import type { StoreState } from '../../types';
 
 /**
@@ -10,5 +9,5 @@ import type { StoreState } from '../../types';
  *
  * @returns - State normalized.
  */
-export const getState = (state: StoreState, id: number): State | undefined =>
+export const getState = (state: StoreState, id: number) =>
   getEntityById(state, 'states', id);

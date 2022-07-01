@@ -1,88 +1,78 @@
 import {
-  getError as errorGetter,
-  getIsLoading,
-  getAddressPrediction as predictionGetter,
-  getAddressPredictions as predictionsGetter,
+  getAddressPrediction as getAddressPredictionFromReducer,
+  getAddressPredictions as getAddressPredictionsFromReducer,
 } from './reducer';
-import type { State } from './types';
+import type { AddressesState } from './types';
 import type { StoreState } from '../types';
 
 /**
- * Returns the error of the addresses area.
+ * Returns address predictions.
  *
- * @param state - Application state.
- *
- * @returns Address information object.
- */
-export const getAddressesError = (state: StoreState): State['error'] =>
-  errorGetter(state.addresses);
-
-/**
- * Returns the loading status of the addresses area.
- *
- * @param state - Application state.
- *
- * @returns Loader status.
- */
-export const isAddressesLoading = (state: StoreState): State['isLoading'] =>
-  getIsLoading(state.addresses);
-
-/**
- * Returns the error or loading status of each sub-area.
- */
-
-/**
  * @param state - Application state.
  *
  * @returns Predictions details.
  */
 export const getAddressPredictions = (
   state: StoreState,
-): State['predictions']['result'] => predictionsGetter(state.addresses).result;
+): AddressesState['predictions']['result'] =>
+  getAddressPredictionsFromReducer(state.addresses as AddressesState).result;
 
 /**
+ * Returns address predictions error.
+ *
  * @param state - Application state.
  *
  * @returns Error details.
  */
 export const getAddressPredictionsError = (
   state: StoreState,
-): State['predictions']['error'] => predictionsGetter(state.addresses).error;
+): AddressesState['predictions']['error'] =>
+  getAddressPredictionsFromReducer(state.addresses as AddressesState).error;
 
 /**
+ * Returns address predictions loading status.
+ *
  * @param state - Application state.
  *
  * @returns Loader status.
  */
-export const isAddressPredictionsLoading = (
+export const areAddressPredictionsLoading = (
   state: StoreState,
-): State['predictions']['isLoading'] =>
-  predictionsGetter(state.addresses).isLoading;
+): AddressesState['predictions']['isLoading'] =>
+  getAddressPredictionsFromReducer(state.addresses as AddressesState).isLoading;
 
 /**
+ * Returns address prediction.
+ *
  * @param state - Application state.
  *
  * @returns Predictions details.
  */
 export const getAddressPrediction = (
   state: StoreState,
-): State['prediction']['result'] => predictionGetter(state.addresses).result;
+): AddressesState['prediction']['result'] =>
+  getAddressPredictionFromReducer(state.addresses as AddressesState).result;
 
 /**
+ * Returns address prediction error.
+ *
  * @param state - Application state.
  *
  * @returns Error details.
  */
 export const getAddressPredictionError = (
   state: StoreState,
-): State['prediction']['error'] => predictionGetter(state.addresses).error;
+): AddressesState['prediction']['error'] =>
+  getAddressPredictionFromReducer(state.addresses as AddressesState).error;
 
 /**
+ * Returns prediction details loading status.
+ *
  * @param state - Application state.
  *
  * @returns Loader status.
  */
-export const isAddressPredictionLoading = (
+export const areAddressPredictionDetailsLoading = (
   state: StoreState,
-): State['prediction']['isLoading'] =>
-  predictionGetter(state.addresses).isLoading;
+): AddressesState['prediction']['isLoading'] =>
+  getAddressPredictionFromReducer(state.addresses as AddressesState).isLoading;

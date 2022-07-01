@@ -12,7 +12,7 @@ import {
   TokenManagerNotLoadedException,
   UserSessionExpiredError,
 } from '../errors';
-import { postGuestTokens } from '../../../../../authentication';
+import { postGuestToken } from '../../../../../users/authentication';
 import { postTrackings } from '../../../../../omnitracking';
 import { rest } from 'msw';
 import { DEFAULT_STORAGE_KEY as UserTokenDefaultStorageKey } from '../token-providers/UserTokenProvider';
@@ -227,7 +227,7 @@ describe('AuthenticationTokenManager', () => {
           ),
         );
 
-        await postGuestTokens(
+        await postGuestToken(
           { guestUserId: 0, guestUserEmail: '', guestUserSecret: '' },
           {
             baseURL: '/api',

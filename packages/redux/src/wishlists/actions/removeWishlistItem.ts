@@ -1,4 +1,4 @@
-import { deleteWishlistItem } from '@farfetch/blackout-client/wishlists';
+import { deleteWishlistItem } from '@farfetch/blackout-client';
 import { removeWishlistItemFactory } from './factories';
 
 /**

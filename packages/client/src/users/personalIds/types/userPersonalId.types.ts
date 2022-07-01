@@ -5,13 +5,7 @@ export enum VerifyLevel {
   INVALID,
 }
 
-export enum Side {
-  FRONT,
-  BACK,
-  UNKNOWN,
-}
-
-export type UserPersonalIdResponse = {
+export type UserPersonalId = {
   backImageId: string;
   expiryDate: string;
   frontImageId: string;
@@ -22,70 +16,11 @@ export type UserPersonalIdResponse = {
   verifyLevel: VerifyLevel;
 };
 
-export type UserDefaultPersonalIdResponse = {
-  backImageId: string;
-  expiryDate: string;
-  frontImageId: string;
-  id: string;
-  isDefault: boolean;
-  maskedIdNumber: string;
-  maskedName: string;
-  verifyLevel: VerifyLevel;
-};
-
-export type UserPersonalIdsResponse = {
-  backImageId: string;
-  expiryDate: string;
-  frontImageId: string;
-  id: string;
-  isDefault: boolean;
-  maskedIdNumber: string;
-  maskedName: string;
-  verifyLevel: VerifyLevel;
-}[];
-
-export type PostUserPersonalIdsResponse = {
+export type UserPersonalIdPartial = {
   backImageId: string;
   expiryDate: string;
   frontImageId: string;
   id: string;
   idNumber: string;
   name: string;
-};
-
-export type PutUserDefaultPersonalIdResponse = {
-  backImageId: string;
-  expiryDate: string;
-  frontImageId: string;
-  id: string;
-  isDefault: boolean;
-  maskedIdNumber: string;
-  maskedName: string;
-  verifyLevel: VerifyLevel;
-};
-
-export type PatchUserPersonalIdResponse = {
-  backImageId: string;
-  expiryDate: string;
-  frontImageId: string;
-  id: string;
-  idNumber: string;
-  name: string;
-};
-
-export type PostUserPersonalIdImageResponse = {
-  id: string;
-  side: Side;
-};
-
-export type PatchUserPersonalIdData = {
-  backImageId: string;
-  expiryDate: string;
-  frontImageId: string;
-  idNumber: string;
-  name: string;
-};
-
-export type PostUserPersonalIdImageData = {
-  file: string;
 };

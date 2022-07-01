@@ -4,6 +4,4 @@ import { getAddressPredictions } from '@farfetch/blackout-client';
 /**
  * Load Predictions based in the inserted text.
  */
-export const fetchAddressPredictions = fetchAddressPredictionsFactory(
-  getAddressPredictions,
-);
+export default fetchAddressPredictionsFactory(getAddressPredictions);

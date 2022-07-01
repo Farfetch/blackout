@@ -1,12 +1,13 @@
 import * as actionTypes from '../../actionTypes';
-import { toBlackoutError } from '@farfetch/blackout-client';
-import type { Dispatch } from 'redux';
-import type { FetchSizeGuidesAction } from '../../types';
-import type {
+import {
+  Config,
   GetSizeGuides,
   SizeGuide,
   SizeGuidesQuery,
-} from '@farfetch/blackout-client/sizeGuides/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
+import type { FetchSizeGuidesAction } from '../../types';
 
 /**
  * @param query  - Query parameters to apply to the request.
@@ -28,7 +29,7 @@ import type {
  */
 const fetchSizeGuidesFactory =
   (getSizeGuides: GetSizeGuides) =>
-  (query?: SizeGuidesQuery, config?: Record<string, unknown>) =>
+  (query?: SizeGuidesQuery, config?: Config) =>
   async (dispatch: Dispatch<FetchSizeGuidesAction>): Promise<SizeGuide[]> => {
     try {
       dispatch({

@@ -16,7 +16,8 @@ import {
   isBagWithAnyError,
   resetBag as resetBagAction,
   resetBagState as resetBagStateAction,
-} from '@farfetch/blackout-redux/bags';
+  StoreState,
+} from '@farfetch/blackout-redux';
 import { useAction } from '../../helpers';
 import { useSelector } from 'react-redux';
 import type { UseBag } from './types';
@@ -39,10 +40,10 @@ const useBag: UseBag = excludeProductTypes => {
   const items = useSelector(getBagItems);
   const itemsIds = useSelector(getBagItemsIds);
   const itemsUnavailable = useSelector(getBagItemsUnavailable);
-  const itemsCount = useSelector(state =>
+  const itemsCount = useSelector((state: StoreState) =>
     getBagItemsCounter(state, excludeProductTypes),
   );
-  const totalQuantity = useSelector(state =>
+  const totalQuantity = useSelector((state: StoreState) =>
     getBagTotalQuantity(state, excludeProductTypes),
   );
   const isEmpty = items?.length === 0;

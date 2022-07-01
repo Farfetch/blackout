@@ -119,7 +119,7 @@ class GTM extends integrations.Integration<GTMIntegrationOptions> {
    *
    * @returns If the integration is ready to be loaded.
    */
-  static shouldLoad() {
+  static override shouldLoad() {
     return true;
   }
 
@@ -177,7 +177,7 @@ class GTM extends integrations.Integration<GTMIntegrationOptions> {
    *
    * @returns This allows chaining of class methods.
    */
-  setConsent(this: this, consent: ConsentData): this {
+  override setConsent(this: this, consent: ConsentData): this {
     this.write({
       consent,
       event: this.consentKey as string,
@@ -235,7 +235,7 @@ class GTM extends integrations.Integration<GTMIntegrationOptions> {
    *
    * @returns This allows chaining of class methods.
    */
-  onSetUser(data: SetUserEventData | LoadIntegrationEventData) {
+  override onSetUser(data: SetUserEventData | LoadIntegrationEventData) {
     const customOnSetUser = get(this.options, SET_USER_FN_KEY);
     const protectedUserData = coreUtils.hashUserData(data.user);
 
@@ -293,7 +293,7 @@ class GTM extends integrations.Integration<GTMIntegrationOptions> {
    *
    * @returns This allows chaining of class methods.
    */
-  track(data: EventData<TrackTypesValues>) {
+  override track(data: EventData<TrackTypesValues>) {
     const event = coreUtils.getEvent(data);
     const eventMapperFn = this.eventsMapper[event];
 

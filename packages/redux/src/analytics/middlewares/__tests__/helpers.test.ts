@@ -1,10 +1,10 @@
 import { getCurrency } from '../helpers';
-import { logger } from '@farfetch/blackout-analytics/utils';
+import { utils } from '@farfetch/blackout-analytics';
 
-jest.mock('@farfetch/blackout-analytics/utils', () => {
+jest.mock('@farfetch/blackout-analytics', () => {
   return {
-    ...jest.requireActual('@farfetch/blackout-analytics/utils'),
-    logger: { error: jest.fn() },
+    ...jest.requireActual('@farfetch/blackout-analytics'),
+    utils: { logger: { error: jest.fn() } },
   };
 });
 
@@ -18,7 +18,7 @@ it("'getCurrency' should throw an error if no currency is set in analyticsInstan
   // @ts-expect-error
   await getCurrency(fakeAnalyticsInstance);
 
-  expect(logger.error).toHaveBeenCalledWith(
+  expect(utils.logger.error).toHaveBeenCalledWith(
     'Track event failed. Make sure to set `currencyCode` via `analytics.useContext()`.',
   );
 });

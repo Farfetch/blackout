@@ -1,30 +1,33 @@
-import type { Address, BlackoutError } from '@farfetch/blackout-client';
-import type { CombinedState } from 'redux';
+import type { AuthenticationState } from '../authentication/types';
+import type { BenefitsState } from '../benefits/types';
 import type {
-  Nullable,
-  StateWithoutResult,
-  StateWithResult,
-} from '../../types';
-import type { UserAttributesResponse } from '@farfetch/blackout-client/src/users/attributes/types';
+  BlackoutError,
+  User,
+  UserAttribute,
+} from '@farfetch/blackout-client';
+import type { CombinedState } from 'redux';
+import type { ContactsState } from '../contacts/types';
+import type { CreditMovementsState, CreditsState } from '../credits/types';
+import type { Nullable, StateWithResult } from '../../types';
+import type {
+  PreferencesState,
+  UpdatePreferencesState,
+} from '../preferences/types';
+import type { TitlesState } from '../titles/types';
+import type { UserAddressesState } from '../addresses/types';
 
-export type AddressState = CombinedState<{
-  error: Record<Address['id'], BlackoutError | null>;
-  isLoading: Record<Address['id'], boolean>;
-}>;
-
-export type State = CombinedState<{
+export type UsersState = CombinedState<{
   error: Nullable<BlackoutError>;
   isLoading: boolean;
-  result: any;
-  benefits: StateWithoutResult;
-  preferences: StateWithoutResult;
-  updatePreferences: StateWithoutResult;
-  titles: StateWithoutResult;
-  credit: StateWithoutResult;
-  creditMovements: StateWithoutResult;
-  contacts: StateWithoutResult;
-  userAttributes: StateWithResult<UserAttributesResponse[]>;
-  addresses: StateWithResult<Address['id'][] | BlackoutError>;
-  address: AddressState;
-  defaultAddress: StateWithResult<Address>;
+  id: Nullable<User['id']>;
+  addresses: UserAddressesState;
+  attributes: StateWithResult<UserAttribute[]>;
+  authentication: AuthenticationState;
+  benefits: BenefitsState;
+  contacts: ContactsState;
+  credits: CreditsState;
+  creditMovements: CreditMovementsState;
+  preferences: PreferencesState;
+  titles: TitlesState;
+  updatePreferences: UpdatePreferencesState;
 }>;

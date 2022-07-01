@@ -70,7 +70,7 @@ class Omnitracking extends integrations.Omnitracking {
    *
    * @returns Promise that will resolve when the method finishes.
    */
-  async track(data: EventData<TrackTypesValues>) {
+  override async track(data: EventData<TrackTypesValues>) {
     const baseReturnValue = await super.track(data);
 
     if (utils.isPageEventType(data)) {

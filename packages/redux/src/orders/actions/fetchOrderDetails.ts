@@ -1,5 +1,5 @@
 import { fetchOrderDetailsFactory } from './factories';
-import { getOrderDetails } from '@farfetch/blackout-client/orders';
+import { getOrderDetails } from '@farfetch/blackout-client';
 
 /**
  * Fetch order details.

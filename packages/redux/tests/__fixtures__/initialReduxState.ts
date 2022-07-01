@@ -224,16 +224,13 @@ export const mockListingEntity = {
   },
 };
 
-export default {
+const initialReduxState = {
   account: {
     user: {
       isAuthenticated: false,
     },
   },
   addresses: {
-    error: null,
-    isLoading: false,
-    result: [mockAddressId, '47bcee74-2abc-4a7f-b9bd-cae7147b58a7'],
     predictions: {
       result: [
         {
@@ -266,23 +263,6 @@ export default {
       },
       error: null,
       isLoading: false,
-    },
-    addresses: {
-      error: null,
-      isLoading: false,
-    },
-    address: {
-      error: {},
-      isLoading: {},
-    },
-    addressSchema: {
-      error: null,
-      isLoading: false,
-    },
-    defaultAddressDetails: {
-      error: null,
-      isLoading: false,
-      result: null,
     },
   },
   authentication: {
@@ -430,7 +410,7 @@ export default {
   },
   editorial: {},
   entities: {
-    addressSchema: {
+    countryAddressSchemas: {
       [mockCountryId]: {
         addressSchemaLines: [
           {
@@ -3557,6 +3537,10 @@ export default {
     states: {
       isLoading: false,
     },
+    countryAddressSchema: {
+      error: null,
+      isLoading: false,
+    },
   },
   merchantsLocations: {
     isLoading: false,
@@ -3800,3 +3784,5 @@ export default {
     },
   },
 };
+
+export default initialReduxState;

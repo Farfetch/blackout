@@ -1,4 +1,4 @@
-import { deletePaymentToken } from '@farfetch/blackout-client/payments';
+import { deletePaymentToken } from '@farfetch/blackout-client';
 import { removePaymentTokenFactory } from './factories';
 
 /**

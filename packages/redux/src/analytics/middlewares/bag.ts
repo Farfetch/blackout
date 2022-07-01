@@ -1,4 +1,4 @@
-import { actionTypes as bagActionTypes, getBagItem } from '../../bags';
+import { bagsActionTypes, getBagItem } from '../../bags';
 import {
   calculatePriceDiscount,
   getBrand,
@@ -17,6 +17,7 @@ import type {
   BagActionProcessedOptions,
   BagProductActionMetadata,
 } from './types';
+import type { BagItem } from '@farfetch/blackout-client';
 import type { BagItemEntity } from '../../entities/types';
 import type { StoreState } from '../../types';
 
@@ -31,9 +32,9 @@ import type { StoreState } from '../../types';
 const getActionTypes = (
   customActionTypes?: BagActionMiddlewareOptions,
 ): BagActionProcessedOptions => ({
-  ADD_BAG_ITEM_SUCCESS: bagActionTypes.ADD_BAG_ITEM_SUCCESS,
-  UPDATE_BAG_ITEM_SUCCESS: bagActionTypes.UPDATE_BAG_ITEM_SUCCESS,
-  REMOVE_BAG_ITEM_SUCCESS: bagActionTypes.REMOVE_BAG_ITEM_SUCCESS,
+  ADD_BAG_ITEM_SUCCESS: bagsActionTypes.ADD_BAG_ITEM_SUCCESS,
+  UPDATE_BAG_ITEM_SUCCESS: bagsActionTypes.UPDATE_BAG_ITEM_SUCCESS,
+  REMOVE_BAG_ITEM_SUCCESS: bagsActionTypes.REMOVE_BAG_ITEM_SUCCESS,
   ...customActionTypes,
 });
 
@@ -107,7 +108,7 @@ const getProductData = async (
     customAttributes = '',
   } = actionMetadata;
 
-  let bagItemId;
+  let bagItemId: BagItem['id'] | undefined;
 
   const bagItemsFromActionPayload = get(
     action,

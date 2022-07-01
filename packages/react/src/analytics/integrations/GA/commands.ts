@@ -12,9 +12,9 @@ import {
   SET_ACTION_COMMAND,
 } from './constants';
 import {
+  AnalyticsProduct,
   EventData,
   eventTypes,
-  Product,
   TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
@@ -128,9 +128,9 @@ const getProductMappingsForEvent = (
  * @returns Converted product data to be sent to GA.
  */
 const getProductMapped = (
-  productData: Product,
+  productData: AnalyticsProduct,
   productMappings: ProductMappings,
-): Product => {
+): AnalyticsProduct => {
   return objectMapper(productData, productMappings);
 };
 
@@ -162,9 +162,9 @@ const getProductEventLabel = (
  * @returns The product data with the new stock related properties, if applied.
  */
 const postProcessOutOfStockProduct = (
-  productData: Product,
+  productData: AnalyticsProduct,
   productMappings: ProductMappings,
-): Product => {
+): AnalyticsProduct => {
   const outOfStockMetricKey = get(
     productMappings,
     DEFAULT_OUT_OF_STOCK_METRIC_KEY,
@@ -204,10 +204,10 @@ const postProcessOutOfStockProduct = (
  * @returns The product data with the new stock related properties, if applied.
  */
 const postProcessCartValue = (
-  productData: Product,
+  productData: AnalyticsProduct,
   event: keyof typeof productMappingsByEvent,
   productMappings: ProductMappings,
-): Product => {
+): AnalyticsProduct => {
   const cartValueMetric = get(
     productMappings,
     DEFAULT_CART_VALUE_METRIC_KEY,
@@ -256,20 +256,20 @@ const sendEventCommand = (
   return ['send', 'event', eventCategory, eventAction, eventLabel];
 };
 
-const addProductCommand = (productData: Product) => {
+const addProductCommand = (productData: AnalyticsProduct) => {
   return [ADD_PRODUCT_COMMAND, productData];
 };
 
-const addImpressionCommand = (impressionData: Product) => {
+const addImpressionCommand = (impressionData: AnalyticsProduct) => {
   return [ADD_IMPRESSION_COMMAND, impressionData];
 };
 
 const addImpressionsCommand = (
   list: string,
-  products: Product[],
+  products: AnalyticsProduct[],
   productMappings: ProductMappings,
 ) => {
-  return map(products, (product: Product) => {
+  return map(products, (product: AnalyticsProduct) => {
     const productMapped = getProductMapped(product, productMappings);
     productMapped.list = list;
     return addImpressionCommand(productMapped);
@@ -277,7 +277,7 @@ const addImpressionsCommand = (
 };
 
 const addCheckoutProductsCommand = (
-  products: Product[],
+  products: AnalyticsProduct[],
   productMappings: ProductMappings,
 ) => {
   return map(products, product => {
@@ -287,7 +287,7 @@ const addCheckoutProductsCommand = (
 };
 
 const addRefundProductsCommand = (
-  products: Product[],
+  products: AnalyticsProduct[],
   productMappings: ProductMappings,
 ) => {
   return map(products, product => {

@@ -126,7 +126,7 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
    *
    * @returns If the integration is ready to be loaded.
    */
-  static shouldLoad() {
+  static override shouldLoad() {
     return true;
   }
 
@@ -226,7 +226,7 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
    *
    * @returns Promise that will resolve when the method finishes.
    */
-  async track(data: EventData<TrackTypesValues>) {
+  override async track(data: EventData<TrackTypesValues>) {
     let precalculatedParameters:
       | OmnitrackingPageEventParameters
       | OmnitrackingTrackEventParameters;

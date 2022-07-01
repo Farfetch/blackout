@@ -1,7 +1,7 @@
 import type {
   DeliveryBundle,
   ItemDeliveryProvisioning,
-} from '@farfetch/blackout-client/checkout/types';
+} from '@farfetch/blackout-client';
 
 export type DeliveryBundlesEntity = DeliveryBundle & {
   itemsIds?: Array<string>;

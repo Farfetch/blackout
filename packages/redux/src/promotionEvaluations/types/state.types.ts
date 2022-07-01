@@ -1,8 +1,10 @@
-import type { BlackoutError } from '@farfetch/blackout-client';
+import type {
+  BlackoutError,
+  PromotionEvaluationItem,
+} from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
-import type { PromotionEvaluationItem } from '@farfetch/blackout-client/promotionEvaluations/types';
 
-export type State = CombinedState<{
+export type PromotionEvaluationsState = CombinedState<{
   error: BlackoutError | null;
   id: string | null;
   isLoading: boolean;

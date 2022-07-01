@@ -1,4 +1,4 @@
-import { actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
 import { fetchAddressPredictions } from '..';
 import { getAddressPredictions } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';

@@ -1,5 +1,5 @@
 import { fetchCountryCurrenciesFactory } from './factories';
-import { getCountryCurrencies } from '@farfetch/blackout-client/locale';
+import { getCountryCurrencies } from '@farfetch/blackout-client';
 
 /**
  * @param countryCode - Country identifier (ISO 3166-1 alpha-2) to find the currencies related.

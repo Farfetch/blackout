@@ -2,5 +2,5 @@
  * Addresses actions factories.
  */
 
-export * from './fetchAddressPredictionFactory';
-export * from './fetchAddressPredictionsFactory';
+export { default as fetchAddressPredictionDetailsFactory } from './fetchAddressPredictionDetailsFactory';
+export { default as fetchAddressPredictionsFactory } from './fetchAddressPredictionsFactory';

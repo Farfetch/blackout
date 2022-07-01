@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  Config,
   GetCheckoutOrderDeliveryBundleProvisioning,
   GetCheckoutOrderDeliveryBundleProvisioningResponse,
   toBlackoutError,
@@ -23,7 +24,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default (
+const fetchItemDeliveryProvisioningFactory =
+  (
     getCheckoutOrderDeliveryBundleProvisioning: GetCheckoutOrderDeliveryBundleProvisioning,
   ) =>
   (id: number, deliveryBundleId: string, config?: Config) =>
@@ -56,3 +58,5 @@ export default (
       throw error;
     }
   };
+
+export default fetchItemDeliveryProvisioningFactory;

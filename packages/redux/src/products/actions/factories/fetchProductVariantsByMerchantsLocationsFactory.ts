@@ -1,11 +1,12 @@
 import * as actionTypes from '../../actionTypes';
-import { getProduct } from '../../../entities/selectors';
 import {
+  Config,
   GetProductVariantMerchantsLocations,
   Product,
-  ProductVariantMerchantsLocations,
+  ProductVariantMerchantLocation,
   toBlackoutError,
 } from '@farfetch/blackout-client';
+import { getProduct } from '../../../entities/selectors';
 import { normalize } from 'normalizr';
 import productSchema from '../../../entities/schemas/product';
 import type { Dispatch } from 'redux';
@@ -29,15 +30,11 @@ import type { StoreState } from '../../../types';
  */
 export const fetchProductVariantsByMerchantsLocationsFactory =
   (getProductVariantMerchantsLocations: GetProductVariantMerchantsLocations) =>
-  (
-    productId: Product['result']['id'],
-    variantId: string,
-    config?: Record<string, unknown>,
-  ) =>
+  (productId: Product['result']['id'], variantId: string, config?: Config) =>
   async (
     dispatch: Dispatch,
     getState: () => StoreState,
-  ): Promise<ProductVariantMerchantsLocations[]> => {
+  ): Promise<ProductVariantMerchantLocation[]> => {
     try {
       const state = getState();
       const variants = getProduct(state, productId)?.variants;

@@ -1,7 +1,7 @@
 import { getError, getIsLoading } from '../reducer/fittings';
 import { getProduct } from '../../entities/selectors';
-import type { BlackoutError } from '@farfetch/blackout-client';
 import type { ProductEntity } from '../../entities/types';
+import type { ProductsState } from '../types';
 import type { StoreState } from '../../types';
 
 /**
@@ -15,7 +15,7 @@ import type { StoreState } from '../../types';
 export const areProductFittingsLoading = (
   state: StoreState,
   id: ProductEntity['id'],
-): boolean | undefined => getIsLoading(state.products.fittings)[id];
+) => getIsLoading((state.products as ProductsState).fittings)[id];
 
 /**
  * Returns the fetched status of a specific product fittings.
@@ -28,8 +28,8 @@ export const areProductFittingsLoading = (
 export const areProductFittingsFetched = (
   state: StoreState,
   id: ProductEntity['id'],
-): boolean | undefined =>
-  getIsLoading(state.products.fittings).hasOwnProperty(id) &&
+) =>
+  getIsLoading((state.products as ProductsState).fittings).hasOwnProperty(id) &&
   areProductFittingsLoading(state, id) === false;
 
 /**
@@ -43,7 +43,7 @@ export const areProductFittingsFetched = (
 export const getProductFittingsError = (
   state: StoreState,
   id: ProductEntity['id'],
-): BlackoutError | undefined => getError(state.products.fittings)[id];
+) => getError((state.products as ProductsState).fittings)[id];
 
 /**
  * Returns the fittings information for a given product id.
@@ -56,7 +56,7 @@ export const getProductFittingsError = (
 export const getProductFittings = (
   state: StoreState,
   id: ProductEntity['id'],
-): ProductEntity['fittings'] | undefined => {
+) => {
   const product = getProduct(state, id);
 
   return product?.fittings;

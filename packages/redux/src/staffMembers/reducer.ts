@@ -4,11 +4,11 @@ import type {
   FetchStaffMemberAction,
   FetchStaffMemberFailureAction,
   FetchStaffMemberSuccessAction,
-  State,
+  StaffMembersState,
 } from './types';
 import type { ReducerSwitch } from '../types';
 
-export const INITIAL_STATE: State = {
+export const INITIAL_STATE: StaffMembersState = {
   error: {},
   isLoading: {},
   result: {},
@@ -74,10 +74,15 @@ const result = (
   }
 };
 
-export const getError = (state: State): State['error'] => state.error;
-export const getIsLoading = (state: State): State['isLoading'] =>
-  state.isLoading;
-export const getResult = (state: State): State['result'] => state.result;
+export const getError = (
+  state: StaffMembersState,
+): StaffMembersState['error'] => state.error;
+export const getIsLoading = (
+  state: StaffMembersState,
+): StaffMembersState['isLoading'] => state.isLoading;
+export const getResult = (
+  state: StaffMembersState,
+): StaffMembersState['result'] => state.result;
 
 /**
  * Reducer for staff members.
@@ -87,11 +92,13 @@ export const getResult = (state: State): State['result'] => state.result;
  *
  * @returns New state.
  */
-const staffMembersReducer: ReducerSwitch<State, FetchStaffMemberAction> =
-  combineReducers({
-    error,
-    isLoading,
-    result,
-  });
+const staffMembersReducer: ReducerSwitch<
+  StaffMembersState,
+  FetchStaffMemberAction
+> = combineReducers({
+  error,
+  isLoading,
+  result,
+});
 
 export default staffMembersReducer;

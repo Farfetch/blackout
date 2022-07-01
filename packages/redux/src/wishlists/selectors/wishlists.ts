@@ -3,7 +3,6 @@ import * as fromWishlistSetsReducer from '../reducer/wishlistsSets';
 import { buildWishlistItem, generateWishlistItemHash } from '../utils';
 import { createSelector } from 'reselect';
 import { getEntityById, getProduct } from '../../entities/selectors';
-import type { BlackoutError } from '@farfetch/blackout-client';
 import type { BuildWishlistItemData } from '../utils/buildWishlistItem';
 import type {
   ProductEntity,
@@ -11,9 +10,9 @@ import type {
   WishlistItemHydrated,
   WishlistSetEntity,
 } from '../../entities/types';
-import type { State } from '../types';
 import type { StoreState } from '../../types';
-import type { WishlistItem } from '@farfetch/blackout-client/wishlists/types';
+import type { WishlistItem } from '@farfetch/blackout-client';
+import type { WishlistsState } from '../types';
 
 /**
  * Retrieves the universal identifier of the current user's wishlist.
@@ -31,8 +30,8 @@ import type { WishlistItem } from '@farfetch/blackout-client/wishlists/types';
  *
  * @returns Universal identifier of the wishlist.
  */
-export const getWishlistId = (state: StoreState): State['id'] =>
-  fromWishlistReducer.getId(state.wishlist);
+export const getWishlistId = (state: StoreState) =>
+  fromWishlistReducer.getId(state.wishlist as WishlistsState);
 
 /**
  * Retrieves current user's wishlist.
@@ -50,8 +49,24 @@ export const getWishlistId = (state: StoreState): State['id'] =>
  *
  * @returns Wishlist result.
  */
-export const getWishlist = (state: StoreState): State['result'] =>
-  fromWishlistReducer.getResult(state.wishlist);
+export const getWishlist = (state: StoreState) =>
+  fromWishlistReducer.getResult(state.wishlist as WishlistsState);
+
+// NOTE: This is an auxiliary function just to have createSelector for the
+//       getWishlistItem selector infer the type correctly because
+//       the third argument is optional and createSelector uses the first function type
+//       to infer the type of the selector functions arguments. Maybe there is another
+//       cleaner way to do it, but for now this will do.
+const getWishlistItemSelectorAux: (
+  state: StoreState,
+  wishlistItemId: WishlistItem['id'],
+  withParentSetsInfo?: boolean,
+) => WishlistItemEntity | undefined = (
+  state: StoreState,
+  wishlistItemId: WishlistItem['id'],
+) => {
+  return getEntityById(state, 'wishlistItems', wishlistItemId);
+};
 
 /**
  * Retrieves a specific wishlist item by its id, with all properties populated (ie,
@@ -73,11 +88,13 @@ export const getWishlist = (state: StoreState): State['result'] =>
  *
  * @returns Wishlist item entity for the given id.
  */
-// @TODO Remove cast from functions
-export const getWishlistItem = createSelector(
+export const getWishlistItem: (
+  state: StoreState,
+  wishlistItemId: WishlistItem['id'],
+  withParentSetsInfo?: boolean,
+) => WishlistItemHydrated | undefined = createSelector(
   [
-    (state: StoreState, wishlistItemId: WishlistItem['id']) =>
-      getEntityById(state, 'wishlistItems', wishlistItemId),
+    getWishlistItemSelectorAux,
     (state: StoreState, wishlistItemId: WishlistItem['id']) => {
       const wishlistItem = getEntityById(
         state,
@@ -91,7 +108,7 @@ export const getWishlistItem = createSelector(
       state: StoreState,
       wishlistItemId: WishlistItem['id'],
       withParentSetsInfo = false,
-    ) => {
+    ): Record<'id' | 'name', string>[] | undefined => {
       if (!withParentSetsInfo) {
         return;
       }
@@ -105,11 +122,15 @@ export const getWishlistItem = createSelector(
       // since `./wishlistSets.js` already consumes selectors from this file
       // (`getWishlistSet` uses `getWishlistItem` to populate the items of a set)
       const wishlistSetsIds = fromWishlistSetsReducer.getIds(
-        state.wishlist.sets,
+        (state.wishlist as WishlistsState).sets,
       );
 
+      if (!wishlistSetsIds) {
+        return undefined;
+      }
+
       // Gets parent sets info
-      return wishlistSetsIds?.reduce((acc, setId) => {
+      return wishlistSetsIds.reduce((acc, setId) => {
         const { id, name, wishlistSetItems } = getEntityById(
           state,
           'wishlistSets',
@@ -123,7 +144,7 @@ export const getWishlistItem = createSelector(
         }
 
         return acc;
-      }, [] as Record<'id' | 'name', string>[]);
+      }, [] as NonNullable<WishlistItemHydrated['parentSets']>);
     },
   ],
   (wishlistItem, product, parentSetsInfo) => {
@@ -156,8 +177,8 @@ export const getWishlistItem = createSelector(
  *
  * @returns List of wishlist items ids.
  */
-export const getWishlistItemsIds = (state: StoreState): State['items']['ids'] =>
-  fromWishlistReducer.getItemsIds(state.wishlist);
+export const getWishlistItemsIds = (state: StoreState) =>
+  fromWishlistReducer.getItemsIds(state.wishlist as WishlistsState);
 
 /**
  * Retrieves all wishlist items from the current user's wishlist.
@@ -209,10 +230,8 @@ export const getWishlistItems = createSelector(
  *
  * @returns Error information, `undefined` if there are no errors.
  */
-export const getWishlistError = (
-  state: StoreState,
-): State['error'] | undefined =>
-  fromWishlistReducer.getError(state.wishlist) || undefined;
+export const getWishlistError = (state: StoreState) =>
+  fromWishlistReducer.getError(state.wishlist as WishlistsState) || undefined;
 
 /**
  * Retrieves the loading status of the wishlist.
@@ -233,8 +252,8 @@ export const getWishlistError = (
  *
  * @returns Loading status of the wishlist.
  */
-export const isWishlistLoading = (state: StoreState): State['isLoading'] =>
-  fromWishlistReducer.getIsLoading(state.wishlist);
+export const isWishlistLoading = (state: StoreState) =>
+  fromWishlistReducer.getIsLoading(state.wishlist as WishlistsState);
 
 /**
  * Retrieves the number of different items in the wishlist, regardless of each
@@ -314,8 +333,10 @@ export const getWishlistTotalQuantity = (state: StoreState): number => {
 export const isWishlistItemLoading = (
   state: StoreState,
   itemId: WishlistItem['id'],
-): boolean | undefined =>
-  fromWishlistReducer.getAreItemsLoading(state.wishlist)[itemId];
+) =>
+  fromWishlistReducer.getAreItemsLoading(state.wishlist as WishlistsState)[
+    itemId
+  ];
 
 /**
  * Retrieves the error state of a specific wishlist item product by its id.
@@ -340,8 +361,8 @@ export const isWishlistItemLoading = (
 export const getWishlistItemError = (
   state: StoreState,
   itemId: WishlistItem['id'],
-): BlackoutError | null | undefined =>
-  fromWishlistReducer.getItemsError(state.wishlist)[itemId];
+) =>
+  fromWishlistReducer.getItemsError(state.wishlist as WishlistsState)[itemId];
 
 /**
  * Finds a wishlist item for the given product and size, returns undefined if

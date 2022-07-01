@@ -8,19 +8,19 @@ import AnalyticsCore, {
 import TestStorage from 'test-storage';
 
 class LoadableIntegration extends integrations.Integration<IntegrationOptions> {
-  static shouldLoad() {
+  static override shouldLoad() {
     return true;
   }
 
-  track = jest.fn();
+  override track = jest.fn();
 }
 
 class MarketingIntegration extends integrations.Integration<IntegrationOptions> {
-  static shouldLoad(consent: ConsentData) {
+  static override shouldLoad(consent: ConsentData) {
     return !!consent && !!consent.marketing;
   }
 
-  track = jest.fn();
+  override track = jest.fn();
 }
 
 describe('analytics web', () => {

@@ -2,16 +2,16 @@ import {
   AuthenticationTokenManager,
   AxiosAuthenticationTokenManagerOptions,
   defaultAuthorizationHeaderFormatter,
-  postGuestTokens,
-  postTokens,
+  postGuestToken,
+  postToken,
 } from '@farfetch/blackout-client';
 import type { AxiosInstance } from 'axios';
 
 const defaultOptions = {
   authorizationHeaderFormatter: defaultAuthorizationHeaderFormatter,
-  guestTokenRequester: postGuestTokens,
-  userTokenRequester: postTokens,
-  clientCredentialsTokenRequester: postTokens,
+  guestTokenRequester: postGuestToken,
+  userTokenRequester: postToken,
+  clientCredentialsTokenRequester: postToken,
 };
 
 /**

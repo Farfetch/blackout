@@ -1,4 +1,4 @@
-import { actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
 import { addBagItem } from '..';
 import { INITIAL_STATE } from '../../reducer';
 import {
@@ -9,12 +9,12 @@ import {
   mockState,
 } from 'tests/__fixtures__/bags';
 import { mockStore } from '../../../../tests';
-import { postBagItem } from '@farfetch/blackout-client/bags';
+import { postBagItem } from '@farfetch/blackout-client';
 import find from 'lodash/find';
 import thunk from 'redux-thunk';
 
-jest.mock('@farfetch/blackout-client/bags', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/bags'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   postBagItem: jest.fn(),
 }));
 

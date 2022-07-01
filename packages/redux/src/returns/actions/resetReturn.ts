@@ -8,7 +8,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const resetReturn =
+const resetReturn =
   (resetEntities = false) =>
   (dispatch: Dispatch): void => {
     dispatch({
@@ -16,3 +16,5 @@ export const resetReturn =
       type: actionTypes.RESET_RETURN,
     });
   };
+
+export default resetReturn;

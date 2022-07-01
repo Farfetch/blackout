@@ -1,16 +1,15 @@
 import * as fromWishlistSetsReducer from '../reducer/wishlistsSets';
 import { createSelector } from 'reselect';
 import { getEntities, getEntityById } from '../../entities/selectors';
-import type { BlackoutError } from '@farfetch/blackout-client';
-import type { SetsState } from '../types';
 import type { StoreState } from '../../types';
-import type { WishlistSet } from '@farfetch/blackout-client/wishlists/types';
+import type { WishlistSet } from '@farfetch/blackout-client';
 import type {
   WishlistSetEntity,
   WishlistSetHydrated,
   WishlistSetsHydrated,
 } from '../../entities/types';
 import type { WishlistSetsErrors } from './types/wishlistsSets.types';
+import type { WishlistsState } from '../types';
 
 /**
  * Retrieves the error state of the current user's wishlist sets.
@@ -28,10 +27,9 @@ import type { WishlistSetsErrors } from './types/wishlistsSets.types';
  *
  * @returns Error information, `undefined` if there are no errors.
  */
-export const getWishlistSetsError = (
-  state: StoreState,
-): SetsState['error'] | undefined =>
-  fromWishlistSetsReducer.getError(state.wishlist.sets) || undefined;
+export const getWishlistSetsError = (state: StoreState) =>
+  fromWishlistSetsReducer.getError((state.wishlist as WishlistsState).sets) ||
+  undefined;
 
 /**
  * Retrieves the ids of the wishlist sets for the current wishlist.
@@ -49,10 +47,9 @@ export const getWishlistSetsError = (
  *
  * @returns Ids of the wishlist sets for the current wishlist.
  */
-export const getWishlistSetsIds = (
-  state: StoreState,
-): SetsState['ids'] | undefined =>
-  fromWishlistSetsReducer.getIds(state.wishlist.sets) || undefined;
+export const getWishlistSetsIds = (state: StoreState) =>
+  fromWishlistSetsReducer.getIds((state.wishlist as WishlistsState).sets) ||
+  undefined;
 
 /**
  * Retrieves the loading status of the wishlist sets.
@@ -73,10 +70,8 @@ export const getWishlistSetsIds = (
  *
  * @returns Loading status of the wishlist sets.
  */
-export const areWishlistSetsLoading = (
-  state: StoreState,
-): SetsState['isLoading'] =>
-  fromWishlistSetsReducer.getIsLoading(state.wishlist.sets);
+export const areWishlistSetsLoading = (state: StoreState) =>
+  fromWishlistSetsReducer.getIsLoading((state.wishlist as WishlistsState).sets);
 
 /**
  * Retrieves the error state of a specific wishlist set by its id.
@@ -98,8 +93,10 @@ export const areWishlistSetsLoading = (
 export const getWishlistSetError = (
   state: StoreState,
   setId: WishlistSet['setId'],
-): BlackoutError | null | undefined =>
-  fromWishlistSetsReducer.getSetError(state.wishlist.sets)[setId];
+) =>
+  fromWishlistSetsReducer.getSetError((state.wishlist as WishlistsState).sets)[
+    setId
+  ];
 
 /**
  * Retrieves the loading status of a specific wishlist set by its id.
@@ -121,8 +118,10 @@ export const getWishlistSetError = (
 export const isWishlistSetLoading = (
   state: StoreState,
   setId: WishlistSet['setId'],
-): boolean | undefined =>
-  fromWishlistSetsReducer.getIsSetLoading(state.wishlist.sets)[setId];
+) =>
+  fromWishlistSetsReducer.getIsSetLoading(
+    (state.wishlist as WishlistsState).sets,
+  )[setId];
 
 /**
  * Returns the fetched status of a specific wishlist set.
@@ -135,9 +134,9 @@ export const isWishlistSetLoading = (
 export const isWishlistSetFetched = (
   state: StoreState,
   setId: WishlistSet['setId'],
-): boolean | undefined =>
+) =>
   fromWishlistSetsReducer
-    .getIsSetLoading(state.wishlist.sets)
+    .getIsSetLoading((state.wishlist as WishlistsState).sets)
     .hasOwnProperty(setId) && isWishlistSetLoading(state, setId) === false;
 
 /**
@@ -158,7 +157,15 @@ export const isWishlistSetFetched = (
  *
  * @returns Wishlist set entity for the given id.
  */
-export const getWishlistSet = createSelector(
+// Note: Apparently the type definition of the createSelector function
+//       is not defined correctly in reselect package as it is not inferring
+//       the additional parameter 'setId' provided in each selector, so
+//       we need to type the returned selector ourselves instead of relying on
+//       the inferred type.
+export const getWishlistSet: (
+  state: StoreState,
+  setId: WishlistSet['setId'],
+) => WishlistSetHydrated | undefined = createSelector(
   [
     (state: StoreState) => getEntities(state, 'wishlistItems'),
     (
@@ -174,7 +181,7 @@ export const getWishlistSet = createSelector(
     }
 
     const wishlistSetItems =
-      wishlistSet?.wishlistSetItems?.map(setItem => {
+      wishlistSet.wishlistSetItems?.map(setItem => {
         const wishlistItemProductId =
           wishlistItems?.[setItem.wishlistItemId]?.product;
 
@@ -303,7 +310,7 @@ export const getWishlistSetTotalQuantity = (
  *
  * @returns Whether something is loading within wishlist sets.
  */
-export const isAnyWishlistSetLoading = (state: StoreState): boolean => {
+export const isAnyWishlistSetLoading = (state: StoreState) => {
   const wishlistSetsIds = getWishlistSetsIds(state) || [];
 
   return (
@@ -331,7 +338,7 @@ export const isAnyWishlistSetLoading = (state: StoreState): boolean => {
  *
  * @returns Whether something errored within wishlist sets.
  */
-export const areWishlistSetsWithAnyError = (state: StoreState): boolean => {
+export const areWishlistSetsWithAnyError = (state: StoreState) => {
   const wishlistSetsIds = getWishlistSetsIds(state) || [];
 
   return (

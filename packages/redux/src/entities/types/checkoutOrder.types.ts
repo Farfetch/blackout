@@ -1,10 +1,10 @@
 import type {
   CheckoutOrder,
+  CheckoutOrderItem,
   CollectPoint,
-  Item,
-} from '@farfetch/blackout-client/checkout/types';
+} from '@farfetch/blackout-client';
 
 export type CheckoutOrderEntity = Omit<CheckoutOrder, 'items'> & {
-  items: Array<Item['id']>;
+  items: Array<CheckoutOrderItem['id']>;
   collectpoints: Array<CollectPoint>;
 };

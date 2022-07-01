@@ -1,6 +1,6 @@
-import { actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
 import { fetchSearchDidYouMean } from '..';
-import { getSearchDidYouMean } from '@farfetch/blackout-client/search';
+import { getSearchDidYouMean } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/searchDidYouMean';
 import {
   mockSearchDidYouMeanQuery,
@@ -8,8 +8,8 @@ import {
 } from 'tests/__fixtures__/search';
 import { mockStore } from '../../../../tests';
 
-jest.mock('@farfetch/blackout-client/search', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/search'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getSearchDidYouMean: jest.fn(),
 }));
 

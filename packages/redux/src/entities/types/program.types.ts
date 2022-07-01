@@ -1,4 +1,4 @@
-import type { Program } from '@farfetch/blackout-client/loyalty/types';
+import type { Program } from '@farfetch/blackout-client';
 
 export type ProgramEntity = Program;
 

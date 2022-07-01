@@ -13,7 +13,7 @@ import type { PutUserAttribute } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const putUserAttribute: PutUserAttribute = (
+const putUserAttribute: PutUserAttribute = (
   userId,
   attributeId,
   data,
@@ -29,3 +29,5 @@ export const putUserAttribute: PutUserAttribute = (
     .catch(error => {
       throw adaptError(error);
     });
+
+export default putUserAttribute;

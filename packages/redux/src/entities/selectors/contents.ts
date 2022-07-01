@@ -1,5 +1,5 @@
 import { getEntityById } from './entity';
-import type { ContentEntries } from '@farfetch/blackout-client/contents/types';
+import type { ContentEntries } from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 /**

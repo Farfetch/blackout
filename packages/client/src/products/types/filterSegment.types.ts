@@ -1,11 +1,11 @@
-import type { FacetTypeEnum } from './facetTypeEnum.types';
-import type { GenderEnum } from '../../types';
+import type { FacetType } from './facetTypeEnum.types';
+import type { Gender } from '../../types';
 
 export type FilterSegment = {
   order: number;
-  type: FacetTypeEnum;
+  type: FacetType;
   key: string;
-  gender: GenderEnum;
+  gender: Gender;
   value: number;
   valueUpperBound: number;
   slug: string;

@@ -1,14 +1,15 @@
 import * as actionTypes from '../../actionTypes';
-import { generateSizeScaleMappingsHash } from '../../utils';
-import { toBlackoutError } from '@farfetch/blackout-client';
-import type { Dispatch } from 'redux';
-import type { FetchSizeScaleMappingsAction } from '../../types';
-import type {
+import {
+  Config,
   GetSizeScaleMappings,
   SizeScaleMapping,
   SizeScaleMappingsQuery,
-} from '@farfetch/blackout-client/sizeScales/types';
-import type { Nullable } from '@farfetch/blackout-redux/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import { generateSizeScaleMappingsHash } from '../../utils';
+import type { Dispatch } from 'redux';
+import type { FetchSizeScaleMappingsAction } from '../../types';
+import type { Nullable } from '../../../types';
 
 /**
  * @param query  - Query with parameters to apply to the request.
@@ -27,7 +28,7 @@ import type { Nullable } from '@farfetch/blackout-redux/types';
  */
 const fetchSizeScaleMappingsFactory =
   (getSizeScaleMappings: GetSizeScaleMappings) =>
-  (query: SizeScaleMappingsQuery, config?: Record<string, unknown>) =>
+  (query: SizeScaleMappingsQuery, config?: Config) =>
   async (
     dispatch: Dispatch<FetchSizeScaleMappingsAction>,
   ): Promise<SizeScaleMapping> => {

@@ -1,5 +1,5 @@
+import * as actionTypes from '../../actionTypes';
 import * as normalizr from 'normalizr';
-import { actionTypes } from '../../';
 import { addWishlistItem } from '../';
 import { INITIAL_STATE } from '../../reducer/wishlists';
 import {
@@ -11,11 +11,11 @@ import {
   mockWishlistsResponse,
 } from 'tests/__fixtures__/wishlists';
 import { mockStore } from '../../../../tests';
-import { postWishlistItem } from '@farfetch/blackout-client/wishlists';
+import { postWishlistItem } from '@farfetch/blackout-client';
 import thunk from 'redux-thunk';
 
-jest.mock('@farfetch/blackout-client/wishlists', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/wishlists'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   postWishlistItem: jest.fn(),
 }));
 

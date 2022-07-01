@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchUserPreferences action creator should create the correct actions for when the get preferences procedure is successful: get preferences success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "preferences": Object {
+        "codee1": Object {
+          "code": "codee1",
+          "groupId": "mobile",
+          "updatedDate": "2019-08-19T10:46:59.543Z",
+          "values": Array [
+            "136968",
+            "136831",
+            "136908",
+          ],
+        },
+      },
+    },
+    "result": Array [
+      "codee1",
+    ],
+  },
+  "type": "@farfetch/blackout-redux/FETCH_USER_PREFERENCES_SUCCESS",
+}
+`;

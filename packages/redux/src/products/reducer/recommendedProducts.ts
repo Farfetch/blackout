@@ -1,10 +1,10 @@
 import * as actionTypes from '../actionTypes';
-import * as authenticationActionTypes from '../../authentication/actionTypes';
+import * as authenticationActionTypes from '../../users/authentication/actionTypes';
 import { AnyAction, combineReducers } from 'redux';
+import type { ProductsState } from '../types';
 import type { ReducerSwitch } from '../../types';
-import type { State } from '../types';
 
-type RecommendedProductsState = State['recommendedProducts'];
+type RecommendedProductsState = ProductsState['recommendedProducts'];
 
 export const INITIAL_STATE: RecommendedProductsState = {
   error: {},

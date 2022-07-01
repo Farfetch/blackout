@@ -1,4 +1,4 @@
-import * as fromReducer from '../reducer';
+import * as actionTypes from '../actionTypes';
 import { generateSizeScaleMappingsHash } from '../utils';
 import {
   mockQuery,
@@ -7,7 +7,7 @@ import {
   mockSizeScaleMappingsQuery,
   mockSizeScaleMappingsState,
 } from 'tests/__fixtures__/sizeScales';
-import reducer, { actionTypes } from '..';
+import reducer, * as fromReducer from '../reducer';
 
 const hash = generateSizeScaleMappingsHash(mockSizeScaleMappingsQuery);
 const mockMappingError = { message: 'foo' };

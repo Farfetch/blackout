@@ -5,26 +5,24 @@
 import {
   fetchProductDetails as fetchProductDetailsAction,
   getAllProductSizesRemainingQuantity,
+  getProduct,
   getProductBreadcrumbs,
   getProductError,
   getProductGroupedEntries,
+  getProductLabelsByPriority,
+  getProductPromotions,
   isProductDuplicated,
   isProductFetched,
   isProductHydrated,
+  isProductInBag,
   isProductLoading,
-} from '@farfetch/blackout-redux';
-import {
-  getProduct,
-  getProductLabelsByPriority,
-  getProductPromotions,
   isProductOneSize,
   isProductOutOfStock,
-} from '@farfetch/blackout-redux/entities';
-import { isProductInBag } from '@farfetch/blackout-redux/bags';
+  StoreState,
+} from '@farfetch/blackout-redux';
 import { useAction } from '../../helpers';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import type { StoreState } from '@farfetch/blackout-client/types';
 import type { UseProductDetails } from './types';
 
 /**

@@ -1,14 +1,15 @@
 import * as actionTypes from '../../actionTypes';
-import { normalize } from 'normalizr';
-import { toBlackoutError } from '@farfetch/blackout-client';
-import sizeScale from '../../../entities/schemas/sizeScale';
-import type { Dispatch } from 'redux';
-import type { FetchSizeScalesAction } from '../../types';
-import type {
+import {
+  Config,
   GetSizeScales,
   SizeScale,
   SizeScalesQuery,
-} from '@farfetch/blackout-client/sizeScales/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import { normalize } from 'normalizr';
+import sizeScale from '../../../entities/schemas/sizeScale';
+import type { Dispatch } from 'redux';
+import type { FetchSizeScalesAction } from '../../types';
 
 /**
  * @param query  - Query with parameters to apply to the request.
@@ -27,7 +28,7 @@ import type {
  */
 const fetchSizeScalesFactory =
   (getSizeScales: GetSizeScales) =>
-  (query: SizeScalesQuery, config?: Record<string, unknown>) =>
+  (query: SizeScalesQuery, config?: Config) =>
   async (dispatch: Dispatch<FetchSizeScalesAction>): Promise<SizeScale[]> => {
     try {
       dispatch({

@@ -1,7 +1,8 @@
 import type { Bag } from './bag.types';
 import type { BagItem } from './bagItem.types';
+import type { Config } from '../..';
+import type { PatchBagItemQuery } from './query.types';
 import type { Product } from '../../products/types';
-import type { Query } from './query.types';
 
 export type PatchBagItemData = {
   // Product identifier.
@@ -20,6 +21,6 @@ export type PatchBagItem = (
   id: Bag['id'] | null,
   itemId: BagItem['id'],
   data: PatchBagItemData,
-  query?: Query,
-  config?: Record<string, unknown>,
+  query?: PatchBagItemQuery,
+  config?: Config,
 ) => Promise<Bag>;

@@ -1,4 +1,4 @@
-import { subscriptionsActionTypes as actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
 import { mockPutSubscriptions } from 'tests/__fixtures__/subscriptions';
 import { mockStore } from '../../../../tests';
 import { putSubscriptions } from '@farfetch/blackout-client';

@@ -12,7 +12,7 @@ import type { PutUserPreferences } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const putUserPreferences: PutUserPreferences = (userId, data, config?) =>
+export const putUserPreferences: PutUserPreferences = (userId, data, config) =>
   client
     .put(join('/account/v1/users/', userId, '/preferences'), data, config)
     .then(response => response.data)

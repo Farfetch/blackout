@@ -1,3 +1,3 @@
-import type { Cities } from '@farfetch/blackout-client/locale/types';
+import type { City } from '@farfetch/blackout-client';
 
-export type CitiesEntity = Cities;
+export type CityEntity = City;

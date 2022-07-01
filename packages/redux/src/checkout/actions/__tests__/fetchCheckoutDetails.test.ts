@@ -1,5 +1,5 @@
+import * as actionTypes from '../../actionTypes';
 import * as normalizr from 'normalizr';
-import { actionTypes } from '../..';
 import {
   checkoutId,
   expectedDetailsNormalizedPayload,

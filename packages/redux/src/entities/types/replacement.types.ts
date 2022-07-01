@@ -1,4 +1,4 @@
-import type { ProgramMembershipReplacement } from '@farfetch/blackout-client/loyalty/types';
+import type { ProgramMembershipReplacement } from '@farfetch/blackout-client';
 
 export type ReplacementEntity = ProgramMembershipReplacement;
 

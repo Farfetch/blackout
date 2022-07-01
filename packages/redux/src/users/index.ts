@@ -1,9 +1,11 @@
-import * as actionTypes from './actionTypes';
-import reducer, { entitiesMapper } from './reducer';
+export * as usersActionTypes from './actionTypes';
 
 export * from './actions';
 export * from './selectors';
 
-export { actionTypes, entitiesMapper };
+export {
+  default as usersReducer,
+  entitiesMapper as usersEntitiesMapper,
+} from './reducer';
 
-export default reducer;
+export * from './types';

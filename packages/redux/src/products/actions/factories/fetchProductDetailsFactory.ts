@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  Config,
   GetProduct,
   Product,
   ProductDetailsQuery,
@@ -35,7 +36,7 @@ export const fetchProductDetailsFactory =
     productId: Product['result']['id'],
     query: ProductDetailsQuery = {},
     forceDispatch = false,
-    config?: Record<string, unknown>,
+    config?: Config,
   ) =>
   async (
     dispatch: Dispatch,

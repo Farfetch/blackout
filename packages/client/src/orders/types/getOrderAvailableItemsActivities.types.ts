@@ -1,4 +1,6 @@
+import type { Config } from '../..';
+
 export type GetOrderAvailableItemsActivities = (
   id: string,
-  config?: Record<string, unknown>,
+  config?: Config,
 ) => Promise<string>;

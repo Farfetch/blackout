@@ -5,12 +5,12 @@ import type {
   ProgramMembershipConvert,
   ProgramMembershipReplacement,
   ProgramMembershipStatement,
-} from '@farfetch/blackout-client/loyalty/types';
+} from '@farfetch/blackout-client';
 import type { StateWithResult, StateWithResultArray } from '../../types';
 
-export type State = CombinedState<{
+export type LoyaltyState = CombinedState<{
   programs: StateWithResultArray<Program['id']>;
-  membership: StateWithResult<ProgramMembership>;
+  membership: StateWithResult<Array<ProgramMembership['id']>>;
   replacements: StateWithResult<ProgramMembershipReplacement>;
   converts: StateWithResult<ProgramMembershipConvert>;
   statements: StateWithResultArray<ProgramMembershipStatement['id']>;

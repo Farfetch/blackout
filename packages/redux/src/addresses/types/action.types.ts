@@ -2,34 +2,34 @@ import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
 import type {
   AddressPrediction,
-  AddressPredictions,
-} from '@farfetch/blackout-client/src/addresses/types';
-import type { BlackoutError } from '@farfetch/blackout-client';
+  AddressPredictionDetails,
+  BlackoutError,
+} from '@farfetch/blackout-client';
 
 /**
  * Fetch address prediction details Action.
  */
-export type FetchAddressPredictionAction =
-  | FetchAddressPredictionFailureAction
-  | FetchAddressPredictionRequestAction
-  | FetchAddressPredictionSuccessAction;
+export type FetchAddressPredictionDetailsAction =
+  | FetchAddressPredictionDetailsFailureAction
+  | FetchAddressPredictionDetailsRequestAction
+  | FetchAddressPredictionDetailsSuccessAction;
 
-export interface FetchAddressPredictionFailureAction extends Action {
+export interface FetchAddressPredictionDetailsFailureAction extends Action {
   payload: { error: BlackoutError };
-  type: typeof actionTypes.FETCH_ADDRESS_PREDICTION_FAILURE;
+  type: typeof actionTypes.FETCH_ADDRESS_PREDICTION_DETAILS_FAILURE;
 }
 
-export interface FetchAddressPredictionRequestAction extends Action {
-  type: typeof actionTypes.FETCH_ADDRESS_PREDICTION_REQUEST;
+export interface FetchAddressPredictionDetailsRequestAction extends Action {
+  type: typeof actionTypes.FETCH_ADDRESS_PREDICTION_DETAILS_REQUEST;
 }
 
-export interface FetchAddressPredictionSuccessAction extends Action {
-  payload: AddressPrediction;
-  type: typeof actionTypes.FETCH_ADDRESS_PREDICTION_SUCCESS;
+export interface FetchAddressPredictionDetailsSuccessAction extends Action {
+  payload: AddressPredictionDetails;
+  type: typeof actionTypes.FETCH_ADDRESS_PREDICTION_DETAILS_SUCCESS;
 }
 
 /**
- * Fetch address prediction Action.
+ * Fetch address predictions Action.
  */
 export type FetchAddressPredictionsAction =
   | FetchAddressPredictionsFailureAction
@@ -46,7 +46,7 @@ export interface FetchAddressPredictionsRequestAction extends Action {
 }
 
 export interface FetchAddressPredictionsSuccessAction extends Action {
-  payload: AddressPredictions[];
+  payload: AddressPrediction[];
   type: typeof actionTypes.FETCH_ADDRESS_PREDICTIONS_SUCCESS;
 }
 

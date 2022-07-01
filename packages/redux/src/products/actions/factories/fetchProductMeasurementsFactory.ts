@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  Config,
   GetProductVariantsMeasurements,
   Product,
   ProductVariantMeasurement,
@@ -26,7 +27,7 @@ import type { Dispatch } from 'redux';
  */
 export const fetchProductMeasurementsFactory =
   (getMeasurements: GetProductVariantsMeasurements) =>
-  (productId: Product['result']['id'], config?: Record<string, unknown>) =>
+  (productId: Product['result']['id'], config?: Config) =>
   async (dispatch: Dispatch): Promise<ProductVariantMeasurement[]> => {
     try {
       dispatch({

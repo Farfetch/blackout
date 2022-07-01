@@ -1,8 +1,9 @@
+import type { Config } from '../..';
+import type { GetProductSetQuery } from './setQuery.types';
 import type { Set } from './set.types';
-import type { SetQuery } from './setQuery.types';
 
-export type GetSet = (
+export type GetProductSet = (
   slug: string | number,
-  query?: SetQuery,
-  config?: Record<string, unknown>,
+  query?: GetProductSetQuery,
+  config?: Config,
 ) => Promise<Set>;

@@ -15,8 +15,8 @@ import { Provider } from 'react-redux';
 import { useCategories } from '../../';
 import React from 'react';
 
-jest.mock('@farfetch/blackout-redux/categories', () => ({
-  ...jest.requireActual('@farfetch/blackout-redux/categories'),
+jest.mock('@farfetch/blackout-redux', () => ({
+  ...jest.requireActual('@farfetch/blackout-redux'),
   resetCategoriesState: jest.fn(() => ({ type: 'reset' })),
   fetchCategories: jest.fn(() => ({ type: 'fetchCategories' })),
   fetchTopCategories: jest.fn(() => ({ type: 'fetchTopCategories' })),

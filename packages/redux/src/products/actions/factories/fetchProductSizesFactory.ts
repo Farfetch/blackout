@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  Config,
   GetProductSizes,
   Product,
   ProductSizesQuery,
@@ -31,7 +32,7 @@ export const fetchProductSizesFactory =
   (
     productId: Product['result']['id'],
     query: ProductSizesQuery,
-    config?: Record<string, unknown>,
+    config?: Config,
   ) =>
   async (dispatch: Dispatch): Promise<Size[]> => {
     try {

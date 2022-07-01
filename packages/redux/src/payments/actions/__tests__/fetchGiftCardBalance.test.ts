@@ -1,14 +1,14 @@
-import { actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
+import { getGiftCardBalance } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import { mockGiftCardBalanceResponse } from 'tests/__fixtures__/payments';
 import { mockStore } from '../../../../tests';
-import { postCheckGiftCardBalance } from '@farfetch/blackout-client/payments';
 import fetchGiftCardBalance from '../fetchGiftCardBalance';
 import find from 'lodash/find';
 
-jest.mock('@farfetch/blackout-client/payments', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/payments'),
-  postCheckGiftCardBalance: jest.fn(),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
+  getGiftCardBalance: jest.fn(),
 }));
 
 const paymentsMockStore = (state = {}) =>
@@ -30,18 +30,15 @@ describe('fetchGiftCardBalance() action creator', () => {
   it('should create the correct actions for when the fetch gift card balance procedure fails', async () => {
     const expectedError = new Error('fetch gift card balance error');
 
-    postCheckGiftCardBalance.mockRejectedValueOnce(expectedError);
+    getGiftCardBalance.mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
       await store.dispatch(fetchGiftCardBalance(data));
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(postCheckGiftCardBalance).toHaveBeenCalledTimes(1);
-      expect(postCheckGiftCardBalance).toHaveBeenCalledWith(
-        data,
-        expectedConfig,
-      );
+      expect(getGiftCardBalance).toHaveBeenCalledTimes(1);
+      expect(getGiftCardBalance).toHaveBeenCalledWith(data, expectedConfig);
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
           { type: actionTypes.FETCH_GIFT_CARD_BALANCE_REQUEST },
@@ -55,13 +52,13 @@ describe('fetchGiftCardBalance() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch gift card balance procedure is successful', async () => {
-    postCheckGiftCardBalance.mockResolvedValueOnce(mockGiftCardBalanceResponse);
+    getGiftCardBalance.mockResolvedValueOnce(mockGiftCardBalanceResponse);
     await store.dispatch(fetchGiftCardBalance(data));
 
     const actionResults = store.getActions();
 
-    expect(postCheckGiftCardBalance).toHaveBeenCalledTimes(1);
-    expect(postCheckGiftCardBalance).toHaveBeenCalledWith(data, expectedConfig);
+    expect(getGiftCardBalance).toHaveBeenCalledTimes(1);
+    expect(getGiftCardBalance).toHaveBeenCalledWith(data, expectedConfig);
     expect(actionResults).toMatchObject([
       { type: actionTypes.FETCH_GIFT_CARD_BALANCE_REQUEST },
       {

@@ -1,11 +1,11 @@
 import * as actionTypes from '../../actionTypes';
-import * as authenticationActionTypes from '../../../authentication/actionTypes';
+import * as authenticationActionTypes from '../../../users/authentication/actionTypes';
 import { initialReduxState } from '../../../../tests';
 import { INITIAL_STATE as subscriptionPackagesInitialState } from '../subscriptionPackages';
 import { INITIAL_STATE as userSubscriptionInitialState } from '../userSubscriptions';
 import merge from 'lodash/merge';
 import reducer, { entitiesMapper } from '..';
-import type { StoreState } from '@farfetch/blackout-redux/types';
+import type { StoreState } from '../../../types';
 import type { SubscriptionsState } from '../../types';
 
 const INITIAL_STATE: SubscriptionsState = {

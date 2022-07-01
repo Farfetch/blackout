@@ -1,4 +1,4 @@
-import type { BagItem } from '@farfetch/blackout-client/bags/types';
+import type { BagItem } from '@farfetch/blackout-client';
 import type {
   CustomAttributesAdapted,
   PriceAdapted,

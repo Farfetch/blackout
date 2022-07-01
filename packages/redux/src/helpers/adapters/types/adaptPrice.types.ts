@@ -1,9 +1,9 @@
-import type { Item as CheckoutOrderItem } from '@farfetch/blackout-client/checkout/types';
 import type {
+  CheckoutOrderItem,
   Price,
   ProductSummaryPrice,
   ProductSummaryTypedPrice,
-} from '@farfetch/blackout-client/products/types';
+} from '@farfetch/blackout-client';
 
 export type PlpPrice = ProductSummaryPrice & ProductSummaryTypedPrice;
 
@@ -12,35 +12,33 @@ export type PlpPrice = ProductSummaryPrice & ProductSummaryTypedPrice;
 //   `excludingTaxes`, `priceType`, `tags` and `taxes`
 // - from a PDP's `price` - there is no `type` and `promotionType`
 // - from a checkout order item - only place with `discount.rate`
-export type PriceAdapted =
-  | {
-      discount?: {
-        rate: Price['discountRate'];
-        includingTaxes?: Price['discountInclTaxes'];
-        excludingTaxes?: Price['discountExclTaxes'];
-      };
-      excludingTaxes?: Price['priceExclTaxes'];
-      formatted: {
-        includingTaxes: Price['formattedPrice'];
-        includingTaxesWithoutDiscount: Price['formattedPriceWithoutDiscount'];
-      };
-      includingTaxes: Price['priceInclTaxes'];
-      includingTaxesWithoutDiscount: Price['priceInclTaxesWithoutDiscount'];
-      isFormatted: boolean;
-      priceType?: ProductSummaryPrice['priceType'];
-      promocode?: {
-        rate: CheckoutOrderItem['promocodeDiscountPercentage'];
-      };
-      promotionType?: ProductSummaryTypedPrice['promotionType'];
-      tags?: Price['tags'];
-      taxes?: {
-        rate: Price['taxesRate'];
-        amount: Price['taxesValue'];
-        type: Price['taxType'];
-      };
-      type?: ProductSummaryTypedPrice['type'];
-    }
-  | undefined;
+export type PriceAdapted = {
+  discount?: {
+    rate: Price['discountRate'];
+    includingTaxes?: Price['discountInclTaxes'];
+    excludingTaxes?: Price['discountExclTaxes'];
+  };
+  excludingTaxes?: Price['priceExclTaxes'];
+  formatted: {
+    includingTaxes: Price['formattedPrice'];
+    includingTaxesWithoutDiscount: Price['formattedPriceWithoutDiscount'];
+  };
+  includingTaxes: Price['priceInclTaxes'];
+  includingTaxesWithoutDiscount: Price['priceInclTaxesWithoutDiscount'];
+  isFormatted: boolean;
+  priceType?: ProductSummaryPrice['priceType'];
+  promocode?: {
+    rate: CheckoutOrderItem['promocodeDiscountPercentage'];
+  };
+  promotionType?: ProductSummaryTypedPrice['promotionType'];
+  tags?: Price['tags'];
+  taxes?: {
+    rate: Price['taxesRate'];
+    amount: Price['taxesValue'];
+    type: Price['taxType'];
+  };
+  type?: ProductSummaryTypedPrice['type'];
+};
 
 export type AdaptPrice = (
   priceToAdapt:
@@ -48,4 +46,4 @@ export type AdaptPrice = (
     | ProductSummaryPrice
     | ProductSummaryTypedPrice
     | PriceAdapted,
-) => PriceAdapted;
+) => PriceAdapted | undefined;

@@ -1,14 +1,9 @@
 import type { BlackoutError } from '@farfetch/blackout-client';
-import type { Nullable } from '../../types';
+import type { StateWithoutResult } from '../../types/subAreaState.types';
 
-export type StateWithoutResult = {
-  error: Nullable<BlackoutError>;
-  isLoading: boolean;
-};
-
-export type State = {
+export type ReturnsState = {
   error: BlackoutError | null;
-  id: string | number | null;
+  id: number | null;
   isLoading: boolean;
   returns: StateWithoutResult;
   references: StateWithoutResult;

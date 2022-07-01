@@ -1,9 +1,7 @@
-import type { Product } from './product.types';
+import type { StructuredProductData } from './product.types';
 
-export type Listing = {
-  entries: Array<Product>;
-  products?: {
-    totalItems: number;
-  };
+export type StructuredProductListing = {
+  entries: Array<StructuredProductData>;
+  totalItems: number;
   name: string;
 };

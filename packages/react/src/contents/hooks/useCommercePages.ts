@@ -4,12 +4,12 @@ import {
   getContents,
   isContentLoading,
   resetContents as resetContentsAction,
-} from '@farfetch/blackout-redux/contents';
+  StoreState,
+} from '@farfetch/blackout-redux';
 import { useAction } from '../../helpers';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import type { CommercePagesParams, UseCommercePages } from '../types';
-import type { StoreState } from '@farfetch/blackout-redux/types';
 
 /**
  * Hook to return actions and selectors for Commerce page data. The action to fetch

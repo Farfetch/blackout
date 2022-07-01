@@ -1,14 +1,15 @@
-import type { BlackoutError } from '@farfetch/blackout-client';
 import type {
+  BlackoutError,
+  Config,
   SearchSuggestion,
   SearchSuggestionsQuery,
-} from '@farfetch/blackout-client/search/types';
+} from '@farfetch/blackout-client';
 
 export type UseSearchSuggestionsReturn = {
   error: BlackoutError | null;
   fetchSearchSuggestions: (
     query: SearchSuggestionsQuery,
-    config?: Record<string, unknown>,
+    config?: Config,
   ) => Promise<SearchSuggestion[]>;
   isLoading: boolean;
   resetSearchSuggestions: () => void;

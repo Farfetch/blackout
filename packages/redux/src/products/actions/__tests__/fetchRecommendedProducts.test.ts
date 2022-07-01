@@ -1,3 +1,4 @@
+import * as actionTypes from '../../actionTypes';
 import { adaptRecommendedProducts } from '../../../helpers/adapters';
 import {
   expectedRecommendedProductsPayload,
@@ -8,7 +9,7 @@ import { fetchRecommendedProducts } from '..';
 import { getRecommendedProducts } from '@farfetch/blackout-client';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
-import reducer, { productsActionTypes as actionTypes } from '../..';
+import reducer from '../../reducer';
 
 const mockAction = { type: 'this_is_a_mock_action' };
 const mockProductRecommendationsStore = (state = {}) =>

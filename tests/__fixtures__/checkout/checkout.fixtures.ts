@@ -1,3 +1,5 @@
+import type { UserAddress } from '@farfetch/blackout-client';
+
 export const checkoutId = 15338048;
 export const transactionId = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
 export const checkoutOrderId = 15338048;
@@ -11,7 +13,7 @@ const merchantId = 10658;
 const productId = 12640693;
 const brandId = 121212;
 
-const address = {
+const address: UserAddress = {
   addressLine1: 'Rua da Lionesa 446, G12',
   addressLine2: ' Teste',
   addressLine3: '',
@@ -49,7 +51,8 @@ const address = {
   vatNumber: null,
   zipCode: '4465-761',
   userId: 0,
-  isDefaultBillingAddress: true,
+  isCurrentBilling: true,
+  isCurrentShipping: true,
   isDefaultShippingAddress: true,
 };
 

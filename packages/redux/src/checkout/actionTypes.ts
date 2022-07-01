@@ -15,38 +15,41 @@ export const CREATE_CHECKOUT_SUCCESS =
   '@farfetch/blackout-redux/CREATE_CHECKOUT_SUCCESS';
 
 /**
- * Action type dispatched when the fetch charges request fails.
+ * Action type dispatched when the fetch checkout order charge request fails.
  */
-export const FETCH_CHARGES_FAILURE =
-  '@farfetch/blackout-redux/FETCH_CHARGES_FAILURE';
+export const FETCH_CHECKOUT_ORDER_CHARGE_FAILURE =
+  '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_CHARGE_FAILURE';
 /**
- * Action type dispatched when the fetch charges request starts.
+ * Action type dispatched when the fetch checkout order charge request starts.
  */
-export const FETCH_CHARGES_REQUEST =
-  '@farfetch/blackout-redux/FETCH_CHARGES_REQUEST';
+export const FETCH_CHECKOUT_ORDER_CHARGE_REQUEST =
+  '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_CHARGE_REQUEST';
 /**
- * Action type dispatched when the fetch charges request succeeds.
+ * Action type dispatched when the fetch checkout order charge request succeeds.
  */
-export const FETCH_CHARGES_SUCCESS =
-  '@farfetch/blackout-redux/FETCH_CHARGES_SUCCESS';
+export const FETCH_CHECKOUT_ORDER_CHARGE_SUCCESS =
+  '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_CHARGE_SUCCESS';
 
 /**
- * Action type dispatched when the post charges request fails.
+ * Action type dispatched when the create checkout charge request fails.
  */
-export const CHARGE_FAILURE = '@farfetch/blackout-redux/CHARGE_FAILURE';
+export const CREATE_CHECKOUT_ORDER_CHARGE_FAILURE =
+  '@farfetch/blackout-redux/CREATE_CHECKOUT_ORDER_CHARGE_FAILURE';
 /**
- * Action type dispatched when the post charges request starts.
+ * Action type dispatched when the create checkout order charge request starts.
  */
-export const CHARGE_REQUEST = '@farfetch/blackout-redux/CHARGE_REQUEST';
+export const CREATE_CHECKOUT_ORDER_CHARGE_REQUEST =
+  '@farfetch/blackout-redux/CREATE_CHECKOUT_ORDER_CHARGE_REQUEST';
 /**
- * Action type dispatched when the post charges request succeeds.
+ * Action type dispatched when the create checkout order charge request succeeds.
  */
-export const CHARGE_SUCCESS = '@farfetch/blackout-redux/CHARGE_SUCCESS';
+export const CREATE_CHECKOUT_ORDER_CHARGE_SUCCESS =
+  '@farfetch/blackout-redux/CREATE_CHECKOUT_ORDER_CHARGE_SUCCESS';
 /**
- * Action type dispatched when resetting the charges state.
+ * Action type dispatched when resetting the checkout order charge state.
  */
-export const RESET_CHARGES_STATE =
-  '@farfetch/blackout-redux/RESET_CHARGES_STATE';
+export const RESET_CHECKOUT_ORDER_CHARGE_STATE =
+  '@farfetch/blackout-redux/RESET_CHECKOUT_ORDER_CHARGE_STATE';
 
 /**
  * Action type dispatched when the fetch checkout request fails.

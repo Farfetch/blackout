@@ -5,12 +5,12 @@ import topCategoryReducer, {
 } from './topCategories';
 import type { BlackoutError } from '@farfetch/blackout-client';
 import type {
+  CategoriesState,
   FetchCategoriesAction,
   ResetCategoriesStateAction,
-  State,
 } from '../types';
 
-export const INITIAL_STATE: State = {
+export const INITIAL_STATE: CategoriesState = {
   error: null,
   isFetched: false,
   isLoading: false,
@@ -62,11 +62,14 @@ const isFetched = (
   }
 };
 
-export const getError = (state: State): State['error'] => state.error;
-export const getIsFetched = (state: State): State['isFetched'] =>
-  state.isFetched;
-export const getIsLoading = (state: State): State['isLoading'] =>
-  state.isLoading;
+export const getError = (state: CategoriesState): CategoriesState['error'] =>
+  state.error;
+export const getIsFetched = (
+  state: CategoriesState,
+): CategoriesState['isFetched'] => state.isFetched;
+export const getIsLoading = (
+  state: CategoriesState,
+): CategoriesState['isLoading'] => state.isLoading;
 
 const reducers = combineReducers({
   error,
@@ -84,9 +87,9 @@ const reducers = combineReducers({
  * @returns New state.
  */
 const categoriesReducer = (
-  state: State,
+  state: CategoriesState,
   action: FetchCategoriesAction | ResetCategoriesStateAction | AnyAction,
-): State => {
+): CategoriesState => {
   if (action.type === actionTypes.RESET_CATEGORIES_STATE) {
     return reducers(INITIAL_STATE, action);
   }

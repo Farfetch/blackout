@@ -3,7 +3,7 @@ import reducerFactory, { createReducerWithResult } from '../reducerFactory';
 describe('reducerFactory', () => {
   const actionType = 'ACTION_FACTORY';
   const actionTypes = {
-    ACTION_FACTORY_RESET: '@farfetch/blackout-redux/ACTION_FACTORY_RESET',
+    RESET_ACTION_FACTORY: '@farfetch/blackout-redux/RESET_ACTION_FACTORY',
     ACTION_FACTORY_REQUEST: '@farfetch/blackout-redux/ACTION_FACTORY_REQUEST',
     ACTION_FACTORY_SUCCESS: '@farfetch/blackout-redux/ACTION_FACTORY_SUCCESS',
     ACTION_FACTORY_FAILURE: '@farfetch/blackout-redux/ACTION_FACTORY_FAILURE',
@@ -24,7 +24,7 @@ describe('reducerFactory', () => {
 
   it('should handle a *_RESET action successfully', () => {
     const action = {
-      type: actionTypes.ACTION_FACTORY_RESET,
+      type: actionTypes.RESET_ACTION_FACTORY,
     };
     const response = reducer(state, action);
 
@@ -87,11 +87,11 @@ describe('reducerFactory', () => {
 describe('createReducerWithResult', () => {
   const actionType = ['ACTION_FACTORY', 'ACTION_FACTORY_2'];
   const actionTypes = {
-    ACTION_FACTORY_RESET: '@farfetch/blackout-redux/ACTION_FACTORY_RESET',
+    RESET_ACTION_FACTORY: '@farfetch/blackout-redux/RESET_ACTION_FACTORY',
     ACTION_FACTORY_REQUEST: '@farfetch/blackout-redux/ACTION_FACTORY_REQUEST',
     ACTION_FACTORY_SUCCESS: '@farfetch/blackout-redux/ACTION_FACTORY_SUCCESS',
     ACTION_FACTORY_FAILURE: '@farfetch/blackout-redux/ACTION_FACTORY_FAILURE',
-    ACTION_FACTORY_2_RESET: '@farfetch/blackout-client/ACTION_FACTORY_2_RESET',
+    RESET_ACTION_FACTORY_2: '@farfetch/blackout-redux/RESET_ACTION_FACTORY_2',
     ACTION_FACTORY_2_REQUEST:
       '@farfetch/blackout-redux/ACTION_FACTORY_2_REQUEST',
     ACTION_FACTORY_2_SUCCESS:
@@ -113,9 +113,9 @@ describe('createReducerWithResult', () => {
     reducer = createReducerWithResult(actionType, initialState, actionTypes);
   });
 
-  it('should handle a *_RESET action successfully', () => {
+  it('should handle a RESET_* action successfully', () => {
     const action = {
-      type: actionTypes.ACTION_FACTORY_2_RESET,
+      type: actionTypes.RESET_ACTION_FACTORY_2,
     };
     const response = reducer(state, action);
 

@@ -5,10 +5,10 @@ import type {
   FetchRecommendedSetFailureAction,
   FetchRecommendedSetRequestAction,
   FetchRecommendedSetSuccessAction,
-  State,
+  ProductsState,
 } from '../types';
 
-export const INITIAL_STATE: State['recommendedSets'] = {
+export const INITIAL_STATE: ProductsState['recommendedSets'] = {
   error: {},
   isLoading: {},
   result: {},
@@ -79,14 +79,14 @@ const isLoading = (
 };
 
 export const getError = (
-  state: State['recommendedSets'],
-): State['recommendedSets']['error'] => state.error;
+  state: ProductsState['recommendedSets'],
+): ProductsState['recommendedSets']['error'] => state.error;
 export const getResult = (
-  state: State['recommendedSets'],
-): State['recommendedSets']['result'] => state.result;
+  state: ProductsState['recommendedSets'],
+): ProductsState['recommendedSets']['result'] => state.result;
 export const getIsLoading = (
-  state: State['recommendedSets'],
-): State['recommendedSets']['isLoading'] => state.isLoading;
+  state: ProductsState['recommendedSets'],
+): ProductsState['recommendedSets']['isLoading'] => state.isLoading;
 
 export const recommendedSetsReducer = combineReducers({
   error,

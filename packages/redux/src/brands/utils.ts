@@ -1,5 +1,5 @@
 import { buildQueryStringFromObject } from '../helpers';
-import type { BrandsQuery } from '@farfetch/blackout-client/brands/types';
+import type { BrandsQuery } from '@farfetch/blackout-client';
 
 /**
  * Generate a hash with the query to identify brands results.

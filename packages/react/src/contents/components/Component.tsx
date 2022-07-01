@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { ReactElement } from 'react';
-import type { ComponentType } from '@farfetch/blackout-client/contents/types';
+import type { ComponentType } from '@farfetch/blackout-client';
 
 interface ComponentProps {
   component: ComponentType;
@@ -33,8 +33,6 @@ export const registerComponent = (
 
   return component;
 };
-
-
 
 /**
  * Editorial component. Renders a component by looking it up in the registered

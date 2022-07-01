@@ -5,26 +5,6 @@ import { mockCurrentState as mockState } from 'tests/__fixtures__/addresses';
 describe('addresses redux selectors', () => {
   beforeEach(jest.clearAllMocks);
 
-  describe('getAddressesError()', () => {
-    it('should get the error property from state', () => {
-      const spy = jest.spyOn(fromAddresses, 'getError');
-
-      expect(selectors.getAddressesError(mockState)).toEqual(
-        mockState.addresses.error,
-      );
-      expect(spy).toHaveBeenCalledWith(mockState.addresses);
-    });
-  });
-
-  describe('isAddressesLoading()', () => {
-    it('should get the addresses loading property from state', () => {
-      const spy = jest.spyOn(fromAddresses, 'getIsLoading');
-
-      expect(selectors.isAddressesLoading(mockState)).toEqual(false);
-      expect(spy).toHaveBeenCalledWith(mockState.addresses);
-    });
-  });
-
   describe('getAddressPredictions()', () => {
     it('should get the predictions result property from state', () => {
       const spy = jest.spyOn(fromAddresses, 'getAddressPredictions');
@@ -47,7 +27,7 @@ describe('addresses redux selectors', () => {
     it('should get the predictions isLoading property from state', () => {
       const spy = jest.spyOn(fromAddresses, 'getAddressPredictions');
 
-      expect(selectors.isAddressPredictionsLoading(mockState)).toEqual(
+      expect(selectors.areAddressPredictionsLoading(mockState)).toEqual(
         mockState.addresses.predictions.isLoading,
       );
       expect(spy).toHaveBeenCalledWith(mockState.addresses);
@@ -76,7 +56,7 @@ describe('addresses redux selectors', () => {
     it('should get the address isLoading property from state', () => {
       const spy = jest.spyOn(fromAddresses, 'getAddressPrediction');
 
-      expect(selectors.isAddressPredictionLoading(mockState)).toEqual(
+      expect(selectors.areAddressPredictionDetailsLoading(mockState)).toEqual(
         mockState.addresses.prediction.isLoading,
       );
       expect(spy).toHaveBeenCalledWith(mockState.addresses);

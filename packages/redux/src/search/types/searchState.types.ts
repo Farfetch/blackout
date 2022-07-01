@@ -1,18 +1,18 @@
-import type { BlackoutError } from '@farfetch/blackout-client';
-import type { CombinedState } from 'redux';
 import type {
-  SearchDidYouMean,
+  BlackoutError,
   SearchDidYouMeanQuery,
+  SearchDidYouMeanSuggestion,
   SearchIntents,
   SearchSuggestion,
   SearchSuggestionsQuery,
-} from '@farfetch/blackout-client/search/types';
+} from '@farfetch/blackout-client';
+import type { CombinedState } from 'redux';
 
 export type SearchDidYouMeanState = CombinedState<{
   error: BlackoutError | null;
   isLoading: boolean;
   query: SearchDidYouMeanQuery | null;
-  result: SearchDidYouMean[] | null;
+  result: SearchDidYouMeanSuggestion[] | null;
 }>;
 
 export type SearchIntentsState = CombinedState<{
@@ -28,7 +28,7 @@ export type SearchSuggestionsState = CombinedState<{
   result: SearchSuggestion[] | null;
 }>;
 
-export type State = CombinedState<{
+export type SearchState = CombinedState<{
   didYouMean: SearchDidYouMeanState;
   intents: SearchIntentsState;
   suggestions: SearchSuggestionsState;

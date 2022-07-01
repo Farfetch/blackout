@@ -67,51 +67,53 @@ export const expectedNormalizedPayload = {
 };
 
 export const mockAuthenticationState = {
-  authentication: {
-    error: null,
-    id: null,
-    isLoading: false,
-    login: {
+  users: {
+    authentication: {
       error: null,
+      id: null,
       isLoading: false,
-    },
-    logout: {
-      error: null,
-      isLoading: false,
-    },
-    register: {
-      error: null,
-      isLoading: false,
-    },
-    changePassword: {
-      error: null,
-      isLoading: false,
-    },
-    recoverPassword: {
-      error: null,
-      isLoading: false,
-    },
-    resetPassword: {
-      error: null,
-      isLoading: false,
-    },
-    validateEmail: {
-      error: null,
-      isLoading: false,
-    },
-    refreshEmailToken: {
-      error: null,
-      isLoading: false,
-    },
-    userToken: {
-      result: null,
-      error: null,
-      isLoading: false,
-    },
-    userImpersonation: {
-      result: null,
-      error: null,
-      isLoading: false,
+      login: {
+        error: null,
+        isLoading: false,
+      },
+      logout: {
+        error: null,
+        isLoading: false,
+      },
+      register: {
+        error: null,
+        isLoading: false,
+      },
+      changePassword: {
+        error: null,
+        isLoading: false,
+      },
+      recoverPassword: {
+        error: null,
+        isLoading: false,
+      },
+      resetPassword: {
+        error: null,
+        isLoading: false,
+      },
+      validateEmail: {
+        error: null,
+        isLoading: false,
+      },
+      refreshEmailToken: {
+        error: null,
+        isLoading: false,
+      },
+      userToken: {
+        result: null,
+        error: null,
+        isLoading: false,
+      },
+      userImpersonation: {
+        result: null,
+        error: null,
+        isLoading: false,
+      },
     },
   },
 };

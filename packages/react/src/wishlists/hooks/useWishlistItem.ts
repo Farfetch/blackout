@@ -6,8 +6,9 @@ import {
   getWishlistItemError,
   isWishlistItemLoading,
   removeWishlistItem as removeWishlistItemAction,
+  StoreState,
   updateWishlistItem as updateWishlistItemAction,
-} from '@farfetch/blackout-redux/wishlists';
+} from '@farfetch/blackout-redux';
 import { useAction } from '../../helpers';
 import { useSelector } from 'react-redux';
 import type { UseWishlistItem } from './types';
@@ -22,13 +23,15 @@ import type { UseWishlistItem } from './types';
  */
 const useWishlistItem: UseWishlistItem = wishlistItemId => {
   // Selectors
-  const error = useSelector(state =>
+  const error = useSelector((state: StoreState) =>
     getWishlistItemError(state, wishlistItemId),
   );
-  const isLoading = useSelector(state =>
+  const isLoading = useSelector((state: StoreState) =>
     isWishlistItemLoading(state, wishlistItemId),
   );
-  const item = useSelector(state => getWishlistItem(state, wishlistItemId));
+  const item = useSelector((state: StoreState) =>
+    getWishlistItem(state, wishlistItemId),
+  );
   // Actions
   const removeWishlistItem = useAction(removeWishlistItemAction);
   const updateWishlistItem = useAction(updateWishlistItemAction);

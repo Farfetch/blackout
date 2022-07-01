@@ -2,8 +2,8 @@ import * as formReducer from '../reducer';
 import * as selectors from '../selectors';
 import { formSchemaResponse, mockState } from 'tests/__fixtures__/forms';
 import merge from 'lodash/merge';
-import type { FormResult } from '../types';
-import type { StoreState } from '@farfetch/blackout-redux/types';
+import type { FormsResult } from '../types';
+import type { StoreState } from '../../types';
 
 const mockStore = merge({} as StoreState, mockState);
 
@@ -49,7 +49,7 @@ describe('contents redux selectors', () => {
     });
 
     describe('getFormSchemas()', () => {
-      let formsResultState: FormResult;
+      let formsResultState: FormsResult;
       beforeEach(() => {
         const sampleSchema = { ...formSchemaResponse };
         sampleSchema.code = 'sample';

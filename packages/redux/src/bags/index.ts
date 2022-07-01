@@ -1,10 +1,13 @@
-import * as actionTypes from './actionTypes';
-import reducer, { entitiesMapper } from './reducer';
+export * as bagsActionTypes from './actionTypes';
 
 export * from './actions';
 export * from './actions/factories';
 export * from './selectors';
+export * from './utils';
 
-export { actionTypes, entitiesMapper };
+export {
+  default as bagsReducer,
+  entitiesMapper as bagsEntitiesMapper,
+} from './reducer';
 
-export default reducer;
+export * from './types';

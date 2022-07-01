@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
-import { getEntityById } from '../entities/selectors';
 import {
-  getReturnItems as getEntityReturnItems,
-  getReturns as getEntityReturns,
-} from '@farfetch/blackout-redux/entities/selectors';
+  getEntityById,
+  getReturnItemsEntity,
+  getReturnsEntity,
+} from '../entities/selectors';
 import {
   getError,
   getId,
@@ -13,7 +13,8 @@ import {
   getReturns,
 } from './reducer';
 import get from 'lodash/get';
-import type { ReturnItem } from '@farfetch/blackout-client/returns/types';
+import type { ReturnItem } from '@farfetch/blackout-client';
+import type { ReturnsState } from './types';
 import type { StoreState } from '../types';
 
 /**
@@ -23,7 +24,8 @@ import type { StoreState } from '../types';
  *
  * @returns Return id.
  */
-export const getReturnId = (state: StoreState) => getId(state.returns);
+export const getReturnId = (state: StoreState) =>
+  getId(state.returns as ReturnsState);
 
 /**
  * Returns the 'returns' entity details in the application state.
@@ -33,7 +35,7 @@ export const getReturnId = (state: StoreState) => getId(state.returns);
  * @returns Return object.
  */
 export const getReturn = createSelector(
-  [getEntityReturns, getReturnId],
+  [getReturnsEntity, getReturnId],
   (entityReturns, returnId) =>
     entityReturns && returnId ? entityReturns[returnId] : undefined,
 );
@@ -45,7 +47,8 @@ export const getReturn = createSelector(
  *
  * @returns Return error.
  */
-export const getReturnError = (state: StoreState) => getError(state.returns);
+export const getReturnError = (state: StoreState) =>
+  getError(state.returns as ReturnsState);
 
 /**
  * Returns the 'returnItems' entity in the application state.
@@ -57,7 +60,7 @@ export const getReturnError = (state: StoreState) => getError(state.returns);
  */
 export const getReturnItem = (
   state: StoreState,
-  returnItemId: string,
+  returnItemId: ReturnItem['id'],
 ): ReturnItem | undefined => getEntityById(state, 'returnItems', returnItemId);
 
 /**
@@ -79,11 +82,9 @@ export const getReturnItemsIds = createSelector([getReturn], returnObject =>
  * @returns List of return items.
  */
 export const getReturnItems = createSelector(
-  [getEntityReturnItems, getReturnItemsIds],
+  [getReturnItemsEntity, getReturnItemsIds],
   (returnsItemsObject, returnItemsIds) =>
-    returnItemsIds?.map(
-      (returnItemId: string) => returnsItemsObject[returnItemId],
-    ),
+    returnItemsIds?.map(returnItemId => returnsItemsObject?.[returnItemId]),
 );
 
 /**
@@ -94,7 +95,7 @@ export const getReturnItems = createSelector(
  * @returns Loading status.
  */
 export const isReturnLoading = (state: StoreState) =>
-  getIsLoading(state.returns);
+  getIsLoading(state.returns as ReturnsState);
 
 /**
  * Returns the loading status for the returns requests. This handles the get,
@@ -105,7 +106,7 @@ export const isReturnLoading = (state: StoreState) =>
  * @returns Loading status.
  */
 export const isReturnsLoading = (state: StoreState) =>
-  getReturns(state.returns).isLoading;
+  getReturns(state.returns as ReturnsState).isLoading;
 
 /**
  * Returns the error for the returns requests. This handles the get, create and
@@ -116,7 +117,7 @@ export const isReturnsLoading = (state: StoreState) =>
  * @returns Return error.
  */
 export const getReturnsError = (state: StoreState) =>
-  getReturns(state.returns).error;
+  getReturns(state.returns as ReturnsState).error;
 
 /**
  * Returns the loading status for the get capabilities request.
@@ -126,7 +127,7 @@ export const getReturnsError = (state: StoreState) =>
  * @returns Loading status.
  */
 export const isPickupCapabilitiesLoading = (state: StoreState) =>
-  getPickupCapabilities(state.returns).isLoading;
+  getPickupCapabilities(state.returns as ReturnsState).isLoading;
 
 /**
  * Returns the error for the get capabilities request.
@@ -136,7 +137,7 @@ export const isPickupCapabilitiesLoading = (state: StoreState) =>
  * @returns Capabilities error.
  */
 export const getPickupCapabilitiesError = (state: StoreState) =>
-  getPickupCapabilities(state.returns).error;
+  getPickupCapabilities(state.returns as ReturnsState).error;
 
 /**
  * Returns the loading status for the get references request.
@@ -146,7 +147,7 @@ export const getPickupCapabilitiesError = (state: StoreState) =>
  * @returns Loading status.
  */
 export const isReferencesLoading = (state: StoreState) =>
-  getReferences(state.returns).isLoading;
+  getReferences(state.returns as ReturnsState).isLoading;
 
 /**
  * Returns the error for the get references request.
@@ -156,4 +157,4 @@ export const isReferencesLoading = (state: StoreState) =>
  * @returns References error.
  */
 export const getReferencesError = (state: StoreState) =>
-  getReferences(state.returns).error;
+  getReferences(state.returns as ReturnsState).error;

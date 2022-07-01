@@ -1,8 +1,8 @@
 import {
+  AnalyticsProduct,
   EventProperties,
   eventTypes,
   pageTypes,
-  Product,
   TrackEventData,
   utils,
 } from '@farfetch/blackout-analytics';
@@ -24,7 +24,7 @@ export const InternalEventTypes = {
 /**
  * Exports a map of core's events track names and GA4 events track names.
  */
-export default {
+const eventMapping = {
   [eventTypes.PRODUCT_ADDED_TO_CART]: 'add_to_cart',
   [eventTypes.PRODUCT_REMOVED_FROM_CART]: 'remove_from_cart',
   [eventTypes.PAYMENT_INFO_ADDED]: 'add_payment_info',
@@ -63,6 +63,8 @@ export default {
     InternalEventTypes.PRODUCT_UPDATED.CHANGE_COLOUR,
   [InternalEventTypes.PAGE_SCROLL]: InternalEventTypes.PAGE_SCROLL,
 };
+
+export default eventMapping;
 
 /**
  * Formats product categories as required from GA4 ecommerce events.
@@ -123,7 +125,7 @@ const getProductCategories = (
  */
 const getEventTotalValue = (
   eventProperties: EventProperties,
-  items: Array<Product>,
+  items: Array<AnalyticsProduct>,
 ): number => {
   // There could be cases where the client is not using the bag middleware and wants to pass a value.
   if (typeof eventProperties.value === 'number') {
@@ -150,10 +152,10 @@ const getEventTotalValue = (
  * @returns Product properties formatted to GA4 ecommerce events.
  */
 const getProductParametersFromEvent = (
-  properties: Product,
+  properties: AnalyticsProduct,
   addListParameters = true,
-): Product => {
-  const result: Product = {
+): AnalyticsProduct => {
+  const result: AnalyticsProduct = {
     ...getProductCategories(properties.category as string),
     affiliation: properties.affiliation,
     coupon: properties.coupon,
@@ -193,7 +195,7 @@ const getProductParametersFromEvent = (
  */
 const getProductItemsFromEvent = (
   eventProperties: EventProperties,
-): Array<Product> => {
+): Array<AnalyticsProduct> => {
   return Array.isArray(eventProperties.products)
     ? eventProperties.products.map(product =>
         getProductParametersFromEvent(product),
@@ -772,6 +774,6 @@ export function getEventProperties(
 
     default:
       /* istanbul ignore next */
-      break;
+      return undefined;
   }
 }

@@ -1,10 +1,7 @@
 import { Component } from '../components';
 import map from 'lodash/map';
 import React, { ReactElement } from 'react';
-import type {
-  ComponentType,
-  ContentEntries,
-} from '@farfetch/blackout-client/contents/types';
+import type { ComponentType, ContentEntries } from '@farfetch/blackout-client';
 
 const IS_CONTENT_TOOL = {
   active: 'active',

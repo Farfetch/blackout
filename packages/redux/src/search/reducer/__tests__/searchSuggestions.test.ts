@@ -1,5 +1,5 @@
+import * as actionTypes from '../../actionTypes';
 import * as fromReducer from '../searchSuggestions';
-import { actionTypes } from '../..';
 import { mockSearchSuggestionsQuery } from 'tests/__fixtures__/search';
 
 const reducer = fromReducer.default;

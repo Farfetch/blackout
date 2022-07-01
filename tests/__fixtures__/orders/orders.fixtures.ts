@@ -1516,7 +1516,7 @@ export const expectedOrderDetailsNormalizedPayload = {
       vatNumber: null,
       zipCode: '1234-567',
     },
-    createdDate: '/Date(1539688029817)/',
+    createdDate: 1539688029817,
     credit: 0,
     formattedCredit: '0,00 €',
     formattedGrandTotal: '1 225,00 €',
@@ -1580,7 +1580,7 @@ export const expectedOrderDetailsNormalizedPayload = {
     totalQuantity: 3,
     totalShippingFee: 0,
     totalTaxes: 423.57,
-    updatedDate: '/Date(1539688029817)/',
+    updatedDate: 1539688029817,
     userId,
   },
 };

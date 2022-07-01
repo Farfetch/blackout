@@ -1,14 +1,14 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { BlackoutError } from '@farfetch/blackout-client';
-import type { NormalizedSchema } from 'normalizr';
 import type {
+  BlackoutError,
   Program,
   ProgramMembership,
   ProgramMembershipConvert,
   ProgramMembershipReplacement,
   ProgramMembershipStatement,
-} from '@farfetch/blackout-client/loyalty/types';
+} from '@farfetch/blackout-client';
+import type { NormalizedSchema } from 'normalizr';
 
 /**
  * Create Program Membership Convert Action.
@@ -50,7 +50,7 @@ type CreateProgramMembershipPayload = NormalizedSchema<
   {
     membership: Record<ProgramMembership['id'], ProgramMembership>;
   },
-  ProgramMembership['id']
+  Array<ProgramMembership['id']>
 >;
 export interface CreateProgramMembershipFailureAction extends Action {
   payload: { error: BlackoutError };
@@ -171,7 +171,7 @@ type FetchProgramUsersMembershipPayload = NormalizedSchema<
   {
     membership: Record<ProgramMembership['id'], ProgramMembership>;
   },
-  ProgramMembership['id']
+  Array<ProgramMembership['id']>
 >;
 export interface FetchProgramUsersMembershipFailureAction extends Action {
   payload: { error: BlackoutError };

@@ -1,13 +1,14 @@
 import * as actionTypes from '../../actionTypes';
-import { normalize } from 'normalizr';
-import { toBlackoutError } from '@farfetch/blackout-client';
-import merchantLocationSchema from '../../../entities/schemas/merchantLocation';
-import type { FetchMerchantsLocationsAction } from '../../types';
-import type {
+import {
+  Config,
   GetMerchantsLocations,
   GetMerchantsLocationsQuery,
   MerchantLocation,
-} from '@farfetch/blackout-client/merchantsLocations/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import { normalize } from 'normalizr';
+import merchantLocationSchema from '../../../entities/schemas/merchantLocation';
+import type { FetchMerchantsLocationsAction } from '../../types';
 import type { StoreState } from '../../../types';
 import type { ThunkDispatch } from 'redux-thunk';
 
@@ -28,9 +29,9 @@ import type { ThunkDispatch } from 'redux-thunk';
  */
 const fetchMerchantsLocationsFactory =
   (getMerchantsLocations: GetMerchantsLocations) =>
-  (query: GetMerchantsLocationsQuery, config?: Record<string, unknown>) =>
+  (query: GetMerchantsLocationsQuery, config?: Config) =>
   async (
-    dispatch: ThunkDispatch<StoreState, any, FetchMerchantsLocationsAction>,
+    dispatch: ThunkDispatch<StoreState, unknown, FetchMerchantsLocationsAction>,
   ): Promise<MerchantLocation[]> => {
     try {
       dispatch({
@@ -40,7 +41,16 @@ const fetchMerchantsLocationsFactory =
       const result = await getMerchantsLocations(query, config);
 
       dispatch({
-        payload: normalize(result, [merchantLocationSchema]),
+        payload: normalize<
+          MerchantLocation,
+          {
+            merchantsLocations: Record<
+              MerchantLocation['id'],
+              MerchantLocation
+            >;
+          },
+          MerchantLocation['id'][]
+        >(result, [merchantLocationSchema]),
         type: actionTypes.FETCH_MERCHANTS_LOCATIONS_SUCCESS,
       });
 

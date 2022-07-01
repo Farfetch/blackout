@@ -4,13 +4,11 @@
  */
 import {
   addBagItem as addBagItemAction,
-  getBagItems,
-  updateBagItem as updateBagItemAction,
-} from '@farfetch/blackout-redux/bags';
-import {
   buildBagItem,
   generateBagItemHash,
-} from '@farfetch/blackout-redux/bags/utils';
+  getBagItems,
+  updateBagItem as updateBagItemAction,
+} from '@farfetch/blackout-redux';
 import { shallowEqual, useSelector } from 'react-redux';
 import { useAction } from '../../helpers';
 import type { HandleAddOrUpdateItem, UseAddOrUpdateBagItem } from './types';

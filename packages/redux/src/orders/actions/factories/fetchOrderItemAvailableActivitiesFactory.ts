@@ -1,7 +1,10 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
+import {
+  Config,
+  GetOrderItemAvailableActivities,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { GetOrderItemAvailableActivities } from '@farfetch/blackout-client/orders/types';
 
 const fetchOrderItemAvailableActivities =
   (getOrderItemAvailableActivities: GetOrderItemAvailableActivities) =>

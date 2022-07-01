@@ -1,18 +1,18 @@
+import * as actionTypes from '../../actionTypes';
 import * as normalizr from 'normalizr';
-import { actionTypes } from '../..';
 import {
   expectedOrderDetailsNormalizedPayload,
   mockOrderDetailsResponse,
   orderId,
 } from 'tests/__fixtures__/orders';
 import { fetchOrderDetails } from '..';
-import { getOrderDetails } from '@farfetch/blackout-client/orders';
+import { getOrderDetails } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import thunk from 'redux-thunk';
 
-jest.mock('@farfetch/blackout-client/orders', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/orders'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getOrderDetails: jest.fn(),
 }));
 
@@ -81,7 +81,10 @@ describe('fetchOrderDetails() action creator', () => {
         type: actionTypes.FETCH_ORDER_DETAILS_REQUEST,
       },
       {
-        meta: { orderId },
+        meta: {
+          orderId,
+          guest: false,
+        },
         payload: {
           ...expectedOrderDetailsNormalizedPayload,
           result: {
@@ -90,7 +93,6 @@ describe('fetchOrderDetails() action creator', () => {
           },
         },
         type: actionTypes.FETCH_ORDER_DETAILS_SUCCESS,
-        guest: false,
       },
     ]);
   });
@@ -114,10 +116,9 @@ describe('fetchOrderDetails() action creator', () => {
         type: actionTypes.FETCH_ORDER_DETAILS_REQUEST,
       },
       {
-        meta: { orderId },
+        meta: { orderId, guest: false },
         payload: expectedOrderDetailsNormalizedPayload,
         type: actionTypes.FETCH_ORDER_DETAILS_SUCCESS,
-        guest: false,
       },
     ]);
   });

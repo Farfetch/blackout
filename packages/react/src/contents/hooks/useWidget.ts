@@ -3,12 +3,12 @@ import {
   getContentError,
   getContents,
   isContentLoading,
-} from '@farfetch/blackout-redux/contents';
+  StoreState,
+} from '@farfetch/blackout-redux';
 import { useAction } from '../../helpers';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import type { Params, UseWidget } from '../types';
-import type { StoreState } from '@farfetch/blackout-redux/types';
 
 /**
  * Hook to return actions and selectors for content widget data. The action to

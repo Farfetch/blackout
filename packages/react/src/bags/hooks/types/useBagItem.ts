@@ -1,10 +1,12 @@
 import type {
   Bag,
+  BlackoutError,
+  Config,
+  DeleteBagItemQuery,
   PatchBagItemData,
-  Query,
-} from '@farfetch/blackout-client/bags/types';
-import type { BagItemHydrated } from '@farfetch/blackout-redux/entities/types';
-import type { BlackoutError } from '@farfetch/blackout-client';
+  PatchBagItemQuery,
+} from '@farfetch/blackout-client';
+import type { BagItemHydrated } from '@farfetch/blackout-redux';
 
 export type HandleQuantityChangeType = (
   newQuantity: number,
@@ -22,14 +24,14 @@ export type UseBagItem = (bagItemId: number) => {
   deleteBagItem: (
     bagItemId: number,
     data?: PatchBagItemData,
-    query?: Query,
-    config?: Record<string, unknown>,
+    query?: DeleteBagItemQuery,
+    config?: Config,
   ) => Promise<Bag>;
   updateBagItem: (
     bagItemId: number,
     data: PatchBagItemData,
-    query?: Query,
-    config?: Record<string, unknown>,
+    query?: PatchBagItemQuery,
+    config?: Config,
   ) => Promise<Bag>;
   bagItem: BagItemHydrated;
   error: BlackoutError | null | undefined;

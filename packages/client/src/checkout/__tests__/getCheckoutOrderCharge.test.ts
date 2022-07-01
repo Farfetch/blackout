@@ -1,13 +1,10 @@
 import { chargeId, id } from 'tests/__fixtures__/checkout';
-import {
-  DeclineCode,
-  GetChargeStatus,
-  GetCheckoutOrderChargeResponse,
-} from '../types';
+import { ChargeStatus, DeclineCode } from '../../payments/types';
 import { getCheckoutOrderCharge } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCheckoutOrderCharge.fixtures';
 import mswServer from '../../../tests/mswServer';
+import type { CheckoutOrderCharge } from '../types';
 
 describe('checkout client', () => {
   const expectedConfig = undefined;
@@ -19,16 +16,16 @@ describe('checkout client', () => {
     const urlToBeCalled = `/checkout/v1/orders/${id}/charges/${chargeId}`;
 
     it('should handle a client request successfully', async () => {
-      const response: GetCheckoutOrderChargeResponse = {
+      const response: CheckoutOrderCharge = {
         chargeId: 'string',
-        status: GetChargeStatus.Processing,
+        status: ChargeStatus.Processing,
         redirectUrl: 'string',
         returnUrl: 'string',
         cancelUrl: 'string',
         chargeInstruments: [
           {
             id: 'string',
-            operationStatus: GetChargeStatus.Processing,
+            operationStatus: ChargeStatus.Processing,
             declineCode: DeclineCode.NotApplicable,
           },
         ],

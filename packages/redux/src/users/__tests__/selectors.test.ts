@@ -38,7 +38,7 @@ describe('users redux selectors', () => {
         error: 'error: not loaded',
         isLoading: false,
       },
-      credit: {
+      credits: {
         error: 'error: not loaded',
         isLoading: false,
       },
@@ -50,29 +50,30 @@ describe('users redux selectors', () => {
         error: 'error: not loaded',
         isLoading: false,
       },
-      userAttributes: {
+      attributes: {
         result: null,
         error: 'error: not loaded',
         isLoading: false,
       },
       addresses: {
         error: 'error: not loaded',
-        isLoading: false,
-      },
-      address: {
-        error: {
-          [addressId2]: 'error: not loaded',
-        },
-        isLoading: {
-          [addressId2]: false,
-        },
-      },
-      /* Used for operations related with the default address that
-        have a result associated, such as getting the default contact address */
-      defaultAddress: {
-        error: 'error: not loaded',
-        isLoading: false,
         result: null,
+        isLoading: false,
+        address: {
+          error: {
+            [addressId2]: 'error: not loaded',
+          },
+          isLoading: {
+            [addressId2]: false,
+          },
+        },
+        /* Used for operations related with the default address that
+          have a result associated, such as getting the default contact address */
+        defaultAddressDetails: {
+          error: 'error: not loaded',
+          isLoading: false,
+          result: null,
+        },
       },
     },
     entities: {
@@ -89,29 +90,20 @@ describe('users redux selectors', () => {
 
   beforeEach(jest.clearAllMocks);
 
-  describe('areUsersLoading()', () => {
+  describe('isUserLoading()', () => {
     it('should get the users loading property from state', () => {
       const spy = jest.spyOn(fromUsers, 'getIsLoading');
 
-      expect(selectors.areUsersLoading(mockState)).toEqual(false);
+      expect(selectors.isUserLoading(mockState)).toEqual(false);
       expect(spy).toHaveBeenCalledWith(mockState.users);
     });
   });
 
-  describe('getUsersError()', () => {
+  describe('getUserError()', () => {
     it('should get the users error property from state', () => {
       const spy = jest.spyOn(fromUsers, 'getError');
 
       expect(selectors.getUserError(mockState)).toEqual('error: not loaded');
-      expect(spy).toHaveBeenCalledWith(mockState.users);
-    });
-  });
-
-  describe('getUserId()', () => {
-    it('should get the user id property from state', () => {
-      const spy = jest.spyOn(fromUsers, 'getResult');
-
-      expect(selectors.getUserId(mockState)).toEqual(userId);
       expect(spy).toHaveBeenCalledWith(mockState.users);
     });
   });
@@ -121,9 +113,10 @@ describe('users redux selectors', () => {
       'UserBenefits',
       'UserPreferences',
       'UserTitles',
-      'UserCredit',
+      'UserCredits',
       'UserCreditMovements',
       'UserContacts',
+      'UserAddresses',
     ];
 
     describe('sub-areas loading selectors', () => {
@@ -139,9 +132,10 @@ describe('users redux selectors', () => {
         'UserBenefits',
         'UserPreferences',
         'UserTitles',
-        'UserCredit',
+        'UserCredits',
         'UserCreditMovements',
         'UserContacts',
+        'UserAddresses',
       ];
 
       const getSelectorSubAreaName = (subArea: string) => {
@@ -179,21 +173,15 @@ describe('users redux selectors', () => {
     });
   });
 
-  describe('isUserPreferencesLoading()', () => {
-    it('should get the preferences loading property from state', () => {
-      expect(selectors.isUserPreferencesLoading(mockState)).toEqual(false);
-    });
-  });
-
-  describe('isUserPreferencesUpdating()', () => {
+  describe('areUserPreferencesUpdating()', () => {
     it('should get the update preferences loading property from state', () => {
-      expect(selectors.isUserPreferencesUpdating(mockState)).toEqual(false);
+      expect(selectors.areUserPreferencesUpdating(mockState)).toEqual(false);
     });
   });
 
-  describe('getUserPreferencesError()', () => {
+  describe('getUserPreferencesUpdateError()', () => {
     it('should get the preferences error property from state', () => {
-      expect(selectors.getUserPreferencesError(mockState)).toEqual(
+      expect(selectors.getUserPreferencesUpdateError(mockState)).toEqual(
         mockState.users.updatePreferences.error,
       );
     });
@@ -223,28 +211,6 @@ describe('users redux selectors', () => {
     });
   });
 
-  describe('getUserCredit()', () => {
-    it('should get the credit balance from state', () => {
-      const expectedResult = mockState.entities.credit;
-      const spy = jest.spyOn(fromEntities, 'getEntities');
-
-      expect(selectors.getUserCredit(mockState)).toEqual(expectedResult);
-      expect(spy).toHaveBeenCalledWith(mockState, 'credit');
-    });
-  });
-
-  describe('getUserCreditMovements()', () => {
-    it('should get the credit movements from state', () => {
-      const expectedResult = mockState.entities.creditMovements;
-      const spy = jest.spyOn(fromEntities, 'getEntities');
-
-      expect(selectors.getUserCreditMovements(mockState)).toEqual(
-        expectedResult,
-      );
-      expect(spy).toHaveBeenCalledWith(mockState, 'creditMovements');
-    });
-  });
-
   describe('getUserContacts()', () => {
     it('should get the contacts from state', () => {
       const expectedResult = mockState.entities.contacts;
@@ -255,9 +221,9 @@ describe('users redux selectors', () => {
     });
   });
 
-  describe('isUserAttributesLoading()', () => {
+  describe('areUserAttributesLoading()', () => {
     it('should get the user attributes loading property from state', () => {
-      expect(selectors.isUserAttributesLoading(mockState)).toEqual(false);
+      expect(selectors.areUserAttributesLoading(mockState)).toEqual(false);
     });
   });
 
@@ -275,6 +241,16 @@ describe('users redux selectors', () => {
     });
   });
 
+  describe('getUserAddressesResult()', () => {
+    it('should get the result property from state', () => {
+      const spy = jest.spyOn(fromUsers, 'getAddresses');
+      expect(selectors.getUserAddressesResult(mockState)).toEqual(
+        mockState.users.addresses.result,
+      );
+      expect(spy).toHaveBeenCalledWith(mockState.users);
+    });
+  });
+
   describe('getUserAddresses()', () => {
     it('should get the addresses from state', () => {
       const expectedResult = mockState.entities.addresses;
@@ -282,21 +258,6 @@ describe('users redux selectors', () => {
 
       expect(selectors.getUserAddresses(mockState)).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledWith(mockState, 'addresses');
-    });
-
-    it('should get the addresses error property from state', () => {
-      const expectedResult = mockState.users.addresses.error;
-      const spy = jest.spyOn(fromUsers, 'getUserAddresses');
-
-      expect(selectors.getUserAddressesError(mockState)).toBe(expectedResult);
-      expect(spy).toHaveBeenCalledTimes(1);
-    });
-
-    it('should get the addresses isLoading property from state', () => {
-      const spy = jest.spyOn(fromUsers, 'getUserAddresses');
-
-      expect(selectors.isUserAddressesLoading(mockState)).toEqual(false);
-      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -311,7 +272,7 @@ describe('users redux selectors', () => {
     });
 
     it('should get the address isLoading property from state', () => {
-      const spy = jest.spyOn(fromUsers, 'getUserAddress');
+      const spy = jest.spyOn(fromUsers, 'getAddresses');
 
       expect(selectors.isUserAddressLoading(mockState, addressId2)).toEqual(
         false,
@@ -320,8 +281,9 @@ describe('users redux selectors', () => {
     });
 
     it('should get the address error property from state', () => {
-      const expectedResult = mockState.users.address.error[addressId2];
-      const spy = jest.spyOn(fromUsers, 'getUserAddress');
+      const expectedResult =
+        mockState.users.addresses.address.error[addressId2];
+      const spy = jest.spyOn(fromUsers, 'getAddresses');
 
       expect(selectors.getUserAddressError(mockState, addressId2)).toBe(
         expectedResult,
@@ -332,27 +294,31 @@ describe('users redux selectors', () => {
 
   describe('getUserDefaultAddress()', () => {
     it('should get the default address details isLoading property from state', () => {
-      const spy = jest.spyOn(fromUsers, 'getUserDefaultAddressDetails');
+      const spy = jest.spyOn(fromUsers, 'getAddresses');
 
-      expect(selectors.isUserDefaultAddressLoading(mockState)).toEqual(false);
+      expect(selectors.isUserDefaultAddressDetailsLoading(mockState)).toEqual(
+        false,
+      );
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('should get the default address details error property from state', () => {
-      const expectedResult = mockState.users.defaultAddress.error;
-      const spy = jest.spyOn(fromUsers, 'getUserDefaultAddressDetails');
+      const expectedResult =
+        mockState.users.addresses.defaultAddressDetails.error;
+      const spy = jest.spyOn(fromUsers, 'getAddresses');
 
-      expect(selectors.getUserDefaultAddressError(mockState)).toEqual(
+      expect(selectors.getUserDefaultAddressDetailsError(mockState)).toEqual(
         expectedResult,
       );
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('should get the default address details result property', () => {
-      const spy = jest.spyOn(fromUsers, 'getUserDefaultAddressDetails');
-      const expectedResult = mockState.users.defaultAddress.result;
+      const spy = jest.spyOn(fromUsers, 'getAddresses');
+      const expectedResult =
+        mockState.users.addresses.defaultAddressDetails.result;
 
-      expect(selectors.getUserDefaultAddressResult(mockState)).toEqual(
+      expect(selectors.getUserDefaultAddressDetailsResult(mockState)).toEqual(
         expectedResult,
       );
       expect(spy).toHaveBeenCalledTimes(1);

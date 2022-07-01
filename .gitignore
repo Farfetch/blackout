@@ -21,3 +21,6 @@ node_modules/
 .eslintcache
 
 *.tsbuildinfo
+
+*.d.ts
+*.d.ts.map

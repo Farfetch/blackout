@@ -1,9 +1,10 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
-import type {
+import {
+  Config,
   DeletePaymentToken,
   PaymentToken,
-} from '@farfetch/blackout-client/payments/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { RemovePaymentTokensAction } from '../../types';
 

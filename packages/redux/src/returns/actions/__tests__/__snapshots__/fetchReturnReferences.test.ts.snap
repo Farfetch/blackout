@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`fetchReturnReferences() action creator should create the correct actions for when the get references procedure is successful: update return success payload 1`] = `
-Object {
-  "type": "@farfetch/blackout-client/FETCH_RETURN_REFERENCES_SUCCESS",
-}
-`;

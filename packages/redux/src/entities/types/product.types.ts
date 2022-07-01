@@ -1,14 +1,7 @@
-import type { BagItem } from '@farfetch/blackout-client/bags/types';
-import type { Brand } from '@farfetch/blackout-client/brands/types';
-import type { Category } from '@farfetch/blackout-client/categories/types';
 import type {
-  CustomAttributesAdapted,
-  PriceAdapted,
-  ProductImagesAdapted,
-  SizesAdapted,
-} from '../../helpers/adapters';
-import type { MerchantEntity } from './merchant.types';
-import type {
+  BagItem,
+  Brand,
+  Category,
   Product as OriginalProduct,
   ProductAttribute,
   ProductColorGrouping,
@@ -21,9 +14,16 @@ import type {
   ProductSizeGuide,
   ProductSummaryPrice,
   ProductVariant,
-  ProductVariantByMerchantLocation,
+  ProductVariantMerchantLocation,
+  WishlistItem,
 } from '@farfetch/blackout-client';
-import type { WishlistItem } from '@farfetch/blackout-client/wishlists/types';
+import type {
+  CustomAttributesAdapted,
+  PriceAdapted,
+  ProductImagesAdapted,
+  SizesAdapted,
+} from '../../helpers/adapters';
+import type { MerchantEntity } from './merchant.types';
 
 export type ColorGroupingAdapted =
   | (Omit<ProductColorGrouping, 'entries'> & {
@@ -66,22 +66,22 @@ export type AdaptGroupedEntries = (
   groupedEntries: ProductGroup,
 ) => GroupedEntriesAdapted;
 
-export type PricesAdapted = PriceAdapted[] | undefined;
+export type PricesAdapted = (PriceAdapted | undefined)[] | undefined;
 
 export type AdaptPrices = (prices: ProductSummaryPrice[]) => PricesAdapted;
 
 export type VariantAdapted = Omit<ProductVariant, 'price'> & {
-  price: PriceAdapted;
+  price: PriceAdapted | undefined;
   // This is only populated after requesting for a product variant merchant locations
   // (`fetchProductVariantsByMerchantsLocations`)
-  merchantsLocations?: ProductVariantByMerchantLocation[];
+  merchantsLocations?: ProductVariantMerchantLocation[];
 };
 
 export type VariantsAdapted = VariantAdapted[] | undefined;
 
 export type AdaptVariants = (
   variants: Array<
-    ProductVariant & { merchantsLocations: ProductVariantByMerchantLocation[] }
+    ProductVariant & { merchantsLocations: ProductVariantMerchantLocation[] }
   >,
 ) => VariantsAdapted;
 

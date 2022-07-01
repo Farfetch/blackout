@@ -4,13 +4,15 @@
  */
 import {
   addBagItem as addBagItemAction,
+  buildBagItem,
   getBagItem,
   getBagItemError,
   isBagItemLoading,
   removeBagItem as removeBagItemAction,
+  SizeAdapted,
+  StoreState,
   updateBagItem as updateBagItemAction,
-} from '@farfetch/blackout-redux/bags';
-import { buildBagItem } from '@farfetch/blackout-redux/bags/utils';
+} from '@farfetch/blackout-redux';
 import { useAction } from '../../helpers';
 import { useSelector } from 'react-redux';
 import useAddOrUpdateBagItem from './useAddOrUpdateBagItem';
@@ -21,7 +23,6 @@ import type {
   HandleSizeChangeType,
   UseBagItem,
 } from './types';
-import type { SizeAdapted, StoreState } from '@farfetch/blackout-redux/types';
 
 /**
  * Provides Redux actions and state access, as well as handlers for dealing with

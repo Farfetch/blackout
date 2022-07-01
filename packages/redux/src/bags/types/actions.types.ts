@@ -2,14 +2,14 @@ import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
 import type {
   BagItem,
+  BlackoutError,
+  Brand,
+  Category,
   PatchBagItemData,
   PostBagItemData,
-} from '@farfetch/blackout-client/bags/types';
-import type { BlackoutError } from '@farfetch/blackout-client';
-import type { Brand } from '@farfetch/blackout-client/brands/types';
-import type { Category } from '@farfetch/blackout-client/categories/types';
+} from '@farfetch/blackout-client';
+import type { BagNormalized } from '../types';
 import type { MerchantEntity, ProductEntity } from '../../entities/types';
-import type { NormalizedBag } from '../types';
 import type { NormalizedSchema } from 'normalizr';
 
 type Payload = NormalizedSchema<
@@ -20,22 +20,22 @@ type Payload = NormalizedSchema<
     merchants?: Record<MerchantEntity['id'], MerchantEntity>;
     bagItems: Record<BagItem['id'], BagItem>;
   },
-  NormalizedBag
+  BagNormalized
 >;
 
 export interface AddBagItemRequestAction extends Action {
   type: typeof actionTypes.ADD_BAG_ITEM_REQUEST;
-  meta: { bagId: NormalizedBag['id'] } & PostBagItemData;
+  meta: { bagId: BagNormalized['id'] } & PostBagItemData;
 }
 export interface AddBagItemSuccessAction extends Action {
   type: typeof actionTypes.ADD_BAG_ITEM_SUCCESS;
   payload: Payload;
-  meta: { bagId: NormalizedBag['id'] } & PostBagItemData;
+  meta: { bagId: BagNormalized['id'] } & PostBagItemData;
 }
 export interface AddBagItemFailureAction extends Action {
   type: typeof actionTypes.ADD_BAG_ITEM_FAILURE;
   payload: { error: BlackoutError };
-  meta: { bagId: NormalizedBag['id'] } & PostBagItemData;
+  meta: { bagId: BagNormalized['id'] } & PostBagItemData;
 }
 
 /**
@@ -68,17 +68,17 @@ export type FetchBagAction =
 
 export interface RemoveBagItemRequestAction extends Action {
   type: typeof actionTypes.REMOVE_BAG_ITEM_REQUEST;
-  meta: { bagId: NormalizedBag['id']; bagItemId: BagItem['id'] };
+  meta: { bagId: BagNormalized['id']; bagItemId: BagItem['id'] };
 }
 export interface RemoveBagItemSuccessAction extends Action {
   type: typeof actionTypes.REMOVE_BAG_ITEM_SUCCESS;
   payload: Payload;
-  meta: { bagId: NormalizedBag['id']; bagItemId: BagItem['id'] };
+  meta: { bagId: BagNormalized['id']; bagItemId: BagItem['id'] };
 }
 export interface RemoveBagItemFailureAction extends Action {
   type: typeof actionTypes.REMOVE_BAG_ITEM_FAILURE;
   payload: { error: BlackoutError };
-  meta: { bagId: NormalizedBag['id']; bagItemId: BagItem['id'] };
+  meta: { bagId: BagNormalized['id']; bagItemId: BagItem['id'] };
 }
 
 /**
@@ -92,7 +92,7 @@ export type RemoveBagItemAction =
 export interface UpdateBagItemRequestAction extends Action {
   type: typeof actionTypes.UPDATE_BAG_ITEM_REQUEST;
   meta: {
-    bagId: NormalizedBag['id'];
+    bagId: BagNormalized['id'];
     bagItemId: BagItem['id'];
   } & PatchBagItemData;
 }
@@ -100,7 +100,7 @@ export interface UpdateBagItemSuccessAction extends Action {
   type: typeof actionTypes.UPDATE_BAG_ITEM_SUCCESS;
   payload: Payload;
   meta: {
-    bagId: NormalizedBag['id'];
+    bagId: BagNormalized['id'];
     bagItemId: BagItem['id'];
   } & PatchBagItemData;
 }
@@ -108,7 +108,7 @@ export interface UpdateBagItemFailureAction extends Action {
   type: typeof actionTypes.UPDATE_BAG_ITEM_FAILURE;
   payload: { error: BlackoutError };
   meta: {
-    bagId: NormalizedBag['id'];
+    bagId: BagNormalized['id'];
     bagItemId: BagItem['id'];
   } & PatchBagItemData;
 }

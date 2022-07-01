@@ -12,7 +12,7 @@ import type { DeleteUserAttribute } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const deleteUserAttribute: DeleteUserAttribute = (
+const deleteUserAttribute: DeleteUserAttribute = (
   userId,
   attributeId,
   config,
@@ -26,3 +26,5 @@ export const deleteUserAttribute: DeleteUserAttribute = (
     .catch(error => {
       throw adaptError(error);
     });
+
+export default deleteUserAttribute;

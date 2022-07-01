@@ -7,15 +7,16 @@ import type { PostReturn } from './types';
  * Method responsible for creating a return.
  *
  * @param data   - Request data.
- * @param query  - Query parameters.
  * @param config - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const postReturn: PostReturn = (data, query, config) =>
+const postReturn: PostReturn = (data, config) =>
   client
-    .post(join('/account/v1/returns', { query }), data, config)
+    .post(join('/account/v1/returns'), data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default postReturn;

@@ -1,4 +1,5 @@
-import { actionTypes as authenticationActionTypes } from '../../../authentication';
+import * as authenticationActionTypes from '../../../users/authentication/actionTypes';
+import * as usersActionTypes from '../../../users/actionTypes';
 import {
   DEFAULT_TRIGGER_ANONYMIZE_ACTION_TYPES,
   DEFAULT_TRIGGER_SET_USER_ACTION_TYPES,
@@ -10,7 +11,6 @@ import {
 } from '../setUser';
 import { getUser, getUserId } from '../../../entities/selectors';
 import { mockStore } from './../tests/simplifiedStore';
-import { actionTypes as usersActionTypes } from '../../../users';
 import Analytics, {
   eventTypes,
   loginMethodParameterTypes,
@@ -120,8 +120,8 @@ describe('analyticsSetUserMiddleware', () => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const { analyticsSetUserMiddleware } = require('../setUser');
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { logger } = require('@farfetch/blackout-analytics/utils');
-    const loggerErrorSpy = jest.spyOn(logger, 'error');
+    const { utils } = require('@farfetch/blackout-analytics');
+    const loggerErrorSpy = jest.spyOn(utils.logger, 'error');
 
     // test undefined value
     analyticsSetUserMiddleware(undefined);
@@ -222,8 +222,8 @@ describe('analyticsSetUserMiddleware', () => {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const { analyticsSetUserMiddleware } = require('../setUser');
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const { logger } = require('@farfetch/blackout-analytics/utils');
-      const loggerErrorSpy = jest.spyOn(logger, 'error');
+      const { utils } = require('@farfetch/blackout-analytics');
+      const loggerErrorSpy = jest.spyOn(utils.logger, 'error');
 
       const store = mockStore(mockStateGuestUser, [
         analyticsSetUserMiddleware(analytics, 'NEW_ACTION_TYPE'),

@@ -8,15 +8,16 @@ import type { PatchReturn } from './types';
  *
  * @param id     - Return identifier.
  * @param data   - Request data.
- * @param query  - Query parameters.
  * @param config - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const patchReturn: PatchReturn = (id, data, query, config) =>
+const patchReturn: PatchReturn = (id, data, config) =>
   client
-    .patch(join('/account/v1/returns', id, { query }), data, config)
+    .patch(join('/account/v1/returns', id), data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default patchReturn;

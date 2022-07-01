@@ -2,13 +2,11 @@ import { getReturn } from '..';
 import { id, responses } from 'tests/__fixtures__/returns';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getReturn.fixtures';
-import join from 'proper-url-join';
 import mswServer from '../../../tests/mswServer';
 
 describe('getReturn', () => {
   const spy = jest.spyOn(client, 'get');
   const expectedConfig = undefined;
-  const query = { guestUserEmail: 'test@email.com' };
 
   beforeEach(() => jest.clearAllMocks());
 
@@ -18,9 +16,9 @@ describe('getReturn', () => {
     mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
-    await expect(getReturn(id, query)).resolves.toStrictEqual(response);
+    await expect(getReturn(id)).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(
-      join(`/account/v1/returns/${id}`, { query }),
+      `/account/v1/returns/${id}`,
       expectedConfig,
     );
   });
@@ -29,9 +27,9 @@ describe('getReturn', () => {
     mswServer.use(fixtures.failure());
 
     expect.assertions(2);
-    await expect(getReturn(id, query)).rejects.toMatchSnapshot();
+    await expect(getReturn(id)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      join(`/account/v1/returns/${id}`, { query }),
+      `/account/v1/returns/${id}`,
       expectedConfig,
     );
   });

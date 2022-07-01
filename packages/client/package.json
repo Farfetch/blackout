@@ -4,13 +4,14 @@
   "description": "Clients to connect to the Farfetch Platform Solutions' services",
   "license": "MIT",
   "main": "src/index.ts",
-  "exports": {
-    "./*": "./dist/*"
+  "scripts": {
+    "build": "yarn build:transpile && yarn build:types && yarn build:copy-package-json",
+    "build:transpile": "../../scripts/transpile.sh",
+    "build:types": "tsc -p tsconfig.release.json",
+    "build:copy-package-json": "node ../../scripts/copy-package-json.js",
+    "prebuild": "rimraf dist tsconfig.release.tsbuildinfo",
+    "ci:types": "tsc -p tsconfig.ci.json"
   },
-  "files": [
-    "dist",
-    "src"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/Farfetch/blackout.git"
@@ -24,20 +25,17 @@
     "normalizr": "^3.3.0",
     "prop-types": "^15.7.2",
     "proper-url-join": "^2.1.1",
-    "reselect": "^4.0.0",
+    "reselect": "^4.1.5",
     "url-parse": "^1.4.4",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "axios": "^0.21.4",
-    "redux-mock-store": "^1.5.4",
-    "redux-thunk": "^2.4.1"
+    "axios": "^0.21.4"
   },
   "peerDependencies": {
     "axios": "^0.21.4",
     "immer": "^9.0.6",
-    "lodash": "^4.17.21",
-    "redux": "^4.1.0"
+    "lodash": "^4.17.21"
   },
   "publishConfig": {
     "access": "public"

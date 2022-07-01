@@ -1,3 +1,4 @@
+import * as actionTypes from '../actionTypes';
 import * as fromReducer from '../reducer';
 import {
   expectedNormalizedPayload,
@@ -9,10 +10,10 @@ import {
   orderId,
   orderItemId,
 } from 'tests/__fixtures__/orders';
-import { LOGOUT_SUCCESS } from '../../authentication/actionTypes';
+import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
-import reducer, { actionTypes, entitiesMapper } from '..';
+import reducer, { entitiesMapper } from '../reducer';
 
 let initialState;
 const randomAction = { type: 'this_is_a_random_action' };
@@ -493,10 +494,8 @@ describe('orders reducer', () => {
         ...expectedMappedResult,
         orders: {
           [orderId]: {
-            ...omit(expectedMappedResult.orders[orderId], [
-              'byMerchant',
-              'totalItems',
-            ]),
+            ...expectedMappedResult.orders[orderId],
+            byMerchant: {},
           },
         },
       };
@@ -510,6 +509,7 @@ describe('orders reducer', () => {
               expectedMappedResult.orders[orderId].byMerchant,
               {
                 [`${merchantId2}`]: {
+                  merchant: merchantId2,
                   orderItems: [`${orderItemId}`],
                 },
               },
@@ -540,8 +540,7 @@ describe('orders reducer', () => {
           entitiesMapper[actionTypes.FETCH_ORDER_DETAILS_SUCCESS](
             merge({}, state),
             {
-              meta: { orderId },
-              guest: true,
+              meta: { orderId, guest: true },
               payload: {
                 entities: normalizedResult,
                 result: orderDetailsResult,

@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`updateInstruments() action creator should create the correct actions for when the update instruments procedure is successful: update instruments success payload 1`] = `
-Object {
-  "type": "@farfetch/blackout-redux/UPDATE_INSTRUMENT_SUCCESS",
-}
-`;

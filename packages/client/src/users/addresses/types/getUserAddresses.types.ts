@@ -1,5 +1,5 @@
-import type { Address, User } from '.';
-import type { Config } from '../../../types';
+import type { Config, UserAddress } from '../../../types';
+import type { User } from '../../../users/authentication/types/user.types';
 
 export type GetUserAddressesProps = {
   // Identifier of the user.
@@ -9,4 +9,4 @@ export type GetUserAddressesProps = {
 export type GetUserAddresses = (
   props: GetUserAddressesProps,
   config?: Config,
-) => Promise<Address[]>;
+) => Promise<UserAddress[]>;

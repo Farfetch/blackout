@@ -1,10 +1,11 @@
+import * as actionTypes from '../actionTypes';
 import * as fromReducer from '../reducer';
-import { LOGOUT_SUCCESS } from '@farfetch/blackout-redux/authentication/actionTypes';
+import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
 import { returnId } from 'tests/__fixtures__/returns';
-import reducer, { actionTypes, entitiesMapper } from '..';
-import type { State } from '../types';
+import reducer, { entitiesMapper } from '../reducer';
+import type { ReturnsState } from '../types';
 
-let initialState: State;
+let initialState: ReturnsState;
 const randomAction = { type: 'this_is_a_random_action' };
 
 describe('returns reducer', () => {

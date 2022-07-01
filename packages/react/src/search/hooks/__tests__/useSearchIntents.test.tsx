@@ -18,8 +18,8 @@ import { Provider } from 'react-redux';
 import { useSearchIntents } from '../../';
 import React from 'react';
 
-jest.mock('@farfetch/blackout-redux/search', () => ({
-  ...jest.requireActual('@farfetch/blackout-redux/search'),
+jest.mock('@farfetch/blackout-redux', () => ({
+  ...jest.requireActual('@farfetch/blackout-redux'),
   resetSearchIntents: jest.fn(() => ({ type: 'resetSearchIntents' })),
   fetchSearchIntents: jest.fn(() => ({ type: 'fetchSearchIntents' })),
 }));

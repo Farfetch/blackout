@@ -1,17 +1,17 @@
+import * as actionTypes from '../../actionTypes';
 import * as normalizr from 'normalizr';
-import { actionTypes } from '../..';
 import {
   expectedPaymentTokensNormalizedPayload,
   mockPaymentTokensResponse,
 } from 'tests/__fixtures__/payments';
-import { getPaymentTokens } from '@farfetch/blackout-client/payments';
+import { getPaymentTokens } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import fetchPaymentTokens from '../fetchPaymentTokens';
 import find from 'lodash/find';
 
-jest.mock('@farfetch/blackout-client/payments', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/payments'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getPaymentTokens: jest.fn(),
 }));
 

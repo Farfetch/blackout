@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  Config,
   GetProductRecommendedSet,
   RecommendedSet,
   toBlackoutError,
@@ -18,13 +19,13 @@ import type { FetchRecommendedSetAction } from '../../types';
  * Creates a thunk factory configured with the specified client to fetch product
  * sizes for a given product id.
  *
- * @param getRecommendedSet - Get product sizes client.
+ * @param getProductRecommendedSet - Get product recommended set client.
  *
  * @returns Thunk factory.
  */
 export const fetchRecommendedSetFactory =
-  (getRecommendedSet: GetProductRecommendedSet) =>
-  (recommendedSetId: number, config?: Record<string, unknown>) =>
+  (getProductRecommendedSet: GetProductRecommendedSet) =>
+  (recommendedSetId: number, config?: Config) =>
   async (
     dispatch: Dispatch<FetchRecommendedSetAction>,
   ): Promise<RecommendedSet> => {
@@ -34,7 +35,7 @@ export const fetchRecommendedSetFactory =
         type: actionTypes.FETCH_RECOMMENDED_SET_REQUEST,
       });
 
-      const result = await getRecommendedSet(recommendedSetId, config);
+      const result = await getProductRecommendedSet(recommendedSetId, config);
 
       dispatch({
         meta: { recommendedSetId },

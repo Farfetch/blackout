@@ -1,13 +1,13 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { BlackoutError } from '@farfetch/blackout-client';
 import type {
-  SearchDidYouMean,
+  BlackoutError,
   SearchDidYouMeanQuery,
+  SearchDidYouMeanSuggestion,
   SearchIntents,
   SearchSuggestion,
   SearchSuggestionsQuery,
-} from '@farfetch/blackout-client/search/types';
+} from '@farfetch/blackout-client';
 
 // SEARCH DID YOU MEAN
 export interface FetchSearchDidYouMeanRequestAction extends Action {
@@ -17,7 +17,7 @@ export interface FetchSearchDidYouMeanRequestAction extends Action {
 export interface FetchSearchDidYouMeanSuccessAction extends Action {
   meta: { query: SearchDidYouMeanQuery };
   type: typeof actionTypes.FETCH_SEARCH_DID_YOU_MEAN_SUCCESS;
-  payload: { result: SearchDidYouMean[] };
+  payload: { result: SearchDidYouMeanSuggestion[] };
 }
 export interface FetchSearchDidYouMeanFailureAction extends Action {
   meta: { query: SearchDidYouMeanQuery };

@@ -6,8 +6,8 @@ import React from 'react';
 import useSearchSuggestions from '../useSearchSuggestions';
 import type { UseSearchSuggestionsReturn } from '../types';
 
-jest.mock('@farfetch/blackout-redux/search', () => ({
-  ...jest.requireActual('@farfetch/blackout-redux/search'),
+jest.mock('@farfetch/blackout-redux', () => ({
+  ...jest.requireActual('@farfetch/blackout-redux'),
   fetchSearchSuggestions: jest.fn(() => ({ type: 'fetch' })),
   resetSearchSuggestions: jest.fn(() => ({ type: 'reset' })),
 }));

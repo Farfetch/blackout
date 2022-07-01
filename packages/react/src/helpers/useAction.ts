@@ -9,7 +9,7 @@ import { useMemo } from 'react';
  *
  * @returns Memoized version of the action, with a dispatch.
  */
-export default (action: any) => {
+const useAction = (action: any) => {
   const dispatch = useDispatch();
 
   return useMemo(
@@ -17,3 +17,4 @@ export default (action: any) => {
     [action, dispatch],
   );
 };
+export default useAction;

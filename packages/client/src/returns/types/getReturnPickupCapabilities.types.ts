@@ -1,7 +1,8 @@
+import type { Config } from '../..';
 import type { PickupCapabilities } from './pickupCapabilities.types';
 
 export type GetReturnPickupCapabilities = (
   id: number,
   pickupDay: string,
-  config?: Record<string, unknown>,
+  config?: Config,
 ) => Promise<PickupCapabilities>;

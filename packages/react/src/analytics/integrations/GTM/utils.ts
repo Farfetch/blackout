@@ -2,9 +2,9 @@ import get from 'lodash/get';
 import isArray from 'lodash/isArray';
 import isString from 'lodash/isString';
 import type {
+  AnalyticsProduct,
   EventData,
   EventProperties,
-  Product,
   TrackTypesValues,
   UserData,
   UserTraits,
@@ -76,7 +76,7 @@ export const getContextParameters = (
  * @returns The product categories.
  */
 export const getProductCategory = (
-  categories: Product['category'],
+  categories: AnalyticsProduct['category'],
 ): Array<string> | void => {
   if (isArray(categories)) {
     return categories;
@@ -94,7 +94,7 @@ export const getProductCategory = (
  *
  * @returns The filtered product object.
  */
-export const getProductData = (product: Product) => ({
+export const getProductData = (product: AnalyticsProduct) => ({
   ...product,
   category: getProductCategory(product.category),
 });

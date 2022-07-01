@@ -4,6 +4,6 @@ export * from './getUserPersonalId.types';
 export * from './getUserPersonalIds.types';
 export * from './patchUserPersonalId.types';
 export * from './postUserPersonalIdImage.types';
-export * from './postUserPersonalIds.types';
+export * from './postUserPersonalId.types';
 export * from './putUserDefaultPersonalId.types';
 export * from './userPersonalId.types';

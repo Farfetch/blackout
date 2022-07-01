@@ -1,4 +1,4 @@
-import type { RecommendedProductsResult } from '@farfetch/blackout-client/products/types';
+import type { RecommendedProductsResult } from '@farfetch/blackout-client';
 
 export type RecommendedProductsResultNormalized = {
   id?: RecommendedProductsResult['id'];

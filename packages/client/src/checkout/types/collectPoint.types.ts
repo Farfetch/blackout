@@ -1,4 +1,4 @@
-import type { FlatAddress } from '.';
+import type { StoreAddress } from '../../types/common/address.types';
 
 export enum Weekday {
   Sunday,
@@ -11,7 +11,7 @@ export enum Weekday {
 }
 
 export type CollectPoint = {
-  storeAddress: FlatAddress;
+  storeAddress: StoreAddress;
   clickAndCollect: {
     collectPointId: number;
     merchantLocationId: number;

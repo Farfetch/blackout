@@ -3,12 +3,12 @@ import {
   getIsLoading,
 } from '../reducer/variantsByMerchantsLocations';
 import { getProduct } from '../../entities/selectors';
-import type {
-  BlackoutError,
-  ProductVariant,
-  ProductVariantByMerchantLocation,
-} from '@farfetch/blackout-client';
 import type { ProductEntity } from '../../entities/types';
+import type { ProductsState } from '../types';
+import type {
+  ProductVariant,
+  ProductVariantMerchantLocation,
+} from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 /**
@@ -22,8 +22,10 @@ import type { StoreState } from '../../types';
 export const areProductVariantsByMerchantsLocationsLoading = (
   state: StoreState,
   id: ProductEntity['id'],
-): boolean | undefined =>
-  getIsLoading(state.products.variantsByMerchantsLocations)[id];
+) =>
+  getIsLoading((state.products as ProductsState).variantsByMerchantsLocations)[
+    id
+  ];
 
 /**
  * Returns the fetched status of a specific product's merchants locations.
@@ -37,9 +39,10 @@ export const areProductVariantsByMerchantsLocationsFetched = (
   state: StoreState,
   id: ProductEntity['id'],
 ): boolean | undefined =>
-  getIsLoading(state.products.variantsByMerchantsLocations).hasOwnProperty(
-    id,
-  ) && areProductVariantsByMerchantsLocationsLoading(state, id) === false;
+  getIsLoading(
+    (state.products as ProductsState).variantsByMerchantsLocations,
+  ).hasOwnProperty(id) &&
+  areProductVariantsByMerchantsLocationsLoading(state, id) === false;
 
 /**
  * Returns the error of a product's merchants locations.
@@ -52,8 +55,8 @@ export const areProductVariantsByMerchantsLocationsFetched = (
 export const getProductVariantsByMerchantsLocationsError = (
   state: StoreState,
   id: ProductEntity['id'],
-): BlackoutError | undefined =>
-  getError(state.products.variantsByMerchantsLocations)[id];
+) =>
+  getError((state.products as ProductsState).variantsByMerchantsLocations)[id];
 
 /**
  * Returns the merchants' locations given a product variant.
@@ -68,7 +71,7 @@ export const getProductVariantsByMerchantsLocations = (
   state: StoreState,
   productId: ProductEntity['id'],
   variantId: ProductVariant['id'],
-): ProductVariantByMerchantLocation[] | undefined => {
+): ProductVariantMerchantLocation[] | undefined => {
   const product = getProduct(state, productId);
 
   if (product?.variants?.length) {
@@ -76,4 +79,6 @@ export const getProductVariantsByMerchantsLocations = (
 
     return variant?.merchantsLocations;
   }
+
+  return undefined;
 };

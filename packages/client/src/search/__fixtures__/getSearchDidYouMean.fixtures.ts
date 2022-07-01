@@ -1,10 +1,10 @@
 import { rest, RestHandler } from 'msw';
-import type { SearchDidYouMean } from '../types';
+import type { SearchDidYouMeanSuggestion } from '../types';
 
 const path = '/api/commerce/v1/search/didyoumean';
 
 const fixtures = {
-  success: (response: SearchDidYouMean[]): RestHandler =>
+  success: (response: SearchDidYouMeanSuggestion[]): RestHandler =>
     rest.get(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),

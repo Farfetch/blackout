@@ -1,3 +1,4 @@
+import type { Config } from '../..';
 import type { Product } from '../../products/types';
 import type { Wishlist } from './wishlist.types';
 import type { WishlistItem } from './wishlistItem.types';
@@ -13,5 +14,5 @@ export type PatchWishlistItem = (
   id: Wishlist['id'],
   itemId: WishlistItem['id'],
   data: PatchWishlistItemData,
-  config?: Record<string, unknown>,
+  config?: Config,
 ) => Promise<Wishlist>;

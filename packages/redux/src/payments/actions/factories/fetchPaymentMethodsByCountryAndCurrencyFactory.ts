@@ -1,11 +1,12 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
-import type { Dispatch } from 'redux';
-import type { FetchPaymentMethodsByCountryAndCurrencyAction } from '../../types';
-import type {
+import {
+  Config,
   GetPaymentMethodsByCountryAndCurrency,
   PaymentMethods,
-} from '@farfetch/blackout-client/payments/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
+import type { FetchPaymentMethodsByCountryAndCurrencyAction } from '../../types';
 
 /**
  * @param config - Custom configurations to send to the client instance (axios).
@@ -28,7 +29,7 @@ const fetchPaymentMethodsByCountryAndCurrencyFactory =
   (config?: Config) =>
   async (
     dispatch: Dispatch<FetchPaymentMethodsByCountryAndCurrencyAction>,
-  ): Promise<PaymentMethods> => {
+  ): Promise<PaymentMethods[]> => {
     try {
       dispatch({
         type: actionTypes.FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_REQUEST,

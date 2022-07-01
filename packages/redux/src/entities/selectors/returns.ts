@@ -1,9 +1,4 @@
 import { getEntities } from './entity';
-import type {
-  Return,
-  ReturnItem,
-  TimeSlots,
-} from '@farfetch/blackout-client/returns/types';
 import type { StoreState } from '../../types';
 
 /**
@@ -13,7 +8,7 @@ import type { StoreState } from '../../types';
  *
  * @returns Returns entity.
  */
-export const getReturns = (state: StoreState): Return | undefined =>
+export const getReturnsEntity = (state: StoreState) =>
   getEntities(state, 'returns');
 
 /**
@@ -23,7 +18,7 @@ export const getReturns = (state: StoreState): Return | undefined =>
  *
  * @returns ReturnsItems entity.
  */
-export const getReturnItems = (state: StoreState): ReturnItem | undefined =>
+export const getReturnItemsEntity = (state: StoreState) =>
   getEntities(state, 'returnItems');
 
 /**
@@ -33,5 +28,5 @@ export const getReturnItems = (state: StoreState): ReturnItem | undefined =>
  *
  * @returns AvailableTimeSlots entity.
  */
-export const getTimeSlots = (state: StoreState): TimeSlots[] | undefined =>
+export const getTimeSlots = (state: StoreState) =>
   getEntities(state, 'availableTimeSlots');

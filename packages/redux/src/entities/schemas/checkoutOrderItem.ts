@@ -15,7 +15,6 @@ export default new schema.Entity(
     processStrategy: value => {
       const {
         attributes,
-        brandId,
         categories,
         colors,
         customAttributes,
@@ -40,7 +39,6 @@ export default new schema.Entity(
 
       item.dateCreated = adaptDate(dateCreated);
       item.size = adaptAttributes(attributes);
-      item.brandId = brandId;
 
       const merchant = {
         id: merchantId,

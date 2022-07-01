@@ -2,6 +2,7 @@ import AuthenticationConfigOptions from '../AuthenticationConfigOptions';
 import TokenData from './TokenData';
 import TokenKinds from './TokenKinds';
 import TokenProvider from './TokenProvider';
+import type { ITokenData } from './types';
 import type {
   OptionsStorageProvider,
   OptionsStorageSerializer,
@@ -50,7 +51,7 @@ class UserTokenProvider extends TokenProvider {
    *
    * @returns User token kind.
    */
-  getSupportedTokenKind(): TokenKinds {
+  override getSupportedTokenKind(): TokenKinds {
     return TokenKinds.User;
   }
 
@@ -62,7 +63,7 @@ class UserTokenProvider extends TokenProvider {
    *
    * @returns Promise that will be resolved with a valid access token to be used.
    */
-  getAccessToken(useCache = true): Promise<string | undefined> {
+  override getAccessToken(useCache = true): Promise<string | undefined> {
     if (
       !this.tokenData ||
       !this.tokenData.accessToken ||
@@ -85,7 +86,7 @@ class UserTokenProvider extends TokenProvider {
           [AuthenticationConfigOptions.IsUserRefreshTokenRequest]: true,
         },
       ).then(
-        async (response: any) => {
+        async (response: ITokenData) => {
           this.currentGetAccessTokenPromise = null;
 
           const responseTokenData = new TokenData(response);
@@ -98,7 +99,7 @@ class UserTokenProvider extends TokenProvider {
 
           return this.tokenData?.accessToken;
         },
-        (error: any) => {
+        error => {
           // Clear current get access token promise
           this.currentGetAccessTokenPromise = null;
 
@@ -118,7 +119,7 @@ class UserTokenProvider extends TokenProvider {
    *
    * @returns - True if the instance is ready to retrieve tokens and false otherwise.
    */
-  canRetrieveTokens() {
+  override canRetrieveTokens() {
     return !!this.tokenData?.refreshToken && !!this.requester;
   }
 }

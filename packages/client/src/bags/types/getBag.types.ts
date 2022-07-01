@@ -1,8 +1,9 @@
 import type { Bag } from './bag.types';
-import type { Query } from './query.types';
+import type { Config } from '../..';
+import type { GetBagQuery } from './query.types';
 
 export type GetBag = (
   id: Bag['id'] | null,
-  query?: Query,
-  config?: Record<string, unknown>,
+  query?: GetBagQuery,
+  config?: Config,
 ) => Promise<Bag>;

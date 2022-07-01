@@ -8,15 +8,16 @@ import {
   areTopCategoriesLoading as areTopCategoriesLoadingSelector,
   fetchCategories as fetchCategoriesAction,
   fetchTopCategories as fetchTopCategoriesAction,
+  getCategories,
   getCategoriesError,
   getTopCategories,
   getTopCategoriesError,
   resetCategoriesState as resetCategoriesStateAction,
-} from '@farfetch/blackout-redux/categories';
-import { getCategories } from '@farfetch/blackout-redux/entities';
+} from '@farfetch/blackout-redux';
 import { useAction } from '../../helpers';
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import type { Category } from '@farfetch/blackout-client';
 import type { GetRootCategory, UseCategories } from './types';
 
 /**
@@ -41,7 +42,10 @@ const useCategories: UseCategories = () => {
    *
    * @returns - The requested category.
    */
-  const getCategory = useCallback(id => categories[id], [categories]);
+  const getCategory = useCallback(
+    (id: Category['id']) => categories[id],
+    [categories],
+  );
 
   /**
    * Gets the root category of a specific category by id.

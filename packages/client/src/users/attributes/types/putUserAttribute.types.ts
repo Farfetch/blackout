@@ -1,9 +1,9 @@
 import type { Config } from '../../../types';
-import type { UserAttributesData } from '.';
+import type { UserAttributeData } from '.';
 
 export type PutUserAttribute = (
   id: number,
   attributeId: string,
-  data: UserAttributesData,
+  data: UserAttributeData,
   config?: Config,
 ) => Promise<number>;

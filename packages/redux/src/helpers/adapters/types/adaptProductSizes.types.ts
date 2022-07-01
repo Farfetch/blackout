@@ -2,7 +2,7 @@ import type {
   ProductVariant,
   Size,
   SizeVariant,
-} from '@farfetch/blackout-client/products/types';
+} from '@farfetch/blackout-client';
 
 export type SizeAdapted = {
   globalQuantity: number;

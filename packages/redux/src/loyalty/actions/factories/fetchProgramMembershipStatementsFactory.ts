@@ -1,16 +1,17 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
-import { normalize } from 'normalizr';
-import statementSchema from '../../../entities/schemas/statement';
-import type { Dispatch } from 'redux';
-import type { FetchProgramMembershipStatementsAction } from '../../types';
-import type {
+import {
+  Config,
   GetProgramMembershipStatements,
   GetProgramMembershipStatementsQuery,
   Program,
   ProgramMembership,
   ProgramMembershipStatement,
-} from '@farfetch/blackout-client/loyalty/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import { normalize } from 'normalizr';
+import statementSchema from '../../../entities/schemas/statement';
+import type { Dispatch } from 'redux';
+import type { FetchProgramMembershipStatementsAction } from '../../types';
 
 /**
  * @param programId    - Program identifier.

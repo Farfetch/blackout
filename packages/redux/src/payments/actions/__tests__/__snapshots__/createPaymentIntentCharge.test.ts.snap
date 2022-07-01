@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createPaymentIntentCharge() action creator should create the correct actions for when the create payment intent charge procedure is successful even if location header is missing: createPaymentIntentCharge success payload 1`] = `
+Object {
+  "meta": Object {
+    "chargeId": "",
+  },
+  "payload": Object {
+    "cancelUrl": "string",
+    "returnUrl": "string",
+    "status": "Processing",
+  },
+  "type": "@farfetch/blackout-redux/CREATE_PAYMENT_INTENT_CHARGE_SUCCESS",
+}
+`;
+
+exports[`createPaymentIntentCharge() action creator should create the correct actions for when the create payment intent charge procedure is successful: createPaymentIntentCharge success payload 1`] = `
+Object {
+  "meta": Object {
+    "chargeId": "43b059df-898e-4407-8347-b075b645bf6c",
+  },
+  "payload": Object {
+    "cancelUrl": "string",
+    "returnUrl": "string",
+    "status": "Processing",
+  },
+  "type": "@farfetch/blackout-redux/CREATE_PAYMENT_INTENT_CHARGE_SUCCESS",
+}
+`;

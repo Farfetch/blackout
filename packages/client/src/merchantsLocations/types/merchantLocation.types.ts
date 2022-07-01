@@ -1,60 +1,11 @@
-type City = {
-  id: number;
-  name: string;
-  stateId: number;
-  countryId: number;
-};
-
-type Country = {
-  id: number;
-  name: string;
-  nativeName: string;
-  alpha2Code: string;
-  alpha3Code: string;
-  culture: string;
-  region: string;
-  regionId: number;
-  subRegion: string;
-  continentId: number;
-  subfolder: string;
-};
-
-type State = {
-  code: string;
-  countryId: number;
-  id: number;
-  name: string;
-};
-
-type Address = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  addressLine1: string;
-  addressLine2: string;
-  addressLine3: string;
-  city: City;
-  country: Country;
-  ddd: string;
-  title: string;
-  neighbourhood: string;
-  phone: string;
-  state: State;
-  vatNumber: string;
-  zipCode: string;
-  userId: number;
-  isDefaultBillingAddress: boolean;
-  isDefaultShippingAddress: boolean;
-  isPreferredAddress: boolean;
-  customsClearanceCode: string;
-};
+import type { CategorisedAddress } from '../../types/common/address.types';
 
 export type MerchantLocation = {
   id: number;
   merchantId: number;
   merchantName: string;
   isReturnsInStoreAllowed: boolean;
-  address: Address;
+  address: CategorisedAddress;
   lat: string;
   lon: string;
   businessDays: Array<{

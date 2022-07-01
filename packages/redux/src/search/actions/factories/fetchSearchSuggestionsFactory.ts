@@ -1,12 +1,13 @@
 import * as actionTypes from '../../actionTypes';
-import { toBlackoutError } from '@farfetch/blackout-client';
-import type { Dispatch } from 'redux';
-import type { FetchSearchSuggestionsAction } from '../../types';
-import type {
+import {
+  Config,
   GetSearchSuggestions,
   SearchSuggestion,
   SearchSuggestionsQuery,
-} from '@farfetch/blackout-client/search/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
+import type { FetchSearchSuggestionsAction } from '../../types';
 
 /**
  * @param query  - Query parameters to apply to the search.
@@ -25,7 +26,7 @@ import type {
  */
 const fetchSearchSuggestionsFactory =
   (getSearchSuggestions: GetSearchSuggestions) =>
-  (query: SearchSuggestionsQuery, config?: Record<string, unknown>) =>
+  (query: SearchSuggestionsQuery, config?: Config) =>
   async (
     dispatch: Dispatch<FetchSearchSuggestionsAction>,
   ): Promise<SearchSuggestion[]> => {

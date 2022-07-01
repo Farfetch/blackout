@@ -1,14 +1,14 @@
 import * as actionTypes from '../actionTypes';
 import { AnyAction, combineReducers, Reducer } from 'redux';
-import type { Category } from '@farfetch/blackout-client/categories/types';
 import type {
+  CategoriesState,
   FetchCategoriesAction,
   FetchTopCategoriesAction,
-  State,
-  TopCategoryState,
+  TopCategoriesState,
 } from '../types';
+import type { Category } from '@farfetch/blackout-client';
 
-export const INITIAL_STATE: TopCategoryState = {
+export const INITIAL_STATE: TopCategoriesState = {
   error: null,
   isLoading: false,
   result: null,
@@ -56,10 +56,7 @@ const result = (
       );
 
       return allCategories.reduce(
-        (
-          topIds: number[],
-          { id, parentId = null }: { id: number; parentId: number | null },
-        ) => {
+        (topIds: number[], { id, parentId }: Category) => {
           if (!parentId) {
             topIds.push(id);
           }
@@ -74,15 +71,17 @@ const result = (
   }
 };
 
-export const getError = (state: State): TopCategoryState['error'] =>
+export const getError = (state: CategoriesState): TopCategoriesState['error'] =>
   state.top.error;
-export const getIsLoading = (state: State): TopCategoryState['isLoading'] =>
-  state.top.isLoading;
-export const getResult = (state: State): TopCategoryState['result'] =>
-  state.top.result;
+export const getIsLoading = (
+  state: CategoriesState,
+): TopCategoriesState['isLoading'] => state.top.isLoading;
+export const getResult = (
+  state: CategoriesState,
+): TopCategoriesState['result'] => state.top.result;
 
 const topReducer: Reducer<
-  TopCategoryState,
+  TopCategoriesState,
   FetchCategoriesAction | FetchTopCategoriesAction | AnyAction
 > = combineReducers({
   error,

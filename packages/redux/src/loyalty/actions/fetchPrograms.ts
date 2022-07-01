@@ -1,5 +1,5 @@
 import { fetchProgramsFactory } from './factories';
-import { getPrograms } from '@farfetch/blackout-client/loyalty';
+import { getPrograms } from '@farfetch/blackout-client';
 
 /**
  * Load programs.

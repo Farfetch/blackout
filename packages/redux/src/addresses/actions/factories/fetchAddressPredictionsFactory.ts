@@ -1,20 +1,13 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
-import type {
-  AddressPredictions,
+import {
+  AddressPrediction,
+  Config,
   GetAddressPredictions,
   GetAddressPredictionsQuery,
-} from '@farfetch/blackout-client/src/addresses/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { FetchAddressPredictionsAction } from '../../types';
-
-/**
- * @param text   - Inserted text.
- * @param query  - Query params.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
 
 /**
  * Load Predictions based in the inserted text.
@@ -23,12 +16,12 @@ import type { FetchAddressPredictionsAction } from '../../types';
  *
  * @returns Thunk factory.
  */
-export const fetchAddressPredictionsFactory =
+const fetchAddressPredictionsFactory =
   (getPredictions: GetAddressPredictions) =>
   (text: string, query: GetAddressPredictionsQuery, config?: Config) =>
   async (
     dispatch: Dispatch<FetchAddressPredictionsAction>,
-  ): Promise<AddressPredictions[]> => {
+  ): Promise<AddressPrediction[]> => {
     try {
       dispatch({
         type: actionTypes.FETCH_ADDRESS_PREDICTIONS_REQUEST,
@@ -51,3 +44,5 @@ export const fetchAddressPredictionsFactory =
       throw error;
     }
   };
+
+export default fetchAddressPredictionsFactory;

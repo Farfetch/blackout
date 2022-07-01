@@ -1,12 +1,12 @@
-import { actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
 import { addOrderDocument } from '..';
 import { fileId, mockOrderDocumentPayload } from 'tests/__fixtures__/orders';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import { postOrderDocument } from '@farfetch/blackout-client/orders';
+import { postOrderDocument } from '@farfetch/blackout-client';
 
-jest.mock('@farfetch/blackout-client/orders', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/orders'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   postOrderDocument: jest.fn(),
 }));
 

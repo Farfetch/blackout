@@ -1,7 +1,4 @@
-import type {
-  GetSEOError,
-  IsSEOLoading,
-} from '@farfetch/blackout-redux/contents/types';
+import type { GetSEOError, IsSEOLoading } from '@farfetch/blackout-redux';
 import type { IndexSignature } from '@farfetch/blackout-client';
 
 type MaskIcon = {
@@ -39,9 +36,9 @@ export type UseMetatags = {
   error: GetSEOError;
   isLoading: IsSEOLoading;
   meta: {
-    title?: string;
-    description?: string;
-    canonical?: string;
+    title?: string | null;
+    description?: string | null;
+    canonical?: string | null;
     meta: Partial<IndexSignature<string> & Meta>[];
     link: (Link | MaskIcon)[];
   };

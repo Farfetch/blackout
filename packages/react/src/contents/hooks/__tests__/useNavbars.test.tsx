@@ -3,13 +3,13 @@ import {
   expectedNormalizedPayload,
   mockContentsInitialState,
 } from 'tests/__fixtures__/contents';
-import { fetchContent as fetchContentAction } from '@farfetch/blackout-redux/contents';
+import { fetchContent as fetchContentAction } from '@farfetch/blackout-redux';
 import { Navbars } from './__fixtures__/Navbars.fixtures';
 import { wrap } from '../../../../tests/helpers';
 import React from 'react';
 
-jest.mock('@farfetch/blackout-redux/contents', () => ({
-  ...jest.requireActual('@farfetch/blackout-redux/contents'),
+jest.mock('@farfetch/blackout-redux', () => ({
+  ...jest.requireActual('@farfetch/blackout-redux'),
   fetchContent: jest.fn(() => ({ type: 'foo-bar' })),
 }));
 

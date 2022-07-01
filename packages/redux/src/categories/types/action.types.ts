@@ -1,7 +1,6 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { BlackoutError } from '@farfetch/blackout-client';
-import type { Category } from '@farfetch/blackout-client/categories/types';
+import type { BlackoutError, Category } from '@farfetch/blackout-client';
 import type { NormalizedSchema } from 'normalizr';
 
 type Payload = NormalizedSchema<

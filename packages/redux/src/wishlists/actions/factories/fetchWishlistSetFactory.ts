@@ -1,14 +1,15 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  Config,
+  GetWishlistSet,
+  toBlackoutError,
+  WishlistSet,
+} from '@farfetch/blackout-client';
 import { getWishlistId } from '../../selectors';
 import { normalize } from 'normalizr';
-import { toBlackoutError } from '@farfetch/blackout-client';
 import wishlistSetSchema from '../../../entities/schemas/wishlistSet';
 import type { Dispatch } from 'redux';
 import type { FetchWishlistSetAction } from '../../types';
-import type {
-  GetWishlistSet,
-  WishlistSet,
-} from '@farfetch/blackout-client/wishlists/types';
 import type { StoreState } from '../../../types';
 
 /**
@@ -28,7 +29,7 @@ import type { StoreState } from '../../../types';
  */
 const fetchWishlistSetFactory =
   (getWishlistSet: GetWishlistSet) =>
-  (wishlistSetId: WishlistSet['setId'], config?: Record<string, unknown>) =>
+  (wishlistSetId: WishlistSet['setId'], config?: Config) =>
   async (
     dispatch: Dispatch<FetchWishlistSetAction>,
     getState: () => StoreState,

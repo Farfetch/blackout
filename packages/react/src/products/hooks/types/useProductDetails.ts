@@ -1,13 +1,13 @@
-import type { BlackoutError } from '@farfetch/blackout-client';
 import type {
+  BlackoutError,
   BreadCrumb,
   Product,
-} from '@farfetch/blackout-client/products/types';
+} from '@farfetch/blackout-client';
 import type {
   GroupedEntriesAdapted,
   ProductEntity,
-} from '@farfetch/blackout-client/entities/types';
-import type { SizesAdapted } from '@farfetch/blackout-redux/types';
+  SizesAdapted,
+} from '@farfetch/blackout-redux';
 
 export type UseProductDetails = (id: number) => {
   availableSizes: SizesAdapted;

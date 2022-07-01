@@ -1,13 +1,13 @@
-import { actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
 import { fetchReturnPickupCapabilities } from '..';
-import { getReturnPickupCapabilities } from '@farfetch/blackout-client/returns';
+import { getReturnPickupCapabilities } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import { mockPickupCapabilitiesResponse } from 'tests/__fixtures__/returns';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 
-jest.mock('@farfetch/blackout-client/returns', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/returns'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getReturnPickupCapabilities: jest.fn(),
 }));
 

@@ -1,6 +1,12 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { BlackoutError } from '@farfetch/blackout-client';
+import type {
+  BlackoutError,
+  CheckoutOrderCharge,
+  GetCheckoutOrderDeliveryBundleProvisioningResponse,
+  GetCheckoutOrderOperationsResponse,
+  PatchCheckoutOrderItemData,
+} from '@farfetch/blackout-client';
 import type {
   CheckoutDetailsEntity,
   CheckoutEntity,
@@ -9,14 +15,7 @@ import type {
   DeliveryBundlesEntity,
   DeliveryBundleUpgradesEntity,
 } from '../../entities/types';
-import type {
-  GetChargesResponse,
-  GetItemDeliveryProvisioningResponse,
-  GetOperationsResponse,
-} from '@farfetch/blackout-client/checkout/types';
-import type { LOGOUT_SUCCESS } from '../../authentication/actionTypes';
 import type { NormalizedSchema } from 'normalizr';
-import type { PatchCheckoutOrderItemData } from '@farfetch/blackout-client/checkout/types/patchCheckoutOrderItem.types';
 
 type Payload = NormalizedSchema<
   {
@@ -38,10 +37,6 @@ type Payload = NormalizedSchema<
   },
   string
 >;
-
-export interface LogoutAction extends Action {
-  type: typeof LOGOUT_SUCCESS;
-}
 
 export interface GenericCheckoutRequestAction extends Action {
   type:
@@ -85,8 +80,8 @@ export interface ResetCheckoutStateAction extends Action {
   type: typeof actionTypes.RESET_CHECKOUT_STATE;
 }
 
-export interface ResetChargesStateAction extends Action {
-  type: typeof actionTypes.RESET_CHARGES_STATE;
+export interface ResetCheckoutOrderChargeStateAction extends Action {
+  type: typeof actionTypes.RESET_CHECKOUT_ORDER_CHARGE_STATE;
 }
 
 export interface FetchCheckoutDetailsSuccessAction extends Action {
@@ -121,7 +116,10 @@ export interface FetchUpgradeItemDeliveryProvisioningSuccessAction
 export interface FetchItemDeliveryProvisioningSuccessAction extends Action {
   type: typeof actionTypes.FETCH_ITEM_DELIVERY_PROVISIONING_SUCCESS;
   meta: { deliveryBundleId: string };
-  payload: NormalizedSchema<GetItemDeliveryProvisioningResponse, string[]>;
+  payload: NormalizedSchema<
+    GetCheckoutOrderDeliveryBundleProvisioningResponse,
+    string[]
+  >;
 }
 
 export interface FetchItemDeliveryProvisioningFailureAction extends Action {
@@ -142,49 +140,49 @@ export type FetchItemDeliveryProvisioningAction =
   | FetchItemDeliveryProvisioningSuccessAction
   | FetchItemDeliveryProvisioningRequestAction;
 
-export interface FetchChargesSuccessAction extends Action {
-  type: typeof actionTypes.FETCH_CHARGES_SUCCESS;
-  payload: GetChargesResponse;
+export interface FetchCheckoutOrderChargeSuccessAction extends Action {
+  type: typeof actionTypes.FETCH_CHECKOUT_ORDER_CHARGE_SUCCESS;
+  payload: CheckoutOrderCharge;
 }
 
-export interface FetchChargesFailureAction extends Action {
-  type: typeof actionTypes.FETCH_CHARGES_FAILURE;
+export interface FetchCheckoutOrderChargeFailureAction extends Action {
+  type: typeof actionTypes.FETCH_CHECKOUT_ORDER_CHARGE_FAILURE;
   payload: { error: BlackoutError };
 }
 
-export interface FetchChargesRequestAction extends Action {
-  type: typeof actionTypes.FETCH_CHARGES_REQUEST;
+export interface FetchCheckoutOrderChargeRequestAction extends Action {
+  type: typeof actionTypes.FETCH_CHECKOUT_ORDER_CHARGE_REQUEST;
 }
 
 /**
- * Fetch Charges Action.
+ * Fetch Checkout Order Charge Action.
  */
-export type FetchChargesAction =
-  | FetchChargesFailureAction
-  | FetchChargesSuccessAction
-  | FetchChargesRequestAction;
+export type FetchCheckoutOrderChargeAction =
+  | FetchCheckoutOrderChargeFailureAction
+  | FetchCheckoutOrderChargeSuccessAction
+  | FetchCheckoutOrderChargeRequestAction;
 
-export interface ChargeSuccessAction extends Action {
-  type: typeof actionTypes.CHARGE_SUCCESS;
-  payload: GetChargesResponse;
+export interface CreateCheckoutOrderChargeSuccessAction extends Action {
+  type: typeof actionTypes.CREATE_CHECKOUT_ORDER_CHARGE_SUCCESS;
+  payload: CheckoutOrderCharge;
 }
 
-export interface ChargeFailureAction extends Action {
-  type: typeof actionTypes.CHARGE_FAILURE;
+export interface CreateCheckoutOrderChargeFailureAction extends Action {
+  type: typeof actionTypes.CREATE_CHECKOUT_ORDER_CHARGE_FAILURE;
   payload: { error: BlackoutError };
 }
 
-export interface ChargeRequestAction extends Action {
-  type: typeof actionTypes.CHARGE_REQUEST;
+export interface CreateCheckoutOrderChargeRequestAction extends Action {
+  type: typeof actionTypes.CREATE_CHECKOUT_ORDER_CHARGE_REQUEST;
 }
 
 /**
  * Charge Action.
  */
-export type ChargeAction =
-  | ChargeFailureAction
-  | ChargeSuccessAction
-  | ChargeRequestAction;
+export type CreateCheckoutOrderChargeAction =
+  | CreateCheckoutOrderChargeFailureAction
+  | CreateCheckoutOrderChargeSuccessAction
+  | CreateCheckoutOrderChargeRequestAction;
 
 export interface UpdateDeliveryBundleSuccessAction extends Action {
   type:
@@ -228,7 +226,10 @@ export interface FetchCollectPointsSuccessAction extends Action {
 }
 
 // Checkout Operations Actions
-export type OperationsSuccessResult = Omit<GetOperationsResponse, 'entries'> & {
+export type OperationsSuccessResult = Omit<
+  GetCheckoutOrderOperationsResponse,
+  'entries'
+> & {
   /**
    * Operation ids in the page of the response. Pages have between 1 and 180 items,
    * typically depending on the parameter pageSize. By default, pages have 60 items.

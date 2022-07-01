@@ -1,9 +1,5 @@
 import * as fromSearchDidYouMeanReducer from '../reducer/searchDidYouMean';
-import type { BlackoutError } from '@farfetch/blackout-client';
-import type {
-  SearchDidYouMean,
-  SearchDidYouMeanQuery,
-} from '@farfetch/blackout-client/search/types';
+import type { SearchState } from '../types';
 import type { StoreState } from '../../types';
 
 /**
@@ -23,10 +19,10 @@ import type { StoreState } from '../../types';
  *
  * @returns Search error.
  */
-export const getSearchDidYouMeanError = (
-  state: StoreState,
-): BlackoutError | null =>
-  fromSearchDidYouMeanReducer.getError(state.search.didYouMean);
+export const getSearchDidYouMeanError = (state: StoreState) =>
+  fromSearchDidYouMeanReducer.getError(
+    (state.search as SearchState).didYouMean,
+  );
 
 /**
  * Retrieves the loading condition from current search term.
@@ -45,8 +41,10 @@ export const getSearchDidYouMeanError = (
  *
  * @returns Whether a search term response is loading or not.
  */
-export const isSearchDidYouMeanLoading = (state: StoreState): boolean =>
-  fromSearchDidYouMeanReducer.getIsLoading(state.search.didYouMean);
+export const isSearchDidYouMeanLoading = (state: StoreState) =>
+  fromSearchDidYouMeanReducer.getIsLoading(
+    (state.search as SearchState).didYouMean,
+  );
 
 /**
  * Retrieves the current query applied to get did you mean results.
@@ -65,10 +63,10 @@ export const isSearchDidYouMeanLoading = (state: StoreState): boolean =>
  *
  * @returns The current query.
  */
-export const getSearchDidYouMeanQuery = (
-  state: StoreState,
-): SearchDidYouMeanQuery | null =>
-  fromSearchDidYouMeanReducer.getQuery(state.search.didYouMean);
+export const getSearchDidYouMeanQuery = (state: StoreState) =>
+  fromSearchDidYouMeanReducer.getQuery(
+    (state.search as SearchState).didYouMean,
+  );
 
 /**
  * Retrieves the facets of a specific search for did you mean.
@@ -87,7 +85,7 @@ export const getSearchDidYouMeanQuery = (
  *
  * @returns Facets of a specific search.
  */
-export const getSearchDidYouMeanResult = (
-  state: StoreState,
-): SearchDidYouMean[] | null =>
-  fromSearchDidYouMeanReducer.getResult(state.search.didYouMean);
+export const getSearchDidYouMeanResult = (state: StoreState) =>
+  fromSearchDidYouMeanReducer.getResult(
+    (state.search as SearchState).didYouMean,
+  );

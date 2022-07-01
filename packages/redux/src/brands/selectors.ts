@@ -1,9 +1,8 @@
 import { createSelector } from 'reselect';
 import { getBrands } from '../entities';
 import { getError, getHash, getIsLoading, getResult } from './reducer';
-import type { BlackoutError } from '@farfetch/blackout-client';
-import type { Brand, Brands } from '@farfetch/blackout-client/brands/types';
-import type { State } from './types';
+import type { Brand, Brands } from '@farfetch/blackout-client';
+import type { BrandsState } from './types';
 import type { StoreState } from '../types';
 
 /**
@@ -13,8 +12,8 @@ import type { StoreState } from '../types';
  *
  * @returns Brands identifier to the last request for fetchBrands.
  */
-export const getBrandsHash = (state: StoreState): State['hash'] =>
-  getHash(state.brands);
+export const getBrandsHash = (state: StoreState) =>
+  getHash(state.brands as BrandsState);
 
 /**
  * Returns error for one brand - fetchBrand request.
@@ -24,10 +23,8 @@ export const getBrandsHash = (state: StoreState): State['hash'] =>
  *
  * @returns Brand error.
  */
-export const getBrandError = (
-  state: StoreState,
-  id: Brand['id'],
-): BlackoutError | undefined => getError(state.brands)?.[id];
+export const getBrandError = (state: StoreState, id: Brand['id']) =>
+  getError(state.brands as BrandsState)?.[id];
 
 /**
  * Returns the error for brands - fetchBrands request.
@@ -40,8 +37,7 @@ export const getBrandError = (
 export const getBrandsError = (
   state: StoreState,
   hash = getBrandsHash(state),
-): BlackoutError | undefined =>
-  hash ? getError(state.brands)[hash] : undefined;
+) => (hash ? getError(state.brands as BrandsState)[hash] : undefined);
 
 /**
  * Returns the loading status for one brand - fetchBrand request.
@@ -51,10 +47,8 @@ export const getBrandsError = (
  *
  * @returns Loading status corresponding to a fetchBrand request.
  */
-export const isBrandLoading = (
-  state: StoreState,
-  id: Brand['id'],
-): boolean | undefined => getIsLoading(state.brands)?.[id];
+export const isBrandLoading = (state: StoreState, id: Brand['id']) =>
+  getIsLoading(state.brands as BrandsState)?.[id];
 
 /**
  * Returns the loading status for brands - fetchBrands request.
@@ -67,8 +61,7 @@ export const isBrandLoading = (
 export const areBrandsLoading = (
   state: StoreState,
   hash = getBrandsHash(state),
-): boolean | undefined =>
-  hash ? getIsLoading(state.brands)?.[hash] : undefined;
+) => (hash ? getIsLoading(state.brands as BrandsState)?.[hash] : undefined);
 
 /**
  * Returns the brands result descendant from the `fetchBrands` request.
@@ -81,7 +74,7 @@ export const areBrandsLoading = (
 export const getBrandsResult = createSelector(
   [
     (state: StoreState, hash = getBrandsHash(state)) => hash,
-    (state: StoreState) => getResult(state.brands),
+    (state: StoreState) => getResult(state.brands as BrandsState),
     getBrands,
   ],
   (hash, brandsResult, brands) => {
@@ -112,4 +105,4 @@ export const getBrandsResult = createSelector(
 export const isBrandsResultCached = (
   state: StoreState,
   hash = getBrandsHash(state),
-): boolean => (hash ? !!getResult(state.brands)[hash] : false);
+) => (hash ? !!getResult(state.brands as BrandsState)[hash] : false);

@@ -1,4 +1,4 @@
-import type { ProgramMembershipConvert } from '@farfetch/blackout-client/loyalty/types';
+import type { ProgramMembershipConvert } from '@farfetch/blackout-client';
 
 export type ConvertEntity = ProgramMembershipConvert;
 

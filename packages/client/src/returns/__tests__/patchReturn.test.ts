@@ -2,13 +2,11 @@ import { id, mockPatchData, responses } from 'tests/__fixtures__/returns';
 import { patchReturn } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/patchReturn.fixtures';
-import join from 'proper-url-join';
 import mswServer from '../../../tests/mswServer';
 
 describe('patchReturn', () => {
   const spy = jest.spyOn(client, 'patch');
   const expectedConfig = undefined;
-  const query = { guestUserEmail: 'test@email.com' };
 
   beforeEach(() => jest.clearAllMocks());
 
@@ -18,11 +16,11 @@ describe('patchReturn', () => {
     mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
-    await expect(patchReturn(id, mockPatchData, query)).resolves.toStrictEqual(
+    await expect(patchReturn(id, mockPatchData)).resolves.toStrictEqual(
       response,
     );
     expect(spy).toHaveBeenCalledWith(
-      join(`/account/v1/returns/${id}`, { query }),
+      `/account/v1/returns/${id}`,
       mockPatchData,
       expectedConfig,
     );
@@ -32,11 +30,9 @@ describe('patchReturn', () => {
     mswServer.use(fixtures.failure());
 
     expect.assertions(2);
-    await expect(
-      patchReturn(id, mockPatchData, query),
-    ).rejects.toMatchSnapshot();
+    await expect(patchReturn(id, mockPatchData)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      join(`/account/v1/returns/${id}`, { query }),
+      `/account/v1/returns/${id}`,
       mockPatchData,
       expectedConfig,
     );

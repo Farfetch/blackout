@@ -5,7 +5,7 @@ import type {
   FacetGroup,
   FilterSegment,
   Product,
-} from '@farfetch/blackout-client/products/types';
+} from '@farfetch/blackout-client';
 
 const SIZE_BY_CATEGORY_TYPE = 24;
 const SIZES_TYPE = 9;

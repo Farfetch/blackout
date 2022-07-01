@@ -1,9 +1,5 @@
 import * as fromSearchSuggestionsReducer from '../reducer/searchSuggestions';
-import type { BlackoutError } from '@farfetch/blackout-client';
-import type {
-  SearchSuggestion,
-  SearchSuggestionsQuery,
-} from '@farfetch/blackout-client/search/types';
+import type { SearchState } from '../types';
 import type { StoreState } from '../../types';
 
 /**
@@ -23,10 +19,10 @@ import type { StoreState } from '../../types';
  *
  * @returns Search error.
  */
-export const getSearchSuggestionsError = (
-  state: StoreState,
-): BlackoutError | null =>
-  fromSearchSuggestionsReducer.getError(state.search.suggestions);
+export const getSearchSuggestionsError = (state: StoreState) =>
+  fromSearchSuggestionsReducer.getError(
+    (state.search as SearchState).suggestions,
+  );
 
 /**
  * Retrieves the loading condition from current search term.
@@ -45,8 +41,10 @@ export const getSearchSuggestionsError = (
  *
  * @returns Whether a search term response is loading or not.
  */
-export const areSearchSuggestionsLoading = (state: StoreState): boolean =>
-  fromSearchSuggestionsReducer.getIsLoading(state.search.suggestions);
+export const areSearchSuggestionsLoading = (state: StoreState) =>
+  fromSearchSuggestionsReducer.getIsLoading(
+    (state.search as SearchState).suggestions,
+  );
 
 /**
  * Retrieves the current query applied to get suggestions.
@@ -65,10 +63,10 @@ export const areSearchSuggestionsLoading = (state: StoreState): boolean =>
  *
  * @returns The current query.
  */
-export const getSearchSuggestionsQuery = (
-  state: StoreState,
-): SearchSuggestionsQuery | null =>
-  fromSearchSuggestionsReducer.getQuery(state.search.suggestions);
+export const getSearchSuggestionsQuery = (state: StoreState) =>
+  fromSearchSuggestionsReducer.getQuery(
+    (state.search as SearchState).suggestions,
+  );
 
 /**
  * Retrieves the suggestions of a specific search.
@@ -87,7 +85,7 @@ export const getSearchSuggestionsQuery = (
  *
  * @returns Search suggestions.
  */
-export const getSearchSuggestionsResult = (
-  state: StoreState,
-): SearchSuggestion[] | null =>
-  fromSearchSuggestionsReducer.getResult(state.search.suggestions);
+export const getSearchSuggestionsResult = (state: StoreState) =>
+  fromSearchSuggestionsReducer.getResult(
+    (state.search as SearchState).suggestions,
+  );

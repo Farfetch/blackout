@@ -3,3 +3,5 @@
  */
 
 export { default as getPromotionEvaluationItems } from './getPromotionEvaluationItems';
+
+export * from './types';

@@ -1,4 +1,4 @@
-export enum FacetTypeEnum {
+export enum FacetType {
   Brands = 0,
   Styles = 1,
   Gender = 2,

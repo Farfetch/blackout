@@ -1,7 +1,7 @@
 import merge from 'lodash/merge';
 import reduce from 'lodash/reduce';
 
-export default (...reducers: any[]) =>
+const serverInitialState = (...reducers: any[]) =>
   reduce(
     reducers,
     (result: { entities?: any }, reducer) => ({
@@ -11,3 +11,4 @@ export default (...reducers: any[]) =>
     }),
     {},
   );
+export default serverInitialState;

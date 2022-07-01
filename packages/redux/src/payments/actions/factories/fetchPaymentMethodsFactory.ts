@@ -1,11 +1,12 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
+import {
+  Config,
+  GetPaymentMethods,
+  PaymentMethods,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { FetchPaymentMethodsAction } from '../../types';
-import type {
-  GetPaymentMethods,
-  PaymentMethod,
-} from '@farfetch/blackout-client/payments/types';
 
 /**
  * @param id     - Universal identifier of the order.
@@ -26,7 +27,7 @@ const fetchPaymentMethodsFactory =
   (orderId: number, config?: Config) =>
   async (
     dispatch: Dispatch<FetchPaymentMethodsAction>,
-  ): Promise<PaymentMethod> => {
+  ): Promise<PaymentMethods> => {
     try {
       dispatch({
         type: actionTypes.FETCH_PAYMENT_METHODS_REQUEST,

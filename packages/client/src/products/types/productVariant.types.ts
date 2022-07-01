@@ -1,22 +1,15 @@
+import type { Attribute, PurchaseChannel } from '../../types';
 import type { Price } from './price.types';
-import type { VariantAttribute } from './variantAttribute.types';
-
-enum PurchaseChannelEnum {
-  AddToBag,
-  EmailOnly,
-  PhoneOnly,
-  SuperCatalog,
-}
 
 export type ProductVariant = {
   id: string;
-  attributes: VariantAttribute[];
+  attributes: Attribute[];
   availableAt: number[];
   merchantId: number;
   price: Price;
   formattedPrice: string;
   formattedPriceWithoutDiscount: string;
-  purchaseChannel: PurchaseChannelEnum;
+  purchaseChannel: PurchaseChannel;
   barcodes: string[];
   quantity: number;
   size: string;

@@ -1,17 +1,18 @@
 import * as actionTypes from '../../actionTypes';
-import { getWishlistId, getWishlistItem } from '../../selectors';
-import { normalize } from 'normalizr';
-import { toBlackoutError } from '@farfetch/blackout-client';
-import wishlistItemSchema from '../../../entities/schemas/wishlistItem';
-import type {
+import {
+  Config,
   DeleteWishlistItem,
+  toBlackoutError,
   Wishlist,
   WishlistItem,
-} from '@farfetch/blackout-client/wishlists/types';
+} from '@farfetch/blackout-client';
+import { getWishlistId, getWishlistItem } from '../../selectors';
+import { normalize } from 'normalizr';
+import wishlistItemSchema from '../../../entities/schemas/wishlistItem';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
 import type { RemoveWishlistItemAction } from '../../types';
-import type { WishlistItemHydrated } from '@farfetch/blackout-redux/entities/types';
+import type { WishlistItemHydrated } from '../../../entities/types';
 
 /**
  * @param wishlistItemId - Wishlist item id.
@@ -30,7 +31,7 @@ import type { WishlistItemHydrated } from '@farfetch/blackout-redux/entities/typ
  */
 const removeWishlistItemFactory =
   (deleteWishlistItem: DeleteWishlistItem) =>
-  (wishlistItemId: WishlistItem['id'], config?: Record<string, unknown>) =>
+  (wishlistItemId: WishlistItem['id'], config?: Config) =>
   async (
     dispatch: Dispatch<RemoveWishlistItemAction>,
     getState: () => StoreState,

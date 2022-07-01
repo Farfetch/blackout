@@ -1,6 +1,7 @@
+import type { Config } from '../..';
 import type { StaffMember } from './staffMember.types';
 
 export type GetStaffMember = (
   id: StaffMember['id'],
-  config?: Record<string, unknown>,
+  config?: Config,
 ) => Promise<StaffMember>;

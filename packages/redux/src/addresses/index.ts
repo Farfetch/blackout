@@ -1,9 +1,6 @@
-import * as actionTypes from './actionTypes';
-import reducer from './reducer';
+export * as addressesActionTypes from './actionTypes';
 
 export * from './actions';
 export * from './selectors';
 
-export { actionTypes };
-
-export default reducer;
+export { default as addressesReducer } from './reducer';

@@ -8,7 +8,6 @@ export * from './order.types';
 export * from './orderItem.types';
 export * from './orderDocuments.types';
 export * from './orderReturn.types';
-export * from './returnItem.types';
 export * from './orderSummary.types';
 export * from './tracking.types';
 export * from './postOrderDocument.types';

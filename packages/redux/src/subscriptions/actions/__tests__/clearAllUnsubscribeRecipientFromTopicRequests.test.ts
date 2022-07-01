@@ -1,6 +1,7 @@
+import * as subscriptionsActionTypes from '../../actionTypes';
 import { clearAllUnsubscribeRecipientFromTopic } from '../clearAllUnsubscribeRecipientFromTopicRequests';
 import { mockStore } from '../../../../tests';
-import reducer, { subscriptionsActionTypes } from '../..';
+import reducer from '../../reducer';
 
 describe('reset()', () => {
   let store: ReturnType<typeof mockStore>;

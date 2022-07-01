@@ -1,3 +1,3 @@
-import type { ReturnItem } from '@farfetch/blackout-client/returns/types';
+import type { ReturnItem } from '@farfetch/blackout-client';
 
 export type ReturnItemsEntity = ReturnItem;

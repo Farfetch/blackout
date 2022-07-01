@@ -1,4 +1,4 @@
-import { LOGOUT_SUCCESS } from '../authentication/actionTypes';
+import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import type { BlackoutError } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
 
@@ -7,7 +7,7 @@ export const validateReset = (
   action: { type?: string },
   actionTypes: Record<string, string>,
 ): boolean => {
-  const resetAction = actionTypes[`${type}_RESET`];
+  const resetAction = actionTypes[`RESET_${type}`];
   const isThereAResetAction = !!resetAction;
 
   return isThereAResetAction && resetAction === action.type;

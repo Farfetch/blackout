@@ -1,5 +1,5 @@
 import type { FacetEntity } from '../../entities/types';
-import type { ListingQuery } from '@farfetch/blackout-client';
+import type { GetProductListingQuery } from '@farfetch/blackout-client';
 
 /**
  * Build the correct query object with the received filters to add.
@@ -31,7 +31,7 @@ import type { ListingQuery } from '@farfetch/blackout-client';
  * provided.
  */
 const buildSetFiltersQueryParams = (
-  query: ListingQuery,
+  query: GetProductListingQuery,
   filterParams: Record<string, string[] | number[] | number>,
 ): Record<string, Array<FacetEntity['id']>> => {
   const finalObject = {

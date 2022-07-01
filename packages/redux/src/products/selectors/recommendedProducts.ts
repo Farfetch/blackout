@@ -4,10 +4,10 @@ import {
   getRecommendedProductsResult,
 } from '../reducer/recommendedProducts';
 import get from 'lodash/get';
-import type { State } from '../types';
+import type { ProductsState } from '../types';
 import type { StoreState } from '../../types';
 
-type RecommendedProductsState = State['recommendedProducts'];
+type RecommendedProductsState = ProductsState['recommendedProducts'];
 
 /**
  * Checks if product recommendations has error by strategy name.

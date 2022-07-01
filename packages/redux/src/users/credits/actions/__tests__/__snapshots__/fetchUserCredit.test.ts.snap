@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchUserCredit action creator should create the correct actions for when the get credit procedure is successful with empty data: get credit success payload with empty data 1`] = `
+Object {
+  "payload": Object {
+    "credit": Object {
+      "currency": null,
+      "formattedValue": null,
+      "value": 0,
+    },
+  },
+  "type": "@farfetch/blackout-redux/FETCH_USER_CREDIT_SUCCESS",
+}
+`;
+
+exports[`fetchUserCredit action creator should create the correct actions for when the get credit procedure is successful: get credit success payload 1`] = `
+Object {
+  "payload": Object {
+    "credit": Object {
+      "currency": "GB",
+      "formattedValue": "£50",
+      "value": 50,
+    },
+  },
+  "type": "@farfetch/blackout-redux/FETCH_USER_CREDIT_SUCCESS",
+}
+`;

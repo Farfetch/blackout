@@ -1,5 +1,5 @@
 import memoize from 'lodash/memoize';
-import type { Metatag } from '@farfetch/blackout-client/contents/types';
+import type { Metatag } from '@farfetch/blackout-client';
 
 /**
  * Check the existance of a specific meta property inside all metatags.

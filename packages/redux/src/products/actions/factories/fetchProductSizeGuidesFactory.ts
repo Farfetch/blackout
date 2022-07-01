@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  Config,
   GetProductSizeGuides,
   Product,
   ProductSizeGuide,
@@ -28,7 +29,7 @@ import type { Dispatch } from 'redux';
  */
 export const fetchProductSizeGuidesFactory =
   (getProductSizeGuides: GetProductSizeGuides) =>
-  (productId: Product['result']['id'], config?: Record<string, unknown>) =>
+  (productId: Product['result']['id'], config?: Config) =>
   async (dispatch: Dispatch): Promise<ProductSizeGuide[]> => {
     try {
       dispatch({

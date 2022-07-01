@@ -1,13 +1,6 @@
 import * as fromReducer from './reducer';
 import { getEntities } from '../entities/selectors';
-import type {
-  ConvertsEntity,
-  MembershipEntity,
-  ProgramsEntity,
-  ReplacementsEntity,
-  StatementsEntity,
-} from '../entities/types';
-import type { State } from './types';
+import type { LoyaltyState } from './types';
 import type { StoreState } from '../types';
 
 /**
@@ -17,7 +10,7 @@ import type { StoreState } from '../types';
  *
  * @returns Programs object.
  */
-export const getPrograms = (state: StoreState): ProgramsEntity =>
+export const getPrograms = (state: StoreState) =>
   getEntities(state, 'programs');
 
 /**
@@ -27,9 +20,8 @@ export const getPrograms = (state: StoreState): ProgramsEntity =>
  *
  * @returns - Programs error.
  */
-export const getProgramsError = (
-  state: StoreState,
-): State['programs']['error'] => fromReducer.getPrograms(state.loyalty).error;
+export const getProgramsError = (state: StoreState) =>
+  fromReducer.getPrograms(state.loyalty as LoyaltyState).error;
 
 /**
  * Returns the result of the programs.
@@ -38,9 +30,8 @@ export const getProgramsError = (
  *
  * @returns - Array of programs ids.
  */
-export const getProgramsResult = (
-  state: StoreState,
-): State['programs']['result'] => fromReducer.getPrograms(state.loyalty).result;
+export const getProgramsResult = (state: StoreState) =>
+  fromReducer.getPrograms(state.loyalty as LoyaltyState).result;
 
 /**
  * Returns the loading status for the programs.
@@ -49,10 +40,8 @@ export const getProgramsResult = (
  *
  * @returns - Loading status.
  */
-export const isProgramsLoading = (
-  state: StoreState,
-): State['programs']['isLoading'] =>
-  fromReducer.getPrograms(state.loyalty).isLoading;
+export const isProgramsLoading = (state: StoreState) =>
+  fromReducer.getPrograms(state.loyalty as LoyaltyState).isLoading;
 
 /**
  * Returns the membership.
@@ -61,7 +50,7 @@ export const isProgramsLoading = (
  *
  * @returns Membership object.
  */
-export const getMembership = (state: StoreState): MembershipEntity =>
+export const getMembership = (state: StoreState) =>
   getEntities(state, 'membership');
 
 /**
@@ -71,10 +60,8 @@ export const getMembership = (state: StoreState): MembershipEntity =>
  *
  * @returns - Membership error.
  */
-export const getMembershipError = (
-  state: StoreState,
-): State['membership']['error'] =>
-  fromReducer.getMembership(state.loyalty).error;
+export const getMembershipError = (state: StoreState) =>
+  fromReducer.getMembership(state.loyalty as LoyaltyState).error;
 
 /**
  * Returns the result of the membership.
@@ -83,10 +70,8 @@ export const getMembershipError = (
  *
  * @returns - Membership id.
  */
-export const getMembershipResult = (
-  state: StoreState,
-): State['membership']['result'] =>
-  fromReducer.getMembership(state.loyalty).result;
+export const getMembershipResult = (state: StoreState) =>
+  fromReducer.getMembership(state.loyalty as LoyaltyState).result;
 
 /**
  * Returns the loading status for the membership.
@@ -95,10 +80,8 @@ export const getMembershipResult = (
  *
  * @returns - Loading status.
  */
-export const isMembershipLoading = (
-  state: StoreState,
-): State['membership']['isLoading'] =>
-  fromReducer.getMembership(state.loyalty).isLoading;
+export const isMembershipLoading = (state: StoreState) =>
+  fromReducer.getMembership(state.loyalty as LoyaltyState).isLoading;
 
 /**
  * Returns the replacements.
@@ -107,7 +90,7 @@ export const isMembershipLoading = (
  *
  * @returns Replacements object.
  */
-export const getReplacements = (state: StoreState): ReplacementsEntity =>
+export const getReplacements = (state: StoreState) =>
   getEntities(state, 'replacements');
 
 /**
@@ -117,10 +100,8 @@ export const getReplacements = (state: StoreState): ReplacementsEntity =>
  *
  * @returns - Replacements error.
  */
-export const getReplacementsError = (
-  state: StoreState,
-): State['replacements']['error'] =>
-  fromReducer.getReplacements(state.loyalty).error;
+export const getReplacementsError = (state: StoreState) =>
+  fromReducer.getReplacements(state.loyalty as LoyaltyState).error;
 
 /**
  * Returns the result of the replacements.
@@ -129,10 +110,8 @@ export const getReplacementsError = (
  *
  * @returns - Array of replacements ids.
  */
-export const getReplacementsResult = (
-  state: StoreState,
-): State['replacements']['result'] =>
-  fromReducer.getReplacements(state.loyalty).result;
+export const getReplacementsResult = (state: StoreState) =>
+  fromReducer.getReplacements(state.loyalty as LoyaltyState).result;
 
 /**
  * Returns the loading status for the replacements.
@@ -141,10 +120,8 @@ export const getReplacementsResult = (
  *
  * @returns - Loading status.
  */
-export const isReplacementsLoading = (
-  state: StoreState,
-): State['replacements']['isLoading'] =>
-  fromReducer.getReplacements(state.loyalty).isLoading;
+export const isReplacementsLoading = (state: StoreState) =>
+  fromReducer.getReplacements(state.loyalty as LoyaltyState).isLoading;
 
 /**
  * Returns the statements.
@@ -153,7 +130,7 @@ export const isReplacementsLoading = (
  *
  * @returns Converts object.
  */
-export const getConverts = (state: StoreState): ConvertsEntity =>
+export const getConverts = (state: StoreState) =>
   getEntities(state, 'converts');
 
 /**
@@ -163,9 +140,8 @@ export const getConverts = (state: StoreState): ConvertsEntity =>
  *
  * @returns - Converts error.
  */
-export const getConvertsError = (
-  state: StoreState,
-): State['converts']['error'] => fromReducer.getConverts(state.loyalty).error;
+export const getConvertsError = (state: StoreState) =>
+  fromReducer.getConverts(state.loyalty as LoyaltyState).error;
 
 /**
  * Returns the result of the converts.
@@ -174,9 +150,8 @@ export const getConvertsError = (
  *
  * @returns - Array of converts ids.
  */
-export const getConvertsResult = (
-  state: StoreState,
-): State['converts']['result'] => fromReducer.getConverts(state.loyalty).result;
+export const getConvertsResult = (state: StoreState) =>
+  fromReducer.getConverts(state.loyalty as LoyaltyState).result;
 
 /**
  * Returns the loading status for the converts.
@@ -185,10 +160,8 @@ export const getConvertsResult = (
  *
  * @returns - Loading status.
  */
-export const isConvertsLoading = (
-  state: StoreState,
-): State['converts']['isLoading'] =>
-  fromReducer.getConverts(state.loyalty).isLoading;
+export const isConvertsLoading = (state: StoreState) =>
+  fromReducer.getConverts(state.loyalty as LoyaltyState).isLoading;
 
 /**
  * Returns the statements.
@@ -197,7 +170,7 @@ export const isConvertsLoading = (
  *
  * @returns Statements object.
  */
-export const getStatements = (state: StoreState): StatementsEntity =>
+export const getStatements = (state: StoreState) =>
   getEntities(state, 'statements');
 
 /**
@@ -207,10 +180,8 @@ export const getStatements = (state: StoreState): StatementsEntity =>
  *
  * @returns - Statements error.
  */
-export const getStatementsError = (
-  state: StoreState,
-): State['statements']['error'] =>
-  fromReducer.getStatements(state.loyalty).error;
+export const getStatementsError = (state: StoreState) =>
+  fromReducer.getStatements(state.loyalty as LoyaltyState).error;
 
 /**
  * Returns the result of the statements.
@@ -219,10 +190,8 @@ export const getStatementsError = (
  *
  * @returns - Array of statements ids.
  */
-export const getStatementsResult = (
-  state: StoreState,
-): State['statements']['result'] =>
-  fromReducer.getStatements(state.loyalty).result;
+export const getStatementsResult = (state: StoreState) =>
+  fromReducer.getStatements(state.loyalty as LoyaltyState).result;
 
 /**
  * Returns the loading status for the statements.
@@ -231,7 +200,5 @@ export const getStatementsResult = (
  *
  * @returns - Loading status.
  */
-export const isStatementsLoading = (
-  state: StoreState,
-): State['statements']['isLoading'] =>
-  fromReducer.getStatements(state.loyalty).isLoading;
+export const isStatementsLoading = (state: StoreState) =>
+  fromReducer.getStatements(state.loyalty as LoyaltyState).isLoading;

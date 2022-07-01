@@ -1,11 +1,11 @@
-import type { Address, User } from '.';
-import type { Config } from '../../../types';
+import type { Config, UserAddress } from '../../../types';
+import type { User } from '../../../users/authentication/types/user.types';
 
 export type PutUserDefaultShippingAddressProps = {
   // Identifier of the address.
   userId: User['id'];
   // Identifier of the user.
-  id: Address['id'];
+  id: UserAddress['id'];
 };
 
 export type PutUserDefaultShippingAddress = (

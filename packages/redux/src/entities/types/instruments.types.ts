@@ -1,5 +1,5 @@
-import type { Instrument } from '@farfetch/blackout-client/payments/types';
+import type { PaymentInstrument } from '@farfetch/blackout-client';
 
-export type InstrumentsEntity =
-  | Record<Instrument['id'], Instrument>
+export type PaymentInstrumentsEntity =
+  | Record<PaymentInstrument['id'], PaymentInstrument>
   | undefined;

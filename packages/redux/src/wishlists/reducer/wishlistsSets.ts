@@ -1,6 +1,6 @@
 import * as actionTypes from '../actionTypes';
-import { combineReducers } from 'redux';
-import { LOGOUT_SUCCESS } from '../../authentication/actionTypes';
+import { AnyAction, combineReducers } from 'redux';
+import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
 import omit from 'lodash/omit';
 import type {
   AddWishlistSetFailureAction,
@@ -16,14 +16,14 @@ import type {
   RemoveWishlistSetFailureAction,
   RemoveWishlistSetRequestAction,
   RemoveWishlistSetSuccessAction,
-  SetsState,
   UpdateWishlistSetFailureAction,
   UpdateWishlistSetRequestAction,
   UpdateWishlistSetSuccessAction,
+  WishlistSetsState,
 } from '../types';
 import type { ReducerSwitch, StoreState } from '../../types';
 
-export const INITIAL_STATE: SetsState = {
+export const INITIAL_STATE: WishlistSetsState = {
   error: null,
   ids: null,
   isLoading: false,
@@ -167,10 +167,12 @@ export const entitiesMapper = {
   [actionTypes.REMOVE_WISHLIST_SET_SUCCESS as typeof actionTypes.REMOVE_WISHLIST_SET_SUCCESS]:
     (
       state: StoreState['entities'],
-      {
-        meta: { wishlistSetId },
-      }: { meta: RemoveWishlistSetSuccessAction['meta'] },
+      { meta: { wishlistSetId } }: AnyAction,
     ): StoreState['entities'] => {
+      if (!state) {
+        return state;
+      }
+
       const { wishlistSets, ...rest } = state;
 
       return {
@@ -179,9 +181,11 @@ export const entitiesMapper = {
       };
     },
   [actionTypes.RESET_WISHLIST_SETS_ENTITIES as typeof actionTypes.RESET_WISHLIST_SETS_ENTITIES]:
-    (
-      state: StoreState['entities'],
-    ): Omit<StoreState['entities'], 'wishlistSets'> => {
+    (state: StoreState['entities']): StoreState['entities'] => {
+      if (!state) {
+        return state;
+      }
+
       const { wishlistSets, ...rest } = state;
 
       return rest;
@@ -191,15 +195,20 @@ export const entitiesMapper = {
 //
 // Selectors from reducer
 //
-export const getError = (state: SetsState): SetsState['error'] => state.error;
-export const getIds = (state: SetsState): SetsState['ids'] => state.ids;
-export const getIsLoading = (state: SetsState): SetsState['isLoading'] =>
-  state.isLoading;
-export const getSetError = (state: SetsState): SetsState['set']['error'] =>
-  state.set.error;
+export const getError = (
+  state: WishlistSetsState,
+): WishlistSetsState['error'] => state.error;
+export const getIds = (state: WishlistSetsState): WishlistSetsState['ids'] =>
+  state.ids;
+export const getIsLoading = (
+  state: WishlistSetsState,
+): WishlistSetsState['isLoading'] => state.isLoading;
+export const getSetError = (
+  state: WishlistSetsState,
+): WishlistSetsState['set']['error'] => state.set.error;
 export const getIsSetLoading = (
-  state: SetsState,
-): SetsState['set']['isLoading'] => state.set.isLoading;
+  state: WishlistSetsState,
+): WishlistSetsState['set']['isLoading'] => state.set.isLoading;
 
 //
 // Combining and exporting
@@ -219,7 +228,10 @@ export const reducer = combineReducers({
  *
  * @returns New state.
  */
-const wishlistsSetsReducer: ReducerSwitch<SetsState> = (state, action) => {
+const wishlistsSetsReducer: ReducerSwitch<WishlistSetsState> = (
+  state,
+  action,
+) => {
   if (action.type === LOGOUT_SUCCESS) {
     return INITIAL_STATE;
   }
@@ -230,14 +242,18 @@ const wishlistsSetsReducer: ReducerSwitch<SetsState> = (state, action) => {
     if (!fieldsToReset) {
       return INITIAL_STATE;
     } else {
-      const reducerFn = (acc: SetsState, field: keyof SetsState) => {
-        if (state.set[field as keyof SetsState['set']]) {
+      const reducerFn = (
+        acc: WishlistSetsState,
+        field: keyof WishlistSetsState,
+      ) => {
+        if (state?.set[field as keyof WishlistSetsState['set']]) {
           return {
             ...acc,
             [field]: INITIAL_STATE[field],
             set: {
               ...acc.set,
-              [field]: INITIAL_STATE.set[field as keyof SetsState['set']],
+              [field]:
+                INITIAL_STATE.set[field as keyof WishlistSetsState['set']],
             },
           };
         }

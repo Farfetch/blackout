@@ -2,4 +2,4 @@
  * Addresses hooks.
  */
 
-export * from './useAddresses';
+export { default as useAddresses } from './useAddresses';

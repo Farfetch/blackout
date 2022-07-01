@@ -2,80 +2,79 @@ import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
 import type {
   Balance,
-  Charge,
-  Instrument,
-  Intent,
-  PaymentMethod,
+  BlackoutError,
+  PaymentInstrument,
+  PaymentIntent,
+  PaymentIntentCharge,
   PaymentMethods,
   PaymentToken,
-} from '@farfetch/blackout-client/payments/types';
-import type { BlackoutError } from '@farfetch/blackout-client';
+} from '@farfetch/blackout-client';
 import type { NormalizedSchema } from 'normalizr';
 
 /**
- * Charges Action.
+ * Create Payment Intent Charge Action.
  */
-export type ChargesAction =
-  | ChargesFailureAction
-  | ChargesRequestAction
-  | ChargesSuccessAction;
+export type CreatePaymentIntentChargeAction =
+  | CreatePaymentIntentChargeFailureAction
+  | CreatePaymentIntentChargeRequestAction
+  | CreatePaymentIntentChargeSuccessAction;
 
-export interface ChargesFailureAction extends Action {
+export interface CreatePaymentIntentChargeFailureAction extends Action {
   payload: { error: BlackoutError };
-  type: typeof actionTypes.CHARGE_FAILURE;
+  type: typeof actionTypes.CREATE_PAYMENT_INTENT_CHARGE_FAILURE;
 }
 
-export interface ChargesRequestAction extends Action {
-  type: typeof actionTypes.CHARGE_REQUEST;
+export interface CreatePaymentIntentChargeRequestAction extends Action {
+  type: typeof actionTypes.CREATE_PAYMENT_INTENT_CHARGE_REQUEST;
 }
 
-export interface ChargesSuccessAction extends Action {
-  payload: Charge;
+export interface CreatePaymentIntentChargeSuccessAction extends Action {
+  payload: PaymentIntentCharge;
   meta: { chargeId: string };
-  type: typeof actionTypes.CHARGE_SUCCESS;
+  type: typeof actionTypes.CREATE_PAYMENT_INTENT_CHARGE_SUCCESS;
 }
 
 /**
- * Create Instruments Action.
+ * Create Payment Intent Instrument Action.
  */
-export type CreateInstrumentsAction =
-  | CreateInstrumentsFailureAction
-  | CreateInstrumentsRequestAction
-  | CreateInstrumentsSuccessAction;
+export type CreatePaymentIntentInstrumentAction =
+  | CreatePaymentIntentInstrumentFailureAction
+  | CreatePaymentIntentInstrumentRequestAction
+  | CreatePaymentIntentInstrumentSuccessAction;
 
-export interface CreateInstrumentsFailureAction extends Action {
+export interface CreatePaymentIntentInstrumentFailureAction extends Action {
   payload: { error: BlackoutError };
-  type: typeof actionTypes.CREATE_INSTRUMENT_FAILURE;
+  type: typeof actionTypes.CREATE_PAYMENT_INTENT_INSTRUMENT_FAILURE;
 }
 
-export interface CreateInstrumentsRequestAction extends Action {
-  type: typeof actionTypes.CREATE_INSTRUMENT_REQUEST;
+export interface CreatePaymentIntentInstrumentRequestAction extends Action {
+  type: typeof actionTypes.CREATE_PAYMENT_INTENT_INSTRUMENT_REQUEST;
 }
 
-export interface CreateInstrumentsSuccessAction extends Action {
-  type: typeof actionTypes.CREATE_INSTRUMENT_SUCCESS;
+export interface CreatePaymentIntentInstrumentSuccessAction extends Action {
+  type: typeof actionTypes.CREATE_PAYMENT_INTENT_INSTRUMENT_SUCCESS;
 }
 
 /**
- * Fetch Credit Balance Action.
+ * Fetch User Credit Balance Action.
  */
-export type FetchCreditBalanceAction =
-  | FetchCreditBalanceFailureAction
-  | FetchCreditBalanceRequestAction
-  | FetchCreditBalanceSuccessAction;
+export type FetchUserCreditBalanceAction =
+  | FetchUserCreditBalanceFailureAction
+  | FetchUserCreditBalanceRequestAction
+  | FetchUserCreditBalanceSuccessAction;
 
-export interface FetchCreditBalanceFailureAction extends Action {
+export interface FetchUserCreditBalanceFailureAction extends Action {
   payload: { error: BlackoutError };
-  type: typeof actionTypes.FETCH_CREDIT_BALANCE_FAILURE;
+  type: typeof actionTypes.FETCH_USER_CREDIT_BALANCE_FAILURE;
 }
 
-export interface FetchCreditBalanceRequestAction extends Action {
-  type: typeof actionTypes.FETCH_CREDIT_BALANCE_REQUEST;
+export interface FetchUserCreditBalanceRequestAction extends Action {
+  type: typeof actionTypes.FETCH_USER_CREDIT_BALANCE_REQUEST;
 }
 
-export interface FetchCreditBalanceSuccessAction extends Action {
+export interface FetchUserCreditBalanceSuccessAction extends Action {
   payload: Balance;
-  type: typeof actionTypes.FETCH_CREDIT_BALANCE_SUCCESS;
+  type: typeof actionTypes.FETCH_USER_CREDIT_BALANCE_SUCCESS;
 }
 
 /**
@@ -101,106 +100,99 @@ export interface FetchGiftCardBalanceSuccessAction extends Action {
 }
 
 /**
- * Fetch Charges Action.
+ * Fetch Payment Intent Charge Actions.
  */
-export type FetchChargesAction =
-  | FetchChargesFailureAction
-  | FetchChargesRequestAction
-  | FetchChargesSuccessAction;
+export type FetchPaymentIntentChargeAction =
+  | FetchPaymentIntentChargeFailureAction
+  | FetchPaymentIntentChargeRequestAction
+  | FetchPaymentIntentChargeSuccessAction;
 
-export interface FetchChargesFailureAction extends Action {
+export interface FetchPaymentIntentChargeFailureAction extends Action {
   payload: { error: BlackoutError };
-  type: typeof actionTypes.FETCH_CHARGES_FAILURE;
+  type: typeof actionTypes.FETCH_PAYMENT_INTENT_CHARGE_FAILURE;
 }
 
-export interface FetchChargesRequestAction extends Action {
-  type: typeof actionTypes.FETCH_CHARGES_REQUEST;
+export interface FetchPaymentIntentChargeRequestAction extends Action {
+  type: typeof actionTypes.FETCH_PAYMENT_INTENT_CHARGE_REQUEST;
 }
 
-export interface FetchChargesSuccessAction extends Action {
-  payload: Charge;
+export interface FetchPaymentIntentChargeSuccessAction extends Action {
+  payload: PaymentIntentCharge;
   meta: { chargeId: string };
-  type: typeof actionTypes.FETCH_CHARGES_SUCCESS;
+  type: typeof actionTypes.FETCH_PAYMENT_INTENT_CHARGE_SUCCESS;
 }
 
-type FetchInstrumentPayload = NormalizedSchema<
+type FetchPaymentIntentInstrumentPayload = NormalizedSchema<
   {
-    instruments: Record<Instrument['id'], Instrument>;
+    instruments: Record<PaymentInstrument['id'], PaymentInstrument>;
   },
-  Array<Instrument['id']>
->;
-
-type FetchInstrumentsPayload = NormalizedSchema<
-  {
-    instruments: Record<Instrument['id'], Instrument>;
-  },
-  Array<Instrument['id']>
+  Array<PaymentInstrument['id']>
 >;
 
 /**
- * Fetch Instrument Action.
+ * Fetch Payment Intent Instrument Action.
  */
-export type FetchInstrumentAction =
-  | FetchInstrumentFailureAction
-  | FetchInstrumentRequestAction
-  | FetchInstrumentSuccessAction;
+export type FetchPaymentIntentInstrumentAction =
+  | FetchPaymentIntentInstrumentFailureAction
+  | FetchPaymentIntentInstrumentRequestAction
+  | FetchPaymentIntentInstrumentSuccessAction;
 
-export interface FetchInstrumentFailureAction extends Action {
+export interface FetchPaymentIntentInstrumentFailureAction extends Action {
   payload: { error: BlackoutError };
-  type: typeof actionTypes.FETCH_INSTRUMENT_FAILURE;
+  type: typeof actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_FAILURE;
 }
 
-export interface FetchInstrumentRequestAction extends Action {
-  type: typeof actionTypes.FETCH_INSTRUMENT_REQUEST;
+export interface FetchPaymentIntentInstrumentRequestAction extends Action {
+  type: typeof actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_REQUEST;
 }
 
-export interface FetchInstrumentSuccessAction extends Action {
-  payload: FetchInstrumentPayload;
-  type: typeof actionTypes.FETCH_INSTRUMENT_SUCCESS;
+export interface FetchPaymentIntentInstrumentSuccessAction extends Action {
+  payload: FetchPaymentIntentInstrumentPayload;
+  type: typeof actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_SUCCESS;
 }
 
 /**
- * Fetch Instruments Action.
+ * Fetch Payment Intent Instruments Action.
  */
-export type FetchInstrumentsAction =
-  | FetchInstrumentsFailureAction
-  | FetchInstrumentsRequestAction
-  | FetchInstrumentsSuccessAction;
+export type FetchPaymentIntentInstrumentsAction =
+  | FetchPaymentIntentInstrumentsFailureAction
+  | FetchPaymentIntentInstrumentsRequestAction
+  | FetchPaymentIntentInstrumentsSuccessAction;
 
-export interface FetchInstrumentsFailureAction extends Action {
+export interface FetchPaymentIntentInstrumentsFailureAction extends Action {
   payload: { error: BlackoutError };
-  type: typeof actionTypes.FETCH_INSTRUMENTS_FAILURE;
+  type: typeof actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENTS_FAILURE;
 }
 
-export interface FetchInstrumentsRequestAction extends Action {
-  type: typeof actionTypes.FETCH_INSTRUMENTS_REQUEST;
+export interface FetchPaymentIntentInstrumentsRequestAction extends Action {
+  type: typeof actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENTS_REQUEST;
 }
 
-export interface FetchInstrumentsSuccessAction extends Action {
-  payload: FetchInstrumentsPayload;
-  type: typeof actionTypes.FETCH_INSTRUMENTS_SUCCESS;
+export interface FetchPaymentIntentInstrumentsSuccessAction extends Action {
+  payload: FetchPaymentIntentInstrumentPayload;
+  type: typeof actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENTS_SUCCESS;
 }
 
 /**
- * Fetch Intent Actions.
+ * Fetch Payment Intent Actions.
  */
-export type FetchIntentAction =
-  | FetchIntentFailureAction
-  | FetchIntentRequestAction
-  | FetchIntentSuccessAction;
+export type FetchPaymentIntentAction =
+  | FetchPaymentIntentFailureAction
+  | FetchPaymentIntentRequestAction
+  | FetchPaymentIntentSuccessAction;
 
-export interface FetchIntentFailureAction extends Action {
+export interface FetchPaymentIntentFailureAction extends Action {
   payload: { error: BlackoutError };
-  type: typeof actionTypes.FETCH_INTENT_FAILURE;
+  type: typeof actionTypes.FETCH_PAYMENT_INTENT_FAILURE;
 }
 
-export interface FetchIntentRequestAction extends Action {
-  type: typeof actionTypes.FETCH_INTENT_REQUEST;
+export interface FetchPaymentIntentRequestAction extends Action {
+  type: typeof actionTypes.FETCH_PAYMENT_INTENT_REQUEST;
 }
 
-export interface FetchIntentSuccessAction extends Action {
-  payload: Intent;
-  type: typeof actionTypes.FETCH_INTENT_SUCCESS;
+export interface FetchPaymentIntentSuccessAction extends Action {
+  payload: PaymentIntent;
+  type: typeof actionTypes.FETCH_PAYMENT_INTENT_SUCCESS;
 }
 
 type FetchPaymentTokensPayload = NormalizedSchema<
@@ -252,7 +244,7 @@ export interface FetchPaymentMethodsRequestAction extends Action {
 export interface FetchPaymentMethodsSuccessAction extends Action {
   payload: {
     entities: {
-      checkout: Record<number, { paymentMethods: PaymentMethod }>;
+      checkout: Record<number, { paymentMethods: PaymentMethods }>;
     };
   };
   type: typeof actionTypes.FETCH_PAYMENT_METHODS_SUCCESS;
@@ -279,7 +271,7 @@ export interface FetchPaymentMethodsByCountryAndCurrencyRequestAction
 
 export interface FetchPaymentMethodsByCountryAndCurrencySuccessAction
   extends Action {
-  payload: PaymentMethods;
+  payload: PaymentMethods[];
   type: typeof actionTypes.FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_SUCCESS;
 }
 
@@ -301,30 +293,30 @@ export interface FetchPaymentMethodsByIntentRequestAction extends Action {
 }
 
 export interface FetchPaymentMethodsByIntentSuccessAction extends Action {
-  payload: PaymentMethod;
+  payload: PaymentMethods;
   type: typeof actionTypes.FETCH_PAYMENT_METHODS_BY_INTENT_SUCCESS;
 }
 
 /**
- * Remove Instrument Actions.
+ * Remove Payment Intent Instrument Actions.
  */
-export type RemoveInstrumentAction =
-  | RemoveInstrumentFailureAction
-  | RemoveInstrumentRequestAction
-  | RemoveInstrumentSuccessAction;
+export type RemovePaymentIntentInstrumentAction =
+  | RemovePaymentIntentInstrumentFailureAction
+  | RemovePaymentIntentInstrumentRequestAction
+  | RemovePaymentIntentInstrumentSuccessAction;
 
-export interface RemoveInstrumentFailureAction extends Action {
+export interface RemovePaymentIntentInstrumentFailureAction extends Action {
   payload: { error: BlackoutError };
-  type: typeof actionTypes.REMOVE_INSTRUMENT_FAILURE;
+  type: typeof actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_FAILURE;
 }
 
-export interface RemoveInstrumentRequestAction extends Action {
-  type: typeof actionTypes.REMOVE_INSTRUMENT_REQUEST;
+export interface RemovePaymentIntentInstrumentRequestAction extends Action {
+  type: typeof actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_REQUEST;
 }
 
-export interface RemoveInstrumentSuccessAction extends Action {
-  meta: { instrumentId: Instrument['id'] };
-  type: typeof actionTypes.REMOVE_INSTRUMENT_SUCCESS;
+export interface RemovePaymentIntentInstrumentSuccessAction extends Action {
+  meta: { instrumentId: PaymentInstrument['id'] };
+  type: typeof actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_SUCCESS;
 }
 
 /**
@@ -350,40 +342,42 @@ export interface RemovePaymentTokensSuccessAction extends Action {
 }
 
 /**
- * Update Instrument Actions.
+ * Update Payment Intent Instrument Actions.
  */
-export type UpdateInstrumentAction =
-  | UpdateInstrumentFailureAction
-  | UpdateInstrumentRequestAction
-  | UpdateInstrumentSuccessAction;
+export type UpdatePaymentIntentInstrumentAction =
+  | UpdatePaymentIntentInstrumentFailureAction
+  | UpdatePaymentIntentInstrumentRequestAction
+  | UpdatePaymentIntentInstrumentSuccessAction;
 
-export interface UpdateInstrumentFailureAction extends Action {
+export interface UpdatePaymentIntentInstrumentFailureAction extends Action {
   payload: { error: BlackoutError };
-  type: typeof actionTypes.UPDATE_INSTRUMENT_FAILURE;
+  type: typeof actionTypes.UPDATE_PAYMENT_INTENT_INSTRUMENT_FAILURE;
 }
 
-export interface UpdateInstrumentRequestAction extends Action {
-  type: typeof actionTypes.UPDATE_INSTRUMENT_REQUEST;
+export interface UpdatePaymentIntentInstrumentRequestAction extends Action {
+  type: typeof actionTypes.UPDATE_PAYMENT_INTENT_INSTRUMENT_REQUEST;
 }
 
-export interface UpdateInstrumentSuccessAction extends Action {
-  type: typeof actionTypes.UPDATE_INSTRUMENT_SUCCESS;
-}
-
-/**
- * Reset Charges Actions.
- */
-export type ResetChargesAction = ResetChargesSuccessAction;
-
-export interface ResetChargesSuccessAction extends Action {
-  type: typeof actionTypes.RESET_CHARGES_STATE;
+export interface UpdatePaymentIntentInstrumentSuccessAction extends Action {
+  type: typeof actionTypes.UPDATE_PAYMENT_INTENT_INSTRUMENT_SUCCESS;
 }
 
 /**
- * Reset Instruments Actions.
+ * Reset Payment Intent Charge Actions.
  */
-export type ResetInstrumentsAction = ResetInstrumentsSuccessAction;
+export type ResetPaymentIntentChargeAction =
+  ResetPaymentIntentChargeSuccessAction;
 
-export interface ResetInstrumentsSuccessAction extends Action {
-  type: typeof actionTypes.RESET_INSTRUMENTS_STATE;
+export interface ResetPaymentIntentChargeSuccessAction extends Action {
+  type: typeof actionTypes.RESET_PAYMENT_INTENT_CHARGE_STATE;
+}
+
+/**
+ * Reset Payment Instruments Actions.
+ */
+export type ResetPaymentInstrumentsAction =
+  ResetPaymentInstrumentsSuccessAction;
+
+export interface ResetPaymentInstrumentsSuccessAction extends Action {
+  type: typeof actionTypes.RESET_PAYMENT_INSTRUMENTS_STATE;
 }

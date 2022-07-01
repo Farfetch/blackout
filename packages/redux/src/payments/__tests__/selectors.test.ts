@@ -52,8 +52,8 @@ describe('Payments redux selectors', () => {
 
     describe('getPaymentTokensError()', () => {
       it('should get the payment tokens error property', () => {
-        const spy = jest.spyOn(fromReducer, 'getTokens');
-        const expectedResult = mockState.payments.tokens.error;
+        const spy = jest.spyOn(fromReducer, 'getPaymentTokens');
+        const expectedResult = mockState.payments.paymentTokens.error;
         expect(selectors.getPaymentTokensError(mockState)).toEqual(
           expectedResult,
         );
@@ -61,12 +61,12 @@ describe('Payments redux selectors', () => {
       });
     });
 
-    describe('isPaymentTokensLoading()', () => {
+    describe('arePaymentTokensLoading()', () => {
       it('should get the payment tokens isLoading property', () => {
-        const spy = jest.spyOn(fromReducer, 'getTokens');
-        const expectedResult = mockState.payments.tokens.isLoading;
+        const spy = jest.spyOn(fromReducer, 'getPaymentTokens');
+        const expectedResult = mockState.payments.paymentTokens.isLoading;
 
-        expect(selectors.isPaymentTokensLoading(mockState)).toEqual(
+        expect(selectors.arePaymentTokensLoading(mockState)).toEqual(
           expectedResult,
         );
         expect(spy).toHaveBeenCalledTimes(1);
@@ -75,8 +75,8 @@ describe('Payments redux selectors', () => {
 
     describe('getPaymentTokensResult()', () => {
       it('should get the payment tokens result property', () => {
-        const spy = jest.spyOn(fromReducer, 'getTokens');
-        const expectedResult = mockState.payments.tokens.result;
+        const spy = jest.spyOn(fromReducer, 'getPaymentTokens');
+        const expectedResult = mockState.payments.paymentTokens.result;
 
         expect(selectors.getPaymentTokensResult(mockState)).toEqual(
           expectedResult,
@@ -87,27 +87,27 @@ describe('Payments redux selectors', () => {
   });
 
   describe('Instruments', () => {
-    describe('getInstruments()', () => {
-      it('should get the instruments item from state', () => {
+    describe('getPaymentInstruments()', () => {
+      it('should get the payment instruments item from state', () => {
         const spy = jest.spyOn(fromEntities, 'getEntities');
-        expect(selectors.getInstruments(mockState)).toEqual(
-          mockFetchInstrumentsNormalizedPayload.entities.instruments,
+        expect(selectors.getPaymentInstruments(mockState)).toEqual(
+          mockFetchInstrumentsNormalizedPayload.entities.paymentInstruments,
         );
-        expect(spy).toHaveBeenCalledWith(mockState, 'instruments');
+        expect(spy).toHaveBeenCalledWith(mockState, 'paymentInstruments');
       });
     });
 
-    describe('getInstrument()', () => {
-      it('should get the instrument item from state', () => {
+    describe('getPaymentInstrument()', () => {
+      it('should get the payment instrument item from state', () => {
         const spy = jest.spyOn(fromEntities, 'getEntityById');
-        expect(selectors.getInstrument(mockState, instrumentId)).toEqual(
-          mockFetchInstrumentsNormalizedPayload.entities.instruments[
+        expect(selectors.getPaymentInstrument(mockState, instrumentId)).toEqual(
+          mockFetchInstrumentsNormalizedPayload.entities.paymentInstruments[
             instrumentId
           ],
         );
         expect(spy).toHaveBeenCalledWith(
           mockState,
-          'instruments',
+          'paymentInstruments',
           instrumentId,
         );
       });
@@ -116,11 +116,11 @@ describe('Payments redux selectors', () => {
 
   describe('Sub-areas selectors', () => {
     const subAreaNames = [
-      'Instruments',
+      'PaymentInstruments',
       'GiftCardBalance',
-      'CreditBalance',
-      'Intent',
-      'Charges',
+      'UserCreditBalance',
+      'PaymentIntent',
+      'PaymentIntentCharge',
       'PaymentMethods',
     ];
 
@@ -144,11 +144,11 @@ describe('Payments redux selectors', () => {
     describe('sub-areas result selectors', () => {
       selectorAssertions.assertSubAreasResultSelector(
         [
-          'Instruments',
+          'PaymentInstruments',
           'GiftCardBalance',
-          'CreditBalance',
-          'Intent',
-          'Charges',
+          'UserCreditBalance',
+          'PaymentIntent',
+          'PaymentIntentCharge',
           'PaymentMethods',
         ],
         mockState,

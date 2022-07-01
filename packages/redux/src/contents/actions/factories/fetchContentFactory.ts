@@ -1,13 +1,14 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
-import { contentEntries } from '../../../entities/schemas/content';
-import { generateContentHash } from '../../utils';
-import { normalize } from 'normalizr';
-import type {
+import {
+  Config,
   Contents,
   GetContent,
   QueryContents,
-} from '@farfetch/blackout-client/contents/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import { contentEntries } from '../../../entities/schemas/content';
+import { generateContentHash } from '../../utils';
+import { normalize } from 'normalizr';
 import type { Dispatch } from 'redux';
 
 /**
@@ -24,7 +25,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default (getContent: GetContent) =>
+const fetchContentFactory =
+  (getContent: GetContent) =>
   (query: QueryContents, config?: Config) =>
   async (dispatch: Dispatch): Promise<Contents> => {
     let hash: string | undefined = undefined;
@@ -61,3 +63,5 @@ export default (getContent: GetContent) =>
       throw error;
     }
   };
+
+export default fetchContentFactory;

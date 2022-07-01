@@ -8,7 +8,7 @@ import type {
   CommercePagesContent,
   ComponentType,
   Metadata,
-} from '@farfetch/blackout-client/contents/types';
+} from '@farfetch/blackout-client';
 import type {
   CommercePagesContentNormalized,
   GenerateSEOPathnameQuery,
@@ -39,7 +39,14 @@ export const ENVIRONMENT_CODES = {
  */
 export const getPageRanking = (metadata: Metadata): number => {
   let ranking = 0;
-  const { gender, brand, category, priceType, id } = metadata.custom;
+
+  const customMetadata = metadata.custom;
+
+  if (!customMetadata) {
+    return ranking;
+  }
+
+  const { gender, brand, category, priceType, id } = customMetadata;
 
   // Return default ranking number when no data was returned from each commerce property.
   // We can't only check if it's empty from 'metadata.custom' because it could have other properties inside.
@@ -53,29 +60,29 @@ export const getPageRanking = (metadata: Metadata): number => {
   const rankingPriceType = 1000000000;
   const rankingId = 10000000000;
 
-  Object.entries(metadata.custom).forEach(entry => {
+  Object.entries(customMetadata).forEach(entry => {
     const [key, value] = entry;
 
     if (isEmpty(value)) {
-      return ranking;
+      return;
     }
 
     switch (key) {
       case 'gender':
         ranking += rankingGender;
-        break;
+        return;
       case 'brand':
         ranking += rankingBrand;
-        break;
+        return;
       case 'category':
         ranking += rankingCategory;
-        break;
+        return;
       case 'priceType':
         ranking += rankingPriceType;
-        break;
+        return;
       case 'id':
         ranking += rankingId;
-        break;
+        return;
 
       default:
         return ranking;
@@ -105,9 +112,11 @@ const getCommercePagesRanked = (
   const commercePagesWithRank = result.entries.map(page => ({
     ...page,
     ranking: getPageRanking(page.metadata),
-  }));
+  })) as CommercePagesContentNormalized['entries'];
 
-  return commercePagesWithRank.sort((p, c) => c.ranking - p.ranking);
+  return commercePagesWithRank.sort(
+    (p, c) => (c.ranking ?? 0) - (p.ranking ?? 0),
+  );
 };
 
 /**
@@ -127,6 +136,15 @@ export const getDefaultStrategy = (
   result: CommercePagesContentNormalized,
 ): CommercePagesContentNormalized => {
   const bestRankedPage = getCommercePagesRanked(result)[0];
+
+  if (!bestRankedPage) {
+    return {
+      number: 0,
+      totalPages: 0,
+      totalItems: 0,
+      entries: [],
+    };
+  }
 
   return {
     number: 1,
@@ -168,11 +186,22 @@ export const getMergeStrategy = (
     }),
   );
 
+  const firstEntry = result.entries[0];
+
+  if (!firstEntry) {
+    return {
+      number: 0,
+      totalItems: 0,
+      totalPages: 0,
+      entries: [],
+    };
+  }
+
   return {
     number: 1,
     totalItems: 1,
     totalPages: 1,
-    entries: [{ ...result.entries[0], components: mergedComponents }],
+    entries: [{ ...firstEntry, components: mergedComponents }],
   };
 };
 

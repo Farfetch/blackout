@@ -1,6 +1,6 @@
-import type { GenderEnum } from '../../types';
+import type { Gender } from '../../types';
 
-enum TypeEnum {
+export enum SearchSuggestionType {
   Category = 1,
   Brand,
   Merchant,
@@ -8,10 +8,10 @@ enum TypeEnum {
 }
 
 export type SearchSuggestion = {
-  gender: GenderEnum;
+  gender: Gender;
   id: number;
   suggestion: string;
-  type: TypeEnum;
+  type: SearchSuggestionType;
   matchesSearch: boolean;
   typeName: string;
   url: string;

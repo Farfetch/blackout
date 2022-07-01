@@ -1,7 +1,7 @@
 import { fetchGiftCardBalanceFactory } from './factories';
-import { postCheckGiftCardBalance } from '@farfetch/blackout-client/payments';
+import { getGiftCardBalance } from '@farfetch/blackout-client';
 
 /**
  * Fetch gift card balance.
  */
-export default fetchGiftCardBalanceFactory(postCheckGiftCardBalance);
+export default fetchGiftCardBalanceFactory(getGiftCardBalance);

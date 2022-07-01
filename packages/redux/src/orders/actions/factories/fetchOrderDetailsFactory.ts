@@ -1,14 +1,16 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
+import { adaptDate } from '../../../helpers/adapters';
+import {
+  Config,
+  GetOrderDetails,
+  Order,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
 import orderItem from '../../../entities/schemas/orderItem';
 import trim from 'lodash/trim';
 import type { Dispatch } from 'redux';
-import type {
-  GetOrderDetails,
-  Order,
-} from '@farfetch/blackout-client/orders/types';
-import type { State } from '../../';
+import type { GetOptionsArgument, StoreState } from '../../../types';
 
 /**
  * @param orderId - The order id to get details from.
@@ -29,8 +31,10 @@ const fetchOrderDetailsFactory =
   (orderId: string, config?: Config) =>
   async (
     dispatch: Dispatch,
-    getState: State,
-    { getOptions = arg => ({ arg }) },
+    getState: () => StoreState,
+    {
+      getOptions = arg => ({ productImgQueryParam: arg.productImgQueryParam }),
+    }: GetOptionsArgument,
   ): Promise<Order> => {
     try {
       dispatch({
@@ -46,7 +50,7 @@ const fetchOrderDetailsFactory =
       // the second it adds a space when merging the values and returns it
       // in the second line.
       // This only occurs in the order details not in the address book.
-      const normalizedAddressResult = {
+      const normalizedResult: Order = {
         ...result,
         billingAddress: {
           ...result.billingAddress,
@@ -61,22 +65,23 @@ const fetchOrderDetailsFactory =
       };
 
       dispatch({
-        meta: { orderId },
+        meta: { orderId, guest: false },
         payload: normalize(
           {
             // Send this to the entity's `adaptProductImages`
             productImgQueryParam,
-            ...normalizedAddressResult,
+            ...normalizedResult,
+            createdDate: adaptDate(result.createdDate),
+            updatedDate: adaptDate(result.updatedDate),
           },
           {
             items: [orderItem],
           },
         ),
         type: actionTypes.FETCH_ORDER_DETAILS_SUCCESS,
-        guest: false,
       });
 
-      return normalizedAddressResult;
+      return normalizedResult;
     } catch (error) {
       dispatch({
         meta: { orderId },

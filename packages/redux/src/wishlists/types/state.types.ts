@@ -1,16 +1,16 @@
-import type { BlackoutError } from '@farfetch/blackout-client';
-import type { CombinedState } from 'redux';
 import type {
+  BlackoutError,
   Wishlist,
   WishlistSet,
-} from '@farfetch/blackout-client/wishlists/types';
+} from '@farfetch/blackout-client';
+import type { CombinedState } from 'redux';
 import type { WishlistItemEntity } from '../../entities/types';
 
-type NormalizedWishlist = Omit<Wishlist, 'items'> & {
+type WishlistNormalized = Omit<Wishlist, 'items'> & {
   items: Array<WishlistItemEntity['id']>;
 };
 
-export type SetsState = CombinedState<{
+export type WishlistSetsState = CombinedState<{
   error: BlackoutError | null;
   ids: Array<WishlistSet['setId']> | null;
   isLoading: boolean;
@@ -20,11 +20,11 @@ export type SetsState = CombinedState<{
   };
 }>;
 
-export type State = CombinedState<{
+export type WishlistsState = CombinedState<{
   error: BlackoutError | null;
   id: Wishlist['id'] | null;
   isLoading: boolean;
-  result: NormalizedWishlist | Record<string, never>;
+  result: WishlistNormalized | Record<string, never>;
   items: {
     ids: Array<WishlistItemEntity['id']> | null;
     item: {
@@ -32,5 +32,5 @@ export type State = CombinedState<{
       isLoading: Record<WishlistItemEntity['id'], boolean | undefined>;
     };
   };
-  sets: SetsState;
+  sets: WishlistSetsState;
 }>;

@@ -1,10 +1,10 @@
-enum TypeRequestEnum {
+export enum SearchIntentsTypeRequest {
   Listing,
   Product,
   Redirect,
 }
 
-enum TypeFilterEnum {
+export enum SearchIntentsTypeFilter {
   ProductId,
   Brands,
   Categories,
@@ -18,18 +18,18 @@ enum TypeFilterEnum {
   Text,
 }
 
-type searchIntentsValue = {
+export type SearchIntentsValue = {
   value: string;
   slug: string;
 };
 
-export type searchIntentsResource = {
-  typeFilter: TypeFilterEnum;
-  values: searchIntentsValue[];
+export type SearchIntentsResource = {
+  typeFilter: SearchIntentsTypeFilter;
+  values: SearchIntentsValue[];
 };
 
 export type SearchIntents = {
-  typeRequest: TypeRequestEnum;
+  typeRequest: SearchIntentsTypeRequest;
   redirectUrl: string;
-  resources: searchIntentsResource[];
+  resources: SearchIntentsResource[];
 };

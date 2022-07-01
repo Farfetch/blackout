@@ -1,10 +1,10 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { BlackoutError } from '@farfetch/blackout-client';
 import type {
+  BlackoutError,
   SizeGuide,
   SizeGuidesQuery,
-} from '@farfetch/blackout-client/sizeGuides/types';
+} from '@farfetch/blackout-client';
 
 interface FetchSizeGuidesRequestAction extends Action {
   type: typeof actionTypes.FETCH_SIZE_GUIDES_REQUEST;

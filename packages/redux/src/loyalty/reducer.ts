@@ -1,14 +1,13 @@
 import * as actionTypes from './actionTypes';
 import { combineReducers } from 'redux';
-import { createReducerWithResult } from '../helpers';
-import { LOGOUT_SUCCESS } from '../authentication/actionTypes';
+import { createReducerWithResult } from '../helpers/reducerFactory';
+import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import type * as T from './types';
-import type { ProgramMembership } from '@farfetch/blackout-client/loyalty/types';
-import type { ReducerSwitch, StateWithResult } from '../types';
+import type { ReducerSwitch } from '../types';
 
 const isNormalized = true;
 
-export const INITIAL_STATE: T.State = {
+export const INITIAL_STATE: T.LoyaltyState = {
   programs: {
     error: null,
     result: null,
@@ -66,7 +65,7 @@ export const statements = createReducerWithResult(
 export const membership = (
   state = INITIAL_STATE.membership,
   action: T.FetchProgramUsersMembershipAction | T.CreateProgramMembershipAction,
-): StateWithResult<ProgramMembership> => {
+): T.LoyaltyState['membership'] => {
   switch (action.type) {
     case actionTypes.FETCH_PROGRAM_USERS_MEMBERSHIP_REQUEST:
     case actionTypes.CREATE_PROGRAM_MEMBERSHIP_REQUEST:
@@ -95,16 +94,21 @@ export const membership = (
   }
 };
 
-export const getPrograms = (state: T.State): T.State['programs'] =>
-  state.programs;
-export const getMembership = (state: T.State): T.State['membership'] =>
-  state.membership;
-export const getReplacements = (state: T.State): T.State['replacements'] =>
-  state.replacements;
-export const getConverts = (state: T.State): T.State['converts'] =>
-  state.converts;
-export const getStatements = (state: T.State): T.State['statements'] =>
-  state.statements;
+export const getPrograms = (
+  state: T.LoyaltyState,
+): T.LoyaltyState['programs'] => state.programs;
+export const getMembership = (
+  state: T.LoyaltyState,
+): T.LoyaltyState['membership'] => state.membership;
+export const getReplacements = (
+  state: T.LoyaltyState,
+): T.LoyaltyState['replacements'] => state.replacements;
+export const getConverts = (
+  state: T.LoyaltyState,
+): T.LoyaltyState['converts'] => state.converts;
+export const getStatements = (
+  state: T.LoyaltyState,
+): T.LoyaltyState['statements'] => state.statements;
 
 const reducers = combineReducers({
   programs,
@@ -123,7 +127,7 @@ const reducers = combineReducers({
  * @returns New state.
  */
 
-const loyaltyReducer: ReducerSwitch<T.State> = (state, action) => {
+const loyaltyReducer: ReducerSwitch<T.LoyaltyState> = (state, action) => {
   if (action.type === LOGOUT_SUCCESS) {
     return INITIAL_STATE;
   }
