@@ -13,7 +13,7 @@ import type {
  *
  * @returns Thunk factory.
  */
-const fetchReturnReferencesFactory =
+export const fetchReturnReferencesFactory =
   (getReturnReferences: GetReturnReferences) =>
   (id: string, name: string, query?: Query, config?: Record<string, unknown>) =>
   async (dispatch: Dispatch): Promise<string> => {
@@ -37,5 +37,3 @@ const fetchReturnReferencesFactory =
       throw error;
     }
   };
-
-export default fetchReturnReferencesFactory;

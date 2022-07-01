@@ -4,4 +4,4 @@ import { postReturn } from '@farfetch/blackout-client/returns';
 /**
  * Create return.
  */
-export default createReturnFactory(postReturn);
+export const createReturn = createReturnFactory(postReturn);

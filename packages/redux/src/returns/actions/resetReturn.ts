@@ -8,7 +8,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default (resetEntities = false) =>
+export const resetReturn =
+  (resetEntities = false) =>
   (dispatch: Dispatch): void => {
     dispatch({
       meta: { resetEntities },

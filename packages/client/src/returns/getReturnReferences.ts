@@ -16,12 +16,15 @@ import type { GetReturnReferences } from './types';
  * @returns Promise that will resolve when the call to
  * the endpoint finishes.
  */
-const getReturnReferences: GetReturnReferences = (id, name, query?, config?) =>
+export const getReturnReferences: GetReturnReferences = (
+  id,
+  name,
+  query?,
+  config?,
+) =>
   client
     .get(join('/account/v1/returns', id, 'references', name, { query }), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
-
-export default getReturnReferences;

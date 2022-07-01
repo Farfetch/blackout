@@ -4,6 +4,5 @@ import { getReturnPickupRescheduleRequest } from '@farfetch/blackout-client/retu
 /**
  * Fetch pickup reschedule request.
  */
-export default fetchReturnPickupRescheduleRequestFactory(
-  getReturnPickupRescheduleRequest,
-);
+export const fetchReturnPickupRescheduleRequest =
+  fetchReturnPickupRescheduleRequestFactory(getReturnPickupRescheduleRequest);
