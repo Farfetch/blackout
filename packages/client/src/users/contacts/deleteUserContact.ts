@@ -7,7 +7,6 @@ import type { DeleteUserContact } from './types';
  *
  * @param userId    - The user's id.
  * @param contactId - The contact id.
- * @param query     - Query parameters for the delete contact.
  * @param config    - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
@@ -19,12 +18,7 @@ export const deleteUserContact: DeleteUserContact = (
   config?,
 ) =>
   client
-    .delete(
-      join('/account/v1/users', userId, 'contacts', contactId, {
-        query,
-      }),
-      config,
-    )
+    .delete(join('/account/v1/users', userId, 'contacts', contactId), config)
     .catch(error => {
       throw adaptError(error);
     });

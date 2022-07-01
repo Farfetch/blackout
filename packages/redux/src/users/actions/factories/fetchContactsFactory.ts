@@ -5,15 +5,6 @@ import contactsSchema from '../../../entities/schemas/contact';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { Dispatch } from 'redux';
 import type { GetUserContacts } from '@farfetch/blackout-client/users/contacts/types';
-import type { GetUserContactsQuery } from '@farfetch/blackout-client/users/types';
-
-/**
- * @param id     - The user's id.
- * @param query  - Query parameters for get contacts.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
 
 /**
  * Fetch all the contacts from user.
@@ -24,14 +15,14 @@ import type { GetUserContactsQuery } from '@farfetch/blackout-client/users/types
  */
 const fetchContactsFactory =
   (getContacts: GetUserContacts) =>
-  (id: number, query: GetUserContactsQuery, config?: Config) =>
+  (id: number, config?: Config) =>
   async (dispatch: Dispatch) => {
     try {
       dispatch({
         type: actionTypes.FETCH_CONTACTS_REQUEST,
       });
 
-      const result = await getContacts(id, query, config);
+      const result = await getContacts(id, config);
 
       dispatch({
         payload: normalize(result, [contactsSchema]),

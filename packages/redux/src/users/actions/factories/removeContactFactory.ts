@@ -2,16 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import { toError } from '@farfetch/blackout-client/helpers/client';
 import type { Config } from '@farfetch/blackout-client/types';
 import type { DeleteUserContact } from '@farfetch/blackout-client/users/contacts/types';
-import type { DeleteUserContactQuery } from '@farfetch/blackout-client/users/types';
 import type { Dispatch } from 'redux';
-/**
- * @param id        - The user's id.
- * @param contactId - The contact id.
- * @param query     - Query parameters for the delete contact.
- * @param config    - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
 
 /**
  * Remove a user contact.
@@ -23,19 +14,14 @@ import type { Dispatch } from 'redux';
 
 const removeContactFactory =
   (deleteContact: DeleteUserContact) =>
-  (
-    id: number,
-    contactId: string,
-    query: DeleteUserContactQuery,
-    config?: Config,
-  ) =>
+  (id: number, contactId: string, config?: Config) =>
   async (dispatch: Dispatch) => {
     try {
       dispatch({
         type: actionTypes.REMOVE_CONTACT_REQUEST,
       });
 
-      const result = await deleteContact(id, contactId, query, config);
+      const result = await deleteContact(id, contactId, config);
 
       dispatch({
         type: actionTypes.REMOVE_CONTACT_SUCCESS,

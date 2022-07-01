@@ -1,15 +1,4 @@
-enum Type {
-  Default,
-  ItemSwatch,
-}
-
-export type DigitalAsset = {
-  mediaType: string;
-  displayOrder: number;
-  size: string;
-  url: string;
-  type: Type;
-};
+import type { DigitalAsset } from './common.types';
 
 export type ProductGroupingEntry = {
   hasStock: boolean;

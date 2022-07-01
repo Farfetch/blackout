@@ -21,9 +21,6 @@ let store = usersMockStore();
 
 describe('fetchContacts action creator', () => {
   const userId = 123456789;
-  const query = {
-    id: userId,
-  };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -37,15 +34,11 @@ describe('fetchContacts action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(fetchContacts(userId, query));
+      await store.dispatch(fetchContacts(userId));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(getUserContacts).toHaveBeenCalledTimes(1);
-      expect(getUserContacts).toHaveBeenCalledWith(
-        userId,
-        query,
-        expectedConfig,
-      );
+      expect(getUserContacts).toHaveBeenCalledWith(userId, expectedConfig);
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
           { type: actionTypes.FETCH_CONTACTS_REQUEST },
@@ -63,12 +56,12 @@ describe('fetchContacts action creator', () => {
       mockGetContactsResponse,
     );
 
-    await store.dispatch(fetchContacts(userId, query, expectedConfig));
+    await store.dispatch(fetchContacts(userId, expectedConfig));
 
     const actionResults = store.getActions();
 
     expect(getUserContacts).toHaveBeenCalledTimes(1);
-    expect(getUserContacts).toHaveBeenCalledWith(userId, query, expectedConfig);
+    expect(getUserContacts).toHaveBeenCalledWith(userId, expectedConfig);
     expect(actionResults).toMatchObject([
       { type: actionTypes.FETCH_CONTACTS_REQUEST },
       {
@@ -80,6 +73,6 @@ describe('fetchContacts action creator', () => {
       find(actionResults, {
         type: actionTypes.FETCH_CONTACTS_SUCCESS,
       }),
-    ).toMatchSnapshot('get contact success payload');
+    ).toMatchSnapshot('get contacts success payload');
   });
 });

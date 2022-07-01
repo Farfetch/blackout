@@ -1,4 +1,4 @@
-import type { Config } from '@farfetch/blackout-client/types';
+import type { Config } from '../../types';
 
 export type PostPhoneTokenValidationsData = {
   phoneNumber: string;

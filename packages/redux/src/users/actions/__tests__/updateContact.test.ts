@@ -24,20 +24,6 @@ describe('updateContact action creator', () => {
     op: '',
     from: '',
   };
-  const query = {
-    id: 0,
-    contactId: '',
-    body: {
-      id: 0,
-      value: '',
-      countryDetails: {
-        countryCode: '',
-        countryCallingCode: '',
-      },
-      type: '',
-      description: '',
-    },
-  };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -51,7 +37,7 @@ describe('updateContact action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(updateContact(userId, contactId, data, query));
+      await store.dispatch(updateContact(userId, contactId, data));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(patchUserContact).toHaveBeenCalledTimes(1);
@@ -59,7 +45,6 @@ describe('updateContact action creator', () => {
         userId,
         contactId,
         data,
-        query,
         expectedConfig,
       );
       expect(store.getActions()).toEqual(
@@ -78,7 +63,7 @@ describe('updateContact action creator', () => {
     (patchUserContact as jest.Mock).mockResolvedValueOnce({});
 
     await store.dispatch(
-      updateContact(userId, contactId, data, query, expectedConfig),
+      updateContact(userId, contactId, data, expectedConfig),
     );
 
     const actionResults = store.getActions();
@@ -88,7 +73,6 @@ describe('updateContact action creator', () => {
       userId,
       contactId,
       data,
-      query,
       expectedConfig,
     );
     expect(actionResults).toMatchObject([

@@ -18,10 +18,6 @@ let store = usersMockStore();
 describe('removeContact action creator', () => {
   const userId = 123456789;
   const contactId = 'abcdefghi';
-  const query = {
-    id: userId,
-    contactId,
-  };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -35,14 +31,13 @@ describe('removeContact action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(removeContact(userId, contactId, query));
+      await store.dispatch(removeContact(userId, contactId));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(deleteUserContact).toHaveBeenCalledTimes(1);
       expect(deleteUserContact).toHaveBeenCalledWith(
         userId,
         contactId,
-        query,
         expectedConfig,
       );
       expect(store.getActions()).toEqual(
@@ -60,9 +55,7 @@ describe('removeContact action creator', () => {
   it('should create the correct actions for when the get contact procedure is successful', async () => {
     (deleteUserContact as jest.Mock).mockResolvedValueOnce({});
 
-    await store.dispatch(
-      removeContact(userId, contactId, query, expectedConfig),
-    );
+    await store.dispatch(removeContact(userId, contactId, expectedConfig));
 
     const actionResults = store.getActions();
 
@@ -70,7 +63,6 @@ describe('removeContact action creator', () => {
     expect(deleteUserContact).toHaveBeenCalledWith(
       userId,
       contactId,
-      query,
       expectedConfig,
     );
     expect(actionResults).toMatchObject([
@@ -83,6 +75,6 @@ describe('removeContact action creator', () => {
       find(actionResults, {
         type: actionTypes.REMOVE_CONTACT_SUCCESS,
       }),
-    ).toMatchSnapshot('get contact success payload');
+    ).toMatchSnapshot('remove contact success payload');
   });
 });

@@ -31,7 +31,6 @@ describe('createContact action creator', () => {
     type: '',
     description: '',
   };
-  const query = { id: 0, body: data };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -45,14 +44,13 @@ describe('createContact action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(createContact(userId, data, query));
+      await store.dispatch(createContact(userId, data));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(postUserContact).toHaveBeenCalledTimes(1);
       expect(postUserContact).toHaveBeenCalledWith(
         userId,
         data,
-        query,
         expectedConfig,
       );
       expect(store.getActions()).toEqual(
@@ -72,17 +70,12 @@ describe('createContact action creator', () => {
       mockPostContactResponse,
     );
 
-    await store.dispatch(createContact(userId, data, query, expectedConfig));
+    await store.dispatch(createContact(userId, data, expectedConfig));
 
     const actionResults = store.getActions();
 
     expect(postUserContact).toHaveBeenCalledTimes(1);
-    expect(postUserContact).toHaveBeenCalledWith(
-      userId,
-      data,
-      query,
-      expectedConfig,
-    );
+    expect(postUserContact).toHaveBeenCalledWith(userId, data, expectedConfig);
     expect(actionResults).toMatchObject([
       { type: actionTypes.CREATE_CONTACT_REQUEST },
       {

@@ -61,18 +61,3 @@ export type Address = {
   createdDate: string;
   updatedDate?: string;
 };
-
-// export type AddressSchemaLine = {
-//   apiMapping: string;
-//   column: number;
-//   id: string;
-//   isMandatory: boolean;
-//   maxLength: number;
-//   minLength: number;
-//   name: string;
-//   parentId: string;
-//   position: number;
-//   row: number;
-//   type: string;
-//   validationRegex: string;
-// };
