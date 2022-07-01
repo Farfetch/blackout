@@ -12,16 +12,18 @@ import {
 import { getEntities, getEntityById, getProduct } from '../entities/selectors';
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
-import type { BagItem } from '@farfetch/blackout-client/bags/types';
+import type {
+  BagItem,
+  BlackoutError,
+  ProductType,
+} from '@farfetch/blackout-client';
 import type {
   BagItemEntity,
   BagItemHydrated,
   ProductEntity,
 } from '../entities/types';
-import type { BagItemsState, State } from './types';
-import type { BlackoutError } from '@farfetch/blackout-client';
+import type { BagItemsState, BagsState } from './types';
 import type { CustomAttributesAdapted, SizeAdapted } from '../helpers/adapters';
-import type { ProductTypeEnum } from '@farfetch/blackout-client/products/types';
 import type { StoreState } from '../types';
 
 /**
@@ -40,8 +42,8 @@ import type { StoreState } from '../types';
  *
  * @returns - Bag result.
  */
-export const getBag = (state: StoreState): State['result'] =>
-  getResult(state.bag);
+export const getBag = (state: StoreState): BagsState['result'] =>
+  getResult(state.bag as BagsState);
 
 /**
  * Retrieves the error state of the current user's bag.
@@ -59,8 +61,10 @@ export const getBag = (state: StoreState): State['result'] =>
  *
  * @returns Error information, `undefined` if there are no errors.
  */
-export const getBagError = (state: StoreState): State['error'] | undefined =>
-  getError(state.bag) || undefined;
+export const getBagError = (
+  state: StoreState,
+): BagsState['error'] | undefined =>
+  getError(state.bag as BagsState) || undefined;
 
 /**
  * Retrieves the universal identifier of the current user's bag.
@@ -78,7 +82,8 @@ export const getBagError = (state: StoreState): State['error'] | undefined =>
  *
  * @returns - Universal identifier of the bag.
  */
-export const getBagId = (state: StoreState): State['id'] => getId(state.bag);
+export const getBagId = (state: StoreState): BagsState['id'] =>
+  getId(state.bag as BagsState);
 
 /**
  * Retrieves a specific bag item by its id, with all properties populated (ie, the
@@ -99,7 +104,15 @@ export const getBagId = (state: StoreState): State['id'] => getId(state.bag);
  * @returns - Bag item entity for the given id.
  */
 // @TODO Remove cast from functions
-export const getBagItem = createSelector(
+// Note: Apparently the type definition of the createSelector function
+//       is not defined correctly in reselect package as it is not inferring
+//       the additional parameter 'bagItemId' provided in each selector, so
+//       we need to type the returned selector ourselves instead of relying on
+//       the inferred type.
+export const getBagItem: (
+  state: StoreState,
+  bagItemId: BagItem['id'],
+) => BagItemHydrated = createSelector(
   [
     (state: StoreState, bagItemId: BagItem['id']) =>
       getEntityById(state, 'bagItems', bagItemId) as BagItemEntity,
@@ -139,7 +152,8 @@ export const getBagItem = createSelector(
 export const getBagItemError = (
   state: StoreState,
   bagItemId: BagItem['id'],
-): BlackoutError | null | undefined => getItemsError(state.bag)[bagItemId];
+): BlackoutError | null | undefined =>
+  getItemsError(state.bag as BagsState)[bagItemId];
 
 /**
  * Retrieves all bag items ids from the current user's bag.
@@ -160,7 +174,7 @@ export const getBagItemError = (
  * @returns - List of bag items ids.
  */
 export const getBagItemsIds = (state: StoreState): BagItemsState['ids'] =>
-  getItemsIds(state.bag);
+  getItemsIds(state.bag as BagsState);
 
 /**
  * Retrieves all bag items from the current user's bag.
@@ -236,7 +250,7 @@ export const getBagItems = createSelector(
  */
 export const getBagItemsCounter = (
   state: StoreState,
-  excludeProductTypes: ProductTypeEnum[] = [],
+  excludeProductTypes: ProductType[] = [],
 ): number => {
   const bagItems = getBagItems(state);
 
@@ -307,7 +321,7 @@ export const getBagItemsUnavailable = createSelector([getBagItems], bagItems =>
  */
 export const getBagTotalQuantity = (
   state: StoreState,
-  excludeProductTypes: ProductTypeEnum[] = [],
+  excludeProductTypes: ProductType[] = [],
 ): number => {
   const bagItems = getBagItems(state);
 
@@ -342,7 +356,7 @@ export const getBagTotalQuantity = (
 export const isBagItemLoading = (
   state: StoreState,
   itemId: BagItem['id'],
-): boolean | undefined => getAreItemsLoading(state.bag)[itemId];
+): boolean | undefined => getAreItemsLoading(state.bag as BagsState)[itemId];
 
 /**
  * Retrieves the loading status of the bag.
@@ -364,7 +378,7 @@ export const isBagItemLoading = (
  * @returns - Loading status of the bag.
  */
 export const isBagLoading = (state: StoreState): boolean =>
-  getIsLoading(state.bag);
+  getIsLoading(state.bag as BagsState);
 
 /**
  * Retrieves the available sizes of a bag item.
@@ -403,10 +417,8 @@ export const getBagItemAvailableSizes = createSelector(
         bagItem.id !== item.id &&
         bagItem.product.id === item.product.id &&
         isEqual(
-          // @ts-expect-error `customAttributes` can be a string, but lodash handles it well
-          omit(bagItem.customAttributes, 'size'),
-          // @ts-expect-error `customAttributes` can be a string, but lodash handles it well
-          omit(item.customAttributes, 'size'),
+          omit(bagItem.customAttributes as object, 'size'),
+          omit(item.customAttributes as object, 'size'),
         )
       ) {
         return sizes.filter(size => bagItem.size.id !== size.id);

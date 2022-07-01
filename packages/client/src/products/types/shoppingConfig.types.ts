@@ -1,4 +1,4 @@
-import type { FacetTypeEnum } from './facetTypeEnum.types';
+import type { FacetType } from './facetTypeEnum.types';
 
 export type ShoppingConfig = {
   pageIndex: number;
@@ -6,7 +6,7 @@ export type ShoppingConfig = {
   mobilePageSize: number;
   filtersStartHidden: boolean;
   filterTypes: Array<{
-    id: FacetTypeEnum;
+    id: FacetType;
     deep: number;
     order: number;
   }>;

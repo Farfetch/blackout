@@ -1,7 +1,7 @@
 import { getError, getIsLoading } from '../reducer/measurements';
 import { getProduct } from '../../entities/selectors';
-import type { BlackoutError } from '@farfetch/blackout-client';
 import type { ProductEntity } from '../../entities/types';
+import type { ProductsState } from '../types';
 import type { StoreState } from '../../types';
 
 /**
@@ -15,7 +15,7 @@ import type { StoreState } from '../../types';
 export const areProductMeasurementsLoading = (
   state: StoreState,
   id: ProductEntity['id'],
-): boolean | undefined => getIsLoading(state.products.measurements)[id];
+) => getIsLoading((state.products as ProductsState).measurements)[id];
 
 /**
  * Returns the fetched status of a specific product measurements.
@@ -28,9 +28,10 @@ export const areProductMeasurementsLoading = (
 export const areProductMeasurementsFetched = (
   state: StoreState,
   id: ProductEntity['id'],
-): boolean | undefined =>
-  getIsLoading(state.products.measurements).hasOwnProperty(id) &&
-  areProductMeasurementsLoading(state, id) === false;
+) =>
+  getIsLoading((state.products as ProductsState).measurements).hasOwnProperty(
+    id,
+  ) && areProductMeasurementsLoading(state, id) === false;
 
 /**
  * Returns the error measurements condition to a specific product.
@@ -43,7 +44,7 @@ export const areProductMeasurementsFetched = (
 export const getProductMeasurementsError = (
   state: StoreState,
   id: ProductEntity['id'],
-): BlackoutError | undefined => getError(state.products.measurements)[id];
+) => getError((state.products as ProductsState).measurements)[id];
 
 /**
  * Returns the measurements for a given product id.
@@ -56,7 +57,7 @@ export const getProductMeasurementsError = (
 export const getProductMeasurements = (
   state: StoreState,
   id: ProductEntity['id'],
-): ProductEntity['measurements'] | undefined => {
+) => {
   const product = getProduct(state, id);
 
   return product?.measurements;

@@ -1,11 +1,8 @@
 import groupBy from 'lodash/groupBy';
 import isArray from 'lodash/isArray';
 import isEmpty from 'lodash/isEmpty';
-import type {
-  AdaptProductImages,
-  GenerateSourcesByOrder,
-  Image,
-} from './types';
+import type { AdaptProductImages, GenerateSourcesByOrder } from './types';
+import type { Image } from '@farfetch/blackout-client';
 
 /**
  * Returns the corresponding images sources by size for a given order.

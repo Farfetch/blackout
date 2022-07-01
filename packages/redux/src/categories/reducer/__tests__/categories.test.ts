@@ -1,5 +1,6 @@
+import * as actionTypes from '../../actionTypes';
 import * as fromReducer from '../categories';
-import reducer, { actionTypes } from '../../';
+import reducer from '../../reducer';
 
 let initialState;
 const randomAction = { type: 'this_is_a_random_action' };

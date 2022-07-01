@@ -1,10 +1,7 @@
 import { getError, getIsLoading } from '../reducer/sizeGuides';
 import { getProduct } from '../../entities/selectors';
-import type {
-  BlackoutError,
-  ProductSizeGuide,
-} from '@farfetch/blackout-client';
 import type { ProductEntity } from '../../entities/types';
+import type { ProductsState } from '../types';
 import type { StoreState } from '../../types';
 
 /**
@@ -18,7 +15,7 @@ import type { StoreState } from '../../types';
 export const areProductSizeGuidesLoading = (
   state: StoreState,
   id: ProductEntity['id'],
-): boolean | undefined => getIsLoading(state.products.sizeGuides)[id];
+) => getIsLoading((state.products as ProductsState).sizeGuides)[id];
 
 /**
  * Returns the fetched status of a specific product size guides.
@@ -31,9 +28,10 @@ export const areProductSizeGuidesLoading = (
 export const areProductSizeGuidesFetched = (
   state: StoreState,
   id: ProductEntity['id'],
-): boolean | undefined =>
-  getIsLoading(state.products.sizeGuides).hasOwnProperty(id) &&
-  areProductSizeGuidesLoading(state, id) === false;
+) =>
+  getIsLoading((state.products as ProductsState).sizeGuides).hasOwnProperty(
+    id,
+  ) && areProductSizeGuidesLoading(state, id) === false;
 
 /**
  * Returns the error size guide condition to a specific product.
@@ -46,7 +44,7 @@ export const areProductSizeGuidesFetched = (
 export const getProductSizeGuidesError = (
   state: StoreState,
   id: ProductEntity['id'],
-): BlackoutError | undefined => getError(state.products.sizeGuides)[id];
+) => getError((state.products as ProductsState).sizeGuides)[id];
 
 /**
  * Returns the most specific size guide for a given product id.
@@ -59,7 +57,7 @@ export const getProductSizeGuidesError = (
 export const getProductSizeGuide = (
   state: StoreState,
   id: ProductEntity['id'],
-): ProductSizeGuide | undefined => {
+) => {
   const product = getProduct(state, id);
 
   return product?.sizeGuides?.[0];

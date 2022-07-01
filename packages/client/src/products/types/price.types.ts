@@ -22,12 +22,12 @@ export type ProductSummaryPrice = {
   formattedPrice: string;
   formattedPriceWithoutDiscount: string;
   price: number;
-  priceType: number;
+  priceType: PriceType;
   priceWithoutDiscount: number;
   promotionPercentage: number;
 };
 
-enum ProductPriceTypeEnum {
+enum ProductPriceType {
   Min,
   Max,
 }
@@ -42,12 +42,13 @@ export type ProductSummaryTypedPrice = {
   priceWithoutDiscount: number;
   promotionPercentage: number;
   promotionType: string;
-  type: ProductPriceTypeEnum;
+  type: ProductPriceType;
   typeDescription: string;
 };
 
-export enum PriceTypeEnum {
-  'Full Price',
+export enum PriceType {
+  FullPrice,
   Sale,
-  'Private Sale',
+  PrivateSale,
+  VipPrivateSale,
 }

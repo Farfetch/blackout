@@ -8,8 +8,8 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import useWishlistSets from '../useWishlistSets';
 
-jest.mock('@farfetch/blackout-redux/wishlists', () => ({
-  ...jest.requireActual('@farfetch/blackout-redux/wishlists'),
+jest.mock('@farfetch/blackout-redux', () => ({
+  ...jest.requireActual('@farfetch/blackout-redux'),
   addWishlistSet: jest.fn(() => ({ type: 'add' })),
   fetchWishlistSets: jest.fn(() => ({ type: 'fetch' })),
   resetWishlistSets: jest.fn(() => ({ type: 'reset' })),

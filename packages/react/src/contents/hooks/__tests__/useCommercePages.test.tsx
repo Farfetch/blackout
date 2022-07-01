@@ -2,7 +2,7 @@ import { cleanup, renderHook } from '@testing-library/react';
 import {
   fetchCommercePages as fetchCommercePagesAction,
   getContents,
-} from '@farfetch/blackout-redux/contents';
+} from '@farfetch/blackout-redux';
 import {
   mockCommercePages,
   mockCommercePagesErrorState,
@@ -22,8 +22,8 @@ jest.mock('react-redux', () => ({
   useDispatch: () => mockDispatch,
 }));
 
-jest.mock('@farfetch/blackout-redux/contents', () => ({
-  ...jest.requireActual('@farfetch/blackout-redux/contents'),
+jest.mock('@farfetch/blackout-redux', () => ({
+  ...jest.requireActual('@farfetch/blackout-redux'),
   fetchCommercePages: jest.fn(() => ({ type: 'foo-bar' })),
   getContents: jest.fn(),
   resetContents: jest.fn(() => ({ type: 'foo-bar' })),

@@ -1,5 +1,5 @@
 import { fetchCategoriesFactory } from './factories';
-import { getCategories } from '@farfetch/blackout-client/categories';
+import { getCategories } from '@farfetch/blackout-client';
 
 /**
  * Fetches categories.

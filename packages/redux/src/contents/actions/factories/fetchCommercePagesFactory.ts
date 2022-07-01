@@ -1,5 +1,10 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
+import {
+  Config,
+  GetCommercePages,
+  QueryCommercePages,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import { contentEntries } from '../../../entities/schemas/content';
 import { generateContentHash, getRankedCommercePage } from '../../utils';
 import { normalize } from 'normalizr';
@@ -8,10 +13,6 @@ import type {
   CommercePagesContentNormalized,
 } from '../../types';
 import type { Dispatch } from 'redux';
-import type {
-  GetCommercePages,
-  QueryCommercePages,
-} from '@farfetch/blackout-client/contents/types';
 
 /**
  * @param query    - Query object with search terms to apply.
@@ -30,7 +31,8 @@ import type {
  *
  * @returns Thunk factory.
  */
-export default (getCommercePages: GetCommercePages) =>
+const fetchCommercePagesFactory =
+  (getCommercePages: GetCommercePages) =>
   (
     query: QueryCommercePages,
     slug: string,
@@ -83,3 +85,5 @@ export default (getCommercePages: GetCommercePages) =>
       throw error;
     }
   };
+
+export default fetchCommercePagesFactory;

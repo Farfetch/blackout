@@ -1,10 +1,4 @@
-export type Image = {
-  displayOrder?: number;
-  order?: number;
-  size: string;
-  url: string;
-  [k: string]: unknown;
-};
+import type { Image } from '@farfetch/blackout-client';
 
 type LegacyImages =
   | Array<{

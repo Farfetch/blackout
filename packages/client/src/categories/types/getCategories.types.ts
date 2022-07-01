@@ -1,5 +1,4 @@
 import type { Category } from './category.types';
+import type { Config } from '../..';
 
-export type GetCategories = (
-  config?: Record<string, unknown>,
-) => Promise<Category[]>;
+export type GetCategories = (config?: Config) => Promise<Category[]>;

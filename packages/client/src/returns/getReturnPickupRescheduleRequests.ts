@@ -11,14 +11,15 @@ import type { GetReturnPickupRescheduleRequests } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getReturnPickupRescheduleRequests: GetReturnPickupRescheduleRequests =
-  (id, config?) =>
-    client
-      .get(
-        join('/account/v1/returns/', id, 'pickupRescheduleRequests/'),
-        config,
-      )
-      .then(response => response.data)
-      .catch(error => {
-        throw adaptError(error);
-      });
+const getReturnPickupRescheduleRequests: GetReturnPickupRescheduleRequests = (
+  id,
+  config,
+) =>
+  client
+    .get(join('/account/v1/returns/', id, 'pickupRescheduleRequests/'), config)
+    .then(response => response.data)
+    .catch(error => {
+      throw adaptError(error);
+    });
+
+export default getReturnPickupRescheduleRequests;

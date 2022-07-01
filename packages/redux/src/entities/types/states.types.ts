@@ -1,3 +1,3 @@
-import type { States } from '@farfetch/blackout-client/locale/types';
+import type { State } from '@farfetch/blackout-client';
 
-export type StatesEntity = States;
+export type StatesEntity = State;

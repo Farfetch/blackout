@@ -1,8 +1,7 @@
-import type { BlackoutError } from '@farfetch/blackout-client';
+import type { BlackoutError, SizeGuide } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
-import type { SizeGuide } from '@farfetch/blackout-client/sizeGuides/types';
 
-export type State = CombinedState<{
+export type SizeGuidesState = CombinedState<{
   error: BlackoutError | null;
   isLoading: boolean;
   result: SizeGuide[] | null;

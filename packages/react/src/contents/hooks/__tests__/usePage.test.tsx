@@ -8,13 +8,13 @@ import {
 import {
   fetchContent as fetchContentAction,
   resetContents as resetContentsAction,
-} from '@farfetch/blackout-redux/contents';
+} from '@farfetch/blackout-redux';
 import { Page } from './__fixtures__/Page.fixtures';
 import { wrap } from '../../../../tests/helpers';
 import React from 'react';
 
-jest.mock('@farfetch/blackout-redux/contents', () => ({
-  ...jest.requireActual('@farfetch/blackout-redux/contents'),
+jest.mock('@farfetch/blackout-redux', () => ({
+  ...jest.requireActual('@farfetch/blackout-redux'),
   fetchContent: jest.fn(() => ({ type: 'foo-bar' })),
   resetContents: jest.fn(() => ({ type: 'foo' })),
 }));

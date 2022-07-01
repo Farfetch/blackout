@@ -1,11 +1,10 @@
 import * as actionTypes from '../actionTypes';
 import { AnyAction, combineReducers } from 'redux';
-import { createMergedObject } from '../../helpers';
+import createMergedObject from '../../helpers/createMergedObject';
 import type {
   FetchProductMeasurementsAction,
   FetchProductMeasurementsFailureAction,
   FetchProductMeasurementsRequestAction,
-  FetchProductMeasurementsSuccessAction,
   ProductsMeasurementsState,
 } from '../types';
 import type { StoreState } from '../../types';
@@ -66,24 +65,21 @@ export const entitiesMapper = {
   // I think this issue:
   // https://github.com/paularmstrong/normalizr/issues/290
   // portraits the problem as well.
-  [actionTypes.FETCH_PRODUCT_MEASUREMENTS_SUCCESS as typeof actionTypes.FETCH_PRODUCT_MEASUREMENTS_SUCCESS]:
-    (
-      state: StoreState['entities'],
-      {
-        meta: { productId },
-        payload: { entities },
-      }: {
-        meta: FetchProductMeasurementsSuccessAction['meta'];
-        payload: FetchProductMeasurementsSuccessAction['payload'];
-      },
-    ): StoreState['entities'] => {
-      const newMeasurements = entities.products[productId]?.measurements;
-      const newState = createMergedObject(state, entities);
+  [actionTypes.FETCH_PRODUCT_MEASUREMENTS_SUCCESS]: (
+    state: NonNullable<StoreState['entities']>,
+    { meta: { productId }, payload: { entities } }: AnyAction,
+  ): StoreState['entities'] => {
+    if (!state) {
+      return state;
+    }
 
-      newState.products[productId].measurements = newMeasurements;
+    const newMeasurements = entities.products[productId]?.measurements;
+    const newState = createMergedObject(state, entities);
 
-      return newState;
-    },
+    newState.products[productId].measurements = newMeasurements;
+
+    return newState;
+  },
 };
 
 export const getError = (

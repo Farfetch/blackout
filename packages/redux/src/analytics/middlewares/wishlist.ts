@@ -9,12 +9,12 @@ import {
   getWishlistId,
   getWishlistItem,
   getWishlistSet,
-  actionTypes as wishlistActionTypes,
+  wishlistsActionTypes,
 } from '../../wishlists';
-import { logger } from '@farfetch/blackout-analytics/utils';
 import Analytics, {
   eventTypes,
   fromParameterTypes,
+  utils,
 } from '@farfetch/blackout-analytics';
 import get from 'lodash/get';
 import isNil from 'lodash/isNil';
@@ -41,12 +41,12 @@ import type {
 const getActionTypes = (
   customActionTypes?: WishlistActionMiddlewareOptions,
 ): WishlistActionProcessedOptions => ({
-  ADD_WISHLIST_ITEM_SUCCESS: wishlistActionTypes.ADD_WISHLIST_ITEM_SUCCESS,
+  ADD_WISHLIST_ITEM_SUCCESS: wishlistsActionTypes.ADD_WISHLIST_ITEM_SUCCESS,
   REMOVE_WISHLIST_ITEM_SUCCESS:
-    wishlistActionTypes.REMOVE_WISHLIST_ITEM_SUCCESS,
+    wishlistsActionTypes.REMOVE_WISHLIST_ITEM_SUCCESS,
   UPDATE_WISHLIST_ITEM_SUCCESS:
-    wishlistActionTypes.UPDATE_WISHLIST_ITEM_SUCCESS,
-  UPDATE_WISHLIST_SET_SUCCESS: wishlistActionTypes.UPDATE_WISHLIST_SET_SUCCESS,
+    wishlistsActionTypes.UPDATE_WISHLIST_ITEM_SUCCESS,
+  UPDATE_WISHLIST_SET_SUCCESS: wishlistsActionTypes.UPDATE_WISHLIST_SET_SUCCESS,
   ...customActionTypes,
 });
 
@@ -180,7 +180,7 @@ export function analyticsWishlistMiddleware(
   customActionTypes?: WishlistActionMiddlewareOptions,
 ): Middleware {
   if (!analyticsInstance || !(analyticsInstance instanceof Analytics)) {
-    logger.error(
+    utils.logger.error(
       'Wishlist middleware did not receive the analytics instance. Please make sure a valid analytics instance is being passed via "wishlistMiddleware(analytics, customActionTypes)")',
     );
   }

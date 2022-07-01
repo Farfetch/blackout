@@ -1,8 +1,9 @@
 import { fetchReturnPickupRescheduleRequestFactory } from './factories';
-import { getReturnPickupRescheduleRequest } from '@farfetch/blackout-client/returns';
+import { getReturnPickupRescheduleRequest } from '@farfetch/blackout-client';
 
 /**
  * Fetch pickup reschedule request.
  */
-export const fetchReturnPickupRescheduleRequest =
-  fetchReturnPickupRescheduleRequestFactory(getReturnPickupRescheduleRequest);
+export default fetchReturnPickupRescheduleRequestFactory(
+  getReturnPickupRescheduleRequest,
+);

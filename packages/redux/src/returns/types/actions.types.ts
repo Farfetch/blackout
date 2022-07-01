@@ -1,20 +1,19 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { BlackoutError } from '@farfetch/blackout-client';
-import type { LOGOUT_SUCCESS } from '../../authentication/actionTypes';
-import type { NormalizedReturns } from './return.types';
-import type { NormalizedSchema } from 'normalizr';
 import type {
+  BlackoutError,
   PickupCapabilities,
   Return,
   ReturnItem,
-} from '@farfetch/blackout-client/returns/types';
+} from '@farfetch/blackout-client';
+import type { NormalizedSchema } from 'normalizr';
+import type { ReturnNormalized } from './return.types';
 
 type Payload = NormalizedSchema<
   {
-    returnItems: Record<ReturnItem['Id'], ReturnItem>;
+    returnItems: Record<ReturnItem['id'], ReturnItem>;
   },
-  NormalizedReturns
+  ReturnNormalized
 >;
 
 export interface CreateReturnRequestAction extends Action {
@@ -203,11 +202,4 @@ export type CreateReturnPickupRescheduleRequestAction =
 export interface ResetReturnAction extends Action {
   type: typeof actionTypes.RESET_RETURN;
   meta: { resetEntities: boolean };
-}
-
-/**
- * Action dispatched when the logout request is made.
- */
-export interface LogoutAction extends Action {
-  type: typeof LOGOUT_SUCCESS;
 }

@@ -1,5 +1,5 @@
 import { fetchSearchDidYouMeanFactory } from './factories';
-import { getSearchDidYouMean } from '@farfetch/blackout-client/search';
+import { getSearchDidYouMean } from '@farfetch/blackout-client';
 
 /**
  * Fetches the facets available to a given search.

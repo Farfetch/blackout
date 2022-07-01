@@ -1,13 +1,34 @@
 import * as actionTypes from '../actionTypes';
-import { createMergedObject } from '../../helpers';
+import createMergedObject from '../../helpers/createMergedObject';
 import isFunction from 'lodash/isFunction';
+import type { AnyAction } from 'redux';
+import type {
+  CustomEntitiesReducer,
+  CustomEntitiesReducerByAction,
+} from './createDefaultEntitiesReducer';
+import type { StoreState } from '../../types';
 
-export default (mapper = {}) =>
-  (state = {}, action: any = {}) => {
-    // @ts-ignore
-    if (isFunction(mapper[action.type])) {
-      // @ts-ignore
-      return mapper[action.type](state, action);
+const isFunctionTypePredicate = (
+  arg: unknown,
+): arg is (...args: unknown[]) => unknown => {
+  return isFunction(arg);
+};
+
+export type CreateEntitiesReducer = (
+  entitiesReducerByAction: CustomEntitiesReducerByAction,
+) => CustomEntitiesReducer;
+
+const createEntitiesReducer: CreateEntitiesReducer =
+  (entitiesReducerByAction: CustomEntitiesReducerByAction = {}) =>
+  (state: StoreState['entities'] = {}, action: AnyAction) => {
+    if (!action) {
+      return state;
+    }
+
+    const actionEntitiesReducer = entitiesReducerByAction[action.type];
+
+    if (isFunctionTypePredicate(actionEntitiesReducer)) {
+      return actionEntitiesReducer(state, action);
     }
 
     if (action.type === actionTypes.RESET_ENTITIES) {
@@ -20,3 +41,5 @@ export default (mapper = {}) =>
 
     return state;
   };
+
+export default createEntitiesReducer;

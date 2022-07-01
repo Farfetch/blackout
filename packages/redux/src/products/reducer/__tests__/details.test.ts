@@ -1,4 +1,4 @@
-import { mockProductId, mockSetId } from 'tests/__fixtures__/products';
+import { mockProductId } from 'tests/__fixtures__/products';
 import { productsActionTypes } from '../..';
 import reducer, {
   entitiesMapper,
@@ -159,9 +159,6 @@ describe('details redux reducer', () => {
       const state = {
         products: {
           [mockProductId]: { id: mockProductId },
-        },
-        sets: {
-          [mockSetId]: { id: mockSetId },
         },
         dummy: {
           1: { id: 1 },

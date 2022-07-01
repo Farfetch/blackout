@@ -10,7 +10,7 @@ import {
   PurchaseChannel,
   ShippingCostType,
   ShippingMode,
-} from '../types';
+} from '../..';
 import { id } from 'tests/__fixtures__/checkout';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCheckoutOrderDetails.fixtures';

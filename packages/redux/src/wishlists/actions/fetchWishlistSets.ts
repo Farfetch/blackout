@@ -1,5 +1,5 @@
 import { fetchWishlistSetsFactory } from './factories';
-import { getWishlistSets } from '@farfetch/blackout-client/wishlists';
+import { getWishlistSets } from '@farfetch/blackout-client';
 
 /**
  * Load wishlist sets for a given wishlist id.

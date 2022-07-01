@@ -1,10 +1,10 @@
 /**
  * SEO Structured Data.
  */
-export { default as article } from './article';
-export { default as breadcrumbs } from './breadcrumbs';
-export { default as product } from './product';
-export { default as productsListing } from './productsListing';
-export { default as organization } from './organization';
-export { default as videoObject } from './videoObject';
-export { default as websiteSearch } from './websiteSearch';
+export { default as structuredArticle } from './structuredArticle';
+export { default as structuredBreadcrumbs } from './structuredBreadcrumbs';
+export { default as structuredProduct } from './structuredProduct';
+export { default as structuredProductListing } from './structuredProductListing';
+export { default as structuredOrganization } from './structuredOrganization';
+export { default as structuredVideoObject } from './structuredVideoObject';
+export { default as structuredWebsiteSearch } from './structuredWebsiteSearch';

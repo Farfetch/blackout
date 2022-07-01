@@ -14,7 +14,7 @@ import type { GetReturnPickupCapabilities } from './types';
  * @returns Promise that will resolve when the call to
  * the endpoint finishes.
  */
-export const getReturnPickupCapabilities: GetReturnPickupCapabilities = (
+const getReturnPickupCapabilities: GetReturnPickupCapabilities = (
   id,
   pickupDay,
   config?,
@@ -28,3 +28,5 @@ export const getReturnPickupCapabilities: GetReturnPickupCapabilities = (
     .catch(error => {
       throw adaptError(error);
     });
+
+export default getReturnPickupCapabilities;

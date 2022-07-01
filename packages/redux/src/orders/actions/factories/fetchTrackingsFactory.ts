@@ -1,12 +1,13 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
+import {
+  Config,
+  GetTrackings,
+  toBlackoutError,
+  Trackings,
+} from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
 import labelTracking from '../../../entities/schemas/labelTracking';
 import type { Dispatch } from 'redux';
-import type {
-  GetTrackings,
-  Tracking,
-} from '@farfetch/blackout-client/orders/types';
 
 /**
  * @param trackingNumbers - Array containing all the tracking numbers.
@@ -22,10 +23,10 @@ import type {
  *
  * @returns Thunk factory.
  */
-const fetchTrackings =
+const fetchTrackingsFactory =
   (getTrackings: GetTrackings) =>
   (trackingNumbers: string, config?: Config) =>
-  async (dispatch: Dispatch): Promise<Tracking[]> => {
+  async (dispatch: Dispatch): Promise<Trackings> => {
     try {
       dispatch({
         type: actionTypes.FETCH_TRACKINGS_REQUEST,
@@ -51,4 +52,4 @@ const fetchTrackings =
     }
   };
 
-export default fetchTrackings;
+export default fetchTrackingsFactory;

@@ -1,17 +1,18 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  Config,
+  GetWishlistSet,
+  PatchWishlistSet,
+  PatchWishlistSetData,
+  toBlackoutError,
+  WishlistSet,
+} from '@farfetch/blackout-client';
 import { getWishlistId } from '../../selectors';
-import { toBlackoutError } from '@farfetch/blackout-client';
 import fetchWishlistSetFactory from './fetchWishlistSetFactory';
 import type {
   FetchWishlistSetAction,
   UpdateWishlistSetAction,
 } from '../../types';
-import type {
-  GetWishlistSet,
-  PatchWishlistSet,
-  PatchWishlistSetData,
-  WishlistSet,
-} from '@farfetch/blackout-client/wishlists/types';
 import type { StoreState } from '../../../types';
 import type { ThunkDispatch } from 'redux-thunk';
 
@@ -37,7 +38,7 @@ const updateWishlistSetFactory =
   (
     wishlistSetId: WishlistSet['setId'],
     data: PatchWishlistSetData,
-    config?: Record<string, unknown>,
+    config?: Config,
   ) =>
   async (
     dispatch: ThunkDispatch<

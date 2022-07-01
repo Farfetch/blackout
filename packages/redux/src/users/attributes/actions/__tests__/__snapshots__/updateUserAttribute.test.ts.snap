@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`updateUserAttribute action creator should create the correct actions for when the update user attribute procedure is successful: update user attribute success payload 1`] = `
+Object {
+  "payload": Object {},
+  "type": "@farfetch/blackout-redux/UPDATE_USER_ATTRIBUTE_SUCCESS",
+}
+`;

@@ -16,7 +16,7 @@ import {
   productId,
   shippingOption,
 } from 'tests/__fixtures__/checkout';
-import type { StoreState } from '@farfetch/blackout-redux/types';
+import type { StoreState } from '@farfetch/blackout-redux';
 
 describe('checkout redux selectors', () => {
   beforeEach(jest.clearAllMocks);
@@ -336,32 +336,38 @@ describe('checkout redux selectors', () => {
     });
   });
 
-  describe('getCharges()', () => {
-    it('should get the charges property from state', () => {
-      const expectedResult = mockCheckoutState.checkout.charges;
-      const spy = jest.spyOn(fromReducer, 'getCharges');
+  describe('getCheckoutOrderCharge()', () => {
+    it('should get the checkoutOrderCharge property from state', () => {
+      const expectedResult = mockCheckoutState.checkout.checkoutOrderCharge;
+      const spy = jest.spyOn(fromReducer, 'getCheckoutOrderCharge');
 
-      expect(selectors.getCharges(mockCheckoutState)).toBe(expectedResult);
+      expect(selectors.getCheckoutOrderCharge(mockCheckoutState)).toBe(
+        expectedResult,
+      );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getChargesError()', () => {
-    it('should get the charges error property from state', () => {
-      const expectedResult = mockCheckoutState.checkout.charges.error;
-      const spy = jest.spyOn(fromReducer, 'getCharges');
+  describe('getCheckoutOrderChargeError()', () => {
+    it('should get the checkoutOrderCharge error property from state', () => {
+      const expectedResult =
+        mockCheckoutState.checkout.checkoutOrderCharge.error;
+      const spy = jest.spyOn(fromReducer, 'getCheckoutOrderCharge');
 
-      expect(selectors.getChargesError(mockCheckoutState)).toBe(expectedResult);
+      expect(selectors.getCheckoutOrderChargeError(mockCheckoutState)).toBe(
+        expectedResult,
+      );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('isChargesLoading()', () => {
-    it('should get the charges loading status from state', () => {
-      const expectedResult = mockCheckoutState.checkout.charges.isLoading;
-      const spy = jest.spyOn(fromReducer, 'getCharges');
+  describe('isCheckoutOrderChargeLoading()', () => {
+    it('should get the checkoutOrderCharge loading status from state', () => {
+      const expectedResult =
+        mockCheckoutState.checkout.checkoutOrderCharge.isLoading;
+      const spy = jest.spyOn(fromReducer, 'getCheckoutOrderCharge');
 
-      expect(selectors.isChargesLoading(mockCheckoutState)).toBe(
+      expect(selectors.isCheckoutOrderChargeLoading(mockCheckoutState)).toBe(
         expectedResult,
       );
       expect(spy).toHaveBeenCalledTimes(1);
@@ -502,7 +508,7 @@ describe('checkout redux selectors', () => {
       'PromoCode',
       'Tags',
       'GiftMessage',
-      'Charges',
+      'CheckoutOrderCharge',
       'DeliveryBundleUpgrades',
       'ItemDeliveryProvisioning',
       'UpgradeItemDeliveryProvisioning',
@@ -510,7 +516,12 @@ describe('checkout redux selectors', () => {
 
     describe('sub-areas loading selectors', () => {
       it.each(subAreaNames)('should handle is%sLoading selector', subArea => {
-        const selectorName = `is${subArea}Loading`;
+        let selectorName = `is${subArea}Loading`;
+
+        if (!selectors[selectorName]) {
+          selectorName = `are${subArea}Loading`;
+        }
+
         expect(selectors[selectorName](mockCheckoutState)).toEqual(false);
       });
     });
@@ -528,15 +539,20 @@ describe('checkout redux selectors', () => {
     });
 
     describe('sub-areas result selectors', () => {
-      it.each(['Charges'])('should handle get%sResult selector', subArea => {
-        const selectorName = `get${subArea}Result`;
-        const reducerSubAreaName =
-          subArea.charAt(0).toLowerCase() + subArea.slice(1);
-        const expectedResult =
-          mockCheckoutState.checkout[reducerSubAreaName].result;
+      it.each(['CheckoutOrderCharge'])(
+        'should handle get%sResult selector',
+        subArea => {
+          const selectorName = `get${subArea}Result`;
+          const reducerSubAreaName =
+            subArea.charAt(0).toLowerCase() + subArea.slice(1);
+          const expectedResult =
+            mockCheckoutState.checkout[reducerSubAreaName].result;
 
-        expect(selectors[selectorName](mockCheckoutState)).toBe(expectedResult);
-      });
+          expect(selectors[selectorName](mockCheckoutState)).toBe(
+            expectedResult,
+          );
+        },
+      );
     });
   });
 

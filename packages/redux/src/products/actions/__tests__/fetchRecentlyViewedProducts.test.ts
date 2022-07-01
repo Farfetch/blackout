@@ -26,6 +26,8 @@ const mockRecentlyViewedStore = (state: StoreState = {}) =>
     state,
   );
 
+console.warn = jest.fn();
+
 describe('fetchRecentlyViewedProducts() action creator', () => {
   let store: ReturnType<typeof mockRecentlyViewedStore>;
   const expectedConfig = undefined;
@@ -74,8 +76,6 @@ describe('fetchRecentlyViewedProducts() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch recently viewed products procedure is successful', async () => {
-    console.warn = jest.fn();
-
     (getRecentlyViewedProducts as jest.Mock).mockResolvedValueOnce(
       expectedRecentlyViewedRemotePayload,
     );

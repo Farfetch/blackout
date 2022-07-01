@@ -1,4 +1,4 @@
-export type ListingQuery = {
+export type GetProductListingQuery = {
   pageIndex?: number;
   pageSize?: number;
   sort?: string;

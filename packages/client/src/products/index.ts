@@ -1,8 +1,6 @@
 /**
  * Products clients.
  */
-export * from './types';
-
 export { default as getProductListing } from './getProductListing';
 export { default as getProductAttributes } from './getProductAttributes';
 export { default as getProductColorGrouping } from './getProductColorGrouping';
@@ -18,3 +16,5 @@ export { default as getProductSet } from './getProductSet';
 export { default as getRecentlyViewedProducts } from './getRecentlyViewedProducts';
 export { default as deleteRecentlyViewedProduct } from './deleteRecentlyViewedProduct';
 export { default as getRecommendedProducts } from './getRecommendedProducts';
+
+export * from './types';

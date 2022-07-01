@@ -1,6 +1,7 @@
+import * as subscriptionsActionTypes from '../../actionTypes';
 import { clearUnsubscribeRecipientFromTopic } from '../clearUnsubscribeRecipientFromTopicRequest';
 import { mockStore } from '../../../../tests';
-import reducer, { subscriptionsActionTypes } from '../..';
+import reducer from '../../reducer';
 
 let store: ReturnType<typeof mockStore>;
 const randomAction = { type: 'this_is_a_random_action' };

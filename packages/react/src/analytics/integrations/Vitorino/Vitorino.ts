@@ -60,7 +60,7 @@ export default class Vitorino extends integrations.Integration<VitorinoIntegrati
    *
    * @returns If the integration should load or not.
    */
-  static shouldLoad() {
+  static override shouldLoad() {
     return true;
   }
 
@@ -110,7 +110,7 @@ export default class Vitorino extends integrations.Integration<VitorinoIntegrati
    *
    * @param data - Analytics' event data.
    */
-  async onSetUser(data: SetUserEventData): Promise<void> {
+  override async onSetUser(data: SetUserEventData): Promise<void> {
     await this.initializePromise;
 
     if (data.user?.id) {
@@ -281,7 +281,7 @@ export default class Vitorino extends integrations.Integration<VitorinoIntegrati
    *
    * @returns Promise that will resolve when the method finishes.
    */
-  async track(data: EventData<TrackTypesValues>) {
+  override async track(data: EventData<TrackTypesValues>) {
     await this.initializePromise;
     await this.userIdPromise;
 

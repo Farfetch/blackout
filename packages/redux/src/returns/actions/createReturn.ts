@@ -1,7 +1,7 @@
 import { createReturnFactory } from './factories';
-import { postReturn } from '@farfetch/blackout-client/returns';
+import { postReturn } from '@farfetch/blackout-client';
 
 /**
  * Create return.
  */
-export const createReturn = createReturnFactory(postReturn);
+export default createReturnFactory(postReturn);

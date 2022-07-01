@@ -100,7 +100,7 @@ export const mockFetchInstrumentsResponse = [
 ];
 export const mockFetchInstrumentsNormalizedPayload = {
   entities: {
-    instruments: {
+    paymentInstruments: {
       [mockFetchInstrumentsResponse[0]?.id as string]:
         mockFetchInstrumentsResponse[0],
     },
@@ -110,7 +110,7 @@ export const mockFetchInstrumentsNormalizedPayload = {
 export const mockFetchInstrumentResponse = mockFetchInstrumentsResponse[0];
 export const mockFetchInstrumentNormalizedPayload = {
   entities: {
-    instruments: {
+    paymentInstruments: {
       [mockFetchInstrumentResponse?.id as string]: mockFetchInstrumentResponse,
     },
   },
@@ -546,12 +546,12 @@ export const mockPaymentsResponse = {
 };
 export const mockInitialState = {
   payments: {
-    charges: {
+    paymentIntentCharge: {
       error: null,
       isLoading: false,
       result: null,
     },
-    creditBalance: {
+    userCreditBalance: {
       error: null,
       isLoading: false,
       result: null,
@@ -561,12 +561,12 @@ export const mockInitialState = {
       isLoading: false,
       result: null,
     },
-    instruments: {
+    paymentInstruments: {
       error: null,
       isLoading: false,
       result: null,
     },
-    intent: {
+    paymentIntent: {
       error: null,
       isLoading: false,
       result: null,
@@ -576,20 +576,20 @@ export const mockInitialState = {
       isLoading: false,
       result: null,
     },
-    tokens: {
+    paymentTokens: {
       error: null,
       result: null,
       isLoading: false,
     },
   },
   entities: {
-    instruments: {},
+    paymentInstruments: {},
   },
 };
 
 export const mockLoadingState = {
   payments: {
-    instruments: {
+    paymentInstruments: {
       error: null,
       isLoading: true,
       result: null,
@@ -600,7 +600,7 @@ export const mockLoadingState = {
 
 export const mockErrorState = {
   payments: {
-    instruments: {
+    paymentInstruments: {
       error: 'Error',
       isLoading: false,
       result: null,

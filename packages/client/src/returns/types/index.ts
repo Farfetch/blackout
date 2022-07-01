@@ -1,7 +1,5 @@
 export * from './getReturnPickupCapabilities.types';
 export * from './pickupCapabilities.types';
-export * from './getReturnReferences.types';
-export * from './query.types';
 export * from './getReturn.types';
 export * from './return.types';
 export * from './getReturnsFromOrder.types';

@@ -1,9 +1,9 @@
-import type { Address, User } from '.';
-import type { Config } from '../../../types';
+import type { Config, UserAddress } from '../../../types';
+import type { User } from '../../../users/authentication/types/user.types';
 
 export type DeleteUserAddressProps = {
   // Identifier of the address.
-  id: Address['id'];
+  id: UserAddress['id'];
   // Identifier of the user.
   userId: User['id'];
 };

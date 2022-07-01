@@ -2,11 +2,11 @@
  * Checkout actions factories.
  */
 
-export { default as chargeFactory } from './chargeFactory';
+export { default as createCheckoutOrderChargeFactory } from './createCheckoutOrderChargeFactory';
 export { default as createCheckoutFactory } from './createCheckoutFactory';
-export { default as fetchChargeFactory } from './fetchChargeFactory';
 export { default as fetchCheckoutDetailsFactory } from './fetchCheckoutDetailsFactory';
 export { default as fetchCheckoutFactory } from './fetchCheckoutFactory';
+export { default as fetchCheckoutOrderChargeFactory } from './fetchCheckoutOrderChargeFactory';
 export { default as fetchCheckoutOrderOperationFactory } from './fetchCheckoutOrderOperationFactory';
 export { default as fetchCheckoutOrderOperationsFactory } from './fetchCheckoutOrderOperationsFactory';
 export { default as fetchCollectPointsFactory } from './fetchCollectPointsFactory';

@@ -1,8 +1,12 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  Brand,
+  Config,
+  GetBrand,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import { toBlackoutError } from '@farfetch/blackout-client';
 import brand from '../../../entities/schemas/brand';
-import type { Brand, GetBrand } from '@farfetch/blackout-client/brands/types';
 import type { Dispatch } from 'redux';
 import type { FetchBrandAction } from '../../types';
 
@@ -23,7 +27,7 @@ import type { FetchBrandAction } from '../../types';
  */
 const fetchBrandFactory =
   (getBrand: GetBrand) =>
-  (brandId: Brand['id'], config?: Record<string, unknown>) =>
+  (brandId: Brand['id'], config?: Config) =>
   async (dispatch: Dispatch<FetchBrandAction>): Promise<Brand> => {
     try {
       dispatch({

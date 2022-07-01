@@ -227,7 +227,7 @@ export const mockGetAddressSchemaResponse = {
 
 export const expectedGetAddressSchemaNormalizedPayload = {
   entities: {
-    addressSchema: {
+    countryAddressSchema: {
       [isoCode]: {
         ...mockGetAddressSchemaResponse,
       },

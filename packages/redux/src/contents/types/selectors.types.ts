@@ -1,10 +1,10 @@
-import type { BlackoutError } from '@farfetch/blackout-client';
 import type {
+  BlackoutError,
   ContentEntries,
   ContentTypesEntries,
   SEOMetadata,
   Targets,
-} from '@farfetch/blackout-client/contents/types';
+} from '@farfetch/blackout-client';
 import type { SearchResultsReducer } from '../types';
 
 type DefaultError = BlackoutError | null | undefined;
@@ -21,13 +21,6 @@ export type QueryContentHash = {
   page?: number;
   // Size of each page, as a number between 1 and 180. The default is 60.
   pageSize?: number;
-};
-
-export type QuerySEO = {
-  pageType: string;
-  param?: string;
-  path: string;
-  subPageType: string;
 };
 
 export type GetContentsByHash = SearchResultsReducer | undefined;

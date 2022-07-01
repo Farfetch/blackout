@@ -1,9 +1,8 @@
-import * as actionTypes from './actionTypes';
-import reducer from './reducer';
+export * as promotionEvaluationsActionTypes from './actionTypes';
 
 export * from './actions';
 export * from './selectors';
 
-export { actionTypes };
+export { default as promotionEvaluationsReducer } from './reducer';
 
-export default reducer;
+export * from './types';

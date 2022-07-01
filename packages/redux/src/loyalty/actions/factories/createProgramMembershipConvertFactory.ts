@@ -1,15 +1,16 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
-import { normalize } from 'normalizr';
-import convertSchema from '../../../entities/schemas/convert';
-import type { CreateProgramMembershipConvertAction } from '../../types';
-import type { Dispatch } from 'redux';
-import type {
+import {
+  Config,
   PostProgramMembershipConvert,
   Program,
   ProgramMembership,
   ProgramMembershipConvert,
-} from '@farfetch/blackout-client/loyalty/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import { normalize } from 'normalizr';
+import convertSchema from '../../../entities/schemas/convert';
+import type { CreateProgramMembershipConvertAction } from '../../types';
+import type { Dispatch } from 'redux';
 
 /**
  * @param programId    - Program identifier.

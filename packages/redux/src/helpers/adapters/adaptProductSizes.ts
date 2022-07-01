@@ -4,6 +4,7 @@ import type {
   ComposePurchaseChannels,
   GetAttributesBySizeId,
 } from './types';
+import type { ProductVariant, Size } from '@farfetch/blackout-client';
 
 /**
  * Generate an object with a composed key like size#scale#merchantId, which will be
@@ -61,7 +62,9 @@ export const getAttributesBySizeId: GetAttributesBySizeId = (
   sizeId,
   variants,
 ) => {
-  const variant = variants.find(variant => variant.size === sizeId);
+  const variant: ProductVariant | undefined = variants.find(
+    variant => variant.size === sizeId,
+  );
 
   if (!variant) {
     return {};
@@ -125,7 +128,7 @@ const adaptProductSizes: AdaptProductSizes = (sizes, variants = []) => {
   // Variants are only used to hydrate stock with additional info (purchaseChannel).
   const purchaseChannels = composePurchaseChannels(variants);
 
-  return sizes.map(size => {
+  return sizes.map((size: Size) => {
     stock =
       size.variants &&
       size.variants.map(variant => ({

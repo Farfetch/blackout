@@ -1,16 +1,15 @@
-import type { BlackoutError } from '@farfetch/blackout-client';
-import type { Category } from '@farfetch/blackout-client/categories/types';
+import type { BlackoutError, Category } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
 
-export type TopCategoryState = CombinedState<{
+export type TopCategoriesState = CombinedState<{
   error: BlackoutError | null;
   isLoading: boolean;
   result: Array<Category['id']> | null;
 }>;
 
-export type State = CombinedState<{
+export type CategoriesState = CombinedState<{
   error: BlackoutError | null;
   isFetched: boolean;
   isLoading: boolean;
-  top: TopCategoryState;
+  top: TopCategoriesState;
 }>;

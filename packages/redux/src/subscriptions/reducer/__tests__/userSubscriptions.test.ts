@@ -1,4 +1,4 @@
-import { subscriptionsActionTypes as actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
 import {
   mockRecipientId1TopicId1,
   mockRecipientId2,
@@ -16,8 +16,7 @@ import reducer, {
   getUserSubscriptionsIsLoading,
   INITIAL_STATE,
 } from '../userSubscriptions';
-import type { BlackoutError } from '@farfetch/blackout-client/types';
-import type { Subscription } from '@farfetch/blackout-client';
+import type { BlackoutError, Subscription } from '@farfetch/blackout-client';
 import type { SubscriptionsState } from '../../types';
 
 const initialState: SubscriptionsState['user'] = INITIAL_STATE;

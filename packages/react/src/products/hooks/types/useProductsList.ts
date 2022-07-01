@@ -1,12 +1,11 @@
-import type { Error } from '@farfetch/blackout-client';
 import type {
-  ListingQuery,
-  SetQuery,
-} from '@farfetch/blackout-client/products/types';
+  GetProductListingQuery,
+  GetProductSetQuery,
+} from '@farfetch/blackout-client';
 import type {
   ProductEntity,
   ProductsListEntity,
-} from '@farfetch/blackout-client/entities/types';
+} from '@farfetch/blackout-redux';
 
 export type ProductsListTypes = {
   LISTING: 'listing';
@@ -15,7 +14,7 @@ export type ProductsListTypes = {
 
 export type UseProductsListParams = {
   // The query parameters of the given product list.
-  query: ListingQuery | SetQuery;
+  query: GetProductListingQuery | GetProductSetQuery;
   // Wether to set the reducer's hash on the store when requesting a product list.
   setProductsListHash?: boolean;
   // The slug of the given product list.
@@ -38,5 +37,5 @@ export type UseProductsList = ({
   isLoading: boolean | undefined;
   products: ProductEntity[];
   productsListHash: string;
-  result: ProductsListEntity;
+  result: ProductsListEntity | undefined;
 };

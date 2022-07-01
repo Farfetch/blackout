@@ -1,5 +1,5 @@
 import { fetchPromotionEvaluationItemsFactory } from './factories';
-import { getPromotionEvaluationItems } from '@farfetch/blackout-client/promotionEvaluations';
+import { getPromotionEvaluationItems } from '@farfetch/blackout-client';
 
 /**
  * Fetches promotion evaluation items given a promotion evaluation id.

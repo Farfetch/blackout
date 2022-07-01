@@ -1,5 +1,5 @@
 import { fetchOrderDocumentFactory } from './factories';
-import { getOrderDocument } from '@farfetch/blackout-client/orders';
+import { getOrderDocument } from '@farfetch/blackout-client';
 
 /**
  * Fetch a specific document of a certain order.

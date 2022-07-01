@@ -1,4 +1,4 @@
 /**
  * Entities actions.
  */
-export { default as reset } from './reset';
+export { default as resetEntities } from './resetEntities';

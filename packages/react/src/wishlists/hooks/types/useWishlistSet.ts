@@ -1,10 +1,10 @@
 import type { AxiosRequestConfig } from 'axios';
-import type { BlackoutError } from '@farfetch/blackout-client';
 import type {
+  BlackoutError,
   PatchWishlistSetData,
   WishlistSet,
-} from '@farfetch/blackout-client/wishlists/types';
-import type { WishlistSetHydrated } from '@farfetch/blackout-redux/entities/types';
+} from '@farfetch/blackout-client';
+import type { WishlistSetHydrated } from '@farfetch/blackout-redux';
 
 export type UseWishlistSet = (setId: WishlistSet['setId']) => {
   error: BlackoutError | null | undefined;

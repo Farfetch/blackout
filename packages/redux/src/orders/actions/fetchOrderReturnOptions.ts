@@ -1,5 +1,5 @@
 import { fetchOrderReturnOptionsFactory } from './factories';
-import { getOrderReturnOptions } from '@farfetch/blackout-client/orders';
+import { getOrderReturnOptions } from '@farfetch/blackout-client';
 
 /**
  * Fetch order return options.

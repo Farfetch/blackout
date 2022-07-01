@@ -1,12 +1,13 @@
-import { actionTypes, getWishlistItem } from '../../../wishlists';
-import { analyticsWishlistMiddleware } from '../../';
+import * as actionTypes from '../../../wishlists/actionTypes';
+import { analyticsWishlistMiddleware } from '../../middlewares/wishlist';
 import { getBrand, getCategory, getProduct } from '../../../entities';
-import { logger } from '@farfetch/blackout-analytics/utils';
+import { getWishlistItem } from '../../../wishlists';
 import { mockStore, mockWishlistSetId } from '../../../../tests';
 import { wishlistMockData } from 'tests/__fixtures__/analytics/wishlist';
 import Analytics, {
   eventTypes,
   fromParameterTypes,
+  utils,
 } from '@farfetch/blackout-analytics';
 import merge from 'lodash/merge';
 import type { PriceAdapted } from '../../../helpers/adapters';
@@ -31,7 +32,7 @@ jest.mock('@farfetch/blackout-analytics/utils', () => ({
 
 const analytics = new Analytics();
 const trackSpy = jest.spyOn(analytics, 'track');
-const loggerErrorSpy = jest.spyOn(logger, 'error');
+const loggerErrorSpy = jest.spyOn(utils.logger, 'error');
 const productData = getProduct(
   wishlistMockData.state,
   wishlistMockData.productId,

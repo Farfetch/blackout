@@ -1,5 +1,5 @@
 import * as actionTypes from '../actionTypes';
-import * as authenticationActionTypes from '../../authentication/actionTypes';
+import * as authenticationActionTypes from '../../users/authentication/actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import type { ReducerSwitch, StoreState } from '../../types';
 import type { SubscriptionsState } from '../types';
@@ -63,7 +63,7 @@ const reducer = combineReducers({
 });
 
 const removeSubscriptionPackagesFromEntities = (
-  state: StoreState['entities'],
+  state: NonNullable<StoreState['entities']>,
 ) => ({ ...state, subscriptionPackages: undefined });
 
 export const subscriptionPackagesEntitiesMapper = {

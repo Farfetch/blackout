@@ -1,10 +1,11 @@
 import * as actionTypes from '../../actionTypes';
-import { getWishlistId } from '../../selectors';
-import { toBlackoutError } from '@farfetch/blackout-client';
-import type {
+import {
+  Config,
   DeleteWishlistSet,
+  toBlackoutError,
   WishlistSet,
-} from '@farfetch/blackout-client/wishlists/types';
+} from '@farfetch/blackout-client';
+import { getWishlistId } from '../../selectors';
 import type { Dispatch } from 'redux';
 import type { RemoveWishlistSetAction } from '../../types';
 import type { StoreState } from '../../../types';
@@ -26,7 +27,7 @@ import type { StoreState } from '../../../types';
  */
 const removeWishlistSetFactory =
   (deleteWishlistSet: DeleteWishlistSet) =>
-  (wishlistSetId: WishlistSet['setId'], config?: Record<string, unknown>) =>
+  (wishlistSetId: WishlistSet['setId'], config?: Config) =>
   async (
     dispatch: Dispatch<RemoveWishlistSetAction>,
     getState: () => StoreState,

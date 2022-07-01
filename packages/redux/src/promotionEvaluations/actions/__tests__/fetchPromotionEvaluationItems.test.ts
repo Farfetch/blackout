@@ -1,6 +1,6 @@
-import { actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
 import { fetchPromotionEvaluationItems } from '..';
-import { getPromotionEvaluationItems } from '@farfetch/blackout-client/promotionEvaluations';
+import { getPromotionEvaluationItems } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import {
   mockPromotionEvaluationId,
@@ -8,8 +8,8 @@ import {
 } from 'tests/__fixtures__/promotionEvaluations';
 import { mockStore } from '../../../../tests';
 
-jest.mock('@farfetch/blackout-client/promotionEvaluations', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/promotionEvaluations'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getPromotionEvaluationItems: jest.fn(),
 }));
 

@@ -1,5 +1,5 @@
 import { fetchCommercePagesFactory } from './factories';
-import { getCommercePages } from '@farfetch/blackout-client/contents';
+import { getCommercePages } from '@farfetch/blackout-client';
 
 /**
  * Load commerce pages for a specific query object received.

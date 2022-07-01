@@ -1,10 +1,11 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
-import type { Dispatch } from 'redux';
-import type {
+import {
+  Config,
   PostOrderItemActivities,
   PostOrderItemActivityData,
-} from '@farfetch/blackout-client/orders/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
 
 /**
  * Method responsible for creating an activity to perform on the order item.

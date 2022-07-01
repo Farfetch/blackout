@@ -1,13 +1,13 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  Config,
+  PostReturn,
+  Return,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import { toBlackoutError } from '@farfetch/blackout-client';
 import returnSchema from '../../../entities/schemas/return';
 import type { Dispatch } from 'redux';
-import type {
-  PostReturn,
-  Query,
-  Return,
-} from '@farfetch/blackout-client/returns/types';
 
 /**
  * @param data   - Details of the Return to be created.
@@ -24,16 +24,16 @@ import type {
  *
  * @returns Thunk factory.
  */
-export const createReturnFactory =
+const createReturnFactory =
   (postReturn: PostReturn) =>
-  (data: Return, query?: Query, config?: Record<string, unknown>) =>
+  (data: Return, config?: Config) =>
   async (dispatch: Dispatch): Promise<Return> => {
     try {
       dispatch({
         type: actionTypes.CREATE_RETURN_REQUEST,
       });
 
-      const result = await postReturn(data, query, config);
+      const result = await postReturn(data, config);
 
       dispatch({
         payload: normalize(result, returnSchema),
@@ -49,3 +49,5 @@ export const createReturnFactory =
       throw error;
     }
   };
+
+export default createReturnFactory;

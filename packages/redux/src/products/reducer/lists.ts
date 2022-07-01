@@ -87,12 +87,15 @@ const isLoading = (
 };
 
 export const entitiesMapper = {
-  [actionTypes.RESET_PRODUCTS_LISTS_ENTITIES as typeof actionTypes.RESET_PRODUCTS_LISTS_ENTITIES]:
-    (state: StoreState['entities']): StoreState['entities'] => {
-      const { productsLists, ...rest } = state;
-
-      return rest;
-    },
+  [actionTypes.RESET_PRODUCTS_LISTS_ENTITIES]: (
+    state: NonNullable<StoreState['entities']>,
+  ): StoreState['entities'] => {
+    if (!state) {
+      return state;
+    }
+    const { productsLists, ...rest } = state;
+    return rest;
+  },
 };
 
 export const getError = (

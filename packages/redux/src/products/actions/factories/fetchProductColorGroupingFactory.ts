@@ -1,6 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import {
   ColorGroupingQuery,
+  Config,
   GetProductColorGrouping,
   Product,
   ProductColorGrouping,
@@ -31,7 +32,7 @@ export const fetchProductColorGroupingFactory =
   (
     productId: Product['result']['id'],
     query: ColorGroupingQuery = {},
-    config?: Record<string, unknown>,
+    config?: Config,
   ) =>
   async (dispatch: Dispatch): Promise<ProductColorGrouping> => {
     try {

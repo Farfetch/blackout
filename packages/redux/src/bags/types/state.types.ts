@@ -1,7 +1,6 @@
-import type { BagItem } from '@farfetch/blackout-client/bags/types';
-import type { BlackoutError } from '@farfetch/blackout-client';
+import type { BagItem, BlackoutError } from '@farfetch/blackout-client';
+import type { BagNormalized } from '../types';
 import type { CombinedState } from 'redux';
-import type { NormalizedBag } from '../types';
 
 export type BagItemsState = CombinedState<{
   ids: Array<BagItem['id']> | null;
@@ -13,11 +12,11 @@ export type BagItemsState = CombinedState<{
   [k: string]: unknown;
 }>;
 
-export type State = CombinedState<{
+export type BagsState = CombinedState<{
   error: BlackoutError | null;
-  id: NormalizedBag['id'] | null;
+  id: BagNormalized['id'] | null;
   isLoading: boolean;
-  result: NormalizedBag | null;
+  result: BagNormalized | null;
   items: BagItemsState;
   [k: string]: unknown;
 }>;

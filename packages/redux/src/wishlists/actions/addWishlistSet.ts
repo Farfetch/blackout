@@ -1,5 +1,5 @@
 import { addWishlistSetFactory } from './factories';
-import { postWishlistSet } from '@farfetch/blackout-client/wishlists';
+import { postWishlistSet } from '@farfetch/blackout-client';
 
 /**
  * Add a new set to the wishlist.

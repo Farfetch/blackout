@@ -1,12 +1,13 @@
 import * as actionTypes from './actionTypes';
 import { combineReducers } from 'redux';
-import { LOGOUT_SUCCESS } from '../authentication/actionTypes';
+import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import type {
   AddBagItemAction,
   AddBagItemFailureAction,
   AddBagItemRequestAction,
   AddBagItemSuccessAction,
   BagItemsState,
+  BagsState,
   FetchBagAction,
   FetchBagFailureAction,
   FetchBagRequestAction,
@@ -14,15 +15,14 @@ import type {
   RemoveBagItemAction,
   RemoveBagItemRequestAction,
   RemoveBagItemSuccessAction,
-  State,
   UpdateBagItemAction,
   UpdateBagItemRequestAction,
   UpdateBagItemSuccessAction,
 } from './types';
-import type { BagItem } from '@farfetch/blackout-client/bags/types';
+import type { BagItem } from '@farfetch/blackout-client';
 import type { ReducerSwitch, StoreState } from '../types';
 
-export const INITIAL_STATE: State = {
+export const INITIAL_STATE: BagsState = {
   error: null,
   id: null,
   isLoading: false,
@@ -45,7 +45,7 @@ const error = (
     | FetchBagRequestAction
     | RemoveBagItemRequestAction
     | UpdateBagItemRequestAction,
-): State['error'] => {
+): BagsState['error'] => {
   switch (action.type) {
     case actionTypes.ADD_BAG_ITEM_FAILURE:
     case actionTypes.FETCH_BAG_FAILURE:
@@ -63,7 +63,7 @@ const error = (
 const id = (
   state = INITIAL_STATE.id,
   action: FetchBagSuccessAction,
-): State['id'] => {
+): BagsState['id'] => {
   switch (action.type) {
     case actionTypes.FETCH_BAG_SUCCESS:
       return action.payload.result.id;
@@ -79,7 +79,7 @@ const result = (
     | FetchBagSuccessAction
     | RemoveBagItemSuccessAction
     | UpdateBagItemSuccessAction,
-): State['result'] => {
+): BagsState['result'] => {
   switch (action.type) {
     case actionTypes.FETCH_BAG_SUCCESS:
     case actionTypes.ADD_BAG_ITEM_SUCCESS:
@@ -176,34 +176,44 @@ const items = (
 };
 
 export const entitiesMapper = {
-  [actionTypes.RESET_BAG_ENTITIES as typeof actionTypes.RESET_BAG_ENTITIES]: (
-    state: StoreState['entities'],
+  [actionTypes.RESET_BAG_ENTITIES]: (
+    state: NonNullable<StoreState['entities']>,
   ): StoreState['entities'] => {
+    if (!state) {
+      return state;
+    }
+
     const { bagItems, ...rest } = state;
 
     return rest;
   },
-  [LOGOUT_SUCCESS as typeof LOGOUT_SUCCESS]: (
-    state: StoreState['entities'],
+  [LOGOUT_SUCCESS]: (
+    state: NonNullable<StoreState['entities']>,
   ): StoreState['entities'] => {
+    if (!state) {
+      return state;
+    }
+
     const { bagItems, ...rest } = state;
 
     return rest;
   },
 };
 
-export const getError = (state: State): State['error'] => state.error;
-export const getId = (state: State): State['id'] => state.id;
-export const getResult = (state: State): State['result'] => state.result;
-export const getIsLoading = (state: State): State['isLoading'] =>
+export const getError = (state: BagsState): BagsState['error'] => state.error;
+export const getId = (state: BagsState): BagsState['id'] => state.id;
+export const getResult = (state: BagsState): BagsState['result'] =>
+  state.result;
+export const getIsLoading = (state: BagsState): BagsState['isLoading'] =>
   state.isLoading;
 export const getAreItemsLoading = (
-  state: State,
+  state: BagsState,
 ): BagItemsState['item']['isLoading'] => state.items.item.isLoading;
-export const getItemsIds = (state: State): BagItemsState['ids'] =>
+export const getItemsIds = (state: BagsState): BagItemsState['ids'] =>
   state.items.ids;
-export const getItemsError = (state: State): BagItemsState['item']['error'] =>
-  state.items.item.error;
+export const getItemsError = (
+  state: BagsState,
+): BagItemsState['item']['error'] => state.items.item.error;
 
 const reducer = combineReducers({
   error,
@@ -221,18 +231,18 @@ const reducer = combineReducers({
  *
  * @returns New state.
  */
-const bagReducer: ReducerSwitch<State> = (state, action) => {
+const bagReducer: ReducerSwitch<BagsState> = (state, action) => {
   if (action.type === LOGOUT_SUCCESS) {
     return INITIAL_STATE;
   }
 
-  if (action.type === actionTypes.RESET_BAG_STATE) {
+  if (action.type === actionTypes.RESET_BAG_STATE && state) {
     const fieldsToReset = action.payload.fieldsToReset;
 
     if (!fieldsToReset) {
       return INITIAL_STATE;
     } else {
-      const reducerFn = (acc: State, field: BagItem['id']) => {
+      const reducerFn = (acc: BagsState, field: BagItem['id']) => {
         if (state.items[field] || state.items.item[field]) {
           return {
             ...acc,

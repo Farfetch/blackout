@@ -1,13 +1,13 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { BlackoutError } from '@farfetch/blackout-client';
-import type { NormalizedSchema } from 'normalizr';
 import type {
+  BlackoutError,
   SizeScale,
   SizeScaleMapping,
   SizeScaleMappingsQuery,
   SizeScalesQuery,
-} from '@farfetch/blackout-client/sizeScales/types';
+} from '@farfetch/blackout-client';
+import type { NormalizedSchema } from 'normalizr';
 
 type Payload = NormalizedSchema<
   { sizeScales: Record<SizeScale['sizeScaleId'], SizeScale> },

@@ -1,7 +1,8 @@
 import type { Config } from '../../../types';
+import type { User } from '../../../users/authentication/types/user.types';
 
 export type DeleteUserAttribute = (
-  id: number,
+  userId: User['id'],
   attributeId: string,
   config?: Config,
 ) => Promise<number>;

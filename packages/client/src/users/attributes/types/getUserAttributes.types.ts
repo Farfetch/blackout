@@ -1,9 +1,14 @@
 import type { Config } from '../../../types';
-import type { UserAttributesQuery } from '../../types';
-import type { UserAttributesResponse } from './userAttributesResponse.types';
+import type { User } from '../../../users/authentication/types/user.types';
+import type { UserAttribute } from './userAttribute.types';
+
+export type GetUserAttributesQuery = {
+  channelCode?: string;
+  interface?: string;
+};
 
 export type GetUserAttributes = (
-  id: number,
-  query?: UserAttributesQuery,
+  userId: User['id'],
+  query?: GetUserAttributesQuery,
   config?: Config,
-) => Promise<UserAttributesResponse>;
+) => Promise<UserAttribute[]>;

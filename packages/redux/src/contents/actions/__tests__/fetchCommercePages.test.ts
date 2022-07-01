@@ -1,12 +1,12 @@
+import * as actionTypes from '../../actionTypes';
 import * as normalizr from 'normalizr';
-import { contentsActionTypes as actionTypes } from '../..';
 import {
   commercePagesQuery,
   expectedCommercePagesNormalizedPayload,
   mockCommercePages,
 } from 'tests/__fixtures__/contents';
 import { fetchCommercePages } from '..';
-import { getCommercePages } from '@farfetch/blackout-client/contents';
+import { getCommercePages } from '@farfetch/blackout-client';
 import { INITIAL_STATE_CONTENT } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
@@ -17,8 +17,8 @@ jest.mock('../../utils', () => ({
   getRankedCommercePage: jest.fn(() => mockCommercePages[0]),
 }));
 
-jest.mock('@farfetch/blackout-client/contents', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/contents'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getCommercePages: jest.fn(),
 }));
 

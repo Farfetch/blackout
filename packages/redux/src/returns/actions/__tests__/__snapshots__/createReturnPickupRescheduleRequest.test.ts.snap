@@ -3,6 +3,6 @@
 exports[`createReturnPickupRescheduleRequest action creator should create the correct actions for when the create pickup reschedule request procedure is successful: create pickup reschedule request success payload 1`] = `
 Object {
   "payload": 202,
-  "type": "@farfetch/blackout-client/CREATE_RETURN_PICKUP_RESCHEDULE_REQUEST_SUCCESS",
+  "type": "@farfetch/blackout-redux/CREATE_RETURN_PICKUP_RESCHEDULE_REQUEST_SUCCESS",
 }
 `;

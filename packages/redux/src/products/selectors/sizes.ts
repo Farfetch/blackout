@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 import { getError, getIsLoading } from '../reducer/sizes';
 import { getProduct } from '../../entities/selectors';
-import type { BlackoutError } from '@farfetch/blackout-client';
 import type { ProductEntity } from '../../entities/types';
+import type { ProductsState } from '../types';
 import type { StoreState } from '../../types';
 
 /**
@@ -16,7 +16,7 @@ import type { StoreState } from '../../types';
 export const areProductSizesLoading = (
   state: StoreState,
   id: ProductEntity['id'],
-): boolean | undefined => getIsLoading(state.products.sizes)[id];
+) => getIsLoading((state.products as ProductsState).sizes)[id];
 
 /**
  * Returns the fetched status of a specific product sizes.
@@ -29,8 +29,8 @@ export const areProductSizesLoading = (
 export const areProductSizesFetched = (
   state: StoreState,
   id: ProductEntity['id'],
-): boolean | undefined =>
-  getIsLoading(state.products.sizes).hasOwnProperty(id) &&
+) =>
+  getIsLoading((state.products as ProductsState).sizes).hasOwnProperty(id) &&
   areProductSizesLoading(state, id) === false;
 
 /**
@@ -44,7 +44,7 @@ export const areProductSizesFetched = (
 export const getProductSizesError = (
   state: StoreState,
   id: ProductEntity['id'],
-): BlackoutError | undefined => getError(state.products.sizes)[id];
+) => getError((state.products as ProductsState).sizes)[id];
 
 /**
  * Returns the sizes for a given product id.
@@ -54,10 +54,7 @@ export const getProductSizesError = (
  *
  * @returns The sizes for a given product id.
  */
-export const getProductSizes = (
-  state: StoreState,
-  id: ProductEntity['id'],
-): ProductEntity['sizes'] => {
+export const getProductSizes = (state: StoreState, id: ProductEntity['id']) => {
   const product = getProduct(state, id);
 
   return product?.sizes;

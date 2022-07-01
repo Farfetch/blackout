@@ -1,20 +1,13 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
+import {
+  Config,
+  GetCountryCities,
+  GetCountryCitiesResponse,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
 import state from '../../../entities/schemas/state';
-import type {
-  Cities,
-  GetCountryCities,
-} from '@farfetch/blackout-client/locale/types';
 import type { Dispatch } from 'redux';
-
-/**
- * @param countryCode - Country identifier (ISO 3166-1 alpha-2) to find the cities related.
- * @param stateId     - State identifier to find the cities related.
- * @param config      - Custom configurations to send to the client instance.
- *
- * @returns Thunk to be dispatched to the redux store.
- */
 
 /**
  * Fetch all cities from an specific country and state.
@@ -26,7 +19,7 @@ import type { Dispatch } from 'redux';
 const fetchCountryCitiesFactory =
   (getCountryCities: GetCountryCities) =>
   (countryCode: string, stateId: number, config?: Config) =>
-  async (dispatch: Dispatch): Promise<Cities> => {
+  async (dispatch: Dispatch): Promise<GetCountryCitiesResponse> => {
     try {
       dispatch({
         meta: {

@@ -1,12 +1,12 @@
 import type { BreadCrumb } from './breadCrumb.types';
 import type { FacetGroup } from './facetGroup.types';
-import type { FacetTypeEnum } from './facetTypeEnum.types';
+import type { FacetType } from './facetTypeEnum.types';
 import type { FilterSegment } from './filterSegment.types';
-import type { GenderEnum } from '../../types';
+import type { Gender } from '../../types';
 import type { ProductSummary } from './productSummary.types';
 import type { ShoppingConfig } from './shoppingConfig.types';
 
-enum SearchRedirectEnum {
+enum SearchRedirect {
   Stopwords = 0,
   Percolation,
 }
@@ -29,12 +29,12 @@ export type Listing = {
   _sorts: string[];
   _clearUrl: string;
   _isClearHidden: boolean;
-  gender: GenderEnum;
+  gender: Gender;
   redirectInformation: {
     redirectUrl: string;
-    matchedType: FacetTypeEnum;
+    matchedType: FacetType;
     matchedId: number;
-    searchRedirectSourceFeature: SearchRedirectEnum;
+    searchRedirectSourceFeature: SearchRedirect;
   };
   genderName: string;
 };

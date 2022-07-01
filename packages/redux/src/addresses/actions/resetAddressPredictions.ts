@@ -7,10 +7,12 @@ import type { ResetAddressPredictionsAction } from '../types';
  *
  * @returns Thunk factory.
  */
-export const resetAddressPredictions =
+const resetAddressPredictions =
   () =>
   (dispatch: Dispatch<ResetAddressPredictionsAction>): void => {
     dispatch({
       type: actionTypes.RESET_ADDRESS_PREDICTIONS,
     });
   };
+
+export default resetAddressPredictions;

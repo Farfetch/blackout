@@ -1,4 +1,20 @@
 module.exports = {
+  plugins: [
+    ['./babel-plugins/packageJsonTransformer'], // This must be the first plugin
+    [
+      '@babel/plugin-proposal-class-properties',
+      {
+        loose: true,
+      },
+    ],
+    [
+      '@babel/plugin-proposal-private-methods',
+      {
+        loose: true,
+      },
+    ],
+    ['@babel/plugin-proposal-private-property-in-object', { loose: true }],
+  ],
   presets: [
     [
       '@babel/preset-env',
@@ -18,20 +34,5 @@ module.exports = {
       },
     ],
     '@babel/preset-typescript',
-  ],
-  plugins: [
-    [
-      '@babel/plugin-proposal-class-properties',
-      {
-        loose: true,
-      },
-    ],
-    [
-      '@babel/plugin-proposal-private-methods',
-      {
-        loose: true,
-      },
-    ],
-    ['@babel/plugin-proposal-private-property-in-object', { loose: true }],
   ],
 };

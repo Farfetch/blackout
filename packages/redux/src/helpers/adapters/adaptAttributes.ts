@@ -1,6 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import type { AdaptAttributes, AttributesAdapted } from './types';
-import type { Size } from '@farfetch/blackout-client/products/types';
+import type { Size } from '@farfetch/blackout-client';
 
 /**
  * Convert legacy size attributes to an object.
@@ -45,7 +45,7 @@ const adaptAttributes: AdaptAttributes = (attributes, sizes) => {
   // it to the attributes returned
   if (sizes && !isEmpty(sizes)) {
     const isOneSize = sizes[0]?.isOneSize;
-    let currentSize;
+    let currentSize: Size | undefined;
 
     if (isOneSize) {
       // Manually build the size for a one size product

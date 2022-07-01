@@ -1,13 +1,13 @@
 import { cleanup, renderHook } from '@testing-library/react';
-import { getBagItems } from '@farfetch/blackout-redux/bags';
+import { getBagItems } from '@farfetch/blackout-redux';
 import { mockBagItem, mockInitialState } from 'tests/__fixtures__/bags';
 import { mockStore } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
 import { useAddOrUpdateBagItem } from '../..';
 import React from 'react';
 
-jest.mock('@farfetch/blackout-redux/bags', () => ({
-  ...jest.requireActual('@farfetch/blackout-redux/bags'),
+jest.mock('@farfetch/blackout-redux', () => ({
+  ...jest.requireActual('@farfetch/blackout-redux'),
   addBagItem: jest.fn(() => ({ type: 'add' })),
   updateBagItem: jest.fn(() => ({ type: 'update' })),
   getBagItems: jest.fn(() => [mockBagItem]),

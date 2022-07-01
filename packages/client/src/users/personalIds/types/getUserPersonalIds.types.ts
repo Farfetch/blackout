@@ -1,7 +1,8 @@
 import type { Config } from '../../../types';
-import type { UserPersonalIdsResponse } from '.';
+import type { User } from '../../authentication/types/user.types';
+import type { UserPersonalId } from './userPersonalId.types';
 
 export type GetUserPersonalIds = (
-  id: number,
+  userId: User['id'],
   config: Config,
-) => Promise<UserPersonalIdsResponse>;
+) => Promise<UserPersonalId[]>;

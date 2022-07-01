@@ -1,5 +1,5 @@
 import { getEntityById } from './entity';
-import type { City } from '@farfetch/blackout-client/locale/types';
+import type { City } from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 /**

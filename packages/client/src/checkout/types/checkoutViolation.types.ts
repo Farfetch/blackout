@@ -1,4 +1,4 @@
-import type { Item } from './item.types';
+import type { CheckoutOrderItem } from './checkoutOrderItem.types';
 
 enum Action {
   DecreaseQuantity = 'DecreaseQuantity',
@@ -10,6 +10,6 @@ type CheckoutViolationFixSuggestion = {
 };
 
 export type CheckoutViolation = {
-  itemsIds?: Array<Item['id']>;
+  itemsIds?: Array<CheckoutOrderItem['id']>;
   fixSuggestion?: CheckoutViolationFixSuggestion;
 };

@@ -3,7 +3,9 @@ import type { Currencies } from './currencies';
 
 export interface Country {
   code: string;
-  structure?: string;
+  name: string;
+  nativeName: string;
+  structures: string[];
   platformId?: number;
   cultureCode: string;
   isDefault?: boolean;
@@ -11,6 +13,9 @@ export interface Country {
   isCountryDefault?: boolean;
   continentId: number;
   currencies?: Currencies;
+  cultures: string[];
+  defaultSubfolder: string;
+  defaultCulture: string;
 }
 
 export type GetCountry = (

@@ -1,5 +1,5 @@
-import { actionTypes } from '../..';
-import { deleteBagItem } from '@farfetch/blackout-client/bags';
+import * as actionTypes from '../../actionTypes';
+import { deleteBagItem } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import {
   mockBagId,
@@ -13,8 +13,8 @@ import { removeBagItem } from '..';
 import find from 'lodash/find';
 import thunk from 'redux-thunk';
 
-jest.mock('@farfetch/blackout-client/bags', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/bags'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   deleteBagItem: jest.fn(),
 }));
 

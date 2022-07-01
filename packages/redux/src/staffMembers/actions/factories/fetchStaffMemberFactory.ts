@@ -1,11 +1,12 @@
 import * as actionTypes from '../../actionTypes';
-import { toBlackoutError } from '@farfetch/blackout-client';
-import type { Dispatch } from 'redux';
-import type { FetchStaffMemberAction } from '../../types';
-import type {
+import {
+  Config,
   GetStaffMember,
   StaffMember,
-} from '@farfetch/blackout-client/staffMembers/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
+import type { FetchStaffMemberAction } from '../../types';
 
 /**
  * @param id     - Staff member identifier.
@@ -24,7 +25,7 @@ import type {
  */
 const fetchStaffMemberFactory =
   (getStaffMember: GetStaffMember) =>
-  (id: StaffMember['id'], config?: Record<string, unknown>) =>
+  (id: StaffMember['id'], config?: Config) =>
   async (dispatch: Dispatch<FetchStaffMemberAction>): Promise<StaffMember> => {
     try {
       dispatch({

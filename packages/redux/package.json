@@ -4,23 +4,23 @@
   "description": "Modules to manage the application global state",
   "license": "MIT",
   "main": "src/index.ts",
-  "exports": {
-    "./*": "./dist/*"
+  "scripts": {
+    "build": "yarn build:transpile && yarn build:types && yarn build:copy-package-json",
+    "build:transpile": "../../scripts/transpile.sh",
+    "build:types": "tsc -p tsconfig.release.json",
+    "build:copy-package-json": "node ../../scripts/copy-package-json.js",
+    "prebuild": "rimraf dist tsconfig.release.tsbuildinfo",
+    "ci:types": "tsc -p tsconfig.ci.json"
   },
-  "files": [
-    "dist",
-    "src"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/Farfetch/blackout.git"
   },
   "dependencies": {
     "credit-card-type": "^9.1.0",
-    "invariant": "^2.2.4",
     "normalizr": "^3.6.1",
     "proper-url-join": "^2.1.1",
-    "reselect": "^4.0.0",
+    "reselect": "^4.1.5",
     "url-parse": "^1.4.7"
   },
   "devDependencies": {
@@ -28,14 +28,14 @@
     "@farfetch/blackout-client": "^2.0.0-next.181",
     "redux-mock-store": "^1.5.4",
     "redux-thunk": "^2.4.1",
-    "reselect": "^4.0.0"
+    "reselect": "^4.1.5"
   },
   "peerDependencies": {
-    "@farfetch/blackout-analytics": "^0.1.0-next.0",
-    "@farfetch/blackout-client": "^2.0.0-next.98",
+    "@farfetch/blackout-analytics": "^1.0.0-next.46",
+    "@farfetch/blackout-client": "^2.0.0-next.181",
     "lodash": "^4.17.20",
     "redux": "^4.1.0",
-    "reselect": "^4.0.0"
+    "reselect": "^4.1.5"
   },
   "publishConfig": {
     "access": "public"

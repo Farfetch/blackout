@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`updateUserContact action creator should create the correct actions for when the update contact procedure is successful: update contact success payload 1`] = `
-Object {
-  "type": "@farfetch/blackout-client/UPDATE_USER_CONTACT_SUCCESS",
-}
-`;

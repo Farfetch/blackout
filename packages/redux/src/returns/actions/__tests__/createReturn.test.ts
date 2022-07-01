@@ -1,16 +1,16 @@
-import { actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
 import { createReturn } from '..';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import { postReturn } from '@farfetch/blackout-client/returns';
+import { postReturn } from '@farfetch/blackout-client';
 import {
   responses,
   returnsNormalizedPayload,
 } from 'tests/__fixtures__/returns';
 import find from 'lodash/find';
 
-jest.mock('@farfetch/blackout-client/returns', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/returns'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   postReturn: jest.fn(),
 }));
 
@@ -18,7 +18,6 @@ const returnsMockStore = (state = {}) =>
   mockStore({ returns: INITIAL_STATE }, state);
 
 describe('createReturn() action creator', () => {
-  const query = {};
   const expectedConfig = undefined;
   let store;
   const data = { ...responses.post.success };
@@ -35,11 +34,11 @@ describe('createReturn() action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(createReturn(data, query));
+      await store.dispatch(createReturn(data));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(postReturn).toHaveBeenCalledTimes(1);
-      expect(postReturn).toHaveBeenCalledWith(data, query, expectedConfig);
+      expect(postReturn).toHaveBeenCalledWith(data, expectedConfig);
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
           { type: actionTypes.CREATE_RETURN_REQUEST },
@@ -55,12 +54,12 @@ describe('createReturn() action creator', () => {
   it('should create the correct actions for when the create checkout procedure is successful', async () => {
     postReturn.mockResolvedValueOnce(responses.post.success);
 
-    await store.dispatch(createReturn(data, query));
+    await store.dispatch(createReturn(data));
 
     const actionResults = store.getActions();
 
     expect(postReturn).toHaveBeenCalledTimes(1);
-    expect(postReturn).toHaveBeenCalledWith(data, query, expectedConfig);
+    expect(postReturn).toHaveBeenCalledWith(data, expectedConfig);
     expect(actionResults).toMatchObject([
       { type: actionTypes.CREATE_RETURN_REQUEST },
       {

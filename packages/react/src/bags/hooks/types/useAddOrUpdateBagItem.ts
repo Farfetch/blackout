@@ -1,11 +1,9 @@
 import type {
   BagItemHydrated,
-  ProductEntity,
-} from '@farfetch/blackout-redux/entities/types';
-import type {
   CustomAttributesAdapted,
+  ProductEntity,
   SizeAdapted,
-} from '@farfetch/blackout-redux/types';
+} from '@farfetch/blackout-redux';
 
 export type HandleAddOrUpdateItem = ({
   customAttributes,

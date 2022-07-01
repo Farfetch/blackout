@@ -1,7 +1,6 @@
-import type { BlackoutError } from '@farfetch/blackout-client';
-import type { StaffMember } from '@farfetch/blackout-client/staffMembers/types';
+import type { BlackoutError, StaffMember } from '@farfetch/blackout-client';
 
-export type State = {
+export type StaffMembersState = {
   error: Record<StaffMember['id'], BlackoutError | undefined>;
   isLoading: Record<StaffMember['id'], boolean | undefined>;
   result: Record<StaffMember['id'], StaffMember>;

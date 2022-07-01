@@ -1,12 +1,13 @@
 import * as actionTypes from '../../actionTypes';
-import { toBlackoutError } from '@farfetch/blackout-client';
+import {
+  Config,
+  GetSearchDidYouMean,
+  SearchDidYouMeanQuery,
+  SearchDidYouMeanSuggestion,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { FetchSearchDidYouMeanAction } from '../../types';
-import type {
-  GetSearchDidYouMean,
-  SearchDidYouMean,
-  SearchDidYouMeanQuery,
-} from '@farfetch/blackout-client/search/types';
 
 /**
  * @param query  - Query parameters to apply to the search.
@@ -25,10 +26,10 @@ import type {
  */
 const fetchSearchDidYouMeanFactory =
   (getSearchDidYouMean: GetSearchDidYouMean) =>
-  (query: SearchDidYouMeanQuery, config?: Record<string, unknown>) =>
+  (query: SearchDidYouMeanQuery, config?: Config) =>
   async (
     dispatch: Dispatch<FetchSearchDidYouMeanAction>,
-  ): Promise<SearchDidYouMean[]> => {
+  ): Promise<SearchDidYouMeanSuggestion[]> => {
     try {
       dispatch({
         meta: { query },

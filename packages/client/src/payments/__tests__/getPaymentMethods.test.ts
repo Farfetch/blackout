@@ -3,7 +3,7 @@ import { orderId as id } from 'tests/__fixtures__/payments';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getPaymentMethods.fixtures';
 import mswServer from '../../../tests/mswServer';
-import type { PaymentMethod } from '../types';
+import type { PaymentMethods } from '../types';
 
 describe('getPaymentMethods', () => {
   const expectedConfig = undefined;
@@ -13,7 +13,7 @@ describe('getPaymentMethods', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const response: PaymentMethod = {
+    const response: PaymentMethods = {
       customerAccounts: [
         {
           type: 'string',

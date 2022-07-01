@@ -1,6 +1,0 @@
-{
-  "extends": "./tsconfig.basic.json",
-  "compilerOptions": {
-    "declaration": true
-  }
-}

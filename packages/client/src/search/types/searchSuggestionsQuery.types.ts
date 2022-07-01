@@ -1,7 +1,7 @@
-import type { GenderEnum } from '../../types';
+import type { Gender } from '../../types';
 
 export type SearchSuggestionsQuery = {
   query: string;
-  gender?: GenderEnum;
+  gender?: Gender;
   ignoreFilterExclusions?: boolean;
 };

@@ -1,5 +1,5 @@
 import { fetchSizeGuidesFactory } from './factories';
-import { getSizeGuides } from '@farfetch/blackout-client/sizeGuides';
+import { getSizeGuides } from '@farfetch/blackout-client';
 
 /**
  * Fetches size guides for a given set of brand ids and category ids. This size

@@ -2,8 +2,7 @@ import { INITIAL_STATE_LOCALE } from './reducer';
 import { normalize } from 'normalizr';
 import country from '../entities/schemas/country';
 import isEmpty from 'lodash/isEmpty';
-import type { Model } from '../types';
-import type { ServerInitialState } from './types';
+import type { ServerInitialState } from '../types/serverInitialState.types';
 
 /**
  * Converts server data for locale into store state.
@@ -12,11 +11,8 @@ import type { ServerInitialState } from './types';
  *
  * @returns - Initial state for the locale reducer.
  */
-const serverInitialState = ({
-  model,
-}: {
-  model: Model;
-}): ServerInitialState => {
+
+const localeServerInitialState: ServerInitialState = ({ model }) => {
   if (isEmpty(model)) {
     return { locale: INITIAL_STATE_LOCALE };
   }
@@ -60,4 +56,4 @@ const serverInitialState = ({
   };
 };
 
-export default serverInitialState;
+export default localeServerInitialState;

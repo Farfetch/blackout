@@ -1,6 +1,6 @@
 import * as normalizr from 'normalizr';
 import { fetchProductGrouping } from '..';
-import { getProductGrouping } from '@farfetch/blackout-client/products';
+import { getProductGrouping } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/grouping';
 import {
   mockProductGrouping,
@@ -10,8 +10,8 @@ import {
 import { mockStore } from '../../../../tests';
 import { productsActionTypes } from '../..';
 
-jest.mock('@farfetch/blackout-client/products', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/products'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getProductGrouping: jest.fn(),
 }));
 

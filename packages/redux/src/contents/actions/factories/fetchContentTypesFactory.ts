@@ -1,10 +1,11 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
-import type {
+import {
+  Config,
   ContentTypes,
   ContentTypesEntries,
   GetContentTypes,
-} from '@farfetch/blackout-client/contents/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
 /**
@@ -21,7 +22,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default (getContentTypes: GetContentTypes) =>
+const fetchContentTypesFactory =
+  (getContentTypes: GetContentTypes) =>
   (spaceCode: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<ContentTypes> => {
     try {
@@ -48,3 +50,5 @@ export default (getContentTypes: GetContentTypes) =>
       throw error;
     }
   };
+
+export default fetchContentTypesFactory;

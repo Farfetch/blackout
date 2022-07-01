@@ -1,7 +1,6 @@
 import { getEntities } from './entity';
+import { USER_ID_PROPERTY } from '../constants';
 import get from 'lodash/get';
-
-export const USER_ID_PROPERTY = 'id';
 
 /**
  * Returns the current user.

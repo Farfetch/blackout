@@ -1,13 +1,14 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  Config,
+  GetSizeScale,
+  SizeScale,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import { toBlackoutError } from '@farfetch/blackout-client';
 import sizeScale from '../../../entities/schemas/sizeScale';
 import type { Dispatch } from 'redux';
 import type { FetchSizeScaleAction } from '../../types';
-import type {
-  GetSizeScale,
-  SizeScale,
-} from '@farfetch/blackout-client/sizeScales/types';
 
 /**
  * @param sizeScaleId - Numeric identifier of the size scale.
@@ -26,7 +27,7 @@ import type {
  */
 const fetchSizeScaleFactory =
   (getSizeScale: GetSizeScale) =>
-  (sizeScaleId: number, config?: Record<string, unknown>) =>
+  (sizeScaleId: number, config?: Config) =>
   async (dispatch: Dispatch<FetchSizeScaleAction>): Promise<SizeScale> => {
     try {
       dispatch({

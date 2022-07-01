@@ -1,14 +1,15 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
+import {
+  Config,
+  GetPaymentTokens,
+  GetPaymentTokensQuery,
+  PaymentTokens,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
 import paymentTokenSchema from '../../../entities/schemas/paymentToken';
 import type { Dispatch } from 'redux';
 import type { FetchPaymentTokensAction } from '../../types';
-import type {
-  GetPaymentTokens,
-  GetPaymentTokensQuery,
-  PaymentTokens,
-} from '@farfetch/blackout-client/payments/types';
 
 /**
  * @param query  - Object containing the necessary information to retrieve the tokens.

@@ -1,9 +1,10 @@
+import * as actionTypes from '../../actionTypes';
 import { fetchUserSubscriptions } from '..';
 import { getSubscriptions } from '@farfetch/blackout-client';
 import { mockGetSubscriptions } from 'tests/__fixtures__/subscriptions/';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
-import reducer, { subscriptionsActionTypes as actionTypes } from '../..';
+import reducer from '../../reducer';
 
 jest.mock('@farfetch/blackout-client', () => {
   return {

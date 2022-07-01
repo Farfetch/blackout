@@ -1,5 +1,5 @@
 import { getEntities, getEntityById } from './entity';
-import type { Category } from '@farfetch/blackout-client/categories/types';
+import type { Category } from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 /**

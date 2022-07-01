@@ -1,14 +1,15 @@
 import * as actionTypes from '../../actionTypes';
-import { getBagId } from '../../selectors';
-import { normalize } from 'normalizr';
-import { toBlackoutError } from '@farfetch/blackout-client';
-import bagItemSchema from '../../../entities/schemas/bagItem';
-import type {
+import {
   Bag,
+  Config,
   PatchBagItem,
   PatchBagItemData,
-  Query,
-} from '@farfetch/blackout-client/bags/types';
+  PatchBagItemQuery,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import { getBagId } from '../../selectors';
+import { normalize } from 'normalizr';
+import bagItemSchema from '../../../entities/schemas/bagItem';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, Nullable, StoreState } from '../../../types';
 
@@ -34,8 +35,8 @@ const updateBagItemFactory =
   (
     bagItemId: number,
     data: PatchBagItemData,
-    query?: Query,
-    config?: Record<string, unknown>,
+    query?: PatchBagItemQuery,
+    config?: Config,
   ) =>
   async (
     dispatch: Dispatch,

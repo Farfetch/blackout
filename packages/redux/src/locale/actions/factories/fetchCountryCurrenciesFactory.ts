@@ -1,19 +1,13 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
-import { normalize } from 'normalizr';
-import country from '../../../entities/schemas/country';
-import type {
+import {
+  Config,
   Currencies,
   GetCountryCurrencies,
-} from '@farfetch/blackout-client/locale/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import { normalize } from 'normalizr';
+import country from '../../../entities/schemas/country';
 import type { Dispatch } from 'redux';
-
-/**
- * @param countryCode - Country identifier (ISO 3166-1 alpha-2) to find the currencies related.
- * @param config      - Custom configurations to send to the client instance.
- *
- * @returns Thunk to be dispatched to the redux store.
- */
 
 /**
  * Fetch all currencies from a specific country.

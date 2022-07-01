@@ -1,5 +1,5 @@
 import { getError, getIsLoading } from './reducer';
-import type { BlackoutError } from '@farfetch/blackout-client';
+import type { MerchantsLocationsState } from './types';
 import type { StoreState } from '../types';
 
 /**
@@ -9,9 +9,8 @@ import type { StoreState } from '../types';
  *
  * @returns If merchants locations are loading or not.
  */
-export const areMerchantsLocationsLoading = (
-  state: StoreState,
-): boolean | undefined => getIsLoading(state.merchantsLocations);
+export const areMerchantsLocationsLoading = (state: StoreState) =>
+  getIsLoading(state.merchantsLocations as MerchantsLocationsState);
 
 /**
  * Returns the error of the merchants locations.
@@ -20,6 +19,5 @@ export const areMerchantsLocationsLoading = (
  *
  * @returns The merchants locations error.
  */
-export const getMerchantsLocationsError = (
-  state: StoreState,
-): BlackoutError | null => getError(state.merchantsLocations);
+export const getMerchantsLocationsError = (state: StoreState) =>
+  getError(state.merchantsLocations as MerchantsLocationsState);

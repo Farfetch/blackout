@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`removeContact action creator should create the correct actions for when the get contact procedure is successful: remove contact success payload 1`] = `
+Object {
+  "type": "@farfetch/blackout-redux/REMOVE_USER_CONTACT_SUCCESS",
+}
+`;

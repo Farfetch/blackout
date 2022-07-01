@@ -1,12 +1,14 @@
 import { createContext } from 'react';
 import type { Error } from './UserProfileProvider';
-import type { GetUserResponse } from '@farfetch/blackout-client/users/types';
+import type { GuestUserNormalized, User } from '@farfetch/blackout-client';
 
-interface ContextProps {
-  loadProfile: () => Promise<GetUserResponse> | null;
+export interface UserProfileContextProps {
+  loadProfile: () => Promise<User | GuestUserNormalized> | null;
   isLoading: boolean;
   error: Error | null;
-  userData: GetUserResponse | null;
+  userData: User | GuestUserNormalized | null;
 }
 
-export default createContext<ContextProps>({} as ContextProps);
+export default createContext<UserProfileContextProps>(
+  {} as UserProfileContextProps,
+);

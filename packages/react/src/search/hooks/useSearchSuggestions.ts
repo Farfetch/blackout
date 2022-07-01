@@ -4,7 +4,7 @@ import {
   getSearchSuggestionsError,
   getSearchSuggestionsResult,
   resetSearchSuggestions as resetSearchSuggestionsAction,
-} from '@farfetch/blackout-redux/search';
+} from '@farfetch/blackout-redux';
 import { useAction } from '../../helpers';
 import { useSelector } from 'react-redux';
 import type { UseSearchSuggestions } from './types';

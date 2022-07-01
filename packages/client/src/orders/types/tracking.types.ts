@@ -1,11 +1,11 @@
-export type Tracking = {
+export type Trackings = {
   number: number;
   totalPages: number;
   totalItems: number;
-  entries: Entries[];
+  entries: Tracking[];
 };
 
-type Entries = {
+export type Tracking = {
   id: string;
   numberOfTrackings: number;
   parcels: number;
@@ -16,13 +16,13 @@ type Entries = {
   labelTrackings: LabelTracking[];
 };
 
-type TrackingEvent = {
+export type TrackingEvent = {
   type: TrackingEventType[];
   description: string;
   date: string;
 };
 
-enum TrackingEventType {
+export enum TrackingEventType {
   None,
   Pickup,
   Delivered,
@@ -41,7 +41,7 @@ export type LabelTracking = {
   event: LabelTrackingEvent[];
 };
 
-type LabelTrackingEvent = {
+export type LabelTrackingEvent = {
   code: string;
   date: string;
   description: string;

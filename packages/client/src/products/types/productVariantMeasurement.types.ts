@@ -1,13 +1,15 @@
-import type { VariantAttribute } from './variantAttribute.types';
+import type { Attribute } from '../../types';
+
+export type FullMeasurement = {
+  description: string;
+  value: number;
+  unit: string;
+  measureTypeId: string;
+  unitClass: string;
+  unitClassDescription: string;
+};
 
 export type ProductVariantMeasurement = {
-  attributes: VariantAttribute[];
-  measurements: Array<{
-    description: string;
-    value: number;
-    unit: string;
-    measureTypeId: string;
-    unitClass: string;
-    unitClassDescription: string;
-  }>;
+  attributes: Attribute[];
+  measurements: FullMeasurement[];
 };

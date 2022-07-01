@@ -1,12 +1,12 @@
-import { actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import { patchReturn } from '@farfetch/blackout-client/returns';
+import { patchReturn } from '@farfetch/blackout-client';
 import { updateReturn } from '..';
 import find from 'lodash/find';
 
-jest.mock('@farfetch/blackout-client/returns', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/returns'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   patchReturn: jest.fn(),
 }));
 
@@ -14,7 +14,6 @@ const returnsMockStore = (state = {}) =>
   mockStore({ returns: INITIAL_STATE }, state);
 
 describe('updateReturn() action creator', () => {
-  const query = {};
   const expectedConfig = undefined;
   let store;
   const returnId = 5926969;
@@ -41,14 +40,13 @@ describe('updateReturn() action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(updateReturn(returnId, data, query));
+      await store.dispatch(updateReturn(returnId, data));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(patchReturn).toHaveBeenCalledTimes(1);
       expect(patchReturn).toHaveBeenCalledWith(
         returnId,
         expectedData,
-        query,
         expectedConfig,
       );
       expect(store.getActions()).toEqual(
@@ -66,7 +64,7 @@ describe('updateReturn() action creator', () => {
   it('should create the correct actions for when the update return procedure is successful', async () => {
     patchReturn.mockResolvedValueOnce();
 
-    await store.dispatch(updateReturn(returnId, data, query));
+    await store.dispatch(updateReturn(returnId, data));
 
     const actionResults = store.getActions();
 
@@ -74,7 +72,6 @@ describe('updateReturn() action creator', () => {
     expect(patchReturn).toHaveBeenCalledWith(
       returnId,
       expectedData,
-      query,
       expectedConfig,
     );
     expect(actionResults).toMatchObject([

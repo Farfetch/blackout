@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setUserPreferences action creator should create the correct actions for when the update preferences procedure is successful: update preferences success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "preferences": Object {
+        "FFA": Object {
+          "code": "FFA",
+          "values": Array [
+            "136968",
+            "136831",
+          ],
+        },
+      },
+    },
+    "result": Array [
+      "FFA",
+    ],
+  },
+  "type": "@farfetch/blackout-redux/UPDATE_USER_PREFERENCES_SUCCESS",
+}
+`;

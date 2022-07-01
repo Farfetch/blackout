@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchUserDefaultPersonalId action creator should create the correct actions for when the fetch default personal id procedure is successful: fetch default personal id success payload 1`] = `
+Object {
+  "payload": Object {
+    "backImageId": "string",
+    "expiryDate": "string",
+    "frontImageId": "string",
+    "id": "string",
+    "isDefault": true,
+    "maskedIdNumber": "string",
+    "maskedName": "string",
+    "verifyLevel": 1,
+  },
+  "type": "@farfetch/blackout-redux/FETCH_USER_DEFAULT_PERSONAL_ID_SUCCESS",
+}
+`;

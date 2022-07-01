@@ -1,6 +1,6 @@
-import type { Config, GenderEnum } from '../../types';
+import type { Config, Gender } from '../../types';
 import type { ContentEntries } from './contents.types';
-import type { PriceTypeEnum } from '../../products/types';
+import type { PriceType } from '../../products/types';
 
 export enum Type {
   PRODUCT = 'PRODUCT',
@@ -14,13 +14,13 @@ export type QueryCommercePages = {
   // Query by a specified product or set identifier.
   id?: number;
   // Query by a gender (E.g. 0 = Woman, 1 = Man, 2 = Unisex, 3 = Kid).
-  gender?: GenderEnum;
+  gender?: Gender;
   // Query by a specified brand identifier.
   brand?: number;
   // Query by a specified category identifiers, separated by commas (E.g. 139065,139088).
   category?: string;
   // Query by a specified price type, separated by commas (E.g. 0,1,2).
-  priceType?: PriceTypeEnum;
+  priceType?: PriceType;
   // Query by a specified sku identifier.
   sku?: number;
   // Number of the page to get, starting at 1. The default is 1.

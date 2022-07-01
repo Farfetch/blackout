@@ -1,17 +1,44 @@
-export type OrdersEntity = {
-  id: number;
-  createdDate: number;
-  totalItems: number;
-  byMerchant: Record<Merchant['merchant'], Merchant>;
+import type { Order, OrderSummary } from '@farfetch/blackout-client';
+import type { OrderItemEntity } from './orderItems.types';
+import type { ReturnOptionsEntity } from './returnOptions.types';
+
+export type OrderNormalized = Omit<Order, 'items' | 'createdDate'> & {
+  items: Array<OrderItemEntity['id']>;
+  createdDate: number | null;
+  updatedDate: number | null;
 };
 
-type Merchant = {
-  userId: number;
-  totalQuantity: number;
-  status: string;
-  returnAvailable: boolean;
-  checkoutOrderId: number;
-  tags: string[];
-  merchantOrderCode: string;
-  merchant: number;
+export type OrderSummarySemiNormalized = Omit<OrderSummary, 'createdDate'> & {
+  createdDate: number | null;
+  totalItems: OrderSummary['totalQuantity'];
+  byMerchant: Record<OrderMerchant['merchant']['id'], OrderMerchant>;
+};
+
+export type OrderSummaryNormalized = Omit<
+  OrderSummarySemiNormalized,
+  'byMerchant'
+> & {
+  byMerchant: Record<
+    OrderMerchantNormalized['merchant'],
+    OrderMerchantNormalized
+  >;
+};
+
+export type OrderEntity = (OrderNormalized | OrderSummaryNormalized) &
+  Pick<OrderSummaryNormalized, 'totalItems' | 'byMerchant'>;
+
+export type OrderMerchant = Omit<
+  Partial<OrderSummary>,
+  'id' | 'merchantId' | 'createdDate' | 'merchantName'
+> & {
+  merchant: {
+    id: OrderSummary['merchantId'];
+    name: OrderSummary['merchantName'];
+  };
+  orderItems?: OrderItemEntity['id'][];
+  returnOptions?: ReturnOptionsEntity['id'][];
+};
+
+export type OrderMerchantNormalized = Omit<OrderMerchant, 'merchant'> & {
+  merchant: OrderSummary['merchantId'];
 };

@@ -1,8 +1,8 @@
 import get from 'lodash/get';
 import type {
+  AnalyticsProduct,
   EventData,
   EventProperties,
-  Product,
   TrackTypesValues,
 } from '../types/analytics.types';
 import type URLParse from 'url-parse';
@@ -19,7 +19,7 @@ export const getProperties = (
 
 export const getProducts = (
   data: EventData<TrackTypesValues>,
-): Array<Product> => {
+): AnalyticsProduct[] => {
   return get(data, 'properties.products', []);
 };
 
@@ -82,13 +82,13 @@ export const getCheckoutProperties = (
   };
 };
 
-export const getProductId = (unmappedProduct: Product): string => {
+export const getProductId = (unmappedProduct: AnalyticsProduct): string => {
   // Validation of event properties are done before this function is called
   // so the cast is acceptable here.
   return unmappedProduct.id as string;
 };
 
-export const getProductName = (unmappedProduct: Product): string => {
+export const getProductName = (unmappedProduct: AnalyticsProduct): string => {
   // Validation of event properties are done before this function is called
   // so the cast is acceptable here.
   return unmappedProduct.name as string;

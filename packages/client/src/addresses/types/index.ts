@@ -1,2 +1,2 @@
-export * from './getAddressPrediction.types';
+export * from './getAddressPredictionDetails.types';
 export * from './getAddressPredictions.types';

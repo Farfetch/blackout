@@ -95,9 +95,9 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
    * @param strippedDownAnalytics - Analytics stripped down instance.
    */
   constructor(
-    protected options: GA4IntegrationOptions,
-    protected loadData: LoadIntegrationEventData,
-    protected strippedDownAnalytics: StrippedDownAnalytics,
+    options: GA4IntegrationOptions,
+    loadData: LoadIntegrationEventData,
+    strippedDownAnalytics: StrippedDownAnalytics,
   ) {
     super(options, loadData, strippedDownAnalytics);
     this.initialize(options);
@@ -111,7 +111,7 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
    *
    * @returns If the integration is ready to be loaded.
    */
-  static shouldLoad(consent: ConsentData): boolean {
+  static override shouldLoad(consent: ConsentData): boolean {
     return !!consent?.statistics;
   }
 
@@ -236,7 +236,7 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
    *
    * @returns Promise that will resolve when the method finishes.
    */
-  async track(data: EventData<TrackTypesValues>) {
+  override async track(data: EventData<TrackTypesValues>) {
     await this.initializePromise;
 
     switch (data.type) {
@@ -299,7 +299,7 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
    *
    * @param data - Event data provided by analytics.
    */
-  async onSetUser(data: SetUserEventData | LoadIntegrationEventData) {
+  override async onSetUser(data: SetUserEventData | LoadIntegrationEventData) {
     await this.initializePromise;
 
     try {
@@ -622,6 +622,8 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
 
       return commandList;
     }
+
+    return undefined;
   }
 
   /**

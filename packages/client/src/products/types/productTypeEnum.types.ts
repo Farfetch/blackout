@@ -1,4 +1,4 @@
-export enum ProductTypeEnum {
+export enum ProductType {
   Standard,
   BundleProduct,
   BundleVariant,

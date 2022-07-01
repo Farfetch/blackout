@@ -2,7 +2,6 @@ import {
   buildFacetTree,
   generateProductsListHash,
   getMaxDepth,
-  getShallowestDepth,
 } from '../utils';
 import { createSelector } from 'reselect';
 import {
@@ -19,15 +18,17 @@ import {
 } from '../reducer/lists';
 import flatten from 'lodash/flatten';
 import flattenDeep from 'lodash/flattenDeep';
+import getShallowestDepth from '../utils/getShallowestDepth';
 import isEmpty from 'lodash/isEmpty';
 import sortBy from 'lodash/sortBy';
-import type { BlackoutError, FacetGroup } from '@farfetch/blackout-client';
 import type {
   FacetEntity,
   FacetGroupsNormalized,
   ProductEntity,
   ProductsListEntity,
 } from '../../entities/types';
+import type { FacetGroup } from '@farfetch/blackout-client';
+import type { ProductsState } from '../types';
 import type { StoreState } from '../../types';
 
 /**
@@ -51,9 +52,8 @@ const checkHash = (hash: string | number | null): ProductsListEntity['hash'] =>
  *
  * @returns Products list identifier composed by a list identifier (listing or sets), slug and query.
  */
-export const getProductsListHash = (
-  state: StoreState,
-): ProductsListEntity['hash'] | null => getHash(state.products.lists);
+export const getProductsListHash = (state: StoreState) =>
+  getHash((state.products as ProductsState).lists);
 
 /**
  * Retrieves the error thrown by current products list.
@@ -67,7 +67,7 @@ export const getProductsListHash = (
 export const getProductsListError = (
   state: StoreState,
   hash: string | number | null = getProductsListHash(state),
-): BlackoutError | undefined => getError(state.products.lists)[checkHash(hash)];
+) => getError((state.products as ProductsState).lists)[checkHash(hash)];
 
 /**
  * Retrieves the hydration condition from current products list.
@@ -81,7 +81,7 @@ export const getProductsListError = (
 export const isProductsListHydrated = (
   state: StoreState,
   hash: string | number | null = getProductsListHash(state),
-): boolean | undefined => getIsHydrated(state.products.lists)[checkHash(hash)];
+) => getIsHydrated((state.products as ProductsState).lists)[checkHash(hash)];
 
 /**
  * Retrieves the loading condition from current products list.
@@ -95,7 +95,7 @@ export const isProductsListHydrated = (
 export const isProductsListLoading = (
   state: StoreState,
   hash: string | number | null = getProductsListHash(state),
-): boolean | undefined => getIsLoading(state.products.lists)[checkHash(hash)];
+) => getIsLoading((state.products as ProductsState).lists)[checkHash(hash)];
 
 /**
  * Retrieves the fetched status to a specific products list.
@@ -109,9 +109,10 @@ export const isProductsListLoading = (
 export const isProductsListFetched = (
   state: StoreState,
   hash: string | number | null = getProductsListHash(state),
-): boolean | undefined =>
-  getIsLoading(state.products.lists).hasOwnProperty(checkHash(hash)) &&
-  isProductsListLoading(state, checkHash(hash)) === false;
+) =>
+  getIsLoading((state.products as ProductsState).lists).hasOwnProperty(
+    checkHash(hash),
+  ) && isProductsListLoading(state, checkHash(hash)) === false;
 
 /**
  * Retrieves the result of a specific products list identified by its hash or id.
@@ -125,8 +126,7 @@ export const isProductsListFetched = (
 export const getProductsListResult = (
   state: StoreState,
   hash: string | number | null = getProductsListHash(state),
-): ProductsListEntity | undefined =>
-  getEntityById(state, 'productsLists', checkHash(hash));
+) => getEntityById(state, 'productsLists', checkHash(hash));
 
 /**
  * Retrieves product id's from the current products list.
@@ -316,8 +316,7 @@ export const getProductsListPagination = createSelector(
 export const getProductsListBreadcrumbs = (
   state: StoreState,
   hash: string | number | null = getProductsListHash(state),
-): ProductsListEntity['breadCrumbs'] =>
-  getProductsListResult(state, checkHash(hash))?.breadCrumbs;
+) => getProductsListResult(state, checkHash(hash))?.breadCrumbs;
 
 /**
  * Retrieves if a products list is cached by its hash.

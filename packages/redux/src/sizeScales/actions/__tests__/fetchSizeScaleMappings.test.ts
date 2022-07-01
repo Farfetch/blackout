@@ -1,6 +1,6 @@
-import { actionTypes } from '../../';
+import * as actionTypes from '../../actionTypes';
 import { fetchSizeScaleMappings } from '../';
-import { getSizeScaleMappings } from '@farfetch/blackout-client/sizeScales';
+import { getSizeScaleMappings } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import {
   mockSizeScaleMappings,
@@ -8,8 +8,8 @@ import {
 } from 'tests/__fixtures__/sizeScales';
 import { mockStore } from '../../../../tests';
 
-jest.mock('@farfetch/blackout-client/sizeScales', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/sizeScales'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getSizeScaleMappings: jest.fn(),
 }));
 

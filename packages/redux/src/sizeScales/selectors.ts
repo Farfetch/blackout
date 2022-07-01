@@ -10,14 +10,13 @@ import {
   getSizeScaleIsLoading as getSizeScaleIsLoadingByIdentifier,
 } from './reducer';
 import { getSizeScales } from '../entities/selectors';
-import type { BlackoutError } from '@farfetch/blackout-client';
-import type { Category } from '@farfetch/blackout-client/categories/types';
 import type {
+  Category,
   SizeScale,
-  SizeScaleMapping,
   SizeScaleMappingsQuery,
   SizeScalesQuery,
-} from '@farfetch/blackout-client/sizeScales/types';
+} from '@farfetch/blackout-client';
+import type { SizeScalesState } from './types';
 import type { StoreState } from '../types';
 
 /**
@@ -51,8 +50,8 @@ export const getSizeScalesByCategory = createSelector(
  *
  * @returns Size scales loading state.
  */
-export const areSizeScalesLoading = (state: StoreState): boolean =>
-  getIsLoading(state.sizeScales);
+export const areSizeScalesLoading = (state: StoreState) =>
+  getIsLoading(state.sizeScales as SizeScalesState);
 
 /**
  * Returns the loading state of the size scale.
@@ -65,7 +64,7 @@ export const areSizeScalesLoading = (state: StoreState): boolean =>
 export const isSizeScaleLoading = (
   state: StoreState,
   scaleIdentifier: SizeScale['sizeScaleId'] | SizeScalesQuery,
-): boolean | undefined => {
+) => {
   let identifier;
 
   if (typeof scaleIdentifier === 'object') {
@@ -74,7 +73,9 @@ export const isSizeScaleLoading = (
     identifier = scaleIdentifier;
   }
 
-  return getSizeScaleIsLoadingByIdentifier(state.sizeScales)[identifier];
+  return getSizeScaleIsLoadingByIdentifier(state.sizeScales as SizeScalesState)[
+    identifier
+  ];
 };
 
 /**
@@ -84,8 +85,8 @@ export const isSizeScaleLoading = (
  *
  * @returns Size scales error state.
  */
-export const getSizeScalesError = (state: StoreState): BlackoutError | null =>
-  getError(state.sizeScales);
+export const getSizeScalesError = (state: StoreState) =>
+  getError(state.sizeScales as SizeScalesState);
 
 /**
  * Returns the error of the size scale.
@@ -98,7 +99,7 @@ export const getSizeScalesError = (state: StoreState): BlackoutError | null =>
 export const getSizeScaleError = (
   state: StoreState,
   scaleIdentifier: number | SizeScalesQuery,
-): BlackoutError | undefined => {
+) => {
   let identifier;
 
   if (typeof scaleIdentifier === 'object') {
@@ -107,7 +108,9 @@ export const getSizeScaleError = (
     identifier = scaleIdentifier;
   }
 
-  return getSizeScaleErrorByIdentifier(state.sizeScales)[identifier];
+  return getSizeScaleErrorByIdentifier(state.sizeScales as SizeScalesState)[
+    identifier
+  ];
 };
 
 /**
@@ -121,15 +124,17 @@ export const getSizeScaleError = (
 export const isSizeScaleFetched = (
   state: StoreState,
   scaleId: SizeScale['sizeScaleId'],
-): boolean =>
-  getSizeScaleIsLoadingByIdentifier(state.sizeScales).hasOwnProperty(scaleId);
+) =>
+  getSizeScaleIsLoadingByIdentifier(
+    state.sizeScales as SizeScalesState,
+  ).hasOwnProperty(scaleId);
 
 /**
  * Returns a specific size scale mapping error.
  *
  * @example
  * ```
- * import { getSizeScaleMappingError } from '@farfetch/blackout-client/sizeScales/redux';
+ * import { getSizeScaleMappingError } from '@farfetch/blackout-client';
  *
  * const query = {
  *   gender: 0,
@@ -150,15 +155,17 @@ export const isSizeScaleFetched = (
 export const getSizeScaleMappingError = (
   state: StoreState,
   query: SizeScaleMappingsQuery,
-): BlackoutError | undefined =>
-  getMappingError(state.sizeScales)[generateSizeScaleMappingsHash(query)];
+) =>
+  getMappingError(state.sizeScales as SizeScalesState)[
+    generateSizeScaleMappingsHash(query)
+  ];
 
 /**
  * Returns the loading status of specific size scale mapping.
  *
  * @example
  * ```
- * import { isSizeScaleMappingLoading } from '@farfetch/blackout-client/sizeScales/redux';
+ * import { isSizeScaleMappingLoading } from '@farfetch/blackout-client';
  *
  * const query = {
  *   gender: 0,
@@ -179,15 +186,17 @@ export const getSizeScaleMappingError = (
 export const isSizeScaleMappingLoading = (
   state: StoreState,
   query: SizeScaleMappingsQuery,
-): boolean | undefined =>
-  getMappingIsLoading(state.sizeScales)[generateSizeScaleMappingsHash(query)];
+) =>
+  getMappingIsLoading(state.sizeScales as SizeScalesState)[
+    generateSizeScaleMappingsHash(query)
+  ];
 
 /**
  * Returns a specific size scale mapping.
  *
  * @example
  * ```
- * import { getSizeScaleMapping } from '@farfetch/blackout-client/sizeScales/redux';
+ * import { getSizeScaleMapping } from '@farfetch/blackout-client';
  *
  * const query = {
  *   gender: 0,
@@ -208,5 +217,7 @@ export const isSizeScaleMappingLoading = (
 export const getSizeScaleMapping = (
   state: StoreState,
   query: SizeScaleMappingsQuery,
-): SizeScaleMapping | undefined =>
-  getMappingResult(state.sizeScales)[generateSizeScaleMappingsHash(query)];
+) =>
+  getMappingResult(state.sizeScales as SizeScalesState)[
+    generateSizeScaleMappingsHash(query)
+  ];

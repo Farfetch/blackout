@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createPhoneTokens action creator should create the correct actions for when the create phone token procedure is successful: create phone token success payload 1`] = `
+Object {
+  "payload": Object {},
+  "type": "@farfetch/blackout-redux/CREATE_PHONE_TOKEN_SUCCESS",
+}
+`;

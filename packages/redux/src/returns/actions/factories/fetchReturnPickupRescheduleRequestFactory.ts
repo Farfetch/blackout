@@ -1,10 +1,11 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
-import type { Dispatch } from 'redux';
-import type {
+import {
+  Config,
   GetReturnPickupRescheduleRequest,
   PickupRescheduleRequest,
-} from '@farfetch/blackout-client/returns/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
 
 /**
  * Obtains the pickup reschedule request.
@@ -13,7 +14,7 @@ import type {
  *
  * @returns Thunk factory.
  */
-export const fetchReturnPickupRescheduleRequestFactory =
+const fetchReturnPickupRescheduleRequestFactory =
   (getReturnPickupRescheduleRequest: GetReturnPickupRescheduleRequest) =>
   (id: string, rescheduleRequestId: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<PickupRescheduleRequest> => {
@@ -43,3 +44,5 @@ export const fetchReturnPickupRescheduleRequestFactory =
       throw error;
     }
   };
+
+export default fetchReturnPickupRescheduleRequestFactory;

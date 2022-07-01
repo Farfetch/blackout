@@ -1,0 +1,5 @@
+{
+  "extends": "../../tsconfig.dev.base.json",
+  "include": ["src/**/*.ts*", "tests/**/*.ts*", "../../tests/**/*.ts*"],
+  "references": [{ "path": "./tsconfig.release.json" }]
+}

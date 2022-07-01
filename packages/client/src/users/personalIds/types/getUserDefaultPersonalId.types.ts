@@ -1,7 +1,8 @@
 import type { Config } from '../../../types';
-import type { UserDefaultPersonalIdResponse } from '.';
+import type { User } from '../../authentication/types/user.types';
+import type { UserPersonalId } from './userPersonalId.types';
 
 export type GetUserDefaultPersonalId = (
-  id: number,
+  userId: User['id'],
   config: Config,
-) => Promise<UserDefaultPersonalIdResponse>;
+) => Promise<UserPersonalId>;

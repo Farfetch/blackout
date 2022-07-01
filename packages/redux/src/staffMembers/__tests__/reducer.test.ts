@@ -1,10 +1,10 @@
-import { INITIAL_STATE } from '../reducer';
+import * as actionTypes from '../actionTypes';
 import {
   mockStaffMember,
   mockStaffMemberId,
 } from 'tests/__fixtures__/staffMembers';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import reducer, { actionTypes } from '../';
+import reducer, { INITIAL_STATE } from '../reducer';
 import type { State } from '../types';
 
 const mockAction = { type: 'foo' };

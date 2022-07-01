@@ -7,8 +7,8 @@ import {
 } from '../../bags';
 import { getError, getIsHydrated, getIsLoading } from '../reducer/details';
 import { getProduct } from '../../entities/selectors';
-import type { BlackoutError } from '@farfetch/blackout-client';
 import type { ProductEntity } from '../../entities/types';
+import type { ProductsState } from '../types';
 import type { SizeAdapted } from '../../helpers/adapters';
 import type { StoreState } from '../../types';
 
@@ -20,10 +20,8 @@ import type { StoreState } from '../../types';
  *
  * @returns Product details error.
  */
-export const getProductError = (
-  state: StoreState,
-  id: ProductEntity['id'],
-): BlackoutError | undefined => getError(state.products.details)[id];
+export const getProductError = (state: StoreState, id: ProductEntity['id']) =>
+  getError((state.products as ProductsState).details)[id];
 
 /**
  * Returns the hydrated condition from product details.
@@ -33,10 +31,8 @@ export const getProductError = (
  *
  * @returns If a certain product is hydrated or not.
  */
-export const isProductHydrated = (
-  state: StoreState,
-  id: ProductEntity['id'],
-): boolean | undefined => getIsHydrated(state.products.details)[id];
+export const isProductHydrated = (state: StoreState, id: ProductEntity['id']) =>
+  getIsHydrated((state.products as ProductsState).details)[id];
 
 /**
  * Returns the loading condition from product details.
@@ -46,10 +42,8 @@ export const isProductHydrated = (
  *
  * @returns If a certain product is loading or not.
  */
-export const isProductLoading = (
-  state: StoreState,
-  id: ProductEntity['id'],
-): boolean | undefined => getIsLoading(state.products.details)[id];
+export const isProductLoading = (state: StoreState, id: ProductEntity['id']) =>
+  getIsLoading((state.products as ProductsState).details)[id];
 
 /**
  * Returns the fetched status of a specific product.
@@ -59,12 +53,11 @@ export const isProductLoading = (
  *
  * @returns If a certain product has been fetched or not.
  */
-export const isProductFetched = (
-  state: StoreState,
-  id: ProductEntity['id'],
-): boolean =>
-  (getIsLoading(state.products.details).hasOwnProperty(id) ||
-    getIsHydrated(state.products.details).hasOwnProperty(id)) &&
+export const isProductFetched = (state: StoreState, id: ProductEntity['id']) =>
+  (getIsLoading((state.products as ProductsState).details).hasOwnProperty(id) ||
+    getIsHydrated((state.products as ProductsState).details).hasOwnProperty(
+      id,
+    )) &&
   isProductLoading(state, id) === false;
 
 /**
@@ -78,7 +71,7 @@ export const isProductFetched = (
 export const isProductDuplicated = (
   state: StoreState,
   id: ProductEntity['id'],
-): ProductEntity['isDuplicated'] | undefined => {
+) => {
   const product = getProduct(state, id);
 
   return product?.isDuplicated;
@@ -95,7 +88,7 @@ export const isProductDuplicated = (
 export const getProductBreadcrumbs = (
   state: StoreState,
   id: ProductEntity['id'],
-): ProductEntity['breadCrumbs'] | undefined => {
+) => {
   const product = getProduct(state, id);
 
   return product?.breadCrumbs;

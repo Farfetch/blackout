@@ -14,9 +14,9 @@ const formsMockStore = (state = {}) =>
 const expectedConfig = undefined;
 let store: ReturnType<typeof formsMockStore>;
 
-jest.mock('@farfetch/blackout-client/forms', () => {
+jest.mock('@farfetch/blackout-client', () => {
   return {
-    ...jest.requireActual('@farfetch/blackout-client/forms'),
+    ...jest.requireActual('@farfetch/blackout-client'),
     postFormData: jest.fn(),
   };
 });

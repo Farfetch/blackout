@@ -1,5 +1,5 @@
 import { getError, getIsFetched, getIsLoading } from '../reducer/categories';
-import type { BlackoutError } from '@farfetch/blackout-client';
+import type { CategoriesState } from '../types';
 import type { StoreState } from '../../types';
 
 /**
@@ -18,8 +18,8 @@ import type { StoreState } from '../../types';
  *
  * @returns Error information (`null` if there are no errors).
  */
-export const getCategoriesError = (state: StoreState): BlackoutError | null =>
-  getError(state.categories);
+export const getCategoriesError = (state: StoreState) =>
+  getError(state.categories as CategoriesState);
 
 /**
  * Retrieves the loading state of categories.
@@ -37,8 +37,8 @@ export const getCategoriesError = (state: StoreState): BlackoutError | null =>
  *
  * @returns - Loading status of categories.
  */
-export const areCategoriesLoading = (state: StoreState): boolean =>
-  getIsLoading(state.categories);
+export const areCategoriesLoading = (state: StoreState) =>
+  getIsLoading(state.categories as CategoriesState);
 
 /**
  * Returns the fetched status of categories.
@@ -56,5 +56,6 @@ export const areCategoriesLoading = (state: StoreState): boolean =>
  *
  * @returns - If categories are fetched or not.
  */
-export const areCategoriesFetched = (state: StoreState): boolean =>
-  getIsFetched(state.categories) && !areCategoriesLoading(state);
+export const areCategoriesFetched = (state: StoreState) =>
+  getIsFetched(state.categories as CategoriesState) &&
+  !areCategoriesLoading(state);

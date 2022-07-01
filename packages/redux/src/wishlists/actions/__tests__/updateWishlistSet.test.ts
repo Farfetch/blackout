@@ -1,8 +1,5 @@
-import { actionTypes } from '../../';
-import {
-  getWishlistSet,
-  patchWishlistSet,
-} from '@farfetch/blackout-client/wishlists';
+import * as actionTypes from '../../actionTypes';
+import { getWishlistSet, patchWishlistSet } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/wishlists';
 import { mockStore } from '../../../../tests';
 import {
@@ -14,8 +11,8 @@ import {
 } from 'tests/__fixtures__/wishlists';
 import { updateWishlistSet } from '../';
 
-jest.mock('@farfetch/blackout-client/wishlists', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/wishlists'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   patchWishlistSet: jest.fn(),
   getWishlistSet: jest.fn(),
 }));

@@ -1,5 +1,7 @@
+import type { Config } from '../..';
+
 export type GetOrderDocument = (
   id: string,
   documentId: string,
-  config?: Record<string, unknown>,
+  config?: Config,
 ) => Promise<string>;

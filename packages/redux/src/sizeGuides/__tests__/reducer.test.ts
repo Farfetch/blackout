@@ -1,6 +1,6 @@
-import * as fromReducer from '../reducer';
+import * as actionTypes from '../actionTypes';
 import { mockQuery } from 'tests/__fixtures__/sizeGuides';
-import reducer, { actionTypes } from '../';
+import reducer, * as fromReducer from '../reducer';
 
 let initialState;
 const randomAction = { type: 'this_is_a_random_action' };

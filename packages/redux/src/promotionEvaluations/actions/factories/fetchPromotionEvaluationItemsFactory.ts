@@ -1,12 +1,13 @@
 import * as actionTypes from '../../actionTypes';
-import { toBlackoutError } from '@farfetch/blackout-client';
-import type { Dispatch } from 'redux';
-import type { FetchPromotionEvaluationItemsAction } from '../../types';
-import type {
+import {
+  Config,
   GetPromotionEvaluationItems,
   PromotionEvaluationId,
   PromotionEvaluationItem,
-} from '@farfetch/blackout-client/promotionEvaluations/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
+import type { FetchPromotionEvaluationItemsAction } from '../../types';
 
 /**
  * @param promotionEvaluationId - Promotion evaluation identifier.
@@ -25,10 +26,7 @@ import type {
  */
 const fetchPromotionEvaluationItemsFactory =
   (getPromotionEvaluationItems: GetPromotionEvaluationItems) =>
-  (
-    promotionEvaluationId: PromotionEvaluationId,
-    config?: Record<string, unknown>,
-  ) =>
+  (promotionEvaluationId: PromotionEvaluationId, config?: Config) =>
   async (
     dispatch: Dispatch<FetchPromotionEvaluationItemsAction>,
   ): Promise<Array<PromotionEvaluationItem>> => {

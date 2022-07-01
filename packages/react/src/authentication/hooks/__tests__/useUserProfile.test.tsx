@@ -1,6 +1,8 @@
 import { act, cleanup, renderHook, waitFor } from '@testing-library/react';
-import { AxiosAuthenticationTokenManagerOptions } from '@farfetch/blackout-client';
-import { getUser } from '@farfetch/blackout-client/users';
+import {
+  AxiosAuthenticationTokenManagerOptions,
+  getUser,
+} from '@farfetch/blackout-client';
 import { mockDefaultActiveTokenData } from '../../contexts/__fixtures__/AuthenticationProvider.fixtures';
 import { ProfileChangedError } from '../../errors';
 import AuthenticationProvider from '../../contexts/AuthenticationProvider';
@@ -27,7 +29,7 @@ let mockGetUserCommon;
 
 jest.mock('../../contexts/AuthenticationProvider');
 
-jest.mock('@farfetch/blackout-client/users', () => {
+jest.mock('@farfetch/blackout-client', () => {
   if (!mockGetUserCommon) {
     mockGetUserCommon = config => {
       const usedAccessTokenCallback = config['__usedAccessTokenCallback'];
@@ -41,7 +43,7 @@ jest.mock('@farfetch/blackout-client/users', () => {
   }
 
   return {
-    ...jest.requireActual<object>('@farfetch/blackout-client/users'),
+    ...jest.requireActual<object>('@farfetch/blackout-client'),
     getUser: jest.fn(mockGetUserCommon),
   };
 });

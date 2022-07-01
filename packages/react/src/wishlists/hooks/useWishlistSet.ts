@@ -11,8 +11,9 @@ import {
   isWishlistSetFetched,
   isWishlistSetLoading,
   removeWishlistSet as removeWishlistSetAction,
+  StoreState,
   updateWishlistSet as updateWishlistSetAction,
-} from '@farfetch/blackout-redux/wishlists';
+} from '@farfetch/blackout-redux';
 import { useAction } from '../../helpers';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -27,16 +28,24 @@ import type { UseWishlistSet } from './types';
  * @returns All the state, actions and relevant data needed to manage a wishlist set.
  */
 const useWishlistSet: UseWishlistSet = setId => {
-  const error = useSelector(state => getWishlistSetError(state, setId));
-  const isLoading = useSelector(state => isWishlistSetLoading(state, setId));
-  const wishlistSet = useSelector(state => getWishlistSet(state, setId));
-  const itemsCounter = useSelector(state =>
+  const error = useSelector((state: StoreState) =>
+    getWishlistSetError(state, setId),
+  );
+  const isLoading = useSelector((state: StoreState) =>
+    isWishlistSetLoading(state, setId),
+  );
+  const wishlistSet = useSelector((state: StoreState) =>
+    getWishlistSet(state, setId),
+  );
+  const itemsCounter = useSelector((state: StoreState) =>
     getWishlistSetItemsCounter(state, setId),
   );
-  const totalQuantity = useSelector(state =>
+  const totalQuantity = useSelector((state: StoreState) =>
     getWishlistSetTotalQuantity(state, setId),
   );
-  const isFetched = useSelector(state => isWishlistSetFetched(state, setId));
+  const isFetched = useSelector((state: StoreState) =>
+    isWishlistSetFetched(state, setId),
+  );
   const fetchWishlistSet = useAction(fetchWishlistSetAction);
   const removeWishlistSet = useAction(removeWishlistSetAction);
   const updateWishlistSet = useAction(updateWishlistSetAction);

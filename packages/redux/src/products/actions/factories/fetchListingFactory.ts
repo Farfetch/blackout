@@ -1,11 +1,12 @@
 import { fetchProductsListFactory } from './fetchProductsListFactory';
+import type {
+  Config,
+  GetProductListing,
+  GetProductListingQuery,
+  Listing,
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
-import type {
-  GetProductListing,
-  Listing,
-  ListingQuery,
-} from '@farfetch/blackout-client';
 import type { ProductsListActionOptions } from '../../types';
 
 /**
@@ -29,9 +30,9 @@ export const fetchListingFactory =
   (getProductListing: GetProductListing) =>
   (
     slug: string,
-    query: ListingQuery = {},
+    query: GetProductListingQuery = {},
     actionOptions?: ProductsListActionOptions,
-    config?: Record<string, unknown>,
+    config?: Config,
   ) =>
   async (
     dispatch: Dispatch,

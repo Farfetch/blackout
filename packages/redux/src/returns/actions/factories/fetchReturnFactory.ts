@@ -1,13 +1,13 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  Config,
+  GetReturn,
+  Return,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import { toBlackoutError } from '@farfetch/blackout-client';
 import returnSchema from '../../../entities/schemas/return';
 import type { Dispatch } from 'redux';
-import type {
-  GetReturn,
-  Query,
-  Return,
-} from '@farfetch/blackout-client/returns/types';
 
 /**
  * @param id     - Return identifier.
@@ -24,15 +24,15 @@ import type {
  *
  * @returns Thunk factory.
  */
-export const fetchReturnFactory =
+const fetchReturnFactory =
   (getReturn: GetReturn) =>
-  (id: number, query?: Query, config?: Record<string, unknown>) =>
+  (id: number, config?: Config) =>
   async (dispatch: Dispatch): Promise<Return> => {
     try {
       dispatch({
         type: actionTypes.FETCH_RETURN_REQUEST,
       });
-      const result = await getReturn(id, query, config);
+      const result = await getReturn(id, config);
 
       dispatch({
         payload: normalize(result, returnSchema),
@@ -48,3 +48,5 @@ export const fetchReturnFactory =
       throw error;
     }
   };
+
+export default fetchReturnFactory;

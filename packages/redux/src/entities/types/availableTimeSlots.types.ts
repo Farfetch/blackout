@@ -1,3 +1,3 @@
-import type { Return } from '@farfetch/blackout-client/returns/types';
+import type { Return } from '@farfetch/blackout-client';
 
 export type AvailableTimeSlotsEntity = Return;

@@ -7,15 +7,16 @@ import type { GetReturn } from './types';
  * Method responsible for obtaining a specific return.
  *
  * @param id     - Return identifier.
- * @param query  - Query parameters.
  * @param config - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getReturn: GetReturn = (id, query, config) =>
+const getReturn: GetReturn = (id, config) =>
   client
-    .get(join('/account/v1/returns', id, { query }), config)
+    .get(join('/account/v1/returns', id), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default getReturn;

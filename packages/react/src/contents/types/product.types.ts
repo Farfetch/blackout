@@ -1,36 +1,31 @@
-export type Brand = {
-  name: string;
-};
+import type {
+  Brand,
+  Category,
+  Color,
+  Image,
+  Product,
+} from '@farfetch/blackout-client';
+import type { PriceAdapted } from '@farfetch/blackout-redux';
 
-export type Color = {
-  color?: {
-    name: string;
-  };
-};
-
-export type Image = {
-  url: string;
-};
-
-export type Price = {
-  includingTaxes?: number;
-  includingTaxesWithoutDiscount?: number;
-  excludingTaxes?: number;
+export type StructuredProductPrice = Pick<PriceAdapted, 'includingTaxes'> & {
   priceValidUntil?: string;
 };
 
-// @TODO: Replace in the future for a unique Product type.
-export type Product = {
-  name: string;
-  description: string;
-  images: Array<Image>;
-  sku: string;
-  id: number;
-  mpn: string;
-  colors?: Array<Color>;
-  brand: Brand;
-  price: Price;
-  currencyIsoCode: string;
-  quantity: number;
-  slug: string;
+export type StructuredProductImage = Pick<Image, 'url'>;
+
+export type StructuredProductData = {
+  name?: string;
+  description?: string;
+  images?: Array<StructuredProductImage>;
+  sku?: string;
+  id?: Product['result']['id'];
+  mpn?: string;
+  colorName?: Color['color']['name'];
+  brandName?: Brand['name'];
+  price?: StructuredProductPrice;
+  currencyIsoCode?: string;
+  quantity?: number;
+  slug?: string;
+  lastCategory?: Category['name'];
+  url?: string;
 };

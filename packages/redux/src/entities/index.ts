@@ -1,7 +1,6 @@
-import * as actionTypes from './actionTypes';
-
 export * from './actions';
 export * from './reducer';
 export * from './selectors';
 
-export { actionTypes };
+export * as entitiesActionTypes from './actionTypes';
+export * from './types';

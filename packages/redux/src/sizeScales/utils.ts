@@ -1,5 +1,5 @@
 import join from 'proper-url-join';
-import type { SizeScaleMappingsQuery } from '@farfetch/blackout-client/sizeScales/types';
+import type { SizeScaleMappingsQuery } from '@farfetch/blackout-client';
 
 /**
  * Generate a hash with the query to identify size scale mappings results. It uses

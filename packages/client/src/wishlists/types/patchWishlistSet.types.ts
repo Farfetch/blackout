@@ -1,3 +1,4 @@
+import type { Config } from '../..';
 import type { Wishlist } from './wishlist.types';
 import type { WishlistSet } from './wishlistSet.types';
 
@@ -13,5 +14,5 @@ export type PatchWishlistSet = (
   id: Wishlist['id'],
   setId: WishlistSet['setId'],
   data: PatchWishlistSetData,
-  config?: Record<string, unknown>,
+  config?: Config,
 ) => void;

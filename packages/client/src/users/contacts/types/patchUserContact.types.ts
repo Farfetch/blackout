@@ -1,16 +1,17 @@
 import type { Config } from '../../../types';
-import type { UserContactResponse } from '.';
+import type { User } from '../../authentication/types/user.types';
+import type { UserContact } from '.';
 
-export type PatchUserContactData = {
-  value: string;
+export type PatchUserContactOperation = {
+  value?: string;
   path: string;
   op: string;
-  from: string;
+  from?: string;
 };
 
 export type PatchUserContact = (
-  userId: number,
+  userId: User['id'],
   contactId: string,
-  data: PatchUserContactData,
+  data: PatchUserContactOperation[],
   config?: Config,
-) => Promise<UserContactResponse>;
+) => Promise<UserContact>;

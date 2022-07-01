@@ -205,6 +205,8 @@ class TokenProvider {
         }
       }
     }
+
+    return Promise.resolve(null);
   }
 
   /**

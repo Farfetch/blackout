@@ -1,26 +1,34 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
 import type { BlackoutError } from '@farfetch/blackout-client';
-import type { LOGOUT_SUCCESS } from '../../authentication/actionTypes';
 import type { NormalizedSchema } from 'normalizr';
-import type { Order } from '@farfetch/blackout-client/orders/types';
 import type {
-  OrderItemsEntity,
-  OrdersEntity,
+  OrderItemEntity,
+  OrderNormalized,
+  OrderSummarySemiNormalized,
   ReturnOptionsEntity,
+  TrackingsNormalized,
 } from '../../entities/types';
-
-export type NormalizedOrders = Omit<Order, 'items'> & {
-  items: Array<Order['id']>;
-};
+import type { StoreState } from '../../types';
 
 type Payload = NormalizedSchema<
   {
-    orders: Record<OrdersEntity['id'], OrdersEntity>;
-    orderItems: Record<OrderItemsEntity['id'], OrderItemsEntity>;
+    orders: Record<
+      OrderSummarySemiNormalized['id'],
+      OrderSummarySemiNormalized
+    >;
+    orderItems: Record<OrderItemEntity['id'], OrderItemEntity>;
     returnOptions: Record<ReturnOptionsEntity['id'], ReturnOptionsEntity>;
   },
-  NormalizedOrders
+  OrderNormalized
+>;
+
+type TrackingsPayload = NormalizedSchema<
+  {
+    labelTracking: NonNullable<StoreState['entities']>['labelTracking'];
+    courier: NonNullable<StoreState['entities']>['courier'];
+  },
+  TrackingsNormalized
 >;
 
 export interface FetchOrderDetailsRequestAction extends Action {
@@ -30,7 +38,7 @@ export interface FetchOrderDetailsRequestAction extends Action {
 export interface FetchOrderDetailsSuccessAction extends Action {
   type: typeof actionTypes.FETCH_ORDER_DETAILS_SUCCESS;
   payload: Payload;
-  meta: { orderId: string };
+  meta: { orderId: string; guest: boolean };
 }
 export interface FetchOrderDetailsFailureAction extends Action {
   type: typeof actionTypes.FETCH_ORDER_DETAILS_FAILURE;
@@ -94,7 +102,7 @@ export interface FetchTrackingsRequestAction extends Action {
 }
 export interface FetchTrackingsSuccessAction extends Action {
   type: typeof actionTypes.FETCH_TRACKINGS_SUCCESS;
-  payload: Payload;
+  payload: TrackingsPayload;
 }
 export interface FetchTrackingsFailureAction extends Action {
   type: typeof actionTypes.FETCH_TRACKINGS_FAILURE;
@@ -175,13 +183,6 @@ export type AddOrderDocumentAction =
 export interface ResetOrdersAction extends Action {
   type: typeof actionTypes.RESET_ORDERS;
   meta: { resetEntities: boolean };
-}
-
-/**
- * Action dispatched when the logout request is made.
- */
-export interface LogoutAction extends Action {
-  type: typeof LOGOUT_SUCCESS;
 }
 
 /**

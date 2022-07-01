@@ -1,20 +1,19 @@
-import {
-  getCharges,
-  getCreditBalance,
-  getGiftCardBalance,
-  getIntent,
-  getPaymentMethods,
-  getInstruments as getReducerInstruments,
-  getTokens,
-} from './reducer';
 import { getEntities, getEntityById } from '../entities/selectors';
+import {
+  getGiftCardBalance,
+  getPaymentInstruments as getPaymentInstrumentsReducer,
+  getPaymentIntent,
+  getPaymentIntentCharge,
+  getPaymentMethods,
+  getPaymentTokens as getPaymentTokensReducer,
+  getUserCreditBalance,
+} from './reducer';
 import type {
-  InstrumentEntity,
-  InstrumentsEntity,
+  PaymentInstrumentEntity,
   PaymentTokenEntity,
   PaymentTokensEntity,
 } from '../entities/types';
-import type { State } from './types';
+import type { PaymentsState } from './types';
 import type { StoreState } from '../types';
 
 /**
@@ -48,9 +47,8 @@ export const getPaymentToken = (
  *
  * @returns - Payment tokens error.
  */
-export const getPaymentTokensError = (
-  state: StoreState,
-): State['tokens']['error'] => getTokens(state.payments).error;
+export const getPaymentTokensError = (state: StoreState) =>
+  getPaymentTokensReducer(state.payments as PaymentsState).error;
 
 /**
  * Returns the result of the payment tokens.
@@ -59,9 +57,8 @@ export const getPaymentTokensError = (
  *
  * @returns - Array of payment token ids.
  */
-export const getPaymentTokensResult = (
-  state: StoreState,
-): State['tokens']['result'] => getTokens(state.payments).result;
+export const getPaymentTokensResult = (state: StoreState) =>
+  getPaymentTokensReducer(state.payments as PaymentsState).result;
 
 /**
  * Returns the loading status for the payment tokens.
@@ -70,19 +67,18 @@ export const getPaymentTokensResult = (
  *
  * @returns - Loading status.
  */
-export const isPaymentTokensLoading = (
-  state: StoreState,
-): State['tokens']['isLoading'] => getTokens(state.payments).isLoading;
+export const arePaymentTokensLoading = (state: StoreState) =>
+  getPaymentTokensReducer(state.payments as PaymentsState).isLoading;
 
 /**
- * Returns the instruments entity.
+ * Returns the payment instruments entity.
  *
  * @param state - Application state.
  *
- * @returns Instruments object.
+ * @returns Payment instruments object.
  */
-export const getInstruments = (state: StoreState): InstrumentsEntity =>
-  getEntities(state, 'instruments');
+export const getPaymentInstruments = (state: StoreState) =>
+  getEntities(state, 'paymentInstruments');
 
 /**
  * Returns the payment instrument with the specified id.
@@ -92,46 +88,40 @@ export const getInstruments = (state: StoreState): InstrumentsEntity =>
  *
  * @returns - Payment instrument object.
  */
-export const getInstrument = (
+export const getPaymentInstrument = (
   state: StoreState,
-  instrumentId: InstrumentEntity['id'],
-): InstrumentEntity | undefined =>
-  getEntityById(state, 'instruments', instrumentId);
+  instrumentId: PaymentInstrumentEntity['id'],
+) => getEntityById(state, 'paymentInstruments', instrumentId);
 
 /**
- * Returns the loading status of the instruments.
+ * Returns the loading status of the payment instruments.
  *
  * @param state - Application state.
  *
  * @returns - Instruments loading status.
  */
-export const isInstrumentsLoading = (
-  state: StoreState,
-): State['instruments']['isLoading'] =>
-  getReducerInstruments(state.payments).isLoading;
+export const arePaymentInstrumentsLoading = (state: StoreState) =>
+  getPaymentInstrumentsReducer(state.payments as PaymentsState).isLoading;
 
 /**
- * Returns the instruments error.
+ * Returns the payment instruments error.
  *
  * @param state - Application state.
  *
- * @returns - Instruments error.
+ * @returns - Payment instruments error.
  */
-export const getInstrumentsError = (
-  state: StoreState,
-): State['instruments']['error'] => getReducerInstruments(state.payments).error;
+export const getPaymentInstrumentsError = (state: StoreState) =>
+  getPaymentInstrumentsReducer(state.payments as PaymentsState).error;
 
 /**
- * Returns the result of instruments operation.
+ * Returns the result of payment instruments operation.
  *
  * @param state - Application state.
  *
- * @returns Instruments operation result.
+ * @returns Payment instruments operation result.
  */
-export const getInstrumentsResult = (
-  state: StoreState,
-): State['instruments']['result'] =>
-  getReducerInstruments(state.payments).result;
+export const getPaymentInstrumentsResult = (state: StoreState) =>
+  getPaymentInstrumentsReducer(state.payments as PaymentsState).result;
 
 /**
  * Returns the loading status for the gift card balance operation.
@@ -140,10 +130,8 @@ export const getInstrumentsResult = (
  *
  * @returns Gift card balance Loading status.
  */
-export const isGiftCardBalanceLoading = (
-  state: StoreState,
-): State['giftCardBalance']['isLoading'] =>
-  getGiftCardBalance(state.payments).isLoading;
+export const isGiftCardBalanceLoading = (state: StoreState) =>
+  getGiftCardBalance(state.payments as PaymentsState).isLoading;
 
 /**
  * Returns the error for the gift card balance operation.
@@ -152,10 +140,8 @@ export const isGiftCardBalanceLoading = (
  *
  * @returns Gift card balance operation error.
  */
-export const getGiftCardBalanceError = (
-  state: StoreState,
-): State['giftCardBalance']['error'] =>
-  getGiftCardBalance(state.payments).error;
+export const getGiftCardBalanceError = (state: StoreState) =>
+  getGiftCardBalance(state.payments as PaymentsState).error;
 
 /**
  * Returns the result of gift card balance operation.
@@ -164,107 +150,98 @@ export const getGiftCardBalanceError = (
  *
  * @returns Gift card balance operation result.
  */
-export const getGiftCardBalanceResult = (
-  state: StoreState,
-): State['giftCardBalance']['result'] =>
-  getGiftCardBalance(state.payments).result;
+export const getGiftCardBalanceResult = (state: StoreState) =>
+  getGiftCardBalance(state.payments as PaymentsState).result;
 
 /**
- * Returns the loading status for the credit balance operation.
+ * Returns the loading status for the user credit balance operation.
  *
  * @param state - Application state.
  *
- * @returns Credit balance Loading status.
+ * @returns User credit balance loading status.
  */
-export const isCreditBalanceLoading = (
-  state: StoreState,
-): State['creditBalance']['isLoading'] =>
-  getCreditBalance(state.payments).isLoading;
+export const isUserCreditBalanceLoading = (state: StoreState) =>
+  getUserCreditBalance(state.payments as PaymentsState).isLoading;
 
 /**
- * Returns the error for the credit balance operation.
+ * Returns the error for the user credit balance operation.
  *
  * @param state - Application state.
  *
- * @returns Credit balance operation error.
+ * @returns User credit balance operation error.
  */
-export const getCreditBalanceError = (
-  state: StoreState,
-): State['creditBalance']['error'] => getCreditBalance(state.payments).error;
+export const getUserCreditBalanceError = (state: StoreState) =>
+  getUserCreditBalance(state.payments as PaymentsState).error;
 
 /**
- * Returns the result of credit balance operation.
+ * Returns the result of user credit balance operation.
  *
  * @param state - Application state.
  *
- * @returns Credit balance operation result.
+ * @returns User credit balance operation result.
  */
-export const getCreditBalanceResult = (
-  state: StoreState,
-): State['creditBalance']['result'] => getCreditBalance(state.payments).result;
+export const getUserCreditBalanceResult = (state: StoreState) =>
+  getUserCreditBalance(state.payments as PaymentsState).result;
 
 /**
- * Returns the loading status for the intent operation.
+ * Returns the loading status for the payment intent operation.
  *
  * @param state - Application state.
  *
  * @returns Intent Loading status.
  */
-export const isIntentLoading = (
-  state: StoreState,
-): State['intent']['isLoading'] => getIntent(state.payments).isLoading;
+export const isPaymentIntentLoading = (state: StoreState) =>
+  getPaymentIntent(state.payments as PaymentsState).isLoading;
 
 /**
- * Returns the error for the intent operation.
+ * Returns the error for the payment intent operation.
  *
  * @param state - Application state.
  *
- * @returns Intent operation error.
+ * @returns Payment intent operation error.
  */
-export const getIntentError = (state: StoreState): State['intent']['error'] =>
-  getIntent(state.payments).error;
+export const getPaymentIntentError = (state: StoreState) =>
+  getPaymentIntent(state.payments as PaymentsState).error;
 
 /**
- * Returns the result of the intent operation.
+ * Returns the result of the payment intent operation.
  *
  * @param state - Application state.
  *
- * @returns Intent operation result.
+ * @returns Payment intent operation result.
  */
-export const getIntentResult = (state: StoreState): State['intent']['result'] =>
-  getIntent(state.payments).result;
+export const getPaymentIntentResult = (state: StoreState) =>
+  getPaymentIntent(state.payments as PaymentsState).result;
 
 /**
- * Returns the loading status for the charges operation.
+ * Returns the loading status for the payment intent charge operation.
  *
  * @param state - Application state.
  *
- * @returns Charges Loading status.
+ * @returns Payment intent charge Loading status.
  */
-export const isChargesLoading = (
-  state: StoreState,
-): State['charges']['isLoading'] => getCharges(state.payments).isLoading;
+export const isPaymentIntentChargeLoading = (state: StoreState) =>
+  getPaymentIntentCharge(state.payments as PaymentsState).isLoading;
 
 /**
- * Returns the error for the charges operation.
+ * Returns the error for the payment intent charge operation.
  *
  * @param state - Application state.
  *
- * @returns Charges operation error.
+ * @returns Payment intent charge operation error.
  */
-export const getChargesError = (state: StoreState): State['charges']['error'] =>
-  getCharges(state.payments).error;
+export const getPaymentIntentChargeError = (state: StoreState) =>
+  getPaymentIntentCharge(state.payments as PaymentsState).error;
 
 /**
- * Returns the result of the charges operation.
+ * Returns the result of the payment intent charge operation.
  *
  * @param state - Application state.
  *
- * @returns Charges operation result.
+ * @returns Payment intent charge operation result.
  */
-export const getChargesResult = (
-  state: StoreState,
-): State['charges']['result'] => getCharges(state.payments).result;
+export const getPaymentIntentChargeResult = (state: StoreState) =>
+  getPaymentIntentCharge(state.payments as PaymentsState).result;
 
 /**
  * Returns the loading status for the payment methods operation.
@@ -273,10 +250,8 @@ export const getChargesResult = (
  *
  * @returns PaymentMethods Loading status.
  */
-export const isPaymentMethodsLoading = (
-  state: StoreState,
-): State['paymentMethods']['isLoading'] =>
-  getPaymentMethods(state.payments).isLoading;
+export const arePaymentMethodsLoading = (state: StoreState) =>
+  getPaymentMethods(state.payments as PaymentsState).isLoading;
 
 /**
  * Returns the error for the payment methods operation.
@@ -285,9 +260,8 @@ export const isPaymentMethodsLoading = (
  *
  * @returns PaymentMethods operation error.
  */
-export const getPaymentMethodsError = (
-  state: StoreState,
-): State['paymentMethods']['error'] => getPaymentMethods(state.payments).error;
+export const getPaymentMethodsError = (state: StoreState) =>
+  getPaymentMethods(state.payments as PaymentsState).error;
 
 /**
  * Returns the result of the payment methods operation.
@@ -296,7 +270,5 @@ export const getPaymentMethodsError = (
  *
  * @returns PaymentMethods operation result.
  */
-export const getPaymentMethodsResult = (
-  state: StoreState,
-): State['paymentMethods']['result'] =>
-  getPaymentMethods(state.payments).result;
+export const getPaymentMethodsResult = (state: StoreState) =>
+  getPaymentMethods(state.payments as PaymentsState).result;

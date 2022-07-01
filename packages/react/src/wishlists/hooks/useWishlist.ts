@@ -14,7 +14,7 @@ import {
   isWishlistLoading as isWishlistLoadingSelector,
   resetWishlist as resetWishlistAction,
   resetWishlistState as resetWishlistStateAction,
-} from '@farfetch/blackout-redux/wishlists';
+} from '@farfetch/blackout-redux';
 import { useAction } from '../../helpers';
 import { useSelector } from 'react-redux';
 import type { UseWishlist } from './types';

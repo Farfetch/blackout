@@ -1,12 +1,13 @@
 import type { Config } from '../../../types';
+import type { User } from '../../authentication/types/user.types';
 
-export type GetUserCreditResponse = {
+export type UserCredit = {
   currency: string;
   value: number;
   formattedValue: string;
-}[];
+};
 
 export type GetUserCredit = (
-  id: string,
+  userId: User['id'],
   config?: Config,
-) => Promise<GetUserCreditResponse>;
+) => Promise<UserCredit[]>;

@@ -1,6 +1,7 @@
-import { actionTypes as authenticationActionTypes } from '../../authentication';
-import { getUser, getUserId, USER_ID_PROPERTY } from '../../entities/selectors';
-import { actionTypes as usersActionTypes } from '../../users';
+import { authenticationActionTypes } from '../../users/authentication';
+import { getUser, getUserId } from '../../entities/selectors';
+import { USER_ID_PROPERTY } from '../../entities/constants';
+import { usersActionTypes } from '../../users';
 import Analytics, {
   eventTypes,
   UserTraits,

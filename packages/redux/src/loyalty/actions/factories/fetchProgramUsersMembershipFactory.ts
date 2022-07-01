@@ -1,14 +1,15 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
+import {
+  Config,
+  GetProgramUsersMembership,
+  Program,
+  ProgramMembership,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
 import membershipSchema from '../../../entities/schemas/membership';
 import type { Dispatch } from 'redux';
 import type { FetchProgramUsersMembershipAction } from '../../types';
-import type {
-  GetProgramUsersMembership,
-  Program,
-  ProgramMembership,
-} from '@farfetch/blackout-client/loyalty/types';
 
 /**
  * @param programId - Program identifier.

@@ -1,4 +1,4 @@
-import { subscriptionsActionTypes as actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
 import { deleteRecipientFromTopic } from '@farfetch/blackout-client';
 import { mockStore } from '../../../../tests';
 import {

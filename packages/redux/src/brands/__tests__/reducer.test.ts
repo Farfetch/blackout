@@ -1,4 +1,4 @@
-import * as fromReducer from '../reducer';
+import * as actionTypes from '../actionTypes';
 import { generateBrandsHash } from '../utils';
 import {
   mockBrandId,
@@ -6,7 +6,7 @@ import {
   mockBrandsResponse,
   mockQuery,
 } from 'tests/__fixtures__/brands';
-import reducer, { actionTypes } from '../';
+import reducer, * as fromReducer from '../reducer';
 
 const { INITIAL_STATE } = fromReducer;
 const mockAction = { type: 'foo' };

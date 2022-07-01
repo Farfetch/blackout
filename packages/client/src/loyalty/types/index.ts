@@ -5,4 +5,3 @@ export * from './postProgramMembership.types';
 export * from './postProgramMembershipConvert.types';
 export * from './postProgramMembershipReplacement.types';
 export * from './program.types';
-export * from './user.types';

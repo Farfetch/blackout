@@ -1,5 +1,7 @@
-import type { Address } from '@farfetch/blackout-client/src/users/addresses/types';
+import type { UserAddress } from '@farfetch/blackout-client';
 
-export type AddressEntity = Address;
+export type AddressEntity = UserAddress;
 
-export type AddressesEntity = Record<Address['id'], Address> | undefined;
+export type AddressesEntity =
+  | Record<UserAddress['id'], UserAddress>
+  | undefined;

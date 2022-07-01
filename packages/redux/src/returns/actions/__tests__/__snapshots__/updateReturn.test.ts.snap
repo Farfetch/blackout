@@ -2,6 +2,6 @@
 
 exports[`updateReturn() action creator should create the correct actions for when the update return procedure is successful: update return success payload 1`] = `
 Object {
-  "type": "@farfetch/blackout-client/UPDATE_RETURN_SUCCESS",
+  "type": "@farfetch/blackout-redux/UPDATE_RETURN_SUCCESS",
 }
 `;

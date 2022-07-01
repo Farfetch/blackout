@@ -1,6 +1,6 @@
-import { actionTypes } from '../../';
+import * as actionTypes from '../../actionTypes';
 import { fetchStaffMember } from '../';
-import { getStaffMember } from '@farfetch/blackout-client/staffMembers';
+import { getStaffMember } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import {
   mockStaffMember,
@@ -9,8 +9,8 @@ import {
 } from 'tests/__fixtures__/staffMembers';
 import { mockStore } from '../../../../tests';
 
-jest.mock('@farfetch/blackout-client/staffMembers', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/staffMembers'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getStaffMember: jest.fn(),
 }));
 

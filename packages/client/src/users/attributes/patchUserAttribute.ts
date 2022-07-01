@@ -13,7 +13,7 @@ import type { PatchUserAttribute } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const patchUserAttribute: PatchUserAttribute = (
+const patchUserAttribute: PatchUserAttribute = (
   userId,
   attributeId,
   data,
@@ -29,3 +29,5 @@ export const patchUserAttribute: PatchUserAttribute = (
     .catch(error => {
       throw adaptError(error);
     });
+
+export default patchUserAttribute;

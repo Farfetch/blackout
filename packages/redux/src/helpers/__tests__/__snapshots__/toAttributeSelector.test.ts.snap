@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`toAttributeSelector should return a value for a given attribute 1`] = `"[aria-label=\\"foo\\"]"`;
-
-exports[`toDataTestSelector should return a selector for a given value 1`] = `"[data-test=\\"foo\\"]"`;

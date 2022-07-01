@@ -1,13 +1,13 @@
 import type { AxiosRequestConfig } from 'axios';
 import type {
   PostWishlistItemActionData,
-  State,
-} from '@farfetch/blackout-redux/wishlists/types';
-import type { Wishlist } from '@farfetch/blackout-client/wishlists/types';
-import type { WishlistItemHydrated } from '@farfetch/blackout-redux/entities/types';
+  WishlistItemHydrated,
+  WishlistsState,
+} from '@farfetch/blackout-redux';
+import type { Wishlist } from '@farfetch/blackout-client';
 
 export type UseWishlist = () => {
-  error: State['error'] | undefined;
+  error: WishlistsState['error'] | undefined;
   fetchWishlist: (
     wishlistId: number,
     config?: AxiosRequestConfig,
@@ -16,7 +16,7 @@ export type UseWishlist = () => {
     data: PostWishlistItemActionData,
     config?: AxiosRequestConfig,
   ) => Promise<Wishlist | undefined>;
-  id: State['id'];
+  id: WishlistsState['id'];
   isEmpty: boolean;
   isLoading: boolean;
   itemCount: number;
@@ -25,5 +25,5 @@ export type UseWishlist = () => {
   resetWishlist: () => void;
   resetWishlistState: (fieldsToReset?: string[]) => void;
   totalQuantity: number;
-  wishlist: State['result'];
+  wishlist: WishlistsState['result'];
 };

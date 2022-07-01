@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  Config,
   GetProductAttributes,
   Product,
   ProductAttribute,
@@ -26,7 +27,7 @@ import type { Dispatch } from 'redux';
  */
 export const fetchProductAttributesFactory =
   (getProductAttributes: GetProductAttributes) =>
-  (productId: Product['result']['id'], config?: Record<string, unknown>) =>
+  (productId: Product['result']['id'], config?: Config) =>
   async (dispatch: Dispatch): Promise<ProductAttribute[]> => {
     try {
       dispatch({

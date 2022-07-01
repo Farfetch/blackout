@@ -1,8 +1,14 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  Config,
+  PostWishlistItem,
+  PostWishlistItemData,
+  toBlackoutError,
+  Wishlist,
+} from '@farfetch/blackout-client';
 import { getWishlistId } from '../../selectors';
 import { normalize } from 'normalizr';
 import { omit } from 'lodash';
-import { toBlackoutError } from '@farfetch/blackout-client';
 import wishlistItemSchema from '../../../entities/schemas/wishlistItem';
 import type {
   AddWishlistItemAction,
@@ -10,11 +16,6 @@ import type {
 } from '../../types';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
-import type {
-  PostWishlistItem,
-  PostWishlistItemData,
-  Wishlist,
-} from '@farfetch/blackout-client/wishlists/types';
 
 /**
  * @param data   - Item data used to add it to wishlist.
@@ -33,7 +34,7 @@ import type {
  */
 const addWishlistItemFactory =
   (postWishlistItem: PostWishlistItem) =>
-  (data: PostWishlistItemActionData, config?: Record<string, unknown>) =>
+  (data: PostWishlistItemActionData, config?: Config) =>
   async (
     dispatch: Dispatch<AddWishlistItemAction>,
     getState: () => StoreState,

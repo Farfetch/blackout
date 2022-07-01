@@ -1,15 +1,12 @@
-import * as fromReducer from '../reducer';
-import {
-  localeActionTypes as actionTypes,
-  localeEntitiesMapper,
-  localeReducer as reducer,
-} from '..';
+import * as actionTypes from '../actionTypes';
+import { localeEntitiesMapper } from '..';
 import { mockCountryCode } from 'tests/__fixtures__/locale';
-import type { State } from '../types';
+import reducer, * as fromReducer from '../reducer';
+import type { LocaleState } from '../types';
 
 const { INITIAL_STATE_LOCALE } = fromReducer;
 const mockAction = { type: 'foo' };
-let initialState: State;
+let initialState: LocaleState;
 
 describe('locale redux reducer', () => {
   beforeEach(() => {
@@ -283,7 +280,7 @@ describe('locale redux reducer', () => {
   describe('get an address schema', () => {
     // Existent schemas
     const state = {
-      addressSchema: {
+      countryAddressSchemas: {
         1: {
           addressSchemaLines: [
             {
@@ -340,8 +337,8 @@ describe('locale redux reducer', () => {
     };
 
     const expectedResult = {
-      addressSchema: {
-        ...state.addressSchema,
+      countryAddressSchemas: {
+        ...state.countryAddressSchemas,
         ...newAddressSchema,
       },
     };
@@ -354,7 +351,7 @@ describe('locale redux reducer', () => {
             payload: {
               result: countryId,
               entities: {
-                addressSchema: {
+                countryAddressSchema: {
                   ...newAddressSchema,
                 },
               },
@@ -502,16 +499,19 @@ describe('locale redux reducer', () => {
     });
   });
 
-  describe('getAddressSchema() selector', () => {
-    it('should return the `addressSchema` property from a given state', () => {
-      const addressSchema = {
+  describe('getCountryAddressSchema() selector', () => {
+    it('should return the `countryAddressSchema` property from a given state', () => {
+      const countryAddressSchema = {
         error: null,
         isLoading: false,
       };
 
       expect(
-        fromReducer.getCountryAddressSchema({ ...initialState, addressSchema }),
-      ).toBe(addressSchema);
+        fromReducer.getCountryAddressSchema({
+          ...initialState,
+          countryAddressSchema,
+        }),
+      ).toBe(countryAddressSchema);
     });
   });
 });

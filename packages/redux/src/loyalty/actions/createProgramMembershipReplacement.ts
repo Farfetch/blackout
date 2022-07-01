@@ -1,5 +1,5 @@
 import { createProgramMembershipReplacementFactory } from './factories';
-import { postProgramMembershipReplacement } from '@farfetch/blackout-client/loyalty';
+import { postProgramMembershipReplacement } from '@farfetch/blackout-client';
 
 /**
  * Request a new membership id by replacement.

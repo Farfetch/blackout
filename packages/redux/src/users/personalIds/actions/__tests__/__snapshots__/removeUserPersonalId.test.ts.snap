@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`removeUserPersonalId action creator should create the correct actions for when the remove personal id procedure is successful: remove personal id success payload 1`] = `
+Object {
+  "payload": Object {
+    "backImageId": "",
+    "expiryDate": "",
+    "frontImageId": "",
+    "id": "",
+    "isDefault": true,
+    "maskedIdNumber": "",
+    "maskedName": "",
+    "verifyLevel": 1,
+  },
+  "type": "@farfetch/blackout-redux/REMOVE_USER_PERSONAL_ID_SUCCESS",
+}
+`;

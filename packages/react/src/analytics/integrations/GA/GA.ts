@@ -74,9 +74,9 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
    * @param strippedDownAnalytics - Analytics stripped down instance.
    */
   constructor(
-    protected options: GAIntegrationOptions,
-    protected loadData: LoadIntegrationEventData,
-    protected strippedDownAnalytics: StrippedDownAnalytics,
+    options: GAIntegrationOptions,
+    loadData: LoadIntegrationEventData,
+    strippedDownAnalytics: StrippedDownAnalytics,
   ) {
     super(options, loadData, strippedDownAnalytics);
 
@@ -95,7 +95,7 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
    *
    * @returns If the integration is ready to be loaded.
    */
-  static shouldLoad(consent: ConsentData | null): boolean {
+  static override shouldLoad(consent: ConsentData | null): boolean {
     return !!consent && !!consent.statistics;
   }
 
@@ -151,7 +151,7 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
    *
    * @returns Promise that will resolve when the method finishes.
    */
-  async track(data: EventData<TrackTypesValues>): Promise<void> {
+  override async track(data: EventData<TrackTypesValues>): Promise<void> {
     switch (data.type) {
       case analyticsTrackTypes.PAGE:
         return await this.trackPage(data as PageviewEventData);
@@ -191,7 +191,7 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
    *
    * @param data - Event data provided by analytics.
    */
-  async onSetUser(
+  override async onSetUser(
     data: SetUserEventData | LoadIntegrationEventData,
   ): Promise<void> {
     await this.initializePromise;
@@ -553,6 +553,8 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
 
       return commandList;
     }
+
+    return undefined;
   }
 
   /**

@@ -1,20 +1,17 @@
+import * as actionTypes from '../../actionTypes';
 import * as normalizr from 'normalizr';
-import {
-  localeActionTypes as actionTypes,
-  localeReducer as INITIAL_STATE,
-} from '../..';
+import { Country, getCountry } from '@farfetch/blackout-client';
 import { fetchCountry } from '..';
-import { getCountry } from '@farfetch/blackout-client/locale';
+import { INITIAL_STATE_LOCALE as INITIAL_STATE } from '../../reducer';
 import { mockCountry, mockCountryCode } from 'tests/__fixtures__/locale';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
-import type { Country } from '@farfetch/blackout-client/locale/types';
 
 const localeMockStore = (state = {}) =>
   mockStore({ locale: INITIAL_STATE }, state);
 
-jest.mock('@farfetch/blackout-client/locale', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/locale'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getCountry: jest.fn(),
 }));
 

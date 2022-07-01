@@ -1,5 +1,4 @@
-export interface LocaleQuery {
+export type LocaleQuery = {
   pageIndex?: number;
   pageSize?: number;
-  [k: string]: any;
-}
+};

@@ -10,8 +10,8 @@ import {
   mockPostUserAddressResponse,
   mockUpdateAddressResponse,
 } from 'tests/__fixtures__/users';
-import { useAddresses } from '../../useAddresses';
 import React, { Fragment } from 'react';
+import useAddresses from '../../useAddresses';
 
 const booleanToText = (boolean: boolean) => (boolean ? 'yes' : 'no');
 
@@ -23,7 +23,7 @@ export const Addresses = ({ userId }: Props) => {
   const auto = true;
   const {
     addressesError,
-    isAddressesLoading,
+    areUserAddressesLoading,
     deletingStatus,
     deleteUserAddress,
     createUserAddress,
@@ -45,10 +45,10 @@ export const Addresses = ({ userId }: Props) => {
     resetAddressPredictions,
   } = useAddresses({ auto, userId });
 
-  if (isAddressesLoading) {
+  if (areUserAddressesLoading) {
     return (
       <span data-test="addresses-loading">
-        {booleanToText(isAddressesLoading)}
+        {booleanToText(areUserAddressesLoading)}
       </span>
     );
   }

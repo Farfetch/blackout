@@ -5,11 +5,11 @@ import type {
   ActionFetchContent,
   ActionFetchContentTypes,
   ActionFetchSEO,
-  State,
+  ContentsState,
 } from './types';
 import type { ReducerSwitch } from '../types';
 
-export const INITIAL_STATE_CONTENT: State = {
+export const INITIAL_STATE_CONTENT: ContentsState = {
   searchResults: {},
   contentTypes: {
     error: undefined,
@@ -26,7 +26,7 @@ export const INITIAL_STATE_CONTENT: State = {
 const searchResults = (
   state = INITIAL_STATE_CONTENT.searchResults,
   action: ActionFetchContent | ActionFetchCommercePages,
-): State['searchResults'] => {
+): ContentsState['searchResults'] => {
   switch (action.type) {
     case actionTypes.FETCH_CONTENT_REQUEST:
     case actionTypes.FETCH_COMMERCE_PAGES_REQUEST:
@@ -63,7 +63,7 @@ const searchResults = (
 const contentTypes = (
   state = INITIAL_STATE_CONTENT.contentTypes,
   action: ActionFetchContentTypes,
-): State['contentTypes'] => {
+): ContentsState['contentTypes'] => {
   switch (action.type) {
     case actionTypes.FETCH_CONTENT_TYPES_REQUEST:
       return {
@@ -88,7 +88,7 @@ const contentTypes = (
 const metadata = (
   state = INITIAL_STATE_CONTENT.metadata,
   action: ActionFetchSEO,
-): State['metadata'] => {
+): ContentsState['metadata'] => {
   switch (action.type) {
     case actionTypes.FETCH_SEO_REQUEST:
       return {
@@ -131,15 +131,18 @@ const metadata = (
   }
 };
 
-export const getContentResult = (state: State): State['searchResults'] =>
-  state.searchResults;
-export const getContentTypes = (state: State): State['contentTypes'] =>
-  state.contentTypes;
-export const getSEOmetadata = (state: State): State['metadata'] =>
-  state.metadata;
+export const getContentResult = (
+  state: ContentsState,
+): ContentsState['searchResults'] => state.searchResults;
+export const getContentTypes = (
+  state: ContentsState,
+): ContentsState['contentTypes'] => state.contentTypes;
+export const getSEOmetadata = (
+  state: ContentsState,
+): ContentsState['metadata'] => state.metadata;
 export const getContentTypesError = (
-  state: State,
-): State['contentTypes']['error'] => state.contentTypes.error;
+  state: ContentsState,
+): ContentsState['contentTypes']['error'] => state.contentTypes.error;
 
 const reducers = combineReducers({
   searchResults,
@@ -156,9 +159,9 @@ const reducers = combineReducers({
  * @returns New state.
  */
 const contentsReducer: ReducerSwitch<
-  State,
+  ContentsState,
   ActionFetchContent | ActionFetchContentTypes | ActionFetchSEO
-> = (state, action): State => {
+> = (state, action): ContentsState => {
   if (action.type === actionTypes.RESET_CONTENTS) {
     return reducers(INITIAL_STATE_CONTENT, action);
   }

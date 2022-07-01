@@ -1,8 +1,13 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  Bag,
+  Config,
+  GetBag,
+  GetBagQuery,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import { toBlackoutError } from '@farfetch/blackout-client';
 import bagItemSchema from '../../../entities/schemas/bagItem';
-import type { Bag, GetBag, Query } from '@farfetch/blackout-client/bags/types';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
 
@@ -23,7 +28,7 @@ import type { GetOptionsArgument, StoreState } from '../../../types';
  */
 const fetchBagFactory =
   (getBag: GetBag) =>
-  (bagId: string, query?: Query, config?: Record<string, unknown>) =>
+  (bagId: string, query?: GetBagQuery, config?: Config) =>
   async (
     dispatch: Dispatch,
     getState: () => StoreState,

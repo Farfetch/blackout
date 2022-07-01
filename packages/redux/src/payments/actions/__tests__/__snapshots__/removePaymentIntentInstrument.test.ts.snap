@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`removePaymentIntentInstrument() action creator should create the correct actions when the remove payment intent instrument procedure is successful: remove payment intent instrument success payload 1`] = `
+Object {
+  "meta": Object {
+    "instrumentId": "123123",
+  },
+  "type": "@farfetch/blackout-redux/REMOVE_PAYMENT_INTENT_INSTRUMENT_SUCCESS",
+}
+`;

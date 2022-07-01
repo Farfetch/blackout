@@ -1,6 +1,6 @@
-import { actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
 import { fetchMerchantsLocations } from '..';
-import { getMerchantsLocations } from '@farfetch/blackout-client/merchantsLocations';
+import { getMerchantsLocations } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import {
   mockMerchantLocation,
@@ -9,8 +9,8 @@ import {
 } from 'tests/__fixtures__/merchantsLocations';
 import { mockStore } from '../../../../tests';
 
-jest.mock('@farfetch/blackout-client/merchantsLocations', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/merchantsLocations'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getMerchantsLocations: jest.fn(),
 }));
 

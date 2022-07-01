@@ -1,10 +1,10 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { BlackoutError } from '@farfetch/blackout-client';
 import type {
+  BlackoutError,
   Brand,
   BrandsQuery,
-} from '@farfetch/blackout-client/brands/types';
+} from '@farfetch/blackout-client';
 import type { BrandsResultNormalized } from './state.types';
 import type { NormalizedSchema } from 'normalizr';
 

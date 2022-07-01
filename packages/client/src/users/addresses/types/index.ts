@@ -1,4 +1,3 @@
-export * from './userAddress.types';
 export * from './deleteUserAddress.types';
 export * from './deleteUserDefaultContactAddress.types';
 export * from './getDefaultContactAddress.types';
@@ -9,4 +8,3 @@ export * from './putUserAddress.types';
 export * from './putUserDefaultBillingAddress.types';
 export * from './putUserDefaultContactAddress.types';
 export * from './putUserDefaultShippingAddress.types';
-export * from './user.types';

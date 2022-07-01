@@ -12,6 +12,6 @@ Object {
       ],
     },
   },
-  "type": "@farfetch/blackout-client/FETCH_RETURN_PICKUP_CAPABILITIES_SUCCESS",
+  "type": "@farfetch/blackout-redux/FETCH_RETURN_PICKUP_CAPABILITIES_SUCCESS",
 }
 `;

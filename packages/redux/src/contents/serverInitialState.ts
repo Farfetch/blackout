@@ -4,8 +4,7 @@ import { INITIAL_STATE_CONTENT } from './reducer';
 import { normalize } from 'normalizr';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
-import type { Model } from '../types';
-import type { ServerInitialState } from './types';
+import type { ServerInitialState } from '../types/serverInitialState.types';
 
 /**
  * Converts server data from searchContents to store state.
@@ -14,11 +13,7 @@ import type { ServerInitialState } from './types';
  *
  * @returns Initial state for the contents reducer.
  */
-const serverInitialState = ({
-  model,
-}: {
-  model: Model;
-}): ServerInitialState => {
+const serverInitialState: ServerInitialState = ({ model }) => {
   if (!get(model, 'searchContentRequests')) {
     return { contents: INITIAL_STATE_CONTENT };
   }
@@ -49,7 +44,7 @@ const serverInitialState = ({
         },
       },
     });
-  }, {} as { entities: Record<string, never> });
+  }, {});
 };
 
 export default serverInitialState;

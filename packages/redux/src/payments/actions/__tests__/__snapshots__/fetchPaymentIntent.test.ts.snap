@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchPaymentIntent() action creator should create the correct actions when the fetch intent procedure is successful: fetch payment intent success payload 1`] = `
+Object {
+  "payload": Object {
+    "currency": "string",
+    "dateCreated": "2020-08-12T14:03:28.538Z",
+    "fingerprint": "string",
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "lineItems": Array [
+      Object {
+        "classification": "Standard",
+        "description": "string",
+        "formattedTotalExtraTaxes": "string",
+        "formattedUnitValue": "string",
+        "id": "string",
+        "productId": "string",
+        "quantity": 0,
+        "totalExtraTaxes": 0,
+        "type": "Item",
+        "unitValue": 0,
+      },
+    ],
+    "receiver": Object {
+      "address": Object {
+        "addressLine1": "string",
+        "addressLine2": "string",
+        "addressLine3": "string",
+        "city": Object {
+          "countryId": 0,
+          "id": 0,
+          "name": "string",
+          "stateId": 0,
+        },
+        "continent": Object {
+          "countries": Array [
+            Object {
+              "alpha2Code": "string",
+              "alpha3Code": "string",
+              "continentId": 0,
+              "culture": "string",
+              "id": 0,
+              "name": "string",
+              "nativeName": "string",
+              "region": "string",
+              "regionId": 0,
+              "subRegion": "string",
+              "subfolder": "string",
+            },
+          ],
+          "id": 0,
+          "name": "string",
+        },
+        "country": Object {
+          "alpha2Code": "string",
+          "alpha3Code": "string",
+          "continentId": 0,
+          "culture": "string",
+          "id": 0,
+          "name": "string",
+          "nativeName": "string",
+          "region": "string",
+          "regionId": 0,
+          "subRegion": "string",
+          "subfolder": "string",
+        },
+        "ddd": "string",
+        "neighbourhood": "string",
+        "phone": "string",
+        "state": Object {
+          "code": "string",
+          "countryId": 0,
+          "id": 0,
+          "name": "string",
+        },
+        "vatNumber": "string",
+        "zipCode": "string",
+      },
+      "email": "string",
+      "firstName": "string",
+      "id": "string",
+      "lastName": "string",
+    },
+    "reference": "string",
+    "status": "Created",
+    "totalValue": 0,
+    "totalValueFormattedPrice": "string",
+  },
+  "type": "@farfetch/blackout-redux/FETCH_PAYMENT_INTENT_SUCCESS",
+}
+`;
