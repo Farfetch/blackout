@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.175](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.174...@farfetch/blackout-client@2.0.0-next.175) (2022-07-01)
+
+
+### Bug Fixes
+
+* fix typings and renames ([494c84c](https://github.com/Farfetch/blackout/commit/494c84c6a76f31fb8f539427d82a0b2bc0604c92))
+
+
+### Features
+
+* **client|redux:** export subscription modules in client and redux root index file ([dc72eaf](https://github.com/Farfetch/blackout/commit/dc72eafb963b829b9413147cf6a17ea41a93180b))
+
+
+
+
+
 # [2.0.0-next.174](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.173...@farfetch/blackout-client@2.0.0-next.174) (2022-06-30)
 
 
