@@ -1,5 +1,5 @@
 import { cleanup, renderHook } from '@testing-library/react';
-import { fetchSEO } from '@farfetch/blackout-redux/contents';
+import { fetchSEO } from '@farfetch/blackout-redux';
 import {
   mockInitialState,
   mockState,
@@ -13,8 +13,8 @@ import { Provider } from 'react-redux';
 import { useMetaTags } from '..';
 import React from 'react';
 
-jest.mock('@farfetch/blackout-redux/contents', () => {
-  const original = jest.requireActual('@farfetch/blackout-redux/contents');
+jest.mock('@farfetch/blackout-redux', () => {
+  const original = jest.requireActual('@farfetch/blackout-redux');
 
   return {
     ...original,

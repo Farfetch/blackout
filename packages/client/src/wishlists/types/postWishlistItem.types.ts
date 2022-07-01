@@ -1,3 +1,4 @@
+import type { Config } from '../..';
 import type { Product } from '../../products/types';
 import type { Wishlist } from './wishlist.types';
 
@@ -11,5 +12,5 @@ export type PostWishlistItemData = {
 export type PostWishlistItem = (
   id: Wishlist['id'],
   data: PostWishlistItemData,
-  config?: Record<string, unknown>,
+  config?: Config,
 ) => Promise<Wishlist>;

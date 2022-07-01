@@ -1,4 +1,4 @@
-export enum ProductTagEnum {
+export enum ProductTag {
   NoTag,
   NewSeason,
   OutOfStock,

@@ -1,5 +1,5 @@
 import type { FacetEntity } from '../../entities/types';
-import type { ListingQuery } from '@farfetch/blackout-client';
+import type { GetProductListingQuery } from '@farfetch/blackout-client';
 export const PRICE_FACET_KEY = 'price';
 
 /**
@@ -29,8 +29,8 @@ export const PRICE_FACET_KEY = 'price';
  * @returns Query object built with the previous active filters minus the ones provided.
  */
 const buildUnsetFiltersQueryParams = (
-  query: ListingQuery,
-  filterParams: Record<keyof ListingQuery, number[] | number>,
+  query: GetProductListingQuery,
+  filterParams: Record<keyof GetProductListingQuery, number[] | number>,
 ): Record<string, Array<FacetEntity['id']>> => {
   const finalObject = {
     ...query,

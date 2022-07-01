@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createUserContact action creator should create the correct actions for when the create contact procedure is successful: create contact success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "contacts": Object {
+        "4c46a918-303b-4847-8825-dfb295acb6c8": Object {
+          "countryDetails": Object {
+            "countryCallingCode": "351",
+            "countryCode": "PT",
+          },
+          "description": "TEST",
+          "id": "4c46a918-303b-4847-8825-dfb295acb6c8",
+          "type": "Phone",
+          "value": "TEST",
+        },
+      },
+    },
+    "result": "4c46a918-303b-4847-8825-dfb295acb6c8",
+  },
+  "type": "@farfetch/blackout-redux/CREATE_USER_CONTACT_SUCCESS",
+}
+`;

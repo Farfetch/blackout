@@ -1,4 +1,4 @@
-import { actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
 import {
   expectedNormalizedPayloadProgramMembershipReplacement,
   membershipId,
@@ -7,12 +7,12 @@ import {
 } from 'tests/__fixtures__/loyalty/loyalty.fixtures';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import { postProgramMembershipReplacement } from '@farfetch/blackout-client/loyalty';
+import { postProgramMembershipReplacement } from '@farfetch/blackout-client';
 import createProgramMembershipReplacement from '../createProgramMembershipReplacement';
 import find from 'lodash/find';
 
-jest.mock('@farfetch/blackout-client/loyalty', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/loyalty'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   postProgramMembershipReplacement: jest.fn(),
 }));
 

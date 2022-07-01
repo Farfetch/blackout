@@ -1,18 +1,19 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  Config,
+  PatchWishlistItem,
+  PatchWishlistItemData,
+  toBlackoutError,
+  Wishlist,
+  WishlistItem,
+} from '@farfetch/blackout-client';
 import { getWishlistId, getWishlistItem } from '../../selectors';
 import { normalize } from 'normalizr';
-import { toBlackoutError } from '@farfetch/blackout-client';
 import wishlistItemSchema from '../../../entities/schemas/wishlistItem';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
-import type {
-  PatchWishlistItem,
-  PatchWishlistItemData,
-  Wishlist,
-  WishlistItem,
-} from '@farfetch/blackout-client/wishlists/types';
 import type { UpdateWishlistItemAction } from '../../types';
-import type { WishlistItemHydrated } from '@farfetch/blackout-redux/entities/types';
+import type { WishlistItemHydrated } from '../../../entities/types';
 
 /**
  * @param wishlistItemId - Wishlist item id.
@@ -35,7 +36,7 @@ const updateWishlistItemFactory =
   (
     wishlistItemId: WishlistItem['id'],
     data: PatchWishlistItemData,
-    config?: Record<string, unknown>,
+    config?: Config,
   ) =>
   async (
     dispatch: Dispatch<UpdateWishlistItemAction>,

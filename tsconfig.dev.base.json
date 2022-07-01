@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.release.base.json",
+  "compilerOptions": {
+    "rootDir": ".", // Set root dir to the root of the monorepo so we can import from 'tests' folder in test files
+    "paths": {
+      "tests": ["tests"],
+      "tests/*": ["../tests/*"]
+    },
+    "noEmit": true,
+    "emitDeclarationOnly": false
+  }
+}

@@ -1,6 +1,6 @@
+import * as actionTypes from '../../actionTypes';
 import * as normalizr from 'normalizr';
-import { actionTypes } from '../../';
-import { deleteWishlistItem } from '@farfetch/blackout-client/wishlists';
+import { deleteWishlistItem } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/wishlists';
 import {
   mockProductId,
@@ -15,8 +15,8 @@ import { mockStore } from '../../../../tests';
 import { removeWishlistItem } from '../';
 import thunk from 'redux-thunk';
 
-jest.mock('@farfetch/blackout-client/wishlists', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/wishlists'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   deleteWishlistItem: jest.fn(),
 }));
 

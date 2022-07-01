@@ -1,14 +1,15 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
-import { generateSEOPathname } from '../../utils';
-import type { ActionFetchSEO } from '../../types';
-import type { Dispatch } from 'redux';
-import type {
+import {
+  Config,
   GetSEO,
   QuerySEO,
   SEOMetadata,
-} from '@farfetch/blackout-client/contents/types';
-import type { Nullable } from '@farfetch/blackout-redux/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import { generateSEOPathname } from '../../utils';
+import type { ActionFetchSEO } from '../../types';
+import type { Dispatch } from 'redux';
+import type { Nullable } from '../../../types';
 
 /**
  * @param query  - Query object with search terms to apply.
@@ -24,7 +25,8 @@ import type { Nullable } from '@farfetch/blackout-redux/types';
  *
  * @returns Thunk factory.
  */
-export default (getSEO: GetSEO) =>
+const fetchSEOFactory =
+  (getSEO: GetSEO) =>
   (query: QuerySEO, config?: Config) =>
   async (dispatch: Dispatch<ActionFetchSEO>): Promise<SEOMetadata> => {
     let pathname: Nullable<string> = null;
@@ -60,3 +62,5 @@ export default (getSEO: GetSEO) =>
       throw error;
     }
   };
+
+export default fetchSEOFactory;

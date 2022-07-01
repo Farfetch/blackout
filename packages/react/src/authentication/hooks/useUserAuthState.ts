@@ -1,9 +1,9 @@
 import {
   AuthenticationConfigOptions,
   AuthenticationTokenManager,
-  deleteTokens,
+  deleteToken,
   LoginData,
-  postTokens,
+  postToken,
   TokenKinds,
   UserToken,
 } from '@farfetch/blackout-client';
@@ -123,7 +123,7 @@ const useUserAuthState = ({
 
         tokenManager.setRememberMe(rememberMe);
 
-        const tokenData = await postTokens(
+        const tokenData = await postToken(
           { grantType: 'password', ...loginData },
           {
             [AuthenticationConfigOptions.IsLoginRequest]: true,
@@ -158,7 +158,7 @@ const useUserAuthState = ({
         throw new NotLoggedInError();
       }
 
-      await deleteTokens(currentAccessToken, {
+      await deleteToken(currentAccessToken, {
         [AuthenticationConfigOptions.IsLogoutRequest]: true,
       });
 

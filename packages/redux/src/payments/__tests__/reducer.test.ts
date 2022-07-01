@@ -1,7 +1,8 @@
+import * as actionTypes from '../actionTypes';
 import * as fromReducer from '../reducer';
-import { LOGOUT_SUCCESS } from '@farfetch/blackout-redux/authentication/actionTypes';
+import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
 import { reducerAssertions } from '../../../tests/helpers';
-import reducer, { actionTypes, entitiesMapper } from '..';
+import reducer, { entitiesMapper } from '../reducer';
 
 let initialState;
 
@@ -10,83 +11,83 @@ describe('payments reducer', () => {
     initialState = fromReducer.INITIAL_STATE;
   });
 
-  describe('Charges reducers', () => {
+  describe('paymentIntentCharge reducers', () => {
     it('should return the initial state', () => {
-      const state = fromReducer.INITIAL_STATE.charges;
+      const state = fromReducer.INITIAL_STATE.paymentIntentCharge;
 
-      expect(state).toEqual(initialState.charges);
+      expect(state).toEqual(initialState.paymentIntentCharge);
     });
 
     describe('ERRORS', () => {
-      it.each([actionTypes.CHARGE_FAILURE, actionTypes.FETCH_CHARGES_FAILURE])(
-        'should handle %s action type',
-        actionType => {
-          const mockError = 'mocked error';
-          expect(
-            reducer(undefined, {
-              type: actionType,
-              payload: { error: mockError },
-            }).charges,
-          ).toEqual({ error: mockError, isLoading: false, result: null });
-        },
-      );
+      it.each([
+        actionTypes.CREATE_PAYMENT_INTENT_CHARGE_FAILURE,
+        actionTypes.FETCH_PAYMENT_INTENT_CHARGE_FAILURE,
+      ])('should handle %s action type', actionType => {
+        const mockError = 'mocked error';
+        expect(
+          reducer(undefined, {
+            type: actionType,
+            payload: { error: mockError },
+          }).paymentIntentCharge,
+        ).toEqual({ error: mockError, isLoading: false, result: null });
+      });
     });
 
     describe('REQUESTS', () => {
-      it.each([actionTypes.CHARGE_REQUEST, actionTypes.FETCH_CHARGES_REQUEST])(
-        'should handle %s action type',
-        actionType => {
-          expect(
-            reducer(undefined, {
-              type: actionType,
-            }).charges,
-          ).toEqual({
-            error: initialState.charges.error,
-            isLoading: true,
-            result: null,
-          });
-        },
-      );
+      it.each([
+        actionTypes.CREATE_PAYMENT_INTENT_CHARGE_REQUEST,
+        actionTypes.FETCH_PAYMENT_INTENT_CHARGE_REQUEST,
+      ])('should handle %s action type', actionType => {
+        expect(
+          reducer(undefined, {
+            type: actionType,
+          }).paymentIntentCharge,
+        ).toEqual({
+          error: initialState.paymentIntentCharge.error,
+          isLoading: true,
+          result: null,
+        });
+      });
     });
 
     describe('SUCCESS', () => {
-      it.each([actionTypes.CHARGE_SUCCESS, actionTypes.FETCH_CHARGES_SUCCESS])(
-        'should handle %s action type',
-        actionType => {
-          const mockResult = { foo: 'mocked result' };
-          const chargeId = '43b059df-898e-4407-8347-b075b645bf6c';
-          const expectedResult = {
-            ...mockResult,
-            chargeId,
-          };
-          expect(
-            reducer(undefined, {
-              type: actionType,
-              payload: mockResult,
-              meta: { chargeId },
-            }).charges,
-          ).toEqual({
-            error: initialState.charges.error,
-            isLoading: false,
-            result: expectedResult,
-          });
-        },
-      );
+      it.each([
+        actionTypes.CREATE_PAYMENT_INTENT_CHARGE_SUCCESS,
+        actionTypes.FETCH_PAYMENT_INTENT_CHARGE_SUCCESS,
+      ])('should handle %s action type', actionType => {
+        const mockResult = { foo: 'mocked result' };
+        const chargeId = '43b059df-898e-4407-8347-b075b645bf6c';
+        const expectedResult = {
+          ...mockResult,
+          chargeId,
+        };
+        expect(
+          reducer(undefined, {
+            type: actionType,
+            payload: mockResult,
+            meta: { chargeId },
+          }).paymentIntentCharge,
+        ).toEqual({
+          error: initialState.paymentIntentCharge.error,
+          isLoading: false,
+          result: expectedResult,
+        });
+      });
     });
 
-    it('should handle RESET_CHARGES_STATE action type', () => {
+    it('should handle RESET_PAYMENT_INTENT_CHARGE_STATE action type', () => {
       expect(
         reducer(undefined, {
-          type: actionTypes.RESET_CHARGES_STATE,
-        }).charges,
-      ).toEqual(initialState.charges);
+          type: actionTypes.RESET_PAYMENT_INTENT_CHARGE_STATE,
+        }).paymentIntentCharge,
+      ).toEqual(initialState.paymentIntentCharge);
     });
 
     describe('LOGOUT_SUCCESS', () => {
       it('should handle LOGOUT_SUCCESS action type', () => {
         const reducerResult = reducer(undefined, {
           type: LOGOUT_SUCCESS,
-        }).charges;
+        }).paymentIntentCharge;
 
         expect(reducerResult.error).toBe(null);
         expect(reducerResult.result).toBe(null);
@@ -95,20 +96,20 @@ describe('payments reducer', () => {
     });
   });
 
-  describe('Instruments reducers', () => {
+  describe('paymentInstruments reducers', () => {
     describe('ERRORS', () => {
       it.each([
-        actionTypes.FETCH_INSTRUMENT_FAILURE,
-        actionTypes.FETCH_INSTRUMENTS_FAILURE,
-        actionTypes.CREATE_INSTRUMENT_FAILURE,
-        actionTypes.UPDATE_INSTRUMENT_FAILURE,
-        actionTypes.REMOVE_INSTRUMENT_FAILURE,
+        actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_FAILURE,
+        actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_FAILURE,
+        actionTypes.CREATE_PAYMENT_INTENT_INSTRUMENT_FAILURE,
+        actionTypes.UPDATE_PAYMENT_INTENT_INSTRUMENT_FAILURE,
+        actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_FAILURE,
       ])('should handle %s action type', actionType => {
         const expectedResult = 'foo';
         const reducerResult = reducer(undefined, {
           payload: { error: expectedResult },
           type: actionType,
-        }).instruments;
+        }).paymentInstruments;
 
         expect(reducerResult.error).toBe(expectedResult);
       });
@@ -116,54 +117,54 @@ describe('payments reducer', () => {
 
     describe('REQUESTS', () => {
       it.each([
-        actionTypes.FETCH_INSTRUMENT_REQUEST,
-        actionTypes.FETCH_INSTRUMENTS_REQUEST,
-        actionTypes.CREATE_INSTRUMENT_REQUEST,
-        actionTypes.UPDATE_INSTRUMENT_REQUEST,
-        actionTypes.REMOVE_INSTRUMENT_REQUEST,
+        actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_REQUEST,
+        actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENTS_REQUEST,
+        actionTypes.CREATE_PAYMENT_INTENT_INSTRUMENT_REQUEST,
+        actionTypes.UPDATE_PAYMENT_INTENT_INSTRUMENT_REQUEST,
+        actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_REQUEST,
       ])('should handle %s action type', actionType => {
         const reducerResult = reducer(undefined, {
           type: actionType,
-        }).instruments;
+        }).paymentInstruments;
 
         expect(reducerResult.isLoading).toBe(true);
-        expect(reducerResult.error).toBe(initialState.instruments.error);
+        expect(reducerResult.error).toBe(initialState.paymentInstruments.error);
       });
     });
 
     describe('SUCCESS', () => {
       it.each([
-        actionTypes.FETCH_INSTRUMENT_SUCCESS,
-        actionTypes.FETCH_INSTRUMENTS_SUCCESS,
+        actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_SUCCESS,
+        actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENTS_SUCCESS,
       ])('should handle %s action type', actionType => {
         const expectedResult = 'foo';
         const reducerResult = reducer(undefined, {
           payload: { result: expectedResult },
           type: actionType,
-        }).instruments;
+        }).paymentInstruments;
 
         expect(reducerResult.isLoading).toBe(false);
-        expect(reducerResult.error).toBe(initialState.instruments.error);
+        expect(reducerResult.error).toBe(initialState.paymentInstruments.error);
         expect(reducerResult.result).toBe(expectedResult);
       });
 
       it.each([
-        actionTypes.CREATE_INSTRUMENT_SUCCESS,
-        actionTypes.UPDATE_INSTRUMENT_SUCCESS,
+        actionTypes.CREATE_PAYMENT_INTENT_INSTRUMENT_SUCCESS,
+        actionTypes.UPDATE_PAYMENT_INTENT_INSTRUMENT_SUCCESS,
       ])('should handle %s action type', actionType => {
         const reducerResult = reducer(undefined, {
           type: actionType,
-        }).instruments;
+        }).paymentInstruments;
 
         expect(reducerResult.isLoading).toBe(false);
-        expect(reducerResult.error).toBe(initialState.instruments.error);
+        expect(reducerResult.error).toBe(initialState.paymentInstruments.error);
       });
 
-      it('should handle REMOVE_INSTRUMENT_SUCCESS action type', () => {
+      it('should handle REMOVE_PAYMENT_INTENT_INSTRUMENT_SUCCESS action type', () => {
         const instrumentToRemove = 'PayPalExp';
         const mystate = {
           ...initialState,
-          instruments: {
+          paymentInstruments: {
             result: ['PayPalExp', 'AliPay'],
           },
         };
@@ -171,18 +172,18 @@ describe('payments reducer', () => {
 
         const reducerResult = reducer(mystate, {
           meta: { instrumentId: instrumentToRemove },
-          type: actionTypes.REMOVE_INSTRUMENT_SUCCESS,
-        }).instruments;
+          type: actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_SUCCESS,
+        }).paymentInstruments;
 
         expect(reducerResult.result).toEqual(expectedResult);
         expect(reducerResult.isLoading).toBe(false);
-        expect(reducerResult.error).toBe(initialState.instruments.error);
+        expect(reducerResult.error).toBe(initialState.paymentInstruments.error);
       });
 
-      it('should handle RESET_INSTRUMENTS_STATE action type', () => {
+      it('should handle RESET_PAYMENT_INSTRUMENTS_STATE action type', () => {
         const mystate = {
           ...initialState,
-          instruments: {
+          paymentInstruments: {
             isLoading: true,
             error: 'someError',
             result: ['instrument1', 'instrument2', 'instrument3'],
@@ -190,10 +191,10 @@ describe('payments reducer', () => {
         };
 
         const reducerResult = reducer(mystate, {
-          type: actionTypes.RESET_INSTRUMENTS_STATE,
-        }).instruments;
+          type: actionTypes.RESET_PAYMENT_INSTRUMENTS_STATE,
+        }).paymentInstruments;
 
-        expect(reducerResult).toEqual(initialState.instruments);
+        expect(reducerResult).toEqual(initialState.paymentInstruments);
       });
     });
 
@@ -201,7 +202,7 @@ describe('payments reducer', () => {
       it('should handle LOGOUT_SUCCESS action type', () => {
         const reducerResult = reducer(undefined, {
           type: LOGOUT_SUCCESS,
-        }).instruments;
+        }).paymentInstruments;
 
         expect(reducerResult.error).toBe(null);
         expect(reducerResult.result).toBe(null);
@@ -210,7 +211,7 @@ describe('payments reducer', () => {
     });
   });
 
-  describe('Payment Tokens reducers', () => {
+  describe('paymentTokens reducers', () => {
     describe('ERRORS', () => {
       it.each([
         actionTypes.FETCH_PAYMENT_TOKENS_FAILURE,
@@ -220,7 +221,7 @@ describe('payments reducer', () => {
         const reducerResult = reducer(undefined, {
           payload: { error: expectedResult },
           type: actionType,
-        }).tokens;
+        }).paymentTokens;
 
         expect(reducerResult.error).toBe(expectedResult);
       });
@@ -231,10 +232,12 @@ describe('payments reducer', () => {
         actionTypes.FETCH_PAYMENT_TOKENS_REQUEST,
         actionTypes.REMOVE_PAYMENT_TOKEN_REQUEST,
       ])('should handle %s action type', actionType => {
-        const reducerResult = reducer(undefined, { type: actionType }).tokens;
+        const reducerResult = reducer(undefined, {
+          type: actionType,
+        }).paymentTokens;
 
         expect(reducerResult.isLoading).toBe(true);
-        expect(reducerResult.error).toBe(initialState.tokens.error);
+        expect(reducerResult.error).toBe(initialState.paymentTokens.error);
       });
     });
 
@@ -244,7 +247,7 @@ describe('payments reducer', () => {
         const reducerResult = reducer(undefined, {
           payload: { result: expectedResult },
           type: actionTypes.FETCH_PAYMENT_TOKENS_SUCCESS,
-        }).tokens;
+        }).paymentTokens;
 
         expect(reducerResult.result).toBe(expectedResult);
         expect(reducerResult.isLoading).toBe(false);
@@ -254,7 +257,7 @@ describe('payments reducer', () => {
         const idTokenToRemove = 'idToken1';
         const mystate = {
           ...initialState,
-          tokens: {
+          paymentTokens: {
             result: [idTokenToRemove, 'idToken2', 'idToken3'],
           },
         };
@@ -263,7 +266,7 @@ describe('payments reducer', () => {
         const reducerResult = reducer(mystate, {
           meta: { id: idTokenToRemove },
           type: actionTypes.REMOVE_PAYMENT_TOKEN_SUCCESS,
-        }).tokens;
+        }).paymentTokens;
 
         expect(reducerResult.result).toEqual(expectedResult);
         expect(reducerResult.isLoading).toBe(false);
@@ -274,7 +277,7 @@ describe('payments reducer', () => {
       it('should handle LOGOUT_SUCCESS action type', () => {
         const reducerResult = reducer(undefined, {
           type: LOGOUT_SUCCESS,
-        }).tokens;
+        }).paymentTokens;
 
         expect(reducerResult.error).toBe(null);
         expect(reducerResult.result).toBe(null);
@@ -308,9 +311,9 @@ describe('payments reducer', () => {
       });
     });
 
-    describe('delete instrument', () => {
+    describe('delete payment intent instrument', () => {
       const state = {
-        instruments: {
+        paymentInstruments: {
           '9f9d327a-25cd-49de-83a8-533ab358f27b': {
             id: '9f9d327a-25cd-49de-83a8-533ab358f27b',
             data: 'data',
@@ -323,7 +326,7 @@ describe('payments reducer', () => {
       };
 
       const expectedResult = {
-        instruments: {
+        paymentInstruments: {
           '9f9d327a-25cd-49de-83a8-533ab358f27c': {
             id: '9f9d327a-25cd-49de-83a8-533ab358f27c',
             data: 'data',
@@ -331,21 +334,24 @@ describe('payments reducer', () => {
         },
       };
 
-      it('should handle REMOVE_INSTRUMENT_SUCCESS action type', () => {
+      it('should handle REMOVE_PAYMENT_INTENT_INSTRUMENT_SUCCESS action type', () => {
         expect(
-          entitiesMapper[actionTypes.REMOVE_INSTRUMENT_SUCCESS](state, {
-            meta: {
-              instrumentId: '9f9d327a-25cd-49de-83a8-533ab358f27b',
+          entitiesMapper[actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_SUCCESS](
+            state,
+            {
+              meta: {
+                instrumentId: '9f9d327a-25cd-49de-83a8-533ab358f27b',
+              },
+              type: actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_SUCCESS,
             },
-            type: actionTypes.REMOVE_INSTRUMENT_SUCCESS,
-          }),
+          ),
         ).toEqual(expectedResult);
       });
     });
 
-    describe('reset instruments', () => {
+    describe('reset payment intent instruments', () => {
       const state = {
-        instruments: {
+        paymentInstruments: {
           '9f9d327a-25cd-49de-83a8-533ab358f27b': {
             id: '9f9d327a-25cd-49de-83a8-533ab358f27b',
             data: 'data',
@@ -358,12 +364,12 @@ describe('payments reducer', () => {
       };
 
       const expectedResult = {
-        instruments: {},
+        paymentInstruments: {},
       };
 
-      it('should handle RESET_INSTRUMENTS_STATE action type', () => {
+      it('should handle RESET_PAYMENT_INSTRUMENTS_STATE action type', () => {
         expect(
-          entitiesMapper[actionTypes.RESET_INSTRUMENTS_STATE](state),
+          entitiesMapper[actionTypes.RESET_PAYMENT_INSTRUMENTS_STATE](state),
         ).toEqual(expectedResult);
       });
     });
@@ -371,7 +377,7 @@ describe('payments reducer', () => {
     describe('logout', () => {
       it('should handle LOGOUT_SUCCESS action type', () => {
         const state = {
-          instruments: {
+          paymentInstruments: {
             '9f9d327a-25cd-49de-83a8-533ab358f27b': {
               id: '9f9d327a-25cd-49de-83a8-533ab358f27b',
               data: 'data',
@@ -384,7 +390,7 @@ describe('payments reducer', () => {
         };
 
         const expectedResult = {
-          instruments: {},
+          paymentInstruments: {},
           paymentTokens: {},
           checkoutOrders: {},
         };
@@ -405,23 +411,23 @@ describe('payments reducer', () => {
       // For the given subareas, the result of the selector should be the
       // current state.
       const subAreasExpectedStates = {
-        charges: { ...subAreaCurrentState },
-        creditBalance: { ...subAreaCurrentState },
+        paymentIntentCharge: { ...subAreaCurrentState },
+        userCreditBalance: { ...subAreaCurrentState },
         giftCardBalance: { ...subAreaCurrentState },
-        instruments: { ...subAreaCurrentState },
-        intent: { ...subAreaCurrentState },
+        paymentInstruments: { ...subAreaCurrentState },
+        paymentIntent: { ...subAreaCurrentState },
         paymentMethods: { ...subAreaCurrentState },
-        tokens: { ...subAreaCurrentState },
+        paymentTokens: { ...subAreaCurrentState },
       };
 
       const subAreaNames = [
-        'Charges',
-        'CreditBalance',
+        'PaymentIntentCharge',
+        'UserCreditBalance',
         'GiftCardBalance',
-        'Instruments',
-        'Intent',
+        'PaymentInstruments',
+        'PaymentIntent',
         'PaymentMethods',
-        'Tokens',
+        'PaymentTokens',
       ];
 
       reducerAssertions.assertSubAreasReducer(

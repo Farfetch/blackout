@@ -22,7 +22,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default (getCollectPoints: GetCollectPoints) =>
+const fetchCollectPointsFactory =
+  (getCollectPoints: GetCollectPoints) =>
   (query: GetCollectPointsQuery, config?: Config) =>
   async (dispatch: Dispatch): Promise<GetCollectPointsResponse> => {
     try {
@@ -52,3 +53,5 @@ export default (getCollectPoints: GetCollectPoints) =>
       throw error;
     }
   };
+
+export default fetchCollectPointsFactory;

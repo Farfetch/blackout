@@ -3,13 +3,15 @@ import type {
   PatchWishlistItemData,
   Wishlist,
   WishlistItem,
-} from '@farfetch/blackout-client/wishlists/types';
-import type { State } from '@farfetch/blackout-redux/wishlists/types';
-import type { WishlistItemHydrated } from '@farfetch/blackout-redux/entities/types';
+} from '@farfetch/blackout-client';
+import type {
+  WishlistItemHydrated,
+  WishlistsState,
+} from '@farfetch/blackout-redux';
 
 export type UseWishlistItem = (wishlistItemId: number) => {
-  error: State['error'] | undefined;
-  isLoading: State['isLoading'] | undefined;
+  error: WishlistsState['error'] | undefined;
+  isLoading: WishlistsState['isLoading'] | undefined;
   item: WishlistItemHydrated | undefined;
   updateWishlistItem: (
     wishlistItemId: WishlistItem['id'],

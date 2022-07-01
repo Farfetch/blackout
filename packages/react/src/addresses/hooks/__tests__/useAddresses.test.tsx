@@ -8,34 +8,23 @@ import {
 } from '@testing-library/react';
 import {
   createUserAddress as createUserAddressAction,
+  fetchAddressPredictionDetails,
+  fetchAddressPredictions,
+  fetchCountryAddressSchemas,
   fetchUserAddresses,
   removeUserAddress,
+  resetAddressPredictions,
   setUserDefaultBillingAddress as setUserDefaultBillingAddressAction,
   setUserDefaultContactAddress as setUserDefaultContactAddressAction,
   setUserDefaultShippingAddress as setUserDefaultShippingAddressAction,
   updateUserAddress as updateUserAddressAction,
-} from '@farfetch/blackout-redux/users';
-import {
-  fetchAddressPrediction,
-  fetchAddressPredictions,
-  resetAddressPredictions,
-} from '@farfetch/blackout-redux/addresses';
-import { fetchCountryAddressSchema } from '@farfetch/blackout-redux/locale';
+} from '@farfetch/blackout-redux';
 import { mockStore, wrap } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
 import { useAddresses } from '../..';
-import React from 'react';
 
-jest.mock('@farfetch/blackout-redux/addresses', () => ({
-  ...jest.requireActual('@farfetch/blackout-redux/addresses'),
-  fetchAddressPredictions: jest.fn(() => ({ type: 'get' })),
-  fetchAddressPrediction: jest.fn(() => ({ type: 'get' })),
-  resetAddressPredictions: jest.fn(() => ({ type: 'reset' })),
-}));
-
-jest.mock('@farfetch/blackout-redux/users', () => ({
-  ...jest.requireActual('@farfetch/blackout-redux/users'),
-  getUserAddresses: jest.fn(() => ({ type: 'get' })),
+jest.mock('@farfetch/blackout-redux', () => ({
+  ...jest.requireActual('@farfetch/blackout-redux'),
   fetchUserAddresses: jest.fn(() => ({ type: 'get' })),
   createUserAddress: jest.fn(() => ({ type: 'create' })),
   removeUserAddress: jest.fn(() => ({ type: 'delete' })),
@@ -43,12 +32,10 @@ jest.mock('@farfetch/blackout-redux/users', () => ({
   setUserDefaultBillingAddress: jest.fn(() => ({ type: 'update_billing' })),
   setUserDefaultContactAddress: jest.fn(() => ({ type: 'update_contact' })),
   setUserDefaultShippingAddress: jest.fn(() => ({ type: 'update_shipping' })),
-  fetchCountryAddressSchema: jest.fn(() => ({ type: 'get' })),
-}));
-
-jest.mock('@farfetch/blackout-redux/locale', () => ({
-  ...jest.requireActual('@farfetch/blackout-redux/locale'),
-  fetchCountryAddressSchema: jest.fn(() => ({ type: 'get' })),
+  fetchAddressPredictions: jest.fn(() => ({ type: 'get' })),
+  fetchAddressPredictionDetails: jest.fn(() => ({ type: 'get' })),
+  fetchCountryAddressSchemas: jest.fn(() => ({ type: 'get' })),
+  resetAddressPredictions: jest.fn(() => ({ type: 'reset' })),
 }));
 
 describe('useAddresses', () => {
@@ -79,26 +66,30 @@ describe('useAddresses', () => {
         result: null,
         error: null,
         isLoading: false,
-      },
-      address: {
-        error: {},
-        isLoading: {},
-      },
-      defaultAddress: {
-        error: null,
-        isLoading: false,
-        result: null,
+        addresses: {
+          error: null,
+          isLoading: false,
+        },
+        address: {
+          error: {},
+          isLoading: {},
+        },
+        defaultAddress: {
+          error: null,
+          isLoading: false,
+          result: null,
+        },
       },
     },
     locale: {
-      addressSchema: {
+      countryAddressSchema: {
         error: null,
         isLoading: false,
       },
     },
     entities: {
       addresses: {},
-      addressSchema: {},
+      countryAddressSchema: {},
     },
   };
 
@@ -126,28 +117,32 @@ describe('useAddresses', () => {
         result: null,
         error: null,
         isLoading: true,
-      },
-      address: {
-        error: {},
-        isLoading: {
-          [addressId2]: true,
+        addresses: {
+          error: null,
+          isLoading: false,
         },
-      },
-      defaultAddress: {
-        error: null,
-        isLoading: true,
-        result: null,
+        address: {
+          error: {},
+          isLoading: {
+            [addressId2]: true,
+          },
+        },
+        defaultAddress: {
+          error: null,
+          isLoading: true,
+          result: null,
+        },
       },
     },
     locale: {
-      addressSchema: {
+      countryAddressSchema: {
         error: null,
         isLoading: true,
       },
     },
     entities: {
       addresses: {},
-      addressSchema: {},
+      countryAddressSchema: {},
     },
   };
 
@@ -175,28 +170,32 @@ describe('useAddresses', () => {
         result: null,
         error: 'Error',
         isLoading: false,
-      },
-      address: {
-        error: {
-          [addressId2]: 'Error',
+        addresses: {
+          error: 'Error',
+          isLoading: false,
         },
-        isLoading: {},
-      },
-      defaultAddress: {
-        error: 'Error',
-        isLoading: false,
-        result: null,
+        address: {
+          error: {
+            [addressId2]: 'Error',
+          },
+          isLoading: {},
+        },
+        defaultAddress: {
+          error: 'Error',
+          isLoading: false,
+          result: null,
+        },
       },
     },
     locale: {
-      addressSchema: {
+      countryAddressSchema: {
         error: 'Error',
         isLoading: false,
       },
     },
     entities: {
       addresses: {},
-      addressSchema: {},
+      countryAddressSchema: {},
     },
   };
 
@@ -208,7 +207,6 @@ describe('useAddresses', () => {
     const auto = true;
     const addressId = '123456';
     const isoCode = 'PT';
-
     const {
       result: { current },
     } = renderHook(() => useAddresses({ auto, userId, addressId, isoCode }), {
@@ -226,19 +224,19 @@ describe('useAddresses', () => {
     expect(typeof current.setUserDefaultShippingAddress).toBe('function');
     expect(current.addressesIds).toBeNull();
     expect(current.addressesError).toBeNull();
-    expect(current.isAddressesLoading).toBeFalsy();
+    expect(current.areUserAddressesLoading).toBeFalsy();
     expect(current.userAddressError).toBeUndefined();
     expect(current.isUserAddressLoading).toBeFalsy();
     expect(current.addressPredictionsError).toBeNull();
-    expect(current.isAddressPredictionsLoading).toBeFalsy();
+    expect(current.areAddressPredictionsLoading).toBeFalsy();
     expect(current.addressPredictionError).toBeNull();
     expect(current.isAddressPredictionLoading).toBeFalsy();
     expect(current.addressPredictions).toBeNull();
     expect(typeof current.handleGetAddressPredictions).toBe('function');
     expect(typeof current.handleGetAddressPrediction).toBe('function');
     expect(typeof current.resetAddressPredictions).toBe('function');
-    expect(current.countryAddressSchema).toBeUndefined();
-    expect(current.isCountryAddressSchemaLoading).toBeFalsy();
+    expect(current.countryAddressSchemas).toBeUndefined();
+    expect(current.areCountryAddressSchemasLoading).toBeFalsy();
     expect(current.countryAddressSchemaError).toBeNull();
     expect(typeof current.handleGetCountryAddressSchema).toBe('function');
   });
@@ -441,16 +439,20 @@ describe('useAddresses', () => {
               },
               error: null,
               isLoading: false,
-            },
-            address: {
-              error: {
-                [address2.id]: 'Error',
+              addresses: {
+                error: null,
+                isLoading: false,
               },
-              isLoading: {},
+              address: {
+                error: {
+                  [address2.id]: 'Error',
+                },
+                isLoading: {},
+              },
             },
           },
           locale: {
-            addressSchema: {
+            countryAddressSchema: {
               error: null,
               isLoading: false,
             },
@@ -551,19 +553,19 @@ describe('useAddresses', () => {
 
         fireEvent.click(getByTestId('addresses-handleGetPredictionDetails'));
 
-        expect(fetchAddressPrediction).toHaveBeenCalledTimes(1);
+        expect(fetchAddressPredictionDetails).toHaveBeenCalledTimes(1);
       });
     });
 
     describe('handleGetAddressSchema', () => {
-      it('should call fetchAddressSchema action', () => {
+      it('should call fetchCountryAddressSchemas action', () => {
         const { getByTestId } = wrap(<Addresses userId={userId} />)
           .withStore(mockInitialState)
           .render();
 
         fireEvent.click(getByTestId('addresses-handleGetAddressSchema'));
 
-        expect(fetchCountryAddressSchema).toHaveBeenCalledTimes(1);
+        expect(fetchCountryAddressSchemas).toHaveBeenCalledTimes(1);
       });
     });
 

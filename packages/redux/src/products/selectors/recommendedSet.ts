@@ -1,5 +1,6 @@
 import { getError, getIsLoading, getResult } from '../reducer/recommendedSet';
-import type { BlackoutError, RecommendedSet } from '@farfetch/blackout-client';
+import type { ProductsState } from '../types';
+import type { RecommendedSet } from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 /**
@@ -13,7 +14,7 @@ import type { StoreState } from '../../types';
 export const isRecommendedSetLoading = (
   state: StoreState,
   id: RecommendedSet['id'],
-): boolean | undefined => getIsLoading(state.products.recommendedSets)[id];
+) => getIsLoading((state.products as ProductsState).recommendedSets)[id];
 
 /**
  * Returns the fetched status of a specific recommended set with out of stock.
@@ -41,8 +42,7 @@ export const isRecommendedSetFetched = (
 export const getRecommendedSetError = (
   state: StoreState,
   id: RecommendedSet['id'],
-): BlackoutError | null | undefined =>
-  getError(state.products.recommendedSets)[id];
+) => getError((state.products as ProductsState).recommendedSets)[id];
 
 /**
  * Returns the recommended set for the given id.
@@ -55,5 +55,4 @@ export const getRecommendedSetError = (
 export const getRecommendedSet = (
   state: StoreState,
   id: RecommendedSet['id'],
-): RecommendedSet | null | undefined =>
-  getResult(state.products.recommendedSets)[id];
+) => getResult((state.products as ProductsState).recommendedSets)[id];

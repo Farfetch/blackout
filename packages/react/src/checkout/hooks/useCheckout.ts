@@ -1,27 +1,41 @@
 /**
  * Hook to provide all kinds of data for the business logic attached to checkout.
  */
-import * as selectors from '@farfetch/blackout-redux/checkout/selectors';
 import {
+  areCheckoutDetailsLoading as areCheckoutDetailsLoadingSelector,
+  areCollectPointsLoading as areCollectPointsLoadingSelector,
+  areDeliveryBundleUpgradesLoading,
   createCheckout as createCheckoutAction,
   fetchCheckout as fetchCheckoutAction,
   fetchCheckoutDetails as fetchCheckoutDetailsAction,
   fetchCollectPoints as fetchCollectPointsAction,
   fetchDeliveryBundleUpgrades as fetchDeliveryBundleUpgradesAction,
+  getBagId,
+  getCheckout,
+  getCheckoutDeliveryBundles,
+  getCheckoutDeliveryBundlesIds,
+  getCheckoutDetail,
+  getCheckoutDetailsError,
+  getCheckoutError,
+  getCheckoutId,
+  getCheckoutOrder,
+  getCheckoutOrderCollectPoints,
+  getCheckoutOrderItems,
+  getCheckoutOrderItemsIds,
+  getCollectPointsError,
+  getPromoCodeError,
+  isAuthenticated,
+  isBagLoading as isBagLoadingSelector,
+  isCheckoutLoading as isCheckoutLoadingSelector,
+  isLoginLoading,
+  isPromoCodeLoading as isPromoCodeLoadingSelector,
   resetCheckoutState as resetCheckoutStateAction,
   setPromocode as setPromocodeAction,
   setTags as setTagsAction,
+  StoreState,
   updateCheckout as updateCheckoutAction,
   updateGiftMessage as updateGiftMessageAction,
-} from '@farfetch/blackout-redux/checkout';
-import {
-  getBagId,
-  isBagLoading as isBagLoadingSelector,
-} from '@farfetch/blackout-redux/bags/selectors';
-import {
-  isAuthenticated,
-  isLoginLoading,
-} from '@farfetch/blackout-redux/authentication/selectors';
+} from '@farfetch/blackout-redux';
 import { useAction } from '../../helpers';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -37,69 +51,69 @@ export interface MetaData {
  *
  * @returns All the handlers, state, actions and relevant data needed to manage checkout.
  */
-export default ({
+const useCheckout = ({
   guestEmail,
   shippingMode,
   createCheckoutOnMount = true,
 }: MetaData): any => {
   // Selectors
-  const checkoutData = useSelector((state: any) =>
-    selectors.getCheckout(state),
+  const checkoutData = useSelector((state: StoreState) => getCheckout(state));
+  const checkoutDetails = useSelector((state: StoreState) =>
+    getCheckoutDetail(state),
   );
-  const checkoutDetails = useSelector((state: any) =>
-    selectors.getCheckoutDetail(state),
+  const areCheckoutDetailsLoading = useSelector((state: StoreState) =>
+    areCheckoutDetailsLoadingSelector(state),
   );
-  const isCheckoutDetailsLoading = useSelector((state: any) =>
-    selectors.isCheckoutDetailsLoading(state),
+  const checkoutDetailsError = useSelector((state: StoreState) =>
+    getCheckoutDetailsError(state),
   );
-  const checkoutDetailsError = useSelector((state: any) =>
-    selectors.getCheckoutDetailsError(state),
+  const checkoutOrder = useSelector((state: StoreState) =>
+    getCheckoutOrder(state),
   );
-  const checkoutOrder = useSelector((state: any) =>
-    selectors.getCheckoutOrder(state),
+  const checkoutOrderItems = useSelector((state: StoreState) =>
+    getCheckoutOrderItems(state),
   );
-  const checkoutOrderItems = useSelector((state: any) =>
-    selectors.getCheckoutOrderItems(state),
+  const checkoutOrderItemsIds = useSelector((state: StoreState) =>
+    getCheckoutOrderItemsIds(state),
   );
-  const checkoutOrderItemsIds = useSelector((state: any) =>
-    selectors.getCheckoutOrderItemsIds(state),
+  const checkoutId = useSelector((state: StoreState) => getCheckoutId(state));
+  const isCheckoutLoading = useSelector((state: StoreState) =>
+    isCheckoutLoadingSelector(state),
   );
-  const checkoutId = useSelector((state: any) =>
-    selectors.getCheckoutId(state),
+  const checkoutError = useSelector((state: StoreState) =>
+    getCheckoutError(state),
   );
-  const isCheckoutLoading = useSelector((state: any) =>
-    selectors.isCheckoutLoading(state),
+  const isGuest = useSelector((state: StoreState) => !isAuthenticated(state));
+  const isAuthLoading = useSelector((state: StoreState) =>
+    isLoginLoading(state),
   );
-  const checkoutError = useSelector((state: any) =>
-    selectors.getCheckoutError(state),
+  const bagId = useSelector((state: StoreState) => getBagId(state));
+  const isBagLoading = useSelector((state: StoreState) =>
+    isBagLoadingSelector(state),
   );
-  const isGuest = useSelector((state: any) => !isAuthenticated(state));
-  const isAuthLoading = useSelector((state: any) => isLoginLoading(state));
-  const bagId = useSelector((state: any) => getBagId(state));
-  const isBagLoading = useSelector((state: any) => isBagLoadingSelector(state));
-  const collectPoints = useSelector((state: any) =>
-    selectors.getCheckoutOrderCollectPoints(state),
+  const collectPoints = useSelector((state: StoreState) =>
+    getCheckoutOrderCollectPoints(state),
   );
-  const isCollectPointsLoading = useSelector((state: any) =>
-    selectors.isCollectPointsLoading(state),
+  const areCollectPointsLoading = useSelector((state: StoreState) =>
+    areCollectPointsLoadingSelector(state),
   );
-  const collectPointsError = useSelector((state: any) =>
-    selectors.getCollectPointsError(state),
+  const collectPointsError = useSelector((state: StoreState) =>
+    getCollectPointsError(state),
   );
-  const isPromoCodeLoading = useSelector((state: any) =>
-    selectors.isPromoCodeLoading(state),
+  const isPromoCodeLoading = useSelector((state: StoreState) =>
+    isPromoCodeLoadingSelector(state),
   );
-  const promoCodeError = useSelector((state: any) =>
-    selectors.getPromoCodeError(state),
+  const promoCodeError = useSelector((state: StoreState) =>
+    getPromoCodeError(state),
   );
-  const deliveryBundles = useSelector((state: any) =>
-    selectors.getCheckoutDeliveryBundles(state),
+  const deliveryBundles = useSelector((state: StoreState) =>
+    getCheckoutDeliveryBundles(state),
   );
-  const deliveryBundlesIds = useSelector((state: any) =>
-    selectors.getCheckoutDeliveryBundlesIds(state),
+  const deliveryBundlesIds = useSelector((state: StoreState) =>
+    getCheckoutDeliveryBundlesIds(state),
   );
-  const isUpgradesLoading = useSelector((state: any) =>
-    selectors.isDeliveryBundleUpgradesLoading(state),
+  const areUpgradesLoading = useSelector((state: StoreState) =>
+    areDeliveryBundleUpgradesLoading(state),
   );
 
   // Actions
@@ -204,13 +218,13 @@ export default ({
     checkoutError,
     checkoutData,
     checkoutDetails,
-    isCheckoutDetailsLoading,
+    areCheckoutDetailsLoading,
     checkoutDetailsError,
     checkoutOrder,
     checkoutOrderItems,
     checkoutOrderItemsIds,
     collectPoints,
-    isCollectPointsLoading,
+    areCollectPointsLoading,
     collectPointsError,
     selectedCollectPoint,
     checkoutSelectedShipping,
@@ -221,7 +235,7 @@ export default ({
     promoCodeError,
     deliveryBundles,
     deliveryBundlesIds,
-    isUpgradesLoading,
+    areUpgradesLoading,
     // Actions
     createCheckout,
     fetchCheckout,
@@ -242,3 +256,4 @@ export default ({
     handleSetBillingAddress,
   };
 };
+export default useCheckout;

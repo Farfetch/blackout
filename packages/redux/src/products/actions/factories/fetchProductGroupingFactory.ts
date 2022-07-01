@@ -1,18 +1,19 @@
 import {
+  Config,
+  GetProductGrouping,
+  GroupingQuery,
+  Product,
+  ProductGrouping,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import {
   FETCH_PRODUCT_GROUPING_FAILURE,
   FETCH_PRODUCT_GROUPING_REQUEST,
   FETCH_PRODUCT_GROUPING_SUCCESS,
 } from '../../actionTypes';
 import { normalize } from 'normalizr';
-import { toBlackoutError } from '@farfetch/blackout-client';
 import productSchema from '../../../entities/schemas/product';
 import type { Dispatch } from 'redux';
-import type {
-  GetProductGrouping,
-  GroupingQuery,
-  Product,
-  ProductGrouping,
-} from '@farfetch/blackout-client/products/types';
 
 /**
  * Creates a thunk factory configured with the specified client to fetch product
@@ -34,7 +35,7 @@ export const fetchProductGroupingFactory =
   (
     productId: Product['result']['id'],
     query: GroupingQuery = {},
-    config?: Record<string, unknown>,
+    config?: Config,
   ) =>
   async (dispatch: Dispatch): Promise<ProductGrouping> => {
     try {

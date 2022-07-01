@@ -7,11 +7,11 @@ import type {
   FetchSizeScaleMappingsAction,
   FetchSizeScalesAction,
   ResetSizeScalesStateAction,
-  State,
+  SizeScalesState,
 } from './types';
 import type { ReducerSwitch } from '../types';
 
-export const INITIAL_STATE: State = {
+export const INITIAL_STATE: SizeScalesState = {
   error: null,
   isLoading: false,
   sizeScale: {
@@ -71,9 +71,9 @@ const isLoading = (
 };
 
 const sizeScale = (
-  state: State['sizeScale'] = INITIAL_STATE.sizeScale,
+  state: SizeScalesState['sizeScale'] = INITIAL_STATE.sizeScale,
   action: FetchSizeScalesAction | FetchSizeScaleAction,
-): State['sizeScale'] => {
+): SizeScalesState['sizeScale'] => {
   switch (action.type) {
     case actionTypes.FETCH_SIZE_SCALE_REQUEST:
       return {
@@ -153,9 +153,9 @@ const sizeScale = (
 };
 
 const mappings = (
-  state: State['mappings'] = INITIAL_STATE.mappings,
+  state: SizeScalesState['mappings'] = INITIAL_STATE.mappings,
   action: FetchSizeScaleMappingsAction,
-): State['mappings'] => {
+): SizeScalesState['mappings'] => {
   switch (action.type) {
     case actionTypes.FETCH_SIZESCALE_MAPPINGS_REQUEST:
       return {
@@ -198,21 +198,26 @@ const mappings = (
   }
 };
 
-export const getError = (state: State): State['error'] => state.error;
-export const getIsLoading = (state: State): State['isLoading'] =>
-  state.isLoading;
-export const getSizeScaleError = (state: State): State['sizeScale']['error'] =>
-  state.sizeScale.error;
+export const getError = (state: SizeScalesState): SizeScalesState['error'] =>
+  state.error;
+export const getIsLoading = (
+  state: SizeScalesState,
+): SizeScalesState['isLoading'] => state.isLoading;
+export const getSizeScaleError = (
+  state: SizeScalesState,
+): SizeScalesState['sizeScale']['error'] => state.sizeScale.error;
 export const getSizeScaleIsLoading = (
-  state: State,
-): State['sizeScale']['isLoading'] => state.sizeScale.isLoading;
-export const getMappingError = (state: State): State['mappings']['error'] =>
-  state.mappings.error;
+  state: SizeScalesState,
+): SizeScalesState['sizeScale']['isLoading'] => state.sizeScale.isLoading;
+export const getMappingError = (
+  state: SizeScalesState,
+): SizeScalesState['mappings']['error'] => state.mappings.error;
 export const getMappingIsLoading = (
-  state: State,
-): State['mappings']['isLoading'] => state.mappings.isLoading;
-export const getMappingResult = (state: State): State['mappings']['result'] =>
-  state.mappings.result;
+  state: SizeScalesState,
+): SizeScalesState['mappings']['isLoading'] => state.mappings.isLoading;
+export const getMappingResult = (
+  state: SizeScalesState,
+): SizeScalesState['mappings']['result'] => state.mappings.result;
 
 const reducers = combineReducers({
   error,
@@ -230,7 +235,7 @@ const reducers = combineReducers({
  * @returns New state.
  */
 const sizeScalesReducer: ReducerSwitch<
-  State,
+  SizeScalesState,
   | FetchSizeScaleAction
   | FetchSizeScalesAction
   | FetchSizeScaleMappingsAction

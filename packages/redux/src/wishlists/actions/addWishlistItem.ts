@@ -1,5 +1,5 @@
 import { addWishlistItemFactory } from './factories';
-import { postWishlistItem } from '@farfetch/blackout-client/wishlists';
+import { postWishlistItem } from '@farfetch/blackout-client';
 
 /**
  * Add item with given data to the wishlist.

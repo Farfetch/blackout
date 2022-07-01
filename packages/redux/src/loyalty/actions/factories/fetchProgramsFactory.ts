@@ -1,13 +1,14 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
+import {
+  Config,
+  GetPrograms,
+  Program,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
 import programSchema from '../../../entities/schemas/program';
 import type { Dispatch } from 'redux';
 import type { FetchProgramsAction } from '../../types';
-import type {
-  GetPrograms,
-  Program,
-} from '@farfetch/blackout-client/loyalty/types';
 
 /**
  * @param config - Custom configurations to send to the client instance (axios).

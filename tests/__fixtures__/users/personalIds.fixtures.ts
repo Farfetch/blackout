@@ -1,7 +1,7 @@
 import {
-  Side,
+  UserPersonalIdImageSide,
   VerifyLevel,
-} from '@farfetch/blackout-client/users/personalIds/types';
+} from '@farfetch/blackout-client';
 
 export const mockPersonalIdResponse = {
   backImageId: '',
@@ -69,7 +69,7 @@ export const mockPatchPersonalIdResponse = {
 
 export const mockPostPersonalIdImageResponse = {
   id: '',
-  side: Side.FRONT,
+  side: UserPersonalIdImageSide.FRONT,
 };
 
 export const mockPostPersonalIdsData = {

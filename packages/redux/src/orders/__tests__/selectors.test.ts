@@ -2,8 +2,6 @@ import * as fromEntities from '../../entities/selectors/entity';
 import * as fromOrders from '../reducer';
 import * as selectors from '../selectors';
 import {
-  countryEntity,
-  countryId,
   courierEntity,
   courierId,
   labelTrackingEntity,
@@ -257,27 +255,6 @@ describe('orders redux selectors', () => {
     });
   });
 
-  describe('getMerchants()', () => {
-    it('should get the merchants from state', () => {
-      const expectedResult = mockState.entities.merchants;
-      const spy = jest.spyOn(fromEntities, 'getEntities');
-
-      expect(selectors.getMerchants(mockState)).toBe(expectedResult);
-      expect(spy).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('getMerchant()', () => {
-    it('should get the merchant from state', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntityById');
-
-      expect(selectors.getMerchant(mockState, merchantId)).toEqual(
-        merchantEntity,
-      );
-      expect(spy).toHaveBeenCalledWith(mockState, 'merchants', merchantId);
-    });
-  });
-
   describe('getOrderItems()', () => {
     it('should get the courier property from state', () => {
       const expectedResult = mockState.entities.orderItems;
@@ -296,25 +273,6 @@ describe('orders redux selectors', () => {
         orderItemEntity,
       );
       expect(spy).toHaveBeenCalledWith(mockState, 'orderItems', orderItemId);
-    });
-  });
-
-  describe('getCountries()', () => {
-    it('should get the countries from state', () => {
-      const expectedResult = mockState.entities.countries;
-      const spy = jest.spyOn(fromEntities, 'getEntities');
-
-      expect(selectors.getCountries(mockState)).toBe(expectedResult);
-      expect(spy).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('getCountry()', () => {
-    it('should get the country from state', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntityById');
-
-      expect(selectors.getCountry(mockState, countryId)).toBe(countryEntity);
-      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 

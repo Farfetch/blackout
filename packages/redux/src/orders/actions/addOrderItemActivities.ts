@@ -1,5 +1,5 @@
 import { addOrderItemActivitiesFactory } from './factories';
-import { postOrderItemActivities } from '@farfetch/blackout-client/orders';
+import { postOrderItemActivities } from '@farfetch/blackout-client';
 
 /**
  * Fetch available activities of a certain order item.

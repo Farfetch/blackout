@@ -1,13 +1,8 @@
-enum TypeEnum {
-  Category = 1,
-  Brand,
-  Merchant,
-  Other,
-}
+import type { SearchSuggestionType } from './searchSuggestion.types';
 
-export type SearchDidYouMean = {
+export type SearchDidYouMeanSuggestion = {
   suggestion: string;
-  type: TypeEnum;
+  type: SearchSuggestionType;
   resourceId: number;
   slug: string | null;
 };

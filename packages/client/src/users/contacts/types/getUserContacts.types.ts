@@ -1,7 +1,8 @@
 import type { Config } from '../../../types';
-import type { UserContactResponse } from '.';
+import type { User } from '../../authentication/types/user.types';
+import type { UserContact } from '.';
 
 export type GetUserContacts = (
-  userId: number,
+  userId: User['id'],
   config?: Config,
-) => Promise<UserContactResponse[]>;
+) => Promise<UserContact[]>;

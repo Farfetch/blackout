@@ -68,8 +68,8 @@ describe('setCountryMiddleware', () => {
   });
 
   it('Should allow to specify a set of action types that will be listened to instead of the default ones', () => {
-    const NEW_TYPE = '@farfetch/blackout-client/NEW_TYPE';
-    const NEW_ACTION_TYPE = '@farfetch/blackout-client/NEW_ACTION_TYPE';
+    const NEW_TYPE = '@farfetch/blackout-client';
+    const NEW_ACTION_TYPE = '@farfetch/blackout-client';
 
     const store = mockStore(null, mockState, [
       setCountryCodeMiddleware(new Set([NEW_TYPE, NEW_ACTION_TYPE])),
@@ -104,8 +104,8 @@ describe('setCountryMiddleware', () => {
   });
 
   it('Should allow to specify an array of action types that will be listened to instead of the default ones', () => {
-    const NEW_TYPE = '@farfetch/blackout-client/NEW_TYPE';
-    const NEW_ACTION_TYPE = '@farfetch/blackout-client/NEW_ACTION_TYPE';
+    const NEW_TYPE = '@farfetch/blackout-client';
+    const NEW_ACTION_TYPE = '@farfetch/blackout-client';
 
     const store = mockStore(null, mockState, [
       setCountryCodeMiddleware([NEW_TYPE, NEW_ACTION_TYPE]),

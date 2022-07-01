@@ -1,6 +1,7 @@
 import type { Bag } from './bag.types';
+import type { Config } from '../..';
+import type { PostBagItemQuery } from './query.types';
 import type { Product } from '../../products/types';
-import type { Query } from './query.types';
 
 export type PostBagItemData = {
   // Product identifier.
@@ -27,6 +28,6 @@ export type PostBagItemData = {
 export type PostBagItem = (
   id: Bag['id'] | null,
   data: PostBagItemData,
-  query?: Query,
-  config?: Record<string, unknown>,
+  query?: PostBagItemQuery,
+  config?: Config,
 ) => Promise<Bag>;

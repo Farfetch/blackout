@@ -1,17 +1,17 @@
+import * as actionTypes from '../../actionTypes';
 import * as normalizr from 'normalizr';
-import { actionTypes } from '../..';
 import {
   expectedNormalizedPayload,
   mockOrdersResponse,
 } from 'tests/__fixtures__/orders';
 import { fetchOrders } from '..';
-import { getOrders } from '@farfetch/blackout-client/orders';
+import { getOrders } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import thunk from 'redux-thunk';
 
-jest.mock('@farfetch/blackout-client/orders', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/orders'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getOrders: jest.fn(),
 }));
 

@@ -1,20 +1,24 @@
 import type {
   Balance,
-  Charges,
-  Instrument,
-  Intent,
-  PaymentMethod,
+  PaymentInstrument,
+  PaymentIntent,
+  PaymentIntentCharge,
+  PaymentMethods,
   PaymentToken,
-} from '@farfetch/blackout-client/payments/types';
+} from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
 import type { StateWithResult, StateWithResultArray } from '../../types';
 
-export type State = CombinedState<{
-  charges: StateWithResult<Charges>;
-  creditBalance: StateWithResult<Balance>;
+export type PaymentIntentChargeState = PaymentIntentCharge & {
+  chargeId: string | null;
+};
+
+export type PaymentsState = CombinedState<{
+  paymentIntentCharge: StateWithResult<PaymentIntentChargeState>;
+  userCreditBalance: StateWithResult<Balance>;
   giftCardBalance: StateWithResult<Balance>;
-  instruments: StateWithResultArray<Instrument['id']>;
-  intent: StateWithResultArray<Intent['id']>;
-  paymentMethods: StateWithResultArray<PaymentMethod>;
-  tokens: StateWithResultArray<PaymentToken['id']>;
+  paymentInstruments: StateWithResultArray<PaymentInstrument['id']>;
+  paymentIntent: StateWithResultArray<PaymentIntent['id']>;
+  paymentMethods: StateWithResultArray<PaymentMethods>;
+  paymentTokens: StateWithResultArray<PaymentToken['id']>;
 }>;

@@ -1,5 +1,5 @@
-import type { GetDeliveryBundleUpgradesResponse } from '@farfetch/blackout-client/checkout/types';
+import type { GetCheckoutOrderDeliveryBundleUpgradesResponse } from '@farfetch/blackout-client';
 
 export type DeliveryBundleUpgradesEntity = {
-  [deliveryBundleId: string]: GetDeliveryBundleUpgradesResponse;
+  [deliveryBundleId: string]: GetCheckoutOrderDeliveryBundleUpgradesResponse;
 };

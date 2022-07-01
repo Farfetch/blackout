@@ -2,8 +2,8 @@ import { Checkout } from './__fixtures__/Checkout.fixtures';
 import {
   cleanup,
   fireEvent,
-  waitFor,
   renderHook,
+  waitFor,
 } from '@testing-library/react';
 import {
   createCheckout as createCheckoutAction,
@@ -11,7 +11,7 @@ import {
   fetchCollectPoints as fetchCollectPointsAction,
   updateCheckout as updateCheckoutAction,
   updateGiftMessage as updateGiftMessageAction,
-} from '@farfetch/blackout-redux/checkout';
+} from '@farfetch/blackout-redux';
 import {
   expectedNormalizedPayload,
   mockAuthenticationState,
@@ -27,8 +27,8 @@ import { Provider } from 'react-redux';
 import { useCheckout } from '../..';
 // import React from 'react';
 
-jest.mock('@farfetch/blackout-redux/checkout', () => ({
-  ...jest.requireActual('@farfetch/blackout-redux/checkout'),
+jest.mock('@farfetch/blackout-redux', () => ({
+  ...jest.requireActual('@farfetch/blackout-redux'),
   createCheckout: jest.fn(() => ({ type: 'create' })),
   updateCheckout: jest.fn(() => ({ type: 'update' })),
   fetchCheckout: jest.fn(() => ({ type: 'get' })),

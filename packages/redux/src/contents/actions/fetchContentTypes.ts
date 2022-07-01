@@ -1,5 +1,5 @@
 import { fetchContentTypesFactory } from './factories';
-import { getContentTypes } from '@farfetch/blackout-client/contents';
+import { getContentTypes } from '@farfetch/blackout-client';
 
 /**
  * @param spaceCode - The space where the content belongs to (website|mobileapp|emailTool...).

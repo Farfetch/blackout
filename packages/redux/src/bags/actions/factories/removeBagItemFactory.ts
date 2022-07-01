@@ -1,14 +1,15 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  Bag,
+  Config,
+  DeleteBagItem,
+  DeleteBagItemQuery,
+  PatchBagItemData,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import { getBagId } from '../../selectors';
 import { normalize } from 'normalizr';
-import { toBlackoutError } from '@farfetch/blackout-client';
 import bagItemSchema from '../../../entities/schemas/bagItem';
-import type {
-  Bag,
-  DeleteBagItem,
-  PatchBagItemData,
-  Query,
-} from '@farfetch/blackout-client/bags/types';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, Nullable, StoreState } from '../../../types';
 
@@ -33,8 +34,8 @@ const removeBagItemFactory =
   (
     bagItemId: number,
     data?: PatchBagItemData,
-    query?: Query,
-    config?: Record<string, unknown>,
+    query?: DeleteBagItemQuery,
+    config?: Config,
   ) =>
   async (
     dispatch: Dispatch,

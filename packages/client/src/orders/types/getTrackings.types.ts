@@ -1,6 +1,7 @@
-import type { Tracking } from './tracking.types';
+import type { Config } from '../..';
+import type { Trackings } from './tracking.types';
 
 export type GetTrackings = (
   trackingCodes: string,
-  config?: Record<string, unknown>,
-) => Promise<Tracking[]>;
+  config?: Config,
+) => Promise<Trackings>;

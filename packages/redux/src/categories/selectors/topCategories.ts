@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 import { getCategories } from '../../entities';
 import { getError, getIsLoading, getResult } from '../reducer/topCategories';
-import type { BlackoutError } from '@farfetch/blackout-client';
-import type { Category } from '@farfetch/blackout-client/categories/types';
+import type { CategoriesState } from '../types';
+import type { Category } from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 /**
@@ -21,9 +21,8 @@ import type { StoreState } from '../../types';
  *
  * @returns Error information (`null` if there are no errors).
  */
-export const getTopCategoriesError = (
-  state: StoreState,
-): BlackoutError | null => getError(state.categories);
+export const getTopCategoriesError = (state: StoreState) =>
+  getError(state.categories as CategoriesState);
 
 /**
  * Retrieves a list of all the top categories (without a parent category).
@@ -43,7 +42,7 @@ export const getTopCategoriesError = (
  */
 export const getTopCategories = createSelector(
   [
-    (state: StoreState) => getResult(state.categories),
+    (state: StoreState) => getResult(state.categories as CategoriesState),
     (state: StoreState) => getCategories(state),
   ],
   (topCategories, categories): (Category | undefined)[] => {
@@ -71,8 +70,8 @@ export const getTopCategories = createSelector(
  *
  * @returns - Loading status of categories.
  */
-export const areTopCategoriesLoading = (state: StoreState): boolean =>
-  getIsLoading(state.categories);
+export const areTopCategoriesLoading = (state: StoreState) =>
+  getIsLoading(state.categories as CategoriesState);
 
 /**
  * Returns the fetched status of top categories.
@@ -90,5 +89,5 @@ export const areTopCategoriesLoading = (state: StoreState): boolean =>
  *
  * @returns - If top categories are fetched or not.
  */
-export const areTopCategoriesFetched = (state: StoreState): boolean =>
-  getResult(state.categories) !== null;
+export const areTopCategoriesFetched = (state: StoreState) =>
+  getResult(state.categories as CategoriesState) !== null;

@@ -1,6 +1,6 @@
-import type { GenderEnum } from '../../types';
+import type { Gender } from '../../types';
 
 export type SearchIntentsQuery = {
   searchTerms: string;
-  gender?: GenderEnum;
+  gender?: Gender;
 };

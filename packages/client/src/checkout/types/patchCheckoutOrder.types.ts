@@ -1,5 +1,5 @@
-import type { Config } from '../../types';
-import type { FlatAddress, GetCheckoutOrderResponse, ShippingOption } from '.';
+import type { CheckoutAddress, Config } from '../../types';
+import type { GetCheckoutOrderResponse, ShippingOption } from '.';
 
 export type ClickAndCollect = {
   collectPointId: number;
@@ -12,8 +12,8 @@ export type DeliveryBundleUpdate = {
 };
 
 export type PatchCheckoutOrderData = {
-  shippingAddress?: FlatAddress;
-  billingAddress?: FlatAddress;
+  shippingAddress?: CheckoutAddress;
+  billingAddress?: CheckoutAddress;
   clickAndCollect?: ClickAndCollect;
   shippingOption?: ShippingOption;
   deliveryBundleUpdate?: DeliveryBundleUpdate;

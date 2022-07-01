@@ -21,11 +21,11 @@ class MyIntegration extends Integration<IntegrationOptions> {
     constructorSpy();
   }
 
-  static shouldLoad() {
+  static override shouldLoad() {
     return true;
   }
 
-  track(): void {
+  override track(): void {
     // Do nothing
   }
 }

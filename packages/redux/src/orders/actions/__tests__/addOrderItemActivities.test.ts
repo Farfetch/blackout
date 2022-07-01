@@ -1,4 +1,4 @@
-import { actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
 import { addOrderItemActivities } from '..';
 import { INITIAL_STATE } from '../../reducer';
 import {
@@ -6,10 +6,10 @@ import {
   mockOrderItemActivityPayload,
 } from 'tests/__fixtures__/orders';
 import { mockStore } from '../../../../tests';
-import { postOrderItemActivities } from '@farfetch/blackout-client/orders';
+import { postOrderItemActivities } from '@farfetch/blackout-client';
 
-jest.mock('@farfetch/blackout-client/orders', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/orders'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   postOrderItemActivities: jest.fn(),
 }));
 
@@ -20,7 +20,7 @@ const orderId = '24BJKS';
 const expectedConfig = undefined;
 let store;
 
-describe('addOrderItemActivitiess() action creator', () => {
+describe('addOrderItemActivities() action creator', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     store = ordersMockStore();

@@ -60,7 +60,6 @@ Object {
       },
       "checkoutOrderItems": Object {
         "30380051": Object {
-          "brandId": undefined,
           "dateCreated": null,
           "id": 30380051,
           "merchant": undefined,
@@ -103,7 +102,8 @@ Object {
             "ddd": null,
             "firstName": "tester",
             "id": "c9ce5410-58d9-4298-a385-231a79373e4a",
-            "isDefaultBillingAddress": true,
+            "isCurrentBilling": true,
+            "isCurrentShipping": true,
             "isDefaultShippingAddress": true,
             "lastName": "teste",
             "neighbourhood": null,
@@ -154,7 +154,8 @@ Object {
             "ddd": null,
             "firstName": "tester",
             "id": "c9ce5410-58d9-4298-a385-231a79373e4a",
-            "isDefaultBillingAddress": true,
+            "isCurrentBilling": true,
+            "isCurrentShipping": true,
             "isDefaultShippingAddress": true,
             "lastName": "teste",
             "neighbourhood": null,

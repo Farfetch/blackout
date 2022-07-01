@@ -3,19 +3,15 @@ import {
   getSEO,
   getSEOError,
   isSEOLoading,
-} from '@farfetch/blackout-redux/contents';
+  StoreState,
+} from '@farfetch/blackout-redux';
 import { useAction, usePrevious } from '../../helpers';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 import type { AppIconLinks, Link, Meta, UseMetatags } from '../types';
-import type {
-  HrefLangs,
-  Metatags,
-  QuerySEO,
-} from '@farfetch/blackout-client/contents/types';
-import type { StoreState } from '@farfetch/blackout-redux/types';
+import type { HrefLangs, Metatags, QuerySEO } from '@farfetch/blackout-client';
 
 /**
  * Hook to return metadata to populate document head.

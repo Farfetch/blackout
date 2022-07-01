@@ -1,13 +1,13 @@
 import * as actionTypes from '../../actionTypes';
 import { adaptTimestamp } from '../../../helpers/adapters';
-import { toBlackoutError } from '@farfetch/blackout-client';
-import type { Dispatch } from 'redux';
-import type {
+import {
+  Config,
   PatchReturn,
   PatchReturnData,
-  Query,
   Return,
-} from '@farfetch/blackout-client/returns/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
 
 /**
  * @param id     - Return identifier.
@@ -25,14 +25,9 @@ import type {
  *
  * @returns Thunk factory.
  */
-export const updateReturnFactory =
+const updateReturnFactory =
   (patchReturn: PatchReturn) =>
-  (
-    id: number,
-    data: PatchReturnData,
-    query?: Query,
-    config?: Record<string, unknown>,
-  ) =>
+  (id: number, data: PatchReturnData, config?: Config) =>
   async (dispatch: Dispatch): Promise<Return> => {
     try {
       dispatch({
@@ -44,7 +39,7 @@ export const updateReturnFactory =
         end: adaptTimestamp(data.end) || '',
       };
 
-      const result = await patchReturn(id, adaptedData, query, config);
+      const result = await patchReturn(id, adaptedData, config);
 
       dispatch({
         type: actionTypes.UPDATE_RETURN_SUCCESS,
@@ -59,3 +54,5 @@ export const updateReturnFactory =
       throw error;
     }
   };
+
+export default updateReturnFactory;

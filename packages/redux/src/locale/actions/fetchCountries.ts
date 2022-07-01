@@ -1,5 +1,5 @@
 import { fetchCountriesFactory } from './factories';
-import { getCountries } from '@farfetch/blackout-client/locale';
+import { getCountries } from '@farfetch/blackout-client';
 
 /**
  * @param query  - Query parameters to apply to the request.

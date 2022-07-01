@@ -1,5 +1,5 @@
 import { fetchProgramMembershipStatementsFactory } from './factories';
-import { getProgramMembershipStatements } from '@farfetch/blackout-client/loyalty';
+import { getProgramMembershipStatements } from '@farfetch/blackout-client';
 
 /**
  * Load program membership statements.

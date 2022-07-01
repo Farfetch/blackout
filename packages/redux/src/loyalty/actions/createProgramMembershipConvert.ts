@@ -1,5 +1,5 @@
 import { createProgramMembershipConvertFactory } from './factories';
-import { postProgramMembershipConvert } from '@farfetch/blackout-client/loyalty';
+import { postProgramMembershipConvert } from '@farfetch/blackout-client';
 
 /**
  * Create program membership convert.

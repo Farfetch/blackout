@@ -1,190 +1,171 @@
+import type {
+  AttributeType,
+  Color,
+  ColorSet,
+  Gender,
+  ImageGroup,
+  Label,
+  LiveModel,
+  ProductImageGroup,
+} from '../..';
 import type { Brand } from '../../brands/types';
 import type { BreadCrumb } from './breadCrumb.types';
 import type { Category } from '../../categories/types';
-import type { GenderEnum } from '../../types';
+import type { DigitalAsset } from './common.types';
 import type { Price } from './price.types';
 import type { ProductMeasurement } from './productMeasurement.types';
-import type { ProductTagEnum } from './productTagEnum.types';
-import type { ProductTypeEnum } from './productTypeEnum.types';
+import type { ProductTag } from './productTagEnum.types';
+import type { ProductType } from './productTypeEnum.types';
 import type { ProductVariant } from './productVariant.types';
 import type { Size } from './size.types';
-
-enum DigitalAssetTypeEnum {
-  Default,
-  ItemSwatch,
-}
-
-enum MerchantAttributeTypeEnum {
-  Size,
-  SizeDescription,
-  Scale,
-  ScaleDescription,
-  ScaleAbbreviation,
-}
 
 /**
  * The result of fetching a product detail page.
  */
 export type Product = {
   breadCrumbs: BreadCrumb[];
-  colorSet: Array<{
-    image: string;
-    name: string;
-    productId: number;
-    url: string;
-  }>;
+  colorSet: ColorSet[];
   colorSwatch: string;
-  complementaryInformation: Array<{
-    key: string;
-    title: string;
-    value: string;
-  }>;
+  complementaryInformation: Information[];
   currencyIsoCode: string | null;
-  imageGroups: Array<{
-    images: Array<{
-      order: number;
-      size: string;
-      url: string;
-    }>;
-    order: number;
-  }>;
-  liveModel: {
-    globalId: string;
-    id: number;
-    measurements: Array<{
-      description: string;
-      unit: string;
-      value: number;
-    }>;
-    name: string;
-  };
+  imageGroups: ImageGroup[];
+  liveModel: LiveModel;
   price: Price;
   productAttributes?: string[];
   productRef: string | null;
   productSize: string;
   recommendedSet?: number;
-  redirectInfo: {
-    url: string;
-    responseCode: number;
-  } | null;
-  relatedSets: Array<{
-    setId: number;
-    setType: number;
-  }>;
+  redirectInfo: RedirectInfo | null;
+  relatedSets: RelatedSet[];
   result: {
-    associations: Array<{
-      id: number;
-      type: ProductTypeEnum;
-    }> | null;
-    associationsInformation: { hasColorGrouping: boolean };
+    associations: ProductAssociation | null;
+    associationsInformation: AssociationsInformation;
     brand: Brand;
     brandStyleId: string;
-    care: Array<{
-      instruction: string;
-      value: string;
-    }>;
+    care: Care[];
     categories: Category[];
-    colors: Array<{
-      color: { id: number; name: string };
-      tags: string[];
-    }>;
-    compositions: Array<{
-      material: string;
-      productId: number;
-      productPart: string | null;
-      value: string;
-    }>;
+    colors: Color[];
+    compositions: Composition[];
     customAttributes: string | null;
     description: string;
-    digitalAssets: Array<{
-      displayOrder: number;
-      mediaType: string;
-      size: string;
-      type: DigitalAssetTypeEnum;
-      url: string;
-    }>;
+    digitalAssets: DigitalAsset[];
     fulfillmentDate: string | null;
-    gender: GenderEnum;
+    gender: Gender;
     hasParentProduct: boolean;
     id: number;
-    images: {
-      images: Array<{
-        order: number;
-        size: string;
-        url: string;
-      }>;
-      liveModel: {
-        globalId: string;
-        id: number;
-        measurements: ProductMeasurement[];
-        name: string;
-      };
-      productSize: string;
-      tag: string;
-    };
+    images: ProductImageGroup;
     isCustomizable: boolean;
     isExclusive: boolean;
     isOnline: boolean;
-    labels: Array<{
-      id: number;
-      name: string;
-      priority: number;
-    }>;
+    labels: Label[];
     madeIn: string;
     measurements: ProductMeasurement[];
     parentProductId: number;
-    preferedMerchant: {
-      byAttribute: Array<{
-        merchantId: number;
-        type: MerchantAttributeTypeEnum;
-        value: string;
-      }>;
-      merchantId: number;
-    };
-    promotions: Array<{
-      id: string;
-      name: string;
-    }> | null;
+    preferedMerchant: PreferredMerchant;
+    promotions: Promotion[] | null;
     scaleId: number;
-    season: {
-      id: number;
-      name: string | null;
-    };
+    season: FashionSeason;
     shortDescription: string;
     sku: string | null;
     styleId: number;
-    tag: ProductTagEnum;
+    tag: ProductTag;
     tagDescription: string;
     translatedAttributes: string | null;
-    type: ProductTypeEnum;
+    type: ProductType;
     variants: ProductVariant[];
-    variations: Array<{
-      products: Array<{
-        id: number;
-        isDefault: boolean;
-        order: number;
-        varianId: string;
-      }>;
-      values: Array<{
-        property: {
-          id: string;
-          value: string;
-        };
-        type: string;
-      }>;
-    }>;
-    videos: Array<{
-      order: number;
-      url: string;
-    }>;
+    variations: Variation[];
+    videos: Video[];
   };
   scaleId: number;
   selectedSize: string | null;
   sizes: Size[];
-  sizeSet: Array<{
-    productId: number;
-    url: string;
-    volumeLabel: string;
-  }> | null;
+  sizeSet: SizeSet[] | null;
   slug: string;
+  [k: string]: unknown;
+};
+
+export type Information = {
+  key: string;
+  title: string;
+  value: string;
+};
+
+export type RedirectInfo = {
+  url: string;
+  responseCode: number;
+};
+
+export type RelatedSet = {
+  setId: number;
+  setType: number;
+};
+
+export type ProductAssociation = {
+  id: number;
+  type: ProductType;
+};
+
+export type AssociationsInformation = {
+  hasColorGrouping: boolean;
+  hasGrouping: boolean;
+};
+
+export type SizeSet = {
+  productId: number;
+  url: string;
+  volumeLabel: string;
+};
+
+export type Care = {
+  instruction: string;
+  value: string;
+};
+
+export type Composition = {
+  material: string;
+  productId: number;
+  productPart: string | null;
+  value: string;
+};
+
+export type PreferredMerchantByAttribute = {
+  merchantId: number;
+  type: AttributeType;
+  value: string;
+};
+
+export type PreferredMerchant = {
+  byAttribute: PreferredMerchantByAttribute[];
+  merchantId: number;
+};
+
+export type Promotion = {
+  id: string;
+  name: string;
+};
+
+export type FashionSeason = {
+  id: number;
+  name: string | null;
+};
+
+export type Variation = {
+  products: Array<{
+    id: number;
+    isDefault: boolean;
+    order: number;
+    varianId: string;
+  }>;
+  values: Array<{
+    property: {
+      id: string;
+      value: string;
+    };
+    type: string;
+  }>;
+};
+
+export type Video = {
+  order: number;
+  url: string;
 };

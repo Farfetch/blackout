@@ -1,13 +1,13 @@
 import * as actionTypes from '../actionTypes';
-import * as authenticationActionTypes from '../../authentication/actionTypes';
+import * as authenticationActionTypes from '../../users/authentication/actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import omit from 'lodash/omit';
 import uniqBy from 'lodash/uniqBy';
+import type { ProductsState } from '../types';
 import type { RecentlyViewedProductsPaginationData } from '@farfetch/blackout-client';
 import type { ReducerSwitch } from '../../types';
-import type { State } from '../types';
 
-type RecentlyViewedState = State['recentlyViewed'];
+type RecentlyViewedState = ProductsState['recentlyViewed'];
 
 export const INITIAL_STATE: RecentlyViewedState = {
   error: null,

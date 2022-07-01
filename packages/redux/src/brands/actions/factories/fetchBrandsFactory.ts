@@ -1,14 +1,15 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  Brands,
+  BrandsQuery,
+  Config,
+  GetBrands,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import { generateBrandsHash } from '../../utils';
 import { isBrandsResultCached } from '../../selectors';
 import { normalize } from 'normalizr';
-import { toBlackoutError } from '@farfetch/blackout-client';
 import brand from '../../../entities/schemas/brand';
-import type {
-  Brands,
-  BrandsQuery,
-  GetBrands,
-} from '@farfetch/blackout-client/brands/types';
 import type { Dispatch } from 'redux';
 import type { FetchBrandsAction } from '../../types';
 import type { StoreState } from '../../../types';
@@ -36,7 +37,7 @@ const fetchBrandsFactory =
     query: BrandsQuery,
     useCache = false,
     setBrandsHash = true,
-    config?: Record<string, unknown>,
+    config?: Config,
   ) =>
   async (
     dispatch: Dispatch<FetchBrandsAction>,

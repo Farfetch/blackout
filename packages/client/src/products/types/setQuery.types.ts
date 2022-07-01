@@ -1,4 +1,4 @@
-export type SetQuery = {
+export type GetProductSetQuery = {
   gender?: string;
   pageIndex?: number;
   pageSize?: number;

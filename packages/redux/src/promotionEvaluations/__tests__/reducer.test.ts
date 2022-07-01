@@ -1,9 +1,9 @@
-import * as fromReducer from '../reducer';
+import * as actionTypes from '../actionTypes';
 import {
   mockPromotionEvaluationId,
   mockPromotionEvaluationsItemsResponse,
 } from 'tests/__fixtures__/promotionEvaluations';
-import reducer, { actionTypes } from '..';
+import reducer, * as fromReducer from '../reducer';
 
 let initialState;
 const mockAction = { type: 'foo' };

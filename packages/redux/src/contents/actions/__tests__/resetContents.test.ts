@@ -1,4 +1,4 @@
-import { contentsActionTypes as actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
 import { mockStore } from '../../../../tests';
 import { resetContents } from '..';
 

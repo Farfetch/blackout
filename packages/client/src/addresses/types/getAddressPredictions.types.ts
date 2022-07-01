@@ -1,6 +1,6 @@
 import type { Config } from '../../types';
 
-export type AddressPredictions = {
+export type AddressPrediction = {
   description: string;
   id: string;
   text: string;
@@ -17,4 +17,4 @@ export type GetAddressPredictions = (
   text: string,
   query?: GetAddressPredictionsQuery,
   config?: Config,
-) => Promise<AddressPredictions[]>;
+) => Promise<AddressPrediction[]>;

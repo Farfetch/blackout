@@ -2,13 +2,11 @@ import { mockPostData, responses } from 'tests/__fixtures__/returns';
 import { postReturn } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postReturn.fixtures';
-import join from 'proper-url-join';
 import mswServer from '../../../tests/mswServer';
 
 describe('postReturn()', () => {
   const spy = jest.spyOn(client, 'post');
   const expectedConfig = undefined;
-  const query = { guestUserEmail: 'test@email.com' };
 
   beforeEach(() => jest.clearAllMocks());
 
@@ -18,11 +16,9 @@ describe('postReturn()', () => {
     mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
-    await expect(postReturn(mockPostData, query)).resolves.toStrictEqual(
-      response,
-    );
+    await expect(postReturn(mockPostData)).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(
-      join('/account/v1/returns/', { query }),
+      '/account/v1/returns',
       mockPostData,
       expectedConfig,
     );
@@ -32,9 +28,9 @@ describe('postReturn()', () => {
     mswServer.use(fixtures.failure());
 
     expect.assertions(2);
-    await expect(postReturn(mockPostData, query)).rejects.toMatchSnapshot();
+    await expect(postReturn(mockPostData)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      join('/account/v1/returns/', { query }),
+      '/account/v1/returns',
       mockPostData,
       expectedConfig,
     );

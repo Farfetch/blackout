@@ -1,30 +1,25 @@
 import * as actionTypes from './actionTypes';
-import { combineReducers } from 'redux';
-import { createReducerWithResult } from '../helpers';
-import { LOGOUT_SUCCESS } from '../authentication/actionTypes';
+import { AnyAction, combineReducers } from 'redux';
+import { createReducerWithResult } from '../helpers/reducerFactory';
+import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import get from 'lodash/get';
 import omit from 'lodash/omit';
 import type * as T from './types';
+import type { LogoutSuccessAction } from '../users';
 import type {
-  Charges,
-  Instrument,
+  PaymentInstrument,
   PaymentToken,
-} from '@farfetch/blackout-client/payments/types';
-import type { LogoutSuccessAction } from '../authentication/types';
-import type {
-  ReducerSwitch,
-  StateWithResult,
-  StateWithResultArray,
-  StoreState,
-} from '../types';
+} from '@farfetch/blackout-client';
+import type { PaymentsState } from './types';
+import type { ReducerSwitch, StoreState } from '../types';
 
-export const INITIAL_STATE: T.State = {
-  charges: {
+export const INITIAL_STATE: T.PaymentsState = {
+  paymentIntentCharge: {
     error: null,
     isLoading: false,
     result: null,
   },
-  creditBalance: {
+  userCreditBalance: {
     error: null,
     isLoading: false,
     result: null,
@@ -34,12 +29,12 @@ export const INITIAL_STATE: T.State = {
     isLoading: false,
     result: null,
   },
-  instruments: {
+  paymentInstruments: {
     error: null,
     isLoading: false,
     result: null,
   },
-  intent: {
+  paymentIntent: {
     error: null,
     isLoading: false,
     result: null,
@@ -49,61 +44,61 @@ export const INITIAL_STATE: T.State = {
     isLoading: false,
     result: null,
   },
-  tokens: {
+  paymentTokens: {
     error: null,
     isLoading: false,
     result: null,
   },
 };
 
-const charges = (
-  state = INITIAL_STATE.charges,
+const paymentIntentCharge = (
+  state = INITIAL_STATE.paymentIntentCharge,
   action:
-    | T.ChargesFailureAction
-    | T.ChargesRequestAction
-    | T.ChargesSuccessAction
-    | T.FetchChargesFailureAction
-    | T.FetchChargesRequestAction
-    | T.FetchChargesSuccessAction
-    | T.ResetChargesSuccessAction
+    | T.CreatePaymentIntentChargeFailureAction
+    | T.CreatePaymentIntentChargeRequestAction
+    | T.CreatePaymentIntentChargeSuccessAction
+    | T.FetchPaymentIntentChargeFailureAction
+    | T.FetchPaymentIntentChargeRequestAction
+    | T.FetchPaymentIntentChargeSuccessAction
+    | T.ResetPaymentIntentChargeSuccessAction
     | LogoutSuccessAction,
-): StateWithResult<Charges> => {
+): PaymentsState['paymentIntentCharge'] => {
   switch (action.type) {
-    case actionTypes.CHARGE_REQUEST:
-    case actionTypes.FETCH_CHARGES_REQUEST:
+    case actionTypes.CREATE_PAYMENT_INTENT_CHARGE_REQUEST:
+    case actionTypes.FETCH_PAYMENT_INTENT_CHARGE_REQUEST:
       return {
         ...state,
-        error: INITIAL_STATE.charges.error,
+        error: INITIAL_STATE.paymentIntentCharge.error,
         isLoading: true,
       };
-    case actionTypes.CHARGE_FAILURE:
-    case actionTypes.FETCH_CHARGES_FAILURE:
+    case actionTypes.CREATE_PAYMENT_INTENT_CHARGE_FAILURE:
+    case actionTypes.FETCH_PAYMENT_INTENT_CHARGE_FAILURE:
       return {
         ...state,
         error: action.payload.error,
         isLoading: false,
       };
-    case actionTypes.CHARGE_SUCCESS:
-    case actionTypes.FETCH_CHARGES_SUCCESS:
+    case actionTypes.CREATE_PAYMENT_INTENT_CHARGE_SUCCESS:
+    case actionTypes.FETCH_PAYMENT_INTENT_CHARGE_SUCCESS:
       return {
-        error: INITIAL_STATE.charges.error,
+        error: INITIAL_STATE.paymentIntentCharge.error,
         isLoading: false,
         result: {
           ...action.payload,
           chargeId: get(action.meta, 'chargeId'),
         },
       };
-    case actionTypes.RESET_CHARGES_STATE:
+    case actionTypes.RESET_PAYMENT_INTENT_CHARGE_STATE:
     case LOGOUT_SUCCESS:
-      return INITIAL_STATE.charges;
+      return INITIAL_STATE.paymentIntentCharge;
     default:
       return state;
   }
 };
 
-const creditBalance = createReducerWithResult(
-  'FETCH_CREDIT_BALANCE',
-  INITIAL_STATE.creditBalance,
+const userCreditBalance = createReducerWithResult(
+  'FETCH_USER_CREDIT_BALANCE',
+  INITIAL_STATE.userCreditBalance,
   actionTypes,
 );
 
@@ -113,82 +108,82 @@ const giftCardBalance = createReducerWithResult(
   actionTypes,
 );
 
-const instruments = (
-  state = INITIAL_STATE.instruments,
+const paymentInstruments = (
+  state = INITIAL_STATE.paymentInstruments,
   action:
-    | T.CreateInstrumentsFailureAction
-    | T.CreateInstrumentsRequestAction
-    | T.CreateInstrumentsSuccessAction
-    | T.FetchInstrumentFailureAction
-    | T.FetchInstrumentRequestAction
-    | T.FetchInstrumentSuccessAction
-    | T.FetchInstrumentsFailureAction
-    | T.FetchInstrumentsRequestAction
-    | T.FetchInstrumentsSuccessAction
-    | T.RemoveInstrumentFailureAction
-    | T.RemoveInstrumentRequestAction
-    | T.RemoveInstrumentSuccessAction
-    | T.UpdateInstrumentFailureAction
-    | T.UpdateInstrumentRequestAction
-    | T.UpdateInstrumentSuccessAction
-    | T.ResetInstrumentsSuccessAction
+    | T.CreatePaymentIntentInstrumentFailureAction
+    | T.CreatePaymentIntentInstrumentRequestAction
+    | T.CreatePaymentIntentInstrumentSuccessAction
+    | T.FetchPaymentIntentInstrumentFailureAction
+    | T.FetchPaymentIntentInstrumentRequestAction
+    | T.FetchPaymentIntentInstrumentSuccessAction
+    | T.FetchPaymentIntentInstrumentsFailureAction
+    | T.FetchPaymentIntentInstrumentsRequestAction
+    | T.FetchPaymentIntentInstrumentsSuccessAction
+    | T.RemovePaymentIntentInstrumentFailureAction
+    | T.RemovePaymentIntentInstrumentRequestAction
+    | T.RemovePaymentIntentInstrumentSuccessAction
+    | T.UpdatePaymentIntentInstrumentFailureAction
+    | T.UpdatePaymentIntentInstrumentRequestAction
+    | T.UpdatePaymentIntentInstrumentSuccessAction
+    | T.ResetPaymentInstrumentsSuccessAction
     | LogoutSuccessAction,
-): StateWithResultArray<Instrument['id']> => {
+): PaymentsState['paymentInstruments'] => {
   switch (action.type) {
-    case actionTypes.FETCH_INSTRUMENT_REQUEST:
-    case actionTypes.FETCH_INSTRUMENTS_REQUEST:
-    case actionTypes.CREATE_INSTRUMENT_REQUEST:
-    case actionTypes.UPDATE_INSTRUMENT_REQUEST:
-    case actionTypes.REMOVE_INSTRUMENT_REQUEST:
+    case actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_REQUEST:
+    case actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENTS_REQUEST:
+    case actionTypes.CREATE_PAYMENT_INTENT_INSTRUMENT_REQUEST:
+    case actionTypes.UPDATE_PAYMENT_INTENT_INSTRUMENT_REQUEST:
+    case actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_REQUEST:
       return {
         ...state,
-        error: INITIAL_STATE.instruments.error,
+        error: INITIAL_STATE.paymentInstruments.error,
         isLoading: true,
       };
-    case actionTypes.FETCH_INSTRUMENT_FAILURE:
-    case actionTypes.FETCH_INSTRUMENTS_FAILURE:
-    case actionTypes.CREATE_INSTRUMENT_FAILURE:
-    case actionTypes.UPDATE_INSTRUMENT_FAILURE:
-    case actionTypes.REMOVE_INSTRUMENT_FAILURE:
+    case actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_FAILURE:
+    case actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENTS_FAILURE:
+    case actionTypes.CREATE_PAYMENT_INTENT_INSTRUMENT_FAILURE:
+    case actionTypes.UPDATE_PAYMENT_INTENT_INSTRUMENT_FAILURE:
+    case actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_FAILURE:
       return {
         ...state,
         error: action.payload.error,
         isLoading: false,
       };
-    case actionTypes.FETCH_INSTRUMENT_SUCCESS:
-    case actionTypes.FETCH_INSTRUMENTS_SUCCESS:
+    case actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_SUCCESS:
+    case actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENTS_SUCCESS:
       return {
-        error: INITIAL_STATE.instruments.error,
+        error: INITIAL_STATE.paymentInstruments.error,
         isLoading: false,
         result: action.payload.result,
       };
-    case actionTypes.CREATE_INSTRUMENT_SUCCESS:
-    case actionTypes.UPDATE_INSTRUMENT_SUCCESS:
+    case actionTypes.CREATE_PAYMENT_INTENT_INSTRUMENT_SUCCESS:
+    case actionTypes.UPDATE_PAYMENT_INTENT_INSTRUMENT_SUCCESS:
       return {
         ...state,
-        error: INITIAL_STATE.instruments.error,
+        error: INITIAL_STATE.paymentInstruments.error,
         isLoading: false,
       };
-    case actionTypes.REMOVE_INSTRUMENT_SUCCESS:
+    case actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_SUCCESS:
       return {
-        error: INITIAL_STATE.tokens.error,
+        error: INITIAL_STATE.paymentInstruments.error,
         isLoading: false,
         result: state?.result?.filter(
-          (instrumentId: Instrument['id']) =>
+          (instrumentId: PaymentInstrument['id']) =>
             instrumentId !== action.meta.instrumentId,
         ),
       };
-    case actionTypes.RESET_INSTRUMENTS_STATE:
+    case actionTypes.RESET_PAYMENT_INSTRUMENTS_STATE:
     case LOGOUT_SUCCESS:
-      return INITIAL_STATE.instruments;
+      return INITIAL_STATE.paymentInstruments;
     default:
       return state;
   }
 };
 
-const intent = createReducerWithResult(
-  'FETCH_INTENT',
-  INITIAL_STATE.intent,
+const paymentIntent = createReducerWithResult(
+  'FETCH_PAYMENT_INTENT',
+  INITIAL_STATE.paymentIntent,
   actionTypes,
 );
 
@@ -203,8 +198,8 @@ const paymentMethods = createReducerWithResult(
   true,
 );
 
-const tokens = (
-  state = INITIAL_STATE.tokens,
+const paymentTokens = (
+  state = INITIAL_STATE.paymentTokens,
   action:
     | T.FetchPaymentTokensFailureAction
     | T.FetchPaymentTokensRequestAction
@@ -213,14 +208,14 @@ const tokens = (
     | T.RemovePaymentTokensRequestAction
     | T.RemovePaymentTokensSuccessAction
     | LogoutSuccessAction,
-): StateWithResultArray<PaymentToken['id']> => {
+): PaymentsState['paymentTokens'] => {
   switch (action.type) {
     case actionTypes.FETCH_PAYMENT_TOKENS_REQUEST:
     case actionTypes.REMOVE_PAYMENT_TOKEN_REQUEST:
       return {
         ...state,
         isLoading: true,
-        error: INITIAL_STATE.tokens.error,
+        error: INITIAL_STATE.paymentTokens.error,
       };
 
     case actionTypes.FETCH_PAYMENT_TOKENS_SUCCESS:
@@ -248,79 +243,93 @@ const tokens = (
       };
 
     case LOGOUT_SUCCESS:
-      return INITIAL_STATE.tokens;
+      return INITIAL_STATE.paymentTokens;
     default:
       return state;
   }
 };
 
 export const entitiesMapper = {
-  [actionTypes.REMOVE_PAYMENT_TOKEN_SUCCESS as typeof actionTypes.REMOVE_PAYMENT_TOKEN_SUCCESS]:
-    (
-      state: StoreState['entities'],
-      action: T.RemovePaymentTokensSuccessAction,
-    ): StoreState['entities'] => {
-      const { id } = action.meta;
-      const currentPaymentTokens = state.paymentTokens;
+  [actionTypes.REMOVE_PAYMENT_TOKEN_SUCCESS]: (
+    state: NonNullable<StoreState['entities']>,
+    action: AnyAction,
+  ): StoreState['entities'] => {
+    if (!state) {
+      return state;
+    }
 
-      return {
-        ...state,
-        paymentTokens: omit(currentPaymentTokens, id),
-      };
-    },
-  [actionTypes.REMOVE_INSTRUMENT_SUCCESS as typeof actionTypes.REMOVE_INSTRUMENT_SUCCESS]:
-    (
-      state: StoreState['entities'],
-      action: T.RemoveInstrumentSuccessAction,
-    ): StoreState['entities'] => {
-      const { instrumentId } = action.meta;
-      const currentInstruments = state.instruments;
+    const { id } = action.meta;
+    const currentPaymentTokens = state.paymentTokens;
 
-      return {
-        ...state,
-        instruments: omit(currentInstruments, instrumentId),
-      };
-    },
-  [actionTypes.RESET_INSTRUMENTS_STATE as typeof actionTypes.RESET_INSTRUMENTS_STATE]:
-    (state: StoreState['entities']): StoreState['entities'] => {
-      return {
-        ...state,
-        instruments: {},
-      };
-    },
-  [LOGOUT_SUCCESS as typeof LOGOUT_SUCCESS]: (
-    state: StoreState['entities'],
+    return {
+      ...state,
+      paymentTokens: omit(currentPaymentTokens, id),
+    };
+  },
+  [actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_SUCCESS]: (
+    state: NonNullable<StoreState['entities']>,
+    action: AnyAction,
+  ): StoreState['entities'] => {
+    if (!state) {
+      return state;
+    }
+    const { instrumentId } = action.meta;
+    const currentInstruments = state.paymentInstruments;
+    return {
+      ...state,
+      paymentInstruments: omit(currentInstruments, instrumentId),
+    };
+  },
+  [actionTypes.RESET_PAYMENT_INSTRUMENTS_STATE]: (
+    state: NonNullable<StoreState['entities']>,
   ): StoreState['entities'] => {
     return {
       ...state,
-      instruments: {},
+      paymentInstruments: {},
+    };
+  },
+  [LOGOUT_SUCCESS]: (
+    state: NonNullable<StoreState['entities']>,
+  ): StoreState['entities'] => {
+    return {
+      ...state,
+      paymentInstruments: {},
       paymentTokens: {},
       checkoutOrders: {},
     };
   },
 };
 
-export const getTokens = (state: T.State): T.State['tokens'] => state.tokens;
-export const getInstruments = (state: T.State): T.State['instruments'] =>
-  state.instruments;
+export const getPaymentTokens = (
+  state: T.PaymentsState,
+): T.PaymentsState['paymentTokens'] => state.paymentTokens;
+export const getPaymentInstruments = (
+  state: T.PaymentsState,
+): T.PaymentsState['paymentInstruments'] => state.paymentInstruments;
 export const getGiftCardBalance = (
-  state: T.State,
-): T.State['giftCardBalance'] => state.giftCardBalance;
-export const getCreditBalance = (state: T.State): T.State['creditBalance'] =>
-  state.creditBalance;
-export const getIntent = (state: T.State): T.State['intent'] => state.intent;
-export const getCharges = (state: T.State): T.State['charges'] => state.charges;
-export const getPaymentMethods = (state: T.State): T.State['paymentMethods'] =>
-  state.paymentMethods;
+  state: T.PaymentsState,
+): T.PaymentsState['giftCardBalance'] => state.giftCardBalance;
+export const getUserCreditBalance = (
+  state: T.PaymentsState,
+): T.PaymentsState['userCreditBalance'] => state.userCreditBalance;
+export const getPaymentIntent = (
+  state: T.PaymentsState,
+): T.PaymentsState['paymentIntent'] => state.paymentIntent;
+export const getPaymentIntentCharge = (
+  state: T.PaymentsState,
+): T.PaymentsState['paymentIntentCharge'] => state.paymentIntentCharge;
+export const getPaymentMethods = (
+  state: T.PaymentsState,
+): T.PaymentsState['paymentMethods'] => state.paymentMethods;
 
 const reducers = combineReducers({
-  charges,
-  creditBalance,
+  paymentIntentCharge,
+  userCreditBalance,
   giftCardBalance,
-  instruments,
-  intent,
+  paymentInstruments,
+  paymentIntent,
   paymentMethods,
-  tokens,
+  paymentTokens,
 });
 
 /**
@@ -332,24 +341,24 @@ const reducers = combineReducers({
  * @returns New state.
  */
 const paymentsReducer: ReducerSwitch<
-  T.State,
-  | T.ChargesAction
-  | T.CreateInstrumentsAction
-  | T.FetchCreditBalanceAction
+  T.PaymentsState,
+  | T.CreatePaymentIntentChargeAction
+  | T.CreatePaymentIntentInstrumentAction
+  | T.FetchUserCreditBalanceAction
   | T.FetchGiftCardBalanceAction
-  | T.FetchChargesAction
-  | T.FetchInstrumentAction
-  | T.FetchInstrumentsAction
-  | T.FetchIntentAction
+  | T.FetchPaymentIntentChargeAction
+  | T.FetchPaymentIntentInstrumentAction
+  | T.FetchPaymentIntentInstrumentsAction
+  | T.FetchPaymentIntentAction
   | T.FetchPaymentTokensAction
   | T.FetchPaymentMethodsAction
   | T.FetchPaymentMethodsByCountryAndCurrencyAction
   | T.FetchPaymentMethodsByIntentAction
-  | T.RemoveInstrumentAction
+  | T.RemovePaymentIntentInstrumentAction
   | T.RemovePaymentTokensAction
-  | T.UpdateInstrumentAction
-  | T.ResetChargesAction
-  | T.ResetInstrumentsAction
+  | T.UpdatePaymentIntentInstrumentAction
+  | T.ResetPaymentIntentChargeAction
+  | T.ResetPaymentInstrumentsAction
 > = (state, action) => reducers(state, action);
 
 export default paymentsReducer;

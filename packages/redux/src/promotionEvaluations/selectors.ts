@@ -1,9 +1,6 @@
 import { getError, getId, getIsLoading, getResult } from './reducer';
-import type {
-  PromotionEvaluationId,
-  PromotionEvaluationItem,
-} from '@farfetch/blackout-client/promotionEvaluations/types';
-import type { State } from './types';
+import type { PromotionEvaluationId } from '@farfetch/blackout-client';
+import type { PromotionEvaluationsState } from './types';
 import type { StoreState } from '../types';
 
 /**
@@ -22,9 +19,8 @@ import type { StoreState } from '../types';
  *
  * @returns - List of promotion evaluations items.
  */
-export const getPromotionEvaluationItems = (
-  state: StoreState,
-): State['result'] => getResult(state.promotionEvaluations);
+export const getPromotionEvaluationItems = (state: StoreState) =>
+  getResult(state.promotionEvaluations as PromotionEvaluationsState);
 
 /**
  * Retrieves a promotion evaluation item given an id.
@@ -46,8 +42,10 @@ export const getPromotionEvaluationItems = (
 export const getPromotionEvaluationItemById = (
   state: StoreState,
   id: PromotionEvaluationId,
-): PromotionEvaluationItem | undefined => {
-  const promotionEvaluationsItems = getResult(state.promotionEvaluations);
+) => {
+  const promotionEvaluationsItems = getResult(
+    state.promotionEvaluations as PromotionEvaluationsState,
+  );
 
   return promotionEvaluationsItems?.find(item => item.id === id);
 };
@@ -68,8 +66,8 @@ export const getPromotionEvaluationItemById = (
  *
  * @returns - Promotion evaluation id.
  */
-export const getPromotionEvaluationId = (state: StoreState): State['id'] =>
-  getId(state.promotionEvaluations);
+export const getPromotionEvaluationId = (state: StoreState) =>
+  getId(state.promotionEvaluations as PromotionEvaluationsState);
 
 /**
  * Retrieves the error status of promotion evaluations items.
@@ -87,9 +85,8 @@ export const getPromotionEvaluationId = (state: StoreState): State['id'] =>
  *
  * @returns Error information (`null` if there are no errors).
  */
-export const getPromotionEvaluationItemsError = (
-  state: StoreState,
-): State['error'] => getError(state.promotionEvaluations);
+export const getPromotionEvaluationItemsError = (state: StoreState) =>
+  getError(state.promotionEvaluations as PromotionEvaluationsState);
 
 /**
  * Retrieves the loading state of promotion evaluations items.
@@ -107,6 +104,5 @@ export const getPromotionEvaluationItemsError = (
  *
  * @returns - Loading status of promotion evaluations items.
  */
-export const arePromotionEvaluationItemsLoading = (
-  state: StoreState,
-): State['isLoading'] => getIsLoading(state.promotionEvaluations);
+export const arePromotionEvaluationItemsLoading = (state: StoreState) =>
+  getIsLoading(state.promotionEvaluations as PromotionEvaluationsState);

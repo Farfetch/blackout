@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
-import checkoutOrderOperation from '@farfetch/blackout-redux/entities/schemas/checkoutOrderOperation';
-import type { CheckoutOrderOperation } from '@farfetch/blackout-client/checkout/types/checkoutOrderOperation.types';
+import checkoutOrderOperation from '../../../entities/schemas/checkoutOrderOperation';
 import type {
+  CheckoutOrderOperation,
   Config,
   GetCheckoutOrderOperation,
   GetCheckoutOrderOperationParams,

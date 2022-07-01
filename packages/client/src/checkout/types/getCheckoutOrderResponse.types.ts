@@ -1,10 +1,5 @@
-import type {
-  CheckoutOrder,
-  DeliveryBundle,
-  PaymentMethods,
-  ShippingOption,
-  UserPaymentToken,
-} from '.';
+import type { CheckoutOrder, DeliveryBundle, ShippingOption } from '.';
+import type { PaymentMethods, PaymentToken } from '../../payments/types';
 
 export enum OrderStatusError {
   NoError,
@@ -20,7 +15,7 @@ export type GetCheckoutOrderResponse = {
   shippingOptions?: ShippingOption[];
   deliveryBundles?: DeliveryBundle[];
   paymentMethods?: PaymentMethods;
-  userPaymentTokens?: UserPaymentToken[];
+  userPaymentTokens?: PaymentToken[];
   paymentRequestId?: string;
   orderStatus: OrderStatusError;
 };

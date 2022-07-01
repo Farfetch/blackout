@@ -11,15 +11,18 @@ import {
   getResult,
   getTrackings,
 } from './reducer';
-import { getEntities, getEntityById } from '../entities/selectors';
+import {
+  getEntities,
+  getEntityById,
+  getMerchants,
+} from '../entities/selectors';
 import get from 'lodash/get';
-import type { BlackoutError } from '@farfetch/blackout-client';
 import type {
-  LabelTracking,
-  Order,
-  OrderItem,
-  OrderSummary,
-} from '@farfetch/blackout-client/orders/types';
+  CourierEntity,
+  OrderItemEntity,
+  OrderMerchantNormalized,
+} from '../entities/types';
+import type { OrdersState } from './types';
 import type { StoreState } from '../types';
 
 /**
@@ -29,8 +32,8 @@ import type { StoreState } from '../types';
  *
  * @returns Loading.
  */
-export const isOrdersLoading = (state: StoreState): boolean =>
-  getIsLoading(state.orders);
+export const isOrdersLoading = (state: StoreState) =>
+  getIsLoading(state.orders as OrdersState);
 
 /**
  * Returns the error for the orders area actions.
@@ -39,8 +42,8 @@ export const isOrdersLoading = (state: StoreState): boolean =>
  *
  * @returns Orders error.
  */
-export const getOrdersError = (state: StoreState): BlackoutError | null =>
-  getError(state.orders);
+export const getOrdersError = (state: StoreState) =>
+  getError(state.orders as OrdersState);
 
 /**
  * Returns all the orders in the application state.
@@ -49,8 +52,7 @@ export const getOrdersError = (state: StoreState): BlackoutError | null =>
  *
  * @returns Object with orders with its orderId as the key.
  */
-export const getOrders = (state: StoreState): OrderSummary =>
-  getEntities(state, 'orders');
+export const getOrders = (state: StoreState) => getEntities(state, 'orders');
 
 /**
  * Returns a specific order identified by its id.
@@ -60,10 +62,8 @@ export const getOrders = (state: StoreState): OrderSummary =>
  *
  * @returns Order object.
  */
-export const getOrder = (
-  state: StoreState,
-  orderId: string,
-): Order | undefined => getEntityById(state, 'orders', orderId);
+export const getOrder = (state: StoreState, orderId: string) =>
+  getEntityById(state, 'orders', orderId);
 
 /**
  * Returns a label tracking with the order tracking events.
@@ -73,10 +73,7 @@ export const getOrder = (
  *
  * @returns Label tracking object.
  */
-export const getLabelTracking = (
-  state: StoreState,
-  trackingNumber: string,
-): LabelTracking | undefined =>
+export const getLabelTracking = (state: StoreState, trackingNumber: string) =>
   getEntityById(state, 'labelTracking', trackingNumber);
 
 /**
@@ -84,7 +81,7 @@ export const getLabelTracking = (
  *
  * @example
  * ```
- * import { getOrdersPagination } from '@farfetch/blackout-client/orders/redux';
+ * import { getOrdersPagination } from '@farfetch/blackout-client';
  *
  * const mapStateToProps = (state: StoreState) => ({
  *     pagination: getOrdersPagination(state)
@@ -127,29 +124,8 @@ export const getOrdersPagination = createSelector(
  *
  * @returns Courier object.
  */
-export const getCourier = (state: StoreState, courierId: string) =>
+export const getCourier = (state: StoreState, courierId: CourierEntity['id']) =>
   getEntityById(state, 'courier', courierId);
-
-/**
- * Returns all the merchants in the application state.
- *
- * @param state - Application state.
- *
- * @returns Object with all merchants with its merchantId as the key.
- */
-export const getMerchants = (state: StoreState) =>
-  getEntities(state, 'merchants');
-
-/**
- * Returns a specific merchant identified by its id.
- *
- * @param state      - Application state.
- * @param merchantId - Merchant id.
- *
- * @returns Merchant object.
- */
-export const getMerchant = (state: StoreState, merchantId: string) =>
-  getEntityById(state, 'merchants', merchantId);
 
 /**
  * Returns all the order items in the application state.
@@ -158,7 +134,7 @@ export const getMerchant = (state: StoreState, merchantId: string) =>
  *
  * @returns Object with all order items with its orderItemId as the key.
  */
-export const getOrderItems = (state: StoreState): Order =>
+export const getOrderItems = (state: StoreState) =>
   getEntities(state, 'orderItems');
 
 /**
@@ -171,29 +147,8 @@ export const getOrderItems = (state: StoreState): Order =>
  */
 export const getOrderItem = (
   state: StoreState,
-  orderItemId: string,
-): OrderItem | undefined => getEntityById(state, 'orderItems', orderItemId);
-
-/**
- * Returns all the countries in the application state.
- *
- * @param state - Application state.
- *
- * @returns Object with all countries with its countryId as the key.
- */
-export const getCountries = (state: StoreState) =>
-  getEntities(state, 'countries');
-
-/**
- * Returns a specific country identified by its id.
- *
- * @param state     - Application state.
- * @param countryId - Country id.
- *
- * @returns Country object.
- */
-export const getCountry = (state: StoreState, countryId: string) =>
-  getEntityById(state, 'countries', countryId);
+  orderItemId: OrderItemEntity['id'],
+) => getEntityById(state, 'orderItems', orderItemId);
 
 /**
  * Returns all the return options in the application state.
@@ -240,7 +195,7 @@ export const getReturnOptionsFromOrder = createSelector(
 
     return (
       returnOptionsIds &&
-      returnOptionsIds.map((returnId: string) => returnOptions[returnId])
+      returnOptionsIds.map((returnId: string) => returnOptions?.[returnId])
     );
   },
 );
@@ -260,7 +215,12 @@ export const getMerchantsFromOrder = createSelector(
 
     return (
       ordersByMerchant &&
-      Object.keys(ordersByMerchant).map(merchantId => merchants[merchantId])
+      Object.keys(ordersByMerchant)
+        // This cast is necessary because Object.keys returns a string[]
+        // but the strings are numbers as the ordersByMerchant variable is
+        // a Record<number, OrderMerchantNormalized>
+        .map(merchantId => merchants?.[merchantId as unknown as number])
+        .filter(Boolean)
     );
   },
 );
@@ -276,11 +236,22 @@ export const getMerchantsFromOrder = createSelector(
 export const getOrderItemsByOrder = createSelector(
   [(state, orderId) => getOrder(state, orderId), getOrderItems],
   (order, orderItems) => {
-    const orderItemsIds = get(order, 'items');
+    if (!order) {
+      return [];
+    }
 
-    return (
-      orderItemsIds && orderItemsIds.map(orderItemId => orderItems[orderItemId])
-    );
+    if ('items' in order) {
+      const orderItemsIds = get(order, 'items');
+
+      return (
+        orderItemsIds &&
+        (orderItemsIds
+          .map(orderItemId => orderItems?.[orderItemId])
+          .filter(Boolean) as OrderItemEntity[])
+      );
+    }
+
+    return [];
   },
 );
 
@@ -297,22 +268,23 @@ export const getOrderItemsByMerchant = createSelector(
   (order, orderItems) => {
     const orderDetailsByMerchant = get(order, 'byMerchant');
 
-    if (!orderDetailsByMerchant) return;
+    if (!orderDetailsByMerchant) {
+      return;
+    }
 
-    const result = {};
+    const result: Record<number, Array<OrderItemEntity>> = {};
 
-    for (const orderDetail in orderDetailsByMerchant) {
-      if (orderDetailsByMerchant.hasOwnProperty(orderDetail)) {
-        const orderItemsFromDetailsByMerchant = get(
-          orderDetailsByMerchant,
-          `${orderDetail}.orderItems`,
-        );
+    for (const merchantId in orderDetailsByMerchant) {
+      const orderItemsFromDetailsByMerchant = get(
+        orderDetailsByMerchant,
+        `${merchantId}.orderItems`,
+      ) as OrderMerchantNormalized['orderItems'] | undefined;
 
-        if (orderItemsFromDetailsByMerchant) {
-          result[orderDetail] = orderItemsFromDetailsByMerchant.map(
-            orderItemId => orderItems[orderItemId],
-          );
-        }
+      if (orderItemsFromDetailsByMerchant) {
+        result[merchantId as unknown as number] =
+          orderItemsFromDetailsByMerchant
+            .map(orderItemId => orderItems?.[orderItemId as unknown as number])
+            .filter(Boolean) as OrderItemEntity[];
       }
     }
 
@@ -337,14 +309,22 @@ export const getOrderItemQuantity = createSelector(
     (_, orderId, orderItemId) => ({ orderId, orderItemId }),
   ],
   (order, orderItemsByOrder, { orderItemId }) => {
-    if (!order) return;
+    if (!order) {
+      return;
+    }
 
     const hasFullDetails = get(order, 'items');
 
-    if (!hasFullDetails) return;
+    if (!hasFullDetails) {
+      return;
+    }
+
+    if (!orderItemsByOrder) {
+      return;
+    }
 
     return Object.values(orderItemsByOrder).reduce(
-      (acc, value) => acc + (value.id === orderItemId),
+      (acc, value) => acc + (value.id === orderItemId ? 1 : 0),
       0,
     );
   },
@@ -361,8 +341,8 @@ export const getOrderItemQuantity = createSelector(
  *
  * @returns Orders list Loading status.
  */
-export const isOrdersListLoading = (state: StoreState): boolean =>
-  getOrdersList(state.orders).isLoading;
+export const isOrdersListLoading = (state: StoreState) =>
+  getOrdersList(state.orders as OrdersState).isLoading;
 
 /**
  * Returns the error for the orders list operation.
@@ -371,8 +351,8 @@ export const isOrdersListLoading = (state: StoreState): boolean =>
  *
  * @returns Orders list operation error.
  */
-export const getOrdersListError = (state: StoreState): BlackoutError =>
-  getOrdersList(state.orders).error;
+export const getOrdersListError = (state: StoreState) =>
+  getOrdersList(state.orders as OrdersState).error;
 
 /**
  * Returns the loading status for the orders list operation.
@@ -382,10 +362,8 @@ export const getOrdersListError = (state: StoreState): BlackoutError =>
  *
  * @returns Orders list Loading status.
  */
-export const isOrderDetailsLoading = (
-  state: StoreState,
-  orderId: string,
-): boolean => getOrderDetails(state.orders).isLoading[orderId];
+export const isOrderDetailsLoading = (state: StoreState, orderId: string) =>
+  getOrderDetails(state.orders as OrdersState).isLoading[orderId];
 
 /**
  * Returns the error for the order details operation.
@@ -395,10 +373,8 @@ export const isOrderDetailsLoading = (
  *
  * @returns Order details operation error.
  */
-export const getOrderDetailsError = (
-  state: StoreState,
-  orderId: string,
-): BlackoutError => getOrderDetails(state.orders).error[orderId];
+export const getOrderDetailsError = (state: StoreState, orderId: string) =>
+  getOrderDetails(state.orders as OrdersState).error[orderId];
 
 /**
  * Returns the loading status for the order return options operation.
@@ -411,7 +387,7 @@ export const getOrderDetailsError = (
 export const isOrderReturnOptionsLoading = (
   state: StoreState,
   orderId: string,
-): boolean => getOrderReturnOptions(state.orders).isLoading[orderId];
+) => getOrderReturnOptions(state.orders as OrdersState).isLoading[orderId];
 
 /**
  * Returns the error for the order return options operation.
@@ -424,7 +400,7 @@ export const isOrderReturnOptionsLoading = (
 export const getOrderReturnOptionsError = (
   state: StoreState,
   orderId: string,
-): BlackoutError => getOrderReturnOptions(state.orders).error[orderId];
+) => getOrderReturnOptions(state.orders as OrdersState).error[orderId];
 
 /**
  * Returns the loading status for the tracking operation.
@@ -433,8 +409,8 @@ export const getOrderReturnOptionsError = (
  *
  * @returns Tracking Loading status.
  */
-export const isTrackingsLoading = (state: StoreState): boolean =>
-  getTrackings(state.orders).isLoading;
+export const isTrackingsLoading = (state: StoreState) =>
+  getTrackings(state.orders as OrdersState).isLoading;
 
 /**
  * Returns the error for the trackings operation.
@@ -443,8 +419,8 @@ export const isTrackingsLoading = (state: StoreState): boolean =>
  *
  * @returns Trackings operation error.
  */
-export const getTrackingsError = (state: StoreState): BlackoutError =>
-  getTrackings(state.orders).error;
+export const getTrackingsError = (state: StoreState) =>
+  getTrackings(state.orders as OrdersState).error;
 
 /**
  * Returns the loading status for the documents operations.
@@ -453,8 +429,8 @@ export const getTrackingsError = (state: StoreState): BlackoutError =>
  *
  * @returns Tracking Loading status.
  */
-export const isDocumentsLoading = (state: StoreState): boolean =>
-  getDocuments(state.orders).isLoading;
+export const isDocumentsLoading = (state: StoreState) =>
+  getDocuments(state.orders as OrdersState).isLoading;
 
 /**
  * Returns the error for the documents operations.
@@ -463,8 +439,8 @@ export const isDocumentsLoading = (state: StoreState): boolean =>
  *
  * @returns Trackings operation error.
  */
-export const getDocumentsError = (state: StoreState): BlackoutError =>
-  getDocuments(state.orders).error;
+export const getDocumentsError = (state: StoreState) =>
+  getDocuments(state.orders as OrdersState).error;
 
 /**
  * Returns the loading status for the available items activities operations.
@@ -473,8 +449,8 @@ export const getDocumentsError = (state: StoreState): BlackoutError =>
  *
  * @returns Tracking Loading status.
  */
-export const isAvailableItemsActivitiesLoading = (state: StoreState): boolean =>
-  getOrderAvailableItemsActivities(state.orders).isLoading;
+export const isAvailableItemsActivitiesLoading = (state: StoreState) =>
+  getOrderAvailableItemsActivities(state.orders as OrdersState).isLoading;
 
 /**
  * Returns the error for the available items activities operations.
@@ -483,9 +459,8 @@ export const isAvailableItemsActivitiesLoading = (state: StoreState): boolean =>
  *
  * @returns Trackings operation error.
  */
-export const getAvailableItemsActivitiesError = (
-  state: StoreState,
-): BlackoutError => getOrderAvailableItemsActivities(state.orders).error;
+export const getAvailableItemsActivitiesError = (state: StoreState) =>
+  getOrderAvailableItemsActivities(state.orders as OrdersState).error;
 
 /**
  * Returns the loading status for the order item available activities operations.
@@ -494,9 +469,8 @@ export const getAvailableItemsActivitiesError = (
  *
  * @returns Tracking Loading status.
  */
-export const isOrderItemAvailableActivitiesLoading = (
-  state: StoreState,
-): boolean => getOrderItemAvailableActivities(state.orders).isLoading;
+export const isOrderItemAvailableActivitiesLoading = (state: StoreState) =>
+  getOrderItemAvailableActivities(state.orders as OrdersState).isLoading;
 
 /**
  * Returns the error for the order item available activities operations.
@@ -505,6 +479,5 @@ export const isOrderItemAvailableActivitiesLoading = (
  *
  * @returns Trackings operation error.
  */
-export const getOrderItemAvailableActivitiesError = (
-  state: StoreState,
-): BlackoutError => getOrderItemAvailableActivities(state.orders).error;
+export const getOrderItemAvailableActivitiesError = (state: StoreState) =>
+  getOrderItemAvailableActivities(state.orders as OrdersState).error;

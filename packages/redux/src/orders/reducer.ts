@@ -1,15 +1,26 @@
 import * as actionTypes from './actionTypes';
-import { adaptDate } from '../helpers/adapters';
-import { combineReducers } from 'redux';
-import { LOGOUT_SUCCESS } from '../authentication/actionTypes';
-import { reducerFactory } from '../helpers';
-import get from 'lodash/get';
+import { AnyAction, combineReducers } from 'redux';
+import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
 import produce from 'immer';
+import reducerFactory from '../helpers/reducerFactory';
 import type * as T from './types';
+import type {
+  FetchOrderDetailsSuccessAction,
+  FetchOrderReturnOptionsSuccessAction,
+  FetchOrdersSuccessAction,
+} from './types';
+import type { LogoutSuccessAction } from '../users/types';
+import type {
+  OrderItemEntity,
+  OrderMerchantNormalized,
+  OrderSummarySemiNormalized,
+  ReturnOptionsEntity,
+} from '../entities/types';
+import type { StoreState } from '../types';
 
-export const INITIAL_STATE: T.State = {
+export const INITIAL_STATE: T.OrdersState = {
   error: null,
   isLoading: false,
   result: null,
@@ -119,21 +130,29 @@ const isLoading = (
 
 export const entitiesMapper = {
   [actionTypes.FETCH_ORDERS_SUCCESS]: (
-    state: T.State,
-    action: T.FetchOrdersSuccessAction,
+    state: NonNullable<StoreState['entities']>,
+    action: AnyAction,
   ) => {
-    const orders = action.payload.entities.orders;
+    const ordersSuccessAction = action as FetchOrdersSuccessAction;
+    const orders = ordersSuccessAction.payload.entities.orders;
     const { entities } = action.payload;
-    const merchantsFromOrders = {};
+    const merchantsFromOrders: NonNullable<
+      StoreState['entities']
+    >['merchants'] = {};
 
-    for (const order in orders) {
-      if (orders.hasOwnProperty(order)) {
-        Object.values(orders[order].byMerchant).forEach(orderByMerchant => {
-          merchantsFromOrders[orderByMerchant.merchant.id] =
-            orderByMerchant.merchant;
-          orderByMerchant.merchant = orderByMerchant.merchant.id;
-        });
-      }
+    for (const orderId in orders) {
+      const order = orders[orderId] as OrderSummarySemiNormalized;
+
+      Object.values(order.byMerchant).forEach(orderByMerchant => {
+        merchantsFromOrders[orderByMerchant.merchant.id] =
+          orderByMerchant.merchant;
+        // This is because the merchant prop is not being normalized by the order
+        // schema, so we need to do here the job that the order schema should be doing.
+        // This is ugly and should be revisited later to make sure the merchant entities
+        // are being extracted from the order schema after normalizr call.
+        (orderByMerchant as unknown as OrderMerchantNormalized).merchant =
+          orderByMerchant.merchant.id;
+      });
     }
 
     // Reset orders before merging with entities
@@ -151,11 +170,12 @@ export const entitiesMapper = {
     });
   },
   [actionTypes.FETCH_ORDER_DETAILS_SUCCESS]: (
-    state: T.State,
-    action: T.FetchOrderDetailsSuccessAction,
+    state: NonNullable<StoreState['entities']>,
+    action: AnyAction,
   ) => {
-    const { orderId } = action.meta;
-    const { entities, result } = action.payload;
+    const orderDetailsSuccessAction = action as FetchOrderDetailsSuccessAction;
+    const { orderId } = orderDetailsSuccessAction.meta;
+    const { entities, result } = orderDetailsSuccessAction.payload;
     // Filtering unimportant properties from the orderDetails request.
     const orderDetails = omit(result, [
       'baseUrl',
@@ -184,60 +204,84 @@ export const entitiesMapper = {
       'staticPathorderDetails',
       'subfolder',
       'translationsUrl',
-      'createdDate',
-      'updatedDate',
     ]);
-    const { createdDate, updatedDate } = result;
+    const { createdDate } = result;
     const orderItems = entities.orderItems;
 
     const tempState = {
       ...state,
     };
 
-    if (action.guest) {
+    if (orderDetailsSuccessAction.meta.guest) {
       tempState.orders = {};
     }
 
     return produce(tempState, draftState => {
       merge(draftState, entities);
-      for (const orderItem in orderItems) {
-        if (orderItems.hasOwnProperty(orderItem)) {
-          const merchantId = orderItems[orderItem].merchant;
 
-          if (!draftState.orders || !draftState.orders[orderId]) {
-            draftState.orders = {
-              ...draftState.orders,
-              [orderId]: { byMerchant: { [merchantId]: {} } },
-            };
-          }
-          const orderByMerchant =
-            draftState.orders[orderId].byMerchant[merchantId];
-          const existingOrderItems = orderByMerchant?.orderItems || [];
+      let ordersEntity = draftState.orders;
 
-          if (!existingOrderItems.includes(orderItem)) {
-            draftState.orders[orderId].byMerchant[merchantId] = {
-              ...orderByMerchant,
-              orderItems: [...existingOrderItems, orderItem],
-            };
-          }
+      if (!ordersEntity) {
+        ordersEntity = {};
+      }
+
+      draftState.orders = draftState.orders ?? ordersEntity;
+
+      let order = ordersEntity[orderId];
+
+      if (!order) {
+        order = {
+          byMerchant: {},
+          id: orderId,
+          totalItems: orderDetails.totalQuantity ?? 1,
+          createdDate,
+        } as NonNullable<typeof order>;
+        ordersEntity[orderId] = order;
+      }
+
+      order = {
+        ...order,
+        ...result,
+      } as NonNullable<typeof order>;
+
+      for (const orderItemId in orderItems) {
+        const orderItem = orderItems[orderItemId] as OrderItemEntity;
+        const merchantId = orderItem.merchant;
+
+        let orderMerchant = order.byMerchant[merchantId];
+
+        if (!orderMerchant) {
+          orderMerchant = { merchant: merchantId };
+          order.byMerchant[merchantId] = orderMerchant;
+        }
+
+        let existingOrderItems = orderMerchant.orderItems;
+
+        if (!existingOrderItems) {
+          existingOrderItems = [] as NonNullable<typeof existingOrderItems>;
+          orderMerchant.orderItems = existingOrderItems;
+        }
+
+        if (!existingOrderItems.includes(orderItemId as unknown as number)) {
+          existingOrderItems.push(orderItemId as unknown as number);
         }
       }
 
-      draftState.orders[orderId] = {
-        ...draftState.orders[orderId],
-        ...orderDetails,
-        createdDate: adaptDate(createdDate),
-        updatedDate: adaptDate(updatedDate),
-      };
+      draftState.orders[orderId] = order;
     });
   },
   [actionTypes.FETCH_ORDER_RETURN_OPTIONS_SUCCESS]: (
-    state: T.State,
-    action: T.FetchOrderReturnOptionsSuccessAction,
+    state: NonNullable<StoreState['entities']>,
+    action: AnyAction,
   ) => {
-    const { orderId } = action.meta;
-    const returnOptions = action.payload.entities.returnOptions;
-    const newReturnOptions = {};
+    const orderReturnOptionsSuccessAction =
+      action as FetchOrderReturnOptionsSuccessAction;
+
+    const { orderId } = orderReturnOptionsSuccessAction.meta;
+    const returnOptions =
+      orderReturnOptionsSuccessAction.payload.entities.returnOptions;
+
+    const newReturnOptions: typeof returnOptions = {};
 
     Object.values(returnOptions).forEach(value => {
       newReturnOptions[`${orderId}_${value.id}`] = {
@@ -251,34 +295,70 @@ export const entitiesMapper = {
       returnOptions: newReturnOptions,
     };
 
-    return produce(state, draftState => {
+    return produce(state, (draftState: NonNullable<typeof state>) => {
       merge(draftState, newEntities);
-      for (const returnOption in newReturnOptions) {
-        if (newReturnOptions.hasOwnProperty(returnOption)) {
-          const merchantId = newReturnOptions[returnOption].merchant;
+      for (const returnOptionId in newReturnOptions) {
+        const returnOption = newReturnOptions[
+          returnOptionId
+        ] as ReturnOptionsEntity;
 
-          const existingReturnOptions = get(
-            draftState,
-            `orders[${orderId}].byMerchant[${merchantId}].returnOptions`,
-            [],
-          );
+        const merchantId = returnOption.merchant;
 
-          if (!existingReturnOptions.includes(returnOption)) {
-            draftState.orders[orderId].byMerchant[merchantId] = {
-              ...draftState.orders[orderId].byMerchant[merchantId],
-              returnOptions: [...existingReturnOptions, returnOption],
-            };
-          }
+        let orders = draftState.orders;
+
+        if (!orders) {
+          orders = {};
+          draftState.orders = orders;
+        }
+
+        let order = orders[orderId];
+
+        if (!order) {
+          order = {
+            byMerchant: { [merchantId]: { merchant: merchantId } },
+            id: orderId,
+            totalItems: 1,
+            createdDate: null,
+          } as NonNullable<typeof order>;
+          orders[orderId] = order;
+        }
+
+        let orderMerchant = order.byMerchant[merchantId];
+
+        if (!orderMerchant) {
+          orderMerchant = {
+            [merchantId]: { merchant: merchantId },
+          } as NonNullable<typeof orderMerchant>;
+          order.byMerchant[merchantId] = orderMerchant;
+        }
+
+        let existingReturnOptions = orderMerchant.returnOptions;
+
+        if (!existingReturnOptions) {
+          existingReturnOptions = [];
+          orderMerchant.returnOptions = existingReturnOptions;
+        }
+
+        if (!existingReturnOptions.includes(returnOptionId)) {
+          existingReturnOptions.push(returnOptionId);
         }
       }
     });
   },
-  [actionTypes.RESET_ORDERS]: (state: T.State) => {
+  [actionTypes.RESET_ORDERS]: (state: NonNullable<StoreState['entities']>) => {
+    if (!state) {
+      return state;
+    }
+
     const { orders, orderItems, ...remainingEntities } = state;
 
     return remainingEntities;
   },
-  [LOGOUT_SUCCESS]: (state: T.State) => {
+  [LOGOUT_SUCCESS]: (state: NonNullable<StoreState['entities']>) => {
+    if (!state) {
+      return state;
+    }
+
     const {
       orders,
       orderItems,
@@ -403,10 +483,7 @@ export const orderItemAvailableActivities = reducerFactory(
   actionTypes,
 );
 
-const result = (
-  state = INITIAL_STATE.result,
-  action: T.FetchOrdersSuccessAction,
-) => {
+const result = (state = INITIAL_STATE.result, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_ORDERS_SUCCESS:
       return action.payload.result;
@@ -415,28 +492,35 @@ const result = (
   }
 };
 
-export const getError = (state: T.State): T.State['error'] => state.error;
-export const getIsLoading = (state: T.State): T.State['isLoading'] =>
-  state.isLoading;
-export const getResult = (state: T.State): T.State['result'] => state.result;
-export const getOrdersList = (state: T.State): T.State['ordersList'] =>
-  state.ordersList;
-export const getOrderDetails = (state: T.State): T.State['orderDetails'] =>
-  state.orderDetails;
+export const getError = (state: T.OrdersState): T.OrdersState['error'] =>
+  state.error;
+export const getIsLoading = (
+  state: T.OrdersState,
+): T.OrdersState['isLoading'] => state.isLoading;
+export const getResult = (state: T.OrdersState): T.OrdersState['result'] =>
+  state.result;
+export const getOrdersList = (
+  state: T.OrdersState,
+): T.OrdersState['ordersList'] => state.ordersList;
+export const getOrderDetails = (
+  state: T.OrdersState,
+): T.OrdersState['orderDetails'] => state.orderDetails;
 export const getOrderReturnOptions = (
-  state: T.State,
-): T.State['orderReturnOptions'] => state.orderReturnOptions;
-export const getTrackings = (state: T.State): T.State['trackings'] =>
-  state.trackings;
-export const getDocuments = (state: T.State): T.State['documents'] =>
-  state.documents;
+  state: T.OrdersState,
+): T.OrdersState['orderReturnOptions'] => state.orderReturnOptions;
+export const getTrackings = (
+  state: T.OrdersState,
+): T.OrdersState['trackings'] => state.trackings;
+export const getDocuments = (
+  state: T.OrdersState,
+): T.OrdersState['documents'] => state.documents;
 export const getOrderAvailableItemsActivities = (
-  state: T.State,
-): T.State['orderAvailableItemsActivities'] =>
+  state: T.OrdersState,
+): T.OrdersState['orderAvailableItemsActivities'] =>
   state.orderAvailableItemsActivities;
 export const getOrderItemAvailableActivities = (
-  state: T.State,
-): T.State['orderItemAvailableActivities'] =>
+  state: T.OrdersState,
+): T.OrdersState['orderItemAvailableActivities'] =>
   state.orderItemAvailableActivities;
 
 const reducer = combineReducers({
@@ -460,7 +544,10 @@ const reducer = combineReducers({
  *
  * @returns New state.
  */
-const ordersReducer = (state: T.State, action: T.LogoutAction) => {
+const ordersReducer = (
+  state: T.OrdersState,
+  action: LogoutSuccessAction | AnyAction,
+) => {
   if (action.type === LOGOUT_SUCCESS) {
     return INITIAL_STATE;
   }

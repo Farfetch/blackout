@@ -1,4 +1,4 @@
-import type { GenderString } from '@farfetch/blackout-client/types';
+import type { GenderDescription } from '@farfetch/blackout-client/types';
 
 export const mockSubfolder = 'us';
 export const mockQuery = { categoryid: 123 };
@@ -9,7 +9,7 @@ export const mockDesigners = [
   {
     title: 'A',
     slug: 'A',
-    gender: 'Woman' as GenderString,
+    gender: 'Woman' as GenderDescription,
     list: [
       {
         title: 'A Peace Treaty',

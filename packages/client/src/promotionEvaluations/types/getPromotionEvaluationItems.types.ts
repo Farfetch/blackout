@@ -1,3 +1,4 @@
+import type { Config } from '../..';
 import type {
   PromotionEvaluationId,
   PromotionEvaluationItem,
@@ -5,5 +6,5 @@ import type {
 
 export type GetPromotionEvaluationItems = (
   promotionEvaluationId: PromotionEvaluationId,
-  config?: Record<string, unknown>,
+  config?: Config,
 ) => Promise<Array<PromotionEvaluationItem>>;

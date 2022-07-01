@@ -1,20 +1,17 @@
+import * as actionTypes from '../../actionTypes';
 import * as normalizr from 'normalizr';
-import {
-  localeActionTypes as actionTypes,
-  localeReducer as INITIAL_STATE_LOCALE,
-} from '../..';
+import { Country, getCountries } from '@farfetch/blackout-client';
 import { fetchCountries } from '..';
-import { getCountries } from '@farfetch/blackout-client/locale';
+import { INITIAL_STATE_LOCALE } from '../../reducer';
 import { mockCountries, mockQuery } from 'tests/__fixtures__/locale';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
-import type { Countries } from '@farfetch/blackout-client/locale/types';
 
 const localeMockStore = (state = {}) =>
   mockStore({ locale: INITIAL_STATE_LOCALE }, state);
 
-jest.mock('@farfetch/blackout-client/locale', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/locale'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getCountries: jest.fn(),
 }));
 
@@ -62,7 +59,7 @@ describe('fetchCountries() action creator', () => {
 
     await store
       .dispatch(fetchCountries(mockQuery))
-      .then((result: Countries) => expect(result).toBe(mockCountries));
+      .then((result: Country) => expect(result).toBe(mockCountries));
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCountries).toHaveBeenCalledTimes(1);

@@ -25,7 +25,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default (
+const fetchUpgradeItemDeliveryProvisioningFactory =
+  (
     getCheckoutOrderDeliveryBundleUpgradeProvisioning: GetCheckoutOrderDeliveryBundleUpgradeProvisioning,
   ) =>
   (id: number, deliveryBundleId: string, upgradeId: string, config?: Config) =>
@@ -59,3 +60,5 @@ export default (
       throw error;
     }
   };
+
+export default fetchUpgradeItemDeliveryProvisioningFactory;

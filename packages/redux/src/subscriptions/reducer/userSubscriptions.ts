@@ -1,5 +1,5 @@
 import * as actionTypes from '../actionTypes';
-import * as authenticationActionTypes from '../../authentication/actionTypes';
+import * as authenticationActionTypes from '../../users/authentication/actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import type { ReducerSwitch } from '../../types';
 import type {

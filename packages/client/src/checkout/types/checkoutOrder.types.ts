@@ -1,4 +1,5 @@
-import type { CheckoutOrderMerchant, FlatAddress, Item } from '.';
+import type { CheckoutAddress } from '../../types/common/address.types';
+import type { CheckoutOrderItem, CheckoutOrderMerchant } from '.';
 
 export enum ShippingMode {
   ByMerchant,
@@ -16,7 +17,7 @@ export enum CheckoutOrderStatus {
 export type CheckoutOrder = {
   id: number;
   bagId: string;
-  billingAddress: FlatAddress;
+  billingAddress?: CheckoutAddress;
   checkoutOrderMerchants: CheckoutOrderMerchant[];
   countryId: number;
   createdDate: string;
@@ -31,11 +32,11 @@ export type CheckoutOrder = {
   currency: string;
   customerType: string;
   grandTotal: number;
-  items: Item[];
+  items: CheckoutOrderItem[];
   locale: string;
   orderId: string;
   promocode: string;
-  shippingAddress: FlatAddress;
+  shippingAddress?: CheckoutAddress;
   status: CheckoutOrderStatus;
   subTotalAmount: number;
   subTotalAmountExclTaxes: number;

@@ -1,6 +1,6 @@
-import { actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
 import { fetchTopCategories } from '..';
-import { getTopCategories } from '@farfetch/blackout-client/categories';
+import { getTopCategories } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/topCategories';
 import { mockStore } from '../../../../tests';
 import {
@@ -8,8 +8,8 @@ import {
   normalizedTopResponse,
 } from 'tests/__fixtures__/categories';
 
-jest.mock('@farfetch/blackout-client/categories', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/categories'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getTopCategories: jest.fn(),
 }));
 

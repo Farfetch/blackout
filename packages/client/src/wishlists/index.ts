@@ -13,3 +13,5 @@ export { default as postWishlistSet } from './postWishlistSet';
 export { default as deleteWishlistSet } from './deleteWishlistSet';
 export { default as getWishlistSet } from './getWishlistSet';
 export { default as patchWishlistSet } from './patchWishlistSet';
+
+export * from './types';

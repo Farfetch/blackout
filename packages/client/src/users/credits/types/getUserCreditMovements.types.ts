@@ -1,22 +1,24 @@
-import type { Config } from '../../../types';
-import type { GetUserCreditMovementsQuery } from '../../types/query.types';
+import type { Config, PagedResponse } from '../../../types';
+import type { User } from '../../authentication/types/user.types';
 
-export type GetUserCreditMovementsResponse = {
-  entries: {
-    type: number;
-    value: number;
-    formattedValue: string;
-    currency: string;
-    description: string;
-    createdOn: string;
-  }[];
-  number: number;
-  totalItems: number;
-  totalPages: number;
+export type UserCreditMovement = {
+  type: number;
+  value: number;
+  formattedValue: string;
+  currency: string;
+  description: string;
+  createdOn: string;
+};
+
+export type GetUserCreditMovementsQuery = {
+  from?: string;
+  to?: string;
+  page?: number;
+  pageSize?: number;
 };
 
 export type GetUserCreditMovements = (
-  id: string,
+  userId: User['id'],
   query: GetUserCreditMovementsQuery,
   config?: Config,
-) => Promise<GetUserCreditMovementsResponse>;
+) => Promise<PagedResponse<UserCreditMovement>>;

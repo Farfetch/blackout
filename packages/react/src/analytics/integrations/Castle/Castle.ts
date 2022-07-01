@@ -73,7 +73,7 @@ class Castle extends integrations.Integration<CastleIntegrationOptions> {
    *
    * @returns If the integration should load.
    */
-  static shouldLoad() {
+  static override shouldLoad() {
     return true;
   }
 
@@ -223,7 +223,7 @@ class Castle extends integrations.Integration<CastleIntegrationOptions> {
    *
    * @returns - Promise that will resolve when the method finishes.
    */
-  async track(
+  override async track(
     data: EventData<TrackTypesValues>,
   ): Promise<Thenable<boolean | null | undefined>> {
     switch (data.type) {

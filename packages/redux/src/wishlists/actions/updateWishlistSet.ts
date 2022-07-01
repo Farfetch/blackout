@@ -1,7 +1,4 @@
-import {
-  getWishlistSet,
-  patchWishlistSet,
-} from '@farfetch/blackout-client/wishlists';
+import { getWishlistSet, patchWishlistSet } from '@farfetch/blackout-client';
 import { updateWishlistSetFactory } from './factories';
 
 /**

@@ -1,5 +1,5 @@
 import { fetchSEOFactory } from './factories';
-import { getSEO } from '@farfetch/blackout-client/contents';
+import { getSEO } from '@farfetch/blackout-client';
 
 /**
  * @param query  - Query object with search terms to apply.

@@ -1,7 +1,12 @@
 import { fetchProductsListFactory } from './fetchProductsListFactory';
+import type {
+  Config,
+  GetProductSet,
+  GetProductSetQuery,
+  Set,
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
-import type { GetSet, Set, SetQuery } from '@farfetch/blackout-client';
 import type { ProductsListActionOptions } from '../../types';
 
 /**
@@ -22,12 +27,12 @@ import type { ProductsListActionOptions } from '../../types';
  * @returns Thunk factory.
  */
 export const fetchSetFactory =
-  (getSet: GetSet) =>
+  (getSet: GetProductSet) =>
   (
     slug: string | number,
-    query: SetQuery = {},
+    query: GetProductSetQuery = {},
     actionOptions?: ProductsListActionOptions,
-    config?: Record<string, unknown>,
+    config?: Config,
   ) =>
   async (
     dispatch: Dispatch,

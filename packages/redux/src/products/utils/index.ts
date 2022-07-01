@@ -7,5 +7,4 @@ export { default as buildUnsetFiltersQueryParams } from './buildUnsetFiltersQuer
 export { default as generateProductsListHash } from './generateProductsListHash';
 export { default as getMaxDepth } from './getMaxDepth';
 export { default as getSelectedSortOption } from './getSelectedSortOption';
-export { default as getShallowestDepth } from './getShallowestDepth';
 export { default as getSlug } from './getSlug';

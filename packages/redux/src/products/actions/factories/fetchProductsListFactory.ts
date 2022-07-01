@@ -1,14 +1,15 @@
 import * as actionTypes from '../../actionTypes';
-import { generateProductsListHash } from '../../utils';
 import {
+  Config,
   GetProductListing,
-  GetSet,
+  GetProductListingQuery,
+  GetProductSet,
+  GetProductSetQuery,
   Listing,
-  ListingQuery,
   Set,
-  SetQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
+import { generateProductsListHash } from '../../utils';
 import { isProductsListCached, isProductsListHydrated } from '../../selectors';
 import { normalize } from 'normalizr';
 import productsListSchema from '../../../entities/schemas/productsList';
@@ -33,14 +34,14 @@ import type { ProductsListActionOptions } from '../../types';
  * @returns Thunk to be dispatched to the redux store.
  */
 export const fetchProductsListFactory = async (
-  client: GetProductListing | GetSet,
+  client: GetProductListing | GetProductSet,
   slug: string | number,
-  query: ListingQuery | SetQuery | Record<string, never>,
+  query: GetProductListingQuery | GetProductSetQuery | Record<string, never>,
   {
     useCache = false,
     setProductsListHash = true,
   }: ProductsListActionOptions | undefined = {},
-  config: Record<string, unknown> | undefined,
+  config: Config | undefined,
   dispatch: Dispatch,
   getState: () => StoreState,
   {

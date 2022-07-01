@@ -1,5 +1,5 @@
+import * as actionTypes from '../../actionTypes';
 import * as fromReducer from '../topCategories';
-import { actionTypes } from '../..';
 import {
   mockCategories,
   mockTopCategories,

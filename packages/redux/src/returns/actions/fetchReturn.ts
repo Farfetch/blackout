@@ -1,7 +1,7 @@
 import { fetchReturnFactory } from './factories';
-import { getReturn } from '@farfetch/blackout-client/returns';
+import { getReturn } from '@farfetch/blackout-client';
 
 /**
  * Fetch return with given id.
  */
-export const fetchReturn = fetchReturnFactory(getReturn);
+export default fetchReturnFactory(getReturn);

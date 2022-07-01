@@ -1,8 +1,8 @@
 import type {
   CheckoutOrder,
-  GetCheckoutDetailsResponse,
-} from '@farfetch/blackout-client/checkout/types';
+  GetCheckoutOrderDetailsResponse,
+} from '@farfetch/blackout-client';
 
-export type CheckoutDetailsEntity = GetCheckoutDetailsResponse & {
+export type CheckoutDetailsEntity = GetCheckoutOrderDetailsResponse & {
   id: CheckoutOrder['id'];
 };

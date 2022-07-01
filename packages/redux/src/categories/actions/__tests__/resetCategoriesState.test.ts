@@ -1,4 +1,4 @@
-import { actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
 import { INITIAL_STATE } from '../../reducer/categories';
 import { mockStore } from '../../../../tests';
 import { resetCategoriesState } from '..';

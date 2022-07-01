@@ -1,3 +1,3 @@
-import type { Instrument } from '@farfetch/blackout-client/payments/types';
+import type { PaymentInstrument } from '@farfetch/blackout-client';
 
-export type InstrumentEntity = Instrument;
+export type PaymentInstrumentEntity = PaymentInstrument;

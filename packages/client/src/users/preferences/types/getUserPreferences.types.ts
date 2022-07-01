@@ -1,8 +1,9 @@
 import type { Config } from '../../../types';
-import type { UserPreferencesResponse } from './userPreferences.types';
+import type { User } from '../../authentication/types/user.types';
+import type { UserPreference } from './userPreferences.types';
 
 export type GetUserPreferences = (
-  id: number,
+  userId: User['id'],
   code?: string,
   config?: Config,
-) => Promise<UserPreferencesResponse>;
+) => Promise<UserPreference[]>;

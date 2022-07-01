@@ -4,12 +4,12 @@ import type {
   FetchMerchantsLocationsAction,
   FetchMerchantsLocationsFailureAction,
   FetchMerchantsLocationsRequestAction,
+  MerchantsLocationsState,
   ResetMerchantsLocationsStateAction,
-  State,
 } from './types';
 import type { StoreState } from '../types';
 
-export const INITIAL_STATE: State = {
+export const INITIAL_STATE: MerchantsLocationsState = {
   error: null,
   isLoading: false,
 };
@@ -46,17 +46,22 @@ const isLoading = (
 };
 
 export const entitiesMapper = {
-  [actionTypes.RESET_MERCHANTS_LOCATIONS_STATE as typeof actionTypes.RESET_MERCHANTS_LOCATIONS_STATE]:
-    (state: StoreState['entities']): StoreState['entities'] => {
-      const { merchantsLocations, ...rest } = state;
-
-      return rest;
-    },
+  [actionTypes.RESET_MERCHANTS_LOCATIONS_STATE]: (
+    state: NonNullable<StoreState['entities']>,
+  ): StoreState['entities'] => {
+    const { merchantsLocations, ...rest } = state as NonNullable<
+      StoreState['entities']
+    >;
+    return rest;
+  },
 };
 
-export const getError = (state: State): State['error'] => state.error;
-export const getIsLoading = (state: State): State['isLoading'] =>
-  state.isLoading;
+export const getError = (
+  state: MerchantsLocationsState,
+): MerchantsLocationsState['error'] => state.error;
+export const getIsLoading = (
+  state: MerchantsLocationsState,
+): MerchantsLocationsState['isLoading'] => state.isLoading;
 
 const reducers = combineReducers({
   error,
@@ -72,9 +77,9 @@ const reducers = combineReducers({
  * @returns New state.
  */
 const merchantsLocationsReducer = (
-  state: State,
+  state: MerchantsLocationsState,
   action: FetchMerchantsLocationsAction | ResetMerchantsLocationsStateAction,
-): State => {
+): MerchantsLocationsState => {
   if (action.type === actionTypes.RESET_MERCHANTS_LOCATIONS_STATE) {
     return INITIAL_STATE;
   }

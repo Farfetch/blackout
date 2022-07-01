@@ -1,15 +1,15 @@
-import type { Address, User } from '.';
-import type { Config } from '../../../types';
+import type { Config, UserAddress, UserAddressInput } from '../../../types';
+import type { User } from '../../../users/authentication/types/user.types';
 
 export type PutUserAddressProps = {
   // Identifier of the address.
   userId: User['id'];
   // Identifier of the user.
-  id: Address['id'];
+  id: UserAddressInput['id'];
 };
 
 export type PutUserAddress = (
   props: PutUserAddressProps,
-  data: Address,
+  data: UserAddressInput,
   config?: Config,
-) => Promise<Address>;
+) => Promise<UserAddress>;

@@ -1,5 +1,5 @@
 import { fetchSizeScaleMappingsFactory } from './factories';
-import { getSizeScaleMappings } from '@farfetch/blackout-client/sizeScales';
+import { getSizeScaleMappings } from '@farfetch/blackout-client';
 
 /**
  * Fetches size scale mappings.

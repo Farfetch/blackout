@@ -37,7 +37,7 @@ class AnalyticsWeb extends Analytics {
    *
    * @returns Promise that will resolve when the method finishes.
    */
-  protected async onLoadedIntegrations(
+  protected override async onLoadedIntegrations(
     loadedIntegrations: IntegrationRuntimeData[],
   ) {
     // If there is a previous page call data stored, send a page event to the integrations that were loaded by the consent

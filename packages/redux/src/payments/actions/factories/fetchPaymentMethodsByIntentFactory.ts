@@ -1,12 +1,13 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
+import {
+  Config,
+  GetPaymentMethodsByIntent,
+  PaymentIntent,
+  PaymentMethods,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { FetchPaymentMethodsByIntentAction } from '../../types';
-import type {
-  GetPaymentMethodsByIntent,
-  Intent,
-  PaymentMethod,
-} from '@farfetch/blackout-client/payments/types';
 
 /**
  * @param id     - Id of the payment intent.
@@ -24,10 +25,10 @@ import type {
  */
 const fetchPaymentMethodsByIntentFactory =
   (getPaymentMethodsByIntent: GetPaymentMethodsByIntent) =>
-  (id: Intent['id'], config?: Config) =>
+  (id: PaymentIntent['id'], config?: Config) =>
   async (
     dispatch: Dispatch<FetchPaymentMethodsByIntentAction>,
-  ): Promise<PaymentMethod> => {
+  ): Promise<PaymentMethods> => {
     try {
       dispatch({
         type: actionTypes.FETCH_PAYMENT_METHODS_BY_INTENT_REQUEST,

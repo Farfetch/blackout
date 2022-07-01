@@ -4,13 +4,14 @@
   "description": "React components, hooks and other tools filled with business logic to help using the Farfetch Platform Solutions' services in web or native e-commerce apps",
   "license": "MIT",
   "main": "./src/index.ts",
-  "exports": {
-    "./*": "./dist/*"
+  "scripts": {
+    "build": "yarn build:transpile && yarn build:types && yarn build:copy-package-json",
+    "build:transpile": "../../scripts/transpile.sh",
+    "build:types": "tsc -p tsconfig.release.json",
+    "build:copy-package-json": "node ../../scripts/copy-package-json.js",
+    "prebuild": "rimraf dist tsconfig.release.tsbuildinfo",
+    "ci:types": "tsc -p tsconfig.ci.json"
   },
-  "files": [
-    "dist",
-    "src"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/Farfetch/blackout.git"
@@ -26,15 +27,12 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@farfetch/blackout-analytics": "^0.1.0-next.17",
     "@farfetch/blackout-client": "^2.0.0-next.181",
-    "@farfetch/blackout-redux": "^1.0.0-next.278",
-    "axios": "0.21.4"
+    "@farfetch/blackout-redux": "^1.0.0-next.278"
   },
   "peerDependencies": {
-    "@farfetch/blackout-analytics": "^0.1.0-next.17",
-    "@farfetch/blackout-client": "^2.0.0-next.139",
-    "@farfetch/blackout-redux": "^1.0.0-next.217",
+    "@farfetch/blackout-client": "^2.0.0-next.181",
+    "@farfetch/blackout-redux": "^1.0.0-next.278",
     "lodash": "^4.17.21",
     "react": "^16.7.0 || ^17.0 || ^18.0",
     "react-redux": "^7.2.0",

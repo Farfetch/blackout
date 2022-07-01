@@ -1,12 +1,12 @@
-import { actionTypes } from '../../';
+import * as actionTypes from '../../actionTypes';
 import { fetchSizeGuides } from '../';
-import { getSizeGuides } from '@farfetch/blackout-client/sizeGuides';
+import { getSizeGuides } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import { mockQuery, mockSizeGuides } from 'tests/__fixtures__/sizeGuides';
 import { mockStore } from '../../../../tests';
 
-jest.mock('@farfetch/blackout-client/sizeGuides', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/sizeGuides'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getSizeGuides: jest.fn(),
 }));
 

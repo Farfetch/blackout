@@ -28,7 +28,7 @@ export type ContextData = {
 } & CommonContextData &
   Record<string, unknown>;
 
-export type EventProperties = { products?: Product[] } & Record<
+export type EventProperties = { products?: AnalyticsProduct[] } & Record<
   string,
   unknown
 >;
@@ -116,7 +116,7 @@ export type UseContextFn = () => CommonContextData & { event?: never } & Record<
     unknown
   >;
 
-export type Product = {
+export type AnalyticsProduct = {
   id?: string;
   name?: string;
   currency?: string;

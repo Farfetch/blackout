@@ -34,18 +34,16 @@ export * from './productSummary.types';
 export * from './productTagEnum.types';
 export * from './productTypeEnum.types';
 export * from './productVariant.types';
-export * from './productVariantMerchantsLocations.types';
+export * from './productVariantMerchantLocation.types';
 export * from './productVariantMeasurement.types';
 export * from './set.types';
 export * from './setQuery.types';
 export * from './shoppingConfig.types';
 export * from './size.types';
 export * from './sizeVariant.types';
-export * from './variantAttribute.types';
 // recently Viewed products
 export * from './recentlyViewedProducts.types';
 export * from './getRecentlyViewedProducts.types';
 export * from './deleteRecentlyViewedProduct.types';
-
 // recommended products
 export * from './getRecommendedProducts.types';

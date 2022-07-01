@@ -1,6 +1,6 @@
+import * as actionTypes from '../../actionTypes';
 import * as fromReducer from '../wishlists';
-import { actionTypes } from '../../';
-import { LOGOUT_SUCCESS } from '../../../authentication/actionTypes';
+import { LOGOUT_SUCCESS } from '../../../users/authentication/actionTypes';
 import {
   mockWishlistId,
   mockWishlistItemId,

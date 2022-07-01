@@ -1,5 +1,6 @@
 import { Integration } from '../integrations';
-import { logger, PACKAGE_NAME } from '../utils';
+import { logger } from '../utils';
+import { PACKAGE_NAME } from '../utils/constants';
 import Analytics from '../';
 import eventTypes from '../types/eventTypes';
 import pageTypes from '../types/pageTypes';
@@ -16,7 +17,7 @@ import type { Storage } from '../utils/types';
 
 // Example integration that overrides the createInstance method
 class MyIntegration<T extends IntegrationOptions> extends Integration<T> {
-  static createInstance<Options extends IntegrationOptions>(
+  static override createInstance<Options extends IntegrationOptions>(
     options: Options,
     loadData: LoadIntegrationEventData,
     strippedDownAnalytics: StrippedDownAnalytics,
@@ -24,88 +25,89 @@ class MyIntegration<T extends IntegrationOptions> extends Integration<T> {
     return new MyIntegration(options, loadData, strippedDownAnalytics);
   }
 
-  static shouldLoad() {
+  static override shouldLoad() {
     return true;
   }
 
-  track(): void {
+  override track(): void {
     // Do nothing
   }
 }
 
 // @ts-expect-error This expect error is needed so that we can test the createInstance method returning an invalid value type.
 class NullInstanceIntegration extends Integration<IntegrationOptions> {
-  static createInstance() {
+  static override createInstance() {
     return null;
   }
 
-  static shouldLoad() {
+  static override shouldLoad() {
     return true;
   }
 
-  track(): void {
+  override track(): void {
     // Do nothing
   }
 }
 
 // @ts-expect-error This expect error is needed so that we can test the createInstance method returning an invalid value type.
 class NoIntegrationInstanceIntegration extends Integration<IntegrationOptions> {
-  static createInstance() {
+  static override createInstance() {
     return String('test');
   }
 
-  static shouldLoad() {
+  static override shouldLoad() {
     return true;
   }
 
-  track(): void {
+  override track(): void {
     // Do nothing
   }
 }
 
 class CreateInstanceThrowsIntegration extends Integration<IntegrationOptions> {
-  static createInstance(): never {
+  static override createInstance(): never {
     throw new Error('error');
   }
 
-  static shouldLoad() {
+  static override shouldLoad() {
     return true;
   }
 
-  track(): void {
+  override track(): void {
     // Do nothing
   }
 }
 
 class NotLoadableIntegration extends Integration<IntegrationOptions> {
-  static shouldLoad() {
+  static override shouldLoad() {
     return false;
   }
-  track(): void {
+
+  override track(): void {
     // Do nothing
   }
 }
 
 class ErrorIntegration extends Integration<IntegrationOptions> {
-  static shouldLoad() {
+  static override shouldLoad() {
     return true;
   }
 
-  track() {
+  override track() {
     throw new Error('track error');
   }
 
-  onSetUser() {
+  override onSetUser() {
     throw new Error('onSetUser error');
   }
 }
 
 class StatisticsConsentRequiredIntegration extends Integration<IntegrationOptions> {
-  static shouldLoad(consent: ConsentData) {
+  static override shouldLoad(consent: ConsentData) {
     return !!consent && !!consent.statistics;
   }
 
-  track(): void {
+  override track(): void {
     // Do nothing
   }
 }

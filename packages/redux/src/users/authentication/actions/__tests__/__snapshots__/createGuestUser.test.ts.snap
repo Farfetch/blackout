@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createGuestUser action creator should create the correct actions for when the create guest user procedure is successful: create guest user success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "user": Object {
+        "bagId": "string",
+        "countryCode": "string",
+        "expiryDate": "2020-03-31T15:21:55.109Z",
+        "externalId": "string",
+        "friendId": "string",
+        "id": 34923,
+        "ip": "string",
+        "wishlistId": "string",
+      },
+    },
+    "result": 34923,
+  },
+  "type": "@farfetch/blackout-redux/CREATE_GUEST_USER_SUCCESS",
+}
+`;

@@ -1,6 +1,7 @@
+import type { Config } from '../..';
 import type { OrderReturn } from './orderReturn.types';
 
 export type GetOrderReturnOptions = (
   id: string,
-  config?: Record<string, unknown>,
+  config?: Config,
 ) => Promise<OrderReturn[]>;

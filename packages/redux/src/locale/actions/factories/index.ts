@@ -7,4 +7,4 @@ export { default as fetchCountryCitiesFactory } from './fetchCountryCitiesFactor
 export { default as fetchCountryCurrenciesFactory } from './fetchCountryCurrenciesFactory';
 export { default as fetchCountryFactory } from './fetchCountryFactory';
 export { default as fetchCountryStatesFactory } from './fetchCountryStatesFactory';
-export * from './fetchCountryAddressSchemaFactory';
+export { default as fetchCountryAddressSchemasFactory } from './fetchCountryAddressSchemasFactory';

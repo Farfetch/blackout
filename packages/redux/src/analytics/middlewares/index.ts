@@ -1,3 +1,3 @@
-export { analyticsBagMiddleware } from './bag';
-export { analyticsSetUserMiddleware } from './setUser';
-export { analyticsWishlistMiddleware } from './wishlist';
+export { analyticsBagMiddleware as bag } from './bag';
+export { analyticsSetUserMiddleware as setUser } from './setUser';
+export { analyticsWishlistMiddleware as wishlist } from './wishlist';

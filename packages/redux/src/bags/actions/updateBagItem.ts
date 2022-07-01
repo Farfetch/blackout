@@ -1,4 +1,4 @@
-import { patchBagItem } from '@farfetch/blackout-client/bags';
+import { patchBagItem } from '@farfetch/blackout-client';
 import { updateBagItemFactory } from './factories';
 
 /**

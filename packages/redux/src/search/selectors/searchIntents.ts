@@ -1,6 +1,5 @@
 import * as fromSearchIntentsReducer from '../reducer/searchIntents';
-import type { BlackoutError } from '@farfetch/blackout-client';
-import type { SearchIntents } from '@farfetch/blackout-client/search/types';
+import type { SearchState } from '../types';
 import type { StoreState } from '../../types';
 
 /**
@@ -20,10 +19,8 @@ import type { StoreState } from '../../types';
  *
  * @returns Search error.
  */
-export const getSearchIntentsError = (
-  state: StoreState,
-): BlackoutError | null =>
-  fromSearchIntentsReducer.getError(state.search.intents);
+export const getSearchIntentsError = (state: StoreState) =>
+  fromSearchIntentsReducer.getError((state.search as SearchState).intents);
 
 /**
  * Retrieves the loading condition from current search term.
@@ -43,7 +40,7 @@ export const getSearchIntentsError = (
  * @returns Whether a search term response is loading or not.
  */
 export const areSearchIntentsLoading = (state: StoreState): boolean =>
-  fromSearchIntentsReducer.getIsLoading(state.search.intents);
+  fromSearchIntentsReducer.getIsLoading((state.search as SearchState).intents);
 
 /**
  * Retrieves the result of a specific search.
@@ -62,7 +59,5 @@ export const areSearchIntentsLoading = (state: StoreState): boolean =>
  *
  * @returns Search result.
  */
-export const getSearchIntentsResult = (
-  state: StoreState,
-): SearchIntents | null =>
-  fromSearchIntentsReducer.getResult(state.search.intents);
+export const getSearchIntentsResult = (state: StoreState) =>
+  fromSearchIntentsReducer.getResult((state.search as SearchState).intents);

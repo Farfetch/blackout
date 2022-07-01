@@ -4,12 +4,12 @@ import {
   getContents,
   isContentLoading,
   resetContents,
-} from '@farfetch/blackout-redux/contents';
+  StoreState,
+} from '@farfetch/blackout-redux';
 import { useAction } from '../../helpers';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import type { Params, UsePage } from '../types';
-import type { StoreState } from '@farfetch/blackout-redux/types';
 
 /**
  * Hook to return actions and selectors for content page data. The action to fetch
@@ -21,7 +21,7 @@ import type { StoreState } from '@farfetch/blackout-redux/types';
  *
  * @returns - Returns actions and selectors for content page data.
  */
-export default (slug: string, params?: Params, pageSize?: number): UsePage => {
+const usePage = (slug: string, params?: Params, pageSize?: number): UsePage => {
   const query = {
     codes: slug,
     contentTypeCode: 'pages',
@@ -75,3 +75,4 @@ export default (slug: string, params?: Params, pageSize?: number): UsePage => {
     fetchContent,
   };
 };
+export default usePage;

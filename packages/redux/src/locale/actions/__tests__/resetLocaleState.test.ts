@@ -1,4 +1,4 @@
-import { localeActionTypes as actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
 import { mockStore } from '../../../../tests';
 import { resetLocaleState } from '..';
 

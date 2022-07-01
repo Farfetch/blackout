@@ -6,15 +6,21 @@ import {
   fetchListing,
   fetchSet,
   generateProductsListHash,
+  GetOptionsArgument,
   getProductsListError,
   getProductsListProducts,
   getProductsListResult,
   isProductsListFetched,
   isProductsListLoading,
+  StoreState,
 } from '@farfetch/blackout-redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import type { ListingQuery, SetQuery } from '@farfetch/blackout-client';
+import type { Dispatch } from 'redux';
+import type {
+  GetProductListingQuery,
+  GetProductSetQuery,
+} from '@farfetch/blackout-client';
 import type {
   ProductsListTypes,
   UseProductsList,
@@ -24,6 +30,12 @@ const PRODUCTS_LIST_TYPES: ProductsListTypes = {
   LISTING: 'listing',
   SET: 'set',
 };
+
+type Thunk = (
+  dispatch: Dispatch,
+  getState: () => StoreState,
+  options: GetOptionsArgument,
+) => unknown;
 
 /**
  * Hook to handle listing logic.
@@ -40,23 +52,23 @@ const useProductsList: UseProductsList = ({
   useCache = true,
 }) => {
   const isSetPage = type === PRODUCTS_LIST_TYPES.SET;
-  const dispatch = useDispatch();
+  const dispatch = useDispatch() as (thunk: Thunk) => void;
   const productsListHash = generateProductsListHash(slug, query, {
     isSet: isSetPage,
   });
-  const error = useSelector(state =>
+  const error = useSelector((state: StoreState) =>
     getProductsListError(state, productsListHash),
   );
-  const isLoading = useSelector(state =>
+  const isLoading = useSelector((state: StoreState) =>
     isProductsListLoading(state, productsListHash),
   );
-  const result = useSelector(state =>
+  const result = useSelector((state: StoreState) =>
     getProductsListResult(state, productsListHash),
   );
-  const products = useSelector(state =>
+  const products = useSelector((state: StoreState) =>
     getProductsListProducts(state, productsListHash),
   );
-  const isFetched = useSelector(state =>
+  const isFetched = useSelector((state: StoreState) =>
     isProductsListFetched(state, productsListHash),
   );
 
@@ -64,8 +76,11 @@ const useProductsList: UseProductsList = ({
     if (slug !== undefined) {
       dispatch(
         isSetPage
-          ? fetchSet(slug, query as SetQuery, { useCache, setProductsListHash })
-          : fetchListing(slug, query as ListingQuery, {
+          ? fetchSet(slug, query as GetProductSetQuery, {
+              useCache,
+              setProductsListHash,
+            })
+          : fetchListing(slug, query as GetProductListingQuery, {
               useCache,
               setProductsListHash,
             }),

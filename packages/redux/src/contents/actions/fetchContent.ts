@@ -1,5 +1,5 @@
 import { fetchContentFactory } from './factories';
-import { getSearchContents } from '@farfetch/blackout-client/contents';
+import { getSearchContents } from '@farfetch/blackout-client';
 
 /**
  * @param query  - Query object with search terms to apply.

@@ -1,8 +1,8 @@
+import * as actionTypes from '../actionTypes';
 import {
-  actionTypes,
+  createDefaultEntitiesReducer,
   createEntitiesReducer,
-  defaultMappers,
-  entitiesMapperReducer,
+  defaultEntitiesReducers,
 } from '..';
 
 describe('reducer', () => {
@@ -65,15 +65,15 @@ describe('reducer', () => {
     });
   });
 
-  describe('entitiesMapperReducer', () => {
+  describe('createDefaultEntitiesReducer', () => {
     it('Should call `createEntitiesReducer` and merge the entities passed via action', () => {
-      expect(entitiesMapperReducer()(getMockState(), getMockAction())).toEqual(
-        getExpectedResult(),
-      );
+      expect(
+        createDefaultEntitiesReducer()(getMockState(), getMockAction()),
+      ).toEqual(getExpectedResult());
     });
   });
 
-  describe('defaultMappers', () => {
-    expect(defaultMappers).toMatchSnapshot();
+  describe('defaultEntitiesReducers', () => {
+    expect(defaultEntitiesReducers).toMatchSnapshot();
   });
 });

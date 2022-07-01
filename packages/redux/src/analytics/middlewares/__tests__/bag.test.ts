@@ -1,11 +1,11 @@
+import * as bagActionTypes from '../../../bags/actionTypes';
 import { analyticsBagMiddleware } from '../bag';
-import { actionTypes as bagActionTypes, getBagItem } from '../../../bags';
 import { bagMockData } from 'tests/__fixtures__/analytics/bag';
+import { getBagItem } from '../../../bags/selectors';
 import { getBrand, getCategory, getProduct } from '../../../entities/selectors';
-import { logger } from '@farfetch/blackout-analytics/utils';
 import { mockStore as mockSimplifiedStore } from './../tests/simplifiedStore';
 import { mockStore } from '../../../../tests';
-import Analytics, { eventTypes } from '@farfetch/blackout-analytics';
+import Analytics, { eventTypes, utils } from '@farfetch/blackout-analytics';
 import merge from 'lodash/merge';
 import type { BagItemEntity, ProductEntity } from '../../../entities/types';
 import type { PriceAdapted } from '../../../helpers/adapters';
@@ -26,7 +26,7 @@ jest.mock('@farfetch/blackout-analytics/utils', () => ({
 
 const analytics = new Analytics();
 const trackSpy = jest.spyOn(analytics, 'track');
-const loggerErrorSpy = jest.spyOn(logger, 'error');
+const loggerErrorSpy = jest.spyOn(utils.logger, 'error');
 /**
  * Expected data to be asserted in tests \*
  */

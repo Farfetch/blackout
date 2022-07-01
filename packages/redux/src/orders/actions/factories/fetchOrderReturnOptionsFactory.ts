@@ -1,12 +1,13 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, toBlackoutError } from '@farfetch/blackout-client';
+import {
+  Config,
+  GetOrderReturnOptions,
+  OrderReturn,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
 import returnOption from '../../../entities/schemas/returnOption';
 import type { Dispatch } from 'redux';
-import type {
-  GetOrderReturnOptions,
-  OrderReturn,
-} from '@farfetch/blackout-client/orders/types';
 
 /**
  * @param orderId - The order id to get details from.

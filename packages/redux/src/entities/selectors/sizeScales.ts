@@ -1,5 +1,5 @@
 import { getEntities, getEntityById } from './entity';
-import type { SizeScale } from '@farfetch/blackout-client/sizeScales/types';
+import type { SizeScale } from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 /**

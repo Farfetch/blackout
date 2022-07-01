@@ -1,14 +1,16 @@
-import { actionTypes } from '../..';
+import * as actionTypes from '../../actionTypes';
 import { createReturnPickupRescheduleRequest } from '..';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import { postReturnPickupRescheduleRequest } from '@farfetch/blackout-client/returns';
-import { RescheduleStatus } from '@farfetch/blackout-client/returns/types';
+import {
+  postReturnPickupRescheduleRequest,
+  RescheduleStatus,
+} from '@farfetch/blackout-client';
 import { responses } from 'tests/__fixtures__/returns';
 import find from 'lodash/find';
 
-jest.mock('@farfetch/blackout-client/returns', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/returns'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   postReturnPickupRescheduleRequest: jest.fn(),
 }));
 

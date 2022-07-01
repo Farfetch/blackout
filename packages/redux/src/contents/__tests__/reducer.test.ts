@@ -1,18 +1,15 @@
-import * as fromReducer from '../reducer';
-import {
-  contentsActionTypes as actionTypes,
-  contentsReducer as reducer,
-} from '..';
+import * as actionTypes from '../actionTypes';
 import {
   contentTypesResult,
   mockContentResult,
   seoData,
 } from 'tests/__fixtures__/contents';
-import type { State } from '../types';
+import reducer, * as fromReducer from '../reducer';
+import type { ContentsState } from '../types';
 
 const { INITIAL_STATE_CONTENT } = fromReducer;
 const mockAction = { type: 'foo' };
-let initialState: State;
+let initialState: ContentsState;
 
 describe('contents redux reducer', () => {
   beforeEach(() => {

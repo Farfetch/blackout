@@ -1,28 +1,29 @@
 import type {
   Bag,
+  Config,
+  GetBagQuery,
   PostBagItemData,
-  Query,
-} from '@farfetch/blackout-client/bags/types';
-import type { BagItemHydrated } from '@farfetch/blackout-redux/entities/types';
-import type { ProductTypeEnum } from '@farfetch/blackout-client/products/types';
-import type { State } from '@farfetch/blackout-redux/bags/types';
+  PostBagItemQuery,
+  ProductType,
+} from '@farfetch/blackout-client';
+import type { BagItemHydrated, BagsState } from '@farfetch/blackout-redux';
 
-export type UseBag = (excludeProductTypes?: ProductTypeEnum[]) => {
-  bag: State['result'];
-  error: State['error'] | undefined;
+export type UseBag = (excludeProductTypes?: ProductType[]) => {
+  bag: BagsState['result'];
+  error: BagsState['error'] | undefined;
   addBagItem: (
     data: PostBagItemData,
-    query?: Query,
-    config?: Record<string, unknown>,
+    query?: PostBagItemQuery,
+    config?: Config,
   ) => Promise<Bag>;
   fetchBag: (
     bagId: string,
-    query?: Query,
-    config?: Record<string, unknown>,
+    query?: GetBagQuery,
+    config?: Config,
   ) => Promise<Bag>;
-  id: State['id'];
+  id: BagsState['id'];
   isEmpty: boolean | undefined;
-  isLoading: State['isLoading'];
+  isLoading: BagsState['isLoading'];
   isWithAnyError: boolean | undefined;
   items: BagItemHydrated[];
   itemsCount: number;

@@ -1,8 +1,9 @@
+import type { Config } from '../../types';
 import type { Product } from './product.types';
-import type { ProductVariantMerchantsLocations } from './productVariantMerchantsLocations.types';
+import type { ProductVariantMerchantLocation } from '././productVariantMerchantLocation.types';
 
 export type GetProductVariantMerchantsLocations = (
   id: Product['result']['id'],
   variantId: string,
-  config?: Record<string, unknown>,
-) => Promise<ProductVariantMerchantsLocations[]>;
+  config?: Config,
+) => Promise<ProductVariantMerchantLocation[]>;

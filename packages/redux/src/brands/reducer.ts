@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import type {
+  BrandsState,
   FetchBrandAction,
   FetchBrandFailureAction,
   FetchBrandRequestAction,
@@ -10,11 +11,10 @@ import type {
   FetchBrandsSuccessAction,
   ResetBrandsStateAction,
   SetBrandsHashAction,
-  State,
 } from './types';
 import type { ReducerSwitch } from '../types';
 
-export const INITIAL_STATE: State = {
+export const INITIAL_STATE: BrandsState = {
   error: {},
   hash: null,
   isLoading: {},
@@ -110,11 +110,13 @@ const result = (
   }
 };
 
-export const getError = (state: State): State['error'] => state.error;
-export const getHash = (state: State): State['hash'] => state.hash;
-export const getIsLoading = (state: State): State['isLoading'] =>
+export const getError = (state: BrandsState): BrandsState['error'] =>
+  state.error;
+export const getHash = (state: BrandsState): BrandsState['hash'] => state.hash;
+export const getIsLoading = (state: BrandsState): BrandsState['isLoading'] =>
   state.isLoading;
-export const getResult = (state: State): State['result'] => state.result;
+export const getResult = (state: BrandsState): BrandsState['result'] =>
+  state.result;
 
 const reducers = combineReducers({
   error,
@@ -133,7 +135,7 @@ const reducers = combineReducers({
  */
 
 const brandsReducer: ReducerSwitch<
-  State,
+  BrandsState,
   | FetchBrandAction
   | FetchBrandsAction
   | ResetBrandsStateAction

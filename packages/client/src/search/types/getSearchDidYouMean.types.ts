@@ -1,7 +1,8 @@
-import type { SearchDidYouMean } from './searchDidYouMean.types';
+import type { Config } from '../..';
 import type { SearchDidYouMeanQuery } from './searchDidYouMeanQuery.types';
+import type { SearchDidYouMeanSuggestion } from './searchDidYouMean.types';
 
 export type GetSearchDidYouMean = (
   query: SearchDidYouMeanQuery,
-  config?: Record<string, unknown>,
-) => Promise<SearchDidYouMean[]>;
+  config?: Config,
+) => Promise<SearchDidYouMeanSuggestion[]>;

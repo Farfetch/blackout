@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import {
   getCheckoutDetails,
+  getCheckoutOrderCharge as getCheckoutOrderChargeFromReducer,
   getCollectPoints,
   getDeliveryBundleUpgrades,
   getError,
@@ -11,7 +12,6 @@ import {
   getItemTags,
   getOperation,
   getOperations,
-  getCharges as getPaidOrders,
   getPromoCode,
   getRemoveOrderItem,
   getTags,
@@ -21,21 +21,12 @@ import {
 import { getEntities, getEntityById } from '../entities/selectors';
 import findKey from 'lodash/findKey';
 import get from 'lodash/get';
+import type { CheckoutState } from './types';
 import type {
-  BlackoutError,
   DeliveryWindowType,
-  GetCheckoutOrderChargeResponse,
   ItemDeliveryOption,
+  ShippingOption,
 } from '@farfetch/blackout-client';
-import type {
-  CheckoutDetailsEntity,
-  CheckoutEntity,
-  CheckoutOrderEntity,
-  CheckoutOrderItemEntity,
-  DeliveryBundlesEntity,
-  DeliveryBundleUpgradesEntity,
-} from '../entities/types';
-import type { State } from './types';
 import type { StoreState } from '../types';
 
 type BundleDeliveryWindow = {
@@ -60,8 +51,8 @@ interface INITIAL_VALUE {
  *
  * @returns Checkout id.
  */
-export const getCheckoutId = (state: StoreState): State['id'] =>
-  getId(state.checkout);
+export const getCheckoutId = (state: StoreState) =>
+  getId(state.checkout as CheckoutState);
 
 /**
  * Returns the checkout.
@@ -70,21 +61,21 @@ export const getCheckoutId = (state: StoreState): State['id'] =>
  *
  * @returns Checkout object.
  */
-export const getCheckout = (state: StoreState): CheckoutEntity | undefined => {
+export const getCheckout = (state: StoreState) => {
   const checkoutId = getCheckoutId(state);
 
   return checkoutId ? getEntityById(state, 'checkout', checkoutId) : undefined;
 };
 
 /**
- * Returns the charge.
+ * Returns the checkout order charge.
  *
  * @param state - Application state.
  *
  * @returns Charge object.
  */
-export const getCharges = (state: StoreState): State['charges'] =>
-  getPaidOrders(state.checkout);
+export const getCheckoutOrderCharge = (state: StoreState) =>
+  getCheckoutOrderChargeFromReducer(state.checkout as CheckoutState);
 
 /**
  * Returns the checkout order.
@@ -93,9 +84,7 @@ export const getCharges = (state: StoreState): State['charges'] =>
  *
  * @returns Checkout error.
  */
-export const getCheckoutOrder = (
-  state: StoreState,
-): CheckoutOrderEntity | undefined => {
+export const getCheckoutOrder = (state: StoreState) => {
   const checkoutId = getCheckoutId(state);
 
   return checkoutId
@@ -110,9 +99,7 @@ export const getCheckoutOrder = (
  *
  * @returns Checkout error.
  */
-export const getCheckoutDetail = (
-  state: StoreState,
-): CheckoutDetailsEntity | undefined => {
+export const getCheckoutDetail = (state: StoreState) => {
   const checkoutId = getCheckoutId(state);
 
   return checkoutId
@@ -131,8 +118,7 @@ export const getCheckoutDetail = (
 export const getCheckoutOrderItem = (
   state: StoreState,
   checkoutOrderItemId: number,
-): CheckoutOrderItemEntity | undefined =>
-  getEntityById(state, 'checkoutOrderItems', checkoutOrderItemId);
+) => getEntityById(state, 'checkoutOrderItems', checkoutOrderItemId);
 
 /**
  * Returns the product identified by the checkout order item id.
@@ -145,7 +131,7 @@ export const getCheckoutOrderItem = (
 export const getCheckoutOrderItemProduct = (
   state: StoreState,
   checkoutOrderItemId: number,
-): CheckoutOrderItemEntity | undefined => {
+) => {
   const checkoutOrderItem = getCheckoutOrderItem(state, checkoutOrderItemId);
   const productId = get(checkoutOrderItem, 'product');
 
@@ -231,8 +217,7 @@ export const getCheckoutShippingOptions = createSelector(
 export const getCheckoutDeliveryBundle = (
   state: StoreState,
   deliveryBundleId: string,
-): DeliveryBundlesEntity | undefined =>
-  getEntityById(state, 'deliveryBundles', deliveryBundleId);
+) => getEntityById(state, 'deliveryBundles', deliveryBundleId);
 
 /**
  * Returns the selected checkout delivery bundle identified by its id.
@@ -285,8 +270,7 @@ export const getCheckoutDeliveryBundles = createSelector(
 export const getCheckoutDeliveryBundleUpgrades = (
   state: StoreState,
   deliveryBundleId: string,
-): DeliveryBundleUpgradesEntity['deliveryBundleId'] | undefined =>
-  getEntityById(state, 'deliveryBundleUpgrades', deliveryBundleId);
+) => getEntityById(state, 'deliveryBundleUpgrades', deliveryBundleId);
 
 /**
  * Returns a specific delivery bundle upgrade.
@@ -346,21 +330,16 @@ export const getCheckoutCollectPointEstimatedDeliveryPeriod = createSelector(
     const selectedShippingService = shippingOptions?.reduce(
       (
         service: {
-          minEstimatedDeliveryHour: string;
-          maxEstimatedDeliveryHour: string;
+          minEstimatedDeliveryHour: number | null;
+          maxEstimatedDeliveryHour: number | null;
         },
-        shippingOption: {
-          shippingService: {
-            minEstimatedDeliveryHour: string;
-            maxEstimatedDeliveryHour: string;
-          };
-        },
+        shippingOption: ShippingOption,
       ) => {
         const emptyArray: number[] = [];
         const merchants = get(shippingOption, 'merchants', emptyArray);
         if (merchants.includes(merchantLocationId)) {
           const { minEstimatedDeliveryHour, maxEstimatedDeliveryHour } =
-            shippingOption?.shippingService;
+            shippingOption.shippingService;
 
           service.minEstimatedDeliveryHour = minEstimatedDeliveryHour;
           service.maxEstimatedDeliveryHour = maxEstimatedDeliveryHour;
@@ -385,8 +364,8 @@ export const getCheckoutCollectPointEstimatedDeliveryPeriod = createSelector(
  *
  * @returns Checkout error.
  */
-export const getCheckoutError = (state: StoreState): State['error'] =>
-  getError(state.checkout);
+export const getCheckoutError = (state: StoreState) =>
+  getError(state.checkout as CheckoutState);
 
 /**
  * Returns the loading status for the checkout.
@@ -395,8 +374,8 @@ export const getCheckoutError = (state: StoreState): State['error'] =>
  *
  * @returns Loading status.
  */
-export const isCheckoutLoading = (state: StoreState): boolean =>
-  getIsLoading(state.checkout);
+export const isCheckoutLoading = (state: StoreState) =>
+  getIsLoading(state.checkout as CheckoutState);
 
 /**
  * Returns the error or loading status of each sub-area.
@@ -409,8 +388,8 @@ export const isCheckoutLoading = (state: StoreState): boolean =>
  *
  * @returns Checkout details operation Loading status.
  */
-export const isCheckoutDetailsLoading = (state: StoreState): boolean =>
-  getCheckoutDetails(state.checkout).isLoading;
+export const areCheckoutDetailsLoading = (state: StoreState) =>
+  getCheckoutDetails(state.checkout as CheckoutState).isLoading;
 
 /**
  * Returns the error for the checkout details operation.
@@ -419,9 +398,8 @@ export const isCheckoutDetailsLoading = (state: StoreState): boolean =>
  *
  * @returns Checkout details operation error.
  */
-export const getCheckoutDetailsError = (
-  state: StoreState,
-): BlackoutError | null => getCheckoutDetails(state.checkout).error;
+export const getCheckoutDetailsError = (state: StoreState) =>
+  getCheckoutDetails(state.checkout as CheckoutState).error;
 
 /**
  * Returns the loading status for the collect points operation.
@@ -430,8 +408,8 @@ export const getCheckoutDetailsError = (
  *
  * @returns Collect points operation Loading status.
  */
-export const isCollectPointsLoading = (state: StoreState): boolean =>
-  getCollectPoints(state.checkout).isLoading;
+export const areCollectPointsLoading = (state: StoreState) =>
+  getCollectPoints(state.checkout as CheckoutState).isLoading;
 
 /**
  * Returns the error for the collect points operation.
@@ -440,9 +418,8 @@ export const isCollectPointsLoading = (state: StoreState): boolean =>
  *
  * @returns Collect points operation error.
  */
-export const getCollectPointsError = (
-  state: StoreState,
-): BlackoutError | null => getCollectPoints(state.checkout).error;
+export const getCollectPointsError = (state: StoreState) =>
+  getCollectPoints(state.checkout as CheckoutState).error;
 
 /**
  * Returns the loading status for the item tags operation.
@@ -451,8 +428,8 @@ export const getCollectPointsError = (
  *
  * @returns Item tags operation Loading status.
  */
-export const isItemTagsLoading = (state: StoreState): boolean =>
-  getItemTags(state.checkout).isLoading;
+export const isItemTagsLoading = (state: StoreState) =>
+  getItemTags(state.checkout as CheckoutState).isLoading;
 
 /**
  * Returns the error for the items tags operation.
@@ -461,8 +438,8 @@ export const isItemTagsLoading = (state: StoreState): boolean =>
  *
  * @returns Items tags operation error.
  */
-export const getItemTagsError = (state: StoreState): BlackoutError | null =>
-  getItemTags(state.checkout).error;
+export const getItemTagsError = (state: StoreState) =>
+  getItemTags(state.checkout as CheckoutState).error;
 
 /**
  * Returns the loading status for the promocode operation.
@@ -471,8 +448,8 @@ export const getItemTagsError = (state: StoreState): BlackoutError | null =>
  *
  * @returns Promocode operation Loading status.
  */
-export const isPromoCodeLoading = (state: StoreState): boolean =>
-  getPromoCode(state.checkout).isLoading;
+export const isPromoCodeLoading = (state: StoreState) =>
+  getPromoCode(state.checkout as CheckoutState).isLoading;
 
 /**
  * Returns the error for the promocode operation.
@@ -481,8 +458,8 @@ export const isPromoCodeLoading = (state: StoreState): boolean =>
  *
  * @returns Promocode operation error.
  */
-export const getPromoCodeError = (state: StoreState): BlackoutError | null =>
-  getPromoCode(state.checkout).error;
+export const getPromoCodeError = (state: StoreState) =>
+  getPromoCode(state.checkout as CheckoutState).error;
 
 /**
  * Returns the loading status for the tags operation.
@@ -491,8 +468,8 @@ export const getPromoCodeError = (state: StoreState): BlackoutError | null =>
  *
  * @returns Tags operation Loading status.
  */
-export const isTagsLoading = (state: StoreState): boolean =>
-  getTags(state.checkout).isLoading;
+export const isTagsLoading = (state: StoreState) =>
+  getTags(state.checkout as CheckoutState).isLoading;
 
 /**
  * Returns the error for the tags operation.
@@ -501,8 +478,8 @@ export const isTagsLoading = (state: StoreState): boolean =>
  *
  * @returns Tags operation error.
  */
-export const getTagsError = (state: StoreState): BlackoutError | null =>
-  getTags(state.checkout).error;
+export const getTagsError = (state: StoreState) =>
+  getTags(state.checkout as CheckoutState).error;
 
 /**
  * Returns the loading status for the gift message operation.
@@ -511,8 +488,8 @@ export const getTagsError = (state: StoreState): BlackoutError | null =>
  *
  * @returns Gift message operation Loading status.
  */
-export const isGiftMessageLoading = (state: StoreState): boolean =>
-  getGiftMessage(state.checkout).isLoading;
+export const isGiftMessageLoading = (state: StoreState) =>
+  getGiftMessage(state.checkout as CheckoutState).isLoading;
 
 /**
  * Returns the error for the gift message operation.
@@ -521,40 +498,38 @@ export const isGiftMessageLoading = (state: StoreState): boolean =>
  *
  * @returns Gift message operation error.
  */
-export const getGiftMessageError = (state: StoreState): BlackoutError | null =>
-  getGiftMessage(state.checkout).error;
+export const getGiftMessageError = (state: StoreState) =>
+  getGiftMessage(state.checkout as CheckoutState).error;
 
 /**
- * Returns the loading status for the charges operation.
+ * Returns the loading status for the charge checkout order operation.
  *
  * @param state - Application state.
  *
  * @returns Charges operation Loading status.
  */
-export const isChargesLoading = (state: StoreState): boolean =>
-  getPaidOrders(state.checkout).isLoading;
+export const isCheckoutOrderChargeLoading = (state: StoreState) =>
+  getCheckoutOrderChargeFromReducer(state.checkout as CheckoutState).isLoading;
 
 /**
- * Returns the charges error.
+ * Returns the charge checkout order error.
  *
  * @param state - Application state.
  *
  * @returns Charges operation error.
  */
-export const getChargesError = (state: StoreState): BlackoutError | null =>
-  getPaidOrders(state.checkout).error;
+export const getCheckoutOrderChargeError = (state: StoreState) =>
+  getCheckoutOrderChargeFromReducer(state.checkout as CheckoutState).error;
 
 /**
- * Returns the result for the charges operation.
+ * Returns the result for the charge checkout order operation.
  *
  * @param state - Application state.
  *
  * @returns Charges operation result.
  */
-export const getChargesResult = (
-  state: StoreState,
-): string | GetCheckoutOrderChargeResponse | null =>
-  getPaidOrders(state.checkout).result;
+export const getCheckoutOrderChargeResult = (state: StoreState) =>
+  getCheckoutOrderChargeFromReducer(state.checkout as CheckoutState).result;
 
 /**
  * Returns the loading status for the delivery bundle upgrades operation.
@@ -563,8 +538,8 @@ export const getChargesResult = (
  *
  * @returns Delivery bundle upgrades operation Loading status.
  */
-export const isDeliveryBundleUpgradesLoading = (state: StoreState): boolean =>
-  getDeliveryBundleUpgrades(state.checkout).isLoading;
+export const areDeliveryBundleUpgradesLoading = (state: StoreState) =>
+  getDeliveryBundleUpgrades(state.checkout as CheckoutState).isLoading;
 
 /**
  * Returns the delivery bundle upgrades error.
@@ -573,9 +548,8 @@ export const isDeliveryBundleUpgradesLoading = (state: StoreState): boolean =>
  *
  * @returns Delivery bundle upgrades operation error.
  */
-export const getDeliveryBundleUpgradesError = (
-  state: StoreState,
-): BlackoutError | null => getDeliveryBundleUpgrades(state.checkout).error;
+export const getDeliveryBundleUpgradesError = (state: StoreState) =>
+  getDeliveryBundleUpgrades(state.checkout as CheckoutState).error;
 
 /**
  * Returns the loading status for the item delivery provisioning operation.
@@ -584,8 +558,8 @@ export const getDeliveryBundleUpgradesError = (
  *
  * @returns Item delivery provisioning operation Loading status.
  */
-export const isItemDeliveryProvisioningLoading = (state: StoreState): boolean =>
-  getItemDeliveryProvisioning(state.checkout).isLoading;
+export const isItemDeliveryProvisioningLoading = (state: StoreState) =>
+  getItemDeliveryProvisioning(state.checkout as CheckoutState).isLoading;
 
 /**
  * Returns the item delivery provisioning error.
@@ -594,9 +568,8 @@ export const isItemDeliveryProvisioningLoading = (state: StoreState): boolean =>
  *
  * @returns Item delivery provisioning operation error.
  */
-export const getItemDeliveryProvisioningError = (
-  state: StoreState,
-): BlackoutError | null => getItemDeliveryProvisioning(state.checkout).error;
+export const getItemDeliveryProvisioningError = (state: StoreState) =>
+  getItemDeliveryProvisioning(state.checkout as CheckoutState).error;
 
 /**
  * Returns the loading status for the upgrade item delivery provisioning operation.
@@ -605,9 +578,8 @@ export const getItemDeliveryProvisioningError = (
  *
  * @returns Upgrade item delivery provisioning operation Loading status.
  */
-export const isUpgradeItemDeliveryProvisioningLoading = (
-  state: StoreState,
-): boolean => getUpgradeItemDeliveryProvisioning(state.checkout).isLoading;
+export const isUpgradeItemDeliveryProvisioningLoading = (state: StoreState) =>
+  getUpgradeItemDeliveryProvisioning(state.checkout as CheckoutState).isLoading;
 
 /**
  * Returns the upgrade item delivery provisioning error.
@@ -616,10 +588,8 @@ export const isUpgradeItemDeliveryProvisioningLoading = (
  *
  * @returns Upgrade item delivery provisioning operation error.
  */
-export const getUpgradeItemDeliveryProvisioningError = (
-  state: StoreState,
-): BlackoutError | null =>
-  getUpgradeItemDeliveryProvisioning(state.checkout).error;
+export const getUpgradeItemDeliveryProvisioningError = (state: StoreState) =>
+  getUpgradeItemDeliveryProvisioning(state.checkout as CheckoutState).error;
 
 /**
  * Returns the ISO date for the item delivery options.
@@ -695,8 +665,8 @@ export const getBundleDeliveryWindow = (
  *
  * @returns Order operation fetch process loading status.
  */
-export const isOperationLoading = (state: StoreState): boolean =>
-  getOperation(state.checkout).isLoading;
+export const isOperationLoading = (state: StoreState) =>
+  getOperation(state.checkout as CheckoutState).isLoading;
 
 /**
  * Returns the order operation error.
@@ -705,8 +675,8 @@ export const isOperationLoading = (state: StoreState): boolean =>
  *
  * @returns Order operation error.
  */
-export const getOperationError = (state: StoreState): Error | null =>
-  getOperation(state.checkout).error;
+export const getOperationError = (state: StoreState) =>
+  getOperation(state.checkout as CheckoutState).error;
 
 /**
  * Returns the loading status for the order operations fetch process.
@@ -715,8 +685,8 @@ export const getOperationError = (state: StoreState): Error | null =>
  *
  * @returns Order operation fetch process loading status.
  */
-export const isOperationsLoading = (state: StoreState): boolean =>
-  getOperations(state.checkout).isLoading;
+export const isOperationsLoading = (state: StoreState) =>
+  getOperations(state.checkout as CheckoutState).isLoading;
 
 /**
  * Returns the order operations error.
@@ -725,8 +695,8 @@ export const isOperationsLoading = (state: StoreState): boolean =>
  *
  * @returns Order operation error.
  */
-export const getOperationsError = (state: StoreState): Error | null =>
-  getOperations(state.checkout).error;
+export const getOperationsError = (state: StoreState) =>
+  getOperations(state.checkout as CheckoutState).error;
 
 /**
  * Retrieves pagination information of order operations.
@@ -737,12 +707,12 @@ export const getOperationsError = (state: StoreState): Error | null =>
  *
  * @example
  * // Object returned for the orders
- * {
+ * \{
  *     number: 1, // Current page
  *     totalItems: 89, // Total of orders
  *     totalPages: 5 // Total of pages
  *     entries: ['ee8d4602-e0cf-11ec-85eb-74d29fa32cbf']
- * };
+ * \};
  *
  */
 export const getOperationsPagination = createSelector(
@@ -760,8 +730,8 @@ export const getOperationsPagination = createSelector(
  *
  * @returns Order operation fetch process loading status.
  */
-export const isRemoveOrderItemLoading = (state: StoreState): boolean =>
-  getRemoveOrderItem(state.checkout).isLoading;
+export const isRemoveOrderItemLoading = (state: StoreState) =>
+  getRemoveOrderItem(state.checkout as CheckoutState).isLoading;
 
 /**
  * Returns the error for the order item removing operation.
@@ -770,8 +740,8 @@ export const isRemoveOrderItemLoading = (state: StoreState): boolean =>
  *
  * @returns Order operation error.
  */
-export const getRemoveOrderItemError = (state: StoreState): Error | null =>
-  getRemoveOrderItem(state.checkout).error;
+export const getRemoveOrderItemError = (state: StoreState) =>
+  getRemoveOrderItem(state.checkout as CheckoutState).error;
 
 /**
  * Returns the loading status for the order item updating operation.
@@ -780,8 +750,8 @@ export const getRemoveOrderItemError = (state: StoreState): Error | null =>
  *
  * @returns Order operation fetch process loading status.
  */
-export const isUpdateOrderItemLoading = (state: StoreState): boolean =>
-  getUpdateOrderItem(state.checkout).isLoading;
+export const isUpdateOrderItemLoading = (state: StoreState) =>
+  getUpdateOrderItem(state.checkout as CheckoutState).isLoading;
 
 /**
  * Returns the error for the order item updating operation.
@@ -790,5 +760,5 @@ export const isUpdateOrderItemLoading = (state: StoreState): boolean =>
  *
  * @returns Order operation error.
  */
-export const getUpdateOrderItemError = (state: StoreState): Error | null =>
-  getUpdateOrderItem(state.checkout).error;
+export const getUpdateOrderItemError = (state: StoreState) =>
+  getUpdateOrderItem(state.checkout as CheckoutState).error;

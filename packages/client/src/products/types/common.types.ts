@@ -1,4 +1,4 @@
-enum Type {
+export enum DigitalAssetType {
   Default,
   ItemSwatch,
 }
@@ -8,5 +8,5 @@ export type DigitalAsset = {
   displayOrder: number;
   size: string;
   url: string;
-  type: Type;
+  type: DigitalAssetType;
 };

@@ -1,20 +1,21 @@
+import * as actionTypes from '../actionTypes';
 import * as fromReducer from '../reducer';
 import {
   checkoutOrderItemId,
   mockGetOperationActionPayload,
   mockGetOperationsActionPayload,
 } from 'tests/__fixtures__/checkout';
-import { LOGOUT_SUCCESS } from '@farfetch/blackout-redux/authentication/actionTypes';
-import reducer, { actionTypes, entitiesMapper } from '..';
-import type { CheckoutOrderItemEntity } from '@farfetch/blackout-redux/entities/types';
+import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
+import reducer, { entitiesMapper } from '../reducer';
+import type { CheckoutOrderItemEntity } from '../../entities/types';
 import type {
+  CheckoutState,
   RemoveCheckoutOrderItemSuccessAction,
-  State,
   UpdateCheckoutOrderItemSuccessAction,
 } from '../types';
-import type { StoreState } from '@farfetch/blackout-redux/types';
+import type { StoreState } from '../../types';
 
-let initialState: State;
+let initialState: CheckoutState;
 
 describe('checkout reducer', () => {
   beforeEach(() => {
@@ -333,97 +334,97 @@ describe('checkout reducer', () => {
 
   describe('charges() reducer', () => {
     it('should return the initial state', () => {
-      const state = fromReducer.INITIAL_STATE.charges;
+      const state = fromReducer.INITIAL_STATE.checkoutOrderCharge;
 
-      expect(state).toEqual(initialState.charges);
+      expect(state).toEqual(initialState.checkoutOrderCharge);
     });
 
-    it('should handle CHARGE_REQUEST action type', () => {
+    it('should handle CREATE_CHECKOUT_ORDER_CHARGE_REQUEST action type', () => {
       expect(
         reducer(undefined, {
-          type: actionTypes.CHARGE_REQUEST,
-        }).charges,
+          type: actionTypes.CREATE_CHECKOUT_ORDER_CHARGE_REQUEST,
+        }).checkoutOrderCharge,
       ).toEqual({
-        error: initialState.charges.error,
+        error: initialState.checkoutOrderCharge.error,
         isLoading: true,
         result: null,
       });
     });
 
-    it('should handle FETCH_CHARGES_REQUEST action type', () => {
+    it('should handle FETCH_CHECKOUT_ORDER_CHARGE_REQUEST action type', () => {
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_CHARGES_REQUEST,
-        }).charges,
+          type: actionTypes.FETCH_CHECKOUT_ORDER_CHARGE_REQUEST,
+        }).checkoutOrderCharge,
       ).toEqual({
-        error: initialState.charges.error,
+        error: initialState.checkoutOrderCharge.error,
         isLoading: true,
         result: null,
       });
     });
 
-    it('should handle CHARGE_FAILURE action type', () => {
+    it('should handle CREATE_CHECKOUT_ORDER_CHARGE_FAILURE action type', () => {
       const mockError = 'mocked error';
       expect(
         reducer(undefined, {
-          type: actionTypes.CHARGE_FAILURE,
+          type: actionTypes.CREATE_CHECKOUT_ORDER_CHARGE_FAILURE,
           payload: { error: mockError },
-        }).charges,
+        }).checkoutOrderCharge,
       ).toEqual({ error: mockError, isLoading: false, result: null });
     });
 
-    it('should handle FETCH_CHARGES_FAILURE action type', () => {
+    it('should handle FETCH_CHECKOUT_ORDER_CHARGE_FAILURE action type', () => {
       const mockError = 'mocked error';
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_CHARGES_FAILURE,
+          type: actionTypes.FETCH_CHECKOUT_ORDER_CHARGE_FAILURE,
           payload: { error: mockError },
-        }).charges,
+        }).checkoutOrderCharge,
       ).toEqual({ error: mockError, isLoading: false, result: null });
     });
 
-    it('should handle CHARGE_SUCCESS action type', () => {
+    it('should handle CREATE_CHECKOUT_ORDER_CHARGE_SUCCESS action type', () => {
       const mockResult = 'mocked result';
       expect(
         reducer(undefined, {
-          type: actionTypes.CHARGE_SUCCESS,
+          type: actionTypes.CREATE_CHECKOUT_ORDER_CHARGE_SUCCESS,
           payload: mockResult,
-        }).charges,
+        }).checkoutOrderCharge,
       ).toEqual({
-        error: initialState.charges.error,
+        error: initialState.checkoutOrderCharge.error,
         isLoading: false,
         result: mockResult,
       });
     });
 
-    it('should handle FETCH_CHARGES_SUCCESS action type', () => {
+    it('should handle FETCH_CHECKOUT_ORDER_CHARGE_SUCCESS action type', () => {
       const mockResult = 'mocked result';
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_CHARGES_SUCCESS,
+          type: actionTypes.FETCH_CHECKOUT_ORDER_CHARGE_SUCCESS,
           payload: mockResult,
-        }).charges,
+        }).checkoutOrderCharge,
       ).toEqual({
-        error: initialState.charges.error,
+        error: initialState.checkoutOrderCharge.error,
         isLoading: false,
         result: mockResult,
       });
     });
 
-    it('should handle RESET_CHARGES_STATE action type', () => {
+    it('should handle RESET_CHECKOUT_ORDER_CHARGE_STATE action type', () => {
       expect(
         reducer(undefined, {
-          type: actionTypes.RESET_CHARGES_STATE,
-        }).charges,
-      ).toEqual(initialState.charges);
+          type: actionTypes.RESET_CHECKOUT_ORDER_CHARGE_STATE,
+        }).checkoutOrderCharge,
+      ).toEqual(initialState.checkoutOrderCharge);
     });
 
     it('should handle LOGOUT_SUCCESS action type', () => {
       expect(
         reducer(undefined, {
           type: LOGOUT_SUCCESS,
-        }).charges,
-      ).toEqual(initialState.charges);
+        }).checkoutOrderCharge,
+      ).toEqual(initialState.checkoutOrderCharge);
     });
   });
 
@@ -487,7 +488,7 @@ describe('checkout reducer', () => {
       });
     });
 
-    it('should handle @farfetch/blackout-client/FETCH_DELIVERY_BUNDLE_UPGRADES_SUCCESS action type', () => {
+    it('should handle @farfetch/blackout-redux/FETCH_DELIVERY_BUNDLE_UPGRADES_SUCCESS action type', () => {
       const mockResult = { result: 'mocked result' };
       expect(
         reducer(undefined, {
@@ -503,7 +504,7 @@ describe('checkout reducer', () => {
   });
 
   describe('operation() reducer', () => {
-    it('should handle @farfetch/blackout-client/FETCH_CHECKOUT_ORDER_OPERATION_REQUEST action', () => {
+    it('should handle @farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_OPERATION_REQUEST action', () => {
       const action = {
         type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATION_REQUEST,
       };
@@ -512,7 +513,7 @@ describe('checkout reducer', () => {
       expect(state.operation.error).toBeNull();
     });
 
-    it('should handle @farfetch/blackout-client/FETCH_CHECKOUT_ORDER_OPERATION_FAILURE action', () => {
+    it('should handle @farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_OPERATION_FAILURE action', () => {
       const action = {
         type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATION_FAILURE,
         payload: {
@@ -524,7 +525,7 @@ describe('checkout reducer', () => {
       expect(state.operation.error).toBe(action.payload.error);
     });
 
-    it('should handle @farfetch/blackout-client/FETCH_CHECKOUT_ORDER_OPERATION_SUCCESS action', () => {
+    it('should handle @farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_OPERATION_SUCCESS action', () => {
       const action = {
         type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATION_SUCCESS,
         payload: mockGetOperationActionPayload,
@@ -536,7 +537,7 @@ describe('checkout reducer', () => {
   });
 
   describe('operations() reducer', () => {
-    it('should handle @farfetch/blackout-client/FETCH_CHECKOUT_ORDER_OPERATIONS_REQUEST action', () => {
+    it('should handle @farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_OPERATIONS_REQUEST action', () => {
       const action = {
         type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATIONS_REQUEST,
       };
@@ -545,7 +546,7 @@ describe('checkout reducer', () => {
       expect(state.operations.error).toBeNull();
     });
 
-    it('should handle @farfetch/blackout-client/FETCH_CHECKOUT_ORDER_OPERATIONS_FAILURE action', () => {
+    it('should handle @farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_OPERATIONS_FAILURE action', () => {
       const action = {
         type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATIONS_FAILURE,
         payload: {
@@ -557,7 +558,7 @@ describe('checkout reducer', () => {
       expect(state.operations.error).toBe(action.payload.error);
     });
 
-    it('should handle @farfetch/blackout-client/FETCH_CHECKOUT_ORDER_OPERATIONS_SUCCESS action', () => {
+    it('should handle @farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_OPERATIONS_SUCCESS action', () => {
       const action = {
         type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATIONS_SUCCESS,
         payload: mockGetOperationsActionPayload,
@@ -570,7 +571,7 @@ describe('checkout reducer', () => {
   });
 
   describe('removeOrderItem() reducer', () => {
-    it('should handle @farfetch/blackout-client/REMOVE_CHECKOUT_ORDER_ITEM_REQUEST action', () => {
+    it('should handle @farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_ITEM_REQUEST action', () => {
       const action = {
         type: actionTypes.REMOVE_CHECKOUT_ORDER_ITEM_REQUEST,
       };
@@ -579,7 +580,7 @@ describe('checkout reducer', () => {
       expect(state.removeOrderItem.error).toBeNull();
     });
 
-    it('should handle @farfetch/blackout-client/REMOVE_CHECKOUT_ORDER_ITEM_FAILURE action', () => {
+    it('should handle @farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_ITEM_FAILURE action', () => {
       const action = {
         type: actionTypes.REMOVE_CHECKOUT_ORDER_ITEM_FAILURE,
         payload: {
@@ -591,7 +592,7 @@ describe('checkout reducer', () => {
       expect(state.removeOrderItem.error).toBe(action.payload.error);
     });
 
-    it('should handle @farfetch/blackout-client/REMOVE_CHECKOUT_ORDER_ITEM_SUCCESS action', () => {
+    it('should handle @farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_ITEM_SUCCESS action', () => {
       const action = {
         type: actionTypes.REMOVE_CHECKOUT_ORDER_ITEM_SUCCESS,
         payload: { quantity: 2 },
@@ -603,7 +604,7 @@ describe('checkout reducer', () => {
   });
 
   describe('updateOrderItem() reducer', () => {
-    it('should handle @farfetch/blackout-client/UPDATE_CHECKOUT_ORDER_ITEM_REQUEST action', () => {
+    it('should handle @farfetch/blackout-redux/UPDATE_CHECKOUT_ORDER_ITEM_REQUEST action', () => {
       const action = {
         type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_REQUEST,
       };
@@ -612,7 +613,7 @@ describe('checkout reducer', () => {
       expect(state.updateOrderItem.error).toBeNull();
     });
 
-    it('should handle @farfetch/blackout-client/UPDATE_CHECKOUT_ORDER_ITEM_FAILURE action', () => {
+    it('should handle @farfetch/blackout-redux/UPDATE_CHECKOUT_ORDER_ITEM_FAILURE action', () => {
       const action = {
         type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_FAILURE,
         payload: {
@@ -624,7 +625,7 @@ describe('checkout reducer', () => {
       expect(state.updateOrderItem.error).toBe(action.payload.error);
     });
 
-    it('should handle @farfetch/blackout-client/UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS action', () => {
+    it('should handle @farfetch/blackout-redux/UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS action', () => {
       const action = {
         type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS,
         payload: mockGetOperationActionPayload,
@@ -1170,7 +1171,7 @@ describe('checkout reducer', () => {
       promoCode: { ...subAreaResult },
       tags: { ...subAreaResult },
       giftMessage: { ...subAreaResult },
-      charges: { ...subAreaResult },
+      checkoutOrderCharge: { ...subAreaResult },
       deliveryBundleUpgrades: { ...subAreaResult },
       itemDeliveryProvisioning: { ...subAreaResult },
       upgradeItemDeliveryProvisioning: { ...subAreaResult },
@@ -1183,7 +1184,7 @@ describe('checkout reducer', () => {
       'PromoCode',
       'Tags',
       'GiftMessage',
-      'Charges',
+      'CheckoutOrderCharge',
       'DeliveryBundleUpgrades',
       'ItemDeliveryProvisioning',
       'UpgradeItemDeliveryProvisioning',

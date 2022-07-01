@@ -1,10 +1,9 @@
-import * as actionTypes from './actionTypes';
-import reducer from './reducer';
+export * as searchActionTypes from './actionTypes';
 
 export * from './actions';
 export * from './actions/factories';
 export * from './selectors';
 
-export { actionTypes };
+export { default as searchReducer } from './reducer';
 
-export default reducer;
+export * from './types';

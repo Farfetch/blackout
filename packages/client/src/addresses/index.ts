@@ -3,4 +3,6 @@
  */
 
 export * from './getAddressPredictions';
-export * from './getAddressPrediction';
+export * from './getAddressPredictionDetails';
+
+export * from './types';

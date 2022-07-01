@@ -1,3 +1,4 @@
+import type { Config } from '../..';
 import type { Product } from './product.types';
 
 export type RecommendedSet = {
@@ -10,5 +11,5 @@ export type RecommendedSet = {
 
 export type GetProductRecommendedSet = (
   id: number,
-  config?: Record<string, unknown>,
+  config?: Config,
 ) => Promise<RecommendedSet>;

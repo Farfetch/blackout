@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchUserCreditBalance() action creator should create the correct actions for when the fetch user credit balance procedure is successful: fetch user credit balance success payload 1`] = `
+Object {
+  "payload": Object {
+    "currency": "EUR",
+    "value": 200,
+  },
+  "type": "@farfetch/blackout-redux/FETCH_USER_CREDIT_BALANCE_SUCCESS",
+}
+`;

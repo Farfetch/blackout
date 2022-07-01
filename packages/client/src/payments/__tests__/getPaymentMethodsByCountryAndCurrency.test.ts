@@ -2,7 +2,7 @@ import { getPaymentMethodsByCountryAndCurrency } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getPaymentMethodsByCountryAndCurrency.fixtures';
 import mswServer from '../../../tests/mswServer';
-import type { PaymentMethod, PaymentMethods } from '../types';
+import type { PaymentMethods } from '../types';
 
 describe('getPaymentMethodsByCountryAndCurrency', () => {
   const expectedConfig = undefined;
@@ -12,7 +12,7 @@ describe('getPaymentMethodsByCountryAndCurrency', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const paymentMethod: PaymentMethod = {
+    const paymentMethod: PaymentMethods = {
       customerAccounts: [
         {
           type: 'string',
@@ -34,7 +34,7 @@ describe('getPaymentMethodsByCountryAndCurrency', () => {
       },
     };
 
-    const response: PaymentMethods = [paymentMethod, paymentMethod];
+    const response: PaymentMethods[] = [paymentMethod, paymentMethod];
 
     mswServer.use(fixtures.success(response));
 

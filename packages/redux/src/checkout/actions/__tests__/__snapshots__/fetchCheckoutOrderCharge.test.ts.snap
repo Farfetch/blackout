@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchCheckoutOrderCharge() action creator should create the correct actions for when the charge procedure is successful: charge success payload 1`] = `
+Object {
+  "payload": Object {
+    "cancelUrl": "some url",
+    "id": "00000000-0000-0000-0000-000000000000",
+    "redirectUrl": "some url",
+    "returnUrl": "some url",
+    "status": "Processing",
+  },
+  "type": "@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_CHARGE_SUCCESS",
+}
+`;

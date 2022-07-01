@@ -1,14 +1,15 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { BlackoutError } from '@farfetch/blackout-client';
 import type {
+  BlackoutError,
   CommercePagesContent,
   ContentTypesEntries,
+  QueryCommercePages,
   QueryContents,
   QuerySEO,
-} from '@farfetch/blackout-client/contents/types';
+  SEOMetadata,
+} from '@farfetch/blackout-client';
 import type { Hash, Pathname, SearchResultsReducer } from '../types';
-import type { MetadataReducer } from './reducers.types';
 
 export interface ActionFetchContentRequest extends Action {
   type: typeof actionTypes.FETCH_CONTENT_REQUEST;
@@ -36,13 +37,13 @@ export interface ActionFetchContentRequestFailure extends Action {
 
 export interface ActionFetchCommercePagesRequest extends Action {
   type: typeof actionTypes.FETCH_COMMERCE_PAGES_REQUEST;
-  meta: { query: QueryContents };
+  meta: { query: QueryCommercePages };
   payload: { hash: Hash };
 }
 
 export interface ActionFetchCommercePagesSuccess extends Action {
   type: typeof actionTypes.FETCH_COMMERCE_PAGES_SUCCESS;
-  meta: { query: QueryContents };
+  meta: { query: QueryCommercePages };
   payload: {
     result: SearchResultsReducer['result'];
     hash: Hash;
@@ -51,7 +52,7 @@ export interface ActionFetchCommercePagesSuccess extends Action {
 
 export interface ActionFetchCommercePagesFailure extends Action {
   type: typeof actionTypes.FETCH_COMMERCE_PAGES_FAILURE;
-  meta: { query: QueryContents };
+  meta: { query: QueryCommercePages };
   payload: {
     error: BlackoutError;
     hash: Hash;
@@ -68,7 +69,7 @@ export interface ActionFetchSEOSuccess extends Action {
   meta: { query: QuerySEO };
   payload: {
     pathname: Pathname;
-    result: MetadataReducer['result'];
+    result: SEOMetadata;
   };
   type: typeof actionTypes.FETCH_SEO_SUCCESS;
 }

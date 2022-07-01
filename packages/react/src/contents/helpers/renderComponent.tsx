@@ -1,6 +1,6 @@
 import { Component } from '../components';
 import React, { ComponentProps, ReactElement } from 'react';
-import type { ComponentType } from '@farfetch/blackout-client/contents/types';
+import type { ComponentType } from '@farfetch/blackout-client';
 
 /**
  * Render an Editorial component. Renders an editorial component registered in

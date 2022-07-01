@@ -1,12 +1,11 @@
-import type { BlackoutError } from '@farfetch/blackout-client';
-import type { Brand, Brands } from '@farfetch/blackout-client/brands/types';
+import type { BlackoutError, Brand, Brands } from '@farfetch/blackout-client';
 
 // Override `Brands` to have entries as an array of ids
 export type BrandsResultNormalized = Omit<Brands, 'entries'> & {
   entries: Brand['id'][];
 };
 
-export type State = {
+export type BrandsState = {
   error: Record<Brand['id'] | string, BlackoutError | undefined>;
   hash: string | null;
   isLoading: Record<Brand['id'] | string, boolean | undefined>;

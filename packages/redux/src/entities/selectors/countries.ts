@@ -1,8 +1,4 @@
 import { getEntities, getEntityById } from './entity';
-import type {
-  Countries,
-  Country,
-} from '@farfetch/blackout-client/locale/types';
 import type { StoreState } from '../../types';
 
 /**
@@ -13,10 +9,8 @@ import type { StoreState } from '../../types';
  *
  * @returns - Country normalized.
  */
-export const getCountry = (
-  state: StoreState,
-  countryCode: string,
-): Country | undefined => getEntityById(state, 'countries', countryCode);
+export const getCountry = (state: StoreState, countryCode: string) =>
+  getEntityById(state, 'countries', countryCode);
 
 /**
  * Returns all countries from state.
@@ -25,5 +19,5 @@ export const getCountry = (
  *
  * @returns - Object with key values pairs representing countryCode and country properties.
  */
-export const getCountries = (state: StoreState): Countries =>
+export const getCountries = (state: StoreState) =>
   getEntities(state, 'countries');

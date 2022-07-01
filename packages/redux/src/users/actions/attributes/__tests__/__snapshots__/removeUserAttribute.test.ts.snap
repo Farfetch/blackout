@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`removeUserAttribute action creator should create the correct actions for when the remove user attribute procedure is successful: remove user attribute success payload 1`] = `
-Object {
-  "payload": Object {},
-  "type": "@farfetch/blackout-client/REMOVE_USER_ATTRIBUTE_SUCCESS",
-}
-`;

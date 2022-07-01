@@ -2,7 +2,7 @@ import type {
   GetContentError,
   GetContents,
   IsContentLoading,
-} from '@farfetch/blackout-redux/contents/types';
+} from '@farfetch/blackout-redux';
 
 export type UseNavbars = {
   navigation: GetContents;

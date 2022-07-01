@@ -1,9 +1,9 @@
-import type { GenderEnum } from '../../types';
+import type { Gender } from '../../types';
 
 export type Category = {
   id: number;
   name: string;
   parentId?: number;
-  gender: GenderEnum;
+  gender: Gender;
   uuid?: string;
 };

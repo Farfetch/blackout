@@ -1,4 +1,8 @@
-import { getReturnItems, getReturns, getTimeSlots } from '..';
+import {
+  getReturnItemsEntity,
+  getReturnsEntity,
+  getTimeSlots,
+} from '../returns';
 import { mockState } from 'tests/__fixtures__/returns';
 
 beforeEach(() => {
@@ -7,13 +11,15 @@ beforeEach(() => {
 
 describe('getReturns', () => {
   it('should get the returns entity from state', () => {
-    expect(getReturns(mockState)).toEqual(mockState.entities.returns);
+    expect(getReturnsEntity(mockState)).toEqual(mockState.entities.returns);
   });
 });
 
-describe('getReturnItems', () => {
+describe('getReturnItemsEntity', () => {
   it('should get the returns entity from state', () => {
-    expect(getReturnItems(mockState)).toEqual(mockState.entities.returnItems);
+    expect(getReturnItemsEntity(mockState)).toEqual(
+      mockState.entities.returnItems,
+    );
   });
 });
 

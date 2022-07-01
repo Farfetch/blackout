@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createPhoneNumberValidations action creator should create the correct actions for when the create phone number  validations procedure is successful: create phone number  validations success payload 1`] = `
+Object {
+  "payload": Object {},
+  "type": "@farfetch/blackout-redux/CREATE_PHONE_NUMBER_VALIDATIONS_SUCCESS",
+}
+`;

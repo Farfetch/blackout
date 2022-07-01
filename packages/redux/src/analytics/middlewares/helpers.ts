@@ -75,7 +75,8 @@ export const getSize = (
 ): string | undefined =>
   get(
     get(product, 'sizes', []).find(
-      (size: ProductEntity['sizes'][number]) => get(size, 'id') === sizeId,
+      (size: NonNullable<ProductEntity['sizes']>[number]) =>
+        get(size, 'id') === sizeId,
     ),
     'name',
   );

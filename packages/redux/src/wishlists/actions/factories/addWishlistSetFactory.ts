@@ -1,15 +1,16 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  Config,
+  PostWishlistSet,
+  PostWishlistSetData,
+  toBlackoutError,
+  WishlistSet,
+} from '@farfetch/blackout-client';
 import { getWishlistId } from '../../selectors';
 import { normalize } from 'normalizr';
-import { toBlackoutError } from '@farfetch/blackout-client';
 import wishlistSetSchema from '../../../entities/schemas/wishlistSet';
 import type { AddWishlistSetAction } from '../../types';
 import type { Dispatch } from 'redux';
-import type {
-  PostWishlistSet,
-  PostWishlistSetData,
-  WishlistSet,
-} from '@farfetch/blackout-client/wishlists/types';
 import type { StoreState } from '../../../types';
 
 /**
@@ -29,7 +30,7 @@ import type { StoreState } from '../../../types';
  */
 const addWishlistSetFactory =
   (postWishlistSet: PostWishlistSet) =>
-  (data: PostWishlistSetData, config?: Record<string, unknown>) =>
+  (data: PostWishlistSetData, config?: Config) =>
   async (
     dispatch: Dispatch<AddWishlistSetAction>,
     getState: () => StoreState,

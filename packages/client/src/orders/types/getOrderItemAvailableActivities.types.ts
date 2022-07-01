@@ -1,5 +1,7 @@
+import type { Config } from '../..';
+
 export type GetOrderItemAvailableActivities = (
   id: string,
   itemId: string,
-  config?: Record<string, unknown>,
+  config?: Config,
 ) => Promise<string>;

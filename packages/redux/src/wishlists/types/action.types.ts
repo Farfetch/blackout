@@ -1,20 +1,20 @@
 import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
-import type { BlackoutError } from '@farfetch/blackout-client';
-import type { Brand } from '@farfetch/blackout-client/brands/types';
-import type { Category } from '@farfetch/blackout-client/categories/types';
+import type {
+  BlackoutError,
+  Brand,
+  Category,
+  PostWishlistItemData,
+  WishlistItem,
+  WishlistSet,
+} from '@farfetch/blackout-client';
 import type {
   MerchantEntity,
   ProductEntity,
   WishlistSetEntities,
 } from '../../entities/types';
 import type { NormalizedSchema } from 'normalizr';
-import type {
-  PostWishlistItemData,
-  WishlistItem,
-  WishlistSet,
-} from '@farfetch/blackout-client/wishlists/types';
-import type { State } from './state.types';
+import type { WishlistsState } from './state.types';
 
 export type WishlistNormalizedPayload = NormalizedSchema<
   {
@@ -24,7 +24,7 @@ export type WishlistNormalizedPayload = NormalizedSchema<
     merchants: Record<MerchantEntity['id'], MerchantEntity>;
     products: Record<ProductEntity['id'], ProductEntity>;
   },
-  State['result']
+  WishlistsState['result']
 >;
 
 export type WishlistSetsNormalizedPayload = NormalizedSchema<
@@ -108,7 +108,7 @@ export type AddWishlistItemAction =
 //
 export interface RemoveWishlistItemFailureAction extends Action {
   meta: {
-    productId: ProductEntity['id'];
+    productId: ProductEntity['id'] | undefined;
     wishlistItemId: WishlistItem['id'];
   };
   payload: { error: BlackoutError };
@@ -117,7 +117,7 @@ export interface RemoveWishlistItemFailureAction extends Action {
 
 export interface RemoveWishlistItemRequestAction extends Action {
   meta: {
-    productId: ProductEntity['id'];
+    productId: ProductEntity['id'] | undefined;
     wishlistItemId: WishlistItem['id'];
   };
   type: typeof actionTypes.REMOVE_WISHLIST_ITEM_REQUEST;
@@ -125,7 +125,7 @@ export interface RemoveWishlistItemRequestAction extends Action {
 
 export interface RemoveWishlistItemSuccessAction extends Action {
   meta: {
-    productId: ProductEntity['id'];
+    productId: ProductEntity['id'] | undefined;
     wishlistItemId: WishlistItem['id'];
   };
   payload: WishlistNormalizedPayload;
@@ -142,7 +142,7 @@ export type RemoveWishlistItemAction =
 //
 export interface UpdateWishlistItemFailureAction extends Action {
   meta: {
-    productId: ProductEntity['id'];
+    productId: ProductEntity['id'] | undefined;
     wishlistItemId: WishlistItem['id'];
   };
   payload: { error: BlackoutError };
@@ -151,7 +151,7 @@ export interface UpdateWishlistItemFailureAction extends Action {
 
 export interface UpdateWishlistItemRequestAction extends Action {
   meta: {
-    productId: ProductEntity['id'];
+    productId: ProductEntity['id'] | undefined;
     wishlistItemId: WishlistItem['id'];
   };
   type: typeof actionTypes.UPDATE_WISHLIST_ITEM_REQUEST;
@@ -159,7 +159,7 @@ export interface UpdateWishlistItemRequestAction extends Action {
 
 export interface UpdateWishlistItemSuccessAction extends Action {
   meta: {
-    productId: ProductEntity['id'];
+    productId: ProductEntity['id'] | undefined;
     wishlistItemId: WishlistItem['id'];
   };
   payload: WishlistNormalizedPayload;

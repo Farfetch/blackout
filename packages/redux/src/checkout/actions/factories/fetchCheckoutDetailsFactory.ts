@@ -25,7 +25,8 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default (getCheckoutOrderDetails: GetCheckoutOrderDetails) =>
+const fetchCheckoutDetailsFactory =
+  (getCheckoutOrderDetails: GetCheckoutOrderDetails) =>
   (id: number, config?: Config) =>
   async (dispatch: Dispatch): Promise<GetCheckoutOrderDetailsResponse> => {
     try {
@@ -51,3 +52,5 @@ export default (getCheckoutOrderDetails: GetCheckoutOrderDetails) =>
       throw error;
     }
   };
+
+export default fetchCheckoutDetailsFactory;

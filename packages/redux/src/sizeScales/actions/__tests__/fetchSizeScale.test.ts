@@ -1,7 +1,7 @@
+import * as actionTypes from '../../actionTypes';
 import * as normalizr from 'normalizr';
-import { actionTypes } from '../../';
 import { fetchSizeScale } from '../';
-import { getSizeScale } from '@farfetch/blackout-client/sizeScales';
+import { getSizeScale } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import {
   mockNormalizedResponse,
@@ -11,8 +11,8 @@ import {
 } from 'tests/__fixtures__/sizeScales';
 import { mockStore } from '../../../../tests';
 
-jest.mock('@farfetch/blackout-client/sizeScales', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/sizeScales'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getSizeScale: jest.fn(),
 }));
 

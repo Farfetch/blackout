@@ -1,20 +1,17 @@
+import * as actionTypes from '../../actionTypes';
 import * as normalizr from 'normalizr';
-import {
-  localeActionTypes as actionTypes,
-  localeReducer as INITIAL_STATE,
-} from '../..';
+import { Currencies, getCountryCurrencies } from '@farfetch/blackout-client';
 import { fetchCountryCurrencies } from '..';
-import { getCountryCurrencies } from '@farfetch/blackout-client/locale';
+import { INITIAL_STATE_LOCALE } from '../../reducer';
 import { mockCountryCode, mockCurrencies } from 'tests/__fixtures__/locale';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
-import type { Currencies } from '@farfetch/blackout-client/locale/types';
 
 const localeMockStore = (state = {}) =>
-  mockStore({ locale: INITIAL_STATE }, state);
+  mockStore({ locale: INITIAL_STATE_LOCALE }, state);
 
-jest.mock('@farfetch/blackout-client/locale', () => ({
-  ...jest.requireActual('@farfetch/blackout-client/locale'),
+jest.mock('@farfetch/blackout-client', () => ({
+  ...jest.requireActual('@farfetch/blackout-client'),
   getCountryCurrencies: jest.fn(),
 }));
 

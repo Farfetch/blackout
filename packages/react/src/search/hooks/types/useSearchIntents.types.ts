@@ -1,13 +1,14 @@
-import type { BlackoutError } from '@farfetch/blackout-client';
 import type {
+  BlackoutError,
+  Config,
   SearchIntents,
   SearchIntentsQuery,
-} from '@farfetch/blackout-client/search/types';
+} from '@farfetch/blackout-client';
 
 export type UseSearchIntents = (baseUrl?: string) => {
   fetchSearchIntents: (
     query: SearchIntentsQuery,
-    config?: Record<string, unknown>,
+    config?: Config,
   ) => Promise<SearchIntents>;
   resetSearchIntents: () => void;
   error: BlackoutError | null;

@@ -1,6 +1,6 @@
-import * as fromReducer from '../reducer';
-import { LOGOUT_SUCCESS } from '../../authentication/actionTypes';
-import reducer, { actionTypes } from '..';
+import * as actionTypes from '../actionTypes';
+import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
+import reducer, * as fromReducer from '../reducer';
 import type { State } from '../types';
 
 let initialState: State;

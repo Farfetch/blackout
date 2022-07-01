@@ -7,7 +7,7 @@ export type PatchUserAttributeData = {
 };
 
 export type PatchUserAttribute = (
-  id: number,
+  userId: number,
   attributeId: string,
   data: PatchUserAttributeData[],
   config?: Config,

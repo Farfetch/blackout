@@ -18,10 +18,8 @@ export const DEFAULT_STORAGE_KEY = 'GuestToken';
  */
 class GuestTokenProvider extends TokenProvider {
   currentGetAccessTokenPromise: Promise<string | undefined> | null;
-  requester: GuestTokenRequester;
+  override requester: GuestTokenRequester;
   tokenContext: TokenContext | null;
-  tokenData: TokenData | null;
-  userId?: number;
   /**
    * Creates a new GuestTokenProvider instance.
    *
@@ -61,7 +59,7 @@ class GuestTokenProvider extends TokenProvider {
    *
    * @returns Guest token kind.
    */
-  getSupportedTokenKind(): TokenKinds {
+  override getSupportedTokenKind(): TokenKinds {
     return TokenKinds.Guest;
   }
 
@@ -75,7 +73,7 @@ class GuestTokenProvider extends TokenProvider {
    *
    * @returns Promise that will be resolved with a valid access token to be used.
    */
-  getAccessToken(useCache = true) {
+  override getAccessToken(useCache = true) {
     if (
       !this.tokenData ||
       !this.tokenData.accessToken ||
@@ -190,7 +188,7 @@ class GuestTokenProvider extends TokenProvider {
    *
    * @returns - True if the instance is ready to retrieve tokens and false otherwise.
    */
-  canRetrieveTokens() {
+  override canRetrieveTokens() {
     return !!this.requester;
   }
 
@@ -201,7 +199,7 @@ class GuestTokenProvider extends TokenProvider {
    * saving the guest token without a user id associated or if the token is for a
    * specific context.
    */
-  canSaveTokenData() {
+  override canSaveTokenData() {
     return (
       super.canSaveTokenData() && !!this.tokenData?.userId && !this.tokenContext
     );

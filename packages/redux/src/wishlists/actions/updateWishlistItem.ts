@@ -1,4 +1,4 @@
-import { patchWishlistItem } from '@farfetch/blackout-client/wishlists';
+import { patchWishlistItem } from '@farfetch/blackout-client';
 import { updateWishlistItemFactory } from './factories';
 
 /**

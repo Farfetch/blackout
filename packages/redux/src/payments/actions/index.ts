@@ -1,21 +1,20 @@
 /**
  * Payments actions.
  */
-
-export { default as charge } from './charge';
-export { default as createInstruments } from './createInstruments';
-export { default as fetchCharges } from './fetchCharges';
-export { default as fetchCreditBalance } from './fetchCreditBalance';
+export { default as createPaymentIntentCharge } from './createPaymentIntentCharge';
+export { default as createPaymentIntentInstrument } from './createPaymentIntentInstrument';
+export { default as fetchUserCreditBalance } from './fetchUserCreditBalance';
 export { default as fetchGiftCardBalance } from './fetchGiftCardBalance';
-export { default as fetchInstrument } from './fetchInstrument';
-export { default as fetchInstruments } from './fetchInstruments';
-export { default as fetchIntent } from './fetchIntent';
+export { default as fetchPaymentIntentInstrument } from './fetchPaymentIntentInstrument';
+export { default as fetchPaymentIntentInstruments } from './fetchPaymentIntentInstruments';
+export { default as fetchPaymentIntent } from './fetchPaymentIntent';
+export { default as fetchPaymentIntentCharge } from './fetchPaymentIntentCharge';
 export { default as fetchPaymentMethods } from './fetchPaymentMethods';
 export { default as fetchPaymentMethodsByIntent } from './fetchPaymentMethodsByIntent';
 export { default as fetchPaymentMethodsByCountryAndCurrency } from './fetchPaymentMethodsByCountryAndCurrency';
 export { default as fetchPaymentTokens } from './fetchPaymentTokens';
-export { default as removeInstrument } from './removeInstrument';
+export { default as removePaymentIntentInstrument } from './removePaymentIntentInstrument';
 export { default as removePaymentToken } from './removePaymentToken';
-export { default as resetCharges } from './resetChargesState';
-export { default as resetInstruments } from './resetInstrumentsState';
-export { default as updateInstruments } from './updateInstruments';
+export { default as resetPaymentIntentChargeState } from './resetPaymentIntentChargeState';
+export { default as resetPaymentInstrumentsState } from './resetPaymentInstrumentsState';
+export { default as updatePaymentIntentInstrument } from './updatePaymentIntentInstrument';

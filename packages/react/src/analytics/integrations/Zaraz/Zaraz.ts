@@ -59,7 +59,7 @@ class Zaraz extends integrations.Integration<ZarazIntegrationOptions> {
    *
    * @returns If the integration is ready to be loaded.
    */
-  static shouldLoad(consent: ConsentData) {
+  static override shouldLoad(consent: ConsentData) {
     return !!consent?.marketing;
   }
 
@@ -81,7 +81,7 @@ class Zaraz extends integrations.Integration<ZarazIntegrationOptions> {
    *
    * @param data - Event data from analytics.
    */
-  async track(data: EventData<TrackTypesValues>) {
+  override async track(data: EventData<TrackTypesValues>) {
     try {
       await this.initializePromise;
 
@@ -139,7 +139,7 @@ class Zaraz extends integrations.Integration<ZarazIntegrationOptions> {
     if (this.isDevelopment()) {
       const originalFetch = window.fetch;
 
-      const newFetch = (input: RequestInfo, init?: RequestInit) => {
+      const newFetch = (input: RequestInfo | URL, init?: RequestInit) => {
         if (typeof input === 'string' && ZARAZ_REQUEST_REGEX.test(input)) {
           const requestUrl = new URL(input, window.location.href);
 

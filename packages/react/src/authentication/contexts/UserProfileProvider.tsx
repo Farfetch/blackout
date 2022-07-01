@@ -1,27 +1,30 @@
-import { AuthenticationConfigOptions } from '@farfetch/blackout-client';
-import { getUser } from '@farfetch/blackout-client/users';
+import {
+  AuthenticationConfigOptions,
+  getUser,
+  GuestUserNormalized,
+  User,
+} from '@farfetch/blackout-client';
 import { ProfileChangedError } from '../errors';
 import noop from 'lodash/noop';
 import React, { useCallback, useEffect, useReducer, useRef } from 'react';
 import useAuthentication from '../hooks/useAuthentication';
 import UserProfileContext from './UserProfileContext';
-import type { GetUserResponse } from '@farfetch/blackout-client/users/types';
 
 interface Props {
   children: React.ReactNode;
   fetchProfileOnTokenChanges: boolean;
-  onProfileChange: (response: GetUserResponse) => void;
+  onProfileChange: (response: User | GuestUserNormalized) => void;
 }
 
 interface State {
   isLoading: boolean;
   error: Error | null;
-  userData: GetUserResponse | null;
+  userData: User | GuestUserNormalized | null;
 }
 
 interface Action {
   type: string;
-  payload?: GetUserResponse | Error;
+  payload?: User | GuestUserNormalized | Error;
 }
 
 export interface Error {
@@ -57,7 +60,7 @@ const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         isLoading: false,
-        userData: action.payload as GetUserResponse,
+        userData: action.payload as User | GuestUserNormalized,
       };
     }
 
@@ -103,11 +106,13 @@ const UserProfileProvider = ({
 }: Props) => {
   const [userProfileState, dispatch] = useReducer(reducer, initialState);
   const { activeTokenData, tokenManager } = useAuthentication();
-  const currentLoadProfilePromiseRef = useRef<Promise<GetUserResponse> | null>(
-    null,
-  );
+  const currentLoadProfilePromiseRef = useRef<Promise<
+    User | GuestUserNormalized
+  > | null>(null);
 
-  const loadProfileAux = useCallback(async (): Promise<GetUserResponse> => {
+  const loadProfileAux = useCallback(async (): Promise<
+    User | GuestUserNormalized
+  > => {
     dispatch({ type: ActionTypes.GetUserRequested });
 
     let usedAccessToken = null;
@@ -117,7 +122,7 @@ const UserProfileProvider = ({
     };
 
     try {
-      const userData: GetUserResponse = await getUser({
+      const userData: User | GuestUserNormalized = await getUser({
         [AuthenticationConfigOptions.UsedAccessTokenCallback]:
           setAccessTokenRef,
         [AuthenticationConfigOptions.IsGetUserProfileRequest]: true,
@@ -143,8 +148,11 @@ const UserProfileProvider = ({
       currentLoadProfilePromiseRef.current = null;
 
       return userData;
-    } catch (error: any) {
-      dispatch({ type: ActionTypes.GetUserFailed, payload: error });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.GetUserFailed,
+        payload: error as User | GuestUserNormalized | Error | undefined,
+      });
       throw error;
     }
   }, [dispatch, tokenManager]);

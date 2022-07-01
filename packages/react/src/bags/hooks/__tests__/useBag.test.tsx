@@ -11,8 +11,8 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import useBag from '../useBag';
 
-jest.mock('@farfetch/blackout-redux/bags', () => ({
-  ...jest.requireActual('@farfetch/blackout-redux/bags'),
+jest.mock('@farfetch/blackout-redux', () => ({
+  ...jest.requireActual('@farfetch/blackout-redux'),
   addBagItem: jest.fn(() => ({ type: 'add-bag-item' })),
   fetchBag: jest.fn(() => ({ type: 'fetch' })),
   resetBag: jest.fn(() => ({ type: 'reset' })),

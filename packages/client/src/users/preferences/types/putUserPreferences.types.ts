@@ -1,15 +1,12 @@
+import type { AxiosResponse } from 'axios';
 import type { Config } from '../../../types';
-import type { UserPreferencesResponse } from './userPreferences.types';
+import type { User } from '../../authentication/types/user.types';
+import type { UserPreference } from '../..';
 
-export type PutUserPreferencesData = {
-  code: string;
-  values: string[];
-  groupId?: string;
-  updatedDate?: string;
-}[];
+export type PutUserPreferencesData = Omit<UserPreference, 'updatedDate'>;
 
 export type PutUserPreferences = (
-  id: number,
+  userId: User['id'],
   data: PutUserPreferencesData,
   config?: Config,
-) => Promise<UserPreferencesResponse>;
+) => Promise<AxiosResponse<void>>;

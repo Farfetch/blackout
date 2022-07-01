@@ -3,10 +3,10 @@ import { AnyAction, combineReducers } from 'redux';
 import type {
   FetchPromotionEvaluationItemsAction,
   FetchPromotionEvaluationItemsSuccessAction,
-  State,
+  PromotionEvaluationsState,
 } from './types';
 
-export const INITIAL_STATE: State = {
+export const INITIAL_STATE: PromotionEvaluationsState = {
   id: null,
   error: null,
   isLoading: false,
@@ -66,11 +66,18 @@ const id = (
   }
 };
 
-export const getError = (state: State): State['error'] => state.error;
-export const getIsLoading = (state: State): State['isLoading'] =>
-  state.isLoading;
-export const getResult = (state: State): State['result'] => state.result;
-export const getId = (state: State): State['id'] => state.id;
+export const getError = (
+  state: PromotionEvaluationsState,
+): PromotionEvaluationsState['error'] => state.error;
+export const getIsLoading = (
+  state: PromotionEvaluationsState,
+): PromotionEvaluationsState['isLoading'] => state.isLoading;
+export const getResult = (
+  state: PromotionEvaluationsState,
+): PromotionEvaluationsState['result'] => state.result;
+export const getId = (
+  state: PromotionEvaluationsState,
+): PromotionEvaluationsState['id'] => state.id;
 
 export default combineReducers({
   error,

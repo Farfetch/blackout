@@ -4,25 +4,37 @@
  */
 import {
   areSearchIntentsLoading,
+  buildQueryStringFromObject,
+  buildSetFiltersQueryParams,
   fetchSearchIntents as fetchSearchIntentsAction,
   getSearchIntentsError,
   getSearchIntentsResult,
   resetSearchIntents as resetSearchIntentsAction,
-} from '@farfetch/blackout-redux/search';
-import { buildQueryStringFromObject } from '@farfetch/blackout-redux/helpers';
-import { buildSetFiltersQueryParams } from '@farfetch/blackout-redux';
+} from '@farfetch/blackout-redux';
 import {
-  FILTER_SLUGS_ORDER,
-  TYPE_FILTER,
-  TYPE_REQUEST,
-} from '@farfetch/blackout-redux/search/utils';
+  SearchIntentsResource,
+  SearchIntentsTypeFilter,
+  SearchIntentsTypeRequest,
+} from '@farfetch/blackout-client';
 import { useAction } from '../../helpers';
 import { useSelector } from 'react-redux';
 import urlJoin from 'proper-url-join';
 import type { GetSearchRedirectUrl, UseSearchIntents } from './types';
-import type { searchIntentsResource } from '@farfetch/blackout-client/search/types';
 
 const DEFAULT_BASE_URL = '/shopping';
+
+/*
+ * This is not related to the endpoint response, but it's our recommendation
+ * about the order to construct the slugs to redirect the user to a more
+ * specific page.
+ * The recommendation is create the slug firstly with the gender, followed by
+ * the brands and with categories in the end.
+ */
+const FILTER_SLUGS_ORDER = [
+  SearchIntentsTypeFilter.Gender,
+  SearchIntentsTypeFilter.Brands,
+  SearchIntentsTypeFilter.Categories,
+];
 
 /**
  * Gets the URL to redirect according to the search intents result. In a nutshell,
@@ -55,17 +67,17 @@ const getSearchRedirectUrl: GetSearchRedirectUrl = (searchIntents, baseUrl) => {
 
   switch (typeRequest) {
     // If the typeRequest is of the type "Redirect", automatically redirects to the url received.
-    case TYPE_REQUEST.REDIRECT:
+    case SearchIntentsTypeRequest.Redirect:
       return `/${redirectUrl}`;
     // If the typeRequest is of the type "Product", automatically redirects to the pdp of the product received, by slug.
-    case TYPE_REQUEST.PRODUCT: {
+    case SearchIntentsTypeRequest.Product: {
       const productSlug = resources[0]?.values[0]?.slug;
 
       return `${baseUrl}/${productSlug}`;
     }
     // If the typeRequest is of the type "Listing", automatically redirects to a specific listing according the resources received.
-    case TYPE_REQUEST.LISTING: {
-      const resourcesWithSlug: searchIntentsResource[] = [];
+    case SearchIntentsTypeRequest.Listing: {
+      const resourcesWithSlug: SearchIntentsResource[] = [];
 
       // If the resources are possible to transform in slug - they have to follow a
       // specific construction order: Gender (3) / Brand (1) / Category (2)
@@ -83,7 +95,7 @@ const getSearchRedirectUrl: GetSearchRedirectUrl = (searchIntents, baseUrl) => {
         if (filteredIndex !== -1) {
           // If found, add the resource to the resourcesWithSlug array.
           resourcesWithSlug.push(
-            resources[filteredIndex] as searchIntentsResource,
+            resources[filteredIndex] as SearchIntentsResource,
           );
           // If found, remove the resource from the original array.
           resources.splice(filteredIndex, 1);
@@ -98,15 +110,15 @@ const getSearchRedirectUrl: GetSearchRedirectUrl = (searchIntents, baseUrl) => {
       // With the remaining resources we have to transform them in queryParams, like {'categories': [123,456]}
       const queryParams = resources.reduce<Record<string, string[]>>(
         (acc, { typeFilter, values }) => {
-          // Find the typeFilter of the resource, like CATEGORIES
-          const queryParam = Object.entries(TYPE_FILTER).find(
+          // Find the typeFilter of the resource, like Categories
+          const queryParam = Object.entries(SearchIntentsTypeFilter).find(
             type => type[1] === typeFilter,
           );
           const queryValues = values.map(({ value }) => value);
           const queryKey =
-            // If the typeFilter is 10(TEXT) should be treated as a query.
-            // Otherwise the queryParam found before (CATEGORIES) should be used.
-            typeFilter !== TYPE_FILTER.TEXT
+            // If the typeFilter is 10(Text) should be treated as a query.
+            // Otherwise the queryParam found before (Categories) should be used.
+            typeFilter !== SearchIntentsTypeFilter.Text
               ? queryParam?.[0].toLowerCase()
               : 'query';
 

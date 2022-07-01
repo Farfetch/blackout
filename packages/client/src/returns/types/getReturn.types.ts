@@ -1,8 +1,4 @@
-import type { Query } from './query.types';
+import type { Config } from '../..';
 import type { Return } from './return.types';
 
-export type GetReturn = (
-  id: number,
-  query?: Query,
-  config?: Record<string, unknown>,
-) => Promise<Return>;
+export type GetReturn = (id: number, config?: Config) => Promise<Return>;

@@ -2,12 +2,13 @@
  * Returns clients.
  */
 
-export * from './getReturnReferences';
-export * from './getReturn';
-export * from './getReturnsFromOrder';
-export * from './patchReturn';
-export * from './postReturn';
-export * from './getReturnPickupCapabilities';
-export * from './getReturnPickupRescheduleRequests';
-export * from './getReturnPickupRescheduleRequest';
-export * from './postReturnPickupRescheduleRequest';
+export { default as getReturn } from './getReturn';
+export { default as getReturnsFromOrder } from './getReturnsFromOrder';
+export { default as patchReturn } from './patchReturn';
+export { default as postReturn } from './postReturn';
+export { default as getReturnPickupCapabilities } from './getReturnPickupCapabilities';
+export { default as getReturnPickupRescheduleRequests } from './getReturnPickupRescheduleRequests';
+export { default as getReturnPickupRescheduleRequest } from './getReturnPickupRescheduleRequest';
+export { default as postReturnPickupRescheduleRequest } from './postReturnPickupRescheduleRequest';
+
+export * from './types';

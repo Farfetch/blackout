@@ -1,11 +1,12 @@
 import * as actionTypes from '../../actionTypes';
-import { normalize } from 'normalizr';
-import { toBlackoutError } from '@farfetch/blackout-client';
-import categorySchema from '../../../entities/schemas/category';
-import type {
+import {
   Category,
+  Config,
   GetCategories,
-} from '@farfetch/blackout-client/categories/types';
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import { normalize } from 'normalizr';
+import categorySchema from '../../../entities/schemas/category';
 import type { Dispatch } from 'redux';
 import type { FetchTopCategoriesAction } from '../../types';
 
@@ -25,7 +26,7 @@ import type { FetchTopCategoriesAction } from '../../types';
  */
 const fetchTopCategoriesFactory =
   (getTopCategories: GetCategories) =>
-  (config?: Record<string, unknown>) =>
+  (config?: Config) =>
   async (dispatch: Dispatch<FetchTopCategoriesAction>): Promise<Category[]> => {
     try {
       dispatch({

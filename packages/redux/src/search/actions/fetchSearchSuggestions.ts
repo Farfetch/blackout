@@ -1,5 +1,5 @@
 import { fetchSearchSuggestionsFactory } from './factories';
-import { getSearchSuggestions } from '@farfetch/blackout-client/search';
+import { getSearchSuggestions } from '@farfetch/blackout-client';
 
 /**
  * Fetches the search intents for the given query with search terms. With these

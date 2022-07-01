@@ -1,11 +1,11 @@
 import { rest, RestHandler } from 'msw';
-import type { Countries } from '../types';
+import type { Country } from '../types';
 
 const path = '/api/settings/v1/countries';
 
 const fixtures = {
   get: {
-    success: (response: Array<Countries>): RestHandler =>
+    success: (response: Country[]): RestHandler =>
       rest.get(path, async (_req, res, ctx) =>
         res(ctx.status(200), ctx.json(response)),
       ),

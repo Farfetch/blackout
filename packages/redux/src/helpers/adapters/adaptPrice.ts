@@ -4,7 +4,7 @@ import type {
   Price,
   ProductSummaryPrice,
   ProductSummaryTypedPrice,
-} from '@farfetch/blackout-client/products/types';
+} from '@farfetch/blackout-client';
 
 /**
  * Returns a price object adapted to all site areas (plp, pdp, bag, etc).

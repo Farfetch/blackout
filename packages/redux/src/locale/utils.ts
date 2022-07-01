@@ -1,4 +1,4 @@
-import type { Countries } from '@farfetch/blackout-client/locale/types';
+import type { Country } from '@farfetch/blackout-client';
 
 /**
  * Locale utils.
@@ -17,15 +17,15 @@ import type { Countries } from '@farfetch/blackout-client/locale/types';
  * @returns - List of continents with respective id and countries list.
  */
 export const createContinentsList = (
-  countries: Countries,
-): Array<{ id: number; countries: Countries }> => {
-  const countriesArr = Object.values(countries);
+  countries: Country[],
+): Array<{ id: number; countries: Country[] }> => {
+  const countriesArr = Object.values(countries) as Country[];
   const continents = Array.from(new Set(countriesArr.map(c => c.continentId)));
 
   return continents.sort().map(id => ({
     id,
     countries: countriesArr
       .map(country => (country.continentId === id ? country : undefined))
-      .filter(e => !!e),
+      .filter(Boolean) as Country[],
   }));
 };

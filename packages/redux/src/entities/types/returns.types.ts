@@ -1,3 +1,5 @@
-import type { Return } from '@farfetch/blackout-client/returns/types';
+import type { Return } from '@farfetch/blackout-client';
 
-export type ReturnsEntity = Return;
+export type ReturnsEntity = Omit<Return, 'items'> & {
+  items: Array<Return['id']>;
+};

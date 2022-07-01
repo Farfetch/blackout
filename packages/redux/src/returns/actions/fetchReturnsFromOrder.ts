@@ -1,8 +1,7 @@
 import { fetchReturnsFromOrderFactory } from './factories';
-import { getReturnsFromOrder } from '@farfetch/blackout-client/returns';
+import { getReturnsFromOrder } from '@farfetch/blackout-client';
 
 /**
  * Fetch returns from a specific order.
  */
-export const fetchReturnsFromOrder =
-  fetchReturnsFromOrderFactory(getReturnsFromOrder);
+export default fetchReturnsFromOrderFactory(getReturnsFromOrder);

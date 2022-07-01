@@ -1,9 +1,24 @@
 import type {
   Contents,
+  GenderDescription,
+  Listing,
+  Product,
   QueryContents,
-} from '@farfetch/blackout-client/contents/types';
-import type { Designers } from '@farfetch/blackout-client/designers/types';
-import type { Listing, Product, Set } from '@farfetch/blackout-client';
+  Set,
+} from '@farfetch/blackout-client';
+
+export type Designers = {
+  title: string;
+  slug: string;
+  gender: GenderDescription;
+  list: {
+    title: string;
+    description: string;
+    image: string;
+    slug: string;
+    slugSuffix: null;
+  }[];
+}[];
 
 type Common = {
   countryCode: string;

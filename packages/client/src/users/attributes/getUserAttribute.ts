@@ -12,14 +12,12 @@ import type { GetUserAttribute } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getUserAttribute: GetUserAttribute = (
-  userId,
-  attributeId,
-  config,
-) =>
+const getUserAttribute: GetUserAttribute = (userId, attributeId, config) =>
   client
     .get(join('/account/v1/users', userId, '/attributes', attributeId), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default getUserAttribute;

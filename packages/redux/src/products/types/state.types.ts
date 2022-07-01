@@ -15,7 +15,7 @@ import type {
   RecommendedSetsState,
 } from './state';
 
-export type State = CombinedState<{
+export type ProductsState = CombinedState<{
   attributes: ProductsAttributesState;
   colorGrouping: ProductsColorGroupingState;
   grouping: ProductsGroupingState;

@@ -1,6 +1,6 @@
-import type { Attribute } from '@farfetch/blackout-client/orders/types';
+import type { Attribute, Image } from '@farfetch/blackout-client';
 
-export type OrderItemsEntity = {
+export type OrderItemEntity = {
   id: number;
   customAttributes: string;
   images: Image[];
@@ -26,13 +26,6 @@ export type OrderItemsEntity = {
   productSlug: string;
   productType: string;
   merchantOrderCode: string;
-};
-
-type Image = {
-  order?: number;
-  size: string;
-  url: string;
-  [k: string]: unknown;
 };
 
 type Price = {

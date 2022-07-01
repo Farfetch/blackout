@@ -4,20 +4,8 @@
 import { generateContentHash, generateSEOPathname } from './utils';
 import { getContent } from '../entities';
 import { getContentResult, getContentTypes, getSEOmetadata } from './reducer';
-import type {
-  GetAllContentTypes,
-  GetContentByQuery,
-  GetContentError,
-  GetContents,
-  GetContentsByHash,
-  GetSEO,
-  GetSEOError,
-  Hash,
-  IsContentLoading,
-  IsSEOLoading,
-  QueryContentHash,
-  QuerySEO,
-} from './types';
+import type { ContentEntries, QuerySEO } from '@farfetch/blackout-client';
+import type { ContentsState, Hash, QueryContentHash } from './types';
 import type { StoreState } from '../types';
 
 /**
@@ -38,10 +26,8 @@ import type { StoreState } from '../types';
  *
  * @returns - Content from a specific hash.
  */
-export const getContentsByHash = (
-  state: StoreState,
-  hash: Hash,
-): GetContentsByHash => getContentResult(state.contents)[hash];
+export const getContentsByHash = (state: StoreState, hash: Hash) =>
+  getContentResult(state.contents as ContentsState)[hash];
 
 /**
  * Returns the error thrown by the getContent request, by query.
@@ -60,10 +46,7 @@ export const getContentsByHash = (
  *
  * @returns - Content error.
  */
-export const getContentError = (
-  state: StoreState,
-  query: QueryContentHash,
-): GetContentError => {
+export const getContentError = (state: StoreState, query: QueryContentHash) => {
   const hash = generateContentHash(query);
   const contentByHash = getContentsByHash(state, hash);
 
@@ -90,7 +73,7 @@ export const getContentError = (
 export const isContentLoading = (
   state: StoreState,
   query: QueryContentHash,
-): IsContentLoading => {
+) => {
   const hash = generateContentHash(query);
   const contentByHash = getContentsByHash(state, hash);
 
@@ -118,7 +101,7 @@ export const isContentLoading = (
 export const getContentByQuery = (
   state: StoreState,
   query: QueryContentHash,
-): GetContentByQuery => {
+) => {
   const hash = generateContentHash(query);
   const contentByHash = getContentsByHash(state, hash);
 
@@ -144,13 +127,15 @@ export const getContentByQuery = (
  *
  * @returns - All the contents for the given content entry.
  */
-export const getContents = (
-  state: StoreState,
-  query: QueryContentHash,
-): GetContents => {
+export const getContents = (state: StoreState, query: QueryContentHash) => {
   const result = getContentByQuery(state, query);
 
-  return result && result.entries.map((hash: Hash) => getContent(state, hash));
+  return (
+    result &&
+    (result.entries
+      .map((hash: Hash) => getContent(state, hash))
+      .filter(Boolean) as ContentEntries[])
+  );
 };
 
 /**
@@ -169,8 +154,8 @@ export const getContents = (
  *
  * @returns - All the content types.
  */
-export const getAllContentTypes = (state: StoreState): GetAllContentTypes =>
-  getContentTypes(state.contents).result;
+export const getAllContentTypes = (state: StoreState) =>
+  getContentTypes(state.contents as ContentsState).result;
 
 /**
  * Returns the error thrown to the getSEO request.
@@ -190,12 +175,9 @@ export const getAllContentTypes = (state: StoreState): GetAllContentTypes =>
  *
  * @returns - Content error.
  */
-export const getSEOError = (
-  state: StoreState,
-  query: QuerySEO,
-): GetSEOError => {
+export const getSEOError = (state: StoreState, query: QuerySEO) => {
   const pathname = generateSEOPathname(query);
-  const error = getSEOmetadata(state.contents).error;
+  const error = getSEOmetadata(state.contents as ContentsState).error;
 
   return error && error[pathname];
 };
@@ -218,13 +200,10 @@ export const getSEOError = (
  *
  * @returns - If the content is loading or not.
  */
-export const isSEOLoading = (
-  state: StoreState,
-  query: QuerySEO,
-): IsSEOLoading => {
+export const isSEOLoading = (state: StoreState, query: QuerySEO) => {
   const pathname = generateSEOPathname(query);
 
-  return getSEOmetadata(state.contents).isLoading[pathname];
+  return getSEOmetadata(state.contents as ContentsState).isLoading[pathname];
 };
 
 /**
@@ -245,9 +224,9 @@ export const isSEOLoading = (
  *
  * @returns - All metadata for that page.
  */
-export const getSEO = (state: StoreState, query: QuerySEO): GetSEO => {
+export const getSEO = (state: StoreState, query: QuerySEO) => {
   const pathname = generateSEOPathname(query);
-  const result = getSEOmetadata(state.contents).result;
+  const result = getSEOmetadata(state.contents as ContentsState).result;
 
   return result && result[pathname];
 };
