@@ -1,5 +1,5 @@
 export type Brand = {
-  id: number | string;
+  id: number;
   name: string;
   description: string | null;
   slug?: string;

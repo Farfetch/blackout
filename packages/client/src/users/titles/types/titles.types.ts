@@ -1,5 +1,5 @@
-import type { Config } from '../../types';
-import type { GetTitlesQuery } from './query.types';
+import type { Config } from '../../../types';
+import type { GetTitlesQuery } from '../../types/query.types';
 
 export type GetTitlesResponse = {
   number: number;

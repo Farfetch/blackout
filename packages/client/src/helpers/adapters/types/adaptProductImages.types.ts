@@ -39,7 +39,6 @@ export type ProductImagesAdapted =
         sources: Record<string, string>;
       }
     >
-  | LegacyImages
   | undefined;
 
 export type AdaptProductImages = (

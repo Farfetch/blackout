@@ -1,3 +1,5 @@
+import type { ProductVariant } from '../../../products';
+
 export const basePrice = {
   discountExclTaxes: 104.17,
   discountInclTaxes: 125,
@@ -156,8 +158,33 @@ const generateProductVariant = (quantity = 10, merchantId = 10001) => ({
   priceInclTaxesWithoutDiscount: 100,
 });
 
-export const twoSizesProductVariants = [
+export const twoSizesProductVariants: ProductVariant[] = [
   {
+    id: '24acb491-b057-4b54-8ffc-21b011b6d946',
+    availableAt: [307, 211, 231, 8],
+    price: {
+      priceExclTaxes: 380.49,
+      priceInclTaxes: 468,
+      priceInclTaxesWithoutDiscount: 585,
+      discountExclTaxes: 95.1225,
+      discountInclTaxes: 117,
+      discountRate: 20,
+      taxesRate: 23,
+      taxesValue: 87.51,
+      tags: ['VAT', 'RegularSale'],
+      formattedPrice: '468 €',
+      formattedPriceWithoutDiscount: '585 €',
+      formattedPriceWithoutCurrency: '468',
+      formattedPriceWithoutDiscountAndCurrency: '585',
+      taxType: 'VAT',
+    },
+    formattedPrice: '468 €',
+    formattedPriceWithoutDiscount: '585 €',
+    quantity: 5000,
+    barcodes: ['2011847556177'],
+    scaleAbbreviation: 'IT',
+    sizeDescription: '34',
+    isOneSize: false,
     size: '20',
     scale: '115',
     merchantId: 10001,
@@ -165,11 +192,36 @@ export const twoSizesProductVariants = [
     attributes: sizeAttributes,
   },
   {
+    id: '56e9779b-ff0d-4288-8f49-4aed885365c5',
+    availableAt: [307, 211, 231, 8, 6, 2, 10],
+    price: {
+      priceExclTaxes: 380.49,
+      priceInclTaxes: 468,
+      priceInclTaxesWithoutDiscount: 585,
+      discountExclTaxes: 95.1225,
+      discountInclTaxes: 117,
+      discountRate: 20,
+      taxesRate: 23,
+      taxesValue: 87.51,
+      tags: ['VAT', 'RegularSale'],
+      formattedPrice: '468 €',
+      formattedPriceWithoutDiscount: '585 €',
+      formattedPriceWithoutCurrency: '468',
+      formattedPriceWithoutDiscountAndCurrency: '585',
+      taxType: 'VAT',
+    },
+    formattedPrice: '468 €',
+    formattedPriceWithoutDiscount: '585 €',
+    quantity: 1000,
+    barcodes: ['2011847556184'],
+    scaleAbbreviation: 'IT',
+    sizeDescription: '34.5',
+    isOneSize: false,
     size: '21',
     scale: '115',
     merchantId: 10002,
     purchaseChannel: 1,
-    attributes: [generateSizeAttributes('21', 'M')],
+    attributes: generateSizeAttributes('21', 'M'),
   },
 ];
 

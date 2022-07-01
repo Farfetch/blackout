@@ -1,5 +1,5 @@
-import type { Config } from '../../types';
-import type { UserAttributesQuery } from './query.types';
+import type { Config } from '../../../types';
+import type { UserAttributesQuery } from '../../types';
 import type { UserAttributesResponse } from './userAttributesResponse.types';
 
 export type GetUserAttributes = (

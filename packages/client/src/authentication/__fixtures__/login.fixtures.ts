@@ -1,4 +1,6 @@
-export const mockResponse = {
+import type { LoginResponse } from '../types';
+
+export const mockResponse: LoginResponse = {
   bagId: 'cb805dc8-86f5-409e-84d1-3209c2be9517',
   dateOfBirth: null,
   email: 'pepe@acme.com',
@@ -12,4 +14,12 @@ export const mockResponse = {
   isExternalLogin: false,
   isGuest: false,
   guestBagItemsMerged: 0,
+  title: null,
+  lastName: null,
+  firstName: null,
+  status: 4,
+  createdDate: '/Date(1580917195693)/',
+  updatedDate: '/Date(1656663893968)/',
+  loyalty: null,
+  phoneNumberConfirmed: false,
 };

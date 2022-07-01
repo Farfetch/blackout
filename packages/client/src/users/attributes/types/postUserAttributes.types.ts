@@ -1,4 +1,4 @@
-import type { Config } from '../../types';
+import type { Config } from '../../../types';
 import type { UserAttributesData } from './userAttributesData.types';
 import type { UserAttributesResponse } from './userAttributesResponse.types';
 

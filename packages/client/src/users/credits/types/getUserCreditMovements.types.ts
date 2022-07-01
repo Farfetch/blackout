@@ -2,16 +2,14 @@ import type { Config } from '../../../types';
 import type { GetUserCreditMovementsQuery } from '../../types/query.types';
 
 export type GetUserCreditMovementsResponse = {
-  entries: [
-    {
-      type: number;
-      value: number;
-      formattedValue: string;
-      currency: string;
-      description: string;
-      createdOn: string;
-    },
-  ];
+  entries: {
+    type: number;
+    value: number;
+    formattedValue: string;
+    currency: string;
+    description: string;
+    createdOn: string;
+  }[];
   number: number;
   totalItems: number;
   totalPages: number;

@@ -1,10 +1,4 @@
-export type DigitalAsset = {
-  mediaType: string;
-  displayOrder: number;
-  size: string;
-  url: string;
-  type: number;
-};
+import type { DigitalAsset } from './common.types';
 
 export type ProductColorGroupingEntry = {
   digitalAssets: DigitalAsset[];
