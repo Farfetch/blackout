@@ -1,5 +1,5 @@
 import {
-  address1,
+  address1 as data,
   addressId as id,
   userId,
 } from 'tests/__fixtures__/addresses';
@@ -10,19 +10,17 @@ import mswServer from '../../../../tests/mswServer';
 
 describe('putUserAddress', () => {
   const expectedConfig = undefined;
-  const response = address1;
-  const data = address1;
   const spy = jest.spyOn(client, 'put');
 
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(data));
 
     expect.assertions(2);
 
     await expect(putUserAddress({ id, userId }, data)).resolves.toStrictEqual(
-      response,
+      data,
     );
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/addresses/${id}`,

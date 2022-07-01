@@ -27,7 +27,7 @@ export const unsubscribeRecipientFromTopicFactory: UnsubscribeRecipientFromTopic
         meta,
       });
 
-      await deleteRecipientFromTopic(
+      const result = await deleteRecipientFromTopic(
         subscriptionId,
         topicId,
         recipientId,
@@ -40,6 +40,8 @@ export const unsubscribeRecipientFromTopicFactory: UnsubscribeRecipientFromTopic
         },
         type: actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_SUCCESS,
       });
+
+      return result;
     } catch (error) {
       dispatch({
         payload: { recipientId, error: toError(error) },

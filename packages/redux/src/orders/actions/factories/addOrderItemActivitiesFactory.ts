@@ -33,11 +33,18 @@ const addOrderItemActivities =
         type: actionTypes.ADD_ORDER_ITEM_ACTIVITIES_REQUEST,
       });
 
-      await postOrderItemActivities(orderId, itemId, data, config);
+      const result = await postOrderItemActivities(
+        orderId,
+        itemId,
+        data,
+        config,
+      );
 
       dispatch({
         type: actionTypes.ADD_ORDER_ITEM_ACTIVITIES_SUCCESS,
       });
+
+      return result;
     } catch (error) {
       dispatch({
         payload: { error: toError(error) },

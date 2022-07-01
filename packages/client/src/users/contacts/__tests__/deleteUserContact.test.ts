@@ -1,5 +1,5 @@
-import { deleteUserContact } from '..';
 import { contactId, userId } from 'tests/__fixtures__/users';
+import { deleteUserContact } from '..';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/deleteUserContact.fixtures';
 import mswServer from '../../../../tests/mswServer';

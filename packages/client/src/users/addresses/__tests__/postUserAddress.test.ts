@@ -1,11 +1,8 @@
-import { address2, userId } from 'tests/__fixtures__/addresses';
+import { address2 as data, userId } from 'tests/__fixtures__/addresses';
 import { postUserAddress } from '..';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/postUserAddress.fixtures';
 import mswServer from '../../../../tests/mswServer';
-
-const data = address2;
-const response = address2;
 
 describe('postUserAddress', () => {
   const expectedConfig = undefined;
@@ -14,12 +11,12 @@ describe('postUserAddress', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(data));
 
     expect.assertions(2);
 
-    await expect(postUserAddress({ userId }, response)).resolves.toStrictEqual(
-      response,
+    await expect(postUserAddress({ userId }, data)).resolves.toStrictEqual(
+      data,
     );
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/addresses`,
@@ -33,9 +30,7 @@ describe('postUserAddress', () => {
 
     expect.assertions(2);
 
-    await expect(
-      postUserAddress({ userId }, response),
-    ).rejects.toMatchSnapshot();
+    await expect(postUserAddress({ userId }, data)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/addresses`,
       data,
