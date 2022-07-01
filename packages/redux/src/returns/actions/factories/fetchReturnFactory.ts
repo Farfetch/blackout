@@ -24,7 +24,7 @@ import type {
  *
  * @returns Thunk factory.
  */
-const fetchReturnFactory =
+export const fetchReturnFactory =
   (getReturn: GetReturn) =>
   (id: number, query?: Query, config?: Record<string, unknown>) =>
   async (dispatch: Dispatch): Promise<Return> => {
@@ -48,5 +48,3 @@ const fetchReturnFactory =
       throw error;
     }
   };
-
-export default fetchReturnFactory;

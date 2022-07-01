@@ -12,12 +12,14 @@ import type { GetReturnsFromOrder } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getReturnsFromOrder: GetReturnsFromOrder = (orderId, query, config) =>
+export const getReturnsFromOrder: GetReturnsFromOrder = (
+  orderId,
+  query,
+  config,
+) =>
   client
     .get(join('/account/v1/orders', orderId, 'returns', { query }), config)
     .then(response => response?.data)
     .catch(error => {
       throw adaptError(error);
     });
-
-export default getReturnsFromOrder;
