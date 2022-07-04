@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.42](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.41...@farfetch/blackout-analytics@1.0.0-next.42) (2022-07-04)
+
+
+### Bug Fixes
+
+* **blackout-client:** fix typescript errors ([4020e29](https://github.com/Farfetch/blackout/commit/4020e29450b7a5402ab516331bb5856e31e70b10))
+
+
+
+
+
 # [1.0.0-next.41](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.40...@farfetch/blackout-analytics@1.0.0-next.41) (2022-07-01)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
