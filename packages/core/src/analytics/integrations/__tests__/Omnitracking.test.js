@@ -206,6 +206,24 @@ describe('Omnitracking', () => {
       });
     });
 
+    describe('currency', () => {
+      it('Should send the correct viewCurrency when a currency is passed', async () => {
+        const data = generateMockData();
+        // force a currencyCode context value
+        data.context.currencyCode = 'USD';
+
+        await omnitracking.track(data);
+
+        expect(postTrackingsSpy).toHaveBeenCalledWith(
+          expect.objectContaining({
+            parameters: expect.objectContaining({
+              viewCurrency: 'USD',
+            }),
+          }),
+        );
+      });
+    });
+
     it('Should return the formatted object for the `GenericPageVisited` event', async () => {
       const data = generateMockData();
 
