@@ -139,6 +139,7 @@ class Omnitracking extends Integration {
     const isPageOrScreenEvent =
       type === analyticsTrackTypes.PAGE || type === analyticsTrackTypes.SCREEN;
     const precalculatedParameters = {};
+    const { culture, currencyCode } = data.context;
 
     // First we check if we need to change the values
     // of the uniqueViewId and previousUniqueViewId
@@ -178,7 +179,6 @@ class Omnitracking extends Integration {
         userTraits.hasOwnProperty('isGuest') && !userTraits.isGuest;
       precalculatedParameters.basketId = userTraits.bagId;
 
-      const { culture } = data.context;
       let clientLanguage = '';
       let clientCountry = '';
 
@@ -191,6 +191,7 @@ class Omnitracking extends Integration {
     }
 
     precalculatedParameters.uniqueViewId = this.currentUniqueViewId;
+    precalculatedParameters.viewCurrency = currencyCode;
 
     return precalculatedParameters;
   }
