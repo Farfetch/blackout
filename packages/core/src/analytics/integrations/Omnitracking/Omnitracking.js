@@ -14,6 +14,12 @@
  */
 
 import {
+  defaultPageViewTypeAndSubTypeMapper,
+  trackEventsMapper,
+  userGenderValuesMapper,
+  viewGenderValuesMapper,
+} from './definitions';
+import {
   formatPageEvent,
   formatTrackEvent,
   getCLientCountryFromCulture,
@@ -27,7 +33,6 @@ import {
   OPTION_TRANSFORM_PAYLOAD,
 } from './constants';
 import { postTrackings } from './client';
-import { trackEventsMapper, userGenderValuesMapper } from './definitions';
 import analyticsTrackTypes from '../../types/trackTypes';
 import get from 'lodash/get';
 import Integration from '../Integration';
@@ -175,6 +180,24 @@ class Omnitracking extends Integration {
         userGenderValuesMapper.NotDefined,
       );
 
+      precalculatedParameters.viewGender = get(
+        viewGenderValuesMapper,
+        data?.properties?.gender,
+        viewGenderValuesMapper.Undefined,
+      );
+
+      precalculatedParameters.searchResultCount = get(
+        data.properties,
+        'itemCount',
+      );
+
+      const defaultViewTypeMapper = defaultPageViewTypeAndSubTypeMapper[event];
+
+      if (defaultViewTypeMapper) {
+        precalculatedParameters.viewType = defaultViewTypeMapper.viewType;
+        precalculatedParameters.viewSubType = defaultViewTypeMapper.viewSubType;
+      }
+
       precalculatedParameters.isLogged =
         userTraits.hasOwnProperty('isGuest') && !userTraits.isGuest;
       precalculatedParameters.basketId = userTraits.bagId;
@@ -210,7 +233,6 @@ class Omnitracking extends Integration {
       case analyticsTrackTypes.PAGE:
       case analyticsTrackTypes.SCREEN: {
         // Screen is treated the same as a page in Omnitracking
-
         precalculatedParameters = this.getPrecalculatedParametersForEvent(data);
 
         return await this.postTracking(
