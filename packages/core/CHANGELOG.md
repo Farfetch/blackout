@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.62.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.61.0...@farfetch/blackout-core@1.62.0) (2022-07-05)
+
+
+### Features
+
+* **core:** add currency to omnitracking's pre-calculated parameters ([406c0b3](https://github.com/Farfetch/blackout/commit/406c0b38e58593cece521b8e98aed41c793049b1))
+* **redux:** map requestSourceCountryCode key to locale reducer and create getCountryCultures method ([b5ea80c](https://github.com/Farfetch/blackout/commit/b5ea80c4b4fb354dd13120246fc626eaab6afe87))
+
+
+
+
+
 # [1.61.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.60.0...@farfetch/blackout-core@1.61.0) (2022-06-28)
 
 
