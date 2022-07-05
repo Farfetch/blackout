@@ -479,6 +479,13 @@ export const trackEventsMapper = {
   },
 };
 
+export const defaultPageViewTypeAndSubTypeMapper = {
+  [pageTypes.PRODUCT_LISTING]: {
+    viewType: 'Listing',
+    viewSubType: 'Listing',
+  },
+};
+
 export const userGenderValuesMapper = {
   0: 'NotDefined',
   1: 'Male',
@@ -487,4 +494,11 @@ export const userGenderValuesMapper = {
   NotDefined: 'NotDefined',
   Male: 'Male',
   Female: 'Female',
+};
+
+export const viewGenderValuesMapper = {
+  Kids: 'Kids',
+  Men: 'Men',
+  Women: 'Women',
+  Undefined: 'Undefined',
 };

@@ -7,6 +7,13 @@ import pageTypes from '../types/pageTypes';
 import platformTypes from '../types/platformTypes';
 import trackTypes from '../types/trackTypes';
 
+const expectedCommonPageParameters = {
+  ...expectedCommonParameters,
+  uuid: 213123, // uuid is in expectedCommonParameters but as it is defined in the pageMockData.properties, it will override the default value
+  searchResultCount: 1,
+  viewGender: 'Women',
+};
+
 const pageMockData = {
   type: trackTypes.PAGE,
   properties: {
@@ -14,6 +21,8 @@ const pageMockData = {
     cenas: 123123,
     uuid: 213123,
     didYouMean: 1123123,
+    itemCount: 1,
+    gender: 'Women',
   },
   event: pageTypes.HOMEPAGE,
   user: {
@@ -133,8 +142,7 @@ export const expectedPagePayloadWeb = {
 
   parameters: {
     storeId: 123123,
-    ...expectedCommonParameters,
-    uuid: 213123, // uuid is in expectedCommonParameters but as it is defined in the pageMockData.properties, it will override the default value
+    ...expectedCommonPageParameters,
     ...getPageMockParametersForPlatform(platformTypes.Web),
   },
 };
@@ -148,8 +156,7 @@ export const expectedPagePayloadMobile = {
 
   parameters: {
     storeId: 123123,
-    ...expectedCommonParameters,
-    uuid: 213123, // uuid is in expectedCommonParameters but as it is defined in the pageMockData.properties, it will override the default value
+    ...expectedCommonPageParameters,
     ...getPageMockParametersForPlatform(platformTypes.Mobile),
   },
 };
@@ -163,8 +170,7 @@ export const expectedPagePayloadUnknown = {
 
   parameters: {
     storeId: 123123,
-    ...expectedCommonParameters,
-    uuid: 213123, // uuid is in expectedCommonParameters but as it is defined in the pageMockData.properties, it will override the default value
+    ...expectedCommonPageParameters,
     ...getPageMockParametersForPlatform('Dummy'),
   },
 };
