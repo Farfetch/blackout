@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchContentPages() action creator should create the correct actions for when the get content pages procedure is successful: Get content pages payload 1`] = `
+Object {
+  "meta": Object {
+    "query": Object {
+      "slug": "woman/gucci",
+      "strategy": undefined,
+    },
+  },
+  "payload": Object {
+    "entities": Object {
+      "contents": Object {
+        "dc9c0c95-9485-45c2-a76c-6923bb39b544": Object {
+          "code": "LISTING_gender_0/brand_5030844/category_136643",
+          "components": Array [
+            Object {
+              "customType": "article",
+              "displayOptions": Object {},
+              "fields": Object {
+                "content": Object {
+                  "content": "<p>What was once a keepsake from an island getaway has now become a permanent fixture in your jewellery collection thanks to Gigi Clozeau. Browsing her collection of anklets will keep you in the holiday mood all year round, so much so, you&#39;ll want one in every colour for every destination. Crafted from 18K gold, these delicate chains are perfectly accented with the addition of her signature resin beads in a mix of tropical colours. Browse Gigi Clozeau body jewellery below to be <em>vacay</em> ready at all times.</p>",
+                  "displayOptions": Object {},
+                  "name": "Listing Page Description 1",
+                  "type": "html",
+                },
+                "title": Object {
+                  "displayOptions": Object {},
+                  "name": "test",
+                  "type": "text",
+                  "value": "Commerce Page",
+                },
+              },
+              "name": "article",
+              "type": "custom",
+            },
+          ],
+          "contentTypeCode": "content_pages",
+          "environmentCode": "live",
+          "metadata": Object {
+            "custom": Object {
+              "brand": "5030844",
+              "category": "136643",
+              "eventDate": "0001-01-01T00:00:00Z",
+              "gender": "0",
+              "id": "",
+              "none": "",
+              "priceType": "0",
+              "sku": "",
+              "slug": "",
+              "type": "LISTING",
+            },
+          },
+          "publicationDate": "2021-08-20T15:40:39.0000132Z",
+          "publicationId": "dc9c0c95-9485-45c2-a76c-6923bb39b544",
+          "spaceCode": "website",
+          "target": Object {
+            "contentzone": "10674",
+          },
+          "versionId": "78f1922d-0ef1-46ed-b02c-ca541d0a0d80",
+        },
+      },
+    },
+    "hash": "content_pages!woman/gucci",
+    "result": Object {
+      "entries": Array [
+        "dc9c0c95-9485-45c2-a76c-6923bb39b544",
+      ],
+      "hash": "content_pages!woman/gucci",
+      "number": 1,
+      "totalItems": 1,
+      "totalPages": 1,
+    },
+  },
+  "type": "@farfetch/blackout-redux/FETCH_CONTENT_PAGES_SUCCESS",
+}
+`;

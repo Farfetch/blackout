@@ -1,3 +1,5 @@
+import { name as PCKG_NAME, version as PCKG_VERSION } from '../../package.json';
+import { warnDeprecatedMethod } from '../helpers';
 import client, { adaptError } from '../helpers/client';
 import join from 'proper-url-join';
 import type { CommercePagesContent, QueryCommercePages } from './types';
@@ -15,12 +17,19 @@ import type { Config } from '../types';
 const getCommercePages = (
   query: QueryCommercePages,
   config?: Config,
-): Promise<CommercePagesContent> =>
-  client
+): Promise<CommercePagesContent> => {
+  warnDeprecatedMethod(
+    `${PCKG_NAME}@${PCKG_VERSION}`,
+    '@farfetch/blackout-core/contents/client/getCommercePages',
+    '@farfetch/blackout-core/contents/client/getContentPages',
+  );
+
+  return client
     .get(join('content/v1/commercepages', { query }), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+};
 
 export default getCommercePages;

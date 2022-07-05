@@ -3,7 +3,9 @@ import type { Action } from 'redux';
 import type { BlackoutError } from '@farfetch/blackout-client/types';
 import type {
   CommercePagesContent,
+  ContentPagesContent,
   ContentTypesEntries,
+  QueryContentPages,
   QueryContents,
   QuerySEO,
 } from '@farfetch/blackout-client/contents/types';
@@ -58,6 +60,30 @@ export interface ActionFetchCommercePagesFailure extends Action {
   };
 }
 
+export interface ActionFetchContentPagesRequest extends Action {
+  type: typeof actionTypes.FETCH_CONTENT_PAGES_REQUEST;
+  meta: { query: QueryContentPages };
+  payload: { hash: Hash };
+}
+
+export interface ActionFetchContentPagesSuccess extends Action {
+  type: typeof actionTypes.FETCH_CONTENT_PAGES_SUCCESS;
+  meta: { query: QueryContentPages };
+  payload: {
+    result: SearchResultsReducer['result'];
+    hash: Hash;
+  };
+}
+
+export interface ActionFetchContentPagesFailure extends Action {
+  type: typeof actionTypes.FETCH_CONTENT_PAGES_FAILURE;
+  meta: { query: QueryContentPages };
+  payload: {
+    error: Error;
+    hash: Hash;
+  };
+}
+
 export interface ActionFetchSEORequest extends Action {
   meta: { query: QuerySEO };
   payload: { pathname: Pathname };
@@ -104,6 +130,10 @@ export type ActionFetchCommercePages =
   | ActionFetchCommercePagesRequest
   | ActionFetchCommercePagesSuccess
   | ActionFetchCommercePagesFailure;
+export type ActionFetchContentPages =
+  | ActionFetchContentPagesRequest
+  | ActionFetchContentPagesSuccess
+  | ActionFetchContentPagesFailure;
 export type ActionFetchSEO =
   | ActionFetchSEORequest
   | ActionFetchSEOSuccess
@@ -118,4 +148,11 @@ export type CommercePagesContentNormalized = {
   totalPages: number;
   totalItems: number;
   entries: CommercePagesContent;
+};
+
+export type ContentPagesContentNormalized = {
+  number: number;
+  totalPages: number;
+  totalItems: number;
+  entries: ContentPagesContent;
 };
