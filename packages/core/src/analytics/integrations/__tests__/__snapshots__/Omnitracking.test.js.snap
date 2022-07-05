@@ -674,6 +674,13 @@ Object {
 }
 `;
 
+exports[`Omnitracking definitions \`product-listing\` return should match the snapshot 1`] = `
+Object {
+  "viewSubType": "Listing",
+  "viewType": "Listing",
+}
+`;
+
 exports[`Omnitracking definitions \`trackDefinitions\` should match snapshot 1`] = `
 Array [
   "advertiserId",

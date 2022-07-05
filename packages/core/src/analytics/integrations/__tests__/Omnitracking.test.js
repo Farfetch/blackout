@@ -19,6 +19,7 @@ import mockedPageData, {
 import mockedTrackData, {
   expectedTrackPayload,
 } from '../../__fixtures__/trackData.fixtures';
+import pageTypes from '../../types/pageTypes';
 import platformTypes from '../../types/platformTypes';
 import uuid from 'uuid';
 
@@ -683,6 +684,23 @@ describe('Omnitracking', () => {
         );
       },
     );
+
+    it.each(Object.keys(definitions.defaultPageViewTypeAndSubTypeMapper))(
+      '`%s` return should match the snapshot',
+      eventMapperKey => {
+        expect(
+          definitions.defaultPageViewTypeAndSubTypeMapper[eventMapperKey],
+        ).toMatchSnapshot();
+        expect(
+          definitions.defaultPageViewTypeAndSubTypeMapper[eventMapperKey],
+        ).toEqual(
+          expect.objectContaining({
+            viewType: expect.any(String),
+            viewSubType: expect.any(String),
+          }),
+        );
+      },
+    );
   });
 
   describe('options', () => {
@@ -904,6 +922,24 @@ describe('Omnitracking', () => {
           parameters: expect.objectContaining({
             previousUniqueViewId: null,
             uniqueViewId: mockUniqueViewId,
+          }),
+        }),
+      );
+    });
+
+    it('Should map the default page view type and subtype', async () => {
+      omnitracking = new Omnitracking();
+      const pageEventData = generateMockData({
+        event: pageTypes.PRODUCT_LISTING,
+      });
+
+      await omnitracking.track(pageEventData);
+
+      expect(postTrackingsSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          parameters: expect.objectContaining({
+            viewType: 'Listing',
+            viewSubType: 'Listing',
           }),
         }),
       );
