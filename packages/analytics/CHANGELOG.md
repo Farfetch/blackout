@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.44](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.43...@farfetch/blackout-analytics@1.0.0-next.44) (2022-07-06)
+
+
+### Features
+
+* export `helpers` and `authentication` modules in client's root index file ([0efea8b](https://github.com/Farfetch/blackout/commit/0efea8bb6217886f9f3af3dea680d1bafa1e490a))
+
+
+### BREAKING CHANGES
+
+* - Imports from the `helpers` and `authentication`
+folders of the `@farfetch/blackout-core` package
+must now be changed to import from the `@farfetch/blackout-client` package:
+
+ ```js
+// Previously
+import client, { configApiBlackAndWhite, headers }
+from '@farfetch/blackout-core/helpers';
+import { postGuestTokens, postRegister, postTokens }
+from '@farfetch/blackout-core/authentication';
+
+// Now
+import { client, configApiBlackAndWhite, headers,
+postGuestTokens, postRegister, postTokens } from '@farfetch/blackout-client';
+```
+
+- `parsePickupDate` module was removed.
+
+- `AxiosAuthenticationTokenManager` was renamed to
+`AuthenticationTokenManager` besides having to be imported from the root
+of the `@farfetch/blackout-client` package:
+
+```js
+
+// Previously
+import { AxiosAuthenticationTokenManager } from
+'@farfetch/blackout-core/helpers/client/interceptors/authentication';
+
+// Now
+import { AuthenticationTokenManager } from '@farfetch/blackout-client';
+```
+
+
+
+
+
 # [1.0.0-next.43](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.42...@farfetch/blackout-analytics@1.0.0-next.43) (2022-07-06)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
