@@ -111,6 +111,16 @@ export const GET_TRANSACTION_REQUEST =
 export const GET_TRANSACTION_SUCCESS =
   '@farfetch/blackout-core/GET_TRANSACTION_SUCCESS';
 
+/** Action type dispatched when the post apple pay session request fails. */
+export const POST_APPLE_PAY_SESSION_FAILURE =
+  '@farfetch/blackout-core/POST_APPLE_PAY_SESSION_FAILURE';
+/** Action type dispatched when the post apple pay session request starts. */
+export const POST_APPLE_PAY_SESSION_REQUEST =
+  '@farfetch/blackout-core/POST_APPLE_PAY_SESSION_REQUEST';
+/** Action type dispatched when the post apple pay session request succeeds. */
+export const POST_APPLE_PAY_SESSION_SUCCESS =
+  '@farfetch/blackout-core/POST_APPLE_PAY_SESSION_SUCCESS';
+
 /** Action type dispatched when the post charges request fails. */
 export const POST_CHARGES_FAILURE =
   '@farfetch/blackout-core/POST_CHARGES_FAILURE';

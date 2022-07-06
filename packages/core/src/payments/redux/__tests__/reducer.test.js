@@ -409,6 +409,7 @@ describe('payments reducer', () => {
         creditBalance: { ...subAreaCurrentState },
         intent: { ...subAreaCurrentState },
         charges: { ...subAreaCurrentState },
+        applePaySession: { ...subAreaCurrentState },
       };
 
       const subAreaNames = [
@@ -418,6 +419,7 @@ describe('payments reducer', () => {
         'CreditBalance',
         'Intent',
         'Charges',
+        'ApplePaySession',
       ];
 
       reducerAssertions.assertSubAreasReducer(

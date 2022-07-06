@@ -20,6 +20,7 @@ export { default as putInstruments } from './putInstruments';
 export { default as getTransaction } from './getTransaction';
 export { default as postTransaction } from './postTransaction';
 export { default as getIntent } from './getIntent';
+export { default as postApplePaySession } from './postApplePaySession';
 export { default as postCharges } from './postCharges';
 export { default as getCharges } from './getCharges';
 export { default as postCheckCreditBalance } from './postCheckCreditBalance';
