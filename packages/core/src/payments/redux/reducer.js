@@ -53,6 +53,11 @@ const INITIAL_STATE = {
     isLoading: false,
     result: null,
   },
+  applePaySession: {
+    error: null,
+    isLoading: false,
+    result: null,
+  },
 };
 
 export const tokens = (state = INITIAL_STATE.tokens, action = {}) => {
@@ -255,6 +260,12 @@ export const charges = (state = INITIAL_STATE.charges, action = {}) => {
   }
 };
 
+export const applePaySession = createReducerWithResult(
+  'POST_APPLE_PAY_SESSION',
+  INITIAL_STATE.applePaySession,
+  actionTypes,
+);
+
 export const getTokens = state => state.tokens;
 export const getOrderPayments = state => state.orderPayments;
 export const getTransaction = state => state.transaction;
@@ -264,6 +275,7 @@ export const getCreditBalance = state => state.creditBalance;
 export const getIntent = state => state.intent;
 export const getCharges = state => state.charges;
 export const getPaymentMethods = state => state.paymentMethods;
+export const getApplePaySession = state => state.applePaySession;
 
 /**
  * Reducer for payments state.
@@ -286,4 +298,5 @@ export default combineReducers({
   intent,
   charges,
   paymentMethods,
+  applePaySession,
 });
