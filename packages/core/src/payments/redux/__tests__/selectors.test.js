@@ -53,6 +53,11 @@ describe('Payments redux selectors', () => {
         isLoading: false,
         result: null,
       },
+      applePaySession: {
+        error: null,
+        isLoading: false,
+        result: null,
+      },
     },
     entities: {
       ...expectedPaymentTokensNormalizedPayload.entities,
@@ -154,6 +159,7 @@ describe('Payments redux selectors', () => {
       'CreditBalance',
       'Intent',
       'Charges',
+      'ApplePaySession',
     ];
 
     describe('sub-areas loading selectors', () => {
@@ -182,6 +188,7 @@ describe('Payments redux selectors', () => {
           'CreditBalance',
           'Intent',
           'Charges',
+          'ApplePaySession',
         ],
         mockState,
         'payments',

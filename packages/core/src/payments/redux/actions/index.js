@@ -18,6 +18,7 @@ export { default as doGetPaymentMethodsByCountryAndCurrency } from './doGetPayme
 export { default as doGetPaymentMethodsByIntent } from './doGetPaymentMethodsByIntent';
 export { default as doGetTransaction } from './doGetTransaction';
 export { default as doPayTransaction } from './doPayTransaction';
+export { default as doPostApplePaySession } from './doPostApplePaySession';
 export { default as doPostCharges } from './doPostCharges';
 export { default as doPostCreditBalance } from './doPostCreditBalance';
 export { default as doPostGiftCardBalance } from './doPostGiftCardBalance';

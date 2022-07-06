@@ -5,6 +5,7 @@
  */
 
 import {
+  getApplePaySession,
   getCharges,
   getCreditBalance,
   getGiftCardBalance,
@@ -382,3 +383,39 @@ export const getPaymentMethodsError = state =>
  */
 export const getPaymentMethodsResult = state =>
   getPaymentMethods(state.payments).result;
+
+/**
+ * Returns the loading status for the apple pay session operation.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {boolean} Apple pay session Loading status.
+ */
+export const isApplePaySessionLoading = state =>
+  getApplePaySession(state.payments).isLoading;
+
+/**
+ * Returns the error for the apple pay session operation.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {object} Apple pay session operation error.
+ */
+export const getApplePaySessionError = state =>
+  getApplePaySession(state.payments).error;
+
+/**
+ * Returns the result of apple pay session operation.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {object} Apple pay session operation result.
+ */
+export const getApplePaySessionResult = state =>
+  getApplePaySession(state.payments).result;
