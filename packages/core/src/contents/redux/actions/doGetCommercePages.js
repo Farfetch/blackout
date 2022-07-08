@@ -29,6 +29,36 @@ let Gender = GENDER;
 let PriceType = PRICETYPE;
 
 /**
+ * Load all pages for a commerce pages with specific query object received.
+ *
+ * @function fetchCommercePagesByPage
+ * @memberof module:contents/actions
+ *
+ * @param {GetCommercePagesQuery} query - Get commerce pages client.
+ * @param {object} [config] - Custom configurations to send to the client
+ * instance (axios).
+ * @param {Function} getCommercePages - Get commerce pages client.
+ *
+ * @returns {object} All commerce pages inside a content object.
+ */
+const fetchCommercePagesByPage = async (query, config, getCommercePages) => {
+  try {
+    let pageIndex = 1;
+    const responseCommercePages = await getCommercePages(query, config);
+
+    while (pageIndex < responseCommercePages.totalPages) {
+      let queryNewPage = { ...query, PageIndex: (pageIndex += 1) };
+      const result = await getCommercePages(queryNewPage, config);
+      responseCommercePages.entries.concat(result.entries);
+    }
+
+    return responseCommercePages;
+  } catch (error) {
+    throw error;
+  }
+};
+
+/**
  * @typedef {object} GetCommercePagesQuery
  * @property {Type}      type - Query by a page type (E.g. Product, Listing, Set).
  * @property {number}    [id] - Query by a specified product or set identifier.
@@ -86,8 +116,12 @@ export default getCommercePages =>
     });
 
     try {
-      const result = await getCommercePages(query, config);
-      const rankedResult = getRankedCommercePage({ entries: result }, strategy);
+      const result = await fetchCommercePagesByPage(
+        query,
+        config,
+        getCommercePages,
+      );
+      const rankedResult = getRankedCommercePage(result, strategy);
 
       dispatch({
         meta: { query },
