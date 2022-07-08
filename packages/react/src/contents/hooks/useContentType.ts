@@ -23,7 +23,7 @@ import type { StoreState } from '@farfetch/blackout-redux/types';
  * @returns - Returns actions and selectors for custom content type data.
  */
 const useContentType = (
-  codes: string | string[],
+  codes: string | string[] | null,
   contentTypeCode: string,
   params?: Params,
   pageSize?: number,
@@ -41,6 +41,7 @@ const useContentType = (
       benefits: params?.benefits,
       contentzone: params?.contentzone,
       preview: params?.preview,
+      channel: params?.channel,
     },
     pageSize,
   };

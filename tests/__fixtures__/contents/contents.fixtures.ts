@@ -457,27 +457,266 @@ export const mockLegacyData = {
   ],
 };
 
-export const mockContentToolData = {
-  components: [
-    {
+export const contentListData = {
+  type: 'custom',
+  fields: {
+    pageSize: {
+      type: 'number',
+      value: 10,
+      name: 'PageSize',
+      displayOptions: {},
+    },
+    orderOption: {
+      type: 'text',
+      value: 'EventDate',
+      name: 'OrderOption',
+      displayOptions: {},
+    },
+    contentToInclude: {
+      type: 'text',
+      value: '',
+      name: 'ContentToInclude',
+      displayOptions: {},
+    },
+    allowedContentTypes: {
+      type: 'list',
+      components: [],
+      name: 'AllowedContentTypes',
+      displayOptions: {},
+    },
+    contentTypes: {
       type: 'list',
       components: [
         {
-          type: 'list',
-          components: [
-            {
-              type: 'text',
-              value: 'test',
-              name: 'Text',
+          type: 'custom',
+          fields: {
+            id: {
+              type: 'number',
+              value: 0,
+              name: 'Id',
               displayOptions: {},
             },
-          ],
-          name: 'subsection',
+            key: {
+              type: 'text',
+              value: 'qa-test',
+              name: 'Key',
+              displayOptions: {},
+            },
+            attributes: {
+              type: 'list',
+              components: [
+                {
+                  type: 'custom',
+                  fields: {
+                    key: {
+                      type: 'text',
+                      value: 'qa-text',
+                      name: 'Key',
+                      displayOptions: {},
+                    },
+                    values: {
+                      type: 'text',
+                      value: '',
+                      name: 'Values',
+                      displayOptions: {},
+                    },
+                  },
+                  name: 'GenericContentAttribute',
+                  displayOptions: {},
+                },
+                {
+                  type: 'custom',
+                  fields: {
+                    key: {
+                      type: 'text',
+                      value: 'text1',
+                      name: 'Key',
+                      displayOptions: {},
+                    },
+                    values: {
+                      type: 'text',
+                      name: 'Values',
+                      displayOptions: {},
+                    },
+                  },
+                  name: 'GenericContentAttribute',
+                  displayOptions: {},
+                },
+              ],
+              name: 'Attributes',
+              displayOptions: {},
+            },
+          },
           displayOptions: {},
         },
       ],
-      name: 'section',
+      name: 'ContentTypes',
       displayOptions: {},
     },
-  ],
+  },
+  customType: 'ContentListComponent',
+  name: 'ContentList',
+  displayOptions: {},
 };
+
+export const customContentType = [
+  {
+    publicationId: '16528ff2-035d-4cee-a1af-1c5f38a09f27',
+    versionId: '8b472273-0c2b-4c1c-b7dc-feb77e2130b7',
+    spaceCode: 'dev_web',
+    contentTypeCode: 'qa-test',
+    environmentCode: 'live',
+    code: 'content',
+    target: {
+      channel: 'Web',
+      language: 'en-GB',
+    },
+    publicationDate: '2022-05-20T10:02:43.7867276Z',
+    components: [
+      {
+        type: 'list',
+        components: [
+          {
+            type: 'list',
+            components: [
+              {
+                type: 'text',
+                value: 'This is Content type',
+                name: 'Text',
+                displayOptions: {},
+              },
+            ],
+            name: 'subsection',
+            displayOptions: {
+              displayId: '1d96fb81-e38a-4169-909d-08c3c907a96c',
+              displayName: 'Subsection 1',
+            },
+          },
+        ],
+        name: 'section',
+        displayOptions: {
+          displayId: 'b53394f7-f29c-49e3-bee9-f12a2e632f44',
+          displayName: 'Section 1',
+        },
+      },
+    ],
+  },
+];
+
+export const customContentTypeWithMultipleCodes = [
+  ...customContentType,
+  {
+    publicationId: 'eced3dc3-6997-4353-8fa3-244aadfd59fd',
+    versionId: '1ccca0c2-d2d1-4b07-b883-61d9519028b5',
+    spaceCode: 'dev_web',
+    contentTypeCode: 'qa-test',
+    environmentCode: 'live',
+    code: 'new-content',
+    target: {
+      channel: 'Web',
+      language: 'en-GB',
+    },
+    publicationDate: '2022-05-20T10:02:06.5036269Z',
+    components: [
+      {
+        type: 'list',
+        components: [
+          {
+            type: 'list',
+            components: [
+              {
+                type: 'bool',
+                value: false,
+                name: 'Boolean',
+                displayOptions: {},
+              },
+              {
+                type: 'color',
+                hex: '#7b4343',
+                name: 'Color',
+                displayOptions: {},
+              },
+              {
+                type: 'custom',
+                fields: {
+                  image: {
+                    type: 'image',
+                    alt: '',
+                    name: 'Image',
+                    displayOptions: {
+                      transformationIds: '{}',
+                      originalIds: '{}',
+                    },
+                  },
+                  cta: {
+                    type: 'link',
+                    url: '/null/',
+                    text: '',
+                    target: '',
+                    name: 'CallToAction',
+                    displayOptions: {},
+                  },
+                },
+                customType: 'MediaComponent',
+                name: 'Media',
+                displayOptions: {
+                  uuid: '6be88169-5c88-44ca-96d8-5a2e94c993ed',
+                  matchId: '6be88169-5c88-44ca-96d8-5a2e94c993ed',
+                  displayName: 'Media',
+                  moduleId: '8ffe31e2-9b13-4c71-b63a-e645d18e0d38',
+                  moduleVersionId: 'e47192da-584d-419c-a2a8-b04d42eadaff',
+                  moduleVersionName: '1',
+                  fileIds: '{}',
+                  fileNames: '{}',
+                  isSimpleMedia: 'false',
+                  mediaType: 'image',
+                },
+              },
+              {
+                type: 'number',
+                value: 0.0,
+                name: 'Number',
+                displayOptions: {},
+              },
+              {
+                type: 'text',
+                value: '',
+                name: 'Text',
+                displayOptions: {},
+              },
+            ],
+            name: 'subsection',
+            displayOptions: {
+              displayId: 'fbcc80fe-dda2-4bf8-ab76-a46d755eee8e',
+              displayName: 'Subsection 1',
+            },
+          },
+        ],
+        name: 'section',
+        displayOptions: {
+          displayId: '1342dcfd-e410-4404-a8e0-185d1acb7169',
+          displayName: 'Section 1',
+        },
+      },
+    ],
+  },
+];
+
+export const customContentTypeWithEventDate = [
+  {
+    ...customContentTypeWithMultipleCodes[0],
+    metadata: {
+      custom: {
+        eventDate: customContentTypeWithMultipleCodes?.[0]?.publicationDate,
+      },
+    },
+  },
+  {
+    ...customContentTypeWithMultipleCodes[1],
+    metadata: {
+      custom: {
+        eventDate: customContentTypeWithMultipleCodes?.[1]?.publicationDate,
+      },
+    },
+  },
+];

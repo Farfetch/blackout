@@ -19,9 +19,11 @@
     "@castleio/castle-js": "^2.1.13",
     "@farfetch/blackout-analytics": "^1.0.0-next.45",
     "crypto-js": "3.1.9-1",
+    "dompurify": "^2.3.8",
     "prop-types": "^15.7.2",
     "proper-url-join": "^2.1.1",
     "react-iframe": "^1.8.0",
+    "react-player": "^2.10.1",
     "url-parse": "^1.4.4",
     "yup": "^0.32.11"
   },

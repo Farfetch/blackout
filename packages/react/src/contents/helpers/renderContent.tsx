@@ -1,39 +1,39 @@
 import { Component } from '../components';
 import map from 'lodash/map';
 import React, { ReactElement } from 'react';
-import type {
-  ComponentType,
-  ContentEntries,
-} from '@farfetch/blackout-client/contents/types';
-
-const IS_CONTENT_TOOL = {
-  active: 'active',
-  inactive: 'inactive',
-};
+import type { ContentEntries } from '@farfetch/blackout-client/contents/types';
+import type { DefaultMedia } from '../types';
 
 /**
  * Render an Editorial Content. Renders Editorial Content by going through all it's
  * components and rendering them using the Editorial Component.
  *
- * @param data            - Data to render.
- * @param data.components - Collection of components to render.
- * @param isContentTool   - Site key to identify if Content Tool is active or not.
+ * @param data - Data to render.
+ * @param location - Router location object.
+ * @param viewportBreakpoint - Screen size (Xs | Sm | Md | Lg) .
+ * @param media - Media breakpoint sizes (xs: '400px', md...);
  *
  * @returns Rendered components.
  */
 const renderContent = (
   { components }: { components: ContentEntries['components'] },
-  isContentTool = IS_CONTENT_TOOL.inactive,
-): ReactElement =>
-  map(components, (component: ComponentType, key: number) => {
-    if (isContentTool === IS_CONTENT_TOOL.active && component.type === 'list') {
-      return renderContent(
-        component as { components: ComponentType[] },
-        IS_CONTENT_TOOL.active,
-      );
-    }
-
-    return <Component component={component} key={key} />;
-  }) as unknown as ReactElement;
+  location: {
+    query?: Record<string, string>;
+  },
+  viewportBreakpoint: string,
+  media?: DefaultMedia,
+): ReactElement => (
+  <>
+    {map(components, (component, key) => (
+      <Component
+        component={component}
+        location={location}
+        viewportBreakpoint={viewportBreakpoint}
+        media={media}
+        key={key}
+      />
+    ))}
+  </>
+);
 
 export default renderContent;

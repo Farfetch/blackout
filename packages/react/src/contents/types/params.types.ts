@@ -14,6 +14,8 @@ export type Params = {
   environmentcode?: string;
   // Query a content by a specific target preview guid.
   preview?: string;
+  spacecode?: string;
+  channel?: string;
 };
 
 export type CommercePagesParams = {
