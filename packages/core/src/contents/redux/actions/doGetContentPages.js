@@ -34,7 +34,7 @@ export default getContentPages =>
   async dispatch => {
     const hash = buildContentGroupHash({
       contentTypeCode: 'content_pages',
-      codes: slug,
+      codes: slug.split('?')[0],
     });
 
     const query = {

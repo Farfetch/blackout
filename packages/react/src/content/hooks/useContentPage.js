@@ -35,7 +35,7 @@ export default (slug, contentType, strategy = 'default') => {
     }
 
     return {
-      codes: slug,
+      codes: slug.split('?')[0],
       contentTypeCode: 'content_pages',
     };
   }, [slug]);
@@ -51,7 +51,7 @@ export default (slug, contentType, strategy = 'default') => {
   }, [action, slug, contentType, strategy]);
 
   useEffect(() => {
-    !contentPage && fetchContent();
+    !contentPage && !isLoading && fetchContent();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contentPage, slug]);
 
