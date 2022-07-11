@@ -9,16 +9,21 @@ import {
   errorAxios,
   legacyApiErrorData,
 } from '../__fixtures__/errors.fixtures';
+import type {
+  DefaultErrorAdapterData,
+  LegacyErrorAdapterData,
+  ListErrorData,
+  MockAxiosRequest,
+  MockAxiosResponse,
+} from '../types';
 
 describe('formatError()', () => {
   beforeEach(jest.clearAllMocks);
 
   it('should format the error properly when the api returns the error (legacy)', () => {
     const result = adaptError(legacyApiErrorData);
-    const {
-      data: { errorMessage, errorCode },
-      status,
-    } = legacyApiErrorData.response;
+    const { data, status } = legacyApiErrorData.response as MockAxiosResponse;
+    const { errorMessage, errorCode } = data as LegacyErrorAdapterData;
 
     expect(result).toEqual(
       expect.objectContaining({
@@ -32,10 +37,8 @@ describe('formatError()', () => {
 
   it('should format the error properly when the api returns an OBJECT with the error ', () => {
     const result = adaptError(ApiErrorData);
-    const {
-      data: { message, code },
-      status,
-    } = ApiErrorData.response;
+    const { data, status } = ApiErrorData.response as MockAxiosResponse;
+    const { message, code } = data as DefaultErrorAdapterData;
 
     expect(result).toEqual(
       expect.objectContaining({
@@ -49,10 +52,12 @@ describe('formatError()', () => {
 
   it('should format the error properly when the api returns an OBJECT with the error but has no message', () => {
     const result = adaptError(ApiErrorDataNoMessage);
+    const { data } = ApiErrorData.response as MockAxiosResponse;
+    const { developerMessage } = data as DefaultErrorAdapterData;
 
     expect(result).toEqual(
       expect.objectContaining({
-        message: ApiErrorData.response.data.developerMessage,
+        message: developerMessage,
       }),
     );
   });
@@ -73,7 +78,7 @@ describe('formatError()', () => {
     expect(result).toEqual(
       expect.objectContaining({
         code: defaultError.code,
-        message: ApiErrorString.response.data,
+        message: ApiErrorString?.response?.data,
         status: 400,
       }),
     );
@@ -81,12 +86,13 @@ describe('formatError()', () => {
 
   it('should format the error properly when the api returns a LIST with errors', () => {
     const result = adaptError(APIListErrorData);
-    const { data, status } = APIListErrorData.response;
+    const { data, status } = APIListErrorData.response as MockAxiosResponse;
+    const { errors } = data as ListErrorData;
 
     expect(result).toEqual(
       expect.objectContaining({
-        code: data.errors[0].code,
-        message: data.errors[0].message,
+        code: errors[0]?.code,
+        message: errors[0]?.message,
         status,
       }),
     );
@@ -98,7 +104,7 @@ describe('formatError()', () => {
     const {
       response: { description },
       status,
-    } = ApiErrorNoResponse.request;
+    } = ApiErrorNoResponse.request as MockAxiosRequest;
 
     expect(result).toEqual(
       expect.objectContaining({
