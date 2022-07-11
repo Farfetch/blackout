@@ -64,4 +64,5 @@ export type CheckoutOrder = {
   hadUnavailableItems: boolean;
   isGuestUser: boolean;
   shippingMode: ShippingMode;
+  paymentIntentId?: string;
 };

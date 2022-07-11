@@ -80,6 +80,7 @@ Object {
           "billingAddress": Object {
             "addressLine1": "Rua da Lionesa 446, G12",
             "addressLine2": "Teste",
+            "addressLine3": "",
             "city": Object {
               "countryId": 0,
               "id": 0,
@@ -102,8 +103,8 @@ Object {
             "ddd": null,
             "firstName": "tester",
             "id": "c9ce5410-58d9-4298-a385-231a79373e4a",
-            "isCurrentBilling": true,
-            "isCurrentShipping": true,
+            "isDefaultBillingAddress": true,
+            "isDefaultShippingAddress": true,
             "lastName": "teste",
             "neighbourhood": null,
             "phone": "121525125",
@@ -113,7 +114,6 @@ Object {
               "id": 0,
               "name": null,
             },
-            "title": null,
             "userId": 0,
             "vatNumber": null,
             "zipCode": "4465-761",
@@ -131,6 +131,7 @@ Object {
           "shippingAddress": Object {
             "addressLine1": "Rua da Lionesa 446, G12",
             "addressLine2": "Teste",
+            "addressLine3": "",
             "city": Object {
               "countryId": 0,
               "id": 0,
@@ -153,8 +154,8 @@ Object {
             "ddd": null,
             "firstName": "tester",
             "id": "c9ce5410-58d9-4298-a385-231a79373e4a",
-            "isCurrentBilling": true,
-            "isCurrentShipping": true,
+            "isDefaultBillingAddress": true,
+            "isDefaultShippingAddress": true,
             "lastName": "teste",
             "neighbourhood": null,
             "phone": "121525125",
@@ -164,7 +165,6 @@ Object {
               "id": 0,
               "name": null,
             },
-            "title": null,
             "userId": 0,
             "vatNumber": null,
             "zipCode": "4465-761",

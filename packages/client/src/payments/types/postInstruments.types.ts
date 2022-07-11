@@ -14,11 +14,11 @@ export type PostInstrumentsData = {
   option: string;
   token: string;
   createToken: boolean;
-  payerAddressType: PayerAddressType;
+  payerAddressType?: PayerAddressType;
   payer: Payer;
   amounts: Amounts[];
-  data: CreditCardData;
-  shopperInteraction: ShopperInteraction;
+  data?: CreditCardData;
+  shopperInteraction?: ShopperInteraction;
 };
 
 export type PostInstruments = (

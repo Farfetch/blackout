@@ -15,7 +15,7 @@ import { mockStore, wrap } from '../../../../tests/helpers';
 import { mockUsersResponse } from 'tests/__fixtures__/users';
 import { Payments } from './__fixtures__/Payments.fixtures';
 import { Provider } from 'react-redux';
-import { usePayments } from '../../';
+import { usePayments } from '../..';
 import React from 'react';
 
 const order = mockResponse.checkoutOrder;
@@ -34,19 +34,18 @@ describe('usePayments', () => {
   afterEach(cleanup);
 
   it('should return values correctly', () => {
-    const wrapper = props => (
-      <Provider store={mockStore(mockInitialState)} {...props} />
-    );
     const {
       result: { current },
     } = renderHook(() => usePayments({ order, user }), {
-      wrapper,
+      wrapper: props => (
+        <Provider store={mockStore(mockInitialState)} {...props} />
+      ),
     });
 
     expect(typeof current.createInstrument).toBe('function');
     expect(typeof current.deleteInstrument).toBe('function');
     expect(typeof current.updateInstrument).toBe('function');
-    expect(current.isInstrumentsError).toBeNull();
+    expect(current.instrumentsError).toBeNull();
     expect(current.isInstrumentsLoading).toBeFalsy();
   });
 
@@ -146,6 +145,7 @@ describe('usePayments', () => {
     it('should call createInstrumentsAction without billing address', () => {
       const { getByTestId } = wrap(
         <Payments
+          // @ts-ignore undefined value is intended for testing purpuses
           order={{ ...order, billingAddress: undefined }}
           user={user}
         />,
@@ -161,6 +161,7 @@ describe('usePayments', () => {
     it('should call createInstrumentsAction without token id', () => {
       const { getByTestId } = wrap(
         <Payments
+          // @ts-ignore undefined value is intended for testing purpuses
           order={{ ...order, billingAddress: undefined }}
           user={user}
         />,
@@ -202,6 +203,7 @@ describe('usePayments', () => {
     it('should call updateInstrumentsAction without email and billing address', () => {
       const { getByTestId } = wrap(
         <Payments
+          // @ts-ignore undefined value is intended for testing purpuses
           order={{ ...order, billingAddress: undefined }}
           user={user}
         />,
