@@ -38,3 +38,4 @@ export * from './states.types';
 export * from './subscriptionPackage.types';
 export * from './wishlistItem.types';
 export * from './wishlistSet.types';
+export * from './user.types';

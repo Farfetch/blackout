@@ -8,7 +8,7 @@ export type FlatAddress = {
     countryId: number;
     id: number;
     name: string;
-    stateId: number;
+    stateId: number | null;
   };
   country: {
     alpha2Code: string;
@@ -18,24 +18,24 @@ export type FlatAddress = {
     name: string;
     nativeName: string;
     region: string;
-    subRegion: string;
+    subRegion: string | null;
     regionId: number;
     subfolder: string;
     continentId: number;
   };
-  ddd: string;
+  ddd: string | null;
   firstName: string;
   id: string;
   lastName: string;
-  neighbourhood: string;
+  neighbourhood: string | null;
   phone: string;
   state: {
-    code: string;
+    code: string | null;
     countryId: number;
     id: number;
-    name: string;
+    name: string | null;
   };
-  vatNumber: string;
+  vatNumber: string | null;
   zipCode: string;
   userId: number;
   isDefaultBillingAddress: boolean;

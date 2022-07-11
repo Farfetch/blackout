@@ -12,8 +12,8 @@ export type PutInstrumentsData = {
   createToken: boolean;
   payer: Payer;
   amounts: Amounts[];
-  shopperInteraction: ShopperInteraction;
-  payerAddressType: PayerAddressType;
+  shopperInteraction?: ShopperInteraction;
+  payerAddressType?: PayerAddressType;
 };
 
 export type PutInstruments = (

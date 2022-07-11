@@ -18,6 +18,8 @@ export type GetUserResponse = {
     id: string;
     value: string;
   };
+  firstName?: string;
+  lastName?: string;
 };
 
 export type GetUser = (config?: Config) => Promise<GetUserResponse>;
