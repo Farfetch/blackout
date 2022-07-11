@@ -1,9 +1,6 @@
 /**
  * Hook to provide all kinds of data for the business logic attached to payments.
  *
- * @module usePayments
- * @category Payments
- * @subcategory Hooks
  */
 import * as headers from '../../helpers/headers';
 import * as selectors from '@farfetch/blackout-redux/payments/selectors';
@@ -13,34 +10,28 @@ import {
   removeInstrument,
   updateInstruments,
 } from '@farfetch/blackout-redux/payments';
+import {
+  HandleCreateInstrumentProps,
+  HandleDeleteInstrumentProps,
+  HandleUpdateInstrumentProps,
+  INSTRUMENT_MAPPING,
+  UsePayments,
+} from './types';
 import { useAction } from '../../helpers';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-
-const INSTRUMENT_MAPPING = {
-  CreditCard: 'CreditCard', // Used to create instruments with tokens.
-  PayPalExp: 'PayPal',
-};
+import type { PostInstrumentsData } from '@farfetch/blackout-client/payments/types';
 
 /**
- * @typedef {object} Data
- * @property {string} [order] - Order to iterate over. Send nothing if you just need the actions.
- * @property {string} [user]  - User to iterate over. Send nothing if you just need the actions.
- */
-
-/**
- * @function usePayments
- * @memberof module:payments/hooks
+ * @param data - Object containing the necessary info to use inside the hook.
  *
- * @param {Data} data - Object containing the necessary info to use inside the hook.
- *
- * @returns {object} All the handlers, state, actions and relevant data needed to manage payments-related operations.
+ * @returns    All the handlers, state, actions and relevant data needed to manage payments-related operations.
  */
-export default ({ order, user }) => {
+const usePayments: UsePayments = ({ order, user }) => {
   // Selectors
   const instruments = useSelector(state => selectors.getInstruments(state));
   const isInstrumentsLoading = useSelector(selectors.isInstrumentsLoading);
-  const isInstrumentsError = useSelector(selectors.getInstrumentsError);
+  const instrumentsError = useSelector(selectors.getInstrumentsError);
   // Actions
   const createInstrument = useAction(createInstruments);
   const deleteInstrument = useAction(removeInstrument);
@@ -61,15 +52,10 @@ export default ({ order, user }) => {
   /**
    * Automatically creates an instrument.
    *
-   * @function handleCreateInstrument
-   * @param {object} [data]                   - Relevant data for the instrument.
-   * @param {string} [data.email=user.email]  - Email associated with the instrument.
-   * Defaults to the email of the user that instantiated the hook.
-   * @param {string} [data.option]            - Payment method.
-   * @param {string} [data.tokenId]           - Token id to use. Defaults to null.
-   * @param {...any} remainingArgs
+   * @param data - Relevant data for the instrument.
+   * @param remainingArgs
    */
-  const handleCreateInstrument = async (
+  const handleCreateInstrument: HandleCreateInstrumentProps = async (
     { email = user?.email, option, tokenId = null },
     ...remainingArgs
   ) => {
@@ -82,8 +68,9 @@ export default ({ order, user }) => {
     };
     const amounts = [{ value: order?.grandTotal }];
 
-    const data = {
-      method: INSTRUMENT_MAPPING[option] || option,
+    const data: Partial<PostInstrumentsData> = {
+      method:
+        INSTRUMENT_MAPPING[option as keyof typeof INSTRUMENT_MAPPING] || option,
       option,
       createToken: false,
       payer,
@@ -105,11 +92,13 @@ export default ({ order, user }) => {
   /**
    * Automatically deletes an instrument.
    *
-   * @function handleDeleteInstrument
-   * @param {string} [instrumentId]           - The id of the instrument to be removed.
-   * @param {...any} remainingArgs
+   * @param instrumentId      - The id of the instrument to be removed.
+   * @param remainingArgs
    */
-  const handleDeleteInstrument = async (instrumentId, ...remainingArgs) => {
+  const handleDeleteInstrument: HandleDeleteInstrumentProps = async (
+    instrumentId,
+    ...remainingArgs
+  ) => {
     await deleteInstrument(
       order.paymentIntentId,
       instrumentId,
@@ -121,15 +110,12 @@ export default ({ order, user }) => {
   /**
    * Automatically updates an instrument.
    *
-   * @function handleUpdateInstrument
-   * @param {string} [intentId]               - The id of the intent to be updated.
-   * @param {string} [instrumentId]           - The id of the instrument to be updated.
-   * @param {object} [data]                   - Relevant data for the instrument.
-   * @param {string} [data.email=user.email]  - Email associated with the instrument.
-   * Defaults to the email of the user that instantiated the hook.
-   * @param {...any} remainingArgs
+   * @param intentId             - The id of the intent to be updated.
+   * @param instrumentId         - The id of the instrument to be updated.
+   * @param data                 - Relevant data for the instrument.
+   * @param remainingArgs
    */
-  const handleUpdateInstrument = async (
+  const handleUpdateInstrument: HandleUpdateInstrumentProps = async (
     intentId,
     instrumentId,
     { email = user?.email },
@@ -151,7 +137,7 @@ export default ({ order, user }) => {
       amounts,
     };
 
-    await updateInstruments(
+    await updateInstrument(
       intentId,
       instrumentId,
       data,
@@ -166,31 +152,27 @@ export default ({ order, user }) => {
       [instruments],
     ),
     isInstrumentsLoading,
-    isInstrumentsError,
+    instrumentsError,
     createInstrument,
     deleteInstrument,
     getInstruments,
     updateInstrument,
     /**
-     * @type {Function}
-     * @variation Member
      *
-     * @see {@link module:usePayments~handleCreateInstrument|handleCreateInstrument} method
+     * @see {@link "handleCreateInstrument"} method
      */
     handleCreateInstrument,
     /**
-     * @type {Function}
-     * @variation Member
      *
-     * @see {@link module:usePayments~handleDeleteInstrument|handleDeleteInstrument} method
+     * @see {@link "handleDeleteInstrument"} method
      */
     handleDeleteInstrument,
     /**
-     * @type {Function}
-     * @variation Member
      *
-     * @see {@link module:usePayments~handleUpdateInstrument|handleUpdateInstrument} method
+     * @see {@link "handleUpdateInstrument"} method
      */
     handleUpdateInstrument,
   };
 };
+
+export default usePayments;
