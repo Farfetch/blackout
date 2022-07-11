@@ -1,5 +1,11 @@
+import type {
+  MockAxiosApiErrorData,
+  MockAxiosResponse,
+  Result,
+} from '../types';
+
 const mockAxiosApiError = (
-  data,
+  data: MockAxiosApiErrorData,
   returnResponse = true,
   returnRequest = true,
 ) => {
@@ -44,8 +50,9 @@ const mockAxiosApiError = (
     },
   };
 
-  const result = { config };
-  if (returnResponse) result['response'] = response;
+  const result: Result = { config };
+
+  if (returnResponse) result['response'] = response as MockAxiosResponse;
   if (returnRequest) result['request'] = request;
 
   result.isAxiosError = true;
