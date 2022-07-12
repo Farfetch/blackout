@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.63.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.62.0...@farfetch/blackout-core@1.63.0) (2022-07-12)
+
+
+### Features
+
+* **client|redux:** add applepaysession related packages ([6950a3a](https://github.com/Farfetch/blackout/commit/6950a3a56d8ef03ad179efd455f20d2b16673026))
+* **core:** add omnitracking's product list page missing parameters ([0312327](https://github.com/Farfetch/blackout/commit/031232791bef8dd936896dc1a3eacf981fd92d44))
+
+
+
+
+
 # [1.62.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.61.0...@farfetch/blackout-core@1.62.0) (2022-07-05)
 
 
