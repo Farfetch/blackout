@@ -1,4 +1,4 @@
-import { actionTypesContent as actionTypes } from '../..';
+import { contentsActionTypes as actionTypes } from '../..';
 import { contentTypesResult, types } from 'tests/__fixtures__/contents';
 import { fetchContentTypes } from '..';
 import { getContentTypes } from '@farfetch/blackout-client/contents';

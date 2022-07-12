@@ -1,4 +1,4 @@
-import { actionTypesContent as actionTypes } from '../..';
+import { contentsActionTypes as actionTypes } from '../..';
 import { fetchSEO } from '..';
 import { getSEO } from '@farfetch/blackout-client/contents';
 import { INITIAL_STATE_CONTENT } from '../../reducer';

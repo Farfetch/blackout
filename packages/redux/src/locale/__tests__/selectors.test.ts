@@ -133,7 +133,7 @@ describe('locale redux selectors', () => {
 
   describe('getCountryCultureCode()', () => {
     it('should get the culture code', () => {
-      expect(selectors.getCountryCultureCode(mockState)).toEqual(
+      expect(selectors.getCountryCulture(mockState)).toEqual(
         mockCountry.cultures[0],
       );
     });
@@ -150,7 +150,7 @@ describe('locale redux selectors', () => {
   describe('getCountryStructure()', () => {
     it('should get the subfolder', () => {
       expect(selectors.getCountryStructure(mockState)).toEqual(
-        mockCountry.structure,
+        mockCountry.defaultSubfolder,
       );
     });
   });
@@ -159,6 +159,14 @@ describe('locale redux selectors', () => {
     it('should get the list of subfolders for a given country code', () => {
       expect(selectors.getCountryStructures(mockState)).toEqual(
         mockCountry.structures,
+      );
+    });
+  });
+
+  describe('getSourceCountryCode()', () => {
+    it('should get the source country code', () => {
+      expect(selectors.getSourceCountryCode(mockState)).toEqual(
+        mockCountry.sourceCountryCode,
       );
     });
   });

@@ -16,6 +16,7 @@ const mockState = {
       [mockCountryCode]: {
         cultures: [mockCultureCode],
         currencies: [{ isoCode: mockCurrencyCode }],
+        defaultCulture: mockInitialCultureCode,
       },
     },
   },

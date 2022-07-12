@@ -13,6 +13,9 @@ type Common = {
   currencyCultureCode: string;
   designers: Designers;
   newsletterSubscriptionOptionDefault: boolean;
+  sourceCountryCode: string;
+  defaultCulture: string;
+  defaultSubfolder: string;
   pageType: string;
   searchContentRequests: [
     {

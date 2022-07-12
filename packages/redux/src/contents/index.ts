@@ -1,8 +1,8 @@
-import * as actionTypesContent from './actionTypes';
-import reducerContent from './reducer';
-import serverInitialStateContent from './serverInitialState';
+import * as contentsActionTypes from './actionTypes';
+import contentsReducer from './reducer';
+import contentsServerInitialState from './serverInitialState';
 
 export * from './actions';
 export * from './selectors';
 
-export { actionTypesContent, serverInitialStateContent, reducerContent };
+export { contentsActionTypes, contentsServerInitialState, contentsReducer };

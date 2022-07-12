@@ -13,6 +13,7 @@ import type {
 
 export const INITIAL_STATE_LOCALE: State = {
   countryCode: null,
+  sourceCountryCode: null,
   cities: {
     error: null,
     isLoading: false,
@@ -168,6 +169,9 @@ export const getCountriesError = (state: State): State['countries']['error'] =>
   state.countries.error;
 export const getCountryCode = (state: State): State['countryCode'] =>
   state.countryCode;
+export const getSourceCountryCode = (
+  state: State,
+): State['sourceCountryCode'] => state.sourceCountryCode;
 export const getCountryCurrenciesError = (
   state: State,
 ): State['currencies']['error'] => state.currencies.error;

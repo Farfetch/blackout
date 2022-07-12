@@ -12,6 +12,7 @@ import {
   getCountryCode as getCountryCodeFromReducer,
   getCountryCurrenciesError as getCountryCurrenciesErrorFromReducer,
   getCountryStatesError as getCountryStatesErrorFromReducer,
+  getSourceCountryCode as getSourceCountryCodeFromReducer,
 } from './reducer';
 import { getCity, getCountry, getState } from '../entities/selectors';
 import get from 'lodash/get';
@@ -75,10 +76,10 @@ export const getCountryCurrencyCode = (
  *
  * @example
  * ```
- * import { getCountryCultureCode } from '@farfetch/blackout-redux/locale';
+ * import { getCountryCulture } from '@farfetch/blackout-redux/locale';
  *
  * const mapStateToProps = state => ({
- *     activeCultureCode: getCountryCultureCode(state)
+ *     activeCultureCode: getCountryCulture(state)
  * });
  * ```
  *
@@ -87,13 +88,40 @@ export const getCountryCurrencyCode = (
  *
  * @returns - The culture code for the countryCode received.
  */
-export const getCountryCultureCode = (
+export const getCountryCulture = (
   state: StoreState,
   countryCode: string | null = getCountryCode(state),
 ): string => {
   const country = countryCode && getCountry(state, countryCode);
 
-  return get(country, 'cultures[0]');
+  return get(country, 'defaultCulture');
+};
+
+/**
+ * Returns the culture list for the given countryCode. By default, returns the
+ * culture of the current country.
+ *
+ * @example
+ * ```
+ * import { getCountryCultures } from '@farfetch/blackout-redux/locale';
+ *
+ * const mapStateToProps = state => ({
+ *     activeCultureCode: getCountryCulture(state)
+ * });
+ * ```
+ *
+ * @param state       - Application state.
+ * @param countryCode - The country code to find a specific country.
+ *
+ * @returns - The list of cultures for the countryCode received.
+ */
+export const getCountryCultures = (
+  state: StoreState,
+  countryCode: string | null = getCountryCode(state),
+): string => {
+  const country = countryCode && getCountry(state, countryCode);
+
+  return get(country, 'cultures');
 };
 
 /**
@@ -120,7 +148,7 @@ export const getCountryStructure = (
 ): string => {
   const country = countryCode && getCountry(state, countryCode);
 
-  return get(country, 'structure');
+  return get(country, 'defaultSubfolder');
 };
 
 /**
@@ -149,6 +177,26 @@ export const getCountryStructures = (
 
   return get(country, 'structures');
 };
+
+/**
+ * Returns the current source country code.
+ *
+ * @example
+ * ```
+ * import { getSourceCountryCode } from '@farfetch/blackout-redux/locale';
+ *
+ * const mapStateToProps = state => ({
+ *     sourceCountryCode: getSourceCountryCode(state)
+ * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - The current source country code used on the app.
+ */
+export const getSourceCountryCode = (
+  state: StoreState,
+): State['sourceCountryCode'] => getSourceCountryCodeFromReducer(state.locale);
 
 /**
  * Returns the country cities error.

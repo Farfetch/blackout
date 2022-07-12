@@ -12,5 +12,6 @@ export type ServerInitialState = {
   }>;
   locale: {
     countryCode: string | null;
+    sourceCountryCode: string | null;
   };
 };

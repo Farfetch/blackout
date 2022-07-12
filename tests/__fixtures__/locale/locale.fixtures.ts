@@ -13,12 +13,13 @@ export const mockCurrencies = [
 
 export const mockCountry = {
   code: 'US',
-  structure: '/en-us',
   platformId: 216,
   cultures: ['en-US'],
   isDefault: true,
   newsletterSubscriptionOptionDefault: true,
   isCountryDefault: true,
+  defaultCulture: 'en-US',
+  defaultSubfolder: '/en-us',
   continentId: 5,
   currencies: mockCurrencies,
   structures: ['/en-us'],
@@ -85,4 +86,7 @@ export const mockModel = {
   countryId: 216,
   cultureCode: 'en-US',
   newsletterSubscriptionOptionDefault: false,
+  defaultCulture: 'en-US',
+  defaultSubfolder: '/en-us',
+  sourceCountryCode: 'PT',
 };
