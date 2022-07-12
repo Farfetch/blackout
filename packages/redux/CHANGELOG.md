@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.277](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.276...@farfetch/blackout-redux@1.0.0-next.277) (2022-07-12)
+
+
+### Features
+
+* **redux:** add defaultCulture and defaultSubfolder keys on locale ([c2d6954](https://github.com/Farfetch/blackout/commit/c2d695499e7aba35e87018559ccb0029e0aecdc4))
+
+
+
+
+
 # [1.0.0-next.276](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.275...@farfetch/blackout-redux@1.0.0-next.276) (2022-07-06)
 
 
