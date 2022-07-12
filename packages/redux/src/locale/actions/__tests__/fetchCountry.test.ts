@@ -1,7 +1,7 @@
 import * as normalizr from 'normalizr';
 import {
-  actionTypesLocale as actionTypes,
-  reducerLocale as INITIAL_STATE,
+  localeActionTypes as actionTypes,
+  localeReducer as INITIAL_STATE,
 } from '../..';
 import { fetchCountry } from '..';
 import { getCountry } from '@farfetch/blackout-client/locale';

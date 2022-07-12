@@ -1,5 +1,5 @@
 import { mockModel } from 'tests/__fixtures__/locale';
-import { serverInitialStateLocale as serverInitialState } from '..';
+import { localeServerInitialState as serverInitialState } from '..';
 
 describe('local serverInitialState()', () => {
   it('should initialize server state for the locale', () => {
@@ -9,6 +9,7 @@ describe('local serverInitialState()', () => {
     expect(state).toEqual({
       locale: {
         countryCode: 'US',
+        sourceCountryCode: 'PT',
       },
       entities: {
         countries: {
@@ -23,7 +24,8 @@ describe('local serverInitialState()', () => {
             ],
             code: 'US',
             newsletterSubscriptionOptionDefault: false,
-            structure: '/en-us',
+            defaultSubfolder: '/en-us',
+            defaultCulture: 'en-US',
           },
         },
       },
@@ -37,6 +39,7 @@ describe('local serverInitialState()', () => {
     expect(state).toEqual({
       locale: {
         countryCode: null,
+        sourceCountryCode: null,
         cities: {
           error: null,
           isLoading: false,

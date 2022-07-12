@@ -12,7 +12,11 @@ import type { ServerInitialState } from './types';
  *
  * @returns - Initial state for the locale reducer.
  */
-export default ({ model }: { model: Model }): ServerInitialState => {
+const serverInitialState = ({
+  model,
+}: {
+  model: Model;
+}): ServerInitialState => {
   if (isEmpty(model)) {
     return { locale: INITIAL_STATE_LOCALE };
   }
@@ -24,7 +28,9 @@ export default ({ model }: { model: Model }): ServerInitialState => {
     currencyCode,
     currencyCultureCode,
     newsletterSubscriptionOptionDefault,
-    subfolder,
+    sourceCountryCode,
+    defaultCulture,
+    defaultSubfolder,
   } = model;
   // Normalize it
   const { entities } = normalize(
@@ -39,7 +45,8 @@ export default ({ model }: { model: Model }): ServerInitialState => {
       ],
       newsletterSubscriptionOptionDefault,
       platformId: countryId,
-      structure: subfolder,
+      defaultCulture,
+      defaultSubfolder,
     },
     country,
   );
@@ -47,7 +54,10 @@ export default ({ model }: { model: Model }): ServerInitialState => {
   return {
     locale: {
       countryCode,
+      sourceCountryCode,
     },
     entities,
   };
 };
+
+export default serverInitialState;

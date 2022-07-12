@@ -46,7 +46,7 @@ const setCountryCode = (customActionTypes?: Set<string>): Middleware => {
         const result = next(action);
         const state = getState();
         const countryCode = action.payload.countryCode;
-        const cultureCode = selectors.getCountryCultureCode(state, countryCode);
+        const cultureCode = selectors.getCountryCulture(state, countryCode);
         const currencyCode = selectors.getCountryCurrencyCode(
           state,
           countryCode,
