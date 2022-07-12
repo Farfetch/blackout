@@ -3,6 +3,7 @@ import type { CombinedState } from 'redux';
 
 export type State = CombinedState<{
   countryCode: string | null;
+  sourceCountryCode: string | null;
   cities: {
     error: BlackoutError | null;
     isLoading: boolean;

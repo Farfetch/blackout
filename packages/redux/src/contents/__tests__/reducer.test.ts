@@ -1,7 +1,7 @@
 import * as fromReducer from '../reducer';
 import {
-  actionTypesContent as actionTypes,
-  reducerContent as reducer,
+  contentsActionTypes as actionTypes,
+  contentsReducer as reducer,
 } from '..';
 import {
   contentTypesResult,

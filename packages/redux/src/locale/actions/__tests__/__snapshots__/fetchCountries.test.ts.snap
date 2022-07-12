@@ -19,11 +19,12 @@ Object {
             "name": "United States Dollar",
           },
         ],
+        "defaultCulture": "en-US",
+        "defaultSubfolder": "/en-us",
         "isCountryDefault": true,
         "isDefault": true,
         "newsletterSubscriptionOptionDefault": true,
         "platformId": 216,
-        "structure": "/en-us",
         "structures": Array [
           "/en-us",
         ],

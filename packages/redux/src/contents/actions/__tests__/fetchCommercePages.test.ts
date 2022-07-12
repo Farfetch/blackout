@@ -1,5 +1,5 @@
 import * as normalizr from 'normalizr';
-import { actionTypesContent as actionTypes } from '../..';
+import { contentsActionTypes as actionTypes } from '../..';
 import {
   commercePagesQuery,
   expectedCommercePagesNormalizedPayload,
