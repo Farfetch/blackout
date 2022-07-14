@@ -3,7 +3,6 @@ import { putUserPreferences } from '..';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/putUserPreferences.fixtures';
 import mswServer from '../../../../tests/mswServer';
-import type { PutUserPreferencesData } from '../types';
 
 describe('putPreferences', () => {
   const expectedConfig = undefined;
@@ -12,20 +11,13 @@ describe('putPreferences', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    mswServer.use(fixtures.success());
+    mswServer.use(fixtures.success(mockGetPreferencesResponse));
 
     expect.assertions(2);
 
     await expect(
-      putUserPreferences(
-        userId,
-        mockGetPreferencesResponse as PutUserPreferencesData,
-      ),
-    ).resolves.toMatchObject(
-      expect.objectContaining({
-        status: 200,
-      }),
-    );
+      putUserPreferences(userId, mockGetPreferencesResponse),
+    ).resolves.toStrictEqual(mockGetPreferencesResponse);
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/preferences`,
       mockGetPreferencesResponse,
@@ -39,10 +31,7 @@ describe('putPreferences', () => {
     expect.assertions(2);
 
     await expect(
-      putUserPreferences(
-        userId,
-        mockGetPreferencesResponse as PutUserPreferencesData,
-      ),
+      putUserPreferences(userId, mockGetPreferencesResponse),
     ).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/preferences`,

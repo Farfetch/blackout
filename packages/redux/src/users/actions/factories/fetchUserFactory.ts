@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import { Config, toBlackoutError } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { GetUser } from '@farfetch/blackout-client/users/types';
+import type { GetUser } from '@farfetch/blackout-client/src/users/types';
 
 /**
  * @param config - Custom configurations to send to the client
@@ -17,7 +17,7 @@ import type { GetUser } from '@farfetch/blackout-client/users/types';
  *
  * @returns Thunk factory.
  */
-const fetchUserFactory =
+export const fetchUserFactory =
   (getUser: GetUser) => (config?: Config) => async (dispatch: Dispatch) => {
     dispatch({
       type: actionTypes.FETCH_USER_REQUEST,
@@ -46,5 +46,3 @@ const fetchUserFactory =
       throw error;
     }
   };
-
-export default fetchUserFactory;

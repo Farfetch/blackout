@@ -2,14 +2,16 @@ import {
   address1,
   address2,
   addressId,
-  mockGetAddressSchemaResponse,
-  mockPostAddressResponse,
-  mockPredictionDetailsResponse,
-  mockPredictionResponse,
-  mockUpdateAddressResponse,
+  mockAddressPredictionResponse,
+  mockAddressPredictionsResponse,
 } from 'tests/__fixtures__/addresses';
+import { mockGetAddressSchemaResponse } from 'tests/__fixtures__/locale';
+import {
+  mockPostUserAddressResponse,
+  mockUpdateAddressResponse,
+} from 'tests/__fixtures__/users';
+import { useAddresses } from '../../useAddresses';
 import React, { Fragment } from 'react';
-import useAddresses from '../../useAddresses';
 
 const booleanToText = (boolean: boolean) => (boolean ? 'yes' : 'no');
 
@@ -23,24 +25,24 @@ export const Addresses = ({ userId }: Props) => {
     addressesError,
     isAddressesLoading,
     deletingStatus,
-    deleteAddress,
-    createAddress,
-    getAddresses,
-    updateAddress,
-    setDefaultBillingAddress,
-    setDefaultContactAddress,
-    setDefaultShippingAddress,
-    handleSetDefaultShippingAddress,
-    handleSetDefaultBillingAddress,
-    handleSetDefaultContactAddress,
-    handleUpdateAddress,
-    handleDeleteAddress,
-    handleCreateAddress,
-    handleGetAddress,
-    handleGetPredictions,
-    handleGetPredictionDetails,
-    handleGetAddressSchema,
-    resetPredictions,
+    deleteUserAddress,
+    createUserAddress,
+    getUserAddresses,
+    updateUserAddress,
+    setUserDefaultBillingAddress,
+    setUserDefaultContactAddress,
+    setUserDefaultShippingAddress,
+    handleSetUserDefaultShippingAddress,
+    handleSetUserDefaultBillingAddress,
+    handleSetUserDefaultContactAddress,
+    handleUpdateUserAddress,
+    handleDeleteUserAddress,
+    handleCreateUserAddress,
+    handleGetUserAddress,
+    handleGetAddressPredictions,
+    handleGetAddressPrediction,
+    handleGetCountryAddressSchema,
+    resetAddressPredictions,
   } = useAddresses({ auto, userId });
 
   if (isAddressesLoading) {
@@ -59,62 +61,62 @@ export const Addresses = ({ userId }: Props) => {
     <Fragment>
       <button
         data-test="addresses-deleteButton"
-        onClick={() => deleteAddress(userId, addressId)}
+        onClick={() => deleteUserAddress(userId, addressId)}
       >
         delete addreses request
       </button>
       <button
         data-test="addresses-updateButton"
-        onClick={() => updateAddress(userId, mockUpdateAddressResponse)}
+        onClick={() => updateUserAddress(userId, mockUpdateAddressResponse)}
       >
         update address request
       </button>
       <button
         data-test="addresses-createButton"
-        onClick={() => createAddress(userId, mockPostAddressResponse)}
+        onClick={() => createUserAddress(userId, mockPostUserAddressResponse)}
       >
         create address request
       </button>
       <button
         data-test="addresses-getButton"
-        onClick={() => getAddresses(userId)}
+        onClick={() => getUserAddresses(userId)}
       >
         get addresses request
       </button>
       <button
         data-test="addresses-setDefaultShippingButton"
-        onClick={() => setDefaultShippingAddress(userId, addressId)}
+        onClick={() => setUserDefaultShippingAddress(userId, addressId)}
       >
         set default shipping addresses request
       </button>
       <button
         data-test="addresses-setDefaultBillingButton"
-        onClick={() => setDefaultBillingAddress(userId, addressId)}
+        onClick={() => setUserDefaultBillingAddress(userId, addressId)}
       >
         set default billing addresses request
       </button>
       <button
         data-test="addresses-setDefaultContactButton"
-        onClick={() => setDefaultContactAddress(userId, addressId)}
+        onClick={() => setUserDefaultContactAddress(userId, addressId)}
       >
         set default contact addresses request
       </button>
       <button
         data-test="addresses-handleUpdateAddressButton"
-        onClick={() => handleUpdateAddress(addressId)}
+        onClick={() => handleUpdateUserAddress(addressId)}
       >
         handle update address
       </button>
       <button
         data-test="addresses-handleGetAddressButton"
-        onClick={() => handleGetAddress()}
+        onClick={() => handleGetUserAddress()}
       >
         handle get address
       </button>
       <>
         <button
           data-test="addresses-handleDeleteAddressButton"
-          onClick={() => handleDeleteAddress(address2)}
+          onClick={() => handleDeleteUserAddress(address2)}
         >
           handle delete address
         </button>
@@ -125,7 +127,7 @@ export const Addresses = ({ userId }: Props) => {
       <>
         <button
           data-test="addresses-handleDeleteAddressButton-2"
-          onClick={() => handleDeleteAddress(address1)}
+          onClick={() => handleDeleteUserAddress(address1)}
         >
           handle delete address
         </button>
@@ -135,51 +137,55 @@ export const Addresses = ({ userId }: Props) => {
       </>
       <button
         data-test="addresses-handleSetDefaultShippingAddress"
-        onClick={() => handleSetDefaultShippingAddress(address2)}
+        onClick={() => handleSetUserDefaultShippingAddress(address2.id)}
       >
         handle set default shipping address
       </button>
       <button
         data-test="addresses-handleSetDefaultBillingAddress"
-        onClick={() => handleSetDefaultBillingAddress(address2)}
+        onClick={() => handleSetUserDefaultBillingAddress(address2.id)}
       >
         handle set default billing address
       </button>
       <button
         data-test="addresses-handleSetDefaultContactAddress"
-        onClick={() => handleSetDefaultContactAddress(address2)}
+        onClick={() => handleSetUserDefaultContactAddress(address2.id)}
       >
         handle set default contact address
       </button>
       <button
         data-test="addresses-handleCreateAddress"
-        onClick={() => handleCreateAddress(mockPostAddressResponse)}
+        onClick={() => handleCreateUserAddress(mockPostUserAddressResponse)}
       >
         handle create address
       </button>
       <button
         data-test="addresses-handleGetPredictions"
-        onClick={() => handleGetPredictions(mockPredictionResponse)}
+        onClick={() =>
+          handleGetAddressPredictions(mockAddressPredictionsResponse)
+        }
       >
         handle get predictions
       </button>
       <button
         data-test="addresses-handleGetPredictionDetails"
         onClick={() =>
-          handleGetPredictionDetails(mockPredictionDetailsResponse)
+          handleGetAddressPrediction(mockAddressPredictionResponse)
         }
       >
         handle get predictions details
       </button>
       <button
         data-test="addresses-handleGetAddressSchema"
-        onClick={() => handleGetAddressSchema(mockGetAddressSchemaResponse)}
+        onClick={() =>
+          handleGetCountryAddressSchema(mockGetAddressSchemaResponse)
+        }
       >
         handle get address schema
       </button>
       <button
         data-test="addresses-resetPredictions"
-        onClick={() => resetPredictions()}
+        onClick={() => resetAddressPredictions()}
       >
         handle reset predictions
       </button>

@@ -27,6 +27,7 @@ import type {
   ReturnItemsEntity,
   ReturnOptionsEntity,
   ReturnsEntity,
+  SchemaEntity,
   StatementEntity,
   StatesEntity,
   SubscriptionPackagesEntity,
@@ -41,6 +42,7 @@ import type { State as CategoriesState } from '../categories/types';
 import type { Category } from '@farfetch/blackout-client/categories/types';
 import type { State as CheckoutState } from '../checkout/types';
 import type { State as ContentsState } from '../contents/types';
+import type { Country } from '@farfetch/blackout-client/src/locale/types';
 import type { State as DesignersState } from '../designers/types';
 import type { FormsState } from '../forms/types';
 import type { State as LocaleState } from '../locale/types';
@@ -66,6 +68,7 @@ export type StoreState = Partial<{
   // Keep adding/changing here as we migrate chunks
   entities: Partial<{
     addresses: Record<Address['id'], AddressEntity>;
+    addressSchema: Record<Country['code'], SchemaEntity>;
     availableTimeSlots: Record<string, AvailableTimeSlotsEntity>;
     bagItems: Record<BagItemEntity['id'], BagItemEntity>;
     brands: Record<Brand['id'], Brand>;

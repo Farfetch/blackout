@@ -1,31 +1,26 @@
-import {
-  address2,
-  mockCurrentState,
-  mockErrorState,
-  mockInitialState,
-  mockLoadingState,
-  userId,
-} from 'tests/__fixtures__/addresses';
+import { address2, addressId2, userId } from 'tests/__fixtures__/addresses';
 import { Addresses } from './__fixtures__/Addresses.fixtures';
 import {
   cleanup,
   fireEvent,
-  waitForElementToBeRemoved,
   renderHook,
+  waitForElementToBeRemoved,
 } from '@testing-library/react';
 import {
-  createAddress as createAddressAction,
-  fetchAddresses,
-  fetchAddressSchema,
-  fetchPredictionDetails,
-  fetchPredictions,
-  removeAddress,
-  resetPredictions,
-  setDefaultBillingAddress as setDefaultBillingAddressAction,
-  setDefaultContactAddress as setDefaultContactAddressAction,
-  setDefaultShippingAddress as setDefaultShippingAddressAction,
-  updateAddress as updateAddressAction,
+  createUserAddress as createUserAddressAction,
+  fetchUserAddresses,
+  removeUserAddress,
+  setUserDefaultBillingAddress as setUserDefaultBillingAddressAction,
+  setUserDefaultContactAddress as setUserDefaultContactAddressAction,
+  setUserDefaultShippingAddress as setUserDefaultShippingAddressAction,
+  updateUserAddress as updateUserAddressAction,
+} from '@farfetch/blackout-redux/users';
+import {
+  fetchAddressPrediction,
+  fetchAddressPredictions,
+  resetAddressPredictions,
 } from '@farfetch/blackout-redux/addresses';
+import { fetchCountryAddressSchema } from '@farfetch/blackout-redux/locale';
 import { mockStore, wrap } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
 import { useAddresses } from '../..';
@@ -33,59 +28,219 @@ import React from 'react';
 
 jest.mock('@farfetch/blackout-redux/addresses', () => ({
   ...jest.requireActual('@farfetch/blackout-redux/addresses'),
-  fetchAddresses: jest.fn(() => ({ type: 'get' })),
-  createAddress: jest.fn(() => ({ type: 'create' })),
-  removeAddress: jest.fn(() => ({ type: 'delete' })),
-  updateAddress: jest.fn(() => ({ type: 'update' })),
-  setDefaultBillingAddress: jest.fn(() => ({ type: 'update_billing' })),
-  setDefaultContactAddress: jest.fn(() => ({ type: 'update_contact' })),
-  setDefaultShippingAddress: jest.fn(() => ({ type: 'update_shipping' })),
-  fetchPredictions: jest.fn(() => ({ type: 'get' })),
-  fetchPredictionDetails: jest.fn(() => ({ type: 'get' })),
-  fetchAddressSchema: jest.fn(() => ({ type: 'get' })),
-  resetPredictions: jest.fn(() => ({ type: 'reset' })),
+  fetchAddressPredictions: jest.fn(() => ({ type: 'get' })),
+  fetchAddressPrediction: jest.fn(() => ({ type: 'get' })),
+  resetAddressPredictions: jest.fn(() => ({ type: 'reset' })),
+}));
+
+jest.mock('@farfetch/blackout-redux/users', () => ({
+  ...jest.requireActual('@farfetch/blackout-redux/users'),
+  getUserAddresses: jest.fn(() => ({ type: 'get' })),
+  fetchUserAddresses: jest.fn(() => ({ type: 'get' })),
+  createUserAddress: jest.fn(() => ({ type: 'create' })),
+  removeUserAddress: jest.fn(() => ({ type: 'delete' })),
+  updateUserAddress: jest.fn(() => ({ type: 'update' })),
+  setUserDefaultBillingAddress: jest.fn(() => ({ type: 'update_billing' })),
+  setUserDefaultContactAddress: jest.fn(() => ({ type: 'update_contact' })),
+  setUserDefaultShippingAddress: jest.fn(() => ({ type: 'update_shipping' })),
+  fetchCountryAddressSchema: jest.fn(() => ({ type: 'get' })),
+}));
+
+jest.mock('@farfetch/blackout-redux/locale', () => ({
+  ...jest.requireActual('@farfetch/blackout-redux/locale'),
+  fetchCountryAddressSchema: jest.fn(() => ({ type: 'get' })),
 }));
 
 describe('useAddresses', () => {
   beforeEach(jest.clearAllMocks);
   afterEach(cleanup);
 
+  const mockInitialState = {
+    addresses: {
+      error: null,
+      isLoading: false,
+      result: null,
+      predictions: {
+        result: null,
+        error: null,
+        isLoading: false,
+      },
+      prediction: {
+        result: null,
+        error: null,
+        isLoading: false,
+      },
+    },
+    users: {
+      error: null,
+      result: null,
+      isLoading: false,
+      addresses: {
+        result: null,
+        error: null,
+        isLoading: false,
+      },
+      address: {
+        error: {},
+        isLoading: {},
+      },
+      defaultAddress: {
+        error: null,
+        isLoading: false,
+        result: null,
+      },
+    },
+    locale: {
+      addressSchema: {
+        error: null,
+        isLoading: false,
+      },
+    },
+    entities: {
+      addresses: {},
+      addressSchema: {},
+    },
+  };
+
+  const mockLoadingState = {
+    addresses: {
+      error: null,
+      isLoading: true,
+      result: null,
+      predictions: {
+        result: null,
+        error: null,
+        isLoading: true,
+      },
+      prediction: {
+        result: null,
+        error: null,
+        isLoading: true,
+      },
+    },
+    users: {
+      error: null,
+      result: null,
+      isLoading: true,
+      addresses: {
+        result: null,
+        error: null,
+        isLoading: true,
+      },
+      address: {
+        error: {},
+        isLoading: {
+          [addressId2]: true,
+        },
+      },
+      defaultAddress: {
+        error: null,
+        isLoading: true,
+        result: null,
+      },
+    },
+    locale: {
+      addressSchema: {
+        error: null,
+        isLoading: true,
+      },
+    },
+    entities: {
+      addresses: {},
+      addressSchema: {},
+    },
+  };
+
+  const mockErrorState = {
+    addresses: {
+      error: 'Error',
+      isLoading: false,
+      result: null,
+      predictions: {
+        result: null,
+        error: 'Error',
+        isLoading: false,
+      },
+      prediction: {
+        result: null,
+        error: 'Error',
+        isLoading: false,
+      },
+    },
+    users: {
+      error: 'Error',
+      result: null,
+      isLoading: false,
+      addresses: {
+        result: null,
+        error: 'Error',
+        isLoading: false,
+      },
+      address: {
+        error: {
+          [addressId2]: 'Error',
+        },
+        isLoading: {},
+      },
+      defaultAddress: {
+        error: 'Error',
+        isLoading: false,
+        result: null,
+      },
+    },
+    locale: {
+      addressSchema: {
+        error: 'Error',
+        isLoading: false,
+      },
+    },
+    entities: {
+      addresses: {},
+      addressSchema: {},
+    },
+  };
+
+  const mockCurrentState = {
+    ...mockInitialState,
+  };
+
   it('should return values correctly', () => {
     const auto = true;
     const addressId = '123456';
     const isoCode = 'PT';
-    const wrapper = (props: {}) => (
-      <Provider store={mockStore(mockInitialState)} {...props} />
-    );
+
     const {
       result: { current },
     } = renderHook(() => useAddresses({ auto, userId, addressId, isoCode }), {
-      wrapper,
+      wrapper: props => (
+        <Provider store={mockStore(mockInitialState)} {...props} />
+      ),
     });
 
-    expect(typeof current.deleteAddress).toBe('function');
-    expect(typeof current.getAddresses).toBe('function');
-    expect(typeof current.updateAddress).toBe('function');
-    expect(typeof current.setDefaultBillingAddress).toBe('function');
-    expect(typeof current.setDefaultContactAddress).toBe('function');
-    expect(typeof current.setDefaultShippingAddress).toBe('function');
+    expect(typeof current.getUserAddresses).toBe('function');
+    expect(typeof current.deleteUserAddress).toBe('function');
+    expect(typeof current.getUserAddresses).toBe('function');
+    expect(typeof current.updateUserAddress).toBe('function');
+    expect(typeof current.setUserDefaultBillingAddress).toBe('function');
+    expect(typeof current.setUserDefaultContactAddress).toBe('function');
+    expect(typeof current.setUserDefaultShippingAddress).toBe('function');
     expect(current.addressesIds).toBeNull();
     expect(current.addressesError).toBeNull();
     expect(current.isAddressesLoading).toBeFalsy();
-    expect(current.addressError).toBeUndefined();
-    expect(current.isAddressLoading).toBeFalsy();
-    expect(current.predictionsError).toBeNull();
-    expect(current.isPredictionsLoading).toBeFalsy();
-    expect(current.predictionDetailsError).toBeNull();
-    expect(current.isPredictionDetailsLoading).toBeFalsy();
-    expect(current.predictions).toBeNull();
-    expect(typeof current.handleGetPredictions).toBe('function');
-    expect(typeof current.handleGetPredictionDetails).toBe('function');
-    expect(typeof current.resetPredictions).toBe('function');
-    expect(current.addressSchema).toBeUndefined();
-    expect(current.isAddressSchemaLoading).toBeFalsy();
-    expect(current.addressSchemaError).toBeNull();
-    expect(typeof current.handleGetAddressSchema).toBe('function');
+    expect(current.userAddressError).toBeUndefined();
+    expect(current.isUserAddressLoading).toBeFalsy();
+    expect(current.addressPredictionsError).toBeNull();
+    expect(current.isAddressPredictionsLoading).toBeFalsy();
+    expect(current.addressPredictionError).toBeNull();
+    expect(current.isAddressPredictionLoading).toBeFalsy();
+    expect(current.addressPredictions).toBeNull();
+    expect(typeof current.handleGetAddressPredictions).toBe('function');
+    expect(typeof current.handleGetAddressPrediction).toBe('function');
+    expect(typeof current.resetAddressPredictions).toBe('function');
+    expect(current.countryAddressSchema).toBeUndefined();
+    expect(current.isCountryAddressSchemaLoading).toBeFalsy();
+    expect(current.countryAddressSchemaError).toBeNull();
+    expect(typeof current.handleGetCountryAddressSchema).toBe('function');
   });
 
   it('should render in loading state', () => {
@@ -114,7 +269,7 @@ describe('useAddresses', () => {
         .withStore(mockInitialState)
         .render();
 
-      expect(fetchAddresses).toHaveBeenCalledTimes(1);
+      expect(fetchUserAddresses).toHaveBeenCalledTimes(1);
       expect(queryByTestId('addresses-loading')).toBeNull();
       expect(queryByTestId('addresses-error')).toBeNull();
     });
@@ -126,7 +281,7 @@ describe('useAddresses', () => {
 
       fireEvent.click(getByTestId('addresses-deleteButton'));
 
-      expect(removeAddress).toHaveBeenCalledTimes(1);
+      expect(removeUserAddress).toHaveBeenCalledTimes(1);
       expect(queryByTestId('addresses-loading')).toBeNull();
       expect(queryByTestId('addresses-error')).toBeNull();
     });
@@ -138,7 +293,7 @@ describe('useAddresses', () => {
 
       fireEvent.click(getByTestId('addresses-updateButton'));
 
-      expect(updateAddressAction).toHaveBeenCalledTimes(1);
+      expect(updateUserAddressAction).toHaveBeenCalledTimes(1);
       expect(queryByTestId('addresses-loading')).toBeNull();
       expect(queryByTestId('addresses-error')).toBeNull();
     });
@@ -150,7 +305,7 @@ describe('useAddresses', () => {
 
       fireEvent.click(getByTestId('addresses-createButton'));
 
-      expect(createAddressAction).toHaveBeenCalledTimes(1);
+      expect(createUserAddressAction).toHaveBeenCalledTimes(1);
       expect(queryByTestId('addresses-loading')).toBeNull();
       expect(queryByTestId('addresses-error')).toBeNull();
     });
@@ -162,7 +317,7 @@ describe('useAddresses', () => {
 
       fireEvent.click(getByTestId('addresses-getButton'));
 
-      expect(fetchAddresses).toHaveBeenCalledTimes(2);
+      expect(fetchUserAddresses).toHaveBeenCalledTimes(2);
       expect(queryByTestId('addresses-loading')).toBeNull();
       expect(queryByTestId('addresses-error')).toBeNull();
     });
@@ -174,7 +329,7 @@ describe('useAddresses', () => {
 
       fireEvent.click(getByTestId('addresses-setDefaultShippingButton'));
 
-      expect(setDefaultShippingAddressAction).toHaveBeenCalledTimes(1);
+      expect(setUserDefaultShippingAddressAction).toHaveBeenCalledTimes(1);
       expect(queryByTestId('addresses-loading')).toBeNull();
       expect(queryByTestId('addresses-error')).toBeNull();
     });
@@ -186,7 +341,7 @@ describe('useAddresses', () => {
 
       fireEvent.click(getByTestId('addresses-setDefaultBillingButton'));
 
-      expect(setDefaultBillingAddressAction).toHaveBeenCalledTimes(1);
+      expect(setUserDefaultBillingAddressAction).toHaveBeenCalledTimes(1);
       expect(queryByTestId('addresses-loading')).toBeNull();
       expect(queryByTestId('addresses-error')).toBeNull();
     });
@@ -198,7 +353,7 @@ describe('useAddresses', () => {
 
       fireEvent.click(getByTestId('addresses-setDefaultContactButton'));
 
-      expect(setDefaultContactAddressAction).toHaveBeenCalledTimes(1);
+      expect(setUserDefaultContactAddressAction).toHaveBeenCalledTimes(1);
       expect(queryByTestId('addresses-loading')).toBeNull();
       expect(queryByTestId('addresses-error')).toBeNull();
     });
@@ -213,7 +368,7 @@ describe('useAddresses', () => {
 
         fireEvent.click(getByTestId('addresses-handleUpdateAddressButton'));
 
-        expect(updateAddressAction).toHaveBeenCalledTimes(1);
+        expect(updateUserAddressAction).toHaveBeenCalledTimes(1);
       });
     });
 
@@ -225,7 +380,7 @@ describe('useAddresses', () => {
 
         fireEvent.click(getByTestId('addresses-handleGetAddressButton'));
 
-        expect(fetchAddresses).toHaveBeenCalledTimes(2);
+        expect(fetchUserAddresses).toHaveBeenCalledTimes(2);
       });
     });
 
@@ -236,7 +391,7 @@ describe('useAddresses', () => {
           .render();
 
         fireEvent.click(getByTestId('addresses-handleDeleteAddressButton'));
-        expect(removeAddress).toHaveBeenCalledTimes(1);
+        expect(removeUserAddress).toHaveBeenCalledTimes(1);
 
         await waitForElementToBeRemoved(() =>
           getByTestId('addresses-deleteInfo'),
@@ -249,10 +404,10 @@ describe('useAddresses', () => {
           .render();
 
         fireEvent.click(getByTestId('addresses-handleDeleteAddressButton-2'));
-        expect(removeAddress).toHaveBeenCalledTimes(1);
-        expect(setDefaultBillingAddressAction).toHaveBeenCalledTimes(0);
-        expect(setDefaultShippingAddressAction).toHaveBeenCalledTimes(0);
-        expect(setDefaultContactAddressAction).toHaveBeenCalledTimes(0);
+        expect(removeUserAddress).toHaveBeenCalledTimes(1);
+        expect(setUserDefaultBillingAddressAction).toHaveBeenCalledTimes(0);
+        expect(setUserDefaultShippingAddressAction).toHaveBeenCalledTimes(0);
+        expect(setUserDefaultContactAddressAction).toHaveBeenCalledTimes(0);
 
         await waitForElementToBeRemoved(() =>
           getByTestId('addresses-deleteInfo-2'),
@@ -262,10 +417,43 @@ describe('useAddresses', () => {
       it('should not set any default address when there is just one address', async () => {
         const newMockCurrentState = {
           addresses: {
-            ...mockCurrentState.addresses,
+            error: null,
+            isLoading: false,
+            result: null,
+            predictions: {
+              result: null,
+              error: null,
+              isLoading: false,
+            },
+            prediction: {
+              result: null,
+              error: null,
+              isLoading: false,
+            },
+          },
+          users: {
             error: null,
             isLoading: false,
             result: [address2.id],
+            addresses: {
+              result: {
+                [address2.id]: address2,
+              },
+              error: null,
+              isLoading: false,
+            },
+            address: {
+              error: {
+                [address2.id]: 'Error',
+              },
+              isLoading: {},
+            },
+          },
+          locale: {
+            addressSchema: {
+              error: null,
+              isLoading: false,
+            },
           },
           entities: {
             addresses: {
@@ -278,10 +466,10 @@ describe('useAddresses', () => {
           .render();
 
         fireEvent.click(getByTestId('addresses-handleDeleteAddressButton'));
-        expect(removeAddress).toHaveBeenCalledTimes(1);
-        expect(setDefaultBillingAddressAction).toHaveBeenCalledTimes(0);
-        expect(setDefaultShippingAddressAction).toHaveBeenCalledTimes(0);
-        expect(setDefaultContactAddressAction).toHaveBeenCalledTimes(0);
+        expect(removeUserAddress).toHaveBeenCalledTimes(1);
+        expect(setUserDefaultBillingAddressAction).toHaveBeenCalledTimes(0);
+        expect(setUserDefaultShippingAddressAction).toHaveBeenCalledTimes(0);
+        expect(setUserDefaultContactAddressAction).toHaveBeenCalledTimes(0);
 
         await waitForElementToBeRemoved(() =>
           getByTestId('addresses-deleteInfo'),
@@ -299,7 +487,7 @@ describe('useAddresses', () => {
           getByTestId('addresses-handleSetDefaultShippingAddress'),
         );
 
-        expect(setDefaultShippingAddressAction).toHaveBeenCalledTimes(1);
+        expect(setUserDefaultShippingAddressAction).toHaveBeenCalledTimes(1);
       });
     });
 
@@ -313,7 +501,7 @@ describe('useAddresses', () => {
           getByTestId('addresses-handleSetDefaultBillingAddress'),
         );
 
-        expect(setDefaultBillingAddressAction).toHaveBeenCalledTimes(1);
+        expect(setUserDefaultBillingAddressAction).toHaveBeenCalledTimes(1);
       });
     });
 
@@ -327,7 +515,7 @@ describe('useAddresses', () => {
           getByTestId('addresses-handleSetDefaultContactAddress'),
         );
 
-        expect(setDefaultContactAddressAction).toHaveBeenCalledTimes(1);
+        expect(setUserDefaultContactAddressAction).toHaveBeenCalledTimes(1);
       });
     });
 
@@ -339,7 +527,7 @@ describe('useAddresses', () => {
 
         fireEvent.click(getByTestId('addresses-handleCreateAddress'));
 
-        expect(createAddressAction).toHaveBeenCalledTimes(1);
+        expect(createUserAddressAction).toHaveBeenCalledTimes(1);
       });
     });
 
@@ -351,7 +539,7 @@ describe('useAddresses', () => {
 
         fireEvent.click(getByTestId('addresses-handleGetPredictions'));
 
-        expect(fetchPredictions).toHaveBeenCalledTimes(1);
+        expect(fetchAddressPredictions).toHaveBeenCalledTimes(1);
       });
     });
 
@@ -363,7 +551,7 @@ describe('useAddresses', () => {
 
         fireEvent.click(getByTestId('addresses-handleGetPredictionDetails'));
 
-        expect(fetchPredictionDetails).toHaveBeenCalledTimes(1);
+        expect(fetchAddressPrediction).toHaveBeenCalledTimes(1);
       });
     });
 
@@ -375,11 +563,11 @@ describe('useAddresses', () => {
 
         fireEvent.click(getByTestId('addresses-handleGetAddressSchema'));
 
-        expect(fetchAddressSchema).toHaveBeenCalledTimes(1);
+        expect(fetchCountryAddressSchema).toHaveBeenCalledTimes(1);
       });
     });
 
-    describe('resetPredictions', () => {
+    describe('resetAddressPredictions', () => {
       it('should call resetPredictions action', () => {
         const { getByTestId } = wrap(<Addresses userId={userId} />)
           .withStore(mockInitialState)
@@ -387,7 +575,7 @@ describe('useAddresses', () => {
 
         fireEvent.click(getByTestId('addresses-resetPredictions'));
 
-        expect(resetPredictions).toHaveBeenCalledTimes(1);
+        expect(resetAddressPredictions).toHaveBeenCalledTimes(1);
       });
     });
   });

@@ -1,31 +1,35 @@
 /**
  * Hook to provide all kinds of data for the business logic attached to addresses.
  */
-import * as selectors from '@farfetch/blackout-redux/addresses/selectors';
+import * as selectorsAddresses from '@farfetch/blackout-redux/addresses/selectors';
+import * as selectorsLocale from '@farfetch/blackout-redux/locale/selectors';
+import * as selectorsUsers from '@farfetch/blackout-redux/users/selectors';
 import {
-  createAddress as createAddressAction,
-  fetchAddresses,
-  fetchAddressSchema,
-  fetchPredictionDetails,
-  fetchPredictions,
-  removeAddress,
-  resetPredictions as resetPredictionsAction,
-  setDefaultBillingAddress as setDefaultBillingAddressAction,
-  setDefaultContactAddress as setDefaultContactAddressAction,
-  setDefaultShippingAddress as setDefaultShippingAddressAction,
-  updateAddress as updateAddressAction,
+  createUserAddress as createUserAddressAction,
+  fetchUserAddresses,
+  removeUserAddress,
+  setUserDefaultBillingAddress as setUserDefaultBillingAddressAction,
+  setUserDefaultContactAddress as setUserDefaultContactAddressAction,
+  setUserDefaultShippingAddress as setUserDefaultShippingAddressAction,
+  updateUserAddress as updateUserAddressAction,
+} from '@farfetch/blackout-redux/users';
+import {
+  fetchAddressPrediction,
+  fetchAddressPredictions,
+  resetAddressPredictions as resetAddressPredictionsAction,
 } from '@farfetch/blackout-redux/addresses';
+import { fetchCountryAddressSchema } from '@farfetch/blackout-redux/locale';
 import { useAction } from '../../helpers';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import type {
-  Address,
-  Prediction,
-  PredictionDetails,
-  Schema,
-} from '@farfetch/blackout-client/addresses/types';
+import type { Address } from '@farfetch/blackout-client/users';
 import type { AddressesEntity } from '@farfetch/blackout-redux/entities/types';
+import type {
+  AddressPrediction,
+  AddressPredictions,
+} from '@farfetch/blackout-client/addresses/types';
 import type { BlackoutError } from '@farfetch/blackout-client/types';
+import type { CountryAddressSchema } from '@farfetch/blackout-client/locale/types';
 import type { DeleteAddressHandlerData } from './types';
 import type { Nullable, StoreState } from '@farfetch/blackout-redux/types';
 
@@ -55,7 +59,7 @@ interface QueryPredictionDetails {
  * @returns All the handlers, state, actions and relevant data needed to manage address book
  * operations.
  */
-export default ({
+export const useAddresses = ({
   auto = false,
   userId,
   addressId,
@@ -66,102 +70,112 @@ export default ({
   addressesIds: string[] | null;
   addressesError: Nullable<BlackoutError>;
   isAddressesLoading: boolean;
-  createAddress: Promise<Address>;
-  deleteAddress: Promise<void>;
-  getAddresses: Promise<Address[]>;
-  updateAddress: Promise<Address>;
-  setDefaultBillingAddress: Promise<void>;
-  setDefaultContactAddress: Promise<void>;
-  setDefaultShippingAddress: Promise<void>;
-  addressError: BlackoutError | null | undefined;
-  isAddressLoading: boolean | undefined;
-  predictions: Nullable<Prediction[]> | undefined;
-  isPredictionDetailsLoading: boolean;
-  isPredictionsLoading: boolean;
-  predictionsError: Nullable<BlackoutError>;
-  predictionDetailsError: Nullable<BlackoutError>;
-  addressSchema: Schema | undefined;
-  isAddressSchemaLoading: boolean;
-  addressSchemaError: Nullable<BlackoutError>;
-  handleDeleteAddress: DeleteAddressHandlerData;
-  handleCreateAddress: (address: { k: string }) => Promise<Address>;
-  handleSetDefaultShippingAddress: (addressId: string) => Promise<void>;
-  handleSetDefaultBillingAddress: (addressId: string) => Promise<void>;
-  handleSetDefaultContactAddress: (addressId: string) => Promise<void>;
-  handleUpdateAddress: (
+  createUserAddress: Promise<Address>;
+  deleteUserAddress: Promise<void>;
+  getUserAddresses: Promise<Address[]>;
+  updateUserAddress: Promise<Address>;
+  setUserDefaultBillingAddress: Promise<void>;
+  setUserDefaultContactAddress: Promise<void>;
+  setUserDefaultShippingAddress: Promise<void>;
+  userAddressError: BlackoutError | null | undefined;
+  isUserAddressLoading: boolean | undefined;
+  addressPredictions: Nullable<AddressPredictions[]> | undefined;
+  isAddressPredictionLoading: boolean;
+  isAddressPredictionsLoading: boolean;
+  addressPredictionsError: Nullable<BlackoutError>;
+  addressPredictionError: Nullable<BlackoutError>;
+  countryAddressSchema: CountryAddressSchema | undefined;
+  isCountryAddressSchemaLoading: boolean;
+  countryAddressSchemaError: Nullable<BlackoutError>;
+  handleDeleteUserAddress: DeleteAddressHandlerData;
+  handleCreateUserAddress: (address: { k: string }) => Promise<Address>;
+  handleSetUserDefaultShippingAddress: (addressId: string) => Promise<void>;
+  handleSetUserDefaultBillingAddress: (addressId: string) => Promise<void>;
+  handleSetUserDefaultContactAddress: (addressId: string) => Promise<void>;
+  handleUpdateUserAddress: (
     addressId: string,
     address: {
       k: string;
     },
   ) => Promise<Address>;
-  handleGetAddress: () => Promise<Address[]>;
-  handleGetPredictions: (
+  handleGetUserAddress: () => Promise<Address[]>;
+  handleGetAddressPredictions: (
     text: string,
     query?: Query | undefined,
-  ) => Promise<Prediction[]>;
-  handleGetPredictionDetails: (
+  ) => Promise<AddressPredictions[]>;
+  handleGetAddressPrediction: (
     predictionId: string,
     query?: QueryPredictionDetails | undefined,
-  ) => Promise<PredictionDetails>;
-  resetPredictions: () => void;
-  handleGetAddressSchema: (isoCode: string) => Promise<Schema>;
+  ) => Promise<AddressPrediction>;
+  resetAddressPredictions: () => void;
+  handleGetCountryAddressSchema: (
+    isoCode: string,
+  ) => Promise<CountryAddressSchema>;
 } => {
   // Selectors
   const addressesData = useSelector((state: StoreState) =>
-    selectors.getAddresses(state),
+    selectorsUsers.getUserAddresses(state),
   );
+  // TODO: FIX ME! - Validate if this selector works.
   const addressesIds = useSelector((state: StoreState) =>
-    selectors.getResult(state),
+    selectorsUsers.getAddressesResult(state),
   );
+  // TODO: FIX ME! - Validate this selector, it may not make sense.
   const addressesError = useSelector((state: StoreState) =>
-    selectors.getError(state),
+    selectorsUsers.getUserError(state),
   );
   const isAddressesLoading = useSelector((state: StoreState) =>
-    selectors.isAddressesLoading(state),
+    selectorsUsers.isUserAddressesLoading(state),
   );
-  const addressError = useSelector((state: StoreState) =>
-    selectors.getAddressError(state, addressId || ''),
+  const userAddressError = useSelector((state: StoreState) =>
+    selectorsUsers.getUserAddressError(state, addressId || ''),
   );
-  const isAddressLoading = useSelector((state: StoreState) =>
-    selectors.isAddressLoading(state, addressId || ''),
+  const isUserAddressLoading = useSelector((state: StoreState) =>
+    selectorsUsers.isUserAddressLoading(state, addressId || ''),
   );
-  const predictions = useSelector((state: StoreState) =>
-    selectors.getPredictions(state),
+  const addressPredictions = useSelector((state: StoreState) =>
+    selectorsAddresses.getAddressPredictions(state),
   );
-  const isPredictionsLoading = useSelector((state: StoreState) =>
-    selectors.isPredictionsLoading(state),
+  const isAddressPredictionsLoading = useSelector((state: StoreState) =>
+    selectorsAddresses.isAddressPredictionsLoading(state),
   );
-  const predictionsError = useSelector((state: StoreState) =>
-    selectors.getPredictionsError(state),
+  const addressPredictionsError = useSelector((state: StoreState) =>
+    selectorsAddresses.getAddressPredictionsError(state),
   );
-  const isPredictionDetailsLoading = useSelector((state: StoreState) =>
-    selectors.isPredictionDetailsLoading(state),
+  const isAddressPredictionLoading = useSelector((state: StoreState) =>
+    selectorsAddresses.isAddressPredictionLoading(state),
   );
-  const predictionDetailsError = useSelector((state: StoreState) =>
-    selectors.getPredictionDetailsError(state),
+  const addressPredictionError = useSelector((state: StoreState) =>
+    selectorsAddresses.getAddressPredictionError(state),
   );
-  const addressSchema = useSelector((state: StoreState) =>
-    selectors.getSchema(state, isoCode || ''),
+  const countryAddressSchema = useSelector((state: StoreState) =>
+    selectorsLocale.getCountryAddressSchema(state, isoCode || ''),
   );
-  const isAddressSchemaLoading = useSelector((state: StoreState) =>
-    selectors.isAddressSchemaLoading(state),
+  const isCountryAddressSchemaLoading = useSelector((state: StoreState) =>
+    selectorsLocale.isCountryAddressSchemaLoading(state),
   );
-  const addressSchemaError = useSelector((state: StoreState) =>
-    selectors.getAddressSchemaError(state),
+  const countryAddressSchemaError = useSelector((state: StoreState) =>
+    selectorsLocale.getCountryAddressSchemaError(state),
   );
 
   // Actions
-  const deleteAddress = useAction(removeAddress);
-  const getAddresses = useAction(fetchAddresses);
-  const createAddress = useAction(createAddressAction);
-  const updateAddress = useAction(updateAddressAction);
-  const setDefaultBillingAddress = useAction(setDefaultBillingAddressAction);
-  const setDefaultContactAddress = useAction(setDefaultContactAddressAction);
-  const setDefaultShippingAddress = useAction(setDefaultShippingAddressAction);
-  const getPredictions = useAction(fetchPredictions);
-  const getPredictionDetails = useAction(fetchPredictionDetails);
-  const resetPredictions = useAction(resetPredictionsAction);
-  const getAddressSchema = useAction(fetchAddressSchema);
+  const deleteUserAddress = useAction(removeUserAddress);
+  const getUserAddresses = useAction(fetchUserAddresses);
+  const createUserAddress = useAction(createUserAddressAction);
+  const updateUserAddress = useAction(updateUserAddressAction);
+  const setUserDefaultBillingAddress = useAction(
+    setUserDefaultBillingAddressAction,
+  );
+  const setUserDefaultContactAddress = useAction(
+    setUserDefaultContactAddressAction,
+  );
+  const setUserDefaultShippingAddress = useAction(
+    setUserDefaultShippingAddressAction,
+  );
+  const getAddressPredictions = useAction(fetchAddressPredictions);
+  const getAddressPrediction = useAction(fetchAddressPrediction);
+  const resetAddressPredictions = useAction(resetAddressPredictionsAction);
+  const getCountryAddressSchema = useAction(fetchCountryAddressSchema);
   /**
    * Deleting status is used to differentiate between different addresses currently
    * being removed Whenever someone clicks the delete button it adds a boolean
@@ -170,7 +184,7 @@ export default ({
   const [deletingStatus, setDeletingStatus] = useState({});
 
   useEffect(() => {
-    auto && getAddresses(userId);
+    auto && getUserAddresses(userId);
   }, [auto, userId]);
 
   // Gets the address to set as the new default address.
@@ -212,11 +226,11 @@ export default ({
    *
    * @param address - The address.
    */
-  const handleDeleteAddress: DeleteAddressHandlerData = async address => {
+  const handleDeleteUserAddress: DeleteAddressHandlerData = async address => {
     // Mark the loading as active for the delete operation
     setDeletingStatus({ ...deletingStatus, [address.id]: true });
     try {
-      await deleteAddress(userId, address.id);
+      await deleteUserAddress(userId, address.id);
       // If the address to be removed is the default for shipping, billing
       // or contact, a new address will be set as the respective default.
       if (
@@ -230,15 +244,15 @@ export default ({
         );
         if (addressIdToSetDefault) {
           if (address?.isCurrentShipping) {
-            setDefaultShippingAddress(userId, addressIdToSetDefault);
+            setUserDefaultShippingAddress(userId, addressIdToSetDefault);
           }
 
           if (address?.isCurrentBilling) {
-            setDefaultBillingAddress(userId, addressIdToSetDefault);
+            setUserDefaultBillingAddress(userId, addressIdToSetDefault);
           }
 
           if (address?.isCurrentPreferred) {
-            setDefaultContactAddress(userId, addressIdToSetDefault);
+            setUserDefaultContactAddress(userId, addressIdToSetDefault);
           }
         }
       }
@@ -248,38 +262,43 @@ export default ({
     }
   };
 
-  const handleSetDefaultShippingAddress = (addressId: string): Promise<void> =>
-    setDefaultShippingAddress(userId, addressId);
+  const handleSetUserDefaultShippingAddress = (
+    addressId: string,
+  ): Promise<void> => setUserDefaultShippingAddress(userId, addressId);
 
-  const handleSetDefaultBillingAddress = (addressId: string): Promise<void> =>
-    setDefaultBillingAddress(userId, addressId);
+  const handleSetUserDefaultBillingAddress = (
+    addressId: string,
+  ): Promise<void> => setUserDefaultBillingAddress(userId, addressId);
 
-  const handleSetDefaultContactAddress = (addressId: string): Promise<void> =>
-    setDefaultContactAddress(userId, addressId);
+  const handleSetUserDefaultContactAddress = (
+    addressId: string,
+  ): Promise<void> => setUserDefaultContactAddress(userId, addressId);
 
-  const handleUpdateAddress = (
+  const handleUpdateUserAddress = (
     addressId: string,
     address: { k: string },
-  ): Promise<Address> => updateAddress(userId, addressId, address);
+  ): Promise<Address> => updateUserAddress(userId, addressId, address);
 
-  const handleCreateAddress = (address: { k: string }): Promise<Address> =>
-    createAddress(userId, address);
+  const handleCreateUserAddress = (address: { k: string }): Promise<Address> =>
+    createUserAddress(userId, address);
 
-  const handleGetAddress = (): Promise<Address[]> => getAddresses(userId);
+  const handleGetUserAddress = (): Promise<Address[]> =>
+    getUserAddresses(userId);
 
-  const handleGetPredictions = (
+  const handleGetAddressPredictions = (
     text: string,
     query?: Query,
-  ): Promise<Prediction[]> => getPredictions(text, query);
+  ): Promise<AddressPredictions[]> => getAddressPredictions(text, query);
 
-  const handleGetPredictionDetails = (
+  const handleGetAddressPrediction = (
     predictionId: string,
     query?: QueryPredictionDetails,
-  ): Promise<PredictionDetails> =>
-    getPredictionDetails({ predictionId }, query);
+  ): Promise<AddressPrediction> =>
+    getAddressPrediction({ predictionId }, query);
 
-  const handleGetAddressSchema = (isoCode: string): Promise<Schema> =>
-    getAddressSchema(isoCode);
+  const handleGetCountryAddressSchema = (
+    isoCode: string,
+  ): Promise<CountryAddressSchema> => getCountryAddressSchema(isoCode);
 
   return {
     deletingStatus,
@@ -287,33 +306,33 @@ export default ({
     addressesIds,
     addressesError,
     isAddressesLoading,
-    createAddress,
-    deleteAddress,
-    getAddresses,
-    updateAddress,
-    setDefaultBillingAddress,
-    setDefaultContactAddress,
-    setDefaultShippingAddress,
-    addressError,
-    isAddressLoading,
-    predictions,
-    isPredictionDetailsLoading,
-    isPredictionsLoading,
-    predictionsError,
-    predictionDetailsError,
-    addressSchema,
-    isAddressSchemaLoading,
-    addressSchemaError,
-    handleDeleteAddress,
-    handleCreateAddress,
-    handleSetDefaultShippingAddress,
-    handleSetDefaultBillingAddress,
-    handleSetDefaultContactAddress,
-    handleUpdateAddress,
-    handleGetAddress,
-    handleGetPredictions,
-    handleGetPredictionDetails,
-    resetPredictions,
-    handleGetAddressSchema,
+    createUserAddress,
+    deleteUserAddress,
+    getUserAddresses,
+    updateUserAddress,
+    setUserDefaultBillingAddress,
+    setUserDefaultContactAddress,
+    setUserDefaultShippingAddress,
+    userAddressError,
+    isUserAddressLoading,
+    addressPredictions,
+    isAddressPredictionLoading,
+    isAddressPredictionsLoading,
+    addressPredictionsError,
+    addressPredictionError,
+    countryAddressSchema,
+    isCountryAddressSchemaLoading,
+    countryAddressSchemaError,
+    handleDeleteUserAddress,
+    handleCreateUserAddress,
+    handleSetUserDefaultShippingAddress,
+    handleSetUserDefaultBillingAddress,
+    handleSetUserDefaultContactAddress,
+    handleUpdateUserAddress,
+    handleGetUserAddress,
+    handleGetAddressPredictions,
+    handleGetAddressPrediction,
+    resetAddressPredictions,
+    handleGetCountryAddressSchema,
   };
 };

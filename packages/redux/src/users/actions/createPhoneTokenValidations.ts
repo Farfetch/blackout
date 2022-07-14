@@ -1,7 +1,9 @@
 import { createPhoneTokenValidationsFactory } from './factories';
-import { postPhoneTokenValidations } from '@farfetch/blackout-client/users';
+import { postPhoneTokenValidations } from '@farfetch/blackout-client';
 
 /**
  * Validate the user's phone number with a phone token.
  */
-export default createPhoneTokenValidationsFactory(postPhoneTokenValidations);
+export const createPhoneTokenValidations = createPhoneTokenValidationsFactory(
+  postPhoneTokenValidations,
+);

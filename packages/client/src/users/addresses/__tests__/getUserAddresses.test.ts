@@ -1,5 +1,5 @@
 import { getUserAddresses } from '..';
-import { mockGetAddressesResponse, userId } from 'tests/__fixtures__/addresses';
+import { mockGetAddressesResponse, userId } from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/getUserAddresses.fixtures';
 import mswServer from '../../../../tests/mswServer';

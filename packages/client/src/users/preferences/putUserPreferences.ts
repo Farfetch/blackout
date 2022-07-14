@@ -1,8 +1,7 @@
 import { adaptError } from '../../helpers/client/formatError';
 import client from '../../helpers/client';
 import join from 'proper-url-join';
-import type { Config } from '../../types';
-import type { PutUserPreferencesData } from './types';
+import type { PutUserPreferences } from './types';
 
 /**
  * Method responsible for update user preferences.
@@ -13,13 +12,10 @@ import type { PutUserPreferencesData } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const putUserPreferences = (
-  userId: number,
-  data: PutUserPreferencesData,
-  config?: Config,
-) =>
+export const putUserPreferences: PutUserPreferences = (userId, data, config?) =>
   client
     .put(join('/account/v1/users/', userId, '/preferences'), data, config)
+    .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
