@@ -6,10 +6,3 @@ export type GetUserContact = (
   contactId: string,
   config?: Config,
 ) => Promise<UserContactResponse>;
-
-export type GetUserContactFixtureParams = {
-  userId: number;
-  contactId: string;
-  config?: Config;
-  response?: UserContactResponse | Record<string, unknown>;
-};

@@ -1,5 +1,4 @@
 import { compose } from 'lodash/fp';
-import { entitiesMapper as entitiesMapperAddresses } from '../../addresses';
 import { entitiesMapper as entitiesMapperAuthentication } from '../../authentication';
 import { entitiesMapper as entitiesMapperBag } from '../../bags';
 import { entitiesMapper as entitiesMapperCheckout } from '../../checkout';
@@ -9,6 +8,7 @@ import { entitiesMapper as entitiesMapperPayments } from '../../payments';
 import { entitiesMapper as entitiesMapperReturns } from '../../returns';
 import { entitiesMapper as entitiesMapperUsers } from '../../users';
 import { entitiesMapper as entitiesMapperWishlist } from '../../wishlists';
+import { localeEntitiesMapper } from '../../locale';
 import { productsEntitiesMapper } from '../../products';
 import { subscriptionsEntitiesMapper } from '../../subscriptions';
 import createEntitiesReducer from './createEntities';
@@ -36,10 +36,10 @@ type EntitiesMapperAdapter = (
 // module but cannot be named.)"
 // Playground representation - https://tinyurl.com/a8srpa4u
 export const defaultMappers = {
-  addresses: entitiesMapperAddresses,
   authentication: entitiesMapperAuthentication,
   bag: entitiesMapperBag,
   checkout: entitiesMapperCheckout,
+  locale: localeEntitiesMapper,
   merchantsLocations: entitiesMapperMerchantsLocations,
   orders: entitiesMapperOrders,
   payments: entitiesMapperPayments,
@@ -90,18 +90,18 @@ export const mergeEntitiesMapper: EntitiesMapperAdapter = entitiesMappers => {
 const entitiesMapper: EntitiesMapper = (extraMappers = []) =>
   createEntitiesReducer(
     mergeEntitiesMapper([
-      entitiesMapperAddresses,
       entitiesMapperAuthentication,
       entitiesMapperBag,
       entitiesMapperCheckout,
       entitiesMapperMerchantsLocations,
       entitiesMapperOrders,
       entitiesMapperPayments,
-      productsEntitiesMapper,
       entitiesMapperReturns,
-      subscriptionsEntitiesMapper,
       entitiesMapperUsers,
       entitiesMapperWishlist,
+      localeEntitiesMapper,
+      productsEntitiesMapper,
+      subscriptionsEntitiesMapper,
       // These are overrides - must be in the last position
       ...extraMappers,
     ]),

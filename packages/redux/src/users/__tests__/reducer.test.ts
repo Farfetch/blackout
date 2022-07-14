@@ -1,27 +1,102 @@
 import * as fromReducer from '../reducer';
-// @ts-ignore:next-line
-import { LOGOUT_SUCCESS } from '@farfetch/blackout-redux/authentication/actionTypes';
+import { address1 } from 'tests/__fixtures__/users';
+import { LOGOUT_SUCCESS } from '@farfetch/blackout-redux/src/authentication/actionTypes';
 import reducer, { actionTypes, entitiesMapper } from '..';
-import type { ActionType, State } from '../types';
+import type { State } from '../types';
 
 let initialState: State;
-
 const randomAction = { type: 'this_is_a_random_action' };
 
 describe('users redux reducer', () => {
+  const addressId2 = '2222222';
+
   beforeEach(() => {
     initialState = fromReducer.INITIAL_STATE;
   });
 
+  describe('reset handling', () => {
+    it('RESET_USER_ADDRESSES should return the initial state', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.RESET_USER_ADDRESSES,
+        }),
+      ).toEqual(initialState);
+    });
+
+    it('LOGOUT_SUCCESS should return the initial state', () => {
+      expect(
+        reducer(undefined, {
+          type: LOGOUT_SUCCESS,
+        }),
+      ).toEqual(initialState);
+    });
+  });
+
+  describe('getDefaultAddress() function', () => {
+    it('should return the default shipping and billing addresses given a list of addresses', () => {
+      const defaultShippingAddress = {
+        id: 1,
+        name: 'address1',
+        isCurrentShipping: true,
+        isCurrentBilling: false,
+      };
+
+      const defaultBillingAddress = {
+        id: 2,
+        name: 'address2',
+        isCurrentShipping: false,
+        isCurrentBilling: true,
+      };
+
+      const addressesList = {
+        [defaultShippingAddress.id]: {
+          ...defaultShippingAddress,
+        },
+        [defaultBillingAddress.id]: {
+          ...defaultBillingAddress,
+        },
+      };
+
+      const resultDefaultShippingAddress = fromReducer.getDefaultAddress(
+        addressesList,
+        'isCurrentShipping',
+      );
+      expect(resultDefaultShippingAddress).toEqual(defaultShippingAddress);
+
+      const resultDefaultBillingAddress = fromReducer.getDefaultAddress(
+        addressesList,
+        'isCurrentBilling',
+      );
+      expect(resultDefaultBillingAddress).toEqual(defaultBillingAddress);
+    });
+  });
+
   describe('error() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(
-        undefined,
-        randomAction as ActionType as ActionType,
-      ).error;
+      const state = reducer(undefined, randomAction).error;
 
       expect(state).toBe(initialState.error);
       expect(state).toBeNull();
+    });
+
+    it.each([
+      actionTypes.FETCH_USER_ADDRESSES_FAILURE,
+      actionTypes.CREATE_USER_ADDRESS_FAILURE,
+      actionTypes.UPDATE_USER_ADDRESS_FAILURE,
+      actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_FAILURE,
+      actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_FAILURE,
+      actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
+      actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
+      actionTypes.FETCH_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
+    ])('should handle %s action type', actionType => {
+      const error = 'foo';
+      const reducerResult = reducer(undefined, {
+        payload: { error },
+        type: actionType,
+        meta: { addressId: addressId2 },
+      });
+
+      expect(reducerResult.error).toBe(error);
     });
 
     it('should handle FETCH_USER_FAILURE action type', () => {
@@ -137,15 +212,13 @@ describe('users redux reducer', () => {
     it('should handle other actions by returning the initial state', () => {
       const state = { ...initialState, error: 'foo' };
 
-      expect(reducer(state, randomAction as ActionType).error).toBe(
-        state.error,
-      );
+      expect(reducer(state, randomAction).error).toBe(state.error);
     });
   });
 
   describe('result() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(undefined, randomAction as ActionType).result;
+      const state = reducer(undefined, randomAction).result;
 
       expect(state).toBe(initialState.result);
     });
@@ -194,21 +267,124 @@ describe('users redux reducer', () => {
       ).toBe(expectedResult);
     });
 
+    it('should handle FETCH_USER_ADDRESSES_SUCCESS action type', () => {
+      const expectedResult = 'foo';
+      const reducerResult = reducer(undefined, {
+        payload: { result: expectedResult },
+        type: actionTypes.FETCH_USER_ADDRESSES_SUCCESS,
+      });
+
+      expect(reducerResult.result).toBe(expectedResult);
+    });
+
+    it('should handle CREATE_USER_ADDRESS_SUCCESS action type', () => {
+      const state = { ...initialState, result: ['1', '2', '3'] };
+      const newAddressId = '4';
+      const expectedState = [...state.result, newAddressId];
+
+      const reducerResult = reducer(state, {
+        meta: { addressId: newAddressId },
+        payload: {
+          result: newAddressId,
+          entities: {
+            addresses: {
+              [newAddressId]: { id: newAddressId },
+            },
+          },
+        },
+        type: actionTypes.CREATE_USER_ADDRESS_SUCCESS,
+      });
+
+      expect(reducerResult.result).toEqual(expectedState);
+    });
+
+    it('should handle REMOVE_USER_ADDRESS_SUCCESS action type', () => {
+      const state = { ...initialState, result: ['1', '2', '3'] };
+      const addressIdToRemove = '2';
+      const expectedState = ['1', '3'];
+
+      const reducerResult = reducer(state, {
+        meta: { addressId: addressIdToRemove },
+        type: actionTypes.REMOVE_USER_ADDRESS_SUCCESS,
+      });
+
+      expect(reducerResult.result).toEqual(expectedState);
+    });
+
     it('should handle other actions by returning the previous state', () => {
       const state = { ...initialState, result: { bar: 'foo' } };
 
-      expect(reducer(state, randomAction as ActionType).result).toBe(
-        state.result,
-      );
+      expect(reducer(state, randomAction).result).toBe(state.result);
     });
   });
 
   describe('isLoading() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(undefined, randomAction as ActionType).isLoading;
+      const state = reducer(undefined, randomAction).isLoading;
 
       expect(state).toBe(initialState.isLoading);
       expect(state).toBe(false);
+    });
+
+    // Loading status on REQUEST
+    it.each([
+      actionTypes.FETCH_USER_ADDRESSES_REQUEST,
+      actionTypes.FETCH_USER_ADDRESS_REQUEST,
+      actionTypes.CREATE_USER_ADDRESS_REQUEST,
+      actionTypes.UPDATE_USER_ADDRESS_REQUEST,
+      actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_REQUEST,
+      actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_REQUEST,
+      actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_REQUEST,
+      actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_REQUEST,
+      actionTypes.FETCH_USER_DEFAULT_CONTACT_ADDRESS_REQUEST,
+    ])('should handle %s action type', actionType => {
+      expect(
+        reducer(undefined, {
+          meta: { addressId: addressId2 },
+          type: actionType,
+        }).isLoading,
+      ).toBe(true);
+    });
+
+    // Loading status on SUCCESS
+    it.each([
+      actionTypes.FETCH_USER_ADDRESSES_SUCCESS,
+      actionTypes.FETCH_USER_ADDRESS_SUCCESS,
+      actionTypes.UPDATE_USER_ADDRESS_SUCCESS,
+      actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_SUCCESS,
+      actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS,
+      actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS,
+      actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS,
+      actionTypes.FETCH_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS,
+    ])('should handle %s action type', actionType => {
+      expect(
+        reducer(undefined, {
+          payload: { result: '' },
+          type: actionType,
+          meta: { addressId: addressId2 },
+        }).isLoading,
+      ).toBe(initialState.isLoading);
+    });
+
+    // Loading status on FAILURE
+    it.each([
+      actionTypes.FETCH_USER_ADDRESSES_FAILURE,
+      actionTypes.FETCH_USER_ADDRESS_FAILURE,
+      actionTypes.CREATE_USER_ADDRESS_FAILURE,
+      actionTypes.UPDATE_USER_ADDRESS_FAILURE,
+      actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_FAILURE,
+      actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_FAILURE,
+      actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
+      actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
+      actionTypes.FETCH_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
+    ])('should handle %s action type', actionType => {
+      expect(
+        reducer(undefined, {
+          payload: { error: '' },
+          type: actionType,
+          meta: { addressId: addressId2 },
+        }).isLoading,
+      ).toBe(initialState.isLoading);
     });
 
     it('should handle FETCH_USER_REQUEST action type', () => {
@@ -522,9 +698,94 @@ describe('users redux reducer', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = { ...initialState, isLoading: true };
 
-      expect(reducer(state, randomAction as ActionType).isLoading).toBe(
-        state.isLoading,
-      );
+      expect(reducer(state, randomAction).isLoading).toBe(state.isLoading);
+    });
+  });
+
+  describe('address() reducer', () => {
+    it('should return the initial state', () => {
+      const state = fromReducer.INITIAL_STATE.address;
+
+      expect(state).toEqual(initialState.address);
+      expect(state).toEqual({ error: {}, isLoading: {} });
+    });
+
+    // Error and loading status on REQUEST for address details
+    it.each([actionTypes.CREATE_USER_ADDRESS_REQUEST])(
+      'should handle %s action type',
+      actionType => {
+        expect(
+          reducer(undefined, {
+            type: actionType,
+          }).address,
+        ).toEqual({
+          error: {},
+          isLoading: {},
+        });
+      },
+    );
+
+    it.each([
+      actionTypes.FETCH_USER_ADDRESS_REQUEST,
+      actionTypes.REMOVE_USER_ADDRESS_REQUEST,
+      actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_REQUEST,
+      actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_REQUEST,
+      actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_REQUEST,
+      actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_REQUEST,
+    ])('should handle %s action type', actionType => {
+      expect(
+        reducer(undefined, {
+          meta: { addressId: addressId2 },
+          type: actionType,
+        }).address,
+      ).toEqual({
+        error: {},
+        isLoading: { [addressId2]: true },
+      });
+    });
+    // Error and loading status on FAILURE for address details
+
+    it.each([
+      actionTypes.FETCH_USER_ADDRESS_FAILURE,
+      actionTypes.REMOVE_USER_ADDRESS_FAILURE,
+      actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_FAILURE,
+      actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_FAILURE,
+      actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
+      actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
+    ])('should handle %s action type', actionType => {
+      expect(
+        reducer(undefined, {
+          meta: { addressId: addressId2 },
+          type: actionType,
+          payload: { error: '' },
+        }).address,
+      ).toEqual({
+        error: { [addressId2]: '' },
+        isLoading: { [addressId2]: false },
+      });
+    });
+
+    // Error and loading status on SUCCESS for address details
+    it.each([
+      actionTypes.FETCH_USER_ADDRESS_SUCCESS,
+      actionTypes.REMOVE_USER_ADDRESS_SUCCESS,
+      actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_SUCCESS,
+      actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS,
+      actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS,
+      actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS,
+    ])('should handle %s action type', actionType => {
+      expect(
+        reducer(undefined, {
+          meta: { addressId: addressId2 },
+          type: actionType,
+        }).address,
+      ).toEqual({ error: {}, isLoading: { [addressId2]: false } });
+    });
+
+    it('should handle other actions by returning the previous state', () => {
+      const state = { ...initialState, address: { isLoading: { foo: false } } };
+
+      expect(reducer(state, randomAction).address).toEqual(state.address);
     });
   });
 
@@ -537,7 +798,7 @@ describe('users redux reducer', () => {
       },
     };
 
-    it('should handle FETCH_BENEFITS_SUCCESS action type', () => {
+    it('should handle FETCH_USER_BENEFITS_SUCCESS action type', () => {
       const idBenefit1 = 1111;
       const benefitsEntity = {
         [idBenefit1]: {
@@ -558,20 +819,20 @@ describe('users redux reducer', () => {
       };
 
       expect(
-        entitiesMapper[actionTypes.FETCH_BENEFITS_SUCCESS](state, {
+        entitiesMapper[actionTypes.FETCH_USER_BENEFITS_SUCCESS](state, {
           payload: {
             result: [idBenefit1],
             entities: {
               benefits: { ...benefitsEntity },
             },
           },
-          type: actionTypes.FETCH_BENEFITS_SUCCESS,
+          type: actionTypes.FETCH_USER_BENEFITS_SUCCESS,
         }),
       ).toEqual(expectedResult);
     });
 
-    describe('FETCH_PREFERENCES_SUCCESS', () => {
-      it('should handle FETCH_PREFERENCES_SUCCESS action type when _NO_ preferences are available on the server', () => {
+    describe('FETCH_USER_PREFERENCES_SUCCESS', () => {
+      it('should handle FETCH_USER_PREFERENCES_SUCCESS action type when _NO_ preferences are available on the server', () => {
         const expectedResult = {
           ...state,
           user: { ...state.user, preferences: [] },
@@ -579,17 +840,17 @@ describe('users redux reducer', () => {
         };
 
         expect(
-          entitiesMapper[actionTypes.FETCH_PREFERENCES_SUCCESS](state, {
+          entitiesMapper[actionTypes.FETCH_USER_PREFERENCES_SUCCESS](state, {
             payload: {
               result: [],
               entities: {},
             },
-            type: actionTypes.FETCH_PREFERENCES_SUCCESS,
+            type: actionTypes.FETCH_USER_PREFERENCES_SUCCESS,
           }),
         ).toEqual(expectedResult);
       });
 
-      it('should handle FETCH_PREFERENCES_SUCCESS action type when preferences are available on the server', () => {
+      it('should handle FETCH_USER_PREFERENCES_SUCCESS action type when preferences are available on the server', () => {
         const codePreference = 'code1';
         const preferencesEntity = {
           [codePreference]: {
@@ -607,20 +868,20 @@ describe('users redux reducer', () => {
         };
 
         expect(
-          entitiesMapper[actionTypes.FETCH_PREFERENCES_SUCCESS](state, {
+          entitiesMapper[actionTypes.FETCH_USER_PREFERENCES_SUCCESS](state, {
             payload: {
               result: [codePreference],
               entities: {
                 preferences: { ...preferencesEntity },
               },
             },
-            type: actionTypes.FETCH_PREFERENCES_SUCCESS,
+            type: actionTypes.FETCH_USER_PREFERENCES_SUCCESS,
           }),
         ).toEqual(expectedResult);
       });
     });
 
-    it('should handle FETCH_CREDIT_SUCCESS action type', () => {
+    it('should handle FETCH_USER_CREDIT_SUCCESS action type', () => {
       const credit = {
         currency: 'GB',
         value: 50,
@@ -633,16 +894,16 @@ describe('users redux reducer', () => {
       };
 
       expect(
-        entitiesMapper[actionTypes.FETCH_CREDIT_SUCCESS](state, {
+        entitiesMapper[actionTypes.FETCH_USER_CREDIT_SUCCESS](state, {
           payload: {
             credit,
           },
-          type: actionTypes.FETCH_CREDIT_SUCCESS,
+          type: actionTypes.FETCH_USER_CREDIT_SUCCESS,
         }),
       ).toEqual(expectedResult);
     });
 
-    it('should handle FETCH_CREDIT_MOVEMENTS_SUCCESS action type', () => {
+    it('should handle FETCH_USER_CREDIT_MOVEMENTS_SUCCESS action type', () => {
       const creditMovements = {
         entries: [
           {
@@ -665,16 +926,16 @@ describe('users redux reducer', () => {
       };
 
       expect(
-        entitiesMapper[actionTypes.FETCH_CREDIT_MOVEMENTS_SUCCESS](state, {
+        entitiesMapper[actionTypes.FETCH_USER_CREDIT_MOVEMENTS_SUCCESS](state, {
           payload: {
             creditMovements,
           },
-          type: actionTypes.FETCH_CREDIT_MOVEMENTS_SUCCESS,
+          type: actionTypes.FETCH_USER_CREDIT_MOVEMENTS_SUCCESS,
         }),
       ).toEqual(expectedResult);
     });
 
-    it('should handle FETCH_CONTACTS_SUCCESS action type', () => {
+    it('should handle FETCH_USER_CONTACTS_SUCCESS action type', () => {
       const idContact1 = 'contact1';
       const contactsEntity = {
         [idContact1]: {
@@ -696,19 +957,19 @@ describe('users redux reducer', () => {
       };
 
       expect(
-        entitiesMapper[actionTypes.FETCH_CONTACTS_SUCCESS](state, {
+        entitiesMapper[actionTypes.FETCH_USER_CONTACTS_SUCCESS](state, {
           payload: {
             result: [idContact1],
             entities: {
               contacts: { ...contactsEntity },
             },
           },
-          type: actionTypes.FETCH_CONTACTS_SUCCESS,
+          type: actionTypes.FETCH_USER_CONTACTS_SUCCESS,
         }),
       ).toEqual(expectedResult);
     });
 
-    it('should handle UPDATE_PREFERENCES_SUCCESS action type', () => {
+    it('should handle UPDATE_USER_PREFERENCES_SUCCESS action type', () => {
       const codePreference = 'code1Updated';
       const preferencesEntity = {
         [codePreference]: {
@@ -726,16 +987,468 @@ describe('users redux reducer', () => {
       };
 
       expect(
-        entitiesMapper[actionTypes.UPDATE_PREFERENCES_SUCCESS](state, {
+        entitiesMapper[actionTypes.UPDATE_USER_PREFERENCES_SUCCESS](state, {
           payload: {
             result: [codePreference],
             entities: {
               preferences: { ...preferencesEntity },
             },
           },
-          type: actionTypes.UPDATE_PREFERENCES_SUCCESS,
+          type: actionTypes.UPDATE_USER_PREFERENCES_SUCCESS,
         }),
       ).toEqual(expectedResult);
+    });
+
+    describe('create an address', () => {
+      const state = {
+        addresses: {
+          1: { id: 1, address: 'data' },
+          2: { id: 2, address: 'data' },
+        },
+      };
+
+      const newAddress = address1;
+      const newAddressResultEntity = {
+        [newAddress.id]: { ...newAddress },
+      };
+      const expectedResult = {
+        addresses: {
+          ...state.addresses,
+          ...newAddressResultEntity,
+        },
+      };
+
+      it('should handle CREATE_USER_ADDRESS_SUCCESS action type', () => {
+        expect(
+          entitiesMapper[actionTypes.CREATE_USER_ADDRESS_SUCCESS](state, {
+            payload: {
+              result: newAddress.id,
+              entities: {
+                addresses: {
+                  ...newAddressResultEntity,
+                },
+              },
+            },
+            type: actionTypes.CREATE_USER_ADDRESS_SUCCESS,
+            meta: { addressId: '1' },
+          }),
+        ).toEqual(expectedResult);
+      });
+    });
+
+    describe('update an address', () => {
+      const state = {
+        addresses: {
+          1: { id: 1, address: 'data', zipCode: '1111', otherprop: 'prop' },
+        },
+      };
+
+      const updatedAddress = address1;
+      const updatedAddressResultEntity = {
+        [updatedAddress.id]: { ...updatedAddress },
+      };
+      const expectedResult = {
+        addresses: {
+          ...state.addresses,
+          ...updatedAddressResultEntity,
+        },
+      };
+
+      it('should handle UPDATE_USER_ADDRESS_SUCCESS action type', () => {
+        expect(
+          entitiesMapper[actionTypes.UPDATE_USER_ADDRESS_SUCCESS](state, {
+            payload: {
+              result: updatedAddress.id,
+              entities: {
+                addresses: {
+                  ...updatedAddressResultEntity,
+                },
+              },
+            },
+            type: actionTypes.UPDATE_USER_ADDRESS_SUCCESS,
+            meta: { addressId: '1' },
+          }),
+        ).toStrictEqual(expectedResult);
+      });
+    });
+
+    describe('Delete adressbook address', () => {
+      const state = {
+        addresses: {
+          1: { id: 1, address: 'data' },
+          2: { id: 2, address: 'data' },
+        },
+      };
+
+      const expectedResult = {
+        addresses: {
+          2: { id: 2, address: 'data' },
+        },
+      };
+
+      it('should handle REMOVE_ADDRESS_SUCCESS action type', () => {
+        expect(
+          entitiesMapper[actionTypes.REMOVE_USER_ADDRESS_SUCCESS](state, {
+            meta: { addressId: '1' },
+            type: actionTypes.REMOVE_USER_ADDRESS_SUCCESS,
+          }),
+        ).toEqual(expectedResult);
+      });
+    });
+
+    describe('Set default shipping address', () => {
+      it('should handle SET_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS action type - With a previous default address', () => {
+        const state = {
+          addresses: {
+            1: {
+              id: 1,
+              address: 'data',
+              isCurrentShipping: false,
+            },
+            2: {
+              id: 2,
+              address: 'data',
+              isCurrentShipping: true,
+            },
+          },
+        };
+
+        // Should unmark the previous default as the default address
+        // Should mark the selected address as the default
+        const expectedResult = {
+          addresses: {
+            1: {
+              id: 1,
+              address: 'data',
+              isCurrentShipping: true,
+            },
+            2: {
+              id: 2,
+              address: 'data',
+              isCurrentShipping: false,
+            },
+          },
+        };
+
+        expect(
+          entitiesMapper[actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS](
+            state,
+            {
+              meta: { addressId: '1' },
+              type: actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS,
+            },
+          ),
+        ).toEqual(expectedResult);
+      });
+
+      it('should handle SET_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS action type - Without a previous default address', () => {
+        const state = {
+          addresses: {
+            1: {
+              id: 1,
+              address: 'data',
+              isCurrentShipping: false,
+            },
+            2: {
+              id: 2,
+              address: 'data',
+              isCurrentShipping: false,
+            },
+          },
+        };
+
+        // Should mark the selected address as the default
+        const expectedResult = {
+          addresses: {
+            1: {
+              id: 1,
+              address: 'data',
+              isCurrentShipping: true,
+            },
+            2: {
+              id: 2,
+              address: 'data',
+              isCurrentShipping: false,
+            },
+          },
+        };
+
+        expect(
+          entitiesMapper[actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS](
+            state,
+            {
+              meta: { addressId: '1' },
+              type: actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS,
+            },
+          ),
+        ).toEqual(expectedResult);
+      });
+    });
+
+    describe('Set default billing address', () => {
+      it('should handle SET_USER_DEFAULT_BILLING_ADDRESS_SUCCESS action type - With a previous default address', () => {
+        const state = {
+          addresses: {
+            1: {
+              id: 1,
+              address: 'data',
+              isCurrentBilling: false,
+            },
+            2: {
+              id: 2,
+              address: 'data',
+              isCurrentBilling: true,
+            },
+          },
+        };
+
+        // Should unmark the previous default as the default address
+        // Should mark the selected address as the default
+        const expectedResult = {
+          addresses: {
+            1: {
+              id: 1,
+              address: 'data',
+              isCurrentBilling: true,
+            },
+            2: {
+              id: 2,
+              address: 'data',
+              isCurrentBilling: false,
+            },
+          },
+        };
+        expect(
+          entitiesMapper[actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_SUCCESS](
+            state,
+            {
+              meta: { addressId: '1' },
+              type: actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_SUCCESS,
+            },
+          ),
+        ).toEqual(expectedResult);
+      });
+
+      it('should handle SET_USER_DEFAULT_BILLING_ADDRESS_SUCCESS action type - Without a previous default address', () => {
+        const state = {
+          addresses: {
+            1: {
+              id: 1,
+              address: 'data',
+              isCurrentBilling: false,
+            },
+            2: {
+              id: 2,
+              address: 'data',
+              isCurrentBilling: false,
+            },
+          },
+        };
+
+        // Should mark the selected address as the default
+        const expectedResult = {
+          addresses: {
+            1: {
+              id: 1,
+              address: 'data',
+              isCurrentBilling: true,
+            },
+            2: {
+              id: 2,
+              address: 'data',
+              isCurrentBilling: false,
+            },
+          },
+        };
+
+        expect(
+          entitiesMapper[actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_SUCCESS](
+            state,
+            {
+              meta: { addressId: '1' },
+              type: actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_SUCCESS,
+            },
+          ),
+        ).toEqual(expectedResult);
+      });
+    });
+
+    describe('Set default contact address', () => {
+      it('should handle SET_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS action type - With a previous default address', () => {
+        const state = {
+          addresses: {
+            1: {
+              id: 1,
+              address: 'data',
+              isCurrentPreferred: false,
+            },
+            2: {
+              id: 2,
+              address: 'data',
+              isCurrentPreferred: true,
+            },
+          },
+        };
+
+        // Should unmark the previous default as the default address
+        // Should mark the selected address as the default
+        const expectedResult = {
+          addresses: {
+            1: {
+              id: 1,
+              address: 'data',
+              isCurrentPreferred: true,
+            },
+            2: {
+              id: 2,
+              address: 'data',
+              isCurrentPreferred: false,
+            },
+          },
+        };
+
+        expect(
+          entitiesMapper[actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS](
+            state,
+            {
+              meta: { addressId: '1' },
+              type: actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS,
+            },
+          ),
+        ).toEqual(expectedResult);
+      });
+
+      it('should handle SET_DEFAULT_CONTACT_ADDRESS_SUCCESS action type - Without a previous default address', () => {
+        const state = {
+          addresses: {
+            1: {
+              id: 1,
+              address: 'data',
+              isCurrentPreferred: false,
+            },
+            2: {
+              id: 2,
+              address: 'data',
+              isCurrentPreferred: false,
+            },
+          },
+        };
+
+        // Should mark the selected address as the default
+        const expectedResult = {
+          addresses: {
+            1: {
+              id: 1,
+              address: 'data',
+              isCurrentPreferred: true,
+            },
+            2: {
+              id: 2,
+              address: 'data',
+              isCurrentPreferred: false,
+            },
+          },
+        };
+
+        expect(
+          entitiesMapper[actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS](
+            state,
+            {
+              meta: { addressId: '1' },
+              type: actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS,
+            },
+          ),
+        ).toEqual(expectedResult);
+      });
+    });
+
+    describe('Delete default contact address', () => {
+      it('should handle REMOVE_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS action type', () => {
+        const state = {
+          addresses: {
+            1: {
+              id: 1,
+              address: 'data',
+              isCurrentPreferred: true,
+            },
+          },
+        };
+
+        // Should unmark the previous default as the default address
+        const expectedResult = {
+          addresses: {
+            1: {
+              id: 1,
+              address: 'data',
+              isCurrentPreferred: false,
+            },
+          },
+        };
+
+        expect(
+          entitiesMapper[
+            actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS
+          ](state, {
+            meta: { addressId: '1', userId: 1 },
+            type: actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS,
+          }),
+        ).toEqual(expectedResult);
+      });
+    });
+
+    describe('Logout success', () => {
+      it('should handle LOGOUT_SUCCESS action type', () => {
+        const state = {
+          addresses: {
+            1: {
+              id: 1,
+              address: 'data',
+              isCurrentPreferred: true,
+            },
+          },
+          checkout: {},
+        };
+
+        // Should unmark the previous default as the default address
+        const expectedResult = {
+          checkout: {},
+        };
+
+        expect(entitiesMapper[LOGOUT_SUCCESS](state)).toEqual(expectedResult);
+      });
+    });
+  });
+
+  describe('getAddresses() selector', () => {
+    it('should return the `addresses` property from a given state', () => {
+      const addresses = { error: null, isLoading: false, result: null };
+
+      expect(fromReducer.getUserAddresses({ ...initialState, addresses })).toBe(
+        addresses,
+      );
+    });
+  });
+
+  describe('getAddress() selector', () => {
+    it('should return the `address` property from a given state', () => {
+      const address = { error: {}, isLoading: {} };
+
+      expect(fromReducer.getUserAddress({ ...initialState, address })).toBe(
+        address,
+      );
+    });
+  });
+
+  describe('getDefaultAddress() selector', () => {
+    it('should return the `defaultAddressDetails` property from a given state', () => {
+      const defaultAddress = { error: null, isLoading: false, result: null };
+
+      expect(
+        fromReducer.getUserDefaultAddressDetails({
+          ...initialState,
+          defaultAddress,
+        }),
+      ).toBe(defaultAddress);
     });
   });
 });

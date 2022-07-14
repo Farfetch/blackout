@@ -1,6 +1,8 @@
 import * as actionTypesLocale from './actionTypes';
 import * as middlewaresLocale from './middlewares';
-import reducerLocale from './reducer';
+import reducerLocale, {
+  entitiesMapper as localeEntitiesMapper,
+} from './reducer';
 import serverInitialStateLocale from './serverInitialState';
 
 export * from './actions';
@@ -12,4 +14,5 @@ export {
   middlewaresLocale,
   serverInitialStateLocale,
   reducerLocale,
+  localeEntitiesMapper,
 };

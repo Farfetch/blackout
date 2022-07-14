@@ -53,6 +53,10 @@ describe('local serverInitialState()', () => {
           error: null,
           isLoading: false,
         },
+        addressSchema: {
+          error: null,
+          isLoading: false,
+        },
       },
     });
   });

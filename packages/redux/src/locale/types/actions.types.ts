@@ -5,9 +5,10 @@ import type {
   Cities,
   Countries,
   Country,
+  CountryAddressSchema,
   Currencies,
   States,
-} from '@farfetch/blackout-client/locale/types';
+} from '@farfetch/blackout-client/src/locale/types';
 
 export interface ActionSetCountryCode extends Action {
   type: typeof actionTypes.SET_COUNTRY_CODE;
@@ -104,6 +105,26 @@ export interface ActionFetchCountryStatesSuccess extends Action {
   type: typeof actionTypes.FETCH_COUNTRY_STATES_SUCCESS;
 }
 
+export interface FetchCountryAddressSchemaFailureAction extends Action {
+  payload: { error: BlackoutError };
+  type: typeof actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_FAILURE;
+}
+
+export interface FetchCountryAddressSchemaRequestAction extends Action {
+  meta: { isoCode: string };
+  type: typeof actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_REQUEST;
+}
+
+export interface FetchCountryAddressSchemaSuccessAction extends Action {
+  payload: {
+    entities: {
+      addressSchema: Record<string, CountryAddressSchema>;
+    };
+    result: string;
+  };
+  type: typeof actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS;
+}
+
 export type ActionFetchCountry =
   | ActionFetchCountryFailure
   | ActionFetchCountryRequest
@@ -128,3 +149,8 @@ export type ActionFetchCountryStates =
   | ActionFetchCountryStatesFailure
   | ActionFetchCountryStatesRequest
   | ActionFetchCountryStatesSuccess;
+
+export type FetchCountryAddressSchemaAction =
+  | FetchCountryAddressSchemaFailureAction
+  | FetchCountryAddressSchemaRequestAction
+  | FetchCountryAddressSchemaSuccessAction;

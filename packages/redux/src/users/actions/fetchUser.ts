@@ -1,7 +1,7 @@
 import { fetchUserFactory } from './factories';
-import { getUser } from '@farfetch/blackout-client/users';
+import { getUser } from '@farfetch/blackout-client';
 
 /**
  * Fetch the user data.
  */
-export default fetchUserFactory(getUser);
+export const fetchUser = fetchUserFactory(getUser);

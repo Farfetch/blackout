@@ -1,4 +1,4 @@
-import type { Address } from '@farfetch/blackout-client/addresses/types';
+import type { Address } from '@farfetch/blackout-client/src/users/addresses/types';
 
 export type AddressEntity = Address;
 

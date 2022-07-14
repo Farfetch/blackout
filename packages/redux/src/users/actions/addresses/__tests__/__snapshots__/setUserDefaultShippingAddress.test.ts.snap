@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setDefaultShippingAddress() action creator should create the correct actions for when the set shipping address procedure is successful: set default shipping address success payload 1`] = `
+Object {
+  "meta": Object {
+    "addressId": "2222222",
+  },
+  "type": "@farfetch/blackout-redux/SET_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS",
+}
+`;

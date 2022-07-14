@@ -1,5 +1,9 @@
 import * as fromReducer from '../reducer';
-import { actionTypesLocale as actionTypes, reducerLocale as reducer } from '..';
+import {
+  actionTypesLocale as actionTypes,
+  localeEntitiesMapper,
+  reducerLocale as reducer,
+} from '..';
 import { mockCountryCode } from 'tests/__fixtures__/locale';
 import type { State } from '../types';
 
@@ -276,6 +280,92 @@ describe('locale redux reducer', () => {
     });
   });
 
+  describe('get an address schema', () => {
+    // Existent schemas
+    const state = {
+      addressSchema: {
+        1: {
+          addressSchemaLines: [
+            {
+              name: 'FirstName',
+              position: 0,
+              type: 'FreeText',
+              validationRegex: '^.{1,45}$',
+              apiMapping: 'FirstName',
+              isMandatory: true,
+              maxLength: 45,
+              minLength: 1,
+              column: 0,
+              row: 0,
+            },
+          ],
+        },
+      },
+    };
+
+    // Obtained schema not yet stored
+    const schema = {
+      addressSchemaLines: [
+        {
+          name: 'LastName',
+          position: 0,
+          type: 'FreeText',
+          validationRegex: '^.{1,45}$',
+          apiMapping: 'LastName',
+          isMandatory: true,
+          maxLength: 45,
+          minLength: 1,
+          column: 1,
+          row: 0,
+        },
+        {
+          name: 'StreetLine1',
+          position: 1,
+          type: 'FreeText',
+          validationRegex: '^.{1,250}$',
+          apiMapping: 'AddressLine1',
+          isMandatory: true,
+          maxLength: 250,
+          minLength: 1,
+          column: 0,
+          row: 1,
+        },
+      ],
+    };
+
+    // Should add the new schema to the list
+    const countryId = '2';
+    const newAddressSchema = {
+      [countryId]: { ...schema },
+    };
+
+    const expectedResult = {
+      addressSchema: {
+        ...state.addressSchema,
+        ...newAddressSchema,
+      },
+    };
+
+    it('should handle FETCH_ADDRESS_SCHEMA_SUCCESS action type', () => {
+      expect(
+        localeEntitiesMapper[actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS](
+          state,
+          {
+            payload: {
+              result: countryId,
+              entities: {
+                addressSchema: {
+                  ...newAddressSchema,
+                },
+              },
+            },
+            type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS,
+          },
+        ),
+      ).toEqual(expectedResult);
+    });
+  });
+
   describe('getCountryCode() selector', () => {
     it('should return the `countryCode` property from a given state', () => {
       const state = { ...initialState, countryCode: mockCountryCode };
@@ -409,6 +499,19 @@ describe('locale redux reducer', () => {
       expect(fromReducer.getCountryStatesError(state)).toEqual(
         state.states.error,
       );
+    });
+  });
+
+  describe('getAddressSchema() selector', () => {
+    it('should return the `addressSchema` property from a given state', () => {
+      const addressSchema = {
+        error: null,
+        isLoading: false,
+      };
+
+      expect(
+        fromReducer.getCountryAddressSchema({ ...initialState, addressSchema }),
+      ).toBe(addressSchema);
     });
   });
 });

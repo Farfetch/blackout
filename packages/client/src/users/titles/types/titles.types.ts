@@ -1,7 +1,7 @@
 import type { Config } from '../../../types';
-import type { GetTitlesQuery } from '../../types/query.types';
+import type { GetUserTitlesQuery } from './query.types';
 
-export type GetTitlesResponse = {
+export type GetUserTitlesResponse = {
   number: number;
   totalPages: number;
   totalItems: number;
@@ -11,7 +11,7 @@ export type GetTitlesResponse = {
   }[];
 };
 
-export type GetTitles = (
-  query?: GetTitlesQuery,
+export type GetUserTitles = (
+  query?: GetUserTitlesQuery,
   config?: Config,
-) => Promise<GetTitlesResponse>;
+) => Promise<GetUserTitlesResponse>;
