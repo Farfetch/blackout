@@ -1,1 +1,2 @@
-export * from './getTitles';
+export * from './getUserTitles';
+export * from './types';

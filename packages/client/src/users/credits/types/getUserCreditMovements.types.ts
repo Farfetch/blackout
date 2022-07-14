@@ -20,10 +20,3 @@ export type GetUserCreditMovements = (
   query: GetUserCreditMovementsQuery,
   config?: Config,
 ) => Promise<GetUserCreditMovementsResponse>;
-
-export type GetUserCreditMovementsFixtureParams = {
-  id: string;
-  query?: GetUserCreditMovementsQuery;
-  config?: Config;
-  response?: GetUserCreditMovementsFixtureParams | Record<string, unknown>;
-};

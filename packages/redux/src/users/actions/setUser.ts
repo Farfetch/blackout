@@ -1,7 +1,7 @@
-import { putUser } from '@farfetch/blackout-client/users';
+import { putUser } from '@farfetch/blackout-client';
 import { setUserFactory } from './factories';
 
 /**
  * Updates the user data.
  */
-export default setUserFactory(putUser);
+export const setUser = setUserFactory(putUser);

@@ -40,7 +40,9 @@ module.exports = {
   // A map from regular expressions to module names that allow to stub out resources with a single module
   moduleNameMapper: {
     '^@farfetch/blackout-analytics(.*)$': '<rootDir>/packages/analytics/src$1',
+    '^@farfetch/blackout-client/src(.*)$': '<rootDir>/packages/client/src$1',
     '^@farfetch/blackout-client(.*)$': '<rootDir>/packages/client/src$1',
+    '^@farfetch/blackout-redux/src(.*)$': '<rootDir>/packages/redux/src$1',
     '^@farfetch/blackout-redux(.*)$': '<rootDir>/packages/redux/src$1',
     '^jestSetup$': '<rootDir>/jestSetup',
     '^tests(.*)$': '<rootDir>/tests$1',

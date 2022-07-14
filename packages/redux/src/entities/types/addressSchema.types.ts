@@ -1,5 +1,7 @@
-import type { Schema } from '@farfetch/blackout-client/addresses/types';
+import type { CountryAddressSchema } from '@farfetch/blackout-client/src/locale/types';
 
-export type SchemaEntity = Schema;
+export type SchemaEntity = CountryAddressSchema;
 
-export type AddressSchemaEntity = Record<string, Schema> | undefined;
+export type AddressSchemaEntity =
+  | Record<string, CountryAddressSchema>
+  | undefined;

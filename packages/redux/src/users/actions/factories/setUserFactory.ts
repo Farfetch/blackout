@@ -4,7 +4,7 @@ import type { Dispatch } from 'redux';
 import type {
   PutUser,
   PutUserData,
-} from '@farfetch/blackout-client/users/types';
+} from '@farfetch/blackout-client/src/users/types';
 
 /**
  * @param id     - User identifier.
@@ -21,7 +21,7 @@ import type {
  *
  * @returns Thunk factory.
  */
-const setUserFactory =
+export const setUserFactory =
   (putUser: PutUser) =>
   (id: number, data: PutUserData, config?: Config) =>
   async (dispatch: Dispatch) => {
@@ -51,5 +51,3 @@ const setUserFactory =
       throw error;
     }
   };
-
-export default setUserFactory;

@@ -3,6 +3,7 @@
  */
 
 import {
+  getCountryAddressSchema as addressSchemaGetter,
   getAreCountriesLoading,
   getAreCountryCitiesLoading,
   getAreCountryCurrenciesLoading,
@@ -15,12 +16,14 @@ import {
   getSourceCountryCode as getSourceCountryCodeFromReducer,
 } from './reducer';
 import { getCity, getCountry, getState } from '../entities/selectors';
+import { getEntities, getEntityById } from '../entities/selectors/entity';
 import get from 'lodash/get';
+import type { AddressSchemaEntity, SchemaEntity } from '../entities/types';
 import type {
   Cities,
   Currencies,
   States,
-} from '@farfetch/blackout-client/locale/types';
+} from '@farfetch/blackout-client/src/locale/types';
 import type { State } from './types';
 import type { StoreState } from '../types';
 
@@ -436,3 +439,46 @@ export const getCountryStates = (
 
   return statesIds && statesIds.map((id: number) => getState(state, id));
 };
+
+/**
+ * Returns a list with all addresses schemas in the application state.
+ *
+ * @param state - Application state.
+ *
+ * @returns - Schemas with the correspondent Iso code.
+ */
+export const getCountryAddressSchemas = (
+  state: StoreState,
+): AddressSchemaEntity => getEntities(state, 'addressSchema');
+
+/**
+ * Returns a specific schema with the specified 'Iso code'.
+ *
+ * @param state   - Application state.
+ * @param isoCode - Iso code or CountryId (deprecated).
+ *
+ * @returns Schema information object.
+ */
+export const getCountryAddressSchema = (
+  state: StoreState,
+  isoCode: string,
+): SchemaEntity | undefined => getEntityById(state, 'addressSchema', isoCode);
+
+/**
+ * @param state - Application state.
+ *
+ * @returns Loader status.
+ */
+export const isCountryAddressSchemaLoading = (
+  state: StoreState,
+): State['addressSchema']['isLoading'] =>
+  addressSchemaGetter(state.locale).isLoading;
+
+/**
+ * @param state - Application state.
+ *
+ * @returns Error details.
+ */
+export const getCountryAddressSchemaError = (
+  state: StoreState,
+): State['addressSchema']['error'] => addressSchemaGetter(state.locale).error;

@@ -4,7 +4,7 @@ import type { Dispatch } from 'redux';
 import type {
   PostGuestUser,
   PostGuestUserData,
-} from '@farfetch/blackout-client/users/types';
+} from '@farfetch/blackout-client/src/users/types';
 
 /**
  * @param data   - User to be registered.
@@ -20,7 +20,7 @@ import type {
  *
  * @returns Thunk factory.
  */
-const createGuestUser =
+export const createGuestUserFactory =
   (postGuestUser: PostGuestUser) =>
   (data: PostGuestUserData, config?: Record<string, unknown>) =>
   async (dispatch: Dispatch) => {
@@ -49,5 +49,3 @@ const createGuestUser =
       throw error;
     }
   };
-
-export default createGuestUser;

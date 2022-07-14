@@ -4,7 +4,7 @@ import type { Dispatch } from 'redux';
 import type {
   PostPhoneNumberValidations,
   PostPhoneNumberValidationsData,
-} from '@farfetch/blackout-client/users/types';
+} from '@farfetch/blackout-client/src/users/types';
 
 /**
  * @param data   - User to be registered.
@@ -21,7 +21,7 @@ import type {
  * @returns Thunk factory.
  */
 
-const createPhoneNumberValidations =
+export const createPhoneNumberValidationsFactory =
   (postPhoneNumberValidations: PostPhoneNumberValidations) =>
   (data: PostPhoneNumberValidationsData, config?: Record<string, unknown>) =>
   async (dispatch: Dispatch) => {
@@ -47,5 +47,3 @@ const createPhoneNumberValidations =
       throw error;
     }
   };
-
-export default createPhoneNumberValidations;

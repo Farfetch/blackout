@@ -1,7 +1,7 @@
 import { createGuestUserFactory } from './factories';
-import { postGuestUser } from '@farfetch/blackout-client/users';
+import { postGuestUser } from '@farfetch/blackout-client';
 
 /**
  * Creates a new guest user.
  */
-export default createGuestUserFactory(postGuestUser);
+export const createGuestUser = createGuestUserFactory(postGuestUser);
