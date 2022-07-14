@@ -19,6 +19,7 @@ export const deleteUserContact: DeleteUserContact = (
 ) =>
   client
     .delete(join('/account/v1/users', userId, 'contacts', contactId), config)
+    .then(response => response.status)
     .catch(error => {
       throw adaptError(error);
     });

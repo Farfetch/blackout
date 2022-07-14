@@ -1,3 +1,4 @@
+export * from './addresses.fixtures';
 export * from './benefits.fixtures';
 export * from './contacts.fixtures';
 export * from './credit.fixtures';

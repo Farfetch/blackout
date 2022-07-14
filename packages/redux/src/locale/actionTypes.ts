@@ -79,6 +79,22 @@ export const FETCH_COUNTRY_STATES_SUCCESS =
   '@farfetch/blackout-redux/FETCH_COUNTRY_STATES_SUCCESS';
 
 /**
+ * Action type dispatched when the fetch country address schema request fails.
+ */
+export const FETCH_COUNTRY_ADDRESS_SCHEMA_FAILURE =
+  '@farfetch/blackout-redux/FETCH_COUNTRY_ADDRESS_SCHEMA_FAILURE';
+/**
+ * Action type dispatched when the fetch country address schema request starts.
+ */
+export const FETCH_COUNTRY_ADDRESS_SCHEMA_REQUEST =
+  '@farfetch/blackout-redux/FETCH_COUNTRY_ADDRESS_SCHEMA_REQUEST';
+/**
+ * Action type dispatched when the fetch country address schema request succeeds.
+ */
+export const FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS =
+  '@farfetch/blackout-redux/FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS';
+
+/**
  * Action type dispatched when set country.
  */
 export const SET_COUNTRY_CODE = '@farfetch/blackout-redux/SET_COUNTRY_CODE';

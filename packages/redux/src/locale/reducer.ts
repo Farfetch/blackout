@@ -1,6 +1,8 @@
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers } from 'redux';
+import { reducerFactory } from '../helpers';
 import get from 'lodash/get';
+import produce from 'immer';
 import type {
   ActionFetchCountries,
   ActionFetchCountry,
@@ -8,8 +10,10 @@ import type {
   ActionFetchCountryCurrencies,
   ActionFetchCountryStates,
   ActionSetCountryCode,
+  FetchCountryAddressSchemaSuccessAction,
   State,
 } from './types';
+import type { StoreState } from '../types';
 
 export const INITIAL_STATE_LOCALE: State = {
   countryCode: null,
@@ -27,6 +31,10 @@ export const INITIAL_STATE_LOCALE: State = {
     isLoading: false,
   },
   states: {
+    error: null,
+    isLoading: false,
+  },
+  addressSchema: {
     error: null,
     isLoading: false,
   },
@@ -151,6 +159,36 @@ const states = (
   }
 };
 
+export const addressSchema = reducerFactory(
+  'FETCH_COUNTRY_ADDRESS_SCHEMA',
+  INITIAL_STATE_LOCALE.addressSchema,
+  actionTypes,
+);
+
+export const entitiesMapper = {
+  [actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS]: (
+    state: StoreState['entities'],
+    action: FetchCountryAddressSchemaSuccessAction,
+  ): StoreState['entities'] => {
+    const countryId = action.payload.result;
+    const countrySchema = get(
+      action,
+      `payload.entities.addressSchema[${countryId}]`,
+      {},
+    );
+
+    return produce(state, draftState => {
+      if (draftState) {
+        if (!draftState.addressSchema) {
+          draftState.addressSchema = {};
+        }
+
+        draftState.addressSchema[countryId] = { ...countrySchema };
+      }
+    });
+  },
+};
+
 export const getAreCountryCitiesLoading = (
   state: State,
 ): State['cities']['isLoading'] => state.cities.isLoading;
@@ -177,6 +215,8 @@ export const getCountryCurrenciesError = (
 ): State['currencies']['error'] => state.currencies.error;
 export const getCountryStatesError = (state: State): State['states']['error'] =>
   state.states.error;
+export const getCountryAddressSchema = (state: State): State['addressSchema'] =>
+  state.addressSchema;
 
 const reducers = combineReducers({
   cities,
@@ -184,6 +224,7 @@ const reducers = combineReducers({
   countryCode,
   currencies,
   states,
+  addressSchema,
 });
 
 /**

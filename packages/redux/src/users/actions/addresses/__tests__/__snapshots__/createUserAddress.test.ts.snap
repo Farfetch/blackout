@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createUserAddress() action creator should create the correct actions for when the create address procedure is successful: create address success payload 1`] = `
+Object {
+  "meta": Object {
+    "addressId": "1234",
+  },
+  "payload": Object {
+    "entities": Object {
+      "addresses": Object {
+        "1234": Object {
+          "addressLine1": "addres 1",
+          "addressLine2": null,
+          "addressLine3": null,
+          "city": Object {
+            "countryId": 0,
+            "id": 0,
+            "name": "portugal",
+            "stateId": null,
+          },
+          "country": Object {
+            "alpha2Code": "PT",
+            "alpha3Code": "PRT",
+            "continentId": 3,
+            "culture": "pt-PT",
+            "id": 165,
+            "name": "Portugal",
+            "nativeName": "Portugal",
+            "region": "Europe",
+            "regionId": 0,
+            "subRegion": "",
+            "subfolder": "/en-pt",
+          },
+          "ddd": null,
+          "firstName": "first name",
+          "id": "1234",
+          "isCurrentBilling": false,
+          "isCurrentPreferred": false,
+          "isCurrentShipping": false,
+          "lastName": "last name",
+          "neighbourhood": null,
+          "phone": "919191919",
+          "state": Object {
+            "code": null,
+            "countryId": 0,
+            "id": 0,
+            "name": null,
+          },
+          "title": null,
+          "userId": 0,
+          "vatNumber": null,
+          "zipCode": "4100-100",
+        },
+      },
+    },
+    "result": "1234",
+  },
+  "type": "@farfetch/blackout-redux/CREATE_USER_ADDRESS_SUCCESS",
+}
+`;

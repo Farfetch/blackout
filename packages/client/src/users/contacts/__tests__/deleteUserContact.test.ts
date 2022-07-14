@@ -15,9 +15,7 @@ describe('deleteUserContact', () => {
 
     expect.assertions(2);
 
-    await expect(deleteUserContact(userId, contactId)).resolves.toEqual(
-      expect.objectContaining({ status: 204 }),
-    );
+    await expect(deleteUserContact(userId, contactId)).resolves.toEqual(204);
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/contacts/${contactId}`,
       expectedConfig,
