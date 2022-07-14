@@ -368,6 +368,119 @@ export const mockGrouping = [
   },
 ];
 
+export const mockGroupingProperties = [
+  {
+    type: 'COLOR',
+    values: [
+      {
+        id: 'fe8d9082-ba8b-4648-ab12-756244551c40',
+        value: '1',
+        digitalAssets: [
+          {
+            mediaType: 'image/jpeg',
+            displayOrder: 13,
+            size: '54',
+            url: 'https://cdn-images.farfetch-contents.com/16/84/77/32/16847732_39879114_54.jpg',
+            type: 1,
+          },
+          {
+            mediaType: 'image/jpeg',
+            displayOrder: 13,
+            size: '58',
+            url: 'https://cdn-images.farfetch-contents.com/16/84/77/32/16847732_39879114_58.jpg',
+            type: 1,
+          },
+          {
+            mediaType: 'image/jpeg',
+            displayOrder: 13,
+            size: '70',
+            url: 'https://cdn-images.farfetch-contents.com/16/84/77/32/16847732_39879114_70.jpg',
+            type: 1,
+          },
+          {
+            mediaType: 'image/jpeg',
+            displayOrder: 13,
+            size: '80',
+            url: 'https://cdn-images.farfetch-contents.com/16/84/77/32/16847732_39879114_80.jpg',
+            type: 1,
+          },
+        ],
+        hasStock: true,
+      },
+      {
+        id: '19a39ea2-9ed1-4fad-85b6-0ffa1bb621ab',
+        value: '2',
+        digitalAssets: [
+          {
+            mediaType: 'image/jpeg',
+            displayOrder: 7,
+            size: '54',
+            url: 'https://cdn-images.farfetch-contents.com/16/84/77/26/16847726_39879119_54.jpg',
+            type: 1,
+          },
+          {
+            mediaType: 'image/jpeg',
+            displayOrder: 7,
+            size: '58',
+            url: 'https://cdn-images.farfetch-contents.com/16/84/77/26/16847726_39879119_58.jpg',
+            type: 1,
+          },
+          {
+            mediaType: 'image/jpeg',
+            displayOrder: 7,
+            size: '70',
+            url: 'https://cdn-images.farfetch-contents.com/16/84/77/26/16847726_39879119_70.jpg',
+            type: 1,
+          },
+          {
+            mediaType: 'image/jpeg',
+            displayOrder: 7,
+            size: '80',
+            url: 'https://cdn-images.farfetch-contents.com/16/84/77/26/16847726_39879119_80.jpg',
+            type: 1,
+          },
+        ],
+        hasStock: true,
+      },
+      {
+        id: '0da7c606-492f-44a8-9635-0153a8565e8d',
+        value: '3',
+        digitalAssets: [
+          {
+            mediaType: 'image/jpeg',
+            displayOrder: 4,
+            size: '54',
+            url: 'https://cdn-images.farfetch-contents.com/16/84/77/25/16847725_39879127_54.jpg',
+            type: 1,
+          },
+          {
+            mediaType: 'image/jpeg',
+            displayOrder: 4,
+            size: '58',
+            url: 'https://cdn-images.farfetch-contents.com/16/84/77/25/16847725_39879127_58.jpg',
+            type: 1,
+          },
+          {
+            mediaType: 'image/jpeg',
+            displayOrder: 4,
+            size: '70',
+            url: 'https://cdn-images.farfetch-contents.com/16/84/77/25/16847725_39879127_70.jpg',
+            type: 1,
+          },
+          {
+            mediaType: 'image/jpeg',
+            displayOrder: 4,
+            size: '80',
+            url: 'https://cdn-images.farfetch-contents.com/16/84/77/25/16847725_39879127_80.jpg',
+            type: 1,
+          },
+        ],
+        hasStock: true,
+      },
+    ],
+  },
+];
+
 export const mockAttributes = [
   {
     id: 7,
@@ -572,6 +685,7 @@ export const mockProduct = {
   measurements: mockMeasurements,
   colorGrouping: mockColorGrouping,
   grouping: mockGrouping,
+  groupingProperties: mockGroupingProperties,
   attributes: mockAttributes,
   variants: mockVariants,
   fittings: mockFittings,

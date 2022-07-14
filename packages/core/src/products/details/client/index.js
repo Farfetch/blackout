@@ -8,6 +8,7 @@ warnDeprecatedMethod(
 
 export { default as getColorGrouping } from './getColorGrouping';
 export { default as getProductGrouping } from './getProductGrouping';
+export { default as getProductGroupingProperties } from './getProductGroupingProperties';
 export { default as getMeasurements } from './getMeasurements';
 export { default as getProductAttributes } from './getProductAttributes';
 export { default as getProductDetails } from './getProductDetails';

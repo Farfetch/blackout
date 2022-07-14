@@ -331,6 +331,66 @@ describe('details redux reducer', () => {
     });
   });
 
+  describe('groupingProperties() reducer', () => {
+    it('should return the initial state', () => {
+      const state = reducer().groupingProperties;
+
+      expect(state).toEqual(initialState.groupingProperties);
+      expect(state).toEqual({
+        error: {},
+        isLoading: {},
+      });
+    });
+
+    it('should handle GET_PRODUCT_GROUPING_PROPERTIES_REQUEST action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.GET_PRODUCT_GROUPING_PROPERTIES_REQUEST,
+          payload: { productId: mockProductId },
+        }).groupingProperties,
+      ).toEqual({
+        error: {},
+        isLoading: { [mockProductId]: true },
+      });
+    });
+
+    it('should handle GET_PRODUCT_GROUPING_PROPERTIES_FAILURE action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.GET_PRODUCT_GROUPING_PROPERTIES_FAILURE,
+          payload: { error: '', productId: mockProductId },
+        }).groupingProperties,
+      ).toEqual({
+        error: { [mockProductId]: '' },
+        isLoading: { [mockProductId]: undefined },
+      });
+    });
+
+    it('should handle GET_PRODUCT_GROUPING_PROPERTIES_SUCCESS action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.GET_PRODUCT_GROUPING_PROPERTIES_SUCCESS,
+          payload: {
+            productId: mockProductId,
+            result: mockProductId,
+          },
+          meta: { number: 1 },
+        }).groupingProperties,
+      ).toEqual({
+        error: {},
+        isLoading: { [mockProductId]: false },
+      });
+    });
+
+    it('should handle other actions by returning the previous state', () => {
+      const state = { groupingProperties: { isLoading: { 456: false } } };
+
+      expect(reducer(state).groupingProperties).toEqual(
+        state.groupingProperties,
+      );
+    });
+  });
+
   describe('fittings() reducer', () => {
     it('should return the initial state', () => {
       const state = reducer().fittings;

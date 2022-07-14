@@ -22,6 +22,10 @@ export const INITIAL_STATE = {
     error: {},
     isLoading: {},
   },
+  groupingProperties: {
+    error: {},
+    isLoading: {},
+  },
   error: {},
   fittings: {
     error: {},
@@ -583,6 +587,45 @@ const grouping = (
   }
 };
 
+const groupingProperties = (
+  state = INITIAL_STATE.groupingProperties,
+  /* istanbul ignore next */ action = {},
+) => {
+  switch (action.type) {
+    case actionTypes.GET_PRODUCT_GROUPING_PROPERTIES_REQUEST:
+      return {
+        ...state,
+        isLoading: {
+          ...state.isLoading,
+          [action.payload.productId]: true,
+        },
+        error: INITIAL_STATE.groupingProperties.error,
+      };
+    case actionTypes.GET_PRODUCT_GROUPING_PROPERTIES_SUCCESS:
+      return {
+        ...state,
+        isLoading: {
+          ...state.isLoading,
+          [action.payload.productId]: false,
+        },
+      };
+    case actionTypes.GET_PRODUCT_GROUPING_PROPERTIES_FAILURE:
+      return {
+        ...state,
+        isLoading: {
+          ...state.isLoading,
+          [action.payload.productId]: undefined,
+        },
+        error: {
+          ...state.error,
+          [action.payload.productId]: action.payload.error,
+        },
+      };
+    default:
+      return state;
+  }
+};
+
 export const entitiesMapper = {
   // The motivation for this was some data mismatch:
   // the `/api/products{id}/variantsMeasurements`
@@ -634,6 +677,11 @@ export const getGroupingError = state => state.grouping.error;
 export const getIsGroupingLoading = state => state.grouping.isLoading;
 export const getGroupingCurrentPageIndex = state =>
   state.grouping.currentPageIndex;
+// Grouping Properties
+export const getGroupingPropertiesError = state =>
+  state.groupingProperties.error;
+export const getIsGroupingPropertiesLoading = state =>
+  state.groupingProperties.isLoading;
 // Fittings
 export const getFittingsError = state => state.fittings.error;
 export const getAreFittingsLoading = state => state.fittings.isLoading;
@@ -673,6 +721,7 @@ const reducers = combineReducers({
   error,
   fittings,
   grouping,
+  groupingProperties,
   id,
   isHydrated,
   isLoading,
