@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.64.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.63.0...@farfetch/blackout-core@1.64.0) (2022-07-14)
+
+
+### Features
+
+* **core:** add new get groupingProperties endpoint ([2a3e9b2](https://github.com/Farfetch/blackout/commit/2a3e9b258af2b222048493ec3db5652206e8e99e))
+
+
+
+
+
 # [1.63.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.62.0...@farfetch/blackout-core@1.63.0) (2022-07-12)
 
 
