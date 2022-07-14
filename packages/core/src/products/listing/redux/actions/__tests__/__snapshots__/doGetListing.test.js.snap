@@ -101,6 +101,7 @@ Object {
           "customAttributes": undefined,
           "groupedEntries": undefined,
           "grouping": undefined,
+          "groupingProperties": undefined,
           "id": 12913172,
           "images": Array [
             Object {
@@ -164,6 +165,7 @@ Object {
             "totalItems": 20,
           },
           "grouping": undefined,
+          "groupingProperties": undefined,
           "id": 12913174,
           "images": Array [
             Object {
@@ -456,6 +458,7 @@ Object {
           "customAttributes": undefined,
           "groupedEntries": undefined,
           "grouping": undefined,
+          "groupingProperties": undefined,
           "id": 12913172,
           "images": Array [
             Object {
@@ -519,6 +522,7 @@ Object {
             "totalItems": 20,
           },
           "grouping": undefined,
+          "groupingProperties": undefined,
           "id": 12913174,
           "images": Array [
             Object {
@@ -802,6 +806,7 @@ Object {
           "customAttributes": undefined,
           "groupedEntries": undefined,
           "grouping": undefined,
+          "groupingProperties": undefined,
           "id": 12913172,
           "images": Array [
             Object {
@@ -865,6 +870,7 @@ Object {
             "totalItems": 20,
           },
           "grouping": undefined,
+          "groupingProperties": undefined,
           "id": 12913174,
           "images": Array [
             Object {

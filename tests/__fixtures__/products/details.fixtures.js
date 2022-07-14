@@ -137,6 +137,15 @@ export const mockDetailsState = {
         [mockProductId]: 4,
       },
     },
+    groupingProperties: {
+      isLoading: {
+        [mockProductId]: false,
+        456: false,
+      },
+      error: {
+        [mockProductId]: 'Error',
+      },
+    },
     fittings: {
       isLoading: {
         [mockProductId]: false,

@@ -34,6 +34,7 @@ Object {
           "customAttributes": undefined,
           "groupedEntries": undefined,
           "grouping": undefined,
+          "groupingProperties": undefined,
           "id": 12913172,
           "images": Array [
             Object {
@@ -132,6 +133,7 @@ Object {
           "customAttributes": undefined,
           "groupedEntries": undefined,
           "grouping": undefined,
+          "groupingProperties": undefined,
           "id": 12913172,
           "images": Array [
             Object {
