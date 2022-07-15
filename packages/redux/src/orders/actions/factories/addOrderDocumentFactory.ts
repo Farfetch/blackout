@@ -22,7 +22,7 @@ import type {
  *
  * @returns Thunk factory.
  */
-const addOrderDocumentFactory =
+export const addOrderDocumentFactory =
   (postOrderDocument: PostOrderDocument) =>
   (orderId: string, fileId: string, data: DocumentData, config?: Config) =>
   async (dispatch: Dispatch): Promise<string> => {
@@ -47,5 +47,3 @@ const addOrderDocumentFactory =
       throw error;
     }
   };
-
-export default addOrderDocumentFactory;

@@ -2,8 +2,6 @@ import * as fromEntities from '../../entities/selectors/entity';
 import * as fromOrders from '../reducer';
 import * as selectors from '../selectors';
 import {
-  countryEntity,
-  countryId,
   courierEntity,
   courierId,
   labelTrackingEntity,
@@ -134,19 +132,21 @@ describe('orders redux selectors', () => {
 
   describe('isTrackingsLoading()', () => {
     it('should get the trackings isLoading property from state', () => {
-      const spy = jest.spyOn(fromOrders, 'getTrackings');
+      const spy = jest.spyOn(fromOrders, 'getShipmentTrackings');
 
       expect(selectors.isTrackingsLoading(mockState)).toEqual(false);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getTrackingsError()', () => {
+  describe('getShipmentTrackingsError()', () => {
     it('should get the trackings error property from state', () => {
       const expectedResult = mockState.orders.trackings.error;
-      const spy = jest.spyOn(fromOrders, 'getTrackings');
+      const spy = jest.spyOn(fromOrders, 'getShipmentTrackings');
 
-      expect(selectors.getTrackingsError(mockState)).toBe(expectedResult);
+      expect(selectors.getShipmentTrackingsError(mockState)).toBe(
+        expectedResult,
+      );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -237,13 +237,13 @@ describe('orders redux selectors', () => {
     });
   });
 
-  describe('getLabelTracking()', () => {
+  describe('getShipmentTrackingLabel()', () => {
     it('should get the label tracking property from state', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
-      expect(selectors.getLabelTracking(mockState, trackingNumber)).toBe(
-        labelTrackingEntity,
-      );
+      expect(
+        selectors.getShipmentTrackingLabel(mockState, trackingNumber),
+      ).toBe(labelTrackingEntity);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -296,25 +296,6 @@ describe('orders redux selectors', () => {
         orderItemEntity,
       );
       expect(spy).toHaveBeenCalledWith(mockState, 'orderItems', orderItemId);
-    });
-  });
-
-  describe('getCountries()', () => {
-    it('should get the countries from state', () => {
-      const expectedResult = mockState.entities.countries;
-      const spy = jest.spyOn(fromEntities, 'getEntities');
-
-      expect(selectors.getCountries(mockState)).toBe(expectedResult);
-      expect(spy).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('getCountry()', () => {
-    it('should get the country from state', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntityById');
-
-      expect(selectors.getCountry(mockState, countryId)).toBe(countryEntity);
-      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 

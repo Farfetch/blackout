@@ -1,7 +1,7 @@
 import { adaptError } from '../helpers/client/formatError';
 import client from '../helpers/client';
 import join from 'proper-url-join';
-import type { GetReturnsFromOrder } from './types';
+import type { GetOrderReturns } from './types';
 
 /**
  * Method responsible for obtaining returns from a specific order.
@@ -12,11 +12,7 @@ import type { GetReturnsFromOrder } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getReturnsFromOrder: GetReturnsFromOrder = (
-  orderId,
-  query,
-  config,
-) =>
+export const getOrderReturns: GetOrderReturns = (orderId, query, config) =>
   client
     .get(join('/account/v1/orders', orderId, 'returns', { query }), config)
     .then(response => response?.data)

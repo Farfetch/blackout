@@ -11,12 +11,10 @@ import type { GetOrderReturnOptions } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getOrderReturnOptions: GetOrderReturnOptions = (orderId, config) =>
+export const getOrderReturnOptions: GetOrderReturnOptions = (orderId, config) =>
   client
     .get(join('/legacy/v1/orders', orderId, 'returnoptions'), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
-
-export default getOrderReturnOptions;

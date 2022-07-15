@@ -21,7 +21,7 @@ import type {
  *
  * @returns Thunk factory.
  */
-const fetchOrderDocuments =
+export const fetchOrderDocumentsFactory =
   (getOrderDocuments: GetOrderDocuments) =>
   (orderId: string, types: string[], config?: Config) =>
   async (dispatch: Dispatch): Promise<OrderDocuments[]> => {
@@ -46,5 +46,3 @@ const fetchOrderDocuments =
       throw error;
     }
   };
-
-export default fetchOrderDocuments;

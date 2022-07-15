@@ -22,7 +22,7 @@ import type {
  *
  * @returns Thunk factory.
  */
-const fetchOrderReturnOptions =
+export const fetchOrderReturnOptionsFactory =
   (getOrderReturnOptions: GetOrderReturnOptions) =>
   (orderId: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<OrderReturn[]> => {
@@ -51,5 +51,3 @@ const fetchOrderReturnOptions =
       throw error;
     }
   };
-
-export default fetchOrderReturnOptions;

@@ -14,12 +14,15 @@ import type { PostOrderDocument } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const postOrderDocument: PostOrderDocument = (id, documentId, data, config) =>
+export const postOrderDocument: PostOrderDocument = (
+  id,
+  documentId,
+  data,
+  config,
+) =>
   client
     .post(join('/account/v1/orders', id, 'documents', documentId), data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
-
-export default postOrderDocument;

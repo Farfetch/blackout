@@ -18,7 +18,7 @@ import type {
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 
-const addOrderItemActivities =
+export const addOrderItemActivitiesFactory =
   (postOrderItemActivities: PostOrderItemActivities) =>
   (
     orderId: string,
@@ -53,5 +53,3 @@ const addOrderItemActivities =
       throw error;
     }
   };
-
-export default addOrderItemActivities;

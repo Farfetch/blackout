@@ -12,7 +12,7 @@ import type { GetOrders } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getOrders: GetOrders = (id, query, config) =>
+export const getOrders: GetOrders = (id, query, config) =>
   client
     .get(
       join('/account/v1/users/', id, 'orders', {
@@ -24,5 +24,3 @@ const getOrders: GetOrders = (id, query, config) =>
     .catch(error => {
       throw adaptError(error);
     });
-
-export default getOrders;

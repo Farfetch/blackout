@@ -8,11 +8,8 @@ import type { ThunkDispatch } from 'redux-thunk';
 /**
  * Reset user related entities to its initial value.
  *
- * @private
- *
- * @name resetEntities
- *
  * @example
+ * ```ts
  * // Store before executing action
  * const store = {
  *  entities: {
@@ -22,7 +19,8 @@ import type { ThunkDispatch } from 'redux-thunk';
  *
  * // Result of reset entities:
  * const store = { entities: {} }
- * @returns {Function} Dispatch reset user entities action.
+ * ```
+ * @returns Dispatch reset user entities action.
  */
 const resetEntities = () => (dispatch: Dispatch<ResetUserEntitiesAction>) => {
   dispatch({
@@ -33,11 +31,8 @@ const resetEntities = () => (dispatch: Dispatch<ResetUserEntitiesAction>) => {
 /**
  * Reset user state and related entities to its initial value.
  *
- * @memberof module:users/actions
- *
- * @name resetUser
- *
  * @example
+ * ```ts
  * import { resetUser } from '@farfetch/blackout-redux/users';
  *
  * // State and store before executing action
@@ -54,8 +49,9 @@ const resetEntities = () => (dispatch: Dispatch<ResetUserEntitiesAction>) => {
  *
  * // Usage
  * dispatch(resetUser());
+ * ```
  *
- * @returns {Function} Dispatch reset user state and entities action.
+ * @returns Dispatch reset user state and entities action.
  */
 const resetUser =
   () =>

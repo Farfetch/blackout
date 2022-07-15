@@ -4,10 +4,5 @@ import fetchCheckoutOrderOperationsFactory from './factories/fetchCheckoutOrderO
 /**
  * Fetch checkout order operations.
  *
- * @memberof module:checkout/actions
- *
- * @name fetchCheckoutOrderOperations
- *
- * @type {FetchCheckoutOrderOperationsThunkFactory}
  */
 export default fetchCheckoutOrderOperationsFactory(getCheckoutOrderOperations);

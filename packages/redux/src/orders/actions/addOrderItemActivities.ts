@@ -4,4 +4,6 @@ import { postOrderItemActivities } from '@farfetch/blackout-client/orders';
 /**
  * Fetch available activities of a certain order item.
  */
-export default addOrderItemActivitiesFactory(postOrderItemActivities);
+export const addOrderItemActivities = addOrderItemActivitiesFactory(
+  postOrderItemActivities,
+);

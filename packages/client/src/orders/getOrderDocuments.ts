@@ -12,7 +12,7 @@ import type { GetOrderDocuments } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getOrderDocuments: GetOrderDocuments = (id, types, config) =>
+export const getOrderDocuments: GetOrderDocuments = (id, types, config) =>
   client
     .get(
       join('/account/v1/orders', id, 'documents', { query: { types } }),
@@ -22,5 +22,3 @@ const getOrderDocuments: GetOrderDocuments = (id, types, config) =>
     .catch(error => {
       throw adaptError(error);
     });
-
-export default getOrderDocuments;

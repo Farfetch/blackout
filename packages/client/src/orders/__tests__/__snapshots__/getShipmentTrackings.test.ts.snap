@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`getReturnsFromOrder should receive a client request error 1`] = `
+exports[`getShipmentTrackings should receive a client request error 1`] = `
 Object {
   "code": -1,
   "message": "stub error",

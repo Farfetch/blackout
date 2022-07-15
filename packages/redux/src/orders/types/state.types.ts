@@ -11,7 +11,7 @@ export type OrderDetailsState = CombinedState<{
   isLoading: Record<Order['id'], boolean>;
 }>;
 
-export type State = CombinedState<{
+export type OrderState = CombinedState<{
   error: BlackoutError | null;
   isLoading: boolean;
   result: Nullable<OrderSummary>;

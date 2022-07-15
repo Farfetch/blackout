@@ -23,17 +23,17 @@ type Payload = NormalizedSchema<
   NormalizedOrders
 >;
 
-export interface FetchOrderDetailsRequestAction extends Action {
-  type: typeof actionTypes.FETCH_ORDER_DETAILS_REQUEST;
+export interface FetchOrderRequestAction extends Action {
+  type: typeof actionTypes.FETCH_ORDER_REQUEST;
   meta: { orderId: string };
 }
-export interface FetchOrderDetailsSuccessAction extends Action {
-  type: typeof actionTypes.FETCH_ORDER_DETAILS_SUCCESS;
+export interface FetchOrderSuccessAction extends Action {
+  type: typeof actionTypes.FETCH_ORDER_SUCCESS;
   payload: Payload;
   meta: { orderId: string };
 }
-export interface FetchOrderDetailsFailureAction extends Action {
-  type: typeof actionTypes.FETCH_ORDER_DETAILS_FAILURE;
+export interface FetchOrderFailureAction extends Action {
+  type: typeof actionTypes.FETCH_ORDER_FAILURE;
   payload: { error: BlackoutError };
   meta: { orderId: string };
 }
@@ -41,10 +41,10 @@ export interface FetchOrderDetailsFailureAction extends Action {
 /**
  * Actions dispatched when the fetch order request is made.
  */
-export type FetchOrderDetailsAction =
-  | FetchOrderDetailsRequestAction
-  | FetchOrderDetailsSuccessAction
-  | FetchOrderDetailsFailureAction;
+export type FetchOrderAction =
+  | FetchOrderRequestAction
+  | FetchOrderSuccessAction
+  | FetchOrderFailureAction;
 
 export interface FetchOrderReturnOptionsRequestAction extends Action {
   type: typeof actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST;
@@ -90,14 +90,14 @@ export type FetchOrdersAction =
   | FetchOrdersFailureAction;
 
 export interface FetchTrackingsRequestAction extends Action {
-  type: typeof actionTypes.FETCH_TRACKINGS_REQUEST;
+  type: typeof actionTypes.FETCH_SHIPMENT_TRACKINGS_REQUEST;
 }
 export interface FetchTrackingsSuccessAction extends Action {
-  type: typeof actionTypes.FETCH_TRACKINGS_SUCCESS;
+  type: typeof actionTypes.FETCH_SHIPMENT_TRACKINGS_SUCCESS;
   payload: Payload;
 }
 export interface FetchTrackingsFailureAction extends Action {
-  type: typeof actionTypes.FETCH_TRACKINGS_FAILURE;
+  type: typeof actionTypes.FETCH_SHIPMENT_TRACKINGS_FAILURE;
   payload: { error: BlackoutError };
 }
 

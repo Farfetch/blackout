@@ -18,7 +18,7 @@ import type { GetOrderDocument } from '@farfetch/blackout-client/orders/types';
  *
  * @returns Thunk factory.
  */
-const fetchOrderDocument =
+export const fetchOrderDocumentFactory =
   (getOrderDocument: GetOrderDocument) =>
   (orderId: string, fileId: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<string> => {
@@ -43,5 +43,3 @@ const fetchOrderDocument =
       throw error;
     }
   };
-
-export default fetchOrderDocument;

@@ -4,4 +4,4 @@ import { getOrders } from '@farfetch/blackout-client/orders';
 /**
  * Fetch orders.
  */
-export default fetchOrdersFactory(getOrders);
+export const fetchOrders = fetchOrdersFactory(getOrders);

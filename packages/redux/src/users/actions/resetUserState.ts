@@ -5,14 +5,11 @@ import type { ResetUserStateAction } from '../types';
 /**
  * Reset user state to its initial value.
  *
- * @memberof module:users/actions
- *
- * @name resetUserState
- *
- * @param {Array} [fieldsToReset] - List of fields to reset during the reset
+ * @param fieldsToReset - List of fields to reset during the reset
  * operation.
  *
  * @example <caption>Reset with no fields to reset, resetting all</caption>
+ * ```ts
  * import { resetUserState } from '@farfetch/blackout-redux/users';
  *
  * // State before executing action
@@ -55,8 +52,10 @@ import type { ResetUserStateAction } from '../types';
  *
  * // Usage
  * dispatch(resetUserState());
+ * ```
  *
  * @example <caption>Reset with fields to reset</caption>
+ * ```ts
  * import { resetUserState } from '@farfetch/blackout-redux/users';
  *
  * // State object before executing action
@@ -103,8 +102,9 @@ import type { ResetUserStateAction } from '../types';
  *
  * // Usage
  * dispatch(resetUserState(["error"]));
+ * ```
  *
- * @returns {Function} Dispatch reset user state action.
+ * @returns Dispatch reset user state action.
  */
 const resetUserState =
   (fieldsToReset?: string[]) =>

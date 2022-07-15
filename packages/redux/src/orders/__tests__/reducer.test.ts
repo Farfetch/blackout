@@ -43,7 +43,7 @@ describe('orders reducer', () => {
 
     it.each([
       actionTypes.FETCH_ORDERS_REQUEST,
-      actionTypes.FETCH_TRACKINGS_REQUEST,
+      actionTypes.FETCH_SHIPMENT_TRACKINGS_REQUEST,
       actionTypes.RESET_ORDERS,
     ])('should handle %s action type', actionType => {
       expect(
@@ -60,7 +60,7 @@ describe('orders reducer', () => {
 
     it.each([
       actionTypes.FETCH_ORDERS_FAILURE,
-      actionTypes.FETCH_TRACKINGS_FAILURE,
+      actionTypes.FETCH_SHIPMENT_TRACKINGS_FAILURE,
     ])('should handle %s action type', actionType => {
       const error = 'foo';
       expect(
@@ -88,7 +88,7 @@ describe('orders reducer', () => {
 
     it.each([
       actionTypes.FETCH_ORDERS_REQUEST,
-      actionTypes.FETCH_TRACKINGS_REQUEST,
+      actionTypes.FETCH_SHIPMENT_TRACKINGS_REQUEST,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
@@ -99,7 +99,7 @@ describe('orders reducer', () => {
 
     it.each([
       actionTypes.FETCH_ORDERS_SUCCESS,
-      actionTypes.FETCH_TRACKINGS_SUCCESS,
+      actionTypes.FETCH_SHIPMENT_TRACKINGS_SUCCESS,
       actionTypes.RESET_ORDERS,
     ])('should handle %s action type', actionType => {
       expect(
@@ -112,7 +112,7 @@ describe('orders reducer', () => {
 
     it.each([
       actionTypes.FETCH_ORDERS_FAILURE,
-      actionTypes.FETCH_TRACKINGS_FAILURE,
+      actionTypes.FETCH_SHIPMENT_TRACKINGS_FAILURE,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
@@ -137,11 +137,11 @@ describe('orders reducer', () => {
       expect(state).toEqual({ error: {}, isLoading: {} });
     });
 
-    it('should handle FETCH_ORDER_DETAILS_REQUEST action type', () => {
+    it('should handle FETCH_ORDER_REQUEST action type', () => {
       expect(
         reducer(undefined, {
           meta: { orderId },
-          type: actionTypes.FETCH_ORDER_DETAILS_REQUEST,
+          type: actionTypes.FETCH_ORDER_REQUEST,
         }).orderDetails,
       ).toEqual({
         error: { [orderId]: null },
@@ -149,11 +149,11 @@ describe('orders reducer', () => {
       });
     });
 
-    it('should handle FETCH_ORDER_DETAILS_FAILURE action type', () => {
+    it('should handle FETCH_ORDER_FAILURE action type', () => {
       expect(
         reducer(undefined, {
           meta: { orderId },
-          type: actionTypes.FETCH_ORDER_DETAILS_FAILURE,
+          type: actionTypes.FETCH_ORDER_FAILURE,
           payload: { error: '' },
         }).orderDetails,
       ).toEqual({
@@ -162,11 +162,11 @@ describe('orders reducer', () => {
       });
     });
 
-    it('should handle FETCH_ORDER_DETAILS_SUCCESS action type', () => {
+    it('should handle FETCH_ORDER_SUCCESS action type', () => {
       expect(
         reducer(undefined, {
           meta: { orderId },
-          type: actionTypes.FETCH_ORDER_DETAILS_SUCCESS,
+          type: actionTypes.FETCH_ORDER_SUCCESS,
         }).orderDetails,
       ).toEqual({ error: {}, isLoading: { [orderId]: false } });
     });
@@ -324,7 +324,7 @@ describe('orders reducer', () => {
       });
     });
 
-    describe('for FETCH_ORDER_DETAILS_SUCCESS', () => {
+    describe('for FETCH_ORDER_SUCCESS', () => {
       const orderDetailsEntity = {
         ...expectedOrderDetailsNormalizedPayload.entities,
       };
@@ -519,52 +519,43 @@ describe('orders reducer', () => {
         },
       };
 
-      it('should handle FETCH_ORDER_DETAILS_SUCCESS action type', () => {
+      it('should handle FETCH_ORDER_SUCCESS action type', () => {
         expect(
-          entitiesMapper[actionTypes.FETCH_ORDER_DETAILS_SUCCESS](
-            merge({}, state),
-            {
-              meta: { orderId },
-              payload: {
-                entities: normalizedResult,
-                result: orderDetailsResult,
-              },
-              type: actionTypes.FETCH_ORDER_DETAILS_SUCCESS,
+          entitiesMapper[actionTypes.FETCH_ORDER_SUCCESS](merge({}, state), {
+            meta: { orderId },
+            payload: {
+              entities: normalizedResult,
+              result: orderDetailsResult,
             },
-          ),
+            type: actionTypes.FETCH_ORDER_SUCCESS,
+          }),
         ).toEqual(expectedMappedResult);
       });
 
-      it('should handle FETCH_ORDER_DETAILS_SUCCESS action type when the user is a guest', () => {
+      it('should handle FETCH_ORDER_SUCCESS action type when the user is a guest', () => {
         expect(
-          entitiesMapper[actionTypes.FETCH_ORDER_DETAILS_SUCCESS](
-            merge({}, state),
-            {
-              meta: { orderId },
-              guest: true,
-              payload: {
-                entities: normalizedResult,
-                result: orderDetailsResult,
-              },
-              type: actionTypes.FETCH_ORDER_DETAILS_SUCCESS,
+          entitiesMapper[actionTypes.FETCH_ORDER_SUCCESS](merge({}, state), {
+            meta: { orderId },
+            guest: true,
+            payload: {
+              entities: normalizedResult,
+              result: orderDetailsResult,
             },
-          ),
+            type: actionTypes.FETCH_ORDER_SUCCESS,
+          }),
         ).toEqual(expectedMappedResultGuest);
       });
 
-      it('should handle FETCH_ORDER_DETAILS_SUCCESS action type when the orderItem is not mapped yet', () => {
+      it('should handle FETCH_ORDER_SUCCESS action type when the orderItem is not mapped yet', () => {
         expect(
-          entitiesMapper[actionTypes.FETCH_ORDER_DETAILS_SUCCESS](
-            merge({}, state),
-            {
-              meta: { orderId },
-              payload: {
-                entities: normalizedResultWithOrderItems,
-                result: orderDetailsResult,
-              },
-              type: actionTypes.FETCH_ORDER_DETAILS_SUCCESS,
+          entitiesMapper[actionTypes.FETCH_ORDER_SUCCESS](merge({}, state), {
+            meta: { orderId },
+            payload: {
+              entities: normalizedResultWithOrderItems,
+              result: orderDetailsResult,
             },
-          ),
+            type: actionTypes.FETCH_ORDER_SUCCESS,
+          }),
         ).toEqual(expectedMappedResultWithOrderItems);
       });
     });
@@ -712,7 +703,7 @@ describe('orders reducer', () => {
       'OrdersList',
       'OrderDetails',
       'OrderReturnOptions',
-      'Trackings',
+      'ShipmentTrackings',
     ];
 
     it.each(subAreaNames)(

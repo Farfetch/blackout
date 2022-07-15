@@ -4,4 +4,4 @@ import { getOrderDocument } from '@farfetch/blackout-client/orders';
 /**
  * Fetch a specific document of a certain order.
  */
-export default fetchOrderDocumentFactory(getOrderDocument);
+export const fetchOrderDocument = fetchOrderDocumentFactory(getOrderDocument);

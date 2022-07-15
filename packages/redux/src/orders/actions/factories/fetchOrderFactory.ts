@@ -4,11 +4,8 @@ import { normalize } from 'normalizr';
 import orderItem from '../../../entities/schemas/orderItem';
 import trim from 'lodash/trim';
 import type { Dispatch } from 'redux';
-import type {
-  GetOrderDetails,
-  Order,
-} from '@farfetch/blackout-client/orders/types';
-import type { State } from '../../';
+import type { GetOrder, Order } from '@farfetch/blackout-client/orders/types';
+import type { OrderState } from '../../';
 
 /**
  * @param orderId - The order id to get details from.
@@ -20,25 +17,25 @@ import type { State } from '../../';
 /**
  * Fetches order details.
  *
- * @param getOrderDetails - Get order details client.
+ * @param getOrder - Get order details client.
  *
  * @returns Thunk factory.
  */
-const fetchOrderDetailsFactory =
-  (getOrderDetails: GetOrderDetails) =>
+export const fetchOrderFactory =
+  (getOrder: GetOrder) =>
   (orderId: string, config?: Config) =>
   async (
     dispatch: Dispatch,
-    getState: State,
+    getState: OrderState,
     { getOptions = arg => ({ arg }) },
   ): Promise<Order> => {
     try {
       dispatch({
         meta: { orderId },
-        type: actionTypes.FETCH_ORDER_DETAILS_REQUEST,
+        type: actionTypes.FETCH_ORDER_REQUEST,
       });
 
-      const result = await getOrderDetails(orderId, config);
+      const result = await getOrder(orderId, config);
       const { productImgQueryParam } = getOptions(getState);
       // This is needed since the Farfetch Checkout service is merging
       // both Address Line 2 and Address Line 3 not checking correctly if the
@@ -72,7 +69,7 @@ const fetchOrderDetailsFactory =
             items: [orderItem],
           },
         ),
-        type: actionTypes.FETCH_ORDER_DETAILS_SUCCESS,
+        type: actionTypes.FETCH_ORDER_SUCCESS,
         guest: false,
       });
 
@@ -81,11 +78,9 @@ const fetchOrderDetailsFactory =
       dispatch({
         meta: { orderId },
         payload: { error: toBlackoutError(error) },
-        type: actionTypes.FETCH_ORDER_DETAILS_FAILURE,
+        type: actionTypes.FETCH_ORDER_FAILURE,
       });
 
       throw error;
     }
   };
-
-export default fetchOrderDetailsFactory;

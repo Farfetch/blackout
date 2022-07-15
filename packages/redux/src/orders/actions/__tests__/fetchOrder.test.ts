@@ -5,15 +5,15 @@ import {
   mockOrderDetailsResponse,
   orderId,
 } from 'tests/__fixtures__/orders';
-import { fetchOrderDetails } from '..';
-import { getOrderDetails } from '@farfetch/blackout-client/orders';
+import { fetchOrder } from '..';
+import { getOrder } from '@farfetch/blackout-client/orders';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import thunk from 'redux-thunk';
 
 jest.mock('@farfetch/blackout-client/orders', () => ({
   ...jest.requireActual('@farfetch/blackout-client/orders'),
-  getOrderDetails: jest.fn(),
+  getOrder: jest.fn(),
 }));
 
 const mockProductImgQueryParam = '?c=2';
@@ -30,7 +30,7 @@ const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
 let store;
 
-describe('fetchOrderDetails() action creator', () => {
+describe('fetchOrder() action creator', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     store = ordersMockStore();
@@ -39,46 +39,46 @@ describe('fetchOrderDetails() action creator', () => {
   it('should create the correct actions for when the fetch order details procedure fails', async () => {
     const expectedError = new Error('fetch order details error');
 
-    getOrderDetails.mockRejectedValueOnce(expectedError);
+    getOrder.mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
     try {
-      await store.dispatch(fetchOrderDetails(orderId));
+      await store.dispatch(fetchOrder(orderId));
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(getOrderDetails).toHaveBeenCalledTimes(1);
-      expect(getOrderDetails).toHaveBeenCalledWith(orderId, expectedConfig);
+      expect(getOrder).toHaveBeenCalledTimes(1);
+      expect(getOrder).toHaveBeenCalledWith(orderId, expectedConfig);
       expect(store.getActions()).toEqual([
         {
-          type: actionTypes.FETCH_ORDER_DETAILS_REQUEST,
+          type: actionTypes.FETCH_ORDER_REQUEST,
           meta: { orderId },
         },
         {
           payload: { error: expectedError },
           meta: { orderId },
-          type: actionTypes.FETCH_ORDER_DETAILS_FAILURE,
+          type: actionTypes.FETCH_ORDER_FAILURE,
         },
       ]);
     }
   });
 
   it('should create the correct actions for when the fetch order details procedure is successful', async () => {
-    getOrderDetails.mockResolvedValueOnce(mockOrderDetailsResponse);
+    getOrder.mockResolvedValueOnce(mockOrderDetailsResponse);
 
     expect.assertions(5);
 
-    await store.dispatch(fetchOrderDetails(orderId)).then(clientResult => {
+    await store.dispatch(fetchOrder(orderId)).then(clientResult => {
       expect(clientResult).toEqual(mockOrderDetailsResponse);
     });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
-    expect(getOrderDetails).toHaveBeenCalledTimes(1);
-    expect(getOrderDetails).toHaveBeenCalledWith(orderId, expectedConfig);
+    expect(getOrder).toHaveBeenCalledTimes(1);
+    expect(getOrder).toHaveBeenCalledWith(orderId, expectedConfig);
     expect(store.getActions()).toEqual([
       {
         meta: { orderId },
-        type: actionTypes.FETCH_ORDER_DETAILS_REQUEST,
+        type: actionTypes.FETCH_ORDER_REQUEST,
       },
       {
         meta: { orderId },
@@ -89,7 +89,7 @@ describe('fetchOrderDetails() action creator', () => {
             productImgQueryParam: mockProductImgQueryParam,
           },
         },
-        type: actionTypes.FETCH_ORDER_DETAILS_SUCCESS,
+        type: actionTypes.FETCH_ORDER_SUCCESS,
         guest: false,
       },
     ]);
@@ -97,26 +97,26 @@ describe('fetchOrderDetails() action creator', () => {
 
   it('should create the correct actions for when the fetch order details procedure is successful without receiving options', async () => {
     store = ordersMockStoreWithoutMiddlewares();
-    getOrderDetails.mockResolvedValueOnce(mockOrderDetailsResponse);
+    getOrder.mockResolvedValueOnce(mockOrderDetailsResponse);
 
     expect.assertions(5);
 
-    await store.dispatch(fetchOrderDetails(orderId)).then(clientResult => {
+    await store.dispatch(fetchOrder(orderId)).then(clientResult => {
       expect(clientResult).toEqual(mockOrderDetailsResponse);
     });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
-    expect(getOrderDetails).toHaveBeenCalledTimes(1);
-    expect(getOrderDetails).toHaveBeenCalledWith(orderId, expectedConfig);
+    expect(getOrder).toHaveBeenCalledTimes(1);
+    expect(getOrder).toHaveBeenCalledWith(orderId, expectedConfig);
     expect(store.getActions()).toEqual([
       {
         meta: { orderId },
-        type: actionTypes.FETCH_ORDER_DETAILS_REQUEST,
+        type: actionTypes.FETCH_ORDER_REQUEST,
       },
       {
         meta: { orderId },
         payload: expectedOrderDetailsNormalizedPayload,
-        type: actionTypes.FETCH_ORDER_DETAILS_SUCCESS,
+        type: actionTypes.FETCH_ORDER_SUCCESS,
         guest: false,
       },
     ]);

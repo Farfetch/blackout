@@ -13,7 +13,7 @@ import type { PostOrderItemActivities } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const postOrderItemActivities: PostOrderItemActivities = (
+export const postOrderItemActivities: PostOrderItemActivities = (
   orderId,
   itemId,
   data,
@@ -35,5 +35,3 @@ const postOrderItemActivities: PostOrderItemActivities = (
     .catch(error => {
       throw adaptError(error);
     });
-
-export default postOrderItemActivities;

@@ -4,6 +4,5 @@ import { getOrderAvailableItemsActivities } from '@farfetch/blackout-client/orde
 /**
  * Fetch available items activities of a certain order.
  */
-export default fetchOrderAvailableItemsActivitiesFactory(
-  getOrderAvailableItemsActivities,
-);
+export const fetchOrderAvailableItemsActivities =
+  fetchOrderAvailableItemsActivitiesFactory(getOrderAvailableItemsActivities);

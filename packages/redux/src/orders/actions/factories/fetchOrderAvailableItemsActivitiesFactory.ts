@@ -3,7 +3,7 @@ import { Config, toBlackoutError } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { GetOrderAvailableItemsActivities } from '@farfetch/blackout-client/orders/types';
 
-const fetchOrderAvailableItemsActivities =
+export const fetchOrderAvailableItemsActivitiesFactory =
   (getOrderAvailableItemsActivities: GetOrderAvailableItemsActivities) =>
   (orderId: string, config?: Config) =>
   async (dispatch: Dispatch) => {
@@ -28,5 +28,3 @@ const fetchOrderAvailableItemsActivities =
       throw error;
     }
   };
-
-export default fetchOrderAvailableItemsActivities;

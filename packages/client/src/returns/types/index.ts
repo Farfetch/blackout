@@ -4,7 +4,6 @@ export * from './getReturnReferences.types';
 export * from './query.types';
 export * from './getReturn.types';
 export * from './return.types';
-export * from './getReturnsFromOrder.types';
 export * from './patchReturn.types';
 export * from './postReturn.types';
 export * from './returnItem.types';

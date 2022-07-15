@@ -9,7 +9,7 @@ import {
   getOrderReturnOptions,
   getOrdersList,
   getResult,
-  getTrackings,
+  getShipmentTrackings,
 } from './reducer';
 import { getEntities, getEntityById } from '../entities/selectors';
 import get from 'lodash/get';
@@ -73,7 +73,7 @@ export const getOrder = (
  *
  * @returns Label tracking object.
  */
-export const getLabelTracking = (
+export const getShipmentTrackingLabel = (
   state: StoreState,
   trackingNumber: string,
 ): LabelTracking | undefined =>
@@ -173,27 +173,6 @@ export const getOrderItem = (
   state: StoreState,
   orderItemId: string,
 ): OrderItem | undefined => getEntityById(state, 'orderItems', orderItemId);
-
-/**
- * Returns all the countries in the application state.
- *
- * @param state - Application state.
- *
- * @returns Object with all countries with its countryId as the key.
- */
-export const getCountries = (state: StoreState) =>
-  getEntities(state, 'countries');
-
-/**
- * Returns a specific country identified by its id.
- *
- * @param state     - Application state.
- * @param countryId - Country id.
- *
- * @returns Country object.
- */
-export const getCountry = (state: StoreState, countryId: string) =>
-  getEntityById(state, 'countries', countryId);
 
 /**
  * Returns all the return options in the application state.
@@ -434,7 +413,7 @@ export const getOrderReturnOptionsError = (
  * @returns Tracking Loading status.
  */
 export const isTrackingsLoading = (state: StoreState): boolean =>
-  getTrackings(state.orders).isLoading;
+  getShipmentTrackings(state.orders).isLoading;
 
 /**
  * Returns the error for the trackings operation.
@@ -443,8 +422,8 @@ export const isTrackingsLoading = (state: StoreState): boolean =>
  *
  * @returns Trackings operation error.
  */
-export const getTrackingsError = (state: StoreState): BlackoutError =>
-  getTrackings(state.orders).error;
+export const getShipmentTrackingsError = (state: StoreState): BlackoutError =>
+  getShipmentTrackings(state.orders).error;
 
 /**
  * Returns the loading status for the documents operations.

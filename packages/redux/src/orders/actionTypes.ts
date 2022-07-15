@@ -1,18 +1,18 @@
 /**
  * Action type dispatched when the fetch order details request fails.
  */
-export const FETCH_ORDER_DETAILS_FAILURE =
-  '@farfetch/blackout-client/FETCH_ORDER_DETAILS_FAILURE';
+export const FETCH_ORDER_FAILURE =
+  '@farfetch/blackout-client/FETCH_ORDER_FAILURE';
 /**
  * Action type dispatched when the fetch order details request starts.
  */
-export const FETCH_ORDER_DETAILS_REQUEST =
-  '@farfetch/blackout-client/FETCH_ORDER_DETAILS_REQUEST';
+export const FETCH_ORDER_REQUEST =
+  '@farfetch/blackout-client/FETCH_ORDER_REQUEST';
 /**
  * Action type dispatched when the fetch order details request succeeds.
  */
-export const FETCH_ORDER_DETAILS_SUCCESS =
-  '@farfetch/blackout-client/FETCH_ORDER_DETAILS_SUCCESS';
+export const FETCH_ORDER_SUCCESS =
+  '@farfetch/blackout-client/FETCH_ORDER_SUCCESS';
 
 /**
  * Action type dispatched when the fetch order return options request fails.
@@ -49,18 +49,18 @@ export const FETCH_ORDERS_SUCCESS =
 /**
  * Action type dispatched when the fetch tracking request fails.
  */
-export const FETCH_TRACKINGS_FAILURE =
-  '@farfetch/blackout-client/FETCH_TRACKINGS_FAILURE';
+export const FETCH_SHIPMENT_TRACKINGS_FAILURE =
+  '@farfetch/blackout-client/FETCH_SHIPMENT_TRACKINGS_FAILURE';
 /**
  * Action type dispatched when the fetch tracking request starts.
  */
-export const FETCH_TRACKINGS_REQUEST =
-  '@farfetch/blackout-client/FETCH_TRACKINGS_REQUEST';
+export const FETCH_SHIPMENT_TRACKINGS_REQUEST =
+  '@farfetch/blackout-client/FETCH_SHIPMENT_TRACKINGS_REQUEST';
 /**
  * Action type dispatched when the fetch tracking request succeeds.
  */
-export const FETCH_TRACKINGS_SUCCESS =
-  '@farfetch/blackout-client/FETCH_TRACKINGS_SUCCESS';
+export const FETCH_SHIPMENT_TRACKINGS_SUCCESS =
+  '@farfetch/blackout-client/FETCH_SHIPMENT_TRACKINGS_SUCCESS';
 
 /**
  * Action type dispatched when resetting the orders.

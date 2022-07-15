@@ -4,7 +4,7 @@ import { normalize } from 'normalizr';
 import labelTracking from '../../../entities/schemas/labelTracking';
 import type { Dispatch } from 'redux';
 import type {
-  GetTrackings,
+  GetShipmentTrackings,
   Tracking,
 } from '@farfetch/blackout-client/orders/types';
 
@@ -22,13 +22,13 @@ import type {
  *
  * @returns Thunk factory.
  */
-const fetchTrackings =
-  (getTrackings: GetTrackings) =>
+export const fetchShipmentTrackingsFactory =
+  (getTrackings: GetShipmentTrackings) =>
   (trackingNumbers: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<Tracking[]> => {
     try {
       dispatch({
-        type: actionTypes.FETCH_TRACKINGS_REQUEST,
+        type: actionTypes.FETCH_SHIPMENT_TRACKINGS_REQUEST,
       });
 
       const result = await getTrackings(trackingNumbers, config);
@@ -37,18 +37,16 @@ const fetchTrackings =
         payload: normalize(result, {
           entries: [{ labelTrackings: [labelTracking] }],
         }),
-        type: actionTypes.FETCH_TRACKINGS_SUCCESS,
+        type: actionTypes.FETCH_SHIPMENT_TRACKINGS_SUCCESS,
       });
 
       return result;
     } catch (error) {
       dispatch({
         payload: { error: toBlackoutError(error) },
-        type: actionTypes.FETCH_TRACKINGS_FAILURE,
+        type: actionTypes.FETCH_SHIPMENT_TRACKINGS_FAILURE,
       });
 
       throw error;
     }
   };
-
-export default fetchTrackings;

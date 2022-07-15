@@ -4,7 +4,6 @@
 
 export * from './getReturnReferences';
 export * from './getReturn';
-export * from './getReturnsFromOrder';
 export * from './patchReturn';
 export * from './postReturn';
 export * from './getReturnPickupCapabilities';
