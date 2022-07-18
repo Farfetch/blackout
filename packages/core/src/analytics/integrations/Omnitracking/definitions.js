@@ -5,6 +5,7 @@
 
 import {
   generatePaymentAttemptReferenceId,
+  getLineItemsFromProductsList,
   getParameterValueFromEvent,
   getValParameterForEvent,
 } from './omnitracking-helper';
@@ -476,6 +477,12 @@ export const trackEventsMapper = {
           val,
         };
     }
+  },
+  [eventTypes.PRODUCT_LIST_VIEWED]: data => {
+    return {
+      tid: 2832,
+      lineItems: getLineItemsFromProductsList(data),
+    };
   },
 };
 
