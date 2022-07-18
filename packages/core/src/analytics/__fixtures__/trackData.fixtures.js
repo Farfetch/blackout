@@ -16,7 +16,18 @@ const trackMockData = {
     clientId: 26000,
     tenantId: 26000,
   },
-  properties: {},
+  properties: {
+    products: [
+      {
+        id: 12345678,
+        discountValue: 1,
+        brand: 'designer name',
+        category: 'shoes',
+        priceWithoutDiscount: 1,
+        sizeId: 1,
+      },
+    ],
+  },
   platform: platformTypes.Web,
   timestamp: mockCommonData.timestamp,
   type: trackTypes.TRACK,
