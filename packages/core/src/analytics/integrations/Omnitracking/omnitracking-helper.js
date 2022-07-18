@@ -223,7 +223,7 @@ export const getPlatformSpecificParameters = data => {
 };
 
 /**
- * Filters the properties object with the `parameters` dictionary, so we don't pass unecessary information for the event.
+ * Filters the properties object with the `parameters` dictionary, so we don't pass unnecessary information for the event.
  * We search for parameters in many locations: context -> device -> app -> event -> properties
  * Each location can override the values of the previous one.
  *
@@ -324,7 +324,7 @@ export const generatePaymentAttemptReferenceId = data => {
 };
 
 /**
- * Filters the properties object with the `parameters` dictionary, so we don't pass unecessary information for the event.
+ * Filters the properties object with the `parameters` dictionary, so we don't pass unnecessary information for the event.
  * We search for parameters in many locations: context -> device -> app -> event -> properties
  * Each location can override the values of the previous one.
  *
@@ -474,4 +474,30 @@ export const getCLientCountryFromCulture = culture => {
   const clientCountry = cultureSplit[1];
 
   return clientCountry;
+};
+
+/**
+ * Transforms the products list payload into `lineItems` omnitracking parameter.
+ *
+ * @param {object} data - The event tracking data.
+ *
+ * @returns {Array|undefined} - The mapped `lineItems` array.
+ */
+export const getLineItemsFromProductsList = data => {
+  const productsList = data?.properties?.products;
+
+  if (productsList && productsList.length) {
+    const mappedProductList = productsList.map(product => ({
+      productId: product.id,
+      itemPromotion: product.discountValue,
+      designerName: product.brand,
+      category: product.category,
+      itemFullPrice: product.priceWithoutDiscount,
+      sizeID: product.sizeId,
+    }));
+
+    return JSON.stringify(mappedProductList);
+  }
+
+  return undefined;
 };
