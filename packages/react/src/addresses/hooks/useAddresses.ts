@@ -116,11 +116,9 @@ export const useAddresses = ({
   const addressesData = useSelector((state: StoreState) =>
     selectorsUsers.getUserAddresses(state),
   );
-  // TODO: FIX ME! - Validate if this selector works.
   const addressesIds = useSelector((state: StoreState) =>
     selectorsUsers.getAddressesResult(state),
   );
-  // TODO: FIX ME! - Validate this selector, it may not make sense.
   const addressesError = useSelector((state: StoreState) =>
     selectorsUsers.getUserError(state),
   );
