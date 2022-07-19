@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.41.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.41.0...@farfetch/blackout-react@0.41.1) (2022-07-19)
+
+
+### Bug Fixes
+
+* **core|react:** hash creation on content pages ([b5ea2b9](https://github.com/Farfetch/blackout/commit/b5ea2b9a74ac6ec3505fed4f4f5af96d3ed08735))
+
+
+
+
+
 # [0.41.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.40.1...@farfetch/blackout-react@0.41.0) (2022-06-28)
 
 
