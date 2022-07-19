@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.65.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.64.0...@farfetch/blackout-core@1.65.0) (2022-07-19)
+
+
+### Bug Fixes
+
+* **core|react:** hash creation on content pages ([b5ea2b9](https://github.com/Farfetch/blackout/commit/b5ea2b9a74ac6ec3505fed4f4f5af96d3ed08735))
+
+
+### Features
+
+* **blackout-core:** add lineItems omnitracking mapping ([705e910](https://github.com/Farfetch/blackout/commit/705e910f411ee99be7f8935f0f650189aca3078f))
+
+
+
+
+
 # [1.64.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.63.0...@farfetch/blackout-core@1.64.0) (2022-07-14)
 
 
