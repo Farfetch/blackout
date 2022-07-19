@@ -194,6 +194,17 @@ export const mergeStrategyResult = {
   ],
 };
 
+export const mockCommercePagesWithPages = {
+  number: 1,
+  totalPages: 2,
+  totalItems: 1,
+  entries: [
+    {
+      ...mockCommercePages.entries[0],
+    },
+  ],
+};
+
 export const mockCommercePagesLoadingState = {
   entities: {},
   contents: {
