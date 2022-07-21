@@ -86,6 +86,7 @@ const pageMockData = {
         title: 'Thom Browne',
         referrer: 'https://example.com',
       },
+      pageLocationReferrer: 'https://example.com',
     },
   },
   timestamp: mockCommonData.timestamp,
@@ -101,7 +102,7 @@ const getPageMockParametersForPlatform = platform => {
     parameters = {
       deviceLanguage: pageMockData.context.web.window.navigator.language,
       internalRequest: false,
-      referrer: pageMockData.context.web.document.referrer,
+      referrer: pageMockData.context.web.pageLocationReferrer,
       referrerHost: 'example.com',
       screenHeight: pageMockData.context.web.window.screen.height,
       screenWidth: pageMockData.context.web.window.screen.width,
