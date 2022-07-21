@@ -17,6 +17,7 @@ export const ActionTypes = {
   LoginRequested: 'LOGIN_REQUESTED',
   LoginSucceeded: 'LOGIN_SUCCEEDED',
   LoginFailed: 'LOGIN_FAILED',
+  LoginReset: 'LOGIN_RESET',
   LogoutRequested: 'LOGOUT_REQUESTED',
   LogoutSucceeded: 'LOGOUT_SUCCEEDED',
   LogoutFailed: 'LOGOUT_FAILED',
@@ -57,7 +58,9 @@ const reducer = (state, action) => {
         },
       };
     }
-
+    case ActionTypes.LoginReset: {
+      return initialState;
+    }
     default:
       return state;
   }
@@ -81,6 +84,10 @@ const useUserAuthState = ({ activeTokenData, tokenManager }) => {
       throw new PendingUserOperationError();
     }
   }, [state]);
+
+  const reset = useCallback(() => {
+    dispatch({ type: ActionTypes.LoginReset });
+  }, [dispatch]);
 
   const login = useCallback(
     async data => {
@@ -154,6 +161,7 @@ const useUserAuthState = ({ activeTokenData, tokenManager }) => {
     login,
     logout,
     isLoggedIn,
+    reset,
     ...state,
   };
 };
