@@ -427,11 +427,11 @@ export const expectedNormalizedPayload = {
   },
   contents: {
     isLoading: {
-      'careers!all': false,
-      'careers!test-career': false,
-      'navbars!footer': false,
-      'pages!cttpage,boutiques': false,
-      'widgets!newsletter-terms-and-conditions-widget': false,
+      'careers!all!1': false,
+      'careers!test-career!1': false,
+      'navbars!footer!1': false,
+      'pages!cttpage,boutiques!1': false,
+      'widgets!newsletter-terms-and-conditions-widget!1': false,
     },
     error: {},
     metadata: {
@@ -460,10 +460,10 @@ export const mockContentsLoadingState = {
   entities: {},
   contents: {
     isLoading: {
-      'careers!all': true,
-      'navbars!footer': true,
-      'pages!cttpage,boutiques': true,
-      'widgets!newsletter-terms-and-conditions-widget': true,
+      'careers!all!1': true,
+      'navbars!footer!1': true,
+      'pages!cttpage,boutiques!1': true,
+      'widgets!newsletter-terms-and-conditions-widget!1': true,
     },
     error: {},
   },
@@ -473,22 +473,22 @@ export const mockContentsErrorState = {
   entities: {},
   contents: {
     isLoading: {
-      'careers!all': false,
-      'navbars!footer': false,
-      'pages!cttpage,boutiques': false,
-      'widgets!newsletter-terms-and-conditions-widget': false,
+      'careers!all!1': false,
+      'navbars!footer!1': false,
+      'pages!cttpage,boutiques!1': false,
+      'widgets!newsletter-terms-and-conditions-widget!1': false,
     },
     error: {
-      'careers!all': {
+      'careers!all!1': {
         message: 'Error',
       },
-      'navbars!footer': {
+      'navbars!footer!1': {
         message: 'Error',
       },
-      'pages!cttpage,boutiques': {
+      'pages!cttpage,boutiques!1': {
         message: 'Error',
       },
-      'widgets!newsletter-terms-and-conditions-widget': {
+      'widgets!newsletter-terms-and-conditions-widget!1': {
         message: 'Error',
       },
     },
