@@ -221,7 +221,8 @@ export const getRankedCommercePage = (result, strategy) => {
  * @param {object} query - Object with query parameters applied to search contents.
  * @param {string | string[]} [query.codes] - List of codes that representing the content code (about-us|today-news|header|productId...).
  * @param {object} [query.contentTypeCode] - The content type unique code (page|post|menu|pages|posts|widgets|waterproof...).
- * @param {object} [query.pageSize] - Size of each page, as a number between 1 and 180. The default is 60.
+ * @param {number} [query.page] - Number of the page to get, starting at 1. The default is 1.
+ * @param {number} [query.pageSize] - Size of each page, as a number between 1 and 180. The default is 60.
  *
  * @returns {string} - Hash built to identify a content group.
  *
@@ -239,9 +240,11 @@ export const buildContentGroupHash = query => {
 
   const contentType = get(query, 'contentTypeCode', 'all');
   const codes = get(query, 'codes', 'all');
+  const page = get(query, 'page', 1);
   const pageSize = get(query, 'pageSize', '');
+  const pagesQuery = `${pageSize && `,${pageSize}`}`;
 
-  return `${contentType}!${codes}${pageSize && `!${pageSize}`}`;
+  return `${contentType}!${codes}!${page}${pagesQuery}`;
 };
 
 /**
