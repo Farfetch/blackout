@@ -59,7 +59,7 @@ const reducer = (state, action) => {
       };
     }
     case ActionTypes.LoginReset: {
-      return initialState
+      return initialState;
     }
     default:
       return state;
@@ -86,8 +86,8 @@ const useUserAuthState = ({ activeTokenData, tokenManager }) => {
   }, [state]);
 
   const reset = useCallback(() => {
-    dispatch({ type: ActionTypes.LoginReset })
-  }, [dispatch, ActionTypes])
+    dispatch({ type: ActionTypes.LoginReset });
+  }, [dispatch]);
 
   const login = useCallback(
     async data => {
