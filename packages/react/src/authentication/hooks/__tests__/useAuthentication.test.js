@@ -69,6 +69,7 @@ describe('useAuthentication', () => {
       isLoading: expect.any(Boolean),
       isLoggedIn: expect.any(Boolean),
       login: expect.any(Function),
+      reset: expect.any(Function),
       logout: expect.any(Function),
       resetGuestTokensContext: expect.any(Function),
       setGuestUserClaims: expect.any(Function),
