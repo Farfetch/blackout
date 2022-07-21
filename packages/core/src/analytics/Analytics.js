@@ -71,14 +71,16 @@ class Analytics {
    * Getter for the context object.
    *
    * @param {string} [key] - Key to retrieve from the context. If not specified, will return the whole data stored in the context.
+   * @param {string} eventType - The type of event being tracked. Ex: page, track, onSetUser.
+   *
    * @returns {Promise<*>} Value for the key in context or the whole context data if key is not specified.
    */
-  async context(key) {
+  async context(key, eventType) {
     const externalContextData = {};
 
     for (const contextFn of this.contextFns) {
       try {
-        const contextFnResult = await contextFn();
+        const contextFnResult = await contextFn(eventType);
 
         merge(externalContextData, contextFnResult);
       } catch (error) {
@@ -540,7 +542,7 @@ class Analytics {
    * @private
    */
   async getEventData(type, additionalData, eventContext) {
-    const context = await this.context();
+    const context = await this.context(null, type);
 
     Object.assign(context, { event: eventContext });
 
