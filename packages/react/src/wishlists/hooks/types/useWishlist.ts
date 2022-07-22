@@ -1,29 +1,34 @@
-import type { AxiosRequestConfig } from 'axios';
 import type {
-  PostWishlistItemActionData,
-  WishlistItemHydrated,
-  WishlistsState,
-} from '@farfetch/blackout-redux';
-import type { Wishlist } from '@farfetch/blackout-client';
+  Config,
+  PatchWishlistItemData,
+  Wishlist,
+  WishlistItem,
+} from '@farfetch/blackout-client';
+import type { PostWishlistItemActionData } from '@farfetch/blackout-redux';
 
-export type UseWishlist = () => {
-  error: WishlistsState['error'] | undefined;
-  fetchWishlist: (
-    wishlistId: number,
-    config?: AxiosRequestConfig,
-  ) => Promise<Wishlist | undefined>;
-  addWishlistItem: (
-    data: PostWishlistItemActionData,
-    config?: AxiosRequestConfig,
-  ) => Promise<Wishlist | undefined>;
-  id: WishlistsState['id'];
-  isEmpty: boolean;
-  isLoading: boolean;
-  itemCount: number;
-  items: WishlistItemHydrated[] | undefined;
-  itemsWithSetsInfo: WishlistItemHydrated[] | undefined;
-  resetWishlist: () => void;
-  resetWishlistState: (fieldsToReset?: string[]) => void;
-  totalQuantity: number;
-  wishlist: WishlistsState['result'];
+export type Options = {
+  enableAutoFetch?: boolean;
 };
+
+export type AddItem = (
+  data: PostWishlistItemActionData,
+  config?: Config,
+) => Promise<Wishlist | undefined>;
+
+export type UpdateItem = (
+  itemId: WishlistItem['id'],
+  data: PatchWishlistItemData,
+  config?: Config,
+) => Promise<Wishlist | undefined>;
+
+export type RemoveItem = (
+  itemId: WishlistItem['id'],
+  config?: Config,
+) => Promise<Wishlist | undefined>;
+
+export type FetchWishlist = (
+  id: Wishlist['id'],
+  config?: Config,
+) => Promise<Wishlist | undefined>;
+
+export type ResetWishlist = () => void;

@@ -4,7 +4,6 @@ import {
   Config,
   DeleteBagItem,
   DeleteBagItemQuery,
-  PatchBagItemData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { getBagId } from '../../selectors';
@@ -31,12 +30,7 @@ import type { GetOptionsArgument, Nullable, StoreState } from '../../../types';
  */
 const removeBagItemFactory =
   (deleteBagItem: DeleteBagItem) =>
-  (
-    bagItemId: number,
-    data?: PatchBagItemData,
-    query?: DeleteBagItemQuery,
-    config?: Config,
-  ) =>
+  (bagItemId: number, query?: DeleteBagItemQuery, config?: Config) =>
   async (
     dispatch: Dispatch,
     getState: () => StoreState,
@@ -72,7 +66,6 @@ const removeBagItemFactory =
         payload: normalizedBag,
         type: actionTypes.REMOVE_BAG_ITEM_SUCCESS,
         meta: {
-          ...data,
           bagId,
           bagItemId,
         },

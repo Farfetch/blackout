@@ -12,7 +12,7 @@ module.exports = {
   // Indicates whether the coverage information should be collected while executing the test
   collectCoverage: true,
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: ['**/src/**/*.{js,jsx,ts,tsx}'],
+  collectCoverageFrom: ['**/src/**/*.{js,jsx,ts,tsx}', '!**/.vscode/**/*'],
   // An object that configures minimum threshold enforcement for coverage results
   coverageThreshold: {
     global: {

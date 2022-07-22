@@ -59,12 +59,11 @@ export const getBag = (state: StoreState): BagsState['result'] =>
  *
  * @param state - Application state.
  *
- * @returns Error information, `undefined` if there are no errors.
+ * @returns Error information.
  */
 export const getBagError = (
   state: StoreState,
-): BagsState['error'] | undefined =>
-  getError(state.bag as BagsState) || undefined;
+): BagsState['error'] | undefined => getError(state.bag as BagsState);
 
 /**
  * Retrieves the universal identifier of the current user's bag.

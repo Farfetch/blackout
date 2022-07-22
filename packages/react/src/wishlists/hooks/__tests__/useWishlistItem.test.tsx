@@ -40,11 +40,14 @@ describe('useWishlistItem', () => {
     const current = getRenderedHook();
 
     expect(current).toStrictEqual({
-      removeWishlistItem: expect.any(Function),
-      updateWishlistItem: expect.any(Function),
       error: expect.any(Object),
       isLoading: expect.any(Boolean),
-      item: expect.any(Object),
+      isFetched: expect.any(Boolean),
+      actions: {
+        update: expect.any(Function),
+        remove: expect.any(Function),
+      },
+      data: expect.any(Object),
     });
   });
 
@@ -71,17 +74,21 @@ describe('useWishlistItem', () => {
 
   describe('actions', () => {
     it('should call `removeWishlistItem` action', () => {
-      const { removeWishlistItem } = getRenderedHook();
+      const {
+        actions: { remove },
+      } = getRenderedHook();
 
-      removeWishlistItem(mockWishlistItemId);
+      remove();
 
       expect(mockDispatch).toHaveBeenCalledWith({ type: 'remove' });
     });
 
     it('should call `updateWishlistItem` action', () => {
-      const { updateWishlistItem } = getRenderedHook();
+      const {
+        actions: { update },
+      } = getRenderedHook();
 
-      updateWishlistItem(mockWishlistItemId, mockWishlistItemPatchData);
+      update(mockWishlistItemPatchData);
 
       expect(mockDispatch).toHaveBeenCalledWith({ type: 'update' });
     });

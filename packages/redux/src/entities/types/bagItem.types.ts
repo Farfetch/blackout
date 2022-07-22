@@ -39,5 +39,5 @@ export type BagItemEntity = Omit<
 };
 
 export type BagItemHydrated = Omit<BagItemEntity, 'product'> & {
-  product: ProductEntity | undefined;
+  product: ProductEntity;
 };

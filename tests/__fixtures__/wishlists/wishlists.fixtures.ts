@@ -1,4 +1,4 @@
-import type { WishlistItem } from '@farfetch/blackout-client/wishlists/types';
+import type { WishlistItem } from '@farfetch/blackout-client';
 
 export const mockWishlistId = 'b1a13891-6084-489f-96ed-300eed45b948';
 export const mockWishlistItemId = 481426747;
@@ -86,6 +86,7 @@ export const mockWishlistState = {
     result: {
       id: mockWishlistId,
       items: [mockWishlistItemId],
+      count: 4,
     },
     sets: {
       error: null,

@@ -1,4 +1,10 @@
-import { AddressPayment, Amounts, Payer, PayerAddressType, ShopperInteraction } from '../types';
+import {
+  AddressPayment,
+  Amounts,
+  Payer,
+  PayerAddressType,
+  ShopperInteraction,
+} from '../types';
 import { id, instrumentId } from 'tests/__fixtures__/payments';
 import { putPaymentIntentInstrument } from '..';
 import client from '../../helpers/client';

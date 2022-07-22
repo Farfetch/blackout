@@ -39,7 +39,10 @@ export const mockProductSizesAdapted = [
     id: 2,
     globalQuantity: 10,
     scale: mockSizeScaleId,
-    stock: [{ merchantId: mockMerchantId, quantity: 2 }],
+    stock: [
+      { merchantId: mockMerchantId, quantity: 2 },
+      { merchantId: 545, quantity: 20 },
+    ],
     isOneSize: false,
     isOutOfStock: false,
     name: '40',
@@ -53,7 +56,7 @@ export const mockProductSizesAdapted = [
   {
     id: 4,
     name: '13',
-    scale: 4,
+    scale: mockSizeScaleId,
     stock: [{ merchantId: mockMerchantId, quantity: 6 }],
   },
   {
@@ -98,12 +101,24 @@ export const mockProductSizesAdapted = [
   {
     id: 23,
     name: '23',
-    scale: 'IT',
+    scale: mockSizeScaleId,
     stock: [
       { merchantId: mockMerchantId, quantity: 7 },
       { merchantId: 213, quantity: 5 },
       { merchantId: 456, quantity: 2 },
     ],
+  },
+  {
+    id: 24,
+    globalQuantity: 30,
+    scale: mockSizeScaleId,
+    stock: [
+      { merchantId: 22, quantity: 10 },
+      { merchantId: 22, quantity: 20 },
+    ],
+    isOneSize: false,
+    isOutOfStock: false,
+    name: '45',
   },
 ];
 
