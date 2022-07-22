@@ -15,12 +15,12 @@ Object {
   "payload": Object {
     "entities": Object {
       "contentGroups": Object {
-        "pages!cttpage,boutiques": Object {
+        "pages!cttpage,boutiques!1": Object {
           "entries": Array [
             "1fa65fb0-49bf-43b3-902e-78d104f160a3",
             "01b7783c-1b9d-4d5d-915b-17a30c85082d",
           ],
-          "hash": "pages!cttpage,boutiques",
+          "hash": "pages!cttpage,boutiques!1",
           "number": 1,
           "totalItems": 2,
           "totalPages": 1,
@@ -79,8 +79,8 @@ Object {
         },
       },
     },
-    "hash": "pages!cttpage,boutiques",
-    "result": "pages!cttpage,boutiques",
+    "hash": "pages!cttpage,boutiques!1",
+    "result": "pages!cttpage,boutiques!1",
   },
   "type": "@farfetch/blackout-core/GET_CONTENT_SUCCESS",
 }
