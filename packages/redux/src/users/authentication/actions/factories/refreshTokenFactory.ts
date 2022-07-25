@@ -3,29 +3,21 @@ import { Config, PostToken, toBlackoutError } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
 /**
- * @param refreshToken - Refresh Token.
- * @param config       - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Refreshes user or client's token.
  *
- * @param postTokens    -
- * @param postUserToken - Post User token client guest credentials.
+ * @param postToken - Post token client.
  *
  * @returns Thunk factory.
  */
 const refreshTokenFactory =
-  (postTokens: PostToken) =>
+  (postToken: PostToken) =>
   (refreshToken: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<any> => {
     try {
       dispatch({
         type: actionTypes.REFRESH_USER_TOKEN_REQUEST,
       });
-      const result = await postTokens(
+      const result = await postToken(
         { refreshToken, grantType: 'refresh_token' },
         config,
       );

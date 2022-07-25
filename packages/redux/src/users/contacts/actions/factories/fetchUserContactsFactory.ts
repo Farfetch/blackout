@@ -15,7 +15,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const fetchUserContactsFactory =
+const fetchUserContactsFactory =
   (getContacts: GetUserContacts) =>
   (id: number, config?: Config) =>
   async (dispatch: Dispatch) => {
@@ -41,3 +41,5 @@ export const fetchUserContactsFactory =
       throw error;
     }
   };
+
+export default fetchUserContactsFactory;

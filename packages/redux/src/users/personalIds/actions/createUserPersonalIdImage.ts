@@ -4,6 +4,4 @@ import { postUserPersonalIdImage } from '@farfetch/blackout-client';
 /**
  * Create personal id image.
  */
-export const createUserPersonalIdImage = createUserPersonalIdImageFactory(
-  postUserPersonalIdImage,
-);
+export default createUserPersonalIdImageFactory(postUserPersonalIdImage);

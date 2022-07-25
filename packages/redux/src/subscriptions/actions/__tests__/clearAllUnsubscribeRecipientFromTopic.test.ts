@@ -1,6 +1,6 @@
 import * as subscriptionsActionTypes from '../../actionTypes';
-import { clearAllUnsubscribeRecipientFromTopic } from '../clearAllUnsubscribeRecipientFromTopicRequests';
 import { mockStore } from '../../../../tests';
+import clearAllUnsubscribeRecipientFromTopic from '../clearAllUnsubscribeRecipientFromTopic';
 import reducer from '../../reducer';
 
 describe('reset()', () => {

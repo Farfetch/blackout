@@ -9,12 +9,6 @@ import type { Dispatch } from 'redux';
 import type { FetchPaymentMethodsByCountryAndCurrencyAction } from '../../types';
 
 /**
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Obtains all the payment methods available for the current country and currency
  * context.
  *

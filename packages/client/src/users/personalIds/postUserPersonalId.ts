@@ -13,10 +13,12 @@ import type { PostUserPersonalId } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const postUserPersonalId: PostUserPersonalId = (userId, data, config) =>
+const postUserPersonalId: PostUserPersonalId = (userId, data, config) =>
   client
     .post(join('/account/v1/users', userId, 'personalids'), data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default postUserPersonalId;

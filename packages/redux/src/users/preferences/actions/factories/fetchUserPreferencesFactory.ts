@@ -15,7 +15,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const fetchUserPreferencesFactory =
+const fetchUserPreferencesFactory =
   (getUserPreferences: GetUserPreferences) =>
   (userId: number, code: string, config?: Config) =>
   async (dispatch: Dispatch) => {
@@ -41,3 +41,5 @@ export const fetchUserPreferencesFactory =
       throw error;
     }
   };
+
+export default fetchUserPreferencesFactory;

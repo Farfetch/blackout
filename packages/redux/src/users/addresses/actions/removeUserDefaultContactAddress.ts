@@ -5,5 +5,6 @@ import { removeUserDefaultContactAddressFactory } from './factories';
  * Responsible for deleting the users default contact address.
  */
 
-export const removeUserDefaultContactAddress =
-  removeUserDefaultContactAddressFactory(deleteUserDefaultContactAddress);
+export default removeUserDefaultContactAddressFactory(
+  deleteUserDefaultContactAddress,
+);

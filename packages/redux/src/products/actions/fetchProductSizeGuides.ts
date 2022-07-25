@@ -7,5 +7,4 @@ import { getProductSizeGuides } from '@farfetch/blackout-client';
  * category tree you should use the size guides logic from
  * \@farfetch/blackout-redux/sizeGuides.
  */
-export const fetchProductSizeGuides =
-  fetchProductSizeGuidesFactory(getProductSizeGuides);
+export default fetchProductSizeGuidesFactory(getProductSizeGuides);

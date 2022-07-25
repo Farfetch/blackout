@@ -3,12 +3,12 @@ import { createCheckoutOrderCharge } from '..';
 import { INITIAL_STATE } from '../../reducer';
 import { mockCharges } from 'tests/__fixtures__/checkout';
 import { mockStore } from '../../../../tests';
-import { postCheckoutOrderCharges } from '@farfetch/blackout-client';
+import { postCheckoutOrderCharge } from '@farfetch/blackout-client';
 import find from 'lodash/find';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
-  postCheckoutOrderCharges: jest.fn(),
+  postCheckoutOrderCharge: jest.fn(),
 }));
 
 describe('createCheckoutOrderCharge() action creator', () => {
@@ -31,15 +31,15 @@ describe('createCheckoutOrderCharge() action creator', () => {
   it('should create the correct actions for when the charge procedure fails', async () => {
     const expectedError = new Error('charges error');
 
-    postCheckoutOrderCharges.mockRejectedValueOnce(expectedError);
+    postCheckoutOrderCharge.mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
     try {
       await store.dispatch(createCheckoutOrderCharge(orderId, data));
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(postCheckoutOrderCharges).toHaveBeenCalledTimes(1);
-      expect(postCheckoutOrderCharges).toHaveBeenCalledWith(
+      expect(postCheckoutOrderCharge).toHaveBeenCalledTimes(1);
+      expect(postCheckoutOrderCharge).toHaveBeenCalledWith(
         orderId,
         data,
         expectedConfig,
@@ -57,13 +57,13 @@ describe('createCheckoutOrderCharge() action creator', () => {
   });
 
   it('should create the correct actions for when the charge procedure is successful', async () => {
-    postCheckoutOrderCharges.mockResolvedValueOnce(mockCharges);
+    postCheckoutOrderCharge.mockResolvedValueOnce(mockCharges);
     await store.dispatch(createCheckoutOrderCharge(orderId, data));
 
     const actionResults = store.getActions();
 
-    expect(postCheckoutOrderCharges).toHaveBeenCalledTimes(1);
-    expect(postCheckoutOrderCharges).toHaveBeenCalledWith(
+    expect(postCheckoutOrderCharge).toHaveBeenCalledTimes(1);
+    expect(postCheckoutOrderCharge).toHaveBeenCalledWith(
       orderId,
       data,
       expectedConfig,

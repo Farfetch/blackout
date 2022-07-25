@@ -15,7 +15,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const updateUserPersonalIdFactory =
+const updateUserPersonalIdFactory =
   (patchUserPersonalId: PatchUserPersonalId) =>
   (
     userId: number,
@@ -51,3 +51,5 @@ export const updateUserPersonalIdFactory =
       throw error;
     }
   };
+
+export default updateUserPersonalIdFactory;

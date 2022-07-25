@@ -4,5 +4,4 @@ import { removeUserPersonalIdFactory } from './factories';
 /**
  * Removes a personal id.
  */
-export const removeUserPersonalId =
-  removeUserPersonalIdFactory(deleteUserPersonalId);
+export default removeUserPersonalIdFactory(deleteUserPersonalId);

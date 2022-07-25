@@ -11,13 +11,6 @@ import type { Dispatch } from 'redux';
 const UNVERIFIED_USER = 4;
 
 /**
- * @param data   - User to be registered.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Performs the register operation for a new user.
  *
  * @param postRegister - Post register client.

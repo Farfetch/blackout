@@ -15,15 +15,6 @@ import type { FetchBrandsAction } from '../../types';
 import type { StoreState } from '../../../types';
 
 /**
- * @param query         - Query with parameters to fetch brands.
- * @param useCache      - If the request result will be cached.
- * @param setBrandsHash - Allows the brands hash to be set.
- * @param config        - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to fetch brands for
  * a given query or all brands if no query is provided.
  *

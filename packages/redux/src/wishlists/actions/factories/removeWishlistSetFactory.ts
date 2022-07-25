@@ -11,13 +11,6 @@ import type { RemoveWishlistSetAction } from '../../types';
 import type { StoreState } from '../../../types';
 
 /**
- * @param wishlistSetId - Wishlist set id to remove.
- * @param config        - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to remove a set
  * from the wishlist.
  *

@@ -11,13 +11,6 @@ import productSchema from '../../../entities/schemas/product';
 import type { Dispatch } from 'redux';
 
 /**
- * @param productId - Numeric identifier of the product.
- * @param config    - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to fetch product
  * measurements for a given product id.
  *
@@ -25,7 +18,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const fetchProductMeasurementsFactory =
+const fetchProductMeasurementsFactory =
   (getMeasurements: GetProductVariantsMeasurements) =>
   (productId: Product['result']['id'], config?: Config) =>
   async (dispatch: Dispatch): Promise<ProductVariantMeasurement[]> => {
@@ -58,3 +51,5 @@ export const fetchProductMeasurementsFactory =
       throw error;
     }
   };
+
+export default fetchProductMeasurementsFactory;

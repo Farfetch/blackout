@@ -9,13 +9,6 @@ import type { Dispatch } from 'redux';
 import type { RemovePaymentTokensAction } from '../../types';
 
 /**
- * @param tokenId - Universal identifier of the token to be deleted.
- * @param config  - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Method responsible for deleting a user payment token. This is used for deleting
  * a credit card.
  *

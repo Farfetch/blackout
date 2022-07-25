@@ -15,7 +15,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const fetchUserCreditMovementsFactory =
+const fetchUserCreditMovementsFactory =
   (getUserCreditMovements: GetUserCreditMovements) =>
   (userId: User['id'], query: GetUserCreditMovementsQuery, config?: Config) =>
   async (dispatch: Dispatch) => {
@@ -41,3 +41,5 @@ export const fetchUserCreditMovementsFactory =
       throw error;
     }
   };
+
+export default fetchUserCreditMovementsFactory;

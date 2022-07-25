@@ -11,13 +11,6 @@ import type { Dispatch } from 'redux';
 import type { FetchSizeScaleAction } from '../../types';
 
 /**
- * @param sizeScaleId - Numeric identifier of the size scale.
- * @param config      - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to fetch a specific
  * size scale for a given size scale id.
  *

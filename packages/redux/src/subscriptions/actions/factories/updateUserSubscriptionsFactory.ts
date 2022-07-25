@@ -9,7 +9,7 @@ import type { UpdateUserSubscriptionsFactory } from './types';
  *
  * @returns Thunk factory.
  */
-export const updateUserSubscriptionsFactory: UpdateUserSubscriptionsFactory<
+const updateUserSubscriptionsFactory: UpdateUserSubscriptionsFactory<
   PutSubscriptions
 > = putSubscriptions => (data, config) => async dispatch => {
   try {
@@ -31,3 +31,5 @@ export const updateUserSubscriptionsFactory: UpdateUserSubscriptionsFactory<
     throw error;
   }
 };
+
+export default updateUserSubscriptionsFactory;

@@ -4,6 +4,4 @@ import { setUserDefaultPersonalIdFactory } from './factories';
 /**
  * Updates the default personal id.
  */
-export const setUserDefaultPersonalId = setUserDefaultPersonalIdFactory(
-  putUserDefaultPersonalId,
-);
+export default setUserDefaultPersonalIdFactory(putUserDefaultPersonalId);

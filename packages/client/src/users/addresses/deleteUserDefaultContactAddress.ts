@@ -11,14 +11,18 @@ import type { DeleteUserDefaultContactAddress } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const deleteUserDefaultContactAddress: DeleteUserDefaultContactAddress =
-  (userId, config) =>
-    client
-      .delete(
-        join('/account/v1/users', userId, 'addresses/preferred/current'),
-        config,
-      )
-      .then(response => response.status)
-      .catch(error => {
-        throw adaptError(error);
-      });
+const deleteUserDefaultContactAddress: DeleteUserDefaultContactAddress = (
+  userId,
+  config,
+) =>
+  client
+    .delete(
+      join('/account/v1/users', userId, 'addresses/preferred/current'),
+      config,
+    )
+    .then(response => response.status)
+    .catch(error => {
+      throw adaptError(error);
+    });
+
+export default deleteUserDefaultContactAddress;

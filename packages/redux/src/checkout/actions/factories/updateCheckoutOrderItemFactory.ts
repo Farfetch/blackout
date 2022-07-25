@@ -7,15 +7,6 @@ import type {
 import type { Dispatch } from 'redux';
 
 /**
- * @param checkoutOrderId - Universal identifier of the Checkout Order
- * @param itemId - Checkout Order item Identifier
- * @param data - Checkout Order item properties to update
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Method responsible for updating a checkout order item.
  *
  * @param patchCheckoutOrderItem - Patch checkout order item client.

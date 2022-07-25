@@ -11,23 +11,6 @@ import checkoutSchema from '../../../entities/schemas/checkout';
 import type { Dispatch } from 'redux';
 
 /**
- * @param id     - Universal identifier of the Checkout.
- * @param data   - Checkout object.
- * @param config - Custom configurations to send to the client instance (axios). In this case is truly
- *                 recommended to update your axios config to your new shipping or billing address,
- *                 like this:
- *                  const config = \{
- *                    headers:\{
- *                      'Accept-Language': cultureCode,
- *                      'FF-Country': countryCode,
- *                      'FF-Currency': currencyCode
- *                     \}
- *                  \}.
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Method responsible for changing the checkout information. This is used for any
  * type of changes to the checkout object. This also replaces the deprecated
  * putShippingOption function.

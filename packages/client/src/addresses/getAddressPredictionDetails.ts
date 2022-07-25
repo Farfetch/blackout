@@ -12,7 +12,7 @@ import type { GetAddressPredictionDetails } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getAddressPredictionDetails: GetAddressPredictionDetails = (
+const getAddressPredictionDetails: GetAddressPredictionDetails = (
   props,
   query,
   config,
@@ -28,3 +28,5 @@ export const getAddressPredictionDetails: GetAddressPredictionDetails = (
     .catch(error => {
       throw adaptError(error);
     });
+
+export default getAddressPredictionDetails;

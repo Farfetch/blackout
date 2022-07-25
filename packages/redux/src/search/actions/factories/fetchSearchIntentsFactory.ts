@@ -10,13 +10,6 @@ import type { Dispatch } from 'redux';
 import type { FetchSearchIntentsAction } from '../../types';
 
 /**
- * @param query  - Query parameters to apply.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to fetch the search
  * intents for the given query with search terms. With these results is possible to
  * know the next action to perform - redirect to a pdp, plp or another

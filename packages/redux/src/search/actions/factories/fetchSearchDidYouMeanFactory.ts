@@ -10,13 +10,6 @@ import type { Dispatch } from 'redux';
 import type { FetchSearchDidYouMeanAction } from '../../types';
 
 /**
- * @param query  - Query parameters to apply to the search.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to fetch the facets
  * available to a given search.
  *

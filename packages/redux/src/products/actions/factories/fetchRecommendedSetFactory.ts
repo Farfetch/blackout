@@ -9,13 +9,6 @@ import type { Dispatch } from 'redux';
 import type { FetchRecommendedSetAction } from '../../types';
 
 /**
- * @param recommendedSetId - Numeric identifier of the product.
- * @param config           - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to fetch product
  * sizes for a given product id.
  *
@@ -23,7 +16,7 @@ import type { FetchRecommendedSetAction } from '../../types';
  *
  * @returns Thunk factory.
  */
-export const fetchRecommendedSetFactory =
+const fetchRecommendedSetFactory =
   (getProductRecommendedSet: GetProductRecommendedSet) =>
   (recommendedSetId: number, config?: Config) =>
   async (
@@ -54,3 +47,5 @@ export const fetchRecommendedSetFactory =
       throw error;
     }
   };
+
+export default fetchRecommendedSetFactory;

@@ -4,4 +4,4 @@ import { removeUserContactFactory } from './factories';
 /**
  * Remove a user contact.
  */
-export const removeUserContact = removeUserContactFactory(deleteUserContact);
+export default removeUserContactFactory(deleteUserContact);

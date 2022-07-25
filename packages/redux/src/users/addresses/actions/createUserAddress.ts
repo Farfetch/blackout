@@ -4,4 +4,4 @@ import { postUserAddress } from '@farfetch/blackout-client';
 /**
  * Responsible for creating an address for the current user.
  */
-export const createUserAddress = createUserAddressFactory(postUserAddress);
+export default createUserAddressFactory(postUserAddress);

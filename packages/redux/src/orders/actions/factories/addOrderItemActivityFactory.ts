@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import {
   Config,
-  PostOrderItemActivities,
+  PostOrderItemActivity,
   PostOrderItemActivityData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
@@ -10,17 +10,12 @@ import type { Dispatch } from 'redux';
 /**
  * Method responsible for creating an activity to perform on the order item.
  *
- * @param postOrderItemActivities -
- * @param orderId                 - The identifier of the order.
- * @param itemId                  - The identifier of the item.
- * @param data                    - Request data.
- * @param config                  - Custom configurations to send to the client instance (axios).
+ * @param postOrderItemActivity - Post order item activity client.
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-
-const addOrderItemActivities =
-  (postOrderItemActivities: PostOrderItemActivities) =>
+const addOrderItemActivity =
+  (postOrderItemActivity: PostOrderItemActivity) =>
   (
     orderId: string,
     itemId: string,
@@ -33,12 +28,7 @@ const addOrderItemActivities =
         type: actionTypes.ADD_ORDER_ITEM_ACTIVITIES_REQUEST,
       });
 
-      const result = await postOrderItemActivities(
-        orderId,
-        itemId,
-        data,
-        config,
-      );
+      const result = await postOrderItemActivity(orderId, itemId, data, config);
 
       dispatch({
         type: actionTypes.ADD_ORDER_ITEM_ACTIVITIES_SUCCESS,
@@ -55,4 +45,4 @@ const addOrderItemActivities =
     }
   };
 
-export default addOrderItemActivities;
+export default addOrderItemActivity;

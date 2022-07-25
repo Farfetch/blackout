@@ -9,13 +9,6 @@ import type { Dispatch } from 'redux';
 import type { FetchPaymentMethodsAction } from '../../types';
 
 /**
- * @param id     - Universal identifier of the order.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Method responsible for loading the payment methods.
  *
  * @param getPaymentMethods - Get payment methods client.

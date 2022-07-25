@@ -5,6 +5,4 @@ import { getProductRecommendedSet } from '@farfetch/blackout-client';
 /**
  * Fetch a recommended set by id.
  */
-export const fetchRecommendedSet = fetchRecommendedSetFactory(
-  getProductRecommendedSet,
-);
+export default fetchRecommendedSetFactory(getProductRecommendedSet);

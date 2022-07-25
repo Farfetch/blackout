@@ -8,13 +8,6 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @param data   - Request data.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a user token.
  *
  * @param postTokens - Post user token client.

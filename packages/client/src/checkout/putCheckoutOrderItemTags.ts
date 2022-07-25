@@ -13,7 +13,7 @@ import type { PutCheckoutOrderItemTags } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const putCheckoutOrderItemTags: PutCheckoutOrderItemTags = (
+const putCheckoutOrderItemTags: PutCheckoutOrderItemTags = (
   id,
   itemId,
   data,
@@ -30,3 +30,5 @@ export const putCheckoutOrderItemTags: PutCheckoutOrderItemTags = (
       throw adaptError(error);
     });
 };
+
+export default putCheckoutOrderItemTags;

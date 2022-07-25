@@ -12,14 +12,6 @@ import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
 
 /**
- * @param bagId  - Bag id.
- * @param query  - Query with parameters to get the bag.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to fetch a bag.
  *
  * @param getBag - Get bag client.

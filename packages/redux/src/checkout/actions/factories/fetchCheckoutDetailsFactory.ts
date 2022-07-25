@@ -10,14 +10,6 @@ import checkoutDetailsSchema from '../../../entities/schemas/checkoutDetails';
 import type { Dispatch } from 'redux';
 
 /**
- * @param id     - Universal identifier of the Checkout.
- * @param query  - Query params to retrieve the checkout details.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Method responsible for obtaining the checkout details. These are used for the
  * order confirmation.
  *

@@ -1,5 +1,5 @@
 import * as actionTypes from '../../actionTypes';
-import { createUserPersonalId } from '../';
+import { createUserPersonalId } from '..';
 import { INITIAL_STATE } from '../../../reducer';
 import { mockPostPersonalIdsResponse } from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../../tests';

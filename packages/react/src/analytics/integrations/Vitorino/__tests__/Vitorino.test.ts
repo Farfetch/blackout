@@ -23,7 +23,7 @@ import {
   onSetUserEventData as mockUserAndTrackData,
   trackEventsData,
 } from 'tests/__fixtures__/analytics';
-import { postTrackings } from '@farfetch/blackout-client';
+import { postTracking } from '@farfetch/blackout-client';
 import Vitorino from '../Vitorino';
 
 utils.logger.error = jest.fn();
@@ -52,7 +52,7 @@ const generateMockVitorinoPayload = () => ({
   fields: { sensitiveFields: [], secretFields: [] },
   network: {
     proxy: mockUserAndTrackData.context.web.window.location.origin,
-    path: `${MARKETING_API_PREFIX}${postTrackings.POST_TRACKINGS_PATHNAME}`,
+    path: `${MARKETING_API_PREFIX}${postTracking.POST_TRACKINGS_PATHNAME}`,
   },
 });
 

@@ -4,26 +4,27 @@
 
 export * from './factories';
 
-export * from './fetchListing';
-export * from './fetchProductAttributes';
-export * from './fetchProductColorGrouping';
-export * from './fetchProductDetails';
-export * from './fetchProductFittings';
-export * from './fetchProductGrouping';
-export * from './fetchProductMeasurements';
-export * from './fetchProductSizeGuides';
-export * from './fetchProductSizes';
-export * from './fetchProductVariantsByMerchantsLocations';
-export * from './fetchRecommendedSet';
-export * from './fetchSet';
-export * from './resetProductDetails';
-export * from './resetProductDetailsState';
-export * from './resetProductsLists';
-export * from './resetProductsListsState';
+export { default as fetchListing } from './fetchListing';
+export { default as fetchProductAttributes } from './fetchProductAttributes';
+export { default as fetchProductColorGrouping } from './fetchProductColorGrouping';
+export { default as fetchProductDetails } from './fetchProductDetails';
+export { default as fetchProductFittings } from './fetchProductFittings';
+export { default as fetchProductGrouping } from './fetchProductGrouping';
+export { default as fetchProductMeasurements } from './fetchProductMeasurements';
+export { default as fetchProductSizeGuides } from './fetchProductSizeGuides';
+export { default as fetchProductSizes } from './fetchProductSizes';
+export { default as fetchProductVariantsByMerchantsLocations } from './fetchProductVariantsByMerchantsLocations';
+export { default as fetchRecommendedSet } from './fetchRecommendedSet';
+export { default as fetchSet } from './fetchSet';
+export { default as resetProductDetails } from './resetProductDetails';
+export { default as resetProductDetailsState } from './resetProductDetailsState';
+export { default as resetProductsLists } from './resetProductsLists';
+export { default as resetProductsListsState } from './resetProductsListsState';
 
 // Recently Viewed Products
-export * from './fetchRecentlyViewedProducts';
-export * from './saveRecentlyViewedProduct';
-export * from './removeRecentlyViewedProduct';
+export { default as fetchRecentlyViewedProducts } from './fetchRecentlyViewedProducts';
+export { default as saveRecentlyViewedProduct } from './saveRecentlyViewedProduct';
+export { default as removeRecentlyViewedProduct } from './removeRecentlyViewedProduct';
 
-export * from './fetchRecommendedProducts';
+// Recommended products
+export { default as fetchRecommendedProducts } from './fetchRecommendedProducts';

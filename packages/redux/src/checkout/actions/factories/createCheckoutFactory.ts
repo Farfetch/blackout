@@ -11,13 +11,6 @@ import checkoutSchema from '../../../entities/schemas/checkout';
 import type { Dispatch } from 'redux';
 
 /**
- * @param data   - Data to create the checkout.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Method responsible for creating the checkout order. Note: The checkout entity
  * state will contains the orderStatus which is used to keep track of the latest
  * error when creating a new checkout order.

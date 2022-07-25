@@ -15,7 +15,7 @@ import type { Dispatch } from 'redux';
  * @returns Thunk factory.
  */
 
-export const updateUserContactFactory =
+const updateUserContactFactory =
   (patchContact: PatchUserContact) =>
   (
     id: number,
@@ -45,3 +45,5 @@ export const updateUserContactFactory =
       throw error;
     }
   };
+
+export default updateUserContactFactory;

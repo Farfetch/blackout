@@ -10,13 +10,6 @@ import type { Dispatch } from 'redux';
 import type { FetchUserCreditBalanceAction } from '../../types';
 
 /**
- * @param data   - Details for obtaining credit balance.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Method responsible for getting the user credit balance.
  *
  * @param getUserCreditBalance - Get user credit balance client.

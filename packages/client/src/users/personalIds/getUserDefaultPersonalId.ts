@@ -12,13 +12,12 @@ import type { GetUserDefaultPersonalId } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getUserDefaultPersonalId: GetUserDefaultPersonalId = (
-  userId,
-  config,
-) =>
+const getUserDefaultPersonalId: GetUserDefaultPersonalId = (userId, config) =>
   client
     .get(join('/account/v1/users/', userId, '/personalids/default'), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default getUserDefaultPersonalId;

@@ -1,5 +1,5 @@
 import * as actionTypes from '../actionTypes';
-import { resetProductsListsState } from './resetProductsListsState';
+import resetProductsListsState from './resetProductsListsState';
 import type {
   ResetProductsListsEntitiesAction,
   ResetProductsListsStateAction,
@@ -73,7 +73,7 @@ const resetProductsListsEntities =
  *
  * @returns Dispatch reset products lists state and entities action.
  */
-export const resetProductsLists =
+const resetProductsLists =
   () =>
   (
     dispatch: ThunkDispatch<
@@ -85,3 +85,5 @@ export const resetProductsLists =
     dispatch(resetProductsListsState());
     dispatch(resetProductsListsEntities());
   };
+
+export default resetProductsLists;

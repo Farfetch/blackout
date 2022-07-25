@@ -23,7 +23,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const fetchProductGroupingFactory =
+const fetchProductGroupingFactory =
   (getProductGrouping: GetProductGrouping) =>
   /**
    * @param productId - Numeric identifier of the product.
@@ -69,3 +69,5 @@ export const fetchProductGroupingFactory =
       throw error;
     }
   };
+
+export default fetchProductGroupingFactory;

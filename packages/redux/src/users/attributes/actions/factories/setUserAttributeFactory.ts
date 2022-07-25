@@ -14,7 +14,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const setUserAttributeFactory =
+const setUserAttributeFactory =
   (putUserAttribute: PutUserAttribute) =>
   (
     userId: number,
@@ -45,3 +45,5 @@ export const setUserAttributeFactory =
       throw error;
     }
   };
+
+export default setUserAttributeFactory;

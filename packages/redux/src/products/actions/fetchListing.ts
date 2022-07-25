@@ -5,4 +5,4 @@ import { getProductListing } from '@farfetch/blackout-client';
  * Fetch product listing for a given slug with specific query parameters.
  */
 
-export const fetchListing = fetchListingFactory(getProductListing);
+export default fetchListingFactory(getProductListing);

@@ -31,7 +31,7 @@ import {
   TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
-import { postTrackings } from '@farfetch/blackout-client';
+import { postTracking } from '@farfetch/blackout-client';
 import isArray from 'lodash/isArray';
 import type {
   Config,
@@ -233,7 +233,7 @@ export default class Vitorino extends integrations.Integration<VitorinoIntegrati
       },
       network: this.options.network || {
         proxy: origin,
-        path: `${MARKETING_API_PREFIX}${postTrackings.POST_TRACKINGS_PATHNAME}`,
+        path: `${MARKETING_API_PREFIX}${postTracking.POST_TRACKINGS_PATHNAME}`,
       },
     };
   }

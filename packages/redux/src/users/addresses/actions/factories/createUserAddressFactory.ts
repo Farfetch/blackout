@@ -19,7 +19,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const createUserAddressFactory =
+const createUserAddressFactory =
   (postAddress: PostUserAddress) =>
   (userId: User['id'], data: UserAddressInput, config?: Config) =>
   async (dispatch: Dispatch<CreateUserAddressAction>): Promise<UserAddress> => {
@@ -45,3 +45,5 @@ export const createUserAddressFactory =
       throw error;
     }
   };
+
+export default createUserAddressFactory;

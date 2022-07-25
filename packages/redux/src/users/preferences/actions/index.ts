@@ -1,2 +1,2 @@
-export * from './fetchUserPreferences';
-export * from './setUserPreferences';
+export { default as fetchUserPreferences } from './fetchUserPreferences';
+export { default as setUserPreferences } from './setUserPreferences';

@@ -5,7 +5,7 @@ Object {
   "addBagItem": [Function],
   "addBagItemFactory": [Function],
   "addOrderDocument": [Function],
-  "addOrderItemActivities": [Function],
+  "addOrderItemActivity": [Function],
   "addWishlistItem": [Function],
   "addWishlistItemFactory": [Function],
   "addWishlistSet": [Function],

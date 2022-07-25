@@ -13,14 +13,6 @@ import type { Dispatch } from 'redux';
 import type { StoreState } from '../../../types';
 
 /**
- * @param productId - Numeric identifier of the product.
- * @param variantId - Universal unique identifier of the variant.
- * @param config    - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to fetch the
  * merchants locations for a specific product variant.
  *
@@ -28,7 +20,7 @@ import type { StoreState } from '../../../types';
  *
  * @returns Thunk factory.
  */
-export const fetchProductVariantsByMerchantsLocationsFactory =
+const fetchProductVariantsByMerchantsLocationsFactory =
   (getProductVariantMerchantsLocations: GetProductVariantMerchantsLocations) =>
   (productId: Product['result']['id'], variantId: string, config?: Config) =>
   async (
@@ -86,3 +78,5 @@ export const fetchProductVariantsByMerchantsLocationsFactory =
       throw error;
     }
   };
+
+export default fetchProductVariantsByMerchantsLocationsFactory;

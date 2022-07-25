@@ -16,14 +16,6 @@ import type { UpdateWishlistItemAction } from '../../types';
 import type { WishlistItemHydrated } from '../../../entities/types';
 
 /**
- * @param wishlistItemId - Wishlist item id.
- * @param data           - Data to update the wishlist item.
- * @param config         - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to update a
  * wishlist item with given `data`.
  *

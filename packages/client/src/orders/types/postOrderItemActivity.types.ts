@@ -1,6 +1,6 @@
 import type { Config } from '../../types';
 
-export type PostOrderItemActivities = (
+export type PostOrderItemActivity = (
   id: string,
   itemId: string,
   data: PostOrderItemActivityData,

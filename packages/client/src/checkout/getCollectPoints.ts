@@ -11,10 +11,12 @@ import type { GetCollectPoints } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getCollectPoints: GetCollectPoints = (query, config) =>
+const getCollectPoints: GetCollectPoints = (query, config) =>
   client
     .get(join('/checkout/v1/collectpoints', { query }), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default getCollectPoints;
