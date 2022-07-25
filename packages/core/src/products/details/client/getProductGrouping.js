@@ -11,6 +11,9 @@ import join from 'proper-url-join';
  * the backend side.
  * @property {number} [pageSize=10] - Size of each page, as a number. The
  * default is 10 on the backend side.
+ * @property {string} [properties] - Get product variations for specific
+ * properties, identified by their type (propertyType:attributeValueId),
+ * separated by commas.
  */
 
 /**

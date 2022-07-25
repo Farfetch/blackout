@@ -96,7 +96,7 @@ class Omnitracking extends Integration {
     this.currentUniqueViewId = null;
     this.previousUniqueViewId = null;
 
-    this.navigatedFrom = null;
+    this.lastFromParameter = null;
   }
 
   /**
@@ -164,14 +164,13 @@ class Omnitracking extends Integration {
         }
       }
 
-      if (this.navigatedFrom) {
-        precalculatedParameters.navigatedFrom = this.navigatedFrom;
+      if (this.lastFromParameter) {
+        precalculatedParameters.navigatedFrom = this.lastFromParameter;
       }
 
+      this.lastFromParameter = data?.properties?.from;
+
       const { event, user } = data;
-
-      this.navigatedFrom = event;
-
       const userTraits = get(user, 'traits', {});
 
       precalculatedParameters.userGender = get(
@@ -187,8 +186,8 @@ class Omnitracking extends Integration {
       );
 
       precalculatedParameters.searchResultCount = get(
-        data.properties,
-        'itemCount',
+        data,
+        'properties.itemCount',
       );
 
       const defaultViewTypeMapper = defaultPageViewTypeAndSubTypeMapper[event];

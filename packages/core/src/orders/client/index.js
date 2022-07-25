@@ -16,3 +16,5 @@ export { default as getOrders } from './getOrders';
 export { default as getTrackings } from './getTrackings';
 export { default as postOrderDocument } from './postOrderDocument';
 export { default as postOrderItemActivities } from './postOrderItemActivities';
+export { default as getOrderShippingAddressChangeRequests } from './getOrderShippingAddressChangeRequests';
+export { default as postOrderShippingAddressChangeRequests } from './postOrderShippingAddressChangeRequests';

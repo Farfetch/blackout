@@ -40,6 +40,13 @@ Object {
 }
 `;
 
+exports[`Omnitracking definitions \`Product List Viewed\` return should match the snapshot 1`] = `
+Object {
+  "lineItems": "[{\\"productId\\":12345678,\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
+  "tid": 2832,
+}
+`;
+
 exports[`Omnitracking definitions \`Sign-up Form Viewed\` return should match the snapshot 1`] = `
 Object {
   "tid": 10097,
