@@ -10,13 +10,6 @@ import labelTracking from '../../../entities/schemas/labelTracking';
 import type { Dispatch } from 'redux';
 
 /**
- * @param trackingNumbers - Array containing all the tracking numbers.
- * @param config          - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Fetch all tracking events for the tracking numbers.
  *
  * @param getTrackings - Get trackings client.

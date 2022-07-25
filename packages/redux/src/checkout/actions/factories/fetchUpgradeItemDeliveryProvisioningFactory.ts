@@ -10,15 +10,6 @@ import itemDeliveryProvisioningSchema from '../../../entities/schemas/itemDelive
 import type { Dispatch } from 'redux';
 
 /**
- * @param id               - Identifier of the checkout order.
- * @param deliveryBundleId - Identifier of the delivery bundle.
- * @param upgradeId        - Identifier of the upgrade.
- * @param config           - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Obtains the items delivery provisioning available for a upgrade.
  *
  * @param getCheckoutOrderDeliveryBundleUpgradeProvisioning - Get upgrade item delivery provisioning client.

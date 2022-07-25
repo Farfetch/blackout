@@ -8,14 +8,6 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @param id               - Identifier of the checkout order.
- * @param deliveryBundleId - Identifier of the delivery bundle.
- * @param config           - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Obtains the delivery upgrades available for the specified bundle.
  *
  * @param getCheckoutOrderDeliveryBundleUpgrades - Get delivery bundle upgrades client.

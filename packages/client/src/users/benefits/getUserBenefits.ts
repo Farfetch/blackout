@@ -9,10 +9,12 @@ import type { GetUserBenefits } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getUserBenefits: GetUserBenefits = config =>
+const getUserBenefits: GetUserBenefits = config =>
   client
     .get('/legacy/v1/userbenefits', config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default getUserBenefits;

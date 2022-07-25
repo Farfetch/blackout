@@ -13,15 +13,6 @@ import type { CreateProgramMembershipReplacementAction } from '../../types';
 import type { Dispatch } from 'redux';
 
 /**
- * @param programId    - Program identifier.
- * @param membershipId - Membership identifier.
- * @param data         - Replacement to be created.
- * @param config       - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Request a new membership id by replacement.
  *
  * @param postProgramMembershipReplacement - Post program membership replacement client.

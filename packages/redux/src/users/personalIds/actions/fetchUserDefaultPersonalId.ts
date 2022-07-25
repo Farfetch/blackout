@@ -4,6 +4,4 @@ import { getUserDefaultPersonalId } from '@farfetch/blackout-client';
 /**
  * Fetch default personal id.
  */
-export const fetchUserDefaultPersonalId = fetchUserDefaultPersonalIdFactory(
-  getUserDefaultPersonalId,
-);
+export default fetchUserDefaultPersonalIdFactory(getUserDefaultPersonalId);

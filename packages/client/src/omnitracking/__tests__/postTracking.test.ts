@@ -1,9 +1,9 @@
-import { postTrackings } from '..';
+import { postTracking } from '..';
 import client from '../../helpers/client';
-import fixtures from '../__fixtures__/postTrackings.fixtures';
+import fixtures from '../__fixtures__/postTracking.fixtures';
 import mswServer from '../../../tests/mswServer';
 
-describe('postTrackings()', () => {
+describe('postTracking()', () => {
   const expectedConfig = undefined;
 
   beforeEach(() => jest.clearAllMocks());
@@ -23,7 +23,7 @@ describe('postTrackings()', () => {
 
     mswServer.use(fixtures.success(response));
 
-    await expect(postTrackings(data)).resolves.toStrictEqual(response);
+    await expect(postTracking(data)).resolves.toStrictEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
       '/marketing/v1/trackings',
@@ -35,7 +35,7 @@ describe('postTrackings()', () => {
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
 
-    await expect(postTrackings(data)).rejects.toMatchSnapshot();
+    await expect(postTracking(data)).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(
       '/marketing/v1/trackings',

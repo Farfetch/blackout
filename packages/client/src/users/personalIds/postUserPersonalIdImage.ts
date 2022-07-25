@@ -13,7 +13,7 @@ import type { PostUserPersonalIdImage } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const postUserPersonalIdImage: PostUserPersonalIdImage = (
+const postUserPersonalIdImage: PostUserPersonalIdImage = (
   userId,
   data,
   config,
@@ -24,3 +24,5 @@ export const postUserPersonalIdImage: PostUserPersonalIdImage = (
     .catch(error => {
       throw adaptError(error);
     });
+
+export default postUserPersonalIdImage;

@@ -18,7 +18,7 @@ import type { StoreState } from '../../../types';
  *
  * @returns Thunk factory.
  */
-export const fetchRecentlyViewedProductsFactory: FetchRecentlyViewedProductsFactory<
+const fetchRecentlyViewedProductsFactory: FetchRecentlyViewedProductsFactory<
   GetRecentlyViewedProducts
 > =
   getRecentlyViewedProducts =>
@@ -58,3 +58,5 @@ export const fetchRecentlyViewedProductsFactory: FetchRecentlyViewedProductsFact
       throw error;
     }
   };
+
+export default fetchRecentlyViewedProductsFactory;

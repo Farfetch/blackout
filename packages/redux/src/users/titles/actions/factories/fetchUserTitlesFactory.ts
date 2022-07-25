@@ -17,7 +17,7 @@ import type { Dispatch } from 'redux';
  * @returns Thunk factory.
  */
 
-export const fetchUserTitlesFactory =
+const fetchUserTitlesFactory =
   (getUserTitles: GetUserTitles) =>
   (query: GetUserTitlesQuery, config?: Config) =>
   async (dispatch: Dispatch) => {
@@ -43,3 +43,5 @@ export const fetchUserTitlesFactory =
       throw error;
     }
   };
+
+export default fetchUserTitlesFactory;

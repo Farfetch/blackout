@@ -8,15 +8,6 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @param orderId - The order identifier to get the document from.
- * @param fileId  - The identifier of the document.
- * @param data    -
- * @param config  - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Method responsible for adding a specific document of a certain order.
  *
  * @param postOrderDocument - Post orders documents client.

@@ -5,5 +5,6 @@ import { setUserDefaultShippingAddressFactory } from './factories';
  * Sets the address specified with 'addressId', as the default shipping address.
  */
 
-export const setUserDefaultShippingAddress =
-  setUserDefaultShippingAddressFactory(putUserDefaultShippingAddress);
+export default setUserDefaultShippingAddressFactory(
+  putUserDefaultShippingAddress,
+);

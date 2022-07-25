@@ -12,13 +12,6 @@ import type { Dispatch } from 'redux';
 import type { FetchProgramUsersMembershipAction } from '../../types';
 
 /**
- * @param programId - Program identifier.
- * @param config    - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Load program membership statements.
  *
  * @param getProgramUsersMembership - Get program users membership client.

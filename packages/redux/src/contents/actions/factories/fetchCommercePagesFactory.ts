@@ -15,16 +15,6 @@ import type {
 import type { Dispatch } from 'redux';
 
 /**
- * @param query    - Query object with search terms to apply.
- * @param slug     - List of codes that representing the content code
- *                   (about-us|today-news|header|productId...).
- * @param strategy - String with the selected strategy for commerce pages.
- * @param config   - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Fetch commerce pages for a specific query object received.
  *
  * @param getCommercePages - Get commerce pages client.

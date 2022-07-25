@@ -4,6 +4,4 @@ import { getUserCreditMovements } from '@farfetch/blackout-client';
 /**
  * Fetch user credit movements.
  */
-export const fetchUserCreditMovements = fetchUserCreditMovementsFactory(
-  getUserCreditMovements,
-);
+export default fetchUserCreditMovementsFactory(getUserCreditMovements);

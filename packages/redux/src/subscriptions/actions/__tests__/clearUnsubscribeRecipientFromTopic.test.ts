@@ -1,6 +1,6 @@
 import * as subscriptionsActionTypes from '../../actionTypes';
-import { clearUnsubscribeRecipientFromTopic } from '../clearUnsubscribeRecipientFromTopicRequest';
 import { mockStore } from '../../../../tests';
+import clearUnsubscribeRecipientFromTopic from '../clearUnsubscribeRecipientFromTopic';
 import reducer from '../../reducer';
 
 let store: ReturnType<typeof mockStore>;

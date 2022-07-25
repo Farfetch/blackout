@@ -17,14 +17,6 @@ import type { StoreState } from '../../../types';
 import type { ThunkDispatch } from 'redux-thunk';
 
 /**
- * @param wishlistSetId - Wishlist set id to retrieve information from.
- * @param data          - Data to update the wishlist set.
- * @param config        - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to update
  * information of a set from the wishlist.
  *

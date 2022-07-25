@@ -14,14 +14,12 @@ import type { GetUserPersonalId } from './types';
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 
-export const getUserPersonalId: GetUserPersonalId = (
-  userId,
-  personalId,
-  config,
-) =>
+const getUserPersonalId: GetUserPersonalId = (userId, personalId, config) =>
   client
     .get(join('/account/v1/users', userId, 'personalIds/', personalId), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default getUserPersonalId;

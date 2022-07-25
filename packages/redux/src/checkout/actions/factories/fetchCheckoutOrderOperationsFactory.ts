@@ -16,7 +16,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const fetchCheckoutOrderOperationsFactory =
+const fetchCheckoutOrderOperationsFactory =
   (getCheckoutOrderOperations: GetCheckoutOrderOperations) =>
   /**
    * @param id - Universal identifier of the Checkout order.

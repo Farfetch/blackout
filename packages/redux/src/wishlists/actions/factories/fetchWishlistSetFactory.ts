@@ -13,13 +13,6 @@ import type { FetchWishlistSetAction } from '../../types';
 import type { StoreState } from '../../../types';
 
 /**
- * @param wishlistSetId - Wishlist set id to retrieve information from.
- * @param config        - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to get information
  * of a set from a wishlist.
  *

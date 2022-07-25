@@ -10,21 +10,13 @@ import type { Dispatch } from 'redux';
 import type { RemoveUserAddressAction } from '../../types';
 
 /**
- * @param addressId - Identifier of the address.
- * @param userId    - Identifier of the user.
- * @param config    - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Responsible for removing the address with the specified 'addressId'.
  *
  * @param deleteAddress - Delete address client.
  *
  * @returns Thunk factory.
  */
-export const removeUserAddressFactory =
+const removeUserAddressFactory =
   (deleteAddress: DeleteUserAddress) =>
   (userId: User['id'], addressId: UserAddress['id'], config?: Config) =>
   async (dispatch: Dispatch<RemoveUserAddressAction>): Promise<void> => {
@@ -52,3 +44,5 @@ export const removeUserAddressFactory =
       throw error;
     }
   };
+
+export default removeUserAddressFactory;

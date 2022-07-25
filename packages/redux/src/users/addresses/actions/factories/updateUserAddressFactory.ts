@@ -19,7 +19,7 @@ import type { UpdateUserAddressAction } from '../../types';
  *
  * @returns Thunk factory.
  */
-export const updateUserAddressFactory =
+const updateUserAddressFactory =
   (putAddress: PutUserAddress) =>
   (
     userId: User['id'],
@@ -53,3 +53,5 @@ export const updateUserAddressFactory =
       throw error;
     }
   };
+
+export default updateUserAddressFactory;

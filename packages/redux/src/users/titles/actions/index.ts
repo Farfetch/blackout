@@ -1,1 +1,1 @@
-export * from './fetchUserTitles';
+export { default as fetchUserTitles } from './fetchUserTitles';

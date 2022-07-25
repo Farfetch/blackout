@@ -12,10 +12,10 @@
     // wrong imports in the "Quick fix..." window. For example, if baseUrl is set to "."
     // imports to other packages on the monorepo will have the quick fix pointing to the
     // "packages" folder instead of recommending the package name. For example if you want
-    // to add the 'postTrackings' import from @farfetch/blackout-client in a module
+    // to add the 'postTracking' import from @farfetch/blackout-client in a module
     // in our redux package. If baseUrl is set here to "." it will suggest adding the import
-    // like this "import { postTrackings } from 'packages/client'" instead of suggesting
-    // "import { postTrackings } from '@farfetch/blackout-client'".
+    // like this "import { postTracking } from 'packages/client'" instead of suggesting
+    // "import { postTracking } from '@farfetch/blackout-client'".
     "baseUrl": "./dummy",
     "module": "ESNext",
     "moduleResolution": "node",

@@ -11,14 +11,6 @@ import checkoutSchema from '../../../entities/schemas/checkout';
 import type { Dispatch } from 'redux';
 
 /**
- * @param id     - Universal identifier of the Checkout.
- * @param data   - Data to add a promocode.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Method responsible for adding promo code information.
  *
  * @param putCheckoutOrderPromocode - Put promocode client.

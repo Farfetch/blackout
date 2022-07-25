@@ -22,10 +22,12 @@ import type { ResetProductDetailsStateAction } from '../types';
  *
  * @returns Dispatch reset details state action.
  */
-export const resetProductDetailsState =
+const resetProductDetailsState =
   () =>
   (dispatch: Dispatch<ResetProductDetailsStateAction>): void => {
     dispatch({
       type: actionTypes.RESET_PRODUCT_DETAILS_STATE,
     });
   };
+
+export default resetProductDetailsState;

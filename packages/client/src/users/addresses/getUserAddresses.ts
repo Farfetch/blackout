@@ -10,10 +10,12 @@ import type { GetUserAddresses } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getUserAddresses: GetUserAddresses = ({ userId }, config) =>
+const getUserAddresses: GetUserAddresses = ({ userId }, config) =>
   client
     .get(`/account/v1/users/${userId}/addresses`, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default getUserAddresses;

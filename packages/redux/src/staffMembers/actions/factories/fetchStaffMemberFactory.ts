@@ -9,13 +9,6 @@ import type { Dispatch } from 'redux';
 import type { FetchStaffMemberAction } from '../../types';
 
 /**
- * @param id     - Staff member identifier.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to fetch a staff
  * member based on an id.
  *

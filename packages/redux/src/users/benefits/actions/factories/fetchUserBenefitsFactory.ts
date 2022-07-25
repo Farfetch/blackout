@@ -10,13 +10,13 @@ import userBenefitsSchema from '../../../../entities/schemas/benefit';
 import type { Dispatch } from 'redux';
 
 /**
- * Create get user benefits.
+ * Fetches user benefits.
  *
  * @param getBenefits - Get benefits client.
  *
  * @returns Thunk factory.
  */
-export const fetchUserBenefitsFactory =
+const fetchUserBenefitsFactory =
   (getBenefits: GetUserBenefits) =>
   (config?: Config) =>
   async (dispatch: Dispatch): Promise<UserBenefit[]> => {
@@ -42,3 +42,5 @@ export const fetchUserBenefitsFactory =
       throw error;
     }
   };
+
+export default fetchUserBenefitsFactory;

@@ -23,10 +23,12 @@ import type { PatchCheckoutOrder } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const patchCheckoutOrder: PatchCheckoutOrder = (id, data, config) =>
+const patchCheckoutOrder: PatchCheckoutOrder = (id, data, config) =>
   client
     .patch(join('/checkout/v1/orders/', id), data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default patchCheckoutOrder;

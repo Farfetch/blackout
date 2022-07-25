@@ -4,5 +4,4 @@ import { getUserPreferences } from '@farfetch/blackout-client';
 /**
  * Fetch the user preferences.
  */
-export const fetchUserPreferences =
-  fetchUserPreferencesFactory(getUserPreferences);
+export default fetchUserPreferencesFactory(getUserPreferences);

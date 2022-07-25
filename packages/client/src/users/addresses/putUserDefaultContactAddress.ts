@@ -12,7 +12,7 @@ import type { PutUserDefaultContactAddress } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const putUserDefaultContactAddress: PutUserDefaultContactAddress = (
+const putUserDefaultContactAddress: PutUserDefaultContactAddress = (
   userId,
   addressId,
   config,
@@ -26,3 +26,5 @@ export const putUserDefaultContactAddress: PutUserDefaultContactAddress = (
     .catch(error => {
       throw adaptError(error);
     });
+
+export default putUserDefaultContactAddress;

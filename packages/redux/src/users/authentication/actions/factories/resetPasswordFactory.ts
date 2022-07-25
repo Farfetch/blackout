@@ -8,13 +8,6 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @param data   - User details.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Method responsible for resetting and setting a new password.
  *
  * @param postPasswordReset - Post password reset client.

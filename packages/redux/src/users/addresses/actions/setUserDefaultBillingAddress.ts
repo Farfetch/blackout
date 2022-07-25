@@ -5,6 +5,6 @@ import { setUserDefaultBillingAddressFactory } from './factories';
  * Sets the address specified with 'addressId', as the default billing address.
  */
 
-export const setUserDefaultBillingAddress = setUserDefaultBillingAddressFactory(
+export default setUserDefaultBillingAddressFactory(
   putUserDefaultBillingAddress,
 );

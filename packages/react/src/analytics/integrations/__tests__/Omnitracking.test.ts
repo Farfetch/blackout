@@ -9,14 +9,14 @@ import {
   pageTypes,
   StrippedDownAnalytics,
 } from '@farfetch/blackout-analytics';
-import { postTrackings } from '@farfetch/blackout-client';
+import { postTracking } from '@farfetch/blackout-client';
 import Omnitracking from '../Omnitracking';
 import UniqueViewIdStorage from '../Omnitracking/storage/UniqueViewIdStorage';
 import UniqueViewIdStorageOptions from '../Omnitracking/storage/UniqueViewIdStorageOptions';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
-  postTrackings: jest.fn(),
+  postTracking: jest.fn(),
 }));
 
 const mockUrl = 'https://api.blackout.com/en-pt/shopping/woman/gucci';
@@ -164,7 +164,7 @@ describe('Omnitracking', () => {
         await omnitrackingInstance.track(analyticsPageData[pageTypes.HOMEPAGE]);
 
         // Assert
-        expect(postTrackings).toHaveBeenCalledWith(
+        expect(postTracking).toHaveBeenCalledWith(
           expect.objectContaining({
             parameters: expect.objectContaining({
               previousUniqueViewId: mockUniqueViewId,

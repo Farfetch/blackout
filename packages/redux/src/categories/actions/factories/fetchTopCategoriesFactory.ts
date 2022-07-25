@@ -11,12 +11,6 @@ import type { Dispatch } from 'redux';
 import type { FetchTopCategoriesAction } from '../../types';
 
 /**
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to fetch all top
  * categories.
  *

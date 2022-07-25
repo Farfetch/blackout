@@ -12,10 +12,12 @@ import type { GetCheckoutOrderDetails } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getCheckoutOrderDetails: GetCheckoutOrderDetails = (id, config) =>
+const getCheckoutOrderDetails: GetCheckoutOrderDetails = (id, config) =>
   client
     .get(join('/checkout/v1/orders/', id, 'details'), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default getCheckoutOrderDetails;

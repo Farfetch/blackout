@@ -4,4 +4,4 @@ import { getProduct } from '@farfetch/blackout-client';
 /**
  * Fetch product details for a given product id.
  */
-export const fetchProductDetails = fetchProductDetailsFactory(getProduct);
+export default fetchProductDetailsFactory(getProduct);

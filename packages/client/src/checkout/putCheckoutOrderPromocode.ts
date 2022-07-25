@@ -12,7 +12,7 @@ import type { PutCheckoutOrderPromocode } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const putCheckoutOrderPromocode: PutCheckoutOrderPromocode = (
+const putCheckoutOrderPromocode: PutCheckoutOrderPromocode = (
   id,
   data,
   config,
@@ -23,3 +23,5 @@ export const putCheckoutOrderPromocode: PutCheckoutOrderPromocode = (
     .catch(error => {
       throw adaptError(error);
     });
+
+export default putCheckoutOrderPromocode;

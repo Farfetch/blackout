@@ -14,12 +14,7 @@ import type { PatchUserContact } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const patchUserContact: PatchUserContact = (
-  userId,
-  contactId,
-  data,
-  config?,
-) =>
+const patchUserContact: PatchUserContact = (userId, contactId, data, config?) =>
   client
     .patch(
       join('/account/v1/users', userId, 'contacts', contactId),
@@ -30,3 +25,5 @@ export const patchUserContact: PatchUserContact = (
     .catch(error => {
       throw adaptError(error);
     });
+
+export default patchUserContact;

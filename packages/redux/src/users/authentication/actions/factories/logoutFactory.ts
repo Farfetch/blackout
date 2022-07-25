@@ -3,12 +3,6 @@ import { Config, PostLogout, toBlackoutError } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
 /**
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Performs logout operation for the user.
  *
  * @param postLogout - Post logout client.

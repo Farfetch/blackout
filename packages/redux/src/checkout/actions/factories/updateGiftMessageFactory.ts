@@ -8,15 +8,6 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @param id     - Universal identifier of the Checkout.
- * @param data   - Array of objects containing the checkout order id and the checkout item patch
- *                 document reflecting the changes to be made.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Method responsible for adding, editing and removing gift messages to the current
  * checkout order.
  *

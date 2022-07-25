@@ -11,10 +11,12 @@ import type { PutUserAddress } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const putUserAddress: PutUserAddress = ({ userId, id }, data, config) =>
+const putUserAddress: PutUserAddress = ({ userId, id }, data, config) =>
   client
     .put(`/account/v1/users/${userId}/addresses/${id}`, data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default putUserAddress;

@@ -10,7 +10,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const saveRecentlyViewedProduct =
+const saveRecentlyViewedProduct =
   () =>
   (productId: number) =>
   (dispatch: Dispatch): void => {
@@ -25,3 +25,5 @@ export const saveRecentlyViewedProduct =
       payload,
     });
   };
+
+export default saveRecentlyViewedProduct;

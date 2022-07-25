@@ -14,7 +14,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const updateUserAttributeFactory =
+const updateUserAttributeFactory =
   (patchUserAttribute: PatchUserAttribute) =>
   (
     userId: number,
@@ -50,3 +50,5 @@ export const updateUserAttributeFactory =
       throw error;
     }
   };
+
+export default updateUserAttributeFactory;

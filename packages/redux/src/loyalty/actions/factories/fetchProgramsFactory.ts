@@ -11,12 +11,6 @@ import type { Dispatch } from 'redux';
 import type { FetchProgramsAction } from '../../types';
 
 /**
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Load programs.
  *
  * @param getPrograms - Get programs client.

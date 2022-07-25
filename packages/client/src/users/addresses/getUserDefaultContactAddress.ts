@@ -11,7 +11,7 @@ import type { GetUserDefaultContactAddress } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getUserDefaultContactAddress: GetUserDefaultContactAddress = (
+const getUserDefaultContactAddress: GetUserDefaultContactAddress = (
   userId,
   config,
 ) =>
@@ -24,3 +24,5 @@ export const getUserDefaultContactAddress: GetUserDefaultContactAddress = (
     .catch(error => {
       throw adaptError(error);
     });
+
+export default getUserDefaultContactAddress;

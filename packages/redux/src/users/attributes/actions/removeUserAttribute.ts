@@ -4,5 +4,4 @@ import { removeUserAttributeFactory } from './factories';
 /**
  * Removes a user attribute with given id.
  */
-export const removeUserAttribute =
-  removeUserAttributeFactory(deleteUserAttribute);
+export default removeUserAttributeFactory(deleteUserAttribute);

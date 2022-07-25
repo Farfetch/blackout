@@ -12,7 +12,7 @@ import type { DeleteCheckoutOrderItem } from './types/deleteCheckoutOrderItem.ty
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const deleteCheckoutOrderItem: DeleteCheckoutOrderItem = (
+const deleteCheckoutOrderItem: DeleteCheckoutOrderItem = (
   checkoutOrderId,
   itemId,
   config,
@@ -26,3 +26,5 @@ export const deleteCheckoutOrderItem: DeleteCheckoutOrderItem = (
     .catch(error => {
       throw adaptError(error);
     });
+
+export default deleteCheckoutOrderItem;

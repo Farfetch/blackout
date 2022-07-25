@@ -12,7 +12,7 @@ import type { UnsubscribeRecipientFromTopicFactory } from './types';
  *
  * @returns Thunk factory.
  */
-export const unsubscribeRecipientFromTopicFactory: UnsubscribeRecipientFromTopicFactory<
+const unsubscribeRecipientFromTopicFactory: UnsubscribeRecipientFromTopicFactory<
   DeleteRecipientFromTopic
 > =
   deleteRecipientFromTopic =>
@@ -53,3 +53,5 @@ export const unsubscribeRecipientFromTopicFactory: UnsubscribeRecipientFromTopic
       throw error;
     }
   };
+
+export default unsubscribeRecipientFromTopicFactory;

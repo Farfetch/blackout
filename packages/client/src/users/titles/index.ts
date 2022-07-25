@@ -1,2 +1,2 @@
-export * from './getUserTitles';
+export { default as getUserTitles } from './getUserTitles';
 export * from './types';

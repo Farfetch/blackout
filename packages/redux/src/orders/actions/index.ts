@@ -3,7 +3,7 @@
  */
 
 export { default as addOrderDocument } from './addOrderDocument';
-export { default as addOrderItemActivities } from './addOrderItemActivities';
+export { default as addOrderItemActivity } from './addOrderItemActivity';
 export { default as fetchOrderDetails } from './fetchOrderDetails';
 export { default as fetchOrderDocument } from './fetchOrderDocument';
 export { default as fetchOrderDocuments } from './fetchOrderDocuments';

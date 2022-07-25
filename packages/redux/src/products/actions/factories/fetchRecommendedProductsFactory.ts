@@ -17,7 +17,7 @@ import type { FetchRecommendedProductsFactory } from './types';
  *
  * @returns Thunk factory.
  */
-export const fetchRecommendedProductsFactory: FetchRecommendedProductsFactory<
+const fetchRecommendedProductsFactory: FetchRecommendedProductsFactory<
   GetRecommendedProducts
 > =
   getRecommendedProducts =>
@@ -58,3 +58,5 @@ export const fetchRecommendedProductsFactory: FetchRecommendedProductsFactory<
       throw error;
     }
   };
+
+export default fetchRecommendedProductsFactory;

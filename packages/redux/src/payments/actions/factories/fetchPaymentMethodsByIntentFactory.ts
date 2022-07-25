@@ -10,13 +10,6 @@ import type { Dispatch } from 'redux';
 import type { FetchPaymentMethodsByIntentAction } from '../../types';
 
 /**
- * @param id     - Id of the payment intent.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Obtains all the payment methods available for the intent.
  *
  * @param getPaymentMethodsByIntent - Get payment methods by intent.

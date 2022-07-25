@@ -12,10 +12,12 @@ import type { GetUserContact } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getUserContact: GetUserContact = (userId, contactId, config?) =>
+const getUserContact: GetUserContact = (userId, contactId, config?) =>
   client
     .get(join('/account/v1/users', userId, 'contacts', contactId), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default getUserContact;

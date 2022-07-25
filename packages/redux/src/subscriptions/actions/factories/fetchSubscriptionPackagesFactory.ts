@@ -14,7 +14,7 @@ import type { FetchSubscriptionPackagesFactory } from './types';
  *
  * @returns Thunk factory.
  */
-export const fetchSubscriptionPackagesFactory: FetchSubscriptionPackagesFactory<
+const fetchSubscriptionPackagesFactory: FetchSubscriptionPackagesFactory<
   GetSubscriptionPackages
 > = getSubscriptionPackages => (query, config) => async dispatch => {
   try {
@@ -38,3 +38,5 @@ export const fetchSubscriptionPackagesFactory: FetchSubscriptionPackagesFactory<
     throw error;
   }
 };
+
+export default fetchSubscriptionPackagesFactory;

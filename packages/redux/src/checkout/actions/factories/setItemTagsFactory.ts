@@ -10,15 +10,6 @@ import checkoutSchema from '../../../entities/schemas/checkout';
 import type { Dispatch } from 'redux';
 
 /**
- * @param id     - Universal identifier of the Checkout.
- * @param itemId - Universal identifier of the Item.
- * @param data   - Array of strings representing the tags that you want to persist and/or add.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Method responsible for updating the checkout item tags.
  *
  * @param putCheckoutOrderItemTags - Put item tags client.

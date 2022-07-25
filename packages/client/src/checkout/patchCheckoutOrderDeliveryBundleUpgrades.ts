@@ -32,7 +32,7 @@ import type { PatchCheckoutOrderDeliveryBundleUpgrades } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const patchCheckoutOrderDeliveryBundleUpgrades: PatchCheckoutOrderDeliveryBundleUpgrades =
+const patchCheckoutOrderDeliveryBundleUpgrades: PatchCheckoutOrderDeliveryBundleUpgrades =
   (id, deliveryBundleId, data, config) =>
     client
       .patch(
@@ -44,3 +44,5 @@ export const patchCheckoutOrderDeliveryBundleUpgrades: PatchCheckoutOrderDeliver
       .catch(error => {
         throw adaptError(error);
       });
+
+export default patchCheckoutOrderDeliveryBundleUpgrades;

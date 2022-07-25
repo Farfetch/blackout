@@ -13,7 +13,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const removeUserAttributeFactory =
+const removeUserAttributeFactory =
   (deleteUserAttribute: DeleteUserAttribute) =>
   (userId: number, attributeId: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<number> => {
@@ -39,3 +39,5 @@ export const removeUserAttributeFactory =
       throw error;
     }
   };
+
+export default removeUserAttributeFactory;

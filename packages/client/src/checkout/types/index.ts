@@ -28,7 +28,7 @@ export * from './patchCheckoutOrderDeliveryBundleUpgrades.types';
 export * from './patchCheckoutOrderItems.types';
 export * from './patchCheckoutOrderItem.types';
 export * from './postCheckoutOrder.types';
-export * from './postCheckoutOrderCharges.types';
+export * from './postCheckoutOrderCharge.types';
 export * from './putCheckoutOrderItemTags.types';
 export * from './putCheckoutOrderPromocode.types';
 export * from './putCheckoutOrderTags.types';

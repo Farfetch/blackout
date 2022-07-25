@@ -8,14 +8,6 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @param orderId - The order id to get details from.
- * @param types   - A list of document types to filter (Ex: ['CommercialInvoice']).
- * @param config  - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Action responsible for fetching the documents of the respective order.
  *
  * @param getOrderDocuments - Get order documents client.

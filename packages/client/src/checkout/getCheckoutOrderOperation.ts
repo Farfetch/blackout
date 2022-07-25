@@ -12,7 +12,7 @@ import type { GetCheckoutOrderOperation } from './types/getCheckoutOrderOperatio
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getCheckoutOrderOperation: GetCheckoutOrderOperation = (
+const getCheckoutOrderOperation: GetCheckoutOrderOperation = (
   { orderId, operationId },
   config,
 ) =>
@@ -22,3 +22,5 @@ export const getCheckoutOrderOperation: GetCheckoutOrderOperation = (
     .catch(error => {
       throw adaptError(error);
     });
+
+export default getCheckoutOrderOperation;

@@ -13,7 +13,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const removeUserContactFactory =
+const removeUserContactFactory =
   (deleteContact: DeleteUserContact) =>
   (id: number, contactId: string, config?: Config) =>
   async (dispatch: Dispatch) => {
@@ -38,3 +38,5 @@ export const removeUserContactFactory =
       throw error;
     }
   };
+
+export default removeUserContactFactory;

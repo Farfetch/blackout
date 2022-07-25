@@ -1,1 +1,1 @@
-export * from './fetchUserBenefits';
+export { default as fetchUserBenefits } from './fetchUserBenefits';

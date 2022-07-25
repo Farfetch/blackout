@@ -10,13 +10,6 @@ import type { Dispatch } from 'redux';
 import type { FetchSizeGuidesAction } from '../../types';
 
 /**
- * @param query  - Query parameters to apply to the request.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to fetch size
  * guides for a given set of brand ids and category ids. This size guides logic
  * should be used in cases that the project does not have a specific category tree.

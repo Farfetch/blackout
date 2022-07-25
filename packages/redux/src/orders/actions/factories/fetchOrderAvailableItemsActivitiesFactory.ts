@@ -6,6 +6,13 @@ import {
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
+/**
+ * Fetches order available items activities.
+ *
+ * @param getOrderAvailableItemsActivities - Get order available items activities client.
+ *
+ * @returns Thunk factory.
+ */
 const fetchOrderAvailableItemsActivities =
   (getOrderAvailableItemsActivities: GetOrderAvailableItemsActivities) =>
   (orderId: string, config?: Config) =>

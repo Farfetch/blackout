@@ -12,13 +12,6 @@ import type { FetchWishlistAction } from '../../types';
 import type { GetOptionsArgument, StoreState } from '../../../types';
 
 /**
- * @param wishlistId - Wishlist id.
- * @param config     - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to fetch wishlist
  * with given id.
  *

@@ -50,7 +50,7 @@ jest.mock('../../../utils/logger', () => {
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
-  postTrackings: jest.fn(),
+  postTracking: jest.fn(),
 }));
 
 jest.mock('uuid', () => ({
@@ -70,7 +70,7 @@ const generateTrackMockData = (
 ): EventData<TrackTypesValues> => merge({}, mockedTrackData, data);
 
 let omnitracking: Omnitracking;
-const postTrackingsSpy = jest.spyOn(clients, 'postTrackings');
+const postTrackingSpy = jest.spyOn(clients, 'postTracking');
 
 const strippedDownAnalytics: StrippedDownAnalytics = {
   createEvent: type => Promise.resolve({ ...loadIntegrationData, type }),
@@ -111,7 +111,7 @@ describe('Omnitracking', () => {
 
       await omnitracking.track(data);
 
-      expect(postTrackingsSpy).toHaveBeenCalledWith({
+      expect(postTrackingSpy).toHaveBeenCalledWith({
         ...mockExpectedPagePayloadWeb,
         parameters: {
           ...mockExpectedPagePayloadWeb.parameters,
@@ -129,7 +129,7 @@ describe('Omnitracking', () => {
 
         await omnitracking.track(data);
 
-        expect(postTrackingsSpy).toHaveBeenCalledWith(
+        expect(postTrackingSpy).toHaveBeenCalledWith(
           expect.objectContaining({
             parameters: expect.objectContaining({
               clientLanguage: 'pt',
@@ -144,7 +144,7 @@ describe('Omnitracking', () => {
 
         await omnitracking.track(data);
 
-        expect(postTrackingsSpy).toHaveBeenCalledWith(
+        expect(postTrackingSpy).toHaveBeenCalledWith(
           expect.objectContaining({
             parameters: expect.objectContaining({
               clientLanguage: 'en',
@@ -158,7 +158,7 @@ describe('Omnitracking', () => {
 
         await omnitracking.track(data);
 
-        expect(postTrackingsSpy).toHaveBeenCalledWith(
+        expect(postTrackingSpy).toHaveBeenCalledWith(
           expect.objectContaining({
             parameters: expect.objectContaining({
               clientCountry: 'US',
@@ -173,7 +173,7 @@ describe('Omnitracking', () => {
 
         await omnitracking.track(data);
 
-        expect(postTrackingsSpy).toHaveBeenCalledWith(
+        expect(postTrackingSpy).toHaveBeenCalledWith(
           expect.objectContaining({
             parameters: expect.objectContaining({
               clientCountry: undefined,
@@ -204,7 +204,7 @@ describe('Omnitracking', () => {
 
         await omnitrackingInstance.track(data);
 
-        expect(postTrackingsSpy).toHaveBeenCalledWith(
+        expect(postTrackingSpy).toHaveBeenCalledWith(
           expect.objectContaining({
             parameters: expect.objectContaining({
               searchQuery: 'some text',
@@ -219,7 +219,7 @@ describe('Omnitracking', () => {
 
         await omnitracking.track(data);
 
-        expect(postTrackingsSpy).toHaveBeenCalledWith(
+        expect(postTrackingSpy).toHaveBeenCalledWith(
           expect.objectContaining({
             parameters: expect.objectContaining({
               searchQuery: 'some text',
@@ -244,7 +244,7 @@ describe('Omnitracking', () => {
 
         await omnitrackingInstance.track(data);
 
-        expect(postTrackingsSpy).toHaveBeenCalledWith(
+        expect(postTrackingSpy).toHaveBeenCalledWith(
           expect.objectContaining({
             parameters: expect.objectContaining({
               searchQuery: 'some text',
@@ -259,7 +259,7 @@ describe('Omnitracking', () => {
 
       await omnitracking.track(data);
 
-      expect(postTrackingsSpy).toHaveBeenCalledWith(
+      expect(postTrackingSpy).toHaveBeenCalledWith(
         expect.objectContaining({
           event: 'GenericPageVisited',
         }),
@@ -281,7 +281,7 @@ describe('Omnitracking', () => {
 
       await omnitracking.track(data);
 
-      expect(postTrackingsSpy).toHaveBeenCalledWith(
+      expect(postTrackingSpy).toHaveBeenCalledWith(
         expect.objectContaining({
           event: 'ListingPageVisited',
         }),
@@ -303,7 +303,7 @@ describe('Omnitracking', () => {
 
       await omnitracking.track(data);
 
-      expect(postTrackingsSpy).toHaveBeenCalledWith(
+      expect(postTrackingSpy).toHaveBeenCalledWith(
         expect.objectContaining({
           event: 'ProductPageVisited',
         }),
@@ -325,7 +325,7 @@ describe('Omnitracking', () => {
 
       await omnitracking.track(data);
 
-      expect(postTrackingsSpy).toHaveBeenCalledWith(
+      expect(postTrackingSpy).toHaveBeenCalledWith(
         expect.objectContaining({
           event: 'CheckoutPageVisited',
         }),
@@ -339,7 +339,7 @@ describe('Omnitracking', () => {
 
       await omnitracking.track(data);
 
-      expect(postTrackingsSpy).toHaveBeenCalledWith(
+      expect(postTrackingSpy).toHaveBeenCalledWith(
         expect.objectContaining({
           event: 'ProductPageVisited',
         }),
@@ -360,7 +360,7 @@ describe('Omnitracking', () => {
 
       await omnitracking.track(data);
 
-      expect(postTrackingsSpy).toHaveBeenCalledWith(
+      expect(postTrackingSpy).toHaveBeenCalledWith(
         expect.objectContaining({
           customerId: 'g_123123',
         }),
@@ -382,7 +382,7 @@ describe('Omnitracking', () => {
               `Event ${data.event} could not be tracked since it had no unique view id`,
             ),
           );
-          expect(postTrackingsSpy).not.toHaveBeenCalled();
+          expect(postTrackingSpy).not.toHaveBeenCalled();
         });
 
         it('should track an event if has unique view id', async () => {
@@ -398,7 +398,7 @@ describe('Omnitracking', () => {
           await omnitracking.track(data);
 
           expect(mockLoggerError).not.toHaveBeenCalled();
-          expect(postTrackingsSpy).toHaveBeenCalled();
+          expect(postTrackingSpy).toHaveBeenCalled();
         });
       });
     });
@@ -429,8 +429,8 @@ describe('Omnitracking', () => {
           },
         };
 
-        expect(postTrackingsSpy).toHaveBeenCalledTimes(2);
-        expect(postTrackingsSpy.mock.calls).toEqual([
+        expect(postTrackingSpy).toHaveBeenCalledTimes(2);
+        expect(postTrackingSpy.mock.calls).toEqual([
           [expectedPayload],
           [
             {
@@ -468,7 +468,7 @@ describe('Omnitracking', () => {
           },
         };
 
-        expect(clients.postTrackings).toHaveBeenCalledWith(expectedPayload);
+        expect(clients.postTracking).toHaveBeenCalledWith(expectedPayload);
       });
 
       it('event is `Checkout Step Viewed`', async () => {
@@ -495,7 +495,7 @@ describe('Omnitracking', () => {
           },
         };
 
-        expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
+        expect(postTrackingSpy).toHaveBeenCalledWith(expectedPayload);
       });
 
       it('event is `Product Added to Cart` without from parameter', async () => {
@@ -520,7 +520,7 @@ describe('Omnitracking', () => {
           },
         };
 
-        expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
+        expect(postTrackingSpy).toHaveBeenCalledWith(expectedPayload);
       });
 
       it('event is `Product Added to Cart` from PDP', async () => {
@@ -546,7 +546,7 @@ describe('Omnitracking', () => {
           },
         };
 
-        expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
+        expect(postTrackingSpy).toHaveBeenCalledWith(expectedPayload);
       });
 
       it('event is `Product Added to Wishlist` without from parameter', async () => {
@@ -571,7 +571,7 @@ describe('Omnitracking', () => {
             val: `${productId}`,
           },
         };
-        expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
+        expect(postTrackingSpy).toHaveBeenCalledWith(expectedPayload);
       });
 
       it('event is `Product Added to Wishlist` from PDP', async () => {
@@ -598,7 +598,7 @@ describe('Omnitracking', () => {
           },
         };
 
-        expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
+        expect(postTrackingSpy).toHaveBeenCalledWith(expectedPayload);
       });
 
       it('event is `Product Added to Wishlist` from BAG', async () => {
@@ -625,7 +625,7 @@ describe('Omnitracking', () => {
           },
         };
 
-        expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
+        expect(postTrackingSpy).toHaveBeenCalledWith(expectedPayload);
       });
 
       it('event is `Product Added to Wishlist` from RECOMMENDATIONS', async () => {
@@ -652,7 +652,7 @@ describe('Omnitracking', () => {
           },
         };
 
-        expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
+        expect(postTrackingSpy).toHaveBeenCalledWith(expectedPayload);
       });
 
       it('event is `Product Added to Wishlist` from RECENTLY_VIEWED', async () => {
@@ -679,7 +679,7 @@ describe('Omnitracking', () => {
           },
         };
 
-        expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
+        expect(postTrackingSpy).toHaveBeenCalledWith(expectedPayload);
       });
 
       it('Should not send track events for any other of the predefined events by default', async () => {
@@ -689,7 +689,7 @@ describe('Omnitracking', () => {
 
         await omnitracking.track(data);
 
-        expect(postTrackingsSpy).not.toHaveBeenCalled();
+        expect(postTrackingSpy).not.toHaveBeenCalled();
       });
     });
 
@@ -761,7 +761,7 @@ describe('Omnitracking', () => {
 
         await omnitracking.track(data);
 
-        expect(postTrackingsSpy).toHaveBeenCalledWith({
+        expect(postTrackingSpy).toHaveBeenCalledWith({
           ...mockExpectedPagePayloadWeb,
           event: mockEvent,
           parameters: {
@@ -824,7 +824,7 @@ describe('Omnitracking', () => {
           },
         };
 
-        expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
+        expect(postTrackingSpy).toHaveBeenCalledWith(expectedPayload);
       });
 
       it('Should log an error if the value specified is not a function', () => {
@@ -945,7 +945,7 @@ describe('Omnitracking', () => {
       // uniqueViewId
       await omnitracking.track(pageEventData);
 
-      expect(postTrackingsSpy).toHaveBeenCalledWith(
+      expect(postTrackingSpy).toHaveBeenCalledWith(
         expect.objectContaining({
           parameters: expect.objectContaining({
             previousUniqueViewId: null,
@@ -1011,7 +1011,7 @@ describe('Omnitracking', () => {
 
       await omnitracking.track(pageEventData);
 
-      expect(postTrackingsSpy).toHaveBeenCalledWith(
+      expect(postTrackingSpy).toHaveBeenCalledWith(
         expect.objectContaining({
           parameters: expect.objectContaining({
             previousUniqueViewId: null,
@@ -1031,7 +1031,7 @@ describe('Omnitracking', () => {
 
       await omnitracking.track(pageEventData);
 
-      expect(postTrackingsSpy).toHaveBeenCalledWith({
+      expect(postTrackingSpy).toHaveBeenCalledWith({
         ...mockExpectedPagePayloadMobile,
         parameters: {
           ...mockExpectedPagePayloadMobile.parameters,
@@ -1048,7 +1048,7 @@ describe('Omnitracking', () => {
 
       await omnitracking.track(pageEventData);
 
-      expect(postTrackingsSpy).toHaveBeenCalledWith({
+      expect(postTrackingSpy).toHaveBeenCalledWith({
         ...mockExpectedPagePayloadUnknown,
         parameters: {
           ...mockExpectedPagePayloadUnknown.parameters,

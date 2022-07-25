@@ -25,8 +25,10 @@ import type { Dispatch } from 'redux';
  *
  * @returns Dispatch reset state and entities action.
  */
-export const resetSubscriptions =
+const resetSubscriptions =
   () =>
   (dispatch: Dispatch): void => {
     dispatch({ type: actionTypes.RESET_SUBSCRIPTIONS });
   };
+
+export default resetSubscriptions;

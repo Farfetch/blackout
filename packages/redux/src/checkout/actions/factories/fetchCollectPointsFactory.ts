@@ -9,13 +9,6 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @param query  - Query params to retrieve the collect points.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Method responsible for obtaining the collect points.
  *
  * @param getCollectPoints - Get collect points client.

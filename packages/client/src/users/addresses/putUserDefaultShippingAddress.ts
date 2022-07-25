@@ -10,7 +10,7 @@ import type { PutUserDefaultShippingAddress } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const putUserDefaultShippingAddress: PutUserDefaultShippingAddress = (
+const putUserDefaultShippingAddress: PutUserDefaultShippingAddress = (
   { id, userId },
   config,
 ) =>
@@ -20,3 +20,5 @@ export const putUserDefaultShippingAddress: PutUserDefaultShippingAddress = (
     .catch(error => {
       throw adaptError(error);
     });
+
+export default putUserDefaultShippingAddress;
