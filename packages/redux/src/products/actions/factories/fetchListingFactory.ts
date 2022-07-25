@@ -1,4 +1,4 @@
-import { fetchProductsListFactory } from './fetchProductsListFactory';
+import fetchProductsListFactory from './fetchProductsListFactory';
 import type {
   Config,
   GetProductListing,
@@ -10,15 +10,6 @@ import type { GetOptionsArgument, StoreState } from '../../../types';
 import type { ProductsListActionOptions } from '../../types';
 
 /**
- * @param slug          - Slug to load listing for.
- * @param query         - Query parameters to apply.
- * @param actionOptions - Additional options to apply to the action.
- * @param config        - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to fetch a product
  * listing for a given slug with specific query parameters.
  *
@@ -26,7 +17,7 @@ import type { ProductsListActionOptions } from '../../types';
  *
  * @returns Thunk factory.
  */
-export const fetchListingFactory =
+const fetchListingFactory =
   (getProductListing: GetProductListing) =>
   (
     slug: string,
@@ -51,3 +42,5 @@ export const fetchListingFactory =
       options,
       false,
     );
+
+export default fetchListingFactory;

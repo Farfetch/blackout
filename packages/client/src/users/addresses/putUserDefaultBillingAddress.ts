@@ -10,7 +10,7 @@ import type { PutUserDefaultBillingAddress } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const putUserDefaultBillingAddress: PutUserDefaultBillingAddress = (
+const putUserDefaultBillingAddress: PutUserDefaultBillingAddress = (
   { userId, id },
   config,
 ) =>
@@ -20,3 +20,5 @@ export const putUserDefaultBillingAddress: PutUserDefaultBillingAddress = (
     .catch(error => {
       throw adaptError(error);
     });
+
+export default putUserDefaultBillingAddress;

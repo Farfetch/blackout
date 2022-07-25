@@ -13,14 +13,6 @@ import type { CreateProgramMembershipConvertAction } from '../../types';
 import type { Dispatch } from 'redux';
 
 /**
- * @param programId    - Program identifier.
- * @param membershipId - Membership identifier.
- * @param config       - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Create program membership convert.
  *
  * @param postProgramMembershipConvert - Post program membership convert client.

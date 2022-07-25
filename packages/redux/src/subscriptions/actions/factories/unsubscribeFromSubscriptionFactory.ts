@@ -9,7 +9,7 @@ import type { UnsubscribeFromSubscriptionFactory } from './types';
  *
  * @returns Thunk factory.
  */
-export const unsubscribeFromSubscriptionFactory: UnsubscribeFromSubscriptionFactory<
+const unsubscribeFromSubscriptionFactory: UnsubscribeFromSubscriptionFactory<
   DeleteSubscription
 > = deleteSubscription => (query, config) => async dispatch => {
   try {
@@ -33,3 +33,5 @@ export const unsubscribeFromSubscriptionFactory: UnsubscribeFromSubscriptionFact
     throw error;
   }
 };
+
+export default unsubscribeFromSubscriptionFactory;

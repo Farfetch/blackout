@@ -10,21 +10,13 @@ import type { Dispatch } from 'redux';
 import type { RemoveUserDefaultContactAddressAction } from '../../types';
 
 /**
- * @param userId    - Identifier of the user.
- * @param addressId - Identifier of the address.
- * @param config    - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Responsible for deleting the users default contact address.
  *
  * @param deleteUserDefaultContactAddress - Delete default contact address client.
  *
  * @returns Thunk factory.
  */
-export const removeUserDefaultContactAddressFactory =
+const removeUserDefaultContactAddressFactory =
   (deleteUserDefaultContactAddress: DeleteUserDefaultContactAddress) =>
   (userId: User['id'], addressId: UserAddress['id'], config?: Config) =>
   async (
@@ -54,3 +46,5 @@ export const removeUserDefaultContactAddressFactory =
       throw error;
     }
   };
+
+export default removeUserDefaultContactAddressFactory;

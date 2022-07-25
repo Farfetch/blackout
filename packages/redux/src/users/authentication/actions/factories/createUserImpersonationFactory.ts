@@ -8,13 +8,6 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @param data   - The impersonate data.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates user impersonation.
  *
  * @param postUserImpersonation - Post user impersonation client.

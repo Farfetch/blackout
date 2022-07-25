@@ -12,11 +12,7 @@ import type { GetUserPreferences } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getUserPreferences: GetUserPreferences = (
-  userId,
-  code?,
-  config?,
-) =>
+const getUserPreferences: GetUserPreferences = (userId, code?, config?) =>
   client
     .get(
       join('/account/v1/users/', userId, '/preferences', {
@@ -30,3 +26,5 @@ export const getUserPreferences: GetUserPreferences = (
     .catch(error => {
       throw adaptError(error);
     });
+
+export default getUserPreferences;

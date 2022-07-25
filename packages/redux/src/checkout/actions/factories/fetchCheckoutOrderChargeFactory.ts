@@ -9,14 +9,6 @@ import type { Dispatch } from 'redux';
 import type { FetchCheckoutOrderChargeAction } from '../../types';
 
 /**
- * @param id       - Numeric identifier of the checkout order.
- * @param chargeId - Alphanumeric guid of the charge.
- * @param config   - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Method responsible for getting the order charge.
  *
  * @param getCheckoutOrderCharge - Get charges client.

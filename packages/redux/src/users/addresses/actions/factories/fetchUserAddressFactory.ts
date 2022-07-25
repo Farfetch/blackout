@@ -12,20 +12,13 @@ import type { Dispatch } from 'redux';
 import type { FetchUserAddressAction } from '../../types';
 
 /**
- * @param addressId - Identifier of the address.
- * @param config    - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Gets the details of the user address with the specified 'addressId'.
  *
  * @param getUserAddress - Get user address client.
  *
  * @returns Thunk factory.
  */
-export const fetchUserAddressFactory =
+const fetchUserAddressFactory =
   (getUserAddress: GetUserAddress) =>
   (userId: User['id'], addressId: UserAddress['id'], config?: Config) =>
   async (dispatch: Dispatch<FetchUserAddressAction>): Promise<UserAddress> => {
@@ -53,3 +46,5 @@ export const fetchUserAddressFactory =
       throw error;
     }
   };
+
+export default fetchUserAddressFactory;

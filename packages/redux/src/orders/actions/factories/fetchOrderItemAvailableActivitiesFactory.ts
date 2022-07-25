@@ -6,6 +6,13 @@ import {
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
+/**
+ * Method responsible for fetching order item available activities.
+ *
+ * @param getOrderItemAvailableActivities - Get order item available activities client.
+ *
+ * @returns Promise that will resolve when the call to the endpoint finishes.
+ */
 const fetchOrderItemAvailableActivities =
   (getOrderItemAvailableActivities: GetOrderItemAvailableActivities) =>
   (orderId: string, itemId: string, config?: Config) =>

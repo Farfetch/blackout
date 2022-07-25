@@ -10,15 +10,6 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @param id     - Return identifier.
- * @param data   - Details of the return to be updated.
- * @param query  - Query parameters for updating the return.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Method responsible for updating the pickup schedule of a return.
  *
  * @param patchReturn - Patch return client.

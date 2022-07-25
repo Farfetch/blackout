@@ -4,4 +4,4 @@ import { getUserBenefits } from '@farfetch/blackout-client';
 /**
  * Fetch user benefits.
  */
-export const fetchUserBenefits = fetchUserBenefitsFactory(getUserBenefits);
+export default fetchUserBenefitsFactory(getUserBenefits);

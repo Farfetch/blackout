@@ -11,7 +11,7 @@ import type { GetCheckoutOrderDeliveryBundleUpgradeProvisioning } from './types'
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getCheckoutOrderDeliveryBundleUpgradeProvisioning: GetCheckoutOrderDeliveryBundleUpgradeProvisioning =
+const getCheckoutOrderDeliveryBundleUpgradeProvisioning: GetCheckoutOrderDeliveryBundleUpgradeProvisioning =
   (id, deliveryBundleId, upgradeId, config) =>
     client
       .get(
@@ -22,3 +22,5 @@ export const getCheckoutOrderDeliveryBundleUpgradeProvisioning: GetCheckoutOrder
       .catch(error => {
         throw adaptError(error);
       });
+
+export default getCheckoutOrderDeliveryBundleUpgradeProvisioning;

@@ -12,13 +12,6 @@ import type { Dispatch } from 'redux';
 import type { FetchPaymentTokensAction } from '../../types';
 
 /**
- * @param query  - Object containing the necessary information to retrieve the tokens.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Method responsible for loading payment tokens. This is used for selecting the
  * credit card.
  *

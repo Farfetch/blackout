@@ -1,18 +1,7 @@
 import { adaptError } from '../helpers/client/formatError';
 import client from '../helpers/client';
 import join from 'proper-url-join';
-import type {
-  GetAddressPredictions,
-  GetAddressPredictionsQuery,
-} from './types';
-
-const getReqUrl = (params: {
-  text: string;
-  query?: GetAddressPredictionsQuery;
-}): string =>
-  join('/account/v1/addressesprediction/', params.text, {
-    query: params.query,
-  });
+import type { GetAddressPredictions } from './types';
 
 /**
  * Method responsible for getting the predictions.
@@ -23,14 +12,17 @@ const getReqUrl = (params: {
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getAddressPredictions: GetAddressPredictions = (
-  text,
-  query,
-  config,
-) =>
+const getAddressPredictions: GetAddressPredictions = (text, query, config) =>
   client
-    .get(getReqUrl({ text, query }), config)
+    .get(
+      join('/account/v1/addressesprediction/', text, {
+        query: query,
+      }),
+      config,
+    )
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default getAddressPredictions;

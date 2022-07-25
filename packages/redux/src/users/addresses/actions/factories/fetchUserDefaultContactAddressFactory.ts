@@ -10,20 +10,13 @@ import type { Dispatch } from 'redux';
 import type { FetchUserDefaultContactAddressAction } from '../../types';
 
 /**
- * @param userId - Identifier of the user.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Responsible for obtaining the default contact address of the user.
  *
  * @param getUserDefaultContactAddress - Get default contact address client.
  *
  * @returns Thunk factory.
  */
-export const fetchUserDefaultContactAddressFactory =
+const fetchUserDefaultContactAddressFactory =
   (getUserDefaultContactAddress: GetUserDefaultContactAddress) =>
   (userId: User['id'], config?: Config) =>
   async (
@@ -51,3 +44,5 @@ export const fetchUserDefaultContactAddressFactory =
       throw error;
     }
   };
+
+export default fetchUserDefaultContactAddressFactory;

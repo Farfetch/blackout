@@ -12,10 +12,12 @@ import type { PutCheckoutOrderTags } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const putCheckoutOrderTags: PutCheckoutOrderTags = (id, data, config) =>
+const putCheckoutOrderTags: PutCheckoutOrderTags = (id, data, config) =>
   client
     .put(join('/checkout/v1/orders/', id, 'tags'), data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default putCheckoutOrderTags;

@@ -9,9 +9,9 @@ const POST_TRACKINGS_PATHNAME = '/marketing/v1/trackings';
  *
  * @example
  * ```
- * import \{ postTrackings \} from '\@farfetch/blackout-client/omnitracking';
+ * import \{ postTracking \} from '\@farfetch/blackout-client/omnitracking';
  *
- *  postTrackings(\{
+ *  postTracking(\{
  *       event: 'GenericPageVisited',
  *       correlationId: 'cc0dc41e-f058-40ec-a073-1fe3d56265bb',
  *       tenantId: 16000,
@@ -27,7 +27,7 @@ const POST_TRACKINGS_PATHNAME = '/marketing/v1/trackings';
  *
  * @returns Promise object.
  */
-const postTrackings = (data: TrackingData, config?: AxiosRequestConfig) =>
+const postTracking = (data: TrackingData, config?: AxiosRequestConfig) =>
   client
     .post(POST_TRACKINGS_PATHNAME, data, config)
     .then(response => response.data)
@@ -35,6 +35,6 @@ const postTrackings = (data: TrackingData, config?: AxiosRequestConfig) =>
       throw adaptError(error);
     });
 
-postTrackings.POST_TRACKINGS_PATHNAME = POST_TRACKINGS_PATHNAME;
+postTracking.POST_TRACKINGS_PATHNAME = POST_TRACKINGS_PATHNAME;
 
-export default postTrackings;
+export default postTracking;

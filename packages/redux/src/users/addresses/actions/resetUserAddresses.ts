@@ -7,10 +7,12 @@ import type { ResetUserAddressesAction } from '../types';
  *
  * @returns - Dispatch reset action.
  */
-export const resetUserAddresses =
+const resetUserAddresses =
   () =>
   (dispatch: Dispatch<ResetUserAddressesAction>): void => {
     dispatch({
       type: actionTypes.RESET_USER_ADDRESSES,
     });
   };
+
+export default resetUserAddresses;

@@ -4,5 +4,4 @@ import { updateUserAttributeFactory } from './factories';
 /**
  * Updates a user attribute with given id.
  */
-export const updateUserAttribute =
-  updateUserAttributeFactory(patchUserAttribute);
+export default updateUserAttributeFactory(patchUserAttribute);

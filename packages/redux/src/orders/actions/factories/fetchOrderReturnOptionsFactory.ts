@@ -10,13 +10,6 @@ import returnOption from '../../../entities/schemas/returnOption';
 import type { Dispatch } from 'redux';
 
 /**
- * @param orderId - The order id to get details from.
- * @param config  - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Fetches order return options.
  *
  * @param getOrderReturnOptions - Get order return options client.

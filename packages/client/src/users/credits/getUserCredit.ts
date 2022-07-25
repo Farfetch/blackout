@@ -10,10 +10,12 @@ import type { GetUserCredit } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getUserCredit: GetUserCredit = (userId, config?) =>
+const getUserCredit: GetUserCredit = (userId, config?) =>
   client
     .get(join('/legacy/v1/users', userId, 'credits'), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default getUserCredit;

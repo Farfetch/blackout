@@ -4,4 +4,4 @@ import { getProductSet } from '@farfetch/blackout-client';
 /**
  * Fetch a specific set by its id.
  */
-export const fetchSet = fetchSetFactory(getProductSet);
+export default fetchSetFactory(getProductSet);

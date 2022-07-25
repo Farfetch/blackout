@@ -13,13 +13,6 @@ import type { StoreState } from '../../../types';
 import type { ThunkDispatch } from 'redux-thunk';
 
 /**
- * @param query  - Query with parameters to fetch the merchants locations.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to fetch merchants
  * locations for the given merchant, merchantLocation and/or country ids.
  *

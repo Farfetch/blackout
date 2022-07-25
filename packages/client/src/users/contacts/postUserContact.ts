@@ -12,10 +12,12 @@ import type { PostUserContact } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const postUserContact: PostUserContact = (userId, data, config?) =>
+const postUserContact: PostUserContact = (userId, data, config?) =>
   client
     .post(join('/account/v1/users', userId, 'contacts'), data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default postUserContact;

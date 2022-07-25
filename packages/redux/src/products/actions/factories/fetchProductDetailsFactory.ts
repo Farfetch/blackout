@@ -13,16 +13,6 @@ import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
 
 /**
- * @param productId     - Numeric identifier of the product.
- * @param query         - Query parameters to apply to the request.
- * @param forceDispatch - If true, the request should be done and the data from first render should be
- *                        ignored (isHydrated).
- * @param config        - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to fetch product
  * details for a given product id.
  *
@@ -30,7 +20,7 @@ import type { GetOptionsArgument, StoreState } from '../../../types';
  *
  * @returns Thunk factory.
  */
-export const fetchProductDetailsFactory =
+const fetchProductDetailsFactory =
   (getProductDetails: GetProduct) =>
   (
     productId: Product['result']['id'],
@@ -99,3 +89,5 @@ export const fetchProductDetailsFactory =
       throw error;
     }
   };
+
+export default fetchProductDetailsFactory;

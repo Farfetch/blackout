@@ -10,14 +10,6 @@ import returnSchema from '../../../entities/schemas/return';
 import type { Dispatch } from 'redux';
 
 /**
- * @param orderId - Order identifier.
- * @param query   - Query parameters.
- * @param config  - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Method responsible for returns from a specific order.
  *
  * @param getReturnsFromOrder - Get returns from order client.

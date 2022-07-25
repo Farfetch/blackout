@@ -18,7 +18,6 @@ import type { FetchPaymentIntentInstrumentsAction } from '../../types';
  *
  * @returns Thunk factory.
  */
-
 const fetchPaymentIntentInstrumentsFactory =
   (getPaymentIntentInstruments: GetPaymentIntentInstruments) =>
   (intentId: PaymentIntent['id'], config?: Config) =>

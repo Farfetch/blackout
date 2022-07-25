@@ -14,7 +14,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const createUserAttributesFactory =
+const createUserAttributesFactory =
   (postUserAttributes: PostUserAttribute) =>
   (userId: number, data: UserAttributeData, config?: Config) =>
   async (dispatch: Dispatch): Promise<void> => {
@@ -40,3 +40,5 @@ export const createUserAttributesFactory =
       throw error;
     }
   };
+
+export default createUserAttributesFactory;

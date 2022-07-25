@@ -4,4 +4,4 @@ import { getUserTitles } from '@farfetch/blackout-client';
 /**
  * Fetch a list of titles.
  */
-export const fetchUserTitles = fetchUserTitlesFactory(getUserTitles);
+export default fetchUserTitlesFactory(getUserTitles);

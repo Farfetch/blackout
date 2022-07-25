@@ -12,13 +12,6 @@ import { normalize } from 'normalizr';
 import type { Dispatch } from 'redux';
 
 /**
- * @param query  - Query object with search terms to apply.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Fetch contents for a specific query object received.
  *
  * @param getContent - Get content client.

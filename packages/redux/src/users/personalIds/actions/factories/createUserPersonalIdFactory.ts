@@ -16,7 +16,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const createUserPersonalIdsFactory =
+const createUserPersonalIdsFactory =
   (postUserPersonalIds: PostUserPersonalId) =>
   (userId: number, data: PostUserPersonalIdData, config: Config) =>
   async (
@@ -44,3 +44,5 @@ export const createUserPersonalIdsFactory =
       throw error;
     }
   };
+
+export default createUserPersonalIdsFactory;

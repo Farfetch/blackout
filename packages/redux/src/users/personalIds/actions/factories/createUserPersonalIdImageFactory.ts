@@ -15,7 +15,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const createUserPersonalIdImageFactory =
+const createUserPersonalIdImageFactory =
   (postUserPersonalIdImage: PostUserPersonalIdImage) =>
   (userId: number, data: PostUserPersonalIdImageData, config: Config) =>
   async (dispatch: Dispatch): Promise<UserPersonalIdImage> => {
@@ -41,3 +41,5 @@ export const createUserPersonalIdImageFactory =
       throw error;
     }
   };
+
+export default createUserPersonalIdImageFactory;

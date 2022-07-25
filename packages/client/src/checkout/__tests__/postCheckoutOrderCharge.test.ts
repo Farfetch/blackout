@@ -2,15 +2,15 @@ import * as checkoutClient from '..';
 import { ChargeStatus, DeclineCode } from '../../payments/types';
 import { id } from 'tests/__fixtures__/checkout';
 import client from '../../helpers/client';
-import fixtures from '../__fixtures__/postCheckoutOrderCharges.fixtures';
+import fixtures from '../__fixtures__/postCheckoutOrderCharge.fixtures';
 import mswServer from '../../../tests/mswServer';
 import type {
   CheckoutOrderCharge,
-  PostCheckoutOrderChargesData,
+  PostCheckoutOrderChargeData,
 } from '../types';
 
 describe('checkout client', () => {
-  const data: PostCheckoutOrderChargesData = {
+  const data: PostCheckoutOrderChargeData = {
     redirectUrl: 'string',
     returnUrl: 'string',
     cancelUrl: 'string',
@@ -44,7 +44,7 @@ describe('checkout client', () => {
       expect.assertions(2);
 
       await expect(
-        checkoutClient.postCheckoutOrderCharges(id, data),
+        checkoutClient.postCheckoutOrderCharge(id, data),
       ).resolves.toStrictEqual(response);
       expect(spy).toHaveBeenCalledWith(urlToBeCalled, data, expectedConfig);
     });
@@ -55,7 +55,7 @@ describe('checkout client', () => {
       expect.assertions(2);
 
       await expect(
-        checkoutClient.postCheckoutOrderCharges(id, data),
+        checkoutClient.postCheckoutOrderCharge(id, data),
       ).rejects.toMatchSnapshot();
       expect(spy).toHaveBeenCalledWith(urlToBeCalled, data, expectedConfig);
     });

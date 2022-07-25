@@ -16,7 +16,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const createUserContactFactory =
+const createUserContactFactory =
   (postContact: PostUserContact) =>
   (id: number, data: UserContact, config?: Config) =>
   async (dispatch: Dispatch) => {
@@ -42,3 +42,5 @@ export const createUserContactFactory =
       throw error;
     }
   };
+
+export default createUserContactFactory;

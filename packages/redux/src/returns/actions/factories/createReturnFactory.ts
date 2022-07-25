@@ -10,14 +10,6 @@ import returnSchema from '../../../entities/schemas/return';
 import type { Dispatch } from 'redux';
 
 /**
- * @param data   - Details of the Return to be created.
- * @param query  - Query parameters for creating the return.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Method responsible for creating a return.
  *
  * @param postReturn - Post return client.

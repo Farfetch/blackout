@@ -11,10 +11,12 @@ import type { GetUserTitles } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getUserTitles: GetUserTitles = (query, config?) =>
+const getUserTitles: GetUserTitles = (query, config?) =>
   client
     .get(join('/account/v1/titles', { query }), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default getUserTitles;

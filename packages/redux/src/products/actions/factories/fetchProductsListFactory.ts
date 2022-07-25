@@ -33,7 +33,7 @@ import type { ProductsListActionOptions } from '../../types';
  *
  * @returns Thunk to be dispatched to the redux store.
  */
-export const fetchProductsListFactory = async (
+const fetchProductsListFactory = async (
   client: GetProductListing | GetProductSet,
   slug: string | number,
   query: GetProductListingQuery | GetProductSetQuery | Record<string, never>,
@@ -127,3 +127,5 @@ export const fetchProductsListFactory = async (
     throw error;
   }
 };
+
+export default fetchProductsListFactory;

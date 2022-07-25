@@ -14,7 +14,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const fetchUserPersonalIdsFactory =
+const fetchUserPersonalIdsFactory =
   (getUserPersonalIds: GetUserPersonalIds) =>
   (id: number, config: Config) =>
   async (dispatch: Dispatch): Promise<UserPersonalId[]> => {
@@ -40,3 +40,5 @@ export const fetchUserPersonalIdsFactory =
       throw error;
     }
   };
+
+export default fetchUserPersonalIdsFactory;

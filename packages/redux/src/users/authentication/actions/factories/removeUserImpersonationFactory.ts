@@ -7,13 +7,6 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @param impersonatedAccessTokenId - The impersonated access token.
- * @param config                    - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Deletes an user impersonation.
  *
  * @param deleteUserImpersonation - Delete user impersonation client.

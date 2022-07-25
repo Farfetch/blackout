@@ -12,14 +12,6 @@ import productSchema from '../../../entities/schemas/product';
 import type { Dispatch } from 'redux';
 
 /**
- * @param productId - Numeric identifier of the product.
- * @param query     - Query parameters to apply to the request.
- * @param config    - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Creates a thunk factory configured with the specified client to fetch product
  * sizes for a given product id.
  *
@@ -27,7 +19,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export const fetchProductSizesFactory =
+const fetchProductSizesFactory =
   (getProductSizes: GetProductSizes) =>
   (
     productId: Product['result']['id'],
@@ -64,3 +56,5 @@ export const fetchProductSizesFactory =
       throw error;
     }
   };
+
+export default fetchProductSizesFactory;

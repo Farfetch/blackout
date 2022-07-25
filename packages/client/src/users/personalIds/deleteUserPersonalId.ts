@@ -13,7 +13,7 @@ import type { DeleteUserPersonalId } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const deleteUserPersonalId: DeleteUserPersonalId = (
+const deleteUserPersonalId: DeleteUserPersonalId = (
   userId,
   personalId,
   config,
@@ -27,3 +27,5 @@ export const deleteUserPersonalId: DeleteUserPersonalId = (
     .catch(error => {
       throw adaptError(error);
     });
+
+export default deleteUserPersonalId;

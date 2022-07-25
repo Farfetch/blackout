@@ -2,7 +2,7 @@
  * Addresses clients.
  */
 
-export * from './getAddressPredictions';
-export * from './getAddressPredictionDetails';
+export { default as getAddressPredictions } from './getAddressPredictions';
+export { default as getAddressPredictionDetails } from './getAddressPredictionDetails';
 
 export * from './types';

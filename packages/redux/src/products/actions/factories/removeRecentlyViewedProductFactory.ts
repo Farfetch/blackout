@@ -15,7 +15,7 @@ import type { RemoveRecentlyViewedProductFactory } from './types';
  *
  * @returns Thunk factory.
  */
-export const removeRecentlyViewedProductFactory: RemoveRecentlyViewedProductFactory<
+const removeRecentlyViewedProductFactory: RemoveRecentlyViewedProductFactory<
   DeleteRecentlyViewedProduct
 > =
   deleteRecentlyViewedProduct =>
@@ -47,3 +47,5 @@ export const removeRecentlyViewedProductFactory: RemoveRecentlyViewedProductFact
       throw error;
     }
   };
+
+export default removeRecentlyViewedProductFactory;

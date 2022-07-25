@@ -1,14 +1,14 @@
 import type { CheckoutOrderCharge } from '.';
 import type { Config } from '../../types';
 
-export type PostCheckoutOrderChargesData = {
+export type PostCheckoutOrderChargeData = {
   redirectUrl: string;
   returnUrl: string;
   cancelUrl: string;
 };
 
-export type PostCheckoutOrderCharges = (
+export type PostCheckoutOrderCharge = (
   id: number,
-  data: PostCheckoutOrderChargesData,
+  data: PostCheckoutOrderChargeData,
   config?: Config,
 ) => Promise<CheckoutOrderCharge>;

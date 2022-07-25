@@ -11,14 +11,6 @@ import order from '../../../entities/schemas/order';
 import type { Dispatch } from 'redux';
 
 /**
- * @param userId - Identifier of the user.
- * @param query  - Pagination information. Possible values: "page", "pageSize".
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Fetches orders.
  *
  * @param getOrders - Get orders client.

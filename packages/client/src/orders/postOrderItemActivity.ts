@@ -1,7 +1,7 @@
 import { adaptError } from '../helpers/client/formatError';
 import client from '../helpers/client';
 import join from 'proper-url-join';
-import type { PostOrderItemActivities } from './types';
+import type { PostOrderItemActivity } from './types';
 
 /**
  * Method responsible for creating an activity to perform on the order item.
@@ -13,7 +13,7 @@ import type { PostOrderItemActivities } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const postOrderItemActivities: PostOrderItemActivities = (
+const postOrderItemActivities: PostOrderItemActivity = (
   orderId,
   itemId,
   data,

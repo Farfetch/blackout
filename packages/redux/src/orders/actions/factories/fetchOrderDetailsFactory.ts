@@ -13,13 +13,6 @@ import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
 
 /**
- * @param orderId - The order id to get details from.
- * @param config  - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Fetches order details.
  *
  * @param getOrderDetails - Get order details client.

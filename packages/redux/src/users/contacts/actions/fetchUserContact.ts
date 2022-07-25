@@ -4,4 +4,4 @@ import { getUserContact } from '@farfetch/blackout-client';
 /**
  * Fetch contact from user.
  */
-export const fetchUserContact = fetchUserContactFactory(getUserContact);
+export default fetchUserContactFactory(getUserContact);

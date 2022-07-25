@@ -8,13 +8,6 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * @param data   - Details to refresh the user's validation token.
- * @param config - Custom configurations to send to the client instance (axios).
- *
- * @returns Thunk to be dispatched to the redux store.
- */
-
-/**
  * Refreshes the user's validation token. To be used when the user went past the
  * token's expiration date or there was other kind of error validation the user's
  * email.

@@ -12,12 +12,12 @@ import type { FetchAddressPredictionsAction } from '../../types';
 /**
  * Load Predictions based in the inserted text.
  *
- * @param getPredictions - Get predictions client.
+ * @param getAddressPredictions - Get address predictions client.
  *
  * @returns Thunk factory.
  */
 const fetchAddressPredictionsFactory =
-  (getPredictions: GetAddressPredictions) =>
+  (getAddressPredictions: GetAddressPredictions) =>
   (text: string, query: GetAddressPredictionsQuery, config?: Config) =>
   async (
     dispatch: Dispatch<FetchAddressPredictionsAction>,
@@ -27,7 +27,7 @@ const fetchAddressPredictionsFactory =
         type: actionTypes.FETCH_ADDRESS_PREDICTIONS_REQUEST,
       });
 
-      const result = await getPredictions(text, query, config);
+      const result = await getAddressPredictions(text, query, config);
 
       dispatch({
         payload: result,

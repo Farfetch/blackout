@@ -11,7 +11,7 @@ import type { PostUserAddress } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const postUserAddress: PostUserAddress = ({ userId }, data, config) => {
+const postUserAddress: PostUserAddress = ({ userId }, data, config) => {
   return client
     .post(`/account/v1/users/${userId}/addresses`, data, config)
     .then(response => response.data)
@@ -19,3 +19,5 @@ export const postUserAddress: PostUserAddress = ({ userId }, data, config) => {
       throw adaptError(error);
     });
 };
+
+export default postUserAddress;

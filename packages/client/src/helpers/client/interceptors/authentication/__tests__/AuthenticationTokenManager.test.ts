@@ -13,7 +13,7 @@ import {
   UserSessionExpiredError,
 } from '../errors';
 import { postGuestToken } from '../../../../../users/authentication';
-import { postTrackings } from '../../../../../omnitracking';
+import { postTracking } from '../../../../../omnitracking';
 import { rest } from 'msw';
 import { DEFAULT_STORAGE_KEY as UserTokenDefaultStorageKey } from '../token-providers/UserTokenProvider';
 import AuthenticationConfigOptions from '../AuthenticationConfigOptions';
@@ -535,8 +535,8 @@ describe('AuthenticationTokenManager', () => {
           ),
         );
 
-        // We use postTrackings client here to test for other method of requests instead of only GETs.
-        await postTrackings({});
+        // We use postTracking client here to test for other method of requests instead of only GETs.
+        await postTracking({});
 
         expect(mockUserTokenRequester).toHaveBeenCalledTimes(1);
 

@@ -12,7 +12,7 @@ import type { GetUserCreditMovements } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const getUserCreditMovements: GetUserCreditMovements = (
+const getUserCreditMovements: GetUserCreditMovements = (
   userId,
   query,
   config,
@@ -23,3 +23,5 @@ export const getUserCreditMovements: GetUserCreditMovements = (
     .catch(error => {
       throw adaptError(error);
     });
+
+export default getUserCreditMovements;

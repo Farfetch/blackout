@@ -13,7 +13,7 @@ import type { PutUserDefaultPersonalId } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const putUserDefaultPersonalId: PutUserDefaultPersonalId = (
+const putUserDefaultPersonalId: PutUserDefaultPersonalId = (
   userId,
   data,
   config,
@@ -28,3 +28,5 @@ export const putUserDefaultPersonalId: PutUserDefaultPersonalId = (
     .catch(error => {
       throw adaptError(error);
     });
+
+export default putUserDefaultPersonalId;

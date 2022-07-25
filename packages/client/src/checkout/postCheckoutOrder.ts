@@ -8,10 +8,12 @@ import type { PostCheckoutOrder } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-export const postCheckoutOrder: PostCheckoutOrder = (data, config) =>
+const postCheckoutOrder: PostCheckoutOrder = (data, config) =>
   client
     .post('/checkout/v1/orders', data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
+
+export default postCheckoutOrder;
