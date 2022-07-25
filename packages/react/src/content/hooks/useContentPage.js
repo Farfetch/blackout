@@ -51,9 +51,8 @@ export default (slug, contentType, strategy = 'default') => {
   }, [action, slug, contentType, strategy]);
 
   useEffect(() => {
-    !contentPage && !isLoading && fetchContent();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [contentPage, slug]);
+    !contentPage && fetchContent();
+  }, [contentPage, slug, fetchContent]);
 
   return {
     /**

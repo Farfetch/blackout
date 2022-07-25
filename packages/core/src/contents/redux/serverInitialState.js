@@ -31,7 +31,10 @@ export default ({ model }) => {
       filters: { codes, contentTypeCode },
       searchResponse,
     } = item;
-    const hash = buildContentGroupHash({ codes, contentTypeCode });
+    const slugWithoutJson = stripSlugSubfolderJsonTrue(slug, subfolder);
+    const slugNormalized = slugWithoutJson.split('?')[0];
+    const code = contentTypeCode === 'commerce_pages' ? slugNormalized : codes;
+    const hash = buildContentGroupHash({ codes: code, contentTypeCode });
     const { entities } = {
       ...normalize({ hash, ...searchResponse }, contentGroup),
     };
