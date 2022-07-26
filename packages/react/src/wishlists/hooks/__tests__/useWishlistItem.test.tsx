@@ -1,12 +1,10 @@
 import { cleanup, renderHook } from '@testing-library/react';
-import { mockStore } from '../../../../tests/helpers';
 import {
   mockWishlistItemId,
   mockWishlistItemPatchData,
   mockWishlistState,
 } from 'tests/__fixtures__/wishlists';
-import { Provider } from 'react-redux';
-import React from 'react';
+import { withStore } from '../../../../tests/helpers';
 import useWishlistItem from '../useWishlistItem';
 
 jest.mock('@farfetch/blackout-redux', () => ({
@@ -22,48 +20,59 @@ jest.mock('react-redux', () => ({
   useDispatch: () => mockDispatch,
 }));
 
-const getRenderedHook = (state = mockWishlistState) => {
-  const {
-    result: { current },
-  } = renderHook(() => useWishlistItem(mockWishlistItemId), {
-    wrapper: props => <Provider store={mockStore(state)} {...props} />,
-  });
-
-  return current;
-};
-
 describe('useWishlistItem', () => {
   beforeEach(jest.clearAllMocks);
   afterEach(cleanup);
 
   it('should return values correctly with initial state', () => {
-    const current = getRenderedHook();
+    const {
+      result: { current },
+    } = renderHook(() => useWishlistItem(mockWishlistItemId), {
+      wrapper: withStore(mockWishlistState),
+    });
 
     expect(current).toStrictEqual({
-      removeWishlistItem: expect.any(Function),
-      updateWishlistItem: expect.any(Function),
       error: expect.any(Object),
       isLoading: expect.any(Boolean),
-      item: expect.any(Object),
+      isFetched: expect.any(Boolean),
+      actions: {
+        update: expect.any(Function),
+        remove: expect.any(Function),
+      },
+      data: {
+        ...mockWishlistState.entities?.wishlistItems?.[mockWishlistItemId],
+        product:
+          mockWishlistState.entities?.products?.[
+            mockWishlistState.entities?.wishlistItems?.[mockWishlistItemId]
+              ?.product
+          ],
+      },
     });
   });
 
   it('should render in error state', () => {
     const mockError = { message: 'This is an error message' };
-    const { error } = getRenderedHook({
-      ...mockWishlistState,
-      wishlist: {
-        ...mockWishlistState.wishlist,
-        items: {
-          ...mockWishlistState.wishlist.items,
-          item: {
-            ...mockWishlistState.wishlist.items.item,
-            error: {
-              [mockWishlistItemId]: mockError,
+
+    const {
+      result: {
+        current: { error },
+      },
+    } = renderHook(() => useWishlistItem(mockWishlistItemId), {
+      wrapper: withStore({
+        ...mockWishlistState,
+        wishlist: {
+          ...mockWishlistState.wishlist,
+          items: {
+            ...mockWishlistState.wishlist.items,
+            item: {
+              ...mockWishlistState.wishlist.items.item,
+              error: {
+                [mockWishlistItemId]: mockError,
+              },
             },
           },
         },
-      },
+      }),
     });
 
     expect(error).toEqual(mockError);
@@ -71,17 +80,33 @@ describe('useWishlistItem', () => {
 
   describe('actions', () => {
     it('should call `removeWishlistItem` action', () => {
-      const { removeWishlistItem } = getRenderedHook();
+      const {
+        result: {
+          current: {
+            actions: { remove },
+          },
+        },
+      } = renderHook(() => useWishlistItem(mockWishlistItemId), {
+        wrapper: withStore(mockWishlistState),
+      });
 
-      removeWishlistItem(mockWishlistItemId);
+      remove();
 
       expect(mockDispatch).toHaveBeenCalledWith({ type: 'remove' });
     });
 
     it('should call `updateWishlistItem` action', () => {
-      const { updateWishlistItem } = getRenderedHook();
+      const {
+        result: {
+          current: {
+            actions: { update },
+          },
+        },
+      } = renderHook(() => useWishlistItem(mockWishlistItemId), {
+        wrapper: withStore(mockWishlistState),
+      });
 
-      updateWishlistItem(mockWishlistItemId, mockWishlistItemPatchData);
+      update(mockWishlistItemPatchData);
 
       expect(mockDispatch).toHaveBeenCalledWith({ type: 'update' });
     });
