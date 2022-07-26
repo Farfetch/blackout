@@ -1,7 +1,8 @@
 import { mockStore } from './redux';
 import { Provider } from 'react-redux';
 import { render } from '@testing-library/react';
-import React from 'react';
+import React, { ReactNode } from 'react';
+import type { StoreState } from '@farfetch/blackout-redux';
 
 /**
  * Testing helper class to chain Providers as needed. Start by passing the original
@@ -40,3 +41,8 @@ export const wrap = component => ({
     return wrap(<Provider store={mockStore(state)}>{component}</Provider>);
   },
 });
+
+export const withStore =
+  (state: StoreState = {}): React.FC<{ children: ReactNode }> =>
+  props =>
+    <Provider store={mockStore(state)} {...props} />;
