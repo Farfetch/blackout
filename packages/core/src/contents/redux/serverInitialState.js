@@ -1,13 +1,14 @@
 import {
   buildContentGroupHash,
   buildSEOPathname,
-  stripSlugSubfolderJsonTrue,
+  stripSlugSubfolder,
 } from '../utils';
 import { INITIAL_STATE } from './reducer';
 import { normalize } from 'normalizr';
 import contentGroup from '../../entities/schemas/contentGroup';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
+import Url from 'url-parse';
 
 /**
  * Converts server data from searchContentRequests to store state.
@@ -25,13 +26,17 @@ export default ({ model }) => {
   }
 
   const { searchContentRequests, seoMetadata, slug, subfolder } = model;
+  const url = new Url(slug);
+  const slugNormalized = stripSlugSubfolder(url.pathname, subfolder);
 
   const contents = searchContentRequests.reduce((acc, item) => {
     const {
       filters: { codes, contentTypeCode },
       searchResponse,
     } = item;
-    const hash = buildContentGroupHash({ codes, contentTypeCode });
+
+    const code = contentTypeCode === 'commerce_pages' ? slugNormalized : codes;
+    const hash = buildContentGroupHash({ codes: code, contentTypeCode });
     const { entities } = {
       ...normalize({ hash, ...searchResponse }, contentGroup),
     };
@@ -47,9 +52,8 @@ export default ({ model }) => {
     });
   }, {});
 
-  const metadataSlug = stripSlugSubfolderJsonTrue(slug, subfolder);
   const metadataHash = buildSEOPathname({
-    path: metadataSlug,
+    path: slugNormalized,
     pageType: 'pages',
   });
 
