@@ -12,6 +12,7 @@ import ga4EventNameMapping, {
   getEventProperties,
   InternalEventTypes,
 } from './eventMapping';
+import isFinite from 'lodash/isFinite';
 
 const genericCommandsBuilder = data => {
   const eventName = ga4EventNameMapping[data.event];
@@ -24,7 +25,7 @@ const getProductUpdatedEventList = data => {
   const dispatchGA4EventList = [];
 
   if (
-    eventProperties.quantity &&
+    isFinite(eventProperties.quantity) &&
     eventProperties.oldQuantity !== eventProperties.quantity
   ) {
     dispatchGA4EventList.push(

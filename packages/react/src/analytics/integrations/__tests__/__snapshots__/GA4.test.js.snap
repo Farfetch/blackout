@@ -899,6 +899,22 @@ Array [
 ]
 `;
 
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Update Product events Should trigger ga4 change_quantity event when quantity is 0 1`] = `
+Array [
+  Array [
+    "event",
+    "change_quantity",
+    Object {
+      "from": "Bag",
+      "item_id": "507f1f77bcf86cd799439011",
+      "item_name": "Gareth McConnell Dreamscape T-Shirt",
+      "old_quantity": undefined,
+      "quantity": 0,
+    },
+  ],
+]
+`;
+
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Update Product events Should trigger ga4 change_size event 1`] = `
 Array [
   Array [
