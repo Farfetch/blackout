@@ -231,7 +231,7 @@ export const getWishlistItems = createSelector(
  * @returns Error information, `undefined` if there are no errors.
  */
 export const getWishlistError = (state: StoreState) =>
-  fromWishlistReducer.getError(state.wishlist as WishlistsState) || undefined;
+  fromWishlistReducer.getError(state.wishlist as WishlistsState);
 
 /**
  * Retrieves the loading status of the wishlist.

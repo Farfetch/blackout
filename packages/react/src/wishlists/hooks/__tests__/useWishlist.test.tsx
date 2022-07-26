@@ -1,16 +1,46 @@
 import { cleanup, renderHook } from '@testing-library/react';
-import { mockStore } from '../../../../tests/helpers';
-import { mockWishlistState } from 'tests/__fixtures__/wishlists';
-import { Provider } from 'react-redux';
-import React from 'react';
+import {
+  mockWishlistId,
+  mockWishlistItemId,
+  mockWishlistState,
+} from 'tests/__fixtures__/wishlists';
+import { withStore } from '../../../../tests/helpers';
 import useWishlist from '../useWishlist';
+import type { StoreState } from '@farfetch/blackout-redux';
+
+const mockUserState = {
+  entities: {
+    user: {
+      id: 1234,
+      wishlistId: mockWishlistId,
+    },
+  },
+  users: {
+    error: null,
+    isLoading: false,
+    result: 1234,
+  },
+};
+
+const stateMockData: StoreState = {
+  ...mockWishlistState,
+  ...mockUserState,
+  entities: {
+    ...mockWishlistState.entities,
+    ...mockUserState.entities,
+  },
+};
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
-  addWishlistItem: jest.fn(() => ({ type: 'addItem' })),
-  fetchWishlist: jest.fn(() => ({ type: 'fetch' })),
+  addWishlistItem: jest.fn(data => ({ type: 'add-item', ...data })),
+  updateWishlistItem: jest.fn((wishlistItemId, data) => ({
+    type: 'update-item',
+    wishlistItemId,
+    ...data,
+  })),
+  fetchWishlist: jest.fn(wishlistId => ({ type: 'fetch', wishlistId })),
   resetWishlist: jest.fn(() => ({ type: 'reset' })),
-  resetWishlistState: jest.fn(() => ({ type: 'resetState' })),
 }));
 
 const mockDispatch = jest.fn();
@@ -20,129 +50,242 @@ jest.mock('react-redux', () => ({
   useDispatch: () => mockDispatch,
 }));
 
-const getRenderedHook = (state = mockWishlistState) => {
-  const {
-    result: { current },
-  } = renderHook(() => useWishlist(), {
-    wrapper: props => <Provider store={mockStore(state)} {...props} />,
-  });
-
-  return current;
-};
-
 describe('useWishlist', () => {
   beforeEach(jest.clearAllMocks);
   afterEach(cleanup);
 
-  it('should return values correctly with initial state', () => {
-    const current = getRenderedHook();
+  it('should return correctly with initial state', () => {
+    const {
+      result: { current },
+    } = renderHook(() => useWishlist(), {
+      wrapper: withStore(stateMockData),
+    });
 
     expect(current).toStrictEqual({
-      addWishlistItem: expect.any(Function),
-      error: undefined,
-      fetchWishlist: expect.any(Function),
-      id: expect.any(String),
-      isEmpty: expect.any(Boolean),
-      isLoading: expect.any(Boolean),
-      itemCount: expect.any(Number),
-      items: expect.any(Array),
-      itemsWithSetsInfo: expect.any(Array),
-      resetWishlist: expect.any(Function),
-      resetWishlistState: expect.any(Function),
-      totalQuantity: expect.any(Number),
-      wishlist: expect.any(Object),
+      error: null,
+      isLoading: false,
+      isFetched: true,
+      data: {
+        count: 4,
+        isEmpty: false,
+        items: [
+          {
+            ...stateMockData.entities?.wishlistItems?.[mockWishlistItemId],
+            product:
+              stateMockData.entities?.products?.[
+                stateMockData.entities?.wishlistItems?.[mockWishlistItemId]
+                  ?.product
+              ],
+          },
+          {
+            ...stateMockData.entities?.wishlistItems?.[102],
+            product: stateMockData.entities?.products?.[1002],
+          },
+        ],
+        id: mockWishlistId,
+      },
+      actions: {
+        fetch: expect.any(Function),
+        reset: expect.any(Function),
+        addItem: expect.any(Function),
+        updateItem: expect.any(Function),
+        removeItem: expect.any(Function),
+      },
     });
   });
 
-  it('should render in error state', () => {
+  it('should return error state', () => {
     const mockError = { message: 'This is an error message' };
-    const { error } = getRenderedHook({
-      ...mockWishlistState,
-      wishlist: {
-        ...mockWishlistState.wishlist,
-        error: mockError,
+
+    const {
+      result: {
+        current: { error },
       },
+    } = renderHook(() => useWishlist(), {
+      wrapper: withStore({
+        ...stateMockData,
+        wishlist: {
+          ...stateMockData.wishlist,
+          error: mockError,
+        },
+      }),
     });
 
     expect(error).toEqual(mockError);
   });
 
-  it('should render as empty', () => {
-    const { isEmpty } = getRenderedHook({
-      ...mockWishlistState,
-      wishlist: {
-        ...mockWishlistState.wishlist,
-        result: {
-          ...mockWishlistState.wishlist.result,
-          count: 0,
-          items: [],
-        },
-        items: {
-          ...mockWishlistState.wishlist.items,
-          ids: [],
+  it('should return correctly if empty', () => {
+    const {
+      result: {
+        current: {
+          isFetched,
+          data: { isEmpty },
         },
       },
+    } = renderHook(() => useWishlist(), {
+      wrapper: withStore({
+        ...stateMockData,
+        wishlist: {
+          ...stateMockData.wishlist,
+          result: {
+            ...stateMockData.wishlist.result,
+            count: 0,
+            items: [],
+          },
+          items: {
+            ...stateMockData.wishlist.items,
+            ids: [],
+          },
+        },
+      }),
     });
 
     expect(isEmpty).toBe(true);
+    expect(isFetched).toBe(true);
   });
 
-  it('should render in loading state due to the loading status', () => {
-    const { isLoading } = getRenderedHook({
-      ...mockWishlistState,
-      wishlist: {
-        ...mockWishlistState.wishlist,
-        isLoading: true,
+  it('should return loading state', () => {
+    const {
+      result: {
+        current: { isLoading },
       },
+    } = renderHook(() => useWishlist(), {
+      wrapper: withStore({
+        ...stateMockData,
+        wishlist: {
+          ...stateMockData.wishlist,
+          isLoading: true,
+        },
+      }),
     });
 
     expect(isLoading).toBe(true);
   });
 
-  it("should render in loading state while it doesn't begin fetching", () => {
-    const { isLoading } = getRenderedHook({
-      ...mockWishlistState,
-      wishlist: {
-        ...mockWishlistState.wishlist,
-        error: null,
-        result: undefined,
+  it('should not return data as loading if data was not fetched', () => {
+    const {
+      result: {
+        current: { isLoading },
       },
+    } = renderHook(() => useWishlist(), {
+      wrapper: withStore({
+        ...stateMockData,
+        wishlist: {
+          ...stateMockData.wishlist,
+          error: undefined,
+          result: {},
+        },
+      }),
     });
 
-    expect(isLoading).toBe(true);
+    expect(isLoading).toBe(false);
+  });
+
+  describe('options', () => {
+    it('should call fetch data if `enableAutoFetch` option is true', () => {
+      renderHook(() => useWishlist({ enableAutoFetch: true }), {
+        wrapper: withStore(stateMockData),
+      });
+
+      expect(mockDispatch).toHaveBeenCalledWith({
+        type: 'fetch',
+        wishlistId: mockWishlistId,
+      });
+    });
+
+    it('should not fetch data if `enableAutoFetch` option is false', () => {
+      renderHook(() => useWishlist(), {
+        wrapper: withStore(stateMockData),
+      });
+
+      expect(mockDispatch).not.toHaveBeenCalled();
+    });
   });
 
   describe('actions', () => {
-    it('should call `addWishlistItem` action', () => {
-      const { addWishlistItem } = getRenderedHook();
+    it('should call `fetch` action', () => {
+      const {
+        result: {
+          current: {
+            actions: { fetch },
+          },
+        },
+      } = renderHook(() => useWishlist({ enableAutoFetch: true }), {
+        wrapper: withStore(stateMockData),
+      });
 
-      addWishlistItem();
+      fetch('123');
 
-      expect(mockDispatch).toHaveBeenCalledWith({ type: 'addItem' });
+      expect(mockDispatch).toHaveBeenCalledWith({
+        type: 'fetch',
+        wishlistId: '123',
+      });
     });
 
-    it('should call `fetchWishlist` action', () => {
-      const { fetchWishlist } = getRenderedHook();
+    it('should call `addWishlistItem` action', () => {
+      const {
+        result: {
+          current: {
+            actions: { addItem },
+          },
+        },
+      } = renderHook(() => useWishlist(), {
+        wrapper: withStore(stateMockData),
+      });
 
-      fetchWishlist();
+      addItem({ productId: 123, quantity: 1, size: 17, from: 'PDP' });
 
-      expect(mockDispatch).toHaveBeenCalledWith({ type: 'fetch' });
+      expect(mockDispatch).toHaveBeenCalledWith({
+        type: 'add-item',
+        from: 'PDP',
+        productId: 123,
+        quantity: 1,
+        size: 17,
+      });
+    });
+
+    it('should call `updateWishlistItem` action', () => {
+      const {
+        result: {
+          current: {
+            actions: { updateItem },
+          },
+        },
+      } = renderHook(() => useWishlist(), {
+        wrapper: withStore(stateMockData),
+      });
+
+      updateItem(123, {
+        quantity: 1,
+        size: 17,
+        merchantId: 456,
+        productId: 123,
+      });
+
+      expect(mockDispatch).toHaveBeenCalledWith({
+        type: 'update-item',
+        productId: 123,
+        quantity: 1,
+        size: 17,
+        merchantId: 456,
+        wishlistItemId: 123,
+      });
     });
 
     it('should call `resetWishlist` action', () => {
-      const { resetWishlist } = getRenderedHook();
+      const {
+        result: {
+          current: {
+            actions: { reset },
+          },
+        },
+      } = renderHook(() => useWishlist(), {
+        wrapper: withStore(stateMockData),
+      });
 
-      resetWishlist();
+      reset();
 
       expect(mockDispatch).toHaveBeenCalledWith({ type: 'reset' });
-    });
-
-    it('should call `resetWishlistState` action', () => {
-      const { resetWishlistState } = getRenderedHook();
-
-      resetWishlistState(['error']);
-
-      expect(mockDispatch).toHaveBeenCalledWith({ type: 'resetState' });
     });
   });
 });
