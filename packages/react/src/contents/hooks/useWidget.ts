@@ -22,12 +22,14 @@ import type { Params, UseWidget } from '../types';
  */
 const useWidget = (
   widgetKey: string,
+  spaceCode: string,
   params?: Params,
   pageSize?: number,
 ): UseWidget => {
   const query = {
     codes: widgetKey,
     contentTypeCode: 'widgets',
+    spaceCode,
     // @ts-ignore
     // dotenv does´t exist in this BOX and typing `process` will generate an error in tests.
     environmentCode: process.env.WEB_APP_CONTENT_ENV || '',
@@ -47,7 +49,7 @@ const useWidget = (
   );
   const widget = useSelector((state: StoreState) => getContents(state, query));
   const action = useAction(fetchContentAction);
-  const fetchWidget = (): void => action(query);
+  const fetchWidget = () => action(query);
 
   useEffect(() => {
     !widget && fetchWidget();

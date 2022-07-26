@@ -1,15 +1,13 @@
-import type { Config, IndexSignature } from '../../types';
+import type { Config } from '../../types';
 
-export type Targets = IndexSignature<string | undefined> & {
+export type Targets = {
   contentzone?: string;
   language?: string;
   country?: string;
   benefits?: string;
-};
+} & Record<string, string | undefined>;
 
-export type QueryContents = IndexSignature<
-  string | string[] | number | undefined
-> & {
+export type QueryContents = {
   // The space the content belongs to (website|mobileapp|emailTool...).
   spaceCode: string;
   // The environment identifier (live | preview).

@@ -1,5 +1,6 @@
 import type {
   PostWishlistSetData,
+  WishlistSet,
   WishlistSets,
 } from '@farfetch/blackout-client';
 import type {
@@ -11,7 +12,7 @@ import type {
 export type UseWishlistSets = () => {
   addWishlistSet: (
     data: PostWishlistSetData,
-  ) => Promise<WishlistSets | undefined>;
+  ) => Promise<WishlistSet | undefined>;
   allWishlistSetsErrors: WishlistSetsErrors | undefined;
   areLoading: WishlistSetsState['isLoading'];
   error: WishlistSetsState['error'] | undefined;

@@ -22,12 +22,14 @@ import type { Params, UseNavbars } from '../types';
  */
 const useNavbars = (
   navKey: string,
+  spaceCode: string,
   params?: Params,
   pageSize?: number,
 ): UseNavbars => {
   const query = {
     codes: navKey,
     contentTypeCode: 'navbars',
+    spaceCode,
     // @ts-ignore
     // dotenv does´t exist in this BOX and typing `process` will generate an error in tests.
     environmentCode: process.env.WEB_APP_CONTENT_ENV || '',
@@ -49,7 +51,7 @@ const useNavbars = (
     getContents(state, query),
   );
   const action = useAction(fetchContentAction);
-  const fetchNavbars = (): void => action(query);
+  const fetchNavbars = () => action(query);
 
   useEffect(() => {
     !navigation && fetchNavbars();

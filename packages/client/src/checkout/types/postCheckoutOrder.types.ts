@@ -12,7 +12,7 @@ export type PostCheckoutOrderData = {
     customAttributes: string;
     productAggregatorId: number;
   }[];
-  guestUserEmail: string;
+  guestUserEmail?: string;
   usePaymentIntent: boolean;
   shippingMode?: ShippingMode;
   removePurchasedItemsFromBag?: boolean;

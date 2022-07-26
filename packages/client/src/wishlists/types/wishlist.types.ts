@@ -4,5 +4,5 @@ export type Wishlist = {
   count: number;
   id: string;
   items: WishlistItem[];
-  userId: number;
+  userId: number | null;
 };
