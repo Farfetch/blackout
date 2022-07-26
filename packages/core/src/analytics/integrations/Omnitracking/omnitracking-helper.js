@@ -483,20 +483,41 @@ export const getCLientCountryFromCulture = culture => {
  *
  * @returns {Array|undefined} - The mapped `lineItems` array.
  */
-export const getLineItemsFromProductsList = data => {
-  const productsList = data?.properties?.products;
+export const getProductLineItems = data => {
+  const properties = data?.properties || {};
+  const productsList = properties.products;
+  const productId = properties.productId;
 
   if (productsList && productsList.length) {
     const mappedProductList = productsList.map(product => ({
       productId: product.id,
       itemPromotion: product.discountValue,
       designerName: product.brand,
-      category: product.category,
+      category: (product.category || '').split('/')[0],
       itemFullPrice: product.priceWithoutDiscount,
       sizeID: product.sizeId,
+      itemQuantity: product.quantity,
+      promoCode: product.coupon,
+      storeID: product.locationId,
     }));
 
     return JSON.stringify(mappedProductList);
+  }
+
+  if (productId) {
+    return JSON.stringify([
+      {
+        productId,
+        itemPromotion: properties.discountValue,
+        designerName: properties.brand,
+        category: (properties.category || '').split('/')[0],
+        itemFullPrice: properties.priceWithoutDiscount,
+        sizeID: properties.sizeId,
+        itemQuantity: properties.quantity,
+        promoCode: properties.coupon,
+        storeID: properties.locationId,
+      },
+    ]);
   }
 
   return undefined;

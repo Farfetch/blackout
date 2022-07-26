@@ -5,8 +5,8 @@
 
 import {
   generatePaymentAttemptReferenceId,
-  getLineItemsFromProductsList,
   getParameterValueFromEvent,
+  getProductLineItems,
   getValParameterForEvent,
 } from './omnitracking-helper';
 import eventTypes from '../../types/eventTypes';
@@ -481,16 +481,27 @@ export const trackEventsMapper = {
   [eventTypes.PRODUCT_LIST_VIEWED]: data => {
     return {
       tid: 2832,
-      lineItems: getLineItemsFromProductsList(data),
+      lineItems: getProductLineItems(data),
     };
   },
 };
 
-export const defaultPageViewTypeAndSubTypeMapper = {
-  [pageTypes.PRODUCT_LISTING]: {
+/**
+ * Interested events for page tracking.
+ * If there is a page event that can have specific rules or parameters,
+ * make sure to define it in this mapper.
+ */
+export const pageEventsMapper = {
+  [pageTypes.PRODUCT_DETAILS]: data => ({
+    viewType: 'Product',
+    viewSubType: 'Product',
+    lineItems: getProductLineItems(data),
+  }),
+  [pageTypes.PRODUCT_LISTING]: data => ({
     viewType: 'Listing',
     viewSubType: 'Listing',
-  },
+    lineItems: getProductLineItems(data),
+  }),
 };
 
 export const userGenderValuesMapper = {

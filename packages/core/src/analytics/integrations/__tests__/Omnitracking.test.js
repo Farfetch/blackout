@@ -685,19 +685,15 @@ describe('Omnitracking', () => {
       },
     );
 
-    it.each(Object.keys(definitions.defaultPageViewTypeAndSubTypeMapper))(
+    // test the pageEventsMapper globally with all default scenarios
+    it.each(Object.keys(definitions.pageEventsMapper))(
       '`%s` return should match the snapshot',
       eventMapperKey => {
         expect(
-          definitions.defaultPageViewTypeAndSubTypeMapper[eventMapperKey],
+          definitions.pageEventsMapper[eventMapperKey](mockedTrackData),
         ).toMatchSnapshot();
-        expect(
-          definitions.defaultPageViewTypeAndSubTypeMapper[eventMapperKey],
-        ).toEqual(
-          expect.objectContaining({
-            viewType: expect.any(String),
-            viewSubType: expect.any(String),
-          }),
+        expect(typeof definitions.pageEventsMapper[eventMapperKey]).toBe(
+          'function',
         );
       },
     );

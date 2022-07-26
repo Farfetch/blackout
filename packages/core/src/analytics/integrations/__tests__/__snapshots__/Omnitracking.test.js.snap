@@ -681,8 +681,17 @@ Object {
 }
 `;
 
+exports[`Omnitracking definitions \`product-details\` return should match the snapshot 1`] = `
+Object {
+  "lineItems": "[{\\"productId\\":12345678,\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
+  "viewSubType": "Product",
+  "viewType": "Product",
+}
+`;
+
 exports[`Omnitracking definitions \`product-listing\` return should match the snapshot 1`] = `
 Object {
+  "lineItems": "[{\\"productId\\":12345678,\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
   "viewSubType": "Listing",
   "viewType": "Listing",
 }
