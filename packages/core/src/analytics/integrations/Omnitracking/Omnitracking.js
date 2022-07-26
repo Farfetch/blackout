@@ -14,12 +14,6 @@
  */
 
 import {
-  defaultPageViewTypeAndSubTypeMapper,
-  trackEventsMapper,
-  userGenderValuesMapper,
-  viewGenderValuesMapper,
-} from './definitions';
-import {
   formatPageEvent,
   formatTrackEvent,
   getCLientCountryFromCulture,
@@ -32,6 +26,12 @@ import {
   OPTION_SEARCH_QUERY_PARAMETERS,
   OPTION_TRANSFORM_PAYLOAD,
 } from './constants';
+import {
+  pageEventsMapper,
+  trackEventsMapper,
+  userGenderValuesMapper,
+  viewGenderValuesMapper,
+} from './definitions';
 import { postTrackings } from './client';
 import analyticsTrackTypes from '../../types/trackTypes';
 import get from 'lodash/get';
@@ -170,7 +170,7 @@ class Omnitracking extends Integration {
 
       this.lastFromParameter = data?.properties?.from;
 
-      const { event, user } = data;
+      const { user } = data;
       const userTraits = get(user, 'traits', {});
 
       precalculatedParameters.userGender = get(
@@ -189,13 +189,6 @@ class Omnitracking extends Integration {
         data,
         'properties.itemCount',
       );
-
-      const defaultViewTypeMapper = defaultPageViewTypeAndSubTypeMapper[event];
-
-      if (defaultViewTypeMapper) {
-        precalculatedParameters.viewType = defaultViewTypeMapper.viewType;
-        precalculatedParameters.viewSubType = defaultViewTypeMapper.viewSubType;
-      }
 
       precalculatedParameters.isLogged =
         userTraits.hasOwnProperty('isGuest') && !userTraits.isGuest;
@@ -226,52 +219,75 @@ class Omnitracking extends Integration {
    * @returns {Promise} Promise that will resolve when the method finishes.
    */
   async track(data) {
-    let precalculatedParameters;
-
     switch (data.type) {
+      // Screen is treated the same as a page in Omnitracking
       case analyticsTrackTypes.PAGE:
       case analyticsTrackTypes.SCREEN: {
-        // Screen is treated the same as a page in Omnitracking
-        precalculatedParameters = this.getPrecalculatedParametersForEvent(data);
-
-        return await this.postTracking(
-          formatPageEvent(data, precalculatedParameters),
-          data,
-        );
+        return await this.trackEvent(data, pageEventsMapper);
       }
       case analyticsTrackTypes.TRACK: {
-        const eventMapperFn = trackEventsMapper[data.event];
-
-        if (eventMapperFn) {
-          const mappedEvents = eventMapperFn(data);
-
-          if (isArray(mappedEvents)) {
-            await Promise.all(
-              mappedEvents.map(async mappedEventData => {
-                return this.processTrackEvents(data, mappedEventData);
-              }),
-            );
-          }
-
-          if (isObject(mappedEvents)) {
-            return this.processTrackEvents(data, mappedEvents);
-          }
-        }
-
-        return this.processTrackEvents(data);
+        return await this.trackEvent(data, trackEventsMapper);
       }
       default:
         break;
     }
   }
 
+  /**
+   * Method that will process the event being tracked according its type: page, screen or track.
+   *
+   * @param {object} data - Event data provided by analytics.
+   * @param {object} mapper - The correspondent mapper according to the event type. It can be either `pageEventsMapper` or `trackEventsMapper`.
+   *
+   * @returns {Promise<*>} - The postTracking promise.
+   */
+  async trackEvent(data, mapper) {
+    const eventMapperFn = mapper[data.event];
+
+    if (eventMapperFn) {
+      const mappedEvents = eventMapperFn(data);
+
+      if (isArray(mappedEvents)) {
+        await Promise.all(
+          mappedEvents.map(async mappedEventData => {
+            return this.processTrackEvents(data, mappedEventData);
+          }),
+        );
+      }
+
+      if (isObject(mappedEvents)) {
+        return this.processTrackEvents(data, mappedEvents);
+      }
+    }
+
+    return this.processTrackEvents(data);
+  }
+
+  /**
+   *
+   * @param {object} data - Event data provided by analytics.
+   * @param {object} mappedEventData - Properties from the event mapping.
+   *
+   * @returns {Promise<*>} - The postTracking promise.
+   */
   async processTrackEvents(data, mappedEventData) {
     const precalculatedParameters =
       this.getPrecalculatedParametersForEvent(data);
-    const formattedEventData = formatTrackEvent(data, {
+    const additionalParameter = {
       ...precalculatedParameters,
       ...mappedEventData,
-    });
+    };
+
+    let formattedEventData;
+
+    if (
+      data.type === analyticsTrackTypes.PAGE ||
+      data.type === analyticsTrackTypes.SCREEN
+    ) {
+      formattedEventData = formatPageEvent(data, additionalParameter);
+    } else {
+      formattedEventData = formatTrackEvent(data, additionalParameter);
+    }
 
     if (!this.validateTrackingRequisites()) {
       logger.warn(
