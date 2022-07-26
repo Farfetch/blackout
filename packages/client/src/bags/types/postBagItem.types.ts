@@ -9,9 +9,9 @@ export type PostBagItemData = {
   // Product aggregator identifier.
   productAggregatorId?: number;
   // Merchant identifier.
-  merchantId?: number;
+  merchantId: number;
   // Bag item quantity.
-  quantity?: number;
+  quantity: number;
   // Bag item size.
   size: number;
   // Bag item scale.

@@ -57,7 +57,7 @@ const useCommercePages = (
     getContents(state, queryContent),
   );
   const action = useAction(fetchCommercePagesAction);
-  const fetchCommercePages = (): void => action(queryCommerce, slug, strategy);
+  const fetchCommercePages = () => action(queryCommerce, slug, strategy);
   const resetContents = useAction(resetContentsAction);
 
   useEffect(() => {

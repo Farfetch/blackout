@@ -1,5 +1,5 @@
-import type { AxiosRequestConfig } from 'axios';
 import type {
+  Config,
   PatchWishlistItemData,
   Wishlist,
   WishlistItem,
@@ -16,10 +16,10 @@ export type UseWishlistItem = (wishlistItemId: number) => {
   updateWishlistItem: (
     wishlistItemId: WishlistItem['id'],
     data: PatchWishlistItemData,
-    config?: AxiosRequestConfig,
+    config?: Config,
   ) => Promise<Wishlist | undefined>;
   removeWishlistItem: (
     wishlistItemId: WishlistItem['id'],
-    config?: AxiosRequestConfig,
+    config?: Config,
   ) => Promise<Wishlist | undefined>;
 };

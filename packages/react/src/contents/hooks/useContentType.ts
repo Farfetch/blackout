@@ -25,12 +25,14 @@ import type { Params, UseContentType } from '../types';
 const useContentType = (
   codes: string | string[],
   contentTypeCode: string,
+  spaceCode: string,
   params?: Params,
   pageSize?: number,
 ): UseContentType => {
   const query = {
     ...(codes && { codes }),
     contentTypeCode,
+    spaceCode,
     // @ts-ignore
     // dotenv does´t exist in this BOX and typing `process` will generate an error in tests.
     environmentCode:
@@ -54,7 +56,7 @@ const useContentType = (
     getContents(state, query),
   );
   const action = useAction(fetchContentAction);
-  const fetchContentType = (): void => action(query);
+  const fetchContentType = () => action(query);
 
   useEffect(() => {
     !contentType && fetchContentType();

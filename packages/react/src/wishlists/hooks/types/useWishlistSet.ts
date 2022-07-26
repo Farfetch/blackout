@@ -1,6 +1,6 @@
-import type { AxiosRequestConfig } from 'axios';
 import type {
   BlackoutError,
+  Config,
   PatchWishlistSetData,
   WishlistSet,
 } from '@farfetch/blackout-client';
@@ -13,13 +13,13 @@ export type UseWishlistSet = (setId: WishlistSet['setId']) => {
   itemsCounter: number;
   removeWishlistSet: (
     wishlistSetId: WishlistSet['setId'],
-    config?: AxiosRequestConfig,
+    config?: Config,
   ) => Promise<undefined>;
   totalQuantity: number;
   updateWishlistSet: (
     wishlistSetId: WishlistSet['setId'],
     data: PatchWishlistSetData,
-    config?: AxiosRequestConfig,
+    config?: Config,
   ) => Promise<WishlistSet | undefined>;
   wishlistSet: WishlistSetHydrated | undefined;
 };

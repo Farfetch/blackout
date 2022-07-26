@@ -1,6 +1,6 @@
 import { adaptError } from '../helpers/client/formatError';
 import client from '../helpers/client';
-import type { AxiosRequestConfig } from 'axios';
+import type { Config } from '../types';
 import type { TrackingData } from './types';
 
 const POST_TRACKINGS_PATHNAME = '/marketing/v1/trackings';
@@ -27,7 +27,7 @@ const POST_TRACKINGS_PATHNAME = '/marketing/v1/trackings';
  *
  * @returns Promise object.
  */
-const postTracking = (data: TrackingData, config?: AxiosRequestConfig) =>
+const postTracking = (data: TrackingData, config?: Config) =>
   client
     .post(POST_TRACKINGS_PATHNAME, data, config)
     .then(response => response.data)

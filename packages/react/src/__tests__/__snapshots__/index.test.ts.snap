@@ -215,7 +215,6 @@ Object {
   },
   "useAction": [Function],
   "useAddOrUpdateBagItem": [Function],
-  "useAddresses": [Function],
   "useAuthentication": [Function],
   "useBag": [Function],
   "useBagItem": [Function],

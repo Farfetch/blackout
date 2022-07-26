@@ -39,10 +39,16 @@ import {
 import { useAction } from '../../helpers';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import type {
+  ClickAndCollect,
+  ShippingMode,
+  StoreAddress,
+  UserAddress,
+} from '@farfetch/blackout-client';
 
 export interface MetaData {
   guestEmail?: string;
-  shippingMode?: string;
+  shippingMode?: ShippingMode;
   createCheckoutOnMount?: boolean;
 }
 
@@ -55,7 +61,7 @@ const useCheckout = ({
   guestEmail,
   shippingMode,
   createCheckoutOnMount = true,
-}: MetaData): any => {
+}: MetaData) => {
   // Selectors
   const checkoutData = useSelector((state: StoreState) => getCheckout(state));
   const checkoutDetails = useSelector((state: StoreState) =>
@@ -131,14 +137,14 @@ const useCheckout = ({
   const updateGiftMessage = useAction(updateGiftMessageAction);
 
   // State
-  const [selectedCollectPoint, setSelectedCollectPoint] = useState<any | null>(
-    null,
-  );
+  const [selectedCollectPoint, setSelectedCollectPoint] = useState<
+    ClickAndCollect['collectPointId'] | null
+  >(null);
   const [checkoutSelectedShipping, setCheckoutSelectedShipping] = useState<
-    any | null
+    UserAddress['id'] | null
   >(null);
   const [checkoutSelectedBilling, setCheckoutSelectedBilling] = useState<
-    any | null
+    UserAddress['id'] | null
   >(null);
 
   useEffect(() => {
@@ -147,6 +153,7 @@ const useCheckout = ({
     }
 
     const isAuthorized = !isGuest || (isGuest && !!guestEmail);
+
     if (
       isAuthorized &&
       bagId &&
@@ -162,7 +169,18 @@ const useCheckout = ({
         shippingMode: shippingMode,
       });
     }
-  }, [checkoutId, guestEmail, bagId, isGuest]);
+  }, [
+    checkoutId,
+    guestEmail,
+    bagId,
+    isGuest,
+    createCheckoutOnMount,
+    isAuthLoading,
+    isBagLoading,
+    isCheckoutLoading,
+    createCheckout,
+    shippingMode,
+  ]);
 
   const handleGetCollectPoints = async (checkoutId: number) => {
     await fetchCollectPoints({ orderId: checkoutId });
@@ -170,8 +188,8 @@ const useCheckout = ({
 
   const handleSelectCollectPoint = async (
     checkoutId: number,
-    clickAndCollect: { [k: string]: any },
-    storeAddress: { [k: string]: any },
+    clickAndCollect: ClickAndCollect,
+    storeAddress: StoreAddress,
   ) => {
     const previousSelectedCollectPoint = selectedCollectPoint;
     try {
@@ -188,7 +206,7 @@ const useCheckout = ({
   };
 
   const handleSetShippingAddress = async (
-    address: { id: number },
+    address: UserAddress,
     isSameAsBilling = false,
   ) => {
     const data = isSameAsBilling
@@ -201,11 +219,21 @@ const useCheckout = ({
         };
 
     setCheckoutSelectedShipping(address.id);
+
+    if (!checkoutId) {
+      return;
+    }
+
     await updateCheckout(checkoutId, data);
   };
 
-  const handleSetBillingAddress = async (address: { id: number }) => {
+  const handleSetBillingAddress = async (address: UserAddress) => {
     setCheckoutSelectedBilling(address.id);
+
+    if (!checkoutId) {
+      return;
+    }
+
     await updateCheckout(checkoutId, {
       billingAddress: address,
     });

@@ -23,6 +23,7 @@ import type {
   HandleSizeChangeType,
   UseBagItem,
 } from './types';
+import type { PostBagItemData } from '@farfetch/blackout-client';
 
 /**
  * Provides Redux actions and state access, as well as handlers for dealing with
@@ -74,12 +75,12 @@ const useBagItem: UseBagItem = bagItemId => {
     if (quantityToHandle < bagItem.quantity) {
       updateBagItem(bagItem.id, {
         merchantId: bagItem.merchant,
-        productId: bagItem.product?.id,
+        productId: bagItem.product?.id as number,
         quantity: quantityToHandle,
         scale: bagItem.size.scale,
         size: bagItem.size.id,
         oldQuantity: bagItem.quantity,
-        oldSize: bagItem.size,
+        oldSize: bagItem.size.id,
         from,
       });
 
@@ -118,9 +119,9 @@ const useBagItem: UseBagItem = bagItemId => {
 
     const requestData = {
       merchantId: bagItem.merchant,
-      productId: bagItem.product?.id,
-      scale: size?.scale,
-      size: size?.id,
+      productId: bagItem.product?.id as number, // Hammer: This hook will be removed so just silence the typescript error here
+      scale: size?.scale as number, // Hammer: This hook will be removed so just silence the typescript error here
+      size: size?.id as number, // Hammer: This hook will be removed so just silence the typescript error here
       from,
     };
 
@@ -140,7 +141,7 @@ const useBagItem: UseBagItem = bagItemId => {
           ...requestData,
           quantity: bagItemQuantity,
           oldQuantity: bagItemQuantity,
-          oldSize: bagItem.size,
+          oldSize: bagItem.size.id,
         });
         return;
       } else {
@@ -150,7 +151,7 @@ const useBagItem: UseBagItem = bagItemId => {
           ...requestData,
           quantity: merchantQuantity,
           oldQuantity: bagItemQuantity,
-          oldSize: bagItem.size,
+          oldSize: bagItem.size.id,
         });
         quantityToHandle -= merchantQuantity;
         // Remove the merchant of the future possibilities to add to the bag for
@@ -165,7 +166,7 @@ const useBagItem: UseBagItem = bagItemId => {
         } as Omit<SizeAdapted, 'stock'> & { stock: SizeAdapted['stock'] | [] };
       }
     } else {
-      await deleteBagItem(bagItem.id, from);
+      await deleteBagItem(bagItem.id, { from });
     }
 
     if (quantityToHandle) {
@@ -235,14 +236,14 @@ const useBagItem: UseBagItem = bagItemId => {
         await updateBagItem(bagItem.id, {
           ...requestData,
           oldQuantity: bagItem.quantity,
-          oldSize: bagItem.size,
+          oldSize: bagItem.size.id,
         });
 
         didFirstUpdate = true;
       } else {
-        // When we did the first update, we add the remaining quantity
-        // to the bag
-        await addBagItem(requestData);
+        // Hammer: There is a problem with the merchantId property handling here
+        //         but as this hook will be replaced disregard this error for now.
+        await addBagItem(requestData as PostBagItemData);
       }
 
       quantityToHandle -= quantityToManage;

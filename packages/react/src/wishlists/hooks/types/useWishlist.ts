@@ -1,20 +1,19 @@
-import type { AxiosRequestConfig } from 'axios';
+import type { Config, Wishlist } from '@farfetch/blackout-client';
 import type {
   PostWishlistItemActionData,
   WishlistItemHydrated,
   WishlistsState,
 } from '@farfetch/blackout-redux';
-import type { Wishlist } from '@farfetch/blackout-client';
 
 export type UseWishlist = () => {
   error: WishlistsState['error'] | undefined;
   fetchWishlist: (
-    wishlistId: number,
-    config?: AxiosRequestConfig,
+    wishlistId: Wishlist['id'],
+    config?: Config,
   ) => Promise<Wishlist | undefined>;
   addWishlistItem: (
     data: PostWishlistItemActionData,
-    config?: AxiosRequestConfig,
+    config?: Config,
   ) => Promise<Wishlist | undefined>;
   id: WishlistsState['id'];
   isEmpty: boolean;

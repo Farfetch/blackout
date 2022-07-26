@@ -21,10 +21,16 @@ import type { Params, UsePage } from '../types';
  *
  * @returns - Returns actions and selectors for content page data.
  */
-const usePage = (slug: string, params?: Params, pageSize?: number): UsePage => {
+const usePage = (
+  slug: string,
+  spaceCode: string,
+  params?: Params,
+  pageSize?: number,
+): UsePage => {
   const query = {
     codes: slug,
     contentTypeCode: 'pages',
+    spaceCode,
     // @ts-ignore
     // dotenv does´t exist in this BOX and typing `process` will generate an error in tests.
     environmentCode: process.env.WEB_APP_CONTENT_ENV || '',
@@ -44,7 +50,7 @@ const usePage = (slug: string, params?: Params, pageSize?: number): UsePage => {
   );
   const page = useSelector((state: StoreState) => getContents(state, query));
   const action = useAction(fetchContentAction);
-  const fetchContent = (): void => action(query);
+  const fetchContent = () => action(query);
   const resetContent = useAction(resetContents);
 
   useEffect(() => {

@@ -1,4 +1,5 @@
 import { adaptError } from '../helpers/client/formatError';
+import { merge } from 'lodash';
 import client from '../helpers/client';
 import join from 'proper-url-join';
 import type { Config } from '../types';
@@ -17,14 +18,21 @@ const getSearchContents = (
   query: QueryContents,
   config?: Config,
 ): Promise<Contents> => {
+  const payload = merge({}, query) as Record<string, unknown>;
   const targets = query?.target || {};
+
   Object.keys(targets).map(
-    key => (query[`target.${key}`] = query?.target?.[key]),
+    key => (payload[`target.${key}`] = query?.target?.[key]),
   );
   delete query?.target;
 
   return client
-    .get(join('/content/v1/search/contents', { query }), config)
+    .get(
+      join('/content/v1/search/contents', {
+        query: query as Omit<QueryContents, 'target'>,
+      }),
+      config,
+    )
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);

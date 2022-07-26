@@ -18,7 +18,7 @@ import type { FetchAddressPredictionsAction } from '../../types';
  */
 const fetchAddressPredictionsFactory =
   (getAddressPredictions: GetAddressPredictions) =>
-  (text: string, query: GetAddressPredictionsQuery, config?: Config) =>
+  (text: string, query?: GetAddressPredictionsQuery, config?: Config) =>
   async (
     dispatch: Dispatch<FetchAddressPredictionsAction>,
   ): Promise<AddressPrediction[]> => {

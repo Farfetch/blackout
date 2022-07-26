@@ -1,7 +1,6 @@
 /**
  * Blackout React.
  */
-export * from './addresses';
 export * from './analytics';
 export * from './authentication';
 export * from './bags';
