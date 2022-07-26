@@ -1317,6 +1317,26 @@ describe('GA4 Integration', () => {
           expect(ga4Spy.mock.calls).toMatchSnapshot();
         });
 
+        it('Should trigger ga4 change_quantity event when quantity is 0', async () => {
+          ga4Instance = await createGA4InstanceAndLoad(validOptions, loadData);
+
+          const ga4Spy = getWindowGa4Spy();
+          const clonedEvent = cloneDeep(
+            validTrackEvents[eventTypes.PRODUCT_UPDATED],
+          );
+
+          clonedEvent.properties.quantity = 0;
+
+          // delete unwanted case scenarios
+          delete clonedEvent.properties.oldSize;
+          delete clonedEvent.properties.size;
+          delete clonedEvent.properties.oldColour;
+          delete clonedEvent.properties.colour;
+
+          await ga4Instance.track(clonedEvent);
+          expect(ga4Spy.mock.calls).toMatchSnapshot();
+        });
+
         it('Should trigger ga4 change_size event', async () => {
           ga4Instance = await createGA4InstanceAndLoad(validOptions, loadData);
 
