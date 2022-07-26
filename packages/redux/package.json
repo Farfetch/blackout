@@ -26,8 +26,9 @@
   "devDependencies": {
     "@farfetch/blackout-analytics": "^1.0.0-next.46",
     "@farfetch/blackout-client": "^2.0.0-next.181",
-    "redux-mock-store": "^1.5.4",
+    "redux": "^4.1.0",
     "redux-thunk": "^2.4.1",
+    "redux-mock-store": "^1.5.4",
     "reselect": "^4.1.5"
   },
   "peerDependencies": {
@@ -35,6 +36,7 @@
     "@farfetch/blackout-client": "^2.0.0-next.181",
     "lodash": "^4.17.20",
     "redux": "^4.1.0",
+    "redux-thunk": "^2.4.1",
     "reselect": "^4.1.5"
   },
   "publishConfig": {

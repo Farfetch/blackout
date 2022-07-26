@@ -13,6 +13,8 @@ import bagItemSchema from '../../../entities/schemas/bagItem';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, Nullable, StoreState } from '../../../types';
 
+export type BagItemMetadata = Partial<PatchBagItemData>;
+
 /**
  * Creates a thunk factory configured with the specified client to remove a bag
  * item.
@@ -25,7 +27,7 @@ const removeBagItemFactory =
   (deleteBagItem: DeleteBagItem) =>
   (
     bagItemId: number,
-    data?: PatchBagItemData,
+    data?: BagItemMetadata,
     query?: DeleteBagItemQuery,
     config?: Config,
   ) =>

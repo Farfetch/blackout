@@ -1,4 +1,4 @@
-import type { Gender, PriceType, Type } from '@farfetch/blackout-client';
+import type { QueryCommercePages } from '@farfetch/blackout-client';
 
 export type Params = {
   // Query a content by a specific country (country:GB).
@@ -15,19 +15,7 @@ export type Params = {
   preview?: string;
 };
 
-export type CommercePagesParams = {
-  // Query by a page type.
-  type: Type;
-  // Query by a specified product or set identifier.
-  id?: string;
-  // Query by a gender (E.g. 0 = Woman, 1 = Man, 2 = Unisex, 3 = Kid).
-  gender?: Gender;
-  // Query by a specified brand identifier.
-  brand?: number;
-  // Query by a specified category identifiers, separated by commas (E.g. 139065,139088).
-  category?: string;
-  // uery by a specified price type, separated by commas (E.g. 0,1,2).
-  priceType?: PriceType;
-  // Query by a specified sku identifier.
-  sku?: number;
-};
+export type CommercePagesParams = Omit<
+  QueryCommercePages,
+  'pageIndex' | 'pageSize'
+>;

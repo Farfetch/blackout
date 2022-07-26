@@ -12,6 +12,7 @@ import {
 import { shallowEqual, useSelector } from 'react-redux';
 import { useAction } from '../../helpers';
 import type { HandleAddOrUpdateItem, UseAddOrUpdateBagItem } from './types';
+import type { PostBagItemData } from '@farfetch/blackout-client';
 
 /**
  * Provides handler for adding or updating a bag item.
@@ -96,7 +97,7 @@ const useAddOrUpdateBagItem: UseAddOrUpdateBagItem = bagItem => {
               ...requestData,
               quantity: i,
               oldQuantity: itemInBag.quantity,
-              oldSize: itemInBag.size,
+              oldSize: itemInBag.size.id,
             });
 
             // Now we have less quantity to add to the next merchant
@@ -106,7 +107,9 @@ const useAddOrUpdateBagItem: UseAddOrUpdateBagItem = bagItem => {
         }
       } else {
         // When the item is not in the bag, we add it
-        await addBagItem(requestData);
+        // Hammer: There is a problem with the customAttributes property handling here
+        //         but as this hook will be replaced disregard this error for now.
+        await addBagItem(requestData as PostBagItemData);
 
         // Now we have less quantity to add to the next merchant
         quantityToHandle -= quantityToAdd;

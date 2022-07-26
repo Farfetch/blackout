@@ -8,13 +8,19 @@ export type PatchBagItemData = {
   // Product identifier.
   productId: Product['result']['id'];
   // Merchant identifier.
-  merchantId: number;
+  merchantId?: number;
   // Bag item quantity.
   quantity: number;
   // Bag item size.
   size: number;
   // Bag item scale.
   scale: number;
+  // Previous quantity of the item - NOTE: This parameter is not used by the api but are necessary for the middlewares
+  oldQuantity?: number;
+  // Previous size of the item - NOTE: This parameter is not used by the api but are necessary for the middlewares
+  oldSize?: number;
+  // From where the action was triggered (for analytics purposes) - NOTE: This parameter is not used by the api but are necessary for the middlewares
+  from?: string;
 };
 
 export type PatchBagItem = (

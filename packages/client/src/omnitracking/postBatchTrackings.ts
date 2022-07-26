@@ -1,6 +1,6 @@
 import { adaptError } from '../helpers/client/formatError';
 import client from '../helpers/client';
-import type { AxiosRequestConfig } from 'axios';
+import type { Config } from '../types';
 import type { TrackingData } from './types';
 
 /**
@@ -29,10 +29,7 @@ import type { TrackingData } from './types';
  *
  * @returns Promise object.
  */
-const postBatchTrackings = (
-  data: Array<TrackingData>,
-  config?: AxiosRequestConfig,
-) =>
+const postBatchTrackings = (data: Array<TrackingData>, config?: Config) =>
   client
     .post('/marketing/v1/batch/trackings', data, config)
     .then(response => response.data)
