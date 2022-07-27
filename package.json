@@ -24,7 +24,7 @@
     "npm": ">=6.4.1"
   },
   "scripts": {
-    "release:build": "lerna run --concurrency 1 --no-bail --stream --scope \"@farfetch/*\" build",
+    "release:build": "lerna run --concurrency 1 --stream --scope \"@farfetch/*\" build",
     "clean": "scripts/clean.sh",
     "lint": "npx eslint . --ext .js,.ts",
     "postinstall": "patch-package",
