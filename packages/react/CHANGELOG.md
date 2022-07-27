@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.42.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.41.1...@farfetch/blackout-react@0.42.0) (2022-07-27)
+
+
+### Bug Fixes
+
+* **core|redux:** fix hash creation for pagination props and commercepages ([692fe3f](https://github.com/Farfetch/blackout/commit/692fe3f1d329219b65bb88070d0dc15767216cba))
+
+
+### Features
+
+* **core|react:** add analytics SPA page referrer context ([638ed30](https://github.com/Farfetch/blackout/commit/638ed303ee441586a1255aba03973b7d3199c8cf))
+
+
+### BREAKING CHANGES
+
+* **core|redux:** - function name changed from stripSlugSubfolderJsonTrue to stripSlugSubfolder
+the removal of json true rule. It isn't for core packages.
+
+
+
+
+
 ## [0.41.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.41.0...@farfetch/blackout-react@0.41.1) (2022-07-19)
 
 
