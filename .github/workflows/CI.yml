@@ -82,32 +82,32 @@ jobs:
 
       # Only make a release if it is a run of the 'main' or 'next' branches
       # or a pull request that contains a "chore: make release" message
-      - name: Make release
-        if: |
-          github.ref_name == 'main' ||
-          github.ref_name == 'next' ||
-          (github.event_name == 'pull_request' && startsWith(github.head_ref, 'rc/'))
-        env:
-          MAKE_RELEASE_COMMIT_MESSAGE: 'chore: make release'
-          PUBLISH_COMMIT_MESSAGE: 'chore: publish [skip build]'
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.RELEASE_BOT_GITHUB_TOKEN }}
-          GIT_AUTHOR_NAME: ${{ secrets.RELEASE_BOT_GIT_NAME }}
-          GIT_AUTHOR_EMAIL: ${{ secrets.RELEASE_BOT_GIT_EMAIL }}
-          GIT_COMMITTER_NAME: ${{ secrets.RELEASE_BOT_GIT_NAME }}
-          GIT_COMMITTER_EMAIL: ${{ secrets.RELEASE_BOT_GIT_EMAIL }}
-        run: |
-          git remote set-url origin "https://${GITHUB_TOKEN}@github.com/Farfetch/blackout.git"
+      # - name: Make release
+      #   if: |
+      #     github.ref_name == 'main' ||
+      #     github.ref_name == 'next' ||
+      #     (github.event_name == 'pull_request' && startsWith(github.head_ref, 'rc/'))
+      #   env:
+      #     MAKE_RELEASE_COMMIT_MESSAGE: 'chore: make release'
+      #     PUBLISH_COMMIT_MESSAGE: 'chore: publish [skip build]'
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      #     GITHUB_TOKEN: ${{ secrets.RELEASE_BOT_GITHUB_TOKEN }}
+      #     GIT_AUTHOR_NAME: ${{ secrets.RELEASE_BOT_GIT_NAME }}
+      #     GIT_AUTHOR_EMAIL: ${{ secrets.RELEASE_BOT_GIT_EMAIL }}
+      #     GIT_COMMITTER_NAME: ${{ secrets.RELEASE_BOT_GIT_NAME }}
+      #     GIT_COMMITTER_EMAIL: ${{ secrets.RELEASE_BOT_GIT_EMAIL }}
+      #   run: |
+      #     git remote set-url origin "https://${GITHUB_TOKEN}@github.com/Farfetch/blackout.git"
 
-          SOURCE_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+      #     SOURCE_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 
-          if [[ ${SOURCE_BRANCH_NAME} = main ]]; then
-            npx lerna publish --conventional-commits --message "${PUBLISH_COMMIT_MESSAGE}" --no-verify-access --yes
-          else
-            if [[ ${SOURCE_BRANCH_NAME} = next ]]; then
-              PRE_ID=next
-            else
-              PRE_ID=rc
-            fi
-            npx lerna publish --conventional-commits --conventional-prerelease --no-verify-access --preid ${PRE_ID} --pre-dist-tag ${PRE_ID}  --message "${PUBLISH_COMMIT_MESSAGE}"  --yes
-          fi
+      #     if [[ ${SOURCE_BRANCH_NAME} = main ]]; then
+      #       npx lerna publish --conventional-commits --message "${PUBLISH_COMMIT_MESSAGE}" --no-verify-access --yes
+      #     else
+      #       if [[ ${SOURCE_BRANCH_NAME} = next ]]; then
+      #         PRE_ID=next
+      #       else
+      #         PRE_ID=rc
+      #       fi
+      #       npx lerna publish --conventional-commits --conventional-prerelease --no-verify-access --preid ${PRE_ID} --pre-dist-tag ${PRE_ID}  --message "${PUBLISH_COMMIT_MESSAGE}"  --yes
+      #     fi
