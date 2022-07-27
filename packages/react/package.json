@@ -1,6 +1,6 @@
 {
   "name": "@farfetch/blackout-react",
-  "version": "1.0.0-next.277",
+  "version": "1.0.0-next.278",
   "description": "React components, hooks and other tools filled with business logic to help using the Farfetch Platform Solutions' services in web or native e-commerce apps",
   "license": "MIT",
   "main": "./src/index.ts",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@castleio/castle-js": "^2.1.13",
-    "@farfetch/blackout-analytics": "^1.0.0-next.46",
+    "@farfetch/blackout-analytics": "^1.0.0-next.47",
     "@types/proper-url-join": "2.1.1",
     "crypto-js": "3.1.9-1",
     "prop-types": "^15.7.2",
@@ -28,8 +28,8 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@farfetch/blackout-client": "^2.0.0-next.181",
-    "@farfetch/blackout-redux": "^1.0.0-next.278"
+    "@farfetch/blackout-client": "^2.0.0-next.182",
+    "@farfetch/blackout-redux": "^1.0.0-next.279"
   },
   "peerDependencies": {
     "@farfetch/blackout-client": "^2.0.0-next.181",

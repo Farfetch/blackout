@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.278](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.277...@farfetch/blackout-react@1.0.0-next.278) (2022-07-27)
+
+
+### Bug Fixes
+
+* **client|redux|redux:** fix account areas imports and exports ([e80b833](https://github.com/Farfetch/blackout/commit/e80b833a51f8f658ede1591da56589f863dd02a5))
+* fix `useAction` hook type ([288c0e6](https://github.com/Farfetch/blackout/commit/288c0e6903fab00b103694749ca684d0253c0511))
+
+
+### Features
+
+* add support for passing metadata in wishlist and bag items actions ([167c2a2](https://github.com/Farfetch/blackout/commit/167c2a22944328c9aab097996255e7321ea412e7))
+* implement next version ([9995600](https://github.com/Farfetch/blackout/commit/9995600a4620aa09e18c07ebaa0d4058fe70abb1))
+* **react:** refactor useWishlist and useWishlistItem hooks ([89813a4](https://github.com/Farfetch/blackout/commit/89813a453e66e0e62450d5662d88aac6d3a07b76))
+
+
+### BREAKING CHANGES
+
+* **react:** useWishlist and useWishlistItem hooks new interface
+* Many renames of actions and clients, as well as redux store
+layout were implemented and will be described in a new migration file which
+will be authored later.
+
+
+
+
+
 # [1.0.0-next.277](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.276...@farfetch/blackout-react@1.0.0-next.277) (2022-07-15)
 
 **Note:** Version bump only for package @farfetch/blackout-react

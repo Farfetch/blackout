@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.47](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.46...@farfetch/blackout-analytics@1.0.0-next.47) (2022-07-27)
+
+
+### Features
+
+* implement next version ([9995600](https://github.com/Farfetch/blackout/commit/9995600a4620aa09e18c07ebaa0d4058fe70abb1))
+
+
+### BREAKING CHANGES
+
+* Many renames of actions and clients, as well as redux store
+layout were implemented and will be described in a new migration file which
+will be authored later.
+
+
+
+
+
 # [1.0.0-next.46](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.45...@farfetch/blackout-analytics@1.0.0-next.46) (2022-07-15)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
