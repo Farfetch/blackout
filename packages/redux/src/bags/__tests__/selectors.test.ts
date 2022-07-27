@@ -291,7 +291,7 @@ describe('bags redux selectors', () => {
     it('should return a list with available sizes', () => {
       expect(
         selectors.getBagItemAvailableSizes(mockState, mockBagItemId),
-      ).toEqual(mockProduct.sizes);
+      ).toEqual(mockProduct.sizes.filter(size => size.id !== 23));
     });
 
     it('should return the normal sizes if products are not the same', () => {
@@ -311,7 +311,7 @@ describe('bags redux selectors', () => {
 
     it('should return the bag item that already exists', () => {
       const expectedResult = {
-        ...mockState.entities.bagItems[101],
+        ...mockState.entities.bagItems[mockBagItemId],
         product: mockProduct,
       };
 
@@ -319,6 +319,7 @@ describe('bags redux selectors', () => {
         selectors.findProductInBag(mockState, {
           product,
           size,
+          merchantId: product.merchant,
         }),
       ).toEqual(expectedResult);
     });
@@ -339,10 +340,10 @@ describe('bags redux selectors', () => {
       };
 
       expect(
-        // @ts-expect-error Changing only what's necessary for this test
         selectors.findProductInBag(state, {
           product,
           size,
+          merchantId: product.merchant,
         }),
       ).toBeUndefined();
     });
@@ -480,7 +481,6 @@ describe('bags redux selectors', () => {
     it('should return false if found nothing', () => {
       expect(
         selectors.isProductInBag(
-          // @ts-expect-error Changing only what's necessary for this test
           {
             bag: {
               ...mockState.bag,

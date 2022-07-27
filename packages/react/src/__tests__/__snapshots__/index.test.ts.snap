@@ -214,7 +214,6 @@ Object {
     "Web": "web",
   },
   "useAction": [Function],
-  "useAddOrUpdateBagItem": [Function],
   "useAuthentication": [Function],
   "useBag": [Function],
   "useBagItem": [Function],

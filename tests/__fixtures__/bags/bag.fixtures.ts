@@ -53,7 +53,7 @@ export const mockLoadingState = {
 
 export const mockErrorState = {
   bag: {
-    error: null,
+    error: mockError,
     id: mockBagId,
     isLoading: false,
     items: {
@@ -72,7 +72,7 @@ export const mockErrorState = {
 
 export const mockState = {
   bag: {
-    error: mockError,
+    error: null,
     id: mockBagId,
     isLoading: false,
     result: {
@@ -96,6 +96,8 @@ export const mockState = {
         formattedTotalTaxes: '$0',
         taxType: 'DDP',
       },
+      count: 7,
+      items: [mockBagItemId, 101, 102, 103, 104],
     },
     items: {
       ids: [mockBagItemId, 101, 102, 103, 104],

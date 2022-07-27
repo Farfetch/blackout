@@ -29,7 +29,6 @@ const generateBagItemHash = (params: Params): string => {
   const merchantId = params.merchantId || params.merchant;
   let sizeId = params.size;
   let sizeScale = params.scale;
-  const customAttributes = params.customAttributes;
   const productAggregatorId =
     params.productAggregatorId || params.productAggregator?.id;
 
@@ -37,6 +36,11 @@ const generateBagItemHash = (params: Params): string => {
     sizeId = params.size.id;
     sizeScale = params.size.scale;
   }
+
+  const customAttributes =
+    typeof params.customAttributes === 'object'
+      ? JSON.stringify(params.customAttributes)
+      : params.customAttributes;
 
   if (!merchantId || !productId || !sizeId || !sizeScale) {
     throw new Error(
