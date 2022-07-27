@@ -27,7 +27,7 @@ import type { UseWishlistOptions } from './types';
  * @returns All the handlers, state, actions and relevant data needed to manage any wishlist operation.
  */
 const useWishlist = (options: UseWishlistOptions = {}) => {
-  const { enableAutoFetch = false } = options;
+  const { enableAutoFetch = false, fetchConfig } = options;
   // Selectors
   const error = useSelector(getWishlistError);
   const isLoading = useSelector(isWishlistLoading);
@@ -47,9 +47,9 @@ const useWishlist = (options: UseWishlistOptions = {}) => {
 
   useEffect(() => {
     if (!isLoading && !error && enableAutoFetch && userWishlistId) {
-      fetch(userWishlistId);
+      fetch(userWishlistId, fetchConfig);
     }
-  }, [enableAutoFetch, error, fetch, isLoading, userWishlistId]);
+  }, [enableAutoFetch, error, fetch, fetchConfig, isLoading, userWishlistId]);
 
   return {
     isLoading,

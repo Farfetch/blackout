@@ -1,40 +1,32 @@
 import type {
-  Bag,
-  Config,
-  GetBagQuery,
-  PostBagItemData,
-  PostBagItemQuery,
-  ProductType,
-} from '@farfetch/blackout-client';
-import type {
-  BagItemActionMetadata,
   BagItemHydrated,
-  BagsState,
+  CustomAttributesAdapted,
+  ProductEntity,
+  SizeAdapted,
 } from '@farfetch/blackout-redux';
+import type { Config, GetBagQuery } from '@farfetch/blackout-client';
 
-export type UseBag = (excludeProductTypes?: ProductType[]) => {
-  bag: BagsState['result'];
-  error: BagsState['error'] | undefined;
-  addBagItem: (
-    data: PostBagItemData,
-    query?: PostBagItemQuery,
-    metadata?: BagItemActionMetadata,
-    config?: Config,
-  ) => Promise<Bag>;
-  fetchBag: (
-    bagId: string,
-    query?: GetBagQuery,
-    config?: Config,
-  ) => Promise<Bag>;
-  id: BagsState['id'];
-  isEmpty: boolean | undefined;
-  isLoading: BagsState['isLoading'];
-  isWithAnyError: boolean | undefined;
-  items: BagItemHydrated[];
-  itemsCount: number;
-  itemsIds: BagItemHydrated['id'][] | null;
-  itemsUnavailable: BagItemHydrated[] | undefined;
-  resetBag: () => void;
-  resetBagState: (fieldsToReset?: string[]) => void;
-  totalQuantity: number;
+export type HandleAddOrUpdateItem = ({
+  customAttributes,
+  from,
+  product,
+  productAggregatorId,
+  quantity,
+  size,
+}: {
+  customAttributes?: CustomAttributesAdapted | string;
+  from?: string;
+  product: ProductEntity;
+  productAggregatorId?: Exclude<
+    BagItemHydrated['productAggregator'],
+    null
+  >['id'];
+  quantity: number;
+  size: SizeAdapted;
+}) => Promise<void>;
+
+export type UseBagOptions = {
+  enableAutoFetch?: boolean;
+  fetchQuery?: GetBagQuery;
+  fetchConfig?: Config;
 };

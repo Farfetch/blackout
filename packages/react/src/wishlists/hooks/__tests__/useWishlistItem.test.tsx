@@ -4,6 +4,10 @@ import {
   mockWishlistItemPatchData,
   mockWishlistState,
 } from 'tests/__fixtures__/wishlists';
+import {
+  removeWishlistItem,
+  updateWishlistItem,
+} from '@farfetch/blackout-redux';
 import { withStore } from '../../../../tests/helpers';
 import useWishlistItem from '../useWishlistItem';
 
@@ -11,13 +15,6 @@ jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
   removeWishlistItem: jest.fn(() => ({ type: 'remove' })),
   updateWishlistItem: jest.fn(() => ({ type: 'update' })),
-}));
-
-const mockDispatch = jest.fn();
-
-jest.mock('react-redux', () => ({
-  ...jest.requireActual('react-redux'),
-  useDispatch: () => mockDispatch,
 }));
 
 describe('useWishlistItem', () => {
@@ -92,7 +89,7 @@ describe('useWishlistItem', () => {
 
       remove();
 
-      expect(mockDispatch).toHaveBeenCalledWith({ type: 'remove' });
+      expect(removeWishlistItem).toHaveBeenCalledWith(mockWishlistItemId);
     });
 
     it('should call `updateWishlistItem` action', () => {
@@ -108,7 +105,10 @@ describe('useWishlistItem', () => {
 
       update(mockWishlistItemPatchData);
 
-      expect(mockDispatch).toHaveBeenCalledWith({ type: 'update' });
+      expect(updateWishlistItem).toHaveBeenCalledWith(
+        mockWishlistItemId,
+        mockWishlistItemPatchData,
+      );
     });
   });
 });

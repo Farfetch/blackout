@@ -1,3 +1,10 @@
+import {
+  addWishlistItem,
+  fetchWishlist,
+  resetWishlist,
+  StoreState,
+  updateWishlistItem,
+} from '@farfetch/blackout-redux';
 import { cleanup, renderHook } from '@testing-library/react';
 import {
   mockWishlistId,
@@ -6,7 +13,6 @@ import {
 } from 'tests/__fixtures__/wishlists';
 import { withStore } from '../../../../tests/helpers';
 import useWishlist from '../useWishlist';
-import type { StoreState } from '@farfetch/blackout-redux';
 
 const mockUserState = {
   entities: {
@@ -33,21 +39,10 @@ const stateMockData: StoreState = {
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
-  addWishlistItem: jest.fn(data => ({ type: 'add-item', ...data })),
-  updateWishlistItem: jest.fn((wishlistItemId, data) => ({
-    type: 'update-item',
-    wishlistItemId,
-    ...data,
-  })),
-  fetchWishlist: jest.fn(wishlistId => ({ type: 'fetch', wishlistId })),
-  resetWishlist: jest.fn(() => ({ type: 'reset' })),
-}));
-
-const mockDispatch = jest.fn();
-
-jest.mock('react-redux', () => ({
-  ...jest.requireActual('react-redux'),
-  useDispatch: () => mockDispatch,
+  addWishlistItem: jest.fn(() => () => Promise.resolve()),
+  updateWishlistItem: jest.fn(() => () => Promise.resolve()),
+  fetchWishlist: jest.fn(() => () => Promise.resolve()),
+  resetWishlist: jest.fn(() => () => Promise.resolve()),
 }));
 
 describe('useWishlist', () => {
@@ -187,10 +182,7 @@ describe('useWishlist', () => {
         wrapper: withStore(stateMockData),
       });
 
-      expect(mockDispatch).toHaveBeenCalledWith({
-        type: 'fetch',
-        wishlistId: mockWishlistId,
-      });
+      expect(fetchWishlist).toHaveBeenCalledWith(mockWishlistId, undefined);
     });
 
     it('should not fetch data if `enableAutoFetch` option is false', () => {
@@ -198,28 +190,17 @@ describe('useWishlist', () => {
         wrapper: withStore(stateMockData),
       });
 
-      expect(mockDispatch).not.toHaveBeenCalled();
+      expect(fetchWishlist).not.toHaveBeenCalled();
     });
   });
 
   describe('actions', () => {
     it('should call `fetch` action', () => {
-      const {
-        result: {
-          current: {
-            actions: { fetch },
-          },
-        },
-      } = renderHook(() => useWishlist({ enableAutoFetch: true }), {
+      renderHook(() => useWishlist({ enableAutoFetch: true }), {
         wrapper: withStore(stateMockData),
       });
 
-      fetch('123');
-
-      expect(mockDispatch).toHaveBeenCalledWith({
-        type: 'fetch',
-        wishlistId: '123',
-      });
+      expect(fetchWishlist).toHaveBeenCalledWith(mockWishlistId, undefined);
     });
 
     it('should call `addWishlistItem` action', () => {
@@ -235,8 +216,7 @@ describe('useWishlist', () => {
 
       addItem({ productId: 123, quantity: 1, size: 17, from: 'PDP' });
 
-      expect(mockDispatch).toHaveBeenCalledWith({
-        type: 'add-item',
+      expect(addWishlistItem).toHaveBeenCalledWith({
         from: 'PDP',
         productId: 123,
         quantity: 1,
@@ -262,13 +242,11 @@ describe('useWishlist', () => {
         productId: 123,
       });
 
-      expect(mockDispatch).toHaveBeenCalledWith({
-        type: 'update-item',
-        productId: 123,
+      expect(updateWishlistItem).toHaveBeenCalledWith(123, {
         quantity: 1,
         size: 17,
         merchantId: 456,
-        wishlistItemId: 123,
+        productId: 123,
       });
     });
 
@@ -285,7 +263,7 @@ describe('useWishlist', () => {
 
       reset();
 
-      expect(mockDispatch).toHaveBeenCalledWith({ type: 'reset' });
+      expect(resetWishlist).toHaveBeenCalled();
     });
   });
 });

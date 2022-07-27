@@ -59,12 +59,11 @@ export const getBag = (state: StoreState): BagsState['result'] =>
  *
  * @param state - Application state.
  *
- * @returns Error information, `undefined` if there are no errors.
+ * @returns Error information.
  */
 export const getBagError = (
   state: StoreState,
-): BagsState['error'] | undefined =>
-  getError(state.bag as BagsState) || undefined;
+): BagsState['error'] | undefined => getError(state.bag as BagsState);
 
 /**
  * Retrieves the universal identifier of the current user's bag.
@@ -116,10 +115,7 @@ export const getBagItem: (
   [
     (state: StoreState, bagItemId: BagItem['id']) =>
       getEntityById(state, 'bagItems', bagItemId) as BagItemEntity,
-    (
-      state: StoreState,
-      bagItemId: BagItem['id'],
-    ): ProductEntity | undefined => {
+    (state: StoreState, bagItemId: BagItem['id']) => {
       const bagItem = getEntityById(
         state,
         'bagItems',
@@ -459,6 +455,7 @@ export const findProductInBag = createSelector(
         customAttributes?: CustomAttributesAdapted;
         product: ProductEntity;
         size: SizeAdapted;
+        merchantId: number;
       },
     ) => productParams,
   ],

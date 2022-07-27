@@ -27,7 +27,7 @@
     "lodash": "^4.17.21"
   },
   "peerDependencies": {
-    "@farfetch/blackout-client": "^2.0.0-next.181",
+    "@farfetch/blackout-client": "^2.0.0-next.182",
     "lodash": "^4.17.21"
   },
   "publishConfig": {

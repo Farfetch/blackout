@@ -1,6 +1,5 @@
 import { generateBagItemHash } from '..';
 import { mockBagItem } from 'tests/__fixtures__/bags';
-import omit from 'lodash/omit';
 
 describe('generateBagItemHash()', () => {
   describe('error handling', () => {
@@ -65,28 +64,37 @@ describe('generateBagItemHash()', () => {
     const baseHashPattern = `${mockBagItem.merchantId}!${mockBagItem.product.id}!${mockBagItem.sizeId}!${mockBagItem.size.scale}`;
 
     it('should create a valid hash when no other parameters are provided', () => {
-      expect(
-        generateBagItemHash(
-          omit(mockBagItem, ['customAttributes', 'productAggregator']),
-        ),
-      ).toBe(baseHashPattern);
+      expect(generateBagItemHash(mockBagItem)).toBe(baseHashPattern);
     });
 
     it('should create a valid hash when `customAttributes` are provided', () => {
-      expect(
-        generateBagItemHash(omit(mockBagItem, ['productAggregator'])),
-      ).toBe(`${baseHashPattern}!${mockBagItem.customAttributes}`);
+      const newMockBagItem = { ...mockBagItem, customAttributes: '123' };
+
+      expect(generateBagItemHash(newMockBagItem)).toBe(
+        `${baseHashPattern}!${newMockBagItem.customAttributes}`,
+      );
     });
 
     it('should create a valid hash when a `productAggregatorId` is provided', () => {
-      expect(generateBagItemHash(omit(mockBagItem, ['customAttributes']))).toBe(
-        `${baseHashPattern}!${mockBagItem.productAggregator.id}`,
+      const newMockBagItem = {
+        ...mockBagItem,
+        productAggregator: { id: 123 },
+      };
+
+      expect(generateBagItemHash(newMockBagItem)).toBe(
+        `${baseHashPattern}!${newMockBagItem.productAggregator.id}`,
       );
     });
 
     it('should create a valid hash from a valid bag item', () => {
-      expect(generateBagItemHash(mockBagItem)).toBe(
-        `${baseHashPattern}!${mockBagItem.customAttributes}!${mockBagItem.productAggregator.id}`,
+      const newMockBagItem = {
+        ...mockBagItem,
+        productAggregator: { id: 456 },
+        customAttributes: '123',
+      };
+
+      expect(generateBagItemHash(newMockBagItem)).toBe(
+        `${baseHashPattern}!${newMockBagItem.customAttributes}!${newMockBagItem.productAggregator.id}`,
       );
     });
   });

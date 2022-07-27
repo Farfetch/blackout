@@ -1,8 +1,4 @@
-import type {
-  BagItemEntity,
-  MerchantEntity,
-  ProductEntity,
-} from '../../entities/types';
+import type { BagItemEntity, ProductEntity } from '../../entities/types';
 import type {
   CustomAttributesAdapted,
   SizeAdapted,
@@ -14,7 +10,7 @@ type BuildBagItemParams = {
   // Custom attributes.
   customAttributes?: CustomAttributesAdapted;
   // Specific merchant id.
-  merchantId?: number;
+  merchantId: number;
   // Product with all information.
   product: ProductEntity;
   // Product bundle aggregator id.
@@ -25,16 +21,6 @@ type BuildBagItemParams = {
   size: SizeAdapted | BagItemEntity['size'];
 };
 
-type BuildBagItem = (params: BuildBagItemParams) => {
-  authCode?: string;
-  customAttributes: CustomAttributesAdapted | string;
-  merchantId?: MerchantEntity['id'];
-  productId: ProductEntity['id'];
-  quantity: number;
-  scale: SizeAdapted['scale'];
-  size: SizeAdapted['id'];
-};
-
 /**
  * Build a bag item ready to bag requests (add or update).
  *
@@ -42,7 +28,7 @@ type BuildBagItem = (params: BuildBagItemParams) => {
  *
  * @returns Bag item data ready to perform add or update requests.
  */
-const buildBagItem: BuildBagItem = ({
+const buildBagItem = ({
   authCode,
   customAttributes = '',
   merchantId,
@@ -51,13 +37,16 @@ const buildBagItem: BuildBagItem = ({
   quantity = 1,
   size,
   ...otherParams
-}) => {
-  const sizeHydrated = product.sizes?.find(({ id }) => id === size.id);
+}: BuildBagItemParams) => {
+  const parsedCustomAttributes =
+    typeof customAttributes === 'object'
+      ? JSON.stringify(customAttributes)
+      : customAttributes;
 
   return {
     authCode,
-    customAttributes,
-    merchantId: merchantId || sizeHydrated?.stock[0]?.merchantId,
+    customAttributes: parsedCustomAttributes,
+    merchantId: merchantId,
     productId: product.id,
     productAggregatorId,
     quantity,

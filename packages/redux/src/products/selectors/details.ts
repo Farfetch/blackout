@@ -115,7 +115,13 @@ export const getProductSizeRemainingQuantity = (
   const product = getProduct(state, productId);
   const size = product?.sizes?.find(({ id }) => id === sizeId) as SizeAdapted;
   const stockAvailable = size?.globalQuantity ?? 0;
-  const bagItem = product && findProductInBag(state, { product, size });
+  const bagItem =
+    product &&
+    findProductInBag(state, {
+      product,
+      size,
+      merchantId: size.stock[0]?.merchantId || product.merchant,
+    });
 
   if (bagItem) {
     const itemWholeQuantity = getProductQuantityInBag(state, productId, sizeId);
@@ -152,7 +158,13 @@ export const getAllProductSizesRemainingQuantity = createSelector(
           // Get product size remaining quantity
           const size = product?.sizes?.find(({ id }) => id === sizeId);
           let stockAvailable = size?.globalQuantity ?? 0;
-          const bagItemData = size && buildBagItem({ product, size });
+          const bagItemData =
+            size &&
+            buildBagItem({
+              product,
+              size,
+              merchantId: size.stock[0]?.merchantId || product.merchant,
+            });
           const hash = bagItemData && generateBagItemHash(bagItemData);
           const bagItem = bagItems?.find(
             item => generateBagItemHash(item) === hash,
