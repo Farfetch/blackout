@@ -2,7 +2,6 @@ import Analytics, {
   trackTypes as analyticsTrackTypes,
   platformTypes,
 } from '@farfetch/blackout-core/analytics';
-import webContext from './context';
 
 /**
  * Analytics base class.
@@ -34,8 +33,6 @@ class AnalyticsWeb extends Analytics {
 
     // Stores the last page call
     this.currentPageCallData = null;
-
-    this.useContext(webContext);
   }
 
   /**
@@ -115,7 +112,7 @@ class AnalyticsWeb extends Analytics {
 }
 
 /**
- * Instance to be used to track events and page views.
+ * Instance to be used to track events and pageviews.
  *
  * @type {AnalyticsWeb}
  * @name default

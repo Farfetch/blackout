@@ -138,7 +138,7 @@ const getSpecificWebParameters = data => {
   const type = get(data, 'type');
 
   if (type === analyticsTrackTypes.PAGE) {
-    const referrer = get(data, 'context.web.pageLocationReferrer', '');
+    const referrer = get(data, 'context.web.document.referrer', '');
     const location = get(data, 'context.web.window.location', {});
     const query = get(location, 'query', {});
     const internalRequest =
