@@ -34,8 +34,8 @@
     "reselect": "^4.1.5"
   },
   "peerDependencies": {
-    "@farfetch/blackout-analytics": "^1.0.0-next.46",
-    "@farfetch/blackout-client": "^2.0.0-next.181",
+    "@farfetch/blackout-analytics": "^1.0.0-next.47",
+    "@farfetch/blackout-client": "^2.0.0-next.182",
     "lodash": "^4.17.20",
     "redux": "^4.1.0",
     "redux-thunk": "^2.4.1",
