@@ -279,7 +279,7 @@ export const mockContentType = {
 };
 
 export const mockModel = {
-  slug: '/cttpage',
+  slug: '/cttpage?json=true',
   subfolder: '/',
   searchContentRequests: [
     {
@@ -427,11 +427,11 @@ export const expectedNormalizedPayload = {
   },
   contents: {
     isLoading: {
-      'careers!all!1': false,
-      'careers!test-career!1': false,
-      'navbars!footer!1': false,
-      'pages!cttpage,boutiques!1': false,
-      'widgets!newsletter-terms-and-conditions-widget!1': false,
+      'careers!all': false,
+      'careers!test-career': false,
+      'navbars!footer': false,
+      'pages!cttpage,boutiques': false,
+      'widgets!newsletter-terms-and-conditions-widget': false,
     },
     error: {},
     metadata: {
@@ -460,10 +460,10 @@ export const mockContentsLoadingState = {
   entities: {},
   contents: {
     isLoading: {
-      'careers!all!1': true,
-      'navbars!footer!1': true,
-      'pages!cttpage,boutiques!1': true,
-      'widgets!newsletter-terms-and-conditions-widget!1': true,
+      'careers!all': true,
+      'navbars!footer': true,
+      'pages!cttpage,boutiques': true,
+      'widgets!newsletter-terms-and-conditions-widget': true,
     },
     error: {},
   },
@@ -473,22 +473,22 @@ export const mockContentsErrorState = {
   entities: {},
   contents: {
     isLoading: {
-      'careers!all!1': false,
-      'navbars!footer!1': false,
-      'pages!cttpage,boutiques!1': false,
-      'widgets!newsletter-terms-and-conditions-widget!1': false,
+      'careers!all': false,
+      'navbars!footer': false,
+      'pages!cttpage,boutiques': false,
+      'widgets!newsletter-terms-and-conditions-widget': false,
     },
     error: {
-      'careers!all!1': {
+      'careers!all': {
         message: 'Error',
       },
-      'navbars!footer!1': {
+      'navbars!footer': {
         message: 'Error',
       },
-      'pages!cttpage,boutiques!1': {
+      'pages!cttpage,boutiques': {
         message: 'Error',
       },
-      'widgets!newsletter-terms-and-conditions-widget!1': {
+      'widgets!newsletter-terms-and-conditions-widget': {
         message: 'Error',
       },
     },

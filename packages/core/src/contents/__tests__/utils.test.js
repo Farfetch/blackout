@@ -107,7 +107,7 @@ describe('getRankedCommercePage', () => {
 describe('buildContentGroupHash', () => {
   it('should correctly construct the correct hash a query object', () => {
     const mockQuery = { codes: 'abc', contentTypeCode: 'pages' };
-    const expectedResult = 'pages!abc!1';
+    const expectedResult = 'pages!abc';
     const result = buildContentGroupHash(mockQuery);
 
     expect(result).toBe(expectedResult);
@@ -131,7 +131,7 @@ describe('buildContentGroupHash', () => {
 
   it('should return an hash with codes "all" when query received doesnt include codes', () => {
     const mockQuery = { contentTypeCode: 'pages' };
-    const expectedResult = 'pages!all!1';
+    const expectedResult = 'pages!all';
     const result = buildContentGroupHash(mockQuery);
 
     expect(result).toBe(expectedResult);
@@ -139,42 +139,15 @@ describe('buildContentGroupHash', () => {
 
   it('should return an hash with contentType "all" when query received doesnt include contentTypeCode', () => {
     const mockQuery = { codes: 'abc' };
-    const expectedResult = 'all!abc!1';
-    const result = buildContentGroupHash(mockQuery);
-
-    expect(result).toBe(expectedResult);
-  });
-
-  it('should return an hash with page and pageSize on the end when query received include page and pageSize', () => {
-    const mockQuery = { contentTypeCode: 'pages', page: 1, pageSize: 2 };
-    const expectedResult = 'pages!all!1,2';
-    const result = buildContentGroupHash(mockQuery);
-
-    expect(result).toBe(expectedResult);
-  });
-
-  it('should return an hash with page on the end when query received include page', () => {
-    const mockQuery = { contentTypeCode: 'pages', page: 1 };
-    const expectedResult = 'pages!all!1';
+    const expectedResult = 'all!abc';
     const result = buildContentGroupHash(mockQuery);
 
     expect(result).toBe(expectedResult);
   });
 
   it('should return an hash with pageSize on the end when query received include pageSize', () => {
-    const mockQuery = { contentTypeCode: 'pages', page: 1, pageSize: 2 };
-    const expectedResult = 'pages!all!1,2';
-    const result = buildContentGroupHash(mockQuery);
-
-    expect(result).toBe(expectedResult);
-  });
-
-  it('should return an hash of commerce pages without pagination data', () => {
-    const mockQuery = {
-      contentTypeCode: 'commerce_pages',
-      codes: '/shopping/woman',
-    };
-    const expectedResult = 'commerce_pages!/shopping/woman!1';
+    const mockQuery = { contentTypeCode: 'pages', pageSize: 2 };
+    const expectedResult = 'pages!all!2';
     const result = buildContentGroupHash(mockQuery);
 
     expect(result).toBe(expectedResult);
