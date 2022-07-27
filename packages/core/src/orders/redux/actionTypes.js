@@ -102,23 +102,3 @@ export const POST_ORDER_ITEM_ACTIVITIES_REQUEST =
 /** Action type dispatched when the post order item activities request succeeds. */
 export const POST_ORDER_ITEM_ACTIVITIES_SUCCESS =
   '@farfetch/blackout-core/POST_ORDER_ITEM_ACTIVITIES_SUCCESS';
-
-/** Action type dispatched when the get order shipping address change requests request fails. */
-export const GET_ORDER_SHIPPING_ADDRESS_CHANGE_REQUESTS_FAILURE =
-  '@farfetch/blackout-core/GET_ORDER_SHIPPING_ADDRESS_CHANGE_REQUESTS_FAILURE';
-/** Action type dispatched when the get order shipping address change requests request starts. */
-export const GET_ORDER_SHIPPING_ADDRESS_CHANGE_REQUESTS_REQUEST =
-  '@farfetch/blackout-core/GET_ORDER_SHIPPING_ADDRESS_CHANGE_REQUESTS_REQUEST';
-/** Action type dispatched when the get order shipping address change requests request succeeds. */
-export const GET_ORDER_SHIPPING_ADDRESS_CHANGE_REQUESTS_SUCCESS =
-  '@farfetch/blackout-core/GET_ORDER_SHIPPING_ADDRESS_CHANGE_REQUESTS_SUCCESS';
-
-/** Action type dispatched when the post order shipping address change requests request fails. */
-export const POST_ORDER_SHIPPING_ADDRESS_CHANGE_REQUESTS_FAILURE =
-  '@farfetch/blackout-core/POST_ORDER_SHIPPING_ADDRESS_CHANGE_REQUESTS_FAILURE';
-/** Action type dispatched when the post order shipping address change requests request starts. */
-export const POST_ORDER_SHIPPING_ADDRESS_CHANGE_REQUESTS_REQUEST =
-  '@farfetch/blackout-core/POST_ORDER_SHIPPING_ADDRESS_CHANGE_REQUESTS_REQUEST';
-/** Action type dispatched when the post order shipping address change requests request succeeds. */
-export const POST_ORDER_SHIPPING_ADDRESS_CHANGE_REQUESTS_SUCCESS =
-  '@farfetch/blackout-core/POST_ORDER_SHIPPING_ADDRESS_CHANGE_REQUESTS_SUCCESS';

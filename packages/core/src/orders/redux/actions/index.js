@@ -17,6 +17,4 @@ export { default as doPostOrderDocument } from './doPostOrderDocument';
 export { default as doResetOrders } from './doResetOrders';
 export { default as doGetOrderAvailableItemsActivities } from './doGetOrderAvailableItemsActivities';
 export { default as doGetOrderItemAvailableActivities } from './doGetOrderItemAvailableActivities';
-export { default as doGetOrderShippingAddressChangeRequests } from './doGetOrderShippingAddressChangeRequests';
 export { default as doPostOrderItemActivities } from './doPostOrderItemActivities';
-export { default as doPostOrderShippingAddressChangeRequests } from './doPostOrderShippingAddressChangeRequests';

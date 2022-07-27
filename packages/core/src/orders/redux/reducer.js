@@ -45,10 +45,6 @@ const INITIAL_STATE = {
     error: null,
     isLoading: false,
   },
-  orderShippingAddressChangeRequests: {
-    error: null,
-    isLoading: false,
-  },
 };
 
 const error = (state = INITIAL_STATE.error, action = {}) => {
@@ -383,15 +379,6 @@ export const documents = reducerFactory(
   actionTypes,
 );
 
-export const orderShippingAddressChangeRequests = reducerFactory(
-  [
-    'GET_ORDER_SHIPPING_ADDRESS_CHANGE_REQUESTS',
-    'POST_ORDER_SHIPPING_ADDRESS_CHANGE_REQUESTS',
-  ],
-  INITIAL_STATE.orderShippingAddressChangeRequests,
-  actionTypes,
-);
-
 export const orderAvailableItemsActivities = reducerFactory(
   'GET_ORDER_AVAILABLE_ITEMS_ACTIVITIES',
   INITIAL_STATE.orderAvailableItemsActivities,
@@ -448,5 +435,4 @@ export default combineReducers({
   documents,
   orderAvailableItemsActivities,
   orderItemAvailableActivities,
-  orderShippingAddressChangeRequests,
 });
