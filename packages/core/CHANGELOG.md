@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.66.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.65.0...@farfetch/blackout-core@1.66.0) (2022-07-27)
+
+
+### Bug Fixes
+
+* **core|redux:** fix hash creation for pagination props and commercepages ([1948e2d](https://github.com/Farfetch/blackout/commit/1948e2df571bbff80a450519c4d0347ee269bcba))
+
+
+### Features
+
+* **core|react:** add analytics SPA page referrer context ([8d3005d](https://github.com/Farfetch/blackout/commit/8d3005da2ee48bd7f6c2fc62844bf751278dceaf))
+* **core|redux:** add order change address endpoints ([6f50fc8](https://github.com/Farfetch/blackout/commit/6f50fc81b01869d1e1c7356ca06cfb7fcff6b61b))
+
+
+### Reverts
+
+* Revert "feat(core|redux): add order change address endpoints" ([41b94e9](https://github.com/Farfetch/blackout/commit/41b94e917f81d6aabbcfbdc8386fc231de29ccc8))
+* Revert "fix(core|redux): fix hash creation for pagination props and commercepages" ([b2f00e4](https://github.com/Farfetch/blackout/commit/b2f00e446f233556073f918de7a89277596c1873))
+
+
+
+
+
 # [1.65.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.64.0...@farfetch/blackout-core@1.65.0) (2022-07-19)
 
 
