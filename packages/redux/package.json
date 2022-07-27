@@ -17,6 +17,7 @@
     "url": "https://github.com/Farfetch/blackout.git"
   },
   "dependencies": {
+    "@types/proper-url-join": "2.1.1",
     "credit-card-type": "^9.1.0",
     "normalizr": "^3.6.1",
     "proper-url-join": "^2.1.1",
