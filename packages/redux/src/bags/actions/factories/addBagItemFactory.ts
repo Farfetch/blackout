@@ -10,6 +10,7 @@ import {
 import { getBagId } from '../../selectors';
 import { normalize } from 'normalizr';
 import bagItemSchema from '../../../entities/schemas/bagItem';
+import type { BagItemActionMetadata } from '../../types';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, Nullable, StoreState } from '../../../types';
 
@@ -22,7 +23,12 @@ import type { GetOptionsArgument, Nullable, StoreState } from '../../../types';
  */
 const addBagItemFactory =
   (postBagItem: PostBagItem) =>
-  (data: PostBagItemData, query?: PostBagItemQuery, config?: Config) =>
+  (
+    data: PostBagItemData,
+    query?: PostBagItemQuery,
+    metadata?: BagItemActionMetadata,
+    config?: Config,
+  ) =>
   async (
     dispatch: Dispatch,
     getState: () => StoreState,
@@ -43,6 +49,7 @@ const addBagItemFactory =
       dispatch({
         type: actionTypes.ADD_BAG_ITEM_REQUEST,
         meta: {
+          ...metadata,
           ...data,
           bagId,
         },
@@ -62,6 +69,7 @@ const addBagItemFactory =
         payload: normalizedBag,
         type: actionTypes.ADD_BAG_ITEM_SUCCESS,
         meta: {
+          ...metadata,
           ...data,
           bagId,
         },
@@ -73,6 +81,7 @@ const addBagItemFactory =
         payload: { error: toBlackoutError(error) },
         type: actionTypes.ADD_BAG_ITEM_FAILURE,
         meta: {
+          ...metadata,
           ...data,
           bagId,
         },

@@ -166,7 +166,7 @@ const useBagItem: UseBagItem = bagItemId => {
         } as Omit<SizeAdapted, 'stock'> & { stock: SizeAdapted['stock'] | [] };
       }
     } else {
-      await deleteBagItem(bagItem.id, { from });
+      await deleteBagItem(bagItem.id, undefined, { from });
     }
 
     if (quantityToHandle) {
@@ -228,16 +228,22 @@ const useBagItem: UseBagItem = bagItemId => {
         quantity: quantityToManage,
         productAggregatorId: bagItem?.productAggregator?.id,
         size,
-        from,
       });
 
       if (!didFirstUpdate) {
         // Update the item
-        await updateBagItem(bagItem.id, {
-          ...requestData,
-          oldQuantity: bagItem.quantity,
-          oldSize: bagItem.size.id,
-        });
+        await updateBagItem(
+          bagItem.id,
+          {
+            ...requestData,
+          },
+          undefined,
+          {
+            oldQuantity: bagItem.quantity,
+            oldSize: bagItem.size.id,
+            from,
+          },
+        );
 
         didFirstUpdate = true;
       } else {
@@ -265,7 +271,7 @@ const useBagItem: UseBagItem = bagItemId => {
    * @param from - Provenience of action.
    */
   const handleDeleteBagItem: HandleDeleteBagItemType = from => {
-    deleteBagItem(bagItem.id, { from });
+    deleteBagItem(bagItem.id, undefined, { from });
   };
 
   return {

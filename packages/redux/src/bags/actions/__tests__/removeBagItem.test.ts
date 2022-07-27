@@ -29,6 +29,12 @@ const bagMockStoreWithoutMiddlewares = (state = {}) =>
   mockStore({ bag: INITIAL_STATE }, state);
 const expectedConfig = undefined;
 const expectedQuery = undefined;
+const bagItemMetadata = {
+  from: 'bag',
+  oldQuantity: 1,
+  oldSize: 16,
+};
+
 let store;
 
 describe('removeBagItem() action creator', () => {
@@ -45,37 +51,41 @@ describe('removeBagItem() action creator', () => {
 
     expect.assertions(4);
 
-    await store.dispatch(removeBagItem(mockBagItemId)).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(deleteBagItem).toHaveBeenCalledTimes(1);
-      expect(deleteBagItem).toHaveBeenCalledWith(
-        mockBagId,
-        mockBagItemId,
-        expectedQuery,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            meta: {
-              bagId: mockBagId,
-              bagItemId: mockBagItemId,
+    await store
+      .dispatch(removeBagItem(mockBagItemId, undefined, bagItemMetadata))
+      .catch(error => {
+        expect(error).toBe(expectedError);
+        expect(deleteBagItem).toHaveBeenCalledTimes(1);
+        expect(deleteBagItem).toHaveBeenCalledWith(
+          mockBagId,
+          mockBagItemId,
+          expectedQuery,
+          expectedConfig,
+        );
+        expect(store.getActions()).toEqual(
+          expect.arrayContaining([
+            {
+              meta: {
+                ...bagItemMetadata,
+                bagId: mockBagId,
+                bagItemId: mockBagItemId,
+              },
+              type: actionTypes.REMOVE_BAG_ITEM_REQUEST,
             },
-            type: actionTypes.REMOVE_BAG_ITEM_REQUEST,
-          },
-          {
-            payload: {
-              error: expectedError,
+            {
+              payload: {
+                error: expectedError,
+              },
+              meta: {
+                ...bagItemMetadata,
+                bagId: mockBagId,
+                bagItemId: mockBagItemId,
+              },
+              type: actionTypes.REMOVE_BAG_ITEM_FAILURE,
             },
-            meta: {
-              bagId: mockBagId,
-              bagItemId: mockBagItemId,
-            },
-            type: actionTypes.REMOVE_BAG_ITEM_FAILURE,
-          },
-        ]),
-      );
-    });
+          ]),
+        );
+      });
   });
 
   it('should create the correct actions for when the remove bag item procedure is successful', async () => {
@@ -83,9 +93,11 @@ describe('removeBagItem() action creator', () => {
 
     expect.assertions(5);
 
-    await store.dispatch(removeBagItem(mockBagItemId)).then(clientResult => {
-      expect(clientResult).toBe(mockResponse);
-    });
+    await store
+      .dispatch(removeBagItem(mockBagItemId, undefined, bagItemMetadata))
+      .then(clientResult => {
+        expect(clientResult).toBe(mockResponse);
+      });
 
     const actionResults = store.getActions();
 
@@ -100,6 +112,7 @@ describe('removeBagItem() action creator', () => {
       {
         type: actionTypes.REMOVE_BAG_ITEM_REQUEST,
         meta: {
+          ...bagItemMetadata,
           bagId: mockBagId,
           bagItemId: mockBagItemId,
         },
@@ -108,6 +121,7 @@ describe('removeBagItem() action creator', () => {
         payload: mockNormalizedPayload,
         type: actionTypes.REMOVE_BAG_ITEM_SUCCESS,
         meta: {
+          ...bagItemMetadata,
           bagId: mockBagId,
           bagItemId: mockBagItemId,
         },

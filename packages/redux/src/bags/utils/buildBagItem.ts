@@ -23,8 +23,6 @@ type BuildBagItemParams = {
   quantity?: number;
   // Size information.
   size: SizeAdapted | BagItemEntity['size'];
-  // Provenience of action.
-  from?: string;
 };
 
 type BuildBagItem = (params: BuildBagItemParams) => {
@@ -35,7 +33,6 @@ type BuildBagItem = (params: BuildBagItemParams) => {
   quantity: number;
   scale: SizeAdapted['scale'];
   size: SizeAdapted['id'];
-  from?: string;
 };
 
 /**
