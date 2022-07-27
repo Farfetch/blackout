@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.182](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.181...@farfetch/blackout-client@2.0.0-next.182) (2022-07-27)
+
+
+### Bug Fixes
+
+* **client|redux|redux:** fix account areas imports and exports ([e80b833](https://github.com/Farfetch/blackout/commit/e80b833a51f8f658ede1591da56589f863dd02a5))
+* **client:** add required @types/* and remove unnecessary dependencies ([4c20f28](https://github.com/Farfetch/blackout/commit/4c20f28ad402b6b41648a80d221b9662d3a138d6))
+* **client:** update PostGuestTokens type ([a4af154](https://github.com/Farfetch/blackout/commit/a4af1549fb191c07bcbd8cf4a5478d87e38fa313))
+* fix `useAction` hook type ([288c0e6](https://github.com/Farfetch/blackout/commit/288c0e6903fab00b103694749ca684d0253c0511))
+
+
+### Features
+
+* add support for passing metadata in wishlist and bag items actions ([167c2a2](https://github.com/Farfetch/blackout/commit/167c2a22944328c9aab097996255e7321ea412e7))
+* implement next version ([9995600](https://github.com/Farfetch/blackout/commit/9995600a4620aa09e18c07ebaa0d4058fe70abb1))
+
+
+### BREAKING CHANGES
+
+* Many renames of actions and clients, as well as redux store
+layout were implemented and will be described in a new migration file which
+will be authored later.
+
+
+
+
+
 # [2.0.0-next.181](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.180...@farfetch/blackout-client@2.0.0-next.181) (2022-07-15)
 
 **Note:** Version bump only for package @farfetch/blackout-client
