@@ -3,7 +3,8 @@ import {
   Config,
   GetCheckoutOrderResponse,
   PostCheckoutOrder,
-  PostCheckoutOrderData,
+  PostCheckoutOrderDataWithBag,
+  PostCheckoutOrderDataWithItems,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
@@ -21,7 +22,10 @@ import type { Dispatch } from 'redux';
  */
 const createCheckoutFactory =
   (postCheckoutOrder: PostCheckoutOrder) =>
-  (data: PostCheckoutOrderData, config?: Config) =>
+  (
+    data: PostCheckoutOrderDataWithItems | PostCheckoutOrderDataWithBag,
+    config?: Config,
+  ) =>
   async (dispatch: Dispatch): Promise<GetCheckoutOrderResponse> => {
     try {
       dispatch({

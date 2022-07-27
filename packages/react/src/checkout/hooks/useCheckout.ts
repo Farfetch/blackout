@@ -46,7 +46,7 @@ import type {
   UserAddress,
 } from '@farfetch/blackout-client';
 
-export interface MetaData {
+export interface UseCheckoutOptions {
   guestEmail?: string;
   shippingMode?: ShippingMode;
   createCheckoutOnMount?: boolean;
@@ -61,7 +61,7 @@ const useCheckout = ({
   guestEmail,
   shippingMode,
   createCheckoutOnMount = true,
-}: MetaData) => {
+}: UseCheckoutOptions) => {
   // Selectors
   const checkoutData = useSelector((state: StoreState) => getCheckout(state));
   const checkoutDetails = useSelector((state: StoreState) =>

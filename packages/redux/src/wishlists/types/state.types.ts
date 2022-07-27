@@ -26,7 +26,7 @@ export type WishlistsState = CombinedState<{
   isLoading: boolean;
   result: WishlistNormalized | Record<string, undefined>;
   items: {
-    ids: Array<WishlistItemEntity['id']> | null;
+    ids: Array<WishlistItemEntity['id']> | null | undefined;
     item: {
       error: Record<WishlistItemEntity['id'], BlackoutError | null | undefined>;
       isLoading: Record<WishlistItemEntity['id'], boolean | undefined>;

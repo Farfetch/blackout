@@ -206,6 +206,9 @@ Object {
   "meta": Object {
     "bagId": "7894746",
     "bagItemId": 134,
+    "from": "bag",
+    "oldQuantity": 1,
+    "oldSize": 16,
   },
   "payload": Object {
     "entities": Object {

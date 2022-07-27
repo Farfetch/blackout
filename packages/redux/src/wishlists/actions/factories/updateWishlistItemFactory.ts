@@ -12,7 +12,10 @@ import { normalize } from 'normalizr';
 import wishlistItemSchema from '../../../entities/schemas/wishlistItem';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
-import type { UpdateWishlistItemAction } from '../../types';
+import type {
+  UpdateWishlistItemAction,
+  WishlistItemActionMetadata,
+} from '../../types';
 import type { WishlistItemHydrated } from '../../../entities/types';
 
 /**
@@ -28,6 +31,7 @@ const updateWishlistItemFactory =
   (
     wishlistItemId: WishlistItem['id'],
     data: PatchWishlistItemData,
+    metadata?: WishlistItemActionMetadata,
     config?: Config,
   ) =>
   async (
@@ -51,6 +55,7 @@ const updateWishlistItemFactory =
 
       dispatch({
         meta: {
+          ...metadata,
           productId: wishlistItem?.product?.id,
           wishlistItemId,
         },
@@ -71,6 +76,7 @@ const updateWishlistItemFactory =
 
       dispatch({
         meta: {
+          ...metadata,
           ...data,
           productId: wishlistItem?.product?.id,
           wishlistItemId,
@@ -86,6 +92,7 @@ const updateWishlistItemFactory =
     } catch (error) {
       dispatch({
         meta: {
+          ...metadata,
           productId: wishlistItem?.product?.id,
           wishlistItemId,
         },

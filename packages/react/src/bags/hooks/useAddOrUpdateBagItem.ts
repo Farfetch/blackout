@@ -93,12 +93,18 @@ const useAddOrUpdateBagItem: UseAddOrUpdateBagItem = bagItem => {
         // and if not, try adding less
         for (let i = newQuantity; i > itemInBag.quantity; i--) {
           if (i <= merchantQuantity) {
-            await updateBagItem(itemInBag.id, {
-              ...requestData,
-              quantity: i,
-              oldQuantity: itemInBag.quantity,
-              oldSize: itemInBag.size.id,
-            });
+            await updateBagItem(
+              itemInBag.id,
+              {
+                ...requestData,
+                quantity: i,
+              },
+              undefined,
+              {
+                oldQuantity: itemInBag.quantity,
+                oldSize: itemInBag.size.id,
+              },
+            );
 
             // Now we have less quantity to add to the next merchant
             quantityToHandle -= i - itemInBag.quantity;

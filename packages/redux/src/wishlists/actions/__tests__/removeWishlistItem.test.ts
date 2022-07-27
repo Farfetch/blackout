@@ -31,6 +31,12 @@ const wishlistMockStoreWithoutMiddlewares = (state = {}) =>
   mockStore({ wishlist: INITIAL_STATE }, state);
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
+const wishlistItemMetadata = {
+  from: 'bag',
+  oldQuantity: 1,
+  oldSize: 16,
+};
+
 let store;
 
 describe('removeWishlistItem() action creator', () => {
@@ -69,7 +75,7 @@ describe('removeWishlistItem() action creator', () => {
     expect.assertions(4);
 
     await store
-      .dispatch(removeWishlistItem(mockWishlistItemId))
+      .dispatch(removeWishlistItem(mockWishlistItemId, wishlistItemMetadata))
       .catch(error => {
         expect(error).toBe(expectedError);
         expect(deleteWishlistItem).toHaveBeenCalledTimes(1);
@@ -81,6 +87,7 @@ describe('removeWishlistItem() action creator', () => {
         expect(store.getActions()).toEqual([
           {
             meta: {
+              ...wishlistItemMetadata,
               productId: mockProductId,
               wishlistItemId: mockWishlistItemId,
             },
@@ -88,6 +95,7 @@ describe('removeWishlistItem() action creator', () => {
           },
           {
             meta: {
+              ...wishlistItemMetadata,
               productId: mockProductId,
               wishlistItemId: mockWishlistItemId,
             },
@@ -104,7 +112,7 @@ describe('removeWishlistItem() action creator', () => {
     expect.assertions(7);
 
     await store
-      .dispatch(removeWishlistItem(mockWishlistItemId))
+      .dispatch(removeWishlistItem(mockWishlistItemId, wishlistItemMetadata))
       .then(clientResult => {
         expect(clientResult).toBe(mockWishlistsResponse);
       });
@@ -131,6 +139,7 @@ describe('removeWishlistItem() action creator', () => {
     expect(storeActions).toMatchObject([
       {
         meta: {
+          ...wishlistItemMetadata,
           productId: mockProductId,
           wishlistItemId: mockWishlistItemId,
         },
@@ -138,6 +147,7 @@ describe('removeWishlistItem() action creator', () => {
       },
       {
         meta: {
+          ...wishlistItemMetadata,
           productId: mockProductId,
           wishlistItemId: mockWishlistItemId,
         },

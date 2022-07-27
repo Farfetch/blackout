@@ -13,6 +13,7 @@ import wishlistItemSchema from '../../../entities/schemas/wishlistItem';
 import type {
   AddWishlistItemAction,
   PostWishlistItemActionData,
+  WishlistItemActionMetadata,
 } from '../../types';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
@@ -27,7 +28,11 @@ import type { GetOptionsArgument, StoreState } from '../../../types';
  */
 const addWishlistItemFactory =
   (postWishlistItem: PostWishlistItem) =>
-  (data: PostWishlistItemActionData, config?: Config) =>
+  (
+    data: PostWishlistItemActionData,
+    metadata?: WishlistItemActionMetadata,
+    config?: Config,
+  ) =>
   async (
     dispatch: Dispatch<AddWishlistItemAction>,
     getState: () => StoreState,
@@ -45,7 +50,7 @@ const addWishlistItemFactory =
       }
 
       dispatch({
-        meta: { productId: data.productId },
+        meta: { ...metadata, productId: data.productId },
         type: actionTypes.ADD_WISHLIST_ITEM_REQUEST,
       });
 
@@ -65,7 +70,7 @@ const addWishlistItemFactory =
       }));
 
       dispatch({
-        meta: { ...data, wishlistId },
+        meta: { ...metadata, ...data, wishlistId },
         payload: normalize(
           { ...result, items: newItems },
           { items: [wishlistItemSchema] },
@@ -76,7 +81,7 @@ const addWishlistItemFactory =
       return result;
     } catch (error) {
       dispatch({
-        meta: { productId: data.productId },
+        meta: { ...metadata, productId: data.productId },
         payload: { error: toBlackoutError(error) },
         type: actionTypes.ADD_WISHLIST_ITEM_FAILURE,
       });

@@ -211,7 +211,10 @@ Object {
   "meta": Object {
     "bagId": "7894746",
     "bagItemId": 134,
+    "from": "bag",
     "merchantId": 4,
+    "oldQuantity": 1,
+    "oldSize": 16,
     "productId": 1,
     "quantity": 99,
     "scale": 3,
