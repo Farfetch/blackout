@@ -5,12 +5,13 @@
   "license": "MIT",
   "main": "src/index.ts",
   "scripts": {
-    "build": "yarn build:transpile && yarn build:types && yarn build:copy-package-json",
+    "build": "yarn build:transpile && yarn build:types",
     "build:transpile": "../../scripts/transpile.sh",
     "build:types": "tsc -p tsconfig.release.json",
     "build:copy-package-json": "node ../../scripts/copy-package-json.js",
     "prebuild": "rimraf dist tsconfig.release.tsbuildinfo",
-    "ci:types": "tsc -p tsconfig.ci.json"
+    "ci:types": "tsc -p tsconfig.ci.json",
+    "prepack": "yarn build:copy-package-json"
   },
   "repository": {
     "type": "git",
