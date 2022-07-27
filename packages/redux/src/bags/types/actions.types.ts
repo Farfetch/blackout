@@ -12,6 +12,8 @@ import type { BagNormalized } from '../types';
 import type { MerchantEntity, ProductEntity } from '../../entities/types';
 import type { NormalizedSchema } from 'normalizr';
 
+export type BagItemActionMetadata = Record<string, unknown>;
+
 type Payload = NormalizedSchema<
   {
     categories?: Record<Category['id'], Category>;

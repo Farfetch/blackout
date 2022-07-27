@@ -79,7 +79,6 @@ jobs:
         run: yarn test --ci
 
       - name: Type checking
-        if: github.ref_name == 'next'
         run: yarn ci:types
 
       # Only make a release if it is a run of the 'main' or 'next' branches

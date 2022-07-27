@@ -10,6 +10,7 @@ import {
 import { getBagId } from '../../selectors';
 import { normalize } from 'normalizr';
 import bagItemSchema from '../../../entities/schemas/bagItem';
+import type { BagItemActionMetadata } from '../../types';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, Nullable, StoreState } from '../../../types';
 
@@ -27,6 +28,7 @@ const updateBagItemFactory =
     bagItemId: number,
     data: PatchBagItemData,
     query?: PatchBagItemQuery,
+    metadata?: BagItemActionMetadata,
     config?: Config,
   ) =>
   async (
@@ -44,6 +46,7 @@ const updateBagItemFactory =
 
       dispatch({
         meta: {
+          ...metadata,
           ...data,
           bagItemId,
           bagId,
@@ -65,6 +68,7 @@ const updateBagItemFactory =
         payload: normalizedBag,
         type: actionTypes.UPDATE_BAG_ITEM_SUCCESS,
         meta: {
+          ...metadata,
           ...data,
           bagItemId,
           bagId,
@@ -76,6 +80,7 @@ const updateBagItemFactory =
       dispatch({
         payload: { error: toBlackoutError(error) },
         meta: {
+          ...metadata,
           ...data,
           bagItemId,
           bagId,

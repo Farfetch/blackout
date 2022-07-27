@@ -4,16 +4,14 @@ import {
   Config,
   DeleteBagItem,
   DeleteBagItemQuery,
-  PatchBagItemData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { getBagId } from '../../selectors';
 import { normalize } from 'normalizr';
 import bagItemSchema from '../../../entities/schemas/bagItem';
+import type { BagItemActionMetadata } from '../../types';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, Nullable, StoreState } from '../../../types';
-
-export type BagItemMetadata = Partial<PatchBagItemData>;
 
 /**
  * Creates a thunk factory configured with the specified client to remove a bag
@@ -27,8 +25,8 @@ const removeBagItemFactory =
   (deleteBagItem: DeleteBagItem) =>
   (
     bagItemId: number,
-    data?: BagItemMetadata,
     query?: DeleteBagItemQuery,
+    metadata?: BagItemActionMetadata,
     config?: Config,
   ) =>
   async (
@@ -46,6 +44,7 @@ const removeBagItemFactory =
 
       dispatch({
         meta: {
+          ...metadata,
           bagId,
           bagItemId,
         },
@@ -66,7 +65,7 @@ const removeBagItemFactory =
         payload: normalizedBag,
         type: actionTypes.REMOVE_BAG_ITEM_SUCCESS,
         meta: {
-          ...data,
+          ...metadata,
           bagId,
           bagItemId,
         },
@@ -76,7 +75,7 @@ const removeBagItemFactory =
     } catch (error) {
       dispatch({
         payload: { error: toBlackoutError(error) },
-        meta: { bagId, bagItemId },
+        meta: { ...metadata, bagId, bagItemId },
         type: actionTypes.REMOVE_BAG_ITEM_FAILURE,
       });
 

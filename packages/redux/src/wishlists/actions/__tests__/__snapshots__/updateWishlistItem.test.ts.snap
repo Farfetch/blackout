@@ -3,7 +3,10 @@
 exports[`updateWishlistItem() should create the correct actions for when the update wishlist item procedure is successful: Update wishlist item success payload 1`] = `
 Object {
   "meta": Object {
+    "from": "bag",
     "merchantId": 11554,
+    "oldQuantity": 1,
+    "oldSize": 16,
     "productId": 12129099,
     "quantity": 1,
     "scale": 210,

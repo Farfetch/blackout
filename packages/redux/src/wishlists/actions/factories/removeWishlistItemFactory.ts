@@ -11,7 +11,10 @@ import { normalize } from 'normalizr';
 import wishlistItemSchema from '../../../entities/schemas/wishlistItem';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
-import type { RemoveWishlistItemAction } from '../../types';
+import type {
+  RemoveWishlistItemAction,
+  WishlistItemActionMetadata,
+} from '../../types';
 import type { WishlistItemHydrated } from '../../../entities/types';
 
 /**
@@ -24,7 +27,11 @@ import type { WishlistItemHydrated } from '../../../entities/types';
  */
 const removeWishlistItemFactory =
   (deleteWishlistItem: DeleteWishlistItem) =>
-  (wishlistItemId: WishlistItem['id'], config?: Config) =>
+  (
+    wishlistItemId: WishlistItem['id'],
+    metadata?: WishlistItemActionMetadata,
+    config?: Config,
+  ) =>
   async (
     dispatch: Dispatch<RemoveWishlistItemAction>,
     getState: () => StoreState,
@@ -45,6 +52,7 @@ const removeWishlistItemFactory =
 
       dispatch({
         meta: {
+          ...metadata,
           productId: wishlistItem?.product?.id,
           wishlistItemId,
         },
@@ -69,6 +77,7 @@ const removeWishlistItemFactory =
         ),
         type: actionTypes.REMOVE_WISHLIST_ITEM_SUCCESS,
         meta: {
+          ...metadata,
           productId: wishlistItem?.product?.id,
           wishlistItemId,
           wishlistId,
@@ -80,6 +89,7 @@ const removeWishlistItemFactory =
     } catch (error) {
       dispatch({
         meta: {
+          ...metadata,
           productId: wishlistItem?.product?.id,
           wishlistItemId,
         },

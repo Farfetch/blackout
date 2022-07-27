@@ -30,6 +30,12 @@ const bagMockStoreWithoutMiddlewares = (state = {}) =>
   mockStore({ bag: INITIAL_STATE }, state);
 const expectedConfig = undefined;
 const expectedQuery = undefined;
+const bagItemMetadata = {
+  from: 'bag',
+  oldQuantity: 1,
+  oldSize: 16,
+};
+
 let store;
 
 describe('updateBagItem() action creator', () => {
@@ -46,7 +52,14 @@ describe('updateBagItem() action creator', () => {
     expect.assertions(4);
 
     await store
-      .dispatch(updateBagItem(mockBagItemId, mockBagItemData))
+      .dispatch(
+        updateBagItem(
+          mockBagItemId,
+          mockBagItemData,
+          undefined,
+          bagItemMetadata,
+        ),
+      )
       .catch(error => {
         expect(error).toBe(expectedError);
         expect(patchBagItem).toHaveBeenCalledTimes(1);
@@ -61,6 +74,7 @@ describe('updateBagItem() action creator', () => {
           expect.arrayContaining([
             {
               meta: {
+                ...bagItemMetadata,
                 ...mockBagItemData,
                 bagId: mockBagId,
                 bagItemId: mockBagItemId,
@@ -72,6 +86,7 @@ describe('updateBagItem() action creator', () => {
                 error: expectedError,
               },
               meta: {
+                ...bagItemMetadata,
                 ...mockBagItemData,
                 bagId: mockBagId,
                 bagItemId: mockBagItemId,
@@ -89,7 +104,14 @@ describe('updateBagItem() action creator', () => {
     expect.assertions(5);
 
     await store
-      .dispatch(updateBagItem(mockBagItemId, mockBagItemData))
+      .dispatch(
+        updateBagItem(
+          mockBagItemId,
+          mockBagItemData,
+          undefined,
+          bagItemMetadata,
+        ),
+      )
       .then(clientResult => {
         expect(clientResult).toBe(mockResponse);
       });
@@ -105,11 +127,19 @@ describe('updateBagItem() action creator', () => {
       expectedConfig,
     );
     expect(actionResults).toMatchObject([
-      { type: actionTypes.UPDATE_BAG_ITEM_REQUEST },
+      {
+        type: actionTypes.UPDATE_BAG_ITEM_REQUEST,
+        meta: {
+          ...bagItemMetadata,
+          ...mockBagItemData,
+          bagId: mockBagId,
+        },
+      },
       {
         payload: mockNormalizedPayload,
         type: actionTypes.UPDATE_BAG_ITEM_SUCCESS,
         meta: {
+          ...bagItemMetadata,
           ...mockBagItemData,
           bagId: mockBagId,
           bagItemId: mockBagItemId,

@@ -31,6 +31,12 @@ const wishlistMockStoreWithoutMiddlewares = (state = {}) =>
 const data = mockWishlistItemPostData;
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
+const wishlistItemMetadata = {
+  from: 'bag',
+  oldQuantity: 1,
+  oldSize: 16,
+};
+
 let store;
 
 describe('addWishlistItem()', () => {
@@ -54,26 +60,28 @@ describe('addWishlistItem()', () => {
 
     expect.assertions(4);
 
-    await store.dispatch(addWishlistItem(data)).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postWishlistItem).toHaveBeenCalledTimes(1);
-      expect(postWishlistItem).toHaveBeenCalledWith(
-        mockWishlistId,
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          meta: { productId: mockProductId },
-          type: actionTypes.ADD_WISHLIST_ITEM_REQUEST,
-        },
-        {
-          meta: { productId: mockProductId },
-          payload: { error: expectedError },
-          type: actionTypes.ADD_WISHLIST_ITEM_FAILURE,
-        },
-      ]);
-    });
+    await store
+      .dispatch(addWishlistItem(data, wishlistItemMetadata))
+      .catch(error => {
+        expect(error).toBe(expectedError);
+        expect(postWishlistItem).toHaveBeenCalledTimes(1);
+        expect(postWishlistItem).toHaveBeenCalledWith(
+          mockWishlistId,
+          data,
+          expectedConfig,
+        );
+        expect(store.getActions()).toEqual([
+          {
+            meta: { ...wishlistItemMetadata, productId: mockProductId },
+            type: actionTypes.ADD_WISHLIST_ITEM_REQUEST,
+          },
+          {
+            meta: { ...wishlistItemMetadata, productId: mockProductId },
+            payload: { error: expectedError },
+            type: actionTypes.ADD_WISHLIST_ITEM_FAILURE,
+          },
+        ]);
+      });
   });
 
   it('should create the correct actions for when the adding a wishlist item procedure is successful', async () => {
@@ -82,9 +90,11 @@ describe('addWishlistItem()', () => {
 
     expect.assertions(7);
 
-    await store.dispatch(addWishlistItem(data)).then(clientResult => {
-      expect(clientResult).toBe(mockWishlistsResponse);
-    });
+    await store
+      .dispatch(addWishlistItem(data, wishlistItemMetadata))
+      .then(clientResult => {
+        expect(clientResult).toBe(mockWishlistsResponse);
+      });
 
     const storeActions = store.getActions();
 
@@ -107,16 +117,16 @@ describe('addWishlistItem()', () => {
     );
     expect(storeActions).toMatchObject([
       {
-        meta: { productId: mockProductId },
+        meta: { ...wishlistItemMetadata, productId: mockProductId },
         type: actionTypes.ADD_WISHLIST_ITEM_REQUEST,
       },
       {
-        meta: { productId: mockProductId },
+        meta: { ...wishlistItemMetadata, productId: mockProductId },
         payload: mockWishlistNormalizedPayload,
         type: actionTypes.ADD_WISHLIST_ITEM_SUCCESS,
       },
     ]);
-    expect(storeActions[2]).toMatchSnapshot(
+    expect(storeActions[1]).toMatchSnapshot(
       'Add wishlist item success payload',
     );
   });

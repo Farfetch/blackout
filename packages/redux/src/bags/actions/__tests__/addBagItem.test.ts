@@ -29,6 +29,12 @@ const bagMockStoreWithoutMiddlewares = (state = {}) =>
   mockStore({ bag: INITIAL_STATE }, state);
 const expectedConfig = undefined;
 const expectedQuery = undefined;
+const bagItemMetadata = {
+  from: 'bag',
+  oldQuantity: 1,
+  oldSize: 16,
+};
+
 let store;
 
 describe('addBagItem() action creator', () => {
@@ -52,33 +58,37 @@ describe('addBagItem() action creator', () => {
 
     expect.assertions(4);
 
-    await store.dispatch(addBagItem(mockBagItemData)).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postBagItem).toHaveBeenCalledTimes(1);
-      expect(postBagItem).toHaveBeenCalledWith(
-        mockBagId,
-        mockBagItemData,
-        expectedQuery,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          type: actionTypes.ADD_BAG_ITEM_REQUEST,
-          meta: {
-            ...mockBagItemData,
-            bagId: mockBagId,
+    await store
+      .dispatch(addBagItem(mockBagItemData, undefined, bagItemMetadata))
+      .catch(error => {
+        expect(error).toBe(expectedError);
+        expect(postBagItem).toHaveBeenCalledTimes(1);
+        expect(postBagItem).toHaveBeenCalledWith(
+          mockBagId,
+          mockBagItemData,
+          expectedQuery,
+          expectedConfig,
+        );
+        expect(store.getActions()).toEqual([
+          {
+            type: actionTypes.ADD_BAG_ITEM_REQUEST,
+            meta: {
+              ...bagItemMetadata,
+              ...mockBagItemData,
+              bagId: mockBagId,
+            },
           },
-        },
-        {
-          payload: { error: expectedError },
-          meta: {
-            ...mockBagItemData,
-            bagId: mockBagId,
+          {
+            payload: { error: expectedError },
+            meta: {
+              ...bagItemMetadata,
+              ...mockBagItemData,
+              bagId: mockBagId,
+            },
+            type: actionTypes.ADD_BAG_ITEM_FAILURE,
           },
-          type: actionTypes.ADD_BAG_ITEM_FAILURE,
-        },
-      ]);
-    });
+        ]);
+      });
   });
 
   it('should create the correct actions for when the add bag item procedure is successful', async () => {
@@ -87,9 +97,11 @@ describe('addBagItem() action creator', () => {
 
     expect.assertions(5);
 
-    await store.dispatch(addBagItem(mockBagItemData)).then(clientResult => {
-      expect(clientResult).toBe(mockResponse);
-    });
+    await store
+      .dispatch(addBagItem(mockBagItemData, undefined, bagItemMetadata))
+      .then(clientResult => {
+        expect(clientResult).toBe(mockResponse);
+      });
 
     const actionResults = store.getActions();
 
@@ -104,6 +116,7 @@ describe('addBagItem() action creator', () => {
       {
         type: actionTypes.ADD_BAG_ITEM_REQUEST,
         meta: {
+          ...bagItemMetadata,
           ...mockBagItemData,
           bagId: mockBagId,
         },
@@ -112,6 +125,7 @@ describe('addBagItem() action creator', () => {
         payload: mockNormalizedPayload,
         type: actionTypes.ADD_BAG_ITEM_SUCCESS,
         meta: {
+          ...bagItemMetadata,
           ...mockBagItemData,
           bagId: mockBagId,
         },

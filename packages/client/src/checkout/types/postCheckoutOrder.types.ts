@@ -3,8 +3,13 @@ import type { GetCheckoutOrderResponse, ShippingMode } from '.';
 import type { Product } from '../../products/types';
 
 export type PostCheckoutOrderData = {
-  bagId?: string;
-  items?: {
+  guestUserEmail?: string;
+  usePaymentIntent?: boolean;
+  shippingMode?: ShippingMode;
+};
+
+export type PostCheckoutOrderDataWithItems = PostCheckoutOrderData & {
+  items: {
     productId: Product['result']['id'];
     merchantId: number;
     variantId: string;
@@ -12,13 +17,14 @@ export type PostCheckoutOrderData = {
     customAttributes: string;
     productAggregatorId: number;
   }[];
-  guestUserEmail?: string;
-  usePaymentIntent: boolean;
-  shippingMode?: ShippingMode;
+};
+
+export type PostCheckoutOrderDataWithBag = PostCheckoutOrderData & {
+  bagId: string;
   removePurchasedItemsFromBag?: boolean;
 };
 
 export type PostCheckoutOrder = (
-  data: PostCheckoutOrderData,
+  data: PostCheckoutOrderDataWithItems | PostCheckoutOrderDataWithBag,
   config?: Config,
 ) => Promise<GetCheckoutOrderResponse>;
