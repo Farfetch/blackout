@@ -1,3 +1,3 @@
-import type { Category } from '@farfetch/blackout-client';
+import type { Category, ProductCategory } from '@farfetch/blackout-client';
 
-export type CategoryEntity = Category;
+export type CategoryEntity = Category | ProductCategory;

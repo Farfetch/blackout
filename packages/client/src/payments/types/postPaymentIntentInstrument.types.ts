@@ -1,6 +1,5 @@
 import type {
   Amounts,
-  CreditCardData,
   Payer,
   PayerAddressType,
   PaymentInstrument,
@@ -8,6 +7,17 @@ import type {
   ShopperInteraction,
 } from '.';
 import type { Config } from '../../types';
+
+export type CreatePaymentInstrumentData = {
+  cardHolderName: string;
+  cardNumber: string;
+  cardExpiryMonth: number;
+  cardExpiryYear: number;
+  cardCvv: string;
+  giftCardNumber: string;
+  giftCardCsc: string;
+  creditUserId: string;
+};
 
 export type PostPaymentIntentInstrumentData = {
   method: string;
@@ -17,7 +27,7 @@ export type PostPaymentIntentInstrumentData = {
   payerAddressType?: PayerAddressType;
   payer?: Payer;
   amounts: Amounts[];
-  data?: CreditCardData;
+  data?: CreatePaymentInstrumentData;
   shopperInteraction?: ShopperInteraction;
 };
 

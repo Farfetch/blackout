@@ -2,7 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import {
   Config,
   GetSEO,
-  QuerySEO,
+  GetSEOQuery,
   SEOMetadata,
   toBlackoutError,
 } from '@farfetch/blackout-client';
@@ -20,7 +20,7 @@ import type { Nullable } from '../../../types';
  */
 const fetchSEOFactory =
   (getSEO: GetSEO) =>
-  (query: QuerySEO, config?: Config) =>
+  (query: GetSEOQuery, config?: Config) =>
   async (dispatch: Dispatch<ActionFetchSEO>): Promise<SEOMetadata> => {
     let pathname: Nullable<string> = null;
 

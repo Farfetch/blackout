@@ -2,7 +2,7 @@ import { adaptError } from '../helpers/client/formatError';
 import client from '../helpers/client';
 import join from 'proper-url-join';
 import type { Config } from '../types';
-import type { QuerySEO, SEOMetadata } from './types';
+import type { GetSEOQuery, SEOMetadata } from './types';
 
 /**
  * Method responsible for searching the seo metadata for a specific page type.
@@ -12,7 +12,7 @@ import type { QuerySEO, SEOMetadata } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getSEO = (query: QuerySEO, config?: Config): Promise<SEOMetadata> =>
+const getSEO = (query: GetSEOQuery, config?: Config): Promise<SEOMetadata> =>
   client
     .get(join('/seo/metadata', { query }), config)
     .then(response => response.data)

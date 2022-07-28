@@ -1,3 +1,5 @@
+import { UserContactType } from '@farfetch/blackout-client';
+
 export const mockGetContactResponse = {
   id: '4c46a918-303b-4847-8825-dfb295acb6c8',
   value: 'TEST',
@@ -5,7 +7,7 @@ export const mockGetContactResponse = {
     countryCode: 'PT',
     countryCallingCode: '351',
   },
-  type: 'Phone',
+  type: UserContactType.Phone,
   description: 'TEST',
 };
 export const mockPostContactResponse = mockGetContactResponse;
@@ -17,7 +19,7 @@ export const mockGetContactsResponse = [
       countryCode: 'PT',
       countryCallingCode: '351',
     },
-    type: 'Phone',
+    type: UserContactType.Phone,
     description: 'TEST',
   },
   {
@@ -27,7 +29,7 @@ export const mockGetContactsResponse = [
       countryCode: 'BR',
       countryCallingCode: '55',
     },
-    type: 'Phone',
+    type: UserContactType.Phone,
     description: 'rfdewrewrewrwerew',
   },
 ];

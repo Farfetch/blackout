@@ -1,7 +1,7 @@
-import type { Gender } from '../../types';
+import type { GenderCode } from '../../types';
 
 export type SearchSuggestionsQuery = {
   query: string;
-  gender?: Gender;
+  gender?: GenderCode;
   ignoreFilterExclusions?: boolean;
 };

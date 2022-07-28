@@ -383,6 +383,7 @@ Object {
         "breadCrumbs": Array [
           Object {
             "link": "shopping/woman",
+            "parent": true,
             "slug": "woman",
             "text": "Woman",
           },

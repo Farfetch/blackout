@@ -1,10 +1,10 @@
 import { rest, RestHandler } from 'msw';
-import type { PostPaymentIntentInstrument } from '../types';
+import type { PostPaymentIntentInstrumentResponse } from '../types';
 
 const path = '/api/payment/v1/intents/:id/instruments';
 
 const fixtures = {
-  success: (response: PostPaymentIntentInstrument): RestHandler =>
+  success: (response: PostPaymentIntentInstrumentResponse): RestHandler =>
     rest.post(path, async (_req, res, ctx) =>
       res(
         ctx.status(201),

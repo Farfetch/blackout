@@ -1,3 +1,4 @@
+import { GenderCode } from '@farfetch/blackout-client';
 import { mockState } from './sizeScales.fixtures';
 
 export const mockSizeScaleMappingsBrandId = 1664;
@@ -15,7 +16,7 @@ export const mockSizeScaleMapping = {
     {
       id: mockSizeScaleMappingsScaleId,
       name: 'NIKE WOMEN SHOES US',
-      gender: mockSizeScaleMappingsGenderId,
+      gender: GenderCode.Woman,
       country: {
         alpha2Code: 'US',
       },

@@ -1,5 +1,5 @@
 import type { Brand } from '../../brands/types';
-import type { GenderDescription } from '../../types';
+import type { GenderCode } from '../../types';
 
 export type SizeScaleMapping = {
   scales: {
@@ -11,7 +11,7 @@ export type SizeScaleMapping = {
     brand: {
       id: Brand['id'];
     };
-    gender: GenderDescription;
+    gender: GenderCode;
     sizes: {
       position: number;
       code: string;

@@ -1,7 +1,7 @@
 import * as profileClient from '..';
 import {
+  mockUserAttributeResponse,
   mockUserAttributesData,
-  mockUserAttributesResponse,
   userId,
 } from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
@@ -16,13 +16,13 @@ describe('postUserAttribute', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    mswServer.use(fixtures.success(mockUserAttributesResponse));
+    mswServer.use(fixtures.success(mockUserAttributeResponse));
 
     expect.assertions(2);
 
     await expect(
       profileClient.postUserAttribute(userId, data),
-    ).resolves.toStrictEqual(mockUserAttributesResponse);
+    ).resolves.toStrictEqual(mockUserAttributeResponse);
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/attributes`,
       data,

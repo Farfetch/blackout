@@ -9,4 +9,6 @@ export type Title = {
 export type GetUserTitles = (
   query?: GetUserTitlesQuery,
   config?: Config,
-) => Promise<PagedResponse<Title>>;
+) => Promise<UserTitles>;
+
+export type UserTitles = PagedResponse<Title>;

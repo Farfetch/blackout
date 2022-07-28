@@ -1,5 +1,5 @@
 export enum ShopperInteraction {
-  Ecommerce,
-  Moto,
-  Pos,
+  Ecommerce = 'Ecommerce',
+  Moto = 'Moto',
+  Pos = 'Pos',
 }

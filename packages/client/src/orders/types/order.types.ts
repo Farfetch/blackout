@@ -1,5 +1,5 @@
-import type { CheckoutAddress } from '../../types/common/address.types';
 import type { OrderItem } from './orderItem.types';
+import type { UserAddress } from '../../types/common/address.types';
 
 export type Order = {
   id: string;
@@ -7,8 +7,8 @@ export type Order = {
   userId: number;
   paymentId: string;
   currency: string;
-  shippingAddress: CheckoutAddress;
-  billingAddress: CheckoutAddress;
+  shippingAddress: UserAddress;
+  billingAddress: UserAddress;
   createdDate: string;
   updatedDate: string;
   items: OrderItem[];
@@ -28,11 +28,11 @@ export type Order = {
   formattedTotalShippingFee: string;
   formattedTotalTaxes: string;
   formattedTotalDomesticTaxes: string;
-  taxType: number;
+  taxType: string;
 };
 
-enum CustomerType {
-  Normal,
-  PersonalShopper,
-  VipBrazil,
+export enum CustomerType {
+  Normal = 'Normal',
+  PersonalShopper = 'PersonalShopper',
+  VipBrazil = 'VipBrazil',
 }

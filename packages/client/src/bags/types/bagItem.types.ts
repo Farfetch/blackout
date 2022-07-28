@@ -1,13 +1,13 @@
 import type {
   Attribute,
   Color,
-  Gender,
+  GenderCode,
   Label,
   ProductImageGroup,
 } from '../../types';
 import type { Brand } from '../../brands/types';
-import type { Category } from '../../categories/types';
 import type { Price, Product, ProductVariant, Size } from '../../products';
+import type { ProductCategory } from '../../categories/types';
 
 export type BagItem = {
   id: number;
@@ -24,9 +24,9 @@ export type BagItem = {
   images: ProductImageGroup;
   attributes: Attribute[];
   customAttributes: string;
-  merchantShoppingUrl: string;
+  merchantShoppingUrl: string | null;
   variants: ProductVariant[];
-  categories: Category[];
+  categories: ProductCategory[];
   colors: Color[];
   sizes: Size[];
   productSlug: string;
@@ -50,5 +50,5 @@ export type BagItem = {
     bundleSlug: string;
     images: ProductImageGroup;
   } | null;
-  gender: Gender;
+  gender: GenderCode;
 };

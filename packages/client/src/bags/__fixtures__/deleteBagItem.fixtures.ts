@@ -1,27 +1,16 @@
 import { rest, RestHandler } from 'msw';
-import join from 'proper-url-join';
-import type { Bag, BagItem } from '../types';
+import type { Bag } from '../types';
 
-const path = '/api/commerce/v1/bags';
+const path = '/api/commerce/v1/bags/:bagId/items/:bagItemId';
 
 const fixtures = {
-  success: (params: {
-    bagId: Bag['id'];
-    bagItemId: BagItem['id'];
-    response: Bag;
-  }): RestHandler =>
-    rest.delete(
-      join(path, params.bagId, 'items', params.bagItemId),
-      async (_req, res, ctx) => res(ctx.status(200), ctx.json(params.response)),
+  success: (response: Bag): RestHandler =>
+    rest.delete(path, async (_req, res, ctx) =>
+      res(ctx.status(200), ctx.json(response)),
     ),
-  failure: (params: {
-    bagId: Bag['id'];
-    bagItemId: BagItem['id'];
-  }): RestHandler =>
-    rest.delete(
-      join(path, params.bagId, 'items', params.bagItemId),
-      async (_req, res, ctx) =>
-        res(ctx.status(404), ctx.json({ message: 'stub error' })),
+  failure: (): RestHandler =>
+    rest.delete(path, async (_req, res, ctx) =>
+      res(ctx.status(404), ctx.json({ message: 'stub error' })),
     ),
 };
 

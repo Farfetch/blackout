@@ -1,4 +1,4 @@
-import type { GenderDescription } from '@farfetch/blackout-client/types';
+import type { GenderDescription } from '@farfetch/blackout-client';
 
 export const mockSubfolder = 'us';
 export const mockQuery = { categoryid: 123 };

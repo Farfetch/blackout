@@ -1,5 +1,7 @@
-export const mockMerchantLocationId = '1467';
-export const mockMerchantLocationId1 = '1234';
+import { MerchantLocationWeekday } from '@farfetch/blackout-client';
+
+export const mockMerchantLocationId = 1467;
+export const mockMerchantLocationId1 = 1234;
 export const mockDistance = 10;
 
 export const mockQuery = {
@@ -11,12 +13,10 @@ export const mockMerchantLocation = {
   address: {
     addressLine1: '23-27 South Molton Street',
     addressLine2: 'W1K 5RD',
-    addressLine3: null,
     city: {
       countryId: 0,
       id: 0,
       name: 'London',
-      stateId: null,
     },
     country: {
       alpha2Code: 'GB',
@@ -26,25 +26,18 @@ export const mockMerchantLocation = {
       name: 'United Kingdom',
       nativeName: 'United Kingdom',
       region: 'Europe',
-      subRegion: null,
+      subRegion: 'string',
       regionId: 0,
-      subfolder: null,
+      subfolder: 'string',
       continentId: 3,
     },
-    ddd: null,
-    title: null,
     firstName: 'Acme',
     id: '00000000-0000-0000-0000-000000000000',
-    lastName: null,
-    neighbourhood: null,
+    lastName: '',
+    neighbourhood: 'string',
     phone: '+44 (0) 207 514 0031',
-    state: null,
-    vatNumber: null,
+    vatNumber: '95489652',
     zipCode: 'W1K 5RD',
-    userId: 0,
-    isCurrentBilling: false,
-    isCurrentShipping: false,
-    isCurrentPreferred: false,
     customsClearanceCode: null,
   },
   businessDays: [
@@ -55,7 +48,7 @@ export const mockMerchantLocation = {
           open: '7:30:00',
         },
       ],
-      weekday: 'Monday',
+      weekday: MerchantLocationWeekday.Monday,
     },
   ],
   id: mockMerchantLocationId,

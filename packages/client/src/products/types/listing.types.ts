@@ -2,7 +2,7 @@ import type { BreadCrumb } from './breadCrumb.types';
 import type { FacetGroup } from './facetGroup.types';
 import type { FacetType } from './facetTypeEnum.types';
 import type { FilterSegment } from './filterSegment.types';
-import type { Gender, PagedResponse } from '../../types';
+import type { GenderCode, PagedResponse } from '../../types';
 import type { ProductSummary } from './productSummary.types';
 import type { ShoppingConfig } from './shoppingConfig.types';
 
@@ -12,24 +12,24 @@ export enum SearchRedirect {
 }
 
 export type ProductListing = {
-  name: string;
+  name: string | null;
   products: PagedResponse<ProductSummary>;
   facetGroups: FacetGroup[];
   filterSegments: FilterSegment[];
   config: ShoppingConfig;
   didYouMean: string[];
   breadCrumbs: BreadCrumb[];
-  searchTerm: string;
+  searchTerm: string | null;
   facetsBaseUrl: string;
-  _sorts: string[];
-  _clearUrl: string;
+  _sorts: string[] | null;
+  _clearUrl: string | null;
   _isClearHidden: boolean;
-  gender: Gender;
+  gender: GenderCode;
   redirectInformation: {
     redirectUrl: string;
     matchedType: FacetType;
     matchedId: number;
     searchRedirectSourceFeature: SearchRedirect;
-  };
+  } | null;
   genderName: string;
 };

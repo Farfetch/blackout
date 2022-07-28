@@ -15,13 +15,7 @@ describe('deleteBagItem', () => {
   beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
-    mswServer.use(
-      fixtures.success({
-        bagId: mockBagId,
-        bagItemId: mockBagItemId,
-        response: mockResponse,
-      }),
-    );
+    mswServer.use(fixtures.success(mockResponse));
 
     expect.assertions(2);
 
@@ -36,9 +30,7 @@ describe('deleteBagItem', () => {
   });
 
   it('should receive a client request error', async () => {
-    mswServer.use(
-      fixtures.failure({ bagId: mockBagId, bagItemId: mockBagItemId }),
-    );
+    mswServer.use(fixtures.failure());
 
     expect.assertions(2);
 

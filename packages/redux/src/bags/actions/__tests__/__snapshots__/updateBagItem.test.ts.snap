@@ -17,13 +17,22 @@ Object {
         "134": Object {
           "attributes": Array [
             Object {
-              "type": "1",
+              "description": "Size",
+              "type": 1,
               "value": "M",
             },
           ],
-          "customAttributes": undefined,
+          "customAttributes": "",
           "dateCreated": 12345,
+          "fulfillmentInfo": Object {
+            "fulfillmentDate": null,
+            "isPreOrder": false,
+          },
+          "gender": 1,
           "id": 134,
+          "isAvailable": true,
+          "isCustomizable": false,
+          "isExclusive": false,
           "merchant": 12424,
           "price": Object {
             "discount": Object {
@@ -55,13 +64,38 @@ Object {
             "type": undefined,
           },
           "product": 11766695,
-          "size": Object {},
+          "productAggregator": null,
+          "promotionDetail": Object {
+            "formattedTotalDiscountValue": "0 €",
+            "isProductOffer": false,
+            "promotionEvaluationItemId": null,
+            "totalDiscountPercentage": null,
+            "totalDiscountValue": 0,
+          },
+          "quantity": 1,
+          "size": Object {
+            "name": "M",
+          },
         },
       },
       "brands": Object {
-        "RL": Object {
-          "id": "RL",
+        "25354": Object {
+          "id": 25354,
           "name": "Ralph Lauren",
+        },
+      },
+      "categories": Object {
+        "136301": Object {
+          "gender": 0,
+          "id": 136301,
+          "name": "Shoes",
+          "parentId": 0,
+        },
+        "136308": Object {
+          "gender": 0,
+          "id": 136308,
+          "name": "Sandals",
+          "parentId": 136301,
         },
       },
       "merchants": Object {
@@ -73,15 +107,46 @@ Object {
       },
       "products": Object {
         "11766695": Object {
-          "brand": "RL",
-          "categories": undefined,
-          "colors": undefined,
+          "brand": 25354,
+          "categories": Array [
+            136301,
+            136308,
+          ],
+          "colors": Array [
+            Object {
+              "color": Object {
+                "id": 112495,
+                "name": "Black",
+              },
+              "tags": Array [
+                "MainColor",
+              ],
+            },
+            Object {
+              "color": Object {
+                "id": 0,
+                "name": "BLACK",
+              },
+              "tags": Array [
+                "DesignerColor",
+              ],
+            },
+          ],
           "customAttributes": undefined,
           "description": "Classic oxford shirt",
           "groupedEntries": undefined,
           "grouping": undefined,
           "id": 11766695,
-          "images": Object {},
+          "images": Array [
+            Object {
+              "order": 1,
+              "size": "54",
+              "sources": Object {
+                "54": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg",
+              },
+              "url": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg",
+            },
+          ],
           "labels": Array [],
           "merchant": undefined,
           "name": "Oxford Shirt",
@@ -113,8 +178,35 @@ Object {
             "type": 0,
           },
           "prices": undefined,
-          "sizes": undefined,
-          "slug": undefined,
+          "sizes": Array [
+            Object {
+              "globalQuantity": 2,
+              "id": 21,
+              "isOneSize": false,
+              "isOutOfStock": false,
+              "name": "36",
+              "scale": 206,
+              "scaleAbbreviation": "IT",
+              "scaleDescription": undefined,
+              "stock": Array [
+                Object {
+                  "barcodes": Array [
+                    "2013323497172",
+                  ],
+                  "merchantId": 11554,
+                  "price": Object {
+                    "formatted": Object {
+                      "includingTaxes": "4 300 €",
+                      "includingTaxesWithoutDiscount": "4 300 €",
+                    },
+                  },
+                  "purchaseChannel": null,
+                  "quantity": 2,
+                },
+              ],
+            },
+          ],
+          "slug": "oxford-shirt-11766695",
           "tag": Object {
             "id": undefined,
             "name": undefined,
@@ -122,53 +214,56 @@ Object {
           "type": 0,
           "variants": Array [
             Object {
-              "id": "c6a09292-76a0-4219-ae33-b3737e3432a3",
-              "merchantId": 10948,
-              "merchantsLocations": Array [
+              "attributes": Array [
                 Object {
-                  "merchantLocationId": 1,
-                  "quantity": 0,
-                  "variantId": "c6a09292-76a0-4219-ae33-b3737e3432a3",
-                },
-                Object {
-                  "merchantLocationId": 2,
-                  "quantity": 1,
-                  "variantId": 123,
-                },
-                Object {
-                  "merchantLocationId": 3,
-                  "quantity": 99,
-                  "variantId": 456,
+                  "description": "string",
+                  "type": 0,
+                  "value": "string",
                 },
               ],
+              "availableAt": Array [
+                0,
+              ],
+              "formattedPrice": "string",
+              "formattedPriceWithoutDiscount": "string",
+              "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              "isOneSize": true,
+              "merchantId": 0,
               "price": Object {
                 "discount": Object {
-                  "excludingTaxes": undefined,
-                  "includingTaxes": undefined,
-                  "rate": undefined,
+                  "excludingTaxes": 0,
+                  "includingTaxes": 0,
+                  "rate": 0,
                 },
-                "excludingTaxes": undefined,
+                "excludingTaxes": 0,
                 "formatted": Object {
-                  "includingTaxes": undefined,
-                  "includingTaxesWithoutDiscount": undefined,
+                  "includingTaxes": "string",
+                  "includingTaxesWithoutDiscount": "string",
                 },
-                "includingTaxes": undefined,
-                "includingTaxesWithoutDiscount": undefined,
+                "includingTaxes": 0,
+                "includingTaxesWithoutDiscount": 0,
                 "isFormatted": true,
                 "priceType": undefined,
                 "promocode": Object {
                   "rate": undefined,
                 },
                 "promotionType": undefined,
-                "tags": undefined,
+                "tags": Array [
+                  "string",
+                ],
                 "taxes": Object {
-                  "amount": undefined,
-                  "rate": undefined,
-                  "type": undefined,
+                  "amount": 0,
+                  "rate": 0,
+                  "type": "string",
                 },
                 "type": undefined,
               },
-              "size": "25",
+              "purchaseChannel": 0,
+              "quantity": 0,
+              "scale": "string",
+              "scaleAbbreviation": "string",
+              "size": "string",
+              "sizeDescription": "string",
             },
           ],
         },
@@ -184,6 +279,7 @@ Object {
         "formattedSubTotalAmount": "$371.62",
         "formattedSubTotalAmountExclTaxes": "$371.62",
         "formattedTotalDiscount": "$0",
+        "formattedTotalProductPromotionDiscount": "$0",
         "formattedTotalShippingFee": "$10",
         "formattedTotalTaxes": "$0",
         "grandTotal": 381.62,
@@ -191,10 +287,12 @@ Object {
         "subTotalAmountExclTaxes": 371.62,
         "taxType": "DDP",
         "totalDiscount": 0,
+        "totalProductPromotionDiscount": 0,
         "totalShippingFee": 10,
         "totalTaxes": 0,
       },
       "count": 1,
+      "hadUnavailableItems": false,
       "id": "7894746",
       "items": Array [
         134,
@@ -225,13 +323,22 @@ Object {
         "134": Object {
           "attributes": Array [
             Object {
-              "type": "1",
+              "description": "Size",
+              "type": 1,
               "value": "M",
             },
           ],
-          "customAttributes": undefined,
+          "customAttributes": "",
           "dateCreated": 12345,
+          "fulfillmentInfo": Object {
+            "fulfillmentDate": null,
+            "isPreOrder": false,
+          },
+          "gender": 1,
           "id": 134,
+          "isAvailable": true,
+          "isCustomizable": false,
+          "isExclusive": false,
           "merchant": 12424,
           "price": Object {
             "discount": Object {
@@ -263,13 +370,38 @@ Object {
             "type": undefined,
           },
           "product": 11766695,
-          "size": Object {},
+          "productAggregator": null,
+          "promotionDetail": Object {
+            "formattedTotalDiscountValue": "0 €",
+            "isProductOffer": false,
+            "promotionEvaluationItemId": null,
+            "totalDiscountPercentage": null,
+            "totalDiscountValue": 0,
+          },
+          "quantity": 1,
+          "size": Object {
+            "name": "M",
+          },
         },
       },
       "brands": Object {
-        "RL": Object {
-          "id": "RL",
+        "25354": Object {
+          "id": 25354,
           "name": "Ralph Lauren",
+        },
+      },
+      "categories": Object {
+        "136301": Object {
+          "gender": 0,
+          "id": 136301,
+          "name": "Shoes",
+          "parentId": 0,
+        },
+        "136308": Object {
+          "gender": 0,
+          "id": 136308,
+          "name": "Sandals",
+          "parentId": 136301,
         },
       },
       "merchants": Object {
@@ -281,15 +413,46 @@ Object {
       },
       "products": Object {
         "11766695": Object {
-          "brand": "RL",
-          "categories": undefined,
-          "colors": undefined,
+          "brand": 25354,
+          "categories": Array [
+            136301,
+            136308,
+          ],
+          "colors": Array [
+            Object {
+              "color": Object {
+                "id": 112495,
+                "name": "Black",
+              },
+              "tags": Array [
+                "MainColor",
+              ],
+            },
+            Object {
+              "color": Object {
+                "id": 0,
+                "name": "BLACK",
+              },
+              "tags": Array [
+                "DesignerColor",
+              ],
+            },
+          ],
           "customAttributes": undefined,
           "description": "Classic oxford shirt",
           "groupedEntries": undefined,
           "grouping": undefined,
           "id": 11766695,
-          "images": Object {},
+          "images": Array [
+            Object {
+              "order": 1,
+              "size": "54",
+              "sources": Object {
+                "54": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg?c=2",
+              },
+              "url": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg",
+            },
+          ],
           "labels": Array [],
           "merchant": undefined,
           "name": "Oxford Shirt",
@@ -321,8 +484,35 @@ Object {
             "type": 0,
           },
           "prices": undefined,
-          "sizes": undefined,
-          "slug": undefined,
+          "sizes": Array [
+            Object {
+              "globalQuantity": 2,
+              "id": 21,
+              "isOneSize": false,
+              "isOutOfStock": false,
+              "name": "36",
+              "scale": 206,
+              "scaleAbbreviation": "IT",
+              "scaleDescription": undefined,
+              "stock": Array [
+                Object {
+                  "barcodes": Array [
+                    "2013323497172",
+                  ],
+                  "merchantId": 11554,
+                  "price": Object {
+                    "formatted": Object {
+                      "includingTaxes": "4 300 €",
+                      "includingTaxesWithoutDiscount": "4 300 €",
+                    },
+                  },
+                  "purchaseChannel": null,
+                  "quantity": 2,
+                },
+              ],
+            },
+          ],
+          "slug": "oxford-shirt-11766695",
           "tag": Object {
             "id": undefined,
             "name": undefined,
@@ -330,53 +520,56 @@ Object {
           "type": 0,
           "variants": Array [
             Object {
-              "id": "c6a09292-76a0-4219-ae33-b3737e3432a3",
-              "merchantId": 10948,
-              "merchantsLocations": Array [
+              "attributes": Array [
                 Object {
-                  "merchantLocationId": 1,
-                  "quantity": 0,
-                  "variantId": "c6a09292-76a0-4219-ae33-b3737e3432a3",
-                },
-                Object {
-                  "merchantLocationId": 2,
-                  "quantity": 1,
-                  "variantId": 123,
-                },
-                Object {
-                  "merchantLocationId": 3,
-                  "quantity": 99,
-                  "variantId": 456,
+                  "description": "string",
+                  "type": 0,
+                  "value": "string",
                 },
               ],
+              "availableAt": Array [
+                0,
+              ],
+              "formattedPrice": "string",
+              "formattedPriceWithoutDiscount": "string",
+              "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              "isOneSize": true,
+              "merchantId": 0,
               "price": Object {
                 "discount": Object {
-                  "excludingTaxes": undefined,
-                  "includingTaxes": undefined,
-                  "rate": undefined,
+                  "excludingTaxes": 0,
+                  "includingTaxes": 0,
+                  "rate": 0,
                 },
-                "excludingTaxes": undefined,
+                "excludingTaxes": 0,
                 "formatted": Object {
-                  "includingTaxes": undefined,
-                  "includingTaxesWithoutDiscount": undefined,
+                  "includingTaxes": "string",
+                  "includingTaxesWithoutDiscount": "string",
                 },
-                "includingTaxes": undefined,
-                "includingTaxesWithoutDiscount": undefined,
+                "includingTaxes": 0,
+                "includingTaxesWithoutDiscount": 0,
                 "isFormatted": true,
                 "priceType": undefined,
                 "promocode": Object {
                   "rate": undefined,
                 },
                 "promotionType": undefined,
-                "tags": undefined,
+                "tags": Array [
+                  "string",
+                ],
                 "taxes": Object {
-                  "amount": undefined,
-                  "rate": undefined,
-                  "type": undefined,
+                  "amount": 0,
+                  "rate": 0,
+                  "type": "string",
                 },
                 "type": undefined,
               },
-              "size": "25",
+              "purchaseChannel": 0,
+              "quantity": 0,
+              "scale": "string",
+              "scaleAbbreviation": "string",
+              "size": "string",
+              "sizeDescription": "string",
             },
           ],
         },
@@ -392,6 +585,7 @@ Object {
         "formattedSubTotalAmount": "$371.62",
         "formattedSubTotalAmountExclTaxes": "$371.62",
         "formattedTotalDiscount": "$0",
+        "formattedTotalProductPromotionDiscount": "$0",
         "formattedTotalShippingFee": "$10",
         "formattedTotalTaxes": "$0",
         "grandTotal": 381.62,
@@ -399,10 +593,12 @@ Object {
         "subTotalAmountExclTaxes": 371.62,
         "taxType": "DDP",
         "totalDiscount": 0,
+        "totalProductPromotionDiscount": 0,
         "totalShippingFee": 10,
         "totalTaxes": 0,
       },
       "count": 1,
+      "hadUnavailableItems": false,
       "id": "7894746",
       "items": Array [
         134,

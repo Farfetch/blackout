@@ -1,4 +1,9 @@
-import type { Amounts, CreditCardData, Payer, ShopperInteraction } from '.';
+import type {
+  Amounts,
+  Payer,
+  PaymentInstrumentData,
+  ShopperInteraction,
+} from '.';
 
 export enum PaymentInstrumentStatus {
   Created,
@@ -16,7 +21,7 @@ export type PaymentInstrument = {
   amounts: Amounts[];
   status: PaymentInstrumentStatus;
   payer: Payer;
-  data: CreditCardData;
+  data: PaymentInstrumentData;
   installments: {
     quantity: number;
   };

@@ -1,55 +1,55 @@
 import type {
   Attribute,
   Brand,
-  Category,
   Color,
   CreationChannel,
   ItemStatus,
   Price,
   Product,
+  ProductCategory,
   ProductImageGroup,
   ProductVariant,
 } from '../..';
 
 export type CheckoutOrderItem = {
   attributes: Attribute[];
+  brandId?: Brand['id'];
   brandName: string;
-  brandId: Brand['id'];
+  categories: ProductCategory[];
   checkoutOrderId: number;
-  creationChannel: CreationChannel;
-  id: number;
-  images: ProductImageGroup;
-  merchantId: number;
-  merchantName: string;
-  productId: Product['result']['id'];
-  productName: string;
-  productSlug: string;
-  quantity: number;
-  status: ItemStatus;
-  categories: Category[];
-  variants: ProductVariant[];
   colors: Color[];
-  tags: string[];
-  promocodeDiscountPercentage: number;
-  isExclusive: boolean;
+  creationChannel: CreationChannel;
   customAttributes: string;
-  isCustomizable: boolean;
-  gift: {
-    to: string;
-    from: string;
-    message: string;
-  };
   fulfillmentInfo: {
     isPreOrder: boolean;
     fulfillmentDate: string;
   };
-  size: string;
-  scale: string;
-  sizeDescription: string;
+  gift?: {
+    to: string;
+    from: string;
+    message: string;
+  };
+  id: number;
+  images: ProductImageGroup;
+  isCustomizable: boolean;
+  isExclusive: boolean;
+  merchantId: number;
+  merchantName: string;
   price: Price;
   productAggregator: {
     id?: number;
     images: ProductImageGroup;
     bundleSlug: string;
   };
+  productId: Product['result']['id'];
+  productName: string;
+  productSlug: string;
+  promocodeDiscountPercentage: number;
+  quantity: number;
+  scale: string;
+  size: string;
+  sizeDescription: string;
+  status: ItemStatus;
+  tags: string[];
+  variants: ProductVariant[];
 };

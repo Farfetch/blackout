@@ -1,11 +1,12 @@
 import findIndex from 'lodash/findIndex';
-import type { Brand, Category, SizeGuide } from '@farfetch/blackout-client';
+import type { Brand, SizeGuide } from '@farfetch/blackout-client';
+import type { CategoryEntity } from '../entities';
 
 type FindSpecificSizeGuideParams = {
   // All size guides to find the most specific.
   sizeGuides?: SizeGuide[];
   // All categories to match with a specific size guide.
-  categories: Array<Category | undefined>;
+  categories: Array<CategoryEntity | undefined>;
   // The brand id to match with a specific size guide.
   brandId?: Brand['id'];
 };

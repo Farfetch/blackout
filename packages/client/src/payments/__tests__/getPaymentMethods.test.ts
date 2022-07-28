@@ -1,9 +1,11 @@
 import { getPaymentMethods } from '..';
-import { orderId as id } from 'tests/__fixtures__/payments';
+import {
+  orderId as id,
+  mockFetchPaymentMethodsResponse,
+} from 'tests/__fixtures__/payments';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getPaymentMethods.fixtures';
 import mswServer from '../../../tests/mswServer';
-import type { PaymentMethods } from '../types';
 
 describe('getPaymentMethods', () => {
   const expectedConfig = undefined;
@@ -13,33 +15,13 @@ describe('getPaymentMethods', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const response: PaymentMethods = {
-      customerAccounts: [
-        {
-          type: 'string',
-          id: 'string',
-          description: 'string',
-          code: 'string',
-          paymentOptions: ['string'],
-        },
-      ],
-      creditCard: {
-        type: 'string',
-        creditCards: [
-          {
-            id: 'string',
-            description: 'string',
-            code: 'string',
-          },
-        ],
-      },
-    };
-
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockFetchPaymentMethodsResponse));
 
     expect.assertions(2);
 
-    await expect(getPaymentMethods(id)).resolves.toStrictEqual(response);
+    await expect(getPaymentMethods(id)).resolves.toStrictEqual(
+      mockFetchPaymentMethodsResponse,
+    );
     expect(spy).toHaveBeenCalledWith(urlToBeCalled, expectedConfig);
   });
 

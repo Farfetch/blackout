@@ -1,4 +1,4 @@
-import type { Gender } from '../../types';
+import type { GenderCode } from '../../types';
 
 export enum SearchSuggestionType {
   Category = 1,
@@ -8,7 +8,7 @@ export enum SearchSuggestionType {
 }
 
 export type SearchSuggestion = {
-  gender: Gender;
+  gender: GenderCode;
   id: number;
   suggestion: string;
   type: SearchSuggestionType;

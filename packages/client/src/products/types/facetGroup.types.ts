@@ -9,7 +9,7 @@ export type FacetGroup = {
   order: number;
   key: string;
   format: string;
-  _clearUrl: string;
+  _clearUrl: string | null;
   _isClearHidden: boolean;
   _isClosed: boolean;
   dynamic: number;

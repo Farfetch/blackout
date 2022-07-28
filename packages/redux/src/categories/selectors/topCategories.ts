@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { getCategories } from '../../categories';
 import { getError, getIsLoading, getResult } from '../reducer/topCategories';
 import type { CategoriesState } from '../types';
-import type { Category } from '@farfetch/blackout-client';
+import type { CategoryEntity } from '../../entities';
 import type { StoreState } from '../../types';
 
 /**
@@ -45,7 +45,7 @@ export const getTopCategories = createSelector(
     (state: StoreState) => getResult(state.categories as CategoriesState),
     (state: StoreState) => getCategories(state),
   ],
-  (topCategories, categories): (Category | undefined)[] => {
+  (topCategories, categories): (CategoryEntity | undefined)[] => {
     if (!topCategories) {
       return [];
     }

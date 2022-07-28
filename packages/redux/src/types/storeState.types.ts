@@ -2,6 +2,7 @@ import type {
   AddressEntity,
   AvailableTimeSlotsEntity,
   BagItemEntity,
+  CategoryEntity,
   CheckoutDetailsEntity,
   CheckoutEntity,
   CheckoutOrderEntity,
@@ -45,7 +46,6 @@ import type { AddressesState } from '../addresses/types';
 import type { BagsState } from '../bags/types';
 import type {
   Brand,
-  Category,
   MerchantLocation,
   ProgramMembership,
   SizeScale,
@@ -79,7 +79,7 @@ export type StoreState = Partial<{
     bagItems: Record<BagItemEntity['id'], BagItemEntity>;
     benefits: Record<UserBenefitEntity['id'], UserBenefitEntity>;
     brands: Record<Brand['id'], Brand>;
-    categories: Record<Category['id'], Category>;
+    categories: Record<CategoryEntity['id'], CategoryEntity>;
     checkout: Record<CheckoutEntity['id'], CheckoutEntity>;
     checkoutDetails: Record<CheckoutDetailsEntity['id'], CheckoutDetailsEntity>;
     checkoutOrderItems: Record<

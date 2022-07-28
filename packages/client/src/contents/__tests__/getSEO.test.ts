@@ -1,4 +1,4 @@
-import { getSEO } from '..';
+import { getSEO, SeoPageType } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/seo.fixtures';
 import mswServer from '../../../tests/mswServer';
@@ -14,9 +14,8 @@ describe('SEO client', () => {
     const spy = jest.spyOn(client, 'get');
     const query = {
       path: 'about',
-      pageType: 'pages',
+      pageType: SeoPageType.Pages,
       subPageType: '',
-      param: null,
     };
     const response = {
       title: null,
@@ -72,7 +71,7 @@ describe('SEO client', () => {
       await expect(getSEO(query)).resolves.toEqual(response);
 
       expect(spy).toHaveBeenCalledWith(
-        '/seo/metadata?pageType=pages&param&path=about&subPageType=',
+        '/seo/metadata?pageType=5&path=about&subPageType=',
         expectedConfig,
       );
     });
@@ -85,7 +84,7 @@ describe('SEO client', () => {
       await expect(getSEO(query)).rejects.toMatchSnapshot();
 
       expect(spy).toHaveBeenCalledWith(
-        '/seo/metadata?pageType=pages&param&path=about&subPageType=',
+        '/seo/metadata?pageType=5&path=about&subPageType=',
         expectedConfig,
       );
     });

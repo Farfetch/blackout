@@ -1,10 +1,10 @@
 import { rest, RestHandler } from 'msw';
-import type { AddressPredictions } from '../types';
+import type { AddressPrediction } from '../types';
 
 const path = '/api/account/v1/addressesprediction/:text';
 
 const fixtures = {
-  success: (response: AddressPredictions[]): RestHandler =>
+  success: (response: AddressPrediction[]): RestHandler =>
     rest.get(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),

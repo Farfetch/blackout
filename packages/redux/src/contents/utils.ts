@@ -2,14 +2,15 @@
  * Contents utils.
  */
 
-import get from 'lodash/get';
-import isEmpty from 'lodash/isEmpty';
-import type {
+import {
   CommercePages,
   CommercePagesContent,
   ComponentType,
   Metadata,
+  SeoPageType,
 } from '@farfetch/blackout-client';
+import get from 'lodash/get';
+import isEmpty from 'lodash/isEmpty';
 import type { GenerateSEOPathnameQuery, QueryContentHash } from './types';
 
 /**
@@ -284,7 +285,7 @@ export const generateSEOPathname = (
     return '';
   }
 
-  const pageType = get(query, 'pageType', 'all');
+  const pageType = get(query, 'pageType', SeoPageType.Default);
 
   return `${pageType}!${query.path}`;
 };

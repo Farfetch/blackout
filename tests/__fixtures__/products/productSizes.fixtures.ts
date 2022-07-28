@@ -8,6 +8,7 @@ export const mockProductSizes = [
     scale: '206',
     scaleAbbreviation: 'IT',
     isOneSize: false,
+    sizeOrder: '17',
     variants: [
       {
         merchantId: 11554,
@@ -15,6 +16,8 @@ export const mockProductSizes = [
         formattedPriceWithoutDiscount: '4 300 €',
         quantity: 2,
         barcodes: ['2013323497172'],
+        priceInclTaxes: 4300,
+        priceInclTaxesWithoutDiscount: 4300,
       },
     ],
   },

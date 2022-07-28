@@ -22,7 +22,7 @@ export const expectedRecommendedProductsPayload = [
   },
 ];
 
-export const mockRecommendedProductsProductId = 12913174;
+export const mockRecommendedProductsProductId = '12913174';
 export const mockRecommendedProductsId = '11111';
 export const mockRecommendedProductsStrategy = 'fpswhitelabel_pdp_generic_a';
 

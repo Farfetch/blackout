@@ -1,11 +1,11 @@
-export type OrderDocuments = {
+export type OrderDocument = {
   id: string;
   fileId: string;
-  type: Type[];
+  type: OrderDocumentType;
   createdAt: string;
   updatedAt: string;
 };
 
-enum Type {
-  ComercialInvoice,
+export enum OrderDocumentType {
+  ComercialInvoice = 'ComercialInvoice',
 }

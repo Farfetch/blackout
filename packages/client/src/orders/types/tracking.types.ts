@@ -14,16 +14,22 @@ export type ShipmentTracking = {
 };
 
 export type TrackingEvent = {
-  type: TrackingEventType[];
+  type: TrackingEventType;
   description: string;
   date: string;
 };
 
 export enum TrackingEventType {
-  None,
-  Pickup,
-  Delivered,
-  DeliveryFault,
+  None = 'None',
+  Pickup = 'Pickup',
+  Delivered = 'Delivered',
+  DeliveryFault = 'DeliveryFault',
+  StationDelivered = 'StationDelivered',
+  StationPickup = 'StationPickup',
+  DeliveryAttemptFailed = 'DeliveryAttemptFailed',
+  OutForDelivery = 'OutForDelivery',
+  ArrivedAtDestinationCountry = 'ArrivedAtDestinationCountry',
+  CustomsOut = 'CustomsOut',
 }
 
 export type LabelTracking = {
@@ -35,7 +41,7 @@ export type LabelTracking = {
   service: string;
   isEstimatedDeliveryDateTrusworthy: boolean;
   estimatedDeliveryDate: string;
-  event: LabelTrackingEvent[];
+  events: LabelTrackingEvent[];
 };
 
 export type LabelTrackingEvent = {

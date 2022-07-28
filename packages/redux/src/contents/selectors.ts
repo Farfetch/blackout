@@ -4,7 +4,7 @@
 import { generateContentHash, generateSEOPathname } from './utils';
 import { getContentResult, getContentTypes, getSEOmetadata } from './reducer';
 import { getEntityById } from '../entities';
-import type { ContentEntry, QuerySEO } from '@farfetch/blackout-client';
+import type { ContentEntry, GetSEOQuery } from '@farfetch/blackout-client';
 import type { ContentsState, Hash, QueryContentHash } from './types';
 import type { StoreState } from '../types';
 
@@ -175,7 +175,7 @@ export const getAllContentTypes = (state: StoreState) =>
  *
  * @returns - Content error.
  */
-export const getSEOError = (state: StoreState, query: QuerySEO) => {
+export const getSEOError = (state: StoreState, query: GetSEOQuery) => {
   const pathname = generateSEOPathname(query);
   const error = getSEOmetadata(state.contents as ContentsState).error;
 
@@ -200,7 +200,7 @@ export const getSEOError = (state: StoreState, query: QuerySEO) => {
  *
  * @returns - If the content is loading or not.
  */
-export const isSEOLoading = (state: StoreState, query: QuerySEO) => {
+export const isSEOLoading = (state: StoreState, query: GetSEOQuery) => {
   const pathname = generateSEOPathname(query);
 
   return getSEOmetadata(state.contents as ContentsState).isLoading[pathname];
@@ -224,7 +224,7 @@ export const isSEOLoading = (state: StoreState, query: QuerySEO) => {
  *
  * @returns - All metadata for that page.
  */
-export const getSEO = (state: StoreState, query: QuerySEO) => {
+export const getSEO = (state: StoreState, query: GetSEOQuery) => {
   const pathname = generateSEOPathname(query);
   const result = getSEOmetadata(state.contents as ContentsState).result;
 
