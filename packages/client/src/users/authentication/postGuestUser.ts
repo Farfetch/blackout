@@ -13,7 +13,14 @@ import type { PostGuestUser } from './types';
 const postGuestUser: PostGuestUser = (data, config?) =>
   client
     .post('/account/v1/guestUsers', data, config)
-    .then(response => response.data)
+    .then(response => {
+      if (!response.data) {
+        return response;
+      }
+
+      // Add isGuest true to normalize with the GuestUser type
+      return { ...response.data, isGuest: true };
+    })
     .catch(error => {
       throw adaptError(error);
     });

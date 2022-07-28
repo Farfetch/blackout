@@ -17,7 +17,7 @@ import type { Dispatch } from 'redux';
 const resetPasswordFactory =
   (postPasswordReset: PostPasswordReset) =>
   (data: PostPasswordResetData, config?: Config) =>
-  async (dispatch: Dispatch): Promise<any> => {
+  async (dispatch: Dispatch) => {
     try {
       dispatch({
         type: actionTypes.PASSWORD_RESET_REQUEST,

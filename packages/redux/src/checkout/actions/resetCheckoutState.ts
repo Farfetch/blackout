@@ -4,9 +4,12 @@ import type { Dispatch } from 'redux';
 /**
  * Reset the checkout state.
  */
-export default () =>
+const resetCheckoutState =
+  () =>
   (dispatch: Dispatch): void => {
     dispatch({
       type: actionTypes.RESET_CHECKOUT_STATE,
     });
   };
+
+export default resetCheckoutState;

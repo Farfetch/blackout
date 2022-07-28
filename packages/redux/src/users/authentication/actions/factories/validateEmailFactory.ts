@@ -17,7 +17,7 @@ import type { Dispatch } from 'redux';
 const validateEmailFactory =
   (postValidateEmail: PostValidateEmail) =>
   (data: PostValidateEmailData, config?: Config) =>
-  async (dispatch: Dispatch): Promise<any> => {
+  async (dispatch: Dispatch) => {
     try {
       dispatch({
         type: actionTypes.VALIDATE_EMAIL_REQUEST,

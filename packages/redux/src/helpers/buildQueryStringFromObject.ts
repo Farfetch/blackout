@@ -16,7 +16,7 @@ import isEmpty from 'lodash/isEmpty';
  *
  * @returns Query string with all parameters received.
  */
-export default (
+const buildQueryStringFromObject = (
   obj: Record<string, unknown>,
   useQuestionMark = true,
 ): string => {
@@ -38,3 +38,5 @@ export default (
 
   return paramsToUrl.length ? `${prefix}${paramsToUrl.join('&')}` : '';
 };
+
+export default buildQueryStringFromObject;

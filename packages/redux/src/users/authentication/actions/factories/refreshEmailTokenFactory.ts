@@ -19,7 +19,7 @@ import type { Dispatch } from 'redux';
 const refreshEmailTokenFactory =
   (postRefreshEmailToken: PostRefreshEmailToken) =>
   (data: PostRefreshEmailTokenData, config?: Config) =>
-  async (dispatch: Dispatch): Promise<any> => {
+  async (dispatch: Dispatch) => {
     try {
       dispatch({
         type: actionTypes.REFRESH_EMAIL_TOKEN_REQUEST,

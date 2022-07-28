@@ -1,14 +1,3 @@
-export type GuestUser = {
-  id: number;
-  bagId: string;
-  wishlistId: string;
-  ip: string;
-  countryCode: string;
-  externalId: string;
-  friendId: string;
-  expiryDate: string;
-};
-
 export enum UserStatus {
   Inactive = 'Inactive',
   Disabled = 'Disabled',
@@ -19,19 +8,22 @@ export enum UserStatus {
   Unknown = 'Unknown',
 }
 
-// Returned by users/me request when the user is guest
-// This is the normalization of the GuestUser structure done by
-// the backend from the users/me request to match the User structure
-// returned by the users/me for registered users.
-export type GuestUserNormalized = {
+// This type is the combination of the type for values returned
+// by the users/me request and the get/post guest users. The properties
+// that are not common between the 2 types are made optional because of that.
+export type GuestUser = {
   bagId: string;
   countryCode: string;
-  guestBagItemsMerged: number;
-  phoneNumberConfirmed?: boolean;
+  expiryDate?: string;
+  externalId?: string;
+  friendId?: string;
+  guestBagItemsMerged?: number;
   id: number;
-  isExternalLogin: boolean;
+  ip?: string;
+  isExternalLogin?: boolean;
   isGuest: true;
+  phoneNumberConfirmed?: boolean;
   receiveNewsletters?: boolean;
-  status: UserStatus;
+  status?: UserStatus;
   wishlistId: string;
 };

@@ -6,9 +6,12 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-export default () =>
+const resetSearchIntents =
+  () =>
   (dispatch: Dispatch): void => {
     dispatch({
       type: actionTypes.RESET_SEARCH_INTENTS,
     });
   };
+
+export default resetSearchIntents;

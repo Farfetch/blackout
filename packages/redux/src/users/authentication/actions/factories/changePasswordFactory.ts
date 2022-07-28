@@ -17,7 +17,7 @@ import type { Dispatch } from 'redux';
 const changePasswordFactory =
   (postPasswordChange: PostPasswordChange) =>
   (data: PostPasswordChangeData, config?: Config) =>
-  async (dispatch: Dispatch): Promise<any> => {
+  async (dispatch: Dispatch) => {
     try {
       dispatch({
         type: actionTypes.PASSWORD_CHANGE_REQUEST,

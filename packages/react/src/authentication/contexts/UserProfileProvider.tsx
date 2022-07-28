@@ -1,7 +1,7 @@
 import {
   AuthenticationConfigOptions,
   getUser,
-  GuestUserNormalized,
+  GuestUser,
   User,
 } from '@farfetch/blackout-client';
 import { ProfileChangedError } from '../errors';
@@ -13,18 +13,18 @@ import UserProfileContext from './UserProfileContext';
 interface Props {
   children: React.ReactNode;
   fetchProfileOnTokenChanges: boolean;
-  onProfileChange: (response: User | GuestUserNormalized) => void;
+  onProfileChange: (response: User | GuestUser) => void;
 }
 
 interface State {
   isLoading: boolean;
   error: Error | null;
-  userData: User | GuestUserNormalized | null;
+  userData: User | GuestUser | null;
 }
 
 interface Action {
   type: string;
-  payload?: User | GuestUserNormalized | Error;
+  payload?: User | GuestUser | Error;
 }
 
 export interface Error {
@@ -60,7 +60,7 @@ const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         isLoading: false,
-        userData: action.payload as User | GuestUserNormalized,
+        userData: action.payload as User | GuestUser,
       };
     }
 
@@ -106,13 +106,11 @@ const UserProfileProvider = ({
 }: Props) => {
   const [userProfileState, dispatch] = useReducer(reducer, initialState);
   const { activeTokenData, tokenManager } = useAuthentication();
-  const currentLoadProfilePromiseRef = useRef<Promise<
-    User | GuestUserNormalized
-  > | null>(null);
+  const currentLoadProfilePromiseRef = useRef<Promise<User | GuestUser> | null>(
+    null,
+  );
 
-  const loadProfileAux = useCallback(async (): Promise<
-    User | GuestUserNormalized
-  > => {
+  const loadProfileAux = useCallback(async (): Promise<User | GuestUser> => {
     dispatch({ type: ActionTypes.GetUserRequested });
 
     let usedAccessToken = null;
@@ -122,7 +120,7 @@ const UserProfileProvider = ({
     };
 
     try {
-      const userData: User | GuestUserNormalized = await getUser({
+      const userData: User | GuestUser = await getUser({
         [AuthenticationConfigOptions.UsedAccessTokenCallback]:
           setAccessTokenRef,
         [AuthenticationConfigOptions.IsGetUserProfileRequest]: true,
@@ -151,7 +149,7 @@ const UserProfileProvider = ({
     } catch (error) {
       dispatch({
         type: ActionTypes.GetUserFailed,
-        payload: error as User | GuestUserNormalized | Error | undefined,
+        payload: error as User | GuestUser | Error | undefined,
       });
       throw error;
     }

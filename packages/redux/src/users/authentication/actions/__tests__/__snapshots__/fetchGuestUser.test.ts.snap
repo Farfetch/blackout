@@ -12,6 +12,7 @@ Object {
         "friendId": "string",
         "id": 34923,
         "ip": "string",
+        "isGuest": true,
         "wishlistId": "string",
       },
     },

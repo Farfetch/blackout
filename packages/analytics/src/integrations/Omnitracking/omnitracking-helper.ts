@@ -17,7 +17,12 @@ import { v4 as uuidV4 } from 'uuid';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
 import platformTypes from '../../types/platformTypes';
-import type { EventContext, EventData, TrackTypesValues } from '../..';
+import type {
+  EventContext,
+  EventData,
+  TrackTypesValues,
+  UserTraits,
+} from '../..';
 import type {
   OmnitrackingCommonEventParameters,
   OmnitrackingPageEventParameters,
@@ -285,7 +290,11 @@ export const formatPageEvent = (
   additionalParameters: OmnitrackingPageEventParameters,
 ): OmnitrackingRequestPayload<PageViewEvents> => {
   const correlationId = get(data, 'user.localId', null);
-  const user = get(data, 'user', { id: -1, traits: {}, localId: '' });
+  const user = get(data, 'user', {
+    id: -1,
+    traits: {} as UserTraits,
+    localId: '',
+  });
   const customerId = getCustomerIdFromUser(user);
   const context: EventContext = get(data, 'context', {}) as EventContext;
   const event = getPageEvent(data);
@@ -400,7 +409,11 @@ export const formatTrackEvent = (
   data: EventData<TrackTypesValues>,
   additionalParameters: OmnitrackingTrackEventParameters,
 ): OmnitrackingRequestPayload<PageActionEvents> => {
-  const user = get(data, 'user', { id: -1, traits: {}, localId: '' });
+  const user = get(data, 'user', {
+    id: -1,
+    traits: {} as UserTraits,
+    localId: '',
+  });
   const customerId = getCustomerIdFromUser(user);
   const correlationId = get(data, 'user.localId', null);
   const context = get(data, 'context', {}) as EventContext;

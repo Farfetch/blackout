@@ -381,10 +381,8 @@ Object {
     "PerStoreFlatRate": 0,
   },
   "ShippingMode": Object {
-    "0": "ByMerchant",
-    "1": "ByBundle",
-    "ByBundle": 1,
-    "ByMerchant": 0,
+    "ByBundle": "ByBundle",
+    "ByMerchant": "ByMerchant",
   },
   "ShopperInteraction": Object {
     "0": "Ecommerce",

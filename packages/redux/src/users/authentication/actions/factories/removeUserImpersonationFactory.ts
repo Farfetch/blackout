@@ -16,7 +16,7 @@ import type { Dispatch } from 'redux';
 const removeUserImpersonationFactory =
   (deleteUserImpersonation: DeleteUserImpersonation) =>
   (impersonatedAccessTokenId: string, config?: Config) =>
-  async (dispatch: Dispatch): Promise<any> => {
+  async (dispatch: Dispatch) => {
     try {
       dispatch({
         type: actionTypes.DELETE_USER_IMPERSONATION_REQUEST,

@@ -17,11 +17,7 @@ export class UserSessionExpiredError extends AuthenticationManagerBaseError {
   }
 }
 
-export class RefreshAccessTokenError extends AuthenticationManagerBaseError {
-  constructor(message: string, originalError: AxiosError) {
-    super(message, originalError);
-  }
-}
+export class RefreshAccessTokenError extends AuthenticationManagerBaseError {}
 
 export class RefreshGuestUserAccessTokenError extends RefreshAccessTokenError {
   constructor(originalError: AxiosError) {

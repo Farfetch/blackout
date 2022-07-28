@@ -17,7 +17,7 @@ import type { Dispatch } from 'redux';
 const createUserImpersonationFactory =
   (postUserImpersonation: PostUserImpersonation) =>
   (data: PostUserImpersonationData, config?: Config) =>
-  async (dispatch: Dispatch): Promise<any> => {
+  async (dispatch: Dispatch) => {
     try {
       dispatch({
         type: actionTypes.CREATE_USER_IMPERSONATION_REQUEST,

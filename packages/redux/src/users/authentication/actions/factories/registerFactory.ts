@@ -20,7 +20,7 @@ const UNVERIFIED_USER = 4;
 const registerFactory =
   (postRegister: PostRegister) =>
   (data: PostRegisterData, config?: Config) =>
-  async (dispatch: Dispatch): Promise<any> => {
+  async (dispatch: Dispatch) => {
     try {
       dispatch({
         type: actionTypes.REGISTER_REQUEST,

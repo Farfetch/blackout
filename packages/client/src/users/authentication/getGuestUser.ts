@@ -14,7 +14,14 @@ import type { GetGuestUser } from './types';
 const getGuestUser: GetGuestUser = (guestUserId, config) =>
   client
     .get(join('/account/v1/guestUsers', guestUserId), config)
-    .then(response => response.data)
+    .then(response => {
+      if (!response.data) {
+        return response;
+      }
+
+      // Add isGuest true to normalize with the GuestUser type
+      return { ...response.data, isGuest: true };
+    })
     .catch(error => {
       throw adaptError(error);
     });
