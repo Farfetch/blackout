@@ -125,3 +125,9 @@ export const REMOVE_USER_PERSONAL_ID_REQUEST =
  */
 export const REMOVE_USER_PERSONAL_ID_SUCCESS =
   '@farfetch/blackout-redux/REMOVE_USER_PERSONAL_ID_SUCCESS';
+
+/**
+ * Action type dispatched when resetting the personal ids.
+ */
+export const RESET_USER_PERSONAL_IDS =
+  '@farfetch/blackout-redux/RESET_USER_PERSONAL_IDS';
