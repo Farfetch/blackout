@@ -27,7 +27,9 @@ export type WishlistNormalizedPayload = NormalizedSchema<
   WishlistsState['result']
 >;
 
-export type WishlistItemActionMetadata = Record<string, unknown>;
+export type WishlistItemActionMetadata = {
+  from?: string;
+} & Record<string, unknown>;
 
 export type WishlistSetsNormalizedPayload = NormalizedSchema<
   { wishlistSets: WishlistSetEntities },

@@ -3,6 +3,7 @@
  * items.
  */
 import {
+  BagItemActionMetadata,
   getBagItem,
   getBagItemError,
   isBagItemLoading,
@@ -35,7 +36,8 @@ const useBagItem = (bagItemId: BagItemId) => {
   );
 
   const update = useCallback(
-    (data: HandleUpdateBagItemData) => updateItem(bagItemId, data),
+    (data: HandleUpdateBagItemData, metadata?: BagItemActionMetadata) =>
+      updateItem(bagItemId, data, metadata),
     [updateItem, bagItemId],
   );
 

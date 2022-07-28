@@ -132,19 +132,26 @@ describe('useBagItem', () => {
         wrapper: withStore(mockState),
       });
 
-      await update({ sizeId: 2, quantity: 2 });
+      const metadata = { from: 'bag' };
+
+      await update({ sizeId: 2, quantity: 2 }, metadata);
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
-      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, {
-        authCode: undefined,
-        customAttributes: '',
-        productAggregatorId: undefined,
-        merchantId: mockMerchantId,
-        productId: mockProductId,
-        quantity: 2,
-        scale: mockSizeScaleId,
-        size: 2,
-      });
+      expect(updateBagItem).toHaveBeenCalledWith(
+        mockBagItemId,
+        {
+          authCode: undefined,
+          customAttributes: '',
+          productAggregatorId: undefined,
+          merchantId: mockMerchantId,
+          productId: mockProductId,
+          quantity: 2,
+          scale: mockSizeScaleId,
+          size: 2,
+        },
+        undefined,
+        metadata,
+      );
     });
   });
 });
