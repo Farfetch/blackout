@@ -1,75 +1,186 @@
-import { fetchProductDetails } from '@farfetch/blackout-redux';
-import { mockProductId, mockProductsState } from 'tests/__fixtures__/products';
-import { mockStore } from '../../../../tests/helpers';
-import { Provider } from 'react-redux';
+import {
+  fetchProductDetails,
+  resetProductDetails,
+} from '@farfetch/blackout-redux';
+import {
+  mockProduct,
+  mockProductId,
+  mockProductsState,
+} from 'tests/__fixtures__/products';
 import { renderHook } from '@testing-library/react';
-import React from 'react';
+import { withStore } from '@farfetch/blackout-react/tests/helpers';
 import useProductDetails from '../useProductDetails';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
-  fetchProductDetails: jest.fn(() => ({ type: 'get' })),
+  fetchProductDetails: jest.fn(() => () => Promise.resolve()),
+  resetProductDetails: jest.fn(() => () => Promise.resolve()),
 }));
 
-const getRenderedHook = (props, state = mockProductsState) => {
-  return renderHook(() => useProductDetails(props), {
-    wrapper: ({ children }) => (
-      <Provider store={mockStore(state)}>{children}</Provider>
-    ),
-  });
-};
-
 describe('useProductDetails', () => {
-  beforeEach(jest.clearAllMocks);
+  it('should return data correctly with initial state', () => {
+    const { result } = renderHook(() => useProductDetails(mockProductId), {
+      wrapper: withStore(mockProductsState),
+    });
 
-  describe('when it has a product id', () => {
-    it('should return values correctly with initial state', async () => {
-      const { result } = getRenderedHook(mockProductId);
-
-      expect(result.current).toStrictEqual({
-        breadcrumbs: expect.any(Array),
-        error: expect.any(Object),
-        groupedEntries: undefined,
-        isDuplicated: expect.any(Boolean),
-        isFetched: expect.any(Boolean),
-        isHydrated: expect.any(Boolean),
-        isInBag: expect.any(Boolean),
-        isLoading: expect.any(Boolean),
-        isOneSize: expect.any(Boolean),
-        isOutOfStock: expect.any(Boolean),
-        labelsPrioritized: expect.any(Array),
-        product: expect.any(Object),
-        promotions: expect.any(Array),
-        availableSizes: expect.any(Array),
-      });
+    expect(result.current).toStrictEqual({
+      error: null,
+      isFetched: true,
+      isLoading: false,
+      data: {
+        ...mockProduct,
+        isOneSize: false,
+        isOutOfStock: false,
+      },
+      actions: {
+        reset: expect.any(Function),
+        refetch: expect.any(Function),
+      },
     });
   });
 
-  describe('when the product has not been fetched', () => {
-    it('should fetch the product', () => {
-      const storeState = {
-        ...mockProductsState,
+  it('should return error state', () => {
+    const errorMockProductsState = {
+      entities: {},
+      products: {
+        details: {
+          error: {
+            [mockProductId]: 'Error - Not loaded.',
+          },
+          isHydrated: {
+            [mockProductId]: false,
+          },
+          isLoading: {
+            [mockProductId]: false,
+          },
+        },
+      },
+    };
+
+    const { result } = renderHook(() => useProductDetails(mockProductId), {
+      wrapper: withStore(errorMockProductsState),
+    });
+
+    expect(result.current).toStrictEqual({
+      error: 'Error - Not loaded.',
+      isFetched: true,
+      isLoading: false,
+      data: undefined,
+      actions: {
+        reset: expect.any(Function),
+        refetch: expect.any(Function),
+      },
+    });
+  });
+
+  it('should return loading state', () => {
+    const loadingMockProductsState = {
+      entities: {},
+      products: {
+        details: {
+          error: {},
+          isHydrated: {},
+          isLoading: {
+            [mockProductId]: true,
+          },
+        },
+      },
+    };
+
+    const { result } = renderHook(() => useProductDetails(mockProductId), {
+      wrapper: withStore(loadingMockProductsState),
+    });
+
+    expect(result.current).toStrictEqual({
+      error: undefined,
+      isFetched: false,
+      isLoading: true,
+      data: undefined,
+      actions: {
+        reset: expect.any(Function),
+        refetch: expect.any(Function),
+      },
+    });
+  });
+
+  describe('options', () => {
+    it('should fetch data if `enableAutoFetch` option is true', () => {
+      const initialMockProductsState = {
+        entities: {},
         products: {
-          ...mockProductsState.products,
           details: {
-            ...mockProductsState.products.details,
+            error: {},
             isHydrated: {},
             isLoading: {},
           },
         },
       };
 
-      getRenderedHook(mockProductId, storeState);
+      const options = {
+        fetchQuery: { merchantId: 123 },
+        fetchConfig: { headers: { 'X-Test-Header': 'test' } },
+      };
 
-      expect(fetchProductDetails).toHaveBeenCalledTimes(1);
+      renderHook(() => useProductDetails(mockProductId, options), {
+        wrapper: withStore(initialMockProductsState),
+      });
+
+      expect(fetchProductDetails).toHaveBeenCalledWith(
+        mockProductId,
+        options.fetchQuery,
+        false,
+        options.fetchConfig,
+      );
+    });
+
+    it('should not fetch data if `enableAutoFetch` option is false', () => {
+      renderHook(
+        () => useProductDetails(mockProductId, { enableAutoFetch: false }),
+        {
+          wrapper: withStore(mockProductsState),
+        },
+      );
+
+      expect(fetchProductDetails).not.toHaveBeenCalledWith();
     });
   });
 
-  describe('when the product is already fetched', () => {
-    it('should not fetch the product', () => {
-      getRenderedHook(mockProductId);
+  describe('actions', () => {
+    it('should call `reset` action successfully', () => {
+      const {
+        result: {
+          current: {
+            actions: { reset },
+          },
+        },
+      } = renderHook(() => useProductDetails(mockProductId), {
+        wrapper: withStore(mockProductsState),
+      });
 
-      expect(fetchProductDetails).not.toHaveBeenCalled();
+      reset();
+
+      expect(resetProductDetails).toHaveBeenCalled();
+    });
+
+    it('should call `refetch` action successfully', () => {
+      const {
+        result: {
+          current: {
+            actions: { refetch },
+          },
+        },
+      } = renderHook(() => useProductDetails(mockProductId), {
+        wrapper: withStore(mockProductsState),
+      });
+
+      refetch();
+
+      expect(fetchProductDetails).toHaveBeenCalledWith(
+        mockProductId,
+        undefined,
+        false,
+        undefined,
+      );
     });
   });
 });

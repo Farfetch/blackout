@@ -1,138 +1,86 @@
-/**
- * Hook to provide all kinds of data for the business logic attached to the product
- * details.
- */
 import {
-  fetchProductDetails as fetchProductDetailsAction,
-  getAllProductSizesRemainingQuantity,
+  fetchProductDetails,
   getProduct,
-  getProductBreadcrumbs,
   getProductError,
-  getProductGroupedEntries,
-  getProductLabelsByPriority,
-  getProductPromotions,
-  isProductDuplicated,
   isProductFetched,
-  isProductHydrated,
-  isProductInBag,
   isProductLoading,
   isProductOneSize,
   isProductOutOfStock,
+  resetProductDetails,
   StoreState,
 } from '@farfetch/blackout-redux';
 import { useAction } from '../../helpers';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import type { UseProductDetails } from './types';
+import type { ProductId, UseProductDetailsOptions } from './types';
 
-/**
- * Provides state access for dealing with product details business logic. Also it
- * fetches product details if there are none.
- *
- * @param id - Product id to work on.
- *
- * @returns All the state needed to manage any product details information.
- */
-const useProductDetails: UseProductDetails = id => {
-  const fetchProductDetails = useAction(fetchProductDetailsAction);
-  const breadcrumbs = useSelector((state: StoreState) =>
-    getProductBreadcrumbs(state, id),
+const useProductDetails = (
+  productId: ProductId,
+  options: UseProductDetailsOptions = {},
+) => {
+  const {
+    fetchQuery,
+    fetchConfig,
+    enableAutoFetch = true,
+    fetchForceDispatch = false,
+  } = options;
+
+  const fetch = useAction(fetchProductDetails);
+  const reset = useAction(resetProductDetails);
+
+  const error = useSelector((state: StoreState) =>
+    getProductError(state, productId),
   );
-  const error = useSelector((state: StoreState) => getProductError(state, id));
-  const groupedEntries = useSelector((state: StoreState) =>
-    getProductGroupedEntries(state, id),
-  );
-  const isDuplicated = useSelector((state: StoreState) =>
-    isProductDuplicated(state, id),
+  const isLoading = useSelector((state: StoreState) =>
+    isProductLoading(state, productId),
   );
   const isFetched = useSelector((state: StoreState) =>
-    isProductFetched(state, id),
+    isProductFetched(state, productId),
   );
-  const isHydrated = useSelector((state: StoreState) =>
-    isProductHydrated(state, id),
-  );
-  const isInBag = useSelector((state: StoreState) => isProductInBag(state, id));
-  const isLoading = useSelector((state: StoreState) =>
-    isProductLoading(state, id),
-  );
-  const isOneSize = useSelector((state: StoreState) =>
-    isProductOneSize(state, id),
+  const product = useSelector((state: StoreState) =>
+    getProduct(state, productId),
   );
   const isOutOfStock = useSelector((state: StoreState) =>
-    isProductOutOfStock(state, id),
+    isProductOutOfStock(state, productId),
   );
-  const labelsPrioritized = useSelector((state: StoreState) =>
-    getProductLabelsByPriority(state, id),
+  const isOneSize = useSelector((state: StoreState) =>
+    isProductOneSize(state, productId),
   );
-  const product = useSelector((state: StoreState) => getProduct(state, id));
-  const promotions = useSelector((state: StoreState) =>
-    getProductPromotions(state, id),
+
+  const refetch = useCallback(
+    () => fetch(productId, fetchQuery, fetchForceDispatch, fetchConfig),
+    [fetch, productId, fetchQuery, fetchForceDispatch, fetchConfig],
   );
-  const availableSizes = useSelector((state: StoreState) =>
-    getAllProductSizesRemainingQuantity(state, id),
-  );
+
+  const shouldLoadDetails = enableAutoFetch && !isLoading && !error && !product;
 
   useEffect(() => {
-    !isFetched && fetchProductDetails(id);
-  }, [fetchProductDetails, id, isFetched]);
+    shouldLoadDetails &&
+      fetch(productId, fetchQuery, fetchForceDispatch, fetchConfig);
+  }, [
+    fetch,
+    productId,
+    fetchQuery,
+    fetchConfig,
+    shouldLoadDetails,
+    fetchForceDispatch,
+  ]);
 
   return {
-    /**
-     * The available sizes for the given product.
-     */
-    availableSizes,
-    /**
-     * Product breadcrumbs.
-     */
-    breadcrumbs,
-    /**
-     * Error state of the fetched product details.
-     */
     error,
-    /**
-     * Product grouped entries.
-     */
-    groupedEntries,
-    /**
-     * Whether the product is duplicated.
-     */
-    isDuplicated,
-    /**
-     * Whether the product has been fetched.
-     */
     isFetched,
-    /**
-     * Whether the product has been hydrated.
-     */
-    isHydrated,
-    /**
-     * Whether the product is in the bag.
-     */
-    isInBag,
-    /**
-     * Whether the product is loading.
-     */
     isLoading,
-    /**
-     * Whether the product has only one size.
-     */
-    isOneSize,
-    /**
-     * Whether the product is out of stock.
-     */
-    isOutOfStock,
-    /**
-     * Product labels on an ascended order.
-     */
-    labelsPrioritized,
-    /**
-     * The product itself.
-     */
-    product,
-    /**
-     * Product promotions.
-     */
-    promotions,
+    data: !!product
+      ? {
+          ...product,
+          isOneSize,
+          isOutOfStock,
+        }
+      : undefined,
+    actions: {
+      reset,
+      refetch,
+    },
   };
 };
 

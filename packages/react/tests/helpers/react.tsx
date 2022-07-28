@@ -1,7 +1,7 @@
 import { mockStore } from './redux';
 import { Provider } from 'react-redux';
 import { render } from '@testing-library/react';
-import React, { ReactNode } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import type { StoreState } from '@farfetch/blackout-redux';
 
 /**
@@ -15,7 +15,7 @@ import type { StoreState } from '@farfetch/blackout-redux';
  * @returns - Returns an object with available functions to wrap the component in different providers
  * as well as a render function.
  */
-export const wrap = component => ({
+export const wrap = (component: ReactElement) => ({
   get component() {
     return component;
   },
