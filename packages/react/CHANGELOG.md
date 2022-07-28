@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.42.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.42.0...@farfetch/blackout-react@0.42.1) (2022-07-28)
+
+
+### Bug Fixes
+
+* added reset function to reset auth state on react-core ([92f68fc](https://github.com/Farfetch/blackout/commit/92f68fc773403b16944d08bba755d3a0adfc6620))
+
+
+
+
+
 # [0.42.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.41.1...@farfetch/blackout-react@0.42.0) (2022-07-27)
 
 
