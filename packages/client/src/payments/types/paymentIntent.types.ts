@@ -1,12 +1,12 @@
-import type { AddressBase } from '../../types/common/address.types';
+import type { PaymentAddress } from '../../types/common/address.types';
 
 export enum PaymentIntentStatus {
-  Created,
-  Pending,
-  Cancelled,
-  Authorized,
-  Settled,
-  Refunded,
+  Created = 'Created',
+  Pending = 'Pending',
+  Cancelled = 'Cancelled',
+  Authorized = 'Authorized',
+  Settled = 'Settled',
+  Refunded = 'Refunded',
 }
 
 export enum Classification {
@@ -46,7 +46,7 @@ export type PaymentIntent = {
     firstName: string;
     lastName: string;
     email: string;
-    address: AddressBase;
+    address: PaymentAddress;
   };
   fingerprint: string;
 };

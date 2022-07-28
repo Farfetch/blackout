@@ -21,6 +21,14 @@ Object {
   },
   "payload": Object {
     "cancelUrl": "string",
+    "chargeInstruments": Array [
+      Object {
+        "declineCode": "NotApplicable",
+        "id": "",
+        "operationStatus": "Processing",
+      },
+    ],
+    "redirectUrl": "string",
     "returnUrl": "string",
     "status": "Processing",
   },

@@ -1,4 +1,8 @@
-import { UserGender, UserStatus } from '@farfetch/blackout-client';
+import {
+  UserAttributeType,
+  UserGender,
+  UserStatus,
+} from '@farfetch/blackout-client';
 import type { UserEntity, UsersState } from '@farfetch/blackout-redux';
 
 export const userId = 123456;
@@ -51,9 +55,9 @@ export const expectedNormalizedUserPayload = {
   result: 29538482,
 };
 
-export const mockUserAttributesResponse = {
+export const mockUserAttributeResponse = {
   id: '',
-  type: '',
+  type: UserAttributeType.Generic,
   channelCode: '',
   tenantId: 0,
   userId: 0,
@@ -64,9 +68,11 @@ export const mockUserAttributesResponse = {
   },
 };
 
+export const mockUserAttributesResponse = [mockUserAttributeResponse];
+
 export const mockUserAttributesData = {
   id: '',
-  type: '',
+  type: UserAttributeType.Generic,
   channelCode: '',
   tenantId: 0,
   userId: 0,

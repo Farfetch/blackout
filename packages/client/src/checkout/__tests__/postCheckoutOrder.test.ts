@@ -2,7 +2,7 @@ import * as checkoutClient from '..';
 import {
   GetCheckoutOrderResponse,
   OrderStatusError,
-  PostCheckoutOrderData,
+  PostCheckoutOrderDataWithBag,
   ShippingMode,
 } from '../types';
 import client from '../../helpers/client';
@@ -10,7 +10,7 @@ import fixtures from '../__fixtures__/postCheckoutOrder.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 describe('checkout client', () => {
-  const data: PostCheckoutOrderData = {
+  const data: PostCheckoutOrderDataWithBag = {
     bagId: '25cfbb10-f4d1-4684-8e52-45e4d3b001d3',
     guestUserEmail: 'test-email@acme.com',
     usePaymentIntent: true,

@@ -1,7 +1,7 @@
 import type { BreadCrumb } from './breadCrumb.types';
 import type { FacetGroup } from './facetGroup.types';
 import type { FilterSegment } from './filterSegment.types';
-import type { Gender, PagedResponse } from '../../types';
+import type { GenderCode, PagedResponse } from '../../types';
 import type { ProductSummary } from './productSummary.types';
 import type { ShoppingConfig } from './shoppingConfig.types';
 
@@ -13,11 +13,11 @@ export type ProductSet = {
   filterSegments: FilterSegment[];
   config: ShoppingConfig;
   breadCrumbs: BreadCrumb[];
-  searchTerm: string;
+  searchTerm: string | null;
   facetsBaseUrl: string;
-  _sorts: string[];
-  _clearUrl: string;
+  _sorts: string[] | null;
+  _clearUrl: string | null;
   _isClearHidden: boolean;
-  gender: Gender;
+  gender: GenderCode;
   genderName: string;
 };

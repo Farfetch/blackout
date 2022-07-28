@@ -65,3 +65,31 @@ export const mockPriceResponse = {
   formattedPriceWithoutDiscountAndCurrency: '310,00',
   taxType: 'VAT',
 };
+
+export const mockPricesResponse = [
+  {
+    discount: {
+      excludingTaxes: undefined,
+      includingTaxes: undefined,
+      rate: 40,
+    },
+    excludingTaxes: undefined,
+    formatted: {
+      includingTaxes: '186,00 €',
+      includingTaxesWithoutDiscount: '310,00 €',
+    },
+    includingTaxes: 100,
+    includingTaxesWithoutDiscount: 100,
+    isFormatted: true,
+    priceType: undefined,
+    promocode: { rate: undefined },
+    promotionType: 'FullPrice',
+    tags: undefined,
+    taxes: {
+      amount: undefined,
+      rate: undefined,
+      type: undefined,
+    },
+    type: 0,
+  },
+];

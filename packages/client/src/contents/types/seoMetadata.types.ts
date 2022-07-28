@@ -1,16 +1,34 @@
 import type { Config } from '../../types';
 
-export type GetSEO = (query: QuerySEO, config?: Config) => Promise<SEOMetadata>;
+export type GetSEO = (
+  query: GetSEOQuery,
+  config?: Config,
+) => Promise<SEOMetadata>;
 
-export type QuerySEO = {
-  // The type of the page we are searching (pages|stories...).
-  pageType: string;
-  // An object containing some parameters for product listing (BrandName|CategoryName|TotalNumberItems...).
-  param?: string;
+export enum SeoPageType {
+  None = 0,
+  Default = 1,
+  Listing = 2,
+  Sets = 3,
+  Product = 4,
+  Pages = 5,
+  Posts = 6,
+  Collections = 7,
+  Looks = 8,
+  LookCollections = 9,
+  Stores = 10,
+  Custom = 100,
+}
+
+export type GetSEOQuery = {
   // The pathname of the location.
-  path: string;
+  path?: string;
+  // The type of the page we are searching (pages|stores...).
+  pageType?: SeoPageType;
   // The sub group of pages about products.
-  subPageType: string;
+  subPageType?: string;
+  customContentKey?: string;
+  subfolder?: string;
 };
 
 export interface HrefLangs {

@@ -1,10 +1,10 @@
 import { rest, RestHandler } from 'msw';
-import type { GetUserBenefitsResponse } from '../types';
+import type { UserBenefit } from '../types';
 
 const path = '/api/legacy/v1/userbenefits';
 
 const fixtures = {
-  success: (response: GetUserBenefitsResponse): RestHandler =>
+  success: (response: UserBenefit): RestHandler =>
     rest.get(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),

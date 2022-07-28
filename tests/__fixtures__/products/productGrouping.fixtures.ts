@@ -1,5 +1,6 @@
 import { mockPriceAdaptedEmpty } from './price.fixtures';
 import { mockProductId } from './ids.fixtures';
+import { VariationPropertyType } from '@farfetch/blackout-client';
 
 export const mockProductGrouping = {
   entries: [
@@ -15,7 +16,7 @@ export const mockProductGrouping = {
       ],
       variationProperties: [
         {
-          type: 'Volume',
+          type: VariationPropertyType.Volume,
           property: {
             id: '6cbc34da-e44c-49c2-9e2e-c4511f494d61',
             value: '10 ml',
@@ -41,7 +42,7 @@ export const mockProductGrouping = {
       ],
       variationProperties: [
         {
-          type: 'Volume',
+          type: VariationPropertyType.Volume,
           property: {
             id: '6cbc34da-e44c-49c2-9e2e-c4511f494d61',
             value: '20 ml',
@@ -79,7 +80,7 @@ export const mockProductGroupingAdapted = {
       ],
       variationProperties: [
         {
-          type: 'Volume',
+          type: VariationPropertyType.Volume,
           property: {
             id: '6cbc34da-e44c-49c2-9e2e-c4511f494d61',
             value: '10 ml',
@@ -109,7 +110,7 @@ export const mockProductGroupingAdapted = {
       ],
       variationProperties: [
         {
-          type: 'Volume',
+          type: VariationPropertyType.Volume,
           property: {
             id: '6cbc34da-e44c-49c2-9e2e-c4511f494d61',
             value: '20 ml',

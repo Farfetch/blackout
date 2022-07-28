@@ -1,37 +1,31 @@
 import type {
   Attribute,
-  Category,
   Color,
   CreationChannel,
-  ItemStatus,
+  OrderItemStatus,
+  OrderStatus,
   Price,
+  ProductCategory,
   ProductImageGroup,
-  ProductVariant,
 } from '../..';
 
 export type OrderItem = {
   attributes: Attribute[];
-  brandName: string;
-  brandId: number;
-  checkoutOrderId: number;
   creationChannel: CreationChannel;
   id: number;
   images: ProductImageGroup;
   merchantId: number;
-  merchantName: string;
   productId: number;
-  productName: string;
   productSlug: string;
-  quantity: number;
-  status: ItemStatus;
-  categories: Category[];
-  variants: ProductVariant[];
+  orderStatus: OrderStatus;
+  orderItemStatus: OrderItemStatus;
+  categories: ProductCategory[];
   colors: Color[];
   tags: string[];
-  promocodeDiscountPercentage: number;
-  isExclusive: boolean;
+  isExclusive?: boolean;
+  isReturnAvailable: boolean;
   isPreOrder: boolean;
-  preOrder: {
+  preOrder?: {
     expectedFulfillmentDate: {
       startDate: string;
       endDate: string;
@@ -43,25 +37,26 @@ export type OrderItem = {
       type: string;
     };
   };
+  productSummary: {
+    productId: string;
+    description: string;
+    shortDescription: string;
+    productAggregator?: string;
+  };
   shippingOrderId: string;
-  customAttributes: string;
   isCustomizable: boolean;
-  gift: {
+  gift?: {
     to: string;
     from: string;
     message: string;
   };
-  fulfillmentInfo: {
-    isPreOrder: boolean;
-    fulfillmentDate: string;
-  };
   size: string;
-  scale: string;
-  sizeDescription: string;
   price: Price;
-  productAggregator: {
+  productAggregator?: {
     id: number;
     images: ProductImageGroup;
     bundleSlug: string;
   };
+  returnRestriction?: string;
+  merchantOrderCode: string;
 };

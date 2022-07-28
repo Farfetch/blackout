@@ -1,10 +1,10 @@
 import { rest, RestHandler } from 'msw';
-import type { GetUserCreditResponse } from '../types';
+import type { UserCredit } from '../types';
 
 const path = '/api/legacy/v1/users/:id/credits';
 
 const fixtures = {
-  success: (response: GetUserCreditResponse): RestHandler =>
+  success: (response: UserCredit[]): RestHandler =>
     rest.get(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),

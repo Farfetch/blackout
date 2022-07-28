@@ -1,21 +1,22 @@
 import type { BlackoutError, Category } from '@farfetch/blackout-client';
+import type { CategoryEntity } from '@farfetch/blackout-redux';
 
 export type GetRootCategory = (
   categoryId: Category['id'],
-) => Category | undefined;
+) => CategoryEntity | undefined;
 
 export type UseCategories = () => {
   areCategoriesFetched: boolean | undefined;
   areCategoriesLoading: boolean | undefined;
   areTopCategoriesFetched: boolean | undefined;
   areTopCategoriesLoading: boolean | undefined;
-  categories: Category[];
+  categories: CategoryEntity[];
   categoriesError: BlackoutError | null;
   fetchCategories: () => Promise<Category[]>;
   fetchTopCategories: () => Promise<Category[]>;
-  getCategory: (id: Category['id']) => Category | undefined;
+  getCategory: (id: Category['id']) => CategoryEntity | undefined;
   getRootCategory: GetRootCategory;
   resetCategoriesState: () => void;
-  topCategories: Array<Category | undefined>;
+  topCategories: Array<CategoryEntity | undefined>;
   topCategoriesError: BlackoutError | null;
 };

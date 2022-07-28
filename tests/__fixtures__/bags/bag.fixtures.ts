@@ -1,9 +1,10 @@
+import { AttributeType, PurchaseChannel } from '@farfetch/blackout-client';
 import { mockBagItemEntity, mockBagItemId } from './bagItem.fixtures';
 import {
   mockProduct,
   mockProductId,
+  mockProductSizes,
   mockProductTypeToExclude,
-  mockProductVariants,
 } from '../products';
 
 export const mockBagId = '7894746';
@@ -177,18 +178,107 @@ export const mockState = {
 export const mockResponse = {
   id: mockBagId,
   count: 1,
+  hadUnavailableItems: false,
   items: [
     {
-      attributes: [{ type: '1', value: 'M' }],
-      brandId: 'RL',
+      attributes: [{ type: 1, value: 'M', description: 'Size' }],
+      brandId: 25354,
       brandName: 'Ralph Lauren',
+      categories: [
+        {
+          gender: 0,
+          id: 136301,
+          name: 'Shoes',
+          parentId: 0,
+        },
+        {
+          gender: 0,
+          id: 136308,
+          name: 'Sandals',
+          parentId: 136301,
+        },
+      ],
+      colors: [
+        {
+          color: {
+            id: 112495,
+            name: 'Black',
+          },
+          tags: ['MainColor'],
+        },
+        {
+          color: {
+            id: 0,
+            name: 'BLACK',
+          },
+          tags: ['DesignerColor'],
+        },
+      ],
+      customAttributes: '',
       dateCreated: '/Date(12345)/',
+      fulfillmentInfo: {
+        fulfillmentDate: null,
+        isPreOrder: false,
+      },
+      gender: 1,
       id: mockBagItemId,
-      images: {},
+      images: {
+        images: [
+          {
+            order: 1,
+            size: '54',
+            url: 'https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg',
+          },
+        ],
+        liveModel: null,
+        liveModelId: 0,
+        productSize: '1',
+        tag: null,
+      },
+      isCustomizable: false,
+      isExclusive: false,
       labels: [],
       merchantId: 12424,
       merchantName: 'STORE OF THE FUTURE LISBON BOUTIQUE',
-      variants: mockProductVariants,
+      variants: [
+        {
+          id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+          attributes: [
+            {
+              type: AttributeType.Size,
+              value: 'string',
+              description: 'string',
+            },
+          ],
+          availableAt: [0],
+          merchantId: 0,
+          price: {
+            priceExclTaxes: 0,
+            priceInclTaxes: 0,
+            priceInclTaxesWithoutDiscount: 0,
+            discountExclTaxes: 0,
+            discountInclTaxes: 0,
+            discountRate: 0,
+            taxesRate: 0,
+            taxesValue: 0,
+            tags: ['string'],
+            formattedPrice: 'string',
+            formattedPriceWithoutDiscount: 'string',
+            formattedPriceWithoutCurrency: 'string',
+            formattedPriceWithoutDiscountAndCurrency: 'string',
+            taxType: 'string',
+          },
+          formattedPrice: 'string',
+          formattedPriceWithoutDiscount: 'string',
+          purchaseChannel: PurchaseChannel.AddToBag,
+          quantity: 0,
+          size: 'string',
+          scale: 'string',
+          scaleAbbreviation: 'string',
+          sizeDescription: 'string',
+          isOneSize: true,
+        },
+      ],
       merchantShoppingUrl: null,
       price: {
         discountExclTaxes: 0,
@@ -206,10 +296,22 @@ export const mockResponse = {
         taxesRate: 43.223,
         taxesValue: 80154.0193,
       },
+      productAggregator: null,
       productDescription: 'Classic oxford shirt',
       productId: mockProductId,
       productName: 'Oxford Shirt',
+      productSlug: 'oxford-shirt-11766695',
+      promotionDetail: {
+        formattedTotalDiscountValue: '0 €',
+        isProductOffer: false,
+        promotionEvaluationItemId: null,
+        totalDiscountPercentage: null,
+        totalDiscountValue: 0,
+      },
       type: 0,
+      quantity: 1,
+      isAvailable: true,
+      sizes: mockProductSizes,
     },
   ],
   bagSummary: {
@@ -230,6 +332,8 @@ export const mockResponse = {
     formattedTotalShippingFee: '$10',
     formattedTotalTaxes: '$0',
     taxType: 'DDP',
+    formattedTotalProductPromotionDiscount: '$0',
+    totalProductPromotionDiscount: 0,
   },
 };
 

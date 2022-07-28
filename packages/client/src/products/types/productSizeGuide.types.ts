@@ -14,8 +14,8 @@ export type ProductSizeGuide = {
       description: string;
       position: number;
     }>;
-    isDefault: boolean;
-    categoryId: Category['id'];
+    isDefault?: boolean;
+    categoryId?: Category['id'];
   }>;
   annotations: string[];
   order: number;

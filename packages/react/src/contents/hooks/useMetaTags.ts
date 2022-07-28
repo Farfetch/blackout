@@ -11,7 +11,11 @@ import { useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 import type { AppIconLinks, Link, Meta, UseMetatags } from '../types';
-import type { HrefLangs, Metatags, QuerySEO } from '@farfetch/blackout-client';
+import type {
+  GetSEOQuery,
+  HrefLangs,
+  Metatags,
+} from '@farfetch/blackout-client';
 
 /**
  * Hook to return metadata to populate document head.
@@ -26,7 +30,7 @@ const useMetaTags = ({
   links = [],
   metas = [],
 }: {
-  query: QuerySEO;
+  query: GetSEOQuery;
   appIconLinks?: AppIconLinks;
   links?: Link[];
   metas?: Meta[];

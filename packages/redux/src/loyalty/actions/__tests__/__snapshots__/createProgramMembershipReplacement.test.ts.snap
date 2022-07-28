@@ -8,7 +8,7 @@ Object {
         "1": Object {
           "createdDate": "date",
           "id": "1",
-          "reason": "string",
+          "reason": "NameChanged",
         },
       },
     },

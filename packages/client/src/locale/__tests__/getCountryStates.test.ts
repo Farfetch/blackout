@@ -1,6 +1,6 @@
 import {
   mockCountryCode as countryCode,
-  mockStates,
+  mockCountryStatesResponse,
 } from 'tests/__fixtures__/locale';
 import { getCountryStates } from '..';
 import client from '../../helpers/client';
@@ -19,11 +19,13 @@ describe('locale client', () => {
     const spy = jest.spyOn(client, 'get');
 
     it('should handle a client request successfully', async () => {
-      mswServer.use(fixtures.get.success(mockStates));
+      mswServer.use(fixtures.get.success(mockCountryStatesResponse));
 
       expect.assertions(2);
 
-      await expect(getCountryStates(countryCode)).resolves.toEqual(mockStates);
+      await expect(getCountryStates(countryCode)).resolves.toEqual(
+        mockCountryStatesResponse,
+      );
 
       expect(spy).toHaveBeenCalledWith(
         join('/settings/v1/countries', countryCode, '/states'),

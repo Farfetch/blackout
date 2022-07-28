@@ -2,7 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import {
   Config,
   GetOrderDocuments,
-  OrderDocuments,
+  OrderDocument,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -17,7 +17,7 @@ import type { Dispatch } from 'redux';
 const fetchOrderDocumentsFactory =
   (getOrderDocuments: GetOrderDocuments) =>
   (orderId: string, types: string[], config?: Config) =>
-  async (dispatch: Dispatch): Promise<OrderDocuments[]> => {
+  async (dispatch: Dispatch): Promise<OrderDocument[]> => {
     try {
       dispatch({
         type: actionTypes.FETCH_ORDER_DOCUMENTS_REQUEST,

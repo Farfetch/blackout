@@ -12,7 +12,7 @@ export type OrderSummary = {
   createdDate: string;
   returnAvailable: boolean;
   checkoutOrderId: number;
-  returnId: number;
+  returnId?: number;
   deliveryDate?: string;
   maxReturnDate?: string;
   tags: string[];

@@ -1,10 +1,10 @@
 import { rest, RestHandler } from 'msw';
-import type { PatchUserPersonalIdResponse } from '../types';
+import type { UserPersonalIdPartial } from '../types';
 
 const path = '/api/account/v1/users/:userId/personalIds/:personalId';
 
 const fixtures = {
-  success: (response: PatchUserPersonalIdResponse): RestHandler =>
+  success: (response: UserPersonalIdPartial): RestHandler =>
     rest.patch(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),

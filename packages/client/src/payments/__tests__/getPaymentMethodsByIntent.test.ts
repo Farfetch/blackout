@@ -1,9 +1,12 @@
 import { getPaymentMethodsByIntent } from '..';
-import { id } from 'tests/__fixtures__/payments';
+import {
+  id,
+  mockFetchPaymentMethodsResponse,
+} from 'tests/__fixtures__/payments';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getPaymentMethodsByIntent.fixtures';
 import mswServer from '../../../tests/mswServer';
-import type { PaymentMethod } from '../types';
+import type { PaymentMethods } from '../types';
 
 describe('getPaymentMethodsByIntent', () => {
   const expectedConfig = undefined;
@@ -13,27 +16,10 @@ describe('getPaymentMethodsByIntent', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const response: PaymentMethod = {
-      customerAccounts: [
-        {
-          type: 'string',
-          id: 'string',
-          description: 'string',
-          code: 'string',
-          paymentOptions: ['string'],
-        },
-      ],
-      creditCard: {
-        type: 'string',
-        creditCards: [
-          {
-            id: 'string',
-            description: 'string',
-            code: 'string',
-          },
-        ],
-      },
-    };
+    const response: PaymentMethods[] = [
+      mockFetchPaymentMethodsResponse,
+      mockFetchPaymentMethodsResponse,
+    ];
 
     mswServer.use(fixtures.success(response));
 

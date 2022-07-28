@@ -1,7 +1,7 @@
 import { getProductVariantsMerchantsLocations } from '..';
 import {
   mockProductId,
-  mockProductVariantsMerchantsLocationsNormalizedResponse,
+  mockProductVariantsMerchantsLocations,
   mockVariantId,
 } from 'tests/__fixtures__/products';
 import client from '../../helpers/client';
@@ -15,15 +15,13 @@ describe('getProductVariantsMerchantsLocations', () => {
   beforeEach(jest.clearAllMocks);
 
   it('should handle a client request successfully', async () => {
-    mswServer.use(
-      fixtures.success(mockProductVariantsMerchantsLocationsNormalizedResponse),
-    );
+    mswServer.use(fixtures.success(mockProductVariantsMerchantsLocations));
 
     expect.assertions(2);
 
     await expect(
       getProductVariantsMerchantsLocations(mockProductId, mockVariantId),
-    ).resolves.toEqual(mockProductVariantsMerchantsLocationsNormalizedResponse);
+    ).resolves.toEqual(mockProductVariantsMerchantsLocations);
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/products/${mockProductId}/variants/${mockVariantId}/merchantsLocations`,
       expectedConfig,

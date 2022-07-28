@@ -3,8 +3,8 @@ import { mockProductId, mockVariantId } from './ids.fixtures';
 
 export const mockProductVariantsMerchantsLocations = [
   { merchantLocationId: 1, quantity: 0, variantId: mockVariantId },
-  { merchantLocationId: 2, quantity: 1, variantId: 123 },
-  { merchantLocationId: 3, quantity: 99, variantId: 456 },
+  { merchantLocationId: 2, quantity: 1, variantId: '123' },
+  { merchantLocationId: 3, quantity: 99, variantId: '456' },
 ];
 
 export const mockProductVariants = [

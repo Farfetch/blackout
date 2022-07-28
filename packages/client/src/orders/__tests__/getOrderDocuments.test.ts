@@ -1,11 +1,11 @@
-import { getOrderDocuments } from '..';
+import { getOrderDocuments, OrderDocumentType } from '..';
 import { mockOrderDocumentsResponse, orderId } from 'tests/__fixtures__/orders';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getOrderDocuments.fixtures';
 import mswServer from '../../../tests/mswServer';
 
 const expectedConfig = undefined;
-const types = ['ComercialInvoice'];
+const types = [OrderDocumentType.ComercialInvoice];
 const response = mockOrderDocumentsResponse;
 
 beforeEach(() => jest.clearAllMocks());

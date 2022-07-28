@@ -1,4 +1,4 @@
-import { Gender } from '@farfetch/blackout-client/types';
+import { Gender } from '@farfetch/blackout-client';
 
 export const mockCategoryId = 135981;
 export const mockCategory = {

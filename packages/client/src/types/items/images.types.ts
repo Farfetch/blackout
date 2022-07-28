@@ -10,17 +10,17 @@ export type Image = {
 
 export type LiveModel = {
   id: number;
-  measurements: ProductMeasurement[];
-  name: string;
-  globalId: string;
+  measurements?: ProductMeasurement[];
+  name?: string;
+  globalId?: string;
 };
 
 export type ProductImageGroup = {
   images: Image[];
-  liveModelId: number;
-  liveModel: LiveModel;
-  productSize: string;
-  tag: string;
+  liveModelId: number | null;
+  liveModel: LiveModel | null;
+  productSize: string | null;
+  tag: string | null;
 };
 
 export type ImageGroup = {

@@ -4,6 +4,7 @@ import type {
   BlackoutError,
   Brand,
   Category,
+  ProductCategory,
   WishlistItem,
   WishlistSet,
 } from '@farfetch/blackout-client';
@@ -18,7 +19,7 @@ import type { WishlistsState } from './state.types';
 export type WishlistNormalizedPayload = NormalizedSchema<
   {
     brands: Record<Brand['id'], Brand>;
-    categories: Record<Category['id'], Category>;
+    categories: Record<Category['id'], ProductCategory>;
     wishlistItems: Record<WishlistItem['id'], WishlistItem>;
     merchants: Record<MerchantEntity['id'], MerchantEntity>;
     products: Record<ProductEntity['id'], ProductEntity>;

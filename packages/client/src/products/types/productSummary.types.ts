@@ -1,6 +1,6 @@
 import type { Brand } from '../../brands/types';
 import type { Category } from '../../categories';
-import type { Gender, Image, Label } from '../../types';
+import type { GenderCode, Image, Label } from '../../types';
 import type { ProductGroup } from './productGroup.types';
 import type {
   ProductSummaryPrice,
@@ -16,10 +16,11 @@ import type { Promotion, Video } from './product.types';
 export type ProductSummary = {
   brand: Brand;
   categories: Array<Pick<Category, 'id'>>;
-  gender: Gender;
+  gender: GenderCode;
   genderName: string;
-  groupedEntries: ProductGroup;
+  groupedEntries?: ProductGroup | null;
   id: number;
+  isInWishlist?: boolean;
   images: Image[];
   labels: Label[];
   merchantId: number;
@@ -31,5 +32,5 @@ export type ProductSummary = {
   tag: ProductTag;
   tagDescription: string;
   type: ProductType;
-  videos: Video[];
+  videos?: Video[];
 } & ProductSummaryPrice;

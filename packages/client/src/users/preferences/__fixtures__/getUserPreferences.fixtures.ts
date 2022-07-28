@@ -1,10 +1,10 @@
 import { rest, RestHandler } from 'msw';
-import type { UserPreferencesResponse } from '../types';
+import type { UserPreference } from '../types';
 
 const path = '/api/account/v1/users/:mockUserId/preferences';
 
 const fixtures = {
-  success: (response: UserPreferencesResponse): RestHandler =>
+  success: (response: UserPreference[]): RestHandler =>
     rest.get(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),

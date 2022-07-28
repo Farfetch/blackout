@@ -1,4 +1,8 @@
-import { contactId, userId } from 'tests/__fixtures__/users';
+import {
+  contactId,
+  mockGetContactResponse,
+  userId,
+} from 'tests/__fixtures__/users';
 import { getUserContact } from '..';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/getUserContact.fixtures';
@@ -11,23 +15,12 @@ describe('getUserContact', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const response = {
-      id: '4c46a918-303b-4847-8825-dfb295acb6c8',
-      value: 'TEST',
-      countryDetails: {
-        countryCode: 'PT',
-        countryCallingCode: '351',
-      },
-      type: 'Phone',
-      description: 'TEST',
-    };
-
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(mockGetContactResponse));
 
     expect.assertions(2);
 
     await expect(getUserContact(userId, contactId)).resolves.toStrictEqual(
-      response,
+      mockGetContactResponse,
     );
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/contacts/${contactId}`,

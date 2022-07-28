@@ -1,10 +1,10 @@
 import { rest, RestHandler } from 'msw';
-import type { Tracking } from '../types';
+import type { ShipmentTrackings } from '../types';
 
 const path = '/api/account/v1/trackings';
 
 const fixtures = {
-  success: (response: Tracking[]): RestHandler =>
+  success: (response: ShipmentTrackings): RestHandler =>
     rest.get(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),

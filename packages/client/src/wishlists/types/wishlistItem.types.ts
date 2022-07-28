@@ -1,6 +1,5 @@
 import type { Attribute, Color, ProductImageGroup } from '../..';
 import type { Brand } from '../../brands/types';
-import type { Category } from '../../categories/types';
 import type { Label } from '../../types/items/label.types';
 import type {
   Price,
@@ -8,12 +7,13 @@ import type {
   ProductVariant,
   Size,
 } from '../../products/types';
+import type { ProductCategory } from '../../categories/types';
 
 export type WishlistItem = {
   attributes: Attribute[];
   brandId: Brand['id'];
   brandName: Brand['name'];
-  categories: Category[];
+  categories: ProductCategory[];
   colors: Color[];
   createdByStaffMemberId: string | null;
   dateCreated: string;

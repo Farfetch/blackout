@@ -1,3 +1,14 @@
+import {
+  ChargeStatus,
+  Classification,
+  DeclineCode,
+  LineItemsType,
+  PaymentInstrument,
+  PaymentInstrumentStatus,
+  PaymentIntentStatus,
+  ShopperInteraction,
+} from '@farfetch/blackout-client';
+
 export const chargeId = '43b059df-898e-4407-8347-b075b645bf6c';
 export const id = '123456';
 export const instrumentId = '316bc538-e7e5-4f6c-943f-686350fac5ae';
@@ -11,14 +22,65 @@ export const brandId = 121212;
 export const orderId = 1;
 export const paymentTokenId = '5ccbb098-e4ef-cb30-701b-4cbbd347c472';
 export const paymentTokenId2 = '0a1cbb02-091f-ef49-1c75-2239b9c361b1';
+
+export const address = {
+  addressLine1: 'Rua da Lionesa 446, G12',
+  addressLine2: ' Teste',
+  city: {
+    countryId: 0,
+    id: 0,
+    name: 'Leça do Balio',
+    stateId: 0,
+  },
+  country: {
+    alpha2Code: 'PT',
+    alpha3Code: 'PRT',
+    culture: 'pt-PT',
+    id: 165,
+    name: 'Portugal',
+    nativeName: 'Portugal',
+    region: 'Europe',
+    subRegion: '',
+    regionId: 0,
+    subfolder: '/en-pt',
+    continentId: 3,
+  },
+  ddd: '351',
+  title: null,
+  firstName: 'tester',
+  id: 'c9ce5410-58d9-4298-a385-231a79373e4a',
+  lastName: 'teste',
+  neighbourhood: 'Centro',
+  phone: '121525125',
+  state: {
+    code: 'Braga',
+    countryId: 0,
+    id: 0,
+    name: 'Braga',
+  },
+  vatNumber: '50',
+  zipCode: '4465-761',
+  userId: 0,
+  isCurrentBilling: true,
+  isCurrentShipping: true,
+};
+
 export const mockCharge = {
   headers: {
     location: `http://localhost:9699/v1/intents/acb66f64-b2af-4ad5-8d32-d2323cc535f8/charges/${chargeId}`,
   },
   data: {
-    status: 'Processing',
+    status: ChargeStatus.Processing,
     returnUrl: 'string',
+    redirectUrl: 'string',
     cancelUrl: 'string',
+    chargeInstruments: [
+      {
+        id: '',
+        operationStatus: ChargeStatus.Processing,
+        declineCode: DeclineCode.NotApplicable,
+      },
+    ],
   },
 };
 export const mockChargeWithoutHeaders = {
@@ -46,44 +108,13 @@ export const mockFetchInstrumentsResponse = [
         refundedValue: 0,
       },
     ],
-    status: 'Created',
+    status: PaymentInstrumentStatus.Created,
     payer: {
       id: '1213',
       firstName: 'João',
       lastName: 'Batista',
       email: 'joao@mail.com',
-      address: {
-        addressLine1: 'Rua',
-        addressLine2: 'da Candelaria',
-        addressLine3: '123',
-        vatNumber: '50',
-        zipCode: '4470258',
-        phone: '91664852',
-        neighbourhood: 'Centro',
-        ddd: '351',
-        city: {
-          id: 13,
-          name: 'Rio de Janeiro',
-          stateId: 2,
-          countryId: 55,
-        },
-        state: {
-          id: 55,
-          code: '55',
-          name: 'Rio de Janeiro',
-          countryId: 55,
-        },
-        country: {
-          id: 165,
-          name: 'Portugal',
-          nativeName: 'Portugal',
-          alpha2Code: 'US',
-          alpha3Code: 'USD',
-          culture: 'en-US',
-          region: 'Europe',
-          continentId: 3,
-        },
-      },
+      address,
     },
     data: {
       cardHolderName: 'Joao Baptista',
@@ -91,11 +122,14 @@ export const mockFetchInstrumentsResponse = [
       cardLastDigits: '111111',
       cardExpiryMonth: 10,
       cardExpiryYear: 2020,
+      creditUserId: '',
+      giftCardNumber: '1232211',
+      giftCardCsc: '111212',
     },
     installments: {
       quantity: 0,
     },
-    shopperInteraction: 'Ecommerce',
+    shopperInteraction: ShopperInteraction.Ecommerce,
   },
 ];
 export const mockFetchInstrumentsNormalizedPayload = {
@@ -107,7 +141,8 @@ export const mockFetchInstrumentsNormalizedPayload = {
   },
   result: [mockFetchInstrumentsResponse[0]?.id],
 };
-export const mockFetchInstrumentResponse = mockFetchInstrumentsResponse[0];
+export const mockFetchInstrumentResponse =
+  mockFetchInstrumentsResponse[0] as PaymentInstrument;
 export const mockFetchInstrumentNormalizedPayload = {
   entities: {
     paymentInstruments: {
@@ -124,15 +159,17 @@ export const mockFetchIntentResponse = {
   totalValue: 0,
   totalValueFormattedPrice: 'string',
   fingerprint: 'string',
-  status: 'Created',
+  status: PaymentIntentStatus.Created,
+  totalShippingFee: 0,
+  formattedTotalShippingFee: 'string',
   lineItems: [
     {
       id: 'string',
       productId: 'string',
-      classification: 'Standard',
+      classification: Classification.Standard,
       unitValue: 0,
       formattedUnitValue: 'string',
-      type: 'Item',
+      type: LineItemsType.Item,
       quantity: 0,
       totalExtraTaxes: 0,
       formattedTotalExtraTaxes: 'string',
@@ -145,6 +182,7 @@ export const mockFetchIntentResponse = {
     lastName: 'string',
     email: 'string',
     address: {
+      id: '00000000-0000-0000-0000-000000000000',
       addressLine1: 'string',
       addressLine2: 'string',
       addressLine3: 'string',
@@ -153,6 +191,7 @@ export const mockFetchIntentResponse = {
       phone: 'string',
       neighbourhood: 'string',
       ddd: 'string',
+      userId: 0,
       city: {
         countryId: 0,
         id: 0,
@@ -270,46 +309,18 @@ export const mockFetchPaymentMethodsResponse = {
     ],
   },
 };
-export const address = {
-  addressLine1: 'Rua da Lionesa 446, G12',
-  addressLine2: ' Teste',
-  city: {
-    countryId: 0,
-    id: 0,
-    name: 'Leça do Balio',
-    stateId: null,
-  },
-  country: {
-    alpha2Code: 'PT',
-    alpha3Code: 'PRT',
-    culture: 'pt-PT',
-    id: 165,
-    name: 'Portugal',
-    nativeName: 'Portugal',
-    region: 'Europe',
-    subRegion: null,
-    regionId: 0,
-    subfolder: '/en-pt',
-    continentId: 3,
-  },
-  ddd: null,
-  title: null,
-  firstName: 'tester',
-  id: 'c9ce5410-58d9-4298-a385-231a79373e4a',
-  lastName: 'teste',
-  neighbourhood: null,
-  phone: '121525125',
-  state: {
-    code: null,
-    countryId: 0,
-    id: 0,
-    name: null,
-  },
-  vatNumber: null,
-  zipCode: '4465-761',
-  userId: 0,
-  isCurrentBilling: true,
-  isCurrentShipping: true,
+export const mockFetchPaymentIntentChargeResponse = {
+  status: ChargeStatus.Processing,
+  redirectUrl: 'string',
+  returnUrl: 'string',
+  cancelUrl: 'string',
+  chargeInstruments: [
+    {
+      id: '00000000-0000-0000-0000-000000000000',
+      operationStatus: ChargeStatus.Processing,
+      declineCode: DeclineCode.NotApplicable,
+    },
+  ],
 };
 export const mockFetchTransaction = {
   id: transactionId,
@@ -544,6 +555,12 @@ export const mockPaymentsResponse = {
   savePaymentMethodAsToken: true,
   transactionId: 'MTADRWG2ZYQ3SERXJ87G',
 };
+
+export const mockPaymentIntentInstrumentResponse = {
+  data: {},
+  headers: { location: 'https://somelocation.com' },
+};
+
 export const mockInitialState = {
   payments: {
     paymentIntentCharge: {
@@ -607,58 +624,4 @@ export const mockErrorState = {
     },
   },
   entities: {},
-};
-
-export const country = {
-  alpha2Code: 'string',
-  alpha3Code: 'string',
-  culture: 'string',
-  id: 0,
-  name: 'string',
-  nativeName: 'string',
-  region: 'string',
-  subRegion: 'string',
-  regionId: 0,
-  subfolder: 'string',
-  continentId: 0,
-};
-export const address2 = {
-  addressLine1: 'string',
-  addressLine2: 'string',
-  addressLine3: 'string',
-  vatNumber: 'string',
-  zipCode: 'string',
-  phone: 'string',
-  neighbourhood: 'string',
-  ddd: 'string',
-  city: {
-    countryId: 0,
-    id: 0,
-    name: 'string',
-    stateId: 0,
-  },
-  state: {
-    code: 'string',
-    countryId: 0,
-    id: 0,
-    name: 'string',
-  },
-  country,
-  continent: {
-    id: 0,
-    name: 'string',
-    countries: [country],
-  },
-};
-export const payer = {
-  id: 'string',
-  firstName: 'string',
-  lastName: 'string',
-  email: 'string',
-  address: address,
-};
-export const amounts = {
-  value: 0,
-  settledValue: 0,
-  refundedValue: 0,
 };

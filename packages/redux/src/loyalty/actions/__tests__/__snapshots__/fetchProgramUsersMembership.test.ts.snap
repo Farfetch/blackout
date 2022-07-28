@@ -11,7 +11,7 @@ Object {
           "externalId": "string",
           "id": "1",
           "rewardPoints": 0,
-          "status": "string",
+          "status": "Activated",
           "updatedDate": "date",
           "userId": 0,
         },

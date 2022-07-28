@@ -14,8 +14,8 @@ export type CountryAddress = {
   alpha3Code: string;
   culture: string;
   region: string;
-  regionId: number;
-  subRegion: string;
+  regionId?: number;
+  subRegion?: string;
   continentId: number;
 };
 
@@ -32,6 +32,13 @@ export type AddressBase = {
   neighbourhood?: string;
   ddd?: string;
   continent?: Continent;
+};
+
+export type PaymentAddress = AddressBase & {
+  id: string;
+  userId: number;
+  isDefaultBillingAddress: boolean;
+  isDefaultShippingAddress: boolean;
 };
 
 export type AddressPredictionDetails = {

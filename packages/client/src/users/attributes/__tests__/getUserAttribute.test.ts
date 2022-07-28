@@ -1,6 +1,6 @@
 import {
   attributeId,
-  mockUserAttributesResponse,
+  mockUserAttributeResponse,
   userId,
 } from 'tests/__fixtures__/users';
 import { getUserAttribute } from '..';
@@ -15,12 +15,12 @@ describe('getUserAttribute', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    mswServer.use(fixtures.success(mockUserAttributesResponse));
+    mswServer.use(fixtures.success(mockUserAttributeResponse));
 
     expect.assertions(2);
 
     await expect(getUserAttribute(userId, attributeId)).resolves.toStrictEqual(
-      mockUserAttributesResponse,
+      mockUserAttributeResponse,
     );
 
     expect(spy).toHaveBeenCalledWith(

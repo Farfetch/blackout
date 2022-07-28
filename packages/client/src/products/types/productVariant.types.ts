@@ -10,7 +10,7 @@ export type ProductVariant = {
   formattedPrice: string;
   formattedPriceWithoutDiscount: string;
   purchaseChannel: PurchaseChannel;
-  barcodes: string[];
+  barcodes?: string[];
   quantity: number;
   size: string;
   scale: string;

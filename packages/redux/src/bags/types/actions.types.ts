@@ -7,6 +7,7 @@ import type {
   Category,
   PatchBagItemData,
   PostBagItemData,
+  ProductCategory,
 } from '@farfetch/blackout-client';
 import type { BagNormalized } from '../types';
 import type { MerchantEntity, ProductEntity } from '../../entities/types';
@@ -22,7 +23,7 @@ export type BagItemActionMetadata = {
 
 type Payload = NormalizedSchema<
   {
-    categories?: Record<Category['id'], Category>;
+    categories?: Record<Category['id'], ProductCategory>;
     brands?: Record<Brand['id'], Brand>;
     products: Record<ProductEntity['id'], ProductEntity>;
     merchants?: Record<MerchantEntity['id'], MerchantEntity>;
