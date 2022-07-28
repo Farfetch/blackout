@@ -6,7 +6,11 @@ import type {
   PostBagItemQuery,
   ProductType,
 } from '@farfetch/blackout-client';
-import type { BagItemHydrated, BagsState } from '@farfetch/blackout-redux';
+import type {
+  BagItemActionMetadata,
+  BagItemHydrated,
+  BagsState,
+} from '@farfetch/blackout-redux';
 
 export type UseBag = (excludeProductTypes?: ProductType[]) => {
   bag: BagsState['result'];
@@ -14,6 +18,7 @@ export type UseBag = (excludeProductTypes?: ProductType[]) => {
   addBagItem: (
     data: PostBagItemData,
     query?: PostBagItemQuery,
+    metadata?: BagItemActionMetadata,
     config?: Config,
   ) => Promise<Bag>;
   fetchBag: (

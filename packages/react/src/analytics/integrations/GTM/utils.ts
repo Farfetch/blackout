@@ -10,6 +10,7 @@ import type {
   UserTraits,
 } from '@farfetch/blackout-analytics';
 import type { GTMEventContext } from './types';
+import type { User } from '@farfetch/blackout-client';
 import type URLParse from 'url-parse';
 
 /**
@@ -35,8 +36,8 @@ export const getUserParameters = (
 ): {
   id: UserData['id'];
   localId: UserData['localId'];
-  email: UserTraits['email'];
-  name: UserTraits['name'];
+  email: User['email'];
+  name: User['name'];
   isGuest: UserTraits['isGuest'];
 } => ({
   id: get(user, 'id'),

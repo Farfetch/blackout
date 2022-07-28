@@ -12,7 +12,7 @@ import type { Dispatch } from 'redux';
 const refreshTokenFactory =
   (postToken: PostToken) =>
   (refreshToken: string, config?: Config) =>
-  async (dispatch: Dispatch): Promise<any> => {
+  async (dispatch: Dispatch) => {
     try {
       dispatch({
         type: actionTypes.REFRESH_USER_TOKEN_REQUEST,

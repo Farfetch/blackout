@@ -12,7 +12,7 @@ import type { Dispatch } from 'redux';
 const createClientCredentialsTokenFactory =
   (postTokens: PostToken) =>
   (config?: Config) =>
-  async (dispatch: Dispatch): Promise<any> => {
+  async (dispatch: Dispatch) => {
     try {
       dispatch({
         type: actionTypes.CREATE_CLIENT_CREDENTIALS_TOKEN_REQUEST,

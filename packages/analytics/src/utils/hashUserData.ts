@@ -9,7 +9,7 @@ import type { UserData, UserTraits } from '../types/analytics.types';
  *
  * @returns The hashed result.
  */
-function hashPlainTextString(plainString?: string): string | undefined {
+function hashPlainTextString(plainString: string | undefined) {
   return plainString ? sha256(plainString).toString() : plainString;
 }
 
@@ -24,21 +24,25 @@ function hashPlainTextString(plainString?: string): string | undefined {
  */
 const hashUserData = (userData: UserData): UserData => {
   if (!isEmpty(userData)) {
-    const traits: UserTraits = userData?.traits || {};
+    const traits: UserTraits = userData?.traits || ({} as UserTraits);
 
-    return {
-      ...(userData as UserData),
-      traits: {
-        ...traits,
-        dateOfBirth: hashPlainTextString(traits.dateOfBirth),
-        email: hashPlainTextString(traits.email),
-        firstName: hashPlainTextString(traits.firstName),
-        lastName: hashPlainTextString(traits.lastName),
-        name: hashPlainTextString(traits.name),
-        phoneNumber: hashPlainTextString(traits.phoneNumber),
-        username: hashPlainTextString(traits.username),
-      },
-    };
+    if (!traits.isGuest) {
+      return {
+        ...(userData as UserData),
+        traits: {
+          ...traits,
+          dateOfBirth: hashPlainTextString(traits.dateOfBirth),
+          email: hashPlainTextString(traits.email) as string,
+          firstName: hashPlainTextString(traits.firstName),
+          lastName: hashPlainTextString(traits.lastName),
+          name: hashPlainTextString(traits.name) as string,
+          phoneNumber: hashPlainTextString(traits.phoneNumber),
+          username: hashPlainTextString(traits.username) as string,
+        },
+      };
+    }
+
+    return userData;
   }
 
   // cases where we might receive null/any other value, keep returning the same value to ensure compatibility

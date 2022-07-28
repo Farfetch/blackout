@@ -14,8 +14,8 @@ import type {
   SetUserActionOptions,
   SetUserActionTypes,
   SetUserMiddlewareOptions,
-  UserType,
 } from './types';
+import type { UserEntity } from '../../entities';
 
 export const DEFAULT_TRIGGER_SET_USER_ACTION_TYPES = new Set([
   authenticationActionTypes.LOGIN_SUCCESS,
@@ -30,10 +30,17 @@ export const DEFAULT_TRIGGER_ANONYMIZE_ACTION_TYPES = new Set([
 
 // Default user traits picker
 // Will exclude id property only from the generated traits object
-const DEFAULT_USER_TRAITS_PICKER: (user: UserType) => UserTraits = ({
-  [USER_ID_PROPERTY]: id,
-  ...rest
-}) => rest;
+const DEFAULT_USER_TRAITS_PICKER = (
+  user: UserEntity | undefined,
+): UserTraits | undefined => {
+  if (!user) {
+    return undefined;
+  }
+
+  const { [USER_ID_PROPERTY]: id, ...rest } = user;
+
+  return rest;
+};
 
 // Paths for the options
 export const OPTION_TRIGGER_SET_USER_ACTIONS = 'triggerSetUserActions';
@@ -76,7 +83,7 @@ const getActionTypes = (
 };
 
 // Reference to the current user data
-let currentUser: UserType | null;
+let currentUser: UserEntity | undefined;
 
 /**
  * Middleware to call `analytics.setUser()` after any action that changes user
@@ -166,7 +173,7 @@ export function analyticsSetUserMiddleware(
 
     if (triggerSetUserActions.has(actionType)) {
       const result = next(action);
-      const user: UserType = getUserSelector(store.getState());
+      const user = getUserSelector(store.getState());
       const userId = getUserIdSelector(user);
       const currentUserId = getUserIdSelector(currentUser);
 
@@ -176,7 +183,7 @@ export function analyticsSetUserMiddleware(
 
         const isGuest: boolean = get(user, 'isGuest', true);
         const previousIsGuest: boolean = get(previousUser, 'isGuest', true);
-        const userTraits: UserTraits = userTraitsPicker(user);
+        const userTraits = userTraitsPicker(user);
 
         await analyticsInstance.setUser(userId, userTraits);
 
@@ -217,7 +224,7 @@ export function analyticsSetUserMiddleware(
 
     if (triggerAnonymizeActions.has(actionType)) {
       await analyticsInstance.anonymize();
-      currentUser = null;
+      currentUser = undefined;
     }
 
     return next(action);

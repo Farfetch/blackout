@@ -288,7 +288,7 @@ const signupNewsletterSchema = yup.object({
     ),
 });
 
-export default {
+const eventSchemas = {
   [eventTypes.CHECKOUT_ABANDONED]: checkoutAbandonedSchema,
   [eventTypes.CHECKOUT_STARTED]: beginCheckoutSchema,
   [eventTypes.ORDER_COMPLETED]: purchaseAndRefundSchema,
@@ -316,3 +316,5 @@ export default {
   [eventTypes.INTERACT_CONTENT]: interactContentSchema,
   [eventTypes.SIGNUP_NEWSLETTER]: signupNewsletterSchema,
 };
+
+export default eventSchemas;

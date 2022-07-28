@@ -12,7 +12,7 @@ import type { Dispatch } from 'redux';
 const logoutFactory =
   (postLogout: PostLogout) =>
   (config?: Config) =>
-  async (dispatch: Dispatch): Promise<any> => {
+  async (dispatch: Dispatch) => {
     try {
       dispatch({
         type: actionTypes.LOGOUT_REQUEST,

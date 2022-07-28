@@ -1,8 +1,9 @@
 import { schema } from 'normalizr';
+import type { FacetGroup, FacetValue } from '@farfetch/blackout-client';
 
 export const getId = (
-  { value, valueUpperBound, groupsOn }: any,
-  { description, type: parentType }: any,
+  { value, valueUpperBound, groupsOn }: FacetValue,
+  { description, type: parentType }: FacetGroup,
 ) =>
   `${description.toLowerCase()}_${value}${
     // Special scenario when the facet type is "sizes" or "size by category"

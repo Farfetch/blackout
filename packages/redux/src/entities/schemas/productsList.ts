@@ -77,7 +77,9 @@ export default new schema.Entity(
             return {
               ...filterSegment,
               description: filterSegment.description || facet?.description,
-              facetId: facet ? getId(facet, facetGroup) : undefined,
+              facetId: facet
+                ? getId(facet, facetGroup as FacetGroup)
+                : undefined,
             };
           }
 
@@ -88,7 +90,9 @@ export default new schema.Entity(
           return {
             ...filterSegment,
             description: filterSegment.description || facet?.description,
-            facetId: facet ? getId(facet, filteredFacetGroups?.[0]) : undefined,
+            facetId: facet
+              ? getId(facet, filteredFacetGroups?.[0] as FacetGroup)
+              : undefined,
           };
         },
       );

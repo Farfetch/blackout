@@ -327,7 +327,7 @@ class Analytics {
    */
   async setUser(
     userId: UserData['id'] = null,
-    traits: UserTraits = {},
+    traits: UserTraits = {} as UserTraits,
   ): Promise<this> {
     if (!this.storage) {
       logger.error(

@@ -2,6 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import {
   Config,
   LoginData,
+  LoginResponse,
   PostLogin,
   toBlackoutError,
 } from '@farfetch/blackout-client';
@@ -20,7 +21,7 @@ const UNVERIFIED_USER = 4;
 const loginFactory =
   (postLogin: PostLogin) =>
   (data: LoginData, config?: Config) =>
-  async (dispatch: Dispatch): Promise<any> => {
+  async (dispatch: Dispatch): Promise<LoginResponse> => {
     try {
       dispatch({
         type: actionTypes.LOGIN_REQUEST,

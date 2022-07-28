@@ -27,7 +27,7 @@ import {
   OPTION_SEARCH_QUERY_PARAMETERS,
   OPTION_TRANSFORM_PAYLOAD,
 } from './constants';
-import { postTracking } from '@farfetch/blackout-client';
+import { postTracking, User, UserGender } from '@farfetch/blackout-client';
 import { trackEventsMapper, userGenderValuesMapper } from './definitions';
 import analyticsTrackTypes from '../../types/trackTypes';
 import get from 'lodash/get';
@@ -194,7 +194,11 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
 
       precalculatedPageViewParameters.userGender = get(
         userGenderValuesMapper,
-        `${userTraits.gender}`,
+        `${
+          !userTraits.isGuest
+            ? (userTraits as User).gender
+            : UserGender.NotDefined
+        }`,
         userGenderValuesMapper.NotDefined,
       );
 

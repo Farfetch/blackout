@@ -2,8 +2,8 @@ import type { CheckoutAddress } from '../../types/common/address.types';
 import type { CheckoutOrderItem, CheckoutOrderMerchant } from '.';
 
 export enum ShippingMode {
-  ByMerchant,
-  ByBundle,
+  ByMerchant = 'ByMerchant',
+  ByBundle = 'ByBundle',
 }
 
 export enum CheckoutOrderStatus {

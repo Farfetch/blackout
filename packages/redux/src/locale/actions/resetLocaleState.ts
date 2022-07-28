@@ -7,8 +7,10 @@ import type { Dispatch } from 'redux';
  * @returns - Dispatch reset action.
  */
 
-export default () => (dispatch: Dispatch) => {
+const resetLocaleState = () => (dispatch: Dispatch) => {
   dispatch({
     type: actionTypes.RESET_LOCALE_STATE,
   });
 };
+
+export default resetLocaleState;

@@ -17,7 +17,7 @@ import type { Dispatch } from 'redux';
 const recoverPasswordFactory =
   (postPasswordRecover: PostPasswordRecover) =>
   (data: PostPasswordRecoverData, config?: Config) =>
-  async (dispatch: Dispatch): Promise<any> => {
+  async (dispatch: Dispatch) => {
     try {
       dispatch({
         type: actionTypes.PASSWORD_RECOVER_REQUEST,
