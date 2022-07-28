@@ -3,6 +3,7 @@ import type {
   LOAD_INTEGRATION_TRACK_TYPE,
   ON_SET_USER_TRACK_TYPE,
 } from '../utils/constants';
+import type { GuestUser, User } from '@farfetch/blackout-client';
 import type { Integration } from '../integrations';
 import type trackTypes from '../types/trackTypes';
 
@@ -83,18 +84,7 @@ export interface IntegrationFactory<T extends IntegrationOptions> {
   shouldLoad(consent: ConsentData | null | undefined): boolean;
 }
 
-export type UserTraits = {
-  dateOfBirth?: string;
-  email?: string;
-  firstName?: string;
-  lastName?: string;
-  name?: string;
-  phoneNumber?: string;
-  username?: string;
-  isGuest?: boolean;
-  createdDate?: string;
-  gender?: number;
-} & Record<string, unknown>;
+export type UserTraits = Omit<GuestUser, 'id'> | Omit<User, 'id'>;
 
 export type UserData = {
   id: number | null | undefined;

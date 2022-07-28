@@ -299,7 +299,8 @@ const addRefundProductsCommand = (
 /**
  * GA commands map by event name.
  */
-export default {
+
+const commands = {
   [eventTypes.PRODUCT_ADDED_TO_CART]: (
     data: EventData<TrackTypesValues>,
     customProductMappings: ProductMappings,
@@ -584,6 +585,8 @@ export default {
     ];
   },
 };
+
+export default commands;
 
 // Schema used to validate the output of command functions
 export const commandListSchema = validationSchemaBuilder

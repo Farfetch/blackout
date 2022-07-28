@@ -642,7 +642,7 @@ class AuthenticationTokenManager {
     }
   }
 
-  async onRequestSuccessfulInterceptor(result: AxiosResponse<any>) {
+  async onRequestSuccessfulInterceptor(result: AxiosResponse) {
     const { config }: { config: RequestConfig } = result;
 
     if (config[AuthenticationConfigOptions.IsGetUserProfileRequest]) {

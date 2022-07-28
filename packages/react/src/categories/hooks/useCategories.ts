@@ -20,6 +20,8 @@ import { useSelector } from 'react-redux';
 import type { Category } from '@farfetch/blackout-client';
 import type { GetRootCategory, UseCategories } from './types';
 
+const categoriesDefaultValue: Record<string, never> = {} as const;
+
 /**
  * It provides actions, selectors and methods for categories data.
  *
@@ -33,7 +35,7 @@ const useCategories: UseCategories = () => {
   const areTopCategoriesLoading = useSelector(areTopCategoriesLoadingSelector);
   const areCategoriesFetched = useSelector(areCategoriesFetchedSelector);
   const areTopCategoriesFetched = useSelector(areTopCategoriesFetchedSelector);
-  const categories = useSelector(getCategories) || {};
+  const categories = useSelector(getCategories) || categoriesDefaultValue;
   const topCategories = useSelector(getTopCategories);
   /**
    * Gets a specific category by id.

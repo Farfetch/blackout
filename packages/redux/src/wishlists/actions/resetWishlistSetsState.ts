@@ -9,10 +9,13 @@ import type { ResetWishlistSetsStateAction } from '../types';
  *
  * @returns Dispatch reset wishlists sets state action.
  */
-export default (fieldsToReset?: string[]) =>
+const resetWishlistSetsState =
+  (fieldsToReset?: string[]) =>
   (dispatch: Dispatch<ResetWishlistSetsStateAction>): void => {
     dispatch({
       payload: { fieldsToReset },
       type: actionTypes.RESET_WISHLIST_SETS_STATE,
     });
   };
+
+export default resetWishlistSetsState;

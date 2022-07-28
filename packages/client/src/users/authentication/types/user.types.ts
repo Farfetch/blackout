@@ -1,7 +1,7 @@
-import type { GuestUserNormalized } from './guestUser.types';
+import type { GuestUser } from './guestUser.types';
 import type { UserGender } from '../../../types';
 
-export type User = Omit<GuestUserNormalized, 'isGuest'> & {
+export type User = Omit<GuestUser, 'isGuest'> & {
   dateOfBirth?: string;
   email: string;
   gender?: UserGender;

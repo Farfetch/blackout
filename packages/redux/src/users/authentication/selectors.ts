@@ -23,7 +23,7 @@ import type { UsersState } from '../types';
  * @returns IsAuthenticated.
  */
 export const isAuthenticated = (state: StoreState) =>
-  Boolean(getUser(state) && !getUser(state).isGuest && getUser(state).id);
+  Boolean(getUser(state) && !getUser(state)?.isGuest && getUser(state)?.id);
 
 /**
  * Returns the error or loading status of each sub-area.

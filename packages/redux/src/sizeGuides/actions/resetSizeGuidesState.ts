@@ -6,9 +6,12 @@ import type { Dispatch } from 'redux';
  *
  * @returns Dispatch reset action.
  */
-export default () =>
+const resetSizeGuidesState =
+  () =>
   (dispatch: Dispatch): void => {
     dispatch({
       type: actionTypes.RESET_SIZE_GUIDES_STATE,
     });
   };
+
+export default resetSizeGuidesState;

@@ -1,6 +1,5 @@
 import type {
   GuestUser,
-  GuestUserNormalized,
   User,
   UserContact,
   UserPreference,
@@ -10,7 +9,7 @@ import type {
   UserCreditMovementsEntity,
 } from './credit.types';
 
-export type UserEntity = (User | GuestUserNormalized | GuestUser) & {
+export type UserEntity = (User | GuestUser) & {
   credit?: UserCreditEntity;
   creditMovements?: UserCreditMovementsEntity;
   preferences?: Array<UserPreference['code']>;

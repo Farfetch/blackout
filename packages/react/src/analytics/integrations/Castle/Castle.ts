@@ -199,18 +199,21 @@ class Castle extends integrations.Integration<CastleIntegrationOptions> {
    */
   getUserData(data: TrackEventData | PageviewEventData) {
     const userData: UserData = data.user || {};
-    const userTraits: UserTraits = userData.traits || {};
+    const userTraits: UserTraits = userData.traits || ({} as UserTraits);
 
     const formattedUserData: UserParams = {
       id: userData.id?.toString() || 'USER NOT LOADED YET',
-      email: userTraits.email,
-      phone: userTraits.phoneNumber,
-      name: userTraits.name,
-      registered_at: userTraits.createdDate,
       traits: {
         isGuest: userTraits.isGuest,
       },
     };
+
+    if (!userTraits.isGuest) {
+      formattedUserData.email = userTraits.email;
+      formattedUserData.phone = userTraits.phoneNumber;
+      formattedUserData.name = userTraits.name;
+      formattedUserData.registered_at = userTraits.createdDate;
+    }
 
     // clean "falsy" values to ensure the SDK accepts the request.
     return pickBy(formattedUserData, identity) as UserParams;

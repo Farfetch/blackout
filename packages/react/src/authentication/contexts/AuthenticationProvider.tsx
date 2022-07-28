@@ -141,7 +141,7 @@ function AuthenticationProvider({
     [],
   );
 
-  const previousTokenManager: AuthenticationTokenManager =
+  const previousTokenManager: AuthenticationTokenManager | undefined =
     usePrevious(tokenManager);
 
   useEffect(() => {

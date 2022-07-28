@@ -49,6 +49,11 @@ export const INITIAL_STATE: UsersState = {
 };
 
 export const entitiesMapper = {
+  ...addressesEntitiesMapper,
+  ...benefitsEntitiesMapper,
+  ...preferencesEntitiesMapper,
+  ...creditsEntitiesMapper,
+  ...contactsEntitiesMapper,
   [actionTypes.RESET_USER_ENTITIES]: (
     state: NonNullable<StoreState['entities']>,
   ) => {
@@ -57,11 +62,6 @@ export const entitiesMapper = {
       ...rest,
     };
   },
-  ...addressesEntitiesMapper,
-  ...benefitsEntitiesMapper,
-  ...preferencesEntitiesMapper,
-  ...creditsEntitiesMapper,
-  ...contactsEntitiesMapper,
   [actionTypes.LOGOUT_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
   ) => {

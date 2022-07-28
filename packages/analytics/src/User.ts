@@ -71,7 +71,10 @@ class User {
    * @returns Promise that will resolve with the instance that was used when calling this method to allow
    * chaining.
    */
-  async set(id: UserData['id'] = null, traits: UserTraits = {}): Promise<User> {
+  async set(
+    id: UserData['id'] = null,
+    traits: UserTraits = {} as UserTraits,
+  ): Promise<User> {
     // Generate a new localId and store it (if needed)
     await this.localId();
 

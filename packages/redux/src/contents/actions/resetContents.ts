@@ -6,9 +6,12 @@ import type { Dispatch } from 'redux';
  *
  * @returns - Dispatch reset action.
  */
-export default () =>
+const resetContents =
+  () =>
   (dispatch: Dispatch): void => {
     dispatch({
       type: actionTypes.RESET_CONTENTS,
     });
   };
+
+export default resetContents;

@@ -17,7 +17,7 @@ import type { Dispatch } from 'redux';
 const createUserTokenFactory =
   (postTokens: PostToken) =>
   (data: PostTokenData, config?: Config) =>
-  async (dispatch: Dispatch): Promise<any> => {
+  async (dispatch: Dispatch) => {
     try {
       dispatch({
         type: actionTypes.CREATE_USER_TOKEN_REQUEST,

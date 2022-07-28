@@ -1,6 +1,8 @@
 import { getEntities } from './entity';
 import { USER_ID_PROPERTY } from '../constants';
 import get from 'lodash/get';
+import type { StoreState } from '../../types';
+import type { UserEntity } from '../types/user.types';
 
 /**
  * Returns the current user.
@@ -9,7 +11,7 @@ import get from 'lodash/get';
  *
  * @returns User object.
  */
-export const getUser = (state: any): any => getEntities(state, 'user');
+export const getUser = (state: StoreState) => getEntities(state, 'user');
 
 /**
  * Return the user with the specified id.
@@ -18,7 +20,8 @@ export const getUser = (state: any): any => getEntities(state, 'user');
  *
  * @returns The user id, if defined.
  */
-export const getUserId = (user: any): any => get(user, USER_ID_PROPERTY);
+export const getUserId = (user: UserEntity | undefined) =>
+  get(user, USER_ID_PROPERTY);
 
 /**
  * Return the user's email.
@@ -27,7 +30,8 @@ export const getUserId = (user: any): any => get(user, USER_ID_PROPERTY);
  *
  * @returns User email.
  */
-export const getUserEmail = (user: any): any => get(user, 'email');
+export const getUserEmail = (user: UserEntity | undefined) =>
+  get(user, 'email');
 
 /**
  * Return the user segments.
@@ -36,7 +40,8 @@ export const getUserEmail = (user: any): any => get(user, 'email');
  *
  * @returns User segments.
  */
-export const getUserSegments = (user: any): any => get(user, 'segments');
+export const getUserSegments = (user: UserEntity | undefined) =>
+  get(user, 'segments');
 
 /**
  * Return if the user is guest or not.
@@ -45,7 +50,8 @@ export const getUserSegments = (user: any): any => get(user, 'segments');
  *
  * @returns If user is guest.
  */
-export const getUserIsGuest = (user: any): any => get(user, 'isGuest');
+export const getUserIsGuest = (user: UserEntity | undefined) =>
+  get(user, 'isGuest');
 
 /**
  * Return the user's name.
@@ -54,7 +60,8 @@ export const getUserIsGuest = (user: any): any => get(user, 'isGuest');
  *
  * @returns User name.
  */
-export const getUsername = (user: any): any => get(user, 'username');
+export const getUsername = (user: UserEntity | undefined) =>
+  get(user, 'username');
 
 /**
  * Return the user's membership.
@@ -63,7 +70,8 @@ export const getUsername = (user: any): any => get(user, 'username');
  *
  * @returns User membership.
  */
-export const getUserMembership = (user: any): any => get(user, 'membership');
+export const getUserMembership = (user: UserEntity | undefined) =>
+  get(user, 'membership');
 
 /**
  * Return the user's credit.
@@ -72,7 +80,8 @@ export const getUserMembership = (user: any): any => get(user, 'membership');
  *
  * @returns User credit.
  */
-export const getUserCredit = (user: any): any => get(user, 'credit');
+export const getUserCredit = (user: UserEntity | undefined) =>
+  get(user, 'credit');
 
 /**
  * Return the user's credit movements.
@@ -81,7 +90,7 @@ export const getUserCredit = (user: any): any => get(user, 'credit');
  *
  * @returns Credit movements.
  */
-export const getUserCreditMovements = (user: any): any =>
+export const getUserCreditMovements = (user: UserEntity | undefined) =>
   get(user, 'creditMovements');
 
 /**
@@ -91,7 +100,8 @@ export const getUserCreditMovements = (user: any): any =>
  *
  * @returns User gender.
  */
-export const getUserGender = (user: any): any => get(user, 'gender');
+export const getUserGender = (user: UserEntity | undefined) =>
+  get(user, 'gender');
 
 /**
  * Return the user's bag id.
@@ -100,7 +110,8 @@ export const getUserGender = (user: any): any => get(user, 'gender');
  *
  * @returns Bag id.
  */
-export const getUserBagId = (user: any): any => get(user, 'bagId');
+export const getUserBagId = (user: UserEntity | undefined) =>
+  get(user, 'bagId');
 
 /**
  * Returns the user's title.
@@ -109,4 +120,5 @@ export const getUserBagId = (user: any): any => get(user, 'bagId');
  *
  * @returns Object containing the title details (id and value).
  */
-export const getUserTitle = (user: any): any => get(user, 'title');
+export const getUserTitle = (user: UserEntity | undefined) =>
+  get(user, 'title');

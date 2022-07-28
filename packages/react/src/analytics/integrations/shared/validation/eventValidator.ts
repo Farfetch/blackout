@@ -13,7 +13,7 @@ import type { Schema } from '../types/shared.types';
  *
  * @returns The result of the validation with valid and errorMessage properties.
  */
-export default (
+const eventValidator = (
   data: EventData<TrackTypesValues>,
   validationSchema?: Schema,
 ) => {
@@ -36,3 +36,5 @@ export default (
     errorMessage: validationErrorMessage,
   };
 };
+
+export default eventValidator;

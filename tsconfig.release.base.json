@@ -30,11 +30,11 @@
     "composite": true,
 
     /* Emit */
-    "declarationMap": true,
+    "declarationMap": false,
     "importHelpers": true,
     "importsNotUsedAsValues": "error",
     "noEmitOnError": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "stripInternal": true,
     "emitDeclarationOnly": true,
 
