@@ -22,6 +22,9 @@ import creditsReducers, {
   entitiesMapper as creditsEntitiesMapper,
   INITIAL_STATE as INITIAL_CREDITS_STATE,
 } from './credits/reducer';
+import personalIdsReducer, {
+  INITIAL_STATE as INITIAL_PERSONAL_IDS_STATE,
+} from './personalIds/reducer';
 import preferencesReducers, {
   INITIAL_STATE as INITIAL_PREFERENCES_STATE,
   entitiesMapper as preferencesEntitiesMapper,
@@ -37,14 +40,15 @@ export const INITIAL_STATE: UsersState = {
   id: null,
   isLoading: false,
   addresses: INITIAL_ADDRESSES_STATE,
-  authentication: INITIAL_AUTHENTICATION_STATE,
   attributes: INITIAL_ATTRIBUTES_STATE,
+  authentication: INITIAL_AUTHENTICATION_STATE,
   benefits: INITIAL_BENEFITS_STATE,
-  titles: INITIAL_TITLES_STATE,
-  credits: INITIAL_CREDITS_STATE.credits,
-  creditMovements: INITIAL_CREDITS_STATE.creditMovements,
   contacts: INITIAL_CONTACTS_STATE,
+  creditMovements: INITIAL_CREDITS_STATE.creditMovements,
+  credits: INITIAL_CREDITS_STATE.credits,
+  personalIds: INITIAL_PERSONAL_IDS_STATE,
   preferences: INITIAL_PREFERENCES_STATE.preferences,
+  titles: INITIAL_TITLES_STATE,
   updatePreferences: INITIAL_PREFERENCES_STATE.updatePreferences,
 };
 
@@ -198,6 +202,8 @@ export const getAddresses = (state: UsersState): UsersState['addresses'] =>
 export const getAuthentication = (
   state: UsersState,
 ): UsersState['authentication'] => state.authentication;
+export const getPersonalIds = (state: UsersState): UsersState['personalIds'] =>
+  state.personalIds;
 
 const reducer = combineReducers({
   error,
@@ -210,9 +216,10 @@ const reducer = combineReducers({
   contacts: contactsReducer,
   creditMovements: creditsReducers.creditMovements,
   credits: creditsReducers.credits,
+  personalIds: personalIdsReducer,
   preferences: preferencesReducers.preferences,
-  updatePreferences: preferencesReducers.updatePreferences,
   titles: titlesReducer,
+  updatePreferences: preferencesReducers.updatePreferences,
 });
 
 /**
