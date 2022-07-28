@@ -149,7 +149,7 @@ Object {
     "isScreenEventType": [Function],
     "isTrackEventType": [Function],
     "logger": Logger {
-      "prefix": "@farfetch/blackout-analytics@1.0.0-next.47",
+      "prefix": "@farfetch/blackout-analytics@1.0.0-next.48",
     },
     "stringifyQuery": [Function],
     "validateStorage": [Function],

@@ -36,7 +36,6 @@ const buildBagItem = ({
   productAggregatorId,
   quantity = 1,
   size,
-  ...otherParams
 }: BuildBagItemParams) => {
   const parsedCustomAttributes =
     typeof customAttributes === 'object'
@@ -52,7 +51,6 @@ const buildBagItem = ({
     quantity,
     scale: size.scale,
     size: size.id,
-    ...otherParams,
   };
 };
 

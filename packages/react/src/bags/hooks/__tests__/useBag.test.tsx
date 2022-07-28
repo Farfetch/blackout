@@ -24,6 +24,8 @@ jest.mock('@farfetch/blackout-redux', () => ({
   resetBag: jest.fn(() => () => Promise.resolve()),
 }));
 
+const metadata = { from: 'plp' };
+
 describe('useBag', () => {
   beforeEach(jest.clearAllMocks);
   afterEach(cleanup);
@@ -213,18 +215,22 @@ describe('useBag', () => {
         wrapper: withStore(mockState),
       });
 
-      await addItem(mockProductId, { quantity: 1, sizeId: 1 });
+      await addItem(mockProductId, { quantity: 1, sizeId: 1 }, metadata);
 
-      expect(addBagItem).toHaveBeenCalledWith({
-        authCode: undefined,
-        customAttributes: '',
-        merchantId: mockMerchantId,
-        productAggregatorId: undefined,
-        productId: mockProductId,
-        quantity: 1,
-        scale: mockSizeScaleId,
-        size: 1,
-      });
+      expect(addBagItem).toHaveBeenCalledWith(
+        {
+          authCode: undefined,
+          customAttributes: '',
+          merchantId: mockMerchantId,
+          productAggregatorId: undefined,
+          productId: mockProductId,
+          quantity: 1,
+          scale: mockSizeScaleId,
+          size: 1,
+        },
+        undefined,
+        metadata,
+      );
     });
 
     it('should call `removeBagItem` action', async () => {
@@ -254,16 +260,21 @@ describe('useBag', () => {
         wrapper: withStore(mockState),
       });
 
-      await updateItem(mockBagItemId, { quantity: 1 });
+      await updateItem(mockBagItemId, { quantity: 1 }, metadata);
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
-      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, {
-        merchantId: mockMerchantId,
-        productId: mockProductId,
-        quantity: 1,
-        scale: mockSizeScaleId,
-        size: 23,
-      });
+      expect(updateBagItem).toHaveBeenCalledWith(
+        mockBagItemId,
+        {
+          merchantId: mockMerchantId,
+          productId: mockProductId,
+          quantity: 1,
+          scale: mockSizeScaleId,
+          size: 23,
+        },
+        undefined,
+        metadata,
+      );
     });
 
     it('should call `updateBagItem` action on quantity increment', async () => {
@@ -277,21 +288,23 @@ describe('useBag', () => {
         wrapper: withStore(mockState),
       });
 
-      await updateItem(mockBagItemId, { quantity: 6 });
+      await updateItem(mockBagItemId, { quantity: 6 }, metadata);
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
-      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, {
-        authCode: undefined,
-        customAttributes: '',
-        productAggregatorId: undefined,
-        merchantId: mockMerchantId,
-        productId: mockProductId,
-        quantity: 6,
-        scale: mockSizeScaleId,
-        size: 23,
-        oldQuantity: 5,
-        oldSize: 23,
-      });
+      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, 
+        {
+          authCode: undefined,
+          customAttributes: '',
+          productAggregatorId: undefined,
+          merchantId: mockMerchantId,
+          productId: mockProductId,
+          quantity: 6,
+          scale: mockSizeScaleId,
+          size: 23,
+        },
+        undefined,
+        metadata,
+      );
     });
 
     it('should call `updateBagItem` actions on size update', async () => {
@@ -305,18 +318,21 @@ describe('useBag', () => {
         wrapper: withStore(mockState),
       });
 
-      await updateItem(mockBagItemId, { sizeId: 4 });
+      await updateItem(mockBagItemId, { sizeId: 4 }, metadata);
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
       expect(addBagItem).not.toHaveBeenCalled();
-      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, {
-        merchantId: mockMerchantId,
-        productId: mockProductId,
-        quantity: 5,
-        scale: mockSizeScaleId,
-        size: 4,
-        oldSize: 23,
-      });
+      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, 
+        {
+          merchantId: mockMerchantId,
+          productId: mockProductId,
+          quantity: 5,
+          scale: mockSizeScaleId,
+          size: 4,
+        },
+        undefined,
+        metadata,
+      );
     });
 
     it('should call `updateBagItem` and `addBagItem` actions on size update if new size needs to be fulfilled by multiple merchants', async () => {
@@ -330,27 +346,35 @@ describe('useBag', () => {
         wrapper: withStore(mockState),
       });
 
-      await updateItem(mockBagItemId, { sizeId: 2 });
+      await updateItem(mockBagItemId, { sizeId: 2 }, metadata);
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
       expect(addBagItem).toHaveBeenCalledTimes(1);
-      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, {
-        merchantId: mockMerchantId,
-        productId: mockProductId,
-        quantity: 2,
-        scale: mockSizeScaleId,
-        size: 2,
-      });
-      expect(addBagItem).toHaveBeenCalledWith({
-        authCode: undefined,
-        customAttributes: '',
-        merchantId: 545,
-        productAggregatorId: undefined,
-        productId: mockProductId,
-        quantity: 3,
-        scale: mockSizeScaleId,
-        size: 2,
-      });
+      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, 
+        {
+          merchantId: mockMerchantId,
+          productId: mockProductId,
+          quantity: 2,
+          scale: mockSizeScaleId,
+          size: 2,
+        },
+        undefined,
+        metadata,
+      );
+      expect(addBagItem).toHaveBeenCalledWith(
+        {
+          authCode: undefined,
+          customAttributes: '',
+          merchantId: 545,
+          productAggregatorId: undefined,
+          productId: mockProductId,
+          quantity: 3,
+          scale: mockSizeScaleId,
+          size: 2,
+        },
+        undefined,
+        metadata,
+      );
     });
 
     it('should call `updateBagItem` action if `addItem` is called with a product already on bag', async () => {
@@ -364,22 +388,24 @@ describe('useBag', () => {
         wrapper: withStore(mockState),
       });
 
-      await addItem(mockProductId, { sizeId: 23, quantity: 1 });
+      await addItem(mockProductId, { sizeId: 23, quantity: 1 }, metadata);
 
       expect(addBagItem).not.toHaveBeenCalled();
       expect(updateBagItem).toHaveBeenCalledTimes(1);
-      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, {
-        authCode: undefined,
-        customAttributes: '',
-        merchantId: mockMerchantId,
-        productId: mockProductId,
-        quantity: 6,
-        scale: mockSizeScaleId,
-        size: 23,
-        oldQuantity: 5,
-        oldSize: 23,
-        productAggregatorId: undefined,
-      });
+      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, 
+        {
+          authCode: undefined,
+          customAttributes: '',
+          merchantId: mockMerchantId,
+          productId: mockProductId,
+          quantity: 6,
+          scale: mockSizeScaleId,
+          size: 23,
+          productAggregatorId: undefined,
+        },
+        undefined,
+        metadata,
+      );
     });
 
     it('should call `removeBagItem` and `addBagItem` actions on update to a size with different merchant', async () => {
@@ -393,16 +419,20 @@ describe('useBag', () => {
         wrapper: withStore(mockState),
       });
 
-      await updateItem(mockBagItemId, { sizeId: 2 });
+      await updateItem(mockBagItemId, { sizeId: 2 }, metadata);
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
-      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, {
-        merchantId: mockMerchantId,
-        productId: mockProductId,
-        quantity: 2,
-        scale: mockSizeScaleId,
-        size: 2,
-      });
+      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, 
+        {
+          merchantId: mockMerchantId,
+          productId: mockProductId,
+          quantity: 2,
+          scale: mockSizeScaleId,
+          size: 2,
+        },
+        undefined,
+        metadata,
+      );
     });
 
     it('should call `updateBagItem` action on size and quantity update', async () => {
@@ -416,19 +446,23 @@ describe('useBag', () => {
         wrapper: withStore(mockState),
       });
 
-      await updateItem(mockBagItemId, { sizeId: 2, quantity: 2 });
+      await updateItem(mockBagItemId, { sizeId: 2, quantity: 2 }, metadata);
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
-      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, {
-        authCode: undefined,
-        customAttributes: '',
-        productAggregatorId: undefined,
-        merchantId: mockMerchantId,
-        productId: mockProductId,
-        quantity: 2,
-        scale: mockSizeScaleId,
-        size: 2,
-      });
+      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, 
+        {
+          authCode: undefined,
+          customAttributes: '',
+          productAggregatorId: undefined,
+          merchantId: mockMerchantId,
+          productId: mockProductId,
+          quantity: 2,
+          scale: mockSizeScaleId,
+          size: 2,
+        },
+        undefined,
+        metadata,
+      );
     });
 
     it('should update quantity and then add when current merchant has less stock than new quantity', async () => {
@@ -442,21 +476,29 @@ describe('useBag', () => {
         wrapper: withStore(mockState),
       });
 
-      await updateItem(mockBagItemId, { sizeId: 24 });
+      await updateItem(mockBagItemId, { sizeId: 24 }, metadata);
 
       expect(removeBagItem).toHaveBeenCalledTimes(1);
       expect(addBagItem).toHaveBeenCalledTimes(1);
-      expect(removeBagItem).toHaveBeenCalledWith(mockBagItemId);
-      expect(addBagItem).toHaveBeenCalledWith({
-        authCode: undefined,
-        customAttributes: '',
-        merchantId: 22,
-        productAggregatorId: undefined,
-        productId: mockProductId,
-        quantity: 5,
-        scale: mockSizeScaleId,
-        size: 24,
-      });
+      expect(removeBagItem).toHaveBeenCalledWith(
+        mockBagItemId,
+        undefined,
+        metadata,
+      );
+      expect(addBagItem).toHaveBeenCalledWith(
+        {
+          authCode: undefined,
+          customAttributes: '',
+          merchantId: 22,
+          productAggregatorId: undefined,
+          productId: mockProductId,
+          quantity: 5,
+          scale: mockSizeScaleId,
+          size: 24,
+        },
+        undefined,
+        metadata,
+      );
     });
 
     it('should call `resetBag` action', () => {
