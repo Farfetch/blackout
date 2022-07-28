@@ -1,5 +1,6 @@
 import { mockGetContactResponse, userId } from 'tests/__fixtures__/users';
 import { postUserContact } from '..';
+import { UserContactType } from '../types';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/postUserContact.fixtures';
 import mswServer from '../../../../tests/mswServer';
@@ -13,7 +14,7 @@ describe('postUserContact', () => {
       countryCode: '',
       countryCallingCode: '',
     },
-    type: '',
+    type: UserContactType.Phone,
     description: '',
   };
   const spy = jest.spyOn(client, 'post');

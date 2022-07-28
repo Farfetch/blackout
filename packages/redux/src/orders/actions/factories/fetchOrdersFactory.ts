@@ -20,7 +20,7 @@ import type { Dispatch } from 'redux';
 const fetchOrdersFactory =
   (getOrders: GetOrders) =>
   (userId: number, query?: GetOrdersQuery, config?: Config) =>
-  async (dispatch: Dispatch): Promise<OrderSummary> => {
+  async (dispatch: Dispatch): Promise<OrderSummary[]> => {
     try {
       dispatch({
         type: actionTypes.FETCH_ORDERS_REQUEST,

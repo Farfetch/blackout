@@ -3,20 +3,20 @@ import type { FacetType } from './facetTypeEnum.types';
 export type ShoppingConfig = {
   pageIndex: number;
   pageSize: number;
-  mobilePageSize: number;
+  mobilePageSize: number | null;
   filtersStartHidden: boolean;
   filterTypes: Array<{
     id: FacetType;
     deep: number;
     order: number;
   }>;
-  noResultsImageUrl: string;
-  discount: string;
+  noResultsImageUrl: string | null;
+  discount: string | null;
   availableSorts: string[];
   sort: string;
   sortDirection: string;
-  query: string;
-  encodedQuery: string;
+  query: string | null;
+  encodedQuery: string | null;
   showChildrenCategories: boolean;
   removeSingleValueFacets: boolean;
   mixedMode: {
@@ -27,5 +27,6 @@ export type ShoppingConfig = {
   imageSizes: Array<{
     size: number;
   }>;
-  contextFilters: string;
+  contextFilters: string | null;
+  scenarios: string | null;
 };

@@ -5,6 +5,13 @@ export enum Gender {
   Kid = 'Kid',
 }
 
+export enum GenderCode {
+  Woman,
+  Man,
+  Unisex,
+  Kid,
+}
+
 export enum UserGender {
   NotDefined = 'NotDefined',
   Male = 'Male',

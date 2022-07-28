@@ -1,5 +1,6 @@
 import type { CheckoutAddress } from '../../types/common/address.types';
 import type { CheckoutOrderItem, CheckoutOrderMerchant } from '.';
+import type { CustomerType } from '../../orders/types/order.types';
 
 export enum ShippingMode {
   ByMerchant = 'ByMerchant',
@@ -35,7 +36,7 @@ export type CheckoutOrder = {
     userId: string;
   }[];
   currency: string;
-  customerType: string;
+  customerType: CustomerType;
   grandTotal: number;
   items: CheckoutOrderItem[];
   locale: string;

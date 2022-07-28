@@ -18,7 +18,7 @@ import type { Dispatch } from 'redux';
  */
 const setUserPreferencesFactory =
   (putUserPreferences: PutUserPreferences) =>
-  (userId: number, data: PutUserPreferencesData, config?: Config) =>
+  (userId: number, data: PutUserPreferencesData[], config?: Config) =>
   async (dispatch: Dispatch) => {
     try {
       dispatch({

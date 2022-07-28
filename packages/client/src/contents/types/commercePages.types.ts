@@ -1,4 +1,4 @@
-import type { Config, Gender, PagedResponse } from '../../types';
+import type { Config, GenderCode, PagedResponse } from '../../types';
 import type { ContentEntry } from './contents.types';
 import type { PriceType } from '../../products/types';
 
@@ -14,7 +14,7 @@ export type QueryCommercePages = {
   // Query by a specified product or set identifier.
   id?: number;
   // Query by a gender (E.g. 0 = Woman, 1 = Man, 2 = Unisex, 3 = Kid).
-  gender?: Gender;
+  gender?: GenderCode;
   // Query by a specified brand identifier.
   brand?: number;
   // Query by a specified category identifiers, separated by commas (E.g. 139065,139088).

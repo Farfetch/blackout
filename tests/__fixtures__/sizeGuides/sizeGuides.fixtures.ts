@@ -32,6 +32,7 @@ export const mockCategories = [
 
 export const mockSizeGuides = [
   {
+    annotations: [''],
     categoryId: mockCategoryId,
     brandId: null,
     maps: [
@@ -60,6 +61,7 @@ export const mockSizeGuides = [
     ],
   },
   {
+    annotations: [''],
     categoryId: mockCategoryId,
     brandId: mockBrandId,
     maps: [
@@ -88,15 +90,12 @@ export const mockSizeGuides = [
     ],
   },
   {
+    annotations: [''],
     categoryId: 135983,
     brandId: mockBrandId,
     maps: [],
   },
-  {
-    categoryId: 135983,
-    brandId: null,
-    maps: [],
-  },
+  { annotations: [''], categoryId: 135983, brandId: null, maps: [] },
 ];
 
 export const mockState = {

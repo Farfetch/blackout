@@ -3,9 +3,9 @@ import type { Action } from 'redux';
 import type {
   BlackoutError,
   ContentType,
+  GetSEOQuery,
   QueryCommercePages,
   QuerySearchContents,
-  QuerySEO,
   SEOMetadata,
 } from '@farfetch/blackout-client';
 import type { Hash, Pathname, SearchResultsState } from '../types';
@@ -59,13 +59,13 @@ export interface ActionFetchCommercePagesFailure extends Action {
 }
 
 export interface ActionFetchSEORequest extends Action {
-  meta: { query: QuerySEO };
+  meta: { query: GetSEOQuery };
   payload: { pathname: Pathname };
   type: typeof actionTypes.FETCH_SEO_REQUEST;
 }
 
 export interface ActionFetchSEOSuccess extends Action {
-  meta: { query: QuerySEO };
+  meta: { query: GetSEOQuery };
   payload: {
     pathname: Pathname;
     result: SEOMetadata;
@@ -74,7 +74,7 @@ export interface ActionFetchSEOSuccess extends Action {
 }
 
 export interface ActionFetchSEOFailure extends Action {
-  meta: { query: QuerySEO };
+  meta: { query: GetSEOQuery };
   payload: {
     error: BlackoutError;
     pathname: Pathname;

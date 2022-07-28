@@ -5,7 +5,7 @@ export type GetOrders = (
   id: number,
   query?: GetOrdersQuery,
   config?: Config,
-) => Promise<OrderSummary>;
+) => Promise<OrderSummary[]>;
 
 export type GetOrdersQuery = {
   page?: number;

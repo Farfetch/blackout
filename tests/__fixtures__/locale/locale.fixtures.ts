@@ -1,3 +1,4 @@
+import { AddressType } from '@farfetch/blackout-client';
 export const mockCountryCode = 'US';
 export const mockStateId = 3;
 export const isoCode = 'PT';
@@ -45,6 +46,7 @@ export const mockStates = [
 ];
 
 export const mockCountry = {
+  cultureCode: 'en-US',
   code: 'US',
   platformId: 216,
   cultures: ['en-US'],
@@ -59,6 +61,10 @@ export const mockCountry = {
   states: mockStates,
   name: 'United States',
   nativeName: 'United States',
+};
+
+export const mockCountryCitiesResponse = {
+  items: mockCities,
 };
 
 export const mockCountryPT = {
@@ -111,6 +117,11 @@ export const mockStatesEntities = {
   3: { ...mockStates[0], cities: [mockCities[0]?.id] },
   6: { ...mockStates[1], cities: [mockCities[1]?.id] },
 };
+
+export const mockCountryStatesResponse = {
+  items: mockStates,
+};
+
 export const mockModel = {
   subfolder: '/en-us',
   currencyCode: 'USD',
@@ -122,6 +133,7 @@ export const mockModel = {
   defaultCulture: 'en-US',
   defaultSubfolder: '/en-us',
   sourceCountryCode: 'PT',
+  addressType: AddressType.Any,
 };
 
 export const mockGetAddressSchemaResponse = {
@@ -254,7 +266,7 @@ export const mockGetAddressSchemaResponse = {
       row: 5,
     },
   ],
-  addressType: 'any',
+  addressType: AddressType.Any,
 };
 
 export const expectedGetAddressSchemaNormalizedPayload = {

@@ -10,12 +10,14 @@ import mswServer from '../../../../tests/mswServer';
 
 describe('patchUserContact', () => {
   const expectedConfig = undefined;
-  const data = {
-    value: '',
-    path: '',
-    op: '',
-    from: '',
-  };
+  const data = [
+    {
+      value: '',
+      path: '',
+      op: '',
+      from: '',
+    },
+  ];
   const spy = jest.spyOn(client, 'patch');
 
   beforeEach(() => jest.clearAllMocks());

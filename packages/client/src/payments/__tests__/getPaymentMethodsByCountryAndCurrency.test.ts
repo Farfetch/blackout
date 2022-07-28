@@ -1,4 +1,5 @@
 import { getPaymentMethodsByCountryAndCurrency } from '..';
+import { mockFetchPaymentMethodsResponse } from 'tests/__fixtures__/payments';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getPaymentMethodsByCountryAndCurrency.fixtures';
 import mswServer from '../../../tests/mswServer';
@@ -12,30 +13,10 @@ describe('getPaymentMethodsByCountryAndCurrency', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const paymentMethod: PaymentMethods = {
-      customerAccounts: [
-        {
-          type: 'string',
-          id: 'string',
-          description: 'string',
-          code: 'string',
-          paymentOptions: ['string'],
-        },
-      ],
-      creditCard: {
-        type: 'string',
-        creditCards: [
-          {
-            id: 'string',
-            description: 'string',
-            code: 'string',
-          },
-        ],
-      },
-    };
-
-    const response: PaymentMethods[] = [paymentMethod, paymentMethod];
-
+    const response: PaymentMethods[] = [
+      mockFetchPaymentMethodsResponse,
+      mockFetchPaymentMethodsResponse,
+    ];
     mswServer.use(fixtures.success(response));
 
     expect.assertions(2);

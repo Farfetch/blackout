@@ -2,7 +2,7 @@ import type {
   AttributeType,
   Color,
   ColorSet,
-  Gender,
+  GenderCode,
   ImageGroup,
   Label,
   LiveModel,
@@ -10,9 +10,9 @@ import type {
 } from '../..';
 import type { Brand } from '../../brands/types';
 import type { BreadCrumb } from './breadCrumb.types';
-import type { Category } from '../../categories/types';
 import type { DigitalAsset } from './common.types';
 import type { Price } from './price.types';
+import type { ProductCategory } from '../../categories/types';
 import type { ProductMeasurement } from './productMeasurement.types';
 import type { ProductTag } from './productTagEnum.types';
 import type { ProductType } from './productTypeEnum.types';
@@ -25,12 +25,12 @@ import type { Size } from './size.types';
 export type Product = {
   breadCrumbs: BreadCrumb[];
   colorSet: ColorSet[];
-  colorSwatch: string;
+  colorSwatch: string | null;
   complementaryInformation: Information[];
   currencyIsoCode: string | null;
   imageGroups: ImageGroup[];
   liveModel: LiveModel;
-  price: Price;
+  price: Price | null;
   productAttributes?: string[];
   productRef: string | null;
   productSize: string;
@@ -43,14 +43,14 @@ export type Product = {
     brand: Brand;
     brandStyleId: string;
     care: Care[];
-    categories: Category[];
+    categories: ProductCategory[];
     colors: Color[];
     compositions: Composition[];
     customAttributes: string | null;
     description: string;
     digitalAssets: DigitalAsset[];
     fulfillmentDate: string | null;
-    gender: Gender;
+    gender: GenderCode;
     hasParentProduct: boolean;
     id: number;
     images: ProductImageGroup;

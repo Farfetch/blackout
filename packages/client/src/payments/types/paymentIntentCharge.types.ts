@@ -1,18 +1,18 @@
 export enum ChargeStatus {
-  Processing,
-  Completed,
-  Error,
+  Processing = 'Processing',
+  Completed = 'Completed',
+  Error = 'Error',
 }
 
 export enum DeclineCode {
-  NotApplicable,
-  Default,
-  Generic,
-  Refused,
-  InvalidCardDetails,
-  InvalidTransaction,
-  InsufficientFundsOrInvalidAddress,
-  ThreeDSecure,
+  NotApplicable = 'NotApplicable',
+  Default = 'Default',
+  Generic = 'Generic',
+  Refused = 'Refused',
+  InvalidCardDetails = 'InvalidCardDetails',
+  InvalidTransaction = 'InvalidTransaction',
+  InsufficientFundsOrInvalidAddress = 'InsufficientFundsOrInvalidAddress',
+  ThreeDSecure = 'ThreeDSecure',
 }
 
 export type ChargeInstrument = {

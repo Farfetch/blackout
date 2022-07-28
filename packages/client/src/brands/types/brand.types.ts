@@ -2,5 +2,13 @@ export type Brand = {
   id: number;
   name: string;
   description: string | null;
-  slug?: string;
+  familyType?: BrandFamilyType;
 };
+
+export enum BrandFamilyType {
+  MainBrand = 'MainBrand',
+  SubBrand = 'SubBrand',
+  Collaboration = 'Collaboration',
+  Beauty = 'Beauty',
+  PreOwned = 'PreOwned',
+}

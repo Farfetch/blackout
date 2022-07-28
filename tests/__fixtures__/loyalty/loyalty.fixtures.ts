@@ -1,4 +1,8 @@
-import { ProgramMembershipStatementCategory } from '@farfetch/blackout-client';
+import {
+  ProgramMembershipReplacementReason,
+  ProgramMembershipStatementCategory,
+  ProgramMembershipStatus,
+} from '@farfetch/blackout-client';
 
 export const programId = '1';
 export const membershipId = '1';
@@ -42,14 +46,14 @@ export const mockResponseProgramUsersMembership = {
   userId: 0,
   rewardPoints: 0,
   cashBalance: 0,
-  status: 'string',
+  status: ProgramMembershipStatus.Activated,
   createdDate: 'date',
   updatedDate: 'date',
 };
 
 export const mockResponseProgramMembershipReplacement = {
   id: membershipId,
-  reason: 'string',
+  reason: ProgramMembershipReplacementReason.NameChanged,
   createdDate: 'date',
 };
 

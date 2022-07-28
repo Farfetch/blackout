@@ -7,6 +7,6 @@ export type PutUserPreferencesData = Omit<UserPreference, 'updatedDate'>;
 
 export type PutUserPreferences = (
   userId: User['id'],
-  data: PutUserPreferencesData,
+  data: PutUserPreferencesData[],
   config?: Config,
 ) => Promise<AxiosResponse<void>>;

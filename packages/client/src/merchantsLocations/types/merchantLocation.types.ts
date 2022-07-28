@@ -1,5 +1,15 @@
 import type { CategorisedAddress } from '../../types/common/address.types';
 
+export enum MerchantLocationWeekday {
+  Sunday,
+  Monday,
+  Tuesday,
+  Wednesday,
+  Thursday,
+  Friday,
+  Saturday,
+}
+
 export type MerchantLocation = {
   id: number;
   merchantId: number;
@@ -13,14 +23,14 @@ export type MerchantLocation = {
       open: string;
       close: string;
     }>;
-    weekday: number;
+    weekday: MerchantLocationWeekday;
   }>;
   sameDayDelivery: {
     isActive: boolean;
     cutOffTime: string;
   };
   isCollectPoint: boolean;
-  deliveryPoints: Array<{
+  deliveryPoints?: Array<{
     deliveryType: number;
     startTime: string;
     endTime: string;

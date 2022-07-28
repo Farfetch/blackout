@@ -4,8 +4,8 @@ import type { SizeScale } from '../../sizeScales/types';
 
 export type SizeGuide = {
   categoryId: Category['id'];
-  brandId: Brand['id'];
-  description: string;
+  brandId: Brand['id'] | null;
+  description?: string;
   maps: {
     sizeScaleId: SizeScale['sizeScaleId'];
     description: string;
@@ -14,8 +14,8 @@ export type SizeGuide = {
       description: string;
       position: number;
     }[];
-    isDefault: boolean;
-    categoryId: Category['id'];
+    isDefault?: boolean;
+    categoryId?: Category['id'];
   }[];
   annotations: string[];
 };

@@ -1,9 +1,4 @@
-import {
-  ChargeStatus,
-  DeclineCode,
-  PostPaymentIntentChargeResponse,
-} from '../types';
-import { id } from 'tests/__fixtures__/payments';
+import { id, mockCharge as response } from 'tests/__fixtures__/payments';
 import { postPaymentIntentCharge } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/postPaymentIntentCharge.fixtures';
@@ -11,8 +6,8 @@ import mswServer from '../../../tests/mswServer';
 
 describe('postPaymentIntentCharge', () => {
   const data = {
-    returnUrl: '',
-    cancelUrl: '',
+    returnUrl: 'string',
+    cancelUrl: 'string',
   };
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'post');
@@ -21,23 +16,6 @@ describe('postPaymentIntentCharge', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const response: PostPaymentIntentChargeResponse = {
-      data: {
-        status: ChargeStatus.Processing,
-        redirectUrl: '',
-        returnUrl: '',
-        cancelUrl: '',
-        chargeInstruments: [
-          {
-            id: '',
-            operationStatus: ChargeStatus.Processing,
-            declineCode: DeclineCode.NotApplicable,
-          },
-        ],
-      },
-      headers: { location: 'https://somelocation.com' },
-    };
-
     mswServer.use(fixtures.success(response));
 
     expect.assertions(2);

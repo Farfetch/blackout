@@ -3,10 +3,10 @@ import { fetchProductDetails } from '..';
 import { getProduct } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/details';
 import {
+  mockProductDetails,
   mockProductId,
   mockProductResponseNormalized,
   mockProductResponseNormalizedWithoutImageOptions,
-  mockResponse,
 } from 'tests/__fixtures__/products';
 import { mockStore } from '../../../../tests';
 import { productsActionTypes } from '../..';
@@ -68,7 +68,7 @@ describe('fetchProductDetails() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch product details procedure is successful', async () => {
-    getProduct.mockResolvedValueOnce(mockResponse);
+    getProduct.mockResolvedValueOnce(mockProductDetails);
 
     const query = { merchantId: 'foo' };
 
@@ -99,7 +99,7 @@ describe('fetchProductDetails() action creator', () => {
   it('should create the correct actions for when the fetch product details procedure is successful without receiving options', async () => {
     store = productDetailsMockStoreWithoutMiddlewares();
 
-    getProduct.mockResolvedValueOnce(mockResponse);
+    getProduct.mockResolvedValueOnce(mockProductDetails);
 
     const query = { merchantId: 'foo' };
 
@@ -108,7 +108,7 @@ describe('fetchProductDetails() action creator', () => {
     await store
       .dispatch(fetchProductDetails(mockProductId, query))
       .then(clientResult => {
-        expect(clientResult).toBe(mockResponse);
+        expect(clientResult).toBe(mockProductDetails);
       });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
@@ -159,7 +159,7 @@ describe('fetchProductDetails() action creator', () => {
   });
 
   it('should create the correct actions for when we want to force the dispatch', async () => {
-    getProduct.mockResolvedValueOnce(mockResponse);
+    getProduct.mockResolvedValueOnce(mockProductDetails);
 
     const query = { merchantId: 'foo' };
     const forceDispatch = true;
@@ -169,7 +169,7 @@ describe('fetchProductDetails() action creator', () => {
     await store
       .dispatch(fetchProductDetails(mockProductId, query, forceDispatch))
       .then(clientResult => {
-        expect(clientResult).toBe(mockResponse);
+        expect(clientResult).toBe(mockProductDetails);
       });
 
     const actionResults = store.getActions();
