@@ -35,7 +35,7 @@ export const mockColorGroupingState = {
 export const mockDetailsState = {
   details: {
     error: {
-      [mockProductId]: { message: 'Error - Not loaded.' },
+      [mockProductId]: null,
       456: null,
     },
     isHydrated: {
