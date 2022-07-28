@@ -36,5 +36,6 @@ export * from './authentication/selectors';
 export * from './benefits/selectors';
 export * from './contacts/selectors';
 export * from './credits/selectors';
+export * from './personalIds/selectors';
 export * from './preferences/selectors';
 export * from './titles/selectors';
