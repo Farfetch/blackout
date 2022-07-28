@@ -3,6 +3,7 @@
  */
 import {
   addBagItem as addBagItemAction,
+  BagItemActionMetadata,
   BagItemHydrated,
   buildBagItem,
   fetchBag as fetchBagAction,
@@ -23,7 +24,6 @@ import { useAction } from '../../helpers';
 import { useCallback, useEffect } from 'react';
 import { useSelector, useStore } from 'react-redux';
 import type { HandleAddOrUpdateItem, UseBagOptions } from './types';
-import type { PostBagItemData } from '@farfetch/blackout-client';
 
 /**
  * Provides Redux actions and state access, as well as handlers for dealing with
@@ -64,14 +64,10 @@ const useBag = (options: UseBagOptions = {}) => {
   ]);
 
   const handleAddOrUpdateItem: HandleAddOrUpdateItem = useCallback(
-    async ({
-      customAttributes,
-      product,
-      productAggregatorId,
-      quantity,
-      size,
-      ...otherParams
-    }) => {
+    async (
+      { customAttributes, product, productAggregatorId, quantity, size },
+      metadata,
+    ) => {
       let quantityToHandle = quantity;
 
       if (!size?.stock || !product) {
@@ -95,7 +91,6 @@ const useBag = (options: UseBagOptions = {}) => {
           productAggregatorId,
           quantity: quantityToAdd,
           size,
-          ...otherParams,
         });
         // Checks if the item we want to add is already in bag
         // by comparing the bag items' hash
@@ -113,12 +108,15 @@ const useBag = (options: UseBagOptions = {}) => {
           // and if not, try adding less
           for (let i = newQuantity; i > itemInBag.quantity; i--) {
             if (i <= merchantQuantity) {
-              await updateBagItem(itemInBag.id, {
-                ...requestData,
-                quantity: i,
-                oldQuantity: itemInBag.quantity,
-                oldSize: itemInBag.size.id,
-              });
+              await updateBagItem(
+                itemInBag.id,
+                {
+                  ...requestData,
+                  quantity: i,
+                },
+                undefined,
+                metadata,
+              );
 
               // Now we have less quantity to add to the next merchant
               quantityToHandle -= i - itemInBag.quantity;
@@ -127,7 +125,7 @@ const useBag = (options: UseBagOptions = {}) => {
           }
         } else {
           // When the item is not in the bag, we add it
-          await addBagItem(requestData as PostBagItemData);
+          await addBagItem(requestData, undefined, metadata);
 
           // Now we have less quantity to add to the next merchant
           quantityToHandle -= quantityToAdd;
@@ -146,6 +144,7 @@ const useBag = (options: UseBagOptions = {}) => {
     (
       productId: number,
       { quantity, sizeId }: { quantity: number; sizeId: number },
+      metadata?: BagItemActionMetadata,
     ) => {
       const state = getState();
       const product = getProduct(state, productId);
@@ -160,18 +159,25 @@ const useBag = (options: UseBagOptions = {}) => {
         throw new SizeError();
       }
 
-      return handleAddOrUpdateItem({
-        customAttributes: product?.customAttributes,
-        product,
-        quantity,
-        size,
-      });
+      return handleAddOrUpdateItem(
+        {
+          customAttributes: product?.customAttributes,
+          product,
+          quantity,
+          size,
+        },
+        metadata,
+      );
     },
     [getState, handleAddOrUpdateItem],
   );
 
   const handleQuantityChange = useCallback(
-    (bagItem: BagItemHydrated, newQuantity: number) => {
+    (
+      bagItem: BagItemHydrated,
+      newQuantity: number,
+      metadata?: BagItemActionMetadata,
+    ) => {
       const quantityDelta = newQuantity - bagItem.quantity;
 
       if (!bagItem.product) {
@@ -179,13 +185,18 @@ const useBag = (options: UseBagOptions = {}) => {
       }
 
       if (quantityDelta < 0) {
-        return updateBagItem(bagItem.id, {
-          merchantId: bagItem.merchant,
-          productId: bagItem.product.id,
-          quantity: newQuantity,
-          scale: bagItem.size.scale,
-          size: bagItem.size.id,
-        });
+        return updateBagItem(
+          bagItem.id,
+          {
+            merchantId: bagItem.merchant,
+            productId: bagItem.product.id,
+            quantity: newQuantity,
+            scale: bagItem.size.scale,
+            size: bagItem.size.id,
+          },
+          undefined,
+          metadata,
+        );
       }
 
       const size = bagItem.product?.sizes?.find(
@@ -196,13 +207,16 @@ const useBag = (options: UseBagOptions = {}) => {
         throw new SizeError();
       }
 
-      return handleAddOrUpdateItem({
-        customAttributes: bagItem?.customAttributes,
-        productAggregatorId: bagItem?.productAggregator?.id,
-        product: bagItem.product,
-        quantity: quantityDelta,
-        size,
-      });
+      return handleAddOrUpdateItem(
+        {
+          customAttributes: bagItem?.customAttributes,
+          productAggregatorId: bagItem?.productAggregator?.id,
+          product: bagItem.product,
+          quantity: quantityDelta,
+          size,
+        },
+        metadata,
+      );
     },
     [handleAddOrUpdateItem, updateBagItem],
   );
@@ -218,19 +232,24 @@ const useBag = (options: UseBagOptions = {}) => {
    * <i><small>This operation is over the bag item that instantiated the
    * hook.</small></i>.
    *
-   * @param newSize - Size to update the bag item into.
-   * @param from    - Provenience of action.
+   * @param bagItem  - Bag item to update the size.
+   * @param newSize  - Size to update the bag item into.
+   * @param metadata - Metadata to be added to the dispatched action. This metadata can be used by redux middlewares (e.g. analytics bag middleware)
    */
   const handleSizeChange = useCallback(
-    async (bagItem: BagItemHydrated, newSize: number) => {
+    async (
+      bagItem: BagItemHydrated,
+      newSize: SizeAdapted['id'],
+      metadata?: BagItemActionMetadata,
+    ) => {
+      if (!bagItem.product) {
+        throw new ProductError();
+      }
+
       // This extra logic is due to the fact that when changing sizes,
       // the verification to see if the bag item is already in bag
       // will always be false, thus never updating.
       const size = bagItem.product?.sizes?.find(size => size.id === newSize);
-
-      if (!bagItem.product) {
-        throw new ProductError();
-      }
 
       if (!size) {
         throw new SizeError();
@@ -258,46 +277,56 @@ const useBag = (options: UseBagOptions = {}) => {
 
         if (bagItemQuantity <= merchantQuantity) {
           // Update with bagItemQuantity
-          await updateBagItem(bagItem.id, {
-            ...requestData,
-            quantity: bagItemQuantity,
-            oldSize: bagItem.size.id,
-          });
+          await updateBagItem(
+            bagItem.id,
+            {
+              ...requestData,
+              quantity: bagItemQuantity,
+            },
+            undefined,
+            metadata,
+          );
           return;
-        } else {
-          // Update with merchantQuantity, removing the need
-          // of trying to add the rest of the quantity in this merchant
-          await updateBagItem(bagItem.id, {
+        }
+
+        // Update with merchantQuantity, removing the need
+        // of trying to add the rest of the quantity in this merchant
+        await updateBagItem(
+          bagItem.id,
+          {
             ...requestData,
             quantity: merchantQuantity,
-          });
-          quantityToHandle -= merchantQuantity;
-          // Remove the merchant of the future possibilities to add to the bag for
-          // this size
-          // TS: The stock here is manipulated, so it can be an empty array
-          sizeToHandle = {
-            ...size,
-            stock:
-              size?.stock.filter(
-                ({ merchantId }) => merchantId !== currentMerchant.merchantId,
-              ) || [],
-          } as Omit<SizeAdapted, 'stock'> & {
-            stock: SizeAdapted['stock'] | [];
-          };
-        }
+          },
+          undefined,
+          metadata,
+        );
+        quantityToHandle -= merchantQuantity;
+        // Remove the merchant of the future possibilities to add to the bag for
+        // this size
+        // TS: The stock here is manipulated, so it can be an empty array
+        sizeToHandle = {
+          ...size,
+          stock:
+            size?.stock.filter(
+              ({ merchantId }) => merchantId !== currentMerchant.merchantId,
+            ) || [],
+        };
       } else {
-        await removeItem(bagItem.id);
+        await removeItem(bagItem.id, undefined, metadata);
       }
 
       if (quantityToHandle) {
         // Add the left quantity in the other merchants
-        handleAddOrUpdateItem({
-          customAttributes: bagItem?.customAttributes,
-          productAggregatorId: bagItem?.productAggregator?.id,
-          product: bagItem.product,
-          quantity: quantityToHandle,
-          size: sizeToHandle,
-        });
+        handleAddOrUpdateItem(
+          {
+            customAttributes: bagItem?.customAttributes,
+            productAggregatorId: bagItem?.productAggregator?.id,
+            product: bagItem.product,
+            quantity: quantityToHandle,
+            size: sizeToHandle,
+          },
+          metadata,
+        );
       }
     },
     [handleAddOrUpdateItem, removeItem, updateBagItem],
@@ -314,24 +343,31 @@ const useBag = (options: UseBagOptions = {}) => {
    * <i><small>This operation is over the bag
    * item that instantiated the hook.</small></i>.
    *
+   * @param bagItem   - Bag item to update.
    * @param newSizeId - Size to update the bag item into.
    * @param newQty    - Quantity to update the bag item into.
-   * @param from      - Provenience of action.
+   * @param metadata  - Metadata to be added to the dispatched action. This metadata can be used by redux middlewares (e.g. analytics bag middleware)
    */
   const handleFullUpdate = useCallback(
-    async (bagItem: BagItemHydrated, newSizeId: number, newQty: number) => {
+    async (
+      bagItem: BagItemHydrated,
+      newSizeId: number,
+      newQty: number,
+      metadata?: BagItemActionMetadata,
+    ) => {
       // In this case, we really want to update the bagItem,
       // so we force it on the first time.
       let didFirstUpdate = false;
       let quantityToHandle = Number(newQty);
+
+      if (!bagItem.product) {
+        throw new ProductError();
+      }
+
       const size = bagItem.product?.sizes?.find(size => size.id === newSizeId);
 
       if (!size?.stock) {
         throw new SizeError();
-      }
-
-      if (!bagItem.product) {
-        throw new ProductError();
       }
 
       // Iterate through the stock of the different merchants
@@ -357,15 +393,20 @@ const useBag = (options: UseBagOptions = {}) => {
 
         if (!didFirstUpdate) {
           // Update the item
-          await updateBagItem(bagItem.id, {
-            ...requestData,
-          });
+          await updateBagItem(
+            bagItem.id,
+            {
+              ...requestData,
+            },
+            undefined,
+            metadata,
+          );
 
           didFirstUpdate = true;
         } else {
           // When we did the first update, we add the remaining quantity
           // to the bag
-          await addBagItem(requestData);
+          await addBagItem(requestData, undefined, metadata);
         }
 
         quantityToHandle -= quantityToManage;
@@ -382,7 +423,14 @@ const useBag = (options: UseBagOptions = {}) => {
   const updateItem = useCallback(
     (
       bagItemId: number,
-      { quantity, sizeId }: { quantity?: number; sizeId?: number },
+      {
+        quantity,
+        sizeId,
+      }: {
+        quantity?: number;
+        sizeId?: number;
+      },
+      metadata?: BagItemActionMetadata,
     ) => {
       const bagItem = items.find(item => item.id === bagItemId);
 
@@ -394,15 +442,15 @@ const useBag = (options: UseBagOptions = {}) => {
       const newSizeId = sizeId || bagItem.size.id;
 
       if (newQuantity !== bagItem.quantity && newSizeId !== bagItem.size.id) {
-        return handleFullUpdate(bagItem, newQuantity, newSizeId);
+        return handleFullUpdate(bagItem, newQuantity, newSizeId, metadata);
       }
 
       if (newQuantity !== bagItem.quantity) {
-        return handleQuantityChange(bagItem, newQuantity);
+        return handleQuantityChange(bagItem, newQuantity, metadata);
       }
 
       if (newSizeId !== bagItem.size.id) {
-        return handleSizeChange(bagItem, newSizeId);
+        return handleSizeChange(bagItem, newSizeId, metadata);
       }
 
       return;

@@ -12,7 +12,9 @@ import type { BagNormalized } from '../types';
 import type { MerchantEntity, ProductEntity } from '../../entities/types';
 import type { NormalizedSchema } from 'normalizr';
 
-export type BagItemActionMetadata = Record<string, unknown>;
+export type BagItemActionMetadata = {
+  from?: string;
+} & Record<string, unknown>;
 
 type Payload = NormalizedSchema<
   {
