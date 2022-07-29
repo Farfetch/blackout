@@ -1,32 +1,33 @@
 import * as actionTypes from '../../actionTypes';
 import {
   Config,
-  PostRegister,
-  PostRegisterData,
+  PostUser,
+  PostUserData,
   toBlackoutError,
+  UserStatus,
 } from '@farfetch/blackout-client';
 import { loginMethodParameterTypes } from '@farfetch/blackout-analytics';
 import type { Dispatch } from 'redux';
 
-const UNVERIFIED_USER = 4;
-
 /**
  * Performs the register operation for a new user.
  *
- * @param postRegister - Post register client.
+ * @param postUser - Post user client.
  *
  * @returns Thunk factory.
  */
 const registerFactory =
-  (postRegister: PostRegister) =>
-  (data: PostRegisterData, config?: Config) =>
+  (postUser: PostUser) =>
+  (data: PostUserData, config?: Config) =>
   async (dispatch: Dispatch) => {
     try {
       dispatch({
         type: actionTypes.REGISTER_REQUEST,
       });
-      const result = await postRegister(data, config);
-      const isUnverifiedUser = result.status === UNVERIFIED_USER && !result.id;
+      const result = await postUser(data, config);
+      const isUnverifiedUser =
+        result.status === UserStatus.PendingEmailConfirmation && !result.id;
+
       const user = isUnverifiedUser ? {} : result;
       const userId = isUnverifiedUser ? null : result.id;
       const userEntity = {

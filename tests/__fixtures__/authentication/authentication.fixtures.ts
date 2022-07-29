@@ -31,7 +31,7 @@ export const mockUnverifiedUserResponse = {
     id: '111',
     value: 'Dr.',
   },
-  status: 4,
+  status: 'PendingEmailConfirmation',
   phoneNumber: null,
   segments: [],
   username: 'pepe@acme.com',

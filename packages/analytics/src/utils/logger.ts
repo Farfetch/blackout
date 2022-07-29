@@ -2,14 +2,14 @@ import { PACKAGE_NAME_VERSION } from './constants';
 
 /* eslint-disable no-console */
 
+let loggingPrefix = 'Logger';
+
 /**
  * Outputs objects with a prefix on the console
  */
 class Logger {
-  prefix: string;
-
   constructor(prefix = 'Logger') {
-    this.prefix = prefix;
+    loggingPrefix = prefix;
   }
 
   /**
@@ -20,7 +20,7 @@ class Logger {
    * @returns Array with the prefix, along with the rest of the arguments to be outputted.
    */
   format(args: unknown[]): unknown[] {
-    return [`${this.prefix}: `, ...args];
+    return [`${loggingPrefix}: `, ...args];
   }
 
   /**

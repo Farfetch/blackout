@@ -87,7 +87,10 @@ describe('login() action creator', () => {
   });
 
   it('should create the correct actions for when the unverified login procedure is successful', async () => {
-    (postLogin as jest.Mock).mockResolvedValueOnce(mockUnverifiedUserResponse);
+    (postLogin as jest.Mock).mockResolvedValueOnce({
+      ...mockUnverifiedUserResponse,
+      status: 4,
+    });
     await store.dispatch(login(data));
 
     const actionResults = store.getActions();
