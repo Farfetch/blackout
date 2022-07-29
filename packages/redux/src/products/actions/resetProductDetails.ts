@@ -1,5 +1,6 @@
 import * as actionTypes from '../actionTypes';
 import resetProductDetailsState from './resetProductDetailsState';
+import type { ProductEntity } from '../../entities/types';
 import type {
   ResetProductDetailsEntitiesAction,
   ResetProductDetailsStateAction,
@@ -27,7 +28,7 @@ import type { ThunkDispatch } from 'redux-thunk';
  * @returns Dispatch reset details entities action.
  */
 const resetProductEntities =
-  () =>
+  (productIds?: Array<ProductEntity['id']>) =>
   (
     dispatch: ThunkDispatch<
       StoreState,
@@ -37,6 +38,7 @@ const resetProductEntities =
   ): void => {
     dispatch({
       type: actionTypes.RESET_PRODUCT_DETAILS_ENTITIES,
+      productIds,
     });
   };
 
@@ -67,7 +69,7 @@ const resetProductEntities =
  * @returns Dispatch reset details state and entities action.
  */
 const resetProductDetails =
-  () =>
+  (productIds?: Array<ProductEntity['id']>) =>
   (
     dispatch: ThunkDispatch<
       StoreState,
@@ -75,8 +77,8 @@ const resetProductDetails =
       ResetProductDetailsStateAction | ResetProductDetailsEntitiesAction
     >,
   ): void => {
-    dispatch(resetProductDetailsState());
-    dispatch(resetProductEntities());
+    dispatch(resetProductDetailsState(productIds));
+    dispatch(resetProductEntities(productIds));
   };
 
 export default resetProductDetails;

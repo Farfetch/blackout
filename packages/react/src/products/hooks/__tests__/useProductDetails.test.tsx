@@ -157,9 +157,11 @@ describe('useProductDetails', () => {
         wrapper: withStore(mockProductsState),
       });
 
-      reset();
+      const productsToReset = [10000, 20000];
 
-      expect(resetProductDetails).toHaveBeenCalled();
+      reset(productsToReset);
+
+      expect(resetProductDetails).toHaveBeenCalledWith(productsToReset);
     });
 
     it('should call `refetch` action successfully', () => {
