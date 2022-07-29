@@ -40,10 +40,10 @@ export default function (trackEventType) {
         title: document.title,
         referrer: document.referrer,
       },
+      // Since document.referrer stays the same on single page applications,
+      // we have this alternative that will hold the previous page location
+      // based on page track calls with `analyticsWeb.page()`.
+      pageLocationReferrer: isPageEvent ? pageLocationReferrer : undefined,
     },
-    // Since document.referrer stays the same on single page applications,
-    // we have this alternative that will hold the previous page location
-    // based on page track calls with `analyticsWeb.page()`.
-    pageLocationReferrer: isPageEvent ? pageLocationReferrer : undefined,
   };
 }
