@@ -30,7 +30,7 @@ describe('context', () => {
     const secondPageLocationReferrerMock = 'https://foo.bar.biz.com/';
 
     // starts with an empty value from document.referrer
-    expect(context(trackTypes.PAGE).pageLocationReferrer).toEqual('');
+    expect(context(trackTypes.PAGE).web.pageLocationReferrer).toEqual('');
 
     delete window.location;
 
@@ -38,7 +38,7 @@ describe('context', () => {
     window.location = new URL(firstPageLocationReferrerMock);
 
     // expect that the pageLocationReferrer is the last one (which in this environment is localhost)
-    expect(context(trackTypes.PAGE).pageLocationReferrer).toEqual(
+    expect(context(trackTypes.PAGE).web.pageLocationReferrer).toEqual(
       'http://localhost/',
     );
 
@@ -48,7 +48,7 @@ describe('context', () => {
     window.location = new URL(secondPageLocationReferrerMock);
 
     // expect the pageLocationReferrer is the last one (first page)
-    expect(context(trackTypes.PAGE).pageLocationReferrer).toEqual(
+    expect(context(trackTypes.PAGE).web.pageLocationReferrer).toEqual(
       firstPageLocationReferrerMock,
     );
 
@@ -58,7 +58,7 @@ describe('context', () => {
     window.location = new URL(firstPageLocationReferrerMock);
 
     // expect the pageLocationReferrer is the last one (second page)
-    expect(context(trackTypes.PAGE).pageLocationReferrer).toEqual(
+    expect(context(trackTypes.PAGE).web.pageLocationReferrer).toEqual(
       secondPageLocationReferrerMock,
     );
   });
