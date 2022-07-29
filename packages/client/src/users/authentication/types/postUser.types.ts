@@ -1,7 +1,7 @@
 import type { Config } from '../../../types';
-import type { RegisterResponse } from './register.types';
+import type { User } from './user.types';
 
-export interface PostRegisterData {
+export interface PostUserData {
   countryCode: string;
   email: string;
   password: string;
@@ -14,7 +14,4 @@ export interface PostRegisterData {
   receiveNewsletters?: boolean;
 }
 
-export type PostRegister = (
-  data: PostRegisterData,
-  config?: Config,
-) => Promise<RegisterResponse>;
+export type PostUser = (data: PostUserData, config?: Config) => Promise<User>;

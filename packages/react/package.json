@@ -9,7 +9,8 @@
     "build:transpile": "../../scripts/transpile.sh",
     "build:types": "tsc -p tsconfig.release.json",
     "build:copy-package-json": "node ../../scripts/copy-package-json.js",
-    "prebuild": "rimraf dist tsconfig.release.tsbuildinfo",
+    "prebuild": "yarn clean",
+    "clean": "rimraf dist tsconfig.release.tsbuildinfo",
     "ci:types": "tsc -p tsconfig.ci.json",
     "prepack": "yarn build:copy-package-json"
   },

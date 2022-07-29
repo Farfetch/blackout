@@ -8,7 +8,7 @@ export { default as postPasswordChange } from './postPasswordChange';
 export { default as postPasswordRecover } from './postPasswordRecover';
 export { default as postPasswordReset } from './postPasswordReset';
 export { default as postRefreshEmailToken } from './postRefreshEmailToken';
-export { default as postRegister } from './postRegister';
+export { default as postUser } from './postUser';
 export { default as postValidateEmail } from './postValidateEmail';
 export { default as deleteUserImpersonation } from './deleteUserImpersonation';
 export { default as postUserImpersonation } from './postUserImpersonation';

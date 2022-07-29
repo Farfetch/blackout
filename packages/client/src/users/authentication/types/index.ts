@@ -1,6 +1,5 @@
 export * from './login.types';
 export * from './tokens.types';
-export * from './register.types';
 export * from './deleteToken.types';
 export * from './deleteGuestToken.types';
 export * from './deleteUserImpersonation.types';
@@ -11,7 +10,7 @@ export * from './postPasswordChange.types';
 export * from './postPasswordReset.types';
 export * from './postPasswordRecover.types';
 export * from './postRefreshEmailToken.types';
-export * from './postRegister.types';
+export * from './postUser.types';
 export * from './postToken.types';
 export * from './postUserImpersonation.types';
 export * from './postValidateEmail.types';

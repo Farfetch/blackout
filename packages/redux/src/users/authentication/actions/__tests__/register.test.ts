@@ -5,14 +5,14 @@ import {
   mockUnverifiedUserResponse,
 } from 'tests/__fixtures__/authentication';
 import { mockStore } from '../../../../../tests';
-import { postRegister, toBlackoutError } from '@farfetch/blackout-client';
+import { postUser, toBlackoutError } from '@farfetch/blackout-client';
 import { register } from '../..';
 import find from 'lodash/find';
 import reducer from '../../reducer';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
-  postRegister: jest.fn(),
+  postUser: jest.fn(),
 }));
 
 const mockAction = { type: 'this_is_a_mock_action' };
@@ -45,18 +45,15 @@ describe('register() action creator', () => {
       status: 400,
     };
 
-    (postRegister as jest.Mock).mockRejectedValueOnce(errorObject);
+    (postUser as jest.Mock).mockRejectedValueOnce(errorObject);
     expect.assertions(4);
 
     try {
       await store.dispatch(register(registerMockData));
     } catch (error) {
       expect(error).toBe(errorObject);
-      expect(postRegister).toHaveBeenCalledTimes(1);
-      expect(postRegister).toHaveBeenCalledWith(
-        registerMockData,
-        expectedConfig,
-      );
+      expect(postUser).toHaveBeenCalledTimes(1);
+      expect(postUser).toHaveBeenCalledWith(registerMockData, expectedConfig);
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
           { type: actionTypes.REGISTER_REQUEST },
@@ -70,13 +67,13 @@ describe('register() action creator', () => {
   });
 
   it('should create the correct actions for when the normal register procedure is successful', async () => {
-    (postRegister as jest.Mock).mockResolvedValueOnce(mockResponse);
+    (postUser as jest.Mock).mockResolvedValueOnce(mockResponse);
     await store.dispatch(register(registerMockData));
 
     const actionResults = store.getActions();
 
-    expect(postRegister).toHaveBeenCalledTimes(1);
-    expect(postRegister).toHaveBeenCalledWith(registerMockData, expectedConfig);
+    expect(postUser).toHaveBeenCalledTimes(1);
+    expect(postUser).toHaveBeenCalledWith(registerMockData, expectedConfig);
 
     expect(actionResults).toMatchObject([
       { type: actionTypes.REGISTER_REQUEST },
@@ -93,15 +90,13 @@ describe('register() action creator', () => {
   });
 
   it('should create the correct actions for when the unverified register procedure is successful', async () => {
-    (postRegister as jest.Mock).mockResolvedValueOnce(
-      mockUnverifiedUserResponse,
-    );
+    (postUser as jest.Mock).mockResolvedValueOnce(mockUnverifiedUserResponse);
     await store.dispatch(register(registerMockData));
 
     const actionResults = store.getActions();
 
-    expect(postRegister).toHaveBeenCalledTimes(1);
-    expect(postRegister).toHaveBeenCalledWith(registerMockData, expectedConfig);
+    expect(postUser).toHaveBeenCalledTimes(1);
+    expect(postUser).toHaveBeenCalledWith(registerMockData, expectedConfig);
 
     expect(actionResults).toMatchObject([
       { type: actionTypes.REGISTER_REQUEST },

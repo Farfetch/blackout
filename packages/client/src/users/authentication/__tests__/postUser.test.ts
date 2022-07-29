@@ -1,10 +1,10 @@
-import { postRegister } from '..';
+import { postUser } from '..';
 import { mockResponse as response } from '../__fixtures__/login.fixtures';
 import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/postRegister.fixtures';
+import fixtures from '../__fixtures__/postUser.fixtures';
 import mswServer from '../../../../tests/mswServer';
 
-describe('postRegister', () => {
+describe('postUser', () => {
   const spy = jest.spyOn(client, 'post');
   const expectedConfig = undefined;
 
@@ -23,7 +23,7 @@ describe('postRegister', () => {
     mswServer.use(fixtures.success(response));
 
     expect.assertions(2);
-    await expect(postRegister(requestData)).resolves.toStrictEqual(response);
+    await expect(postUser(requestData)).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(
       '/account/v1/users',
       requestData,
@@ -35,7 +35,7 @@ describe('postRegister', () => {
     mswServer.use(fixtures.failure());
 
     expect.assertions(2);
-    await expect(postRegister(requestData)).rejects.toMatchSnapshot();
+    await expect(postUser(requestData)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       '/account/v1/users',
       requestData,
