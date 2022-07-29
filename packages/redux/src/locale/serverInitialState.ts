@@ -25,8 +25,7 @@ const localeServerInitialState: ServerInitialState = ({ model }) => {
     currencyCultureCode,
     newsletterSubscriptionOptionDefault,
     sourceCountryCode,
-    defaultCulture,
-    defaultSubfolder,
+    subfolder,
   } = model;
   // Normalize it
   const { entities } = normalize(
@@ -41,8 +40,8 @@ const localeServerInitialState: ServerInitialState = ({ model }) => {
       ],
       newsletterSubscriptionOptionDefault,
       platformId: countryId,
-      defaultCulture,
-      defaultSubfolder,
+      defaultCulture: cultureCode,
+      defaultSubfolder: subfolder,
     },
     country,
   );
