@@ -223,6 +223,7 @@ Object {
   "useProductDetails": [Function],
   "useProductsList": [Function],
   "useSearchIntents": [Function],
+  "useUser": [Function],
   "useUserProfile": [Function],
   "useWishlist": [Function],
   "useWishlistItem": [Function],
