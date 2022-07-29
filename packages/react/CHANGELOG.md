@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.280](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.279...@farfetch/blackout-react@1.0.0-next.280) (2022-07-29)
+
+
+### Features
+
+* add support for metadata ([442f0d4](https://github.com/Farfetch/blackout/commit/442f0d4a951e44dc21523a8da6a04a368411d4a0))
+* **react:** refactor useBag and useBagItem hooks ([037a364](https://github.com/Farfetch/blackout/commit/037a364dafb820dff79c5261a1d45a900e325b72))
+
+
+### BREAKING CHANGES
+
+* **react:** useBag and useBagItem hooks new interface
+
+
+
+
+
 # [1.0.0-next.279](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.278...@farfetch/blackout-react@1.0.0-next.279) (2022-07-28)
 
 
