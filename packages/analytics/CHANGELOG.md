@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.50](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.49...@farfetch/blackout-analytics@1.0.0-next.50) (2022-07-29)
+
+
+### chore
+
+* rename `postRegister` client ([902a601](https://github.com/Farfetch/blackout/commit/902a601ed2b746c9c78b9809e02be87c5dd7d209))
+
+
+### BREAKING CHANGES
+
+* `postRegister` client is now `postUser`.
+
+
+
+
+
 # [1.0.0-next.49](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.48...@farfetch/blackout-analytics@1.0.0-next.49) (2022-07-29)
 
 
