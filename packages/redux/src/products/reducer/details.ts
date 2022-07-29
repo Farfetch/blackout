@@ -1,11 +1,13 @@
 import * as actionTypes from '../actionTypes';
-import { combineReducers } from 'redux';
+import { Action, combineReducers } from 'redux';
+import omit from 'lodash/omit';
 import type {
   DehydrateProductDetailsAction,
-  FetchProductDetailsAction,
   FetchProductDetailsFailureAction,
   FetchProductDetailsRequestAction,
+  FetchProductDetailsSuccessAction,
   ProductsDetailsState,
+  ResetProductDetailsEntitiesAction,
   ResetProductDetailsStateAction,
 } from '../types';
 import type { StoreState } from '../../types';
@@ -16,53 +18,81 @@ export const INITIAL_STATE: ProductsDetailsState = {
   isLoading: {},
 };
 
-const error = (
-  state = INITIAL_STATE.error,
-  action: FetchProductDetailsRequestAction | FetchProductDetailsFailureAction,
-) => {
+const error = (state = INITIAL_STATE.error, action: Action) => {
   switch (action.type) {
     case actionTypes.FETCH_PRODUCT_DETAILS_REQUEST:
       return {
         ...state,
-        [action.meta.productId]: undefined,
+        [(action as FetchProductDetailsSuccessAction).meta.productId]:
+          undefined,
       };
     case actionTypes.FETCH_PRODUCT_DETAILS_FAILURE:
       return {
         ...state,
-        [action.meta.productId]: action.payload.error,
+        [(action as FetchProductDetailsFailureAction).meta.productId]: (
+          action as FetchProductDetailsFailureAction
+        ).payload.error,
       };
+    case actionTypes.RESET_PRODUCT_DETAILS_STATE: {
+      const productIds = (action as ResetProductDetailsStateAction).productIds;
+
+      if (!productIds?.length) {
+        return state;
+      }
+
+      return omit(state, productIds);
+    }
     default:
       return state;
   }
 };
 
-const isHydrated = (
-  state = INITIAL_STATE.isHydrated,
-  action: DehydrateProductDetailsAction,
-) => {
+const isHydrated = (state = INITIAL_STATE.isHydrated, action: Action) => {
   if (action.type === actionTypes.DEHYDRATE_PRODUCT_DETAILS) {
     return {
       ...state,
-      [action.meta.productId]: false,
+      [(action as DehydrateProductDetailsAction).meta.productId]: false,
     };
+  } else if (action.type === actionTypes.RESET_PRODUCT_DETAILS_STATE) {
+    const productIds = (action as ResetProductDetailsStateAction).productIds;
+
+    if (!productIds?.length) {
+      return state;
+    }
+
+    return omit(state, productIds);
   }
+
   return state;
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action: FetchProductDetailsAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: Action) => {
   switch (action.type) {
     case actionTypes.FETCH_PRODUCT_DETAILS_REQUEST:
       return {
         ...state,
-        [action.meta.productId]: true,
+        [(action as FetchProductDetailsRequestAction).meta.productId]: true,
       };
     case actionTypes.FETCH_PRODUCT_DETAILS_SUCCESS:
-      return { ...state, [action.meta.productId]: false };
+      return {
+        ...state,
+        [(action as FetchProductDetailsSuccessAction).meta.productId]: false,
+      };
     case actionTypes.FETCH_PRODUCT_DETAILS_FAILURE:
-      return { ...state, [action.meta.productId]: undefined };
+      return {
+        ...state,
+        [(action as FetchProductDetailsFailureAction).meta.productId]:
+          undefined,
+      };
+    case actionTypes.RESET_PRODUCT_DETAILS_STATE: {
+      const productIds = (action as ResetProductDetailsStateAction).productIds;
+
+      if (!productIds?.length) {
+        return state;
+      }
+
+      return omit(state, productIds);
+    }
     default:
       return state;
   }
@@ -71,12 +101,25 @@ const isLoading = (
 export const entitiesMapper = {
   [actionTypes.RESET_PRODUCT_DETAILS_ENTITIES]: (
     state: NonNullable<StoreState['entities']>,
+    action: Action,
   ): StoreState['entities'] => {
     if (!state) {
       return state;
     }
+
+    const productIds = (action as ResetProductDetailsEntitiesAction).productIds;
     const { products, ...rest } = state;
-    return rest;
+
+    if (!productIds) {
+      return rest;
+    }
+
+    const newProductsEntities = omit(products, productIds);
+
+    return {
+      ...rest,
+      products: newProductsEntities,
+    };
   },
 };
 
@@ -106,9 +149,12 @@ const reducers = combineReducers({
  */
 const productsDetailsReducer = (
   state: ProductsDetailsState,
-  action: FetchProductDetailsAction | ResetProductDetailsStateAction,
+  action: Action,
 ): ProductsDetailsState => {
-  if (action.type === actionTypes.RESET_PRODUCT_DETAILS_STATE) {
+  if (
+    action.type === actionTypes.RESET_PRODUCT_DETAILS_STATE &&
+    !(action as ResetProductDetailsStateAction).productIds?.length
+  ) {
     return INITIAL_STATE;
   }
 
