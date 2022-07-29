@@ -9,4 +9,5 @@ export * from './checkout';
 export * from './helpers';
 export * from './products';
 export * from './search';
+export * from './users';
 export * from './wishlists';
