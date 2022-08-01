@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.284](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.283...@farfetch/blackout-redux@1.0.0-next.284) (2022-08-01)
+
+
+### Bug Fixes
+
+* **redux:** add reducer and selectors to personal ids ([94f1f52](https://github.com/Farfetch/blackout/commit/94f1f5289e47894e42f98c21d7be11785cf91b94))
+
+
+
+
+
 # [1.0.0-next.283](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.282...@farfetch/blackout-redux@1.0.0-next.283) (2022-07-29)
 
 
