@@ -117,7 +117,7 @@ export interface FetchCountryAddressSchemaRequestAction extends Action {
 export interface FetchCountryAddressSchemaSuccessAction extends Action {
   payload: {
     entities: {
-      countryAddressSchema: Record<string, CountryAddressSchema[]>;
+      countryAddressSchemas: Record<string, CountryAddressSchema[]>;
     };
     result: string;
   };
