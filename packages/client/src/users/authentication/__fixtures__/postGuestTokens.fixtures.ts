@@ -1,7 +1,7 @@
 import { rest, RestHandler } from 'msw';
 import type { PostGuestTokenResponse } from '../types';
 
-const path = 'https://api.blackandwhite-ff.com/authentication/v1/guestTokens';
+const path = '/api/authentication/v1/guestTokens';
 
 const fixtures = {
   success: (response: PostGuestTokenResponse): RestHandler =>

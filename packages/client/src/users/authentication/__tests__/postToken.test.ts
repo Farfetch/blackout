@@ -4,12 +4,7 @@ import fixtures from '../__fixtures__/postTokens.fixtures';
 import mswServer from '../../../../tests/mswServer';
 
 describe('postToken', () => {
-  const expectedConfig = {
-    baseURL: 'https://api.blackandwhite-ff.com',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
+  const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'post');
   const endpoint = '/authentication/v1/tokens';
 

@@ -17,7 +17,7 @@ import type { Country } from '@farfetch/blackout-client';
  * @returns - List of continents with respective id and countries list.
  */
 export const createContinentsList = (
-  countries: Country[],
+  countries: Record<string, Country>,
 ): Array<{ id: number; countries: Country[] }> => {
   const countriesArr = Object.values(countries) as Country[];
   const continents = Array.from(new Set(countriesArr.map(c => c.continentId)));

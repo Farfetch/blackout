@@ -2,48 +2,6 @@
 
 exports[`root index file should export all public modules 1`] = `
 Object {
-  "AuthenticationContext": Object {
-    "$$typeof": Symbol(react.context),
-    "Consumer": Object {
-      "$$typeof": Symbol(react.context),
-      "_context": [Circular],
-    },
-    "Provider": Object {
-      "$$typeof": Symbol(react.provider),
-      "_context": [Circular],
-    },
-    "_currentRenderer": null,
-    "_currentRenderer2": null,
-    "_currentValue": Object {},
-    "_currentValue2": Object {},
-    "_defaultValue": null,
-    "_globalName": null,
-    "_threadCount": 0,
-  },
-  "AuthenticationProvider": [Function],
-  "LoginWithoutDataError": [Function],
-  "NotLoggedInError": [Function],
-  "PendingUserOperationError": [Function],
-  "ProfileChangedError": [Function],
-  "UserProfileContext": Object {
-    "$$typeof": Symbol(react.context),
-    "Consumer": Object {
-      "$$typeof": Symbol(react.context),
-      "_context": [Circular],
-    },
-    "Provider": Object {
-      "$$typeof": Symbol(react.provider),
-      "_context": [Circular],
-    },
-    "_currentRenderer": null,
-    "_currentRenderer2": null,
-    "_currentValue": Object {},
-    "_currentValue2": Object {},
-    "_defaultValue": null,
-    "_globalName": null,
-    "_threadCount": 0,
-  },
-  "UserProfileProvider": [Function],
   "analytics": AnalyticsWeb {
     "activeIntegrations": Map {},
     "consentInstance": null,
@@ -214,7 +172,6 @@ Object {
     "Web": "web",
   },
   "useAction": [Function],
-  "useAuthentication": [Function],
   "useBag": [Function],
   "useBagItem": [Function],
   "useCategories": [Function],
@@ -224,7 +181,6 @@ Object {
   "useProductsList": [Function],
   "useSearchIntents": [Function],
   "useUser": [Function],
-  "useUserProfile": [Function],
   "useWishlist": [Function],
   "useWishlistItem": [Function],
   "useWishlistSet": [Function],

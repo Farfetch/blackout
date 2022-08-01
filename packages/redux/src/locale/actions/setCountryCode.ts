@@ -8,7 +8,6 @@ import type { Dispatch } from 'redux';
  *
  * @returns - Dispatch set country code action.
  */
-
 const setCountryCode = (countryCode: string) => (dispatch: Dispatch) => {
   dispatch({
     type: actionTypes.SET_COUNTRY_CODE,

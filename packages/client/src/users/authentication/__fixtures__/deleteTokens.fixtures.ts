@@ -1,6 +1,6 @@
 import { rest, RestHandler } from 'msw';
 
-const path = 'https://api.blackandwhite-ff.com/authentication/v1/tokens/:id';
+const path = '/api/authentication/v1/tokens/:id';
 
 const fixtures = {
   success: (): RestHandler =>

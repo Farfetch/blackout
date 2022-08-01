@@ -1,16 +1,11 @@
 import { deleteGuestToken } from '..';
 import { id } from 'tests/__fixtures__/authentication';
 import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/deleteGuestTokens.fixtures';
+import fixtures from '../__fixtures__/deleteGuestToken.fixtures';
 import mswServer from '../../../../tests/mswServer';
 
 describe('deleteGuestToken', () => {
-  const expectedConfig = {
-    baseURL: 'https://api.blackandwhite-ff.com',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
+  const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'delete');
   const endpoint = '/authentication/v1/guestTokens';
 

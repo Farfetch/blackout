@@ -6,7 +6,6 @@ import type { Dispatch } from 'redux';
  *
  * @returns - Dispatch reset action.
  */
-
 const resetLocaleState = () => (dispatch: Dispatch) => {
   dispatch({
     type: actionTypes.RESET_LOCALE_STATE,

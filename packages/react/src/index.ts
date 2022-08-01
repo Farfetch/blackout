@@ -2,7 +2,6 @@
  * Blackout React.
  */
 export * from './analytics';
-export * from './authentication';
 export * from './bags';
 export * from './categories';
 export * from './checkout';
