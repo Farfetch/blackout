@@ -25,13 +25,12 @@ const mockUserData = {
   id: mockDefaultActiveTokenData.data.userId,
 };
 
-let mockGetUserCommon;
-
 jest.mock('../../contexts/AuthenticationProvider');
 
 jest.mock('@farfetch/blackout-client', () => {
-  if (!mockGetUserCommon) {
-    mockGetUserCommon = config => {
+  return {
+    ...jest.requireActual<object>('@farfetch/blackout-client'),
+    getUser: jest.fn(config => {
       const usedAccessTokenCallback = config['__usedAccessTokenCallback'];
 
       if (usedAccessTokenCallback) {
@@ -39,12 +38,7 @@ jest.mock('@farfetch/blackout-client', () => {
       }
 
       return Promise.resolve(mockUserData);
-    };
-  }
-
-  return {
-    ...jest.requireActual<object>('@farfetch/blackout-client'),
-    getUser: jest.fn(mockGetUserCommon),
+    }),
   };
 });
 
@@ -98,7 +92,15 @@ describe('useUserProfile', () => {
     getUser.mockImplementationOnce(config => {
       return new Promise(resolve => {
         setTimeout(() => {
-          mockGetUserCommon(config).then(data => resolve(data));
+          const usedAccessTokenCallback = config['__usedAccessTokenCallback'];
+
+          if (usedAccessTokenCallback) {
+            usedAccessTokenCallback(
+              mockDefaultActiveTokenData.data.accessToken,
+            );
+          }
+
+          return resolve(mockUserData);
         }, 10000);
       });
     });
@@ -130,9 +132,7 @@ describe('useUserProfile', () => {
     const expectedError = new Error('dummy error');
 
     getUser.mockImplementationOnce(config => {
-      return mockGetUserCommon(config).then(() => {
-        throw expectedError;
-      });
+      return Promise.reject(expectedError);
     });
 
     const { result } = getRenderedHook({

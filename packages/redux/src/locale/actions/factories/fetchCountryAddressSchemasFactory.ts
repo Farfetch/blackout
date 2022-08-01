@@ -30,7 +30,7 @@ const fetchCountryAddressSchemasFactory =
 
       const schemaEntity = {
         entities: {
-          countryAddressSchema: {
+          countryAddressSchemas: {
             [isoCode]: result,
           },
         },
