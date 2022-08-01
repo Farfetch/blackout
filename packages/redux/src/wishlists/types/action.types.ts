@@ -4,7 +4,6 @@ import type {
   BlackoutError,
   Brand,
   Category,
-  PostWishlistItemData,
   WishlistItem,
   WishlistSet,
 } from '@farfetch/blackout-client';
@@ -29,6 +28,10 @@ export type WishlistNormalizedPayload = NormalizedSchema<
 
 export type WishlistItemActionMetadata = {
   from?: string;
+  affiliation?: string;
+  coupon?: string;
+  position?: number;
+  value?: number;
 } & Record<string, unknown>;
 
 export type WishlistSetsNormalizedPayload = NormalizedSchema<
@@ -64,17 +67,6 @@ export type FetchWishlistAction =
   | FetchWishlistFailureAction
   | FetchWishlistRequestAction
   | FetchWishlistSuccessAction;
-
-export type PostWishlistItemActionData = PostWishlistItemData &
-  PostWishlistItemActionAnalyticsData;
-
-export type PostWishlistItemActionAnalyticsData = {
-  affiliation?: string;
-  coupon?: string;
-  from: string;
-  position?: number;
-  value?: number;
-};
 
 //
 // Add wishlist item
