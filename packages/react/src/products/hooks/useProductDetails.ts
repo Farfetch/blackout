@@ -25,8 +25,12 @@ const useProductDetails = (
     fetchForceDispatch = false,
   } = options;
 
-  const fetch = useAction(fetchProductDetails);
-  const reset = useAction(resetProductDetails);
+  const fetchAction = useAction(fetchProductDetails);
+  const resetAction = useAction(resetProductDetails);
+  const reset = useCallback(
+    () => resetAction([productId]),
+    [resetAction, productId],
+  );
 
   const error = useSelector((state: StoreState) =>
     getProductError(state, productId),
@@ -48,17 +52,17 @@ const useProductDetails = (
   );
 
   const refetch = useCallback(
-    () => fetch(productId, fetchQuery, fetchForceDispatch, fetchConfig),
-    [fetch, productId, fetchQuery, fetchForceDispatch, fetchConfig],
+    () => fetchAction(productId, fetchQuery, fetchForceDispatch, fetchConfig),
+    [fetchAction, productId, fetchQuery, fetchForceDispatch, fetchConfig],
   );
 
   const shouldLoadDetails = enableAutoFetch && !isLoading && !error && !product;
 
   useEffect(() => {
     shouldLoadDetails &&
-      fetch(productId, fetchQuery, fetchForceDispatch, fetchConfig);
+      fetchAction(productId, fetchQuery, fetchForceDispatch, fetchConfig);
   }, [
-    fetch,
+    fetchAction,
     productId,
     fetchQuery,
     fetchConfig,
