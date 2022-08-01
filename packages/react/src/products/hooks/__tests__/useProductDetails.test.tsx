@@ -8,7 +8,7 @@ import {
   mockProductsState,
 } from 'tests/__fixtures__/products';
 import { renderHook } from '@testing-library/react';
-import { withStore } from '@farfetch/blackout-react/tests/helpers';
+import { withStore } from '../../../../tests/helpers';
 import useProductDetails from '../useProductDetails';
 
 jest.mock('@farfetch/blackout-redux', () => ({
@@ -18,6 +18,8 @@ jest.mock('@farfetch/blackout-redux', () => ({
 }));
 
 describe('useProductDetails', () => {
+  beforeEach(jest.clearAllMocks);
+
   it('should return data correctly with initial state', () => {
     const { result } = renderHook(() => useProductDetails(mockProductId), {
       wrapper: withStore(mockProductsState),
@@ -141,7 +143,7 @@ describe('useProductDetails', () => {
         },
       );
 
-      expect(fetchProductDetails).not.toHaveBeenCalledWith();
+      expect(fetchProductDetails).not.toHaveBeenCalled();
     });
   });
 
@@ -157,11 +159,9 @@ describe('useProductDetails', () => {
         wrapper: withStore(mockProductsState),
       });
 
-      const productsToReset = [10000, 20000];
+      reset();
 
-      reset(productsToReset);
-
-      expect(resetProductDetails).toHaveBeenCalledWith(productsToReset);
+      expect(resetProductDetails).toHaveBeenCalledWith([mockProductId]);
     });
 
     it('should call `refetch` action successfully', () => {
