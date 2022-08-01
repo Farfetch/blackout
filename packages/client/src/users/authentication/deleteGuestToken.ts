@@ -1,5 +1,5 @@
 import { adaptError } from '../../helpers/client/formatError';
-import client, { configApiBlackAndWhite } from '../../helpers/client';
+import client from '../../helpers/client';
 import join from 'proper-url-join';
 import type { DeleteGuestToken } from './types';
 
@@ -11,10 +11,7 @@ import type { DeleteGuestToken } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const deleteGuestToken: DeleteGuestToken = (
-  id: string,
-  config = configApiBlackAndWhite,
-) =>
+const deleteGuestToken: DeleteGuestToken = (id: string, config) =>
   client
     .delete(join('/authentication/v1/guestTokens', id), config)
     .then(response => response.status)

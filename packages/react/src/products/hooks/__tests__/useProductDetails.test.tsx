@@ -2,9 +2,9 @@ import { fetchProductDetails } from '@farfetch/blackout-redux';
 import { mockProductId, mockProductsState } from 'tests/__fixtures__/products';
 import { mockStore } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
+import { renderHook } from '@testing-library/react';
 import React from 'react';
 import useProductDetails from '../useProductDetails';
-import { renderHook } from '@testing-library/react';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),

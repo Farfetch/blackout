@@ -8,11 +8,9 @@ import {
 } from '@farfetch/blackout-client';
 import { getWishlistId } from '../../selectors';
 import { normalize } from 'normalizr';
-import { omit } from 'lodash';
 import wishlistItemSchema from '../../../entities/schemas/wishlistItem';
 import type {
   AddWishlistItemAction,
-  PostWishlistItemActionData,
   WishlistItemActionMetadata,
 } from '../../types';
 import type { Dispatch } from 'redux';
@@ -29,7 +27,7 @@ import type { GetOptionsArgument, StoreState } from '../../../types';
 const addWishlistItemFactory =
   (postWishlistItem: PostWishlistItem) =>
   (
-    data: PostWishlistItemActionData,
+    data: PostWishlistItemData,
     metadata?: WishlistItemActionMetadata,
     config?: Config,
   ) =>
@@ -54,15 +52,7 @@ const addWishlistItemFactory =
         type: actionTypes.ADD_WISHLIST_ITEM_REQUEST,
       });
 
-      const dataToSend: PostWishlistItemData = omit(data, [
-        'affiliation',
-        'coupon',
-        'from',
-        'position',
-        'value',
-      ]);
-
-      const result = await postWishlistItem(wishlistId, dataToSend, config);
+      const result = await postWishlistItem(wishlistId, data, config);
       const { productImgQueryParam } = getOptions(getState);
       const newItems = result.items.map(item => ({
         ...item,

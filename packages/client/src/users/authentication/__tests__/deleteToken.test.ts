@@ -5,12 +5,7 @@ import fixtures from '../__fixtures__/deleteTokens.fixtures';
 import mswServer from '../../../../tests/mswServer';
 
 describe('deleteToken', () => {
-  const expectedConfig = {
-    baseURL: 'https://api.blackandwhite-ff.com',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
+  const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'delete');
   const endpoint = '/authentication/v1/tokens';
 

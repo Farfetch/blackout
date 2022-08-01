@@ -1,5 +1,5 @@
 import { adaptError } from '../../helpers/client/formatError';
-import client, { configApiBlackAndWhite } from '../../helpers/client';
+import client from '../../helpers/client';
 import type { PostGuestToken } from './types';
 
 /**
@@ -10,10 +10,7 @@ import type { PostGuestToken } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const postGuestToken: PostGuestToken = (
-  data,
-  config = configApiBlackAndWhite,
-) =>
+const postGuestToken: PostGuestToken = (data, config) =>
   client
     .post('/authentication/v1/guestTokens', data, config)
     .then(response => response.data)

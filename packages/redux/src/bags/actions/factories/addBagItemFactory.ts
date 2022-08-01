@@ -60,6 +60,7 @@ const addBagItemFactory =
         ...item,
         productImgQueryParam,
       }));
+
       const normalizedBag = normalize(
         { ...result, items: newItems },
         { items: [bagItemSchema] },
