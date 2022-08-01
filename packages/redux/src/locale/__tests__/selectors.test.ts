@@ -17,7 +17,7 @@ import {
 describe('locale redux selectors', () => {
   const countryAddressSchemasEntity = {
     ...expectedGetAddressSchemaNormalizedPayload['entities']
-      .countryAddressSchema,
+      .countryAddressSchemas,
   };
 
   const mockState = {
@@ -225,7 +225,7 @@ describe('locale redux selectors', () => {
     it('should get the schema for a specific country from state', () => {
       const expectedResult =
         expectedGetAddressSchemaNormalizedPayload['entities']
-          .countryAddressSchema[countryId];
+          .countryAddressSchemas[countryId];
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(selectors.getCountryAddressSchema(mockState, countryId)).toEqual(
