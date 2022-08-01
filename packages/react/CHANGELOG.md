@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.285](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.284...@farfetch/blackout-react@1.0.0-next.285) (2022-08-01)
+
+
+### Features
+
+* **react:** add useUser react hook ([a827f8b](https://github.com/Farfetch/blackout/commit/a827f8bdb7f1dc4c24fe6b0ac623d3ca0b32c5fd))
+
+
+
+
+
 # [1.0.0-next.284](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.283...@farfetch/blackout-react@1.0.0-next.284) (2022-08-01)
 
 **Note:** Version bump only for package @farfetch/blackout-react
