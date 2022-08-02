@@ -57,5 +57,4 @@ export const areCategoriesLoading = (state: StoreState) =>
  * @returns - If categories are fetched or not.
  */
 export const areCategoriesFetched = (state: StoreState) =>
-  getIsFetched(state.categories as CategoriesState) &&
-  !areCategoriesLoading(state);
+  getIsFetched(state.categories as CategoriesState);

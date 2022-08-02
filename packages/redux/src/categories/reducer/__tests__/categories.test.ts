@@ -128,7 +128,7 @@ describe('categories redux reducer', () => {
           type: actionTypes.FETCH_CATEGORIES_FAILURE,
           payload: { error: '' },
         }).isFetched,
-      ).toEqual(initialState.isFetched);
+      ).toEqual(true);
     });
 
     it('should handle FETCH_CATEGORIES_SUCCESS action type', () => {

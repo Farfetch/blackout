@@ -78,7 +78,7 @@ describe('variantsByMerchantsLocations redux reducer', () => {
 
     it('should handle FETCH_PRODUCT_MERCHANTS_LOCATIONS_FAILURE action type', () => {
       const expectedIsLoading = {
-        [mockProductId]: undefined,
+        [mockProductId]: false,
       };
       const state = reducer(undefined, {
         meta,

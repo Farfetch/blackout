@@ -9,6 +9,7 @@ import {
   getWishlist,
   getWishlistError,
   getWishlistItems,
+  isWishlistFetched,
   isWishlistLoading,
   removeWishlistItem,
   resetWishlist,
@@ -34,6 +35,7 @@ const useWishlist = (options: UseWishlistOptions = {}) => {
   const items = useSelector(getWishlistItems);
   const wishlist = useSelector(getWishlist);
   const userWishlistId = useSelector(getUser)?.wishlistId;
+  const isFetched = useSelector(isWishlistFetched);
   // Actions
   const addItem = useAction(addWishlistItem);
   const updateItem = useAction(updateWishlistItem);
@@ -43,8 +45,6 @@ const useWishlist = (options: UseWishlistOptions = {}) => {
   // Data with some logic
   const count = wishlist.count;
   const isEmpty = count === 0;
-  const isFetched = !!wishlist.id;
-
   useEffect(() => {
     if (!isLoading && !error && enableAutoFetch && userWishlistId) {
       fetch(userWishlistId, fetchConfig);

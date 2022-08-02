@@ -125,9 +125,9 @@ export const isSizeScaleFetched = (
   state: StoreState,
   scaleId: SizeScale['sizeScaleId'],
 ) =>
-  getSizeScaleIsLoadingByIdentifier(
-    state.sizeScales as SizeScalesState,
-  ).hasOwnProperty(scaleId);
+  getSizeScaleIsLoadingByIdentifier(state.sizeScales as SizeScalesState)[
+    scaleId
+  ] === false;
 
 /**
  * Returns a specific size scale mapping error.

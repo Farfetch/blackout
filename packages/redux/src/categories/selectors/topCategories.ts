@@ -90,4 +90,6 @@ export const areTopCategoriesLoading = (state: StoreState) =>
  * @returns - If top categories are fetched or not.
  */
 export const areTopCategoriesFetched = (state: StoreState) =>
-  getResult(state.categories as CategoriesState) !== null;
+  (!!getResult(state.categories as CategoriesState) ||
+    !!getTopCategoriesError(state)) &&
+  !areTopCategoriesLoading(state);

@@ -64,6 +64,34 @@ describe('wishlists redux selectors', () => {
     });
   });
 
+  describe('isWishlistFetched()', () => {
+    it('should return true if the wishlist fetch request succeeded', () => {
+      expect(selectors.isWishlistFetched(mockWishlistState)).toBe(true);
+    });
+    it('should return true if the wishlist fetch request failed', () => {
+      const mockStateWithError = {
+        ...mockWishlistState,
+        wishlist: {
+          ...mockWishlistState.wishlist,
+          error: new Error(),
+          id: undefined,
+        },
+      };
+      expect(selectors.isWishlistFetched(mockStateWithError)).toBe(true);
+    });
+    it('should return false if there is an ongoing fetch request', () => {
+      const mockStateLoading = {
+        ...mockWishlistState,
+        wishlist: {
+          ...mockWishlistState.wishlist,
+          isLoading: true,
+        },
+      };
+
+      expect(selectors.isWishlistFetched(mockStateLoading)).toBe(false);
+    });
+  });
+
   describe('getWishlistItem()', () => {
     const expectedResult = {
       ...wishlistItemEntity,

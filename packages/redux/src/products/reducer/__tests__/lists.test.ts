@@ -159,7 +159,7 @@ describe('lists redux reducer', () => {
     });
 
     it('should handle FETCH_PRODUCTS_LIST_FAILURE action type', () => {
-      const expectedIsLoading = { [mockProductsListHash]: undefined };
+      const expectedIsLoading = { [mockProductsListHash]: false };
       const state = reducer(undefined, {
         meta,
         payload: { error: '' },
