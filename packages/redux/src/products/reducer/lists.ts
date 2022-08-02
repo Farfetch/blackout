@@ -72,14 +72,10 @@ const isLoading = (
         [action.meta.hash]: true,
       };
     case actionTypes.FETCH_PRODUCTS_LIST_SUCCESS:
-      return {
-        ...state,
-        [action.meta.hash]: false,
-      };
     case actionTypes.FETCH_PRODUCTS_LIST_FAILURE:
       return {
         ...state,
-        [action.meta.hash]: undefined,
+        [action.meta.hash]: false,
       };
     default:
       return state;

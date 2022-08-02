@@ -51,11 +51,10 @@ const isFetched = (
   action: FetchCategoriesAction,
 ) => {
   switch (action.type) {
-    case actionTypes.FETCH_CATEGORIES_SUCCESS: {
-      return true;
-    }
-    case actionTypes.FETCH_CATEGORIES_REQUEST:
+    case actionTypes.FETCH_CATEGORIES_SUCCESS:
     case actionTypes.FETCH_CATEGORIES_FAILURE:
+      return true;
+    case actionTypes.FETCH_CATEGORIES_REQUEST:
       return INITIAL_STATE.isFetched;
     default:
       return state;

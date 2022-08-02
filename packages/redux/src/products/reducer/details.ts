@@ -74,15 +74,10 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: Action) => {
         [(action as FetchProductDetailsRequestAction).meta.productId]: true,
       };
     case actionTypes.FETCH_PRODUCT_DETAILS_SUCCESS:
-      return {
-        ...state,
-        [(action as FetchProductDetailsSuccessAction).meta.productId]: false,
-      };
     case actionTypes.FETCH_PRODUCT_DETAILS_FAILURE:
       return {
         ...state,
-        [(action as FetchProductDetailsFailureAction).meta.productId]:
-          undefined,
+        [(action as FetchProductDetailsSuccessAction).meta.productId]: false,
       };
     case actionTypes.RESET_PRODUCT_DETAILS_STATE: {
       const productIds = (action as ResetProductDetailsStateAction).productIds;

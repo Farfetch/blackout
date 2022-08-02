@@ -256,6 +256,29 @@ export const isWishlistLoading = (state: StoreState) =>
   fromWishlistReducer.getIsLoading(state.wishlist as WishlistsState);
 
 /**
+ * Retrieves if the wishlist has been fetched.
+ *
+ * Will return true if a fetch wishlist request
+ * has been made that returned either successfully or failed
+ * and false otherwise.
+ *
+ * @example
+ * ```
+ * import { isWishlistFetched } from '@farfetch/blackout-redux/wishlists';
+ *
+ * const mapStateToProps = state => ({
+ *     isFetched: isWishlistFetched(state)
+ * });
+ * ```
+ * @param state - Application state.
+ *
+ * @returns isFetched status of the wishlist.
+ */
+export const isWishlistFetched = (state: StoreState) =>
+  (!!getWishlistId(state) || !!getWishlistError(state)) &&
+  !isWishlistLoading(state);
+
+/**
  * Retrieves the number of different items in the wishlist, regardless of each
  * one's quantity.
  *

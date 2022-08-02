@@ -166,7 +166,7 @@ describe('details redux reducer', () => {
 
     it('should handle FETCH_PRODUCT_DETAILS_FAILURE action type', () => {
       const expectedIsLoading = {
-        [mockProductId]: undefined,
+        [mockProductId]: false,
       };
       const state = reducer(undefined, {
         meta,
