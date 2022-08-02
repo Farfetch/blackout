@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.286](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.285...@farfetch/blackout-redux@1.0.0-next.286) (2022-08-02)
+
+
+### chore
+
+* **client|react:** remove authentication interceptor ([3247708](https://github.com/Farfetch/blackout/commit/32477087c91d9b8673b7799a74b51154c0b46c62))
+
+
+### BREAKING CHANGES
+
+* **client|react:** Authentication interceptor is now removed from both
+client and react packages as it only makes sense for native apps.
+
+
+
+
+
 # [1.0.0-next.285](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.284...@farfetch/blackout-redux@1.0.0-next.285) (2022-08-01)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
