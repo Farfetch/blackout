@@ -12,6 +12,7 @@ import {
   getBagError,
   getBagItems,
   getProduct,
+  isBagFetched,
   isBagLoading,
   removeBagItem as removeBagItemAction,
   resetBag as resetBagAction,
@@ -41,7 +42,7 @@ const useBag = (options: UseBagOptions = {}) => {
   const items = useSelector(getBagItems);
   const count = bag?.count;
   const isEmpty = count === 0;
-  const isFetched = !!bag?.id;
+  const isFetched = useSelector(isBagFetched);
   // Actions
   const addBagItem = useAction(addBagItemAction);
   const updateBagItem = useAction(updateBagItemAction);

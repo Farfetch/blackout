@@ -83,7 +83,7 @@ describe('measurements redux reducer', () => {
 
     it('should handle FETCH_PRODUCT_MEASUREMENTS_FAILURE action type', () => {
       const expectedIsLoading = {
-        [mockProductId]: undefined,
+        [mockProductId]: false,
       };
       const state = reducer(undefined, {
         meta,

@@ -58,7 +58,10 @@ export const areRecentlyViewedProductsFetched = (
   const products = getResult(state.products?.recentlyViewed);
   const remoteEntries = get(products, 'remote');
 
-  return remoteEntries !== null;
+  return (
+    (!!remoteEntries || !!getRecentlyViewedProductsError(state)) &&
+    !areRecentlyViewedProductsLoading(state)
+  );
 };
 
 /**

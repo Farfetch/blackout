@@ -377,6 +377,28 @@ export const isBagLoading = (state: StoreState): boolean =>
   getIsLoading(state.bag as BagsState);
 
 /**
+ * Retrieves if the bag has been fetched.
+ *
+ * Will return true if a fetch bag request
+ * has been made that returned either successfully or failed
+ * and false otherwise.
+ *
+ * @example
+ * ```
+ * import { isBagFetched } from '@farfetch/blackout-redux/bags';
+ *
+ * const mapStateToProps = state => ({
+ *     isFetched: isBagFetched(state)
+ * });
+ * ```
+ * @param state - Application state.
+ *
+ * @returns isFetched status of the bag.
+ */
+export const isBagFetched = (state: StoreState) =>
+  (!!getBagId(state) || !!getBagError(state)) && !isBagLoading(state);
+
+/**
  * Retrieves the available sizes of a bag item.
  *
  * If there are two or more bag items of the same product, the size selected by one

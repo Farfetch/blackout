@@ -43,9 +43,8 @@ const isLoading = (
         [action.meta.productId]: true,
       };
     case actionTypes.FETCH_PRODUCT_FITTINGS_SUCCESS:
-      return { ...state, [action.meta.productId]: false };
     case actionTypes.FETCH_PRODUCT_FITTINGS_FAILURE:
-      return { ...state, [action.meta.productId]: undefined };
+      return { ...state, [action.meta.productId]: false };
     default:
       return state;
   }

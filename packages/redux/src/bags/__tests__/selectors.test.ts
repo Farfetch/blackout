@@ -56,6 +56,34 @@ describe('bags redux selectors', () => {
     });
   });
 
+  describe('isBagFetched()', () => {
+    it('should return true if the bag fetch request succeeded', () => {
+      expect(selectors.isBagFetched(mockState)).toBe(true);
+    });
+    it('should return true if the bag fetch request failed', () => {
+      const mockStateWithError = {
+        ...mockState,
+        bag: {
+          ...mockState.bag,
+          error: new Error(),
+          id: undefined,
+        },
+      };
+      expect(selectors.isBagFetched(mockStateWithError)).toBe(true);
+    });
+    it('should return false if there is an ongoing fetch request', () => {
+      const mockStateLoading = {
+        ...mockState,
+        bag: {
+          ...mockState.bag,
+          isLoading: true,
+        },
+      };
+
+      expect(selectors.isBagFetched(mockStateLoading)).toBe(false);
+    });
+  });
+
   describe('getBagItem()', () => {
     const expectedResult = {
       ...mockBagItemEntity,
