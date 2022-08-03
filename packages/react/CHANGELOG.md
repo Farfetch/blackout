@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.288](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.287...@farfetch/blackout-react@1.0.0-next.288) (2022-08-03)
+
+
+### Bug Fixes
+
+* **redux|react:** fix fetched selectors ([810177e](https://github.com/Farfetch/blackout/commit/810177e171170a0a253e334fba2dec5e230bd398))
+
+
+
+
+
 # [1.0.0-next.287](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.286...@farfetch/blackout-react@1.0.0-next.287) (2022-08-03)
 
 
