@@ -1,8 +1,8 @@
 import type { FacetEntity } from './facet.types';
 import type {
   FacetGroup,
-  Listing as OriginalListing,
-  Set as OriginalSet,
+  ProductListing as OriginalListing,
+  ProductSet as OriginalSet,
 } from '@farfetch/blackout-client';
 import type { ProductEntity } from './product.types';
 

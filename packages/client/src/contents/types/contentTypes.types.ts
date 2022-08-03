@@ -1,4 +1,4 @@
-import type { Config } from '../../types';
+import type { Config, PagedResponse } from '../../types';
 
 export type CustomMetadataSchemaProperty = {
   title: string;
@@ -13,23 +13,18 @@ export type CustomMetadataSchema = {
   properties?: Record<string, CustomMetadataSchemaProperty>;
 };
 
-export type PublicationTargetTypes = {
+export type PublicationTargetType = {
   name: string;
   restrictedValues: string[];
   customMetadataSchema?: CustomMetadataSchema;
 };
 
-export type ContentTypesEntries = {
+export type ContentType = {
   code: string;
-  publicationTargetTypes: Array<PublicationTargetTypes>;
+  publicationTargetTypes: PublicationTargetType[];
 };
 
-export type ContentTypes = {
-  number: number;
-  totalPages: number;
-  totalItems: number;
-  entries: Array<ContentTypesEntries>;
-};
+export type ContentTypes = PagedResponse<ContentType>;
 
 export type GetContentTypes = (
   spaceCode: string,

@@ -3,7 +3,7 @@ import type {
   Config,
   GetProductListing,
   GetProductListingQuery,
-  Listing,
+  ProductListing,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
@@ -29,7 +29,7 @@ const fetchListingFactory =
     dispatch: Dispatch,
     getState: () => StoreState,
     options: GetOptionsArgument,
-  ): Promise<Listing | undefined> =>
+  ): Promise<ProductListing | undefined> =>
     // @ts-expect-error The auxiliary function could return a Promise<Listing | Set | undefined>
     fetchProductsListFactory(
       getProductListing,

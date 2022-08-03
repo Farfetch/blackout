@@ -1,19 +1,14 @@
 import type { BreadCrumb } from './breadCrumb.types';
 import type { FacetGroup } from './facetGroup.types';
 import type { FilterSegment } from './filterSegment.types';
-import type { Gender } from '../../types';
+import type { Gender, PagedResponse } from '../../types';
 import type { ProductSummary } from './productSummary.types';
 import type { ShoppingConfig } from './shoppingConfig.types';
 
-export type Set = {
+export type ProductSet = {
   id: number;
   name: string;
-  products: {
-    entries: ProductSummary[];
-    number: number;
-    totalItems: number;
-    totalPages: number;
-  };
+  products: PagedResponse<ProductSummary>;
   facetGroups: FacetGroup[];
   filterSegments: FilterSegment[];
   config: ShoppingConfig;

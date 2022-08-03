@@ -1,5 +1,5 @@
 import type { CheckoutOrderOperation } from './checkoutOrderOperation.types';
-import type { Config } from '../../types';
+import type { Config, PagedResponse } from '../../types';
 
 export type GetCheckoutOrderOperationsQuerySort =
   | 'createdDate:desc'
@@ -21,22 +21,10 @@ export type GetCheckoutOrderOperationsQuery = {
   createdDate?: string;
 };
 
-export type GetCheckoutOrderOperationsResponse = {
-  /** Number of the page of operations requested, starting at 1. The default is 1. */
-  number: number;
-  /** Number of pages that the action can request. */
-  totalPages: number;
-  /** Total number of operations in all the pages of the response. */
-  totalItems: number;
-  /**
-   * Operations in the page of the response. Pages have between 1 and 180 items,
-   * typically depending on the parameter pageSize. By default, pages have 60 items.
-   */
-  entries: Array<CheckoutOrderOperation>;
-};
+export type CheckoutOrderOperations = PagedResponse<CheckoutOrderOperation>;
 
 export type GetCheckoutOrderOperations = (
   id: number,
   query?: GetCheckoutOrderOperationsQuery,
   config?: Config,
-) => Promise<GetCheckoutOrderOperationsResponse>;
+) => Promise<CheckoutOrderOperations>;

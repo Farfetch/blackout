@@ -3,8 +3,8 @@ import type { Action } from 'redux';
 import type {
   BlackoutError,
   CheckoutOrderCharge,
+  CheckoutOrderOperations,
   GetCheckoutOrderDeliveryBundleProvisioningResponse,
-  GetCheckoutOrderOperationsResponse,
   PatchCheckoutOrderItemData,
 } from '@farfetch/blackout-client';
 import type {
@@ -227,7 +227,7 @@ export interface FetchCollectPointsSuccessAction extends Action {
 
 // Checkout Operations Actions
 export type OperationsSuccessResult = Omit<
-  GetCheckoutOrderOperationsResponse,
+  CheckoutOrderOperations,
   'entries'
 > & {
   /**

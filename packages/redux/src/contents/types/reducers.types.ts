@@ -1,6 +1,6 @@
 import type {
   BlackoutError,
-  ContentTypesEntries,
+  ContentType,
   SEOMetadata,
 } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
@@ -8,7 +8,7 @@ import type { CombinedState } from 'redux';
 export type Hash = string;
 export type Pathname = string;
 
-export type SearchResultsReducer = {
+export type SearchResultsState = {
   isLoading?: boolean;
   error?: BlackoutError | null;
   result?: {
@@ -20,10 +20,10 @@ export type SearchResultsReducer = {
   };
 };
 
-export type ContentTypesReducer = {
+export type ContentTypesState = {
   error?: BlackoutError;
   isLoading: boolean;
-  result?: Array<ContentTypesEntries['code']> | null;
+  result?: Array<ContentType['code']> | null;
 };
 
 export type MetadataReducer = {
@@ -33,7 +33,7 @@ export type MetadataReducer = {
 };
 
 export type ContentsState = CombinedState<{
-  searchResults: Record<Hash, SearchResultsReducer>;
-  contentTypes: ContentTypesReducer;
+  searchResults: Record<Hash, SearchResultsState>;
+  contentTypes: ContentTypesState;
   metadata: MetadataReducer;
 }>;

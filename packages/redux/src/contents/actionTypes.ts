@@ -17,18 +17,18 @@ export const FETCH_COMMERCE_PAGES_SUCCESS =
 /**
  * Action type dispatched when the fetch contents request fails.
  */
-export const FETCH_CONTENT_FAILURE =
-  '@farfetch/blackout-redux/FETCH_CONTENT_FAILURE';
+export const FETCH_CONTENTS_FAILURE =
+  '@farfetch/blackout-redux/FETCH_CONTENTS_FAILURE';
 /**
  * Action type dispatched when the fetch contents request starts.
  */
-export const FETCH_CONTENT_REQUEST =
-  '@farfetch/blackout-redux/FETCH_CONTENT_REQUEST';
+export const FETCH_CONTENTS_REQUEST =
+  '@farfetch/blackout-redux/FETCH_CONTENTS_REQUEST';
 /**
  * Action type dispatched when the fetch contents request succeeds.
  */
-export const FETCH_CONTENT_SUCCESS =
-  '@farfetch/blackout-redux/FETCH_CONTENT_SUCCESS';
+export const FETCH_CONTENTS_SUCCESS =
+  '@farfetch/blackout-redux/FETCH_CONTENTS_SUCCESS';
 
 /**
  * Action type dispatched when the fetch content types request fails.

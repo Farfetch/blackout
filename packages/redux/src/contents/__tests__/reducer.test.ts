@@ -35,7 +35,7 @@ describe('contents redux reducer', () => {
     });
 
     it.each([
-      actionTypes.FETCH_CONTENT_REQUEST,
+      actionTypes.FETCH_CONTENTS_REQUEST,
       actionTypes.FETCH_COMMERCE_PAGES_REQUEST,
     ])('should handle %s action type', actionType => {
       expect(
@@ -52,7 +52,7 @@ describe('contents redux reducer', () => {
     });
 
     it.each([
-      actionTypes.FETCH_CONTENT_SUCCESS,
+      actionTypes.FETCH_CONTENTS_SUCCESS,
       actionTypes.FETCH_COMMERCE_PAGES_SUCCESS,
     ])('should handle %s action type', actionType => {
       expect(
@@ -69,7 +69,7 @@ describe('contents redux reducer', () => {
     });
 
     it.each([
-      actionTypes.FETCH_CONTENT_FAILURE,
+      actionTypes.FETCH_CONTENTS_FAILURE,
       actionTypes.FETCH_COMMERCE_PAGES_FAILURE,
     ])('should handle %s action type', actionType => {
       expect(

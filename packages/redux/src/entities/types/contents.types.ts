@@ -1,3 +1,3 @@
-import type { ContentEntries } from '@farfetch/blackout-client';
+import type { ContentEntry } from '@farfetch/blackout-client';
 
-export type ContentsEntity = ContentEntries;
+export type ContentsEntity = ContentEntry;

@@ -9,6 +9,15 @@ export type ProductGroupEntry = {
     url: string;
     order: number;
   }>;
+  variationProperties: [
+    {
+      type: string;
+      property: {
+        id: string;
+        value: string;
+      };
+    },
+  ];
 };
 
 export type ProductGroup = {

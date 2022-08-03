@@ -1,5 +1,4 @@
 export * from './attributes';
-export * from './colorGrouping';
 export * from './details';
 export * from './fittings';
 export * from './lists';

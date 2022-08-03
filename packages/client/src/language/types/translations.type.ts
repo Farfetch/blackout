@@ -1,4 +1,6 @@
-type entries = {
+import type { PagedResponse } from '../../types';
+
+export type Translation = {
   tenantId: number;
   clientId: number;
   projectExternalId: string;
@@ -11,9 +13,4 @@ type entries = {
   status: string;
 };
 
-export type Translations = {
-  number: number;
-  totalPages: number;
-  totalItems: number;
-  entries: entries[];
-};
+export type Translations = PagedResponse<Translation>;

@@ -5,8 +5,8 @@ import {
   GetProductListingQuery,
   GetProductSet,
   GetProductSetQuery,
-  Listing,
-  Set,
+  ProductListing,
+  ProductSet,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { generateProductsListHash } from '../../utils';
@@ -48,7 +48,7 @@ const fetchProductsListFactory = async (
     getOptions = arg => ({ productImgQueryParam: arg.productImgQueryParam }),
   }: GetOptionsArgument,
   isSet: boolean,
-): Promise<Listing | Set | undefined> => {
+): Promise<ProductListing | ProductSet | undefined> => {
   let hash: Nullable<string> = null;
   try {
     hash = generateProductsListHash(slug, query, { isSet });

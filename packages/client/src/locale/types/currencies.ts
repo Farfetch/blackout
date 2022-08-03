@@ -8,9 +8,7 @@ export type Currency = {
   symbol: string;
 };
 
-export type Currencies = Currency[];
-
 export type GetCountryCurrencies = (
   countryCode: string,
   config?: Config,
-) => Promise<Currencies>;
+) => Promise<Currency[]>;

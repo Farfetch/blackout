@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
   Config,
+  ContentType,
   ContentTypes,
-  ContentTypesEntries,
   GetContentTypes,
   toBlackoutError,
 } from '@farfetch/blackout-client';
@@ -27,9 +27,7 @@ const fetchContentTypesFactory =
       const contentTypes = await getContentTypes(spaceCode, config);
 
       dispatch({
-        payload: contentTypes.entries.map(
-          (entry: ContentTypesEntries) => entry.code,
-        ),
+        payload: contentTypes.entries.map((entry: ContentType) => entry.code),
         type: actionTypes.FETCH_CONTENT_TYPES_SUCCESS,
       });
 
