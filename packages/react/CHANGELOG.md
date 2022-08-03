@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.42.3](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.42.2...@farfetch/blackout-react@0.42.3) (2022-08-03)
+
+
+### Bug Fixes
+
+* **react:** fix GA4 integration not firing PRODUCT_UPDATED.CHANGE_QUANTITY when quantity is 0 ([8353e42](https://github.com/Farfetch/blackout/commit/8353e4208f441d51f1e1c180eacf4bde451a2832))
+
+
+
+
+
 ## [0.42.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.42.1...@farfetch/blackout-react@0.42.2) (2022-08-03)
 
 
