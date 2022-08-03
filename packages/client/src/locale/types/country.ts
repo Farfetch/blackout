@@ -1,5 +1,5 @@
 import type { Config } from '../../types';
-import type { Currencies } from './currencies';
+import type { Currency } from './currencies';
 
 export interface Country {
   code: string;
@@ -12,7 +12,7 @@ export interface Country {
   newsletterSubscriptionOptionDefault?: boolean;
   isCountryDefault?: boolean;
   continentId: number;
-  currencies?: Currencies;
+  currencies?: Currency[];
   cultures: string[];
   defaultSubfolder: string;
   defaultCulture: string;

@@ -3,7 +3,6 @@
  */
 export { default as getProductListing } from './getProductListing';
 export { default as getProductAttributes } from './getProductAttributes';
-export { default as getProductColorGrouping } from './getProductColorGrouping';
 export { default as getProduct } from './getProduct';
 export { default as getProductFittings } from './getProductFittings';
 export { default as getProductGrouping } from './getProductGrouping';

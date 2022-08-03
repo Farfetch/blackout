@@ -7,7 +7,6 @@ import {
 } from './ids.fixtures';
 import { mockPriceAdapted } from './price.fixtures';
 import { mockProductAttributes } from './productAttributes.fixtures';
-import { mockProductColorGrouping } from './productColorGrouping.fixtures';
 import { mockProductFittings } from './productFittings.fixtures';
 import { mockProductSizeGuides } from './productSizeGuides.fixtures';
 import { mockProductSizesAdapted } from './productSizes.fixtures';
@@ -138,7 +137,6 @@ export const mockProduct = {
   attributes: mockProductAttributes,
   brand: mockBrandId,
   breadCrumbs: mockBreadCrumbs,
-  colorGrouping: mockProductColorGrouping,
   fittings: mockProductFittings,
   id: mockProductId,
   isDuplicated: false,

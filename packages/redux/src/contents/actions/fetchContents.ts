@@ -1,4 +1,4 @@
-import { fetchContentFactory } from './factories';
+import { fetchContentsFactory } from './factories';
 import { getSearchContents } from '@farfetch/blackout-client';
 
 /**
@@ -8,4 +8,4 @@ import { getSearchContents } from '@farfetch/blackout-client';
  *
  * @returns Thunk factory.
  */
-export default fetchContentFactory(getSearchContents);
+export default fetchContentsFactory(getSearchContents);

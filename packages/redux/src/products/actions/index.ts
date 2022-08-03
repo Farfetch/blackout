@@ -6,7 +6,6 @@ export * from './factories';
 
 export { default as fetchListing } from './fetchListing';
 export { default as fetchProductAttributes } from './fetchProductAttributes';
-export { default as fetchProductColorGrouping } from './fetchProductColorGrouping';
 export { default as fetchProductDetails } from './fetchProductDetails';
 export { default as fetchProductFittings } from './fetchProductFittings';
 export { default as fetchProductGrouping } from './fetchProductGrouping';

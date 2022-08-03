@@ -1,17 +1,12 @@
-export type RecentlyViewedProducts = RecentlyViewedProductsPaginationData &
-  RecentlyViewedProductsEntriesData;
+import type { PagedResponse } from '../../types';
 
-export type RecentlyViewedProductsPaginationData = {
-  number: number;
-  totalPages: number;
-  totalItems: number;
-};
+export type RecentlyViewedProducts = PagedResponse<RecentlyViewedProduct>;
+export type RecentlyViewedProductsPaginationData = Omit<
+  RecentlyViewedProducts,
+  'entries'
+>;
 
-export type RecentlyViewedProductsEntriesData = {
-  entries: RecentlyViewedProductsEntriesItem[];
-};
-
-export type RecentlyViewedProductsEntriesItem = {
+export type RecentlyViewedProduct = {
   productId: number;
   lastVisitDate: string;
 };

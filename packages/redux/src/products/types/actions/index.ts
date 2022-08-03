@@ -1,5 +1,4 @@
 export * from './productAttributes.types';
-export * from './productColorGrouping.types';
 export * from './productDetails.types';
 export * from './productFittings.types';
 export * from './productGrouping.types';

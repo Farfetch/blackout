@@ -4,8 +4,6 @@ import type {
   Category,
   Product as OriginalProduct,
   ProductAttribute,
-  ProductColorGrouping,
-  ProductColorGroupingEntry,
   ProductFitting,
   ProductGroup,
   ProductGroupEntry,
@@ -25,16 +23,6 @@ import type {
 } from '../../helpers/adapters';
 import type { MerchantEntity } from './merchant.types';
 
-export type ColorGroupingAdapted =
-  | (Omit<ProductColorGrouping, 'entries'> & {
-      entries: Array<
-        Omit<ProductColorGroupingEntry, 'digitalAssets'> & {
-          digitalAssets: ProductImagesAdapted;
-        }
-      >;
-    })
-  | undefined;
-
 export type GroupingAdapted =
   | (Omit<ProductGrouping, 'entries'> & {
       entries: Array<
@@ -44,10 +32,6 @@ export type GroupingAdapted =
       >;
     })
   | undefined;
-
-export type AdaptColorGrouping = (
-  colorGrouping: ProductColorGrouping,
-) => ColorGroupingAdapted;
 
 export type AdaptGrouping = (grouping: ProductGrouping) => GroupingAdapted;
 
@@ -154,8 +138,6 @@ export type ProductEntity = {
   //
   // Adapted properties
   //
-  // This is only populated after requesting for a product color grouping (`fetchProductColorGrouping`)
-  colorGrouping?: ColorGroupingAdapted;
   // This is only populated after requesting for a product grouping (`fetchProductGrouping`)
   grouping?: GroupingAdapted;
   customAttributes: CustomAttributesAdapted;

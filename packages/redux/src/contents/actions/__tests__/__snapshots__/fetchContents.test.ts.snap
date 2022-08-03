@@ -23,6 +23,6 @@ Object {
       "totalPages": 1,
     },
   },
-  "type": "@farfetch/blackout-redux/FETCH_CONTENT_SUCCESS",
+  "type": "@farfetch/blackout-redux/FETCH_CONTENTS_SUCCESS",
 }
 `;

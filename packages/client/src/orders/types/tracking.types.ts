@@ -1,9 +1,6 @@
-export type ShipmentTrackings = {
-  number: number;
-  totalPages: number;
-  totalItems: number;
-  entries: ShipmentTracking[];
-};
+import type { PagedResponse } from '../../types';
+
+export type ShipmentTrackings = PagedResponse<ShipmentTracking>;
 
 export type ShipmentTracking = {
   id: string;

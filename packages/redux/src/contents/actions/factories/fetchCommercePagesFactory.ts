@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  CommercePages,
   Config,
   GetCommercePages,
   QueryCommercePages,
@@ -8,10 +9,7 @@ import {
 import { contentEntries } from '../../../entities/schemas/content';
 import { generateContentHash, getRankedCommercePage } from '../../utils';
 import { normalize } from 'normalizr';
-import type {
-  ActionFetchCommercePages,
-  CommercePagesContentNormalized,
-} from '../../types';
+import type { ActionFetchCommercePages } from '../../types';
 import type { Dispatch } from 'redux';
 
 /**
@@ -31,8 +29,8 @@ const fetchCommercePagesFactory =
   ) =>
   async (
     dispatch: Dispatch<ActionFetchCommercePages>,
-  ): Promise<CommercePagesContentNormalized> => {
-    let hash: string | undefined = undefined;
+  ): Promise<CommercePages> => {
+    let hash: string | undefined;
     try {
       hash = generateContentHash({
         contentTypeCode: 'commerce_pages',

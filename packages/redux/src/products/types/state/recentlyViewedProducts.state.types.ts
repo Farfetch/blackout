@@ -1,13 +1,12 @@
 import type {
   RecentlyViewedProducts,
-  RecentlyViewedProductsEntriesItem,
   RecentlyViewedProductsPaginationData,
 } from '@farfetch/blackout-client';
 import type { StateWithResult } from '../../../types';
 
 export type RecentlyViewedProductsResult = {
   remote: RecentlyViewedProducts | null | undefined;
-  computed: RecentlyViewedProductsEntriesItem[] | null | undefined;
+  computed: RecentlyViewedProducts['entries'] | null | undefined;
   pagination: RecentlyViewedProductsPaginationData | null | undefined;
 };
 

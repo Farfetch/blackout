@@ -2,7 +2,6 @@ export * from './details.fixtures';
 export * from './ids.fixtures';
 export * from './merchants.fixtures';
 export * from './productAttributes.fixtures';
-export * from './productColorGrouping.fixtures';
 export * from './productFittings.fixtures';
 export * from './productGrouping.fixtures';
 export * from './products.fixtures';

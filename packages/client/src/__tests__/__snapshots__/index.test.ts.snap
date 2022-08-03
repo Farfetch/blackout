@@ -532,7 +532,6 @@ Object {
   "getPaymentTokens": [Function],
   "getProduct": [Function],
   "getProductAttributes": [Function],
-  "getProductColorGrouping": [Function],
   "getProductFittings": [Function],
   "getProductGrouping": [Function],
   "getProductListing": [Function],

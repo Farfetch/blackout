@@ -1,8 +1,4 @@
 import type { Brand } from './brand.types';
+import type { PagedResponse } from '../../types';
 
-export type Brands = {
-  number: number;
-  totalPages: number;
-  totalItems: number;
-  entries: Brand[];
-};
+export type Brands = PagedResponse<Brand>;

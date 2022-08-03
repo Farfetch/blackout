@@ -6,7 +6,7 @@ import {
   mockContentsLoadingState,
 } from 'tests/__fixtures__/contents';
 import {
-  fetchContent as fetchContentAction,
+  fetchContents as fetchContentsAction,
   resetContents as resetContentsAction,
 } from '@farfetch/blackout-redux';
 import { Page } from './__fixtures__/Page.fixtures';
@@ -15,7 +15,7 @@ import React from 'react';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
-  fetchContent: jest.fn(() => ({ type: 'foo-bar' })),
+  fetchContents: jest.fn(() => ({ type: 'foo-bar' })),
   resetContents: jest.fn(() => ({ type: 'foo' })),
 }));
 
@@ -42,7 +42,7 @@ describe('usePage', () => {
       .withStore(mockContentsInitialState)
       .render();
 
-    expect(fetchContentAction).toHaveBeenCalledTimes(1);
+    expect(fetchContentsAction).toHaveBeenCalledTimes(1);
     expect(queryByTestId('page-data')).toBeNull();
   });
 

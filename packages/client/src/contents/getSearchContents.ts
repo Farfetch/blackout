@@ -2,8 +2,7 @@ import { adaptError } from '../helpers/client/formatError';
 import { merge } from 'lodash';
 import client from '../helpers/client';
 import join from 'proper-url-join';
-import type { Config } from '../types';
-import type { Contents, QueryContents } from './types';
+import type { GetSearchContents, QuerySearchContents } from './types';
 
 /**
  * Method responsible for searching the content that corresponds to the query
@@ -14,10 +13,7 @@ import type { Contents, QueryContents } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getSearchContents = (
-  query: QueryContents,
-  config?: Config,
-): Promise<Contents> => {
+const getSearchContents: GetSearchContents = (query, config?) => {
   const payload = merge({}, query) as Record<string, unknown>;
   const targets = query?.target || {};
 
@@ -29,7 +25,7 @@ const getSearchContents = (
   return client
     .get(
       join('/content/v1/search/contents', {
-        query: query as Omit<QueryContents, 'target'>,
+        query: query as Omit<QuerySearchContents, 'target'>,
       }),
       config,
     )

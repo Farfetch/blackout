@@ -74,7 +74,6 @@ Object {
         "11766695": Object {
           "brand": "RL",
           "categories": undefined,
-          "colorGrouping": undefined,
           "colors": undefined,
           "customAttributes": undefined,
           "description": "Classic oxford shirt",
@@ -282,7 +281,6 @@ Object {
         "11766695": Object {
           "brand": "RL",
           "categories": undefined,
-          "colorGrouping": undefined,
           "colors": undefined,
           "customAttributes": undefined,
           "description": "Classic oxford shirt",

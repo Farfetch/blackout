@@ -1,5 +1,5 @@
 import {
-  fetchContent as fetchContentAction,
+  fetchContents as fetchContentsAction,
   getContentError,
   getContents,
   isContentLoading,
@@ -49,7 +49,7 @@ const usePage = (
     isContentLoading(state, query),
   );
   const page = useSelector((state: StoreState) => getContents(state, query));
-  const action = useAction(fetchContentAction);
+  const action = useAction(fetchContentsAction);
   const fetchContent = () => action(query);
   const resetContent = useAction(resetContents);
 

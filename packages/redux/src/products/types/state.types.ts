@@ -1,7 +1,6 @@
 import type { CombinedState } from 'redux';
 import type {
   ProductsAttributesState,
-  ProductsColorGroupingState,
   ProductsDetailsState,
   ProductsFittingsState,
   ProductsGroupingState,
@@ -17,7 +16,6 @@ import type {
 
 export type ProductsState = CombinedState<{
   attributes: ProductsAttributesState;
-  colorGrouping: ProductsColorGroupingState;
   grouping: ProductsGroupingState;
   details: ProductsDetailsState;
   fittings: ProductsFittingsState;

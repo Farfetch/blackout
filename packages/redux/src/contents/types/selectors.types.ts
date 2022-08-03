@@ -1,11 +1,11 @@
 import type {
   BlackoutError,
-  ContentEntries,
-  ContentTypesEntries,
+  ContentEntry,
+  ContentType,
   SEOMetadata,
   Targets,
 } from '@farfetch/blackout-client';
-import type { SearchResultsReducer } from '../types';
+import type { SearchResultsState } from '../types';
 
 type DefaultError = BlackoutError | null | undefined;
 type DefaultBoolean = boolean | undefined;
@@ -23,14 +23,11 @@ export type QueryContentHash = {
   pageSize?: number;
 };
 
-export type GetContentsByHash = SearchResultsReducer | undefined;
+export type GetContentsByHash = SearchResultsState | undefined;
 export type GetContentError = DefaultError;
-export type GetContentByQuery = SearchResultsReducer['result'] | undefined;
-export type GetContents = ContentEntries[] | undefined;
-export type GetAllContentTypes =
-  | Array<ContentTypesEntries['code']>
-  | null
-  | undefined;
+export type GetContentByQuery = SearchResultsState['result'] | undefined;
+export type GetContents = ContentEntry[] | undefined;
+export type GetAllContentTypes = Array<ContentType['code']> | null | undefined;
 export type GetSEOError = DefaultError;
 export type IsContentLoading = DefaultBoolean;
 export type IsSEOLoading = DefaultBoolean;

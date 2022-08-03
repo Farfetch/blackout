@@ -1,5 +1,4 @@
 export * from './productAttributes.state.types';
-export * from './productColorGrouping.state.types';
 export * from './productDetails.state.types';
 export * from './productFittings.state.types';
 export * from './productMeasurements.state.types';

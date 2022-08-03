@@ -2,10 +2,10 @@ import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import checkoutOrderOperation from '../../../entities/schemas/checkoutOrderOperation';
 import type {
+  CheckoutOrderOperations,
   Config,
   GetCheckoutOrderOperations,
   GetCheckoutOrderOperationsQuery,
-  GetCheckoutOrderOperationsResponse,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
@@ -26,7 +26,7 @@ const fetchCheckoutOrderOperationsFactory =
    * @returns Thunk to be dispatched to the redux store.
    */
   (id: number, query?: GetCheckoutOrderOperationsQuery, config?: Config) =>
-  async (dispatch: Dispatch): Promise<GetCheckoutOrderOperationsResponse> => {
+  async (dispatch: Dispatch): Promise<CheckoutOrderOperations> => {
     dispatch({
       type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATIONS_REQUEST,
     });

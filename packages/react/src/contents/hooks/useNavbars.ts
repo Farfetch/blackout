@@ -1,5 +1,5 @@
 import {
-  fetchContent as fetchContentAction,
+  fetchContents as fetchContentsAction,
   getContentError,
   getContents,
   isContentLoading,
@@ -50,7 +50,7 @@ const useNavbars = (
   const navigation = useSelector((state: StoreState) =>
     getContents(state, query),
   );
-  const action = useAction(fetchContentAction);
+  const action = useAction(fetchContentsAction);
   const fetchNavbars = () => action(query);
 
   useEffect(() => {

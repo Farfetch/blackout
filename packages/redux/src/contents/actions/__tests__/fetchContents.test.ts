@@ -5,7 +5,7 @@ import {
   contentQuery,
   mockContentResult,
 } from 'tests/__fixtures__/contents';
-import { fetchContent } from '..';
+import { fetchContents } from '..';
 import { getSearchContents } from '@farfetch/blackout-client';
 import { INITIAL_STATE_CONTENT } from '../../reducer';
 import { mockStore } from '../../../../tests';
@@ -36,7 +36,7 @@ describe('fetchContent() action creator', () => {
 
     expect.assertions(4);
 
-    await store.dispatch(fetchContent(contentQuery)).catch(error => {
+    await store.dispatch(fetchContents(contentQuery)).catch(error => {
       expect(error).toBe(expectedError);
       expect(getSearchContents).toHaveBeenCalledTimes(1);
       expect(getSearchContents).toHaveBeenCalledWith(
@@ -47,11 +47,11 @@ describe('fetchContent() action creator', () => {
         expect.arrayContaining([
           expect.objectContaining(
             {
-              type: actionTypes.FETCH_CONTENT_FAILURE,
+              type: actionTypes.FETCH_CONTENTS_FAILURE,
             },
             {
               payload: { error: expectedError },
-              type: actionTypes.FETCH_CONTENT_FAILURE,
+              type: actionTypes.FETCH_CONTENTS_FAILURE,
             },
           ),
         ]),
@@ -63,7 +63,7 @@ describe('fetchContent() action creator', () => {
     getSearchContents.mockResolvedValueOnce(mockContentResult);
 
     await store
-      .dispatch(fetchContent(contentQuery))
+      .dispatch(fetchContents(contentQuery))
       .then(result => expect(result).toBe(mockContentResult));
 
     const actionResults = store.getActions();
@@ -78,17 +78,17 @@ describe('fetchContent() action creator', () => {
       expect.arrayContaining([
         expect.objectContaining(
           {
-            type: actionTypes.FETCH_CONTENT_REQUEST,
+            type: actionTypes.FETCH_CONTENTS_REQUEST,
           },
           {
             payload: contentNormalizedPayload,
-            type: actionTypes.FETCH_CONTENT_SUCCESS,
+            type: actionTypes.FETCH_CONTENTS_SUCCESS,
           },
         ),
       ]),
     );
     expect(
-      find(actionResults, { type: actionTypes.FETCH_CONTENT_SUCCESS }),
+      find(actionResults, { type: actionTypes.FETCH_CONTENTS_SUCCESS }),
     ).toMatchSnapshot('Get content payload');
   });
 });

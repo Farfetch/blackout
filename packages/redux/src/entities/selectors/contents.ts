@@ -1,5 +1,5 @@
 import { getEntityById } from './entity';
-import type { ContentEntries } from '@farfetch/blackout-client';
+import type { ContentEntry } from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 /**
@@ -13,4 +13,4 @@ import type { StoreState } from '../../types';
 export const getContent = (
   state: StoreState,
   id: string,
-): ContentEntries | undefined => getEntityById(state, 'contents', id);
+): ContentEntry | undefined => getEntityById(state, 'contents', id);

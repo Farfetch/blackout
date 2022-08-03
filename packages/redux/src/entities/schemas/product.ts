@@ -11,21 +11,11 @@ import category from './category';
 import get from 'lodash/get';
 import merchant from './merchant';
 import type {
-  AdaptColorGrouping,
   AdaptGroupedEntries,
   AdaptGrouping,
   AdaptPrices,
   AdaptVariants,
 } from '../types';
-
-const adaptColorGrouping: AdaptColorGrouping = colorGrouping =>
-  colorGrouping && {
-    ...colorGrouping,
-    entries: colorGrouping.entries.map(entry => ({
-      ...entry,
-      digitalAssets: adaptProductImages(entry.digitalAssets),
-    })),
-  };
 
 const adaptGrouping: AdaptGrouping = grouping =>
   grouping && {
@@ -99,7 +89,6 @@ export default new schema.Entity(
       const imagesToAdapt = imageGroups || get(images, 'images') || images;
 
       return {
-        colorGrouping: adaptColorGrouping(colorGrouping),
         grouping: adaptGrouping(grouping),
         customAttributes: adaptCustomAttributes(customAttributes),
         groupedEntries: adaptGroupedEntries(groupedEntries),

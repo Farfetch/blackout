@@ -2,33 +2,32 @@ import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
 import type {
   BlackoutError,
-  CommercePagesContent,
-  ContentTypesEntries,
+  ContentType,
   QueryCommercePages,
-  QueryContents,
+  QuerySearchContents,
   QuerySEO,
   SEOMetadata,
 } from '@farfetch/blackout-client';
-import type { Hash, Pathname, SearchResultsReducer } from '../types';
+import type { Hash, Pathname, SearchResultsState } from '../types';
 
-export interface ActionFetchContentRequest extends Action {
-  type: typeof actionTypes.FETCH_CONTENT_REQUEST;
-  meta: { query: QueryContents };
+export interface ActionFetchContentsRequest extends Action {
+  type: typeof actionTypes.FETCH_CONTENTS_REQUEST;
+  meta: { query: QuerySearchContents };
   payload: { hash: Hash };
 }
 
-export interface ActionFetchContentRequestSuccess extends Action {
-  type: typeof actionTypes.FETCH_CONTENT_SUCCESS;
-  meta: { query: QueryContents };
+export interface ActionFetchContentsRequestSuccess extends Action {
+  type: typeof actionTypes.FETCH_CONTENTS_SUCCESS;
+  meta: { query: QuerySearchContents };
   payload: {
-    result: SearchResultsReducer['result'];
+    result: SearchResultsState['result'];
     hash: Hash;
   };
 }
 
-export interface ActionFetchContentRequestFailure extends Action {
-  type: typeof actionTypes.FETCH_CONTENT_FAILURE;
-  meta: { query: QueryContents };
+export interface ActionFetchContentsRequestFailure extends Action {
+  type: typeof actionTypes.FETCH_CONTENTS_FAILURE;
+  meta: { query: QuerySearchContents };
   payload: {
     error: BlackoutError;
     hash: Hash;
@@ -45,7 +44,7 @@ export interface ActionFetchCommercePagesSuccess extends Action {
   type: typeof actionTypes.FETCH_COMMERCE_PAGES_SUCCESS;
   meta: { query: QueryCommercePages };
   payload: {
-    result: SearchResultsReducer['result'];
+    result: SearchResultsState['result'];
     hash: Hash;
   };
 }
@@ -88,7 +87,7 @@ export interface ActionFetchContentTypesRequest extends Action {
 }
 
 export interface ActionFetchContentTypesSuccess extends Action {
-  payload: Array<ContentTypesEntries['code']>;
+  payload: Array<ContentType['code']>;
   type: typeof actionTypes.FETCH_CONTENT_TYPES_SUCCESS;
 }
 
@@ -97,10 +96,10 @@ export interface ActionFetchContentTypesFailure extends Action {
   type: typeof actionTypes.FETCH_CONTENT_TYPES_FAILURE;
 }
 
-export type ActionFetchContent =
-  | ActionFetchContentRequest
-  | ActionFetchContentRequestSuccess
-  | ActionFetchContentRequestFailure;
+export type ActionFetchContents =
+  | ActionFetchContentsRequest
+  | ActionFetchContentsRequestSuccess
+  | ActionFetchContentsRequestFailure;
 export type ActionFetchCommercePages =
   | ActionFetchCommercePagesRequest
   | ActionFetchCommercePagesSuccess
@@ -113,10 +112,3 @@ export type ActionFetchContentTypes =
   | ActionFetchContentTypesRequest
   | ActionFetchContentTypesSuccess
   | ActionFetchContentTypesFailure;
-
-export type CommercePagesContentNormalized = {
-  number: number;
-  totalPages: number;
-  totalItems: number;
-  entries: CommercePagesContent;
-};

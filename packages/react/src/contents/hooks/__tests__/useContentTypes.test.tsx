@@ -4,13 +4,13 @@ import {
   expectedNormalizedPayload,
   mockContentsInitialState,
 } from 'tests/__fixtures__/contents';
-import { fetchContent as fetchContentAction } from '@farfetch/blackout-redux';
+import { fetchContents as fetchContentsAction } from '@farfetch/blackout-redux';
 import { wrap } from '../../../../tests/helpers';
 import React from 'react';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
-  fetchContent: jest.fn(() => ({ type: 'foo-bar' })),
+  fetchContents: jest.fn(() => ({ type: 'foo-bar' })),
 }));
 
 describe('useContentType', () => {
@@ -39,7 +39,7 @@ describe('useContentType', () => {
       .withStore(mockContentsInitialState)
       .render();
 
-    expect(fetchContentAction).toHaveBeenCalledTimes(1);
+    expect(fetchContentsAction).toHaveBeenCalledTimes(1);
     expect(queryByTestId('contentType-container')).toBeNull();
   });
 });

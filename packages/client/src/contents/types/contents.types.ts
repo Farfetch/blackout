@@ -1,4 +1,4 @@
-import type { Config } from '../../types';
+import type { Config, PagedResponse } from '../../types';
 
 export type Targets = {
   contentzone?: string;
@@ -7,7 +7,7 @@ export type Targets = {
   benefits?: string;
 } & Record<string, string | undefined>;
 
-export type QueryContents = {
+export type QuerySearchContents = {
   // The space the content belongs to (website|mobileapp|emailTool...).
   spaceCode: string;
   // The environment identifier (live | preview).
@@ -51,7 +51,7 @@ export interface Metadata {
   };
 }
 
-export interface ContentEntries {
+export interface ContentEntry {
   publicationId: string;
   publicationDate: string;
   versionId: string;
@@ -65,14 +65,9 @@ export interface ContentEntries {
   components: Array<ComponentType>;
 }
 
-export interface Contents {
-  number: number;
-  totalPages: number;
-  totalItems: number;
-  entries: Array<ContentEntries>;
-}
+export type Contents = PagedResponse<ContentEntry>;
 
-export type GetContent = (
-  query: QueryContents,
+export type GetSearchContents = (
+  query: QuerySearchContents,
   config?: Config,
 ) => Promise<Contents>;

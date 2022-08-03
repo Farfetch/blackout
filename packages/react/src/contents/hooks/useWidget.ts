@@ -1,5 +1,5 @@
 import {
-  fetchContent as fetchContentAction,
+  fetchContents as fetchContentsAction,
   getContentError,
   getContents,
   isContentLoading,
@@ -48,7 +48,7 @@ const useWidget = (
     getContentError(state, query),
   );
   const widget = useSelector((state: StoreState) => getContents(state, query));
-  const action = useAction(fetchContentAction);
+  const action = useAction(fetchContentsAction);
   const fetchWidget = () => action(query);
 
   useEffect(() => {
