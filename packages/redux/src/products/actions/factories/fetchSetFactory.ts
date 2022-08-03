@@ -3,7 +3,7 @@ import type {
   Config,
   GetProductSet,
   GetProductSetQuery,
-  Set,
+  ProductSet,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types';
@@ -13,7 +13,7 @@ import type { ProductsListActionOptions } from '../../types';
  * Creates a thunk factory configured with the specified client to fetch a specific
  * set by its id.
  *
- * @param getSet - Get set client.
+ * @param getProductSet - Get product set client.
  *
  * @returns Thunk factory.
  */
@@ -29,7 +29,7 @@ const fetchSetFactory =
     dispatch: Dispatch,
     getState: () => StoreState,
     options: GetOptionsArgument,
-  ): Promise<Set | undefined> =>
+  ): Promise<ProductSet | undefined> =>
     fetchProductsListFactory(
       getSet,
       slug,
@@ -40,6 +40,6 @@ const fetchSetFactory =
       getState,
       options,
       true,
-    ) as Promise<Set | undefined>;
+    ) as Promise<ProductSet | undefined>;
 
 export default fetchSetFactory;

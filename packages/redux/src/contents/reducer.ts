@@ -2,7 +2,7 @@ import * as actionTypes from './actionTypes';
 import { combineReducers } from 'redux';
 import type {
   ActionFetchCommercePages,
-  ActionFetchContent,
+  ActionFetchContents,
   ActionFetchContentTypes,
   ActionFetchSEO,
   ContentsState,
@@ -25,10 +25,10 @@ export const INITIAL_STATE_CONTENT: ContentsState = {
 
 const searchResults = (
   state = INITIAL_STATE_CONTENT.searchResults,
-  action: ActionFetchContent | ActionFetchCommercePages,
+  action: ActionFetchContents | ActionFetchCommercePages,
 ): ContentsState['searchResults'] => {
   switch (action.type) {
-    case actionTypes.FETCH_CONTENT_REQUEST:
+    case actionTypes.FETCH_CONTENTS_REQUEST:
     case actionTypes.FETCH_COMMERCE_PAGES_REQUEST:
       return {
         ...state,
@@ -37,7 +37,7 @@ const searchResults = (
           isLoading: true,
         },
       };
-    case actionTypes.FETCH_CONTENT_SUCCESS:
+    case actionTypes.FETCH_CONTENTS_SUCCESS:
     case actionTypes.FETCH_COMMERCE_PAGES_SUCCESS:
       return {
         ...state,
@@ -46,7 +46,7 @@ const searchResults = (
           result: action.payload.result,
         },
       };
-    case actionTypes.FETCH_CONTENT_FAILURE:
+    case actionTypes.FETCH_CONTENTS_FAILURE:
     case actionTypes.FETCH_COMMERCE_PAGES_FAILURE:
       return {
         ...state,
@@ -160,7 +160,7 @@ const reducers = combineReducers({
  */
 const contentsReducer: ReducerSwitch<
   ContentsState,
-  ActionFetchContent | ActionFetchContentTypes | ActionFetchSEO
+  ActionFetchContents | ActionFetchContentTypes | ActionFetchSEO
 > = (state, action): ContentsState => {
   if (action.type === actionTypes.RESET_CONTENTS) {
     return reducers(INITIAL_STATE_CONTENT, action);

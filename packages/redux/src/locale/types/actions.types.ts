@@ -5,7 +5,7 @@ import type {
   City,
   Country,
   CountryAddressSchema,
-  Currencies,
+  Currency,
   State,
 } from '@farfetch/blackout-client';
 
@@ -80,7 +80,7 @@ export interface ActionFetchCountryCurrenciesRequest extends Action {
 export interface ActionFetchCountryCurrenciesSuccess extends Action {
   meta: { countryCode: string };
   payload: {
-    result: Array<Currencies>;
+    result: Currency[];
   };
   type: typeof actionTypes.FETCH_COUNTRY_CURRENCIES_SUCCESS;
 }

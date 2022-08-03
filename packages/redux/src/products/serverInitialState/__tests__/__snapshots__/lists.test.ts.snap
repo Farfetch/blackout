@@ -85,7 +85,6 @@ Object {
     },
     "products": Object {
       "123": Object {
-        "colorGrouping": undefined,
         "customAttributes": undefined,
         "groupedEntries": undefined,
         "grouping": undefined,
@@ -128,7 +127,6 @@ Object {
         "variants": undefined,
       },
       "321": Object {
-        "colorGrouping": undefined,
         "customAttributes": undefined,
         "groupedEntries": undefined,
         "grouping": undefined,
@@ -428,7 +426,6 @@ Object {
     },
     "products": Object {
       "123": Object {
-        "colorGrouping": undefined,
         "customAttributes": undefined,
         "groupedEntries": undefined,
         "grouping": undefined,
@@ -471,7 +468,6 @@ Object {
         "variants": undefined,
       },
       "321": Object {
-        "colorGrouping": undefined,
         "customAttributes": undefined,
         "groupedEntries": undefined,
         "grouping": undefined,

@@ -4,7 +4,7 @@
 import { generateContentHash, generateSEOPathname } from './utils';
 import { getContent } from '../entities';
 import { getContentResult, getContentTypes, getSEOmetadata } from './reducer';
-import type { ContentEntries, QuerySEO } from '@farfetch/blackout-client';
+import type { ContentEntry, QuerySEO } from '@farfetch/blackout-client';
 import type { ContentsState, Hash, QueryContentHash } from './types';
 import type { StoreState } from '../types';
 
@@ -134,7 +134,7 @@ export const getContents = (state: StoreState, query: QueryContentHash) => {
     result &&
     (result.entries
       .map((hash: Hash) => getContent(state, hash))
-      .filter(Boolean) as ContentEntries[])
+      .filter(Boolean) as ContentEntry[])
   );
 };
 

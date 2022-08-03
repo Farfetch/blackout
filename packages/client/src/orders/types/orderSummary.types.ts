@@ -1,9 +1,6 @@
-export type OrdersResponse = {
-  number: number;
-  totalPages: number;
-  totalItems: number;
-  entries: OrderSummary[];
-};
+import type { PagedResponse } from '../../types';
+
+export type Orders = PagedResponse<OrderSummary>;
 
 export type OrderSummary = {
   id: string;

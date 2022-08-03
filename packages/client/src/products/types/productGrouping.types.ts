@@ -1,4 +1,5 @@
 import type { DigitalAsset } from './common.types';
+import type { PagedResponse } from '../../types';
 
 export type ProductGroupingEntry = {
   hasStock: boolean;
@@ -18,9 +19,4 @@ export type ProductGroupingEntry = {
   }>;
 };
 
-export type ProductGrouping = {
-  entries: ProductGroupingEntry[];
-  number: number;
-  totalItems: number;
-  totalPages: number;
-};
+export type ProductGrouping = PagedResponse<ProductGroupingEntry>;

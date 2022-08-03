@@ -1,8 +1,4 @@
 import type { Configuration } from './configuration';
+import type { PagedResponse } from '../../types';
 
-export type Configurations = {
-  number: number;
-  totalPages: number;
-  totalItems: number;
-  items: Configuration[];
-};
+export type Configurations = PagedResponse<Configuration>;

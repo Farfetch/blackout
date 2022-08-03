@@ -1,10 +1,10 @@
 import type {
   Contents,
   GenderDescription,
-  Listing,
   Product,
-  QueryContents,
-  Set,
+  ProductListing,
+  ProductSet,
+  QuerySearchContents,
 } from '@farfetch/blackout-client';
 
 export type Designers = {
@@ -34,7 +34,7 @@ type Common = {
   pageType: string;
   searchContentRequests: [
     {
-      filters: QueryContents;
+      filters: QuerySearchContents;
       searchResponse: Contents;
     },
   ];
@@ -42,4 +42,4 @@ type Common = {
   subfolder: string;
 };
 
-export type Model = Listing & Set & Product & Common;
+export type Model = ProductListing & ProductSet & Product & Common;

@@ -5,15 +5,12 @@
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import type {
+  CommercePages,
   CommercePagesContent,
   ComponentType,
   Metadata,
 } from '@farfetch/blackout-client';
-import type {
-  CommercePagesContentNormalized,
-  GenerateSEOPathnameQuery,
-  QueryContentHash,
-} from './types';
+import type { GenerateSEOPathnameQuery, QueryContentHash } from './types';
 
 /**
  * Constant that represent all possible static values to apply to an environment
@@ -107,12 +104,12 @@ export const getPageRanking = (metadata: Metadata): number => {
  * @returns - List of commerce pages ranked.
  */
 const getCommercePagesRanked = (
-  result: CommercePagesContentNormalized,
+  result: CommercePages,
 ): CommercePagesContent => {
   const commercePagesWithRank = result.entries.map(page => ({
     ...page,
     ranking: getPageRanking(page.metadata),
-  })) as CommercePagesContentNormalized['entries'];
+  })) as CommercePages['entries'];
 
   return commercePagesWithRank.sort(
     (p, c) => (c.ranking ?? 0) - (p.ranking ?? 0),
@@ -132,9 +129,7 @@ const getCommercePagesRanked = (
  *
  * @returns Selected page with better ranking.
  */
-export const getDefaultStrategy = (
-  result: CommercePagesContentNormalized,
-): CommercePagesContentNormalized => {
+export const getDefaultStrategy = (result: CommercePages): CommercePages => {
   const bestRankedPage = getCommercePagesRanked(result)[0];
 
   if (!bestRankedPage) {
@@ -168,9 +163,7 @@ export const getDefaultStrategy = (
  *
  * @returns Selected page with merged components.
  */
-export const getMergeStrategy = (
-  result: CommercePagesContentNormalized,
-): CommercePagesContentNormalized => {
+export const getMergeStrategy = (result: CommercePages): CommercePages => {
   const rankedCommercePages = getCommercePagesRanked(result);
   // Merge components inside the selected commerce page
   const mergedComponents: ComponentType[] = [];
@@ -221,9 +214,9 @@ export const getMergeStrategy = (
  * @returns Selected page with best ranking.
  */
 export const getRankedCommercePage = (
-  result: CommercePagesContentNormalized,
+  result: CommercePages,
   strategy?: string,
-): CommercePagesContentNormalized => {
+): CommercePages => {
   switch (strategy) {
     case 'merge':
       return getMergeStrategy(result);

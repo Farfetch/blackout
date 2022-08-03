@@ -1,5 +1,4 @@
 export * from './productAttributes.actionTypes';
-export * from './productColorGrouping.actionTypes';
 export * from './productDetails.actionTypes';
 export * from './productFittings.actionTypes';
 export * from './productGrouping.actionTypes';

@@ -1,7 +1,7 @@
 import { Component } from '../components';
 import map from 'lodash/map';
 import React, { ReactElement } from 'react';
-import type { ComponentType, ContentEntries } from '@farfetch/blackout-client';
+import type { ComponentType, ContentEntry } from '@farfetch/blackout-client';
 
 const IS_CONTENT_TOOL = {
   active: 'active',
@@ -12,14 +12,12 @@ const IS_CONTENT_TOOL = {
  * Render an Editorial Content. Renders Editorial Content by going through all it's
  * components and rendering them using the Editorial Component.
  *
- * @param data            - Data to render.
- * @param data.components - Collection of components to render.
- * @param isContentTool   - Site key to identify if Content Tool is active or not.
+ * @param data - Data to render.
  *
  * @returns Rendered components.
  */
 const renderContent = (
-  { components }: { components: ContentEntries['components'] },
+  { components }: { components: ContentEntry['components'] },
   isContentTool = IS_CONTENT_TOOL.inactive,
 ): ReactElement =>
   map(components, (component: ComponentType, key: number) => {

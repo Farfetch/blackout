@@ -2,8 +2,8 @@ import * as actionTypes from '../../actionTypes';
 import {
   Config,
   Contents,
-  GetContent,
-  QueryContents,
+  GetSearchContents,
+  QuerySearchContents,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { contentEntries } from '../../../entities/schemas/content';
@@ -14,13 +14,13 @@ import type { Dispatch } from 'redux';
 /**
  * Fetch contents for a specific query object received.
  *
- * @param getContent - Get content client.
+ * @param getSearchContents - Get search contents client.
  *
  * @returns Thunk factory.
  */
-const fetchContentFactory =
-  (getContent: GetContent) =>
-  (query: QueryContents, config?: Config) =>
+const fetchContentsFactory =
+  (getContent: GetSearchContents) =>
+  (query: QuerySearchContents, config?: Config) =>
   async (dispatch: Dispatch): Promise<Contents> => {
     let hash: string | undefined = undefined;
 
@@ -31,7 +31,7 @@ const fetchContentFactory =
       dispatch({
         meta: { query },
         payload: { hash },
-        type: actionTypes.FETCH_CONTENT_REQUEST,
+        type: actionTypes.FETCH_CONTENTS_REQUEST,
       });
 
       const result = await getContent(query, config);
@@ -42,7 +42,7 @@ const fetchContentFactory =
           ...normalize({ hash, ...result }, contentEntries),
           hash,
         },
-        type: actionTypes.FETCH_CONTENT_SUCCESS,
+        type: actionTypes.FETCH_CONTENTS_SUCCESS,
       });
 
       return result;
@@ -50,11 +50,11 @@ const fetchContentFactory =
       dispatch({
         meta: { query },
         payload: { error: toBlackoutError(error), hash: hash as string },
-        type: actionTypes.FETCH_CONTENT_FAILURE,
+        type: actionTypes.FETCH_CONTENTS_FAILURE,
       });
 
       throw error;
     }
   };
 
-export default fetchContentFactory;
+export default fetchContentsFactory;

@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import {
   Config,
-  Currencies,
+  Currency,
   GetCountryCurrencies,
   toBlackoutError,
 } from '@farfetch/blackout-client';
@@ -19,7 +19,7 @@ import type { Dispatch } from 'redux';
 const fetchCountryCurrenciesFactory =
   (getCountryCurrencies: GetCountryCurrencies) =>
   (countryCode: string, config?: Config) =>
-  async (dispatch: Dispatch): Promise<Currencies> => {
+  async (dispatch: Dispatch): Promise<Currency[]> => {
     try {
       dispatch({
         meta: { countryCode },

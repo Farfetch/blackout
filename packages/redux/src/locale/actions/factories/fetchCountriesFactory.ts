@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
   Config,
+  Countries,
   GetCountries,
-  GetCountriesResponse,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
@@ -19,7 +19,7 @@ import type { Dispatch } from 'redux';
 const fetchCountriesFactory =
   (getCountries: GetCountries) =>
   (query?: { pageIndex?: number; pageSize?: number }, config?: Config) =>
-  async (dispatch: Dispatch): Promise<GetCountriesResponse> => {
+  async (dispatch: Dispatch): Promise<Countries> => {
     try {
       dispatch({
         type: actionTypes.FETCH_COUNTRIES_REQUEST,

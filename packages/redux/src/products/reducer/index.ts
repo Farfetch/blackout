@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import { recommendedSetsReducer } from './recommendedSet';
 import attributesReducer from './attributes';
-import colorGroupingReducer from './colorGrouping';
 import detailsReducer, {
   entitiesMapper as detailsEntitiesMapper,
 } from './details';
@@ -25,7 +24,6 @@ export const entitiesMapper = {
 
 const reducers = combineReducers({
   attributes: attributesReducer,
-  colorGrouping: colorGroupingReducer,
   grouping: groupingReducer,
   details: detailsReducer,
   fittings: fittingsReducer,

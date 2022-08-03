@@ -5,7 +5,6 @@ export * from './types';
 
 export { default as fetchListingFactory } from './fetchListingFactory';
 export { default as fetchProductAttributesFactory } from './fetchProductAttributesFactory';
-export { default as fetchProductColorGroupingFactory } from './fetchProductColorGroupingFactory';
 export { default as fetchProductDetailsFactory } from './fetchProductDetailsFactory';
 export { default as fetchProductFittingsFactory } from './fetchProductFittingsFactory';
 export { default as fetchProductGroupingFactory } from './fetchProductGroupingFactory';

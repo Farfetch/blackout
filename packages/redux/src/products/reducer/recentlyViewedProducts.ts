@@ -4,7 +4,7 @@ import { AnyAction, combineReducers } from 'redux';
 import omit from 'lodash/omit';
 import uniqBy from 'lodash/uniqBy';
 import type { ProductsState } from '../types';
-import type { RecentlyViewedProductsPaginationData } from '@farfetch/blackout-client';
+import type { RecentlyViewedProducts } from '@farfetch/blackout-client';
 import type { ReducerSwitch } from '../../types';
 
 type RecentlyViewedState = ProductsState['recentlyViewed'];
@@ -57,10 +57,7 @@ const result = (
       // Merge the new payload after the previously computed entries and filter the repeated ones
       return {
         remote: action.payload,
-        pagination: omit(
-          action.payload,
-          'entries',
-        ) as RecentlyViewedProductsPaginationData,
+        pagination: omit(action.payload, 'entries') as RecentlyViewedProducts,
         computed: uniqBy([...action.payload.entries, ...computed], 'productId'),
       };
     }
