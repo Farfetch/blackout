@@ -1,5 +1,5 @@
 import { getCountries } from '..';
-import { mockCountry, mockQuery as query } from 'tests/__fixtures__/locale';
+import { mockCountry } from 'tests/__fixtures__/locale';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCountries.fixtures';
 import join from 'proper-url-join';
@@ -16,16 +16,21 @@ describe('locale client', () => {
     const spy = jest.spyOn(client, 'get');
 
     it('should handle a client request successfully', async () => {
-      const response = [mockCountry];
+      const response = {
+        number: 1,
+        totalPages: 1,
+        totalItems: 1,
+        entries: [mockCountry],
+      };
 
       mswServer.use(fixtures.get.success(response));
 
       expect.assertions(2);
 
-      await expect(getCountries(query)).resolves.toEqual(response);
+      await expect(getCountries()).resolves.toEqual(response.entries);
 
       expect(spy).toHaveBeenCalledWith(
-        join('/settings/v1/countries', { query }),
+        join('/settings/v1/countries', { query: { pageSize: 10000 } }),
         expectedConfig,
       );
     });
@@ -35,10 +40,10 @@ describe('locale client', () => {
 
       expect.assertions(2);
 
-      await expect(getCountries(query)).rejects.toMatchSnapshot();
+      await expect(getCountries()).rejects.toMatchSnapshot();
 
       expect(spy).toHaveBeenCalledWith(
-        join('/settings/v1/countries', { query }),
+        join('/settings/v1/countries', { query: { pageSize: 10000 } }),
         expectedConfig,
       );
     });
