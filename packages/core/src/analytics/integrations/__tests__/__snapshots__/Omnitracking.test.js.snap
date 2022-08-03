@@ -815,3 +815,12 @@ Array [
   "tid",
 ]
 `;
+
+exports[`Omnitracking definitions \`wishlist\` return should match the snapshot 1`] = `
+Object {
+  "lineItems": "[{\\"productId\\":12345678,\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
+  "viewSubType": "Wishlist",
+  "viewType": "Wishlist",
+  "wishlistQuantity": 0,
+}
+`;
