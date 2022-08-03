@@ -1,6 +1,5 @@
 export const mockCountryCode = 'US';
 export const mockStateId = 3;
-export const mockQuery = { pageIndex: 1, pageSize: 4 };
 export const isoCode = 'PT';
 
 export const mockCurrencies = [
@@ -9,6 +8,38 @@ export const mockCurrencies = [
     name: 'United States Dollar',
     isoCode: 'USD',
     cultureCode: 'en-US',
+  },
+];
+
+export const mockCities = [
+  {
+    id: 516,
+    name: 'Lisbon',
+    stateId: 3,
+    countryId: 216,
+  },
+  {
+    id: 515,
+    name: 'Atlanta',
+    stateId: 6,
+    countryId: 216,
+  },
+];
+
+export const mockStates = [
+  {
+    code: 'AL',
+    countryId: 216,
+    id: 3,
+    name: 'Alabama',
+    cities: [mockCities[0]],
+  },
+  {
+    code: 'AK',
+    countryId: 216,
+    id: 6,
+    name: 'Alaska',
+    cities: [mockCities[1]],
   },
 ];
 
@@ -24,6 +55,7 @@ export const mockCountry = {
   continentId: 5,
   currencies: mockCurrencies,
   structures: ['/en-us'],
+  states: mockStates,
 };
 
 export const mockCountryNormalized = {
@@ -42,39 +74,11 @@ export const mockCity = {
   countryId: 216,
 };
 
-export const mockCities = [
-  {
-    id: 516,
-    name: 'Lisbon',
-    stateId: 3,
-    countryId: 216,
-  },
-  {
-    id: 515,
-    name: 'Atlanta',
-    stateId: 6,
-    countryId: 216,
-  },
-];
 export const mockCitiesEntities = {
   516: mockCities[0],
   515: mockCities[1],
 };
 
-export const mockStates = [
-  {
-    code: 'AL',
-    countryId: 216,
-    id: 3,
-    name: 'Alabama',
-  },
-  {
-    code: 'AK',
-    countryId: 216,
-    id: 6,
-    name: 'Alaska',
-  },
-];
 export const mockStatesEntities = {
   3: { ...mockStates[0], cities: [mockCities[0]?.id] },
   6: { ...mockStates[1], cities: [mockCities[1]?.id] },

@@ -6,15 +6,16 @@ import type { GetCountries } from './types';
 /**
  * Gets all countries.
  *
- * @param query  - Query parameters to apply to the listing.
  * @param config - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getCountries: GetCountries = (query, config) =>
+const getCountries: GetCountries = config =>
   client
-    .get(join('/settings/v1/countries', { query }), config)
-    .then(response => response.data)
+    // Right now the endpoint returns a paginated response so we need to set a big pageSize
+    // so that all countries are returned. When the endpoint is changed, remove this query parameter.
+    .get(join('/settings/v1/countries', { query: { pageSize: 10000 } }), config)
+    .then(response => response.data?.entries)
     .catch(error => {
       throw adaptError(error);
     });
