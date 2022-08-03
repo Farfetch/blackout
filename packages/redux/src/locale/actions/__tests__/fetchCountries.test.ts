@@ -3,7 +3,13 @@ import * as normalizr from 'normalizr';
 import { Country, getCountries } from '@farfetch/blackout-client';
 import { fetchCountries } from '..';
 import { INITIAL_STATE_LOCALE } from '../../reducer';
-import { mockCountries, mockQuery } from 'tests/__fixtures__/locale';
+import {
+  mockCitiesEntities,
+  mockCountries,
+  mockCountriesEntities,
+  mockCountry,
+  mockStatesEntities,
+} from 'tests/__fixtures__/locale';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 
@@ -35,11 +41,11 @@ describe('fetchCountries() action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(fetchCountries(mockQuery));
+      await store.dispatch(fetchCountries());
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(getCountries).toHaveBeenCalledTimes(1);
-      expect(getCountries).toHaveBeenCalledWith(mockQuery, expectedConfig);
+      expect(getCountries).toHaveBeenCalledWith(expectedConfig);
       expect(store.getActions()).toEqual([
         {
           type: actionTypes.FETCH_COUNTRIES_REQUEST,
@@ -58,18 +64,25 @@ describe('fetchCountries() action creator', () => {
     const actionResults = store.getActions();
 
     await store
-      .dispatch(fetchCountries(mockQuery))
+      .dispatch(fetchCountries())
       .then((result: Country) => expect(result).toBe(mockCountries));
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCountries).toHaveBeenCalledTimes(1);
-    expect(getCountries).toHaveBeenCalledWith(mockQuery, expectedConfig);
+    expect(getCountries).toHaveBeenCalledWith(expectedConfig);
     expect(actionResults).toEqual([
       {
         type: actionTypes.FETCH_COUNTRIES_REQUEST,
       },
       expect.objectContaining({
-        payload: expect.any(Object),
+        payload: {
+          result: [mockCountry.code],
+          entities: {
+            countries: mockCountriesEntities,
+            states: mockStatesEntities,
+            cities: mockCitiesEntities,
+          },
+        },
         type: actionTypes.FETCH_COUNTRIES_SUCCESS,
       }),
     ]);

@@ -7,6 +7,20 @@ Object {
   },
   "payload": Object {
     "entities": Object {
+      "cities": Object {
+        "515": Object {
+          "countryId": 216,
+          "id": 515,
+          "name": "Atlanta",
+          "stateId": 6,
+        },
+        "516": Object {
+          "countryId": 216,
+          "id": 516,
+          "name": "Lisbon",
+          "stateId": 3,
+        },
+      },
       "countries": Object {
         "US": Object {
           "code": "US",
@@ -18,12 +32,18 @@ Object {
       },
       "states": Object {
         "3": Object {
+          "cities": Array [
+            516,
+          ],
           "code": "AL",
           "countryId": 216,
           "id": 3,
           "name": "Alabama",
         },
         "6": Object {
+          "cities": Array [
+            515,
+          ],
           "code": "AK",
           "countryId": 216,
           "id": 6,
