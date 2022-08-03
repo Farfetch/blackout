@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.42.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.42.1...@farfetch/blackout-react@0.42.2) (2022-08-03)
+
+
+### Bug Fixes
+
+* fix analytics 'pageLocationReferrer' context ([7cb7824](https://github.com/Farfetch/blackout/commit/7cb7824e9309528d1230e4e621095be402ea279a))
+
+
+
+
+
 ## [0.42.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.42.0...@farfetch/blackout-react@0.42.1) (2022-07-28)
 
 

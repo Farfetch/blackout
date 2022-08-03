@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.67.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.66.0...@farfetch/blackout-core@1.67.0) (2022-08-03)
+
+
+### Features
+
+* **core:** add omnitracking's product detail page tracking mappings ([cc0ad62](https://github.com/Farfetch/blackout/commit/cc0ad62d36e6d702dd400d8847d361305a52c0fb))
+
+
+
+
+
 # [1.66.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.65.0...@farfetch/blackout-core@1.66.0) (2022-07-27)
 
 
