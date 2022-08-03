@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.287](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.286...@farfetch/blackout-react@1.0.0-next.287) (2022-08-03)
+
+
+### Features
+
+* allow partial product details state reset ([10e78ac](https://github.com/Farfetch/blackout/commit/10e78acebf3af02cfa1bf02ea467383e335aca4d))
+* **react:** refactor useProductDetails hook ([a9a4387](https://github.com/Farfetch/blackout/commit/a9a4387de14e093f7006213e52d7497212b492c8))
+
+
+### BREAKING CHANGES
+
+* **react:** useProductDetails hook new interface
+
+
+
+
+
 # [1.0.0-next.286](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.285...@farfetch/blackout-react@1.0.0-next.286) (2022-08-02)
 
 
