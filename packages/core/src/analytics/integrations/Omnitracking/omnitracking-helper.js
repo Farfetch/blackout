@@ -481,7 +481,7 @@ export const getCLientCountryFromCulture = culture => {
  *
  * @param {object} data - The event tracking data.
  *
- * @returns {Array|undefined} - The mapped `lineItems` array.
+ * @returns {string} - The mapped `lineItems` in json format.
  */
 export const getProductLineItems = data => {
   const properties = data?.properties || {};

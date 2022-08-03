@@ -503,6 +503,15 @@ export const pageEventsMapper = {
     viewSubType: 'Listing',
     lineItems: getProductLineItems(data),
   }),
+  [pageTypes.WISHLIST]: data => ({
+    viewType: 'Wishlist',
+    viewSubType: 'Wishlist',
+    lineItems: getProductLineItems(data),
+    wishlistQuantity: (data.properties.products || []).reduce(
+      (acc, curr) => acc + (curr.quantity || 0),
+      0,
+    ),
+  }),
 };
 
 export const userGenderValuesMapper = {
