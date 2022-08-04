@@ -31,9 +31,9 @@ describe('checkout reducer', () => {
     });
 
     it.each([
-      actionTypes.CREATE_CHECKOUT_REQUEST,
-      actionTypes.FETCH_CHECKOUT_REQUEST,
-      actionTypes.UPDATE_CHECKOUT_REQUEST,
+      actionTypes.CREATE_CHECKOUT_ORDER_REQUEST,
+      actionTypes.FETCH_CHECKOUT_ORDER_REQUEST,
+      actionTypes.UPDATE_CHECKOUT_ORDER_REQUEST,
       actionTypes.RESET_CHECKOUT_STATE,
       LOGOUT_SUCCESS,
     ])('should handle %s action type', actionType => {
@@ -49,35 +49,35 @@ describe('checkout reducer', () => {
       ).toBe(initialState.error);
     });
 
-    it('should handle CREATE_CHECKOUT_FAILURE action type', () => {
+    it('should handle CREATE_CHECKOUT_ORDER_FAILURE action type', () => {
       const expectedResult = 'foo';
 
       expect(
         reducer(undefined, {
           payload: { error: expectedResult },
-          type: actionTypes.CREATE_CHECKOUT_FAILURE,
+          type: actionTypes.CREATE_CHECKOUT_ORDER_FAILURE,
         }).error,
       ).toBe(expectedResult);
     });
 
-    it('should handle FETCH_CHECKOUT_FAILURE action type', () => {
+    it('should handle FETCH_CHECKOUT_ORDER_FAILURE action type', () => {
       const expectedResult = 'foo';
 
       expect(
         reducer(undefined, {
           payload: { error: expectedResult },
-          type: actionTypes.FETCH_CHECKOUT_FAILURE,
+          type: actionTypes.FETCH_CHECKOUT_ORDER_FAILURE,
         }).error,
       ).toBe(expectedResult);
     });
 
-    it('should handle UPDATE_CHECKOUT_FAILURE action type', () => {
+    it('should handle UPDATE_CHECKOUT_ORDER_FAILURE action type', () => {
       const expectedResult = 'foo';
 
       expect(
         reducer(undefined, {
           payload: { error: expectedResult },
-          type: actionTypes.UPDATE_CHECKOUT_FAILURE,
+          type: actionTypes.UPDATE_CHECKOUT_ORDER_FAILURE,
         }).error,
       ).toBe(expectedResult);
     });
@@ -129,79 +129,79 @@ describe('checkout reducer', () => {
       },
     );
 
-    it('should handle CREATE_CHECKOUT_SUCCESS action type', () => {
+    it('should handle CREATE_CHECKOUT_ORDER_SUCCESS action type', () => {
       const expectedResult = 'foo';
 
       expect(
         reducer(undefined, {
           payload: { result: expectedResult },
-          type: actionTypes.CREATE_CHECKOUT_SUCCESS,
+          type: actionTypes.CREATE_CHECKOUT_ORDER_SUCCESS,
         }).id,
       ).toBe(expectedResult);
     });
 
-    it('should handle UPDATE_CHECKOUT_SUCCESS action type', () => {
+    it('should handle UPDATE_CHECKOUT_ORDER_SUCCESS action type', () => {
       const expectedResult = 'foo';
 
       expect(
         reducer(undefined, {
           payload: { result: expectedResult },
-          type: actionTypes.UPDATE_CHECKOUT_SUCCESS,
+          type: actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS,
         }).id,
       ).toBe(expectedResult);
     });
 
-    it('should handle FETCH_CHECKOUT_SUCCESS action type', () => {
+    it('should handle FETCH_CHECKOUT_ORDER_SUCCESS action type', () => {
       const expectedResult = 'foo';
 
       expect(
         reducer(undefined, {
           payload: { result: expectedResult },
-          type: actionTypes.FETCH_CHECKOUT_SUCCESS,
+          type: actionTypes.FETCH_CHECKOUT_ORDER_SUCCESS,
         }).id,
       ).toBe(expectedResult);
     });
 
-    it('should handle FETCH_CHECKOUT_DETAILS_SUCCESS action type', () => {
+    it('should handle FETCH_CHECKOUT_ORDER_DETAILS_SUCCESS action type', () => {
       const expectedResult = 'foo';
 
       expect(
         reducer(undefined, {
           payload: { result: expectedResult },
-          type: actionTypes.FETCH_CHECKOUT_DETAILS_SUCCESS,
+          type: actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_SUCCESS,
         }).id,
       ).toBe(expectedResult);
     });
 
-    it('should handle SET_ITEM_TAGS_SUCCESS action type', () => {
+    it('should handle SET_CHECKOUT_ORDER_ITEM_TAGS_SUCCESS action type', () => {
       const expectedResult = 'foo';
 
       expect(
         reducer(undefined, {
           payload: { result: expectedResult },
-          type: actionTypes.SET_ITEM_TAGS_SUCCESS,
+          type: actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_SUCCESS,
         }).id,
       ).toBe(expectedResult);
     });
 
-    it('should handle SET_PROMOCODE_SUCCESS action type', () => {
+    it('should handle SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS action type', () => {
       const expectedResult = 'foo';
 
       expect(
         reducer(undefined, {
           payload: { result: expectedResult },
-          type: actionTypes.SET_PROMOCODE_SUCCESS,
+          type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS,
         }).id,
       ).toBe(expectedResult);
     });
 
-    it('should handle SET_TAGS_SUCCESS action type', () => {
+    it('should handle SET_CHECKOUT_ORDER_TAGS_SUCCESS action type', () => {
       const expectedResult = 'foo';
 
       expect(
         reducer(undefined, {
           payload: { result: expectedResult },
-          type: actionTypes.SET_TAGS_SUCCESS,
+          type: actionTypes.SET_CHECKOUT_ORDER_TAGS_SUCCESS,
         }).id,
       ).toBe(expectedResult);
     });
@@ -231,80 +231,80 @@ describe('checkout reducer', () => {
       expect(state).toBe(false);
     });
 
-    it('should handle CREATE_CHECKOUT_REQUEST action type', () => {
+    it('should handle CREATE_CHECKOUT_ORDER_REQUEST action type', () => {
       expect(
         reducer(undefined, {
-          type: actionTypes.CREATE_CHECKOUT_REQUEST,
+          type: actionTypes.CREATE_CHECKOUT_ORDER_REQUEST,
         }).isLoading,
       ).toBe(true);
     });
 
-    it('should handle FETCH_CHECKOUT_REQUEST action type', () => {
+    it('should handle FETCH_CHECKOUT_ORDER_REQUEST action type', () => {
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_CHECKOUT_REQUEST,
+          type: actionTypes.FETCH_CHECKOUT_ORDER_REQUEST,
         }).isLoading,
       ).toBe(true);
     });
 
-    it('should handle UPDATE_CHECKOUT_REQUEST action type', () => {
+    it('should handle UPDATE_CHECKOUT_ORDER_REQUEST action type', () => {
       expect(
         reducer(undefined, {
-          type: actionTypes.UPDATE_CHECKOUT_REQUEST,
+          type: actionTypes.UPDATE_CHECKOUT_ORDER_REQUEST,
         }).isLoading,
       ).toBe(true);
     });
 
-    it('should handle CREATE_CHECKOUT_FAILURE action type', () => {
+    it('should handle CREATE_CHECKOUT_ORDER_FAILURE action type', () => {
       expect(
         reducer(undefined, {
           payload: { error: '' },
-          type: actionTypes.CREATE_CHECKOUT_FAILURE,
+          type: actionTypes.CREATE_CHECKOUT_ORDER_FAILURE,
         }).isLoading,
       ).toBe(initialState.isLoading);
     });
 
-    it('should handle CREATE_CHECKOUT_SUCCESS action type', () => {
+    it('should handle CREATE_CHECKOUT_ORDER_SUCCESS action type', () => {
       expect(
         reducer(undefined, {
           payload: { result: '' },
-          type: actionTypes.CREATE_CHECKOUT_SUCCESS,
+          type: actionTypes.CREATE_CHECKOUT_ORDER_SUCCESS,
         }).isLoading,
       ).toBe(initialState.isLoading);
     });
 
-    it('should handle FETCH_CHECKOUT_FAILURE action type', () => {
+    it('should handle FETCH_CHECKOUT_ORDER_FAILURE action type', () => {
       expect(
         reducer(undefined, {
           payload: { error: '' },
-          type: actionTypes.FETCH_CHECKOUT_FAILURE,
+          type: actionTypes.FETCH_CHECKOUT_ORDER_FAILURE,
         }).isLoading,
       ).toBe(initialState.isLoading);
     });
 
-    it('should handle FETCH_CHECKOUT_SUCCESS action type', () => {
+    it('should handle FETCH_CHECKOUT_ORDER_SUCCESS action type', () => {
       expect(
         reducer(undefined, {
           payload: { result: '' },
-          type: actionTypes.FETCH_CHECKOUT_SUCCESS,
+          type: actionTypes.FETCH_CHECKOUT_ORDER_SUCCESS,
         }).isLoading,
       ).toBe(initialState.isLoading);
     });
 
-    it('should handle UPDATE_CHECKOUT_FAILURE action type', () => {
+    it('should handle UPDATE_CHECKOUT_ORDER_FAILURE action type', () => {
       expect(
         reducer(undefined, {
           payload: { error: '' },
-          type: actionTypes.UPDATE_CHECKOUT_FAILURE,
+          type: actionTypes.UPDATE_CHECKOUT_ORDER_FAILURE,
         }).isLoading,
       ).toBe(initialState.isLoading);
     });
 
-    it('should handle UPDATE_CHECKOUT_SUCCESS action type', () => {
+    it('should handle UPDATE_CHECKOUT_ORDER_SUCCESS action type', () => {
       expect(
         reducer(undefined, {
           payload: { result: '' },
-          type: actionTypes.UPDATE_CHECKOUT_SUCCESS,
+          type: actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS,
         }).isLoading,
       ).toBe(initialState.isLoading);
     });
@@ -428,32 +428,33 @@ describe('checkout reducer', () => {
     });
   });
 
-  describe('deliveryBundleUpgrades() reducer', () => {
+  describe('checkoutOrderDeliveryBundleUpgrades() reducer', () => {
     it('should return the initial state', () => {
-      const state = fromReducer.INITIAL_STATE.deliveryBundleUpgrades;
+      const state =
+        fromReducer.INITIAL_STATE.checkoutOrderDeliveryBundleUpgrades;
 
-      expect(state).toEqual(initialState.deliveryBundleUpgrades);
+      expect(state).toEqual(initialState.checkoutOrderDeliveryBundleUpgrades);
     });
 
     it('should handle LOGOUT_SUCCESS action type', () => {
       expect(
         reducer(undefined, {
           type: LOGOUT_SUCCESS,
-        }).deliveryBundleUpgrades,
-      ).toEqual(initialState.deliveryBundleUpgrades);
+        }).checkoutOrderDeliveryBundleUpgrades,
+      ).toEqual(initialState.checkoutOrderDeliveryBundleUpgrades);
     });
 
     it.each([
       actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_REQUEST,
-      actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADES_REQUEST,
-      actionTypes.FETCH_DELIVERY_BUNDLE_UPGRADES_REQUEST,
+      actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST,
+      actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
           type: actionType,
-        }).deliveryBundleUpgrades,
+        }).checkoutOrderDeliveryBundleUpgrades,
       ).toEqual({
-        error: initialState.deliveryBundleUpgrades.error,
+        error: initialState.checkoutOrderDeliveryBundleUpgrades.error,
         isLoading: true,
         result: null,
       });
@@ -461,42 +462,42 @@ describe('checkout reducer', () => {
 
     it.each([
       actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_FAILURE,
-      actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADES_FAILURE,
-      actionTypes.FETCH_DELIVERY_BUNDLE_UPGRADES_FAILURE,
+      actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_FAILURE,
+      actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_FAILURE,
     ])('should handle %s action type', actionType => {
       const mockError = 'mocked error';
       expect(
         reducer(undefined, {
           type: actionType,
           payload: { error: mockError },
-        }).deliveryBundleUpgrades,
+        }).checkoutOrderDeliveryBundleUpgrades,
       ).toEqual({ error: mockError, isLoading: false, result: null });
     });
 
     it.each([
       actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_SUCCESS,
-      actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADES_SUCCESS,
+      actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
           type: actionType,
-        }).deliveryBundleUpgrades,
+        }).checkoutOrderDeliveryBundleUpgrades,
       ).toEqual({
-        error: initialState.deliveryBundleUpgrades.error,
+        error: initialState.checkoutOrderDeliveryBundleUpgrades.error,
         isLoading: false,
         result: null,
       });
     });
 
-    it('should handle @farfetch/blackout-redux/FETCH_DELIVERY_BUNDLE_UPGRADES_SUCCESS action type', () => {
+    it('should handle @farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS action type', () => {
       const mockResult = { result: 'mocked result' };
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_DELIVERY_BUNDLE_UPGRADES_SUCCESS,
+          type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS,
           payload: mockResult,
-        }).deliveryBundleUpgrades,
+        }).checkoutOrderDeliveryBundleUpgrades,
       ).toEqual({
-        error: initialState.deliveryBundleUpgrades.error,
+        error: initialState.checkoutOrderDeliveryBundleUpgrades.error,
         isLoading: false,
         result: mockResult.result,
       });
@@ -702,7 +703,7 @@ describe('checkout reducer', () => {
         ).toEqual(expectedResult);
       });
 
-      it(`should handle ${actionTypes.FETCH_CHECKOUT_DETAILS_SUCCESS}`, () => {
+      it(`should handle ${actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_SUCCESS}`, () => {
         const metaId = 1;
         const payload = {
           entities: {
@@ -715,11 +716,14 @@ describe('checkout reducer', () => {
           },
         };
         expect(
-          entitiesMapper[actionTypes.FETCH_CHECKOUT_DETAILS_SUCCESS](state, {
-            meta: { id: metaId },
-            payload,
-            type: actionTypes.FETCH_CHECKOUT_DETAILS_SUCCESS,
-          }),
+          entitiesMapper[actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_SUCCESS](
+            state,
+            {
+              meta: { id: metaId },
+              payload,
+              type: actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_SUCCESS,
+            },
+          ),
         ).toEqual({
           ...state,
           ...entities,
@@ -738,7 +742,7 @@ describe('checkout reducer', () => {
         });
       });
 
-      it(`should handle ${actionTypes.FETCH_ITEM_DELIVERY_PROVISIONING_SUCCESS}`, () => {
+      it(`should handle ${actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_SUCCESS}`, () => {
         const mockState = {
           ...state,
           deliveryBundles: {
@@ -748,26 +752,26 @@ describe('checkout reducer', () => {
           },
         };
         expect(
-          entitiesMapper[actionTypes.FETCH_ITEM_DELIVERY_PROVISIONING_SUCCESS](
-            mockState,
-            {
-              meta: { deliveryBundleId: 12345678 },
-              payload: {
-                entities: {
-                  itemDeliveryProvisioning: {
-                    123: {
-                      itemId: 123,
-                    },
-                    321: {
-                      itemId: 321,
-                    },
+          entitiesMapper[
+            actionTypes
+              .FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_SUCCESS
+          ](mockState, {
+            meta: { deliveryBundleId: 12345678 },
+            payload: {
+              entities: {
+                itemDeliveryProvisioning: {
+                  123: {
+                    itemId: 123,
+                  },
+                  321: {
+                    itemId: 321,
                   },
                 },
-                result: [123, 321],
               },
-              type: actionTypes.FETCH_ITEM_DELIVERY_PROVISIONING_SUCCESS,
+              result: [123, 321],
             },
-          ),
+            type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_SUCCESS,
+          }),
         ).toEqual({
           ...state,
           deliveryBundles: {
@@ -787,7 +791,7 @@ describe('checkout reducer', () => {
         });
       });
 
-      it(`should handle ${actionTypes.FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_SUCCESS}`, () => {
+      it(`should handle ${actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING_SUCCESS}`, () => {
         const mockState = {
           ...state,
           deliveryBundleUpgrades: {
@@ -815,7 +819,8 @@ describe('checkout reducer', () => {
         };
         expect(
           entitiesMapper[
-            actionTypes.FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_SUCCESS
+            actionTypes
+              .FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING_SUCCESS
           ](mockState, {
             meta: { deliveryBundleId: 123, upgradeId: 5555 },
             payload: {
@@ -841,7 +846,7 @@ describe('checkout reducer', () => {
               },
               result: [1234, 4321],
             },
-            type: actionTypes.FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_SUCCESS,
+            type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING_SUCCESS,
           }),
         ).toEqual({
           ...state,
@@ -902,12 +907,12 @@ describe('checkout reducer', () => {
       };
 
       it.each([
-        actionTypes.CREATE_CHECKOUT_SUCCESS,
-        actionTypes.SET_PROMOCODE_SUCCESS,
-        actionTypes.FETCH_CHECKOUT_SUCCESS,
-        actionTypes.SET_ITEM_TAGS_SUCCESS,
-        actionTypes.UPDATE_CHECKOUT_SUCCESS,
-        actionTypes.SET_TAGS_SUCCESS,
+        actionTypes.CREATE_CHECKOUT_ORDER_SUCCESS,
+        actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS,
+        actionTypes.FETCH_CHECKOUT_ORDER_SUCCESS,
+        actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_SUCCESS,
+        actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS,
+        actionTypes.SET_CHECKOUT_ORDER_TAGS_SUCCESS,
       ])('should handle %s action type', actionType => {
         expect(
           entitiesMapper[actionType](state, {
@@ -918,7 +923,7 @@ describe('checkout reducer', () => {
         ).toEqual(result);
       });
 
-      it(`should replace entity checkout child array after ${actionTypes.UPDATE_CHECKOUT_SUCCESS}`, () => {
+      it(`should replace entity checkout child array after ${actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS}`, () => {
         const state = {
           checkout: {
             1: {
@@ -948,9 +953,9 @@ describe('checkout reducer', () => {
         const expected = payload.entities;
 
         expect(
-          entitiesMapper[actionTypes.UPDATE_CHECKOUT_SUCCESS](state, {
+          entitiesMapper[actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS](state, {
             payload,
-            type: actionTypes.UPDATE_CHECKOUT_SUCCESS,
+            type: actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS,
           }),
         ).toEqual(expected);
       });
@@ -1165,29 +1170,29 @@ describe('checkout reducer', () => {
     };
 
     const subAreas = {
-      checkoutDetails: { ...subAreaResult },
+      checkoutOrderDetails: { ...subAreaResult },
       collectPoints: { ...subAreaResult },
-      itemTags: { ...subAreaResult },
-      promoCode: { ...subAreaResult },
-      tags: { ...subAreaResult },
-      giftMessage: { ...subAreaResult },
+      checkoutOrderItemTags: { ...subAreaResult },
+      checkoutOrderPromocode: { ...subAreaResult },
+      checkoutOrderTags: { ...subAreaResult },
+      checkoutOrderItems: { ...subAreaResult },
       checkoutOrderCharge: { ...subAreaResult },
-      deliveryBundleUpgrades: { ...subAreaResult },
-      itemDeliveryProvisioning: { ...subAreaResult },
-      upgradeItemDeliveryProvisioning: { ...subAreaResult },
+      checkoutOrderDeliveryBundleUpgrades: { ...subAreaResult },
+      checkoutOrderDeliveryBundleProvisioning: { ...subAreaResult },
+      checkoutOrderDeliveryBundleUpgradeProvisioning: { ...subAreaResult },
     };
 
     const subAreaNames = [
-      'CheckoutDetails',
+      'CheckoutOrderDetails',
       'CollectPoints',
-      'ItemTags',
-      'PromoCode',
-      'Tags',
-      'GiftMessage',
+      'CheckoutOrderItemTags',
+      'CheckoutOrderPromocode',
+      'CheckoutOrderTags',
+      'CheckoutOrderItems',
       'CheckoutOrderCharge',
-      'DeliveryBundleUpgrades',
-      'ItemDeliveryProvisioning',
-      'UpgradeItemDeliveryProvisioning',
+      'CheckoutOrderDeliveryBundleUpgrades',
+      'CheckoutOrderDeliveryBundleProvisioning',
+      'CheckoutOrderDeliveryBundleUpgradeProvisioning',
     ];
 
     it.each(subAreaNames)(

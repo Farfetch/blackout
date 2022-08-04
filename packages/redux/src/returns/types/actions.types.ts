@@ -54,25 +54,6 @@ export type GetReturnPickupCapabilitiesAction =
   | GetReturnPickupCapabilitiesRequestAction
   | GetReturnPickupCapabilitiesSuccessAction
   | GetReturnPickupCapabilitiesFailureAction;
-
-export interface GetReturnReferencesRequestAction extends Action {
-  type: typeof actionTypes.FETCH_RETURN_REFERENCES_REQUEST;
-}
-export interface GetReturnReferencesSuccessAction extends Action {
-  type: typeof actionTypes.FETCH_RETURN_REFERENCES_SUCCESS;
-  payload: string;
-}
-export interface GetReturnReferencesFailureAction extends Action {
-  type: typeof actionTypes.FETCH_RETURN_REFERENCES_FAILURE;
-  payload: { error: Error };
-}
-
-/** Actions dispatched when the get references request is made. */
-export type GetReturnReferencesAction =
-  | GetReturnReferencesRequestAction
-  | GetReturnReferencesSuccessAction
-  | GetReturnReferencesFailureAction;
-
 export interface GetReturnRequestAction extends Action {
   type: typeof actionTypes.FETCH_RETURN_REQUEST;
 }

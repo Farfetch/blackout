@@ -14,7 +14,7 @@ import type {
   CountriesAddressSchemasEntity,
   CountriesEntity,
   CourierEntity,
-  DeliveryBundlesEntity,
+  DeliveryBundleEntity,
   DeliveryBundleUpgradesEntity,
   FacetEntity,
   LabelTrackingEntity,
@@ -99,7 +99,7 @@ export type StoreState = Partial<{
     countries: Record<string, CountriesEntity>;
     countriesAddressSchemas: CountriesAddressSchemasEntity;
     courier: Record<CourierEntity['id'], CourierEntity>;
-    deliveryBundles: Record<DeliveryBundlesEntity['id'], DeliveryBundlesEntity>;
+    deliveryBundles: Record<DeliveryBundleEntity['id'], DeliveryBundleEntity>;
     deliveryBundleUpgrades: DeliveryBundleUpgradesEntity;
     facets: Record<FacetEntity['id'], FacetEntity>;
     paymentInstruments: Record<
@@ -110,7 +110,7 @@ export type StoreState = Partial<{
       LabelTrackingEntity['trackingNumber'],
       LabelTrackingEntity
     >;
-    membership: Record<ProgramMembership['id'], ProgramMembership>;
+    memberships: Record<ProgramMembership['id'], ProgramMembership>;
     merchants: Record<MerchantEntity['id'], MerchantEntity>;
     merchantsLocations: Record<MerchantLocation['id'], MerchantLocation>;
     orders: Record<OrderEntity['id'], OrderEntity>;

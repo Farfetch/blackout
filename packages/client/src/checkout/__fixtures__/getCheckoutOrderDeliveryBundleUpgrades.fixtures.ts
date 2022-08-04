@@ -1,13 +1,11 @@
 import { rest, RestHandler } from 'msw';
-import type { GetCheckoutOrderDeliveryBundleUpgradesResponse } from '../types';
+import type { DeliveryBundleUpgrades } from '../types';
 
 const path =
   '/api/checkout/v1/orders/:id/deliveryBundles/:deliveryBundleId/upgrades';
 
 const fixtures = {
-  success: (
-    response: GetCheckoutOrderDeliveryBundleUpgradesResponse,
-  ): RestHandler =>
+  success: (response: DeliveryBundleUpgrades): RestHandler =>
     rest.get(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),

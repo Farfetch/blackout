@@ -32,11 +32,11 @@ import type {
 import type { LogoutSuccessAction } from '../users/types';
 import type { StoreState } from '../types';
 
-export const INITIAL_STATE = {
+export const INITIAL_STATE: CheckoutState = {
   error: null,
   id: null,
   isLoading: false,
-  checkoutDetails: {
+  checkoutOrderDetails: {
     error: null,
     isLoading: false,
   },
@@ -44,19 +44,19 @@ export const INITIAL_STATE = {
     error: null,
     isLoading: false,
   },
-  itemTags: {
+  checkoutOrderTags: {
     error: null,
     isLoading: false,
   },
-  promoCode: {
+  checkoutOrderPromocode: {
     error: null,
     isLoading: false,
   },
-  tags: {
+  checkoutOrderItemTags: {
     error: null,
     isLoading: false,
   },
-  giftMessage: {
+  checkoutOrderItems: {
     error: null,
     isLoading: false,
   },
@@ -65,16 +65,16 @@ export const INITIAL_STATE = {
     result: null,
     isLoading: false,
   },
-  deliveryBundleUpgrades: {
+  checkoutOrderDeliveryBundleUpgrades: {
     error: null,
     isLoading: false,
     result: null,
   },
-  itemDeliveryProvisioning: {
+  checkoutOrderDeliveryBundleProvisioning: {
     error: null,
     isLoading: false,
   },
-  upgradeItemDeliveryProvisioning: {
+  checkoutOrderDeliveryBundleUpgradeProvisioning: {
     error: null,
     isLoading: false,
   },
@@ -106,13 +106,13 @@ const error = (
     | LogoutSuccessAction,
 ): CheckoutState['error'] => {
   switch (action?.type) {
-    case actionTypes.CREATE_CHECKOUT_FAILURE:
-    case actionTypes.FETCH_CHECKOUT_FAILURE:
-    case actionTypes.UPDATE_CHECKOUT_FAILURE:
+    case actionTypes.CREATE_CHECKOUT_ORDER_FAILURE:
+    case actionTypes.FETCH_CHECKOUT_ORDER_FAILURE:
+    case actionTypes.UPDATE_CHECKOUT_ORDER_FAILURE:
       return action.payload.error;
-    case actionTypes.CREATE_CHECKOUT_REQUEST:
-    case actionTypes.FETCH_CHECKOUT_REQUEST:
-    case actionTypes.UPDATE_CHECKOUT_REQUEST:
+    case actionTypes.CREATE_CHECKOUT_ORDER_REQUEST:
+    case actionTypes.FETCH_CHECKOUT_ORDER_REQUEST:
+    case actionTypes.UPDATE_CHECKOUT_ORDER_REQUEST:
     case actionTypes.RESET_CHECKOUT_STATE:
     case LOGOUT_SUCCESS:
       return INITIAL_STATE.error;
@@ -130,13 +130,13 @@ const id = (
     | FetchCheckoutDetailsSuccessAction,
 ) => {
   switch (action?.type) {
-    case actionTypes.CREATE_CHECKOUT_SUCCESS:
-    case actionTypes.UPDATE_CHECKOUT_SUCCESS:
-    case actionTypes.FETCH_CHECKOUT_SUCCESS:
-    case actionTypes.FETCH_CHECKOUT_DETAILS_SUCCESS:
-    case actionTypes.SET_ITEM_TAGS_SUCCESS:
-    case actionTypes.SET_PROMOCODE_SUCCESS:
-    case actionTypes.SET_TAGS_SUCCESS:
+    case actionTypes.CREATE_CHECKOUT_ORDER_SUCCESS:
+    case actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS:
+    case actionTypes.FETCH_CHECKOUT_ORDER_SUCCESS:
+    case actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_SUCCESS:
+    case actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_SUCCESS:
+    case actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS:
+    case actionTypes.SET_CHECKOUT_ORDER_TAGS_SUCCESS:
       return action.payload.result;
     case actionTypes.RESET_CHECKOUT_STATE:
     case LOGOUT_SUCCESS:
@@ -154,16 +154,16 @@ const isLoading = (
     | LogoutSuccessAction,
 ) => {
   switch (action?.type) {
-    case actionTypes.CREATE_CHECKOUT_REQUEST:
-    case actionTypes.FETCH_CHECKOUT_REQUEST:
-    case actionTypes.UPDATE_CHECKOUT_REQUEST:
+    case actionTypes.CREATE_CHECKOUT_ORDER_REQUEST:
+    case actionTypes.FETCH_CHECKOUT_ORDER_REQUEST:
+    case actionTypes.UPDATE_CHECKOUT_ORDER_REQUEST:
       return true;
-    case actionTypes.CREATE_CHECKOUT_FAILURE:
-    case actionTypes.CREATE_CHECKOUT_SUCCESS:
-    case actionTypes.FETCH_CHECKOUT_FAILURE:
-    case actionTypes.FETCH_CHECKOUT_SUCCESS:
-    case actionTypes.UPDATE_CHECKOUT_FAILURE:
-    case actionTypes.UPDATE_CHECKOUT_SUCCESS:
+    case actionTypes.CREATE_CHECKOUT_ORDER_FAILURE:
+    case actionTypes.CREATE_CHECKOUT_ORDER_SUCCESS:
+    case actionTypes.FETCH_CHECKOUT_ORDER_FAILURE:
+    case actionTypes.FETCH_CHECKOUT_ORDER_SUCCESS:
+    case actionTypes.UPDATE_CHECKOUT_ORDER_FAILURE:
+    case actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS:
     case actionTypes.RESET_CHECKOUT_STATE:
     case LOGOUT_SUCCESS:
       return INITIAL_STATE.isLoading;
@@ -262,7 +262,7 @@ const handleUpdateCheckoutOrderItemSuccess = produce<
 
 export const entitiesMapper = {
   [actionTypes.FETCH_COLLECT_POINTS_SUCCESS]: mergeCheckoutOrder,
-  [actionTypes.FETCH_CHECKOUT_DETAILS_SUCCESS]: (
+  [actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
   ): StoreState['entities'] => {
@@ -279,7 +279,7 @@ export const entitiesMapper = {
       checkout: { [id]: { ...currentCheckout, checkoutOrder: id } },
     };
   },
-  [actionTypes.FETCH_ITEM_DELIVERY_PROVISIONING_SUCCESS]: (
+  [actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
   ): StoreState['entities'] => {
@@ -302,54 +302,55 @@ export const entitiesMapper = {
       },
     };
   },
-  [actionTypes.FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_SUCCESS]: (
-    state: NonNullable<StoreState['entities']>,
-    action: AnyAction,
-  ): StoreState['entities'] => {
-    const { deliveryBundleId, upgradeId } = action.meta;
-    const currentDeliveryUpgrades = get(state, 'deliveryBundleUpgrades');
-    const selectedDeliveryUpgrades = get(
-      state,
-      `deliveryBundleUpgrades[${deliveryBundleId}]`,
-    );
-    const { result: itemsId, entities } = action.payload;
+  [actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING_SUCCESS]:
+    (
+      state: NonNullable<StoreState['entities']>,
+      action: AnyAction,
+    ): StoreState['entities'] => {
+      const { deliveryBundleId, upgradeId } = action.meta;
+      const currentDeliveryUpgrades = get(state, 'deliveryBundleUpgrades');
+      const selectedDeliveryUpgrades = get(
+        state,
+        `deliveryBundleUpgrades[${deliveryBundleId}]`,
+      );
+      const { result: itemsId, entities } = action.payload;
 
-    const upgradesWithItemsDeliveryProvisioning = itemsId.reduce(
-      (acc: { [x: string]: { provisiong: unknown } }, itemID: string) => {
-        const currentItemDeliveryProvisioning = get(
-          entities,
-          `itemDeliveryProvisioning[${itemID}]`,
-        );
-        return {
-          ...acc,
-          [itemID]: {
-            ...acc[itemID],
-            provisioning: {
-              upgradeId,
-              ...currentItemDeliveryProvisioning.provisioning,
+      const upgradesWithItemsDeliveryProvisioning = itemsId.reduce(
+        (acc: { [x: string]: { provisiong: unknown } }, itemID: string) => {
+          const currentItemDeliveryProvisioning = get(
+            entities,
+            `itemDeliveryProvisioning[${itemID}]`,
+          );
+          return {
+            ...acc,
+            [itemID]: {
+              ...acc[itemID],
+              provisioning: {
+                upgradeId,
+                ...currentItemDeliveryProvisioning.provisioning,
+              },
             },
-          },
-        };
-      },
-      selectedDeliveryUpgrades,
-    );
-
-    return {
-      ...state,
-      deliveryBundleUpgrades: {
-        ...currentDeliveryUpgrades,
-        [deliveryBundleId]: {
-          ...upgradesWithItemsDeliveryProvisioning,
+          };
         },
-      },
-    };
-  },
-  [actionTypes.UPDATE_CHECKOUT_SUCCESS]: convertCheckoutOrder,
-  [actionTypes.CREATE_CHECKOUT_SUCCESS]: convertCheckoutOrder,
-  [actionTypes.SET_PROMOCODE_SUCCESS]: convertCheckoutOrder,
-  [actionTypes.FETCH_CHECKOUT_SUCCESS]: convertCheckoutOrder,
-  [actionTypes.SET_ITEM_TAGS_SUCCESS]: convertCheckoutOrder,
-  [actionTypes.SET_TAGS_SUCCESS]: convertCheckoutOrder,
+        selectedDeliveryUpgrades,
+      );
+
+      return {
+        ...state,
+        deliveryBundleUpgrades: {
+          ...currentDeliveryUpgrades,
+          [deliveryBundleId]: {
+            ...upgradesWithItemsDeliveryProvisioning,
+          },
+        },
+      };
+    },
+  [actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS]: convertCheckoutOrder,
+  [actionTypes.CREATE_CHECKOUT_ORDER_SUCCESS]: convertCheckoutOrder,
+  [actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS]: convertCheckoutOrder,
+  [actionTypes.FETCH_CHECKOUT_ORDER_SUCCESS]: convertCheckoutOrder,
+  [actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_SUCCESS]: convertCheckoutOrder,
+  [actionTypes.SET_CHECKOUT_ORDER_TAGS_SUCCESS]: convertCheckoutOrder,
   [actionTypes.RESET_CHECKOUT_STATE]: (
     state: NonNullable<StoreState['entities']>,
   ): StoreState['entities'] => {
@@ -384,9 +385,9 @@ export const entitiesMapper = {
     handleUpdateCheckoutOrderItemSuccess,
 } as const;
 
-export const checkoutDetails = reducerFactory(
-  'FETCH_CHECKOUT_DETAILS',
-  INITIAL_STATE.checkoutDetails,
+export const checkoutOrderDetails = reducerFactory(
+  'FETCH_CHECKOUT_ORDER_DETAILS',
+  INITIAL_STATE.checkoutOrderDetails,
   actionTypes,
   true,
 );
@@ -398,30 +399,30 @@ export const collectPoints = reducerFactory(
   true,
 );
 
-export const itemTags = reducerFactory(
-  'SET_ITEM_TAGS',
-  INITIAL_STATE.itemTags,
+export const checkoutOrderTags = reducerFactory(
+  'SET_CHECKOUT_ORDER_TAGS',
+  INITIAL_STATE.checkoutOrderTags,
   actionTypes,
   true,
 );
 
-export const promoCode = reducerFactory(
-  'SET_PROMOCODE',
-  INITIAL_STATE.promoCode,
+export const checkoutOrderItemTags = reducerFactory(
+  'SET_CHECKOUT_ORDER_ITEM_TAGS',
+  INITIAL_STATE.checkoutOrderItemTags,
   actionTypes,
   true,
 );
 
-export const tags = reducerFactory(
-  'SET_TAGS',
-  INITIAL_STATE.tags,
+export const checkoutOrderPromocode = reducerFactory(
+  'SET_CHECKOUT_ORDER_PROMOCODE',
+  INITIAL_STATE.checkoutOrderPromocode,
   actionTypes,
   true,
 );
 
-export const giftMessage = reducerFactory(
-  'UPDATE_GIFT_MESSAGE',
-  INITIAL_STATE.giftMessage,
+export const checkoutOrderItems = reducerFactory(
+  'UPDATE_CHECKOUT_ORDER_ITEMS',
+  INITIAL_STATE.checkoutOrderItems,
   actionTypes,
   true,
 );
@@ -468,62 +469,62 @@ export const checkoutOrderCharge = (
   }
 };
 
-export const deliveryBundleUpgrades = (
-  state = INITIAL_STATE.deliveryBundleUpgrades,
+export const checkoutOrderDeliveryBundleUpgrades = (
+  state = INITIAL_STATE.checkoutOrderDeliveryBundleUpgrades,
   action:
     | LogoutSuccessAction
     | DeliveryBundleRequestAction
     | UpdateDeliveryBundleSuccessAction
     | FetchDeliveryBundleSuccessAction
     | DeliveryBundleFailureAction,
-): CheckoutState['deliveryBundleUpgrades'] => {
+): CheckoutState['checkoutOrderDeliveryBundleUpgrades'] => {
   switch (action?.type) {
     case actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_REQUEST:
-    case actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADES_REQUEST:
-    case actionTypes.FETCH_DELIVERY_BUNDLE_UPGRADES_REQUEST:
+    case actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST:
+    case actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST:
       return {
         ...state,
-        error: INITIAL_STATE.deliveryBundleUpgrades.error,
+        error: INITIAL_STATE.checkoutOrderDeliveryBundleUpgrades.error,
         isLoading: true,
       };
     case actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_SUCCESS:
-    case actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADES_SUCCESS:
+    case actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS:
       return {
         ...state,
-        error: INITIAL_STATE.deliveryBundleUpgrades.error,
+        error: INITIAL_STATE.checkoutOrderDeliveryBundleUpgrades.error,
         isLoading: false,
       };
     case actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_FAILURE:
-    case actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADES_FAILURE:
-    case actionTypes.FETCH_DELIVERY_BUNDLE_UPGRADES_FAILURE:
+    case actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_FAILURE:
+    case actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_FAILURE:
       return {
         ...state,
         error: action.payload.error,
         isLoading: false,
       };
-    case actionTypes.FETCH_DELIVERY_BUNDLE_UPGRADES_SUCCESS:
+    case actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS:
       return {
         error: INITIAL_STATE.checkoutOrderCharge.error,
         isLoading: false,
         result: action.payload.result,
       };
     case LOGOUT_SUCCESS:
-      return INITIAL_STATE.deliveryBundleUpgrades;
+      return INITIAL_STATE.checkoutOrderDeliveryBundleUpgrades;
     default:
       return state;
   }
 };
 
-export const itemDeliveryProvisioning = reducerFactory(
-  'FETCH_ITEM_DELIVERY_PROVISIONING',
-  INITIAL_STATE.itemDeliveryProvisioning,
+export const checkoutOrderDeliveryBundleProvisioning = reducerFactory(
+  'FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING',
+  INITIAL_STATE.checkoutOrderDeliveryBundleProvisioning,
   actionTypes,
   true,
 );
 
-export const upgradeItemDeliveryProvisioning = reducerFactory(
-  'FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING',
-  INITIAL_STATE.upgradeItemDeliveryProvisioning,
+export const checkoutOrderDeliveryBundleUpgradeProvisioning = reducerFactory(
+  'FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING',
+  INITIAL_STATE.checkoutOrderDeliveryBundleUpgradeProvisioning,
   actionTypes,
   true,
 );
@@ -564,35 +565,39 @@ export const getIsLoading = (
   state: CheckoutState,
 ): CheckoutState['isLoading'] => state.isLoading;
 
-export const getCheckoutDetails = (
+export const getCheckoutOrderDetails = (
   state: CheckoutState,
-): CheckoutState['checkoutDetails'] => state.checkoutDetails;
+): CheckoutState['checkoutOrderDetails'] => state.checkoutOrderDetails;
 export const getCollectPoints = (
   state: CheckoutState,
 ): CheckoutState['collectPoints'] => state.collectPoints;
-export const getItemTags = (state: CheckoutState): CheckoutState['itemTags'] =>
-  state.itemTags;
-export const getPromoCode = (
+export const getCheckoutOrderItemTags = (
   state: CheckoutState,
-): CheckoutState['promoCode'] => state.promoCode;
-export const getTags = (state: CheckoutState): CheckoutState['tags'] =>
-  state.tags;
-export const getGiftMessage = (
+): CheckoutState['checkoutOrderItemTags'] => state.checkoutOrderItemTags;
+export const getCheckoutOrderPromocode = (
   state: CheckoutState,
-): CheckoutState['giftMessage'] => state.giftMessage;
+): CheckoutState['checkoutOrderPromocode'] => state.checkoutOrderPromocode;
+export const getCheckoutOrderTags = (
+  state: CheckoutState,
+): CheckoutState['checkoutOrderTags'] => state.checkoutOrderTags;
+export const getCheckoutOrderItems = (
+  state: CheckoutState,
+): CheckoutState['checkoutOrderItems'] => state.checkoutOrderItems;
 export const getCheckoutOrderCharge = (
   state: CheckoutState,
 ): CheckoutState['checkoutOrderCharge'] => state.checkoutOrderCharge;
-export const getDeliveryBundleUpgrades = (
+export const getCheckoutOrderDeliveryBundleUpgrades = (
   state: CheckoutState,
-): CheckoutState['deliveryBundleUpgrades'] => state.deliveryBundleUpgrades;
-export const getItemDeliveryProvisioning = (
+): CheckoutState['checkoutOrderDeliveryBundleUpgrades'] =>
+  state.checkoutOrderDeliveryBundleUpgrades;
+export const getCheckoutOrderDeliveryBundleProvisioning = (
   state: CheckoutState,
-): CheckoutState['itemDeliveryProvisioning'] => state.itemDeliveryProvisioning;
-export const getUpgradeItemDeliveryProvisioning = (
+): CheckoutState['checkoutOrderDeliveryBundleProvisioning'] =>
+  state.checkoutOrderDeliveryBundleProvisioning;
+export const getCheckoutOrderDeliveryBundleUpgradeProvisioning = (
   state: CheckoutState,
-): CheckoutState['upgradeItemDeliveryProvisioning'] =>
-  state.upgradeItemDeliveryProvisioning;
+): CheckoutState['checkoutOrderDeliveryBundleUpgradeProvisioning'] =>
+  state.checkoutOrderDeliveryBundleUpgradeProvisioning;
 export const getOperation = (
   state: CheckoutState,
 ): CheckoutState['operation'] => state.operation;
@@ -618,16 +623,16 @@ export default combineReducers({
   error,
   id,
   isLoading,
-  checkoutDetails,
+  checkoutOrderDetails,
   collectPoints,
-  itemTags,
-  promoCode,
-  tags,
-  giftMessage,
+  checkoutOrderTags,
+  checkoutOrderPromocode,
+  checkoutOrderItemTags,
+  checkoutOrderItems,
   checkoutOrderCharge,
-  deliveryBundleUpgrades,
-  itemDeliveryProvisioning,
-  upgradeItemDeliveryProvisioning,
+  checkoutOrderDeliveryBundleUpgrades,
+  checkoutOrderDeliveryBundleProvisioning,
+  checkoutOrderDeliveryBundleUpgradeProvisioning,
   operation,
   operations,
   removeOrderItem,

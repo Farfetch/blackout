@@ -1,26 +1,30 @@
 import { createSelector } from 'reselect';
 import {
-  getCheckoutDetails,
   getCheckoutOrderCharge as getCheckoutOrderChargeFromReducer,
+  getCheckoutOrderDeliveryBundleProvisioning,
+  getCheckoutOrderDeliveryBundleUpgradeProvisioning,
+  getCheckoutOrderDeliveryBundleUpgrades,
+  getCheckoutOrderDetails as getCheckoutOrderDetailsFromReducer,
+  getCheckoutOrderItems as getCheckoutOrderItemsFromReducer,
+  getCheckoutOrderItemTags as getCheckoutOrderItemTagsFromReducer,
+  getCheckoutOrderPromocode as getCheckoutOrderPromocodeFromReducer,
+  getCheckoutOrderTags as getCheckoutOrderTagsFromReducer,
   getCollectPoints,
-  getDeliveryBundleUpgrades,
   getError,
-  getGiftMessage,
   getId,
   getIsLoading,
-  getItemDeliveryProvisioning,
-  getItemTags,
   getOperation,
   getOperations,
-  getPromoCode,
   getRemoveOrderItem,
-  getTags,
   getUpdateOrderItem,
-  getUpgradeItemDeliveryProvisioning,
 } from './reducer';
 import { getEntities, getEntityById } from '../entities/selectors';
 import findKey from 'lodash/findKey';
 import get from 'lodash/get';
+import type {
+  CheckoutOrderItemEntity,
+  DeliveryBundleEntity,
+} from '../entities';
 import type { CheckoutState } from './types';
 import type {
   DeliveryWindowType,
@@ -29,12 +33,12 @@ import type {
 } from '@farfetch/blackout-client';
 import type { StoreState } from '../types';
 
-type BundleDeliveryWindow = {
+export type DeliveryBundleWindow = {
   minEstimatedDeliveryDate: string;
   maxEstimatedDeliveryDate: string;
 };
 
-enum TimeLimitType {
+export enum TimeLimitType {
   min,
   max,
 }
@@ -82,7 +86,7 @@ export const getCheckoutOrderCharge = (state: StoreState) =>
  *
  * @param state - Application state.
  *
- * @returns Checkout error.
+ * @returns Checkout order entity or undefined.
  */
 export const getCheckoutOrder = (state: StoreState) => {
   const checkoutId = getCheckoutId(state);
@@ -93,13 +97,13 @@ export const getCheckoutOrder = (state: StoreState) => {
 };
 
 /**
- * Returns the checkout detail.
+ * Returns the checkout order details.
  *
  * @param state - Application state.
  *
- * @returns Checkout error.
+ * @returns Checkout order details or undefined.
  */
-export const getCheckoutDetail = (state: StoreState) => {
+export const getCheckoutOrderDetails = (state: StoreState) => {
   const checkoutId = getCheckoutId(state);
 
   return checkoutId
@@ -135,9 +139,11 @@ export const getCheckoutOrderItemProduct = (
   const checkoutOrderItem = getCheckoutOrderItem(state, checkoutOrderItemId);
   const productId = get(checkoutOrderItem, 'product');
 
-  return (
-    productId && getEntityById(state, 'checkoutOrderItemProducts', productId)
-  );
+  if (!productId) {
+    return undefined;
+  }
+
+  return getEntityById(state, 'checkoutOrderItemProducts', productId);
 };
 
 /**
@@ -165,9 +171,9 @@ export const getCheckoutOrderItems = createSelector(
     getCheckoutOrderItemsIds,
   ],
   (checkoutOrderItems, checkoutOrderItemsIds) =>
-    checkoutOrderItemsIds?.map(
-      checkoutOrderItemId => checkoutOrderItems[checkoutOrderItemId],
-    ),
+    checkoutOrderItemsIds
+      ?.map(checkoutOrderItemId => checkoutOrderItems[checkoutOrderItemId])
+      .filter(Boolean) as CheckoutOrderItemEntity[] | undefined,
 );
 
 /**
@@ -256,7 +262,9 @@ export const getCheckoutDeliveryBundles = createSelector(
     state => getEntities(state, 'deliveryBundles'),
   ],
   (deliveryBundlesIds, deliveryBundles) =>
-    deliveryBundlesIds?.map(id => deliveryBundles && deliveryBundles[id]),
+    deliveryBundlesIds
+      ?.map(id => deliveryBundles && deliveryBundles[id])
+      .filter(Boolean) as DeliveryBundleEntity[] | undefined,
 );
 
 /**
@@ -316,46 +324,50 @@ export const getCheckoutDeliveryBundleUpgrade = createSelector(
  *
  * @returns Checkout estimated delivery period.
  */
-export const getCheckoutCollectPointEstimatedDeliveryPeriod = createSelector(
-  [getCheckoutOrderSelectedCollectPoint, getCheckoutShippingOptions],
-  (selectedCollectPoint, shippingOptions) => {
-    const merchantLocationId = get(selectedCollectPoint, 'merchantLocationId');
-    if (!merchantLocationId) return;
+export const getCheckoutOrderSelectedCollectPointEstimatedDeliveryPeriod =
+  createSelector(
+    [getCheckoutOrderSelectedCollectPoint, getCheckoutShippingOptions],
+    (selectedCollectPoint, shippingOptions) => {
+      const merchantLocationId = get(
+        selectedCollectPoint,
+        'merchantLocationId',
+      );
+      if (!merchantLocationId) return;
 
-    const initialValue: INITIAL_VALUE = {
-      minEstimatedDeliveryHour: null,
-      maxEstimatedDeliveryHour: null,
-    };
+      const initialValue: INITIAL_VALUE = {
+        minEstimatedDeliveryHour: null,
+        maxEstimatedDeliveryHour: null,
+      };
 
-    const selectedShippingService = shippingOptions?.reduce(
-      (
-        service: {
-          minEstimatedDeliveryHour: number | null;
-          maxEstimatedDeliveryHour: number | null;
+      const selectedShippingService = shippingOptions?.reduce(
+        (
+          service: {
+            minEstimatedDeliveryHour: number | null;
+            maxEstimatedDeliveryHour: number | null;
+          },
+          shippingOption: ShippingOption,
+        ) => {
+          const emptyArray: number[] = [];
+          const merchants = get(shippingOption, 'merchants', emptyArray);
+          if (merchants.includes(merchantLocationId)) {
+            const { minEstimatedDeliveryHour, maxEstimatedDeliveryHour } =
+              shippingOption.shippingService;
+
+            service.minEstimatedDeliveryHour = minEstimatedDeliveryHour;
+            service.maxEstimatedDeliveryHour = maxEstimatedDeliveryHour;
+          }
+
+          return service;
         },
-        shippingOption: ShippingOption,
-      ) => {
-        const emptyArray: number[] = [];
-        const merchants = get(shippingOption, 'merchants', emptyArray);
-        if (merchants.includes(merchantLocationId)) {
-          const { minEstimatedDeliveryHour, maxEstimatedDeliveryHour } =
-            shippingOption.shippingService;
+        initialValue,
+      );
 
-          service.minEstimatedDeliveryHour = minEstimatedDeliveryHour;
-          service.maxEstimatedDeliveryHour = maxEstimatedDeliveryHour;
-        }
-
-        return service;
-      },
-      initialValue,
-    );
-
-    return {
-      start: selectedShippingService?.minEstimatedDeliveryHour,
-      end: selectedShippingService?.maxEstimatedDeliveryHour,
-    };
-  },
-);
+      return {
+        start: selectedShippingService?.minEstimatedDeliveryHour,
+        end: selectedShippingService?.maxEstimatedDeliveryHour,
+      };
+    },
+  );
 
 /**
  * Returns the checkout error.
@@ -378,18 +390,14 @@ export const isCheckoutLoading = (state: StoreState) =>
   getIsLoading(state.checkout as CheckoutState);
 
 /**
- * Returns the error or loading status of each sub-area.
- */
-
-/**
  * Returns the loading status for the checkout details operation.
  *
  * @param state - Application state.
  *
  * @returns Checkout details operation Loading status.
  */
-export const areCheckoutDetailsLoading = (state: StoreState) =>
-  getCheckoutDetails(state.checkout as CheckoutState).isLoading;
+export const areCheckoutOrderDetailsLoading = (state: StoreState) =>
+  getCheckoutOrderDetailsFromReducer(state.checkout as CheckoutState).isLoading;
 
 /**
  * Returns the error for the checkout details operation.
@@ -398,8 +406,8 @@ export const areCheckoutDetailsLoading = (state: StoreState) =>
  *
  * @returns Checkout details operation error.
  */
-export const getCheckoutDetailsError = (state: StoreState) =>
-  getCheckoutDetails(state.checkout as CheckoutState).error;
+export const getCheckoutOrderDetailsError = (state: StoreState) =>
+  getCheckoutOrderDetailsFromReducer(state.checkout as CheckoutState).error;
 
 /**
  * Returns the loading status for the collect points operation.
@@ -428,8 +436,9 @@ export const getCollectPointsError = (state: StoreState) =>
  *
  * @returns Item tags operation Loading status.
  */
-export const isItemTagsLoading = (state: StoreState) =>
-  getItemTags(state.checkout as CheckoutState).isLoading;
+export const areCheckoutOrderItemTagsLoading = (state: StoreState) =>
+  getCheckoutOrderItemTagsFromReducer(state.checkout as CheckoutState)
+    .isLoading;
 
 /**
  * Returns the error for the items tags operation.
@@ -438,8 +447,8 @@ export const isItemTagsLoading = (state: StoreState) =>
  *
  * @returns Items tags operation error.
  */
-export const getItemTagsError = (state: StoreState) =>
-  getItemTags(state.checkout as CheckoutState).error;
+export const getCheckoutOrderItemTagsError = (state: StoreState) =>
+  getCheckoutOrderItemTagsFromReducer(state.checkout as CheckoutState).error;
 
 /**
  * Returns the loading status for the promocode operation.
@@ -448,8 +457,9 @@ export const getItemTagsError = (state: StoreState) =>
  *
  * @returns Promocode operation Loading status.
  */
-export const isPromoCodeLoading = (state: StoreState) =>
-  getPromoCode(state.checkout as CheckoutState).isLoading;
+export const isCheckoutOrderPromocodeLoading = (state: StoreState) =>
+  getCheckoutOrderPromocodeFromReducer(state.checkout as CheckoutState)
+    .isLoading;
 
 /**
  * Returns the error for the promocode operation.
@@ -458,8 +468,8 @@ export const isPromoCodeLoading = (state: StoreState) =>
  *
  * @returns Promocode operation error.
  */
-export const getPromoCodeError = (state: StoreState) =>
-  getPromoCode(state.checkout as CheckoutState).error;
+export const getCheckoutOrderPromocodeError = (state: StoreState) =>
+  getCheckoutOrderPromocodeFromReducer(state.checkout as CheckoutState).error;
 
 /**
  * Returns the loading status for the tags operation.
@@ -468,8 +478,8 @@ export const getPromoCodeError = (state: StoreState) =>
  *
  * @returns Tags operation Loading status.
  */
-export const isTagsLoading = (state: StoreState) =>
-  getTags(state.checkout as CheckoutState).isLoading;
+export const areCheckoutOrderTagsLoading = (state: StoreState) =>
+  getCheckoutOrderTagsFromReducer(state.checkout as CheckoutState).isLoading;
 
 /**
  * Returns the error for the tags operation.
@@ -478,28 +488,28 @@ export const isTagsLoading = (state: StoreState) =>
  *
  * @returns Tags operation error.
  */
-export const getTagsError = (state: StoreState) =>
-  getTags(state.checkout as CheckoutState).error;
+export const getCheckoutOrderTagsError = (state: StoreState) =>
+  getCheckoutOrderTagsFromReducer(state.checkout as CheckoutState).error;
 
 /**
- * Returns the loading status for the gift message operation.
+ * Returns the loading status for the update checkout order items operation.
  *
  * @param state - Application state.
  *
- * @returns Gift message operation Loading status.
+ * @returns Checkout order items update operation loading status.
  */
-export const isGiftMessageLoading = (state: StoreState) =>
-  getGiftMessage(state.checkout as CheckoutState).isLoading;
+export const areCheckoutOrderItemsUpdating = (state: StoreState) =>
+  getCheckoutOrderItemsFromReducer(state.checkout as CheckoutState).isLoading;
 
 /**
- * Returns the error for the gift message operation.
+ * Returns the error for the update checkout order items operation.
  *
  * @param state - Application state.
  *
- * @returns Gift message operation error.
+ * @returns Update checkout order items operation error.
  */
-export const getGiftMessageError = (state: StoreState) =>
-  getGiftMessage(state.checkout as CheckoutState).error;
+export const getCheckoutOrderItemsUpdateError = (state: StoreState) =>
+  getCheckoutOrderItemsFromReducer(state.checkout as CheckoutState).error;
 
 /**
  * Returns the loading status for the charge checkout order operation.
@@ -538,8 +548,11 @@ export const getCheckoutOrderChargeResult = (state: StoreState) =>
  *
  * @returns Delivery bundle upgrades operation Loading status.
  */
-export const areDeliveryBundleUpgradesLoading = (state: StoreState) =>
-  getDeliveryBundleUpgrades(state.checkout as CheckoutState).isLoading;
+export const areCheckoutOrderDeliveryBundleUpgradesLoading = (
+  state: StoreState,
+) =>
+  getCheckoutOrderDeliveryBundleUpgrades(state.checkout as CheckoutState)
+    .isLoading;
 
 /**
  * Returns the delivery bundle upgrades error.
@@ -548,8 +561,10 @@ export const areDeliveryBundleUpgradesLoading = (state: StoreState) =>
  *
  * @returns Delivery bundle upgrades operation error.
  */
-export const getDeliveryBundleUpgradesError = (state: StoreState) =>
-  getDeliveryBundleUpgrades(state.checkout as CheckoutState).error;
+export const getCheckoutOrderDeliveryBundleUpgradesError = (
+  state: StoreState,
+) =>
+  getCheckoutOrderDeliveryBundleUpgrades(state.checkout as CheckoutState).error;
 
 /**
  * Returns the loading status for the item delivery provisioning operation.
@@ -558,8 +573,11 @@ export const getDeliveryBundleUpgradesError = (state: StoreState) =>
  *
  * @returns Item delivery provisioning operation Loading status.
  */
-export const isItemDeliveryProvisioningLoading = (state: StoreState) =>
-  getItemDeliveryProvisioning(state.checkout as CheckoutState).isLoading;
+export const isCheckoutOrderDeliveryBundleProvisioningLoading = (
+  state: StoreState,
+) =>
+  getCheckoutOrderDeliveryBundleProvisioning(state.checkout as CheckoutState)
+    .isLoading;
 
 /**
  * Returns the item delivery provisioning error.
@@ -568,8 +586,11 @@ export const isItemDeliveryProvisioningLoading = (state: StoreState) =>
  *
  * @returns Item delivery provisioning operation error.
  */
-export const getItemDeliveryProvisioningError = (state: StoreState) =>
-  getItemDeliveryProvisioning(state.checkout as CheckoutState).error;
+export const getCheckoutOrderDeliveryBundleProvisioningError = (
+  state: StoreState,
+) =>
+  getCheckoutOrderDeliveryBundleProvisioning(state.checkout as CheckoutState)
+    .error;
 
 /**
  * Returns the loading status for the upgrade item delivery provisioning operation.
@@ -578,8 +599,12 @@ export const getItemDeliveryProvisioningError = (state: StoreState) =>
  *
  * @returns Upgrade item delivery provisioning operation Loading status.
  */
-export const isUpgradeItemDeliveryProvisioningLoading = (state: StoreState) =>
-  getUpgradeItemDeliveryProvisioning(state.checkout as CheckoutState).isLoading;
+export const isCheckoutOrderDeliveryBundleUpgradeProvisioningLoading = (
+  state: StoreState,
+) =>
+  getCheckoutOrderDeliveryBundleUpgradeProvisioning(
+    state.checkout as CheckoutState,
+  ).isLoading;
 
 /**
  * Returns the upgrade item delivery provisioning error.
@@ -588,8 +613,12 @@ export const isUpgradeItemDeliveryProvisioningLoading = (state: StoreState) =>
  *
  * @returns Upgrade item delivery provisioning operation error.
  */
-export const getUpgradeItemDeliveryProvisioningError = (state: StoreState) =>
-  getUpgradeItemDeliveryProvisioning(state.checkout as CheckoutState).error;
+export const getCheckoutOrderDeliveryBundleUpgradeProvisioningError = (
+  state: StoreState,
+) =>
+  getCheckoutOrderDeliveryBundleUpgradeProvisioning(
+    state.checkout as CheckoutState,
+  ).error;
 
 /**
  * Returns the ISO date for the item delivery options.
@@ -635,10 +664,10 @@ const getItemsDeliveryOptionsDate = (
  *
  * @returns Object with the minimum and maximum delivery days.
  */
-export const getBundleDeliveryWindow = (
+export const getCheckoutDeliveryBundleWindow = (
   state: StoreState,
   deliveryBundleId: string,
-): BundleDeliveryWindow | undefined => {
+): DeliveryBundleWindow | undefined => {
   const deliveryBundle = getCheckoutDeliveryBundle(state, deliveryBundleId);
   if (!deliveryBundle) return;
 
@@ -665,7 +694,7 @@ export const getBundleDeliveryWindow = (
  *
  * @returns Order operation fetch process loading status.
  */
-export const isOperationLoading = (state: StoreState) =>
+export const isCheckoutOrderOperationLoading = (state: StoreState) =>
   getOperation(state.checkout as CheckoutState).isLoading;
 
 /**
@@ -675,7 +704,7 @@ export const isOperationLoading = (state: StoreState) =>
  *
  * @returns Order operation error.
  */
-export const getOperationError = (state: StoreState) =>
+export const getCheckoutOrderOperationError = (state: StoreState) =>
   getOperation(state.checkout as CheckoutState).error;
 
 /**
@@ -685,7 +714,7 @@ export const getOperationError = (state: StoreState) =>
  *
  * @returns Order operation fetch process loading status.
  */
-export const isOperationsLoading = (state: StoreState) =>
+export const areCheckoutOrderOperationsLoading = (state: StoreState) =>
   getOperations(state.checkout as CheckoutState).isLoading;
 
 /**
@@ -695,7 +724,7 @@ export const isOperationsLoading = (state: StoreState) =>
  *
  * @returns Order operation error.
  */
-export const getOperationsError = (state: StoreState) =>
+export const getCheckoutOrderOperationsError = (state: StoreState) =>
   getOperations(state.checkout as CheckoutState).error;
 
 /**
@@ -715,10 +744,13 @@ export const getOperationsError = (state: StoreState) =>
  * \};
  *
  */
-export const getOperationsPagination = createSelector(
+export const getCheckoutOrderOperationsPagination = createSelector(
   [state => getOperations(state.checkout)],
   operations => {
-    if (!operations || !operations.result) return;
+    if (!operations || !operations.result) {
+      return;
+    }
+
     return operations.result;
   },
 );

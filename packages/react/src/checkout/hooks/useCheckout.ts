@@ -2,39 +2,39 @@
  * Hook to provide all kinds of data for the business logic attached to checkout.
  */
 import {
-  areCheckoutDetailsLoading as areCheckoutDetailsLoadingSelector,
+  areCheckoutOrderDeliveryBundleUpgradesLoading,
+  areCheckoutOrderDetailsLoading as areCheckoutOrderDetailsLoadingSelector,
   areCollectPointsLoading as areCollectPointsLoadingSelector,
-  areDeliveryBundleUpgradesLoading,
-  createCheckout as createCheckoutAction,
-  fetchCheckout as fetchCheckoutAction,
-  fetchCheckoutDetails as fetchCheckoutDetailsAction,
+  createCheckoutOrder as createCheckoutOrderAction,
+  fetchCheckoutOrder as fetchCheckoutOrderAction,
+  fetchCheckoutOrderDeliveryBundleUpgrades as fetchCheckoutOrderDeliveryBundleUpgradesAction,
+  fetchCheckoutOrderDetails as fetchCheckoutOrderDetailsAction,
   fetchCollectPoints as fetchCollectPointsAction,
-  fetchDeliveryBundleUpgrades as fetchDeliveryBundleUpgradesAction,
   getBagId,
   getCheckout,
   getCheckoutDeliveryBundles,
   getCheckoutDeliveryBundlesIds,
-  getCheckoutDetail,
-  getCheckoutDetailsError,
   getCheckoutError,
   getCheckoutId,
   getCheckoutOrder,
   getCheckoutOrderCollectPoints,
+  getCheckoutOrderDetails,
+  getCheckoutOrderDetailsError,
   getCheckoutOrderItems,
   getCheckoutOrderItemsIds,
+  getCheckoutOrderPromocodeError,
   getCollectPointsError,
-  getPromoCodeError,
   isAuthenticated,
   isBagLoading as isBagLoadingSelector,
   isCheckoutLoading as isCheckoutLoadingSelector,
+  isCheckoutOrderPromocodeLoading as isCheckoutOrderPromocodeLoadingSelector,
   isLoginLoading,
-  isPromoCodeLoading as isPromoCodeLoadingSelector,
   resetCheckoutState as resetCheckoutStateAction,
-  setPromocode as setPromocodeAction,
-  setTags as setTagsAction,
+  setCheckoutOrderPromocode as setCheckoutOrderPromocodeAction,
+  setCheckoutOrderTags as setCheckoutOrderTagsAction,
   StoreState,
-  updateCheckout as updateCheckoutAction,
-  updateGiftMessage as updateGiftMessageAction,
+  updateCheckoutOrder as updateCheckoutOrderAction,
+  updateCheckoutOrderItems as updateCheckoutOrderItemsAction,
 } from '@farfetch/blackout-redux';
 import { useAction } from '../../helpers';
 import { useEffect, useState } from 'react';
@@ -65,13 +65,13 @@ const useCheckout = ({
   // Selectors
   const checkoutData = useSelector((state: StoreState) => getCheckout(state));
   const checkoutDetails = useSelector((state: StoreState) =>
-    getCheckoutDetail(state),
+    getCheckoutOrderDetails(state),
   );
-  const areCheckoutDetailsLoading = useSelector((state: StoreState) =>
-    areCheckoutDetailsLoadingSelector(state),
+  const areCheckoutOrderDetailsLoading = useSelector((state: StoreState) =>
+    areCheckoutOrderDetailsLoadingSelector(state),
   );
-  const checkoutDetailsError = useSelector((state: StoreState) =>
-    getCheckoutDetailsError(state),
+  const checkoutOrderDetailsError = useSelector((state: StoreState) =>
+    getCheckoutOrderDetailsError(state),
   );
   const checkoutOrder = useSelector((state: StoreState) =>
     getCheckoutOrder(state),
@@ -106,11 +106,11 @@ const useCheckout = ({
   const collectPointsError = useSelector((state: StoreState) =>
     getCollectPointsError(state),
   );
-  const isPromoCodeLoading = useSelector((state: StoreState) =>
-    isPromoCodeLoadingSelector(state),
+  const isPromocodeLoading = useSelector((state: StoreState) =>
+    isCheckoutOrderPromocodeLoadingSelector(state),
   );
-  const promoCodeError = useSelector((state: StoreState) =>
-    getPromoCodeError(state),
+  const promocodeError = useSelector((state: StoreState) =>
+    getCheckoutOrderPromocodeError(state),
   );
   const deliveryBundles = useSelector((state: StoreState) =>
     getCheckoutDeliveryBundles(state),
@@ -119,22 +119,22 @@ const useCheckout = ({
     getCheckoutDeliveryBundlesIds(state),
   );
   const areUpgradesLoading = useSelector((state: StoreState) =>
-    areDeliveryBundleUpgradesLoading(state),
+    areCheckoutOrderDeliveryBundleUpgradesLoading(state),
   );
 
   // Actions
-  const createCheckout = useAction(createCheckoutAction);
+  const createCheckoutOrder = useAction(createCheckoutOrderAction);
   const resetCheckoutState = useAction(resetCheckoutStateAction);
-  const fetchCheckout = useAction(fetchCheckoutAction);
-  const fetchCheckoutDetails = useAction(fetchCheckoutDetailsAction);
+  const fetchCheckoutOrder = useAction(fetchCheckoutOrderAction);
+  const fetchCheckoutOrderDetails = useAction(fetchCheckoutOrderDetailsAction);
   const fetchCollectPoints = useAction(fetchCollectPointsAction);
-  const fetchDeliveryBundleUpgrades = useAction(
-    fetchDeliveryBundleUpgradesAction,
+  const fetchCheckoutOrderDeliveryBundleUpgrades = useAction(
+    fetchCheckoutOrderDeliveryBundleUpgradesAction,
   );
-  const updateCheckout = useAction(updateCheckoutAction);
-  const setPromocode = useAction(setPromocodeAction);
-  const setTags = useAction(setTagsAction);
-  const updateGiftMessage = useAction(updateGiftMessageAction);
+  const updateCheckoutOrder = useAction(updateCheckoutOrderAction);
+  const setCheckoutOrderPromocode = useAction(setCheckoutOrderPromocodeAction);
+  const setCheckoutOrderTags = useAction(setCheckoutOrderTagsAction);
+  const updateCheckoutOrderItems = useAction(updateCheckoutOrderItemsAction);
 
   // State
   const [selectedCollectPoint, setSelectedCollectPoint] = useState<
@@ -162,7 +162,7 @@ const useCheckout = ({
       !isBagLoading &&
       !isCheckoutLoading
     ) {
-      createCheckout({
+      createCheckoutOrder({
         bagId,
         guestUserEmail: guestEmail,
         usePaymentIntent: true,
@@ -178,7 +178,7 @@ const useCheckout = ({
     isAuthLoading,
     isBagLoading,
     isCheckoutLoading,
-    createCheckout,
+    createCheckoutOrder,
     shippingMode,
   ]);
 
@@ -193,7 +193,7 @@ const useCheckout = ({
   ) => {
     const previousSelectedCollectPoint = selectedCollectPoint;
     try {
-      await updateCheckout(checkoutId, {
+      await updateCheckoutOrder(checkoutId, {
         clickAndCollect,
         shippingAddress: storeAddress,
       });
@@ -224,7 +224,7 @@ const useCheckout = ({
       return;
     }
 
-    await updateCheckout(checkoutId, data);
+    await updateCheckoutOrder(checkoutId, data);
   };
 
   const handleSetBillingAddress = async (address: UserAddress) => {
@@ -234,7 +234,7 @@ const useCheckout = ({
       return;
     }
 
-    await updateCheckout(checkoutId, {
+    await updateCheckoutOrder(checkoutId, {
       billingAddress: address,
     });
   };
@@ -246,8 +246,8 @@ const useCheckout = ({
     checkoutError,
     checkoutData,
     checkoutDetails,
-    areCheckoutDetailsLoading,
-    checkoutDetailsError,
+    areCheckoutOrderDetailsLoading,
+    checkoutOrderDetailsError,
     checkoutOrder,
     checkoutOrderItems,
     checkoutOrderItemsIds,
@@ -259,21 +259,21 @@ const useCheckout = ({
     checkoutSelectedBilling,
     setCheckoutSelectedShipping,
     setCheckoutSelectedBilling,
-    isPromoCodeLoading,
-    promoCodeError,
+    isPromocodeLoading,
+    promocodeError,
     deliveryBundles,
     deliveryBundlesIds,
     areUpgradesLoading,
     // Actions
-    createCheckout,
-    fetchCheckout,
-    fetchCheckoutDetails,
-    fetchDeliveryBundleUpgrades,
+    createCheckoutOrder,
+    fetchCheckoutOrder,
+    fetchCheckoutOrderDetails,
+    fetchCheckoutOrderDeliveryBundleUpgrades,
     resetCheckoutState,
-    updateCheckout,
-    updateGiftMessage,
-    setPromocode,
-    setTags,
+    updateCheckoutOrder,
+    updateCheckoutOrderItems,
+    setCheckoutOrderPromocode,
+    setCheckoutOrderTags,
 
     handleGetCollectPoints,
 

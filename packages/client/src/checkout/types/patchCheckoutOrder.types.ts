@@ -1,10 +1,9 @@
 import type { CheckoutAddress, Config } from '../../types';
-import type { GetCheckoutOrderResponse, ShippingOption } from '.';
-
-export type ClickAndCollect = {
-  collectPointId: number;
-  merchantLocationId: number;
-};
+import type {
+  ClickAndCollect,
+  GetCheckoutOrderResponse,
+  ShippingOption,
+} from '.';
 
 export type DeliveryBundleUpdate = {
   id: string;

@@ -6,11 +6,11 @@ import {
   waitFor,
 } from '@testing-library/react';
 import {
-  createCheckout as createCheckoutAction,
-  fetchCheckout as fetchCheckoutAction,
+  createCheckoutOrder as createCheckoutOrderAction,
+  fetchCheckoutOrder as fetchCheckoutOrderAction,
   fetchCollectPoints as fetchCollectPointsAction,
-  updateCheckout as updateCheckoutAction,
-  updateGiftMessage as updateGiftMessageAction,
+  updateCheckoutOrder as updateCheckoutOrderAction,
+  updateCheckoutOrderItems as updateCheckoutOrderItemsAction,
 } from '@farfetch/blackout-redux';
 import {
   expectedNormalizedPayload,
@@ -29,16 +29,20 @@ import { useCheckout } from '../..';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
-  createCheckout: jest.fn(() => ({ type: 'create' })),
-  updateCheckout: jest.fn(() => ({ type: 'update' })),
-  fetchCheckout: jest.fn(() => ({ type: 'get' })),
-  fetchCheckoutDetails: jest.fn(() => ({ type: 'get_details' })),
+  createCheckoutOrder: jest.fn(() => ({ type: 'create' })),
+  updateCheckoutOrder: jest.fn(() => ({ type: 'update' })),
+  fetchCheckoutOrder: jest.fn(() => ({ type: 'get' })),
+  fetchCheckoutOrderDetails: jest.fn(() => ({ type: 'get_details' })),
   fetchCollectPoints: jest.fn(() => ({ type: 'get_collectpoints' })),
-  fetchDeliveryBundleUpgrades: jest.fn(() => ({ type: 'get_upgrades' })),
+  fetchCheckoutOrderDeliveryBundleUpgrades: jest.fn(() => ({
+    type: 'get_upgrades',
+  })),
   resetCheckoutState: jest.fn(() => ({ type: 'reset_checkout' })),
-  updateGiftMessage: jest.fn(() => ({ type: 'update_giftmessage' })),
-  setPromocode: jest.fn(() => ({ type: 'set_promocode' })),
-  setTags: jest.fn(() => ({ type: 'set_tags' })),
+  updateCheckoutOrderItems: jest.fn(() => ({
+    type: 'update_checkout_order_items',
+  })),
+  setCheckoutOrderPromocode: jest.fn(() => ({ type: 'set_promocode' })),
+  setCheckoutOrderTags: jest.fn(() => ({ type: 'set_tags' })),
 }));
 
 describe('useCheckout', () => {
@@ -64,15 +68,17 @@ describe('useCheckout', () => {
       ),
     });
 
-    expect(typeof current.createCheckout).toBe('function');
-    expect(typeof current.updateCheckout).toBe('function');
-    expect(typeof current.fetchCheckout).toBe('function');
-    expect(typeof current.fetchCheckoutDetails).toBe('function');
-    expect(typeof current.fetchDeliveryBundleUpgrades).toBe('function');
+    expect(typeof current.createCheckoutOrder).toBe('function');
+    expect(typeof current.updateCheckoutOrder).toBe('function');
+    expect(typeof current.fetchCheckoutOrder).toBe('function');
+    expect(typeof current.fetchCheckoutOrderDetails).toBe('function');
+    expect(typeof current.fetchCheckoutOrderDeliveryBundleUpgrades).toBe(
+      'function',
+    );
     expect(typeof current.resetCheckoutState).toBe('function');
-    expect(typeof current.updateGiftMessage).toBe('function');
-    expect(typeof current.setPromocode).toBe('function');
-    expect(typeof current.setTags).toBe('function');
+    expect(typeof current.updateCheckoutOrderItems).toBe('function');
+    expect(typeof current.setCheckoutOrderPromocode).toBe('function');
+    expect(typeof current.setCheckoutOrderTags).toBe('function');
   });
 
   it('should render in loading state', () => {
@@ -121,7 +127,7 @@ describe('useCheckout', () => {
         <Provider store={mockStore(createCheckoutMock)} {...props} />
       ),
     });
-    expect(createCheckoutAction).toHaveBeenCalledTimes(1);
+    expect(createCheckoutOrderAction).toHaveBeenCalledTimes(1);
   });
 
   it('useEffect on mount checkout should not run', () => {
@@ -138,7 +144,7 @@ describe('useCheckout', () => {
         <Provider store={mockStore(createCheckoutMock)} {...props} />
       ),
     });
-    expect(createCheckoutAction).toHaveBeenCalledTimes(0);
+    expect(createCheckoutOrderAction).toHaveBeenCalledTimes(0);
   });
 
   describe('actions', () => {
@@ -154,7 +160,7 @@ describe('useCheckout', () => {
         .withStore(createCheckoutMock)
         .render();
 
-      expect(createCheckoutAction).toHaveBeenCalledTimes(1);
+      expect(createCheckoutOrderAction).toHaveBeenCalledTimes(1);
       expect(queryByTestId('checkout-loading')).toBeNull();
       expect(queryByTestId('checkout-error')).toBeNull();
     });
@@ -166,7 +172,7 @@ describe('useCheckout', () => {
 
       fireEvent.click(getByTestId('checkout-updateButton'));
 
-      expect(updateCheckoutAction).toHaveBeenCalledTimes(1);
+      expect(updateCheckoutOrderAction).toHaveBeenCalledTimes(1);
       expect(queryByTestId('checkout-loading')).toBeNull();
       expect(queryByTestId('checkout-error')).toBeNull();
     });
@@ -178,19 +184,19 @@ describe('useCheckout', () => {
 
       fireEvent.click(getByTestId('checkout-getButton'));
 
-      expect(fetchCheckoutAction).toHaveBeenCalledTimes(1);
+      expect(fetchCheckoutOrderAction).toHaveBeenCalledTimes(1);
       expect(queryByTestId('checkout-loading')).toBeNull();
       expect(queryByTestId('checkout-error')).toBeNull();
     });
 
-    it('should call `update_giftmessage` action', () => {
+    it('should call `update_checkout_order_items` action', () => {
       const { getByTestId, queryByTestId } = wrap(<Checkout />)
         .withStore(baseTestState)
         .render();
 
       fireEvent.click(getByTestId('checkout-giftmessage-updateButton'));
 
-      expect(updateGiftMessageAction).toHaveBeenCalledTimes(1);
+      expect(updateCheckoutOrderItemsAction).toHaveBeenCalledTimes(1);
       expect(queryByTestId('checkout-loading')).toBeNull();
       expect(queryByTestId('checkout-error')).toBeNull();
     });
@@ -216,7 +222,7 @@ describe('useCheckout', () => {
 
         fireEvent.click(getByTestId('checkout-handleSetShippingAddressButton'));
 
-        expect(updateCheckoutAction).toHaveBeenCalledTimes(1);
+        expect(updateCheckoutOrderAction).toHaveBeenCalledTimes(1);
       });
     });
 
@@ -228,7 +234,7 @@ describe('useCheckout', () => {
 
         fireEvent.click(getByTestId('checkout-handleSetBillingAddressButton'));
 
-        expect(updateCheckoutAction).toHaveBeenCalledTimes(1);
+        expect(updateCheckoutOrderAction).toHaveBeenCalledTimes(1);
       });
     });
 
@@ -240,7 +246,7 @@ describe('useCheckout', () => {
 
         fireEvent.click(getByTestId('checkout-handleSelectCollectPointButton'));
 
-        expect(updateCheckoutAction).toHaveBeenCalledTimes(1);
+        expect(updateCheckoutOrderAction).toHaveBeenCalledTimes(1);
 
         await waitFor(() => {
           expect(

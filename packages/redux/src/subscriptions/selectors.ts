@@ -118,7 +118,7 @@ export const getUserSubscribedTopicsForAddress = createSelector(
  *
  * @returns User subscription loading status.
  */
-export const isUserSubscriptionsLoading = (state: StoreState) =>
+export const areUserSubscriptionsLoading = (state: StoreState) =>
   userSubscriptionReducer.getUserSubscriptionsIsLoading(
     state.subscriptions?.user,
   );

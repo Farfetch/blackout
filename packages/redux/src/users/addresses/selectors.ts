@@ -136,7 +136,7 @@ export const getUserAddressError = (
  *
  * @returns Loader status.
  */
-export const isUserDefaultAddressDetailsLoading = (
+export const areUserDefaultAddressDetailsLoading = (
   state: StoreState,
 ): UserAddressesState['defaultAddressDetails']['isLoading'] =>
   getDefaultAddressDetailsFromReducer(

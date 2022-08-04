@@ -134,7 +134,7 @@ export const mockCheckoutState = {
       error: null,
       isLoading: false,
     },
-    checkoutDetails: {
+    checkoutOrderDetails: {
       error: null,
       isLoading: false,
     },
@@ -142,19 +142,19 @@ export const mockCheckoutState = {
       error: null,
       isLoading: false,
     },
-    itemTags: {
+    checkoutOrderTags: {
       error: null,
       isLoading: false,
     },
-    promoCode: {
+    checkoutOrderPromocode: {
       error: null,
       isLoading: false,
     },
-    tags: {
+    checkoutOrderItemTags: {
       error: null,
       isLoading: false,
     },
-    giftMessage: {
+    checkoutOrderItems: {
       error: null,
       isLoading: false,
     },
@@ -169,15 +169,15 @@ export const mockCheckoutState = {
         cancelUrl: 'some url',
       },
     },
-    deliveryBundleUpgrades: {
+    checkoutOrderDeliveryBundleUpgrades: {
       error: null,
       isLoading: false,
     },
-    itemDeliveryProvisioning: {
+    checkoutOrderDeliveryBundleProvisioning: {
       error: null,
       isLoading: false,
     },
-    upgradeItemDeliveryProvisioning: {
+    checkoutOrderDeliveryBundleUpgradeProvisioning: {
       error: null,
       isLoading: false,
     },
