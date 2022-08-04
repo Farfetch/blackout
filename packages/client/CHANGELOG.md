@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.187](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.186...@farfetch/blackout-client@2.0.0-next.187) (2022-08-04)
+
+
+### chore
+
+* **client|redux:** rename orders files ([43cd3dd](https://github.com/Farfetch/blackout/commit/43cd3dd3e519d5788ee009faf6cfd8a019c2da35))
+
+
+### BREAKING CHANGES
+
+* **client|redux:** - The following files from client package were moved and renamed:client was moved
+from the returns area to orders area. Update your imports accordingly:
+  - The 'returns/getReturnsFromOrder' client was moved and renamed to 'orders/getOrderReturns'
+  - The 'orders/getTrackings' client was renamed to 'orders/getShipmentTrackings'
+  - The 'orders/getOrderDetails' client was renamed to 'orders/getOrder'
+
+- The following selectors from redux package were renamed:
+  - The 'orders/isTrackingsLoading' was renamed to 'orders/areShipmentTrackingsLoading'
+  - The 'orders/isOrdersLoading' was renamed to 'orders/areOrdersLoading'
+  - The 'orders/isOrderDetailsLoading' was renamed to 'orders/areOrderDetailsLoading'
+  - The 'orders/isDocumentsLoading' was renamed to 'orders/areDocumentsLoading'
+  - The 'orders/isAvailableItemsActivitiesLoading' was renamed to
+  'orders/areAvailableItemsActivitiesLoading'
+  - The 'orders/isOrderItemAvailableActivitiesLoading' was renamed to
+  'orders/areOrderItemAvailableActivitiesLoading'
+
+- Some Action types for the order returns were also renamed.
+Update them in case you use them in any custom reducer/middleware:
+```js
+import { actionTypes } from "@farfetch/blackout-redux/returns";
+
+// Previously
+actionTypes.FETCH_RETURNS_FROM_ORDER_FAILURE;
+actionTypes.FETCH_RETURNS_FROM_ORDER_REQUEST;
+actionTypes.FETCH_RETURNS_FROM_ORDER_SUCCESS;
+
+// Change to
+actionTypes.FETCH_ORDER_RETURNS_FAILURE;
+actionTypes.FETCH_ORDER_RETURNS_REQUEST;
+actionTypes.FETCH_ORDER_RETURNS_SUCCESS;
+```
+
+
+
+
+
 # [2.0.0-next.186](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.185...@farfetch/blackout-client@2.0.0-next.186) (2022-08-02)
 
 
