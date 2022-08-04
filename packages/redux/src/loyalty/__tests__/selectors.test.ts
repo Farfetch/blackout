@@ -52,24 +52,30 @@ describe('entity selectors', () => {
     });
   });
 
-  describe('getMembership()', () => {
+  describe('getProgramMembership()', () => {
     it('should get the membership from state', () => {
-      testEntitySelector(selectors.getMembership, 'membership');
+      testEntitySelector(selectors.getProgramMembership, 'memberships');
     });
   });
-  describe('getReplacements()', () => {
+  describe('getProgramMembershipReplacements()', () => {
     it('should get the replacements from state', () => {
-      testEntitySelector(selectors.getReplacements, 'replacements');
+      testEntitySelector(
+        selectors.getProgramMembershipReplacements,
+        'replacements',
+      );
     });
   });
-  describe('getConverts()', () => {
+  describe('getProgramMembershipConverts()', () => {
     it('should get the converts from state', () => {
-      testEntitySelector(selectors.getConverts, 'converts');
+      testEntitySelector(selectors.getProgramMembershipConverts, 'converts');
     });
   });
-  describe('getStatements()', () => {
+  describe('getProgramMembershipStatements()', () => {
     it('should get the statements from state', () => {
-      testEntitySelector(selectors.getStatements, 'statements');
+      testEntitySelector(
+        selectors.getProgramMembershipStatements,
+        'statements',
+      );
     });
   });
 });
@@ -83,9 +89,9 @@ describe('programs selectors', () => {
     });
   });
 
-  describe('isProgramsLoading()', () => {
+  describe('areProgramsLoading()', () => {
     it('should get the programs isLoading property', () => {
-      testIsLoadingSelector(selectors.isProgramsLoading, 'programs', spy);
+      testIsLoadingSelector(selectors.areProgramsLoading, 'programs', spy);
     });
   });
 
@@ -99,21 +105,29 @@ describe('programs selectors', () => {
 describe('membership selectors', () => {
   const spy = jest.spyOn(fromReducer, 'getMembership');
 
-  describe('getMembershipError()', () => {
+  describe('getProgramMembershipError()', () => {
     it('should get the membership error property', () => {
-      testErrorSelector(selectors.getMembershipError, 'membership', spy);
+      testErrorSelector(selectors.getProgramMembershipError, 'membership', spy);
     });
   });
 
-  describe('isMembershipLoading()', () => {
+  describe('isProgramMembershipLoading()', () => {
     it('should get the membership isLoading property', () => {
-      testIsLoadingSelector(selectors.isMembershipLoading, 'membership', spy);
+      testIsLoadingSelector(
+        selectors.isProgramMembershipLoading,
+        'membership',
+        spy,
+      );
     });
   });
 
-  describe('getMembershipResult()', () => {
+  describe('getProgramMembershipResult()', () => {
     it('should get the membership result property', () => {
-      testResultSelector(selectors.getMembershipResult, 'membership', spy);
+      testResultSelector(
+        selectors.getProgramMembershipResult,
+        'membership',
+        spy,
+      );
     });
   });
 });
@@ -121,25 +135,33 @@ describe('membership selectors', () => {
 describe('replacements selectors', () => {
   const spy = jest.spyOn(fromReducer, 'getReplacements');
 
-  describe('getReplacementsError()', () => {
+  describe('getProgramMembershipReplacementsError()', () => {
     it('should get the replacements error property', () => {
-      testErrorSelector(selectors.getReplacementsError, 'replacements', spy);
-    });
-  });
-
-  describe('isReplacementsLoading()', () => {
-    it('should get the replacements isLoading property', () => {
-      testIsLoadingSelector(
-        selectors.isReplacementsLoading,
+      testErrorSelector(
+        selectors.getProgramMembershipReplacementsError,
         'replacements',
         spy,
       );
     });
   });
 
-  describe('getReplacementsResult()', () => {
+  describe('areProgramMembershipReplacementsLoading()', () => {
+    it('should get the replacements isLoading property', () => {
+      testIsLoadingSelector(
+        selectors.areProgramMembershipReplacementsLoading,
+        'replacements',
+        spy,
+      );
+    });
+  });
+
+  describe('getProgramMembershipReplacementsResult()', () => {
     it('should get the replacements result property', () => {
-      testResultSelector(selectors.getReplacementsResult, 'replacements', spy);
+      testResultSelector(
+        selectors.getProgramMembershipReplacementsResult,
+        'replacements',
+        spy,
+      );
     });
   });
 });
@@ -147,21 +169,33 @@ describe('replacements selectors', () => {
 describe('converts selectors', () => {
   const spy = jest.spyOn(fromReducer, 'getConverts');
 
-  describe('getConvertsError()', () => {
+  describe('getProgramMembershipConvertsError()', () => {
     it('should get the converts error property', () => {
-      testErrorSelector(selectors.getConvertsError, 'converts', spy);
+      testErrorSelector(
+        selectors.getProgramMembershipConvertsError,
+        'converts',
+        spy,
+      );
     });
   });
 
-  describe('isConvertsLoading()', () => {
+  describe('areProgramMembershipConvertsLoading()', () => {
     it('should get the converts isLoading property', () => {
-      testIsLoadingSelector(selectors.isConvertsLoading, 'converts', spy);
+      testIsLoadingSelector(
+        selectors.areProgramMembershipConvertsLoading,
+        'converts',
+        spy,
+      );
     });
   });
 
-  describe('getConvertsResult()', () => {
+  describe('getProgramMembershipConvertsResult()', () => {
     it('should get the converts result property', () => {
-      testResultSelector(selectors.getConvertsResult, 'converts', spy);
+      testResultSelector(
+        selectors.getProgramMembershipConvertsResult,
+        'converts',
+        spy,
+      );
     });
   });
 });
@@ -169,21 +203,33 @@ describe('converts selectors', () => {
 describe('statements selectors', () => {
   const spy = jest.spyOn(fromReducer, 'getStatements');
 
-  describe('getStatementsError()', () => {
+  describe('getProgramMembershipStatementsError()', () => {
     it('should get the statements error property', () => {
-      testErrorSelector(selectors.getStatementsError, 'statements', spy);
+      testErrorSelector(
+        selectors.getProgramMembershipStatementsError,
+        'statements',
+        spy,
+      );
     });
   });
 
-  describe('isStatementsLoading()', () => {
+  describe('areProgramMembershipStatementsLoading()', () => {
     it('should get the statements isLoading property', () => {
-      testIsLoadingSelector(selectors.isStatementsLoading, 'statements', spy);
+      testIsLoadingSelector(
+        selectors.areProgramMembershipStatementsLoading,
+        'statements',
+        spy,
+      );
     });
   });
 
-  describe('getStatementsResult()', () => {
+  describe('getProgramMembershipStatementsResult()', () => {
     it('should get the statements result property', () => {
-      testResultSelector(selectors.getStatementsResult, 'statements', spy);
+      testResultSelector(
+        selectors.getProgramMembershipStatementsResult,
+        'statements',
+        spy,
+      );
     });
   });
 });

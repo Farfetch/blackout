@@ -129,11 +129,11 @@ describe('checkout redux selectors', () => {
     });
   });
 
-  describe('getCheckoutDetail()', () => {
+  describe('getCheckoutOrderDetails()', () => {
     it('should get the checkoutdetails from state', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
-      expect(selectors.getCheckoutDetail(mockCheckoutState)).toEqual(
+      expect(selectors.getCheckoutOrderDetails(mockCheckoutState)).toEqual(
         checkoutDetailEntity,
       );
       expect(spy).toHaveBeenCalledWith(
@@ -252,7 +252,7 @@ describe('checkout redux selectors', () => {
     });
   });
 
-  describe('getCheckoutCollectPointEstimatedDeliveryPeriod()', () => {
+  describe('getCheckoutOrderSelectedCollectPointEstimatedDeliveryPeriod()', () => {
     it('should return an object with the "start" and "end" date for the estimated delivery period when there is a merchant location id defined', () => {
       const expectedResult = {
         start: shippingOption.shippingService.minEstimatedDeliveryHour,
@@ -260,7 +260,7 @@ describe('checkout redux selectors', () => {
       };
 
       expect(
-        selectors.getCheckoutCollectPointEstimatedDeliveryPeriod(
+        selectors.getCheckoutOrderSelectedCollectPointEstimatedDeliveryPeriod(
           mockCheckoutState,
         ),
       ).toEqual(expectedResult);
@@ -273,7 +273,7 @@ describe('checkout redux selectors', () => {
       };
 
       expect(
-        selectors.getCheckoutCollectPointEstimatedDeliveryPeriod({
+        selectors.getCheckoutOrderSelectedCollectPointEstimatedDeliveryPeriod({
           ...mockCheckoutState,
           entities: {
             ...mockCheckoutState.entities,
@@ -290,7 +290,7 @@ describe('checkout redux selectors', () => {
 
     it('should NOT return any data in case the selected collect point hasnt got a merchant location id defined', () => {
       expect(
-        selectors.getCheckoutCollectPointEstimatedDeliveryPeriod({
+        selectors.getCheckoutOrderSelectedCollectPointEstimatedDeliveryPeriod({
           ...mockCheckoutState,
           entities: {
             ...mockCheckoutState.entities,
@@ -374,7 +374,7 @@ describe('checkout redux selectors', () => {
     });
   });
 
-  describe('getBundleDeliveryWindow()', () => {
+  describe('getCheckoutDeliveryBundleWindow()', () => {
     it('should get the min and max delivery window dates for a bundle', () => {
       const expectedResult = {
         minEstimatedDeliveryDate: '2020-02-09T14:38:22.228Z',
@@ -383,7 +383,10 @@ describe('checkout redux selectors', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(
-        selectors.getBundleDeliveryWindow(mockCheckoutState, deliveryBundleId),
+        selectors.getCheckoutDeliveryBundleWindow(
+          mockCheckoutState,
+          deliveryBundleId,
+        ),
       ).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -392,9 +395,9 @@ describe('checkout redux selectors', () => {
       const expectedResult = undefined;
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
-      expect(selectors.getBundleDeliveryWindow(mockCheckoutState, 87879)).toBe(
-        expectedResult,
-      );
+      expect(
+        selectors.getCheckoutDeliveryBundleWindow(mockCheckoutState, 87879),
+      ).toBe(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
@@ -419,7 +422,7 @@ describe('checkout redux selectors', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(
-        selectors.getBundleDeliveryWindow(newState, deliveryBundleId),
+        selectors.getCheckoutDeliveryBundleWindow(newState, deliveryBundleId),
       ).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -454,7 +457,7 @@ describe('checkout redux selectors', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(
-        selectors.getBundleDeliveryWindow(newState, deliveryBundleId),
+        selectors.getCheckoutDeliveryBundleWindow(newState, deliveryBundleId),
       ).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -494,7 +497,7 @@ describe('checkout redux selectors', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(
-        selectors.getBundleDeliveryWindow(newState, deliveryBundleId),
+        selectors.getCheckoutDeliveryBundleWindow(newState, deliveryBundleId),
       ).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -502,39 +505,52 @@ describe('checkout redux selectors', () => {
 
   describe('Sub-areas selectors', () => {
     const subAreaNames = [
-      'CheckoutDetails',
+      'CheckoutOrderDetails',
       'CollectPoints',
-      'ItemTags',
-      'PromoCode',
-      'Tags',
-      'GiftMessage',
+      'CheckoutOrderItemTags',
+      'CheckoutOrderPromocode',
+      'CheckoutOrderTags',
+      'CheckoutOrderItems',
       'CheckoutOrderCharge',
-      'DeliveryBundleUpgrades',
-      'ItemDeliveryProvisioning',
-      'UpgradeItemDeliveryProvisioning',
+      'CheckoutOrderDeliveryBundleUpgrades',
+      'CheckoutOrderDeliveryBundleProvisioning',
+      'CheckoutOrderDeliveryBundleUpgradeProvisioning',
     ];
 
     describe('sub-areas loading selectors', () => {
-      it.each(subAreaNames)('should handle is%sLoading selector', subArea => {
-        let selectorName = `is${subArea}Loading`;
+      it.each(subAreaNames)(
+        'should handle is%sLoading|Updating selector',
+        subArea => {
+          let selectorName = `is${subArea}Loading`;
 
-        if (!selectors[selectorName]) {
-          selectorName = `are${subArea}Loading`;
-        }
+          if (!selectors[selectorName]) {
+            selectorName = `are${subArea}Loading`;
 
-        expect(selectors[selectorName](mockCheckoutState)).toEqual(false);
-      });
+            if (!selectors[selectorName]) {
+              selectorName = `are${subArea}Updating`;
+            }
+          }
+
+          expect(selectors[selectorName](mockCheckoutState)).toEqual(false);
+        },
+      );
     });
 
     describe('sub-areas error selectors', () => {
       it.each(subAreaNames)('should handle get%sError selector', subArea => {
         const selectorName = `get${subArea}Error`;
+        let selector = selectors[selectorName];
+
+        if (!selector) {
+          selector = selectors[`get${subArea}UpdateError`];
+        }
+
         const reducerSubAreaName =
           subArea.charAt(0).toLowerCase() + subArea.slice(1);
         const expectedResult =
           mockCheckoutState.checkout[reducerSubAreaName].error;
 
-        expect(selectors[selectorName](mockCheckoutState)).toBe(expectedResult);
+        expect(selector(mockCheckoutState)).toBe(expectedResult);
       });
     });
 
@@ -571,11 +587,15 @@ describe('checkout redux selectors', () => {
     });
 
     it('should return loading status', () => {
-      expect(selectors.isOperationLoading(state as StoreState)).toBe(true);
+      expect(
+        selectors.isCheckoutOrderOperationLoading(state as StoreState),
+      ).toBe(true);
     });
 
     it('should return error', () => {
-      expect(selectors.getOperationError(state as StoreState)).toBeNull();
+      expect(
+        selectors.getCheckoutOrderOperationError(state as StoreState),
+      ).toBeNull();
     });
   });
 
@@ -600,17 +620,21 @@ describe('checkout redux selectors', () => {
     });
 
     it('should return loading status', () => {
-      expect(selectors.isOperationsLoading(state as StoreState)).toBe(true);
+      expect(
+        selectors.areCheckoutOrderOperationsLoading(state as StoreState),
+      ).toBe(true);
     });
 
     it('should return error', () => {
-      expect(selectors.getOperationsError(state as StoreState)).toBeNull();
+      expect(
+        selectors.getCheckoutOrderOperationsError(state as StoreState),
+      ).toBeNull();
     });
 
     it('should return pagination object', () => {
-      expect(selectors.getOperationsPagination(state as StoreState)).toBe(
-        state.checkout?.operations?.result,
-      );
+      expect(
+        selectors.getCheckoutOrderOperationsPagination(state as StoreState),
+      ).toBe(state.checkout?.operations?.result);
     });
   });
 

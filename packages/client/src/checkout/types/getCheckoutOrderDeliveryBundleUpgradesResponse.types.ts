@@ -13,7 +13,7 @@ export type DeliveryBundleUpgrade = {
   deliveryWindow: DeliveryWindow;
 };
 
-export type GetCheckoutOrderDeliveryBundleUpgradesResponse = {
+export type DeliveryBundleUpgrades = {
   [itemId: number]: {
     Nominated?: DeliveryBundleUpgrade[];
     Estimated?: DeliveryBundleUpgrade[];

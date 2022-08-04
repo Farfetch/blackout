@@ -12,7 +12,7 @@ const mockStore: StoreState = merge({} as StoreState, mockProductsState);
 describe('Recommended Products redux selectors', () => {
   beforeEach(jest.clearAllMocks);
 
-  describe('isRecommendedProductsLoading()', () => {
+  describe('areRecommendedProductsLoading()', () => {
     it('should get the loading status', () => {
       const spy = jest.spyOn(
         recommendedProductsReducer,
@@ -20,7 +20,7 @@ describe('Recommended Products redux selectors', () => {
       );
 
       expect(
-        selectors.isRecommendedProductsLoading(
+        selectors.areRecommendedProductsLoading(
           merge(mockStore, {
             products: {
               recommendedProducts: {

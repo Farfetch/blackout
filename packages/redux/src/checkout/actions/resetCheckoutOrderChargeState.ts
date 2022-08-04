@@ -2,7 +2,7 @@ import * as actionTypes from '../actionTypes';
 import type { Dispatch } from 'redux';
 
 /**
- * Reset the charges state.
+ * Reset checkout order charge state.
  */
 const resetCheckoutOrderChargeState = () => (dispatch: Dispatch) => {
   dispatch({

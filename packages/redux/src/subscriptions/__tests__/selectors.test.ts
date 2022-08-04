@@ -65,11 +65,11 @@ describe('Subscriptions redux selectors', () => {
       });
     });
 
-    describe('isUserSubscriptionsLoading()', () => {
+    describe('areUserSubscriptionsLoading()', () => {
       it('Should get the user subscriptions isLoading property', () => {
         const expectedResult = mockState.subscriptions.user.isLoading;
 
-        expect(selectors.isUserSubscriptionsLoading(mockStore)).toBe(
+        expect(selectors.areUserSubscriptionsLoading(mockStore)).toBe(
           expectedResult,
         );
       });

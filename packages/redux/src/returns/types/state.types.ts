@@ -6,7 +6,6 @@ export type ReturnsState = {
   id: number | null;
   isLoading: boolean;
   returns: StateWithoutResult;
-  references: StateWithoutResult;
   pickupCapabilities: StateWithoutResult;
   [k: string]: unknown;
 };

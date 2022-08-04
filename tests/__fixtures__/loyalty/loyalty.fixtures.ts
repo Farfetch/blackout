@@ -139,7 +139,7 @@ export const mockState = {
   },
   entities: {
     programs: { ...expectedNormalizedPayloadPrograms['entities'].programs },
-    membership: {
+    memberships: {
       ...expectedNormalizedPayloadProgramMembership['entities'].memberships,
     },
     replacements: {

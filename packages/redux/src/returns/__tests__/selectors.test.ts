@@ -82,12 +82,12 @@ describe('returns redux selectors', () => {
     });
   });
 
-  describe('isReturnsLoading()', () => {
+  describe('areReturnsLoading()', () => {
     it('should get the loading property from the returns sub-area', () => {
       const expectedResult = mockState.returns.returns.isLoading;
       const spy = jest.spyOn(fromReturns, 'getReturns');
 
-      expect(selectors.isReturnsLoading(mockState)).toBe(expectedResult);
+      expect(selectors.areReturnsLoading(mockState)).toBe(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -102,44 +102,24 @@ describe('returns redux selectors', () => {
     });
   });
 
-  describe('isReferencesLoading()', () => {
-    it('should get the loading property from the references sub-area', () => {
-      const expectedResult = mockState.returns.references.isLoading;
-      const spy = jest.spyOn(fromReturns, 'getReferences');
-
-      expect(selectors.isReferencesLoading(mockState)).toBe(expectedResult);
-      expect(spy).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('getReferencesError()', () => {
-    it('should get the error property from the references sub-area', () => {
-      const expectedResult = mockState.returns.references.error;
-      const spy = jest.spyOn(fromReturns, 'getReferences');
-
-      expect(selectors.getReferencesError(mockState)).toBe(expectedResult);
-      expect(spy).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('isPickupCapabilitiesLoading()', () => {
+  describe('areReturnPickupCapabilitiesLoading()', () => {
     it('should get the loading property from the pickup capabilities sub-area', () => {
       const expectedResult = mockState.returns.pickupCapabilities.isLoading;
       const spy = jest.spyOn(fromReturns, 'getPickupCapabilities');
 
-      expect(selectors.isPickupCapabilitiesLoading(mockState)).toBe(
+      expect(selectors.areReturnPickupCapabilitiesLoading(mockState)).toBe(
         expectedResult,
       );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getPickupCapabilitiesError()', () => {
+  describe('getReturnPickupCapabilitiesError()', () => {
     it('should get the error property from the pickup capabilities sub-area', () => {
       const expectedResult = mockState.returns.pickupCapabilities.error;
       const spy = jest.spyOn(fromReturns, 'getPickupCapabilities');
 
-      expect(selectors.getPickupCapabilitiesError(mockState)).toBe(
+      expect(selectors.getReturnPickupCapabilitiesError(mockState)).toBe(
         expectedResult,
       );
       expect(spy).toHaveBeenCalledTimes(1);

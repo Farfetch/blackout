@@ -1,9 +1,6 @@
 import * as checkoutClient from '..';
 import { deliveryBundleId, id } from 'tests/__fixtures__/checkout';
-import {
-  DeliveryWindowType,
-  GetCheckoutOrderDeliveryBundleUpgradesResponse,
-} from '../types';
+import { DeliveryBundleUpgrades, DeliveryWindowType } from '../types';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCheckoutOrderDeliveryBundleUpgrades.fixtures';
 import mswServer from '../../../tests/mswServer';
@@ -16,7 +13,7 @@ describe('getCheckoutOrderDeliveryBundleUpgrades', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const response: GetCheckoutOrderDeliveryBundleUpgradesResponse = {
+    const response: DeliveryBundleUpgrades = {
       123: {
         Nominated: [
           {
