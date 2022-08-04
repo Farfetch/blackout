@@ -1,7 +1,7 @@
 import { adaptError } from '../helpers/client/formatError';
 import client from '../helpers/client';
 import join from 'proper-url-join';
-import type { CommercePagesContent, QueryCommercePages } from './types';
+import type { CommercePages, QueryCommercePages } from './types';
 import type { Config } from '../types';
 
 /**
@@ -16,7 +16,7 @@ import type { Config } from '../types';
 const getCommercePages = (
   query: QueryCommercePages,
   config?: Config,
-): Promise<CommercePagesContent> =>
+): Promise<CommercePages> =>
   client
     .get(join('content/v1/commercepages', { query }), config)
     .then(response => response.data)
