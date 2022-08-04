@@ -7,6 +7,7 @@ on:
     branches:
       - main
       - next
+      - v1
     paths-ignore:
       - '**/docs/**'
       - '**.md'
@@ -86,6 +87,7 @@ jobs:
         if: |
           github.ref_name == 'main' ||
           github.ref_name == 'next' ||
+          github.ref_name == 'v1' ||
           (github.event_name == 'pull_request' && startsWith(github.head_ref, 'rc/'))
         env:
           MAKE_RELEASE_COMMIT_MESSAGE: 'chore: make release'
@@ -101,7 +103,7 @@ jobs:
 
           SOURCE_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 
-          if [[ ${SOURCE_BRANCH_NAME} = main ]]; then
+          if [[ ${SOURCE_BRANCH_NAME} = main || ${SOURCE_BRANCH_NAME} = v1 ]]; then
             npx lerna publish --conventional-commits --message "${PUBLISH_COMMIT_MESSAGE}" --no-verify-access --yes
           else
             if [[ ${SOURCE_BRANCH_NAME} = next ]]; then
