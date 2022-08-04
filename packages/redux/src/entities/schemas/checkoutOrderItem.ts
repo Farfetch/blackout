@@ -27,6 +27,7 @@ export default new schema.Entity(
         merchantName,
         merchantShoppingUrl,
         price,
+        productImgQueryParam,
         productAggregator,
         productDescription,
         productId,
@@ -52,7 +53,9 @@ export default new schema.Entity(
       if (productAggregator && productAggregator.hasOwnProperty('id')) {
         item.productAggregator = {
           ...productAggregator,
-          images: adaptProductImages(productAggregator.images.images),
+          images: adaptProductImages(productAggregator.images.images, {
+            productImgQueryParam,
+          }),
         };
       }
 
@@ -74,6 +77,7 @@ export default new schema.Entity(
         merchant, // NOTE: This prop is now redundant but I have kept it for backwards-compatibility. It might be better to remove this property (and maybe other properties) from here as they might clash when there are different order items for the same product but different merchants.
         name: productName,
         price, // NOTE: Same as merchant prop
+        productImgQueryParam,
         sizes,
         slug: productSlug,
         variants,

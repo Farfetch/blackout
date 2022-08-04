@@ -9,6 +9,7 @@ import {
 import { normalize } from 'normalizr';
 import checkoutSchema from '../../../entities/schemas/checkout';
 import type { Dispatch } from 'redux';
+import type { GetOptionsArgument, StoreState } from '../../../types';
 
 /**
  * Method responsible for obtaining the checkout.
@@ -21,13 +22,28 @@ import type { Dispatch } from 'redux';
 const fetchCheckoutFactory =
   (getCheckoutOrder: GetCheckoutOrder) =>
   (id: number, query: GetCheckoutOrderQuery, config?: Config) =>
-  async (dispatch: Dispatch): Promise<GetCheckoutOrderResponse> => {
+  async (
+    dispatch: Dispatch,
+    getState: () => StoreState,
+    {
+      getOptions = arg => ({ productImgQueryParam: arg.productImgQueryParam }),
+    }: GetOptionsArgument,
+  ): Promise<GetCheckoutOrderResponse> => {
     try {
       dispatch({
         type: actionTypes.FETCH_CHECKOUT_REQUEST,
       });
 
       const result = await getCheckoutOrder(id, query, config);
+
+      if (result.checkoutOrder) {
+        const { productImgQueryParam } = getOptions(getState);
+
+        result.checkoutOrder.items = result.checkoutOrder.items.map(item => ({
+          ...item,
+          productImgQueryParam,
+        }));
+      }
 
       dispatch({
         payload: normalize(result, checkoutSchema),
