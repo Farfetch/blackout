@@ -3,22 +3,22 @@
  */
 
 export { default as createCheckoutOrderChargeFactory } from './createCheckoutOrderChargeFactory';
-export { default as createCheckoutFactory } from './createCheckoutFactory';
-export { default as fetchCheckoutDetailsFactory } from './fetchCheckoutDetailsFactory';
-export { default as fetchCheckoutFactory } from './fetchCheckoutFactory';
+export { default as createCheckoutOrderFactory } from './createCheckoutOrderFactory';
+export { default as fetchCheckoutOrderDetailsFactory } from './fetchCheckoutOrderDetailsFactory';
+export { default as fetchCheckoutOrderFactory } from './fetchCheckoutOrderFactory';
 export { default as fetchCheckoutOrderChargeFactory } from './fetchCheckoutOrderChargeFactory';
 export { default as fetchCheckoutOrderOperationFactory } from './fetchCheckoutOrderOperationFactory';
 export { default as fetchCheckoutOrderOperationsFactory } from './fetchCheckoutOrderOperationsFactory';
 export { default as fetchCollectPointsFactory } from './fetchCollectPointsFactory';
-export { default as fetchDeliveryBundleUpgradesFactory } from './fetchDeliveryBundleUpgradesFactory';
-export { default as fetchItemDeliveryProvisioningFactory } from './fetchItemDeliveryProvisioningFactory';
-export { default as fetchUpgradeItemDeliveryProvisioningFactory } from './fetchUpgradeItemDeliveryProvisioningFactory';
+export { default as fetchCheckoutOrderDeliveryBundleUpgradesFactory } from './fetchCheckoutOrderDeliveryBundleUpgradesFactory';
+export { default as fetchCheckoutOrderDeliveryBundleProvisioningFactory } from './fetchCheckoutOrderDeliveryBundleProvisioningFactory';
+export { default as fetchCheckoutOrderDeliveryBundleUpgradeProvisioningFactory } from './fetchCheckoutOrderDeliveryBundleUpgradeProvisioningFactory';
 export { default as removeCheckoutOrderItemFactory } from './removeCheckoutOrderItemFactory';
 export { default as resetCheckoutFactory } from '../resetCheckoutState';
-export { default as setItemTagsFactory } from './setItemTagsFactory';
-export { default as setPromocodeFactory } from './setPromocodeFactory';
-export { default as setTagsFactory } from './setTagsFactory';
-export { default as updateCheckoutFactory } from './updateCheckoutFactory';
+export { default as setCheckoutOrderItemTagsFactory } from './setCheckoutOrderItemTagsFactory';
+export { default as setCheckoutOrderPromocodeFactory } from './setCheckoutOrderPromocodeFactory';
+export { default as setCheckoutOrderTagsFactory } from './setCheckoutOrderTagsFactory';
+export { default as updateCheckoutOrderFactory } from './updateCheckoutOrderFactory';
 export { default as updateCheckoutOrderItemFactory } from './updateCheckoutOrderItemFactory';
-export { default as updateDeliveryBundleUpgradesFactory } from './updateDeliveryBundleUpgradesFactory';
-export { default as updateGiftMessageFactory } from './updateGiftMessageFactory';
+export { default as updateCheckoutOrderDeliveryBundleUpgradesFactory } from './updateCheckoutOrderDeliveryBundleUpgradesFactory';
+export { default as updateCheckoutOrderItemsFactory } from './updateCheckoutOrderItemsFactory';

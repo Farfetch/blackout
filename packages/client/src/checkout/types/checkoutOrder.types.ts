@@ -14,6 +14,11 @@ export enum CheckoutOrderStatus {
   Cancelled,
 }
 
+export type ClickAndCollect = {
+  collectPointId: number;
+  merchantLocationId: number;
+};
+
 export type CheckoutOrder = {
   id: number;
   bagId: string;
@@ -57,10 +62,7 @@ export type CheckoutOrder = {
   taxType: string;
   updatedDate: string;
   userId: number;
-  clickAndCollect: {
-    collectPointId: number;
-    merchantLocationId: number;
-  };
+  clickAndCollect: ClickAndCollect;
   tags: string[];
   hadUnavailableItems: boolean;
   isGuestUser: boolean;

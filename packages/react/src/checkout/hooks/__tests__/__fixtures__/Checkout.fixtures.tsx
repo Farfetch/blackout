@@ -11,9 +11,9 @@ export const Checkout = () => {
     checkoutError,
     selectedCollectPoint,
     // Actions
-    fetchCheckout,
-    updateCheckout,
-    updateGiftMessage,
+    fetchCheckoutOrder,
+    updateCheckoutOrder,
+    updateCheckoutOrderItems,
     // Handle functions
     handleGetCollectPoints,
     handleSetShippingAddress,
@@ -38,7 +38,7 @@ export const Checkout = () => {
       <button
         data-test="checkout-updateButton"
         onClick={() =>
-          updateCheckout(checkoutId, {
+          updateCheckoutOrder(checkoutId, {
             clickAndCollect: { id: 123 },
           })
         }
@@ -47,13 +47,15 @@ export const Checkout = () => {
       </button>
       <button
         data-test="checkout-getButton"
-        onClick={() => fetchCheckout(checkoutId)}
+        onClick={() => fetchCheckoutOrder(checkoutId)}
       >
         get Checkout request
       </button>
       <button
         data-test="checkout-giftmessage-updateButton"
-        onClick={() => updateGiftMessage(checkoutId, { giftData: 'data' })}
+        onClick={() =>
+          updateCheckoutOrderItems(checkoutId, { giftData: 'data' })
+        }
       >
         update Checkout gift message request
       </button>

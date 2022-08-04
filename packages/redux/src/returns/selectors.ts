@@ -9,7 +9,6 @@ import {
   getId,
   getIsLoading,
   getPickupCapabilities,
-  getReferences,
   getReturns,
 } from './reducer';
 import get from 'lodash/get';
@@ -105,7 +104,7 @@ export const isReturnLoading = (state: StoreState) =>
  *
  * @returns Loading status.
  */
-export const isReturnsLoading = (state: StoreState) =>
+export const areReturnsLoading = (state: StoreState) =>
   getReturns(state.returns as ReturnsState).isLoading;
 
 /**
@@ -126,7 +125,7 @@ export const getReturnsError = (state: StoreState) =>
  *
  * @returns Loading status.
  */
-export const isPickupCapabilitiesLoading = (state: StoreState) =>
+export const areReturnPickupCapabilitiesLoading = (state: StoreState) =>
   getPickupCapabilities(state.returns as ReturnsState).isLoading;
 
 /**
@@ -136,25 +135,5 @@ export const isPickupCapabilitiesLoading = (state: StoreState) =>
  *
  * @returns Capabilities error.
  */
-export const getPickupCapabilitiesError = (state: StoreState) =>
+export const getReturnPickupCapabilitiesError = (state: StoreState) =>
   getPickupCapabilities(state.returns as ReturnsState).error;
-
-/**
- * Returns the loading status for the get references request.
- *
- * @param state - Application state.
- *
- * @returns Loading status.
- */
-export const isReferencesLoading = (state: StoreState) =>
-  getReferences(state.returns as ReturnsState).isLoading;
-
-/**
- * Returns the error for the get references request.
- *
- * @param state - Application state.
- *
- * @returns References error.
- */
-export const getReferencesError = (state: StoreState) =>
-  getReferences(state.returns as ReturnsState).error;

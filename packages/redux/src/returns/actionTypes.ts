@@ -24,16 +24,6 @@ export const FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST =
 export const FETCH_RETURN_PICKUP_CAPABILITIES_SUCCESS =
   '@farfetch/blackout-redux/FETCH_RETURN_PICKUP_CAPABILITIES_SUCCESS';
 
-/** Action type dispatched when the get references request fails. */
-export const FETCH_RETURN_REFERENCES_FAILURE =
-  '@farfetch/blackout-redux/FETCH_RETURN_REFERENCES_FAILURE';
-/** Action type dispatched when the get references request starts. */
-export const FETCH_RETURN_REFERENCES_REQUEST =
-  '@farfetch/blackout-redux/FETCH_RETURN_REFERENCES_REQUEST';
-/** Action type dispatched when the get references request succeeds. */
-export const FETCH_RETURN_REFERENCES_SUCCESS =
-  '@farfetch/blackout-redux/FETCH_RETURN_REFERENCES_SUCCESS';
-
 /**
  * Action type dispatched when the get return request fails.
  */

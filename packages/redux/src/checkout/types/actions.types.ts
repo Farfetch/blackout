@@ -12,7 +12,7 @@ import type {
   CheckoutEntity,
   CheckoutOrderEntity,
   CheckoutOrderItemEntity,
-  DeliveryBundlesEntity,
+  DeliveryBundleEntity,
   DeliveryBundleUpgradesEntity,
 } from '../../entities/types';
 import type { NormalizedSchema } from 'normalizr';
@@ -29,10 +29,7 @@ type Payload = NormalizedSchema<
       CheckoutDetailsEntity['id'],
       CheckoutDetailsEntity
     >;
-    deliveryBundles?: Record<
-      DeliveryBundlesEntity['id'],
-      DeliveryBundlesEntity
-    >;
+    deliveryBundles?: Record<DeliveryBundleEntity['id'], DeliveryBundleEntity>;
     deliveryBundleUpgrades?: DeliveryBundleUpgradesEntity;
   },
   string
@@ -40,31 +37,31 @@ type Payload = NormalizedSchema<
 
 export interface GenericCheckoutRequestAction extends Action {
   type:
-    | typeof actionTypes.CREATE_CHECKOUT_REQUEST
-    | typeof actionTypes.UPDATE_CHECKOUT_REQUEST
-    | typeof actionTypes.FETCH_CHECKOUT_REQUEST
-    | typeof actionTypes.SET_ITEM_TAGS_REQUEST
-    | typeof actionTypes.SET_PROMOCODE_REQUEST
-    | typeof actionTypes.SET_TAGS_REQUEST;
+    | typeof actionTypes.CREATE_CHECKOUT_ORDER_REQUEST
+    | typeof actionTypes.UPDATE_CHECKOUT_ORDER_REQUEST
+    | typeof actionTypes.FETCH_CHECKOUT_ORDER_REQUEST
+    | typeof actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_REQUEST
+    | typeof actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_REQUEST
+    | typeof actionTypes.SET_CHECKOUT_ORDER_TAGS_REQUEST;
 }
 export interface GenericCheckoutSuccessAction extends Action {
   type:
-    | typeof actionTypes.CREATE_CHECKOUT_SUCCESS
-    | typeof actionTypes.UPDATE_CHECKOUT_SUCCESS
-    | typeof actionTypes.FETCH_CHECKOUT_SUCCESS
-    | typeof actionTypes.SET_ITEM_TAGS_SUCCESS
-    | typeof actionTypes.SET_PROMOCODE_SUCCESS
-    | typeof actionTypes.SET_TAGS_SUCCESS;
+    | typeof actionTypes.CREATE_CHECKOUT_ORDER_SUCCESS
+    | typeof actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS
+    | typeof actionTypes.FETCH_CHECKOUT_ORDER_SUCCESS
+    | typeof actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_SUCCESS
+    | typeof actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS
+    | typeof actionTypes.SET_CHECKOUT_ORDER_TAGS_SUCCESS;
   payload: Payload;
 }
 export interface GenericCheckoutFailureAction extends Action {
   type:
-    | typeof actionTypes.CREATE_CHECKOUT_FAILURE
-    | typeof actionTypes.UPDATE_CHECKOUT_FAILURE
-    | typeof actionTypes.FETCH_CHECKOUT_FAILURE
-    | typeof actionTypes.SET_ITEM_TAGS_FAILURE
-    | typeof actionTypes.SET_PROMOCODE_FAILURE
-    | typeof actionTypes.SET_TAGS_FAILURE;
+    | typeof actionTypes.CREATE_CHECKOUT_ORDER_FAILURE
+    | typeof actionTypes.UPDATE_CHECKOUT_ORDER_FAILURE
+    | typeof actionTypes.FETCH_CHECKOUT_ORDER_FAILURE
+    | typeof actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_FAILURE
+    | typeof actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_FAILURE
+    | typeof actionTypes.SET_CHECKOUT_ORDER_TAGS_FAILURE;
   payload: { error: BlackoutError };
 }
 
@@ -85,17 +82,17 @@ export interface ResetCheckoutOrderChargeStateAction extends Action {
 }
 
 export interface FetchCheckoutDetailsSuccessAction extends Action {
-  type: typeof actionTypes.FETCH_CHECKOUT_DETAILS_SUCCESS;
+  type: typeof actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_SUCCESS;
   meta: { id: number };
   payload: Payload;
 }
 export interface FetchCheckoutDetailsFailureAction extends Action {
-  type: typeof actionTypes.FETCH_CHECKOUT_DETAILS_FAILURE;
+  type: typeof actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_FAILURE;
   payload: { error: BlackoutError };
 }
 
 export interface FetchCheckoutDetailsRequestAction extends Action {
-  type: typeof actionTypes.FETCH_CHECKOUT_DETAILS_REQUEST;
+  type: typeof actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_REQUEST;
 }
 
 /**
@@ -108,13 +105,13 @@ export type FetchCheckoutDetailsAction =
 
 export interface FetchUpgradeItemDeliveryProvisioningSuccessAction
   extends Action {
-  type: typeof actionTypes.FETCH_UPGRADE_ITEM_DELIVERY_PROVISIONING_SUCCESS;
+  type: typeof actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING_SUCCESS;
   meta: { deliveryBundleId: string; upgradeId: string };
-  payload: NormalizedSchema<DeliveryBundlesEntity, string[]>;
+  payload: NormalizedSchema<DeliveryBundleEntity, string[]>;
 }
 
 export interface FetchItemDeliveryProvisioningSuccessAction extends Action {
-  type: typeof actionTypes.FETCH_ITEM_DELIVERY_PROVISIONING_SUCCESS;
+  type: typeof actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_SUCCESS;
   meta: { deliveryBundleId: string };
   payload: NormalizedSchema<
     GetCheckoutOrderDeliveryBundleProvisioningResponse,
@@ -123,12 +120,12 @@ export interface FetchItemDeliveryProvisioningSuccessAction extends Action {
 }
 
 export interface FetchItemDeliveryProvisioningFailureAction extends Action {
-  type: typeof actionTypes.FETCH_ITEM_DELIVERY_PROVISIONING_FAILURE;
+  type: typeof actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_FAILURE;
   payload: { error: BlackoutError };
 }
 
 export interface FetchItemDeliveryProvisioningRequestAction extends Action {
-  type: typeof actionTypes.FETCH_ITEM_DELIVERY_PROVISIONING_REQUEST;
+  type: typeof actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_REQUEST;
 }
 
 /**
@@ -187,27 +184,27 @@ export type CreateCheckoutOrderChargeAction =
 export interface UpdateDeliveryBundleSuccessAction extends Action {
   type:
     | typeof actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_SUCCESS
-    | typeof actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADES_SUCCESS;
+    | typeof actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS;
 }
 
 export interface FetchDeliveryBundleSuccessAction extends Action {
-  type: typeof actionTypes.FETCH_DELIVERY_BUNDLE_UPGRADES_SUCCESS;
+  type: typeof actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS;
   payload: { result: string };
 }
 
 export interface DeliveryBundleFailureAction extends Action {
   type:
     | typeof actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_FAILURE
-    | typeof actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADES_FAILURE
-    | typeof actionTypes.FETCH_DELIVERY_BUNDLE_UPGRADES_FAILURE;
+    | typeof actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_FAILURE
+    | typeof actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_FAILURE;
   payload: { error: BlackoutError };
 }
 
 export interface DeliveryBundleRequestAction extends Action {
   type:
     | typeof actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_REQUEST
-    | typeof actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADES_REQUEST
-    | typeof actionTypes.FETCH_DELIVERY_BUNDLE_UPGRADES_REQUEST;
+    | typeof actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST
+    | typeof actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST;
 }
 
 /**
@@ -226,7 +223,7 @@ export interface FetchCollectPointsSuccessAction extends Action {
 }
 
 // Checkout Operations Actions
-export type OperationsSuccessResult = Omit<
+export type CheckoutOrderOperationsNormalized = Omit<
   CheckoutOrderOperations,
   'entries'
 > & {

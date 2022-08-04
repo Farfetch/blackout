@@ -12,9 +12,6 @@ import type {
   GetReturnPickupCapabilitiesAction,
   GetReturnPickupCapabilitiesFailureAction,
   GetReturnPickupCapabilitiesRequestAction,
-  GetReturnReferencesAction,
-  GetReturnReferencesFailureAction,
-  GetReturnReferencesRequestAction,
   GetReturnRequestAction,
   GetReturnSuccessAction,
   ResetReturnAction,
@@ -34,10 +31,6 @@ export const INITIAL_STATE: ReturnsState = {
     error: null,
     isLoading: false,
   },
-  references: {
-    error: null,
-    isLoading: false,
-  },
   pickupCapabilities: {
     error: null,
     isLoading: false,
@@ -51,12 +44,10 @@ const error = (
     | GetReturnPickupCapabilitiesFailureAction
     | GetReturnFailureAction
     | UpdateReturnFailureAction
-    | GetReturnReferencesFailureAction
     | CreateReturnRequestAction
     | GetReturnPickupCapabilitiesRequestAction
     | GetReturnRequestAction
     | UpdateReturnRequestAction
-    | GetReturnReferencesRequestAction
     | ResetReturnAction
     | LogoutSuccessAction,
 ) => {
@@ -65,13 +56,11 @@ const error = (
     case actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_FAILURE:
     case actionTypes.FETCH_RETURN_FAILURE:
     case actionTypes.UPDATE_RETURN_FAILURE:
-    case actionTypes.FETCH_RETURN_REFERENCES_FAILURE:
       return action.payload.error;
     case actionTypes.CREATE_RETURN_REQUEST:
     case actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST:
     case actionTypes.FETCH_RETURN_REQUEST:
     case actionTypes.UPDATE_RETURN_REQUEST:
-    case actionTypes.FETCH_RETURN_REFERENCES_REQUEST:
     case actionTypes.RESET_RETURN:
     case LOGOUT_SUCCESS:
       return INITIAL_STATE.error;
@@ -107,7 +96,6 @@ const isLoading = (
     | GetReturnPickupCapabilitiesAction
     | GetReturnAction
     | UpdateReturnAction
-    | GetReturnReferencesAction
     | ResetReturnAction
     | LogoutSuccessAction,
 ) => {
@@ -116,7 +104,6 @@ const isLoading = (
     case actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST:
     case actionTypes.FETCH_RETURN_REQUEST:
     case actionTypes.UPDATE_RETURN_REQUEST:
-    case actionTypes.FETCH_RETURN_REFERENCES_REQUEST:
       return true;
     case actionTypes.CREATE_RETURN_SUCCESS:
     case actionTypes.CREATE_RETURN_FAILURE:
@@ -126,8 +113,6 @@ const isLoading = (
     case actionTypes.FETCH_RETURN_FAILURE:
     case actionTypes.UPDATE_RETURN_SUCCESS:
     case actionTypes.UPDATE_RETURN_FAILURE:
-    case actionTypes.FETCH_RETURN_REFERENCES_SUCCESS:
-    case actionTypes.FETCH_RETURN_REFERENCES_FAILURE:
     case actionTypes.RESET_RETURN:
     case LOGOUT_SUCCESS:
       return INITIAL_STATE.isLoading;
@@ -169,14 +154,8 @@ const returns = reducerFactory(
   actionTypes,
 );
 
-const references = reducerFactory(
-  'FETCH_REFERENCES',
-  INITIAL_STATE.references,
-  actionTypes,
-);
-
 const pickupCapabilities = reducerFactory(
-  'FETCH_PICKUP_CAPABILITIES',
+  'FETCH_RETURN_PICKUP_CAPABILITIES',
   INITIAL_STATE.pickupCapabilities,
   actionTypes,
 );
@@ -188,9 +167,6 @@ export const getIsLoading = (state: ReturnsState): ReturnsState['isLoading'] =>
   state.isLoading;
 export const getReturns = (state: ReturnsState): ReturnsState['returns'] =>
   state.returns;
-export const getReferences = (
-  state: ReturnsState,
-): ReturnsState['references'] => state.references;
 export const getPickupCapabilities = (
   state: ReturnsState,
 ): ReturnsState['pickupCapabilities'] => state.pickupCapabilities;
@@ -208,6 +184,5 @@ export default combineReducers({
   id,
   isLoading,
   returns,
-  references,
   pickupCapabilities,
 });

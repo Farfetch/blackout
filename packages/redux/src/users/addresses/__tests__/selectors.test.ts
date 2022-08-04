@@ -51,7 +51,7 @@ describe('redux selectors', () => {
     });
   });
 
-  describe('isUserDefaultAddressDetailsLoading()', () => {
+  describe('areUserDefaultAddressDetailsLoading()', () => {
     const mockLoadingState = merge({}, mockBaseState, {
       users: {
         addresses: {
@@ -65,12 +65,12 @@ describe('redux selectors', () => {
     });
 
     it('should return `isLoading` value from `addresses.defaultAddressDetails` slice', () => {
-      expect(selectors.isUserDefaultAddressDetailsLoading(mockBaseState)).toBe(
+      expect(selectors.areUserDefaultAddressDetailsLoading(mockBaseState)).toBe(
         false,
       );
 
       expect(
-        selectors.isUserDefaultAddressDetailsLoading(mockLoadingState),
+        selectors.areUserDefaultAddressDetailsLoading(mockLoadingState),
       ).toBe(true);
     });
   });

@@ -28,7 +28,6 @@ describe('returns reducer', () => {
       actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST,
       actionTypes.FETCH_RETURN_REQUEST,
       actionTypes.UPDATE_RETURN_REQUEST,
-      actionTypes.FETCH_RETURN_REFERENCES_REQUEST,
       LOGOUT_SUCCESS,
     ])('should handle %s action type', actionType => {
       expect(
@@ -61,15 +60,6 @@ describe('returns reducer', () => {
         reducer(undefined, {
           payload: { error: new Error() },
           type: actionTypes.FETCH_RETURN_FAILURE,
-        }).error,
-      ).toStrictEqual(expectedResult);
-    });
-
-    it('should handle FETCH_REFERENCES_FAILURE action type', () => {
-      expect(
-        reducer(undefined, {
-          payload: { error: new Error() },
-          type: actionTypes.FETCH_RETURN_REFERENCES_FAILURE,
         }).error,
       ).toStrictEqual(expectedResult);
     });
@@ -143,7 +133,6 @@ describe('returns reducer', () => {
       actionTypes.CREATE_RETURN_REQUEST,
       actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST,
       actionTypes.FETCH_RETURN_REQUEST,
-      actionTypes.FETCH_RETURN_REFERENCES_REQUEST,
       actionTypes.UPDATE_RETURN_REQUEST,
     ])('should handle %s action type', actionType => {
       expect(
@@ -155,7 +144,6 @@ describe('returns reducer', () => {
 
     it.each([
       actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_SUCCESS,
-      actionTypes.FETCH_RETURN_REFERENCES_SUCCESS,
       actionTypes.UPDATE_RETURN_SUCCESS,
     ])('should handle %s action type', actionType => {
       expect(
@@ -210,15 +198,6 @@ describe('returns reducer', () => {
       ).toBe(initialState.isLoading);
     });
 
-    it('should handle FETCH_REFERENCES_FAILURE action type', () => {
-      expect(
-        reducer(undefined, {
-          payload: { error: new Error() },
-          type: actionTypes.FETCH_RETURN_REFERENCES_FAILURE,
-        }).isLoading,
-      ).toBe(initialState.isLoading);
-    });
-
     it('should handle UPDATE_RETURN_FAILURE action type', () => {
       expect(
         reducer(undefined, {
@@ -248,10 +227,6 @@ describe('returns reducer', () => {
         error: null,
         isLoading: false,
       },
-      references: {
-        error: null,
-        isLoading: false,
-      },
       pickupCapabilities: {
         error: null,
         isLoading: false,
@@ -262,10 +237,6 @@ describe('returns reducer', () => {
       error: null,
       id: null,
       isLoading: false,
-      references: {
-        error: null,
-        isLoading: false,
-      },
       pickupCapabilities: {
         error: null,
         isLoading: false,

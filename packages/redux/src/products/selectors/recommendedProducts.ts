@@ -34,7 +34,7 @@ export const getRecommendedProductsError = (
  *
  * @returns If the product recommendations are loading or not.
  */
-export const isRecommendedProductsLoading = (
+export const areRecommendedProductsLoading = (
   state: StoreState,
   strategyName: string,
 ): RecommendedProductsState['isLoading'][string] | undefined =>
