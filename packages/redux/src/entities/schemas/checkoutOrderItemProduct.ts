@@ -25,14 +25,21 @@ export default new schema.Entity(
   },
   {
     processStrategy: value => {
-      const { customAttributes, images, price, sizes, variants, ...item } =
-        value;
+      const {
+        customAttributes,
+        images,
+        price,
+        sizes,
+        variants,
+        productImgQueryParam,
+        ...item
+      } = value;
       const priceToAdapt = typeof price === 'object' ? price : value;
       const imagesToAdapt = get(images, 'images') || images;
 
       return {
         customAttributes: adaptCustomAttributes(customAttributes),
-        images: adaptProductImages(imagesToAdapt),
+        images: adaptProductImages(imagesToAdapt, { productImgQueryParam }),
         price: adaptPrice(priceToAdapt),
         sizes: adaptProductSizes(sizes, variants),
         variants: adaptVariants(variants),
