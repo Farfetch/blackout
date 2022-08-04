@@ -14,7 +14,7 @@ import find from 'lodash/find';
 jest.mock('../../utils', () => ({
   generateContentHash: () => 'commerce_pages!woman',
   generateSEOPathname: jest.fn(),
-  getRankedCommercePage: jest.fn(() => mockCommercePages[0]),
+  getRankedCommercePage: jest.fn(() => mockCommercePages.entries[0]),
 }));
 
 jest.mock('@farfetch/blackout-client', () => ({
@@ -79,14 +79,9 @@ describe('fetchCommercePages() action creator', () => {
   it('should create the correct actions for when the get commerce pages procedure is successful', async () => {
     getCommercePages.mockResolvedValueOnce(mockCommercePages);
 
-    await store.dispatch(fetchCommercePages(commercePagesQuery)).then(result =>
-      expect(result).toEqual({
-        number: 1,
-        totalItems: 1,
-        totalPages: 1,
-        entries: mockCommercePages,
-      }),
-    );
+    await store
+      .dispatch(fetchCommercePages(commercePagesQuery))
+      .then(result => expect(result).toEqual(mockCommercePages));
 
     const actionResults = store.getActions();
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
