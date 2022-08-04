@@ -47,13 +47,7 @@ const fetchCommercePagesFactory =
       });
 
       const result = await getCommercePages(query, config);
-      const normalizedResult = {
-        number: 1,
-        totalItems: 1,
-        totalPages: 1,
-        entries: result,
-      };
-      const rankedResult = getRankedCommercePage(normalizedResult, strategy);
+      const rankedResult = getRankedCommercePage(result, strategy);
 
       dispatch({
         meta: { query },
@@ -64,7 +58,7 @@ const fetchCommercePagesFactory =
         type: actionTypes.FETCH_COMMERCE_PAGES_SUCCESS,
       });
 
-      return normalizedResult;
+      return result;
     } catch (error) {
       dispatch({
         meta: { query },

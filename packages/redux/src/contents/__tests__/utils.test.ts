@@ -49,12 +49,7 @@ describe('getPageRanking', () => {
 
 describe('getDefaultStrategy', () => {
   it('should correctly apply commerce pages default strategy to the page result', () => {
-    const commercePagesResult = getDefaultStrategy({
-      entries: mockCommercePages,
-      number: 0,
-      totalPages: 0,
-      totalItems: 0,
-    });
+    const commercePagesResult = getDefaultStrategy(mockCommercePages);
 
     expect(commercePagesResult).toMatchObject(defaultStrategyResult);
   });
@@ -62,19 +57,17 @@ describe('getDefaultStrategy', () => {
 
 describe('getMergeStrategy', () => {
   it('should correctly apply commerce pages merge strategy to the page result', () => {
-    const commercePagesResult = getMergeStrategy({
-      entries: mockCommercePages,
-      number: 0,
-      totalPages: 0,
-      totalItems: 0,
-    });
+    const commercePagesResult = getMergeStrategy(mockCommercePages);
 
     expect(commercePagesResult).toMatchObject(mergeStrategyResult);
   });
 
   it('should correctly apply commerce pages merge strategy to the page result when there is only one entry', () => {
     const commercePagesResult = getMergeStrategy({
-      entries: [mockCommercePages[0]],
+      number: 1,
+      totalPages: 1,
+      totalItems: 1,
+      entries: [mockCommercePages.entries[0]],
     });
 
     expect(commercePagesResult).toMatchObject(mergeStrategyResultOneEntry);
@@ -83,24 +76,11 @@ describe('getMergeStrategy', () => {
 
 describe('getRankedCommercePage', () => {
   it('should correctly select the commerce pages strategy return the respective page result', () => {
-    const commercePagesResult = getRankedCommercePage({
-      entries: mockCommercePages,
-      number: 0,
-      totalPages: 0,
-      totalItems: 0,
-    });
+    const commercePagesResult = getRankedCommercePage(mockCommercePages);
 
     expect(commercePagesResult).toMatchObject(defaultStrategyResult);
 
-    const mergeStrategy = getRankedCommercePage(
-      {
-        entries: mockCommercePages,
-        number: 0,
-        totalPages: 0,
-        totalItems: 0,
-      },
-      'merge',
-    );
+    const mergeStrategy = getRankedCommercePage(mockCommercePages, 'merge');
 
     expect(mergeStrategy).toMatchObject(mergeStrategyResult);
   });
