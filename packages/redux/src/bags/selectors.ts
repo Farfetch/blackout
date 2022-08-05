@@ -9,20 +9,17 @@ import {
   getItemsIds,
   getResult,
 } from './reducer';
-import { getEntities, getEntityById, getProduct } from '../entities/selectors';
+import { getEntities, getEntityById } from '../entities/selectors';
+import { getProduct } from '../products/selectors/product';
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
-import type {
-  BagItem,
-  BlackoutError,
-  ProductType,
-} from '@farfetch/blackout-client';
+import type { BagItem, ProductType } from '@farfetch/blackout-client';
 import type {
   BagItemEntity,
   BagItemHydrated,
   ProductEntity,
 } from '../entities/types';
-import type { BagItemsState, BagsState } from './types';
+import type { BagsState } from './types';
 import type { CustomAttributesAdapted, SizeAdapted } from '../helpers/adapters';
 import type { StoreState } from '../types';
 
@@ -42,8 +39,7 @@ import type { StoreState } from '../types';
  *
  * @returns - Bag result.
  */
-export const getBag = (state: StoreState): BagsState['result'] =>
-  getResult(state.bag as BagsState);
+export const getBag = (state: StoreState) => getResult(state.bag as BagsState);
 
 /**
  * Retrieves the error state of the current user's bag.
@@ -61,9 +57,8 @@ export const getBag = (state: StoreState): BagsState['result'] =>
  *
  * @returns Error information.
  */
-export const getBagError = (
-  state: StoreState,
-): BagsState['error'] | undefined => getError(state.bag as BagsState);
+export const getBagError = (state: StoreState) =>
+  getError(state.bag as BagsState);
 
 /**
  * Retrieves the universal identifier of the current user's bag.
@@ -81,8 +76,7 @@ export const getBagError = (
  *
  * @returns - Universal identifier of the bag.
  */
-export const getBagId = (state: StoreState): BagsState['id'] =>
-  getId(state.bag as BagsState);
+export const getBagId = (state: StoreState) => getId(state.bag as BagsState);
 
 /**
  * Retrieves a specific bag item by its id, with all properties populated (ie, the
@@ -145,10 +139,7 @@ export const getBagItem: (
  *
  * @returns - Error information, `undefined` if there are no errors.
  */
-export const getBagItemError = (
-  state: StoreState,
-  bagItemId: BagItem['id'],
-): BlackoutError | null | undefined =>
+export const getBagItemError = (state: StoreState, bagItemId: BagItem['id']) =>
   getItemsError(state.bag as BagsState)[bagItemId];
 
 /**
@@ -169,7 +160,7 @@ export const getBagItemError = (
  *
  * @returns - List of bag items ids.
  */
-export const getBagItemsIds = (state: StoreState): BagItemsState['ids'] =>
+export const getBagItemsIds = (state: StoreState) =>
   getItemsIds(state.bag as BagsState);
 
 /**
@@ -247,7 +238,7 @@ export const getBagItems = createSelector(
 export const getBagItemsCounter = (
   state: StoreState,
   excludeProductTypes: ProductType[] = [],
-): number => {
+) => {
   const bagItems = getBagItems(state);
 
   if (!bagItems || bagItems.length === 0) {
@@ -318,7 +309,7 @@ export const getBagItemsUnavailable = createSelector([getBagItems], bagItems =>
 export const getBagTotalQuantity = (
   state: StoreState,
   excludeProductTypes: ProductType[] = [],
-): number => {
+) => {
   const bagItems = getBagItems(state);
 
   if (bagItems.length === 0) {
@@ -349,10 +340,8 @@ export const getBagTotalQuantity = (
  *
  * @returns - Whether the given bag item is loading.
  */
-export const isBagItemLoading = (
-  state: StoreState,
-  itemId: BagItem['id'],
-): boolean | undefined => getAreItemsLoading(state.bag as BagsState)[itemId];
+export const isBagItemLoading = (state: StoreState, itemId: BagItem['id']) =>
+  getAreItemsLoading(state.bag as BagsState)[itemId];
 
 /**
  * Retrieves the loading status of the bag.
@@ -373,7 +362,7 @@ export const isBagItemLoading = (
  *
  * @returns - Loading status of the bag.
  */
-export const isBagLoading = (state: StoreState): boolean =>
+export const isBagLoading = (state: StoreState) =>
   getIsLoading(state.bag as BagsState);
 
 /**
@@ -505,7 +494,7 @@ export const findProductInBag = createSelector(
  *
  * @returns - Whether there is an error within the bag or not.
  */
-export const isBagWithAnyError = (state: StoreState): boolean => {
+export const isBagWithAnyError = (state: StoreState) => {
   const items = getBagItems(state) || [];
 
   return (
@@ -537,7 +526,7 @@ export const getProductQuantityInBag = (
   state: StoreState,
   productId: ProductEntity['id'],
   sizeId: SizeAdapted['id'],
-): number => {
+) => {
   const bagItems = getBagItems(state);
 
   const quantity = bagItems?.reduce((acc, item) => {
@@ -566,7 +555,7 @@ export const getProductQuantityInBag = (
 export const isProductInBag = (
   state: StoreState,
   productId: ProductEntity['id'],
-): boolean => {
+) => {
   const bagItems = getBagItems(state) || [];
 
   return bagItems.some(bagItem => bagItem.product?.id === Number(productId));

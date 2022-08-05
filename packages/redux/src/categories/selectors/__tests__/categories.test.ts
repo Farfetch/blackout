@@ -3,6 +3,8 @@ import * as selectors from '../categories';
 import {
   mockCategoriesLoadingState,
   mockCategoriesState,
+  mockCategory,
+  mockCategoryId,
 } from 'tests/__fixtures__/categories';
 
 describe('categories redux selectors', () => {
@@ -37,6 +39,22 @@ describe('categories redux selectors', () => {
 
       expect(selectors.areCategoriesFetched(mockState)).toEqual(true);
       expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('getCategory()', () => {
+    it('should return the category entity for given id', () => {
+      expect(selectors.getCategory(mockState, mockCategoryId)).toEqual(
+        mockCategory,
+      );
+    });
+  });
+
+  describe('getCategories()', () => {
+    it('should return the category entity', () => {
+      expect(selectors.getCategories(mockState)).toEqual(
+        mockState.entities.categories,
+      );
     });
   });
 });

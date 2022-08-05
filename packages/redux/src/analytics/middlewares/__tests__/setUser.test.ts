@@ -9,7 +9,7 @@ import {
   OPTION_TRIGGER_SET_USER_ACTIONS,
   OPTION_USER_TRAITS_PICKER,
 } from '../setUser';
-import { getUser, getUserId } from '../../../entities/selectors';
+import { getUser, getUserId } from '../../../users/selectors';
 import { mockStore } from './../tests/simplifiedStore';
 import Analytics, {
   eventTypes,

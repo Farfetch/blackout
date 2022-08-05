@@ -1,6 +1,11 @@
 import * as fromReducer from '../reducer';
 import * as selectors from '../selectors';
-import { mockState } from 'tests/__fixtures__/merchantsLocations';
+import {
+  mockMerchantLocation,
+  mockMerchantLocationId,
+  mockMerchantLocationId1,
+  mockState,
+} from 'tests/__fixtures__/merchantsLocations';
 
 describe('merchants locations redux selectors', () => {
   beforeEach(jest.clearAllMocks);
@@ -23,6 +28,37 @@ describe('merchants locations redux selectors', () => {
         expectedResult,
       );
       expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('getMerchantLocation()', () => {
+    it('should return the merchant location entity', () => {
+      expect(
+        selectors.getMerchantLocation(mockState, mockMerchantLocationId),
+      ).toEqual(mockMerchantLocation);
+    });
+  });
+
+  describe('getMerchantsLocations()', () => {
+    it('should return all the merchantsLocations entities', () => {
+      expect(selectors.getMerchantsLocations(mockState)).toEqual(
+        mockState.entities.merchantsLocations,
+      );
+    });
+  });
+
+  describe('getMerchantsLocationsByIds()', () => {
+    it('should get the merchants locations of the provided array of ids ', () => {
+      const ids = [mockMerchantLocationId, mockMerchantLocationId1];
+
+      const result = [
+        mockMerchantLocation,
+        { ...mockMerchantLocation, id: mockMerchantLocationId1 },
+      ];
+
+      expect(selectors.getMerchantsLocationsByIds(mockState, ids)).toEqual(
+        result,
+      );
     });
   });
 });

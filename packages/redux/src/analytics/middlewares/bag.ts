@@ -7,7 +7,7 @@ import {
   getSize,
   getVariant,
 } from './helpers';
-import { getProduct } from '../../entities/selectors';
+import { getProduct } from '../../products';
 import Analytics, { eventTypes, utils } from '@farfetch/blackout-analytics';
 import get from 'lodash/get';
 import isNil from 'lodash/isNil';

@@ -1,7 +1,7 @@
 import type { Config } from '../../types';
 import type { Currency } from './currencies';
 
-export interface Country {
+export type Country = {
   code: string;
   name: string;
   nativeName: string;
@@ -15,7 +15,7 @@ export interface Country {
   cultures: string[];
   defaultSubfolder: string;
   defaultCulture: string;
-}
+};
 
 export type GetCountry = (
   // The current page.

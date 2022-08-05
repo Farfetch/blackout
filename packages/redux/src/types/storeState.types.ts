@@ -12,7 +12,7 @@ import type {
   ContentsEntity,
   ConvertEntity,
   CountriesAddressSchemasEntity,
-  CountriesEntity,
+  CountryNormalized,
   CourierEntity,
   DeliveryBundleEntity,
   DeliveryBundleUpgradesEntity,
@@ -31,7 +31,7 @@ import type {
   ReturnOptionsEntity,
   ReturnsEntity,
   StatementEntity,
-  StatesEntity,
+  StateNormalized,
   SubscriptionPackagesEntity,
   TitleEntity,
   UserBenefitEntity,
@@ -96,7 +96,7 @@ export type StoreState = Partial<{
     contacts: Record<UserContactEntity['id'], UserContactEntity>;
     contents: Record<string, ContentsEntity>;
     converts: Record<ConvertEntity['id'], ConvertEntity>;
-    countries: Record<string, CountriesEntity>;
+    countries: Record<string, CountryNormalized>;
     countriesAddressSchemas: CountriesAddressSchemasEntity;
     courier: Record<CourierEntity['id'], CourierEntity>;
     deliveryBundles: Record<DeliveryBundleEntity['id'], DeliveryBundleEntity>;
@@ -126,7 +126,7 @@ export type StoreState = Partial<{
     returnOptions: Record<ReturnOptionsEntity['id'], ReturnOptionsEntity>;
     sizeScales: Record<SizeScale['sizeScaleId'], SizeScale>;
     statements: Record<StatementEntity['id'], StatementEntity>;
-    states: Record<StatesEntity['id'], StatesEntity>;
+    states: Record<StateNormalized['id'], StateNormalized>;
     subscriptionPackages: SubscriptionPackagesEntity;
     titles: Record<TitleEntity['id'], TitleEntity>;
     user: UserEntity;

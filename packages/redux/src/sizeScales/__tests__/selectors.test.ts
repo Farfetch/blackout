@@ -191,4 +191,33 @@ describe('Size scales', () => {
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('getSizeScale()', () => {
+    it('should return the sizeScale entity', () => {
+      const state = {
+        entities: {
+          sizeScales: {
+            [mockScaleId]: mockSizeScale,
+          },
+        },
+      };
+
+      expect(selectors.getSizeScale(state, mockScaleId)).toEqual(mockSizeScale);
+    });
+  });
+
+  describe('getSizeScales()', () => {
+    it('should return all the sizeScales entities', () => {
+      const state = {
+        entities: {
+          sizeScales: {
+            [mockScaleId]: mockSizeScale,
+            118: { ...mockSizeScale, sizeScaleId: 118 },
+          },
+        },
+      };
+
+      expect(selectors.getSizeScales(state)).toEqual(state.entities.sizeScales);
+    });
+  });
 });

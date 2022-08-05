@@ -3,6 +3,7 @@ import * as selectors from '../lists';
 import {
   mockBreadCrumbs,
   mockFacets,
+  mockFacetsNormalized,
   mockGroupedEntries,
   mockProductsListHash,
   mockProductsListHashWithPageIndexParameter,
@@ -11,6 +12,14 @@ import {
   mockSetId,
 } from 'tests/__fixtures__/products';
 import cloneDeep from 'lodash/cloneDeep';
+import type { FacetValue } from '@farfetch/blackout-client';
+
+const mockFacetId = mockFacets[0].id;
+const mockFacetId1 = mockFacets[1].id;
+const mockFacetId2 = mockFacets[2].id;
+const mockFacet = mockFacetsNormalized[mockFacetId] as FacetValue;
+const mockFacet1 = mockFacetsNormalized[mockFacetId1] as FacetValue;
+const mockFacet2 = mockFacetsNormalized[mockFacetId2] as FacetValue;
 
 beforeEach(jest.clearAllMocks);
 
@@ -840,6 +849,46 @@ describe('products list redux selectors', () => {
           },
         ]);
       });
+    });
+  });
+
+  describe('getFacet()', () => {
+    it('should return the facet entity', () => {
+      expect(selectors.getFacet(mockProductsState, mockFacetId)).toEqual(
+        mockFacet,
+      );
+    });
+  });
+
+  describe('getFacets()', () => {
+    it('should return all the facets entities', () => {
+      expect(selectors.getFacets(mockProductsState)).toEqual(
+        mockProductsState.entities.facets,
+      );
+    });
+  });
+
+  describe('getFacetsByIds()', () => {
+    it('should return all the facets corresponding to ids received', () => {
+      const state = {
+        entities: {
+          facets: {
+            [mockFacetId]: mockFacet,
+            [mockFacetId1]: mockFacet1,
+            [mockFacetId2]: mockFacet2,
+          },
+        },
+      };
+
+      expect(
+        selectors.getFacetsByIds(mockProductsState, [
+          mockFacetId,
+          mockFacetId2,
+        ]),
+      ).toEqual([
+        state.entities.facets[mockFacetId],
+        state.entities.facets[mockFacetId2],
+      ]);
     });
   });
 });
