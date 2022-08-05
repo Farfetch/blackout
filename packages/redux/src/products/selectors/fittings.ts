@@ -1,5 +1,5 @@
 import { getError, getIsLoading } from '../reducer/fittings';
-import { getProduct } from '../../entities/selectors';
+import { getProduct } from './product';
 import type { ProductEntity } from '../../entities/types';
 import type { ProductsState } from '../types';
 import type { StoreState } from '../../types';

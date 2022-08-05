@@ -2,7 +2,8 @@ import * as fromWishlistReducer from '../reducer/wishlists';
 import * as fromWishlistSetsReducer from '../reducer/wishlistsSets';
 import { buildWishlistItem, generateWishlistItemHash } from '../utils';
 import { createSelector } from 'reselect';
-import { getEntityById, getProduct } from '../../entities/selectors';
+import { getEntityById } from '../../entities/selectors';
+import { getProduct } from '../../products/selectors/product';
 import type { BuildWishlistItemData } from '../utils/buildWishlistItem';
 import type {
   ProductEntity,

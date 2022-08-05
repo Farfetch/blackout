@@ -6,7 +6,7 @@ import {
   getProductQuantityInBag,
 } from '../../bags';
 import { getError, getIsHydrated, getIsLoading } from '../reducer/details';
-import { getProduct } from '../../entities/selectors';
+import { getProduct } from './product';
 import type { ProductEntity } from '../../entities/types';
 import type { ProductsState } from '../types';
 import type { SizeAdapted } from '../../helpers/adapters';

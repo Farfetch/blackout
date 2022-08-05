@@ -12,16 +12,15 @@ import {
   getResult,
   getShipmentTrackings,
 } from './reducer';
-import {
-  getEntities,
-  getEntityById,
-  getMerchants,
-} from '../entities/selectors';
+import { getEntities, getEntityById } from '../entities/selectors';
+import { getMerchants } from '../products';
 import get from 'lodash/get';
 import type {
   CourierEntity,
+  MerchantEntity,
   OrderItemEntity,
   OrderMerchantNormalized,
+  ReturnOptionsEntity,
 } from '../entities/types';
 import type { Order } from '@farfetch/blackout-client';
 import type { OrdersState } from './types';
@@ -192,15 +191,16 @@ export const getReturnOptionsFromOrder = createSelector(
     (_, orderId, merchantId) => ({ orderId, merchantId }),
   ],
   (order, returnOptions, { merchantId }) => {
-    const returnOptionsIds = get(
-      order,
-      `byMerchant.${merchantId}.returnOptions`,
-    );
+    if (!order) {
+      return undefined;
+    }
 
-    return (
-      returnOptionsIds &&
-      returnOptionsIds.map((returnId: string) => returnOptions?.[returnId])
-    );
+    const returnOptionsIds = order.byMerchant[merchantId]?.returnOptions;
+
+    return (returnOptionsIds &&
+      returnOptionsIds
+        .map((returnId: string) => returnOptions?.[returnId])
+        .filter(Boolean)) as ReturnOptionsEntity[];
   },
 );
 
@@ -217,14 +217,17 @@ export const getMerchantsFromOrder = createSelector(
   (order, merchants) => {
     const ordersByMerchant = get(order, 'byMerchant');
 
+    if (!ordersByMerchant) {
+      return undefined;
+    }
+
     return (
-      ordersByMerchant &&
       Object.keys(ordersByMerchant)
         // This cast is necessary because Object.keys returns a string[]
         // but the strings are numbers as the ordersByMerchant variable is
         // a Record<number, OrderMerchantNormalized>
         .map(merchantId => merchants?.[merchantId as unknown as number])
-        .filter(Boolean)
+        .filter(Boolean) as MerchantEntity[]
     );
   },
 );
@@ -333,10 +336,6 @@ export const getOrderItemQuantity = createSelector(
     );
   },
 );
-
-/**
- * Returns the error or loading status of each sub-area.
- */
 
 /**
  * Returns the loading status for the orders list operation.

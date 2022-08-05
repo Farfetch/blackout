@@ -1,7 +1,7 @@
 import { findSpecificSizeGuide } from './utils';
-import { getCategory } from '../entities/selectors';
+import { getCategory } from '../categories/selectors';
 import { getError, getIsLoading, getResult } from './reducer';
-import type { Brand, Category, SizeGuide } from '@farfetch/blackout-client';
+import type { Brand, Category } from '@farfetch/blackout-client';
 import type { SizeGuidesState } from './types';
 import type { StoreState } from '../types';
 
@@ -54,7 +54,7 @@ export const getSizeGuides = (state: StoreState) =>
 export const getSpecificSizeGuide = (
   state: StoreState,
   { brandIds, categoryIds }: GetSpecificSizeGuideParams,
-): SizeGuide['maps'] | undefined => {
+) => {
   const sizeGuides = getSizeGuides(state);
 
   if (!sizeGuides) {

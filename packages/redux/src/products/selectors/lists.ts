@@ -4,12 +4,7 @@ import {
   getMaxDepth,
 } from '../utils';
 import { createSelector } from 'reselect';
-import {
-  getEntities,
-  getEntityById,
-  getFacets,
-  getFacetsByIds,
-} from '../../entities/selectors';
+import { getEntities, getEntityById } from '../../entities/selectors';
 import {
   getError,
   getHash,
@@ -330,7 +325,7 @@ export const getProductsListBreadcrumbs = (
 export const isProductsListCached = (
   state: StoreState,
   hash: string | number | null = getProductsListHash(state),
-): boolean | undefined => !!getProductsListResult(state, checkHash(hash));
+) => !!getProductsListResult(state, checkHash(hash));
 
 /**
  * Retrieves the current applied filters (known as `filterSegments`) of the current
@@ -403,7 +398,7 @@ export const getProductsListActiveFilters = createSelector(
 export const getProductsListSelectedFiltersCount = (
   state: StoreState,
   hash: string | number | null = getProductsListHash(state),
-): number | undefined => {
+) => {
   const result = getProductsListResult(state, checkHash(hash));
   const filterSegments = result?.filterSegments;
   const facetGroups = result?.facetGroups;
@@ -490,6 +485,46 @@ export const getProductsListFacetsGroupsByType = createSelector(
 ) => FacetGroupsNormalized | undefined;
 
 /**
+ * Returns a specific facet by its id.
+ *
+ * @param state   - Application state.
+ * @param facetId - Facet id.
+ *
+ * @returns Facet normalized.
+ */
+export const getFacet = (state: StoreState, facetId: FacetEntity['id']) =>
+  getEntityById(state, 'facets', facetId);
+
+/**
+ * Returns all facets from state.
+ *
+ * @param state - Application state.
+ *
+ * @returns Object with key values pairs representing facetId and facet properties.
+ */
+export const getFacets = (state: StoreState) => getEntities(state, 'facets');
+
+/**
+ * Returns required facets by ids received by parameter.
+ *
+ * @param state    - Application state.
+ * @param facetIds - Facets ids.
+ *
+ * @returns Array with all facets content requested.
+ */
+export const getFacetsByIds = createSelector(
+  [
+    (state: StoreState) => state,
+    (state: StoreState, facetIds: Array<FacetEntity['id']>) => facetIds,
+  ],
+  (state, facetIds: Array<FacetEntity['id']>) =>
+    facetIds.map(id => getFacet(state, id)),
+) as (
+  state: StoreState,
+  facetIds: Array<FacetEntity['id']>,
+) => FacetEntity[] | undefined;
+
+/**
  * Find all facets belonging to the specific facet group type.
  *
  * @param state          - Application state.
@@ -504,7 +539,7 @@ export const getProductsListFacetsByFacetGroupType = (
   state: StoreState,
   facetGroupType: FacetGroup['type'],
   hash: string | number | null = getProductsListHash(state),
-): FacetEntity[] | undefined => {
+) => {
   const facetGroupsWithType = getProductsListFacetsGroupsByType(
     state,
     facetGroupType,
@@ -607,26 +642,28 @@ export const getHierarchicalFacetsWithChildren = createSelector(
       return;
     }
 
-    return flatten(firstFacetGroup.values).map(id => {
-      const facet = facets?.[id];
+    return flatten(firstFacetGroup.values)
+      .map(id => {
+        const facet = facets?.[id];
 
-      // Prevent infinite loops if the parent id is the same as itself. This has
-      // happened when we had wrong data from the API, namely a duplicate
-      // "Black" color, which one of them had the following:
-      // {
-      //   id: 'colors_0',
-      //   parentId: 'colors_0',
-      // }
-      // This is impossible, having the parent id as itself, so we prevent the
-      // infinite recursion of `buildFacetTree`.
-      if (facet?.id === facet?.parentId) {
-        return facet;
-      }
+        // Prevent infinite loops if the parent id is the same as itself. This has
+        // happened when we had wrong data from the API, namely a duplicate
+        // "Black" color, which one of them had the following:
+        // {
+        //   id: 'colors_0',
+        //   parentId: 'colors_0',
+        // }
+        // This is impossible, having the parent id as itself, so we prevent the
+        // infinite recursion of `buildFacetTree`.
+        if (facet?.id === facet?.parentId) {
+          return facet;
+        }
 
-      return {
-        ...facet,
-        children: buildFacetTree(facetsByFacetGroupType, facet.id),
-      };
-    });
+        return {
+          ...facet,
+          children: buildFacetTree(facetsByFacetGroupType, facet.id),
+        };
+      })
+      .filter(Boolean);
   },
 );

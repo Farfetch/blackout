@@ -87,4 +87,18 @@ describe('brands redux selectors', () => {
       );
     });
   });
+
+  describe('getBrand()', () => {
+    it('should return the brand entity', () => {
+      expect(selectors.getBrand(mockState, mockBrandId)).toEqual(
+        mockState.entities.brands[mockBrandId],
+      );
+    });
+  });
+
+  describe('getBrands()', () => {
+    it('should return all the brands entities', () => {
+      expect(selectors.getBrands(mockState)).toEqual(mockState.entities.brands);
+    });
+  });
 });

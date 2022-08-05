@@ -142,4 +142,12 @@ describe('contents redux selectors', () => {
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('getContent()', () => {
+    it('should return the content entity', () => {
+      expect(selectors.getContent(mockState, contentHash)).toEqual(
+        mockState.entities.contents[contentHash],
+      );
+    });
+  });
 });

@@ -2,8 +2,8 @@
  * Contents selectors.
  */
 import { generateContentHash, generateSEOPathname } from './utils';
-import { getContent } from '../entities';
 import { getContentResult, getContentTypes, getSEOmetadata } from './reducer';
+import { getEntityById } from '../entities';
 import type { ContentEntry, QuerySEO } from '@farfetch/blackout-client';
 import type { ContentsState, Hash, QueryContentHash } from './types';
 import type { StoreState } from '../types';
@@ -230,3 +230,14 @@ export const getSEO = (state: StoreState, query: QuerySEO) => {
 
   return result && result[pathname];
 };
+
+/**
+ * Returns a specific content by its id.
+ *
+ * @param state - Application state.
+ * @param hash  - Content hash.
+ *
+ * @returns Content normalized.
+ */
+export const getContent = (state: StoreState, hash: string) =>
+  getEntityById(state, 'contents', hash);

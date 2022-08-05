@@ -6,7 +6,7 @@ import {
   ProductVariantMerchantLocation,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import { getProduct } from '../../../entities/selectors';
+import { getProduct } from '../../selectors/product';
 import { normalize } from 'normalizr';
 import productSchema from '../../../entities/schemas/product';
 import type { Dispatch } from 'redux';

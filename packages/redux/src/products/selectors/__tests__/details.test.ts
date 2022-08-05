@@ -1,5 +1,5 @@
 import * as fromBags from '../../../bags/selectors';
-import * as fromProductEntities from '../../../entities/selectors/products';
+import * as fromProductEntities from '../product';
 import * as selectors from '../details';
 import {
   mockBreadCrumbs,

@@ -1,5 +1,7 @@
+import { getEntities, getEntityById } from '../../entities';
 import { getError, getIsFetched, getIsLoading } from '../reducer/categories';
 import type { CategoriesState } from '../types';
+import type { Category } from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 /**
@@ -58,3 +60,33 @@ export const areCategoriesLoading = (state: StoreState) =>
  */
 export const areCategoriesFetched = (state: StoreState) =>
   getIsFetched(state.categories as CategoriesState);
+
+/**
+ * Returns a specific category by its id.
+ *
+ * @param state      - Application state.
+ * @param categoryId - Category id.
+ *
+ * @returns Category normalized or undefined if nothing found.
+ */
+export const getCategory = (state: StoreState, categoryId: Category['id']) =>
+  getEntityById(state, 'categories', categoryId);
+
+/**
+ * Retrieves a list of all the categories available.
+ *
+ * @example
+ * ```
+ * import { getCategories } from '@farfetch/blackout-redux/entities/selectors';
+ *
+ * const mapStateToProps = state => ({
+ *     categories: getCategories(state)
+ * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - Categories by id.
+ */
+export const getCategories = (state: StoreState) =>
+  getEntities(state, 'categories');

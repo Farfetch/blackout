@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
-import { getEntityById } from './entity';
+import { getEntityById } from '../../entities/selectors/entity';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import orderBy from 'lodash/orderBy';
-import type { ProductEntity } from '../types';
+import type { ProductEntity } from '../../entities/types';
 import type { StoreState } from '../../types';
 
 /**
@@ -14,10 +14,8 @@ import type { StoreState } from '../../types';
  *
  * @returns Product normalized.
  */
-export const getProduct = (
-  state: StoreState,
-  productId: ProductEntity['id'],
-): ProductEntity | undefined => getEntityById(state, 'products', productId);
+export const getProduct = (state: StoreState, productId: ProductEntity['id']) =>
+  getEntityById(state, 'products', productId);
 
 /**
  * Checks if a specific product is "one size" by its id.
@@ -30,7 +28,7 @@ export const getProduct = (
 export const isProductOneSize = (
   state: StoreState,
   productId: ProductEntity['id'],
-): boolean | undefined => {
+) => {
   const sizes = get(getProduct(state, productId), 'sizes');
 
   return sizes && sizes.length > 0 ? sizes[0]?.isOneSize : false;
@@ -47,7 +45,7 @@ export const isProductOneSize = (
 export const isProductOutOfStock = (
   state: StoreState,
   productId: ProductEntity['id'],
-): boolean | undefined => {
+) => {
   const sizes = get(getProduct(state, productId), 'sizes');
 
   return (

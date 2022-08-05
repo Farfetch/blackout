@@ -1,4 +1,4 @@
-import { getEntities, getEntityById } from './entity';
+import { getEntities, getEntityById } from '../../entities/selectors/entity';
 import type { MerchantEntity } from '../../entities/types';
 import type { StoreState } from '../../types';
 
@@ -13,7 +13,7 @@ import type { StoreState } from '../../types';
 export const getMerchant = (
   state: StoreState,
   merchantId: MerchantEntity['id'],
-): MerchantEntity | undefined => getEntityById(state, 'merchants', merchantId);
+) => getEntityById(state, 'merchants', merchantId);
 
 /**
  * Returns all the merchants in the application state.

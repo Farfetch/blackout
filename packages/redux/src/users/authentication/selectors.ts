@@ -11,7 +11,7 @@ import {
   getUserToken,
   getValidateEmail,
 } from './reducer';
-import { getUser } from '../../entities/selectors';
+import { getUser } from '../../users/selectors';
 import type { StoreState } from '../../types';
 import type { UsersState } from '../types';
 

@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { getBrands } from '../entities';
+import { getEntities, getEntityById } from '../entities';
 import { getError, getHash, getIsLoading, getResult } from './reducer';
 import type { Brand, Brands } from '@farfetch/blackout-client';
 import type { BrandsState } from './types';
@@ -62,6 +62,26 @@ export const areBrandsLoading = (
   state: StoreState,
   hash = getBrandsHash(state),
 ) => (hash ? getIsLoading(state.brands as BrandsState)?.[hash] : undefined);
+
+/**
+ * Returns all brands from state.
+ *
+ * @param state - Application state.
+ *
+ * @returns Object with key values pairs representing brandId and brand properties.
+ */
+export const getBrands = (state: StoreState) => getEntities(state, 'brands');
+
+/**
+ * Returns a specific brand by its id.
+ *
+ * @param state   - Application state.
+ * @param brandId - Brand id.
+ *
+ * @returns Brand normalized.
+ */
+export const getBrand = (state: StoreState, brandId: Brand['id']) =>
+  getEntityById(state, 'brands', brandId);
 
 /**
  * Returns the brands result descendant from the `fetchBrands` request.
