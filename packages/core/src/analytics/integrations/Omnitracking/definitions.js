@@ -478,12 +478,13 @@ export const trackEventsMapper = {
         };
     }
   },
-  [eventTypes.PRODUCT_LIST_VIEWED]: data => {
-    return {
-      tid: 2832,
-      lineItems: getProductLineItems(data),
-    };
-  },
+  [eventTypes.PRODUCT_LIST_VIEWED]: data => ({
+    tid: 2832,
+    lineItems: getProductLineItems(data),
+  }),
+  [eventTypes.CHECKOUT_ABANDONED]: () => ({
+    tid: 2084,
+  }),
 };
 
 /**
