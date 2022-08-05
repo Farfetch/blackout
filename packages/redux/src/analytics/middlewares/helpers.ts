@@ -1,7 +1,5 @@
-import {
-  getBrand as getBrandSelector,
-  getCategory as getCategorySelector,
-} from '../../entities/selectors';
+import { getBrand as getBrandSelector } from '../../brands';
+import { getCategory as getCategorySelector } from '../../categories';
 import Analytics, { utils } from '@farfetch/blackout-analytics';
 import get from 'lodash/get';
 import type { ProductEntity } from '../../entities/types';

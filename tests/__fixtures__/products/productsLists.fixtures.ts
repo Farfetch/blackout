@@ -1,6 +1,7 @@
 import { mockBreadCrumbs } from './products.fixtures';
 import { mockPriceAdaptedEmpty } from './price.fixtures';
 import { mockSetId } from './ids.fixtures';
+import type { FacetValue } from '@farfetch/blackout-client';
 
 export const mockProductsListPathname = 'shopping/woman/clothing';
 export const mockProductsListSlug = '/woman/clothing';
@@ -163,7 +164,8 @@ export const mockFacets = [
     value: 22,
     valueUpperBound: 0,
   },
-];
+] as const;
+
 export const mockFacetsNormalized = mockFacets.reduce(
   (oldFacet, newFacet) => ({
     ...oldFacet,
@@ -174,7 +176,7 @@ export const mockFacetsNormalized = mockFacets.reduce(
     },
   }),
   {},
-);
+) as Record<string, FacetValue>;
 
 export const mockFacetGroups = [
   {

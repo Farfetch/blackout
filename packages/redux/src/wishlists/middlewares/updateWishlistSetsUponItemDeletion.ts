@@ -1,6 +1,6 @@
 import * as actionTypes from '../actionTypes';
 import { fetchWishlistSets } from '../actions';
-import { getUser, getUserIsGuest } from '../../entities/selectors';
+import { getUser, getUserIsGuest } from '../../users/selectors';
 import type {
   FetchWishlistSetsAction,
   RemoveWishlistItemAction,

@@ -2,13 +2,10 @@ import {
   getError,
   getIsLoading,
 } from '../reducer/variantsByMerchantsLocations';
-import { getProduct } from '../../entities/selectors';
+import { getProduct } from './product';
 import type { ProductEntity } from '../../entities/types';
 import type { ProductsState } from '../types';
-import type {
-  ProductVariant,
-  ProductVariantMerchantLocation,
-} from '@farfetch/blackout-client';
+import type { ProductVariant } from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 /**
@@ -38,7 +35,7 @@ export const areProductVariantsByMerchantsLocationsLoading = (
 export const areProductVariantsByMerchantsLocationsFetched = (
   state: StoreState,
   id: ProductEntity['id'],
-): boolean | undefined =>
+) =>
   getIsLoading(
     (state.products as ProductsState).variantsByMerchantsLocations,
   ).hasOwnProperty(id) &&
@@ -71,7 +68,7 @@ export const getProductVariantsByMerchantsLocations = (
   state: StoreState,
   productId: ProductEntity['id'],
   variantId: ProductVariant['id'],
-): ProductVariantMerchantLocation[] | undefined => {
+) => {
   const product = getProduct(state, productId);
 
   if (product?.variants?.length) {

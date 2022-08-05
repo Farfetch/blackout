@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { generateSizeScaleMappingsHash } from './utils';
+import { getEntities, getEntityById } from '../entities';
 import {
   getError,
   getIsLoading,
@@ -9,7 +10,6 @@ import {
   getSizeScaleError as getSizeScaleErrorByIdentifier,
   getSizeScaleIsLoading as getSizeScaleIsLoadingByIdentifier,
 } from './reducer';
-import { getSizeScales } from '../entities/selectors';
 import type {
   Category,
   SizeScale,
@@ -18,6 +18,27 @@ import type {
 } from '@farfetch/blackout-client';
 import type { SizeScalesState } from './types';
 import type { StoreState } from '../types';
+
+/**
+ * Returns a specific scale by its id.
+ *
+ * @param state - Application state.
+ * @param id    - Scale id.
+ *
+ * @returns Scale normalized.
+ */
+export const getSizeScale = (state: StoreState, id: SizeScale['sizeScaleId']) =>
+  getEntityById(state, 'sizeScales', id);
+
+/**
+ * Returns all size scales fetched.
+ *
+ * @param state - Application state.
+ *
+ * @returns List of scales by id.
+ */
+export const getSizeScales = (state: StoreState) =>
+  getEntities(state, 'sizeScales');
 
 /**
  * Returns a list of size scales for the provided category id.

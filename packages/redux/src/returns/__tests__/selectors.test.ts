@@ -125,4 +125,28 @@ describe('returns redux selectors', () => {
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('getReturns', () => {
+    it('should get the returns entity from state', () => {
+      expect(selectors.getReturnsEntity(mockState)).toEqual(
+        mockState.entities.returns,
+      );
+    });
+  });
+
+  describe('getReturnItemsEntity', () => {
+    it('should get the returns entity from state', () => {
+      expect(selectors.getReturnItemsEntity(mockState)).toEqual(
+        mockState.entities.returnItems,
+      );
+    });
+  });
+
+  describe('getTimeSlots', () => {
+    it('should get the time slots entity from state', () => {
+      expect(selectors.getTimeSlots(mockState)).toEqual(
+        mockState.entities.availableTimeSlots,
+      );
+    });
+  });
 });

@@ -74,7 +74,37 @@ describe('users redux selectors', () => {
       },
     },
     entities: {
-      ...expectedNormalizedUserPayload.entities,
+      user: {
+        ...expectedNormalizedUserPayload.entities,
+        credit: {
+          currency: 'GB',
+          value: 50,
+          formattedValue: '£50',
+        },
+        creditMovements: {
+          entries: [
+            {
+              type: 1,
+              value: 0.57,
+              formattedValue: '$0.57',
+              currency: 'USD',
+              description: 'Other Reason (FF fault)',
+              createdOn: '/Date(1581071861195)/',
+            },
+            {
+              type: 2,
+              value: 13.97,
+              formattedValue: '$13.97',
+              currency: 'USD',
+              description: 'EUR 12.56 credit was Used - Order W95FWA',
+              createdOn: '/Date(1579792756504)/',
+            },
+          ],
+          number: 1,
+          totalItems: 2,
+          totalPages: 1,
+        },
+      },
       ...expectedBenefitsNormalizedPayload.entities,
       ...expectedPreferencesNormalizedPayload.entities,
       ...expectedTitlesNormalizedPayload.entities,

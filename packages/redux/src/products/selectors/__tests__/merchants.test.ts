@@ -1,4 +1,4 @@
-import { getMerchant } from '../';
+import { getMerchant } from '../..';
 import { mockMerchant, mockMerchantId } from 'tests/__fixtures__/products';
 
 describe('getMerchant()', () => {

@@ -1,6 +1,8 @@
 import * as actionTypes from '../../../wishlists/actionTypes';
 import { analyticsWishlistMiddleware } from '../../middlewares/wishlist';
-import { getBrand, getCategory, getProduct } from '../../../entities';
+import { getBrand } from '../../../brands';
+import { getCategory } from '../../../categories';
+import { getProduct } from '../../../products/selectors/product';
 import { getWishlistItem } from '../../../wishlists';
 import { mockStore, mockWishlistSetId } from '../../../../tests';
 import { wishlistMockData } from 'tests/__fixtures__/analytics/wishlist';

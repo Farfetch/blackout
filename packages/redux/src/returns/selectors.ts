@@ -1,9 +1,5 @@
 import { createSelector } from 'reselect';
-import {
-  getEntityById,
-  getReturnItemsEntity,
-  getReturnsEntity,
-} from '../entities/selectors';
+import { getEntities, getEntityById } from '../entities/selectors';
 import {
   getError,
   getId,
@@ -15,6 +11,36 @@ import get from 'lodash/get';
 import type { ReturnItem } from '@farfetch/blackout-client';
 import type { ReturnsState } from './types';
 import type { StoreState } from '../types';
+
+/**
+ * Returns the 'returns' entity from the application state.
+ *
+ * @param state - Application state.
+ *
+ * @returns Returns entity.
+ */
+export const getReturnsEntity = (state: StoreState) =>
+  getEntities(state, 'returns');
+
+/**
+ * Returns the 'returnItems' entity from the application state.
+ *
+ * @param state - Application state.
+ *
+ * @returns ReturnsItems entity.
+ */
+export const getReturnItemsEntity = (state: StoreState) =>
+  getEntities(state, 'returnItems');
+
+/**
+ * Returns the 'availableTimeSlots' entity from the application state.
+ *
+ * @param state - Application state.
+ *
+ * @returns AvailableTimeSlots entity.
+ */
+export const getTimeSlots = (state: StoreState) =>
+  getEntities(state, 'availableTimeSlots');
 
 /**
  * Returns a specific return identified by its id.
@@ -60,7 +86,7 @@ export const getReturnError = (state: StoreState) =>
 export const getReturnItem = (
   state: StoreState,
   returnItemId: ReturnItem['id'],
-): ReturnItem | undefined => getEntityById(state, 'returnItems', returnItemId);
+) => getEntityById(state, 'returnItems', returnItemId);
 
 /**
  * Returns all the return items ids.
@@ -83,7 +109,9 @@ export const getReturnItemsIds = createSelector([getReturn], returnObject =>
 export const getReturnItems = createSelector(
   [getReturnItemsEntity, getReturnItemsIds],
   (returnsItemsObject, returnItemsIds) =>
-    returnItemsIds?.map(returnItemId => returnsItemsObject?.[returnItemId]),
+    returnItemsIds
+      ?.map(returnItemId => returnsItemsObject?.[returnItemId])
+      .filter(Boolean) as ReturnItem[] | undefined,
 );
 
 /**

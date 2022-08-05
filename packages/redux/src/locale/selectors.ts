@@ -17,7 +17,9 @@ import {
 } from './reducer';
 import { getEntities, getEntityById } from '../entities/selectors/entity';
 import get from 'lodash/get';
+import type { City } from '@farfetch/blackout-client';
 import type { LocaleState } from './types';
+import type { StateNormalized } from '../entities';
 import type { StoreState } from '../types';
 
 /**
@@ -63,7 +65,11 @@ export const getCountryCurrencyCode = (
 ) => {
   const countryCurrencies = getCountryCurrencies(state, countryCode);
 
-  return get(countryCurrencies, '[0].isoCode');
+  if (!countryCurrencies) {
+    return undefined;
+  }
+
+  return countryCurrencies[0]?.isoCode;
 };
 
 /**
@@ -88,6 +94,10 @@ export const getCountryCulture = (
   state: StoreState,
   countryCode: string = getCountryCode(state),
 ) => {
+  if (!countryCode) {
+    return undefined;
+  }
+
   const country = getCountry(state, countryCode);
 
   return get(country, 'defaultCulture');
@@ -115,6 +125,10 @@ export const getCountryCultures = (
   state: StoreState,
   countryCode: string = getCountryCode(state),
 ) => {
+  if (!countryCode) {
+    return undefined;
+  }
+
   const country = getCountry(state, countryCode);
 
   return get(country, 'cultures');
@@ -142,6 +156,10 @@ export const getCountryStructure = (
   state: StoreState,
   countryCode: string = getCountryCode(state),
 ) => {
+  if (!countryCode) {
+    return undefined;
+  }
+
   const country = getCountry(state, countryCode);
 
   return get(country, 'defaultSubfolder');
@@ -169,6 +187,10 @@ export const getCountryStructures = (
   state: StoreState,
   countryCode: string = getCountryCode(state),
 ) => {
+  if (!countryCode) {
+    return undefined;
+  }
+
   const country = getCountry(state, countryCode);
 
   return get(country, 'structures');
@@ -190,9 +212,7 @@ export const getCountryStructures = (
  *
  * @returns - The current source country code used on the app.
  */
-export const getSourceCountryCode = (
-  state: StoreState,
-): LocaleState['sourceCountryCode'] =>
+export const getSourceCountryCode = (state: StoreState) =>
   getSourceCountryCodeFromReducer(state.locale as LocaleState);
 
 /**
@@ -383,12 +403,32 @@ export const getCountryStates = (
   state: StoreState,
   countryCode: string = getCountryCode(state),
 ) => {
+  if (!countryCode) {
+    return undefined;
+  }
+
   const country = getCountry(state, countryCode);
+
+  if (!country) {
+    return undefined;
+  }
+
   const statesIds = get(country, 'states');
 
-  return statesIds?.map((id: number) => getState(state, id));
+  return (statesIds &&
+    statesIds
+      .map((id: number) => getState(state, id))
+      .filter(Boolean)) as StateNormalized[];
 };
 
+/**
+ * Returns a specific state by its id.
+ *
+ * @param state - Application state.
+ * @param id    - Identifier of the state.
+ *
+ * @returns - State normalized.
+ */
 export const getState = (state: StoreState, id: number) =>
   getEntityById(state, 'states', id);
 
@@ -487,9 +527,20 @@ export const getCity = (state: StoreState, id: number) =>
  */
 export const getCountryCities = (state: StoreState, stateId: number) => {
   const stateEntity = getState(state, stateId);
+
+  if (!stateEntity) {
+    return undefined;
+  }
+
   const citiesIds = get(stateEntity, 'cities');
 
-  return citiesIds && citiesIds.map((id: number) => getCity(state, id));
+  if (!citiesIds) {
+    return undefined;
+  }
+
+  return citiesIds
+    .map((id: number) => getCity(state, id))
+    .filter(Boolean) as City[];
 };
 
 export const getCountryCity = (state: StoreState, id: number) =>
@@ -541,6 +592,10 @@ export const getCountryCurrencies = (
   state: StoreState,
   countryCode: string = getCountryCode(state),
 ) => {
+  if (!countryCode) {
+    return undefined;
+  }
+
   const country = getCountry(state, countryCode);
 
   return get(country, 'currencies');
