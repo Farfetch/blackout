@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.42.4](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.42.3...@farfetch/blackout-react@0.42.4) (2022-08-05)
+
+
+### Bug Fixes
+
+* **react:** added isLoading to content page hook to prevent infinite loops ([73f30bd](https://github.com/Farfetch/blackout/commit/73f30bd7ab04a16d05d28841ed53206c37e4e536))
+
+
+
+
+
 ## [0.42.3](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.42.2...@farfetch/blackout-react@0.42.3) (2022-08-03)
 
 
