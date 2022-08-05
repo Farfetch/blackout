@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.290](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.289...@farfetch/blackout-redux@1.0.0-next.290) (2022-08-05)
+
+
+### Features
+
+* **redux:** add pagination to commerce pages structure response ([0a67a6e](https://github.com/Farfetch/blackout/commit/0a67a6ea2af372d57b46057a44aee2d182dff4ae))
+
+
+
+
+
 # [1.0.0-next.289](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.288...@farfetch/blackout-redux@1.0.0-next.289) (2022-08-04)
 
 
