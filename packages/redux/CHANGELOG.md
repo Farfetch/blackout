@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.291](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.290...@farfetch/blackout-redux@1.0.0-next.291) (2022-08-05)
+
+
+### Bug Fixes
+
+* change getCountries client ([2f1519a](https://github.com/Farfetch/blackout/commit/2f1519ab8319b434e35241ca5afb06a9575f1c9e))
+* remove getProductColorGrouping client ([95d9cac](https://github.com/Farfetch/blackout/commit/95d9cac6aea2e750fcdf1be3467e7b64c4bd61d9))
+
+
+### BREAKING CHANGES
+
+* The getCountries client now does not return a paginated
+response and does not accept any query parameters. The result is
+an array of all the countries available.
+
+
+
+
+
 # [1.0.0-next.290](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.289...@farfetch/blackout-redux@1.0.0-next.290) (2022-08-05)
 
 

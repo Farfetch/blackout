@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.291](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.290...@farfetch/blackout-react@1.0.0-next.291) (2022-08-05)
+
+
+### Bug Fixes
+
+* remove getProductColorGrouping client ([95d9cac](https://github.com/Farfetch/blackout/commit/95d9cac6aea2e750fcdf1be3467e7b64c4bd61d9))
+
+
+
+
+
 # [1.0.0-next.290](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.289...@farfetch/blackout-react@1.0.0-next.290) (2022-08-05)
 
 
