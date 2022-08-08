@@ -1,4 +1,4 @@
 export * from './useProductDetails';
-export * from './useProductsList';
+export * from './useProductListing';
 export * from './useProductSizeGuides';
 export * from './useProductAttributes';
