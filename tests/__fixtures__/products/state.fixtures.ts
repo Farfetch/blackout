@@ -61,9 +61,7 @@ export const mockFittingsState = {
 };
 export const mockProductsListsState = {
   lists: {
-    error: {
-      [mockProductsListHash]: { message: 'Error - Listing not loaded.' },
-    },
+    error: { [mockProductsListHash]: undefined },
     isHydrated: {
       [mockProductsListHash]: true,
     },

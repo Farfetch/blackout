@@ -335,6 +335,12 @@ Object {
     "Product": 1,
     "Redirect": 2,
   },
+  "SearchRedirect": Object {
+    "0": "Stopwords",
+    "1": "Percolation",
+    "Percolation": 1,
+    "Stopwords": 0,
+  },
   "SearchSuggestionType": Object {
     "1": "Category",
     "2": "Brand",

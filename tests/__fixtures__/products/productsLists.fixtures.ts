@@ -4,11 +4,12 @@ import { mockSetId } from './ids.fixtures';
 
 export const mockProductsListPathname = 'shopping/woman/clothing';
 export const mockProductsListSlug = '/woman/clothing';
-export const mockQuery = { categories: '135971', colors: '6', pageIndex: '1' };
+export const mockQuery = { categories: '135971', colors: '6', pageIndex: 1 };
 export const mockQueryWithoutPageIndex = {
   categories: '135971',
   colors: '6',
 };
+export const mockProductsListHashWithoutParameters = 'listing/woman/clothing';
 export const mockProductsListHash =
   'listing/woman/clothing?categories=135971&colors=6&pageindex=1';
 export const mockProductsListHashWithoutPageIndex =
@@ -617,6 +618,20 @@ export const mockProductsListNormalizedPayload = {
     },
     facets: mockFacetsNormalized,
     productsLists: {
+      [mockProductsListHashWithoutParameters]: {
+        products: {
+          entries: [12913172, 12913174],
+          number: 1,
+          totalItems: 2,
+          totalPages: 1,
+        },
+        config: {
+          pageIndex: 1,
+          pageSize: 20,
+          sort: 'BRAND',
+          sortDirection: 'ASC',
+        },
+      },
       [mockProductsListHash]: {
         breadCrumbs: mockBreadCrumbs,
         name: null,
