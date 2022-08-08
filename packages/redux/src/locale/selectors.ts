@@ -7,18 +7,16 @@ import {
   getAreCountryCitiesLoading,
   getAreCountryCurrenciesLoading,
   getAreCountryStatesLoading,
+  getCountriesAddressSchemas as getCountriesAddressSchemasFromReducer,
   getCountriesError as getCountriesErrorFromReducer,
-  getCountryAddressSchema as getCountryAddressSchemaFromReducer,
   getCountryCitiesError as getCountryCitiesErrorFromReducer,
   getCountryCode as getCountryCodeFromReducer,
   getCountryCurrenciesError as getCountryCurrenciesErrorFromReducer,
   getCountryStatesError as getCountryStatesErrorFromReducer,
   getSourceCountryCode as getSourceCountryCodeFromReducer,
 } from './reducer';
-import { getCity, getCountry, getState } from '../entities/selectors';
 import { getEntities, getEntityById } from '../entities/selectors/entity';
 import get from 'lodash/get';
-import type { CountryAddressSchema } from '@farfetch/blackout-client';
 import type { LocaleState } from './types';
 import type { StoreState } from '../types';
 
@@ -61,7 +59,7 @@ export const getCountryCode = (state: StoreState) =>
  */
 export const getCountryCurrencyCode = (
   state: StoreState,
-  countryCode: string | null = getCountryCode(state),
+  countryCode: string = getCountryCode(state),
 ) => {
   const countryCurrencies = getCountryCurrencies(state, countryCode);
 
@@ -88,9 +86,9 @@ export const getCountryCurrencyCode = (
  */
 export const getCountryCulture = (
   state: StoreState,
-  countryCode: string | null = getCountryCode(state),
+  countryCode: string = getCountryCode(state),
 ) => {
-  const country = countryCode && getCountry(state, countryCode);
+  const country = getCountry(state, countryCode);
 
   return get(country, 'defaultCulture');
 };
@@ -115,9 +113,9 @@ export const getCountryCulture = (
  */
 export const getCountryCultures = (
   state: StoreState,
-  countryCode: string | null = getCountryCode(state),
-): string => {
-  const country = countryCode && getCountry(state, countryCode);
+  countryCode: string = getCountryCode(state),
+) => {
+  const country = getCountry(state, countryCode);
 
   return get(country, 'cultures');
 };
@@ -142,9 +140,9 @@ export const getCountryCultures = (
  */
 export const getCountryStructure = (
   state: StoreState,
-  countryCode: string | null = getCountryCode(state),
+  countryCode: string = getCountryCode(state),
 ) => {
-  const country = countryCode && getCountry(state, countryCode);
+  const country = getCountry(state, countryCode);
 
   return get(country, 'defaultSubfolder');
 };
@@ -169,9 +167,9 @@ export const getCountryStructure = (
  */
 export const getCountryStructures = (
   state: StoreState,
-  countryCode: string | null = getCountryCode(state),
+  countryCode: string = getCountryCode(state),
 ) => {
-  const country = countryCode && getCountry(state, countryCode);
+  const country = getCountry(state, countryCode);
 
   return get(country, 'structures');
 };
@@ -198,42 +196,56 @@ export const getSourceCountryCode = (
   getSourceCountryCodeFromReducer(state.locale as LocaleState);
 
 /**
- * Returns the country cities error.
+ * Returns a specific country by its countryCode.
  *
- * @example
- * ```
- * import { getCountryCitiesError } from '@farfetch/blackout-redux/locale';
+ * @param state       - Application state.
+ * @param countryCode - Identifier of the country.
  *
- * const mapStateToProps = state => ({
- *     error: getCountryCitiesError(state)
- * });
- * ```
- *
- * @param state - Application state.
- *
- * @returns - Cities error.
+ * @returns - Country normalized.
  */
-export const getCountryCitiesError = (state: StoreState) =>
-  getCountryCitiesErrorFromReducer(state.locale as LocaleState);
+export const getCountry = (
+  state: StoreState,
+  countryCode: string = getCountryCode(state),
+) => getEntityById(state, 'countries', countryCode);
 
 /**
- * Returns the loading status for the cities.
- *
- * @example
- * ```
- * import { areCountryCitiesLoading } from '@farfetch/blackout-redux/locale';
- *
- * const mapStateToProps = state => ({
- *     isLoading: areCountryCitiesLoading(state)
- * });
- * ```
+ * Returns all countries from state.
  *
  * @param state - Application state.
  *
- * @returns - Cities Loading status.
+ * @returns - Object with key values pairs representing countryCode and country properties.
  */
-export const areCountryCitiesLoading = (state: StoreState) =>
-  getAreCountryCitiesLoading(state.locale as LocaleState);
+export const getCountries = (state: StoreState) =>
+  getEntities(state, 'countries');
+
+/**
+ * Retrieves if countries have been fetched.
+ *
+ * Will return true if a fetch countries request
+ * has been made that returned either successfully or failed
+ * and false otherwise.
+ *
+ * @example
+ * ```
+ * import { areCountriesFetched } from '@farfetch/blackout-redux';
+ *
+ * const mapStateToProps = state => ({
+ *     isFetched: areCountriesFetched(state)
+ * });
+ * ```
+ * @param state - Application state.
+ *
+ * @returns isFetched status of countries.
+ */
+export const areCountriesFetched = (state: StoreState) => {
+  const countries = getCountries(state);
+  const countriesCount = countries ? Object.entries(countries).length : 0;
+
+  return (
+    (countriesCount > 1 || !!getCountriesError(state)) &&
+    !areCountriesLoading(state)
+  );
+};
 
 /**
  * Returns the countries error.
@@ -350,6 +362,113 @@ export const areCountryStatesLoading = (state: StoreState) =>
   getAreCountryStatesLoading(state.locale as LocaleState);
 
 /**
+ * Returns a list of country states. By default, returns the states of the current
+ * country.
+ *
+ * @example
+ * ```
+ * import { getCountryStates } from '@farfetch/blackout-redux/locale';
+ *
+ * const mapStateToProps = state => ({
+ *     states: getCountryStates(state)
+ * });
+ * ```
+ *
+ * @param state       - Application state.
+ * @param countryCode - The country code to find a specific country.
+ *
+ * @returns - The states for the countryCode received.
+ */
+export const getCountryStates = (
+  state: StoreState,
+  countryCode: string = getCountryCode(state),
+) => {
+  const country = getCountry(state, countryCode);
+  const statesIds = get(country, 'states');
+
+  return statesIds?.map((id: number) => getState(state, id));
+};
+
+export const getState = (state: StoreState, id: number) =>
+  getEntityById(state, 'states', id);
+
+/**
+ * Retrieves if country states have been fetched.
+ *
+ * Will return true if a fetch country states request
+ * has been made that returned either successfully or failed
+ * and false otherwise.
+ *
+ * @example
+ * ```
+ * import { areCountryStatesFetched } from '@farfetch/blackout-redux';
+ *
+ * const mapStateToProps = state => ({
+ *     isFetched: areCountryStatesFetched(state)
+ * });
+ * ```
+ * @param state - Application state.
+ *
+ * @returns isFetched status of country states.
+ */
+export const areCountryStatesFetched = (
+  state: StoreState,
+  countryCode: string,
+) =>
+  ((getCountryStates(state, countryCode)?.length ?? 0) > 0 ||
+    !!getCountryStatesError(state)) &&
+  !areCountryStatesLoading(state);
+
+/**
+ * Returns the country cities error.
+ *
+ * @example
+ * ```
+ * import { getCountryCitiesError } from '@farfetch/blackout-redux/locale';
+ *
+ * const mapStateToProps = state => ({
+ *     error: getCountryCitiesError(state)
+ * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - Cities error.
+ */
+export const getCountryCitiesError = (state: StoreState) =>
+  getCountryCitiesErrorFromReducer(state.locale as LocaleState);
+
+/**
+ * Returns the loading status for the cities.
+ *
+ * @example
+ * ```
+ * import { areCountryCitiesLoading } from '@farfetch/blackout-redux/locale';
+ *
+ * const mapStateToProps = state => ({
+ *     isLoading: areCountryCitiesLoading(state)
+ * });
+ * ```
+ *
+ * @param state - Application state.
+ *
+ * @returns - Cities Loading status.
+ */
+export const areCountryCitiesLoading = (state: StoreState) =>
+  getAreCountryCitiesLoading(state.locale as LocaleState);
+
+/**
+ * Returns a specific city by its id.
+ *
+ * @param state - Application state.
+ * @param id    - Identifier of the city.
+ *
+ * @returns - City normalized.
+ */
+export const getCity = (state: StoreState, id: number) =>
+  getEntityById(state, 'cities', id);
+
+/**
  * Returns all the country cities.
  *
  * @example
@@ -373,6 +492,33 @@ export const getCountryCities = (state: StoreState, stateId: number) => {
   return citiesIds && citiesIds.map((id: number) => getCity(state, id));
 };
 
+export const getCountryCity = (state: StoreState, id: number) =>
+  getEntityById(state, 'cities', id);
+
+/**
+ * Retrieves if country state cities have been fetched.
+ *
+ * Will return true if a fetch country state cities request
+ * has been made that returned either successfully or failed
+ * and false otherwise.
+ *
+ * @example
+ * ```
+ * import { areCountryCitiesFetched } from '@farfetch/blackout-redux';
+ *
+ * const mapStateToProps = state => ({
+ *     isFetched: areCountryCitiesFetched(state)
+ * });
+ * ```
+ * @param state - Application state.
+ *
+ * @returns isFetched status of country state cities.
+ */
+export const areCountryCitiesFetched = (state: StoreState, stateId: number) =>
+  ((getCountryCities(state, stateId)?.length ?? 0) > 0 ||
+    !!getCountryCitiesError(state)) &&
+  !areCountryCitiesLoading(state);
+
 /**
  * Returns a list of country currencies. By default, returns the currencies of the
  * current country.
@@ -393,39 +539,11 @@ export const getCountryCities = (state: StoreState, stateId: number) => {
  */
 export const getCountryCurrencies = (
   state: StoreState,
-  countryCode: string | null = getCountryCode(state),
+  countryCode: string = getCountryCode(state),
 ) => {
-  const country = countryCode && getCountry(state, countryCode);
+  const country = getCountry(state, countryCode);
 
   return get(country, 'currencies');
-};
-
-/**
- * Returns a list of country states. By default, returns the states of the current
- * country.
- *
- * @example
- * ```
- * import { getCountryStates } from '@farfetch/blackout-redux/locale';
- *
- * const mapStateToProps = state => ({
- *     states: getCountryStates(state)
- * });
- * ```
- *
- * @param state       - Application state.
- * @param countryCode - The country code to find a specific country.
- *
- * @returns - The states for the countryCode received.
- */
-export const getCountryStates = (
-  state: StoreState,
-  countryCode: string | null = getCountryCode(state),
-) => {
-  const country = countryCode && getCountry(state, countryCode);
-  const statesIds = get(country, 'states');
-
-  return statesIds && statesIds.map((id: number) => getState(state, id));
 };
 
 /**
@@ -435,8 +553,8 @@ export const getCountryStates = (
  *
  * @returns - Schemas with the correspondent Iso code.
  */
-export const getCountryAddressSchemas = (state: StoreState) =>
-  getEntities(state, 'countryAddressSchemas');
+export const getCountriesAddressSchemas = (state: StoreState) =>
+  getEntities(state, 'countriesAddressSchemas');
 
 /**
  * Returns a specific country address schema with the specified 'Iso code'.
@@ -446,28 +564,55 @@ export const getCountryAddressSchemas = (state: StoreState) =>
  *
  * @returns Schema information object.
  */
-export const getCountryAddressSchema = (
-  state: StoreState,
-  isoCode: string,
-): CountryAddressSchema[] | undefined =>
-  getEntityById(state, 'countryAddressSchemas', isoCode);
+export const getCountryAddressSchemas = (state: StoreState, isoCode: string) =>
+  getEntityById(state, 'countriesAddressSchemas', isoCode);
 
 /**
  * @param state - Application state.
  *
  * @returns Loader status.
  */
-export const areCountryAddressSchemasLoading = (
-  state: StoreState,
-): LocaleState['countryAddressSchema']['isLoading'] =>
-  getCountryAddressSchemaFromReducer(state.locale as LocaleState).isLoading;
+export const areCountriesAddressSchemasLoading = (state: StoreState) =>
+  getCountriesAddressSchemasFromReducer(state.locale as LocaleState).isLoading;
 
 /**
  * @param state - Application state.
  *
  * @returns Error details.
  */
-export const getCountryAddressSchemaError = (
+export const getCountriesAddressSchemasError = (state: StoreState) =>
+  getCountriesAddressSchemasFromReducer(state.locale as LocaleState).error;
+
+/**
+ * Retrieves if country address schemas have been fetched.
+ *
+ * Will return true if a fetch country address schemas request
+ * has been made that returned either successfully or failed
+ * and false otherwise.
+ *
+ * @example
+ * ```
+ * import { areCountryAddressSchemasFetched } from '@farfetch/blackout-redux';
+ *
+ * const mapStateToProps = state => ({
+ *     isFetched: areCountryAddressSchemasFetched(state)
+ * });
+ * ```
+ * @param state - Application state.
+ *
+ * @returns isFetched status of country address schemas.
+ */
+export const areCountryAddressSchemasFetched = (
   state: StoreState,
-): LocaleState['countryAddressSchema']['error'] =>
-  getCountryAddressSchemaFromReducer(state.locale as LocaleState).error;
+  countryCode: string,
+) => {
+  const countryAddressSchemas = getCountryAddressSchemas(state, countryCode);
+  const schemasCount = countryAddressSchemas
+    ? Object.entries(countryAddressSchemas).length
+    : 0;
+
+  return (
+    (schemasCount > 0 || !!getCountriesAddressSchemasError(state)) &&
+    !areCountriesAddressSchemasLoading(state)
+  );
+};

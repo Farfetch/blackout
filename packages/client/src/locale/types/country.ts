@@ -7,7 +7,6 @@ export interface Country {
   nativeName: string;
   structures: string[];
   platformId?: number;
-  cultureCode: string;
   isDefault?: boolean;
   newsletterSubscriptionOptionDefault?: boolean;
   isCountryDefault?: boolean;

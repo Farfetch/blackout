@@ -7,6 +7,7 @@ export * from './categories';
 export * from './checkout';
 export * from './helpers';
 export * from './products';
+export * from './locale';
 export * from './search';
 export * from './users';
 export * from './wishlists';
