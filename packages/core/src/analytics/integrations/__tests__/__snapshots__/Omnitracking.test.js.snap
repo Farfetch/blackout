@@ -60,6 +60,15 @@ Object {
 }
 `;
 
+exports[`Omnitracking definitions \`checkout\` return should match the snapshot 1`] = `
+Object {
+  "orderValue": 100,
+  "shippingTotalValue": 10,
+  "viewSubType": "Checkout SPA",
+  "viewType": "Checkout SPA",
+}
+`;
+
 exports[`Omnitracking definitions \`pageDefinitions\` should match snapshot 1`] = `
 Object {
   "CheckoutPageVisited": Array [
