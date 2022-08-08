@@ -23,6 +23,24 @@ const pageMockData = {
     didYouMean: 1123123,
     itemCount: 1,
     gender: 'Women',
+    products: [
+      {
+        id: 12345678,
+        discountValue: 1,
+        brand: 'designer name',
+        category: 'shoes',
+        priceWithoutDiscount: 1,
+        sizeId: 1,
+      },
+      {
+        id: 98765,
+        discountValue: 1,
+        brand: 'shirt designer name',
+        category: 'shirt',
+        priceWithoutDiscount: 1,
+        sizeId: 1,
+      },
+    ],
   },
   event: pageTypes.HOMEPAGE,
   user: {
@@ -93,7 +111,19 @@ const pageMockData = {
   platform: platformTypes.Web,
 };
 
-export default pageMockData;
+export const customPageMockData = {
+  [pageTypes.WISHLIST]: {
+    products: [{ quantity: 2 }, { quantity: 3 }],
+  },
+  [pageTypes.BAG]: {
+    products: [{ quantity: 5 }, { quantity: 3 }],
+    value: 100,
+  },
+  [pageTypes.CHECKOUT]: {
+    total: 100,
+    shipping: 10,
+  },
+};
 
 const getPageMockParametersForPlatform = platform => {
   let parameters;
@@ -175,3 +205,5 @@ export const expectedPagePayloadUnknown = {
     ...getPageMockParametersForPlatform('Dummy'),
   },
 };
+
+export default pageMockData;

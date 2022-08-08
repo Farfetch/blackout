@@ -7,6 +7,7 @@ import {
   generatePaymentAttemptReferenceId,
   getParameterValueFromEvent,
   getProductLineItems,
+  getProductLineItemsQuantity,
   getValParameterForEvent,
 } from './omnitracking-helper';
 import eventTypes from '../../types/eventTypes';
@@ -507,16 +508,19 @@ export const pageEventsMapper = {
     viewType: 'Wishlist',
     viewSubType: 'Wishlist',
     lineItems: getProductLineItems(data),
-    wishlistQuantity: (data.properties.products || []).reduce(
-      (acc, curr) => acc + (curr.quantity || 0),
-      0,
-    ),
+    wishlistQuantity: getProductLineItemsQuantity(data.properties.products),
   }),
   [pageTypes.CHECKOUT]: data => ({
     viewType: 'Checkout SPA',
     viewSubType: 'Checkout SPA',
     orderValue: data.properties?.total,
     shippingTotalValue: data.properties?.shipping,
+  }),
+  [pageTypes.BAG]: data => ({
+    viewType: 'Shopping Bag',
+    viewSubType: 'Bag',
+    lineItems: getProductLineItems(data),
+    basketQuantity: getProductLineItemsQuantity(data.properties.products),
   }),
 };
 
