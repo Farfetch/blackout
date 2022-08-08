@@ -164,11 +164,11 @@ class Omnitracking extends Integration {
         }
       }
 
+      // Send the `navigatedFrom` according to the last non-pageview event,
+      // which are the ones that come with the `from` parameter filled in (if passed).
       if (this.lastFromParameter) {
         precalculatedParameters.navigatedFrom = this.lastFromParameter;
       }
-
-      this.lastFromParameter = data?.properties?.from;
 
       const { user } = data;
       const userTraits = get(user, 'traits', {});
@@ -204,6 +204,14 @@ class Omnitracking extends Integration {
       precalculatedParameters.clientCountry = clientCountry;
       precalculatedParameters.clientCulture = culture;
     }
+
+    // Always set the `lastFromParameter` with what comes from the current event (pageview or not),
+    // so if there's a pageview being tracked right after this one,
+    // it will send the correct `navigatedFrom` parameter.
+    // Here we always set the value even if it comes `undefined` or `null`,
+    // otherwise we could end up with a stale `lastFromParameter` if some events are tracked
+    // without the `from` parameter.
+    this.lastFromParameter = data?.properties?.from;
 
     precalculatedParameters.uniqueViewId = this.currentUniqueViewId;
     precalculatedParameters.viewCurrency = currencyCode;
