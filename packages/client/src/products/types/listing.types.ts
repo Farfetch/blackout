@@ -6,7 +6,7 @@ import type { Gender, PagedResponse } from '../../types';
 import type { ProductSummary } from './productSummary.types';
 import type { ShoppingConfig } from './shoppingConfig.types';
 
-enum SearchRedirect {
+export enum SearchRedirect {
   Stopwords = 0,
   Percolation,
 }
