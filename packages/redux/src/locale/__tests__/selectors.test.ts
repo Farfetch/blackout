@@ -15,9 +15,9 @@ import {
 } from 'tests/__fixtures__/locale';
 
 describe('locale redux selectors', () => {
-  const countryAddressSchemasEntity = {
+  const countriesAddressSchemasEntity = {
     ...expectedGetAddressSchemaNormalizedPayload['entities']
-      .countryAddressSchemas,
+      .countriesAddressSchemas,
   };
 
   const mockState = {
@@ -39,7 +39,7 @@ describe('locale redux selectors', () => {
         isLoading: false,
         error: null,
       },
-      countryAddressSchema: {
+      countriesAddressSchemas: {
         isLoading: false,
         error: null,
       },
@@ -48,7 +48,7 @@ describe('locale redux selectors', () => {
       cities: mockCitiesEntities,
       countries: mockCountriesEntities,
       states: mockStatesEntities,
-      countryAddressSchemas: countryAddressSchemasEntity,
+      countriesAddressSchemas: countriesAddressSchemasEntity,
     },
   };
 
@@ -91,6 +91,22 @@ describe('locale redux selectors', () => {
 
       expect(selectors.getCountriesError(mockState)).toBe(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('getCountries()', () => {
+    it('should get all the countries', () => {
+      expect(selectors.getCountries(mockState)).toEqual(
+        mockState.entities.countries,
+      );
+    });
+  });
+
+  describe('getCountry()', () => {
+    it('should get a country by country code', () => {
+      expect(selectors.getCountry(mockState, mockCountry.code)).toEqual(
+        mockState.entities.countries[mockCountry.code],
+      );
     });
   });
 
@@ -192,16 +208,32 @@ describe('locale redux selectors', () => {
     });
   });
 
+  describe('getCity()', () => {
+    it('should get a city by cityId', () => {
+      expect(selectors.getCity(mockState, mockCities[0].id)).toEqual(
+        mockCities[0],
+      );
+    });
+  });
+
   describe('getCountryCities()', () => {
-    it('should get all the cities to a specific stateId', () => {
+    it('should get all the cities for a specific countryCode and stateId', () => {
       expect(selectors.getCountryCities(mockState, mockStateId)).toEqual([
         mockCities[0],
       ]);
     });
   });
 
+  describe('getState()', () => {
+    it('should get a state by stateId', () => {
+      expect(selectors.getState(mockState, mockStates[0].id)).toEqual(
+        mockStatesEntities[mockStates[0].id],
+      );
+    });
+  });
+
   describe('getCountryStates()', () => {
-    it('should get all the states to a specific countryCode', () => {
+    it('should get all the states for a specific countryCode', () => {
       expect(selectors.getCountryStates(mockState)).toEqual([
         { ...mockStates[0], cities: [mockCities[0].id] },
         { ...mockStates[1], cities: [mockCities[1].id] },
@@ -209,53 +241,53 @@ describe('locale redux selectors', () => {
     });
   });
 
-  describe('getCountryAddressSchemas()', () => {
+  describe('getCountriesAddressSchemas()', () => {
     it('should get the address schemas list', () => {
-      const expectedResult = mockState.entities.countryAddressSchemas;
+      const expectedResult = mockState.entities.countriesAddressSchemas;
       const spy = jest.spyOn(fromEntities, 'getEntities');
 
-      expect(selectors.getCountryAddressSchemas(mockState)).toEqual(
+      expect(selectors.getCountriesAddressSchemas(mockState)).toEqual(
         expectedResult,
       );
-      expect(spy).toHaveBeenCalledWith(mockState, 'countryAddressSchemas');
+      expect(spy).toHaveBeenCalledWith(mockState, 'countriesAddressSchemas');
     });
   });
 
-  describe('getCountryAddressSchema()', () => {
+  describe('getCountryAddressSchemas()', () => {
     it('should get the schema for a specific country from state', () => {
       const expectedResult =
         expectedGetAddressSchemaNormalizedPayload['entities']
-          .countryAddressSchemas[countryId];
+          .countriesAddressSchemas[countryId];
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
-      expect(selectors.getCountryAddressSchema(mockState, countryId)).toEqual(
+      expect(selectors.getCountryAddressSchemas(mockState, countryId)).toEqual(
         expectedResult,
       );
       expect(spy).toHaveBeenCalledWith(
         mockState,
-        'countryAddressSchemas',
+        'countriesAddressSchemas',
         countryId,
       );
     });
   });
 
-  describe('areCountryAddressSchemasLoading()', () => {
+  describe('areCountriesAddressSchemasLoading()', () => {
     it('should get the address schema isLoading property from state', () => {
-      const spy = jest.spyOn(fromLocale, 'getCountryAddressSchema');
+      const spy = jest.spyOn(fromLocale, 'getCountriesAddressSchemas');
 
-      expect(selectors.areCountryAddressSchemasLoading(mockState)).toEqual(
+      expect(selectors.areCountriesAddressSchemasLoading(mockState)).toEqual(
         false,
       );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getCountryAddressSchemaError()', () => {
+  describe('getCountriesAddressSchemasError()', () => {
     it('should get the address schema error property from state', () => {
-      const expectedResult = mockState.locale.countryAddressSchema.error;
-      const spy = jest.spyOn(fromLocale, 'getCountryAddressSchema');
+      const expectedResult = mockState.locale.countriesAddressSchemas.error;
+      const spy = jest.spyOn(fromLocale, 'getCountriesAddressSchemas');
 
-      expect(selectors.getCountryAddressSchemaError(mockState)).toBe(
+      expect(selectors.getCountriesAddressSchemasError(mockState)).toBe(
         expectedResult,
       );
       expect(spy).toHaveBeenCalledTimes(1);

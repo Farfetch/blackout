@@ -410,7 +410,7 @@ const initialReduxState = {
   },
   editorial: {},
   entities: {
-    countryAddressSchemas: {
+    countriesAddressSchemas: {
       [mockCountryId]: {
         addressSchemaLines: [
           {
@@ -3537,7 +3537,7 @@ const initialReduxState = {
     states: {
       isLoading: false,
     },
-    countryAddressSchema: {
+    countriesAddressSchemas: {
       error: null,
       isLoading: false,
     },

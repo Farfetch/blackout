@@ -19,6 +19,33 @@ Object {
         },
       },
       "countries": Object {
+        "PT": Object {
+          "code": "PT",
+          "continentId": 3,
+          "cultures": Array [
+            "en-US",
+          ],
+          "currencies": Array [
+            Object {
+              "cultureCode": "de-DE",
+              "id": 1,
+              "isoCode": "EUR",
+              "name": "Euro Member Countries",
+              "symbol": "€",
+            },
+          ],
+          "defaultCulture": "en-US",
+          "defaultSubfolder": "/en-pt",
+          "isCountryDefault": false,
+          "isDefault": false,
+          "name": "Portugal",
+          "nativeName": "Portugal",
+          "newsletterSubscriptionOptionDefault": true,
+          "platformId": 165,
+          "structures": Array [
+            "/en-pt",
+          ],
+        },
         "US": Object {
           "code": "US",
           "continentId": 5,
@@ -31,12 +58,15 @@ Object {
               "id": 2,
               "isoCode": "USD",
               "name": "United States Dollar",
+              "symbol": "$",
             },
           ],
           "defaultCulture": "en-US",
           "defaultSubfolder": "/en-us",
           "isCountryDefault": true,
           "isDefault": true,
+          "name": "United States",
+          "nativeName": "United States",
           "newsletterSubscriptionOptionDefault": true,
           "platformId": 216,
           "states": Array [
@@ -71,6 +101,7 @@ Object {
     },
     "result": Array [
       "US",
+      "PT",
     ],
   },
   "type": "@farfetch/blackout-redux/FETCH_COUNTRIES_SUCCESS",

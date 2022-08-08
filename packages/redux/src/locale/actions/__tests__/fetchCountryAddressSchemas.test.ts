@@ -16,7 +16,7 @@ jest.mock('@farfetch/blackout-client', () => ({
 }));
 
 const addressesMockStore = (state = {}) =>
-  mockStore({ addresses: INITIAL_STATE_LOCALE.countryAddressSchema }, state);
+  mockStore({ addresses: INITIAL_STATE_LOCALE.countriesAddressSchemas }, state);
 
 const expectedConfig = undefined;
 let store;
