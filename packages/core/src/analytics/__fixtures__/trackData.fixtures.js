@@ -40,8 +40,6 @@ const trackMockData = {
   },
 };
 
-export default trackMockData;
-
 export const expectedTrackPayload = {
   clientId: trackMockData.context.clientId,
   tenantId: trackMockData.context.tenantId,
@@ -52,3 +50,5 @@ export const expectedTrackPayload = {
     ...expectedCommonParameters,
   },
 };
+
+export default trackMockData;

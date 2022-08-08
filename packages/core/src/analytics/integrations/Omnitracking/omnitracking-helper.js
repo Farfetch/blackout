@@ -522,3 +522,17 @@ export const getProductLineItems = data => {
 
   return undefined;
 };
+
+/**
+ * Obtain sum all quantities from product line item list.
+ *
+ * @param {object} productList - The item list with quantity inside each element.
+ *
+ * @returns {number} - The sum of all product quantities.
+ */
+export const getProductLineItemsQuantity = productList => {
+  return (productList || []).reduce(
+    (acc, curr) => acc + (curr.quantity || 0),
+    0,
+  );
+};
