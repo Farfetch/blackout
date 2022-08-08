@@ -512,6 +512,12 @@ export const pageEventsMapper = {
       0,
     ),
   }),
+  [pageTypes.CHECKOUT]: data => ({
+    viewType: 'Checkout SPA',
+    viewSubType: 'Checkout SPA',
+    orderValue: data.properties?.total,
+    shippingTotalValue: data.properties?.shipping,
+  }),
 };
 
 export const userGenderValuesMapper = {
