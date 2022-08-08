@@ -29,7 +29,7 @@ describe('locale redux reducer', () => {
       const state = reducer(INITIAL_STATE_LOCALE, mockAction).countryCode;
 
       expect(state).toBe(initialState.countryCode);
-      expect(state).toBeNull();
+      expect(state).toBe('');
     });
 
     it('should handle SET_COUNTRY_CODE action type', () => {
@@ -280,7 +280,7 @@ describe('locale redux reducer', () => {
   describe('get an address schema', () => {
     // Existent schemas
     const state = {
-      countryAddressSchemas: {
+      countriesAddressSchemas: {
         1: {
           addressSchemaLines: [
             {
@@ -337,8 +337,8 @@ describe('locale redux reducer', () => {
     };
 
     const expectedResult = {
-      countryAddressSchemas: {
-        ...state.countryAddressSchemas,
+      countriesAddressSchemas: {
+        ...state.countriesAddressSchemas,
         ...newAddressSchema,
       },
     };
@@ -351,7 +351,7 @@ describe('locale redux reducer', () => {
             payload: {
               result: countryId,
               entities: {
-                countryAddressSchema: {
+                countriesAddressSchemas: {
                   ...newAddressSchema,
                 },
               },
@@ -501,17 +501,17 @@ describe('locale redux reducer', () => {
 
   describe('getCountryAddressSchema() selector', () => {
     it('should return the `countryAddressSchema` property from a given state', () => {
-      const countryAddressSchema = {
+      const countriesAddressSchemas = {
         error: null,
         isLoading: false,
       };
 
       expect(
-        fromReducer.getCountryAddressSchema({
+        fromReducer.getCountriesAddressSchemas({
           ...initialState,
-          countryAddressSchema,
+          countriesAddressSchemas,
         }),
-      ).toBe(countryAddressSchema);
+      ).toBe(countriesAddressSchemas);
     });
   });
 });

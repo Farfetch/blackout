@@ -11,8 +11,8 @@ import type {
   CityEntity,
   ContentsEntity,
   ConvertEntity,
+  CountriesAddressSchemasEntity,
   CountriesEntity,
-  CountryAddressSchemasEntity,
   CourierEntity,
   DeliveryBundlesEntity,
   DeliveryBundleUpgradesEntity,
@@ -75,7 +75,6 @@ export type StoreState = Partial<{
   // Keep adding/changing here as we migrate chunks
   entities: Partial<{
     addresses: Record<AddressEntity['id'], AddressEntity>;
-    countryAddressSchemas: CountryAddressSchemasEntity;
     availableTimeSlots: Record<string, AvailableTimeSlotsEntity>;
     bagItems: Record<BagItemEntity['id'], BagItemEntity>;
     benefits: Record<UserBenefitEntity['id'], UserBenefitEntity>;
@@ -98,6 +97,7 @@ export type StoreState = Partial<{
     contents: Record<string, ContentsEntity>;
     converts: Record<ConvertEntity['id'], ConvertEntity>;
     countries: Record<string, CountriesEntity>;
+    countriesAddressSchemas: CountriesAddressSchemasEntity;
     courier: Record<CourierEntity['id'], CourierEntity>;
     deliveryBundles: Record<DeliveryBundlesEntity['id'], DeliveryBundlesEntity>;
     deliveryBundleUpgrades: DeliveryBundleUpgradesEntity;

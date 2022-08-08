@@ -4,7 +4,7 @@ exports[`fetchCountryAddressSchema() action creator should create the correct ac
 Object {
   "payload": Object {
     "entities": Object {
-      "countryAddressSchemas": Object {
+      "countriesAddressSchemas": Object {
         "PT": Object {
           "addressSchemaLines": Array [
             Object {

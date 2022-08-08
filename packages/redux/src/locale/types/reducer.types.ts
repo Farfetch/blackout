@@ -3,7 +3,7 @@ import type { CombinedState } from 'redux';
 import type { StateWithoutResult } from '../../types';
 
 export type LocaleState = CombinedState<{
-  countryCode: string | null;
+  countryCode: string;
   sourceCountryCode: string | null;
   cities: {
     error: BlackoutError | null;
@@ -21,5 +21,5 @@ export type LocaleState = CombinedState<{
     error: BlackoutError | null;
     isLoading: boolean;
   };
-  countryAddressSchema: StateWithoutResult;
+  countriesAddressSchemas: StateWithoutResult;
 }>;

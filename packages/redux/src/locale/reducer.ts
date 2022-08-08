@@ -16,7 +16,7 @@ import type {
 import type { StoreState } from '../types';
 
 export const INITIAL_STATE_LOCALE: LocaleState = {
-  countryCode: null,
+  countryCode: '',
   sourceCountryCode: null,
   cities: {
     error: null,
@@ -34,7 +34,7 @@ export const INITIAL_STATE_LOCALE: LocaleState = {
     error: null,
     isLoading: false,
   },
-  countryAddressSchema: {
+  countriesAddressSchemas: {
     error: null,
     isLoading: false,
   },
@@ -166,9 +166,9 @@ const sourceCountryCode = (state = INITIAL_STATE_LOCALE.sourceCountryCode) => {
   return state;
 };
 
-export const countryAddressSchema = reducerFactory(
+export const countriesAddressSchemas = reducerFactory(
   'FETCH_COUNTRY_ADDRESS_SCHEMA',
-  INITIAL_STATE_LOCALE.countryAddressSchema,
+  INITIAL_STATE_LOCALE.countriesAddressSchemas,
   actionTypes,
 );
 
@@ -202,9 +202,9 @@ export const getCountryCurrenciesError = (
 export const getCountryStatesError = (
   state: LocaleState,
 ): LocaleState['states']['error'] => state.states.error;
-export const getCountryAddressSchema = (
+export const getCountriesAddressSchemas = (
   state: LocaleState,
-): LocaleState['countryAddressSchema'] => state.countryAddressSchema;
+): LocaleState['countriesAddressSchemas'] => state.countriesAddressSchemas;
 
 const reducers = combineReducers({
   cities,
@@ -213,7 +213,7 @@ const reducers = combineReducers({
   currencies,
   states,
   sourceCountryCode,
-  countryAddressSchema,
+  countriesAddressSchemas,
 });
 
 export const entitiesMapper = {
@@ -224,17 +224,17 @@ export const entitiesMapper = {
     const countryId = action.payload.result;
     const countrySchema = get(
       action,
-      `payload.entities.countryAddressSchema[${countryId}]`,
+      `payload.entities.countriesAddressSchemas[${countryId}]`,
       {},
     );
 
     return produce(state, draftState => {
       if (draftState) {
-        if (!draftState.countryAddressSchemas) {
-          draftState.countryAddressSchemas = {};
+        if (!draftState.countriesAddressSchemas) {
+          draftState.countriesAddressSchemas = {};
         }
 
-        draftState.countryAddressSchemas[countryId] = { ...countrySchema };
+        draftState.countriesAddressSchemas[countryId] = { ...countrySchema };
       }
     });
   },

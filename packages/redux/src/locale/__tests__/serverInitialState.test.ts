@@ -38,7 +38,7 @@ describe('local serverInitialState()', () => {
 
     expect(state).toEqual({
       locale: {
-        countryCode: null,
+        countryCode: '',
         sourceCountryCode: null,
         cities: {
           error: null,
@@ -56,7 +56,7 @@ describe('local serverInitialState()', () => {
           error: null,
           isLoading: false,
         },
-        countryAddressSchema: {
+        countriesAddressSchemas: {
           error: null,
           isLoading: false,
         },

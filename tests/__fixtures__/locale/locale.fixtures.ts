@@ -8,6 +8,7 @@ export const mockCurrencies = [
     name: 'United States Dollar',
     isoCode: 'USD',
     cultureCode: 'en-US',
+    symbol: '$',
   },
 ];
 
@@ -56,15 +57,42 @@ export const mockCountry = {
   currencies: mockCurrencies,
   structures: ['/en-us'],
   states: mockStates,
+  name: 'United States',
+  nativeName: 'United States',
+};
+
+export const mockCountryPT = {
+  code: 'PT',
+  cultures: ['en-US'],
+  currencies: [
+    {
+      id: 1,
+      name: 'Euro Member Countries',
+      isoCode: 'EUR',
+      cultureCode: 'de-DE',
+      symbol: '€',
+    },
+  ],
+  newsletterSubscriptionOptionDefault: true,
+  platformId: 165,
+  defaultCulture: 'en-US',
+  defaultSubfolder: '/en-pt',
+  name: 'Portugal',
+  nativeName: 'Portugal',
+  structures: ['/en-pt'],
+  isDefault: false,
+  isCountryDefault: false,
+  continentId: 3,
 };
 
 export const mockCountryNormalized = {
   ...mockCountry,
   states: [3, 6],
 };
-export const mockCountries = [mockCountry];
+export const mockCountries = [mockCountry, mockCountryPT];
 export const mockCountriesEntities = {
   [mockCountry.code]: mockCountryNormalized,
+  [mockCountryPT.code]: mockCountryPT,
 };
 
 export const mockCity = {
@@ -231,11 +259,41 @@ export const mockGetAddressSchemaResponse = {
 
 export const expectedGetAddressSchemaNormalizedPayload = {
   entities: {
-    countryAddressSchemas: {
+    countriesAddressSchemas: {
       [isoCode]: {
         ...mockGetAddressSchemaResponse,
       },
     },
   },
   result: isoCode,
+};
+
+export const mockLocaleState = {
+  locale: {
+    cities: {
+      error: null,
+      isLoading: false,
+    },
+    countries: {
+      isLoading: false,
+      error: null,
+    },
+    countryCode: mockCountryCode,
+    currencies: {
+      error: null,
+      isLoading: false,
+    },
+    states: {
+      error: null,
+      isLoading: false,
+    },
+    sourceCountryCode: null,
+    countriesAddressSchemas: {
+      error: null,
+      isLoading: false,
+    },
+  },
+  entities: {
+    countries: mockCountriesEntities,
+  },
 };
