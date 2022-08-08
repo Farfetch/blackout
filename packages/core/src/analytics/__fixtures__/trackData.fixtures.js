@@ -27,6 +27,8 @@ const trackMockData = {
         sizeId: 1,
       },
     ],
+    total: 100,
+    shipping: 10,
   },
   platform: platformTypes.Web,
   timestamp: mockCommonData.timestamp,
