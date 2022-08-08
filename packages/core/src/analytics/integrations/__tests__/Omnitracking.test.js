@@ -12,6 +12,7 @@ import eventTypes from '../../types/eventTypes';
 import fromParameterTypes from '../../types/fromParameterTypes';
 import merge from 'lodash/merge';
 import mockedPageData, {
+  customPageMockData,
   expectedPagePayloadMobile,
   expectedPagePayloadUnknown,
   expectedPagePayloadWeb,
@@ -689,8 +690,12 @@ describe('Omnitracking', () => {
     it.each(Object.keys(definitions.pageEventsMapper))(
       '`%s` return should match the snapshot',
       eventMapperKey => {
+        const mockedData = merge(mockedPageData, {
+          properties: customPageMockData[eventMapperKey],
+        });
+
         expect(
-          definitions.pageEventsMapper[eventMapperKey](mockedTrackData),
+          definitions.pageEventsMapper[eventMapperKey](mockedData),
         ).toMatchSnapshot();
         expect(typeof definitions.pageEventsMapper[eventMapperKey]).toBe(
           'function',
