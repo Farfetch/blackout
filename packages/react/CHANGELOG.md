@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.292](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.291...@farfetch/blackout-react@1.0.0-next.292) (2022-08-09)
+
+
+### Features
+
+* **react:** add locale hooks ([8e62032](https://github.com/Farfetch/blackout/commit/8e62032ada0d4e0d9ccf194219d3565bc868c5bc))
+
+
+### BREAKING CHANGES
+
+* **react:** locale selectors moved from entities folder to locale folder
+
+
+
+
+
 # [1.0.0-next.291](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.290...@farfetch/blackout-react@1.0.0-next.291) (2022-08-05)
 
 
