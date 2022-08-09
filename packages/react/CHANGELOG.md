@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.42.5](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.42.4...@farfetch/blackout-react@0.42.5) (2022-08-09)
+
+
+### Bug Fixes
+
+* **react:** resolving ga4 value field floating point issue ([0e008f6](https://github.com/Farfetch/blackout/commit/0e008f6e60fc8dc2e0485941b9eef3edd0ea28ce))
+
+
+
+
+
 ## [0.42.4](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.42.3...@farfetch/blackout-react@0.42.4) (2022-08-05)
 
 

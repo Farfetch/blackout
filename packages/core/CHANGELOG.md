@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.68.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.67.0...@farfetch/blackout-core@1.68.0) (2022-08-09)
+
+
+### Bug Fixes
+
+* **core:** fix omnitrackings's 'navigatedFrom' parameter logic ([f82e0d0](https://github.com/Farfetch/blackout/commit/f82e0d08fe1104c490dc81bca2baf20b05ea26a8))
+
+
+### Features
+
+* **core:** add omnitracking's bag page tracking mappings ([70e0e27](https://github.com/Farfetch/blackout/commit/70e0e27dde370b15c4721674b0d40886ab5ea6f7))
+* **core:** add omnitracking's checkout abandoned event mappings ([d761c2c](https://github.com/Farfetch/blackout/commit/d761c2cca1eecc04e776b4d62697a7306203d9ea))
+* **core:** add omnitracking's checkout page tracking mappings ([3a07a1f](https://github.com/Farfetch/blackout/commit/3a07a1f85482976177e4e233411e80c047228f3f))
+* **core:** add omnitracking's edit checkout step tracking mappings ([d4aba32](https://github.com/Farfetch/blackout/commit/d4aba32a95034633e25c1cdb81b65bc2e180e9db))
+* **core:** add omnitracking's wishlist page tracking mappings ([9512805](https://github.com/Farfetch/blackout/commit/95128057e25a452742142b00dca2859d9786c116))
+
+
+
+
+
 # [1.67.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.66.0...@farfetch/blackout-core@1.67.0) (2022-08-03)
 
 
