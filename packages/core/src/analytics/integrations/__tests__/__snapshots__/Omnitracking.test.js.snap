@@ -6,6 +6,13 @@ Object {
 }
 `;
 
+exports[`Omnitracking definitions \`Checkout Step Editing\` return should match the snapshot 1`] = `
+Object {
+  "checkoutStep": 2,
+  "tid": 2923,
+}
+`;
+
 exports[`Omnitracking definitions \`Checkout Step Viewed\` return should match the snapshot 1`] = `
 Object {
   "tid": 10097,
