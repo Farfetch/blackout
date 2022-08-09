@@ -486,6 +486,10 @@ export const trackEventsMapper = {
   [eventTypes.CHECKOUT_ABANDONED]: () => ({
     tid: 2084,
   }),
+  [eventTypes.CHECKOUT_STEP_EDITING]: data => ({
+    tid: 2923,
+    checkoutStep: data.properties.step,
+  }),
 };
 
 /**

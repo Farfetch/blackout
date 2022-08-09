@@ -2,6 +2,7 @@ import {
   expectedCommonParameters,
   mockCommonData,
 } from './commonData.fixtures';
+import eventTypes from '../types/eventTypes';
 import mockedPageData from './pageData.fixtures';
 import platformTypes from '../types/platformTypes';
 import trackTypes from '../types/trackTypes';
@@ -37,6 +38,12 @@ const trackMockData = {
     localId: mockCommonData.userLocalId,
     id: 4789996,
     traits: { gender: 0, isGuest: true, name: null, email: null },
+  },
+};
+
+export const customTrackMockData = {
+  [eventTypes.CHECKOUT_STEP_EDITING]: {
+    step: 2,
   },
 };
 
