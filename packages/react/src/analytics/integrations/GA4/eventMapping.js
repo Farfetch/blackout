@@ -7,6 +7,7 @@ import { MAX_PRODUCT_CATEGORIES } from './constants';
 import { SignupNewsletterGenderMappings } from '../shared/dataMappings/';
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
+import round from 'lodash/round';
 import snakeCase from 'lodash/snakeCase';
 
 export const InternalEventTypes = {
@@ -113,13 +114,14 @@ const getEventTotalValue = (eventProperties, items) => {
     return eventProperties.value;
   }
 
-  return items?.reduce((acc, item) => {
-    const value =
+  const value = items?.reduce((acc, item) => {
+    const lineValue =
       (get(item, 'price', 0) - get(item, 'discount', 0)) *
       get(item, 'quantity', 1);
 
-    return acc + value;
+    return acc + lineValue;
   }, 0);
+  return round(value, 3);
 };
 
 /**
