@@ -18,6 +18,7 @@ import mockedPageData, {
   expectedPagePayloadWeb,
 } from '../../__fixtures__/pageData.fixtures';
 import mockedTrackData, {
+  customTrackMockData,
   expectedTrackPayload,
 } from '../../__fixtures__/trackData.fixtures';
 import pageTypes from '../../types/pageTypes';
@@ -677,8 +678,12 @@ describe('Omnitracking', () => {
     it.each(Object.keys(definitions.trackEventsMapper))(
       '`%s` return should match the snapshot',
       eventMapperKey => {
+        const mockedData = merge(mockedTrackData, {
+          properties: customTrackMockData[eventMapperKey],
+        });
+
         expect(
-          definitions.trackEventsMapper[eventMapperKey](mockedTrackData),
+          definitions.trackEventsMapper[eventMapperKey](mockedData),
         ).toMatchSnapshot();
         expect(typeof definitions.trackEventsMapper[eventMapperKey]).toBe(
           'function',
