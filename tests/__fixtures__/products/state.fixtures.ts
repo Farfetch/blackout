@@ -14,7 +14,7 @@ export const mockAttributesState = {
       456: false,
     },
     error: {
-      [mockProductId]: { message: 'Error' },
+      [mockProductId]: null,
     },
   },
 };
