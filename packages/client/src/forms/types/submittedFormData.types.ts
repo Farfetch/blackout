@@ -1,4 +1,4 @@
-export type SubmitFormSchema = {
+export type SubmittedFormData = {
   id: string;
   formId: string;
   formCode: string;

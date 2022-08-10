@@ -81,7 +81,6 @@ export type Product = {
   sizes: Size[];
   sizeSet: SizeSet[] | null;
   slug: string;
-  [k: string]: unknown;
 };
 
 export type Information = {

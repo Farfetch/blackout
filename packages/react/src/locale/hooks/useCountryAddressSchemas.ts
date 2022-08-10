@@ -2,7 +2,6 @@ import {
   areCountriesAddressSchemasLoading,
   areCountryAddressSchemasFetched,
   fetchCountryAddressSchemas,
-  getCountriesAddressSchemas,
   getCountriesAddressSchemasError,
   getCountryAddressSchemas,
   StoreState,
@@ -20,7 +19,6 @@ export function useCountryAddressSchemas(
   // Actions
   const fetch = useAction(fetchCountryAddressSchemas);
   // Selectors
-  const countriesAddressSchemas = useSelector(getCountriesAddressSchemas);
   const countryAddressSchemas = useSelector((state: StoreState) =>
     getCountryAddressSchemas(state, countryCode),
   );
@@ -49,7 +47,6 @@ export function useCountryAddressSchemas(
     isLoading,
     isFetched,
     data: {
-      countriesAddressSchemas,
       countryAddressSchemas,
     },
     actions: {

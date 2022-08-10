@@ -1,3 +1,5 @@
+import { AddressType } from '@farfetch/blackout-client';
+
 export const addressId = '1234';
 export const addressId2 = '2222222';
 export const addressId3 = '33333333';
@@ -59,10 +61,12 @@ export const address1 = {
     culture: 'pt-PT',
     region: 'Europe',
     continentId: 3,
+    regionId: 10,
+    subRegion: 'dummy',
   },
   zipCode: '8600',
   phone: '434343434',
-  addressType: 0,
+  addressType: AddressType.Any,
   isCurrentShipping: true,
   isCurrentBilling: true,
   isCurrentPreferred: false,
@@ -95,10 +99,12 @@ export const address2 = {
     culture: 'pt-PT',
     region: 'Europe',
     continentId: 3,
+    regionId: 10,
+    subRegion: 'dummy',
   },
   zipCode: '4840-010',
   phone: '969696969',
-  addressType: 0,
+  addressType: AddressType.Any,
   isCurrentShipping: false,
   isCurrentBilling: false,
   isCurrentPreferred: false,
@@ -131,10 +137,12 @@ export const address3 = {
     culture: 'pt-PT',
     region: 'Europe',
     continentId: 3,
+    regionId: 10,
+    subRegion: 'dummy',
   },
   zipCode: '4840-010',
   phone: '969696969',
-  addressType: 0,
+  addressType: AddressType.Any,
   isCurrentShipping: false,
   isCurrentBilling: false,
   isCurrentPreferred: false,

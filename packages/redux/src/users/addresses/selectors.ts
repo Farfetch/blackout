@@ -44,6 +44,18 @@ export const areUserAddressesLoading = (state: StoreState) =>
   );
 
 /**
+ * Returns the fetched status of the user addresses area.
+ *
+ * @param state - Application state.
+ *
+ * @returns Loader status.
+ */
+export const areUserAddressesFetched = (state: StoreState) =>
+  (getUserAddressesResult(state) !== null ||
+    getUserAddressesError(state) !== null) &&
+  !areUserAddressesLoading(state);
+
+/**
  * Returns the addresses entity that contains all user addresses.
  *
  * @param state - Application state.
@@ -98,6 +110,28 @@ export const isUserAddressLoading = (
 ) =>
   getAddressFromReducer(getAddressesFromUsersReducer(state.users as UsersState))
     .isLoading[addressId];
+
+/**
+ * Returns the fetched status of the user addresses area.
+ *
+ * @param state - Application state.
+ *
+ * @returns Loader status.
+ */
+export const isUserAddressFetched = (
+  state: StoreState,
+  addressId: AddressEntity['id'],
+) => {
+  const userAddresses = getUserAddressesResult(state);
+  const hasUserAddressInResult =
+    userAddresses != null && userAddresses.includes(addressId);
+
+  return (
+    (hasUserAddressInResult ||
+      getUserAddressError(state, addressId) !== undefined) &&
+    !isUserAddressLoading(state, addressId)
+  );
+};
 
 /**
  * @param state     - Application state.

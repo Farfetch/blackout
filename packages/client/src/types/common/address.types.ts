@@ -17,7 +17,6 @@ export type CountryAddress = {
   regionId: number;
   subRegion: string;
   continentId: number;
-  subfolder: string;
 };
 
 export type AddressBase = {

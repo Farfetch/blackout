@@ -3,7 +3,7 @@ import type { Action } from 'redux';
 import type {
   BlackoutError,
   FormSchema,
-  SubmitFormSchema,
+  SubmittedFormData,
 } from '@farfetch/blackout-client';
 
 interface FetchFormSchemaRequestAction extends Action {
@@ -29,16 +29,16 @@ export type FetchFormSchemaAction =
   | FetchFormSchemaSuccessAction
   | FetchFormSchemaFailureAction;
 
-interface SubmitFormSchemaRequestAction extends Action {
+interface SubmitFormDataRequestAction extends Action {
   type: typeof actionTypes.SUBMIT_FORM_REQUEST;
   meta: { schemaCode: string; data: unknown };
 }
-interface SubmitFormSchemaSuccessAction extends Action {
+interface SubmitFormDataSuccessAction extends Action {
   type: typeof actionTypes.SUBMIT_FORM_SUCCESS;
-  payload: SubmitFormSchema;
+  payload: SubmittedFormData;
   meta: { schemaCode: string; data: unknown };
 }
-interface SubmitFormSchemaFailureAction extends Action {
+interface SubmitFormDataFailureAction extends Action {
   type: typeof actionTypes.SUBMIT_FORM_FAILURE;
   payload: { error: BlackoutError };
   meta: { schemaCode: string; data: unknown };
@@ -47,10 +47,10 @@ interface SubmitFormSchemaFailureAction extends Action {
 /**
  * Actions dispatched when submits form schema request is made.
  */
-export type SubmitFormSchemaAction =
-  | SubmitFormSchemaRequestAction
-  | SubmitFormSchemaSuccessAction
-  | SubmitFormSchemaFailureAction;
+export type SubmitFormDataAction =
+  | SubmitFormDataRequestAction
+  | SubmitFormDataSuccessAction
+  | SubmitFormDataFailureAction;
 
 /**
  * Actions dispatched when the reset form schemas action is called.

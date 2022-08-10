@@ -16,6 +16,7 @@ import {
 } from 'tests/__fixtures__/users';
 import { withStore } from '../../../../tests/helpers';
 import useUser from '../useUser';
+import type { BlackoutError } from '@farfetch/blackout-client';
 
 const capitalizeFirstLetter = (string: string) => {
   const firstLetter = string[0]?.toUpperCase();
@@ -169,11 +170,16 @@ describe('useUser', () => {
     });
   });
 
+  const errorInstance = new Error('dummy error') as BlackoutError;
+
   const errorTests = [
     {
       name: 'user error',
-      state: { error: true },
-      expectedReturn: { authenticationError: true, userError: true },
+      state: { error: errorInstance },
+      expectedReturn: {
+        authenticationError: errorInstance,
+        userError: errorInstance,
+      },
     },
     ...attributes.map(attribute => ({
       name: `${attribute} error`,
@@ -182,12 +188,12 @@ describe('useUser', () => {
           ...mockUserInitialState.authentication,
           [attribute]: {
             isLoading: false,
-            error: true,
+            error: errorInstance,
           },
         },
       },
       expectedReturn: {
-        [`${attribute}Error`]: true,
+        [`${attribute}Error`]: errorInstance,
       },
     })),
   ];
@@ -211,8 +217,6 @@ describe('useUser', () => {
   });
 
   it('should return correctly on fetch error', () => {
-    const error = { message: 'ups', name: 'error' };
-
     const {
       result: { current },
     } = renderHook(() => useUser(), {
@@ -220,15 +224,15 @@ describe('useUser', () => {
         entities: {},
         users: {
           ...mockUserInitialState,
-          error,
+          error: errorInstance,
         },
       }),
     });
 
     expect(current).toStrictEqual({
       ...defaultReturn,
-      userError: error,
-      authenticationError: error,
+      userError: errorInstance,
+      authenticationError: errorInstance,
     });
   });
 
