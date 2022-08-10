@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.294](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.293...@farfetch/blackout-react@1.0.0-next.294) (2022-08-10)
+
+
+### Features
+
+* **react:** add useProductAttributes hook ([3fcb07c](https://github.com/Farfetch/blackout/commit/3fcb07c8e1a2840407e346fc4be4bee167b8c23b))
+
+
+
+
+
 # [1.0.0-next.293](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.292...@farfetch/blackout-react@1.0.0-next.293) (2022-08-10)
 
 
