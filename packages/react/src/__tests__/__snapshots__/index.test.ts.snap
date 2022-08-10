@@ -183,6 +183,7 @@ Object {
   "useLocale": [Function],
   "usePrevious": [Function],
   "useProductDetails": [Function],
+  "useProductSizeGuides": [Function],
   "useProductsList": [Function],
   "useSearchIntents": [Function],
   "useUser": [Function],

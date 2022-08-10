@@ -796,6 +796,7 @@ Object {
   "getProductQuantityInBag": [Function],
   "getProductRelatedSetsIdsByType": [Function],
   "getProductSizeGuide": [Function],
+  "getProductSizeGuides": [Function],
   "getProductSizeGuidesError": [Function],
   "getProductSizeRemainingQuantity": [Function],
   "getProductSizes": [Function],
