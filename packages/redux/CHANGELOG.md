@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.293](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.292...@farfetch/blackout-redux@1.0.0-next.293) (2022-08-10)
+
+
+### Features
+
+* **react:** add useProductSizeGuides hook ([1b1d7f9](https://github.com/Farfetch/blackout/commit/1b1d7f9d07632a620bc03c372e15a00940c9e0da))
+
+
+
+
+
 # [1.0.0-next.292](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.291...@farfetch/blackout-redux@1.0.0-next.292) (2022-08-09)
 
 
