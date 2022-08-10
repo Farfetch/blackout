@@ -19,7 +19,7 @@ export type PostBagItemData = {
   // For customizable products, string describing the product
   // customization, typically in JSON format. For example, users may be
   // able to customize the materials and colors of parts of the product.
-  customAttributes?: string;
+  customAttributes?: string | null;
   // For restriction product. This value is a code, received by the
   // user, used to unlock the AddToBag operation.
   authCode?: string;

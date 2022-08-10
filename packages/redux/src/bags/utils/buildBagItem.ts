@@ -38,7 +38,7 @@ const buildBagItem = ({
   size,
 }: BuildBagItemParams) => {
   const parsedCustomAttributes =
-    typeof customAttributes === 'object'
+    !!customAttributes && typeof customAttributes === 'object'
       ? JSON.stringify(customAttributes)
       : customAttributes;
 
