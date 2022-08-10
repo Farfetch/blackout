@@ -182,6 +182,7 @@ Object {
   "useCountryStates": [Function],
   "useLocale": [Function],
   "usePrevious": [Function],
+  "useProductAttributes": [Function],
   "useProductDetails": [Function],
   "useProductSizeGuides": [Function],
   "useProductsList": [Function],
