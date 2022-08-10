@@ -757,6 +757,7 @@ describe('addresses reducers', () => {
         reducer(undefined, {
           meta: { addressId: addressId2 },
           type: actionType,
+          payload: { result: '' },
         }).address,
       ).toEqual({ error: {}, isLoading: { [addressId2]: false } });
     });

@@ -12,12 +12,12 @@ import type { RemoveUserAddressAction } from '../../types';
 /**
  * Responsible for removing the address with the specified 'addressId'.
  *
- * @param deleteAddress - Delete address client.
+ * @param deleteUserAddress - Delete user address client.
  *
  * @returns Thunk factory.
  */
 const removeUserAddressFactory =
-  (deleteAddress: DeleteUserAddress) =>
+  (deleteUserAddress: DeleteUserAddress) =>
   (userId: User['id'], addressId: UserAddress['id'], config?: Config) =>
   async (dispatch: Dispatch<RemoveUserAddressAction>): Promise<void> => {
     try {
@@ -26,7 +26,7 @@ const removeUserAddressFactory =
         type: actionTypes.REMOVE_USER_ADDRESS_REQUEST,
       });
 
-      const result = await deleteAddress({ userId, id: addressId }, config);
+      const result = await deleteUserAddress({ userId, id: addressId }, config);
 
       dispatch({
         meta: { addressId },

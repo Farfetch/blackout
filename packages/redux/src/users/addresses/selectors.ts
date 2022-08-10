@@ -1,9 +1,4 @@
-import {
-  AddressEntity,
-  AddressesEntity,
-  getEntities,
-  getEntityById,
-} from '../../entities';
+import { AddressEntity, getEntities, getEntityById } from '../../entities';
 import {
   getAddresses as getAddressesFromReducer,
   getAddress as getAddressFromReducer,
@@ -13,9 +8,7 @@ import {
   getResult as getResultFromReducer,
 } from './reducer';
 import { getAddresses as getAddressesFromUsersReducer } from '../reducer';
-import type { BlackoutError } from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
-import type { UserAddressesState } from './types';
 import type { UsersState } from '../types';
 
 /**
@@ -25,9 +18,7 @@ import type { UsersState } from '../types';
  *
  * @returns Array containing the loaded addresses id.
  */
-export const getUserAddressesResult = (
-  state: StoreState,
-): UserAddressesState['result'] =>
+export const getUserAddressesResult = (state: StoreState) =>
   getResultFromReducer(getAddressesFromUsersReducer(state.users as UsersState));
 
 /**
@@ -37,9 +28,7 @@ export const getUserAddressesResult = (
  *
  * @returns Address information object.
  */
-export const getUserAddressesError = (
-  state: StoreState,
-): UserAddressesState['error'] =>
+export const getUserAddressesError = (state: StoreState) =>
   getErrorFromReducer(getAddressesFromUsersReducer(state.users as UsersState));
 
 /**
@@ -49,12 +38,22 @@ export const getUserAddressesError = (
  *
  * @returns Loader status.
  */
-export const areUserAddressesLoading = (
-  state: StoreState,
-): UserAddressesState['isLoading'] =>
+export const areUserAddressesLoading = (state: StoreState) =>
   getIsLoadingFromReducer(
     getAddressesFromUsersReducer(state.users as UsersState),
   );
+
+/**
+ * Returns the fetched status of the user addresses area.
+ *
+ * @param state - Application state.
+ *
+ * @returns Loader status.
+ */
+export const areUserAddressesFetched = (state: StoreState) =>
+  (getUserAddressesResult(state) !== null ||
+    getUserAddressesError(state) !== null) &&
+  !areUserAddressesLoading(state);
 
 /**
  * Returns the addresses entity that contains all user addresses.
@@ -63,7 +62,7 @@ export const areUserAddressesLoading = (
  *
  * @returns Object containing all the currently loaded addresses.
  */
-export const getUserAddresses = (state: StoreState): AddressesEntity =>
+export const getUserAddresses = (state: StoreState) =>
   getEntities(state, 'addresses');
 
 /**
@@ -77,16 +76,14 @@ export const getUserAddresses = (state: StoreState): AddressesEntity =>
 export const getUserAddress = (
   state: StoreState,
   addressId: AddressEntity['id'],
-): AddressEntity | undefined => getEntityById(state, 'addresses', addressId);
+) => getEntityById(state, 'addresses', addressId);
 
 /**
  * @param state - Application state.
  *
  * @returns Loader status.
  */
-export const areUserAddressesListLoading = (
-  state: StoreState,
-): UserAddressesState['addresses']['isLoading'] =>
+export const areUserAddressesListLoading = (state: StoreState) =>
   getAddressesFromReducer(
     getAddressesFromUsersReducer(state.users as UsersState),
   ).isLoading;
@@ -96,9 +93,7 @@ export const areUserAddressesListLoading = (
  *
  * @returns Error details.
  */
-export const getUserAddressesListError = (
-  state: StoreState,
-): UserAddressesState['addresses']['error'] =>
+export const getUserAddressesListError = (state: StoreState) =>
   getAddressesFromReducer(
     getAddressesFromUsersReducer(state.users as UsersState),
   ).error;
@@ -112,11 +107,31 @@ export const getUserAddressesListError = (
 export const isUserAddressLoading = (
   state: StoreState,
   addressId: AddressEntity['id'],
-):
-  | UserAddressesState['address']['isLoading'][AddressEntity['id']]
-  | undefined =>
+) =>
   getAddressFromReducer(getAddressesFromUsersReducer(state.users as UsersState))
     .isLoading[addressId];
+
+/**
+ * Returns the fetched status of the user addresses area.
+ *
+ * @param state - Application state.
+ *
+ * @returns Loader status.
+ */
+export const isUserAddressFetched = (
+  state: StoreState,
+  addressId: AddressEntity['id'],
+) => {
+  const userAddresses = getUserAddressesResult(state);
+  const hasUserAddressInResult =
+    userAddresses != null && userAddresses.includes(addressId);
+
+  return (
+    (hasUserAddressInResult ||
+      getUserAddressError(state, addressId) !== undefined) &&
+    !isUserAddressLoading(state, addressId)
+  );
+};
 
 /**
  * @param state     - Application state.
@@ -127,7 +142,7 @@ export const isUserAddressLoading = (
 export const getUserAddressError = (
   state: StoreState,
   addressId: AddressEntity['id'],
-): BlackoutError | null | undefined =>
+) =>
   getAddressFromReducer(getAddressesFromUsersReducer(state.users as UsersState))
     .error[addressId];
 
@@ -136,9 +151,7 @@ export const getUserAddressError = (
  *
  * @returns Loader status.
  */
-export const areUserDefaultAddressDetailsLoading = (
-  state: StoreState,
-): UserAddressesState['defaultAddressDetails']['isLoading'] =>
+export const areUserDefaultAddressDetailsLoading = (state: StoreState) =>
   getDefaultAddressDetailsFromReducer(
     getAddressesFromUsersReducer(state.users as UsersState),
   ).isLoading;
@@ -148,9 +161,7 @@ export const areUserDefaultAddressDetailsLoading = (
  *
  * @returns Error details.
  */
-export const getUserDefaultAddressDetailsError = (
-  state: StoreState,
-): UserAddressesState['defaultAddressDetails']['error'] =>
+export const getUserDefaultAddressDetailsError = (state: StoreState) =>
   getDefaultAddressDetailsFromReducer(
     getAddressesFromUsersReducer(state.users as UsersState),
   ).error;
@@ -160,9 +171,7 @@ export const getUserDefaultAddressDetailsError = (
  *
  * @returns Address details result.
  */
-export const getUserDefaultAddressDetailsResult = (
-  state: StoreState,
-): UserAddressesState['defaultAddressDetails']['result'] =>
+export const getUserDefaultAddressDetailsResult = (state: StoreState) =>
   getDefaultAddressDetailsFromReducer(
     getAddressesFromUsersReducer(state.users as UsersState),
   ).result;

@@ -1,6 +1,6 @@
 import { adaptError } from '../helpers/client/formatError';
 import client from '../helpers/client';
-import type { PostFormSchema } from './types';
+import type { PostFormData } from './types';
 
 /**
  * Method responsible for posting schemas by code.
@@ -11,7 +11,7 @@ import type { PostFormSchema } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const postFormData: PostFormSchema = (schemaCode, data, config) =>
+const postFormData: PostFormData = (schemaCode, data, config) =>
   client
     .post(`/communication/v1/forms/${schemaCode}/data`, data, config)
     .then(response => response.data)

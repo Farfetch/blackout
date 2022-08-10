@@ -1,3 +1,6 @@
+import { UserGender, UserStatus } from '@farfetch/blackout-client';
+import type { UserEntity, UsersState } from '@farfetch/blackout-redux';
+
 export const userId = 123456;
 export const contactId = '78910';
 export const personalId = '123456';
@@ -74,47 +77,34 @@ export const mockUserAttributesData = {
   },
 };
 
-export const mockUserInitialState = {
-  benefits: {
-    error: null,
-    isLoading: false,
-  },
-  contacts: {
-    error: null,
-    isLoading: false,
-  },
-  credit: {
-    error: null,
-    isLoading: false,
-  },
-  creditMovements: {
-    error: null,
-    isLoading: false,
-  },
+export const mockUserInitialState: UsersState = {
   error: null,
   isLoading: false,
-  preferences: {
+  id: null,
+  addresses: {
     error: null,
     isLoading: false,
+    result: null,
+    addresses: {
+      error: null,
+      isLoading: false,
+    },
+    address: {
+      error: {},
+      isLoading: {},
+    },
+    defaultAddressDetails: {
+      error: null,
+      isLoading: false,
+      result: null,
+    },
   },
-  result: null,
-  titles: {
-    error: null,
-    isLoading: false,
-  },
-  updatePreferences: {
-    error: null,
-    isLoading: false,
-  },
-  userAttributes: {
+  attributes: {
     result: null,
     error: null,
     isLoading: false,
   },
   authentication: {
-    error: null,
-    id: null,
-    isLoading: false,
     login: {
       error: null,
       isLoading: false,
@@ -158,32 +148,71 @@ export const mockUserInitialState = {
       isLoading: false,
     },
   },
+  benefits: {
+    error: null,
+    isLoading: false,
+  },
+  contacts: {
+    error: null,
+    isLoading: false,
+  },
+  credits: {
+    error: null,
+    isLoading: false,
+  },
+  creditMovements: {
+    error: null,
+    isLoading: false,
+  },
+  preferences: {
+    error: null,
+    isLoading: false,
+  },
+  titles: {
+    error: null,
+    isLoading: false,
+  },
+  updatePreferences: {
+    error: null,
+    isLoading: false,
+  },
+  personalIds: {
+    error: null,
+    isLoading: false,
+    result: null,
+    defaultPersonalId: {
+      error: null,
+      isLoading: false,
+      result: null,
+    },
+  },
 };
 
 export const mockGuestUserEntities = {
   user: {
     bagId: 'b081c2eb-a61e-44f6-8462-5fc84e5d8995',
-    dateOfBirth: null,
-    email: null,
-    gender: null,
+    dateOfBirth: undefined,
+    email: undefined,
+    gender: undefined,
     id: 5000015566032863,
-    title: null,
-    name: null,
-    phoneNumber: null,
+    title: undefined,
+    name: undefined,
+    phoneNumber: undefined,
     phoneNumberConfirmed: false,
-    segments: null,
-    username: null,
+    segments: undefined,
+    username: undefined,
     wishlistId: '5dc7babb-3cb2-43cb-9c50-6152e1e4be82',
     isExternalLogin: false,
     isGuest: true,
     guestBagItemsMerged: 0,
-    status: 0,
-    lastName: null,
-    firstName: null,
+    status: UserStatus.Active,
+    lastName: undefined,
+    firstName: undefined,
     bag: null,
     wishlist: null,
     membership: null,
-  },
+    countryCode: 'PT',
+  } as UserEntity,
 };
 
 export const mockAuthenticatedUserEntities = {
@@ -191,9 +220,8 @@ export const mockAuthenticatedUserEntities = {
     bagId: 'ada57d80-62a7-4cb4-8de4-f8937fe53213',
     dateOfBirth: '/Date(636854400000)/',
     email: 'user.name@test.com',
-    gender: 1,
+    gender: UserGender.Male,
     id: 56681854,
-    title: null,
     name: 'User Name',
     phoneNumber: '',
     phoneNumberConfirmed: false,
@@ -203,7 +231,7 @@ export const mockAuthenticatedUserEntities = {
     isExternalLogin: false,
     isGuest: false,
     guestBagItemsMerged: 0,
-    status: 4,
+    status: UserStatus.PendingEmailConfirmation,
     lastName: 'Name',
     firstName: 'User',
     bag: null,
@@ -212,5 +240,6 @@ export const mockAuthenticatedUserEntities = {
     loyalty: null,
     createdDate: '/Date(1601300185332)/',
     updatedDate: '/Date(1655722263553)/',
-  },
+    countryCode: 'PT',
+  } as UserEntity,
 };
