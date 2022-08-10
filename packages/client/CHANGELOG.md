@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.191](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.190...@farfetch/blackout-client@2.0.0-next.191) (2022-08-10)
+
+
+### Bug Fixes
+
+* **redux:** fix buildBagItem ([20e9cd0](https://github.com/Farfetch/blackout/commit/20e9cd03d08f874bdd15c0f8578839514735c326))
+
+
+
+
+
 # [2.0.0-next.190](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.189...@farfetch/blackout-client@2.0.0-next.190) (2022-08-09)
 
 
