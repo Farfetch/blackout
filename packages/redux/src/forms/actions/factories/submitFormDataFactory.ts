@@ -1,12 +1,12 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  PostFormSchema,
-  SubmitFormSchema,
+  PostFormData,
+  SubmittedFormData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { SubmitFormSchemaAction } from '../../types';
-import type { SubmitFormSchemaFactory } from './types';
+import type { SubmitFormDataAction } from '../../types';
+import type { SubmitFormDataFactory } from './types';
 
 /**
  * Method responsible for posting Form data based on a schema.
@@ -15,12 +15,12 @@ import type { SubmitFormSchemaFactory } from './types';
  *
  * @returns Thunk factory.
  */
-const submitFormDataFactory: SubmitFormSchemaFactory<PostFormSchema> =
+const submitFormDataFactory: SubmitFormDataFactory<PostFormData> =
   postFormData =>
   (schemaCode, data, config) =>
   async (
-    dispatch: Dispatch<SubmitFormSchemaAction>,
-  ): Promise<SubmitFormSchema> => {
+    dispatch: Dispatch<SubmitFormDataAction>,
+  ): Promise<SubmittedFormData> => {
     try {
       dispatch({
         type: actionTypes.SUBMIT_FORM_REQUEST,

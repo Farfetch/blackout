@@ -188,6 +188,8 @@ Object {
   "useProductSizeGuides": [Function],
   "useSearchIntents": [Function],
   "useUser": [Function],
+  "useUserAddress": [Function],
+  "useUserAddresses": [Function],
   "useWishlist": [Function],
   "useWishlistItem": [Function],
   "useWishlistSet": [Function],

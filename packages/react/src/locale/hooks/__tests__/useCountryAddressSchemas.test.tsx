@@ -53,9 +53,6 @@ describe('useCountryAddressSchemas', () => {
       isLoading: false,
       isFetched: true,
       data: {
-        countriesAddressSchemas:
-          expectedGetAddressSchemaNormalizedPayload.entities
-            .countriesAddressSchemas,
         countryAddressSchemas:
           expectedGetAddressSchemaNormalizedPayload.entities
             .countriesAddressSchemas[isoCode],

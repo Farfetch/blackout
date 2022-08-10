@@ -1,8 +1,10 @@
+import { AddressType, UserAddress } from '@farfetch/blackout-client';
+
 export const addressId = '1234';
 export const addressId2 = '2222222';
 export const addressId3 = '33333333';
 
-export const address1 = {
+export const address1: UserAddress = {
   id: addressId,
   firstName: 'tiago3443',
   lastName: 'ultimo4343',
@@ -28,18 +30,20 @@ export const address1 = {
     culture: 'pt-PT',
     region: 'Europe',
     continentId: 3,
+    regionId: 10,
+    subRegion: 'dummy',
   },
   zipCode: '8600',
   phone: '434343434',
-  addressType: 0,
+  addressType: AddressType.Billing,
   isCurrentShipping: true,
   isCurrentBilling: true,
-  isCurrentPreferred: false,
+  isCurrentPreferred: true,
   createdDate: '2021-03-31T08:45:41.307Z',
   updatedDate: '2021-11-03T17:24:48.37Z',
 };
 
-export const address2 = {
+export const address2: UserAddress = {
   id: addressId2,
   firstName: 'testing',
   lastName: 'testing',
@@ -64,10 +68,12 @@ export const address2 = {
     culture: 'pt-PT',
     region: 'Europe',
     continentId: 3,
+    regionId: 10,
+    subRegion: 'dummy',
   },
   zipCode: '4840-010',
   phone: '969696969',
-  addressType: 0,
+  addressType: AddressType.Any,
   isCurrentShipping: false,
   isCurrentBilling: false,
   isCurrentPreferred: false,
@@ -75,7 +81,7 @@ export const address2 = {
   updatedDate: '2021-11-04T10:13:44.782Z',
 };
 
-export const address3 = {
+export const address3: UserAddress = {
   id: addressId3,
   firstName: 'testing',
   lastName: 'testing',
@@ -100,10 +106,12 @@ export const address3 = {
     culture: 'pt-PT',
     region: 'Europe',
     continentId: 3,
+    regionId: 10,
+    subRegion: 'dummy',
   },
   zipCode: '4840-010',
   phone: '969696969',
-  addressType: 0,
+  addressType: AddressType.Any,
   isCurrentShipping: false,
   isCurrentBilling: false,
   isCurrentPreferred: false,
@@ -111,7 +119,7 @@ export const address3 = {
   updatedDate: '2021-11-04T10:13:44.782Z',
 };
 
-export const mockGetAddressesResponse = [address2, address3];
+export const mockGetAddressesResponse = [address1, address2];
 
 export const mockGetAddressResponse = address1;
 
@@ -174,15 +182,11 @@ export const expectedPostUserAddressNormalizedPayload = {
 export const expectedGetAddressesNormalizedPayload = {
   entities: {
     addresses: {
-      [addressId2]: {
-        ...mockGetAddressesResponse[0],
-      },
-      [addressId3]: {
-        ...mockGetAddressesResponse[1],
-      },
+      [addressId]: mockGetAddressesResponse[0] as UserAddress,
+      [addressId2]: mockGetAddressesResponse[1] as UserAddress,
     },
   },
-  result: [addressId2, addressId3],
+  result: [addressId, addressId2],
 };
 
 export const mockUpdateAddressResponse = {

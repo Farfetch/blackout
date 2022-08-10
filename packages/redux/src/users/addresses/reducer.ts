@@ -9,8 +9,12 @@ import type {
   AddressEntity,
   AddressesEntity,
 } from '../../entities/types/addresses.types';
+import type {
+  FetchUserAddressesSuccessAction,
+  FetchUserAddressSuccessAction,
+  UserAddressesState,
+} from './types';
 import type { ReducerSwitch, StoreState } from '../../types';
-import type { UserAddressesState } from './types';
 
 export const INITIAL_STATE: UserAddressesState = {
   error: null,
@@ -55,8 +59,22 @@ const result = (
   action: AnyAction,
 ): UserAddressesState['result'] => {
   switch (action.type) {
+    case actionTypes.FETCH_USER_ADDRESS_SUCCESS: {
+      const fetchedAddressId = (action as FetchUserAddressSuccessAction).payload
+        .result;
+
+      if (!state) {
+        return [fetchedAddressId];
+      }
+
+      if (!state.includes(fetchedAddressId)) {
+        return [...state, fetchedAddressId];
+      }
+
+      return state;
+    }
     case actionTypes.FETCH_USER_ADDRESSES_SUCCESS:
-      return action.payload.result;
+      return (action as FetchUserAddressesSuccessAction).payload.result;
     case actionTypes.CREATE_USER_ADDRESS_SUCCESS:
       if (!state) {
         return [action.meta.addressId];
