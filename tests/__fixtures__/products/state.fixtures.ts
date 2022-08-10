@@ -100,7 +100,7 @@ export const mockSizeGuidesState = {
       456: false,
     },
     error: {
-      [mockProductId]: { message: 'Error' },
+      [mockProductId]: null,
     },
   },
 };

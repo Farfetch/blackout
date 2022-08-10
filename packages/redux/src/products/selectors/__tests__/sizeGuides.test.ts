@@ -12,6 +12,12 @@ describe('SizeGuides', () => {
         selectors.getProductSizeGuide(mockProductsState, mockProductId),
       ).toEqual(mockProductSizeGuides[0]);
     });
+
+    it('should get all the product size guides', () => {
+      expect(
+        selectors.getProductSizeGuides(mockProductsState, mockProductId),
+      ).toEqual(mockProductSizeGuides);
+    });
   });
 
   describe('areProductSizeGuidesLoading()', () => {

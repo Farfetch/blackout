@@ -47,6 +47,23 @@ export const getProductSizeGuidesError = (
 ) => getError((state.products as ProductsState).sizeGuides)[id];
 
 /**
+ * Returns the size guides for a given product id.
+ *
+ * @param state - Application state.
+ * @param id    - Product id.
+ *
+ * @returns The most specific size guide for a given product id.
+ */
+export const getProductSizeGuides = (
+  state: StoreState,
+  id: ProductEntity['id'],
+) => {
+  const product = getProduct(state, id);
+
+  return product?.sizeGuides;
+};
+
+/**
  * Returns the most specific size guide for a given product id.
  *
  * @param state - Application state.
@@ -58,7 +75,7 @@ export const getProductSizeGuide = (
   state: StoreState,
   id: ProductEntity['id'],
 ) => {
-  const product = getProduct(state, id);
+  const sizeGuides = getProductSizeGuides(state, id);
 
-  return product?.sizeGuides?.[0];
+  return sizeGuides?.[0];
 };
