@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { combineReducers } from 'redux';
+import { AnyAction, combineReducers } from 'redux';
 import { createReducerWithResult } from '../helpers/reducerFactory';
 import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import type * as T from './types';
@@ -64,7 +64,7 @@ export const statements = createReducerWithResult(
 
 export const membership = (
   state = INITIAL_STATE.membership,
-  action: T.FetchProgramUsersMembershipAction | T.CreateProgramMembershipAction,
+  action: AnyAction,
 ): T.LoyaltyState['membership'] => {
   switch (action.type) {
     case actionTypes.FETCH_PROGRAM_USERS_MEMBERSHIP_REQUEST:

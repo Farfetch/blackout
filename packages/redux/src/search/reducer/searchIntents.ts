@@ -1,10 +1,6 @@
 import * as actionTypes from '../actionTypes';
-import { combineReducers } from 'redux';
-import type {
-  FetchSearchIntentsAction,
-  ResetSearchIntentsAction,
-  SearchIntentsState,
-} from '../types';
+import { AnyAction, combineReducers } from 'redux';
+import type { SearchIntentsState } from '../types';
 
 export const INITIAL_STATE: SearchIntentsState = {
   error: null,
@@ -12,10 +8,7 @@ export const INITIAL_STATE: SearchIntentsState = {
   result: null,
 };
 
-const error = (
-  state = INITIAL_STATE.error,
-  action: FetchSearchIntentsAction,
-) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_SEARCH_INTENTS_REQUEST:
       return INITIAL_STATE.error;
@@ -26,10 +19,7 @@ const error = (
   }
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action: FetchSearchIntentsAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_SEARCH_INTENTS_REQUEST:
       return true;
@@ -42,10 +32,7 @@ const isLoading = (
   }
 };
 
-const result = (
-  state = INITIAL_STATE.result,
-  action: FetchSearchIntentsAction,
-) => {
+const result = (state = INITIAL_STATE.result, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_SEARCH_INTENTS_SUCCESS:
       return action.payload.result;
@@ -80,7 +67,7 @@ const reducer = combineReducers({
  */
 const searchIntentsReducer = (
   state: SearchIntentsState,
-  action: FetchSearchIntentsAction | ResetSearchIntentsAction,
+  action: AnyAction,
 ): SearchIntentsState => {
   if (action.type === actionTypes.RESET_SEARCH_INTENTS) {
     return INITIAL_STATE;

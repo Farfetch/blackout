@@ -1,10 +1,6 @@
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers } from 'redux';
-import type {
-  FetchPromotionEvaluationItemsAction,
-  FetchPromotionEvaluationItemsSuccessAction,
-  PromotionEvaluationsState,
-} from './types';
+import type { PromotionEvaluationsState } from './types';
 
 export const INITIAL_STATE: PromotionEvaluationsState = {
   id: null,
@@ -13,10 +9,7 @@ export const INITIAL_STATE: PromotionEvaluationsState = {
   result: null,
 };
 
-const error = (
-  state = INITIAL_STATE.error,
-  action: FetchPromotionEvaluationItemsAction,
-) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_PROMOTION_EVALUATION_ITEMS_REQUEST:
       return INITIAL_STATE.error;
@@ -27,10 +20,7 @@ const error = (
   }
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action: FetchPromotionEvaluationItemsAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_PROMOTION_EVALUATION_ITEMS_REQUEST:
       return true;
@@ -42,10 +32,7 @@ const isLoading = (
   }
 };
 
-const result = (
-  state = INITIAL_STATE.result,
-  action: FetchPromotionEvaluationItemsSuccessAction | AnyAction,
-) => {
+const result = (state = INITIAL_STATE.result, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_PROMOTION_EVALUATION_ITEMS_SUCCESS:
       return action.payload.result;
@@ -54,10 +41,7 @@ const result = (
   }
 };
 
-const id = (
-  state = INITIAL_STATE.id,
-  action: FetchPromotionEvaluationItemsSuccessAction | AnyAction,
-) => {
+const id = (state = INITIAL_STATE.id, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_PROMOTION_EVALUATION_ITEMS_SUCCESS:
       return action.meta.promotionEvaluationId;

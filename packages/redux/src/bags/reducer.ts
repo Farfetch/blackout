@@ -1,25 +1,8 @@
 import * as actionTypes from './actionTypes';
-import { combineReducers } from 'redux';
+import { AnyAction, combineReducers } from 'redux';
 import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
-import type {
-  AddBagItemAction,
-  AddBagItemFailureAction,
-  AddBagItemRequestAction,
-  AddBagItemSuccessAction,
-  BagItemsState,
-  BagsState,
-  FetchBagAction,
-  FetchBagFailureAction,
-  FetchBagRequestAction,
-  FetchBagSuccessAction,
-  RemoveBagItemAction,
-  RemoveBagItemRequestAction,
-  RemoveBagItemSuccessAction,
-  UpdateBagItemAction,
-  UpdateBagItemRequestAction,
-  UpdateBagItemSuccessAction,
-} from './types';
 import type { BagItem } from '@farfetch/blackout-client';
+import type { BagItemsState, BagsState } from './types';
 import type { ReducerSwitch, StoreState } from '../types';
 
 export const INITIAL_STATE: BagsState = {
@@ -38,13 +21,7 @@ export const INITIAL_STATE: BagsState = {
 
 const error = (
   state = INITIAL_STATE.error,
-  action:
-    | AddBagItemFailureAction
-    | AddBagItemRequestAction
-    | FetchBagFailureAction
-    | FetchBagRequestAction
-    | RemoveBagItemRequestAction
-    | UpdateBagItemRequestAction,
+  action: AnyAction,
 ): BagsState['error'] => {
   switch (action.type) {
     case actionTypes.ADD_BAG_ITEM_FAILURE:
@@ -60,10 +37,7 @@ const error = (
   }
 };
 
-const id = (
-  state = INITIAL_STATE.id,
-  action: FetchBagSuccessAction,
-): BagsState['id'] => {
+const id = (state = INITIAL_STATE.id, action: AnyAction): BagsState['id'] => {
   switch (action.type) {
     case actionTypes.FETCH_BAG_SUCCESS:
       return action.payload.result.id;
@@ -74,11 +48,7 @@ const id = (
 
 const result = (
   state = INITIAL_STATE.result,
-  action:
-    | AddBagItemSuccessAction
-    | FetchBagSuccessAction
-    | RemoveBagItemSuccessAction
-    | UpdateBagItemSuccessAction,
+  action: AnyAction,
 ): BagsState['result'] => {
   switch (action.type) {
     case actionTypes.FETCH_BAG_SUCCESS:
@@ -91,10 +61,7 @@ const result = (
   }
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action: AddBagItemAction | FetchBagAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.ADD_BAG_ITEM_REQUEST:
     case actionTypes.FETCH_BAG_REQUEST:
@@ -111,11 +78,7 @@ const isLoading = (
 
 const items = (
   state = INITIAL_STATE.items,
-  action:
-    | AddBagItemSuccessAction
-    | FetchBagSuccessAction
-    | RemoveBagItemAction
-    | UpdateBagItemAction,
+  action: AnyAction,
 ): BagItemsState => {
   switch (action.type) {
     case actionTypes.FETCH_BAG_SUCCESS:

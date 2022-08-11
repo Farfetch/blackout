@@ -1,12 +1,6 @@
 import * as actionTypes from '../actionTypes';
 import { AnyAction, combineReducers } from 'redux';
-import type {
-  FetchRecommendedSetAction,
-  FetchRecommendedSetFailureAction,
-  FetchRecommendedSetRequestAction,
-  FetchRecommendedSetSuccessAction,
-  ProductsState,
-} from '../types';
+import type { ProductsState } from '../types';
 
 export const INITIAL_STATE: ProductsState['recommendedSets'] = {
   error: {},
@@ -14,10 +8,7 @@ export const INITIAL_STATE: ProductsState['recommendedSets'] = {
   result: {},
 };
 
-const error = (
-  state = INITIAL_STATE.error,
-  action: FetchRecommendedSetAction,
-) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_RECOMMENDED_SET_REQUEST:
       return {
@@ -34,10 +25,7 @@ const error = (
   }
 };
 
-const result = (
-  state = INITIAL_STATE.result,
-  action: FetchRecommendedSetAction,
-) => {
+const result = (state = INITIAL_STATE.result, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_RECOMMENDED_SET_SUCCESS:
       return {
@@ -49,14 +37,7 @@ const result = (
   }
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action:
-    | FetchRecommendedSetRequestAction
-    | FetchRecommendedSetSuccessAction
-    | FetchRecommendedSetFailureAction
-    | AnyAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_RECOMMENDED_SET_REQUEST:
       return {

@@ -1,5 +1,5 @@
 import * as actionTypes from '../actionTypes';
-import { Action, combineReducers } from 'redux';
+import { AnyAction, combineReducers } from 'redux';
 import omit from 'lodash/omit';
 import type {
   DehydrateProductDetailsAction,
@@ -18,7 +18,7 @@ export const INITIAL_STATE: ProductsDetailsState = {
   isLoading: {},
 };
 
-const error = (state = INITIAL_STATE.error, action: Action) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_PRODUCT_DETAILS_REQUEST:
       return {
@@ -47,7 +47,7 @@ const error = (state = INITIAL_STATE.error, action: Action) => {
   }
 };
 
-const isHydrated = (state = INITIAL_STATE.isHydrated, action: Action) => {
+const isHydrated = (state = INITIAL_STATE.isHydrated, action: AnyAction) => {
   if (action.type === actionTypes.DEHYDRATE_PRODUCT_DETAILS) {
     return {
       ...state,
@@ -66,7 +66,7 @@ const isHydrated = (state = INITIAL_STATE.isHydrated, action: Action) => {
   return state;
 };
 
-const isLoading = (state = INITIAL_STATE.isLoading, action: Action) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_PRODUCT_DETAILS_REQUEST:
       return {
@@ -96,7 +96,7 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: Action) => {
 export const entitiesMapper = {
   [actionTypes.RESET_PRODUCT_DETAILS_ENTITIES]: (
     state: NonNullable<StoreState['entities']>,
-    action: Action,
+    action: AnyAction,
   ): StoreState['entities'] => {
     if (!state) {
       return state;
@@ -144,7 +144,7 @@ const reducers = combineReducers({
  */
 const productsDetailsReducer = (
   state: ProductsDetailsState,
-  action: Action,
+  action: AnyAction,
 ): ProductsDetailsState => {
   if (
     action.type === actionTypes.RESET_PRODUCT_DETAILS_STATE &&

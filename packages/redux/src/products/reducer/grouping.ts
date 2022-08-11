@@ -1,21 +1,13 @@
 import * as actionTypes from '../actionTypes';
 import { AnyAction, combineReducers } from 'redux';
-import type {
-  FetchProductGroupingAction,
-  FetchProductGroupingFailureAction,
-  FetchProductGroupingRequestAction,
-  ProductsGroupingState,
-} from '../types';
+import type { ProductsGroupingState } from '../types';
 
 export const INITIAL_STATE: ProductsGroupingState = {
   error: {},
   isLoading: {},
 };
 
-const error = (
-  state = INITIAL_STATE.error,
-  action: FetchProductGroupingRequestAction | FetchProductGroupingFailureAction,
-) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_PRODUCT_GROUPING_REQUEST:
       return {
@@ -32,10 +24,7 @@ const error = (
   }
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action: FetchProductGroupingAction | AnyAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_PRODUCT_GROUPING_REQUEST:
       return {

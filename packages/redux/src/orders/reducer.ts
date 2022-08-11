@@ -11,7 +11,6 @@ import type {
   FetchOrdersSuccessAction,
   FetchOrderSuccessAction,
 } from './types';
-import type { LogoutSuccessAction } from '../users/types';
 import type {
   OrderItemEntity,
   OrderMerchantNormalized,
@@ -58,23 +57,7 @@ export const INITIAL_STATE: T.OrdersState = {
   },
 };
 
-const error = (
-  state = INITIAL_STATE.error,
-  action:
-    | T.FetchOrderFailureAction
-    | T.FetchOrderRequestAction
-    | T.FetchOrderReturnsFailureAction
-    | T.FetchOrderReturnsRequestAction
-    | T.FetchOrderReturnOptionsFailureAction
-    | T.FetchOrderReturnOptionsRequestAction
-    | T.FetchOrdersFailureAction
-    | T.FetchOrdersRequestAction
-    | T.FetchTrackingsFailureAction
-    | T.FetchTrackingsRequestAction
-    | T.FetchOrderAvailableItemsActivitiesAction
-    | T.FetchOrderItemAvailableActivitiesAction
-    | T.ResetOrdersAction,
-) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_ORDER_FAILURE:
     case actionTypes.FETCH_ORDER_RETURNS_FAILURE:
@@ -98,18 +81,7 @@ const error = (
   }
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action:
-    | T.FetchOrdersAction
-    | T.FetchOrderAction
-    | T.FetchOrderReturnsAction
-    | T.FetchOrderReturnOptionsAction
-    | T.FetchTrackingsAction
-    | T.FetchOrderItemAvailableActivitiesAction
-    | T.FetchOrderAvailableItemsActivitiesAction
-    | T.ResetOrdersAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_ORDERS_REQUEST:
     case actionTypes.FETCH_ORDER_REQUEST:
@@ -392,7 +364,7 @@ export const ordersList = reducerFactory(
 
 export const orderDetails = (
   state = INITIAL_STATE.orderDetails,
-  action: T.FetchOrderAction,
+  action: AnyAction,
 ) => {
   switch (action.type) {
     case actionTypes.FETCH_ORDER_REQUEST:
@@ -433,7 +405,7 @@ export const orderDetails = (
 
 export const orderReturns = (
   state = INITIAL_STATE.orderReturns,
-  action: T.FetchOrderReturnsAction,
+  action: AnyAction,
 ) => {
   switch (action.type) {
     case actionTypes.FETCH_ORDER_RETURNS_REQUEST:
@@ -474,7 +446,7 @@ export const orderReturns = (
 
 export const orderReturnOptions = (
   state = INITIAL_STATE.orderReturnOptions,
-  action: T.FetchOrderReturnOptionsAction,
+  action: AnyAction,
 ) => {
   switch (action.type) {
     case actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST:
@@ -602,10 +574,7 @@ const reducer = combineReducers({
  *
  * @returns New state.
  */
-const ordersReducer = (
-  state: T.OrdersState,
-  action: LogoutSuccessAction | AnyAction,
-) => {
+const ordersReducer = (state: T.OrdersState, action: AnyAction) => {
   if (action.type === LOGOUT_SUCCESS) {
     return INITIAL_STATE;
   }

@@ -1,12 +1,7 @@
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers } from 'redux';
-import type {
-  FetchStaffMemberAction,
-  FetchStaffMemberFailureAction,
-  FetchStaffMemberSuccessAction,
-  StaffMembersState,
-} from './types';
 import type { ReducerSwitch } from '../types';
+import type { StaffMembersState } from './types';
 
 export const INITIAL_STATE: StaffMembersState = {
   error: {},
@@ -14,10 +9,7 @@ export const INITIAL_STATE: StaffMembersState = {
   result: {},
 };
 
-const error = (
-  state = INITIAL_STATE.error,
-  action: FetchStaffMemberSuccessAction | FetchStaffMemberFailureAction,
-) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_STAFF_MEMBER_SUCCESS:
       return {
@@ -34,10 +26,7 @@ const error = (
   }
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action: FetchStaffMemberAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_STAFF_MEMBER_REQUEST:
       return {
@@ -59,10 +48,7 @@ const isLoading = (
   }
 };
 
-const result = (
-  state = INITIAL_STATE.result,
-  action: FetchStaffMemberSuccessAction | AnyAction,
-) => {
+const result = (state = INITIAL_STATE.result, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_STAFF_MEMBER_SUCCESS:
       return {
@@ -92,13 +78,11 @@ export const getResult = (
  *
  * @returns New state.
  */
-const staffMembersReducer: ReducerSwitch<
-  StaffMembersState,
-  FetchStaffMemberAction
-> = combineReducers({
-  error,
-  isLoading,
-  result,
-});
+const staffMembersReducer: ReducerSwitch<StaffMembersState, AnyAction> =
+  combineReducers({
+    error,
+    isLoading,
+    result,
+  });
 
 export default staffMembersReducer;
