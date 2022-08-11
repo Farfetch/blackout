@@ -2,14 +2,8 @@ import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import isEmpty from 'lodash/isEmpty';
 import type { BlackoutError } from '@farfetch/blackout-client';
-import type {
-  FetchSizeScaleAction,
-  FetchSizeScaleMappingsAction,
-  FetchSizeScalesAction,
-  ResetSizeScalesStateAction,
-  SizeScalesState,
-} from './types';
 import type { ReducerSwitch } from '../types';
+import type { SizeScalesState } from './types';
 
 export const INITIAL_STATE: SizeScalesState = {
   error: null,
@@ -27,7 +21,7 @@ export const INITIAL_STATE: SizeScalesState = {
 
 const error = (
   state: BlackoutError | null = INITIAL_STATE.error,
-  action: FetchSizeScalesAction,
+  action: AnyAction,
 ) => {
   switch (action.type) {
     case actionTypes.FETCH_SIZE_SCALES_REQUEST:
@@ -49,7 +43,7 @@ const error = (
 
 const isLoading = (
   state: boolean = INITIAL_STATE.isLoading,
-  action: FetchSizeScalesAction | AnyAction,
+  action: AnyAction,
 ) => {
   switch (action.type) {
     case actionTypes.FETCH_SIZE_SCALES_REQUEST:
@@ -72,7 +66,7 @@ const isLoading = (
 
 const sizeScale = (
   state: SizeScalesState['sizeScale'] = INITIAL_STATE.sizeScale,
-  action: FetchSizeScalesAction | FetchSizeScaleAction,
+  action: AnyAction,
 ): SizeScalesState['sizeScale'] => {
   switch (action.type) {
     case actionTypes.FETCH_SIZE_SCALE_REQUEST:
@@ -154,7 +148,7 @@ const sizeScale = (
 
 const mappings = (
   state: SizeScalesState['mappings'] = INITIAL_STATE.mappings,
-  action: FetchSizeScaleMappingsAction,
+  action: AnyAction,
 ): SizeScalesState['mappings'] => {
   switch (action.type) {
     case actionTypes.FETCH_SIZESCALE_MAPPINGS_REQUEST:
@@ -234,13 +228,10 @@ const reducers = combineReducers({
  *
  * @returns New state.
  */
-const sizeScalesReducer: ReducerSwitch<
-  SizeScalesState,
-  | FetchSizeScaleAction
-  | FetchSizeScalesAction
-  | FetchSizeScaleMappingsAction
-  | ResetSizeScalesStateAction
-> = (state, action) => {
+const sizeScalesReducer: ReducerSwitch<SizeScalesState, AnyAction> = (
+  state,
+  action,
+) => {
   if (action.type === actionTypes.RESET_SIZE_SCALES_STATE) {
     return reducers(INITIAL_STATE, action);
   }

@@ -1,11 +1,6 @@
 import * as actionTypes from '../actionTypes';
 import { AnyAction, combineReducers, Reducer } from 'redux';
-import type {
-  CategoriesState,
-  FetchCategoriesAction,
-  FetchTopCategoriesAction,
-  TopCategoriesState,
-} from '../types';
+import type { CategoriesState, TopCategoriesState } from '../types';
 import type { Category } from '@farfetch/blackout-client';
 
 export const INITIAL_STATE: TopCategoriesState = {
@@ -14,10 +9,7 @@ export const INITIAL_STATE: TopCategoriesState = {
   result: null,
 };
 
-const error = (
-  state = INITIAL_STATE.error,
-  action: FetchCategoriesAction | FetchTopCategoriesAction,
-) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_TOP_CATEGORIES_REQUEST:
       return INITIAL_STATE.error;
@@ -28,10 +20,7 @@ const error = (
   }
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action: FetchTopCategoriesAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_TOP_CATEGORIES_REQUEST:
       return true;
@@ -43,10 +32,7 @@ const isLoading = (
   }
 };
 
-const result = (
-  state = INITIAL_STATE.result,
-  action: FetchCategoriesAction | FetchTopCategoriesAction,
-) => {
+const result = (state = INITIAL_STATE.result, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_TOP_CATEGORIES_SUCCESS:
       return action.payload.result;
@@ -80,10 +66,7 @@ export const getResult = (
   state: CategoriesState,
 ): TopCategoriesState['result'] => state.top.result;
 
-const topReducer: Reducer<
-  TopCategoriesState,
-  FetchCategoriesAction | FetchTopCategoriesAction | AnyAction
-> = combineReducers({
+const topReducer: Reducer<TopCategoriesState, AnyAction> = combineReducers({
   error,
   isLoading,
   result,

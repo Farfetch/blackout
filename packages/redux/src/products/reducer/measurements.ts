@@ -1,12 +1,7 @@
 import * as actionTypes from '../actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import createMergedObject from '../../helpers/createMergedObject';
-import type {
-  FetchProductMeasurementsAction,
-  FetchProductMeasurementsFailureAction,
-  FetchProductMeasurementsRequestAction,
-  ProductsMeasurementsState,
-} from '../types';
+import type { ProductsMeasurementsState } from '../types';
 import type { StoreState } from '../../types';
 
 export const INITIAL_STATE: ProductsMeasurementsState = {
@@ -14,12 +9,7 @@ export const INITIAL_STATE: ProductsMeasurementsState = {
   isLoading: {},
 };
 
-const error = (
-  state = INITIAL_STATE.error,
-  action:
-    | FetchProductMeasurementsRequestAction
-    | FetchProductMeasurementsFailureAction,
-) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_PRODUCT_MEASUREMENTS_REQUEST:
       return {
@@ -36,10 +26,7 @@ const error = (
   }
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action: FetchProductMeasurementsAction | AnyAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_PRODUCT_MEASUREMENTS_REQUEST:
       return {

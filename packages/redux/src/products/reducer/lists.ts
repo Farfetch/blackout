@@ -1,14 +1,6 @@
 import * as actionTypes from '../actionTypes';
-import { combineReducers } from 'redux';
-import type {
-  DehydrateProductsListAction,
-  FetchProductsListAction,
-  FetchProductsListFailureAction,
-  FetchProductsListRequestAction,
-  ProductsListsState,
-  ResetProductsListsStateAction,
-  SetProductsListHashAction,
-} from '../types';
+import { AnyAction, combineReducers } from 'redux';
+import type { ProductsListsState } from '../types';
 import type { StoreState } from '../../types';
 
 export const INITIAL_STATE: ProductsListsState = {
@@ -18,10 +10,7 @@ export const INITIAL_STATE: ProductsListsState = {
   isLoading: {},
 };
 
-const error = (
-  state = INITIAL_STATE.error,
-  action: FetchProductsListRequestAction | FetchProductsListFailureAction,
-) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_PRODUCTS_LIST_REQUEST:
       return {
@@ -38,20 +27,14 @@ const error = (
   }
 };
 
-const hash = (
-  state = INITIAL_STATE.hash,
-  action: SetProductsListHashAction,
-) => {
+const hash = (state = INITIAL_STATE.hash, action: AnyAction) => {
   if (action.type === actionTypes.SET_PRODUCTS_LIST_HASH) {
     return action.meta.hash;
   }
   return state;
 };
 
-const isHydrated = (
-  state = INITIAL_STATE.isHydrated,
-  action: DehydrateProductsListAction,
-) => {
+const isHydrated = (state = INITIAL_STATE.isHydrated, action: AnyAction) => {
   if (action.type === actionTypes.DEHYDRATE_PRODUCTS_LIST) {
     return {
       ...state,
@@ -61,10 +44,7 @@ const isHydrated = (
   return state;
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action: FetchProductsListAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_PRODUCTS_LIST_REQUEST:
       return {
@@ -124,7 +104,7 @@ const reducers = combineReducers({
  */
 const productsListsReducer = (
   state: ProductsListsState,
-  action: FetchProductsListAction | ResetProductsListsStateAction,
+  action: AnyAction,
 ): ProductsListsState => {
   if (action.type === actionTypes.RESET_PRODUCTS_LISTS_STATE) {
     return INITIAL_STATE;

@@ -4,11 +4,7 @@ import topCategoryReducer, {
   INITIAL_STATE as TOP_CATEGORIES_INITIAL_STATE,
 } from './topCategories';
 import type { BlackoutError } from '@farfetch/blackout-client';
-import type {
-  CategoriesState,
-  FetchCategoriesAction,
-  ResetCategoriesStateAction,
-} from '../types';
+import type { CategoriesState } from '../types';
 
 export const INITIAL_STATE: CategoriesState = {
   error: null,
@@ -19,7 +15,7 @@ export const INITIAL_STATE: CategoriesState = {
 
 const error = (
   state: BlackoutError | null = INITIAL_STATE.error,
-  action: FetchCategoriesAction,
+  action: AnyAction,
 ): BlackoutError | null => {
   switch (action.type) {
     case actionTypes.FETCH_CATEGORIES_REQUEST:
@@ -31,10 +27,7 @@ const error = (
   }
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action: FetchCategoriesAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_CATEGORIES_REQUEST:
       return true;
@@ -46,10 +39,7 @@ const isLoading = (
   }
 };
 
-const isFetched = (
-  state = INITIAL_STATE.isFetched,
-  action: FetchCategoriesAction,
-) => {
+const isFetched = (state = INITIAL_STATE.isFetched, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_CATEGORIES_SUCCESS:
     case actionTypes.FETCH_CATEGORIES_FAILURE:
@@ -87,7 +77,7 @@ const reducers = combineReducers({
  */
 const categoriesReducer = (
   state: CategoriesState,
-  action: FetchCategoriesAction | ResetCategoriesStateAction | AnyAction,
+  action: AnyAction,
 ): CategoriesState => {
   if (action.type === actionTypes.RESET_CATEGORIES_STATE) {
     return reducers(INITIAL_STATE, action);

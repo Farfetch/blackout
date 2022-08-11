@@ -1,12 +1,6 @@
 import * as actionTypes from './actionTypes';
-import { combineReducers } from 'redux';
-import type {
-  ActionFetchCommercePages,
-  ActionFetchContents,
-  ActionFetchContentTypes,
-  ActionFetchSEO,
-  ContentsState,
-} from './types';
+import { AnyAction, combineReducers } from 'redux';
+import type { ContentsState } from './types';
 import type { ReducerSwitch } from '../types';
 
 export const INITIAL_STATE_CONTENT: ContentsState = {
@@ -25,7 +19,7 @@ export const INITIAL_STATE_CONTENT: ContentsState = {
 
 const searchResults = (
   state = INITIAL_STATE_CONTENT.searchResults,
-  action: ActionFetchContents | ActionFetchCommercePages,
+  action: AnyAction,
 ): ContentsState['searchResults'] => {
   switch (action.type) {
     case actionTypes.FETCH_CONTENTS_REQUEST:
@@ -62,7 +56,7 @@ const searchResults = (
 
 const contentTypes = (
   state = INITIAL_STATE_CONTENT.contentTypes,
-  action: ActionFetchContentTypes,
+  action: AnyAction,
 ): ContentsState['contentTypes'] => {
   switch (action.type) {
     case actionTypes.FETCH_CONTENT_TYPES_REQUEST:
@@ -87,7 +81,7 @@ const contentTypes = (
 
 const metadata = (
   state = INITIAL_STATE_CONTENT.metadata,
-  action: ActionFetchSEO,
+  action: AnyAction,
 ): ContentsState['metadata'] => {
   switch (action.type) {
     case actionTypes.FETCH_SEO_REQUEST:
@@ -158,10 +152,10 @@ const reducers = combineReducers({
  *
  * @returns New state.
  */
-const contentsReducer: ReducerSwitch<
-  ContentsState,
-  ActionFetchContents | ActionFetchContentTypes | ActionFetchSEO
-> = (state, action): ContentsState => {
+const contentsReducer: ReducerSwitch<ContentsState, AnyAction> = (
+  state,
+  action,
+): ContentsState => {
   if (action.type === actionTypes.RESET_CONTENTS) {
     return reducers(INITIAL_STATE_CONTENT, action);
   }

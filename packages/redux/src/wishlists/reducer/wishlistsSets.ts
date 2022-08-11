@@ -2,26 +2,8 @@ import * as actionTypes from '../actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
 import omit from 'lodash/omit';
-import type {
-  AddWishlistSetFailureAction,
-  AddWishlistSetRequestAction,
-  AddWishlistSetSuccessAction,
-  FetchWishlistSetFailureAction,
-  FetchWishlistSetRequestAction,
-  FetchWishlistSetsFailureAction,
-  FetchWishlistSetsRequestAction,
-  FetchWishlistSetsSuccessAction,
-  FetchWishlistSetSuccessAction,
-  FetchWishlistSuccessAction,
-  RemoveWishlistSetFailureAction,
-  RemoveWishlistSetRequestAction,
-  RemoveWishlistSetSuccessAction,
-  UpdateWishlistSetFailureAction,
-  UpdateWishlistSetRequestAction,
-  UpdateWishlistSetSuccessAction,
-  WishlistSetsState,
-} from '../types';
 import type { ReducerSwitch, StoreState } from '../../types';
+import type { WishlistSetsState } from '../types';
 
 export const INITIAL_STATE: WishlistSetsState = {
   error: null,
@@ -33,16 +15,7 @@ export const INITIAL_STATE: WishlistSetsState = {
   },
 };
 
-const error = (
-  state = INITIAL_STATE.error,
-  action:
-    | FetchWishlistSetsFailureAction
-    | AddWishlistSetFailureAction
-    | FetchWishlistSetsRequestAction
-    | AddWishlistSetRequestAction
-    | RemoveWishlistSetRequestAction
-    | UpdateWishlistSetRequestAction,
-) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_WISHLIST_SETS_FAILURE:
     case actionTypes.ADD_WISHLIST_SET_FAILURE:
@@ -57,14 +30,7 @@ const error = (
   }
 };
 
-const ids = (
-  state = INITIAL_STATE.ids,
-  action:
-    | FetchWishlistSetsSuccessAction
-    | AddWishlistSetSuccessAction
-    | RemoveWishlistSetSuccessAction
-    | FetchWishlistSuccessAction,
-) => {
+const ids = (state = INITIAL_STATE.ids, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_WISHLIST_SETS_SUCCESS:
       return action.payload.result;
@@ -81,16 +47,7 @@ const ids = (
   }
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action:
-    | FetchWishlistSetsRequestAction
-    | AddWishlistSetRequestAction
-    | FetchWishlistSetsSuccessAction
-    | FetchWishlistSetsFailureAction
-    | AddWishlistSetSuccessAction
-    | AddWishlistSetFailureAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_WISHLIST_SETS_REQUEST:
     case actionTypes.ADD_WISHLIST_SET_REQUEST:
@@ -105,19 +62,7 @@ const isLoading = (
   }
 };
 
-const set = (
-  state = INITIAL_STATE.set,
-  action:
-    | RemoveWishlistSetRequestAction
-    | FetchWishlistSetRequestAction
-    | UpdateWishlistSetRequestAction
-    | RemoveWishlistSetSuccessAction
-    | FetchWishlistSetSuccessAction
-    | UpdateWishlistSetSuccessAction
-    | RemoveWishlistSetFailureAction
-    | FetchWishlistSetFailureAction
-    | UpdateWishlistSetFailureAction,
-) => {
+const set = (state = INITIAL_STATE.set, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.REMOVE_WISHLIST_SET_REQUEST:
     case actionTypes.FETCH_WISHLIST_SET_REQUEST:

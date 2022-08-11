@@ -2,25 +2,7 @@ import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers } from 'redux';
 import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import reducerFactory from '../helpers/reducerFactory';
-import type {
-  CreateReturnAction,
-  CreateReturnFailureAction,
-  CreateReturnRequestAction,
-  CreateReturnSuccessAction,
-  GetReturnAction,
-  GetReturnFailureAction,
-  GetReturnPickupCapabilitiesAction,
-  GetReturnPickupCapabilitiesFailureAction,
-  GetReturnPickupCapabilitiesRequestAction,
-  GetReturnRequestAction,
-  GetReturnSuccessAction,
-  ResetReturnAction,
-  ReturnsState,
-  UpdateReturnAction,
-  UpdateReturnFailureAction,
-  UpdateReturnRequestAction,
-} from './types';
-import type { LogoutSuccessAction } from '../users/types';
+import type { ReturnsState } from './types';
 import type { StoreState } from '../types';
 
 export const INITIAL_STATE: ReturnsState = {
@@ -37,20 +19,7 @@ export const INITIAL_STATE: ReturnsState = {
   },
 };
 
-const error = (
-  state = INITIAL_STATE.error,
-  action:
-    | CreateReturnFailureAction
-    | GetReturnPickupCapabilitiesFailureAction
-    | GetReturnFailureAction
-    | UpdateReturnFailureAction
-    | CreateReturnRequestAction
-    | GetReturnPickupCapabilitiesRequestAction
-    | GetReturnRequestAction
-    | UpdateReturnRequestAction
-    | ResetReturnAction
-    | LogoutSuccessAction,
-) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.CREATE_RETURN_FAILURE:
     case actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_FAILURE:
@@ -69,14 +38,7 @@ const error = (
   }
 };
 
-const id = (
-  state = INITIAL_STATE.id,
-  action:
-    | CreateReturnSuccessAction
-    | GetReturnSuccessAction
-    | ResetReturnAction
-    | LogoutSuccessAction,
-) => {
+const id = (state = INITIAL_STATE.id, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.CREATE_RETURN_SUCCESS:
     case actionTypes.FETCH_RETURN_SUCCESS:
@@ -89,16 +51,7 @@ const id = (
   }
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action:
-    | CreateReturnAction
-    | GetReturnPickupCapabilitiesAction
-    | GetReturnAction
-    | UpdateReturnAction
-    | ResetReturnAction
-    | LogoutSuccessAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.CREATE_RETURN_REQUEST:
     case actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST:
