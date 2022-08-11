@@ -678,7 +678,7 @@ describe('Omnitracking', () => {
     it.each(Object.keys(definitions.trackEventsMapper))(
       '`%s` return should match the snapshot',
       eventMapperKey => {
-        const mockedData = merge(mockedTrackData, {
+        const mockedData = merge({}, mockedTrackData, {
           properties: customTrackMockData[eventMapperKey],
         });
 
@@ -695,7 +695,7 @@ describe('Omnitracking', () => {
     it.each(Object.keys(definitions.pageEventsMapper))(
       '`%s` return should match the snapshot',
       eventMapperKey => {
-        const mockedData = merge(mockedPageData, {
+        const mockedData = merge({}, mockedPageData, {
           properties: customPageMockData[eventMapperKey],
         });
 

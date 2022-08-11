@@ -60,6 +60,14 @@ Object {
 }
 `;
 
+exports[`Omnitracking definitions \`Share\` return should match the snapshot 1`] = `
+Object {
+  "actionArea": "share_button_facebook",
+  "productId": undefined,
+  "tid": 1205,
+}
+`;
+
 exports[`Omnitracking definitions \`Sign-up Form Viewed\` return should match the snapshot 1`] = `
 Object {
   "tid": 10097,
@@ -70,6 +78,7 @@ Object {
 exports[`Omnitracking definitions \`bag\` return should match the snapshot 1`] = `
 Object {
   "basketQuantity": 8,
+  "basketValue": 100,
   "lineItems": "[{\\"productId\\":12345678,\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1,\\"itemQuantity\\":5},{\\"productId\\":98765,\\"itemPromotion\\":1,\\"designerName\\":\\"shirt designer name\\",\\"category\\":\\"shirt\\",\\"itemFullPrice\\":1,\\"sizeID\\":1,\\"itemQuantity\\":3}]",
   "viewSubType": "Bag",
   "viewType": "Shopping Bag",
@@ -78,6 +87,8 @@ Object {
 
 exports[`Omnitracking definitions \`checkout\` return should match the snapshot 1`] = `
 Object {
+  "orderCode": "ASH12",
+  "orderId": undefined,
   "orderValue": 100,
   "shippingTotalValue": 10,
   "viewSubType": "Checkout SPA",
@@ -223,7 +234,6 @@ Object {
     "isShippingAddressClickAndCollect",
     "orderCode",
     "orderCurrency",
-    "orderId",
     "orderValue",
     "orderVAT",
     "productCount",

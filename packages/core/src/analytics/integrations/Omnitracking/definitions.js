@@ -12,6 +12,7 @@ import {
 } from './omnitracking-helper';
 import eventTypes from '../../types/eventTypes';
 import fromParameterTypes from '../../types/fromParameterTypes';
+import logger from '../../utils/logger';
 import pageTypes from '../../types/pageTypes';
 
 export const PRODUCT_ID_PARAMETER = 'productId';
@@ -208,7 +209,6 @@ export const pageDefinitions = {
     'isShippingAddressClickAndCollect',
     'orderCode',
     'orderCurrency',
-    'orderId',
     'orderValue',
     'orderVAT',
     'productCount',
@@ -490,6 +490,11 @@ export const trackEventsMapper = {
     tid: 2923,
     checkoutStep: data.properties.step,
   }),
+  [eventTypes.SHARE]: data => ({
+    tid: 1205,
+    actionArea: data.properties.actionArea,
+    productId: data.properties.id,
+  }),
 };
 
 /**
@@ -514,17 +519,34 @@ export const pageEventsMapper = {
     lineItems: getProductLineItems(data),
     wishlistQuantity: getProductLineItemsQuantity(data.properties.products),
   }),
-  [pageTypes.CHECKOUT]: data => ({
-    viewType: 'Checkout SPA',
-    viewSubType: 'Checkout SPA',
-    orderValue: data.properties?.total,
-    shippingTotalValue: data.properties?.shipping,
-  }),
+  [pageTypes.CHECKOUT]: data => {
+    const validOrderCode = isNaN(data.properties?.orderId);
+
+    if (!validOrderCode) {
+      logger.warn(
+        `[Omnitracking] - Event ${data.event} property orderId should be an alphanumeric value.
+                        If you send the internal orderId, please use 'orderId' (e.g.: 5H5QYB) 
+                        and 'checkoutOrderId' (e.g.:123123123)`,
+      );
+    }
+
+    return {
+      viewType: 'Checkout SPA',
+      viewSubType: 'Checkout SPA',
+      orderValue: data.properties?.total,
+      orderCode: validOrderCode ? data.properties?.orderId : undefined,
+      orderId: !validOrderCode
+        ? parseInt(data.properties?.orderId)
+        : data.properties?.checkoutOrderId,
+      shippingTotalValue: data.properties?.shipping,
+    };
+  },
   [pageTypes.BAG]: data => ({
     viewType: 'Shopping Bag',
     viewSubType: 'Bag',
     lineItems: getProductLineItems(data),
     basketQuantity: getProductLineItemsQuantity(data.properties.products),
+    basketValue: data.properties?.value,
   }),
 };
 
