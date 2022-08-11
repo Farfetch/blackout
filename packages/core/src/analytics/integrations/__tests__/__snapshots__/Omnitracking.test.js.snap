@@ -6,6 +6,15 @@ Object {
 }
 `;
 
+exports[`Omnitracking definitions \`Checkout Started\` return should match the snapshot 1`] = `
+Object {
+  "basketCurrency": "USD",
+  "basketValue": 100,
+  "lineItems": "[{\\"productId\\":12345678,\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
+  "tid": 2918,
+}
+`;
+
 exports[`Omnitracking definitions \`Checkout Step Editing\` return should match the snapshot 1`] = `
 Object {
   "checkoutStep": 2,

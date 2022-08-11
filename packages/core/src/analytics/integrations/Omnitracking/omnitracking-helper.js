@@ -19,6 +19,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import analyticsTrackTypes from '../../types/trackTypes';
 import get from 'lodash/get';
+import logger from '../../utils/logger';
 import pick from 'lodash/pick';
 import platformTypes from '../../types/platformTypes';
 
@@ -535,4 +536,23 @@ export const getProductLineItemsQuantity = productList => {
     (acc, curr) => acc + (curr.quantity || 0),
     0,
   );
+};
+
+export const getCheckoutEventGenericProperties = data => {
+  const validOrderCode = isNaN(data.properties?.orderId);
+
+  if (!validOrderCode) {
+    logger.warn(
+      `[Omnitracking] - Event ${data.event} property orderId should be an alphanumeric value.
+                        If you send the internal orderId, please use 'orderId' (e.g.: 5H5QYB) 
+                        and 'checkoutOrderId' (e.g.:123123123)`,
+    );
+  }
+
+  return {
+    orderCode: validOrderCode ? data.properties?.orderId : undefined,
+    orderId: !validOrderCode
+      ? parseInt(data.properties?.orderId)
+      : data.properties?.checkoutOrderId,
+  };
 };

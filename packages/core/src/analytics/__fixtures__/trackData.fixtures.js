@@ -49,6 +49,9 @@ export const customTrackMockData = {
     actionArea: 'share_button_facebook',
     productId: 123,
   },
+  [eventTypes.CHECKOUT_STARTED]: {
+    currency: 'USD',
+  },
 };
 
 export const expectedTrackPayload = {
