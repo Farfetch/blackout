@@ -1,26 +1,11 @@
 import * as actionTypes from '../actionTypes';
-import { combineReducers, Reducer } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
 import wishlistsSetReducer, {
   INITIAL_STATE as SETS_INITIAL_STATE,
 } from './wishlistsSets';
-import type {
-  AddWishlistItemFailureAction,
-  AddWishlistItemRequestAction,
-  AddWishlistItemSuccessAction,
-  FetchWishlistFailureAction,
-  FetchWishlistRequestAction,
-  FetchWishlistSuccessAction,
-  RemoveWishlistItemFailureAction,
-  RemoveWishlistItemRequestAction,
-  RemoveWishlistItemSuccessAction,
-  UpdateWishlistItemFailureAction,
-  UpdateWishlistItemRequestAction,
-  UpdateWishlistItemSuccessAction,
-  WishlistSetsState,
-  WishlistsState,
-} from '../types';
 import type { ReducerSwitch, StoreState } from '../../types';
+import type { WishlistSetsState, WishlistsState } from '../types';
 
 export const INITIAL_STATE: WishlistsState = {
   error: null,
@@ -37,14 +22,7 @@ export const INITIAL_STATE: WishlistsState = {
   sets: SETS_INITIAL_STATE,
 };
 
-const result = (
-  state = INITIAL_STATE.result,
-  action:
-    | FetchWishlistSuccessAction
-    | AddWishlistItemSuccessAction
-    | RemoveWishlistItemSuccessAction
-    | UpdateWishlistItemSuccessAction,
-) => {
+const result = (state = INITIAL_STATE.result, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_WISHLIST_SUCCESS:
     case actionTypes.ADD_WISHLIST_ITEM_SUCCESS:
@@ -56,16 +34,7 @@ const result = (
   }
 };
 
-const error = (
-  state = INITIAL_STATE.error,
-  action:
-    | FetchWishlistRequestAction
-    | FetchWishlistFailureAction
-    | AddWishlistItemRequestAction
-    | AddWishlistItemFailureAction
-    | RemoveWishlistItemRequestAction
-    | UpdateWishlistItemRequestAction,
-) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.ADD_WISHLIST_ITEM_FAILURE:
     case actionTypes.FETCH_WISHLIST_FAILURE:
@@ -80,26 +49,14 @@ const error = (
   }
 };
 
-const idReducer = (
-  state = INITIAL_STATE.id,
-  action: FetchWishlistSuccessAction,
-) => {
+const idReducer = (state = INITIAL_STATE.id, action: AnyAction) => {
   if (action.type === actionTypes.FETCH_WISHLIST_SUCCESS) {
     return action.payload.result.id;
   }
   return state;
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action:
-    | AddWishlistItemRequestAction
-    | AddWishlistItemSuccessAction
-    | AddWishlistItemFailureAction
-    | FetchWishlistRequestAction
-    | FetchWishlistSuccessAction
-    | FetchWishlistFailureAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.ADD_WISHLIST_ITEM_REQUEST:
     case actionTypes.FETCH_WISHLIST_REQUEST:
@@ -114,18 +71,7 @@ const isLoading = (
   }
 };
 
-const itemsReducer = (
-  state = INITIAL_STATE.items,
-  action:
-    | AddWishlistItemSuccessAction
-    | FetchWishlistSuccessAction
-    | RemoveWishlistItemRequestAction
-    | UpdateWishlistItemRequestAction
-    | RemoveWishlistItemSuccessAction
-    | UpdateWishlistItemSuccessAction
-    | RemoveWishlistItemFailureAction
-    | UpdateWishlistItemFailureAction,
-) => {
+const itemsReducer = (state = INITIAL_STATE.items, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.ADD_WISHLIST_ITEM_SUCCESS:
     case actionTypes.FETCH_WISHLIST_SUCCESS:

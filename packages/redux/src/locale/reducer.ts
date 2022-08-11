@@ -3,15 +3,7 @@ import { AnyAction, combineReducers } from 'redux';
 import get from 'lodash/get';
 import produce from 'immer';
 import reducerFactory from '../helpers/reducerFactory';
-import type {
-  ActionFetchCountries,
-  ActionFetchCountry,
-  ActionFetchCountryCurrencies,
-  ActionFetchCountryStates,
-  ActionSetCountryCode,
-  FetchCountryAddressSchemaSuccessAction,
-  LocaleState,
-} from './types';
+import type { LocaleState } from './types';
 import type { StoreState } from '../types';
 
 export const INITIAL_STATE_LOCALE: LocaleState = {
@@ -41,7 +33,7 @@ export const INITIAL_STATE_LOCALE: LocaleState = {
 
 const countryCode = (
   state = INITIAL_STATE_LOCALE.countryCode,
-  action: ActionSetCountryCode,
+  action: AnyAction,
 ): LocaleState['countryCode'] => {
   switch (action.type) {
     case actionTypes.SET_COUNTRY_CODE:
@@ -82,7 +74,7 @@ const cities = (
 
 const countries = (
   state = INITIAL_STATE_LOCALE.countries,
-  action: ActionFetchCountries | ActionFetchCountry,
+  action: AnyAction,
 ): LocaleState['countries'] => {
   switch (action.type) {
     case actionTypes.FETCH_COUNTRY_REQUEST:
@@ -110,7 +102,7 @@ const countries = (
 
 const currencies = (
   state = INITIAL_STATE_LOCALE.currencies,
-  action: ActionFetchCountryCurrencies,
+  action: AnyAction,
 ): LocaleState['currencies'] => {
   switch (action.type) {
     case actionTypes.FETCH_COUNTRY_CURRENCIES_REQUEST:
@@ -135,7 +127,7 @@ const currencies = (
 
 const states = (
   state = INITIAL_STATE_LOCALE.states,
-  action: ActionFetchCountryStates,
+  action: AnyAction,
 ): LocaleState['states'] => {
   switch (action.type) {
     case actionTypes.FETCH_COUNTRY_STATES_REQUEST:
@@ -218,7 +210,7 @@ const reducers = combineReducers({
 export const entitiesMapper = {
   [actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS]: (
     state: StoreState['entities'],
-    action: FetchCountryAddressSchemaSuccessAction,
+    action: AnyAction,
   ): StoreState['entities'] => {
     const countryId = action.payload.result;
     const countrySchema = get(

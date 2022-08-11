@@ -1,17 +1,6 @@
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers } from 'redux';
-import type {
-  BrandsState,
-  FetchBrandAction,
-  FetchBrandFailureAction,
-  FetchBrandRequestAction,
-  FetchBrandsAction,
-  FetchBrandsFailureAction,
-  FetchBrandsRequestAction,
-  FetchBrandsSuccessAction,
-  ResetBrandsStateAction,
-  SetBrandsHashAction,
-} from './types';
+import type { BrandsState } from './types';
 import type { ReducerSwitch } from '../types';
 
 export const INITIAL_STATE: BrandsState = {
@@ -21,14 +10,7 @@ export const INITIAL_STATE: BrandsState = {
   result: {},
 };
 
-const error = (
-  state = INITIAL_STATE.error,
-  action:
-    | FetchBrandRequestAction
-    | FetchBrandsRequestAction
-    | FetchBrandFailureAction
-    | FetchBrandsFailureAction,
-) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_BRAND_REQUEST:
       return {
@@ -55,7 +37,7 @@ const error = (
   }
 };
 
-const hash = (state = INITIAL_STATE.hash, action: SetBrandsHashAction) => {
+const hash = (state = INITIAL_STATE.hash, action: AnyAction) => {
   if (action.type === actionTypes.SET_BRANDS_HASH) {
     return action.meta.hash;
   }
@@ -63,10 +45,7 @@ const hash = (state = INITIAL_STATE.hash, action: SetBrandsHashAction) => {
   return state;
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action: FetchBrandAction | FetchBrandsAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_BRAND_REQUEST:
       return {
@@ -95,10 +74,7 @@ const isLoading = (
   }
 };
 
-const result = (
-  state = INITIAL_STATE.result,
-  action: FetchBrandsSuccessAction | AnyAction,
-) => {
+const result = (state = INITIAL_STATE.result, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_BRANDS_SUCCESS:
       return {
@@ -134,13 +110,10 @@ const reducers = combineReducers({
  * @returns New state.
  */
 
-const brandsReducer: ReducerSwitch<
-  BrandsState,
-  | FetchBrandAction
-  | FetchBrandsAction
-  | ResetBrandsStateAction
-  | SetBrandsHashAction
-> = (state, action) => {
+const brandsReducer: ReducerSwitch<BrandsState, AnyAction> = (
+  state,
+  action,
+) => {
   if (action.type === actionTypes.RESET_BRANDS_STATE) {
     return reducers(INITIAL_STATE, action);
   }

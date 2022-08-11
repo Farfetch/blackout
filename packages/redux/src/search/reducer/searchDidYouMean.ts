@@ -1,13 +1,6 @@
 import * as actionTypes from '../actionTypes';
-import { combineReducers } from 'redux';
-import type {
-  FetchSearchDidYouMeanAction,
-  FetchSearchDidYouMeanFailureAction,
-  FetchSearchDidYouMeanRequestAction,
-  FetchSearchDidYouMeanSuccessAction,
-  ResetSearchDidYouMeanAction,
-  SearchDidYouMeanState,
-} from '../types';
+import { AnyAction, combineReducers } from 'redux';
+import type { SearchDidYouMeanState } from '../types';
 
 export const INITIAL_STATE: SearchDidYouMeanState = {
   error: null,
@@ -16,12 +9,7 @@ export const INITIAL_STATE: SearchDidYouMeanState = {
   result: null,
 };
 
-const error = (
-  state = INITIAL_STATE.error,
-  action:
-    | FetchSearchDidYouMeanRequestAction
-    | FetchSearchDidYouMeanFailureAction,
-) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_SEARCH_DID_YOU_MEAN_REQUEST:
       return INITIAL_STATE.error;
@@ -32,10 +20,7 @@ const error = (
   }
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action: FetchSearchDidYouMeanAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_SEARCH_DID_YOU_MEAN_REQUEST:
       return true;
@@ -47,10 +32,7 @@ const isLoading = (
   }
 };
 
-const query = (
-  state = INITIAL_STATE.query,
-  action: FetchSearchDidYouMeanRequestAction,
-) => {
+const query = (state = INITIAL_STATE.query, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_SEARCH_DID_YOU_MEAN_REQUEST:
       return action.meta.query;
@@ -59,10 +41,7 @@ const query = (
   }
 };
 
-const result = (
-  state = INITIAL_STATE.result,
-  action: FetchSearchDidYouMeanSuccessAction,
-) => {
+const result = (state = INITIAL_STATE.result, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_SEARCH_DID_YOU_MEAN_SUCCESS:
       return action.payload.result;
@@ -101,7 +80,7 @@ const reducer = combineReducers({
  */
 const searchDidYouMeanReducer = (
   state: SearchDidYouMeanState,
-  action: FetchSearchDidYouMeanAction | ResetSearchDidYouMeanAction,
+  action: AnyAction,
 ): SearchDidYouMeanState => {
   if (action.type === actionTypes.RESET_SEARCH_DID_YOU_MEAN) {
     return INITIAL_STATE;

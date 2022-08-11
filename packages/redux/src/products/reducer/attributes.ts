@@ -1,23 +1,13 @@
 import * as actionTypes from '../actionTypes';
 import { AnyAction, combineReducers } from 'redux';
-import type {
-  FetchProductAttributesAction,
-  FetchProductAttributesFailureAction,
-  FetchProductAttributesRequestAction,
-  ProductsAttributesState,
-} from '../types';
+import type { ProductsAttributesState } from '../types';
 
 export const INITIAL_STATE: ProductsAttributesState = {
   error: {},
   isLoading: {},
 };
 
-const error = (
-  state = INITIAL_STATE.error,
-  action:
-    | FetchProductAttributesRequestAction
-    | FetchProductAttributesFailureAction,
-) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_PRODUCT_ATTRIBUTES_REQUEST:
       return {
@@ -34,10 +24,7 @@ const error = (
   }
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action: FetchProductAttributesAction | AnyAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_PRODUCT_ATTRIBUTES_REQUEST:
       return {

@@ -1,12 +1,6 @@
 import * as actionTypes from './actionTypes';
-import { combineReducers } from 'redux';
-import type {
-  FetchMerchantsLocationsAction,
-  FetchMerchantsLocationsFailureAction,
-  FetchMerchantsLocationsRequestAction,
-  MerchantsLocationsState,
-  ResetMerchantsLocationsStateAction,
-} from './types';
+import { AnyAction, combineReducers } from 'redux';
+import type { MerchantsLocationsState } from './types';
 import type { StoreState } from '../types';
 
 export const INITIAL_STATE: MerchantsLocationsState = {
@@ -14,12 +8,7 @@ export const INITIAL_STATE: MerchantsLocationsState = {
   isLoading: false,
 };
 
-const error = (
-  state = INITIAL_STATE.error,
-  action:
-    | FetchMerchantsLocationsFailureAction
-    | FetchMerchantsLocationsRequestAction,
-) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_MERCHANTS_LOCATIONS_FAILURE:
       return action.payload.error;
@@ -30,10 +19,7 @@ const error = (
   }
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action: FetchMerchantsLocationsAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_MERCHANTS_LOCATIONS_REQUEST:
       return true;
@@ -78,7 +64,7 @@ const reducers = combineReducers({
  */
 const merchantsLocationsReducer = (
   state: MerchantsLocationsState,
-  action: FetchMerchantsLocationsAction | ResetMerchantsLocationsStateAction,
+  action: AnyAction,
 ): MerchantsLocationsState => {
   if (action.type === actionTypes.RESET_MERCHANTS_LOCATIONS_STATE) {
     return INITIAL_STATE;

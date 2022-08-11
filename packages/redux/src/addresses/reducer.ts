@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { combineReducers } from 'redux';
+import { AnyAction, combineReducers } from 'redux';
 import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import type * as T from './types';
 import type { ReducerSwitch } from '../types';
@@ -19,9 +19,7 @@ export const INITIAL_STATE: T.AddressesState = {
 
 const predictions = (
   state = INITIAL_STATE.predictions,
-  action:
-    | T.FetchAddressPredictionsAction
-    | T.ResetAddressPredictionsSuccessAction,
+  action: AnyAction,
 ): T.AddressesState['predictions'] => {
   switch (action.type) {
     case actionTypes.FETCH_ADDRESS_PREDICTIONS_REQUEST:
@@ -49,9 +47,7 @@ const predictions = (
 
 const prediction = (
   state = INITIAL_STATE.prediction,
-  action:
-    | T.FetchAddressPredictionDetailsAction
-    | T.ResetAddressPredictionsSuccessAction,
+  action: AnyAction,
 ): T.AddressesState['prediction'] => {
   switch (action.type) {
     case actionTypes.FETCH_ADDRESS_PREDICTION_DETAILS_REQUEST:

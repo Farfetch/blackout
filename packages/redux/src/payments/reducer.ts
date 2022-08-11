@@ -5,7 +5,6 @@ import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import get from 'lodash/get';
 import omit from 'lodash/omit';
 import type * as T from './types';
-import type { LogoutSuccessAction } from '../users';
 import type {
   PaymentInstrument,
   PaymentToken,
@@ -53,15 +52,7 @@ export const INITIAL_STATE: T.PaymentsState = {
 
 const paymentIntentCharge = (
   state = INITIAL_STATE.paymentIntentCharge,
-  action:
-    | T.CreatePaymentIntentChargeFailureAction
-    | T.CreatePaymentIntentChargeRequestAction
-    | T.CreatePaymentIntentChargeSuccessAction
-    | T.FetchPaymentIntentChargeFailureAction
-    | T.FetchPaymentIntentChargeRequestAction
-    | T.FetchPaymentIntentChargeSuccessAction
-    | T.ResetPaymentIntentChargeSuccessAction
-    | LogoutSuccessAction,
+  action: AnyAction,
 ): PaymentsState['paymentIntentCharge'] => {
   switch (action.type) {
     case actionTypes.CREATE_PAYMENT_INTENT_CHARGE_REQUEST:
@@ -110,24 +101,7 @@ const giftCardBalance = createReducerWithResult(
 
 const paymentInstruments = (
   state = INITIAL_STATE.paymentInstruments,
-  action:
-    | T.CreatePaymentIntentInstrumentFailureAction
-    | T.CreatePaymentIntentInstrumentRequestAction
-    | T.CreatePaymentIntentInstrumentSuccessAction
-    | T.FetchPaymentIntentInstrumentFailureAction
-    | T.FetchPaymentIntentInstrumentRequestAction
-    | T.FetchPaymentIntentInstrumentSuccessAction
-    | T.FetchPaymentIntentInstrumentsFailureAction
-    | T.FetchPaymentIntentInstrumentsRequestAction
-    | T.FetchPaymentIntentInstrumentsSuccessAction
-    | T.RemovePaymentIntentInstrumentFailureAction
-    | T.RemovePaymentIntentInstrumentRequestAction
-    | T.RemovePaymentIntentInstrumentSuccessAction
-    | T.UpdatePaymentIntentInstrumentFailureAction
-    | T.UpdatePaymentIntentInstrumentRequestAction
-    | T.UpdatePaymentIntentInstrumentSuccessAction
-    | T.ResetPaymentInstrumentsSuccessAction
-    | LogoutSuccessAction,
+  action: AnyAction,
 ): PaymentsState['paymentInstruments'] => {
   switch (action.type) {
     case actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_REQUEST:
@@ -200,14 +174,7 @@ const paymentMethods = createReducerWithResult(
 
 const paymentTokens = (
   state = INITIAL_STATE.paymentTokens,
-  action:
-    | T.FetchPaymentTokensFailureAction
-    | T.FetchPaymentTokensRequestAction
-    | T.FetchPaymentTokensSuccessAction
-    | T.RemovePaymentTokensFailureAction
-    | T.RemovePaymentTokensRequestAction
-    | T.RemovePaymentTokensSuccessAction
-    | LogoutSuccessAction,
+  action: AnyAction,
 ): PaymentsState['paymentTokens'] => {
   switch (action.type) {
     case actionTypes.FETCH_PAYMENT_TOKENS_REQUEST:
@@ -340,25 +307,9 @@ const reducers = combineReducers({
  *
  * @returns New state.
  */
-const paymentsReducer: ReducerSwitch<
-  T.PaymentsState,
-  | T.CreatePaymentIntentChargeAction
-  | T.CreatePaymentIntentInstrumentAction
-  | T.FetchUserCreditBalanceAction
-  | T.FetchGiftCardBalanceAction
-  | T.FetchPaymentIntentChargeAction
-  | T.FetchPaymentIntentInstrumentAction
-  | T.FetchPaymentIntentInstrumentsAction
-  | T.FetchPaymentIntentAction
-  | T.FetchPaymentTokensAction
-  | T.FetchPaymentMethodsAction
-  | T.FetchPaymentMethodsByCountryAndCurrencyAction
-  | T.FetchPaymentMethodsByIntentAction
-  | T.RemovePaymentIntentInstrumentAction
-  | T.RemovePaymentTokensAction
-  | T.UpdatePaymentIntentInstrumentAction
-  | T.ResetPaymentIntentChargeAction
-  | T.ResetPaymentInstrumentsAction
-> = (state, action) => reducers(state, action);
+const paymentsReducer: ReducerSwitch<T.PaymentsState, AnyAction> = (
+  state,
+  action,
+) => reducers(state, action);
 
 export default paymentsReducer;

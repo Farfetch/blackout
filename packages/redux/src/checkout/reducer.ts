@@ -9,27 +9,7 @@ import produce from 'immer';
 import reducerFactory, {
   createReducerWithResult,
 } from '../helpers/reducerFactory';
-import type {
-  CheckoutState,
-  CreateCheckoutOrderChargeFailureAction,
-  CreateCheckoutOrderChargeRequestAction,
-  CreateCheckoutOrderChargeSuccessAction,
-  DeliveryBundleFailureAction,
-  DeliveryBundleRequestAction,
-  FetchCheckoutDetailsSuccessAction,
-  FetchCheckoutOrderChargeFailureAction,
-  FetchCheckoutOrderChargeRequestAction,
-  FetchCheckoutOrderChargeSuccessAction,
-  FetchDeliveryBundleSuccessAction,
-  GenericCheckoutAction,
-  GenericCheckoutFailureAction,
-  GenericCheckoutRequestAction,
-  GenericCheckoutSuccessAction,
-  ResetCheckoutOrderChargeStateAction,
-  ResetCheckoutStateAction,
-  UpdateDeliveryBundleSuccessAction,
-} from './types';
-import type { LogoutSuccessAction } from '../users/types';
+import type { CheckoutState } from './types';
 import type { StoreState } from '../types';
 
 export const INITIAL_STATE: CheckoutState = {
@@ -99,11 +79,7 @@ export const INITIAL_STATE: CheckoutState = {
 
 const error = (
   state = INITIAL_STATE.error,
-  action:
-    | GenericCheckoutFailureAction
-    | GenericCheckoutRequestAction
-    | ResetCheckoutStateAction
-    | LogoutSuccessAction,
+  action: AnyAction,
 ): CheckoutState['error'] => {
   switch (action?.type) {
     case actionTypes.CREATE_CHECKOUT_ORDER_FAILURE:
@@ -121,14 +97,7 @@ const error = (
   }
 };
 
-const id = (
-  state = INITIAL_STATE.id,
-  action:
-    | GenericCheckoutSuccessAction
-    | ResetCheckoutStateAction
-    | LogoutSuccessAction
-    | FetchCheckoutDetailsSuccessAction,
-) => {
+const id = (state = INITIAL_STATE.id, action: AnyAction) => {
   switch (action?.type) {
     case actionTypes.CREATE_CHECKOUT_ORDER_SUCCESS:
     case actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS:
@@ -146,13 +115,7 @@ const id = (
   }
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action:
-    | GenericCheckoutAction
-    | ResetCheckoutStateAction
-    | LogoutSuccessAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action?.type) {
     case actionTypes.CREATE_CHECKOUT_ORDER_REQUEST:
     case actionTypes.FETCH_CHECKOUT_ORDER_REQUEST:
@@ -429,15 +392,7 @@ export const checkoutOrderItems = reducerFactory(
 
 export const checkoutOrderCharge = (
   state = INITIAL_STATE.checkoutOrderCharge,
-  action:
-    | LogoutSuccessAction
-    | FetchCheckoutOrderChargeSuccessAction
-    | FetchCheckoutOrderChargeFailureAction
-    | FetchCheckoutOrderChargeRequestAction
-    | CreateCheckoutOrderChargeSuccessAction
-    | CreateCheckoutOrderChargeFailureAction
-    | CreateCheckoutOrderChargeRequestAction
-    | ResetCheckoutOrderChargeStateAction,
+  action: AnyAction,
 ): CheckoutState['checkoutOrderCharge'] => {
   switch (action?.type) {
     case actionTypes.CREATE_CHECKOUT_ORDER_CHARGE_REQUEST:
@@ -471,12 +426,7 @@ export const checkoutOrderCharge = (
 
 export const checkoutOrderDeliveryBundleUpgrades = (
   state = INITIAL_STATE.checkoutOrderDeliveryBundleUpgrades,
-  action:
-    | LogoutSuccessAction
-    | DeliveryBundleRequestAction
-    | UpdateDeliveryBundleSuccessAction
-    | FetchDeliveryBundleSuccessAction
-    | DeliveryBundleFailureAction,
+  action: AnyAction,
 ): CheckoutState['checkoutOrderDeliveryBundleUpgrades'] => {
   switch (action?.type) {
     case actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_REQUEST:

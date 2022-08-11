@@ -1,10 +1,6 @@
 import * as actionTypes from '../actionTypes';
-import { combineReducers } from 'redux';
-import type {
-  FetchSearchSuggestionsAction,
-  ResetSearchSuggestionsAction,
-  SearchSuggestionsState,
-} from '../types';
+import { AnyAction, combineReducers } from 'redux';
+import type { SearchSuggestionsState } from '../types';
 
 export const INITIAL_STATE: SearchSuggestionsState = {
   error: null,
@@ -13,10 +9,7 @@ export const INITIAL_STATE: SearchSuggestionsState = {
   result: null,
 };
 
-const error = (
-  state = INITIAL_STATE.error,
-  action: FetchSearchSuggestionsAction,
-) => {
+const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_SEARCH_SUGGESTIONS_REQUEST:
       return INITIAL_STATE.error;
@@ -27,10 +20,7 @@ const error = (
   }
 };
 
-const isLoading = (
-  state = INITIAL_STATE.isLoading,
-  action: FetchSearchSuggestionsAction,
-) => {
+const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_SEARCH_SUGGESTIONS_REQUEST:
       return true;
@@ -42,10 +32,7 @@ const isLoading = (
   }
 };
 
-const query = (
-  state = INITIAL_STATE.query,
-  action: FetchSearchSuggestionsAction,
-) => {
+const query = (state = INITIAL_STATE.query, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_SEARCH_SUGGESTIONS_REQUEST:
       return action.meta.query;
@@ -54,10 +41,7 @@ const query = (
   }
 };
 
-const result = (
-  state = INITIAL_STATE.result,
-  action: FetchSearchSuggestionsAction,
-) => {
+const result = (state = INITIAL_STATE.result, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_SEARCH_SUGGESTIONS_SUCCESS:
       return action.payload.result;
@@ -96,7 +80,7 @@ const reducer = combineReducers({
  */
 const searchSuggestionsReducer = (
   state: SearchSuggestionsState,
-  action: FetchSearchSuggestionsAction | ResetSearchSuggestionsAction,
+  action: AnyAction,
 ): SearchSuggestionsState => {
   if (action.type === actionTypes.RESET_SEARCH_SUGGESTIONS) {
     return INITIAL_STATE;
