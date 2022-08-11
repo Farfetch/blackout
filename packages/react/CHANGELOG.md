@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.296](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.295...@farfetch/blackout-react@1.0.0-next.296) (2022-08-11)
+
+
+### Features
+
+* **react:** refactor useProductListing hook ([e27b0ae](https://github.com/Farfetch/blackout/commit/e27b0ae7baa8e6c65769a1734a6e551ae19b5537))
+
+
+### BREAKING CHANGES
+
+* **react:** useProductListing hook new interface
+
+
+
+
+
 # [1.0.0-next.295](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.294...@farfetch/blackout-react@1.0.0-next.295) (2022-08-10)
 
 **Note:** Version bump only for package @farfetch/blackout-react
