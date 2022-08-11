@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.192](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.191...@farfetch/blackout-client@2.0.0-next.192) (2022-08-11)
+
+
+### Features
+
+* **react:** refactor useProductListing hook ([e27b0ae](https://github.com/Farfetch/blackout/commit/e27b0ae7baa8e6c65769a1734a6e551ae19b5537))
+
+
+### BREAKING CHANGES
+
+* **react:** useProductListing hook new interface
+
+
+
+
+
 # [2.0.0-next.191](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.190...@farfetch/blackout-client@2.0.0-next.191) (2022-08-10)
 
 
