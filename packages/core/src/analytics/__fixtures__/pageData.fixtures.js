@@ -122,6 +122,7 @@ export const customPageMockData = {
   [pageTypes.CHECKOUT]: {
     total: 100,
     shipping: 10,
+    orderId: 'ASH12',
   },
 };
 

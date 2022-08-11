@@ -45,6 +45,10 @@ export const customTrackMockData = {
   [eventTypes.CHECKOUT_STEP_EDITING]: {
     step: 2,
   },
+  [eventTypes.SHARE]: {
+    actionArea: 'share_button_facebook',
+    productId: 123,
+  },
 };
 
 export const expectedTrackPayload = {
