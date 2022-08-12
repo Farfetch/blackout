@@ -27,7 +27,7 @@ export const isRecommendedSetLoading = (
 export const isRecommendedSetFetched = (
   state: StoreState,
   id: RecommendedSet['id'],
-): boolean =>
+) =>
   (!!getRecommendedSet(state, id) || !!getRecommendedSetError(state, id)) &&
   isRecommendedSetLoading(state, id) === false;
 
