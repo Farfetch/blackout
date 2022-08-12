@@ -3,6 +3,7 @@ import {
   ApiErrorData,
   ApiErrorDataNoMessage,
   ApiErrorDataNoMessageNorDeveloperMessage,
+  ApiErrorNoRequestDescription,
   ApiErrorNoResponse,
   ApiErrorString,
   APIListErrorData,
@@ -101,15 +102,12 @@ describe('formatError()', () => {
 
   it('should format the error properly when the request has no response', () => {
     const result = adaptError(ApiErrorNoResponse);
-    const {
-      response: { description },
-      status,
-    } = ApiErrorNoResponse.request as MockAxiosRequest;
+    const { response, status } = ApiErrorNoResponse.request as MockAxiosRequest;
 
     expect(result).toEqual(
       expect.objectContaining({
         code: defaultError.code,
-        message: description,
+        message: response?.description,
         status,
       }),
     );
@@ -126,6 +124,24 @@ describe('formatError()', () => {
         status: undefined,
       }),
     );
+  });
+
+  it('should format the error properly when the request has no description', () => {
+    const genericError = new Error('Request failed with status code 404');
+    const customError = Object.assign(genericError, {
+      ...ApiErrorNoRequestDescription,
+    });
+    const result = adaptError(customError);
+    const { status } = ApiErrorNoRequestDescription.request as MockAxiosRequest;
+
+    expect(result).toEqual(
+      expect.objectContaining({
+        code: defaultError.code,
+        message: genericError.message,
+        status,
+      }),
+    );
+    expect(result).toMatchSnapshot();
   });
 
   it('should convert error to BlackoutError', () => {
