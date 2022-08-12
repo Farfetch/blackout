@@ -1,13 +1,22 @@
 import type {
   MockAxiosApiErrorData,
+  MockAxiosRequest,
   MockAxiosResponse,
   Result,
 } from '../types';
+
+const mockRequest = {
+  status: 400,
+  response: {
+    description: 'i am error',
+  },
+};
 
 const mockAxiosApiError = (
   data: MockAxiosApiErrorData,
   returnResponse = true,
   returnRequest = true,
+  request: MockAxiosRequest = mockRequest,
 ) => {
   const config = {
     url: '/test',
@@ -41,12 +50,6 @@ const mockAxiosApiError = (
       xsrfCookieName: 'XSRF-TOKEN',
       xsrfHeaderName: 'X-XSRF-TOKEN',
       maxContentLength: -1,
-    },
-  };
-  const request = {
-    status: 400,
-    response: {
-      description: 'i am error',
     },
   };
 
@@ -116,6 +119,10 @@ export const APIListErrorData = mockAxiosApiError({
 });
 
 export const ApiErrorNoResponse = mockAxiosApiError({}, false);
+
+export const ApiErrorNoRequestDescription = mockAxiosApiError({}, false, true, {
+  status: 404,
+});
 
 export const errorAxios = {
   message: 'Oops, Axios failed somehow',

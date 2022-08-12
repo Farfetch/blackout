@@ -116,7 +116,7 @@ export const adaptError = (error: unknown): BlackoutError => {
     return Object.assign(error, {
       ...extraParameters,
       code: defaultError.code,
-      message: response.description || error.message,
+      message: response?.description || error.message,
       status,
       ...response,
     });
