@@ -109,11 +109,6 @@ export const mockAuthenticationState = {
         error: null,
         isLoading: false,
       },
-      userImpersonation: {
-        result: null,
-        error: null,
-        isLoading: false,
-      },
     },
   },
 };

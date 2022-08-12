@@ -49,11 +49,6 @@ describe('authentication redux selectors', () => {
           error: null,
           isLoading: false,
         },
-        userImpersonation: {
-          result: null,
-          error: null,
-          isLoading: false,
-        },
       },
     },
 
@@ -71,7 +66,6 @@ describe('authentication redux selectors', () => {
     'Register',
     'ValidateEmail',
     'UserToken',
-    'UserImpersonation',
     'RefreshEmailToken',
   ];
 
@@ -103,21 +97,18 @@ describe('authentication redux selectors', () => {
   });
 
   describe('sub-areas with result', () => {
-    it.each(['UserToken', 'UserImpersonation'])(
-      'should handle get%sResult selector',
-      subArea => {
-        const selectorName = `get${subArea}Result`;
-        const reducerSubAreaName =
-          subArea.charAt(0).toLowerCase() + subArea.slice(1);
-        const expectedResult =
-          mockState.users.authentication[reducerSubAreaName as keyof UserData]
-            .result;
+    it.each(['UserToken'])('should handle get%sResult selector', subArea => {
+      const selectorName = `get${subArea}Result`;
+      const reducerSubAreaName =
+        subArea.charAt(0).toLowerCase() + subArea.slice(1);
+      const expectedResult =
+        mockState.users.authentication[reducerSubAreaName as keyof UserData]
+          .result;
 
-        expect(
-          selectors[selectorName as keyof typeof selectors](mockState),
-        ).toBe(expectedResult);
-      },
-    );
+      expect(selectors[selectorName as keyof typeof selectors](mockState)).toBe(
+        expectedResult,
+      );
+    });
   });
 
   describe('isAuthenticated()', () => {

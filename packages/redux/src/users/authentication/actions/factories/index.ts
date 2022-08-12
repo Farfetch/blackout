@@ -13,9 +13,6 @@ export { default as createClientCredentialsTokenFactory } from './createClientCr
 export { default as refreshTokenFactory } from './refreshTokenFactory';
 export { default as createUserTokenFactory } from './createUserTokenFactory';
 export { default as removeUserTokenFactory } from './removeUserTokenFactory';
-export { default as createUserImpersonationFactory } from './createUserImpersonationFactory';
-export { default as removeUserImpersonationFactory } from './removeUserImpersonationFactory';
-
 export { default as createGuestUserFactory } from './createGuestUserFactory';
 export { default as fetchGuestUserFactory } from './fetchGuestUserFactory';
 export { default as fetchUserFactory } from './fetchUserFactory';

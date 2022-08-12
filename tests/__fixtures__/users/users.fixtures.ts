@@ -152,11 +152,6 @@ export const mockUserInitialState = {
       error: null,
       isLoading: false,
     },
-    userImpersonation: {
-      result: null,
-      error: null,
-      isLoading: false,
-    },
   },
 };
 

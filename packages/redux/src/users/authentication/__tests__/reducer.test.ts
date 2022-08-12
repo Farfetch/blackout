@@ -120,95 +120,6 @@ describe('authentication reducer', () => {
     });
   });
 
-  describe('userImpersonation() reducer', () => {
-    it('should return the initial state', () => {
-      const state = reducer(undefined, mockAction).userImpersonation;
-      expect(state).toEqual(initialState.userImpersonation);
-    });
-
-    it.each([
-      actionTypes.DELETE_USER_IMPERSONATION_REQUEST,
-      actionTypes.CREATE_USER_IMPERSONATION_REQUEST,
-    ])('should handle %s action type', actionType => {
-      const userImpersonation = {
-        result: null,
-        error: null,
-        isLoading: true,
-      };
-      expect(
-        reducer(undefined, {
-          type: actionType,
-        }).userImpersonation,
-      ).toEqual(userImpersonation);
-    });
-
-    it(`should handle ${actionTypes.DELETE_USER_IMPERSONATION_SUCCESS} action type`, () => {
-      const userImpersonation = {
-        error: null,
-        isLoading: false,
-        result: null,
-      };
-      expect(
-        reducer(undefined, {
-          type: actionTypes.DELETE_USER_IMPERSONATION_SUCCESS,
-        }).userImpersonation,
-      ).toEqual(userImpersonation);
-    });
-
-    it(`should handle ${actionTypes.CREATE_USER_IMPERSONATION_SUCCESS} action type`, () => {
-      const result = {
-        accessToken: '60f9ff83-d723-4c5a-8268-00cee557083b',
-        expiresIn: '3600',
-        refreshToken: '',
-        error: null,
-      };
-      const userImpersonation = {
-        result,
-        error: null,
-        isLoading: false,
-      };
-
-      expect(
-        reducer(undefined, {
-          payload: result,
-          type: actionTypes.CREATE_USER_IMPERSONATION_SUCCESS,
-        }).userImpersonation,
-      ).toEqual(userImpersonation);
-    });
-
-    it.each([
-      actionTypes.DELETE_USER_IMPERSONATION_FAILURE,
-      actionTypes.CREATE_USER_IMPERSONATION_FAILURE,
-    ])('should handle %s action type', actionType => {
-      const error = 'final error';
-      const userImpersonation = {
-        error,
-        isLoading: false,
-        result: null,
-      };
-      expect(
-        reducer(undefined, {
-          payload: { error },
-          type: actionType,
-        }).userImpersonation,
-      ).toEqual(userImpersonation);
-    });
-
-    it('should handle other actions by returning the previous state', () => {
-      const state = {
-        userImpersonation: {
-          result: null,
-          error: 'error',
-          isLoading: false,
-        },
-      };
-
-      expect(
-        reducer(state as AuthenticationState, mockAction).userImpersonation,
-      ).toBe(state.userImpersonation);
-    });
-  });
-
   describe('Sub-areas', () => {
     const subAreaResult = {
       error: null,
@@ -225,10 +136,9 @@ describe('authentication reducer', () => {
       validateEmail: { ...subAreaResult },
       refreshEmailToken: { ...subAreaResult },
       userToken: { ...subAreaResult, result: null },
-      userImpersonation: { ...subAreaResult, result: null },
     };
 
-    const extendedSubAreasNames = ['UserToken', 'UserImpersonation'];
+    const extendedSubAreasNames = ['UserToken'];
     const subAreaNames = [
       'Login',
       'Logout',

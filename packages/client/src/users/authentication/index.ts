@@ -10,8 +10,6 @@ export { default as postPasswordReset } from './postPasswordReset';
 export { default as postRefreshEmailToken } from './postRefreshEmailToken';
 export { default as postUser } from './postUser';
 export { default as postValidateEmail } from './postValidateEmail';
-export { default as deleteUserImpersonation } from './deleteUserImpersonation';
-export { default as postUserImpersonation } from './postUserImpersonation';
 export { default as postGuestToken } from './postGuestToken';
 export { default as postToken } from './postToken';
 export { default as deleteGuestToken } from './deleteGuestToken';
