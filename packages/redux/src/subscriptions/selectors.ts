@@ -130,9 +130,7 @@ export const areUserSubscriptionsLoading = (state: StoreState) =>
  *
  * @returns Subscription package error.
  */
-export const getSubscriptionPackagesError = (
-  state: StoreState,
-): SubscriptionsState['packages']['error'] =>
+export const getSubscriptionPackagesError = (state: StoreState) =>
   defaultTo(
     subscriptionPackagesReducer.getSubscriptionPackagesError(
       state.subscriptions?.packages,

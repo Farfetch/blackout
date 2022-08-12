@@ -107,7 +107,7 @@ export const getShipmentTrackingLabel = (
  * @returns Pagination object.
  */
 export const getOrdersPagination = createSelector(
-  [state => getResult(state.orders)],
+  [(state: StoreState) => getResult(state.orders as OrdersState)],
   result => {
     if (!result) return;
 

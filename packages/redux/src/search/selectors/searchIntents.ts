@@ -39,7 +39,7 @@ export const getSearchIntentsError = (state: StoreState) =>
  *
  * @returns Whether a search term response is loading or not.
  */
-export const areSearchIntentsLoading = (state: StoreState): boolean =>
+export const areSearchIntentsLoading = (state: StoreState) =>
   fromSearchIntentsReducer.getIsLoading((state.search as SearchState).intents);
 
 /**

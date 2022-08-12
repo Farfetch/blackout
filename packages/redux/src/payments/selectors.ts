@@ -11,7 +11,6 @@ import {
 import type {
   PaymentInstrumentEntity,
   PaymentTokenEntity,
-  PaymentTokensEntity,
 } from '../entities/types';
 import type { PaymentsState } from './types';
 import type { StoreState } from '../types';
@@ -23,7 +22,7 @@ import type { StoreState } from '../types';
  *
  * @returns Payment tokens object.
  */
-export const getPaymentTokens = (state: StoreState): PaymentTokensEntity =>
+export const getPaymentTokens = (state: StoreState) =>
   getEntities(state, 'paymentTokens');
 
 /**
@@ -37,8 +36,7 @@ export const getPaymentTokens = (state: StoreState): PaymentTokensEntity =>
 export const getPaymentToken = (
   state: StoreState,
   paymentTokenId: PaymentTokenEntity['id'],
-): PaymentTokenEntity | undefined =>
-  getEntityById(state, 'paymentTokens', paymentTokenId);
+) => getEntityById(state, 'paymentTokens', paymentTokenId);
 
 /**
  * Returns the payment tokens error.

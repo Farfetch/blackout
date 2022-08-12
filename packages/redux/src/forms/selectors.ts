@@ -6,8 +6,7 @@ import {
   getSubmitFormDataError as getSubmitFormDataErrorFromReducer,
   getSubmitFormDataIsLoading,
 } from './reducer';
-import type { BlackoutError, FormSchema } from '@farfetch/blackout-client';
-import type { FormsResult } from './types';
+import type { FormSchema } from '@farfetch/blackout-client';
 import type { StoreState } from '../types';
 
 /**
@@ -28,10 +27,7 @@ import type { StoreState } from '../types';
  *
  * @returns Content error.
  */
-export const getFormSchemaError = (
-  state: StoreState,
-  schemaCode: string,
-): BlackoutError | null | undefined => {
+export const getFormSchemaError = (state: StoreState, schemaCode: string) => {
   return getFormsError(state.forms)[schemaCode];
 };
 
@@ -52,10 +48,8 @@ export const getFormSchemaError = (
  *
  * @returns If the form schema is loading or not.
  */
-export const isFormSchemaLoading = (
-  state: StoreState,
-  schemaCode: string,
-): boolean | undefined => getFormsIsLoading(state.forms)[schemaCode];
+export const isFormSchemaLoading = (state: StoreState, schemaCode: string) =>
+  getFormsIsLoading(state.forms)[schemaCode];
 
 /**
  * Retrieves all form schemas.
@@ -74,7 +68,7 @@ export const isFormSchemaLoading = (
  *
  * @returns All form schemas.
  */
-export const getFormSchemas = (state: StoreState): FormsResult =>
+export const getFormSchemas = (state: StoreState) =>
   getFormsSchemas(state.forms);
 
 /**
@@ -122,7 +116,7 @@ export const getFormSchemaByCode = (
 export const getSubmitFormDataError = (
   state: StoreState,
   schemaCode: string,
-): Error | null | undefined => {
+) => {
   return getSubmitFormDataErrorFromReducer(state.forms)[schemaCode];
 };
 
@@ -146,4 +140,4 @@ export const getSubmitFormDataError = (
 export const isSubmitFormDataLoading = (
   state: StoreState,
   schemaCode: string,
-): boolean | undefined => getSubmitFormDataIsLoading(state.forms)[schemaCode];
+) => getSubmitFormDataIsLoading(state.forms)[schemaCode];

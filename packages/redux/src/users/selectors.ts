@@ -93,16 +93,6 @@ export const getUsername = (user: UserEntity | undefined) =>
   get(user, 'username');
 
 /**
- * Return the user's membership.
- *
- * @param user - User data.
- *
- * @returns User membership.
- */
-export const getUserMembership = (user: UserEntity | undefined) =>
-  get(user, 'membership');
-
-/**
  * Return the user's credit.
  *
  * @param user - User data.
