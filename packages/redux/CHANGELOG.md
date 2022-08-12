@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.296](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.295...@farfetch/blackout-redux@1.0.0-next.296) (2022-08-12)
+
+
+### Bug Fixes
+
+* **redux:** add productImgQueryParam to checkout order items ([a8cbf1b](https://github.com/Farfetch/blackout/commit/a8cbf1bc5e8264caba57f8e62198e77261c1f68f))
+
+
+
+
+
 # [1.0.0-next.295](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.294...@farfetch/blackout-redux@1.0.0-next.295) (2022-08-11)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
