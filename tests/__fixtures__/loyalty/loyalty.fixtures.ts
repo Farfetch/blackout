@@ -1,4 +1,4 @@
-import { ProgramMembershipStatementCategory } from '@farfetch/blackout-client/loyalty/types';
+import { ProgramMembershipStatementCategory } from '@farfetch/blackout-client';
 
 export const programId = '1';
 export const membershipId = '1';
@@ -113,22 +113,22 @@ export const mockState = {
   loyalty: {
     programs: {
       error: 'error: not loaded',
-      result: [programId], // FIXME
+      result: [programId],
       isLoading: false,
     },
     membership: {
       error: 'error: not loaded',
-      result: membershipId, // FIXME
+      result: membershipId,
       isLoading: false,
     },
     replacements: {
       error: 'error: not loaded',
-      result: [replacementId], // FIXME
+      result: [replacementId],
       isLoading: false,
     },
     converts: {
       error: 'error: not loaded',
-      result: [convertId], // FIXME
+      result: [convertId],
       isLoading: false,
     },
     statements: {

@@ -946,7 +946,6 @@ Object {
   "getUserImpersonationError": [Function],
   "getUserImpersonationResult": [Function],
   "getUserIsGuest": [Function],
-  "getUserMembership": [Function],
   "getUserPersonalIdsError": [Function],
   "getUserPersonalIdsResult": [Function],
   "getUserPreferences": [Function],

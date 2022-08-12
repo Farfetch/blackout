@@ -4,10 +4,7 @@ import {
   getRecommendedProductsResult,
 } from '../reducer/recommendedProducts';
 import get from 'lodash/get';
-import type { ProductsState } from '../types';
 import type { StoreState } from '../../types';
-
-type RecommendedProductsState = ProductsState['recommendedProducts'];
 
 /**
  * Checks if product recommendations has error by strategy name.
@@ -20,7 +17,7 @@ type RecommendedProductsState = ProductsState['recommendedProducts'];
 export const getRecommendedProductsError = (
   state: StoreState,
   strategyName: string,
-): RecommendedProductsState['error'][string] | undefined =>
+) =>
   get(
     getRecommendedProductsErrors(state.products?.recommendedProducts),
     strategyName,
@@ -37,7 +34,7 @@ export const getRecommendedProductsError = (
 export const areRecommendedProductsLoading = (
   state: StoreState,
   strategyName: string,
-): RecommendedProductsState['isLoading'][string] | undefined =>
+) =>
   get(
     getAreRecommendedProductsLoading(state.products?.recommendedProducts),
     strategyName,
@@ -50,9 +47,7 @@ export const areRecommendedProductsLoading = (
  *
  * @returns The result object containing the product recommendations.
  */
-export const getRecommendedProducts = (
-  state: StoreState,
-): RecommendedProductsState['result'] | undefined =>
+export const getRecommendedProducts = (state: StoreState) =>
   getRecommendedProductsResult(state.products?.recommendedProducts);
 
 /**
@@ -66,8 +61,7 @@ export const getRecommendedProducts = (
 export const getRecommendedProductsByStrategyName = (
   state: StoreState,
   strategyName: string,
-): RecommendedProductsState['result'][string] | undefined =>
-  get(getRecommendedProducts(state), strategyName);
+) => get(getRecommendedProducts(state), strategyName);
 
 /**
  * Gets the product recommendation id by strategy name.
@@ -80,5 +74,4 @@ export const getRecommendedProductsByStrategyName = (
 export const getRecommendedProductsId = (
   state: StoreState,
   strategyName: string,
-): RecommendedProductsState['result'][string]['id'] | undefined =>
-  get(getRecommendedProducts(state), strategyName)?.id;
+) => get(getRecommendedProducts(state), strategyName)?.id;

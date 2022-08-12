@@ -12,9 +12,7 @@ import type { StoreState } from '../types';
  *
  * @returns Predictions details.
  */
-export const getAddressPredictions = (
-  state: StoreState,
-): AddressesState['predictions']['result'] =>
+export const getAddressPredictions = (state: StoreState) =>
   getAddressPredictionsFromReducer(state.addresses as AddressesState).result;
 
 /**
@@ -24,9 +22,7 @@ export const getAddressPredictions = (
  *
  * @returns Error details.
  */
-export const getAddressPredictionsError = (
-  state: StoreState,
-): AddressesState['predictions']['error'] =>
+export const getAddressPredictionsError = (state: StoreState) =>
   getAddressPredictionsFromReducer(state.addresses as AddressesState).error;
 
 /**
@@ -36,9 +32,7 @@ export const getAddressPredictionsError = (
  *
  * @returns Loader status.
  */
-export const areAddressPredictionsLoading = (
-  state: StoreState,
-): AddressesState['predictions']['isLoading'] =>
+export const areAddressPredictionsLoading = (state: StoreState) =>
   getAddressPredictionsFromReducer(state.addresses as AddressesState).isLoading;
 
 /**
@@ -48,9 +42,7 @@ export const areAddressPredictionsLoading = (
  *
  * @returns Predictions details.
  */
-export const getAddressPrediction = (
-  state: StoreState,
-): AddressesState['prediction']['result'] =>
+export const getAddressPrediction = (state: StoreState) =>
   getAddressPredictionFromReducer(state.addresses as AddressesState).result;
 
 /**
@@ -60,9 +52,7 @@ export const getAddressPrediction = (
  *
  * @returns Error details.
  */
-export const getAddressPredictionError = (
-  state: StoreState,
-): AddressesState['prediction']['error'] =>
+export const getAddressPredictionError = (state: StoreState) =>
   getAddressPredictionFromReducer(state.addresses as AddressesState).error;
 
 /**
@@ -72,7 +62,5 @@ export const getAddressPredictionError = (
  *
  * @returns Loader status.
  */
-export const areAddressPredictionDetailsLoading = (
-  state: StoreState,
-): AddressesState['prediction']['isLoading'] =>
+export const areAddressPredictionDetailsLoading = (state: StoreState) =>
   getAddressPredictionFromReducer(state.addresses as AddressesState).isLoading;

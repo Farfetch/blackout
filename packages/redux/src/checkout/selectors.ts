@@ -259,7 +259,7 @@ export const getCheckoutDeliveryBundlesIds = createSelector(
 export const getCheckoutDeliveryBundles = createSelector(
   [
     getCheckoutDeliveryBundlesIds,
-    state => getEntities(state, 'deliveryBundles'),
+    (state: StoreState) => getEntities(state, 'deliveryBundles'),
   ],
   (deliveryBundlesIds, deliveryBundles) =>
     deliveryBundlesIds
@@ -745,7 +745,7 @@ export const getCheckoutOrderOperationsError = (state: StoreState) =>
  *
  */
 export const getCheckoutOrderOperationsPagination = createSelector(
-  [state => getOperations(state.checkout)],
+  [(state: StoreState) => getOperations(state.checkout as CheckoutState)],
   operations => {
     if (!operations || !operations.result) {
       return;

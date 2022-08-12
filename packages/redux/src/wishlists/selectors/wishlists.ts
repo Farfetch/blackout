@@ -445,7 +445,7 @@ export const findProductInWishlist = createSelector(
  *
  * @returns Whether there is an error within the wishlist or not.
  */
-export const isWishlistWithAnyError = (state: StoreState): boolean => {
+export const isWishlistWithAnyError = (state: StoreState) => {
   const items = getWishlistItems(state) || [];
 
   return (
