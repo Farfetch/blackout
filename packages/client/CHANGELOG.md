@@ -3,6 +3,91 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.193](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.192...@farfetch/blackout-client@2.0.0-next.193) (2022-08-12)
+
+
+### Bug Fixes
+
+* **redux|react:** rename checkout actions and selectors ([2e8a913](https://github.com/Farfetch/blackout/commit/2e8a91359c33704131ba1a3a37c6f272e41f9e4b))
+
+
+### BREAKING CHANGES
+
+* **redux|react:** The following actions were renamed:
+
+createCheckout -> createCheckoutOrder
+fetchCheckout -> fetchCheckoutOrder
+fetchCheckoutDetails -> fetchCheckoutOrderDetails
+fetchDeliveryBundleUpgrades -> fetchCheckoutOrderDeliveryBundleUpgrades
+fetchItemDeliveryProvisioning -> fetchCheckoutOrderDeliveryBundleProvisioning
+fetchUpgradeItemDeliveryProvisioning -> fetchCheckoutOrderDeliveryBundleUpgradeProvisioning
+setItemTags -> setCheckoutOrderItemTags
+setPromocode -> setCheckoutOrderPromocode
+setTags -> setCheckoutOrderTags
+updateCheckout -> updateCheckoutOrder
+updateDeliveryBundleUpgrades -> updateCheckoutOrderDeliveryBundleUpgrades
+updateGiftMessage -> updateCheckoutOrderItems
+
+The following selectors were renamed:
+`getCheckoutDetail` -> `getCheckoutOrderDetails`
+`getCheckoutCollectPointEstimatedDeliveryPeriod` ->
+ `getCheckoutOrderSelectedCollectPointEstimatedDeliveryPeriod`
+`areCheckoutDetailsLoading` -> `areCheckoutOrderDetailsLoading`
+`getCheckoutDetailsError` -> `getCheckoutOrderDetailsError`
+`isItemTagsLoading` -> `areCheckoutOrderItemTagsLoading`
+`getItemTagsError` -> `getCheckoutOrderItemTagsError`
+`isPromoCodeLoading` -> `isCheckoutOrderPromocodeLoading`
+`getPromoCodeError` -> `getCheckoutOrderPromocodeError`
+`isTagsLoading` -> `areCheckoutOrderTagsLoading`
+`getTagsError` -> `getCheckoutOrderTagsError`
+`isGiftMessageLoading` -> `areCheckoutOrderItemsUpdating`
+`getGiftMessageError` -> `getCheckoutOrderItemsUpdateError`
+`areDeliveryBundleUpgradesLoading` ->
+ `areCheckoutOrderDeliveryBundleUpgradesLoading`
+`getDeliveryBundleUpgradesError` ->
+`getCheckoutOrderDeliveryBundleUpgradesError`
+`isItemDeliveryProvisioningLoading` ->
+`isCheckoutOrderDeliveryBundleProvisioningLoading`
+`getItemDeliveryProvisioningError` ->
+`getCheckoutOrderDeliveryBundleProvisioningError`
+`isUpgradeItemDeliveryProvisioningLoading` ->
+`isCheckoutOrderDeliveryBundleUpgradeProvisioningLoading`
+`getUpgradeItemDeliveryProvisioningError` ->
+`getCheckoutOrderDeliveryBundleUpgradeProvisioningError`
+`getBundleDeliveryWindow` -> `getCheckoutDeliveryBundleWindow`
+`isOperationLoading` -> `isCheckoutOrderOperationLoading`
+`getOperationError` ->  `getCheckoutOrderOperationError`
+`isOperationsLoading` -> `areCheckoutOrderOperationsLoading`
+`getOperationsError` -> `getCheckoutOrderOperationsError`
+`getOperationsPagination` -> `getCheckoutOrderOperationsPagination`
+`isProgramsLoading` -> `areProgramsLoading`
+`getMembership` -> `getProgramMembership`
+`getMembershipError` -> `getProgramMembershipError`
+`getMembershipResult` -> `getProgramMembershipResult`
+`isMembershipLoading` -> `isProgramMembershipLoading`
+`getReplacements` -> `getProgramMembershipReplacements`
+`getReplacementsError` -> `getProgramMembershipReplacementsError`
+`getReplacementsResult` -> `getProgramMembershipReplacementsResult`
+`isReplacementsLoading` -> `areProgramMembershipReplacementsLoading`
+`getConverts` -> `getProgramMembershipConverts`
+`getConvertsError` -> `getProgramMembershipConvertsError`
+`getConvertsResult` -> `getProgramMembershipConvertsResult`
+`isConvertsLoading` -> `areProgramMembershipConvertsLoading`
+`getStatements` -> `getProgramMembershipStatements`
+`getStatementsError` -> `getProgramMembershipStatementsError`
+`getStatementsResult` -> `getProgramMembershipStatementsResult`
+`isStatementsLoading` -> `areProgramMembershipStatementsLoading`
+`isReturnsLoading` -> `areReturnsLoading`
+`isPickupCapabilitiesLoading` -> `areReturnPickupCapabilitiesLoading`
+`getPickupCapabilitiesError` -> `getReturnPickupCapabilitiesError`
+`isUserSubscriptionsLoading` -> `areUserSubscriptionsLoading`
+`isUserDefaultAddressDetailsLoading` ->
+`areUserDefaultAddressDetailsLoading`
+
+
+
+
+
 # [2.0.0-next.192](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.191...@farfetch/blackout-client@2.0.0-next.192) (2022-08-11)
 
 
