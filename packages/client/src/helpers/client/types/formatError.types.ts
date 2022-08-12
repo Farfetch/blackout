@@ -55,7 +55,7 @@ export type MockAxiosResponse = {
 
 export type MockAxiosRequest = {
   status: number;
-  response: {
+  response?: {
     description: string;
   };
 };

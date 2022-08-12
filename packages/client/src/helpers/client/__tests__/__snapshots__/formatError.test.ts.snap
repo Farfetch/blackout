@@ -33,6 +33,14 @@ Object {
 }
 `;
 
+exports[`formatError() should format the error properly when the request has no description 1`] = `
+Object {
+  "code": -1,
+  "message": "Request failed with status code 404",
+  "status": 404,
+}
+`;
+
 exports[`formatError() should format the error properly when the request has no response 1`] = `
 Object {
   "code": -1,
