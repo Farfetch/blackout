@@ -13,7 +13,7 @@ import type { Dispatch } from 'redux';
  *
  * @returns Thunk factory.
  */
-const removeUserImpersonationFactory =
+const removeUserTokenFactory =
   (deleteTokens: DeleteToken) =>
   (userTokenId: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<number> => {
@@ -39,4 +39,4 @@ const removeUserImpersonationFactory =
     }
   };
 
-export default removeUserImpersonationFactory;
+export default removeUserTokenFactory;

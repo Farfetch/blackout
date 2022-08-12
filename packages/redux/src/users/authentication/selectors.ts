@@ -7,7 +7,6 @@ import {
   getRefreshEmailToken,
   getRegister,
   getResetPassword,
-  getUserImpersonation,
   getUserToken,
   getValidateEmail,
 } from './reducer';
@@ -218,33 +217,3 @@ export const getUserTokenError = (state: StoreState) =>
  */
 export const getUserTokenResult = (state: StoreState) =>
   getUserToken(getAuthentication(state.users as UsersState)).result;
-
-/**
- * Returns the loading status for the user impersonation operation.
- *
- * @param state - Application state.
- *
- * @returns User impersonation operation Loading status.
- */
-export const isUserImpersonationLoading = (state: StoreState): boolean =>
-  getUserImpersonation(getAuthentication(state.users as UsersState)).isLoading;
-
-/**
- * Returns the get user impersonation error.
- *
- * @param state - Application state.
- *
- * @returns User impersonation operation error.
- */
-export const getUserImpersonationError = (state: StoreState) =>
-  getUserImpersonation(getAuthentication(state.users as UsersState)).error;
-
-/**
- * Returns the result for the user impersonation operation.
- *
- * @param state - Application state.
- *
- * @returns User impersonation operation result.
- */
-export const getUserImpersonationResult = (state: StoreState) =>
-  getUserImpersonation(getAuthentication(state.users as UsersState)).result;

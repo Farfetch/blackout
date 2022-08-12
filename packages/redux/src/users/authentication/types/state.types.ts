@@ -10,15 +10,8 @@ export type UserToken = {
   isLoading: boolean;
 };
 
-export type UserImpersonation = {
-  result: string | null;
-  error: string | null;
-  isLoading: boolean;
-};
-
 export type UserData = {
   userToken: UserToken;
-  userImpersonation: UserImpersonation;
 };
 
 export type AuthenticationState = {
@@ -55,5 +48,4 @@ export type AuthenticationState = {
     isLoading: boolean;
   };
   userToken: UserToken;
-  userImpersonation: UserImpersonation;
 };

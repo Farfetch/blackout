@@ -134,38 +134,6 @@ export const DELETE_USER_TOKEN_SUCCESS =
   '@farfetch/blackout-redux/DELETE_USER_TOKEN_SUCCESS';
 
 /**
- * Action type dispatched when the delete user impersonation request fails.
- */
-export const DELETE_USER_IMPERSONATION_FAILURE =
-  '@farfetch/blackout-redux/DELETE_USER_IMPERSONATION_FAILURE';
-/**
- * Action type dispatched when the delete user impersonation request starts.
- */
-export const DELETE_USER_IMPERSONATION_REQUEST =
-  '@farfetch/blackout-redux/DELETE_USER_IMPERSONATION_REQUEST';
-/**
- * Action type dispatched when the delete user impersonation request succeeds.
- */
-export const DELETE_USER_IMPERSONATION_SUCCESS =
-  '@farfetch/blackout-redux/DELETE_USER_IMPERSONATION_SUCCESS';
-
-/**
- * Action type dispatched when the create user impersonation request fails.
- */
-export const CREATE_USER_IMPERSONATION_FAILURE =
-  '@farfetch/blackout-redux/CREATE_USER_IMPERSONATION_FAILURE';
-/**
- * Action type dispatched when the create user impersonation request starts.
- */
-export const CREATE_USER_IMPERSONATION_REQUEST =
-  '@farfetch/blackout-redux/CREATE_USER_IMPERSONATION_REQUEST';
-/**
- * Action type dispatched when the create user impersonation request succeeds.
- */
-export const CREATE_USER_IMPERSONATION_SUCCESS =
-  '@farfetch/blackout-redux/CREATE_USER_IMPERSONATION_SUCCESS';
-
-/**
  * Action type dispatched when the create user token request fails.
  */
 export const CREATE_USER_TOKEN_FAILURE =

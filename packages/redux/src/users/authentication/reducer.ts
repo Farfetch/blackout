@@ -41,11 +41,6 @@ export const INITIAL_STATE: AuthenticationState = {
     error: null,
     isLoading: false,
   },
-  userImpersonation: {
-    result: null,
-    error: null,
-    isLoading: false,
-  },
 };
 
 export const login = reducerFactory('LOGIN', INITIAL_STATE.login, actionTypes);
@@ -128,44 +123,6 @@ export const userToken = (
       return state;
   }
 };
-export const userImpersonation = (
-  state = INITIAL_STATE.userImpersonation,
-  action: AnyAction,
-): AuthenticationState['userImpersonation'] => {
-  switch (action?.type) {
-    case actionTypes.DELETE_USER_IMPERSONATION_REQUEST:
-    case actionTypes.CREATE_USER_IMPERSONATION_REQUEST:
-      return {
-        ...state,
-        error: INITIAL_STATE.userImpersonation.error,
-        isLoading: true,
-      };
-    case actionTypes.CREATE_USER_IMPERSONATION_SUCCESS:
-      return {
-        result: action?.payload,
-        error: INITIAL_STATE.userImpersonation.error,
-        isLoading: false,
-      };
-
-    case actionTypes.DELETE_USER_IMPERSONATION_SUCCESS:
-      return {
-        result: INITIAL_STATE.userImpersonation.result,
-        error: INITIAL_STATE.userImpersonation.error,
-        isLoading: false,
-      };
-
-    case actionTypes.DELETE_USER_IMPERSONATION_FAILURE:
-    case actionTypes.CREATE_USER_IMPERSONATION_FAILURE:
-      return {
-        ...state,
-        error: action?.payload?.error,
-        isLoading: false,
-      };
-
-    default:
-      return state;
-  }
-};
 
 export const getLogin = (state: AuthenticationState) => state.login;
 export const getLogout = (state: AuthenticationState) => state.logout;
@@ -181,8 +138,6 @@ export const getValidateEmail = (state: AuthenticationState) =>
 export const getRefreshEmailToken = (state: AuthenticationState) =>
   state.refreshEmailToken;
 export const getUserToken = (state: AuthenticationState) => state.userToken;
-export const getUserImpersonation = (state: AuthenticationState) =>
-  state.userImpersonation;
 
 /**
  * Reducer for authentication state.
@@ -202,5 +157,4 @@ export default combineReducers({
   validateEmail,
   refreshEmailToken,
   userToken,
-  userImpersonation,
 });
