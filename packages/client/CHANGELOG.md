@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.194](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.193...@farfetch/blackout-client@2.0.0-next.194) (2022-08-12)
+
+
+### chore
+
+* **redux:** move entity selectors from entities folder ([34fdf43](https://github.com/Farfetch/blackout/commit/34fdf434599758885cfd1609aa04f8d869428ae9))
+
+
+### BREAKING CHANGES
+
+* **redux:** All entity selectors must now be imported from its
+respective area instead of being import from the `entities` folder.
+
+
+
+
+
 # [2.0.0-next.193](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.192...@farfetch/blackout-client@2.0.0-next.193) (2022-08-12)
 
 
