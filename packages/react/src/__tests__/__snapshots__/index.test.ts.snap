@@ -178,7 +178,7 @@ Object {
   "useCheckout": [Function],
   "useCountries": [Function],
   "useCountryAddressSchemas": [Function],
-  "useCountryCities": [Function],
+  "useCountryStateCities": [Function],
   "useCountryStates": [Function],
   "useLocale": [Function],
   "usePrevious": [Function],

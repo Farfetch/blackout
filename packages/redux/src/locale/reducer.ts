@@ -6,7 +6,6 @@ import reducerFactory from '../helpers/reducerFactory';
 import type {
   ActionFetchCountries,
   ActionFetchCountry,
-  ActionFetchCountryCities,
   ActionFetchCountryCurrencies,
   ActionFetchCountryStates,
   ActionSetCountryCode,
@@ -58,20 +57,20 @@ const countryCode = (
 
 const cities = (
   state = INITIAL_STATE_LOCALE.cities,
-  action: ActionFetchCountryCities,
+  action: AnyAction,
 ): LocaleState['cities'] => {
   switch (action.type) {
-    case actionTypes.FETCH_COUNTRY_CITIES_REQUEST:
+    case actionTypes.FETCH_COUNTRY_STATE_CITIES_REQUEST:
       return {
         isLoading: true,
         error: INITIAL_STATE_LOCALE.cities.error,
       };
-    case actionTypes.FETCH_COUNTRY_CITIES_SUCCESS:
+    case actionTypes.FETCH_COUNTRY_STATE_CITIES_SUCCESS:
       return {
         ...state,
         isLoading: INITIAL_STATE_LOCALE.cities.isLoading,
       };
-    case actionTypes.FETCH_COUNTRY_CITIES_FAILURE:
+    case actionTypes.FETCH_COUNTRY_STATE_CITIES_FAILURE:
       return {
         isLoading: INITIAL_STATE_LOCALE.cities.isLoading,
         error: action.payload.error,
@@ -172,7 +171,7 @@ export const countriesAddressSchemas = reducerFactory(
   actionTypes,
 );
 
-export const getAreCountryCitiesLoading = (
+export const getAreCountryStateCitiesLoading = (
   state: LocaleState,
 ): LocaleState['cities']['isLoading'] => state.cities.isLoading;
 export const getAreCountriesLoading = (
@@ -184,7 +183,7 @@ export const getAreCountryCurrenciesLoading = (
 export const getAreCountryStatesLoading = (
   state: LocaleState,
 ): LocaleState['states']['isLoading'] => state.states.isLoading;
-export const getCountryCitiesError = (
+export const getCountryStateCitiesError = (
   state: LocaleState,
 ): LocaleState['cities']['error'] => state.cities.error;
 export const getCountriesError = (

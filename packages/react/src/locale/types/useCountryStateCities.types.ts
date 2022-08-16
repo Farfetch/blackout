@@ -1,6 +1,6 @@
 import type { Config } from '@farfetch/blackout-client';
 
-export type UseCountryCitiesOptions = {
+export type UseCountryStateCitiesOptions = {
   enableAutoFetch?: boolean;
   fetchConfig?: Config;
 };
