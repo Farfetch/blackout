@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.196](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.195...@farfetch/blackout-client@2.0.0-next.196) (2022-08-16)
+
+
+### Features
+
+* **react:** add user addresses hooks ([a1c8427](https://github.com/Farfetch/blackout/commit/a1c84270c3ca13455300e7b27eecd769830c4215))
+
+
+
+
+
 # [2.0.0-next.195](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.194...@farfetch/blackout-client@2.0.0-next.195) (2022-08-16)
 
 

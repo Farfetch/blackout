@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.301](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.300...@farfetch/blackout-react@1.0.0-next.301) (2022-08-16)
+
+
+### Features
+
+* **react:** add user addresses hooks ([a1c8427](https://github.com/Farfetch/blackout/commit/a1c84270c3ca13455300e7b27eecd769830c4215))
+
+
+
+
+
 # [1.0.0-next.300](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.299...@farfetch/blackout-react@1.0.0-next.300) (2022-08-16)
 
 **Note:** Version bump only for package @farfetch/blackout-react
