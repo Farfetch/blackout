@@ -1,11 +1,11 @@
 import {
   mockCountryCode as countryCode,
-  mockCountryCitiesResponse,
+  mockCountryStateCitiesResponse,
   mockStateId as stateId,
 } from 'tests/__fixtures__/locale';
-import { getCountryCities } from '..';
 import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getCountryCities.fixtures';
+import fixtures from '../__fixtures__/getCountryStateCities.fixtures';
+import getCountryStateCities from '../getCountryStateCities';
 import join from 'proper-url-join';
 import mswServer from '../../../tests/mswServer';
 
@@ -16,17 +16,17 @@ describe('locale client', () => {
     jest.clearAllMocks();
   });
 
-  describe('getCountryCities()', () => {
+  describe('getCountryStateCities()', () => {
     const spy = jest.spyOn(client, 'get');
 
     it('should handle a client request successfully', async () => {
-      mswServer.use(fixtures.get.success(mockCountryCitiesResponse));
+      mswServer.use(fixtures.get.success(mockCountryStateCitiesResponse));
 
       expect.assertions(2);
 
-      await expect(getCountryCities(countryCode, stateId)).resolves.toEqual(
-        mockCountryCitiesResponse,
-      );
+      await expect(
+        getCountryStateCities(countryCode, stateId),
+      ).resolves.toEqual(mockCountryStateCitiesResponse);
 
       expect(spy).toHaveBeenCalledWith(
         join(
@@ -46,7 +46,7 @@ describe('locale client', () => {
       expect.assertions(2);
 
       await expect(
-        getCountryCities(countryCode, stateId),
+        getCountryStateCities(countryCode, stateId),
       ).rejects.toMatchSnapshot();
 
       expect(spy).toHaveBeenCalledWith(

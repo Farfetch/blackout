@@ -63,7 +63,7 @@ export const mockCountry = {
   nativeName: 'United States',
 };
 
-export const mockCountryCitiesResponse = {
+export const mockCountryStateCitiesResponse = {
   items: mockCities,
 };
 

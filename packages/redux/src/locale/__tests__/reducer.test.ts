@@ -55,20 +55,20 @@ describe('locale redux reducer', () => {
       expect(state).toEqual(initialState.cities);
     });
 
-    it('should handle FETCH_COUNTRY_CITIES_REQUEST action type', () => {
+    it('should handle FETCH_COUNTRY_STATE_CITIES_REQUEST action type', () => {
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_COUNTRY_CITIES_REQUEST,
+          type: actionTypes.FETCH_COUNTRY_STATE_CITIES_REQUEST,
           payload: { foo: 'bar' },
         }).cities,
       ).toEqual({ error: null, isLoading: true });
     });
 
-    it('should handle FETCH_COUNTRY_CITIES_FAILURE action type', () => {
+    it('should handle FETCH_COUNTRY_STATE_CITIES_FAILURE action type', () => {
       const mockError = 'Get cities error';
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_COUNTRY_CITIES_FAILURE,
+          type: actionTypes.FETCH_COUNTRY_STATE_CITIES_FAILURE,
           payload: { error: mockError, foo: 'bar' },
         }).cities,
       ).toEqual({
@@ -77,10 +77,10 @@ describe('locale redux reducer', () => {
       });
     });
 
-    it('should handle FETCH_COUNTRY_CITIES_SUCCESS action type', () => {
+    it('should handle FETCH_COUNTRY_STATE_CITIES_SUCCESS action type', () => {
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_COUNTRY_CITIES_SUCCESS,
+          type: actionTypes.FETCH_COUNTRY_STATE_CITIES_SUCCESS,
           payload: { foo: 'bar' },
         }).cities,
       ).toEqual({ error: null, isLoading: false });
@@ -371,20 +371,20 @@ describe('locale redux reducer', () => {
     });
   });
 
-  describe('getAreCountryCitiesLoading() selector', () => {
+  describe('getAreCountryStateCitiesLoading() selector', () => {
     it('should return the `cities.isLoading` property from a given state', () => {
       const state = {
         ...initialState,
         cities: { isLoading: true, error: null },
       };
 
-      expect(fromReducer.getAreCountryCitiesLoading(state)).toEqual(
+      expect(fromReducer.getAreCountryStateCitiesLoading(state)).toEqual(
         state.cities.isLoading,
       );
     });
   });
 
-  describe('getCountryCitiesError() selector', () => {
+  describe('getCountryStateCitiesError() selector', () => {
     it('should return the `cities.error` property from a given state', () => {
       const state = {
         ...initialState,
@@ -397,7 +397,7 @@ describe('locale redux reducer', () => {
         },
       };
 
-      expect(fromReducer.getCountryCitiesError(state)).toEqual(
+      expect(fromReducer.getCountryStateCitiesError(state)).toEqual(
         state.cities.error,
       );
     });

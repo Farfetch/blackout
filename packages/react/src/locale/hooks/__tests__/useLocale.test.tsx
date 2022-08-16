@@ -18,7 +18,7 @@ const stateMockData: StoreState = {
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
-  fetchCountryCities: jest.fn(() => () => Promise.resolve()),
+  fetchCountryStateCities: jest.fn(() => () => Promise.resolve()),
 }));
 
 describe('useLocale', () => {

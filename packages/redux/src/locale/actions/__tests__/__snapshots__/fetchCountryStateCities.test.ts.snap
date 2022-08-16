@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetchCountryCities() action creator should create the correct actions for when the get product details procedure is successful: Get cities success payload 1`] = `
+exports[`fetchCountryStateCities() action creator should create the correct actions for when the get product details procedure is successful: Get cities success payload 1`] = `
 Object {
   "meta": Object {
     "countryCode": "US",
@@ -34,6 +34,6 @@ Object {
     },
     "result": 3,
   },
-  "type": "@farfetch/blackout-redux/FETCH_COUNTRY_CITIES_SUCCESS",
+  "type": "@farfetch/blackout-redux/FETCH_COUNTRY_STATE_CITIES_SUCCESS",
 }
 `;

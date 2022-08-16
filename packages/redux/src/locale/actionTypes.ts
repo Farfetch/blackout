@@ -1,18 +1,18 @@
 /**
  * Action type dispatched when the fetch cities request fails.
  */
-export const FETCH_COUNTRY_CITIES_FAILURE =
-  '@farfetch/blackout-redux/FETCH_COUNTRY_CITIES_FAILURE';
+export const FETCH_COUNTRY_STATE_CITIES_FAILURE =
+  '@farfetch/blackout-redux/FETCH_COUNTRY_STATE_CITIES_FAILURE';
 /**
  * Action type dispatched when the fetch cities request starts.
  */
-export const FETCH_COUNTRY_CITIES_REQUEST =
-  '@farfetch/blackout-redux/FETCH_COUNTRY_CITIES_REQUEST';
+export const FETCH_COUNTRY_STATE_CITIES_REQUEST =
+  '@farfetch/blackout-redux/FETCH_COUNTRY_STATE_CITIES_REQUEST';
 /**
  * Action type dispatched when the fetch cities request succeeds.
  */
-export const FETCH_COUNTRY_CITIES_SUCCESS =
-  '@farfetch/blackout-redux/FETCH_COUNTRY_CITIES_SUCCESS';
+export const FETCH_COUNTRY_STATE_CITIES_SUCCESS =
+  '@farfetch/blackout-redux/FETCH_COUNTRY_STATE_CITIES_SUCCESS';
 
 /**
  * Action type dispatched when the fetch countries request fails.

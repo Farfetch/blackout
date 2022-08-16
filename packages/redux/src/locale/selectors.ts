@@ -4,14 +4,14 @@
 
 import {
   getAreCountriesLoading,
-  getAreCountryCitiesLoading,
   getAreCountryCurrenciesLoading,
+  getAreCountryStateCitiesLoading,
   getAreCountryStatesLoading,
   getCountriesAddressSchemas as getCountriesAddressSchemasFromReducer,
   getCountriesError as getCountriesErrorFromReducer,
-  getCountryCitiesError as getCountryCitiesErrorFromReducer,
   getCountryCode as getCountryCodeFromReducer,
   getCountryCurrenciesError as getCountryCurrenciesErrorFromReducer,
+  getCountryStateCitiesError as getCountryStateCitiesErrorFromReducer,
   getCountryStatesError as getCountryStatesErrorFromReducer,
   getSourceCountryCode as getSourceCountryCodeFromReducer,
 } from './reducer';
@@ -464,10 +464,10 @@ export const areCountryStatesFetched = (
  *
  * @example
  * ```
- * import { getCountryCitiesError } from '@farfetch/blackout-redux/locale';
+ * import { getCountryStateCitiesError } from '@farfetch/blackout-redux/locale';
  *
  * const mapStateToProps = state => ({
- *     error: getCountryCitiesError(state)
+ *     error: getCountryStateCitiesError(state)
  * });
  * ```
  *
@@ -475,18 +475,18 @@ export const areCountryStatesFetched = (
  *
  * @returns - Cities error.
  */
-export const getCountryCitiesError = (state: StoreState) =>
-  getCountryCitiesErrorFromReducer(state.locale as LocaleState);
+export const getCountryStateCitiesError = (state: StoreState) =>
+  getCountryStateCitiesErrorFromReducer(state.locale as LocaleState);
 
 /**
  * Returns the loading status for the cities.
  *
  * @example
  * ```
- * import { areCountryCitiesLoading } from '@farfetch/blackout-redux/locale';
+ * import { areCountryStateCitiesLoading } from '@farfetch/blackout-redux/locale';
  *
  * const mapStateToProps = state => ({
- *     isLoading: areCountryCitiesLoading(state)
+ *     isLoading: areCountryStateCitiesLoading(state)
  * });
  * ```
  *
@@ -494,8 +494,8 @@ export const getCountryCitiesError = (state: StoreState) =>
  *
  * @returns - Cities Loading status.
  */
-export const areCountryCitiesLoading = (state: StoreState) =>
-  getAreCountryCitiesLoading(state.locale as LocaleState);
+export const areCountryStateCitiesLoading = (state: StoreState) =>
+  getAreCountryStateCitiesLoading(state.locale as LocaleState);
 
 /**
  * Returns a specific city by its id.
@@ -509,14 +509,14 @@ export const getCity = (state: StoreState, id: number) =>
   getEntityById(state, 'cities', id);
 
 /**
- * Returns all the country cities.
+ * Returns all the country state cities.
  *
  * @example
  * ```
- * import { getCountryCities } from '@farfetch/blackout-redux/locale';
+ * import { getCountryStateCities } from '@farfetch/blackout-redux/locale';
  *
  * const mapStateToProps = state => ({
- *     cities: getCountryCities(state, stateId)
+ *     cities: getCountryStateCities(state, stateId)
  * });
  * ```
  *
@@ -525,7 +525,7 @@ export const getCity = (state: StoreState, id: number) =>
  *
  * @returns - All the cities related to the stateId received.
  */
-export const getCountryCities = (state: StoreState, stateId: number) => {
+export const getCountryStateCities = (state: StoreState, stateId: number) => {
   const stateEntity = getState(state, stateId);
 
   if (!stateEntity) {
@@ -555,20 +555,23 @@ export const getCountryCity = (state: StoreState, id: number) =>
  *
  * @example
  * ```
- * import { areCountryCitiesFetched } from '@farfetch/blackout-redux';
+ * import { areCountryStateCitiesFetched } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
- *     isFetched: areCountryCitiesFetched(state)
+ *     isFetched: areCountryStateCitiesFetched(state)
  * });
  * ```
  * @param state - Application state.
  *
  * @returns isFetched status of country state cities.
  */
-export const areCountryCitiesFetched = (state: StoreState, stateId: number) =>
-  ((getCountryCities(state, stateId)?.length ?? 0) > 0 ||
-    !!getCountryCitiesError(state)) &&
-  !areCountryCitiesLoading(state);
+export const areCountryStateCitiesFetched = (
+  state: StoreState,
+  stateId: number,
+) =>
+  ((getCountryStateCities(state, stateId)?.length ?? 0) > 0 ||
+    !!getCountryStateCitiesError(state)) &&
+  !areCountryStateCitiesLoading(state);
 
 /**
  * Returns a list of country currencies. By default, returns the currencies of the
