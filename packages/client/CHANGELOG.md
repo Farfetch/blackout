@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.195](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.194...@farfetch/blackout-client@2.0.0-next.195) (2022-08-16)
+
+
+### Bug Fixes
+
+* **client:** fix adaptError for errors with no response description ([b69b487](https://github.com/Farfetch/blackout/commit/b69b487f1e9ba92dd1c73f02a05c62979842c972))
+
+
+
+
+
 # [2.0.0-next.194](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.193...@farfetch/blackout-client@2.0.0-next.194) (2022-08-12)
 
 
