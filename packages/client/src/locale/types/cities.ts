@@ -7,12 +7,12 @@ export interface City {
   countryId?: number;
 }
 
-export type GetCountryCitiesResponse = {
+export type GetCountryStateCitiesResponse = {
   items: City[];
 };
 
-export type GetCountryCities = (
+export type GetCountryStateCities = (
   countryCode: string,
   stateId: number,
   config?: Config,
-) => Promise<GetCountryCitiesResponse>;
+) => Promise<GetCountryStateCitiesResponse>;

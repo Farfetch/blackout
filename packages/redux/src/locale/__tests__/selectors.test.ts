@@ -55,22 +55,26 @@ describe('locale redux selectors', () => {
 
   beforeEach(jest.clearAllMocks);
 
-  describe('areCountryCitiesLoading()', () => {
+  describe('areCountryStateCitiesLoading()', () => {
     it('should get the loading status', () => {
       const expectedResult = mockState.locale.cities.isLoading;
-      const spy = jest.spyOn(fromLocale, 'getAreCountryCitiesLoading');
+      const spy = jest.spyOn(fromLocale, 'getAreCountryStateCitiesLoading');
 
-      expect(selectors.areCountryCitiesLoading(mockState)).toBe(expectedResult);
+      expect(selectors.areCountryStateCitiesLoading(mockState)).toBe(
+        expectedResult,
+      );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getCountryCitiesError()', () => {
+  describe('getCountryStateCitiesError()', () => {
     it('should get the error', () => {
       const expectedResult = mockState.locale.cities.error;
-      const spy = jest.spyOn(fromLocale, 'getCountryCitiesError');
+      const spy = jest.spyOn(fromLocale, 'getCountryStateCitiesError');
 
-      expect(selectors.getCountryCitiesError(mockState)).toBe(expectedResult);
+      expect(selectors.getCountryStateCitiesError(mockState)).toBe(
+        expectedResult,
+      );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -217,9 +221,9 @@ describe('locale redux selectors', () => {
     });
   });
 
-  describe('getCountryCities()', () => {
+  describe('getCountryStateCities()', () => {
     it('should get all the cities for a specific countryCode and stateId', () => {
-      expect(selectors.getCountryCities(mockState, mockStateId)).toEqual([
+      expect(selectors.getCountryStateCities(mockState, mockStateId)).toEqual([
         mockCities[0],
       ]);
     });

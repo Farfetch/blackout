@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import * as normalizr from 'normalizr';
-import { City, getCountryCities } from '@farfetch/blackout-client';
-import { fetchCountryCities } from '..';
+import { City, getCountryStateCities } from '@farfetch/blackout-client';
+import { fetchCountryStateCities } from '..';
 import { INITIAL_STATE_LOCALE } from '../../reducer';
 import {
   mockCities,
@@ -16,10 +16,10 @@ const localeMockStore = (state = {}) =>
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
-  getCountryCities: jest.fn(),
+  getCountryStateCities: jest.fn(),
 }));
 
-describe('fetchCountryCities() action creator', () => {
+describe('fetchCountryStateCities() action creator', () => {
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
   const expectedConfig = undefined;
 
@@ -34,16 +34,18 @@ describe('fetchCountryCities() action creator', () => {
   it('should create the correct actions for when the get cities procedure fails', async () => {
     const expectedError = new Error('Get cities error');
 
-    getCountryCities.mockRejectedValueOnce(expectedError);
+    getCountryStateCities.mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
     try {
-      await store.dispatch(fetchCountryCities(mockCountryCode, mockStateId));
+      await store.dispatch(
+        fetchCountryStateCities(mockCountryCode, mockStateId),
+      );
     } catch (error) {
       expect(error).toBe(expectedError);
-      expect(getCountryCities).toHaveBeenCalledTimes(1);
-      expect(getCountryCities).toHaveBeenCalledWith(
+      expect(getCountryStateCities).toHaveBeenCalledTimes(1);
+      expect(getCountryStateCities).toHaveBeenCalledWith(
         mockCountryCode,
         mockStateId,
         expectedConfig,
@@ -54,7 +56,7 @@ describe('fetchCountryCities() action creator', () => {
             countryCode: mockCountryCode,
             stateId: mockStateId,
           },
-          type: actionTypes.FETCH_COUNTRY_CITIES_REQUEST,
+          type: actionTypes.FETCH_COUNTRY_STATE_CITIES_REQUEST,
         },
         {
           meta: {
@@ -62,24 +64,24 @@ describe('fetchCountryCities() action creator', () => {
             stateId: mockStateId,
           },
           payload: { error: expectedError },
-          type: actionTypes.FETCH_COUNTRY_CITIES_FAILURE,
+          type: actionTypes.FETCH_COUNTRY_STATE_CITIES_FAILURE,
         },
       ]);
     }
   });
 
   it('should create the correct actions for when the get product details procedure is successful', async () => {
-    getCountryCities.mockResolvedValueOnce(mockCities);
+    getCountryStateCities.mockResolvedValueOnce(mockCities);
 
     const actionResults = store.getActions();
 
     await store
-      .dispatch(fetchCountryCities(mockCountryCode, mockStateId))
+      .dispatch(fetchCountryStateCities(mockCountryCode, mockStateId))
       .then((result: City[]) => expect(result).toBe(mockCities));
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
-    expect(getCountryCities).toHaveBeenCalledTimes(1);
-    expect(getCountryCities).toHaveBeenCalledWith(
+    expect(getCountryStateCities).toHaveBeenCalledTimes(1);
+    expect(getCountryStateCities).toHaveBeenCalledWith(
       mockCountryCode,
       mockStateId,
       expectedConfig,
@@ -90,7 +92,7 @@ describe('fetchCountryCities() action creator', () => {
           countryCode: mockCountryCode,
           stateId: mockStateId,
         },
-        type: actionTypes.FETCH_COUNTRY_CITIES_REQUEST,
+        type: actionTypes.FETCH_COUNTRY_STATE_CITIES_REQUEST,
       },
       expect.objectContaining({
         meta: {
@@ -98,12 +100,12 @@ describe('fetchCountryCities() action creator', () => {
           stateId: mockStateId,
         },
         payload: expect.any(Object),
-        type: actionTypes.FETCH_COUNTRY_CITIES_SUCCESS,
+        type: actionTypes.FETCH_COUNTRY_STATE_CITIES_SUCCESS,
       }),
     ]);
     expect(
       find(actionResults, {
-        type: actionTypes.FETCH_COUNTRY_CITIES_SUCCESS,
+        type: actionTypes.FETCH_COUNTRY_STATE_CITIES_SUCCESS,
       }),
     ).toMatchSnapshot('Get cities success payload');
   });

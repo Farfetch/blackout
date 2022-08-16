@@ -1,7 +1,7 @@
 import { adaptError } from '../helpers/client/formatError';
 import client from '../helpers/client';
 import join from 'proper-url-join';
-import type { GetCountryCities } from './types';
+import type { GetCountryStateCities } from './types';
 
 /**
  * Gets all the country cities by state id.
@@ -12,7 +12,11 @@ import type { GetCountryCities } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getCountryCities: GetCountryCities = (countryCode, stateId, config) =>
+const getCountryStateCities: GetCountryStateCities = (
+  countryCode,
+  stateId,
+  config,
+) =>
   client
     .get(
       join('/settings/v1/countries', countryCode, 'states', stateId, 'cities'),
@@ -23,4 +27,4 @@ const getCountryCities: GetCountryCities = (countryCode, stateId, config) =>
       throw adaptError(error);
     });
 
-export default getCountryCities;
+export default getCountryStateCities;

@@ -2,7 +2,7 @@
  * Locale clients.
  */
 
-export { default as getCountryCities } from './getCountryCities';
+export { default as getCountryStateCities } from './getCountryStateCities';
 export { default as getCountries } from './getCountries';
 export { default as getCountry } from './getCountry';
 export { default as getCountryCurrencies } from './getCountryCurrencies';

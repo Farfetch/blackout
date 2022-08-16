@@ -1,5 +1,5 @@
 import { cleanup, renderHook } from '@testing-library/react';
-import { fetchCountryCities, StoreState } from '@farfetch/blackout-redux';
+import { fetchCountryStateCities, StoreState } from '@farfetch/blackout-redux';
 import {
   mockCities,
   mockCitiesEntities,
@@ -12,7 +12,7 @@ import {
   mockStatesEntities,
 } from 'tests/__fixtures__/locale';
 import { withStore } from '../../../../tests/helpers';
-import useCountryCities from '../useCountryCities';
+import useCountryStateCities from '../useCountryStateCities';
 
 const stateMockData: StoreState = {
   ...mockLocaleState,
@@ -34,17 +34,17 @@ const stateMockInitialData: StoreState = {
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
-  fetchCountryCities: jest.fn(() => () => Promise.resolve()),
+  fetchCountryStateCities: jest.fn(() => () => Promise.resolve()),
 }));
 
-describe('useCountryCities', () => {
+describe('useCountryStateCities', () => {
   beforeEach(jest.clearAllMocks);
   afterEach(cleanup);
 
   it('should return correctly with initial state', () => {
     const {
       result: { current },
-    } = renderHook(() => useCountryCities(mockCountryCode, mockStateId), {
+    } = renderHook(() => useCountryStateCities(mockCountryCode, mockStateId), {
       wrapper: withStore(stateMockData),
     });
 
@@ -53,7 +53,9 @@ describe('useCountryCities', () => {
       isLoading: false,
       isFetched: true,
       data: {
-        countryCities: mockCities.filter(city => city.stateId === mockStateId),
+        countryStateCities: mockCities.filter(
+          city => city.stateId === mockStateId,
+        ),
       },
       actions: {
         fetch: expect.any(Function),
@@ -72,7 +74,7 @@ describe('useCountryCities', () => {
       result: {
         current: { error, isFetched },
       },
-    } = renderHook(() => useCountryCities(mockCountryCode, mockStateId), {
+    } = renderHook(() => useCountryStateCities(mockCountryCode, mockStateId), {
       wrapper: withStore({
         ...stateMockData,
         locale: {
@@ -94,7 +96,7 @@ describe('useCountryCities', () => {
       result: {
         current: { isLoading, isFetched },
       },
-    } = renderHook(() => useCountryCities(mockCountryCode, mockStateId), {
+    } = renderHook(() => useCountryStateCities(mockCountryCode, mockStateId), {
       wrapper: withStore({
         ...stateMockData,
         locale: {
@@ -113,11 +115,11 @@ describe('useCountryCities', () => {
 
   describe('options', () => {
     it('should call fetch data if `enableAutoFetch` option is true', () => {
-      renderHook(() => useCountryCities(mockCountryCode, mockStateId), {
+      renderHook(() => useCountryStateCities(mockCountryCode, mockStateId), {
         wrapper: withStore(stateMockInitialData),
       });
 
-      expect(fetchCountryCities).toHaveBeenCalledWith(
+      expect(fetchCountryStateCities).toHaveBeenCalledWith(
         mockCountryCode,
         mockStateId,
         undefined,
@@ -127,7 +129,7 @@ describe('useCountryCities', () => {
     it('should not fetch data if `enableAutoFetch` option is false', () => {
       renderHook(
         () =>
-          useCountryCities(mockCountryCode, mockStateId, {
+          useCountryStateCities(mockCountryCode, mockStateId, {
             enableAutoFetch: false,
           }),
         {
@@ -135,7 +137,7 @@ describe('useCountryCities', () => {
         },
       );
 
-      expect(fetchCountryCities).not.toHaveBeenCalled();
+      expect(fetchCountryStateCities).not.toHaveBeenCalled();
     });
   });
 
@@ -149,7 +151,7 @@ describe('useCountryCities', () => {
         },
       } = renderHook(
         () =>
-          useCountryCities(mockCountryCode, mockStateId, {
+          useCountryStateCities(mockCountryCode, mockStateId, {
             enableAutoFetch: false,
           }),
         {
@@ -159,7 +161,7 @@ describe('useCountryCities', () => {
 
       await fetch(mockCountryCode);
 
-      expect(fetchCountryCities).toHaveBeenCalledWith(mockCountryCode);
+      expect(fetchCountryStateCities).toHaveBeenCalledWith(mockCountryCode);
     });
   });
 });

@@ -40,8 +40,8 @@ export interface ActionFetchCountrySuccess extends Action {
   payload: { result: Country };
 }
 
-export interface ActionFetchCountryCitiesFailure extends Action {
-  type: typeof actionTypes.FETCH_COUNTRY_CITIES_FAILURE;
+export interface ActionFetchCountryStateCitiesFailure extends Action {
+  type: typeof actionTypes.FETCH_COUNTRY_STATE_CITIES_FAILURE;
   payload: { error: BlackoutError };
   meta: {
     countryCode: string;
@@ -49,16 +49,16 @@ export interface ActionFetchCountryCitiesFailure extends Action {
   };
 }
 
-export interface ActionFetchCountryCitiesRequest extends Action {
-  type: typeof actionTypes.FETCH_COUNTRY_CITIES_REQUEST;
+export interface ActionFetchCountryStateCitiesRequest extends Action {
+  type: typeof actionTypes.FETCH_COUNTRY_STATE_CITIES_REQUEST;
   meta: {
     countryCode: string;
     stateId: number;
   };
 }
 
-export interface ActionFetchCountryCitiesSuccess extends Action {
-  type: typeof actionTypes.FETCH_COUNTRY_CITIES_SUCCESS;
+export interface ActionFetchCountryStateCitiesSuccess extends Action {
+  type: typeof actionTypes.FETCH_COUNTRY_STATE_CITIES_SUCCESS;
   payload: City[];
   meta: {
     countryCode: string;
@@ -134,10 +134,10 @@ export type ActionFetchCountries =
   | ActionFetchCountriesRequest
   | ActionFetchCountriesSuccess;
 
-export type ActionFetchCountryCities =
-  | ActionFetchCountryCitiesFailure
-  | ActionFetchCountryCitiesRequest
-  | ActionFetchCountryCitiesSuccess;
+export type ActionFetchCountryStateCities =
+  | ActionFetchCountryStateCitiesFailure
+  | ActionFetchCountryStateCitiesRequest
+  | ActionFetchCountryStateCitiesSuccess;
 
 export type ActionFetchCountryCurrencies =
   | ActionFetchCountryCurrenciesFailure
