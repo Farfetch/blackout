@@ -1,5 +1,5 @@
 import * as actionTypes from '../actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import omit from 'lodash/omit';
 import type {
   DehydrateProductDetailsAction,
@@ -142,10 +142,10 @@ const reducers = combineReducers({
  *
  * @returns New state.
  */
-const productsDetailsReducer = (
-  state: ProductsDetailsState,
-  action: AnyAction,
-): ProductsDetailsState => {
+const productsDetailsReducer: Reducer<ProductsDetailsState> = (
+  state,
+  action,
+) => {
   if (
     action.type === actionTypes.RESET_PRODUCT_DETAILS_STATE &&
     !(action as ResetProductDetailsStateAction).productIds?.length

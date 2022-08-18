@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import get from 'lodash/get';
 import produce from 'immer';
 import reducerFactory from '../helpers/reducerFactory';
@@ -240,10 +240,7 @@ export const entitiesMapper = {
  * @returns New state.
  */
 
-const localeReducer = (
-  state: LocaleState | undefined,
-  action: AnyAction,
-): LocaleState => {
+const localeReducer: Reducer<LocaleState> = (state, action) => {
   if (action.type === actionTypes.RESET_LOCALE_STATE) {
     return reducers(undefined, action);
   }

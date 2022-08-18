@@ -7,5 +7,4 @@ export type ReturnsState = {
   isLoading: boolean;
   returns: StateWithoutResult;
   pickupCapabilities: StateWithoutResult;
-  [k: string]: unknown;
 };

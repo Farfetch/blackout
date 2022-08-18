@@ -23,5 +23,4 @@ export type OrdersState = CombinedState<{
   documents: StateWithoutResult;
   orderAvailableItemsActivities: StateWithoutResult;
   orderItemAvailableActivities: StateWithoutResult;
-  [k: string]: unknown;
 }>;

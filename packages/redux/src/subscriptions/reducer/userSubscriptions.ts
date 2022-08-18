@@ -1,7 +1,6 @@
 import * as actionTypes from '../actionTypes';
 import * as authenticationActionTypes from '../../users/authentication/actionTypes';
-import { AnyAction, combineReducers } from 'redux';
-import type { ReducerSwitch } from '../../types';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import type {
   Subscription,
   SubscriptionTopic,
@@ -282,10 +281,10 @@ const reducer = combineReducers({
  * @returns New state.
  */
 
-const userSubscriptionsReducer: ReducerSwitch<
-  UserSubscriptionsState,
-  AnyAction
-> = (state = INITIAL_STATE, action): UserSubscriptionsState => {
+const userSubscriptionsReducer: Reducer<UserSubscriptionsState> = (
+  state = INITIAL_STATE,
+  action,
+) => {
   switch (action.type) {
     case actionTypes.RESET_SUBSCRIPTIONS:
     case authenticationActionTypes.LOGOUT_SUCCESS:

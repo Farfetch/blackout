@@ -1,7 +1,6 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import type { FormsResult, FormsState } from './types';
-import type { ReducerSwitch } from '../types';
 
 export const INITIAL_STATE: FormsState = {
   result: {},
@@ -140,10 +139,7 @@ const reducers = combineReducers({
  * @returns New state.
  */
 
-const formsReducer: ReducerSwitch<FormsState, AnyAction> = (
-  state = INITIAL_STATE,
-  action,
-): FormsState => {
+const formsReducer: Reducer<FormsState> = (state = INITIAL_STATE, action) => {
   if (action.type === actionTypes.RESET_FORM_SCHEMAS) {
     return reducers(INITIAL_STATE, action);
   }

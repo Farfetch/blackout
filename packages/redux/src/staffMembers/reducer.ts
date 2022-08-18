@@ -1,6 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
-import type { ReducerSwitch } from '../types';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import type { StaffMembersState } from './types';
 
 export const INITIAL_STATE: StaffMembersState = {
@@ -78,11 +77,10 @@ export const getResult = (
  *
  * @returns New state.
  */
-const staffMembersReducer: ReducerSwitch<StaffMembersState, AnyAction> =
-  combineReducers({
-    error,
-    isLoading,
-    result,
-  });
+const staffMembersReducer: Reducer<StaffMembersState> = combineReducers({
+  error,
+  isLoading,
+  result,
+});
 
 export default staffMembersReducer;

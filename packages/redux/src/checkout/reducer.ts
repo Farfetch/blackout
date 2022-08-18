@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import assignWith from 'lodash/assignWith';
 import createMergedObject from '../helpers/createMergedObject';
@@ -569,7 +569,7 @@ export const getUpdateOrderItem = (
  *
  * @returns New state.
  */
-export default combineReducers({
+const checkoutReducer: Reducer<CheckoutState> = combineReducers({
   error,
   id,
   isLoading,
@@ -588,3 +588,5 @@ export default combineReducers({
   removeOrderItem,
   updateOrderItem,
 });
+
+export default checkoutReducer;

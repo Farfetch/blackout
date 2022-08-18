@@ -1,15 +1,14 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  mockRecommendedSet,
+  mockRecommendedSetId,
+} from 'tests/__fixtures__/products';
+import recommendedSetsReducer, {
   getError,
   getIsLoading,
   getResult,
   INITIAL_STATE,
-  recommendedSetsReducer,
 } from '../recommendedSet';
-import {
-  mockRecommendedSet,
-  mockRecommendedSetId,
-} from 'tests/__fixtures__/products';
 
 describe('recommended sets redux recommendedSetsReducer', () => {
   let initialState;

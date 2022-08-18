@@ -1,10 +1,7 @@
 import * as actionTypes from '../actionTypes';
 import * as authenticationActionTypes from '../../users/authentication/actionTypes';
-import { AnyAction, combineReducers } from 'redux';
-import type { ProductsState } from '../types';
-import type { ReducerSwitch } from '../../types';
-
-type RecommendedProductsState = ProductsState['recommendedProducts'];
+import { AnyAction, combineReducers, Reducer } from 'redux';
+import type { RecommendedProductsState } from '../types';
 
 export const INITIAL_STATE: RecommendedProductsState = {
   error: {},
@@ -98,10 +95,10 @@ const reducers = combineReducers({
  *
  * @returns New state.
  */
-const recommendationsReducer: ReducerSwitch<
-  RecommendedProductsState,
-  AnyAction
-> = (state = INITIAL_STATE, action): RecommendedProductsState => {
+const recommendationsReducer: Reducer<RecommendedProductsState> = (
+  state = INITIAL_STATE,
+  action,
+) => {
   if (
     action.type === actionTypes.RESET_RECOMMENDED_PRODUCTS ||
     action.type === authenticationActionTypes.LOGOUT_SUCCESS

@@ -1,8 +1,7 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import type * as T from './types';
-import type { ReducerSwitch } from '../types';
 
 export const INITIAL_STATE: T.AddressesState = {
   predictions: {
@@ -93,7 +92,7 @@ const reducer = combineReducers({
  *
  * @returns New state.
  */
-const addressesReducer: ReducerSwitch<T.AddressesState> = (state, action) => {
+const addressesReducer: Reducer<T.AddressesState> = (state, action) => {
   if (
     action.type === LOGOUT_SUCCESS ||
     action.type === actionTypes.RESET_ADDRESS_PREDICTIONS
