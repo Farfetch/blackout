@@ -2,8 +2,8 @@ import type { CheckoutOrderOperationChange } from './checkoutOrderOperationChang
 import type { CheckoutViolation } from './checkoutViolation.types';
 
 export type CheckoutOrderOperation = {
-  id?: string;
-  createdDate?: string;
-  changes?: Array<CheckoutOrderOperationChange>;
-  violations?: Array<CheckoutViolation>;
+  id: string;
+  createdDate: string;
+  changes: Array<CheckoutOrderOperationChange>;
+  violations: Array<CheckoutViolation>;
 };

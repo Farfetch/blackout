@@ -25,7 +25,7 @@ describe('getUserCreditMovements', () => {
       mockGetCreditMovementsResponse,
     );
     expect(spy).toHaveBeenCalledWith(
-      `/legacy/v1/users/${userId}/creditMovements?to=2017-07-01T00%3A00%3A00`,
+      `/account/v1/users/${userId}/creditMovements?to=2017-07-01T00%3A00%3A00`,
       expectedConfig,
     );
   });
@@ -35,7 +35,7 @@ describe('getUserCreditMovements', () => {
       page: 1,
       pageSize: 1,
     };
-    const expectedUrl = `/legacy/v1/users/${userId}/creditMovements?page=${query.page}&pageSize=${query.pageSize}`;
+    const expectedUrl = `/account/v1/users/${userId}/creditMovements?page=${query.page}&pageSize=${query.pageSize}`;
     mswServer.use(fixtures.success(mockGetCreditMovementsResponse));
 
     expect.assertions(2);
@@ -51,7 +51,7 @@ describe('getUserCreditMovements', () => {
       from: new Date('2020-01-20').toISOString(),
       to: new Date('2020-02-10').toISOString(),
     };
-    const expectedUrl = join(`/legacy/v1/users/${userId}/creditMovements`, {
+    const expectedUrl = join(`/account/v1/users/${userId}/creditMovements`, {
       query,
     });
 
@@ -75,7 +75,7 @@ describe('getUserCreditMovements', () => {
       getUserCreditMovements(userId, query),
     ).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      `/legacy/v1/users/${userId}/creditMovements`,
+      `/account/v1/users/${userId}/creditMovements`,
       expectedConfig,
     );
   });

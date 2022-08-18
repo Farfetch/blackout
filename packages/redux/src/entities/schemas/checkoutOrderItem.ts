@@ -12,7 +12,7 @@ export default new schema.Entity(
   'checkoutOrderItems',
   { product: checkoutOrderItemProduct, merchant },
   {
-    processStrategy: value => {
+    processStrategy: (value, parent) => {
       const {
         attributes,
         categories,
@@ -38,6 +38,9 @@ export default new schema.Entity(
         ...item
       } = value;
 
+      const finalProductImgQueryParam =
+        productImgQueryParam || parent.productImgQueryParam;
+
       item.dateCreated = adaptDate(dateCreated);
       item.size = adaptAttributes(attributes);
 
@@ -54,7 +57,7 @@ export default new schema.Entity(
         item.productAggregator = {
           ...productAggregator,
           images: adaptProductImages(productAggregator.images.images, {
-            productImgQueryParam,
+            productImgQueryParam: finalProductImgQueryParam,
           }),
         };
       }
@@ -77,7 +80,7 @@ export default new schema.Entity(
         merchant, // NOTE: This prop is now redundant but I have kept it for backwards-compatibility. It might be better to remove this property (and maybe other properties) from here as they might clash when there are different order items for the same product but different merchants.
         name: productName,
         price, // NOTE: Same as merchant prop
-        productImgQueryParam,
+        productImgQueryParam: finalProductImgQueryParam,
         sizes,
         slug: productSlug,
         variants,

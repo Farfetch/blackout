@@ -48,9 +48,9 @@ describe('addOrderItemActivities() action creator', () => {
       );
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
-          { type: actionTypes.ADD_ORDER_ITEM_ACTIVITIES_REQUEST },
+          { type: actionTypes.ADD_ORDER_ITEM_ACTIVITY_REQUEST },
           {
-            type: actionTypes.ADD_ORDER_ITEM_ACTIVITIES_FAILURE,
+            type: actionTypes.ADD_ORDER_ITEM_ACTIVITY_FAILURE,
             payload: { error: expectedError },
           },
         ]),
@@ -77,8 +77,8 @@ describe('addOrderItemActivities() action creator', () => {
       expectedConfig,
     );
     expect(store.getActions()).toEqual([
-      { type: actionTypes.ADD_ORDER_ITEM_ACTIVITIES_REQUEST },
-      { type: actionTypes.ADD_ORDER_ITEM_ACTIVITIES_SUCCESS },
+      { type: actionTypes.ADD_ORDER_ITEM_ACTIVITY_REQUEST },
+      { type: actionTypes.ADD_ORDER_ITEM_ACTIVITY_SUCCESS },
     ]);
   });
 });

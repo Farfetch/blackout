@@ -1,14 +1,15 @@
 import * as actionTypes from '../actionTypes';
 import * as fromReducer from '../reducer';
 import {
-  expectedNormalizedPayload,
-  expectedOrderDetailsNormalizedPayload,
   expectedOrderReturnOptionsNormalizedPayload,
-  expectedTrackingNormalizedPayload,
-  merchantId,
+  expectedOrdersResponseNormalizedPayload,
+  getExpectedOrderDetailsNormalizedPayload,
   merchantId2,
+  mockState,
+  orderEntity,
   orderId,
-  orderItemId,
+  returnOptionId,
+  returnOptionId2,
 } from 'tests/__fixtures__/orders';
 import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
 import merge from 'lodash/merge';
@@ -25,11 +26,20 @@ describe('orders reducer', () => {
   });
 
   describe('reset handling', () => {
-    it('should return the initial state when is a LOGOUT_SUCCESS action', () => {
+    it('should return the initial state when it receives a `LOGOUT_SUCCESS` action', () => {
       expect(
         reducer(undefined, {
           payload: {},
           type: LOGOUT_SUCCESS,
+        }),
+      ).toEqual(initialState);
+    });
+
+    it('should return the initial state when it receives a `RESET_ORDERS` action', () => {
+      expect(
+        reducer(undefined, {
+          payload: {},
+          type: actionTypes.RESET_ORDERS,
         }),
       ).toEqual(initialState);
     });
@@ -44,9 +54,14 @@ describe('orders reducer', () => {
     });
 
     it.each([
-      actionTypes.FETCH_ORDERS_REQUEST,
+      actionTypes.FETCH_ORDER_REQUEST,
+      actionTypes.FETCH_ORDER_RETURNS_REQUEST,
+      actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST,
+      actionTypes.FETCH_USER_ORDERS_REQUEST,
+      actionTypes.FETCH_GUEST_ORDERS_REQUEST,
       actionTypes.FETCH_SHIPMENT_TRACKINGS_REQUEST,
-      actionTypes.RESET_ORDERS,
+      actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_REQUEST,
+      actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(
@@ -55,20 +70,32 @@ describe('orders reducer', () => {
           },
           {
             type: actionType,
+            meta: {
+              orderId,
+            },
           },
         ).error,
       ).toBe(initialState.error);
     });
 
     it.each([
-      actionTypes.FETCH_ORDERS_FAILURE,
+      actionTypes.FETCH_ORDER_FAILURE,
+      actionTypes.FETCH_ORDER_RETURNS_FAILURE,
+      actionTypes.FETCH_ORDER_RETURN_OPTIONS_FAILURE,
+      actionTypes.FETCH_USER_ORDERS_FAILURE,
+      actionTypes.FETCH_GUEST_ORDERS_FAILURE,
       actionTypes.FETCH_SHIPMENT_TRACKINGS_FAILURE,
+      actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_FAILURE,
+      actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE,
     ])('should handle %s action type', actionType => {
       const error = 'foo';
       expect(
         reducer(undefined, {
           payload: { error },
           type: actionType,
+          meta: {
+            orderId,
+          },
         }).error,
       ).toBe(error);
     });
@@ -89,37 +116,63 @@ describe('orders reducer', () => {
     });
 
     it.each([
-      actionTypes.FETCH_ORDERS_REQUEST,
+      actionTypes.FETCH_USER_ORDERS_REQUEST,
+      actionTypes.FETCH_GUEST_ORDERS_REQUEST,
+      actionTypes.FETCH_ORDER_REQUEST,
+      actionTypes.FETCH_ORDER_RETURNS_REQUEST,
+      actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST,
       actionTypes.FETCH_SHIPMENT_TRACKINGS_REQUEST,
+      actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_REQUEST,
+      actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
           type: actionType,
+          meta: {
+            orderId,
+          },
         }).isLoading,
       ).toBe(true);
     });
 
     it.each([
-      actionTypes.FETCH_ORDERS_SUCCESS,
+      actionTypes.FETCH_USER_ORDERS_SUCCESS,
+      actionTypes.FETCH_GUEST_ORDERS_SUCCESS,
+      actionTypes.FETCH_ORDER_SUCCESS,
+      actionTypes.FETCH_ORDER_RETURNS_SUCCESS,
+      actionTypes.FETCH_ORDER_RETURN_OPTIONS_SUCCESS,
       actionTypes.FETCH_SHIPMENT_TRACKINGS_SUCCESS,
-      actionTypes.RESET_ORDERS,
+      actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_SUCCESS,
+      actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_SUCCESS,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
           payload: { result: '' },
           type: actionType,
+          meta: {
+            orderId,
+          },
         }).isLoading,
       ).toBe(initialState.isLoading);
     });
 
     it.each([
-      actionTypes.FETCH_ORDERS_FAILURE,
+      actionTypes.FETCH_USER_ORDERS_FAILURE,
+      actionTypes.FETCH_GUEST_ORDERS_FAILURE,
+      actionTypes.FETCH_ORDER_FAILURE,
+      actionTypes.FETCH_ORDER_RETURNS_FAILURE,
+      actionTypes.FETCH_ORDER_RETURN_OPTIONS_FAILURE,
       actionTypes.FETCH_SHIPMENT_TRACKINGS_FAILURE,
+      actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_FAILURE,
+      actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
           payload: { error: '' },
           type: actionType,
+          meta: {
+            orderId,
+          },
         }).isLoading,
       ).toBe(initialState.isLoading);
     });
@@ -128,6 +181,48 @@ describe('orders reducer', () => {
       const state = { isLoading: 'foo' };
 
       expect(reducer(state, randomAction).isLoading).toBe(state.isLoading);
+    });
+  });
+
+  describe('result() reducer', () => {
+    it('should return the initial state', () => {
+      const state = reducer(undefined, randomAction).result;
+
+      expect(state).toBe(initialState.result);
+      expect(state).toBe(null);
+    });
+
+    it('should update the result when `FETCH_USER_ORDERS_SUCCESS` is dispatched', () => {
+      const result = {
+        entries: [{ id: 'ORDVX' }],
+        totalItems: 1,
+        totalPages: 1,
+        number: 1,
+      };
+
+      const state = reducer(undefined, {
+        type: actionTypes.FETCH_USER_ORDERS_SUCCESS,
+        payload: { result },
+      }).result;
+
+      expect(state).toBe(result);
+    });
+
+    it('should update the result when `FETCH_GUEST_ORDERS_SUCCESS` is dispatched', () => {
+      const result = [{ id: 'ORDVX' }];
+
+      const state = reducer(undefined, {
+        type: actionTypes.FETCH_GUEST_ORDERS_SUCCESS,
+        payload: { result },
+      }).result;
+
+      expect(state).toBe(result);
+    });
+
+    it('should handle other actions by returning the previous state', () => {
+      const state = { result: [{ id: 'ORDVX' }] };
+
+      expect(reducer(state, randomAction).result).toBe(state.result);
     });
   });
 
@@ -285,380 +380,132 @@ describe('orders reducer', () => {
   });
 
   describe('entitiesMapper()', () => {
-    const { byMerchant, ...orderEntityDetails } =
-      expectedNormalizedPayload.entities.orders[orderId];
-    const orderEntity = {
-      ...orderEntityDetails,
-      byMerchant: {
-        [merchantId]: {
-          ...byMerchant[merchantId],
-        },
-      },
-    };
+    describe('for FETCH_USER_ORDERS_SUCCESS', () => {
+      const state = mockState.entities;
+      it('should handle FETCH_USER_ORDERS_SUCCESS action type', () => {
+        const expectedEntitiesState = merge(
+          {},
+          {
+            ...state,
+            orders: {},
+            orderItems: {},
+            returnOptions: {},
+            returns: {},
+          },
+          expectedOrdersResponseNormalizedPayload.entities,
+        );
 
-    describe('for FETCH_ORDERS_SUCCESS', () => {
-      const normalizedResult = {
-        orders: {
-          [orderId]: {
-            anotherProp: 123,
-            ...orderEntityDetails,
-            byMerchant: {
-              [merchantId]: {
-                checkoutOrderId: 1,
-                merchant: {
-                  id: merchantId,
-                  name: 'merchant',
-                },
-                merchantOrderCode: 'PZ1129361393',
-                returnAvailable: false,
-                returnId: 26821464,
-                status: 'Reviewing order',
-                tags: [],
-                totalQuantity: 2,
-                userId: 1,
-              },
-            },
-          },
-        },
-      };
-      const normalizedResultWithoutMerchants = {
-        orders: {
-          [orderId]: {
-            anotherProp: 123,
-            ...orderEntityDetails,
-            byMerchant: {},
-          },
-        },
-      };
-      const state = {
-        orders: { [orderId]: orderEntity },
-      };
-      const mappedResult = merge({}, normalizedResult.orders[orderId], {
-        byMerchant: {
-          [merchantId]: {
-            merchant: merchantId,
-          },
-        },
-      });
-      const expectedMappedResult = {
-        merchants: {
-          [merchantId]: {
-            id: merchantId,
-            name: 'merchant',
-          },
-        },
-        orders: {
-          [orderId]: {
-            ...merge({}, orderEntity, mappedResult),
-          },
-        },
-      };
-      const expectedMappedResultWithoutMerchants = {
-        merchants: {},
-        ...normalizedResultWithoutMerchants,
-      };
-
-      it('should handle FETCH_ORDERS_SUCCESS action type', () => {
         expect(
-          entitiesMapper[actionTypes.FETCH_ORDERS_SUCCESS](state, {
-            payload: { entities: normalizedResult },
-            type: actionTypes.FETCH_ORDERS_SUCCESS,
+          entitiesMapper[actionTypes.FETCH_USER_ORDERS_SUCCESS](state, {
+            payload: expectedOrdersResponseNormalizedPayload,
+            type: actionTypes.FETCH_USER_ORDERS_SUCCESS,
           }),
-        ).toEqual(expectedMappedResult);
+        ).toEqual(expectedEntitiesState);
       });
+    });
 
-      it('should handle FETCH_ORDERS_SUCCESS action type when there are no merchants', () => {
+    describe('for FETCH_GUEST_ORDERS_SUCCESS', () => {
+      const state = mockState.entities;
+
+      it('should handle FETCH_GUEST_ORDERS_SUCCESS action type', () => {
+        const expectedEntitiesState = merge(
+          {},
+          {
+            ...state,
+            orders: {},
+            orderItems: {},
+            returnOptions: {},
+            returns: {},
+          },
+          expectedOrdersResponseNormalizedPayload.entities,
+        );
+
         expect(
-          entitiesMapper[actionTypes.FETCH_ORDERS_SUCCESS](state, {
-            payload: { entities: normalizedResultWithoutMerchants },
-            type: actionTypes.FETCH_ORDERS_SUCCESS,
+          entitiesMapper[actionTypes.FETCH_GUEST_ORDERS_SUCCESS](state, {
+            payload: expectedOrdersResponseNormalizedPayload,
+            type: actionTypes.FETCH_GUEST_ORDERS_SUCCESS,
           }),
-        ).toEqual(expectedMappedResultWithoutMerchants);
+        ).toEqual(expectedEntitiesState);
       });
     });
 
     describe('for FETCH_ORDER_SUCCESS', () => {
-      const orderDetailsEntity = {
-        ...expectedOrderDetailsNormalizedPayload.entities,
-      };
-      const orderDetailsResult = {
-        ...expectedOrderDetailsNormalizedPayload.result,
-      };
-      const orderItems = {
-        [`${orderItemId}`]: {
-          brand: 220482,
-          categories: [136301, 136308],
-          creationChannel: 0,
-          customAttributes: null,
-          id: orderItemId,
-          merchant: merchantId2,
-        },
-      };
-      const normalizedResult = {
-        countries: {
-          167: {
-            alpha2Code: 'PT',
-            alpha3Code: 'PRT',
-            continentId: 3,
-            culture: 'pt-PT',
-            id: 165,
-            name: 'Portugal',
-            nativeName: 'Portugal',
-            region: 'Europe',
-            regionId: 0,
-            subRegion: null,
-            subfolder: null,
-          },
-        },
-      };
-      const normalizedResultWithOrderItems = {
-        ...normalizedResult,
-        orderItems,
-        orders: {
-          [orderId]: {
-            orderItems,
-          },
-        },
-      };
-      const state = {
-        orders: {
-          [orderId]: orderEntity,
-        },
-        ...orderDetailsEntity,
-      };
-      const expectedMappedResult = {
-        orders: {
-          [orderId]: merge({}, orderEntity, {
-            createdDate: 1539688029817,
-            id: '3558DS',
-            totalItems: 3,
-            billingAddress: {
-              addressLine1: 'Uma rua em Gaia',
-              addressLine2: 'Bloco B, nº 25, 2º Esq qwedsdasd',
-              city: {
-                countryId: 165,
-                id: 0,
-                name: 'Canidelo',
-              },
-              country: {
-                alpha2Code: 'PT',
-                alpha3Code: 'PRT',
-                continentId: 3,
-                culture: 'pt-PT',
-                id: 165,
-                name: 'Portugal',
-                nativeName: 'Portugal',
-                region: 'Europe',
-                regionId: 0,
-                subRegion: 'string',
-                subfolder: 'string',
-              },
-              firstName: 'Nelson',
-              id: '00000000-0000-0000-0000-000000000000',
-              isCurrentBilling: false,
-              isCurrentPreferred: false,
-              isCurrentShipping: false,
-              lastName: 'Leite',
-              neighbourhood: 'string',
-              phone: '234234234',
-              state: {
-                code: 'Porto',
-                countryId: 0,
-                id: 0,
-                name: 'Porto',
-              },
-              useShippingAsBillingAddress: false,
-              userId: 0,
-              vatNumber: '123456789',
-              zipCode: '1234-567',
-            },
-            checkoutOrderId: 15338048,
-            credit: 0,
-            currency: 'EUR',
-            customerType: 'Normal',
-            formattedCredit: '0,00 €',
-            formattedGrandTotal: '1 225,00 €',
-            formattedSubTotalAmount: '1 225,00 €',
-            formattedTotalDiscount: '0,00 €',
-            formattedTotalDomesticTaxes: '0,00 €',
-            formattedTotalShippingFee: '0,00 €',
-            formattedTotalTaxes: '423,57 €',
-            grandTotal: 1225,
-            items: [10070161, 10070162, 10070163],
-            newsletterSubscriptionOptionDefault: false,
-            paymentId: 'TMADRWWJX2DPH2M7CTUX',
-            shippingAddress: {
-              addressLine1: 'Uma rua em Gaia',
-              addressLine2: 'Bloco B, nº 25, 2º Esq qwedsdasd',
-              city: {
-                countryId: 165,
-                id: 0,
-                name: 'Canidelo',
-              },
-              country: {
-                alpha2Code: 'PT',
-                alpha3Code: 'PRT',
-                continentId: 3,
-                culture: 'pt-PT',
-                id: 165,
-                name: 'Portugal',
-                nativeName: 'Portugal',
-                region: 'Europe',
-                regionId: 0,
-                subRegion: 'string',
-                subfolder: 'string',
-              },
-              firstName: 'Nelson',
-              id: '00000000-0000-0000-0000-000000000000',
-              isCurrentBilling: false,
-              isCurrentPreferred: false,
-              isCurrentShipping: false,
-              lastName: 'Leite',
-              neighbourhood: 'string',
-              phone: '234234234',
-              state: {
-                code: 'Porto',
-                countryId: 0,
-                id: 0,
-                name: 'Porto',
-              },
-              useShippingAsBillingAddress: false,
-              userId: 0,
-              vatNumber: '123456789',
-              zipCode: '1234-567',
-            },
-            subTotalAmount: 1225,
-            taxType: 'DDP',
-            totalDiscount: 0,
-            totalDomesticTaxes: 0,
-            totalQuantity: 3,
-            totalShippingFee: 0,
-            totalTaxes: 423.57,
-            userId: 29521154,
-            updatedDate: 1539688029817,
-          }),
-        },
-        ...merge({}, orderDetailsEntity, normalizedResult),
-      };
-      const expectedMappedResultGuest = {
-        ...expectedMappedResult,
-        orders: {
-          [orderId]: {
-            ...expectedMappedResult.orders[orderId],
-            byMerchant: {},
-          },
-        },
-      };
-      const expectedMappedResultWithOrderItems = {
-        ...expectedMappedResult,
-        orders: {
-          [orderId]: {
-            ...expectedMappedResult.orders[orderId],
-            byMerchant: merge(
-              {},
-              expectedMappedResult.orders[orderId].byMerchant,
-              {
-                [`${merchantId2}`]: {
-                  merchant: merchantId2,
-                  orderItems: [`${orderItemId}`],
-                },
-              },
-            ),
-            orderItems,
-          },
-        },
-      };
+      it('should handle FETCH_ORDER_SUCCESS action type when the order exists', () => {
+        const state = merge({}, mockState.entities);
+        const normalizedPayload = getExpectedOrderDetailsNormalizedPayload();
+        const expectedResult = merge({}, state, normalizedPayload.entities);
 
-      it('should handle FETCH_ORDER_SUCCESS action type', () => {
         expect(
-          entitiesMapper[actionTypes.FETCH_ORDER_SUCCESS](merge({}, state), {
+          entitiesMapper[actionTypes.FETCH_ORDER_SUCCESS](state, {
             meta: { orderId },
-            payload: {
-              entities: normalizedResult,
-              result: orderDetailsResult,
-            },
+            payload: normalizedPayload,
             type: actionTypes.FETCH_ORDER_SUCCESS,
           }),
-        ).toEqual(expectedMappedResult);
+        ).toEqual(expectedResult);
       });
 
-      it('should handle FETCH_ORDER_SUCCESS action type when the user is a guest', () => {
-        expect(
-          entitiesMapper[actionTypes.FETCH_ORDER_SUCCESS](merge({}, state), {
-            meta: { orderId, guest: true },
-            payload: {
-              entities: normalizedResult,
-              result: orderDetailsResult,
-            },
-            type: actionTypes.FETCH_ORDER_SUCCESS,
-          }),
-        ).toEqual(expectedMappedResultGuest);
-      });
+      it('should handle FETCH_ORDER_SUCCESS action type when the order does not exist', () => {
+        // Clear orders and order items in state to test
+        // when a fetch order details response is received
+        // for an order that does not exist in state yet.
+        const state = merge(
+          {},
+          {
+            ...mockState.entities,
+            orders: {},
+            orderItems: {},
+            returnOptions: {},
+            returns: {},
+          },
+        );
+        const normalizedPayload = getExpectedOrderDetailsNormalizedPayload();
+        const expectedResult = merge({}, state, normalizedPayload.entities);
 
-      it('should handle FETCH_ORDER_SUCCESS action type when the orderItem is not mapped yet', () => {
         expect(
-          entitiesMapper[actionTypes.FETCH_ORDER_SUCCESS](merge({}, state), {
+          entitiesMapper[actionTypes.FETCH_ORDER_SUCCESS](state, {
             meta: { orderId },
-            payload: {
-              entities: normalizedResultWithOrderItems,
-              result: orderDetailsResult,
-            },
+            payload: normalizedPayload,
             type: actionTypes.FETCH_ORDER_SUCCESS,
           }),
-        ).toEqual(expectedMappedResultWithOrderItems);
+        ).toEqual(expectedResult);
       });
     });
 
     describe('for FETCH_ORDER_RETURN_OPTIONS_SUCCESS', () => {
-      const returnOptionId = '10537_4';
-      const mappedReturnOptionId = `${orderId}_${returnOptionId}`;
-      const orderReturnOptionsEntity = {
-        ...expectedOrderReturnOptionsNormalizedPayload.entities.returnOptions,
-      };
-      const orderReturnOptionsResult = {
-        ...expectedOrderReturnOptionsNormalizedPayload.result,
-      };
-      const normalizedResult = id => ({
-        returnOptions: {
-          [id]: {
-            allowedCountries: [165],
-            id: id,
-            isAddressMandatory: true,
-            isMerchantLocationMandatory: false,
-            isNumberOfBoxesMandatory: true,
-            isSchedulePickup: true,
-            merchant: 10537,
-            merchantOrderId: 100001340,
-            type: 3,
-          },
-        },
-      });
-      const state = merge(
+      const state = merge({}, mockState.entities);
+
+      const expectedMappedEntitiesResult = merge(
         {},
+        state,
+        {
+          ...expectedOrderReturnOptionsNormalizedPayload.entities,
+          returnOptions: {},
+        },
         {
           orders: {
-            [orderId]: orderEntity,
+            [orderId]: merge({}, orderEntity, {
+              byMerchant: {
+                [merchantId2]: {
+                  merchant: merchantId2,
+                  returnOptions: [`${orderId}_${returnOptionId2}`],
+                },
+              },
+            }),
           },
-          ...orderReturnOptionsEntity,
+          returnOptions: {
+            [`${orderId}_${returnOptionId}`]: {
+              ...expectedOrderReturnOptionsNormalizedPayload.entities
+                .returnOptions[returnOptionId],
+              id: `${orderId}_${returnOptionId}`,
+            },
+            [`${orderId}_${returnOptionId2}`]: {
+              ...expectedOrderReturnOptionsNormalizedPayload.entities
+                .returnOptions[returnOptionId2],
+              id: `${orderId}_${returnOptionId2}`,
+            },
+          },
         },
       );
-
-      const expectedMappedResult = {
-        orders: {
-          [orderId]: merge({}, orderEntity, {
-            byMerchant: {
-              [merchantId]: {
-                returnOptions: [mappedReturnOptionId],
-              },
-            },
-          }),
-        },
-        ...merge(
-          {},
-          orderReturnOptionsEntity,
-          normalizedResult(mappedReturnOptionId),
-        ),
-      };
 
       it('should handle FETCH_ORDER_RETURN_OPTIONS_SUCCESS action type', () => {
         expect(
@@ -666,42 +513,34 @@ describe('orders reducer', () => {
             state,
             {
               meta: { orderId },
-              payload: {
-                entities: normalizedResult(returnOptionId),
-                result: orderReturnOptionsResult,
-              },
+              payload: expectedOrderReturnOptionsNormalizedPayload,
               type: actionTypes.FETCH_ORDER_RETURN_OPTIONS_SUCCESS,
             },
           ),
-        ).toEqual(expectedMappedResult);
+        ).toEqual(expectedMappedEntitiesResult);
       });
     });
 
     describe('for RESET_ORDERS', () => {
-      const state = {
-        orders: {
-          [orderId]: orderEntity,
-        },
-        ...expectedOrderDetailsNormalizedPayload.entities,
-      };
+      const state = merge({}, mockState.entities);
       const expectedResult = {
-        ...omit(state, ['orders', 'orderItems']),
+        ...omit(state, [
+          'orders',
+          'orderItems',
+          'returnOptions',
+          'labelTracking',
+        ]),
       };
 
       it('should handle RESET_ORDERS action type', () => {
-        expect(
-          entitiesMapper[actionTypes.RESET_ORDERS](merge({}, state)),
-        ).toEqual(expectedResult);
+        expect(entitiesMapper[actionTypes.RESET_ORDERS](state)).toEqual(
+          expectedResult,
+        );
       });
     });
 
     describe('for LOGOUT_SUCCESS', () => {
-      const state = {
-        ...expectedNormalizedPayload.entities,
-        ...expectedOrderDetailsNormalizedPayload.entities,
-        ...expectedOrderReturnOptionsNormalizedPayload.entities,
-        ...expectedTrackingNormalizedPayload.entities,
-      };
+      const state = mockState.entities;
       const expectedResult = {
         ...omit(state, [
           'orders',
@@ -713,9 +552,7 @@ describe('orders reducer', () => {
       };
 
       it('should handle LOGOUT_SUCCESS action type', () => {
-        expect(entitiesMapper[LOGOUT_SUCCESS](merge({}, state))).toEqual(
-          expectedResult,
-        );
+        expect(entitiesMapper[LOGOUT_SUCCESS](state)).toEqual(expectedResult);
       });
     });
   });

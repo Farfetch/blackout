@@ -200,6 +200,16 @@ export const mockResponse = {
         productName: 'Navy Treated Bonded Cotton Dry Bag',
         productSlug: 'navy-treated-bonded-cotton-dry-bag-12640693',
         tags: ['GIFT'],
+        images: [
+          {
+            order: 1,
+            size: '200',
+            sources: {
+              200: 'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099951_200.jpg',
+            },
+            url: 'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099951_200.jpg',
+          },
+        ],
         price: {
           priceExclTaxes: 1.26,
           priceInclTaxes: 1.51,
@@ -581,7 +591,21 @@ export const expectedNormalizedPayload = {
         tags: ['GIFT'],
       },
     },
-    checkoutOrderItemProducts: { [productId]: { id: productId } },
+    checkoutOrderItemProducts: {
+      [productId]: {
+        id: productId,
+        images: [
+          {
+            order: 1,
+            size: '200',
+            sources: {
+              200: 'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099951_200.jpg?c=2',
+            },
+            url: 'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099951_200.jpg',
+          },
+        ],
+      },
+    },
   },
   result: checkoutId,
 };

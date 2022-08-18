@@ -8,7 +8,7 @@ const creditsReducer = reducers.credits;
 const creditMovementsReducer = reducers.creditMovements;
 
 describe('credits reducer', () => {
-  it.each([actionTypes.FETCH_USER_CREDIT_REQUEST])(
+  it.each([actionTypes.FETCH_USER_CREDITS_REQUEST])(
     'should handle %s correctly',
     actionType => {
       const previousState = {
@@ -26,7 +26,7 @@ describe('credits reducer', () => {
     },
   );
 
-  it.each([actionTypes.FETCH_USER_CREDIT_FAILURE])(
+  it.each([actionTypes.FETCH_USER_CREDITS_FAILURE])(
     'should handle %s correctly',
     actionType => {
       const previousState = {
@@ -48,7 +48,7 @@ describe('credits reducer', () => {
     },
   );
 
-  it.each([actionTypes.FETCH_USER_CREDIT_SUCCESS])(
+  it.each([actionTypes.FETCH_USER_CREDITS_SUCCESS])(
     'should handle %s correctly',
     actionType => {
       const previousState = {
@@ -128,26 +128,28 @@ describe('credit movements reducer', () => {
 });
 
 describe('entitiesMapper()', () => {
-  it('should handle FETCH_USER_CREDIT_SUCCESS action type', () => {
-    const credit = {
-      currency: 'GB',
-      value: 50,
-      formattedValue: '£50',
-    };
+  it('should handle FETCH_USER_CREDITS_SUCCESS action type', () => {
+    const credits = [
+      {
+        currency: 'GB',
+        value: 50,
+        formattedValue: '£50',
+      },
+    ];
 
     const expectedResult = {
       ...mockBaseState.entities,
-      user: { ...mockBaseState.entities?.user, credit },
+      user: { ...mockBaseState.entities?.user, credits },
     };
 
     expect(
-      entitiesMapper[actionTypes.FETCH_USER_CREDIT_SUCCESS](
+      entitiesMapper[actionTypes.FETCH_USER_CREDITS_SUCCESS](
         mockBaseState.entities as NonNullable<StoreState['entities']>,
         {
           payload: {
-            credit,
+            credits,
           },
-          type: actionTypes.FETCH_USER_CREDIT_SUCCESS,
+          type: actionTypes.FETCH_USER_CREDITS_SUCCESS,
         },
       ),
     ).toEqual(expectedResult);

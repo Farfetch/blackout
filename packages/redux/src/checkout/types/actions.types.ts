@@ -4,7 +4,9 @@ import type {
   BlackoutError,
   CheckoutOrderCharge,
   CheckoutOrderOperations,
-  GetCheckoutOrderDeliveryBundleProvisioningResponse,
+  DeliveryBundle,
+  DeliveryBundleUpgrades,
+  ItemDeliveryProvisioning,
   PatchCheckoutOrderItemData,
 } from '@farfetch/blackout-client';
 import type {
@@ -13,7 +15,6 @@ import type {
   CheckoutOrderEntity,
   CheckoutOrderItemEntity,
   DeliveryBundleEntity,
-  DeliveryBundleUpgradesEntity,
 } from '../../entities/types';
 import type { NormalizedSchema } from 'normalizr';
 
@@ -30,7 +31,10 @@ type Payload = NormalizedSchema<
       CheckoutDetailsEntity
     >;
     deliveryBundles?: Record<DeliveryBundleEntity['id'], DeliveryBundleEntity>;
-    deliveryBundleUpgrades?: DeliveryBundleUpgradesEntity;
+    deliveryBundleUpgrades?: Record<
+      DeliveryBundle['id'],
+      DeliveryBundleUpgrades
+    >;
   },
   string
 >;
@@ -113,10 +117,7 @@ export interface FetchUpgradeItemDeliveryProvisioningSuccessAction
 export interface FetchItemDeliveryProvisioningSuccessAction extends Action {
   type: typeof actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_SUCCESS;
   meta: { deliveryBundleId: string };
-  payload: NormalizedSchema<
-    GetCheckoutOrderDeliveryBundleProvisioningResponse,
-    string[]
-  >;
+  payload: NormalizedSchema<ItemDeliveryProvisioning[], string[]>;
 }
 
 export interface FetchItemDeliveryProvisioningFailureAction extends Action {

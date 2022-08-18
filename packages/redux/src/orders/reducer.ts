@@ -2,21 +2,11 @@ import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers, Reducer } from 'redux';
 import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import merge from 'lodash/merge';
-import omit from 'lodash/omit';
 import produce from 'immer';
 import reducerFactory from '../helpers/reducerFactory';
 import type * as T from './types';
-import type {
-  FetchOrderReturnOptionsSuccessAction,
-  FetchOrdersSuccessAction,
-  FetchOrderSuccessAction,
-} from './types';
-import type {
-  OrderItemEntity,
-  OrderMerchantNormalized,
-  OrderSummarySemiNormalized,
-  ReturnOptionsEntity,
-} from '../entities/types';
+import type { FetchOrderReturnOptionsSuccessAction } from './types';
+import type { ReturnOptionEntity } from '../entities/types';
 import type { StoreState } from '../types';
 
 export const INITIAL_STATE: T.OrdersState = {
@@ -62,7 +52,8 @@ const error = (state = INITIAL_STATE.error, action: AnyAction) => {
     case actionTypes.FETCH_ORDER_FAILURE:
     case actionTypes.FETCH_ORDER_RETURNS_FAILURE:
     case actionTypes.FETCH_ORDER_RETURN_OPTIONS_FAILURE:
-    case actionTypes.FETCH_ORDERS_FAILURE:
+    case actionTypes.FETCH_USER_ORDERS_FAILURE:
+    case actionTypes.FETCH_GUEST_ORDERS_FAILURE:
     case actionTypes.FETCH_SHIPMENT_TRACKINGS_FAILURE:
     case actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_FAILURE:
     case actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE:
@@ -70,11 +61,11 @@ const error = (state = INITIAL_STATE.error, action: AnyAction) => {
     case actionTypes.FETCH_ORDER_REQUEST:
     case actionTypes.FETCH_ORDER_RETURNS_REQUEST:
     case actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST:
-    case actionTypes.FETCH_ORDERS_REQUEST:
+    case actionTypes.FETCH_USER_ORDERS_REQUEST:
+    case actionTypes.FETCH_GUEST_ORDERS_REQUEST:
     case actionTypes.FETCH_SHIPMENT_TRACKINGS_REQUEST:
     case actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_REQUEST:
     case actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST:
-    case actionTypes.RESET_ORDERS:
       return INITIAL_STATE.error;
     default:
       return state;
@@ -83,7 +74,8 @@ const error = (state = INITIAL_STATE.error, action: AnyAction) => {
 
 const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
-    case actionTypes.FETCH_ORDERS_REQUEST:
+    case actionTypes.FETCH_USER_ORDERS_REQUEST:
+    case actionTypes.FETCH_GUEST_ORDERS_REQUEST:
     case actionTypes.FETCH_ORDER_REQUEST:
     case actionTypes.FETCH_ORDER_RETURNS_REQUEST:
     case actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST:
@@ -91,8 +83,10 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
     case actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_REQUEST:
     case actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST:
       return true;
-    case actionTypes.FETCH_ORDERS_FAILURE:
-    case actionTypes.FETCH_ORDERS_SUCCESS:
+    case actionTypes.FETCH_USER_ORDERS_FAILURE:
+    case actionTypes.FETCH_USER_ORDERS_SUCCESS:
+    case actionTypes.FETCH_GUEST_ORDERS_FAILURE:
+    case actionTypes.FETCH_GUEST_ORDERS_SUCCESS:
     case actionTypes.FETCH_ORDER_FAILURE:
     case actionTypes.FETCH_ORDER_SUCCESS:
     case actionTypes.FETCH_ORDER_RETURNS_FAILURE:
@@ -105,153 +99,69 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
     case actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_SUCCESS:
     case actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE:
     case actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_SUCCESS:
-    case actionTypes.RESET_ORDERS:
       return INITIAL_STATE.isLoading;
     default:
       return state;
   }
 };
 
+const result = (state = INITIAL_STATE.result, action: AnyAction) => {
+  switch (action.type) {
+    case actionTypes.FETCH_USER_ORDERS_SUCCESS:
+    case actionTypes.FETCH_GUEST_ORDERS_SUCCESS:
+      return action.payload.result;
+    default:
+      return state;
+  }
+};
+
 export const entitiesMapper = {
-  [actionTypes.FETCH_ORDERS_SUCCESS]: (
+  [actionTypes.FETCH_USER_ORDERS_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
   ) => {
-    const ordersSuccessAction = action as FetchOrdersSuccessAction;
-    const orders = ordersSuccessAction.payload.entities.orders;
     const { entities } = action.payload;
-    const merchantsFromOrders: NonNullable<
-      StoreState['entities']
-    >['merchants'] = {};
-
-    for (const orderId in orders) {
-      const order = orders[orderId] as OrderSummarySemiNormalized;
-
-      Object.values(order.byMerchant).forEach(orderByMerchant => {
-        merchantsFromOrders[orderByMerchant.merchant.id] =
-          orderByMerchant.merchant;
-        // This is because the merchant prop is not being normalized by the order
-        // schema, so we need to do here the job that the order schema should be doing.
-        // This is ugly and should be revisited later to make sure the merchant entities
-        // are being extracted from the order schema after normalizr call.
-        (orderByMerchant as unknown as OrderMerchantNormalized).merchant =
-          orderByMerchant.merchant.id;
-      });
-    }
 
     // Reset orders before merging with entities
     const stateWithResetOrders = {
       ...state,
       orders: {},
+      orderItems: {},
+      returnOptions: {},
+      returns: {},
     };
 
     return produce(stateWithResetOrders, draftState => {
       merge(draftState, entities);
+    });
+  },
+  [actionTypes.FETCH_GUEST_ORDERS_SUCCESS]: (
+    state: NonNullable<StoreState['entities']>,
+    action: AnyAction,
+  ) => {
+    const { entities } = action.payload;
 
-      const newMerchants = merge(draftState.merchants, merchantsFromOrders);
+    // Reset orders before merging with entities
+    const stateWithResetOrders = {
+      ...state,
+      orders: {},
+      orderItems: {},
+      returnOptions: {},
+      returns: {},
+    };
 
-      draftState.merchants = newMerchants;
+    return produce(stateWithResetOrders, draftState => {
+      merge(draftState, entities);
     });
   },
   [actionTypes.FETCH_ORDER_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
   ) => {
-    const orderDetailsSuccessAction = action as FetchOrderSuccessAction;
-    const { orderId } = orderDetailsSuccessAction.meta;
-    const { entities, result } = orderDetailsSuccessAction.payload;
-    // Filtering unimportant properties from the orderDetails request.
-    const orderDetails = omit(result, [
-      'baseUrl',
-      'clientOnlyPage',
-      'components',
-      'countryCode',
-      'countryId',
-      'cultureCode',
-      'currency',
-      'currencyCode',
-      'currencyCultureCode',
-      'dataLayer',
-      'isMobileDevice',
-      'pageContent',
-      'pageType',
-      'redirectUrl',
-      'relativeUrl',
-      'requestSourceCountryCode',
-      'returnUrl',
-      'screenPixelsHeight',
-      'screenPixelsWidth',
-      'seoMetadata',
-      'seoPageType',
-      'serverSideJsApp',
-      'slug',
-      'staticPathorderDetails',
-      'subfolder',
-      'translationsUrl',
-    ]);
-    const { createdDate } = result;
-    const orderItems = entities.orderItems;
+    const { entities } = action.payload;
 
-    const tempState = {
-      ...state,
-    };
-
-    if (orderDetailsSuccessAction.meta.guest) {
-      tempState.orders = {};
-    }
-
-    return produce(tempState, draftState => {
+    return produce(state, draftState => {
       merge(draftState, entities);
-
-      let ordersEntity = draftState.orders;
-
-      if (!ordersEntity) {
-        ordersEntity = {};
-      }
-
-      draftState.orders = draftState.orders ?? ordersEntity;
-
-      let order = ordersEntity[orderId];
-
-      if (!order) {
-        order = {
-          byMerchant: {},
-          id: orderId,
-          totalItems: orderDetails.totalQuantity ?? 1,
-          createdDate,
-        } as NonNullable<typeof order>;
-        ordersEntity[orderId] = order;
-      }
-
-      order = {
-        ...order,
-        ...result,
-      } as NonNullable<typeof order>;
-
-      for (const orderItemId in orderItems) {
-        const orderItem = orderItems[orderItemId] as OrderItemEntity;
-        const merchantId = orderItem.merchant;
-
-        let orderMerchant = order.byMerchant[merchantId];
-
-        if (!orderMerchant) {
-          orderMerchant = { merchant: merchantId };
-          order.byMerchant[merchantId] = orderMerchant;
-        }
-
-        let existingOrderItems = orderMerchant.orderItems;
-
-        if (!existingOrderItems) {
-          existingOrderItems = [] as NonNullable<typeof existingOrderItems>;
-          orderMerchant.orderItems = existingOrderItems;
-        }
-
-        if (!existingOrderItems.includes(orderItemId as unknown as number)) {
-          existingOrderItems.push(orderItemId as unknown as number);
-        }
-      }
-
-      draftState.orders[orderId] = order;
     });
   },
   [actionTypes.FETCH_ORDER_RETURN_OPTIONS_SUCCESS]: (
@@ -274,17 +184,17 @@ export const entitiesMapper = {
       };
     });
 
-    const newEntities = {
+    const newPayloadEntities = {
       ...action.payload.entities,
       returnOptions: newReturnOptions,
     };
 
     return produce(state, (draftState: NonNullable<typeof state>) => {
-      merge(draftState, newEntities);
+      merge(draftState, newPayloadEntities);
       for (const returnOptionId in newReturnOptions) {
         const returnOption = newReturnOptions[
           returnOptionId
-        ] as ReturnOptionsEntity;
+        ] as ReturnOptionEntity;
 
         const merchantId = returnOption.merchant;
 
@@ -310,9 +220,9 @@ export const entitiesMapper = {
         let orderMerchant = order.byMerchant[merchantId];
 
         if (!orderMerchant) {
-          orderMerchant = {
-            [merchantId]: { merchant: merchantId },
-          } as NonNullable<typeof orderMerchant>;
+          orderMerchant = { merchant: merchantId } as NonNullable<
+            typeof orderMerchant
+          >;
           order.byMerchant[merchantId] = orderMerchant;
         }
 
@@ -334,7 +244,14 @@ export const entitiesMapper = {
       return state;
     }
 
-    const { orders, orderItems, ...remainingEntities } = state;
+    const {
+      orders,
+      orderItems,
+      labelTracking,
+      returnOptions,
+      returns,
+      ...remainingEntities
+    } = state;
 
     return remainingEntities;
   },
@@ -357,7 +274,7 @@ export const entitiesMapper = {
 };
 
 export const ordersList = reducerFactory(
-  'FETCH_ORDERS',
+  'FETCH_USER_ORDERS',
   INITIAL_STATE.ordersList,
   actionTypes,
 );
@@ -509,15 +426,6 @@ export const orderItemAvailableActivities = reducerFactory(
   actionTypes,
 );
 
-const result = (state = INITIAL_STATE.result, action: AnyAction) => {
-  switch (action.type) {
-    case actionTypes.FETCH_ORDERS_SUCCESS:
-      return action.payload.result;
-    default:
-      return state;
-  }
-};
-
 export const getError = (state: T.OrdersState): T.OrdersState['error'] =>
   state.error;
 export const getIsLoading = (
@@ -575,7 +483,10 @@ const reducer = combineReducers({
  * @returns New state.
  */
 const ordersReducer: Reducer<T.OrdersState> = (state, action) => {
-  if (action.type === LOGOUT_SUCCESS) {
+  if (
+    action.type === LOGOUT_SUCCESS ||
+    action.type === actionTypes.RESET_ORDERS
+  ) {
     return INITIAL_STATE;
   }
 

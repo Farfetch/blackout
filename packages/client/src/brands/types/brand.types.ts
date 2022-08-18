@@ -3,6 +3,9 @@ export type Brand = {
   name: string;
   description: string | null;
   familyType?: BrandFamilyType;
+  slug?: string;
+  priceType?: number;
+  isActive?: boolean;
 };
 
 export enum BrandFamilyType {

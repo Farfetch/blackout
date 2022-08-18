@@ -1,2 +1,2 @@
-export * from './getUserCredit.types';
+export * from './getUserCredits.types';
 export * from './getUserCreditMovements.types';

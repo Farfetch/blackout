@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  CollectPoint,
   Config,
   GetCollectPoints,
   GetCollectPointsQuery,
-  GetCollectPointsResponse,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -18,7 +18,7 @@ import type { Dispatch } from 'redux';
 const fetchCollectPointsFactory =
   (getCollectPoints: GetCollectPoints) =>
   (query: GetCollectPointsQuery, config?: Config) =>
-  async (dispatch: Dispatch): Promise<GetCollectPointsResponse> => {
+  async (dispatch: Dispatch): Promise<CollectPoint[]> => {
     try {
       dispatch({
         type: actionTypes.FETCH_COLLECT_POINTS_REQUEST,

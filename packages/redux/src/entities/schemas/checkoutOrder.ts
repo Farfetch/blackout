@@ -1,8 +1,7 @@
-import { adaptDate } from '../../helpers/adapters';
 import { schema } from 'normalizr';
 import checkoutOrderItem from './checkoutOrderItem';
 import merchant from './merchant';
-import trim from 'lodash/trim';
+import preprocessOrder from '../../helpers/preprocessOrder';
 
 export default new schema.Entity(
   'checkoutOrders',
@@ -12,8 +11,7 @@ export default new schema.Entity(
   },
   {
     processStrategy: value => {
-      const { checkoutOrderMerchants, createdDate, updatedDate, ...order } =
-        value;
+      const { checkoutOrderMerchants, ...order } = value;
 
       const orderMerchants = checkoutOrderMerchants.map((order: any) => {
         const { merchantId, merchantName, ...item } = order;
@@ -26,23 +24,9 @@ export default new schema.Entity(
         return item;
       });
 
-      order.createdDate = adaptDate(createdDate);
-      order.updatedDate = adaptDate(updatedDate);
       order.checkoutOrderMerchants = orderMerchants;
 
-      return {
-        ...order,
-        billingAddress: {
-          ...order.billingAddress,
-          addressLine1: trim(order.billingAddress.addressLine1),
-          addressLine2: trim(order.billingAddress.addressLine2),
-        },
-        shippingAddress: {
-          ...order.shippingAddress,
-          addressLine1: trim(order.shippingAddress.addressLine1),
-          addressLine2: trim(order.shippingAddress.addressLine2),
-        },
-      };
+      return preprocessOrder(order);
     },
   },
 );

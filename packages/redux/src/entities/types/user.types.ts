@@ -9,7 +9,7 @@ import type {
 } from './credit.types';
 
 export type UserEntity = User & {
-  credit?: UserCreditEntity;
+  credits?: UserCreditEntity;
   creditMovements?: UserCreditMovementsEntity;
   preferences?: Array<UserPreference['code']>;
   contacts?: Array<UserContact['id']>;

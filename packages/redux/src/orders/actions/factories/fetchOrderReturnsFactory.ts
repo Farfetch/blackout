@@ -8,6 +8,7 @@ import {
 import { normalize } from 'normalizr';
 import returnSchema from '../../../entities/schemas/return';
 import type { Dispatch } from 'redux';
+import type { FetchOrderReturnsAction } from '../../types/actions.types';
 
 /**
  * Method responsible for returns from a specific order.
@@ -19,7 +20,7 @@ import type { Dispatch } from 'redux';
 const fetchOrderReturnsFactory =
   (getOrderReturns: GetOrderReturns) =>
   (orderId: string, config?: Config) =>
-  async (dispatch: Dispatch): Promise<Return[]> => {
+  async (dispatch: Dispatch<FetchOrderReturnsAction>): Promise<Return[]> => {
     try {
       dispatch({
         meta: { orderId },

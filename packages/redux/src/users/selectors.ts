@@ -99,8 +99,8 @@ export const getUsername = (user: UserEntity | undefined) =>
  *
  * @returns User credit.
  */
-export const getUserCredit = (user: UserEntity | undefined) =>
-  get(user, 'credit');
+export const getUserCredits = (user: UserEntity | undefined) =>
+  get(user, 'credits');
 
 /**
  * Return the user's credit movements.
