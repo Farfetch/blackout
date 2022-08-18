@@ -4,7 +4,7 @@ import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
 import wishlistsSetReducer, {
   INITIAL_STATE as SETS_INITIAL_STATE,
 } from './wishlistsSets';
-import type { ReducerSwitch, StoreState } from '../../types';
+import type { StoreState } from '../../types';
 import type { WishlistSetsState, WishlistsState } from '../types';
 
 export const INITIAL_STATE: WishlistsState = {
@@ -189,7 +189,7 @@ const reducer = combineReducers({
  *
  * @returns New state.
  */
-const wishlistsReducer: ReducerSwitch<WishlistsState> = (state, action) => {
+const wishlistsReducer: Reducer<WishlistsState> = (state, action) => {
   if (action.type === LOGOUT_SUCCESS) {
     return INITIAL_STATE;
   }

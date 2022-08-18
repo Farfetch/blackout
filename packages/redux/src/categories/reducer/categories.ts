@@ -1,5 +1,5 @@
 import * as actionTypes from '../actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import topCategoryReducer, {
   INITIAL_STATE as TOP_CATEGORIES_INITIAL_STATE,
 } from './topCategories';
@@ -75,10 +75,7 @@ const reducers = combineReducers({
  *
  * @returns New state.
  */
-const categoriesReducer = (
-  state: CategoriesState,
-  action: AnyAction,
-): CategoriesState => {
+const categoriesReducer: Reducer<CategoriesState> = (state, action) => {
   if (action.type === actionTypes.RESET_CATEGORIES_STATE) {
     return reducers(INITIAL_STATE, action);
   }

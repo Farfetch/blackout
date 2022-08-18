@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
@@ -574,7 +574,7 @@ const reducer = combineReducers({
  *
  * @returns New state.
  */
-const ordersReducer = (state: T.OrdersState, action: AnyAction) => {
+const ordersReducer: Reducer<T.OrdersState> = (state, action) => {
   if (action.type === LOGOUT_SUCCESS) {
     return INITIAL_STATE;
   }

@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import type { PromotionEvaluationsState } from './types';
 
 export const INITIAL_STATE: PromotionEvaluationsState = {
@@ -63,9 +63,12 @@ export const getId = (
   state: PromotionEvaluationsState,
 ): PromotionEvaluationsState['id'] => state.id;
 
-export default combineReducers({
-  error,
-  id,
-  isLoading,
-  result,
-});
+const promotionEvaluationsReducer: Reducer<PromotionEvaluationsState> =
+  combineReducers({
+    error,
+    id,
+    isLoading,
+    result,
+  });
+
+export default promotionEvaluationsReducer;

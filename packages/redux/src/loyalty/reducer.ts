@@ -1,9 +1,8 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import { createReducerWithResult } from '../helpers/reducerFactory';
 import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import type * as T from './types';
-import type { ReducerSwitch } from '../types';
 
 const isNormalized = true;
 
@@ -127,7 +126,7 @@ const reducers = combineReducers({
  * @returns New state.
  */
 
-const loyaltyReducer: ReducerSwitch<T.LoyaltyState> = (state, action) => {
+const loyaltyReducer: Reducer<T.LoyaltyState> = (state, action) => {
   if (action.type === LOGOUT_SUCCESS) {
     return INITIAL_STATE;
   }

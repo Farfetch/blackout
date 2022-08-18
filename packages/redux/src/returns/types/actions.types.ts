@@ -46,7 +46,7 @@ export interface GetReturnPickupCapabilitiesSuccessAction extends Action {
 }
 export interface GetReturnPickupCapabilitiesFailureAction extends Action {
   type: typeof actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /** Actions dispatched when the get pickup capabilities request is made. */
@@ -107,7 +107,7 @@ export interface FetchReturnPickupRescheduleRequestsSuccessAction
 export interface FetchReturnPickupRescheduleRequestsFailureAction
   extends Action {
   type: typeof actionTypes.FETCH_RETURN_PICKUP_RESCHEDULE_REQUESTS_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /** Actions dispatched when the fetch pickup reschedule requests is made. */
@@ -127,7 +127,7 @@ export interface FetchReturnPickupRescheduleRequestSuccessAction
 export interface FetchReturnPickupRescheduleRequestFailureAction
   extends Action {
   type: typeof actionTypes.FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /** Actions dispatched when the fetch pickup reschedule request is made. */
@@ -148,7 +148,7 @@ export interface CreateReturnPickupRescheduleRequestSuccessAction
 export interface CreateReturnPickupRescheduleRequestFailureAction
   extends Action {
   type: typeof actionTypes.CREATE_RETURN_PICKUP_RESCHEDULE_REQUEST_FAILURE;
-  payload: { error: Error };
+  payload: { error: BlackoutError };
 }
 
 /** Actions dispatched when the create pickup reschedule request is made. */

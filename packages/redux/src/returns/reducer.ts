@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import reducerFactory from '../helpers/reducerFactory';
 import type { ReturnsState } from './types';
@@ -132,10 +132,12 @@ export const getPickupCapabilities = (
  *
  * @returns New state.
  */
-export default combineReducers({
+const returnsReducer: Reducer<ReturnsState> = combineReducers({
   error,
   id,
   isLoading,
   returns,
   pickupCapabilities,
 });
+
+export default returnsReducer;

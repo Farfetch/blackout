@@ -66,7 +66,15 @@ export const getResult = (
   state: CategoriesState,
 ): TopCategoriesState['result'] => state.top.result;
 
-const topReducer: Reducer<TopCategoriesState, AnyAction> = combineReducers({
+/**
+ * Reducer for top categories state.
+ *
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
+ *
+ * @returns New state.
+ */
+const topReducer: Reducer<TopCategoriesState> = combineReducers({
   error,
   isLoading,
   result,

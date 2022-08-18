@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import addressesReducer, {
   entitiesMapper as addressesEntitiesMapper,
   INITIAL_STATE as INITIAL_ADDRESSES_STATE,
@@ -32,7 +32,7 @@ import preferencesReducers, {
 import titlesReducer, {
   INITIAL_STATE as INITIAL_TITLES_STATE,
 } from './titles/reducer';
-import type { ReducerSwitch, StoreState } from '../types';
+import type { StoreState } from '../types';
 import type { UsersState } from './types';
 
 export const INITIAL_STATE: UsersState = {
@@ -230,7 +230,7 @@ const reducer = combineReducers({
  *
  * @returns New state.
  */
-const usersReducer: ReducerSwitch<UsersState> = (state, action): UsersState => {
+const usersReducer: Reducer<UsersState> = (state, action) => {
   if (
     action.type === actionTypes.LOGOUT_SUCCESS ||
     action.type === actionTypes.RESET_USER_STATE

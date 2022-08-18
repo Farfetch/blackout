@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { recommendedSetsReducer } from './recommendedSet';
 import attributesReducer from './attributes';
 import detailsReducer, {
   entitiesMapper as detailsEntitiesMapper,
@@ -12,6 +11,7 @@ import measurementsReducer, {
 } from './measurements';
 import recentlyViewedProductsReducer from './recentlyViewedProducts';
 import recommendedProductsReducer from './recommendedProducts';
+import recommendedSetsReducer from './recommendedSet';
 import sizeGuidesReducer from './sizeGuides';
 import sizesReducer from './sizes';
 import variantsByMerchantsLocationsReducer from './variantsByMerchantsLocations';

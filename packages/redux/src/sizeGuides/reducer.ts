@@ -1,7 +1,6 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import type { BlackoutError, SizeGuide } from '@farfetch/blackout-client';
-import type { ReducerSwitch } from '../types';
 import type { SizeGuidesState } from './types';
 
 export const INITIAL_STATE: SizeGuidesState = {
@@ -73,10 +72,7 @@ const reducers = combineReducers({
  *
  * @returns New state.
  */
-const sizeGuidesReducer: ReducerSwitch<SizeGuidesState, AnyAction> = (
-  state,
-  action,
-): SizeGuidesState => {
+const sizeGuidesReducer: Reducer<SizeGuidesState> = (state, action) => {
   if (action.type === actionTypes.RESET_SIZE_GUIDES_STATE) {
     return reducers(INITIAL_STATE, action);
   }

@@ -1,8 +1,7 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import { createReducerWithResult } from '../../helpers/reducerFactory';
 import type * as T from './types';
-import type { ReducerSwitch } from '../../types';
 
 export const INITIAL_STATE: T.UserPersonalIdsState = {
   result: null,
@@ -153,10 +152,7 @@ const reducer = combineReducers({
  *
  * @returns New state.
  */
-const personalIdsReducer: ReducerSwitch<T.UserPersonalIdsState> = (
-  state,
-  action,
-) => {
+const personalIdsReducer: Reducer<T.UserPersonalIdsState> = (state, action) => {
   if (action.type === actionTypes.RESET_USER_PERSONAL_IDS) {
     return INITIAL_STATE;
   }

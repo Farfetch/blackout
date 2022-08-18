@@ -1,9 +1,9 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import type { BagItem } from '@farfetch/blackout-client';
 import type { BagItemsState, BagsState } from './types';
-import type { ReducerSwitch, StoreState } from '../types';
+import type { StoreState } from '../types';
 
 export const INITIAL_STATE: BagsState = {
   error: null,
@@ -194,7 +194,7 @@ const reducer = combineReducers({
  *
  * @returns New state.
  */
-const bagReducer: ReducerSwitch<BagsState> = (state, action) => {
+const bagReducer: Reducer<BagsState> = (state, action) => {
   if (action.type === LOGOUT_SUCCESS) {
     return INITIAL_STATE;
   }

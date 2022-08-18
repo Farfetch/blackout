@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import { createReducerWithResult } from '../helpers/reducerFactory';
 import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import get from 'lodash/get';
@@ -10,7 +10,7 @@ import type {
   PaymentToken,
 } from '@farfetch/blackout-client';
 import type { PaymentsState } from './types';
-import type { ReducerSwitch, StoreState } from '../types';
+import type { StoreState } from '../types';
 
 export const INITIAL_STATE: T.PaymentsState = {
   paymentIntentCharge: {
@@ -307,9 +307,7 @@ const reducers = combineReducers({
  *
  * @returns New state.
  */
-const paymentsReducer: ReducerSwitch<T.PaymentsState, AnyAction> = (
-  state,
-  action,
-) => reducers(state, action);
+const paymentsReducer: Reducer<T.PaymentsState> = (state, action) =>
+  reducers(state, action);
 
 export default paymentsReducer;

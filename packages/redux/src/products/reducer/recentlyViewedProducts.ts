@@ -1,13 +1,10 @@
 import * as actionTypes from '../actionTypes';
 import * as authenticationActionTypes from '../../users/authentication/actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import omit from 'lodash/omit';
 import uniqBy from 'lodash/uniqBy';
-import type { ProductsState } from '../types';
 import type { RecentlyViewedProducts } from '@farfetch/blackout-client';
-import type { ReducerSwitch } from '../../types';
-
-type RecentlyViewedState = ProductsState['recentlyViewed'];
+import type { RecentlyViewedState } from '../types';
 
 export const INITIAL_STATE: RecentlyViewedState = {
   error: null,
@@ -112,10 +109,10 @@ const reducers = combineReducers({
  *
  * @returns New state.
  */
-const recentlyViewedReducer: ReducerSwitch<RecentlyViewedState, AnyAction> = (
+const recentlyViewedReducer: Reducer<RecentlyViewedState> = (
   state = INITIAL_STATE,
-  action: AnyAction,
-): RecentlyViewedState => {
+  action,
+) => {
   if (
     action.type === actionTypes.RESET_RECENTLY_VIEWED_PRODUCTS ||
     action.type === authenticationActionTypes.LOGOUT_SUCCESS

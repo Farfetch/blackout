@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import omit from 'lodash/omit';
 import produce from 'immer';
 import reducerFactory, {
@@ -14,7 +14,7 @@ import type {
   FetchUserAddressSuccessAction,
   UserAddressesState,
 } from './types';
-import type { ReducerSwitch, StoreState } from '../../types';
+import type { StoreState } from '../../types';
 
 export const INITIAL_STATE: UserAddressesState = {
   error: null,
@@ -475,7 +475,7 @@ const reducer = combineReducers({
  *
  * @returns New state.
  */
-const addressesReducer: ReducerSwitch<UserAddressesState> = (state, action) => {
+const addressesReducer: Reducer<UserAddressesState> = (state, action) => {
   if (action.type === actionTypes.RESET_USER_ADDRESSES) {
     return INITIAL_STATE;
   }

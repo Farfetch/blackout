@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import reducerFactory from '../../helpers/reducerFactory';
 import type { AuthenticationState } from './types';
 
@@ -147,7 +147,7 @@ export const getUserToken = (state: AuthenticationState) => state.userToken;
  *
  * @returns New state.
  */
-export default combineReducers({
+const authenticationReducer: Reducer<AuthenticationState> = combineReducers({
   login,
   logout,
   register,
@@ -158,3 +158,5 @@ export default combineReducers({
   refreshEmailToken,
   userToken,
 });
+
+export default authenticationReducer;
