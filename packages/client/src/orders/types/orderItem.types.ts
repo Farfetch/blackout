@@ -1,23 +1,38 @@
 import type {
   Attribute,
+  Brand,
   Color,
   CreationChannel,
+  MerchantOrderStatus,
   OrderItemStatus,
-  OrderStatus,
   Price,
   ProductCategory,
   ProductImageGroup,
+  ProductType,
 } from '../..';
+
+export type ShippingService = {
+  description: string;
+  id: number;
+  name: string;
+  type: string;
+  minEstimatedDeliveryHour?: number;
+  maxEstimatedDeliveryHour?: number;
+  trackingCodes?: string[];
+};
 
 export type OrderItem = {
   attributes: Attribute[];
+  brand: Brand;
   creationChannel: CreationChannel;
   id: number;
   images: ProductImageGroup;
   merchantId: number;
+  merchantOrderCode: string;
+  merchantOrderId: number;
   productId: number;
   productSlug: string;
-  orderStatus: OrderStatus;
+  orderStatus: MerchantOrderStatus;
   orderItemStatus: OrderItemStatus;
   categories: ProductCategory[];
   colors: Color[];
@@ -58,5 +73,8 @@ export type OrderItem = {
     bundleSlug: string;
   };
   returnRestriction?: string;
-  merchantOrderCode: string;
+  shippingService: ShippingService;
+  customAttributes: string | null;
+  shortDescription: string;
+  productType: keyof typeof ProductType;
 };

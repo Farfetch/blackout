@@ -1,5 +1,5 @@
 import type { Config } from '../../../types';
-import type { PostTokenResponse } from './tokens.types';
+import type { Token } from './tokens.types';
 
 export interface PostTokenData {
   username?: string;
@@ -11,4 +11,4 @@ export interface PostTokenData {
 export type PostToken = (
   data: PostTokenData,
   config?: Config,
-) => Promise<PostTokenResponse>;
+) => Promise<Token>;

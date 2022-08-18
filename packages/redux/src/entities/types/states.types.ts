@@ -1,5 +1,5 @@
 import type { City, State } from '@farfetch/blackout-client';
 
-export type StateNormalized = State & {
+export type StateEntity = State & {
   cities?: Array<City['id']>;
 };

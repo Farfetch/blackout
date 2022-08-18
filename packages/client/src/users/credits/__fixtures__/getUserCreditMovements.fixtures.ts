@@ -2,7 +2,7 @@ import { rest, RestHandler } from 'msw';
 import type { PagedResponse } from '../../../types';
 import type { UserCreditMovement } from '../types';
 
-const path = '/api/legacy/v1/users/:id/creditMovements';
+const path = '/api/account/v1/users/:id/creditMovements';
 
 const fixtures = {
   success: (response: PagedResponse<UserCreditMovement>): RestHandler =>

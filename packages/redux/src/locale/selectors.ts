@@ -19,7 +19,7 @@ import { getEntities, getEntityById } from '../entities/selectors/entity';
 import get from 'lodash/get';
 import type { City } from '@farfetch/blackout-client';
 import type { LocaleState } from './types';
-import type { StateNormalized } from '../entities';
+import type { StateEntity } from '../entities';
 import type { StoreState } from '../types';
 
 /**
@@ -418,7 +418,7 @@ export const getCountryStates = (
   return (statesIds &&
     statesIds
       .map((id: number) => getState(state, id))
-      .filter(Boolean)) as StateNormalized[];
+      .filter(Boolean)) as StateEntity[];
 };
 
 /**

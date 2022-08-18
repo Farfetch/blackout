@@ -1,6 +1,6 @@
 import {
-  fetchListing,
-  fetchSet,
+  fetchProductListing,
+  fetchProductSet,
   getSlug,
   resetProductsLists,
 } from '@farfetch/blackout-redux';
@@ -19,8 +19,8 @@ import useProductListing from '../useProductListing';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
-  fetchListing: jest.fn(() => () => Promise.resolve()),
-  fetchSet: jest.fn(() => () => Promise.resolve()),
+  fetchProductListing: jest.fn(() => () => Promise.resolve()),
+  fetchProductSet: jest.fn(() => () => Promise.resolve()),
   resetProductsLists: jest.fn(() => () => Promise.resolve()),
 }));
 
@@ -76,7 +76,7 @@ describe('useProductListing', () => {
       },
     });
 
-    expect(fetchListing).not.toHaveBeenCalled();
+    expect(fetchProductListing).not.toHaveBeenCalled();
   });
 
   it('should return error state', () => {
@@ -156,7 +156,7 @@ describe('useProductListing', () => {
         },
       );
 
-      expect(fetchListing).not.toHaveBeenCalled();
+      expect(fetchProductListing).not.toHaveBeenCalled();
       expect(result.current).toStrictEqual({
         error: undefined,
         isFetched: false,
@@ -176,7 +176,7 @@ describe('useProductListing', () => {
         wrapper: withStore(mockProductsState),
       });
 
-      expect(fetchListing).toHaveBeenCalled();
+      expect(fetchProductListing).toHaveBeenCalled();
     });
 
     it('should return data correctly when `query` option is passed', () => {
@@ -254,7 +254,7 @@ describe('useProductListing', () => {
 
       refetch();
 
-      expect(fetchListing).toHaveBeenCalledWith(
+      expect(fetchProductListing).toHaveBeenCalledWith(
         slug,
         mockQuery,
         { setProductsListHash: true, useCache: false },
@@ -283,7 +283,7 @@ describe('useProductListing', () => {
 
       refetch();
 
-      expect(fetchSet).toHaveBeenCalledWith(
+      expect(fetchProductSet).toHaveBeenCalledWith(
         slug,
         mockQuery,
         { setProductsListHash: undefined, useCache: false },

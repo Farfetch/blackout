@@ -4,11 +4,14 @@ import type {
   ShipmentTrackings,
 } from '@farfetch/blackout-client';
 
-export type TrackingsNormalized = Omit<ShipmentTrackings, 'entries'> & {
-  entries: TrackingNormalized[];
+export type ShipmentTrackingsNormalized = Omit<ShipmentTrackings, 'entries'> & {
+  entries: ShipmentTrackingNormalized[];
 };
 
-export type TrackingNormalized = Omit<ShipmentTracking, 'labelTrackings'> & {
+export type ShipmentTrackingNormalized = Omit<
+  ShipmentTracking,
+  'labelTrackings'
+> & {
   labelTrackings: LabelTrackingEntity['trackingNumber'][];
 };
 

@@ -1,6 +1,6 @@
 import { rest, RestHandler } from 'msw';
 
-const path = '/api/legacy/v1/orders/:id/returnoptions';
+const path = '/api/account/v1/orders/:id/returnoptions';
 
 const fixtures = {
   success: (response: any): RestHandler =>

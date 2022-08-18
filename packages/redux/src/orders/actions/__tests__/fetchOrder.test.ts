@@ -1,11 +1,11 @@
 import * as actionTypes from '../../actionTypes';
 import * as normalizr from 'normalizr';
+import { fetchOrder } from '..';
 import {
-  expectedOrderDetailsNormalizedPayload,
+  getExpectedOrderDetailsNormalizedPayload,
   mockOrderDetailsResponse,
   orderId,
 } from 'tests/__fixtures__/orders';
-import { fetchOrder } from '..';
 import { getOrder } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
@@ -66,6 +66,11 @@ describe('fetchOrder() action creator', () => {
   it('should create the correct actions for when the fetch order details procedure is successful', async () => {
     getOrder.mockResolvedValueOnce(mockOrderDetailsResponse);
 
+    const expectedPayload = getExpectedOrderDetailsNormalizedPayload(
+      mockProductImgQueryParam,
+    );
+    expectedPayload.entities.orders[orderId].totalItems = 3;
+
     expect.assertions(5);
 
     await store.dispatch(fetchOrder(orderId)).then(clientResult => {
@@ -83,15 +88,8 @@ describe('fetchOrder() action creator', () => {
       {
         meta: {
           orderId,
-          guest: false,
         },
-        payload: {
-          ...expectedOrderDetailsNormalizedPayload,
-          result: {
-            ...expectedOrderDetailsNormalizedPayload.result,
-            productImgQueryParam: mockProductImgQueryParam,
-          },
-        },
+        payload: expectedPayload,
         type: actionTypes.FETCH_ORDER_SUCCESS,
       },
     ]);
@@ -100,6 +98,9 @@ describe('fetchOrder() action creator', () => {
   it('should create the correct actions for when the fetch order details procedure is successful without receiving options', async () => {
     store = ordersMockStoreWithoutMiddlewares();
     getOrder.mockResolvedValueOnce(mockOrderDetailsResponse);
+
+    const expectedPayload = getExpectedOrderDetailsNormalizedPayload();
+    expectedPayload.entities.orders[orderId].totalItems = 3;
 
     expect.assertions(5);
 
@@ -116,8 +117,8 @@ describe('fetchOrder() action creator', () => {
         type: actionTypes.FETCH_ORDER_REQUEST,
       },
       {
-        meta: { orderId, guest: false },
-        payload: expectedOrderDetailsNormalizedPayload,
+        meta: { orderId },
+        payload: expectedPayload,
         type: actionTypes.FETCH_ORDER_SUCCESS,
       },
     ]);

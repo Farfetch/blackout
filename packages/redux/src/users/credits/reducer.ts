@@ -16,7 +16,7 @@ export const INITIAL_STATE = {
 };
 
 export const entitiesMapper = {
-  [actionTypes.FETCH_USER_CREDIT_SUCCESS]: (
+  [actionTypes.FETCH_USER_CREDITS_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
   ): StoreState['entities'] => {
@@ -27,9 +27,9 @@ export const entitiesMapper = {
     }
 
     // Not type safe, should have an action type here...
-    const { credit } = action.payload;
+    const { credits } = action.payload;
     // Add credit to user entity
-    const user = { ...(state.user as NonNullable<UserEntity>), credit };
+    const user = { ...(state.user as NonNullable<UserEntity>), credits };
 
     return {
       ...state,
@@ -63,7 +63,7 @@ export const entitiesMapper = {
 
 const reducer = {
   credits: reducerFactory(
-    'FETCH_USER_CREDIT',
+    'FETCH_USER_CREDITS',
     INITIAL_STATE.credits,
     actionTypes,
   ),

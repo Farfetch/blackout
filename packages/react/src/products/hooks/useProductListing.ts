@@ -1,6 +1,6 @@
 import {
-  fetchListing,
-  fetchSet,
+  fetchProductListing,
+  fetchProductSet,
   generateProductsListHash,
   getProductsListError,
   getProductsListPagination,
@@ -38,8 +38,8 @@ const useProductListing = (
     isSet: isSetPage,
   });
 
-  const fetchListingAction = useAction(fetchListing);
-  const fetchSetAction = useAction(fetchSet);
+  const fetchListingAction = useAction(fetchProductListing);
+  const fetchSetAction = useAction(fetchProductSet);
   const resetAction = useAction(resetProductsLists);
   const reset = useCallback(resetAction, [resetAction]);
 

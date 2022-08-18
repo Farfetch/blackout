@@ -1,5 +1,6 @@
 import {
   adaptCustomAttributes,
+  adaptPrice,
   adaptProductImages,
 } from '../../helpers/adapters';
 import { schema } from 'normalizr';
@@ -16,7 +17,7 @@ export default new schema.Entity(
     merchant,
   },
   {
-    processStrategy: value => {
+    processStrategy: (value, parent) => {
       const {
         customAttributes,
         images,
@@ -25,33 +26,31 @@ export default new schema.Entity(
         price,
         productAggregator,
         productImgQueryParam,
-        tag,
-        tagDescription,
         ...item
       } = value;
 
+      const finalProductImgQueryParam =
+        productImgQueryParam || parent.productImgQueryParam;
+
       const imagesToAdapt = defaultTo(orderProductImages, images);
+
       if (productAggregator && productAggregator.hasOwnProperty('id')) {
         item.productAggregator = {
           ...productAggregator,
           images: adaptProductImages(productAggregator.images.images, {
-            productImgQueryParam,
+            productImgQueryParam: finalProductImgQueryParam,
           }),
         };
       }
       const orderItem = {
         customAttributes: adaptCustomAttributes(customAttributes),
         images: adaptProductImages(imagesToAdapt, {
-          productImgQueryParam,
+          productImgQueryParam: finalProductImgQueryParam,
         }),
         merchant: {
           id: merchantId,
         },
-        price,
-        tag: {
-          name: tagDescription,
-          id: tag,
-        },
+        price: adaptPrice(price),
         ...item,
       };
 

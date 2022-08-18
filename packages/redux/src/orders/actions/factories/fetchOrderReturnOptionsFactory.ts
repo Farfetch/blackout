@@ -2,12 +2,13 @@ import * as actionTypes from '../../actionTypes';
 import {
   Config,
   GetOrderReturnOptions,
-  OrderReturn,
+  MerchantOrderReturnOptions,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
 import returnOption from '../../../entities/schemas/returnOption';
 import type { Dispatch } from 'redux';
+import type { FetchOrderReturnOptionsAction } from '../../types';
 
 /**
  * Fetches order return options.
@@ -19,7 +20,9 @@ import type { Dispatch } from 'redux';
 const fetchOrderReturnOptionsFactory =
   (getOrderReturnOptions: GetOrderReturnOptions) =>
   (orderId: string, config?: Config) =>
-  async (dispatch: Dispatch): Promise<OrderReturn[]> => {
+  async (
+    dispatch: Dispatch<FetchOrderReturnOptionsAction>,
+  ): Promise<MerchantOrderReturnOptions[]> => {
     try {
       dispatch({
         meta: { orderId },

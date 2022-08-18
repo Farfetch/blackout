@@ -12,11 +12,9 @@ import type {
   CityEntity,
   ContentsEntity,
   ConvertEntity,
-  CountriesAddressSchemasEntity,
-  CountryNormalized,
+  CountryEntity,
   CourierEntity,
   DeliveryBundleEntity,
-  DeliveryBundleUpgradesEntity,
   FacetEntity,
   LabelTrackingEntity,
   MerchantEntity,
@@ -29,11 +27,11 @@ import type {
   ProgramEntity,
   ReplacementEntity,
   ReturnItemsEntity,
-  ReturnOptionsEntity,
+  ReturnOptionEntity,
   ReturnsEntity,
+  StateEntity,
   StatementEntity,
-  StateNormalized,
-  SubscriptionPackagesEntity,
+  SubscriptionPackageEntity,
   TitleEntity,
   UserBenefitEntity,
   UserContactEntity,
@@ -46,6 +44,10 @@ import type { AddressesState } from '../addresses/types';
 import type { BagsState } from '../bags/types';
 import type {
   Brand,
+  Country,
+  CountryAddressSchema,
+  DeliveryBundle,
+  DeliveryBundleUpgrades,
   MerchantLocation,
   ProgramMembership,
   SizeScale,
@@ -90,17 +92,23 @@ export type StoreState = Partial<{
       CheckoutOrderItemProductEntity['id'],
       CheckoutOrderItemProductEntity
     >;
-    checkoutOrderOperations: Record<string, CheckoutOrderOperationEntity>;
+    checkoutOrderOperations: Record<
+      CheckoutOrderOperationEntity['id'],
+      CheckoutOrderOperationEntity
+    >;
     checkoutOrders: Record<CheckoutOrderEntity['id'], CheckoutOrderEntity>;
     cities: Record<CityEntity['id'], CityEntity>;
     contacts: Record<UserContactEntity['id'], UserContactEntity>;
-    contents: Record<string, ContentsEntity>;
+    contents: Record<ContentsEntity['publicationId'], ContentsEntity>;
     converts: Record<ConvertEntity['id'], ConvertEntity>;
-    countries: Record<string, CountryNormalized>;
-    countriesAddressSchemas: CountriesAddressSchemasEntity;
+    countries: Record<CountryEntity['code'], CountryEntity>;
+    countriesAddressSchemas: Record<Country['code'], CountryAddressSchema[]>;
     courier: Record<CourierEntity['id'], CourierEntity>;
     deliveryBundles: Record<DeliveryBundleEntity['id'], DeliveryBundleEntity>;
-    deliveryBundleUpgrades: DeliveryBundleUpgradesEntity;
+    deliveryBundleUpgrades: Record<
+      DeliveryBundle['id'],
+      DeliveryBundleUpgrades
+    >;
     facets: Record<FacetEntity['id'], FacetEntity>;
     paymentInstruments: Record<
       PaymentInstrumentEntity['id'],
@@ -123,11 +131,14 @@ export type StoreState = Partial<{
     replacements: Record<ReplacementEntity['id'], ReplacementEntity>;
     returnItems: Record<ReturnItemsEntity['id'], ReturnItemsEntity>;
     returns: Record<ReturnsEntity['id'], ReturnsEntity>;
-    returnOptions: Record<ReturnOptionsEntity['id'], ReturnOptionsEntity>;
+    returnOptions: Record<ReturnOptionEntity['id'], ReturnOptionEntity>;
     sizeScales: Record<SizeScale['sizeScaleId'], SizeScale>;
     statements: Record<StatementEntity['id'], StatementEntity>;
-    states: Record<StateNormalized['id'], StateNormalized>;
-    subscriptionPackages: SubscriptionPackagesEntity;
+    states: Record<StateEntity['id'], StateEntity>;
+    subscriptionPackages: Record<
+      SubscriptionPackageEntity['id'],
+      SubscriptionPackageEntity
+    >;
     titles: Record<TitleEntity['id'], TitleEntity>;
     user: UserEntity;
     wishlistItems: Record<WishlistItemEntity['id'], WishlistItemEntity>;

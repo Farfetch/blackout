@@ -4,6 +4,8 @@ import * as selectors from '../selectors';
 import {
   courierEntity,
   courierId,
+  expectedGetGuestOrdersResult,
+  expectedGetUserOrdersResult,
   labelTrackingEntity,
   merchantEntity,
   merchantId,
@@ -60,7 +62,7 @@ describe('orders redux selectors', () => {
   });
 
   describe('getOrdersPagination()', () => {
-    it('should get the order error property from state', () => {
+    it('should get the order result property from state if the result contains the response from fetch user orders', () => {
       const { number, totalItems, totalPages } = mockState.orders.result;
       const expectedResult = { number, totalItems, totalPages };
       const spy = jest.spyOn(fromOrders, 'getResult');
@@ -69,7 +71,31 @@ describe('orders redux selectors', () => {
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
-    it('should return undefined', () => {
+    it('should return a pagination wrapper if the result contains the response from fetch guest orders', () => {
+      const guestOrdersResult = ['ORDVX1', 'PQ4DS5'];
+
+      const stateWithGuestOrdersResult = {
+        ...mockState,
+        orders: {
+          ...mockState.orders,
+          result: guestOrdersResult,
+        },
+      };
+
+      const expectedResult = {
+        number: 1,
+        totalItems: guestOrdersResult.length,
+        totalPages: 1,
+      };
+      const spy = jest.spyOn(fromOrders, 'getResult');
+
+      expect(selectors.getOrdersPagination(stateWithGuestOrdersResult)).toEqual(
+        expectedResult,
+      );
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should return undefined if result property in state is undefined', () => {
       const expectedResult = undefined;
       const spy = jest.spyOn(fromOrders, 'getResult');
       const newMock = {
@@ -81,6 +107,44 @@ describe('orders redux selectors', () => {
       };
       expect(selectors.getOrdersPagination(newMock)).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('getOrdersResult()', () => {
+    it('should get the order result denormalized from state if it contains the response from fetch user orders', () => {
+      expect(selectors.getOrdersResult(mockState)).toEqual(
+        expectedGetUserOrdersResult,
+      );
+    });
+
+    it('should get the order result denormalized from state if it contains the response from fetch guest orders', () => {
+      const guestOrdersResult = ['3558DS'];
+
+      const stateWithGuestOrdersResult = {
+        ...mockState,
+        orders: {
+          ...mockState.orders,
+          result: guestOrdersResult,
+        },
+      };
+
+      expect(selectors.getOrdersResult(stateWithGuestOrdersResult)).toEqual(
+        expectedGetGuestOrdersResult,
+      );
+    });
+
+    it('should return undefined if result property in state is undefined', () => {
+      const expectedResult = undefined;
+      const stateWithUndefinedResult = {
+        ...mockState,
+        orders: {
+          ...mockState.orders,
+          result: undefined,
+        },
+      };
+      expect(selectors.getOrdersResult(stateWithUndefinedResult)).toEqual(
+        expectedResult,
+      );
     });
   });
 
@@ -311,32 +375,32 @@ describe('orders redux selectors', () => {
     it('should get the return option from state', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
-      expect(selectors.getReturnOption(mockState, returnOptionId)).toBe(
-        returnOptionEntity,
-      );
+      expect(
+        selectors.getReturnOption(mockState, `${orderId}_${returnOptionId}`),
+      ).toBe(returnOptionEntity);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getReturnOptionsFromOrder()', () => {
+  describe('getOrderReturnOptions()', () => {
     it('should get the return options from state', () => {
       const spyGetOrder = jest.spyOn(fromEntities, 'getEntityById');
       const spyGetReturnOptions = jest.spyOn(fromEntities, 'getEntities');
 
       expect(
-        selectors.getReturnOptionsFromOrder(mockState, orderId, merchantId),
+        selectors.getOrderReturnOptions(mockState, orderId, merchantId),
       ).toEqual([returnOptionEntity]);
       expect(spyGetOrder).toHaveBeenCalledTimes(1);
       expect(spyGetReturnOptions).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getMerchantsFromOrder()', () => {
+  describe('getOrderMerchants()', () => {
     it('should get the merchants from state', () => {
       const spyGetOrder = jest.spyOn(fromEntities, 'getEntityById');
       const spyGetMerchant = jest.spyOn(fromEntities, 'getEntities');
 
-      expect(selectors.getMerchantsFromOrder(mockState, orderId)).toEqual([
+      expect(selectors.getOrderMerchants(mockState, orderId)).toEqual([
         merchantEntity,
       ]);
       expect(spyGetOrder).toHaveBeenCalledTimes(1);

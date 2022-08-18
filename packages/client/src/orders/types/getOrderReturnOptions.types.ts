@@ -1,7 +1,7 @@
 import type { Config } from '../..';
-import type { OrderReturn } from './orderReturn.types';
+import type { MerchantOrderReturnOptions } from './orderReturnOptions.types';
 
 export type GetOrderReturnOptions = (
   id: string,
   config?: Config,
-) => Promise<OrderReturn[]>;
+) => Promise<MerchantOrderReturnOptions[]>;

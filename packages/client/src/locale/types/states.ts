@@ -7,11 +7,7 @@ export type State = {
   name: string;
 };
 
-export type GetCountryStatesResponse = {
-  items: State[];
-};
-
 export type GetCountryStates = (
   countryCode: string,
   config?: Config,
-) => Promise<GetCountryStatesResponse>;
+) => Promise<State[]>;

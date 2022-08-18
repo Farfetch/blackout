@@ -1,4 +1,7 @@
 import { createSelector } from 'reselect';
+import { getBrands } from '../brands';
+import { getCategories } from '../categories';
+import { getCountries } from '../locale';
 import {
   getDocuments,
   getError,
@@ -6,7 +9,7 @@ import {
   getOrderAvailableItemsActivities,
   getOrderDetails,
   getOrderItemAvailableActivities,
-  getOrderReturnOptions,
+  getOrderReturnOptions as getOrderReturnOptionsFromReducer,
   getOrderReturns,
   getOrdersList,
   getResult,
@@ -15,14 +18,20 @@ import {
 import { getEntities, getEntityById } from '../entities/selectors';
 import { getMerchants } from '../products';
 import get from 'lodash/get';
+import type { Brand, Order } from '@farfetch/blackout-client';
 import type {
+  CategoryEntity,
+  CountryEntity,
   CourierEntity,
   MerchantEntity,
+  MerchantOrderDenormalized,
+  MerchantOrderNormalized,
+  OrderEntity,
   OrderItemEntity,
-  OrderMerchantNormalized,
-  ReturnOptionsEntity,
+  OrderItemEntityDenormalized,
+  ReturnOptionEntity,
+  ReturnOptionEntityDenormalized,
 } from '../entities/types';
-import type { Order } from '@farfetch/blackout-client';
 import type { OrdersState } from './types';
 import type { StoreState } from '../types';
 
@@ -109,7 +118,21 @@ export const getShipmentTrackingLabel = (
 export const getOrdersPagination = createSelector(
   [(state: StoreState) => getResult(state.orders as OrdersState)],
   result => {
-    if (!result) return;
+    if (!result) {
+      return;
+    }
+
+    // In case result is the response from the fetch guest orders
+    // which does not provide a paginated response yet instead returning
+    // all orders, we return a pagination wrapper of the result containing
+    // only one 1 page with all returned items.
+    if (Array.isArray(result)) {
+      return {
+        number: 1,
+        totalItems: result.length,
+        totalPages: 1,
+      };
+    }
 
     return {
       number: get(result, 'number'),
@@ -184,7 +207,7 @@ export const getReturnOption = (state: StoreState, returnOptionId: string) =>
  *
  * @returns List of return options objects.
  */
-export const getReturnOptionsFromOrder = createSelector(
+export const getOrderReturnOptions = createSelector(
   [
     (state, orderId) => getOrder(state, orderId),
     getReturnOptions,
@@ -200,7 +223,7 @@ export const getReturnOptionsFromOrder = createSelector(
     return (returnOptionsIds &&
       returnOptionsIds
         .map((returnId: string) => returnOptions?.[returnId])
-        .filter(Boolean)) as ReturnOptionsEntity[];
+        .filter(Boolean)) as ReturnOptionEntity[];
   },
 );
 
@@ -212,7 +235,7 @@ export const getReturnOptionsFromOrder = createSelector(
  *
  * @returns List of merchants objects.
  */
-export const getMerchantsFromOrder = createSelector(
+export const getOrderMerchants = createSelector(
   [(state, orderId) => getOrder(state, orderId), getMerchants],
   (order, merchants) => {
     const ordersByMerchant = get(order, 'byMerchant');
@@ -225,7 +248,7 @@ export const getMerchantsFromOrder = createSelector(
       Object.keys(ordersByMerchant)
         // This cast is necessary because Object.keys returns a string[]
         // but the strings are numbers as the ordersByMerchant variable is
-        // a Record<number, OrderMerchantNormalized>
+        // a Record<number, MerchantOrderNormalized>
         .map(merchantId => merchants?.[merchantId as unknown as number])
         .filter(Boolean) as MerchantEntity[]
     );
@@ -285,7 +308,7 @@ export const getOrderItemsByMerchant = createSelector(
       const orderItemsFromDetailsByMerchant = get(
         orderDetailsByMerchant,
         `${merchantId}.orderItems`,
-      ) as OrderMerchantNormalized['orderItems'] | undefined;
+      ) as MerchantOrderNormalized['orderItems'] | undefined;
 
       if (orderItemsFromDetailsByMerchant) {
         result[merchantId as unknown as number] =
@@ -303,7 +326,6 @@ export const getOrderItemsByMerchant = createSelector(
  * Returns the quantity of orderItems in the order.
  *
  * @param state       - Application state.
- * @param _           -
  * @param orderId     - Order id.
  * @param orderItemId - Order item id.
  *
@@ -322,11 +344,7 @@ export const getOrderItemQuantity = createSelector(
 
     const hasFullDetails = get(order, 'items');
 
-    if (!hasFullDetails) {
-      return;
-    }
-
-    if (!orderItemsByOrder) {
+    if (!hasFullDetails || !orderItemsByOrder) {
       return;
     }
 
@@ -414,7 +432,10 @@ export const getOrderReturnsError = (state: StoreState, orderId: Order['id']) =>
 export const areOrderReturnOptionsLoading = (
   state: StoreState,
   orderId: Order['id'],
-) => getOrderReturnOptions(state.orders as OrdersState).isLoading[orderId];
+) =>
+  getOrderReturnOptionsFromReducer(state.orders as OrdersState).isLoading[
+    orderId
+  ];
 
 /**
  * Returns the error for the order return options operation.
@@ -427,7 +448,8 @@ export const areOrderReturnOptionsLoading = (
 export const getOrderReturnOptionsError = (
   state: StoreState,
   orderId: string,
-) => getOrderReturnOptions(state.orders as OrdersState).error[orderId];
+) =>
+  getOrderReturnOptionsFromReducer(state.orders as OrdersState).error[orderId];
 
 /**
  * Returns the loading status for the tracking operation.
@@ -508,3 +530,257 @@ export const areOrderItemAvailableActivitiesLoading = (state: StoreState) =>
  */
 export const getOrderItemAvailableActivitiesError = (state: StoreState) =>
   getOrderItemAvailableActivities(state.orders as OrdersState).error;
+
+/**
+ * Denormalizes an order item
+ *
+ * @param orderItemId - Order item id to denormalize.
+ * @param orderItems - Order items entities.
+ * @param merchants - Merchants entities.
+ * @param categories - Categories entities.
+ * @param brands - Brands entities.
+ *
+ * @returns Order item entity denormalized or undefined.
+ */
+const denormalizeOrderItem = (
+  orderItemId: OrderItemEntity['id'],
+  orderItems: Record<number, OrderItemEntity> | undefined,
+  merchants: Record<number, MerchantEntity> | undefined,
+  categories: Record<number, CategoryEntity> | undefined,
+  brands: Record<number, Brand> | undefined,
+) => {
+  if (!orderItems) {
+    return undefined;
+  }
+
+  const orderItem = orderItems[orderItemId];
+
+  if (!orderItem) {
+    return undefined;
+  }
+
+  const orderItemDenormalized = {
+    ...orderItem,
+    merchant:
+      merchants && orderItem.merchant
+        ? merchants[orderItem.merchant]
+        : undefined,
+    categories:
+      categories && orderItem.categories
+        ? (orderItem.categories
+            .map(categoryId => categories[categoryId])
+            .filter(Boolean) as CategoryEntity[])
+        : [],
+    brand: brands && orderItem.brand ? brands[orderItem.brand] : undefined,
+  };
+
+  return orderItemDenormalized;
+};
+
+/**
+ * Denormalizes order by merchant structure.
+ *
+ * @param byMerchant - Orders by merchant structure to denormalize.
+ * @param orderItems - Order items entities.
+ * @param merchants - Merchants entities.
+ * @param categories - Categories entities.
+ * @param brands - Brands entities.
+ *
+ * @returns Order by merchant structure denormalized.
+ */
+const denormalizeOrdersByMerchant = (
+  byMerchant: OrderEntity['byMerchant'],
+  orderItems: Record<number, OrderItemEntity> | undefined,
+  merchants: Record<number, MerchantEntity> | undefined,
+  categories: Record<number, CategoryEntity> | undefined,
+  brands: Record<number, Brand> | undefined,
+  returnOptions: Record<string, ReturnOptionEntity> | undefined,
+) => {
+  return Object.entries(byMerchant).reduce(
+    (acc, [merchantId, orderMerchantData]) => {
+      const orderItemsDenormalized = orderMerchantData.orderItems
+        ? (orderMerchantData.orderItems.map(orderItemId =>
+            denormalizeOrderItem(
+              orderItemId,
+              orderItems,
+              merchants,
+              categories,
+              brands,
+            ),
+          ) as OrderItemEntityDenormalized[])
+        : undefined;
+
+      const returnOptionsDenormalized = orderMerchantData.returnOptions
+        ? (orderMerchantData.returnOptions
+            .map(returnOptionId => {
+              const returnOptionEntity = returnOptions?.[returnOptionId];
+
+              if (!returnOptionEntity) {
+                return undefined;
+              }
+
+              return {
+                ...returnOptionEntity,
+                merchant: merchants?.[returnOptionEntity.merchant],
+              };
+            })
+            .filter(Boolean) as ReturnOptionEntityDenormalized[])
+        : undefined;
+
+      acc[merchantId] = {
+        ...orderMerchantData,
+        orderItems: orderItemsDenormalized,
+        merchant: merchants?.[merchantId as unknown as number],
+        returnOptions: returnOptionsDenormalized,
+      };
+
+      return acc;
+    },
+    {} as Record<string, MerchantOrderDenormalized>,
+  );
+};
+
+/**
+ * Denormalizes an order
+ *
+ * @param orderId - Order id to denormalize.
+ * @param orders - Orders entities.
+ * @param orderItems - Order items entities.
+ * @param merchants - Merchants entities.
+ * @param categories - Categories entities.
+ * @param brands - Brands entities.
+ *
+ * @returns Order entity denormalized or undefined.
+ */
+const denormalizeOrder = (
+  orderId: OrderEntity['id'],
+  orders: Record<string, OrderEntity> | undefined,
+  orderItems: Record<number, OrderItemEntity> | undefined,
+  merchants: Record<number, MerchantEntity> | undefined,
+  categories: Record<number, CategoryEntity> | undefined,
+  brands: Record<number, Brand> | undefined,
+  countries: Record<string, CountryEntity> | undefined,
+  returnOptions: Record<string, ReturnOptionEntity> | undefined,
+) => {
+  if (!orders) {
+    return undefined;
+  }
+
+  const order = orders[orderId];
+
+  if (!order) {
+    return undefined;
+  }
+
+  const shippingCountryId = order.shippingAddress?.country;
+  const billingCountryId = order.billingAddress?.country;
+
+  return {
+    ...order,
+    shippingAddress: {
+      ...order.shippingAddress,
+      country:
+        typeof shippingCountryId === 'number'
+          ? countries?.[shippingCountryId]
+          : shippingCountryId,
+    },
+    billingAddress: {
+      ...order.billingAddress,
+      country:
+        typeof billingCountryId === 'number'
+          ? countries?.[billingCountryId]
+          : billingCountryId,
+    },
+    byMerchant: denormalizeOrdersByMerchant(
+      order.byMerchant,
+      orderItems,
+      merchants,
+      categories,
+      brands,
+      returnOptions,
+    ),
+    items:
+      order.items && orderItems
+        ? order.items.map(orderItemId =>
+            denormalizeOrderItem(
+              orderItemId,
+              orderItems,
+              merchants,
+              categories,
+              brands,
+            ),
+          )
+        : undefined,
+  };
+};
+
+/**
+ * Get orders result, denormalized.
+ */
+export const getOrdersResult = createSelector(
+  [
+    (state: StoreState) => getResult(state.orders as OrdersState),
+    getOrders,
+    getOrderItems,
+    getMerchants,
+    getCategories,
+    getBrands,
+    getCountries,
+    getReturnOptions,
+  ],
+  (
+    result,
+    orders,
+    orderItems,
+    merchants,
+    categories,
+    brands,
+    countries,
+    returnOptions,
+  ) => {
+    if (!result || !orders) {
+      return;
+    }
+
+    // If result is an array, it means it contains the result
+    // of the fetchGuestOrders request, so we have the full
+    // order details available in entities.
+    if (Array.isArray(result)) {
+      return result
+        .map(orderId =>
+          denormalizeOrder(
+            orderId,
+            orders,
+            orderItems,
+            merchants,
+            categories,
+            brands,
+            countries,
+            returnOptions,
+          ),
+        )
+        .filter(Boolean);
+    }
+
+    // If result is not an array and not undefined, it means
+    // it contains the result of the fetchUserOrders request, so
+    // we only have order summaries here.
+    return {
+      ...result,
+      entries: result.entries
+        .map(orderId =>
+          denormalizeOrder(
+            orderId,
+            orders,
+            orderItems,
+            merchants,
+            categories,
+            brands,
+            countries,
+            returnOptions,
+          ),
+        )
+        .filter(Boolean),
+    };
+  },
+);

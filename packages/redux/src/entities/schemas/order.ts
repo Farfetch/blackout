@@ -1,38 +1,20 @@
-import { adaptDate } from '../../helpers/adapters';
 import { schema } from 'normalizr';
-import merchant from './merchant';
+import orderItem from './orderItem';
+import preprocessOrder from '../../helpers/preprocessOrder';
+import type { Order } from '@farfetch/blackout-client';
 
 export default new schema.Entity(
   'orders',
-  { merchant },
+  { items: [orderItem] },
   {
-    mergeStrategy: (entityA, entityB) => {
-      return {
-        ...entityA,
-        ...entityB,
-        totalItems: entityA.totalItems + entityB.totalItems,
-        byMerchant: { ...entityA.byMerchant, ...entityB.byMerchant },
-      };
-    },
-    processStrategy: value => {
-      const { id, merchantId, createdDate, merchantName, ...item } = value;
-
-      const convertedItem = {
-        id,
-        createdDate: adaptDate(createdDate),
-        totalItems: item.totalQuantity,
-        byMerchant: {
-          [merchantId]: {
-            ...item,
-            merchant: {
-              id: merchantId,
-              name: merchantName,
-            },
-          },
-        },
-      };
-
-      return convertedItem;
+    processStrategy: (order: Order) => {
+      // This is needed since the Farfetch Checkout service is merging
+      // both Address Line 2 and Address Line 3 not checking correctly if the
+      // second is empty, when the user fills the third address line but not
+      // the second it adds a space when merging the values and returns it
+      // in the second line.
+      // This only occurs in the order details not in the address book.
+      return preprocessOrder(order);
     },
   },
 );

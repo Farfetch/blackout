@@ -49,18 +49,18 @@ export const FETCH_ORDER_RETURN_OPTIONS_SUCCESS =
 /**
  * Action type dispatched when the fetch orders request fails.
  */
-export const FETCH_ORDERS_FAILURE =
-  '@farfetch/blackout-redux/FETCH_ORDERS_FAILURE';
+export const FETCH_USER_ORDERS_FAILURE =
+  '@farfetch/blackout-redux/FETCH_USER_ORDERS_FAILURE';
 /**
  * Action type dispatched when the fetch orders request starts.
  */
-export const FETCH_ORDERS_REQUEST =
-  '@farfetch/blackout-redux/FETCH_ORDERS_REQUEST';
+export const FETCH_USER_ORDERS_REQUEST =
+  '@farfetch/blackout-redux/FETCH_USER_ORDERS_REQUEST';
 /**
  * Action type dispatched when the fetch orders request succeeds.
  */
-export const FETCH_ORDERS_SUCCESS =
-  '@farfetch/blackout-redux/FETCH_ORDERS_SUCCESS';
+export const FETCH_USER_ORDERS_SUCCESS =
+  '@farfetch/blackout-redux/FETCH_USER_ORDERS_SUCCESS';
 
 /**
  * Action type dispatched when the fetch tracking request fails.
@@ -172,15 +172,31 @@ export const ADD_ORDER_DOCUMENT_SUCCESS =
 /**
  * Action type dispatched when the post order item activities request fails.
  */
-export const ADD_ORDER_ITEM_ACTIVITIES_FAILURE =
-  '@farfetch/blackout-redux/ADD_ORDER_ITEM_ACTIVITIES_FAILURE';
+export const ADD_ORDER_ITEM_ACTIVITY_FAILURE =
+  '@farfetch/blackout-redux/ADD_ORDER_ITEM_ACTIVITY_FAILURE';
 /**
  * Action type dispatched when the post order item activities request starts.
  */
-export const ADD_ORDER_ITEM_ACTIVITIES_REQUEST =
-  '@farfetch/blackout-redux/ADD_ORDER_ITEM_ACTIVITIES_REQUEST';
+export const ADD_ORDER_ITEM_ACTIVITY_REQUEST =
+  '@farfetch/blackout-redux/ADD_ORDER_ITEM_ACTIVITY_REQUEST';
 /**
  * Action type dispatched when the post order item activities request succeeds.
  */
-export const ADD_ORDER_ITEM_ACTIVITIES_SUCCESS =
-  '@farfetch/blackout-redux/ADD_ORDER_ITEM_ACTIVITIES_SUCCESS';
+export const ADD_ORDER_ITEM_ACTIVITY_SUCCESS =
+  '@farfetch/blackout-redux/ADD_ORDER_ITEM_ACTIVITY_SUCCESS';
+
+/**
+ * Action type dispatched when the fetch orders request fails.
+ */
+export const FETCH_GUEST_ORDERS_FAILURE =
+  '@farfetch/blackout-redux/FETCH_GUEST_ORDERS_FAILURE';
+/**
+ * Action type dispatched when the fetch orders request starts.
+ */
+export const FETCH_GUEST_ORDERS_REQUEST =
+  '@farfetch/blackout-redux/FETCH_GUEST_ORDERS_REQUEST';
+/**
+ * Action type dispatched when the fetch orders request succeeds.
+ */
+export const FETCH_GUEST_ORDERS_SUCCESS =
+  '@farfetch/blackout-redux/FETCH_GUEST_ORDERS_SUCCESS';

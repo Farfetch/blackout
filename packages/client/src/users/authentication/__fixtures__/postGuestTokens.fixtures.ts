@@ -1,10 +1,10 @@
 import { rest, RestHandler } from 'msw';
-import type { PostGuestTokenResponse } from '../types';
+import type { GuestToken } from '../types';
 
 const path = '/api/authentication/v1/guestTokens';
 
 const fixtures = {
-  success: (response: PostGuestTokenResponse): RestHandler =>
+  success: (response: GuestToken): RestHandler =>
     rest.post(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),

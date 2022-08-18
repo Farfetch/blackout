@@ -8,24 +8,27 @@ import {
 import { normalize } from 'normalizr';
 import labelTracking from '../../../entities/schemas/labelTracking';
 import type { Dispatch } from 'redux';
+import type { FetchShipmentTrackingsAction } from '../../types/actions.types';
 
 /**
  * Fetch all tracking events for the tracking numbers.
  *
- * @param getTrackings - Get trackings client.
+ * @param getShipmentTrackings - Get shipment trackings client.
  *
  * @returns Thunk factory.
  */
 const fetchShipmentTrackingsFactory =
-  (getTrackings: GetShipmentTrackings) =>
-  (trackingNumbers: string, config?: Config) =>
-  async (dispatch: Dispatch): Promise<ShipmentTrackings> => {
+  (getShipmentTrackings: GetShipmentTrackings) =>
+  (trackingCodes: string, config?: Config) =>
+  async (
+    dispatch: Dispatch<FetchShipmentTrackingsAction>,
+  ): Promise<ShipmentTrackings> => {
     try {
       dispatch({
         type: actionTypes.FETCH_SHIPMENT_TRACKINGS_REQUEST,
       });
 
-      const result = await getTrackings(trackingNumbers, config);
+      const result = await getShipmentTrackings(trackingCodes, config);
 
       dispatch({
         payload: normalize(result, {

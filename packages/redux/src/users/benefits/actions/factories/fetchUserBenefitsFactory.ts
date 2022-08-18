@@ -3,6 +3,7 @@ import {
   Config,
   GetUserBenefits,
   toBlackoutError,
+  User,
   UserBenefit,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
@@ -12,20 +13,20 @@ import type { Dispatch } from 'redux';
 /**
  * Fetches user benefits.
  *
- * @param getBenefits - Get benefits client.
+ * @param getUserBenefits - Get user benefits client.
  *
  * @returns Thunk factory.
  */
 const fetchUserBenefitsFactory =
-  (getBenefits: GetUserBenefits) =>
-  (config?: Config) =>
+  (getUserBenefits: GetUserBenefits) =>
+  (userId: User['id'], config?: Config) =>
   async (dispatch: Dispatch): Promise<UserBenefit[]> => {
     try {
       dispatch({
         type: actionTypes.FETCH_USER_BENEFITS_REQUEST,
       });
 
-      const result = await getBenefits(config);
+      const result = await getUserBenefits(userId, config);
 
       dispatch({
         payload: normalize(result, [userBenefitsSchema]),

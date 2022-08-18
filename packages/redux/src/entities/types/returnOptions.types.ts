@@ -1,13 +1,25 @@
-import type { Country } from '@farfetch/blackout-client';
+import type { MerchantEntity } from './merchant.types';
+import type {
+  MerchantOrderReturnOptions,
+  ReturnOption,
+} from '@farfetch/blackout-client';
 
-export type ReturnOptionsEntity = {
+export type ReturnOptionEntity = ReturnOption & {
+  merchant: MerchantOrderReturnOptions['merchantId'];
+  merchantOrderId: MerchantOrderReturnOptions['merchantOrderId'];
   id: string;
-  type: number;
-  allowedCountries: Country[];
-  isNumberOfBoxesMandatory: boolean;
-  isMerchantLocationMandatory: boolean;
-  isAddressMandatory: boolean;
-  isSchedulePickup: boolean;
-  merchantOrderId: number;
-  merchant: number;
+};
+
+export type ReturnOptionEntityDenormalized = Omit<
+  ReturnOptionEntity,
+  'merchant'
+> & {
+  merchant: MerchantEntity;
+};
+
+export type MerchantOrderReturnOptionsNormalized = Omit<
+  MerchantOrderReturnOptions,
+  'options'
+> & {
+  options: Array<ReturnOptionEntity['id']>;
 };
