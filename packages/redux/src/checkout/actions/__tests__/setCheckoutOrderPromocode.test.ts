@@ -9,15 +9,23 @@ import { mockStore } from '../../../../tests';
 import { putCheckoutOrderPromocode } from '@farfetch/blackout-client';
 import { setCheckoutOrderPromocode } from '..';
 import find from 'lodash/find';
+import thunk from 'redux-thunk';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
   putCheckoutOrderPromocode: jest.fn(),
 }));
 
+const mockProductImgQueryParam = '?c=2';
+const mockMiddlewares = [
+  thunk.withExtraArgument({
+    getOptions: () => ({ productImgQueryParam: mockProductImgQueryParam }),
+  }),
+];
+
 describe('setCheckoutOrderPromocode() action creator', () => {
   const checkoutMockStore = (state = {}) =>
-    mockStore({ checkout: INITIAL_STATE }, state);
+    mockStore({ checkout: INITIAL_STATE }, state, mockMiddlewares);
 
   const data = {
     promocode: 'something',

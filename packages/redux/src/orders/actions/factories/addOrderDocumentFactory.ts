@@ -5,6 +5,7 @@ import {
   PostOrderDocument,
   toBlackoutError,
 } from '@farfetch/blackout-client';
+import type { AddOrderDocumentAction } from '../../types/actions.types';
 import type { Dispatch } from 'redux';
 
 /**
@@ -17,7 +18,7 @@ import type { Dispatch } from 'redux';
 const addOrderDocumentFactory =
   (postOrderDocument: PostOrderDocument) =>
   (orderId: string, fileId: string, data: DocumentData, config?: Config) =>
-  async (dispatch: Dispatch): Promise<string> => {
+  async (dispatch: Dispatch<AddOrderDocumentAction>): Promise<string> => {
     try {
       dispatch({
         type: actionTypes.ADD_ORDER_DOCUMENT_REQUEST,

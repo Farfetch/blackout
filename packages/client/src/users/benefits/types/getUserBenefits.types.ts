@@ -1,4 +1,5 @@
 import type { Config } from '../../../types';
+import type { User } from '../../authentication';
 
 export type UserBenefit = {
   id: string;
@@ -10,4 +11,7 @@ export type UserBenefit = {
 
 export type UserBenefitMetadata = Record<string, string>;
 
-export type GetUserBenefits = (config?: Config) => Promise<UserBenefit[]>;
+export type GetUserBenefits = (
+  userId: User['id'],
+  config?: Config,
+) => Promise<UserBenefit[]>;

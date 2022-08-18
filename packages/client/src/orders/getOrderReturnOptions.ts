@@ -13,7 +13,7 @@ import type { GetOrderReturnOptions } from './types';
  */
 const getOrderReturnOptions: GetOrderReturnOptions = (orderId, config) =>
   client
-    .get(join('/legacy/v1/orders', orderId, 'returnoptions'), config)
+    .get(join('/account/v1/orders', orderId, 'returnoptions'), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);

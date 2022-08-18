@@ -24,7 +24,16 @@ Object {
           "customAttributes": undefined,
           "description": undefined,
           "id": 12640693,
-          "images": undefined,
+          "images": Array [
+            Object {
+              "order": 1,
+              "size": "200",
+              "sources": Object {
+                "200": "https://cdn-images.farfetch.com/12/09/16/86/12091686_11099951_200.jpg?c=2",
+              },
+              "url": "https://cdn-images.farfetch.com/12/09/16/86/12091686_11099951_200.jpg",
+            },
+          ],
           "isAvailable": undefined,
           "isCustomizable": undefined,
           "isExclusive": undefined,
@@ -378,7 +387,16 @@ Object {
           "customAttributes": undefined,
           "description": undefined,
           "id": 12640693,
-          "images": undefined,
+          "images": Array [
+            Object {
+              "order": 1,
+              "size": "200",
+              "sources": Object {
+                "200": "https://cdn-images.farfetch.com/12/09/16/86/12091686_11099951_200.jpg?c=2",
+              },
+              "url": "https://cdn-images.farfetch.com/12/09/16/86/12091686_11099951_200.jpg",
+            },
+          ],
           "isAvailable": undefined,
           "isCustomizable": undefined,
           "isExclusive": undefined,

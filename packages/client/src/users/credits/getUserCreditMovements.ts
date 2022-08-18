@@ -18,7 +18,10 @@ const getUserCreditMovements: GetUserCreditMovements = (
   config,
 ) =>
   client
-    .get(join('/legacy/v1/users', userId, 'creditMovements', { query }), config)
+    .get(
+      join('/account/v1/users', userId, 'creditMovements', { query }),
+      config,
+    )
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);

@@ -7,7 +7,7 @@ import type {
 } from '@farfetch/blackout-client';
 import type { NormalizedSchema } from 'normalizr';
 import type { SubscriptionPackagesResultNormalized } from './state.types';
-import type { UnsubscribeRecipientFromTopicMeta } from './../actions/factories/types';
+import type { UnsubscribeSubscriptionTopicRecipientMeta } from './../actions/factories/types';
 
 interface FetchSubscriptionPackagesRequestAction extends Action {
   type: typeof actionTypes.FETCH_SUBSCRIPTION_PACKAGES_REQUEST;
@@ -54,54 +54,54 @@ export type FetchUserSubscriptionsAction =
   | FetchUserSubscriptionsSuccessAction
   | FetchUserSubscriptionsFailureAction;
 
-interface UnsubscribeFromSubscriptionRequestAction extends Action {
-  type: typeof actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_REQUEST;
+interface UnsubscribeSubscriptionRequestAction extends Action {
+  type: typeof actionTypes.UNSUBSCRIBE_SUBSCRIPTION_REQUEST;
 }
 
-interface UnsubscribeFromSubscriptionSuccessAction extends Action {
-  type: typeof actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS;
+interface UnsubscribeSubscriptionSuccessAction extends Action {
+  type: typeof actionTypes.UNSUBSCRIBE_SUBSCRIPTION_SUCCESS;
 }
-interface UnsubscribeFromSubscriptionFailureAction extends Action {
-  type: typeof actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_FAILURE;
+interface UnsubscribeSubscriptionFailureAction extends Action {
+  type: typeof actionTypes.UNSUBSCRIBE_SUBSCRIPTION_FAILURE;
   payload: { error: BlackoutError };
 }
 
 /**
  * Actions dispatched when the unsubscribe from subscription request is made.
  */
-export type UnsubscribeFromSubscriptionAction =
-  | UnsubscribeFromSubscriptionRequestAction
-  | UnsubscribeFromSubscriptionSuccessAction
-  | UnsubscribeFromSubscriptionFailureAction;
+export type UnsubscribeSubscriptionAction =
+  | UnsubscribeSubscriptionRequestAction
+  | UnsubscribeSubscriptionSuccessAction
+  | UnsubscribeSubscriptionFailureAction;
 
-type UnsubscribeRecipientFromTopicPayload = {
+type UnsubscribeSubscriptionTopicRecipientPayload = {
   subscriptionId?: string;
   topicId?: string;
   recipientId?: string;
 };
 
-interface UnsubscribeRecipientFromTopicRequestAction extends Action {
-  type: typeof actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUEST;
-  payload: UnsubscribeRecipientFromTopicPayload;
-  meta?: UnsubscribeRecipientFromTopicMeta;
+interface UnsubscribeSubscriptionTopicRecipientRequestAction extends Action {
+  type: typeof actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_REQUEST;
+  payload: UnsubscribeSubscriptionTopicRecipientPayload;
+  meta?: UnsubscribeSubscriptionTopicRecipientMeta;
 }
 
-interface UnsubscribeRecipientFromTopicSuccessAction extends Action {
-  type: typeof actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_SUCCESS;
-  payload: UnsubscribeRecipientFromTopicPayload;
+interface UnsubscribeSubscriptionTopicRecipientSuccessAction extends Action {
+  type: typeof actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_SUCCESS;
+  payload: UnsubscribeSubscriptionTopicRecipientPayload;
 }
-interface UnsubscribeRecipientFromTopicFailureAction extends Action {
-  type: typeof actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_FAILURE;
+interface UnsubscribeSubscriptionTopicRecipientFailureAction extends Action {
+  type: typeof actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_FAILURE;
   payload: { recipientId?: string; error: BlackoutError };
 }
 
 /**
  * Actions dispatched when the unsubscribe recipient from topic request is made.
  */
-export type UnsubscribeRecipientFromTopicAction =
-  | UnsubscribeRecipientFromTopicRequestAction
-  | UnsubscribeRecipientFromTopicSuccessAction
-  | UnsubscribeRecipientFromTopicFailureAction;
+export type UnsubscribeSubscriptionTopicRecipientAction =
+  | UnsubscribeSubscriptionTopicRecipientRequestAction
+  | UnsubscribeSubscriptionTopicRecipientSuccessAction
+  | UnsubscribeSubscriptionTopicRecipientFailureAction;
 
 interface UpdateUserSubscriptionsRequestAction extends Action {
   type: typeof actionTypes.UPDATE_USER_SUBSCRIPTIONS_REQUEST;

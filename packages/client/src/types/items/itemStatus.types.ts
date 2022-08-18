@@ -6,7 +6,7 @@ export enum ItemStatus {
 }
 
 // Order item types
-export enum OrderStatus {
+export enum MerchantOrderStatus {
   Created = 'Created',
   CheckingStock = 'CheckingStock',
   ProcessingPayment = 'ProcessingPayment',

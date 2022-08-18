@@ -38,15 +38,25 @@ const fetchCheckoutOrderFactory =
 
       if (result.checkoutOrder) {
         const { productImgQueryParam } = getOptions(getState);
+        (
+          result.checkoutOrder as unknown as { productImgQueryParam?: string }
+        ).productImgQueryParam = productImgQueryParam;
+      }
 
-        result.checkoutOrder.items = result.checkoutOrder.items.map(item => ({
-          ...item,
-          productImgQueryParam,
-        }));
+      const normalizedResult = normalize(result, checkoutSchema);
+
+      // Cleanup productImgQueryParam
+      if (result.checkoutOrder) {
+        delete (
+          result.checkoutOrder as unknown as { productImgQueryParam?: string }
+        ).productImgQueryParam;
+
+        delete normalizedResult.entities.checkoutOrders?.[id]
+          .productImgQueryParam;
       }
 
       dispatch({
-        payload: normalize(result, checkoutSchema),
+        payload: normalizedResult,
         type: actionTypes.FETCH_CHECKOUT_ORDER_SUCCESS,
       });
 

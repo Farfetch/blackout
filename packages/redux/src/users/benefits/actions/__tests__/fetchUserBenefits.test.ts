@@ -19,6 +19,7 @@ jest.mock('@farfetch/blackout-client', () => ({
 const usersMockStore = (state = {}) =>
   mockStore({ users: INITIAL_STATE }, state);
 
+const userId = 10000;
 const expectedConfig = undefined;
 let store = usersMockStore();
 
@@ -37,11 +38,11 @@ describe('fetchBenefits action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(fetchUserBenefits() as unknown as AnyAction);
+      await store.dispatch(fetchUserBenefits(userId) as unknown as AnyAction);
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(getUserBenefits).toHaveBeenCalledTimes(1);
-      expect(getUserBenefits).toHaveBeenCalledWith(expectedConfig);
+      expect(getUserBenefits).toHaveBeenCalledWith(userId, expectedConfig);
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
           { type: actionTypes.FETCH_USER_BENEFITS_REQUEST },
@@ -59,13 +60,13 @@ describe('fetchBenefits action creator', () => {
       mockGetBenefitsResponse,
     );
 
-    await store.dispatch(fetchUserBenefits() as unknown as AnyAction);
+    await store.dispatch(fetchUserBenefits(userId) as unknown as AnyAction);
 
     const actionResults = store.getActions();
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getUserBenefits).toHaveBeenCalledTimes(1);
-    expect(getUserBenefits).toHaveBeenCalledWith(expectedConfig);
+    expect(getUserBenefits).toHaveBeenCalledWith(userId, expectedConfig);
     expect(actionResults).toMatchObject([
       { type: actionTypes.FETCH_USER_BENEFITS_REQUEST },
       {

@@ -9,6 +9,8 @@ import {
 import { normalize } from 'normalizr';
 import checkoutSchema from '../../../entities/schemas/checkout';
 import type { Dispatch } from 'redux';
+import type { GetOptionsArgument } from '../../../types/getOptionsArgument.types';
+import type { StoreState } from '../../../types/storeState.types';
 
 /**
  * Method responsible for adding promo code information.
@@ -20,7 +22,13 @@ import type { Dispatch } from 'redux';
 const setCheckoutOrderPromocodeFactory =
   (putCheckoutOrderPromocode: PutCheckoutOrderPromocode) =>
   (id: number, data: PutCheckoutOrderPromocodeData, config?: Config) =>
-  async (dispatch: Dispatch): Promise<GetCheckoutOrderResponse> => {
+  async (
+    dispatch: Dispatch,
+    getState: () => StoreState,
+    {
+      getOptions = arg => ({ productImgQueryParam: arg.productImgQueryParam }),
+    }: GetOptionsArgument,
+  ): Promise<GetCheckoutOrderResponse> => {
     try {
       dispatch({
         type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_REQUEST,
@@ -28,8 +36,27 @@ const setCheckoutOrderPromocodeFactory =
 
       const result = await putCheckoutOrderPromocode(id, data, config);
 
+      if (result.checkoutOrder) {
+        const { productImgQueryParam } = getOptions(getState);
+        (
+          result.checkoutOrder as unknown as { productImgQueryParam?: string }
+        ).productImgQueryParam = productImgQueryParam;
+      }
+
+      const normalizedResult = normalize(result, checkoutSchema);
+
+      // Cleanup productImgQueryParam
+      if (result.checkoutOrder) {
+        delete (
+          result.checkoutOrder as unknown as { productImgQueryParam?: string }
+        ).productImgQueryParam;
+
+        delete normalizedResult.entities.checkoutOrders?.[id]
+          .productImgQueryParam;
+      }
+
       dispatch({
-        payload: normalize(result, checkoutSchema),
+        payload: normalizedResult,
         type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS,
       });
 

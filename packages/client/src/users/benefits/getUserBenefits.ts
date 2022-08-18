@@ -1,17 +1,19 @@
 import { adaptError } from '../../helpers/client/formatError';
 import client from '../../helpers/client';
+import join from 'proper-url-join';
 import type { GetUserBenefits } from './types';
 
 /**
  * Method responsible for getting user benefits.
  *
+ * @param userId - User identifier.
  * @param config - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getUserBenefits: GetUserBenefits = config =>
+const getUserBenefits: GetUserBenefits = (userId, config) =>
   client
-    .get('/legacy/v1/userbenefits', config)
+    .get(join('/account/v1/users', userId, 'benefits'), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);

@@ -10,15 +10,23 @@ import { getCheckoutOrder } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
+import thunk from 'redux-thunk';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
   getCheckoutOrder: jest.fn(),
 }));
 
+const mockProductImgQueryParam = '?c=2';
+const mockMiddlewares = [
+  thunk.withExtraArgument({
+    getOptions: () => ({ productImgQueryParam: mockProductImgQueryParam }),
+  }),
+];
+
 describe('fetchCheckoutOrder() action creator', () => {
   const checkoutMockStore = (state = {}) =>
-    mockStore({ checkout: INITIAL_STATE }, state);
+    mockStore({ checkout: INITIAL_STATE }, state, mockMiddlewares);
   const query = {
     fields: 'paymentMethods,shippingOptions',
   };

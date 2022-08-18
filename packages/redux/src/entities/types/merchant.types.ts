@@ -1,5 +1,5 @@
 export type MerchantEntity = {
   id: number;
-  name: string;
+  name?: string;
   shoppingUrl?: string;
 };

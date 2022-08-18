@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  CheckoutOrderDetails,
   Config,
   GetCheckoutOrderDetails,
-  GetCheckoutOrderDetailsResponse,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
@@ -20,7 +20,7 @@ import type { Dispatch } from 'redux';
 const fetchCheckoutOrderDetailsFactory =
   (getCheckoutOrderDetails: GetCheckoutOrderDetails) =>
   (id: number, config?: Config) =>
-  async (dispatch: Dispatch): Promise<GetCheckoutOrderDetailsResponse> => {
+  async (dispatch: Dispatch): Promise<CheckoutOrderDetails> => {
     try {
       dispatch({
         type: actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_REQUEST,

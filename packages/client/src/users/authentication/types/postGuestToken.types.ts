@@ -1,5 +1,5 @@
 import type { Config } from '../../../types';
-import type { PostGuestTokenResponse } from './tokens.types';
+import type { GuestToken } from './tokens.types';
 
 interface Data {
   guestUserId?: number;
@@ -10,4 +10,4 @@ interface Data {
 export type PostGuestToken = (
   data: Data,
   config?: Config,
-) => Promise<PostGuestTokenResponse>;
+) => Promise<GuestToken>;

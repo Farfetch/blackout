@@ -1,7 +1,7 @@
 import { rest, RestHandler } from 'msw';
 import type { UserBenefit } from '../types';
 
-const path = '/api/legacy/v1/userbenefits';
+const path = '/api/account/v1/users/:id/benefits';
 
 const fixtures = {
   success: (response: UserBenefit): RestHandler =>

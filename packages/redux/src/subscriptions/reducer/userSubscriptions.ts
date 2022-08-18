@@ -23,10 +23,10 @@ const error = (
 ): UserSubscriptionsState['error'] => {
   switch (action.type) {
     case actionTypes.FETCH_USER_SUBSCRIPTIONS_FAILURE:
-    case actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_FAILURE:
+    case actionTypes.UNSUBSCRIBE_SUBSCRIPTION_FAILURE:
       return action.payload.error;
     case actionTypes.FETCH_USER_SUBSCRIPTIONS_REQUEST:
-    case actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_REQUEST:
+    case actionTypes.UNSUBSCRIBE_SUBSCRIPTION_REQUEST:
       return INITIAL_STATE.error;
     default:
       return state;
@@ -54,14 +54,14 @@ const isLoading = (
   switch (action.type) {
     case actionTypes.FETCH_USER_SUBSCRIPTIONS_REQUEST:
     case actionTypes.UPDATE_USER_SUBSCRIPTIONS_REQUEST:
-    case actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_REQUEST:
+    case actionTypes.UNSUBSCRIBE_SUBSCRIPTION_REQUEST:
       return true;
     case actionTypes.UPDATE_USER_SUBSCRIPTIONS_SUCCESS:
     case actionTypes.UPDATE_USER_SUBSCRIPTIONS_FAILURE:
     case actionTypes.FETCH_USER_SUBSCRIPTIONS_SUCCESS:
     case actionTypes.FETCH_USER_SUBSCRIPTIONS_FAILURE:
-    case actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS:
-    case actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_FAILURE:
+    case actionTypes.UNSUBSCRIBE_SUBSCRIPTION_SUCCESS:
+    case actionTypes.UNSUBSCRIBE_SUBSCRIPTION_FAILURE:
       return false;
     default:
       return state;
@@ -76,9 +76,9 @@ const result = (
     case actionTypes.FETCH_USER_SUBSCRIPTIONS_SUCCESS:
       return action.payload;
     case actionTypes.UPDATE_USER_SUBSCRIPTIONS_SUCCESS:
-    case actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS:
+    case actionTypes.UNSUBSCRIBE_SUBSCRIPTION_SUCCESS:
       return INITIAL_STATE.result;
-    case actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_SUCCESS: {
+    case actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_SUCCESS: {
       const { subscriptionId, topicId, recipientId } = action.payload;
 
       if (!state) {
@@ -162,7 +162,7 @@ const unsubscribeRecipientFromTopicRequests = (
   action: AnyAction,
 ): UserSubscriptionsState['unsubscribeRecipientFromTopicRequests'] => {
   switch (action.type) {
-    case actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUEST: {
+    case actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_REQUEST: {
       const trackRequestState = action.meta?.trackRequestState;
 
       if (trackRequestState) {
@@ -183,7 +183,7 @@ const unsubscribeRecipientFromTopicRequests = (
       return state;
     }
 
-    case actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_SUCCESS: {
+    case actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_SUCCESS: {
       const recipientId = action.payload?.recipientId;
       const requestState = state[recipientId];
 
@@ -201,7 +201,7 @@ const unsubscribeRecipientFromTopicRequests = (
       return state;
     }
 
-    case actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_FAILURE: {
+    case actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_FAILURE: {
       const error = action.payload?.error;
       const recipientId = action.payload?.recipientId;
       const requestState = state[recipientId];
@@ -221,7 +221,7 @@ const unsubscribeRecipientFromTopicRequests = (
       return state;
     }
 
-    case actionTypes.CLEAR_UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUEST: {
+    case actionTypes.CLEAR_UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_REQUEST: {
       const { recipientId } = action.payload;
 
       if (recipientId in state) {
@@ -237,7 +237,7 @@ const unsubscribeRecipientFromTopicRequests = (
       return state;
     }
 
-    case actionTypes.CLEAR_ALL_UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUESTS: {
+    case actionTypes.CLEAR_ALL_UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_FROM_REQUESTS: {
       return INITIAL_STATE.unsubscribeRecipientFromTopicRequests;
     }
 

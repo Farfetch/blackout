@@ -55,46 +55,46 @@ export const RESET_SUBSCRIPTIONS =
 /**
  * Action type dispatched when the unsubscribe from subscriptions request fails.
  */
-export const UNSUBSCRIBE_FROM_SUBSCRIPTION_FAILURE =
-  '@farfetch/blackout-redux/UNSUBSCRIBE_FROM_SUBSCRIPTION_FAILURE';
+export const UNSUBSCRIBE_SUBSCRIPTION_FAILURE =
+  '@farfetch/blackout-redux/UNSUBSCRIBE_SUBSCRIPTION_FAILURE';
 /**
  * Action type dispatched when the unsubscribe from subscriptions request starts.
  */
-export const UNSUBSCRIBE_FROM_SUBSCRIPTION_REQUEST =
-  '@farfetch/blackout-redux/UNSUBSCRIBE_FROM_SUBSCRIPTION_REQUEST';
+export const UNSUBSCRIBE_SUBSCRIPTION_REQUEST =
+  '@farfetch/blackout-redux/UNSUBSCRIBE_SUBSCRIPTION_REQUEST';
 /**
  * Action type dispatched when the unsubscribe from subscriptions request succeeds.
  */
-export const UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS =
-  '@farfetch/blackout-redux/UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS';
+export const UNSUBSCRIBE_SUBSCRIPTION_SUCCESS =
+  '@farfetch/blackout-redux/UNSUBSCRIBE_SUBSCRIPTION_SUCCESS';
 
 /**
  * Action type dispatched when the unsubscribe recipient from topic request fails.
  */
-export const UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_FAILURE =
-  '@farfetch/blackout-redux/UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_FAILURE';
+export const UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_FAILURE =
+  '@farfetch/blackout-redux/UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_FAILURE';
 /**
  * Action type dispatched when the unsubscribe recipient from topic request starts.
  */
-export const UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUEST =
-  '@farfetch/blackout-redux/UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUEST';
+export const UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_REQUEST =
+  '@farfetch/blackout-redux/UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_REQUEST';
 /**
  * Action type dispatched when the unsubscribe recipient from topic request
  * succeeds.
  */
-export const UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_SUCCESS =
-  '@farfetch/blackout-redux/UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_SUCCESS';
+export const UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_SUCCESS =
+  '@farfetch/blackout-redux/UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_SUCCESS';
 
 /**
  * Action type dispatched when the application wants to clear a specific
  * unsubscribe recipient from topic request state from the store.
  */
-export const CLEAR_UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUEST =
-  '@farfetch/blackout-redux/CLEAR_UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUEST';
+export const CLEAR_UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_REQUEST =
+  '@farfetch/blackout-redux/CLEAR_UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_REQUEST';
 
 /**
  * Action type dispatched when the application wants to clear all unsubscribe
  * recipient from topic requests state from the store.
  */
-export const CLEAR_ALL_UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUESTS =
-  '@farfetch/blackout-redux/CLEAR_ALL_UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUESTS';
+export const CLEAR_ALL_UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_FROM_REQUESTS =
+  '@farfetch/blackout-redux/CLEAR_ALL_UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_FROM_REQUESTS';

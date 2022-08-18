@@ -1,10 +1,10 @@
 import { rest, RestHandler } from 'msw';
-import type { PostTokenResponse } from '../types';
+import type { Token } from '../types';
 
 const path = '/api/authentication/v1/tokens';
 
 const fixtures = {
-  success: (response: PostTokenResponse): RestHandler =>
+  success: (response: Token): RestHandler =>
     rest.post(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),

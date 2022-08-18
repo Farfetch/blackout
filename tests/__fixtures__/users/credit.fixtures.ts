@@ -7,7 +7,5 @@ export const mockGetCreditResponse = [
 ];
 
 export const expectedCreditNormalizedPayload = {
-  credit: {
-    ...mockGetCreditResponse[0],
-  },
+  credits: mockGetCreditResponse,
 };

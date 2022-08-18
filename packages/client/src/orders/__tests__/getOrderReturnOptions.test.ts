@@ -20,7 +20,7 @@ describe('getOrderReturnOptions', () => {
       response,
     );
     expect(spy).toHaveBeenCalledWith(
-      `/legacy/v1/orders/${orderId}/returnoptions`,
+      `/account/v1/orders/${orderId}/returnoptions`,
       expectedConfig,
     );
   });
@@ -30,7 +30,7 @@ describe('getOrderReturnOptions', () => {
 
     await expect(getOrderReturnOptions(orderId)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      `/legacy/v1/orders/${orderId}/returnoptions`,
+      `/account/v1/orders/${orderId}/returnoptions`,
       expectedConfig,
     );
   });

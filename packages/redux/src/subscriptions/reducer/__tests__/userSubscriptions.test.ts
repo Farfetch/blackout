@@ -123,18 +123,18 @@ describe('User Subscriptions redux reducer', () => {
       ).toEqual(mockUserSubscriptionsState.result);
     });
 
-    it(`should handle ${actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS} action type`, () => {
+    it(`should handle ${actionTypes.UNSUBSCRIBE_SUBSCRIPTION_SUCCESS} action type`, () => {
       expect(
         reducer(mockUserSubscriptionsState, {
-          type: actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS,
+          type: actionTypes.UNSUBSCRIBE_SUBSCRIPTION_SUCCESS,
         }).result,
       ).toEqual(initialState.result);
     });
 
-    it(`should handle ${actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_SUCCESS} action type`, () => {
+    it(`should handle ${actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_SUCCESS} action type`, () => {
       // Case 1: Removing a channel from a topic that contains more than one channel.
       const action = {
-        type: actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_SUCCESS,
+        type: actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_SUCCESS,
         payload: {
           subscriptionId: mockSubscriptionId,
           topicId: mockTopicId1,
@@ -252,10 +252,10 @@ describe('User Subscriptions redux reducer', () => {
       ).toEqual(true);
     });
 
-    it(`should handle ${actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_REQUEST} action type`, () => {
+    it(`should handle ${actionTypes.UNSUBSCRIBE_SUBSCRIPTION_REQUEST} action type`, () => {
       expect(
         reducer(mockUserSubscriptionsState, {
-          type: actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_REQUEST,
+          type: actionTypes.UNSUBSCRIBE_SUBSCRIPTION_REQUEST,
           payload: {},
         }).isLoading,
       ).toEqual(true);
@@ -297,19 +297,19 @@ describe('User Subscriptions redux reducer', () => {
       ).toEqual(false);
     });
 
-    it(`should handle ${actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_FAILURE} action type`, () => {
+    it(`should handle ${actionTypes.UNSUBSCRIBE_SUBSCRIPTION_FAILURE} action type`, () => {
       expect(
         reducer(mockUserSubscriptionsState, {
-          type: actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_FAILURE,
+          type: actionTypes.UNSUBSCRIBE_SUBSCRIPTION_FAILURE,
           payload: { error: { code: -1 } },
         }).isLoading,
       ).toEqual(false);
     });
 
-    it(`should handle ${actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS} action type`, () => {
+    it(`should handle ${actionTypes.UNSUBSCRIBE_SUBSCRIPTION_SUCCESS} action type`, () => {
       expect(
         reducer(mockUserSubscriptionsState, {
-          type: actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS,
+          type: actionTypes.UNSUBSCRIBE_SUBSCRIPTION_SUCCESS,
           payload: {},
         }).isLoading,
       ).toEqual(false);
@@ -334,9 +334,9 @@ describe('User Subscriptions redux reducer', () => {
       unsubscribeRecipientFromTopicRequests: {},
     };
 
-    it(`should add an entry to state when '${actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUEST}' is dispatched with a meta object containing 'trackRequestState' equals to true`, () => {
+    it(`should add an entry to state when '${actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_REQUEST}' is dispatched with a meta object containing 'trackRequestState' equals to true`, () => {
       const state = reducer(stateWithoutUnsubscribeRecipientFromTopicRequests, {
-        type: actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUEST,
+        type: actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_REQUEST,
         payload: {
           subscriptionId: mockSubscriptionId,
           topicId: mockTopicId1,
@@ -355,9 +355,9 @@ describe('User Subscriptions redux reducer', () => {
       });
     });
 
-    it(`should _NOT_ add an entry to state when '${actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUEST}' is dispatched without a meta object containing 'trackRequestState' equals to true`, () => {
+    it(`should _NOT_ add an entry to state when '${actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_REQUEST}' is dispatched without a meta object containing 'trackRequestState' equals to true`, () => {
       const state = reducer(stateWithoutUnsubscribeRecipientFromTopicRequests, {
-        type: actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUEST,
+        type: actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_REQUEST,
         payload: {
           subscriptionId: mockSubscriptionId,
           topicId: mockTopicId1,
@@ -370,9 +370,9 @@ describe('User Subscriptions redux reducer', () => {
       );
     });
 
-    it(`should update request state when '${actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_SUCCESS}' is dispatched and a request for the recipientId exists on the store`, () => {
+    it(`should update request state when '${actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_SUCCESS}' is dispatched and a request for the recipientId exists on the store`, () => {
       const state = reducer(mockUserSubscriptionsState, {
-        type: actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_SUCCESS,
+        type: actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_SUCCESS,
         payload: {
           recipientId: mockRecipientId1TopicId1,
         },
@@ -389,9 +389,9 @@ describe('User Subscriptions redux reducer', () => {
       });
     });
 
-    it(`should _NOT_ update request state when '${actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_SUCCESS}' is dispatched and a request for the recipientId does not exist on the store`, () => {
+    it(`should _NOT_ update request state when '${actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_SUCCESS}' is dispatched and a request for the recipientId does not exist on the store`, () => {
       const state = reducer(mockUserSubscriptionsState, {
-        type: actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_SUCCESS,
+        type: actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_SUCCESS,
         payload: {
           recipientId: 111111, // Dummy recipient id
         },
@@ -402,11 +402,11 @@ describe('User Subscriptions redux reducer', () => {
       );
     });
 
-    it(`should update request state when '${actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_FAILURE}' is dispatched and a request for the recipientId exists on the store`, () => {
+    it(`should update request state when '${actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_FAILURE}' is dispatched and a request for the recipientId exists on the store`, () => {
       const error = { code: -1, message: 'dummy error' };
 
       const newState = reducer(mockUserSubscriptionsState, {
-        type: actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_FAILURE,
+        type: actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_FAILURE,
         payload: {
           recipientId: mockRecipientId1TopicId1,
           error,
@@ -425,11 +425,11 @@ describe('User Subscriptions redux reducer', () => {
       });
     });
 
-    it(`should _NOT_ update request state when '${actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_FAILURE}' is dispatched and a request for the recipientId does not exist on the store`, () => {
+    it(`should _NOT_ update request state when '${actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_FAILURE}' is dispatched and a request for the recipientId does not exist on the store`, () => {
       const error = { code: -1, message: 'dummy error' };
 
       const state = reducer(mockUserSubscriptionsState, {
-        type: actionTypes.UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_FAILURE,
+        type: actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_FAILURE,
         payload: {
           recipientId: 111111, // Dummy recipient id
           error,
@@ -441,17 +441,17 @@ describe('User Subscriptions redux reducer', () => {
       );
     });
 
-    it(`should clear all unsubscribe requests state when '${actionTypes.CLEAR_ALL_UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUESTS}' is dispatched`, () => {
+    it(`should clear all unsubscribe requests state when '${actionTypes.CLEAR_ALL_UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_FROM_REQUESTS}' is dispatched`, () => {
       const state = reducer(mockUserSubscriptionsState, {
-        type: actionTypes.CLEAR_ALL_UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUESTS,
+        type: actionTypes.CLEAR_ALL_UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_FROM_REQUESTS,
       });
 
       expect(state.unsubscribeRecipientFromTopicRequests).toStrictEqual({});
     });
 
-    it(`should clear a specific unsubscribe request state when '${actionTypes.CLEAR_UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUEST}' is dispatched`, () => {
+    it(`should clear a specific unsubscribe request state when '${actionTypes.CLEAR_UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_REQUEST}' is dispatched`, () => {
       const state = reducer(mockUserSubscriptionsState, {
-        type: actionTypes.CLEAR_UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUEST,
+        type: actionTypes.CLEAR_UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_REQUEST,
         payload: { recipientId: mockRecipientId1TopicId1 },
       });
 
@@ -466,9 +466,9 @@ describe('User Subscriptions redux reducer', () => {
       );
     });
 
-    it(`should _NOT_ change state when '${actionTypes.CLEAR_UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUEST}' is dispatched for a non existant recipient id`, () => {
+    it(`should _NOT_ change state when '${actionTypes.CLEAR_UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_REQUEST}' is dispatched for a non existant recipient id`, () => {
       const state = reducer(mockUserSubscriptionsState, {
-        type: actionTypes.CLEAR_UNSUBSCRIBE_RECIPIENT_FROM_TOPIC_REQUEST,
+        type: actionTypes.CLEAR_UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_REQUEST,
         payload: { recipientId: 111111 },
       });
 

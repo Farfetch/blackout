@@ -3,7 +3,7 @@
  */
 export * from './types';
 
-export { default as fetchListingFactory } from './fetchListingFactory';
+export { default as fetchProductListingFactory } from './fetchProductListingFactory';
 export { default as fetchProductAttributesFactory } from './fetchProductAttributesFactory';
 export { default as fetchProductDetailsFactory } from './fetchProductDetailsFactory';
 export { default as fetchProductFittingsFactory } from './fetchProductFittingsFactory';
@@ -13,7 +13,7 @@ export { default as fetchProductSizeGuidesFactory } from './fetchProductSizeGuid
 export { default as fetchProductSizesFactory } from './fetchProductSizesFactory';
 export { default as fetchProductVariantsByMerchantsLocationsFactory } from './fetchProductVariantsByMerchantsLocationsFactory';
 export { default as fetchRecommendedSetFactory } from './fetchRecommendedSetFactory';
-export { default as fetchSetFactory } from './fetchSetFactory';
+export { default as fetchProductSetFactory } from './fetchProductSetFactory';
 
 // Recently Viewed Products
 export { default as fetchRecentlyViewedProductsFactory } from './fetchRecentlyViewedProductsFactory';

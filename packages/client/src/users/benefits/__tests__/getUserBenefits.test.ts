@@ -1,9 +1,11 @@
 import * as usersClient from '../..';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/getUserBenefits.fixtures';
+import join from 'proper-url-join';
 import mswServer from '../../../../tests/mswServer';
 
 describe('getUserBenefits', () => {
+  const userId = 10000;
   const expectedConfig = undefined;
   const spy = jest.spyOn(client, 'get');
 
@@ -22,10 +24,13 @@ describe('getUserBenefits', () => {
 
     expect.assertions(2);
 
-    await expect(usersClient.getUserBenefits()).resolves.toStrictEqual(
+    await expect(usersClient.getUserBenefits(userId)).resolves.toStrictEqual(
       response,
     );
-    expect(spy).toHaveBeenCalledWith('/legacy/v1/userbenefits', expectedConfig);
+    expect(spy).toHaveBeenCalledWith(
+      join('/account/v1/users', userId, 'benefits'),
+      expectedConfig,
+    );
   });
 
   it('should receive a client request error', async () => {
@@ -33,7 +38,10 @@ describe('getUserBenefits', () => {
 
     expect.assertions(2);
 
-    await expect(usersClient.getUserBenefits()).rejects.toMatchSnapshot();
-    expect(spy).toHaveBeenCalledWith('/legacy/v1/userbenefits', expectedConfig);
+    await expect(usersClient.getUserBenefits(userId)).rejects.toMatchSnapshot();
+    expect(spy).toHaveBeenCalledWith(
+      join('/account/v1/users', userId, 'benefits'),
+      expectedConfig,
+    );
   });
 });

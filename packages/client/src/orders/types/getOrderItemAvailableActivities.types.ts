@@ -1,7 +1,7 @@
-import type { Config } from '../..';
+import type { Config, OrderItemActivities } from '../..';
 
 export type GetOrderItemAvailableActivities = (
   id: string,
   itemId: string,
   config?: Config,
-) => Promise<string>;
+) => Promise<OrderItemActivities[]>;
