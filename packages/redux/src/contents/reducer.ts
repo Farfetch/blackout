@@ -1,7 +1,6 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import type { ContentsState } from './types';
-import type { ReducerSwitch } from '../types';
 
 export const INITIAL_STATE_CONTENT: ContentsState = {
   searchResults: {},
@@ -152,10 +151,7 @@ const reducers = combineReducers({
  *
  * @returns New state.
  */
-const contentsReducer: ReducerSwitch<ContentsState, AnyAction> = (
-  state,
-  action,
-): ContentsState => {
+const contentsReducer: Reducer<ContentsState> = (state, action) => {
   if (action.type === actionTypes.RESET_CONTENTS) {
     return reducers(INITIAL_STATE_CONTENT, action);
   }

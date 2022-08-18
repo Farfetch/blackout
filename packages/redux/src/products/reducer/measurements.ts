@@ -1,5 +1,5 @@
 import * as actionTypes from '../actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import createMergedObject from '../../helpers/createMergedObject';
 import type { ProductsMeasurementsState } from '../types';
 import type { StoreState } from '../../types';
@@ -83,9 +83,10 @@ export const getIsLoading = (
  *
  * @returns New state.
  */
-const productsMeasurementsReducer = combineReducers({
-  error,
-  isLoading,
-});
+const productsMeasurementsReducer: Reducer<ProductsMeasurementsState> =
+  combineReducers({
+    error,
+    isLoading,
+  });
 
 export default productsMeasurementsReducer;

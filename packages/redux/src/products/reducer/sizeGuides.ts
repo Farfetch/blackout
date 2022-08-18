@@ -1,5 +1,5 @@
 import * as actionTypes from '../actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import type { ProductsSizeGuidesState } from '../types';
 
 export const INITIAL_STATE: ProductsSizeGuidesState = {
@@ -54,9 +54,10 @@ export const getIsLoading = (
  *
  * @returns New state.
  */
-const productsSizeGuidesReducer = combineReducers({
-  error,
-  isLoading,
-});
+const productsSizeGuidesReducer: Reducer<ProductsSizeGuidesState> =
+  combineReducers({
+    error,
+    isLoading,
+  });
 
 export default productsSizeGuidesReducer;

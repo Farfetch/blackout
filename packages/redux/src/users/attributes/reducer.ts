@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import type * as T from './types';
 
 export const INITIAL_STATE: T.UserAttributesState = {
@@ -104,7 +104,7 @@ const result = (
   }
 };
 
-const attributesReducer = combineReducers({
+const attributesReducer: Reducer<T.UserAttributesState> = combineReducers({
   isLoading,
   result,
   error,

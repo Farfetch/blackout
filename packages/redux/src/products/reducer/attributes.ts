@@ -1,5 +1,5 @@
 import * as actionTypes from '../actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import type { ProductsAttributesState } from '../types';
 
 export const INITIAL_STATE: ProductsAttributesState = {
@@ -54,9 +54,10 @@ export const getIsLoading = (
  *
  * @returns New state.
  */
-const productsAttributesReducer = combineReducers({
-  error,
-  isLoading,
-});
+const productsAttributesReducer: Reducer<ProductsAttributesState> =
+  combineReducers({
+    error,
+    isLoading,
+  });
 
 export default productsAttributesReducer;

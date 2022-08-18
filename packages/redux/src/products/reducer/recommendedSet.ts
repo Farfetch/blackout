@@ -1,8 +1,8 @@
 import * as actionTypes from '../actionTypes';
-import { AnyAction, combineReducers } from 'redux';
-import type { ProductsState } from '../types';
+import { AnyAction, combineReducers, Reducer } from 'redux';
+import type { RecommendedSetsState } from '../types';
 
-export const INITIAL_STATE: ProductsState['recommendedSets'] = {
+export const INITIAL_STATE: RecommendedSetsState = {
   error: {},
   isLoading: {},
   result: {},
@@ -60,17 +60,19 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
 };
 
 export const getError = (
-  state: ProductsState['recommendedSets'],
-): ProductsState['recommendedSets']['error'] => state.error;
+  state: RecommendedSetsState,
+): RecommendedSetsState['error'] => state.error;
 export const getResult = (
-  state: ProductsState['recommendedSets'],
-): ProductsState['recommendedSets']['result'] => state.result;
+  state: RecommendedSetsState,
+): RecommendedSetsState['result'] => state.result;
 export const getIsLoading = (
-  state: ProductsState['recommendedSets'],
-): ProductsState['recommendedSets']['isLoading'] => state.isLoading;
+  state: RecommendedSetsState,
+): RecommendedSetsState['isLoading'] => state.isLoading;
 
-export const recommendedSetsReducer = combineReducers({
+const recommendedSetsReducer: Reducer<RecommendedSetsState> = combineReducers({
   error,
   isLoading,
   result,
 });
+
+export default recommendedSetsReducer;

@@ -1,8 +1,7 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import isEmpty from 'lodash/isEmpty';
 import type { BlackoutError } from '@farfetch/blackout-client';
-import type { ReducerSwitch } from '../types';
 import type { SizeScalesState } from './types';
 
 export const INITIAL_STATE: SizeScalesState = {
@@ -228,10 +227,7 @@ const reducers = combineReducers({
  *
  * @returns New state.
  */
-const sizeScalesReducer: ReducerSwitch<SizeScalesState, AnyAction> = (
-  state,
-  action,
-) => {
+const sizeScalesReducer: Reducer<SizeScalesState> = (state, action) => {
   if (action.type === actionTypes.RESET_SIZE_SCALES_STATE) {
     return reducers(INITIAL_STATE, action);
   }

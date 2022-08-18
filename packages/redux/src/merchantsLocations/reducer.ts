@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import type { MerchantsLocationsState } from './types';
 import type { StoreState } from '../types';
 
@@ -62,10 +62,10 @@ const reducers = combineReducers({
  *
  * @returns New state.
  */
-const merchantsLocationsReducer = (
-  state: MerchantsLocationsState,
-  action: AnyAction,
-): MerchantsLocationsState => {
+const merchantsLocationsReducer: Reducer<MerchantsLocationsState> = (
+  state,
+  action,
+) => {
   if (action.type === actionTypes.RESET_MERCHANTS_LOCATIONS_STATE) {
     return INITIAL_STATE;
   }

@@ -1,5 +1,5 @@
 import * as actionTypes from '../actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import type { SearchSuggestionsState } from '../types';
 
 export const INITIAL_STATE: SearchSuggestionsState = {
@@ -78,10 +78,10 @@ const reducer = combineReducers({
  *
  * @returns New state.
  */
-const searchSuggestionsReducer = (
-  state: SearchSuggestionsState,
-  action: AnyAction,
-): SearchSuggestionsState => {
+const searchSuggestionsReducer: Reducer<SearchSuggestionsState> = (
+  state,
+  action,
+) => {
   if (action.type === actionTypes.RESET_SEARCH_SUGGESTIONS) {
     return INITIAL_STATE;
   }

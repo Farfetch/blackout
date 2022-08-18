@@ -1,7 +1,7 @@
 import * as actionTypes from '../actionTypes';
 import * as authenticationActionTypes from '../../users/authentication/actionTypes';
-import { AnyAction, combineReducers } from 'redux';
-import type { ReducerSwitch, StoreState } from '../../types';
+import { AnyAction, combineReducers, Reducer } from 'redux';
+import type { StoreState } from '../../types';
 import type { SubscriptionsState } from '../types';
 
 type SubscriptionPackagesState = SubscriptionsState['packages'];
@@ -81,10 +81,10 @@ export const subscriptionPackagesEntitiesMapper = {
  * @returns New state.
  */
 
-const subscriptionPackagesReducer: ReducerSwitch<
-  SubscriptionPackagesState,
-  AnyAction
-> = (state = INITIAL_STATE, action): SubscriptionPackagesState => {
+const subscriptionPackagesReducer: Reducer<SubscriptionPackagesState> = (
+  state = INITIAL_STATE,
+  action,
+) => {
   switch (action.type) {
     case actionTypes.RESET_SUBSCRIPTIONS:
     case authenticationActionTypes.LOGOUT_SUCCESS:
