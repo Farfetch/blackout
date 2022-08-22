@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.302](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.301...@farfetch/blackout-react@1.0.0-next.302) (2022-08-22)
+
+
+### Bug Fixes
+
+* **client:** fix client unit tests TS errors ([f68da8c](https://github.com/Farfetch/blackout/commit/f68da8c55bc3f7bf932d671644b54f08a2c1cffe))
+
+
+
+
+
 # [1.0.0-next.301](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.300...@farfetch/blackout-react@1.0.0-next.301) (2022-08-16)
 
 
