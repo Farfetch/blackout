@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.303](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.302...@farfetch/blackout-react@1.0.0-next.303) (2022-08-23)
+
+
+### Bug Fixes
+
+* **client|react|redux:** rename locale selectors and action ([78cf7e3](https://github.com/Farfetch/blackout/commit/78cf7e3fbd16554376cca25010c0343b4441194f))
+
+
+### BREAKING CHANGES
+
+* **client|react|redux:** The following action was renamed:
+fetchCountryCities -> fetchCountryStateCities
+
+The following selectors were renamed:
+getCountryCitiesError -> getCountryStateCitiesError
+areCountryCitiesLoading -> areCountryStateCitiesLoading
+getCountryCities -> getCountryStateCities
+areCountryCitiesFetched -> areCountryStateCitiesFetched
+
+
+
+
+
 # [1.0.0-next.302](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.301...@farfetch/blackout-react@1.0.0-next.302) (2022-08-22)
 
 
