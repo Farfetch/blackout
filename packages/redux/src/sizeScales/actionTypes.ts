@@ -31,22 +31,6 @@ export const FETCH_SIZE_SCALE_SUCCESS =
   '@farfetch/blackout-redux/FETCH_SIZE_SCALE_SUCCESS';
 
 /**
- * Action type dispatched when the fetch size scale mappings request fails.
- */
-export const FETCH_SIZESCALE_MAPPINGS_FAILURE =
-  '@farfetch/blackout-redux/FETCH_SIZESCALE_MAPPINGS_FAILURE';
-/**
- * Action type dispatched when the fetch size scale mappings request starts.
- */
-export const FETCH_SIZESCALE_MAPPINGS_REQUEST =
-  '@farfetch/blackout-redux/FETCH_SIZESCALE_MAPPINGS_REQUEST';
-/**
- * Action type dispatched when the fetch size scale mappings request succeeds.
- */
-export const FETCH_SIZESCALE_MAPPINGS_SUCCESS =
-  '@farfetch/blackout-redux/FETCH_SIZESCALE_MAPPINGS_SUCCESS';
-
-/**
  * Action type dispatched when the reset size scales state occurs.
  */
 export const RESET_SIZE_SCALES_STATE =

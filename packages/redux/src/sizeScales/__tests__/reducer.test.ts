@@ -1,16 +1,7 @@
 import * as actionTypes from '../actionTypes';
-import { generateSizeScaleMappingsHash } from '../utils';
-import {
-  mockQuery,
-  mockSizeScaleId,
-  mockSizeScaleMappings,
-  mockSizeScaleMappingsQuery,
-  mockSizeScaleMappingsState,
-} from 'tests/__fixtures__/sizeScales';
+import { mockQuery, mockSizeScaleId } from 'tests/__fixtures__/sizeScales';
 import reducer, * as fromReducer from '../reducer';
 
-const hash = generateSizeScaleMappingsHash(mockSizeScaleMappingsQuery);
-const mockMappingError = { message: 'foo' };
 const randomAction = { type: 'this_is_a_random_action' };
 let initialState;
 
@@ -220,87 +211,6 @@ describe('size scales redux reducer', () => {
       };
 
       expect(reducer(state, randomAction).sizeScale).toEqual(state.sizeScale);
-    });
-  });
-
-  describe('mappings reducer', () => {
-    it('should return the initial state', () => {
-      const state = reducer(undefined, randomAction).mappings;
-
-      expect(state).toEqual(initialState.mappings);
-      expect(state).toEqual({ error: {}, isLoading: {}, result: {} });
-    });
-
-    it('should handle FETCH_SIZESCALE_MAPPINGS_REQUEST action type', () => {
-      const result = reducer(undefined, {
-        type: actionTypes.FETCH_SIZESCALE_MAPPINGS_REQUEST,
-        meta: { hash },
-      }).mappings;
-      const expectedResult = {
-        error: { [hash]: undefined },
-        isLoading: { [hash]: true },
-        result: {},
-      };
-
-      expect(result).toEqual(expectedResult);
-    });
-
-    it('should handle FETCH_SIZESCALE_MAPPINGS_SUCCESS action type', () => {
-      const result = reducer(undefined, {
-        type: actionTypes.FETCH_SIZESCALE_MAPPINGS_SUCCESS,
-        meta: { hash },
-        payload: { result: mockSizeScaleMappings },
-      }).mappings;
-      const expectedResult = {
-        error: {},
-        isLoading: { [hash]: false },
-        result: { [hash]: mockSizeScaleMappings },
-      };
-
-      expect(result).toEqual(expectedResult);
-    });
-
-    it('should handle FETCH_SIZESCALE_MAPPINGS_FAILURE action type', () => {
-      const result = reducer(undefined, {
-        type: actionTypes.FETCH_SIZESCALE_MAPPINGS_FAILURE,
-        meta: { hash },
-        payload: { error: mockMappingError },
-      }).mappings;
-      const expectedResult = {
-        error: { [hash]: mockMappingError },
-        isLoading: { [hash]: false },
-        result: {},
-      };
-
-      expect(result).toEqual(expectedResult);
-    });
-
-    describe('mappings selectors', () => {
-      describe('getMappingError()', () => {
-        it('should return the `mappings.error` property from a given state', () => {
-          expect(
-            fromReducer.getMappingError(mockSizeScaleMappingsState.sizeScales),
-          ).toEqual(mockSizeScaleMappingsState.sizeScales.mappings.error);
-        });
-      });
-
-      describe('getMappingIsLoading()', () => {
-        it('should return the `mappings.isLoading` property from a given state', () => {
-          expect(
-            fromReducer.getMappingIsLoading(
-              mockSizeScaleMappingsState.sizeScales,
-            ),
-          ).toEqual(mockSizeScaleMappingsState.sizeScales.mappings.isLoading);
-        });
-      });
-
-      describe('getMappingResult()', () => {
-        it('should return the `mappings.result` property from a given state', () => {
-          expect(
-            fromReducer.getMappingResult(mockSizeScaleMappingsState.sizeScales),
-          ).toEqual(mockSizeScaleMappingsState.sizeScales.mappings.result);
-        });
-      });
     });
   });
 

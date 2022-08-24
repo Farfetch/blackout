@@ -1,19 +1,14 @@
 import { createSelector } from 'reselect';
-import { generateSizeScaleMappingsHash } from './utils';
 import { getEntities, getEntityById } from '../entities';
 import {
   getError,
   getIsLoading,
-  getMappingError,
-  getMappingIsLoading,
-  getMappingResult,
   getSizeScaleError as getSizeScaleErrorByIdentifier,
   getSizeScaleIsLoading as getSizeScaleIsLoadingByIdentifier,
 } from './reducer';
 import type {
   Category,
   SizeScale,
-  SizeScaleMappingsQuery,
   SizeScalesQuery,
 } from '@farfetch/blackout-client';
 import type { SizeScalesState } from './types';
@@ -149,96 +144,3 @@ export const isSizeScaleFetched = (
   getSizeScaleIsLoadingByIdentifier(state.sizeScales as SizeScalesState)[
     scaleId
   ] === false;
-
-/**
- * Returns a specific size scale mapping error.
- *
- * @example
- * ```
- * import { getSizeScaleMappingError } from '@farfetch/blackout-client';
- *
- * const query = {
- *   gender: 0,
- *   sizeScale: 453,
- *   brand: 1664,
- * };
- * const mapStateToProps = state => ({
- *   error: getSizeScaleMappingError(state, query)
- * });
- *
- * ```
- *
- * @param state - Application state.
- * @param query - Query identifying the size scale mapping request.
- *
- * @returns Size scale mapping error.
- */
-export const getSizeScaleMappingError = (
-  state: StoreState,
-  query: SizeScaleMappingsQuery,
-) =>
-  getMappingError(state.sizeScales as SizeScalesState)[
-    generateSizeScaleMappingsHash(query)
-  ];
-
-/**
- * Returns the loading status of specific size scale mapping.
- *
- * @example
- * ```
- * import { isSizeScaleMappingLoading } from '@farfetch/blackout-client';
- *
- * const query = {
- *   gender: 0,
- *   sizeScale: 453,
- *   brand: 1664,
- * };
- * const mapStateToProps = state => ({
- *   isLoading: isSizeScaleMappingLoading(state, query)
- * });
- *
- * ```
- *
- * @param state - Application state.
- * @param query - Query identifying the size scale mapping request.
- *
- * @returns Size scale mapping loading status.
- */
-export const isSizeScaleMappingLoading = (
-  state: StoreState,
-  query: SizeScaleMappingsQuery,
-) =>
-  getMappingIsLoading(state.sizeScales as SizeScalesState)[
-    generateSizeScaleMappingsHash(query)
-  ];
-
-/**
- * Returns a specific size scale mapping.
- *
- * @example
- * ```
- * import { getSizeScaleMapping } from '@farfetch/blackout-client';
- *
- * const query = {
- *   gender: 0,
- *   sizeScale: 453,
- *   brand: 1664,
- * };
- * const mapStateToProps = state => ({
- *   sizeScaleMapping: getSizeScaleMapping(state, query)
- * });
- *
- * ```
- *
- * @param state - Application state.
- * @param query - Query identifying the size scale mapping request.
- *
- * @returns Size scale mapping result.
- */
-export const getSizeScaleMapping = (
-  state: StoreState,
-  query: SizeScaleMappingsQuery,
-) =>
-  getMappingResult(state.sizeScales as SizeScalesState)[
-    generateSizeScaleMappingsHash(query)
-  ];

@@ -640,7 +640,6 @@ Object {
   "getShipmentTrackings": [Function],
   "getSizeGuides": [Function],
   "getSizeScale": [Function],
-  "getSizeScaleMappings": [Function],
   "getSizeScales": [Function],
   "getStaffMember": [Function],
   "getSubscriptionPackages": [Function],

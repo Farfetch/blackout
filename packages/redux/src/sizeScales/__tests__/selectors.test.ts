@@ -4,9 +4,6 @@ import {
   mockCategoryId,
   mockScaleId,
   mockSizeScale,
-  mockSizeScaleMappingsHash,
-  mockSizeScaleMappingsQuery,
-  mockSizeScaleMappingsState,
   mockState,
 } from 'tests/__fixtures__/sizeScales';
 
@@ -135,60 +132,6 @@ describe('Size scales', () => {
   describe('isSizeScaleFetched()', () => {
     it('Should return true if the scale was already fetched', () => {
       expect(selectors.isSizeScaleFetched(mockState, mockScaleId)).toBe(true);
-    });
-  });
-
-  describe('getSizeScaleMappingError()', () => {
-    it('should get the error', () => {
-      const expectedResult =
-        mockSizeScaleMappingsState.sizeScales.mappings.error[
-          mockSizeScaleMappingsHash
-        ];
-      const spy = jest.spyOn(fromReducer, 'getMappingError');
-
-      expect(
-        selectors.getSizeScaleMappingError(
-          mockSizeScaleMappingsState,
-          mockSizeScaleMappingsQuery,
-        ),
-      ).toEqual(expectedResult);
-      expect(spy).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('isSizeScaleMappingLoading()', () => {
-    it('should get the loading status', () => {
-      const expectedResult =
-        mockSizeScaleMappingsState.sizeScales.mappings.isLoading[
-          mockSizeScaleMappingsHash
-        ];
-      const spy = jest.spyOn(fromReducer, 'getMappingIsLoading');
-
-      expect(
-        selectors.isSizeScaleMappingLoading(
-          mockSizeScaleMappingsState,
-          mockSizeScaleMappingsQuery,
-        ),
-      ).toBe(expectedResult);
-      expect(spy).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('getSizeScaleMapping()', () => {
-    it('should get the result', () => {
-      const expectedResult =
-        mockSizeScaleMappingsState.sizeScales.mappings.result[
-          mockSizeScaleMappingsHash
-        ];
-      const spy = jest.spyOn(fromReducer, 'getMappingResult');
-
-      expect(
-        selectors.getSizeScaleMapping(
-          mockSizeScaleMappingsState,
-          mockSizeScaleMappingsQuery,
-        ),
-      ).toEqual(expectedResult);
-      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
