@@ -41,6 +41,8 @@ export default getProfile => (data, config) => async dispatch => {
       type: GET_PROFILE_SUCCESS,
       meta: config,
     });
+
+    return result;
   } catch (error) {
     dispatch({
       payload: { error },

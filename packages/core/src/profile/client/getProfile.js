@@ -60,7 +60,8 @@ export const adaptStatus = value => {
 export default (userExtraInfo, config) => {
   const containsExtraInfo =
     (userExtraInfo instanceof Array && !!userExtraInfo.length) ||
-    userExtraInfo instanceof String;
+    userExtraInfo instanceof String ||
+    typeof userExtraInfo === 'string';
 
   // When the tenant doesn't provide userExtraInfo the config object will be
   // the first argument.
