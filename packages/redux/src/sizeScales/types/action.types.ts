@@ -3,8 +3,6 @@ import type { Action } from 'redux';
 import type {
   BlackoutError,
   SizeScale,
-  SizeScaleMapping,
-  SizeScaleMappingsQuery,
   SizeScalesQuery,
 } from '@farfetch/blackout-client';
 import type { NormalizedSchema } from 'normalizr';
@@ -59,29 +57,6 @@ export type FetchSizeScalesAction =
   | FetchSizeScalesRequestAction
   | FetchSizeScalesSuccessAction
   | FetchSizeScalesFailureAction;
-
-interface FetchSizeScaleMappingsRequestAction extends Action {
-  meta: { hash: string; query: SizeScaleMappingsQuery };
-  type: typeof actionTypes.FETCH_SIZESCALE_MAPPINGS_REQUEST;
-}
-interface FetchSizeScaleMappingsSuccessAction extends Action {
-  meta: { hash: string; query: SizeScaleMappingsQuery };
-  payload: { result: SizeScaleMapping };
-  type: typeof actionTypes.FETCH_SIZESCALE_MAPPINGS_SUCCESS;
-}
-interface FetchSizeScaleMappingsFailureAction extends Action {
-  meta: { hash: string; query: SizeScaleMappingsQuery };
-  payload: { error: BlackoutError };
-  type: typeof actionTypes.FETCH_SIZESCALE_MAPPINGS_FAILURE;
-}
-
-/**
- * Actions dispatched when the fetch size scale mappings request is made.
- */
-export type FetchSizeScaleMappingsAction =
-  | FetchSizeScaleMappingsRequestAction
-  | FetchSizeScaleMappingsSuccessAction
-  | FetchSizeScaleMappingsFailureAction;
 
 /**
  * Actions dispatched when the reset size scales is called.

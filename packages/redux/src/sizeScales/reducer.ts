@@ -11,11 +11,6 @@ export const INITIAL_STATE: SizeScalesState = {
     error: {},
     isLoading: {},
   },
-  mappings: {
-    error: {},
-    isLoading: {},
-    result: {},
-  },
 };
 
 const error = (
@@ -145,52 +140,6 @@ const sizeScale = (
   }
 };
 
-const mappings = (
-  state: SizeScalesState['mappings'] = INITIAL_STATE.mappings,
-  action: AnyAction,
-): SizeScalesState['mappings'] => {
-  switch (action.type) {
-    case actionTypes.FETCH_SIZESCALE_MAPPINGS_REQUEST:
-      return {
-        ...state,
-        error: {
-          ...state.error,
-          [action.meta.hash]: undefined,
-        },
-        isLoading: {
-          ...state.isLoading,
-          [action.meta.hash]: true,
-        },
-      };
-    case actionTypes.FETCH_SIZESCALE_MAPPINGS_SUCCESS:
-      return {
-        ...state,
-        isLoading: {
-          ...state.isLoading,
-          [action.meta.hash]: false,
-        },
-        result: {
-          ...state.result,
-          [action.meta.hash]: action.payload.result,
-        },
-      };
-    case actionTypes.FETCH_SIZESCALE_MAPPINGS_FAILURE:
-      return {
-        ...state,
-        error: {
-          ...state.error,
-          [action.meta.hash]: action.payload.error,
-        },
-        isLoading: {
-          ...state.isLoading,
-          [action.meta.hash]: false,
-        },
-      };
-    default:
-      return state;
-  }
-};
-
 export const getError = (state: SizeScalesState): SizeScalesState['error'] =>
   state.error;
 export const getIsLoading = (
@@ -202,21 +151,11 @@ export const getSizeScaleError = (
 export const getSizeScaleIsLoading = (
   state: SizeScalesState,
 ): SizeScalesState['sizeScale']['isLoading'] => state.sizeScale.isLoading;
-export const getMappingError = (
-  state: SizeScalesState,
-): SizeScalesState['mappings']['error'] => state.mappings.error;
-export const getMappingIsLoading = (
-  state: SizeScalesState,
-): SizeScalesState['mappings']['isLoading'] => state.mappings.isLoading;
-export const getMappingResult = (
-  state: SizeScalesState,
-): SizeScalesState['mappings']['result'] => state.mappings.result;
 
 const reducers = combineReducers({
   error,
   isLoading,
   sizeScale,
-  mappings,
 });
 
 /**
