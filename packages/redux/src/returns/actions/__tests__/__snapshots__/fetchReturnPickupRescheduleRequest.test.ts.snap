@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`getReturnPickupRescheduleRequest action creator should create the correct actions for when the fetch pickup reschedule request procedure is successful: fetch pickup reschedule request success payload 1`] = `
+exports[`getReturnPickupRescheduleRequest() action creator should create the correct actions for when the fetch return pickup reschedule request procedure is successful: fetch return pickup reschedule request success payload 1`] = `
 Object {
   "payload": Object {
     "availableTimeSlots": Array [

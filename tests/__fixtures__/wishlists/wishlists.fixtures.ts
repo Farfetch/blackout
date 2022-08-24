@@ -41,6 +41,12 @@ export const mockWishlistItemPostData = {
   size: 18,
 };
 
+export const wishlistItemMetadata = {
+  from: 'bag',
+  oldQuantity: 1,
+  oldSize: 16,
+};
+
 const { productId, productName, brandId, brandName, ...wishlistItemEntity } =
   mockWishlistsResponse.items[0] || mockWishlistItem;
 

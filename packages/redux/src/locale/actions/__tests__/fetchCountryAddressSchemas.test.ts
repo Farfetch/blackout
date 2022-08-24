@@ -19,7 +19,7 @@ const addressesMockStore = (state = {}) =>
   mockStore({ addresses: INITIAL_STATE_LOCALE.countriesAddressSchemas }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof addressesMockStore>;
 
 describe('fetchCountryAddressSchema() action creator', () => {
   beforeEach(() => {
@@ -30,12 +30,12 @@ describe('fetchCountryAddressSchema() action creator', () => {
   it('should create the correct actions for when the get address schema procedure fails', async () => {
     const expectedError = new Error('get address schema details error');
 
-    getCountryAddressSchemas.mockRejectedValueOnce(expectedError);
+    (getCountryAddressSchemas as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchCountryAddressSchemas(isoCode));
-    } catch (error) {
+    await fetchCountryAddressSchemas(isoCode)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getCountryAddressSchemas).toHaveBeenCalledTimes(1);
       expect(getCountryAddressSchemas).toHaveBeenCalledWith(
@@ -54,18 +54,23 @@ describe('fetchCountryAddressSchema() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the get address schema procedure is successful', async () => {
-    getCountryAddressSchemas.mockResolvedValueOnce(
+    (getCountryAddressSchemas as jest.Mock).mockResolvedValueOnce(
       mockGetAddressSchemaResponse,
     );
-    await store.dispatch(fetchCountryAddressSchemas(isoCode));
+
+    await fetchCountryAddressSchemas(isoCode)(store.dispatch).then(
+      clientResult => {
+        expect(clientResult).toBe(mockGetAddressSchemaResponse);
+      },
+    );
 
     const actionResults = store.getActions();
 
-    expect.assertions(4);
+    expect.assertions(5);
     expect(getCountryAddressSchemas).toHaveBeenCalledTimes(1);
     expect(getCountryAddressSchemas).toHaveBeenCalledWith(
       isoCode,

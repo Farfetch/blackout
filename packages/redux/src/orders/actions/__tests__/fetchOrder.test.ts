@@ -10,6 +10,7 @@ import { getOrder } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import thunk from 'redux-thunk';
+import type { GetOptionsArgument, StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -17,9 +18,10 @@ jest.mock('@farfetch/blackout-client', () => ({
 }));
 
 const mockProductImgQueryParam = '?c=2';
+const getOptions = () => ({ productImgQueryParam: mockProductImgQueryParam });
 const mockMiddlewares = [
   thunk.withExtraArgument({
-    getOptions: () => ({ productImgQueryParam: mockProductImgQueryParam }),
+    getOptions,
   }),
 ];
 const ordersMockStore = (state = {}) =>
@@ -28,7 +30,7 @@ const ordersMockStoreWithoutMiddlewares = (state = {}) =>
   mockStore({ orders: INITIAL_STATE }, state);
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof ordersMockStore>;
 
 describe('fetchOrder() action creator', () => {
   beforeEach(() => {
@@ -39,13 +41,15 @@ describe('fetchOrder() action creator', () => {
   it('should create the correct actions for when the fetch order details procedure fails', async () => {
     const expectedError = new Error('fetch order details error');
 
-    getOrder.mockRejectedValueOnce(expectedError);
+    (getOrder as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchOrder(orderId));
-    } catch (error) {
+    await fetchOrder(orderId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).catch(error => {
       expect(error).toBe(expectedError);
       expect(getOrder).toHaveBeenCalledTimes(1);
       expect(getOrder).toHaveBeenCalledWith(orderId, expectedConfig);
@@ -60,11 +64,11 @@ describe('fetchOrder() action creator', () => {
           type: actionTypes.FETCH_ORDER_FAILURE,
         },
       ]);
-    }
+    });
   });
 
   it('should create the correct actions for when the fetch order details procedure is successful', async () => {
-    getOrder.mockResolvedValueOnce(mockOrderDetailsResponse);
+    (getOrder as jest.Mock).mockResolvedValueOnce(mockOrderDetailsResponse);
 
     const expectedPayload = getExpectedOrderDetailsNormalizedPayload(
       mockProductImgQueryParam,
@@ -73,7 +77,11 @@ describe('fetchOrder() action creator', () => {
 
     expect.assertions(5);
 
-    await store.dispatch(fetchOrder(orderId)).then(clientResult => {
+    await fetchOrder(orderId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
       expect(clientResult).toEqual(mockOrderDetailsResponse);
     });
 
@@ -86,9 +94,7 @@ describe('fetchOrder() action creator', () => {
         type: actionTypes.FETCH_ORDER_REQUEST,
       },
       {
-        meta: {
-          orderId,
-        },
+        meta: { orderId },
         payload: expectedPayload,
         type: actionTypes.FETCH_ORDER_SUCCESS,
       },
@@ -97,14 +103,18 @@ describe('fetchOrder() action creator', () => {
 
   it('should create the correct actions for when the fetch order details procedure is successful without receiving options', async () => {
     store = ordersMockStoreWithoutMiddlewares();
-    getOrder.mockResolvedValueOnce(mockOrderDetailsResponse);
+    (getOrder as jest.Mock).mockResolvedValueOnce(mockOrderDetailsResponse);
 
     const expectedPayload = getExpectedOrderDetailsNormalizedPayload();
     expectedPayload.entities.orders[orderId].totalItems = 3;
 
     expect.assertions(5);
 
-    await store.dispatch(fetchOrder(orderId)).then(clientResult => {
+    await fetchOrder(orderId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      {} as GetOptionsArgument,
+    ).then(clientResult => {
       expect(clientResult).toEqual(mockOrderDetailsResponse);
     });
 

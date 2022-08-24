@@ -1,54 +1,46 @@
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import { patchCheckoutOrderItem as orginalPatchCheckoutOrderItem } from '@farfetch/blackout-client';
+import { patchCheckoutOrderItem } from '@farfetch/blackout-client';
 import {
   UPDATE_CHECKOUT_ORDER_ITEM_FAILURE,
   UPDATE_CHECKOUT_ORDER_ITEM_REQUEST,
   UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS,
 } from '../../actionTypes';
 import { updateCheckoutOrderItem } from '../';
-import type { AnyAction } from 'redux';
-import type { MockStoreEnhanced } from 'redux-mock-store';
-import type { StoreState } from '../../../types';
-import type { ThunkDispatch } from 'redux-thunk';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
   patchCheckoutOrderItem: jest.fn(),
 }));
 
-const patchCheckoutOrderItem =
-  orginalPatchCheckoutOrderItem as jest.MockedFunction<
-    typeof orginalPatchCheckoutOrderItem
-  >;
-
 describe('updateCheckoutOrderItem() action creator', () => {
+  const checkoutMockStore = (state = {}) =>
+    mockStore({ checkout: INITIAL_STATE }, state);
+
   const checkoutOrderId = 1;
   const itemId = 98743;
   const data = {
     quantity: 2,
   };
   const expectedConfig = undefined;
-  let store: MockStoreEnhanced<
-    StoreState,
-    ThunkDispatch<StoreState, undefined, AnyAction>
-  >;
+  let store: ReturnType<typeof checkoutMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
     store = mockStore({ checkout: INITIAL_STATE }, undefined) as typeof store;
   });
 
-  it('should create the correct actions for when the remove checkout order item procedure fails', async () => {
-    const expectedError = new Error('fetch checkout error');
-    patchCheckoutOrderItem.mockRejectedValueOnce(expectedError);
+  it('should create the correct actions for when the update checkout order item procedure fails', async () => {
+    const expectedError = new Error('update update checkout order item error');
+
+    (patchCheckoutOrderItem as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(
-        updateCheckoutOrderItem(checkoutOrderId, itemId, data),
-      );
-    } catch (error) {
+    await updateCheckoutOrderItem(
+      checkoutOrderId,
+      itemId,
+      data,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(patchCheckoutOrderItem).toHaveBeenCalledTimes(1);
       expect(patchCheckoutOrderItem).toHaveBeenCalledWith(
@@ -66,18 +58,22 @@ describe('updateCheckoutOrderItem() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the remove checkout order item procedure is successful', async () => {
-    patchCheckoutOrderItem.mockResolvedValueOnce(200);
-    await store.dispatch(
-      updateCheckoutOrderItem(checkoutOrderId, itemId, data),
-    );
+  it('should create the correct actions for when the update checkout order item procedure is successful', async () => {
+    (patchCheckoutOrderItem as jest.Mock).mockResolvedValueOnce(200);
 
+    await updateCheckoutOrderItem(
+      checkoutOrderId,
+      itemId,
+      data,
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toBe(200);
+    });
     const actionResults = store.getActions();
 
-    expect.assertions(3);
+    expect.assertions(4);
     expect(patchCheckoutOrderItem).toHaveBeenCalledTimes(1);
     expect(patchCheckoutOrderItem).toHaveBeenCalledWith(
       checkoutOrderId,

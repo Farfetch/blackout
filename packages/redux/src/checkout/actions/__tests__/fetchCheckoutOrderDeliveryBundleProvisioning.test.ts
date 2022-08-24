@@ -20,32 +20,30 @@ jest.mock('@farfetch/blackout-client', () => ({
 describe('fetchCheckoutOrderDeliveryBundleProvisioning() action creator', () => {
   const checkoutMockStore = (state = {}) =>
     mockStore({ checkout: INITIAL_STATE }, state);
-  const deliveryBundleId = mockDeliveryBundlesResponse[0].id;
+  const deliveryBundleId = mockDeliveryBundlesResponse[0]?.id as string;
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
   const expectedConfig = undefined;
-  let store;
+  let store: ReturnType<typeof checkoutMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
     store = checkoutMockStore();
   });
 
-  it('should create the correct actions for when the fetch item delivery provisioning procedure fails', async () => {
-    const expectedError = new Error('fetch item delivery provisioning error');
-
-    getCheckoutOrderDeliveryBundleProvisioning.mockRejectedValueOnce(
-      expectedError,
+  it('should create the correct actions for when the fetch order delivery bundle provisioning procedure fails', async () => {
+    const expectedError = new Error(
+      'fetch checkout order delivery bundle provisioning error',
     );
+
+    (
+      getCheckoutOrderDeliveryBundleProvisioning as jest.Mock
+    ).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(
-        fetchCheckoutOrderDeliveryBundleProvisioning(
-          checkoutId,
-          deliveryBundleId,
-        ),
-      );
-    } catch (error) {
+    await fetchCheckoutOrderDeliveryBundleProvisioning(
+      checkoutId,
+      deliveryBundleId,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getCheckoutOrderDeliveryBundleProvisioning).toHaveBeenCalledTimes(
         1,
@@ -66,22 +64,24 @@ describe('fetchCheckoutOrderDeliveryBundleProvisioning() action creator', () => 
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the fetch item delivery provisioning procedure is successful', async () => {
-    getCheckoutOrderDeliveryBundleProvisioning.mockResolvedValueOnce(
-      mockItemDeliveryPorvisioningResponse,
-    );
-    await store.dispatch(
-      fetchCheckoutOrderDeliveryBundleProvisioning(
-        checkoutId,
-        deliveryBundleId,
-      ),
-    );
+  it('should create the correct actions for when the fetch order delivery bundle provisioning procedure is successful', async () => {
+    (
+      getCheckoutOrderDeliveryBundleProvisioning as jest.Mock
+    ).mockResolvedValueOnce(mockItemDeliveryPorvisioningResponse);
+
+    await fetchCheckoutOrderDeliveryBundleProvisioning(
+      checkoutId,
+      deliveryBundleId,
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toBe(mockItemDeliveryPorvisioningResponse);
+    });
+
     const actionResults = store.getActions();
 
-    expect.assertions(5);
+    expect.assertions(6);
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCheckoutOrderDeliveryBundleProvisioning).toHaveBeenCalledTimes(1);
     expect(getCheckoutOrderDeliveryBundleProvisioning).toHaveBeenCalledWith(
@@ -103,6 +103,6 @@ describe('fetchCheckoutOrderDeliveryBundleProvisioning() action creator', () => 
       find(actionResults, {
         type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_SUCCESS,
       }),
-    ).toMatchSnapshot('fetch item delivery provisioning');
+    ).toMatchSnapshot('fetch checkout order delivery bundle provisioning');
   });
 });

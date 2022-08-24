@@ -11,6 +11,7 @@ import {
   mockState,
 } from 'tests/__fixtures__/brands';
 import { mockStore } from '../../../../tests';
+import type { StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -46,7 +47,7 @@ const ACTION_SUCCESS = {
   payload: mockBrandsNormalizedResponse,
   type: actionTypes.FETCH_BRANDS_SUCCESS,
 };
-let store;
+let store: ReturnType<typeof brandsMockStore>;
 
 describe('fetchBrands() action creator', () => {
   beforeEach(() => {
@@ -60,11 +61,13 @@ describe('fetchBrands() action creator', () => {
 
     expect.assertions(3);
 
-    await store
-      .dispatch(fetchBrands(mockQuery, useCache, setBrandsHash))
-      .then(clientResult => {
-        expect(clientResult).toBeUndefined();
-      });
+    await fetchBrands(
+      mockQuery,
+      useCache,
+      setBrandsHash,
+    )(store.dispatch, store.getState as () => StoreState).then(clientResult => {
+      expect(clientResult).toBeUndefined();
+    });
 
     expect(normalizeSpy).not.toHaveBeenCalled();
     expect(getBrands).not.toHaveBeenCalled();
@@ -75,11 +78,12 @@ describe('fetchBrands() action creator', () => {
 
     expect.assertions(4);
 
-    await store
-      .dispatch(fetchBrands(mockQuery, useCache))
-      .then(clientResult => {
-        expect(clientResult).toBeUndefined();
-      });
+    await fetchBrands(mockQuery, useCache)(
+      store.dispatch,
+      store.getState as () => StoreState,
+    ).then(clientResult => {
+      expect(clientResult).toBeUndefined();
+    });
 
     expect(normalizeSpy).not.toHaveBeenCalled();
     expect(getBrands).not.toHaveBeenCalled();
@@ -87,18 +91,20 @@ describe('fetchBrands() action creator', () => {
   });
 
   it('should create the correct actions for a successful request without setting the brands hash', async () => {
-    getBrands.mockResolvedValueOnce(mockBrandsResponse);
+    (getBrands as jest.Mock).mockResolvedValueOnce(mockBrandsResponse);
 
     const useCache = false;
     const setBrandsHash = false;
 
     expect.assertions(5);
 
-    await store
-      .dispatch(fetchBrands(mockQuery, useCache, setBrandsHash))
-      .then(clientResult => {
-        expect(clientResult).toBe(mockBrandsResponse);
-      });
+    await fetchBrands(
+      mockQuery,
+      useCache,
+      setBrandsHash,
+    )(store.dispatch, store.getState as () => StoreState).then(clientResult => {
+      expect(clientResult).toBe(mockBrandsResponse);
+    });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getBrands).toHaveBeenCalledTimes(1);
@@ -113,11 +119,14 @@ describe('fetchBrands() action creator', () => {
   it('should create the correct actions for when the fetch brands procedure fails', async () => {
     const expectedError = new Error('Fetch brands error');
 
-    getBrands.mockRejectedValueOnce(expectedError);
+    (getBrands as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchBrands(mockQuery)).catch(error => {
+    await fetchBrands(mockQuery)(
+      store.dispatch,
+      store.getState as () => StoreState,
+    ).catch(error => {
       expect(error).toBe(expectedError);
       expect(getBrands).toHaveBeenCalledTimes(1);
       expect(getBrands).toHaveBeenCalledWith(mockQuery, expectedConfig);
@@ -138,11 +147,13 @@ describe('fetchBrands() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch brands procedure is successful', async () => {
-    getBrands.mockResolvedValueOnce(mockBrandsResponse);
+    (getBrands as jest.Mock).mockResolvedValueOnce(mockBrandsResponse);
 
     expect.assertions(5);
-
-    await store.dispatch(fetchBrands(mockQuery)).then(clientResult => {
+    await fetchBrands(mockQuery)(
+      store.dispatch,
+      store.getState as () => StoreState,
+    ).then(clientResult => {
       expect(clientResult).toBe(mockBrandsResponse);
     });
 

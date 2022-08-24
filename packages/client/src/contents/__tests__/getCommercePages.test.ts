@@ -1,5 +1,5 @@
+import { CommercePagesType } from '../types';
 import { getCommercePages } from '..';
-import { Type } from '../types';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/commercepages.fixtures';
 import mswServer from '../../../tests/mswServer';
@@ -13,7 +13,7 @@ describe('getCommercePages()', () => {
 
   const spy = jest.spyOn(client, 'get');
   const query = {
-    type: Type.PRODUCT,
+    type: CommercePagesType.PRODUCT,
     id: 100200,
   };
 

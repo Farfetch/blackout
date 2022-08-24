@@ -1,4 +1,5 @@
 import * as actionTypes from '../../actionTypes';
+import { contactId, userId } from 'tests/__fixtures__/users';
 import { INITIAL_STATE } from '../../../reducer';
 import { mockStore } from '../../../../../tests';
 import { patchUserContact } from '@farfetch/blackout-client';
@@ -15,30 +16,32 @@ const usersMockStore = (state = {}) =>
 const expectedConfig = undefined;
 let store = usersMockStore();
 
-describe('updateUserContact action creator', () => {
-  const userId = 123456789;
-  const contactId = 'abcdefghi';
-  const data = {
-    value: '',
-    path: '',
-    op: '',
-    from: '',
-  };
+describe('updateUserContact() action creator', () => {
+  const data = [
+    {
+      value: '',
+      path: '',
+      op: '',
+      from: '',
+    },
+  ];
 
   beforeEach(() => {
     jest.clearAllMocks();
     store = usersMockStore();
   });
 
-  it('should create the correct actions for when the update contact procedure fails', async () => {
-    const expectedError = new Error('patch contact error');
+  it('should create the correct actions for when the update user contact procedure fails', async () => {
+    const expectedError = new Error('patch user contact error');
 
     (patchUserContact as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(updateUserContact(userId, contactId, data));
-    } catch (error) {
+    await updateUserContact(
+      userId,
+      contactId,
+      data,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(patchUserContact).toHaveBeenCalledTimes(1);
       expect(patchUserContact).toHaveBeenCalledWith(
@@ -56,15 +59,18 @@ describe('updateUserContact action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the update contact procedure is successful', async () => {
+  it('should create the correct actions for when the update user contact procedure is successful', async () => {
     (patchUserContact as jest.Mock).mockResolvedValueOnce({});
 
-    await store.dispatch(
-      updateUserContact(userId, contactId, data, expectedConfig),
-    );
+    await updateUserContact(
+      userId,
+      contactId,
+      data,
+      expectedConfig,
+    )(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -85,6 +91,6 @@ describe('updateUserContact action creator', () => {
       find(actionResults, {
         type: actionTypes.UPDATE_USER_CONTACT_SUCCESS,
       }),
-    ).toMatchSnapshot('update contact success payload');
+    ).toMatchSnapshot('update user contact success payload');
   });
 });

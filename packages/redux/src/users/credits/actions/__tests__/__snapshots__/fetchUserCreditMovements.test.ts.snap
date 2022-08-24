@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetchUserCreditMovements action creator should create the correct actions for when the get credit movements procedure is successful: get credit movements success payload 1`] = `
+exports[`fetchUserCreditMovements() action creator should create the correct actions for when the get user credit movements procedure is successful: get user credit movements success payload 1`] = `
 Object {
   "payload": Object {
     "creditMovements": Object {

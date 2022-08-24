@@ -7,12 +7,11 @@ const merchantsLocationsMockStore = (state = {}) =>
   mockStore({ merchantsLocations: INITIAL_STATE }, state);
 
 describe('resetMerchantsLocations() action creator', () => {
-  let store;
+  let store: ReturnType<typeof mockStore>;
 
   it('should dispatch the correct action type', () => {
     store = merchantsLocationsMockStore();
-
-    store.dispatch(resetMerchantsLocations());
+    resetMerchantsLocations()(store.dispatch);
 
     expect(store.getActions()).toEqual([
       {

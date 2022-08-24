@@ -1,6 +1,10 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  mockInstrumentData as data,
+  intentId,
+  mockPaymentsResponse,
+} from 'tests/__fixtures__/payments';
 import { INITIAL_STATE } from '../../reducer';
-import { mockPaymentsResponse } from 'tests/__fixtures__/payments';
 import { mockStore } from '../../../../tests';
 import { postPaymentIntentInstrument } from '@farfetch/blackout-client';
 import createPaymentIntentInstrument from '../createPaymentIntentInstrument';
@@ -15,28 +19,26 @@ const paymentsMockStore = (state = {}) =>
   mockStore({ paymentTokens: INITIAL_STATE }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof paymentsMockStore>;
 
 describe('createPaymentIntentInstrument() action creator', () => {
-  const intentId = '123123';
-  const data = {
-    something: 'something',
-  };
-
   beforeEach(() => {
     jest.clearAllMocks();
     store = paymentsMockStore();
   });
 
   it('should create the correct actions for when the create payment intent instrument procedure fails', async () => {
-    const expectedError = new Error('create instruments error');
+    const expectedError = new Error('create payment instrument error');
 
-    postPaymentIntentInstrument.mockRejectedValueOnce(expectedError);
+    (postPaymentIntentInstrument as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
-    try {
-      await store.dispatch(createPaymentIntentInstrument(intentId, data));
-    } catch (error) {
+    await createPaymentIntentInstrument(
+      intentId,
+      data,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(postPaymentIntentInstrument).toHaveBeenCalledTimes(1);
       expect(postPaymentIntentInstrument).toHaveBeenCalledWith(
@@ -53,12 +55,14 @@ describe('createPaymentIntentInstrument() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the create payment intent instrument procedure is successful', async () => {
-    postPaymentIntentInstrument.mockResolvedValueOnce(mockPaymentsResponse);
-    await store.dispatch(createPaymentIntentInstrument(intentId, data));
+    (postPaymentIntentInstrument as jest.Mock).mockResolvedValueOnce(
+      mockPaymentsResponse,
+    );
+    await createPaymentIntentInstrument(intentId, data)(store.dispatch);
 
     const actionResults = store.getActions();
 

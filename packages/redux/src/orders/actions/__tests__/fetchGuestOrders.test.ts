@@ -8,21 +8,24 @@ import { getGuestOrders } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import thunk from 'redux-thunk';
+import type { StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
   getGuestOrders: jest.fn(),
 }));
 
+const mockProductImgQueryParam = '?c=2';
+const getOptions = () => ({ productImgQueryParam: mockProductImgQueryParam });
 const mockMiddlewares = [
   thunk.withExtraArgument({
-    getOptions: () => ({ productImgQueryParam: '?c=2' }),
+    getOptions,
   }),
 ];
 const ordersMockStore = (state = {}) =>
   mockStore({ orders: INITIAL_STATE }, state, mockMiddlewares);
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof ordersMockStore>;
 
 describe('fetchGuestOrders() action creator', () => {
   beforeEach(() => {
@@ -33,13 +36,15 @@ describe('fetchGuestOrders() action creator', () => {
   it('should create the correct actions for when the fetch guest orders procedure fails', async () => {
     const expectedError = new Error('fetch guest orders error');
 
-    getGuestOrders.mockRejectedValueOnce(expectedError);
+    (getGuestOrders as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchGuestOrders());
-    } catch (error) {
+    await fetchGuestOrders()(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).catch(error => {
       expect(error).toBe(expectedError);
       expect(getGuestOrders).toHaveBeenCalledTimes(1);
       expect(getGuestOrders).toHaveBeenCalledWith(expectedConfig);
@@ -52,15 +57,21 @@ describe('fetchGuestOrders() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the fetch guest orders procedure is successful', async () => {
-    getGuestOrders.mockResolvedValueOnce(mockGuestOrdersResponse);
+    (getGuestOrders as jest.Mock).mockResolvedValueOnce(
+      mockGuestOrdersResponse,
+    );
 
     expect.assertions(4);
 
-    await store.dispatch(fetchGuestOrders()).then(clientResult => {
+    await fetchGuestOrders()(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
       expect(clientResult).toEqual(mockGuestOrdersResponse);
     });
 

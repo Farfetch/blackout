@@ -15,7 +15,7 @@ const paymentsMockStore = (state = {}) =>
   mockStore({ payments: INITIAL_STATE }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof paymentsMockStore>;
 
 describe('fetchUserCreditBalance() action creator', () => {
   const data = {
@@ -28,14 +28,12 @@ describe('fetchUserCreditBalance() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch user credit balance procedure fails', async () => {
-    const expectedError = new Error('fetch credit balance error');
+    const expectedError = new Error('fetch user credit balance error');
 
-    getUserCreditBalance.mockRejectedValueOnce(expectedError);
+    (getUserCreditBalance as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchCreditBalance(data));
-    } catch (error) {
+    await fetchCreditBalance(data)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getUserCreditBalance).toHaveBeenCalledTimes(1);
       expect(getUserCreditBalance).toHaveBeenCalledWith(data, expectedConfig);
@@ -48,12 +46,14 @@ describe('fetchUserCreditBalance() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the fetch user credit balance procedure is successful', async () => {
-    getUserCreditBalance.mockResolvedValueOnce(mockCreditBalanceResponse);
-    await store.dispatch(fetchCreditBalance(data));
+    (getUserCreditBalance as jest.Mock).mockResolvedValueOnce(
+      mockCreditBalanceResponse,
+    );
+    await fetchCreditBalance(data)(store.dispatch);
 
     const actionResults = store.getActions();
 

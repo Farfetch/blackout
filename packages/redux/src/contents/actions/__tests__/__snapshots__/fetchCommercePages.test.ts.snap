@@ -5,7 +5,7 @@ Object {
   "meta": Object {
     "query": Object {
       "brand": 5030844,
-      "category": 136643,
+      "category": "136643",
       "gender": 0,
       "type": "LISTING",
     },

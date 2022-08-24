@@ -5,7 +5,7 @@ import { resetOrders } from '..';
 
 const ordersMockStore = (state = {}) =>
   mockStore({ orders: INITIAL_STATE }, state);
-let store;
+let store: ReturnType<typeof ordersMockStore>;
 
 describe('resetOrders() action creator', () => {
   beforeEach(() => {
@@ -14,7 +14,7 @@ describe('resetOrders() action creator', () => {
   });
 
   it('should create the correct actions for when the get order return options procedure is successful', async () => {
-    await store.dispatch(resetOrders());
+    await resetOrders()(store.dispatch);
 
     expect(store.getActions()).toMatchObject([
       { type: actionTypes.RESET_ORDERS },

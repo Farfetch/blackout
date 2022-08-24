@@ -21,7 +21,7 @@ const expectedConfig = undefined;
 let store = usersMockStore();
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 
-describe('fetchUserTitles action creator', () => {
+describe('fetchUserTitles() action creator', () => {
   const query = {
     page: 1,
     pageSize: 10,
@@ -32,15 +32,13 @@ describe('fetchUserTitles action creator', () => {
     store = usersMockStore();
   });
 
-  it('should create the correct actions for when the get titles procedure fails', async () => {
-    const expectedError = new Error('get titles error');
+  it('should create the correct actions for when the get user titles procedure fails', async () => {
+    const expectedError = new Error('get user titles error');
 
     (getUserTitles as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchUserTitles(query));
-    } catch (error) {
+    await fetchUserTitles(query)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getUserTitles).toHaveBeenCalledTimes(1);
       expect(getUserTitles).toHaveBeenCalledWith(query, expectedConfig);
@@ -53,13 +51,13 @@ describe('fetchUserTitles action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the get titles procedure is successful', async () => {
+  it('should create the correct actions for when the get user titles procedure is successful', async () => {
     (getUserTitles as jest.Mock).mockResolvedValueOnce(mockGetTitlesResponse);
 
-    await store.dispatch(fetchUserTitles(query));
+    await fetchUserTitles(query)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -77,6 +75,6 @@ describe('fetchUserTitles action creator', () => {
       find(actionResults, {
         type: actionTypes.FETCH_USER_TITLES_SUCCESS,
       }),
-    ).toMatchSnapshot('get titles success payload');
+    ).toMatchSnapshot('get user titles success payload');
   });
 });

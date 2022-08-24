@@ -1,18 +1,19 @@
 import * as actionTypes from '../../actionTypes';
 import { mockStore } from '../../../../tests';
 import { resetWishlistState } from '../';
+import INITIAL_STATE from '../../reducer';
 
-let store;
+let store: ReturnType<typeof mockStore>;
 
 describe('resetWishlistState()', () => {
   beforeEach(() => {
-    store = mockStore();
+    store = mockStore({ wishlist: INITIAL_STATE }, {});
   });
 
   it('should dispatch the correct action with fields to reset', () => {
     const fieldsToReset = ['error'];
 
-    store.dispatch(resetWishlistState(fieldsToReset));
+    resetWishlistState(fieldsToReset)(store.dispatch);
 
     expect(store.getActions()).toEqual([
       {
@@ -23,7 +24,7 @@ describe('resetWishlistState()', () => {
   });
 
   it('should dispatch the correct action with no fields to reset', () => {
-    store.dispatch(resetWishlistState());
+    resetWishlistState()(store.dispatch);
 
     expect(store.getActions()).toEqual([
       {

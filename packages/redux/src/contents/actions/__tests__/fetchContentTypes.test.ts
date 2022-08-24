@@ -15,7 +15,7 @@ const contentTypesMockStore = (state = {}) =>
   mockStore({ contents: INITIAL_STATE_CONTENT }, state);
 const expectedConfig = undefined;
 const spaceCode = 'website';
-let store;
+let store: ReturnType<typeof contentTypesMockStore>;
 
 describe('fetchContentTypes() action creator', () => {
   beforeEach(() => {
@@ -26,11 +26,11 @@ describe('fetchContentTypes() action creator', () => {
   it('should create the correct actions for fetching content types when procedure is failure', async () => {
     const expectedError = new Error('Get content error');
 
-    getContentTypes.mockRejectedValueOnce(expectedError);
+    (getContentTypes as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchContentTypes(spaceCode)).catch(error => {
+    await fetchContentTypes(spaceCode)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getContentTypes).toHaveBeenCalledTimes(1);
       expect(getContentTypes).toHaveBeenCalledWith(spaceCode, expectedConfig);
@@ -46,11 +46,11 @@ describe('fetchContentTypes() action creator', () => {
   });
 
   it('should create the correct actions for fetching content types when procedure is successful', async () => {
-    getContentTypes.mockResolvedValueOnce(types);
+    (getContentTypes as jest.Mock).mockResolvedValueOnce(types);
 
-    await store
-      .dispatch(fetchContentTypes(spaceCode))
-      .then(result => expect(result).toBe(types));
+    await fetchContentTypes(spaceCode)(store.dispatch).then(clientResult => {
+      expect(clientResult).toBe(types);
+    });
 
     const actionResults = store.getActions();
 

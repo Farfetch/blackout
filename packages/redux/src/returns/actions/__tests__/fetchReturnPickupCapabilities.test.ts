@@ -2,7 +2,10 @@ import * as actionTypes from '../../actionTypes';
 import { fetchReturnPickupCapabilities } from '..';
 import { getReturnPickupCapabilities } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
-import { mockPickupCapabilitiesResponse } from 'tests/__fixtures__/returns';
+import {
+  mockPickupCapabilitiesResponse,
+  pickupDay,
+} from 'tests/__fixtures__/returns';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 
@@ -15,9 +18,8 @@ const returnsMockStore = (state = {}) =>
   mockStore({ returns: INITIAL_STATE }, state);
 
 describe('fetchReturnPickupCapabilities action creator', () => {
-  const pickupDay = '2020-04-20';
   const expectedConfig = undefined;
-  let store;
+  let store: ReturnType<typeof returnsMockStore>;
   const returnId = 5926969;
 
   beforeEach(() => {
@@ -28,12 +30,15 @@ describe('fetchReturnPickupCapabilities action creator', () => {
   it('should create the correct actions for when the get pickup capabilities procedure fails', async () => {
     const expectedError = new Error('fetch pickup capabilities error');
 
-    getReturnPickupCapabilities.mockRejectedValueOnce(expectedError);
+    (getReturnPickupCapabilities as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchReturnPickupCapabilities(returnId, pickupDay));
-    } catch (error) {
+    await fetchReturnPickupCapabilities(
+      returnId,
+      pickupDay,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getReturnPickupCapabilities).toHaveBeenCalledTimes(1);
       expect(getReturnPickupCapabilities).toHaveBeenCalledWith(
@@ -52,19 +57,20 @@ describe('fetchReturnPickupCapabilities action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the get pickup capabilities procedure is successful', async () => {
-    getReturnPickupCapabilities.mockResolvedValueOnce(
+    (getReturnPickupCapabilities as jest.Mock).mockResolvedValueOnce(
       mockPickupCapabilitiesResponse,
     );
 
-    await store
-      .dispatch(fetchReturnPickupCapabilities(returnId, pickupDay))
-      .then(result => {
-        expect(result).toBe(mockPickupCapabilitiesResponse);
-      });
+    await fetchReturnPickupCapabilities(
+      returnId,
+      pickupDay,
+    )(store.dispatch).then(result => {
+      expect(result).toBe(mockPickupCapabilitiesResponse);
+    });
 
     const actionResults = store.getActions();
 

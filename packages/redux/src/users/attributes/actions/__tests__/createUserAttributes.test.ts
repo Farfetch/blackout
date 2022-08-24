@@ -1,7 +1,11 @@
 import * as actionTypes from '../../actionTypes';
 import { createUserAttributes } from '../';
 import { INITIAL_STATE } from '../../../reducer';
-import { mockPostUserAttributesResponse } from 'tests/__fixtures__/users';
+import {
+  mockCreateUserAttributesData,
+  mockPostUserAttributesResponse,
+  userId,
+} from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../../tests';
 import { postUserAttribute } from '@farfetch/blackout-client';
 import find from 'lodash/find';
@@ -16,18 +20,6 @@ const usersMockStore = (state = {}) =>
 
 describe('createUserAttributes action creator', () => {
   let store = usersMockStore();
-  const userId = 12345;
-  const data = {
-    userId,
-    type: 'Generic',
-    channelCode: 'channel_abc',
-    details: {
-      items: {
-        key1: 'value1',
-        key2: 'value2',
-      },
-    },
-  };
   const expectedConfig = undefined;
 
   beforeEach(() => {
@@ -41,14 +33,15 @@ describe('createUserAttributes action creator', () => {
     (postUserAttribute as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(createUserAttributes(userId, data));
-    } catch (error) {
+    await createUserAttributes(
+      userId,
+      mockCreateUserAttributesData,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(postUserAttribute).toHaveBeenCalledTimes(1);
       expect(postUserAttribute).toHaveBeenCalledWith(
         userId,
-        data,
+        mockCreateUserAttributesData,
         expectedConfig,
       );
       expect(store.getActions()).toEqual(
@@ -60,21 +53,24 @@ describe('createUserAttributes action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the create user attributes procedure is successful', async () => {
     (postUserAttribute as jest.Mock).mockResolvedValueOnce(
       mockPostUserAttributesResponse,
     );
-    await store.dispatch(createUserAttributes(userId, data));
+    await createUserAttributes(
+      userId,
+      mockCreateUserAttributesData,
+    )(store.dispatch);
 
     const actionResults = store.getActions();
 
     expect(postUserAttribute).toHaveBeenCalledTimes(1);
     expect(postUserAttribute).toHaveBeenCalledWith(
       userId,
-      data,
+      mockCreateUserAttributesData,
       expectedConfig,
     );
 

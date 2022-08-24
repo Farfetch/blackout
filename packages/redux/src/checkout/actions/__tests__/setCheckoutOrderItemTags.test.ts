@@ -11,6 +11,7 @@ import { putCheckoutOrderItemTags } from '@farfetch/blackout-client';
 import { setCheckoutOrderItemTags } from '..';
 import find from 'lodash/find';
 import thunk from 'redux-thunk';
+import type { StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -18,9 +19,10 @@ jest.mock('@farfetch/blackout-client', () => ({
 }));
 
 const mockProductImgQueryParam = '?c=2';
+const getOptions = () => ({ productImgQueryParam: mockProductImgQueryParam });
 const mockMiddlewares = [
   thunk.withExtraArgument({
-    getOptions: () => ({ productImgQueryParam: mockProductImgQueryParam }),
+    getOptions,
   }),
 ];
 
@@ -29,24 +31,26 @@ describe('setCheckoutOrderItemTags() action creator', () => {
     mockStore({ checkout: INITIAL_STATE }, state, mockMiddlewares);
   const data = ['something'];
   const expectedConfig = undefined;
-  let store;
+  let store: ReturnType<typeof checkoutMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
     store = checkoutMockStore();
   });
 
-  it('should create the correct actions for when the set items tags procedure fails', async () => {
-    const expectedError = new Error('set item tags error');
+  it('should create the correct actions for when the set checkout order items tags procedure fails', async () => {
+    const expectedError = new Error('set checkout order item tags error');
 
-    putCheckoutOrderItemTags.mockRejectedValueOnce(expectedError);
+    (putCheckoutOrderItemTags as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
-    try {
-      await store.dispatch(
-        setCheckoutOrderItemTags(checkoutId, checkoutOrderItemId, data),
-      );
-    } catch (error) {
+    await setCheckoutOrderItemTags(checkoutId, checkoutOrderItemId, data)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).catch(error => {
       expect(error).toBe(expectedError);
       expect(putCheckoutOrderItemTags).toHaveBeenCalledTimes(1);
       expect(putCheckoutOrderItemTags).toHaveBeenCalledWith(
@@ -64,18 +68,23 @@ describe('setCheckoutOrderItemTags() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the set items tags procedure is successful', async () => {
-    putCheckoutOrderItemTags.mockResolvedValueOnce(mockResponse);
-    await store.dispatch(
-      setCheckoutOrderItemTags(checkoutId, checkoutOrderItemId, data),
-    );
+  it('should create the correct actions for when the set checkout order items tags procedure is successful', async () => {
+    (putCheckoutOrderItemTags as jest.Mock).mockResolvedValueOnce(mockResponse);
+
+    await setCheckoutOrderItemTags(checkoutId, checkoutOrderItemId, data)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockResponse);
+    });
 
     const actionResults = store.getActions();
 
-    expect.assertions(4);
+    expect.assertions(5);
     expect(putCheckoutOrderItemTags).toHaveBeenCalledTimes(1);
     expect(putCheckoutOrderItemTags).toHaveBeenCalledWith(
       checkoutId,
@@ -94,6 +103,6 @@ describe('setCheckoutOrderItemTags() action creator', () => {
       find(actionResults, {
         type: actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_SUCCESS,
       }),
-    ).toMatchSnapshot('set item tags success payload');
+    ).toMatchSnapshot('set checkout order item tags success payload');
   });
 });

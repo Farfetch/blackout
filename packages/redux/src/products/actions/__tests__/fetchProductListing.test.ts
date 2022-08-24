@@ -14,15 +14,17 @@ import {
 import { mockStore } from '../../../../tests';
 import { productsActionTypes } from '../..';
 import thunk from 'redux-thunk';
+import type { GetOptionsArgument, StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
   getProductListing: jest.fn(),
 }));
 
+const getOptions = () => ({ productImgQueryParam: '?c=2' });
 const mockMiddlewares = [
   thunk.withExtraArgument({
-    getOptions: () => ({ productImgQueryParam: '?c=2' }),
+    getOptions,
   }),
 ];
 const productsListsMockStore = (state = {}) =>
@@ -30,7 +32,10 @@ const productsListsMockStore = (state = {}) =>
 const productsListsMockStoreWithoutMiddlewares = (state = {}) =>
   mockStore({ products: { lists: INITIAL_STATE } }, state);
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<
+  | typeof productsListsMockStore
+  | typeof productsListsMockStoreWithoutMiddlewares
+>;
 
 describe('fetchListing() action creator', () => {
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
@@ -64,12 +69,10 @@ describe('fetchListing() action creator', () => {
 
     expect.assertions(2);
 
-    await store.dispatch(
-      fetchProductListing(mockProductsListSlug, mockQuery, {
-        useCache: mockUseCache,
-        setProductsListHash: mockSetProductsListHash,
-      }),
-    );
+    await fetchProductListing(mockProductsListSlug, mockQuery, {
+      useCache: mockUseCache,
+      setProductsListHash: mockSetProductsListHash,
+    })(store.dispatch, store.getState as () => StoreState, { getOptions });
 
     expect(normalizeSpy).not.toHaveBeenCalled();
     expect(getProductListing).not.toHaveBeenCalled();
@@ -78,48 +81,52 @@ describe('fetchListing() action creator', () => {
   it('should create the correct actions for when the fetch listing procedure fails', async () => {
     const expectedError = new Error('Fetch listing error');
 
-    getProductListing.mockRejectedValueOnce(expectedError);
+    (getProductListing as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store
-      .dispatch(fetchProductListing(mockProductsListSlug, mockQuery))
-      .catch(error => {
-        expect(error).toBe(expectedError);
-        expect(getProductListing).toHaveBeenCalledTimes(1);
-        expect(getProductListing).toHaveBeenCalledWith(
-          mockProductsListSlug,
-          mockQuery,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual([
-          {
-            meta: { hash: mockProductsListHash },
-            type: productsActionTypes.SET_PRODUCTS_LIST_HASH,
-          },
-          {
-            meta: { hash: mockProductsListHash },
-            type: productsActionTypes.FETCH_PRODUCTS_LIST_REQUEST,
-          },
-          {
-            meta: { hash: mockProductsListHash },
-            payload: { error: expectedError },
-            type: productsActionTypes.FETCH_PRODUCTS_LIST_FAILURE,
-          },
-        ]);
-      });
+    await fetchProductListing(mockProductsListSlug, mockQuery)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).catch(error => {
+      expect(error).toBe(expectedError);
+      expect(getProductListing).toHaveBeenCalledTimes(1);
+      expect(getProductListing).toHaveBeenCalledWith(
+        mockProductsListSlug,
+        mockQuery,
+        expectedConfig,
+      );
+      expect(store.getActions()).toEqual([
+        {
+          meta: { hash: mockProductsListHash },
+          type: productsActionTypes.SET_PRODUCTS_LIST_HASH,
+        },
+        {
+          meta: { hash: mockProductsListHash },
+          type: productsActionTypes.FETCH_PRODUCTS_LIST_REQUEST,
+        },
+        {
+          meta: { hash: mockProductsListHash },
+          payload: { error: expectedError },
+          type: productsActionTypes.FETCH_PRODUCTS_LIST_FAILURE,
+        },
+      ]);
+    });
   });
 
   it('should create the correct actions for when the fetch listing procedure is successful', async () => {
-    getProductListing.mockResolvedValueOnce(mockProductsList);
+    (getProductListing as jest.Mock).mockResolvedValueOnce(mockProductsList);
 
     expect.assertions(5);
 
-    await store
-      .dispatch(fetchProductListing(mockProductsListSlug, mockQuery))
-      .then(clientResult => {
-        expect(clientResult).toBe(mockProductsList);
-      });
+    await fetchProductListing(mockProductsListSlug, mockQuery)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockProductsList);
+    });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getProductListing).toHaveBeenCalledTimes(1);
@@ -147,15 +154,17 @@ describe('fetchListing() action creator', () => {
 
   it('should create the correct actions for when the fetch listing procedure is successful without receiving options', async () => {
     store = productsListsMockStoreWithoutMiddlewares(state);
-    getProductListing.mockResolvedValueOnce(mockProductsList);
+    (getProductListing as jest.Mock).mockResolvedValueOnce(mockProductsList);
 
     expect.assertions(5);
 
-    await store
-      .dispatch(fetchProductListing(mockProductsListSlug, mockQuery))
-      .then(clientResult => {
-        expect(clientResult).toBe(mockProductsList);
-      });
+    await fetchProductListing(mockProductsListSlug, mockQuery)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      {} as GetOptionsArgument,
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockProductsList);
+    });
 
     const actionResults = store.getActions();
 
@@ -195,15 +204,17 @@ describe('fetchListing() action creator', () => {
       },
     });
 
-    getProductListing.mockResolvedValueOnce(mockProductsList);
+    (getProductListing as jest.Mock).mockResolvedValueOnce(mockProductsList);
 
     expect.assertions(5);
 
-    await store
-      .dispatch(fetchProductListing(mockProductsListSlug, mockQuery))
-      .then(clientResult => {
-        expect(clientResult).toBe(mockProductsList);
-      });
+    await fetchProductListing(mockProductsListSlug, mockQuery)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockProductsList);
+    });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getProductListing).toHaveBeenCalledTimes(1);
@@ -243,11 +254,13 @@ describe('fetchListing() action creator', () => {
       entities: {},
     });
 
-    await store
-      .dispatch(fetchProductListing(mockProductsListSlug, mockQuery))
-      .then(clientResult => {
-        expect(clientResult).toBeUndefined();
-      });
+    await fetchProductListing(mockProductsListSlug, mockQuery)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
+      expect(clientResult).toBeUndefined();
+    });
 
     expect.assertions(4);
 
@@ -274,15 +287,13 @@ describe('fetchListing() action creator', () => {
 
     expect.assertions(4);
 
-    await store
-      .dispatch(
-        fetchProductListing(mockProductsListSlug, mockQuery, {
-          useCache: true,
-        }),
-      )
-      .then(clientResult => {
+    await fetchProductListing(mockProductsListSlug, mockQuery, {
+      useCache: true,
+    })(store.dispatch, store.getState as () => StoreState, { getOptions }).then(
+      clientResult => {
         expect(clientResult).toBeUndefined();
-      });
+      },
+    );
 
     expect(normalizeSpy).not.toHaveBeenCalled();
     expect(getProductListing).not.toHaveBeenCalled();
@@ -295,19 +306,17 @@ describe('fetchListing() action creator', () => {
   });
 
   it('should create the correct actions for a successful request without setting the hash', async () => {
-    getProductListing.mockResolvedValueOnce(mockProductsList);
+    (getProductListing as jest.Mock).mockResolvedValueOnce(mockProductsList);
 
     expect.assertions(5);
 
-    await store
-      .dispatch(
-        fetchProductListing(mockProductsListSlug, mockQuery, {
-          setProductsListHash: false,
-        }),
-      )
-      .then(clientResult => {
+    await fetchProductListing(mockProductsListSlug, mockQuery, {
+      setProductsListHash: false,
+    })(store.dispatch, store.getState as () => StoreState, { getOptions }).then(
+      clientResult => {
         expect(clientResult).toBe(mockProductsList);
-      });
+      },
+    );
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getProductListing).toHaveBeenCalledTimes(1);

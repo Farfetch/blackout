@@ -2,6 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import { getPaymentIntentInstruments } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import {
+  intentId,
   mockFetchInstrumentsNormalizedPayload,
   mockFetchInstrumentsResponse,
 } from 'tests/__fixtures__/payments';
@@ -18,11 +19,9 @@ const paymentsMockStore = (state = {}) =>
   mockStore({ paymentTokens: INITIAL_STATE }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof paymentsMockStore>;
 
 describe('fetchPaymentIntentInstruments() action creator', () => {
-  const intentId = '123123';
-
   beforeEach(() => {
     jest.clearAllMocks();
     store = paymentsMockStore();
@@ -31,35 +30,37 @@ describe('fetchPaymentIntentInstruments() action creator', () => {
   it('should create the correct actions when the fetch payment intent instruments procedure fails', async () => {
     const expectedError = new Error('fetch instruments error');
 
-    getPaymentIntentInstruments.mockRejectedValueOnce(expectedError);
+    (getPaymentIntentInstruments as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchPaymentIntentInstruments(intentId));
-    } catch (error) {
-      expect(error).toBe(expectedError);
-      expect(getPaymentIntentInstruments).toHaveBeenCalledTimes(1);
-      expect(getPaymentIntentInstruments).toHaveBeenCalledWith(
-        intentId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENTS_REQUEST },
-          {
-            type: actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENTS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    }
+    await fetchPaymentIntentInstruments(intentId)(store.dispatch).catch(
+      error => {
+        expect(error).toBe(expectedError);
+        expect(getPaymentIntentInstruments).toHaveBeenCalledTimes(1);
+        expect(getPaymentIntentInstruments).toHaveBeenCalledWith(
+          intentId,
+          expectedConfig,
+        );
+        expect(store.getActions()).toEqual(
+          expect.arrayContaining([
+            { type: actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENTS_REQUEST },
+            {
+              type: actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENTS_FAILURE,
+              payload: { error: expectedError },
+            },
+          ]),
+        );
+      },
+    );
   });
 
   it('should create the correct actions when the fetch payment intent instruments procedure is successful', async () => {
-    getPaymentIntentInstruments.mockResolvedValueOnce(
+    (getPaymentIntentInstruments as jest.Mock).mockResolvedValueOnce(
       mockFetchInstrumentsResponse,
     );
-    await store.dispatch(fetchPaymentIntentInstruments(intentId));
+    await fetchPaymentIntentInstruments(intentId)(store.dispatch);
 
     const actionResults = store.getActions();
 

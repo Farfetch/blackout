@@ -3,7 +3,6 @@ import {
   Classification,
   DeclineCode,
   LineItemsType,
-  PaymentInstrument,
   PaymentInstrumentStatus,
   PaymentIntentStatus,
   ShopperInteraction,
@@ -22,6 +21,12 @@ export const brandId = 121212;
 export const orderId = 1;
 export const paymentTokenId = '5ccbb098-e4ef-cb30-701b-4cbbd347c472';
 export const paymentTokenId2 = '0a1cbb02-091f-ef49-1c75-2239b9c361b1';
+export const intentId = '123123';
+
+export const paymentIntentChargeData = {
+  returnUrl: '',
+  cancelUrl: '',
+};
 
 export const address = {
   addressLine1: 'Rua da Lionesa 446, G12',
@@ -61,8 +66,8 @@ export const address = {
   vatNumber: '50',
   zipCode: '4465-761',
   userId: 0,
-  isCurrentBilling: true,
-  isCurrentShipping: true,
+  isDefaultBillingAddress: true,
+  isDefaultShippingAddress: true,
 };
 
 export const mockCharge = {
@@ -95,43 +100,43 @@ export const mockCreditBalanceResponse = {
   currency: 'EUR',
   value: 200,
 };
-export const mockFetchInstrumentsResponse = [
-  {
-    id: instrumentId,
-    method: 'CreditCard',
-    option: 'credit card',
-    amounts: [
-      {
-        classification: 'Domestic',
-        value: 27,
-        settledValue: 0,
-        refundedValue: 0,
-      },
-    ],
-    status: PaymentInstrumentStatus.Created,
-    payer: {
-      id: '1213',
-      firstName: 'João',
-      lastName: 'Batista',
-      email: 'joao@mail.com',
-      address,
+export const mockInstrumentData = {
+  id: instrumentId,
+  method: 'CreditCard',
+  option: 'credit card',
+  amounts: [
+    {
+      value: 27,
+      settledValue: 0,
+      refundedValue: 0,
     },
-    data: {
-      cardHolderName: 'Joao Baptista',
-      cardFirstDigits: '411111',
-      cardLastDigits: '111111',
-      cardExpiryMonth: 10,
-      cardExpiryYear: 2020,
-      creditUserId: '',
-      giftCardNumber: '1232211',
-      giftCardCsc: '111212',
-    },
-    installments: {
-      quantity: 0,
-    },
-    shopperInteraction: ShopperInteraction.Ecommerce,
+  ],
+  status: PaymentInstrumentStatus.Created,
+  payer: {
+    id: '1213',
+    firstName: 'João',
+    lastName: 'Batista',
+    email: 'joao@mail.com',
+    address,
   },
-];
+  data: {
+    cardHolderName: 'Joao Baptista',
+    cardFirstDigits: '411111',
+    cardLastDigits: '111111',
+    cardExpiryMonth: 10,
+    cardExpiryYear: 2020,
+    creditUserId: '',
+    giftCardNumber: '1232211',
+    giftCardCsc: '111212',
+    cardCvv: '037',
+    cardNumber: '123',
+  },
+  installments: {
+    quantity: 0,
+  },
+  shopperInteraction: ShopperInteraction.Ecommerce,
+};
+export const mockFetchInstrumentsResponse = [mockInstrumentData];
 export const mockFetchInstrumentsNormalizedPayload = {
   entities: {
     paymentInstruments: {
@@ -141,8 +146,7 @@ export const mockFetchInstrumentsNormalizedPayload = {
   },
   result: [mockFetchInstrumentsResponse[0]?.id],
 };
-export const mockFetchInstrumentResponse =
-  mockFetchInstrumentsResponse[0] as PaymentInstrument;
+export const mockFetchInstrumentResponse = mockInstrumentData;
 export const mockFetchInstrumentNormalizedPayload = {
   entities: {
     paymentInstruments: {
@@ -236,6 +240,8 @@ export const mockFetchIntentResponse = {
           },
         ],
       },
+      isDefaultBillingAddress: true,
+      isDefaultShippingAddress: true,
     },
   },
 };

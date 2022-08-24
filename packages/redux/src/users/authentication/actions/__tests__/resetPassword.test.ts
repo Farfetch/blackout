@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
+import { mockPasswordResetData } from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../../tests';
 import { postPasswordReset } from '@farfetch/blackout-client';
 import { resetPassword } from '../..';
 import find from 'lodash/find';
 import reducer from '../../reducer';
-
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
   postPasswordReset: jest.fn(),
@@ -19,12 +19,6 @@ const expectedConfig = undefined;
 let store = authenticationMockStore();
 
 describe('resetPassword() action creator', () => {
-  const passwordResetData = {
-    username: 'pepe@acme.com',
-    token: '1293819283sdfs23',
-    password: 'thisIsUserPassword',
-  };
-
   beforeEach(() => {
     jest.clearAllMocks();
     store = authenticationMockStore();
@@ -36,13 +30,11 @@ describe('resetPassword() action creator', () => {
     (postPasswordReset as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(resetPassword(passwordResetData));
-    } catch (error) {
+    await resetPassword(mockPasswordResetData)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(postPasswordReset).toHaveBeenCalledTimes(1);
       expect(postPasswordReset).toHaveBeenCalledWith(
-        passwordResetData,
+        mockPasswordResetData,
         expectedConfig,
       );
       expect(store.getActions()).toEqual(
@@ -54,18 +46,18 @@ describe('resetPassword() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the password resetting procedure is successful', async () => {
     (postPasswordReset as jest.Mock).mockResolvedValueOnce({});
-    await store.dispatch(resetPassword(passwordResetData));
+    await resetPassword(mockPasswordResetData)(store.dispatch);
 
     const actionResults = store.getActions();
 
     expect(postPasswordReset).toHaveBeenCalledTimes(1);
     expect(postPasswordReset).toHaveBeenCalledWith(
-      passwordResetData,
+      mockPasswordResetData,
       expectedConfig,
     );
 

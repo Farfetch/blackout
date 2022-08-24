@@ -19,7 +19,7 @@ const returnsMockStore = (state = {}) =>
   mockStore({ returns: INITIAL_STATE }, state);
 
 describe('fetchReturn() action creator', () => {
-  let store;
+  let store: ReturnType<typeof returnsMockStore>;
   const expectedConfig = undefined;
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
   const returnId = 5926969;
@@ -32,12 +32,10 @@ describe('fetchReturn() action creator', () => {
   it('should create the correct actions for when the fetch return procedure fails', async () => {
     const expectedError = new Error('fetch return error');
 
-    getReturn.mockRejectedValueOnce(expectedError);
+    (getReturn as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchReturn(returnId));
-    } catch (error) {
+    await fetchReturn(returnId)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getReturn).toHaveBeenCalledTimes(1);
       expect(getReturn).toHaveBeenCalledWith(returnId, expectedConfig);
@@ -50,12 +48,12 @@ describe('fetchReturn() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the fetch return procedure is successful', async () => {
-    getReturn.mockResolvedValueOnce(responses.get.success);
-    await store.dispatch(fetchReturn(returnId));
+    (getReturn as jest.Mock).mockResolvedValueOnce(responses.get.success);
+    await fetchReturn(returnId)(store.dispatch);
 
     const actionResults = store.getActions();
 

@@ -1,4 +1,5 @@
 import * as actionTypes from '../../actionTypes';
+import { contactId, userId } from 'tests/__fixtures__/users';
 import { deleteUserContact } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../../reducer';
 import { mockStore } from '../../../../../tests';
@@ -15,24 +16,22 @@ const usersMockStore = (state = {}) =>
 const expectedConfig = undefined;
 let store = usersMockStore();
 
-describe('removeContact action creator', () => {
-  const userId = 123456789;
-  const contactId = 'abcdefghi';
-
+describe('removeUserContact() action creator', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     store = usersMockStore();
   });
 
-  it('should create the correct actions for when the get contact procedure fails', async () => {
-    const expectedError = new Error('get contact error');
+  it('should create the correct actions for when the get user contact procedure fails', async () => {
+    const expectedError = new Error('get user contact error');
 
     (deleteUserContact as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(removeUserContact(userId, contactId));
-    } catch (error) {
+    await removeUserContact(
+      userId,
+      contactId,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(deleteUserContact).toHaveBeenCalledTimes(1);
       expect(deleteUserContact).toHaveBeenCalledWith(
@@ -49,13 +48,13 @@ describe('removeContact action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the get contact procedure is successful', async () => {
+  it('should create the correct actions for when the get user contact procedure is successful', async () => {
     (deleteUserContact as jest.Mock).mockResolvedValueOnce({});
 
-    await store.dispatch(removeUserContact(userId, contactId, expectedConfig));
+    await removeUserContact(userId, contactId, expectedConfig)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -75,6 +74,6 @@ describe('removeContact action creator', () => {
       find(actionResults, {
         type: actionTypes.REMOVE_USER_CONTACT_SUCCESS,
       }),
-    ).toMatchSnapshot('remove contact success payload');
+    ).toMatchSnapshot('remove user contact success payload');
   });
 });

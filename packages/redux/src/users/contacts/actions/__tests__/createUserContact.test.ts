@@ -2,7 +2,9 @@ import * as actionTypes from '../../actionTypes';
 import { createUserContact } from '..';
 import {
   expectedCreateContactNormalized,
+  mockGetContactResponse,
   mockPostContactResponse,
+  userId,
 } from 'tests/__fixtures__/users';
 import { INITIAL_STATE } from '../../../reducer';
 import { mockStore } from '../../../../../tests';
@@ -19,38 +21,27 @@ const usersMockStore = (state = {}) =>
 const expectedConfig = undefined;
 let store = usersMockStore();
 
-describe('createUserContact action creator', () => {
-  const userId = 123456789;
-  const data = {
-    id: 0,
-    value: '',
-    countryDetails: {
-      countryCode: '',
-      countryCallingCode: '',
-    },
-    type: '',
-    description: '',
-  };
-
+describe('createUserContact() action creator', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     store = usersMockStore();
   });
 
-  it('should create the correct actions for when the create contact procedure fails', async () => {
-    const expectedError = new Error('post contact error');
+  it('should create the correct actions for when the create user contact procedure fails', async () => {
+    const expectedError = new Error('post user contact error');
 
     (postUserContact as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(createUserContact(userId, data));
-    } catch (error) {
+    await createUserContact(
+      userId,
+      mockGetContactResponse,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(postUserContact).toHaveBeenCalledTimes(1);
       expect(postUserContact).toHaveBeenCalledWith(
         userId,
-        data,
+        mockGetContactResponse,
         expectedConfig,
       );
       expect(store.getActions()).toEqual(
@@ -62,20 +53,28 @@ describe('createUserContact action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the create contact procedure is successful', async () => {
+  it('should create the correct actions for when the create user contact procedure is successful', async () => {
     (postUserContact as jest.Mock).mockResolvedValueOnce(
       mockPostContactResponse,
     );
 
-    await store.dispatch(createUserContact(userId, data, expectedConfig));
+    await createUserContact(
+      userId,
+      mockGetContactResponse,
+      expectedConfig,
+    )(store.dispatch);
 
     const actionResults = store.getActions();
 
     expect(postUserContact).toHaveBeenCalledTimes(1);
-    expect(postUserContact).toHaveBeenCalledWith(userId, data, expectedConfig);
+    expect(postUserContact).toHaveBeenCalledWith(
+      userId,
+      mockGetContactResponse,
+      expectedConfig,
+    );
     expect(actionResults).toMatchObject([
       { type: actionTypes.CREATE_USER_CONTACT_REQUEST },
       {
@@ -87,6 +86,6 @@ describe('createUserContact action creator', () => {
       find(actionResults, {
         type: actionTypes.CREATE_USER_CONTACT_SUCCESS,
       }),
-    ).toMatchSnapshot('create contact success payload');
+    ).toMatchSnapshot('create user contact success payload');
   });
 });

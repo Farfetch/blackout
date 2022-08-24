@@ -11,15 +11,17 @@ import {
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 import thunk from 'redux-thunk';
+import type { GetOptionsArgument, StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
   getBag: jest.fn(),
 }));
 
+const getOptions = () => ({ productImgQueryParam: '?c=2' });
 const mockMiddlewares = [
   thunk.withExtraArgument({
-    getOptions: () => ({ productImgQueryParam: '?c=2' }),
+    getOptions,
   }),
 ];
 const bagMockStore = (state = {}) =>
@@ -29,7 +31,7 @@ const bagMockStoreWithoutMiddlewares = (state = {}) =>
 const expectedConfig = undefined;
 const expectedQuery = undefined;
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
-let store;
+let store: ReturnType<typeof bagMockStore>;
 
 describe('fetchBag() action creator', () => {
   beforeEach(() => {
@@ -40,10 +42,14 @@ describe('fetchBag() action creator', () => {
   it('should create the correct actions for when the fetch bag procedure fails', async () => {
     const expectedError = new Error('fetch bag error');
 
-    getBag.mockRejectedValueOnce(expectedError);
+    (getBag as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    await store.dispatch(fetchBag(mockBagId)).catch(error => {
+    await fetchBag(mockBagId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).catch(error => {
       expect(error).toBe(expectedError);
       expect(getBag).toHaveBeenCalledTimes(1);
       expect(getBag).toHaveBeenCalledWith(
@@ -64,11 +70,15 @@ describe('fetchBag() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch bag procedure is successful', async () => {
-    getBag.mockResolvedValueOnce(mockResponse);
+    (getBag as jest.Mock).mockResolvedValueOnce(mockResponse);
 
     expect.assertions(6);
 
-    await store.dispatch(fetchBag(mockBagId)).then(clientResult => {
+    await fetchBag(mockBagId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
       expect(clientResult).toBe(mockResponse);
     });
 
@@ -96,11 +106,15 @@ describe('fetchBag() action creator', () => {
   it('should create the correct actions for when the fetch bag procedure is successful without receiving options', async () => {
     store = bagMockStoreWithoutMiddlewares();
 
-    getBag.mockResolvedValueOnce(mockResponse);
+    (getBag as jest.Mock).mockResolvedValueOnce(mockResponse);
 
     expect.assertions(6);
 
-    await store.dispatch(fetchBag(mockBagId)).then(clientResult => {
+    await fetchBag(mockBagId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      {} as GetOptionsArgument,
+    ).then(clientResult => {
       expect(clientResult).toBe(mockResponse);
     });
 

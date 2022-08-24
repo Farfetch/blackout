@@ -17,7 +17,7 @@ jest.mock('@farfetch/blackout-client', () => ({
 const merchantsLocationsMockStore = (state = {}) =>
   mockStore({ merchantsLocations: INITIAL_STATE }, state);
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof merchantsLocationsMockStore>;
 
 describe('fetchMerchantsLocations() action creator', () => {
   beforeEach(() => {
@@ -28,11 +28,11 @@ describe('fetchMerchantsLocations() action creator', () => {
   it('should create the correct actions for when the fetch merchants locations procedure fails', async () => {
     const expectedError = new Error('Fetch merchants locations error');
 
-    getMerchantsLocations.mockRejectedValueOnce(expectedError);
+    (getMerchantsLocations as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchMerchantsLocations(mockQuery)).catch(error => {
+    await fetchMerchantsLocations(mockQuery)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getMerchantsLocations).toHaveBeenCalledTimes(1);
       expect(getMerchantsLocations).toHaveBeenCalledWith(
@@ -52,15 +52,17 @@ describe('fetchMerchantsLocations() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch merchants locations procedure is successful', async () => {
-    getMerchantsLocations.mockResolvedValueOnce([mockMerchantLocation]);
+    (getMerchantsLocations as jest.Mock).mockResolvedValueOnce([
+      mockMerchantLocation,
+    ]);
 
     expect.assertions(4);
 
-    await store
-      .dispatch(fetchMerchantsLocations(mockQuery))
-      .then(clientResult => {
+    await fetchMerchantsLocations(mockQuery)(store.dispatch).then(
+      clientResult => {
         expect(clientResult).toEqual([mockMerchantLocation]);
-      });
+      },
+    );
 
     expect(getMerchantsLocations).toHaveBeenCalledTimes(1);
     expect(getMerchantsLocations).toHaveBeenCalledWith(

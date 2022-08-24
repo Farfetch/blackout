@@ -22,7 +22,7 @@ const rewardsMockStore = (state = {}) =>
 
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof rewardsMockStore>;
 
 beforeEach(jest.clearAllMocks);
 
@@ -38,14 +38,16 @@ describe('fetchProgramMembershipStatements() action creator', () => {
       'fetch program membership statements error',
     );
 
-    getProgramMembershipStatements.mockRejectedValueOnce(expectedError);
+    (getProgramMembershipStatements as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
-    try {
-      await store.dispatch(
-        fetchProgramMembershipStatements(programId, membershipId, query),
-      );
-    } catch (error) {
+    await fetchProgramMembershipStatements(
+      programId,
+      membershipId,
+      query,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getProgramMembershipStatements).toHaveBeenCalledTimes(1);
       expect(getProgramMembershipStatements).toHaveBeenCalledWith(
@@ -65,16 +67,18 @@ describe('fetchProgramMembershipStatements() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the fetch program membership statements procedure is successful', async () => {
-    getProgramMembershipStatements.mockResolvedValueOnce(
+    (getProgramMembershipStatements as jest.Mock).mockResolvedValueOnce(
       mockResponseProgramMembershipStatements,
     );
-    await store.dispatch(
-      fetchProgramMembershipStatements(programId, membershipId, query),
-    );
+    await fetchProgramMembershipStatements(
+      programId,
+      membershipId,
+      query,
+    )(store.dispatch);
 
     const actionResults = store.getActions();
 

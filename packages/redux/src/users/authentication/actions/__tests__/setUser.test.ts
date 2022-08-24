@@ -2,6 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import {
   expectedNormalizedUserPayload,
   mockUsersResponse,
+  userId,
 } from 'tests/__fixtures__/users';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../../tests';
@@ -19,8 +20,7 @@ const usersMockStore = (state = {}) =>
 const expectedConfig = undefined;
 let store = usersMockStore();
 
-describe('updateUser action creator', () => {
-  const userId = 29538482;
+describe('setUser action creator', () => {
   const mockRequestBody = {
     name: 'anon',
     email: 'anonaccount@ff.com',
@@ -31,15 +31,16 @@ describe('updateUser action creator', () => {
     store = usersMockStore();
   });
 
-  it('should create the correct actions for when the update user procedure fails', async () => {
+  it('should create the correct actions for when the set user procedure fails', async () => {
     const expectedError = new Error('update user error');
 
     (putUser as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(setUser(userId, {} as PutUserData));
-    } catch (error) {
+    await setUser(
+      userId,
+      {} as PutUserData,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(putUser).toHaveBeenCalledTimes(1);
       expect(putUser).toHaveBeenCalledWith(userId, {}, expectedConfig);
@@ -52,13 +53,13 @@ describe('updateUser action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the update user procedure is successful', async () => {
+  it('should create the correct actions for when the set user procedure is successful', async () => {
     (putUser as jest.Mock).mockResolvedValueOnce(mockUsersResponse);
 
-    await store.dispatch(setUser(userId, mockRequestBody));
+    await setUser(userId, mockRequestBody)(store.dispatch);
 
     const actionResults = store.getActions();
 

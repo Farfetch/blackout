@@ -18,7 +18,7 @@ jest.mock('@farfetch/blackout-client', () => ({
 const productDetailsMockStore = (state = {}) =>
   mockStore({ products: { attributes: INITIAL_STATE } }, state);
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof productDetailsMockStore>;
 
 describe('fetchProductAttributes() action creator', () => {
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
@@ -41,11 +41,11 @@ describe('fetchProductAttributes() action creator', () => {
   it('should create the correct actions for when the fetch product attributes procedure fails', async () => {
     const expectedError = new Error('Fetch product attributes error');
 
-    getProductAttributes.mockRejectedValueOnce(expectedError);
+    (getProductAttributes as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchProductAttributes(mockProductId)).catch(error => {
+    await fetchProductAttributes(mockProductId)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getProductAttributes).toHaveBeenCalledTimes(1);
       expect(getProductAttributes).toHaveBeenCalledWith(
@@ -67,13 +67,15 @@ describe('fetchProductAttributes() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch product attributes procedure is successful', async () => {
-    getProductAttributes.mockResolvedValueOnce(mockProductAttributes);
+    (getProductAttributes as jest.Mock).mockResolvedValueOnce(
+      mockProductAttributes,
+    );
 
-    await store
-      .dispatch(fetchProductAttributes(mockProductId))
-      .then(clientResult => {
+    await fetchProductAttributes(mockProductId)(store.dispatch).then(
+      clientResult => {
         expect(clientResult).toBe(mockProductAttributes);
-      });
+      },
+    );
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getProductAttributes).toHaveBeenCalledTimes(1);

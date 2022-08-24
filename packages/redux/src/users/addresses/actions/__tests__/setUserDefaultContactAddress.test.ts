@@ -2,6 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import {
   addressId2,
   mockUpdateAddressResponse,
+  userId,
 } from 'tests/__fixtures__/users';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../../tests';
@@ -18,25 +19,26 @@ const addressesMockStore = (state = {}) =>
   mockStore({ addresses: INITIAL_STATE }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof addressesMockStore>;
 
 describe('setUserDefaultContactAddress() action creator', () => {
-  const userId = 12211;
-
   beforeEach(() => {
     jest.clearAllMocks();
     store = addressesMockStore();
   });
 
-  it('should create the correct actions for when the set contact address procedure fails', async () => {
-    const expectedError = new Error('set default contact address error');
+  it('should create the correct actions for when the set user default contact address procedure fails', async () => {
+    const expectedError = new Error('set user default contact address error');
 
-    putUserDefaultContactAddress.mockRejectedValueOnce(expectedError);
+    (putUserDefaultContactAddress as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
-    try {
-      await store.dispatch(setUserDefaultContactAddress(userId, addressId2));
-    } catch (error) {
+    await setUserDefaultContactAddress(
+      userId,
+      addressId2,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(putUserDefaultContactAddress).toHaveBeenCalledTimes(1);
       expect(putUserDefaultContactAddress).toHaveBeenCalledWith(
@@ -57,14 +59,14 @@ describe('setUserDefaultContactAddress() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the set contact address procedure is successful', async () => {
-    putUserDefaultContactAddress.mockResolvedValueOnce(
+  it('should create the correct actions for when the set user default contact address procedure is successful', async () => {
+    (putUserDefaultContactAddress as jest.Mock).mockResolvedValueOnce(
       mockUpdateAddressResponse,
     );
-    await store.dispatch(setUserDefaultContactAddress(userId, addressId2));
+    await setUserDefaultContactAddress(userId, addressId2)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -87,6 +89,6 @@ describe('setUserDefaultContactAddress() action creator', () => {
       find(actionResults, {
         type: actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS,
       }),
-    ).toMatchSnapshot('set default contact address success payload');
+    ).toMatchSnapshot('set user default contact address success payload');
   });
 });

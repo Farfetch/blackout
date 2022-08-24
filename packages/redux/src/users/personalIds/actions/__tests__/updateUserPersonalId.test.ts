@@ -1,6 +1,13 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  config,
+  expectedConfig,
+  mockPersonalIdResponse,
+  mockPostPersonalIdsData,
+  personalId,
+  userId,
+} from 'tests/__fixtures__/users';
 import { INITIAL_STATE } from '../../../reducer';
-import { mockPersonalIdResponse } from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../../tests';
 import { patchUserPersonalId } from '@farfetch/blackout-client';
 import { updateUserPersonalId } from '../';
@@ -14,22 +21,12 @@ jest.mock('@farfetch/blackout-client', () => ({
 const usersMockStore = (state = {}) =>
   mockStore({ users: INITIAL_STATE }, state);
 
-describe('updateUserPersonalId action creator', () => {
+describe('updateUserPersonalId() action creator', () => {
   let store = usersMockStore();
-  const userId = 123456;
-  const personalId = '123456';
+
   const data = {
-    backImageId: 'string',
-    expiryDate: 'string',
-    frontImageId: 'string',
-    idNumber: 'string',
-    name: 'string',
-  };
-  const config = {
-    'X-SUMMER-RequestId': 'test',
-  };
-  const expectedConfig = {
-    'X-SUMMER-RequestId': 'test',
+    ...mockPostPersonalIdsData,
+    expiryDate: '',
   };
 
   beforeEach(() => {
@@ -37,17 +34,18 @@ describe('updateUserPersonalId action creator', () => {
     store = usersMockStore();
   });
 
-  it('should create the correct actions for when the update personal id procedure fails', async () => {
-    const expectedError = new Error('update personal id error');
+  it('should create the correct actions for when the update user personal id procedure fails', async () => {
+    const expectedError = new Error('update user personal id error');
 
     (patchUserPersonalId as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(
-        updateUserPersonalId(userId, personalId, data, config),
-      );
-    } catch (error) {
+    await updateUserPersonalId(
+      userId,
+      personalId,
+      data,
+      config,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(patchUserPersonalId).toHaveBeenCalledTimes(1);
       expect(patchUserPersonalId).toHaveBeenCalledWith(
@@ -65,17 +63,20 @@ describe('updateUserPersonalId action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the update personal id procedure is successful', async () => {
+  it('should create the correct actions for when the update user personal id procedure is successful', async () => {
     (patchUserPersonalId as jest.Mock).mockResolvedValueOnce(
       mockPersonalIdResponse,
     );
 
-    await store.dispatch(
-      updateUserPersonalId(userId, personalId, data, config),
-    );
+    await updateUserPersonalId(
+      userId,
+      personalId,
+      data,
+      config,
+    )(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -97,6 +98,6 @@ describe('updateUserPersonalId action creator', () => {
       find(actionResults, {
         type: actionTypes.UPDATE_USER_PERSONAL_ID_SUCCESS,
       }),
-    ).toMatchSnapshot('update personal id success payload');
+    ).toMatchSnapshot('update user personal id success payload');
   });
 });

@@ -3,7 +3,7 @@ import { fetchSEO } from '..';
 import { getSEO } from '@farfetch/blackout-client';
 import { INITIAL_STATE_CONTENT } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import { seoQuery, seoResponse } from 'tests/__fixtures__/contents';
+import { pathname, seoQuery, seoResponse } from 'tests/__fixtures__/contents';
 import find from 'lodash/find';
 
 jest.mock('@farfetch/blackout-client', () => ({
@@ -14,7 +14,7 @@ const contentsSEOMockStore = (state = {}) =>
   mockStore({ contents: INITIAL_STATE_CONTENT }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof contentsSEOMockStore>;
 
 describe('fetchSEO action creator', () => {
   beforeEach(() => {
@@ -22,57 +22,55 @@ describe('fetchSEO action creator', () => {
     store = contentsSEOMockStore();
   });
 
-  it('should create the correct actions for when the get SEO procedure fails', async () => {
+  it('should create the correct actions for when the fetch SEO procedure fails', async () => {
     const expectedError = new Error('Get SEO error');
 
-    getSEO.mockRejectedValueOnce(expectedError);
+    (getSEO as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchSEO(seoQuery)).catch(error => {
+    await fetchSEO(seoQuery)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getSEO).toHaveBeenCalledTimes(1);
       expect(getSEO).toHaveBeenCalledWith(seoQuery, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining(
-            {
-              type: actionTypes.FETCH_SEO_FAILURE,
-            },
-            {
-              payload: { error: expectedError },
-              type: actionTypes.FETCH_SEO_FAILURE,
-            },
-          ),
-        ]),
-      );
+      expect(store.getActions()).toEqual([
+        {
+          meta: { query: seoQuery },
+          payload: { pathname },
+          type: actionTypes.FETCH_SEO_REQUEST,
+        },
+        {
+          meta: { query: seoQuery },
+          payload: { error: expectedError, pathname },
+          type: actionTypes.FETCH_SEO_FAILURE,
+        },
+      ]);
     });
   });
 
-  it('should create the correct actions for when the get SEO procedure is successful', async () => {
-    getSEO.mockResolvedValueOnce(seoResponse);
+  it('should create the correct actions for when the fetch SEO procedure is successful', async () => {
+    (getSEO as jest.Mock).mockResolvedValueOnce(seoResponse);
 
-    await store
-      .dispatch(fetchSEO(seoQuery))
-      .then(result => expect(result).toBe(seoResponse));
+    await fetchSEO(seoQuery)(store.dispatch).then(clientResult => {
+      expect(clientResult).toBe(seoResponse);
+    });
 
     const actionResults = store.getActions();
 
     expect(getSEO).toHaveBeenCalledTimes(1);
     expect(getSEO).toHaveBeenCalledWith(seoQuery, expectedConfig);
-    expect(store.getActions()).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining(
-          {
-            type: actionTypes.FETCH_SEO_SUCCESS,
-          },
-          {
-            payload: seoResponse,
-            type: actionTypes.FETCH_SEO_SUCCESS,
-          },
-        ),
-      ]),
-    );
+    expect(actionResults).toEqual([
+      {
+        meta: { query: seoQuery },
+        payload: { pathname },
+        type: actionTypes.FETCH_SEO_REQUEST,
+      },
+      {
+        meta: { query: seoQuery },
+        payload: { result: seoResponse, pathname },
+        type: actionTypes.FETCH_SEO_SUCCESS,
+      },
+    ]);
     expect(
       find(actionResults, { type: actionTypes.FETCH_SEO_SUCCESS }),
     ).toMatchSnapshot('Get SEO payload');

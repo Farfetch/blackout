@@ -12,15 +12,17 @@ import {
 import { mockStore } from '../../../../tests';
 import { productsActionTypes } from '../..';
 import thunk from 'redux-thunk';
+import type { GetOptionsArgument, StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
   getProductSet: jest.fn(),
 }));
 
+const getOptions = () => ({ productImgQueryParam: '?c=2' });
 const mockMiddlewares = [
   thunk.withExtraArgument({
-    getOptions: () => ({ productImgQueryParam: '?c=2' }),
+    getOptions,
   }),
 ];
 const productsListsMockStore = (state = {}) =>
@@ -28,7 +30,10 @@ const productsListsMockStore = (state = {}) =>
 const productsListsMockStoreWithoutMiddlewares = (state = {}) =>
   mockStore({ products: { lists: INITIAL_STATE } }, state);
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<
+  | typeof productsListsMockStore
+  | typeof productsListsMockStoreWithoutMiddlewares
+>;
 
 describe('fetchSet() action creator', () => {
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
@@ -60,16 +65,14 @@ describe('fetchSet() action creator', () => {
 
     expect.assertions(2);
 
-    await store.dispatch(
-      fetchProductSet(
-        mockSetId,
-        {},
-        {
-          useCache: mockUseCache,
-          setProductsListHash: mockSetProductsListHash,
-        },
-      ),
-    );
+    await fetchProductSet(
+      mockSetId,
+      {},
+      {
+        useCache: mockUseCache,
+        setProductsListHash: mockSetProductsListHash,
+      },
+    )(store.dispatch, store.getState as () => StoreState, { getOptions });
 
     expect(normalizeSpy).not.toHaveBeenCalled();
     expect(getProductSet).not.toHaveBeenCalled();
@@ -78,11 +81,15 @@ describe('fetchSet() action creator', () => {
   it('should create the correct actions for when the fetch set procedure fails', async () => {
     const expectedError = new Error('Fetch set error');
 
-    getProductSet.mockRejectedValueOnce(expectedError);
+    (getProductSet as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchProductSet(mockSetId)).catch(error => {
+    await fetchProductSet(mockSetId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).catch(error => {
       expect(error).toBe(expectedError);
       expect(getProductSet).toHaveBeenCalledTimes(1);
       expect(getProductSet).toHaveBeenCalledWith(mockSetId, {}, expectedConfig);
@@ -107,11 +114,15 @@ describe('fetchSet() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch set procedure is successful', async () => {
-    getProductSet.mockResolvedValueOnce(mockSet);
+    (getProductSet as jest.Mock).mockResolvedValueOnce(mockSet);
 
     expect.assertions(5);
 
-    await store.dispatch(fetchProductSet(mockSetId)).then(clientResult => {
+    await fetchProductSet(mockSetId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
       expect(clientResult).toBe(mockSet);
     });
 
@@ -137,11 +148,15 @@ describe('fetchSet() action creator', () => {
 
   it('should create the correct actions for when the fetch set procedure is successful without receiving options', async () => {
     store = productsListsMockStoreWithoutMiddlewares(state);
-    getProductSet.mockResolvedValueOnce(mockSet);
+    (getProductSet as jest.Mock).mockResolvedValueOnce(mockSet);
 
     expect.assertions(5);
 
-    await store.dispatch(fetchProductSet(mockSetId)).then(clientResult => {
+    await fetchProductSet(mockSetId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      {} as GetOptionsArgument,
+    ).then(clientResult => {
       expect(clientResult).toBe(mockSet);
     });
 
@@ -179,11 +194,15 @@ describe('fetchSet() action creator', () => {
       },
     });
 
-    getProductSet.mockResolvedValueOnce(mockSet);
+    (getProductSet as jest.Mock).mockResolvedValueOnce(mockSet);
 
     expect.assertions(5);
 
-    await store.dispatch(fetchProductSet(mockSetId)).then(clientResult => {
+    await fetchProductSet(mockSetId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
       expect(clientResult).toBe(mockSet);
     });
 
@@ -221,7 +240,11 @@ describe('fetchSet() action creator', () => {
       entities: {},
     });
 
-    await store.dispatch(fetchProductSet(mockSetId)).then(clientResult => {
+    await fetchProductSet(mockSetId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
       expect(clientResult).toBeUndefined();
     });
 
@@ -250,11 +273,13 @@ describe('fetchSet() action creator', () => {
 
     expect.assertions(4);
 
-    await store
-      .dispatch(fetchProductSet(mockSetId, {}, { useCache: true }))
-      .then(clientResult => {
-        expect(clientResult).toBeUndefined();
-      });
+    await fetchProductSet(mockSetId, {}, { useCache: true })(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
+      expect(clientResult).toBeUndefined();
+    });
 
     expect(normalizeSpy).not.toHaveBeenCalled();
     expect(getProductSet).not.toHaveBeenCalled();
@@ -267,23 +292,21 @@ describe('fetchSet() action creator', () => {
   });
 
   it('should create the correct actions for a successful request without setting the list', async () => {
-    getProductSet.mockResolvedValueOnce(mockSet);
+    (getProductSet as jest.Mock).mockResolvedValueOnce(mockSet);
 
     expect.assertions(5);
 
-    await store
-      .dispatch(
-        fetchProductSet(
-          mockSetId,
-          {},
-          {
-            setProductsListHash: false,
-          },
-        ),
-      )
-      .then(clientResult => {
+    await fetchProductSet(
+      mockSetId,
+      {},
+      {
+        setProductsListHash: false,
+      },
+    )(store.dispatch, store.getState as () => StoreState, { getOptions }).then(
+      clientResult => {
         expect(clientResult).toBe(mockSet);
-      });
+      },
+    );
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getProductSet).toHaveBeenCalledTimes(1);

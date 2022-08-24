@@ -1,17 +1,18 @@
 import * as actionTypes from '../../actionTypes';
+import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import { resetBag } from '..';
 
 describe('resetBag() action creator', () => {
-  let store;
+  let store: ReturnType<typeof mockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
-    store = mockStore();
+    store = mockStore({ bag: INITIAL_STATE }, {});
   });
 
   it('should dispatch the correct action when there are no fields to resetBag', () => {
-    store.dispatch(resetBag());
+    resetBag()(store.dispatch);
     const actionResults = store.getActions();
 
     expect(actionResults).toEqual([

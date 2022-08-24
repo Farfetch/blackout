@@ -20,7 +20,7 @@ const paymentsMockStore = (state = {}) =>
 
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof paymentsMockStore>;
 
 describe('fetchPaymentTokens() action creator', () => {
   const query = {
@@ -35,12 +35,10 @@ describe('fetchPaymentTokens() action creator', () => {
   it('should create the correct actions for when the fetch payment tokens procedure fails', async () => {
     const expectedError = new Error('fetch payment tokens error');
 
-    getPaymentTokens.mockRejectedValueOnce(expectedError);
+    (getPaymentTokens as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchPaymentTokens(query));
-    } catch (error) {
+    await fetchPaymentTokens(query)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getPaymentTokens).toHaveBeenCalledTimes(1);
       expect(getPaymentTokens).toHaveBeenCalledWith(query, expectedConfig);
@@ -53,12 +51,14 @@ describe('fetchPaymentTokens() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the fetch payment tokens procedure is successful', async () => {
-    getPaymentTokens.mockResolvedValueOnce(mockPaymentTokensResponse);
-    await store.dispatch(fetchPaymentTokens(query));
+    (getPaymentTokens as jest.Mock).mockResolvedValueOnce(
+      mockPaymentTokensResponse,
+    );
+    await fetchPaymentTokens(query)(store.dispatch);
 
     const actionResults = store.getActions();
 

@@ -1,13 +1,14 @@
+import { INITIAL_STATE } from '../../reducer/details';
 import { mockStore } from '../../../../tests';
 import { productsActionTypes } from '../..';
 import { resetProductDetails } from '..';
 
 describe('resetProductDetails() action creator', () => {
-  let store;
+  let store: ReturnType<typeof mockStore>;
 
   it('should dispatch the correct action type', () => {
-    store = mockStore();
-    store.dispatch(resetProductDetails());
+    store = mockStore({ products: { details: INITIAL_STATE } }, {});
+    resetProductDetails()(store.dispatch);
 
     expect(store.getActions()).toEqual([
       {

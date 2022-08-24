@@ -51,6 +51,11 @@ Object {
     "International": 2,
     "Standard": 0,
   },
+  "CommercePagesType": Object {
+    "LISTING": "LISTING",
+    "PRODUCT": "PRODUCT",
+    "SET": "SET",
+  },
   "CreationChannel": Object {
     "Catalog": "Catalog",
     "Mail": "Mail",
@@ -551,11 +556,6 @@ Object {
     "Pickup": "Pickup",
     "StationDelivered": "StationDelivered",
     "StationPickup": "StationPickup",
-  },
-  "Type": Object {
-    "LISTING": "LISTING",
-    "PRODUCT": "PRODUCT",
-    "SET": "SET",
   },
   "UserAttributeType": Object {
     "Generic": "Generic",

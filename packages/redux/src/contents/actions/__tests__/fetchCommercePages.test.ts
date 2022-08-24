@@ -4,6 +4,7 @@ import {
   commercePagesQuery,
   expectedCommercePagesNormalizedPayload,
   mockCommercePages,
+  slug,
 } from 'tests/__fixtures__/contents';
 import { fetchCommercePages } from '..';
 import { getCommercePages } from '@farfetch/blackout-client';
@@ -28,7 +29,7 @@ const commercePagesMockStore = (state = {}) =>
   mockStore({ contents: INITIAL_STATE_CONTENT }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof commercePagesMockStore>;
 
 describe('fetchCommercePages() action creator', () => {
   beforeEach(() => {
@@ -39,49 +40,53 @@ describe('fetchCommercePages() action creator', () => {
   it('should create the correct actions for when the get commerce pages procedure fails', async () => {
     const expectedError = new Error('Get commerce pages error');
 
-    getCommercePages.mockRejectedValueOnce(expectedError);
+    (getCommercePages as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store
-      .dispatch(fetchCommercePages(commercePagesQuery))
-      .catch(error => {
-        expect(error).toBe(expectedError);
-        expect(getCommercePages).toHaveBeenCalledTimes(1);
-        expect(getCommercePages).toHaveBeenCalledWith(
-          commercePagesQuery,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual([
-          {
-            meta: {
-              query: commercePagesQuery,
-            },
-            payload: {
-              hash: 'commerce_pages!woman',
-            },
-            type: actionTypes.FETCH_COMMERCE_PAGES_REQUEST,
+    await fetchCommercePages(
+      commercePagesQuery,
+      slug,
+    )(store.dispatch).catch(error => {
+      expect(error).toBe(expectedError);
+      expect(getCommercePages).toHaveBeenCalledTimes(1);
+      expect(getCommercePages).toHaveBeenCalledWith(
+        commercePagesQuery,
+        expectedConfig,
+      );
+      expect(store.getActions()).toEqual([
+        {
+          meta: {
+            query: commercePagesQuery,
           },
-          {
-            meta: {
-              query: commercePagesQuery,
-            },
-            payload: {
-              error: expectedError,
-              hash: 'commerce_pages!woman',
-            },
-            type: actionTypes.FETCH_COMMERCE_PAGES_FAILURE,
+          payload: {
+            hash: 'commerce_pages!woman',
           },
-        ]);
-      });
+          type: actionTypes.FETCH_COMMERCE_PAGES_REQUEST,
+        },
+        {
+          meta: {
+            query: commercePagesQuery,
+          },
+          payload: {
+            error: expectedError,
+            hash: 'commerce_pages!woman',
+          },
+          type: actionTypes.FETCH_COMMERCE_PAGES_FAILURE,
+        },
+      ]);
+    });
   });
 
   it('should create the correct actions for when the get commerce pages procedure is successful', async () => {
-    getCommercePages.mockResolvedValueOnce(mockCommercePages);
+    (getCommercePages as jest.Mock).mockResolvedValueOnce(mockCommercePages);
 
-    await store
-      .dispatch(fetchCommercePages(commercePagesQuery))
-      .then(result => expect(result).toEqual(mockCommercePages));
+    await fetchCommercePages(
+      commercePagesQuery,
+      slug,
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toBe(mockCommercePages);
+    });
 
     const actionResults = store.getActions();
     expect(normalizeSpy).toHaveBeenCalledTimes(1);

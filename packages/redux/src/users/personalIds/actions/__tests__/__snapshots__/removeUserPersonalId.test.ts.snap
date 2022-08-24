@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`removeUserPersonalId action creator should create the correct actions for when the remove personal id procedure is successful: remove personal id success payload 1`] = `
+exports[`removeUserPersonalId() action creator should create the correct actions for when the remove user personal id procedure is successful: remove user personal id success payload 1`] = `
 Object {
   "payload": Object {
     "backImageId": "",

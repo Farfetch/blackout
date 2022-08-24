@@ -21,7 +21,7 @@ describe('fetchCheckoutOrderDetails() action creator', () => {
     mockStore({ checkout: INITIAL_STATE }, state);
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
   const expectedConfig = undefined;
-  let store;
+  let store: ReturnType<typeof checkoutMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -31,12 +31,10 @@ describe('fetchCheckoutOrderDetails() action creator', () => {
   it('should create the correct actions for when the fetch checkout details procedure fails', async () => {
     const expectedError = new Error('fetch checkout details error');
 
-    getCheckoutOrderDetails.mockRejectedValueOnce(expectedError);
+    (getCheckoutOrderDetails as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchCheckoutOrderDetails(checkoutId));
-    } catch (error) {
+    await fetchCheckoutOrderDetails(checkoutId)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getCheckoutOrderDetails).toHaveBeenCalledTimes(1);
       expect(getCheckoutOrderDetails).toHaveBeenCalledWith(
@@ -52,16 +50,23 @@ describe('fetchCheckoutOrderDetails() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the fetch checkout details procedure is successful', async () => {
-    getCheckoutOrderDetails.mockResolvedValueOnce(mockDetailsResponse);
-    await store.dispatch(fetchCheckoutOrderDetails(checkoutId));
+    (getCheckoutOrderDetails as jest.Mock).mockResolvedValueOnce(
+      mockDetailsResponse,
+    );
+
+    await fetchCheckoutOrderDetails(checkoutId)(store.dispatch).then(
+      clientResult => {
+        expect(clientResult).toBe(mockDetailsResponse);
+      },
+    );
 
     const actionResults = store.getActions();
 
-    expect.assertions(5);
+    expect.assertions(6);
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCheckoutOrderDetails).toHaveBeenCalledTimes(1);
     expect(getCheckoutOrderDetails).toHaveBeenCalledWith(

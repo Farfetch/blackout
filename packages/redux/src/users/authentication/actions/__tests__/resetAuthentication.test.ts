@@ -13,16 +13,16 @@ let store = authenticationMockStore();
 
 const subAreas = {};
 
-describe('reset() action creator', () => {
+describe('resetAuthentication() action creator', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     store = authenticationMockStore();
   });
 
-  it('should create the correct actions when the reset area is called with no subarea prop', async () => {
+  it('should create the correct actions when the reset authentication area is called with no subarea prop', async () => {
     expect.assertions(1);
 
-    await store.dispatch(reset());
+    await reset()(store.dispatch);
     expect(store.getActions()).toEqual(
       expect.arrayContaining([{ type: actionTypes.RESET_AUTHENTICATION }]),
     );
@@ -44,11 +44,11 @@ describe('reset() action creator', () => {
     'CREATE_CLIENT_CREDENTIALS_TOKEN',
     'REFRESH_USER_TOKEN',
   ])(
-    'should create the correct actions when the reset area is called with the %s subarea',
+    'should create the correct actions when the reset authentication area is called with the %s subarea',
     async subArea => {
       expect.assertions(1);
 
-      await store.dispatch(reset(subArea as SubAreaType));
+      await reset(subArea as SubAreaType)(store.dispatch);
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
           { type: actionTypes[`RESET_${subArea}` as keyof typeof subAreas] },

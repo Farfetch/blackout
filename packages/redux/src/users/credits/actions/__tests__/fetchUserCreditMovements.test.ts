@@ -1,7 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  creditId,
   expectedCreditMovementsNormalizedPayload,
   mockGetCreditMovementsResponse,
+  creditMovementsQuery as query,
 } from 'tests/__fixtures__/users';
 import { fetchUserCreditMovements } from '..';
 import { getUserCreditMovements } from '@farfetch/blackout-client';
@@ -19,30 +21,26 @@ const usersMockStore = (state = {}) =>
 const expectedConfig = undefined;
 let store = usersMockStore();
 
-describe('fetchUserCreditMovements action creator', () => {
-  const id = '123456';
-  const query = {
-    id,
-  };
-
+describe('fetchUserCreditMovements() action creator', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     store = usersMockStore();
   });
 
-  it('should create the correct actions for when the get credit movements procedure fails', async () => {
-    const expectedError = new Error('get credit movements error');
+  it('should create the correct actions for when the get user credit movements procedure fails', async () => {
+    const expectedError = new Error('get user credit movements error');
 
     (getUserCreditMovements as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchUserCreditMovements(id, query));
-    } catch (error) {
+    await fetchUserCreditMovements(
+      creditId,
+      query,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getUserCreditMovements).toHaveBeenCalledTimes(1);
       expect(getUserCreditMovements).toHaveBeenCalledWith(
-        id,
+        creditId,
         query,
         expectedConfig,
       );
@@ -55,21 +53,21 @@ describe('fetchUserCreditMovements action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the get credit movements procedure is successful', async () => {
+  it('should create the correct actions for when the get user credit movements procedure is successful', async () => {
     (getUserCreditMovements as jest.Mock).mockResolvedValueOnce(
       mockGetCreditMovementsResponse,
     );
 
-    await store.dispatch(fetchUserCreditMovements(id, query));
+    await fetchUserCreditMovements(creditId, query)(store.dispatch);
 
     const actionResults = store.getActions();
 
     expect(getUserCreditMovements).toHaveBeenCalledTimes(1);
     expect(getUserCreditMovements).toHaveBeenCalledWith(
-      id,
+      creditId,
       query,
       expectedConfig,
     );
@@ -84,6 +82,6 @@ describe('fetchUserCreditMovements action creator', () => {
       find(actionResults, {
         type: actionTypes.FETCH_USER_CREDIT_MOVEMENTS_SUCCESS,
       }),
-    ).toMatchSnapshot('get credit movements success payload');
+    ).toMatchSnapshot('get user credit movements success payload');
   });
 });

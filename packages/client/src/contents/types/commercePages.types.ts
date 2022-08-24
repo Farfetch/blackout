@@ -2,7 +2,7 @@ import type { Config, GenderCode, PagedResponse } from '../../types';
 import type { ContentEntry } from './contents.types';
 import type { PriceType } from '../../products/types';
 
-export enum Type {
+export enum CommercePagesType {
   PRODUCT = 'PRODUCT',
   LISTING = 'LISTING',
   SET = 'SET',
@@ -10,7 +10,7 @@ export enum Type {
 
 export type QueryCommercePages = {
   // Query by a page type.
-  type: Type;
+  type: CommercePagesType;
   // Query by a specified product or set identifier.
   id?: number;
   // Query by a gender (E.g. 0 = Woman, 1 = Man, 2 = Unisex, 3 = Kid).

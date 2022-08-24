@@ -1,6 +1,11 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  attributeId,
+  mockPatchUserAttributeResponse,
+  mockUpdateUserAttributeData,
+  userId,
+} from 'tests/__fixtures__/users';
 import { INITIAL_STATE } from '../../../reducer';
-import { mockPatchUserAttributeResponse } from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../../tests';
 import { patchUserAttribute } from '@farfetch/blackout-client';
 import { updateUserAttribute } from '../';
@@ -16,15 +21,6 @@ const usersMockStore = (state = {}) =>
 
 describe('updateUserAttribute action creator', () => {
   let store = usersMockStore();
-  const userId = 123456;
-  const attributeId = '123456';
-  const data = [
-    {
-      op: 'replace',
-      path: 'details/items/key2',
-      value: '362251',
-    },
-  ];
   const expectedConfig = undefined;
 
   beforeEach(() => {
@@ -38,15 +34,17 @@ describe('updateUserAttribute action creator', () => {
     (patchUserAttribute as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(updateUserAttribute(userId, attributeId, data));
-    } catch (error) {
+    await updateUserAttribute(
+      userId,
+      attributeId,
+      mockUpdateUserAttributeData,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(patchUserAttribute).toHaveBeenCalledTimes(1);
       expect(patchUserAttribute).toHaveBeenCalledWith(
         userId,
         attributeId,
-        data,
+        mockUpdateUserAttributeData,
         expectedConfig,
       );
       expect(store.getActions()).toEqual(
@@ -58,7 +56,7 @@ describe('updateUserAttribute action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the update user attribute procedure is successful', async () => {
@@ -66,7 +64,11 @@ describe('updateUserAttribute action creator', () => {
       mockPatchUserAttributeResponse,
     );
 
-    await store.dispatch(updateUserAttribute(userId, attributeId, data));
+    await updateUserAttribute(
+      userId,
+      attributeId,
+      mockUpdateUserAttributeData,
+    )(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -74,7 +76,7 @@ describe('updateUserAttribute action creator', () => {
     expect(patchUserAttribute).toHaveBeenCalledWith(
       userId,
       attributeId,
-      data,
+      mockUpdateUserAttributeData,
       expectedConfig,
     );
     expect(actionResults).toMatchObject([

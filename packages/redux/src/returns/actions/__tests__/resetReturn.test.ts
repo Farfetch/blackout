@@ -7,7 +7,7 @@ const returnsMockStore = (state = {}) =>
   mockStore({ returns: INITIAL_STATE }, state);
 
 describe('resetReturn() action creator', () => {
-  let store;
+  let store: ReturnType<typeof returnsMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -17,7 +17,7 @@ describe('resetReturn() action creator', () => {
   it('should reset the returns area including the entities', async () => {
     expect.assertions(1);
 
-    await store.dispatch(resetReturn(true));
+    await resetReturn(true)(store.dispatch);
 
     expect(store.getActions()).toEqual(
       expect.arrayContaining([
@@ -32,7 +32,7 @@ describe('resetReturn() action creator', () => {
   it('should reset the returns area exluding the entities', async () => {
     expect.assertions(1);
 
-    await store.dispatch(resetReturn(false));
+    await resetReturn(false)(store.dispatch);
 
     expect(store.getActions()).toEqual(
       expect.arrayContaining([

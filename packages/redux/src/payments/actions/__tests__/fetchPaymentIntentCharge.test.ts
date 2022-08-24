@@ -1,4 +1,5 @@
 import * as actionTypes from '../../actionTypes';
+import { chargeId, intentId } from 'tests/__fixtures__/payments';
 import { fetchPaymentIntentCharge } from '..';
 import { getPaymentIntentCharge } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
@@ -12,27 +13,26 @@ jest.mock('@farfetch/blackout-client', () => ({
 }));
 
 describe('fetchPaymentIntentCharge() action creator', () => {
-  const checkoutMockStore = (state = {}) =>
+  const paymentsMockStore = (state = {}) =>
     mockStore({ checkout: INITIAL_STATE }, state);
-  const intentId = 12345;
-  const chargeId = '5c2855d7-f1c0-4d2a-8ce4-5bf7c37f0dc7';
   const expectedConfig = undefined;
-  let store;
+  let store: ReturnType<typeof paymentsMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
-    store = checkoutMockStore();
+    store = paymentsMockStore();
   });
 
   it('should create the correct actions for when the fetch payment intent charge procedure fails', async () => {
-    const expectedError = new Error('charges error');
+    const expectedError = new Error('fetch payment intent charge error');
 
-    getPaymentIntentCharge.mockRejectedValueOnce(expectedError);
+    (getPaymentIntentCharge as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchPaymentIntentCharge(intentId, chargeId));
-    } catch (error) {
+    await fetchPaymentIntentCharge(
+      intentId,
+      chargeId,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getPaymentIntentCharge).toHaveBeenCalledTimes(1);
       expect(getPaymentIntentCharge).toHaveBeenCalledWith(
@@ -49,12 +49,12 @@ describe('fetchPaymentIntentCharge() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the fetch payment intent charge procedure is successful', async () => {
-    getPaymentIntentCharge.mockResolvedValueOnce(mockCharges);
-    await store.dispatch(fetchPaymentIntentCharge(intentId, chargeId));
+    (getPaymentIntentCharge as jest.Mock).mockResolvedValueOnce(mockCharges);
+    await fetchPaymentIntentCharge(intentId, chargeId)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -76,6 +76,6 @@ describe('fetchPaymentIntentCharge() action creator', () => {
       find(actionResults, {
         type: actionTypes.FETCH_PAYMENT_INTENT_CHARGE_SUCCESS,
       }),
-    ).toMatchSnapshot('fetch payment charge success payload');
+    ).toMatchSnapshot('fetch payment intent charge success payload');
   });
 });

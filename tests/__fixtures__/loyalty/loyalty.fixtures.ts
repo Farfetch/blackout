@@ -25,7 +25,7 @@ export const mockResponseProgramMembership = {
   userId: 0,
   rewardPoints: 0,
   cashBalance: 0,
-  status: 'string',
+  status: ProgramMembershipStatus.Activated,
 };
 
 export const mockResponseProgramMembershipConvert = {

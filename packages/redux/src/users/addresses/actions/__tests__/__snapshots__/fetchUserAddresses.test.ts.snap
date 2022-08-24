@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetchUserAddresses() action creator should create the correct actions for when the get address book procedure is successful: get addresses success payload 1`] = `
+exports[`fetchUserAddresses() action creator should create the correct actions for when the get user address book procedure is successful: get user addresses success payload 1`] = `
 Object {
   "payload": Object {
     "entities": Object {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetchPaymentIntent() action creator should create the correct actions when the fetch intent procedure is successful: fetch payment intent success payload 1`] = `
+exports[`fetchPaymentIntent() action creator should create the correct actions when the fetch payment intent procedure is successful: fetch payment intent success payload 1`] = `
 Object {
   "payload": Object {
     "currency": "string",
@@ -67,6 +67,8 @@ Object {
         },
         "ddd": "string",
         "id": "00000000-0000-0000-0000-000000000000",
+        "isDefaultBillingAddress": true,
+        "isDefaultShippingAddress": true,
         "neighbourhood": "string",
         "phone": "string",
         "state": Object {

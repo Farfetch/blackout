@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import * as normalizr from 'normalizr';
-import { Currencies, getCountryCurrencies } from '@farfetch/blackout-client';
 import { fetchCountryCurrencies } from '..';
+import { getCountryCurrencies } from '@farfetch/blackout-client';
 import { INITIAL_STATE_LOCALE } from '../../reducer';
 import { mockCountryCode, mockCurrencies } from 'tests/__fixtures__/locale';
 import { mockStore } from '../../../../tests';
@@ -19,7 +19,7 @@ describe('fetchCountryCurrencies() action creator', () => {
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
   const expectedConfig = undefined;
 
-  let store;
+  let store: ReturnType<typeof localeMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -30,45 +30,47 @@ describe('fetchCountryCurrencies() action creator', () => {
   it('should create the correct actions for when the get currencies procedure fails', async () => {
     const expectedError = new Error('Get currencies error');
 
-    getCountryCurrencies.mockRejectedValueOnce(expectedError);
+    (getCountryCurrencies as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchCountryCurrencies(mockCountryCode));
-    } catch (error) {
-      expect(error).toBe(expectedError);
-      expect(getCountryCurrencies).toHaveBeenCalledTimes(1);
-      expect(getCountryCurrencies).toHaveBeenCalledWith(
-        mockCountryCode,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          meta: {
-            countryCode: mockCountryCode,
+    await fetchCountryCurrencies(mockCountryCode)(store.dispatch).catch(
+      error => {
+        expect(error).toBe(expectedError);
+        expect(getCountryCurrencies).toHaveBeenCalledTimes(1);
+        expect(getCountryCurrencies).toHaveBeenCalledWith(
+          mockCountryCode,
+          expectedConfig,
+        );
+        expect(store.getActions()).toEqual([
+          {
+            meta: {
+              countryCode: mockCountryCode,
+            },
+            type: actionTypes.FETCH_COUNTRY_CURRENCIES_REQUEST,
           },
-          type: actionTypes.FETCH_COUNTRY_CURRENCIES_REQUEST,
-        },
-        {
-          meta: {
-            countryCode: mockCountryCode,
+          {
+            meta: {
+              countryCode: mockCountryCode,
+            },
+            payload: { error: expectedError },
+            type: actionTypes.FETCH_COUNTRY_CURRENCIES_FAILURE,
           },
-          payload: { error: expectedError },
-          type: actionTypes.FETCH_COUNTRY_CURRENCIES_FAILURE,
-        },
-      ]);
-    }
+        ]);
+      },
+    );
   });
 
   it('should create the correct actions for when the get currencies procedure is successful', async () => {
-    getCountryCurrencies.mockResolvedValueOnce(mockCurrencies);
+    (getCountryCurrencies as jest.Mock).mockResolvedValueOnce(mockCurrencies);
 
     const actionResults = store.getActions();
 
-    await store
-      .dispatch(fetchCountryCurrencies(mockCountryCode))
-      .then((result: Currencies) => expect(result).toBe(mockCurrencies));
+    await fetchCountryCurrencies(mockCountryCode)(store.dispatch).then(
+      clientResult => {
+        expect(clientResult).toBe(mockCurrencies);
+      },
+    );
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCountryCurrencies).toHaveBeenCalledTimes(1);

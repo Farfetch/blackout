@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`createUserAddress() action creator should create the correct actions for when the create address procedure is successful: create address success payload 1`] = `
+exports[`createUserAddress() action creator should create the correct actions for when the create user address procedure is successful: create user address success payload 1`] = `
 Object {
   "meta": Object {
     "addressId": "1234",

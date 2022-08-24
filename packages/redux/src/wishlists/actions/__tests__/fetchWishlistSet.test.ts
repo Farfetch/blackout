@@ -10,6 +10,7 @@ import {
   mockWishlistsSetNormalizedPayload,
   mockWishlistsSetResponse,
 } from 'tests/__fixtures__/wishlists';
+import type { StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -20,7 +21,7 @@ const wishlistMockStore = (state = {}) =>
   mockStore({ wishlist: INITIAL_STATE }, state);
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof wishlistMockStore>;
 
 describe('fetchWishlistSet()', () => {
   beforeEach(() => {
@@ -34,11 +35,14 @@ describe('fetchWishlistSet()', () => {
   it('should create the correct actions for when the fetch wishlist set procedure fails', async () => {
     const expectedError = new Error('fetch wishlist set error');
 
-    getWishlistSet.mockRejectedValueOnce(expectedError);
+    (getWishlistSet as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchWishlistSet(mockWishlistSetId)).catch(error => {
+    await fetchWishlistSet(mockWishlistSetId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+    ).catch(error => {
       expect(error).toBe(expectedError);
       expect(getWishlistSet).toHaveBeenCalledTimes(1);
       expect(getWishlistSet).toHaveBeenCalledWith(
@@ -62,15 +66,18 @@ describe('fetchWishlistSet()', () => {
   });
 
   it('should create the correct actions for when the fetch wishlist set procedure is successful', async () => {
-    getWishlistSet.mockResolvedValueOnce(mockWishlistsSetResponse);
+    (getWishlistSet as jest.Mock).mockResolvedValueOnce(
+      mockWishlistsSetResponse,
+    );
 
     expect.assertions(5);
 
-    await store
-      .dispatch(fetchWishlistSet(mockWishlistSetId))
-      .then(clientResult => {
-        expect(clientResult).toBe(mockWishlistsSetResponse);
-      });
+    await fetchWishlistSet(mockWishlistSetId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockWishlistsSetResponse);
+    });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getWishlistSet).toHaveBeenCalledTimes(1);

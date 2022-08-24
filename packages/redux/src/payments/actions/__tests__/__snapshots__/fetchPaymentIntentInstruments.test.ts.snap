@@ -8,18 +8,19 @@ Object {
         "316bc538-e7e5-4f6c-943f-686350fac5ae": Object {
           "amounts": Array [
             Object {
-              "classification": "Domestic",
               "refundedValue": 0,
               "settledValue": 0,
               "value": 27,
             },
           ],
           "data": Object {
+            "cardCvv": "037",
             "cardExpiryMonth": 10,
             "cardExpiryYear": 2020,
             "cardFirstDigits": "411111",
             "cardHolderName": "Joao Baptista",
             "cardLastDigits": "111111",
+            "cardNumber": "123",
             "creditUserId": "",
             "giftCardCsc": "111212",
             "giftCardNumber": "1232211",
@@ -56,8 +57,8 @@ Object {
               "ddd": "351",
               "firstName": "tester",
               "id": "c9ce5410-58d9-4298-a385-231a79373e4a",
-              "isCurrentBilling": true,
-              "isCurrentShipping": true,
+              "isDefaultBillingAddress": true,
+              "isDefaultShippingAddress": true,
               "lastName": "teste",
               "neighbourhood": "Centro",
               "phone": "121525125",

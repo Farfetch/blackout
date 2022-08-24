@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetchCheckoutOrder() action creator should create the correct actions for when the fetch checkout procedure is successful: fetch checkout success payload 1`] = `
+exports[`fetchCheckoutOrder() action creator should create the correct actions for when the fetch checkout order procedure is successful: fetch checkout order success payload 1`] = `
 Object {
   "payload": Object {
     "entities": Object {

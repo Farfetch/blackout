@@ -12,15 +12,17 @@ import { mockStore } from '../../../../tests';
 import { removeBagItem } from '..';
 import find from 'lodash/find';
 import thunk from 'redux-thunk';
+import type { GetOptionsArgument, StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
   deleteBagItem: jest.fn(),
 }));
 
+const getOptions = () => ({ productImgQueryParam: '?c=2' });
 const mockMiddlewares = [
   thunk.withExtraArgument({
-    getOptions: () => ({ productImgQueryParam: '?c=2' }),
+    getOptions,
   }),
 ];
 const bagMockStore = (state = {}) =>
@@ -35,7 +37,7 @@ const bagItemMetadata = {
   oldSize: 16,
 };
 
-let store;
+let store: ReturnType<typeof bagMockStore>;
 
 describe('removeBagItem() action creator', () => {
   beforeEach(() => {
@@ -47,57 +49,61 @@ describe('removeBagItem() action creator', () => {
   it('should create the correct actions for when the remove bag item procedure fails', async () => {
     const expectedError = new Error('remove bag item error');
 
-    deleteBagItem.mockRejectedValueOnce(expectedError);
+    (deleteBagItem as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store
-      .dispatch(removeBagItem(mockBagItemId, undefined, bagItemMetadata))
-      .catch(error => {
-        expect(error).toBe(expectedError);
-        expect(deleteBagItem).toHaveBeenCalledTimes(1);
-        expect(deleteBagItem).toHaveBeenCalledWith(
-          mockBagId,
-          mockBagItemId,
-          expectedQuery,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual(
-          expect.arrayContaining([
-            {
-              meta: {
-                ...bagItemMetadata,
-                bagId: mockBagId,
-                bagItemId: mockBagItemId,
-              },
-              type: actionTypes.REMOVE_BAG_ITEM_REQUEST,
+    await removeBagItem(mockBagItemId, undefined, bagItemMetadata)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).catch(error => {
+      expect(error).toBe(expectedError);
+      expect(deleteBagItem).toHaveBeenCalledTimes(1);
+      expect(deleteBagItem).toHaveBeenCalledWith(
+        mockBagId,
+        mockBagItemId,
+        expectedQuery,
+        expectedConfig,
+      );
+      expect(store.getActions()).toEqual(
+        expect.arrayContaining([
+          {
+            meta: {
+              ...bagItemMetadata,
+              bagId: mockBagId,
+              bagItemId: mockBagItemId,
             },
-            {
-              payload: {
-                error: expectedError,
-              },
-              meta: {
-                ...bagItemMetadata,
-                bagId: mockBagId,
-                bagItemId: mockBagItemId,
-              },
-              type: actionTypes.REMOVE_BAG_ITEM_FAILURE,
+            type: actionTypes.REMOVE_BAG_ITEM_REQUEST,
+          },
+          {
+            payload: {
+              error: expectedError,
             },
-          ]),
-        );
-      });
+            meta: {
+              ...bagItemMetadata,
+              bagId: mockBagId,
+              bagItemId: mockBagItemId,
+            },
+            type: actionTypes.REMOVE_BAG_ITEM_FAILURE,
+          },
+        ]),
+      );
+    });
   });
 
   it('should create the correct actions for when the remove bag item procedure is successful', async () => {
-    deleteBagItem.mockResolvedValueOnce(mockResponse);
+    (deleteBagItem as jest.Mock).mockResolvedValueOnce(mockResponse);
 
     expect.assertions(5);
 
-    await store
-      .dispatch(removeBagItem(mockBagItemId, undefined, bagItemMetadata))
-      .then(clientResult => {
-        expect(clientResult).toBe(mockResponse);
-      });
+    await removeBagItem(mockBagItemId, undefined, bagItemMetadata)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockResponse);
+    });
 
     const actionResults = store.getActions();
 
@@ -137,11 +143,15 @@ describe('removeBagItem() action creator', () => {
   it('should create the correct actions for when the remove bag item procedure is successful without receiving options', async () => {
     store = bagMockStoreWithoutMiddlewares(mockState);
 
-    deleteBagItem.mockResolvedValueOnce(mockResponse);
+    (deleteBagItem as jest.Mock).mockResolvedValueOnce(mockResponse);
 
     expect.assertions(5);
 
-    await store.dispatch(removeBagItem(mockBagItemId)).then(clientResult => {
+    await removeBagItem(mockBagItemId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      {} as GetOptionsArgument,
+    ).then(clientResult => {
       expect(clientResult).toBe(mockResponse);
     });
 

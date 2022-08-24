@@ -3,6 +3,7 @@ import * as selectors from '../selectors';
 import {
   contentHash,
   contentNormalizedPayload,
+  contentPublicationId,
   contentQuery,
   contentTypesResult,
   mockContentResult,
@@ -92,7 +93,7 @@ describe('contents redux selectors', () => {
   describe('getContents()', () => {
     it('should get all the contents according to the query received', () => {
       const expectedResult = [
-        contentNormalizedPayload.entities.contents[contentHash],
+        contentNormalizedPayload.entities.contents[contentPublicationId],
       ];
 
       expect(selectors.getContents(mockState, contentQuery)).toEqual(

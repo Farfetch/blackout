@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetchCheckoutOrderDeliveryBundleProvisioning() action creator should create the correct actions for when the fetch item delivery provisioning procedure is successful: fetch item delivery provisioning 1`] = `
+exports[`fetchCheckoutOrderDeliveryBundleProvisioning() action creator should create the correct actions for when the fetch order delivery bundle provisioning procedure is successful: fetch checkout order delivery bundle provisioning 1`] = `
 Object {
   "meta": Object {
     "deliveryBundleId": "12345678",

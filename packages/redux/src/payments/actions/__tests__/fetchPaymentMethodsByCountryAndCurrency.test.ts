@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import { getPaymentMethodsByCountryAndCurrency } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
-import { mockmockFetchPaymentMethodsResponse } from 'tests/__fixtures__/payments';
+import { mockFetchPaymentMethodsResponse } from 'tests/__fixtures__/payments';
 import { mockStore } from '../../../../tests';
 import fetchPaymentMethodsByCountryAndCurrency from '../fetchPaymentMethodsByCountryAndCurrency';
 import find from 'lodash/find';
@@ -15,7 +15,7 @@ const paymentsMockStore = (state = {}) =>
   mockStore({ payments: INITIAL_STATE }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof paymentsMockStore>;
 
 describe('fetchPaymentMethodsByCountryAndCurrency() action creator', () => {
   beforeEach(() => {
@@ -28,37 +28,39 @@ describe('fetchPaymentMethodsByCountryAndCurrency() action creator', () => {
       'fetch payment methods with country and currency error',
     );
 
-    getPaymentMethodsByCountryAndCurrency.mockRejectedValueOnce(expectedError);
+    (getPaymentMethodsByCountryAndCurrency as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchPaymentMethodsByCountryAndCurrency());
-    } catch (error) {
-      expect(error).toBe(expectedError);
-      expect(getPaymentMethodsByCountryAndCurrency).toHaveBeenCalledTimes(1);
-      expect(getPaymentMethodsByCountryAndCurrency).toHaveBeenCalledWith(
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            type: actionTypes.FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_REQUEST,
-          },
-          {
-            type: actionTypes.FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_FAILURE,
+    await fetchPaymentMethodsByCountryAndCurrency()(store.dispatch).catch(
+      error => {
+        expect(error).toBe(expectedError);
+        expect(getPaymentMethodsByCountryAndCurrency).toHaveBeenCalledTimes(1);
+        expect(getPaymentMethodsByCountryAndCurrency).toHaveBeenCalledWith(
+          expectedConfig,
+        );
+        expect(store.getActions()).toEqual(
+          expect.arrayContaining([
+            {
+              type: actionTypes.FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_REQUEST,
+            },
+            {
+              type: actionTypes.FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_FAILURE,
 
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    }
+              payload: { error: expectedError },
+            },
+          ]),
+        );
+      },
+    );
   });
 
   it('should create the correct actions when the fetch payment methods with country and currency procedure is successful', async () => {
-    getPaymentMethodsByCountryAndCurrency.mockResolvedValueOnce(
-      mockmockFetchPaymentMethodsResponse,
+    (getPaymentMethodsByCountryAndCurrency as jest.Mock).mockResolvedValueOnce(
+      mockFetchPaymentMethodsResponse,
     );
-    await store.dispatch(fetchPaymentMethodsByCountryAndCurrency());
+    await fetchPaymentMethodsByCountryAndCurrency()(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -72,7 +74,7 @@ describe('fetchPaymentMethodsByCountryAndCurrency() action creator', () => {
       },
       {
         type: actionTypes.FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_SUCCESS,
-        payload: mockmockFetchPaymentMethodsResponse,
+        payload: mockFetchPaymentMethodsResponse,
       },
     ]);
     expect(

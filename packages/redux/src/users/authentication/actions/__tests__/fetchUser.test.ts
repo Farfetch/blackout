@@ -31,9 +31,7 @@ describe('fetchUser action creator', () => {
     (getUser as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchUser());
-    } catch (error) {
+    await fetchUser()(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getUser).toHaveBeenCalledTimes(1);
       expect(getUser).toHaveBeenCalledWith(expectedConfig);
@@ -46,13 +44,13 @@ describe('fetchUser action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the get user procedure is successful', async () => {
     (getUser as jest.Mock).mockResolvedValueOnce(mockUsersResponse);
 
-    await store.dispatch(fetchUser());
+    await fetchUser()(store.dispatch);
 
     const actionResults = store.getActions();
 

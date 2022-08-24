@@ -1,7 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  contactId,
   expectedGetContactNormalized,
   mockGetContactResponse,
+  userId,
 } from 'tests/__fixtures__/users';
 import { fetchUserContact } from '..';
 import { getUserContact } from '@farfetch/blackout-client';
@@ -19,24 +21,22 @@ const usersMockStore = (state = {}) =>
 const expectedConfig = undefined;
 let store = usersMockStore();
 
-describe('fetchUserContact action creator', () => {
-  const userId = 123456789;
-  const contactId = 'abcdefghi';
-
+describe('fetchUserContact() action creator', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     store = usersMockStore();
   });
 
-  it('should create the correct actions for when the get contact procedure fails', async () => {
-    const expectedError = new Error('get contact error');
+  it('should create the correct actions for when the get user contact procedure fails', async () => {
+    const expectedError = new Error('get user contact error');
 
     (getUserContact as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchUserContact(userId, contactId));
-    } catch (error) {
+    await fetchUserContact(
+      userId,
+      contactId,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getUserContact).toHaveBeenCalledTimes(1);
       expect(getUserContact).toHaveBeenCalledWith(
@@ -53,13 +53,13 @@ describe('fetchUserContact action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the get contact procedure is successful', async () => {
+  it('should create the correct actions for when the get user contact procedure is successful', async () => {
     (getUserContact as jest.Mock).mockResolvedValueOnce(mockGetContactResponse);
 
-    await store.dispatch(fetchUserContact(userId, contactId, expectedConfig));
+    await fetchUserContact(userId, contactId, expectedConfig)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -80,6 +80,6 @@ describe('fetchUserContact action creator', () => {
       find(actionResults, {
         type: actionTypes.FETCH_USER_CONTACT_SUCCESS,
       }),
-    ).toMatchSnapshot('get contact success payload');
+    ).toMatchSnapshot('get user contact success payload');
   });
 });

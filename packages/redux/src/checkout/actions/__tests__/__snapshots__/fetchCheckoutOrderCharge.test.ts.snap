@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetchCheckoutOrderCharge() action creator should create the correct actions for when the charge procedure is successful: charge success payload 1`] = `
+exports[`fetchCheckoutOrderCharge() action creator should create the correct actions for when the fetch checkout order charge procedure is successful: fetch checkout order charge success payload 1`] = `
 Object {
   "payload": Object {
     "cancelUrl": "some url",

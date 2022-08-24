@@ -3,7 +3,7 @@
 exports[`removeUserToken() action creator should create the correct actions for when the delete user token procedure is successful: delete user token success payload 1`] = `
 Object {
   "meta": Object {
-    "userTokenId": 1234,
+    "userTokenId": "1234",
   },
   "type": "@farfetch/blackout-redux/DELETE_USER_TOKEN_SUCCESS",
 }

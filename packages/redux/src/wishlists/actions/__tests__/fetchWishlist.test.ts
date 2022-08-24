@@ -11,15 +11,17 @@ import {
 } from 'tests/__fixtures__/wishlists';
 import { mockStore } from '../../../../tests';
 import thunk from 'redux-thunk';
+import type { StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
   getWishlist: jest.fn(),
 }));
 
+const getOptions = () => ({ productImgQueryParam: mockProductImgQueryParam });
 const mockMiddlewares = [
   thunk.withExtraArgument({
-    getOptions: () => ({ productImgQueryParam: mockProductImgQueryParam }),
+    getOptions,
   }),
 ];
 const wishlistMockStore = (state = {}) =>
@@ -28,7 +30,7 @@ const wishlistMockStoreWithoutMiddlewares = (state = {}) =>
   mockStore({ wishlist: INITIAL_STATE }, state);
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof wishlistMockStore>;
 
 describe('fetchWishlist()', () => {
   beforeEach(() => {
@@ -40,11 +42,15 @@ describe('fetchWishlist()', () => {
   it('should create the correct actions for when the fetch wishlist procedure fails', async () => {
     const expectedError = new Error('fetch wishlist error');
 
-    getWishlist.mockRejectedValueOnce(expectedError);
+    (getWishlist as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchWishlist(mockWishlistId)).catch(error => {
+    await fetchWishlist(mockWishlistId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).catch(error => {
       expect(error).toBe(expectedError);
       expect(getWishlist).toHaveBeenCalledTimes(1);
       expect(getWishlist).toHaveBeenCalledWith(mockWishlistId, expectedConfig);
@@ -59,11 +65,15 @@ describe('fetchWishlist()', () => {
   });
 
   it('should create the correct actions for when the fetch wishlist procedure is successful', async () => {
-    getWishlist.mockResolvedValueOnce(mockWishlistsResponse);
+    (getWishlist as jest.Mock).mockResolvedValueOnce(mockWishlistsResponse);
 
     expect.assertions(7);
 
-    await store.dispatch(fetchWishlist(mockWishlistId)).then(clientResult => {
+    await fetchWishlist(mockWishlistId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
       expect(clientResult).toBe(mockWishlistsResponse);
     });
 
@@ -94,11 +104,15 @@ describe('fetchWishlist()', () => {
 
   it('should create the correct actions for when the fetch wishlist procedure is successful without `getOptions`', async () => {
     store = wishlistMockStoreWithoutMiddlewares();
-    getWishlist.mockResolvedValueOnce(mockWishlistsResponse);
+    (getWishlist as jest.Mock).mockResolvedValueOnce(mockWishlistsResponse);
 
     expect.assertions(5);
 
-    await store.dispatch(fetchWishlist(mockWishlistId)).then(clientResult => {
+    await fetchWishlist(mockWishlistId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
       expect(clientResult).toBe(mockWishlistsResponse);
     });
 
