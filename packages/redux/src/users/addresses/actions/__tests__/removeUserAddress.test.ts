@@ -19,23 +19,24 @@ const addressesMockStore = (state = {}) =>
   mockStore({ addresses: INITIAL_STATE }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof mockStore>;
 
-describe('removeAddress() action creator', () => {
+describe('removeUserAddress() action creator', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     store = addressesMockStore({ entities: { user: { id: userId } } });
   });
 
-  it('should create the correct actions for when the delete address procedure fails', async () => {
-    const expectedError = new Error('delete address error');
+  it('should create the correct actions for when the delete user address procedure fails', async () => {
+    const expectedError = new Error('delete user address error');
 
-    deleteUserAddress.mockRejectedValueOnce(expectedError);
+    (deleteUserAddress as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(removeUserAddress(userId, addressId2));
-    } catch (error) {
+    await removeUserAddress(
+      userId,
+      addressId2,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(deleteUserAddress).toHaveBeenCalledTimes(1);
       expect(deleteUserAddress).toHaveBeenCalledWith(
@@ -55,12 +56,14 @@ describe('removeAddress() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the delete address procedure is successful', async () => {
-    deleteUserAddress.mockResolvedValueOnce(mockUpdateAddressResponse);
-    await store.dispatch(removeUserAddress(userId, addressId2));
+  it('should create the correct actions for when the delete user address procedure is successful', async () => {
+    (deleteUserAddress as jest.Mock).mockResolvedValueOnce(
+      mockUpdateAddressResponse,
+    );
+    await removeUserAddress(userId, addressId2)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -82,6 +85,6 @@ describe('removeAddress() action creator', () => {
       find(actionResults, {
         type: actionTypes.REMOVE_USER_ADDRESS_SUCCESS,
       }),
-    ).toMatchSnapshot('delete address success payload');
+    ).toMatchSnapshot('delete user address success payload');
   });
 });

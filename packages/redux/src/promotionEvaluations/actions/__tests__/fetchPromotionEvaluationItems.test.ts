@@ -16,7 +16,7 @@ jest.mock('@farfetch/blackout-client', () => ({
 const promotionEvaluationsMockStore = (state = {}) =>
   mockStore({ promotionEvaluations: INITIAL_STATE }, state);
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof promotionEvaluationsMockStore>;
 
 describe('fetchPromotionEvaluationItems() action creator', () => {
   beforeEach(() => {
@@ -27,15 +27,15 @@ describe('fetchPromotionEvaluationItems() action creator', () => {
   it('should create the correct actions for when the fetch promotion evaluation items procedure fails', async () => {
     const expectedError = new Error('Fetch promotion evaluation items error');
 
-    getPromotionEvaluationItems.mockRejectedValueOnce(expectedError);
+    (getPromotionEvaluationItems as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
 
     expect.assertions(4);
 
-    try {
-      await store.dispatch(
-        fetchPromotionEvaluationItems(mockPromotionEvaluationId),
-      );
-    } catch (error) {
+    await fetchPromotionEvaluationItems(mockPromotionEvaluationId)(
+      store.dispatch,
+    ).catch(error => {
       expect(error).toBe(expectedError);
       expect(getPromotionEvaluationItems).toHaveBeenCalledTimes(1);
       expect(getPromotionEvaluationItems).toHaveBeenCalledWith(
@@ -57,18 +57,18 @@ describe('fetchPromotionEvaluationItems() action creator', () => {
           type: actionTypes.FETCH_PROMOTION_EVALUATION_ITEMS_FAILURE,
         },
       ]);
-    }
+    });
   });
 
   it('should create the correct actions for when the fetch promotion evaluation items procedure is successful', async () => {
-    getPromotionEvaluationItems.mockResolvedValueOnce(
+    (getPromotionEvaluationItems as jest.Mock).mockResolvedValueOnce(
       mockPromotionEvaluationsItemsResponse,
     );
 
     expect.assertions(3);
 
-    await store.dispatch(
-      fetchPromotionEvaluationItems(mockPromotionEvaluationId),
+    await fetchPromotionEvaluationItems(mockPromotionEvaluationId)(
+      store.dispatch,
     );
 
     expect(getPromotionEvaluationItems).toHaveBeenCalledTimes(1);

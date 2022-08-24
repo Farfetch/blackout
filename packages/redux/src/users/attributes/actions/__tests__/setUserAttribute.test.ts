@@ -1,6 +1,11 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  attributeId,
+  mockPutUserAttributeResponse,
+  mockSetUSerAttributeData,
+  userId,
+} from 'tests/__fixtures__/users';
 import { INITIAL_STATE } from '../../../reducer';
-import { mockPutUserAttributeResponse } from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../../tests';
 import { putUserAttribute } from '@farfetch/blackout-client';
 import { setUserAttribute } from '../';
@@ -16,18 +21,7 @@ const usersMockStore = (state = {}) =>
 
 describe('setUserAttribute action creator', () => {
   let store = usersMockStore();
-  const userId = 123456;
-  const attributeId = '123456';
-  const data = {
-    type: '',
-    channelCode: '',
-    userId: 123,
-    details: {
-      referralToken: '',
-      rewardsCardNumber: '',
-      joinRewards: false,
-    },
-  };
+
   const expectedConfig = undefined;
 
   beforeEach(() => {
@@ -41,15 +35,17 @@ describe('setUserAttribute action creator', () => {
     (putUserAttribute as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(setUserAttribute(userId, attributeId, data));
-    } catch (error) {
+    await setUserAttribute(
+      userId,
+      attributeId,
+      mockSetUSerAttributeData,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(putUserAttribute).toHaveBeenCalledTimes(1);
       expect(putUserAttribute).toHaveBeenCalledWith(
         userId,
         attributeId,
-        data,
+        mockSetUSerAttributeData,
         expectedConfig,
       );
       expect(store.getActions()).toEqual(
@@ -61,7 +57,7 @@ describe('setUserAttribute action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the set user attribute procedure is successful', async () => {
@@ -69,7 +65,11 @@ describe('setUserAttribute action creator', () => {
       mockPutUserAttributeResponse,
     );
 
-    await store.dispatch(setUserAttribute(userId, attributeId, data));
+    await setUserAttribute(
+      userId,
+      attributeId,
+      mockSetUSerAttributeData,
+    )(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -77,7 +77,7 @@ describe('setUserAttribute action creator', () => {
     expect(putUserAttribute).toHaveBeenCalledWith(
       userId,
       attributeId,
-      data,
+      mockSetUSerAttributeData,
       expectedConfig,
     );
     expect(actionResults).toMatchObject([

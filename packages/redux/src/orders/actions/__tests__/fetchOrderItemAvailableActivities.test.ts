@@ -2,7 +2,11 @@ import * as actionTypes from '../../actionTypes';
 import { fetchOrderItemAvailableActivities } from '..';
 import { getOrderItemAvailableActivities } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
-import { itemId, mockOrderDocumentsResponse } from 'tests/__fixtures__/orders';
+import {
+  itemId,
+  mockOrderDocumentsResponse,
+  orderId,
+} from 'tests/__fixtures__/orders';
 import { mockStore } from '../../../../tests';
 
 jest.mock('@farfetch/blackout-client', () => ({
@@ -12,9 +16,8 @@ jest.mock('@farfetch/blackout-client', () => ({
 
 const ordersMockStore = (state = {}) =>
   mockStore({ orders: INITIAL_STATE }, state);
-const orderId = '24BJKS';
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof ordersMockStore>;
 
 describe('fetchOrderItemAvailableActivities() action creator', () => {
   beforeEach(() => {
@@ -25,13 +28,16 @@ describe('fetchOrderItemAvailableActivities() action creator', () => {
   it('should create the correct actions fetch when the get order item activities procedure fails', async () => {
     const expectedError = new Error('fetch order item activities error');
 
-    getOrderItemAvailableActivities.mockRejectedValueOnce(expectedError);
+    (getOrderItemAvailableActivities as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
 
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchOrderItemAvailableActivities(orderId, itemId));
-    } catch (error) {
+    await fetchOrderItemAvailableActivities(
+      orderId,
+      itemId,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getOrderItemAvailableActivities).toHaveBeenCalledTimes(1);
       expect(getOrderItemAvailableActivities).toHaveBeenCalledWith(
@@ -48,21 +54,22 @@ describe('fetchOrderItemAvailableActivities() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the fetch order item activities procedure is successful', async () => {
-    getOrderItemAvailableActivities.mockResolvedValueOnce(
+    (getOrderItemAvailableActivities as jest.Mock).mockResolvedValueOnce(
       mockOrderDocumentsResponse,
     );
 
     expect.assertions(4);
 
-    await store
-      .dispatch(fetchOrderItemAvailableActivities(orderId, itemId))
-      .then(clientResult => {
-        expect(clientResult).toEqual(mockOrderDocumentsResponse);
-      });
+    await fetchOrderItemAvailableActivities(
+      orderId,
+      itemId,
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toEqual(mockOrderDocumentsResponse);
+    });
 
     expect(getOrderItemAvailableActivities).toHaveBeenCalledTimes(1);
     expect(getOrderItemAvailableActivities).toHaveBeenCalledWith(

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetchUserContacts action creator should create the correct actions for when the get user contacts procedure is successful: get contacts success payload 1`] = `
+exports[`fetchUserContacts() action creator should create the correct actions for when the get user contacts procedure is successful: get user contacts success payload 1`] = `
 Object {
   "payload": Object {
     "entities": Object {

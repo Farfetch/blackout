@@ -10,6 +10,7 @@ import {
   mockWishlistsSetNormalizedPayload,
   mockWishlistsSetResponse,
 } from 'tests/__fixtures__/wishlists';
+import type { StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -20,7 +21,7 @@ const wishlistMockStore = (state = {}) =>
   mockStore({ wishlist: INITIAL_STATE }, state);
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof wishlistMockStore>;
 
 describe('fetchWishlistSets()', () => {
   beforeEach(() => {
@@ -34,11 +35,14 @@ describe('fetchWishlistSets()', () => {
   it('should create the correct actions for when the fetch wishlist sets procedure fails', async () => {
     const expectedError = new Error('fetch wishlist sets error');
 
-    getWishlistSets.mockRejectedValueOnce(expectedError);
+    (getWishlistSets as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchWishlistSets()).catch(error => {
+    await fetchWishlistSets()(
+      store.dispatch,
+      store.getState as () => StoreState,
+    ).catch(error => {
       expect(error).toBe(expectedError);
       expect(getWishlistSets).toHaveBeenCalledTimes(1);
       expect(getWishlistSets).toHaveBeenCalledWith(
@@ -59,11 +63,14 @@ describe('fetchWishlistSets()', () => {
 
   it('should create the correct actions for when the fetch wishlist sets procedure is successful', async () => {
     const response = [mockWishlistsSetResponse];
-    getWishlistSets.mockResolvedValueOnce(response);
+    (getWishlistSets as jest.Mock).mockResolvedValueOnce(response);
 
     expect.assertions(6);
 
-    await store.dispatch(fetchWishlistSets()).then(clientResult => {
+    await fetchWishlistSets()(
+      store.dispatch,
+      store.getState as () => StoreState,
+    ).then(clientResult => {
       expect(clientResult).toBe(response);
     });
 

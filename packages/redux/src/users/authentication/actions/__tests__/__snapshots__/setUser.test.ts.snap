@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`updateUser action creator should create the correct actions for when the update user procedure is successful: update user success payload 1`] = `
+exports[`setUser action creator should create the correct actions for when the set user procedure is successful: update user success payload 1`] = `
 Object {
   "payload": Object {
     "entities": Object {

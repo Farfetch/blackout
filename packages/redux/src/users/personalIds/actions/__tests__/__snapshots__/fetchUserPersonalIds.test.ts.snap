@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetchUserPersonalIds action creator should create the correct actions for when the fetch personal ids procedure is successful: fetch personal ids success payload 1`] = `
+exports[`fetchUserPersonalIds() action creator should create the correct actions for when the fetch user personal ids procedure is successful: fetch user personal ids success payload 1`] = `
 Object {
   "payload": Array [
     Object {

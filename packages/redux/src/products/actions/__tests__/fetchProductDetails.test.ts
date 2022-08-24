@@ -3,6 +3,7 @@ import { fetchProductDetails } from '..';
 import { getProduct } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/details';
 import {
+  mockMerchantId,
   mockProductDetails,
   mockProductId,
   mockProductResponseNormalized,
@@ -11,15 +12,17 @@ import {
 import { mockStore } from '../../../../tests';
 import { productsActionTypes } from '../..';
 import thunk from 'redux-thunk';
+import type { GetOptionsArgument, StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
   getProduct: jest.fn(),
 }));
 
+const getOptions = () => ({ productImgQueryParam: '?c=2' });
 const mockMiddlewares = [
   thunk.withExtraArgument({
-    getOptions: () => ({ productImgQueryParam: '?c=2' }),
+    getOptions,
   }),
 ];
 const productDetailsMockStore = (state = {}) =>
@@ -27,7 +30,10 @@ const productDetailsMockStore = (state = {}) =>
 const productDetailsMockStoreWithoutMiddlewares = (state = {}) =>
   mockStore({ products: { details: INITIAL_STATE } }, state);
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<
+  | typeof productDetailsMockStore
+  | typeof productDetailsMockStoreWithoutMiddlewares
+>;
 
 describe('fetchProductDetails() action creator', () => {
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
@@ -41,11 +47,15 @@ describe('fetchProductDetails() action creator', () => {
   it('should create the correct actions for when the fetch product details procedure fails', async () => {
     const expectedError = new Error('Fetch product details error');
 
-    getProduct.mockRejectedValueOnce(expectedError);
+    (getProduct as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchProductDetails(mockProductId)).catch(error => {
+    await fetchProductDetails(mockProductId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).catch(error => {
       expect(error).toBe(expectedError);
       expect(getProduct).toHaveBeenCalledTimes(1);
       expect(getProduct).toHaveBeenCalledWith(
@@ -68,13 +78,17 @@ describe('fetchProductDetails() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch product details procedure is successful', async () => {
-    getProduct.mockResolvedValueOnce(mockProductDetails);
+    (getProduct as jest.Mock).mockResolvedValueOnce(mockProductDetails);
 
-    const query = { merchantId: 'foo' };
+    const query = { merchantId: mockMerchantId };
 
     expect.assertions(4);
 
-    await store.dispatch(fetchProductDetails(mockProductId, query));
+    await fetchProductDetails(mockProductId, query)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    );
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getProduct).toHaveBeenCalledTimes(1);
@@ -99,17 +113,19 @@ describe('fetchProductDetails() action creator', () => {
   it('should create the correct actions for when the fetch product details procedure is successful without receiving options', async () => {
     store = productDetailsMockStoreWithoutMiddlewares();
 
-    getProduct.mockResolvedValueOnce(mockProductDetails);
+    (getProduct as jest.Mock).mockResolvedValueOnce(mockProductDetails);
 
-    const query = { merchantId: 'foo' };
+    const query = { merchantId: mockMerchantId };
 
     expect.assertions(5);
 
-    await store
-      .dispatch(fetchProductDetails(mockProductId, query))
-      .then(clientResult => {
-        expect(clientResult).toBe(mockProductDetails);
-      });
+    await fetchProductDetails(mockProductId, query)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      {} as GetOptionsArgument,
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockProductDetails);
+    });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getProduct).toHaveBeenCalledTimes(1);
@@ -142,11 +158,13 @@ describe('fetchProductDetails() action creator', () => {
 
     expect.assertions(4);
 
-    await store
-      .dispatch(fetchProductDetails(mockProductId))
-      .then(clientResult => {
-        expect(clientResult).toBeUndefined();
-      });
+    await fetchProductDetails(mockProductId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
+      expect(clientResult).toBeUndefined();
+    });
 
     expect(normalizeSpy).not.toHaveBeenCalled();
     expect(getProduct).not.toHaveBeenCalled();
@@ -159,18 +177,20 @@ describe('fetchProductDetails() action creator', () => {
   });
 
   it('should create the correct actions for when we want to force the dispatch', async () => {
-    getProduct.mockResolvedValueOnce(mockProductDetails);
+    (getProduct as jest.Mock).mockResolvedValueOnce(mockProductDetails);
 
-    const query = { merchantId: 'foo' };
+    const query = { merchantId: mockMerchantId };
     const forceDispatch = true;
 
     expect.assertions(6);
 
-    await store
-      .dispatch(fetchProductDetails(mockProductId, query, forceDispatch))
-      .then(clientResult => {
-        expect(clientResult).toBe(mockProductDetails);
-      });
+    await fetchProductDetails(mockProductId, query, forceDispatch)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockProductDetails);
+    });
 
     const actionResults = store.getActions();
 

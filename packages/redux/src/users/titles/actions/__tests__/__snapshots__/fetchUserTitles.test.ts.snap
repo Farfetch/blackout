@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetchUserTitles action creator should create the correct actions for when the get titles procedure is successful: get titles success payload 1`] = `
+exports[`fetchUserTitles() action creator should create the correct actions for when the get user titles procedure is successful: get user titles success payload 1`] = `
 Object {
   "payload": Object {
     "entities": Object {

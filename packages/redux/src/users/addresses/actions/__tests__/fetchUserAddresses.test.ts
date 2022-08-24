@@ -21,7 +21,7 @@ const addressesMockStore = (state = {}) =>
 
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof mockStore>;
 
 describe('fetchUserAddresses() action creator', () => {
   beforeEach(() => {
@@ -29,15 +29,13 @@ describe('fetchUserAddresses() action creator', () => {
     store = addressesMockStore({ entities: { user: { id: userId } } });
   });
 
-  it('should create the correct actions for when the get addresses procedure fails', async () => {
-    const expectedError = new Error('get adresses error');
+  it('should create the correct actions for when the get user addresses procedure fails', async () => {
+    const expectedError = new Error('get user adresses error');
 
-    getUserAddresses.mockRejectedValueOnce(expectedError);
+    (getUserAddresses as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchUserAddresses(userId));
-    } catch (error) {
+    await fetchUserAddresses(userId)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getUserAddresses).toHaveBeenCalledTimes(1);
       expect(getUserAddresses).toHaveBeenCalledWith({ userId }, expectedConfig);
@@ -50,12 +48,14 @@ describe('fetchUserAddresses() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the get address book procedure is successful', async () => {
-    getUserAddresses.mockResolvedValueOnce(mockGetAddressesResponse);
-    await store.dispatch(fetchUserAddresses(userId));
+  it('should create the correct actions for when the get user address book procedure is successful', async () => {
+    (getUserAddresses as jest.Mock).mockResolvedValueOnce(
+      mockGetAddressesResponse,
+    );
+    await fetchUserAddresses(userId)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -74,6 +74,6 @@ describe('fetchUserAddresses() action creator', () => {
       find(actionResults, {
         type: actionTypes.FETCH_USER_ADDRESSES_SUCCESS,
       }),
-    ).toMatchSnapshot('get addresses success payload');
+    ).toMatchSnapshot('get user addresses success payload');
   });
 });

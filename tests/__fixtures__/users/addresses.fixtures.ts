@@ -119,6 +119,67 @@ export const address3: UserAddress = {
   updatedDate: '2021-11-04T10:13:44.782Z',
 };
 
+export const address4 = {
+  id: '',
+  firstName: '',
+  lastName: '',
+  addressLine1: '',
+  addressLine2: '',
+  addressLine3: '',
+  vatNumber: '',
+  city: {
+    id: 0,
+    name: '',
+    stateId: 0,
+    countryId: 0,
+  },
+  state: {
+    code: '',
+    countryId: 0,
+    id: 0,
+    name: '',
+  },
+  country: {
+    id: 0,
+    name: '',
+    nativeName: '',
+    alpha2Code: '',
+    alpha3Code: '',
+    culture: '',
+    region: '',
+    continentId: 0,
+  },
+  zipCode: '',
+  phone: '',
+  neighbourhood: '',
+  ddd: '',
+  continent: {
+    id: 0,
+    name: '',
+    countries: [
+      {
+        id: 0,
+        name: '',
+        nativeName: '',
+        alpha2Code: '',
+        alpha3Code: '',
+        culture: '',
+        region: '',
+        continentId: 0,
+      },
+    ],
+  },
+  addressType: AddressType.Any,
+  identityDocument: '',
+  customsClearanceCode: '',
+  title: '',
+  isCurrentShipping: false,
+  isCurrentBilling: false,
+  isCurrentPreferred: false,
+  createdDate: '',
+  updatedDate: '',
+};
+
 export const mockGetAddressesResponse = [address1, address2];
 
 export const mockGetAddressResponse = address1;

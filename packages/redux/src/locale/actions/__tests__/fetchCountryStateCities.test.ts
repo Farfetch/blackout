@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import * as normalizr from 'normalizr';
-import { City, getCountryStateCities } from '@farfetch/blackout-client';
 import { fetchCountryStateCities } from '..';
+import { getCountryStateCities } from '@farfetch/blackout-client';
 import { INITIAL_STATE_LOCALE } from '../../reducer';
 import {
   mockCities,
@@ -23,7 +23,7 @@ describe('fetchCountryStateCities() action creator', () => {
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
   const expectedConfig = undefined;
 
-  let store;
+  let store: ReturnType<typeof localeMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -34,15 +34,14 @@ describe('fetchCountryStateCities() action creator', () => {
   it('should create the correct actions for when the get cities procedure fails', async () => {
     const expectedError = new Error('Get cities error');
 
-    getCountryStateCities.mockRejectedValueOnce(expectedError);
+    (getCountryStateCities as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    try {
-      await store.dispatch(
-        fetchCountryStateCities(mockCountryCode, mockStateId),
-      );
-    } catch (error) {
+    await fetchCountryStateCities(
+      mockCountryCode,
+      mockStateId,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getCountryStateCities).toHaveBeenCalledTimes(1);
       expect(getCountryStateCities).toHaveBeenCalledWith(
@@ -67,17 +66,20 @@ describe('fetchCountryStateCities() action creator', () => {
           type: actionTypes.FETCH_COUNTRY_STATE_CITIES_FAILURE,
         },
       ]);
-    }
+    });
   });
 
   it('should create the correct actions for when the get product details procedure is successful', async () => {
-    getCountryStateCities.mockResolvedValueOnce(mockCities);
+    (getCountryStateCities as jest.Mock).mockResolvedValueOnce(mockCities);
 
     const actionResults = store.getActions();
 
-    await store
-      .dispatch(fetchCountryStateCities(mockCountryCode, mockStateId))
-      .then((result: City[]) => expect(result).toBe(mockCities));
+    await fetchCountryStateCities(
+      mockCountryCode,
+      mockStateId,
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toBe(mockCities);
+    });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCountryStateCities).toHaveBeenCalledTimes(1);

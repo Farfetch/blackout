@@ -10,20 +10,23 @@ import {
   mockWishlistNormalizedPayload,
   mockWishlistsResponse,
   mockWishlistState,
+  wishlistItemMetadata,
 } from 'tests/__fixtures__/wishlists';
 import { mockStore } from '../../../../tests';
 import { patchWishlistItem } from '@farfetch/blackout-client';
 import { updateWishlistItem } from '../';
 import thunk from 'redux-thunk';
+import type { StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
   patchWishlistItem: jest.fn(),
 }));
 
+const getOptions = () => ({ productImgQueryParam: mockProductImgQueryParam });
 const mockMiddlewares = [
   thunk.withExtraArgument({
-    getOptions: () => ({ productImgQueryParam: mockProductImgQueryParam }),
+    getOptions,
   }),
 ];
 const wishlistMockStore = (state = {}) =>
@@ -33,13 +36,8 @@ const wishlistMockStoreWithoutMiddlewares = (state = {}) =>
 const data = mockWishlistItemPatchData;
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
-const wishlistItemMetadata = {
-  from: 'bag',
-  oldQuantity: 1,
-  oldSize: 16,
-};
 
-let store;
+let store: ReturnType<typeof wishlistMockStore>;
 
 describe('updateWishlistItem()', () => {
   beforeEach(() => {
@@ -52,7 +50,11 @@ describe('updateWishlistItem()', () => {
     store = wishlistMockStore({ wishlist: { id: null } });
 
     await expect(
-      store.dispatch(updateWishlistItem(mockWishlistItemId, data)),
+      updateWishlistItem(mockWishlistItemId, data)(
+        store.dispatch,
+        store.getState as () => StoreState,
+        { getOptions },
+      ),
     ).rejects.toThrowErrorMatchingInlineSnapshot('"No wishlist id is set"');
     expect(store.getActions()).toEqual(
       expect.arrayContaining([
@@ -72,57 +74,59 @@ describe('updateWishlistItem()', () => {
   it('should create the correct actions for when updating a wishlist item procedure fails', async () => {
     const expectedError = new Error('update wishlist item error');
 
-    patchWishlistItem.mockRejectedValueOnce(expectedError);
+    (patchWishlistItem as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store
-      .dispatch(
-        updateWishlistItem(mockWishlistItemId, data, wishlistItemMetadata),
-      )
-      .catch(error => {
-        expect(error).toBe(expectedError);
-        expect(patchWishlistItem).toHaveBeenCalledTimes(1);
-        expect(patchWishlistItem).toHaveBeenCalledWith(
-          mockWishlistId,
-          mockWishlistItemId,
-          data,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual([
-          {
-            meta: {
-              ...wishlistItemMetadata,
-              productId: mockProductId,
-              wishlistItemId: mockWishlistItemId,
-            },
-            type: actionTypes.UPDATE_WISHLIST_ITEM_REQUEST,
+    await updateWishlistItem(mockWishlistItemId, data, wishlistItemMetadata)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).catch(error => {
+      expect(error).toBe(expectedError);
+      expect(patchWishlistItem).toHaveBeenCalledTimes(1);
+      expect(patchWishlistItem).toHaveBeenCalledWith(
+        mockWishlistId,
+        mockWishlistItemId,
+        data,
+        expectedConfig,
+      );
+      expect(store.getActions()).toEqual([
+        {
+          meta: {
+            ...wishlistItemMetadata,
+            productId: mockProductId,
+            wishlistItemId: mockWishlistItemId,
           },
-          {
-            meta: {
-              ...wishlistItemMetadata,
-              productId: mockProductId,
-              wishlistItemId: mockWishlistItemId,
-            },
-            payload: { error: expectedError },
-            type: actionTypes.UPDATE_WISHLIST_ITEM_FAILURE,
+          type: actionTypes.UPDATE_WISHLIST_ITEM_REQUEST,
+        },
+        {
+          meta: {
+            ...wishlistItemMetadata,
+            productId: mockProductId,
+            wishlistItemId: mockWishlistItemId,
           },
-        ]);
-      });
+          payload: { error: expectedError },
+          type: actionTypes.UPDATE_WISHLIST_ITEM_FAILURE,
+        },
+      ]);
+    });
   });
 
   it('should create the correct actions for when the update wishlist item procedure is successful', async () => {
-    patchWishlistItem.mockResolvedValueOnce(mockWishlistsResponse);
+    (patchWishlistItem as jest.Mock).mockResolvedValueOnce(
+      mockWishlistsResponse,
+    );
 
     expect.assertions(7);
 
-    await store
-      .dispatch(
-        updateWishlistItem(mockWishlistItemId, data, wishlistItemMetadata),
-      )
-      .then(clientResult => {
-        expect(clientResult).toBe(mockWishlistsResponse);
-      });
+    await updateWishlistItem(mockWishlistItemId, data, wishlistItemMetadata)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockWishlistsResponse);
+    });
 
     const storeActions = store.getActions();
 
@@ -170,15 +174,19 @@ describe('updateWishlistItem()', () => {
 
   it('should create the correct actions for when the update wishlist item procedure is successful without `getOptions`', async () => {
     store = wishlistMockStoreWithoutMiddlewares(mockWishlistState);
-    patchWishlistItem.mockResolvedValueOnce(mockWishlistsResponse);
+    (patchWishlistItem as jest.Mock).mockResolvedValueOnce(
+      mockWishlistsResponse,
+    );
 
     expect.assertions(5);
 
-    await store
-      .dispatch(updateWishlistItem(mockWishlistItemId, data))
-      .then(clientResult => {
-        expect(clientResult).toBe(mockWishlistsResponse);
-      });
+    await updateWishlistItem(mockWishlistItemId, data)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockWishlistsResponse);
+    });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(patchWishlistItem).toHaveBeenCalledTimes(1);

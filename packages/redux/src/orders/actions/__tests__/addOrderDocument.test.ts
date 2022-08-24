@@ -1,6 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import { addOrderDocument } from '..';
-import { fileId, mockOrderDocumentPayload } from 'tests/__fixtures__/orders';
+import {
+  fileId,
+  mockOrderDocumentPayload,
+  orderId,
+} from 'tests/__fixtures__/orders';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import { postOrderDocument } from '@farfetch/blackout-client';
@@ -13,11 +17,10 @@ jest.mock('@farfetch/blackout-client', () => ({
 const ordersMockStore = (state = {}) =>
   mockStore({ orders: INITIAL_STATE }, state);
 
-const orderId = '24BJKS';
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof ordersMockStore>;
 
-describe('addOrderDocuments() action creator', () => {
+describe('addOrderDocument() action creator', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     store = ordersMockStore();
@@ -26,15 +29,15 @@ describe('addOrderDocuments() action creator', () => {
   it('should create the correct actions for when the add order document procedure fails', async () => {
     const expectedError = new Error('add order document error');
 
-    postOrderDocument.mockRejectedValueOnce(expectedError);
+    (postOrderDocument as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    try {
-      await store.dispatch(
-        addOrderDocument(orderId, fileId, mockOrderDocumentPayload),
-      );
-    } catch (error) {
+    await addOrderDocument(
+      orderId,
+      fileId,
+      mockOrderDocumentPayload,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(postOrderDocument).toHaveBeenCalledTimes(1);
       expect(postOrderDocument).toHaveBeenCalledWith(
@@ -52,17 +55,19 @@ describe('addOrderDocuments() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the add order document procedure is successful', async () => {
-    postOrderDocument.mockResolvedValueOnce();
+    (postOrderDocument as jest.Mock).mockResolvedValueOnce(undefined);
 
-    await store
-      .dispatch(addOrderDocument(orderId, fileId, mockOrderDocumentPayload))
-      .then(clientResult => {
-        expect(clientResult).toBeUndefined();
-      });
+    await addOrderDocument(
+      orderId,
+      fileId,
+      mockOrderDocumentPayload,
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toBeUndefined();
+    });
 
     expect(postOrderDocument).toHaveBeenCalledTimes(1);
     expect(postOrderDocument).toHaveBeenCalledWith(

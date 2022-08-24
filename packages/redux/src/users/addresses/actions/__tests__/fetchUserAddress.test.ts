@@ -22,7 +22,7 @@ const addressesMockStore = (state = {}) =>
 
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof addressesMockStore>;
 
 describe('fetchUserAddress() action creator', () => {
   beforeEach(() => {
@@ -30,15 +30,16 @@ describe('fetchUserAddress() action creator', () => {
     store = addressesMockStore({ entities: { user: { id: userId } } });
   });
 
-  it('should create the correct actions for when the get address details procedure fails', async () => {
-    const expectedError = new Error('get address details error');
+  it('should create the correct actions for when the get user address details procedure fails', async () => {
+    const expectedError = new Error('get user address details error');
 
-    getUserAddress.mockRejectedValueOnce(expectedError);
+    (getUserAddress as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchUserAddress(userId, addressId2));
-    } catch (error) {
+    await fetchUserAddress(
+      userId,
+      addressId2,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getUserAddress).toHaveBeenCalledTimes(1);
       expect(getUserAddress).toHaveBeenCalledWith(
@@ -58,12 +59,12 @@ describe('fetchUserAddress() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the get address details procedure is successful', async () => {
-    getUserAddress.mockResolvedValueOnce(mockGetAddressResponse);
-    await store.dispatch(fetchUserAddress(userId, addressId2));
+  it('should create the correct actions for when the get user address details procedure is successful', async () => {
+    (getUserAddress as jest.Mock).mockResolvedValueOnce(mockGetAddressResponse);
+    await fetchUserAddress(userId, addressId2)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -87,6 +88,6 @@ describe('fetchUserAddress() action creator', () => {
       find(actionResults, {
         type: actionTypes.FETCH_USER_ADDRESS_SUCCESS,
       }),
-    ).toMatchSnapshot('get address details success payload');
+    ).toMatchSnapshot('get user address details success payload');
   });
 });

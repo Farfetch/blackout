@@ -6,7 +6,7 @@ import resetCheckoutOrderChargesState from '../resetCheckoutOrderChargeState';
 describe('resetCheckoutOrderChargesState() action creator', () => {
   const checkoutMockStore = (state = {}) =>
     mockStore({ checkout: INITIAL_STATE }, state);
-  let store;
+  let store: ReturnType<typeof checkoutMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -14,7 +14,7 @@ describe('resetCheckoutOrderChargesState() action creator', () => {
   });
 
   it('should dispatch the correct action for when the reset charges state is called', () => {
-    store.dispatch(resetCheckoutOrderChargesState());
+    resetCheckoutOrderChargesState()(store.dispatch);
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

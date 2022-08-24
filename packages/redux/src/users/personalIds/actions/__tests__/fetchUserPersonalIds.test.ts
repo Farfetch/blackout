@@ -1,8 +1,13 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  config,
+  expectedConfig,
+  mockGetPersonalIdsResponse,
+  userId,
+} from 'tests/__fixtures__/users';
 import { fetchUserPersonalIds } from '../';
 import { getUserPersonalIds } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../../reducer';
-import { mockGetPersonalIdsResponse } from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../../tests';
 import find from 'lodash/find';
 
@@ -14,30 +19,24 @@ jest.mock('@farfetch/blackout-client', () => ({
 const usersMockStore = (state = {}) =>
   mockStore({ users: INITIAL_STATE }, state);
 
-describe('fetchUserPersonalIds action creator', () => {
+describe('fetchUserPersonalIds() action creator', () => {
   let store = usersMockStore();
-  const userId = 12345;
-  const config = {
-    'X-SUMMER-RequestId': 'test',
-  };
-  const expectedConfig = {
-    'X-SUMMER-RequestId': 'test',
-  };
 
   beforeEach(() => {
     jest.clearAllMocks();
     store = usersMockStore();
   });
 
-  it('should create the correct actions for when the fetch personal ids procedure fails', async () => {
-    const expectedError = new Error('fetch personal ids error');
+  it('should create the correct actions for when the fetch user personal ids procedure fails', async () => {
+    const expectedError = new Error('fetch user personal ids error');
 
     (getUserPersonalIds as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchUserPersonalIds(userId, config));
-    } catch (error) {
+    await fetchUserPersonalIds(
+      userId,
+      config,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getUserPersonalIds).toHaveBeenCalledTimes(1);
       expect(getUserPersonalIds).toHaveBeenCalledWith(userId, expectedConfig);
@@ -50,14 +49,14 @@ describe('fetchUserPersonalIds action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the fetch personal ids procedure is successful', async () => {
+  it('should create the correct actions for when the fetch user personal ids procedure is successful', async () => {
     (getUserPersonalIds as jest.Mock).mockResolvedValueOnce(
       mockGetPersonalIdsResponse,
     );
-    await store.dispatch(fetchUserPersonalIds(userId, config));
+    await fetchUserPersonalIds(userId, config)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -75,6 +74,6 @@ describe('fetchUserPersonalIds action creator', () => {
       find(actionResults, {
         type: actionTypes.FETCH_USER_PERSONAL_IDS_SUCCESS,
       }),
-    ).toMatchSnapshot('fetch personal ids success payload');
+    ).toMatchSnapshot('fetch user personal ids success payload');
   });
 });

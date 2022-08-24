@@ -27,7 +27,7 @@ describe('fetchCollectPoints() action creator', () => {
     },
   };
   const expectedConfig = undefined;
-  let store;
+  let store: ReturnType<typeof checkoutMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -37,12 +37,10 @@ describe('fetchCollectPoints() action creator', () => {
   it('should create the correct actions for when the fetch collect points procedure fails', async () => {
     const expectedError = new Error('fetch collect points error');
 
-    getCollectPoints.mockRejectedValueOnce(expectedError);
+    (getCollectPoints as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchCollectPoints(query));
-    } catch (error) {
+    await fetchCollectPoints(query)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getCollectPoints).toHaveBeenCalledTimes(1);
       expect(getCollectPoints).toHaveBeenCalledWith(query, expectedConfig);
@@ -55,16 +53,21 @@ describe('fetchCollectPoints() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the fetch collect points procedure is successful', async () => {
-    getCollectPoints.mockResolvedValueOnce(mockCollectPointsResponse);
-    await store.dispatch(fetchCollectPoints(query));
+    (getCollectPoints as jest.Mock).mockResolvedValueOnce(
+      mockCollectPointsResponse,
+    );
+
+    await fetchCollectPoints(query)(store.dispatch).then(clientResult => {
+      expect(clientResult).toBe(mockCollectPointsResponse);
+    });
 
     const actionResults = store.getActions();
 
-    expect.assertions(4);
+    expect.assertions(5);
     expect(getCollectPoints).toHaveBeenCalledTimes(1);
     expect(getCollectPoints).toHaveBeenCalledWith(query, expectedConfig);
     expect(actionResults).toMatchObject([

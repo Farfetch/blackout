@@ -19,7 +19,7 @@ const searchMockStore = (state = {}) =>
 const expectedConfig = undefined;
 const query = mockSearchIntentsQuery;
 const hash = mockSearchIntentsHash;
-let store;
+let store: ReturnType<typeof searchMockStore>;
 
 describe('fetchSearchIntents() action creator', () => {
   beforeEach(() => {
@@ -30,11 +30,11 @@ describe('fetchSearchIntents() action creator', () => {
   it('should create the correct actions for when the fetch search intents procedure fails', async () => {
     const expectedError = new Error('Fetch search intents error');
 
-    getSearchIntents.mockRejectedValueOnce(expectedError);
+    (getSearchIntents as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchSearchIntents(query)).catch(error => {
+    await fetchSearchIntents(query)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getSearchIntents).toHaveBeenCalledTimes(1);
       expect(getSearchIntents).toHaveBeenCalledWith(query, expectedConfig);
@@ -53,11 +53,13 @@ describe('fetchSearchIntents() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch search intents procedure is successful', async () => {
-    getSearchIntents.mockResolvedValueOnce(mockSearchIntentsResponse);
+    (getSearchIntents as jest.Mock).mockResolvedValueOnce(
+      mockSearchIntentsResponse,
+    );
 
     expect.assertions(4);
 
-    await store.dispatch(fetchSearchIntents(query)).then(clientResult => {
+    await fetchSearchIntents(query)(store.dispatch).then(clientResult => {
       expect(clientResult).toBe(mockSearchIntentsResponse);
     });
 

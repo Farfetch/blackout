@@ -1,3 +1,5 @@
+export const creditId = 123456;
+
 export const mockGetCreditResponse = [
   {
     currency: 'GB',
@@ -8,4 +10,11 @@ export const mockGetCreditResponse = [
 
 export const expectedCreditNormalizedPayload = {
   credits: mockGetCreditResponse,
+};
+
+export const creditMovementsQuery = {
+  from: 'from',
+  to: 'to',
+  page: 1,
+  pageSize: 20,
 };

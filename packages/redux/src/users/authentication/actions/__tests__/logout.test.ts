@@ -29,10 +29,7 @@ describe('logout() action creator', () => {
 
     (postLogout as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
-
-    try {
-      await store.dispatch(logout());
-    } catch (error) {
+    await logout()(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(postLogout).toHaveBeenCalledTimes(1);
       expect(postLogout).toHaveBeenCalledWith(expectedConfig);
@@ -45,12 +42,12 @@ describe('logout() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the logout procedure is successful', async () => {
     (postLogout as jest.Mock).mockResolvedValueOnce({});
-    await store.dispatch(logout());
+    await logout()(store.dispatch);
 
     const actionResults = store.getActions();
 

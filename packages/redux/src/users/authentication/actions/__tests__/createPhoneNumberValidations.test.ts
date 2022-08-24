@@ -23,17 +23,14 @@ describe('createPhoneNumberValidations action creator', () => {
     store = usersMockStore();
   });
 
-  it('should create the correct actions for when the create phone number  validations procedure fails', async () => {
-    const expectedError = new Error('create phone number  validations error');
+  it('should create the correct actions for when the create phone number validations procedure fails', async () => {
+    const expectedError = new Error('create phone number validations error');
 
     (postPhoneNumberValidation as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
     expect.assertions(4);
-
-    try {
-      await store.dispatch(createPhoneNumberValidations(params));
-    } catch (error) {
+    await createPhoneNumberValidations(params)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(postPhoneNumberValidation).toHaveBeenCalledTimes(1);
       expect(postPhoneNumberValidation).toHaveBeenCalledWith(
@@ -49,12 +46,12 @@ describe('createPhoneNumberValidations action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the create phone number  validations procedure is successful', async () => {
     (postPhoneNumberValidation as jest.Mock).mockResolvedValueOnce({});
-    await store.dispatch(createPhoneNumberValidations(params));
+    await createPhoneNumberValidations(params)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -75,6 +72,6 @@ describe('createPhoneNumberValidations action creator', () => {
       find(actionResults, {
         type: actionTypes.CREATE_PHONE_NUMBER_VALIDATIONS_SUCCESS,
       }),
-    ).toMatchSnapshot('create phone number  validations success payload');
+    ).toMatchSnapshot('create phone number validations success payload');
   });
 });

@@ -5,7 +5,7 @@ Object {
   "payload": Object {
     "entities": Object {
       "checkout": Object {
-        "123123": Object {
+        "1": Object {
           "paymentMethods": Object {
             "creditCard": Object {
               "creditCards": Array [

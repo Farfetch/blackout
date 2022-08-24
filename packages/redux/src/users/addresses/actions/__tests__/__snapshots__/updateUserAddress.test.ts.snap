@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`updateUserAddress() action creator should create the correct actions for when the update address procedure is successful: update address success payload 1`] = `
+exports[`updateUserAddress() action creator should create the correct actions for when the update user address procedure is successful: update user address success payload 1`] = `
 Object {
   "meta": Object {
     "addressId": "2222222",

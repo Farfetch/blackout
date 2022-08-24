@@ -17,7 +17,7 @@ const addressesMockStore = (state = {}) =>
 const expectedConfig = undefined;
 const predictionId = 'predictionid';
 const sessionToken = 'sessionToken';
-let store;
+let store: ReturnType<typeof addressesMockStore>;
 
 describe('fetchAddressPredictionDetails() action creator', () => {
   beforeEach(() => {
@@ -28,14 +28,15 @@ describe('fetchAddressPredictionDetails() action creator', () => {
   it('should create the correct actions for when the get prediction details procedure fails', async () => {
     const expectedError = new Error('get prediction details error');
 
-    getAddressPredictionDetails.mockRejectedValueOnce(expectedError);
+    (getAddressPredictionDetails as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
-    try {
-      await store.dispatch(
-        fetchAddressPredictionDetails({ predictionId }, { sessionToken }),
-      );
-    } catch (error) {
+    fetchAddressPredictionDetails(
+      { predictionId },
+      { sessionToken },
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getAddressPredictionDetails).toHaveBeenCalledTimes(1);
       expect(getAddressPredictionDetails).toHaveBeenCalledWith(
@@ -52,16 +53,20 @@ describe('fetchAddressPredictionDetails() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the get prediction details procedure is successful', async () => {
-    getAddressPredictionDetails.mockResolvedValueOnce(
+    (getAddressPredictionDetails as jest.Mock).mockResolvedValueOnce(
       mockAddressPredictionResponse,
     );
-    await store.dispatch(
-      fetchAddressPredictionDetails({ predictionId }, { sessionToken }),
-    );
+
+    await fetchAddressPredictionDetails(
+      { predictionId },
+      { sessionToken },
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toBe(mockAddressPredictionResponse);
+    });
 
     const actionResults = store.getActions();
 

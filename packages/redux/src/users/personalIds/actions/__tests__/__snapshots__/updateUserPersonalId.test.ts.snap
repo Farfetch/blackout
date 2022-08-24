@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`updateUserPersonalId action creator should create the correct actions for when the update personal id procedure is successful: update personal id success payload 1`] = `
+exports[`updateUserPersonalId() action creator should create the correct actions for when the update user personal id procedure is successful: update user personal id success payload 1`] = `
 Object {
   "payload": Object {
     "backImageId": "",

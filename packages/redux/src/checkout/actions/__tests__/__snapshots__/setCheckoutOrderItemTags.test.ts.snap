@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`setCheckoutOrderItemTags() action creator should create the correct actions for when the set items tags procedure is successful: set item tags success payload 1`] = `
+exports[`setCheckoutOrderItemTags() action creator should create the correct actions for when the set checkout order items tags procedure is successful: set checkout order item tags success payload 1`] = `
 Object {
   "payload": Object {
     "entities": Object {

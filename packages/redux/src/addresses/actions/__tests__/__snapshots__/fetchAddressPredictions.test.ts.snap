@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetchAddressPredictions() action creator should create the correct actions for when the get payment procedure is successful: get prediction success payload 1`] = `
+exports[`fetchAddressPredictions() action creator should create the correct actions for when the get address predictions procedure is successful: get address predictions success payload 1`] = `
 Object {
   "payload": Array [
     Object {

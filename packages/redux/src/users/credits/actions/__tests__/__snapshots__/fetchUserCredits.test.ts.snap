@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetchUserCredits action creator should create the correct actions for when the get user credits procedure is successful with empty data: get user credits success payload with empty data 1`] = `
+exports[`fetchUserCredits() action creator should create the correct actions for when the get user credits procedure is successful with empty data: get user credits success payload with empty data 1`] = `
 Object {
   "payload": Object {
     "credits": Array [
@@ -15,7 +15,7 @@ Object {
 }
 `;
 
-exports[`fetchUserCredits action creator should create the correct actions for when the get user credits procedure is successful: get credit success payload 1`] = `
+exports[`fetchUserCredits() action creator should create the correct actions for when the get user credits procedure is successful: get credit success payload 1`] = `
 Object {
   "payload": Object {
     "credits": Array [

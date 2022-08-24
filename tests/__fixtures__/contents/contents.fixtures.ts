@@ -1,4 +1,6 @@
-import { generateContentHash } from '@farfetch/blackout-redux/contents/utils';
+import { generateContentHash } from '@farfetch/blackout-redux/src/contents/utils';
+
+export const contentPublicationId = '1fa65fb0-49bf-43b3-902e-78d104f160a3';
 
 export const contentQuery = {
   spaceCode: 'website',
@@ -60,7 +62,7 @@ export const mockContents = {
       contentTypeCode: 'pages',
       environmentCode: 'live',
       id: undefined,
-      publicationId: '1fa65fb0-49bf-43b3-902e-78d104f160a3',
+      publicationId: contentPublicationId,
       publicationDate: '2020-11-25T15:31:22.619Z',
       metadata: {
         custom: {},
@@ -248,21 +250,25 @@ export const mockContentType = {
   ],
 };
 
-export const contentNormalizedPayload = {
-  entities: {
-    contents: {
-      [contentHash]: {
-        ...mockContents.entries[0],
-      },
-    },
-  },
-};
-
 export const mockContentResult = {
   number: 1,
   totalPages: 1,
   totalItems: 1,
-  entries: [contentHash],
+  entries: [contentPublicationId],
+};
+
+export const contentNormalizedPayload = {
+  entities: {
+    contents: {
+      [contentPublicationId]: {
+        ...mockContents.entries[0],
+      },
+    },
+  },
+  result: {
+    hash: contentHash,
+    ...mockContentResult,
+  },
 };
 
 export const expectedNormalizedPayload = {
@@ -272,11 +278,7 @@ export const expectedNormalizedPayload = {
         error: null,
         isLoading: false,
         result: {
-          entries: ['1fa65fb0-49bf-43b3-902e-78d104f160a3'],
-          hash: contentHash,
-          number: 1,
-          totalItems: 1,
-          totalPages: 1,
+          ...contentNormalizedPayload.result,
         },
       },
       [widgetHash]: {
@@ -331,7 +333,7 @@ export const expectedNormalizedPayload = {
   },
   entities: {
     contents: {
-      '1fa65fb0-49bf-43b3-902e-78d104f160a3': mockContents.entries[0],
+      [contentPublicationId]: mockContents.entries[0],
       'daada313-7908-46c8-8ea8-ad2263b41b43': mockWidget.entries[0],
       '7317888f-c8ea-4770-98b3-232961af741b': mockNavbars.entries[0],
       '6fc6f3c1-ae2b-44d3-abec-54f0b679b19f': mockContentType.entries[0],

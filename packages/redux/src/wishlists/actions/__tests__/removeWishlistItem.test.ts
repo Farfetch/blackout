@@ -10,19 +10,23 @@ import {
   mockWishlistNormalizedPayload,
   mockWishlistsResponse,
   mockWishlistState,
+  wishlistItemMetadata,
 } from 'tests/__fixtures__/wishlists';
 import { mockStore } from '../../../../tests';
 import { removeWishlistItem } from '../';
 import thunk from 'redux-thunk';
+import type { StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
   deleteWishlistItem: jest.fn(),
 }));
 
+const getOptions = () => ({ productImgQueryParam: mockProductImgQueryParam });
+
 const mockMiddlewares = [
   thunk.withExtraArgument({
-    getOptions: () => ({ productImgQueryParam: mockProductImgQueryParam }),
+    getOptions,
   }),
 ];
 const wishlistMockStore = (state = {}) =>
@@ -31,13 +35,8 @@ const wishlistMockStoreWithoutMiddlewares = (state = {}) =>
   mockStore({ wishlist: INITIAL_STATE }, state);
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
-const wishlistItemMetadata = {
-  from: 'bag',
-  oldQuantity: 1,
-  oldSize: 16,
-};
 
-let store;
+let store: ReturnType<typeof wishlistMockStore>;
 
 describe('removeWishlistItem() action creator', () => {
   beforeEach(() => {
@@ -50,7 +49,11 @@ describe('removeWishlistItem() action creator', () => {
     store = wishlistMockStore({ wishlist: { id: null } });
 
     await expect(
-      store.dispatch(removeWishlistItem(mockWishlistItemId)),
+      removeWishlistItem(mockWishlistItemId)(
+        store.dispatch,
+        store.getState as () => StoreState,
+        { getOptions },
+      ),
     ).rejects.toThrowErrorMatchingInlineSnapshot('"No wishlist id is set"');
     expect(store.getActions()).toEqual(
       expect.arrayContaining([
@@ -70,52 +73,58 @@ describe('removeWishlistItem() action creator', () => {
   it('should create the correct actions for when the remove wishlist item procedure fails', async () => {
     const expectedError = new Error('remove wishlist item error');
 
-    deleteWishlistItem.mockRejectedValueOnce(expectedError);
+    (deleteWishlistItem as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store
-      .dispatch(removeWishlistItem(mockWishlistItemId, wishlistItemMetadata))
-      .catch(error => {
-        expect(error).toBe(expectedError);
-        expect(deleteWishlistItem).toHaveBeenCalledTimes(1);
-        expect(deleteWishlistItem).toHaveBeenCalledWith(
-          mockWishlistId,
-          mockWishlistItemId,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual([
-          {
-            meta: {
-              ...wishlistItemMetadata,
-              productId: mockProductId,
-              wishlistItemId: mockWishlistItemId,
-            },
-            type: actionTypes.REMOVE_WISHLIST_ITEM_REQUEST,
+    await removeWishlistItem(mockWishlistItemId, wishlistItemMetadata)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).catch(error => {
+      expect(error).toBe(expectedError);
+      expect(deleteWishlistItem).toHaveBeenCalledTimes(1);
+      expect(deleteWishlistItem).toHaveBeenCalledWith(
+        mockWishlistId,
+        mockWishlistItemId,
+        expectedConfig,
+      );
+      expect(store.getActions()).toEqual([
+        {
+          meta: {
+            ...wishlistItemMetadata,
+            productId: mockProductId,
+            wishlistItemId: mockWishlistItemId,
           },
-          {
-            meta: {
-              ...wishlistItemMetadata,
-              productId: mockProductId,
-              wishlistItemId: mockWishlistItemId,
-            },
-            payload: { error: expectedError },
-            type: actionTypes.REMOVE_WISHLIST_ITEM_FAILURE,
+          type: actionTypes.REMOVE_WISHLIST_ITEM_REQUEST,
+        },
+        {
+          meta: {
+            ...wishlistItemMetadata,
+            productId: mockProductId,
+            wishlistItemId: mockWishlistItemId,
           },
-        ]);
-      });
+          payload: { error: expectedError },
+          type: actionTypes.REMOVE_WISHLIST_ITEM_FAILURE,
+        },
+      ]);
+    });
   });
 
   it('should create the correct actions for when the remove wishlist item procedure is successful', async () => {
-    deleteWishlistItem.mockResolvedValueOnce(mockWishlistsResponse);
+    (deleteWishlistItem as jest.Mock).mockResolvedValueOnce(
+      mockWishlistsResponse,
+    );
 
     expect.assertions(7);
 
-    await store
-      .dispatch(removeWishlistItem(mockWishlistItemId, wishlistItemMetadata))
-      .then(clientResult => {
-        expect(clientResult).toBe(mockWishlistsResponse);
-      });
+    await removeWishlistItem(mockWishlistItemId, wishlistItemMetadata)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockWishlistsResponse);
+    });
 
     const storeActions = store.getActions();
 
@@ -163,15 +172,19 @@ describe('removeWishlistItem() action creator', () => {
   it('should create the correct actions for when the remove wishlist item procedure is successful without `getOptions`', async () => {
     store = wishlistMockStoreWithoutMiddlewares(mockWishlistState);
 
-    deleteWishlistItem.mockResolvedValueOnce(mockWishlistsResponse);
+    (deleteWishlistItem as jest.Mock).mockResolvedValueOnce(
+      mockWishlistsResponse,
+    );
 
     expect.assertions(5);
 
-    await store
-      .dispatch(removeWishlistItem(mockWishlistItemId))
-      .then(clientResult => {
-        expect(clientResult).toBe(mockWishlistsResponse);
-      });
+    await removeWishlistItem(mockWishlistItemId)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockWishlistsResponse);
+    });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(deleteWishlistItem).toHaveBeenCalledTimes(1);

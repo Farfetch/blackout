@@ -1,7 +1,11 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  attributeId,
+  mockDeleteUserAttributeResponse,
+  userId,
+} from 'tests/__fixtures__/users';
 import { deleteUserAttribute } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../../reducer';
-import { mockDeleteUserAttributeResponse } from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../../tests';
 import { removeUserAttribute } from '../';
 import find from 'lodash/find';
@@ -16,8 +20,6 @@ const usersMockStore = (state = {}) =>
 
 describe('removeUserAttribute action creator', () => {
   let store = usersMockStore();
-  const userId = 123456;
-  const attributeId = '123456';
   const expectedConfig = undefined;
 
   beforeEach(() => {
@@ -31,9 +33,10 @@ describe('removeUserAttribute action creator', () => {
     (deleteUserAttribute as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(removeUserAttribute(userId, attributeId));
-    } catch (error) {
+    await removeUserAttribute(
+      userId,
+      attributeId,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(deleteUserAttribute).toHaveBeenCalledTimes(1);
       expect(deleteUserAttribute).toHaveBeenCalledWith(
@@ -50,7 +53,7 @@ describe('removeUserAttribute action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the remove user attribute procedure is successful', async () => {
@@ -58,7 +61,7 @@ describe('removeUserAttribute action creator', () => {
       mockDeleteUserAttributeResponse,
     );
 
-    await store.dispatch(removeUserAttribute(userId, attributeId));
+    await removeUserAttribute(userId, attributeId)(store.dispatch);
 
     const actionResults = store.getActions();
 

@@ -1,4 +1,5 @@
 import * as actionTypes from '../../actionTypes';
+import { returnTimeWindowData as data } from 'tests/__fixtures__/returns';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import { patchReturn } from '@farfetch/blackout-client';
@@ -15,13 +16,8 @@ const returnsMockStore = (state = {}) =>
 
 describe('updateReturn() action creator', () => {
   const expectedConfig = undefined;
-  let store;
+  let store: ReturnType<typeof returnsMockStore>;
   const returnId = 5926969;
-
-  const data = {
-    start: '1574445600000',
-    end: '/Date(1574413200000)/',
-  };
 
   const expectedData = {
     start: `/Date(${data.start})/`,
@@ -36,12 +32,13 @@ describe('updateReturn() action creator', () => {
   it('should create the correct actions for when the update return procedure fails', async () => {
     const expectedError = new Error('update return error');
 
-    patchReturn.mockRejectedValueOnce(expectedError);
+    (patchReturn as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(updateReturn(returnId, data));
-    } catch (error) {
+    await updateReturn(
+      returnId,
+      data,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(patchReturn).toHaveBeenCalledTimes(1);
       expect(patchReturn).toHaveBeenCalledWith(
@@ -58,13 +55,13 @@ describe('updateReturn() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the update return procedure is successful', async () => {
-    patchReturn.mockResolvedValueOnce();
+    (patchReturn as jest.Mock).mockResolvedValueOnce(data);
 
-    await store.dispatch(updateReturn(returnId, data));
+    await updateReturn(returnId, data)(store.dispatch);
 
     const actionResults = store.getActions();
 

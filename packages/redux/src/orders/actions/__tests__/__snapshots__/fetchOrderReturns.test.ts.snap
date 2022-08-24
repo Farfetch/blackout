@@ -3,7 +3,7 @@
 exports[`fetchOrderReturns() action creator should create the correct actions for when the get order returns procedure is successful: get order returns success payload 1`] = `
 Object {
   "meta": Object {
-    "orderId": "8VXRHN",
+    "orderId": "8HYCEV",
   },
   "payload": Object {
     "entities": Object {

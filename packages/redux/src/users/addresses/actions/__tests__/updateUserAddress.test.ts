@@ -2,13 +2,14 @@ import * as actionTypes from '../../actionTypes';
 import * as normalizr from 'normalizr';
 import {
   addressId2,
+  address4 as data,
   expectedUpdateAddressNormalizedPayload,
   mockUpdateAddressResponse,
   userId,
 } from 'tests/__fixtures__/users';
-import { AddressType, putUserAddress } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../../tests';
+import { putUserAddress } from '@farfetch/blackout-client';
 import { updateUserAddress } from '..';
 import find from 'lodash/find';
 
@@ -22,84 +23,25 @@ const addressesMockStore = (state = {}) =>
 
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof addressesMockStore>;
 
 describe('updateUserAddress() action creator', () => {
-  const data = {
-    id: '',
-    firstName: '',
-    lastName: '',
-    addressLine1: '',
-    addressLine2: '',
-    addressLine3: '',
-    vatNumber: '',
-    city: {
-      id: 0,
-      name: '',
-      stateId: 0,
-      countryId: 0,
-    },
-    state: {
-      code: '',
-      countryId: 0,
-      id: 0,
-      name: '',
-    },
-    country: {
-      id: 0,
-      name: '',
-      nativeName: '',
-      alpha2Code: '',
-      alpha3Code: '',
-      culture: '',
-      region: '',
-      continentId: 0,
-    },
-    zipCode: '',
-    phone: '',
-    neighbourhood: '',
-    ddd: '',
-    continent: {
-      id: 0,
-      name: '',
-      countries: [
-        {
-          id: 0,
-          name: '',
-          nativeName: '',
-          alpha2Code: '',
-          alpha3Code: '',
-          culture: '',
-          region: '',
-          continentId: 0,
-        },
-      ],
-    },
-    addressType: AddressType.Any,
-    identityDocument: '',
-    customsClearanceCode: '',
-    title: '',
-    isCurrentShipping: false,
-    isCurrentBilling: false,
-    isCurrentPreferred: false,
-    createdDate: '',
-    updatedDate: '',
-  };
-
   beforeEach(() => {
     jest.clearAllMocks();
     store = addressesMockStore({ entities: { user: { id: userId } } });
   });
 
-  it('should create the correct actions for when the update address procedure fails', async () => {
-    const expectedError = new Error('update address error');
+  it('should create the correct actions for when the update user address procedure fails', async () => {
+    const expectedError = new Error('update user address error');
 
-    putUserAddress.mockRejectedValueOnce(expectedError);
+    (putUserAddress as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(updateUserAddress(userId, addressId2, data));
-    } catch (error) {
+    await updateUserAddress(
+      userId,
+      addressId2,
+      data,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(putUserAddress).toHaveBeenCalledTimes(1);
       expect(putUserAddress).toHaveBeenCalledWith(
@@ -120,12 +62,14 @@ describe('updateUserAddress() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the update address procedure is successful', async () => {
-    putUserAddress.mockResolvedValueOnce(mockUpdateAddressResponse);
-    await store.dispatch(updateUserAddress(userId, addressId2, data));
+  it('should create the correct actions for when the update user address procedure is successful', async () => {
+    (putUserAddress as jest.Mock).mockResolvedValueOnce(
+      mockUpdateAddressResponse,
+    );
+    await updateUserAddress(userId, addressId2, data)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -150,6 +94,6 @@ describe('updateUserAddress() action creator', () => {
       find(actionResults, {
         type: actionTypes.UPDATE_USER_ADDRESS_SUCCESS,
       }),
-    ).toMatchSnapshot('update address success payload');
+    ).toMatchSnapshot('update user address success payload');
   });
 });

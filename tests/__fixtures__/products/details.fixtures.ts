@@ -5,6 +5,7 @@ import { mockProductAttributes } from './productAttributes.fixtures';
 import { mockProductId, mockSetId, mockSizeScaleId } from './ids.fixtures';
 import { mockProductSizes } from './productSizes.fixtures';
 
+export const mockProductDetailsQuery = { merchantId: 'foo' };
 export const mockComplementaryInformation = [
   {
     title: 'Designer',

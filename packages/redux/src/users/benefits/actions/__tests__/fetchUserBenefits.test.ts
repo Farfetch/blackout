@@ -9,7 +9,6 @@ import { getUserBenefits } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../../reducer';
 import { mockStore } from '../../../../../tests';
 import find from 'lodash/find';
-import type { AnyAction } from 'redux';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -25,21 +24,19 @@ let store = usersMockStore();
 
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 
-describe('fetchBenefits action creator', () => {
+describe('fetchBenefits() action creator', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     store = usersMockStore();
   });
 
-  it('should create the correct actions for when the get benefits procedure fails', async () => {
-    const expectedError = new Error('get benefits error');
+  it('should create the correct actions for when the get user benefits procedure fails', async () => {
+    const expectedError = new Error('get user benefits error');
 
     (getUserBenefits as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchUserBenefits(userId) as unknown as AnyAction);
-    } catch (error) {
+    await fetchUserBenefits(userId)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getUserBenefits).toHaveBeenCalledTimes(1);
       expect(getUserBenefits).toHaveBeenCalledWith(userId, expectedConfig);
@@ -52,15 +49,15 @@ describe('fetchBenefits action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the get benefits procedure is successful', async () => {
+  it('should create the correct actions for when the get user benefits procedure is successful', async () => {
     (getUserBenefits as jest.Mock).mockResolvedValueOnce(
       mockGetBenefitsResponse,
     );
 
-    await store.dispatch(fetchUserBenefits(userId) as unknown as AnyAction);
+    await fetchUserBenefits(userId)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -78,6 +75,6 @@ describe('fetchBenefits action creator', () => {
       find(actionResults, {
         type: actionTypes.FETCH_USER_BENEFITS_SUCCESS,
       }),
-    ).toMatchSnapshot('get benefits success payload');
+    ).toMatchSnapshot('get user benefits success payload');
   });
 });

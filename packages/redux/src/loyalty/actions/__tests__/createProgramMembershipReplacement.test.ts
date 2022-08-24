@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  mockResponseProgramMembershipReplacement as data,
   expectedNormalizedPayloadProgramMembershipReplacement,
   membershipId,
-  mockResponseProgramMembershipReplacement,
   programId,
 } from 'tests/__fixtures__/loyalty/loyalty.fixtures';
 import { INITIAL_STATE } from '../../reducer';
@@ -20,13 +20,11 @@ const rewardsMockStore = (state = {}) =>
   mockStore({ rewards: INITIAL_STATE }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof rewardsMockStore>;
 
 beforeEach(jest.clearAllMocks);
 
 describe('createProgramMembershipReplacement() action creator', () => {
-  const data = { reason: 'string' };
-
   beforeEach(() => {
     store = rewardsMockStore();
   });
@@ -36,14 +34,16 @@ describe('createProgramMembershipReplacement() action creator', () => {
       'create program membership replacement error',
     );
 
-    postProgramMembershipReplacement.mockRejectedValueOnce(expectedError);
+    (postProgramMembershipReplacement as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
-    try {
-      await store.dispatch(
-        createProgramMembershipReplacement(programId, membershipId, data),
-      );
-    } catch (error) {
+    await createProgramMembershipReplacement(
+      programId,
+      membershipId,
+      data,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(postProgramMembershipReplacement).toHaveBeenCalledTimes(1);
       expect(postProgramMembershipReplacement).toHaveBeenCalledWith(
@@ -63,16 +63,16 @@ describe('createProgramMembershipReplacement() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the create program membership replacement procedure is successful', async () => {
-    postProgramMembershipReplacement.mockResolvedValueOnce(
-      mockResponseProgramMembershipReplacement,
-    );
-    await store.dispatch(
-      createProgramMembershipReplacement(programId, membershipId, data),
-    );
+    (postProgramMembershipReplacement as jest.Mock).mockResolvedValueOnce(data);
+    await createProgramMembershipReplacement(
+      programId,
+      membershipId,
+      data,
+    )(store.dispatch);
 
     const actionResults = store.getActions();
 

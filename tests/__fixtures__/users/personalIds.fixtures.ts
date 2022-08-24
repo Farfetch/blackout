@@ -82,3 +82,14 @@ export const mockPostPersonalIdsData = {
 export const mockPutDefaultPersonalIdData = {
   id: 'string',
 };
+
+export const config = {
+  'X-SUMMER-RequestId': 'test',
+};
+export const expectedConfig = {
+  'X-SUMMER-RequestId': 'test',
+};
+
+export const personalIdImageData = {
+  file: 'string',
+};

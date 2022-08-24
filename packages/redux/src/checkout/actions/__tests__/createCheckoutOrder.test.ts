@@ -10,6 +10,7 @@ import { mockStore } from '../../../../tests';
 import { postCheckoutOrder } from '@farfetch/blackout-client';
 import find from 'lodash/find';
 import thunk from 'redux-thunk';
+import type { StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -17,9 +18,10 @@ jest.mock('@farfetch/blackout-client', () => ({
 }));
 
 const mockProductImgQueryParam = '?c=2';
+const getOptions = () => ({ productImgQueryParam: mockProductImgQueryParam });
 const mockMiddlewares = [
   thunk.withExtraArgument({
-    getOptions: () => ({ productImgQueryParam: mockProductImgQueryParam }),
+    getOptions,
   }),
 ];
 
@@ -31,7 +33,7 @@ describe('createCheckoutOrder() action creator', () => {
   const bagId = '3243-343424-2545';
   const guestUserEmail = 'optional@optinal.com';
   const expectedConfig = undefined;
-  let store;
+  let store: ReturnType<typeof checkoutMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -41,14 +43,14 @@ describe('createCheckoutOrder() action creator', () => {
   it('should create the correct actions for when the create checkout procedure fails', async () => {
     const expectedError = new Error('create checkout error');
 
-    postCheckoutOrder.mockRejectedValueOnce(expectedError);
+    (postCheckoutOrder as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(
-        createCheckoutOrder({ bagId, usePaymentIntent, guestUserEmail }),
-      );
-    } catch (error) {
+    await createCheckoutOrder({ bagId, usePaymentIntent, guestUserEmail })(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).catch(error => {
       expect(error).toBe(expectedError);
       expect(postCheckoutOrder).toHaveBeenCalledTimes(1);
       expect(postCheckoutOrder).toHaveBeenCalledWith(
@@ -64,18 +66,23 @@ describe('createCheckoutOrder() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the create checkout procedure is successful', async () => {
-    postCheckoutOrder.mockResolvedValueOnce(mockResponse);
-    await store.dispatch(
-      createCheckoutOrder({ bagId, usePaymentIntent, guestUserEmail }),
-    );
+    (postCheckoutOrder as jest.Mock).mockResolvedValueOnce(mockResponse);
+
+    await createCheckoutOrder({ bagId, usePaymentIntent, guestUserEmail })(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockResponse);
+    });
 
     const actionResults = store.getActions();
 
-    expect.assertions(5);
+    expect.assertions(6);
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(postCheckoutOrder).toHaveBeenCalledTimes(1);
     expect(postCheckoutOrder).toHaveBeenCalledWith(

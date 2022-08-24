@@ -17,7 +17,7 @@ jest.mock('@farfetch/blackout-client', () => ({
 describe('updateCheckoutOrderDeliveryBundleUpgrades() action creator', () => {
   const checkoutMockStore = (state = {}) =>
     mockStore({ checkout: INITIAL_STATE }, state);
-  const deliveryBundleId = mockDeliveryBundlesResponse[0].id;
+  const deliveryBundleId = mockDeliveryBundlesResponse[0]?.id as string;
   const data = [
     {
       op: 'replace',
@@ -41,30 +41,28 @@ describe('updateCheckoutOrderDeliveryBundleUpgrades() action creator', () => {
     },
   ];
   const expectedConfig = undefined;
-  let store;
+  let store: ReturnType<typeof checkoutMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
     store = checkoutMockStore();
   });
 
-  it('should create the correct actions for when the update delivery bundle upgrades procedure fails', async () => {
-    const expectedError = new Error('update delivery bundle upgrades error');
-
-    patchCheckoutOrderDeliveryBundleUpgrades.mockRejectedValueOnce(
-      expectedError,
+  it('should create the correct actions for when the update checkout order delivery bundle upgrades procedure fails', async () => {
+    const expectedError = new Error(
+      'update checkout order delivery bundle upgrades error',
     );
+
+    (
+      patchCheckoutOrderDeliveryBundleUpgrades as jest.Mock
+    ).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(
-        updateCheckoutOrderDeliveryBundleUpgrades(
-          checkoutId,
-          deliveryBundleId,
-          data,
-        ),
-      );
-    } catch (error) {
+    await updateCheckoutOrderDeliveryBundleUpgrades(
+      checkoutId,
+      deliveryBundleId,
+      data,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(patchCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledTimes(1);
       expect(patchCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledWith(
@@ -84,21 +82,25 @@ describe('updateCheckoutOrderDeliveryBundleUpgrades() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the update delivery bundle upgrades procedure is successful', async () => {
-    patchCheckoutOrderDeliveryBundleUpgrades.mockResolvedValueOnce();
-    await store.dispatch(
-      updateCheckoutOrderDeliveryBundleUpgrades(
-        checkoutId,
-        deliveryBundleId,
-        data,
-      ),
-    );
+  it('should create the correct actions for when the update checkout order delivery bundle upgrades procedure is successful', async () => {
+    (
+      patchCheckoutOrderDeliveryBundleUpgrades as jest.Mock
+    ).mockResolvedValueOnce(200);
+
+    await updateCheckoutOrderDeliveryBundleUpgrades(
+      checkoutId,
+      deliveryBundleId,
+      data,
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toBe(200);
+    });
+
     const actionResults = store.getActions();
 
-    expect.assertions(4);
+    expect.assertions(5);
     expect(patchCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledTimes(1);
     expect(patchCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledWith(
       checkoutId,
@@ -118,6 +120,8 @@ describe('updateCheckoutOrderDeliveryBundleUpgrades() action creator', () => {
       find(actionResults, {
         type: actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS,
       }),
-    ).toMatchSnapshot('update delivery bundle upgrades success payload');
+    ).toMatchSnapshot(
+      'update checkout order delivery bundle upgrades success payload',
+    );
   });
 });

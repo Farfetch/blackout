@@ -4,9 +4,9 @@ import { mockStore } from '../../../../tests';
 
 describe('reset() action creator', () => {
   it('should dispatch the correct action type', () => {
-    const store = mockStore();
+    const store = mockStore({});
 
-    store.dispatch(actions.resetEntities());
+    actions.resetEntities()(store.dispatch);
 
     expect(store.getActions()).toEqual([
       {

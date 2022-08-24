@@ -16,7 +16,7 @@ jest.mock('@farfetch/blackout-client', () => ({
 const recommendedSetMockStore = (state = {}) =>
   mockStore({ recommendedSets: INITIAL_STATE }, state);
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof recommendedSetMockStore>;
 
 describe('fetchRecommendedSet() action creator', () => {
   beforeEach(() => {
@@ -27,13 +27,14 @@ describe('fetchRecommendedSet() action creator', () => {
   it('should create the correct actions for when the fetch recommended set procedure fails', async () => {
     const expectedError = new Error('Fetch recommended set error');
 
-    getProductRecommendedSet.mockRejectedValueOnce(expectedError);
+    (getProductRecommendedSet as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
 
     expect.assertions(4);
 
-    await store
-      .dispatch(fetchRecommendedSet(mockRecommendedSetId))
-      .catch(error => {
+    await fetchRecommendedSet(mockRecommendedSetId)(store.dispatch).catch(
+      error => {
         expect(error).toBe(expectedError);
         expect(getProductRecommendedSet).toHaveBeenCalledTimes(1);
         expect(getProductRecommendedSet).toHaveBeenCalledWith(
@@ -51,19 +52,22 @@ describe('fetchRecommendedSet() action creator', () => {
             type: productsActionTypes.FETCH_RECOMMENDED_SET_FAILURE,
           },
         ]);
-      });
+      },
+    );
   });
 
   it('should create the correct actions for when the fetch recommended set procedure is successful', async () => {
-    getProductRecommendedSet.mockResolvedValueOnce(mockRecommendedSet);
+    (getProductRecommendedSet as jest.Mock).mockResolvedValueOnce(
+      mockRecommendedSet,
+    );
 
     expect.assertions(4);
 
-    await store
-      .dispatch(fetchRecommendedSet(mockRecommendedSetId))
-      .then(clientResult => {
+    await fetchRecommendedSet(mockRecommendedSetId)(store.dispatch).then(
+      clientResult => {
         expect(clientResult).toEqual(mockRecommendedSet);
-      });
+      },
+    );
 
     expect(getProductRecommendedSet).toHaveBeenCalledTimes(1);
     expect(getProductRecommendedSet).toHaveBeenCalledWith(

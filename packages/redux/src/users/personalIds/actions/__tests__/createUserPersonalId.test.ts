@@ -1,7 +1,13 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  config,
+  expectedConfig,
+  mockPostPersonalIdsData,
+  mockPostPersonalIdsResponse,
+  userId,
+} from 'tests/__fixtures__/users';
 import { createUserPersonalId } from '..';
 import { INITIAL_STATE } from '../../../reducer';
-import { mockPostPersonalIdsResponse } from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../../tests';
 import { postUserPersonalId } from '@farfetch/blackout-client';
 import find from 'lodash/find';
@@ -14,41 +20,30 @@ jest.mock('@farfetch/blackout-client', () => ({
 const usersMockStore = (state = {}) =>
   mockStore({ users: INITIAL_STATE }, state);
 
-describe('createUserPersonalIds action creator', () => {
+describe('createUserPersonalIds() action creator', () => {
   let store = usersMockStore();
-  const data = {
-    backImageId: '',
-    frontImageId: '',
-    idNumber: '',
-    name: '',
-  };
-  const userId = 12345;
-  const config = {
-    'X-SUMMER-RequestId': 'test',
-  };
-  const expectedConfig = {
-    'X-SUMMER-RequestId': 'test',
-  };
 
   beforeEach(() => {
     jest.clearAllMocks();
     store = usersMockStore();
   });
 
-  it('should create the correct actions for when the create personal ids procedure fails', async () => {
-    const expectedError = new Error('create user attributes error');
+  it('should create the correct actions for when the create user personal ids procedure fails', async () => {
+    const expectedError = new Error('create user personal ids error');
 
     (postUserPersonalId as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(createUserPersonalId(userId, data, config));
-    } catch (error) {
+    await createUserPersonalId(
+      userId,
+      mockPostPersonalIdsData,
+      config,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(postUserPersonalId).toHaveBeenCalledTimes(1);
       expect(postUserPersonalId).toHaveBeenCalledWith(
         userId,
-        data,
+        mockPostPersonalIdsData,
         expectedConfig,
       );
       expect(store.getActions()).toEqual(
@@ -60,21 +55,25 @@ describe('createUserPersonalIds action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the create personal ids procedure is successful', async () => {
+  it('should create the correct actions for when the create user personal ids procedure is successful', async () => {
     (postUserPersonalId as jest.Mock).mockResolvedValueOnce(
       mockPostPersonalIdsResponse,
     );
-    await store.dispatch(createUserPersonalId(userId, data, config));
+    await createUserPersonalId(
+      userId,
+      mockPostPersonalIdsData,
+      config,
+    )(store.dispatch);
 
     const actionResults = store.getActions();
 
     expect(postUserPersonalId).toHaveBeenCalledTimes(1);
     expect(postUserPersonalId).toHaveBeenCalledWith(
       userId,
-      data,
+      mockPostPersonalIdsData,
       expectedConfig,
     );
 
@@ -89,6 +88,6 @@ describe('createUserPersonalIds action creator', () => {
       find(actionResults, {
         type: actionTypes.CREATE_USER_PERSONAL_ID_SUCCESS,
       }),
-    ).toMatchSnapshot('create personal ids success payload');
+    ).toMatchSnapshot('create user personal ids success payload');
   });
 });

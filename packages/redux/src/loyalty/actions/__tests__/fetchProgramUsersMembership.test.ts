@@ -21,7 +21,7 @@ const rewardsMockStore = (state = {}) =>
 
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof rewardsMockStore>;
 
 beforeEach(jest.clearAllMocks);
 
@@ -33,37 +33,39 @@ describe('fetchProgramUsersMembership() action creator', () => {
   it('should create the correct actions for when the get program users membership procedure fails', async () => {
     const expectedError = new Error('fetch program users membership error');
 
-    getProgramUsersMembership.mockRejectedValueOnce(expectedError);
+    (getProgramUsersMembership as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchProgramUsersMembership(programId));
-    } catch (error) {
-      expect(error).toBe(expectedError);
-      expect(getProgramUsersMembership).toHaveBeenCalledTimes(1);
-      expect(getProgramUsersMembership).toHaveBeenCalledWith(
-        programId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            type: actionTypes.FETCH_PROGRAM_USERS_MEMBERSHIP_REQUEST,
-          },
-          {
-            type: actionTypes.FETCH_PROGRAM_USERS_MEMBERSHIP_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    }
+    await fetchProgramUsersMembership(programId)(store.dispatch).catch(
+      error => {
+        expect(error).toBe(expectedError);
+        expect(getProgramUsersMembership).toHaveBeenCalledTimes(1);
+        expect(getProgramUsersMembership).toHaveBeenCalledWith(
+          programId,
+          expectedConfig,
+        );
+        expect(store.getActions()).toEqual(
+          expect.arrayContaining([
+            {
+              type: actionTypes.FETCH_PROGRAM_USERS_MEMBERSHIP_REQUEST,
+            },
+            {
+              type: actionTypes.FETCH_PROGRAM_USERS_MEMBERSHIP_FAILURE,
+              payload: { error: expectedError },
+            },
+          ]),
+        );
+      },
+    );
   });
 
   it('should create the correct actions for when the fetch program users membership procedure is successful', async () => {
-    getProgramUsersMembership.mockResolvedValueOnce(
+    (getProgramUsersMembership as jest.Mock).mockResolvedValueOnce(
       mockResponseProgramUsersMembership,
     );
-    await store.dispatch(fetchProgramUsersMembership(programId));
+    await fetchProgramUsersMembership(programId)(store.dispatch);
 
     const actionResults = store.getActions();
 

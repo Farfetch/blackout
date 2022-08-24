@@ -33,9 +33,8 @@ describe('fetchStaffMember() action creator', () => {
 
     expect.assertions(4);
 
-    await store
-      .dispatch(fetchStaffMember(mockStaffMemberId))
-      .catch((error: Error) => {
+    await fetchStaffMember(mockStaffMemberId)(store.dispatch).catch(
+      (error: Error) => {
         expect(error).toBe(expectedError);
         expect(getStaffMember).toHaveBeenCalledTimes(1);
         expect(getStaffMember).toHaveBeenCalledWith(
@@ -53,7 +52,8 @@ describe('fetchStaffMember() action creator', () => {
             meta: { id: mockStaffMemberId },
           },
         ]);
-      });
+      },
+    );
   });
 
   it('should create the correct actions for when the fetch staff member procedure is successful', async () => {
@@ -61,11 +61,12 @@ describe('fetchStaffMember() action creator', () => {
 
     expect.assertions(4);
 
-    await store
-      .dispatch(fetchStaffMember(mockStaffMemberId, expectedConfig))
-      .then((clientResult: typeof mockStaffMember) => {
-        expect(clientResult).toBe(mockStaffMember);
-      });
+    await fetchStaffMember(
+      mockStaffMemberId,
+      expectedConfig,
+    )(store.dispatch).then((clientResult: typeof mockStaffMember) => {
+      expect(clientResult).toBe(mockStaffMember);
+    });
 
     expect(getStaffMember).toHaveBeenCalledTimes(1);
     expect(getStaffMember).toHaveBeenCalledWith(

@@ -6,7 +6,7 @@ import resetCheckoutState from '../resetCheckoutState';
 describe('resetCheckoutState() action creator', () => {
   const checkoutMockStore = (state = {}) =>
     mockStore({ checkout: INITIAL_STATE }, state);
-  let store;
+  let store: ReturnType<typeof checkoutMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -14,7 +14,7 @@ describe('resetCheckoutState() action creator', () => {
   });
 
   it('should dispatch the correct action for when the reset checkout state is called', () => {
-    store.dispatch(resetCheckoutState());
+    resetCheckoutState()(store.dispatch);
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

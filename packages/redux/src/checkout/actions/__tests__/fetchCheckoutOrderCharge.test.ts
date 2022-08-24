@@ -17,22 +17,23 @@ describe('fetchCheckoutOrderCharge() action creator', () => {
   const orderId = '12345';
   const chargeId = 'eb92d414-68de-496e-96db-a0c6582b74d4';
   const expectedConfig = undefined;
-  let store;
+  let store: ReturnType<typeof checkoutMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
     store = checkoutMockStore();
   });
 
-  it('should create the correct actions for when the charge procedure fails', async () => {
-    const expectedError = new Error('charges error');
+  it('should create the correct actions for when the fetch checkout order charge procedure fails', async () => {
+    const expectedError = new Error('fetch checkout order charge error');
 
-    getCheckoutOrderCharge.mockRejectedValueOnce(expectedError);
+    (getCheckoutOrderCharge as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchCheckoutOrderCharge(orderId, chargeId));
-    } catch (error) {
+    await fetchCheckoutOrderCharge(
+      orderId,
+      chargeId,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getCheckoutOrderCharge).toHaveBeenCalledTimes(1);
       expect(getCheckoutOrderCharge).toHaveBeenCalledWith(
@@ -49,12 +50,18 @@ describe('fetchCheckoutOrderCharge() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the charge procedure is successful', async () => {
-    getCheckoutOrderCharge.mockResolvedValueOnce(mockCharges);
-    await store.dispatch(fetchCheckoutOrderCharge(orderId, chargeId));
+  it('should create the correct actions for when the fetch checkout order charge procedure is successful', async () => {
+    (getCheckoutOrderCharge as jest.Mock).mockResolvedValueOnce(mockCharges);
+
+    await fetchCheckoutOrderCharge(
+      orderId,
+      chargeId,
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toBe(mockCharges);
+    });
 
     const actionResults = store.getActions();
 
@@ -76,6 +83,6 @@ describe('fetchCheckoutOrderCharge() action creator', () => {
       find(actionResults, {
         type: actionTypes.FETCH_CHECKOUT_ORDER_CHARGE_SUCCESS,
       }),
-    ).toMatchSnapshot('charge success payload');
+    ).toMatchSnapshot('fetch checkout order charge success payload');
   });
 });

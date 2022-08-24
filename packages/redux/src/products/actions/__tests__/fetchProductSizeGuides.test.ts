@@ -19,7 +19,7 @@ jest.mock('@farfetch/blackout-client', () => ({
 const productDetailsMockStore = (state = {}) =>
   mockStore({ products: { sizeGuides: INITIAL_STATE } }, state);
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof productDetailsMockStore>;
 
 describe('fetchProductSizeGuides() action creator', () => {
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
@@ -33,11 +33,11 @@ describe('fetchProductSizeGuides() action creator', () => {
   it('should create the correct actions for when the fetch product size guides procedure fails', async () => {
     const expectedError = new Error('Fetch product size guides error');
 
-    getProductSizeGuides.mockRejectedValueOnce(expectedError);
+    (getProductSizeGuides as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchProductSizeGuides(mockProductId)).catch(error => {
+    await fetchProductSizeGuides(mockProductId)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getProductSizeGuides).toHaveBeenCalledTimes(1);
       expect(getProductSizeGuides).toHaveBeenCalledWith(
@@ -59,15 +59,17 @@ describe('fetchProductSizeGuides() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch product size guides procedure is successful', async () => {
-    getProductSizeGuides.mockResolvedValueOnce(mockProductSizeGuides);
+    (getProductSizeGuides as jest.Mock).mockResolvedValueOnce(
+      mockProductSizeGuides,
+    );
 
     expect.assertions(5);
 
-    await store
-      .dispatch(fetchProductSizeGuides(mockProductId))
-      .then(clientResult => {
+    await fetchProductSizeGuides(mockProductId)(store.dispatch).then(
+      clientResult => {
         expect(clientResult).toBe(mockProductSizeGuides);
-      });
+      },
+    );
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getProductSizeGuides).toHaveBeenCalledTimes(1);

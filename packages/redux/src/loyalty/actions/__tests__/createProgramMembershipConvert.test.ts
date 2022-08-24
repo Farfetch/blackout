@@ -20,7 +20,7 @@ const rewardsMockStore = (state = {}) =>
   mockStore({ rewards: INITIAL_STATE }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof rewardsMockStore>;
 
 beforeEach(jest.clearAllMocks);
 
@@ -32,14 +32,15 @@ describe('createProgramMembershipConvert() action creator', () => {
   it('should create the correct actions for when the create program membership convert procedure fails', async () => {
     const expectedError = new Error('create program membership convert error');
 
-    postProgramMembershipConvert.mockRejectedValueOnce(expectedError);
+    (postProgramMembershipConvert as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
-    try {
-      await store.dispatch(
-        createProgramMembershipConvert(programId, membershipId),
-      );
-    } catch (error) {
+    await createProgramMembershipConvert(
+      programId,
+      membershipId,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(postProgramMembershipConvert).toHaveBeenCalledTimes(1);
       expect(postProgramMembershipConvert).toHaveBeenCalledWith(
@@ -58,16 +59,17 @@ describe('createProgramMembershipConvert() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the create program membership convert procedure is successful', async () => {
-    postProgramMembershipConvert.mockResolvedValueOnce(
+    (postProgramMembershipConvert as jest.Mock).mockResolvedValueOnce(
       mockResponseProgramMembershipConvert,
     );
-    await store.dispatch(
-      createProgramMembershipConvert(programId, membershipId),
-    );
+    await createProgramMembershipConvert(
+      programId,
+      membershipId,
+    )(store.dispatch);
 
     const actionResults = store.getActions();
 

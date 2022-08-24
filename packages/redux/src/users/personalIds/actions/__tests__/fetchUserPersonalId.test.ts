@@ -1,8 +1,14 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  config,
+  expectedConfig,
+  mockPersonalIdResponse,
+  personalId,
+  userId,
+} from 'tests/__fixtures__/users';
 import { fetchUserPersonalId } from '../';
 import { getUserPersonalId } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../../reducer';
-import { mockPersonalIdResponse } from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../../tests';
 import find from 'lodash/find';
 
@@ -14,31 +20,24 @@ jest.mock('@farfetch/blackout-client', () => ({
 const usersMockStore = (state = {}) =>
   mockStore({ users: INITIAL_STATE }, state);
 
-describe('fetchUserPersonalId action creator', () => {
+describe('fetchUserPersonalId() action creator', () => {
   let store = usersMockStore();
-  const userId = 123456789;
-  const personalId = '123456';
-  const config = {
-    'X-SUMMER-RequestId': 'test',
-  };
-  const expectedConfig = {
-    'X-SUMMER-RequestId': 'test',
-  };
 
   beforeEach(() => {
     jest.clearAllMocks();
     store = usersMockStore();
   });
 
-  it('should create the correct actions for when the fetch personal id procedure fails', async () => {
-    const expectedError = new Error('fetch personal id error');
+  it('should create the correct actions for when the fetch user personal id procedure fails', async () => {
+    const expectedError = new Error('fetch user personal id error');
 
     (getUserPersonalId as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
-
-    try {
-      await store.dispatch(fetchUserPersonalId(userId, personalId, config));
-    } catch (error) {
+    await fetchUserPersonalId(
+      userId,
+      personalId,
+      config,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getUserPersonalId).toHaveBeenCalledTimes(1);
       expect(getUserPersonalId).toHaveBeenCalledWith(
@@ -55,15 +54,15 @@ describe('fetchUserPersonalId action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the fetch personal id procedure is successful', async () => {
+  it('should create the correct actions for when the fetch user personal id procedure is successful', async () => {
     (getUserPersonalId as jest.Mock).mockResolvedValueOnce(
       mockPersonalIdResponse,
     );
 
-    await store.dispatch(fetchUserPersonalId(userId, personalId, config));
+    await fetchUserPersonalId(userId, personalId, config)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -84,6 +83,6 @@ describe('fetchUserPersonalId action creator', () => {
       find(actionResults, {
         type: actionTypes.FETCH_USER_PERSONAL_ID_SUCCESS,
       }),
-    ).toMatchSnapshot('fetch personal id success payload');
+    ).toMatchSnapshot('fetch user personal id success payload');
   });
 });

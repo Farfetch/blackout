@@ -1,10 +1,11 @@
-import { generateContentHash } from '@farfetch/blackout-redux/contents/utils';
+import { CommercePagesType } from '@farfetch/blackout-client';
+import { generateContentHash } from '@farfetch/blackout-redux/src/contents/utils';
 
 export const commercePagesQuery = {
-  type: 'LISTING',
+  type: CommercePagesType.LISTING,
   gender: 0,
   brand: 5030844,
-  category: 136643,
+  category: '136643',
 };
 
 export const slug = 'woman/gucci';

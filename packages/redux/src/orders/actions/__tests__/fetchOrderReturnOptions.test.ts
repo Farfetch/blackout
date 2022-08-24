@@ -16,16 +16,17 @@ jest.mock('@farfetch/blackout-client', () => ({
   getOrderReturnOptions: jest.fn(),
 }));
 
+const getOptions = () => ({ productImgQueryParam: '?c=2' });
 const mockMiddlewares = [
   thunk.withExtraArgument({
-    getOptions: () => ({ productImgQueryParam: '?c=2' }),
+    getOptions,
   }),
 ];
 const ordersMockStore = (state = {}) =>
   mockStore({ orders: INITIAL_STATE }, state, mockMiddlewares);
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof ordersMockStore>;
 
 describe('fetchOrderReturnOptions() action creator', () => {
   beforeEach(() => {
@@ -36,13 +37,11 @@ describe('fetchOrderReturnOptions() action creator', () => {
   it('should create the correct actions for when the fetch order return options procedure fails', async () => {
     const expectedError = new Error('fetch order return options error');
 
-    getOrderReturnOptions.mockRejectedValueOnce(expectedError);
+    (getOrderReturnOptions as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchOrderReturnOptions(orderId));
-    } catch (error) {
+    await fetchOrderReturnOptions(orderId)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getOrderReturnOptions).toHaveBeenCalledTimes(1);
       expect(getOrderReturnOptions).toHaveBeenCalledWith(
@@ -60,19 +59,21 @@ describe('fetchOrderReturnOptions() action creator', () => {
           type: actionTypes.FETCH_ORDER_RETURN_OPTIONS_FAILURE,
         },
       ]);
-    }
+    });
   });
 
   it('should create the correct actions for when the fetch order return options procedure is successful', async () => {
-    getOrderReturnOptions.mockResolvedValueOnce(mockOrderReturnOptionsResponse);
+    (getOrderReturnOptions as jest.Mock).mockResolvedValueOnce(
+      mockOrderReturnOptionsResponse,
+    );
 
     expect.assertions(5);
 
-    await store
-      .dispatch(fetchOrderReturnOptions(orderId))
-      .then(clientResult => {
+    await fetchOrderReturnOptions(orderId)(store.dispatch).then(
+      clientResult => {
         expect(clientResult).toEqual(mockOrderReturnOptionsResponse);
-      });
+      },
+    );
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getOrderReturnOptions).toHaveBeenCalledTimes(1);

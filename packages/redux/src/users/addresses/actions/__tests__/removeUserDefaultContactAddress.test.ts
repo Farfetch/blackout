@@ -1,5 +1,5 @@
 import * as actionTypes from '../../actionTypes';
-import { addressId2 } from 'tests/__fixtures__/users';
+import { addressId2, userId } from 'tests/__fixtures__/users';
 import { deleteUserDefaultContactAddress } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../../tests';
@@ -15,25 +15,28 @@ const addressesMockStore = (state = {}) =>
   mockStore({ addresses: INITIAL_STATE }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof addressesMockStore>;
 
 describe('removeUserDefaultContactAddress() action creator', () => {
-  const userId = 121212;
-
   beforeEach(() => {
     jest.clearAllMocks();
     store = addressesMockStore();
   });
 
-  it('should create the correct actions for when the delete default contact address procedure fails', async () => {
-    const expectedError = new Error('delete default contact address error');
+  it('should create the correct actions for when the delete user default contact address procedure fails', async () => {
+    const expectedError = new Error(
+      'delete user default contact address error',
+    );
 
-    deleteUserDefaultContactAddress.mockRejectedValueOnce(expectedError);
+    (deleteUserDefaultContactAddress as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
-    try {
-      await store.dispatch(removeUserDefaultContactAddress(userId, addressId2));
-    } catch (error) {
+    await removeUserDefaultContactAddress(
+      userId,
+      addressId2,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(deleteUserDefaultContactAddress).toHaveBeenCalledTimes(1);
       expect(deleteUserDefaultContactAddress).toHaveBeenCalledWith(
@@ -53,12 +56,12 @@ describe('removeUserDefaultContactAddress() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the delete default contact address procedure is successful', async () => {
-    deleteUserDefaultContactAddress.mockResolvedValueOnce({});
-    await store.dispatch(removeUserDefaultContactAddress(userId, addressId2));
+  it('should create the correct actions for when the delete user default contact address procedure is successful', async () => {
+    (deleteUserDefaultContactAddress as jest.Mock).mockResolvedValueOnce({});
+    await removeUserDefaultContactAddress(userId, addressId2)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -80,6 +83,6 @@ describe('removeUserDefaultContactAddress() action creator', () => {
       find(actionResults, {
         type: actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS,
       }),
-    ).toMatchSnapshot('delete default contact address success payload');
+    ).toMatchSnapshot('delete user default contact address success payload');
   });
 });

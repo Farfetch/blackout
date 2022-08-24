@@ -1,7 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import { getPaymentMethods } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
-import { mockFetchPaymentMethodsResponse } from 'tests/__fixtures__/payments';
+import {
+  mockFetchPaymentMethodsResponse,
+  orderId,
+} from 'tests/__fixtures__/payments';
 import { mockStore } from '../../../../tests';
 import fetchPaymentMethods from '../fetchPaymentMethods';
 import find from 'lodash/find';
@@ -15,11 +18,9 @@ const paymentsMockStore = (state = {}) =>
   mockStore({ paymentTokens: INITIAL_STATE }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof paymentsMockStore>;
 
 describe('fetchPaymentMethods() action creator', () => {
-  const orderId = 123123;
-
   const expectedPaymentMethodsResult = {
     entities: {
       checkout: {
@@ -38,12 +39,10 @@ describe('fetchPaymentMethods() action creator', () => {
   it('should create the correct actions for when the fetch payment methods procedure fails', async () => {
     const expectedError = new Error('fetch payment methods error');
 
-    getPaymentMethods.mockRejectedValueOnce(expectedError);
+    (getPaymentMethods as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchPaymentMethods(orderId));
-    } catch (error) {
+    await fetchPaymentMethods(orderId)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getPaymentMethods).toHaveBeenCalledTimes(1);
       expect(getPaymentMethods).toHaveBeenCalledWith(orderId, expectedConfig);
@@ -56,12 +55,14 @@ describe('fetchPaymentMethods() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the fetch payment methods procedure is successful', async () => {
-    getPaymentMethods.mockResolvedValueOnce(mockFetchPaymentMethodsResponse);
-    await store.dispatch(fetchPaymentMethods(orderId));
+    (getPaymentMethods as jest.Mock).mockResolvedValueOnce(
+      mockFetchPaymentMethodsResponse,
+    );
+    await fetchPaymentMethods(orderId)(store.dispatch);
 
     const actionResults = store.getActions();
 

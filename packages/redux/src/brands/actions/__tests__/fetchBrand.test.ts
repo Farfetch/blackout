@@ -19,7 +19,7 @@ const brandsMockStore = (state = {}) =>
   mockStore({ brands: INITIAL_STATE }, state);
 const expectedConfig = undefined;
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
-let store;
+let store: ReturnType<typeof brandsMockStore>;
 
 describe('fetchBrand() action creator', () => {
   beforeEach(() => {
@@ -30,11 +30,11 @@ describe('fetchBrand() action creator', () => {
   it('should create the correct actions for when the fetch brand procedure fails', async () => {
     const expectedError = new Error('Fetch brand error');
 
-    getBrand.mockRejectedValueOnce(expectedError);
+    (getBrand as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchBrand(mockBrandId)).catch(error => {
+    await fetchBrand(mockBrandId)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getBrand).toHaveBeenCalledTimes(1);
       expect(getBrand).toHaveBeenCalledWith(mockBrandId, expectedConfig);
@@ -53,11 +53,11 @@ describe('fetchBrand() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch brand procedure is successful', async () => {
-    getBrand.mockResolvedValueOnce(mockBrandResponse);
+    (getBrand as jest.Mock).mockResolvedValueOnce(mockBrandResponse);
 
     expect.assertions(5);
 
-    await store.dispatch(fetchBrand(mockBrandId)).then(clientResult => {
+    await fetchBrand(mockBrandId)(store.dispatch).then(clientResult => {
       expect(clientResult).toBe(mockBrandResponse);
     });
 

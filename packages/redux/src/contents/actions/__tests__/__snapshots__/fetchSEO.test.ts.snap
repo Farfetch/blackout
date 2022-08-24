@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetchSEO action creator should create the correct actions for when the get SEO procedure is successful: Get SEO payload 1`] = `
+exports[`fetchSEO action creator should create the correct actions for when the fetch SEO procedure is successful: Get SEO payload 1`] = `
 Object {
   "meta": Object {
     "query": Object {
-      "pageType": "pages",
+      "pageType": 5,
       "path": "about",
       "subPageType": "",
     },
   },
   "payload": Object {
-    "pathname": "pages!about",
+    "pathname": "5!about",
     "result": Object {
-      "pages!about": Object {
+      "5!about": Object {
         "canonicalUrl": "https://api.blackout.com/about",
         "description": "About Page",
         "h1": "h1 title",

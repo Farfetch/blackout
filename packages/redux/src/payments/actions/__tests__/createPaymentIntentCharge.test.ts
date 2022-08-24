@@ -1,6 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
   chargeId,
+  paymentIntentChargeData as data,
+  intentId,
   mockCharge,
   mockChargeWithoutHeaders,
 } from 'tests/__fixtures__/payments';
@@ -19,15 +21,9 @@ const paymentsMockStore = (state = {}) =>
   mockStore({ payments: INITIAL_STATE }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof paymentsMockStore>;
 
 describe('createPaymentIntentCharge() action creator', () => {
-  const intentId = '123123';
-  const data = {
-    returnUrl: '',
-    cancelUrl: '',
-  };
-
   beforeEach(() => {
     jest.clearAllMocks();
     store = paymentsMockStore();
@@ -36,12 +32,13 @@ describe('createPaymentIntentCharge() action creator', () => {
   it('should create the correct actions for when the create payment intent charge procedure fails', async () => {
     const expectedError = new Error('charge error');
 
-    postPaymentIntentCharge.mockRejectedValueOnce(expectedError);
+    (postPaymentIntentCharge as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(createPaymentIntentCharge(intentId, data));
-    } catch (error) {
+    await createPaymentIntentCharge(
+      intentId,
+      data,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(postPaymentIntentCharge).toHaveBeenCalledTimes(1);
       expect(postPaymentIntentCharge).toHaveBeenCalledWith(
@@ -58,12 +55,12 @@ describe('createPaymentIntentCharge() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the create payment intent charge procedure is successful', async () => {
-    postPaymentIntentCharge.mockResolvedValueOnce(mockCharge);
-    await store.dispatch(createPaymentIntentCharge(intentId, data));
+    (postPaymentIntentCharge as jest.Mock).mockResolvedValueOnce(mockCharge);
+    await createPaymentIntentCharge(intentId, data)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -90,8 +87,10 @@ describe('createPaymentIntentCharge() action creator', () => {
   });
 
   it('should create the correct actions for when the create payment intent charge procedure is successful even if location header is missing', async () => {
-    postPaymentIntentCharge.mockResolvedValueOnce(mockChargeWithoutHeaders);
-    await store.dispatch(createPaymentIntentCharge(intentId, data));
+    (postPaymentIntentCharge as jest.Mock).mockResolvedValueOnce(
+      mockChargeWithoutHeaders,
+    );
+    await createPaymentIntentCharge(intentId, data)(store.dispatch);
 
     const actionResults = store.getActions();
 
