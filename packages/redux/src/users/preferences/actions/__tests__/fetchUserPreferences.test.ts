@@ -1,8 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import * as normalizr from 'normalizr';
 import {
+  code,
   expectedPreferencesNormalizedPayload,
   mockGetPreferencesResponse,
+  userId,
 } from 'tests/__fixtures__/users';
 import { fetchUserPreferences } from '..';
 import { getUserPreferences } from '@farfetch/blackout-client';
@@ -21,31 +23,28 @@ const expectedConfig = undefined;
 let store = usersMockStore();
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 
-describe('fetchUserPreferences action creator', () => {
-  const userId = 232;
-  const mockCode = 'test';
-
+describe('fetchUserPreferences() action creator', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     store = usersMockStore();
   });
 
-  it('should create the correct actions for when the get preferences procedure fails', async () => {
-    const expectedError = new Error('get preferences error');
+  it('should create the correct actions for when the get user preferences procedure fails', async () => {
+    const expectedError = new Error('get user preferences error');
 
     (getUserPreferences as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(
-        fetchUserPreferences(userId, mockCode, expectedConfig),
-      );
-    } catch (error) {
+    await fetchUserPreferences(
+      userId,
+      code,
+      expectedConfig,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getUserPreferences).toHaveBeenCalledTimes(1);
       expect(getUserPreferences).toHaveBeenCalledWith(
         userId,
-        mockCode,
+        code,
         expectedConfig,
       );
       expect(store.getActions()).toEqual(
@@ -59,17 +58,15 @@ describe('fetchUserPreferences action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the get preferences procedure is successful', async () => {
+  it('should create the correct actions for when the get user preferences procedure is successful', async () => {
     (getUserPreferences as jest.Mock).mockResolvedValueOnce(
       mockGetPreferencesResponse,
     );
 
-    await store.dispatch(
-      fetchUserPreferences(userId, mockCode, expectedConfig),
-    );
+    await fetchUserPreferences(userId, code, expectedConfig)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -77,7 +74,7 @@ describe('fetchUserPreferences action creator', () => {
     expect(getUserPreferences).toHaveBeenCalledTimes(1);
     expect(getUserPreferences).toHaveBeenCalledWith(
       userId,
-      mockCode,
+      code,
       expectedConfig,
     );
     expect(actionResults).toMatchObject([
@@ -91,6 +88,6 @@ describe('fetchUserPreferences action creator', () => {
       find(actionResults, {
         type: actionTypes.FETCH_USER_PREFERENCES_SUCCESS,
       }),
-    ).toMatchSnapshot('get preferences success payload');
+    ).toMatchSnapshot('get user preferences success payload');
   });
 });

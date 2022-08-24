@@ -20,7 +20,7 @@ const sizeScalesMockStore = (state = {}) =>
   mockStore({ details: INITIAL_STATE }, state);
 const expectedConfig = undefined;
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
-let store;
+let store: ReturnType<typeof sizeScalesMockStore>;
 
 describe('fetchSizeScale() action creator', () => {
   beforeEach(() => {
@@ -28,14 +28,14 @@ describe('fetchSizeScale() action creator', () => {
     store = sizeScalesMockStore(mockState);
   });
 
-  it('should create the correct actions for when the fetch product size scale procedure fails', async () => {
-    const expectedError = new Error('Fetch product size scale error');
+  it('should create the correct actions for when the fetch size scale procedure fails', async () => {
+    const expectedError = new Error('Fetch size scale error');
 
-    getSizeScale.mockRejectedValueOnce(expectedError);
+    (getSizeScale as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchSizeScale(mockScaleId)).catch(error => {
+    await fetchSizeScale(mockScaleId)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getSizeScale).toHaveBeenCalledTimes(1);
       expect(getSizeScale).toHaveBeenCalledWith(mockScaleId, expectedConfig);
@@ -57,12 +57,12 @@ describe('fetchSizeScale() action creator', () => {
     });
   });
 
-  it('should create the correct actions for when the fetch product size scale procedure is successful', async () => {
-    getSizeScale.mockResolvedValueOnce(mockSizeScale);
+  it('should create the correct actions for when the fetch size scale procedure is successful', async () => {
+    (getSizeScale as jest.Mock).mockResolvedValueOnce(mockSizeScale);
 
     expect.assertions(5);
 
-    await store.dispatch(fetchSizeScale(mockScaleId)).then(clientResult => {
+    await fetchSizeScale(mockScaleId)(store.dispatch).then(clientResult => {
       expect(clientResult).toBe(mockSizeScale);
     });
 

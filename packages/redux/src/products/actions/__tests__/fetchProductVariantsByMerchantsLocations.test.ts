@@ -11,6 +11,7 @@ import {
 } from 'tests/__fixtures__/products';
 import { mockStore } from '../../../../tests';
 import { productsActionTypes } from '../..';
+import type { StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -20,7 +21,7 @@ jest.mock('@farfetch/blackout-client', () => ({
 const productDetailsMockStore = (state = {}) =>
   mockStore({ products: { merchantsLocations: INITIAL_STATE } }, state);
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof productDetailsMockStore>;
 
 describe('fetchProductVariantsByMerchantsLocations() action creator', () => {
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
@@ -31,53 +32,55 @@ describe('fetchProductVariantsByMerchantsLocations() action creator', () => {
     store = productDetailsMockStore(mockProductsState);
   });
 
-  it('should create the correct actions for when the fetch product merchants locations procedure fails', async () => {
-    const expectedError = new Error('Fetch product merchants locations error');
+  it('should create the correct actions for when the fetch product variants by merchants locations procedure fails', async () => {
+    const expectedError = new Error(
+      'Fetch product variants by merchants locations error',
+    );
 
-    getProductVariantsMerchantsLocations.mockRejectedValueOnce(expectedError);
+    (getProductVariantsMerchantsLocations as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
 
     expect.assertions(4);
 
-    await store
-      .dispatch(
-        fetchProductVariantsByMerchantsLocations(mockProductId, mockVariantId),
-      )
-      .catch(error => {
-        expect(error).toBe(expectedError);
-        expect(getProductVariantsMerchantsLocations).toHaveBeenCalledTimes(1);
-        expect(getProductVariantsMerchantsLocations).toHaveBeenCalledWith(
-          mockProductId,
-          mockVariantId,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual([
-          {
-            meta: { productId: mockProductId },
-            type: productsActionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
-          },
-          {
-            meta: { productId: mockProductId },
-            payload: { error: expectedError },
-            type: productsActionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_FAILURE,
-          },
-        ]);
-      });
+    await fetchProductVariantsByMerchantsLocations(
+      mockProductId,
+      mockVariantId,
+    )(store.dispatch, store.getState as () => StoreState).catch(error => {
+      expect(error).toBe(expectedError);
+      expect(getProductVariantsMerchantsLocations).toHaveBeenCalledTimes(1);
+      expect(getProductVariantsMerchantsLocations).toHaveBeenCalledWith(
+        mockProductId,
+        mockVariantId,
+        expectedConfig,
+      );
+      expect(store.getActions()).toEqual([
+        {
+          meta: { productId: mockProductId },
+          type: productsActionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_REQUEST,
+        },
+        {
+          meta: { productId: mockProductId },
+          payload: { error: expectedError },
+          type: productsActionTypes.FETCH_PRODUCT_MERCHANTS_LOCATIONS_FAILURE,
+        },
+      ]);
+    });
   });
 
-  it('should create the correct actions for when the fetch product merchants locations procedure is successful', async () => {
-    getProductVariantsMerchantsLocations.mockResolvedValueOnce(
+  it('should create the correct actions for when the fetch product variants by merchants locations procedure is successful', async () => {
+    (getProductVariantsMerchantsLocations as jest.Mock).mockResolvedValueOnce(
       mockProductVariantsMerchantsLocations,
     );
 
     expect.assertions(5);
 
-    await store
-      .dispatch(
-        fetchProductVariantsByMerchantsLocations(mockProductId, mockVariantId),
-      )
-      .then(clientResult => {
-        expect(clientResult).toBe(mockProductVariantsMerchantsLocations);
-      });
+    await fetchProductVariantsByMerchantsLocations(
+      mockProductId,
+      mockVariantId,
+    )(store.dispatch, store.getState as () => StoreState).then(clientResult => {
+      expect(clientResult).toBe(mockProductVariantsMerchantsLocations);
+    });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getProductVariantsMerchantsLocations).toHaveBeenCalledTimes(1);
@@ -99,24 +102,20 @@ describe('fetchProductVariantsByMerchantsLocations() action creator', () => {
     ]);
   });
 
-  it('should create the correct actions for when the fetch product merchants locations receives an unknown variant id', async () => {
-    getProductVariantsMerchantsLocations.mockResolvedValueOnce(
+  it('should create the correct actions for when the fetch product variants by merchants locations receives an unknown variant id', async () => {
+    (getProductVariantsMerchantsLocations as jest.Mock).mockResolvedValueOnce(
       mockProductVariantsMerchantsLocations,
     );
     const mockUnknownVariantId = '1234-cs';
 
     expect.assertions(5);
 
-    await store
-      .dispatch(
-        fetchProductVariantsByMerchantsLocations(
-          mockProductId,
-          mockUnknownVariantId,
-        ),
-      )
-      .then(clientResult => {
-        expect(clientResult).toBe(mockProductVariantsMerchantsLocations);
-      });
+    await fetchProductVariantsByMerchantsLocations(
+      mockProductId,
+      mockUnknownVariantId,
+    )(store.dispatch, store.getState as () => StoreState).then(clientResult => {
+      expect(clientResult).toBe(mockProductVariantsMerchantsLocations);
+    });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getProductVariantsMerchantsLocations).toHaveBeenCalledTimes(1);

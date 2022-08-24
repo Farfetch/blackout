@@ -11,6 +11,7 @@ import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 import thunk from 'redux-thunk';
+import type { StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -18,9 +19,10 @@ jest.mock('@farfetch/blackout-client', () => ({
 }));
 
 const mockProductImgQueryParam = '?c=2';
+const getOptions = () => ({ productImgQueryParam: mockProductImgQueryParam });
 const mockMiddlewares = [
   thunk.withExtraArgument({
-    getOptions: () => ({ productImgQueryParam: mockProductImgQueryParam }),
+    getOptions,
   }),
 ];
 
@@ -32,22 +34,24 @@ describe('fetchCheckoutOrder() action creator', () => {
   };
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
   const expectedConfig = undefined;
-  let store;
+  let store: ReturnType<typeof checkoutMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
     store = checkoutMockStore();
   });
 
-  it('should create the correct actions for when the fetch checkout procedure fails', async () => {
-    const expectedError = new Error('fetch checkout error');
+  it('should create the correct actions for when the fetch checkout order procedure fails', async () => {
+    const expectedError = new Error('fetch checkout order error');
 
-    getCheckoutOrder.mockRejectedValueOnce(expectedError);
+    (getCheckoutOrder as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchCheckoutOrder(checkoutId, query));
-    } catch (error) {
+    await fetchCheckoutOrder(checkoutId, query)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).catch(error => {
       expect(error).toBe(expectedError);
       expect(getCheckoutOrder).toHaveBeenCalledTimes(1);
       expect(getCheckoutOrder).toHaveBeenCalledWith(
@@ -64,16 +68,23 @@ describe('fetchCheckoutOrder() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the fetch checkout procedure is successful', async () => {
-    getCheckoutOrder.mockResolvedValueOnce(mockResponse);
-    await store.dispatch(fetchCheckoutOrder(checkoutId, query));
+  it('should create the correct actions for when the fetch checkout order procedure is successful', async () => {
+    (getCheckoutOrder as jest.Mock).mockResolvedValueOnce(mockResponse);
+
+    await fetchCheckoutOrder(checkoutId, query)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockResponse);
+    });
 
     const actionResults = store.getActions();
 
-    expect.assertions(5);
+    expect.assertions(6);
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCheckoutOrder).toHaveBeenCalledTimes(1);
     expect(getCheckoutOrder).toHaveBeenCalledWith(
@@ -90,6 +101,6 @@ describe('fetchCheckoutOrder() action creator', () => {
     ]);
     expect(
       find(actionResults, { type: actionTypes.FETCH_CHECKOUT_ORDER_SUCCESS }),
-    ).toMatchSnapshot('fetch checkout success payload');
+    ).toMatchSnapshot('fetch checkout order success payload');
   });
 });

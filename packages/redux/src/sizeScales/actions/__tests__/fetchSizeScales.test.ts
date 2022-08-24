@@ -18,7 +18,7 @@ const sizeScalesMockStore = (state = {}) =>
   mockStore({ sizeScales: INITIAL_STATE }, state);
 const mockSizeScales = [mockSizeScale];
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof mockStore>;
 
 describe('fetchSizeScales() action creator', () => {
   beforeEach(() => {
@@ -29,11 +29,11 @@ describe('fetchSizeScales() action creator', () => {
   it('should create the correct actions for when fetching size scales fail', async () => {
     const expectedError = new Error('Fetch size scales error');
 
-    getSizeScales.mockRejectedValueOnce(expectedError);
+    (getSizeScales as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchSizeScales(mockQuery)).catch(error => {
+    await fetchSizeScales(mockQuery)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getSizeScales).toHaveBeenCalledTimes(1);
       expect(getSizeScales).toHaveBeenCalledWith(mockQuery, expectedConfig);
@@ -52,11 +52,11 @@ describe('fetchSizeScales() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch size scales procedure is successful', async () => {
-    getSizeScales.mockResolvedValueOnce(mockSizeScales);
+    (getSizeScales as jest.Mock).mockResolvedValueOnce(mockSizeScales);
 
     expect.assertions(3);
 
-    await store.dispatch(fetchSizeScales(mockQuery));
+    await fetchSizeScales(mockQuery)(store.dispatch);
 
     const actionResults = store.getActions();
 

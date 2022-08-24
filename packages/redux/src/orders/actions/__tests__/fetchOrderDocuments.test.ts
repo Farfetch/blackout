@@ -2,7 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import { fetchOrderDocuments } from '..';
 import { getOrderDocuments } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
-import { mockOrderDocumentsResponse } from 'tests/__fixtures__/orders';
+import { mockOrderDocumentsResponse, orderId } from 'tests/__fixtures__/orders';
 import { mockStore } from '../../../../tests';
 
 jest.mock('@farfetch/blackout-client', () => ({
@@ -12,10 +12,9 @@ jest.mock('@farfetch/blackout-client', () => ({
 
 const ordersMockStore = (state = {}) =>
   mockStore({ orders: INITIAL_STATE }, state);
-const orderId = '24BJKS';
 const expectedConfig = undefined;
 const types = ['ComercialInvoice'];
-let store;
+let store: ReturnType<typeof ordersMockStore>;
 
 describe('fetchOrderDocuments() action creator', () => {
   beforeEach(() => {
@@ -26,13 +25,14 @@ describe('fetchOrderDocuments() action creator', () => {
   it('should create the correct actions for when the fetch order documents procedure fails', async () => {
     const expectedError = new Error('fetch order documents error');
 
-    getOrderDocuments.mockRejectedValueOnce(expectedError);
+    (getOrderDocuments as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchOrderDocuments(orderId, types));
-    } catch (error) {
+    await fetchOrderDocuments(
+      orderId,
+      types,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getOrderDocuments).toHaveBeenCalledTimes(1);
       expect(getOrderDocuments).toHaveBeenCalledWith(
@@ -49,19 +49,22 @@ describe('fetchOrderDocuments() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the fetch order documents procedure is successful', async () => {
-    getOrderDocuments.mockResolvedValueOnce(mockOrderDocumentsResponse);
+    (getOrderDocuments as jest.Mock).mockResolvedValueOnce(
+      mockOrderDocumentsResponse,
+    );
 
     expect.assertions(4);
 
-    await store
-      .dispatch(fetchOrderDocuments(orderId, types))
-      .then(clientResult => {
-        expect(clientResult).toEqual(mockOrderDocumentsResponse);
-      });
+    await fetchOrderDocuments(
+      orderId,
+      types,
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toEqual(mockOrderDocumentsResponse);
+    });
 
     expect(getOrderDocuments).toHaveBeenCalledTimes(1);
     expect(getOrderDocuments).toHaveBeenCalledWith(

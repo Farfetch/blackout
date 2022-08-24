@@ -13,15 +13,17 @@ import { patchBagItem } from '@farfetch/blackout-client';
 import { updateBagItem } from '..';
 import find from 'lodash/find';
 import thunk from 'redux-thunk';
+import type { GetOptionsArgument, StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
   patchBagItem: jest.fn(),
 }));
 
+const getOptions = () => ({ productImgQueryParam: '?c=2' });
 const mockMiddlewares = [
   thunk.withExtraArgument({
-    getOptions: () => ({ productImgQueryParam: '?c=2' }),
+    getOptions,
   }),
 ];
 const bagMockStore = (state = {}) =>
@@ -36,7 +38,7 @@ const bagItemMetadata = {
   oldSize: 16,
 };
 
-let store;
+let store: ReturnType<typeof bagMockStore>;
 
 describe('updateBagItem() action creator', () => {
   beforeEach(() => {
@@ -47,20 +49,17 @@ describe('updateBagItem() action creator', () => {
   it('should create the correct actions for when updating a bag item procedure fails', async () => {
     const expectedError = new Error('update bag item error');
 
-    patchBagItem.mockRejectedValueOnce(expectedError);
+    (patchBagItem as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store
-      .dispatch(
-        updateBagItem(
-          mockBagItemId,
-          mockBagItemData,
-          undefined,
-          bagItemMetadata,
-        ),
-      )
-      .catch(error => {
+    await updateBagItem(
+      mockBagItemId,
+      mockBagItemData,
+      undefined,
+      bagItemMetadata,
+    )(store.dispatch, store.getState as () => StoreState, { getOptions }).catch(
+      error => {
         expect(error).toBe(expectedError);
         expect(patchBagItem).toHaveBeenCalledTimes(1);
         expect(patchBagItem).toHaveBeenCalledWith(
@@ -95,26 +94,25 @@ describe('updateBagItem() action creator', () => {
             },
           ]),
         );
-      });
+      },
+    );
   });
 
   it('should create the correct actions for when the update bag item procedure is successful', async () => {
-    patchBagItem.mockResolvedValueOnce(mockResponse);
+    (patchBagItem as jest.Mock).mockResolvedValueOnce(mockResponse);
 
     expect.assertions(5);
 
-    await store
-      .dispatch(
-        updateBagItem(
-          mockBagItemId,
-          mockBagItemData,
-          undefined,
-          bagItemMetadata,
-        ),
-      )
-      .then(clientResult => {
+    await updateBagItem(
+      mockBagItemId,
+      mockBagItemData,
+      undefined,
+      bagItemMetadata,
+    )(store.dispatch, store.getState as () => StoreState, { getOptions }).then(
+      clientResult => {
         expect(clientResult).toBe(mockResponse);
-      });
+      },
+    );
 
     const actionResults = store.getActions();
 
@@ -156,15 +154,17 @@ describe('updateBagItem() action creator', () => {
   it('should create the correct actions for when the update bag item procedure is successful without receiving options', async () => {
     store = bagMockStoreWithoutMiddlewares(mockState);
 
-    patchBagItem.mockResolvedValueOnce(mockResponse);
+    (patchBagItem as jest.Mock).mockResolvedValueOnce(mockResponse);
 
     expect.assertions(5);
 
-    await store
-      .dispatch(updateBagItem(mockBagItemId, mockBagItemData))
-      .then(clientResult => {
-        expect(clientResult).toBe(mockResponse);
-      });
+    await updateBagItem(mockBagItemId, mockBagItemData)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      {} as GetOptionsArgument,
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockResponse);
+    });
 
     const actionResults = store.getActions();
 

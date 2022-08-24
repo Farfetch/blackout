@@ -1,4 +1,5 @@
 import * as actionTypes from '../../actionTypes';
+import { mockErrorObject, mockLoginData } from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../../tests';
 import { postValidateEmail, toBlackoutError } from '@farfetch/blackout-client';
 import { validateEmail } from '../..';
@@ -18,14 +19,9 @@ const authenticationMockStore = (state = {}) =>
 const expectedConfig = undefined;
 let store = authenticationMockStore();
 
-describe('validateEmailFactory() action creator', () => {
-  const data = {
-    userName: 'pepe@acme.com',
-    password: '123465',
-    rememberMe: true,
-  };
+describe('validateEmail() action creator', () => {
   const validateData = {
-    username: data.userName,
+    username: mockLoginData.username,
     token: 'TOKEN_EVA_01',
   };
 
@@ -35,19 +31,11 @@ describe('validateEmailFactory() action creator', () => {
   });
 
   it('should create the correct actions for when the validate e-mail procedure fails', async () => {
-    const errorObject = {
-      errorMessage: 'post validate email error',
-      errorCode: 0,
-      status: 400,
-    };
-
-    (postValidateEmail as jest.Mock).mockRejectedValueOnce(errorObject);
+    (postValidateEmail as jest.Mock).mockRejectedValueOnce(mockErrorObject);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(validateEmail(validateData));
-    } catch (error) {
-      expect(error).toBe(errorObject);
+    await validateEmail(validateData)(store.dispatch).catch(error => {
+      expect(error).toBe(mockErrorObject);
       expect(postValidateEmail).toHaveBeenCalledTimes(1);
       expect(postValidateEmail).toHaveBeenCalledWith(
         validateData,
@@ -58,11 +46,11 @@ describe('validateEmailFactory() action creator', () => {
           { type: actionTypes.VALIDATE_EMAIL_REQUEST },
           {
             type: actionTypes.VALIDATE_EMAIL_FAILURE,
-            payload: { error: toBlackoutError(errorObject) },
+            payload: { error: toBlackoutError(mockErrorObject) },
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the validate e-mail procedure is successful', async () => {
@@ -71,7 +59,7 @@ describe('validateEmailFactory() action creator', () => {
     };
 
     (postValidateEmail as jest.Mock).mockResolvedValueOnce(mockResponse);
-    await store.dispatch(validateEmail(validateData));
+    await validateEmail(validateData)(store.dispatch);
 
     const actionResults = store.getActions();
 

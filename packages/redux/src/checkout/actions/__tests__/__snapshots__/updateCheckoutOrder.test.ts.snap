@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`updateCheckoutOrder() action creator should create the correct actions for when the update checkout procedure is successful with config to apply the new axios headers: update checkout success payload with config to apply the new axios headers 1`] = `
+exports[`updateCheckoutOrder() action creator should create the correct actions for when the update checkout order procedure is successful with config to apply the new axios headers: update checkout order success payload with config to apply the new axios headers 1`] = `
 Object {
   "payload": Object {
     "entities": Object {
@@ -363,7 +363,7 @@ Object {
 }
 `;
 
-exports[`updateCheckoutOrder() action creator should create the correct actions for when the update checkout procedure is successful: update checkout success payload 1`] = `
+exports[`updateCheckoutOrder() action creator should create the correct actions for when the update checkout order procedure is successful: update checkout order success payload 1`] = `
 Object {
   "payload": Object {
     "entities": Object {

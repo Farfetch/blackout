@@ -7,7 +7,7 @@ const buildCategoriesMockStore = (state = {}) =>
   mockStore({ categories: INITIAL_STATE }, state);
 
 describe('resetCategoriesState() action creator', () => {
-  let store;
+  let store: ReturnType<typeof buildCategoriesMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -15,7 +15,7 @@ describe('resetCategoriesState() action creator', () => {
   });
 
   it('should dispatch the correct action type', () => {
-    store.dispatch(resetCategoriesState());
+    resetCategoriesState()(store.dispatch);
 
     expect(store.getActions()).toMatchObject([
       {

@@ -19,7 +19,7 @@ const returnsMockStore = (state = {}) =>
 
 describe('createReturn() action creator', () => {
   const expectedConfig = undefined;
-  let store;
+  let store: ReturnType<typeof returnsMockStore>;
   const data = { ...responses.post.success };
 
   beforeEach(() => {
@@ -27,15 +27,13 @@ describe('createReturn() action creator', () => {
     store = returnsMockStore();
   });
 
-  it('should create the correct actions when the create return request fails', async () => {
+  it('should create the correct actions when the create return procedure fails', async () => {
     const expectedError = new Error('create return error');
 
-    postReturn.mockRejectedValueOnce(expectedError);
+    (postReturn as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(createReturn(data));
-    } catch (error) {
+    await createReturn(data)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(postReturn).toHaveBeenCalledTimes(1);
       expect(postReturn).toHaveBeenCalledWith(data, expectedConfig);
@@ -48,13 +46,13 @@ describe('createReturn() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the create checkout procedure is successful', async () => {
-    postReturn.mockResolvedValueOnce(responses.post.success);
+  it('should create the correct actions for when the create return procedure is successful', async () => {
+    (postReturn as jest.Mock).mockResolvedValueOnce(responses.post.success);
 
-    await store.dispatch(createReturn(data));
+    await createReturn(data)(store.dispatch);
 
     const actionResults = store.getActions();
 

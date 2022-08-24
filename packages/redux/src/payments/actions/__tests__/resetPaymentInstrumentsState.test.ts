@@ -6,7 +6,7 @@ import resetPaymentInstrumentsState from '../resetPaymentInstrumentsState';
 const paymentsMockStore = (state = {}) =>
   mockStore({ paymentTokens: INITIAL_STATE }, state);
 
-let store;
+let store: ReturnType<typeof paymentsMockStore>;
 
 describe('reset payment instruments action', () => {
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe('reset payment instruments action', () => {
   });
 
   it('should dispatch the correct action type', () => {
-    store.dispatch(resetPaymentInstrumentsState());
+    resetPaymentInstrumentsState()(store.dispatch);
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

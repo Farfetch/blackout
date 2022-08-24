@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import * as normalizr from 'normalizr';
-import { Country, getCountries } from '@farfetch/blackout-client';
 import { fetchCountries } from '..';
+import { getCountries } from '@farfetch/blackout-client';
 import { INITIAL_STATE_LOCALE } from '../../reducer';
 import {
   mockCitiesEntities,
@@ -26,7 +26,7 @@ describe('fetchCountries() action creator', () => {
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
   const expectedConfig = undefined;
 
-  let store;
+  let store: ReturnType<typeof localeMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -37,13 +37,10 @@ describe('fetchCountries() action creator', () => {
   it('should create the correct actions for when the get countries procedure fails', async () => {
     const expectedError = new Error('Get countries error');
 
-    getCountries.mockRejectedValueOnce(expectedError);
+    (getCountries as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
-
-    try {
-      await store.dispatch(fetchCountries());
-    } catch (error) {
+    await fetchCountries()(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getCountries).toHaveBeenCalledTimes(1);
       expect(getCountries).toHaveBeenCalledWith(expectedConfig);
@@ -56,17 +53,17 @@ describe('fetchCountries() action creator', () => {
           type: actionTypes.FETCH_COUNTRIES_FAILURE,
         },
       ]);
-    }
+    });
   });
 
   it('should create the correct actions for when the get countries procedure is successful', async () => {
-    getCountries.mockResolvedValueOnce(mockCountries);
+    (getCountries as jest.Mock).mockResolvedValueOnce(mockCountries);
 
     const actionResults = store.getActions();
 
-    await store
-      .dispatch(fetchCountries())
-      .then((result: Country) => expect(result).toBe(mockCountries));
+    await fetchCountries()(store.dispatch).then(clientResult => {
+      expect(clientResult).toBe(mockCountries);
+    });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCountries).toHaveBeenCalledTimes(1);

@@ -6,10 +6,7 @@ import {
 } from 'tests/__fixtures__/loyalty/loyalty.fixtures';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import {
-  postProgramMembership,
-  ProgramMembershipStatus,
-} from '@farfetch/blackout-client';
+import { postProgramMembership } from '@farfetch/blackout-client';
 import createProgramMembership from '../createProgramMembership';
 import find from 'lodash/find';
 
@@ -22,20 +19,11 @@ const rewardsMockStore = (state = {}) =>
   mockStore({ rewards: INITIAL_STATE }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof rewardsMockStore>;
 
 beforeEach(jest.clearAllMocks);
 
 describe('createProgramMembership() action creator', () => {
-  const data = {
-    id: '1111',
-    externalId: 'qwerty1234',
-    userId: 123456,
-    rewardPoints: 25,
-    cashBalance: 10.25,
-    status: ProgramMembershipStatus.Unverified,
-  };
-
   beforeEach(() => {
     store = rewardsMockStore();
   });
@@ -43,17 +31,18 @@ describe('createProgramMembership() action creator', () => {
   it('should create the correct actions for when the create program membership procedure fails', async () => {
     const expectedError = new Error('create program membership error');
 
-    postProgramMembership.mockRejectedValueOnce(expectedError);
+    (postProgramMembership as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(createProgramMembership(programId, data));
-    } catch (error) {
+    await createProgramMembership(
+      programId,
+      mockResponseProgramMembership,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(postProgramMembership).toHaveBeenCalledTimes(1);
       expect(postProgramMembership).toHaveBeenCalledWith(
         programId,
-        data,
+        mockResponseProgramMembership,
         expectedConfig,
       );
       expect(store.getActions()).toEqual(
@@ -65,19 +54,24 @@ describe('createProgramMembership() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the create program membership procedure is successful', async () => {
-    postProgramMembership.mockResolvedValueOnce(mockResponseProgramMembership);
-    await store.dispatch(createProgramMembership(programId, data));
+    (postProgramMembership as jest.Mock).mockResolvedValueOnce(
+      mockResponseProgramMembership,
+    );
+    await createProgramMembership(
+      programId,
+      mockResponseProgramMembership,
+    )(store.dispatch);
 
     const actionResults = store.getActions();
 
     expect(postProgramMembership).toHaveBeenCalledTimes(1);
     expect(postProgramMembership).toHaveBeenCalledWith(
       programId,
-      data,
+      mockResponseProgramMembership,
       expectedConfig,
     );
     expect(actionResults).toMatchObject([

@@ -20,7 +20,7 @@ const rewardsMockStore = (state = {}) =>
 
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof rewardsMockStore>;
 
 describe('fetchPrograms() action creator', () => {
   beforeEach(() => {
@@ -31,12 +31,10 @@ describe('fetchPrograms() action creator', () => {
   it('should create the correct actions for when the fetch programs procedure fails', async () => {
     const expectedError = new Error('fetch programs error');
 
-    getPrograms.mockRejectedValueOnce(expectedError);
+    (getPrograms as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchPrograms());
-    } catch (error) {
+    await fetchPrograms()(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getPrograms).toHaveBeenCalledTimes(1);
       expect(getPrograms).toHaveBeenCalledWith(expectedConfig);
@@ -49,12 +47,12 @@ describe('fetchPrograms() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the fetch programs procedure is successful', async () => {
-    getPrograms.mockResolvedValueOnce(mockResponsePrograms);
-    await store.dispatch(fetchPrograms());
+    (getPrograms as jest.Mock).mockResolvedValueOnce(mockResponsePrograms);
+    await fetchPrograms()(store.dispatch);
 
     const actionResults = store.getActions();
 

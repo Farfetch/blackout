@@ -15,7 +15,7 @@ const addressesMockStore = (state = {}) =>
   mockStore({ addresses: INITIAL_STATE }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof addressesMockStore>;
 
 describe('fetchAddressPredictions() action creator', () => {
   beforeEach(() => {
@@ -23,19 +23,20 @@ describe('fetchAddressPredictions() action creator', () => {
     store = addressesMockStore();
   });
 
-  it('should create the correct actions for when the get address procedure fails', async () => {
-    const expectedError = new Error('get addresses error');
+  it('should create the correct actions for when the get address predictions procedure fails', async () => {
+    const expectedError = new Error('get address predictions error');
 
-    getAddressPredictions.mockRejectedValueOnce(expectedError);
+    (getAddressPredictions as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchAddressPredictions('', {}));
-    } catch (error) {
+    fetchAddressPredictions(
+      'street',
+      {},
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getAddressPredictions).toHaveBeenCalledTimes(1);
       expect(getAddressPredictions).toHaveBeenCalledWith(
-        '',
+        'street',
         {},
         expectedConfig,
       );
@@ -48,17 +49,28 @@ describe('fetchAddressPredictions() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the get payment procedure is successful', async () => {
-    getAddressPredictions.mockResolvedValueOnce(mockAddressPredictionsResponse);
-    await store.dispatch(fetchAddressPredictions('', {}));
+  it('should create the correct actions for when the get address predictions procedure is successful', async () => {
+    (getAddressPredictions as jest.Mock).mockResolvedValueOnce(
+      mockAddressPredictionsResponse,
+    );
 
+    await fetchAddressPredictions(
+      'street',
+      {},
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toBe(mockAddressPredictionsResponse);
+    });
     const actionResults = store.getActions();
 
     expect(getAddressPredictions).toHaveBeenCalledTimes(1);
-    expect(getAddressPredictions).toHaveBeenCalledWith('', {}, expectedConfig);
+    expect(getAddressPredictions).toHaveBeenCalledWith(
+      'street',
+      {},
+      expectedConfig,
+    );
     expect(actionResults).toMatchObject([
       { type: actionTypes.FETCH_ADDRESS_PREDICTIONS_REQUEST },
       {
@@ -70,6 +82,6 @@ describe('fetchAddressPredictions() action creator', () => {
       find(actionResults, {
         type: actionTypes.FETCH_ADDRESS_PREDICTIONS_SUCCESS,
       }),
-    ).toMatchSnapshot('get prediction success payload');
+    ).toMatchSnapshot('get address predictions success payload');
   });
 });

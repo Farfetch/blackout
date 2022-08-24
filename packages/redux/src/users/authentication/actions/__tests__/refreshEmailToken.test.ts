@@ -1,4 +1,5 @@
 import * as actionTypes from '../../actionTypes';
+import { mockErrorObject, mockLoginData } from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../../tests';
 import {
   postRefreshEmailToken,
@@ -22,13 +23,8 @@ const expectedConfig = undefined;
 let store = authenticationMockStore();
 
 describe('refreshEmailToken() action creator', () => {
-  const data = {
-    userName: 'pepe@acme.com',
-    password: '123465',
-    rememberMe: true,
-  };
   const refreshTokenData = {
-    username: data.userName,
+    username: mockLoginData.username,
   };
 
   beforeEach(() => {
@@ -37,19 +33,11 @@ describe('refreshEmailToken() action creator', () => {
   });
 
   it('should create the correct actions for when the refresh token procedure fails', async () => {
-    const errorObject = {
-      errorMessage: 'post refresh token error',
-      errorCode: 0,
-      status: 400,
-    };
-
-    (postRefreshEmailToken as jest.Mock).mockRejectedValueOnce(errorObject);
+    (postRefreshEmailToken as jest.Mock).mockRejectedValueOnce(mockErrorObject);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(refreshEmailToken(refreshTokenData));
-    } catch (error) {
-      expect(error).toBe(errorObject);
+    await refreshEmailToken(refreshTokenData)(store.dispatch).catch(error => {
+      expect(error).toBe(mockErrorObject);
       expect(postRefreshEmailToken).toHaveBeenCalledTimes(1);
       expect(postRefreshEmailToken).toHaveBeenCalledWith(
         refreshTokenData,
@@ -60,11 +48,11 @@ describe('refreshEmailToken() action creator', () => {
           { type: actionTypes.REFRESH_EMAIL_TOKEN_REQUEST },
           {
             type: actionTypes.REFRESH_EMAIL_TOKEN_FAILURE,
-            payload: { error: toBlackoutError(errorObject) },
+            payload: { error: toBlackoutError(mockErrorObject) },
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the refresh token procedure is successful', async () => {
@@ -73,7 +61,7 @@ describe('refreshEmailToken() action creator', () => {
     };
 
     (postRefreshEmailToken as jest.Mock).mockResolvedValueOnce(mockResponse);
-    await store.dispatch(refreshEmailToken(refreshTokenData));
+    await refreshEmailToken(refreshTokenData)(store.dispatch);
 
     const actionResults = store.getActions();
 

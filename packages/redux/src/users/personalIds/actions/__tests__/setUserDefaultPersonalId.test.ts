@@ -1,6 +1,12 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  config,
+  expectedConfig,
+  mockPutDefaultPersonalIdData,
+  mockPutDefaultPersonalIdResponse,
+  userId,
+} from 'tests/__fixtures__/users';
 import { INITIAL_STATE } from '../../../reducer';
-import { mockPutDefaultPersonalIdResponse } from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../../tests';
 import { putUserDefaultPersonalId } from '@farfetch/blackout-client';
 import { setUserDefaultPersonalId } from '../';
@@ -14,40 +20,32 @@ jest.mock('@farfetch/blackout-client', () => ({
 const usersMockStore = (state = {}) =>
   mockStore({ users: INITIAL_STATE }, state);
 
-describe('setUserDefaultPersonalId action creator', () => {
+describe('setUserDefaultPersonalId() action creator', () => {
   let store = usersMockStore();
-  const data = {
-    id: '',
-  };
-  const userId = 12345;
-  const config = {
-    'X-SUMMER-RequestId': 'test',
-  };
-  const expectedConfig = {
-    'X-SUMMER-RequestId': 'test',
-  };
 
   beforeEach(() => {
     jest.clearAllMocks();
     store = usersMockStore();
   });
 
-  it('should create the correct actions for when the set default personal id procedure fails', async () => {
-    const expectedError = new Error('set default personal id error');
+  it('should create the correct actions for when the set user default personal id procedure fails', async () => {
+    const expectedError = new Error('set user default personal id error');
 
     (putUserDefaultPersonalId as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
     expect.assertions(4);
 
-    try {
-      await store.dispatch(setUserDefaultPersonalId(userId, data, config));
-    } catch (error) {
+    await setUserDefaultPersonalId(
+      userId,
+      mockPutDefaultPersonalIdData,
+      config,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(putUserDefaultPersonalId).toHaveBeenCalledTimes(1);
       expect(putUserDefaultPersonalId).toHaveBeenCalledWith(
         userId,
-        data,
+        mockPutDefaultPersonalIdData,
         expectedConfig,
       );
       expect(store.getActions()).toEqual(
@@ -59,21 +57,25 @@ describe('setUserDefaultPersonalId action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the set default personal id procedure is successful', async () => {
+  it('should create the correct actions for when the set user default personal id procedure is successful', async () => {
     (putUserDefaultPersonalId as jest.Mock).mockResolvedValueOnce(
       mockPutDefaultPersonalIdResponse,
     );
-    await store.dispatch(setUserDefaultPersonalId(userId, data, config));
+    await setUserDefaultPersonalId(
+      userId,
+      mockPutDefaultPersonalIdData,
+      config,
+    )(store.dispatch);
 
     const actionResults = store.getActions();
 
     expect(putUserDefaultPersonalId).toHaveBeenCalledTimes(1);
     expect(putUserDefaultPersonalId).toHaveBeenCalledWith(
       userId,
-      data,
+      mockPutDefaultPersonalIdData,
       expectedConfig,
     );
 
@@ -88,6 +90,6 @@ describe('setUserDefaultPersonalId action creator', () => {
       find(actionResults, {
         type: actionTypes.SET_USER_DEFAULT_PERSONAL_ID_SUCCESS,
       }),
-    ).toMatchSnapshot('set default personal id success payload');
+    ).toMatchSnapshot('set user default personal id success payload');
   });
 });

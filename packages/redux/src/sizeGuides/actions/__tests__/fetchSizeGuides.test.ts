@@ -13,7 +13,7 @@ jest.mock('@farfetch/blackout-client', () => ({
 const sizeGuidesMockStore = (state = {}) =>
   mockStore({ sizeGuides: INITIAL_STATE }, state);
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof sizeGuidesMockStore>;
 
 describe('fetchSizeGuides() action creator', () => {
   beforeEach(() => {
@@ -24,11 +24,11 @@ describe('fetchSizeGuides() action creator', () => {
   it('should create the correct actions for when the fetch sizeGuides procedure fails', async () => {
     const expectedError = new Error('Fetch sizeGuides error');
 
-    getSizeGuides.mockRejectedValueOnce(expectedError);
+    (getSizeGuides as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchSizeGuides(mockQuery)).catch(error => {
+    await fetchSizeGuides(mockQuery)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getSizeGuides).toHaveBeenCalledTimes(1);
       expect(getSizeGuides).toHaveBeenCalledWith(mockQuery, expectedConfig);
@@ -46,12 +46,12 @@ describe('fetchSizeGuides() action creator', () => {
     });
   });
 
-  it('should create the correct actions for when the fetch search procedure is successful', async () => {
-    getSizeGuides.mockResolvedValueOnce(mockSizeGuides);
+  it('should create the correct actions for when the fetch sizeGuides procedure is successful', async () => {
+    (getSizeGuides as jest.Mock).mockResolvedValueOnce(mockSizeGuides);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchSizeGuides(mockQuery)).then(clientResult => {
+    await fetchSizeGuides(mockQuery)(store.dispatch).then(clientResult => {
       expect(clientResult).toBe(mockSizeGuides);
     });
 

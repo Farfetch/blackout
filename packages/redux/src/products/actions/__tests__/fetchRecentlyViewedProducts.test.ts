@@ -120,7 +120,7 @@ describe('fetchRecentlyViewedProducts() action creator', () => {
             computed: undefined,
             pagination: undefined,
           },
-          error: undefined,
+          error: null,
           isLoading: false,
         },
       },

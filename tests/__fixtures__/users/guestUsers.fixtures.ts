@@ -26,3 +26,8 @@ export const expectedNormalizedPayload = {
   },
   result: guestUserId,
 };
+
+export const mockParamsData = {
+  countryCode: 'PT',
+  ip: 'IP address of the guest user',
+};

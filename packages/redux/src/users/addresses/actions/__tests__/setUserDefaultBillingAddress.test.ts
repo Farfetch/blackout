@@ -19,23 +19,26 @@ const addressesMockStore = (state = {}) =>
   mockStore({ addresses: INITIAL_STATE }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof addressesMockStore>;
 
-describe('setDefaultBillingAddress() action creator', () => {
+describe('setUserDefaultBillingAddress() action creator', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     store = addressesMockStore({ entities: { user: { id: userId } } });
   });
 
-  it('should create the correct actions for when the set billing address procedure fails', async () => {
-    const expectedError = new Error('set default billing address error');
+  it('should create the correct actions for when the set user default billing address procedure fails', async () => {
+    const expectedError = new Error('set user default billing address error');
 
-    putUserDefaultBillingAddress.mockRejectedValueOnce(expectedError);
+    (putUserDefaultBillingAddress as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
-    try {
-      await store.dispatch(setUserDefaultBillingAddress(userId, addressId2));
-    } catch (error) {
+    await setUserDefaultBillingAddress(
+      userId,
+      addressId2,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(putUserDefaultBillingAddress).toHaveBeenCalledTimes(1);
       expect(putUserDefaultBillingAddress).toHaveBeenCalledWith(
@@ -55,14 +58,14 @@ describe('setDefaultBillingAddress() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the set billing address procedure is successful', async () => {
-    putUserDefaultBillingAddress.mockResolvedValueOnce(
+  it('should create the correct actions for when the set user deafult billing address procedure is successful', async () => {
+    (putUserDefaultBillingAddress as jest.Mock).mockResolvedValueOnce(
       mockUpdateAddressResponse,
     );
-    await store.dispatch(setUserDefaultBillingAddress(userId, addressId2));
+    await setUserDefaultBillingAddress(userId, addressId2)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -84,6 +87,6 @@ describe('setDefaultBillingAddress() action creator', () => {
       find(actionResults, {
         type: actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_SUCCESS,
       }),
-    ).toMatchSnapshot('set default billing address success payload');
+    ).toMatchSnapshot('set user default billing address success payload');
   });
 });

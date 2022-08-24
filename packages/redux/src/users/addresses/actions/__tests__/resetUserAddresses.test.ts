@@ -1,17 +1,18 @@
 import * as actionTypes from '../../actionTypes';
 import { mockStore } from '../../../../../tests';
 import { resetUserAddresses } from '..';
+import INITIAL_STATE from '../../reducer';
 
-let store;
+let store: ReturnType<typeof mockStore>;
 
 describe('reset action', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    store = mockStore();
+    store = mockStore({ addresses: INITIAL_STATE }, {});
   });
 
   it('should dispatch the correct action type', () => {
-    store.dispatch(resetUserAddresses());
+    resetUserAddresses()(store.dispatch);
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

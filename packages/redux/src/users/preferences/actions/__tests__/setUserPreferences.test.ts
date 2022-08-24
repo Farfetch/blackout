@@ -15,7 +15,7 @@ const usersMockStore = (state = {}) =>
 const expectedConfig = undefined;
 let store = usersMockStore();
 
-describe('setUserPreferences action creator', () => {
+describe('setUserPreferences() action creator', () => {
   const userId = 232;
   const data = [
     {
@@ -28,15 +28,17 @@ describe('setUserPreferences action creator', () => {
     store = usersMockStore();
   });
 
-  it('should create the correct actions for when the update preferences procedure fails', async () => {
-    const expectedError = new Error('update preferences error');
+  it('should create the correct actions for when the update user preferences procedure fails', async () => {
+    const expectedError = new Error('update user preferences error');
 
     (putUserPreferences as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(setUserPreferences(userId, data, expectedConfig));
-    } catch (error) {
+    await setUserPreferences(
+      userId,
+      data,
+      expectedConfig,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(putUserPreferences).toHaveBeenCalledTimes(1);
       expect(putUserPreferences).toHaveBeenCalledWith(
@@ -53,10 +55,10 @@ describe('setUserPreferences action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the update preferences procedure is successful', async () => {
+  it('should create the correct actions for when the update user preferences procedure is successful', async () => {
     const payload = {
       entities: {
         preferences: {
@@ -70,7 +72,7 @@ describe('setUserPreferences action creator', () => {
     };
     (putUserPreferences as jest.Mock).mockResolvedValueOnce({});
 
-    await store.dispatch(setUserPreferences(userId, data, expectedConfig));
+    await setUserPreferences(userId, data, expectedConfig)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -91,6 +93,6 @@ describe('setUserPreferences action creator', () => {
       find(actionResults, {
         type: actionTypes.UPDATE_USER_PREFERENCES_SUCCESS,
       }),
-    ).toMatchSnapshot('update preferences success payload');
+    ).toMatchSnapshot('update user preferences success payload');
   });
 });

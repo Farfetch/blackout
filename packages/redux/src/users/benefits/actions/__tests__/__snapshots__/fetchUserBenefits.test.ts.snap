@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetchBenefits action creator should create the correct actions for when the get benefits procedure is successful: get benefits success payload 1`] = `
+exports[`fetchBenefits() action creator should create the correct actions for when the get user benefits procedure is successful: get user benefits success payload 1`] = `
 Object {
   "payload": Object {
     "entities": Object {

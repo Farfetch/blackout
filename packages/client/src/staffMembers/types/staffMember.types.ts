@@ -3,5 +3,5 @@ export type StaffMember = {
   displayName: string;
   userName: string;
   email: string;
-  tenantId?: number;
+  tenantId: number;
 };

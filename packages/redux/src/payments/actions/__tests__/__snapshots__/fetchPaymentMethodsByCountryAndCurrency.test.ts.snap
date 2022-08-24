@@ -2,7 +2,80 @@
 
 exports[`fetchPaymentMethodsByCountryAndCurrency() action creator should create the correct actions when the fetch payment methods with country and currency procedure is successful: fetch payment methods with country and currency success payload 1`] = `
 Object {
-  "payload": undefined,
+  "payload": Object {
+    "creditCard": Object {
+      "creditCards": Array [
+        Object {
+          "code": "AMEX",
+          "description": "American Express",
+          "id": "e13bb06b-392b-49a0-8acd-3f44416e3234",
+        },
+        Object {
+          "code": "DC",
+          "description": "Diners Club International",
+          "id": "e13bb06b-392b-49a0-8acd-3f44416e3234",
+        },
+        Object {
+          "code": "DELTA",
+          "description": "Visa Debit Delta",
+          "id": "e13bb06b-392b-49a0-8acd-3f44416e3234",
+        },
+        Object {
+          "code": "DISCOVER",
+          "description": "Discover",
+          "id": "e13bb06b-392b-49a0-8acd-3f44416e3234",
+        },
+        Object {
+          "code": "JCB",
+          "description": "JCB",
+          "id": "e13bb06b-392b-49a0-8acd-3f44416e3234",
+        },
+        Object {
+          "code": "MC",
+          "description": "MasterCard",
+          "id": "e13bb06b-392b-49a0-8acd-3f44416e3234",
+        },
+        Object {
+          "code": "UP",
+          "description": "UnionPay",
+          "id": "e13bb06b-392b-49a0-8acd-3f44416e3234",
+        },
+        Object {
+          "code": "VISA",
+          "description": "Visa",
+          "id": "e13bb06b-392b-49a0-8acd-3f44416e3234",
+        },
+      ],
+      "type": "CreditCard",
+    },
+    "customerAccounts": Array [
+      Object {
+        "code": "Alipay",
+        "description": "Alipay",
+        "id": "0ea4a071-1268-4530-93ab-10f10964d7d1",
+        "paymentOptions": Array [
+          "WEB",
+        ],
+        "type": "CustomerAccount",
+      },
+      Object {
+        "code": "AlipayWAP",
+        "description": "Alipay WAP",
+        "id": "764d2815-157f-498a-b0ac-d6311cc8f476",
+        "paymentOptions": Array [
+          "WAP",
+        ],
+        "type": "CustomerAccount",
+      },
+      Object {
+        "code": "PayPalExp",
+        "description": "PPE",
+        "id": "f56d6086-f08d-4c2e-b55b-63b2d32aa645",
+        "paymentOptions": Array [],
+        "type": "CustomerAccount",
+      },
+    ],
+  },
   "type": "@farfetch/blackout-redux/FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_SUCCESS",
 }
 `;

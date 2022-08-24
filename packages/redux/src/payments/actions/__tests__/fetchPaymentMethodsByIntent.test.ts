@@ -1,7 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import { getPaymentMethodsByIntent } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
-import { mockFetchPaymentMethodsResponse } from 'tests/__fixtures__/payments';
+import {
+  intentId,
+  mockFetchPaymentMethodsResponse,
+} from 'tests/__fixtures__/payments';
 import { mockStore } from '../../../../tests';
 import fetchPaymentMethodsByIntent from '../fetchPaymentMethodsByIntent';
 import find from 'lodash/find';
@@ -14,9 +17,8 @@ jest.mock('@farfetch/blackout-client', () => ({
 const paymentsMockStore = (state = {}) =>
   mockStore({ payments: INITIAL_STATE }, state);
 
-const intentId = '123123';
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof paymentsMockStore>;
 
 describe('fetchPaymentMethodsByIntent() action creator', () => {
   beforeEach(() => {
@@ -27,12 +29,12 @@ describe('fetchPaymentMethodsByIntent() action creator', () => {
   it('should create the correct actions when the get payment methods by intent procedure fails', async () => {
     const expectedError = new Error('get payment methods by intent error');
 
-    getPaymentMethodsByIntent.mockRejectedValueOnce(expectedError);
+    (getPaymentMethodsByIntent as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchPaymentMethodsByIntent(intentId));
-    } catch (error) {
+    await fetchPaymentMethodsByIntent(intentId)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getPaymentMethodsByIntent).toHaveBeenCalledTimes(1);
       expect(getPaymentMethodsByIntent).toHaveBeenCalledWith(
@@ -51,14 +53,14 @@ describe('fetchPaymentMethodsByIntent() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions when the get payment methods by intent procedure is successful', async () => {
-    getPaymentMethodsByIntent.mockResolvedValueOnce(
+    (getPaymentMethodsByIntent as jest.Mock).mockResolvedValueOnce(
       mockFetchPaymentMethodsResponse,
     );
-    await store.dispatch(fetchPaymentMethodsByIntent(intentId));
+    await fetchPaymentMethodsByIntent(intentId)(store.dispatch);
 
     const actionResults = store.getActions();
 

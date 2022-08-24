@@ -1,13 +1,14 @@
 import * as actionTypes from '../../actionTypes';
+import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import { resetSizeScalesState } from '..';
 
 describe('resetSizeScalesState() action', () => {
-  let store;
+  let store: ReturnType<typeof mockStore>;
 
   it('should dispatch the correct action type', () => {
-    store = mockStore();
-    store.dispatch(resetSizeScalesState());
+    store = mockStore({ sizeScales: INITIAL_STATE }, {});
+    resetSizeScalesState()(store.dispatch);
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

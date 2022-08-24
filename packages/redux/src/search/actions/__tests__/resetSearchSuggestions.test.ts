@@ -1,13 +1,14 @@
 import * as actionTypes from '../../actionTypes';
+import { INITIAL_STATE } from '../../reducer/searchSuggestions';
 import { mockStore } from '../../../../tests';
 import { resetSearchSuggestions } from '..';
 
 describe('resetSearchSuggestions() action creator', () => {
-  let store;
+  let store: ReturnType<typeof mockStore>;
 
   it('should dispatch the correct action type', () => {
-    store = mockStore();
-    store.dispatch(resetSearchSuggestions());
+    store = mockStore({ search: INITIAL_STATE }, {});
+    resetSearchSuggestions()(store.dispatch);
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

@@ -10,6 +10,7 @@ import { patchCheckoutOrder } from '@farfetch/blackout-client';
 import { updateCheckoutOrder } from '..';
 import find from 'lodash/find';
 import thunk from 'redux-thunk';
+import type { StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -17,9 +18,10 @@ jest.mock('@farfetch/blackout-client', () => ({
 }));
 
 const mockProductImgQueryParam = '?c=2';
+const getOptions = () => ({ productImgQueryParam: mockProductImgQueryParam });
 const mockMiddlewares = [
   thunk.withExtraArgument({
-    getOptions: () => ({ productImgQueryParam: mockProductImgQueryParam }),
+    getOptions,
   }),
 ];
 
@@ -30,22 +32,24 @@ describe('updateCheckoutOrder() action creator', () => {
     email: 'something@mail.com',
   };
   const expectedConfig = undefined;
-  let store;
+  let store: ReturnType<typeof checkoutMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
     store = checkoutMockStore();
   });
 
-  it('should create the correct actions for when the update checkout procedure fails', async () => {
-    const expectedError = new Error('update checkout error');
+  it('should create the correct actions for when the update checkout order procedure fails', async () => {
+    const expectedError = new Error('update checkout order error');
 
-    patchCheckoutOrder.mockRejectedValueOnce(expectedError);
+    (patchCheckoutOrder as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(updateCheckoutOrder(checkoutId, data));
-    } catch (error) {
+    await updateCheckoutOrder(checkoutId, data)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).catch(error => {
       expect(error).toBe(expectedError);
       expect(patchCheckoutOrder).toHaveBeenCalledTimes(1);
       expect(patchCheckoutOrder).toHaveBeenCalledWith(
@@ -62,12 +66,19 @@ describe('updateCheckoutOrder() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the update checkout procedure is successful', async () => {
-    patchCheckoutOrder.mockResolvedValueOnce(mockResponse);
-    await store.dispatch(updateCheckoutOrder(checkoutId, data));
+  it('should create the correct actions for when the update checkout order procedure is successful', async () => {
+    (patchCheckoutOrder as jest.Mock).mockResolvedValueOnce(mockResponse);
+
+    await updateCheckoutOrder(checkoutId, data)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockResponse);
+    });
 
     const actionResults = store.getActions();
 
@@ -88,10 +99,10 @@ describe('updateCheckoutOrder() action creator', () => {
       find(actionResults, {
         type: actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS,
       }),
-    ).toMatchSnapshot('update checkout success payload');
+    ).toMatchSnapshot('update checkout order success payload');
   });
 
-  it('should create the correct actions for when the update checkout procedure is successful with config to apply the new axios headers', async () => {
+  it('should create the correct actions for when the update checkout order procedure is successful with config to apply the new axios headers', async () => {
     const configWithHeaders = {
       headers: {
         'Accept-Language': 'pt-PT',
@@ -100,10 +111,15 @@ describe('updateCheckoutOrder() action creator', () => {
       },
     };
 
-    patchCheckoutOrder.mockResolvedValueOnce(mockResponse);
-    await store.dispatch(
-      updateCheckoutOrder(checkoutId, data, configWithHeaders),
-    );
+    (patchCheckoutOrder as jest.Mock).mockResolvedValueOnce(mockResponse);
+
+    await updateCheckoutOrder(checkoutId, data, configWithHeaders)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockResponse);
+    });
 
     const actionResults = store.getActions();
 
@@ -125,7 +141,7 @@ describe('updateCheckoutOrder() action creator', () => {
         type: actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS,
       }),
     ).toMatchSnapshot(
-      'update checkout success payload with config to apply the new axios headers',
+      'update checkout order success payload with config to apply the new axios headers',
     );
   });
 });

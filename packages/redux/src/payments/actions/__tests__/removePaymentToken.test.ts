@@ -18,7 +18,7 @@ const paymentsMockStore = (state = {}) =>
   mockStore({ paymentTokens: INITIAL_STATE }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof paymentsMockStore>;
 
 describe('removePaymentToken() action creator', () => {
   beforeEach(() => {
@@ -29,12 +29,10 @@ describe('removePaymentToken() action creator', () => {
   it('should create the correct actions for when the remove payment token procedure fails', async () => {
     const expectedError = new Error('remove payment token error');
 
-    deletePaymentToken.mockRejectedValueOnce(expectedError);
+    (deletePaymentToken as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(removePaymentToken(paymentTokenId));
-    } catch (error) {
+    await removePaymentToken(paymentTokenId)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(deletePaymentToken).toHaveBeenCalledTimes(1);
       expect(deletePaymentToken).toHaveBeenCalledWith(
@@ -50,12 +48,14 @@ describe('removePaymentToken() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the remove payment token procedure is successful', async () => {
-    deletePaymentToken.mockResolvedValueOnce(mockRemovePaymentTokenResponse);
-    await store.dispatch(removePaymentToken(paymentTokenId));
+    (deletePaymentToken as jest.Mock).mockResolvedValueOnce(
+      mockRemovePaymentTokenResponse,
+    );
+    await removePaymentToken(paymentTokenId)(store.dispatch);
 
     const actionResults = store.getActions();
 

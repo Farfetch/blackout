@@ -33,9 +33,7 @@ describe('fetchGuestUser action creator', () => {
     (getGuestUser as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchGuestUser(guestUserId));
-    } catch (error) {
+    await fetchGuestUser(guestUserId)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getGuestUser).toHaveBeenCalledTimes(1);
       expect(getGuestUser).toHaveBeenCalledWith(guestUserId, expectedConfig);
@@ -48,13 +46,13 @@ describe('fetchGuestUser action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the get guest user procedure is successful', async () => {
     (getGuestUser as jest.Mock).mockResolvedValueOnce(mockGetGuestUserResponse);
 
-    await store.dispatch(fetchGuestUser(guestUserId));
+    await fetchGuestUser(guestUserId)(store.dispatch);
 
     const actionResults = store.getActions();
 

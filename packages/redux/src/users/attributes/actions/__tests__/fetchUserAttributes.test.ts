@@ -2,7 +2,10 @@ import * as actionTypes from '../../actionTypes';
 import { fetchUserAttributes } from '../';
 import { getUserAttributes } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../../reducer';
-import { mockGetUserAttributesResponse } from 'tests/__fixtures__/users';
+import {
+  mockGetUserAttributesResponse,
+  userId,
+} from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../../tests';
 import find from 'lodash/find';
 
@@ -16,7 +19,6 @@ const usersMockStore = (state = {}) =>
 
 describe('fetchUserAttributes action creator', () => {
   let store = usersMockStore();
-  const userId = 123456789;
   const query = {};
   const expectedConfig = undefined;
 
@@ -31,9 +33,10 @@ describe('fetchUserAttributes action creator', () => {
     (getUserAttributes as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchUserAttributes(userId, query));
-    } catch (error) {
+    await fetchUserAttributes(
+      userId,
+      query,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getUserAttributes).toHaveBeenCalledTimes(1);
       expect(getUserAttributes).toHaveBeenCalledWith(
@@ -50,7 +53,7 @@ describe('fetchUserAttributes action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the fetch user attributes procedure is successful', async () => {
@@ -58,7 +61,7 @@ describe('fetchUserAttributes action creator', () => {
       mockGetUserAttributesResponse,
     );
 
-    await store.dispatch(fetchUserAttributes(userId, query));
+    await fetchUserAttributes(userId, query)(store.dispatch);
 
     const actionResults = store.getActions();
 

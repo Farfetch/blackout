@@ -10,6 +10,7 @@ import { putCheckoutOrderPromocode } from '@farfetch/blackout-client';
 import { setCheckoutOrderPromocode } from '..';
 import find from 'lodash/find';
 import thunk from 'redux-thunk';
+import type { StoreState } from '../../../types';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -17,9 +18,10 @@ jest.mock('@farfetch/blackout-client', () => ({
 }));
 
 const mockProductImgQueryParam = '?c=2';
+const getOptions = () => ({ productImgQueryParam: mockProductImgQueryParam });
 const mockMiddlewares = [
   thunk.withExtraArgument({
-    getOptions: () => ({ productImgQueryParam: mockProductImgQueryParam }),
+    getOptions,
   }),
 ];
 
@@ -31,22 +33,26 @@ describe('setCheckoutOrderPromocode() action creator', () => {
     promocode: 'something',
   };
   const expectedConfig = undefined;
-  let store;
+  let store: ReturnType<typeof checkoutMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
     store = checkoutMockStore();
   });
 
-  it('should create the correct actions for when the set promocode procedure fails', async () => {
-    const expectedError = new Error('set promocode error');
+  it('should create the correct actions for when the set checkout order promocode procedure fails', async () => {
+    const expectedError = new Error('set checkout order promocode error');
 
-    putCheckoutOrderPromocode.mockRejectedValueOnce(expectedError);
+    (putCheckoutOrderPromocode as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
-    try {
-      await store.dispatch(setCheckoutOrderPromocode(checkoutId, data));
-    } catch (error) {
+    await setCheckoutOrderPromocode(checkoutId, data)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).catch(error => {
       expect(error).toBe(expectedError);
       expect(putCheckoutOrderPromocode).toHaveBeenCalledTimes(1);
       expect(putCheckoutOrderPromocode).toHaveBeenCalledWith(
@@ -63,16 +69,25 @@ describe('setCheckoutOrderPromocode() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the set promocode procedure is successful', async () => {
-    putCheckoutOrderPromocode.mockResolvedValueOnce(mockResponse);
-    await store.dispatch(setCheckoutOrderPromocode(checkoutId, data));
+  it('should create the correct actions for when the set checkout order promocode procedure is successful', async () => {
+    (putCheckoutOrderPromocode as jest.Mock).mockResolvedValueOnce(
+      mockResponse,
+    );
+
+    await setCheckoutOrderPromocode(checkoutId, data)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockResponse);
+    });
 
     const actionResults = store.getActions();
 
-    expect.assertions(4);
+    expect.assertions(5);
     expect(putCheckoutOrderPromocode).toHaveBeenCalledTimes(1);
     expect(putCheckoutOrderPromocode).toHaveBeenCalledWith(
       checkoutId,
@@ -90,6 +105,6 @@ describe('setCheckoutOrderPromocode() action creator', () => {
       find(actionResults, {
         type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS,
       }),
-    ).toMatchSnapshot('set promocode success payload');
+    ).toMatchSnapshot('set checkout order promocode success payload');
   });
 });

@@ -1,12 +1,12 @@
 import * as actionTypes from '../../actionTypes';
 import { createReturnPickupRescheduleRequest } from '..';
+import {
+  getReturnPickupRescheduleRequestsData as data,
+  responses,
+} from 'tests/__fixtures__/returns';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import {
-  postReturnPickupRescheduleRequest,
-  RescheduleStatus,
-} from '@farfetch/blackout-client';
-import { responses } from 'tests/__fixtures__/returns';
+import { postReturnPickupRescheduleRequest } from '@farfetch/blackout-client';
 import find from 'lodash/find';
 
 jest.mock('@farfetch/blackout-client', () => ({
@@ -17,17 +17,9 @@ jest.mock('@farfetch/blackout-client', () => ({
 const returnsMockStore = (state = {}) =>
   mockStore({ returns: INITIAL_STATE }, state);
 
-describe('createReturnPickupRescheduleRequest action creator', () => {
+describe('createReturnPickupRescheduleRequest() action creator', () => {
   let store = returnsMockStore();
   const id = '12345';
-  const data = {
-    id: '',
-    timeWindow: {
-      start: '',
-      end: '',
-    },
-    status: RescheduleStatus.InProgress,
-  };
   const expectedConfig = undefined;
 
   beforeEach(() => {
@@ -35,17 +27,20 @@ describe('createReturnPickupRescheduleRequest action creator', () => {
     store = returnsMockStore();
   });
 
-  it('should create the correct actions for when the create pickup reschedule request procedure fails', async () => {
-    const expectedError = new Error('create pickup reschedule request error');
+  it('should create the correct actions for when the create return pickup reschedule request procedure fails', async () => {
+    const expectedError = new Error(
+      'create return pickup reschedule request error',
+    );
 
     (postReturnPickupRescheduleRequest as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
     expect.assertions(4);
 
-    try {
-      await store.dispatch(createReturnPickupRescheduleRequest(id, data));
-    } catch (error) {
+    await createReturnPickupRescheduleRequest(
+      id,
+      data,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(postReturnPickupRescheduleRequest).toHaveBeenCalledTimes(1);
       expect(postReturnPickupRescheduleRequest).toHaveBeenCalledWith(
@@ -62,14 +57,14 @@ describe('createReturnPickupRescheduleRequest action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the create pickup reschedule request procedure is successful', async () => {
+  it('should create the correct actions for when the create return pickup reschedule request procedure is successful', async () => {
     (postReturnPickupRescheduleRequest as jest.Mock).mockResolvedValueOnce(
       responses.postReturnPickupRescheduleRequests.success,
     );
-    await store.dispatch(createReturnPickupRescheduleRequest(id, data));
+    await createReturnPickupRescheduleRequest(id, data)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -91,6 +86,8 @@ describe('createReturnPickupRescheduleRequest action creator', () => {
       find(actionResults, {
         type: actionTypes.CREATE_RETURN_PICKUP_RESCHEDULE_REQUEST_SUCCESS,
       }),
-    ).toMatchSnapshot('create pickup reschedule request success payload');
+    ).toMatchSnapshot(
+      'create return pickup reschedule request success payload',
+    );
   });
 });

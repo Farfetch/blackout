@@ -5,6 +5,7 @@ import { getOrderReturns } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import {
+  orderId,
   orderReturnsNormalizedPayload,
   responses,
 } from 'tests/__fixtures__/returns';
@@ -22,7 +23,6 @@ describe('fetchOrderReturns() action creator', () => {
   const expectedConfig = undefined;
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
   let store: ReturnType<typeof returnsMockStore>;
-  const orderId = '8VXRHN';
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -35,9 +35,7 @@ describe('fetchOrderReturns() action creator', () => {
     (getOrderReturns as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchOrderReturns(orderId));
-    } catch (error) {
+    await fetchOrderReturns(orderId)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getOrderReturns).toHaveBeenCalledTimes(1);
       expect(getOrderReturns).toHaveBeenCalledWith(orderId, expectedConfig);
@@ -54,14 +52,14 @@ describe('fetchOrderReturns() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the get order returns procedure is successful', async () => {
     (getOrderReturns as jest.Mock).mockResolvedValueOnce(
       responses.getReturnsFromOrder.get.success,
     );
-    await store.dispatch(fetchOrderReturns(orderId));
+    await fetchOrderReturns(orderId)(store.dispatch);
 
     const actionResults = store.getActions();
 

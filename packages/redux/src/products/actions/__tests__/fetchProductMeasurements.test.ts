@@ -18,7 +18,7 @@ jest.mock('@farfetch/blackout-client', () => ({
 const productDetailsMockStore = (state = {}) =>
   mockStore({ products: { measurements: INITIAL_STATE } }, state);
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof productDetailsMockStore>;
 
 describe('fetchProductMeasurements() action creator', () => {
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
@@ -42,13 +42,14 @@ describe('fetchProductMeasurements() action creator', () => {
   it('should create the correct actions for when the fetch product measurements procedure fails', async () => {
     const expectedError = new Error('Fetch product measurements error');
 
-    getProductVariantsMeasurements.mockRejectedValueOnce(expectedError);
+    (getProductVariantsMeasurements as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
 
     expect.assertions(4);
 
-    await store
-      .dispatch(fetchProductMeasurements(mockProductId))
-      .catch(error => {
+    await fetchProductMeasurements(mockProductId)(store.dispatch).catch(
+      error => {
         expect(error).toBe(expectedError);
         expect(getProductVariantsMeasurements).toHaveBeenCalledTimes(1);
         expect(getProductVariantsMeasurements).toHaveBeenCalledWith(
@@ -66,21 +67,22 @@ describe('fetchProductMeasurements() action creator', () => {
             type: productsActionTypes.FETCH_PRODUCT_MEASUREMENTS_FAILURE,
           },
         ]);
-      });
+      },
+    );
   });
 
   it('should create the correct actions for when the fetch product measurements procedure is successful', async () => {
-    getProductVariantsMeasurements.mockResolvedValueOnce(
+    (getProductVariantsMeasurements as jest.Mock).mockResolvedValueOnce(
       mockProductVariantsMeasurements,
     );
 
     expect.assertions(5);
 
-    await store
-      .dispatch(fetchProductMeasurements(mockProductId))
-      .then(clientResult => {
+    await fetchProductMeasurements(mockProductId)(store.dispatch).then(
+      clientResult => {
         expect(clientResult).toBe(mockProductVariantsMeasurements);
-      });
+      },
+    );
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getProductVariantsMeasurements).toHaveBeenCalledTimes(1);

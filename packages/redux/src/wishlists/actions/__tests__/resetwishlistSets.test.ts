@@ -1,16 +1,17 @@
 import * as actionTypes from '../../actionTypes';
 import { mockStore } from '../../../../tests';
-import { resetWishlistSets } from '../';
+import { resetWishlistSets } from '..';
+import INITIAL_STATE from '../../reducer';
 
-let store;
+let store: ReturnType<typeof mockStore>;
 
 describe('resetWishlistSets()', () => {
   beforeEach(() => {
-    store = mockStore();
+    store = mockStore({ wishlist: INITIAL_STATE }, {});
   });
 
   it('should dispatch the correct actions when resetting', () => {
-    store.dispatch(resetWishlistSets());
+    resetWishlistSets()(store.dispatch);
 
     expect(store.getActions()).toEqual([
       {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`setCheckoutOrderPromocode() action creator should create the correct actions for when the set promocode procedure is successful: set promocode success payload 1`] = `
+exports[`setCheckoutOrderPromocode() action creator should create the correct actions for when the set checkout order promocode procedure is successful: set checkout order promocode success payload 1`] = `
 Object {
   "payload": Object {
     "entities": Object {

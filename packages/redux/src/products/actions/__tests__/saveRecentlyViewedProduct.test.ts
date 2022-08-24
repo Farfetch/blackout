@@ -24,12 +24,12 @@ describe('saveRecentlyViewedProduct() action creator', () => {
     store = mockRecentlyViewedStore();
   });
 
-  it('should create the correct action', () => {
+  it('should create the correct action', async () => {
     action(productId)(store.dispatch);
 
     const actionResults = store.getActions();
 
-    expect(actionResults).toEqual([
+    await expect(actionResults).toEqual([
       {
         type: productsActionTypes.SAVE_RECENTLY_VIEWED_PRODUCT,
         payload: [

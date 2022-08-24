@@ -21,7 +21,7 @@ describe('createCheckoutOrderCharge() action creator', () => {
   };
   const orderId = 12345;
   const expectedConfig = undefined;
-  let store;
+  let store: ReturnType<typeof checkoutMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -31,12 +31,13 @@ describe('createCheckoutOrderCharge() action creator', () => {
   it('should create the correct actions for when the charge procedure fails', async () => {
     const expectedError = new Error('charges error');
 
-    postCheckoutOrderCharge.mockRejectedValueOnce(expectedError);
+    (postCheckoutOrderCharge as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(createCheckoutOrderCharge(orderId, data));
-    } catch (error) {
+    await createCheckoutOrderCharge(
+      orderId,
+      data,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(postCheckoutOrderCharge).toHaveBeenCalledTimes(1);
       expect(postCheckoutOrderCharge).toHaveBeenCalledWith(
@@ -53,12 +54,18 @@ describe('createCheckoutOrderCharge() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the charge procedure is successful', async () => {
-    postCheckoutOrderCharge.mockResolvedValueOnce(mockCharges);
-    await store.dispatch(createCheckoutOrderCharge(orderId, data));
+    (postCheckoutOrderCharge as jest.Mock).mockResolvedValueOnce(mockCharges);
+
+    await createCheckoutOrderCharge(
+      orderId,
+      data,
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toBe(mockCharges);
+    });
 
     const actionResults = store.getActions();
 

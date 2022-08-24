@@ -9,6 +9,17 @@ export const id = 123456;
 export const rescheduleRequestId = '1654321';
 export const mockReturnId = '123456';
 export const mockOrderId = '123456';
+export const pickupDay = '2020-04-20';
+export const returnTimeWindowData = {
+  start: '1574445600000',
+  end: '/Date(1574413200000)/',
+};
+
+export const getReturnPickupRescheduleRequestsData = {
+  id: '',
+  timeWindow: returnTimeWindowData,
+  status: RescheduleStatus.InProgress,
+};
 
 export const responses = {
   post: {
@@ -194,26 +205,10 @@ export const responses = {
     },
   },
   getReturnPickupRescheduleRequests: {
-    success: [
-      {
-        id: 'string',
-        timeWindow: {
-          start: '2022-05-06T09:45:32.623Z',
-          end: '2022-05-06T09:45:32.623Z',
-        },
-        status: RescheduleStatus.InProgress,
-      },
-    ],
+    success: [getReturnPickupRescheduleRequestsData],
   },
   getReturnPickupRescheduleRequest: {
-    success: {
-      id: 'string',
-      timeWindow: {
-        start: '2022-05-06T09:40:01.115Z',
-        end: '2022-05-06T09:40:01.115Z',
-      },
-      status: RescheduleStatus.InProgress,
-    },
+    success: getReturnPickupRescheduleRequestsData,
   },
   postReturnPickupRescheduleRequests: {
     success: 202,

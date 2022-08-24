@@ -29,9 +29,7 @@ describe('createPhoneTokens action creator', () => {
     (postPhoneToken as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(createPhoneTokens(params));
-    } catch (error) {
+    await createPhoneTokens(params)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(postPhoneToken).toHaveBeenCalledTimes(1);
       expect(postPhoneToken).toHaveBeenCalledWith(params, expectedConfig);
@@ -44,12 +42,12 @@ describe('createPhoneTokens action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the create phone token procedure is successful', async () => {
     (postPhoneToken as jest.Mock).mockResolvedValueOnce({});
-    await store.dispatch(createPhoneTokens(params));
+    await createPhoneTokens(params)(store.dispatch);
 
     const actionResults = store.getActions();
 

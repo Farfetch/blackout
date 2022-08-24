@@ -1,7 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import { getGiftCardBalance } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
-import { mockGiftCardBalanceResponse } from 'tests/__fixtures__/payments';
+import {
+  mockGiftCardBalanceResponse,
+  mockInstrumentData,
+} from 'tests/__fixtures__/payments';
 import { mockStore } from '../../../../tests';
 import fetchGiftCardBalance from '../fetchGiftCardBalance';
 import find from 'lodash/find';
@@ -15,11 +18,12 @@ const paymentsMockStore = (state = {}) =>
   mockStore({ paymentTokens: INITIAL_STATE }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof paymentsMockStore>;
 
 describe('fetchGiftCardBalance() action creator', () => {
   const data = {
-    something: 'something',
+    giftCardNumber: mockInstrumentData.data.giftCardNumber,
+    giftCardCsc: mockInstrumentData.data.giftCardCsc,
   };
 
   beforeEach(() => {
@@ -30,12 +34,10 @@ describe('fetchGiftCardBalance() action creator', () => {
   it('should create the correct actions for when the fetch gift card balance procedure fails', async () => {
     const expectedError = new Error('fetch gift card balance error');
 
-    getGiftCardBalance.mockRejectedValueOnce(expectedError);
+    (getGiftCardBalance as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchGiftCardBalance(data));
-    } catch (error) {
+    await fetchGiftCardBalance(data)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getGiftCardBalance).toHaveBeenCalledTimes(1);
       expect(getGiftCardBalance).toHaveBeenCalledWith(data, expectedConfig);
@@ -48,12 +50,14 @@ describe('fetchGiftCardBalance() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the fetch gift card balance procedure is successful', async () => {
-    getGiftCardBalance.mockResolvedValueOnce(mockGiftCardBalanceResponse);
-    await store.dispatch(fetchGiftCardBalance(data));
+    (getGiftCardBalance as jest.Mock).mockResolvedValueOnce(
+      mockGiftCardBalanceResponse,
+    );
+    await fetchGiftCardBalance(data)(store.dispatch);
 
     const actionResults = store.getActions();
 

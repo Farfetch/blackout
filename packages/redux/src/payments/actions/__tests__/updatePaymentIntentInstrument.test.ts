@@ -1,6 +1,11 @@
 import * as actionTypes from '../../actionTypes';
 import { INITIAL_STATE } from '../../reducer';
-import { mockPaymentsResponse } from 'tests/__fixtures__/payments';
+import {
+  instrumentId,
+  intentId,
+  mockInstrumentData,
+  mockPaymentsResponse,
+} from 'tests/__fixtures__/payments';
 import { mockStore } from '../../../../tests';
 import { putPaymentIntentInstrument } from '@farfetch/blackout-client';
 import find from 'lodash/find';
@@ -15,13 +20,11 @@ const paymentsMockStore = (state = {}) =>
   mockStore({ paymentTokens: INITIAL_STATE }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof paymentsMockStore>;
 
 describe('updatePaymentIntentInstrument() action creator', () => {
-  const intentId = '123123';
-  const instrumentId = '123123';
   const data = {
-    something: 'something',
+    amounts: mockInstrumentData.amounts,
   };
 
   beforeEach(() => {
@@ -32,14 +35,16 @@ describe('updatePaymentIntentInstrument() action creator', () => {
   it('should create the correct actions for when the update payment intent instrument procedure fails', async () => {
     const expectedError = new Error('update instruments error');
 
-    putPaymentIntentInstrument.mockRejectedValueOnce(expectedError);
+    (putPaymentIntentInstrument as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
     expect.assertions(4);
 
-    try {
-      await store.dispatch(
-        updatePaymentIntentInstrument(intentId, instrumentId, data),
-      );
-    } catch (error) {
+    await updatePaymentIntentInstrument(
+      intentId,
+      instrumentId,
+      data,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(putPaymentIntentInstrument).toHaveBeenCalledTimes(1);
       expect(putPaymentIntentInstrument).toHaveBeenCalledWith(
@@ -57,14 +62,18 @@ describe('updatePaymentIntentInstrument() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the update payment intent instruments procedure is successful', async () => {
-    putPaymentIntentInstrument.mockResolvedValueOnce(mockPaymentsResponse);
-    await store.dispatch(
-      updatePaymentIntentInstrument(intentId, instrumentId, data),
+    (putPaymentIntentInstrument as jest.Mock).mockResolvedValueOnce(
+      mockPaymentsResponse,
     );
+    await updatePaymentIntentInstrument(
+      intentId,
+      instrumentId,
+      data,
+    )(store.dispatch);
 
     const actionResults = store.getActions();
 

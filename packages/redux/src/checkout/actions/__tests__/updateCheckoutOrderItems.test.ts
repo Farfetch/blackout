@@ -50,22 +50,23 @@ describe('updateCheckoutOrderItems() action creator', () => {
       },
     },
   ];
-  let store;
+  let store: ReturnType<typeof checkoutMockStore>;
 
   beforeEach(() => {
     jest.clearAllMocks();
     store = checkoutMockStore();
   });
 
-  it('should create the correct actions for when the update gift message procedure fails', async () => {
-    const expectedError = new Error('update gift message error');
+  it('should create the correct actions for when the update checkout order items procedure fails', async () => {
+    const expectedError = new Error('update checkout order items error');
 
-    patchCheckoutOrderItems.mockRejectedValueOnce(expectedError);
+    (patchCheckoutOrderItems as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(updateCheckoutOrderItems(checkoutId, data));
-    } catch (error) {
+    await updateCheckoutOrderItems(
+      checkoutId,
+      data,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(patchCheckoutOrderItems).toHaveBeenCalledTimes(1);
       expect(patchCheckoutOrderItems).toHaveBeenCalledWith(
@@ -82,12 +83,18 @@ describe('updateCheckoutOrderItems() action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
-  it('should create the correct actions for when the update gift message procedure is successful', async () => {
-    patchCheckoutOrderItems.mockResolvedValueOnce();
-    await store.dispatch(updateCheckoutOrderItems(checkoutId, data));
+  it('should create the correct actions for when the update checkout order items procedure is successful', async () => {
+    (patchCheckoutOrderItems as jest.Mock).mockResolvedValueOnce(200);
+
+    await updateCheckoutOrderItems(
+      checkoutId,
+      data,
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toBe(200);
+    });
 
     const actionResults = store.getActions();
 
@@ -105,6 +112,6 @@ describe('updateCheckoutOrderItems() action creator', () => {
       find(actionResults, {
         type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEMS_SUCCESS,
       }),
-    ).toMatchSnapshot('update gift message success payload');
+    ).toMatchSnapshot('update checkout order items success payload');
   });
 });

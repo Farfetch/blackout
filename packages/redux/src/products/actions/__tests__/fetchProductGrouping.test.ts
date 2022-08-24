@@ -18,7 +18,7 @@ jest.mock('@farfetch/blackout-client', () => ({
 const productDetailsMockStore = (state = {}) =>
   mockStore({ products: { grouping: INITIAL_STATE } }, state);
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof productDetailsMockStore>;
 
 describe('fetchProductGrouping() action creator', () => {
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
@@ -40,11 +40,11 @@ describe('fetchProductGrouping() action creator', () => {
   it('should create the correct actions for when the fetch product grouping procedure fails', async () => {
     const expectedError = new Error('Fetch product grouping error');
 
-    getProductGrouping.mockRejectedValueOnce(expectedError);
+    (getProductGrouping as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchProductGrouping(mockProductId)).catch(error => {
+    await fetchProductGrouping(mockProductId)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getProductGrouping).toHaveBeenCalledTimes(1);
       expect(getProductGrouping).toHaveBeenCalledWith(
@@ -67,15 +67,18 @@ describe('fetchProductGrouping() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch product grouping procedure is successful', async () => {
-    getProductGrouping.mockResolvedValueOnce(mockProductGrouping);
+    (getProductGrouping as jest.Mock).mockResolvedValueOnce(
+      mockProductGrouping,
+    );
 
     const query = { pageSize: 10 };
 
-    await store
-      .dispatch(fetchProductGrouping(mockProductId, query))
-      .then(clientResult => {
-        expect(clientResult).toEqual(mockProductGrouping);
-      });
+    await fetchProductGrouping(
+      mockProductId,
+      query,
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toEqual(mockProductGrouping);
+    });
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getProductGrouping).toHaveBeenCalledTimes(1);

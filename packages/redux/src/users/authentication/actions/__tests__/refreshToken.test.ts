@@ -1,4 +1,8 @@
 import * as actionTypes from '../../actionTypes';
+import {
+  mockErrorObject,
+  mockUserTokenResponse,
+} from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../../tests';
 import { postToken, toBlackoutError } from '@farfetch/blackout-client';
 import { refreshToken } from '../..';
@@ -27,18 +31,11 @@ describe('refreshToken() action creator', () => {
   });
 
   it('should create the correct actions for when the refresh user token procedure fails', async () => {
-    const errorObject = {
-      errorMessage: 'post user token error',
-      errorCode: 0,
-      status: 400,
-    };
-
-    (postToken as jest.Mock).mockRejectedValueOnce(errorObject);
+    (postToken as jest.Mock).mockRejectedValueOnce(mockErrorObject);
     expect.assertions(4);
-    try {
-      await store.dispatch(refreshToken(refreshTokenValue));
-    } catch (error) {
-      expect(error).toBe(errorObject);
+
+    await refreshToken(refreshTokenValue)(store.dispatch).catch(error => {
+      expect(error).toBe(mockErrorObject);
       expect(postToken).toHaveBeenCalledTimes(1);
       expect(postToken).toHaveBeenCalledWith(
         { refreshToken: refreshTokenValue, grantType: 'refresh_token' },
@@ -49,23 +46,16 @@ describe('refreshToken() action creator', () => {
           { type: actionTypes.REFRESH_USER_TOKEN_REQUEST },
           {
             type: actionTypes.REFRESH_USER_TOKEN_FAILURE,
-            payload: { error: toBlackoutError(errorObject) },
+            payload: { error: toBlackoutError(mockErrorObject) },
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the refresh user token procedure is successful', async () => {
-    const mockResponse = {
-      accessToken: '04b55bb7-f1af-4b45-aa10-5c4667a48936',
-      expiresIn: '1200',
-      refreshToken:
-        'd5b4f8e72f652d9e048d7e5c75f1ec97bb9eeaec2b080497eba0965abc0ade4d',
-    };
-
-    (postToken as jest.Mock).mockResolvedValueOnce(mockResponse);
-    await store.dispatch(refreshToken(refreshTokenValue));
+    (postToken as jest.Mock).mockResolvedValueOnce(mockUserTokenResponse);
+    await refreshToken(refreshTokenValue)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -79,13 +69,13 @@ describe('refreshToken() action creator', () => {
       { type: actionTypes.REFRESH_USER_TOKEN_REQUEST },
       {
         type: actionTypes.REFRESH_USER_TOKEN_SUCCESS,
-        payload: mockResponse,
+        payload: mockUserTokenResponse,
       },
     ]);
     expect(
       find(actionResults, {
         type: actionTypes.REFRESH_USER_TOKEN_SUCCESS,
-        payload: mockResponse,
+        payload: mockUserTokenResponse,
       }),
     ).toMatchSnapshot('refresh user token success payload');
   });

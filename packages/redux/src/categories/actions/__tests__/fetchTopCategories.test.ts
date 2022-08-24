@@ -16,7 +16,7 @@ jest.mock('@farfetch/blackout-client', () => ({
 const buildCategoriesMockStore = (state = {}) =>
   mockStore({ categories: INITIAL_STATE }, state);
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof buildCategoriesMockStore>;
 
 describe('fetchTopCategories() action creator', () => {
   beforeEach(() => {
@@ -27,11 +27,11 @@ describe('fetchTopCategories() action creator', () => {
   it('should create the correct actions in case the fetch top categories procedure fails', async () => {
     const expectedError = new Error('fetch top categories error');
 
-    getTopCategories.mockRejectedValueOnce(expectedError);
+    (getTopCategories as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchTopCategories()).catch(error => {
+    await fetchTopCategories()(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getTopCategories).toHaveBeenCalledTimes(1);
       expect(getTopCategories).toHaveBeenCalledWith(expectedConfig);
@@ -46,11 +46,11 @@ describe('fetchTopCategories() action creator', () => {
   });
 
   it('should create the correct actions in case the fetch top categories procedure is successful', async () => {
-    getTopCategories.mockResolvedValueOnce(mockTopCategories);
+    (getTopCategories as jest.Mock).mockResolvedValueOnce(mockTopCategories);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchTopCategories()).then(clientResult => {
+    await fetchTopCategories()(store.dispatch).then(clientResult => {
       expect(clientResult).toBe(mockTopCategories);
     });
 

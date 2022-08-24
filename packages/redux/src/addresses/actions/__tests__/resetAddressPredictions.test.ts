@@ -6,7 +6,7 @@ import { resetAddressPredictions } from '..';
 const addressesMockStore = (state = {}) =>
   mockStore({ addresses: INITIAL_STATE }, state);
 
-let store;
+let store: ReturnType<typeof addressesMockStore>;
 
 describe('resetAddressPredictions() action creator', () => {
   beforeEach(() => {
@@ -15,8 +15,7 @@ describe('resetAddressPredictions() action creator', () => {
   });
 
   it('should create the correct action to reset predictions state', () => {
-    store.dispatch(resetAddressPredictions());
-
+    resetAddressPredictions()(store.dispatch);
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

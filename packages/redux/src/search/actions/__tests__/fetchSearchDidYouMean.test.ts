@@ -19,7 +19,7 @@ const searchMockStore = (state = {}) =>
 const expectedConfig = undefined;
 const query = mockSearchDidYouMeanQuery;
 const hash = mockSearchDidYouMeanHash;
-let store;
+let store: ReturnType<typeof searchMockStore>;
 
 describe('fetchSearchDidYouMean() action creator', () => {
   beforeEach(() => {
@@ -30,11 +30,11 @@ describe('fetchSearchDidYouMean() action creator', () => {
   it('should create the correct actions for when the fetch search did you mean procedure fails', async () => {
     const expectedError = new Error('Fetch search did you mean error');
 
-    getSearchDidYouMean.mockRejectedValueOnce(expectedError);
+    (getSearchDidYouMean as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store.dispatch(fetchSearchDidYouMean(query)).catch(error => {
+    await fetchSearchDidYouMean(query)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getSearchDidYouMean).toHaveBeenCalledTimes(1);
       expect(getSearchDidYouMean).toHaveBeenCalledWith(query, expectedConfig);
@@ -53,11 +53,13 @@ describe('fetchSearchDidYouMean() action creator', () => {
   });
 
   it('should create the correct actions for when the fetch search did you mean procedure is successful', async () => {
-    getSearchDidYouMean.mockResolvedValueOnce(mockSearchDidYouMeanResponse);
+    (getSearchDidYouMean as jest.Mock).mockResolvedValueOnce(
+      mockSearchDidYouMeanResponse,
+    );
 
     expect.assertions(4);
 
-    await store.dispatch(fetchSearchDidYouMean(query)).then(clientResult => {
+    await fetchSearchDidYouMean(query)(store.dispatch).then(clientResult => {
       expect(clientResult).toBe(mockSearchDidYouMeanResponse);
     });
 

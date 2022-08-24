@@ -1,5 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import { createUserToken } from '../..';
+import {
+  mockCreateUserTokenData,
+  mockErrorObject,
+  mockUserTokenResponse,
+} from 'tests/__fixtures__/users';
 import { mockStore } from '../../../../../tests';
 import { postToken, toBlackoutError } from '@farfetch/blackout-client';
 import find from 'lodash/find';
@@ -19,66 +24,45 @@ const expectedConfig = undefined;
 let store = authenticationMockStore();
 
 describe('createUserToken() action creator', () => {
-  const data = {
-    username: 'user1',
-    password: 'pass123',
-    grantType: 'type12',
-    refreshToken:
-      'd5b4f8e72f652d9e048d7e5c75f1ec97bb9eeaec2b080497eba0965abc0ade4d',
-  };
-
   beforeEach(() => {
     jest.clearAllMocks();
     store = authenticationMockStore();
   });
 
   it('should create the correct actions for when the create user token procedure fails', async () => {
-    const errorObject = {
-      errorMessage: 'post user token error',
-      errorCode: 0,
-      status: 400,
-    };
-
-    (postToken as jest.Mock).mockRejectedValueOnce(errorObject);
+    (postToken as jest.Mock).mockRejectedValueOnce(mockErrorObject);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(createUserToken(data));
-    } catch (error) {
-      expect(error).toBe(errorObject);
-      expect(postToken).toHaveBeenCalledTimes(1);
-      expect(postToken).toHaveBeenCalledWith(
-        { ...data, grantType: 'password' },
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.CREATE_USER_TOKEN_REQUEST },
-          {
-            type: actionTypes.CREATE_USER_TOKEN_FAILURE,
-            payload: { error: toBlackoutError(errorObject) },
-          },
-        ]),
-      );
-    }
+    await createUserToken(mockCreateUserTokenData)(store.dispatch).catch(
+      error => {
+        expect(error).toBe(mockErrorObject);
+        expect(postToken).toHaveBeenCalledTimes(1);
+        expect(postToken).toHaveBeenCalledWith(
+          { ...mockCreateUserTokenData, grantType: 'password' },
+          expectedConfig,
+        );
+        expect(store.getActions()).toEqual(
+          expect.arrayContaining([
+            { type: actionTypes.CREATE_USER_TOKEN_REQUEST },
+            {
+              type: actionTypes.CREATE_USER_TOKEN_FAILURE,
+              payload: { error: toBlackoutError(mockErrorObject) },
+            },
+          ]),
+        );
+      },
+    );
   });
 
   it('should create the correct actions for when the create user token procedure is successful', async () => {
-    const mockResponse = {
-      accessToken: '04b55bb7-f1af-4b45-aa10-5c4667a48936',
-      expiresIn: '1200',
-      refreshToken:
-        'd5b4f8e72f652d9e048d7e5c75f1ec97bb9eeaec2b080497eba0965abc0ade4d',
-    };
-
-    (postToken as jest.Mock).mockResolvedValueOnce(mockResponse);
-    await store.dispatch(createUserToken(data));
+    (postToken as jest.Mock).mockResolvedValueOnce(mockUserTokenResponse);
+    await createUserToken(mockCreateUserTokenData)(store.dispatch);
 
     const actionResults = store.getActions();
 
     expect(postToken).toHaveBeenCalledTimes(1);
     expect(postToken).toHaveBeenCalledWith(
-      { ...data, grantType: 'password' },
+      { ...mockCreateUserTokenData, grantType: 'password' },
       expectedConfig,
     );
 
@@ -86,13 +70,13 @@ describe('createUserToken() action creator', () => {
       { type: actionTypes.CREATE_USER_TOKEN_REQUEST },
       {
         type: actionTypes.CREATE_USER_TOKEN_SUCCESS,
-        payload: mockResponse,
+        payload: mockUserTokenResponse,
       },
     ]);
     expect(
       find(actionResults, {
         type: actionTypes.CREATE_USER_TOKEN_SUCCESS,
-        payload: mockResponse,
+        payload: mockUserTokenResponse,
       }),
     ).toMatchSnapshot('create user token success payload');
   });

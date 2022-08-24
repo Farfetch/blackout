@@ -1,6 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import {
   expectedCreditNormalizedPayload,
+  creditId as id,
   mockGetCreditResponse,
 } from 'tests/__fixtures__/users';
 import { fetchUserCredits } from '..';
@@ -19,23 +20,19 @@ const usersMockStore = (state = {}) =>
 const expectedConfig = undefined;
 let store = usersMockStore();
 
-describe('fetchUserCredits action creator', () => {
-  const id = '123456';
-
+describe('fetchUserCredits() action creator', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     store = usersMockStore();
   });
 
   it('should create the correct actions for when the get user credits procedure fails', async () => {
-    const expectedError = new Error('get credit error');
+    const expectedError = new Error('get user credit error');
 
     (getUserCredits as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    try {
-      await store.dispatch(fetchUserCredits(id));
-    } catch (error) {
+    await fetchUserCredits(id)(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getUserCredits).toHaveBeenCalledTimes(1);
       expect(getUserCredits).toHaveBeenCalledWith(id, expectedConfig);
@@ -48,14 +45,13 @@ describe('fetchUserCredits action creator', () => {
           },
         ]),
       );
-    }
+    });
   });
 
   it('should create the correct actions for when the get user credits procedure is successful', async () => {
     (getUserCredits as jest.Mock).mockResolvedValueOnce(mockGetCreditResponse);
 
-    await store.dispatch(fetchUserCredits(id));
-
+    await fetchUserCredits(id)(store.dispatch);
     const actionResults = store.getActions();
 
     expect(getUserCredits).toHaveBeenCalledTimes(1);
@@ -77,8 +73,7 @@ describe('fetchUserCredits action creator', () => {
   it('should create the correct actions for when the get user credits procedure is successful with empty data', async () => {
     (getUserCredits as jest.Mock).mockResolvedValueOnce([]);
 
-    await store.dispatch(fetchUserCredits(id));
-
+    await fetchUserCredits(id)(store.dispatch);
     const actionResults = store.getActions();
 
     expect(getUserCredits).toHaveBeenCalledTimes(1);
