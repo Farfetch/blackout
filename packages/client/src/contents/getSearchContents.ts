@@ -1,7 +1,7 @@
 import { adaptError } from '../helpers/client/formatError';
-import { merge } from 'lodash';
 import client from '../helpers/client';
 import join from 'proper-url-join';
+import merge from 'lodash/merge';
 import type { GetSearchContents, QuerySearchContents } from './types';
 
 /**

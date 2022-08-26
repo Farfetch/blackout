@@ -1,4 +1,3 @@
-import { get } from 'lodash';
 import {
   getFormsError,
   getFormsIsLoading,
@@ -6,6 +5,7 @@ import {
   getSubmitFormDataError as getSubmitFormDataErrorFromReducer,
   getSubmitFormDataIsLoading,
 } from './reducer';
+import get from 'lodash/get';
 import type { FormSchema } from '@farfetch/blackout-client';
 import type { StoreState } from '../types';
 

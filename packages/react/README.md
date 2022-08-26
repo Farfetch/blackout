@@ -20,9 +20,9 @@ npm i @farfetch/blackout-react
 
 Make sure that you have installed the correct peer dependencies of this package:
 
-- [`@farfetch/blackout-analytics`](https://www.npmjs.com/package/@farfetch/blackout-analytics)
 - [`@farfetch/blackout-client`](https://www.npmjs.com/package/@farfetch/blackout-client)
 - [`@farfetch/blackout-redux`](https://www.npmjs.com/package/@farfetch/blackout-redux)
+- [`axios`](https://www.npmjs.com/package/axios)
 - [`lodash`](https://www.npmjs.com/package/lodash)
 - [`react`](https://www.npmjs.com/package/react)
 - [`react-redux`](https://www.npmjs.com/package/react-redux)

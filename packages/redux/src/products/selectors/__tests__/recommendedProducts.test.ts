@@ -1,10 +1,10 @@
 import * as recommendedProductsReducer from '../../reducer/recommendedProducts';
 import * as selectors from '../recommendedProducts';
-import { merge } from 'lodash';
 import {
   mockProductsState,
   mockRecommendedProductsStrategy,
 } from 'tests/__fixtures__/products';
+import merge from 'lodash/merge';
 import type { StoreState } from '../../../types';
 
 const mockStore: StoreState = merge({} as StoreState, mockProductsState);
