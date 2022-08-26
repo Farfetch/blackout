@@ -23,23 +23,27 @@
     "@castleio/castle-js": "^2.1.13",
     "@farfetch/blackout-analytics": "^1.0.0-next.67",
     "@types/proper-url-join": "2.1.1",
-    "crypto-js": "3.1.9-1",
-    "prop-types": "^15.7.2",
     "proper-url-join": "^2.1.1",
-    "react-iframe": "^1.8.0",
     "url-parse": "^1.4.4",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "schema-dts": "^0.8.3"
   },
   "devDependencies": {
     "@farfetch/blackout-client": "^2.0.0-next.201",
-    "@farfetch/blackout-redux": "^1.0.0-next.307"
-  },
-  "peerDependencies": {
-    "@farfetch/blackout-client": "^2.0.0-next.182",
-    "@farfetch/blackout-redux": "^1.0.0-next.279",
+    "@farfetch/blackout-redux": "^1.0.0-next.307",
+    "axios": "^0.21.4",
     "lodash": "^4.17.21",
     "react": "^16.7.0 || ^17.0 || ^18.0",
-    "react-redux": "^7.2.0",
+    "react-redux": "^8.0.2",
+    "redux": "^4.1.0"
+  },
+  "peerDependencies": {
+    "@farfetch/blackout-client": "^2.0.0-next.200",
+    "@farfetch/blackout-redux": "^1.0.0-next.305",
+    "axios": "^0.21.4",
+    "lodash": "^4.17.21",
+    "react": "^16.7.0 || ^17.0 || ^18.0",
+    "react-redux": "^8.0.2",
     "redux": "^4.1.0"
   },
   "publishConfig": {

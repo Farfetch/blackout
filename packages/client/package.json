@@ -20,19 +20,16 @@
     "url": "https://github.com/Farfetch/blackout.git"
   },
   "dependencies": {
-    "@types/crypto-js": "3.1.47",
     "@types/json-schema": "^7.0.11",
     "@types/proper-url-join": "2.1.1",
-    "crypto-js": "3.1.9-1",
-    "prop-types": "^15.7.2",
     "proper-url-join": "^2.1.1"
   },
   "devDependencies": {
-    "axios": "^0.21.4"
+    "axios": "^0.21.4",
+    "lodash": "^4.17.21"
   },
   "peerDependencies": {
     "axios": "^0.21.4",
-    "immer": "^9.0.6",
     "lodash": "^4.17.21"
   },
   "publishConfig": {

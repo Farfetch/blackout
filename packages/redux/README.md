@@ -24,6 +24,8 @@ Make sure that you have installed the correct peer dependencies of this package:
 - [`@farfetch/blackout-client`](https://www.npmjs.com/package/@farfetch/blackout-client)
 - [`lodash`](https://www.npmjs.com/package/lodash)
 - [`redux`](https://www.npmjs.com/package/redux)
+- [`redux-thunk`](https://www.npmjs.com/package/redux-thunk)
+- [`immer`](https://www.npmjs.com/package/immer)
 - [`reselect`](https://www.npmjs.com/package/reselect)
 
 ## Usage
