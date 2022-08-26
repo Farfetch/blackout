@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import get from 'lodash/get';
 import type { EventData, TrackTypesValues } from '@farfetch/blackout-analytics';
 import type { Schema } from '../types/shared.types';
 

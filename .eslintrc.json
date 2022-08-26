@@ -8,9 +8,9 @@
   },
   "plugins": [
     "sort-imports-es6-autofix",
-    "prettier",
     "react-hooks",
-    "eslint-plugin-tsdoc"
+    "eslint-plugin-tsdoc",
+    "prettier"
   ],
   "rules": {
     "no-duplicate-imports": "error",
