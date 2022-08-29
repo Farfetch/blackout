@@ -573,3 +573,47 @@ export const isOrderItemAvailableActivitiesLoading = state =>
  */
 export const getOrderItemAvailableActivitiesError = state =>
   getOrderItemAvailableActivities(state.orders).error;
+
+/**
+ * Returns a list of order summaries, with the order items if the
+ * details of the order were previously fetched.
+ *
+ * This selector should only be used when implementing splitted orders.
+ * That depends on the prop `splitByMerchantOrderCode` to be true
+ * when fetching the user orders in the `doGetOrders` action.
+ *
+ * @function
+ * @param {string} orderId - Order id.
+ * @param {object} state - Application state.
+ * @returns {object} Order summaries array.
+ */
+export const getOrderShipments = (state, orderId) => {
+  const order = getOrder(state, orderId);
+
+  if (!order) return;
+
+  // Omit both byMerchant and items, we don't want to expose all of the items
+  // of the order by its alphanumeric, we split the order items by the order summary
+  const { byMerchant, items, ...sharedOrderInformation } = order;
+  const result = [];
+
+  for (const merchantId in byMerchant) {
+    for (const merchantOrderCode in byMerchant[merchantId]) {
+      if (merchantOrderCode !== 'returnOptions') {
+        const orderSummary = byMerchant[merchantId][merchantOrderCode];
+        // Fetch the full order item so the tenant does not have to fetch it
+        // simplifying the renderization.
+        orderSummary['orderItems'] = orderSummary?.['orderItems']?.map(
+          orderItemId => getOrderItem(state, orderItemId),
+        );
+
+        result.push({
+          ...sharedOrderInformation,
+          ...byMerchant[merchantId][merchantOrderCode],
+        });
+      }
+    }
+  }
+
+  return result;
+};

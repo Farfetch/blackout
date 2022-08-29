@@ -5,11 +5,15 @@ import {
   countryId,
   courierId,
   merchantId,
+  merchantId2,
   merchantOrderCode,
+  merchantOrderCode2,
   orderId,
   orderItemId,
   returnOptionId,
+  status,
   trackingNumber,
+  userId,
 } from '../__fixtures__/orders.fixtures';
 import omit from 'lodash/omit';
 
@@ -34,7 +38,20 @@ describe('orders redux selectors', () => {
     byMerchant: {
       [`${merchantId}`]: {
         [merchantOrderCode]: {
+          userId,
+          totalQuantity: 1,
+          status,
           merchantOrderCode,
+          orderItems: [orderItemId],
+        },
+        returnOptions: [returnOptionId],
+      },
+      [`${merchantId2}`]: {
+        [merchantOrderCode2]: {
+          userId,
+          totalQuantity: 1,
+          status,
+          merchantOrderCode: merchantOrderCode2,
           orderItems: [orderItemId],
         },
         returnOptions: [returnOptionId],
@@ -160,6 +177,14 @@ describe('orders redux selectors', () => {
       returnOptions: {
         [`${returnOptionId}`]: returnOptionEntity,
       },
+    },
+  };
+
+  const mockStateSplitByMerchantOrderCode = {
+    ...mockState,
+    entities: {
+      ...mockState.entities,
+      orders: { [`${orderId}`]: orderEntitySplitByMerchantOrderCode },
     },
   };
 
@@ -534,20 +559,17 @@ describe('orders redux selectors', () => {
   });
 
   describe('getOrderItemsByMerchant() when order merchants are split by merchantOrderCode', () => {
-    const newMockState = {
-      ...mockState,
-      entities: {
-        ...mockState.entities,
-        orders: {
-          [`${orderId}`]: orderEntitySplitByMerchantOrderCode,
-        },
-      },
-    };
     it('should get the order items by merchant from state when order merchants are split by merchantOrderCode', () => {
       const spy = jest.spyOn(fromEntities, 'getEntity');
 
-      expect(selectors.getOrderItemsByMerchant(newMockState, orderId)).toEqual({
+      expect(
+        selectors.getOrderItemsByMerchant(
+          mockStateSplitByMerchantOrderCode,
+          orderId,
+        ),
+      ).toEqual({
         [merchantId]: [orderItemEntity],
+        [merchantId2]: [orderItemEntity],
       });
       expect(spy).toHaveBeenCalledTimes(2);
     });
@@ -585,6 +607,45 @@ describe('orders redux selectors', () => {
         selectors.getOrderItemQuantity(mockState, 'randomOrderId', orderItemId),
       ).toBe(undefined);
       expect(spy).toHaveBeenCalledTimes(3);
+    });
+  });
+
+  describe('getOrderShipments()', () => {
+    it('should get the order summaries', () => {
+      const spy = jest.spyOn(fromEntities, 'getEntity');
+      const expectedResult = [
+        {
+          id: orderId,
+          ...orderEntitySplitByMerchantOrderCode.byMerchant[merchantId][
+            merchantOrderCode
+          ],
+          orderItems: [orderItemEntity],
+        },
+        {
+          id: orderId,
+          ...orderEntitySplitByMerchantOrderCode.byMerchant[merchantId2][
+            merchantOrderCode2
+          ],
+          orderItems: [orderItemEntity],
+        },
+      ];
+
+      expect(
+        selectors.getOrderShipments(mockStateSplitByMerchantOrderCode, orderId),
+      ).toEqual(expectedResult);
+
+      expect(spy).toHaveBeenCalledTimes(3);
+    });
+    it('should get undefined if there are no orderDetails from that order', () => {
+      const spy = jest.spyOn(fromEntities, 'getEntity');
+
+      expect(
+        selectors.getOrderShipments(
+          mockStateSplitByMerchantOrderCode,
+          'randomOrderId',
+        ),
+      ).toBe(undefined);
+      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 });

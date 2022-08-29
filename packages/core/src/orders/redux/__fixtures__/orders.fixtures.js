@@ -18,6 +18,7 @@ export const orderItemId2 = 10070162;
 export const orderItemId3 = 10070163;
 export const returnOptionId = '10537_3';
 export const returnOptionId2 = '10538_3';
+export const status = 'Return Accepted and Refunded';
 export const trackingNumber = '4538009162';
 export const trackingNumber2 = '4538009163';
 export const userId = 29521154;
