@@ -389,13 +389,7 @@ describe('payments reducer', () => {
           },
         };
 
-        const expectedResult = {
-          paymentInstruments: {},
-          paymentTokens: {},
-          checkoutOrders: {},
-        };
-
-        expect(entitiesMapper[LOGOUT_SUCCESS](state)).toEqual(expectedResult);
+        expect(entitiesMapper[LOGOUT_SUCCESS](state)).toEqual({});
       });
     });
   });

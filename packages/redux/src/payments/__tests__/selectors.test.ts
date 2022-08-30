@@ -84,6 +84,48 @@ describe('Payments redux selectors', () => {
         expect(spy).toHaveBeenCalledTimes(1);
       });
     });
+
+    describe('arePaymentTokensFetched()', () => {
+      it('should return correctly if not fetched', () => {
+        expect(selectors.arePaymentTokensFetched(mockInitialState)).toBe(false);
+      });
+
+      it('should return correctly on error', () => {
+        const mockError = {
+          message: 'This is an error message',
+          name: 'error',
+          code: 500,
+        };
+
+        expect(
+          selectors.arePaymentTokensFetched({
+            ...mockState,
+            payments: {
+              ...mockState.payments,
+              paymentTokens: {
+                ...mockState.payments?.paymentTokens,
+                error: mockError,
+              },
+            },
+          }),
+        ).toBe(true);
+      });
+
+      it('should return correctly on load', () => {
+        expect(
+          selectors.arePaymentTokensFetched({
+            ...mockState,
+            payments: {
+              ...mockState.payments,
+              paymentTokens: {
+                ...mockState.payments?.paymentTokens,
+                isLoading: true,
+              },
+            },
+          }),
+        ).toBe(false);
+      });
+    });
   });
 
   describe('Instruments', () => {
