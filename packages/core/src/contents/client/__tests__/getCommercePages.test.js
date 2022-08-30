@@ -55,7 +55,7 @@ describe('getCommercePages()', () => {
     await expect(getCommercePages(query)).resolves.toBe(response);
 
     expect(spy).toHaveBeenCalledWith(
-      '/content/v1/commercepages?contentTypeCode=listing&environmentCode=live&spaceCode=website',
+      '/content/v2/commercepages?contentTypeCode=listing&environmentCode=live&spaceCode=website',
       expectedConfig,
     );
   });
@@ -68,7 +68,7 @@ describe('getCommercePages()', () => {
     await expect(getCommercePages(query)).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(
-      '/content/v1/commercepages?contentTypeCode=listing&environmentCode=live&spaceCode=website',
+      '/content/v2/commercepages?contentTypeCode=listing&environmentCode=live&spaceCode=website',
       expectedConfig,
     );
   });
