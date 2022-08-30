@@ -69,6 +69,18 @@ export const arePaymentTokensLoading = (state: StoreState) =>
   getPaymentTokensReducer(state.payments as PaymentsState).isLoading;
 
 /**
+ * Returns the fetched status for the payment tokens.
+ *
+ * @param state - Application state.
+ *
+ * @returns - Fetched status.
+ */
+export const arePaymentTokensFetched = (state: StoreState) =>
+  (getPaymentTokensResult(state) !== null ||
+    getPaymentTokensError(state) !== null) &&
+  !arePaymentTokensLoading(state);
+
+/**
  * Returns the payment instruments entity.
  *
  * @param state - Application state.
