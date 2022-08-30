@@ -63,6 +63,7 @@ Object {
   "areOrdersLoading": [Function],
   "arePaymentInstrumentsLoading": [Function],
   "arePaymentMethodsLoading": [Function],
+  "arePaymentTokensFetched": [Function],
   "arePaymentTokensLoading": [Function],
   "areProductAttributesFetched": [Function],
   "areProductAttributesLoading": [Function],

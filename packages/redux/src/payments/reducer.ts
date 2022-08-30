@@ -258,12 +258,10 @@ export const entitiesMapper = {
   [LOGOUT_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
   ): StoreState['entities'] => {
-    return {
-      ...state,
-      paymentInstruments: {},
-      paymentTokens: {},
-      checkoutOrders: {},
-    };
+    const { paymentInstruments, paymentTokens, checkoutOrders, ...rest } =
+      state;
+
+    return rest;
   },
 };
 
