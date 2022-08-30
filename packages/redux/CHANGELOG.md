@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.306](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.305...@farfetch/blackout-redux@1.0.0-next.306) (2022-08-30)
+
+
+### Features
+
+* **react:** add usePaymentTokens hook ([9deba6f](https://github.com/Farfetch/blackout/commit/9deba6fc9bd3e8b841b427028c057b51ab70718e))
+
+
+
+
+
 # [1.0.0-next.305](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.304...@farfetch/blackout-redux@1.0.0-next.305) (2022-08-25)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
