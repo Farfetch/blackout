@@ -2,6 +2,7 @@ import {
   commercePagesQuery,
   expectedCommercePagesNormalizedPayload,
   mockCommercePages,
+  mockCommercePagesWithPages,
 } from 'tests/__fixtures__/contents';
 import { doGetCommercePages } from '../';
 import { getRankedCommercePage } from '../../../utils';
@@ -84,6 +85,45 @@ describe('doGetCommercePages() action creator', () => {
     expect(getCommercePages).toHaveBeenCalledTimes(1);
     expect(getCommercePages).toHaveBeenCalledWith(
       commercePagesQuery,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining(
+          {
+            type: actionTypes.GET_COMMERCE_PAGES_REQUEST,
+          },
+          {
+            payload: expectedCommercePagesNormalizedPayload,
+            type: actionTypes.GET_COMMERCE_PAGES_SUCCESS,
+          },
+        ),
+      ]),
+    );
+    expect(
+      find(actionResults, { type: actionTypes.GET_COMMERCE_PAGES_SUCCESS }),
+    ).toMatchSnapshot('Get commerce pages payload');
+  });
+
+  it('commerce page with more than one page', async () => {
+    getCommercePages.mockResolvedValue(mockCommercePagesWithPages);
+    getRankedCommercePage.mockResolvedValueOnce(mockCommercePages);
+
+    expect.assertions(7);
+
+    await store.dispatch(action(commercePagesQuery));
+
+    const actionResults = store.getActions();
+
+    expect(warnDeprecatedMethod).toHaveBeenCalledTimes(1);
+    expect(normalizeSpy).toHaveBeenCalledTimes(1);
+    expect(getCommercePages).toHaveBeenCalledTimes(2);
+    expect(getCommercePages).toHaveBeenCalledWith(
+      commercePagesQuery,
+      expectedConfig,
+    );
+    expect(getCommercePages).toHaveBeenLastCalledWith(
+      { ...commercePagesQuery, pageIndex: 2 },
       expectedConfig,
     );
     expect(store.getActions()).toEqual(
