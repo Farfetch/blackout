@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.69.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.68.0...@farfetch/blackout-core@1.69.0) (2022-08-30)
+
+
+### Features
+
+* **core:** add new selector for order splitting ([3612d99](https://github.com/Farfetch/blackout/commit/3612d991150f3eada751b5e8015abff05ae1f739))
+* **redux:** add request pagination on commercepage v2 endpoint ([f81fe86](https://github.com/Farfetch/blackout/commit/f81fe8659e06662613f6a461451330605563b905))
+* **redux:** add result return on doGetProfile ([cd80da1](https://github.com/Farfetch/blackout/commit/cd80da17e3f15f09cd8c4046419fc07710ac4d4b))
+
+
+
+
+
 # [1.68.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.67.0...@farfetch/blackout-core@1.68.0) (2022-08-09)
 
 
