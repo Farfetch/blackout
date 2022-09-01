@@ -22,7 +22,7 @@ import type { SubscriptionsState } from '../../types';
 const initialState: SubscriptionsState['user'] = INITIAL_STATE;
 const randomAction = { type: 'this_is_a_random_action' };
 
-describe('User Subscriptions redux reducer', () => {
+describe('userSubscriptions reducer', () => {
   it('should return the initial state', () => {
     const state = reducer(undefined, randomAction);
 
@@ -459,6 +459,7 @@ describe('User Subscriptions redux reducer', () => {
         ...mockUserSubscriptionsState.unsubscribeRecipientFromTopicRequests,
       };
 
+      // @ts-expect-error
       delete expectedState[mockRecipientId1TopicId1];
 
       expect(state.unsubscribeRecipientFromTopicRequests).toStrictEqual(

@@ -9,7 +9,7 @@ import type { SubscriptionsState } from '../../types';
 const initialState: SubscriptionsState['packages'] = INITIAL_STATE;
 const randomAction = { type: 'this_is_a_random_action' };
 
-describe('Subscription Packages redux reducer', () => {
+describe('subscriptionPackages reducer', () => {
   describe('error() reducer', () => {
     it('should return the initial state', () => {
       const state = reducer(undefined, randomAction).error;

@@ -2,8 +2,10 @@ import * as actionTypes from '../actionTypes';
 import * as fromReducer from '../reducer';
 import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
 import { returnId } from 'tests/__fixtures__/returns';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, { entitiesMapper } from '../reducer';
 import type { ReturnsState } from '../types';
+import type { StoreState } from '../../types';
 
 let initialState: ReturnsState;
 const randomAction = { type: 'this_is_a_random_action' };
@@ -74,7 +76,10 @@ describe('returns reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, error: 'foo' };
+      const state = {
+        ...initialState,
+        error: toBlackoutError(new Error('foo')),
+      } as ReturnsState;
 
       expect(reducer(state, randomAction).error).toBe(state.error);
     });
@@ -115,7 +120,7 @@ describe('returns reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, id: 'foo' };
+      const state = { ...initialState, id: 32283248 };
 
       expect(reducer(state, randomAction).id).toBe(state.id);
     });
@@ -208,7 +213,7 @@ describe('returns reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, isLoading: 'foo' };
+      const state = { ...initialState, isLoading: false };
 
       expect(reducer(state, randomAction).isLoading).toBe(state.isLoading);
     });
@@ -231,7 +236,7 @@ describe('returns reducer', () => {
         error: null,
         isLoading: false,
       },
-    };
+    } as unknown as NonNullable<StoreState['entities']>;
 
     const expectedResult = {
       error: null,
@@ -272,7 +277,7 @@ describe('returns reducer', () => {
 
   describe('getId() selector', () => {
     it('should return the `id` property from a given state', () => {
-      const id = '123';
+      const id = 32283248;
 
       expect(fromReducer.getId({ ...initialState, id })).toBe(id);
     });
@@ -280,8 +285,7 @@ describe('returns reducer', () => {
 
   describe('getError() selector', () => {
     it('should return the `error` property from a given state', () => {
-      const error = new Error();
-
+      const error = toBlackoutError(new Error('foo'));
       expect(fromReducer.getError({ ...initialState, error })).toBe(error);
     });
   });

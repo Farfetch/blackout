@@ -1,8 +1,10 @@
 import {
-  mockProductId,
+  mockProductsEntity,
+  mockProductsListEntity,
   mockProductsListHash,
 } from 'tests/__fixtures__/products';
-import { productsActionTypes } from '../..';
+import { productsActionTypes, ProductsListsState } from '../..';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, {
   entitiesMapper,
   getError,
@@ -14,7 +16,7 @@ import reducer, {
 
 const mockAction = { type: 'foo' };
 const meta = { hash: mockProductsListHash };
-let initialState;
+let initialState: ProductsListsState;
 
 describe('lists redux reducer', () => {
   beforeEach(() => {
@@ -65,7 +67,7 @@ describe('lists redux reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
-        error: { [mockProductsListHash]: error },
+        error: { [mockProductsListHash]: toBlackoutError(new Error(error)) },
         isLoading: {},
         isHydrated: {},
         hash: mockProductsListHash,
@@ -195,11 +197,9 @@ describe('lists redux reducer', () => {
   describe('entitiesMapper()', () => {
     it(`should handle ${productsActionTypes.RESET_PRODUCTS_LISTS_ENTITIES} action type`, () => {
       const state = {
-        productsLists: {
-          [mockProductsListHash]: { id: mockProductsListHash },
-        },
+        productsLists: mockProductsListEntity,
         products: {
-          [mockProductId]: { id: mockProductId },
+          mockProductsEntity,
         },
         dummy: {
           1: { id: 1 },
@@ -211,7 +211,7 @@ describe('lists redux reducer', () => {
 
       const expectedResult = {
         products: {
-          [mockProductId]: { id: mockProductId },
+          mockProductsEntity,
         },
         dummy: {
           1: { id: 1 },
@@ -231,7 +231,9 @@ describe('lists redux reducer', () => {
 
   describe('getError() selector', () => {
     it('should return the `error` property from a given state', () => {
-      const error = { [mockProductsListHash]: 'foo' };
+      const error = {
+        [mockProductsListHash]: toBlackoutError(new Error('foo')),
+      };
       const state = { ...initialState, error };
 
       expect(getError(state)).toBe(error);

@@ -416,13 +416,13 @@ export const mockPaymentTokensResponse = [
     forceCvvRequest: false,
     billingAddress: {
       addressLine1: 'teste',
-      addressLine2: null,
-      addressLine3: null,
+      addressLine2: 'string',
+      addressLine3: 'string',
       city: {
         countryId: 0,
         id: 0,
         name: 'londres',
-        stateId: null,
+        stateId: 0,
       },
       country: {
         alpha2Code: 'GB',
@@ -432,16 +432,15 @@ export const mockPaymentTokensResponse = [
         name: 'United Kingdom',
         nativeName: 'United Kingdom',
         region: 'Europe',
-        subRegion: null,
+        subRegion: '',
         regionId: 0,
-        subfolder: null,
         continentId: 3,
       },
-      ddd: null,
+      ddd: '',
       firstName: 'tester',
       id: '00000000-0000-0000-0000-000000000000',
       lastName: 'matos',
-      neighbourhood: null,
+      neighbourhood: '',
       phone: '7171717',
       state: {
         code: null,
@@ -449,7 +448,7 @@ export const mockPaymentTokensResponse = [
         id: 0,
         name: '',
       },
-      vatNumber: null,
+      vatNumber: '111111',
       zipCode: '71717',
       userId: 0,
       isCurrentBilling: false,
@@ -471,13 +470,13 @@ export const mockPaymentTokensResponse = [
     forceCvvRequest: false,
     billingAddress: {
       addressLine1: 'teste',
-      addressLine2: null,
-      addressLine3: null,
+      addressLine2: undefined,
+      addressLine3: undefined,
       city: {
         countryId: 0,
         id: 0,
         name: 'londres',
-        stateId: null,
+        stateId: undefined,
       },
       country: {
         alpha2Code: 'GB',
@@ -487,24 +486,24 @@ export const mockPaymentTokensResponse = [
         name: 'United Kingdom',
         nativeName: 'United Kingdom',
         region: 'Europe',
-        subRegion: null,
+        subRegion: undefined,
         regionId: 0,
         subfolder: null,
         continentId: 3,
       },
-      ddd: null,
+      ddd: undefined,
       firstName: 'tester',
       id: '00000000-0000-0000-0000-000000000000',
       lastName: 'matos',
-      neighbourhood: null,
+      neighbourhood: undefined,
       phone: '7171717',
       state: {
-        code: null,
+        code: undefined,
         countryId: 0,
         id: 0,
         name: '',
       },
-      vatNumber: null,
+      vatNumber: undefined,
       zipCode: '71717',
       userId: 0,
       isCurrentBilling: false,
@@ -607,27 +606,6 @@ export const mockInitialState = {
   },
   entities: {
     paymentInstruments: {},
+    paymentTokens: {},
   },
-};
-
-export const mockLoadingState = {
-  payments: {
-    paymentInstruments: {
-      error: null,
-      isLoading: true,
-      result: null,
-    },
-  },
-  entities: {},
-};
-
-export const mockErrorState = {
-  payments: {
-    paymentInstruments: {
-      error: 'Error',
-      isLoading: false,
-      result: null,
-    },
-  },
-  entities: {},
 };

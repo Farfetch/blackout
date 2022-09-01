@@ -1,11 +1,13 @@
 import * as actionTypes from '../actionTypes';
-import { mockQuery } from 'tests/__fixtures__/sizeGuides';
+import { mockQuery, mockSizeGuides } from 'tests/__fixtures__/sizeGuides';
+import { SizeGuide, toBlackoutError } from '@farfetch/blackout-client';
 import reducer, * as fromReducer from '../reducer';
+import type { SizeGuidesState } from '../types';
 
-let initialState;
+let initialState: SizeGuidesState;
 const randomAction = { type: 'this_is_a_random_action' };
 
-describe('sizeGuides redux reducer', () => {
+describe('sizeGuides reducer', () => {
   beforeEach(() => {
     initialState = fromReducer.INITIAL_STATE;
   });
@@ -53,7 +55,10 @@ describe('sizeGuides redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, error: 'foo' };
+      const state = {
+        ...initialState,
+        error: toBlackoutError(new Error('foo')),
+      };
 
       expect(reducer(state, randomAction).error).toBe(state.error);
     });
@@ -124,7 +129,7 @@ describe('sizeGuides redux reducer', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...initialState,
-        result: { foo: 'bar' },
+        result: mockSizeGuides as SizeGuide[],
       };
 
       expect(reducer(state, randomAction).result).toEqual(state.result);
@@ -133,7 +138,7 @@ describe('sizeGuides redux reducer', () => {
 
   describe('getError() selector', () => {
     it('should return the `error` property from a given state', () => {
-      const error = 'foo';
+      const error = toBlackoutError(new Error('foo'));
       const state = { ...initialState, error };
 
       expect(fromReducer.getError(state)).toBe(error);
@@ -151,7 +156,7 @@ describe('sizeGuides redux reducer', () => {
 
   describe('getResult() selector', () => {
     it('should return the result property from a given state', () => {
-      const result = { foo: 'bar' };
+      const result = mockSizeGuides as SizeGuide[];
       const state = { ...initialState, result };
 
       expect(fromReducer.getResult(state)).toEqual(result);

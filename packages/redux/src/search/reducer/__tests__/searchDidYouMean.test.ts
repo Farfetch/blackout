@@ -2,6 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import {
   mockSearchDidYouMeanHash,
   mockSearchDidYouMeanQuery,
+  mockSearchDidYouMeanResponse,
 } from 'tests/__fixtures__/search';
 import reducer, { INITIAL_STATE } from '../searchDidYouMean';
 
@@ -22,11 +23,13 @@ describe('search did you mean redux reducer', () => {
 
   it('should handle unknown actions by returning the previous state', () => {
     const state = {
-      [mockSearchDidYouMeanHash]: {
-        error: null,
-        isLoading: true,
-        result: { foo: 'bar' },
-        query,
+      didYouMean: {
+        [mockSearchDidYouMeanHash]: {
+          error: null,
+          isLoading: true,
+          result: mockSearchDidYouMeanResponse,
+          query,
+        },
       },
     };
 

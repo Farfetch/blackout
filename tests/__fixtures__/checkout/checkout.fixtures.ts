@@ -1,4 +1,18 @@
-import type { UserAddress } from '@farfetch/blackout-client';
+import {
+  CheckoutOrderStatus,
+  CreationChannel,
+  DeliveryWindowType,
+  GenderCode,
+  ItemStatus,
+  OrderStatusError,
+  ShippingCostType,
+  UserAddress,
+} from '@farfetch/blackout-client';
+import type {
+  CheckoutOrderItemEntity,
+  CheckoutOrderItemProductEntity,
+  DeliveryBundleEntity,
+} from '@farfetch/blackout-redux';
 
 export const checkoutId = 15338048;
 export const transactionId = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
@@ -21,7 +35,7 @@ const address: UserAddress = {
     countryId: 0,
     id: 0,
     name: 'Leça do Balio',
-    stateId: null,
+    stateId: undefined,
   },
   country: {
     alpha2Code: 'PT',
@@ -31,30 +45,52 @@ const address: UserAddress = {
     name: 'Portugal',
     nativeName: 'Portugal',
     region: 'Europe',
-    subRegion: null,
+    subRegion: undefined,
     regionId: 0,
-    subfolder: '/en-pt',
     continentId: 3,
   },
-  ddd: null,
+  ddd: undefined,
   firstName: 'tester',
   id: 'c9ce5410-58d9-4298-a385-231a79373e4a',
   lastName: 'teste',
-  neighbourhood: null,
+  neighbourhood: undefined,
   phone: '121525125',
   state: {
-    code: null,
+    code: undefined,
     countryId: 0,
     id: 0,
-    name: null,
+    name: '',
   },
-  vatNumber: null,
+  vatNumber: undefined,
   zipCode: '4465-761',
-  userId: 0,
   isCurrentBilling: true,
   isCurrentShipping: true,
-  isDefaultShippingAddress: true,
 };
+
+export const mockItemDeliveryPorvisioningResponse = [
+  {
+    itemId: 95097041,
+    provisioning: {
+      merchantId: 9206,
+      merchantLocationId: 92061,
+      quantity: 1,
+      deliveryDateEstimateMinimum: '2020-02-10T14:38:22.228Z',
+      deliveryDateEstimateMaximum: '2020-02-13T14:38:22.228Z',
+      deliveryDateEstimate: '2020-02-11T14:38:22.228Z',
+    },
+  },
+  {
+    itemId: 95097042,
+    provisioning: {
+      merchantId: 9689,
+      merchantLocationId: 96891,
+      quantity: 1,
+      deliveryDateEstimateMinimum: '2020-02-10T14:38:22.228Z',
+      deliveryDateEstimateMaximum: '2020-02-14T14:38:22.228Z',
+      deliveryDateEstimate: '2020-02-11T14:38:22.228Z',
+    },
+  },
+];
 
 export const mockDeliveryBundlesResponse = [
   {
@@ -62,6 +98,7 @@ export const mockDeliveryBundlesResponse = [
     name: 'Basic',
     isSelected: true,
     price: 10,
+    formattedPrice: '10',
     discount: 0,
     currency: 'EUR',
     rank: 1,
@@ -70,7 +107,7 @@ export const mockDeliveryBundlesResponse = [
         itemId: 95097041,
         name: 'Standard',
         deliveryWindow: {
-          type: 'Estimated',
+          type: DeliveryWindowType.Estimated,
           min: '2020-02-10T14:38:22.228Z',
           max: '2020-02-13T14:38:22.228Z',
         },
@@ -79,71 +116,14 @@ export const mockDeliveryBundlesResponse = [
         itemId: 95097042,
         name: 'Standard',
         deliveryWindow: {
-          type: 'Estimated',
+          type: DeliveryWindowType.Estimated,
           min: '2020-02-10T14:38:22.228Z',
           max: '2020-02-14T14:38:22.228Z',
         },
       },
     ],
-  },
-  {
-    id: '87654321',
-    name: 'Fast',
-    isSelected: false,
-    price: 15,
-    discount: 0,
-    currency: 'EUR',
-    rank: 2,
-    itemsDeliveryOptions: [
-      {
-        itemId: 95097041,
-        name: 'Fast',
-        deliveryWindow: {
-          type: 'Estimated',
-          min: '2020-02-09T14:38:22.228Z',
-          max: '2019-10-12T14:38:22.228Z',
-        },
-      },
-      {
-        itemId: 95097042,
-        name: 'Fast',
-        deliveryWindow: {
-          type: 'Estimated',
-          min: '2020-02-09T14:38:22.228Z',
-          max: '2019-10-11T14:38:22.228Z',
-        },
-      },
-    ],
-  },
-];
-
-export const mockItemDeliveryPorvisioningResponse = [
-  {
-    itemId: 95097041,
-    provisioning: [
-      {
-        merchantId: 9206,
-        merchantLocationId: 92061,
-        quantity: 1,
-        deliveryDateEstimateMinimum: '2020-02-10T14:38:22.228Z',
-        deliveryDateEstimateMaximum: '2020-02-13T14:38:22.228Z',
-        deliveryDateEstimate: '2020-02-11T14:38:22.228Z',
-      },
-    ],
-  },
-  {
-    itemId: 95097042,
-    provisioning: [
-      {
-        merchantId: 9689,
-        merchantLocationId: 96891,
-        quantity: 1,
-        deliveryDateEstimateMinimum: '2020-02-10T14:38:22.228Z',
-        deliveryDateEstimateMaximum: '2020-02-14T14:38:22.228Z',
-        deliveryDateEstimate: '2020-02-11T14:38:22.228Z',
-      },
-    ],
-  },
+    itemDeliveryProvisioning: mockItemDeliveryPorvisioningResponse,
+  } as DeliveryBundleEntity,
 ];
 
 export const mockResponse = {
@@ -181,6 +161,106 @@ export const mockResponse = {
     ],
     items: [
       {
+        categories: [
+          {
+            color: {
+              id: 112495,
+              name: 'Black',
+            },
+            tags: ['MainColor'],
+            id: 136301,
+            name: 'Shoes',
+            gender: GenderCode.Man,
+          },
+        ],
+        checkoutOrderId: 122,
+        colors: [
+          {
+            color: {
+              id: 112495,
+              name: 'Black',
+            },
+            tags: ['MainColor'],
+          },
+          {
+            color: {
+              id: 0,
+              name: 'BLACK',
+            },
+            tags: ['DesignerColor'],
+          },
+        ],
+        creationChannel: CreationChannel.Mail,
+        customAttributes: '',
+        fulfillmentInfo: {
+          isPreOrder: false,
+          fulfillmentDate: '2020-11-06T14:19:14.4398538Z',
+        },
+        images: {
+          images: [
+            {
+              order: 1,
+              size: '54',
+              url: 'https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg',
+            },
+          ],
+          liveModel: null,
+          liveModelId: 0,
+          productSize: '1',
+          tag: null,
+        },
+        isCustomizable: true,
+        isExclusive: true,
+        productAggregator: {
+          id: 0,
+          images: {
+            images: [
+              {
+                order: 1,
+                size: '54',
+                url: 'https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg',
+              },
+            ],
+            liveModelId: 0,
+            liveModel: {
+              globalId: '00000000-0000-0000-0000-000000000000',
+              id: 0,
+              measurements: [
+                {
+                  description: 'Bust',
+                  unit: null,
+                  value: 85,
+                },
+                {
+                  description: 'Height',
+                  unit: null,
+                  value: 178,
+                },
+                {
+                  description: 'Hips',
+                  unit: null,
+                  value: 90,
+                },
+                {
+                  description: 'Waist',
+                  unit: null,
+                  value: 62,
+                },
+              ],
+              name: 'string',
+            },
+            productSize: 'M',
+            tag: 'string',
+          },
+          bundleSlug: 'string',
+        },
+        promocodeDiscountPercentage: 0,
+        quantity: 1,
+        scale: '',
+        size: 'M',
+        sizeDescription: '',
+        status: ItemStatus.Available,
+        variants: [],
         attributes: [
           {
             type: 0,
@@ -211,9 +291,19 @@ export const mockResponse = {
           },
         ],
         price: {
-          priceExclTaxes: 1.26,
-          priceInclTaxes: 1.51,
-          priceInclTaxesWithoutDiscount: 1.53,
+          discountExclTaxes: 0,
+          discountInclTaxes: 0,
+          formattedPrice: '$265,597.00',
+          formattedPriceWithoutCurrency: '265597.00',
+          formattedPriceWithoutDiscount: '$265,597.00',
+          formattedPriceWithoutDiscountAndCurrency: '265597.00',
+          priceExclTaxes: 185442.9802,
+          priceInclTaxes: 265596.9995,
+          priceInclTaxesWithoutDiscount: 265596.9995,
+          tags: ['DDP'],
+          taxType: 'DDP',
+          taxesRate: 43.223,
+          taxesValue: 80154.0193,
         },
         prices: [],
         merchantId: 12455,
@@ -267,7 +357,7 @@ export const mockResponse = {
     hadUnavailableItems: false,
     isGuestUser: true,
     shippingMode: 'ByMerchant',
-    status: 'Opened',
+    status: CheckoutOrderStatus.Opened,
   },
   deliveryBundles: mockDeliveryBundlesResponse,
   shippingOptions: [],
@@ -333,12 +423,12 @@ export const mockCollectPointsResponse = [
       },
       addressLine1: '19 Conduit Street',
       addressLine2: '',
-      addressLine3: null,
+      addressLine3: undefined,
       city: {
         countryId: 0,
         id: 0,
         name: 'London',
-        stateId: null,
+        stateId: undefined,
       },
       country: {
         alpha2Code: 'GB',
@@ -348,19 +438,19 @@ export const mockCollectPointsResponse = [
         name: 'United Kingdom',
         nativeName: 'United Kingdom',
         region: 'Europe',
-        subRegion: null,
+        subRegion: undefined,
         regionId: 0,
         subfolder: '/en-gb',
         continentId: 3,
       },
-      ddd: null,
+      ddd: undefined,
       firstName: 'ACME LONDON',
       id: '00000000-0000-0000-0000-000000000000',
-      lastName: null,
-      neighbourhood: null,
+      lastName: '',
+      neighbourhood: undefined,
       phone: '02074934667',
       state: null,
-      vatNumber: null,
+      vatNumber: undefined,
       zipCode: 'W1S 2BH',
       userId: 0,
       isCurrentBilling: false,
@@ -394,12 +484,12 @@ export const mockCollectPointsResponse = [
       },
       addressLine1: '833 Madison Avenue',
       addressLine2: '',
-      addressLine3: null,
+      addressLine3: undefined,
       city: {
         countryId: 0,
         id: 0,
         name: 'New York',
-        stateId: null,
+        stateId: undefined,
       },
       country: {
         alpha2Code: 'US',
@@ -409,24 +499,24 @@ export const mockCollectPointsResponse = [
         name: 'United States',
         nativeName: 'United States',
         region: 'The United States & Canada',
-        subRegion: null,
+        subRegion: undefined,
         regionId: 0,
         subfolder: '/en-us',
         continentId: 5,
       },
-      ddd: null,
+      ddd: undefined,
       firstName: 'ACME NEW YORK',
       id: '00000000-0000-0000-0000-000000000000',
-      lastName: null,
-      neighbourhood: null,
+      lastName: '',
+      neighbourhood: undefined,
       phone: '+1 646 524 5401',
       state: {
-        code: null,
+        code: undefined,
         countryId: 0,
         id: 46,
-        name: null,
+        name: 'PT',
       },
-      vatNumber: null,
+      vatNumber: undefined,
       zipCode: '10021',
       userId: 0,
       isCurrentBilling: false,
@@ -470,6 +560,8 @@ export const mockDeliveryBundleUpgradesResponse = {
   95097041: {
     Estimated: [
       {
+        index: 1,
+        formattedPrice: '10',
         id: '123456789',
         name: 'Fast',
         isSelected: false,
@@ -478,7 +570,7 @@ export const mockDeliveryBundleUpgradesResponse = {
         rank: 1,
         itemId: 95097041,
         deliveryWindow: {
-          type: 'Estimated',
+          type: DeliveryWindowType.Estimated,
           min: '2019-10-09T16:20:32.303Z',
           max: '2019-10-12T16:20:32.303Z',
         },
@@ -488,6 +580,8 @@ export const mockDeliveryBundleUpgradesResponse = {
   95097042: {
     Estimated: [
       {
+        index: 1,
+        formattedPrice: '10',
         id: '123456788',
         name: '90 min',
         isSelected: false,
@@ -496,27 +590,9 @@ export const mockDeliveryBundleUpgradesResponse = {
         rank: 1,
         itemId: 95097042,
         deliveryWindow: {
-          type: 'Estimated',
+          type: DeliveryWindowType.Estimated,
           min: '2019-10-09T16:20:32.303Z',
           max: '2019-10-11T16:20:32.303Z',
-        },
-      },
-    ],
-  },
-  95097043: {
-    Nominated: [
-      {
-        id: '123456787',
-        name: 'NDD',
-        isSelected: false,
-        price: 0,
-        currency: 'EUR',
-        rank: 1,
-        itemId: 95097043,
-        deliveryWindow: {
-          type: 'Nominated',
-          min: '2019-10-09T16:20:32.303Z',
-          max: '2019-10-09T16:20:32.303Z',
         },
       },
     ],
@@ -615,29 +691,25 @@ export const expectedItemDeliveryProvisioningNormalizedPayload = {
     itemDeliveryProvisioning: {
       95097041: {
         itemId: 95097041,
-        provisioning: [
-          {
-            merchantId: 9206,
-            merchantLocationId: 92061,
-            quantity: 1,
-            deliveryDateEstimateMinimum: '2020-02-10T14:38:22.228Z',
-            deliveryDateEstimateMaximum: '2020-02-13T14:38:22.228Z',
-            deliveryDateEstimate: '2020-02-11T14:38:22.228Z',
-          },
-        ],
+        provisioning: {
+          merchantId: 9206,
+          merchantLocationId: 92061,
+          quantity: 1,
+          deliveryDateEstimateMinimum: '2020-02-10T14:38:22.228Z',
+          deliveryDateEstimateMaximum: '2020-02-13T14:38:22.228Z',
+          deliveryDateEstimate: '2020-02-11T14:38:22.228Z',
+        },
       },
       95097042: {
         itemId: 95097042,
-        provisioning: [
-          {
-            merchantId: 9689,
-            merchantLocationId: 96891,
-            quantity: 1,
-            deliveryDateEstimateMinimum: '2020-02-10T14:38:22.228Z',
-            deliveryDateEstimateMaximum: '2020-02-14T14:38:22.228Z',
-            deliveryDateEstimate: '2020-02-11T14:38:22.228Z',
-          },
-        ],
+        provisioning: {
+          merchantId: 9689,
+          merchantLocationId: 96891,
+          quantity: 1,
+          deliveryDateEstimateMinimum: '2020-02-10T14:38:22.228Z',
+          deliveryDateEstimateMaximum: '2020-02-14T14:38:22.228Z',
+          deliveryDateEstimate: '2020-02-11T14:38:22.228Z',
+        },
       },
     },
   },
@@ -651,6 +723,8 @@ export const expectedUpgradesNormalizedPayload = {
         95097041: {
           Estimated: [
             {
+              index: 1,
+              formattedPrice: '10',
               id: '123456789',
               name: 'Fast',
               isSelected: false,
@@ -659,7 +733,7 @@ export const expectedUpgradesNormalizedPayload = {
               rank: 1,
               itemId: 95097041,
               deliveryWindow: {
-                type: 'Estimated',
+                type: DeliveryWindowType.Estimated,
                 min: '2019-10-09T16:20:32.303Z',
                 max: '2019-10-12T16:20:32.303Z',
               },
@@ -669,6 +743,8 @@ export const expectedUpgradesNormalizedPayload = {
         95097042: {
           Estimated: [
             {
+              index: 1,
+              formattedPrice: '10',
               id: '123456788',
               name: '90 min',
               isSelected: false,
@@ -677,30 +753,77 @@ export const expectedUpgradesNormalizedPayload = {
               rank: 1,
               itemId: 95097042,
               deliveryWindow: {
-                type: 'Estimated',
+                type: DeliveryWindowType.Estimated,
                 min: '2019-10-09T16:20:32.303Z',
                 max: '2019-10-11T16:20:32.303Z',
               },
             },
           ],
         },
-        95097043: {
-          Nominated: [
-            {
-              id: '123456787',
-              name: 'NDD',
-              isSelected: false,
-              price: 0,
-              currency: 'EUR',
-              rank: 1,
-              itemId: 95097043,
-              deliveryWindow: {
-                type: 'Nominated',
-                min: '2019-10-09T16:20:32.303Z',
-                max: '2019-10-09T16:20:32.303Z',
-              },
+      },
+    },
+  },
+};
+
+export const expectedUpgradesNormalizedProvisioningPayload = {
+  deliveryBundleUpgrades: {
+    123: {
+      95097041: {
+        Estimated: [
+          {
+            index: 1,
+            formattedPrice: '10',
+            id: '123456789',
+            name: 'Fast',
+            isSelected: false,
+            price: 10,
+            currency: 'EUR',
+            rank: 1,
+            itemId: 95097041,
+            deliveryWindow: {
+              type: DeliveryWindowType.Estimated,
+              min: '2019-10-09T16:20:32.303Z',
+              max: '2019-10-12T16:20:32.303Z',
             },
-          ],
+          },
+        ],
+        provisioning: {
+          merchantId: 9206,
+          merchantLocationId: 92061,
+          quantity: 1,
+          upgradeId: 5555,
+          deliveryDateEstimateMinimum: '2020-02-10T14:38:22.228Z',
+          deliveryDateEstimateMaximum: '2020-02-13T14:38:22.228Z',
+          deliveryDateEstimate: '2020-02-11T14:38:22.228Z',
+        },
+      },
+      95097042: {
+        Estimated: [
+          {
+            index: 1,
+            formattedPrice: '10',
+            id: '123456788',
+            name: '90 min',
+            isSelected: false,
+            price: 10,
+            currency: 'EUR',
+            rank: 1,
+            itemId: 95097042,
+            deliveryWindow: {
+              type: DeliveryWindowType.Estimated,
+              min: '2019-10-09T16:20:32.303Z',
+              max: '2019-10-11T16:20:32.303Z',
+            },
+          },
+        ],
+        provisioning: {
+          merchantId: 9689,
+          merchantLocationId: 96891,
+          quantity: 1,
+          upgradeId: 5555,
+          deliveryDateEstimateMinimum: '2020-02-10T14:38:22.228Z',
+          deliveryDateEstimateMaximum: '2020-02-14T14:38:22.228Z',
+          deliveryDateEstimate: '2020-02-11T14:38:22.228Z',
         },
       },
     },
@@ -769,3 +892,113 @@ export const mockResponsePatchOrderItemsGiftMessage = [
     },
   },
 ];
+
+export const mockUpdateCheckoutResponse = {
+  checkout: {
+    1: {
+      shippingOptions: [
+        {
+          currency: 'EUR',
+          discount: 0,
+          merchants: [merchantId],
+          price: 12,
+          formattedPrice: '12',
+          shippingCostType: ShippingCostType.FlatRateInternational,
+          shippingService: {
+            description: 'abc',
+            id: 187639899,
+            name: 'DHL Express',
+            type: 'Express',
+            minEstimatedDeliveryHour: 0,
+            maxEstimatedDeliveryHour: 0,
+            trackingCodes: [],
+          },
+          shippingWithoutCapped: 0,
+          baseFlatRate: 0,
+        },
+      ],
+      paymentMethods: {
+        customerAccounts: [
+          {
+            type: '',
+            id: '',
+            description: '',
+            code: '',
+            paymentOptions: [''],
+          },
+        ],
+        creditCard: {
+          type: '',
+          creditCards: [
+            {
+              id: '',
+              description: '',
+              code: '',
+            },
+          ],
+        },
+      },
+      orderStatus: OrderStatusError.NoError,
+      id: 123,
+    },
+  },
+};
+
+export const mockCheckoutOrderItemEntity = {
+  1: {
+    data: 'checkout order item',
+    id: checkoutOrderItemId,
+    product: productId,
+    brandName: '78 Stitches',
+    checkoutOrderId: 123,
+    status: ItemStatus.Available,
+    tags: [''],
+    quantity: 1,
+    creationChannel: CreationChannel.Catalog,
+    fulfillmentInfo: {
+      isPreOrder: true,
+      fulfillmentDate: 'string',
+    },
+    promocodeDiscountPercentage: 123,
+    scale: '',
+    sizeDescription: '',
+    dateCreated: 123,
+    size: {
+      id: 1,
+      name: '',
+      scale: 1,
+      scaleDescription: '',
+      scaleAbbreviation: '',
+      globalQuantity: 1,
+    },
+    merchant: 123,
+  } as CheckoutOrderItemEntity,
+};
+
+export const mockCheckoutOrderItemProductsEntity = {
+  1: {
+    categories: [123],
+    colors: [],
+    tags: [''],
+    customAttributes: '',
+    description: '',
+    id: 123,
+    isCustomizable: true,
+    isExclusive: true,
+    merchant: 123,
+    name: '',
+    price: {
+      isFormatted: true,
+      includingTaxes: 123,
+      includingTaxesWithoutDiscount: 123,
+      formatted: {
+        includingTaxes: '123',
+        includingTaxesWithoutDiscount: '123',
+      },
+    },
+    sizes: undefined,
+    slug: '',
+    variants: undefined,
+    images: undefined,
+  } as CheckoutOrderItemProductEntity,
+};

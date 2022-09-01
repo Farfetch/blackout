@@ -1,16 +1,21 @@
 import * as actionTypes from '../../actionTypes';
 import * as fromReducer from '../wishlists';
 import { LOGOUT_SUCCESS } from '../../../users/authentication/actionTypes';
+import { mockProduct } from 'tests/__fixtures__/products';
 import {
   mockWishlistId,
+  mockWishlistItem,
   mockWishlistItemId,
+  mockWishlistSets,
   mockWishlistsResponse,
 } from 'tests/__fixtures__/wishlists';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, { entitiesMapper } from '../';
+import type { WishlistsState } from '../../types';
 
 const { INITIAL_STATE } = fromReducer;
 const mockAction = { type: 'foo' };
-let initialState;
+let initialState: WishlistsState;
 
 describe('wishlists reducer', () => {
   beforeEach(() => {
@@ -29,7 +34,7 @@ describe('wishlists reducer', () => {
       ).toEqual(initialState);
     });
 
-    it('should return the initial state when is a LOGOUT_SUCCESS action', () => {
+    it('should return the initial state when it receives a `LOGOUT_SUCCESS` action', () => {
       expect(
         reducer(undefined, {
           payload: {
@@ -44,7 +49,7 @@ describe('wishlists reducer', () => {
       const state = {
         ...INITIAL_STATE,
         id: '123-456-789',
-        error: 'Unexpected Error',
+        error: toBlackoutError(new Error('Unexpected Error')),
       };
       const expectedState = {
         ...state,
@@ -63,7 +68,7 @@ describe('wishlists reducer', () => {
       const state = {
         ...INITIAL_STATE,
         id: '123-456-789',
-        error: 'Unexpected Error',
+        error: toBlackoutError(new Error('Unexpected Error')),
         items: {
           ...INITIAL_STATE.items,
           item: {
@@ -160,7 +165,7 @@ describe('wishlists reducer', () => {
     it('should handle other actions by returning the initial state', () => {
       const state = {
         ...INITIAL_STATE,
-        error: 'foo',
+        error: toBlackoutError(new Error('foo')),
       };
 
       expect(reducer(state, mockAction).error).toBe(state.error);
@@ -404,33 +409,13 @@ describe('wishlists reducer', () => {
 
   describe('entitiesMapper', () => {
     const state = {
-      products: {
-        1: { id: 1 },
-      },
-      wishlistItems: {
-        1: { id: 1 },
-      },
-      wishlistSets: {
-        1: { id: 1 },
-      },
-      dummy: {
-        1: { id: 1 },
-      },
-      dummy2: {
-        2: { id: 2 },
-      },
+      wishlistItems: mockWishlistItem,
+      wishlistSets: mockWishlistSets,
+      products: mockProduct,
     };
 
     const expectedResult = {
-      products: {
-        1: { id: 1 },
-      },
-      dummy: {
-        1: { id: 1 },
-      },
-      dummy2: {
-        2: { id: 2 },
-      },
+      products: mockProduct,
     };
     it('should map the RESET_WISHLIST_ENTITIES action to a new state', () => {
       expect(
@@ -446,7 +431,7 @@ describe('wishlists reducer', () => {
   describe('selectors from reducer', () => {
     describe('getId()', () => {
       it('should return the `id` property from a given state', () => {
-        const id = 123;
+        const id = 'f46c88a6-97cf-439d-b9a5-08dac846b1a1';
 
         expect(fromReducer.getId({ ...INITIAL_STATE, id })).toBe(id);
       });
@@ -454,9 +439,13 @@ describe('wishlists reducer', () => {
 
     describe('getError()', () => {
       it('should return the `error` property from a given state', () => {
-        const error = 'foo';
-
-        expect(fromReducer.getError({ ...INITIAL_STATE, error })).toBe(error);
+        const error = toBlackoutError(new Error('foo'));
+        expect(
+          fromReducer.getError({
+            ...INITIAL_STATE,
+            error,
+          }),
+        ).toBe(error);
       });
     });
 
@@ -505,7 +494,7 @@ describe('wishlists reducer', () => {
           ...INITIAL_STATE.items,
           item: {
             ...INITIAL_STATE.items.item,
-            error: { 123: 'Error' },
+            error: { 123: toBlackoutError(new Error('Error')) },
           },
         };
 

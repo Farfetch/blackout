@@ -8,7 +8,7 @@ const mockWishlistSetId = '77fae745-7608-4b7d-8e7d-4f6923e032ef';
 
 export const mockProductImgQueryParam = '?c=2';
 
-const mockWishlistItem = {
+export const mockWishlistItem = {
   id: mockWishlistItemId,
   productId: mockProductId,
   productName: '251 sneakers',

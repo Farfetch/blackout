@@ -5,13 +5,13 @@ import {
 } from 'tests/__fixtures__/staffMembers';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, { INITIAL_STATE } from '../reducer';
-import type { State } from '../types';
+import type { StaffMembersState } from '../types';
 
 const mockAction = { type: 'foo' };
 const meta = { id: mockStaffMemberId };
-let initialState: State;
+let initialState: StaffMembersState;
 
-describe('staff members reducer', () => {
+describe('staffMembers reducer', () => {
   beforeEach(() => {
     initialState = reducer(INITIAL_STATE, mockAction);
   });

@@ -10,7 +10,7 @@ export enum ReturnOptionType {
 
 export type ReturnOption = {
   type: ReturnOptionType;
-  locationsUri: string;
+  locationsUri?: string;
   allowedCountries: CountryAddress[];
   isNumberOfBoxesMandatory: boolean;
   isMerchantLocationMandatory: boolean;

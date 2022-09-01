@@ -1,9 +1,9 @@
 import * as actionTypes from '../actionTypes';
 import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
 import reducer, * as fromReducer from '../reducer';
-import type { State } from '../types';
+import type { LoyaltyState } from '../types';
 
-let initialState: State;
+let initialState: LoyaltyState;
 const subAreas = {
   programs: {},
   membership: {},

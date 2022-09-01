@@ -1,4 +1,5 @@
 import * as actionTypes from '../actionTypes';
+import { AddressType } from '@farfetch/blackout-client';
 import { localeEntitiesMapper } from '..';
 import { mockCountryCode } from 'tests/__fixtures__/locale';
 import reducer, * as fromReducer from '../reducer';
@@ -89,8 +90,11 @@ describe('locale redux reducer', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...initialState,
-        cities: { error: { message: 'Error', name: 'foo' }, isLoading: false },
-      };
+        cities: {
+          error: { message: 'Error', name: 'foo' },
+          isLoading: false,
+        },
+      } as LocaleState;
 
       expect(reducer(state, mockAction).cities).toEqual(state.cities);
     });
@@ -172,7 +176,7 @@ describe('locale redux reducer', () => {
           error: { message: 'Error', name: 'foo' },
           isLoading: false,
         },
-      };
+      } as LocaleState;
 
       expect(reducer(state, mockAction).countries).toEqual(state.countries);
     });
@@ -223,7 +227,7 @@ describe('locale redux reducer', () => {
           error: { message: 'Error', name: 'foo' },
           isLoading: false,
         },
-      };
+      } as LocaleState;
 
       expect(reducer(state, mockAction).currencies).toEqual(state.currencies);
     });
@@ -281,22 +285,27 @@ describe('locale redux reducer', () => {
     // Existent schemas
     const state = {
       countriesAddressSchemas: {
-        1: {
-          addressSchemaLines: [
-            {
-              name: 'FirstName',
-              position: 0,
-              type: 'FreeText',
-              validationRegex: '^.{1,45}$',
-              apiMapping: 'FirstName',
-              isMandatory: true,
-              maxLength: 45,
-              minLength: 1,
-              column: 0,
-              row: 0,
-            },
-          ],
-        },
+        '1': [
+          {
+            addressSchemaLines: [
+              {
+                name: 'FirstName',
+                position: 0,
+                type: 'FreeText',
+                validationRegex: '^.{1,45}$',
+                apiMapping: 'FirstName',
+                isMandatory: true,
+                maxLength: 45,
+                minLength: 1,
+                column: 0,
+                row: 0,
+                id: '9a24c613-18c5-4b0d-a789-d79369777262',
+                parentId: '00000000-0000-0000-0000-000000000000',
+              },
+            ],
+            addressType: AddressType.Any,
+          },
+        ],
       },
     };
 
@@ -314,6 +323,8 @@ describe('locale redux reducer', () => {
           minLength: 1,
           column: 1,
           row: 0,
+          id: '9a24c613-18c5-4b0d-a789-d79369777262',
+          parentId: '00000000-0000-0000-0000-000000000000',
         },
         {
           name: 'StreetLine1',
@@ -326,6 +337,8 @@ describe('locale redux reducer', () => {
           minLength: 1,
           column: 0,
           row: 1,
+          id: '9a24c613-18c5-4b0d-a789-d79369777262',
+          parentId: '00000000-0000-0000-0000-000000000000',
         },
       ],
     };
@@ -395,7 +408,7 @@ describe('locale redux reducer', () => {
             name: 'foo',
           },
         },
-      };
+      } as LocaleState;
 
       expect(fromReducer.getCountryStateCitiesError(state)).toEqual(
         state.cities.error,
@@ -427,7 +440,7 @@ describe('locale redux reducer', () => {
             name: 'foo',
           },
         },
-      };
+      } as LocaleState;
 
       expect(fromReducer.getCountriesError(state)).toEqual(
         state.countries.error,
@@ -459,7 +472,7 @@ describe('locale redux reducer', () => {
             name: 'foo',
           },
         },
-      };
+      } as LocaleState;
 
       expect(fromReducer.getCountryCurrenciesError(state)).toEqual(
         state.currencies.error,
@@ -491,7 +504,7 @@ describe('locale redux reducer', () => {
             name: 'foo',
           },
         },
-      };
+      } as LocaleState;
 
       expect(fromReducer.getCountryStatesError(state)).toEqual(
         state.states.error,

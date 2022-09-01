@@ -1,4 +1,4 @@
-import { GenderCode } from '@farfetch/blackout-client';
+import { GenderCode, SearchSuggestionType } from '@farfetch/blackout-client';
 
 export const mockSearchDidYouMeanHash = 'balenciaga!0,1';
 
@@ -11,7 +11,7 @@ export const mockSearchDidYouMeanResponse = [
   {
     slug: 'balenciaga',
     suggestion: 'Balenciaga',
-    type: 2,
+    type: SearchSuggestionType.Brand,
     resourceId: 2450,
   },
 ];

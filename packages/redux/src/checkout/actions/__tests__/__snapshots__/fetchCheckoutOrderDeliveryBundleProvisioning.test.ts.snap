@@ -10,29 +10,25 @@ Object {
       "itemDeliveryProvisioning": Object {
         "95097041": Object {
           "itemId": 95097041,
-          "provisioning": Array [
-            Object {
-              "deliveryDateEstimate": "2020-02-11T14:38:22.228Z",
-              "deliveryDateEstimateMaximum": "2020-02-13T14:38:22.228Z",
-              "deliveryDateEstimateMinimum": "2020-02-10T14:38:22.228Z",
-              "merchantId": 9206,
-              "merchantLocationId": 92061,
-              "quantity": 1,
-            },
-          ],
+          "provisioning": Object {
+            "deliveryDateEstimate": "2020-02-11T14:38:22.228Z",
+            "deliveryDateEstimateMaximum": "2020-02-13T14:38:22.228Z",
+            "deliveryDateEstimateMinimum": "2020-02-10T14:38:22.228Z",
+            "merchantId": 9206,
+            "merchantLocationId": 92061,
+            "quantity": 1,
+          },
         },
         "95097042": Object {
           "itemId": 95097042,
-          "provisioning": Array [
-            Object {
-              "deliveryDateEstimate": "2020-02-11T14:38:22.228Z",
-              "deliveryDateEstimateMaximum": "2020-02-14T14:38:22.228Z",
-              "deliveryDateEstimateMinimum": "2020-02-10T14:38:22.228Z",
-              "merchantId": 9689,
-              "merchantLocationId": 96891,
-              "quantity": 1,
-            },
-          ],
+          "provisioning": Object {
+            "deliveryDateEstimate": "2020-02-11T14:38:22.228Z",
+            "deliveryDateEstimateMaximum": "2020-02-14T14:38:22.228Z",
+            "deliveryDateEstimateMinimum": "2020-02-10T14:38:22.228Z",
+            "merchantId": 9689,
+            "merchantLocationId": 96891,
+            "quantity": 1,
+          },
         },
       },
     },

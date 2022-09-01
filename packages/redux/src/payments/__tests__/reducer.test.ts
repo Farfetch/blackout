@@ -1,10 +1,21 @@
 import * as actionTypes from '../actionTypes';
 import * as fromReducer from '../reducer';
+import {
+  instrumentId,
+  mockInitialState,
+  mockInstrumentData,
+  mockPaymentTokensResponse,
+  paymentTokenId,
+  paymentTokenId2,
+} from 'tests/__fixtures__/payments';
 import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
 import { reducerAssertions } from '../../../tests/helpers';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, { entitiesMapper } from '../reducer';
+import type { PaymentsState } from '../types';
+import type { PaymentTokenEntity } from '../../entities';
 
-let initialState;
+let initialState: PaymentsState;
 
 describe('payments reducer', () => {
   beforeEach(() => {
@@ -167,7 +178,7 @@ describe('payments reducer', () => {
           paymentInstruments: {
             result: ['PayPalExp', 'AliPay'],
           },
-        };
+        } as PaymentsState;
         const expectedResult = ['AliPay'];
 
         const reducerResult = reducer(mystate, {
@@ -185,7 +196,7 @@ describe('payments reducer', () => {
           ...initialState,
           paymentInstruments: {
             isLoading: true,
-            error: 'someError',
+            error: toBlackoutError(new Error('some error')),
             result: ['instrument1', 'instrument2', 'instrument3'],
           },
         };
@@ -260,7 +271,7 @@ describe('payments reducer', () => {
           paymentTokens: {
             result: [idTokenToRemove, 'idToken2', 'idToken3'],
           },
-        };
+        } as PaymentsState;
         const expectedResult = ['idToken2', 'idToken3'];
 
         const reducerResult = reducer(mystate, {
@@ -289,22 +300,24 @@ describe('payments reducer', () => {
   describe('entitiesMapper()', () => {
     describe('delete payment token', () => {
       const state = {
+        ...mockInitialState.entities,
         paymentTokens: {
-          1: { id: 1, data: 'data' },
-          2: { id: 2, data: 'data' },
+          [paymentTokenId]: mockPaymentTokensResponse[0] as PaymentTokenEntity,
+          [paymentTokenId2]: mockPaymentTokensResponse[1] as PaymentTokenEntity,
         },
       };
 
       const expectedResult = {
+        ...mockInitialState.entities,
         paymentTokens: {
-          2: { id: 2, data: 'data' },
+          [paymentTokenId]: mockPaymentTokensResponse[0],
         },
       };
 
       it('should handle REMOVE_PAYMENT_TOKEN_SUCCESS action type', () => {
         expect(
           entitiesMapper[actionTypes.REMOVE_PAYMENT_TOKEN_SUCCESS](state, {
-            meta: { id: 1 },
+            meta: { id: paymentTokenId2 },
             type: actionTypes.REMOVE_PAYMENT_TOKEN_SUCCESS,
           }),
         ).toEqual(expectedResult);
@@ -312,25 +325,20 @@ describe('payments reducer', () => {
     });
 
     describe('delete payment intent instrument', () => {
+      const instrumentId2 = 'mock-instrument-2';
+
       const state = {
+        ...mockInitialState.entities,
         paymentInstruments: {
-          '9f9d327a-25cd-49de-83a8-533ab358f27b': {
-            id: '9f9d327a-25cd-49de-83a8-533ab358f27b',
-            data: 'data',
-          },
-          '9f9d327a-25cd-49de-83a8-533ab358f27c': {
-            id: '9f9d327a-25cd-49de-83a8-533ab358f27c',
-            data: 'data',
-          },
+          [instrumentId]: mockInstrumentData,
+          [instrumentId2]: mockInstrumentData,
         },
       };
 
       const expectedResult = {
+        ...mockInitialState.entities,
         paymentInstruments: {
-          '9f9d327a-25cd-49de-83a8-533ab358f27c': {
-            id: '9f9d327a-25cd-49de-83a8-533ab358f27c',
-            data: 'data',
-          },
+          [instrumentId]: mockInstrumentData,
         },
       };
 
@@ -340,7 +348,7 @@ describe('payments reducer', () => {
             state,
             {
               meta: {
-                instrumentId: '9f9d327a-25cd-49de-83a8-533ab358f27b',
+                instrumentId: instrumentId2,
               },
               type: actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_SUCCESS,
             },
@@ -351,19 +359,14 @@ describe('payments reducer', () => {
 
     describe('reset payment intent instruments', () => {
       const state = {
+        ...mockInitialState.entities,
         paymentInstruments: {
-          '9f9d327a-25cd-49de-83a8-533ab358f27b': {
-            id: '9f9d327a-25cd-49de-83a8-533ab358f27b',
-            data: 'data',
-          },
-          '9f9d327a-25cd-49de-83a8-533ab358f27c': {
-            id: '9f9d327a-25cd-49de-83a8-533ab358f27c',
-            data: 'data',
-          },
+          [instrumentId]: mockInstrumentData,
         },
       };
 
       const expectedResult = {
+        ...mockInitialState.entities,
         paymentInstruments: {},
       };
 
@@ -377,15 +380,15 @@ describe('payments reducer', () => {
     describe('logout', () => {
       it('should handle LOGOUT_SUCCESS action type', () => {
         const state = {
+          ...mockInitialState.entities,
           paymentInstruments: {
-            '9f9d327a-25cd-49de-83a8-533ab358f27b': {
-              id: '9f9d327a-25cd-49de-83a8-533ab358f27b',
-              data: 'data',
-            },
-            '9f9d327a-25cd-49de-83a8-533ab358f27c': {
-              id: '9f9d327a-25cd-49de-83a8-533ab358f27c',
-              data: 'data',
-            },
+            [instrumentId]: mockInstrumentData,
+          },
+          paymentTokens: {
+            [paymentTokenId]:
+              mockPaymentTokensResponse[0] as PaymentTokenEntity,
+            [paymentTokenId2]:
+              mockPaymentTokensResponse[1] as PaymentTokenEntity,
           },
         };
 

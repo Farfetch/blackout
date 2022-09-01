@@ -2,7 +2,7 @@ import * as actionTypes from '../actionTypes';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, { INITIAL_STATE } from '../reducer';
 
-describe('reducer', () => {
+describe('titles reducer', () => {
   it.each([actionTypes.FETCH_USER_TITLES_REQUEST])(
     'should handle %s correctly',
     actionType => {

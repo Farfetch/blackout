@@ -4,8 +4,10 @@ import {
   mockCategories,
   mockTopCategories,
 } from 'tests/__fixtures__/categories';
+import { toBlackoutError } from '@farfetch/blackout-client';
+import type { TopCategoriesState } from '../../types';
 
-let initialState;
+let initialState: TopCategoriesState;
 const reducer = fromReducer.default;
 const randomAction = { type: 'this_is_a_random_action' };
 
@@ -52,7 +54,7 @@ describe('top categories redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, isLoading: 'foo' };
+      const state = { ...initialState, isLoading: false };
 
       expect(reducer(state, randomAction).isLoading).toEqual(state.isLoading);
     });
@@ -86,7 +88,10 @@ describe('top categories redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, error: 'foo' };
+      const state = {
+        ...initialState,
+        error: toBlackoutError(new Error('foo')),
+      };
 
       expect(reducer(state, randomAction).error).toBe(state.error);
     });
@@ -105,7 +110,7 @@ describe('top categories redux reducer', () => {
       actionType => {
         expect(
           reducer(undefined, {
-            type: actionTypes[actionType],
+            type: actionType,
             payload: {
               result: ['foo', 'bar'],
               entities: { categories: {} },
@@ -120,7 +125,7 @@ describe('top categories redux reducer', () => {
       actionType => {
         expect(
           reducer(undefined, {
-            type: actionTypes[actionType],
+            type: actionType,
             payload: { error: '' },
           }).result,
         ).toEqual(initialState.result);
@@ -158,7 +163,7 @@ describe('top categories redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, isLoading: 'foo' };
+      const state = { ...initialState, isLoading: false };
 
       expect(reducer(state, randomAction).isLoading).toEqual(state.isLoading);
     });
@@ -169,7 +174,8 @@ describe('top categories redux reducer', () => {
       const topIsLoading = true;
       const state = {
         ...initialState,
-        top: { isLoading: topIsLoading },
+        top: { ...initialState, isLoading: topIsLoading },
+        isFetched: false,
       };
 
       expect(fromReducer.getIsLoading(state)).toBe(topIsLoading);
@@ -178,10 +184,11 @@ describe('top categories redux reducer', () => {
 
   describe('getError() selector', () => {
     it('should return the top `isLoading` property from a given state', () => {
-      const topError = 'error';
+      const topError = toBlackoutError(new Error('foo'));
       const state = {
         ...initialState,
-        top: { error: topError },
+        top: { ...initialState, error: topError },
+        isFetched: false,
       };
 
       expect(fromReducer.getError(state)).toBe(topError);
@@ -193,7 +200,8 @@ describe('top categories redux reducer', () => {
       const topResult = [1234, 5678];
       const state = {
         ...initialState,
-        top: { result: topResult },
+        top: { ...initialState, result: topResult },
+        isFetched: false,
       };
 
       expect(fromReducer.getResult(state)).toBe(topResult);

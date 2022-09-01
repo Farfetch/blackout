@@ -1,11 +1,15 @@
 import {
   CreationChannel,
   CustomerType,
+  MerchantOrderReturnOptions,
   MerchantOrderStatus,
   Order,
   OrderDocumentType,
   OrderItemStatus,
   Orders,
+  ProductType,
+  ReturnOption,
+  ReturnOptionType,
   TrackingEventType,
 } from '@farfetch/blackout-client';
 
@@ -13,6 +17,7 @@ export const checkoutId = 15338048;
 export const checkoutOrderId = 15338048;
 export const checkoutOrderItemId = 30380051;
 export const countryId = 165;
+export const countryCode = 'PT';
 export const courierId = 2;
 export const merchantId = 10537;
 export const merchantId2 = 10538;
@@ -25,8 +30,8 @@ export const orderId2 = 'QUJ9AC';
 export const orderItemId = 10070161;
 export const orderItemId2 = 10070162;
 export const orderItemId3 = 10070163;
-export const returnOptionId = '10537_3';
-export const returnOptionId2 = '10538_3';
+export const returnOptionId = '10537_CourierPickUp';
+export const returnOptionId2 = '10538_InStore';
 export const trackingNumber = '4538009162';
 export const trackingNumber2 = '4538009163';
 export const userId = 29521154;
@@ -368,7 +373,7 @@ export const mockOrderItem = {
     description: 'stud sandal',
     shortDescription: 'stud sandal',
   },
-  productType: 'Standard',
+  productType: ProductType.Standard,
   price: {
     discountExclTaxes: 0,
     discountInclTaxes: 0,
@@ -1686,7 +1691,7 @@ export const mockOrderReturnOptionsResponse = [
     merchantOrderId: 100001340,
     options: [
       {
-        type: 3,
+        type: ReturnOptionType.CourierPickUp,
         allowedCountries: [
           {
             alpha2Code: 'PT',
@@ -1696,9 +1701,7 @@ export const mockOrderReturnOptionsResponse = [
             name: 'Portugal',
             nativeName: 'Portugal',
             region: 'Europe',
-            subRegion: null,
-            regionId: 0,
-            subfolder: null,
+            subRegion: '',
             continentId: 3,
           },
         ],
@@ -1714,7 +1717,7 @@ export const mockOrderReturnOptionsResponse = [
     merchantOrderId: 100001339,
     options: [
       {
-        type: 3,
+        type: ReturnOptionType.InStore,
         allowedCountries: [
           {
             alpha2Code: 'PT',
@@ -1724,16 +1727,14 @@ export const mockOrderReturnOptionsResponse = [
             name: 'Portugal',
             nativeName: 'Portugal',
             region: 'Europe',
-            subRegion: null,
-            regionId: 0,
-            subfolder: null,
+            subRegion: '',
             continentId: 3,
           },
         ],
-        isNumberOfBoxesMandatory: true,
-        isMerchantLocationMandatory: false,
-        isAddressMandatory: true,
-        isSchedulePickup: true,
+        isNumberOfBoxesMandatory: false,
+        isMerchantLocationMandatory: true,
+        isAddressMandatory: false,
+        isSchedulePickup: false,
       },
     ],
   },
@@ -2562,6 +2563,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           totalTaxes: 423.57,
           updatedDate: 1539688029817,
           userId,
+          totalItems: 3,
         },
       },
     },
@@ -2587,9 +2589,7 @@ export const expectedOrderReturnOptionsNormalizedPayload = {
             name: 'Portugal',
             nativeName: 'Portugal',
             region: 'Europe',
-            regionId: 0,
-            subRegion: null,
-            subfolder: null,
+            subRegion: '',
           },
         ],
         id: returnOptionId,
@@ -2599,7 +2599,7 @@ export const expectedOrderReturnOptionsNormalizedPayload = {
         isSchedulePickup: true,
         merchant: 10537,
         merchantOrderId: 100001340,
-        type: 3,
+        type: ReturnOptionType.CourierPickUp,
       },
       [returnOptionId2]: {
         allowedCountries: [
@@ -2612,19 +2612,17 @@ export const expectedOrderReturnOptionsNormalizedPayload = {
             name: 'Portugal',
             nativeName: 'Portugal',
             region: 'Europe',
-            regionId: 0,
-            subRegion: null,
-            subfolder: null,
+            subRegion: '',
           },
         ],
         id: returnOptionId2,
-        isAddressMandatory: true,
-        isMerchantLocationMandatory: false,
-        isNumberOfBoxesMandatory: true,
-        isSchedulePickup: true,
+        isAddressMandatory: false,
+        isMerchantLocationMandatory: true,
+        isNumberOfBoxesMandatory: false,
+        isSchedulePickup: false,
         merchant: 10538,
         merchantOrderId: 100001339,
-        type: 3,
+        type: ReturnOptionType.InStore,
       },
     },
   },
@@ -2632,12 +2630,12 @@ export const expectedOrderReturnOptionsNormalizedPayload = {
     {
       merchantId: 10537,
       merchantOrderId: 100001340,
-      options: ['10537_3'],
+      options: [returnOptionId],
     },
     {
       merchantId: 10538,
       merchantOrderId: 100001339,
-      options: ['10538_3'],
+      options: [returnOptionId2],
     },
   ],
 };
@@ -3592,137 +3590,21 @@ export const expectedGuestOrdersNormalizedPayload = {
   result: ['3558DS', 'DVN7EE'],
 };
 
-export const expectedGetUserOrdersResult = {
-  entries: [
-    {
-      billingAddress: {
-        addressLine1: 'Uma rua em Gaia',
-        addressLine2: 'Bloco B, nº 25, 2º Esq qwedsdasd',
-        city: { countryId: 165, id: 0, name: 'Canidelo' },
-        country: {
-          alpha2Code: 'PT',
-          alpha3Code: 'PRT',
-          continentId: 3,
-          culture: 'pt-PT',
-          id: 165,
-          name: 'Portugal',
-          nativeName: 'Portugal',
-          region: 'Europe',
-          regionId: 0,
-          subRegion: 'string',
-          subfolder: 'string',
-        },
-        firstName: 'Nelson',
-        id: '00000000-0000-0000-0000-000000000000',
-        isCurrentBilling: false,
-        isCurrentPreferred: false,
-        isCurrentShipping: false,
-        lastName: 'Leite',
-        neighbourhood: 'string',
-        phone: '234234234',
-        state: { code: 'Porto', countryId: 0, id: 0, name: 'Porto' },
-        useShippingAsBillingAddress: false,
-        userId: 0,
-        vatNumber: '123456789',
-        zipCode: '1234-567',
-      },
-      byMerchant: {
-        10537: {
-          merchant: { id: 10537, name: 'merchant' },
-          orderItems: [
-            {
-              brand: {
-                description: 'German born Tomas Maier headed to Paris.',
-                id: 220482,
-                name: 'Tomas Maier',
-                priceType: 0,
-              },
-              categories: [
-                { gender: 0, id: 136301, name: 'Shoes', parentId: 0 },
-                { gender: 0, id: 136308, name: 'Sandals', parentId: 136301 },
-              ],
-              id: 10070161,
-              merchant: { id: 10537, name: 'merchant' },
-            },
-          ],
-          returnOptions: [
-            {
-              id: '3558DS_10537_3',
-              merchant: { id: 10537, name: 'merchant' },
-              type: 3,
-            },
-          ],
-        },
-      },
-      id: '3558DS',
-      items: [
-        {
-          brand: {
-            description: 'German born Tomas Maier headed to Paris.',
-            id: 220482,
-            name: 'Tomas Maier',
-            priceType: 0,
-          },
-          categories: [
-            { gender: 0, id: 136301, name: 'Shoes', parentId: 0 },
-            { gender: 0, id: 136308, name: 'Sandals', parentId: 136301 },
-          ],
-          id: 10070161,
-          merchant: { id: 10537, name: 'merchant' },
-        },
-      ],
-      shippingAddress: {
-        addressLine1: 'Uma rua em Gaia',
-        addressLine2: 'Bloco B, nº 25, 2º Esq qwedsdasd',
-        city: { countryId: 165, id: 0, name: 'Canidelo' },
-        country: {
-          alpha2Code: 'PT',
-          alpha3Code: 'PRT',
-          continentId: 3,
-          culture: 'pt-PT',
-          id: 165,
-          name: 'Portugal',
-          nativeName: 'Portugal',
-          region: 'Europe',
-          regionId: 0,
-          subRegion: 'string',
-          subfolder: 'string',
-        },
-        firstName: 'Nelson',
-        id: '00000000-0000-0000-0000-000000000000',
-        isCurrentBilling: false,
-        isCurrentPreferred: false,
-        isCurrentShipping: false,
-        lastName: 'Leite',
-        neighbourhood: 'string',
-        phone: '234234234',
-        state: { code: 'Porto', countryId: 0, id: 0, name: 'Porto' },
-        useShippingAsBillingAddress: false,
-        userId: 0,
-        vatNumber: '123456789',
-        zipCode: '1234-567',
-      },
-    },
-  ],
-  number: 1,
-  totalItems: 1,
-  totalPages: 1,
-};
-
-export const expectedGetGuestOrdersResult = [
-  expectedGetUserOrdersResult.entries[0],
-];
-
 export const returnOptionEntity = {
+  ...((mockOrderReturnOptionsResponse[0] as MerchantOrderReturnOptions)
+    .options[0] as ReturnOption),
   id: `${orderId}_${returnOptionId}`,
-  type: 3,
   merchant: merchantId,
+  merchantOrderId: merchantOrderId,
 };
 
 export const orderEntity = {
   id: orderId,
+  createdDate: 1662544285853,
+  totalItems: 1,
   byMerchant: {
     [merchantId]: {
+      merchant: merchantId,
       returnOptions: [`${orderId}_${returnOptionId}`],
       orderItems: [orderItemId],
     },
@@ -3760,16 +3642,101 @@ export const courierEntity = {
 
 export const merchantEntity = { id: merchantId, name: 'merchant' };
 
+const mockOrderItemEntityImages = [
+  {
+    order: 1,
+    size: '200',
+    url: 'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099951_200.jpg',
+    sources: {
+      '200':
+        'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099951_200.jpg',
+    },
+  },
+  {
+    order: 2,
+    size: '200',
+    url: 'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099952_200.jpg',
+    sources: {
+      '200':
+        'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099952_200.jpg',
+    },
+  },
+  {
+    order: 3,
+    size: '200',
+    url: 'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099953_200.jpg',
+    sources: {
+      '200':
+        'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099953_200.jpg',
+    },
+  },
+  {
+    order: 4,
+    size: '200',
+    url: 'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099954_200.jpg',
+    sources: {
+      '200':
+        'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099954_200.jpg',
+    },
+  },
+  {
+    order: 5,
+    size: '200',
+    url: 'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099955_200.jpg',
+    sources: {
+      '200':
+        'https://cdn-images.farfetch.com/12/09/16/86/12091686_11099955_200.jpg',
+    },
+  },
+];
+
 export const orderItemEntity = {
+  ...mockOrderItem,
   brand: 220482,
-  id: orderItemId,
   categories: [136301, 136308],
+  images: mockOrderItemEntityImages,
+  price: {
+    ...mockOrderItem.price,
+    formatted: {
+      includingTaxes: '375 €',
+      includingTaxesWithoutDiscount: '375 €',
+    },
+    includingTaxes: 375,
+    includingTaxesWithoutDiscount: 375,
+    isFormatted: true,
+  },
   merchant: merchantId,
+  productAggregator: { images: mockOrderItemEntityImages },
+  preOrder: {
+    expectedFulfillmentDate: {
+      startDate: 1662544285853,
+      endDate: 1662544285853,
+    },
+  },
 };
 
 export const countryEntity = {
-  id: countryId,
+  code: countryCode,
   name: 'Portugal',
+  nativeName: 'Portugal',
+  structures: ['/en-pt'],
+  platformId: 165,
+  isDefault: false,
+  newsletterSubscriptionOptionDefault: true,
+  isCountryDefault: false,
+  continentId: 3,
+  currencies: [
+    {
+      id: 1,
+      name: 'Euro Member Countries',
+      isoCode: 'EUR',
+      cultureCode: 'de-DE',
+      symbol: '€',
+    },
+  ],
+  cultures: ['en-US'],
+  defaultSubfolder: '/en-pt',
+  defaultCulture: 'en-US',
 };
 
 export const mockState = {
@@ -3848,7 +3815,7 @@ export const mockState = {
       [orderItemId]: orderItemEntity,
     },
     countries: {
-      [countryId]: countryEntity,
+      [countryCode]: countryEntity,
     },
     returnOptions: {
       [`${orderId}_${returnOptionId}`]: returnOptionEntity,
@@ -3868,6 +3835,7 @@ export const mockOrderItemEntityDenormalized = {
 
 export const mockOrderEntityDenormalized = {
   id: orderId,
+  createdDate: 1662544285853,
   byMerchant: {
     [merchantId]: {
       returnOptions: [
@@ -3880,6 +3848,7 @@ export const mockOrderEntityDenormalized = {
       merchant: mockState.entities.merchants[merchantId],
     },
   },
+  totalItems: 1,
   items: [mockOrderItemEntityDenormalized],
   shippingAddress: {
     ...mockOrderDetailsResponse.shippingAddress,
@@ -3888,3 +3857,129 @@ export const mockOrderEntityDenormalized = {
     ...mockOrderDetailsResponse.billingAddress,
   },
 };
+
+export const expectedGetUserOrdersResult = {
+  entries: [
+    {
+      billingAddress: {
+        addressLine1: 'Uma rua em Gaia',
+        addressLine2: 'Bloco B, nº 25, 2º Esq qwedsdasd',
+        city: { countryId: 165, id: 0, name: 'Canidelo' },
+        country: {
+          alpha2Code: 'PT',
+          alpha3Code: 'PRT',
+          continentId: 3,
+          culture: 'pt-PT',
+          id: 165,
+          name: 'Portugal',
+          nativeName: 'Portugal',
+          region: 'Europe',
+          regionId: 0,
+          subRegion: 'string',
+          subfolder: 'string',
+        },
+        firstName: 'Nelson',
+        id: '00000000-0000-0000-0000-000000000000',
+        isCurrentBilling: false,
+        isCurrentPreferred: false,
+        isCurrentShipping: false,
+        lastName: 'Leite',
+        neighbourhood: 'string',
+        phone: '234234234',
+        state: { code: 'Porto', countryId: 0, id: 0, name: 'Porto' },
+        useShippingAsBillingAddress: false,
+        userId: 0,
+        vatNumber: '123456789',
+        zipCode: '1234-567',
+      },
+      byMerchant: {
+        10537: {
+          merchant: { id: 10537, name: 'merchant' },
+          orderItems: [
+            {
+              ...orderItemEntity,
+              brand: {
+                description: 'German born Tomas Maier headed to Paris.',
+                id: 220482,
+                name: 'Tomas Maier',
+                priceType: 0,
+              },
+              categories: [
+                { gender: 0, id: 136301, name: 'Shoes', parentId: 0 },
+                { gender: 0, id: 136308, name: 'Sandals', parentId: 136301 },
+              ],
+              id: 10070161,
+              merchant: { id: 10537, name: 'merchant' },
+            },
+          ],
+          returnOptions: [
+            {
+              ...returnOptionEntity,
+              id: '3558DS_10537_CourierPickUp',
+              merchant: { id: 10537, name: 'merchant' },
+              type: ReturnOptionType.CourierPickUp,
+            },
+          ],
+        },
+      },
+      createdDate: 1662544285853,
+      id: '3558DS',
+      items: [
+        {
+          ...orderItemEntity,
+          brand: {
+            description: 'German born Tomas Maier headed to Paris.',
+            id: 220482,
+            name: 'Tomas Maier',
+            priceType: 0,
+          },
+          categories: [
+            { gender: 0, id: 136301, name: 'Shoes', parentId: 0 },
+            { gender: 0, id: 136308, name: 'Sandals', parentId: 136301 },
+          ],
+          id: 10070161,
+          merchant: { id: 10537, name: 'merchant' },
+        },
+      ],
+      shippingAddress: {
+        addressLine1: 'Uma rua em Gaia',
+        addressLine2: 'Bloco B, nº 25, 2º Esq qwedsdasd',
+        city: { countryId: 165, id: 0, name: 'Canidelo' },
+        country: {
+          alpha2Code: 'PT',
+          alpha3Code: 'PRT',
+          continentId: 3,
+          culture: 'pt-PT',
+          id: 165,
+          name: 'Portugal',
+          nativeName: 'Portugal',
+          region: 'Europe',
+          regionId: 0,
+          subRegion: 'string',
+          subfolder: 'string',
+        },
+        firstName: 'Nelson',
+        id: '00000000-0000-0000-0000-000000000000',
+        isCurrentBilling: false,
+        isCurrentPreferred: false,
+        isCurrentShipping: false,
+        lastName: 'Leite',
+        neighbourhood: 'string',
+        phone: '234234234',
+        state: { code: 'Porto', countryId: 0, id: 0, name: 'Porto' },
+        useShippingAsBillingAddress: false,
+        userId: 0,
+        vatNumber: '123456789',
+        zipCode: '1234-567',
+      },
+      totalItems: 1,
+    },
+  ],
+  number: 1,
+  totalItems: 1,
+  totalPages: 1,
+};
+
+export const expectedGetGuestOrdersResult = [
+  expectedGetUserOrdersResult.entries[0],
+];

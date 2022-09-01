@@ -1,5 +1,4 @@
 import * as actionTypes from '../actionTypes';
-import { getInitialState } from '../../../../tests';
 import reducer, * as fromReducer from '../reducer';
 import type { AuthenticationState } from '../types';
 
@@ -8,7 +7,7 @@ const mockAction = { type: 'this_is_a_mock_action' };
 
 describe('authentication reducer', () => {
   beforeEach(() => {
-    initialState = getInitialState(reducer(undefined, mockAction));
+    initialState = fromReducer.INITIAL_STATE;
   });
 
   describe('userToken() reducer', () => {

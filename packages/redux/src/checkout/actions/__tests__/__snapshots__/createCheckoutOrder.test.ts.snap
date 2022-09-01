@@ -4,12 +4,25 @@ exports[`createCheckoutOrder() action creator should create the correct actions 
 Object {
   "payload": Object {
     "entities": Object {
+      "categories": Object {
+        "136301": Object {
+          "color": Object {
+            "id": 112495,
+            "name": "Black",
+          },
+          "gender": 1,
+          "id": 136301,
+          "name": "Shoes",
+          "tags": Array [
+            "MainColor",
+          ],
+        },
+      },
       "checkout": Object {
         "15338048": Object {
           "checkoutOrder": 15338048,
           "deliveryBundles": Array [
             "12345678",
-            "87654321",
           ],
           "id": 15338048,
           "orderStatus": 0,
@@ -19,9 +32,30 @@ Object {
       },
       "checkoutOrderItemProducts": Object {
         "12640693": Object {
-          "categories": undefined,
-          "colors": undefined,
-          "customAttributes": undefined,
+          "categories": Array [
+            136301,
+          ],
+          "colors": Array [
+            Object {
+              "color": Object {
+                "id": 112495,
+                "name": "Black",
+              },
+              "tags": Array [
+                "MainColor",
+              ],
+            },
+            Object {
+              "color": Object {
+                "id": 0,
+                "name": "BLACK",
+              },
+              "tags": Array [
+                "DesignerColor",
+              ],
+            },
+          ],
+          "customAttributes": "",
           "description": undefined,
           "id": 12640693,
           "images": Array [
@@ -35,82 +69,111 @@ Object {
             },
           ],
           "isAvailable": undefined,
-          "isCustomizable": undefined,
-          "isExclusive": undefined,
+          "isCustomizable": true,
+          "isExclusive": true,
           "merchant": 12455,
           "name": "Navy Treated Bonded Cotton Dry Bag",
           "price": Object {
             "discount": Object {
-              "excludingTaxes": undefined,
-              "includingTaxes": undefined,
+              "excludingTaxes": 0,
+              "includingTaxes": 0,
               "rate": undefined,
             },
-            "excludingTaxes": 1.26,
+            "excludingTaxes": 185442.9802,
             "formatted": Object {
-              "includingTaxes": undefined,
-              "includingTaxesWithoutDiscount": undefined,
+              "includingTaxes": "$265,597.00",
+              "includingTaxesWithoutDiscount": "$265,597.00",
             },
-            "includingTaxes": 1.51,
-            "includingTaxesWithoutDiscount": 1.53,
+            "includingTaxes": 265596.9995,
+            "includingTaxesWithoutDiscount": 265596.9995,
             "isFormatted": true,
             "priceType": undefined,
             "promocode": Object {
               "rate": undefined,
             },
             "promotionType": undefined,
-            "tags": undefined,
+            "tags": Array [
+              "DDP",
+            ],
             "taxes": Object {
-              "amount": undefined,
-              "rate": undefined,
-              "type": undefined,
+              "amount": 80154.0193,
+              "rate": 43.223,
+              "type": "DDP",
             },
             "type": undefined,
           },
           "sizes": undefined,
           "slug": "navy-treated-bonded-cotton-dry-bag-12640693",
-          "variants": undefined,
+          "variants": Array [],
         },
       },
       "checkoutOrderItems": Object {
         "30380051": Object {
           "brandId": 121212,
           "brandName": "78 Stitches",
+          "checkoutOrderId": 122,
+          "creationChannel": "Mail",
           "dateCreated": null,
+          "fulfillmentInfo": Object {
+            "fulfillmentDate": "2020-11-06T14:19:14.4398538Z",
+            "isPreOrder": false,
+          },
           "id": 30380051,
           "merchant": 12455,
           "price": Object {
             "discount": Object {
-              "excludingTaxes": undefined,
-              "includingTaxes": undefined,
+              "excludingTaxes": 0,
+              "includingTaxes": 0,
               "rate": undefined,
             },
-            "excludingTaxes": 1.26,
+            "excludingTaxes": 185442.9802,
             "formatted": Object {
-              "includingTaxes": undefined,
-              "includingTaxesWithoutDiscount": undefined,
+              "includingTaxes": "$265,597.00",
+              "includingTaxesWithoutDiscount": "$265,597.00",
             },
-            "includingTaxes": 1.51,
-            "includingTaxesWithoutDiscount": 1.53,
+            "includingTaxes": 265596.9995,
+            "includingTaxesWithoutDiscount": 265596.9995,
             "isFormatted": true,
             "priceType": undefined,
             "promocode": Object {
               "rate": undefined,
             },
             "promotionType": undefined,
-            "tags": undefined,
+            "tags": Array [
+              "DDP",
+            ],
             "taxes": Object {
-              "amount": undefined,
-              "rate": undefined,
-              "type": undefined,
+              "amount": 80154.0193,
+              "rate": 43.223,
+              "type": "DDP",
             },
             "type": undefined,
           },
           "prices": Array [],
           "product": 12640693,
+          "productAggregator": Object {
+            "bundleSlug": "string",
+            "id": 0,
+            "images": Array [
+              Object {
+                "order": 1,
+                "size": "54",
+                "sources": Object {
+                  "54": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg?c=2",
+                },
+                "url": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg",
+              },
+            ],
+          },
+          "promocodeDiscountPercentage": 0,
+          "quantity": 1,
+          "scale": "",
           "size": Object {
             "id": 17,
             "name": "One Size",
           },
+          "sizeDescription": "",
+          "status": 0,
           "tags": Array [
             "GIFT",
           ],
@@ -127,7 +190,7 @@ Object {
               "countryId": 0,
               "id": 0,
               "name": "Leça do Balio",
-              "stateId": null,
+              "stateId": undefined,
             },
             "country": Object {
               "alpha2Code": "PT",
@@ -139,26 +202,24 @@ Object {
               "nativeName": "Portugal",
               "region": "Europe",
               "regionId": 0,
-              "subRegion": null,
-              "subfolder": "/en-pt",
+              "subRegion": undefined,
             },
-            "ddd": null,
+            "ddd": undefined,
             "firstName": "tester",
             "id": "c9ce5410-58d9-4298-a385-231a79373e4a",
             "isCurrentBilling": true,
             "isCurrentPreferred": false,
             "isCurrentShipping": true,
             "lastName": "teste",
-            "neighbourhood": null,
+            "neighbourhood": undefined,
             "phone": "121525125",
             "state": Object {
-              "code": null,
+              "code": undefined,
               "countryId": 0,
               "id": 0,
-              "name": null,
+              "name": "",
             },
-            "userId": 0,
-            "vatNumber": null,
+            "vatNumber": undefined,
             "zipCode": "4465-761",
           },
           "checkoutOrderMerchants": Array [
@@ -233,7 +294,7 @@ Object {
               "countryId": 0,
               "id": 0,
               "name": "Leça do Balio",
-              "stateId": null,
+              "stateId": undefined,
             },
             "country": Object {
               "alpha2Code": "PT",
@@ -245,30 +306,28 @@ Object {
               "nativeName": "Portugal",
               "region": "Europe",
               "regionId": 0,
-              "subRegion": null,
-              "subfolder": "/en-pt",
+              "subRegion": undefined,
             },
-            "ddd": null,
+            "ddd": undefined,
             "firstName": "tester",
             "id": "c9ce5410-58d9-4298-a385-231a79373e4a",
             "isCurrentBilling": true,
             "isCurrentPreferred": false,
             "isCurrentShipping": true,
             "lastName": "teste",
-            "neighbourhood": null,
+            "neighbourhood": undefined,
             "phone": "121525125",
             "state": Object {
-              "code": null,
+              "code": undefined,
               "countryId": 0,
               "id": 0,
-              "name": null,
+              "name": "",
             },
-            "userId": 0,
-            "vatNumber": null,
+            "vatNumber": undefined,
             "zipCode": "4465-761",
           },
           "shippingMode": "ByMerchant",
-          "status": "Opened",
+          "status": 0,
           "subTotalAmount": 100,
           "subTotalAmountExclTaxes": 100,
           "tags": Array [
@@ -289,14 +348,39 @@ Object {
         "12345678": Object {
           "currency": "EUR",
           "discount": 0,
+          "formattedPrice": "10",
           "id": "12345678",
           "isSelected": true,
+          "itemDeliveryProvisioning": Array [
+            Object {
+              "itemId": 95097041,
+              "provisioning": Object {
+                "deliveryDateEstimate": "2020-02-11T14:38:22.228Z",
+                "deliveryDateEstimateMaximum": "2020-02-13T14:38:22.228Z",
+                "deliveryDateEstimateMinimum": "2020-02-10T14:38:22.228Z",
+                "merchantId": 9206,
+                "merchantLocationId": 92061,
+                "quantity": 1,
+              },
+            },
+            Object {
+              "itemId": 95097042,
+              "provisioning": Object {
+                "deliveryDateEstimate": "2020-02-11T14:38:22.228Z",
+                "deliveryDateEstimateMaximum": "2020-02-14T14:38:22.228Z",
+                "deliveryDateEstimateMinimum": "2020-02-10T14:38:22.228Z",
+                "merchantId": 9689,
+                "merchantLocationId": 96891,
+                "quantity": 1,
+              },
+            },
+          ],
           "itemsDeliveryOptions": Array [
             Object {
               "deliveryWindow": Object {
                 "max": "2020-02-13T14:38:22.228Z",
                 "min": "2020-02-10T14:38:22.228Z",
-                "type": "Estimated",
+                "type": 1,
               },
               "itemId": 95097041,
               "name": "Standard",
@@ -305,7 +389,7 @@ Object {
               "deliveryWindow": Object {
                 "max": "2020-02-14T14:38:22.228Z",
                 "min": "2020-02-10T14:38:22.228Z",
-                "type": "Estimated",
+                "type": 1,
               },
               "itemId": 95097042,
               "name": "Standard",
@@ -314,35 +398,6 @@ Object {
           "name": "Basic",
           "price": 10,
           "rank": 1,
-        },
-        "87654321": Object {
-          "currency": "EUR",
-          "discount": 0,
-          "id": "87654321",
-          "isSelected": false,
-          "itemsDeliveryOptions": Array [
-            Object {
-              "deliveryWindow": Object {
-                "max": "2019-10-12T14:38:22.228Z",
-                "min": "2020-02-09T14:38:22.228Z",
-                "type": "Estimated",
-              },
-              "itemId": 95097041,
-              "name": "Fast",
-            },
-            Object {
-              "deliveryWindow": Object {
-                "max": "2019-10-11T14:38:22.228Z",
-                "min": "2020-02-09T14:38:22.228Z",
-                "type": "Estimated",
-              },
-              "itemId": 95097042,
-              "name": "Fast",
-            },
-          ],
-          "name": "Fast",
-          "price": 15,
-          "rank": 2,
         },
       },
       "merchants": Object {

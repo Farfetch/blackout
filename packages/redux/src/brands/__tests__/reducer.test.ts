@@ -6,12 +6,14 @@ import {
   mockBrandsResponse,
   mockQuery,
 } from 'tests/__fixtures__/brands';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, * as fromReducer from '../reducer';
+import type { BrandsState } from '../types';
 
 const { INITIAL_STATE } = fromReducer;
 const mockAction = { type: 'foo' };
 const hash = generateBrandsHash(mockQuery);
-let initialState;
+let initialState: BrandsState;
 
 describe('brands reducer', () => {
   beforeEach(() => {
@@ -84,7 +86,7 @@ describe('brands reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
-        error: { foo: 'bar' },
+        error: { error: toBlackoutError(new Error('bar')) },
         hash: null,
         isLoading: {},
         result: {},
@@ -249,7 +251,14 @@ describe('brands reducer', () => {
         error: {},
         hash: null,
         isLoading: {},
-        result: mockBrandId,
+        result: {
+          [mockBrandId]: {
+            entries: [1],
+            number: 3,
+            totalPages: 1,
+            totalItems: 1,
+          },
+        },
       };
 
       expect(reducer(state, mockAction).result).toEqual(state.result);
@@ -259,7 +268,8 @@ describe('brands reducer', () => {
   describe('getError() selector', () => {
     it('should return the `error` property from a given state', () => {
       const state = {
-        error: { foo: 'bar' },
+        ...initialState,
+        error: { error: toBlackoutError(new Error('foo')) },
         hash: null,
         isLoading: {},
         result: {},
@@ -272,7 +282,8 @@ describe('brands reducer', () => {
   describe('getIsLoading() selector', () => {
     it('should return the `isLoading` property from a given state', () => {
       const state = {
-        error: { foo: 'bar' },
+        ...initialState,
+        error: { error: toBlackoutError(new Error('foo')) },
         hash: null,
         isLoading: {
           [mockBrandId]: true,
@@ -287,10 +298,17 @@ describe('brands reducer', () => {
   describe('getResult() selector', () => {
     it('should return the result property from a given state', () => {
       const state = {
-        error: { foo: 'bar' },
+        error: { error: toBlackoutError(new Error('foo')) },
         hash: null,
         isLoading: {},
-        result: mockBrandId,
+        result: {
+          [mockBrandId]: {
+            entries: [1],
+            number: 3,
+            totalPages: 1,
+            totalItems: 1,
+          },
+        },
       };
 
       expect(fromReducer.getResult(state)).toEqual(state.result);
