@@ -135,7 +135,10 @@ export const mockProductGroupingNormalizedResponse = {
     products: {
       [mockProductId]: {
         id: mockProductId,
-        grouping: mockProductGroupingAdapted,
+        grouping: {
+          '?pagesize=10': mockProductGroupingAdapted,
+        },
+        groupingProperties: undefined,
         customAttributes: undefined,
         groupedEntries: undefined,
         images: undefined,

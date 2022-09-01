@@ -31,7 +31,8 @@ const buildQueryStringFromObject = (
     // which needs the `|` separating each different values of the same facet
     const parsedValue = Array.isArray(value) ? value.join('|') : value;
 
-    parsedValue && paramsToUrl.push([`${key.toLowerCase()}=${parsedValue}`]);
+    (parsedValue || typeof parsedValue === 'boolean') &&
+      paramsToUrl.push([`${key.toLowerCase()}=${parsedValue}`]);
   }
 
   const prefix = useQuestionMark ? '?' : '';

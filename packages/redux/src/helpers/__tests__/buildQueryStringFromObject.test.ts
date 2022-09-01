@@ -35,6 +35,16 @@ describe('buildQueryStringFromObject', () => {
     expect(result).toBe(expectedResult);
   });
 
+  it('should return a key if its value is a boolean', () => {
+    const mockQuery = {
+      hasStock: false,
+    };
+    const expectedResult = '?hasstock=false';
+    const result = buildQueryStringFromObject(mockQuery);
+
+    expect(result).toBe(expectedResult);
+  });
+
   it('should not use question mark prefix as if useQuestionMark is false', () => {
     const mockQuery = { sort: 'price', sortdirection: 'asc' };
     const expectedResult = 'sort=price&sortdirection=asc';
