@@ -52,6 +52,10 @@ export const customTrackMockData = {
   [eventTypes.CHECKOUT_STARTED]: {
     currency: 'USD',
   },
+  [eventTypes.PROMOCODE_APPLIED]: {
+    coupon: 'PROMO_ABC',
+    errorMessage: 'No promocode available.',
+  },
 };
 
 export const expectedTrackPayload = {

@@ -501,6 +501,12 @@ export const trackEventsMapper = {
     actionArea: data.properties.actionArea,
     productId: data.properties.id,
   }),
+  [eventTypes.PROMOCODE_APPLIED]: data => ({
+    tid: 311,
+    promoCode: data.properties.coupon,
+    hasError: !!data.properties?.errorMessage,
+    errorMessage: data.properties?.errorMessage,
+  }),
 };
 
 /**
