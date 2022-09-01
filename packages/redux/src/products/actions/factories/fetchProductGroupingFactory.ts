@@ -1,3 +1,4 @@
+import { buildQueryStringFromObject } from '../../../helpers';
 import {
   Config,
   GetProductGrouping,
@@ -11,9 +12,11 @@ import {
   FETCH_PRODUCT_GROUPING_REQUEST,
   FETCH_PRODUCT_GROUPING_SUCCESS,
 } from '../../actionTypes';
+import { getProduct } from '../../selectors';
 import { normalize } from 'normalizr';
 import productSchema from '../../../entities/schemas/product';
 import type { Dispatch } from 'redux';
+import type { StoreState } from '../../../types';
 
 /**
  * Creates a thunk factory configured with the specified client to fetch product
@@ -37,7 +40,10 @@ const fetchProductGroupingFactory =
     query: GroupingQuery = {},
     config?: Config,
   ) =>
-  async (dispatch: Dispatch): Promise<ProductGrouping> => {
+  async (
+    dispatch: Dispatch,
+    getState: () => StoreState,
+  ): Promise<ProductGrouping> => {
     try {
       dispatch({
         meta: { productId },
@@ -45,11 +51,18 @@ const fetchProductGroupingFactory =
       });
 
       const result = await getProductGrouping(productId, query, config);
+      const state = getState();
+      const product = getProduct(state, productId);
+      const previousGroupings = product?.grouping;
+      const queryString = query && buildQueryStringFromObject(query);
+      const hash = queryString ? queryString : '!all';
 
-      // Replace all the grouping data with the new one
       const productWithGrouping = {
         id: productId,
-        grouping: result,
+        grouping: {
+          ...previousGroupings,
+          [hash]: result,
+        },
       };
 
       dispatch({

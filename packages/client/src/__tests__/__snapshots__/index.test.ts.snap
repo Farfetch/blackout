@@ -718,6 +718,7 @@ Object {
   "getProductAttributes": [Function],
   "getProductFittings": [Function],
   "getProductGrouping": [Function],
+  "getProductGroupingProperties": [Function],
   "getProductListing": [Function],
   "getProductRecommendedSet": [Function],
   "getProductSet": [Function],

@@ -3,6 +3,7 @@ import type {
   ProductsAttributesState,
   ProductsDetailsState,
   ProductsFittingsState,
+  ProductsGroupingPropertiesState,
   ProductsGroupingState,
   ProductsListsState,
   ProductsMeasurementsState,
@@ -17,6 +18,7 @@ import type {
 export type ProductsState = CombinedState<{
   attributes: ProductsAttributesState;
   grouping: ProductsGroupingState;
+  groupingProperties: ProductsGroupingPropertiesState;
   details: ProductsDetailsState;
   fittings: ProductsFittingsState;
   lists: ProductsListsState;

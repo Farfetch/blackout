@@ -9,6 +9,9 @@ import type {
   ProductGroupEntry,
   ProductGrouping,
   ProductGroupingEntry,
+  ProductGroupingProperties,
+  ProductGroupingPropertiesValue,
+  ProductGroupingProperty,
   ProductSizeGuide,
   ProductSummaryPrice,
   ProductVariant,
@@ -25,16 +28,38 @@ import type {
 import type { MerchantEntity } from './merchant.types';
 
 export type GroupingAdapted =
-  | (Omit<ProductGrouping, 'entries'> & {
-      entries: Array<
-        Omit<ProductGroupingEntry, 'digitalAssets'> & {
-          digitalAssets: ProductImagesAdapted;
-        }
-      >;
-    })
+  | {
+      [key: string]: Omit<ProductGrouping, 'entries'> & {
+        entries: Array<
+          Omit<ProductGroupingEntry, 'digitalAssets'> & {
+            digitalAssets: ProductImagesAdapted;
+          }
+        >;
+      };
+    }
   | undefined;
 
-export type AdaptGrouping = (grouping: ProductGrouping) => GroupingAdapted;
+export type AdaptGrouping = (grouping: {
+  [key: string]: ProductGrouping;
+}) => GroupingAdapted;
+
+export type GroupingPropertiesAdapted =
+  | {
+      [key: string]: Array<
+        Omit<ProductGroupingProperty, 'values'> & {
+          values: Array<
+            Omit<ProductGroupingPropertiesValue, 'digitalAssets'> & {
+              digitalAssets: ProductImagesAdapted;
+            }
+          >;
+        }
+      >;
+    }
+  | undefined;
+
+export type AdaptGroupingProperties = (groupingProperties: {
+  [key: string]: ProductGroupingProperties;
+}) => GroupingPropertiesAdapted;
 
 export type GroupedEntriesAdapted =
   | (Omit<ProductGroup, 'entries'> & {
@@ -141,6 +166,8 @@ export type ProductEntity = {
   //
   // This is only populated after requesting for a product grouping (`fetchProductGrouping`)
   grouping?: GroupingAdapted;
+  // This is only populated after requesting for a product grouping properties (`fetchProductGroupingProperties`)
+  groupingProperties?: GroupingPropertiesAdapted;
   customAttributes: CustomAttributesAdapted;
   groupedEntries: GroupedEntriesAdapted;
   images: ProductImagesAdapted;

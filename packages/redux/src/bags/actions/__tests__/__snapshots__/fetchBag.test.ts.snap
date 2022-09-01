@@ -127,6 +127,7 @@ Object {
           "description": "Classic oxford shirt",
           "groupedEntries": undefined,
           "grouping": undefined,
+          "groupingProperties": undefined,
           "id": 11766695,
           "images": Array [
             Object {
@@ -421,6 +422,7 @@ Object {
           "description": "Classic oxford shirt",
           "groupedEntries": undefined,
           "grouping": undefined,
+          "groupingProperties": undefined,
           "id": 11766695,
           "images": Array [
             Object {

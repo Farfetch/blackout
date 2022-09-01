@@ -1,5 +1,7 @@
 import {
   adaptCustomAttributes,
+  adaptGrouping,
+  adaptGroupingProperties,
   adaptMerchant,
   adaptPrice,
   adaptProductImages,
@@ -10,21 +12,7 @@ import brand from './brand';
 import category from './category';
 import get from 'lodash/get';
 import merchant from './merchant';
-import type {
-  AdaptGroupedEntries,
-  AdaptGrouping,
-  AdaptPrices,
-  AdaptVariants,
-} from '../types';
-
-const adaptGrouping: AdaptGrouping = grouping =>
-  grouping && {
-    ...grouping,
-    entries: grouping.entries.map(entry => ({
-      ...entry,
-      digitalAssets: adaptProductImages(entry.digitalAssets),
-    })),
-  };
+import type { AdaptGroupedEntries, AdaptPrices, AdaptVariants } from '../types';
 
 const adaptGroupedEntries: AdaptGroupedEntries = groupedEntries =>
   groupedEntries && {
@@ -59,6 +47,7 @@ export default new schema.Entity(
         formattedPriceWithoutDiscount,
         groupedEntries,
         grouping,
+        groupingProperties,
         imageGroups,
         images,
         merchantId,
@@ -90,6 +79,7 @@ export default new schema.Entity(
 
       return {
         grouping: adaptGrouping(grouping),
+        groupingProperties: adaptGroupingProperties(groupingProperties),
         customAttributes: adaptCustomAttributes(customAttributes),
         groupedEntries: adaptGroupedEntries(groupedEntries),
         images: adaptProductImages(imagesToAdapt, {

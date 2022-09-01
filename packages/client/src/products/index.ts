@@ -6,6 +6,7 @@ export { default as getProductAttributes } from './getProductAttributes';
 export { default as getProduct } from './getProduct';
 export { default as getProductFittings } from './getProductFittings';
 export { default as getProductGrouping } from './getProductGrouping';
+export { default as getProductGroupingProperties } from './getProductGroupingProperties';
 export { default as getProductSizeGuides } from './getProductSizeGuides';
 export { default as getProductSizes } from './getProductSizes';
 export { default as getProductVariantsMerchantsLocations } from './getProductVariantMerchantsLocations';
