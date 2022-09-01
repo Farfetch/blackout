@@ -10,5 +10,7 @@ export { default as adaptProductImages } from './adaptProductImages';
 export { default as adaptRecommendedProducts } from './adaptRecommendedProducts';
 export { default as adaptProductSizes } from './adaptProductSizes';
 export { default as adaptTimestamp } from './adaptTimestamp';
+export { default as adaptGrouping } from './adaptGrouping';
+export { default as adaptGroupingProperties } from './adaptGroupingProperties';
 
 export * from './types';

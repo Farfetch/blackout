@@ -9,6 +9,7 @@ export { default as fetchProductAttributes } from './fetchProductAttributes';
 export { default as fetchProductDetails } from './fetchProductDetails';
 export { default as fetchProductFittings } from './fetchProductFittings';
 export { default as fetchProductGrouping } from './fetchProductGrouping';
+export { default as fetchProductGroupingProperties } from './fetchProductGroupingProperties';
 export { default as fetchProductMeasurements } from './fetchProductMeasurements';
 export { default as fetchProductSizeGuides } from './fetchProductSizeGuides';
 export { default as fetchProductSizes } from './fetchProductSizes';

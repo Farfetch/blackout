@@ -190,6 +190,8 @@ Object {
   "usePrevious": [Function],
   "useProductAttributes": [Function],
   "useProductDetails": [Function],
+  "useProductGrouping": [Function],
+  "useProductGroupingProperties": [Function],
   "useProductListing": [Function],
   "useProductSizeGuides": [Function],
   "useSearchDidYouMean": [Function],

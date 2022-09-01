@@ -4,6 +4,7 @@ export * from './productFittings.state.types';
 export * from './productMeasurements.state.types';
 export * from './productMerchantsLocations.state.types';
 export * from './productsGroupingState.state.types';
+export * from './productsGroupingPropertiesState.state.types';
 export * from './productSizeGuides.state.types';
 export * from './productSizes.state.types';
 export * from './productsLists.state.types';

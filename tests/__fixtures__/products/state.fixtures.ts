@@ -33,6 +33,34 @@ export const mockColorGroupingState = {
     },
   },
 };
+export const mockGroupingState = {
+  grouping: {
+    isLoading: {
+      [mockProductId]: false,
+      456: false,
+    },
+    error: {
+      [mockProductId]: null,
+    },
+    currentPageIndex: {
+      [mockProductId]: 4,
+    },
+  },
+};
+export const mockGroupingPropertiesState = {
+  groupingProperties: {
+    isLoading: {
+      [mockProductId]: false,
+      456: false,
+    },
+    error: {
+      [mockProductId]: null,
+    },
+    currentPageIndex: {
+      [mockProductId]: 4,
+    },
+  },
+};
 export const mockDetailsState = {
   details: {
     error: {
@@ -118,6 +146,8 @@ export const mockProductsState = {
   products: {
     ...mockAttributesState,
     ...mockColorGroupingState,
+    ...mockGroupingState,
+    ...mockGroupingPropertiesState,
     ...mockDetailsState,
     ...mockFittingsState,
     ...mockMeasurementsState,

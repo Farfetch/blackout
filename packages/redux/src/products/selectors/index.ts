@@ -11,3 +11,5 @@ export * from './sets';
 export * from './sizeGuides';
 export * from './sizes';
 export * from './variantsByMerchantsLocations';
+export * from './grouping';
+export * from './groupingProperties';

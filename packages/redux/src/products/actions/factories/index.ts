@@ -8,6 +8,7 @@ export { default as fetchProductAttributesFactory } from './fetchProductAttribut
 export { default as fetchProductDetailsFactory } from './fetchProductDetailsFactory';
 export { default as fetchProductFittingsFactory } from './fetchProductFittingsFactory';
 export { default as fetchProductGroupingFactory } from './fetchProductGroupingFactory';
+export { default as fetchProductGroupingPropertiesFactory } from './fetchProductGroupingPropertiesFactory';
 export { default as fetchProductMeasurementsFactory } from './fetchProductMeasurementsFactory';
 export { default as fetchProductSizeGuidesFactory } from './fetchProductSizeGuidesFactory';
 export { default as fetchProductSizesFactory } from './fetchProductSizesFactory';
