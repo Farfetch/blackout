@@ -2,18 +2,20 @@ import {
   mockProductId,
   mockProductVariantsMeasurements,
 } from 'tests/__fixtures__/products';
-import { productsActionTypes } from '../..';
+import { productsActionTypes, ProductsMeasurementsState } from '../..';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, {
   entitiesMapper,
   getError,
   getIsLoading,
   INITIAL_STATE,
 } from '../measurements';
-import type { ProductEntity } from '../../../entities/types';
+import type { ProductEntity } from '../../../entities';
+import type { StoreState } from '../../../types';
 
 const mockAction = { type: 'foo' };
 const meta = { productId: mockProductId };
-let initialState;
+let initialState: ProductsMeasurementsState;
 
 describe('measurements redux reducer', () => {
   beforeEach(() => {
@@ -54,7 +56,7 @@ describe('measurements redux reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
-        error: { [mockProductId]: error },
+        error: { [mockProductId]: toBlackoutError(new Error(error)) },
         isLoading: {},
       };
 
@@ -126,17 +128,17 @@ describe('measurements redux reducer', () => {
         products: {
           [mockProductId]: {
             measurements: mockProductVariantsMeasurements,
-          } as ProductEntity,
+          },
         },
       };
       const state = {
         products: {
           [mockProductId]: {
             measurements: [],
-          } as ProductEntity,
+          } as unknown as ProductEntity,
         },
         ...defaultState,
-      };
+      } as NonNullable<StoreState['entities']>;
       const action = {
         meta: { productId: mockProductId },
         payload: {
@@ -158,7 +160,9 @@ describe('measurements redux reducer', () => {
   describe('selectors', () => {
     describe('getError()', () => {
       it('should return the `error` property from a given state', () => {
-        const error = { [mockProductId]: '234-foo' };
+        const error = {
+          [mockProductId]: toBlackoutError(new Error('234-foo')),
+        };
         const state = { ...initialState, error };
 
         expect(getError(state)).toBe(error);
@@ -168,7 +172,10 @@ describe('measurements redux reducer', () => {
     describe('getIsLoading()', () => {
       it('should return the `isLoading` property from a given state', () => {
         const isLoading = { [mockProductId]: true };
-        const state = { ...initialState, isLoading };
+        const state = {
+          ...initialState,
+          isLoading,
+        };
 
         expect(getIsLoading(state)).toEqual(isLoading);
       });

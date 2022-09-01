@@ -4,7 +4,7 @@ import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, { entitiesMapper, INITIAL_STATE } from '../reducer';
 import type { StoreState } from '../../../types';
 
-describe('reducer', () => {
+describe('contacts reducer', () => {
   it.each([
     actionTypes.FETCH_USER_CONTACTS_REQUEST,
     actionTypes.FETCH_USER_CONTACT_REQUEST,

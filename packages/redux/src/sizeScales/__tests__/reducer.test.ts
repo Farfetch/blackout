@@ -1,11 +1,13 @@
 import * as actionTypes from '../actionTypes';
-import { mockQuery, mockSizeScaleId } from 'tests/__fixtures__/sizeScales';
+import { mockQuery, mockScaleId } from 'tests/__fixtures__/sizeScales';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, * as fromReducer from '../reducer';
+import type { SizeScalesState } from '../types';
 
 const randomAction = { type: 'this_is_a_random_action' };
-let initialState;
+let initialState: SizeScalesState;
 
-describe('size scales redux reducer', () => {
+describe('sizeScales reducer', () => {
   beforeEach(() => {
     initialState = fromReducer.INITIAL_STATE;
   });
@@ -54,7 +56,10 @@ describe('size scales redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, error: 'foo' };
+      const state = {
+        ...initialState,
+        error: toBlackoutError(new Error('foo')),
+      };
 
       expect(reducer(state, randomAction).error).toBe(state.error);
     });
@@ -116,11 +121,11 @@ describe('size scales redux reducer', () => {
       expect(
         reducer(undefined, {
           type: actionTypes.FETCH_SIZE_SCALE_REQUEST,
-          meta: { sizeScaleId: mockSizeScaleId },
+          meta: { sizeScaleId: mockScaleId },
         }).sizeScale,
       ).toEqual({
-        error: { [mockSizeScaleId]: undefined },
-        isLoading: { [mockSizeScaleId]: true },
+        error: { [mockScaleId]: undefined },
+        isLoading: { [mockScaleId]: true },
       });
     });
 
@@ -142,10 +147,10 @@ describe('size scales redux reducer', () => {
       expect(
         reducer(undefined, {
           type: actionTypes.FETCH_SIZE_SCALE_SUCCESS,
-          meta: { sizeScaleId: mockSizeScaleId },
+          meta: { sizeScaleId: mockScaleId },
           payload: { result: { foo: 'bar' } },
         }).sizeScale,
-      ).toEqual({ error: {}, isLoading: { [mockSizeScaleId]: false } });
+      ).toEqual({ error: {}, isLoading: { [mockScaleId]: false } });
     });
 
     it('should handle FETCH_SIZE_SCALES_SUCCESS action type', () => {
@@ -169,14 +174,14 @@ describe('size scales redux reducer', () => {
       expect(
         reducer(undefined, {
           type: actionTypes.FETCH_SIZE_SCALE_FAILURE,
-          meta: { sizeScaleId: mockSizeScaleId },
+          meta: { sizeScaleId: mockScaleId },
           payload: {
             error: expectedResult,
           },
         }).sizeScale,
       ).toEqual({
-        error: { [mockSizeScaleId]: expectedResult },
-        isLoading: { [mockSizeScaleId]: undefined },
+        error: { [mockScaleId]: expectedResult },
+        isLoading: { [mockScaleId]: undefined },
       });
     });
 
@@ -205,7 +210,7 @@ describe('size scales redux reducer', () => {
       const state = {
         ...initialState,
         sizeScale: {
-          error: { foo: 'Error' },
+          error: { foo: toBlackoutError(new Error('foo')) },
           isLoading: { foo: false },
         },
       };
@@ -216,7 +221,7 @@ describe('size scales redux reducer', () => {
 
   describe('getError() selector', () => {
     it('should return the `error` property from a given state', () => {
-      const error = 'foo';
+      const error = toBlackoutError(new Error('foo'));
       const state = { ...initialState, error };
 
       expect(fromReducer.getError(state)).toBe(error);

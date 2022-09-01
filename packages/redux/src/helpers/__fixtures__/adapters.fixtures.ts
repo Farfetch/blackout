@@ -29,7 +29,7 @@ const generateSizeAttributes = (
   { type: 4, description: 'ScaleAbbreviation', value: 'IT' },
 ];
 
-const generateMockImg = (size, pos, name = 'foo') => ({
+const generateMockImg = (size: number, pos: number, name = 'foo') => ({
   size: String(size),
   url: `https://cdn-images.farfetch.com/${name}_${pos}_${size}.jpg`,
 });
@@ -181,7 +181,7 @@ export const twoSizesProductVariants = [
     scale: '115',
     merchantId: 10002,
     purchaseChannel: 1,
-    attributes: [generateSizeAttributes(21, 'M')],
+    attributes: [generateSizeAttributes('21', 'M')],
   },
 ];
 

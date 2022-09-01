@@ -11,7 +11,7 @@ import type {
   ProductsVariantsByMerchantsLocationsState,
   RecentlyViewedState,
   RecommendedProductsState,
-  RecommendedSetsState,
+  RecommendedSetState,
 } from './state';
 
 export type ProductsState = CombinedState<{
@@ -23,7 +23,7 @@ export type ProductsState = CombinedState<{
   measurements: ProductsMeasurementsState;
   recentlyViewed: RecentlyViewedState;
   recommendedProducts: RecommendedProductsState;
-  recommendedSets: RecommendedSetsState;
+  recommendedSets: RecommendedSetState;
   sizeGuides: ProductsSizeGuidesState;
   sizes: ProductsSizesState;
   variantsByMerchantsLocations: ProductsVariantsByMerchantsLocationsState;

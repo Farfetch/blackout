@@ -1,10 +1,11 @@
 import { mockProductId } from 'tests/__fixtures__/products';
-import { productsActionTypes } from '../..';
+import { productsActionTypes, ProductsFittingsState } from '../..';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, { getError, getIsLoading, INITIAL_STATE } from '../fittings';
 
 const mockAction = { type: 'foo' };
 const meta = { productId: mockProductId };
-let initialState;
+let initialState: ProductsFittingsState;
 
 describe('fittings redux reducer', () => {
   beforeEach(() => {
@@ -45,7 +46,7 @@ describe('fittings redux reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
-        error: { [mockProductId]: error },
+        error: { [mockProductId]: toBlackoutError(new Error(error)) },
         isLoading: {},
       };
       expect(reducer(state, mockAction).error).toEqual(state.error);
@@ -100,7 +101,10 @@ describe('fittings redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { error: {}, isLoading: { [mockProductId]: false } };
+      const state = {
+        error: {},
+        isLoading: { [mockProductId]: false },
+      };
 
       expect(reducer(state, mockAction).isLoading).toEqual(state.isLoading);
     });
@@ -109,7 +113,9 @@ describe('fittings redux reducer', () => {
   describe('selectors', () => {
     describe('getError()', () => {
       it('should return the `error` property from a given state', () => {
-        const error = { [mockProductId]: '234-foo' };
+        const error = {
+          [mockProductId]: toBlackoutError(new Error('234-foo')),
+        };
         const state = { ...initialState, error };
 
         expect(getError(state)).toBe(error);

@@ -2,13 +2,16 @@ import * as actionTypes from '../actionTypes';
 import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
 import {
   mockBagId,
+  mockBagItemEntity,
   mockBagItemId,
   mockError,
   mockState,
 } from 'tests/__fixtures__/bags';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, * as fromReducer from '../reducer';
+import type { BagNormalized, BagsState } from '../types';
 
-let initialState;
+let initialState: BagsState;
 const randomAction = { type: 'this_is_a_random_action' };
 
 describe('bags redux reducer', () => {
@@ -102,7 +105,10 @@ describe('bags redux reducer', () => {
     });
 
     it('should handle other actions by returning the initial state', () => {
-      const state = { ...initialState, error: 'foo' };
+      const state = {
+        ...initialState,
+        error: toBlackoutError(new Error('error')),
+      };
 
       expect(reducer(state, randomAction).error).toBe(state.error);
     });
@@ -153,7 +159,7 @@ describe('bags redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, result: { bar: 'foo' } };
+      const state = mockState?.bag;
 
       expect(reducer(state, randomAction).result).toBe(state.result);
     });
@@ -218,7 +224,7 @@ describe('bags redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, isLoading: 'foo' };
+      const state = { ...initialState, isLoading: false };
 
       expect(reducer(state, randomAction).isLoading).toBe(state.isLoading);
     });
@@ -346,9 +352,10 @@ describe('bags redux reducer', () => {
       const state = {
         ...initialState,
         items: {
+          ids: [mockBagItemId],
           item: {
-            error: { foo: 'Error' },
-            isLoading: { foo: false },
+            error: { [mockBagItemId]: toBlackoutError(new Error('error')) },
+            isLoading: { [mockBagItemId]: false },
           },
         },
       };
@@ -361,24 +368,7 @@ describe('bags redux reducer', () => {
     describe('reset bag', () => {
       const state = {
         bagItems: {
-          1: {
-            id: 1,
-            customAttributes: '{ a: 1, b: 2, c: { d: 3 } }',
-            quantity: 5,
-            merchant: 1312,
-            size: {
-              id: 23,
-              scale: 'IT',
-              name: '11',
-              stock: [{ merchantId: 1, quantity: 7 }],
-            },
-            sizeId: 23,
-            isAvailable: true,
-            product: 1,
-          },
-        },
-        products: {
-          1: { id: 1 },
+          ...mockBagItemEntity,
         },
         dummy: {
           1: { id: 1 },
@@ -389,9 +379,6 @@ describe('bags redux reducer', () => {
       };
 
       const expectedResult = {
-        products: {
-          1: { id: 1 },
-        },
         dummy: {
           1: { id: 1 },
         },
@@ -424,7 +411,7 @@ describe('bags redux reducer', () => {
 
   describe('getError() selector', () => {
     it('should return the `error` property from a given state', () => {
-      const error = 'foo';
+      const error = toBlackoutError(new Error('error'));
 
       expect(fromReducer.getError({ ...initialState, error })).toBe(error);
     });
@@ -432,7 +419,13 @@ describe('bags redux reducer', () => {
 
   describe('getResult()', () => {
     it('should return the `result` property from a given state', () => {
-      const result = 'foo';
+      const result = {
+        id: mockBagId,
+        bagSummary: {},
+        count: 1,
+        items: [1],
+        hadUnavailableItems: false,
+      } as BagNormalized;
 
       expect(fromReducer.getResult({ ...initialState, result })).toBe(result);
     });
@@ -440,7 +433,7 @@ describe('bags redux reducer', () => {
 
   describe('getIsLoading() selector', () => {
     it('should return the `isLoading` property from a given state', () => {
-      const isLoading = 'foo';
+      const isLoading = true;
 
       expect(fromReducer.getIsLoading({ ...initialState, isLoading })).toBe(
         isLoading,
@@ -450,7 +443,13 @@ describe('bags redux reducer', () => {
 
   describe('getAreItemsLoading() selector', () => {
     it('should return the `items.isLoading` property from a given state', () => {
-      const items = { item: { isLoading: { [mockBagItemId]: true } } };
+      const items = {
+        ids: [mockBagItemId],
+        item: {
+          isLoading: { [mockBagItemId]: true },
+          error: { [mockBagItemId]: toBlackoutError(new Error('error')) },
+        },
+      };
 
       expect(
         fromReducer.getAreItemsLoading({ ...initialState, items }),
@@ -460,7 +459,13 @@ describe('bags redux reducer', () => {
 
   describe('getItemsError() selector', () => {
     it('should return the `items.error` property from a given state', () => {
-      const items = { item: { error: { [mockBagItemId]: 'Error' } } };
+      const items = {
+        ids: [mockBagItemId],
+        item: {
+          isLoading: { [mockBagItemId]: false },
+          error: { [mockBagItemId]: toBlackoutError(new Error('error')) },
+        },
+      };
 
       expect(fromReducer.getItemsError({ ...initialState, items })).toEqual(
         items.item.error,
@@ -470,7 +475,13 @@ describe('bags redux reducer', () => {
 
   describe('getItemsIds() selector', () => {
     it('should return the `items.ids` property from a given state', () => {
-      const items = { ids: [mockBagItemId] };
+      const items = {
+        ids: [mockBagItemId],
+        item: {
+          isLoading: { [mockBagItemId]: false },
+          error: { [mockBagItemId]: toBlackoutError(new Error('error')) },
+        },
+      };
 
       expect(fromReducer.getItemsIds({ ...initialState, items })).toEqual(
         items.ids,

@@ -1,4 +1,8 @@
-import { AttributeType, PurchaseChannel } from '@farfetch/blackout-client';
+import {
+  AttributeType,
+  PurchaseChannel,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import { mockBagItemEntity, mockBagItemId } from './bagItem.fixtures';
 import {
   mockProduct,
@@ -96,9 +100,12 @@ export const mockState = {
         formattedTotalShippingFee: '$10',
         formattedTotalTaxes: '$0',
         taxType: 'DDP',
+        totalProductPromotionDiscount: 0,
+        formattedTotalProductPromotionDiscount: '$0',
       },
       count: 7,
       items: [mockBagItemId, 101, 102, 103, 104],
+      hadUnavailableItems: false,
     },
     items: {
       ids: [mockBagItemId, 101, 102, 103, 104],
@@ -107,7 +114,7 @@ export const mockState = {
           [mockBagItemId]: true,
         },
         error: {
-          [mockBagItemId]: { message: 'error: not loaded' },
+          [mockBagItemId]: toBlackoutError(new Error('error: not loaded')),
         },
       },
     },

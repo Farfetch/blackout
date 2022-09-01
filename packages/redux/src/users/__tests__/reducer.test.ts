@@ -112,7 +112,7 @@ describe('users redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, id: 'foo' } as unknown as UsersState;
+      const state = { ...initialState, id: 123 } as UsersState;
 
       expect(reducer(state, randomAction).id).toBe(state.id);
     });
@@ -189,7 +189,7 @@ describe('users redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, isLoading: true };
+      const state = { ...initialState, isLoading: true } as UsersState;
 
       expect(reducer(state, randomAction).isLoading).toBe(state.isLoading);
     });

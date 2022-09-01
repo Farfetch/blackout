@@ -4,7 +4,7 @@ import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, { entitiesMapper, INITIAL_STATE } from '../reducer';
 import type { StoreState } from '../../../types';
 
-describe('reducer', () => {
+describe('benefits reducer', () => {
   it('should handle FETCH_USER_BENEFITS_REQUEST correctly', () => {
     const previousState = {
       isLoading: false,

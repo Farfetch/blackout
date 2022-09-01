@@ -28,14 +28,17 @@ export const mockWishlistSetPatchData = [
 
 const { setId, ...mockWishlistsSetResponseWithoutSetId } =
   mockWishlistsSetResponse;
+
+export const mockWishlistSets = {
+  [mockWishlistSetId]: {
+    ...mockWishlistsSetResponseWithoutSetId,
+    id: mockWishlistSetId,
+  },
+};
+
 export const mockWishlistsSetNormalizedPayload = {
   entities: {
-    wishlistSets: {
-      [mockWishlistSetId]: {
-        ...mockWishlistsSetResponseWithoutSetId,
-        id: mockWishlistSetId,
-      },
-    },
+    wishlistSets: mockWishlistSets,
   },
   result: mockWishlistSetId,
 };

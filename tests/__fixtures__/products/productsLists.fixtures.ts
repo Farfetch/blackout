@@ -1,8 +1,9 @@
+import { FacetValue, GenderCode } from '@farfetch/blackout-client';
 import { mockBrandId } from '../brands';
 import { mockBreadCrumbs } from './products.fixtures';
 import { mockPriceAdaptedEmpty, mockPricesResponse } from './price.fixtures';
 import { mockSetId } from './ids.fixtures';
-import type { FacetValue } from '@farfetch/blackout-client';
+import type { ProductsListEntity } from '@farfetch/blackout-redux';
 
 export const mockProductsListPathname = 'shopping/woman/clothing';
 export const mockProductsListSlug = '/woman/clothing';
@@ -1106,4 +1107,54 @@ export const mockProductsListModel = {
   searchTerm: null,
   redirectInformation: null,
   pageType: 'listing',
+};
+
+export const mockProductsListEntity = {
+  [mockProductsListHash]: {
+    id: 123,
+    products: {
+      entries: [12913172, 12913174],
+      number: 1,
+      totalItems: 40,
+      totalPages: 2,
+    },
+    hash: mockProductsListHash,
+    breadCrumbs: [
+      {
+        text: 'Woman',
+        slug: 'woman',
+        link: 'shopping/woman',
+        parent: true,
+      },
+    ],
+    name: 'New arrivals',
+    facetGroups: mockFacetGroupsNormalized,
+    filterSegments: [
+      {
+        order: 0,
+        type: 6,
+        key: 'categories',
+        gender: 0,
+        value: 144307,
+        valueUpperBound: 0,
+        slug: 'women',
+        description: 'Women',
+        deep: 1,
+        parentId: 0,
+        fromQueryString: false,
+        negativeFilter: false,
+        facetId: 'categories_144307',
+      },
+    ],
+    config: mockProductsListResponse.config,
+    didYouMean: ['dress'],
+    searchTerm: null,
+    facetsBaseUrl: '/shopping',
+    _sorts: null,
+    _clearUrl: null,
+    _isClearHidden: false,
+    gender: GenderCode.Woman,
+    redirectInformation: null,
+    genderName: 'women',
+  } as ProductsListEntity,
 };

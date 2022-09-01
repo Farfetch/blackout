@@ -1,13 +1,32 @@
 import * as actionTypes from '../actionTypes';
 import * as fromReducer from '../reducer';
 import {
+  checkoutId,
+  checkoutOrderId,
   checkoutOrderItemId,
+  expectedItemDeliveryProvisioningNormalizedPayload,
+  expectedUpgradesNormalizedPayload,
+  expectedUpgradesNormalizedProvisioningPayload,
+  mockCheckoutOrderItemEntity,
+  mockCheckoutOrderItemProductsEntity,
+  mockCollectPointsResponse,
+  mockDeliveryBundlesResponse,
   mockGetOperationActionPayload,
   mockGetOperationsActionPayload,
+  mockItemDeliveryPorvisioningResponse,
+  mockResponse,
+  mockUpdateCheckoutResponse,
+  productId,
 } from 'tests/__fixtures__/checkout';
 import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
+import { mockProductsEntity } from 'tests/__fixtures__/products';
+import { OrderStatusError, toBlackoutError } from '@farfetch/blackout-client';
 import reducer, { entitiesMapper } from '../reducer';
-import type { CheckoutOrderItemEntity } from '../../entities/types';
+import type {
+  CheckoutDetailsEntity,
+  CheckoutOrderEntity,
+  CheckoutOrderItemEntity,
+} from '../../entities/types';
 import type {
   CheckoutState,
   RemoveCheckoutOrderItemSuccessAction,
@@ -16,6 +35,7 @@ import type {
 import type { StoreState } from '../../types';
 
 let initialState: CheckoutState;
+const mockAction = { type: 'foo' };
 
 describe('checkout reducer', () => {
   beforeEach(() => {
@@ -38,14 +58,10 @@ describe('checkout reducer', () => {
       LOGOUT_SUCCESS,
     ])('should handle %s action type', actionType => {
       expect(
-        reducer(
-          {
-            error: 'previous error',
-          },
-          {
-            type: actionType,
-          },
-        ).error,
+        reducer(undefined, {
+          payload: { error: 'previous error' },
+          type: actionType,
+        }).error,
       ).toBe(initialState.error);
     });
 
@@ -86,22 +102,25 @@ describe('checkout reducer', () => {
       'should handle %s action type',
       actionType => {
         expect(
-          reducer(
-            {
-              error: true,
-            },
-            {
-              type: actionType,
-            },
-          ).error,
+          reducer(undefined, {
+            payload: { error: true },
+            type: actionType,
+          }).error,
         ).toBe(initialState.error);
       },
     );
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { error: 'foo' };
+      const state = {
+        ...initialState,
+        error: toBlackoutError(new Error('error')),
+      };
 
-      expect(reducer(state).error).toBe(state.error);
+      expect(
+        reducer(state, {
+          type: mockAction,
+        }).error,
+      ).toBe(state.error);
     });
   });
 
@@ -117,14 +136,10 @@ describe('checkout reducer', () => {
       'should handle %s action type',
       actionType => {
         expect(
-          reducer(
-            {
-              id: 'previous id',
-            },
-            {
-              type: actionType,
-            },
-          ).id,
+          reducer(undefined, {
+            payload: { id: 'previous id' },
+            type: actionType,
+          }).id,
         ).toBe(initialState.id);
       },
     );
@@ -207,7 +222,7 @@ describe('checkout reducer', () => {
     });
 
     it('should handle RESET_CHECKOUT_STATE action type', () => {
-      const currentState = { id: 12121 };
+      const currentState = { id: 12121 } as CheckoutState;
 
       expect(
         reducer(currentState, {
@@ -217,9 +232,9 @@ describe('checkout reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { id: 'foo' };
+      const state = { id: 12121 } as CheckoutState;
 
-      expect(reducer(state).id).toBe(state.id);
+      expect(reducer(state, mockAction).id).toBe(state.id);
     });
   });
 
@@ -313,22 +328,18 @@ describe('checkout reducer', () => {
       'should handle %s action type',
       actionType => {
         expect(
-          reducer(
-            {
-              isLoading: true,
-            },
-            {
-              type: actionType,
-            },
-          ).isLoading,
+          reducer(undefined, {
+            payload: { isLoading: true },
+            type: actionType,
+          }).isLoading,
         ).toBe(initialState.isLoading);
       },
     );
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { isLoading: false };
+      const state = { isLoading: false } as CheckoutState;
 
-      expect(reducer(state).isLoading).toBe(state.isLoading);
+      expect(reducer(state, mockAction).isLoading).toBe(state.isLoading);
     });
   });
 
@@ -638,59 +649,42 @@ describe('checkout reducer', () => {
   });
 
   describe('entitiesMapper()', () => {
+    const mockCheckoutResponse = {
+      [checkoutId]: {
+        id: 12,
+        orderStatus: OrderStatusError.NoError,
+      },
+    };
+
+    const mockCheckoutOrdersResponse = {
+      [checkoutOrderId]: {
+        ...mockResponse.checkoutOrder,
+        items: [checkoutOrderItemId],
+        collectpoints: mockCollectPointsResponse,
+      },
+    };
     describe('without convertCheckoutOrder', () => {
       const entities = {
         anotherProp: 123,
-        products: {
-          1: {
-            id: 1,
-          },
-          2: {
-            id: 2,
-          },
-        },
-        checkout: {
-          1: { data: 'data' },
-        },
-        checkoutOrders: {
-          1: { checkout: 1 },
-        },
+        products: { [productId]: { id: productId } },
+        checkout: mockCheckoutResponse,
+        checkoutOrders: mockCheckoutOrdersResponse,
       };
       const state = {
-        checkout: {
-          1: { data: 'data' },
-        },
-        checkoutOrders: {
-          1: { checkout: 1 },
-        },
-        products: {
-          1: {
-            id: 1,
-          },
-          2: {
-            id: 2,
-          },
-        },
-      };
+        checkout: mockCheckoutResponse,
+        checkoutOrders: mockCheckoutOrdersResponse,
+        products: mockProductsEntity,
+      } as NonNullable<StoreState['entities']>;
 
       const expectedResult = {
-        checkout: {
-          1: { data: 'data' },
-        },
+        checkout: mockCheckoutResponse,
         checkoutOrders: {
           1: {
-            checkout: 1,
             ...entities,
+            checkout: mockCheckoutResponse,
           },
         },
-        products: {
-          1: {
-            id: 1,
-          },
-          2: {
-            id: 2,
-          },
-        },
+        products: mockProductsEntity,
       };
 
       it(`should handle ${actionTypes.FETCH_COLLECT_POINTS_SUCCESS}`, () => {
@@ -709,9 +703,7 @@ describe('checkout reducer', () => {
           entities: {
             ...entities,
             products: {
-              3: {
-                id: 3,
-              },
+              3: mockCheckoutResponse,
             },
           },
         };
@@ -729,13 +721,10 @@ describe('checkout reducer', () => {
           ...entities,
           products: {
             ...state.products,
-            3: {
-              id: 3,
-            },
+            3: mockCheckoutResponse,
           },
           checkout: {
             1: {
-              data: 'data',
               checkoutOrder: 1,
             },
           },
@@ -746,11 +735,9 @@ describe('checkout reducer', () => {
         const mockState = {
           ...state,
           deliveryBundles: {
-            12345678: {
-              id: 12345678,
-            },
+            12345678: mockDeliveryBundlesResponse[0],
           },
-        };
+        } as NonNullable<StoreState['entities']>;
         expect(
           entitiesMapper[
             actionTypes
@@ -759,14 +746,7 @@ describe('checkout reducer', () => {
             meta: { deliveryBundleId: 12345678 },
             payload: {
               entities: {
-                itemDeliveryProvisioning: {
-                  123: {
-                    itemId: 123,
-                  },
-                  321: {
-                    itemId: 321,
-                  },
-                },
+                itemDeliveryProvisioning: mockItemDeliveryPorvisioningResponse,
               },
               result: [123, 321],
             },
@@ -776,15 +756,7 @@ describe('checkout reducer', () => {
           ...state,
           deliveryBundles: {
             12345678: {
-              id: 12345678,
-              itemDeliveryProvisioning: {
-                123: {
-                  itemId: 123,
-                },
-                321: {
-                  itemId: 321,
-                },
-              },
+              ...mockDeliveryBundlesResponse[0],
               itemsIds: [123, 321],
             },
           },
@@ -795,26 +767,8 @@ describe('checkout reducer', () => {
         const mockState = {
           ...state,
           deliveryBundleUpgrades: {
-            123: {
-              1234: {
-                Estimated: [
-                  {
-                    id: 1100,
-                    itemId: 1234,
-                    name: 'Fast',
-                  },
-                ],
-              },
-              4321: {
-                Estimated: [
-                  {
-                    id: 1102,
-                    itemId: 4321,
-                    name: 'Fast',
-                  },
-                ],
-              },
-            },
+            123: expectedUpgradesNormalizedPayload.entities
+              .deliveryBundleUpgrades[12345678],
           },
         };
         expect(
@@ -823,67 +777,13 @@ describe('checkout reducer', () => {
               .FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING_SUCCESS
           ](mockState, {
             meta: { deliveryBundleId: 123, upgradeId: 5555 },
-            payload: {
-              entities: {
-                itemDeliveryProvisioning: {
-                  1234: {
-                    itemId: 1234,
-                    provisioning: {
-                      merchantId: 1,
-                      quantity: 3,
-                      deliveryDateEstimate: '2020-04-01T15:41:53.776Z',
-                    },
-                  },
-                  4321: {
-                    itemId: 4321,
-                    provisioning: {
-                      merchantId: 2,
-                      quantity: 3,
-                      deliveryDateEstimate: '2020-04-03T15:41:53.776Z',
-                    },
-                  },
-                },
-              },
-              result: [1234, 4321],
-            },
+            payload: expectedItemDeliveryProvisioningNormalizedPayload,
             type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING_SUCCESS,
           }),
         ).toEqual({
           ...state,
-          deliveryBundleUpgrades: {
-            123: {
-              1234: {
-                Estimated: [
-                  {
-                    id: 1100,
-                    itemId: 1234,
-                    name: 'Fast',
-                  },
-                ],
-                provisioning: {
-                  merchantId: 1,
-                  quantity: 3,
-                  deliveryDateEstimate: '2020-04-01T15:41:53.776Z',
-                  upgradeId: 5555,
-                },
-              },
-              4321: {
-                Estimated: [
-                  {
-                    id: 1102,
-                    itemId: 4321,
-                    name: 'Fast',
-                  },
-                ],
-                provisioning: {
-                  merchantId: 2,
-                  quantity: 3,
-                  deliveryDateEstimate: '2020-04-03T15:41:53.776Z',
-                  upgradeId: 5555,
-                },
-              },
-            },
-          },
+          deliveryBundleUpgrades:
+            expectedUpgradesNormalizedProvisioningPayload.deliveryBundleUpgrades,
         });
       });
     });
@@ -915,6 +815,7 @@ describe('checkout reducer', () => {
         actionTypes.SET_CHECKOUT_ORDER_TAGS_SUCCESS,
       ])('should handle %s action type', actionType => {
         expect(
+          // @ts-expect-error
           entitiesMapper[actionType](state, {
             meta: { id: 1 },
             payload: { entities: result },
@@ -925,29 +826,10 @@ describe('checkout reducer', () => {
 
       it(`should replace entity checkout child array after ${actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS}`, () => {
         const state = {
-          checkout: {
-            1: {
-              shippingOptions: [
-                { id: 1, price: 39 },
-                { id: 2, price: 40 },
-              ],
-              paymentMethods: {
-                customerAccounts: [{ id: 111 }, { id: 222 }],
-              },
-            },
-          },
+          checkout: mockUpdateCheckoutResponse.checkout,
         };
         const payload = {
-          entities: {
-            checkout: {
-              1: {
-                shippingOptions: [{ id: 3, price: 20 }],
-                paymentMethods: {
-                  customerAccounts: [{ id: 111 }],
-                },
-              },
-            },
-          },
+          entities: mockUpdateCheckoutResponse,
           result: 1,
         };
         const expected = payload.entities;
@@ -965,20 +847,25 @@ describe('checkout reducer', () => {
       it(`should handle ${actionTypes.RESET_CHECKOUT_STATE} action type`, () => {
         const state = {
           checkout: {
-            1: { data: 'checkout' },
+            [checkoutId]: {
+              id: 12,
+              orderStatus: OrderStatusError.NoError,
+            },
           },
           checkoutDetails: {
-            1: { data: 'checkout details' },
+            [checkoutId]: {
+              id: 15338084,
+            } as CheckoutDetailsEntity,
           },
           checkoutOrders: {
-            1: { data: 'checkout order' },
+            [checkoutId]: {
+              ...mockResponse.checkoutOrder,
+              items: [2],
+              collectpoints: mockCollectPointsResponse,
+            } as CheckoutOrderEntity,
           },
-          checkoutOrderItems: {
-            1: { data: 'checkout order item' },
-          },
-          checkoutOrderItemProducts: {
-            1: { data: 'checkout order item products' },
-          },
+          checkoutOrderItems: mockCheckoutOrderItemEntity,
+          checkoutOrderItemProducts: mockCheckoutOrderItemProductsEntity,
           dummy: {
             1: { data: 'dummy' },
           },
@@ -1006,17 +893,26 @@ describe('checkout reducer', () => {
       it(`should handle ${LOGOUT_SUCCESS} action type`, () => {
         const state = {
           checkout: {
-            1: { data: 'checkout' },
+            [checkoutId]: {
+              id: 12,
+              orderStatus: OrderStatusError.NoError,
+            },
           },
           checkoutDetails: {
-            1: { data: 'checkout details' },
+            [checkoutId]: {
+              registered: true,
+              id: 123,
+            } as CheckoutDetailsEntity,
           },
           checkoutOrders: {
-            1: { data: 'checkout order' },
+            [checkoutId]: {
+              ...mockResponse.checkoutOrder,
+              items: [2],
+              collectpoints: mockCollectPointsResponse,
+            } as CheckoutOrderEntity,
           },
-          checkoutOrderItems: {
-            1: { data: 'checkout order item' },
-          },
+          checkoutOrderItems: mockCheckoutOrderItemEntity,
+
           dummy: {
             1: { data: 'dummy' },
           },
@@ -1142,24 +1038,30 @@ describe('checkout reducer', () => {
   describe('getId() selector', () => {
     it('should return the `id` property from a given state', () => {
       const id = 123;
+      const state = { ...initialState, id };
 
-      expect(fromReducer.getId({ id })).toBe(id);
+      expect(fromReducer.getId(state)).toBe(state.id);
     });
   });
 
   describe('getError() selector', () => {
     it('should return the `error` property from a given state', () => {
-      const error = 'foo';
+      const state = {
+        ...initialState,
+        error: toBlackoutError(new Error('error')),
+      };
 
-      expect(fromReducer.getError({ error })).toBe(error);
+      expect(fromReducer.getError(state)).toBe(state.error);
     });
   });
 
   describe('getIsLoading() selector', () => {
     it('should return the `isLoading` property from a given state', () => {
-      const isLoading = 'foo';
-
-      expect(fromReducer.getIsLoading({ isLoading })).toBe(isLoading);
+      const state = {
+        ...initialState,
+        isLoading: true,
+      };
+      expect(fromReducer.getIsLoading(state)).toBe(state.isLoading);
     });
   });
 
@@ -1198,8 +1100,9 @@ describe('checkout reducer', () => {
     it.each(subAreaNames)(
       'return the `%s` property from a given state',
       subArea => {
-        const { [`get${subArea}`]: reducerSelector } = fromReducer;
-        expect(reducerSelector(subAreas)).toEqual(subAreaResult);
+        const { [`get${subArea}` as keyof typeof subAreas]: reducerSelector } =
+          fromReducer;
+        expect(reducerSelector(subAreas, mockAction)).toEqual(subAreaResult);
       },
     );
   });

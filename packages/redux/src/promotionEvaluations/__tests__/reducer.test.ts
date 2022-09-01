@@ -1,11 +1,13 @@
 import * as actionTypes from '../actionTypes';
 import {
   mockPromotionEvaluationId,
+  mockPromotionEvaluationItemId,
   mockPromotionEvaluationsItemsResponse,
 } from 'tests/__fixtures__/promotionEvaluations';
 import reducer, * as fromReducer from '../reducer';
+import type { PromotionEvaluationsState } from '../types';
 
-let initialState;
+let initialState: PromotionEvaluationsState;
 const mockAction = { type: 'foo' };
 
 describe('promotionEvaluations redux reducer', () => {
@@ -87,7 +89,10 @@ describe('promotionEvaluations redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, isLoading: false };
+      const state = {
+        ...initialState,
+        isLoading: false,
+      };
 
       expect(reducer(state, mockAction).isLoading).toEqual(state.isLoading);
     });
@@ -113,7 +118,7 @@ describe('promotionEvaluations redux reducer', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...initialState,
-        result: { foo: 'bar' },
+        result: mockPromotionEvaluationsItemsResponse,
       };
 
       expect(reducer(state, mockAction).result).toEqual(state.result);
@@ -140,7 +145,7 @@ describe('promotionEvaluations redux reducer', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...initialState,
-        id: 'bar',
+        id: mockPromotionEvaluationItemId,
       };
 
       expect(reducer(state, mockAction).id).toEqual(state.id);

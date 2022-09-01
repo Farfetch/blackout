@@ -3,15 +3,17 @@ import {
   mockRecommendedSet,
   mockRecommendedSetId,
 } from 'tests/__fixtures__/products';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import recommendedSetsReducer, {
   getError,
   getIsLoading,
   getResult,
   INITIAL_STATE,
 } from '../recommendedSet';
+import type { RecommendedSetState } from '../../types';
 
 describe('recommended sets redux recommendedSetsReducer', () => {
-  let initialState;
+  let initialState: RecommendedSetState;
   const randomAction = { type: 'this_is_a_random_action' };
 
   beforeEach(() => {
@@ -47,7 +49,12 @@ describe('recommended sets redux recommendedSetsReducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, error: 'foo' };
+      const state = {
+        ...initialState,
+        error: {
+          code: 1,
+        },
+      };
 
       expect(recommendedSetsReducer(state, randomAction).error).toEqual(
         state.error,
@@ -94,7 +101,10 @@ describe('recommended sets redux recommendedSetsReducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, isLoading: false };
+      const state = {
+        ...initialState,
+        isLoading: { [mockRecommendedSetId]: false },
+      };
 
       expect(recommendedSetsReducer(state, randomAction).isLoading).toEqual(
         state.isLoading,
@@ -136,7 +146,9 @@ describe('recommended sets redux recommendedSetsReducer', () => {
   describe('selectors', () => {
     describe('getError()', () => {
       it('should return the `error` property from a given state', () => {
-        const error = { [mockRecommendedSetId]: '234-foo' };
+        const error = {
+          [mockRecommendedSetId]: toBlackoutError(new Error('234-foo')),
+        };
         const state = { ...initialState, error };
 
         expect(getError(state)).toBe(error);

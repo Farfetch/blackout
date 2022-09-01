@@ -1,5 +1,5 @@
 import {
-  EntitiesReducerByAction,
+  CustomEntitiesReducerByAction,
   mergeEntitiesReducersByAction,
 } from '../createDefaultEntitiesReducer';
 
@@ -9,7 +9,7 @@ describe('mergeEntitiesReducersByAction', () => {
     const action = { type: 'actionTypeName' };
     const firstSpy = jest.fn();
     const secondSpy = jest.fn();
-    const entitiesMappers: EntitiesReducerByAction[] = [
+    const entitiesMappers: CustomEntitiesReducerByAction[] = [
       {
         actionTypeName: (state, action) => firstSpy(state, action),
       },
