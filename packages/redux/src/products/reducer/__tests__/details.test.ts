@@ -1,5 +1,6 @@
-import { mockProductId } from 'tests/__fixtures__/products';
-import { productsActionTypes } from '../..';
+import { mockProductId, mockProductsEntity } from 'tests/__fixtures__/products';
+import { productsActionTypes, ProductsDetailsState } from '../..';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, {
   entitiesMapper,
   getError,
@@ -10,7 +11,7 @@ import reducer, {
 
 const mockAction = { type: 'foo' };
 const meta = { productId: mockProductId };
-let initialState;
+let initialState: ProductsDetailsState;
 
 describe('details redux reducer', () => {
   beforeEach(() => {
@@ -85,7 +86,7 @@ describe('details redux reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
-        error: { [mockProductId]: error },
+        error: { [mockProductId]: toBlackoutError(new Error(error)) },
         isLoading: {},
         isHydrated: {},
       };
@@ -230,10 +231,7 @@ describe('details redux reducer', () => {
     describe(`should handle ${productsActionTypes.RESET_PRODUCT_DETAILS_ENTITIES} action type`, () => {
       const state = {
         products: {
-          [mockProductId]: { id: mockProductId },
-          10000: { id: 10000 },
-          20000: { id: 20000 },
-          30000: { id: 30000 },
+          mockProductsEntity,
         },
         dummy: {
           1: { id: 1 },
@@ -264,7 +262,7 @@ describe('details redux reducer', () => {
       it('should handle partial reset', () => {
         const expectedResult = {
           products: {
-            [mockProductId]: { id: mockProductId },
+            mockProductsEntity,
           },
           dummy: {
             1: { id: 1 },
@@ -290,7 +288,9 @@ describe('details redux reducer', () => {
   describe('selectors', () => {
     describe('getError()', () => {
       it('should return the `error` property from a given state', () => {
-        const error = { [mockProductId]: '234-foo' };
+        const error = {
+          [mockProductId]: toBlackoutError(new Error('234-foo')),
+        };
         const state = { ...initialState, error };
 
         expect(getError(state)).toBe(error);

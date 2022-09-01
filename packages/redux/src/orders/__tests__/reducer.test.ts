@@ -12,6 +12,7 @@ import {
   returnOptionId2,
 } from 'tests/__fixtures__/orders';
 import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
 import reducer, { entitiesMapper } from '../reducer';
@@ -57,18 +58,17 @@ describe('orders reducer', () => {
       actionTypes.FETCH_USER_ORDERS_REQUEST,
       actionTypes.FETCH_GUEST_ORDERS_REQUEST,
     ])('should handle %s action type', actionType => {
+      const state = {
+        ...initialState,
+        error: toBlackoutError(new Error('error')),
+      };
       expect(
-        reducer(
-          {
-            error: 'previous error',
+        reducer(state, {
+          type: actionType,
+          meta: {
+            orderId,
           },
-          {
-            type: actionType,
-            meta: {
-              orderId,
-            },
-          },
-        ).error,
+        }).error,
       ).toBe(initialState.error);
     });
 
@@ -89,7 +89,10 @@ describe('orders reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { error: 'foo' };
+      const state = {
+        ...initialState,
+        error: toBlackoutError(new Error('error')),
+      };
 
       expect(reducer(state, randomAction).error).toBe(state.error);
     });
@@ -148,7 +151,7 @@ describe('orders reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { isLoading: 'foo' };
+      const state = { ...initialState, isLoading: false };
 
       expect(reducer(state, randomAction).isLoading).toBe(state.isLoading);
     });
@@ -190,7 +193,7 @@ describe('orders reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { result: [{ id: 'ORDVX' }] };
+      const state = { ...initialState, result: ['ORDVX'] };
 
       expect(reducer(state, randomAction).result).toBe(state.result);
     });
@@ -239,7 +242,10 @@ describe('orders reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { orderDetails: { isLoading: { foo: false } } };
+      const state = {
+        ...initialState,
+        orderDetails: { error: {}, isLoading: { [orderId]: false } },
+      };
 
       expect(reducer(state, randomAction).orderDetails).toEqual(
         state.orderDetails,
@@ -290,7 +296,10 @@ describe('orders reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { orderReturns: { isLoading: { foo: false } } };
+      const state = {
+        ...initialState,
+        orderReturns: { error: {}, isLoading: { [orderId]: false } },
+      };
 
       expect(reducer(state, randomAction).orderReturns).toEqual(
         state.orderReturns,
@@ -341,7 +350,10 @@ describe('orders reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { orderReturnOptions: { isLoading: { foo: false } } };
+      const state = {
+        ...initialState,
+        orderReturnOptions: { error: {}, isLoading: { [orderId]: false } },
+      };
 
       expect(reducer(state, randomAction).orderReturnOptions).toEqual(
         state.orderReturnOptions,
@@ -529,25 +541,28 @@ describe('orders reducer', () => {
 
   describe('getError() selector', () => {
     it('should return the `error` property from a given state', () => {
-      const error = 'foo';
+      const state = {
+        ...initialState,
+        error: toBlackoutError(new Error('error')),
+      };
 
-      expect(fromReducer.getError({ error })).toBe(error);
+      expect(fromReducer.getError(state)).toBe(state.error);
     });
   });
 
   describe('getIsLoading() selector', () => {
     it('should return the `isLoading` property from a given state', () => {
-      const isLoading = 'foo';
+      const state = { ...initialState, isLoading: false };
 
-      expect(fromReducer.getIsLoading({ isLoading })).toBe(isLoading);
+      expect(fromReducer.getIsLoading(state)).toBe(state.isLoading);
     });
   });
 
   describe('getResult() selector', () => {
     it('should return the `result` property from a given state', () => {
-      const result = 'foo';
+      const state = { ...initialState, result: {} as OrdersState['result'] };
 
-      expect(fromReducer.getResult({ ...initialState, result })).toBe(result);
+      expect(fromReducer.getResult(state)).toBe(state.result);
     });
   });
 
@@ -580,8 +595,9 @@ describe('orders reducer', () => {
     it.each(subAreaNames)(
       'return the `%s` property from a given state',
       subArea => {
-        const { [`get${subArea}`]: reducerSelector } = fromReducer;
-        expect(reducerSelector(subAreas)).toEqual(subAreaResult);
+        const { [`get${subArea}` as keyof typeof subAreas]: reducerSelector } =
+          fromReducer;
+        expect(reducerSelector(subAreas, randomAction)).toEqual(subAreaResult);
       },
     );
   });

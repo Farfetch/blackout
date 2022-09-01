@@ -8,11 +8,9 @@ import reducer, {
   getIsLoading,
   getResult,
 } from '../recentlyViewedProducts';
-import type { State as ProductState } from '../../types';
+import type { RecentlyViewedState } from '../../types';
 
-type State = ProductState['recentlyViewed'];
-
-let initialState: State;
+let initialState: RecentlyViewedState;
 const mockAction = { type: 'this_is_a_mock_action' };
 
 describe('Recently Viewed reducer', () => {
@@ -172,7 +170,7 @@ describe('Recently Viewed reducer', () => {
     });
 
     it(`should handle ${productsActionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS} action type`, () => {
-      const state: State = {
+      const state = {
         ...initialState,
         result: {
           pagination: initialState.result?.pagination,
@@ -200,7 +198,7 @@ describe('Recently Viewed reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state: State = {
+      const state = {
         ...initialState,
       };
 

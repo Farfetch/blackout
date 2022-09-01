@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { client, headers } from '@farfetch/blackout-client';
+import { mockLocaleState } from 'tests/__fixtures__/locale';
 import { mockStore } from '../../../../tests';
 import { setCountryCodeMiddleware } from '..';
 
@@ -12,16 +13,10 @@ const mockInitialCultureCode = 'en-US';
 
 const mockState = {
   entities: {
-    countries: {
-      [mockCountryCode]: {
-        cultures: [mockCultureCode],
-        currencies: [{ isoCode: mockCurrencyCode }],
-        defaultCulture: mockInitialCultureCode,
-      },
-    },
+    ...mockLocaleState.entities,
   },
   locale: {
-    countryCode: mockCountryCode,
+    ...mockLocaleState.locale,
   },
 };
 
@@ -108,7 +103,7 @@ describe('setCountryMiddleware', () => {
     const NEW_ACTION_TYPE = '@farfetch/blackout-client';
 
     const store = mockStore(null, mockState, [
-      setCountryCodeMiddleware([NEW_TYPE, NEW_ACTION_TYPE]),
+      setCountryCodeMiddleware(new Set<string>([NEW_TYPE, NEW_ACTION_TYPE])),
     ]);
 
     expect(client.defaults.headers.common[headers.ACCEPT_LANGUAGE]).toEqual(

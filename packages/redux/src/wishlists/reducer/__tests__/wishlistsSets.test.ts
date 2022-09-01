@@ -2,9 +2,12 @@ import * as actionTypes from '../../actionTypes';
 import { entitiesMapper } from '../';
 import { LOGOUT_SUCCESS } from '../../../users/authentication/actionTypes';
 import {
+  mockWishlistItem,
   mockWishlistItemId,
   mockWishlistSetId,
+  mockWishlistSets,
 } from 'tests/__fixtures__/wishlists';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, {
   getError,
   getIds,
@@ -13,10 +16,12 @@ import reducer, {
   getSetError,
   INITIAL_STATE,
 } from '../wishlistsSets';
+import type { StoreState } from '../../../types';
+import type { WishlistSetsState } from '../../types';
 
-const mockError = { message: 'Dummy error' };
+const mockError = toBlackoutError(new Error('Dummy Error'));
 const mockAction = { type: 'foo' };
-let initialState;
+let initialState: WishlistSetsState;
 
 describe('wishlistsSets reducer', () => {
   beforeEach(() => {
@@ -33,7 +38,7 @@ describe('wishlistsSets reducer', () => {
       ).toEqual(initialState);
     });
 
-    it('should return the initial state when is a LOGOUT_SUCCESS action', () => {
+    it('should return the initial state when it receives a `LOGOUT_SUCCESS` action', () => {
       expect(
         reducer(undefined, {
           payload: {
@@ -48,7 +53,7 @@ describe('wishlistsSets reducer', () => {
       const state = {
         ...INITIAL_STATE,
         ids: [mockWishlistSetId],
-        error: 'Unexpected Error',
+        error: toBlackoutError(new Error('Unexpected Error')),
         set: {
           ...INITIAL_STATE.set,
           error: {
@@ -73,7 +78,7 @@ describe('wishlistsSets reducer', () => {
       const state = {
         ...INITIAL_STATE,
         ids: [mockWishlistSetId],
-        error: 'Unexpected Error',
+        error: toBlackoutError(new Error('Unexpected Error')),
         set: {
           ...INITIAL_STATE.set,
           error: {
@@ -209,7 +214,10 @@ describe('wishlistsSets reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...INITIAL_STATE, ids: [mockWishlistSetId] };
+      const state = {
+        ...INITIAL_STATE,
+        ids: [mockWishlistSetId],
+      };
 
       expect(reducer(state, mockAction).ids).toBe(state.ids);
     });
@@ -426,7 +434,6 @@ describe('wishlistsSets reducer', () => {
     it('should map the REMOVE_WISHLIST_SET_SUCCESS action to a new state', () => {
       const state = {
         wishlistSets: {
-          [mockWishlistSetId]: { id: mockWishlistSetId },
           '1354986456-0000-0000-0000-000000000000': {
             id: '1354986456-0000-0000-0000-000000000000',
           },
@@ -434,13 +441,8 @@ describe('wishlistsSets reducer', () => {
         wishlistItems: {
           [mockWishlistItemId]: { id: mockWishlistItemId },
         },
-        dummy: {
-          1: { id: 1 },
-        },
-        dummy2: {
-          2: { id: 2 },
-        },
-      };
+      } as unknown as NonNullable<StoreState['entities']>;
+
       const expectedResult = {
         wishlistSets: {
           '1354986456-0000-0000-0000-000000000000': {
@@ -449,12 +451,6 @@ describe('wishlistsSets reducer', () => {
         },
         wishlistItems: {
           [mockWishlistItemId]: { id: mockWishlistItemId },
-        },
-        dummy: {
-          1: { id: 1 },
-        },
-        dummy2: {
-          2: { id: 2 },
         },
       };
       const action = {
@@ -468,28 +464,14 @@ describe('wishlistsSets reducer', () => {
     });
     it('should map the RESET_WISHLIST_SETS_ENTITIES action to a new state', () => {
       const state = {
-        wishlistSets: {
-          1: { id: 1 },
-        },
+        wishlistSets: mockWishlistSets,
         wishlistItems: {
-          [mockWishlistItemId]: { id: mockWishlistItemId },
-        },
-        dummy: {
-          1: { id: 1 },
-        },
-        dummy2: {
-          2: { id: 2 },
+          mockWishlistItem,
         },
       };
       const expectedResult = {
         wishlistItems: {
-          [mockWishlistItemId]: { id: mockWishlistItemId },
-        },
-        dummy: {
-          1: { id: 1 },
-        },
-        dummy2: {
-          2: { id: 2 },
+          mockWishlistItem,
         },
       };
 

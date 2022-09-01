@@ -1,8 +1,11 @@
 import * as actionTypes from '../actionTypes';
+import { mockMerchantLocation } from 'tests/__fixtures__/merchantsLocations';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, * as fromReducer from '../reducer';
+import type { MerchantsLocationsState } from '../types';
 
 describe('merchants locations redux reducer', () => {
-  let initialState;
+  let initialState: MerchantsLocationsState;
   const randomAction = { type: 'this_is_a_random_action' };
 
   beforeEach(() => {
@@ -27,7 +30,9 @@ describe('merchants locations redux reducer', () => {
     });
 
     it('should return the initial state with default action', () => {
-      expect(reducer(undefined, {}).error).toBe(initialState.error);
+      expect(reducer(undefined, { type: {}, payload: {} }).error).toBe(
+        initialState.error,
+      );
     });
 
     it('should handle FETCH_MERCHANTS_LOCATIONS_REQUEST action type', () => {
@@ -50,7 +55,10 @@ describe('merchants locations redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, error: 'foo' };
+      const state = {
+        ...initialState,
+        error: toBlackoutError(new Error('foo')),
+      };
 
       expect(reducer(state, randomAction).error).toEqual(state.error);
     });
@@ -64,7 +72,9 @@ describe('merchants locations redux reducer', () => {
     });
 
     it('should return the initial state with default action', () => {
-      expect(reducer(undefined, {}).isLoading).toBe(initialState.isLoading);
+      expect(reducer(undefined, { type: {}, payload: {} }).isLoading).toBe(
+        initialState.isLoading,
+      );
     });
 
     it('should handle FETCH_MERCHANTS_LOCATIONS_REQUEST action type', () => {
@@ -101,7 +111,7 @@ describe('merchants locations redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, isLoading: 'foo' };
+      const state = { ...initialState, isLoading: false };
 
       expect(reducer(state, randomAction).isLoading).toEqual(state.isLoading);
     });
@@ -111,9 +121,7 @@ describe('merchants locations redux reducer', () => {
     describe('reset merchants locations', () => {
       it(`should handle ${actionTypes.RESET_MERCHANTS_LOCATIONS_STATE} action type`, () => {
         const state = {
-          merchantsLocations: {
-            1: { id: 1 },
-          },
+          merchantsLocations: mockMerchantLocation,
           dummy: {
             1: { id: 1 },
           },
@@ -142,7 +150,7 @@ describe('merchants locations redux reducer', () => {
 
   describe('getError() selector', () => {
     it('should return the `error` property from a given state', () => {
-      const error = 'error';
+      const error = toBlackoutError(new Error('error'));
       const state = { ...initialState, error };
 
       expect(fromReducer.getError(state)).toBe(error);

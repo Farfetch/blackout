@@ -60,6 +60,8 @@ describe('useBag', () => {
           totalDiscount: 0,
           totalShippingFee: 10,
           totalTaxes: 0,
+          totalProductPromotionDiscount: 0,
+          formattedTotalProductPromotionDiscount: '$0',
         },
         count: 7,
         isEmpty: false,
@@ -88,6 +90,7 @@ describe('useBag', () => {
             product: mockState.entities?.products?.[11766695],
           },
         ],
+        hadUnavailableItems: false,
         id: mockBagId,
       },
       actions: {
@@ -291,7 +294,8 @@ describe('useBag', () => {
       await updateItem(mockBagItemId, { quantity: 6 }, metadata);
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
-      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, 
+      expect(updateBagItem).toHaveBeenCalledWith(
+        mockBagItemId,
         {
           authCode: undefined,
           customAttributes: '',
@@ -322,7 +326,8 @@ describe('useBag', () => {
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
       expect(addBagItem).not.toHaveBeenCalled();
-      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, 
+      expect(updateBagItem).toHaveBeenCalledWith(
+        mockBagItemId,
         {
           merchantId: mockMerchantId,
           productId: mockProductId,
@@ -350,7 +355,8 @@ describe('useBag', () => {
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
       expect(addBagItem).toHaveBeenCalledTimes(1);
-      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, 
+      expect(updateBagItem).toHaveBeenCalledWith(
+        mockBagItemId,
         {
           merchantId: mockMerchantId,
           productId: mockProductId,
@@ -392,7 +398,8 @@ describe('useBag', () => {
 
       expect(addBagItem).not.toHaveBeenCalled();
       expect(updateBagItem).toHaveBeenCalledTimes(1);
-      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, 
+      expect(updateBagItem).toHaveBeenCalledWith(
+        mockBagItemId,
         {
           authCode: undefined,
           customAttributes: '',
@@ -422,7 +429,8 @@ describe('useBag', () => {
       await updateItem(mockBagItemId, { sizeId: 2 }, metadata);
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
-      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, 
+      expect(updateBagItem).toHaveBeenCalledWith(
+        mockBagItemId,
         {
           merchantId: mockMerchantId,
           productId: mockProductId,
@@ -449,7 +457,8 @@ describe('useBag', () => {
       await updateItem(mockBagItemId, { sizeId: 2, quantity: 2 }, metadata);
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
-      expect(updateBagItem).toHaveBeenCalledWith(mockBagItemId, 
+      expect(updateBagItem).toHaveBeenCalledWith(
+        mockBagItemId,
         {
           authCode: undefined,
           customAttributes: '',

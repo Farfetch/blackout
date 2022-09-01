@@ -1,11 +1,9 @@
 import { productsActionTypes as actionTypes } from '../..';
 import { mockRecommendedProductsStrategy } from 'tests/__fixtures__/products';
 import reducer from '../recommendedProducts';
-import type { State as ProductState } from '../../types';
+import type { RecommendedProductsState } from '../../types';
 
-type State = ProductState['recommendedProducts'];
-
-let initialState: State;
+let initialState: RecommendedProductsState;
 const mockAction = { type: 'this_is_a_mock_action' };
 
 describe('recommendations reducer', () => {
@@ -53,7 +51,7 @@ describe('recommendations reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state: State = {
+      const state = {
         ...initialState,
         isLoading: { [mockRecommendedProductsStrategy]: true },
       };
@@ -109,7 +107,7 @@ describe('recommendations reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state: State = {
+      const state = {
         isLoading: {
           [mockRecommendedProductsStrategy]: false,
         },
@@ -151,7 +149,7 @@ describe('recommendations reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state: State = {
+      const state = {
         result: {
           [mockRecommendedProductsStrategy]: payload,
         },

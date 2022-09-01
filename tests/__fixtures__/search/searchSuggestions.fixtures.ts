@@ -1,7 +1,9 @@
+import { GenderCode } from '@farfetch/blackout-client';
+
 export const mockSearchSuggestionsHash = 'dresses!0!true';
 
 export const mockSearchSuggestionsQuery = {
-  gender: 0,
+  gender: GenderCode.Woman,
   ignoreFilterExclusions: true,
   query: 'dresses',
 };

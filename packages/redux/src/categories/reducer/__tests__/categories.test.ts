@@ -1,8 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import * as fromReducer from '../categories';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer from '../../reducer';
+import type { CategoriesState } from '../../types';
 
-let initialState;
+let initialState: CategoriesState;
 const randomAction = { type: 'this_is_a_random_action' };
 
 describe('categories redux reducer', () => {
@@ -48,7 +50,10 @@ describe('categories redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, error: 'foo' };
+      const state = {
+        ...initialState,
+        error: toBlackoutError(new Error('foo')),
+      };
 
       expect(reducer(state, randomAction).error).toBe(state.error);
     });
@@ -96,7 +101,7 @@ describe('categories redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, isLoading: 'foo' };
+      const state = { ...initialState, isLoading: false };
 
       expect(reducer(state, randomAction).isLoading).toEqual(state.isLoading);
     });
@@ -144,7 +149,7 @@ describe('categories redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, isFetched: 'foo' };
+      const state = { ...initialState, isFetched: false };
 
       expect(reducer(state, randomAction).isFetched).toEqual(state.isFetched);
     });
@@ -152,7 +157,7 @@ describe('categories redux reducer', () => {
 
   describe('getError() selector', () => {
     it('should return the `error` property from a given state', () => {
-      const error = 'error';
+      const error = toBlackoutError(new Error('error'));
       const state = { ...initialState, error };
 
       expect(fromReducer.getError(state)).toBe(error);

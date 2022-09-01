@@ -2,6 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import {
   mockSearchIntentsHash,
   mockSearchIntentsQuery,
+  mockSearchIntentsResponse,
 } from 'tests/__fixtures__/search';
 import reducer, { INITIAL_STATE } from '../searchIntents';
 
@@ -22,11 +23,13 @@ describe('search intents redux reducer', () => {
 
   it('should handle unknown actions by returning the previous state', () => {
     const state = {
-      [mockSearchIntentsHash]: {
-        error: null,
-        isLoading: true,
-        result: { foo: 'bar' },
-        query,
+      intents: {
+        [mockSearchIntentsHash]: {
+          error: null,
+          isLoading: true,
+          query,
+          result: mockSearchIntentsResponse,
+        },
       },
     };
 

@@ -11,7 +11,6 @@ import type {
 
 describe('checkout client', () => {
   const data: PostCheckoutOrderChargeData = {
-    redirectUrl: 'string',
     returnUrl: 'string',
     cancelUrl: 'string',
   };
@@ -25,7 +24,7 @@ describe('checkout client', () => {
 
     it('should handle a client request successfully', async () => {
       const response: CheckoutOrderCharge = {
-        chargeId: '00000000-0000-0000-0000-000000000000',
+        id: '00000000-0000-0000-0000-000000000000',
         status: ChargeStatus.Processing,
         redirectUrl: 'string',
         returnUrl: 'string',

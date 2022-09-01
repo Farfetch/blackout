@@ -176,16 +176,14 @@ describe('contents redux reducer', () => {
       const state = {
         ...initialState,
         searchResults: {
-          foo: {
-            error: {},
-            isLoading: false,
-            result: {
-              hash: 'foo',
-              ...mockContentResult,
-            },
+          error: {},
+          isLoading: false,
+          result: {
+            hash: 'foo',
+            ...mockContentResult,
           },
         },
-      };
+      } as ContentsState;
 
       expect(fromReducer.getContentResult(state)).toBe(state.searchResults);
     });
@@ -200,7 +198,7 @@ describe('contents redux reducer', () => {
           isLoading: false,
           result: contentTypesResult,
         },
-      };
+      } as ContentsState;
 
       expect(fromReducer.getContentTypes(state)).toEqual(state.contentTypes);
     });
