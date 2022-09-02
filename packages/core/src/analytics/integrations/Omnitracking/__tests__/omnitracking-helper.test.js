@@ -1,11 +1,16 @@
 import {
   generatePaymentAttemptReferenceId,
+  getCheckoutEventGenericProperties,
   getPageEventFromLocation,
   getPlatformSpecificParameters,
   getValParameterForEvent,
 } from '../omnitracking-helper';
+import { utils } from '../../..';
 import platformTypes from '../../../types/platformTypes';
 import trackTypes from '../../../types/trackTypes';
+
+utils.logger.warn = jest.fn();
+const mockLoggerWarn = utils.logger.warn;
 
 describe('getPageEventFromLocation', () => {
   it('should return null when location is not provided', () => {
@@ -47,5 +52,49 @@ describe('getPlatformSpecificParameters', () => {
     };
 
     expect(getPlatformSpecificParameters(eventData)).toStrictEqual({});
+  });
+});
+
+describe('getCheckoutEventGenericProperties', () => {
+  it('should display some warn', () => {
+    const eventData = {
+      properties: {
+        orderId: '123',
+      },
+    };
+
+    getCheckoutEventGenericProperties(eventData);
+    expect(mockLoggerWarn).toHaveBeenCalledWith(
+      expect.stringContaining(
+        'property orderId should be an alphanumeric value',
+      ),
+    );
+  });
+
+  it('should get orderCode without warn and without property orderId', () => {
+    const eventData = {
+      properties: {
+        orderId: '5H5QYB',
+        checkoutOrderId: '123',
+      },
+    };
+
+    expect(getCheckoutEventGenericProperties(eventData)).toEqual({
+      orderCode: '5H5QYB',
+    });
+  });
+
+  it('should get orderCode without warn and with property orderId', () => {
+    const eventData = {
+      properties: {
+        orderId: '5H5QYB',
+        checkoutOrderId: '123',
+      },
+    };
+
+    expect(getCheckoutEventGenericProperties(eventData, true)).toEqual({
+      orderCode: '5H5QYB',
+      orderId: '123',
+    });
   });
 });

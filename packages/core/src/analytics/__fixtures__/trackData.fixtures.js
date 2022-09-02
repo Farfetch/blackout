@@ -56,6 +56,10 @@ export const customTrackMockData = {
     coupon: 'PROMO_ABC',
     errorMessage: 'No promocode available.',
   },
+  [eventTypes.PLACE_ORDER_STARTED]: {
+    orderId: 'ABC12',
+    coupon: 'promo',
+  },
 };
 
 export const expectedTrackPayload = {
