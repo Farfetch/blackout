@@ -1,3 +1,4 @@
+import type { ClickAndCollect } from './checkoutOrder.types';
 import type { StoreAddress } from '../../types/common/address.types';
 
 export enum Weekday {
@@ -12,10 +13,7 @@ export enum Weekday {
 
 export type CollectPoint = {
   storeAddress: StoreAddress;
-  clickAndCollect: {
-    collectPointId: number;
-    merchantLocationId: number;
-  };
+  clickAndCollect: ClickAndCollect;
   businessDays: {
     hours: {
       close: string;

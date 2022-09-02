@@ -1,4 +1,5 @@
 import type { City, State } from '../../locale/types';
+import type { User } from '../../users/authentication/types/user.types';
 
 export type Continent = {
   id: number;
@@ -101,6 +102,16 @@ export type UserAddress = CheckoutAddress & {
   updatedDate?: string;
   version?: number;
   addressId?: string;
+};
+
+export type UserAddressLegacy = Omit<
+  UserAddress,
+  'isCurrentShipping' | 'isCurrentBilling' | 'isCurrentPreferred'
+> & {
+  isDefaultBillingAddress?: boolean;
+  isDefaultShippingAddress?: boolean;
+  isPreferredAddress?: boolean;
+  userId: User['id'];
 };
 
 export type UserAddressInput = Omit<

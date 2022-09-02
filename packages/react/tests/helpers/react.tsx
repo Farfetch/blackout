@@ -43,6 +43,6 @@ export const wrap = (component: ReactElement) => ({
 });
 
 export const withStore =
-  (state: StoreState = {}): React.FC<{ children: ReactNode }> =>
+  (state: Partial<StoreState> = {}): React.FC<{ children: ReactNode }> =>
   props =>
     <Provider store={mockStore(state)} {...props} />;

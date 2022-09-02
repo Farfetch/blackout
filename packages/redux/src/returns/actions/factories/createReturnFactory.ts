@@ -2,6 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import {
   Config,
   PostReturn,
+  PostReturnData,
   Return,
   toBlackoutError,
 } from '@farfetch/blackout-client';
@@ -18,7 +19,7 @@ import type { Dispatch } from 'redux';
  */
 const createReturnFactory =
   (postReturn: PostReturn) =>
-  (data: Return, config?: Config) =>
+  (data: PostReturnData, config?: Config) =>
   async (dispatch: Dispatch): Promise<Return> => {
     try {
       dispatch({

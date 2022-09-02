@@ -1,13 +1,30 @@
+import {
+  CustomerType,
+  CustomerTypeLegacy,
+  Order,
+  OrderLegacy,
+} from '@farfetch/blackout-client';
 import { schema } from 'normalizr';
 import orderItem from './orderItem';
 import preprocessOrder from '../../helpers/preprocessOrder';
-import type { Order } from '@farfetch/blackout-client';
 
 export default new schema.Entity(
   'orders',
   { items: [orderItem] },
   {
-    processStrategy: (order: Order) => {
+    processStrategy: (order: Order | OrderLegacy) => {
+      const preprocessedOrder = preprocessOrder(order);
+
+      if (typeof preprocessedOrder.customerType === 'number') {
+        const customerTypeKey = CustomerTypeLegacy[order.customerType] as
+          | keyof typeof CustomerTypeLegacy
+          | undefined;
+
+        if (customerTypeKey) {
+          preprocessedOrder.customerType = CustomerType[customerTypeKey];
+        }
+      }
+
       // This is needed since the Farfetch Checkout service is merging
       // both Address Line 2 and Address Line 3 not checking correctly if the
       // second is empty, when the user fills the third address line but not

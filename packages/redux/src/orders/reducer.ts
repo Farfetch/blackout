@@ -2,10 +2,14 @@ import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers, Reducer } from 'redux';
 import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import merge from 'lodash/merge';
+import omit from 'lodash/omit';
 import produce from 'immer';
 import reducerFactory from '../helpers/reducerFactory';
 import type * as T from './types';
-import type { FetchOrderReturnOptionsSuccessAction } from './types';
+import type {
+  FetchOrderReturnOptionsSuccessAction,
+  ResetOrderDetailsStateAction,
+} from './types';
 import type { ReturnOptionEntity } from '../entities/types';
 import type { StoreState } from '../types';
 
@@ -13,10 +17,6 @@ export const INITIAL_STATE: T.OrdersState = {
   error: null,
   isLoading: false,
   result: null,
-  ordersList: {
-    error: null,
-    isLoading: false,
-  },
   orderDetails: {
     error: {},
     isLoading: {},
@@ -49,23 +49,11 @@ export const INITIAL_STATE: T.OrdersState = {
 
 const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
-    case actionTypes.FETCH_ORDER_FAILURE:
-    case actionTypes.FETCH_ORDER_RETURNS_FAILURE:
-    case actionTypes.FETCH_ORDER_RETURN_OPTIONS_FAILURE:
     case actionTypes.FETCH_USER_ORDERS_FAILURE:
     case actionTypes.FETCH_GUEST_ORDERS_FAILURE:
-    case actionTypes.FETCH_SHIPMENT_TRACKINGS_FAILURE:
-    case actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_FAILURE:
-    case actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE:
       return action.payload.error;
-    case actionTypes.FETCH_ORDER_REQUEST:
-    case actionTypes.FETCH_ORDER_RETURNS_REQUEST:
-    case actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST:
     case actionTypes.FETCH_USER_ORDERS_REQUEST:
     case actionTypes.FETCH_GUEST_ORDERS_REQUEST:
-    case actionTypes.FETCH_SHIPMENT_TRACKINGS_REQUEST:
-    case actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_REQUEST:
-    case actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST:
       return INITIAL_STATE.error;
     default:
       return state;
@@ -76,29 +64,11 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_USER_ORDERS_REQUEST:
     case actionTypes.FETCH_GUEST_ORDERS_REQUEST:
-    case actionTypes.FETCH_ORDER_REQUEST:
-    case actionTypes.FETCH_ORDER_RETURNS_REQUEST:
-    case actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST:
-    case actionTypes.FETCH_SHIPMENT_TRACKINGS_REQUEST:
-    case actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_REQUEST:
-    case actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST:
       return true;
     case actionTypes.FETCH_USER_ORDERS_FAILURE:
     case actionTypes.FETCH_USER_ORDERS_SUCCESS:
     case actionTypes.FETCH_GUEST_ORDERS_FAILURE:
     case actionTypes.FETCH_GUEST_ORDERS_SUCCESS:
-    case actionTypes.FETCH_ORDER_FAILURE:
-    case actionTypes.FETCH_ORDER_SUCCESS:
-    case actionTypes.FETCH_ORDER_RETURNS_FAILURE:
-    case actionTypes.FETCH_ORDER_RETURN_OPTIONS_FAILURE:
-    case actionTypes.FETCH_ORDER_RETURNS_SUCCESS:
-    case actionTypes.FETCH_ORDER_RETURN_OPTIONS_SUCCESS:
-    case actionTypes.FETCH_SHIPMENT_TRACKINGS_FAILURE:
-    case actionTypes.FETCH_SHIPMENT_TRACKINGS_SUCCESS:
-    case actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_FAILURE:
-    case actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_SUCCESS:
-    case actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE:
-    case actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_SUCCESS:
       return INITIAL_STATE.isLoading;
     default:
       return state;
@@ -273,12 +243,6 @@ export const entitiesMapper = {
   },
 };
 
-export const ordersList = reducerFactory(
-  'FETCH_USER_ORDERS',
-  INITIAL_STATE.ordersList,
-  actionTypes,
-);
-
 export const orderDetails = (
   state = INITIAL_STATE.orderDetails,
   action: AnyAction,
@@ -314,6 +278,13 @@ export const orderDetails = (
           ...state.error,
           [action.meta.orderId]: action.payload.error,
         },
+      };
+    case actionTypes.RESET_ORDER_DETAILS_STATE:
+      const { orderId } = (action as ResetOrderDetailsStateAction).payload;
+
+      return {
+        isLoading: omit(state.isLoading, orderId),
+        error: omit(state.error, orderId),
       };
     default:
       return state;
@@ -433,9 +404,6 @@ export const getIsLoading = (
 ): T.OrdersState['isLoading'] => state.isLoading;
 export const getResult = (state: T.OrdersState): T.OrdersState['result'] =>
   state.result;
-export const getOrdersList = (
-  state: T.OrdersState,
-): T.OrdersState['ordersList'] => state.ordersList;
 export const getOrderDetails = (
   state: T.OrdersState,
 ): T.OrdersState['orderDetails'] => state.orderDetails;
@@ -464,7 +432,6 @@ const reducer = combineReducers({
   error,
   isLoading,
   result,
-  ordersList,
   orderDetails,
   orderReturns,
   orderReturnOptions,

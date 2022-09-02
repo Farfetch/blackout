@@ -1,4 +1,5 @@
 import {
+  CreationChannel,
   CustomerType,
   MerchantOrderStatus,
   Order,
@@ -29,6 +30,7 @@ export const returnOptionId2 = '10538_3';
 export const trackingNumber = '4538009162';
 export const trackingNumber2 = '4538009163';
 export const userId = 29521154;
+export const mockGuestUserEmail = 'qat5@farfetch.com';
 
 export const mockOrdersResponse = {
   entries: [
@@ -312,7 +314,7 @@ export const mockOrderItem = {
       tags: ['DesignerColor'],
     },
   ],
-  creationChannel: 0,
+  creationChannel: CreationChannel.Catalog,
   customAttributes: null,
   id: orderItemId,
   images: {
@@ -399,8 +401,8 @@ export const mockOrderItem = {
   isPreOrder: false,
   preOrder: {
     expectedFulfillmentDate: {
-      startDate: 'string',
-      endDate: 'string',
+      startDate: '2022-09-05T08:00:00+00:00',
+      endDate: '2022-09-05T08:00:00+00:00',
     },
     type: {
       type: 'string',
@@ -477,7 +479,7 @@ export const mockOrderItem2 = {
       tags: ['DesignerColor'],
     },
   ],
-  creationChannel: 0,
+  creationChannel: CreationChannel.Catalog,
   customAttributes: null,
   id: orderItemId2,
   images: {
@@ -585,8 +587,8 @@ export const mockOrderItem2 = {
   isPreOrder: false,
   preOrder: {
     expectedFulfillmentDate: {
-      startDate: 'string',
-      endDate: 'string',
+      startDate: '2022-09-05T08:00:00+00:00',
+      endDate: '2022-09-05T08:00:00+00:00',
     },
     type: {
       type: 'string',
@@ -669,7 +671,7 @@ export const mockOrderItem3 = {
       tags: ['DesignerColor'],
     },
   ],
-  creationChannel: 1,
+  creationChannel: CreationChannel.Mail,
   customAttributes: null,
   id: orderItemId3,
   images: {
@@ -746,8 +748,8 @@ export const mockOrderItem3 = {
   isPreOrder: false,
   preOrder: {
     expectedFulfillmentDate: {
-      startDate: 'string',
-      endDate: 'string',
+      startDate: '2022-09-05T08:00:00+00:00',
+      endDate: '2022-09-05T08:00:00+00:00',
     },
     type: {
       type: 'string',
@@ -1669,7 +1671,7 @@ export const mockOrderDetailsResponse2 = {
   formattedTotalDomesticTaxes: '0 €',
   formattedSubTotalAmountExclTaxes: '1 €',
   taxType: 'DDP',
-  customerEmail: 'qat5@farfetch.com',
+  customerEmail: mockGuestUserEmail,
   promotionOffers: [],
 };
 
@@ -2080,7 +2082,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           brand: 220482,
           categories: [136301, 136308],
           colors: mockOrderItem.colors,
-          creationChannel: 0,
+          creationChannel: CreationChannel.Catalog,
           customAttributes: null,
           id: orderItemId,
           productType: 'Standard',
@@ -2142,8 +2144,8 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           },
           preOrder: {
             expectedFulfillmentDate: {
-              startDate: 'string',
-              endDate: 'string',
+              startDate: 1662364800000,
+              endDate: 1662364800000,
             },
             type: {
               type: 'string',
@@ -2204,7 +2206,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           brand: 220482,
           categories: [135967, 135981, 136273],
           colors: mockOrderItem2.colors,
-          creationChannel: 0,
+          creationChannel: CreationChannel.Catalog,
           customAttributes: null,
           id: orderItemId2,
           productType: 'Standard',
@@ -2266,8 +2268,8 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           },
           preOrder: {
             expectedFulfillmentDate: {
-              startDate: 'string',
-              endDate: 'string',
+              startDate: 1662364800000,
+              endDate: 1662364800000,
             },
             type: {
               type: 'string',
@@ -2328,7 +2330,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           brand: 220482,
           categories: [135974, 136383, 136380, 136392],
           colors: mockOrderItem3.colors,
-          creationChannel: 1,
+          creationChannel: CreationChannel.Mail,
           customAttributes: null,
           id: orderItemId3,
           productType: 'Standard',
@@ -2374,8 +2376,8 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           },
           preOrder: {
             expectedFulfillmentDate: {
-              startDate: 'string',
-              endDate: 'string',
+              startDate: 1662364800000,
+              endDate: 1662364800000,
             },
             type: {
               type: 'string',
@@ -2479,11 +2481,19 @@ export const getExpectedOrderDetailsNormalizedPayload = (
               merchant: merchantId,
               orderItems: [orderItemId2, orderItemId3],
               returnAvailable: false,
+              checkoutOrderId: 15338048,
+              merchantOrderCode: 'PZ1132281368',
+              totalQuantity: 2,
+              userId: 29521154,
             },
             [merchantId2]: {
               merchant: merchantId2,
               orderItems: [orderItemId],
               returnAvailable: false,
+              checkoutOrderId: 15338048,
+              merchantOrderCode: 'PZ1132281368',
+              totalQuantity: 1,
+              userId: 29521154,
             },
           },
           checkoutOrderId: 15338048,
@@ -2779,7 +2789,7 @@ export const expectedGuestOrdersNormalizedPayload = {
             tags: ['DesignerColor'],
           },
         ],
-        creationChannel: 0,
+        creationChannel: CreationChannel.Catalog,
         id: 10070161,
         isCustomizable: false,
         isExclusive: false,
@@ -2808,7 +2818,10 @@ export const expectedGuestOrdersNormalizedPayload = {
         tags: [],
         isPreOrder: false,
         preOrder: {
-          expectedFulfillmentDate: { startDate: 'string', endDate: 'string' },
+          expectedFulfillmentDate: {
+            endDate: 1662364800000,
+            startDate: 1662364800000,
+          },
           type: { type: 'string' },
           status: { type: 'string' },
         },
@@ -2900,7 +2913,7 @@ export const expectedGuestOrdersNormalizedPayload = {
             tags: ['DesignerColor'],
           },
         ],
-        creationChannel: 0,
+        creationChannel: CreationChannel.Catalog,
         id: 10070162,
         isCustomizable: false,
         isExclusive: false,
@@ -2929,7 +2942,10 @@ export const expectedGuestOrdersNormalizedPayload = {
         tags: [],
         isPreOrder: false,
         preOrder: {
-          expectedFulfillmentDate: { startDate: 'string', endDate: 'string' },
+          expectedFulfillmentDate: {
+            endDate: 1662364800000,
+            startDate: 1662364800000,
+          },
           type: { type: 'string' },
           status: { type: 'string' },
         },
@@ -3003,7 +3019,7 @@ export const expectedGuestOrdersNormalizedPayload = {
             tags: ['DesignerColor'],
           },
         ],
-        creationChannel: 1,
+        creationChannel: CreationChannel.Mail,
         id: 10070163,
         isCustomizable: false,
         isExclusive: false,
@@ -3032,7 +3048,10 @@ export const expectedGuestOrdersNormalizedPayload = {
         tags: [],
         isPreOrder: false,
         preOrder: {
-          expectedFulfillmentDate: { startDate: 'string', endDate: 'string' },
+          expectedFulfillmentDate: {
+            endDate: 1662364800000,
+            startDate: 1662364800000,
+          },
           type: { type: 'string' },
           status: { type: 'string' },
         },
@@ -3355,7 +3374,6 @@ export const expectedGuestOrdersNormalizedPayload = {
           },
         ],
         productSlug: 'logo-crown-blazer-11831274',
-        productType: 'Standard',
         merchantOrderCode: 'PZ1123095473',
         tags: [],
         isPreOrder: false,
@@ -3457,11 +3475,19 @@ export const expectedGuestOrdersNormalizedPayload = {
             merchant: 10537,
             orderItems: [10070162, 10070163],
             returnAvailable: false,
+            checkoutOrderId: 15338048,
+            merchantOrderCode: 'PZ1132281368',
+            totalQuantity: 2,
+            userId: 29521154,
           },
           '10538': {
             merchant: 10538,
             orderItems: [10070161],
             returnAvailable: false,
+            checkoutOrderId: 15338048,
+            merchantOrderCode: 'PZ1132281368',
+            totalQuantity: 1,
+            userId: 29521154,
           },
         },
         totalItems: 3,
@@ -3546,13 +3572,17 @@ export const expectedGuestOrdersNormalizedPayload = {
         formattedTotalDomesticTaxes: '0 €',
         formattedSubTotalAmountExclTaxes: '1 €',
         taxType: 'DDP',
-        customerEmail: 'qat5@farfetch.com',
+        customerEmail: mockGuestUserEmail,
         promotionOffers: [],
         byMerchant: {
           '11554': {
             merchant: 11554,
             orderItems: [36898703],
             returnAvailable: false,
+            checkoutOrderId: 126892294,
+            merchantOrderCode: 'PZ1123095473',
+            totalQuantity: 1,
+            userId: 34113438,
           },
         },
         totalItems: 1,
@@ -3617,8 +3647,8 @@ export const expectedGetUserOrdersResult = {
           ],
           returnOptions: [
             {
-              id: '10537_3',
-              merchant: undefined,
+              id: '3558DS_10537_3',
+              merchant: { id: 10537, name: 'merchant' },
               type: 3,
             },
           ],
@@ -3684,8 +3714,9 @@ export const expectedGetGuestOrdersResult = [
 ];
 
 export const returnOptionEntity = {
-  id: returnOptionId,
+  id: `${orderId}_${returnOptionId}`,
   type: 3,
+  merchant: merchantId,
 };
 
 export const orderEntity = {
@@ -3743,17 +3774,13 @@ export const countryEntity = {
 
 export const mockState = {
   orders: {
-    error: 'error: not loaded',
+    error: null,
     isLoading: false,
     result: {
       entries: [orderId],
       number: 1,
       totalItems: 1,
       totalPages: 1,
-    },
-    ordersList: {
-      error: 'error: not loaded',
-      isLoading: false,
     },
     orderDetails: {
       error: { [orderId]: null },
@@ -3826,5 +3853,38 @@ export const mockState = {
     returnOptions: {
       [`${orderId}_${returnOptionId}`]: returnOptionEntity,
     },
+  },
+};
+
+export const mockOrderItemEntityDenormalized = {
+  ...orderItemEntity,
+  brand: mockState.entities.brands[220482],
+  categories: [
+    mockState.entities.categories[136301],
+    mockState.entities.categories[136308],
+  ],
+  merchant: mockState.entities.merchants[merchantId],
+};
+
+export const mockOrderEntityDenormalized = {
+  id: orderId,
+  byMerchant: {
+    [merchantId]: {
+      returnOptions: [
+        {
+          ...mockState.entities.returnOptions[`${orderId}_${returnOptionId}`],
+          merchant: mockState.entities.merchants[merchantId],
+        },
+      ],
+      orderItems: [mockOrderItemEntityDenormalized],
+      merchant: mockState.entities.merchants[merchantId],
+    },
+  },
+  items: [mockOrderItemEntityDenormalized],
+  shippingAddress: {
+    ...mockOrderDetailsResponse.shippingAddress,
+  },
+  billingAddress: {
+    ...mockOrderDetailsResponse.billingAddress,
   },
 };

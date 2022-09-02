@@ -1,6 +1,6 @@
 import { normalize } from 'normalizr';
 import orderSchema from '../../../../entities/schemas/order';
-import type { Brand, Order } from '@farfetch/blackout-client';
+import type { Brand, Order, OrderLegacy } from '@farfetch/blackout-client';
 import type {
   CategoryEntity,
   OrderEntity,
@@ -9,6 +9,7 @@ import type {
 import type { MerchantEntity } from '../../../../entities/types/merchant.types';
 
 const generateByMerchantPropertyFromOrderItems = (
+  order: OrderEntity,
   orderItems: Record<OrderItemEntity['id'], OrderItemEntity>,
 ) => {
   return Object.values(orderItems).reduce((acc, orderItem) => {
@@ -22,8 +23,16 @@ const generateByMerchantPropertyFromOrderItems = (
       acc[merchantId] = merchantOrder;
     }
 
+    // Return available must be true if one of the order items inside
+    // an order accepts returns.
     merchantOrder.returnAvailable =
       orderItem.isReturnAvailable || !!merchantOrder.returnAvailable;
+    merchantOrder.userId = order.userId;
+    merchantOrder.totalQuantity = (merchantOrder.totalQuantity ?? 0) + 1;
+    merchantOrder.checkoutOrderId = order.checkoutOrderId;
+    // merchantOrderCode will have the value of the last order item
+    // just like orderSummary entity merging works.
+    merchantOrder.merchantOrderCode = orderItem.merchantOrderCode;
 
     let existingOrderItems = merchantOrder.orderItems;
 
@@ -41,7 +50,7 @@ const generateByMerchantPropertyFromOrderItems = (
 };
 
 export default function normalizeFetchOrderResponse(
-  order: Order,
+  order: Order | OrderLegacy,
   productImgQueryParam?: string,
 ) {
   const normalizedResult = normalize(
@@ -74,8 +83,10 @@ export default function normalizeFetchOrderResponse(
     >;
 
     // Calculate the byMerchant value from each other item
-    normalizedOrder.byMerchant =
-      generateByMerchantPropertyFromOrderItems(orderItems);
+    normalizedOrder.byMerchant = generateByMerchantPropertyFromOrderItems(
+      normalizedOrder,
+      orderItems,
+    );
     normalizedOrder.totalItems = normalizedOrder.totalQuantity ?? 1;
   }
 

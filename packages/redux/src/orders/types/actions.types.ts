@@ -10,9 +10,9 @@ import type {
   OrderEntity,
   OrderItemEntity,
   OrdersNormalized,
-  ReturnItemsEntity,
+  ReturnEntity,
+  ReturnItemEntity,
   ReturnOptionEntity,
-  ReturnsEntity,
   ShipmentTrackingsNormalized,
 } from '../../entities/types';
 import type { NormalizedSchema } from 'normalizr';
@@ -49,10 +49,10 @@ type GuestOrdersPayload = NormalizedSchema<
 
 type ReturnsPayload = NormalizedSchema<
   {
-    returnItems: Record<ReturnItemsEntity['id'], ReturnItemsEntity>;
-    returns: Record<ReturnsEntity['id'], ReturnsEntity>;
+    returnItems: Record<ReturnItemEntity['id'], ReturnItemEntity>;
+    returns: Record<ReturnEntity['id'], ReturnEntity>;
   },
-  Array<ReturnsEntity['id']>
+  Array<ReturnEntity['id']>
 >;
 
 type ReturnOptionsPayload = NormalizedSchema<
@@ -264,7 +264,14 @@ export type AddOrderDocumentAction =
  */
 export interface ResetOrdersAction extends Action {
   type: typeof actionTypes.RESET_ORDERS;
-  meta: { resetEntities: boolean };
+}
+
+/**
+ * Actions dispatched when the reset order details state request is made.
+ */
+export interface ResetOrderDetailsStateAction extends Action {
+  type: typeof actionTypes.RESET_ORDER_DETAILS_STATE;
+  payload: { orderId: Order['id'] };
 }
 
 export interface FetchOrderAvailableItemsActivitiesRequestAction

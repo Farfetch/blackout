@@ -1,5 +1,13 @@
 import type { Return } from '@farfetch/blackout-client';
 
-export type ReturnsEntity = Omit<Return, 'items'> & {
+export type ReturnEntity = Omit<
+  Return,
+  'items' | 'availableDates' | 'pickupSchedule'
+> & {
   items: Array<Return['id']>;
+  availableDates: number[];
+  pickupSchedule?: {
+    start: number;
+    end: number;
+  };
 };
