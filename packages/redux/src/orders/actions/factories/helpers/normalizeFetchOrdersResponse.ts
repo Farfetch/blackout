@@ -17,6 +17,16 @@ export default function normalizeFetchOrdersResponse(ordersResponse: Orders) {
   const normalizedResult = normalize(ordersResponse, {
     entries: [orderSummary],
   });
+
+  const entries = normalizedResult.result
+    .entries as OrdersNormalized['entries'];
+
+  normalizedResult.result.entries = entries.filter((orderId, index) => {
+    return entries.indexOf(orderId) === index;
+  });
+
+  normalizedResult.result.totalItems = normalizedResult.result.entries.length;
+
   const orders = normalizedResult.entities.orders;
 
   // Remove lingering merchant property from the root of the object

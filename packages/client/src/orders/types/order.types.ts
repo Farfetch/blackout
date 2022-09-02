@@ -1,9 +1,16 @@
-import type { OrderItem } from './orderItem.types';
-import type { UserAddress } from '../../types/common/address.types';
+import type { ClickAndCollect } from '../../checkout';
+import type { OrderItem, OrderItemLegacy } from './orderItem.types';
+import type { PaymentIntent } from '../../payments';
+import type {
+  UserAddress,
+  UserAddressLegacy,
+} from '../../types/common/address.types';
 
 export type Order = {
   id: string;
   checkoutOrderId: number;
+  clickAndCollect?: ClickAndCollect;
+  customerEmail?: string;
   userId: number;
   paymentId: string;
   currency: string;
@@ -29,6 +36,17 @@ export type Order = {
   formattedTotalTaxes: string;
   formattedTotalDomesticTaxes: string;
   taxType: string;
+  paymentIntentIds?: Array<PaymentIntent['id']>;
+  promotionOffers?: Array<OrderPromotionOffer>;
+};
+
+export type OrderPromotionOffer = {
+  shippingOffers: Array<ShippingOffer>;
+  merchantOrderCode: string;
+};
+
+export type ShippingOffer = {
+  discount: number;
 };
 
 export enum CustomerType {
@@ -36,3 +54,19 @@ export enum CustomerType {
   PersonalShopper = 'PersonalShopper',
   VipBrazil = 'VipBrazil',
 }
+
+export enum CustomerTypeLegacy {
+  Normal,
+  PersonalShopper,
+  VipBrazil,
+}
+
+export type OrderLegacy = Omit<
+  Order,
+  'customerType' | 'billingAddress' | 'shippingAddress' | 'items'
+> & {
+  customerType: CustomerTypeLegacy;
+  billingAddress?: UserAddressLegacy;
+  shippingAddress?: UserAddressLegacy;
+  items: OrderItemLegacy[];
+};

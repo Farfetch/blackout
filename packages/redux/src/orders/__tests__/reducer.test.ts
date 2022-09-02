@@ -54,14 +54,8 @@ describe('orders reducer', () => {
     });
 
     it.each([
-      actionTypes.FETCH_ORDER_REQUEST,
-      actionTypes.FETCH_ORDER_RETURNS_REQUEST,
-      actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST,
       actionTypes.FETCH_USER_ORDERS_REQUEST,
       actionTypes.FETCH_GUEST_ORDERS_REQUEST,
-      actionTypes.FETCH_SHIPMENT_TRACKINGS_REQUEST,
-      actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_REQUEST,
-      actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(
@@ -79,14 +73,8 @@ describe('orders reducer', () => {
     });
 
     it.each([
-      actionTypes.FETCH_ORDER_FAILURE,
-      actionTypes.FETCH_ORDER_RETURNS_FAILURE,
-      actionTypes.FETCH_ORDER_RETURN_OPTIONS_FAILURE,
       actionTypes.FETCH_USER_ORDERS_FAILURE,
       actionTypes.FETCH_GUEST_ORDERS_FAILURE,
-      actionTypes.FETCH_SHIPMENT_TRACKINGS_FAILURE,
-      actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_FAILURE,
-      actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE,
     ])('should handle %s action type', actionType => {
       const error = 'foo';
       expect(
@@ -118,12 +106,6 @@ describe('orders reducer', () => {
     it.each([
       actionTypes.FETCH_USER_ORDERS_REQUEST,
       actionTypes.FETCH_GUEST_ORDERS_REQUEST,
-      actionTypes.FETCH_ORDER_REQUEST,
-      actionTypes.FETCH_ORDER_RETURNS_REQUEST,
-      actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST,
-      actionTypes.FETCH_SHIPMENT_TRACKINGS_REQUEST,
-      actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_REQUEST,
-      actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
@@ -138,12 +120,6 @@ describe('orders reducer', () => {
     it.each([
       actionTypes.FETCH_USER_ORDERS_SUCCESS,
       actionTypes.FETCH_GUEST_ORDERS_SUCCESS,
-      actionTypes.FETCH_ORDER_SUCCESS,
-      actionTypes.FETCH_ORDER_RETURNS_SUCCESS,
-      actionTypes.FETCH_ORDER_RETURN_OPTIONS_SUCCESS,
-      actionTypes.FETCH_SHIPMENT_TRACKINGS_SUCCESS,
-      actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_SUCCESS,
-      actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_SUCCESS,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
@@ -159,12 +135,6 @@ describe('orders reducer', () => {
     it.each([
       actionTypes.FETCH_USER_ORDERS_FAILURE,
       actionTypes.FETCH_GUEST_ORDERS_FAILURE,
-      actionTypes.FETCH_ORDER_FAILURE,
-      actionTypes.FETCH_ORDER_RETURNS_FAILURE,
-      actionTypes.FETCH_ORDER_RETURN_OPTIONS_FAILURE,
-      actionTypes.FETCH_SHIPMENT_TRACKINGS_FAILURE,
-      actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_FAILURE,
-      actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
@@ -588,7 +558,6 @@ describe('orders reducer', () => {
     };
 
     const subAreas = {
-      ordersList: { ...subAreaResult },
       orderDetails: { ...subAreaResult },
       orderReturns: { ...subAreaResult },
       orderReturnOptions: { ...subAreaResult },
@@ -599,7 +568,6 @@ describe('orders reducer', () => {
     };
 
     const subAreaNames = [
-      'OrdersList',
       'OrderDetails',
       'OrderReturns',
       'OrderReturnOptions',

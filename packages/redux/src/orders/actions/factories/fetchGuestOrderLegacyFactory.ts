@@ -2,7 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import {
   Config,
   GetGuestOrderLegacy,
-  Order,
+  OrderLegacy,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import normalizeFetchOrderResponse from './helpers/normalizeFetchOrderResponse';
@@ -26,7 +26,7 @@ const fetchGuestOrderLegacyFactory =
     {
       getOptions = arg => ({ productImgQueryParam: arg.productImgQueryParam }),
     }: GetOptionsArgument,
-  ): Promise<Order> => {
+  ): Promise<OrderLegacy> => {
     try {
       dispatch({
         meta: { orderId },

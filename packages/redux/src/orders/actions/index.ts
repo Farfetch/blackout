@@ -15,4 +15,5 @@ export { default as fetchOrderItemAvailableActivities } from './fetchOrderItemAv
 export { default as fetchUserOrders } from './fetchUserOrders';
 export { default as fetchShipmentTrackings } from './fetchShipmentTrackings';
 export { default as resetOrders } from './resetOrders';
+export { default as resetOrderDetailsState } from './resetOrderDetailsState';
 export { default as fetchOrderReturns } from './fetchOrderReturns';
