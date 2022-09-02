@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.201](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.200...@farfetch/blackout-client@2.0.0-next.201) (2022-09-02)
+
+
+### Bug Fixes
+
+* **client|redux|react:** orders area fixes ([c5db8bc](https://github.com/Farfetch/blackout/commit/c5db8bcf1adbf3977c7c99e1c4a3afbd45265ec2))
+
+
+### BREAKING CHANGES
+
+* **client|redux|react:** The following exports were renamed:
+- OrderStatus -> MerchantOrderStatus
+- deleteRecipientFromTopic -> deleteSubscriptionTopicRecipient
+- getOrders -> getUserOrders
+- getUserCredit (client) -> getUserCredits
+- clearAllUnsubscribeRecipientFromTopic -> clearAllUnsubscribeSubscriptionTopicRecipientRequests
+- clearUnsubscribeRecipientFromTopic -> clearUnsubscribeSubscriptionTopicRecipientRequest
+- fetchListing -> fetchProductListing
+- fetchListingFactory -> fetchProductListingFactory
+- fetchOrders -> fetchUserOrders
+- fetchOrdersFactory -> fetchUserOrdersFactory
+- fetchSet -> fetchProductSet
+- fetchSetFactory -> fetchProductSetFactory
+- fetchUserCredit -> fetchUserCredits
+- getMerchantsFromOrder -> getOrderMerchants
+- getReturnOptionsFromOrder -> getOrderReturnOptions
+- getUserCredit (selector) -> getUserCredits
+- unsubscribeFromSubscription -> unsubscribeSubscription
+- unsubscribeFromSubscriptionFactory -> unsubscribeSubscriptionFactory
+- unsubscribeRecipientFromTopic -> unsubscribeSubscriptionTopicRecipient
+- unsubscribeRecipientFromTopicFactory -> unsubscribeSubscriptionTopicRecipientFactory
+
+
+
+
+
 # [2.0.0-next.200](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.199...@farfetch/blackout-client@2.0.0-next.200) (2022-08-25)
 
 **Note:** Version bump only for package @farfetch/blackout-client
