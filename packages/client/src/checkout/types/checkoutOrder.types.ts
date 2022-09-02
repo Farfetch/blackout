@@ -1,6 +1,7 @@
 import type { CheckoutAddress } from '../../types/common/address.types';
 import type { CheckoutOrderItem, CheckoutOrderMerchant } from '.';
 import type { CustomerType } from '../../orders/types/order.types';
+import type { MerchantLocation } from '../../merchantsLocations/types/merchantLocation.types';
 
 export enum ShippingMode {
   ByMerchant = 'ByMerchant',
@@ -16,8 +17,8 @@ export enum CheckoutOrderStatus {
 }
 
 export type ClickAndCollect = {
+  merchantLocationId: MerchantLocation['id'];
   collectPointId: number;
-  merchantLocationId: number;
 };
 
 export type CheckoutOrder = {

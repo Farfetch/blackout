@@ -1,5 +1,10 @@
 import type { MerchantEntity } from './merchant.types';
-import type { Order, Orders, OrderSummary } from '@farfetch/blackout-client';
+import type {
+  Order,
+  OrderLegacy,
+  Orders,
+  OrderSummary,
+} from '@farfetch/blackout-client';
 import type {
   OrderItemEntity,
   OrderItemEntityDenormalized,
@@ -10,7 +15,7 @@ import type {
 } from './returnOptions.types';
 
 export type OrderNormalized = Omit<
-  Order,
+  Order | OrderLegacy,
   'items' | 'createdDate' | 'updatedDate'
 > & {
   items: Array<OrderItemEntity['id']>;
@@ -30,15 +35,6 @@ export type OrderSummaryNormalized = {
 
 export type OrderEntity = OrderSummaryNormalized & Partial<OrderNormalized>;
 
-export type MerchantOrderDenormalized = Omit<
-  Partial<OrderSummary>,
-  'id' | 'merchantId' | 'createdDate' | 'merchantName'
-> & {
-  merchant?: MerchantEntity;
-  orderItems?: OrderItemEntityDenormalized[];
-  returnOptions?: ReturnOptionEntityDenormalized[];
-};
-
 export type MerchantOrderNormalized = Omit<
   Partial<OrderSummary>,
   'id' | 'merchantId' | 'createdDate' | 'merchantName'
@@ -46,6 +42,15 @@ export type MerchantOrderNormalized = Omit<
   merchant: OrderSummary['merchantId'];
   orderItems?: OrderItemEntity['id'][];
   returnOptions?: ReturnOptionEntity['id'][];
+};
+
+export type MerchantOrderDenormalized = Omit<
+  MerchantOrderNormalized,
+  'merchant' | 'orderItems' | 'returnOptions'
+> & {
+  merchant?: MerchantEntity;
+  orderItems?: OrderItemEntityDenormalized[];
+  returnOptions?: ReturnOptionEntityDenormalized[];
 };
 
 export type OrdersNormalized = Omit<Orders, 'entries'> & {

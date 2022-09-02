@@ -181,6 +181,8 @@ Object {
   "useCountryStateCities": [Function],
   "useCountryStates": [Function],
   "useLocale": [Function],
+  "useOrder": [Function],
+  "useOrders": [Function],
   "usePaymentTokens": [Function],
   "usePrevious": [Function],
   "useProductAttributes": [Function],

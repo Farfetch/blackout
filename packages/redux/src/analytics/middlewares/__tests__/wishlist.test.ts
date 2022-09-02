@@ -4,8 +4,11 @@ import { getBrand } from '../../../brands';
 import { getCategory } from '../../../categories';
 import { getProduct } from '../../../products/selectors/product';
 import { getWishlistItem } from '../../../wishlists';
-import { mockStore, mockWishlistSetId } from '../../../../tests';
-import { wishlistMockData } from 'tests/__fixtures__/analytics/wishlist';
+import { mockStore } from '../../../../tests';
+import {
+  wishlistMockData,
+  wishlistSetId,
+} from 'tests/__fixtures__/analytics/wishlist';
 import Analytics, {
   eventTypes,
   fromParameterTypes,
@@ -326,7 +329,7 @@ describe('analyticsWishlistMiddleware', () => {
             list,
             listId,
             position,
-            wishlistSetId: mockWishlistSetId,
+            wishlistSetId,
           },
         });
 
@@ -351,7 +354,7 @@ describe('analyticsWishlistMiddleware', () => {
             size: size.name,
             value,
             variant: colorName,
-            wishlistId: mockWishlistSetId,
+            wishlistId: wishlistSetId,
           },
         );
       });
@@ -369,7 +372,7 @@ describe('analyticsWishlistMiddleware', () => {
             list,
             listId,
             position,
-            wishlistSetId: mockWishlistSetId,
+            wishlistSetId,
             wishlistItemId: wishlistMockData.wishListItemId,
           },
         });
@@ -395,7 +398,7 @@ describe('analyticsWishlistMiddleware', () => {
             size: size.name,
             value,
             variant: colorName,
-            wishlistId: mockWishlistSetId,
+            wishlistId: wishlistSetId,
           },
         );
       });
@@ -415,7 +418,7 @@ describe('analyticsWishlistMiddleware', () => {
               },
             ],
             from,
-            wishlistSetId: mockWishlistSetId,
+            wishlistSetId,
           },
         });
 
@@ -455,7 +458,7 @@ describe('analyticsWishlistMiddleware', () => {
               },
             ],
             from,
-            wishlistSetId: mockWishlistSetId,
+            wishlistSetId,
           },
         });
 
@@ -489,7 +492,7 @@ describe('analyticsWishlistMiddleware', () => {
             list,
             listId,
             position,
-            wishlistSetId: mockWishlistSetId,
+            wishlistSetId,
           },
         });
 
@@ -512,7 +515,7 @@ describe('analyticsWishlistMiddleware', () => {
           size: size.name,
           value,
           variant: colorName,
-          wishlistId: mockWishlistSetId,
+          wishlistId: wishlistSetId,
         });
       });
     });
@@ -529,7 +532,7 @@ describe('analyticsWishlistMiddleware', () => {
             list,
             listId,
             position,
-            wishlistSetId: mockWishlistSetId,
+            wishlistSetId,
             wishlistItemId: wishlistMockData.wishListItemId,
           },
         });
@@ -553,7 +556,7 @@ describe('analyticsWishlistMiddleware', () => {
           size: size.name,
           value,
           variant: colorName,
-          wishlistId: mockWishlistSetId,
+          wishlistId: wishlistSetId,
         });
       });
     });
@@ -573,7 +576,7 @@ describe('analyticsWishlistMiddleware', () => {
               },
             ],
             from,
-            wishlistSetId: mockWishlistSetId,
+            wishlistSetId,
           },
         });
       });
@@ -594,7 +597,7 @@ describe('analyticsWishlistMiddleware', () => {
             },
           ],
           from,
-          wishlistSetId: mockWishlistSetId,
+          wishlistSetId,
         },
       });
     });

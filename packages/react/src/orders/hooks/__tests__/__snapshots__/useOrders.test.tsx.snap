@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useOrders options enableAutoFetch when true refetching should _NOT_ refetch if fetch query contents have not changed 1`] = `
+<div>
+  <div
+    data-test="orders-body"
+  >
+    <button
+      data-test="orders-updateFetchQueryButton"
+    >
+      update fetch query
+    </button>
+    <button
+      data-test="orders-updateWithSameFetchQueryButton"
+    >
+      update same fetch query
+    </button>
+    1
+  </div>
+</div>
+`;
+
+exports[`useOrders options enableAutoFetch when true refetching should refetch if fetch query contents have changed 1`] = `
+<div>
+  <div
+    data-test="orders-body"
+  >
+    <button
+      data-test="orders-updateFetchQueryButton"
+    >
+      update fetch query
+    </button>
+    <button
+      data-test="orders-updateWithSameFetchQueryButton"
+    >
+      update same fetch query
+    </button>
+    2
+  </div>
+</div>
+`;

@@ -1,15 +1,15 @@
 import type { CountryAddress } from '../../types';
 
-export enum ReturnType {
-  Courier,
-  InStore,
-  CourierDropOff,
-  CourierPickUp,
-  Manual,
+export enum ReturnOptionType {
+  Courier = 'Courier',
+  InStore = 'InStore',
+  CourierDropOff = 'CourierDropOff',
+  CourierPickUp = 'CourierPickUp',
+  Manual = 'Manual',
 }
 
 export type ReturnOption = {
-  type: ReturnType;
+  type: ReturnOptionType;
   locationsUri: string;
   allowedCountries: CountryAddress[];
   isNumberOfBoxesMandatory: boolean;

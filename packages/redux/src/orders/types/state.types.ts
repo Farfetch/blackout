@@ -15,7 +15,6 @@ export type OrdersState = CombinedState<{
   orderDetails: OrderDetailsState;
   orderReturns: OrderDetailsState;
   orderReturnOptions: OrderDetailsState;
-  ordersList: StateWithoutResult;
   trackings: StateWithoutResult;
   documents: StateWithoutResult;
   orderAvailableItemsActivities: StateWithoutResult;

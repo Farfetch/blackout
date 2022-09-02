@@ -3,8 +3,11 @@ import type {
   Brand,
   Color,
   CreationChannel,
+  CreationChannelLegacy,
   MerchantOrderStatus,
+  MerchantOrderStatusLegacy,
   OrderItemStatus,
+  OrderItemStatusLegacy,
   Price,
   ProductCategory,
   ProductImageGroup,
@@ -41,14 +44,14 @@ export type OrderItem = {
   isReturnAvailable: boolean;
   isPreOrder: boolean;
   preOrder?: {
-    expectedFulfillmentDate: {
-      startDate: string;
-      endDate: string;
+    expectedFulfillmentDate?: {
+      startDate?: string;
+      endDate?: string;
     };
-    type: {
+    type?: {
       type: string;
     };
-    status: {
+    status?: {
       type: string;
     };
   };
@@ -77,4 +80,17 @@ export type OrderItem = {
   customAttributes: string | null;
   shortDescription: string;
   productType: keyof typeof ProductType;
+};
+
+// This type is for the `getGuestOrderLegacy` client
+// that still uses the legacy endpoint. This type
+// should be removed when the `getGuestOrderLegacy` client is removed.
+export type OrderItemLegacy = Omit<
+  OrderItem,
+  'creationChannel' | 'orderItemStatus' | 'orderStatus' | 'productType'
+> & {
+  creationChannel: CreationChannelLegacy;
+  orderItemStatus: OrderItemStatusLegacy;
+  orderStatus: MerchantOrderStatusLegacy;
+  productType: ProductType;
 };

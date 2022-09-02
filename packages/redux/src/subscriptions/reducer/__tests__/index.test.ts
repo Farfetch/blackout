@@ -1,6 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import * as authenticationActionTypes from '../../../users/authentication/actionTypes';
-import { initialReduxState } from '../../../../tests';
+import { initialReduxState } from 'tests/__fixtures__/subscriptions';
 import { INITIAL_STATE as subscriptionPackagesInitialState } from '../subscriptionPackages';
 import { INITIAL_STATE as userSubscriptionInitialState } from '../userSubscriptions';
 import merge from 'lodash/merge';
@@ -37,8 +37,11 @@ describe('Subscriptions reducer', () => {
 });
 
 describe('entitiesMapper', () => {
-  it.each(Object.keys(entitiesMapper))(
-    'should map the %s action to a new state',
+  it.each([
+    actionTypes.RESET_SUBSCRIPTIONS,
+    authenticationActionTypes.LOGOUT_SUCCESS,
+  ])(
+    '%s action should remove subscription packages entry in entities',
     actionType => {
       const entitiesState = merge(
         {} as StoreState['entities'],

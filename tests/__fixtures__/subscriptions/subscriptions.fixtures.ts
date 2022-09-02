@@ -105,3 +105,43 @@ export const mockPutSubscriptions = {
     ],
   },
 };
+
+export const mockSubscriptionPackageId = 'Newsletter';
+
+export const initialReduxState = {
+  entities: {
+    subscriptionPackages: {
+      [mockSubscriptionPackageId]: {
+        id: mockSubscriptionPackageId,
+        topics: [
+          {
+            type: 'Sale',
+            channels: ['email', 'sms'],
+          },
+          {
+            type: 'New_Arrivals',
+            channels: ['email', 'sms'],
+          },
+          {
+            type: 'Weekly_Newsletters',
+            channels: ['email', 'sms'],
+          },
+        ],
+      },
+    },
+    // Other entities as example
+    account: {
+      user: {
+        isAuthenticated: false,
+      },
+    },
+    authentication: {
+      register: {},
+    },
+    app: {
+      seo: {
+        title: null,
+      },
+    },
+  },
+};
