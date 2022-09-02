@@ -379,6 +379,11 @@ describe('Omnitracking', () => {
 
         let data = generateTrackMockData({
           event: eventTypes.PLACE_ORDER_STARTED,
+          properties: {
+            coupon: 'promo',
+            shipping: 12,
+            orderId: 'ABC12',
+          },
         });
 
         await omnitracking.track(data);
@@ -404,6 +409,9 @@ describe('Omnitracking', () => {
               parameters: {
                 ...expectedPayload.parameters,
                 tid: placeOrderTid2,
+                promocode: 'promo',
+                shippingTotalValue: 12,
+                orderCode: 'ABC12',
               },
             },
           ],
