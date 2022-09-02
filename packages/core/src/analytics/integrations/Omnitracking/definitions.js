@@ -417,6 +417,9 @@ export const trackEventsMapper = {
       {
         tid: 188,
         val,
+        ...getCheckoutEventGenericProperties(data),
+        promocode: data.properties.coupon,
+        shippingTotalValue: data.properties?.shipping,
       },
     ];
   },
@@ -532,7 +535,7 @@ export const pageEventsMapper = {
     wishlistQuantity: getProductLineItemsQuantity(data.properties.products),
   }),
   [pageTypes.CHECKOUT]: data => ({
-    ...getCheckoutEventGenericProperties(data),
+    ...getCheckoutEventGenericProperties(data, true),
     viewType: 'Checkout SPA',
     viewSubType: 'Checkout SPA',
     orderValue: data.properties?.total,

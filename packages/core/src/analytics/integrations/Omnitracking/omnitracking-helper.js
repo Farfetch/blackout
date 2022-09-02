@@ -538,7 +538,7 @@ export const getProductLineItemsQuantity = productList => {
   );
 };
 
-export const getCheckoutEventGenericProperties = data => {
+export const getCheckoutEventGenericProperties = (data, addOrderId = false) => {
   const validOrderCode = isNaN(data.properties?.orderId);
 
   if (!validOrderCode) {
@@ -549,10 +549,14 @@ export const getCheckoutEventGenericProperties = data => {
     );
   }
 
-  return {
-    orderCode: validOrderCode ? data.properties?.orderId : undefined,
-    orderId: !validOrderCode
-      ? parseInt(data.properties?.orderId)
-      : data.properties?.checkoutOrderId,
-  };
+  const orderCode = validOrderCode ? data.properties?.orderId : undefined;
+
+  return addOrderId
+    ? {
+        orderCode,
+        orderId: !validOrderCode
+          ? parseInt(data.properties?.orderId)
+          : data.properties?.checkoutOrderId,
+      }
+    : { orderCode };
 };
