@@ -552,6 +552,10 @@ export const pageEventsMapper = {
     basketQuantity: getProductLineItemsQuantity(data.properties.products),
     basketValue: data.properties?.value,
   }),
+  [pageTypes.HOMEPAGE]: () => ({
+    viewType: 'Others',
+    viewSubType: 'Others',
+  }),
 };
 
 export const userGenderValuesMapper = {
