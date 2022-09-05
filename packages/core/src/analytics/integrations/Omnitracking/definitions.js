@@ -6,6 +6,7 @@
 import {
   generatePaymentAttemptReferenceId,
   getCheckoutEventGenericProperties,
+  getGenderValueFromProperties,
   getParameterValueFromEvent,
   getProductLineItems,
   getProductLineItemsQuantity,
@@ -513,6 +514,10 @@ export const trackEventsMapper = {
   [eventTypes.ORDER_COMPLETED]: data => ({
     tid: 2831,
     ...getCheckoutEventGenericProperties(data),
+  }),
+  [eventTypes.SIGNUP_NEWSLETTER]: data => ({
+    tid: 2831,
+    gender: getGenderValueFromProperties(data),
   }),
 };
 

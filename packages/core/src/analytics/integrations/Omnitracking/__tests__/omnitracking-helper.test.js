@@ -1,10 +1,12 @@
 import {
   generatePaymentAttemptReferenceId,
   getCheckoutEventGenericProperties,
+  getGenderValueFromProperties,
   getPageEventFromLocation,
   getPlatformSpecificParameters,
   getValParameterForEvent,
 } from '../omnitracking-helper';
+import { SignupNewsletterGenderMappings } from '../..';
 import { utils } from '../../..';
 import platformTypes from '../../../types/platformTypes';
 import trackTypes from '../../../types/trackTypes';
@@ -96,5 +98,51 @@ describe('getCheckoutEventGenericProperties', () => {
       orderCode: '5H5QYB',
       orderId: '123',
     });
+  });
+});
+
+describe('getGenderValueFromProperties', () => {
+  it('should display in simple string way', () => {
+    const gender = '1';
+
+    expect(
+      getGenderValueFromProperties({
+        properties: {
+          gender,
+        },
+      }),
+    ).toEqual('Man');
+  });
+  it('should display using internal mappings', () => {
+    const gender = 1;
+    expect(
+      getGenderValueFromProperties({
+        properties: {
+          gender: { id: gender },
+        },
+      }),
+    ).toEqual(SignupNewsletterGenderMappings[gender]);
+  });
+  it('should display using name property', () => {
+    const gender = 1;
+
+    expect(
+      getGenderValueFromProperties({
+        properties: {
+          gender: { id: gender, name: 'customGenderName' },
+        },
+      }),
+    ).toEqual('customGenderName');
+  });
+  it('should display multiple genders', () => {
+    const gender = 1;
+
+    expect(
+      getGenderValueFromProperties({
+        properties: {
+          gender: [{ id: gender, name: 'customGenderName' }, { id: 0 }],
+        },
+      }),
+    ).toEqual(`customGenderName,${SignupNewsletterGenderMappings[0]}`);
   });
 });
