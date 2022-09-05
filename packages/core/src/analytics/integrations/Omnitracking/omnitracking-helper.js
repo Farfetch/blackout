@@ -16,6 +16,7 @@ import {
   systemActionParameters,
   trackDefinitions,
 } from './definitions';
+import { SignupNewsletterGenderMappings } from '../shared/dataMappings/signupNewsletterGenderMappings';
 import { v4 as uuidv4 } from 'uuid';
 import analyticsTrackTypes from '../../types/trackTypes';
 import get from 'lodash/get';
@@ -538,6 +539,13 @@ export const getProductLineItemsQuantity = productList => {
   );
 };
 
+/**
+ * Obtain checkout generic omnitracking's properties.
+ *
+ * @param {object} data - The event's data.
+ * @param {boolean} addOrderId - If this property is true then add orderId to return.
+ * @returns {object} - The checkout omnitracking order data.
+ */
 export const getCheckoutEventGenericProperties = (data, addOrderId = false) => {
   const validOrderCode = isNaN(data.properties?.orderId);
 
@@ -559,4 +567,25 @@ export const getCheckoutEventGenericProperties = (data, addOrderId = false) => {
           : data.properties?.checkoutOrderId,
       }
     : { orderCode };
+};
+
+/**
+ * Obtain gender value from properties.
+ *
+ * @param {object} data - The event's data.
+ *
+ * @returns {string} - Gender string.
+ */
+export const getGenderValueFromProperties = data => {
+  const genderArray = (
+    Array.isArray(data.properties?.gender)
+      ? data.properties?.gender
+      : new Array(data.properties?.gender)
+  ).map(
+    gender =>
+      // trying using tenant translation otherwise use custom gender mappings
+      gender?.name || SignupNewsletterGenderMappings[gender?.id ?? gender],
+  );
+
+  return genderArray.reduce((acc, item) => `${acc},${item}`);
 };

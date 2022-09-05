@@ -63,6 +63,9 @@ export const customTrackMockData = {
   [eventTypes.ORDER_COMPLETED]: {
     orderId: 'ABC12',
   },
+  [eventTypes.SIGNUP_NEWSLETTER]: {
+    gender: ['0', '1'],
+  },
 };
 
 export const expectedTrackPayload = {
