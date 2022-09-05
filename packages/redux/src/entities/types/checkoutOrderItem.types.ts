@@ -1,5 +1,6 @@
 import type {
   AttributesAdapted,
+  PriceAdapted,
   ProductImagesAdapted,
 } from '../../helpers/adapters';
 import type { CheckoutOrderItem } from '@farfetch/blackout-client';
@@ -28,6 +29,7 @@ export type CheckoutOrderItemEntity = Omit<
   | 'sizes'
   | 'variants'
 > & {
+  price: PriceAdapted;
   dateCreated: number | null;
   size: AttributesAdapted;
   merchant: CheckoutOrderItem['merchantId'];
