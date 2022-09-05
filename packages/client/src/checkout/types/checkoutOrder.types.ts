@@ -23,7 +23,7 @@ export type ClickAndCollect = {
 export type CheckoutOrder = {
   id: number;
   bagId: string;
-  billingAddress?: CheckoutAddress;
+  billingAddress: CheckoutAddress;
   checkoutOrderMerchants: CheckoutOrderMerchant[];
   countryId: number;
   createdDate: string;
@@ -42,7 +42,7 @@ export type CheckoutOrder = {
   locale: string;
   orderId: string;
   promocode: string;
-  shippingAddress?: CheckoutAddress;
+  shippingAddress: CheckoutAddress;
   status: CheckoutOrderStatus;
   subTotalAmount: number;
   subTotalAmountExclTaxes: number;

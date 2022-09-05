@@ -2,7 +2,6 @@ import type { CheckoutOrderCharge } from '.';
 import type { Config } from '../../types';
 
 export type PostCheckoutOrderChargeData = {
-  redirectUrl: string;
   returnUrl: string;
   cancelUrl: string;
 };

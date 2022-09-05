@@ -1,7 +1,7 @@
 import type { PaymentAddress } from '../../types/common/address.types';
 
 export type Payer = {
-  id: string;
+  id: number;
   firstName: string;
   lastName: string;
   email: string;
