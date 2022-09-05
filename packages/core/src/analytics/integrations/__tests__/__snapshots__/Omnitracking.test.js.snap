@@ -103,6 +103,13 @@ Object {
 }
 `;
 
+exports[`Omnitracking definitions \`Sign-up Newsletter\` return should match the snapshot 1`] = `
+Object {
+  "gender": "Woman,Man",
+  "tid": 2831,
+}
+`;
+
 exports[`Omnitracking definitions \`bag\` return should match the snapshot 1`] = `
 Object {
   "basketQuantity": 8,
