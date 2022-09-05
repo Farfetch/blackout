@@ -16,7 +16,7 @@ export type CreatePaymentInstrumentData = {
   cardCvv: string;
   giftCardNumber: string;
   giftCardCsc: string;
-  creditUserId: string;
+  creditUserId: number;
 };
 
 export type PostPaymentIntentInstrumentData = {

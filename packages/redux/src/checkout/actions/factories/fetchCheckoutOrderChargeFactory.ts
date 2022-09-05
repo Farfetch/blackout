@@ -17,7 +17,7 @@ import type { FetchCheckoutOrderChargeAction } from '../../types';
  */
 const fetchCheckoutOrderChargeFactory =
   (getCheckoutOrderCharge: GetCheckoutOrderCharge) =>
-  (id: string, chargeId: string, config?: Config) =>
+  (id: number, chargeId: string, config?: Config) =>
   async (
     dispatch: Dispatch<FetchCheckoutOrderChargeAction>,
   ): Promise<CheckoutOrderCharge> => {

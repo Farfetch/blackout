@@ -22,7 +22,7 @@ export type ChargeInstrument = {
 };
 
 export type Charge = {
-  chargeId: string;
+  id: string;
   status: ChargeStatus;
   redirectUrl: string;
   returnUrl: string;
