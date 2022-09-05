@@ -35,6 +35,13 @@ Object {
 }
 `;
 
+exports[`Omnitracking definitions \`Order Completed\` return should match the snapshot 1`] = `
+Object {
+  "orderCode": "ABC12",
+  "tid": 2831,
+}
+`;
+
 exports[`Omnitracking definitions \`Place Order Started\` return should match the snapshot 1`] = `
 Array [
   Object {
