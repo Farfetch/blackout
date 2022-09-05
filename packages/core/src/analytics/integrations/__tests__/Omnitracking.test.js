@@ -90,6 +90,8 @@ describe('Omnitracking', () => {
           ...expectedPagePayloadWeb.parameters,
           uniqueViewId: expect.any(String),
           previousUniqueViewId: null,
+          viewSubType: expect.any(String),
+          viewType: expect.any(String),
         },
       });
     });
@@ -745,6 +747,8 @@ describe('Omnitracking', () => {
             testParam: 1,
             previousUniqueViewId: null,
             uniqueViewId: expect.any(String),
+            viewSubType: expect.any(String),
+            viewType: expect.any(String),
           },
         });
       });
@@ -975,6 +979,8 @@ describe('Omnitracking', () => {
           ...expectedPagePayloadMobile.parameters,
           previousUniqueViewId: null,
           uniqueViewId: expect.any(String),
+          viewSubType: expect.any(String),
+          viewType: expect.any(String),
         },
       });
     });
@@ -992,6 +998,8 @@ describe('Omnitracking', () => {
           ...expectedPagePayloadUnknown.parameters,
           previousUniqueViewId: null,
           uniqueViewId: expect.any(String),
+          viewSubType: expect.any(String),
+          viewType: expect.any(String),
         },
       });
     });
