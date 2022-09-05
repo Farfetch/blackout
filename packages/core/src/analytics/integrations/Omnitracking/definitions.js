@@ -510,6 +510,10 @@ export const trackEventsMapper = {
     hasError: !!data.properties?.errorMessage,
     errorMessage: data.properties?.errorMessage,
   }),
+  [eventTypes.ORDER_COMPLETED]: data => ({
+    tid: 2831,
+    ...getCheckoutEventGenericProperties(data),
+  }),
 };
 
 /**

@@ -60,6 +60,9 @@ export const customTrackMockData = {
     orderId: 'ABC12',
     coupon: 'promo',
   },
+  [eventTypes.ORDER_COMPLETED]: {
+    orderId: 'ABC12',
+  },
 };
 
 export const expectedTrackPayload = {
