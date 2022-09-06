@@ -90,8 +90,8 @@ describe('Omnitracking', () => {
           ...expectedPagePayloadWeb.parameters,
           uniqueViewId: expect.any(String),
           previousUniqueViewId: null,
-          viewSubType: expect.any(String),
-          viewType: expect.any(String),
+          viewType: 'Others',
+          viewSubType: 'Others',
         },
       });
     });
