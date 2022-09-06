@@ -4,22 +4,7 @@ import fixtures from '../__fixtures__/postOrderShippingAddressChangeRequests.fix
 import moxios from 'moxios';
 
 const orderId = '24BJKS';
-const response = {
-  billingAddress: {
-    isDefaultBillingAddress: undefined,
-    isDefaultShippingAddress: undefined,
-    isPreferredAddress: undefined,
-  },
-  createdDate: '/Date(null)/',
-  customerType: null,
-  items: undefined,
-  shippingAddress: {
-    isDefaultBillingAddress: undefined,
-    isDefaultShippingAddress: undefined,
-    isPreferredAddress: undefined,
-  },
-  updatedDate: '/Date(null)/',
-};
+const response = 202;
 const data = {
   shippingAddress: {
     addressLine1: 'Rua do teste',
