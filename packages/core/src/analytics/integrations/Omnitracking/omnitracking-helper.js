@@ -259,6 +259,7 @@ export const formatPageEvent = (data, additionalParameters) => {
   const customerId = getCustomerIdFromUser(user);
   const context = get(data, 'context', {});
   const event = getPageEvent(data);
+  const defaultPageParameters = { viewType: 'Others', viewSubType: 'Others' };
 
   return {
     event,
@@ -267,6 +268,7 @@ export const formatPageEvent = (data, additionalParameters) => {
     tenantId: context.tenantId,
     clientId: context.clientId,
     parameters: {
+      ...defaultPageParameters,
       ...additionalParameters,
       ...getPlatformSpecificParameters(data),
       ...getCommonParameters(data),

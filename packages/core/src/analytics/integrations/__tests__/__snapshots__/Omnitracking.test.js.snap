@@ -131,13 +131,6 @@ Object {
 }
 `;
 
-exports[`Omnitracking definitions \`homepage\` return should match the snapshot 1`] = `
-Object {
-  "viewSubType": "Others",
-  "viewType": "Others",
-}
-`;
-
 exports[`Omnitracking definitions \`pageDefinitions\` should match snapshot 1`] = `
 Object {
   "CheckoutPageVisited": Array [
