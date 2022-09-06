@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.70.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.69.0...@farfetch/blackout-core@1.70.0) (2022-09-06)
+
+
+### Bug Fixes
+
+* **client:** change post address request response ([06f3d31](https://github.com/Farfetch/blackout/commit/06f3d31c8f23cbce73e769bc0df2beb1fe6213da))
+
+
+### Features
+
+* **core:** add omnitracking's checkout started event mappings ([4032409](https://github.com/Farfetch/blackout/commit/403240974aa07a06928985ab284d547326b2f940))
+* **core:** add omnitracking's generic page mappings ([81cdfbb](https://github.com/Farfetch/blackout/commit/81cdfbbe656cbc8341cbe0b7beef11d80e0d6005))
+* **core:** add omnitracking's homepage mappings ([cd32983](https://github.com/Farfetch/blackout/commit/cd32983be1d9cdfb6b2df9ad3ee2ea196a58ce55))
+* **core:** add omnitracking's order completed mappings ([9cf04ca](https://github.com/Farfetch/blackout/commit/9cf04ca5b2a83a296d99ebed5268693b887140e9))
+* **core:** add omnitracking's place order started event mappings ([e3cd956](https://github.com/Farfetch/blackout/commit/e3cd95601c381a38b4e44b4c28b7f17ed38c0e1b))
+* **core:** add omnitracking's promocode mappings ([233fd85](https://github.com/Farfetch/blackout/commit/233fd8557a50eb366238da97e05ac6f384a7e745))
+* **core:** add omnitracking's share event mappings ([9f40217](https://github.com/Farfetch/blackout/commit/9f40217b4ebe628648872a3a59a476dcf8fa6e6c))
+* **core:** add omnitracking's signup newsletter mappings ([0ad25d4](https://github.com/Farfetch/blackout/commit/0ad25d497c349555996a0383850b8bfe3fb55e1b))
+
+
+
+
+
 # [1.69.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.68.0...@farfetch/blackout-core@1.69.0) (2022-08-30)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.43.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.42.5...@farfetch/blackout-react@0.43.0) (2022-09-06)
+
+
+### Features
+
+* **core:** add omnitracking's signup newsletter mappings ([0ad25d4](https://github.com/Farfetch/blackout/commit/0ad25d497c349555996a0383850b8bfe3fb55e1b))
+
+
+
+
+
 ## [0.42.5](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.42.4...@farfetch/blackout-react@0.42.5) (2022-08-09)
 
 
