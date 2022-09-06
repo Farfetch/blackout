@@ -1,4 +1,3 @@
-import adaptOrderDetails from './helpers/adaptOrderDetails';
 import client, { adaptError } from '../../helpers/client';
 import join from 'proper-url-join';
 
@@ -23,7 +22,7 @@ export default (orderId, data, config) =>
       data,
       config,
     )
-    .then(response => adaptOrderDetails(response.data))
+    .then(response => response.status)
     .catch(error => {
       throw adaptError(error);
     });
