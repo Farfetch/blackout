@@ -591,3 +591,22 @@ export const getGenderValueFromProperties = data => {
 
   return genderArray.reduce((acc, item) => `${acc},${item}`);
 };
+
+/**
+ * Obtain Delivery Information Details using event properties data in JSON Format.
+ *
+ * @param {object} data - The event's data.
+ *
+ * @returns {string} - Delivery Information Details in Json Format.
+ */
+export const getDeliveryInformationDetails = data => {
+  const deliveryInfo = {};
+
+  if (data.properties?.deliveryType) {
+    deliveryInfo['courierType'] = data.properties?.deliveryType;
+  }
+
+  return JSON.stringify(
+    Object.keys(deliveryInfo).length ? deliveryInfo : undefined,
+  );
+};
