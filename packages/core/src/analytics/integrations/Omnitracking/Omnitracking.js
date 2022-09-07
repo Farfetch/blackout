@@ -1,6 +1,6 @@
 /**
  * Omnitracking integration will send data to Marketing API, so it can later be consumed by internal services such as `AffiliateService`, `InspireService` or `Risk Management Service(fraud)`.
- * This integration is compatible with Omnitracking Service v1.9.
+ * This integration is compatible with Omnitracking Service v1.15.
  *
  * @example <caption>Adding Omnitracking integration to analytics</caption>
  *
