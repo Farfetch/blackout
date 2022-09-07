@@ -66,6 +66,11 @@ export const customTrackMockData = {
   [eventTypes.SIGNUP_NEWSLETTER]: {
     gender: ['0', '1'],
   },
+  [eventTypes.ADDRESS_INFO_ADDED]: {
+    step: '1',
+    deliveryType: 'Standard/Standard',
+    interactionType: 'click',
+  },
 };
 
 export const expectedTrackPayload = {
