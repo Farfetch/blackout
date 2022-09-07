@@ -1,6 +1,7 @@
 import {
   generatePaymentAttemptReferenceId,
   getCheckoutEventGenericProperties,
+  getDeliveryInformationDetails,
   getGenderValueFromProperties,
   getPageEventFromLocation,
   getPlatformSpecificParameters,
@@ -144,5 +145,20 @@ describe('getGenderValueFromProperties', () => {
         },
       }),
     ).toEqual(`customGenderName,${SignupNewsletterGenderMappings[0]}`);
+  });
+});
+
+describe('getDeliveryInformationDetails', () => {
+  it('should deal with empty information', () => {
+    expect(getDeliveryInformationDetails({})).toEqual(undefined);
+  });
+  it('should deal with delivery type', () => {
+    expect(
+      getDeliveryInformationDetails({
+        properties: {
+          deliveryType: 'sample',
+        },
+      }),
+    ).toEqual('{"courierType":"sample"}');
   });
 });
