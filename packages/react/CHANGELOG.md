@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.311](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.310...@farfetch/blackout-react@1.0.0-next.311) (2022-09-08)
+
+
+### Features
+
+* **react:** add orders hooks ([06d39e7](https://github.com/Farfetch/blackout/commit/06d39e749e81cd512d50510f3ea3e06ab69b714b))
+
+
+### BREAKING CHANGES
+
+* **react:** The selectors `isOrdersListLoading` and
+`getOrdersListError` were removed and replaced with the selectors
+`areOrdersLoading` and `getOrdersError`.
+The orders reducer was now changed as well and not it
+will only change its root slice `isLoading` and `error` values only
+when the fetchUserOrders and fetchGuestOrders actions are used.
+
+
+
+
+
 # [1.0.0-next.310](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.309...@farfetch/blackout-react@1.0.0-next.310) (2022-09-07)
 
 **Note:** Version bump only for package @farfetch/blackout-react
