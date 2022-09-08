@@ -23,6 +23,7 @@ import {
   validateOutgoingOmnitrackingPayload,
 } from './omnitracking-helper';
 import {
+  OPTION_HTTP_CLIENT,
   OPTION_SEARCH_QUERY_PARAMETERS,
   OPTION_TRANSFORM_PAYLOAD,
 } from './constants';
@@ -60,6 +61,7 @@ class Omnitracking extends Integration {
     const {
       [OPTION_TRANSFORM_PAYLOAD]: transformPayload,
       [OPTION_SEARCH_QUERY_PARAMETERS]: searchQueryParameters,
+      [OPTION_HTTP_CLIENT]: httpClient,
     } = options;
 
     this.transformPayload = transformPayload;
@@ -89,6 +91,12 @@ class Omnitracking extends Integration {
           `[Omnitracking] - Invalid value provided for ${OPTION_SEARCH_QUERY_PARAMETERS} option. All parameters should be typed as string`,
         );
       }
+    }
+
+    if (httpClient && typeof httpClient !== 'function') {
+      logger.error(
+        '[Omnitracking] - Invalid `httpClient` option. Please make to pass a valid function to perform the http requests to the omnitracking service.',
+      );
     }
 
     // These will be used to track the uniqueViewId and
@@ -336,8 +344,23 @@ class Omnitracking extends Integration {
     }
 
     if (validateOutgoingOmnitrackingPayload(finalPayload)) {
-      postTrackings(finalPayload);
+      await this.sendEvent(finalPayload);
     }
+  }
+
+  /**
+   * Sends the final payload to the httpClient, if passed. Will call the postTrackings client otherwise.
+   *
+   * @param {object} finalPayload - The very final payload to be sent to the omnitracking service endpoint.
+   *
+   * @returns {Promise} - Promise that will resolve when the method finishes.
+   */
+  async sendEvent(finalPayload) {
+    if (this.options.httpClient) {
+      return await this.options.httpClient(finalPayload);
+    }
+
+    postTrackings(finalPayload);
   }
 }
 
