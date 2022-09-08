@@ -1,4 +1,5 @@
 import {
+  OPTION_HTTP_CLIENT,
   OPTION_SEARCH_QUERY_PARAMETERS,
   OPTION_TRANSFORM_PAYLOAD,
 } from '../constants';
@@ -63,6 +64,9 @@ export type OmnitrackingTrackEventsMapper = {
 };
 
 export type SearchQueryParameters = string[];
+export type HttpClient = (
+  payload: OmnitrackingRequestPayload<PageViewEvents | PageActionEvents>,
+) => Promise<void>;
 export type TransformPayloadFunction = (
   payload: OmnitrackingRequestPayload<PageViewEvents | PageActionEvents>,
   data: EventData<TrackTypesValues>,
@@ -71,6 +75,7 @@ export type TransformPayloadFunction = (
 export interface OmnitrackingOptions extends IntegrationOptions {
   [OPTION_TRANSFORM_PAYLOAD]?: TransformPayloadFunction;
   [OPTION_SEARCH_QUERY_PARAMETERS]?: SearchQueryParameters;
+  [OPTION_HTTP_CLIENT]?: HttpClient;
 }
 
 export type SpecificParametersForEventType<
