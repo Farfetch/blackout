@@ -1,6 +1,10 @@
+import { GenderCode } from '@farfetch/blackout-client';
+
+export const mockSearchDidYouMeanHash = 'balenciaga!0,1';
+
 export const mockSearchDidYouMeanQuery = {
-  genders: ['0', '1'],
-  searchTerms: 'balenciga',
+  genders: [GenderCode.Woman, GenderCode.Man],
+  searchTerms: 'balenciaga',
 };
 
 export const mockSearchDidYouMeanResponse = [
@@ -12,13 +16,54 @@ export const mockSearchDidYouMeanResponse = [
   },
 ];
 
+export const mockSearchDidYouMeanInitialState = {
+  search: {
+    didYouMean: {
+      [mockSearchDidYouMeanHash]: {
+        query: null,
+        error: null,
+        isLoading: false,
+        result: null,
+      },
+    },
+  },
+};
+
 export const mockSearchDidYouMeanState = {
   search: {
     didYouMean: {
-      query: mockSearchDidYouMeanQuery,
-      error: 'Error - Search did you mean request.',
-      isLoading: false,
-      result: mockSearchDidYouMeanResponse,
+      [mockSearchDidYouMeanHash]: {
+        query: mockSearchDidYouMeanQuery,
+        error: null,
+        isLoading: false,
+        result: mockSearchDidYouMeanResponse,
+      },
+    },
+  },
+};
+
+export const mockSearchDidYouMeanErrorState = {
+  search: {
+    didYouMean: {
+      [mockSearchDidYouMeanHash]: {
+        query: mockSearchDidYouMeanQuery,
+        error: 'Error - Search did you mean request.',
+        isLoading: false,
+        result: null,
+      },
+    },
+  },
+};
+
+export const mockSearchDidYouMeanLoadingState = {
+  search: {
+    didYouMean: {
+      [mockSearchDidYouMeanHash]: {
+        query: mockSearchDidYouMeanQuery,
+        error: null,
+        isLoading: true,
+        result: null,
+      },
     },
   },
 };

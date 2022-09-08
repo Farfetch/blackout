@@ -1,5 +1,6 @@
+import type { GenderCode } from '../../types';
+
 export type SearchDidYouMeanQuery = {
   searchTerms: string;
-  genders?: string[];
-  [k: string]: any;
+  genders?: GenderCode[];
 };

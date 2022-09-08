@@ -1,3 +1,5 @@
+export const mockSearchSuggestionsHash = 'dresses!0!true';
+
 export const mockSearchSuggestionsQuery = {
   gender: 0,
   ignoreFilterExclusions: true,
@@ -27,13 +29,54 @@ export const mockSearchSuggestionsResponse = [
   },
 ];
 
+export const mockSearchSuggestionsInitialState = {
+  search: {
+    suggestions: {
+      [mockSearchSuggestionsHash]: {
+        error: null,
+        isLoading: false,
+        query: null,
+        result: null,
+      },
+    },
+  },
+};
+
 export const mockSearchSuggestionsState = {
   search: {
     suggestions: {
-      error: { message: 'Error - Search request.' },
-      isLoading: false,
-      query: mockSearchSuggestionsQuery,
-      result: mockSearchSuggestionsResponse,
+      [mockSearchSuggestionsHash]: {
+        error: null,
+        isLoading: false,
+        query: mockSearchSuggestionsQuery,
+        result: mockSearchSuggestionsResponse,
+      },
+    },
+  },
+};
+
+export const mockSearchSuggestionsLoadingState = {
+  search: {
+    suggestions: {
+      [mockSearchSuggestionsHash]: {
+        error: null,
+        isLoading: true,
+        query: mockSearchSuggestionsQuery,
+        result: null,
+      },
+    },
+  },
+};
+
+export const mockSearchSuggestionsErrorState = {
+  search: {
+    suggestions: {
+      [mockSearchSuggestionsHash]: {
+        error: { message: 'Error - Search request.' },
+        isLoading: false,
+        query: mockSearchSuggestionsQuery,
+        result: null,
+      },
     },
   },
 };

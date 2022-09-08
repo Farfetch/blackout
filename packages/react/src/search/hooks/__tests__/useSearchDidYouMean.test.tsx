@@ -1,35 +1,35 @@
 import { cleanup, renderHook } from '@testing-library/react';
 import {
-  fetchSearchSuggestions,
-  resetSearchSuggestions,
+  fetchSearchDidYouMean,
+  resetSearchDidYouMean,
 } from '@farfetch/blackout-redux';
 import {
-  mockSearchSuggestionsErrorState,
-  mockSearchSuggestionsHash,
-  mockSearchSuggestionsInitialState,
-  mockSearchSuggestionsLoadingState,
-  mockSearchSuggestionsQuery,
-  mockSearchSuggestionsResponse,
-  mockSearchSuggestionsState,
+  mockSearchDidYouMeanErrorState,
+  mockSearchDidYouMeanHash,
+  mockSearchDidYouMeanInitialState,
+  mockSearchDidYouMeanLoadingState,
+  mockSearchDidYouMeanQuery,
+  mockSearchDidYouMeanResponse,
+  mockSearchDidYouMeanState,
 } from 'tests/__fixtures__/search';
 import { withStore } from '../../../../tests/helpers';
-import useSearchSuggestions from '../useSearchSuggestions';
+import useSearchDidYouMean from '../useSearchDidYouMean';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
-  fetchSearchSuggestions: jest.fn(() => () => Promise.resolve()),
-  resetSearchSuggestions: jest.fn(() => () => Promise.resolve()),
+  fetchSearchDidYouMean: jest.fn(() => () => Promise.resolve()),
+  resetSearchDidYouMean: jest.fn(() => () => Promise.resolve()),
 }));
 
-describe('useSearchSuggestions', () => {
+describe('useSearchDidYouMean', () => {
   beforeEach(jest.clearAllMocks);
   afterEach(cleanup);
 
   it('should return values correctly with initial state', () => {
     const {
       result: { current },
-    } = renderHook(() => useSearchSuggestions(mockSearchSuggestionsQuery), {
-      wrapper: withStore(mockSearchSuggestionsState),
+    } = renderHook(() => useSearchDidYouMean(mockSearchDidYouMeanQuery), {
+      wrapper: withStore(mockSearchDidYouMeanState),
     });
 
     expect(current).toStrictEqual({
@@ -37,8 +37,8 @@ describe('useSearchSuggestions', () => {
       isLoading: false,
       isFetched: true,
       data: {
-        searchSuggestions: mockSearchSuggestionsResponse,
-        query: mockSearchSuggestionsQuery,
+        searchDidYouMean: mockSearchDidYouMeanResponse,
+        query: mockSearchDidYouMeanQuery,
       },
       actions: {
         fetch: expect.any(Function),
@@ -52,8 +52,8 @@ describe('useSearchSuggestions', () => {
       result: {
         current: { isLoading },
       },
-    } = renderHook(() => useSearchSuggestions(mockSearchSuggestionsQuery), {
-      wrapper: withStore(mockSearchSuggestionsLoadingState),
+    } = renderHook(() => useSearchDidYouMean(mockSearchDidYouMeanQuery), {
+      wrapper: withStore(mockSearchDidYouMeanLoadingState),
     });
 
     expect(isLoading).toBe(true);
@@ -64,15 +64,14 @@ describe('useSearchSuggestions', () => {
       result: {
         current: { error },
       },
-    } = renderHook(() => useSearchSuggestions(mockSearchSuggestionsQuery), {
-      wrapper: withStore(mockSearchSuggestionsErrorState),
+    } = renderHook(() => useSearchDidYouMean(mockSearchDidYouMeanQuery), {
+      wrapper: withStore(mockSearchDidYouMeanErrorState),
     });
 
     expect(error).not.toBeNull();
     expect(error).toBe(
-      mockSearchSuggestionsErrorState.search.suggestions[
-        mockSearchSuggestionsHash
-      ].error,
+      mockSearchDidYouMeanErrorState.search.didYouMean[mockSearchDidYouMeanHash]
+        .error,
     );
   });
 
@@ -81,8 +80,8 @@ describe('useSearchSuggestions', () => {
       result: {
         current: { isLoading, isFetched },
       },
-    } = renderHook(() => useSearchSuggestions(mockSearchSuggestionsQuery), {
-      wrapper: withStore(mockSearchSuggestionsInitialState),
+    } = renderHook(() => useSearchDidYouMean(mockSearchDidYouMeanQuery), {
+      wrapper: withStore(mockSearchDidYouMeanInitialState),
     });
 
     expect(isLoading).toBe(false);
@@ -91,12 +90,12 @@ describe('useSearchSuggestions', () => {
 
   describe('options', () => {
     it('should call `fetch` action if `enableAutoFetch` option is true', async () => {
-      renderHook(() => useSearchSuggestions(mockSearchSuggestionsQuery), {
-        wrapper: withStore(mockSearchSuggestionsInitialState),
+      renderHook(() => useSearchDidYouMean(mockSearchDidYouMeanQuery), {
+        wrapper: withStore(mockSearchDidYouMeanInitialState),
       });
 
-      expect(fetchSearchSuggestions).toHaveBeenCalledWith(
-        mockSearchSuggestionsQuery,
+      expect(fetchSearchDidYouMean).toHaveBeenCalledWith(
+        mockSearchDidYouMeanQuery,
         undefined,
       );
     });
@@ -104,15 +103,15 @@ describe('useSearchSuggestions', () => {
     it('should not call `fetch` action if `enableAutoFetch` option is false', async () => {
       renderHook(
         () =>
-          useSearchSuggestions(mockSearchSuggestionsQuery, {
+          useSearchDidYouMean(mockSearchDidYouMeanQuery, {
             enableAutoFetch: false,
           }),
         {
-          wrapper: withStore(mockSearchSuggestionsInitialState),
+          wrapper: withStore(mockSearchDidYouMeanInitialState),
         },
       );
 
-      expect(fetchSearchSuggestions).not.toHaveBeenCalled();
+      expect(fetchSearchDidYouMean).not.toHaveBeenCalled();
     });
   });
 
@@ -126,18 +125,18 @@ describe('useSearchSuggestions', () => {
         },
       } = renderHook(
         () =>
-          useSearchSuggestions(mockSearchSuggestionsQuery, {
+          useSearchDidYouMean(mockSearchDidYouMeanQuery, {
             enableAutoFetch: false,
           }),
         {
-          wrapper: withStore(mockSearchSuggestionsInitialState),
+          wrapper: withStore(mockSearchDidYouMeanInitialState),
         },
       );
 
-      await fetch(mockSearchSuggestionsQuery);
+      await fetch(mockSearchDidYouMeanQuery);
 
-      expect(fetchSearchSuggestions).toHaveBeenCalledWith(
-        mockSearchSuggestionsQuery,
+      expect(fetchSearchDidYouMean).toHaveBeenCalledWith(
+        mockSearchDidYouMeanQuery,
       );
     });
 
@@ -148,13 +147,13 @@ describe('useSearchSuggestions', () => {
             actions: { reset },
           },
         },
-      } = renderHook(() => useSearchSuggestions(mockSearchSuggestionsQuery), {
-        wrapper: withStore(mockSearchSuggestionsState),
+      } = renderHook(() => useSearchDidYouMean(mockSearchDidYouMeanQuery), {
+        wrapper: withStore(mockSearchDidYouMeanState),
       });
 
       reset();
 
-      expect(resetSearchSuggestions).toHaveBeenCalled();
+      expect(resetSearchDidYouMean).toHaveBeenCalled();
     });
   });
 });

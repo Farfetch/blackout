@@ -3,6 +3,7 @@ import { fetchSearchIntents } from '..';
 import { getSearchIntents } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/searchIntents';
 import {
+  mockSearchIntentsHash,
   mockSearchIntentsQuery,
   mockSearchIntentsResponse,
 } from 'tests/__fixtures__/search';
@@ -17,6 +18,7 @@ const searchMockStore = (state = {}) =>
   mockStore({ search: INITIAL_STATE }, state);
 const expectedConfig = undefined;
 const query = mockSearchIntentsQuery;
+const hash = mockSearchIntentsHash;
 let store;
 
 describe('fetchSearchIntents() action creator', () => {
@@ -38,11 +40,11 @@ describe('fetchSearchIntents() action creator', () => {
       expect(getSearchIntents).toHaveBeenCalledWith(query, expectedConfig);
       expect(store.getActions()).toEqual([
         {
-          meta: { query },
+          meta: { query, hash },
           type: actionTypes.FETCH_SEARCH_INTENTS_REQUEST,
         },
         {
-          meta: { query },
+          meta: { query, hash },
           payload: { error: expectedError },
           type: actionTypes.FETCH_SEARCH_INTENTS_FAILURE,
         },
@@ -63,11 +65,11 @@ describe('fetchSearchIntents() action creator', () => {
     expect(getSearchIntents).toHaveBeenCalledWith(query, expectedConfig);
     expect(store.getActions()).toEqual([
       {
-        meta: { query },
+        meta: { query, hash },
         type: actionTypes.FETCH_SEARCH_INTENTS_REQUEST,
       },
       {
-        meta: { query },
+        meta: { query, hash },
         payload: { result: mockSearchIntentsResponse },
         type: actionTypes.FETCH_SEARCH_INTENTS_SUCCESS,
       },
