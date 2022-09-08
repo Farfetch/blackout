@@ -77,6 +77,18 @@ export const customTrackMockData = {
     interactionType: 'click',
     paymentType: 'credit',
   },
+  [eventTypes.SHIPPING_METHOD_ADDED]: {
+    step: '2',
+    deliveryType: 'Standard/Standard',
+    interactionType: 'click',
+    paymentType: 'credit',
+  },
+  [eventTypes.SHIPPING_INFO_ADDED]: {
+    step: '2',
+    deliveryType: 'Standard/Standard',
+    interactionType: 'click',
+    paymentType: 'credit',
+  },
 };
 
 export const expectedTrackPayload = {
