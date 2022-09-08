@@ -6,6 +6,7 @@ import {
   SearchSuggestionsQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
+import { generateSearchSuggestionsHash } from '../../helpers';
 import type { Dispatch } from 'redux';
 import type { FetchSearchSuggestionsAction } from '../../types';
 
@@ -23,16 +24,18 @@ const fetchSearchSuggestionsFactory =
   async (
     dispatch: Dispatch<FetchSearchSuggestionsAction>,
   ): Promise<SearchSuggestion[]> => {
+    const hash = generateSearchSuggestionsHash(query);
+
     try {
       dispatch({
-        meta: { query },
+        meta: { query, hash },
         type: actionTypes.FETCH_SEARCH_SUGGESTIONS_REQUEST,
       });
 
       const result = await getSearchSuggestions(query, config);
 
       dispatch({
-        meta: { query },
+        meta: { query, hash },
         payload: { result },
         type: actionTypes.FETCH_SEARCH_SUGGESTIONS_SUCCESS,
       });
@@ -40,7 +43,7 @@ const fetchSearchSuggestionsFactory =
       return result;
     } catch (error) {
       dispatch({
-        meta: { query },
+        meta: { query, hash },
         payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_SEARCH_SUGGESTIONS_FAILURE,
       });

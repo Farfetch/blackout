@@ -3,6 +3,7 @@ import { fetchSearchDidYouMean } from '..';
 import { getSearchDidYouMean } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/searchDidYouMean';
 import {
+  mockSearchDidYouMeanHash,
   mockSearchDidYouMeanQuery,
   mockSearchDidYouMeanResponse,
 } from 'tests/__fixtures__/search';
@@ -17,6 +18,7 @@ const searchMockStore = (state = {}) =>
   mockStore({ search: INITIAL_STATE }, state);
 const expectedConfig = undefined;
 const query = mockSearchDidYouMeanQuery;
+const hash = mockSearchDidYouMeanHash;
 let store;
 
 describe('fetchSearchDidYouMean() action creator', () => {
@@ -38,11 +40,11 @@ describe('fetchSearchDidYouMean() action creator', () => {
       expect(getSearchDidYouMean).toHaveBeenCalledWith(query, expectedConfig);
       expect(store.getActions()).toEqual([
         {
-          meta: { query },
+          meta: { query, hash },
           type: actionTypes.FETCH_SEARCH_DID_YOU_MEAN_REQUEST,
         },
         {
-          meta: { query },
+          meta: { query, hash },
           payload: { error: expectedError },
           type: actionTypes.FETCH_SEARCH_DID_YOU_MEAN_FAILURE,
         },
@@ -63,11 +65,11 @@ describe('fetchSearchDidYouMean() action creator', () => {
     expect(getSearchDidYouMean).toHaveBeenCalledWith(query, expectedConfig);
     expect(store.getActions()).toEqual([
       {
-        meta: { query },
+        meta: { query, hash },
         type: actionTypes.FETCH_SEARCH_DID_YOU_MEAN_REQUEST,
       },
       {
-        meta: { query },
+        meta: { query, hash },
         payload: { result: mockSearchDidYouMeanResponse },
         type: actionTypes.FETCH_SEARCH_DID_YOU_MEAN_SUCCESS,
       },

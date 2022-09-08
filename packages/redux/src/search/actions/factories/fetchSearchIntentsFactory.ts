@@ -6,6 +6,7 @@ import {
   SearchIntentsQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
+import { generateSearchIntentsHash } from '../../helpers';
 import type { Dispatch } from 'redux';
 import type { FetchSearchIntentsAction } from '../../types';
 
@@ -25,16 +26,18 @@ const fetchSearchIntentsFactory =
   async (
     dispatch: Dispatch<FetchSearchIntentsAction>,
   ): Promise<SearchIntents> => {
+    const hash = generateSearchIntentsHash(query);
+
     try {
       dispatch({
-        meta: { query },
+        meta: { query, hash },
         type: actionTypes.FETCH_SEARCH_INTENTS_REQUEST,
       });
 
       const result = await getSearchIntents(query, config);
 
       dispatch({
-        meta: { query },
+        meta: { query, hash },
         payload: { result },
         type: actionTypes.FETCH_SEARCH_INTENTS_SUCCESS,
       });
@@ -42,7 +45,7 @@ const fetchSearchIntentsFactory =
       return result;
     } catch (error) {
       dispatch({
-        meta: { query },
+        meta: { query, hash },
         payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_SEARCH_INTENTS_FAILURE,
       });
