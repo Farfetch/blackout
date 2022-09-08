@@ -6,6 +6,7 @@ import {
   SearchDidYouMeanSuggestion,
   toBlackoutError,
 } from '@farfetch/blackout-client';
+import { generateSearchDidYouMeanHash } from '../../helpers';
 import type { Dispatch } from 'redux';
 import type { FetchSearchDidYouMeanAction } from '../../types';
 
@@ -23,16 +24,18 @@ const fetchSearchDidYouMeanFactory =
   async (
     dispatch: Dispatch<FetchSearchDidYouMeanAction>,
   ): Promise<SearchDidYouMeanSuggestion[]> => {
+    const hash = generateSearchDidYouMeanHash(query);
+
     try {
       dispatch({
-        meta: { query },
+        meta: { query, hash },
         type: actionTypes.FETCH_SEARCH_DID_YOU_MEAN_REQUEST,
       });
 
       const result = await getSearchDidYouMean(query, config);
 
       dispatch({
-        meta: { query },
+        meta: { query, hash },
         payload: { result },
         type: actionTypes.FETCH_SEARCH_DID_YOU_MEAN_SUCCESS,
       });
@@ -40,7 +43,7 @@ const fetchSearchDidYouMeanFactory =
       return result;
     } catch (error) {
       dispatch({
-        meta: { query },
+        meta: { query, hash },
         payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_SEARCH_DID_YOU_MEAN_FAILURE,
       });

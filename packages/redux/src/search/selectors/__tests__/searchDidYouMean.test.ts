@@ -1,7 +1,9 @@
-import * as fromReducer from '../../reducer/searchDidYouMean';
-import * as selectors from '..';
+import * as selectors from '../../selectors/searchDidYouMean';
 import {
-  mockSearchDidYouMeanQuery,
+  mockSearchDidYouMeanErrorState,
+  mockSearchDidYouMeanHash,
+  mockSearchDidYouMeanInitialState,
+  mockSearchDidYouMeanLoadingState,
   mockSearchDidYouMeanResponse,
   mockSearchDidYouMeanState,
 } from 'tests/__fixtures__/search';
@@ -10,43 +12,82 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
-describe('search did you mean redux selectors', () => {
+describe('search intents redux selectors', () => {
   const mockState = mockSearchDidYouMeanState;
 
-  describe('isSearchDidYouMeanLoading()', () => {
+  describe('areSearchIntentsLoading()', () => {
     it('should get the loading status of a given search', () => {
-      const spy = jest.spyOn(fromReducer, 'getIsLoading');
+      const spy = jest.spyOn(selectors, 'isSearchDidYouMeanLoading');
 
-      expect(selectors.isSearchDidYouMeanLoading(mockState)).toEqual(false);
+      expect(
+        selectors.isSearchDidYouMeanLoading(
+          mockState,
+          mockSearchDidYouMeanHash,
+        ),
+      ).toEqual(false);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getSearchDidYouMeanError()', () => {
-    it('should get the error property from state to a given search', () => {
-      const spy = jest.spyOn(fromReducer, 'getError');
-      const expectedResult = mockState.search.didYouMean.error;
+  describe('getSearchIntentsError()', () => {
+    it('should get the search error property from state', () => {
+      const expectedResult =
+        mockState.search.didYouMean[mockSearchDidYouMeanHash].error;
+      const spy = jest.spyOn(selectors, 'getSearchDidYouMeanError');
 
-      expect(selectors.getSearchDidYouMeanError(mockState)).toEqual(
-        expectedResult,
-      );
+      expect(
+        selectors.getSearchDidYouMeanError(mockState, mockSearchDidYouMeanHash),
+      ).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getSearchDidYouMeanQuery()', () => {
-    it('should get the current query to get did you mean results', () => {
-      expect(selectors.getSearchDidYouMeanQuery(mockState)).toEqual(
-        mockSearchDidYouMeanQuery,
-      );
+  describe('getSearchIntentsResult()', () => {
+    it('should get the result of a given search', () => {
+      expect(
+        selectors.getSearchDidYouMeanResult(
+          mockState,
+          mockSearchDidYouMeanHash,
+        ),
+      ).toEqual(mockSearchDidYouMeanResponse);
     });
   });
 
-  describe('getSearchDidYouMeanResult()', () => {
-    it('should get the did you mean - facets - result of a given search', () => {
-      expect(selectors.getSearchDidYouMeanResult(mockState)).toEqual(
-        mockSearchDidYouMeanResponse,
-      );
+  describe('isSearchDidYouMeanFetched()', () => {
+    it('should return true if fetched', () => {
+      expect(
+        selectors.isSearchDidYouMeanFetched(
+          mockState,
+          mockSearchDidYouMeanHash,
+        ),
+      ).toEqual(true);
+    });
+
+    it('should return true if a fetch error occured', () => {
+      expect(
+        selectors.isSearchDidYouMeanFetched(
+          mockSearchDidYouMeanErrorState,
+          mockSearchDidYouMeanHash,
+        ),
+      ).toEqual(true);
+    });
+
+    it('should return false if not fetched', () => {
+      expect(
+        selectors.isSearchDidYouMeanFetched(
+          mockSearchDidYouMeanInitialState,
+          mockSearchDidYouMeanHash,
+        ),
+      ).toEqual(false);
+    });
+
+    it('should return false if is loading', () => {
+      expect(
+        selectors.isSearchDidYouMeanFetched(
+          mockSearchDidYouMeanLoadingState,
+          mockSearchDidYouMeanHash,
+        ),
+      ).toEqual(false);
     });
   });
 });

@@ -1,7 +1,9 @@
-import * as fromReducer from '../../reducer/searchSuggestions';
-import * as selectors from '..';
+import * as selectors from '../../selectors/searchSuggestions';
 import {
-  mockSearchSuggestionsQuery,
+  mockSearchSuggestionsErrorState,
+  mockSearchSuggestionsHash,
+  mockSearchSuggestionsInitialState,
+  mockSearchSuggestionsLoadingState,
   mockSearchSuggestionsResponse,
   mockSearchSuggestionsState,
 } from 'tests/__fixtures__/search';
@@ -15,38 +17,80 @@ describe('search suggestions redux selectors', () => {
 
   describe('areSearchSuggestionsLoading()', () => {
     it('should get the loading status of a given search', () => {
-      const spy = jest.spyOn(fromReducer, 'getIsLoading');
+      const spy = jest.spyOn(selectors, 'areSearchSuggestionsLoading');
 
-      expect(selectors.areSearchSuggestionsLoading(mockState)).toEqual(false);
+      expect(
+        selectors.areSearchSuggestionsLoading(
+          mockState,
+          mockSearchSuggestionsHash,
+        ),
+      ).toEqual(false);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('getSearchSuggestionsError()', () => {
-    it('should get the error property from state to a given search', () => {
-      const spy = jest.spyOn(fromReducer, 'getError');
-      const expectedResult = mockState.search.suggestions.error;
+    it('should get the search error property from state', () => {
+      const expectedResult =
+        mockState.search.suggestions[mockSearchSuggestionsHash].error;
+      const spy = jest.spyOn(selectors, 'getSearchSuggestionsError');
 
-      expect(selectors.getSearchSuggestionsError(mockState)).toEqual(
-        expectedResult,
-      );
+      expect(
+        selectors.getSearchSuggestionsError(
+          mockState,
+          mockSearchSuggestionsHash,
+        ),
+      ).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getSearchSuggestionsQuery()', () => {
-    it('should get the current query to get suggestions', () => {
-      expect(selectors.getSearchSuggestionsQuery(mockState)).toEqual(
-        mockSearchSuggestionsQuery,
-      );
+  describe('getSearchSuggestionsResult()', () => {
+    it('should get the result of a given search', () => {
+      expect(
+        selectors.getSearchSuggestionsResult(
+          mockState,
+          mockSearchSuggestionsHash,
+        ),
+      ).toEqual(mockSearchSuggestionsResponse);
     });
   });
 
-  describe('getSearchSuggestionsResult()', () => {
-    it('should get the suggestions result of a given search', () => {
-      expect(selectors.getSearchSuggestionsResult(mockState)).toEqual(
-        mockSearchSuggestionsResponse,
-      );
+  describe('areSearchSuggestionsFetched()', () => {
+    it('should return true if fetched', () => {
+      expect(
+        selectors.areSearchSuggestionsFetched(
+          mockState,
+          mockSearchSuggestionsHash,
+        ),
+      ).toEqual(true);
+    });
+
+    it('should return true if a fetch error occured', () => {
+      expect(
+        selectors.areSearchSuggestionsFetched(
+          mockSearchSuggestionsErrorState,
+          mockSearchSuggestionsHash,
+        ),
+      ).toEqual(true);
+    });
+
+    it('should return false if not fetched', () => {
+      expect(
+        selectors.areSearchSuggestionsFetched(
+          mockSearchSuggestionsInitialState,
+          mockSearchSuggestionsHash,
+        ),
+      ).toEqual(false);
+    });
+
+    it('should return false if is loading', () => {
+      expect(
+        selectors.areSearchSuggestionsFetched(
+          mockSearchSuggestionsLoadingState,
+          mockSearchSuggestionsHash,
+        ),
+      ).toEqual(false);
     });
   });
 });

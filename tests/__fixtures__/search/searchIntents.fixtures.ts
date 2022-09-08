@@ -1,3 +1,5 @@
+export const mockSearchIntentsHash = 'white dresses!0';
+
 export const mockSearchIntentsRedirectUrl = 'mockRedirectUrl';
 
 export const mockSearchIntentsQuery = {
@@ -81,9 +83,12 @@ export const mockSearchIntentsInvalidResponse = {
 export const mockSearchIntentsInitialState = {
   search: {
     intents: {
-      error: null,
-      isLoading: false,
-      result: null,
+      [mockSearchIntentsHash]: {
+        error: null,
+        isLoading: false,
+        result: null,
+        query: null,
+      },
     },
   },
 };
@@ -91,9 +96,12 @@ export const mockSearchIntentsInitialState = {
 export const mockSearchIntentsState = {
   search: {
     intents: {
-      error: null,
-      isLoading: false,
-      result: mockSearchIntentsResponse,
+      [mockSearchIntentsHash]: {
+        error: null,
+        isLoading: false,
+        result: mockSearchIntentsResponse,
+        query: mockSearchIntentsQuery,
+      },
     },
   },
 };
@@ -101,9 +109,12 @@ export const mockSearchIntentsState = {
 export const mockSearchIntentsLoadingState = {
   search: {
     intents: {
-      error: null,
-      isLoading: true,
-      result: null,
+      [mockSearchIntentsHash]: {
+        error: null,
+        isLoading: true,
+        result: null,
+        query: mockSearchIntentsQuery,
+      },
     },
   },
 };
@@ -111,9 +122,12 @@ export const mockSearchIntentsLoadingState = {
 export const mockSearchIntentsErrorState = {
   search: {
     intents: {
-      error: { message: 'An awesome, fascinating and incredible error' },
-      isLoading: false,
-      result: null,
+      [mockSearchIntentsHash]: {
+        error: { message: 'An awesome, fascinating and incredible error' },
+        isLoading: false,
+        result: null,
+        query: mockSearchIntentsQuery,
+      },
     },
   },
 };

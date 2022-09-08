@@ -24,7 +24,7 @@ describe('search did you mean client', () => {
       ).resolves.toEqual(mockSearchDidYouMeanResponse);
 
       expect(spy).toHaveBeenCalledWith(
-        '/commerce/v1/search/didyoumean?genders=0&genders=1&searchTerms=balenciga',
+        '/commerce/v1/search/didyoumean?genders=0&genders=1&searchTerms=balenciaga',
         expectedConfig,
       );
     });
@@ -38,7 +38,7 @@ describe('search did you mean client', () => {
       ).rejects.toMatchSnapshot();
 
       expect(spy).toHaveBeenCalledWith(
-        '/commerce/v1/search/didyoumean?genders=0&genders=1&searchTerms=balenciga',
+        '/commerce/v1/search/didyoumean?genders=0&genders=1&searchTerms=balenciaga',
         expectedConfig,
       );
     });

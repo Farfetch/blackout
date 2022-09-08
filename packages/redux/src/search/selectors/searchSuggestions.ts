@@ -1,13 +1,21 @@
-import * as fromSearchSuggestionsReducer from '../reducer/searchSuggestions';
-import type { SearchState } from '../types';
+import type { SearchHash as Hash } from '../types';
 import type { StoreState } from '../../types';
+
+/*
+ * @param state - Application state.
+ * @param hash  - Hash key for each content.
+ *
+ * @returns - Content from a specific hash.
+ */
+const getContentByHash = (state: StoreState, hash: Hash) =>
+  state.search?.suggestions[hash];
 
 /**
  * Retrieves the error thrown by current search term.
  *
  * @example
  * ```
- * import { getSearchSuggestionsError } from '@farfetch/blackout-redux/search';
+ * import { getSearchSuggestionsError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     error: getSearchSuggestionsError(state)
@@ -19,20 +27,18 @@ import type { StoreState } from '../../types';
  *
  * @returns Search error.
  */
-export const getSearchSuggestionsError = (state: StoreState) =>
-  fromSearchSuggestionsReducer.getError(
-    (state.search as SearchState).suggestions,
-  );
+export const getSearchSuggestionsError = (state: StoreState, hash: Hash) =>
+  getContentByHash(state, hash)?.error;
 
 /**
  * Retrieves the loading condition from current search term.
  *
  * @example
  * ```
- * import { areSearchSuggestionsLoading } from '@farfetch/blackout-redux/search';
+ * import { areSearchSuggestionsLoading } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
- *     isLoading: areSearchSuggestionsLoading(state)
+ *     isLoading: areSearchSuggestionsLoading(state, hash)
  * });
  *
  * ```
@@ -41,20 +47,18 @@ export const getSearchSuggestionsError = (state: StoreState) =>
  *
  * @returns Whether a search term response is loading or not.
  */
-export const areSearchSuggestionsLoading = (state: StoreState) =>
-  fromSearchSuggestionsReducer.getIsLoading(
-    (state.search as SearchState).suggestions,
-  );
+export const areSearchSuggestionsLoading = (state: StoreState, hash: Hash) =>
+  getContentByHash(state, hash)?.isLoading;
 
 /**
  * Retrieves the current query applied to get suggestions.
  *
  * @example
  * ```
- * import { getSearchSuggestionsQuery } from '@farfetch/blackout-redux/search';
+ * import { getSearchSuggestionsQuery } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
- *     query: getSearchSuggestionsQuery(state)
+ *     query: getSearchSuggestionsQuery(state, hash)
  * });
  *
  * ```
@@ -63,20 +67,17 @@ export const areSearchSuggestionsLoading = (state: StoreState) =>
  *
  * @returns The current query.
  */
-export const getSearchSuggestionsQuery = (state: StoreState) =>
-  fromSearchSuggestionsReducer.getQuery(
-    (state.search as SearchState).suggestions,
-  );
-
+export const getSearchSuggestionsQuery = (state: StoreState, hash: Hash) =>
+  getContentByHash(state, hash)?.query;
 /**
  * Retrieves the suggestions of a specific search.
  *
  * @example
  * ```
- * import { getSearchSuggestionsResult } from '@farfetch/blackout-redux/search';
+ * import { getSearchSuggestionsResult } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
- *     suggestions: getSearchSuggestionsResult(state)
+ *     suggestions: getSearchSuggestionsResult(state, hash)
  * });
  *
  * ```
@@ -85,7 +86,29 @@ export const getSearchSuggestionsQuery = (state: StoreState) =>
  *
  * @returns Search suggestions.
  */
-export const getSearchSuggestionsResult = (state: StoreState) =>
-  fromSearchSuggestionsReducer.getResult(
-    (state.search as SearchState).suggestions,
-  );
+export const getSearchSuggestionsResult = (state: StoreState, hash: Hash) =>
+  getContentByHash(state, hash)?.result;
+
+/**
+ * Retrieves if the search suggestions has been fetched.
+ *
+ * Will return true if a fetch request
+ * has been made that returned either successfully or failed
+ * and false otherwise.
+ *
+ * @example
+ * ```
+ * import { areSearchSuggestionsFetched } from '@farfetch/blackout-redux';
+ *
+ * const mapStateToProps = state => ({
+ *     isFetched: areSearchSuggestionsFetched(state)
+ * });
+ * ```
+ * @param state - Application state.
+ *
+ * @returns isFetched status of the search suggestions.
+ */
+export const areSearchSuggestionsFetched = (state: StoreState, hash: Hash) =>
+  (!!getSearchSuggestionsResult(state, hash) ||
+    !!getSearchSuggestionsError(state, hash)) &&
+  !areSearchSuggestionsLoading(state, hash);

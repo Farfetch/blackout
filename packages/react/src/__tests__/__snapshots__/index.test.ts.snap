@@ -64,6 +64,7 @@ Object {
     "RECOMMENDATIONS": "Recommendations",
     "WISHLIST": "Wishlist",
   },
+  "getSearchRedirectUrl": [Function],
   "getTimeInMinutes": [Function],
   "headers": Object {
     "ACCEPT_LANGUAGE": "Accept-Language",
@@ -187,7 +188,9 @@ Object {
   "useProductDetails": [Function],
   "useProductListing": [Function],
   "useProductSizeGuides": [Function],
+  "useSearchDidYouMean": [Function],
   "useSearchIntents": [Function],
+  "useSearchSuggestions": [Function],
   "useUser": [Function],
   "useUserAddress": [Function],
   "useUserAddresses": [Function],

@@ -1,92 +1,46 @@
 import * as actionTypes from '../actionTypes';
-import { AnyAction, combineReducers, Reducer } from 'redux';
-import type { SearchDidYouMeanState } from '../types';
+import type { AnyAction } from 'redux';
+import type { SearchHash as Hash, SearchDidYouMeanState } from '../types';
 
-export const INITIAL_STATE: SearchDidYouMeanState = {
-  error: null,
-  isLoading: false,
-  query: null,
-  result: null,
-};
+export const INITIAL_STATE: Record<Hash, SearchDidYouMeanState> = {};
 
-const error = (state = INITIAL_STATE.error, action: AnyAction) => {
+const searchDidYouMeanReducer = (state = INITIAL_STATE, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_SEARCH_DID_YOU_MEAN_REQUEST:
-      return INITIAL_STATE.error;
+      return {
+        ...state,
+        [action.meta.hash]: {
+          result: null,
+          isLoading: true,
+          error: null,
+          query: action.meta.query,
+        },
+      };
     case actionTypes.FETCH_SEARCH_DID_YOU_MEAN_FAILURE:
-      return action.payload.error;
-    default:
-      return state;
-  }
-};
-
-const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
-  switch (action.type) {
-    case actionTypes.FETCH_SEARCH_DID_YOU_MEAN_REQUEST:
-      return true;
+      return {
+        ...state,
+        [action.meta.hash]: {
+          result: null,
+          isLoading: false,
+          error: action.payload.error,
+          query: action.meta.query,
+        },
+      };
     case actionTypes.FETCH_SEARCH_DID_YOU_MEAN_SUCCESS:
-    case actionTypes.FETCH_SEARCH_DID_YOU_MEAN_FAILURE:
-      return INITIAL_STATE.isLoading;
+      return {
+        ...state,
+        [action.meta.hash]: {
+          result: action.payload.result,
+          isLoading: false,
+          error: false,
+          query: action.meta.query,
+        },
+      };
+    case actionTypes.RESET_SEARCH_DID_YOU_MEAN:
+      return INITIAL_STATE;
     default:
       return state;
   }
-};
-
-const query = (state = INITIAL_STATE.query, action: AnyAction) => {
-  switch (action.type) {
-    case actionTypes.FETCH_SEARCH_DID_YOU_MEAN_REQUEST:
-      return action.meta.query;
-    default:
-      return state;
-  }
-};
-
-const result = (state = INITIAL_STATE.result, action: AnyAction) => {
-  switch (action.type) {
-    case actionTypes.FETCH_SEARCH_DID_YOU_MEAN_SUCCESS:
-      return action.payload.result;
-    default:
-      return state;
-  }
-};
-
-export const getError = (
-  state: SearchDidYouMeanState,
-): SearchDidYouMeanState['error'] => state.error;
-export const getIsLoading = (
-  state: SearchDidYouMeanState,
-): SearchDidYouMeanState['isLoading'] => state.isLoading;
-export const getQuery = (
-  state: SearchDidYouMeanState,
-): SearchDidYouMeanState['query'] => state.query;
-export const getResult = (
-  state: SearchDidYouMeanState,
-): SearchDidYouMeanState['result'] => state.result;
-
-const reducer = combineReducers({
-  error,
-  isLoading,
-  query,
-  result,
-});
-
-/**
- * Reducer for search did you mean state.
- *
- * @param state  - Current redux state.
- * @param action - Action dispatched.
- *
- * @returns New state.
- */
-const searchDidYouMeanReducer: Reducer<SearchDidYouMeanState> = (
-  state,
-  action,
-) => {
-  if (action.type === actionTypes.RESET_SEARCH_DID_YOU_MEAN) {
-    return INITIAL_STATE;
-  }
-
-  return reducer(state, action);
 };
 
 export default searchDidYouMeanReducer;
