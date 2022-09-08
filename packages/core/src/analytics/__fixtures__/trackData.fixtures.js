@@ -71,6 +71,12 @@ export const customTrackMockData = {
     deliveryType: 'Standard/Standard',
     interactionType: 'click',
   },
+  [eventTypes.PAYMENT_INFO_ADDED]: {
+    step: '1',
+    deliveryType: 'Standard/Standard',
+    interactionType: 'click',
+    paymentType: 'credit',
+  },
 };
 
 export const expectedTrackPayload = {

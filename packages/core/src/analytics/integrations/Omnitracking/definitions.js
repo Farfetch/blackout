@@ -542,6 +542,13 @@ export const trackEventsMapper = {
     deliveryInformationDetails: getDeliveryInformationDetails(data),
     interactionType: data.properties?.interactionType,
   }),
+  [eventTypes.PAYMENT_INFO_ADDED]: data => ({
+    tid: 2912,
+    checkoutStep: data.properties?.step,
+    deliveryInformationDetails: getDeliveryInformationDetails(data),
+    interactionType: data.properties?.interactionType,
+    selectedPaymentMethod: data.properties?.paymentType,
+  }),
 };
 
 /**
