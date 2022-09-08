@@ -14,6 +14,7 @@ import {
   expectedTrackPayload as mockExpectedTrackPayload,
 } from '../__fixtures__';
 import {
+  OPTION_HTTP_CLIENT,
   OPTION_SEARCH_QUERY_PARAMETERS,
   OPTION_TRANSFORM_PAYLOAD,
 } from '../constants';
@@ -914,6 +915,47 @@ describe('Omnitracking', () => {
         expect(mockLoggerError).toHaveBeenCalledWith(
           `[Omnitracking] - Invalid value provided for ${OPTION_SEARCH_QUERY_PARAMETERS} option. All parameters should be typed as string`,
         );
+      });
+    });
+
+    describe('httpClient', () => {
+      it('Should output an error on the console if the httpClient type is not a function', () => {
+        omnitracking = new Omnitracking(
+          {
+            // @ts-expect-error
+            [OPTION_HTTP_CLIENT]: 'foo',
+          },
+          loadIntegrationData,
+          strippedDownAnalytics,
+        );
+
+        expect(mockLoggerError).toHaveBeenCalledWith(
+          '[Omnitracking] - Invalid `httpClient` option. Please make to pass a valid function to perform the http requests to the omnitracking service.',
+        );
+      });
+
+      it('Should allow to pass a custom httpClient and call it when tracking an event', async () => {
+        const mockHttpClient = jest.fn();
+
+        omnitracking = new Omnitracking(
+          {
+            [OPTION_HTTP_CLIENT]: mockHttpClient,
+          },
+          loadIntegrationData,
+          strippedDownAnalytics,
+        );
+
+        await omnitracking.track(generateMockData());
+
+        expect(mockHttpClient).toHaveBeenCalledWith({
+          ...mockExpectedPagePayloadWeb,
+          parameters: {
+            ...mockExpectedPagePayloadWeb.parameters,
+            uniqueViewId: expect.any(String),
+            previousUniqueViewId: null,
+          },
+        });
+        expect(postTrackingSpy).not.toHaveBeenCalled();
       });
     });
   });
