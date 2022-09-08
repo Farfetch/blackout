@@ -6,7 +6,7 @@
 import {
   generatePaymentAttemptReferenceId,
   getCheckoutEventGenericProperties,
-  getDeliveryInformationDetails,
+  getCommonCheckoutStepTrackingData,
   getGenderValueFromProperties,
   getParameterValueFromEvent,
   getProductLineItems,
@@ -537,16 +537,22 @@ export const trackEventsMapper = {
     gender: getGenderValueFromProperties(data),
   }),
   [eventTypes.ADDRESS_INFO_ADDED]: data => ({
+    ...getCommonCheckoutStepTrackingData(data),
     tid: 2911,
-    checkoutStep: data.properties?.step,
-    deliveryInformationDetails: getDeliveryInformationDetails(data),
-    interactionType: data.properties?.interactionType,
   }),
   [eventTypes.PAYMENT_INFO_ADDED]: data => ({
+    ...getCommonCheckoutStepTrackingData(data),
     tid: 2912,
-    checkoutStep: data.properties?.step,
-    deliveryInformationDetails: getDeliveryInformationDetails(data),
-    interactionType: data.properties?.interactionType,
+    selectedPaymentMethod: data.properties?.paymentType,
+  }),
+  [eventTypes.SHIPPING_INFO_ADDED]: data => ({
+    ...getCommonCheckoutStepTrackingData(data),
+    tid: 2914,
+    selectedPaymentMethod: data.properties?.paymentType,
+  }),
+  [eventTypes.SHIPPING_METHOD_ADDED]: data => ({
+    ...getCommonCheckoutStepTrackingData(data),
+    tid: 2913,
     selectedPaymentMethod: data.properties?.paymentType,
   }),
 };
