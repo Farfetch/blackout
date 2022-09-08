@@ -115,6 +115,26 @@ Object {
 }
 `;
 
+exports[`Omnitracking definitions \`Shipping Info Added\` return should match the snapshot 1`] = `
+Object {
+  "checkoutStep": "2",
+  "deliveryInformationDetails": "{\\"courierType\\":\\"Standard/Standard\\"}",
+  "interactionType": "click",
+  "selectedPaymentMethod": "credit",
+  "tid": 2914,
+}
+`;
+
+exports[`Omnitracking definitions \`Shipping Method Added\` return should match the snapshot 1`] = `
+Object {
+  "checkoutStep": "2",
+  "deliveryInformationDetails": "{\\"courierType\\":\\"Standard/Standard\\"}",
+  "interactionType": "click",
+  "selectedPaymentMethod": "credit",
+  "tid": 2913,
+}
+`;
+
 exports[`Omnitracking definitions \`Sign-up Form Viewed\` return should match the snapshot 1`] = `
 Object {
   "tid": 10097,

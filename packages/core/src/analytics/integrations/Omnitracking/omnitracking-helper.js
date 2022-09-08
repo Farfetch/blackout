@@ -610,3 +610,16 @@ export const getDeliveryInformationDetails = data => {
     Object.keys(deliveryInfo).length ? deliveryInfo : undefined,
   );
 };
+
+/**
+ * Obtain Common Checkout Details.
+ *
+ * @param {object} data - The event's data.
+ *
+ * @returns {object} - Omnitracking's common checkout parameters.
+ */
+export const getCommonCheckoutStepTrackingData = data => ({
+  checkoutStep: data.properties?.step,
+  deliveryInformationDetails: getDeliveryInformationDetails(data),
+  interactionType: data.properties?.interactionType,
+});
