@@ -672,6 +672,40 @@ describe('Omnitracking', () => {
         );
       });
     });
+
+    describe('httpClient', () => {
+      it('Should output an error on the console if the httpClient type is not a function', () => {
+        omnitracking = new Omnitracking({
+          httpClient: 'foo',
+        });
+
+        expect(mockLoggerError).toHaveBeenCalledWith(
+          '[Omnitracking] - Invalid `httpClient` option. Please make to pass a valid function to perform the http requests to the omnitracking service.',
+        );
+      });
+
+      it('Should allow to pass a custom httpClient and call it when tracking an event', async () => {
+        const mockHttpClient = jest.fn();
+
+        omnitracking = new Omnitracking({
+          httpClient: mockHttpClient,
+        });
+
+        await omnitracking.track(generateMockData());
+
+        expect(mockHttpClient).toHaveBeenCalledWith({
+          ...expectedPagePayloadWeb,
+          parameters: {
+            ...expectedPagePayloadWeb.parameters,
+            uniqueViewId: expect.any(String),
+            previousUniqueViewId: null,
+            viewType: 'Others',
+            viewSubType: 'Others',
+          },
+        });
+        expect(postTrackingsSpy).not.toHaveBeenCalled();
+      });
+    });
   });
 
   describe('parameters', () => {
