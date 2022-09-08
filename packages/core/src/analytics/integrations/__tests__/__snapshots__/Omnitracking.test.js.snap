@@ -51,6 +51,16 @@ Object {
 }
 `;
 
+exports[`Omnitracking definitions \`Payment Info Added\` return should match the snapshot 1`] = `
+Object {
+  "checkoutStep": "1",
+  "deliveryInformationDetails": "{\\"courierType\\":\\"Standard/Standard\\"}",
+  "interactionType": "click",
+  "selectedPaymentMethod": "credit",
+  "tid": 2912,
+}
+`;
+
 exports[`Omnitracking definitions \`Place Order Started\` return should match the snapshot 1`] = `
 Array [
   Object {
