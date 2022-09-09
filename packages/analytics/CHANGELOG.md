@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.71](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.70...@farfetch/blackout-analytics@1.0.0-next.71) (2022-09-09)
+
+
+### Features
+
+* **analytics:** add new option to pass an http client to omnitracking integration ([ef61baf](https://github.com/Farfetch/blackout/commit/ef61bafe534d1d55e058054d324587415e423bd1))
+
+
+
+
+
 # [1.0.0-next.70](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.69...@farfetch/blackout-analytics@1.0.0-next.70) (2022-09-08)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
