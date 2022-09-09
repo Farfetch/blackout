@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.313](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.312...@farfetch/blackout-react@1.0.0-next.313) (2022-09-09)
+
+
+### Bug Fixes
+
+* **redux|client|react:** add search hooks ([828a0b4](https://github.com/Farfetch/blackout/commit/828a0b4016058efc1d4328da53968cb00d25eff7))
+
+
+### BREAKING CHANGES
+
+* **redux|client|react:** Search reducers refactor
+
+
+
+
+
 # [1.0.0-next.312](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.311...@farfetch/blackout-react@1.0.0-next.312) (2022-09-09)
 
 **Note:** Version bump only for package @farfetch/blackout-react
