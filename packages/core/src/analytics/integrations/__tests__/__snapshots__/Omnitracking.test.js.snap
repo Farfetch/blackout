@@ -79,8 +79,10 @@ Array [
 
 exports[`Omnitracking definitions \`Product Added to Cart\` return should match the snapshot 1`] = `
 Object {
-  "tid": 16,
-  "val": null,
+  "actionArea": "dummy",
+  "lineItems": "[{\\"productId\\":12345678,\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
+  "priceCurrency": undefined,
+  "tid": 2915,
 }
 `;
 
@@ -95,6 +97,15 @@ exports[`Omnitracking definitions \`Product List Viewed\` return should match th
 Object {
   "lineItems": "[{\\"productId\\":12345678,\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
   "tid": 2832,
+}
+`;
+
+exports[`Omnitracking definitions \`Product Removed from Cart\` return should match the snapshot 1`] = `
+Object {
+  "actionArea": "dummy",
+  "lineItems": "[{\\"productId\\":12345678,\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
+  "priceCurrency": undefined,
+  "tid": 131,
 }
 `;
 

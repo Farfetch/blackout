@@ -89,6 +89,12 @@ export const customTrackMockData = {
     interactionType: 'click',
     paymentType: 'credit',
   },
+  [eventTypes.PRODUCT_REMOVED_FROM_CART]: {
+    actionArea: 'dummy',
+  },
+  [eventTypes.PRODUCT_ADDED_TO_CART]: {
+    actionArea: 'dummy',
+  },
 };
 
 export const expectedTrackPayload = {

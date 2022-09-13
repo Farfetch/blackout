@@ -444,25 +444,6 @@ export const trackEventsMapper = {
   [eventTypes.LOGOUT]: () => ({
     tid: 431,
   }),
-  [eventTypes.PRODUCT_ADDED_TO_CART]: data => {
-    const val =
-      getParameterValueFromEvent(data, PRODUCT_ID_PARAMETER) ||
-      getParameterValueFromEvent(data, PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST);
-
-    switch (data.properties?.from) {
-      case fromParameterTypes.PDP:
-        return {
-          tid: 598,
-          val,
-        };
-
-      default:
-        return {
-          tid: 16,
-          val,
-        };
-    }
-  },
   [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: data => {
     const val =
       getParameterValueFromEvent(data, PRODUCT_ID_PARAMETER) ||
@@ -554,6 +535,18 @@ export const trackEventsMapper = {
     ...getCommonCheckoutStepTrackingData(data),
     tid: 2913,
     selectedPaymentMethod: data.properties?.paymentType,
+  }),
+  [eventTypes.PRODUCT_ADDED_TO_CART]: data => ({
+    tid: 2915,
+    actionArea: data.properties?.actionArea,
+    priceCurrency: data.properties?.currency,
+    lineItems: getProductLineItems(data),
+  }),
+  [eventTypes.PRODUCT_REMOVED_FROM_CART]: data => ({
+    tid: 131,
+    actionArea: data.properties?.actionArea,
+    priceCurrency: data.properties?.currency,
+    lineItems: getProductLineItems(data),
   }),
 };
 

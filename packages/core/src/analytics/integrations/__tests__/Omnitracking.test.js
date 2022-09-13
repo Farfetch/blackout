@@ -474,57 +474,6 @@ describe('Omnitracking', () => {
         expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
       });
 
-      it('event is `Product Added to Cart` without from parameter', async () => {
-        const productId = 10000;
-        const tid = 16;
-
-        const data = generateTrackMockData({
-          event: eventTypes.PRODUCT_ADDED_TO_CART,
-          properties: {
-            [definitions.PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST]: productId, // Here we simulate the event being dispatched by the bag middleware
-          },
-        });
-
-        await omnitracking.track(data);
-
-        const expectedPayload = {
-          ...expectedTrackPayload,
-          parameters: {
-            ...expectedTrackPayload.parameters,
-            tid,
-            val: productId,
-          },
-        };
-
-        expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
-      });
-
-      it('event is `Product Added to Cart` from PDP', async () => {
-        const productId = 10000;
-        const tid = 598;
-
-        const data = generateTrackMockData({
-          event: eventTypes.PRODUCT_ADDED_TO_CART,
-          properties: {
-            [definitions.PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST]: productId, // Here we simulate the event being dispatched by the bag middleware
-            from: fromParameterTypes.PDP,
-          },
-        });
-
-        await omnitracking.track(data);
-
-        const expectedPayload = {
-          ...expectedTrackPayload,
-          parameters: {
-            ...expectedTrackPayload.parameters,
-            tid,
-            val: productId,
-          },
-        };
-
-        expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
-      });
-
       it('event is `Product Added to Wishlist` without from parameter', async () => {
         const productId = 10000;
         const tid = 35;
