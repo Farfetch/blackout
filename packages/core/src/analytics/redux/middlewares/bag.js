@@ -177,6 +177,7 @@ const getProductData = async (analyticsInstance, state, action) => {
     price: priceWithDiscount,
     priceWithoutDiscount,
     size,
+    sizeId,
     sku,
     quantity,
     variant,
@@ -201,6 +202,7 @@ const getBagData = action => ({
   listId: get(action, 'meta.listId'),
   position: get(action, 'meta.position'),
   value: get(action, 'meta.value'),
+  actionArea: get(action, 'meta.actionArea'),
 });
 
 /**
