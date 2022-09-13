@@ -119,6 +119,7 @@ const getProductData = async (analyticsInstance, state, wishlistItem) => {
   const priceWithDiscount = get(wishlistItem, 'price.includingTaxes');
   const quantity = get(wishlistItem, 'quantity');
   const size = get(wishlistItem, 'size.name');
+  const sizeId = get(wishlistItem, 'size.id');
 
   const priceWithoutDiscount = get(
     wishlistItem,
@@ -141,6 +142,7 @@ const getProductData = async (analyticsInstance, state, wishlistItem) => {
     currency: await getCurrency(analyticsInstance),
     quantity,
     size,
+    sizeId,
   };
 };
 

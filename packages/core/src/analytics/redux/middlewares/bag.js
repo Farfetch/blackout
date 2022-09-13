@@ -202,7 +202,6 @@ const getBagData = action => ({
   listId: get(action, 'meta.listId'),
   position: get(action, 'meta.position'),
   value: get(action, 'meta.value'),
-  actionArea: get(action, 'meta.actionArea'),
 });
 
 /**

@@ -46,7 +46,7 @@ export const customTrackMockData = {
     step: 2,
   },
   [eventTypes.SHARE]: {
-    actionArea: 'share_button_facebook',
+    method: 'share_button_facebook',
     productId: 123,
   },
   [eventTypes.CHECKOUT_STARTED]: {
@@ -90,10 +90,22 @@ export const customTrackMockData = {
     paymentType: 'credit',
   },
   [eventTypes.PRODUCT_REMOVED_FROM_CART]: {
-    actionArea: 'dummy',
+    from: 'PDP',
+    currency: 'EUR',
   },
   [eventTypes.PRODUCT_ADDED_TO_CART]: {
-    actionArea: 'dummy',
+    from: 'PDP',
+    currency: 'EUR',
+  },
+  [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: {
+    from: 'PDP',
+    wishlistId: '4c040892-cc27-4294-99e3-524b14eddf33',
+    currency: 'EUR',
+  },
+  [eventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: {
+    from: 'PDP',
+    wishlistId: '4c040892-cc27-4294-99e3-524b14eddf33',
+    currency: 'EUR',
   },
 };
 

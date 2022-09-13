@@ -79,17 +79,20 @@ Array [
 
 exports[`Omnitracking definitions \`Product Added to Cart\` return should match the snapshot 1`] = `
 Object {
-  "actionArea": "dummy",
+  "actionArea": "PDP",
   "lineItems": "[{\\"productId\\":12345678,\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
-  "priceCurrency": undefined,
+  "priceCurrency": "EUR",
   "tid": 2915,
 }
 `;
 
 exports[`Omnitracking definitions \`Product Added to Wishlist\` return should match the snapshot 1`] = `
 Object {
-  "tid": 35,
-  "val": null,
+  "actionArea": "PDP",
+  "lineItems": "[{\\"productId\\":12345678,\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
+  "priceCurrency": "EUR",
+  "tid": 2916,
+  "wishlistId": "4c040892-cc27-4294-99e3-524b14eddf33",
 }
 `;
 
@@ -100,11 +103,21 @@ Object {
 }
 `;
 
+exports[`Omnitracking definitions \`Product Removed From Wishlist\` return should match the snapshot 1`] = `
+Object {
+  "actionArea": "PDP",
+  "lineItems": "[{\\"productId\\":12345678,\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
+  "priceCurrency": "EUR",
+  "tid": 2925,
+  "wishlistId": "4c040892-cc27-4294-99e3-524b14eddf33",
+}
+`;
+
 exports[`Omnitracking definitions \`Product Removed from Cart\` return should match the snapshot 1`] = `
 Object {
-  "actionArea": "dummy",
+  "actionArea": "PDP",
   "lineItems": "[{\\"productId\\":12345678,\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
-  "priceCurrency": undefined,
+  "priceCurrency": "EUR",
   "tid": 131,
 }
 `;
