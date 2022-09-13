@@ -290,7 +290,6 @@ describe('bagMiddleware()', () => {
           quantity,
           size: sizes[0].id,
           value,
-          actionArea: 'area',
         },
       });
 
@@ -314,7 +313,6 @@ describe('bagMiddleware()', () => {
         sku,
         variant: colorName,
         value,
-        actionArea: 'area',
       });
     });
   });

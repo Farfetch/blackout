@@ -8,13 +8,11 @@ import {
   getCheckoutEventGenericProperties,
   getCommonCheckoutStepTrackingData,
   getGenderValueFromProperties,
-  getParameterValueFromEvent,
   getProductLineItems,
   getProductLineItemsQuantity,
   getValParameterForEvent,
 } from './omnitracking-helper';
 import eventTypes from '../../types/eventTypes';
-import fromParameterTypes from '../../types/fromParameterTypes';
 import pageTypes from '../../types/pageTypes';
 
 export const PRODUCT_ID_PARAMETER = 'productId';
@@ -444,43 +442,6 @@ export const trackEventsMapper = {
   [eventTypes.LOGOUT]: () => ({
     tid: 431,
   }),
-  [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: data => {
-    const val =
-      getParameterValueFromEvent(data, PRODUCT_ID_PARAMETER) ||
-      getParameterValueFromEvent(data, PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST);
-
-    switch (data.properties?.from) {
-      case fromParameterTypes.PDP:
-        return {
-          tid: 35,
-          val,
-        };
-
-      case fromParameterTypes.BAG:
-        return {
-          tid: 135,
-          val,
-        };
-
-      case fromParameterTypes.RECOMMENDATIONS:
-        return {
-          tid: 531,
-          val,
-        };
-
-      case fromParameterTypes.RECENTLY_VIEWED:
-        return {
-          tid: 532,
-          val,
-        };
-
-      default:
-        return {
-          tid: 35,
-          val,
-        };
-    }
-  },
   [eventTypes.PRODUCT_LIST_VIEWED]: data => ({
     tid: 2832,
     lineItems: getProductLineItems(data),
@@ -500,7 +461,7 @@ export const trackEventsMapper = {
   }),
   [eventTypes.SHARE]: data => ({
     tid: 1205,
-    actionArea: data.properties.actionArea,
+    actionArea: data.properties?.method,
     productId: data.properties.id,
   }),
   [eventTypes.PROMOCODE_APPLIED]: data => ({
@@ -538,14 +499,28 @@ export const trackEventsMapper = {
   }),
   [eventTypes.PRODUCT_ADDED_TO_CART]: data => ({
     tid: 2915,
-    actionArea: data.properties?.actionArea,
+    actionArea: data.properties?.from,
     priceCurrency: data.properties?.currency,
     lineItems: getProductLineItems(data),
   }),
   [eventTypes.PRODUCT_REMOVED_FROM_CART]: data => ({
     tid: 131,
-    actionArea: data.properties?.actionArea,
+    actionArea: data.properties?.from,
     priceCurrency: data.properties?.currency,
+    lineItems: getProductLineItems(data),
+  }),
+  [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: data => ({
+    tid: 2916,
+    actionArea: data.properties?.from,
+    priceCurrency: data.properties?.currency,
+    wishlistId: data.properties?.wishlistId,
+    lineItems: getProductLineItems(data),
+  }),
+  [eventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: data => ({
+    tid: 2925,
+    actionArea: data.properties?.from,
+    priceCurrency: data.properties?.currency,
+    wishlistId: data.properties?.wishlistId,
     lineItems: getProductLineItems(data),
   }),
 };
