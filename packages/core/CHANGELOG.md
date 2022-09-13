@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.71.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.70.0...@farfetch/blackout-core@1.71.0) (2022-09-13)
+
+
+### Features
+
+* **core:** add omnitracking's address info mappings ([40cb61a](https://github.com/Farfetch/blackout/commit/40cb61a7bc73f5e2251abc1fbef68066a9bf4942))
+* **core:** add omnitracking's bag events mappings ([a0a7388](https://github.com/Farfetch/blackout/commit/a0a7388295c905569de56e988ee083c93c1129f5))
+* **core:** add omnitracking's payment info mappings ([1e73237](https://github.com/Farfetch/blackout/commit/1e73237ba41e225fecbc354ec1a2626e5a9c9d4c))
+* **core:** add omnitracking's shipping mappings ([d76a483](https://github.com/Farfetch/blackout/commit/d76a48308df72ba11c3a7b2d35b75bdadf9c9f44))
+* **core:** add omnitracking's wishlistbag events mappings ([f679b1c](https://github.com/Farfetch/blackout/commit/f679b1c99a85b8b47e39b050f3af1d2b28efe4d4))
+* **core:** update omnitracking's contract to v1.15 ([548d914](https://github.com/Farfetch/blackout/commit/548d91491cd64f691a8c7af74123e2e41653c7bb))
+
+
+
+
+
 # [1.70.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.69.0...@farfetch/blackout-core@1.70.0) (2022-09-06)
 
 
