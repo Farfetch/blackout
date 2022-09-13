@@ -490,7 +490,7 @@ export const getCLientCountryFromCulture = culture => {
 export const getProductLineItems = data => {
   const properties = data?.properties || {};
   const productsList = properties.products;
-  const productId = properties.productId;
+  const productId = properties.productId || properties.id;
 
   if (productsList && productsList.length) {
     const mappedProductList = productsList.map(product => ({

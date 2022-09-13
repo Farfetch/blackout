@@ -290,6 +290,7 @@ describe('bagMiddleware()', () => {
           quantity,
           size: sizes[0].id,
           value,
+          actionArea: 'area',
         },
       });
 
@@ -309,9 +310,11 @@ describe('bagMiddleware()', () => {
         priceWithoutDiscount,
         quantity,
         size: sizes[0].name,
+        sizeId: sizes[0].id,
         sku,
         variant: colorName,
         value,
+        actionArea: 'area',
       });
     });
   });
@@ -351,6 +354,7 @@ describe('bagMiddleware()', () => {
         quantity,
         sku,
         size: sizes[0].name,
+        sizeId: sizes[0].id,
         value,
         variant: colorName,
       });
@@ -394,6 +398,7 @@ describe('bagMiddleware()', () => {
         quantity: 4,
         sku,
         size: sizes[0].name,
+        sizeId: sizes[0].id,
         oldSize: sizes[0].name,
         variant: colorName,
       });
@@ -435,6 +440,7 @@ describe('bagMiddleware()', () => {
         quantity: 1,
         sku,
         size: sizes[0].name,
+        sizeId: sizes[0].id,
         oldSize: sizes[0]?.name,
         variant: colorName,
       });
@@ -484,6 +490,7 @@ describe('bagMiddleware()', () => {
         oldQuantity: 5,
         quantity: 5,
         size: sizes[1].name,
+        sizeId: sizes[1].id,
       };
 
       expect(trackSpy).nthCalledWith(1, eventTypes.PRODUCT_UPDATED, {
@@ -494,6 +501,7 @@ describe('bagMiddleware()', () => {
         ...baseData,
         quantity: 5,
         size: sizes[0].name,
+        sizeId: sizes[1].id,
       });
 
       expect(trackSpy).nthCalledWith(3, eventTypes.PRODUCT_ADDED_TO_CART, {
@@ -559,6 +567,7 @@ describe('bagMiddleware()', () => {
         priceWithoutDiscount: 10,
         quantity,
         size: sizes[0].name,
+        sizeId: sizes[0].id,
         sku,
         variant: colorName,
       };
