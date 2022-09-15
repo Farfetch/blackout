@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.314](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.313...@farfetch/blackout-redux@1.0.0-next.314) (2022-09-15)
+
+
+### Bug Fixes
+
+* **redux:** update getProductsListProducts selector to return brand data ([03bf002](https://github.com/Farfetch/blackout/commit/03bf002240fb8bd0bcebd2c867cdda44fb4aee4b))
+
+
+
+
+
 # [1.0.0-next.313](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.312...@farfetch/blackout-redux@1.0.0-next.313) (2022-09-09)
 
 
