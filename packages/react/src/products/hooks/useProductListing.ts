@@ -103,6 +103,7 @@ const useProductListing = (
       ? {
           ...listing,
           pagination,
+          hash: productListingHash,
           items: products,
         }
       : undefined,

@@ -19,7 +19,7 @@ describe('products lists serverInitialState()', () => {
     const slug = '/en-pt/sets/woman?pageIndex=1&sort=price&sortDirection=asc';
     const model = {
       ...mockProductsListModel,
-      pageType: 'sets',
+      pageType: 'set',
       slug,
     };
 

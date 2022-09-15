@@ -4,6 +4,7 @@ import {
   getMaxDepth,
 } from '../utils';
 import { createSelector } from 'reselect';
+import { getBrands } from '../../brands/selectors';
 import { getEntities, getEntityById } from '../../entities/selectors';
 import {
   getError,
@@ -20,12 +21,12 @@ import type {
   FacetEntity,
   FacetGroupsNormalized,
   ProductEntity,
+  ProductEntityDenormalized,
   ProductsListEntity,
 } from '../../entities/types';
 import type { FacetGroup } from '@farfetch/blackout-client';
 import type { ProductsState } from '../types';
 import type { StoreState } from '../../types';
-
 /**
  * Checks if the type of the hash is a number or not. If it's a number, converts to
  * a final hash to make possible identify the products list entity.
@@ -157,9 +158,21 @@ export const getProductsListProducts = createSelector(
     (state, hash = getProductsListHash(state)) =>
       getProductsListProductsIds(state, checkHash(hash)),
     state => getEntities(state, 'products'),
+    getBrands,
   ],
-  (listProductsIds, products) => listProductsIds?.map(id => products?.[id]),
-) as (state: StoreState, hash?: string | number | null) => ProductEntity[];
+  (listProductsIds, products, brands) => {
+    return listProductsIds?.map(id => {
+      const product = products?.[id];
+      const brand =
+        brands && product?.brand ? brands[product.brand] : undefined;
+
+      return { ...product, brand };
+    });
+  },
+) as (
+  state: StoreState,
+  hash?: string | number | null,
+) => ProductEntityDenormalized[];
 /**
  * Retrieves a list of all products of multiple pages (of a single products list -
  * listings or sets) to allow the tenant to build an infinite scroll layout. This
@@ -232,7 +245,10 @@ export const getProductsListProductsFromAllPages = createSelector(
 
     return flatten(allProducts);
   },
-) as (state: StoreState, hash?: string | number | null) => ProductEntity[];
+) as (
+  state: StoreState,
+  hash?: string | number | null,
+) => ProductEntityDenormalized[];
 
 /**
  * Retrieves pagination information about current products list.

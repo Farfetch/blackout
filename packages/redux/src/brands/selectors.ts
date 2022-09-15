@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { getEntities, getEntityById } from '../entities';
+import { getEntities, getEntityById } from '../entities/selectors';
 import { getError, getHash, getIsLoading, getResult } from './reducer';
 import type { Brand, Brands } from '@farfetch/blackout-client';
 import type { BrandsState } from './types';
