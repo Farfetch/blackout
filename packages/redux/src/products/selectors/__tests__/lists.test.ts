@@ -1,5 +1,6 @@
 import * as fromReducer from '../../reducer/lists';
 import * as selectors from '../lists';
+import { mockBrandResponse } from 'tests/__fixtures__/brands';
 import {
   mockBreadCrumbs,
   mockFacets,
@@ -170,10 +171,11 @@ describe('products list redux selectors', () => {
 
   describe('getProductsListProducts()', () => {
     const expectedResult = [
-      { id: 12913172, shortDescription: 'foo' },
+      { id: 12913172, shortDescription: 'foo', brand: mockBrandResponse },
       {
         id: 12913174,
         shortDescription: 'bar',
+        brand: mockBrandResponse,
         groupedEntries: mockGroupedEntries,
       },
     ];
@@ -196,10 +198,22 @@ describe('products list redux selectors', () => {
 
   describe('getProductsListProductsFromAllPages()', () => {
     const expectedResult = [
-      mockProductsListNormalizedPayload.entities.products[12913172],
-      mockProductsListNormalizedPayload.entities.products[12913174],
-      mockProductsListNormalizedPayload.entities.products[12913172],
-      mockProductsListNormalizedPayload.entities.products[12913174],
+      {
+        ...mockProductsListNormalizedPayload.entities.products[12913172],
+        brand: mockBrandResponse,
+      },
+      {
+        ...mockProductsListNormalizedPayload.entities.products[12913174],
+        brand: mockBrandResponse,
+      },
+      {
+        ...mockProductsListNormalizedPayload.entities.products[12913172],
+        brand: mockBrandResponse,
+      },
+      {
+        ...mockProductsListNormalizedPayload.entities.products[12913174],
+        brand: mockBrandResponse,
+      },
     ];
 
     it('should return an empty array if there are no `productsLists', () => {

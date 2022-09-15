@@ -15,6 +15,7 @@ import type {
   ProductVariantMerchantLocation,
   WishlistItem,
 } from '@farfetch/blackout-client';
+import type { BrandEntity } from './brand.types';
 import type {
   CustomAttributesAdapted,
   PriceAdapted,
@@ -153,4 +154,8 @@ export type ProductEntity = {
   // On the bag/wishlist the name comes from `name` instead of `shortDescription`
   // (see `bagItems` entity schema)
   name?: BagItem['productName'] | WishlistItem['productName'];
+};
+
+export type ProductEntityDenormalized = Omit<ProductEntity, 'brand'> & {
+  brand?: BrandEntity;
 };

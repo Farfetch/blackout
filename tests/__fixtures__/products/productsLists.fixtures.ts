@@ -1,3 +1,4 @@
+import { mockBrandId } from '../brands';
 import { mockBreadCrumbs } from './products.fixtures';
 import { mockPriceAdaptedEmpty, mockPricesResponse } from './price.fixtures';
 import { mockSetId } from './ids.fixtures';
@@ -867,11 +868,12 @@ export const mockProductsListNormalizedPayload = {
     merchants: { undefined: { id: undefined } },
     genders: { undefined: { id: undefined } },
     products: {
-      12913172: { id: 12913172, shortDescription: 'foo' },
+      12913172: { id: 12913172, shortDescription: 'foo', brand: mockBrandId },
       12913174: {
         id: 12913174,
         shortDescription: 'bar',
         groupedEntries: mockGroupedEntries,
+        brand: mockBrandId,
       },
     },
     facets: mockFacetsNormalized,

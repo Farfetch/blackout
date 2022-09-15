@@ -46,7 +46,7 @@ const serverInitialState: ListsServerInitialState = ({
   delete query.json;
 
   const builtSlug = getSlug(pathname);
-  const isSet = model?.pageType === 'sets';
+  const isSet = model?.pageType === 'set';
   const hash = generateProductsListHash(builtSlug, query, { isSet });
 
   // Normalize it

@@ -1,3 +1,4 @@
+import { mockState as brandsMockState } from '../brands';
 import { mockMerchantId, mockProductId } from './ids.fixtures';
 import { mockProduct } from './products.fixtures';
 import {
@@ -135,6 +136,7 @@ export const mockProductsState = {
   },
   entities: {
     ...mockProductsListNormalizedPayload.entities,
+    ...brandsMockState.entities,
     bagItems: {
       101: {
         id: 101,
