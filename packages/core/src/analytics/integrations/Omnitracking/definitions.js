@@ -13,6 +13,7 @@ import {
   getValParameterForEvent,
 } from './omnitracking-helper';
 import eventTypes from '../../types/eventTypes';
+import logger from '../../utils/logger';
 import pageTypes from '../../types/pageTypes';
 
 export const PRODUCT_ID_PARAMETER = 'productId';
@@ -523,6 +524,85 @@ export const trackEventsMapper = {
     wishlistId: data.properties?.wishlistId,
     lineItems: getProductLineItems(data),
   }),
+  [eventTypes.PRODUCT_UPDATED]: data => {
+    const eventList = [];
+    const properties = data.properties;
+
+    if (properties.colour && properties.oldColour !== properties.colour) {
+      // color changed event
+      const additionalParameters = {};
+      if (properties?.oldColourId && properties?.colourId) {
+        additionalParameters[
+          'colourList'
+        ] = `${properties?.oldColourId}, ${properties?.colourId}`;
+      } else {
+        logger.warn(
+          `[Omnitracking] - Event ${data.event} properties "oldColourId" and "colourId" should be sent on the
+                        payload when triggering a "change color" event. If you want to track this event, make sure to
+                        pass these two properties.`,
+        );
+      }
+
+      eventList.push({
+        ...additionalParameters,
+        tid: 2098,
+        productId: properties?.id,
+        actionArea: properties?.from,
+      });
+    }
+
+    if (properties.size && properties.oldSize !== properties.size) {
+      // size changed event
+
+      const additionalParameters = {};
+      if (properties?.oldSizeScaleId && properties?.sizeScaleId) {
+        additionalParameters[
+          'scaleList'
+        ] = `${properties?.oldSizeScaleId}, ${properties?.sizeScaleId}`;
+      } else {
+        logger.warn(
+          `[Omnitracking] - Event ${data.event} properties "oldSizeScaleId" and "scaleId" should be sent on the
+                        payload when triggering a "change size" event. If you want to track this event, make sure to
+                        pass these two properties.`,
+        );
+      }
+
+      if (properties?.sizeId && properties?.oldSizeId) {
+        additionalParameters[
+          'sizeList'
+        ] = `${properties?.oldSizeId}, ${properties?.sizeId}`;
+      } else {
+        logger.warn(
+          `[Omnitracking] - Event ${data.event} properties "oldSizeId" and "sizeId" should be sent on the
+                        payload when triggering a "change size" event. If you want to track this event, make sure to
+                        pass these two properties.`,
+        );
+      }
+
+      eventList.push({
+        ...additionalParameters,
+        tid: 2920,
+        productId: properties?.id,
+        actionArea: properties?.from,
+      });
+    }
+
+    if (
+      isFinite(properties.quantity) &&
+      properties.oldQuantity !== properties.quantity
+    ) {
+      // quantity changed event
+
+      eventList.push({
+        tid: 2919,
+        productId: properties?.id,
+        actionArea: properties?.from,
+        itemQuantity: properties?.quantity,
+      });
+    }
+
+    return eventList;
+  },
 };
 
 /**
