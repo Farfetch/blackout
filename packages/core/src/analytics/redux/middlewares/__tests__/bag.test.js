@@ -398,6 +398,7 @@ describe('bagMiddleware()', () => {
         size: sizes[0].name,
         sizeId: sizes[0].id,
         oldSize: sizes[0].name,
+        oldSizeId: sizes[0].id,
         variant: colorName,
       });
     });
@@ -440,6 +441,7 @@ describe('bagMiddleware()', () => {
         size: sizes[0].name,
         sizeId: sizes[0].id,
         oldSize: sizes[0]?.name,
+        oldSizeId: sizes[0]?.id,
         variant: colorName,
       });
     });
@@ -484,6 +486,7 @@ describe('bagMiddleware()', () => {
         priceWithoutDiscount: 10,
         sku,
         oldSize: sizes[0].name,
+        oldSizeId: sizes[0].id,
         variant: colorName,
         oldQuantity: 5,
         quantity: 5,

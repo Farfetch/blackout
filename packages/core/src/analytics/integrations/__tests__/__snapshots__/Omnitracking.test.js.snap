@@ -122,6 +122,30 @@ Object {
 }
 `;
 
+exports[`Omnitracking definitions \`Product Updated\` return should match the snapshot 1`] = `
+Array [
+  Object {
+    "actionArea": "PDP",
+    "colourList": "2, 1",
+    "productId": 12345,
+    "tid": 2098,
+  },
+  Object {
+    "actionArea": "PDP",
+    "productId": 12345,
+    "scaleList": "10, 12",
+    "sizeList": "11, 10",
+    "tid": 2920,
+  },
+  Object {
+    "actionArea": "PDP",
+    "itemQuantity": 2,
+    "productId": 12345,
+    "tid": 2919,
+  },
+]
+`;
+
 exports[`Omnitracking definitions \`Promocode Applied\` return should match the snapshot 1`] = `
 Object {
   "errorMessage": "No promocode available.",
