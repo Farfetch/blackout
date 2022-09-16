@@ -5,6 +5,7 @@ import {
   getCategory,
   getCurrency,
   getSize,
+  getSizeFullInformation,
   getVariant,
 } from './helpers';
 import { eventTypes } from '../../';
@@ -165,6 +166,10 @@ const getProductData = async (analyticsInstance, state, action) => {
 
   const quantity = actionMetadata.quantity || bagItemQuantity;
   const size = get(bagItem, 'size.name') || getSize(product, sizeId); // size might be defined only on bagItem on a hard-refresh of the bag page
+  const sizeScale =
+    sizeScaleId ||
+    get(bagItem, 'size.scale') ||
+    get(getSizeFullInformation(product, sizeId), 'scale'); // size might be defined only on bagItem on a hard-refresh of the bag page
   const currency = await getCurrency(analyticsInstance);
 
   return {
@@ -177,6 +182,7 @@ const getProductData = async (analyticsInstance, state, action) => {
     price: priceWithDiscount,
     priceWithoutDiscount,
     size,
+    sizeScaleId: sizeScale,
     sizeId,
     sku,
     quantity,
@@ -267,6 +273,8 @@ export default (analyticsInstance, customActionTypes) => {
         data = {
           ...(await getProductData(analyticsInstance, state, action)),
           oldSize: previousBagItem?.size?.name,
+          oldSizeId: previousBagItem?.size?.id,
+          oldSizeScaleId: previousBagItem?.size?.scale,
           oldQuantity: previousBagItem?.quantity,
           ...getBagData(action),
         };

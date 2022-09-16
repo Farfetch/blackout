@@ -107,6 +107,22 @@ export const customTrackMockData = {
     wishlistId: '4c040892-cc27-4294-99e3-524b14eddf33',
     currency: 'EUR',
   },
+  [eventTypes.PRODUCT_UPDATED]: {
+    from: 'PDP',
+    id: 12345,
+    colour: 'White',
+    oldColour: 'Black',
+    colourId: '1',
+    oldColourId: '2',
+    size: 'S',
+    oldSize: 'M',
+    sizeId: '10',
+    oldSizeId: '11',
+    oldSizeScaleId: '10',
+    sizeScaleId: '12',
+    quantity: 2,
+    oldQuantity: 1,
+  },
 };
 
 export const expectedTrackPayload = {
