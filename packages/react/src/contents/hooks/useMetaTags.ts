@@ -5,11 +5,12 @@ import {
   isSEOLoading,
   StoreState,
 } from '@farfetch/blackout-redux';
-import { useAction, usePrevious } from '../../helpers';
 import { useEffect } from 'react';
+import { usePrevious } from '../../helpers';
 import { useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
+import useAction from '../../helpers/useAction';
 import type { AppIconLinks, Link, Meta, UseMetatags } from '../types';
 import type {
   GetSEOQuery,

@@ -13,8 +13,8 @@ import {
   resetWishlistSets as resetWishlistSetsAction,
   resetWishlistSetsState as resetWishlistSetsStateAction,
 } from '@farfetch/blackout-redux';
-import { useAction } from '../../helpers';
 import { useSelector } from 'react-redux';
+import useAction from '../../helpers/useAction';
 import type { UseWishlistSets } from './types';
 
 /**

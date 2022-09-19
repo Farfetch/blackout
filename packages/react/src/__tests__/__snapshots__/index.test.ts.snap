@@ -172,7 +172,6 @@ Object {
     "Mobile": "mobile",
     "Web": "web",
   },
-  "useAction": [Function],
   "useBag": [Function],
   "useBagItem": [Function],
   "useCategories": [Function],

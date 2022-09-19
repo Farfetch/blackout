@@ -6,9 +6,9 @@ import {
   resetContents as resetContentsAction,
   StoreState,
 } from '@farfetch/blackout-redux';
-import { useAction } from '../../helpers';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import useAction from '../../helpers/useAction';
 import type { CommercePagesParams, UseCommercePages } from '../types';
 
 /**

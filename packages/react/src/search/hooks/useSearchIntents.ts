@@ -9,9 +9,9 @@ import {
   resetSearchIntents,
   StoreState,
 } from '@farfetch/blackout-redux';
-import { useAction } from '../../helpers';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import useAction from '../../helpers/useAction';
 import type { SearchIntentsQuery } from '@farfetch/blackout-client';
 import type { UseSearchIntentsOptions } from './types';
 

@@ -36,9 +36,9 @@ import {
   updateCheckoutOrder as updateCheckoutOrderAction,
   updateCheckoutOrderItems as updateCheckoutOrderItemsAction,
 } from '@farfetch/blackout-redux';
-import { useAction } from '../../helpers';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import useAction from '../../helpers/useAction';
 import type {
   ClickAndCollect,
   ShippingMode,
