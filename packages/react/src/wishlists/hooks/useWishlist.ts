@@ -15,9 +15,9 @@ import {
   resetWishlist,
   updateWishlistItem,
 } from '@farfetch/blackout-redux';
-import { useAction } from '../../helpers';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import useAction from '../../helpers/useAction';
 // Types
 import type { UseWishlistOptions } from './types';
 

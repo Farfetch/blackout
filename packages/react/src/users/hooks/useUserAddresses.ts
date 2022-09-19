@@ -11,9 +11,10 @@ import {
   setUserDefaultShippingAddress as setDefaultShippingAddressAction,
   updateUserAddress as updateAddressAction,
 } from '@farfetch/blackout-redux';
-import { useAction, usePrevious, useUser } from '../..';
 import { useCallback, useEffect, useMemo } from 'react';
+import { usePrevious, useUser } from '../..';
 import { useSelector } from 'react-redux';
+import useAction from '../../helpers/useAction';
 import type {
   Config,
   User,

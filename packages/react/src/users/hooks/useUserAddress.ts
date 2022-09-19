@@ -6,9 +6,10 @@ import {
   isUserAddressLoading,
   StoreState,
 } from '@farfetch/blackout-redux';
-import { useAction, useUser, useUserAddresses } from '../..';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useUser, useUserAddresses } from '../..';
+import useAction from '../../helpers/useAction';
 import type {
   Config,
   User,

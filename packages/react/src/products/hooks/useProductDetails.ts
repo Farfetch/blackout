@@ -9,9 +9,9 @@ import {
   resetProductDetails,
   StoreState,
 } from '@farfetch/blackout-redux';
-import { useAction } from '../../helpers';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import useAction from '../../helpers/useAction';
 import type { ProductId, UseProductDetailsOptions } from './types';
 
 const useProductDetails = (

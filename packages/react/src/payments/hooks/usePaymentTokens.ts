@@ -6,9 +6,9 @@ import {
   getPaymentTokensError,
   removePaymentToken,
 } from '@farfetch/blackout-redux';
-import { useAction } from '../../helpers';
 import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import useAction from '../../helpers/useAction';
 import type { UsePaymentTokensOptions } from './types';
 
 function usePaymentTokens(options: UsePaymentTokensOptions = {}) {
