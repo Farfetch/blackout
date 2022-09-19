@@ -16,7 +16,6 @@
 import {
   formatPageEvent,
   formatTrackEvent,
-  getCLientCountryFromCulture,
   getClientLanguageFromCulture,
   getSearchQuery,
   getUniqueViewIdParameter,
@@ -194,14 +193,8 @@ class Omnitracking extends Integration {
         userTraits.hasOwnProperty('isGuest') && !userTraits.isGuest;
       precalculatedParameters.basketId = userTraits.bagId;
 
-      let clientLanguage = '';
-      let clientCountry = '';
-
-      clientLanguage = getClientLanguageFromCulture(culture);
-      clientCountry = getCLientCountryFromCulture(culture);
-
-      precalculatedParameters.clientLanguage = clientLanguage;
-      precalculatedParameters.clientCountry = clientCountry;
+      precalculatedParameters.clientLanguage =
+        getClientLanguageFromCulture(culture);
       precalculatedParameters.clientCulture = culture;
     }
 
@@ -281,7 +274,7 @@ class Omnitracking extends Integration {
   async processTrackEvents(data, mappedEventData) {
     const precalculatedParameters =
       this.getPrecalculatedParametersForEvent(data);
-    const additionalParameter = {
+    const additionalParameters = {
       ...precalculatedParameters,
       ...mappedEventData,
     };
@@ -292,9 +285,9 @@ class Omnitracking extends Integration {
       data.type === analyticsTrackTypes.PAGE ||
       data.type === analyticsTrackTypes.SCREEN
     ) {
-      formattedEventData = formatPageEvent(data, additionalParameter);
+      formattedEventData = formatPageEvent(data, additionalParameters);
     } else {
-      formattedEventData = formatTrackEvent(data, additionalParameter);
+      formattedEventData = formatTrackEvent(data, additionalParameters);
     }
 
     if (!this.validateTrackingRequisites()) {

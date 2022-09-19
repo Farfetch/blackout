@@ -18,7 +18,9 @@
  * @subcategory Integrations
  */
 
+import { getCLientCountryFromSubfolder } from './omnitracking-web-helper';
 import { trackTypes } from '@farfetch/blackout-core/analytics';
+import get from 'lodash/get';
 import OmnitrackingCore from '@farfetch/blackout-core/analytics/integrations/Omnitracking/Omnitracking';
 import UniqueViewIdStorage from './storage/UniqueViewIdStorage';
 import UniqueViewIdStorageOptions from './storage/UniqueViewIdStorageOptions';
@@ -35,7 +37,7 @@ class Omnitracking extends OmnitrackingCore {
    * It will also set the currentUniqueViewId by checking if the value from
    * document.referrer is available in storage. Note that document.referrer
    * must contain the full URL, so the referrer-policy header for the
-   * page request must be adjusted accordinly.
+   * page request must be adjusted accordingly.
    *
    * @param {object} options   - Integration options.
    * @param {object} loadData  - Analytics's load event data.
@@ -54,6 +56,33 @@ class Omnitracking extends OmnitrackingCore {
     this.uniqueViewIdStorage.removeExpired();
 
     this.currentUniqueViewId = this.uniqueViewIdStorage.get(document.referrer);
+  }
+
+  /**
+   * Adds a specific web behaviour for the pre-calculated parameters.
+   *
+   * @param {object} data - Event data provided by analytics.
+   *
+   * @returns {object} Object containing the pre-calculated parameters for the event.
+   */
+  getPrecalculatedParametersForEvent(data) {
+    const basePreCalculatedParameters =
+      super.getPrecalculatedParametersForEvent(data);
+
+    if (data.type === trackTypes.PAGE) {
+      if (basePreCalculatedParameters) {
+        const subfolder = get(
+          data,
+          'context.web.window.location.pathname',
+          '',
+        ).split('/')[1];
+
+        basePreCalculatedParameters['clientCountry'] =
+          getCLientCountryFromSubfolder(subfolder);
+      }
+    }
+
+    return basePreCalculatedParameters;
   }
 
   /**
