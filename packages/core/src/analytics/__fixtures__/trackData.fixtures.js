@@ -127,6 +127,30 @@ export const customTrackMockData = {
     quantity: 2,
     oldQuantity: 1,
   },
+  [eventTypes.FILTERS_APPLIED]: {
+    from: 'PLP',
+    filters: {
+      brands: [2765, 4062],
+      categories: [135973],
+      colors: [1],
+      discount: [0],
+      gender: [0],
+      price: [0, 1950],
+      sizes: [16],
+    },
+  },
+  [eventTypes.FILTERS_CLEARED]: {
+    from: 'PLP',
+    filters: {
+      brands: [2765, 4062],
+      categories: [135973],
+      colors: [1],
+      discount: [0],
+      gender: [0],
+      price: [0, 1950],
+      sizes: [16],
+    },
+  },
 };
 
 export const expectedTrackPayload = {
