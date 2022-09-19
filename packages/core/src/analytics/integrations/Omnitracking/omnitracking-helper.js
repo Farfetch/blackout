@@ -457,27 +457,13 @@ export const getSearchQuery = (data, searchQueryParameters) => {
  *
  * @returns {string} The clientLanguage to be sent on the event.
  */
-export const getClientLanguageFromCulture = culture => {
+export const getClientLanguageFromCulture = (culture = '') => {
   const cultureSplit = (culture || '').split('-');
   const clientLanguage = cultureSplit[0];
 
   return CLIENT_LANGUAGES_LIST.includes(clientLanguage)
     ? clientLanguage
     : DEFAULT_CLIENT_LANGUAGE;
-};
-
-/**
- * Returns the client country from the culture code.
- *
- * @param {string} culture - The current culture code.
- *
- * @returns {string} The clientCountry to be sent on the event.
- */
-export const getCLientCountryFromCulture = culture => {
-  const cultureSplit = (culture || '').split('-');
-  const clientCountry = cultureSplit[1];
-
-  return clientCountry;
 };
 
 /**
