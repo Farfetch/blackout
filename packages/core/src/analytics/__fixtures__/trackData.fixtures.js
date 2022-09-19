@@ -151,6 +151,12 @@ export const customTrackMockData = {
       sizes: [16],
     },
   },
+  [eventTypes.LOGIN]: {
+    method: 'Tenant',
+  },
+  [eventTypes.SIGNUP_FORM_COMPLETED]: {
+    method: 'Tenant',
+  },
 };
 
 export const expectedTrackPayload = {
