@@ -531,6 +531,20 @@ export const trackEventsMapper = {
     productId: getOmnitrackingProductId(data),
     lineItems: getProductLineItems(data),
   }),
+  [eventTypes.FILTERS_APPLIED]: data => ({
+    tid: 2921,
+    actionArea: data.properties?.from,
+    filtersApplied: data.properties?.filters
+      ? JSON.stringify(data.properties?.filters)
+      : undefined,
+  }),
+  [eventTypes.FILTERS_CLEARED]: data => ({
+    tid: 2917,
+    actionArea: data.properties?.from,
+    filtersApplied: data.properties?.filters
+      ? JSON.stringify(data.properties?.filters)
+      : undefined,
+  }),
   [eventTypes.PRODUCT_UPDATED]: data => {
     const eventList = [];
     const properties = data.properties;
