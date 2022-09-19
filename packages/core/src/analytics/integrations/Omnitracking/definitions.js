@@ -545,6 +545,14 @@ export const trackEventsMapper = {
       ? JSON.stringify(data.properties?.filters)
       : undefined,
   }),
+  [eventTypes.LOGIN]: data => ({
+    tid: 2924,
+    loginType: data.properties?.method,
+  }),
+  [eventTypes.SIGNUP_FORM_COMPLETED]: data => ({
+    tid: 2927,
+    loginType: data.properties?.method,
+  }),
   [eventTypes.PRODUCT_UPDATED]: data => {
     const eventList = [];
     const properties = data.properties;
