@@ -96,6 +96,15 @@ Object {
 }
 `;
 
+exports[`Omnitracking definitions \`Product Clicked\` return should match the snapshot 1`] = `
+Object {
+  "actionArea": "PDP",
+  "lineItems": "[{\\"productId\\":12345678,\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
+  "productId": 123,
+  "tid": 2926,
+}
+`;
+
 exports[`Omnitracking definitions \`Product List Viewed\` return should match the snapshot 1`] = `
 Object {
   "lineItems": "[{\\"productId\\":12345678,\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
@@ -158,7 +167,7 @@ Object {
 exports[`Omnitracking definitions \`Share\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "share_button_facebook",
-  "productId": undefined,
+  "productId": 123,
   "tid": 1205,
 }
 `;

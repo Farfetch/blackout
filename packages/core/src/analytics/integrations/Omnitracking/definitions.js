@@ -8,6 +8,7 @@ import {
   getCheckoutEventGenericProperties,
   getCommonCheckoutStepTrackingData,
   getGenderValueFromProperties,
+  getOmnitrackingProductId,
   getProductLineItems,
   getProductLineItemsQuantity,
   getValParameterForEvent,
@@ -463,7 +464,7 @@ export const trackEventsMapper = {
   [eventTypes.SHARE]: data => ({
     tid: 1205,
     actionArea: data.properties?.method,
-    productId: data.properties.id,
+    productId: getOmnitrackingProductId(data),
   }),
   [eventTypes.PROMOCODE_APPLIED]: data => ({
     tid: 311,
@@ -524,6 +525,12 @@ export const trackEventsMapper = {
     wishlistId: data.properties?.wishlistId,
     lineItems: getProductLineItems(data),
   }),
+  [eventTypes.PRODUCT_CLICKED]: data => ({
+    tid: 2926,
+    actionArea: data.properties?.from,
+    productId: getOmnitrackingProductId(data),
+    lineItems: getProductLineItems(data),
+  }),
   [eventTypes.PRODUCT_UPDATED]: data => {
     const eventList = [];
     const properties = data.properties;
@@ -546,7 +553,7 @@ export const trackEventsMapper = {
       eventList.push({
         ...additionalParameters,
         tid: 2098,
-        productId: properties?.id,
+        productId: getOmnitrackingProductId(data),
         actionArea: properties?.from,
       });
     }
@@ -582,7 +589,7 @@ export const trackEventsMapper = {
       eventList.push({
         ...additionalParameters,
         tid: 2920,
-        productId: properties?.id,
+        productId: getOmnitrackingProductId(data),
         actionArea: properties?.from,
       });
     }
@@ -595,7 +602,7 @@ export const trackEventsMapper = {
 
       eventList.push({
         tid: 2919,
-        productId: properties?.id,
+        productId: getOmnitrackingProductId(data),
         actionArea: properties?.from,
         itemQuantity: properties?.quantity,
       });

@@ -107,6 +107,10 @@ export const customTrackMockData = {
     wishlistId: '4c040892-cc27-4294-99e3-524b14eddf33',
     currency: 'EUR',
   },
+  [eventTypes.PRODUCT_CLICKED]: {
+    from: 'PDP',
+    id: 123,
+  },
   [eventTypes.PRODUCT_UPDATED]: {
     from: 'PDP',
     id: 12345,
