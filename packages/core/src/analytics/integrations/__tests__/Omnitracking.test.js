@@ -179,35 +179,6 @@ describe('Omnitracking', () => {
           }),
         );
       });
-
-      it('Should send the clientCountry when a culture is passed', async () => {
-        const data = generateMockData();
-
-        await omnitracking.track(data);
-
-        expect(postTrackingsSpy).toHaveBeenCalledWith(
-          expect.objectContaining({
-            parameters: expect.objectContaining({
-              clientCountry: 'US',
-            }),
-          }),
-        );
-      });
-
-      it('Should not send the clientCountry when no culture is passed', async () => {
-        const data = generateMockData();
-        data.context.culture = undefined;
-
-        await omnitracking.track(data);
-
-        expect(postTrackingsSpy).toHaveBeenCalledWith(
-          expect.objectContaining({
-            parameters: expect.objectContaining({
-              clientCountry: undefined,
-            }),
-          }),
-        );
-      });
     });
 
     describe('currency', () => {

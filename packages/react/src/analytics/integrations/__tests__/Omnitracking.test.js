@@ -24,6 +24,7 @@ describe('Omnitracking', () => {
 
   beforeEach(() => {
     storage.clear();
+    jest.clearAllMocks();
   });
 
   describe('Class methods setup', () => {
@@ -129,6 +130,38 @@ describe('Omnitracking', () => {
           expect.objectContaining({
             parameters: expect.objectContaining({
               previousUniqueViewId: mockUniqueViewId,
+            }),
+          }),
+        );
+      });
+
+      it('Should send the correct clientCountry when a subfolder has the {country-language} format', async () => {
+        const omnitrackingInstance = Omnitracking.createInstance({});
+        const data = analyticsPageData;
+        data.context.web.window.location.pathname = '/en-pt';
+
+        await omnitrackingInstance.track(analyticsPageData);
+
+        expect(postTrackings).toHaveBeenCalledWith(
+          expect.objectContaining({
+            parameters: expect.objectContaining({
+              clientCountry: 'PT',
+            }),
+          }),
+        );
+      });
+
+      it('Should send the correct clientCountry when a subfolder has the {language} format', async () => {
+        const omnitrackingInstance = Omnitracking.createInstance({});
+        const data = analyticsPageData;
+        data.context.web.window.location.pathname = '/pt';
+
+        await omnitrackingInstance.track(data);
+
+        expect(postTrackings).toHaveBeenCalledWith(
+          expect.objectContaining({
+            parameters: expect.objectContaining({
+              clientCountry: undefined,
             }),
           }),
         );
