@@ -467,6 +467,17 @@ export const getClientLanguageFromCulture = (culture = '') => {
 };
 
 /**
+ * Obtain product Id omnitracking parameter.
+ *
+ * @param {object} data - The event tracking data.
+ *
+ * @returns {string} - The product id.
+ */
+export const getOmnitrackingProductId = data => {
+  return data?.properties?.productId || data?.properties?.id;
+};
+
+/**
  * Transforms the products list payload into `lineItems` omnitracking parameter.
  *
  * @param {object} data - The event tracking data.
@@ -476,7 +487,7 @@ export const getClientLanguageFromCulture = (culture = '') => {
 export const getProductLineItems = data => {
   const properties = data?.properties || {};
   const productsList = properties.products;
-  const productId = properties.productId || properties.id;
+  const productId = getOmnitrackingProductId(data);
 
   if (productsList && productsList.length) {
     const mappedProductList = productsList.map(product => ({
