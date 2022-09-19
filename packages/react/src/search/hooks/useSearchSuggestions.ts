@@ -9,9 +9,9 @@ import {
   resetSearchSuggestions,
   StoreState,
 } from '@farfetch/blackout-redux';
-import { useAction } from '../../helpers';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import useAction from '../../helpers/useAction';
 import type { SearchSuggestionsQuery } from '@farfetch/blackout-client';
 import type { UseSearchSuggestionsOptions } from './types';
 

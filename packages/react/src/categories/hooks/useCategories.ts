@@ -14,9 +14,9 @@ import {
   getTopCategoriesError,
   resetCategoriesState as resetCategoriesStateAction,
 } from '@farfetch/blackout-redux';
-import { useAction } from '../../helpers';
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import useAction from '../../helpers/useAction';
 import type { Category } from '@farfetch/blackout-client';
 import type { GetRootCategory, UseCategories } from './types';
 

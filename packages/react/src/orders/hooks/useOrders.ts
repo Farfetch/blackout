@@ -11,9 +11,10 @@ import {
   resetOrderDetailsState as resetOrderDetailsStateAction,
   resetOrders,
 } from '@farfetch/blackout-redux';
-import { useAction, usePrevious } from '../../helpers';
 import { useCallback, useEffect, useMemo } from 'react';
+import { usePrevious } from '../../helpers';
 import { useSelector } from 'react-redux';
+import useAction from '../../helpers/useAction';
 import useUser from '../../users/hooks/useUser';
 import type {
   Config,

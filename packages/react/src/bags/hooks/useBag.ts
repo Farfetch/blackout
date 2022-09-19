@@ -21,9 +21,9 @@ import {
   updateBagItem as updateBagItemAction,
 } from '@farfetch/blackout-redux';
 import { ProductError, SizeError } from './errors';
-import { useAction } from '../../helpers';
 import { useCallback, useEffect } from 'react';
 import { useSelector, useStore } from 'react-redux';
+import useAction from '../../helpers/useAction';
 import type { HandleAddOrUpdateItem, UseBagOptions } from './types';
 
 /**

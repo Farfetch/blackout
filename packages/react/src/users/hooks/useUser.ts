@@ -24,9 +24,9 @@ import {
   resetPassword as resetPasswordAction,
   setUser as setUserAction,
 } from '@farfetch/blackout-redux';
-import { useAction } from '../../helpers';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import useAction from '../../helpers/useAction';
 import type { UseUserOptions } from './types';
 
 function useUser(options: UseUserOptions = {}) {

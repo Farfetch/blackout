@@ -17,9 +17,9 @@ import {
   Slug,
   UseProductListingOptions,
 } from './types';
-import { useAction } from '../../helpers';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import useAction from '../../helpers/useAction';
 
 const useProductListing = (
   slug: Slug,
