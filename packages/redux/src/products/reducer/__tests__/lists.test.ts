@@ -1,10 +1,11 @@
+import { BlackoutError, toBlackoutError } from '@farfetch/blackout-client';
 import {
   mockProductsEntity,
   mockProductsListEntity,
   mockProductsListHash,
+  mockProductsListsEntity,
 } from 'tests/__fixtures__/products';
 import { productsActionTypes, ProductsListsState } from '../..';
-import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, {
   entitiesMapper,
   getError,
@@ -30,6 +31,33 @@ describe('lists redux reducer', () => {
           type: productsActionTypes.RESET_PRODUCTS_LISTS_STATE,
         }),
       ).toEqual(initialState);
+
+      expect(
+        reducer(undefined, {
+          type: productsActionTypes.RESET_PRODUCTS_LISTS_STATE,
+          payload: [],
+        }),
+      ).toEqual(initialState);
+    });
+
+    it('should return the same state if a payload with at least one products list hash is provided and it is not in state', () => {
+      const anotherProductsListHash = mockProductsListHash + '2';
+
+      const state = {
+        error: {
+          [anotherProductsListHash]: new Error('dummy error') as BlackoutError,
+        },
+        isLoading: { [anotherProductsListHash]: false },
+        isHydrated: { [anotherProductsListHash]: true },
+        hash: null,
+      };
+
+      expect(
+        reducer(state, {
+          type: productsActionTypes.RESET_PRODUCTS_LISTS_STATE,
+          payload: [mockProductsListHash],
+        }),
+      ).toEqual(state);
     });
   });
 
@@ -63,6 +91,34 @@ describe('lists redux reducer', () => {
       });
 
       expect(state.error).toEqual(expectedError);
+    });
+
+    describe('should handle RESET_PRODUCTS_LISTS_STATE action type', () => {
+      const defaultErrorState = {
+        error: {
+          [mockProductsListHash]: new Error(),
+          dummy_list_hash_1: new Error(),
+          dummy_list_hash_2: new Error(),
+          dummy_list_hash_3: new Error(),
+        },
+      };
+
+      it('should handle a partial reset request', () => {
+        // @ts-expect-error
+        const state = reducer(defaultErrorState, {
+          type: productsActionTypes.RESET_PRODUCTS_LISTS_STATE,
+          payload: [
+            'dummy_list_hash_1',
+            'dummy_list_hash_2',
+            'dummy_list_hash_3',
+          ],
+        });
+
+        // Full reset product lists state requests are handled by the outer reducer
+        expect(state.error).toStrictEqual({
+          [mockProductsListHash]: expect.any(Error),
+        });
+      });
     });
 
     it('should handle other actions by returning the previous state', () => {
@@ -131,6 +187,34 @@ describe('lists redux reducer', () => {
       expect(state.isHydrated).toEqual(expectedIsHydrated);
     });
 
+    describe('should handle RESET_PRODUCTS_LISTS_STATE action type', () => {
+      const defaultIsHydratedState = {
+        isHydrated: {
+          [mockProductsListHash]: false,
+          dummy_list_hash_1: true,
+          dummy_list_hash_2: true,
+          dummy_list_hash_3: true,
+        },
+      };
+
+      it('should handle a partial reset request', () => {
+        // @ts-expect-error
+        const state = reducer(defaultIsHydratedState, {
+          type: productsActionTypes.RESET_PRODUCTS_LISTS_STATE,
+          payload: [
+            'dummy_list_hash_1',
+            'dummy_list_hash_2',
+            'dummy_list_hash_3',
+          ],
+        });
+
+        // Full reset product lists state requests are handled by the outer reducer
+        expect(state.isHydrated).toStrictEqual({
+          [mockProductsListHash]: false,
+        });
+      });
+    });
+
     it('should handle other actions by returning the previous state', () => {
       const state = {
         error: {},
@@ -182,6 +266,34 @@ describe('lists redux reducer', () => {
       expect(state.isLoading).toEqual(expectedIsLoading);
     });
 
+    describe('should handle RESET_PRODUCTS_LISTS_STATE action type', () => {
+      const defaultIsLoadingState = {
+        isLoading: {
+          [mockProductsListHash]: false,
+          dummy_list_hash_1: true,
+          dummy_list_hash_2: false,
+          dummy_list_hash_3: true,
+        },
+      };
+
+      it('should handle a partial reset request', () => {
+        // @ts-expect-error
+        const state = reducer(defaultIsLoadingState, {
+          type: productsActionTypes.RESET_PRODUCTS_LISTS_STATE,
+          payload: [
+            'dummy_list_hash_1',
+            'dummy_list_hash_2',
+            'dummy_list_hash_3',
+          ],
+        });
+
+        // Full reset product lists state requests are handled by the outer reducer
+        expect(state.isLoading).toStrictEqual({
+          [mockProductsListHash]: false,
+        });
+      });
+    });
+
     it('should handle other actions by returning the previous state', () => {
       const state = {
         error: {},
@@ -195,12 +307,24 @@ describe('lists redux reducer', () => {
   });
 
   describe('entitiesMapper()', () => {
-    it(`should handle ${productsActionTypes.RESET_PRODUCTS_LISTS_ENTITIES} action type`, () => {
+    describe(`should handle ${productsActionTypes.RESET_PRODUCTS_LISTS_ENTITIES} action type`, () => {
       const state = {
-        productsLists: mockProductsListEntity,
-        products: {
-          mockProductsEntity,
+        productsLists: {
+          ...mockProductsListsEntity,
+          dummy_list_hash_1: {
+            ...mockProductsListEntity,
+            hash: 'dummy_list_hash_1',
+          },
+          dummy_list_hash_2: {
+            ...mockProductsListEntity,
+            hash: 'dummy_list_hash_2',
+          },
+          dummy_list_hash_3: {
+            ...mockProductsListEntity,
+            hash: 'dummy_list_hash_3',
+          },
         },
+        products: mockProductsEntity,
         dummy: {
           1: { id: 1 },
         },
@@ -209,23 +333,61 @@ describe('lists redux reducer', () => {
         },
       };
 
-      const expectedResult = {
-        products: {
-          mockProductsEntity,
-        },
-        dummy: {
-          1: { id: 1 },
-        },
-        dummy2: {
-          2: { id: 2 },
-        },
-      };
+      it('should handle full reset', () => {
+        const expectedResult = {
+          products: mockProductsEntity,
+          dummy: {
+            1: { id: 1 },
+          },
+          dummy2: {
+            2: { id: 2 },
+          },
+        };
 
-      expect(
-        entitiesMapper[productsActionTypes.RESET_PRODUCTS_LISTS_ENTITIES](
-          state,
-        ),
-      ).toEqual(expectedResult);
+        expect(
+          entitiesMapper[productsActionTypes.RESET_PRODUCTS_LISTS_ENTITIES](
+            state,
+            { type: productsActionTypes.RESET_PRODUCTS_LISTS_ENTITIES },
+          ),
+        ).toEqual(expectedResult);
+
+        expect(
+          entitiesMapper[productsActionTypes.RESET_PRODUCTS_LISTS_ENTITIES](
+            state,
+            {
+              type: productsActionTypes.RESET_PRODUCTS_LISTS_ENTITIES,
+              payload: [],
+            },
+          ),
+        ).toEqual(expectedResult);
+      });
+
+      it('should handle partial reset', () => {
+        const expectedResult = {
+          productsLists: mockProductsListsEntity,
+          products: mockProductsEntity,
+          dummy: {
+            1: { id: 1 },
+          },
+          dummy2: {
+            2: { id: 2 },
+          },
+        };
+
+        expect(
+          entitiesMapper[productsActionTypes.RESET_PRODUCTS_LISTS_ENTITIES](
+            state,
+            {
+              type: productsActionTypes.RESET_PRODUCTS_LISTS_ENTITIES,
+              payload: [
+                'dummy_list_hash_1',
+                'dummy_list_hash_2',
+                'dummy_list_hash_3',
+              ],
+            },
+          ),
+        ).toEqual(expectedResult);
+      });
     });
   });
 

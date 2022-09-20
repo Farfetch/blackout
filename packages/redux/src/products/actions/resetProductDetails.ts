@@ -38,7 +38,7 @@ const resetProductEntities =
   ): void => {
     dispatch({
       type: actionTypes.RESET_PRODUCT_DETAILS_ENTITIES,
-      productIds,
+      payload: productIds,
     });
   };
 

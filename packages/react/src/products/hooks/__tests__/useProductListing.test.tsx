@@ -224,6 +224,7 @@ describe('useProductListing', () => {
       const {
         result: {
           current: {
+            data,
             actions: { reset },
           },
         },
@@ -233,7 +234,7 @@ describe('useProductListing', () => {
 
       reset();
 
-      expect(resetProductsLists).toHaveBeenCalled();
+      expect(resetProductsLists).toHaveBeenCalledWith([data?.hash]);
     });
 
     it('should call `fetchListing` successfully when `refetch` action is called and type is `listing`', () => {
