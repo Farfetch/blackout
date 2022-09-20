@@ -14,6 +14,7 @@ import {
   getValParameterForEvent,
 } from './omnitracking-helper';
 import eventTypes from '../../types/eventTypes';
+import interactionTypes from '../../types/interactionTypes';
 import logger from '../../utils/logger';
 import pageTypes from '../../types/pageTypes';
 
@@ -555,6 +556,16 @@ export const trackEventsMapper = {
   }),
   [eventTypes.INTERACT_CONTENT]: data => {
     const properties = data.properties;
+
+    if (properties?.interactionType === interactionTypes.SCROLL) {
+      if (properties.target === document.body)
+        return {
+          tid: 668,
+          scrollDepth: properties.percentageScrolled,
+        };
+
+      return;
+    }
 
     if (!properties?.contentType || !properties?.interactionType) {
       logger.warn(
