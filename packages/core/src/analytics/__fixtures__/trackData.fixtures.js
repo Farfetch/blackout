@@ -163,6 +163,12 @@ export const customTrackMockData = {
     id: '123',
     state: 'expanded',
   },
+  [eventTypes.SELECT_CONTENT]: {
+    contentType: 'Navbar',
+    interactionType: 'click',
+    id: '123',
+    productId: '12345',
+  },
 };
 
 export const expectedTrackPayload = {
