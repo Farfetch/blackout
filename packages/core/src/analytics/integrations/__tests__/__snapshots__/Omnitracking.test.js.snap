@@ -54,6 +54,16 @@ Object {
 }
 `;
 
+exports[`Omnitracking definitions \`Interact Content\` return should match the snapshot 1`] = `
+Object {
+  "actionArea": "expanded",
+  "contentType": "Navbar",
+  "interactionType": "click",
+  "tid": 2882,
+  "val": "123",
+}
+`;
+
 exports[`Omnitracking definitions \`Login\` return should match the snapshot 1`] = `
 Object {
   "loginType": "Tenant",
