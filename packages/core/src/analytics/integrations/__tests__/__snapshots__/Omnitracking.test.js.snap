@@ -197,6 +197,16 @@ Object {
 }
 `;
 
+exports[`Omnitracking definitions \`Select Content\` return should match the snapshot 1`] = `
+Object {
+  "contentType": "Navbar",
+  "interactionType": "click",
+  "productId": "12345",
+  "tid": 2885,
+  "val": "123",
+}
+`;
+
 exports[`Omnitracking definitions \`Share\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "share_button_facebook",
