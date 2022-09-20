@@ -10,13 +10,7 @@ import trackTypes from '../types/trackTypes';
 const trackMockData = {
   // Properties given from the browser - No need to pass them via `data.properties`
   consent: null,
-  context: {
-    culture: 'en-US',
-    library: { version: '0.86.0', name: '@farfetch/blackout-core/analytics' },
-    web: mockedPageData.context.web,
-    clientId: 26000,
-    tenantId: 26000,
-  },
+  context: mockedPageData.context,
   properties: {
     products: [
       {

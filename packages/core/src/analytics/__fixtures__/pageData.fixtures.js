@@ -1,5 +1,6 @@
 import {
   expectedCommonParameters,
+  mockAnalyticsUniqueEventId,
   mockCommonData,
 } from './commonData.fixtures';
 import { userGenderValuesMapper } from '../integrations/Omnitracking/definitions';
@@ -105,6 +106,9 @@ const pageMockData = {
         referrer: 'https://example.com',
       },
       pageLocationReferrer: 'https://example.com',
+    },
+    event: {
+      __uniqueEventId: mockAnalyticsUniqueEventId,
     },
   },
   timestamp: mockCommonData.timestamp,

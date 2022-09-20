@@ -776,7 +776,13 @@ describe('analytics', () => {
             type: trackTypes.TRACK,
             event,
             properties,
-            context,
+            context: {
+              ...context,
+              event: {
+                ...context.event,
+                __uniqueEventId: expect.any(String),
+              },
+            },
             user: await analytics.user(),
             consent: await analytics.consent(),
             timestamp: new Date().getTime(),

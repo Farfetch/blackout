@@ -1,5 +1,6 @@
 import { getContextDefaults, logger, StorageWrapper } from './utils';
 import { Integration } from './integrations';
+import { v4 as uuidv4 } from 'uuid';
 import Consent from './Consent';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
@@ -544,7 +545,12 @@ class Analytics {
   async getEventData(type, additionalData, eventContext) {
     const context = await this.context(null, type);
 
-    Object.assign(context, { event: eventContext });
+    Object.assign(context, {
+      event: {
+        ...eventContext,
+        __uniqueEventId: uuidv4(),
+      },
+    });
 
     const commonData = {
       type,
