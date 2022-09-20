@@ -1,7 +1,7 @@
 import * as clients from '../Omnitracking/client';
 import * as definitions from '../Omnitracking/definitions';
 import { Integration, Omnitracking } from '..';
-import { mockCommonData } from '../../__fixtures__/commonData.fixtures';
+import { mockAnalyticsUniqueEventId } from '../../__fixtures__/commonData.fixtures';
 import {
   OPTION_SEARCH_QUERY_PARAMETERS,
   OPTION_TRANSFORM_PAYLOAD,
@@ -41,7 +41,7 @@ jest.mock('../Omnitracking/client', () => ({
 }));
 
 jest.mock('uuid', () => ({
-  v4: jest.fn(() => mockCommonData.uuid),
+  v4: jest.fn(() => mockAnalyticsUniqueEventId),
 }));
 
 utils.logger.warn = jest.fn();
@@ -820,7 +820,7 @@ describe('Omnitracking', () => {
       expect(newUniqueViewId).toBe(currentUniqueViewId);
 
       // Mock v4 function here to return a different value than
-      // the mockCommonData.uuid so the uniqueViewId changes
+      // the mockAnalyticsUniqueEventId so the uniqueViewId changes
       // on the next omnitracking.track call with a page event.
       // Remember that v4 is jest.fn() in this test file.
       uuid.v4.mockImplementation(() => '981945ad-b9d4-4c21-b3b0-2764b31bdc43');
@@ -835,7 +835,7 @@ describe('Omnitracking', () => {
       // After this, we need to restore the mock for v4
       // to use the original implementation in other tests
       // that may be defined after this one.
-      uuid.v4.mockImplementation(() => mockCommonData.uuid);
+      uuid.v4.mockImplementation(() => mockAnalyticsUniqueEventId);
 
       expect(lastPayload.parameters.uniqueViewId).not.toBe(newUniqueViewId);
       expect(lastPayload.parameters.previousUniqueViewId).toBe(newUniqueViewId);

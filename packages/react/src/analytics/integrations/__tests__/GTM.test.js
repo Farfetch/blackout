@@ -114,10 +114,10 @@ describe('GTM', () => {
 
         expect(dataLayerEntry).toMatchObject({
           ...data,
-          // test filtred context properties
+          // test filtered context properties
           context: {
             currencyCode: data.context.currencyCode,
-            eventContext: undefined,
+            eventContext: analyticsEventMock.context.event,
             libraryVersion: data.context.library.version,
             location: data.context.web.window.location,
             userAgent: data.context.web.window.navigator.userAgent,
