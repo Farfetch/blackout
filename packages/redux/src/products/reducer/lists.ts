@@ -1,6 +1,11 @@
 import * as actionTypes from '../actionTypes';
 import { AnyAction, combineReducers, Reducer } from 'redux';
-import type { ProductsListsState } from '../types';
+import omit from 'lodash/omit';
+import type {
+  ProductsListsState,
+  ResetProductsListsEntitiesAction,
+  ResetProductsListsStateAction,
+} from '../types';
 import type { StoreState } from '../../types';
 
 export const INITIAL_STATE: ProductsListsState = {
@@ -22,6 +27,11 @@ const error = (state = INITIAL_STATE.error, action: AnyAction) => {
         ...state,
         [action.meta.hash]: action.payload.error,
       };
+    case actionTypes.RESET_PRODUCTS_LISTS_STATE:
+      return partialResetStateReducer(
+        state,
+        action as ResetProductsListsStateAction,
+      );
     default:
       return state;
   }
@@ -35,13 +45,20 @@ const hash = (state = INITIAL_STATE.hash, action: AnyAction) => {
 };
 
 const isHydrated = (state = INITIAL_STATE.isHydrated, action: AnyAction) => {
-  if (action.type === actionTypes.DEHYDRATE_PRODUCTS_LIST) {
-    return {
-      ...state,
-      [action.meta.hash]: false,
-    };
+  switch (action.type) {
+    case actionTypes.DEHYDRATE_PRODUCTS_LIST:
+      return {
+        ...state,
+        [action.meta.hash]: false,
+      };
+    case actionTypes.RESET_PRODUCTS_LISTS_STATE:
+      return partialResetStateReducer(
+        state,
+        action as ResetProductsListsStateAction,
+      );
+    default:
+      return state;
   }
-  return state;
 };
 
 const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
@@ -57,6 +74,11 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
         ...state,
         [action.meta.hash]: false,
       };
+    case actionTypes.RESET_PRODUCTS_LISTS_STATE:
+      return partialResetStateReducer(
+        state,
+        action as ResetProductsListsStateAction,
+      );
     default:
       return state;
   }
@@ -65,14 +87,41 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
 export const entitiesMapper = {
   [actionTypes.RESET_PRODUCTS_LISTS_ENTITIES]: (
     state: NonNullable<StoreState['entities']>,
+    action: AnyAction,
   ): StoreState['entities'] => {
     if (!state) {
       return state;
     }
+
+    const productsListsHashes = (action as ResetProductsListsEntitiesAction)
+      .payload;
     const { productsLists, ...rest } = state;
-    return rest;
+
+    if (!productsListsHashes?.length) {
+      return rest;
+    }
+
+    const newProductsListsEntities = omit(productsLists, productsListsHashes);
+
+    return {
+      ...rest,
+      productsLists: newProductsListsEntities,
+    };
   },
 };
+
+function partialResetStateReducer<T extends object | null | undefined>(
+  state: T,
+  action: ResetProductsListsStateAction,
+): T {
+  const productsListsHashes = action.payload;
+
+  if (!productsListsHashes?.length) {
+    return state;
+  }
+
+  return omit(state, productsListsHashes) as T;
+}
 
 export const getError = (
   state: ProductsListsState,
@@ -103,7 +152,10 @@ const reducers = combineReducers({
  * @returns New state.
  */
 const productsListsReducer: Reducer<ProductsListsState> = (state, action) => {
-  if (action.type === actionTypes.RESET_PRODUCTS_LISTS_STATE) {
+  if (
+    action.type === actionTypes.RESET_PRODUCTS_LISTS_STATE &&
+    !(action as ResetProductsListsStateAction).payload?.length
+  ) {
     return INITIAL_STATE;
   }
 

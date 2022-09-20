@@ -44,7 +44,7 @@ export interface DehydrateProductDetailsAction extends Action {
  */
 export interface ResetProductDetailsStateAction extends Action {
   type: typeof actionTypes.RESET_PRODUCT_DETAILS_STATE;
-  productIds?: Array<ProductEntity['id']>;
+  payload: Array<ProductEntity['id']> | undefined;
 }
 
 /**
@@ -52,7 +52,7 @@ export interface ResetProductDetailsStateAction extends Action {
  */
 export interface ResetProductDetailsEntitiesAction extends Action {
   type: typeof actionTypes.RESET_PRODUCT_DETAILS_ENTITIES;
-  productIds?: Array<ProductEntity['id']>;
+  payload: Array<ProductEntity['id']> | undefined;
 }
 
 export type ResetProductDetailsAction =

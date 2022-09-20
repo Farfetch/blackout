@@ -499,12 +499,16 @@ export const mockFacetGroups = [
   },
 ];
 
-export const mockFacetGroupsNormalized = mockFacetGroups.map(
-  (facet, index) => ({
+export const mockFacetGroupsNormalized = mockFacetGroups.map((facet, index) => {
+  const facets = mockFacets[index];
+  const values = facets ? [[facets.id]] : [[]];
+
+  return {
     ...facet,
-    values: [[mockFacets[index]?.id]],
-  }),
-);
+    values,
+  };
+});
+
 export const mockProductsList = {
   breadCrumbs: mockBreadCrumbs,
   name: null,
@@ -1070,6 +1074,7 @@ export const mockProductsListNormalizedPayload = {
     },
   },
 };
+
 export const mockProductsListModel = {
   slug: mockProductsListSlug,
   subfolder: 'us',
@@ -1110,51 +1115,53 @@ export const mockProductsListModel = {
 };
 
 export const mockProductsListEntity = {
-  [mockProductsListHash]: {
-    id: 123,
-    products: {
-      entries: [12913172, 12913174],
-      number: 1,
-      totalItems: 40,
-      totalPages: 2,
+  id: 123,
+  products: {
+    entries: [12913172, 12913174],
+    number: 1,
+    totalItems: 40,
+    totalPages: 2,
+  },
+  hash: mockProductsListHash,
+  breadCrumbs: [
+    {
+      text: 'Woman',
+      slug: 'woman',
+      link: 'shopping/woman',
+      parent: true,
     },
-    hash: mockProductsListHash,
-    breadCrumbs: [
-      {
-        text: 'Woman',
-        slug: 'woman',
-        link: 'shopping/woman',
-        parent: true,
-      },
-    ],
-    name: 'New arrivals',
-    facetGroups: mockFacetGroupsNormalized,
-    filterSegments: [
-      {
-        order: 0,
-        type: 6,
-        key: 'categories',
-        gender: 0,
-        value: 144307,
-        valueUpperBound: 0,
-        slug: 'women',
-        description: 'Women',
-        deep: 1,
-        parentId: 0,
-        fromQueryString: false,
-        negativeFilter: false,
-        facetId: 'categories_144307',
-      },
-    ],
-    config: mockProductsListResponse.config,
-    didYouMean: ['dress'],
-    searchTerm: null,
-    facetsBaseUrl: '/shopping',
-    _sorts: null,
-    _clearUrl: null,
-    _isClearHidden: false,
-    gender: GenderCode.Woman,
-    redirectInformation: null,
-    genderName: 'women',
-  } as ProductsListEntity,
+  ],
+  name: 'New arrivals',
+  facetGroups: mockFacetGroupsNormalized,
+  filterSegments: [
+    {
+      order: 0,
+      type: 6,
+      key: 'categories',
+      gender: 0,
+      value: 144307,
+      valueUpperBound: 0,
+      slug: 'women',
+      description: 'Women',
+      deep: 1,
+      parentId: 0,
+      fromQueryString: false,
+      negativeFilter: false,
+      facetId: 'categories_144307',
+    },
+  ],
+  config: mockProductsListResponse.config,
+  didYouMean: ['dress'],
+  searchTerm: null,
+  facetsBaseUrl: '/shopping',
+  _sorts: null,
+  _clearUrl: null,
+  _isClearHidden: false,
+  gender: GenderCode.Woman,
+  redirectInformation: null,
+  genderName: 'women',
+};
+
+export const mockProductsListsEntity: Record<string, ProductsListEntity> = {
+  [mockProductsListHash]: mockProductsListEntity,
 };

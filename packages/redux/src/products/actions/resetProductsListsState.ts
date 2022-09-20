@@ -28,10 +28,11 @@ import type { ResetProductsListsStateAction } from '../types';
  * @returns Dispatch reset products list state action.
  */
 const resetProductsListsState =
-  () =>
+  (productsListsHashes?: Array<string>) =>
   (dispatch: Dispatch<ResetProductsListsStateAction>): void => {
     dispatch({
       type: actionTypes.RESET_PRODUCTS_LISTS_STATE,
+      payload: productsListsHashes,
     });
   };
 
