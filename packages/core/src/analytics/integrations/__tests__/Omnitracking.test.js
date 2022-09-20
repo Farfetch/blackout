@@ -9,6 +9,7 @@ import {
 import { utils } from '../../';
 import analyticsTrackTypes from '../../types/trackTypes';
 import eventTypes from '../../types/eventTypes';
+import interactionTypes from '../../types/interactionTypes';
 import merge from 'lodash/merge';
 import mockedPageData, {
   customPageMockData,
@@ -345,38 +346,98 @@ describe('Omnitracking', () => {
       });
 
       describe('Event Tracking', () => {
-        it('should warn if an interact content does not have required parameters', async () => {
+        describe('Interact Content', () => {
+          it('should not track an interact content event if the required parameters are missing', async () => {
+            const data = generateTrackMockData({
+              event: eventTypes.INTERACT_CONTENT,
+              properties: {
+                interactionType: undefined,
+              },
+            });
+            await omnitracking.track(data);
+
+            expect(mockLoggerWarn).toHaveBeenCalledWith(
+              expect.stringContaining(
+                'properties "contentType" and "interactionType" should be sent',
+              ),
+            );
+            expect(postTrackingsSpy).toHaveBeenCalledTimes(0);
+          });
+
+          it('should track scroll event', async () => {
+            const data = generateTrackMockData({
+              event: eventTypes.INTERACT_CONTENT,
+              properties: {
+                interactionType: interactionTypes.SCROLL,
+                target: document.body,
+                percentageScrolled: 50,
+              },
+            });
+            await omnitracking.track(data);
+
+            expect(postTrackingsSpy).toHaveBeenCalledWith(
+              expect.objectContaining({
+                parameters: expect.objectContaining({
+                  tid: 668,
+                }),
+              }),
+            );
+          });
+        });
+
+        it('should not track an event when interactionType is scroll but target is not document.body', async () => {
           const data = generateTrackMockData({
             event: eventTypes.INTERACT_CONTENT,
             properties: {
-              contentType: undefined,
+              interactionType: interactionTypes.SCROLL,
+              target: undefined,
+              percentageScrolled: 50,
             },
           });
           await omnitracking.track(data);
 
-          expect(mockLoggerWarn).toHaveBeenCalledWith(
-            expect.stringContaining(
-              'properties "contentType" and "interactionType" should be sent',
-            ),
-          );
+          expect(postTrackingsSpy).toHaveBeenCalledTimes(0);
         });
-        it('should warn if an select content does not have required parameters', async () => {
+
+        it('should track a default interact content event', async () => {
           const data = generateTrackMockData({
-            event: eventTypes.SELECT_CONTENT,
+            event: eventTypes.INTERACT_CONTENT,
             properties: {
-              contentType: undefined,
+              interactionType: interactionTypes.CLICK,
+              contentType: 'logo',
+              id: 'home_logo',
             },
           });
           await omnitracking.track(data);
 
-          expect(mockLoggerWarn).toHaveBeenCalledWith(
-            expect.stringContaining(
-              'properties "contentType" and "id" should be sent',
-            ),
+          expect(postTrackingsSpy).toHaveBeenCalledWith(
+            expect.objectContaining({
+              parameters: expect.objectContaining({
+                tid: 2882,
+              }),
+            }),
           );
         });
       });
+
+      it('should warn if an select content does not have required parameters', async () => {
+        const data = generateTrackMockData({
+          event: eventTypes.SELECT_CONTENT,
+          properties: {
+            contentType: undefined,
+          },
+        });
+        await omnitracking.track(data);
+
+        expect(mockLoggerWarn).toHaveBeenCalledWith(
+          expect.stringContaining(
+            'properties "contentType" and "id" should be sent',
+          ),
+        );
+        expect(postTrackingsSpy).toHaveBeenCalledTimes(0);
+      });
     });
+
     describe('Should send track events when', () => {
       it('event is `Place Order Started`', async () => {
         const placeOrderTid1 = 10097;
@@ -477,6 +538,7 @@ describe('Omnitracking', () => {
         expect(postTrackingsSpy).toHaveBeenCalledWith(expectedPayload);
       });
     });
+
     it('Should not send track events for any other of the predefined events by default', async () => {
       const data = generateTrackMockData({
         event: 'My custom Event',
@@ -641,6 +703,7 @@ describe('Omnitracking', () => {
         );
       });
     });
+
     describe('searchQueryParameter', () => {
       it('Should log an error if the value specified is not an array', () => {
         const searchQueryParameters = 'Invalid value';
