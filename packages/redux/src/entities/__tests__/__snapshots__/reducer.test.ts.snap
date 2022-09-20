@@ -49,8 +49,7 @@ Object {
     "@farfetch/blackout-redux/RESET_RETURN": [Function],
   },
   "subscriptions": Object {
-    "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
-    "@farfetch/blackout-redux/RESET_SUBSCRIPTIONS": [Function],
+    "@farfetch/blackout-redux/RESET_SUBSCRIPTION_PACKAGES": [Function],
   },
   "users": Object {
     "@farfetch/blackout-redux/CREATE_USER_ADDRESS_SUCCESS": [Function],

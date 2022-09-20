@@ -1,12 +1,8 @@
 import * as actionTypes from '../../actionTypes';
-import reducer, {
-  getSubscriptionPackages,
-  getSubscriptionPackagesIsLoading,
-  INITIAL_STATE,
-} from '../subscriptionPackages';
+import reducer, { INITIAL_STATE } from '../subscriptionPackages';
 import type { SubscriptionsState } from '../../types';
 
-const initialState: SubscriptionsState['packages'] = INITIAL_STATE;
+const hash = 'id=Newsletter';
 const randomAction = { type: 'this_is_a_random_action' };
 
 describe('subscriptionPackages reducer', () => {
@@ -14,8 +10,7 @@ describe('subscriptionPackages reducer', () => {
     it('should return the initial state', () => {
       const state = reducer(undefined, randomAction).error;
 
-      expect(state).toBe(initialState.error);
-      expect(state).toBeNull();
+      expect(state).toBeUndefined();
     });
 
     it(`should handle ${actionTypes.FETCH_SUBSCRIPTION_PACKAGES_FAILURE} action type`, () => {
@@ -25,7 +20,8 @@ describe('subscriptionPackages reducer', () => {
         reducer(undefined, {
           type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_FAILURE,
           payload: { error: expectedResult },
-        }).error,
+          meta: { hash },
+        })[hash]?.error,
       ).toBe(expectedResult);
     });
 
@@ -34,8 +30,9 @@ describe('subscriptionPackages reducer', () => {
         reducer(undefined, {
           type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_REQUEST,
           payload: {},
-        }).error,
-      ).toBe(initialState.error);
+          meta: { hash },
+        })[hash]?.error,
+      ).toBeNull();
     });
 
     it('should handle other actions by returning the previous state', () => {
@@ -50,10 +47,9 @@ describe('subscriptionPackages reducer', () => {
 
   describe('result() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(undefined, randomAction).result;
+      const state = reducer(undefined, randomAction)[hash]?.result;
 
-      expect(state).toBe(initialState.result);
-      expect(state).toBeNull();
+      expect(state).toBeUndefined();
     });
 
     it(`should handle ${actionTypes.FETCH_SUBSCRIPTION_PACKAGES_SUCCESS} action type`, () => {
@@ -61,16 +57,17 @@ describe('subscriptionPackages reducer', () => {
         reducer(undefined, {
           type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_SUCCESS,
           payload: { result: {} },
-        }).result,
-      ).toEqual({});
+          meta: { hash },
+        })[hash]?.result,
+      ).toMatchObject({});
     });
   });
 
   describe('isLoading() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(undefined, randomAction).isLoading;
+      const state = reducer(undefined, randomAction)[hash]?.isLoading;
 
-      expect(state).toEqual(initialState.isLoading);
+      expect(state).toBe(undefined);
     });
 
     it(`should handle ${actionTypes.FETCH_SUBSCRIPTION_PACKAGES_REQUEST} action type`, () => {
@@ -78,70 +75,58 @@ describe('subscriptionPackages reducer', () => {
         reducer(undefined, {
           type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_REQUEST,
           payload: {},
-        }).isLoading,
-      ).toEqual(true);
+          meta: { hash },
+        })[hash]?.isLoading,
+      ).toBe(true);
     });
 
     it(`should handle ${actionTypes.FETCH_SUBSCRIPTION_PACKAGES_SUCCESS} action type`, () => {
       const state: SubscriptionsState['packages'] = {
-        ...INITIAL_STATE,
-        isLoading: true,
+        [hash]: {
+          isLoading: true,
+          error: null,
+          result: null,
+        },
       };
 
       expect(
         reducer(state, {
           type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_SUCCESS,
           payload: { result: {} },
-        }).isLoading,
-      ).toEqual(initialState.isLoading);
+          meta: { hash },
+        })[hash]?.isLoading,
+      ).toBe(false);
     });
 
     it(`should handle ${actionTypes.FETCH_SUBSCRIPTION_PACKAGES_FAILURE} action type`, () => {
       const state: SubscriptionsState['packages'] = {
-        ...INITIAL_STATE,
-        isLoading: true,
+        [hash]: {
+          isLoading: true,
+          error: null,
+          result: null,
+        },
       };
 
       expect(
         reducer(state, {
           type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_FAILURE,
           payload: { error: '' },
-        }).isLoading,
-      ).toEqual(initialState.isLoading);
+          meta: { hash },
+        })[hash]?.isLoading,
+      ).toBe(false);
     });
 
     it('should handle other actions by returning the previous state', () => {
       const state: SubscriptionsState['packages'] = {
-        ...INITIAL_STATE,
-        isLoading: false,
+        [hash]: {
+          isLoading: true,
+          error: null,
+          result: null,
+        },
       };
 
-      expect(reducer(state, randomAction).isLoading).toEqual(state.isLoading);
-    });
-  });
-
-  describe('getSubscriptionPackagesIsLoading() selector', () => {
-    it('should return the loading state', () => {
-      const isLoading = true;
-
-      expect(
-        getSubscriptionPackagesIsLoading({
-          ...INITIAL_STATE,
-          isLoading,
-        }),
-      ).toBe(isLoading);
-    });
-  });
-
-  describe('getSubscriptionPackages() selector', () => {
-    it('should return the result state', () => {
-      const result = {
-        supportedChannels: ['some_channel'],
-        packages: ['some_package'],
-      };
-
-      expect(getSubscriptionPackages({ ...INITIAL_STATE, result })).toBe(
-        result,
+      expect(reducer(state, randomAction)[hash]?.isLoading).toEqual(
+        state[hash]?.isLoading,
       );
     });
   });

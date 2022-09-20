@@ -1,3 +1,5 @@
+import { mockSubscriptionPackageId } from './state.fixtures';
+
 export const mockDeleteSubscription = {
   query: {
     emailHash:
@@ -78,7 +80,7 @@ export const mockGetSubscriptions = {
 export const mockPutSubscriptions = {
   data: {
     id: '8c2b5c3e3acb4bdd9c26ba46',
-    customerId: 'user@email.com',
+    customerId: 123,
     topics: [
       {
         type: 'Latest_News',
@@ -105,8 +107,6 @@ export const mockPutSubscriptions = {
     ],
   },
 };
-
-export const mockSubscriptionPackageId = 'Newsletter';
 
 export const initialReduxState = {
   entities: {

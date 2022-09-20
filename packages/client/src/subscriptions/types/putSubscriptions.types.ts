@@ -22,7 +22,7 @@ export type TopicRequest = Omit<SubscriptionTopic, 'channels' | 'id'> & {
 export type SubscriptionRequest = Omit<Subscription, 'topics' | 'id'> & {
   id?: Subscription['id'];
   topics: TopicRequest[];
-  customerId: string;
+  customerId: number;
   cultureCode?: string;
 };
 

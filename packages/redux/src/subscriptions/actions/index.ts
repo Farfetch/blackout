@@ -8,6 +8,8 @@ export { default as clearAllUnsubscribeSubscriptionTopicRecipientRequests } from
 export { default as clearUnsubscribeSubscriptionTopicRecipientRequest } from './clearUnsubscribeSubscriptionTopicRecipientRequest';
 export { default as fetchSubscriptionPackages } from './fetchSubscriptionPackages';
 export { default as fetchUserSubscriptions } from './fetchUserSubscriptions';
+export { default as resetUserSubscriptions } from './resetUserSubscriptions';
+export { default as resetSubscriptionPackages } from './resetSubscriptionPackages';
 export { default as resetSubscriptions } from './resetSubscriptions';
 export { default as unsubscribeSubscription } from './unsubscribeSubscription';
 export { default as unsubscribeSubscriptionTopicRecipient } from './unsubscribeSubscriptionTopicRecipient';

@@ -10,13 +10,12 @@ import type { PutSubscriptions } from './types';
  *
  * @returns Promise object.
  */
-const putSubscriptions: PutSubscriptions = (data, config) => {
-  return client
+const putSubscriptions: PutSubscriptions = (data, config) =>
+  client
     .put('/marketing/v1/subscriptions', data, config)
     .then(() => undefined)
     .catch(error => {
       throw adaptError(error);
     });
-};
 
 export default putSubscriptions;
