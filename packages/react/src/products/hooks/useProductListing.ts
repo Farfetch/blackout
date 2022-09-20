@@ -41,7 +41,9 @@ const useProductListing = (
   const fetchListingAction = useAction(fetchProductListing);
   const fetchSetAction = useAction(fetchProductSet);
   const resetAction = useAction(resetProductsLists);
-  const reset = useCallback(resetAction, [resetAction]);
+  const reset = useCallback(() => {
+    resetAction([productListingHash]);
+  }, [resetAction, productListingHash]);
 
   const isLoading = useSelector((state: StoreState) =>
     isProductsListLoading(state, productListingHash),

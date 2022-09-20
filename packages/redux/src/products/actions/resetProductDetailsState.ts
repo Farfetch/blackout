@@ -28,7 +28,7 @@ const resetProductDetailsState =
   (dispatch: Dispatch<ResetProductDetailsStateAction>): void => {
     dispatch({
       type: actionTypes.RESET_PRODUCT_DETAILS_STATE,
-      productIds,
+      payload: productIds,
     });
   };
 

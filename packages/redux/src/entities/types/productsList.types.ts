@@ -1,8 +1,9 @@
 import type { FacetEntity } from './facet.types';
 import type {
   FacetGroup,
-  ProductListing as OriginalListing,
-  ProductSet as OriginalSet,
+  FilterSegment,
+  ProductListing,
+  ProductSet,
 } from '@farfetch/blackout-client';
 import type { ProductEntity } from './product.types';
 
@@ -12,19 +13,25 @@ export type FacetGroupsNormalized = Array<
   }
 >;
 
-type ProductsNormalized = Omit<OriginalListing['products'], 'entries'> &
-  Omit<OriginalSet['products'], 'entries'> & {
+export type FilterSegmentNormalized = FilterSegment & {
+  facetId: FacetEntity['id'];
+};
+
+type ProductsNormalized = Omit<ProductListing['products'], 'entries'> &
+  Omit<ProductSet['products'], 'entries'> & {
     entries: ProductEntity['id'][];
   };
 
 export type ProductsListEntity = Omit<
-  OriginalListing,
-  'products' | 'facetGroups'
+  ProductListing,
+  'products' | 'facetGroups' | 'filterSegments'
 > &
-  Omit<OriginalSet, 'products' | 'facetGroups'> & {
+  Omit<ProductSet, 'products' | 'facetGroups' | 'filterSegments' | 'id'> & {
     // Entities
     products: ProductsNormalized;
     facetGroups: FacetGroupsNormalized;
     // Properties
     hash: string;
+    filterSegments: FilterSegmentNormalized[];
+    id?: ProductSet['id'];
   };

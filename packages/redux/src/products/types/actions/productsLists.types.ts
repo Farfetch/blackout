@@ -59,6 +59,7 @@ export interface SetProductsListHashAction extends Action {
  */
 export interface ResetProductsListsStateAction extends Action {
   type: typeof actionTypes.RESET_PRODUCTS_LISTS_STATE;
+  payload: Array<string> | undefined;
 }
 
 /**
@@ -66,6 +67,7 @@ export interface ResetProductsListsStateAction extends Action {
  */
 export interface ResetProductsListsEntitiesAction extends Action {
   type: typeof actionTypes.RESET_PRODUCTS_LISTS_ENTITIES;
+  payload: Array<string> | undefined;
 }
 
 export type ResetProductsListsAction =

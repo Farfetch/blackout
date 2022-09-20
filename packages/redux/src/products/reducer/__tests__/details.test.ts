@@ -19,12 +19,36 @@ describe('details redux reducer', () => {
   });
 
   describe('reset handling', () => {
-    it('should return the initial state', () => {
+    it('should return the initial state if no payload is provided', () => {
       expect(
         reducer(undefined, {
           type: productsActionTypes.RESET_PRODUCT_DETAILS_STATE,
         }),
       ).toEqual(initialState);
+
+      expect(
+        reducer(undefined, {
+          type: productsActionTypes.RESET_PRODUCT_DETAILS_STATE,
+          payload: [],
+        }),
+      ).toEqual(initialState);
+    });
+
+    it('should return the same state if a payload with at least one product id is provided and it is not in state', () => {
+      const anotherProductId = mockProductId + 1;
+
+      const state = {
+        error: { [anotherProductId]: new Error('dummy error') },
+        isLoading: { [anotherProductId]: false },
+        isHydrated: { [anotherProductId]: true },
+      };
+
+      expect(
+        reducer(state, {
+          type: productsActionTypes.RESET_PRODUCT_DETAILS_STATE,
+          payload: [mockProductId],
+        }),
+      ).toEqual(state);
     });
   });
 
@@ -74,7 +98,7 @@ describe('details redux reducer', () => {
         // @ts-expect-error
         const state = reducer(defaultErrorState, {
           type: productsActionTypes.RESET_PRODUCT_DETAILS_STATE,
-          productIds: [10000, 20000, 30000],
+          payload: [10000, 20000, 30000],
         });
 
         // Full reset product details state requests are handled by the outer reducer
@@ -126,7 +150,7 @@ describe('details redux reducer', () => {
         // @ts-expect-error
         const state = reducer(defaultIsHydratedState, {
           type: productsActionTypes.RESET_PRODUCT_DETAILS_STATE,
-          productIds: [10000, 20000, 30000],
+          payload: [10000, 20000, 30000],
         });
 
         // Full reset product details state requests are handled by the outer reducer
@@ -207,7 +231,7 @@ describe('details redux reducer', () => {
         // @ts-expect-error
         const state = reducer(defaultIsLoadingState, {
           type: productsActionTypes.RESET_PRODUCT_DETAILS_STATE,
-          productIds: [10000, 20000, 30000],
+          payload: [10000, 20000, 30000],
         });
 
         // Full reset product details state requests are handled by the outer reducer
@@ -257,6 +281,16 @@ describe('details redux reducer', () => {
             { type: productsActionTypes.RESET_PRODUCT_DETAILS_ENTITIES },
           ),
         ).toStrictEqual(expectedResult);
+
+        expect(
+          entitiesMapper[productsActionTypes.RESET_PRODUCT_DETAILS_ENTITIES](
+            state,
+            {
+              type: productsActionTypes.RESET_PRODUCT_DETAILS_ENTITIES,
+              payload: [],
+            },
+          ),
+        ).toStrictEqual(expectedResult);
       });
 
       it('should handle partial reset', () => {
@@ -277,7 +311,7 @@ describe('details redux reducer', () => {
             state,
             {
               type: productsActionTypes.RESET_PRODUCT_DETAILS_ENTITIES,
-              productIds: [10000, 20000, 30000],
+              payload: [10000, 20000, 30000],
             },
           ),
         ).toStrictEqual(expectedResult);

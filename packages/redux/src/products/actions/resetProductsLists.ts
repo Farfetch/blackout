@@ -28,7 +28,7 @@ import type { ThunkDispatch } from 'redux-thunk';
  * @returns Dispatch reset productsLists entities action.
  */
 const resetProductsListsEntities =
-  () =>
+  (productsListsHashes?: Array<string>) =>
   (
     dispatch: ThunkDispatch<
       StoreState,
@@ -38,6 +38,7 @@ const resetProductsListsEntities =
   ): void => {
     dispatch({
       type: actionTypes.RESET_PRODUCTS_LISTS_ENTITIES,
+      payload: productsListsHashes,
     });
   };
 
@@ -74,7 +75,7 @@ const resetProductsListsEntities =
  * @returns Dispatch reset products lists state and entities action.
  */
 const resetProductsLists =
-  () =>
+  (productsListsHashes?: Array<string>) =>
   (
     dispatch: ThunkDispatch<
       StoreState,
@@ -82,8 +83,8 @@ const resetProductsLists =
       ResetProductsListsStateAction | ResetProductsListsEntitiesAction
     >,
   ): void => {
-    dispatch(resetProductsListsState());
-    dispatch(resetProductsListsEntities());
+    dispatch(resetProductsListsState(productsListsHashes));
+    dispatch(resetProductsListsEntities(productsListsHashes));
   };
 
 export default resetProductsLists;

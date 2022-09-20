@@ -33,34 +33,28 @@ const error = (state = INITIAL_STATE.error, action: AnyAction) => {
           action as FetchProductDetailsFailureAction
         ).payload.error,
       };
-    case actionTypes.RESET_PRODUCT_DETAILS_STATE: {
-      const productIds = (action as ResetProductDetailsStateAction).productIds;
-
-      if (!productIds?.length) {
-        return state;
-      }
-
-      return omit(state, productIds);
-    }
+    case actionTypes.RESET_PRODUCT_DETAILS_STATE:
+      return partialResetStateReducer(
+        state,
+        action as ResetProductDetailsStateAction,
+      );
     default:
       return state;
   }
 };
 
 const isHydrated = (state = INITIAL_STATE.isHydrated, action: AnyAction) => {
-  if (action.type === actionTypes.DEHYDRATE_PRODUCT_DETAILS) {
-    return {
-      ...state,
-      [(action as DehydrateProductDetailsAction).meta.productId]: false,
-    };
-  } else if (action.type === actionTypes.RESET_PRODUCT_DETAILS_STATE) {
-    const productIds = (action as ResetProductDetailsStateAction).productIds;
-
-    if (!productIds?.length) {
-      return state;
-    }
-
-    return omit(state, productIds);
+  switch (action.type) {
+    case actionTypes.DEHYDRATE_PRODUCT_DETAILS:
+      return {
+        ...state,
+        [(action as DehydrateProductDetailsAction).meta.productId]: false,
+      };
+    case actionTypes.RESET_PRODUCT_DETAILS_STATE:
+      return partialResetStateReducer(
+        state,
+        action as ResetProductDetailsStateAction,
+      );
   }
 
   return state;
@@ -80,13 +74,10 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
         [(action as FetchProductDetailsSuccessAction).meta.productId]: false,
       };
     case actionTypes.RESET_PRODUCT_DETAILS_STATE: {
-      const productIds = (action as ResetProductDetailsStateAction).productIds;
-
-      if (!productIds?.length) {
-        return state;
-      }
-
-      return omit(state, productIds);
+      return partialResetStateReducer(
+        state,
+        action as ResetProductDetailsStateAction,
+      );
     }
     default:
       return state;
@@ -102,10 +93,10 @@ export const entitiesMapper = {
       return state;
     }
 
-    const productIds = (action as ResetProductDetailsEntitiesAction).productIds;
+    const productIds = (action as ResetProductDetailsEntitiesAction).payload;
     const { products, ...rest } = state;
 
-    if (!productIds) {
+    if (!productIds?.length) {
       return rest;
     }
 
@@ -117,6 +108,19 @@ export const entitiesMapper = {
     };
   },
 };
+
+function partialResetStateReducer<T extends object | null | undefined>(
+  state: T,
+  action: ResetProductDetailsStateAction,
+): T {
+  const productIds = action.payload;
+
+  if (!productIds?.length) {
+    return state;
+  }
+
+  return omit(state, productIds) as T;
+}
 
 export const getError = (
   state: ProductsDetailsState,
@@ -148,7 +152,7 @@ const productsDetailsReducer: Reducer<ProductsDetailsState> = (
 ) => {
   if (
     action.type === actionTypes.RESET_PRODUCT_DETAILS_STATE &&
-    !(action as ResetProductDetailsStateAction).productIds?.length
+    !(action as ResetProductDetailsStateAction).payload?.length
   ) {
     return INITIAL_STATE;
   }
