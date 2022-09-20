@@ -573,6 +573,26 @@ export const trackEventsMapper = {
       actionArea: properties?.state,
     };
   },
+  [eventTypes.SELECT_CONTENT]: data => {
+    const properties = data.properties;
+
+    if (!properties?.contentType || !properties?.id) {
+      logger.warn(
+        `[Omnitracking] - Event ${data.event} properties "contentType" and "id" should be sent 
+                        on the payload when triggering a "select content" event. If you want to track this 
+                        event, make sure to pass these two properties.`,
+      );
+      return;
+    }
+
+    return {
+      tid: 2885,
+      contentType: properties?.contentType,
+      interactionType: properties?.interactionType,
+      val: properties?.id,
+      productId: properties?.productId,
+    };
+  },
   [eventTypes.PRODUCT_UPDATED]: data => {
     const eventList = [];
     const properties = data.properties;
@@ -580,6 +600,7 @@ export const trackEventsMapper = {
     if (properties.colour && properties.oldColour !== properties.colour) {
       // color changed event
       const additionalParameters = {};
+
       if (properties?.oldColourId && properties?.colourId) {
         additionalParameters[
           'colourList'
@@ -602,7 +623,6 @@ export const trackEventsMapper = {
 
     if (properties.size && properties.oldSize !== properties.size) {
       // size changed event
-
       const additionalParameters = {};
 
       if (properties?.oldSizeScaleId && properties?.sizeScaleId) {
