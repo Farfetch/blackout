@@ -31,10 +31,14 @@ export type GetSubscriptionsQuery = {
    * User id. Use this when you have a registered user. This parameter is mutually
    * exclusive with `recipientHash`.
    */
-  customerId: number;
+  customerId?: number;
   /**
    * Hash of the recipient's email. Use this when you do not have a registered user.
    * This parameter is mutually exclusive with `customerId`.
    */
-  recipientHash: string;
+  recipientHash?: string;
+  /**
+   * Subscription id. Use this when you do not have a registered user in conjunction with recipientHash.
+   */
+  id?: string;
 };

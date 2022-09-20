@@ -1,11 +1,8 @@
-import * as subscriptionPackagesReducer from './reducer/subscriptionPackages';
-import * as userSubscriptionReducer from './reducer/userSubscriptions';
+import * as userSubscriptionReducer from '../reducer/userSubscriptions';
 import { createSelector } from 'reselect';
-import { getEntities } from '../entities';
 import defaultTo from 'lodash/defaultTo';
-import get from 'lodash/get';
-import type { StoreState } from '../types';
-import type { SubscriptionsState } from './types';
+import type { StoreState } from '../../types';
+import type { SubscriptionsState } from './../types';
 import type { SubscriptionTopic } from '@farfetch/blackout-client';
 
 // Default user subscriptions value for the following selectors.
@@ -124,71 +121,27 @@ export const areUserSubscriptionsLoading = (state: StoreState) =>
   );
 
 /**
- * Returns the error given a subscription package action.
+ * Retrieves if user subscriptions have been fetched.
  *
+ * Will return true if a fetch request
+ * has been made that returned either successfully or failed
+ * and false otherwise.
+ *
+ * @example
+ * ```
+ * import { areUserSubscriptionsFetched } from '@farfetch/blackout-redux';
+ *
+ * const mapStateToProps = state => ({
+ *     isFetched: areUserSubscriptionsFetched(state)
+ * });
+ * ```
  * @param state - Application state.
  *
- * @returns Subscription package error.
+ * @returns isFetched status of the subscription packages.
  */
-export const getSubscriptionPackagesError = (state: StoreState) =>
-  defaultTo(
-    subscriptionPackagesReducer.getSubscriptionPackagesError(
-      state.subscriptions?.packages,
-    ),
-    null,
-  );
-
-/**
- * Returns the result of a subscription package.
- *
- * @param state - Application state.
- *
- * @returns Subscription package result.
- */
-export const getSubscriptionPackages = createSelector(
-  (state: StoreState) =>
-    subscriptionPackagesReducer.getSubscriptionPackages(
-      state.subscriptions?.packages,
-    ),
-  (state: StoreState) => getEntities(state, 'subscriptionPackages'),
-  (subscriptionPackagesResult, subscriptionPackagesEntity) => {
-    return (
-      subscriptionPackagesResult &&
-      subscriptionPackagesResult.packages
-        .map(packageId => get(subscriptionPackagesEntity, packageId))
-        .filter(Boolean)
-    );
-  },
-);
-
-/**
- * Returns the loading status of a subscription package.
- *
- * @param state - Application state.
- *
- * @returns Subscription package loading status.
- */
-export const areSubscriptionPackagesLoading = (
-  state: StoreState,
-): SubscriptionsState['packages']['isLoading'] | undefined =>
-  subscriptionPackagesReducer.getSubscriptionPackagesIsLoading(
-    state.subscriptions?.packages,
-  );
-
-/**
- * Returns the supported delivery channels for all subscription packages.
- *
- * @param state - Application state.
- *
- * @returns The supported delivery channels.
- */
-export const getSubscriptionPackagesSupportedChannels = (state: StoreState) => {
-  const result = subscriptionPackagesReducer.getSubscriptionPackages(
-    state.subscriptions?.packages,
-  );
-
-  return (result && result.supportedChannels) || undefined;
-};
+export const areUserSubscriptionsFetched = (state: StoreState) =>
+  (!!getUserSubscriptions(state) || !!getUserSubscriptionsError(state)) &&
+  !areUserSubscriptionsLoading(state);
 
 /**
  * Returns a specific unsubscribe recipient from topic request state from the redux

@@ -11,5 +11,6 @@ export * from './locale';
 export * from './payments';
 export * from './orders';
 export * from './search';
+export * from './subscriptions';
 export * from './users';
 export * from './wishlists';

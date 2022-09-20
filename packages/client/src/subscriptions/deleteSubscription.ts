@@ -13,13 +13,12 @@ import type { DeleteSubscription } from './types';
  * @returns Promise object.
  */
 
-const deleteSubscription: DeleteSubscription = (query, config) => {
-  return client
+const deleteSubscription: DeleteSubscription = (query, config) =>
+  client
     .delete(join('/marketing/v1/subscriptions', { query }), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
-};
 
 export default deleteSubscription;

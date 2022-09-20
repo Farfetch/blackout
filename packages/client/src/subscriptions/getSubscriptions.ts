@@ -12,8 +12,8 @@ import type { GetSubscriptions } from './types';
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 
-const getSubscriptions: GetSubscriptions = (query, config) => {
-  return client
+const getSubscriptions: GetSubscriptions = (query, config) =>
+  client
     .get(
       join('/marketing/v1/subscriptions', {
         query,
@@ -24,6 +24,5 @@ const getSubscriptions: GetSubscriptions = (query, config) => {
     .catch(error => {
       throw adaptError(error);
     });
-};
 
 export default getSubscriptions;

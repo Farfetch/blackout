@@ -2,6 +2,9 @@
 
 exports[`Subscriptions redux actions fetchSubscriptionPackages() action creator Should create the correct actions for when the get subscription packages is successful: Fetch subscription packages success payload 1`] = `
 Object {
+  "meta": Object {
+    "hash": "id=Newsletter&id=BackInStock",
+  },
   "payload": Object {
     "entities": Object {
       "subscriptionPackages": Object {
