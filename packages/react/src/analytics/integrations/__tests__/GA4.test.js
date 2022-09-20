@@ -298,6 +298,8 @@ describe('GA4 Integration', () => {
                   mockedPageData.context.web.window.location.query,
                 ),
               path_clean: mockedPageData.context.web.window.location.pathname,
+              __blackoutAnalyticsEventId:
+                mockedPageData.context.event.__uniqueEventId,
             },
           ],
         ];
@@ -1272,6 +1274,9 @@ describe('GA4 Integration', () => {
                 content_type: 'biz',
                 some_other_property: 12312312,
                 interaction_type: interactionTypes.CLICK,
+                __blackoutAnalyticsEventId:
+                  validTrackEvents[eventTypes.INTERACT_CONTENT].context.event
+                    .__uniqueEventId,
               });
             });
           });

@@ -16,8 +16,9 @@ import isFinite from 'lodash/isFinite';
 
 const genericCommandsBuilder = data => {
   const eventName = ga4EventNameMapping[data.event];
+  const eventProperties = getEventProperties(data.event, data);
 
-  return [['event', eventName, getEventProperties(data.event, data)]];
+  return [['event', eventName, eventProperties]];
 };
 
 const getProductUpdatedEventList = data => {

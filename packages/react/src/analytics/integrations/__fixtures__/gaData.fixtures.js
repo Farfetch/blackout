@@ -7,10 +7,13 @@ import {
 } from '@farfetch/blackout-core/analytics';
 import mockedPageData from '../__fixtures__/analyticsPageData.fixtures.json';
 
+const mockedContext = mockedPageData.context;
+
 const validTrackEvents = {
   [eventTypes.PRODUCT_ADDED_TO_CART]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.PRODUCT_ADDED_TO_CART,
+    context: mockedContext,
     properties: {
       from: fromParameterTypes.WISHLIST,
       cartId: 'skdjsidjsdkdj29j',
@@ -43,6 +46,7 @@ const validTrackEvents = {
   [eventTypes.PRODUCT_UPDATED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.PRODUCT_UPDATED,
+    context: mockedContext,
     properties: {
       from: fromParameterTypes.BAG,
       id: '507f1f77bcf86cd799439011',
@@ -68,6 +72,7 @@ const validTrackEvents = {
   [eventTypes.PRODUCT_REMOVED_FROM_CART]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.PRODUCT_REMOVED_FROM_CART,
+    context: mockedContext,
     properties: {
       from: fromParameterTypes.BAG,
       cartId: 'ksjdj92dj29dj92d2j',
@@ -93,6 +98,7 @@ const validTrackEvents = {
   [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.PRODUCT_ADDED_TO_WISHLIST,
+    context: mockedContext,
     properties: {
       from: fromParameterTypes.PLP,
       id: '507f1f77bcf86cd799439011',
@@ -113,6 +119,7 @@ const validTrackEvents = {
   [eventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.PRODUCT_REMOVED_FROM_WISHLIST,
+    context: mockedContext,
     properties: {
       from: fromParameterTypes.PLP,
       id: '507f1f77bcf86cd799439011',
@@ -133,6 +140,7 @@ const validTrackEvents = {
   [eventTypes.PRODUCT_UPDATED_WISHLIST]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.PRODUCT_UPDATED_WISHLIST,
+    context: mockedContext,
     properties: {
       from: fromParameterTypes.WISHLIST,
       id: '507f1f77bcf86cd799439011',
@@ -152,6 +160,7 @@ const validTrackEvents = {
   [eventTypes.PRODUCT_CLICKED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.PRODUCT_CLICKED,
+    context: mockedContext,
     properties: {
       from: fromParameterTypes.PLP,
       id: '507f1f77bcf86cd799439011',
@@ -169,6 +178,7 @@ const validTrackEvents = {
   [eventTypes.PRODUCT_VIEWED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.PRODUCT_VIEWED,
+    context: mockedContext,
     properties: {
       from: fromParameterTypes.PLP,
       id: '507f1f77bcf86cd799439011',
@@ -190,6 +200,7 @@ const validTrackEvents = {
   [eventTypes.PRODUCT_LIST_VIEWED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.PRODUCT_LIST_VIEWED,
+    context: mockedContext,
     properties: {
       category: 'Clothing',
       list: 'Woman shopping',
@@ -224,6 +235,7 @@ const validTrackEvents = {
   [eventTypes.CHECKOUT_STARTED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.CHECKOUT_STARTED,
+    context: mockedContext,
     properties: {
       orderId: '50314b8e9bcf000000000000',
       total: 24.64,
@@ -252,6 +264,7 @@ const validTrackEvents = {
   [eventTypes.CHECKOUT_STEP_VIEWED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.CHECKOUT_STEP_VIEWED,
+    context: mockedContext,
     properties: {
       orderId: '50314b8e9bcf000000000000',
       step: 1,
@@ -276,6 +289,7 @@ const validTrackEvents = {
   [eventTypes.PAYMENT_INFO_ADDED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.PAYMENT_INFO_ADDED,
+    context: mockedContext,
     properties: {
       orderId: '50314b8e9bcf000000000000',
       total: 24.64,
@@ -305,6 +319,7 @@ const validTrackEvents = {
   [eventTypes.SHIPPING_INFO_ADDED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.SHIPPING_INFO_ADDED,
+    context: mockedContext,
     properties: {
       orderId: '50314b8e9bcf000000000000',
       total: 24.64,
@@ -334,6 +349,7 @@ const validTrackEvents = {
   [eventTypes.ADDRESS_INFO_ADDED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.ADDRESS_INFO_ADDED,
+    context: mockedContext,
     properties: {
       orderId: '50314b8e9bcf000000000000',
       total: 24.64,
@@ -348,6 +364,7 @@ const validTrackEvents = {
   [eventTypes.SHIPPING_METHOD_ADDED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.SHIPPING_METHOD_ADDED,
+    context: mockedContext,
     properties: {
       orderId: '50314b8e9bcf000000000000',
       total: 24.64,
@@ -362,6 +379,7 @@ const validTrackEvents = {
   [eventTypes.CHECKOUT_STEP_COMPLETED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.CHECKOUT_STEP_COMPLETED,
+    context: mockedContext,
     properties: {
       orderId: '50314b8e9bcf000000000000',
       step: 1,
@@ -372,6 +390,7 @@ const validTrackEvents = {
   [eventTypes.ORDER_COMPLETED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.ORDER_COMPLETED,
+    context: mockedContext,
     properties: {
       orderId: '50314b8e9bcf000000000000',
       total: 24.64,
@@ -400,6 +419,7 @@ const validTrackEvents = {
   [eventTypes.ORDER_REFUNDED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.ORDER_REFUNDED,
+    context: mockedContext,
     properties: {
       orderId: '50314b8e9bcf000000000000',
       total: 19,
@@ -425,6 +445,7 @@ const validTrackEvents = {
   [eventTypes.PLACE_ORDER_STARTED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.PLACE_ORDER_STARTED,
+    context: mockedContext,
     properties: {
       orderId: '50314b8e9bcf000000000000',
       total: 24.64,
@@ -438,6 +459,7 @@ const validTrackEvents = {
   [eventTypes.PROMOCODE_APPLIED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.PROMOCODE_APPLIED,
+    context: mockedContext,
     properties: {
       orderId: '50314b8e9bcf000000000000',
       total: 24.64,
@@ -452,6 +474,7 @@ const validTrackEvents = {
   [eventTypes.CHECKOUT_ABANDONED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.CHECKOUT_ABANDONED,
+    context: mockedContext,
     properties: {
       orderId: '50314b8e9bcf000000000000',
       total: 24.64,
@@ -465,6 +488,7 @@ const validTrackEvents = {
   [eventTypes.LOGIN]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.LOGIN,
+    context: mockedContext,
     properties: {
       method: 'Farfetch',
     },
@@ -473,6 +497,7 @@ const validTrackEvents = {
   [eventTypes.SIGNUP_FORM_COMPLETED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.SIGNUP_FORM_COMPLETED,
+    context: mockedContext,
     properties: {
       method: 'Farfetch',
     },
@@ -481,6 +506,7 @@ const validTrackEvents = {
   [eventTypes.SELECT_CONTENT]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.SELECT_CONTENT,
+    context: mockedContext,
     properties: {
       contentType: 'biz',
       id: 12312312,
@@ -538,6 +564,7 @@ const validTrackEvents = {
   [eventTypes.FILTERS_APPLIED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.FILTERS_APPLIED,
+    context: mockedContext,
     properties: {
       filters: {
         brands: [2765, 4062],
@@ -554,6 +581,7 @@ const validTrackEvents = {
   [eventTypes.FILTERS_CLEARED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.FILTERS_CLEARED,
+    context: mockedContext,
     properties: {
       filters: {
         brands: [2765, 4062],
@@ -570,6 +598,7 @@ const validTrackEvents = {
   [eventTypes.CHECKOUT_STEP_EDITING]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.CHECKOUT_STEP_EDITING,
+    context: mockedContext,
     properties: {
       step: 1,
     },
@@ -578,6 +607,7 @@ const validTrackEvents = {
   [eventTypes.SHARE]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.SHARE,
+    context: mockedContext,
     properties: {
       method: 'Facebook',
       contentType: 'image',
@@ -588,6 +618,7 @@ const validTrackEvents = {
   [eventTypes.INTERACT_CONTENT]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.INTERACT_CONTENT,
+    context: mockedContext,
     properties: {
       interactionType: interactionTypes.CLICK,
       contentType: 'biz',
@@ -598,6 +629,7 @@ const validTrackEvents = {
   [eventTypes.SIGNUP_NEWSLETTER]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.SIGNUP_NEWSLETTER,
+    context: mockedContext,
     properties: {
       gender: '0',
     },
@@ -607,6 +639,7 @@ const validTrackEvents = {
 const nonSupportedByDefaultTrackEvent = {
   type: analyticsTrackTypes.TRACK,
   event: eventTypes.PRODUCT_UPDATED_WISHLIST, // Non supported event by default
+  context: mockedContext,
   properties: {
     cartId: 'skdjsidjsdkdj29j',
     id: '507f1f77bcf86cd799439011',
@@ -625,6 +658,7 @@ const nonSupportedByDefaultTrackEvent = {
 const notValidTrackEvent = {
   type: analyticsTrackTypes.TRACK,
   event: eventTypes.PRODUCT_ADDED_TO_CART,
+  context: mockedContext,
   properties: {
     from: fromParameterTypes.WISHLIST,
     cartId: 'skdjsidjsdkdj29j',

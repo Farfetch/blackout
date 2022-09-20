@@ -34,7 +34,7 @@ import platformTypes from '../../types/platformTypes';
 export const getCommonParameters = data => {
   return {
     clientTimestamp: new Date(data.timestamp).toJSON(),
-    uuid: uuidv4(),
+    uuid: get(data, 'context.event.__uniqueEventId'),
   };
 };
 

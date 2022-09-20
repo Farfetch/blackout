@@ -6,6 +6,7 @@ Array [
     "event",
     "sign_up_newsletter",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "newsletter_gender": "Woman,Man",
     },
   ],
@@ -13,6 +14,7 @@ Array [
     "event",
     "sign_up_newsletter",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "newsletter_gender": "WOMAN,MAN",
     },
   ],
@@ -20,6 +22,7 @@ Array [
     "event",
     "sign_up_newsletter",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "newsletter_gender": "Woman,Man",
     },
   ],
@@ -32,6 +35,7 @@ Array [
     "event",
     "sign_up_newsletter",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "newsletter_gender": "Woman",
     },
   ],
@@ -43,6 +47,7 @@ Array [
   "config",
   "GA-123456-12",
   Object {
+    "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
     "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
     "path_clean": "/pt/",
   },
@@ -54,6 +59,7 @@ Array [
   "event",
   "search",
   Object {
+    "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
     "search_term": "term",
   },
 ]
@@ -64,6 +70,7 @@ Array [
   "event",
   "search",
   Object {
+    "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
     "search_term": "query",
   },
 ]
@@ -75,6 +82,7 @@ Array [
     "event",
     "add_address_info",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "address_finder": undefined,
       "coupon": "HARRODS2019",
       "currency": "USD",
@@ -93,6 +101,7 @@ Array [
     "event",
     "abandon_confirmation_checkout",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "coupon": "HARRODS2019",
       "currency": "USD",
       "value": 24.64,
@@ -107,6 +116,7 @@ Array [
     "event",
     "begin_checkout",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "coupon": "HARRODS2019",
       "currency": "USD",
       "items": Array [
@@ -143,6 +153,7 @@ Array [
     "event",
     "edit_checkout_step",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "checkout_step": 1,
     },
   ],
@@ -155,6 +166,7 @@ Array [
     "event",
     "apply_filters",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "filters": "{\\"brands\\":[2765,4062],\\"categories\\":[135973],\\"colors\\":[1],\\"discount\\":[0],\\"gender\\":[0],\\"price\\":[0,1950],\\"sizes\\":[16]}",
     },
   ],
@@ -167,6 +179,7 @@ Array [
     "event",
     "clear_filters",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "filters": "{\\"brands\\":[2765,4062],\\"categories\\":[135973],\\"colors\\":[1],\\"discount\\":[0],\\"gender\\":[0],\\"price\\":[0,1950],\\"sizes\\":[16]}",
     },
   ],
@@ -179,6 +192,7 @@ Array [
     "event",
     "interact_content",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "content_type": "biz",
       "interaction_type": "Click",
       "some_other_property": 12312312,
@@ -193,6 +207,7 @@ Array [
     "event",
     "login",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "method": "Farfetch",
     },
   ],
@@ -205,6 +220,7 @@ Array [
     "event",
     "purchase",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "affiliation": undefined,
       "coupon": "HARRODS2019",
       "currency": "USD",
@@ -245,6 +261,7 @@ Array [
     "event",
     "refund",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "affiliation": undefined,
       "coupon": undefined,
       "currency": "USD",
@@ -285,6 +302,7 @@ Array [
     "event",
     "add_payment_info",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "coupon": "HARRODS2019",
       "currency": "USD",
       "items": Array [
@@ -322,6 +340,7 @@ Array [
     "event",
     "place_order",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "affiliation": undefined,
       "coupon": "HARRODS2019",
       "currency": "USD",
@@ -340,6 +359,7 @@ Array [
     "event",
     "add_to_cart",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "currency": "USD",
       "from": "Wishlist",
       "item_list_id": "d3618128-5aa9-4caa-a452-1dd1377a6190",
@@ -378,6 +398,7 @@ Array [
     "event",
     "add_to_wishlist",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "currency": "USD",
       "from": "PLP",
       "item_list_id": "/en-pt/shopping/woman",
@@ -416,6 +437,7 @@ Array [
     "event",
     "select_item",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "from": "PLP",
       "item_list_id": "/en-pt/shopping/woman",
       "item_list_name": "Woman shopping",
@@ -447,6 +469,7 @@ Array [
     "event",
     "view_item_list",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "error": undefined,
       "filters": undefined,
       "from": undefined,
@@ -501,6 +524,7 @@ Array [
     "event",
     "remove_from_wishlist",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "affiliation": undefined,
       "coupon": undefined,
       "currency": "USD",
@@ -534,6 +558,7 @@ Array [
     "event",
     "remove_from_cart",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "currency": "USD",
       "from": "Bag",
       "item_list_id": "e0030b3c-b970-4496-bc72-f9a38d6270b1",
@@ -572,6 +597,7 @@ Array [
     "event",
     "view_item",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "currency": "USD",
       "from": "PLP",
       "image_count": undefined,
@@ -608,6 +634,7 @@ Array [
     "event",
     "apply_promo_code",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "address_finder": undefined,
       "coupon": "HARRODS2019",
       "currency": "USD",
@@ -626,6 +653,7 @@ Array [
     "event",
     "select_content",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "content_type": "biz",
       "item_id": 12312312,
     },
@@ -639,6 +667,7 @@ Array [
     "event",
     "share",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "content_type": "image",
       "item_id": "123456",
       "method": "Facebook",
@@ -653,6 +682,7 @@ Array [
     "event",
     "add_shipping_info",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "address_finder": undefined,
       "coupon": "HARRODS2019",
       "currency": "USD",
@@ -693,6 +723,7 @@ Array [
     "event",
     "add_shipping_method",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "address_finder": undefined,
       "coupon": "HARRODS2019",
       "currency": "USD",
@@ -711,6 +742,7 @@ Array [
     "event",
     "sign_up",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "method": "Farfetch",
     },
   ],
@@ -723,6 +755,7 @@ Array [
     "event",
     "sign_up_newsletter",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "newsletter_gender": "Woman",
     },
   ],
@@ -735,6 +768,7 @@ Array [
     "event",
     "view_cart",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "currency": "USD",
       "from": "Bag",
       "item_list_id": "e0030b3c-b970-4496-bc72-f9a38d6270b1",
@@ -770,6 +804,7 @@ Array [
     "config",
     "GA-123456-12",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/pt/",
     },
@@ -783,6 +818,7 @@ Array [
     "event",
     "search",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "search_term": "shoes",
     },
   ],
@@ -790,6 +826,7 @@ Array [
     "config",
     "GA-123456-12",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/pt/",
     },
@@ -803,6 +840,7 @@ Array [
     "event",
     "view_wishlist",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "wishlist_id": "d3618128-5aa9-4caa-a452-1dd1377a6190",
     },
   ],
@@ -810,6 +848,7 @@ Array [
     "config",
     "GA-123456-12",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/pt/",
     },
@@ -823,6 +862,7 @@ Array [
     "event",
     "scroll",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "percent_scrolled": "25%",
     },
   ],
@@ -835,6 +875,7 @@ Array [
     "event",
     "change_colour",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "colour": "red",
       "from": "Bag",
       "item_id": "507f1f77bcf86cd799439011",
@@ -851,6 +892,7 @@ Array [
     "event",
     "change_quantity",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "from": "Bag",
       "item_id": "507f1f77bcf86cd799439011",
       "item_name": "Gareth McConnell Dreamscape T-Shirt",
@@ -862,6 +904,7 @@ Array [
     "event",
     "change_size",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "from": "Bag",
       "item_id": "507f1f77bcf86cd799439011",
       "item_name": "Gareth McConnell Dreamscape T-Shirt",
@@ -873,6 +916,7 @@ Array [
     "event",
     "change_colour",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "colour": "red",
       "from": "Bag",
       "item_id": "507f1f77bcf86cd799439011",
@@ -889,6 +933,7 @@ Array [
     "event",
     "change_quantity",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "from": "Bag",
       "item_id": "507f1f77bcf86cd799439011",
       "item_name": "Gareth McConnell Dreamscape T-Shirt",
@@ -905,6 +950,7 @@ Array [
     "event",
     "change_quantity",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "from": "Bag",
       "item_id": "507f1f77bcf86cd799439011",
       "item_name": "Gareth McConnell Dreamscape T-Shirt",
@@ -921,6 +967,7 @@ Array [
     "event",
     "change_size",
     Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "from": "Bag",
       "item_id": "507f1f77bcf86cd799439011",
       "item_name": "Gareth McConnell Dreamscape T-Shirt",
