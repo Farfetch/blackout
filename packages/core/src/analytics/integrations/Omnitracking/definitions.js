@@ -553,6 +553,26 @@ export const trackEventsMapper = {
     tid: 2927,
     loginType: data.properties?.method,
   }),
+  [eventTypes.INTERACT_CONTENT]: data => {
+    const properties = data.properties;
+
+    if (!properties?.contentType || !properties?.interactionType) {
+      logger.warn(
+        `[Omnitracking] - Event ${data.event} properties "contentType" and "interactionType" should be sent 
+                        on the payload when triggering a "interact content" event. If you want to track this event, make 
+                        sure to pass these two properties.`,
+      );
+      return;
+    }
+
+    return {
+      tid: 2882,
+      contentType: properties?.contentType,
+      interactionType: properties?.interactionType,
+      val: properties?.id,
+      actionArea: properties?.state,
+    };
+  },
   [eventTypes.PRODUCT_UPDATED]: data => {
     const eventList = [];
     const properties = data.properties;
@@ -584,6 +604,7 @@ export const trackEventsMapper = {
       // size changed event
 
       const additionalParameters = {};
+
       if (properties?.oldSizeScaleId && properties?.sizeScaleId) {
         additionalParameters[
           'scaleList'

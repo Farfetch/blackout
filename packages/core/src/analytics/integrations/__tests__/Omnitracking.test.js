@@ -342,6 +342,21 @@ describe('Omnitracking', () => {
 
           expect(mockLoggerWarn).not.toHaveBeenCalled();
         });
+        it('should warn if an interact content does not have required parameters', async () => {
+          const data = generateTrackMockData({
+            event: eventTypes.INTERACT_CONTENT,
+            properties: {
+              contentType: undefined,
+            },
+          });
+          await omnitracking.track(data);
+
+          expect(mockLoggerWarn).toHaveBeenCalledWith(
+            expect.stringContaining(
+              'properties "contentType" and "interactionType" should be sent',
+            ),
+          );
+        });
       });
     });
     describe('Should send track events when', () => {

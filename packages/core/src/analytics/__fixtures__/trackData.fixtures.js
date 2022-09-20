@@ -157,6 +157,12 @@ export const customTrackMockData = {
   [eventTypes.SIGNUP_FORM_COMPLETED]: {
     method: 'Tenant',
   },
+  [eventTypes.INTERACT_CONTENT]: {
+    contentType: 'Navbar',
+    interactionType: 'click',
+    id: '123',
+    state: 'expanded',
+  },
 };
 
 export const expectedTrackPayload = {
