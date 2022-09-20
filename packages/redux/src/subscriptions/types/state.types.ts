@@ -26,8 +26,10 @@ export type SubscriptionPackagesResultNormalized = Omit<
   packages: Array<SubscriptionPackage['id']>;
 };
 
-export type SubscriptionPackagesState =
-  StateWithResult<SubscriptionPackagesResultNormalized>;
+export type SubscriptionPackagesState = Record<
+  string,
+  StateWithResult<SubscriptionPackagesResultNormalized>
+>;
 
 export type UnsubscribeRecipientFromTopicRequests = Record<
   string,

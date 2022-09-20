@@ -48,10 +48,12 @@ describe('Subscriptions redux actions', () => {
           expect.arrayContaining([
             {
               type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_REQUEST,
+              meta: { hash: 'id=Newsletter&id=BackInStock' },
             },
             {
               type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_FAILURE,
               payload: { error: expectedError },
+              meta: { hash: 'id=Newsletter&id=BackInStock' },
             },
           ]),
         );

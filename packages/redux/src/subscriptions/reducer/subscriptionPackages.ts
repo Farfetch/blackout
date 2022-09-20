@@ -1,98 +1,56 @@
 import * as actionTypes from '../actionTypes';
-import * as authenticationActionTypes from '../../users/authentication/actionTypes';
-import { AnyAction, combineReducers, Reducer } from 'redux';
+import type { AnyAction } from 'redux';
 import type { StoreState } from '../../types';
 import type { SubscriptionsState } from '../types';
 
-type SubscriptionPackagesState = SubscriptionsState['packages'];
+export const INITIAL_STATE: Record<string, SubscriptionsState['packages']> = {};
 
-export const INITIAL_STATE: SubscriptionPackagesState = {
-  error: null,
-  isLoading: false,
-  result: null,
-};
-
-const error = (state = INITIAL_STATE.error, action: AnyAction) => {
-  switch (action.type) {
-    case actionTypes.FETCH_SUBSCRIPTION_PACKAGES_FAILURE:
-      return action.payload.error;
-    case actionTypes.FETCH_SUBSCRIPTION_PACKAGES_REQUEST:
-      return INITIAL_STATE.error;
-    default:
-      return state;
-  }
-};
-
-const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
+const subscriptionPackagesReducer = (
+  state = INITIAL_STATE,
+  action: AnyAction,
+) => {
   switch (action.type) {
     case actionTypes.FETCH_SUBSCRIPTION_PACKAGES_REQUEST:
-      return true;
+      return {
+        ...state,
+        [action.meta.hash]: {
+          result: null,
+          isLoading: true,
+          error: null,
+        },
+      };
     case actionTypes.FETCH_SUBSCRIPTION_PACKAGES_SUCCESS:
+      return {
+        ...state,
+        [action.meta.hash]: {
+          result: action.payload.result,
+          isLoading: false,
+          error: null,
+        },
+      };
     case actionTypes.FETCH_SUBSCRIPTION_PACKAGES_FAILURE:
-      return false;
+      return {
+        ...state,
+        [action.meta.hash]: {
+          result: null,
+          isLoading: false,
+          error: action.payload.error,
+        },
+      };
+    case actionTypes.RESET_SUBSCRIPTION_PACKAGES:
+      return INITIAL_STATE;
     default:
       return state;
   }
 };
-
-const result = (state = INITIAL_STATE.result, action: AnyAction) => {
-  switch (action.type) {
-    case actionTypes.FETCH_SUBSCRIPTION_PACKAGES_SUCCESS:
-      return action.payload.result;
-    default:
-      return state;
-  }
-};
-
-export const getSubscriptionPackagesError = (
-  state: SubscriptionPackagesState = INITIAL_STATE,
-): SubscriptionPackagesState['error'] => state.error;
-
-export const getSubscriptionPackagesIsLoading = (
-  state: SubscriptionPackagesState = INITIAL_STATE,
-): SubscriptionPackagesState['isLoading'] => state.isLoading;
-
-export const getSubscriptionPackages = (
-  state: SubscriptionPackagesState = INITIAL_STATE,
-): SubscriptionPackagesState['result'] => state.result;
-
-const reducer = combineReducers({
-  error,
-  isLoading,
-  result,
-});
 
 const removeSubscriptionPackagesFromEntities = (
   state: NonNullable<StoreState['entities']>,
 ) => ({ ...state, subscriptionPackages: undefined });
 
 export const subscriptionPackagesEntitiesMapper = {
-  [actionTypes.RESET_SUBSCRIPTIONS]: removeSubscriptionPackagesFromEntities,
-  [authenticationActionTypes.LOGOUT_SUCCESS]:
+  [actionTypes.RESET_SUBSCRIPTION_PACKAGES]:
     removeSubscriptionPackagesFromEntities,
-};
-
-/**
- * Reducer for Subscription Packages state.
- *
- * @param state  - Current redux state.
- * @param action - Action dispatched.
- *
- * @returns New state.
- */
-
-const subscriptionPackagesReducer: Reducer<SubscriptionPackagesState> = (
-  state = INITIAL_STATE,
-  action,
-) => {
-  switch (action.type) {
-    case actionTypes.RESET_SUBSCRIPTIONS:
-    case authenticationActionTypes.LOGOUT_SUCCESS:
-      return INITIAL_STATE;
-
-    default:
-      return reducer(state, action);
-  }
 };
 
 export default subscriptionPackagesReducer;

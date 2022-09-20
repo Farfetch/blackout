@@ -1,4 +1,5 @@
 import * as actionTypes from '../../actionTypes';
+import { authenticationActionTypes } from '../../../users/authentication';
 import {
   mockRecipientId1TopicId1,
   mockRecipientId2,
@@ -27,6 +28,21 @@ describe('userSubscriptions reducer', () => {
     const state = reducer(undefined, randomAction);
 
     expect(state).toStrictEqual(initialState);
+  });
+
+  it.each([
+    actionTypes.RESET_USER_SUBSCRIPTIONS,
+    authenticationActionTypes.LOGOUT_SUCCESS,
+    authenticationActionTypes.LOGIN_SUCCESS,
+    authenticationActionTypes.FETCH_USER_SUCCESS,
+    authenticationActionTypes.REGISTER_SUCCESS,
+  ])('should return initial state on %s action', actionType => {
+    expect(
+      reducer(mockUserSubscriptionsState, {
+        type: actionType,
+        payload: {},
+      }),
+    ).toMatchObject(INITIAL_STATE);
   });
 
   describe('error() reducer', () => {

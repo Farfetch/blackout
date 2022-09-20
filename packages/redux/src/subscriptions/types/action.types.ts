@@ -125,8 +125,15 @@ export type UpdateUserSubscriptionsAction =
   | UpdateUserSubscriptionsFailureAction;
 
 /**
- * Actions dispatched when the reset subscriptions action is called.
+ * Actions dispatched when the reset subscription packages action is called.
  */
-export interface ResetSubscriptionsStateAction extends Action {
-  type: typeof actionTypes.RESET_SUBSCRIPTIONS;
+export interface ResetSubscriptionPackagesAction extends Action {
+  type: typeof actionTypes.RESET_SUBSCRIPTION_PACKAGES;
+}
+
+/**
+ * Actions dispatched when the reset user subscriptions action is called.
+ */
+export interface ResetUserSubscriptionsAction extends Action {
+  type: typeof actionTypes.RESET_USER_SUBSCRIPTIONS;
 }

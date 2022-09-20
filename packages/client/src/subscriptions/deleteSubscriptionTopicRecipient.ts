@@ -20,8 +20,8 @@ const deleteSubscriptionTopicRecipient: DeleteSubscriptionTopicRecipient = (
   topicId,
   recipientId,
   config,
-) => {
-  return client
+) =>
+  client
     .delete(
       join(
         '/marketing/v1/subscriptions/',
@@ -37,6 +37,5 @@ const deleteSubscriptionTopicRecipient: DeleteSubscriptionTopicRecipient = (
     .catch(error => {
       throw adaptError(error);
     });
-};
 
 export default deleteSubscriptionTopicRecipient;

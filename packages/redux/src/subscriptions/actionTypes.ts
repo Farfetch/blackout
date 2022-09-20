@@ -15,6 +15,12 @@ export const FETCH_SUBSCRIPTION_PACKAGES_SUCCESS =
   '@farfetch/blackout-redux/FETCH_SUBSCRIPTION_PACKAGES_SUCCESS';
 
 /**
+ * Action type dispatched by reset thunk.
+ */
+export const RESET_SUBSCRIPTION_PACKAGES =
+  '@farfetch/blackout-redux/RESET_SUBSCRIPTION_PACKAGES';
+
+/**
  * Action type dispatched when the fetch user subscriptions request fails.
  */
 export const FETCH_USER_SUBSCRIPTIONS_FAILURE =
@@ -49,8 +55,8 @@ export const UPDATE_USER_SUBSCRIPTIONS_SUCCESS =
 /**
  * Action type dispatched by reset thunk.
  */
-export const RESET_SUBSCRIPTIONS =
-  '@farfetch/blackout-redux/RESET_SUBSCRIPTIONS';
+export const RESET_USER_SUBSCRIPTIONS =
+  '@farfetch/blackout-redux/RESET_USER_SUBSCRIPTIONS';
 
 /**
  * Action type dispatched when the unsubscribe from subscriptions request fails.
