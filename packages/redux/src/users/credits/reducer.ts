@@ -19,7 +19,7 @@ export const entitiesMapper = {
   [actionTypes.FETCH_USER_CREDITS_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
-  ): StoreState['entities'] => {
+  ) => {
     const { user: currentUser } = state;
 
     if (!currentUser) {
@@ -39,7 +39,7 @@ export const entitiesMapper = {
   [actionTypes.FETCH_USER_CREDIT_MOVEMENTS_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
-  ): StoreState['entities'] => {
+  ) => {
     const { user: currentUser } = state;
 
     if (!currentUser) {

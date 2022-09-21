@@ -70,8 +70,7 @@ export const FETCH_CHECKOUT_ORDER_SUCCESS =
 /**
  * Action type dispatched when resetting the checkout.
  */
-export const RESET_CHECKOUT_STATE =
-  '@farfetch/blackout-redux/RESET_CHECKOUT_STATE';
+export const RESET_CHECKOUT = '@farfetch/blackout-redux/RESET_CHECKOUT';
 
 /**
  * Action type dispatched when the fetch checkout details request fails.
@@ -137,6 +136,12 @@ export const FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST =
  */
 export const FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS =
   '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS';
+
+/**
+ * Action type dispatched when resetting the checkout order delivery bundle upgrades state.
+ */
+export const RESET_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_STATE =
+  '@farfetch/blackout-redux/RESET_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_STATE';
 
 /**
  * Action type dispatched when the fetch item delivery provisioning request fails.

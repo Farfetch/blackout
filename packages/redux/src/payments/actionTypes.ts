@@ -101,6 +101,12 @@ export const REMOVE_PAYMENT_TOKEN_SUCCESS =
   '@farfetch/blackout-redux/REMOVE_PAYMENT_TOKEN_SUCCESS';
 
 /**
+ * Action type dispatched when resetting the payment tokens.
+ */
+export const RESET_PAYMENT_TOKENS_STATE =
+  '@farfetch/blackout-redux/RESET_PAYMENT_TOKENS_STATE';
+
+/**
  * Action type dispatched when the fetch payment tokens request fails.
  */
 export const FETCH_PAYMENT_TOKENS_FAILURE =
@@ -252,3 +258,8 @@ export const CREATE_PAYMENT_INTENT_CHARGE_REQUEST =
  */
 export const CREATE_PAYMENT_INTENT_CHARGE_SUCCESS =
   '@farfetch/blackout-redux/CREATE_PAYMENT_INTENT_CHARGE_SUCCESS';
+
+/**
+ * Action type dispatched when resetting the payments state.
+ */
+export const RESET_PAYMENTS = '@farfetch/blackout-redux/RESET_PAYMENTS';

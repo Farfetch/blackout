@@ -79,7 +79,7 @@ export const FETCH_SHIPMENT_TRACKINGS_SUCCESS =
   '@farfetch/blackout-redux/FETCH_SHIPMENT_TRACKINGS_SUCCESS';
 
 /**
- * Action type dispatched when resetting the orders.
+ * Action type dispatched when resetting the orders state.
  */
 export const RESET_ORDERS = '@farfetch/blackout-redux/RESET_ORDERS';
 
@@ -88,6 +88,18 @@ export const RESET_ORDERS = '@farfetch/blackout-redux/RESET_ORDERS';
  */
 export const RESET_ORDER_DETAILS_STATE =
   '@farfetch/blackout-redux/RESET_ORDER_DETAILS_STATE';
+
+/**
+ * Action type dispatched when resetting the orders returns slice state.
+ */
+export const RESET_ORDER_RETURNS_STATE =
+  '@farfetch/blackout-redux/RESET_ORDER_RETURNS_STATE';
+
+/**
+ * Action type dispatched when resetting the orders return options slice state.
+ */
+export const RESET_ORDER_RETURN_OPTIONS_STATE =
+  '@farfetch/blackout-redux/RESET_ORDER_RETURN_OPTIONS_STATE';
 
 /**
  * Action type dispatched when the fetch order documents request fails.

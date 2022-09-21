@@ -1,6 +1,11 @@
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers, Reducer } from 'redux';
-import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
+import {
+  FETCH_USER_SUCCESS,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+  REGISTER_SUCCESS,
+} from '../users/authentication/actionTypes';
 import reducerFactory from '../helpers/reducerFactory';
 import type { ReturnsState } from './types';
 import type { StoreState } from '../types';
@@ -30,9 +35,6 @@ const error = (state = INITIAL_STATE.error, action: AnyAction) => {
     case actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST:
     case actionTypes.FETCH_RETURN_REQUEST:
     case actionTypes.UPDATE_RETURN_REQUEST:
-    case actionTypes.RESET_RETURN:
-    case LOGOUT_SUCCESS:
-      return INITIAL_STATE.error;
     default:
       return state;
   }
@@ -43,9 +45,6 @@ const id = (state = INITIAL_STATE.id, action: AnyAction) => {
     case actionTypes.CREATE_RETURN_SUCCESS:
     case actionTypes.FETCH_RETURN_SUCCESS:
       return action.payload.result;
-    case actionTypes.RESET_RETURN:
-    case LOGOUT_SUCCESS:
-      return INITIAL_STATE.id;
     default:
       return state;
   }
@@ -66,39 +65,40 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
     case actionTypes.FETCH_RETURN_FAILURE:
     case actionTypes.UPDATE_RETURN_SUCCESS:
     case actionTypes.UPDATE_RETURN_FAILURE:
-    case actionTypes.RESET_RETURN:
-    case LOGOUT_SUCCESS:
-      return INITIAL_STATE.isLoading;
     default:
       return state;
   }
 };
 
+const resetEntitiesStateReducer = (
+  state: NonNullable<StoreState['entities']>,
+) => {
+  const { returns, returnItems, ...rest } = state;
+
+  return {
+    ...rest,
+  };
+};
+
 export const entitiesMapper = {
-  [actionTypes.RESET_RETURN]: (
+  [actionTypes.RESET_RETURNS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
   ) => {
     const {
       meta: { resetEntities },
     } = action;
-    const { returns, returnItems, ...rest } = state;
 
-    if (resetEntities) {
-      return {
-        ...rest,
-      };
+    if (!resetEntities) {
+      return state;
     }
 
-    return state;
+    return resetEntitiesStateReducer(state);
   },
-  [LOGOUT_SUCCESS]: (state: NonNullable<StoreState['entities']>) => {
-    const { returns, returnItems, ...rest } = state;
-
-    return {
-      ...rest,
-    };
-  },
+  [LOGOUT_SUCCESS]: resetEntitiesStateReducer,
+  [LOGIN_SUCCESS]: resetEntitiesStateReducer,
+  [REGISTER_SUCCESS]: resetEntitiesStateReducer,
+  [FETCH_USER_SUCCESS]: resetEntitiesStateReducer,
 };
 
 const returns = reducerFactory(
@@ -132,12 +132,26 @@ export const getPickupCapabilities = (
  *
  * @returns New state.
  */
-const returnsReducer: Reducer<ReturnsState> = combineReducers({
+const reducer: Reducer<ReturnsState> = combineReducers({
   error,
   id,
   isLoading,
   returns,
   pickupCapabilities,
 });
+
+const returnsReducer: Reducer<ReturnsState> = (state, action) => {
+  if (
+    action.type === LOGOUT_SUCCESS ||
+    action.type === LOGIN_SUCCESS ||
+    action.type === FETCH_USER_SUCCESS ||
+    action.type === REGISTER_SUCCESS ||
+    action.type === actionTypes.RESET_RETURNS
+  ) {
+    return INITIAL_STATE;
+  }
+
+  return reducer(state, action);
+};
 
 export default returnsReducer;

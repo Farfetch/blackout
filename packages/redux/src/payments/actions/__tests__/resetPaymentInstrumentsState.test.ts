@@ -1,14 +1,12 @@
 import * as actionTypes from '../../actionTypes';
-import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import resetPaymentInstrumentsState from '../resetPaymentInstrumentsState';
 
-const paymentsMockStore = (state = {}) =>
-  mockStore({ paymentTokens: INITIAL_STATE }, state);
+const paymentsMockStore = (state = {}) => mockStore(null, state);
 
 let store: ReturnType<typeof paymentsMockStore>;
 
-describe('reset payment instruments action', () => {
+describe('reset payment instruments state action', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     store = paymentsMockStore();

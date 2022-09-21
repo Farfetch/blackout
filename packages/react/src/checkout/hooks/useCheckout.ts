@@ -29,7 +29,7 @@ import {
   isCheckoutLoading as isCheckoutLoadingSelector,
   isCheckoutOrderPromocodeLoading as isCheckoutOrderPromocodeLoadingSelector,
   isLoginLoading,
-  resetCheckoutState as resetCheckoutStateAction,
+  resetCheckout as resetCheckoutAction,
   setCheckoutOrderPromocode as setCheckoutOrderPromocodeAction,
   setCheckoutOrderTags as setCheckoutOrderTagsAction,
   StoreState,
@@ -124,7 +124,7 @@ const useCheckout = ({
 
   // Actions
   const createCheckoutOrder = useAction(createCheckoutOrderAction);
-  const resetCheckoutState = useAction(resetCheckoutStateAction);
+  const resetCheckout = useAction(resetCheckoutAction);
   const fetchCheckoutOrder = useAction(fetchCheckoutOrderAction);
   const fetchCheckoutOrderDetails = useAction(fetchCheckoutOrderDetailsAction);
   const fetchCollectPoints = useAction(fetchCollectPointsAction);
@@ -269,7 +269,7 @@ const useCheckout = ({
     fetchCheckoutOrder,
     fetchCheckoutOrderDetails,
     fetchCheckoutOrderDeliveryBundleUpgrades,
-    resetCheckoutState,
+    resetCheckout,
     updateCheckoutOrder,
     updateCheckoutOrderItems,
     setCheckoutOrderPromocode,

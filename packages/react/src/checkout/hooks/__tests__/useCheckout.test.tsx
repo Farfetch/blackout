@@ -37,7 +37,7 @@ jest.mock('@farfetch/blackout-redux', () => ({
   fetchCheckoutOrderDeliveryBundleUpgrades: jest.fn(() => ({
     type: 'get_upgrades',
   })),
-  resetCheckoutState: jest.fn(() => ({ type: 'reset_checkout' })),
+  resetCheckout: jest.fn(() => ({ type: 'reset_checkout' })),
   updateCheckoutOrderItems: jest.fn(() => ({
     type: 'update_checkout_order_items',
   })),
@@ -75,7 +75,7 @@ describe('useCheckout', () => {
     expect(typeof current.fetchCheckoutOrderDeliveryBundleUpgrades).toBe(
       'function',
     );
-    expect(typeof current.resetCheckoutState).toBe('function');
+    expect(typeof current.resetCheckout).toBe('function');
     expect(typeof current.updateCheckoutOrderItems).toBe('function');
     expect(typeof current.setCheckoutOrderPromocode).toBe('function');
     expect(typeof current.setCheckoutOrderTags).toBe('function');

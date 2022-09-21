@@ -271,7 +271,23 @@ export interface ResetOrdersAction extends Action {
  */
 export interface ResetOrderDetailsStateAction extends Action {
   type: typeof actionTypes.RESET_ORDER_DETAILS_STATE;
-  payload: { orderId: Order['id'] };
+  payload: Array<Order['id']> | undefined;
+}
+
+/**
+ * Actions dispatched when the reset order returns state request is made.
+ */
+export interface ResetOrderReturnsStateAction extends Action {
+  type: typeof actionTypes.RESET_ORDER_RETURNS_STATE;
+  payload: Array<Order['id']> | undefined;
+}
+
+/**
+ * Actions dispatched when the reset order return options state request is made.
+ */
+export interface ResetOrderReturnOptionsStateAction extends Action {
+  type: typeof actionTypes.RESET_ORDER_RETURN_OPTIONS_STATE;
+  payload: Array<Order['id']> | undefined;
 }
 
 export interface FetchOrderAvailableItemsActivitiesRequestAction

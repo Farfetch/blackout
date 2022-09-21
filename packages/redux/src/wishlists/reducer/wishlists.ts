@@ -132,14 +132,12 @@ const itemsReducer = (state = INITIAL_STATE.items, action: AnyAction) => {
 export const entitiesMapper = {
   [actionTypes.RESET_WISHLIST_ENTITIES]: (
     state: NonNullable<StoreState['entities']>,
-  ): StoreState['entities'] => {
+  ) => {
     const { wishlistItems, wishlistSets, ...rest } = state;
 
     return rest;
   },
-  [LOGOUT_SUCCESS]: (
-    state: NonNullable<StoreState['entities']>,
-  ): StoreState['entities'] => {
+  [LOGOUT_SUCCESS]: (state: NonNullable<StoreState['entities']>) => {
     const { wishlistItems, wishlistSets, ...rest } = state as NonNullable<
       StoreState['entities']
     >;

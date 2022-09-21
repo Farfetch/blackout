@@ -42,7 +42,7 @@ export const entitiesMapper = {
   [actionTypes.UPDATE_USER_PREFERENCES_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
-  ): StoreState['entities'] => {
+  ) => {
     const { user: currentUser } = state;
 
     if (!currentUser) {

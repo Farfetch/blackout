@@ -1,5 +1,10 @@
 import * as actionTypes from '../actionTypes';
-import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
+import {
+  FETCH_USER_SUCCESS,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+  REGISTER_SUCCESS,
+} from '../../users/authentication/actionTypes';
 import reducer, * as fromReducer from '../reducer';
 import type { AddressesState } from '../types';
 
@@ -11,20 +16,19 @@ describe('Addresses reducers', () => {
   });
 
   describe('reset handling', () => {
-    it('RESET_ADDRESS_PREDICTIONS should return the initial state', () => {
+    it.each([
+      actionTypes.RESET_ADDRESS_PREDICTIONS,
+      LOGOUT_SUCCESS,
+      LOGIN_SUCCESS,
+      FETCH_USER_SUCCESS,
+      REGISTER_SUCCESS,
+    ])('should return initial state on %s action', actionType => {
       expect(
         reducer(undefined, {
-          type: actionTypes.RESET_ADDRESS_PREDICTIONS,
+          type: actionType,
+          payload: {},
         }),
-      ).toEqual(initialState);
-    });
-
-    it('LOGOUT_SUCCESS should return the initial state', () => {
-      expect(
-        reducer(undefined, {
-          type: LOGOUT_SUCCESS,
-        }),
-      ).toEqual(initialState);
+      ).toMatchObject(initialState);
     });
   });
 

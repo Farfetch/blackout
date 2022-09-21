@@ -1,4 +1,3 @@
-import { compose } from 'lodash/fp';
 import { entitiesMapper as entitiesMapperBag } from '../../bags/reducer';
 import { entitiesMapper as entitiesMapperCheckout } from '../../checkout/reducer';
 import { entitiesMapper as entitiesMapperMerchantsLocations } from '../../merchantsLocations/reducer';
@@ -20,7 +19,7 @@ import type { StoreState } from '../../types';
 export type CustomEntitiesReducer = (
   state: NonNullable<StoreState['entities']>,
   action: AnyAction,
-) => StoreState['entities'];
+) => NonNullable<StoreState['entities']>;
 
 export type CustomEntitiesReducerByAction = Record<
   string,
@@ -92,7 +91,13 @@ export const mergeEntitiesReducersByAction: EntitiesReducerByActionNormalizer =
           actionType
         ] as CustomEntitiesReducer[];
 
-        return compose(...duplicatedReducers)(state, action);
+        let newState: NonNullable<StoreState['entities']> = state;
+
+        duplicatedReducers.forEach(reducer => {
+          newState = reducer(newState, action);
+        });
+
+        return newState;
       };
 
       result[actionType] = newEntityReducer;

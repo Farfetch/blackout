@@ -1,5 +1,6 @@
 import * as actionTypes from '../actionTypes';
 import * as fromReducer from '../reducer';
+import { BlackoutError, toBlackoutError } from '@farfetch/blackout-client';
 import {
   expectedOrderReturnOptionsNormalizedPayload,
   expectedOrdersResponseNormalizedPayload,
@@ -8,11 +9,16 @@ import {
   mockState,
   orderEntity,
   orderId,
+  orderId2,
   returnOptionId,
   returnOptionId2,
 } from 'tests/__fixtures__/orders';
-import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
-import { toBlackoutError } from '@farfetch/blackout-client';
+import {
+  FETCH_USER_SUCCESS,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+  REGISTER_SUCCESS,
+} from '../../users/authentication/actionTypes';
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
 import reducer, { entitiesMapper } from '../reducer';
@@ -27,22 +33,16 @@ describe('orders reducer', () => {
   });
 
   describe('reset handling', () => {
-    it('should return the initial state when it receives a `LOGOUT_SUCCESS` action', () => {
+    it.each([
+      actionTypes.RESET_ORDERS,
+      LOGOUT_SUCCESS,
+      LOGIN_SUCCESS,
+      FETCH_USER_SUCCESS,
+      REGISTER_SUCCESS,
+    ])('should return initial state on %s action', actionType => {
       expect(
-        reducer(undefined, {
-          payload: {},
-          type: LOGOUT_SUCCESS,
-        }),
-      ).toEqual(initialState);
-    });
-
-    it('should return the initial state when it receives a `RESET_ORDERS` action', () => {
-      expect(
-        reducer(undefined, {
-          payload: {},
-          type: actionTypes.RESET_ORDERS,
-        }),
-      ).toEqual(initialState);
+        reducer(mockState.orders, { type: actionType, payload: {} }),
+      ).toMatchObject(initialState);
     });
   });
 
@@ -241,6 +241,26 @@ describe('orders reducer', () => {
       ).toEqual({ error: {}, isLoading: { [orderId]: false } });
     });
 
+    it('should handle RESET_ORDER_DETAILS_STATE action type', () => {
+      const state = {
+        ...mockState.orders,
+        orderDetails: {
+          error: {
+            [orderId]: new Error('dummy_error') as BlackoutError,
+            [orderId2]: new Error('dummy_error_2') as BlackoutError,
+          },
+          isLoading: { [orderId]: true, [orderId2]: true },
+        },
+      };
+
+      expect(
+        reducer(state, {
+          type: actionTypes.RESET_ORDER_DETAILS_STATE,
+          payload: [orderId, orderId2],
+        }).orderDetails,
+      ).toEqual(initialState.orderDetails);
+    });
+
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...initialState,
@@ -295,6 +315,26 @@ describe('orders reducer', () => {
       ).toEqual({ error: {}, isLoading: { [orderId]: false } });
     });
 
+    it('should handle RESET_ORDER_RETURNS_STATE action type', () => {
+      const state = {
+        ...mockState.orders,
+        orderReturns: {
+          error: {
+            [orderId]: new Error('dummy_error') as BlackoutError,
+            [orderId2]: new Error('dummy_error_2') as BlackoutError,
+          },
+          isLoading: { [orderId]: true, [orderId2]: true },
+        },
+      };
+
+      expect(
+        reducer(state, {
+          type: actionTypes.RESET_ORDER_RETURNS_STATE,
+          payload: [orderId, orderId2],
+        }).orderReturns,
+      ).toEqual(initialState.orderReturns);
+    });
+
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...initialState,
@@ -347,6 +387,26 @@ describe('orders reducer', () => {
           type: actionTypes.FETCH_ORDER_RETURN_OPTIONS_SUCCESS,
         }).orderReturnOptions,
       ).toEqual({ error: {}, isLoading: { [orderId]: false } });
+    });
+
+    it('should handle RESET_ORDER_RETURN_OPTIONS_STATE action type', () => {
+      const state = {
+        ...mockState.orders,
+        orderReturnOptions: {
+          error: {
+            [orderId]: new Error('dummy_error') as BlackoutError,
+            [orderId2]: new Error('dummy_error_2') as BlackoutError,
+          },
+          isLoading: { [orderId]: true, [orderId2]: true },
+        },
+      };
+
+      expect(
+        reducer(state, {
+          type: actionTypes.RESET_ORDER_RETURN_OPTIONS_STATE,
+          payload: [orderId, orderId2],
+        }).orderReturnOptions,
+      ).toEqual(initialState.orderReturnOptions);
     });
 
     it('should handle other actions by returning the previous state', () => {
@@ -503,38 +563,30 @@ describe('orders reducer', () => {
       });
     });
 
-    describe('for RESET_ORDERS', () => {
-      const state = merge({}, mockState.entities);
-      const expectedResult = {
-        ...omit(state, [
-          'orders',
-          'orderItems',
-          'returnOptions',
-          'labelTracking',
-        ]),
-      };
+    describe('reset handling', () => {
+      it.each([
+        actionTypes.RESET_ORDERS,
+        LOGOUT_SUCCESS,
+        LOGIN_SUCCESS,
+        FETCH_USER_SUCCESS,
+        REGISTER_SUCCESS,
+      ])('should return initial state on %s action', actionType => {
+        const state = mockState.entities;
+        const expectedResult = {
+          ...omit(state, [
+            'orders',
+            'orderItems',
+            'labelTracking',
+            'returnOptions',
+            'returns',
+          ]),
+        };
 
-      it('should handle RESET_ORDERS action type', () => {
-        expect(entitiesMapper[actionTypes.RESET_ORDERS](state)).toEqual(
-          expectedResult,
-        );
-      });
-    });
-
-    describe('for LOGOUT_SUCCESS', () => {
-      const state = mockState.entities;
-      const expectedResult = {
-        ...omit(state, [
-          'orders',
-          'orderItems',
-          'labelTracking',
-          'returnOptions',
-          'returns',
-        ]),
-      };
-
-      it('should handle LOGOUT_SUCCESS action type', () => {
-        expect(entitiesMapper[LOGOUT_SUCCESS](state)).toEqual(expectedResult);
+        expect(
+          entitiesMapper[actionType as keyof typeof entitiesMapper](state, {
+            type: actionType,
+          }),
+        ).toEqual(expectedResult);
       });
     });
   });

@@ -43,7 +43,7 @@ export const FETCH_RETURN_SUCCESS =
 /**
  * Action type dispatched when resetting the return.
  */
-export const RESET_RETURN = '@farfetch/blackout-redux/RESET_RETURN';
+export const RESET_RETURNS = '@farfetch/blackout-redux/RESET_RETURNS';
 
 /**
  * Action type dispatched when the update return request fails.

@@ -1,7 +1,12 @@
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers, Reducer } from 'redux';
 import { createReducerWithResult } from '../helpers/reducerFactory';
-import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
+import {
+  FETCH_USER_SUCCESS,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+  REGISTER_SUCCESS,
+} from '../users/authentication/actionTypes';
 import get from 'lodash/get';
 import omit from 'lodash/omit';
 import type * as T from './types';
@@ -80,7 +85,6 @@ const paymentIntentCharge = (
         },
       };
     case actionTypes.RESET_PAYMENT_INTENT_CHARGE_STATE:
-    case LOGOUT_SUCCESS:
       return INITIAL_STATE.paymentIntentCharge;
     default:
       return state;
@@ -148,7 +152,6 @@ const paymentInstruments = (
         ),
       };
     case actionTypes.RESET_PAYMENT_INSTRUMENTS_STATE:
-    case LOGOUT_SUCCESS:
       return INITIAL_STATE.paymentInstruments;
     default:
       return state;
@@ -168,8 +171,6 @@ const paymentMethods = createReducerWithResult(
   ],
   INITIAL_STATE.paymentMethods,
   actionTypes,
-  false,
-  true,
 );
 
 const paymentTokens = (
@@ -208,23 +209,26 @@ const paymentTokens = (
         error: action.payload.error,
         isLoading: false,
       };
-
-    case LOGOUT_SUCCESS:
+    case actionTypes.RESET_PAYMENT_TOKENS_STATE:
       return INITIAL_STATE.paymentTokens;
     default:
       return state;
   }
 };
 
+const resetEntitiesStateReducer = (
+  state: NonNullable<StoreState['entities']>,
+) => {
+  const { paymentInstruments, paymentTokens, ...rest } = state;
+
+  return rest;
+};
+
 export const entitiesMapper = {
   [actionTypes.REMOVE_PAYMENT_TOKEN_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
-  ): StoreState['entities'] => {
-    if (!state) {
-      return state;
-    }
-
+  ) => {
     const { id } = action.meta;
     const currentPaymentTokens = state.paymentTokens;
 
@@ -236,12 +240,10 @@ export const entitiesMapper = {
   [actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
-  ): StoreState['entities'] => {
-    if (!state) {
-      return state;
-    }
+  ) => {
     const { instrumentId } = action.meta;
     const currentInstruments = state.paymentInstruments;
+
     return {
       ...state,
       paymentInstruments: omit(currentInstruments, instrumentId),
@@ -249,20 +251,17 @@ export const entitiesMapper = {
   },
   [actionTypes.RESET_PAYMENT_INSTRUMENTS_STATE]: (
     state: NonNullable<StoreState['entities']>,
-  ): StoreState['entities'] => {
+  ) => {
     return {
       ...state,
       paymentInstruments: {},
     };
   },
-  [LOGOUT_SUCCESS]: (
-    state: NonNullable<StoreState['entities']>,
-  ): StoreState['entities'] => {
-    const { paymentInstruments, paymentTokens, checkoutOrders, ...rest } =
-      state;
-
-    return rest;
-  },
+  [LOGOUT_SUCCESS]: resetEntitiesStateReducer,
+  [LOGIN_SUCCESS]: resetEntitiesStateReducer,
+  [REGISTER_SUCCESS]: resetEntitiesStateReducer,
+  [FETCH_USER_SUCCESS]: resetEntitiesStateReducer,
+  [actionTypes.RESET_PAYMENTS]: resetEntitiesStateReducer,
 };
 
 export const getPaymentTokens = (
@@ -305,7 +304,18 @@ const reducers = combineReducers({
  *
  * @returns New state.
  */
-const paymentsReducer: Reducer<T.PaymentsState> = (state, action) =>
-  reducers(state, action);
+const paymentsReducer: Reducer<T.PaymentsState> = (state, action) => {
+  if (
+    action.type === LOGOUT_SUCCESS ||
+    action.type === LOGIN_SUCCESS ||
+    action.type === FETCH_USER_SUCCESS ||
+    action.type === REGISTER_SUCCESS ||
+    action.type === actionTypes.RESET_PAYMENTS
+  ) {
+    return INITIAL_STATE;
+  }
+
+  return reducers(state, action);
+};
 
 export default paymentsReducer;

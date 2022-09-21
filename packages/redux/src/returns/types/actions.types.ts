@@ -161,6 +161,6 @@ export type CreateReturnPickupRescheduleRequestAction =
  * Actions dispatched when the reset return request is made.
  */
 export interface ResetReturnAction extends Action {
-  type: typeof actionTypes.RESET_RETURN;
+  type: typeof actionTypes.RESET_RETURNS;
   meta: { resetEntities: boolean };
 }
