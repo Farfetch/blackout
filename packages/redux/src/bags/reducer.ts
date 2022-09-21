@@ -141,7 +141,7 @@ const items = (
 export const entitiesMapper = {
   [actionTypes.RESET_BAG_ENTITIES]: (
     state: NonNullable<StoreState['entities']>,
-  ): StoreState['entities'] => {
+  ) => {
     if (!state) {
       return state;
     }
@@ -150,9 +150,7 @@ export const entitiesMapper = {
 
     return rest;
   },
-  [LOGOUT_SUCCESS]: (
-    state: NonNullable<StoreState['entities']>,
-  ): StoreState['entities'] => {
+  [LOGOUT_SUCCESS]: (state: NonNullable<StoreState['entities']>) => {
     if (!state) {
       return state;
     }

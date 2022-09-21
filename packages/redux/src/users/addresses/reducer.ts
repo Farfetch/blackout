@@ -164,7 +164,7 @@ export const entitiesMapper = {
   [actionTypes.CREATE_USER_ADDRESS_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
-  ): StoreState['entities'] => {
+  ) => {
     const id = action.payload.result;
     const createdAddress = action.payload.entities.addresses[id];
 
@@ -182,7 +182,7 @@ export const entitiesMapper = {
   [actionTypes.UPDATE_USER_ADDRESS_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
-  ): StoreState['entities'] => {
+  ) => {
     const id = action.payload.result;
     const updatedAddress = action.payload.entities.addresses[id];
 
@@ -200,7 +200,7 @@ export const entitiesMapper = {
   [actionTypes.REMOVE_USER_ADDRESS_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
-  ): StoreState['entities'] => {
+  ) => {
     const { addressId } = action.meta;
     const currentAddresses = state?.addresses;
 
@@ -217,7 +217,7 @@ export const entitiesMapper = {
   [actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
-  ): StoreState['entities'] => {
+  ) => {
     const { addressId } = action.meta;
     // Get prev default address so it can later be unmarked as the default
     const prevCurrentShippingAddress = getDefaultAddress(
@@ -257,7 +257,7 @@ export const entitiesMapper = {
   [actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
-  ): StoreState['entities'] => {
+  ) => {
     const { addressId } = action.meta;
     // Get prev default address so it can later be unmarked as the default
     const prevCurrentBillingAddress = getDefaultAddress(
@@ -297,7 +297,7 @@ export const entitiesMapper = {
   [actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
-  ): StoreState['entities'] => {
+  ) => {
     const { addressId } = action.meta;
 
     // Get prev default address so it can later be unmarked as the default
@@ -340,7 +340,7 @@ export const entitiesMapper = {
   [actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
-  ): StoreState['entities'] => {
+  ) => {
     const { addressId } = action.meta;
 
     return produce(state, draftState => {

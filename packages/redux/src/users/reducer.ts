@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers, Reducer } from 'redux';
+import { basicEntitiesReducer } from '../entities/reducer/createEntities';
 import addressesReducer, {
   entitiesMapper as addressesEntitiesMapper,
   INITIAL_STATE as INITIAL_ADDRESSES_STATE,
@@ -81,6 +82,9 @@ export const entitiesMapper = {
 
     return { ...rest };
   },
+  [actionTypes.LOGIN_SUCCESS]: basicEntitiesReducer,
+  [actionTypes.FETCH_USER_SUCCESS]: basicEntitiesReducer,
+  [actionTypes.REGISTER_SUCCESS]: basicEntitiesReducer,
 };
 
 /**

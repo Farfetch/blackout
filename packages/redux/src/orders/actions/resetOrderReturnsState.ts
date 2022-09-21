@@ -3,17 +3,17 @@ import type { Dispatch } from 'redux';
 import type { Order } from '@farfetch/blackout-client';
 
 /**
- * Reset orders details slice state only
+ * Reset orders returns slice state only
  * to its initial value.
  *
  * @returns - Thunk.
  */
-const resetOrderDetailsState =
+const resetOrderReturnsState =
   (orderIds?: Array<Order['id']>) => (dispatch: Dispatch) => {
     dispatch({
-      type: actionTypes.RESET_ORDER_DETAILS_STATE,
+      type: actionTypes.RESET_ORDER_RETURNS_STATE,
       payload: orderIds,
     });
   };
 
-export default resetOrderDetailsState;
+export default resetOrderReturnsState;

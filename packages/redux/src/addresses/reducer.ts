@@ -1,6 +1,11 @@
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers, Reducer } from 'redux';
-import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
+import {
+  FETCH_USER_SUCCESS,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+  REGISTER_SUCCESS,
+} from '../users/authentication/actionTypes';
 import type * as T from './types';
 
 export const INITIAL_STATE: T.AddressesState = {
@@ -95,6 +100,9 @@ const reducer = combineReducers({
 const addressesReducer: Reducer<T.AddressesState> = (state, action) => {
   if (
     action.type === LOGOUT_SUCCESS ||
+    action.type === LOGIN_SUCCESS ||
+    action.type === REGISTER_SUCCESS ||
+    action.type === FETCH_USER_SUCCESS ||
     action.type === actionTypes.RESET_ADDRESS_PREDICTIONS
   ) {
     return INITIAL_STATE;

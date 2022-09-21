@@ -13,7 +13,7 @@ export const entitiesMapper = {
   [actionTypes.FETCH_USER_BENEFITS_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
-  ): StoreState['entities'] => {
+  ) => {
     const { user: currentUser } = state;
 
     if (!currentUser) {

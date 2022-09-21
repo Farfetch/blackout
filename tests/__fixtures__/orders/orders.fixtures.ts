@@ -3825,12 +3825,12 @@ export const mockState = {
 
 export const mockOrderItemEntityDenormalized = {
   ...orderItemEntity,
-  brand: mockState.entities.brands[220482],
+  brand: mockState.entities?.brands?.[220482],
   categories: [
-    mockState.entities.categories[136301],
-    mockState.entities.categories[136308],
+    mockState.entities?.categories?.[136301],
+    mockState.entities?.categories?.[136308],
   ],
-  merchant: mockState.entities.merchants[merchantId],
+  merchant: mockState.entities?.merchants?.[merchantId],
 };
 
 export const mockOrderEntityDenormalized = {
@@ -3840,12 +3840,14 @@ export const mockOrderEntityDenormalized = {
     [merchantId]: {
       returnOptions: [
         {
-          ...mockState.entities.returnOptions[`${orderId}_${returnOptionId}`],
-          merchant: mockState.entities.merchants[merchantId],
+          ...mockState.entities?.returnOptions?.[
+            `${orderId}_${returnOptionId}`
+          ],
+          merchant: mockState.entities?.merchants?.[merchantId],
         },
       ],
       orderItems: [mockOrderItemEntityDenormalized],
-      merchant: mockState.entities.merchants[merchantId],
+      merchant: mockState.entities?.merchants?.[merchantId],
     },
   },
   totalItems: 1,

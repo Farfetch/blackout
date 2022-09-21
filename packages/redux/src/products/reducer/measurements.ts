@@ -54,7 +54,7 @@ export const entitiesMapper = {
   [actionTypes.FETCH_PRODUCT_MEASUREMENTS_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     { meta: { productId }, payload: { entities } }: AnyAction,
-  ): StoreState['entities'] => {
+  ) => {
     if (!state) {
       return state;
     }

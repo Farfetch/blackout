@@ -1,6 +1,12 @@
 import * as actionTypes from '../actionTypes';
 import * as fromReducer from '../reducer';
 import {
+  FETCH_USER_SUCCESS,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+  REGISTER_SUCCESS,
+} from '../../users/authentication/actionTypes';
+import {
   instrumentId,
   mockInitialState,
   mockInstrumentData,
@@ -8,9 +14,9 @@ import {
   paymentTokenId,
   paymentTokenId2,
 } from 'tests/__fixtures__/payments';
-import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
 import { reducerAssertions } from '../../../tests/helpers';
 import { toBlackoutError } from '@farfetch/blackout-client';
+import omit from 'lodash/omit';
 import reducer, { entitiesMapper } from '../reducer';
 import type { PaymentsState } from '../types';
 import type { PaymentTokenEntity } from '../../entities';
@@ -20,6 +26,62 @@ let initialState: PaymentsState;
 describe('payments reducer', () => {
   beforeEach(() => {
     initialState = fromReducer.INITIAL_STATE;
+  });
+
+  describe('reset handling', () => {
+    it.each([
+      actionTypes.RESET_PAYMENTS,
+      LOGOUT_SUCCESS,
+      LOGIN_SUCCESS,
+      FETCH_USER_SUCCESS,
+      REGISTER_SUCCESS,
+    ])('should return initial state on %s action', actionType => {
+      expect(
+        reducer(
+          {
+            paymentIntentCharge: {
+              error: null,
+              isLoading: true,
+              result: null,
+            },
+            userCreditBalance: {
+              error: null,
+              isLoading: true,
+              result: null,
+            },
+            giftCardBalance: {
+              error: null,
+              isLoading: true,
+              result: null,
+            },
+            paymentInstruments: {
+              error: null,
+              isLoading: false,
+              result: ['PayPalExp', 'AliPay'],
+            },
+            paymentIntent: {
+              error: null,
+              isLoading: false,
+              result: null,
+            },
+            paymentMethods: {
+              error: null,
+              isLoading: false,
+              result: null,
+            },
+            paymentTokens: {
+              error: null,
+              isLoading: false,
+              result: null,
+            },
+          },
+          {
+            type: actionType,
+            payload: {},
+          },
+        ),
+      ).toMatchObject(initialState);
+    });
   });
 
   describe('paymentIntentCharge reducers', () => {
@@ -92,18 +154,6 @@ describe('payments reducer', () => {
           type: actionTypes.RESET_PAYMENT_INTENT_CHARGE_STATE,
         }).paymentIntentCharge,
       ).toEqual(initialState.paymentIntentCharge);
-    });
-
-    describe('LOGOUT_SUCCESS', () => {
-      it('should handle LOGOUT_SUCCESS action type', () => {
-        const reducerResult = reducer(undefined, {
-          type: LOGOUT_SUCCESS,
-        }).paymentIntentCharge;
-
-        expect(reducerResult.error).toBe(null);
-        expect(reducerResult.result).toBe(null);
-        expect(reducerResult.isLoading).toBe(false);
-      });
     });
   });
 
@@ -208,18 +258,6 @@ describe('payments reducer', () => {
         expect(reducerResult).toEqual(initialState.paymentInstruments);
       });
     });
-
-    describe('LOGOUT_SUCCESS', () => {
-      it('should handle LOGOUT_SUCCESS action type', () => {
-        const reducerResult = reducer(undefined, {
-          type: LOGOUT_SUCCESS,
-        }).paymentInstruments;
-
-        expect(reducerResult.error).toBe(null);
-        expect(reducerResult.result).toBe(null);
-        expect(reducerResult.isLoading).toBe(false);
-      });
-    });
   });
 
   describe('paymentTokens reducers', () => {
@@ -280,18 +318,6 @@ describe('payments reducer', () => {
         }).paymentTokens;
 
         expect(reducerResult.result).toEqual(expectedResult);
-        expect(reducerResult.isLoading).toBe(false);
-      });
-    });
-
-    describe('LOGOUT_SUCCESS', () => {
-      it('should handle LOGOUT_SUCCESS action type', () => {
-        const reducerResult = reducer(undefined, {
-          type: LOGOUT_SUCCESS,
-        }).paymentTokens;
-
-        expect(reducerResult.error).toBe(null);
-        expect(reducerResult.result).toBe(null);
         expect(reducerResult.isLoading).toBe(false);
       });
     });
@@ -377,8 +403,14 @@ describe('payments reducer', () => {
       });
     });
 
-    describe('logout', () => {
-      it('should handle LOGOUT_SUCCESS action type', () => {
+    describe('reset handling', () => {
+      it.each([
+        actionTypes.RESET_PAYMENTS,
+        LOGOUT_SUCCESS,
+        LOGIN_SUCCESS,
+        FETCH_USER_SUCCESS,
+        REGISTER_SUCCESS,
+      ])('should return initial state on %s action', actionType => {
         const state = {
           ...mockInitialState.entities,
           paymentInstruments: {
@@ -390,9 +422,20 @@ describe('payments reducer', () => {
             [paymentTokenId2]:
               mockPaymentTokensResponse[1] as PaymentTokenEntity,
           },
+          dummy: {
+            ABCDEF: { id: 'ABCDEF' },
+          },
         };
 
-        expect(entitiesMapper[LOGOUT_SUCCESS](state)).toEqual({});
+        const expectedResult = {
+          ...omit(state, ['paymentInstruments', 'paymentTokens']),
+        };
+
+        expect(
+          entitiesMapper[actionType as keyof typeof entitiesMapper](state, {
+            type: actionType,
+          }),
+        ).toEqual(expectedResult);
       });
     });
   });

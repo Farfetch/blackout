@@ -2,7 +2,7 @@ import * as actionTypes from '../actionTypes';
 import type { Dispatch } from 'redux';
 
 /**
- * Reset state to its initial value.
+ * Reset orders state and related entities to its initial value.
  *
  * @returns - Thunk.
  */

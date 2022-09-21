@@ -363,21 +363,29 @@ export interface UpdatePaymentIntentInstrumentSuccessAction extends Action {
 }
 
 /**
- * Reset Payment Intent Charge Actions.
+ * Reset Payment Intent Charge Action.
  */
-export type ResetPaymentIntentChargeAction =
-  ResetPaymentIntentChargeSuccessAction;
-
-export interface ResetPaymentIntentChargeSuccessAction extends Action {
+export interface ResetPaymentIntentChargeAction extends Action {
   type: typeof actionTypes.RESET_PAYMENT_INTENT_CHARGE_STATE;
 }
 
 /**
- * Reset Payment Instruments Actions.
+ * Reset Payment Instruments Action.
  */
-export type ResetPaymentInstrumentsAction =
-  ResetPaymentInstrumentsSuccessAction;
-
-export interface ResetPaymentInstrumentsSuccessAction extends Action {
+export interface ResetPaymentInstrumentsAction extends Action {
   type: typeof actionTypes.RESET_PAYMENT_INSTRUMENTS_STATE;
+}
+
+/**
+ * Reset Payment Tokens Action.
+ */
+export interface ResetPaymentTokensAction extends Action {
+  type: typeof actionTypes.RESET_PAYMENT_TOKENS_STATE;
+}
+
+/**
+ * Reset Payments Action.
+ */
+export interface ResetPaymentsAction extends Action {
+  type: typeof actionTypes.RESET_PAYMENTS;
 }

@@ -46,7 +46,7 @@ function useOrder(
   }, [orderId, fetchOrderDetails, guestUserEmail, fetchConfig]);
 
   const resetOrderDetailsState = useCallback(() => {
-    resetOrderDetailsStateFromUseOrders(orderId);
+    resetOrderDetailsStateFromUseOrders([orderId]);
   }, [resetOrderDetailsStateFromUseOrders, orderId]);
 
   useEffect(() => {

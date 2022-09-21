@@ -1,6 +1,11 @@
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers, Reducer } from 'redux';
-import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
+import {
+  FETCH_USER_SUCCESS,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+  REGISTER_SUCCESS,
+} from '../users/authentication/actionTypes';
 import assignWith from 'lodash/assignWith';
 import createMergedObject from '../helpers/createMergedObject';
 import get from 'lodash/get';
@@ -89,9 +94,8 @@ const error = (
     case actionTypes.CREATE_CHECKOUT_ORDER_REQUEST:
     case actionTypes.FETCH_CHECKOUT_ORDER_REQUEST:
     case actionTypes.UPDATE_CHECKOUT_ORDER_REQUEST:
-    case actionTypes.RESET_CHECKOUT_STATE:
-    case LOGOUT_SUCCESS:
       return INITIAL_STATE.error;
+
     default:
       return state;
   }
@@ -107,9 +111,6 @@ const id = (state = INITIAL_STATE.id, action: AnyAction) => {
     case actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS:
     case actionTypes.SET_CHECKOUT_ORDER_TAGS_SUCCESS:
       return action.payload.result;
-    case actionTypes.RESET_CHECKOUT_STATE:
-    case LOGOUT_SUCCESS:
-      return INITIAL_STATE.id;
     default:
       return state;
   }
@@ -127,18 +128,30 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
     case actionTypes.FETCH_CHECKOUT_ORDER_SUCCESS:
     case actionTypes.UPDATE_CHECKOUT_ORDER_FAILURE:
     case actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS:
-    case actionTypes.RESET_CHECKOUT_STATE:
-    case LOGOUT_SUCCESS:
-      return INITIAL_STATE.isLoading;
     default:
       return state;
   }
 };
 
+const resetEntitiesStateReducer = (
+  state: NonNullable<StoreState['entities']>,
+) => {
+  const {
+    checkout,
+    checkoutDetails,
+    checkoutOrders,
+    checkoutOrderItems,
+    checkoutOrderItemProducts,
+    ...rest
+  } = state as NonNullable<StoreState['entities']>;
+
+  return rest;
+};
+
 const convertCheckoutOrder = (
   state: NonNullable<StoreState['entities']>,
   action: AnyAction,
-): StoreState['entities'] => {
+) => {
   const { entities, result } = action.payload;
 
   const customizer = (objValue: unknown, srcValue: unknown, key: string) => {
@@ -179,7 +192,7 @@ const convertCheckoutOrder = (
 const mergeCheckoutOrder = (
   state: NonNullable<StoreState['entities']>,
   action: AnyAction,
-): StoreState['entities'] => {
+) => {
   const { id } = action.meta;
   const currentCheckoutOrder = get(state, `checkoutOrders[${id}]`);
 
@@ -195,7 +208,7 @@ const mergeCheckoutOrder = (
 };
 
 const handleRemoveCheckoutOrderItemSuccess = produce<
-  StoreState['entities'],
+  NonNullable<StoreState['entities']>,
   [AnyAction]
 >((draftState, action) => {
   if (!draftState || !draftState.checkoutOrderItems) {
@@ -207,7 +220,7 @@ const handleRemoveCheckoutOrderItemSuccess = produce<
 });
 
 const handleUpdateCheckoutOrderItemSuccess = produce<
-  StoreState['entities'],
+  NonNullable<StoreState['entities']>,
   [AnyAction]
 >((draftState, action) => {
   if (!draftState || !draftState.checkoutOrderItems) {
@@ -228,7 +241,7 @@ export const entitiesMapper = {
   [actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
-  ): StoreState['entities'] => {
+  ) => {
     const { id } = action.meta;
     const currentCheckout = get(state, `checkout[${id}]`);
     const { entities } = action.payload;
@@ -245,7 +258,7 @@ export const entitiesMapper = {
   [actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
-  ): StoreState['entities'] => {
+  ) => {
     const { deliveryBundleId } = action.meta;
     const currentDeliveryBundles = get(state, 'deliveryBundles') || {};
     const currentDeliveryBundle = get(
@@ -266,10 +279,7 @@ export const entitiesMapper = {
     };
   },
   [actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING_SUCCESS]:
-    (
-      state: NonNullable<StoreState['entities']>,
-      action: AnyAction,
-    ): StoreState['entities'] => {
+    (state: NonNullable<StoreState['entities']>, action: AnyAction) => {
       const { deliveryBundleId, upgradeId } = action.meta;
       const currentDeliveryUpgrades = get(state, 'deliveryBundleUpgrades');
       const selectedDeliveryUpgrades = get(
@@ -314,34 +324,11 @@ export const entitiesMapper = {
   [actionTypes.FETCH_CHECKOUT_ORDER_SUCCESS]: convertCheckoutOrder,
   [actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_SUCCESS]: convertCheckoutOrder,
   [actionTypes.SET_CHECKOUT_ORDER_TAGS_SUCCESS]: convertCheckoutOrder,
-  [actionTypes.RESET_CHECKOUT_STATE]: (
-    state: NonNullable<StoreState['entities']>,
-  ): StoreState['entities'] => {
-    const {
-      checkout,
-      checkoutDetails,
-      checkoutOrders,
-      checkoutOrderItems,
-      checkoutOrderItemProducts,
-      ...rest
-    } = state as NonNullable<StoreState['entities']>;
-
-    return { ...rest };
-  },
-  [LOGOUT_SUCCESS]: (
-    state: NonNullable<StoreState['entities']>,
-  ): StoreState['entities'] => {
-    const {
-      checkout,
-      checkoutDetails,
-      checkoutOrders,
-      checkoutOrderItems,
-      checkoutOrderItemProducts,
-      ...rest
-    } = state as NonNullable<StoreState['entities']>;
-
-    return { ...rest };
-  },
+  [actionTypes.RESET_CHECKOUT]: resetEntitiesStateReducer,
+  [LOGOUT_SUCCESS]: resetEntitiesStateReducer,
+  [LOGIN_SUCCESS]: resetEntitiesStateReducer,
+  [FETCH_USER_SUCCESS]: resetEntitiesStateReducer,
+  [REGISTER_SUCCESS]: resetEntitiesStateReducer,
   [actionTypes.REMOVE_CHECKOUT_ORDER_ITEM_SUCCESS]:
     handleRemoveCheckoutOrderItemSuccess,
   [actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS]:
@@ -352,42 +339,36 @@ export const checkoutOrderDetails = reducerFactory(
   'FETCH_CHECKOUT_ORDER_DETAILS',
   INITIAL_STATE.checkoutOrderDetails,
   actionTypes,
-  true,
 );
 
 export const collectPoints = reducerFactory(
   'FETCH_COLLECT_POINTS',
   INITIAL_STATE.collectPoints,
   actionTypes,
-  true,
 );
 
 export const checkoutOrderTags = reducerFactory(
   'SET_CHECKOUT_ORDER_TAGS',
   INITIAL_STATE.checkoutOrderTags,
   actionTypes,
-  true,
 );
 
 export const checkoutOrderItemTags = reducerFactory(
   'SET_CHECKOUT_ORDER_ITEM_TAGS',
   INITIAL_STATE.checkoutOrderItemTags,
   actionTypes,
-  true,
 );
 
 export const checkoutOrderPromocode = reducerFactory(
   'SET_CHECKOUT_ORDER_PROMOCODE',
   INITIAL_STATE.checkoutOrderPromocode,
   actionTypes,
-  true,
 );
 
 export const checkoutOrderItems = reducerFactory(
   'UPDATE_CHECKOUT_ORDER_ITEMS',
   INITIAL_STATE.checkoutOrderItems,
   actionTypes,
-  true,
 );
 
 export const checkoutOrderCharge = (
@@ -417,7 +398,6 @@ export const checkoutOrderCharge = (
         result: action.payload,
       };
     case actionTypes.RESET_CHECKOUT_ORDER_CHARGE_STATE:
-    case LOGOUT_SUCCESS:
       return INITIAL_STATE.checkoutOrderCharge;
     default:
       return state;
@@ -458,7 +438,7 @@ export const checkoutOrderDeliveryBundleUpgrades = (
         isLoading: false,
         result: action.payload.result,
       };
-    case LOGOUT_SUCCESS:
+    case actionTypes.RESET_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_STATE:
       return INITIAL_STATE.checkoutOrderDeliveryBundleUpgrades;
     default:
       return state;
@@ -469,21 +449,18 @@ export const checkoutOrderDeliveryBundleProvisioning = reducerFactory(
   'FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING',
   INITIAL_STATE.checkoutOrderDeliveryBundleProvisioning,
   actionTypes,
-  true,
 );
 
 export const checkoutOrderDeliveryBundleUpgradeProvisioning = reducerFactory(
   'FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING',
   INITIAL_STATE.checkoutOrderDeliveryBundleUpgradeProvisioning,
   actionTypes,
-  true,
 );
 
 export const operation = reducerFactory(
   'FETCH_CHECKOUT_ORDER_OPERATION',
   INITIAL_STATE.operation,
   actionTypes,
-  true,
 );
 
 export const operations = createReducerWithResult(
@@ -491,21 +468,18 @@ export const operations = createReducerWithResult(
   INITIAL_STATE.operations,
   actionTypes,
   true,
-  true,
 );
 
 export const removeOrderItem = reducerFactory(
   'REMOVE_CHECKOUT_ORDER_ITEM',
   INITIAL_STATE.removeOrderItem,
   actionTypes,
-  true,
 );
 
 export const updateOrderItem = reducerFactory(
   'UPDATE_CHECKOUT_ORDER_ITEM',
   INITIAL_STATE.updateOrderItem,
   actionTypes,
-  true,
 );
 
 export const getError = (state: CheckoutState): CheckoutState['error'] =>
@@ -561,15 +535,7 @@ export const getUpdateOrderItem = (
   state: CheckoutState,
 ): CheckoutState['updateOrderItem'] => state.updateOrderItem;
 
-/**
- * Reducer for checkout state.
- *
- * @param state  - Current redux state.
- * @param action - Action dispatched.
- *
- * @returns New state.
- */
-const checkoutReducer: Reducer<CheckoutState> = combineReducers({
+const reducer: Reducer<CheckoutState> = combineReducers({
   error,
   id,
   isLoading,
@@ -588,5 +554,27 @@ const checkoutReducer: Reducer<CheckoutState> = combineReducers({
   removeOrderItem,
   updateOrderItem,
 });
+
+/**
+ * Reducer for checkout state.
+ *
+ * @param state  - Current redux state.
+ * @param action - Action dispatched.
+ *
+ * @returns New state.
+ */
+const checkoutReducer: Reducer<CheckoutState> = (state, action) => {
+  if (
+    action.type === LOGOUT_SUCCESS ||
+    action.type === LOGIN_SUCCESS ||
+    action.type === FETCH_USER_SUCCESS ||
+    action.type === REGISTER_SUCCESS ||
+    action.type === actionTypes.RESET_CHECKOUT
+  ) {
+    return INITIAL_STATE;
+  }
+
+  return reducer(state, action);
+};
 
 export default checkoutReducer;
