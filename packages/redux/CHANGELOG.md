@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.315](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.314...@farfetch/blackout-redux@1.0.0-next.315) (2022-09-21)
+
+
+### Bug Fixes
+
+* **redux:** fix TS erros on redux reducers unit tests ([d6acf84](https://github.com/Farfetch/blackout/commit/d6acf8442c63412b06c574b68d076168b83f52b2))
+
+
+
+
+
 # [1.0.0-next.314](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.313...@farfetch/blackout-redux@1.0.0-next.314) (2022-09-15)
 
 
