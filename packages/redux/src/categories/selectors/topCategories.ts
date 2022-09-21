@@ -45,12 +45,12 @@ export const getTopCategories = createSelector(
     (state: StoreState) => getResult(state.categories as CategoriesState),
     (state: StoreState) => getCategories(state),
   ],
-  (topCategories, categories): (CategoryEntity | undefined)[] => {
+  (topCategories, categories): CategoryEntity[] => {
     if (!topCategories) {
       return [];
     }
 
-    return topCategories.map(id => categories?.[id]);
+    return topCategories.map(id => categories?.[id] as CategoryEntity);
   },
 );
 

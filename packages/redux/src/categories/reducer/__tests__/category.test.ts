@@ -1,25 +1,14 @@
 import * as actionTypes from '../../actionTypes';
-import * as fromReducer from '../categories';
-import { toBlackoutError } from '@farfetch/blackout-client';
-import reducer from '../../reducer';
-import type { CategoriesState } from '../../types';
+import * as fromReducer from '../category';
 
-let initialState: CategoriesState;
+let initialState;
+const reducer = fromReducer.default;
 const randomAction = { type: 'this_is_a_random_action' };
+const id = 123;
 
-describe('categories redux reducer', () => {
+describe('category redux reducer', () => {
   beforeEach(() => {
     initialState = fromReducer.INITIAL_STATE;
-  });
-
-  describe('reset handling', () => {
-    it('should return the initial state', () => {
-      expect(
-        reducer(undefined, {
-          type: actionTypes.RESET_CATEGORIES_STATE,
-        }),
-      ).toEqual(initialState);
-    });
   });
 
   describe('error() reducer', () => {
@@ -27,33 +16,31 @@ describe('categories redux reducer', () => {
       const state = reducer(undefined, randomAction).error;
 
       expect(state).toBe(initialState.error);
-      expect(state).toBeNull();
     });
 
-    it('should handle FETCH_CATEGORIES_REQUEST action type', () => {
+    it('should handle FETCH_CATEGORY_REQUEST action type', () => {
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_CATEGORIES_REQUEST,
+          type: actionTypes.FETCH_CATEGORY_REQUEST,
+          meta: { id },
         }).error,
-      ).toBe(initialState.error);
+      ).toEqual({ [id]: null });
     });
 
-    it('should handle FETCH_CATEGORIES_FAILURE action type', () => {
+    it('should handle FETCH_CATEGORY_FAILURE action type', () => {
       const expectedResult = 'foo';
 
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_CATEGORIES_FAILURE,
+          type: actionTypes.FETCH_CATEGORY_FAILURE,
+          meta: { id },
           payload: { error: expectedResult },
         }).error,
-      ).toBe(expectedResult);
+      ).toEqual({ [id]: expectedResult });
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = {
-        ...initialState,
-        error: toBlackoutError(new Error('foo')),
-      };
+      const state = { ...initialState, error: 'foo' };
 
       expect(reducer(state, randomAction).error).toBe(state.error);
     });
@@ -63,45 +50,47 @@ describe('categories redux reducer', () => {
     it('should return the initial state', () => {
       const state = reducer(undefined, randomAction).isLoading;
 
-      expect(state).toBe(false);
       expect(state).toEqual(initialState.isLoading);
     });
 
-    it('should handle FETCH_CATEGORIES_REQUEST action type', () => {
+    it('should handle FETCH_CATEGORY_REQUEST action type', () => {
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_CATEGORIES_REQUEST,
+          type: actionTypes.FETCH_CATEGORY_REQUEST,
+          meta: { id },
           payload: {
             result: 'foo',
             entities: { categories: {} },
           },
         }).isLoading,
-      ).toEqual(true);
+      ).toEqual({ [id]: true });
     });
 
-    it('should handle FETCH_CATEGORIES_FAILURE action type', () => {
+    it('should handle FETCH_CATEGORY_FAILURE action type', () => {
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_CATEGORIES_FAILURE,
+          type: actionTypes.FETCH_CATEGORY_FAILURE,
+          meta: { id },
           payload: { error: '' },
         }).isLoading,
-      ).toEqual(false);
+      ).toEqual({ [id]: false });
     });
 
-    it('should handle FETCH_CATEGORIES_SUCCESS action type', () => {
+    it('should handle FETCH_CATEGORY_SUCCESS action type', () => {
       expect(
         reducer(undefined, {
-          type: actionTypes.FETCH_CATEGORIES_SUCCESS,
+          type: actionTypes.FETCH_CATEGORY_SUCCESS,
+          meta: { id },
           payload: {
             result: ['foo', 'bar'],
             entities: { categories: {} },
           },
         }).isLoading,
-      ).toEqual(initialState.isLoading);
+      ).toEqual({ [id]: false });
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, isLoading: false };
+      const state = { ...initialState, isLoading: 'foo' };
 
       expect(reducer(state, randomAction).isLoading).toEqual(state.isLoading);
     });
@@ -109,7 +98,7 @@ describe('categories redux reducer', () => {
 
   describe('getError() selector', () => {
     it('should return the `error` property from a given state', () => {
-      const error = toBlackoutError(new Error('error'));
+      const error = 'error';
       const state = { ...initialState, error };
 
       expect(fromReducer.getError(state)).toBe(error);
@@ -122,15 +111,6 @@ describe('categories redux reducer', () => {
       const state = { ...initialState, isLoading };
 
       expect(fromReducer.getIsLoading(state)).toBe(isLoading);
-    });
-  });
-
-  describe('getResult() selector', () => {
-    it('should return the `result` property from a given state', () => {
-      const result = [1246];
-      const state = { ...initialState, result };
-
-      expect(fromReducer.getResult(state)).toBe(result);
     });
   });
 });

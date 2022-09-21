@@ -28,6 +28,29 @@ export type FetchCategoriesAction =
   | FetchCategoriesSuccessAction
   | FetchCategoriesFailureAction;
 
+export interface FetchCategoryRequestAction extends Action {
+  meta: { id: Category['id'] };
+  type: typeof actionTypes.FETCH_CATEGORY_REQUEST;
+}
+export interface FetchCategorySuccessAction extends Action {
+  meta: { id: Category['id'] };
+  type: typeof actionTypes.FETCH_CATEGORY_SUCCESS;
+  payload: Payload;
+}
+export interface FetchCategoryFailureAction extends Action {
+  meta: { id: Category['id'] };
+  type: typeof actionTypes.FETCH_CATEGORY_FAILURE;
+  payload: { error: BlackoutError };
+}
+
+/**
+ * Actions dispatched when the fetch category request is made.
+ */
+export type FetchCategoryAction =
+  | FetchCategoryRequestAction
+  | FetchCategorySuccessAction
+  | FetchCategoryFailureAction;
+
 export interface FetchTopCategoriesRequestAction extends Action {
   type: typeof actionTypes.FETCH_TOP_CATEGORIES_REQUEST;
 }

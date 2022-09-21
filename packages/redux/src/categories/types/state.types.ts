@@ -9,7 +9,13 @@ export type TopCategoriesState = CombinedState<{
 
 export type CategoriesState = CombinedState<{
   error: BlackoutError | null;
-  isFetched: boolean;
   isLoading: boolean;
+  result: Array<Category['id']> | null;
+  category: CategoryState;
   top: TopCategoriesState;
+}>;
+
+export type CategoryState = CombinedState<{
+  error: Record<Category['id'], BlackoutError | null>;
+  isLoading: Record<Category['id'], boolean>;
 }>;

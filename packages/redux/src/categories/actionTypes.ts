@@ -29,7 +29,21 @@ export const FETCH_CATEGORIES_REQUEST =
  */
 export const FETCH_CATEGORIES_SUCCESS =
   '@farfetch/blackout-redux/FETCH_CATEGORIES_SUCCESS';
-
+/**
+ * Action type dispatched when the fetch category request fails.
+ */
+export const FETCH_CATEGORY_FAILURE =
+  '@farfetch/blackout-redux/FETCH_CATEGORY_FAILURE';
+/**
+ * Action type dispatched when the fetch category request starts.
+ */
+export const FETCH_CATEGORY_REQUEST =
+  '@farfetch/blackout-redux/FETCH_CATEGORY_REQUEST';
+/**
+ * Action type dispatched when the fetch category request succeeds.
+ */
+export const FETCH_CATEGORY_SUCCESS =
+  '@farfetch/blackout-redux/FETCH_CATEGORY_SUCCESS';
 /**
  * Action type dispatched when the reset categories occurs.
  */
