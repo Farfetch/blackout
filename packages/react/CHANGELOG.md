@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.44.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.43.0...@farfetch/blackout-react@0.44.0) (2022-09-21)
+
+
+### Bug Fixes
+
+* **core|react:** fix omnitracking's clientLanguage and clientCountry parameters ([fa79072](https://github.com/Farfetch/blackout/commit/fa7907294224757e14d0d3e7ebbf5ad54241148a))
+
+
+### Features
+
+* **core|react:** share uuid between omnitracking and google analytics 4 ([178f15e](https://github.com/Farfetch/blackout/commit/178f15e42c2ad5158ada84d2701afea145920044))
+
+
+
+
+
 # [0.43.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.42.5...@farfetch/blackout-react@0.43.0) (2022-09-06)
 
 

@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.72.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.71.0...@farfetch/blackout-core@1.72.0) (2022-09-21)
+
+
+### Bug Fixes
+
+* **core|react:** fix omnitracking's clientLanguage and clientCountry parameters ([fa79072](https://github.com/Farfetch/blackout/commit/fa7907294224757e14d0d3e7ebbf5ad54241148a))
+
+
+### Features
+
+* **core:** add new option to pass an http client to omnitracking integration ([511d69e](https://github.com/Farfetch/blackout/commit/511d69ea400450286d0aed616a01a3d77654d23e))
+* **core:** add omnitracking's filters events mappings ([e7c071e](https://github.com/Farfetch/blackout/commit/e7c071e5cdee46c554fd8415fc844a6fe713495d))
+* **core:** add omnitracking's interact content events mappings ([eedd1e5](https://github.com/Farfetch/blackout/commit/eedd1e5d53eb1915a394a4c202da1f1536fed1f4))
+* **core:** add omnitracking's login and signup events mappings ([b5ea8c9](https://github.com/Farfetch/blackout/commit/b5ea8c953725de2f64d0e947a66112603cdbded3))
+* **core:** add omnitracking's product clicked event mappings ([fca901d](https://github.com/Farfetch/blackout/commit/fca901d157478552a78e440150db5c68adf10a25))
+* **core:** add omnitracking's product updated events mappings ([80f58c7](https://github.com/Farfetch/blackout/commit/80f58c7f27161e06f44ccc82ae8ae5e6704326b6))
+* **core:** add omnitracking's scroll track on interact content event mappings ([3101612](https://github.com/Farfetch/blackout/commit/3101612d7065ffa0bd3d79f3d5bb85fc22499e1c))
+* **core:** add omnitracking's select content events mappings ([71f38bb](https://github.com/Farfetch/blackout/commit/71f38bbeed75b115e91d568292746e2ebb0cca31))
+* **core|react:** share uuid between omnitracking and google analytics 4 ([178f15e](https://github.com/Farfetch/blackout/commit/178f15e42c2ad5158ada84d2701afea145920044))
+
+
+
+
+
 # [1.71.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.70.0...@farfetch/blackout-core@1.71.0) (2022-09-13)
 
 
