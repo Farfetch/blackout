@@ -666,6 +666,7 @@ Object {
   "getBrand": [Function],
   "getBrands": [Function],
   "getCategories": [Function],
+  "getCategory": [Function],
   "getCheckoutOrder": [Function],
   "getCheckoutOrderCharge": [Function],
   "getCheckoutOrderDeliveryBundleProvisioning": [Function],

@@ -1,6 +1,6 @@
 import type { Config } from '@farfetch/blackout-client';
 
-export type UseCategoriesOptions = {
+export type UseTopCategoriesOptions = {
   enableAutoFetch?: boolean;
   fetchConfig?: Config;
 };

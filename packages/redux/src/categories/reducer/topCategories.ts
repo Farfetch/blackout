@@ -57,14 +57,9 @@ const result = (state = INITIAL_STATE.result, action: AnyAction) => {
   }
 };
 
-export const getError = (state: CategoriesState): TopCategoriesState['error'] =>
-  state.top.error;
-export const getIsLoading = (
-  state: CategoriesState,
-): TopCategoriesState['isLoading'] => state.top.isLoading;
-export const getResult = (
-  state: CategoriesState,
-): TopCategoriesState['result'] => state.top.result;
+export const getError = (state: CategoriesState) => state.top.error;
+export const getIsLoading = (state: CategoriesState) => state.top.isLoading;
+export const getResult = (state: CategoriesState) => state.top.result;
 
 /**
  * Reducer for top categories state.

@@ -49,6 +49,11 @@ export const mockCategoriesInitialState = {
     error: null,
     isFetched: false,
     isLoading: false,
+    result: null,
+    category: {
+      error: {},
+      isLoading: {},
+    },
     top: {
       error: null,
       isLoading: false,
@@ -65,6 +70,15 @@ export const mockCategoriesState = {
     error: null,
     isFetched: true,
     isLoading: false,
+    result: mockChildrenCategories.map(({ id }) => id),
+    category: {
+      error: {
+        135981: null,
+      },
+      isLoading: {
+        135981: false,
+      },
+    },
     top: {
       error: null,
       isLoading: false,
@@ -87,6 +101,34 @@ export const mockCategoriesLoadingState = {
     error: null,
     isFetched: false,
     isLoading: true,
+    category: {
+      error: {},
+      isLoading: {},
+    },
+    top: {
+      error: null,
+      isLoading: true,
+      result: null,
+    },
+  },
+  entities: {
+    categories: null,
+  },
+};
+
+export const mockCategoryLoadingState = {
+  categories: {
+    error: null,
+    isFetched: false,
+    isLoading: false,
+    category: {
+      error: {
+        135981: null,
+      },
+      isLoading: {
+        135981: true,
+      },
+    },
     top: {
       error: null,
       isLoading: true,
@@ -103,6 +145,10 @@ export const mockTopCategoriesLoadingState = {
     error: null,
     isFetched: false,
     isLoading: false,
+    category: {
+      error: {},
+      isLoading: {},
+    },
     top: {
       error: null,
       isLoading: true,
@@ -139,6 +185,29 @@ export const mockCategoriesErrorState = {
       message: 'An awesome, fascinating and incredible error',
     },
     isLoading: false,
+    category: {
+      error: {},
+      isLoading: {},
+    },
+    top: {},
+  },
+  entities: {
+    categories: null,
+  },
+};
+
+export const mockCategoryErrorState = {
+  categories: {
+    error: null,
+    isLoading: false,
+    category: {
+      error: {
+        135981: { message: 'An awesome, fascinating and incredible error' },
+      },
+      isLoading: {
+        135981: false,
+      },
+    },
     top: {},
   },
   entities: {
