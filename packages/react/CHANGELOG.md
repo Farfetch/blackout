@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.317](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.316...@farfetch/blackout-react@1.0.0-next.317) (2022-09-21)
+
+
+### Bug Fixes
+
+* **react:** remove `useAction` from public exports ([9252f65](https://github.com/Farfetch/blackout/commit/9252f65f24d3b59f4b74799dbc4e6838d8589e40))
+
+
+### BREAKING CHANGES
+
+* **react:** `useAction` hook is not available from
+react package. Use `useDispatch` hook from `react-redux` directly instead.
+
+
+
+
+
 # [1.0.0-next.316](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.315...@farfetch/blackout-react@1.0.0-next.316) (2022-09-21)
 
 
