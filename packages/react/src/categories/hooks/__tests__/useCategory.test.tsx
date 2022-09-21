@@ -1,35 +1,33 @@
 import { cleanup, renderHook } from '@testing-library/react';
+import { fetchCategory } from '@farfetch/blackout-redux';
 import {
-  fetchCategories,
-  resetCategoriesState,
-} from '@farfetch/blackout-redux';
-import {
-  mockCategoriesErrorState,
   mockCategoriesInitialState,
-  mockCategoriesLoadingState,
   mockCategoriesState,
+  mockCategoryErrorState,
+  mockCategoryId,
+  mockCategoryLoadingState,
 } from 'tests/__fixtures__/categories';
 import { mockStore } from '../../../../tests/helpers';
 import { Provider } from 'react-redux';
-import { useCategories } from '../../';
+import { useCategory } from '../../';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
-  resetCategoriesState: jest.fn(() => () => Promise.resolve()),
   fetchCategories: jest.fn(() => () => Promise.resolve()),
+  fetchCategory: jest.fn(() => () => Promise.resolve()),
 }));
 
 const getRenderedHook = (state = mockCategoriesInitialState, config = {}) => {
   const {
     result: { current },
-  } = renderHook(() => useCategories(config), {
+  } = renderHook(() => useCategory(mockCategoryId, config), {
     wrapper: props => <Provider store={mockStore(state)} {...props} />,
   });
 
   return current;
 };
 
-describe('useCategories', () => {
+describe('useCategory', () => {
   beforeEach(jest.clearAllMocks);
   afterEach(cleanup);
 
@@ -39,38 +37,41 @@ describe('useCategories', () => {
     expect(current).toStrictEqual({
       isFetched: true,
       isLoading: false,
-      data: Object.values(mockCategoriesState.entities.categories),
+      data: mockCategoriesState.entities.categories[mockCategoryId],
       error: null,
       actions: {
         fetch: expect.any(Function),
-        reset: expect.any(Function),
       },
     });
   });
 
   it('should return the loading state correctly', () => {
-    const { isLoading } = getRenderedHook(mockCategoriesLoadingState);
+    const data = getRenderedHook(mockCategoryLoadingState);
 
-    expect(isLoading).toBe(mockCategoriesLoadingState.categories.isLoading);
+    expect(data.isLoading).toBe(
+      mockCategoryLoadingState.categories.category.isLoading[mockCategoryId],
+    );
   });
 
   it('should return the error state correctly', () => {
-    const { error } = getRenderedHook(mockCategoriesErrorState);
+    const data = getRenderedHook(mockCategoryErrorState);
 
-    expect(error).toEqual(mockCategoriesErrorState.categories.error);
+    expect(data.error).toEqual(
+      mockCategoryErrorState.categories.category.error[mockCategoryId],
+    );
   });
 
   it('should return the fetched state correctly', () => {
     const { isFetched } = getRenderedHook(mockCategoriesState);
 
-    expect(isFetched).toBe(mockCategoriesState.categories.isFetched);
+    expect(isFetched).toBe(true);
   });
 
   describe('options', () => {
     it('should call `fetch` action if `enableAutoFetch` option is true', () => {
       getRenderedHook();
 
-      expect(fetchCategories).toHaveBeenCalled();
+      expect(fetchCategory).toHaveBeenCalledWith(mockCategoryId, undefined);
     });
 
     it('should not call `fetch` action if `enableAutoFetch` option is false', () => {
@@ -78,21 +79,11 @@ describe('useCategories', () => {
         enableAutoFetch: false,
       });
 
-      expect(fetchCategories).not.toHaveBeenCalled();
+      expect(fetchCategory).not.toHaveBeenCalled();
     });
   });
 
   describe('actions', () => {
-    it('should call `reset` action', () => {
-      const {
-        actions: { reset },
-      } = getRenderedHook();
-
-      reset();
-
-      expect(resetCategoriesState).toHaveBeenCalled();
-    });
-
     it('should call `fetch` action', () => {
       const {
         actions: { fetch },
@@ -100,7 +91,7 @@ describe('useCategories', () => {
 
       fetch();
 
-      expect(fetchCategories).toHaveBeenCalled();
+      expect(fetchCategory).toHaveBeenCalled();
     });
   });
 });

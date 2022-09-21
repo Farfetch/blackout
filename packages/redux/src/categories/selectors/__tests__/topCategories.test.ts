@@ -13,7 +13,7 @@ describe('categories redux selectors', () => {
   beforeEach(jest.clearAllMocks);
 
   describe('areTopCategoriesLoading()', () => {
-    it('should get the top categories loading status', () => {
+    it('should get the loading status', () => {
       const spy = jest.spyOn(fromTopCategories, 'getIsLoading');
 
       expect(
@@ -24,7 +24,7 @@ describe('categories redux selectors', () => {
   });
 
   describe('getTopCategoriesError()', () => {
-    it('should get the top categories error', () => {
+    it('should get the error', () => {
       const expectedResult = mockState.categories.top.error;
       const spy = jest.spyOn(fromTopCategories, 'getError');
 
@@ -34,7 +34,7 @@ describe('categories redux selectors', () => {
   });
 
   describe('getTopCategories()', () => {
-    it('should return a list with only the top categories', () => {
+    it('should return a list with the top categories', () => {
       const result = selectors.getTopCategories(mockState);
 
       expect(result).toHaveLength(mockTopCategories.length);

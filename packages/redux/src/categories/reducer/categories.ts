@@ -1,5 +1,8 @@
 import * as actionTypes from '../actionTypes';
 import { AnyAction, combineReducers, Reducer } from 'redux';
+import categoryReducer, {
+  INITIAL_STATE as CATEGORY_INITIAL_STATE,
+} from './category';
 import topCategoryReducer, {
   INITIAL_STATE as TOP_CATEGORIES_INITIAL_STATE,
 } from './topCategories';
@@ -8,15 +11,16 @@ import type { CategoriesState } from '../types';
 
 export const INITIAL_STATE: CategoriesState = {
   error: null,
-  isFetched: false,
   isLoading: false,
+  result: null,
+  category: CATEGORY_INITIAL_STATE,
   top: TOP_CATEGORIES_INITIAL_STATE,
 };
 
 const error = (
   state: BlackoutError | null = INITIAL_STATE.error,
   action: AnyAction,
-): BlackoutError | null => {
+) => {
   switch (action.type) {
     case actionTypes.FETCH_CATEGORIES_REQUEST:
       return INITIAL_STATE.error;
@@ -39,31 +43,24 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   }
 };
 
-const isFetched = (state = INITIAL_STATE.isFetched, action: AnyAction) => {
+const result = (state = INITIAL_STATE.result, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_CATEGORIES_SUCCESS:
-    case actionTypes.FETCH_CATEGORIES_FAILURE:
-      return true;
-    case actionTypes.FETCH_CATEGORIES_REQUEST:
-      return INITIAL_STATE.isFetched;
+      return action.payload.result;
     default:
       return state;
   }
 };
 
-export const getError = (state: CategoriesState): CategoriesState['error'] =>
-  state.error;
-export const getIsFetched = (
-  state: CategoriesState,
-): CategoriesState['isFetched'] => state.isFetched;
-export const getIsLoading = (
-  state: CategoriesState,
-): CategoriesState['isLoading'] => state.isLoading;
+export const getError = (state: CategoriesState) => state.error;
+export const getIsLoading = (state: CategoriesState) => state.isLoading;
+export const getResult = (state: CategoriesState) => state.result;
 
 const reducers = combineReducers({
   error,
-  isFetched,
   isLoading,
+  result,
+  category: categoryReducer,
   top: topCategoryReducer,
 });
 

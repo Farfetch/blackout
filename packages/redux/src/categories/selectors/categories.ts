@@ -1,7 +1,6 @@
-import { getEntities, getEntityById } from '../../entities';
-import { getError, getIsFetched, getIsLoading } from '../reducer/categories';
+import { getEntities } from '../../entities';
+import { getError, getIsLoading, getResult } from '../reducer/categories';
 import type { CategoriesState } from '../types';
-import type { Category } from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 /**
@@ -59,18 +58,9 @@ export const areCategoriesLoading = (state: StoreState) =>
  * @returns - If categories are fetched or not.
  */
 export const areCategoriesFetched = (state: StoreState) =>
-  getIsFetched(state.categories as CategoriesState);
-
-/**
- * Returns a specific category by its id.
- *
- * @param state      - Application state.
- * @param categoryId - Category id.
- *
- * @returns Category normalized or undefined if nothing found.
- */
-export const getCategory = (state: StoreState, categoryId: Category['id']) =>
-  getEntityById(state, 'categories', categoryId);
+  (!!getResult(state.categories as CategoriesState) ||
+    !!getCategoriesError(state)) &&
+  !areCategoriesLoading(state);
 
 /**
  * Retrieves a list of all the categories available.
