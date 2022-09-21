@@ -61,7 +61,7 @@ describe('reducer', () => {
 
     it('should return the state unchanged when called without parameters', () => {
       // @ts-expect-error purposely without parameters
-      expect(createEntitiesReducer()()).toEqual({});
+      expect(createEntitiesReducer()(undefined, {})).toEqual({});
     });
 
     it('should merge the state and the entities payload', () => {

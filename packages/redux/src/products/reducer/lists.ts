@@ -88,7 +88,7 @@ export const entitiesMapper = {
   [actionTypes.RESET_PRODUCTS_LISTS_ENTITIES]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
-  ): StoreState['entities'] => {
+  ) => {
     if (!state) {
       return state;
     }

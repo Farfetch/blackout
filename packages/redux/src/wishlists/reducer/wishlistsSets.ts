@@ -111,13 +111,9 @@ const set = (state = INITIAL_STATE.set, action: AnyAction) => {
 export const entitiesMapper = {
   [actionTypes.REMOVE_WISHLIST_SET_SUCCESS as typeof actionTypes.REMOVE_WISHLIST_SET_SUCCESS]:
     (
-      state: StoreState['entities'],
+      state: NonNullable<StoreState['entities']>,
       { meta: { wishlistSetId } }: AnyAction,
-    ): StoreState['entities'] => {
-      if (!state) {
-        return state;
-      }
-
+    ) => {
       const { wishlistSets, ...rest } = state;
 
       return {
@@ -126,11 +122,7 @@ export const entitiesMapper = {
       };
     },
   [actionTypes.RESET_WISHLIST_SETS_ENTITIES as typeof actionTypes.RESET_WISHLIST_SETS_ENTITIES]:
-    (state: StoreState['entities']): StoreState['entities'] => {
-      if (!state) {
-        return state;
-      }
-
+    (state: NonNullable<StoreState['entities']>) => {
       const { wishlistSets, ...rest } = state;
 
       return rest;

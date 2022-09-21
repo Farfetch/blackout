@@ -78,7 +78,7 @@ export type GenericCheckoutAction =
   | GenericCheckoutRequestAction;
 
 export interface ResetCheckoutStateAction extends Action {
-  type: typeof actionTypes.RESET_CHECKOUT_STATE;
+  type: typeof actionTypes.RESET_CHECKOUT;
 }
 
 export interface ResetCheckoutOrderChargeStateAction extends Action {

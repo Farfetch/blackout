@@ -17,4 +17,6 @@ export { default as removePaymentIntentInstrument } from './removePaymentIntentI
 export { default as removePaymentToken } from './removePaymentToken';
 export { default as resetPaymentIntentChargeState } from './resetPaymentIntentChargeState';
 export { default as resetPaymentInstrumentsState } from './resetPaymentInstrumentsState';
+export { default as resetPaymentTokensState } from './resetPaymentTokensState';
+export { default as resetPayments } from './resetPayments';
 export { default as updatePaymentIntentInstrument } from './updatePaymentIntentInstrument';

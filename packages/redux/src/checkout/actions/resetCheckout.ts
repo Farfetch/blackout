@@ -2,14 +2,14 @@ import * as actionTypes from '../actionTypes';
 import type { Dispatch } from 'redux';
 
 /**
- * Reset the checkout state.
+ * Reset checkout state and related entities to its initial value.
  */
-const resetCheckoutState =
+const resetCheckout =
   () =>
   (dispatch: Dispatch): void => {
     dispatch({
-      type: actionTypes.RESET_CHECKOUT_STATE,
+      type: actionTypes.RESET_CHECKOUT,
     });
   };
 
-export default resetCheckoutState;
+export default resetCheckout;

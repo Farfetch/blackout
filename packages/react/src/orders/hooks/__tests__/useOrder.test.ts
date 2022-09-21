@@ -240,7 +240,7 @@ describe('useOrder', () => {
 
           await resetOrderDetailsState();
 
-          expect(mockResetOrderDetailsStateFn).toHaveBeenCalledWith(orderId);
+          expect(mockResetOrderDetailsStateFn).toHaveBeenCalledWith([orderId]);
         });
       });
     });

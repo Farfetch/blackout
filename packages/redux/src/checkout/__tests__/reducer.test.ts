@@ -18,7 +18,12 @@ import {
   mockUpdateCheckoutResponse,
   productId,
 } from 'tests/__fixtures__/checkout';
-import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
+import {
+  FETCH_USER_SUCCESS,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+  REGISTER_SUCCESS,
+} from '../../users/authentication/actionTypes';
 import { mockProductsEntity } from 'tests/__fixtures__/products';
 import { OrderStatusError, toBlackoutError } from '@farfetch/blackout-client';
 import reducer, { entitiesMapper } from '../reducer';
@@ -42,6 +47,27 @@ describe('checkout reducer', () => {
     initialState = fromReducer.INITIAL_STATE;
   });
 
+  describe('reset handling', () => {
+    it.each([
+      actionTypes.RESET_CHECKOUT,
+      LOGOUT_SUCCESS,
+      LOGIN_SUCCESS,
+      FETCH_USER_SUCCESS,
+      REGISTER_SUCCESS,
+    ])('should return initial state on %s action', actionType => {
+      expect(
+        // As there is not a checkout mock state available that is
+        // different than the initialState and it is too extensive,
+        // and not important for this specific test, we force the
+        // cast of an empty object to the CheckoutState type.
+        reducer({} as CheckoutState, {
+          type: actionType,
+          payload: {},
+        }),
+      ).toMatchObject(initialState);
+    });
+  });
+
   describe('error() reducer', () => {
     it('should return the initial state', () => {
       const state = fromReducer.INITIAL_STATE.error;
@@ -54,8 +80,7 @@ describe('checkout reducer', () => {
       actionTypes.CREATE_CHECKOUT_ORDER_REQUEST,
       actionTypes.FETCH_CHECKOUT_ORDER_REQUEST,
       actionTypes.UPDATE_CHECKOUT_ORDER_REQUEST,
-      actionTypes.RESET_CHECKOUT_STATE,
-      LOGOUT_SUCCESS,
+      actionTypes.RESET_CHECKOUT,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
@@ -98,18 +123,6 @@ describe('checkout reducer', () => {
       ).toBe(expectedResult);
     });
 
-    it.each([actionTypes.RESET_CHECKOUT_STATE, LOGOUT_SUCCESS])(
-      'should handle %s action type',
-      actionType => {
-        expect(
-          reducer(undefined, {
-            payload: { error: true },
-            type: actionType,
-          }).error,
-        ).toBe(initialState.error);
-      },
-    );
-
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...initialState,
@@ -131,18 +144,6 @@ describe('checkout reducer', () => {
       expect(state).toBe(initialState.id);
       expect(state).toBeNull();
     });
-
-    it.each([actionTypes.RESET_CHECKOUT_STATE, LOGOUT_SUCCESS])(
-      'should handle %s action type',
-      actionType => {
-        expect(
-          reducer(undefined, {
-            payload: { id: 'previous id' },
-            type: actionType,
-          }).id,
-        ).toBe(initialState.id);
-      },
-    );
 
     it('should handle CREATE_CHECKOUT_ORDER_SUCCESS action type', () => {
       const expectedResult = 'foo';
@@ -219,16 +220,6 @@ describe('checkout reducer', () => {
           type: actionTypes.SET_CHECKOUT_ORDER_TAGS_SUCCESS,
         }).id,
       ).toBe(expectedResult);
-    });
-
-    it('should handle RESET_CHECKOUT_STATE action type', () => {
-      const currentState = { id: 12121 } as CheckoutState;
-
-      expect(
-        reducer(currentState, {
-          type: actionTypes.RESET_CHECKOUT_STATE,
-        }).id,
-      ).toBe(initialState.id);
     });
 
     it('should handle other actions by returning the previous state', () => {
@@ -324,18 +315,6 @@ describe('checkout reducer', () => {
       ).toBe(initialState.isLoading);
     });
 
-    it.each([actionTypes.RESET_CHECKOUT_STATE, LOGOUT_SUCCESS])(
-      'should handle %s action type',
-      actionType => {
-        expect(
-          reducer(undefined, {
-            payload: { isLoading: true },
-            type: actionType,
-          }).isLoading,
-        ).toBe(initialState.isLoading);
-      },
-    );
-
     it('should handle other actions by returning the previous state', () => {
       const state = { isLoading: false } as CheckoutState;
 
@@ -429,14 +408,6 @@ describe('checkout reducer', () => {
         }).checkoutOrderCharge,
       ).toEqual(initialState.checkoutOrderCharge);
     });
-
-    it('should handle LOGOUT_SUCCESS action type', () => {
-      expect(
-        reducer(undefined, {
-          type: LOGOUT_SUCCESS,
-        }).checkoutOrderCharge,
-      ).toEqual(initialState.checkoutOrderCharge);
-    });
   });
 
   describe('checkoutOrderDeliveryBundleUpgrades() reducer', () => {
@@ -445,14 +416,6 @@ describe('checkout reducer', () => {
         fromReducer.INITIAL_STATE.checkoutOrderDeliveryBundleUpgrades;
 
       expect(state).toEqual(initialState.checkoutOrderDeliveryBundleUpgrades);
-    });
-
-    it('should handle LOGOUT_SUCCESS action type', () => {
-      expect(
-        reducer(undefined, {
-          type: LOGOUT_SUCCESS,
-        }).checkoutOrderDeliveryBundleUpgrades,
-      ).toEqual(initialState.checkoutOrderDeliveryBundleUpgrades);
     });
 
     it.each([
@@ -500,7 +463,7 @@ describe('checkout reducer', () => {
       });
     });
 
-    it('should handle @farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS action type', () => {
+    it('should handle FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS action type', () => {
       const mockResult = { result: 'mocked result' };
       expect(
         reducer(undefined, {
@@ -512,6 +475,14 @@ describe('checkout reducer', () => {
         isLoading: false,
         result: mockResult.result,
       });
+    });
+
+    it('should handle RESET_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_STATE action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.RESET_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_STATE,
+        }).checkoutOrderDeliveryBundleUpgrades,
+      ).toEqual(initialState.checkoutOrderDeliveryBundleUpgrades);
     });
   });
 
@@ -843,8 +814,14 @@ describe('checkout reducer', () => {
       });
     });
 
-    describe('reset checkout', () => {
-      it(`should handle ${actionTypes.RESET_CHECKOUT_STATE} action type`, () => {
+    describe('reset handling', () => {
+      it.each([
+        actionTypes.RESET_CHECKOUT,
+        LOGOUT_SUCCESS,
+        LOGIN_SUCCESS,
+        FETCH_USER_SUCCESS,
+        REGISTER_SUCCESS,
+      ])('should return initial state on %s action', actionType => {
         const state = {
           checkout: {
             [checkoutId]: {
@@ -883,54 +860,11 @@ describe('checkout reducer', () => {
           },
         };
 
-        expect(entitiesMapper[actionTypes.RESET_CHECKOUT_STATE](state)).toEqual(
-          expectedResult,
-        );
-      });
-    });
-
-    describe('logout success', () => {
-      it(`should handle ${LOGOUT_SUCCESS} action type`, () => {
-        const state = {
-          checkout: {
-            [checkoutId]: {
-              id: 12,
-              orderStatus: OrderStatusError.NoError,
-            },
-          },
-          checkoutDetails: {
-            [checkoutId]: {
-              registered: true,
-              id: 123,
-            } as CheckoutDetailsEntity,
-          },
-          checkoutOrders: {
-            [checkoutId]: {
-              ...mockResponse.checkoutOrder,
-              items: [2],
-              collectpoints: mockCollectPointsResponse,
-            } as CheckoutOrderEntity,
-          },
-          checkoutOrderItems: mockCheckoutOrderItemEntity,
-
-          dummy: {
-            1: { data: 'dummy' },
-          },
-          dummy2: {
-            1: { data: 'dummy2' },
-          },
-        };
-
-        const expectedResult = {
-          dummy: {
-            1: { data: 'dummy' },
-          },
-          dummy2: {
-            1: { data: 'dummy2' },
-          },
-        };
-
-        expect(entitiesMapper[LOGOUT_SUCCESS](state)).toEqual(expectedResult);
+        expect(
+          entitiesMapper[actionType as keyof typeof entitiesMapper](state, {
+            type: actionType,
+          }),
+        ).toEqual(expectedResult);
       });
     });
 

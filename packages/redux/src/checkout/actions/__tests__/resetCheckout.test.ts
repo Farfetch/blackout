@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import resetCheckoutState from '../resetCheckoutState';
+import resetCheckout from '../resetCheckout';
 
-describe('resetCheckoutState() action creator', () => {
+describe('resetCheckout() action creator', () => {
   const checkoutMockStore = (state = {}) =>
     mockStore({ checkout: INITIAL_STATE }, state);
   let store: ReturnType<typeof checkoutMockStore>;
@@ -13,13 +13,13 @@ describe('resetCheckoutState() action creator', () => {
     store = checkoutMockStore();
   });
 
-  it('should dispatch the correct action for when the reset checkout state is called', () => {
-    resetCheckoutState()(store.dispatch);
+  it('should dispatch the correct action for when the reset checkout is called', () => {
+    resetCheckout()(store.dispatch);
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([
       {
-        type: actionTypes.RESET_CHECKOUT_STATE,
+        type: actionTypes.RESET_CHECKOUT,
       },
     ]);
   });

@@ -118,7 +118,7 @@ const recentlyViewedReducer: Reducer<RecentlyViewedState> = (
     action.type === authenticationActionTypes.LOGOUT_SUCCESS
   ) {
     // initial state should return when reset_recently_viewed or logout actions are called.
-    return reducers(INITIAL_STATE, action);
+    return INITIAL_STATE;
   }
 
   return reducers(state, action);

@@ -1,6 +1,11 @@
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers, Reducer } from 'redux';
-import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
+import {
+  FETCH_USER_SUCCESS,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+  REGISTER_SUCCESS,
+} from '../users/authentication/actionTypes';
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
 import produce from 'immer';
@@ -9,6 +14,8 @@ import type * as T from './types';
 import type {
   FetchOrderReturnOptionsSuccessAction,
   ResetOrderDetailsStateAction,
+  ResetOrderReturnOptionsStateAction,
+  ResetOrderReturnsStateAction,
 } from './types';
 import type { ReturnOptionEntity } from '../entities/types';
 import type { StoreState } from '../types';
@@ -83,6 +90,15 @@ const result = (state = INITIAL_STATE.result, action: AnyAction) => {
     default:
       return state;
   }
+};
+
+const resetEntitiesStateReducer = (
+  state: NonNullable<StoreState['entities']>,
+) => {
+  const { orders, orderItems, labelTracking, returnOptions, returns, ...rest } =
+    state;
+
+  return rest;
 };
 
 export const entitiesMapper = {
@@ -209,38 +225,11 @@ export const entitiesMapper = {
       }
     });
   },
-  [actionTypes.RESET_ORDERS]: (state: NonNullable<StoreState['entities']>) => {
-    if (!state) {
-      return state;
-    }
-
-    const {
-      orders,
-      orderItems,
-      labelTracking,
-      returnOptions,
-      returns,
-      ...remainingEntities
-    } = state;
-
-    return remainingEntities;
-  },
-  [LOGOUT_SUCCESS]: (state: NonNullable<StoreState['entities']>) => {
-    if (!state) {
-      return state;
-    }
-
-    const {
-      orders,
-      orderItems,
-      labelTracking,
-      returnOptions,
-      returns,
-      ...remainingEntities
-    } = state;
-
-    return remainingEntities;
-  },
+  [actionTypes.RESET_ORDERS]: resetEntitiesStateReducer,
+  [LOGOUT_SUCCESS]: resetEntitiesStateReducer,
+  [LOGIN_SUCCESS]: resetEntitiesStateReducer,
+  [FETCH_USER_SUCCESS]: resetEntitiesStateReducer,
+  [REGISTER_SUCCESS]: resetEntitiesStateReducer,
 };
 
 export const orderDetails = (
@@ -280,11 +269,15 @@ export const orderDetails = (
         },
       };
     case actionTypes.RESET_ORDER_DETAILS_STATE:
-      const { orderId } = (action as ResetOrderDetailsStateAction).payload;
+      const orderIds = (action as ResetOrderDetailsStateAction).payload;
+
+      if (!orderIds?.length) {
+        return INITIAL_STATE.orderDetails;
+      }
 
       return {
-        isLoading: omit(state.isLoading, orderId),
-        error: omit(state.error, orderId),
+        isLoading: omit(state.isLoading, orderIds),
+        error: omit(state.error, orderIds),
       };
     default:
       return state;
@@ -327,6 +320,17 @@ export const orderReturns = (
           [action.meta.orderId]: action.payload.error,
         },
       };
+    case actionTypes.RESET_ORDER_RETURNS_STATE:
+      const orderIds = (action as ResetOrderReturnsStateAction).payload;
+
+      if (!orderIds?.length) {
+        return INITIAL_STATE.orderReturns;
+      }
+
+      return {
+        isLoading: omit(state.isLoading, orderIds),
+        error: omit(state.error, orderIds),
+      };
     default:
       return state;
   }
@@ -367,6 +371,17 @@ export const orderReturnOptions = (
           ...state.error,
           [action.meta.orderId]: action.payload.error,
         },
+      };
+    case actionTypes.RESET_ORDER_RETURN_OPTIONS_STATE:
+      const orderIds = (action as ResetOrderReturnOptionsStateAction).payload;
+
+      if (!orderIds?.length) {
+        return INITIAL_STATE.orderReturnOptions;
+      }
+
+      return {
+        isLoading: omit(state.isLoading, orderIds),
+        error: omit(state.error, orderIds),
       };
     default:
       return state;
@@ -452,6 +467,9 @@ const reducer = combineReducers({
 const ordersReducer: Reducer<T.OrdersState> = (state, action) => {
   if (
     action.type === LOGOUT_SUCCESS ||
+    action.type === LOGIN_SUCCESS ||
+    action.type === FETCH_USER_SUCCESS ||
+    action.type === REGISTER_SUCCESS ||
     action.type === actionTypes.RESET_ORDERS
   ) {
     return INITIAL_STATE;

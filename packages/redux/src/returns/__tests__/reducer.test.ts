@@ -1,8 +1,14 @@
 import * as actionTypes from '../actionTypes';
 import * as fromReducer from '../reducer';
-import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
+import {
+  FETCH_USER_SUCCESS,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+  REGISTER_SUCCESS,
+} from '../../users/authentication/actionTypes';
 import { returnId } from 'tests/__fixtures__/returns';
 import { toBlackoutError } from '@farfetch/blackout-client';
+import omit from 'lodash/omit';
 import reducer, { entitiesMapper } from '../reducer';
 import type { ReturnsState } from '../types';
 import type { StoreState } from '../../types';
@@ -13,6 +19,38 @@ const randomAction = { type: 'this_is_a_random_action' };
 describe('returns reducer', () => {
   beforeEach(() => {
     initialState = fromReducer.INITIAL_STATE;
+  });
+
+  describe('reset handling', () => {
+    it.each([
+      actionTypes.RESET_RETURNS,
+      LOGOUT_SUCCESS,
+      LOGIN_SUCCESS,
+      FETCH_USER_SUCCESS,
+      REGISTER_SUCCESS,
+    ])('should return initial state on %s action', actionType => {
+      expect(
+        reducer(
+          {
+            error: null,
+            isLoading: true,
+            id: null,
+            pickupCapabilities: {
+              error: null,
+              isLoading: true,
+            },
+            returns: {
+              error: null,
+              isLoading: false,
+            },
+          },
+          {
+            type: actionType,
+            payload: {},
+          },
+        ),
+      ).toMatchObject(initialState);
+    });
   });
 
   describe('error() reducer', () => {
@@ -30,7 +68,6 @@ describe('returns reducer', () => {
       actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST,
       actionTypes.FETCH_RETURN_REQUEST,
       actionTypes.UPDATE_RETURN_REQUEST,
-      LOGOUT_SUCCESS,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
@@ -248,29 +285,47 @@ describe('returns reducer', () => {
       },
     };
 
-    it('should handle RESET_RETURN action WITH reset entities flag ', () => {
+    it('should handle RESET_RETURNS action WITH reset entities flag ', () => {
       expect(
-        entitiesMapper[actionTypes.RESET_RETURN](state, {
+        entitiesMapper[actionTypes.RESET_RETURNS](state, {
           meta: { resetEntities: true },
-          type: actionTypes.RESET_RETURN,
+          type: actionTypes.RESET_RETURNS,
         }),
       ).toEqual(expectedResult);
     });
 
-    it('should handle RESET_RETURN action WITHOUT reset entities flag ', () => {
+    it('should handle RESET_RETURNS action WITHOUT reset entities flag ', () => {
       expect(
-        entitiesMapper[actionTypes.RESET_RETURN](state, {
+        entitiesMapper[actionTypes.RESET_RETURNS](state, {
           meta: { resetEntities: false },
-          type: actionTypes.RESET_RETURN,
+          type: actionTypes.RESET_RETURNS,
         }),
       ).toEqual(state);
     });
 
-    it('should handle LOGOUT_SUCCESS action type', () => {
-      const { returns, returnItems, ...rest } = state;
+    describe('other actions reset handling', () => {
+      it.each([
+        LOGOUT_SUCCESS,
+        LOGIN_SUCCESS,
+        FETCH_USER_SUCCESS,
+        REGISTER_SUCCESS,
+      ])('should return initial state on %s action', actionType => {
+        const entitiesState = {
+          returns: {},
+          returnItems: {},
+          dummy: {
+            ABCDEF: { id: 'ABCDEF' },
+          },
+        };
 
-      expect(fromReducer.entitiesMapper[LOGOUT_SUCCESS](state)).toEqual({
-        ...rest,
+        const expectedResult = omit(entitiesState, ['returns', 'returnItems']);
+
+        expect(
+          entitiesMapper[actionType as keyof typeof entitiesMapper](
+            entitiesState,
+            { type: actionType },
+          ),
+        ).toEqual(expectedResult);
       });
     });
   });

@@ -34,7 +34,7 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
 export const entitiesMapper = {
   [actionTypes.RESET_MERCHANTS_LOCATIONS_STATE]: (
     state: NonNullable<StoreState['entities']>,
-  ): StoreState['entities'] => {
+  ) => {
     const { merchantsLocations, ...rest } = state as NonNullable<
       StoreState['entities']
     >;
