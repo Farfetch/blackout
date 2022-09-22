@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.316](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.315...@farfetch/blackout-redux@1.0.0-next.316) (2022-09-22)
+
+
+### Bug Fixes
+
+* **redux:** fix resetProductsLists action ([c895a22](https://github.com/Farfetch/blackout/commit/c895a220d2f1d39dc02c792225c68c23e228f434))
+
+
+
+
+
 # [1.0.0-next.315](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.314...@farfetch/blackout-redux@1.0.0-next.315) (2022-09-21)
 
 
