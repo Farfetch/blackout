@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.208](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.207...@farfetch/blackout-client@2.0.0-next.208) (2022-09-22)
+
+
+### Features
+
+* **react|redux|client:** add subscriptions hooks ([f03d4f2](https://github.com/Farfetch/blackout/commit/f03d4f2349ff5ec83d7135cf82237b4b27cd8a50))
+
+
+### BREAKING CHANGES
+
+* **react|redux|client:** Subscriptions reducer refactor
+
+
+
+
+
 # [2.0.0-next.207](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.206...@farfetch/blackout-client@2.0.0-next.207) (2022-09-21)
 
 
