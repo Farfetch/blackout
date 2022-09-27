@@ -19,7 +19,7 @@ describe('brands client', () => {
       await expect(getBrands(mockQuery)).resolves.toEqual(mockBrandsResponse);
 
       expect(spy).toHaveBeenCalledWith(
-        '/commerce/v1/brands?id=211376%2C%20110127',
+        '/commerce/v1/brands?id=211376%2C%20220127',
         expectedConfig,
       );
     });
@@ -32,7 +32,7 @@ describe('brands client', () => {
       await expect(getBrands(mockQuery)).rejects.toMatchSnapshot();
 
       expect(spy).toHaveBeenCalledWith(
-        '/commerce/v1/brands?id=211376%2C%20110127',
+        '/commerce/v1/brands?id=211376%2C%20220127',
         expectedConfig,
       );
     });
