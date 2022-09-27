@@ -3,7 +3,7 @@ import { fetchReturnPickupRescheduleRequest } from '..';
 import { getReturnPickupRescheduleRequest } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import {
-  mockPickupCapabilitiesResponse,
+  mockPickupCapabilityResponse,
   rescheduleRequestId,
 } from 'tests/__fixtures__/returns';
 import { mockStore } from '../../../../tests';
@@ -64,7 +64,7 @@ describe('getReturnPickupRescheduleRequest() action creator', () => {
 
   it('should create the correct actions for when the fetch return pickup reschedule request procedure is successful', async () => {
     (getReturnPickupRescheduleRequest as jest.Mock).mockResolvedValueOnce(
-      mockPickupCapabilitiesResponse,
+      mockPickupCapabilityResponse,
     );
 
     await fetchReturnPickupRescheduleRequest(

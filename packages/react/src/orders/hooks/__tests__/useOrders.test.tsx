@@ -9,8 +9,8 @@ import {
 } from '@farfetch/blackout-redux';
 import {
   mockGuestUserEmail,
-  mockOrderEntityDenormalized,
   mockState,
+  orderEntityDenormalized,
   orderId,
 } from 'tests/__fixtures__/orders/orders.fixtures';
 import { mockUserInitialState } from 'tests/__fixtures__/users';
@@ -166,7 +166,7 @@ describe('useOrders', () => {
       ...defaultReturn,
       data: {
         ...mockState.orders.result,
-        entries: [mockOrderEntityDenormalized],
+        entries: [orderEntityDenormalized],
       },
       isFetched: true,
     });

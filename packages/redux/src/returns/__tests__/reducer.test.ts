@@ -6,7 +6,12 @@ import {
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
 } from '../../users/authentication/actionTypes';
-import { returnId } from 'tests/__fixtures__/returns';
+import {
+  mockState,
+  pickupDay,
+  returnId,
+  returnPickupCapabilityId,
+} from 'tests/__fixtures__/returns';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import omit from 'lodash/omit';
 import reducer, { entitiesMapper } from '../reducer';
@@ -30,327 +35,388 @@ describe('returns reducer', () => {
       REGISTER_SUCCESS,
     ])('should return initial state on %s action', actionType => {
       expect(
-        reducer(
-          {
-            error: null,
-            isLoading: true,
-            id: null,
-            pickupCapabilities: {
-              error: null,
-              isLoading: true,
-            },
-            returns: {
-              error: null,
-              isLoading: false,
-            },
-          },
-          {
-            type: actionType,
-            payload: {},
-          },
-        ),
+        reducer(mockState, { type: actionType, payload: {} }),
       ).toMatchObject(initialState);
     });
   });
 
-  describe('error() reducer', () => {
-    const expectedResult = new Error();
-
+  describe('returnDetails() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(undefined, randomAction).error;
+      const state = reducer(undefined, randomAction).returnDetails;
 
-      expect(state).toBe(initialState.error);
-      expect(state).toBeNull();
+      expect(state).toEqual(initialState.returnDetails);
+      expect(state).toEqual({ error: {}, isLoading: {} });
     });
 
     it.each([
-      actionTypes.CREATE_RETURN_REQUEST,
-      actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST,
       actionTypes.FETCH_RETURN_REQUEST,
       actionTypes.UPDATE_RETURN_REQUEST,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
+          meta: { returnId },
           type: actionType,
-        }).error,
-      ).toBe(initialState.error);
+        }).returnDetails,
+      ).toEqual({
+        error: { [returnId]: null },
+        isLoading: { [returnId]: true },
+      });
     });
 
-    it('should handle CREATE_RETURN_FAILURE action type', () => {
+    it.each([
+      actionTypes.FETCH_RETURN_FAILURE,
+      actionTypes.UPDATE_RETURN_FAILURE,
+    ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
-          payload: { error: new Error() },
-          type: actionTypes.CREATE_RETURN_FAILURE,
-        }).error,
-      ).toStrictEqual(expectedResult);
+          meta: { returnId },
+          type: actionType,
+          payload: { error: toBlackoutError(new Error('dummy error')) },
+        }).returnDetails,
+      ).toEqual({
+        error: { [returnId]: expect.any(Error) },
+        isLoading: { [returnId]: false },
+      });
     });
 
-    it('should handle FETCH_PICKUP_CAPABILITIES_FAILURE action type', () => {
+    it.each([
+      actionTypes.FETCH_RETURN_SUCCESS,
+      actionTypes.UPDATE_RETURN_SUCCESS,
+    ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
-          payload: { error: new Error() },
-          type: actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_FAILURE,
-        }).error,
-      ).toStrictEqual(expectedResult);
+          meta: { returnId },
+          type: actionType,
+        }).returnDetails,
+      ).toEqual({ error: {}, isLoading: { [returnId]: false } });
     });
 
-    it('should handle FETCH_RETURN_FAILURE action type', () => {
-      expect(
-        reducer(undefined, {
-          payload: { error: new Error() },
-          type: actionTypes.FETCH_RETURN_FAILURE,
-        }).error,
-      ).toStrictEqual(expectedResult);
-    });
+    describe('should handle RESET_RETURN_STATE action type', () => {
+      const anotherReturnId = returnId + 1;
 
-    it('should handle UPDATE_RETURN_FAILURE action type', () => {
-      expect(
-        reducer(undefined, {
-          payload: { error: new Error() },
-          type: actionTypes.UPDATE_RETURN_FAILURE,
-        }).error,
-      ).toStrictEqual(expectedResult);
+      const state = {
+        ...mockState.returns,
+        returnDetails: {
+          error: {
+            [returnId]: toBlackoutError(new Error('dummy_error')),
+            [anotherReturnId]: toBlackoutError(new Error('dummy_error')),
+          },
+          isLoading: { [returnId]: true, [anotherReturnId]: true },
+        },
+      };
+
+      it('should reset the state of all entries when payload is empty', () => {
+        expect(
+          reducer(state, {
+            type: actionTypes.RESET_RETURN_STATE,
+            payload: [],
+          }).returnDetails,
+        ).toEqual(initialState.returnDetails);
+      });
+
+      it('should reset the state of the selected entries in payload only', () => {
+        const expectedResult = {
+          error: {
+            [anotherReturnId]: expect.any(Error),
+          },
+          isLoading: {
+            [anotherReturnId]: true,
+          },
+        };
+
+        expect(
+          reducer(state, {
+            type: actionTypes.RESET_RETURN_STATE,
+            payload: [returnId],
+          }).returnDetails,
+        ).toEqual(expectedResult);
+      });
     });
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...initialState,
-        error: toBlackoutError(new Error('foo')),
-      } as ReturnsState;
+        returnDetails: { error: {}, isLoading: { [returnId]: false } },
+      };
 
-      expect(reducer(state, randomAction).error).toBe(state.error);
+      expect(reducer(state, randomAction).returnDetails).toEqual(
+        state.returnDetails,
+      );
     });
   });
 
-  describe('id() reducer', () => {
+  describe('returnPickupCapability() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(undefined, randomAction).id;
+      const state = reducer(undefined, randomAction).returnPickupCapabilities;
 
-      expect(state).toBe(initialState.id);
-      expect(state).toBeNull();
+      expect(state).toEqual(initialState.returnPickupCapabilities);
+      expect(state).toEqual({ error: {}, isLoading: {} });
     });
 
-    it('should handle CREATE_RETURN_SUCCESS action type', () => {
-      const expectedResult = {
-        result: returnId,
-      } as unknown as string as unknown as string;
-
+    it('should handle FETCH_RETURN_PICKUP_CAPABILITY_REQUEST action type', () => {
       expect(
         reducer(undefined, {
-          payload: expectedResult,
-          type: actionTypes.CREATE_RETURN_SUCCESS,
-        }).id,
-      ).toBe(returnId);
+          meta: { hash: returnPickupCapabilityId },
+          type: actionTypes.FETCH_RETURN_PICKUP_CAPABILITY_REQUEST,
+        }).returnPickupCapabilities,
+      ).toEqual({
+        error: { [returnPickupCapabilityId]: null },
+        isLoading: { [returnPickupCapabilityId]: true },
+      });
     });
 
-    it('should handle FETCH_RETURN_SUCCESS action type', () => {
-      const expectedResult = {
-        result: returnId,
-      } as unknown as string as unknown as string;
-
+    it('should handle FETCH_RETURN_PICKUP_CAPABILITY_FAILURE action type', () => {
       expect(
         reducer(undefined, {
-          payload: expectedResult,
-          type: actionTypes.FETCH_RETURN_SUCCESS,
-        }).id,
-      ).toBe(returnId);
+          meta: { hash: returnPickupCapabilityId },
+          type: actionTypes.FETCH_RETURN_PICKUP_CAPABILITY_FAILURE,
+          payload: { error: toBlackoutError(new Error('dummy error')) },
+        }).returnPickupCapabilities,
+      ).toEqual({
+        error: { [returnPickupCapabilityId]: expect.any(Error) },
+        isLoading: { [returnPickupCapabilityId]: false },
+      });
+    });
+
+    it('should handle FETCH_RETURN_PICKUP_CAPABILITY_SUCCESS action type', () => {
+      expect(
+        reducer(undefined, {
+          meta: { hash: returnPickupCapabilityId },
+          type: actionTypes.FETCH_RETURN_PICKUP_CAPABILITY_SUCCESS,
+        }).returnPickupCapabilities,
+      ).toEqual({
+        error: {},
+        isLoading: { [returnPickupCapabilityId]: false },
+      });
+    });
+
+    describe('should handle RESET_RETURN_PICKUP_CAPABILITY_STATE action type', () => {
+      const anotherReturnPickupCapabilityId = returnPickupCapabilityId.replace(
+        '2020',
+        '2022',
+      );
+
+      const state = {
+        ...mockState.returns,
+        returnPickupCapabilities: {
+          error: {
+            [returnPickupCapabilityId]: toBlackoutError(
+              new Error('dummy_error'),
+            ),
+            [anotherReturnPickupCapabilityId]: toBlackoutError(
+              new Error('dummy_error'),
+            ),
+          },
+          isLoading: {
+            [returnPickupCapabilityId]: true,
+            [anotherReturnPickupCapabilityId]: true,
+          },
+        },
+      };
+
+      it('should reset the state of all entries when payload is empty', () => {
+        expect(
+          reducer(state, {
+            type: actionTypes.RESET_RETURN_PICKUP_CAPABILITY_STATE,
+            payload: [],
+          }).returnPickupCapabilities,
+        ).toEqual(initialState.returnPickupCapabilities);
+      });
+
+      it('should reset the state of the selected entries in payload only', () => {
+        const expectedResult = {
+          error: {
+            [anotherReturnPickupCapabilityId]: expect.any(Error),
+          },
+          isLoading: {
+            [anotherReturnPickupCapabilityId]: true,
+          },
+        };
+
+        expect(
+          reducer(state, {
+            type: actionTypes.RESET_RETURN_PICKUP_CAPABILITY_STATE,
+            payload: [{ returnId, pickupDay }],
+          }).returnPickupCapabilities,
+        ).toEqual(expectedResult);
+      });
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, id: 32283248 };
+      const state = {
+        ...initialState,
+        returnPickupCapabilities: {
+          error: {},
+          isLoading: { [returnId]: false },
+        },
+      };
 
-      expect(reducer(state, randomAction).id).toBe(state.id);
+      expect(reducer(state, randomAction).returnPickupCapabilities).toEqual(
+        state.returnPickupCapabilities,
+      );
     });
   });
 
-  describe('isLoading() reducer', () => {
+  describe('createReturn() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(undefined, randomAction).isLoading;
+      const state = reducer(undefined, randomAction).createReturn;
 
-      expect(state).toBe(initialState.isLoading);
-      expect(state).toBe(false);
+      expect(state).toEqual(initialState.createReturn);
+      expect(state).toEqual({ error: null, isLoading: false, result: null });
     });
 
-    it.each([
-      actionTypes.CREATE_RETURN_REQUEST,
-      actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST,
-      actionTypes.FETCH_RETURN_REQUEST,
-      actionTypes.UPDATE_RETURN_REQUEST,
-    ])('should handle %s action type', actionType => {
+    it('should handle CREATE_RETURN_REQUEST action type', () => {
       expect(
         reducer(undefined, {
-          type: actionType,
-        }).isLoading,
-      ).toBe(true);
-    });
-
-    it.each([
-      actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_SUCCESS,
-      actionTypes.UPDATE_RETURN_SUCCESS,
-    ])('should handle %s action type', actionType => {
-      expect(
-        reducer(undefined, {
-          type: actionType,
-        }).isLoading,
-      ).toBe(initialState.isLoading);
-    });
-
-    it('should handle FETCH_RETURN_SUCCESS action type', () => {
-      expect(
-        reducer(undefined, {
-          type: actionTypes.FETCH_RETURN_SUCCESS,
-          payload: { result: returnId } as unknown as string,
-        }).isLoading,
-      ).toBe(initialState.isLoading);
-    });
-
-    it('should handle CREATE_RETURN_SUCCESS action type', () => {
-      expect(
-        reducer(undefined, {
-          type: actionTypes.CREATE_RETURN_SUCCESS,
-          payload: { result: returnId } as unknown as string,
-        }).isLoading,
-      ).toBe(initialState.isLoading);
+          type: actionTypes.CREATE_RETURN_REQUEST,
+        }).createReturn,
+      ).toEqual({
+        error: null,
+        isLoading: true,
+        result: null,
+      });
     });
 
     it('should handle CREATE_RETURN_FAILURE action type', () => {
       expect(
         reducer(undefined, {
-          payload: { error: new Error() },
           type: actionTypes.CREATE_RETURN_FAILURE,
-        }).isLoading,
-      ).toBe(initialState.isLoading);
+          payload: { error: toBlackoutError(new Error('dummy error')) },
+        }).createReturn,
+      ).toEqual({
+        error: expect.any(Error),
+        isLoading: false,
+        result: null,
+      });
     });
 
-    it('should handle FETCH_PICKUP_CAPABILITIES_FAILURE action type', () => {
+    it('should handle CREATE_RETURN_SUCCESS action type', () => {
       expect(
         reducer(undefined, {
-          payload: { error: new Error() },
-          type: actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_FAILURE,
-        }).isLoading,
-      ).toBe(initialState.isLoading);
+          payload: { result: returnId },
+          type: actionTypes.CREATE_RETURN_SUCCESS,
+        }).createReturn,
+      ).toEqual({
+        error: null,
+        isLoading: false,
+        result: returnId,
+      });
     });
 
-    it('should handle FETCH_RETURN_FAILURE action type', () => {
-      expect(
-        reducer(undefined, {
-          payload: { error: new Error() },
-          type: actionTypes.FETCH_RETURN_FAILURE,
-        }).isLoading,
-      ).toBe(initialState.isLoading);
-    });
+    it('should handle RESET_CREATE_RETURN_STATE action type', () => {
+      const state = {
+        ...mockState.returns,
+        createReturn: {
+          error: toBlackoutError(new Error('dummy_error')),
+          isLoading: true,
+        },
+      };
 
-    it('should handle UPDATE_RETURN_FAILURE action type', () => {
       expect(
-        reducer(undefined, {
-          payload: { error: new Error() },
-          type: actionTypes.UPDATE_RETURN_FAILURE,
-        }).isLoading,
-      ).toBe(initialState.isLoading);
+        reducer(state, {
+          type: actionTypes.RESET_CREATE_RETURN_STATE,
+          payload: [],
+        }).createReturn,
+      ).toEqual(initialState.createReturn);
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, isLoading: false };
+      const state = {
+        ...initialState,
+        createReturn: { error: {}, isLoading: { [returnId]: false } },
+      };
 
-      expect(reducer(state, randomAction).isLoading).toBe(state.isLoading);
+      expect(reducer(state, randomAction).createReturn).toEqual(
+        state.createReturn,
+      );
     });
   });
 
   describe('entitiesMapper()', () => {
-    const state = {
-      error: null,
-      id: null,
-      isLoading: false,
-      returns: {
-        error: null,
-        isLoading: false,
-      },
-      returnItems: {
-        error: null,
-        isLoading: false,
-      },
-      pickupCapabilities: {
-        error: null,
-        isLoading: false,
-      },
-    } as unknown as NonNullable<StoreState['entities']>;
+    const state = mockState.entities as NonNullable<StoreState['entities']>;
 
-    const expectedResult = {
-      error: null,
-      id: null,
-      isLoading: false,
-      pickupCapabilities: {
-        error: null,
-        isLoading: false,
-      },
-    };
-
-    it('should handle RESET_RETURNS action WITH reset entities flag ', () => {
-      expect(
-        entitiesMapper[actionTypes.RESET_RETURNS](state, {
-          meta: { resetEntities: true },
-          type: actionTypes.RESET_RETURNS,
-        }),
-      ).toEqual(expectedResult);
-    });
-
-    it('should handle RESET_RETURNS action WITHOUT reset entities flag ', () => {
-      expect(
-        entitiesMapper[actionTypes.RESET_RETURNS](state, {
-          meta: { resetEntities: false },
-          type: actionTypes.RESET_RETURNS,
-        }),
-      ).toEqual(state);
-    });
-
-    describe('other actions reset handling', () => {
-      it.each([
-        LOGOUT_SUCCESS,
-        LOGIN_SUCCESS,
-        FETCH_USER_SUCCESS,
-        REGISTER_SUCCESS,
-      ])('should return initial state on %s action', actionType => {
-        const entitiesState = {
-          returns: {},
-          returnItems: {},
-          dummy: {
-            ABCDEF: { id: 'ABCDEF' },
-          },
+    describe('update return logic', () => {
+      it('should handle UPDATE_RETURN_SUCCESS action', () => {
+        const returnPickupSchedule = {
+          start: 1641553200,
+          end: 1641556800,
         };
 
-        const expectedResult = omit(entitiesState, ['returns', 'returnItems']);
+        const newState = entitiesMapper[actionTypes.UPDATE_RETURN_SUCCESS](
+          state,
+          {
+            meta: { returnId },
+            payload: {
+              pickupSchedule: returnPickupSchedule,
+            },
+            type: actionTypes.RESET_RETURNS,
+          },
+        );
 
+        expect(newState.returns?.[returnId]?.pickupSchedule).toEqual(
+          returnPickupSchedule,
+        );
+      });
+    });
+
+    describe('reset logic', () => {
+      const expectedResult = omit(state, ['returns', 'returnItems']);
+
+      it('should handle RESET_RETURNS action WITH reset entities flag ', () => {
         expect(
-          entitiesMapper[actionType as keyof typeof entitiesMapper](
-            entitiesState,
-            { type: actionType },
-          ),
+          entitiesMapper[actionTypes.RESET_RETURNS](state, {
+            meta: { resetEntities: true },
+            type: actionTypes.RESET_RETURNS,
+          }),
         ).toEqual(expectedResult);
+      });
+
+      it('should handle RESET_RETURNS action WITHOUT reset entities flag ', () => {
+        expect(
+          entitiesMapper[actionTypes.RESET_RETURNS](state, {
+            meta: { resetEntities: false },
+            type: actionTypes.RESET_RETURNS,
+          }),
+        ).toEqual(state);
+      });
+
+      describe('other actions reset handling', () => {
+        it.each([
+          LOGOUT_SUCCESS,
+          LOGIN_SUCCESS,
+          FETCH_USER_SUCCESS,
+          REGISTER_SUCCESS,
+        ])('should return initial state on %s action', actionType => {
+          expect(
+            entitiesMapper[actionType as keyof typeof entitiesMapper](state, {
+              type: actionType,
+            }),
+          ).toEqual(expectedResult);
+        });
       });
     });
   });
 
-  describe('getId() selector', () => {
-    it('should return the `id` property from a given state', () => {
-      const id = 32283248;
-
-      expect(fromReducer.getId({ ...initialState, id })).toBe(id);
+  describe('getReturnDetails() selector', () => {
+    it('should return the `returnDetails` property from a given state', () => {
+      expect(fromReducer.getReturnDetails(initialState)).toBe(
+        initialState.returnDetails,
+      );
     });
   });
 
-  describe('getError() selector', () => {
-    it('should return the `error` property from a given state', () => {
-      const error = toBlackoutError(new Error('foo'));
-      expect(fromReducer.getError({ ...initialState, error })).toBe(error);
+  describe('getReturnPickupCapabilities() selector', () => {
+    it('should return the `returnPickupCapabilities` property from a given state', () => {
+      expect(fromReducer.getReturnPickupCapabilities(initialState)).toBe(
+        initialState.returnPickupCapabilities,
+      );
     });
   });
 
-  describe('getIsLoading() selector', () => {
-    it('should return the `isLoading` property from a given state', () => {
-      const isLoading = false;
-
-      expect(fromReducer.getIsLoading({ ...initialState, isLoading })).toBe(
-        isLoading,
+  describe('getCreateReturn() selector', () => {
+    it('should return the `createReturn` property from a given state', () => {
+      expect(fromReducer.getCreateReturn(initialState)).toBe(
+        initialState.createReturn,
       );
     });
   });

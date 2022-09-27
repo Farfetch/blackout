@@ -2,6 +2,15 @@
 
 exports[`updateReturn() action creator should create the correct actions for when the update return procedure is successful: update return success payload 1`] = `
 Object {
+  "meta": Object {
+    "returnId": 5926969,
+  },
+  "payload": Object {
+    "pickupSchedule": Object {
+      "end": 1574413200000,
+      "start": 1574445600000,
+    },
+  },
   "type": "@farfetch/blackout-redux/UPDATE_RETURN_SUCCESS",
 }
 `;

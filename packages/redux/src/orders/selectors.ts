@@ -9,12 +9,13 @@ import {
   getOrderDetails,
   getOrderItemAvailableActivities,
   getOrderReturnOptions as getOrderReturnOptionsFromReducer,
-  getOrderReturns,
+  getOrderReturns as getOrderReturnsFromReducer,
   getResult,
   getShipmentTrackings,
 } from './reducer';
 import { getEntities, getEntityById } from '../entities/selectors';
 import { getMerchants } from '../products';
+import { getReturnsEntities } from '../returns';
 import get from 'lodash/get';
 import type { Brand, Order } from '@farfetch/blackout-client';
 import type {
@@ -27,6 +28,7 @@ import type {
   OrderItemEntity,
   OrderItemEntityDenormalized,
   OrdersDenormalized,
+  ReturnEntity,
   ReturnOptionEntity,
   ReturnOptionEntityDenormalized,
 } from '../entities/types';
@@ -54,7 +56,7 @@ export const getOrdersError = (state: StoreState) =>
   getError(state.orders as OrdersState);
 
 /**
- * Returns all the orders in the application state.
+ * Returns all the order entities in the application state.
  *
  * @param state - Application state.
  *
@@ -221,6 +223,7 @@ export const getOrder = createSelector(
     getCategories,
     getBrands,
     getReturnOptions,
+    getReturnsEntities,
   ],
   (
     orderId,
@@ -230,6 +233,7 @@ export const getOrder = createSelector(
     categories,
     brands,
     returnoptions,
+    returns,
   ) => {
     return denormalizeOrder(
       orderId,
@@ -239,31 +243,80 @@ export const getOrder = createSelector(
       categories,
       brands,
       returnoptions,
+      returns,
     );
   },
 );
 
 /**
- * Returns all return options from a specific order and merchant.
+ * Returns all return options from a specific order and optionally a merchant.
  *
  * @param state      - Application state.
- * @param _          -
  * @param orderId    - Order id.
  * @param merchantId - Merchant id.
  *
  * @returns List of return options objects.
  */
-export const getOrderReturnOptions = createSelector(
+export const getOrderReturnOptions: (
+  state: StoreState,
+  orderId: Order['id'],
+  merchantId?: MerchantEntity['id'],
+) => ReturnOptionEntityDenormalized[] | null | undefined = createSelector(
   [
-    (state, orderId) => getOrder(state, orderId),
-    (_, orderId, merchantId) => ({ orderId, merchantId }),
+    (state: StoreState, orderId: Order['id']) => getOrder(state, orderId),
+    (_, orderId: Order['id'], merchantId?: MerchantEntity['id']) => ({
+      orderId,
+      merchantId,
+    }),
   ],
   (order, { merchantId }) => {
     if (!order) {
       return undefined;
     }
 
+    if (
+      !order.returnOptions ||
+      order.returnOptions.length === 0 ||
+      !merchantId
+    ) {
+      return order.returnOptions;
+    }
+
     return order.byMerchant[merchantId]?.returnOptions;
+  },
+);
+
+/**
+ * Returns all return from a specific order and merchant.
+ *
+ * @param state      - Application state.
+ * @param orderId    - Order id.
+ * @param merchantId - Merchant id.
+ *
+ * @returns List of return objects.
+ */
+export const getOrderReturns: (
+  state: StoreState,
+  orderId: Order['id'],
+  merchantId?: MerchantEntity['id'],
+) => ReturnEntity[] | null | undefined = createSelector(
+  [
+    (state: StoreState, orderId: Order['id']) => getOrder(state, orderId),
+    (_, orderId: Order['id'], merchantId?: MerchantEntity['id']) => ({
+      orderId,
+      merchantId,
+    }),
+  ],
+  (order, { merchantId }) => {
+    if (!order) {
+      return undefined;
+    }
+
+    if (!order.returns || order.returns.length === 0 || !merchantId) {
+      return order.returns;
+    }
+
+    return order.byMerchant[merchantId]?.returns;
   },
 );
 
@@ -434,7 +487,23 @@ export const isOrderFetched = (state: StoreState, orderId: Order['id']) => {
 export const areOrderReturnsLoading = (
   state: StoreState,
   orderId: Order['id'],
-) => getOrderReturns(state.orders as OrdersState).isLoading[orderId];
+) => getOrderReturnsFromReducer(state.orders as OrdersState).isLoading[orderId];
+
+/**
+ * Returns the isFetched status for the order returns operation.
+ *
+ * @param state   - Application state.
+ * @param orderId - Order identifier.
+ *
+ * @returns Order returns isFetched status.
+ */
+export const areOrderReturnsFetched = (
+  state: StoreState,
+  orderId: Order['id'],
+) =>
+  (!!getOrderReturns(state, orderId) ||
+    !!getOrderReturnsError(state, orderId)) &&
+  !areOrderReturnsLoading(state, orderId);
 
 /**
  * Returns the error for the order returns operation.
@@ -445,7 +514,7 @@ export const areOrderReturnsLoading = (
  * @returns Order returns operation error.
  */
 export const getOrderReturnsError = (state: StoreState, orderId: Order['id']) =>
-  getOrderReturns(state.orders as OrdersState).error[orderId];
+  getOrderReturnsFromReducer(state.orders as OrdersState).error[orderId];
 
 /**
  * Returns the loading status for the order return options operation.
@@ -476,6 +545,22 @@ export const getOrderReturnOptionsError = (
   orderId: string,
 ) =>
   getOrderReturnOptionsFromReducer(state.orders as OrdersState).error[orderId];
+
+/**
+ * Returns the fetched status for the order return options operation.
+ *
+ * @param state   - Application state.
+ * @param orderId - Order identifier.
+ *
+ * @returns Order return options fetched status.
+ */
+export const areOrderReturnOptionsFetched = (
+  state: StoreState,
+  orderId: Order['id'],
+) =>
+  (!!getOrderReturnOptions(state, orderId) ||
+    !!getOrderReturnOptionsError(state, orderId)) &&
+  !areOrderReturnOptionsLoading(state, orderId);
 
 /**
  * Returns the loading status for the tracking operation.
@@ -604,6 +689,57 @@ const denormalizeOrderItem = (
 };
 
 /**
+ * Denormalizes a return option.
+ *
+ * @param returnOptionId - Return option id.
+ * @param returnOptions - Return options entities.
+ * @param merchants - Merchants entities.
+ *
+ * @returns Return option denormalized.
+ */
+const denormalizeReturnOption = (
+  returnOptionId: ReturnOptionEntity['id'],
+  returnOptions: Record<string, ReturnOptionEntity> | undefined,
+  merchants: Record<number, MerchantEntity> | undefined,
+) => {
+  if (!returnOptionId) {
+    return undefined;
+  }
+
+  const returnOptionEntity = returnOptions?.[returnOptionId];
+
+  if (!returnOptionEntity) {
+    return undefined;
+  }
+
+  return {
+    ...returnOptionEntity,
+    merchant: merchants?.[returnOptionEntity.merchant],
+  };
+};
+
+/**
+ * Denormalizes a return.
+ *
+ * @param returnId - Return id.
+ * @param returns - Returns entities.
+ *
+ * @returns Return denormalized.
+ */
+const denormalizeReturn = (
+  returnId: ReturnEntity['id'],
+  returns: Record<string, ReturnEntity> | undefined,
+) => {
+  const returnEntity = returns?.[returnId];
+
+  if (!returnEntity) {
+    return undefined;
+  }
+
+  return returnEntity;
+};
+
+/**
  * Denormalizes order by merchant structure.
  *
  * @param byMerchant - Orders by merchant structure to denormalize.
@@ -611,6 +747,8 @@ const denormalizeOrderItem = (
  * @param merchants - Merchants entities.
  * @param categories - Categories entities.
  * @param brands - Brands entities.
+ * @param returnOptions - Return options entities.
+ * @param returns - Returns entities.
  *
  * @returns Order by merchant structure denormalized.
  */
@@ -621,6 +759,7 @@ const denormalizeOrdersByMerchant = (
   categories: Record<number, CategoryEntity> | undefined,
   brands: Record<number, Brand> | undefined,
   returnOptions: Record<string, ReturnOptionEntity> | undefined,
+  returns: Record<number, ReturnEntity> | undefined,
 ) => {
   return Object.entries(byMerchant).reduce(
     (acc, [merchantId, orderMerchantData]) => {
@@ -640,19 +779,16 @@ const denormalizeOrdersByMerchant = (
 
       const returnOptionsDenormalized = orderMerchantData.returnOptions
         ? (orderMerchantData.returnOptions
-            .map(returnOptionId => {
-              const returnOptionEntity = returnOptions?.[returnOptionId];
-
-              if (!returnOptionEntity) {
-                return undefined;
-              }
-
-              return {
-                ...returnOptionEntity,
-                merchant: merchants?.[returnOptionEntity.merchant],
-              };
-            })
+            .map(returnOptionId =>
+              denormalizeReturnOption(returnOptionId, returnOptions, merchants),
+            )
             .filter(Boolean) as ReturnOptionEntityDenormalized[])
+        : undefined;
+
+      const returnsDenormalized = orderMerchantData.returns
+        ? (orderMerchantData.returns
+            .map(returnId => denormalizeReturn(returnId, returns))
+            .filter(Boolean) as ReturnEntity[])
         : undefined;
 
       acc[merchantId] = {
@@ -660,6 +796,7 @@ const denormalizeOrdersByMerchant = (
         orderItems: orderItemsDenormalized,
         merchant: merchants?.[merchantId as unknown as number],
         returnOptions: returnOptionsDenormalized,
+        returns: returnsDenormalized,
       };
 
       return acc;
@@ -677,6 +814,8 @@ const denormalizeOrdersByMerchant = (
  * @param merchants - Merchants entities.
  * @param categories - Categories entities.
  * @param brands - Brands entities.
+ * @param returnOptions - Return options entities.
+ * @param returns - Returns entities.
  *
  * @returns Order entity denormalized or undefined.
  */
@@ -688,6 +827,7 @@ const denormalizeOrder = (
   categories: Record<number, CategoryEntity> | undefined,
   brands: Record<number, Brand> | undefined,
   returnOptions: Record<string, ReturnOptionEntity> | undefined,
+  returns: Record<number, ReturnEntity> | undefined,
 ): OrderEntityDenormalized | undefined => {
   if (!orders) {
     return undefined;
@@ -708,21 +848,33 @@ const denormalizeOrder = (
       categories,
       brands,
       returnOptions,
+      returns,
     ),
-    items:
-      order.items && orderItems
-        ? (order.items
-            .map(orderItemId =>
-              denormalizeOrderItem(
-                orderItemId,
-                orderItems,
-                merchants,
-                categories,
-                brands,
-              ),
-            )
-            .filter(Boolean) as OrderItemEntityDenormalized[])
-        : undefined,
+    items: order.items
+      ? (order.items
+          .map(orderItemId =>
+            denormalizeOrderItem(
+              orderItemId,
+              orderItems,
+              merchants,
+              categories,
+              brands,
+            ),
+          )
+          .filter(Boolean) as OrderItemEntityDenormalized[])
+      : undefined,
+    returnOptions: order.returnOptions
+      ? (order.returnOptions
+          .map(returnOptionId =>
+            denormalizeReturnOption(returnOptionId, returnOptions, merchants),
+          )
+          .filter(Boolean) as ReturnOptionEntityDenormalized[])
+      : undefined,
+    returns: order.returns
+      ? (order.returns
+          .map(returnId => denormalizeReturn(returnId, returns))
+          .filter(Boolean) as ReturnEntity[])
+      : undefined,
   };
 };
 
@@ -738,6 +890,7 @@ export const getOrdersResult = createSelector(
     getCategories,
     getBrands,
     getReturnOptions,
+    getReturnsEntities,
   ],
   (
     result,
@@ -747,6 +900,7 @@ export const getOrdersResult = createSelector(
     categories,
     brands,
     returnOptions,
+    returns,
   ) => {
     if (!result || !orders) {
       return;
@@ -766,6 +920,7 @@ export const getOrdersResult = createSelector(
             categories,
             brands,
             returnOptions,
+            returns,
           ),
         )
         .filter(Boolean) as OrderEntityDenormalized[];
@@ -786,6 +941,7 @@ export const getOrdersResult = createSelector(
             categories,
             brands,
             returnOptions,
+            returns,
           ),
         )
         .filter(Boolean) as OrderEntityDenormalized[],

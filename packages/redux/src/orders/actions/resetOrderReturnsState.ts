@@ -6,6 +6,8 @@ import type { Order } from '@farfetch/blackout-client';
  * Reset orders returns slice state only
  * to its initial value.
  *
+ * @param orderIds - Order ids whose returns state should be reset.
+ *
  * @returns - Thunk.
  */
 const resetOrderReturnsState =

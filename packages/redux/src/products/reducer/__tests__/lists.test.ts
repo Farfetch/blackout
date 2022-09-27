@@ -1,4 +1,3 @@
-import { BlackoutError, toBlackoutError } from '@farfetch/blackout-client';
 import {
   mockProductsEntity,
   mockProductsListEntity,
@@ -6,6 +5,7 @@ import {
   mockProductsListsEntity,
 } from 'tests/__fixtures__/products';
 import { productsActionTypes, ProductsListsState } from '../..';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, {
   entitiesMapper,
   getError,
@@ -45,7 +45,7 @@ describe('lists redux reducer', () => {
 
       const state = {
         error: {
-          [anotherProductsListHash]: new Error('dummy error') as BlackoutError,
+          [anotherProductsListHash]: toBlackoutError(new Error('dummy error')),
         },
         isLoading: { [anotherProductsListHash]: false },
         isHydrated: { [anotherProductsListHash]: true },

@@ -96,10 +96,22 @@ export const RESET_ORDER_RETURNS_STATE =
   '@farfetch/blackout-redux/RESET_ORDER_RETURNS_STATE';
 
 /**
+ * Action type dispatched when resetting the orders returns entities.
+ */
+export const RESET_ORDER_RETURNS_ENTITIES =
+  '@farfetch/blackout-redux/RESET_ORDER_RETURNS_ENTITIES';
+
+/**
  * Action type dispatched when resetting the orders return options slice state.
  */
 export const RESET_ORDER_RETURN_OPTIONS_STATE =
   '@farfetch/blackout-redux/RESET_ORDER_RETURN_OPTIONS_STATE';
+
+/**
+ * Action type dispatched when resetting the orders return options entities.
+ */
+export const RESET_ORDER_RETURN_OPTIONS_ENTITIES =
+  '@farfetch/blackout-redux/RESET_ORDER_RETURN_OPTIONS_ENTITIES';
 
 /**
  * Action type dispatched when the fetch order documents request fails.

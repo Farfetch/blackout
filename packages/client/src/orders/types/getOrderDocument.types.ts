@@ -1,7 +1,7 @@
-import type { Config } from '../..';
+import type { Config, Order, OrderDocument } from '../..';
 
 export type GetOrderDocument = (
-  id: string,
-  documentId: string,
+  id: Order['id'],
+  documentId: OrderDocument['id'],
   config?: Config,
 ) => Promise<string>;

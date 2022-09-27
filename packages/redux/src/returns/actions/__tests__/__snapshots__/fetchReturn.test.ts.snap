@@ -2,6 +2,9 @@
 
 exports[`fetchReturn() action creator should create the correct actions for when the fetch return procedure is successful: fetch return success payload 1`] = `
 Object {
+  "meta": Object {
+    "returnId": 5926969,
+  },
   "payload": Object {
     "entities": Object {
       "returnItems": Object {
@@ -23,8 +26,6 @@ Object {
             1641553143916,
             1641553143916,
           ],
-          "availableEndHours": undefined,
-          "availableStartHours": undefined,
           "awbUrl": "/account/v1/returns/25741579/AWB",
           "courier": "NotKnown",
           "createdDate": 1641222613660,
@@ -38,7 +39,6 @@ Object {
           "numberOfBoxes": 0,
           "numberOfItems": 1,
           "orderId": "8HYCEV",
-          "pickupDate": undefined,
           "pickupSchedule": Object {
             "end": undefined,
             "start": undefined,

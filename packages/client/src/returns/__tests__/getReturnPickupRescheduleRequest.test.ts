@@ -1,6 +1,6 @@
 import { getReturnPickupRescheduleRequest } from '..';
 import {
-  mockReturnId as id,
+  returnId as id,
   rescheduleRequestId,
   responses,
 } from 'tests/__fixtures__/returns';

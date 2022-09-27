@@ -41,10 +41,11 @@ describe('fetchReturn() action creator', () => {
       expect(getReturn).toHaveBeenCalledWith(returnId, expectedConfig);
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
-          { type: actionTypes.FETCH_RETURN_REQUEST },
+          { type: actionTypes.FETCH_RETURN_REQUEST, meta: { returnId } },
           {
             type: actionTypes.FETCH_RETURN_FAILURE,
             payload: { error: expectedError },
+            meta: { returnId },
           },
         ]),
       );
@@ -61,10 +62,11 @@ describe('fetchReturn() action creator', () => {
     expect(getReturn).toHaveBeenCalledTimes(1);
     expect(getReturn).toHaveBeenCalledWith(returnId, expectedConfig);
     expect(actionResults).toMatchObject([
-      { type: actionTypes.FETCH_RETURN_REQUEST },
+      { type: actionTypes.FETCH_RETURN_REQUEST, meta: { returnId } },
       {
         type: actionTypes.FETCH_RETURN_SUCCESS,
         payload: returnsNormalizedPayload,
+        meta: { returnId },
       },
     ]);
     expect(

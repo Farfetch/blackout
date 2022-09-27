@@ -1,5 +1,5 @@
 import { getReturnPickupRescheduleRequests } from '..';
-import { mockReturnId as id, responses } from 'tests/__fixtures__/returns';
+import { returnId as id, responses } from 'tests/__fixtures__/returns';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getReturnPickupRescheduleRequests.fixtures';
 import join from 'proper-url-join';

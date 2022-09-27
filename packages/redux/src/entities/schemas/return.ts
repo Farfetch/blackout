@@ -40,14 +40,9 @@ export default new schema.Entity(
 
       item.availableDates =
         item.availableDates && item.availableDates.map(adaptDate);
-      item.availableEndHours =
-        item.availableEndHours && item.availableEndHours.map(adaptDate);
-      item.availableStartHours =
-        item.availableStartHours && item.availableStartHours.map(adaptDate);
       item.createdDate = item.createdDate && adaptDate(item.createdDate);
       item.maximumDateForPickup =
         item.maximumDateForPickup && adaptDate(item.maximumDateForPickup);
-      item.pickupDate = item.pickupDate && adaptDate(item.pickupDate);
       item.pickupSchedule = {
         end: item.pickupSchedule && adaptDate(item.pickupSchedule.end),
         start: item.pickupSchedule && adaptDate(item.pickupSchedule.start),

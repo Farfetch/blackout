@@ -5,8 +5,8 @@ Object {
   "payload": Object {
     "availableTimeSlots": Array [
       Object {
-        "end": "2022-01-07T10:59:03.9169641Z",
-        "start": "2022-01-07T10:59:03.9169641Z",
+        "end": "2022-01-07T11:00:00.0Z",
+        "start": "2022-01-07T10:00:00.0Z",
       },
     ],
   },

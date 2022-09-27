@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchReturnPickupCapability action creator should create the correct actions for when the get pickup capability procedure is successful: fetch pickup capability success payload 1`] = `
+Object {
+  "meta": Object {
+    "hash": "5926969|2020-04-20",
+  },
+  "payload": Object {
+    "entities": Object {
+      "returnPickupCapabilities": Object {
+        "5926969|2020-04-20": Object {
+          "availableTimeSlots": Array [
+            Object {
+              "end": 1641553200000,
+              "start": 1641549600000,
+            },
+          ],
+        },
+      },
+    },
+  },
+  "type": "@farfetch/blackout-redux/FETCH_RETURN_PICKUP_CAPABILITY_SUCCESS",
+}
+`;

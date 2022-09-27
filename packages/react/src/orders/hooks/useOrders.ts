@@ -16,18 +16,8 @@ import { usePrevious } from '../../helpers';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction';
 import useUser from '../../users/hooks/useUser';
-import type {
-  Config,
-  GetUserOrdersQuery,
-  Order,
-  User,
-} from '@farfetch/blackout-client';
-
-export type UseOrdersOptions = {
-  enableAutoFetch?: boolean;
-  fetchConfig?: Config;
-  fetchQuery?: GetUserOrdersQuery;
-};
+import type { Config, Order, User } from '@farfetch/blackout-client';
+import type { UseOrdersOptions } from './types';
 
 /**
  * Obtains the user orders and actions to perform on them.
@@ -51,10 +41,11 @@ function useOrders(options: UseOrdersOptions = {}) {
   const isLoading = useSelector(areOrdersLoading);
   const error = useSelector(getOrdersError);
   const ordersResult = useSelector(getOrdersResult);
+  const isFetched = useSelector(areOrdersFetched);
   const { data: user, isFetched: isUserFetched } = useUser();
   const isAuthenticated = isUserFetched && user && !user.isGuest;
   const userId = user?.id;
-  const isFetched = useSelector(areOrdersFetched);
+
   const queryHash = useMemo(() => {
     if (!fetchQuery) {
       return '';
@@ -62,6 +53,7 @@ function useOrders(options: UseOrdersOptions = {}) {
 
     return buildQueryStringFromObject(fetchQuery);
   }, [fetchQuery]);
+
   const previousQueryHash = usePrevious(queryHash) || '';
   const hasQueryHashChanged = previousQueryHash !== queryHash;
 
