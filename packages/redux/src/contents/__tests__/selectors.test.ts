@@ -6,11 +6,11 @@ import {
   contentPublicationId,
   contentQuery,
   contentTypesResult,
-  mockContentResult,
   pathname,
   seoQuery,
   seoResponse,
 } from 'tests/__fixtures__/contents';
+import { toBlackoutError } from '@farfetch/blackout-client';
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -21,22 +21,25 @@ describe('contents redux selectors', () => {
     contents: {
       searchResults: {
         [contentHash]: {
-          error: 'Error - Content not loaded.',
+          error: null,
           isLoading: false,
           result: {
-            ...mockContentResult,
-            hash: 'foo',
+            ...contentNormalizedPayload.result,
           },
         },
       },
       contentTypes: {
+        error: undefined,
         isLoading: false,
-        error: {},
         result: contentTypesResult,
       },
       metadata: {
-        error: { [pathname]: 'Error - SEO not loaded.' },
-        isLoading: { [pathname]: false },
+        error: {
+          [pathname]: toBlackoutError(new Error('Error - SEO not loaded.')),
+        },
+        isLoading: {
+          [pathname]: false,
+        },
         result: { ...seoResponse },
       },
     },
@@ -113,7 +116,7 @@ describe('contents redux selectors', () => {
   describe('getSEOError()', () => {
     it('should get the SEO error property from state', () => {
       const spy = jest.spyOn(fromReducer, 'getSEOmetadata');
-      const expectedResult = mockState.contents.metadata.error[pathname];
+      const expectedResult = mockState?.contents?.metadata?.error[pathname];
 
       expect(selectors.getSEOError(mockState, seoQuery)).toEqual(
         expectedResult,
@@ -147,7 +150,9 @@ describe('contents redux selectors', () => {
   describe('getContent()', () => {
     it('should return the content entity', () => {
       expect(selectors.getContent(mockState, contentHash)).toEqual(
-        mockState.entities.contents[contentHash],
+        mockState.entities.contents[
+          contentHash as keyof typeof mockState.entities.contents
+        ],
       );
     });
   });

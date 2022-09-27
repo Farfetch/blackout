@@ -1,5 +1,6 @@
 import {
   addBagItem,
+  BagNormalized,
   fetchBag,
   removeBagItem,
   resetBag,
@@ -12,6 +13,7 @@ import {
   mockProductId,
   mockSizeScaleId,
 } from 'tests/__fixtures__/products/ids.fixtures';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import { withStore } from '../../../../tests/helpers';
 import useBag from '../useBag';
 
@@ -152,6 +154,7 @@ describe('useBag', () => {
   });
 
   it('should render in error state', () => {
+    const mockError = toBlackoutError(new Error('error'));
     const {
       result: {
         current: { error },
@@ -161,12 +164,12 @@ describe('useBag', () => {
         ...mockState,
         bag: {
           ...mockState.bag,
-          error: true,
+          error: mockError,
         },
       }),
     });
 
-    expect(error).toBe(true);
+    expect(error).toBe(mockError);
   });
 
   it("should not render in loading state while it doesn't begin fetching", () => {
@@ -179,8 +182,8 @@ describe('useBag', () => {
         ...mockState,
         bag: {
           ...mockState.bag,
-          error: undefined,
-          result: {},
+          error: null,
+          result: {} as BagNormalized,
         },
       }),
     });

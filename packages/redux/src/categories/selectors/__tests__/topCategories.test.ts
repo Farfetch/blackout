@@ -6,6 +6,7 @@ import {
   mockChildrenCategories,
   mockTopCategories,
 } from 'tests/__fixtures__/categories';
+import type { Category } from '@farfetch/blackout-client';
 
 describe('categories redux selectors', () => {
   const mockState = mockCategoriesState;
@@ -42,16 +43,20 @@ describe('categories redux selectors', () => {
     });
 
     it('should return an empty list when no top categories are available', () => {
-      const otherCategory = mockChildrenCategories[0];
+      const otherCategory = mockChildrenCategories[0] as Category;
       const result = selectors.getTopCategories({
         categories: {
+          ...mockCategoriesState.categories,
           top: {
+            error: null,
+            isLoading: false,
             result: null,
           },
         },
         entities: {
+          ...mockCategoriesState.entities,
           categories: {
-            [otherCategory.id]: otherCategory,
+            [otherCategory?.id]: otherCategory,
           },
         },
       });

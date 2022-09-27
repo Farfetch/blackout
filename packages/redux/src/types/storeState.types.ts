@@ -44,6 +44,7 @@ import type { AddressesState } from '../addresses/types';
 import type { BagsState } from '../bags/types';
 import type {
   Brand,
+  CheckoutOrder,
   Country,
   CountryAddressSchema,
   DeliveryBundle,
@@ -83,7 +84,7 @@ export type StoreState = Partial<{
     brands: Record<Brand['id'], Brand>;
     categories: Record<CategoryEntity['id'], CategoryEntity>;
     checkout: Record<CheckoutEntity['id'], CheckoutEntity>;
-    checkoutDetails: Record<CheckoutDetailsEntity['id'], CheckoutDetailsEntity>;
+    checkoutDetails: Record<CheckoutOrder['id'], CheckoutDetailsEntity>;
     checkoutOrderItems: Record<
       CheckoutOrderItemEntity['id'],
       CheckoutOrderItemEntity

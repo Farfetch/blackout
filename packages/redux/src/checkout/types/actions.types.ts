@@ -27,7 +27,7 @@ type Payload = NormalizedSchema<
     >;
     checkoutOrders: Record<string, CheckoutOrderEntity>;
     checkoutDetails?: Record<
-      CheckoutDetailsEntity['id'],
+      CheckoutDetailsEntity['checkoutOrder'],
       CheckoutDetailsEntity
     >;
     deliveryBundles?: Record<DeliveryBundleEntity['id'], DeliveryBundleEntity>;

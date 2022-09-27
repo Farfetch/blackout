@@ -1,4 +1,5 @@
 import { generateContentHash } from '@farfetch/blackout-redux/src/contents/utils';
+import type { ContentEntry } from '@farfetch/blackout-client';
 
 export const contentPublicationId = '1fa65fb0-49bf-43b3-902e-78d104f160a3';
 
@@ -64,9 +65,7 @@ export const mockContents = {
       id: undefined,
       publicationId: contentPublicationId,
       publicationDate: '2020-11-25T15:31:22.619Z',
-      metadata: {
-        custom: {},
-      },
+      metadata: {},
       spaceCode: 'website',
       target: {
         contentzone: '10674',
@@ -88,6 +87,7 @@ export const mockWidget = {
       contentTypeCode: 'widgets',
       environmentCode: 'preview',
       id: undefined,
+      metadata: {},
       code: 'newsletter-terms-and-conditions-widget',
       target: {
         language: 'en-US',
@@ -118,6 +118,7 @@ export const mockNavbars = {
       contentTypeCode: 'navbars',
       environmentCode: 'preview',
       id: undefined,
+      metadata: {},
       code: 'footer',
       target: {
         language: 'en-GB',
@@ -199,6 +200,7 @@ export const mockContentType = {
       contentTypeCode: 'careers',
       environmentCode: 'preview',
       id: undefined,
+      metadata: {},
       code: 'career-test',
       target: {
         language: 'en-GB',
@@ -207,7 +209,7 @@ export const mockContentType = {
       components: [
         {
           type: 'text',
-          value: 'Career Page Title',
+          content: 'Career Page Title',
           name: 'Title',
           displayOptions: {},
         },
@@ -226,6 +228,7 @@ export const mockContentType = {
       contentTypeCode: 'careers',
       environmentCode: 'preview',
       id: undefined,
+      metadata: {},
       code: 'test-career',
       target: {
         country: 'EN',
@@ -261,7 +264,7 @@ export const contentNormalizedPayload = {
   entities: {
     contents: {
       [contentPublicationId]: {
-        ...mockContents.entries[0],
+        ...(mockContents.entries[0] as ContentEntry),
       },
     },
   },
@@ -333,11 +336,15 @@ export const expectedNormalizedPayload = {
   },
   entities: {
     contents: {
-      [contentPublicationId]: mockContents.entries[0],
-      'daada313-7908-46c8-8ea8-ad2263b41b43': mockWidget.entries[0],
-      '7317888f-c8ea-4770-98b3-232961af741b': mockNavbars.entries[0],
-      '6fc6f3c1-ae2b-44d3-abec-54f0b679b19f': mockContentType.entries[0],
-      '7255bc1f-517f-4c7d-bfdb-6e10fe037c68': mockContentType.entries[1],
+      [contentPublicationId]: mockContents.entries[0] as ContentEntry,
+      'daada313-7908-46c8-8ea8-ad2263b41b43': mockWidget
+        .entries[0] as ContentEntry,
+      '7317888f-c8ea-4770-98b3-232961af741b': mockNavbars
+        .entries[0] as ContentEntry,
+      '6fc6f3c1-ae2b-44d3-abec-54f0b679b19f': mockContentType
+        .entries[0] as ContentEntry,
+      '7255bc1f-517f-4c7d-bfdb-6e10fe037c68': mockContentType
+        .entries[1] as ContentEntry,
     },
   },
 };
