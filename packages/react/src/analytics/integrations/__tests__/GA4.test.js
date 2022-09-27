@@ -1095,14 +1095,14 @@ describe('GA4 Integration', () => {
             await ga4Instance.track(clonedEvent);
 
             // expect obtain fixed value
-            expect(ga4Spy.mock.calls[0][2].value).toEqual(10);
+            expect(ga4Spy.mock.calls[1][2].value).toEqual(10);
 
             delete clonedEvent.properties.value;
 
             await ga4Instance.track(clonedEvent);
 
             // expect obtain calculated value
-            expect(ga4Spy.mock.calls[2][2].value).toEqual(19);
+            expect(ga4Spy.mock.calls[3][2].value).toEqual(19);
           });
         });
 
@@ -1211,7 +1211,7 @@ describe('GA4 Integration', () => {
 
             await ga4Instance.track(data);
 
-            expect(ga4Spy.mock.calls[0]).toMatchSnapshot();
+            expect(ga4Spy.mock.calls).toMatchSnapshot();
           });
 
           it('should track search event search term instead of search query.', async () => {
@@ -1232,7 +1232,7 @@ describe('GA4 Integration', () => {
 
             await ga4Instance.track(data);
 
-            expect(ga4Spy.mock.calls[0]).toMatchSnapshot();
+            expect(ga4Spy.mock.calls).toMatchSnapshot();
           });
 
           it('should track search event search without search term but with search query instead.', async () => {
@@ -1253,7 +1253,7 @@ describe('GA4 Integration', () => {
 
             await ga4Instance.track(data);
 
-            expect(ga4Spy.mock.calls[0]).toMatchSnapshot();
+            expect(ga4Spy.mock.calls).toMatchSnapshot();
           });
         });
         describe('Navigation events', () => {
