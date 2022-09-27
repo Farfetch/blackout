@@ -1,5 +1,4 @@
 export * from './addresses.types';
-export * from './availableTimeSlots.types';
 export * from './bagItem.types';
 export * from './benefit.types';
 export * from './brand.types';
@@ -34,6 +33,7 @@ export * from './productsList.types';
 export * from './program.types';
 export * from './replacement.types';
 export * from './returnItems.types';
+export * from './returnPickupCapability.types';
 export * from './returns.types';
 export * from './returnOptions.types';
 export * from './sizeScale.types';

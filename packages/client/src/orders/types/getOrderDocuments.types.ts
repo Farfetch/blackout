@@ -1,8 +1,8 @@
-import type { Config } from '../..';
-import type { OrderDocument } from './orderDocuments.types';
+import type { Config, Order } from '../..';
+import type { OrderDocument, OrderDocumentType } from './orderDocuments.types';
 
 export type GetOrderDocuments = (
-  id: string,
-  types: string[],
+  id: Order['id'],
+  types: OrderDocumentType[],
   config?: Config,
 ) => Promise<OrderDocument[]>;

@@ -6,17 +6,20 @@ import type { GetReturnPickupRescheduleRequests } from './types';
 /**
  * Obtains the pickup reschedule requests.
  *
- * @param id     - Return identifier.
+ * @param returnId - Return identifier.
  * @param config - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getReturnPickupRescheduleRequests: GetReturnPickupRescheduleRequests = (
-  id,
+  returnId,
   config,
 ) =>
   client
-    .get(join('/account/v1/returns/', id, 'pickupRescheduleRequests/'), config)
+    .get(
+      join('/account/v1/returns/', returnId, 'pickupRescheduleRequests/'),
+      config,
+    )
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);

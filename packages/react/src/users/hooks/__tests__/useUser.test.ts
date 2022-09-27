@@ -14,9 +14,9 @@ import {
   mockGuestUserEntities,
   mockUserInitialState,
 } from 'tests/__fixtures__/users';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import { withStore } from '../../../../tests/helpers';
 import useUser from '../useUser';
-import type { BlackoutError } from '@farfetch/blackout-client';
 
 const capitalizeFirstLetter = (string: string) => {
   const firstLetter = string[0]?.toUpperCase();
@@ -170,7 +170,7 @@ describe('useUser', () => {
     });
   });
 
-  const errorInstance = new Error('dummy error') as BlackoutError;
+  const errorInstance = toBlackoutError(new Error('dummy error'));
 
   const errorTests = [
     {

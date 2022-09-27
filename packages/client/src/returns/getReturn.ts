@@ -6,14 +6,14 @@ import type { GetReturn } from './types';
 /**
  * Method responsible for obtaining a specific return.
  *
- * @param id     - Return identifier.
- * @param config - Custom configurations to send to the client instance (axios).
+ * @param returnId - Return identifier.
+ * @param config   - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getReturn: GetReturn = (id, config) =>
+const getReturn: GetReturn = (returnId, config) =>
   client
-    .get(join('/account/v1/returns', id), config)
+    .get(join('/account/v1/returns', returnId), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);

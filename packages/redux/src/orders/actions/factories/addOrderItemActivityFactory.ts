@@ -1,6 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
   Config,
+  Order,
+  OrderItem,
   PostOrderItemActivity,
   PostOrderItemActivityData,
   toBlackoutError,
@@ -18,8 +20,8 @@ import type { Dispatch } from 'redux';
 const addOrderItemActivityFactory =
   (postOrderItemActivity: PostOrderItemActivity) =>
   (
-    orderId: string,
-    itemId: string,
+    orderId: Order['id'],
+    itemId: OrderItem['id'],
     data: PostOrderItemActivityData,
     config?: Config,
   ) =>

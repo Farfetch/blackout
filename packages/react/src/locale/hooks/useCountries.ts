@@ -9,7 +9,7 @@ import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction';
 import type { Country } from '@farfetch/blackout-client';
-import type { UseCountriesOptions } from '../types/useCountries.types';
+import type { UseCountriesOptions } from './types/useCountries.types';
 
 export function useCountries(options: UseCountriesOptions = {}) {
   const { enableAutoFetch = true, fetchConfig } = options;

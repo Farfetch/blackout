@@ -12,7 +12,7 @@ export type Order = {
   clickAndCollect?: ClickAndCollect;
   customerEmail?: string;
   userId: number;
-  paymentId: string;
+  paymentId?: string;
   currency: string;
   shippingAddress: UserAddress;
   billingAddress: UserAddress;

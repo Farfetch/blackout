@@ -2,14 +2,16 @@
 
 exports[`getReturnPickupRescheduleRequests() action creator should create the correct actions for when the fetch return pickup reschedule requests procedure is successful: fetch return pickup reschedule requests success payload 1`] = `
 Object {
-  "payload": Object {
-    "availableTimeSlots": Array [
-      Object {
-        "end": "2022-01-07T10:59:03.9169641Z",
-        "start": "2022-01-07T10:59:03.9169641Z",
+  "payload": Array [
+    Object {
+      "id": "reschedule-request-id",
+      "status": 0,
+      "timeWindow": Object {
+        "end": "2022-01-07T11:00:00.0Z",
+        "start": "2022-01-07T10:00:00.0Z",
       },
-    ],
-  },
+    },
+  ],
   "type": "@farfetch/blackout-redux/FETCH_RETURN_PICKUP_RESCHEDULE_REQUESTS_SUCCESS",
 }
 `;

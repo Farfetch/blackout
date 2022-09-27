@@ -8,12 +8,8 @@ import {
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useOrders from './useOrders';
-import type { Config, Order } from '@farfetch/blackout-client';
-
-export type UseOrderOptions = {
-  enableAutoFetch?: boolean;
-  fetchConfig?: Config;
-};
+import type { Order } from '@farfetch/blackout-client';
+import type { UseOrderOptions } from './types';
 
 /**
  * Obtains the user orders and actions to perform on them.
@@ -43,7 +39,7 @@ function useOrder(
 
   const fetch = useCallback(() => {
     return fetchOrderDetails(orderId, guestUserEmail, fetchConfig);
-  }, [orderId, fetchOrderDetails, guestUserEmail, fetchConfig]);
+  }, [fetchOrderDetails, orderId, fetchConfig, guestUserEmail]);
 
   const resetOrderDetailsState = useCallback(() => {
     resetOrderDetailsStateFromUseOrders([orderId]);
@@ -53,7 +49,7 @@ function useOrder(
     if (!isLoading && !isFetched && enableAutoFetch && orderId) {
       fetch();
     }
-  }, [enableAutoFetch, fetchConfig, fetch, isFetched, isLoading, orderId]);
+  }, [enableAutoFetch, fetch, isFetched, isLoading, orderId]);
 
   return {
     actions: {

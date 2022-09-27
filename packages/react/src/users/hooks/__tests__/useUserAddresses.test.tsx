@@ -25,15 +25,15 @@ import {
   mockUserInitialState,
 } from 'tests/__fixtures__/users';
 import { Provider } from 'react-redux';
+import {
+  toBlackoutError,
+  UserAddress,
+  UserAddressInput,
+} from '@farfetch/blackout-client';
 import merge from 'lodash/merge';
 import React from 'react';
 import thunk from 'redux-thunk';
 import useUserAddresses from '../useUserAddresses';
-import type {
-  BlackoutError,
-  UserAddress,
-  UserAddressInput,
-} from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -89,7 +89,7 @@ const mockErrorState = {
       ...mockInitialState.users.addresses,
       result: null,
       isLoading: false,
-      error: new Error('dummy error') as BlackoutError,
+      error: toBlackoutError(new Error('dummy error')),
     },
   },
 };

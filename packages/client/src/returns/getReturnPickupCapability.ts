@@ -1,10 +1,10 @@
 import { adaptError } from '../helpers/client/formatError';
 import client from '../helpers/client';
 import join from 'proper-url-join';
-import type { GetReturnPickupCapabilities } from './types';
+import type { GetReturnPickupCapability } from './types';
 
 /**
- * Obtains the pickup capabilities for a specific order.
+ * Obtains the pickup capability for a specific return and pickup day.
  *
  * @param id - Return identifier.
  * @param pickupDay - Day of the pickup. Format YYYY-MM-DD.
@@ -14,14 +14,14 @@ import type { GetReturnPickupCapabilities } from './types';
  * @returns Promise that will resolve when the call to
  * the endpoint finishes.
  */
-const getReturnPickupCapabilities: GetReturnPickupCapabilities = (
-  id,
+const getReturnPickupCapability: GetReturnPickupCapability = (
+  returnId,
   pickupDay,
   config?,
 ) =>
   client
     .get(
-      join('/account/v1/returns/', id, 'pickupcapabilities/', pickupDay),
+      join('/account/v1/returns/', returnId, 'pickupcapabilities/', pickupDay),
       config,
     )
     .then(response => response.data)
@@ -29,4 +29,4 @@ const getReturnPickupCapabilities: GetReturnPickupCapabilities = (
       throw adaptError(error);
     });
 
-export default getReturnPickupCapabilities;
+export default getReturnPickupCapability;

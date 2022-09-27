@@ -1,10 +1,10 @@
 import { rest, RestHandler } from 'msw';
-import type { PickupCapabilities } from '../types/pickupCapabilities.types';
+import type { OrderItemActivities } from '../types';
 
-const path = '/api/account/v1/returns/:id/pickupcapabilities/:pickupDay';
+const path = '/api/account/v1/orders/:id/items/:itemId/availableActivities';
 
 const fixtures = {
-  success: (response: PickupCapabilities): RestHandler =>
+  success: (response: OrderItemActivities[]): RestHandler =>
     rest.get(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),
