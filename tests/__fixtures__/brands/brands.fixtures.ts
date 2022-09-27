@@ -1,6 +1,6 @@
 export const mockBrandId = 211376;
-export const mockBrandId2 = 110127;
-export const mockHash = 'brands?id=211376, 110127';
+export const mockBrandId2 = 220127;
+export const mockHash = 'brands?id=211376, 220127';
 
 export const mockQuery = {
   id: `${mockBrandId}, ${mockBrandId2}`,
@@ -34,10 +34,7 @@ export const mockState = {
       [mockBrandId]: false,
       [mockHash]: false,
     },
-    error: {
-      [mockBrandId]: { message: 'bar' },
-      [mockHash]: { message: 'foo' },
-    },
+    error: {},
     result: {
       [mockHash]: {
         ...mockBrandsResponse,
@@ -50,6 +47,53 @@ export const mockState = {
       [mockBrandId]: mockBrandResponse,
       [mockBrandId2]: mockBrandsResponse.entries[1],
     },
+  },
+};
+
+export const mockInitialState = {
+  brands: {
+    hash: mockHash,
+    isLoading: {
+      [mockBrandId]: false,
+      [mockHash]: false,
+    },
+    error: {},
+    result: {},
+  },
+  entities: {
+    brands: {},
+  },
+};
+
+export const mockLoadingState = {
+  brands: {
+    hash: mockHash,
+    isLoading: {
+      [mockBrandId]: true,
+      [mockHash]: true,
+    },
+    error: {},
+    result: {},
+  },
+  entities: {
+    brands: {},
+  },
+};
+
+export const mockErrorState = {
+  brands: {
+    hash: mockHash,
+    isLoading: {
+      [mockHash]: false,
+    },
+    error: {
+      [mockBrandId]: { message: 'foo' },
+      [mockHash]: { message: 'foo' },
+    },
+    result: {},
+  },
+  entities: {
+    brands: {},
   },
 };
 

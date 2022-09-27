@@ -126,3 +126,32 @@ export const isBrandsResultCached = (
   state: StoreState,
   hash = getBrandsHash(state),
 ) => (hash ? !!getResult(state.brands as BrandsState)[hash] : false);
+
+/**
+ * Retrieves if a brand is fetched.
+ *
+ * @param state - Application state.
+ * @param id    - Brand identifier.
+ *
+ * @returns Whether the brand is fetched or not.
+ */
+export const isBrandFetched = (state: StoreState, id: Brand['id']) => {
+  return (
+    (!!getBrand(state, id) || !!getBrandError(state, id)) &&
+    !isBrandLoading(state, id)
+  );
+};
+/**
+ * Retrieves if the brands result are fetched by its hash.
+ *
+ * @param state - Application state.
+ * @param hash  - Brands identifier for fetch brands request composed by query.
+ *
+ * @returns Whether the brands result is cached or not.
+ */
+export const areBrandsFetched = (
+  state: StoreState,
+  hash = getBrandsHash(state),
+) =>
+  (!!getBrandsResult(state, hash) || !!getBrandsError(state, hash)) &&
+  !areBrandsLoading(state, hash);
