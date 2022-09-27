@@ -6,7 +6,7 @@ import type { BrandsQuery } from '@farfetch/blackout-client';
  *
  * @example
  * ```
- * const brandsHash = buildDesignersHash({categoryId: '123'});
+ * const brandsHash = generateBrandsHash({categoryId: '123'});
  * Result of brandsHash === 'brands?categoryId=123';
  *
  * ```

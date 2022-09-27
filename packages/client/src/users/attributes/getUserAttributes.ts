@@ -12,13 +12,11 @@ import type { GetUserAttributes } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getUserAttributes: GetUserAttributes = (userId, query = {}, config) =>
+const getUserAttributes: GetUserAttributes = (userId, query, config) =>
   client
     .get(
       join('/account/v1/users', userId, '/attributes', {
-        query: {
-          ...query,
-        },
+        query,
       }),
       config,
     )

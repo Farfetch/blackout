@@ -48,10 +48,11 @@ describe('updateReturn() action creator', () => {
       );
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
-          { type: actionTypes.UPDATE_RETURN_REQUEST },
+          { type: actionTypes.UPDATE_RETURN_REQUEST, meta: { returnId } },
           {
             type: actionTypes.UPDATE_RETURN_FAILURE,
             payload: { error: expectedError },
+            meta: { returnId },
           },
         ]),
       );
@@ -72,9 +73,10 @@ describe('updateReturn() action creator', () => {
       expectedConfig,
     );
     expect(actionResults).toMatchObject([
-      { type: actionTypes.UPDATE_RETURN_REQUEST },
+      { type: actionTypes.UPDATE_RETURN_REQUEST, meta: { returnId } },
       {
         type: actionTypes.UPDATE_RETURN_SUCCESS,
+        meta: { returnId },
       },
     ]);
     expect(

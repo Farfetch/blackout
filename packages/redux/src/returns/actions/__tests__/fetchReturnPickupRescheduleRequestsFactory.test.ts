@@ -2,7 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import { fetchReturnPickupRescheduleRequests } from '..';
 import { getReturnPickupRescheduleRequests } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
-import { mockPickupCapabilitiesResponse } from 'tests/__fixtures__/returns';
+import { mockPickupReschedulesResponse } from 'tests/__fixtures__/returns';
 import { mockStore } from '../../../../tests';
 import find from 'lodash/find';
 
@@ -59,7 +59,7 @@ describe('getReturnPickupRescheduleRequests() action creator', () => {
 
   it('should create the correct actions for when the fetch return pickup reschedule requests procedure is successful', async () => {
     (getReturnPickupRescheduleRequests as jest.Mock).mockResolvedValueOnce(
-      mockPickupCapabilitiesResponse,
+      mockPickupReschedulesResponse,
     );
 
     await fetchReturnPickupRescheduleRequests(id)(store.dispatch);

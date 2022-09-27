@@ -2,18 +2,18 @@ import type * as actionTypes from '../actionTypes';
 import type { Action } from 'redux';
 import type {
   BlackoutError,
-  PickupCapabilities,
   Return,
   ReturnItem,
+  ReturnPickupCapability,
 } from '@farfetch/blackout-client';
 import type { NormalizedSchema } from 'normalizr';
-import type { ReturnNormalized } from './return.types';
+import type { ReturnEntity } from '../../entities';
 
-type Payload = NormalizedSchema<
+type ReturnPayload = NormalizedSchema<
   {
     returnItems: Record<ReturnItem['id'], ReturnItem>;
   },
-  ReturnNormalized
+  Return['id']
 >;
 
 export interface CreateReturnRequestAction extends Action {
@@ -21,7 +21,7 @@ export interface CreateReturnRequestAction extends Action {
 }
 export interface CreateReturnSuccessAction extends Action {
   type: typeof actionTypes.CREATE_RETURN_SUCCESS;
-  payload: Payload;
+  payload: ReturnPayload;
 }
 export interface CreateReturnFailureAction extends Action {
   type: typeof actionTypes.CREATE_RETURN_FAILURE;
@@ -36,55 +36,80 @@ export type CreateReturnAction =
   | CreateReturnSuccessAction
   | CreateReturnFailureAction;
 
-export interface GetReturnPickupCapabilitiesRequestAction extends Action {
-  type: typeof actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_REQUEST;
+export interface FetchReturnPickupCapabilityRequestAction extends Action {
+  type: typeof actionTypes.FETCH_RETURN_PICKUP_CAPABILITY_REQUEST;
+  meta: { returnId: Return['id']; pickupDay: string; hash: string };
 }
-export interface GetReturnPickupCapabilitiesSuccessAction extends Action {
-  type: typeof actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_SUCCESS;
-  meta: { id: string };
-  payload: PickupCapabilities;
+export interface FetchReturnPickupCapabilitySuccessAction extends Action {
+  type: typeof actionTypes.FETCH_RETURN_PICKUP_CAPABILITY_SUCCESS;
+  meta: { returnId: Return['id']; pickupDay: string; hash: string };
+  payload: ReturnPickupCapability;
 }
-export interface GetReturnPickupCapabilitiesFailureAction extends Action {
-  type: typeof actionTypes.FETCH_RETURN_PICKUP_CAPABILITIES_FAILURE;
+export interface FetchReturnPickupCapabilityFailureAction extends Action {
+  type: typeof actionTypes.FETCH_RETURN_PICKUP_CAPABILITY_FAILURE;
+  meta: { returnId: Return['id']; pickupDay: string; hash: string };
   payload: { error: BlackoutError };
 }
 
-/** Actions dispatched when the get pickup capabilities request is made. */
-export type GetReturnPickupCapabilitiesAction =
-  | GetReturnPickupCapabilitiesRequestAction
-  | GetReturnPickupCapabilitiesSuccessAction
-  | GetReturnPickupCapabilitiesFailureAction;
-export interface GetReturnRequestAction extends Action {
+/** Actions dispatched when the fetch pickup capability request is made. */
+export type FetchReturnPickupCapabilityAction =
+  | FetchReturnPickupCapabilityRequestAction
+  | FetchReturnPickupCapabilitySuccessAction
+  | FetchReturnPickupCapabilityFailureAction;
+
+/**
+ * Action dispatched when the reset return pickup capability state request is made.
+ */
+export interface ResetReturnPickupCapabilityStateAction extends Action {
+  type: typeof actionTypes.RESET_RETURN_PICKUP_CAPABILITY_STATE;
+  payload: Array<{ returnId: Return['id']; pickupDay: string }>;
+}
+
+export interface FetchReturnRequestAction extends Action {
   type: typeof actionTypes.FETCH_RETURN_REQUEST;
+  meta: { returnId: Return['id'] };
 }
-export interface GetReturnSuccessAction extends Action {
+export interface FetchReturnSuccessAction extends Action {
   type: typeof actionTypes.FETCH_RETURN_SUCCESS;
-  payload: Payload;
+  meta: { returnId: Return['id'] };
+  payload: ReturnPayload;
 }
-export interface GetReturnFailureAction extends Action {
+export interface FetchReturnFailureAction extends Action {
   type: typeof actionTypes.FETCH_RETURN_FAILURE;
+  meta: { returnId: Return['id'] };
   payload: { error: BlackoutError };
 }
 
 /**
- * Actions dispatched when the get return request is made.
+ * Action dispatched when the reset return state request is made.
  */
-export type GetReturnAction =
-  | GetReturnRequestAction
-  | GetReturnSuccessAction
-  | GetReturnFailureAction;
+export interface ResetReturnStateAction extends Action {
+  type: typeof actionTypes.RESET_RETURN_STATE;
+  payload: Array<Return['id']>;
+}
+
+/**
+ * Actions dispatched when the fetch return request is made.
+ */
+export type FetchReturnAction =
+  | FetchReturnRequestAction
+  | FetchReturnSuccessAction
+  | FetchReturnFailureAction;
 
 export interface UpdateReturnRequestAction extends Action {
   type: typeof actionTypes.UPDATE_RETURN_REQUEST;
-  meta: { id: string };
+  meta: { returnId: Return['id'] };
 }
 export interface UpdateReturnSuccessAction extends Action {
   type: typeof actionTypes.UPDATE_RETURN_SUCCESS;
-  meta: { id: string };
-  payload: Return;
+  meta: { returnId: Return['id'] };
+  payload: {
+    pickupSchedule: NonNullable<ReturnEntity['pickupSchedule']>;
+  };
 }
 export interface UpdateReturnFailureAction extends Action {
   type: typeof actionTypes.UPDATE_RETURN_FAILURE;
+  meta: { returnId: Return['id'] };
   payload: { error: BlackoutError };
 }
 
@@ -143,7 +168,7 @@ export interface CreateReturnPickupRescheduleRequestRequestAction
 export interface CreateReturnPickupRescheduleRequestSuccessAction
   extends Action {
   type: typeof actionTypes.CREATE_RETURN_PICKUP_RESCHEDULE_REQUEST_SUCCESS;
-  payload: Payload;
+  payload: number;
 }
 export interface CreateReturnPickupRescheduleRequestFailureAction
   extends Action {
@@ -160,7 +185,7 @@ export type CreateReturnPickupRescheduleRequestAction =
 /**
  * Actions dispatched when the reset return request is made.
  */
-export interface ResetReturnAction extends Action {
+export interface ResetReturnsAction extends Action {
   type: typeof actionTypes.RESET_RETURNS;
   meta: { resetEntities: boolean };
 }

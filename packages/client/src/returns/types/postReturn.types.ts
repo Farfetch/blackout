@@ -1,5 +1,5 @@
-import type { Config, PostReturnItemData } from '../..';
-import type { Return } from './return.types';
+import type { Config, PostReturnItemData, ReturnOptionType } from '../..';
+import type { Return, ReturnPickupSchedule } from './return.types';
 
 export type PostReturnData = Omit<
   Return,
@@ -8,17 +8,17 @@ export type PostReturnData = Omit<
   | 'maximumDateForPickup'
   | 'createdDate'
   | 'items'
-  | 'numberOfBoxes'
   | 'type'
   | 'availableDates'
   | 'userId'
   | 'awbUrl'
   | 'invoiceUrl'
   | 'references'
+  | 'pickupSchedule'
 > & {
   items: PostReturnItemData[];
-  numberOfBoxes?: number;
-  type?: string;
+  type?: ReturnOptionType;
+  pickupSchedule?: Partial<ReturnPickupSchedule>;
 };
 
 export type PostReturn = (

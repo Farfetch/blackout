@@ -1,4 +1,4 @@
-import type { Config, OrderItem } from '../..';
+import type { Config, Order, OrderItem } from '../..';
 
 export enum OrderItemActivityType {
   None = 'None',
@@ -16,6 +16,6 @@ export type OrderItemActivities = {
 };
 
 export type GetOrderAvailableItemsActivities = (
-  id: string,
+  id: Order['id'],
   config?: Config,
 ) => Promise<OrderItemActivities[]>;

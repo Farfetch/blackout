@@ -21,17 +21,11 @@ const postOrderItemActivities: PostOrderItemActivity = (
 ) =>
   client
     .post(
-      join(
-        '/account/v1/orders',
-        orderId,
-        'items',
-        itemId,
-        'availableActivities',
-      ),
+      join('/account/v1/orders', orderId, 'items', itemId, 'activities'),
       data,
       config,
     )
-    .then(response => response.data)
+    .then(response => response.status)
     .catch(error => {
       throw adaptError(error);
     });

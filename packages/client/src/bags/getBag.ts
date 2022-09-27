@@ -12,7 +12,7 @@ import type { GetBag } from './types';
  *
  * @returns Promise that will be resolved when the call to the endpoint finishes.
  */
-const getBag: GetBag = (id, query = {}, config) =>
+const getBag: GetBag = (id, query, config) =>
   client
     .get(
       join('/commerce/v1/bags', id, {

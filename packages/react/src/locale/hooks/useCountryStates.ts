@@ -9,7 +9,7 @@ import {
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction';
-import type { UseCountryStatesOptions } from '../types/useCountryStates.types';
+import type { UseCountryStatesOptions } from './types/useCountryStates.types';
 
 export function useCountryStates(
   countryCode: string,

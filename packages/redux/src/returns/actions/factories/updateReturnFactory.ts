@@ -1,5 +1,5 @@
 import * as actionTypes from '../../actionTypes';
-import { adaptTimestamp } from '../../../helpers/adapters';
+import { adaptDate, adaptTimestamp } from '../../../helpers/adapters';
 import {
   Config,
   PatchReturn,
@@ -18,10 +18,11 @@ import type { Dispatch } from 'redux';
  */
 const updateReturnFactory =
   (patchReturn: PatchReturn) =>
-  (id: number, data: PatchReturnData, config?: Config) =>
-  async (dispatch: Dispatch): Promise<Return> => {
+  (returnId: Return['id'], data: PatchReturnData, config?: Config) =>
+  async (dispatch: Dispatch): Promise<void> => {
     try {
       dispatch({
+        meta: { returnId },
         type: actionTypes.UPDATE_RETURN_REQUEST,
       });
 
@@ -30,14 +31,21 @@ const updateReturnFactory =
         end: adaptTimestamp(data.end) || '',
       };
 
-      const result = await patchReturn(id, adaptedData, config);
+      await patchReturn(returnId, adaptedData, config);
 
       dispatch({
+        meta: { returnId },
+        payload: {
+          pickupSchedule: {
+            start: adaptedData.start && adaptDate(adaptedData.start),
+            end: adaptedData.end && adaptDate(adaptedData.end),
+          },
+        },
         type: actionTypes.UPDATE_RETURN_SUCCESS,
       });
-      return result;
     } catch (error) {
       dispatch({
+        meta: { returnId },
         payload: { error: toBlackoutError(error) },
         type: actionTypes.UPDATE_RETURN_FAILURE,
       });
