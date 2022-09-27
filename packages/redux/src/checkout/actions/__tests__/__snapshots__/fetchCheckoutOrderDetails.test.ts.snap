@@ -7,68 +7,170 @@ Object {
   },
   "payload": Object {
     "entities": Object {
+      "categories": Object {
+        "136301": Object {
+          "color": Object {
+            "id": 112495,
+            "name": "Black",
+          },
+          "gender": 1,
+          "id": 136301,
+          "name": "Shoes",
+          "tags": Array [
+            "MainColor",
+          ],
+        },
+      },
       "checkoutDetails": Object {
         "15338048": Object {
           "checkoutOrder": 15338048,
           "registered": true,
+          "shippingOptions": Array [],
         },
       },
       "checkoutOrderItemProducts": Object {
         "12640693": Object {
-          "categories": undefined,
-          "colors": undefined,
-          "customAttributes": undefined,
+          "categories": Array [
+            136301,
+          ],
+          "colors": Array [
+            Object {
+              "color": Object {
+                "id": 112495,
+                "name": "Black",
+              },
+              "tags": Array [
+                "MainColor",
+              ],
+            },
+            Object {
+              "color": Object {
+                "id": 0,
+                "name": "BLACK",
+              },
+              "tags": Array [
+                "DesignerColor",
+              ],
+            },
+          ],
+          "customAttributes": "",
           "description": undefined,
           "id": 12640693,
-          "images": undefined,
+          "images": Array [
+            Object {
+              "order": 1,
+              "size": "54",
+              "sources": Object {
+                "54": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg",
+              },
+              "url": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg",
+            },
+          ],
           "isAvailable": undefined,
-          "isCustomizable": undefined,
-          "isExclusive": undefined,
-          "merchant": undefined,
+          "isCustomizable": true,
+          "isExclusive": true,
+          "merchant": 12455,
           "name": "Navy Treated Bonded Cotton Dry Bag",
           "price": Object {
             "discount": Object {
-              "excludingTaxes": undefined,
-              "includingTaxes": undefined,
-              "rate": undefined,
+              "excludingTaxes": 0,
+              "includingTaxes": 0,
+              "rate": 0,
             },
-            "excludingTaxes": undefined,
+            "excludingTaxes": 185442.9802,
             "formatted": Object {
-              "includingTaxes": undefined,
-              "includingTaxesWithoutDiscount": undefined,
+              "includingTaxes": "$265,597.00",
+              "includingTaxesWithoutDiscount": "$265,597.00",
             },
-            "includingTaxes": undefined,
-            "includingTaxesWithoutDiscount": undefined,
+            "includingTaxes": 265596.9995,
+            "includingTaxesWithoutDiscount": 265596.9995,
             "isFormatted": true,
             "priceType": undefined,
             "promocode": Object {
               "rate": undefined,
             },
             "promotionType": undefined,
-            "tags": undefined,
+            "tags": Array [
+              "DDP",
+            ],
             "taxes": Object {
-              "amount": undefined,
-              "rate": undefined,
-              "type": undefined,
+              "amount": 80154.0193,
+              "rate": 43.223,
+              "type": "DDP",
             },
             "type": undefined,
           },
           "sizes": undefined,
           "slug": "navy-treated-bonded-cotton-dry-bag-12640693",
-          "variants": undefined,
+          "variants": Array [],
         },
       },
       "checkoutOrderItems": Object {
         "30380051": Object {
+          "brandId": 121212,
+          "brandName": "78 Stitches",
+          "checkoutOrderId": 122,
+          "creationChannel": "Mail",
           "dateCreated": null,
+          "fulfillmentInfo": Object {
+            "fulfillmentDate": "2020-11-06T14:19:14.4398538Z",
+            "isPreOrder": false,
+          },
           "id": 30380051,
-          "merchant": undefined,
-          "price": undefined,
+          "merchant": 12455,
+          "price": Object {
+            "discount": Object {
+              "excludingTaxes": 0,
+              "includingTaxes": 0,
+              "rate": 0,
+            },
+            "excludingTaxes": 185442.9802,
+            "formatted": Object {
+              "includingTaxes": "$265,597.00",
+              "includingTaxesWithoutDiscount": "$265,597.00",
+            },
+            "includingTaxes": 265596.9995,
+            "includingTaxesWithoutDiscount": 265596.9995,
+            "isFormatted": true,
+            "priceType": undefined,
+            "promocode": Object {
+              "rate": undefined,
+            },
+            "promotionType": undefined,
+            "tags": Array [
+              "DDP",
+            ],
+            "taxes": Object {
+              "amount": 80154.0193,
+              "rate": 43.223,
+              "type": "DDP",
+            },
+            "type": undefined,
+          },
           "product": 12640693,
+          "productAggregator": Object {
+            "bundleSlug": "string",
+            "id": 0,
+            "images": Array [
+              Object {
+                "order": 1,
+                "size": "54",
+                "sources": Object {
+                  "54": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg",
+                },
+                "url": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg",
+              },
+            ],
+          },
+          "promocodeDiscountPercentage": 123,
+          "quantity": 1,
+          "scale": "",
           "size": Object {
             "id": 17,
             "name": "One Size",
           },
+          "sizeDescription": "",
+          "status": 0,
           "tags": Array [
             "GIFT",
           ],
@@ -174,10 +276,10 @@ Object {
           "id": 10658,
           "name": "ACME WH NELSON FG",
         },
-        "undefined": Object {
-          "id": undefined,
-          "name": undefined,
-          "shoppingUrl": undefined,
+        "12455": Object {
+          "id": 12455,
+          "name": "Test Merchant",
+          "shoppingUrl": "http://www.merchant.com",
         },
       },
     },

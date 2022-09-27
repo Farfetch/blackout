@@ -4,6 +4,7 @@ import { generateBrandsHash } from '../utils';
 import {
   mockBrandId,
   mockBrandsResponse,
+  mockErrorState,
   mockQuery,
   mockState,
 } from 'tests/__fixtures__/brands';
@@ -42,10 +43,10 @@ describe('brands redux selectors', () => {
 
   describe('getBrandError()', () => {
     it('should get the brands error by id', () => {
-      const expectedResult = mockState.brands.error[mockBrandId];
+      const expectedResult = mockErrorState.brands.error[mockBrandId];
       const spy = jest.spyOn(fromBrands, 'getError');
 
-      expect(selectors.getBrandError(mockState, mockBrandId)).toEqual(
+      expect(selectors.getBrandError(mockErrorState, mockBrandId)).toEqual(
         expectedResult,
       );
       expect(spy).toHaveBeenCalledTimes(1);
@@ -54,7 +55,8 @@ describe('brands redux selectors', () => {
 
   describe('getBrandsError()', () => {
     it('should get the brands error by hash', () => {
-      const expectedResult = mockState.brands.error[hash];
+      const expectedResult =
+        mockState.brands.error[hash as keyof typeof mockState.brands.error];
       const spy = jest.spyOn(fromBrands, 'getError');
 
       expect(selectors.getBrandsError(mockState)).toEqual(expectedResult);

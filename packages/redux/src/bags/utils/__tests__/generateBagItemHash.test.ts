@@ -1,14 +1,13 @@
 import { generateBagItemHash } from '..';
-import { mockBagItem } from 'tests/__fixtures__/bags';
+import {
+  mockBagItemEntity,
+  mockBagItemHydrated,
+} from 'tests/__fixtures__/bags';
 
 describe('generateBagItemHash()', () => {
   describe('error handling', () => {
-    it('should throw error when product id is missing', () => {
-      const {
-        productId, // eslint-disable-line  @typescript-eslint/no-unused-vars
-        product, // eslint-disable-line  @typescript-eslint/no-unused-vars
-        ...item
-      } = mockBagItem;
+    it('should throw error when product is missing', () => {
+      const { product, ...item } = mockBagItemHydrated;
 
       expect(() =>
         generateBagItemHash(item),
@@ -17,12 +16,8 @@ describe('generateBagItemHash()', () => {
       );
     });
 
-    it('should throw error when merchant id is missing', () => {
-      const {
-        merchantId, // eslint-disable-line  @typescript-eslint/no-unused-vars
-        merchant, // eslint-disable-line  @typescript-eslint/no-unused-vars
-        ...item
-      } = mockBagItem;
+    it('should throw error when merchant is missing', () => {
+      const { merchant, ...item } = mockBagItemHydrated;
 
       expect(() =>
         generateBagItemHash(item),
@@ -32,11 +27,7 @@ describe('generateBagItemHash()', () => {
     });
 
     it('should throw error when size id is missing', () => {
-      const {
-        sizeId, // eslint-disable-line  @typescript-eslint/no-unused-vars
-        size, // eslint-disable-line  @typescript-eslint/no-unused-vars
-        ...item
-      } = mockBagItem;
+      const { size, ...item } = mockBagItemHydrated;
 
       expect(() =>
         generateBagItemHash(item),
@@ -46,14 +37,9 @@ describe('generateBagItemHash()', () => {
     });
 
     it('should throw error when scale id is missing', () => {
-      const {
-        sizeScale, // eslint-disable-line  @typescript-eslint/no-unused-vars
-        size, // eslint-disable-line  @typescript-eslint/no-unused-vars
-        ...item
-      } = mockBagItem;
-
+      const { size, ...item } = mockBagItemHydrated;
       expect(() =>
-        generateBagItemHash(item),
+        generateBagItemHash({ scale: 'scale', ...item }),
       ).toThrowErrorMatchingInlineSnapshot(
         '"Item is missing some important properties, please check your `merchantId`, `productId`, `size.id` or `size.scale`"',
       );
@@ -61,14 +47,28 @@ describe('generateBagItemHash()', () => {
   });
 
   describe('hash creation', () => {
-    const baseHashPattern = `${mockBagItem.merchantId}!${mockBagItem.product.id}!${mockBagItem.sizeId}!${mockBagItem.size.scale}`;
+    const baseHashPattern = `${mockBagItemEntity.merchant}!${mockBagItemEntity.product}!${mockBagItemEntity.size.id}!${mockBagItemEntity.size.scale}`;
+    const mockProductAggregator = {
+      id: 123,
+      bundleSlug: 'string',
+      images: {
+        images: [],
+        liveModelId: null,
+        liveModel: null,
+        productSize: null,
+        tag: null,
+      },
+    };
 
     it('should create a valid hash when no other parameters are provided', () => {
-      expect(generateBagItemHash(mockBagItem)).toBe(baseHashPattern);
+      expect(generateBagItemHash(mockBagItemHydrated)).toBe(baseHashPattern);
     });
 
     it('should create a valid hash when `customAttributes` are provided', () => {
-      const newMockBagItem = { ...mockBagItem, customAttributes: '123' };
+      const newMockBagItem = {
+        ...mockBagItemHydrated,
+        customAttributes: '123',
+      };
 
       expect(generateBagItemHash(newMockBagItem)).toBe(
         `${baseHashPattern}!${newMockBagItem.customAttributes}`,
@@ -77,8 +77,8 @@ describe('generateBagItemHash()', () => {
 
     it('should create a valid hash when a `productAggregatorId` is provided', () => {
       const newMockBagItem = {
-        ...mockBagItem,
-        productAggregator: { id: 123 },
+        ...mockBagItemHydrated,
+        productAggregator: mockProductAggregator,
       };
 
       expect(generateBagItemHash(newMockBagItem)).toBe(
@@ -88,8 +88,8 @@ describe('generateBagItemHash()', () => {
 
     it('should create a valid hash from a valid bag item', () => {
       const newMockBagItem = {
-        ...mockBagItem,
-        productAggregator: { id: 456 },
+        ...mockBagItemHydrated,
+        productAggregator: mockProductAggregator,
         customAttributes: '123',
       };
 

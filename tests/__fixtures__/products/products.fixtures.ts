@@ -4,7 +4,9 @@ import {
   mockProductId,
   mockSetId,
   mockSizeScaleId,
+  mockVariantId,
 } from './ids.fixtures';
+import { mockCategoryId } from '../categories';
 import { mockPriceAdapted } from './price.fixtures';
 import { mockProductAttributes } from './productAttributes.fixtures';
 import { mockProductFittings } from './productFittings.fixtures';
@@ -12,6 +14,7 @@ import { mockProductSizeGuides } from './productSizeGuides.fixtures';
 import { mockProductSizesAdapted } from './productSizes.fixtures';
 import { mockProductVariants } from './productVariantsMerchantsLocations.fixtures';
 import { mockProductVariantsMeasurements } from './productVariantsMeasurements.fixtures';
+import type { ProductEntity } from '@farfetch/blackout-redux';
 
 export const mockTag = { name: 'NewSeason', id: 1 };
 
@@ -261,4 +264,294 @@ export const mockProduct = {
   slug: 'chuck-70-u-throat-ballet-sneakers-12913174',
   tag: mockTag,
   variants: mockProductVariants,
+};
+
+export const mockProductEntity: ProductEntity = {
+  brand: mockBrandId,
+  categories: [mockCategoryId],
+  merchant: mockMerchantId,
+  associations: null,
+  associationsInformation: {
+    hasColorGrouping: false,
+    hasGrouping: false,
+  },
+  id: mockProductId,
+  scaleId: mockSizeScaleId,
+  breadCrumbs: [
+    {
+      text: 'Woman',
+      slug: 'woman',
+      link: 'shopping/woman',
+      parent: false,
+    },
+  ],
+  description: 'biz',
+  fittings: [
+    {
+      type: 'Size Selection',
+      description:
+        'This piece fits true to size. We recommend you get your regular size',
+    },
+    {
+      type: 'Overall fit',
+      description: 'Cut for a slim fit',
+    },
+    {
+      type: 'Fabric weight & type',
+      description: 'Made with a mid-weight fabric',
+    },
+  ],
+  images: [
+    {
+      order: 1,
+      size: '54',
+      url: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_54.jpg',
+      sources: {
+        54: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_54.jpg',
+        600: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_600.jpg',
+      },
+    },
+    {
+      order: 2,
+      size: '54',
+      url: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_54.jpg',
+      sources: {
+        54: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_54.jpg',
+        600: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_600.jpg',
+      },
+    },
+    {
+      order: 3,
+      size: '54',
+      url: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_54.jpg',
+      sources: {
+        54: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_54.jpg',
+        600: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_600.jpg',
+      },
+    },
+    {
+      order: 4,
+      size: '54',
+      url: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_54.jpg',
+      sources: {
+        54: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_54.jpg',
+        600: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_600.jpg',
+      },
+    },
+    {
+      order: 5,
+      size: '54',
+      url: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_54.jpg',
+      sources: {
+        54: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_54.jpg',
+        600: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_600.jpg',
+      },
+    },
+  ],
+  measurements: [
+    {
+      description: 'Bust',
+      unit: null,
+      value: 85,
+    },
+    {
+      description: 'Height',
+      unit: null,
+      value: 178,
+    },
+    {
+      description: 'Hips',
+      unit: null,
+      value: 90,
+    },
+    {
+      description: 'Waist',
+      unit: null,
+      value: 62,
+    },
+  ],
+  price: {
+    formatted: {
+      includingTaxes: '$129.74',
+      includingTaxesWithoutDiscount: '$129.74',
+    },
+    includingTaxes: 129.7446,
+    includingTaxesWithoutDiscount: 129.7446,
+    taxes: {
+      type: 'VAT',
+      rate: 0,
+      amount: 0,
+    },
+    isFormatted: false,
+  },
+  shortDescription: 'foo',
+  sizes: mockProductSizesAdapted,
+  sizeGuides: [
+    {
+      annotations: [],
+      order: 0,
+      brand: {
+        id: mockBrandId,
+        name: 'Gucci',
+      },
+      maps: [
+        {
+          isDefault: false,
+          categoryId: mockCategoryId,
+          sizeScaleId: 950,
+          description: 'CHLOÉ STANDARD',
+          abbreviation: '',
+          maps: [
+            {
+              description: 'XXXS',
+              position: 0,
+            },
+            {
+              description: 'M',
+              position: 1,
+            },
+            {
+              description: 'L',
+              position: 2,
+            },
+          ],
+        },
+        {
+          isDefault: false,
+          categoryId: mockCategoryId,
+          sizeScaleId: 955,
+          description: 'CHLOÉ FRANCE',
+          abbreviation: 'FR',
+          maps: [
+            {
+              description: '0',
+              position: 0,
+            },
+            {
+              description: '2',
+              position: 1,
+            },
+            {
+              description: '4',
+              position: 2,
+            },
+          ],
+        },
+        {
+          isDefault: false,
+          categoryId: mockCategoryId,
+          sizeScaleId: 960,
+          description: 'CHLOÉ US',
+          abbreviation: 'US',
+          maps: [
+            {
+              description: '0',
+              position: 0,
+            },
+            {
+              description: '1',
+              position: 1,
+            },
+            {
+              description: '2',
+              position: 2,
+            },
+          ],
+        },
+        {
+          isDefault: false,
+          categoryId: mockCategoryId,
+          sizeScaleId: 965,
+          description: 'CHLOÉ UK',
+          abbreviation: 'UK',
+          maps: [
+            {
+              description: '50',
+              position: 0,
+            },
+            {
+              description: '55',
+              position: 1,
+            },
+            {
+              description: '60',
+              position: 2,
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  sku: '000000000006175920',
+  preferedMerchant: {
+    merchantId: 9359,
+    byAttribute: [
+      {
+        merchantId: 9359,
+        type: 0,
+        value: '$129.74',
+      },
+    ],
+  },
+  variants: [
+    {
+      id: mockVariantId,
+      merchantId: 10948,
+      merchantsLocations: [
+        {
+          merchantLocationId: 1,
+          quantity: 0,
+          variantId: mockVariantId,
+        },
+        {
+          merchantLocationId: 2,
+          quantity: 1,
+          variantId: mockVariantId,
+        },
+        {
+          merchantLocationId: 3,
+          quantity: 99,
+          variantId: mockVariantId,
+        },
+      ],
+      price: {
+        formatted: {
+          includingTaxes: '$129.74',
+          includingTaxesWithoutDiscount: '$129.74',
+        },
+        includingTaxes: 129.7446,
+        includingTaxesWithoutDiscount: 129.7446,
+        isFormatted: false,
+      },
+      size: 'S',
+      attributes: [],
+      sizeDescription: 'S',
+      scaleAbbreviation: 'S',
+      scale: 'S',
+      quantity: 99,
+      isOneSize: false,
+      availableAt: [],
+      purchaseChannel: 0,
+      barcodes: [],
+      formattedPrice: '$129.74',
+      formattedPriceWithoutDiscount: '$129.74',
+    },
+  ],
+  slug: 'bar',
+  colors: [
+    {
+      color: {
+        id: 112504,
+        name: 'Red',
+      },
+      tags: ['MainColor'],
+    },
+    {
+      color: {
+        id: 2323429,
+        name: 'degrade vermelho',
+      },
+      tags: ['DesignerColor'],
+    },
+  ],
 };

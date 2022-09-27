@@ -3,16 +3,16 @@ import * as fromEntities from '../../entities/selectors/entity';
 import * as selectors from '../selectors';
 import {
   mockBagId,
-  mockBagItem,
   mockBagItemEntity,
   mockBagItemId,
   mockState,
 } from 'tests/__fixtures__/bags';
 import {
-  mockProduct,
+  mockProductEntity,
   mockProductId,
   mockProductTypeToExclude,
 } from 'tests/__fixtures__/products';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import cloneDeep from 'lodash/cloneDeep';
 
 describe('bags redux selectors', () => {
@@ -65,8 +65,8 @@ describe('bags redux selectors', () => {
         ...mockState,
         bag: {
           ...mockState.bag,
-          error: new Error(),
-          id: undefined,
+          error: toBlackoutError(new Error('error')),
+          id: '123',
         },
       };
       expect(selectors.isBagFetched(mockStateWithError)).toBe(true);
@@ -87,7 +87,7 @@ describe('bags redux selectors', () => {
   describe('getBagItem()', () => {
     const expectedResult = {
       ...mockBagItemEntity,
-      product: mockProduct,
+      product: mockProductEntity,
     };
 
     it('should return all data regarding a bag item', () => {
@@ -189,7 +189,6 @@ describe('bags redux selectors', () => {
 
       expect(
         selectors.getBagItemsCounter({
-          // @ts-expect-error Changing only what's necessary for this test
           bag: { ...mockState.bag, items: { ...mockState.bag.items, ids: [] } },
           entities: {},
         }),
@@ -218,7 +217,6 @@ describe('bags redux selectors', () => {
 
       expect(
         selectors.getBagTotalQuantity({
-          // @ts-expect-error Changing only what's necessary for this test
           bag: { ...mockState.bag, items: { ...mockState.bag.items, ids: [] } },
           entities: { bagItems: {} },
         }),
@@ -257,7 +255,6 @@ describe('bags redux selectors', () => {
     it('should return an empty array if there is no bag loaded', () => {
       expect(
         selectors.getBagItemsUnavailable({
-          // @ts-expect-error Changing only what's necessary for this test
           bag: fromBag.INITIAL_STATE,
           entities: {},
         }),
@@ -297,7 +294,7 @@ describe('bags redux selectors', () => {
   describe('getBagItemAvailableSizes()', () => {
     it('should return an empty list if there are no sizes', () => {
       const productsWithoutSizes = {
-        ...mockProduct,
+        ...mockProductEntity,
         sizes: null,
       };
       const newMockState = {
@@ -312,6 +309,7 @@ describe('bags redux selectors', () => {
       };
 
       expect(
+        // @ts-expect-error purposely testing when sizes property is null
         selectors.getBagItemAvailableSizes(newMockState, mockBagItemId),
       ).toEqual([]);
     });
@@ -319,13 +317,19 @@ describe('bags redux selectors', () => {
     it('should return a list with available sizes', () => {
       expect(
         selectors.getBagItemAvailableSizes(mockState, mockBagItemId),
-      ).toEqual(mockProduct.sizes.filter(size => size.id !== 23));
+      ).toEqual(mockProductEntity?.sizes?.filter(size => size.id !== 23));
     });
 
     it('should return the normal sizes if products are not the same', () => {
       const bagItemId = mockState.entities.bagItems[102].id;
-      const productId = mockState.entities.bagItems[bagItemId].product;
-      const expectedResult = mockState.entities.products[productId].sizes;
+      const productId =
+        mockState.entities.bagItems[
+          bagItemId as keyof typeof mockState.entities.bagItems
+        ].product;
+      const expectedResult =
+        mockState.entities.products[
+          productId as keyof typeof mockState.entities.products
+        ].sizes;
 
       expect(selectors.getBagItemAvailableSizes(mockState, bagItemId)).toEqual(
         expectedResult,
@@ -334,13 +338,13 @@ describe('bags redux selectors', () => {
   });
 
   describe('findProductInBag()', () => {
-    const product = mockProduct;
+    const product = mockProductEntity;
     const size = mockBagItemEntity.size;
 
     it('should return the bag item that already exists', () => {
       const expectedResult = {
         ...mockState.entities.bagItems[mockBagItemId],
-        product: mockProduct,
+        product: mockProductEntity,
       };
 
       expect(
@@ -382,15 +386,19 @@ describe('bags redux selectors', () => {
       const mockStateWithGeneralError = {
         ...mockState,
         bag: {
-          error: 'error: not loaded',
+          error: toBlackoutError(new Error('error: not loaded')),
           id: mockBagId,
           isLoading: false,
+          result: null,
           items: {
-            isLoading: {
-              [mockBagItemId]: true,
-            },
-            error: {
-              [mockBagItemId]: null,
+            ids: null,
+            item: {
+              isLoading: {
+                [mockBagItemId]: true,
+              },
+              error: {
+                [mockBagItemId]: null,
+              },
             },
           },
         },
@@ -408,6 +416,7 @@ describe('bags redux selectors', () => {
           error: null,
           id: mockBagId,
           isLoading: false,
+          result: null,
           items: {
             ids: [mockBagItemId],
             item: {
@@ -415,7 +424,9 @@ describe('bags redux selectors', () => {
                 [mockBagItemId]: true,
               },
               error: {
-                [mockBagItemId]: 'Oh no! Terrible error!',
+                [mockBagItemId]: toBlackoutError(
+                  new Error('error: not loaded'),
+                ),
               },
             },
           },
@@ -434,12 +445,16 @@ describe('bags redux selectors', () => {
           error: null,
           id: mockBagId,
           isLoading: false,
+          result: null,
           items: {
-            isLoading: {
-              [mockBagItemId]: true,
-            },
-            error: {
-              [mockBagItemId]: null,
+            ids: [mockBagItemId],
+            item: {
+              isLoading: {
+                [mockBagItemId]: true,
+              },
+              error: {
+                [mockBagItemId]: null,
+              },
             },
           },
         },
@@ -454,9 +469,13 @@ describe('bags redux selectors', () => {
           error: null,
           id: mockBagId,
           isLoading: false,
+          result: null,
           items: {
-            isLoading: {},
-            error: {},
+            ids: [],
+            item: {
+              isLoading: {},
+              error: {},
+            },
           },
         },
       };
@@ -469,15 +488,20 @@ describe('bags redux selectors', () => {
       const mockStateWithoutBagItems = {
         ...mockState,
         entities: {
+          ...mockState.entities,
           bag: { [mockBagId]: { id: mockBagId } },
         },
         bag: {
           error: null,
           id: mockBagId,
           isLoading: false,
+          result: null,
           items: {
-            isLoading: {},
-            error: {},
+            ids: [],
+            item: {
+              isLoading: {},
+              error: {},
+            },
           },
         },
       };
@@ -489,13 +513,13 @@ describe('bags redux selectors', () => {
 
   describe('getProductQuantityInBag()', () => {
     it('should get the quantity of all bag items who share the same product and size', () => {
-      const expectedResult = 15;
+      const expectedResult = 63;
 
       expect(
         selectors.getProductQuantityInBag(
           mockState,
           mockProductId,
-          mockBagItem.sizeId,
+          mockBagItemEntity.size.id,
         ),
       ).toBe(expectedResult);
     });

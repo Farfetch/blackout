@@ -26,9 +26,7 @@ Object {
           "contentTypeCode": "pages",
           "environmentCode": "live",
           "id": undefined,
-          "metadata": Object {
-            "custom": Object {},
-          },
+          "metadata": Object {},
           "publicationDate": "2020-11-25T15:31:22.619Z",
           "publicationId": "1fa65fb0-49bf-43b3-902e-78d104f160a3",
           "spaceCode": "website",

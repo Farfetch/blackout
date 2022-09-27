@@ -1,3 +1,9 @@
+import {
+  BrandFamilyType,
+  PriceType,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+
 export const mockBrandId = 211376;
 export const mockBrandId2 = 220127;
 export const mockHash = 'brands?id=211376, 220127';
@@ -10,21 +16,27 @@ export const mockBrandResponse = {
   id: mockBrandId,
   name: 'Derek Lam 10 Crosby',
   description: 'Derek Lam is an American fashion designer.',
+  familyType: BrandFamilyType.Beauty,
+  slug: 'derek-lam',
+  priceType: PriceType.FullPrice,
+  isActive: true,
+};
+
+export const mockBrandResponse2 = {
+  id: mockBrandId2,
+  name: 'Cecilia Prado',
+  description: 'Cecilia Prado pushes the boundaries of traditional knitwear.',
+  familyType: BrandFamilyType.Beauty,
+  slug: 'cecilia-prado',
+  priceType: PriceType.FullPrice,
+  isActive: true,
 };
 
 export const mockBrandsResponse = {
   number: 1,
   totalPages: 1,
   totalItems: 30,
-  entries: [
-    mockBrandResponse,
-    {
-      id: mockBrandId2,
-      name: 'Cecilia Prado',
-      description:
-        'Cecilia Prado pushes the boundaries of traditional knitwear.',
-    },
-  ],
+  entries: [mockBrandResponse, mockBrandResponse2],
 };
 
 export const mockState = {
@@ -45,7 +57,7 @@ export const mockState = {
   entities: {
     brands: {
       [mockBrandId]: mockBrandResponse,
-      [mockBrandId2]: mockBrandsResponse.entries[1],
+      [mockBrandId2]: mockBrandResponse2,
     },
   },
 };
@@ -87,8 +99,8 @@ export const mockErrorState = {
       [mockHash]: false,
     },
     error: {
-      [mockBrandId]: { message: 'foo' },
-      [mockHash]: { message: 'foo' },
+      [mockBrandId]: toBlackoutError(new Error('error')),
+      [mockHash]: toBlackoutError(new Error('error')),
     },
     result: {},
   },

@@ -5,7 +5,7 @@ import {
 } from '@farfetch/blackout-client';
 import { mockBagItemEntity, mockBagItemId } from './bagItem.fixtures';
 import {
-  mockProduct,
+  mockProductEntity,
   mockProductId,
   mockProductSizes,
   mockProductTypeToExclude,
@@ -129,54 +129,48 @@ export const mockState = {
         productAggregator: null,
       },
       102: {
+        ...mockBagItemEntity,
         id: 102,
         product: 1002,
         merchant: 1223,
         quantity: 2,
-        size: {
-          id: 1,
-          name: '1',
-          scale: 'IT',
-        },
         isAvailable: true,
       },
       103: {
+        ...mockBagItemEntity,
         id: 103,
         product: mockProductId,
         quantity: 48,
         merchant: 1223,
         size: {
-          id: 22,
+          id: 23,
           name: '10',
-          scale: 'IT',
+          scale: 206,
+          globalQuantity: 2,
+          isOneSize: false,
+          isOutOfStock: false,
+          scaleAbbreviation: 'IT',
+          scaleDescription: undefined,
+          stock: [],
         },
         isAvailable: true,
       },
       104: {
+        ...mockBagItemEntity,
         id: 104,
         product: mockProductId,
         quantity: 5,
         merchant: 1223,
-        size: {
-          id: 23,
-          name: '10',
-          scale: 'IT',
-        },
         isAvailable: true,
       },
     },
     products: {
-      [mockProductId]: mockProduct,
+      [mockProductId]: mockProductEntity,
       1002: {
+        ...mockProductEntity,
         id: 1002,
         description: 'bar product',
         type: mockProductTypeToExclude,
-        sizes: [
-          {
-            id: 22,
-            name: '10',
-          },
-        ],
       },
     },
   },

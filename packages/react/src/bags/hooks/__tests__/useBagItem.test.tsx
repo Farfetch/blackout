@@ -1,11 +1,16 @@
 import { cleanup, renderHook } from '@testing-library/react';
-import { mockBagItem, mockBagItemId, mockState } from 'tests/__fixtures__/bags';
+import {
+  mockBagItemHydrated,
+  mockBagItemId,
+  mockState,
+} from 'tests/__fixtures__/bags';
 import {
   mockMerchantId,
   mockProductId,
   mockSizeScaleId,
 } from 'tests/__fixtures__/products/ids.fixtures';
 import { removeBagItem, updateBagItem } from '@farfetch/blackout-redux';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import { useBagItem } from '../..';
 import { withStore } from '../../../../tests/helpers';
 
@@ -44,7 +49,7 @@ describe('useBagItem', () => {
       error: null,
       isLoading: false,
       isFetched: true,
-      data: mockBagItem,
+      data: mockBagItemHydrated,
       actions: {
         update: expect.any(Function),
         remove: expect.any(Function),
@@ -79,6 +84,8 @@ describe('useBagItem', () => {
   });
 
   it('should render in error state', () => {
+    const mockError = toBlackoutError(new Error('error'));
+
     const {
       result: {
         current: { error },
@@ -94,14 +101,14 @@ describe('useBagItem', () => {
               isLoading: {
                 [mockBagItemId]: false,
               },
-              error: { [mockBagItemId]: true },
+              error: { [mockBagItemId]: mockError },
             },
           },
         },
       }),
     });
 
-    expect(error).toBe(true);
+    expect(error).toEqual(mockError);
   });
 
   describe('actions', () => {

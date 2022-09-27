@@ -5,7 +5,8 @@ import type {
 
 export type CheckoutEntity = Omit<
   GetCheckoutOrderResponse,
-  'deliveryBundles'
+  'checkoutOrder' | 'deliveryBundles'
 > & {
+  checkoutOrder: GetCheckoutOrderResponse['id'];
   deliveryBundles?: Array<DeliveryBundle['id']>;
 };
