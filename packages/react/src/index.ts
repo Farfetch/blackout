@@ -3,6 +3,7 @@
  */
 export * from './analytics';
 export * from './bags';
+export * from './brands';
 export * from './categories';
 export * from './checkout';
 export * from './helpers';

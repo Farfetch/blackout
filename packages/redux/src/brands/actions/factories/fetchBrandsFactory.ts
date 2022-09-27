@@ -25,7 +25,7 @@ import type { StoreState } from '../../../types';
 const fetchBrandsFactory =
   (getBrands: GetBrands) =>
   (
-    query: BrandsQuery,
+    query: BrandsQuery = {},
     useCache = false,
     setBrandsHash = true,
     config?: Config,
