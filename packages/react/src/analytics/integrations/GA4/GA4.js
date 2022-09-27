@@ -215,9 +215,13 @@ class GA4 extends integrations.Integration {
       case analyticsPageTypes.BAG:
       case analyticsPageTypes.SEARCH:
       case analyticsPageTypes.WISHLIST:
-        return await Promise.all([this.trackEvent(data), this.trackPage(data)]);
+        // Make sure the page view fires first, so the event being triggered after uses the correct page path (otherwise the event fires with the previous one).
+        await this.trackPage(data);
+        await this.trackEvent(data);
+
+        break;
       default:
-        return await this.trackPage(data);
+        await this.trackPage(data);
     }
   }
 
