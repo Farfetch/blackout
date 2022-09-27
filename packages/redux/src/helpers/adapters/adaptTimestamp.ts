@@ -5,11 +5,13 @@
  *
  * @returns The date timestamp (`null ` if the date to be adapted is invalid).
  */
-export default (timestamp: any): string | null => {
+const adaptTimestamp = (timestamp: unknown): string | null => {
   const sTimestamp = String(timestamp);
   if (sTimestamp && sTimestamp.includes('Date')) {
     return sTimestamp;
   }
 
-  return isNaN(timestamp) ? null : `/Date(${timestamp})/`;
+  return isNaN(timestamp as number) ? null : `/Date(${timestamp})/`;
 };
+
+export default adaptTimestamp;

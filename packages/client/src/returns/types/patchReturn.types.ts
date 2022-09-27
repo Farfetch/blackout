@@ -1,5 +1,4 @@
-import type { Config } from '../..';
-import type { Return } from './return.types';
+import type { Config, Return } from '../..';
 
 export type PatchReturnData = {
   start: string;
@@ -7,7 +6,7 @@ export type PatchReturnData = {
 };
 
 export type PatchReturn = (
-  id: number,
+  id: Return['id'],
   data: PatchReturnData,
   config?: Config,
-) => Promise<Return>;
+) => Promise<void>;

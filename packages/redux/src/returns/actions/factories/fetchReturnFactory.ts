@@ -18,23 +18,28 @@ import type { Dispatch } from 'redux';
  */
 const fetchReturnFactory =
   (getReturn: GetReturn) =>
-  (id: number, config?: Config) =>
+  (returnId: Return['id'], config?: Config) =>
   async (dispatch: Dispatch): Promise<Return> => {
     try {
       dispatch({
         type: actionTypes.FETCH_RETURN_REQUEST,
+        meta: { returnId },
       });
-      const result = await getReturn(id, config);
+
+      const result = await getReturn(returnId, config);
 
       dispatch({
-        payload: normalize(result, returnSchema),
         type: actionTypes.FETCH_RETURN_SUCCESS,
+        meta: { returnId },
+        payload: normalize(result, returnSchema),
       });
+
       return result;
     } catch (error) {
       dispatch({
-        payload: { error: toBlackoutError(error) },
         type: actionTypes.FETCH_RETURN_FAILURE,
+        meta: { returnId },
+        payload: { error: toBlackoutError(error) },
       });
 
       throw error;

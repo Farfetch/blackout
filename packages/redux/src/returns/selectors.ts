@@ -1,82 +1,69 @@
 import { createSelector } from 'reselect';
-import { getEntities, getEntityById } from '../entities/selectors';
 import {
-  getError,
-  getId,
-  getIsLoading,
-  getPickupCapabilities,
-  getReturns,
+  getCreateReturn,
+  getReturnDetails as getReturnDetailsFromReducer,
+  getReturnPickupCapabilities as getReturnPickupCapabilitiesFromReducer,
 } from './reducer';
-import get from 'lodash/get';
-import type { ReturnItem } from '@farfetch/blackout-client';
+import { getEntities, getEntityById } from '../entities/selectors';
+import generateReturnPickupCapabilityHash from './helpers/generateReturnPickupCapabilityHash';
+import type { Return, ReturnItem } from '@farfetch/blackout-client';
+import type { ReturnEntityDenormalized, ReturnItemEntity } from '../entities';
 import type { ReturnsState } from './types';
 import type { StoreState } from '../types';
 
 /**
- * Returns the 'returns' entity from the application state.
+ * Returns the 'returns' entities from the application state.
  *
  * @param state - Application state.
  *
- * @returns Returns entity.
+ * @returns Returns entities.
  */
-export const getReturnsEntity = (state: StoreState) =>
+export const getReturnsEntities = (state: StoreState) =>
   getEntities(state, 'returns');
 
 /**
- * Returns the 'returnItems' entity from the application state.
+ * Returns the 'returnItems' entities from the application state.
  *
  * @param state - Application state.
  *
- * @returns ReturnsItems entity.
+ * @returns ReturnsItems entities.
  */
-export const getReturnItemsEntity = (state: StoreState) =>
+export const getReturnItemsEntities = (state: StoreState) =>
   getEntities(state, 'returnItems');
 
 /**
- * Returns the 'availableTimeSlots' entity from the application state.
- *
- * @param state - Application state.
- *
- * @returns AvailableTimeSlots entity.
- */
-export const getTimeSlots = (state: StoreState) =>
-  getEntities(state, 'availableTimeSlots');
-
-/**
- * Returns a specific return identified by its id.
- *
- * @param state - Application state.
- *
- * @returns Return id.
- */
-export const getReturnId = (state: StoreState) =>
-  getId(state.returns as ReturnsState);
-
-/**
- * Returns the 'returns' entity details in the application state.
+ * Returns the return entity details denormalized from
+ * the application state if found, undefined otherwise.
  *
  * @param state - Application state.
  *
  * @returns Return object.
  */
-export const getReturn = createSelector(
-  [getReturnsEntity, getReturnId],
-  (entityReturns, returnId) =>
-    entityReturns && returnId ? entityReturns[returnId] : undefined,
+export const getReturn: (
+  state: StoreState,
+  returnId: Return['id'],
+) => ReturnEntityDenormalized | undefined = createSelector(
+  [
+    (state: StoreState, returnId: Return['id']) =>
+      getEntityById(state, 'returns', returnId),
+    getReturnItemsEntities,
+  ],
+  (returnEntity, returnItems) => {
+    if (!returnEntity || !returnItems) {
+      return undefined;
+    }
+
+    return {
+      ...returnEntity,
+      items: returnEntity.items
+        .map(returnItemId => returnItems[returnItemId])
+        .filter(Boolean) as ReturnItemEntity[],
+    };
+  },
 );
 
 /**
- * Returns the error for the 'returns' area actions.
- *
- * @param state - Application state.
- *
- * @returns Return error.
- */
-export const getReturnError = (state: StoreState) =>
-  getError(state.returns as ReturnsState);
-
-/**
- * Returns the 'returnItems' entity in the application state.
+ * Returns the 'returnItems' entity from the application state.
  *
  * @param state        - Application state.
  * @param returnItemId - Return item identifier.
@@ -89,79 +76,158 @@ export const getReturnItem = (
 ) => getEntityById(state, 'returnItems', returnItemId);
 
 /**
- * Returns all the return items ids.
+ * Returns the loading status for the returns when
+ * fetching or updating.
  *
- * @param state - Application state.
+ * @param state    - Application state.
+ * @param returnId - Id of the return.
  *
- * @returns List of return items ids.
+ * @returns Loading status of the passed in return
+ * for the fetch or update operations.
  */
-export const getReturnItemsIds = createSelector([getReturn], returnObject =>
-  get(returnObject, 'items'),
-);
+export const isReturnLoading = (state: StoreState, returnId: Return['id']) =>
+  getReturnDetailsFromReducer(state.returns as ReturnsState).isLoading[
+    returnId
+  ];
 
 /**
- * Returns all the return items.
- *
- * @param state - Application state.
- *
- * @returns List of return items.
- */
-export const getReturnItems = createSelector(
-  [getReturnItemsEntity, getReturnItemsIds],
-  (returnsItemsObject, returnItemsIds) =>
-    returnItemsIds
-      ?.map(returnItemId => returnsItemsObject?.[returnItemId])
-      .filter(Boolean) as ReturnItem[] | undefined,
-);
-
-/**
- * Returns the loading status for the returns.
- *
- * @param state - Application state.
- *
- * @returns Loading status.
- */
-export const isReturnLoading = (state: StoreState) =>
-  getIsLoading(state.returns as ReturnsState);
-
-/**
- * Returns the loading status for the returns requests. This handles the get,
- * create and update return requests.
- *
- * @param state - Application state.
- *
- * @returns Loading status.
- */
-export const areReturnsLoading = (state: StoreState) =>
-  getReturns(state.returns as ReturnsState).isLoading;
-
-/**
- * Returns the error for the returns requests. This handles the get, create and
- * update return requests.
+ * Returns the error for the fetch and update return requests.
  *
  * @param state - Application state.
  *
  * @returns Return error.
  */
-export const getReturnsError = (state: StoreState) =>
-  getReturns(state.returns as ReturnsState).error;
+export const getReturnError = (state: StoreState, returnId: Return['id']) =>
+  getReturnDetailsFromReducer(state.returns as ReturnsState).error[returnId];
 
 /**
- * Returns the loading status for the get capabilities request.
+ * Returns the fetched status for the return fetching
+ * or updating operations.
+ *
+ * @param state    - Application state.
+ * @param returnId - Id of the return.
+ *
+ * @returns IsFetched status of the passed in return
+ * for the fetch or update operations.
+ */
+export const isReturnFetched = (state: StoreState, returnId: Return['id']) =>
+  (!!getReturn(state, returnId) || !!getReturnError(state, returnId)) &&
+  !isReturnLoading(state, returnId);
+
+/**
+ * Returns the loading status for the fetch pickup capability request.
  *
  * @param state - Application state.
  *
  * @returns Loading status.
  */
-export const areReturnPickupCapabilitiesLoading = (state: StoreState) =>
-  getPickupCapabilities(state.returns as ReturnsState).isLoading;
+export const isReturnPickupCapabilityLoading = (
+  state: StoreState,
+  returnId: Return['id'],
+  pickupDay: string,
+) => {
+  const hash = generateReturnPickupCapabilityHash(returnId, pickupDay);
+
+  return getReturnPickupCapabilitiesFromReducer(state.returns as ReturnsState)
+    .isLoading[hash];
+};
 
 /**
- * Returns the error for the get capabilities request.
+ * Returns the error for the fetch pickup capability request.
  *
  * @param state - Application state.
  *
  * @returns Capabilities error.
  */
-export const getReturnPickupCapabilitiesError = (state: StoreState) =>
-  getPickupCapabilities(state.returns as ReturnsState).error;
+export const getReturnPickupCapabilityError = (
+  state: StoreState,
+  returnId: Return['id'],
+  pickupDay: string,
+) => {
+  const hash = generateReturnPickupCapabilityHash(returnId, pickupDay);
+
+  return getReturnPickupCapabilitiesFromReducer(state.returns as ReturnsState)
+    .error[hash];
+};
+
+/**
+ * Returns the pickup capability for a specific return and
+ * pickup day.
+ *
+ * @param state - Application state.
+ *
+ * @returns PickupCapability or undefined if not found.
+ */
+export const getReturnPickupCapability = (
+  state: StoreState,
+  returnId: Return['id'],
+  pickupDay: string,
+) => {
+  const hash = generateReturnPickupCapabilityHash(returnId, pickupDay);
+
+  return getEntityById(state, 'returnPickupCapabilities', hash);
+};
+
+/**
+ * Returns the isFetched status for the fetch pickup capability request.
+ *
+ * @param state - Application state.
+ *
+ * @returns isFetched status.
+ */
+export const isReturnPickupCapabilityFetched = (
+  state: StoreState,
+  returnId: Return['id'],
+  pickupDay: string,
+) =>
+  (!!getReturnPickupCapability(state, returnId, pickupDay) ||
+    !!getReturnPickupCapabilityError(state, returnId, pickupDay)) &&
+  !isReturnPickupCapabilityLoading(state, returnId, pickupDay);
+
+/**
+ * Returns the loading status for the create return request.
+ *
+ * @param state - Application state.
+ *
+ * @returns Loading status for the create return request.
+ */
+export const isCreateReturnLoading = (state: StoreState) =>
+  getCreateReturn(state.returns as ReturnsState).isLoading;
+
+/**
+ * Returns the error for the create return request.
+ *
+ * @param state - Application state.
+ *
+ * @returns Create return error.
+ */
+export const getCreateReturnError = (state: StoreState) =>
+  getCreateReturn(state.returns as ReturnsState).error;
+
+/**
+ * Returns the create return entity or undefined if not found.
+ *
+ * @param state - Application state.
+ *
+ * @returns The created return entity if found, undefined otherwise.
+ */
+export const getCreatedReturn = (state: StoreState) => {
+  const createdReturnId = getCreateReturn(state.returns as ReturnsState).result;
+
+  if (!createdReturnId) {
+    return undefined;
+  }
+
+  return getReturn(state, createdReturnId);
+};
+
+/**
+ * Returns the isFetched status for the create return request.
+ *
+ * @param state - Application state.
+ *
+ * @returns Is fetched status for the create return request.
+ */
+export const isCreateReturnFetched = (state: StoreState) =>
+  (!!getCreatedReturn(state) || !!getCreateReturnError(state)) &&
+  !isCreateReturnLoading(state);

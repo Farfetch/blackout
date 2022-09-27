@@ -1,5 +1,5 @@
 import {
-  mockReturnId as id,
+  returnId as id,
   mockPickupReschedulePostData,
   responses,
 } from 'tests/__fixtures__/returns';

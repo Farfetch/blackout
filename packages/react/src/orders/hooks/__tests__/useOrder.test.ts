@@ -1,8 +1,8 @@
 import { cleanup, renderHook } from '@testing-library/react';
 import {
   mockGuestUserEmail,
-  mockOrderEntityDenormalized,
   mockState,
+  orderEntityDenormalized,
   orderId,
 } from 'tests/__fixtures__/orders/orders.fixtures';
 import { withStore } from '../../../../tests/helpers';
@@ -106,7 +106,7 @@ describe('useOrder', () => {
 
     expect(current).toStrictEqual({
       ...defaultReturn,
-      data: mockOrderEntityDenormalized,
+      data: orderEntityDenormalized,
       isFetched: true,
     });
   });

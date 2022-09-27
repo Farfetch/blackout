@@ -1,6 +1,5 @@
 import type {
   AddressEntity,
-  AvailableTimeSlotsEntity,
   BagItemEntity,
   CategoryEntity,
   CheckoutDetailsEntity,
@@ -29,6 +28,7 @@ import type {
   ReturnEntity,
   ReturnItemEntity,
   ReturnOptionEntity,
+  ReturnPickupCapabilityEntity,
   StateEntity,
   StatementEntity,
   SubscriptionPackageEntity,
@@ -80,7 +80,6 @@ export type StoreState = Partial<{
   // Keep adding/changing here as we migrate chunks
   entities: Partial<{
     addresses: Record<AddressEntity['id'], AddressEntity>;
-    availableTimeSlots: AvailableTimeSlotsEntity[];
     bagItems: Record<BagItemEntity['id'], BagItemEntity>;
     benefits: Record<UserBenefitEntity['id'], UserBenefitEntity>;
     brands: Record<Brand['id'], Brand>;
@@ -136,6 +135,7 @@ export type StoreState = Partial<{
     returnItems: Record<ReturnItemEntity['id'], ReturnItemEntity>;
     returns: Record<ReturnEntity['id'], ReturnEntity>;
     returnOptions: Record<ReturnOptionEntity['id'], ReturnOptionEntity>;
+    returnPickupCapabilities: Record<string, ReturnPickupCapabilityEntity>;
     sizeScales: Record<SizeScale['sizeScaleId'], SizeScale>;
     statements: Record<StatementEntity['id'], StatementEntity>;
     states: Record<StateEntity['id'], StateEntity>;

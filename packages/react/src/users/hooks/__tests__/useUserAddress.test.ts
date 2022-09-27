@@ -9,15 +9,15 @@ import {
   mockAuthenticatedUserEntities,
   mockUserInitialState,
 } from 'tests/__fixtures__/users';
+import {
+  toBlackoutError,
+  UserAddress,
+  UserAddressInput,
+} from '@farfetch/blackout-client';
 import { withStore } from '../../../../tests/helpers';
 import merge from 'lodash/merge';
 import useUserAddress from '../useUserAddress';
 import useUserAddresses from '../useUserAddresses';
-import type {
-  BlackoutError,
-  UserAddress,
-  UserAddressInput,
-} from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -97,7 +97,7 @@ const mockErrorState = {
       isLoading: false,
       error: null,
       address: {
-        error: { [addressId]: new Error('dummy error') as BlackoutError },
+        error: { [addressId]: toBlackoutError(new Error('dummy error')) },
         isLoading: {},
       },
     },

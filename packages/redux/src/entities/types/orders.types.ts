@@ -9,6 +9,7 @@ import type {
   OrderItemEntity,
   OrderItemEntityDenormalized,
 } from './orderItems.types';
+import type { ReturnEntity } from './returns.types';
 import type {
   ReturnOptionEntity,
   ReturnOptionEntityDenormalized,
@@ -31,6 +32,8 @@ export type OrderSummaryNormalized = {
     MerchantOrderNormalized['merchant'],
     MerchantOrderNormalized
   >;
+  returnOptions?: Array<ReturnOptionEntity['id']> | null;
+  returns?: Array<ReturnEntity['id']> | null;
 };
 
 export type OrderEntity = OrderSummaryNormalized & Partial<OrderNormalized>;
@@ -42,15 +45,17 @@ export type MerchantOrderNormalized = Omit<
   merchant: OrderSummary['merchantId'];
   orderItems?: OrderItemEntity['id'][];
   returnOptions?: ReturnOptionEntity['id'][];
+  returns?: ReturnEntity['id'][];
 };
 
 export type MerchantOrderDenormalized = Omit<
   MerchantOrderNormalized,
-  'merchant' | 'orderItems' | 'returnOptions'
+  'merchant' | 'orderItems' | 'returnOptions' | 'returns'
 > & {
   merchant?: MerchantEntity;
   orderItems?: OrderItemEntityDenormalized[];
   returnOptions?: ReturnOptionEntityDenormalized[];
+  returns?: ReturnEntity[];
 };
 
 export type OrdersNormalized = Omit<Orders, 'entries'> & {
@@ -63,11 +68,13 @@ export type OrdersDenormalized = Omit<OrdersNormalized, 'entries'> & {
 
 export type OrderEntityDenormalized = Omit<
   OrderEntity,
-  'byMerchant' | 'items'
+  'byMerchant' | 'items' | 'returns' | 'returnOptions'
 > & {
   byMerchant: Record<
     MerchantOrderNormalized['merchant'],
     MerchantOrderDenormalized
   >;
   items?: OrderItemEntityDenormalized[];
+  returns?: ReturnEntity[] | null;
+  returnOptions?: ReturnOptionEntityDenormalized[] | null;
 };

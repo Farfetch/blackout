@@ -2,6 +2,8 @@ import * as actionTypes from '../../actionTypes';
 import {
   Config,
   GetOrderItemAvailableActivities,
+  Order,
+  OrderItem,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -16,7 +18,7 @@ import type { FetchOrderItemAvailableActivitiesAction } from '../../types/action
  */
 const fetchOrderItemAvailableActivities =
   (getOrderItemAvailableActivities: GetOrderItemAvailableActivities) =>
-  (orderId: string, itemId: string, config?: Config) =>
+  (orderId: Order['id'], itemId: OrderItem['id'], config?: Config) =>
   async (dispatch: Dispatch<FetchOrderItemAvailableActivitiesAction>) => {
     try {
       dispatch({

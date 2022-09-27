@@ -33,6 +33,7 @@ Object {
   },
   "orders": Object {
     "@farfetch/blackout-redux/FETCH_GUEST_ORDERS_SUCCESS": [Function],
+    "@farfetch/blackout-redux/FETCH_ORDER_RETURNS_SUCCESS": [Function],
     "@farfetch/blackout-redux/FETCH_ORDER_RETURN_OPTIONS_SUCCESS": [Function],
     "@farfetch/blackout-redux/FETCH_ORDER_SUCCESS": [Function],
     "@farfetch/blackout-redux/FETCH_USER_ORDERS_SUCCESS": [Function],
@@ -41,6 +42,8 @@ Object {
     "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
     "@farfetch/blackout-redux/REGISTER_SUCCESS": [Function],
     "@farfetch/blackout-redux/RESET_ORDERS": [Function],
+    "@farfetch/blackout-redux/RESET_ORDER_RETURNS_ENTITIES": [Function],
+    "@farfetch/blackout-redux/RESET_ORDER_RETURN_OPTIONS_ENTITIES": [Function],
   },
   "payments": Object {
     "@farfetch/blackout-redux/FETCH_USER_SUCCESS": [Function],
@@ -63,6 +66,7 @@ Object {
     "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
     "@farfetch/blackout-redux/REGISTER_SUCCESS": [Function],
     "@farfetch/blackout-redux/RESET_RETURNS": [Function],
+    "@farfetch/blackout-redux/UPDATE_RETURN_SUCCESS": [Function],
   },
   "subscriptions": Object {
     "@farfetch/blackout-redux/RESET_SUBSCRIPTION_PACKAGES": [Function],

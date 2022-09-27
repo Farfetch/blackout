@@ -3,6 +3,7 @@ import {
   Config,
   GetReturnPickupRescheduleRequests,
   PickupRescheduleRequests,
+  Return,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -16,14 +17,14 @@ import type { Dispatch } from 'redux';
  */
 const fetchReturnPickupRescheduleRequestsFactory =
   (getReturnPickupRescheduleRequests: GetReturnPickupRescheduleRequests) =>
-  (id: string, config?: Config) =>
+  (returnId: Return['id'], config?: Config) =>
   async (dispatch: Dispatch): Promise<PickupRescheduleRequests> => {
     dispatch({
       type: actionTypes.FETCH_RETURN_PICKUP_RESCHEDULE_REQUESTS_REQUEST,
     });
 
     try {
-      const result = await getReturnPickupRescheduleRequests(id, config);
+      const result = await getReturnPickupRescheduleRequests(returnId, config);
 
       dispatch({
         payload: result,
