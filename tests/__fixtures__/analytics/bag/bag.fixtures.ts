@@ -129,13 +129,13 @@ const mockSizes: SizeAdapted[] = [
   },
 ];
 
-// @ts-ignore ignore unused properties
 const mockProductEntity: ProductEntity = {
   id: mockProductId,
   scaleId: mockSizeScaleId,
 
   associationsInformation: {
     hasColorGrouping: false,
+    hasGrouping: false,
   },
   brand: mockBrandId,
   breadCrumbs: [

@@ -645,7 +645,7 @@ describe('checkout reducer', () => {
         checkout: mockCheckoutResponse,
         checkoutOrders: mockCheckoutOrdersResponse,
         products: mockProductsEntity,
-      } as NonNullable<StoreState['entities']>;
+      };
 
       const expectedResult = {
         checkout: mockCheckoutResponse,

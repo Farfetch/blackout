@@ -1,5 +1,10 @@
 import { buildBagItem } from '../';
-import { mockBagItem, mockProductAggregatorId } from 'tests/__fixtures__/bags';
+import {
+  mockBagItem,
+  mockBagItemEntity,
+  mockBagItemHydrated,
+  mockProductAggregatorId,
+} from 'tests/__fixtures__/bags';
 
 describe('buildBagItem()', () => {
   it('should return a valid bag item object', () => {
@@ -7,19 +12,19 @@ describe('buildBagItem()', () => {
       buildBagItem({
         customAttributes: mockBagItem.customAttributes,
         merchantId: mockBagItem.merchantId,
-        product: mockBagItem.product,
+        product: mockBagItemHydrated.product,
         quantity: mockBagItem.quantity,
-        size: mockBagItem.size,
+        size: mockBagItemEntity.size,
       }),
     ).toEqual({
       authCode: undefined,
       customAttributes: mockBagItem.customAttributes,
       merchantId: mockBagItem.merchantId,
       productAggregatorId: undefined,
-      productId: mockBagItem.product.id,
+      productId: mockBagItemHydrated.product.id,
       quantity: mockBagItem.quantity,
-      scale: mockBagItem.size.scale,
-      size: mockBagItem.size.id,
+      scale: mockBagItemEntity.size.scale,
+      size: mockBagItemEntity.size.id,
     });
   });
 
@@ -28,18 +33,18 @@ describe('buildBagItem()', () => {
       buildBagItem({
         customAttributes: mockBagItem.customAttributes,
         merchantId: mockBagItem.merchantId,
-        product: mockBagItem.product,
-        size: mockBagItem.size,
+        product: mockBagItemHydrated.product,
+        size: mockBagItemEntity.size,
       }),
     ).toEqual({
       authCode: undefined,
       customAttributes: mockBagItem.customAttributes,
       merchantId: mockBagItem.merchantId,
       productAggregatorId: undefined,
-      productId: mockBagItem.product.id,
+      productId: mockBagItemHydrated.product.id,
       quantity: 1,
-      scale: mockBagItem.size.scale,
-      size: mockBagItem.size.id,
+      scale: mockBagItemEntity.size.scale,
+      size: mockBagItemEntity.size.id,
     });
   });
 
@@ -47,19 +52,19 @@ describe('buildBagItem()', () => {
     expect(
       buildBagItem({
         merchantId: mockBagItem.merchantId,
-        product: mockBagItem.product,
+        product: mockBagItemHydrated.product,
         quantity: mockBagItem.quantity,
-        size: mockBagItem.size,
+        size: mockBagItemEntity.size,
       }),
     ).toEqual({
       authCode: undefined,
       customAttributes: '',
       merchantId: mockBagItem.merchantId,
       productAggregatorId: undefined,
-      productId: mockBagItem.product.id,
+      productId: mockBagItemHydrated.product.id,
       quantity: mockBagItem.quantity,
-      scale: mockBagItem.size.scale,
-      size: mockBagItem.size.id,
+      scale: mockBagItemEntity.size.scale,
+      size: mockBagItemEntity.size.id,
     });
   });
 
@@ -71,19 +76,19 @@ describe('buildBagItem()', () => {
         authCode: mockAuthCode,
         customAttributes: mockBagItem.customAttributes,
         merchantId: mockBagItem.merchantId,
-        product: mockBagItem.product,
+        product: mockBagItemHydrated.product,
         quantity: mockBagItem.quantity,
-        size: mockBagItem.size,
+        size: mockBagItemEntity.size,
       }),
     ).toEqual({
       authCode: mockAuthCode,
       customAttributes: mockBagItem.customAttributes,
       merchantId: mockBagItem.merchantId,
       productAggregatorId: undefined,
-      productId: mockBagItem.product.id,
+      productId: mockBagItemHydrated.product.id,
       quantity: mockBagItem.quantity,
-      scale: mockBagItem.size.scale,
-      size: mockBagItem.size.id,
+      scale: mockBagItemEntity.size.scale,
+      size: mockBagItemEntity.size.id,
     });
   });
 
@@ -93,19 +98,19 @@ describe('buildBagItem()', () => {
         productAggregatorId: mockProductAggregatorId,
         customAttributes: mockBagItem.customAttributes,
         merchantId: mockBagItem.merchantId,
-        product: mockBagItem.product,
+        product: mockBagItemHydrated.product,
         quantity: mockBagItem.quantity,
-        size: mockBagItem.size,
+        size: mockBagItemEntity.size,
       }),
     ).toEqual({
       authCode: undefined,
       customAttributes: mockBagItem.customAttributes,
       merchantId: mockBagItem.merchantId,
       productAggregatorId: mockProductAggregatorId,
-      productId: mockBagItem.product.id,
+      productId: mockBagItemHydrated.product.id,
       quantity: mockBagItem.quantity,
-      scale: mockBagItem.size.scale,
-      size: mockBagItem.size.id,
+      scale: mockBagItemEntity.size.scale,
+      size: mockBagItemEntity.size.id,
     });
   });
 });

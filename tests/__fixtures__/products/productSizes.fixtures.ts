@@ -27,9 +27,33 @@ export const mockProductSizeAdapted = {
   id: 1,
   globalQuantity: 10,
   scale: mockSizeScaleId,
+  scaleAbbreviation: 'it',
+  scaleDescription: 'italian',
   stock: [
-    { merchantId: mockMerchantId, quantity: 2 },
-    { merchantId: 788, quantity: 8 },
+    {
+      merchantId: mockMerchantId,
+      quantity: 2,
+      barcodes: [],
+      price: {
+        formatted: {
+          includingTaxes: '$129.74',
+          includingTaxesWithoutDiscount: '$129.74',
+        },
+      },
+      purchaseChannel: null,
+    },
+    {
+      merchantId: 788,
+      quantity: 8,
+      barcodes: [],
+      price: {
+        formatted: {
+          includingTaxes: '$129.74',
+          includingTaxesWithoutDiscount: '$129.74',
+        },
+      },
+      purchaseChannel: null,
+    },
   ],
   isOneSize: false,
   isOutOfStock: false,
@@ -40,11 +64,35 @@ export const mockProductSizesAdapted = [
   mockProductSizeAdapted,
   {
     id: 2,
-    globalQuantity: 10,
+    globalQuantity: 22,
     scale: mockSizeScaleId,
+    scaleAbbreviation: 'it',
+    scaleDescription: 'italian',
     stock: [
-      { merchantId: mockMerchantId, quantity: 2 },
-      { merchantId: 545, quantity: 20 },
+      {
+        merchantId: mockMerchantId,
+        quantity: 2,
+        barcodes: [],
+        price: {
+          formatted: {
+            includingTaxes: '$129.74',
+            includingTaxesWithoutDiscount: '$129.74',
+          },
+        },
+        purchaseChannel: null,
+      },
+      {
+        merchantId: 545,
+        quantity: 20,
+        barcodes: [],
+        price: {
+          formatted: {
+            includingTaxes: '$129.74',
+            includingTaxesWithoutDiscount: '$129.74',
+          },
+        },
+        purchaseChannel: null,
+      },
     ],
     isOneSize: false,
     isOutOfStock: false,
@@ -52,30 +100,120 @@ export const mockProductSizesAdapted = [
   },
   {
     id: 3,
+    globalQuantity: 2,
     name: '12',
-    scale: 'IT',
-    stock: [{ merchantId: 333, quantity: 2 }],
+    scale: mockSizeScaleId,
+    scaleAbbreviation: 'it',
+    scaleDescription: 'italian',
+    stock: [
+      {
+        merchantId: 333,
+        quantity: 2,
+        barcodes: [],
+        price: {
+          formatted: {
+            includingTaxes: '$129.74',
+            includingTaxesWithoutDiscount: '$129.74',
+          },
+        },
+        purchaseChannel: null,
+      },
+    ],
+    isOneSize: false,
+    isOutOfStock: false,
   },
   {
     id: 4,
     name: '13',
+    globalQuantity: 6,
     scale: mockSizeScaleId,
-    stock: [{ merchantId: mockMerchantId, quantity: 6 }],
+    scaleAbbreviation: 'it',
+    scaleDescription: 'italian',
+    stock: [
+      {
+        merchantId: mockMerchantId,
+        quantity: 6,
+        barcodes: [],
+        price: {
+          formatted: {
+            includingTaxes: '$129.74',
+            includingTaxesWithoutDiscount: '$129.74',
+          },
+        },
+        purchaseChannel: null,
+      },
+    ],
+    isOneSize: false,
+    isOutOfStock: false,
   },
   {
     id: 5,
+    globalQuantity: 6,
     scale: 5,
+    scaleAbbreviation: 'it',
+    scaleDescription: 'italian',
     stock: [
-      { merchantId: 545, quantity: 0 },
-      { merchantId: mockMerchantId, quantity: 2 },
-      { merchantId: 896, quantity: 4 },
+      {
+        merchantId: 545,
+        quantity: 0,
+        barcodes: [],
+        price: {
+          formatted: {
+            includingTaxes: '$129.74',
+            includingTaxesWithoutDiscount: '$129.74',
+          },
+        },
+        purchaseChannel: null,
+      },
+      {
+        merchantId: mockMerchantId,
+        quantity: 2,
+        barcodes: [],
+        price: {
+          formatted: {
+            includingTaxes: '$129.74',
+            includingTaxesWithoutDiscount: '$129.74',
+          },
+        },
+        purchaseChannel: null,
+      },
+      {
+        merchantId: 896,
+        quantity: 4,
+        barcodes: [],
+        price: {
+          formatted: {
+            includingTaxes: '$129.74',
+            includingTaxesWithoutDiscount: '$129.74',
+          },
+        },
+        purchaseChannel: null,
+      },
     ],
+    isOneSize: false,
+    isOutOfStock: false,
+    name: '43',
   },
   {
     id: 6,
     globalQuantity: 44,
     scale: mockSizeScaleId,
-    stock: [{ merchantId: mockMerchantId, quantity: 7 }],
+    scaleAbbreviation: 'it',
+    scaleDescription: 'italian',
+    stock: [
+      {
+        merchantId: mockMerchantId,
+        quantity: 7,
+        barcodes: [],
+        price: {
+          formatted: {
+            includingTaxes: '$129.74',
+            includingTaxesWithoutDiscount: '$129.74',
+          },
+        },
+        purchaseChannel: null,
+      },
+    ],
     isOneSize: false,
     isOutOfStock: false,
     name: '41',
@@ -84,7 +222,22 @@ export const mockProductSizesAdapted = [
     id: 7,
     globalQuantity: 1,
     scale: mockSizeScaleId,
-    stock: [{ merchantId: mockMerchantId, quantity: 1 }],
+    scaleAbbreviation: 'it',
+    scaleDescription: 'italian',
+    stock: [
+      {
+        merchantId: mockMerchantId,
+        quantity: 1,
+        barcodes: [],
+        price: {
+          formatted: {
+            includingTaxes: '$129.74',
+            includingTaxesWithoutDiscount: '$129.74',
+          },
+        },
+        purchaseChannel: null,
+      },
+    ],
     isOneSize: false,
     isOutOfStock: false,
     name: '43',
@@ -93,9 +246,33 @@ export const mockProductSizesAdapted = [
     id: 8,
     globalQuantity: 3,
     scale: mockSizeScaleId,
+    scaleAbbreviation: 'it',
+    scaleDescription: 'italian',
     stock: [
-      { merchantId: mockMerchantId, quantity: 1 },
-      { merchantId: 22, quantity: 2 },
+      {
+        merchantId: mockMerchantId,
+        quantity: 1,
+        barcodes: [],
+        price: {
+          formatted: {
+            includingTaxes: '$129.74',
+            includingTaxesWithoutDiscount: '$129.74',
+          },
+        },
+        purchaseChannel: null,
+      },
+      {
+        merchantId: 22,
+        quantity: 2,
+        barcodes: [],
+        price: {
+          formatted: {
+            includingTaxes: '$129.74',
+            includingTaxesWithoutDiscount: '$129.74',
+          },
+        },
+        purchaseChannel: null,
+      },
     ],
     isOneSize: false,
     isOutOfStock: false,
@@ -104,20 +281,82 @@ export const mockProductSizesAdapted = [
   {
     id: 23,
     name: '23',
+    globalQuantity: 14,
     scale: mockSizeScaleId,
+    scaleAbbreviation: 'it',
+    scaleDescription: 'italian',
     stock: [
-      { merchantId: mockMerchantId, quantity: 7 },
-      { merchantId: 213, quantity: 5 },
-      { merchantId: 456, quantity: 2 },
+      {
+        merchantId: mockMerchantId,
+        quantity: 7,
+        barcodes: [],
+        price: {
+          formatted: {
+            includingTaxes: '$129.74',
+            includingTaxesWithoutDiscount: '$129.74',
+          },
+        },
+        purchaseChannel: null,
+      },
+      {
+        merchantId: 213,
+        quantity: 5,
+        barcodes: [],
+        price: {
+          formatted: {
+            includingTaxes: '$129.74',
+            includingTaxesWithoutDiscount: '$129.74',
+          },
+        },
+        purchaseChannel: null,
+      },
+      {
+        merchantId: 456,
+        quantity: 2,
+        barcodes: [],
+        price: {
+          formatted: {
+            includingTaxes: '$129.74',
+            includingTaxesWithoutDiscount: '$129.74',
+          },
+        },
+        purchaseChannel: null,
+      },
     ],
+    isOneSize: false,
+    isOutOfStock: false,
   },
   {
     id: 24,
     globalQuantity: 30,
     scale: mockSizeScaleId,
+    scaleAbbreviation: 'it',
+    scaleDescription: 'italian',
     stock: [
-      { merchantId: 22, quantity: 10 },
-      { merchantId: 22, quantity: 20 },
+      {
+        merchantId: 22,
+        quantity: 10,
+        barcodes: [],
+        price: {
+          formatted: {
+            includingTaxes: '$129.74',
+            includingTaxesWithoutDiscount: '$129.74',
+          },
+        },
+        purchaseChannel: null,
+      },
+      {
+        merchantId: 22,
+        quantity: 20,
+        barcodes: [],
+        price: {
+          formatted: {
+            includingTaxes: '$129.74',
+            includingTaxesWithoutDiscount: '$129.74',
+          },
+        },
+        purchaseChannel: null,
+      },
     ],
     isOneSize: false,
     isOutOfStock: false,

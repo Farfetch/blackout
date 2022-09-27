@@ -61,11 +61,11 @@ Object {
           "images": Array [
             Object {
               "order": 1,
-              "size": "200",
+              "size": "54",
               "sources": Object {
-                "200": "https://cdn-images.farfetch.com/12/09/16/86/12091686_11099951_200.jpg?c=2",
+                "54": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg?c=2",
               },
-              "url": "https://cdn-images.farfetch.com/12/09/16/86/12091686_11099951_200.jpg",
+              "url": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg",
             },
           ],
           "isAvailable": undefined,
@@ -77,7 +77,7 @@ Object {
             "discount": Object {
               "excludingTaxes": 0,
               "includingTaxes": 0,
-              "rate": undefined,
+              "rate": 0,
             },
             "excludingTaxes": 185442.9802,
             "formatted": Object {
@@ -124,7 +124,7 @@ Object {
             "discount": Object {
               "excludingTaxes": 0,
               "includingTaxes": 0,
-              "rate": undefined,
+              "rate": 0,
             },
             "excludingTaxes": 185442.9802,
             "formatted": Object {
@@ -149,7 +149,6 @@ Object {
             },
             "type": undefined,
           },
-          "prices": Array [],
           "product": 12640693,
           "productAggregator": Object {
             "bundleSlug": "string",
@@ -165,7 +164,7 @@ Object {
               },
             ],
           },
-          "promocodeDiscountPercentage": 0,
+          "promocodeDiscountPercentage": 123,
           "quantity": 1,
           "scale": "",
           "size": Object {
@@ -266,7 +265,7 @@ Object {
             },
           ],
           "currency": "EUR",
-          "customerType": "0",
+          "customerType": "Normal",
           "formattedGrandTotal": "102 €",
           "formattedSubTotalAmount": "100 €",
           "formattedSubTotalAmountExclTaxes": "100 €",

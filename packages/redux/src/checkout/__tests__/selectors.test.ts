@@ -2,15 +2,16 @@ import * as fromEntities from '../../entities/selectors/entity';
 import * as fromReducer from '../reducer';
 import * as selectors from '../selectors';
 import {
-  checkoutDetailEntity,
   checkoutEntity,
   checkoutOrderEntity,
-  checkoutOrderItemEntity,
+  checkoutOrderItemId,
   deliveryBundleId,
   deliveryBundlesEntity,
   deliveryBundleUpgradeId_1,
   deliveryBundleUpgradesEntity,
   itemId1,
+  mockCheckoutDetailsEntity,
+  mockCheckoutOrderItemEntity,
   mockCheckoutState,
   operation,
   productId,
@@ -134,7 +135,7 @@ describe('checkout redux selectors', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(selectors.getCheckoutOrderDetails(mockCheckoutState)).toEqual(
-        checkoutDetailEntity,
+        mockCheckoutDetailsEntity,
       );
       expect(spy).toHaveBeenCalledWith(
         mockCheckoutState,
@@ -160,21 +161,18 @@ describe('checkout redux selectors', () => {
   });
 
   describe('getCheckoutOrderItem()', () => {
-    const expectedResult = checkoutOrderItemEntity;
+    const expectedResult = mockCheckoutOrderItemEntity;
 
     it('should return all data regarding a checkout order item', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(
-        selectors.getCheckoutOrderItem(
-          mockCheckoutState,
-          checkoutOrderItemEntity['id'],
-        ),
+        selectors.getCheckoutOrderItem(mockCheckoutState, checkoutOrderItemId),
       ).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledWith(
         mockCheckoutState,
         'checkoutOrderItems',
-        checkoutOrderItemEntity['id'],
+        checkoutOrderItemId,
       );
     });
   });
@@ -200,7 +198,7 @@ describe('checkout redux selectors', () => {
 
   describe('getCheckoutOrderItems()', () => {
     it('should return the checkout order items content from state', () => {
-      const expectedResult = [checkoutOrderItemEntity];
+      const expectedResult = [mockCheckoutOrderItemEntity];
 
       expect(selectors.getCheckoutOrderItems(mockCheckoutState)).toEqual(
         expectedResult,
@@ -216,7 +214,7 @@ describe('checkout redux selectors', () => {
       expect(
         selectors.getCheckoutOrderItemProduct(
           mockCheckoutState,
-          checkoutOrderItemEntity['id'],
+          checkoutOrderItemId,
         ),
       ).toEqual(expectedResult);
     });

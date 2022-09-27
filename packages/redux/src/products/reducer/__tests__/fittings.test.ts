@@ -47,7 +47,7 @@ describe('fittings redux reducer', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = {
         error: { [mockProductId]: toBlackoutError(new Error(error)) },
-        isLoading: {},
+        isLoading: { [mockProductId]: false },
       };
       expect(reducer(state, mockAction).error).toEqual(state.error);
     });
