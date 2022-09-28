@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.44.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.44.0...@farfetch/blackout-react@0.44.1) (2022-09-28)
+
+
+### Bug Fixes
+
+* **react:** fix GA4 page and event tracking ([b736515](https://github.com/Farfetch/blackout/commit/b736515577f7d5887ea436503f33810e1e6fe45f))
+
+
+
+
+
 # [0.44.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.43.0...@farfetch/blackout-react@0.44.0) (2022-09-21)
 
 
