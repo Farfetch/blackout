@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.318](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.317...@farfetch/blackout-redux@1.0.0-next.318) (2022-09-28)
+
+
+### Features
+
+* **redux|client|react:** add categories hooks ([e708dc4](https://github.com/Farfetch/blackout/commit/e708dc4f60e13bcf915b1d79993b0332e8d1ecfc))
+
+
+
+
+
 # [1.0.0-next.317](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.316...@farfetch/blackout-redux@1.0.0-next.317) (2022-09-22)
 
 
