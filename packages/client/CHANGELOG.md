@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.209](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.208...@farfetch/blackout-client@2.0.0-next.209) (2022-09-28)
+
+
+### Bug Fixes
+
+* fix locale types ([f7441c7](https://github.com/Farfetch/blackout/commit/f7441c71f7b21aa66fe7810749df810b947c4562))
+
+
+### Features
+
+* **redux|client|react:** add categories hooks ([e708dc4](https://github.com/Farfetch/blackout/commit/e708dc4f60e13bcf915b1d79993b0332e8d1ecfc))
+
+
+
+
+
 # [2.0.0-next.208](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.207...@farfetch/blackout-client@2.0.0-next.208) (2022-09-22)
 
 
