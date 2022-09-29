@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.321](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.320...@farfetch/blackout-react@1.0.0-next.321) (2022-09-29)
+
+
+### Features
+
+* **redux|client|react:** add brands hooks ([667cb69](https://github.com/Farfetch/blackout/commit/667cb69c3cdf38ae2a7354212c52a3b19f36c6f6))
+
+
+
+
+
 # [1.0.0-next.320](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.319...@farfetch/blackout-react@1.0.0-next.320) (2022-09-28)
 
 
