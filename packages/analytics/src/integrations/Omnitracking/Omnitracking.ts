@@ -48,6 +48,7 @@ import type {
 import type {
   OmnitrackingOptions,
   OmnitrackingPageEventParameters,
+  OmnitrackingPreCalculatedEventParameters,
   OmnitrackingRequestPayload,
   OmnitrackingTrackEventParameters,
   PageActionEvents,
@@ -158,13 +159,14 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
    */
   getPrecalculatedParametersForEvent(
     data: EventData<TrackTypesValues>,
-  ): OmnitrackingTrackEventParameters | OmnitrackingPageEventParameters {
+  ): OmnitrackingPreCalculatedEventParameters {
     const isPageOrScreenEvent =
       isPageEventType(data) || isScreenEventType(data);
 
-    const precalculatedParameters:
-      | OmnitrackingTrackEventParameters
-      | OmnitrackingPageEventParameters = {};
+    const precalculatedParameters: OmnitrackingPreCalculatedEventParameters =
+      {};
+
+    const { culture, currencyCode } = data.context;
 
     // First we check if we need to change the values
     // of the uniqueViewId and previousUniqueViewId
@@ -214,7 +216,6 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
         userTraits.hasOwnProperty('isGuest') && !userTraits.isGuest;
       precalculatedPageViewParameters.basketId = userTraits.bagId;
 
-      const { culture } = data.context;
       let clientLanguage: string | undefined = '';
       let clientCountry: string | undefined = '';
 
@@ -227,6 +228,7 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
     }
 
     precalculatedParameters.uniqueViewId = this.currentUniqueViewId;
+    precalculatedParameters.viewCurrency = currencyCode;
 
     return precalculatedParameters;
   }
