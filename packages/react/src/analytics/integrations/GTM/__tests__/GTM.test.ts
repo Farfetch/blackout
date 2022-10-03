@@ -151,7 +151,9 @@ describe('GTM', () => {
           // test filtered context properties
           context: {
             currencyCode: data.context.currencyCode,
-            eventContext: undefined,
+            eventContext: {
+              __uniqueEventId: expect.any(String),
+            },
             libraryVersion: data.context.library.version,
             location: (data.context as unknown as WebContextType).web.window
               .location,

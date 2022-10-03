@@ -1,3 +1,4 @@
+import { ANALYTICS_UNIQUE_EVENT_ID } from '../../utils/constants';
 import {
   CLIENT_LANGUAGES_LIST,
   DEFAULT_CLIENT_LANGUAGE,
@@ -48,7 +49,7 @@ export const getCommonParameters = (
 ): OmnitrackingCommonEventParameters => {
   const parameters: OmnitrackingCommonEventParameters = {
     clientTimestamp: new Date(data.timestamp).toJSON(),
-    uuid: uuidV4(),
+    uuid: get(data, `context.event.${ANALYTICS_UNIQUE_EVENT_ID}`),
   };
 
   return parameters;
