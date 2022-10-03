@@ -2,6 +2,7 @@ export {
   CONSENT_KEYS,
   LOAD_INTEGRATION_TRACK_TYPE,
   ON_SET_USER_TRACK_TYPE,
+  ANALYTICS_UNIQUE_EVENT_ID,
 } from './constants';
 export * from './defaults';
 export * from './getters';

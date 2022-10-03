@@ -20,8 +20,9 @@ import type { GA4CommandList } from './types';
  */
 const genericCommandsBuilder = (data: TrackEventData): GA4CommandList => {
   const eventName = ga4EventNameMapping[data.event] as string;
+  const eventProperties = getEventProperties(data.event, data);
 
-  return [['event', eventName, getEventProperties(data.event, data)]];
+  return [['event', eventName, eventProperties]];
 };
 
 /**
