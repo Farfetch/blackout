@@ -354,6 +354,7 @@ describe('GA4 Integration', () => {
             'config',
             validOptions[OPTION_MEASUREMENT_ID],
             {
+              __blackoutAnalyticsEventId: expect.any(String),
               page_path: pathName + utils.stringifyQuery(query),
               path_clean: pathName,
             },
@@ -455,9 +456,9 @@ describe('GA4 Integration', () => {
         const expectedPayload = [
           'event',
           dummyEvent.event,
-          {
+          expect.objectContaining({
             [NON_INTERACTION_FLAG]: true,
-          },
+          }),
         ];
 
         const ga4Spy = getWindowGa4Spy();
@@ -1465,6 +1466,7 @@ describe('GA4 Integration', () => {
                 content_type: 'biz',
                 some_other_property: 12312312,
                 interaction_type: interactionTypes.CLICK,
+                __blackoutAnalyticsEventId: expect.any(String),
               });
             });
           });

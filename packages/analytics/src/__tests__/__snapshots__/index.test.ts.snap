@@ -123,6 +123,7 @@ Object {
     "TRACK": "track",
   },
   "utils": Object {
+    "ANALYTICS_UNIQUE_EVENT_ID": "__uniqueEventId",
     "CONSENT_KEYS": Array [
       "marketing",
       "statistics",

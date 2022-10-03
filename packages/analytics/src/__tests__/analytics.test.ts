@@ -834,11 +834,17 @@ describe('analytics', () => {
             event: eventContext,
           });
 
-          const data = {
+          const expectedData = {
             type: trackTypes.TRACK,
             event,
             properties,
-            context,
+            context: {
+              ...context,
+              event: {
+                ...eventContext,
+                __uniqueEventId: expect.any(String),
+              },
+            },
             user: await analytics.user(),
             consent: await analytics.consent(),
             timestamp: expect.any(Number),
@@ -848,7 +854,7 @@ describe('analytics', () => {
 
           await analytics.track(event, properties, eventContext);
 
-          expect(spyIntegration).toBeCalledWith(data);
+          expect(spyIntegration).toBeCalledWith(expectedData);
         });
 
         it("Should log an error if analytics is not ready and not call any integration's track method", async () => {

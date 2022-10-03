@@ -1,3 +1,4 @@
+import { ANALYTICS_UNIQUE_EVENT_ID } from './utils/constants';
 import {
   getContextDefaults,
   LOAD_INTEGRATION_TRACK_TYPE,
@@ -6,6 +7,7 @@ import {
   StorageWrapper,
 } from './utils';
 import { Integration } from './integrations';
+import { v4 as uuidv4 } from 'uuid';
 import Consent from './Consent';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
@@ -675,7 +677,12 @@ class Analytics {
   ): Promise<EventData<T>> {
     const context = (await this.context()) as EventContext;
 
-    Object.assign(context, { event: eventContext });
+    Object.assign(context, {
+      event: {
+        ...eventContext,
+        [ANALYTICS_UNIQUE_EVENT_ID]: uuidv4(),
+      },
+    });
 
     const commonData: Partial<EventData<T>> = {
       type,
