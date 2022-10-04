@@ -1,4 +1,5 @@
 import { getConfigurations } from '..';
+import { SchemaFieldType } from '../types';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getConfigurations.fixtures';
 import mswServer from '../../../tests/mswServer';
@@ -27,7 +28,7 @@ describe('getConfigurations', () => {
               code: '111',
               description: 'sample property',
               value: 'sample',
-              schemaFieldType: 'string',
+              schemaFieldType: SchemaFieldType.String,
               security: {
                 resources: [
                   {

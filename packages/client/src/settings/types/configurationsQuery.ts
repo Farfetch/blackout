@@ -1,4 +1,4 @@
-export type Query = {
+export type ConfigurationsQuery = {
   pageIndex?: number;
   pageSize?: number;
   tenantId?: number;
