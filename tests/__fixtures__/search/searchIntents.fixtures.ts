@@ -1,3 +1,10 @@
+import {
+  mockSearchDidYouMeanQuery,
+  mockSearchDidYouMeanResponse,
+  mockSuggestions,
+} from 'tests/__fixtures__/search';
+import { toBlackoutError } from '@farfetch/blackout-client';
+
 export const mockSearchIntentsHash = 'white dresses!0';
 
 export const mockSearchIntentsRedirectUrl = 'mockRedirectUrl';
@@ -5,6 +12,13 @@ export const mockSearchIntentsRedirectUrl = 'mockRedirectUrl';
 export const mockSearchIntentsQuery = {
   searchTerms: 'white dresses',
   gender: 0,
+};
+
+export const mockDidYouMean = {
+  query: mockSearchDidYouMeanQuery,
+  error: null,
+  isLoading: false,
+  result: mockSearchDidYouMeanResponse,
 };
 
 export const mockSearchIntentsResponse = {
@@ -87,8 +101,14 @@ export const mockSearchIntentsInitialState = {
         error: null,
         isLoading: false,
         result: null,
-        query: null,
+        query: { searchTerms: 'balenciaga' },
       },
+    },
+    didYouMean: {
+      [mockSearchIntentsHash]: mockDidYouMean,
+    },
+    suggestions: {
+      [mockSearchIntentsHash]: mockSuggestions,
     },
   },
 };
@@ -103,6 +123,12 @@ export const mockSearchIntentsState = {
         query: mockSearchIntentsQuery,
       },
     },
+    didYouMean: {
+      [mockSearchIntentsHash]: mockDidYouMean,
+    },
+    suggestions: {
+      [mockSearchIntentsHash]: mockSuggestions,
+    },
   },
 };
 
@@ -116,6 +142,12 @@ export const mockSearchIntentsLoadingState = {
         query: mockSearchIntentsQuery,
       },
     },
+    didYouMean: {
+      [mockSearchIntentsHash]: mockDidYouMean,
+    },
+    suggestions: {
+      [mockSearchIntentsHash]: mockSuggestions,
+    },
   },
 };
 
@@ -123,11 +155,19 @@ export const mockSearchIntentsErrorState = {
   search: {
     intents: {
       [mockSearchIntentsHash]: {
-        error: { message: 'An awesome, fascinating and incredible error' },
+        error: toBlackoutError(
+          new Error('An awesome, fascinating and incredible error'),
+        ),
         isLoading: false,
         result: null,
         query: mockSearchIntentsQuery,
       },
+    },
+    didYouMean: {
+      [mockSearchIntentsHash]: mockDidYouMean,
+    },
+    suggestions: {
+      [mockSearchIntentsHash]: mockSuggestions,
     },
   },
 };

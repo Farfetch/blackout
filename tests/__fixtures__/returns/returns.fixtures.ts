@@ -1,3 +1,4 @@
+import { toBlackoutError } from '@farfetch/blackout-client';
 // @ts-nocheck
 enum RescheduleStatus {
   InProgress,
@@ -217,8 +218,10 @@ export const responses = {
 
 export const orderId = responses.get.success.orderId;
 export const returnId = responses.get.success.id;
-export const returnItemId = responses.get.success.items[0]?.orderItemId;
-export const orderItemId = responses.get.success.items[0]?.orderItemId;
+export const returnItemId = responses.get.success.items[0]
+  ?.orderItemId as number;
+export const orderItemId = responses.get.success.items[0]
+  ?.orderItemId as number;
 export const returnsNormalizedPayload = {
   entities: {
     returnItems: {
@@ -268,21 +271,37 @@ export const returnEntity = {
   merchantId: 10973,
   userId: 29511627,
   items: [returnItemId],
+  type: 'CourierPickUp',
+  createdDate: '2022-09-06T09:53:10.193Z',
+  status: 'Accepted',
+  numberOfBoxes: 1,
+  numberOfItems: 1,
+  maximumDateForPickup: '2022-09-30T23:59:58Z',
+  awbUrl: '/account/v1/returns/30074873/AWB',
+  invoiceUrl: '/account/v1/returns/30074873/Invoice',
+  references: [
+    {
+      name: 'ReturnCustomerRequestedAWB',
+      url: '/account/v1/returns/30074873/references/ReturnCustomerRequestedAWB',
+    },
+  ],
+  availableDates: [1663156800000, 1663156900000, 1663157000000],
 };
 
 export const returnItem = {
   id: returnItemId,
   orderItemId: 333,
   reason: 'Item does not fit',
+  status: 'Accepted',
 };
 
 export const mockState = {
   returns: {
-    error: 'error: not loaded',
+    error: toBlackoutError(new Error('error: not loaded')),
     id: returnId,
     isLoading: false,
     returns: {
-      error: 'error: not loaded',
+      error: toBlackoutError(new Error('error: not loaded')),
       isLoading: false,
     },
     references: {
@@ -290,7 +309,7 @@ export const mockState = {
       isLoading: false,
     },
     pickupCapabilities: {
-      error: 'error: not loaded',
+      error: toBlackoutError(new Error('error: not loaded')),
       isLoading: false,
     },
   },
@@ -299,27 +318,20 @@ export const mockState = {
     returns: { [returnId]: returnEntity },
     availableTimeSlots: [
       {
-        start: '2022-01-07T10:59:03.9169641Z',
-        end: '2022-01-07T10:59:03.9169641Z',
+        start: 1663156800000,
+        end: 1663164000000,
       },
     ],
   },
 };
 
 export const mockPatchData = {
-  start: '2022-01-07T10:59:03.9169641Z',
-  end: '2022-01-07T10:59:03.9169641Z',
+  start: 1663156800000,
+  end: 1663164000000,
 };
 
 export const mockPostData = {
-  availableDates: [
-    '2022-01-07T10:59:03.9169641Z',
-    '2022-01-07T10:59:03.9169641Z',
-    '2022-01-07T10:59:03.9169641Z',
-    '2022-01-07T10:59:03.9169641Z',
-    '2022-01-07T10:59:03.9169641Z',
-    '2022-01-07T10:59:03.9169641Z',
-  ],
+  availableDates: [1663156800000, 1663156900000, 1663157000000],
   id: 25741579,
   orderId: '8HYCEV',
   merchantId: 11554,

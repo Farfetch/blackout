@@ -1,3 +1,4 @@
+import { toBlackoutError } from '@farfetch/blackout-client';
 import type {
   BrandEntity,
   CategoryEntity,
@@ -187,7 +188,7 @@ const state: StoreState = {
     },
   },
   wishlist: {
-    error: {},
+    error: toBlackoutError(new Error('error')),
     id: wishlistId,
     isLoading: false,
     result: {

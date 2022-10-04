@@ -8,6 +8,7 @@ import {
   mockSizeGuides,
   mockState,
 } from 'tests/__fixtures__/sizeGuides';
+import { toBlackoutError } from '@farfetch/blackout-client';
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -59,9 +60,7 @@ describe('sizeGuides redux selectors', () => {
       const mockStateWithoutSizeGuides = {
         ...mockState,
         sizeGuides: {
-          error: {
-            message: 'Error - SizeGuides request.',
-          },
+          error: toBlackoutError(new Error('Error - SizeGuides request.')),
           isLoading: false,
           result: null,
         },

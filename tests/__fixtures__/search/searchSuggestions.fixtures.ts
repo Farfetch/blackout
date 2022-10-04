@@ -1,4 +1,5 @@
-import { GenderCode } from '@farfetch/blackout-client';
+import { GenderCode, toBlackoutError } from '@farfetch/blackout-client';
+import { mockDidYouMean, mockIntents } from 'tests/__fixtures__/search';
 
 export const mockSearchSuggestionsHash = 'dresses!0!true';
 
@@ -41,6 +42,12 @@ export const mockSearchSuggestionsInitialState = {
         result: null,
       },
     },
+    didYouMean: {
+      [mockSearchSuggestionsHash]: mockDidYouMean,
+    },
+    intents: {
+      [mockSearchSuggestionsHash]: mockIntents,
+    },
   },
 };
 
@@ -53,6 +60,12 @@ export const mockSearchSuggestionsState = {
         query: mockSearchSuggestionsQuery,
         result: mockSearchSuggestionsResponse,
       },
+    },
+    intents: {
+      ...mockSearchSuggestionsInitialState.search.intents,
+    },
+    didYouMean: {
+      ...mockSearchSuggestionsInitialState.search.didYouMean,
     },
   },
 };
@@ -67,6 +80,12 @@ export const mockSearchSuggestionsLoadingState = {
         result: null,
       },
     },
+    intents: {
+      ...mockSearchSuggestionsInitialState.search.intents,
+    },
+    didYouMean: {
+      ...mockSearchSuggestionsInitialState.search.didYouMean,
+    },
   },
 };
 
@@ -74,11 +93,17 @@ export const mockSearchSuggestionsErrorState = {
   search: {
     suggestions: {
       [mockSearchSuggestionsHash]: {
-        error: { message: 'Error - Search request.' },
+        error: toBlackoutError(new Error('Error - Search request.')),
         isLoading: false,
         query: mockSearchSuggestionsQuery,
         result: null,
       },
+    },
+    intents: {
+      ...mockSearchSuggestionsInitialState.search.intents,
+    },
+    didYouMean: {
+      ...mockSearchSuggestionsInitialState.search.didYouMean,
     },
   },
 };

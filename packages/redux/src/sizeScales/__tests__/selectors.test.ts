@@ -6,6 +6,19 @@ import {
   mockSizeScale,
   mockState,
 } from 'tests/__fixtures__/sizeScales';
+import { toBlackoutError } from '@farfetch/blackout-client';
+
+const error = toBlackoutError(new Error('This is an error'));
+const newMockState = {
+  sizeScales: {
+    error: error,
+    isLoading: false,
+    sizeScale: {
+      error: { [mockScaleId]: error },
+      isLoading: { [mockScaleId]: false },
+    },
+  },
+};
 
 describe('Size scales', () => {
   describe('getSizeScalesByCategory()', () => {
@@ -75,12 +88,6 @@ describe('Size scales', () => {
   describe('getSizeScalesError()', () => {
     it('should get the sizescales error property', () => {
       const spy = jest.spyOn(fromReducer, 'getError');
-      const error = 'This is an error';
-      const newMockState = {
-        sizeScales: {
-          error: error,
-        },
-      };
 
       expect(selectors.getSizeScalesError(newMockState)).toEqual(error);
       expect(spy).toBeCalledWith(newMockState.sizeScales);
@@ -91,17 +98,6 @@ describe('Size scales', () => {
     const spy = jest.spyOn(fromReducer, 'getSizeScaleError');
 
     it('should get the sizescale error property of a size scale by scale id', () => {
-      const error = 'This is an error';
-      const newMockState = {
-        sizeScales: {
-          sizeScale: {
-            error: {
-              [mockScaleId]: error,
-            },
-          },
-        },
-      };
-
       expect(selectors.getSizeScaleError(newMockState, mockScaleId)).toEqual(
         error,
       );
@@ -109,13 +105,15 @@ describe('Size scales', () => {
     });
 
     it('should get the sizescale error property of a size scale by query', () => {
-      const error = 'This is an error';
       const newMockState = {
         sizeScales: {
+          isLoading: true,
+          error: error,
           sizeScale: {
             error: {
               [`categoryId_${mockCategoryId}`]: error,
             },
+            isLoading: { [mockScaleId]: false },
           },
         },
       };

@@ -1,3 +1,6 @@
+import { toBlackoutError } from '@farfetch/blackout-client';
+import type { CategoryEntity } from '@farfetch/blackout-redux';
+
 export const mockCategoryId = 135967;
 export const mockBrandId = 1053;
 
@@ -100,15 +103,15 @@ export const mockSizeGuides = [
 
 export const mockState = {
   sizeGuides: {
-    error: 'Error - Sizeguides request.',
+    error: toBlackoutError(new Error('Error - Sizeguides request.')),
     isLoading: false,
     result: mockSizeGuides,
   },
   entities: {
     categories: {
-      [mockCategoriesIds[0] as number]: mockCategories[0],
-      [mockCategoriesIds[1] as number]: mockCategories[1],
-      [mockCategoriesIds[2] as number]: mockCategories[2],
+      [mockCategoriesIds[0] as number]: mockCategories[0] as CategoryEntity,
+      [mockCategoriesIds[1] as number]: mockCategories[1] as CategoryEntity,
+      [mockCategoriesIds[2] as number]: mockCategories[2] as CategoryEntity,
     },
   },
 };
