@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.210](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.209...@farfetch/blackout-client@2.0.0-next.210) (2022-10-04)
+
+
+### Features
+
+* **client:** add getConfiguration client ([1e89f0f](https://github.com/Farfetch/blackout/commit/1e89f0f3cf20eaec82676c2c2f530e893e7fdbef))
+* **redux|client|react:** add brands hooks ([667cb69](https://github.com/Farfetch/blackout/commit/667cb69c3cdf38ae2a7354212c52a3b19f36c6f6))
+
+
+
+
+
 # [2.0.0-next.209](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.208...@farfetch/blackout-client@2.0.0-next.209) (2022-09-28)
 
 
