@@ -1,4 +1,14 @@
-import { GenderCode, SearchSuggestionType } from '@farfetch/blackout-client';
+import {
+  GenderCode,
+  SearchSuggestionType,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
+import {
+  mockSearchIntentsQuery,
+  mockSearchIntentsResponse,
+  mockSearchSuggestionsQuery,
+  mockSearchSuggestionsResponse,
+} from 'tests/__fixtures__/search';
 
 export const mockSearchDidYouMeanHash = 'balenciaga!0,1';
 
@@ -16,6 +26,20 @@ export const mockSearchDidYouMeanResponse = [
   },
 ];
 
+export const mockIntents = {
+  error: null,
+  isLoading: false,
+  result: mockSearchIntentsResponse,
+  query: mockSearchIntentsQuery,
+};
+
+export const mockSuggestions = {
+  error: null,
+  isLoading: false,
+  query: mockSearchSuggestionsQuery,
+  result: mockSearchSuggestionsResponse,
+};
+
 export const mockSearchDidYouMeanInitialState = {
   search: {
     didYouMean: {
@@ -25,6 +49,12 @@ export const mockSearchDidYouMeanInitialState = {
         isLoading: false,
         result: null,
       },
+    },
+    intents: {
+      [mockSearchDidYouMeanHash]: mockIntents,
+    },
+    suggestions: {
+      [mockSearchDidYouMeanHash]: mockSuggestions,
     },
   },
 };
@@ -39,6 +69,12 @@ export const mockSearchDidYouMeanState = {
         result: mockSearchDidYouMeanResponse,
       },
     },
+    intents: {
+      ...mockSearchDidYouMeanInitialState.search.intents,
+    },
+    suggestions: {
+      ...mockSearchDidYouMeanInitialState.search.suggestions,
+    },
   },
 };
 
@@ -47,10 +83,18 @@ export const mockSearchDidYouMeanErrorState = {
     didYouMean: {
       [mockSearchDidYouMeanHash]: {
         query: mockSearchDidYouMeanQuery,
-        error: 'Error - Search did you mean request.',
+        error: toBlackoutError(
+          new Error('Error - Search did you mean request.'),
+        ),
         isLoading: false,
         result: null,
       },
+    },
+    intents: {
+      ...mockSearchDidYouMeanInitialState.search.intents,
+    },
+    suggestions: {
+      ...mockSearchDidYouMeanInitialState.search.suggestions,
     },
   },
 };
@@ -64,6 +108,12 @@ export const mockSearchDidYouMeanLoadingState = {
         isLoading: true,
         result: null,
       },
+    },
+    intents: {
+      ...mockSearchDidYouMeanInitialState.search.intents,
+    },
+    suggestions: {
+      ...mockSearchDidYouMeanInitialState.search.suggestions,
     },
   },
 };

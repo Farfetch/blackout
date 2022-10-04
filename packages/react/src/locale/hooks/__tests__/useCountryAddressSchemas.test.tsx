@@ -1,16 +1,15 @@
 import { cleanup, renderHook } from '@testing-library/react';
 import {
-  expectedGetAddressSchemaNormalizedPayload,
+  fetchCountryAddressSchemas,
+  StoreState,
+} from '@farfetch/blackout-redux';
+import {
   isoCode,
   mockCountry,
   mockCountryNormalized,
   mockGetAddressSchemaResponse,
   mockLocaleState,
 } from 'tests/__fixtures__/locale';
-import {
-  fetchCountryAddressSchemas,
-  StoreState,
-} from '@farfetch/blackout-redux';
 import { withStore } from '../../../../tests/helpers';
 import useCountryAddressSchemas from '../useCountryAddressSchemas';
 
@@ -53,9 +52,7 @@ describe('useCountryAddressSchemas', () => {
       isLoading: false,
       isFetched: true,
       data: {
-        countryAddressSchemas:
-          expectedGetAddressSchemaNormalizedPayload.entities
-            .countriesAddressSchemas[isoCode],
+        countryAddressSchemas: mockGetAddressSchemaResponse,
       },
       actions: {
         fetch: expect.any(Function),

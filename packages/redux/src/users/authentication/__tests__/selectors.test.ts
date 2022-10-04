@@ -1,11 +1,13 @@
 import * as selectors from '../selectors';
 import { mockResponse as mockUserEntity } from 'tests/__fixtures__/authentication';
+import { mockUserInitialState } from 'tests/__fixtures__/users';
 import type { AuthenticationState, UserData } from '../types';
 
 describe('authentication redux selectors', () => {
   const mockUserId = 29556478;
   const mockState = {
     users: {
+      ...mockUserInitialState,
       isGuest: false,
       id: mockUserId,
       authentication: {
@@ -49,6 +51,18 @@ describe('authentication redux selectors', () => {
           error: null,
           isLoading: false,
         },
+      },
+    },
+    addresses: {
+      predictions: {
+        error: null,
+        isLoading: false,
+        result: null,
+      },
+      prediction: {
+        error: null,
+        isLoading: false,
+        result: null,
       },
     },
 

@@ -11,14 +11,14 @@ Object {
         },
       },
       "products": Object {
-        "12129099": Object {
+        "11766695": Object {
           "brand": 10533,
           "categories": undefined,
           "colors": undefined,
           "customAttributes": undefined,
           "description": undefined,
           "groupedEntries": undefined,
-          "id": 12129099,
+          "id": 11766695,
           "images": undefined,
           "labels": undefined,
           "merchant": undefined,
@@ -68,7 +68,7 @@ Object {
           "id": 481426747,
           "merchant": undefined,
           "price": undefined,
-          "product": 12129099,
+          "product": 11766695,
           "quantity": 2,
           "size": Object {},
         },

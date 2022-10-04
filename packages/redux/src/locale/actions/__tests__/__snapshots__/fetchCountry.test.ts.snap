@@ -46,6 +46,7 @@ Object {
           "nativeName": "United States",
           "newsletterSubscriptionOptionDefault": true,
           "platformId": 216,
+          "sourceCountryCode": "US",
           "states": Array [
             3,
             6,

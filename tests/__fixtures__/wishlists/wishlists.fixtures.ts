@@ -1,8 +1,9 @@
+import { mockProductsEntity } from '../products';
 import type { WishlistItem } from '@farfetch/blackout-client';
 
 export const mockWishlistId = 'b1a13891-6084-489f-96ed-300eed45b948';
 export const mockWishlistItemId = 481426747;
-export const mockProductId = 12129099;
+export const mockProductId = 11766695;
 
 const mockWishlistSetId = '77fae745-7608-4b7d-8e7d-4f6923e032ef';
 
@@ -56,6 +57,8 @@ export const mockWishlistNormalizedPayload = {
       [mockWishlistItemId]: {
         ...wishlistItemEntity,
         dateCreated: 1612194217929,
+        merchant: undefined,
+        price: undefined,
       },
     },
     products: {
@@ -82,6 +85,8 @@ export const mockWishlistState = {
           [mockWishlistItemId]: {
             code: -1,
             status: 400,
+            name: 'error',
+            message: 'error message',
           },
         },
         isLoading: {
@@ -103,6 +108,8 @@ export const mockWishlistState = {
           [mockWishlistSetId]: {
             code: -1,
             status: 400,
+            name: 'error',
+            message: 'error message',
           },
         },
         isLoading: {
@@ -116,22 +123,57 @@ export const mockWishlistState = {
       [mockWishlistItemId]: {
         ...wishlistItemEntity,
         product: mockProductId,
-        dateCreated: 1612194217929,
+        merchant: 123,
+        size: {},
+        price: {
+          formatted: {
+            includingTaxes: '$129.74',
+            includingTaxesWithoutDiscount: '$129.74',
+          },
+          includingTaxes: 129.7446,
+          includingTaxesWithoutDiscount: 129.7446,
+          isFormatted: true,
+        },
       },
-      102: { id: 102, product: 1002, quantity: 2 },
+      102: {
+        ...wishlistItemEntity,
+        id: 102,
+        product: 1002,
+        quantity: 2,
+        merchant: 123,
+        size: {},
+        price: {
+          formatted: {
+            includingTaxes: '$129.74',
+            includingTaxesWithoutDiscount: '$129.74',
+          },
+          includingTaxes: 129.7446,
+          includingTaxesWithoutDiscount: 129.7446,
+          isFormatted: true,
+        },
+      },
     },
     products: {
-      [mockProductId]: { id: mockProductId },
-      1002: { id: 1002, description: 'bar product' },
+      [mockProductId]: {
+        ...mockProductsEntity[mockProductId],
+        id: mockProductId,
+      },
+      1002: {
+        ...mockProductsEntity[mockProductId],
+        id: 1002,
+        description: 'wide leg pant',
+      },
     },
     wishlistSets: {
       [mockWishlistSetId]: {
         id: mockWishlistSetId,
+        dateCreated: '/Date(1612194217929)/',
         name: 'set name',
         wishlistSetItems: [
           {
             quantity: 1,
             wishlistItemId: mockWishlistItemId,
+            dateCreated: '/Date(1612194217929)/',
           },
         ],
       },

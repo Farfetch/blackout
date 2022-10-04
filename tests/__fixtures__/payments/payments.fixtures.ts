@@ -3,8 +3,10 @@ import {
   Classification,
   DeclineCode,
   LineItemsType,
+  PaymentInstrument,
   PaymentInstrumentStatus,
   PaymentIntentStatus,
+  PaymentToken,
   ShopperInteraction,
 } from '@farfetch/blackout-client';
 
@@ -141,7 +143,7 @@ export const mockFetchInstrumentsNormalizedPayload = {
   entities: {
     paymentInstruments: {
       [mockFetchInstrumentsResponse[0]?.id as string]:
-        mockFetchInstrumentsResponse[0],
+        mockFetchInstrumentsResponse[0] as PaymentInstrument,
     },
   },
   result: [mockFetchInstrumentsResponse[0]?.id],
@@ -522,10 +524,10 @@ export const expectedPaymentTokensNormalizedPayload = {
   entities: {
     paymentTokens: {
       [paymentTokenId]: {
-        ...mockPaymentTokensResponse[0],
+        ...(mockPaymentTokensResponse[0] as PaymentToken),
       },
       [paymentTokenId2]: {
-        ...mockPaymentTokensResponse[1],
+        ...(mockPaymentTokensResponse[1] as PaymentToken),
       },
     },
   },

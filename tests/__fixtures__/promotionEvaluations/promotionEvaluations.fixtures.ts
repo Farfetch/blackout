@@ -1,3 +1,5 @@
+import { toBlackoutError } from '@farfetch/blackout-client';
+
 export const mockPromotionEvaluationId = '123456';
 export const mockPromotionEvaluationItemId = '123456-7890';
 
@@ -45,9 +47,7 @@ export const mockLoadingState = {
 export const mockErrorState = {
   promotionEvaluations: {
     id: null,
-    error: {
-      message: 'Error message',
-    },
+    error: toBlackoutError(new Error('error message')),
     isLoading: false,
     result: null,
   },
