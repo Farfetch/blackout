@@ -1,8 +1,8 @@
 import type { Config } from '../..';
 import type { Configurations } from './configurations';
-import type { Query } from './query';
+import type { ConfigurationsQuery } from './configurationsQuery';
 
 export type GetConfigurations = (
-  query: Query,
+  query: ConfigurationsQuery,
   config?: Config,
 ) => Promise<Configurations>;
