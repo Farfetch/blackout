@@ -448,6 +448,13 @@ Object {
     "InStore": "InStore",
     "Manual": "Manual",
   },
+  "SchemaFieldType": Object {
+    "Boolean": "boolean",
+    "Number": "number",
+    "Object": "object",
+    "PreOwned": "PreOwned",
+    "String": "string",
+  },
   "SearchIntentsTypeFilter": Object {
     "0": "ProductId",
     "1": "Brands",
@@ -677,6 +684,7 @@ Object {
   "getCheckoutOrderOperations": [Function],
   "getCollectPoints": [Function],
   "getCommercePages": [Function],
+  "getConfiguration": [Function],
   "getConfigurations": [Function],
   "getContentTypes": [Function],
   "getCountries": [Function],
