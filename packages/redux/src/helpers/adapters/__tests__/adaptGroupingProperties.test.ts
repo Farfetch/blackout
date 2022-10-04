@@ -11,11 +11,7 @@ describe('adaptGroupingProperties()', () => {
 
   it('should map grouping to the corresponding adapted structure', () => {
     expect(
-      adaptGroupingProperties({
-        '!all': mockProductGroupingProperties,
-      }),
-    ).toMatchObject({
-      '!all': mockProductGroupingPropertiesAdapted,
-    });
+      adaptGroupingProperties(mockProductGroupingProperties),
+    ).toMatchObject(mockProductGroupingPropertiesAdapted);
   });
 });

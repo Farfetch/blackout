@@ -8,8 +8,6 @@ import {
 import { mockPriceAdapted } from './price.fixtures';
 import { mockProductAttributes } from './productAttributes.fixtures';
 import { mockProductFittings } from './productFittings.fixtures';
-import { mockProductGroupingAdapted } from './productGrouping.fixtures';
-import { mockProductGroupingPropertiesAdapted } from './productGroupingProperties.fixtures';
 import { mockProductSizeGuides } from './productSizeGuides.fixtures';
 import { mockProductSizesAdapted } from './productSizes.fixtures';
 import { mockProductVariants } from './productVariantsMerchantsLocations.fixtures';
@@ -263,10 +261,4 @@ export const mockProduct = {
   slug: 'chuck-70-u-throat-ballet-sneakers-12913174',
   tag: mockTag,
   variants: mockProductVariants,
-  groupingProperties: {
-    '!all': mockProductGroupingPropertiesAdapted,
-  },
-  grouping: {
-    '?pageindex=1': mockProductGroupingAdapted,
-  },
 };

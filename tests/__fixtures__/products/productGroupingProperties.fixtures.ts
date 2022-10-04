@@ -1,5 +1,3 @@
-import { mockPriceAdaptedEmpty } from './price.fixtures';
-import { mockProductId } from './ids.fixtures';
 import { VariationPropertyType } from '@farfetch/blackout-client';
 
 export const mockProductGroupingProperties = [
@@ -698,30 +696,3 @@ export const mockProductGroupingPropertiesAdapted = [
     ],
   },
 ];
-
-export const mockProductGroupingPropertiesNormalizedResponse = {
-  entities: {
-    products: {
-      [mockProductId]: {
-        id: mockProductId,
-        grouping: undefined,
-        groupingProperties: {
-          '?hasstock=true': mockProductGroupingPropertiesAdapted,
-        },
-        customAttributes: undefined,
-        groupedEntries: undefined,
-        images: undefined,
-        merchant: undefined,
-        price: mockPriceAdaptedEmpty,
-        prices: undefined,
-        sizes: undefined,
-        tag: {
-          id: undefined,
-          name: undefined,
-        },
-        variants: undefined,
-      },
-    },
-  },
-  result: mockProductId,
-};

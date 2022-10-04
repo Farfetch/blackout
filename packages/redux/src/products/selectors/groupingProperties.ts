@@ -1,5 +1,4 @@
 import { getError, getIsLoading } from '../reducer/groupingProperties';
-import { getProduct } from './product';
 import type { ProductEntity } from '../../entities/types';
 import type { ProductsState } from '../types';
 import type { StoreState } from '../../types';
@@ -15,7 +14,11 @@ import type { StoreState } from '../../types';
 export const areProductGroupingPropertiesLoading = (
   state: StoreState,
   id: ProductEntity['id'],
-) => getIsLoading((state.products as ProductsState).groupingProperties)[id];
+  hash: string,
+) =>
+  getIsLoading((state.products as ProductsState).groupingProperties)[id]?.[
+    hash
+  ];
 
 /**
  * Returns the fetched status of a specific product grouping properties.
@@ -28,11 +31,12 @@ export const areProductGroupingPropertiesLoading = (
 export const areProductGroupingPropertiesFetched = (
   state: StoreState,
   id: ProductEntity['id'],
+  hash: string,
 ) =>
-  getIsLoading(
-    (state.products as ProductsState).groupingProperties,
-  ).hasOwnProperty(id) &&
-  areProductGroupingPropertiesLoading(state, id) === false;
+  getIsLoading((state.products as ProductsState).groupingProperties)?.[
+    id
+  ]?.hasOwnProperty(hash) &&
+  areProductGroupingPropertiesLoading(state, id, hash) === false;
 
 /**
  * Returns the error grouping properties condition to a specific product.
@@ -45,7 +49,8 @@ export const areProductGroupingPropertiesFetched = (
 export const getProductGroupingPropertiesError = (
   state: StoreState,
   id: ProductEntity['id'],
-) => getError((state.products as ProductsState).groupingProperties)[id];
+  hash: string,
+) => getError((state.products as ProductsState).groupingProperties)[id]?.[hash];
 
 /**
  * Returns the grouping properties for a given product id.
@@ -60,9 +65,5 @@ export const getProductGroupingProperties = (
   state: StoreState,
   id: ProductEntity['id'],
   hash: string,
-) => {
-  const product = getProduct(state, id);
-  const groupingProperties = product?.groupingProperties?.[hash];
-
-  return groupingProperties;
-};
+) =>
+  (state.products as ProductsState).groupingProperties?.results?.[id]?.[hash];
