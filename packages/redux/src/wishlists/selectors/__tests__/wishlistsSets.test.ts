@@ -8,6 +8,8 @@ import {
   mockWishlistSetId,
   mockWishlistState,
 } from 'tests/__fixtures__/wishlists';
+import { mockProductsEntity } from 'tests/__fixtures__/products';
+import { toBlackoutError } from '@farfetch/blackout-client';
 
 describe('wishlists redux selectors', () => {
   const productEntity =
@@ -24,7 +26,7 @@ describe('wishlists redux selectors', () => {
           ...mockWishlistState.wishlist,
           sets: {
             ...mockWishlistState.wishlist.sets,
-            error: { message: 'foo' },
+            error: toBlackoutError(new Error('error')),
           },
         },
       };
@@ -150,7 +152,7 @@ describe('wishlists redux selectors', () => {
             ...mockWishlistState.entities.wishlistSets[mockWishlistSetId]
               .wishlistSetItems[0],
             ...mockWishlistState.entities.wishlistItems[mockWishlistItemId],
-            product: productEntity,
+            product: { ...mockProductsEntity[mockProductId], ...productEntity },
           },
         ],
       };
@@ -176,9 +178,12 @@ describe('wishlists redux selectors', () => {
         entities: {
           ...mockWishlistState.entities,
           wishlistSets: {
+            ...mockWishlistState.entities.wishlistSets,
             [mockWishlistSetId]: {
+              ...mockWishlistState.entities.wishlistSets[mockWishlistSetId],
               id: mockWishlistSetId,
               name: 'set name',
+              wishlistSetItems: [],
             },
           },
         },
@@ -330,7 +335,7 @@ describe('wishlists redux selectors', () => {
           ...mockWishlistState.wishlist,
           sets: {
             ...mockWishlistState.wishlist.sets,
-            error: { message: 'foo' },
+            error: toBlackoutError(new Error('error')),
           },
         },
       };

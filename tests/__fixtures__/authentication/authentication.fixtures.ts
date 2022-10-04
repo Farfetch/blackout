@@ -1,30 +1,33 @@
+import { UserGender } from '@farfetch/blackout-client';
+
 export const id = '1';
 export const userId = 123123;
 export const mockResponse = {
   bagId: 'cb805dc8-86f5-409e-84d1-3209c2be9517',
-  dateOfBirth: null,
+  dateOfBirth: undefined,
   email: 'pepe@acme.com',
-  gender: 0,
+  gender: UserGender.Male,
   id: 29556478,
   name: 'Pepe',
   title: {
     id: '111',
     value: 'Dr.',
   },
-  phoneNumber: null,
+  phoneNumber: undefined,
   segments: [],
   username: 'pepe@acme.com',
   wishlistId: '1e5232f8-7af0-4fba-b6b1-b87e2cb3a88f',
   isExternalLogin: false,
   isGuest: false,
   guestBagItemsMerged: 0,
+  countryCode: 'PT',
 };
 
 export const mockUnverifiedUserResponse = {
   bagId: 'cb805dc8-86f5-409e-84d1-3209c2be9517',
-  dateOfBirth: null,
+  dateOfBirth: undefined,
   email: 'pepe@acme.com',
-  gender: 0,
+  gender: UserGender.Male,
   id: 0,
   name: 'Pepe',
   title: {
@@ -32,7 +35,7 @@ export const mockUnverifiedUserResponse = {
     value: 'Dr.',
   },
   status: 'PendingEmailConfirmation',
-  phoneNumber: null,
+  phoneNumber: undefined,
   segments: [],
   username: 'pepe@acme.com',
   wishlistId: '1e5232f8-7af0-4fba-b6b1-b87e2cb3a88f',
@@ -45,16 +48,16 @@ export const expectedNormalizedPayload = {
   entities: {
     user: {
       bagId: 'cb805dc8-86f5-409e-84d1-3209c2be9517',
-      dateOfBirth: null,
+      dateOfBirth: undefined,
       email: 'pepe@acme.com',
-      gender: 0,
+      gender: UserGender.Male,
       id: 29556478,
       name: 'Pepe',
       title: {
         id: '111',
         value: 'Dr.',
       },
-      phoneNumber: null,
+      phoneNumber: undefined,
       segments: [],
       username: 'pepe@acme.com',
       wishlistId: '1e5232f8-7af0-4fba-b6b1-b87e2cb3a88f',

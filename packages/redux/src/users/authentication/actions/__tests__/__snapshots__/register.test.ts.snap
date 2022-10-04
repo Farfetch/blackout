@@ -10,15 +10,16 @@ Object {
     "entities": Object {
       "user": Object {
         "bagId": "cb805dc8-86f5-409e-84d1-3209c2be9517",
-        "dateOfBirth": null,
+        "countryCode": "PT",
+        "dateOfBirth": undefined,
         "email": "pepe@acme.com",
-        "gender": 0,
+        "gender": "Male",
         "guestBagItemsMerged": 0,
         "id": 29556478,
         "isExternalLogin": false,
         "isGuest": false,
         "name": "Pepe",
-        "phoneNumber": null,
+        "phoneNumber": undefined,
         "segments": Array [],
         "title": Object {
           "id": "111",

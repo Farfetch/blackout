@@ -56,7 +56,7 @@ export interface ContentEntry {
   publicationDate: string;
   versionId: string;
   spaceCode: string;
-  metadata: Metadata;
+  metadata?: Metadata;
   target?: Targets;
   contentTypeCode: string;
   environmentCode: string;

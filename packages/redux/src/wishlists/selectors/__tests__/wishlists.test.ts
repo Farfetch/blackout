@@ -9,10 +9,15 @@ import {
   mockWishlistSetId,
   mockWishlistState,
 } from 'tests/__fixtures__/wishlists';
+import { mockProductsEntity } from 'tests/__fixtures__/products';
+import { toBlackoutError } from '@farfetch/blackout-client';
+import type { ProductEntity } from '../../../entities';
 
 describe('wishlists redux selectors', () => {
   const wishlistItemEntity =
     mockWishlistNormalizedPayload.entities.wishlistItems[mockWishlistItemId];
+  const mockWishlistStateEntity =
+    mockWishlistState.entities.wishlistItems[mockWishlistItemId];
   const productEntity =
     mockWishlistNormalizedPayload.entities.products[mockProductId];
 
@@ -73,8 +78,8 @@ describe('wishlists redux selectors', () => {
         ...mockWishlistState,
         wishlist: {
           ...mockWishlistState.wishlist,
-          error: new Error(),
-          id: undefined,
+          error: toBlackoutError(new Error('error')),
+          id: null,
         },
       };
       expect(selectors.isWishlistFetched(mockStateWithError)).toBe(true);
@@ -95,7 +100,8 @@ describe('wishlists redux selectors', () => {
   describe('getWishlistItem()', () => {
     const expectedResult = {
       ...wishlistItemEntity,
-      product: productEntity,
+      ...mockWishlistStateEntity,
+      product: { ...mockProductsEntity[mockProductId] },
     };
 
     it('should return all data regarding a wishlist item', () => {
@@ -148,8 +154,13 @@ describe('wishlists redux selectors', () => {
           product: mockWishlistState.entities.products[mockProductId],
         },
         {
+          ...mockWishlistState.entities.wishlistItems[mockWishlistItemId],
           id: 102,
-          product: { id: 1002, description: 'bar product' },
+          product: {
+            ...mockProductsEntity[mockProductId],
+            id: 1002,
+            description: 'wide leg pant',
+          },
           quantity: 2,
         },
       ];
@@ -173,9 +184,14 @@ describe('wishlists redux selectors', () => {
           product: mockWishlistState.entities.products[mockProductId],
         },
         {
+          ...mockWishlistState.entities.wishlistItems[mockWishlistItemId],
           id: 102,
           parentSets: [],
-          product: { id: 1002, description: 'bar product' },
+          product: {
+            ...mockProductsEntity[mockProductId],
+            id: 1002,
+            description: 'wide leg pant',
+          },
           quantity: 2,
         },
       ];
@@ -244,12 +260,18 @@ describe('wishlists redux selectors', () => {
     it('should return the wishlist item that already exists', () => {
       const expectedResult = {
         ...wishlistItemEntity,
-        product: productEntity,
+        ...mockWishlistStateEntity,
+        product: {
+          ...mockProductsEntity[mockProductId],
+        },
       };
 
       expect(
         selectors.findProductInWishlist(mockWishlistState, {
-          product: productEntity,
+          product: {
+            ...mockProductsEntity[mockProductId],
+            ...productEntity,
+          },
           size: wishlistItemEntity.size,
         }),
       ).toEqual(expectedResult);
@@ -273,7 +295,7 @@ describe('wishlists redux selectors', () => {
 
       expect(
         selectors.findProductInWishlist(state, {
-          product: productEntity,
+          product: productEntity as ProductEntity,
         }),
       ).toBeUndefined();
     });
@@ -308,7 +330,8 @@ describe('wishlists redux selectors', () => {
       const mockStateWithGeneralError = {
         ...mockWishlistState,
         wishlist: {
-          error: 'error: not loaded',
+          ...mockWishlistState.wishlist,
+          error: toBlackoutError(new Error('error: not loaded')),
           id: mockWishlistId,
           isLoading: false,
           items: {
@@ -334,6 +357,7 @@ describe('wishlists redux selectors', () => {
       const mockStatewithWishlistItemError = {
         ...mockWishlistState,
         wishlist: {
+          ...mockWishlistState.wishlist,
           error: null,
           id: mockWishlistId,
           isLoading: false,
@@ -344,7 +368,7 @@ describe('wishlists redux selectors', () => {
                 [mockWishlistItemId]: true,
               },
               error: {
-                [mockWishlistItemId]: 'Oh no! Terrible error!',
+                [mockWishlistItemId]: toBlackoutError(new Error('error')),
               },
             },
           },
@@ -360,6 +384,7 @@ describe('wishlists redux selectors', () => {
       const mockStateWithoutError = {
         ...mockWishlistState,
         wishlist: {
+          ...mockWishlistState.wishlist,
           error: null,
           id: mockWishlistId,
           isLoading: false,
@@ -385,6 +410,7 @@ describe('wishlists redux selectors', () => {
       const mockStateWithoutWishlistItems = {
         ...mockWishlistState,
         wishlist: {
+          ...mockWishlistState.wishlist,
           error: null,
           id: mockWishlistId,
           isLoading: false,
@@ -406,10 +432,12 @@ describe('wishlists redux selectors', () => {
       const mockStateWithoutWishlistItems = {
         ...mockWishlistState,
         wishlist: {
+          ...mockWishlistState.wishlist,
           error: null,
           id: mockWishlistId,
           isLoading: false,
           items: {
+            ...mockWishlistState.wishlist.items,
             item: {
               isLoading: {},
               error: {},
@@ -454,6 +482,7 @@ describe('wishlists redux selectors', () => {
           wishlistItems: {
             ...mockWishlistState.entities.wishlistItems,
             103: {
+              ...mockWishlistState.entities.wishlistItems[mockWishlistItemId],
               product: mockProductId,
             },
           },
