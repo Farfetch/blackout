@@ -1,5 +1,4 @@
 import { getError, getIsLoading } from '../reducer/grouping';
-import { getProduct } from './product';
 import type { ProductEntity } from '../../entities/types';
 import type { ProductsState } from '../types';
 import type { StoreState } from '../../types';
@@ -15,7 +14,8 @@ import type { StoreState } from '../../types';
 export const isProductGroupingLoading = (
   state: StoreState,
   id: ProductEntity['id'],
-) => getIsLoading((state.products as ProductsState).grouping)[id];
+  hash: string,
+) => getIsLoading((state.products as ProductsState).grouping)[id]?.[hash];
 
 /**
  * Returns the fetched status of a specific product grouping.
@@ -28,9 +28,12 @@ export const isProductGroupingLoading = (
 export const isProductGroupingFetched = (
   state: StoreState,
   id: ProductEntity['id'],
+  hash: string,
 ) =>
-  getIsLoading((state.products as ProductsState).grouping).hasOwnProperty(id) &&
-  isProductGroupingLoading(state, id) === false;
+  getIsLoading((state.products as ProductsState).grouping)?.[
+    id
+  ]?.hasOwnProperty(hash) &&
+  isProductGroupingLoading(state, id, hash) === false;
 
 /**
  * Returns the error grouping condition to a specific product.
@@ -43,7 +46,8 @@ export const isProductGroupingFetched = (
 export const getProductGroupingError = (
   state: StoreState,
   id: ProductEntity['id'],
-) => getError((state.products as ProductsState).grouping)[id];
+  hash: string,
+) => getError((state.products as ProductsState).grouping)[id]?.[hash];
 
 /**
  * Returns the grouping for a given product id.
@@ -58,9 +62,4 @@ export const getProductGrouping = (
   state: StoreState,
   id: ProductEntity['id'],
   hash: string,
-) => {
-  const product = getProduct(state, id);
-  const grouping = product?.grouping?.[hash];
-
-  return grouping;
-};
+) => (state.products as ProductsState).grouping?.results?.[id]?.[hash];

@@ -41,10 +41,10 @@ describe('useProductGroupingProperties', () => {
       products: {
         groupingProperties: {
           error: {
-            [mockProductId]: 'Error - Not loaded.',
+            [mockProductId]: { '!all': 'Error - Not loaded.' },
           },
           isLoading: {
-            [mockProductId]: false,
+            [mockProductId]: { '!all': false },
           },
         },
       },
@@ -75,7 +75,7 @@ describe('useProductGroupingProperties', () => {
         groupingProperties: {
           error: {},
           isLoading: {
-            [mockProductId]: true,
+            [mockProductId]: { '!all': true },
           },
         },
       },
@@ -128,13 +128,24 @@ describe('useProductGroupingProperties', () => {
     });
 
     it('should not fetch data if `enableAutoFetch` option is false', () => {
+      const initialMockProductsState = {
+        entities: {},
+        products: {
+          groupingProperties: {
+            error: {},
+            isLoading: {},
+            results: {},
+          },
+        },
+      };
+
       renderHook(
         () =>
           useProductGroupingProperties(mockProductId, {
             enableAutoFetch: false,
           }),
         {
-          wrapper: withStore(mockProductsState),
+          wrapper: withStore(initialMockProductsState),
         },
       );
 
@@ -185,7 +196,7 @@ describe('useProductGroupingProperties', () => {
 
       expect(fetchProductGroupingProperties).toHaveBeenCalledWith(
         mockProductId,
-        {},
+        undefined,
         undefined,
       );
     });

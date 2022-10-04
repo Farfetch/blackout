@@ -1,3 +1,4 @@
+import { adaptGrouping } from '../../../helpers/adapters';
 import { buildQueryStringFromObject } from '../../../helpers';
 import {
   Config,
@@ -12,11 +13,7 @@ import {
   FETCH_PRODUCT_GROUPING_REQUEST,
   FETCH_PRODUCT_GROUPING_SUCCESS,
 } from '../../actionTypes';
-import { getProduct } from '../../selectors';
-import { normalize } from 'normalizr';
-import productSchema from '../../../entities/schemas/product';
 import type { Dispatch } from 'redux';
-import type { StoreState } from '../../../types';
 
 /**
  * Creates a thunk factory configured with the specified client to fetch product
@@ -40,34 +37,23 @@ const fetchProductGroupingFactory =
     query: GroupingQuery = {},
     config?: Config,
   ) =>
-  async (
-    dispatch: Dispatch,
-    getState: () => StoreState,
-  ): Promise<ProductGrouping> => {
+  async (dispatch: Dispatch): Promise<ProductGrouping> => {
+    const queryString = query && buildQueryStringFromObject(query);
+    const hash = queryString ? queryString : '!all';
+
     try {
       dispatch({
         meta: { productId },
+        payload: { hash },
         type: FETCH_PRODUCT_GROUPING_REQUEST,
       });
 
       const result = await getProductGrouping(productId, query, config);
-      const state = getState();
-      const product = getProduct(state, productId);
-      const previousGroupings = product?.grouping;
-      const queryString = query && buildQueryStringFromObject(query);
-      const hash = queryString ? queryString : '!all';
-
-      const productWithGrouping = {
-        id: productId,
-        grouping: {
-          ...previousGroupings,
-          [hash]: result,
-        },
-      };
+      const adaptedGrouping = adaptGrouping(result);
 
       dispatch({
         meta: { productId },
-        payload: normalize(productWithGrouping, productSchema),
+        payload: { result: adaptedGrouping, hash },
         type: FETCH_PRODUCT_GROUPING_SUCCESS,
       });
 
@@ -75,7 +61,7 @@ const fetchProductGroupingFactory =
     } catch (error) {
       dispatch({
         meta: { productId },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: toBlackoutError(error), hash },
         type: FETCH_PRODUCT_GROUPING_FAILURE,
       });
 

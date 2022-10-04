@@ -571,13 +571,10 @@ Object {
   "fetchProductFittingsFactory": [Function],
   "fetchProductGrouping": [Function],
   "fetchProductGroupingFactory": [Function],
-<<<<<<< HEAD
-  "fetchProductListing": [Function],
-  "fetchProductListingFactory": [Function],
-=======
   "fetchProductGroupingProperties": [Function],
   "fetchProductGroupingPropertiesFactory": [Function],
->>>>>>> fd37b51a (feat(client|react|redux): add useProductGrouping and useProductGroupingProperties hooks)
+  "fetchProductListing": [Function],
+  "fetchProductListingFactory": [Function],
   "fetchProductMeasurements": [Function],
   "fetchProductMeasurementsFactory": [Function],
   "fetchProductSet": [Function],

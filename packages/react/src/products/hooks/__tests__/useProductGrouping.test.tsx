@@ -38,10 +38,10 @@ describe('useProductGrouping', () => {
       products: {
         grouping: {
           error: {
-            [mockProductId]: 'Error - Not loaded.',
+            [mockProductId]: { '?pageindex=1': 'Error - Not loaded.' },
           },
           isLoading: {
-            [mockProductId]: false,
+            [mockProductId]: { '?pageindex=1': false },
           },
         },
       },
@@ -69,8 +69,9 @@ describe('useProductGrouping', () => {
         grouping: {
           error: {},
           isLoading: {
-            [mockProductId]: true,
+            [mockProductId]: { '?pageindex=1': true },
           },
+          results: {},
         },
       },
     };
@@ -98,6 +99,7 @@ describe('useProductGrouping', () => {
           grouping: {
             error: {},
             isLoading: {},
+            results: {},
           },
         },
       };
@@ -119,13 +121,24 @@ describe('useProductGrouping', () => {
     });
 
     it('should not fetch data if `enableAutoFetch` option is false', () => {
+      const initialMockProductsState = {
+        entities: {},
+        products: {
+          grouping: {
+            error: {},
+            isLoading: {},
+            results: {},
+          },
+        },
+      };
+
       renderHook(
         () =>
           useProductGrouping(mockProductId, {
             enableAutoFetch: false,
           }),
         {
-          wrapper: withStore(mockProductsState),
+          wrapper: withStore(initialMockProductsState),
         },
       );
 
@@ -139,6 +152,7 @@ describe('useProductGrouping', () => {
           grouping: {
             error: {},
             isLoading: {},
+            results: {},
           },
         },
       };

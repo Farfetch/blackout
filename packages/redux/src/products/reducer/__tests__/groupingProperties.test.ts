@@ -18,7 +18,7 @@ describe('groupingProperties redux reducer', () => {
   describe('error() reducer', () => {
     const error = 'An error occurred';
     const expectedError = {
-      [mockProductId]: error,
+      [mockProductId]: { '!all': error },
     };
 
     it('should return the initial state', () => {
@@ -28,10 +28,11 @@ describe('groupingProperties redux reducer', () => {
     });
 
     it('should handle FETCH_PRODUCT_GROUPING_PROPERTIES_REQUEST action type', () => {
-      const expectedResult = { [mockProductId]: undefined };
+      const expectedResult = { [mockProductId]: { '!all': undefined } };
       const state = reducer(undefined, {
         meta,
         type: productsActionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_REQUEST,
+        payload: { hash: '!all' },
       });
 
       expect(state.error).toEqual(expectedResult);
@@ -40,7 +41,7 @@ describe('groupingProperties redux reducer', () => {
     it('should handle FETCH_PRODUCT_GROUPING_PROPERTIES_FAILURE action type', () => {
       const state = reducer(undefined, {
         meta,
-        payload: { error },
+        payload: { error, hash: '!all' },
         type: productsActionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_FAILURE,
       });
 
@@ -49,7 +50,7 @@ describe('groupingProperties redux reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
-        error: { [mockProductId]: error },
+        error: { [mockProductId]: { '!all': error } },
         isLoading: {},
       };
 
@@ -66,11 +67,12 @@ describe('groupingProperties redux reducer', () => {
 
     it('should handle FETCH_PRODUCT_GROUPING_PROPERTIES_REQUEST action type', () => {
       const expectedIsLoading = {
-        [mockProductId]: true,
+        [mockProductId]: { '!all': true },
       };
       const state = reducer(undefined, {
         meta,
         type: productsActionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_REQUEST,
+        payload: { hash: '!all' },
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
@@ -78,11 +80,11 @@ describe('groupingProperties redux reducer', () => {
 
     it('should handle FETCH_PRODUCT_GROUPING_PROPERTIES_FAILURE action type', () => {
       const expectedIsLoading = {
-        [mockProductId]: undefined,
+        [mockProductId]: { '!all': false },
       };
       const state = reducer(undefined, {
         meta,
-        payload: { error: '' },
+        payload: { error: '', hash: '!all' },
         type: productsActionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_FAILURE,
       });
 
@@ -91,11 +93,12 @@ describe('groupingProperties redux reducer', () => {
 
     it('should handle FETCH_PRODUCT_GROUPING_PROPERTIES_SUCCESS action type', () => {
       const expectedIsLoading = {
-        [mockProductId]: false,
+        [mockProductId]: { '!all': false },
       };
       const state = reducer(undefined, {
         meta,
         payload: {
+          hash: '!all',
           result: mockProductId,
         },
         type: productsActionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_SUCCESS,
