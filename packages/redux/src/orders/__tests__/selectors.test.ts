@@ -20,6 +20,7 @@ import {
   returnOptionId,
   trackingNumber,
 } from 'tests/__fixtures__/orders';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import omit from 'lodash/omit';
 
 describe('orders redux selectors', () => {
@@ -85,7 +86,7 @@ describe('orders redux selectors', () => {
         ...mockState,
         orders: {
           ...mockState.orders,
-          result: undefined,
+          result: null,
         },
       };
       expect(selectors.getOrdersPagination(newMock)).toEqual(expectedResult);
@@ -122,7 +123,7 @@ describe('orders redux selectors', () => {
         ...mockState,
         orders: {
           ...mockState.orders,
-          result: undefined,
+          result: null,
         },
       };
       expect(selectors.getOrdersResult(stateWithUndefinedResult)).toEqual(
@@ -440,6 +441,36 @@ describe('orders redux selectors', () => {
         },
         orders: {
           isLoading: true,
+          error: toBlackoutError(new Error('Error')),
+          result: null,
+          orderDetails: {
+            error: { [orderId]: toBlackoutError(new Error('Error')) },
+            isLoading: { [orderId]: false },
+          },
+          orderReturns: {
+            error: { [orderId]: toBlackoutError(new Error('Error')) },
+            isLoading: { [orderId]: false },
+          },
+          orderReturnOptions: {
+            error: { [orderId]: toBlackoutError(new Error('Error')) },
+            isLoading: { [orderId]: false },
+          },
+          trackings: {
+            error: { name: '', message: 'Error', code: 123 },
+            isLoading: false,
+          },
+          documents: {
+            error: toBlackoutError(new Error('Error')),
+            isLoading: false,
+          },
+          orderAvailableItemsActivities: {
+            error: toBlackoutError(new Error('Error')),
+            isLoading: false,
+          },
+          orderItemAvailableActivities: {
+            error: toBlackoutError(new Error('Error')),
+            isLoading: false,
+          },
         },
       };
 
@@ -454,7 +485,7 @@ describe('orders redux selectors', () => {
           ...baseState,
           orders: {
             ...baseState.orders,
-            error: new Error('error'),
+            error: toBlackoutError(new Error('error')),
           },
         };
 
@@ -483,7 +514,7 @@ describe('orders redux selectors', () => {
           ...stateWithResult,
           orders: {
             ...stateWithResult.orders,
-            error: new Error('error'),
+            error: toBlackoutError(new Error('error')),
           },
         };
 
@@ -498,6 +529,36 @@ describe('orders redux selectors', () => {
         },
         orders: {
           isLoading: false,
+          error: null,
+          result: null,
+          orderDetails: {
+            error: { [orderId]: null },
+            isLoading: { [orderId]: false },
+          },
+          orderReturns: {
+            error: { [orderId]: null },
+            isLoading: { [orderId]: false },
+          },
+          orderReturnOptions: {
+            error: { [orderId]: null },
+            isLoading: { [orderId]: false },
+          },
+          trackings: {
+            error: null,
+            isLoading: false,
+          },
+          documents: {
+            error: null,
+            isLoading: false,
+          },
+          orderAvailableItemsActivities: {
+            error: null,
+            isLoading: false,
+          },
+          orderItemAvailableActivities: {
+            error: null,
+            isLoading: false,
+          },
         },
       };
 
@@ -512,7 +573,7 @@ describe('orders redux selectors', () => {
           ...baseState,
           orders: {
             ...baseState.orders,
-            error: new Error('error'),
+            error: toBlackoutError(new Error('error')),
           },
         };
 
@@ -547,7 +608,7 @@ describe('orders redux selectors', () => {
               number: 1,
               totalItems: 1,
             },
-            error: new Error('error'),
+            error: toBlackoutError(new Error('error')),
           },
         };
 
@@ -567,6 +628,33 @@ describe('orders redux selectors', () => {
             },
             error: {},
           },
+          isLoading: true,
+          error: toBlackoutError('Error'),
+          result: null,
+          orderReturns: {
+            error: { [orderId]: toBlackoutError(new Error('Error')) },
+            isLoading: { [orderId]: true },
+          },
+          orderReturnOptions: {
+            error: { [orderId]: toBlackoutError(new Error('Error')) },
+            isLoading: { [orderId]: true },
+          },
+          trackings: {
+            error: toBlackoutError(new Error('Error')),
+            isLoading: true,
+          },
+          documents: {
+            error: toBlackoutError(new Error('Error')),
+            isLoading: true,
+          },
+          orderAvailableItemsActivities: {
+            error: toBlackoutError(new Error('Error')),
+            isLoading: true,
+          },
+          orderItemAvailableActivities: {
+            error: toBlackoutError(new Error('Error')),
+            isLoading: true,
+          },
         },
       };
 
@@ -583,7 +671,7 @@ describe('orders redux selectors', () => {
             ...baseState.orders,
             orderDetails: {
               ...baseState.orders.orderDetails,
-              error: { [orderId]: new Error('error') },
+              error: { [orderId]: toBlackoutError(new Error('error')) },
             },
           },
         };
@@ -626,18 +714,49 @@ describe('orders redux selectors', () => {
             },
             error: {},
           },
+          isLoading: false,
+          error: toBlackoutError(new Error('Error')),
+          result: null,
+          orderReturns: {
+            error: {},
+            isLoading: {},
+          },
+          orderReturnOptions: {
+            error: {},
+            isLoading: {},
+          },
+          trackings: {
+            error: null,
+            isLoading: false,
+          },
+          documents: {
+            error: null,
+            isLoading: false,
+          },
+          orderAvailableItemsActivities: {
+            error: null,
+            isLoading: false,
+          },
+          orderItemAvailableActivities: {
+            error: null,
+            isLoading: false,
+          },
         },
       };
 
       it('should return false if there is no error and no result', () => {
-        const stateWithNoIsLoadingProp = {
-          ...baseState,
+        const newOrdersState = {
+          // this logic should be fixed
           orders: {
             orderDetails: {
               isLoading: {},
               error: {},
             },
           },
+        };
+        const stateWithNoIsLoadingProp = {
+          ...baseState,
+          newOrdersState,
         };
 
         // Case 1: There is no entry for the orderId in orderDetails state
@@ -653,9 +772,14 @@ describe('orders redux selectors', () => {
       it('should return false if there is a result but it does not contain the `items` property', () => {
         // Case 1: Order has items prop but the order item entities it points to
         // are not in entities
+
+        const newEntitiesState = {
+          // this logic should be fixed
+          entities: { [orderId]: orderEntity },
+        };
         const stateWithPartialOrder = {
           ...baseState,
-          entities: { [orderId]: orderEntity },
+          newEntitiesState,
         };
 
         expect(selectors.isOrderFetched(stateWithPartialOrder, orderId)).toBe(
@@ -663,9 +787,13 @@ describe('orders redux selectors', () => {
         );
 
         // Case 2: Order does not have the items prop altogether
+        const newEntitiesState2 = {
+          // this logic should be fixed
+          entities: { [orderId]: { id: orderId } },
+        };
         const stateWithPartialOrderWithoutItemsProp = {
           ...baseState,
-          entities: { [orderId]: { id: orderId } },
+          newEntitiesState2,
         };
 
         expect(
@@ -685,7 +813,7 @@ describe('orders redux selectors', () => {
             ...baseState.orders,
             orderDetails: {
               ...baseState.orders.orderDetails,
-              error: { [orderId]: new Error('error') },
+              error: { [orderId]: toBlackoutError(new Error('error')) },
             },
           },
         };

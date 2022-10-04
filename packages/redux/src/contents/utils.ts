@@ -109,7 +109,7 @@ const getCommercePagesRanked = (
 ): CommercePagesContent => {
   const commercePagesWithRank = result.entries.map(page => ({
     ...page,
-    ranking: getPageRanking(page.metadata),
+    ranking: getPageRanking(page.metadata as Metadata),
   })) as CommercePages['entries'];
 
   return commercePagesWithRank.sort(

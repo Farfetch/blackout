@@ -3,22 +3,22 @@ import * as fromLocale from '../reducer';
 import * as selectors from '../selectors';
 import {
   isoCode as countryId,
-  expectedGetAddressSchemaNormalizedPayload,
+  isoCode,
   mockCities,
   mockCitiesEntities,
   mockCountriesEntities,
   mockCountry,
   mockCountryCode,
   mockCountryNormalized,
+  mockGetAddressSchemaResponse,
   mockStateId,
   mockStates,
   mockStatesEntities,
 } from 'tests/__fixtures__/locale';
-
+import type { CityEntity } from '@farfetch/blackout-redux';
 describe('locale redux selectors', () => {
   const countriesAddressSchemasEntity = {
-    ...expectedGetAddressSchemaNormalizedPayload['entities']
-      .countriesAddressSchemas,
+    [isoCode]: mockGetAddressSchemaResponse,
   };
 
   const mockState = {
@@ -44,6 +44,7 @@ describe('locale redux selectors', () => {
         isLoading: false,
         error: null,
       },
+      sourceCountryCode: 'US',
     },
     entities: {
       cities: mockCitiesEntities,
@@ -176,7 +177,7 @@ describe('locale redux selectors', () => {
   describe('getCountryCurrencyCode()', () => {
     it('should get the currency code', () => {
       expect(selectors.getCountryCurrencyCode(mockState)).toEqual(
-        mockCountry.currencies[0].isoCode,
+        mockCountry.currencies[0]?.isoCode,
       );
     });
   });
@@ -215,9 +216,9 @@ describe('locale redux selectors', () => {
 
   describe('getCity()', () => {
     it('should get a city by cityId', () => {
-      expect(selectors.getCity(mockState, mockCities[0].id)).toEqual(
-        mockCities[0],
-      );
+      expect(
+        selectors.getCity(mockState, (mockCities[0] as CityEntity).id),
+      ).toEqual(mockCities[0]);
     });
   });
 
@@ -231,17 +232,17 @@ describe('locale redux selectors', () => {
 
   describe('getState()', () => {
     it('should get a state by stateId', () => {
-      expect(selectors.getState(mockState, mockStates[0].id)).toEqual(
-        mockStatesEntities[mockStates[0].id],
-      );
+      expect(
+        selectors.getState(mockState, (mockStates[0] as CityEntity).id),
+      ).toEqual(mockStatesEntities[mockStates[0].id]);
     });
   });
 
   describe('getCountryStates()', () => {
     it('should get all the states for a specific countryCode', () => {
       expect(selectors.getCountryStates(mockState)).toEqual([
-        { ...mockStates[0], cities: [mockCities[0].id] },
-        { ...mockStates[1], cities: [mockCities[1].id] },
+        { ...mockStates[0], cities: [(mockCities[0] as CityEntity).id] },
+        { ...mockStates[1], cities: [(mockCities[1] as CityEntity).id] },
       ]);
     });
   });
@@ -260,9 +261,7 @@ describe('locale redux selectors', () => {
 
   describe('getCountryAddressSchemas()', () => {
     it('should get the schema for a specific country from state', () => {
-      const expectedResult =
-        expectedGetAddressSchemaNormalizedPayload['entities']
-          .countriesAddressSchemas[countryId];
+      const expectedResult = mockGetAddressSchemaResponse;
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(selectors.getCountryAddressSchemas(mockState, countryId)).toEqual(
@@ -301,9 +300,9 @@ describe('locale redux selectors', () => {
 
   describe('getCity()', () => {
     it('should return the city entity', () => {
-      expect(selectors.getCity(mockState, mockCities[0].id)).toEqual(
-        mockCities[0],
-      );
+      expect(
+        selectors.getCity(mockState, (mockCities[0] as CityEntity).id),
+      ).toEqual(mockCities[0]);
     });
   });
 

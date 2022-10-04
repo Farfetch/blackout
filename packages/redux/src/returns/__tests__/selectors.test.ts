@@ -61,7 +61,7 @@ describe('returns redux selectors', () => {
         ...mockState,
         returns: {
           ...mockState.returns,
-          id: undefined,
+          id: null,
         },
       };
       expect(selectors.getReturn(newMock)).toBe(undefined);
@@ -70,7 +70,7 @@ describe('returns redux selectors', () => {
 
   describe('getReturnItemsIds()', () => {
     it('should get the return items ids from state', () => {
-      const expectedResult = mockState.entities.returns[returnId].items;
+      const expectedResult = mockState.entities.returns[returnId]?.items;
       expect(selectors.getReturnItemsIds(mockState)).toEqual(expectedResult);
     });
   });

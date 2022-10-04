@@ -1,4 +1,7 @@
-import { MerchantLocationWeekday } from '@farfetch/blackout-client';
+import {
+  MerchantLocationWeekday,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 
 export const mockMerchantLocationId = 1467;
 export const mockMerchantLocationId1 = 1234;
@@ -74,7 +77,7 @@ export const mockMerchantLocation = {
 
 export const mockState = {
   merchantsLocations: {
-    error: 'error',
+    error: toBlackoutError(new Error('error')),
     isLoading: false,
   },
   entities: {
