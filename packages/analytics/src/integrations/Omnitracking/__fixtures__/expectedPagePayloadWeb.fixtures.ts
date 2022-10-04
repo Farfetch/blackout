@@ -45,6 +45,8 @@ const fixtures = {
       userGenderValuesMapper[
         pageMockData.user.traits?.gender as keyof typeof userGenderValuesMapper
       ],
+    viewType: 'Others',
+    viewSubType: 'Others',
   },
 };
 
