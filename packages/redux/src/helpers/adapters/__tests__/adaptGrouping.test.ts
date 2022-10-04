@@ -10,12 +10,8 @@ describe('adaptGrouping()', () => {
   });
 
   it('should map grouping to the corresponding adapted structure', () => {
-    expect(
-      adaptGrouping({
-        '?pageindex=1': mockProductGrouping,
-      }),
-    ).toMatchObject({
-      '?pageindex=1': mockProductGroupingAdapted,
-    });
+    expect(adaptGrouping(mockProductGrouping)).toMatchObject(
+      mockProductGroupingAdapted,
+    );
   });
 });

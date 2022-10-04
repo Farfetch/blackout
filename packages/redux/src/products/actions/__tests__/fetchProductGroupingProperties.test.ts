@@ -1,10 +1,9 @@
-import * as normalizr from 'normalizr';
 import { fetchProductGroupingProperties } from '..';
 import { getProductGroupingProperties } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/groupingProperties';
 import {
   mockProductGroupingProperties,
-  mockProductGroupingPropertiesNormalizedResponse,
+  mockProductGroupingPropertiesAdapted,
   mockProductId,
 } from 'tests/__fixtures__/products';
 import { mockStore } from '../../../../tests';
@@ -21,8 +20,6 @@ const expectedConfig = undefined;
 let store;
 
 describe('fetchProductGroupingProperties() action creator', () => {
-  const normalizeSpy = jest.spyOn(normalizr, 'normalize');
-
   beforeEach(() => {
     jest.clearAllMocks();
 
@@ -57,11 +54,12 @@ describe('fetchProductGroupingProperties() action creator', () => {
         expect(store.getActions()).toEqual([
           {
             meta: { productId: mockProductId },
+            payload: { hash: '!all' },
             type: productsActionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_REQUEST,
           },
           {
             meta: { productId: mockProductId },
-            payload: { error: expectedError },
+            payload: { error: expectedError, hash: '!all' },
             type: productsActionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_FAILURE,
           },
         ]);
@@ -81,7 +79,6 @@ describe('fetchProductGroupingProperties() action creator', () => {
         expect(clientResult).toEqual(mockProductGroupingProperties);
       });
 
-    expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getProductGroupingProperties).toHaveBeenCalledTimes(1);
     expect(getProductGroupingProperties).toHaveBeenCalledWith(
       mockProductId,
@@ -92,10 +89,14 @@ describe('fetchProductGroupingProperties() action creator', () => {
       {
         meta: { productId: mockProductId },
         type: productsActionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_REQUEST,
+        payload: { hash: '?hasstock=true' },
       },
       {
         meta: { productId: mockProductId },
-        payload: mockProductGroupingPropertiesNormalizedResponse,
+        payload: {
+          hash: '?hasstock=true',
+          result: mockProductGroupingPropertiesAdapted,
+        },
         type: productsActionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_SUCCESS,
       },
     ]);

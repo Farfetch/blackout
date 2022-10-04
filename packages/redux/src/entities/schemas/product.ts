@@ -1,7 +1,5 @@
 import {
   adaptCustomAttributes,
-  adaptGrouping,
-  adaptGroupingProperties,
   adaptMerchant,
   adaptPrice,
   adaptProductImages,
@@ -78,8 +76,6 @@ export default new schema.Entity(
       const imagesToAdapt = imageGroups || get(images, 'images') || images;
 
       return {
-        grouping: adaptGrouping(grouping),
-        groupingProperties: adaptGroupingProperties(groupingProperties),
         customAttributes: adaptCustomAttributes(customAttributes),
         groupedEntries: adaptGroupedEntries(groupedEntries),
         images: adaptProductImages(imagesToAdapt, {

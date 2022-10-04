@@ -28,7 +28,7 @@ describe('GroupingProperties', () => {
             ...mockProductsState.products.groupingProperties,
             isLoading: {
               ...mockProductsState.products.groupingProperties.isLoading,
-              [mockProductId]: true,
+              [mockProductId]: { '!all': true },
             },
           },
         },
@@ -38,6 +38,7 @@ describe('GroupingProperties', () => {
         selectors.areProductGroupingPropertiesLoading(
           changedMockState,
           mockProductId,
+          '!all',
         ),
       ).toBe(true);
     });
@@ -46,12 +47,15 @@ describe('GroupingProperties', () => {
   describe('getProductGroupingPropertiesError()', () => {
     it('should get the grouping properties error of a given product', () => {
       const expectedResult =
-        mockProductsState.products.groupingProperties.error[mockProductId];
+        mockProductsState.products.groupingProperties.error[mockProductId][
+          '!all'
+        ];
 
       expect(
         selectors.getProductGroupingPropertiesError(
           mockProductsState,
           mockProductId,
+          '!all',
         ),
       ).toEqual(expectedResult);
     });
@@ -63,6 +67,7 @@ describe('GroupingProperties', () => {
         selectors.areProductGroupingPropertiesFetched(
           mockProductsState,
           mockProductId,
+          '!all',
         ),
       ).toBe(true);
     });

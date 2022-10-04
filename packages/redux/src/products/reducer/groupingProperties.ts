@@ -1,5 +1,5 @@
 import * as actionTypes from '../actionTypes';
-import { AnyAction, combineReducers } from 'redux';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import type {
   FetchProductGroupingPropertiesAction,
   FetchProductGroupingPropertiesFailureAction,
@@ -10,6 +10,7 @@ import type {
 export const INITIAL_STATE: ProductsGroupingPropertiesState = {
   error: {},
   isLoading: {},
+  results: {},
 };
 
 const error = (
@@ -22,12 +23,18 @@ const error = (
     case actionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_REQUEST:
       return {
         ...state,
-        [action.meta.productId]: undefined,
+        [action.meta.productId]: {
+          ...state[action.meta.productId],
+          [action.payload.hash]: undefined,
+        },
       };
     case actionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_FAILURE:
       return {
         ...state,
-        [action.meta.productId]: action.payload.error,
+        [action.meta.productId]: {
+          ...state[action.meta.productId],
+          [action.payload.hash]: action.payload.error,
+        },
       };
     default:
       return state;
@@ -42,12 +49,46 @@ const isLoading = (
     case actionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_REQUEST:
       return {
         ...state,
-        [action.meta.productId]: true,
+        [action.meta.productId]: {
+          ...state[action.meta.productId],
+          [action.payload.hash]: true,
+        },
       };
     case actionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_SUCCESS:
-      return { ...state, [action.meta.productId]: false };
+      return {
+        ...state,
+        [action.meta.productId]: {
+          ...state[action.meta.productId],
+          [action.payload.hash]: false,
+        },
+      };
     case actionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_FAILURE:
-      return { ...state, [action.meta.productId]: undefined };
+      return {
+        ...state,
+        [action.meta.productId]: {
+          ...state[action.meta.productId],
+          [action.payload.hash]: false,
+        },
+      };
+    default:
+      return state;
+  }
+};
+
+const results = (
+  state = INITIAL_STATE.results,
+  action: FetchProductGroupingPropertiesAction | AnyAction,
+) => {
+  switch (action.type) {
+    case actionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_SUCCESS:
+      return {
+        ...state,
+        [action.meta.productId]: {
+          ...state[action.meta.productId],
+          [action.payload.hash]: action.payload.result,
+        },
+      };
+
     default:
       return state;
   }
@@ -68,9 +109,11 @@ export const getIsLoading = (
  *
  * @returns New state.
  */
-const productsGroupingPropertiesReducer = combineReducers({
-  error,
-  isLoading,
-});
+const productsGroupingPropertiesReducer: Reducer<ProductsGroupingPropertiesState> =
+  combineReducers({
+    error,
+    isLoading,
+    results,
+  });
 
 export default productsGroupingPropertiesReducer;

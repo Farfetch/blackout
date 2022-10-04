@@ -1,6 +1,8 @@
 import { mockState as brandsMockState } from '../brands';
 import { mockMerchantId, mockProductId } from './ids.fixtures';
 import { mockProduct } from './products.fixtures';
+import { mockProductGroupingAdapted } from './productGrouping.fixtures';
+import { mockProductGroupingPropertiesAdapted } from './productGroupingProperties.fixtures';
 import {
   mockProductsListHash,
   mockProductsListNormalizedPayload,
@@ -36,28 +38,28 @@ export const mockColorGroupingState = {
 export const mockGroupingState = {
   grouping: {
     isLoading: {
-      [mockProductId]: false,
+      [mockProductId]: { '?pageindex=1': false },
       456: false,
     },
     error: {
-      [mockProductId]: null,
+      [mockProductId]: { '?pageindex=1': null },
     },
-    currentPageIndex: {
-      [mockProductId]: 4,
+    results: {
+      [mockProductId]: { '?pageindex=1': mockProductGroupingAdapted },
     },
   },
 };
 export const mockGroupingPropertiesState = {
   groupingProperties: {
     isLoading: {
-      [mockProductId]: false,
+      [mockProductId]: { '!all': false },
       456: false,
     },
     error: {
-      [mockProductId]: null,
+      [mockProductId]: { '!all': null },
     },
-    currentPageIndex: {
-      [mockProductId]: 4,
+    results: {
+      [mockProductId]: { '!all': mockProductGroupingPropertiesAdapted },
     },
   },
 };

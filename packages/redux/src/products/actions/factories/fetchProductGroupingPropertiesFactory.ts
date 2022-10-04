@@ -1,3 +1,4 @@
+import { adaptGroupingProperties } from '../../../helpers/adapters';
 import { buildQueryStringFromObject } from '../../../helpers';
 import {
   Config,
@@ -12,11 +13,7 @@ import {
   FETCH_PRODUCT_GROUPING_PROPERTIES_REQUEST,
   FETCH_PRODUCT_GROUPING_PROPERTIES_SUCCESS,
 } from '../../actionTypes';
-import { getProduct } from '../../selectors';
-import { normalize } from 'normalizr';
-import productSchema from '../../../entities/schemas/product';
 import type { Dispatch } from 'redux';
-import type { StoreState } from '../../../types';
 
 /**
  * Creates a thunk factory configured with the specified client to fetch product
@@ -40,13 +37,14 @@ const fetchProductGroupingFactory =
     query: GroupingPropertiesQuery = {},
     config?: Config,
   ) =>
-  async (
-    dispatch: Dispatch,
-    getState: () => StoreState,
-  ): Promise<ProductGroupingProperties> => {
+  async (dispatch: Dispatch): Promise<ProductGroupingProperties> => {
+    const queryString = query && buildQueryStringFromObject(query);
+    const hash = queryString ? queryString : '!all';
+
     try {
       dispatch({
         meta: { productId },
+        payload: { hash },
         type: FETCH_PRODUCT_GROUPING_PROPERTIES_REQUEST,
       });
 
@@ -55,23 +53,10 @@ const fetchProductGroupingFactory =
         query,
         config,
       );
-      const state = getState();
-      const product = getProduct(state, productId);
-      const previousGroupingProperties = product?.groupingProperties;
-      const queryString = query && buildQueryStringFromObject(query);
-      const hash = queryString ? queryString : '!all';
-
-      const productWithGroupingProperties = {
-        id: productId,
-        groupingProperties: {
-          ...previousGroupingProperties,
-          [hash]: result,
-        },
-      };
 
       dispatch({
         meta: { productId },
-        payload: normalize(productWithGroupingProperties, productSchema),
+        payload: { hash, result: adaptGroupingProperties(result) },
         type: FETCH_PRODUCT_GROUPING_PROPERTIES_SUCCESS,
       });
 
@@ -79,7 +64,7 @@ const fetchProductGroupingFactory =
     } catch (error) {
       dispatch({
         meta: { productId },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: toBlackoutError(error), hash },
         type: FETCH_PRODUCT_GROUPING_PROPERTIES_FAILURE,
       });
 

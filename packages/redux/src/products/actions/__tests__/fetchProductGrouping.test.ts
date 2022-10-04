@@ -1,10 +1,9 @@
-import * as normalizr from 'normalizr';
 import { fetchProductGrouping } from '..';
 import { getProductGrouping } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer/grouping';
 import {
   mockProductGrouping,
-  mockProductGroupingNormalizedResponse,
+  mockProductGroupingAdapted,
   mockProductId,
 } from 'tests/__fixtures__/products';
 import { mockStore } from '../../../../tests';
@@ -21,8 +20,6 @@ const expectedConfig = undefined;
 let store: ReturnType<typeof productDetailsMockStore>;
 
 describe('fetchProductGrouping() action creator', () => {
-  const normalizeSpy = jest.spyOn(normalizr, 'normalize');
-
   beforeEach(() => {
     jest.clearAllMocks();
 
@@ -56,10 +53,11 @@ describe('fetchProductGrouping() action creator', () => {
         {
           meta: { productId: mockProductId },
           type: productsActionTypes.FETCH_PRODUCT_GROUPING_REQUEST,
+          payload: { hash: '!all' },
         },
         {
           meta: { productId: mockProductId },
-          payload: { error: expectedError },
+          payload: { error: expectedError, hash: '!all' },
           type: productsActionTypes.FETCH_PRODUCT_GROUPING_FAILURE,
         },
       ]);
@@ -80,7 +78,6 @@ describe('fetchProductGrouping() action creator', () => {
       expect(clientResult).toEqual(mockProductGrouping);
     });
 
-    expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getProductGrouping).toHaveBeenCalledTimes(1);
     expect(getProductGrouping).toHaveBeenCalledWith(
       mockProductId,
@@ -90,11 +87,12 @@ describe('fetchProductGrouping() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { productId: mockProductId },
+        payload: { hash: '?pagesize=10' },
         type: productsActionTypes.FETCH_PRODUCT_GROUPING_REQUEST,
       },
       {
         meta: { productId: mockProductId },
-        payload: mockProductGroupingNormalizedResponse,
+        payload: { hash: '?pagesize=10', result: mockProductGroupingAdapted },
         type: productsActionTypes.FETCH_PRODUCT_GROUPING_SUCCESS,
       },
     ]);

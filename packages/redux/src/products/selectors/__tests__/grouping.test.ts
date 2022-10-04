@@ -28,14 +28,18 @@ describe('Grouping', () => {
             ...mockProductsState.products.grouping,
             isLoading: {
               ...mockProductsState.products.grouping.isLoading,
-              [mockProductId]: true,
+              [mockProductId]: { '?pageindex=1': true },
             },
           },
         },
       };
 
       expect(
-        selectors.isProductGroupingLoading(changedMockState, mockProductId),
+        selectors.isProductGroupingLoading(
+          changedMockState,
+          mockProductId,
+          '?pageindex=1',
+        ),
       ).toBe(true);
     });
   });
@@ -43,10 +47,16 @@ describe('Grouping', () => {
   describe('getProductGroupingError()', () => {
     it('should get the grouping error of a given product', () => {
       const expectedResult =
-        mockProductsState.products.grouping.error[mockProductId];
+        mockProductsState.products.grouping.error[mockProductId][
+          '?pageindex=1'
+        ];
 
       expect(
-        selectors.getProductGroupingError(mockProductsState, mockProductId),
+        selectors.getProductGroupingError(
+          mockProductsState,
+          mockProductId,
+          '?pageindex=1',
+        ),
       ).toEqual(expectedResult);
     });
   });
@@ -54,7 +64,11 @@ describe('Grouping', () => {
   describe('isProductGroupingFetched()', () => {
     it('should get the grouping fetched status of a given product', () => {
       expect(
-        selectors.isProductGroupingFetched(mockProductsState, mockProductId),
+        selectors.isProductGroupingFetched(
+          mockProductsState,
+          mockProductId,
+          '?pageindex=1',
+        ),
       ).toBe(true);
     });
   });

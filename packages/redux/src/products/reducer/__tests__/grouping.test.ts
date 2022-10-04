@@ -15,7 +15,7 @@ describe('grouping redux reducer', () => {
   describe('error() reducer', () => {
     const error = 'An error occurred';
     const expectedError = {
-      [mockProductId]: error,
+      [mockProductId]: { '?pageindex=1': error },
     };
 
     it('should return the initial state', () => {
@@ -25,10 +25,11 @@ describe('grouping redux reducer', () => {
     });
 
     it('should handle FETCH_PRODUCT_GROUPING_REQUEST action type', () => {
-      const expectedResult = { [mockProductId]: undefined };
+      const expectedResult = { [mockProductId]: { '?pageindex=1': undefined } };
       const state = reducer(undefined, {
         meta,
         type: productsActionTypes.FETCH_PRODUCT_GROUPING_REQUEST,
+        payload: { hash: '?pageindex=1' },
       });
 
       expect(state.error).toEqual(expectedResult);
@@ -37,7 +38,7 @@ describe('grouping redux reducer', () => {
     it('should handle FETCH_PRODUCT_GROUPING_FAILURE action type', () => {
       const state = reducer(undefined, {
         meta,
-        payload: { error },
+        payload: { error, hash: '?pageindex=1' },
         type: productsActionTypes.FETCH_PRODUCT_GROUPING_FAILURE,
       });
 
@@ -46,7 +47,11 @@ describe('grouping redux reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
-        error: { [mockProductId]: toBlackoutError(new Error(error)) },
+        error: {
+          [mockProductId]: {
+            '?pageindex=1': toBlackoutError(new Error(error)),
+          },
+        },
         isLoading: {},
       };
 
@@ -63,11 +68,12 @@ describe('grouping redux reducer', () => {
 
     it('should handle FETCH_PRODUCT_GROUPING_REQUEST action type', () => {
       const expectedIsLoading = {
-        [mockProductId]: true,
+        [mockProductId]: { '?pageindex=1': true },
       };
       const state = reducer(undefined, {
         meta,
         type: productsActionTypes.FETCH_PRODUCT_GROUPING_REQUEST,
+        payload: { hash: '?pageindex=1' },
       });
 
       expect(state.isLoading).toEqual(expectedIsLoading);
@@ -75,11 +81,11 @@ describe('grouping redux reducer', () => {
 
     it('should handle FETCH_PRODUCT_GROUPING_FAILURE action type', () => {
       const expectedIsLoading = {
-        [mockProductId]: undefined,
+        [mockProductId]: { '?pageindex=1': false },
       };
       const state = reducer(undefined, {
         meta,
-        payload: { error: '' },
+        payload: { error: '', hash: '?pageindex=1' },
         type: productsActionTypes.FETCH_PRODUCT_GROUPING_FAILURE,
       });
 
@@ -88,12 +94,13 @@ describe('grouping redux reducer', () => {
 
     it('should handle FETCH_PRODUCT_GROUPING_SUCCESS action type', () => {
       const expectedIsLoading = {
-        [mockProductId]: false,
+        [mockProductId]: { '?pageindex=1': false },
       };
       const state = reducer(undefined, {
         meta,
         payload: {
           result: mockProductId,
+          hash: '?pageindex=1',
         },
         type: productsActionTypes.FETCH_PRODUCT_GROUPING_SUCCESS,
       });
@@ -104,7 +111,7 @@ describe('grouping redux reducer', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = {
         error: {},
-        isLoading: { [mockProductId]: false },
+        isLoading: { [mockProductId]: { '?pageindex=1': false } },
       };
 
       expect(reducer(state, mockAction).isLoading).toEqual(state.isLoading);
@@ -115,7 +122,9 @@ describe('grouping redux reducer', () => {
     describe('getError()', () => {
       it('should return the `error` property from a given state', () => {
         const error = {
-          [mockProductId]: toBlackoutError(new Error('234-foo')),
+          [mockProductId]: {
+            '?pageindex=1': toBlackoutError(new Error('234-foo')),
+          },
         };
         const state = { ...initialState, error };
 
@@ -125,7 +134,7 @@ describe('grouping redux reducer', () => {
 
     describe('getIsLoading()', () => {
       it('should return the `isLoading` property from a given state', () => {
-        const isLoading = { [mockProductId]: true };
+        const isLoading = { [mockProductId]: { '?pageindex=1': true } };
         const state = { ...initialState, isLoading };
 
         expect(getIsLoading(state)).toBe(isLoading);

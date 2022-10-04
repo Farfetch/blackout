@@ -1,28 +1,14 @@
 import adaptProductImages from './adaptProductImages';
-import type {
-  AdaptGroupingProperties,
-  GroupingPropertiesAdapted,
-} from '../../entities';
-import type { ProductGroupingProperties } from '@farfetch/blackout-client';
+import type { AdaptGroupingProperties } from '../../entities';
 
-const adaptGroupingProperties: AdaptGroupingProperties = groupingProperties => {
-  if (groupingProperties) {
-    const adaptedGroupingProperties: GroupingPropertiesAdapted = {};
-    Object.keys(groupingProperties).forEach(key => {
-      const group = groupingProperties[key] as ProductGroupingProperties;
-      const productGroupingPropertiesAdapted = group?.map(entry => ({
-        ...entry,
-        values: entry?.values?.map(value => ({
-          ...value,
-          digitalAssets: adaptProductImages(value.digitalAssets),
-        })),
-      }));
-
-      adaptedGroupingProperties[key] = productGroupingPropertiesAdapted;
-    });
-    return adaptedGroupingProperties;
-  }
-  return undefined;
-};
+const adaptGroupingProperties: AdaptGroupingProperties = groupingProperties =>
+  groupingProperties &&
+  groupingProperties?.map(property => ({
+    ...property,
+    values: property?.values?.map(value => ({
+      ...value,
+      digitalAssets: adaptProductImages(value.digitalAssets),
+    })),
+  }));
 
 export default adaptGroupingProperties;
