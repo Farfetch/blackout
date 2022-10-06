@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.321](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.320...@farfetch/blackout-redux@1.0.0-next.321) (2022-10-06)
+
+
+### Bug Fixes
+
+* **client|react|redux:** refactor grouping and groupingProperties reducers and fix selectors ([d4f7d59](https://github.com/Farfetch/blackout/commit/d4f7d5963cb433a0f0c29c879d3f51ae93ca9c91))
+
+
+### Features
+
+* **client|react|redux:** add useProductGrouping and useProductGroupingProperties hooks ([d21352e](https://github.com/Farfetch/blackout/commit/d21352ef4f22877b37147daadd63b9a363587dd6))
+
+
+
+
+
 # [1.0.0-next.320](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.319...@farfetch/blackout-redux@1.0.0-next.320) (2022-10-04)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
