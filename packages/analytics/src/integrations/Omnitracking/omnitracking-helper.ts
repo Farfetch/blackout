@@ -158,7 +158,7 @@ function getSpecificWebParameters<T extends EventData<TrackTypesValues>>(
     {} as SpecificParametersForEventType<T>;
 
   if (isPageEventType(data)) {
-    const referrer = get(data, 'context.web.document.referrer', '');
+    const referrer = get(data, 'context.web.pageLocationReferrer', '');
     const location = get(data, 'context.web.window.location', {});
     const query = get(location, 'query', {});
     const internalRequest =
@@ -558,4 +558,62 @@ export const getCLientCountryFromCulture = (culture: string) => {
   const clientCountry = cultureSplit[1];
 
   return clientCountry;
+};
+
+/**
+ * Obtain product Id omnitracking parameter.
+ *
+ * @param data - The event tracking data.
+ *
+ * @returns The product id.
+ */
+export const getOmnitrackingProductId = (data: EventData<TrackTypesValues>) => {
+  return data?.properties?.productId || data?.properties?.id;
+};
+
+/**
+ * Transforms the products list payload into `lineItems` omnitracking parameter.
+ *
+ * @param data - The event tracking data.
+ *
+ * @returns The mapped `lineItems` in json format.
+ */
+export const getProductLineItems = (data: EventData<TrackTypesValues>) => {
+  const properties = data?.properties || {};
+  const productsList = properties.products;
+  const productId = getOmnitrackingProductId(data);
+
+  if (productsList && productsList.length) {
+    const mappedProductList = productsList.map(product => ({
+      productId: product.id,
+      itemPromotion: product.discountValue,
+      designerName: product.brand,
+      category: (product.category || '').split('/')[0],
+      itemFullPrice: product.priceWithoutDiscount,
+      sizeID: product.sizeId,
+      itemQuantity: product.quantity,
+      promoCode: product.coupon,
+      storeID: product.locationId,
+    }));
+
+    return JSON.stringify(mappedProductList);
+  }
+
+  if (productId) {
+    return JSON.stringify([
+      {
+        productId,
+        itemPromotion: properties.discountValue,
+        designerName: properties.brand,
+        category: ((properties?.category || '') as string).split('/')[0],
+        itemFullPrice: properties.priceWithoutDiscount,
+        sizeID: properties.sizeId,
+        itemQuantity: properties.quantity,
+        promoCode: properties.coupon,
+        storeID: properties.locationId,
+      },
+    ]);
+  }
+
+  return undefined;
 };
