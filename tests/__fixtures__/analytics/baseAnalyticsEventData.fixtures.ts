@@ -69,6 +69,7 @@ const fixtures = {
         title: 'Acme',
         referrer: 'https://example.com',
       },
+      pageLocationReferrer: 'https://example.com',
     },
   },
   timestamp: 1567010265879,

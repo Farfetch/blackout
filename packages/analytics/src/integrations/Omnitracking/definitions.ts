@@ -1,6 +1,7 @@
 import {
   generatePaymentAttemptReferenceId,
   getParameterValueFromEvent,
+  getProductLineItems,
   getValParameterForEvent,
 } from './omnitracking-helper';
 import eventTypes from '../../types/eventTypes';
@@ -483,7 +484,31 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
         };
     }
   },
+  [eventTypes.PRODUCT_LIST_VIEWED]: (data: EventData<TrackTypesValues>) => {
+    return {
+      tid: 2832,
+      lineItems: getProductLineItems(data),
+    };
+  },
 } as const;
+
+/**
+ * Interested events for page tracking.
+ * If there is a page event that can have specific rules or parameters,
+ * make sure to define it in this mapper.
+ */
+export const pageEventsMapper = {
+  [pageTypes.PRODUCT_DETAILS]: (data: EventData<TrackTypesValues>) => ({
+    viewType: 'Product',
+    viewSubType: 'Product',
+    lineItems: getProductLineItems(data),
+  }),
+  [pageTypes.PRODUCT_LISTING]: (data: EventData<TrackTypesValues>) => ({
+    viewType: 'Listing',
+    viewSubType: 'Listing',
+    lineItems: getProductLineItems(data),
+  }),
+};
 
 export const userGenderValuesMapper = {
   0: 'NotDefined',
@@ -493,4 +518,11 @@ export const userGenderValuesMapper = {
   NotDefined: 'NotDefined',
   Male: 'Male',
   Female: 'Female',
+} as const;
+
+export const viewGenderValuesMapper = {
+  Kids: 'Kids',
+  Men: 'Men',
+  Women: 'Women',
+  Undefined: 'Undefined',
 } as const;

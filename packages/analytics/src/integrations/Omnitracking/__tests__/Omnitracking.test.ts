@@ -114,11 +114,11 @@ describe('Omnitracking', () => {
 
       expect(postTrackingSpy).toHaveBeenCalledWith({
         ...mockExpectedPagePayloadWeb,
-        parameters: {
+        parameters: expect.objectContaining({
           ...mockExpectedPagePayloadWeb.parameters,
           uniqueViewId: expect.any(String),
           previousUniqueViewId: null,
-        },
+        }),
       });
     });
 
@@ -719,9 +719,30 @@ describe('Omnitracking', () => {
               definitions.trackEventsMapper[
                 eventMapperKeyTemp
               ] as OmnitrackingTrackEventMapper
-            )(mockedTrackData),
+            )(trackEventsData[eventMapperKeyTemp]),
           ).toMatchSnapshot();
           expect(typeof definitions.trackEventsMapper[eventMapperKeyTemp]).toBe(
+            'function',
+          );
+        },
+      );
+
+      it.each(Object.keys(definitions.pageEventsMapper))(
+        '`%s` return should match the snapshot',
+        eventMapperKey => {
+          const eventMapperKeyTemp =
+            eventMapperKey as keyof typeof definitions.pageEventsMapper;
+
+          const mockedData = merge(
+            {},
+            mockedPageData,
+            pageEventsData[eventMapperKeyTemp],
+          );
+
+          expect(
+            definitions.pageEventsMapper[eventMapperKeyTemp](mockedData),
+          ).toMatchSnapshot();
+          expect(typeof definitions.pageEventsMapper[eventMapperKeyTemp]).toBe(
             'function',
           );
         },
@@ -765,12 +786,12 @@ describe('Omnitracking', () => {
         expect(postTrackingSpy).toHaveBeenCalledWith({
           ...mockExpectedPagePayloadWeb,
           event: mockEvent,
-          parameters: {
+          parameters: expect.objectContaining({
             ...mockExpectedPagePayloadWeb.parameters,
             promoCode: mockPromoCode,
             previousUniqueViewId: mocked_view_uid,
             uniqueViewId: expect.any(String),
-          },
+          }),
         });
       });
 
@@ -949,11 +970,11 @@ describe('Omnitracking', () => {
 
         expect(mockHttpClient).toHaveBeenCalledWith({
           ...mockExpectedPagePayloadWeb,
-          parameters: {
+          parameters: expect.objectContaining({
             ...mockExpectedPagePayloadWeb.parameters,
             uniqueViewId: expect.any(String),
             previousUniqueViewId: null,
-          },
+          }),
         });
         expect(postTrackingSpy).not.toHaveBeenCalled();
       });
@@ -1075,11 +1096,11 @@ describe('Omnitracking', () => {
 
       expect(postTrackingSpy).toHaveBeenCalledWith({
         ...mockExpectedPagePayloadMobile,
-        parameters: {
+        parameters: expect.objectContaining({
           ...mockExpectedPagePayloadMobile.parameters,
           previousUniqueViewId: null,
           uniqueViewId: expect.any(String),
-        },
+        }),
       });
     });
 
@@ -1092,11 +1113,11 @@ describe('Omnitracking', () => {
 
       expect(postTrackingSpy).toHaveBeenCalledWith({
         ...mockExpectedPagePayloadUnknown,
-        parameters: {
+        parameters: expect.objectContaining({
           ...mockExpectedPagePayloadUnknown.parameters,
           previousUniqueViewId: null,
           uniqueViewId: expect.any(String),
-        },
+        }),
       });
     });
   });

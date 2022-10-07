@@ -18,6 +18,7 @@ import type {
   EventContextData,
   EventData,
   EventProperties,
+  ExtendedTrackTypes,
   IntegrationFactory,
   IntegrationOptions,
   IntegrationRuntimeData,
@@ -663,12 +664,7 @@ class Analytics {
    *
    * @returns Data for the event.
    */
-  protected async getEventData<
-    T extends
-      | TrackTypesValues
-      | typeof ON_SET_USER_TRACK_TYPE
-      | typeof LOAD_INTEGRATION_TRACK_TYPE,
-  >(
+  protected async getEventData<T extends ExtendedTrackTypes>(
     type: T,
     additionalData?: Partial<EventData<T>>,
     eventContext?: EventData<T>['context']['event'],
