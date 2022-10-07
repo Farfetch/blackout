@@ -12,19 +12,29 @@ export type WebContextType = {
       title: string;
       referrer: string;
     };
+    pageLocationReferrer: string | undefined;
   };
 };
 
+let lastLocation =
+  typeof document !== 'undefined' ? document.referrer : undefined;
+
 /**
- * Adds web environment information to the context.
+ * Returns the web context for the analytics package.
  *
  * @returns Context object for web applications.
  */
 export const context = (): WebContextType => {
+  const locationHref = window.location.href;
+
+  if (lastLocation !== locationHref) {
+    lastLocation = locationHref;
+  }
+
   return {
     web: {
       window: {
-        location: parse(window.location.href, true),
+        location: parse(locationHref, true),
         navigator: merge({}, window.navigator),
         screen: merge({}, window.screen),
       },
@@ -32,6 +42,10 @@ export const context = (): WebContextType => {
         title: document.title,
         referrer: document.referrer,
       },
+      // Since document.referrer stays the same on single page applications,
+      // we have this alternative that will hold the previous page location
+      // based on page track calls with `analyticsWeb.page()`.
+      pageLocationReferrer: lastLocation,
     },
   };
 };
