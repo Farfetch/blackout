@@ -51,7 +51,6 @@ describe('getConfiguration', () => {
       expectedConfig,
     );
   });
-
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
 
