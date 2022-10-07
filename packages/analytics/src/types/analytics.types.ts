@@ -84,6 +84,11 @@ export interface IntegrationFactory<T extends IntegrationOptions> {
   shouldLoad(consent: ConsentData | null | undefined): boolean;
 }
 
+export type ExtendedTrackTypes =
+  | TrackTypesValues
+  | typeof ON_SET_USER_TRACK_TYPE
+  | typeof LOAD_INTEGRATION_TRACK_TYPE;
+
 export type UserTraits = Omit<User, 'id'>;
 
 export type UserData = {
