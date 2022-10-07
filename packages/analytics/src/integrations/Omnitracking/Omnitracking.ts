@@ -29,7 +29,11 @@ import {
   OPTION_TRANSFORM_PAYLOAD,
 } from './constants';
 import { postTracking, User, UserGender } from '@farfetch/blackout-client';
-import { trackEventsMapper, userGenderValuesMapper } from './definitions';
+import {
+  trackEventsMapper,
+  userGenderValuesMapper,
+  viewGenderValuesMapper,
+} from './definitions';
 import analyticsTrackTypes from '../../types/trackTypes';
 import get from 'lodash/get';
 import Integration from '../Integration';
@@ -66,7 +70,7 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
     | null;
   currentUniqueViewId: string | null;
   previousUniqueViewId: string | null;
-  navigatedFrom: string | null;
+  lastFromParameter: string | null;
   /**
    * Creates a new Omnitracking instance, validating its options.
    *
@@ -127,7 +131,7 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
     this.currentUniqueViewId = null;
     this.previousUniqueViewId = null;
 
-    this.navigatedFrom = null;
+    this.lastFromParameter = null;
   }
 
   /**
@@ -192,13 +196,15 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
         }
       }
 
-      if (this.navigatedFrom) {
-        precalculatedPageViewParameters.navigatedFrom = this.navigatedFrom;
+      if (this.lastFromParameter) {
+        precalculatedPageViewParameters.navigatedFrom = this.lastFromParameter;
       }
 
-      const { event, user } = data;
+      const { user } = data;
 
-      this.navigatedFrom = event;
+      this.lastFromParameter = (data?.properties?.from || null) as
+        | string
+        | null;
 
       const userTraits = get(user, 'traits', {}) as UserTraits;
 
@@ -210,6 +216,17 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
             : UserGender.NotDefined
         }`,
         userGenderValuesMapper.NotDefined,
+      );
+
+      precalculatedPageViewParameters.viewGender = get(
+        viewGenderValuesMapper,
+        data?.properties?.gender as keyof typeof viewGenderValuesMapper,
+        viewGenderValuesMapper.Undefined,
+      );
+
+      precalculatedPageViewParameters.searchResultCount = get(
+        data,
+        'properties.itemCount',
       );
 
       precalculatedPageViewParameters.isLogged =
@@ -251,7 +268,7 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
         // Screen is treated the same as a page in Omnitracking
         precalculatedParameters = this.getPrecalculatedParametersForEvent(data);
 
-        return this.postTracking(
+        return await this.postTracking(
           formatPageEvent(data, precalculatedParameters),
           data,
         );

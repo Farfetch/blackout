@@ -40,6 +40,13 @@ Object {
 }
 `;
 
+exports[`Omnitracking track events definitions \`Product List Viewed\` return should match the snapshot 1`] = `
+Object {
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"category\\":\\"\\",\\"itemFullPrice\\":25},{\\"productId\\":\\"507f1f77bcf86cd799439012\\",\\"itemPromotion\\":6,\\"category\\":\\"\\",\\"itemFullPrice\\":25}]",
+  "tid": 2832,
+}
+`;
+
 exports[`Omnitracking track events definitions \`Sign-up Form Viewed\` return should match the snapshot 1`] = `
 Object {
   "tid": 10097,
@@ -727,6 +734,22 @@ Object {
     "ProductDetail",
     "product",
   ],
+}
+`;
+
+exports[`Omnitracking track events definitions \`product-details\` return should match the snapshot 1`] = `
+Object {
+  "lineItems": "[{\\"productId\\":12122479,\\"itemPromotion\\":1,\\"designerName\\":\\"Saint Laurent\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":2,\\"sizeID\\":\\"20\\",\\"itemQuantity\\":13,\\"promoCode\\":\\"EASTER2022\\",\\"storeID\\":20000}]",
+  "viewSubType": "Product",
+  "viewType": "Product",
+}
+`;
+
+exports[`Omnitracking track events definitions \`product-listing\` return should match the snapshot 1`] = `
+Object {
+  "lineItems": "[{\\"productId\\":12345678,\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
+  "viewSubType": "Listing",
+  "viewType": "Listing",
 }
 `;
 
