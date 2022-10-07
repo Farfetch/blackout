@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.325](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.324...@farfetch/blackout-react@1.0.0-next.325) (2022-10-07)
+
+
+### Bug Fixes
+
+* **redux:** fix reducers cleanup actions ([1a7d768](https://github.com/Farfetch/blackout/commit/1a7d7686904caf9b34b42e132dd8215dec3836fb))
+
+
+### BREAKING CHANGES
+
+* **redux:** - `resetCheckoutState` action was
+renamed to `resetCheckout`.
+- `resetReturn` action was renamed to `resetReturns`.
+- `resetOrderDetailsState` now accepts an array of orderIds instead of
+a single orderId to allow multiple resets at the same time.
+
+
+
+
+
 # [1.0.0-next.324](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.323...@farfetch/blackout-react@1.0.0-next.324) (2022-10-07)
 
 **Note:** Version bump only for package @farfetch/blackout-react
