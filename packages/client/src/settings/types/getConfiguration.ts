@@ -4,6 +4,6 @@ import type { ConfigurationQuery } from './configurationQuery';
 
 export type GetConfiguration = (
   code: Configuration['code'],
-  query: ConfigurationQuery,
+  query?: ConfigurationQuery,
   config?: Config,
 ) => Promise<Configuration>;
