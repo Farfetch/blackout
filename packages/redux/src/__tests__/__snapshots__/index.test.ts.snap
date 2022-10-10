@@ -2,6 +2,10 @@
 
 exports[`root index file should export all public modules 1`] = `
 Object {
+  "ENVIRONMENT_CODES": Object {
+    "LIVE": "live",
+    "PREVIEW": "preview",
+  },
   "TimeLimitType": Object {
     "0": "min",
     "1": "max",
@@ -687,7 +691,9 @@ Object {
   "formsReducer": [Function],
   "generateBagItemHash": [Function],
   "generateBrandsHash": [Function],
+  "generateContentHash": [Function],
   "generateProductsListHash": [Function],
+  "generateSEOPathname": [Function],
   "generateSearchDidYouMeanHash": [Function],
   "generateSearchIntentsHash": [Function],
   "generateSearchSuggestionsHash": [Function],
@@ -893,6 +899,7 @@ Object {
   "getPromotionEvaluationItemById": [Function],
   "getPromotionEvaluationItems": [Function],
   "getPromotionEvaluationItemsError": [Function],
+  "getRankedCommercePage": [Function],
   "getRecentlyViewedProducts": [Function],
   "getRecentlyViewedProductsError": [Function],
   "getRecentlyViewedProductsPagination": [Function],

@@ -17,6 +17,10 @@ describe('contents client', () => {
       environmentCode: 'live',
       codes: '123456789',
       contentTypeCode: 'pages',
+      target: {
+        channel: 'channel',
+        language: 'en-US',
+      },
     };
     const response = {
       number: 1,
@@ -86,7 +90,7 @@ describe('contents client', () => {
       await expect(getSearchContents(query)).resolves.toEqual(response);
 
       expect(spy).toHaveBeenCalledWith(
-        '/content/v1/search/contents?codes=123456789&contentTypeCode=pages&environmentCode=live&spaceCode=website',
+        '/content/v1/search/contents?codes=123456789&contentTypeCode=pages&environmentCode=live&spaceCode=website&target.channel=channel&target.language=en-US',
         expectedConfig,
       );
     });
@@ -99,7 +103,7 @@ describe('contents client', () => {
       await expect(getSearchContents(query)).rejects.toMatchSnapshot();
 
       expect(spy).toHaveBeenCalledWith(
-        '/content/v1/search/contents?codes=123456789&contentTypeCode=pages&environmentCode=live&spaceCode=website',
+        '/content/v1/search/contents?codes=123456789&contentTypeCode=pages&environmentCode=live&spaceCode=website&target.channel=channel&target.language=en-US',
         expectedConfig,
       );
     });
