@@ -16,7 +16,6 @@
 import {
   formatPageEvent,
   formatTrackEvent,
-  getCLientCountryFromCulture,
   getClientLanguageFromCulture,
   getSearchQuery,
   getUniqueViewIdParameter,
@@ -233,14 +232,8 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
         userTraits.hasOwnProperty('isGuest') && !userTraits.isGuest;
       precalculatedPageViewParameters.basketId = userTraits.bagId;
 
-      let clientLanguage: string | undefined = '';
-      let clientCountry: string | undefined = '';
-
-      clientLanguage = getClientLanguageFromCulture(culture as string);
-      clientCountry = getCLientCountryFromCulture(culture as string);
-
-      precalculatedPageViewParameters.clientLanguage = clientLanguage;
-      precalculatedPageViewParameters.clientCountry = clientCountry;
+      precalculatedParameters.clientLanguage =
+        getClientLanguageFromCulture(culture);
       precalculatedPageViewParameters.clientCulture = culture;
     }
 

@@ -10,9 +10,9 @@ import {
   StrippedDownAnalytics,
 } from '@farfetch/blackout-analytics';
 import { postTracking } from '@farfetch/blackout-client';
-import Omnitracking from '../Omnitracking';
-import UniqueViewIdStorage from '../Omnitracking/storage/UniqueViewIdStorage';
-import UniqueViewIdStorageOptions from '../Omnitracking/storage/UniqueViewIdStorageOptions';
+import Omnitracking from '..';
+import UniqueViewIdStorage from '../storage/UniqueViewIdStorage';
+import UniqueViewIdStorageOptions from '../storage/UniqueViewIdStorageOptions';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -168,6 +168,50 @@ describe('Omnitracking', () => {
           expect.objectContaining({
             parameters: expect.objectContaining({
               previousUniqueViewId: mockUniqueViewId,
+            }),
+          }),
+        );
+      });
+
+      it('Should send the correct clientCountry when a subfolder has the {country-language} format', async () => {
+        const omnitrackingInstance = Omnitracking.createInstance(
+          {},
+          loadIntegrationData,
+          strippedDownAnalytics,
+        );
+        const data = analyticsPageData[pageTypes.HOMEPAGE];
+
+        // @ts-ignore
+        data.context.web.window.location.pathname = '/en-pt';
+
+        await omnitrackingInstance.track(data);
+
+        expect(postTracking).toHaveBeenCalledWith(
+          expect.objectContaining({
+            parameters: expect.objectContaining({
+              clientCountry: 'PT',
+            }),
+          }),
+        );
+      });
+
+      it('Should send the correct clientCountry when a subfolder has the {language} format', async () => {
+        const omnitrackingInstance = Omnitracking.createInstance(
+          {},
+          loadIntegrationData,
+          strippedDownAnalytics,
+        );
+        const data = analyticsPageData[pageTypes.HOMEPAGE];
+
+        // @ts-ignore
+        data.context.web.window.location.pathname = '/pt';
+
+        await omnitrackingInstance.track(data);
+
+        expect(postTracking).toHaveBeenCalledWith(
+          expect.objectContaining({
+            parameters: expect.objectContaining({
+              clientCountry: undefined,
             }),
           }),
         );
