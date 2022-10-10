@@ -45,7 +45,7 @@ const fixtures = {
             utm_content: 'utm_content',
             utm_campaign: 'utm_campaign',
           },
-          pathname: '/pt/',
+          pathname: '/en-pt/',
           auth: '',
           host: '127.0.0.1:3000',
           port: '3000',
@@ -53,7 +53,7 @@ const fixtures = {
           password: '',
           username: '',
           origin: 'http://127.0.0.1:3000',
-          href: 'http://127.0.0.1:3000/pt/',
+          href: 'http://127.0.0.1:3000/en-pt/',
         },
         navigator: {
           language: 'en-US',

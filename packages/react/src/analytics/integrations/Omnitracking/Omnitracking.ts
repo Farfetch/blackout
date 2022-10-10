@@ -22,9 +22,12 @@ import {
   LoadIntegrationEventData,
   OmnitrackingOptions,
   StrippedDownAnalytics,
+  trackTypes,
   TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
+import { getCLientCountryFromSubfolder } from './omnitracking-web-helper';
+import get from 'lodash/get';
 import UniqueViewIdStorage from './storage/UniqueViewIdStorage';
 import UniqueViewIdStorageOptions from './storage/UniqueViewIdStorageOptions';
 
@@ -60,6 +63,35 @@ class Omnitracking extends integrations.Omnitracking {
     this.uniqueViewIdStorage.removeExpired();
 
     this.currentUniqueViewId = this.uniqueViewIdStorage.get(document.referrer);
+  }
+
+  /**
+   * Adds a specific web behaviour for the pre-calculated parameters.
+   *
+   * @param data - Event data provided by analytics.
+   *
+   * @returns Object containing the pre-calculated parameters for the event.
+   */
+  override getPrecalculatedParametersForEvent(
+    data: EventData<TrackTypesValues>,
+  ) {
+    const basePreCalculatedParameters =
+      super.getPrecalculatedParametersForEvent(data);
+
+    if (data.type === trackTypes.PAGE) {
+      if (basePreCalculatedParameters) {
+        const subfolder = get(
+          data,
+          'context.web.window.location.pathname',
+          '',
+        ).split('/')[1];
+
+        basePreCalculatedParameters['clientCountry'] =
+          getCLientCountryFromSubfolder(subfolder);
+      }
+    }
+
+    return basePreCalculatedParameters;
   }
 
   /**
