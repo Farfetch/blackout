@@ -20,12 +20,12 @@ const getSearchContents: GetSearchContents = (query, config?) => {
   Object.keys(targets).map(
     key => (payload[`target.${key}`] = query?.target?.[key]),
   );
-  delete query?.target;
+  delete payload?.target;
 
   return client
     .get(
       join('/content/v1/search/contents', {
-        query: query as Omit<QuerySearchContents, 'target'>,
+        query: payload as Omit<QuerySearchContents, 'target'>,
       }),
       config,
     )

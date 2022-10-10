@@ -7,3 +7,9 @@ export * from './selectors';
 export { default as contentsReducer } from './reducer';
 
 export * from './types';
+export {
+  ENVIRONMENT_CODES,
+  generateContentHash,
+  generateSEOPathname,
+  getRankedCommercePage,
+} from './utils';
