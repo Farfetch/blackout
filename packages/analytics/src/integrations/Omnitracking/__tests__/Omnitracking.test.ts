@@ -703,12 +703,18 @@ describe('Omnitracking', () => {
           const eventMapperKeyTemp =
             eventMapperKey as keyof typeof definitions.trackEventsMapper;
 
+          const mockedData = merge(
+            { event: eventMapperKeyTemp },
+            mockedTrackData,
+            trackEventsData[eventMapperKeyTemp],
+          );
+
           expect(
             (
               definitions.trackEventsMapper[
                 eventMapperKeyTemp
               ] as OmnitrackingTrackEventMapper
-            )(trackEventsData[eventMapperKeyTemp]),
+            )(mockedData),
           ).toMatchSnapshot();
           expect(typeof definitions.trackEventsMapper[eventMapperKeyTemp]).toBe(
             'function',
