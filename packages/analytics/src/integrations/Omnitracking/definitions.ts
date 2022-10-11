@@ -441,6 +441,12 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
       },
     ];
   },
+  [eventTypes.CHECKOUT_STARTED]: data => ({
+    tid: 2918,
+    basketValue: data.properties.total,
+    basketCurrency: data.properties.currency,
+    lineItems: getProductLineItems(data),
+  }),
   [eventTypes.LOGOUT]: () => ({
     tid: 431,
   }),
@@ -528,6 +534,13 @@ export const pageEventsMapper = {
     viewType: 'Listing',
     viewSubType: 'Listing',
     lineItems: getProductLineItems(data),
+  }),
+  [pageTypes.CHECKOUT]: (data: EventData<TrackTypesValues>) => ({
+    ...getCheckoutEventGenericProperties(data),
+    viewType: 'Checkout SPA',
+    viewSubType: 'Checkout SPA',
+    orderValue: data.properties?.total,
+    shippingTotalValue: data.properties?.shipping,
   }),
 };
 
