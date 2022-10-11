@@ -194,6 +194,7 @@ Object {
   "useProductGroupingProperties": [Function],
   "useProductListing": [Function],
   "useProductSizeGuides": [Function],
+  "useRecentlyViewedProducts": [Function],
   "useSearchDidYouMean": [Function],
   "useSearchIntents": [Function],
   "useSearchSuggestions": [Function],
