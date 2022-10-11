@@ -6,6 +6,15 @@ Object {
 }
 `;
 
+exports[`Omnitracking track events definitions \`Checkout Started\` return should match the snapshot 1`] = `
+Object {
+  "basketCurrency": "USD",
+  "basketValue": 24.64,
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1}]",
+  "tid": 2918,
+}
+`;
+
 exports[`Omnitracking track events definitions \`Checkout Step Viewed\` return should match the snapshot 1`] = `
 Object {
   "tid": 10097,
@@ -60,6 +69,16 @@ exports[`Omnitracking track events definitions \`Sign-up Form Viewed\` return sh
 Object {
   "tid": 10097,
   "val": "{\\"type\\":\\"REGISTER\\",\\"paymentAttemptReferenceId\\":\\"d9864a1c112d-47ff-8ee4-968c-5acecae23_1567010265879\\"}",
+}
+`;
+
+exports[`Omnitracking track events definitions \`checkout\` return should match the snapshot 1`] = `
+Object {
+  "orderCode": "ASH12",
+  "orderValue": 100,
+  "shippingTotalValue": 10,
+  "viewSubType": "Checkout SPA",
+  "viewType": "Checkout SPA",
 }
 `;
 

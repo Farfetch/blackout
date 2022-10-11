@@ -1,5 +1,6 @@
 import { pageTypes, PageviewEventData } from '@farfetch/blackout-analytics';
 import bagPageData from './bagPageData.fixtures';
+import checkoutPageData from './checkoutPageData.fixtures';
 import homepagePageData from './homepagePageData.fixtures';
 import listingPageData from './listingPageData.fixtures';
 import productPageData from './productPageData.fixtures';
@@ -23,6 +24,7 @@ const pageFixtures: PageFixtures = {
   [pageTypes.WISHLIST]: wishlistPageData,
   [pageTypes.PRODUCT_LISTING]: listingPageData,
   [pageTypes.PRODUCT_DETAILS]: productPageData,
+  [pageTypes.CHECKOUT]: checkoutPageData,
 };
 
 export default pageFixtures;
