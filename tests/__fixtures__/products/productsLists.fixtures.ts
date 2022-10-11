@@ -21,6 +21,9 @@ export const mockProductsListHashWithPageIndex2 =
   'listing/woman/clothing?categories=135971&colors=6&pageindex=2';
 export const mockProductsListHashWithPageIndexParameter =
   'listing/woman/clothing?pageindex=1';
+export const mockProductsListHashWithSingleProductId = 'listing?id=12913172';
+export const mockProductsListHashWithProductIds =
+  'listing?id=12913172|12913174';
 export const mockProductsListHashForSets =
   'sets/woman/clothing?categories=135971&colors=6&pageindex=1';
 export const mockProductsListHashForSetsWithId = `sets/${mockSetId}`;
