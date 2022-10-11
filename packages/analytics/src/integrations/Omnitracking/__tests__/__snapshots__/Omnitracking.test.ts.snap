@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Omnitracking track events definitions \`Checkout Abandoned\` return should match the snapshot 1`] = `
+Object {
+  "tid": 2084,
+}
+`;
+
 exports[`Omnitracking track events definitions \`Checkout Step Viewed\` return should match the snapshot 1`] = `
 Object {
   "tid": 10097,
