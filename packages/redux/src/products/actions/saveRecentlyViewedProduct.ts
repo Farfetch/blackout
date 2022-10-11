@@ -11,7 +11,6 @@ import type { Dispatch } from 'redux';
  * @returns Thunk factory.
  */
 const saveRecentlyViewedProduct =
-  () =>
   (productId: number) =>
   (dispatch: Dispatch): void => {
     const payload = [

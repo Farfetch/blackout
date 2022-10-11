@@ -17,7 +17,6 @@ const mockRecentlyViewedStore = (state = {}) =>
 
 describe('saveRecentlyViewedProduct() action creator', () => {
   let store: ReturnType<typeof mockRecentlyViewedStore>;
-  const action = saveRecentlyViewedProduct();
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -25,7 +24,7 @@ describe('saveRecentlyViewedProduct() action creator', () => {
   });
 
   it('should create the correct action', async () => {
-    action(productId)(store.dispatch);
+    saveRecentlyViewedProduct(productId)(store.dispatch);
 
     const actionResults = store.getActions();
 
