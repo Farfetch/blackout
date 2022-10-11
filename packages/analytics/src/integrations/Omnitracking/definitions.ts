@@ -500,12 +500,13 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
         };
     }
   },
-  [eventTypes.PRODUCT_LIST_VIEWED]: (data: EventData<TrackTypesValues>) => {
-    return {
-      tid: 2832,
-      lineItems: getProductLineItems(data),
-    };
-  },
+  [eventTypes.PRODUCT_LIST_VIEWED]: (data: EventData<TrackTypesValues>) => ({
+    tid: 2832,
+    lineItems: getProductLineItems(data),
+  }),
+  [eventTypes.CHECKOUT_ABANDONED]: () => ({
+    tid: 2084,
+  }),
 } as const;
 
 /**
