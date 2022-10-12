@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.45.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.44.1...@farfetch/blackout-react@0.45.0) (2022-10-12)
+
+
+### Features
+
+* **analytics:** remove percentage in scroll event ([dd7875e](https://github.com/Farfetch/blackout/commit/dd7875e54565913d7721f4e1901af68cd37933ce))
+
+
+
+
+
 ## [0.44.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.44.0...@farfetch/blackout-react@0.44.1) (2022-09-28)
 
 
