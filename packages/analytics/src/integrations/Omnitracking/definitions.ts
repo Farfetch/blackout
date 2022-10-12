@@ -1,5 +1,6 @@
 import {
   generatePaymentAttemptReferenceId,
+  getCheckoutEventGenericProperties,
   getParameterValueFromEvent,
   getProductLineItems,
   getValParameterForEvent,
@@ -434,6 +435,9 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
       {
         tid: 188,
         val,
+        ...getCheckoutEventGenericProperties(data),
+        promocode: data.properties?.coupon,
+        shippingTotalValue: data.properties?.shipping,
       },
     ];
   },
