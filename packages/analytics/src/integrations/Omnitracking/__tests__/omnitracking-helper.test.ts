@@ -1,15 +1,20 @@
 import {
   generatePaymentAttemptReferenceId,
+  getCheckoutEventGenericProperties,
   getPageEventFromLocation,
   getPlatformSpecificParameters,
   getValParameterForEvent,
 } from '../omnitracking-helper';
+import { logger } from '../../../utils';
 import platformTypes from '../../../types/platformTypes';
 import trackTypes from '../../../types/trackTypes';
 import type {
   EventData,
   TrackTypesValues,
 } from '../../../types/analytics.types';
+
+logger.warn = jest.fn();
+const mockLoggerWarn = logger.warn;
 
 describe('getPageEventFromLocation', () => {
   it('should return null when location is not provided', () => {
@@ -51,5 +56,48 @@ describe('getPlatformSpecificParameters', () => {
     } as EventData<TrackTypesValues>;
 
     expect(getPlatformSpecificParameters(eventData)).toStrictEqual({});
+  });
+});
+
+describe('getCheckoutEventGenericProperties', () => {
+  it('should display some warn', () => {
+    const eventData = {
+      type: trackTypes.TRACK,
+      properties: { orderId: '123' } as Record<string, unknown>,
+    } as EventData<TrackTypesValues>;
+
+    getCheckoutEventGenericProperties(eventData);
+    expect(mockLoggerWarn).toHaveBeenCalledWith(
+      expect.stringContaining(
+        'property orderId should be an alphanumeric value',
+      ),
+    );
+  });
+
+  it('should get orderCode without warn and without property orderId', () => {
+    const eventData = {
+      properties: {
+        orderId: '5H5QYB',
+        checkoutOrderId: '123',
+      } as Record<string, unknown>,
+    } as EventData<TrackTypesValues>;
+
+    expect(getCheckoutEventGenericProperties(eventData)).toEqual({
+      orderCode: '5H5QYB',
+    });
+  });
+
+  it('should get orderCode without warn and with property orderId', () => {
+    const eventData = {
+      properties: {
+        orderId: '5H5QYB',
+        checkoutOrderId: '123',
+      } as Record<string, unknown>,
+    } as EventData<TrackTypesValues>;
+
+    expect(getCheckoutEventGenericProperties(eventData, true)).toEqual({
+      orderCode: '5H5QYB',
+      orderId: '123',
+    });
   });
 });
