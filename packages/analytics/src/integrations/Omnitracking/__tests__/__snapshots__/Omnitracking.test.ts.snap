@@ -65,6 +65,15 @@ Object {
 }
 `;
 
+exports[`Omnitracking track events definitions \`Promocode Applied\` return should match the snapshot 1`] = `
+Object {
+  "errorMessage": "No promocode available.",
+  "hasError": true,
+  "promoCode": "ACME2019",
+  "tid": 311,
+}
+`;
+
 exports[`Omnitracking track events definitions \`Sign-up Form Viewed\` return should match the snapshot 1`] = `
 Object {
   "tid": 10097,

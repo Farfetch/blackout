@@ -517,6 +517,12 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   [eventTypes.CHECKOUT_ABANDONED]: () => ({
     tid: 2084,
   }),
+  [eventTypes.PROMOCODE_APPLIED]: (data: EventData<TrackTypesValues>) => ({
+    tid: 311,
+    promoCode: data.properties?.coupon,
+    hasError: !!data.properties?.errorMessage,
+    errorMessage: data.properties?.errorMessage,
+  }),
 } as const;
 
 /**

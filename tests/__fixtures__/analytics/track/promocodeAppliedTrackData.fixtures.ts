@@ -10,6 +10,7 @@ const fixtures = {
     shipping: 3.6,
     tax: 2.04,
     coupon: 'ACME2019',
+    errorMessage: 'No promocode available.',
     shippingTier: 'Next Day',
     currency: 'USD',
   },
