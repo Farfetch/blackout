@@ -447,6 +447,10 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     basketCurrency: data.properties.currency,
     lineItems: getProductLineItems(data),
   }),
+  [eventTypes.CHECKOUT_STEP_EDITING]: data => ({
+    tid: 2923,
+    checkoutStep: data.properties.step,
+  }),
   [eventTypes.LOGOUT]: () => ({
     tid: 431,
   }),
