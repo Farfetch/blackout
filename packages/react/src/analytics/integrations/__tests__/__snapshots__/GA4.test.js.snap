@@ -887,7 +887,7 @@ Array [
     "scroll",
     Object {
       "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
-      "percent_scrolled": "25%",
+      "percent_scrolled": 25,
     },
   ],
 ]

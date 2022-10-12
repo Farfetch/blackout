@@ -619,7 +619,7 @@ const getSignupNewsletterParametersFromEvent = eventProperties => {
  */
 const getScrollParametersFromEvent = eventProperties => {
   return {
-    percent_scrolled: `${eventProperties.percentageScrolled}%`,
+    percent_scrolled: eventProperties.percentageScrolled,
   };
 };
 
