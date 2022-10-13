@@ -8,6 +8,7 @@ const fixtures = {
     method: 'Facebook',
     contentType: 'image',
     id: '123456',
+    from: 'PDP',
   },
 };
 
