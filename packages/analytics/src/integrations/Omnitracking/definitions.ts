@@ -559,6 +559,13 @@ export const pageEventsMapper = {
     lineItems: getProductLineItems(data),
     wishlistQuantity: getProductLineItemsQuantity(data.properties.products),
   }),
+  [pageTypes.BAG]: (data: EventData<TrackTypesValues>) => ({
+    viewType: 'Shopping Bag',
+    viewSubType: 'Bag',
+    lineItems: getProductLineItems(data),
+    basketQuantity: getProductLineItemsQuantity(data.properties.products),
+    basketValue: data.properties.value,
+  }),
 };
 
 export const userGenderValuesMapper = {

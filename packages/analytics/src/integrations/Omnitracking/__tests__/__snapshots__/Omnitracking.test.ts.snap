@@ -88,6 +88,16 @@ Object {
 }
 `;
 
+exports[`Omnitracking track events definitions \`bag\` return should match the snapshot 1`] = `
+Object {
+  "basketQuantity": 1,
+  "basketValue": 13,
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1}]",
+  "viewSubType": "Bag",
+  "viewType": "Shopping Bag",
+}
+`;
+
 exports[`Omnitracking track events definitions \`checkout\` return should match the snapshot 1`] = `
 Object {
   "orderCode": "ASH12",
