@@ -193,7 +193,7 @@ Array [
       "address_finder": undefined,
       "coupon": "ACME2019",
       "currency": "USD",
-      "delivery_type": undefined,
+      "delivery_type": "Standard/Standard",
       "packaging_type": undefined,
       "shipping_tier": "Next Day",
       "value": 24.64,

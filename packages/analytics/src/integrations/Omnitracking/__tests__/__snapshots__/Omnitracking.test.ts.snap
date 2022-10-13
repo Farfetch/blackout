@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Omnitracking track events definitions \`Address Info Added\` return should match the snapshot 1`] = `
+Object {
+  "checkoutStep": "1",
+  "deliveryInformationDetails": "{\\"courierType\\":\\"Standard/Standard\\"}",
+  "interactionType": "click",
+  "tid": 2911,
+}
+`;
+
 exports[`Omnitracking track events definitions \`Checkout Abandoned\` return should match the snapshot 1`] = `
 Object {
   "tid": 2084,
