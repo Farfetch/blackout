@@ -81,6 +81,14 @@ Object {
 }
 `;
 
+exports[`Omnitracking track events definitions \`Share\` return should match the snapshot 1`] = `
+Object {
+  "actionArea": "PDP",
+  "productId": "123456",
+  "tid": 1205,
+}
+`;
+
 exports[`Omnitracking track events definitions \`Sign-up Form Viewed\` return should match the snapshot 1`] = `
 Object {
   "tid": 10097,
