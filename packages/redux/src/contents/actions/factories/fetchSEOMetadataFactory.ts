@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
   Config,
-  GetSEO,
-  GetSEOQuery,
+  GetSEOMetadata,
+  GetSEOMetadataQuery,
   SEOMetadata,
   toBlackoutError,
 } from '@farfetch/blackout-client';
@@ -14,13 +14,13 @@ import type { Nullable } from '../../../types';
 /**
  * Fetch SEO metadata content with a specific query object.
  *
- * @param getSEO - Get SEO client.
+ * @param getSEOMetadata - Get SEO metadata client.
  *
  * @returns Thunk factory.
  */
-const fetchSEOFactory =
-  (getSEO: GetSEO) =>
-  (query: GetSEOQuery, config?: Config) =>
+const fetchSEOMetadataFactory =
+  (getSEOMetadata: GetSEOMetadata) =>
+  (query: GetSEOMetadataQuery, config?: Config) =>
   async (dispatch: Dispatch<ActionFetchSEO>): Promise<SEOMetadata> => {
     let pathname: Nullable<string> = null;
 
@@ -33,7 +33,7 @@ const fetchSEOFactory =
         type: actionTypes.FETCH_SEO_REQUEST,
       });
 
-      const result = await getSEO(query, config);
+      const result = await getSEOMetadata(query, config);
 
       dispatch({
         meta: { query },
@@ -56,4 +56,4 @@ const fetchSEOFactory =
     }
   };
 
-export default fetchSEOFactory;
+export default fetchSEOMetadataFactory;

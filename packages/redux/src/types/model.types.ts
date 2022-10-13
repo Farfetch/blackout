@@ -5,6 +5,7 @@ import type {
   ProductListing,
   ProductSet,
   QuerySearchContents,
+  SEOMetadata,
 } from '@farfetch/blackout-client';
 
 export type Designers = {
@@ -42,4 +43,7 @@ type Common = {
   subfolder: string;
 };
 
-export type Model = ProductListing & ProductSet & Product & Common;
+export type Model = ProductListing &
+  ProductSet &
+  Product &
+  Common & { seoMetadata: SEOMetadata };

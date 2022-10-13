@@ -3,7 +3,7 @@ import type { Action } from 'redux';
 import type {
   BlackoutError,
   ContentType,
-  GetSEOQuery,
+  GetSEOMetadataQuery,
   QueryCommercePages,
   QuerySearchContents,
   SEOMetadata,
@@ -59,13 +59,13 @@ export interface ActionFetchCommercePagesFailure extends Action {
 }
 
 export interface ActionFetchSEORequest extends Action {
-  meta: { query: GetSEOQuery };
+  meta: { query: GetSEOMetadataQuery };
   payload: { pathname: Pathname };
   type: typeof actionTypes.FETCH_SEO_REQUEST;
 }
 
 export interface ActionFetchSEOSuccess extends Action {
-  meta: { query: GetSEOQuery };
+  meta: { query: GetSEOMetadataQuery };
   payload: {
     pathname: Pathname;
     result: SEOMetadata;
@@ -74,7 +74,7 @@ export interface ActionFetchSEOSuccess extends Action {
 }
 
 export interface ActionFetchSEOFailure extends Action {
-  meta: { query: GetSEOQuery };
+  meta: { query: GetSEOMetadataQuery };
   payload: {
     error: BlackoutError;
     pathname: Pathname;

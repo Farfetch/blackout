@@ -1,5 +1,13 @@
-import type { GetSEOError, IsSEOLoading } from '@farfetch/blackout-redux';
-import type { IndexSignature } from '@farfetch/blackout-client';
+import type {
+  Brand,
+  BreadCrumb,
+  Composition,
+  FilterSegment,
+  Label,
+  SeoPageType,
+  SeoSubPageType,
+} from '@farfetch/blackout-client';
+import type { CategoryEntity, PriceAdapted } from '@farfetch/blackout-redux';
 
 type MaskIcon = {
   rel: string;
@@ -32,14 +40,62 @@ export type Link = {
   hreflang?: string;
 };
 
-export type UseMetatags = {
-  error: GetSEOError;
-  isLoading: IsSEOLoading;
-  meta: {
-    title?: string | null;
-    description?: string | null;
-    canonical?: string | null;
-    meta: Partial<IndexSignature<string> & Meta>[];
-    link: (Link | MaskIcon)[];
+export type UseSeoMetadataOptions = {
+  enableAutoFetch?: boolean;
+};
+
+export type ProductSeoMetadataParams = {
+  pageType: SeoPageType;
+  param: {
+    ProductCategory?: string;
+    ProductCategoryName?: string;
+    ProductColor?: string;
+    ProductComposition1?: Composition['material'];
+    ProductComposition2?: Composition['material'];
+    ProductComposition3?: Composition['material'];
+    ProductDescription?: string;
+    ProductName?: string;
+    ProductDesigner?: string;
+  };
+  subPageType: SeoSubPageType;
+};
+
+export type GetProductSeoMetadataParams = (product: {
+  price?: PriceAdapted;
+  name?: string;
+  shortDescription?: string;
+  description?: string;
+  compositions?: Composition[];
+  color?: string;
+  brand?: Brand | null;
+  categories?: CategoryEntity[];
+  label?: Label[];
+}) => ProductSeoMetadataParams;
+
+export type ListingSeoMetadataParams = {
+  path?: string;
+  pageType?: SeoPageType;
+  pathname?: string;
+  subPageType?: string;
+  param: {
+    SetName?: string;
+    TotalNumberItems?: number;
+    BrandName?: string;
+    CategoryName?: string;
+    FirstLevelCategory?: string;
+    LowestProductPrice?: string | number | undefined;
+    ParentLevelCategory?: string;
   };
 };
+
+export type GetListingSeoMetadataParams = (args: {
+  location: { pathname: string; search: string };
+  totalItems?: number;
+  filterSegments?: FilterSegment[];
+  listingName?: string;
+  lowestProductPrice?: number;
+  countryName?: string;
+  countryCode: string;
+  currencyIsoCode?: string;
+  breadCrumbs?: BreadCrumb[];
+}) => ListingSeoMetadataParams;

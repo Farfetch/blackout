@@ -1,14 +1,4 @@
-import type {
-  BlackoutError,
-  ContentEntry,
-  ContentType,
-  SEOMetadata,
-  Targets,
-} from '@farfetch/blackout-client';
-import type { SearchResultsState } from '../types';
-
-type DefaultError = BlackoutError | null | undefined;
-type DefaultBoolean = boolean | undefined;
+import type { Targets } from '@farfetch/blackout-client';
 
 export type QueryContentHash = {
   // List of codes that representing the content code (about-us|today-news|header|productId...).
@@ -22,13 +12,3 @@ export type QueryContentHash = {
   // Size of each page, as a number between 1 and 180. The default is 60.
   pageSize?: number;
 };
-
-export type GetContentsByHash = SearchResultsState | undefined;
-export type GetContentError = DefaultError;
-export type GetContentByQuery = SearchResultsState['result'] | undefined;
-export type GetContents = ContentEntry[] | undefined;
-export type GetAllContentTypes = Array<ContentType['code']> | null | undefined;
-export type GetSEOError = DefaultError;
-export type IsContentLoading = DefaultBoolean;
-export type IsSEOLoading = DefaultBoolean;
-export type GetSEO = SEOMetadata | null | undefined;

@@ -4,7 +4,10 @@
 import { generateContentHash, generateSEOPathname } from './utils';
 import { getContentResult, getContentTypes, getSEOmetadata } from './reducer';
 import { getEntityById } from '../entities';
-import type { ContentEntry, GetSEOQuery } from '@farfetch/blackout-client';
+import type {
+  ContentEntry,
+  GetSEOMetadataQuery,
+} from '@farfetch/blackout-client';
 import type { ContentsState, Hash, QueryContentHash } from './types';
 import type { StoreState } from '../types';
 
@@ -162,10 +165,10 @@ export const getAllContentTypes = (state: StoreState) =>
  *
  * @example
  * ```
- * import { getSEOError } from '@farfetch/blackout-redux/contents';
+ * import { getSEOMetadataError } from '@farfetch/blackout-redux/contents';
  *
  * const mapStateToProps = (state, { query }) => ({
- *     seoError: getSEOError(state, query)
+ *     seoError: getSEOMetadataError(state, query)
  * });
  *
  * ```
@@ -175,7 +178,10 @@ export const getAllContentTypes = (state: StoreState) =>
  *
  * @returns - Content error.
  */
-export const getSEOError = (state: StoreState, query: GetSEOQuery) => {
+export const getSEOMetadataError = (
+  state: StoreState,
+  query: GetSEOMetadataQuery,
+) => {
   const pathname = generateSEOPathname(query);
   const error = getSEOmetadata(state.contents as ContentsState).error;
 
@@ -187,10 +193,10 @@ export const getSEOError = (state: StoreState, query: GetSEOQuery) => {
  *
  * @example
  * ```
- * import { isSEOLoading } from '@farfetch/blackout-redux/contents';
+ * import { isSEOMetadataLoading } from '@farfetch/blackout-redux/contents';
  *
  * const mapStateToProps = (state, { query }) => ({
- *     isSEOLoading: isSEOLoading(state, query)
+ *     isSEOMetadataLoading: isSEOMetadataLoading(state, query)
  * });
  *
  * ```
@@ -200,10 +206,44 @@ export const getSEOError = (state: StoreState, query: GetSEOQuery) => {
  *
  * @returns - If the content is loading or not.
  */
-export const isSEOLoading = (state: StoreState, query: GetSEOQuery) => {
+export const isSEOMetadataLoading = (
+  state: StoreState,
+  query: GetSEOMetadataQuery,
+) => {
   const pathname = generateSEOPathname(query);
 
   return getSEOmetadata(state.contents as ContentsState).isLoading[pathname];
+};
+
+/**
+ * Returns the isFetched status to the getSEO request.
+ *
+ * @example
+ * ```
+ * import { isSEOMetadataFetched } from '@farfetch/blackout-redux/contents';
+ *
+ * const mapStateToProps = (state, { query }) => ({
+ *     isSEOMetadataFetched: isSEOMetadataFetched(state, query)
+ * });
+ *
+ * ```
+ *
+ * @param state - Application state.
+ * @param query - Query applied to search the contents.
+ *
+ * @returns - If the content is loading or not.
+ */
+export const isSEOMetadataFetched = (
+  state: StoreState,
+  query: GetSEOMetadataQuery,
+) => {
+  const pathname = generateSEOPathname(query);
+
+  return (
+    (!!getSEOmetadata(state.contents as ContentsState).result?.[pathname] ||
+      !!getSEOMetadataError(state, query)) &&
+    !isSEOMetadataLoading(state, query)
+  );
 };
 
 /**
@@ -224,7 +264,10 @@ export const isSEOLoading = (state: StoreState, query: GetSEOQuery) => {
  *
  * @returns - All metadata for that page.
  */
-export const getSEO = (state: StoreState, query: GetSEOQuery) => {
+export const getSEOMetadataResult = (
+  state: StoreState,
+  query: GetSEOMetadataQuery,
+) => {
   const pathname = generateSEOPathname(query);
   const result = getSEOmetadata(state.contents as ContentsState).result;
 

@@ -1,8 +1,9 @@
 import { adaptError } from '../helpers/client/formatError';
 import client from '../helpers/client';
+import flattenObject from '../utils/flattenObject';
 import join from 'proper-url-join';
 import type { Config } from '../types';
-import type { GetSEOQuery, SEOMetadata } from './types';
+import type { GetSEOMetadataQuery, SEOMetadata } from './types';
 
 /**
  * Method responsible for searching the seo metadata for a specific page type.
@@ -12,12 +13,18 @@ import type { GetSEOQuery, SEOMetadata } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getSEO = (query: GetSEOQuery, config?: Config): Promise<SEOMetadata> =>
+const getSEOMetadata = (
+  query: GetSEOMetadataQuery,
+  config?: Config,
+): Promise<SEOMetadata> =>
   client
-    .get(join('/seo/metadata', { query }), config)
+    .get(
+      join('/content/v1/seometadata', { query: flattenObject(query) }),
+      config,
+    )
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
     });
 
-export default getSEO;
+export default getSEOMetadata;

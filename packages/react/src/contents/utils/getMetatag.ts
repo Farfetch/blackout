@@ -7,7 +7,7 @@ import type { Metatag } from '@farfetch/blackout-client';
  * @example
  * ```
  * const property = 'og:title';
- * const metatags = [{ property: { type: 'property', description: 'og:title' } }];
+ * const metatags = [{ propertyType: 'property', propertyDescription: 'og:title' } ];
  * Result of categories = 'Title of the page';
  *
  * ```
@@ -21,8 +21,8 @@ const getMetatag = memoize((property, metatags) => {
   const metaContent = metatags
     ?.filter(
       (metatag: Metatag) =>
-        metatag.property.type === 'property' &&
-        property === metatag.property.description,
+        metatag.propertyType === 'property' &&
+        property === metatag.propertyDescription,
     )
     .map((metatag: Metatag) => metatag.content)
     .join();
