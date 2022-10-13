@@ -64,6 +64,8 @@ export const adaptOrderItemStatus = orderItemStatus => {
 
 export const adaptOrderStatus = orderStatus => {
   switch (orderStatus) {
+    case 'Created':
+      return 0;
     case 'CheckingStock':
       return 1;
     case 'ProcessingPayment':

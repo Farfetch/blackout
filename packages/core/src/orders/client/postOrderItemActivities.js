@@ -1,5 +1,4 @@
 import client, { adaptError } from '../../helpers/client';
-import join from 'proper-url-join';
 
 /**
  * @typedef {object} PostOrderItemActivityData
@@ -27,16 +26,11 @@ import join from 'proper-url-join';
 export default ({ orderId, itemId }, data, config) =>
   client
     .post(
-      join(
-        '/account/v1/orders',
-        orderId,
-        'items',
-        itemId,
-        'availableActivities',
-      ),
+      `/account/v1/orders/${orderId}/items/${itemId}/activities`,
       data,
       config,
     )
+
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);

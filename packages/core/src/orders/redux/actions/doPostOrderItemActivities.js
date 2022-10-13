@@ -36,11 +36,17 @@ export default postOrderItemActivities =>
     });
 
     try {
-      await postOrderItemActivities({ orderId, itemId }, data, config);
+      const result = await postOrderItemActivities(
+        { orderId, itemId },
+        data,
+        config,
+      );
 
       dispatch({
         type: POST_ORDER_ITEM_ACTIVITIES_SUCCESS,
       });
+
+      return result;
     } catch (error) {
       dispatch({
         payload: { error },
