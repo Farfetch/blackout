@@ -3,6 +3,7 @@ import {
   getCheckoutEventGenericProperties,
   getPageEventFromLocation,
   getPlatformSpecificParameters,
+  getProductLineItemsQuantity,
   getValParameterForEvent,
 } from '../omnitracking-helper';
 import { logger } from '../../../utils';
@@ -99,5 +100,23 @@ describe('getCheckoutEventGenericProperties', () => {
       orderCode: '5H5QYB',
       orderId: '123',
     });
+  });
+});
+
+describe('getProductLineItemsQuantity', () => {
+  it('should return the sum of all quantities from all products in the list', () => {
+    expect(
+      getProductLineItemsQuantity([
+        {
+          quantity: 5,
+        },
+        {
+          quantity: 3,
+        },
+        {
+          quantity: 2,
+        },
+      ]),
+    ).toBe(10);
   });
 });
