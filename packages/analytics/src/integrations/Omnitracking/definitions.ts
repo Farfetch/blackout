@@ -3,6 +3,7 @@ import {
   getCheckoutEventGenericProperties,
   getParameterValueFromEvent,
   getProductLineItems,
+  getProductLineItemsQuantity,
   getValParameterForEvent,
 } from './omnitracking-helper';
 import eventTypes from '../../types/eventTypes';
@@ -551,6 +552,12 @@ export const pageEventsMapper = {
     viewSubType: 'Checkout SPA',
     orderValue: data.properties?.total,
     shippingTotalValue: data.properties?.shipping,
+  }),
+  [pageTypes.WISHLIST]: (data: EventData<TrackTypesValues>) => ({
+    viewType: 'Wishlist',
+    viewSubType: 'Wishlist',
+    lineItems: getProductLineItems(data),
+    wishlistQuantity: getProductLineItemsQuantity(data.properties.products),
   }),
 };
 

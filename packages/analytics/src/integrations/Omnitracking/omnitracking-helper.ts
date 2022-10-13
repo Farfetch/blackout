@@ -19,6 +19,7 @@ import get from 'lodash/get';
 import pick from 'lodash/pick';
 import platformTypes from '../../types/platformTypes';
 import type {
+  AnalyticsProduct,
   EventContext,
   EventData,
   TrackTypesValues,
@@ -635,4 +636,20 @@ export const getCheckoutEventGenericProperties = (
           : data.properties?.checkoutOrderId,
       }
     : { orderCode };
+};
+
+/**
+ * Obtain sum all quantities from product line item list.
+ *
+ * @param productList - The item list with quantity inside each element.
+ *
+ * @returns The sum of all product quantities.
+ */
+export const getProductLineItemsQuantity = (
+  productList?: Array<AnalyticsProduct>,
+) => {
+  return (productList || []).reduce(
+    (acc, curr) => acc + (curr.quantity || 0),
+    0,
+  );
 };
