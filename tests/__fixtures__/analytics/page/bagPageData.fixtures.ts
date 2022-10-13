@@ -9,6 +9,7 @@ const fixtures = {
     from: fromParameterTypes.BAG,
     list: 'Bag',
     listId: 'e0030b3c-b970-4496-bc72-f9a38d6270b1',
+    value: 13,
     products: [
       {
         id: '507f1f77bcf86cd799439011',
