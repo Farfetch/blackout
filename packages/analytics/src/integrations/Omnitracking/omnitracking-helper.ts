@@ -653,3 +653,22 @@ export const getProductLineItemsQuantity = (
     0,
   );
 };
+
+/**
+ * Obtain Delivery Information Details using event properties data in JSON Format.
+ *
+ * @param data - The event's data.
+ *
+ * @returns - Delivery Information Details in Json Format.
+ */
+export const getDeliveryInformationDetails = (
+  data: EventData<TrackTypesValues>,
+) => {
+  if (data.properties?.deliveryType) {
+    return JSON.stringify({
+      courierType: data.properties.deliveryType,
+    });
+  }
+
+  return undefined;
+};

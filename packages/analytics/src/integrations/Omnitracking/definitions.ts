@@ -1,6 +1,7 @@
 import {
   generatePaymentAttemptReferenceId,
   getCheckoutEventGenericProperties,
+  getDeliveryInformationDetails,
   getOmnitrackingProductId,
   getParameterValueFromEvent,
   getProductLineItems,
@@ -422,6 +423,12 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
       type: 'SUBMIT',
       paymentAttemptReferenceId: generatePaymentAttemptReferenceId(data),
     }),
+  }),
+  [eventTypes.ADDRESS_INFO_ADDED]: data => ({
+    tid: 2911,
+    checkoutStep: data.properties?.step,
+    deliveryInformationDetails: getDeliveryInformationDetails(data),
+    interactionType: data.properties?.interactionType,
   }),
   [eventTypes.PLACE_ORDER_STARTED]: (data: EventData<TrackTypesValues>) => {
     const val = getValParameterForEvent({
