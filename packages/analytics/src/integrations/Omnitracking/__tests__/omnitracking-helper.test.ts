@@ -1,6 +1,7 @@
 import {
   generatePaymentAttemptReferenceId,
   getCheckoutEventGenericProperties,
+  getDeliveryInformationDetails,
   getPageEventFromLocation,
   getPlatformSpecificParameters,
   getProductLineItemsQuantity,
@@ -118,5 +119,21 @@ describe('getProductLineItemsQuantity', () => {
         },
       ]),
     ).toBe(10);
+  });
+});
+
+describe('getDeliveryInformationDetails', () => {
+  it('should deal with empty information', () => {
+    // @ts-expect-error
+    expect(getDeliveryInformationDetails({})).toEqual(undefined);
+  });
+  it('should deal with delivery type', () => {
+    expect(
+      getDeliveryInformationDetails({
+        properties: {
+          deliveryType: 'sample',
+        } as Record<string, unknown>,
+      } as EventData<TrackTypesValues>),
+    ).toEqual('{"courierType":"sample"}');
   });
 });
