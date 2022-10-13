@@ -1,6 +1,7 @@
 import {
   generatePaymentAttemptReferenceId,
   getCheckoutEventGenericProperties,
+  getOmnitrackingProductId,
   getParameterValueFromEvent,
   getProductLineItems,
   getValParameterForEvent,
@@ -526,6 +527,11 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     promoCode: data.properties?.coupon,
     hasError: !!data.properties?.errorMessage,
     errorMessage: data.properties?.errorMessage,
+  }),
+  [eventTypes.SHARE]: (data: EventData<TrackTypesValues>) => ({
+    tid: 1205,
+    actionArea: data.properties?.from,
+    productId: getOmnitrackingProductId(data),
   }),
 } as const;
 
