@@ -9,7 +9,7 @@ import {
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction';
-import type { Params, UsePage } from '../types';
+import type { Params } from '../types';
 
 /**
  * Hook to return actions and selectors for content page data. The action to fetch
@@ -26,7 +26,7 @@ const usePage = (
   spaceCode: string,
   params?: Params,
   pageSize?: number,
-): UsePage => {
+) => {
   const query = {
     codes: slug,
     contentTypeCode: 'pages',

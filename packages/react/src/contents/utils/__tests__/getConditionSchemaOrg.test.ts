@@ -3,10 +3,8 @@ import * as utils from '..';
 const metatags = [
   {
     content: 'new',
-    property: {
-      type: 'property',
-      description: 'product:condition',
-    },
+    propertyType: 'property',
+    propertyDescription: 'product:condition',
   },
 ];
 

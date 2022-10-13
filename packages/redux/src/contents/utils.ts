@@ -2,15 +2,14 @@
  * Contents utils.
  */
 
-import {
+import get from 'lodash/get';
+import isEmpty from 'lodash/isEmpty';
+import type {
   CommercePages,
   CommercePagesContent,
   ComponentType,
   Metadata,
-  SeoPageType,
 } from '@farfetch/blackout-client';
-import get from 'lodash/get';
-import isEmpty from 'lodash/isEmpty';
 import type { GenerateSEOPathnameQuery, QueryContentHash } from './types';
 
 /**
@@ -270,8 +269,8 @@ export const generateContentHash = (query: QueryContentHash): string => {
  *
  * @example
  * ```
- * const pathname = generateSEOPathname({ path: '/about', pageType: 'pages'});
- * Result of pathname === 'pages!/about';
+ * const pathname = generateSEOPathname({ path: '/about'});
+ * Result of pathname === '/about';
  * ```
  *
  * @param query - Object with query parameters applied to search for metadata.
@@ -281,11 +280,9 @@ export const generateContentHash = (query: QueryContentHash): string => {
 export const generateSEOPathname = (
   query: GenerateSEOPathnameQuery,
 ): string => {
-  if (isEmpty(query) || !get(query, 'path')) {
+  if (!query?.path) {
     return '';
   }
 
-  const pageType = get(query, 'pageType', SeoPageType.Default);
-
-  return `${pageType}!${query.path}`;
+  return `${query.path}`;
 };

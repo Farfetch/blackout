@@ -8,7 +8,7 @@ import {
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction';
-import type { Params, UseContentType } from '../types';
+import type { Params } from '../types';
 
 /**
  * Hook to return actions and selectors for custom content type data. The action to
@@ -28,7 +28,7 @@ const useContentType = (
   spaceCode: string,
   params?: Params,
   pageSize?: number,
-): UseContentType => {
+) => {
   const query = {
     ...(codes && { codes }),
     contentTypeCode,

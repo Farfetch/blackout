@@ -154,7 +154,7 @@ describe('generateContentHash', () => {
 describe('generateSEOPathname', () => {
   it('should correctly construct the correct pathname with a query object', () => {
     const mockQuery = { path: '/about', pageType: 'pages' };
-    const expectedResult = 'pages!/about';
+    const expectedResult = '/about';
     const result = generateSEOPathname(mockQuery);
 
     expect(result).toBe(expectedResult);
@@ -162,14 +162,6 @@ describe('generateSEOPathname', () => {
 
   it('should return an empty string if the query received is an empty object', () => {
     const mockQuery = { pageType: '', path: '' };
-    const expectedResult = '';
-    const result = generateSEOPathname(mockQuery);
-
-    expect(result).toBe(expectedResult);
-  });
-
-  it('should return an empty string if the query received doesnt include path', () => {
-    const mockQuery = { pageType: 'pages', path: '' };
     const expectedResult = '';
     const result = generateSEOPathname(mockQuery);
 

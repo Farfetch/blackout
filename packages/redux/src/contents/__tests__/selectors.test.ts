@@ -113,36 +113,56 @@ describe('contents redux selectors', () => {
     });
   });
 
-  describe('getSEOError()', () => {
+  describe('getSEOMetadataError()', () => {
     it('should get the SEO error property from state', () => {
       const spy = jest.spyOn(fromReducer, 'getSEOmetadata');
       const expectedResult = mockState?.contents?.metadata?.error[pathname];
 
-      expect(selectors.getSEOError(mockState, seoQuery)).toEqual(
+      expect(selectors.getSEOMetadataError(mockState, seoQuery)).toEqual(
         expectedResult,
       );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('isSEOLoading()', () => {
+  describe('isSEOMetadataLoading()', () => {
     it('should get the loading status of a given SEO metadata by query', () => {
       const spy = jest.spyOn(fromReducer, 'getSEOmetadata');
       const expectedResult = mockState.contents.metadata.isLoading[pathname];
 
-      expect(selectors.isSEOLoading(mockState, seoQuery)).toEqual(
+      expect(selectors.isSEOMetadataLoading(mockState, seoQuery)).toEqual(
         expectedResult,
       );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getSEO()', () => {
+  describe('isSEOMetadataFetched()', () => {
+    it('should get the isFetched status of an existing SEO metadata by query', () => {
+      const spy = jest.spyOn(fromReducer, 'getSEOmetadata');
+
+      expect(selectors.isSEOMetadataFetched(mockState, seoQuery)).toEqual(true);
+      expect(spy).toHaveBeenCalledTimes(2);
+    });
+
+    it('should get the isFetched status of a non existing SEO metadata by query', () => {
+      const spy = jest.spyOn(fromReducer, 'getSEOmetadata');
+
+      expect(
+        selectors.isSEOMetadataFetched(mockState, { path: '/anotherPage' }),
+      ).toEqual(false);
+      expect(spy).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  describe('getSEOMetadataResult()', () => {
     it('should get all the SEO metadata accordion to the query received', () => {
       const spy = jest.spyOn(fromReducer, 'getSEOmetadata');
       const expectedResult = mockState.contents.metadata.result[pathname];
 
-      expect(selectors.getSEO(mockState, seoQuery)).toEqual(expectedResult);
+      expect(selectors.getSEOMetadataResult(mockState, seoQuery)).toEqual(
+        expectedResult,
+      );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });

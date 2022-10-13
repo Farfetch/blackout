@@ -333,6 +333,11 @@ export const expectedNormalizedPayload = {
         },
       },
     },
+    metadata: {
+      error: {},
+      isLoading: { '/': false },
+      result: { '/': {} },
+    },
   },
   entities: {
     contents: {

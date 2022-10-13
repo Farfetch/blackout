@@ -8,7 +8,7 @@ import {
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction';
-import type { Params, UseNavbars } from '../types';
+import type { Params } from '../types';
 
 /**
  * Hook to return actions and selectors for content navigation data. The action to
@@ -25,7 +25,7 @@ const useNavbars = (
   spaceCode: string,
   params?: Params,
   pageSize?: number,
-): UseNavbars => {
+) => {
   const query = {
     codes: navKey,
     contentTypeCode: 'navbars',

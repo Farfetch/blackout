@@ -9,7 +9,7 @@ import {
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction';
-import type { CommercePagesParams, UseCommercePages } from '../types';
+import type { CommercePagesParams } from '../types';
 
 /**
  * Hook to return actions and selectors for Commerce page data. The action to fetch
@@ -29,7 +29,7 @@ const useCommercePages = (
   pageIndex?: number,
   pageSize?: number,
   strategy = 'default',
-): UseCommercePages => {
+) => {
   const queryCommerce = {
     type: params.type,
     id: params?.id,

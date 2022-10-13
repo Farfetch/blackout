@@ -1,3 +1,6 @@
+import { mockBuildIconLinksResult } from '../../../utils/__tests__/__fixtures__/metadata';
+import { SeoPageType, SeoSubPageType } from '@farfetch/blackout-client';
+
 export const mockInitialState = {
   contents: {
     metadata: {
@@ -23,10 +26,10 @@ export const mockState = {
     metadata: {
       error: {},
       isLoading: {
-        'pages!/about': true,
+        '/about': false,
       },
       result: {
-        'pages!/about': {
+        '/about': {
           title: 'Test',
           h1: 'Dummy h1',
           canonicalUrl: 'https://api.blackout.com',
@@ -60,10 +63,10 @@ export const mockStateEmptySocialMeta = {
     metadata: {
       error: {},
       isLoading: {
-        'pages!/about': true,
+        '/about': false,
       },
       result: {
-        'pages!/about': {
+        '/about': {
           title: 'Test',
           h1: 'Dummy h1',
           canonicalUrl: 'https://api.blackout.com',
@@ -87,8 +90,9 @@ export const mockStateEmptySocialMeta = {
 
 export const result = {
   error: undefined,
-  isLoading: true,
-  meta: {
+  isLoading: false,
+  isFetched: true,
+  data: {
     title: 'Test',
     description: 'Dummy description',
     canonical: 'https://api.blackout.com',
@@ -107,23 +111,49 @@ export const result = {
       },
     ],
     link: [
+      { href: 'https://api.blackout.com', rel: 'canonical' },
       {
-        href: 'https://api.blackout.com',
-        rel: 'canonical',
-      },
-      {
+        rel: 'alternate',
         href: 'https://api.blackout.com',
         hreflang: 'x-default',
-        rel: 'alternate',
       },
+      ...mockBuildIconLinksResult,
     ],
+    seo: {
+      canonicalUrl: 'https://api.blackout.com',
+      description: 'Dummy description',
+      h1: 'Dummy h1',
+      headPrefix: 'og: http://ogp.me/ns#',
+      hrefLangs: [
+        {
+          href: 'https://api.blackout.com',
+          hrefLang: 'x-default',
+        },
+      ],
+      imageAltText: null,
+      keywords: 'Dummy keywords',
+      metatags: [
+        {
+          content: 'en_US',
+          contentType: 'content',
+          propertyDescription: 'og:locale',
+          propertyType: 'property',
+          tagName: 'meta',
+        },
+      ],
+      title: 'Test',
+    },
+  },
+  actions: {
+    fetch: expect.any(Function),
   },
 };
 
 export const resultNoSocialMeta = {
   error: undefined,
-  isLoading: true,
-  meta: {
+  isLoading: false,
+  isFetched: true,
+  data: {
     title: 'Test',
     description: 'Dummy description',
     canonical: 'https://api.blackout.com',
@@ -143,12 +173,33 @@ export const resultNoSocialMeta = {
         href: 'https://api.blackout.com',
         rel: 'canonical',
       },
+      ...mockBuildIconLinksResult,
     ],
+    seo: {
+      canonicalUrl: 'https://api.blackout.com',
+      description: 'Dummy description',
+      h1: 'Dummy h1',
+      headPrefix: 'og: http://ogp.me/ns#',
+      hrefLangs: [],
+      imageAltText: null,
+      keywords: 'Dummy keywords',
+      metatags: [
+        {
+          content: 'en_US',
+          contentType: 'content',
+          tagName: 'meta',
+        },
+      ],
+      title: 'Test',
+    },
+  },
+  actions: {
+    fetch: expect.any(Function),
   },
 };
 
 export const query = {
-  pageType: 'pages',
+  pageType: SeoPageType.Pages,
   path: '/about',
-  subPageType: '',
+  subPageType: SeoSubPageType.Default,
 };

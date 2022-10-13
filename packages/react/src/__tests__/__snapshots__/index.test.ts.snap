@@ -20,6 +20,7 @@ Object {
     "storage": null,
     "userInstance": null,
   },
+  "currencyFormatter": [Function],
   "eventTypes": Object {
     "ADDRESS_INFO_ADDED": "Address Info Added",
     "CHECKOUT_ABANDONED": "Checkout Abandoned",
@@ -65,6 +66,8 @@ Object {
     "RECOMMENDATIONS": "Recommendations",
     "WISHLIST": "Wishlist",
   },
+  "getListingSeoMetadataParams": [Function],
+  "getProductSeoMetadataParams": [Function],
   "getSearchRedirectUrl": [Function],
   "getTimeInMinutes": [Function],
   "headers": Object {
@@ -190,7 +193,6 @@ Object {
   "useCountryStateCities": [Function],
   "useCountryStates": [Function],
   "useLocale": [Function],
-  "useMetaTags": [Function],
   "useNavbars": [Function],
   "useOrder": [Function],
   "useOrders": [Function],
@@ -207,6 +209,7 @@ Object {
   "useSearchDidYouMean": [Function],
   "useSearchIntents": [Function],
   "useSearchSuggestions": [Function],
+  "useSeoMetadata": [Function],
   "useSubscriptionPackages": [Function],
   "useTopCategories": [Function],
   "useUser": [Function],
