@@ -16,3 +16,4 @@ export * from './search';
 export * from './subscriptions';
 export * from './users';
 export * from './wishlists';
+export * from './contents';

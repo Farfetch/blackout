@@ -1,7 +1,7 @@
 import type { Config } from '../../types';
 
-export type GetSEO = (
-  query: GetSEOQuery,
+export type GetSEOMetadata = (
+  query: GetSEOMetadataQuery,
   config?: Config,
 ) => Promise<SEOMetadata>;
 
@@ -20,7 +20,18 @@ export enum SeoPageType {
   Custom = 100,
 }
 
-export type GetSEOQuery = {
+export enum SeoSubPageType {
+  Default = 'Default',
+  Sale = 'Sale',
+  Brand = 'Brand',
+  Category = 'Category',
+  CategorySale = 'CategorySale',
+  BrandSale = 'BrandSale',
+  BrandCategory = 'BrandCategory',
+  BrandCategorySale = 'BrandCategorySale',
+}
+
+export type GetSEOMetadataQuery = {
   // The pathname of the location.
   path?: string;
   // The type of the page we are searching (pages|stores...).
@@ -29,6 +40,7 @@ export type GetSEOQuery = {
   subPageType?: string;
   customContentKey?: string;
   subfolder?: string;
+  param?: Record<string, string | number>;
 };
 
 export interface HrefLangs {
@@ -38,15 +50,6 @@ export interface HrefLangs {
 }
 
 export type Metatag = {
-  property: {
-    type: string;
-    description: string;
-    content: string;
-  };
-  content: string;
-};
-
-export type Metatags = {
   tagName: string;
   propertyType: string;
   propertyDescription: string;
@@ -62,6 +65,6 @@ export type SEOMetadata = {
   description: string | null;
   headPrefix: string | null;
   imageAltText?: string | null;
-  metatags?: Array<Metatags>;
+  metatags?: Array<Metatag>;
   hrefLangs?: Array<HrefLangs>;
 };

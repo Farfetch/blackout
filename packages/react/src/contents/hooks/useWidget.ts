@@ -8,7 +8,7 @@ import {
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction';
-import type { Params, UseWidget } from '../types';
+import type { Params } from '../types';
 
 /**
  * Hook to return actions and selectors for content widget data. The action to
@@ -25,7 +25,7 @@ const useWidget = (
   spaceCode: string,
   params?: Params,
   pageSize?: number,
-): UseWidget => {
+) => {
   const query = {
     codes: widgetKey,
     contentTypeCode: 'widgets',

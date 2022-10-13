@@ -4,10 +4,8 @@ const metadata = {
   metatags: [
     {
       content: 'PRODUCT TEST AUTOMATIC description',
-      property: {
-        type: 'property',
-        description: 'og:description',
-      },
+      propertyType: 'property',
+      propertyDescription: 'og:description',
     },
   ],
 };

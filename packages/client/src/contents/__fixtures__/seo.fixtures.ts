@@ -1,7 +1,7 @@
 import { rest, RestHandler } from 'msw';
 import type { SEOMetadata } from '../types';
 
-const path = '/api/seo/metadata';
+const path = '/api/content/v1/seometadata';
 
 const fixtures = {
   get: {

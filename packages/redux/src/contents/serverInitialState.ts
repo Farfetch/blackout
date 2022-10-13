@@ -1,9 +1,12 @@
+import { buildQueryStringFromObject } from '../helpers';
 import { contentEntries } from '../entities/schemas/content';
 import { generateContentHash } from './utils';
 import { INITIAL_STATE_CONTENT } from './reducer';
 import { normalize } from 'normalizr';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
+import parse from 'url-parse';
+import type { ContentsState } from './types';
 import type { ServerInitialState } from '../types/serverInitialState.types';
 
 /**
@@ -18,9 +21,9 @@ const serverInitialState: ServerInitialState = ({ model }) => {
     return { contents: INITIAL_STATE_CONTENT };
   }
 
-  const { searchContentRequests } = model;
+  const { searchContentRequests, slug, seoMetadata, subfolder } = model;
 
-  return searchContentRequests.reduce((acc, item) => {
+  const contents = searchContentRequests.reduce((acc, item) => {
     const {
       filters: { codes, contentTypeCode },
       searchResponse,
@@ -45,6 +48,31 @@ const serverInitialState: ServerInitialState = ({ model }) => {
       },
     });
   }, {});
+
+  const url = subfolder !== '/' ? slug?.replace(subfolder, '') : slug;
+  const { pathname, query } = parse(url, true);
+  delete query.json;
+  const metadataHash = `${pathname}${buildQueryStringFromObject(query)}`;
+
+  const metadata = {
+    contents: {
+      metadata: {
+        isLoading: {
+          [metadataHash]: false,
+        },
+        error: {},
+        result: {
+          [metadataHash]: {
+            ...seoMetadata,
+          },
+        },
+      },
+    } as ContentsState,
+  };
+
+  const total = merge(contents, metadata);
+
+  return total;
 };
 
 export default serverInitialState;

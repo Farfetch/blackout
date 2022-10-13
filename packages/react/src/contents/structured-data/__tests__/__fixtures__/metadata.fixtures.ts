@@ -11,24 +11,18 @@ export const metadata = {
   metatags: [
     {
       content: 'Content of the page',
-      property: {
-        type: 'property',
-        description: 'article:body',
-      },
+      propertyType: 'property',
+      propertyDescription: 'article:body',
     },
     {
       content: 'Article Section',
-      property: {
-        type: 'property',
-        description: 'article:section',
-      },
+      propertyType: 'property',
+      propertyDescription: 'article:section',
     },
     {
       content: 'Acme',
-      property: {
-        type: 'property',
-        description: 'article:publisher:name',
-      },
+      propertyType: 'property',
+      propertyDescription: 'article:publisher:name',
     },
   ],
   pageType: 'Product',

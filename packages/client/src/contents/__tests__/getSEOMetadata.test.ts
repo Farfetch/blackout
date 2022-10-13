@@ -1,4 +1,4 @@
-import { getSEO, SeoPageType } from '..';
+import { getSEOMetadata, SeoPageType } from '..';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/seo.fixtures';
 import mswServer from '../../../tests/mswServer';
@@ -10,12 +10,15 @@ describe('SEO client', () => {
     jest.clearAllMocks();
   });
 
-  describe('getSEO()', () => {
+  describe('getSEOMetadata()', () => {
     const spy = jest.spyOn(client, 'get');
     const query = {
       path: 'about',
       pageType: SeoPageType.Pages,
       subPageType: '',
+      param: {
+        subParam: 'mockValue',
+      },
     };
     const response = {
       title: null,
@@ -68,10 +71,10 @@ describe('SEO client', () => {
 
       expect.assertions(2);
 
-      await expect(getSEO(query)).resolves.toEqual(response);
+      await expect(getSEOMetadata(query)).resolves.toEqual(response);
 
       expect(spy).toHaveBeenCalledWith(
-        '/seo/metadata?pageType=5&path=about&subPageType=',
+        '/content/v1/seometadata?pageType=5&param.subParam=mockValue&path=about&subPageType=',
         expectedConfig,
       );
     });
@@ -81,10 +84,10 @@ describe('SEO client', () => {
 
       expect.assertions(2);
 
-      await expect(getSEO(query)).rejects.toMatchSnapshot();
+      await expect(getSEOMetadata(query)).rejects.toMatchSnapshot();
 
       expect(spy).toHaveBeenCalledWith(
-        '/seo/metadata?pageType=5&path=about&subPageType=',
+        '/content/v1/seometadata?pageType=5&param.subParam=mockValue&path=about&subPageType=',
         expectedConfig,
       );
     });
