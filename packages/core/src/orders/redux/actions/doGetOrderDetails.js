@@ -27,7 +27,7 @@ import trim from 'lodash/trim';
  * @returns {GetOrderDetailsThunkFactory} Thunk factory.
  */
 export default getOrderDetails =>
-  (orderId, config) =>
+  (orderId, splitByMerchantOrderCode = false, config) =>
   async (dispatch, getState, { getOptions = arg => ({ arg }) }) => {
     dispatch({
       meta: { orderId },
@@ -37,21 +37,6 @@ export default getOrderDetails =>
     try {
       const result = await getOrderDetails(orderId, config);
       const { productImgQueryParam } = getOptions(getState);
-      // This is a workaround to prevent breaking changes. It will be reviewed in core v2.
-      // Its purpose is to correctly place the `orderItems` property under the merchantOrderCode,
-      // i.e., orders -> ORDER_ID -> byMerchant -> MERCHANT_ID -> MERCHANT_ORDER_CODE -> orderItems,
-      // instead of under the default merchantId, i.e. orders -> ORDER_ID -> byMerchant -> MERCHANT_ID -> orderItems.
-      // For this, we check the store to see if the item `merchantOrderCode` property is present.
-      // If it does, it means orders are split by merchantOrderCode.
-      // Checking it for the first item is enough. If that one is available, all others will be.
-      const firstOrderItem = result?.items[0];
-
-      // Checks if the store is organized by the merchantOrderCode. If for example the checkourOrderId is
-      // present, then it is not split by merchantOrderCode.
-      const isSplitByMerchantOrderCode =
-        !getState()?.entities?.orders[orderId]?.byMerchant[
-          firstOrderItem.merchantId
-        ].checkoutOrderId;
 
       /* This is needed since the Checkout service is merging
         both Address Line 2 and Address Line 3 not checking correctly if the
@@ -74,7 +59,7 @@ export default getOrderDetails =>
       };
 
       dispatch({
-        meta: { orderId, isSplitByMerchantOrderCode },
+        meta: { orderId, splitByMerchantOrderCode },
         payload: normalize(
           {
             // Send this to the entity's `adaptProductImages`

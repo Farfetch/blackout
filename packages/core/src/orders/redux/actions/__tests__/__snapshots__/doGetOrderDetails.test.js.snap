@@ -4,8 +4,8 @@ exports[`doGetOrderDetails() action creator should create the correct actions fo
 Object {
   "guest": false,
   "meta": Object {
-    "isSplitByMerchantOrderCode": true,
     "orderId": "3558DS",
+    "splitByMerchantOrderCode": false,
   },
   "payload": Object {
     "entities": Object {
@@ -675,8 +675,8 @@ exports[`doGetOrderDetails() action creator should create the correct actions fo
 Object {
   "guest": false,
   "meta": Object {
-    "isSplitByMerchantOrderCode": true,
     "orderId": "3558DS",
+    "splitByMerchantOrderCode": false,
   },
   "payload": Object {
     "entities": Object {
