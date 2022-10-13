@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.324](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.323...@farfetch/blackout-redux@1.0.0-next.324) (2022-10-13)
+
+
+### Bug Fixes
+
+* **client|redux:** fix content redux exports ([690ec18](https://github.com/Farfetch/blackout/commit/690ec187aa982717a4f0cbee08b6658b69151fd8))
+
+
+
+
+
 # [1.0.0-next.323](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.322...@farfetch/blackout-redux@1.0.0-next.323) (2022-10-07)
 
 
