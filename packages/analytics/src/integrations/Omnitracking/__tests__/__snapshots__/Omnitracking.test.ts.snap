@@ -38,6 +38,13 @@ Object {
 }
 `;
 
+exports[`Omnitracking track events definitions \`Login\` return should match the snapshot 1`] = `
+Object {
+  "loginType": "Acme",
+  "tid": 2924,
+}
+`;
+
 exports[`Omnitracking track events definitions \`Logout\` return should match the snapshot 1`] = `
 Object {
   "tid": 431,
@@ -95,6 +102,13 @@ Object {
   "actionArea": "PDP",
   "productId": "123456",
   "tid": 1205,
+}
+`;
+
+exports[`Omnitracking track events definitions \`Sign-up Form Completed\` return should match the snapshot 1`] = `
+Object {
+  "loginType": "Acme",
+  "tid": 2927,
 }
 `;
 
