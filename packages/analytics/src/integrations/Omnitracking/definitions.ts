@@ -541,6 +541,14 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     actionArea: data.properties?.from,
     productId: getOmnitrackingProductId(data),
   }),
+  [eventTypes.LOGIN]: (data: EventData<TrackTypesValues>) => ({
+    tid: 2924,
+    loginType: data.properties?.method,
+  }),
+  [eventTypes.SIGNUP_FORM_COMPLETED]: (data: EventData<TrackTypesValues>) => ({
+    tid: 2927,
+    loginType: data.properties?.method,
+  }),
 } as const;
 
 /**
