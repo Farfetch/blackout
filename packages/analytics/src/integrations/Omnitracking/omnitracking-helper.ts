@@ -672,3 +672,19 @@ export const getDeliveryInformationDetails = (
 
   return undefined;
 };
+
+/**
+ * Obtain Common Checkout Details.
+ *
+ * @param data - The event's data.
+ *
+ * @returns - Omnitracking's common checkout parameters.
+ */
+export const getCommonCheckoutStepTrackingData = (
+  data: EventData<TrackTypesValues>,
+) => ({
+  checkoutStep: data.properties?.step,
+  deliveryInformationDetails: getDeliveryInformationDetails(data),
+  interactionType: data.properties?.interactionType,
+  selectedPaymentMethod: data.properties?.paymentType,
+});
