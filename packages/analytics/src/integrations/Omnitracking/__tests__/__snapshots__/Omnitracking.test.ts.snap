@@ -51,6 +51,16 @@ Object {
 }
 `;
 
+exports[`Omnitracking track events definitions \`Payment Info Added\` return should match the snapshot 1`] = `
+Object {
+  "checkoutStep": undefined,
+  "deliveryInformationDetails": undefined,
+  "interactionType": undefined,
+  "selectedPaymentMethod": "credit card",
+  "tid": 2912,
+}
+`;
+
 exports[`Omnitracking track events definitions \`Place Order Started\` return should match the snapshot 1`] = `
 Array [
   Object {
@@ -102,6 +112,26 @@ Object {
   "actionArea": "PDP",
   "productId": "123456",
   "tid": 1205,
+}
+`;
+
+exports[`Omnitracking track events definitions \`Shipping Info Added\` return should match the snapshot 1`] = `
+Object {
+  "checkoutStep": "2",
+  "deliveryInformationDetails": "{\\"courierType\\":\\"Standard/Standard\\"}",
+  "interactionType": "click",
+  "selectedPaymentMethod": "credit",
+  "tid": 2914,
+}
+`;
+
+exports[`Omnitracking track events definitions \`Shipping Method Added\` return should match the snapshot 1`] = `
+Object {
+  "checkoutStep": "2",
+  "deliveryInformationDetails": "{\\"courierType\\":\\"Standard/Standard\\"}",
+  "interactionType": "click",
+  "selectedPaymentMethod": "credit",
+  "tid": 2913,
 }
 `;
 

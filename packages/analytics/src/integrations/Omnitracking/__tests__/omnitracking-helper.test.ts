@@ -1,6 +1,7 @@
 import {
   generatePaymentAttemptReferenceId,
   getCheckoutEventGenericProperties,
+  getCommonCheckoutStepTrackingData,
   getDeliveryInformationDetails,
   getPageEventFromLocation,
   getPlatformSpecificParameters,
@@ -135,5 +136,23 @@ describe('getDeliveryInformationDetails', () => {
         } as Record<string, unknown>,
       } as EventData<TrackTypesValues>),
     ).toEqual('{"courierType":"sample"}');
+  });
+});
+
+describe('getCommonCheckoutStepTrackingData', () => {
+  it('should obtain common checkout parameters', () => {
+    expect(
+      getCommonCheckoutStepTrackingData({
+        properties: {
+          step: 2,
+          deliveryType: 'sample',
+          interactionType: 'click',
+        } as Record<string, unknown>,
+      } as EventData<TrackTypesValues>),
+    ).toEqual({
+      checkoutStep: 2,
+      deliveryInformationDetails: '{"courierType":"sample"}',
+      interactionType: 'click',
+    });
   });
 });
