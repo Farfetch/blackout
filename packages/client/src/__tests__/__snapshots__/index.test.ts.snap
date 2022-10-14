@@ -56,6 +56,12 @@ Object {
     "PRODUCT": "PRODUCT",
     "SET": "SET",
   },
+  "ConfigurationSchemaFieldType": Object {
+    "Boolean": "boolean",
+    "Number": "number",
+    "Object": "object",
+    "String": "string",
+  },
   "CreationChannel": Object {
     "Catalog": "Catalog",
     "Mail": "Mail",
@@ -447,13 +453,6 @@ Object {
     "CourierPickUp": "CourierPickUp",
     "InStore": "InStore",
     "Manual": "Manual",
-  },
-  "SchemaFieldType": Object {
-    "Boolean": "boolean",
-    "Number": "number",
-    "Object": "object",
-    "PreOwned": "PreOwned",
-    "String": "string",
   },
   "SearchIntentsTypeFilter": Object {
     "0": "ProductId",

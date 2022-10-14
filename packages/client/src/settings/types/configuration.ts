@@ -1,27 +1,32 @@
-export enum SchemaFieldType {
+export enum ConfigurationSchemaFieldType {
   Number = 'number',
   Boolean = 'boolean',
   String = 'string',
   Object = 'object',
-  PreOwned = 'PreOwned',
 }
+
+export type ConfigurationSecurity = {
+  resources: Array<{
+    name: string;
+    action: string;
+  }>;
+  scopes: string[];
+};
+
+export type ConfigurationProperty = {
+  code: string;
+  description: string;
+  value: string;
+  schemaFieldType: ConfigurationSchemaFieldType;
+  security: ConfigurationSecurity;
+  contextValues?: Array<{ code: string; value: string }>;
+};
 
 export type Configuration = {
   code: string;
   type: string;
   description: string;
-  tenant: number;
-  properties: Array<{
-    code: string;
-    description: string;
-    value: string;
-    schemaFieldType: SchemaFieldType;
-    security: {
-      resources: Array<{
-        name: string;
-        action: string;
-      }>;
-      scopes: string[];
-    };
-  }>;
+  tenantId: number;
+  properties: ConfigurationProperty[];
+  channelCodes?: string[];
 };

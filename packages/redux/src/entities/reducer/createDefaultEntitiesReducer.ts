@@ -7,6 +7,7 @@ import { entitiesMapper as entitiesMapperReturns } from '../../returns/reducer';
 import { entitiesMapper as entitiesMapperUsers } from '../../users/reducer';
 import { entitiesMapper as entitiesMapperWishlist } from '../../wishlists/reducer';
 import { productsEntitiesMapper } from '../../products';
+import { settingsEntitiesMapper } from '../../settings/reducer';
 import { subscriptionsEntitiesMapper } from '../../subscriptions';
 import createEntitiesReducer from './createEntities';
 import type { AnyAction } from 'redux';
@@ -14,7 +15,7 @@ import type { StoreState } from '../../types';
 
 // CustomEntitiesReducer is what was called previously as an "entities mapper"
 // Every custom entities reducer will be guaranteed that it will receive a defined value
-// because the default global entities educer will make sure that it will receive an object if the currrent entities
+// because the default global entities reducer will make sure that it will receive an object if the currrent entities
 // state is undefined.
 export type CustomEntitiesReducer = (
   state: NonNullable<StoreState['entities']>,
@@ -47,6 +48,7 @@ type EntitiesReducerByActionNormalizer = (
 export const defaultEntitiesReducers: DefaultEntitiesReducers = {
   bag: entitiesMapperBag,
   checkout: entitiesMapperCheckout,
+  configurations: settingsEntitiesMapper,
   merchantsLocations: entitiesMapperMerchantsLocations,
   orders: entitiesMapperOrders,
   payments: entitiesMapperPayments,

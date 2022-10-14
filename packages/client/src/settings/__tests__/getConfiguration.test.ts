@@ -1,5 +1,5 @@
+import { ConfigurationSchemaFieldType } from '../types';
 import { getConfiguration } from '..';
-import { SchemaFieldType } from '../types';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getConfiguration.fixtures';
 import mswServer from '../../../tests/mswServer';
@@ -18,13 +18,13 @@ describe('getConfiguration', () => {
       code,
       type: 'configuration',
       description: 'sample configuration',
-      tenant: query.tenantId,
+      tenantId: query.tenantId,
       properties: [
         {
           code: '111',
           description: 'sample property',
           value: 'sample',
-          schemaFieldType: SchemaFieldType.String,
+          schemaFieldType: ConfigurationSchemaFieldType.String,
           security: {
             resources: [
               {

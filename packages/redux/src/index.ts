@@ -21,6 +21,7 @@ export * from './products';
 export * from './promotionEvaluations';
 export * from './returns';
 export * from './search';
+export * from './settings';
 export * from './sizeGuides';
 export * from './sizeScales';
 export * from './staffMembers';

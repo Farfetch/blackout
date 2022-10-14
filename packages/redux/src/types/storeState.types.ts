@@ -55,6 +55,7 @@ import type {
 import type { BrandsState } from '../brands/types';
 import type { CategoriesState } from '../categories/types';
 import type { CheckoutState } from '../checkout/types';
+import type { ConfigurationEntity } from '../entities/types/configurations.types';
 import type { ContentsState } from '../contents/types';
 import type { FormsState } from '../forms/types';
 import type { LocaleState } from '../locale/types';
@@ -66,6 +67,7 @@ import type { ProductsState } from '../products/types';
 import type { PromotionEvaluationsState } from '../promotionEvaluations/types';
 import type { ReturnsState } from '../returns/types';
 import type { SearchState } from '../search/types';
+import type { SettingsState } from '../settings/types';
 import type { SizeGuidesState } from '../sizeGuides/types';
 import type { SizeScalesState } from '../sizeScales/types';
 import type { StaffMembersState } from '../staffMembers/types';
@@ -98,6 +100,7 @@ export type StoreState = Partial<{
     >;
     checkoutOrders: Record<CheckoutOrderEntity['id'], CheckoutOrderEntity>;
     cities: Record<CityEntity['id'], CityEntity>;
+    configurations: Record<ConfigurationEntity['code'], ConfigurationEntity>;
     contacts: Record<UserContactEntity['id'], UserContactEntity>;
     contents: Record<ContentsEntity['publicationId'], ContentsEntity>;
     converts: Record<ConvertEntity['id'], ConvertEntity>;
@@ -161,6 +164,7 @@ export type StoreState = Partial<{
   promotionEvaluations: PromotionEvaluationsState;
   returns: ReturnsState;
   search: SearchState;
+  settings: SettingsState;
   sizeGuides: SizeGuidesState;
   sizeScales: SizeScalesState;
   staffMembers: StaffMembersState;
