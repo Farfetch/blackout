@@ -12,6 +12,10 @@ const fixtures = {
     coupon: 'ACME2019',
     shippingTier: 'Next Day',
     currency: 'USD',
+    step: '2',
+    deliveryType: 'Standard/Standard',
+    interactionType: 'click',
+    paymentType: 'credit',
   },
 };
 
