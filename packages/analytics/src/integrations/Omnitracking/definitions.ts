@@ -1,6 +1,7 @@
 import {
   generatePaymentAttemptReferenceId,
   getCheckoutEventGenericProperties,
+  getCommonCheckoutStepTrackingData,
   getDeliveryInformationDetails,
   getOmnitrackingProductId,
   getParameterValueFromEvent,
@@ -459,6 +460,18 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   [eventTypes.CHECKOUT_STEP_EDITING]: data => ({
     tid: 2923,
     checkoutStep: data.properties.step,
+  }),
+  [eventTypes.PAYMENT_INFO_ADDED]: data => ({
+    ...getCommonCheckoutStepTrackingData(data),
+    tid: 2912,
+  }),
+  [eventTypes.SHIPPING_INFO_ADDED]: data => ({
+    ...getCommonCheckoutStepTrackingData(data),
+    tid: 2914,
+  }),
+  [eventTypes.SHIPPING_METHOD_ADDED]: data => ({
+    ...getCommonCheckoutStepTrackingData(data),
+    tid: 2913,
   }),
   [eventTypes.LOGOUT]: () => ({
     tid: 431,
