@@ -473,6 +473,10 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     ...getCommonCheckoutStepTrackingData(data),
     tid: 2913,
   }),
+  [eventTypes.ORDER_COMPLETED]: data => ({
+    tid: 2831,
+    ...getCheckoutEventGenericProperties(data),
+  }),
   [eventTypes.LOGOUT]: () => ({
     tid: 431,
   }),

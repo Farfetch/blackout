@@ -355,7 +355,7 @@ Array [
       ],
       "shipping": 3.6,
       "tax": 2.04,
-      "transaction_id": "50314b8e9bcf000000000000",
+      "transaction_id": "ABC12",
       "value": 24.64,
     },
   ],
