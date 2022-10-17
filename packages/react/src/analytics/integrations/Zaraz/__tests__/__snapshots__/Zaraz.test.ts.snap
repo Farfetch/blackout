@@ -23,8 +23,8 @@ Array [
     "Order Completed",
     Object {
       "currency": "USD",
-      "name": "50314b8e9bcf000000000000",
-      "order_id": "50314b8e9bcf000000000000",
+      "name": "ABC12",
+      "order_id": "ABC12",
       "products": Array [
         Object {
           "product_id": "507f1f77bcf86cd799439011",
