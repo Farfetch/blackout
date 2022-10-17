@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.327](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.326...@farfetch/blackout-react@1.0.0-next.327) (2022-10-17)
+
+
+### Features
+
+* add useRecentlyViewedProducts hook ([702f311](https://github.com/Farfetch/blackout/commit/702f311c3d10e3557577c9436eb082b86e93d4fc))
+
+
+
+
+
 # [1.0.0-next.326](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.325...@farfetch/blackout-react@1.0.0-next.326) (2022-10-13)
 
 
