@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.81](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.80...@farfetch/blackout-analytics@1.0.0-next.81) (2022-10-18)
+
+
+### Bug Fixes
+
+* **analytics|react:** fix omnitracking's clientLanguage and clientCountry parameters ([5431a58](https://github.com/Farfetch/blackout/commit/5431a5878c9c964720d76702d5f0bd378be05a42))
+
+
+### Features
+
+* **analytics|react:** add omnitracking's order completed mappings ([4de1fc3](https://github.com/Farfetch/blackout/commit/4de1fc329144286b27b7f48400ffe66e65ee0b8f))
+* **analytics|react:** add omnitracking's wishlist page tracking mappings ([e00f232](https://github.com/Farfetch/blackout/commit/e00f232085634e25fe2217fd1b008ca9e9929a91))
+* **analytics|react:** add product details and listing pages to omnitracking ([74677ab](https://github.com/Farfetch/blackout/commit/74677ab093a2701f794fbdaae1abc37e030af065))
+* **analytics|react:** share uniqueEventId between analytics' integrations ([1af80f5](https://github.com/Farfetch/blackout/commit/1af80f5444819760e0ef9e7b015faf249aaecbde))
+* **analytics:** add default omnitracking viewType and viewSubType parameters ([55b7f85](https://github.com/Farfetch/blackout/commit/55b7f85a0d70ef714017b501b5cd177876195d04))
+* **analytics:** add omnitracking pre-calculated parameters ([e12f0bc](https://github.com/Farfetch/blackout/commit/e12f0bcb8f25c86ea25dee92c8e71284e21816c0))
+* **analytics:** add omnitracking's address info mappings ([4e0b8d0](https://github.com/Farfetch/blackout/commit/4e0b8d0fcb2949de35d74a5b581198171558dfe2))
+* **analytics:** add omnitracking's bag page tracking mappings ([611c51e](https://github.com/Farfetch/blackout/commit/611c51ef2cda64246a8fc096e272448f123c65cb))
+* **analytics:** add omnitracking's checkout abandoned event mappings ([9ae9af2](https://github.com/Farfetch/blackout/commit/9ae9af220cd7af87bf76688ae8734f54e43ba010))
+* **analytics:** add omnitracking's checkout started and checkout page view event mappings ([dd5a286](https://github.com/Farfetch/blackout/commit/dd5a286f569a4fca03d6d5230e4c32fe14016612))
+* **analytics:** add omnitracking's edit checkout step tracking mappings ([fa27082](https://github.com/Farfetch/blackout/commit/fa27082828e9160d3070b29017b550691106d28f))
+* **analytics:** add omnitracking's login and signup events mappings ([9180d20](https://github.com/Farfetch/blackout/commit/9180d205d27a1165254a6a3b8417eb89ced0921d))
+* **analytics:** add omnitracking's place order started event mappings ([93cf520](https://github.com/Farfetch/blackout/commit/93cf520800dbfcf27b8ef5259366a7311f05adda))
+* **analytics:** add omnitracking's product clicked event mappings ([4ea5bd7](https://github.com/Farfetch/blackout/commit/4ea5bd7f2b2360234d7da01df3e0ea738a4acf9a))
+* **analytics:** add omnitracking's promocode mappings ([09bcd97](https://github.com/Farfetch/blackout/commit/09bcd97205cc2a276dcbc7b76a8d67fef6817911))
+* **analytics:** add omnitracking's share event mappings ([1d515d5](https://github.com/Farfetch/blackout/commit/1d515d53b1caeb0438aeb7094a078f49b9f0a608))
+* **analytics:** add omnitracking's shipping and payment mappings ([1c8d11d](https://github.com/Farfetch/blackout/commit/1c8d11dc8fe64b87b8d022417fc7d1d06e39b0fb))
+* **analytics:** upgrade omnitracking's contract to v1.15 ([3eead85](https://github.com/Farfetch/blackout/commit/3eead8585075a4848fdd728c52e82e280f70e535))
+
+
+
+
+
 # [1.0.0-next.80](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.79...@farfetch/blackout-analytics@1.0.0-next.80) (2022-10-13)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
