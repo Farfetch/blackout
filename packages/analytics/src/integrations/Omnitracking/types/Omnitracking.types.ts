@@ -64,7 +64,8 @@ export type OmnitrackingTrackOrPageMapperResult =
   | OmnitrackingTrackEventParameters
   | OmnitrackingTrackEventParameters[]
   | OmnitrackingPageEventParameters
-  | OmnitrackingPageEventParameters[];
+  | OmnitrackingPageEventParameters[]
+  | undefined;
 
 export type OmnitrackingTrackOrPageEventMapper = (
   data: EventData<TrackTypesValues>,
