@@ -98,6 +98,15 @@ Object {
 }
 `;
 
+exports[`Omnitracking track events definitions \`Product Clicked\` return should match the snapshot 1`] = `
+Object {
+  "actionArea": "PLP",
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1}]",
+  "productId": "507f1f77bcf86cd799439011",
+  "tid": 2926,
+}
+`;
+
 exports[`Omnitracking track events definitions \`Product List Viewed\` return should match the snapshot 1`] = `
 Object {
   "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"category\\":\\"\\",\\"itemFullPrice\\":25},{\\"productId\\":\\"507f1f77bcf86cd799439012\\",\\"itemPromotion\\":6,\\"category\\":\\"\\",\\"itemFullPrice\\":25}]",
