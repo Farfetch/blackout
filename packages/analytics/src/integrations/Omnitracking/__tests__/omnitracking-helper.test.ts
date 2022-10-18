@@ -3,6 +3,7 @@ import {
   getCheckoutEventGenericProperties,
   getCommonCheckoutStepTrackingData,
   getDeliveryInformationDetails,
+  getOmnitrackingProductId,
   getPageEventFromLocation,
   getPlatformSpecificParameters,
   getProductLineItemsQuantity,
@@ -154,5 +155,40 @@ describe('getCommonCheckoutStepTrackingData', () => {
       deliveryInformationDetails: '{"courierType":"sample"}',
       interactionType: 'click',
     });
+  });
+});
+
+describe('getOmnitrackingProductId', () => {
+  it('should return product id over id', () => {
+    const data = {
+      properties: {
+        productId: 123,
+        id: 432,
+      } as Record<string, unknown>,
+    } as EventData<TrackTypesValues>;
+
+    expect(getOmnitrackingProductId(data)).toEqual(123);
+  });
+
+  it('should return id without product id', () => {
+    const data = {
+      properties: {
+        productId: undefined,
+        id: 432,
+      } as Record<string, unknown>,
+    } as EventData<TrackTypesValues>;
+
+    expect(getOmnitrackingProductId(data)).toEqual(432);
+  });
+
+  it('should return undefined instead of id property if method has been called with true on useOnlyProductIdField parameter', () => {
+    const data = {
+      properties: {
+        productId: undefined,
+        id: 432,
+      } as Record<string, unknown>,
+    } as EventData<TrackTypesValues>;
+
+    expect(getOmnitrackingProductId(data, true)).toEqual(undefined);
   });
 });

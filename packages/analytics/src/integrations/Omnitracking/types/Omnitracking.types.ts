@@ -61,7 +61,10 @@ export type OmnitrackingAllParameters = OmnitrackingTrackEventParameters &
 
 export type OmnitrackingTrackEventMapper = (
   data: EventData<TrackTypesValues>,
-) => OmnitrackingTrackEventParameters | OmnitrackingTrackEventParameters[];
+) =>
+  | OmnitrackingTrackEventParameters
+  | OmnitrackingTrackEventParameters[]
+  | undefined;
 
 export type OmnitrackingTrackEventsMapper = {
   [K in typeof eventTypes[keyof typeof eventTypes]]?: OmnitrackingTrackEventMapper;

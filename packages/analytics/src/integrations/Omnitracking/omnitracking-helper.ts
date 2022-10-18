@@ -551,11 +551,18 @@ export const getClientLanguageFromCulture = (culture = '') => {
  * Obtain product Id omnitracking parameter.
  *
  * @param data - The event tracking data.
+ * @param useOnlyProductIdField - Should be true when it's only to use productId field.
  *
  * @returns The product id.
  */
-export const getOmnitrackingProductId = (data: EventData<TrackTypesValues>) => {
-  return data?.properties?.productId || data?.properties?.id;
+export const getOmnitrackingProductId = (
+  data: EventData<TrackTypesValues>,
+  useOnlyProductIdField = false,
+) => {
+  return (
+    data?.properties?.productId ||
+    (useOnlyProductIdField ? undefined : data?.properties?.id)
+  );
 };
 
 /**

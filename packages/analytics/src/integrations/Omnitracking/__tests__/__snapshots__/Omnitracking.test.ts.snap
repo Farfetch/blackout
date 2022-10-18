@@ -134,6 +134,16 @@ Object {
 }
 `;
 
+exports[`Omnitracking track events definitions \`Select Content\` return should match the snapshot 1`] = `
+Object {
+  "contentType": "biz",
+  "interactionType": "click",
+  "productId": 12345,
+  "tid": 2895,
+  "val": 12312312,
+}
+`;
+
 exports[`Omnitracking track events definitions \`Share\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "PDP",

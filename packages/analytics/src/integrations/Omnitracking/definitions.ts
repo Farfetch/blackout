@@ -9,11 +9,15 @@ import {
   getProductLineItemsQuantity,
   getValParameterForEvent,
 } from './omnitracking-helper';
+import { logger } from '../../utils';
 import eventTypes from '../../types/eventTypes';
 import fromParameterTypes from '../../types/fromParameterTypes';
 import pageTypes from '../../types/pageTypes';
 import type { EventData, TrackTypesValues } from '../..';
-import type { OmnitrackingTrackEventsMapper } from './types/Omnitracking.types';
+import type {
+  OmnitrackingTrackEventParameters,
+  OmnitrackingTrackEventsMapper,
+} from './types/Omnitracking.types';
 
 export const PRODUCT_ID_PARAMETER = 'productId';
 export const PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST = 'id';
@@ -566,6 +570,26 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     priceCurrency: data.properties?.currency,
     lineItems: getProductLineItems(data),
   }),
+  [eventTypes.SELECT_CONTENT]: (data: EventData<TrackTypesValues>) => {
+    const properties = data.properties;
+
+    if (!properties?.contentType || !properties?.id) {
+      logger.error(
+        `[Omnitracking] - Event ${data.event} properties "contentType" and "id" should be sent 
+                        on the payload when triggering a "select content" event. If you want to track this 
+                        event, make sure to pass these two properties.`,
+      );
+      return undefined;
+    }
+
+    return {
+      tid: 2895,
+      contentType: properties?.contentType,
+      interactionType: properties?.interactionType,
+      val: properties?.id,
+      productId: getOmnitrackingProductId(data, true),
+    } as OmnitrackingTrackEventParameters;
+  },
 } as const;
 
 /**
