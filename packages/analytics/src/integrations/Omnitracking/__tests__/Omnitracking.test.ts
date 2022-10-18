@@ -700,6 +700,70 @@ describe('Omnitracking', () => {
         },
       );
     });
+
+    describe('select content', () => {
+      const expectedErrorMessage =
+        'properties "contentType" and "id" should be sent';
+
+      it('should log error if a select content does not contain a contentType parameter', async () => {
+        const data = generateTrackMockData({
+          event: eventTypes.SELECT_CONTENT,
+          properties: {
+            id: 123,
+          },
+        });
+
+        delete data.properties.contentType;
+
+        await omnitracking.track(data);
+
+        expect(mockLoggerError).toHaveBeenCalledWith(
+          expect.stringContaining(expectedErrorMessage),
+        );
+        expect(postTrackingSpy).not.toHaveBeenCalled();
+      });
+
+      it('should log error if a select content does not contain an id parameter', async () => {
+        const data = generateTrackMockData({
+          event: eventTypes.SELECT_CONTENT,
+          properties: {
+            contentType: 'foo',
+          },
+        });
+
+        delete data.properties.id;
+
+        await omnitracking.track(data);
+
+        expect(mockLoggerError).toHaveBeenCalledWith(
+          expect.stringContaining(expectedErrorMessage),
+        );
+        expect(postTrackingSpy).not.toHaveBeenCalled();
+      });
+
+      it('should not log error if an select content has all required parameters', async () => {
+        const data = generateTrackMockData({
+          event: eventTypes.SELECT_CONTENT,
+          properties: {
+            contentType: 'foo',
+            id: 123,
+          },
+        });
+
+        // setting unique view id to pass on validation of missing page event before event track
+        omnitracking.currentUniqueViewId = mocked_view_uid;
+        await omnitracking.track(data);
+
+        expect(mockLoggerError).not.toHaveBeenCalled();
+        expect(postTrackingSpy).toHaveBeenCalledWith(
+          expect.objectContaining({
+            parameters: expect.objectContaining({
+              tid: 2895,
+            }),
+          }),
+        );
+      });
+    });
   });
 
   describe('options', () => {
