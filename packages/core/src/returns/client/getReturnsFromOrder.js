@@ -150,6 +150,7 @@ export const compatibilityAdapter = res => {
  * @returns {Promise} Promise that will resolve when the call to
  * the endpoint finishes.
  */
+
 export default (orderId, query, config) => {
   const guestUserEmail = query?.guestUserEmail;
   const containsGuestUserEmail = !!guestUserEmail && isString(guestUserEmail);
