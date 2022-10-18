@@ -7,12 +7,14 @@ import {
   getProductLineItems,
   getProductLineItemsQuantity,
 } from './omnitracking-helper';
+import { logger } from '../../utils';
 import eventTypes from '../../types/eventTypes';
 import fromParameterTypes from '../../types/fromParameterTypes';
 import pageTypes from '../../types/pageTypes';
 import type { EventData, TrackTypesValues } from '../..';
 import type {
   OmnitrackingPageEventsMapper,
+  OmnitrackingTrackEventParameters,
   OmnitrackingTrackEventsMapper,
 } from './types/Omnitracking.types';
 
@@ -418,7 +420,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     deliveryInformationDetails: getDeliveryInformationDetails(data),
     interactionType: data.properties?.interactionType,
   }),
-  [eventTypes.PLACE_ORDER_STARTED]: (data: EventData<TrackTypesValues>) => {
+  [eventTypes.PLACE_ORDER_STARTED]: data => {
     return {
       tid: 188,
       ...getCheckoutEventGenericProperties(data),
@@ -495,39 +497,39 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
         };
     }
   },
-  [eventTypes.PRODUCT_LIST_VIEWED]: (data: EventData<TrackTypesValues>) => ({
+  [eventTypes.PRODUCT_LIST_VIEWED]: data => ({
     tid: 2832,
     lineItems: getProductLineItems(data),
   }),
   [eventTypes.CHECKOUT_ABANDONED]: () => ({
     tid: 2084,
   }),
-  [eventTypes.PROMOCODE_APPLIED]: (data: EventData<TrackTypesValues>) => ({
+  [eventTypes.PROMOCODE_APPLIED]: data => ({
     tid: 311,
     promoCode: data.properties?.coupon,
     hasError: !!data.properties?.errorMessage,
     errorMessage: data.properties?.errorMessage,
   }),
-  [eventTypes.SHARE]: (data: EventData<TrackTypesValues>) => ({
+  [eventTypes.SHARE]: data => ({
     tid: 1205,
     actionArea: data.properties?.from,
     productId: getOmnitrackingProductId(data),
   }),
-  [eventTypes.LOGIN]: (data: EventData<TrackTypesValues>) => ({
+  [eventTypes.LOGIN]: data => ({
     tid: 2924,
     loginType: data.properties?.method,
   }),
-  [eventTypes.SIGNUP_FORM_COMPLETED]: (data: EventData<TrackTypesValues>) => ({
+  [eventTypes.SIGNUP_FORM_COMPLETED]: data => ({
     tid: 2927,
     loginType: data.properties?.method,
   }),
-  [eventTypes.PRODUCT_CLICKED]: (data: EventData<TrackTypesValues>) => ({
+  [eventTypes.PRODUCT_CLICKED]: data => ({
     tid: 2926,
     actionArea: data.properties?.from,
     productId: getOmnitrackingProductId(data),
     lineItems: getProductLineItems(data),
   }),
-  [eventTypes.PRODUCT_ADDED_TO_CART]: (data: EventData<TrackTypesValues>) => ({
+  [eventTypes.PRODUCT_ADDED_TO_CART]: data => ({
     tid: 2915,
     actionArea: data.properties?.from,
     priceCurrency: data.properties?.currency,
@@ -541,6 +543,26 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     priceCurrency: data.properties?.currency,
     lineItems: getProductLineItems(data),
   }),
+  [eventTypes.SELECT_CONTENT]: data => {
+    const properties = data.properties;
+
+    if (!properties?.contentType || !properties?.id) {
+      logger.error(
+        `[Omnitracking] - Event ${data.event} properties "contentType" and "id" should be sent 
+                        on the payload when triggering a "select content" event. If you want to track this 
+                        event, make sure to pass these two properties.`,
+      );
+      return undefined;
+    }
+
+    return {
+      tid: 2895,
+      contentType: properties?.contentType,
+      interactionType: properties?.interactionType,
+      val: properties?.id,
+      productId: getOmnitrackingProductId(data, true),
+    } as OmnitrackingTrackEventParameters;
+  },
 } as const;
 
 /**
@@ -549,30 +571,30 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
  * make sure to define it in this mapper.
  */
 export const pageEventsMapper: Readonly<OmnitrackingPageEventsMapper> = {
-  [pageTypes.PRODUCT_DETAILS]: (data: EventData<TrackTypesValues>) => ({
+  [pageTypes.PRODUCT_DETAILS]: data => ({
     viewType: 'Product',
     viewSubType: 'Product',
     lineItems: getProductLineItems(data),
   }),
-  [pageTypes.PRODUCT_LISTING]: (data: EventData<TrackTypesValues>) => ({
+  [pageTypes.PRODUCT_LISTING]: data => ({
     viewType: 'Listing',
     viewSubType: 'Listing',
     lineItems: getProductLineItems(data),
   }),
-  [pageTypes.CHECKOUT]: (data: EventData<TrackTypesValues>) => ({
+  [pageTypes.CHECKOUT]: data => ({
     ...getCheckoutEventGenericProperties(data),
     viewType: 'Checkout SPA',
     viewSubType: 'Checkout SPA',
     orderValue: data.properties?.total,
     shippingTotalValue: data.properties?.shipping,
   }),
-  [pageTypes.WISHLIST]: (data: EventData<TrackTypesValues>) => ({
+  [pageTypes.WISHLIST]: data => ({
     viewType: 'Wishlist',
     viewSubType: 'Wishlist',
     lineItems: getProductLineItems(data),
     wishlistQuantity: getProductLineItemsQuantity(data.properties.products),
   }),
-  [pageTypes.BAG]: (data: EventData<TrackTypesValues>) => ({
+  [pageTypes.BAG]: data => ({
     viewType: 'Shopping Bag',
     viewSubType: 'Bag',
     lineItems: getProductLineItems(data),
