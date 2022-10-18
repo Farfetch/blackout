@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.72.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.72.0...@farfetch/blackout-core@1.72.1) (2022-10-18)
+
+
+### Bug Fixes
+
+* **core:** split by merchant validation ([1bd4c0f](https://github.com/Farfetch/blackout/commit/1bd4c0fd6eb49a2d6d02898e08c72f0d2fa73f9f))
+
+
+
+
+
 # [1.72.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.71.0...@farfetch/blackout-core@1.72.0) (2022-09-21)
 
 
