@@ -17,7 +17,6 @@ export * from './getPaymentIntentInstrument.types';
 export * from './getPaymentIntentInstruments.types';
 export * from './getPaymentIntent.types';
 export * from './getPaymentIntentCharge.types';
-export * from './getPaymentMethods.types';
 export * from './getPaymentMethodsByIntent.types';
 export * from './getPaymentMethodsByCountryAndCurrency.types';
 export * from './getPaymentTokens.types';

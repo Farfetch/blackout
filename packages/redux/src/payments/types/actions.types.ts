@@ -225,32 +225,6 @@ export interface FetchPaymentTokensSuccessAction extends Action {
 }
 
 /**
- * Fetch Payment Methods Actions.
- */
-export type FetchPaymentMethodsAction =
-  | FetchPaymentMethodsFailureAction
-  | FetchPaymentMethodsRequestAction
-  | FetchPaymentMethodsSuccessAction;
-
-export interface FetchPaymentMethodsFailureAction extends Action {
-  payload: { error: BlackoutError };
-  type: typeof actionTypes.FETCH_PAYMENT_METHODS_FAILURE;
-}
-
-export interface FetchPaymentMethodsRequestAction extends Action {
-  type: typeof actionTypes.FETCH_PAYMENT_METHODS_REQUEST;
-}
-
-export interface FetchPaymentMethodsSuccessAction extends Action {
-  payload: {
-    entities: {
-      checkout: Record<number, { paymentMethods: PaymentMethods }>;
-    };
-  };
-  type: typeof actionTypes.FETCH_PAYMENT_METHODS_SUCCESS;
-}
-
-/**
  * Fetch Payment Methods By Country and Currency Actions.
  */
 export type FetchPaymentMethodsByCountryAndCurrencyAction =

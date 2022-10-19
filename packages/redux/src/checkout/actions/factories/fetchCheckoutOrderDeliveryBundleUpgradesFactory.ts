@@ -1,6 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  CheckoutOrder,
   Config,
+  DeliveryBundle,
   DeliveryBundleUpgrades,
   GetCheckoutOrderDeliveryBundleUpgrades,
   toBlackoutError,
@@ -18,7 +20,11 @@ const fetchCheckoutOrderDeliveryBundleUpgrades =
   (
     getCheckoutOrderDeliveryBundleUpgrades: GetCheckoutOrderDeliveryBundleUpgrades,
   ) =>
-  (id: number, deliveryBundleId: string, config?: Config) =>
+  (
+    checkoutOrderId: CheckoutOrder['id'],
+    deliveryBundleId: DeliveryBundle['id'],
+    config?: Config,
+  ) =>
   async (dispatch: Dispatch): Promise<DeliveryBundleUpgrades> => {
     try {
       dispatch({
@@ -26,7 +32,7 @@ const fetchCheckoutOrderDeliveryBundleUpgrades =
       });
 
       const result = await getCheckoutOrderDeliveryBundleUpgrades(
-        id,
+        checkoutOrderId,
         deliveryBundleId,
         config,
       );

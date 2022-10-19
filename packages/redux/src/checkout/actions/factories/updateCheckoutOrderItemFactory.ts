@@ -1,5 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import type {
+  CheckoutOrder,
+  CheckoutOrderItem,
   Config,
   PatchCheckoutOrderItem,
   PatchCheckoutOrderItemData,
@@ -16,8 +18,8 @@ import type { Dispatch } from 'redux';
 const updateCheckoutOrderItemFactory =
   (patchCheckoutOrderItem: PatchCheckoutOrderItem) =>
   (
-    checkoutOrderId: number,
-    itemId: number,
+    checkoutOrderId: CheckoutOrder['id'],
+    itemId: CheckoutOrderItem['id'],
     data: PatchCheckoutOrderItemData,
     config?: Config,
   ) =>

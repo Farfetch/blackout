@@ -1,3 +1,4 @@
+import type { CheckoutOrder } from './checkoutOrder.types';
 import type { CheckoutOrderOperation } from './checkoutOrderOperation.types';
 import type { Config, PagedResponse } from '../../types';
 
@@ -24,7 +25,7 @@ export type GetCheckoutOrderOperationsQuery = {
 export type CheckoutOrderOperations = PagedResponse<CheckoutOrderOperation>;
 
 export type GetCheckoutOrderOperations = (
-  id: number,
+  checkoutOrderId: CheckoutOrder['id'],
   query?: GetCheckoutOrderOperationsQuery,
   config?: Config,
 ) => Promise<CheckoutOrderOperations>;

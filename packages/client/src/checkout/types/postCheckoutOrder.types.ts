@@ -1,3 +1,4 @@
+import type { Bag } from '../../bags';
 import type { Config } from '../../types';
 import type { GetCheckoutOrderResponse, ShippingMode } from '.';
 import type { Product } from '../../products/types';
@@ -20,7 +21,7 @@ export type PostCheckoutOrderDataWithItems = PostCheckoutOrderData & {
 };
 
 export type PostCheckoutOrderDataWithBag = PostCheckoutOrderData & {
-  bagId: string;
+  bagId: Bag['id'];
   removePurchasedItemsFromBag?: boolean;
 };
 

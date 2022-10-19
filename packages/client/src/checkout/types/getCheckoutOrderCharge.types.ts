@@ -1,8 +1,8 @@
-import type { CheckoutOrderCharge } from '.';
+import type { CheckoutOrder, CheckoutOrderCharge } from '.';
 import type { Config } from '../../types';
 
 export type GetCheckoutOrderCharge = (
-  id: number | string,
-  chargeId: string,
+  checkoutOrderId: CheckoutOrder['id'],
+  chargeId: CheckoutOrderCharge['id'],
   config?: Config,
 ) => Promise<CheckoutOrderCharge>;

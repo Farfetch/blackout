@@ -185,7 +185,6 @@ Object {
   "useBrands": [Function],
   "useCategories": [Function],
   "useCategory": [Function],
-  "useCheckout": [Function],
   "useCommercePages": [Function],
   "useConfiguration": [Function],
   "useConfigurations": [Function],

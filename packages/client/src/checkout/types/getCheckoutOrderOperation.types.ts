@@ -1,14 +1,9 @@
+import type { CheckoutOrder } from './checkoutOrder.types';
 import type { CheckoutOrderOperation } from './checkoutOrderOperation.types';
 import type { Config } from '../../types';
 
-export type GetCheckoutOrderOperationParams = {
-  /** Universal identifier of the checkout order */
-  orderId: number;
-  /** Universal identifier of the checkout order operation */
-  operationId: CheckoutOrderOperation['id'];
-};
-
 export type GetCheckoutOrderOperation = (
-  params: GetCheckoutOrderOperationParams,
+  checkoutOrderId: CheckoutOrder['id'],
+  operationId: CheckoutOrderOperation['id'],
   config?: Config,
 ) => Promise<CheckoutOrderOperation>;

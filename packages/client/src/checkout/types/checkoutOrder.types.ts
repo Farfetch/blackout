@@ -2,6 +2,7 @@ import type { CheckoutAddress } from '../../types/common/address.types';
 import type { CheckoutOrderItem, CheckoutOrderMerchant } from '.';
 import type { CustomerType } from '../../orders/types/order.types';
 import type { MerchantLocation } from '../../merchantsLocations/types/merchantLocation.types';
+import type { PaymentIntent } from '../../payments';
 
 export enum ShippingMode {
   ByMerchant = 'ByMerchant',
@@ -69,5 +70,5 @@ export type CheckoutOrder = {
   hadUnavailableItems: boolean;
   isGuestUser: boolean;
   shippingMode: ShippingMode;
-  paymentIntentId?: string;
+  paymentIntentId?: PaymentIntent['id'];
 };

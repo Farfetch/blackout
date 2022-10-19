@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  CheckoutOrder,
   Config,
   PatchCheckoutOrderItems,
   PatchCheckoutOrderItemsData,
@@ -17,14 +18,22 @@ import type { Dispatch } from 'redux';
  */
 const updateCheckoutOrderItemsFactory =
   (patchCheckoutOrderItems: PatchCheckoutOrderItems) =>
-  (id: number, data: PatchCheckoutOrderItemsData, config?: Config) =>
+  (
+    checkoutOrderId: CheckoutOrder['id'],
+    data: PatchCheckoutOrderItemsData,
+    config?: Config,
+  ) =>
   async (dispatch: Dispatch): Promise<number> => {
     try {
       dispatch({
         type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEMS_REQUEST,
       });
 
-      const result = await patchCheckoutOrderItems(id, data, config);
+      const result = await patchCheckoutOrderItems(
+        checkoutOrderId,
+        data,
+        config,
+      );
 
       dispatch({
         type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEMS_SUCCESS,

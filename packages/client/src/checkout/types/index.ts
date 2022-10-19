@@ -18,6 +18,7 @@ export * from './getCheckoutOrderDetails.types';
 export * from './checkoutOrderDetails.types';
 export * from './getCheckoutOrderOperation.types';
 export * from './getCheckoutOrderOperations.types';
+export * from './getCheckoutOrderPaymentMethods.types';
 export * from './getCheckoutOrderResponse.types';
 export * from './getCollectPoints.types';
 export * from './itemDeliveryProvisioning.types';

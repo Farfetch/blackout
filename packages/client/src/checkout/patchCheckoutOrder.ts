@@ -8,7 +8,7 @@ import type { PatchCheckoutOrder } from './types';
  * type of changes to the checkout object. This also replaces the deprecated
  * putShippingOption function.
  *
- * @param id     - Universal identifier of the Checkout.
+ * @param checkoutOrderId - Universal identifier of the Checkout.
  * @param data   - Request data.
  * @param config - Custom configurations to send to the client instance (axios). In this case is truly
  *                 recommended to update your axios config to your new shipping or billing address,
@@ -23,9 +23,13 @@ import type { PatchCheckoutOrder } from './types';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const patchCheckoutOrder: PatchCheckoutOrder = (id, data, config) =>
+const patchCheckoutOrder: PatchCheckoutOrder = (
+  checkoutOrderId,
+  data,
+  config,
+) =>
   client
-    .patch(join('/checkout/v1/orders/', id), data, config)
+    .patch(join('/checkout/v1/orders/', checkoutOrderId), data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);

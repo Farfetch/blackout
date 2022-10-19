@@ -2,6 +2,7 @@ import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import checkoutOrderOperation from '../../../entities/schemas/checkoutOrderOperation';
 import type {
+  CheckoutOrder,
   CheckoutOrderOperations,
   Config,
   GetCheckoutOrderOperations,
@@ -18,21 +19,22 @@ import type { Dispatch } from 'redux';
  */
 const fetchCheckoutOrderOperationsFactory =
   (getCheckoutOrderOperations: GetCheckoutOrderOperations) =>
-  /**
-   * @param id - Universal identifier of the Checkout order.
-   * @param query - Query params to retrieve the checkout operations.
-   * @param config - Custom configurations to send to the client instance (axios).
-   *
-   * @returns Thunk to be dispatched to the redux store.
-   */
-  (id: number, query?: GetCheckoutOrderOperationsQuery, config?: Config) =>
+  (
+    checkoutOrderId: CheckoutOrder['id'],
+    query?: GetCheckoutOrderOperationsQuery,
+    config?: Config,
+  ) =>
   async (dispatch: Dispatch): Promise<CheckoutOrderOperations> => {
     dispatch({
       type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATIONS_REQUEST,
     });
 
     try {
-      const result = await getCheckoutOrderOperations(id, query, config);
+      const result = await getCheckoutOrderOperations(
+        checkoutOrderId,
+        query,
+        config,
+      );
 
       dispatch({
         payload: normalize(result, { entries: [checkoutOrderOperation] }),

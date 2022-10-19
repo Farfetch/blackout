@@ -13,6 +13,7 @@ export { default as fetchCollectPointsFactory } from './fetchCollectPointsFactor
 export { default as fetchCheckoutOrderDeliveryBundleUpgradesFactory } from './fetchCheckoutOrderDeliveryBundleUpgradesFactory';
 export { default as fetchCheckoutOrderDeliveryBundleProvisioningFactory } from './fetchCheckoutOrderDeliveryBundleProvisioningFactory';
 export { default as fetchCheckoutOrderDeliveryBundleUpgradeProvisioningFactory } from './fetchCheckoutOrderDeliveryBundleUpgradeProvisioningFactory';
+export { default as fetchCheckoutOrderPaymentMethodsFactory } from './fetchCheckoutOrderPaymentMethodsFactory';
 export { default as removeCheckoutOrderItemFactory } from './removeCheckoutOrderItemFactory';
 export { default as resetCheckoutFactory } from '../resetCheckout';
 export { default as setCheckoutOrderItemTagsFactory } from './setCheckoutOrderItemTagsFactory';

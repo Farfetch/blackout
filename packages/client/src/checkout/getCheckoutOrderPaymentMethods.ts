@@ -1,20 +1,23 @@
 import { adaptError } from '../helpers/client/formatError';
 import client from '../helpers/client';
 import join from 'proper-url-join';
-import type { GetPaymentMethods } from './types';
+import type { GetCheckoutOrderPaymentMethods } from './types';
 
 /**
- * Method responsible for fetching the available payment methods.
+ * Method responsible for fetching the available payment methods for a checkout order.
  *
- * @param id     - Universal identifier of the order.
+ * @param checkoutOrderId - Universal identifier of the order.
  * @param config - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getPaymentMethods: GetPaymentMethods = (id, config) =>
+const getCheckoutOrderPaymentMethods: GetCheckoutOrderPaymentMethods = (
+  checkoutOrderId,
+  config,
+) =>
   client
     .get(
-      join('/checkout/v1/orders', id, {
+      join('/checkout/v1/orders', checkoutOrderId, {
         query: {
           fields: 'paymentMethods',
         },
@@ -26,4 +29,4 @@ const getPaymentMethods: GetPaymentMethods = (id, config) =>
       throw adaptError(error);
     });
 
-export default getPaymentMethods;
+export default getCheckoutOrderPaymentMethods;
