@@ -86,8 +86,10 @@ Array [
 
 exports[`Omnitracking track events definitions \`Product Added to Cart\` return should match the snapshot 1`] = `
 Object {
-  "tid": 16,
-  "val": "507f1f77bcf86cd799439011",
+  "actionArea": "Wishlist",
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1}]",
+  "priceCurrency": "USD",
+  "tid": 2915,
 }
 `;
 
@@ -111,6 +113,15 @@ exports[`Omnitracking track events definitions \`Product List Viewed\` return sh
 Object {
   "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"category\\":\\"\\",\\"itemFullPrice\\":25},{\\"productId\\":\\"507f1f77bcf86cd799439012\\",\\"itemPromotion\\":6,\\"category\\":\\"\\",\\"itemFullPrice\\":25}]",
   "tid": 2832,
+}
+`;
+
+exports[`Omnitracking track events definitions \`Product Removed from Cart\` return should match the snapshot 1`] = `
+Object {
+  "actionArea": "Bag",
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1}]",
+  "priceCurrency": "USD",
+  "tid": 131,
 }
 `;
 
