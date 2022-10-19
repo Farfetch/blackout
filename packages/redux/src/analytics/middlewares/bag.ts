@@ -190,6 +190,7 @@ const getProductData = async (
     price: priceWithDiscount,
     priceWithoutDiscount,
     size,
+    sizeId,
     sku,
     quantity,
     variant,
