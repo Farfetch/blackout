@@ -1,8 +1,8 @@
+import type { CheckoutOrder, GetCheckoutOrderResponse } from '.';
 import type { Config } from '../../types';
-import type { GetCheckoutOrderResponse } from '.';
 
 export type PutCheckoutOrderTags = (
-  id: number,
+  checkoutOrderId: CheckoutOrder['id'],
   data: string[],
   config?: Config,
 ) => Promise<GetCheckoutOrderResponse>;

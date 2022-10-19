@@ -1,7 +1,7 @@
 import type { Config } from '../../types';
-import type { PaymentMethods } from '.';
+import type { PaymentIntent, PaymentMethods } from '.';
 
 export type GetPaymentMethodsByIntent = (
-  id: string,
+  intentId: PaymentIntent['id'],
   config?: Config,
 ) => Promise<PaymentMethods>;

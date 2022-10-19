@@ -6,19 +6,23 @@ import type { PutCheckoutOrderPromocode } from './types';
 /**
  * Method responsible for adding promo code information.
  *
- * @param id     - Universal identifier of the Checkout.
+ * @param checkoutOrderId     - Universal identifier of the Checkout.
  * @param data   - Request data.
  * @param config - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const putCheckoutOrderPromocode: PutCheckoutOrderPromocode = (
-  id,
+  checkoutOrderId,
   data,
   config,
 ) =>
   client
-    .put(join('/checkout/v1/orders/', id, 'promocodes'), data, config)
+    .put(
+      join('/checkout/v1/orders/', checkoutOrderId, 'promocodes'),
+      data,
+      config,
+    )
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);

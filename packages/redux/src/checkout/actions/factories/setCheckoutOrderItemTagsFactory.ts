@@ -1,5 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  CheckoutOrder,
+  CheckoutOrderItem,
   Config,
   GetCheckoutOrderResponse,
   PutCheckoutOrderItemTags,
@@ -20,7 +22,12 @@ import type { StoreState } from '../../../types/storeState.types';
  */
 const setCheckoutOrderItemTagsFactory =
   (putCheckoutOrderItemTags: PutCheckoutOrderItemTags) =>
-  (id: number, itemId: number, data: string[], config?: Config) =>
+  (
+    checkoutOrderId: CheckoutOrder['id'],
+    itemId: CheckoutOrderItem['id'],
+    data: string[],
+    config?: Config,
+  ) =>
   async (
     dispatch: Dispatch,
     getState: () => StoreState,
@@ -33,7 +40,12 @@ const setCheckoutOrderItemTagsFactory =
         type: actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_REQUEST,
       });
 
-      const result = await putCheckoutOrderItemTags(id, itemId, data, config);
+      const result = await putCheckoutOrderItemTags(
+        checkoutOrderId,
+        itemId,
+        data,
+        config,
+      );
 
       if (result.checkoutOrder) {
         const { productImgQueryParam } = getOptions(getState);
@@ -50,7 +62,7 @@ const setCheckoutOrderItemTagsFactory =
           result.checkoutOrder as unknown as { productImgQueryParam?: string }
         ).productImgQueryParam;
 
-        delete normalizedResult.entities.checkoutOrders?.[id]
+        delete normalizedResult.entities.checkoutOrders?.[checkoutOrderId]
           .productImgQueryParam;
       }
 

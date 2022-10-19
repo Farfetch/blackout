@@ -95,12 +95,18 @@ const userCreditBalance = createReducerWithResult(
   'FETCH_USER_CREDIT_BALANCE',
   INITIAL_STATE.userCreditBalance,
   actionTypes,
+  false,
+  false,
+  actionTypes.RESET_USER_CREDIT_BALANCE_STATE,
 );
 
 const giftCardBalance = createReducerWithResult(
   'FETCH_GIFT_CARD_BALANCE',
   INITIAL_STATE.giftCardBalance,
   actionTypes,
+  false,
+  false,
+  actionTypes.RESET_GIFT_CARD_BALANCE_STATE,
 );
 
 const paymentInstruments = (
@@ -162,16 +168,43 @@ const paymentIntent = createReducerWithResult(
   'FETCH_PAYMENT_INTENT',
   INITIAL_STATE.paymentIntent,
   actionTypes,
+  false,
+  false,
+  actionTypes.RESET_PAYMENT_INTENT_STATE,
 );
 
-const paymentMethods = createReducerWithResult(
-  [
-    'FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY',
-    'FETCH_PAYMENT_METHODS_BY_INTENT',
-  ],
-  INITIAL_STATE.paymentMethods,
-  actionTypes,
-);
+const paymentMethods = (
+  state = INITIAL_STATE.paymentMethods,
+  action: AnyAction,
+): PaymentsState['paymentMethods'] => {
+  switch (action.type) {
+    case actionTypes.FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_REQUEST:
+    case actionTypes.FETCH_PAYMENT_METHODS_BY_INTENT_REQUEST:
+      return {
+        ...state,
+        error: INITIAL_STATE.paymentMethods.error,
+        isLoading: true,
+      };
+    case actionTypes.FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_FAILURE:
+    case actionTypes.FETCH_PAYMENT_METHODS_BY_INTENT_FAILURE:
+      return {
+        ...state,
+        error: action.payload.error,
+        isLoading: false,
+      };
+    case actionTypes.FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_SUCCESS:
+    case actionTypes.FETCH_PAYMENT_METHODS_BY_INTENT_SUCCESS:
+      return {
+        error: INITIAL_STATE.paymentMethods.error,
+        isLoading: false,
+        result: action.payload,
+      };
+    case actionTypes.RESET_PAYMENT_METHODS_STATE:
+      return INITIAL_STATE.paymentMethods;
+    default:
+      return state;
+  }
+};
 
 const paymentTokens = (
   state = INITIAL_STATE.paymentTokens,

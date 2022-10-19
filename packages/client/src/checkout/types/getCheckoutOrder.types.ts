@@ -1,12 +1,12 @@
+import type { CheckoutOrder, GetCheckoutOrderResponse } from '.';
 import type { Config } from '../../types';
-import type { GetCheckoutOrderResponse } from '.';
 
 export type GetCheckoutOrderQuery = {
   fields?: string;
 };
 
 export type GetCheckoutOrder = (
-  id: number,
+  checkoutOrderId: CheckoutOrder['id'],
   query?: GetCheckoutOrderQuery,
   config?: Config,
 ) => Promise<GetCheckoutOrderResponse>;

@@ -89,6 +89,12 @@ export const FETCH_CHECKOUT_ORDER_DETAILS_SUCCESS =
   '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_DETAILS_SUCCESS';
 
 /**
+ * Action type dispatched when resetting the checkout order details state.
+ */
+export const RESET_CHECKOUT_ORDER_DETAILS_STATE =
+  '@farfetch/blackout-redux/RESET_CHECKOUT_ORDER_DETAILS_STATE';
+
+/**
  * Action type dispatched when the fetch collectpoints request fails.
  */
 export const FETCH_COLLECT_POINTS_FAILURE =
@@ -103,6 +109,12 @@ export const FETCH_COLLECT_POINTS_REQUEST =
  */
 export const FETCH_COLLECT_POINTS_SUCCESS =
   '@farfetch/blackout-redux/FETCH_COLLECT_POINTS_SUCCESS';
+
+/**
+ * Action type dispatched when resetting the collect points state.
+ */
+export const RESET_COLLECT_POINTS_STATE =
+  '@farfetch/blackout-redux/RESET_COLLECT_POINTS_STATE';
 
 /**
  * Action type dispatched when the fetch item delivery provisioning request fails.
@@ -120,6 +132,12 @@ export const FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_REQUEST =
  */
 export const FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_SUCCESS =
   '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_SUCCESS';
+
+/**
+ * Action type dispatched when resetting the checkout order delivery bundle provisioning state.
+ */
+export const RESET_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_STATE =
+  '@farfetch/blackout-redux/RESET_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_STATE';
 
 /**
  * Action type dispatched when the fetch delivery bundle upgrades request fails.
@@ -160,6 +178,12 @@ export const FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING_SUCCESS =
   '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING_SUCCESS';
 
 /**
+ * Action type dispatched when resetting the checkout order delivery bundle upgrade provisioning state.
+ */
+export const RESET_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING_STATE =
+  '@farfetch/blackout-redux/RESET_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING_STATE';
+
+/**
  * Action type dispatched when the fetch order operation request fails.
  */
 export const FETCH_CHECKOUT_ORDER_OPERATION_FAILURE =
@@ -174,6 +198,12 @@ export const FETCH_CHECKOUT_ORDER_OPERATION_REQUEST =
  */
 export const FETCH_CHECKOUT_ORDER_OPERATION_SUCCESS =
   '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_OPERATION_SUCCESS';
+
+/**
+ * Action type dispatched when resetting the checkout order operation state.
+ */
+export const RESET_CHECKOUT_ORDER_OPERATION_STATE =
+  '@farfetch/blackout-redux/RESET_CHECKOUT_ORDER_OPERATION_STATE';
 
 /**
  * Action type dispatched when the fetch order operations request fails.
@@ -192,6 +222,12 @@ export const FETCH_CHECKOUT_ORDER_OPERATIONS_SUCCESS =
   '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_OPERATIONS_SUCCESS';
 
 /**
+ * Action type dispatched when resetting the checkout order operations state.
+ */
+export const RESET_CHECKOUT_ORDER_OPERATIONS_STATE =
+  '@farfetch/blackout-redux/RESET_CHECKOUT_ORDER_OPERATIONS_STATE';
+
+/**
  * Action type dispatched when the remove checkout order item request fails.
  */
 export const REMOVE_CHECKOUT_ORDER_ITEM_FAILURE =
@@ -206,6 +242,12 @@ export const REMOVE_CHECKOUT_ORDER_ITEM_REQUEST =
  */
 export const REMOVE_CHECKOUT_ORDER_ITEM_SUCCESS =
   '@farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_ITEM_SUCCESS';
+
+/**
+ * Action type dispatched when resetting the remove checkout order item state.
+ */
+export const RESET_REMOVE_CHECKOUT_ORDER_ITEM_STATE =
+  '@farfetch/blackout-redux/RESET_REMOVE_CHECKOUT_ORDER_ITEM_STATE';
 
 /**
  * Action type dispatched when the set item tags request fails.
@@ -224,6 +266,12 @@ export const SET_CHECKOUT_ORDER_ITEM_TAGS_SUCCESS =
   '@farfetch/blackout-redux/SET_CHECKOUT_ORDER_ITEM_TAGS_SUCCESS';
 
 /**
+ * Action type dispatched when resetting the checkout order item tags state.
+ */
+export const RESET_CHECKOUT_ORDER_ITEM_TAGS_STATE =
+  '@farfetch/blackout-redux/RESET_CHECKOUT_ORDER_ITEM_TAGS_STATE';
+
+/**
  * Action type dispatched when the set promocode request fails.
  */
 export const SET_CHECKOUT_ORDER_PROMOCODE_FAILURE =
@@ -240,6 +288,12 @@ export const SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS =
   '@farfetch/blackout-redux/SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS';
 
 /**
+ * Action type dispatched when resetting the checkout order promocode state.
+ */
+export const RESET_CHECKOUT_ORDER_PROMOCODE_STATE =
+  '@farfetch/blackout-redux/RESET_CHECKOUT_ORDER_PROMOCODE_STATE';
+
+/**
  * Action type dispatched when the set tags request fails.
  */
 export const SET_CHECKOUT_ORDER_TAGS_FAILURE =
@@ -254,6 +308,12 @@ export const SET_CHECKOUT_ORDER_TAGS_REQUEST =
  */
 export const SET_CHECKOUT_ORDER_TAGS_SUCCESS =
   '@farfetch/blackout-redux/SET_CHECKOUT_ORDER_TAGS_SUCCESS';
+
+/**
+ * Action type dispatched when resetting the checkout order tags state.
+ */
+export const RESET_CHECKOUT_ORDER_TAGS_STATE =
+  '@farfetch/blackout-redux/RESET_CHECKOUT_ORDER_TAGS_STATE';
 
 /**
  * Action type dispatched when the update checkout request fails.
@@ -286,6 +346,12 @@ export const UPDATE_CHECKOUT_ORDER_ITEM_REQUEST =
  */
 export const UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS =
   '@farfetch/blackout-redux/UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS';
+
+/**
+ * Action type dispatched when resetting the update checkout order item state.
+ */
+export const RESET_UPDATE_CHECKOUT_ORDER_ITEM_STATE =
+  '@farfetch/blackout-redux/RESET_UPDATE_CHECKOUT_ORDER_ITEM_STATE';
 
 /**
  * Action type dispatched when the update delivery bundle upgrade request fails.
@@ -335,3 +401,25 @@ export const UPDATE_CHECKOUT_ORDER_ITEMS_REQUEST =
  */
 export const UPDATE_CHECKOUT_ORDER_ITEMS_SUCCESS =
   '@farfetch/blackout-redux/UPDATE_CHECKOUT_ORDER_ITEMS_SUCCESS';
+
+/**
+ * Action type dispatched when resetting the checkout order items state.
+ */
+export const RESET_CHECKOUT_ORDER_ITEMS_STATE =
+  '@farfetch/blackout-redux/RESET_CHECKOUT_ORDER_ITEMS_STATE';
+
+/**
+ * Action type dispatched when the fetch payment methods request fails.
+ */
+export const FETCH_CHECKOUT_ORDER_PAYMENT_METHODS_FAILURE =
+  '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_PAYMENT_METHODS_FAILURE';
+/**
+ * Action type dispatched when the fetch payment methods request starts.
+ */
+export const FETCH_CHECKOUT_ORDER_PAYMENT_METHODS_REQUEST =
+  '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_PAYMENT_METHODS_REQUEST';
+/**
+ * Action type dispatched when the fetch payment methods request succeeds.
+ */
+export const FETCH_CHECKOUT_ORDER_PAYMENT_METHODS_SUCCESS =
+  '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_PAYMENT_METHODS_SUCCESS';

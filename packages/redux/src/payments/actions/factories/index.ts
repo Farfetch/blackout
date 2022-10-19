@@ -9,7 +9,6 @@ export { default as fetchPaymentIntentInstrumentFactory } from './fetchPaymentIn
 export { default as fetchPaymentIntentInstrumentsFactory } from './fetchPaymentIntentInstrumentsFactory';
 export { default as fetchPaymentIntentChargeFactory } from './fetchPaymentIntentChargeFactory';
 export { default as fetchPaymentIntentFactory } from './fetchPaymentIntentFactory';
-export { default as fetchPaymentMethodsFactory } from './fetchPaymentMethodsFactory';
 export { default as fetchPaymentMethodsByIntentFactory } from './fetchPaymentMethodsByIntentFactory';
 export { default as fetchPaymentMethodsByCountryAndCurrencyFactory } from './fetchPaymentMethodsByCountryAndCurrencyFactory';
 export { default as fetchPaymentTokensFactory } from './fetchPaymentTokensFactory';

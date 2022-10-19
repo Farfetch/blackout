@@ -6,7 +6,7 @@ import type { PatchCheckoutOrderDeliveryBundleUpgrades } from './types';
  * Method responsible for applying the selected delivery bundle upgrade for the
  * specified bundle.
  *
- * @param id               - Identifier of the checkout order.
+ * @param checkoutOrderId  - Identifier of the checkout order.
  * @param deliveryBundleId - Identifier of the delivery bundle.
  * @param data             - JSON Patch document to update a list of upgrades JSONPatch document as
  *                           defined by RFC 6902 using: op: replace and test path: \{index\}/isSelected
@@ -33,10 +33,10 @@ import type { PatchCheckoutOrderDeliveryBundleUpgrades } from './types';
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const patchCheckoutOrderDeliveryBundleUpgrades: PatchCheckoutOrderDeliveryBundleUpgrades =
-  (id, deliveryBundleId, data, config) =>
+  (checkoutOrderId, deliveryBundleId, data, config) =>
     client
       .patch(
-        `/checkout/v1/orders/${id}/deliveryBundles/${deliveryBundleId}/upgrades`,
+        `/checkout/v1/orders/${checkoutOrderId}/deliveryBundles/${deliveryBundleId}/upgrades`,
         data,
         config,
       )

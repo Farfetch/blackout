@@ -2,10 +2,10 @@ import * as actionTypes from '../../actionTypes';
 import { normalize } from 'normalizr';
 import checkoutOrderOperation from '../../../entities/schemas/checkoutOrderOperation';
 import type {
+  CheckoutOrder,
   CheckoutOrderOperation,
   Config,
   GetCheckoutOrderOperation,
-  GetCheckoutOrderOperationParams,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
@@ -18,20 +18,22 @@ import type { Dispatch } from 'redux';
  */
 const fetchCheckoutOrderOperationFactory =
   (getCheckoutOperation: GetCheckoutOrderOperation) =>
-  /**
-   * @param params - Params to retrieve the checkout operation.
-   * @param config - Custom configurations to send to the client instance (axios).
-   *
-   * @returns Thunk to be dispatched to the redux store.
-   */
-  (params: GetCheckoutOrderOperationParams, config?: Config) =>
+  (
+    checkoutOrderId: CheckoutOrder['id'],
+    operationId: CheckoutOrderOperation['id'],
+    config?: Config,
+  ) =>
   async (dispatch: Dispatch): Promise<CheckoutOrderOperation> => {
     dispatch({
       type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATION_REQUEST,
     });
 
     try {
-      const result = await getCheckoutOperation(params, config);
+      const result = await getCheckoutOperation(
+        checkoutOrderId,
+        operationId,
+        config,
+      );
 
       dispatch({
         payload: normalize(result, checkoutOrderOperation),

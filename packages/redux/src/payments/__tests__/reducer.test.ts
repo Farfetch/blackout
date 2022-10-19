@@ -84,7 +84,7 @@ describe('payments reducer', () => {
     });
   });
 
-  describe('paymentIntentCharge reducers', () => {
+  describe('paymentIntentCharge reducer', () => {
     it('should return the initial state', () => {
       const state = fromReducer.INITIAL_STATE.paymentIntentCharge;
 
@@ -157,7 +157,7 @@ describe('payments reducer', () => {
     });
   });
 
-  describe('paymentInstruments reducers', () => {
+  describe('paymentInstruments reducer', () => {
     describe('ERRORS', () => {
       it.each([
         actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_FAILURE,
@@ -260,7 +260,7 @@ describe('payments reducer', () => {
     });
   });
 
-  describe('paymentTokens reducers', () => {
+  describe('paymentTokens reducer', () => {
     describe('ERRORS', () => {
       it.each([
         actionTypes.FETCH_PAYMENT_TOKENS_FAILURE,
@@ -320,6 +320,237 @@ describe('payments reducer', () => {
         expect(reducerResult.result).toEqual(expectedResult);
         expect(reducerResult.isLoading).toBe(false);
       });
+    });
+  });
+
+  describe('giftCardBalance reducer', () => {
+    it('should return the initial state', () => {
+      const state = fromReducer.INITIAL_STATE.giftCardBalance;
+
+      expect(state).toEqual(initialState.giftCardBalance);
+    });
+
+    describe('ERRORS', () => {
+      it.each([actionTypes.FETCH_GIFT_CARD_BALANCE_FAILURE])(
+        'should handle %s action type',
+        actionType => {
+          const mockError = 'mocked error';
+          expect(
+            reducer(undefined, {
+              type: actionType,
+              payload: { error: mockError },
+            }).giftCardBalance,
+          ).toEqual({ error: mockError, isLoading: false });
+        },
+      );
+    });
+
+    describe('REQUESTS', () => {
+      it.each([actionTypes.FETCH_GIFT_CARD_BALANCE_REQUEST])(
+        'should handle %s action type',
+        actionType => {
+          expect(
+            reducer(undefined, {
+              type: actionType,
+            }).giftCardBalance,
+          ).toEqual({
+            error: initialState.giftCardBalance.error,
+            isLoading: true,
+          });
+        },
+      );
+    });
+
+    describe('SUCCESS', () => {
+      it.each([actionTypes.FETCH_GIFT_CARD_BALANCE_SUCCESS])(
+        'should handle %s action type',
+        actionType => {
+          const mockResult = { foo: 'mocked result' };
+          const expectedResult = mockResult;
+          expect(
+            reducer(undefined, {
+              type: actionType,
+              payload: mockResult,
+            }).giftCardBalance,
+          ).toEqual({
+            error: initialState.giftCardBalance.error,
+            isLoading: false,
+            result: expectedResult,
+          });
+        },
+      );
+    });
+
+    it('should handle RESET_GIFT_CARD_BALANCE_STATE action type', () => {
+      expect(
+        reducer(
+          {
+            ...mockInitialState.payments,
+            giftCardBalance: {
+              isLoading: true,
+              error: toBlackoutError(new Error('dummy error')),
+              result: null,
+            },
+          },
+          {
+            type: actionTypes.RESET_GIFT_CARD_BALANCE_STATE,
+          },
+        ).giftCardBalance,
+      ).toEqual(initialState.giftCardBalance);
+    });
+  });
+
+  describe('userCreditBalance reducer', () => {
+    it('should return the initial state', () => {
+      const state = fromReducer.INITIAL_STATE.userCreditBalance;
+
+      expect(state).toEqual(initialState.userCreditBalance);
+    });
+
+    describe('ERRORS', () => {
+      it.each([actionTypes.FETCH_USER_CREDIT_BALANCE_FAILURE])(
+        'should handle %s action type',
+        actionType => {
+          const mockError = 'mocked error';
+          expect(
+            reducer(undefined, {
+              type: actionType,
+              payload: { error: mockError },
+            }).userCreditBalance,
+          ).toEqual({ error: mockError, isLoading: false });
+        },
+      );
+    });
+
+    describe('REQUESTS', () => {
+      it.each([actionTypes.FETCH_USER_CREDIT_BALANCE_REQUEST])(
+        'should handle %s action type',
+        actionType => {
+          expect(
+            reducer(undefined, {
+              type: actionType,
+            }).userCreditBalance,
+          ).toEqual({
+            error: initialState.userCreditBalance.error,
+            isLoading: true,
+          });
+        },
+      );
+    });
+
+    describe('SUCCESS', () => {
+      it.each([actionTypes.FETCH_USER_CREDIT_BALANCE_SUCCESS])(
+        'should handle %s action type',
+        actionType => {
+          const mockResult = { foo: 'mocked result' };
+          const expectedResult = mockResult;
+          expect(
+            reducer(undefined, {
+              type: actionType,
+              payload: mockResult,
+            }).userCreditBalance,
+          ).toEqual({
+            error: initialState.userCreditBalance.error,
+            isLoading: false,
+            result: expectedResult,
+          });
+        },
+      );
+    });
+
+    it('should handle RESET_USER_CREDIT_BALANCE_STATE action type', () => {
+      expect(
+        reducer(
+          {
+            ...mockInitialState.payments,
+            userCreditBalance: {
+              isLoading: true,
+              error: toBlackoutError(new Error('dummy error')),
+              result: null,
+            },
+          },
+          {
+            type: actionTypes.RESET_USER_CREDIT_BALANCE_STATE,
+          },
+        ).userCreditBalance,
+      ).toEqual(initialState.userCreditBalance);
+    });
+  });
+
+  describe('paymentIntent reducer', () => {
+    it('should return the initial state', () => {
+      const state = fromReducer.INITIAL_STATE.paymentIntent;
+
+      expect(state).toEqual(initialState.paymentIntent);
+    });
+
+    describe('ERRORS', () => {
+      it.each([actionTypes.FETCH_PAYMENT_INTENT_FAILURE])(
+        'should handle %s action type',
+        actionType => {
+          const mockError = 'mocked error';
+          expect(
+            reducer(undefined, {
+              type: actionType,
+              payload: { error: mockError },
+            }).paymentIntent,
+          ).toEqual({ error: mockError, isLoading: false });
+        },
+      );
+    });
+
+    describe('REQUESTS', () => {
+      it.each([actionTypes.FETCH_PAYMENT_INTENT_REQUEST])(
+        'should handle %s action type',
+        actionType => {
+          expect(
+            reducer(undefined, {
+              type: actionType,
+            }).paymentIntent,
+          ).toEqual({
+            error: initialState.paymentIntent.error,
+            isLoading: true,
+          });
+        },
+      );
+    });
+
+    describe('SUCCESS', () => {
+      it.each([actionTypes.FETCH_PAYMENT_INTENT_SUCCESS])(
+        'should handle %s action type',
+        actionType => {
+          const mockResult = { foo: 'mocked result' };
+          const expectedResult = mockResult;
+          expect(
+            reducer(undefined, {
+              type: actionType,
+              payload: mockResult,
+            }).paymentIntent,
+          ).toEqual({
+            error: initialState.paymentIntent.error,
+            isLoading: false,
+            result: expectedResult,
+          });
+        },
+      );
+    });
+
+    it('should handle RESET_PAYMENT_INTENT_STATE action type', () => {
+      expect(
+        reducer(
+          {
+            ...mockInitialState.payments,
+            paymentIntent: {
+              isLoading: true,
+              error: toBlackoutError(new Error('dummy error')),
+              result: null,
+            },
+          },
+          {
+            type: actionTypes.RESET_PAYMENT_INTENT_STATE,
+          },
+        ).paymentIntent,
+      ).toEqual(initialState.paymentIntent);
     });
   });
 
@@ -440,8 +671,8 @@ describe('payments reducer', () => {
     });
   });
 
-  describe('Sub-areas reducers', () => {
-    describe('Reducers for the existent sub-areas that *DO* have a RESULT property', () => {
+  describe('Sub-areas selectors', () => {
+    describe('Selectors for the existent sub-areas that *DO* have a RESULT property', () => {
       const subAreaCurrentState = {
         error: null,
         isLoading: false,

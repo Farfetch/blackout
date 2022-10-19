@@ -1,3 +1,5 @@
+import type { CheckoutOrder } from './checkoutOrder.types';
+import type { CheckoutOrderItem } from './checkoutOrderItem.types';
 import type { Config } from '../../types';
 
 export type PatchCheckoutOrderItemData = {
@@ -6,8 +8,8 @@ export type PatchCheckoutOrderItemData = {
 };
 
 export type PatchCheckoutOrderItem = (
-  checkoutOrderId: number,
-  itemId: number,
+  checkoutOrderId: CheckoutOrder['id'],
+  itemId: CheckoutOrderItem['id'],
   data: PatchCheckoutOrderItemData,
   config?: Config,
 ) => Promise<number>;

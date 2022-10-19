@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  CheckoutOrder,
   CheckoutOrderCharge,
   Config,
   GetCheckoutOrderCharge,
@@ -17,7 +18,11 @@ import type { FetchCheckoutOrderChargeAction } from '../../types';
  */
 const fetchCheckoutOrderChargeFactory =
   (getCheckoutOrderCharge: GetCheckoutOrderCharge) =>
-  (id: number, chargeId: string, config?: Config) =>
+  (
+    checkoutOrderId: CheckoutOrder['id'],
+    chargeId: CheckoutOrderCharge['id'],
+    config?: Config,
+  ) =>
   async (
     dispatch: Dispatch<FetchCheckoutOrderChargeAction>,
   ): Promise<CheckoutOrderCharge> => {
@@ -26,7 +31,11 @@ const fetchCheckoutOrderChargeFactory =
         type: actionTypes.FETCH_CHECKOUT_ORDER_CHARGE_REQUEST,
       });
 
-      const result = await getCheckoutOrderCharge(id, chargeId, config);
+      const result = await getCheckoutOrderCharge(
+        checkoutOrderId,
+        chargeId,
+        config,
+      );
 
       dispatch({
         payload: result,

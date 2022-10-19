@@ -2,24 +2,14 @@ import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import type { BlackoutError } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
 
-export const validateReset = (
-  type: string | string[],
-  action: { type?: string },
-  actionTypes: Record<string, string>,
-): boolean => {
-  const resetAction = actionTypes[`RESET_${type}`];
-  const isThereAResetAction = !!resetAction;
-
-  return isThereAResetAction && resetAction === action.type;
-};
-
 export const createReducerWithResult =
   (
     actionType: Array<string> | string,
     initialState: CombinedState<any>,
     actionTypes: Record<string, string>,
     isNormalized = false,
-    shouldResetState = false,
+    shouldResetStateOnLogout = false,
+    resetActionType?: Array<string> | string,
   ) =>
   (
     state = initialState,
@@ -31,18 +21,25 @@ export const createReducerWithResult =
     const isActionTypeAnArray = Array.isArray(actionType);
     const actionTypesArray = isActionTypeAnArray ? actionType : [actionType];
 
-    if (shouldResetState && action.type === LOGOUT_SUCCESS) {
+    if (shouldResetStateOnLogout && action.type === LOGOUT_SUCCESS) {
       return initialState;
     }
 
-    for (const type of actionTypesArray) {
-      if (validateReset(type, action, actionTypes)) {
-        return {
-          error: initialState.error,
-          result: initialState?.result,
-        };
-      }
+    const resetActionTypesArray = Array.isArray(resetActionType)
+      ? resetActionType
+      : typeof resetActionType === 'string'
+      ? [resetActionType]
+      : undefined;
 
+    if (resetActionTypesArray) {
+      for (const type of resetActionTypesArray) {
+        if (action.type === type) {
+          return initialState;
+        }
+      }
+    }
+
+    for (const type of actionTypesArray) {
       switch (action.type) {
         case actionTypes[`${type}_REQUEST`]:
           return {
@@ -72,7 +69,8 @@ const createReducer =
     actionType: Array<string> | string,
     initialState: CombinedState<any>,
     actionTypes: Record<string, string>,
-    shouldResetState = false,
+    shouldResetStateOnLogout = false,
+    resetActionType?: Array<string> | string,
   ) =>
   (
     state = initialState,
@@ -81,18 +79,25 @@ const createReducer =
     const isActionTypeAnArray = Array.isArray(actionType);
     const actionTypesArray = isActionTypeAnArray ? actionType : [actionType];
 
-    if (shouldResetState && action.type === LOGOUT_SUCCESS) {
+    if (shouldResetStateOnLogout && action.type === LOGOUT_SUCCESS) {
       return initialState;
     }
 
-    for (const type of actionTypesArray) {
-      if (validateReset(type, action, actionTypes)) {
-        return {
-          error: initialState.error,
-          result: initialState?.result,
-        };
-      }
+    const resetActionTypesArray = Array.isArray(resetActionType)
+      ? resetActionType
+      : typeof resetActionType === 'string'
+      ? [resetActionType]
+      : undefined;
 
+    if (resetActionTypesArray) {
+      for (const type of resetActionTypesArray) {
+        if (action.type === type) {
+          return initialState;
+        }
+      }
+    }
+
+    for (const type of actionTypesArray) {
       switch (action.type) {
         case actionTypes[`${type}_REQUEST`]:
           return {

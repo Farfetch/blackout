@@ -128,6 +128,7 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
     case actionTypes.FETCH_CHECKOUT_ORDER_SUCCESS:
     case actionTypes.UPDATE_CHECKOUT_ORDER_FAILURE:
     case actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS:
+      return INITIAL_STATE.isLoading;
     default:
       return state;
   }
@@ -339,36 +340,48 @@ export const checkoutOrderDetails = reducerFactory(
   'FETCH_CHECKOUT_ORDER_DETAILS',
   INITIAL_STATE.checkoutOrderDetails,
   actionTypes,
+  false,
+  actionTypes.RESET_CHECKOUT_ORDER_DETAILS_STATE,
 );
 
 export const collectPoints = reducerFactory(
   'FETCH_COLLECT_POINTS',
   INITIAL_STATE.collectPoints,
   actionTypes,
+  false,
+  actionTypes.RESET_COLLECT_POINTS_STATE,
 );
 
 export const checkoutOrderTags = reducerFactory(
   'SET_CHECKOUT_ORDER_TAGS',
   INITIAL_STATE.checkoutOrderTags,
   actionTypes,
+  false,
+  actionTypes.RESET_CHECKOUT_ORDER_TAGS_STATE,
 );
 
 export const checkoutOrderItemTags = reducerFactory(
   'SET_CHECKOUT_ORDER_ITEM_TAGS',
   INITIAL_STATE.checkoutOrderItemTags,
   actionTypes,
+  false,
+  actionTypes.RESET_CHECKOUT_ORDER_ITEM_TAGS_STATE,
 );
 
 export const checkoutOrderPromocode = reducerFactory(
   'SET_CHECKOUT_ORDER_PROMOCODE',
   INITIAL_STATE.checkoutOrderPromocode,
   actionTypes,
+  false,
+  actionTypes.RESET_CHECKOUT_ORDER_PROMOCODE_STATE,
 );
 
 export const checkoutOrderItems = reducerFactory(
   'UPDATE_CHECKOUT_ORDER_ITEMS',
   INITIAL_STATE.checkoutOrderItems,
   actionTypes,
+  false,
+  actionTypes.RESET_CHECKOUT_ORDER_ITEMS_STATE,
 );
 
 export const checkoutOrderCharge = (
@@ -449,18 +462,24 @@ export const checkoutOrderDeliveryBundleProvisioning = reducerFactory(
   'FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING',
   INITIAL_STATE.checkoutOrderDeliveryBundleProvisioning,
   actionTypes,
+  false,
+  actionTypes.RESET_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_STATE,
 );
 
 export const checkoutOrderDeliveryBundleUpgradeProvisioning = reducerFactory(
   'FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING',
   INITIAL_STATE.checkoutOrderDeliveryBundleUpgradeProvisioning,
   actionTypes,
+  false,
+  actionTypes.RESET_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING_STATE,
 );
 
 export const operation = reducerFactory(
   'FETCH_CHECKOUT_ORDER_OPERATION',
   INITIAL_STATE.operation,
   actionTypes,
+  false,
+  actionTypes.RESET_CHECKOUT_ORDER_OPERATION_STATE,
 );
 
 export const operations = createReducerWithResult(
@@ -468,18 +487,24 @@ export const operations = createReducerWithResult(
   INITIAL_STATE.operations,
   actionTypes,
   true,
+  false,
+  actionTypes.RESET_CHECKOUT_ORDER_OPERATIONS_STATE,
 );
 
 export const removeOrderItem = reducerFactory(
   'REMOVE_CHECKOUT_ORDER_ITEM',
   INITIAL_STATE.removeOrderItem,
   actionTypes,
+  false,
+  actionTypes.RESET_REMOVE_CHECKOUT_ORDER_ITEM_STATE,
 );
 
 export const updateOrderItem = reducerFactory(
   'UPDATE_CHECKOUT_ORDER_ITEM',
   INITIAL_STATE.updateOrderItem,
   actionTypes,
+  false,
+  actionTypes.RESET_UPDATE_CHECKOUT_ORDER_ITEM_STATE,
 );
 
 export const getError = (state: CheckoutState): CheckoutState['error'] =>

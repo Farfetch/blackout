@@ -39,11 +39,15 @@ describe('fetchCheckoutOrderOperation() action creator', () => {
     );
     expect.assertions(4);
 
-    await fetchCheckoutOrderOperation(params)(store.dispatch).catch(error => {
+    await fetchCheckoutOrderOperation(
+      params.orderId,
+      params.operationId,
+    )(store.dispatch).catch(error => {
       expect(error).toBe(expectedError);
       expect(getCheckoutOrderOperation).toHaveBeenCalledTimes(1);
       expect(getCheckoutOrderOperation).toHaveBeenCalledWith(
-        params,
+        params.orderId,
+        params.operationId,
         expectedConfig,
       );
       expect(store.getActions()).toEqual(
@@ -61,11 +65,12 @@ describe('fetchCheckoutOrderOperation() action creator', () => {
   it('should create the correct actions for when the fetch checkout order operation procedure is successful', async () => {
     (getCheckoutOrderOperation as jest.Mock).mockResolvedValueOnce(operation);
 
-    await fetchCheckoutOrderOperation(params)(store.dispatch).then(
-      clientResult => {
-        expect(clientResult).toBe(operation);
-      },
-    );
+    await fetchCheckoutOrderOperation(
+      params.orderId,
+      params.operationId,
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toBe(operation);
+    });
 
     const actionResults = store.getActions();
 
@@ -73,7 +78,8 @@ describe('fetchCheckoutOrderOperation() action creator', () => {
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCheckoutOrderOperation).toHaveBeenCalledTimes(1);
     expect(getCheckoutOrderOperation).toHaveBeenCalledWith(
-      params,
+      params.orderId,
+      params.operationId,
       expectedConfig,
     );
     expect(actionResults).toEqual([

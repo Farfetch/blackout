@@ -19,6 +19,6 @@ export type PaymentsState = CombinedState<{
   giftCardBalance: StateWithResult<Balance>;
   paymentInstruments: StateWithResultArray<PaymentInstrument['id']>;
   paymentIntent: StateWithResultArray<PaymentIntent['id']>;
-  paymentMethods: StateWithResultArray<PaymentMethods>;
+  paymentMethods: StateWithResult<PaymentMethods | PaymentMethods[]>;
   paymentTokens: StateWithResultArray<PaymentToken['id']>;
 }>;

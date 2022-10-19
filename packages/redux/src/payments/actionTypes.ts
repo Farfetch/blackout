@@ -79,7 +79,7 @@ export const FETCH_PAYMENT_INTENT_INSTRUMENTS_SUCCESS =
   '@farfetch/blackout-redux/FETCH_PAYMENT_INTENT_INSTRUMENTS_SUCCESS';
 
 /**
- * Action type dispatched when resetting the payment instruments.
+ * Action type dispatched when resetting the payment instruments state.
  */
 export const RESET_PAYMENT_INSTRUMENTS_STATE =
   '@farfetch/blackout-redux/RESET_PAYMENT_INSTRUMENTS_STATE';
@@ -101,7 +101,7 @@ export const REMOVE_PAYMENT_TOKEN_SUCCESS =
   '@farfetch/blackout-redux/REMOVE_PAYMENT_TOKEN_SUCCESS';
 
 /**
- * Action type dispatched when resetting the payment tokens.
+ * Action type dispatched when resetting the payment tokens state.
  */
 export const RESET_PAYMENT_TOKENS_STATE =
   '@farfetch/blackout-redux/RESET_PAYMENT_TOKENS_STATE';
@@ -139,7 +139,7 @@ export const FETCH_PAYMENT_INTENT_CHARGE_SUCCESS =
   '@farfetch/blackout-redux/FETCH_PAYMENT_INTENT_CHARGE_SUCCESS';
 
 /**
- * Action type dispatched when resetting the payment intent charge.
+ * Action type dispatched when resetting the payment intent charge state.
  */
 export const RESET_PAYMENT_INTENT_CHARGE_STATE =
   '@farfetch/blackout-redux/RESET_PAYMENT_INTENT_CHARGE_STATE';
@@ -161,20 +161,16 @@ export const FETCH_PAYMENT_INTENT_SUCCESS =
   '@farfetch/blackout-redux/FETCH_PAYMENT_INTENT_SUCCESS';
 
 /**
- * Action type dispatched when the fetch payment methods request fails.
+ * Action type dispatched when resetting the payment intent state.
  */
-export const FETCH_PAYMENT_METHODS_FAILURE =
-  '@farfetch/blackout-redux/FETCH_PAYMENT_METHODS_FAILURE';
+export const RESET_PAYMENT_INTENT_STATE =
+  '@farfetch/blackout-redux/RESET_PAYMENT_INTENT_STATE';
+
 /**
- * Action type dispatched when the fetch payment methods request starts.
+ * Action type dispatched when resetting the payment methods state.
  */
-export const FETCH_PAYMENT_METHODS_REQUEST =
-  '@farfetch/blackout-redux/FETCH_PAYMENT_METHODS_REQUEST';
-/**
- * Action type dispatched when the fetch payment methods request succeeds.
- */
-export const FETCH_PAYMENT_METHODS_SUCCESS =
-  '@farfetch/blackout-redux/FETCH_PAYMENT_METHODS_SUCCESS';
+export const RESET_PAYMENT_METHODS_STATE =
+  '@farfetch/blackout-redux/RESET_PAYMENT_METHODS_STATE';
 
 /**
  * Action type dispatched when the fetch payment methods by country and currency
@@ -228,6 +224,12 @@ export const FETCH_USER_CREDIT_BALANCE_SUCCESS =
   '@farfetch/blackout-redux/FETCH_USER_CREDIT_BALANCE_SUCCESS';
 
 /**
+ * Action type dispatched when resetting the user credit balance state.
+ */
+export const RESET_USER_CREDIT_BALANCE_STATE =
+  '@farfetch/blackout-redux/RESET_USER_CREDIT_BALANCE_STATE';
+
+/**
  * Action type dispatched when the fetch gift card balance request fails.
  */
 export const FETCH_GIFT_CARD_BALANCE_FAILURE =
@@ -242,6 +244,12 @@ export const FETCH_GIFT_CARD_BALANCE_REQUEST =
  */
 export const FETCH_GIFT_CARD_BALANCE_SUCCESS =
   '@farfetch/blackout-redux/FETCH_GIFT_CARD_BALANCE_SUCCESS';
+
+/**
+ * Action type dispatched when resetting the user credit balance state.
+ */
+export const RESET_GIFT_CARD_BALANCE_STATE =
+  '@farfetch/blackout-redux/RESET_GIFT_CARD_BALANCE_STATE';
 
 /**
  * Action type dispatched when the create payment intent charge request fails.

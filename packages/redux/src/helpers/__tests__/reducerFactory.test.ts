@@ -22,15 +22,6 @@ describe('reducerFactory', () => {
     reducer = reducerFactory(actionType, initialState, actionTypes);
   });
 
-  it('should handle a *_RESET action successfully', () => {
-    const action = {
-      type: actionTypes.RESET_ACTION_FACTORY,
-    };
-    const response = reducer(state, action);
-
-    expect(response.error).toBe(initialState.error);
-  });
-
   it('should handle a *_REQUEST action successfully', () => {
     const action = {
       type: actionTypes.ACTION_FACTORY_REQUEST,
@@ -111,16 +102,6 @@ describe('createReducerWithResult', () => {
 
   beforeAll(() => {
     reducer = createReducerWithResult(actionType, initialState, actionTypes);
-  });
-
-  it('should handle a RESET_* action successfully', () => {
-    const action = {
-      type: actionTypes.RESET_ACTION_FACTORY_2,
-    };
-    const response = reducer(state, action);
-
-    expect(response.error).toBe(initialState.error);
-    expect(response.result).toBe(initialState.result);
   });
 
   it('should handle a *_REQUEST action successfully', () => {

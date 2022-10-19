@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  CheckoutOrder,
   CheckoutOrderDetails,
   Config,
   GetCheckoutOrderDetails,
@@ -19,17 +20,17 @@ import type { Dispatch } from 'redux';
  */
 const fetchCheckoutOrderDetailsFactory =
   (getCheckoutOrderDetails: GetCheckoutOrderDetails) =>
-  (id: number, config?: Config) =>
+  (checkoutOrderId: CheckoutOrder['id'], config?: Config) =>
   async (dispatch: Dispatch): Promise<CheckoutOrderDetails> => {
     try {
       dispatch({
         type: actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_REQUEST,
       });
 
-      const result = await getCheckoutOrderDetails(id, config);
+      const result = await getCheckoutOrderDetails(checkoutOrderId, config);
 
       dispatch({
-        meta: { id },
+        meta: { id: checkoutOrderId },
         payload: normalize(result, checkoutDetailsSchema),
         type: actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_SUCCESS,
       });
