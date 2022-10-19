@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  CheckoutOrder,
   CheckoutOrderCharge,
   Config,
   PostCheckoutOrderCharge,
@@ -18,14 +19,22 @@ import type { Dispatch } from 'redux';
  */
 const createCheckoutOrderChargeFactory =
   (postCheckoutOrderCharges: PostCheckoutOrderCharge) =>
-  (id: number, data: PostCheckoutOrderChargeData, config?: Config) =>
+  (
+    checkoutOrderId: CheckoutOrder['id'],
+    data: PostCheckoutOrderChargeData,
+    config?: Config,
+  ) =>
   async (dispatch: Dispatch): Promise<CheckoutOrderCharge> => {
     try {
       dispatch({
         type: actionTypes.CREATE_CHECKOUT_ORDER_CHARGE_REQUEST,
       });
 
-      const result = await postCheckoutOrderCharges(id, data, config);
+      const result = await postCheckoutOrderCharges(
+        checkoutOrderId,
+        data,
+        config,
+      );
 
       dispatch({
         payload: result,

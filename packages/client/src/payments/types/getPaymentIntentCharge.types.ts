@@ -3,6 +3,6 @@ import type { Config } from '../../types';
 
 export type GetPaymentIntentCharge = (
   intentId: PaymentIntent['id'],
-  chargeId: string,
+  chargeId: Charge['id'],
   config?: Config,
 ) => Promise<Charge>;

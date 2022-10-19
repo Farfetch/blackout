@@ -1,5 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import type {
+  CheckoutOrder,
+  CheckoutOrderItem,
   Config,
   DeleteCheckoutOrderItem,
 } from '@farfetch/blackout-client';
@@ -14,14 +16,11 @@ import type { Dispatch } from 'redux';
  */
 const removeCheckoutOrderItemFactory =
   (deleteCheckoutOrderItem: DeleteCheckoutOrderItem) =>
-  /**
-   * @param checkoutOrderId - Universal identifier of the Checkout Order
-   * @param itemId - Order item Identifier
-   * @param config - Custom configurations to send to the client instance (axios).
-   *
-   * @returns Thunk to be dispatched to the redux store.
-   */
-  (checkoutOrderId: number, itemId: number, config?: Config) =>
+  (
+    checkoutOrderId: CheckoutOrder['id'],
+    itemId: CheckoutOrderItem['id'],
+    config?: Config,
+  ) =>
   async (dispatch: Dispatch): Promise<number> => {
     dispatch({
       type: actionTypes.REMOVE_CHECKOUT_ORDER_ITEM_REQUEST,

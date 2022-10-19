@@ -1,8 +1,8 @@
+import type { CheckoutOrder, DeliveryBundle, DeliveryBundleUpgrades } from '.';
 import type { Config } from '../../types';
-import type { DeliveryBundleUpgrades } from '.';
 
 export type GetCheckoutOrderDeliveryBundleUpgrades = (
-  id: number,
-  deliveryBundleId: string,
+  checkoutOrderId: CheckoutOrder['id'],
+  deliveryBundleId: DeliveryBundle['id'],
   config?: Config,
 ) => Promise<DeliveryBundleUpgrades>;

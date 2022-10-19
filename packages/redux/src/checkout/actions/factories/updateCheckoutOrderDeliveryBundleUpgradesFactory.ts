@@ -1,6 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  CheckoutOrder,
   Config,
+  DeliveryBundle,
   PatchCheckoutOrderDeliveryBundleUpgrades,
   PatchCheckoutOrderDeliveryBundleUpgradesData,
   toBlackoutError,
@@ -19,8 +21,8 @@ const updateCheckoutOrderDeliveryBundleUpgradesFactory =
     patchCheckoutOrderDeliveryBundleUpgrades: PatchCheckoutOrderDeliveryBundleUpgrades,
   ) =>
   (
-    id: number,
-    deliveryBundleId: string,
+    checkoutOrderId: CheckoutOrder['id'],
+    deliveryBundleId: DeliveryBundle['id'],
     data: Array<PatchCheckoutOrderDeliveryBundleUpgradesData>,
     config?: Config,
   ) =>
@@ -31,7 +33,7 @@ const updateCheckoutOrderDeliveryBundleUpgradesFactory =
       });
 
       const result = await patchCheckoutOrderDeliveryBundleUpgrades(
-        id,
+        checkoutOrderId,
         deliveryBundleId,
         data,
         config,

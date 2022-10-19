@@ -1,4 +1,4 @@
-import type { CheckoutOrderCharge } from '.';
+import type { CheckoutOrder, CheckoutOrderCharge } from '.';
 import type { Config } from '../../types';
 
 export type PostCheckoutOrderChargeData = {
@@ -7,7 +7,7 @@ export type PostCheckoutOrderChargeData = {
 };
 
 export type PostCheckoutOrderCharge = (
-  id: number,
+  checkoutOrderId: CheckoutOrder['id'],
   data: PostCheckoutOrderChargeData,
   config?: Config,
 ) => Promise<CheckoutOrderCharge>;

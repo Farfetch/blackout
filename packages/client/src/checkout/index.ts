@@ -10,6 +10,7 @@ export { default as getCheckoutOrderDeliveryBundleUpgrades } from './getCheckout
 export { default as getCheckoutOrderDeliveryBundleProvisioning } from './getCheckoutOrderDeliveryBundleProvisioning';
 export { default as getCheckoutOrderOperation } from './getCheckoutOrderOperation';
 export { default as getCheckoutOrderOperations } from './getCheckoutOrderOperations';
+export { default as getCheckoutOrderPaymentMethods } from './getCheckoutOrderPaymentMethods';
 export { default as getCheckoutOrderDeliveryBundleUpgradeProvisioning } from './getCheckoutOrderDeliveryBundleUpgradeProvisioning';
 export { default as patchCheckoutOrder } from './patchCheckoutOrder';
 export { default as patchCheckoutOrderItem } from './patchCheckoutOrderItem';

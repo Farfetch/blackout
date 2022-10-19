@@ -6,15 +6,22 @@ import type { GetCheckoutOrderCharge } from './types';
 /**
  * Method responsible for getting the orderCharge.
  *
- * @param id        - Universal identifier of the Checkout.
- * @param chargeId  - Alphanumeric guid of the charge.
- * @param config    - Custom configurations to send to the client instance (axios).
+ * @param checkoutOrderId - Universal identifier of the Checkout.
+ * @param chargeId        - Alphanumeric guid of the charge.
+ * @param config          - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getCheckoutOrderCharge: GetCheckoutOrderCharge = (id, chargeId, config) =>
+const getCheckoutOrderCharge: GetCheckoutOrderCharge = (
+  checkoutOrderId,
+  chargeId,
+  config,
+) =>
   client
-    .get(join('/checkout/v1/orders', id, 'charges', chargeId), config)
+    .get(
+      join('/checkout/v1/orders', checkoutOrderId, 'charges', chargeId),
+      config,
+    )
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);

@@ -5,7 +5,6 @@ export { default as deletePaymentIntentInstrument } from './deletePaymentIntentI
 export { default as deletePaymentToken } from './deletePaymentToken';
 export { default as getPaymentIntentInstrument } from './getPaymentIntentInstrument';
 export { default as getPaymentIntentInstruments } from './getPaymentIntentInstruments';
-export { default as getPaymentMethods } from './getPaymentMethods';
 export { default as getPaymentMethodsByCountryAndCurrency } from './getPaymentMethodsByCountryAndCurrency';
 export { default as getPaymentMethodsByIntent } from './getPaymentMethodsByIntent';
 export { default as getPaymentTokens } from './getPaymentTokens';

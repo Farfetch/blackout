@@ -8,6 +8,7 @@ import type {
   DeliveryBundleUpgrades,
   ItemDeliveryProvisioning,
   PatchCheckoutOrderItemData,
+  PaymentMethods,
 } from '@farfetch/blackout-client';
 import type {
   CheckoutDetailsEntity,
@@ -246,4 +247,30 @@ export interface UpdateCheckoutOrderItemSuccessAction extends Action {
   type: typeof actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS;
   meta: { id: CheckoutOrderItemEntity['id'] };
   payload: PatchCheckoutOrderItemData;
+}
+
+/**
+ * Fetch Checkout Order Payment Methods Actions.
+ */
+export type FetchCheckoutOrderPaymentMethodsAction =
+  | FetchCheckoutOrderPaymentMethodsFailureAction
+  | FetchCheckoutOrderPaymentMethodsRequestAction
+  | FetchCheckoutOrderPaymentMethodsSuccessAction;
+
+export interface FetchCheckoutOrderPaymentMethodsFailureAction extends Action {
+  payload: { error: BlackoutError };
+  type: typeof actionTypes.FETCH_CHECKOUT_ORDER_PAYMENT_METHODS_FAILURE;
+}
+
+export interface FetchCheckoutOrderPaymentMethodsRequestAction extends Action {
+  type: typeof actionTypes.FETCH_CHECKOUT_ORDER_PAYMENT_METHODS_REQUEST;
+}
+
+export interface FetchCheckoutOrderPaymentMethodsSuccessAction extends Action {
+  payload: {
+    entities: {
+      checkout: Record<number, { paymentMethods: PaymentMethods }>;
+    };
+  };
+  type: typeof actionTypes.FETCH_CHECKOUT_ORDER_PAYMENT_METHODS_SUCCESS;
 }

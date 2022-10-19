@@ -4,17 +4,17 @@ import type { GetCheckoutOrderDeliveryBundleUpgrades } from './types';
 /**
  * Obtains the delivery upgrades available for the specified bundle.
  *
- * @param id               - Identifier of the checkout order.
+ * @param checkoutOrderId  - Identifier of the checkout order.
  * @param deliveryBundleId - Identifier of the delivery bundle.
  * @param config           - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
 const getCheckoutOrderDeliveryBundleUpgrades: GetCheckoutOrderDeliveryBundleUpgrades =
-  (id, deliveryBundleId, config) =>
+  (checkoutOrderId, deliveryBundleId, config) =>
     client
       .get(
-        `/checkout/v1/orders/${id}/deliveryBundles/${deliveryBundleId}/upgrades`,
+        `/checkout/v1/orders/${checkoutOrderId}/deliveryBundles/${deliveryBundleId}/upgrades`,
         config,
       )
       .then(response => response.data)

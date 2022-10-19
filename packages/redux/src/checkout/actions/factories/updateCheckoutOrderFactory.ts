@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  CheckoutOrder,
   Config,
   GetCheckoutOrderResponse,
   PatchCheckoutOrder,
@@ -23,7 +24,11 @@ import type { StoreState } from '../../../types/storeState.types';
  */
 const updateCheckoutOrderFactory =
   (patchCheckoutOrder: PatchCheckoutOrder) =>
-  (id: number, data: PatchCheckoutOrderData, config?: Config) =>
+  (
+    checkoutOrderId: CheckoutOrder['id'],
+    data: PatchCheckoutOrderData,
+    config?: Config,
+  ) =>
   async (
     dispatch: Dispatch,
     getState: () => StoreState,
@@ -36,7 +41,7 @@ const updateCheckoutOrderFactory =
         type: actionTypes.UPDATE_CHECKOUT_ORDER_REQUEST,
       });
 
-      const result = await patchCheckoutOrder(id, data, config);
+      const result = await patchCheckoutOrder(checkoutOrderId, data, config);
 
       if (result.checkoutOrder) {
         const { productImgQueryParam } = getOptions(getState);
@@ -53,7 +58,7 @@ const updateCheckoutOrderFactory =
           result.checkoutOrder as unknown as { productImgQueryParam?: string }
         ).productImgQueryParam;
 
-        delete normalizedResult.entities.checkoutOrders?.[id]
+        delete normalizedResult.entities.checkoutOrders?.[checkoutOrderId]
           .productImgQueryParam;
       }
 

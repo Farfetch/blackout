@@ -12,7 +12,6 @@ describe('checkout client', () => {
   beforeEach(() => jest.clearAllMocks());
 
   describe('getCheckoutOrderOperation', () => {
-    const params = { orderId, operationId };
     const expectedUrl = `/checkout/v1/orders/${orderId}/operations/${operationId}`;
     const expectedConfig = undefined;
     const getSpy = jest.spyOn(client, 'get');
@@ -22,7 +21,7 @@ describe('checkout client', () => {
       mswServer.use(fixtures.success(response));
 
       await expect(
-        checkoutClient.getCheckoutOrderOperation(params),
+        checkoutClient.getCheckoutOrderOperation(orderId, operationId),
       ).resolves.toEqual(response);
       expect(getSpy).toBeCalledWith(expectedUrl, expectedConfig);
     });
@@ -32,7 +31,7 @@ describe('checkout client', () => {
 
       expect.assertions(2);
       await expect(
-        checkoutClient.getCheckoutOrderOperation(params),
+        checkoutClient.getCheckoutOrderOperation(orderId, operationId),
       ).rejects.toMatchSnapshot();
       expect(getSpy).toHaveBeenCalledWith(expectedUrl, expectedConfig);
     });

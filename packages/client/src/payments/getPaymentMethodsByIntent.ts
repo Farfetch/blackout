@@ -6,14 +6,17 @@ import type { GetPaymentMethodsByIntent } from './types';
 /**
  * Method responsible for fetching payment methods available for given intent id.
  *
- * @param id     - Id of the payment Intent.
+ * @param intentId - Id of the payment Intent.
  * @param config - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getPaymentMethodsByIntent: GetPaymentMethodsByIntent = (id, config) =>
+const getPaymentMethodsByIntent: GetPaymentMethodsByIntent = (
+  intentId,
+  config,
+) =>
   client
-    .get(join('/payment/v1/intents', id, 'paymentmethods'), config)
+    .get(join('/payment/v1/intents', intentId, 'paymentmethods'), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);

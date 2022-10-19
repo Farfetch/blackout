@@ -1,5 +1,6 @@
 import type { CheckoutAddress, Config } from '../../types';
 import type {
+  CheckoutOrder,
   ClickAndCollect,
   GetCheckoutOrderResponse,
   ShippingOption,
@@ -20,7 +21,7 @@ export type PatchCheckoutOrderData = {
 };
 
 export type PatchCheckoutOrder = (
-  id: number,
+  checkoutOrderId: CheckoutOrder['id'],
   data: PatchCheckoutOrderData,
   config?: Config,
 ) => Promise<GetCheckoutOrderResponse>;
