@@ -480,26 +480,6 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   [eventTypes.LOGOUT]: () => ({
     tid: 431,
   }),
-  [eventTypes.PRODUCT_ADDED_TO_CART]: (data: EventData<TrackTypesValues>) => {
-    const val = `${
-      getParameterValueFromEvent(data, PRODUCT_ID_PARAMETER) ||
-      getParameterValueFromEvent(data, PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST)
-    }`;
-
-    switch (data.properties?.from) {
-      case fromParameterTypes.PDP:
-        return {
-          tid: 598,
-          val,
-        };
-
-      default:
-        return {
-          tid: 16,
-          val,
-        };
-    }
-  },
   [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: (
     data: EventData<TrackTypesValues>,
   ) => {
@@ -570,6 +550,20 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     tid: 2926,
     actionArea: data.properties?.from,
     productId: getOmnitrackingProductId(data),
+    lineItems: getProductLineItems(data),
+  }),
+  [eventTypes.PRODUCT_ADDED_TO_CART]: (data: EventData<TrackTypesValues>) => ({
+    tid: 2915,
+    actionArea: data.properties?.from,
+    priceCurrency: data.properties?.currency,
+    lineItems: getProductLineItems(data),
+  }),
+  [eventTypes.PRODUCT_REMOVED_FROM_CART]: (
+    data: EventData<TrackTypesValues>,
+  ) => ({
+    tid: 131,
+    actionArea: data.properties?.from,
+    priceCurrency: data.properties?.currency,
     lineItems: getProductLineItems(data),
   }),
 } as const;
