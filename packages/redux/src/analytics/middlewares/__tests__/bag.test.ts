@@ -215,9 +215,10 @@ describe('analyticsBagMiddleware', () => {
         priceWithoutDiscount,
         quantity,
         size: sizes[0]?.name,
+        sizeId: sizes[0]?.id,
         sku,
-        variant: colorName,
         value,
+        variant: colorName,
       });
     });
   });
@@ -284,6 +285,7 @@ describe('analyticsBagMiddleware', () => {
         quantity,
         sku,
         size: sizes[0]?.name,
+        sizeId: sizes[0]?.id,
         value,
         variant: colorName,
       });
@@ -329,6 +331,7 @@ describe('analyticsBagMiddleware', () => {
         size: sizes[0]?.name,
         oldSize: sizes[0]?.name,
         variant: colorName,
+        sizeId: sizes[0]?.id,
       });
     });
 
@@ -370,6 +373,7 @@ describe('analyticsBagMiddleware', () => {
         size: sizes[0]?.name,
         oldSize: sizes[0]?.name,
         variant: colorName,
+        sizeId: sizes[0]?.id,
       });
     });
 
@@ -411,13 +415,14 @@ describe('analyticsBagMiddleware', () => {
         id: bagMockData.mockProductId,
         name: productDescription,
         oldQuantity: 3,
+        oldSize: sizes[0]?.name,
         price: priceWithDiscount,
         priceWithoutDiscount,
         quantity: 3,
-        sku,
         size: sizes[1]?.name,
+        sku,
         variant: colorName,
-        oldSize: sizes[0]?.name,
+        sizeId: sizes[1]?.id,
       };
 
       expect(trackSpy).nthCalledWith(1, eventTypes.PRODUCT_UPDATED, baseData);
@@ -489,12 +494,13 @@ describe('analyticsBagMiddleware', () => {
         discountValue: 0,
         id: bagMockData.mockProductId,
         name: productDescription,
+        oldQuantity,
+        oldSize: sizes[0]?.name,
         price: productData?.price?.includingTaxes,
         priceWithoutDiscount: productData?.price?.includingTaxesWithoutDiscount,
-        oldQuantity,
         quantity: 1,
         size: sizes[0]?.name,
-        oldSize: sizes[0]?.name,
+        sizeId: sizes[0]?.id,
         sku,
         variant: colorName,
       };
