@@ -2,6 +2,7 @@ import {
   Configuration,
   ConfigurationSchemaFieldType,
 } from '@farfetch/blackout-client';
+import type { ConfigurationsState } from '@farfetch/blackout-redux';
 
 export const mockConfigurationCode = '1234';
 export const mockConfiguration = {
@@ -40,10 +41,10 @@ export const mockConfigurationsInitialState = {
         error: {},
         isLoading: {},
       },
-    },
+    } as ConfigurationsState,
   },
   entities: {
-    configurations: null,
+    configurations: {},
   },
 };
 
@@ -83,11 +84,11 @@ export const mockConfigurationsLoadingState = {
         error: {},
         isLoading: {},
       },
-      result: [],
+      result: null,
     },
   },
   entities: {
-    configurations: undefined,
+    configurations: {},
   },
 };
 
@@ -104,11 +105,11 @@ export const mockConfigurationLoadingState = {
           [mockConfigurationCode]: true,
         },
       },
-      result: [],
+      result: null,
     },
   },
   entities: {
-    configurations: undefined,
+    configurations: {},
   },
 };
 
@@ -117,16 +118,19 @@ export const mockConfigurationsErrorState = {
     configurations: {
       error: {
         message: 'An awesome, fascinating and incredible error',
+        name: 'Error name',
+        code: 501,
       },
       isLoading: false,
       configuration: {
         error: {},
         isLoading: {},
       },
+      result: null,
     },
   },
   entities: {
-    configurations: null,
+    configurations: {},
   },
 };
 
@@ -139,16 +143,19 @@ export const mockConfigurationErrorState = {
         error: {
           [mockConfigurationCode]: {
             message: 'An awesome, fascinating and incredible error',
+            name: 'Error name',
+            code: 501,
           },
         },
         isLoading: {
           [mockConfigurationCode]: false,
         },
       },
+      result: null,
     },
   },
   entities: {
-    configurations: undefined,
+    configurations: {},
   },
 };
 
