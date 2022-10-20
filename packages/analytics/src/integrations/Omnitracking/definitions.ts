@@ -3,13 +3,11 @@ import {
   getCommonCheckoutStepTrackingData,
   getDeliveryInformationDetails,
   getOmnitrackingProductId,
-  getParameterValueFromEvent,
   getProductLineItems,
   getProductLineItemsQuantity,
 } from './omnitracking-helper';
 import { logger } from '../../utils';
 import eventTypes from '../../types/eventTypes';
-import fromParameterTypes from '../../types/fromParameterTypes';
 import pageTypes from '../../types/pageTypes';
 import type { EventData, TrackTypesValues } from '../..';
 import type {
@@ -459,44 +457,22 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   }),
   [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: (
     data: EventData<TrackTypesValues>,
-  ) => {
-    const val = `${
-      getParameterValueFromEvent(data, PRODUCT_ID_PARAMETER) ||
-      getParameterValueFromEvent(data, PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST)
-    }`;
-
-    switch (data.properties?.from) {
-      case fromParameterTypes.PDP:
-        return {
-          tid: 35,
-          val,
-        };
-
-      case fromParameterTypes.BAG:
-        return {
-          tid: 135,
-          val,
-        };
-
-      case fromParameterTypes.RECOMMENDATIONS:
-        return {
-          tid: 531,
-          val,
-        };
-
-      case fromParameterTypes.RECENTLY_VIEWED:
-        return {
-          tid: 532,
-          val,
-        };
-
-      default:
-        return {
-          tid: 35,
-          val,
-        };
-    }
-  },
+  ) => ({
+    tid: 2916,
+    actionArea: data.properties?.from,
+    priceCurrency: data.properties?.currency,
+    wishlistId: data.properties?.wishlistId,
+    lineItems: getProductLineItems(data),
+  }),
+  [eventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: (
+    data: EventData<TrackTypesValues>,
+  ) => ({
+    tid: 2925,
+    actionArea: data.properties?.from,
+    priceCurrency: data.properties?.currency,
+    wishlistId: data.properties?.wishlistId,
+    lineItems: getProductLineItems(data),
+  }),
   [eventTypes.PRODUCT_LIST_VIEWED]: data => ({
     tid: 2832,
     lineItems: getProductLineItems(data),
