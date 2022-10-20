@@ -95,8 +95,11 @@ Object {
 
 exports[`Omnitracking track events definitions \`Product Added to Wishlist\` return should match the snapshot 1`] = `
 Object {
-  "tid": 35,
-  "val": "507f1f77bcf86cd799439011",
+  "actionArea": "PLP",
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1}]",
+  "priceCurrency": "USD",
+  "tid": 2916,
+  "wishlistId": "d3618128-5aa9-4caa-a452-1dd1377a6190",
 }
 `;
 
@@ -113,6 +116,16 @@ exports[`Omnitracking track events definitions \`Product List Viewed\` return sh
 Object {
   "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"category\\":\\"\\",\\"itemFullPrice\\":25},{\\"productId\\":\\"507f1f77bcf86cd799439012\\",\\"itemPromotion\\":6,\\"category\\":\\"\\",\\"itemFullPrice\\":25}]",
   "tid": 2832,
+}
+`;
+
+exports[`Omnitracking track events definitions \`Product Removed From Wishlist\` return should match the snapshot 1`] = `
+Object {
+  "actionArea": "PLP",
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1}]",
+  "priceCurrency": "USD",
+  "tid": 2925,
+  "wishlistId": "d3618128-5aa9-4caa-a452-1dd1377a6190",
 }
 `;
 
