@@ -27,12 +27,13 @@ import {
   OPTION_SEARCH_QUERY_PARAMETERS,
   OPTION_TRANSFORM_PAYLOAD,
 } from './constants';
-import { postTracking, User, UserGender } from '@farfetch/blackout-client';
 import {
+  pageEventsMapper,
   trackEventsMapper,
   userGenderValuesMapper,
   viewGenderValuesMapper,
 } from './definitions';
+import { postTracking, User, UserGender } from '@farfetch/blackout-client';
 import analyticsTrackTypes from '../../types/trackTypes';
 import get from 'lodash/get';
 import Integration from '../Integration';
@@ -42,7 +43,6 @@ import logger from '../../utils/logger';
 import platformTypes from '../../types/platformTypes';
 import type {
   EventData,
-  eventTypes,
   LoadIntegrationEventData,
   StrippedDownAnalytics,
   TrackTypesValues,
@@ -51,9 +51,12 @@ import type {
 import type {
   OmnitrackingOptions,
   OmnitrackingPageEventParameters,
+  OmnitrackingPageEventsMapper,
   OmnitrackingPreCalculatedEventParameters,
   OmnitrackingRequestPayload,
-  OmnitrackingTrackEventParameters,
+  OmnitrackingTrackEventsMapper,
+  OmnitrackingTrackOrPageEventMapper,
+  OmnitrackingTrackOrPageMapperResult,
   PageActionEvents,
   PageViewEvents,
 } from './types/Omnitracking.types';
@@ -251,48 +254,61 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
    * @returns Promise that will resolve when the method finishes.
    */
   override async track(data: EventData<TrackTypesValues>) {
-    let precalculatedParameters:
-      | OmnitrackingPageEventParameters
-      | OmnitrackingTrackEventParameters;
-
+    const event = data.event;
     switch (data.type) {
+      // Screen is treated the same as a page in Omnitracking
       case analyticsTrackTypes.PAGE:
       case analyticsTrackTypes.SCREEN: {
-        // Screen is treated the same as a page in Omnitracking
-        precalculatedParameters = this.getPrecalculatedParametersForEvent(data);
+        const eventMapperFn =
+          pageEventsMapper[event as keyof OmnitrackingPageEventsMapper];
 
-        return await this.postTracking(
-          formatPageEvent(data, precalculatedParameters),
-          data,
-        );
+        await this.processEvent(data, eventMapperFn);
+        break;
       }
       case analyticsTrackTypes.TRACK: {
         const eventMapperFn =
-          trackEventsMapper[
-            data.event as typeof eventTypes[keyof typeof eventTypes]
-          ];
+          trackEventsMapper[event as keyof OmnitrackingTrackEventsMapper];
 
-        if (eventMapperFn) {
-          const mappedEvents = eventMapperFn(data);
-
-          if (isArray(mappedEvents)) {
-            return Promise.all(
-              mappedEvents.map(async mappedEventData => {
-                return this.processTrackEvents(data, mappedEventData);
-              }),
-            );
-          }
-
-          if (isObject(mappedEvents)) {
-            return this.processTrackEvents(data, mappedEvents);
-          }
-        }
-
-        return this.processTrackEvents(data);
+        await this.processEvent(data, eventMapperFn);
+        break;
       }
       default:
         break;
     }
+  }
+
+  /**
+   * Process the event being tracked using the provided mapper.
+   *
+   * @param data - Event data provided by analytics.
+   * @param eventMapperFn - Function for the mapped event.
+   *
+   * @returns Promise that will resolve when the method finishes.
+   */
+  async processEvent(
+    data: EventData<TrackTypesValues>,
+    eventMapperFn?: OmnitrackingTrackOrPageEventMapper,
+  ) {
+    if (eventMapperFn) {
+      const mappedEvents = eventMapperFn(data);
+
+      if (isArray(mappedEvents)) {
+        await Promise.all(
+          mappedEvents.map(async mappedEventData => {
+            return this.processTrackEvents(data, mappedEventData);
+          }),
+        );
+      }
+
+      if (isObject(mappedEvents)) {
+        return this.processTrackEvents(data, mappedEvents);
+      }
+
+      // ignore if there's nothing mapped and do not let the event pass
+      return;
+    }
+
+    return this.processTrackEvents(data);
   }
 
   /**
@@ -306,15 +322,25 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
    */
   async processTrackEvents(
     data: EventData<TrackTypesValues>,
-    mappedEventData?: OmnitrackingTrackEventParameters,
+    mappedEventData?: OmnitrackingTrackOrPageMapperResult,
   ) {
     const precalculatedParameters =
       this.getPrecalculatedParametersForEvent(data);
-
-    const formattedEventData = formatTrackEvent(data, {
+    const additionalParameters = {
       ...precalculatedParameters,
       ...mappedEventData,
-    });
+    };
+
+    let formattedEventData;
+
+    if (
+      data.type === analyticsTrackTypes.PAGE ||
+      data.type === analyticsTrackTypes.SCREEN
+    ) {
+      formattedEventData = formatPageEvent(data, additionalParameters);
+    } else {
+      formattedEventData = formatTrackEvent(data, additionalParameters);
+    }
 
     if (!this.validateTrackingRequisites()) {
       logger.error(
