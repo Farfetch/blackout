@@ -398,8 +398,7 @@ describe('Omnitracking', () => {
       });
 
       it('event is `Place Order Started`', async () => {
-        const placeOrderTid1 = 10097;
-        const placeOrderTid2 = 188;
+        const placeOrderTid = 188;
 
         const data = generateTrackMockData({
           event: eventTypes.PLACE_ORDER_STARTED,
@@ -416,83 +415,14 @@ describe('Omnitracking', () => {
           ...mockExpectedTrackPayload,
           parameters: {
             ...mockExpectedTrackPayload.parameters,
-            tid: placeOrderTid1,
-            val: JSON.stringify({
-              type: 'TRANSACTION',
-              paymentAttemptReferenceId: `${loadIntegrationData.user.localId}_${mockedTrackData.timestamp}`,
-            }),
+            orderCode: 'ABC12',
+            promocode: 'promo',
+            shippingTotalValue: 12,
+            tid: placeOrderTid,
           },
         };
 
-        expect(postTrackingSpy).toHaveBeenCalledTimes(2);
-        expect(postTrackingSpy.mock.calls).toEqual([
-          [expectedPayload],
-          [
-            {
-              ...expectedPayload,
-              parameters: {
-                ...expectedPayload.parameters,
-                tid: placeOrderTid2,
-                promocode: 'promo',
-                shippingTotalValue: 12,
-                orderCode: 'ABC12',
-              },
-            },
-          ],
-        ]);
-      });
-
-      it('event is `Sign-up Form Viewed`', async () => {
-        const tid = 10097;
-
-        const data = generateTrackMockData({
-          event: eventTypes.SIGNUP_FORM_VIEWED,
-        });
-
-        const correlationId = loadIntegrationData.user.localId;
-        const paymentAttemptReferenceId = `${correlationId}_${mockedTrackData.timestamp}`;
-
-        await omnitracking.track(data);
-
-        const expectedPayload = {
-          ...mockExpectedTrackPayload,
-          parameters: {
-            ...mockExpectedTrackPayload.parameters,
-            tid,
-            val: JSON.stringify({
-              type: 'REGISTER',
-              paymentAttemptReferenceId,
-            }),
-          },
-        };
-
-        expect(clients.postTracking).toHaveBeenCalledWith(expectedPayload);
-      });
-
-      it('event is `Checkout Step Viewed`', async () => {
-        const tid = 10097;
-
-        const data = generateTrackMockData({
-          event: eventTypes.CHECKOUT_STEP_VIEWED,
-        });
-
-        const correlationId = loadIntegrationData.user.localId;
-        const paymentAttemptReferenceId = `${correlationId}_${mockedTrackData.timestamp}`;
-
-        await omnitracking.track(data);
-
-        const expectedPayload = {
-          ...mockExpectedTrackPayload,
-          parameters: {
-            ...mockExpectedTrackPayload.parameters,
-            tid,
-            val: JSON.stringify({
-              type: 'SUBMIT',
-              paymentAttemptReferenceId,
-            }),
-          },
-        };
-
+        expect(postTrackingSpy).toHaveBeenCalledTimes(1);
         expect(postTrackingSpy).toHaveBeenCalledWith(expectedPayload);
       });
 

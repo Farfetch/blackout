@@ -1,5 +1,4 @@
 import {
-  generatePaymentAttemptReferenceId,
   getCheckoutEventGenericProperties,
   getCommonCheckoutStepTrackingData,
   getDeliveryInformationDetails,
@@ -7,7 +6,6 @@ import {
   getParameterValueFromEvent,
   getProductLineItems,
   getProductLineItemsQuantity,
-  getValParameterForEvent,
 } from './omnitracking-helper';
 import eventTypes from '../../types/eventTypes';
 import fromParameterTypes from '../../types/fromParameterTypes';
@@ -414,20 +412,6 @@ export const pageEventsFilter: {
  * specific parameter, if applicable.
  */
 export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
-  [eventTypes.SIGNUP_FORM_VIEWED]: (data: EventData<TrackTypesValues>) => ({
-    tid: 10097,
-    val: getValParameterForEvent({
-      type: 'REGISTER',
-      paymentAttemptReferenceId: generatePaymentAttemptReferenceId(data),
-    }),
-  }),
-  [eventTypes.CHECKOUT_STEP_VIEWED]: (data: EventData<TrackTypesValues>) => ({
-    tid: 10097,
-    val: getValParameterForEvent({
-      type: 'SUBMIT',
-      paymentAttemptReferenceId: generatePaymentAttemptReferenceId(data),
-    }),
-  }),
   [eventTypes.ADDRESS_INFO_ADDED]: data => ({
     tid: 2911,
     checkoutStep: data.properties?.step,
@@ -435,24 +419,12 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     interactionType: data.properties?.interactionType,
   }),
   [eventTypes.PLACE_ORDER_STARTED]: (data: EventData<TrackTypesValues>) => {
-    const val = getValParameterForEvent({
-      type: 'TRANSACTION',
-      paymentAttemptReferenceId: generatePaymentAttemptReferenceId(data),
-    });
-
-    return [
-      {
-        tid: 10097,
-        val,
-      },
-      {
-        tid: 188,
-        val,
-        ...getCheckoutEventGenericProperties(data),
-        promocode: data.properties?.coupon,
-        shippingTotalValue: data.properties?.shipping,
-      },
-    ];
+    return {
+      tid: 188,
+      ...getCheckoutEventGenericProperties(data),
+      promocode: data.properties?.coupon,
+      shippingTotalValue: data.properties?.shipping,
+    };
   },
   [eventTypes.CHECKOUT_STARTED]: data => ({
     tid: 2918,

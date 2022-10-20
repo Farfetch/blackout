@@ -31,13 +31,6 @@ Object {
 }
 `;
 
-exports[`Omnitracking track events definitions \`Checkout Step Viewed\` return should match the snapshot 1`] = `
-Object {
-  "tid": 10097,
-  "val": "{\\"type\\":\\"SUBMIT\\",\\"paymentAttemptReferenceId\\":\\"d9864a1c112d-47ff-8ee4-968c-5acecae23_1567010265879\\"}",
-}
-`;
-
 exports[`Omnitracking track events definitions \`Login\` return should match the snapshot 1`] = `
 Object {
   "loginType": "Acme",
@@ -69,19 +62,12 @@ Object {
 `;
 
 exports[`Omnitracking track events definitions \`Place Order Started\` return should match the snapshot 1`] = `
-Array [
-  Object {
-    "tid": 10097,
-    "val": "{\\"type\\":\\"TRANSACTION\\",\\"paymentAttemptReferenceId\\":\\"d9864a1c112d-47ff-8ee4-968c-5acecae23_1567010265879\\"}",
-  },
-  Object {
-    "orderCode": "50314b8e9bcf000000000000",
-    "promocode": "ACME2019",
-    "shippingTotalValue": 3.6,
-    "tid": 188,
-    "val": "{\\"type\\":\\"TRANSACTION\\",\\"paymentAttemptReferenceId\\":\\"d9864a1c112d-47ff-8ee4-968c-5acecae23_1567010265879\\"}",
-  },
-]
+Object {
+  "orderCode": "50314b8e9bcf000000000000",
+  "promocode": "ACME2019",
+  "shippingTotalValue": 3.6,
+  "tid": 188,
+}
 `;
 
 exports[`Omnitracking track events definitions \`Product Added to Cart\` return should match the snapshot 1`] = `
@@ -155,13 +141,6 @@ exports[`Omnitracking track events definitions \`Sign-up Form Completed\` return
 Object {
   "loginType": "Acme",
   "tid": 2927,
-}
-`;
-
-exports[`Omnitracking track events definitions \`Sign-up Form Viewed\` return should match the snapshot 1`] = `
-Object {
-  "tid": 10097,
-  "val": "{\\"type\\":\\"REGISTER\\",\\"paymentAttemptReferenceId\\":\\"d9864a1c112d-47ff-8ee4-968c-5acecae23_1567010265879\\"}",
 }
 `;
 
