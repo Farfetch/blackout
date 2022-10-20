@@ -3,6 +3,7 @@ import {
   getCheckoutEventGenericProperties,
   getCommonCheckoutStepTrackingData,
   getDeliveryInformationDetails,
+  getGenderValueFromProperties,
   getOmnitrackingProductId,
   getPageEventFromLocation,
   getPlatformSpecificParameters,
@@ -10,6 +11,7 @@ import {
   getValParameterForEvent,
 } from '../omnitracking-helper';
 import { logger } from '../../../utils';
+import { signupNewsletterGenderTypes } from '../../../types';
 import platformTypes from '../../../types/platformTypes';
 import trackTypes from '../../../types/trackTypes';
 import type {
@@ -202,5 +204,78 @@ describe('getOmnitrackingProductId', () => {
     } as EventData<TrackTypesValues>;
 
     expect(getOmnitrackingProductId(data, true)).toEqual(undefined);
+  });
+});
+describe('getGenderValueFromProperties', () => {
+  it(`should test all ways to return ${signupNewsletterGenderTypes[0]} value`, () => {
+    expect(
+      getGenderValueFromProperties({
+        properties: {
+          gender: 0,
+        } as Record<string, unknown>,
+      } as EventData<TrackTypesValues>),
+    ).toEqual(signupNewsletterGenderTypes[0]);
+
+    expect(
+      getGenderValueFromProperties({
+        properties: {
+          gender: '0',
+        } as Record<string, unknown>,
+      } as EventData<TrackTypesValues>),
+    ).toEqual(signupNewsletterGenderTypes[0]);
+
+    expect(
+      getGenderValueFromProperties({
+        properties: {
+          gender: { id: '0' },
+        } as Record<string, unknown>,
+      } as EventData<TrackTypesValues>),
+    ).toEqual(signupNewsletterGenderTypes[0]);
+  });
+
+  it(`should test all ways to return ${signupNewsletterGenderTypes[0]} and ${signupNewsletterGenderTypes[1]} value`, () => {
+    const expected = `${signupNewsletterGenderTypes[0]},${signupNewsletterGenderTypes[1]}`;
+
+    expect(
+      getGenderValueFromProperties({
+        properties: {
+          gender: [0, 1],
+        } as Record<string, unknown>,
+      } as EventData<TrackTypesValues>),
+    ).toEqual(expected);
+
+    expect(
+      getGenderValueFromProperties({
+        properties: {
+          gender: ['0', '1'],
+        } as Record<string, unknown>,
+      } as EventData<TrackTypesValues>),
+    ).toEqual(expected);
+
+    expect(
+      getGenderValueFromProperties({
+        properties: {
+          gender: [{ id: '0' }, { id: '1' }],
+        } as Record<string, unknown>,
+      } as EventData<TrackTypesValues>),
+    ).toEqual(expected);
+  });
+
+  it('should return custom value', () => {
+    expect(
+      getGenderValueFromProperties({
+        properties: {
+          gender: { name: 'W' },
+        } as Record<string, unknown>,
+      } as EventData<TrackTypesValues>),
+    ).toEqual('W');
+
+    expect(
+      getGenderValueFromProperties({
+        properties: {
+          gender: [{ name: 'W' }, { name: 'M' }],
+        } as Record<string, unknown>,
+      } as EventData<TrackTypesValues>),
+    ).toEqual('W,M');
   });
 });

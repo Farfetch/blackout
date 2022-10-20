@@ -652,7 +652,7 @@ const getSignupNewsletterParametersFromEvent = (
   const genderArray: Array<string> = (
     Array.isArray(eventProperties.gender)
       ? eventProperties.gender
-      : new Array(eventProperties.gender)
+      : [eventProperties?.gender]
   ).map((gender: GenderValues | GenderObject) => {
     return (
       (gender as GenderObject).name ||
