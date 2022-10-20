@@ -14,6 +14,7 @@ import type {
   EventData,
   eventTypes,
   IntegrationOptions,
+  pageTypes,
   platformTypes,
   trackTypes,
   TrackTypesValues,
@@ -59,12 +60,28 @@ export type OmnitrackingAllParameters = OmnitrackingTrackEventParameters &
   OmnitrackingPageEventParameters &
   OmnitrackingCommonEventParameters;
 
-export type OmnitrackingTrackEventMapper = (
+export type OmnitrackingTrackOrPageMapperResult =
+  | OmnitrackingTrackEventParameters
+  | OmnitrackingTrackEventParameters[]
+  | OmnitrackingPageEventParameters
+  | OmnitrackingPageEventParameters[];
+
+export type OmnitrackingTrackOrPageEventMapper = (
   data: EventData<TrackTypesValues>,
-) => OmnitrackingTrackEventParameters | OmnitrackingTrackEventParameters[];
+) => OmnitrackingTrackOrPageMapperResult;
+
+export type OmnitrackingTrackMapperKey =
+  typeof eventTypes[keyof typeof eventTypes];
+
+export type OmnitrackingPageMapperKey =
+  typeof pageTypes[keyof typeof pageTypes];
 
 export type OmnitrackingTrackEventsMapper = {
-  [K in typeof eventTypes[keyof typeof eventTypes]]?: OmnitrackingTrackEventMapper;
+  [k in OmnitrackingTrackMapperKey]?: OmnitrackingTrackOrPageEventMapper;
+};
+
+export type OmnitrackingPageEventsMapper = {
+  [K in OmnitrackingPageMapperKey]?: OmnitrackingTrackOrPageEventMapper;
 };
 
 export type SearchQueryParameters = string[];
