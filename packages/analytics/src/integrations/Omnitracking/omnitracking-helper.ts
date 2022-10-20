@@ -1,5 +1,13 @@
 import { ANALYTICS_UNIQUE_EVENT_ID } from '../../utils/constants';
 import {
+  AnalyticsProduct,
+  EventContext,
+  EventData,
+  signupNewsletterGenderTypes,
+  TrackTypesValues,
+  UserTraits,
+} from '../..';
+import {
   CLIENT_LANGUAGES_LIST,
   DEFAULT_CLIENT_LANGUAGE,
   DEFAULT_SEARCH_QUERY_PARAMETERS,
@@ -18,13 +26,6 @@ import { v4 as uuidV4 } from 'uuid';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
 import platformTypes from '../../types/platformTypes';
-import type {
-  AnalyticsProduct,
-  EventContext,
-  EventData,
-  TrackTypesValues,
-  UserTraits,
-} from '../..';
 import type {
   OmnitrackingCommonEventParameters,
   OmnitrackingPageEventParameters,
@@ -695,3 +696,30 @@ export const getCommonCheckoutStepTrackingData = (
   interactionType: data.properties?.interactionType,
   selectedPaymentMethod: data.properties?.paymentType,
 });
+
+/**
+ * Obtain gender value from properties.
+ *
+ * @param data - The event's data.
+ *
+ * @returns Gender string.
+ */
+export const getGenderValueFromProperties = (
+  data: EventData<TrackTypesValues>,
+) => {
+  type GenderValues = keyof typeof signupNewsletterGenderTypes;
+  type GenderObject = { id: GenderValues; name?: string };
+
+  const genderArray: Array<string> = (
+    Array.isArray(data.properties?.gender)
+      ? data.properties?.gender
+      : [data.properties?.gender]
+  ).map((gender: GenderValues | GenderObject) => {
+    return (
+      (gender as GenderObject).name ||
+      signupNewsletterGenderTypes[(gender as GenderObject).id ?? gender]
+    );
+  });
+
+  return genderArray.reduce((acc, item) => `${acc},${item}`);
+};

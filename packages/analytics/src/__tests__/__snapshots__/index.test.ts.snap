@@ -117,6 +117,12 @@ Object {
     "Mobile": "mobile",
     "Web": "web",
   },
+  "signupNewsletterGenderTypes": Object {
+    "0": "Woman",
+    "1": "Man",
+    "2": "Unisex",
+    "3": "Kids",
+  },
   "trackTypes": Object {
     "PAGE": "page",
     "SCREEN": "screen",

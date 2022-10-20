@@ -3,6 +3,7 @@ import {
   getCheckoutEventGenericProperties,
   getCommonCheckoutStepTrackingData,
   getDeliveryInformationDetails,
+  getGenderValueFromProperties,
   getOmnitrackingProductId,
   getProductLineItems,
   getProductLineItemsQuantity,
@@ -481,6 +482,10 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   }),
   [eventTypes.LOGOUT]: () => ({
     tid: 431,
+  }),
+  [eventTypes.SIGNUP_NEWSLETTER]: data => ({
+    tid: 2831,
+    gender: getGenderValueFromProperties(data),
   }),
   [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: (
     data: EventData<TrackTypesValues>,
