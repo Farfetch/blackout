@@ -187,6 +187,8 @@ Object {
   "useCategory": [Function],
   "useCheckout": [Function],
   "useCommercePages": [Function],
+  "useConfiguration": [Function],
+  "useConfigurations": [Function],
   "useContentType": [Function],
   "useCountries": [Function],
   "useCountryAddressSchemas": [Function],
