@@ -4,6 +4,7 @@ import interactionTypes from './interactionTypes';
 import loginMethodParameterTypes from './loginMethodParameterTypes';
 import pageTypes from './pageTypes';
 import platformTypes from './platformTypes';
+import signupNewsletterGenderTypes from './signupNewsletterGenderTypes';
 import trackTypes from './trackTypes';
 
 // Type modules
@@ -15,6 +16,7 @@ export {
   pageTypes,
   platformTypes,
   trackTypes,
+  signupNewsletterGenderTypes,
 };
 
 // Typescript types
