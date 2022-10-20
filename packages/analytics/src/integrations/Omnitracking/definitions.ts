@@ -13,7 +13,10 @@ import eventTypes from '../../types/eventTypes';
 import fromParameterTypes from '../../types/fromParameterTypes';
 import pageTypes from '../../types/pageTypes';
 import type { EventData, TrackTypesValues } from '../..';
-import type { OmnitrackingTrackEventsMapper } from './types/Omnitracking.types';
+import type {
+  OmnitrackingPageEventsMapper,
+  OmnitrackingTrackEventsMapper,
+} from './types/Omnitracking.types';
 
 export const PRODUCT_ID_PARAMETER = 'productId';
 export const PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST = 'id';
@@ -579,7 +582,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
  * If there is a page event that can have specific rules or parameters,
  * make sure to define it in this mapper.
  */
-export const pageEventsMapper = {
+export const pageEventsMapper: Readonly<OmnitrackingPageEventsMapper> = {
   [pageTypes.PRODUCT_DETAILS]: (data: EventData<TrackTypesValues>) => ({
     viewType: 'Product',
     viewSubType: 'Product',

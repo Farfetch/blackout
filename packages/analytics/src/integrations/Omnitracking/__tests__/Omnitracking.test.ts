@@ -34,7 +34,7 @@ import type {
 } from '../../../types/analytics.types';
 import type {
   OmnitrackingRequestPayload,
-  OmnitrackingTrackEventMapper,
+  OmnitrackingTrackOrPageEventMapper,
   PageActionEvents,
   PageViewEvents,
 } from '../types/Omnitracking.types';
@@ -721,7 +721,7 @@ describe('Omnitracking', () => {
             (
               definitions.trackEventsMapper[
                 eventMapperKeyTemp
-              ] as OmnitrackingTrackEventMapper
+              ] as OmnitrackingTrackOrPageEventMapper
             )(mockedData),
           ).toMatchSnapshot();
           expect(typeof definitions.trackEventsMapper[eventMapperKeyTemp]).toBe(
@@ -743,7 +743,7 @@ describe('Omnitracking', () => {
           );
 
           expect(
-            definitions.pageEventsMapper[eventMapperKeyTemp](mockedData),
+            definitions.pageEventsMapper[eventMapperKeyTemp]?.(mockedData),
           ).toMatchSnapshot();
           expect(typeof definitions.pageEventsMapper[eventMapperKeyTemp]).toBe(
             'function',
