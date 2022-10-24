@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.332](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.331...@farfetch/blackout-react@1.0.0-next.332) (2022-10-24)
+
+
+### Bug Fixes
+
+* fix TS errors on redux selectors ([35e3525](https://github.com/Farfetch/blackout/commit/35e35259e6855cbae662cdc98d29f9dbf72a9ef4))
+* ts errors on redux selectors ([52ea54b](https://github.com/Farfetch/blackout/commit/52ea54bd8e970e57356b3255dc7a6f6d2d714669))
+
+
+
+
+
 # [1.0.0-next.331](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.330...@farfetch/blackout-react@1.0.0-next.331) (2022-10-24)
 
 **Note:** Version bump only for package @farfetch/blackout-react
