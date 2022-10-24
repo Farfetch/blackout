@@ -58,6 +58,13 @@ const useRecentlyViewedProducts = (
     query: { id: productIds || ' ' },
   });
 
+  hasProducts &&
+    items?.sort(
+      (a, b) =>
+        productIds.indexOf(a.id.toString()) -
+        productIds.indexOf(b.id.toString()),
+    );
+
   useEffect(() => {
     if (!isLoading && !error && !isFetched && enableAutoFetch) {
       fetch(fetchQuery, fetchConfig);
