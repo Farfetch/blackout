@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.333](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.332...@farfetch/blackout-react@1.0.0-next.333) (2022-10-24)
+
+
+### Features
+
+* **react:** sort recently viewed products ([1dad8ce](https://github.com/Farfetch/blackout/commit/1dad8ceeba744204f34a8a0151f53bf31e35198e))
+
+
+
+
+
 # [1.0.0-next.332](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.331...@farfetch/blackout-react@1.0.0-next.332) (2022-10-24)
 
 
