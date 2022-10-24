@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.84](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.83...@farfetch/blackout-analytics@1.0.0-next.84) (2022-10-24)
+
+
+### Bug Fixes
+
+* **analytics:** remove omnitracking's duplicated events ([87433cc](https://github.com/Farfetch/blackout/commit/87433cc7de4d6fdc4b6fbfb4c502f416187244cb))
+
+
+
+
+
 # [1.0.0-next.83](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.82...@farfetch/blackout-analytics@1.0.0-next.83) (2022-10-20)
 
 
