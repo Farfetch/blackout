@@ -38,6 +38,68 @@ Object {
 }
 `;
 
+exports[`Omnitracking track events definitions \`Filters Applied\` return should match the snapshot 1`] = `
+Object {
+  "filtersApplied": Object {
+    "brands": Array [
+      2765,
+      4062,
+    ],
+    "categories": Array [
+      135973,
+    ],
+    "colors": Array [
+      1,
+    ],
+    "discount": Array [
+      0,
+    ],
+    "gender": Array [
+      0,
+    ],
+    "price": Array [
+      0,
+      1950,
+    ],
+    "sizes": Array [
+      16,
+    ],
+  },
+  "tid": 2921,
+}
+`;
+
+exports[`Omnitracking track events definitions \`Filters Cleared\` return should match the snapshot 1`] = `
+Object {
+  "filtersApplied": Object {
+    "brands": Array [
+      2765,
+      4062,
+    ],
+    "categories": Array [
+      135973,
+    ],
+    "colors": Array [
+      1,
+    ],
+    "discount": Array [
+      0,
+    ],
+    "gender": Array [
+      0,
+    ],
+    "price": Array [
+      0,
+      1950,
+    ],
+    "sizes": Array [
+      16,
+    ],
+  },
+  "tid": 2917,
+}
+`;
+
 exports[`Omnitracking track events definitions \`Login\` return should match the snapshot 1`] = `
 Object {
   "loginType": "Acme",
