@@ -135,6 +135,16 @@ describe('getDeliveryInformationDetails', () => {
           deliveryType: 'sample',
         } as Record<string, unknown>,
       } as EventData<TrackTypesValues>),
+    ).toEqual('{"deliveryType":"sample"}');
+  });
+
+  it('should deal with shipping tier', () => {
+    expect(
+      getDeliveryInformationDetails({
+        properties: {
+          shippingTier: 'sample',
+        } as Record<string, unknown>,
+      } as EventData<TrackTypesValues>),
     ).toEqual('{"courierType":"sample"}');
   });
 });
@@ -145,13 +155,15 @@ describe('getCommonCheckoutStepTrackingData', () => {
       getCommonCheckoutStepTrackingData({
         properties: {
           step: 2,
-          deliveryType: 'sample',
+          deliveryType: 'sample_delivery',
+          shippingTier: 'sample_shipping',
           interactionType: 'click',
         } as Record<string, unknown>,
       } as EventData<TrackTypesValues>),
     ).toEqual({
       checkoutStep: 2,
-      deliveryInformationDetails: '{"courierType":"sample"}',
+      deliveryInformationDetails:
+        '{"deliveryType":"sample_delivery","courierType":"sample_shipping"}',
       interactionType: 'click',
     });
   });
