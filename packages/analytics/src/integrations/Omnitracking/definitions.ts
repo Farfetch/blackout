@@ -552,6 +552,15 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     tid: 2917,
     filtersApplied: data.properties?.filters,
   }),
+  [eventTypes.INTERACT_CONTENT]: (data: EventData<TrackTypesValues>) => {
+    return {
+      tid: 2882,
+      contentType: data.properties?.contentType,
+      interactionType: data.properties?.interactionType,
+      val: data.properties?.id,
+      actionArea: data.properties?.state,
+    } as OmnitrackingTrackEventParameters;
+  },
 } as const;
 
 /**
