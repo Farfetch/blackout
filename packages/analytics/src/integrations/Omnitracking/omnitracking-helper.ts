@@ -664,9 +664,10 @@ export const getProductLineItemsQuantity = (
 export const getDeliveryInformationDetails = (
   data: EventData<TrackTypesValues>,
 ) => {
-  if (data.properties?.deliveryType) {
+  if (data.properties?.deliveryType || data.properties?.shippingTier) {
     return JSON.stringify({
-      courierType: data.properties.deliveryType,
+      deliveryType: data.properties.deliveryType,
+      courierType: data.properties.shippingTier,
     });
   }
 
