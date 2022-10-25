@@ -303,6 +303,7 @@ Array [
       "content_type": "biz",
       "interaction_type": "Click",
       "some_other_property": 12312312,
+      "state": "dummy",
     },
   ],
 ]

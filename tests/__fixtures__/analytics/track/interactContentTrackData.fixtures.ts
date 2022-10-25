@@ -8,6 +8,7 @@ const fixtures = {
     interactionType: interactionTypes.CLICK,
     contentType: 'biz',
     someOtherProperty: 12312312,
+    state: 'dummy',
   },
 };
 
