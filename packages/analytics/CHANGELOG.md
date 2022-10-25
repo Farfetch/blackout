@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.86](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.85...@farfetch/blackout-analytics@1.0.0-next.86) (2022-10-25)
+
+
+### Bug Fixes
+
+* **analytics|react:** fix checkout steps mapping for GA4 and omnitracking parity ([430cc96](https://github.com/Farfetch/blackout/commit/430cc965b33692ba1a232528bdd9f3fcafdd57e0))
+
+
+
+
+
 # [1.0.0-next.85](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.84...@farfetch/blackout-analytics@1.0.0-next.85) (2022-10-24)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
