@@ -104,48 +104,76 @@ describe('getCheckoutEventGenericProperties', () => {
 });
 
 describe('getGenderValueFromProperties', () => {
-  it('should display in simple string way', () => {
-    const gender = '1';
+  it(`should test all ways to return ${SignupNewsletterGenderMappings[0]} value`, () => {
+    expect(
+      getGenderValueFromProperties({
+        properties: {
+          gender: 0,
+        },
+      }),
+    ).toEqual(SignupNewsletterGenderMappings[0]);
 
     expect(
       getGenderValueFromProperties({
         properties: {
-          gender,
+          gender: '0',
         },
       }),
-    ).toEqual('Man');
-  });
-  it('should display using internal mappings', () => {
-    const gender = 1;
-    expect(
-      getGenderValueFromProperties({
-        properties: {
-          gender: { id: gender },
-        },
-      }),
-    ).toEqual(SignupNewsletterGenderMappings[gender]);
-  });
-  it('should display using name property', () => {
-    const gender = 1;
+    ).toEqual(SignupNewsletterGenderMappings[0]);
 
     expect(
       getGenderValueFromProperties({
         properties: {
-          gender: { id: gender, name: 'customGenderName' },
+          gender: { id: '0' },
         },
       }),
-    ).toEqual('customGenderName');
+    ).toEqual(SignupNewsletterGenderMappings[0]);
   });
-  it('should display multiple genders', () => {
-    const gender = 1;
+
+  it(`should test all ways to return ${SignupNewsletterGenderMappings[0]} and ${SignupNewsletterGenderMappings[1]} value`, () => {
+    const expected = `${SignupNewsletterGenderMappings[0]},${SignupNewsletterGenderMappings[1]}`;
 
     expect(
       getGenderValueFromProperties({
         properties: {
-          gender: [{ id: gender, name: 'customGenderName' }, { id: 0 }],
+          gender: [0, 1],
         },
       }),
-    ).toEqual(`customGenderName,${SignupNewsletterGenderMappings[0]}`);
+    ).toEqual(expected);
+
+    expect(
+      getGenderValueFromProperties({
+        properties: {
+          gender: ['0', '1'],
+        },
+      }),
+    ).toEqual(expected);
+
+    expect(
+      getGenderValueFromProperties({
+        properties: {
+          gender: [{ id: '0' }, { id: '1' }],
+        },
+      }),
+    ).toEqual(expected);
+  });
+
+  it('should return custom value', () => {
+    expect(
+      getGenderValueFromProperties({
+        properties: {
+          gender: { name: 'W' },
+        },
+      }),
+    ).toEqual('W');
+
+    expect(
+      getGenderValueFromProperties({
+        properties: {
+          gender: [{ name: 'W' }, { name: 'M' }],
+        },
+      }),
+    ).toEqual('W,M');
   });
 });
 
@@ -160,6 +188,16 @@ describe('getDeliveryInformationDetails', () => {
           deliveryType: 'sample',
         },
       }),
+    ).toEqual('{"deliveryType":"sample"}');
+  });
+
+  it('should deal with shipping tier', () => {
+    expect(
+      getDeliveryInformationDetails({
+        properties: {
+          shippingTier: 'sample',
+        },
+      }),
     ).toEqual('{"courierType":"sample"}');
   });
 });
@@ -170,13 +208,15 @@ describe('getCommonCheckoutStepTrackingData', () => {
       getCommonCheckoutStepTrackingData({
         properties: {
           step: 2,
-          deliveryType: 'sample',
+          deliveryType: 'sample_delivery',
+          shippingTier: 'sample_shipping',
           interactionType: 'click',
         },
       }),
     ).toEqual({
       checkoutStep: 2,
-      deliveryInformationDetails: '{"courierType":"sample"}',
+      deliveryInformationDetails:
+        '{"deliveryType":"sample_delivery","courierType":"sample_shipping"}',
       interactionType: 'click',
     });
   });

@@ -356,7 +356,7 @@ describe('Omnitracking', () => {
             });
             await omnitracking.track(data);
 
-            expect(mockLoggerWarn).toHaveBeenCalledWith(
+            expect(mockLoggerError).toHaveBeenCalledWith(
               expect.stringContaining(
                 'properties "contentType" and "interactionType" should be sent',
               ),
@@ -420,7 +420,7 @@ describe('Omnitracking', () => {
         });
       });
 
-      it('should warn if an select content does not have required parameters', async () => {
+      it('should show an error if an select content does not have required parameters', async () => {
         const data = generateTrackMockData({
           event: eventTypes.SELECT_CONTENT,
           properties: {
@@ -429,7 +429,7 @@ describe('Omnitracking', () => {
         });
         await omnitracking.track(data);
 
-        expect(mockLoggerWarn).toHaveBeenCalledWith(
+        expect(mockLoggerError).toHaveBeenCalledWith(
           expect.stringContaining(
             'properties "contentType" and "id" should be sent',
           ),
