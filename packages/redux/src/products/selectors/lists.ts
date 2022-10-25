@@ -5,6 +5,7 @@ import {
 } from '../utils';
 import { createSelector } from 'reselect';
 import { getBrands } from '../../brands/selectors';
+import { getCategories } from '../../categories';
 import { getEntities, getEntityById } from '../../entities/selectors';
 import {
   getError,
@@ -159,14 +160,17 @@ export const getProductsListProducts = createSelector(
       getProductsListProductsIds(state, checkHash(hash)),
     state => getEntities(state, 'products'),
     getBrands,
+    getCategories,
   ],
-  (listProductsIds, products, brands) => {
+  (listProductsIds, products, brands, categories) => {
     return listProductsIds?.map(id => {
       const product = products?.[id];
       const brand =
         brands && product?.brand ? brands[product.brand] : undefined;
+      const productCategories =
+        categories && product?.categories?.map(id => categories[id]);
 
-      return { ...product, brand };
+      return { ...product, brand, categories: productCategories };
     });
   },
 ) as (

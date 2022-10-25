@@ -1,4 +1,4 @@
-import { getEntities } from '../../entities';
+import { getEntities } from '../../entities/selectors';
 import { getError, getIsLoading, getResult } from '../reducer/categories';
 import type { CategoriesState } from '../types';
 import type { StoreState } from '../../types';

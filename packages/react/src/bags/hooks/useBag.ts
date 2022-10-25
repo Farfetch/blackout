@@ -11,7 +11,7 @@ import {
   getBag,
   getBagError,
   getBagItems,
-  getProduct,
+  getProductDenormalized,
   isBagFetched,
   isBagLoading,
   removeBagItem as removeBagItemAction,
@@ -162,7 +162,7 @@ const useBag = (options: UseBagOptions = {}) => {
       metadata?: BagItemActionMetadata,
     ) => {
       const state = getState();
-      const product = getProduct(state, productId);
+      const product = getProductDenormalized(state, productId);
 
       if (!product) {
         throw new ProductError();

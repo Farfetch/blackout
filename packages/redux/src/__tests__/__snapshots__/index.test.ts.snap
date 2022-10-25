@@ -886,6 +886,7 @@ Object {
   "getProductAttributes": [Function],
   "getProductAttributesError": [Function],
   "getProductBreadcrumbs": [Function],
+  "getProductDenormalized": [Function],
   "getProductError": [Function],
   "getProductFittings": [Function],
   "getProductFittingsError": [Function],

@@ -2,12 +2,13 @@ import type {
   BagItemEntity,
   MerchantEntity,
   ProductEntity,
+  ProductEntityDenormalized,
 } from '../../entities/types';
 import type { CustomAttributesAdapted } from '../../helpers/adapters';
 
 type Params = Partial<{
   productId: ProductEntity['id'];
-  product: ProductEntity;
+  product: ProductEntityDenormalized;
   customAttributes: CustomAttributesAdapted | string;
   merchantId: MerchantEntity['id'];
   merchant: MerchantEntity['id'];

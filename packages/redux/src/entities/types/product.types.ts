@@ -19,6 +19,7 @@ import type {
   WishlistItem,
 } from '@farfetch/blackout-client';
 import type { BrandEntity } from './brand.types';
+import type { CategoryEntity } from './category.types';
 import type {
   CustomAttributesAdapted,
   PriceAdapted,
@@ -173,6 +174,10 @@ export type ProductEntity = {
   name?: BagItem['productName'] | WishlistItem['productName'];
 };
 
-export type ProductEntityDenormalized = Omit<ProductEntity, 'brand'> & {
+export type ProductEntityDenormalized = Omit<
+  ProductEntity,
+  'brand' | 'categories'
+> & {
   brand?: BrandEntity;
+  categories?: CategoryEntity[];
 };

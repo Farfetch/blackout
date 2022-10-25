@@ -1,4 +1,7 @@
-import type { BagItemEntity, ProductEntity } from '../../entities/types';
+import type {
+  BagItemEntity,
+  ProductEntityDenormalized,
+} from '../../entities/types';
 import type {
   CustomAttributesAdapted,
   SizeAdapted,
@@ -12,7 +15,7 @@ type BuildBagItemParams = {
   // Specific merchant id.
   merchantId: number;
   // Product with all information.
-  product: ProductEntity;
+  product: ProductEntityDenormalized;
   // Product bundle aggregator id.
   productAggregatorId?: Exclude<BagItemEntity['productAggregator'], null>['id'];
   // Number of units.
