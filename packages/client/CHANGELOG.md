@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.216](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.215...@farfetch/blackout-client@2.0.0-next.216) (2022-10-25)
+
+
+### Features
+
+* **react|redux|client:** refactor and add seo metadata hooks and utils ([95864db](https://github.com/Farfetch/blackout/commit/95864db4b65f62dab1b65206a0ec4a5e587329c6))
+
+
+
+
+
 # [2.0.0-next.215](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.214...@farfetch/blackout-client@2.0.0-next.215) (2022-10-24)
 
 
