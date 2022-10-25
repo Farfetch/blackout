@@ -568,7 +568,7 @@ export const trackEventsMapper = {
     }
 
     if (!properties?.contentType || !properties?.interactionType) {
-      logger.warn(
+      logger.error(
         `[Omnitracking] - Event ${data.event} properties "contentType" and "interactionType" should be sent 
                         on the payload when triggering a "interact content" event. If you want to track this event, make 
                         sure to pass these two properties.`,
@@ -588,7 +588,7 @@ export const trackEventsMapper = {
     const properties = data.properties;
 
     if (!properties?.contentType || !properties?.id) {
-      logger.warn(
+      logger.error(
         `[Omnitracking] - Event ${data.event} properties "contentType" and "id" should be sent 
                         on the payload when triggering a "select content" event. If you want to track this 
                         event, make sure to pass these two properties.`,
@@ -597,7 +597,7 @@ export const trackEventsMapper = {
     }
 
     return {
-      tid: 2885,
+      tid: 2895,
       contentType: properties?.contentType,
       interactionType: properties?.interactionType,
       val: properties?.id,

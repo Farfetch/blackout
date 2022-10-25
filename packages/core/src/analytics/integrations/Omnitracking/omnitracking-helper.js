@@ -579,7 +579,7 @@ export const getGenderValueFromProperties = data => {
   const genderArray = (
     Array.isArray(data.properties?.gender)
       ? data.properties?.gender
-      : new Array(data.properties?.gender)
+      : [data.properties?.gender]
   ).map(
     gender =>
       // trying using tenant translation otherwise use custom gender mappings
@@ -594,18 +594,17 @@ export const getGenderValueFromProperties = data => {
  *
  * @param {object} data - The event's data.
  *
- * @returns {string} - Delivery Information Details in Json Format.
+ * @returns {string|undefined} - Delivery Information Details in Json Format.
  */
 export const getDeliveryInformationDetails = data => {
-  const deliveryInfo = {};
-
-  if (data.properties?.deliveryType) {
-    deliveryInfo['courierType'] = data.properties?.deliveryType;
+  if (data.properties?.deliveryType || data.properties?.shippingTier) {
+    return JSON.stringify({
+      deliveryType: data.properties.deliveryType,
+      courierType: data.properties.shippingTier,
+    });
   }
 
-  return JSON.stringify(
-    Object.keys(deliveryInfo).length ? deliveryInfo : undefined,
-  );
+  return undefined;
 };
 
 /**

@@ -598,7 +598,7 @@ const getSignupNewsletterParametersFromEvent = eventProperties => {
   const genderArray = (
     Array.isArray(eventProperties.gender)
       ? eventProperties.gender
-      : new Array(eventProperties.gender)
+      : [eventProperties.gender]
   ).map(
     gender =>
       // trying using tenant translation otherwise use custom gender mappings
