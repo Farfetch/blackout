@@ -5,6 +5,7 @@ import {
   resetProductsLists,
 } from '@farfetch/blackout-redux';
 import { mockBrandResponse } from 'tests/__fixtures__/brands';
+import { mockCategory } from 'tests/__fixtures__/categories';
 import {
   mockProductsListHash,
   mockProductsListHashWithoutParameters,
@@ -27,9 +28,13 @@ jest.mock('@farfetch/blackout-redux', () => ({
 
 const slug = getSlug(mockProductsListPathname);
 
-const expectedProductsWithBrand = Object.values(
+const expectedProductsDenormalized = Object.values(
   mockProductsListNormalizedPayload.entities.products,
-).map(product => ({ ...product, brand: mockBrandResponse }));
+).map(product => ({
+  ...product,
+  brand: mockBrandResponse,
+  categories: [mockCategory],
+}));
 
 describe('useProductListing', () => {
   beforeEach(jest.clearAllMocks);
@@ -65,7 +70,7 @@ describe('useProductListing', () => {
       isLoading: false,
       data: {
         ...mockList,
-        items: expectedProductsWithBrand,
+        items: expectedProductsDenormalized,
         hash: mockProductsListHashWithoutParameters,
         pagination: {
           number: mockList.products.number,
@@ -203,7 +208,7 @@ describe('useProductListing', () => {
         data: {
           ...mockList,
           hash: mockProductsListHash,
-          items: expectedProductsWithBrand,
+          items: expectedProductsDenormalized,
           pagination: {
             number: mockList.products.number,
             pageSize: mockList.config.pageSize,

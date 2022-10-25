@@ -66,15 +66,22 @@ describe('useWishlist', () => {
         items: [
           {
             ...stateMockData.entities?.wishlistItems?.[mockWishlistItemId],
-            product:
-              stateMockData.entities?.products?.[
+            product: {
+              ...stateMockData.entities?.products?.[
                 stateMockData.entities?.wishlistItems?.[mockWishlistItemId]
                   ?.product
               ],
+              brand: stateMockData.entities?.brands?.[2450],
+              categories: [stateMockData.entities?.categories?.[136301]],
+            },
           },
           {
             ...stateMockData.entities?.wishlistItems?.[102],
-            product: stateMockData.entities?.products?.[1002],
+            product: {
+              ...stateMockData.entities?.products?.[1002],
+              brand: stateMockData.entities?.brands?.[2450],
+              categories: [stateMockData.entities?.categories?.[136301]],
+            },
           },
         ],
         id: mockWishlistId,

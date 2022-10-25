@@ -6,7 +6,7 @@ import {
   getProductQuantityInBag,
 } from '../../bags';
 import { getError, getIsHydrated, getIsLoading } from '../reducer/details';
-import { getProduct } from './product';
+import { getProduct, getProductDenormalized } from './product';
 import type { ProductEntity } from '../../entities/types';
 import type { ProductsState } from '../types';
 import type { SizeAdapted } from '../../helpers/adapters';
@@ -112,7 +112,7 @@ export const getProductSizeRemainingQuantity = (
   productId: ProductEntity['id'],
   sizeId: SizeAdapted['id'],
 ): number => {
-  const product = getProduct(state, productId);
+  const product = getProductDenormalized(state, productId);
   const size = product?.sizes?.find(({ id }) => id === sizeId) as SizeAdapted;
   const stockAvailable = size?.globalQuantity ?? 0;
   const bagItem =
@@ -148,7 +148,7 @@ export const getProductSizeRemainingQuantity = (
 export const getAllProductSizesRemainingQuantity = createSelector(
   [
     (state: StoreState, productId: ProductEntity['id']) =>
-      getProduct(state, productId),
+      getProductDenormalized(state, productId),
     getBagItems,
   ],
   (product, bagItems): ProductEntity['sizes'] => {

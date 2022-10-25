@@ -1,6 +1,6 @@
 import {
   fetchProductDetails,
-  getProduct,
+  getProductDenormalized,
   getProductError,
   isProductFetched,
   isProductLoading,
@@ -42,7 +42,7 @@ const useProductDetails = (
     isProductFetched(state, productId),
   );
   const product = useSelector((state: StoreState) =>
-    getProduct(state, productId),
+    getProductDenormalized(state, productId),
   );
   const isOutOfStock = useSelector((state: StoreState) =>
     isProductOutOfStock(state, productId),

@@ -38,11 +38,14 @@ describe('useWishlistItem', () => {
       },
       data: {
         ...mockWishlistState.entities?.wishlistItems?.[mockWishlistItemId],
-        product:
-          mockWishlistState.entities?.products?.[
+        product: {
+          ...mockWishlistState.entities?.products?.[
             mockWishlistState.entities?.wishlistItems?.[mockWishlistItemId]
               ?.product
           ],
+          brand: mockWishlistState.entities?.brands?.[2450],
+          categories: [mockWishlistState.entities?.categories?.[136301]],
+        },
       },
     });
   });

@@ -33,6 +33,21 @@ describe('useProductDetails', () => {
         ...mockProduct,
         isOneSize: false,
         isOutOfStock: false,
+        brand: {
+          description: null,
+          id: 6326412,
+          name: 'Balenciaga',
+          priceType: 0,
+          slug: 'balenciaga',
+        },
+        categories: [
+          {
+            id: 135981,
+            name: 'Trousers',
+            parentId: 135967,
+            gender: 'Woman',
+          },
+        ],
       },
       actions: {
         reset: expect.any(Function),

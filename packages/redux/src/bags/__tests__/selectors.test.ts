@@ -8,10 +8,13 @@ import {
   mockState,
 } from 'tests/__fixtures__/bags';
 import {
+  mockBrandId,
   mockProductEntity,
+  mockProductEntityDenormalized,
   mockProductId,
   mockProductTypeToExclude,
 } from 'tests/__fixtures__/products';
+import { mockCategoryId } from 'tests/__fixtures__/categories';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import cloneDeep from 'lodash/cloneDeep';
 
@@ -87,7 +90,7 @@ describe('bags redux selectors', () => {
   describe('getBagItem()', () => {
     const expectedResult = {
       ...mockBagItemEntity,
-      product: mockProductEntity,
+      product: mockProductEntityDenormalized,
     };
 
     it('should return all data regarding a bag item', () => {
@@ -113,23 +116,43 @@ describe('bags redux selectors', () => {
       const expectedResult = [
         {
           ...mockState.entities.bagItems[mockBagItemId],
-          product: mockState.entities.products[mockProductId],
+          product: {
+            ...mockState.entities.products[mockProductId],
+            brand: mockState.entities.brands[mockBrandId],
+            categories: [mockState.entities.categories[mockCategoryId]],
+          },
         },
         {
           ...mockState.entities.bagItems[101],
-          product: mockState.entities.products[mockProductId],
+          product: {
+            ...mockState.entities.products[mockProductId],
+            brand: mockState.entities.brands[mockBrandId],
+            categories: [mockState.entities.categories[mockCategoryId]],
+          },
         },
         {
           ...mockState.entities.bagItems[102],
-          product: mockState.entities.products[1002],
+          product: {
+            ...mockState.entities.products[1002],
+            brand: mockState.entities.brands[mockBrandId],
+            categories: [mockState.entities.categories[mockCategoryId]],
+          },
         },
         {
           ...mockState.entities.bagItems[103],
-          product: mockState.entities.products[mockProductId],
+          product: {
+            ...mockState.entities.products[mockProductId],
+            brand: mockState.entities.brands[mockBrandId],
+            categories: [mockState.entities.categories[mockCategoryId]],
+          },
         },
         {
           ...mockState.entities.bagItems[104],
-          product: mockState.entities.products[mockProductId],
+          product: {
+            ...mockState.entities.products[mockProductId],
+            brand: mockState.entities.brands[mockBrandId],
+            categories: [mockState.entities.categories[mockCategoryId]],
+          },
         },
       ];
 
@@ -283,7 +306,11 @@ describe('bags redux selectors', () => {
       const expectedResult = [
         {
           ...state.entities.bagItems[102],
-          product: state.entities.products[1002],
+          product: {
+            ...state.entities.products[1002],
+            brand: state.entities.brands[mockBrandId],
+            categories: [state.entities.categories[mockCategoryId]],
+          },
         },
       ];
 
@@ -338,13 +365,13 @@ describe('bags redux selectors', () => {
   });
 
   describe('findProductInBag()', () => {
-    const product = mockProductEntity;
+    const product = mockProductEntityDenormalized;
     const size = mockBagItemEntity.size;
 
     it('should return the bag item that already exists', () => {
       const expectedResult = {
         ...mockState.entities.bagItems[mockBagItemId],
-        product: mockProductEntity,
+        product: mockProductEntityDenormalized,
       };
 
       expect(

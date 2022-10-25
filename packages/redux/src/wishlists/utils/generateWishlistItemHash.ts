@@ -1,9 +1,13 @@
-import type { ProductEntity, WishlistItemEntity } from '../../entities/types';
+import type {
+  ProductEntity,
+  ProductEntityDenormalized,
+  WishlistItemEntity,
+} from '../../entities/types';
 
 type WishlistItemHashData = Partial<{
   merchant: number;
   merchantId: number;
-  product: ProductEntity | undefined;
+  product: ProductEntityDenormalized | undefined;
   productId: ProductEntity['id'];
   scale: number;
   size: WishlistItemEntity['size'] | number;

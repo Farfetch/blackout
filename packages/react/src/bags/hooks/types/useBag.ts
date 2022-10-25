@@ -2,7 +2,7 @@ import type {
   BagItemActionMetadata,
   BagItemHydrated,
   CustomAttributesAdapted,
-  ProductEntity,
+  ProductEntityDenormalized,
   SizeAdapted,
 } from '@farfetch/blackout-redux';
 import type { Config, GetBagQuery } from '@farfetch/blackout-client';
@@ -18,7 +18,7 @@ export type HandleAddOrUpdateItem = (
   }: {
     customAttributes?: CustomAttributesAdapted | string;
     from?: string;
-    product: ProductEntity;
+    product: ProductEntityDenormalized;
     productAggregatorId?: Exclude<
       BagItemHydrated['productAggregator'],
       null

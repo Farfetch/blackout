@@ -1,4 +1,5 @@
 import { mockState as brandsMockState } from '../brands';
+import { mockCategoriesState } from '../categories';
 import { mockMerchantId, mockProductId } from './ids.fixtures';
 import { mockProduct } from './products.fixtures';
 import { mockProductGroupingAdapted } from './productGrouping.fixtures';
@@ -170,7 +171,22 @@ export const mockProductsState = {
   },
   entities: {
     ...mockProductsListNormalizedPayload.entities,
-    ...brandsMockState.entities,
+    brands: {
+      ...brandsMockState.entities.brands,
+      6326412: {
+        description: null,
+        id: 6326412,
+        name: 'Balenciaga',
+        priceType: 0,
+        slug: 'balenciaga',
+      },
+    },
+    categories: {
+      ...mockCategoriesState.entities.categories,
+      135967: {
+        id: 135967,
+      },
+    },
     bagItems: {
       101: {
         id: 101,

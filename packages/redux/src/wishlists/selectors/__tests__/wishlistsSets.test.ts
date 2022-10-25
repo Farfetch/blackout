@@ -4,17 +4,12 @@ import * as selectors from '..';
 import {
   mockProductId,
   mockWishlistItemId,
-  mockWishlistNormalizedPayload,
   mockWishlistSetId,
   mockWishlistState,
 } from 'tests/__fixtures__/wishlists';
-import { mockProductsEntity } from 'tests/__fixtures__/products';
 import { toBlackoutError } from '@farfetch/blackout-client';
 
 describe('wishlists redux selectors', () => {
-  const productEntity =
-    mockWishlistNormalizedPayload.entities.products[mockProductId];
-
   beforeEach(jest.clearAllMocks);
 
   describe('getWishlistSetsError()', () => {
@@ -152,7 +147,11 @@ describe('wishlists redux selectors', () => {
             ...mockWishlistState.entities.wishlistSets[mockWishlistSetId]
               .wishlistSetItems[0],
             ...mockWishlistState.entities.wishlistItems[mockWishlistItemId],
-            product: { ...mockProductsEntity[mockProductId], ...productEntity },
+            product: {
+              ...mockWishlistState.entities.products[mockProductId],
+              brand: mockWishlistState.entities.brands[2450],
+              categories: [mockWishlistState.entities.categories[136301]],
+            },
           },
         ],
       };
@@ -211,7 +210,11 @@ describe('wishlists redux selectors', () => {
               ...mockWishlistState.entities.wishlistSets[mockWishlistSetId]
                 .wishlistSetItems[0],
               ...mockWishlistState.entities.wishlistItems[mockWishlistItemId],
-              product: mockWishlistState.entities.products[mockProductId],
+              product: {
+                ...mockWishlistState.entities.products[mockProductId],
+                brand: mockWishlistState.entities.brands[2450],
+                categories: [mockWishlistState.entities.categories[136301]],
+              },
             },
           ],
         },
