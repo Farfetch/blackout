@@ -4,6 +4,7 @@ import {
   saveRecentlyViewedProduct,
 } from '@farfetch/blackout-redux';
 import { mockBrandResponse } from 'tests/__fixtures__/brands';
+import { mockCategory } from 'tests/__fixtures__/categories';
 import {
   mockProductId,
   mockProductsListHashWithProductIds,
@@ -24,9 +25,13 @@ jest.mock('@farfetch/blackout-redux', () => ({
   fetchProductSet: jest.fn(() => () => Promise.resolve()),
 }));
 
-const expectedProductsWithBrand = Object.values(
+const expectedProductsDenormalized = Object.values(
   mockProductsListNormalizedPayload.entities.products,
-).map(product => ({ ...product, brand: mockBrandResponse }));
+).map(product => ({
+  ...product,
+  brand: mockBrandResponse,
+  categories: [mockCategory],
+}));
 
 describe('useRecentlyViewedProducts', () => {
   beforeEach(jest.clearAllMocks);
@@ -76,7 +81,7 @@ describe('useRecentlyViewedProducts', () => {
         number: 1,
         totalPages: 1,
         totalItems: 2,
-        products: expectedProductsWithBrand,
+        products: expectedProductsDenormalized,
       },
       actions: {
         fetch: expect.any(Function),

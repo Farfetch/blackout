@@ -5,7 +5,7 @@ import type {
   SizeAdapted,
 } from '../../helpers/adapters';
 import type { MerchantEntity } from './merchant.types';
-import type { ProductEntity } from './product.types';
+import type { ProductEntity, ProductEntityDenormalized } from './product.types';
 
 export type BagItemEntity = Omit<
   BagItem,
@@ -39,5 +39,5 @@ export type BagItemEntity = Omit<
 };
 
 export type BagItemHydrated = Omit<BagItemEntity, 'product'> & {
-  product: ProductEntity | undefined;
+  product: ProductEntityDenormalized | undefined;
 };

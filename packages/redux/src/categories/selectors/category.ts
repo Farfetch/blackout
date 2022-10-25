@@ -1,4 +1,4 @@
-import { getEntityById } from '../../entities';
+import { getEntityById } from '../../entities/selectors';
 import { getError, getIsLoading } from '../reducer/category';
 import type { Category } from '@farfetch/blackout-client';
 import type { CategoryState } from '../types';

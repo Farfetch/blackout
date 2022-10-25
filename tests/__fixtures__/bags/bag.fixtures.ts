@@ -5,17 +5,36 @@ import {
 } from '@farfetch/blackout-client';
 import { mockBagItemEntity, mockBagItemId } from './bagItem.fixtures';
 import {
+  mockBrandId,
   mockProductEntity,
   mockProductId,
   mockProductSizeAdapted,
   mockProductSizes,
   mockProductTypeToExclude,
 } from '../products';
-import type { SizeAdapted } from '@farfetch/blackout-redux';
+import { mockCategoryId } from '../categories';
+import type {
+  BrandEntity,
+  CategoryEntity,
+  SizeAdapted,
+} from '@farfetch/blackout-redux';
 
 export const mockBagId = '7894746';
 export const mockError = {
   message: 'Unexpected Error',
+};
+
+const mockCategoryEntity: CategoryEntity = {
+  id: mockCategoryId,
+  name: 'dress',
+  gender: 0,
+  parentId: 0,
+};
+
+const mockBrandEntity: BrandEntity = {
+  id: mockBrandId,
+  description: 'Gucci',
+  name: 'Gucci',
 };
 
 export const mockBagItemData = {
@@ -165,6 +184,12 @@ export const mockState = {
         merchant: 1223,
         isAvailable: true,
       },
+    },
+    brands: {
+      [mockBrandId]: mockBrandEntity,
+    },
+    categories: {
+      [mockCategoryId]: mockCategoryEntity,
     },
     products: {
       [mockProductId]: mockProductEntity,

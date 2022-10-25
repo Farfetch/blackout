@@ -7,7 +7,11 @@ import {
   BagItem,
   PurchaseChannel,
 } from '@farfetch/blackout-client';
-import { mockMerchantId, mockProductEntity, mockProductId } from '../products';
+import {
+  mockMerchantId,
+  mockProductEntityDenormalized,
+  mockProductId,
+} from '../products';
 
 export const mockBagItemId = 134;
 export const mockProductAggregatorId = 321;
@@ -213,5 +217,5 @@ export const mockBagItemEntity = {
 
 export const mockBagItemHydrated = {
   ...mockBagItemEntity,
-  product: mockProductEntity,
+  product: mockProductEntityDenormalized,
 };

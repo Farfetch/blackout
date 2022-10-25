@@ -164,6 +164,19 @@ export const mockWishlistState = {
         description: 'wide leg pant',
       },
     },
+    categories: {
+      136301: { id: 136301, name: 'Shoes', gender: 1, parentId: 0 },
+    },
+    brands: {
+      2450: {
+        description:
+          'Demna Gvasalia brings Balenciaga back to its creative roots.',
+        id: 2450,
+        name: 'Balenciaga',
+        priceType: 0,
+        slug: 'rockstud-sling-back-flats-12854475',
+      },
+    },
     wishlistSets: {
       [mockWishlistSetId]: {
         id: mockWishlistSetId,

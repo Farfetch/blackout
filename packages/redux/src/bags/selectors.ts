@@ -10,7 +10,7 @@ import {
   getResult,
 } from './reducer';
 import { getEntities, getEntityById } from '../entities/selectors';
-import { getProduct } from '../products/selectors/product';
+import { getProductDenormalized } from '../products/selectors/product';
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
 import type { BagItem, ProductType } from '@farfetch/blackout-client';
@@ -18,6 +18,7 @@ import type {
   BagItemEntity,
   BagItemHydrated,
   ProductEntity,
+  ProductEntityDenormalized,
 } from '../entities/types';
 import type { BagsState } from './types';
 import type { CustomAttributesAdapted, SizeAdapted } from '../helpers/adapters';
@@ -116,7 +117,7 @@ export const getBagItem: (
         bagItemId,
       ) as BagItemEntity;
 
-      return getProduct(state, bagItem?.product);
+      return getProductDenormalized(state, bagItem?.product);
     },
   ],
   (bagItem, product): BagItemHydrated => ({ ...bagItem, product }),
@@ -181,11 +182,11 @@ export const getBagItemsIds = (state: StoreState) =>
  */
 export const getBagItems = createSelector(
   [
+    (state: StoreState) => state,
     getBagItemsIds,
     (state: StoreState) => getEntities(state, 'bagItems'),
-    (state: StoreState) => getEntities(state, 'products'),
   ],
-  (bagItemsIds, bagItems, products): BagItemHydrated[] =>
+  (state, bagItemsIds, bagItems): BagItemHydrated[] =>
     bagItemsIds?.reduce<BagItemHydrated[]>((acc, bagItemId) => {
       const bagItem = bagItems?.[bagItemId];
       const productId = bagItem?.product;
@@ -195,7 +196,7 @@ export const getBagItems = createSelector(
           ...acc,
           {
             ...bagItem,
-            product: products?.[productId],
+            product: getProductDenormalized(state, productId),
           },
         ];
       }
@@ -464,7 +465,7 @@ export const findProductInBag = createSelector(
       state: StoreState,
       productParams: {
         customAttributes?: CustomAttributesAdapted;
-        product: ProductEntity;
+        product: ProductEntityDenormalized;
         size: SizeAdapted;
         merchantId: number;
       },

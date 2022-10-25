@@ -17,10 +17,12 @@ import {
   mockStateWithUnavailableStock,
 } from 'tests/__fixtures__/bags';
 import {
+  mockBrandId,
   mockMerchantId,
   mockProductId,
   mockSizeScaleId,
 } from 'tests/__fixtures__/products/ids.fixtures';
+import { mockCategoryId } from 'tests/__fixtures__/categories';
 import { withStore } from '../../../../tests/helpers';
 import useBag from '../useBag';
 
@@ -77,26 +79,45 @@ describe('useBag', () => {
         items: [
           {
             ...mockState.entities?.bagItems?.[mockBagItemId],
-            product:
-              mockState.entities?.products?.[
+            product: {
+              ...mockState.entities?.products?.[
                 mockState.entities?.bagItems?.[mockBagItemId]?.product
               ],
+              brand: mockState.entities?.brands?.[mockBrandId],
+              categories: [mockState.entities.categories[mockCategoryId]],
+            },
           },
           {
             ...mockState.entities?.bagItems?.[101],
-            product: mockState.entities?.products?.[11766695],
+            product: {
+              ...mockState.entities?.products?.[11766695],
+              brand: mockState.entities?.brands?.[mockBrandId],
+              categories: [mockState.entities.categories[mockCategoryId]],
+            },
           },
           {
             ...mockState.entities?.bagItems?.[102],
-            product: mockState.entities?.products?.[1002],
+            product: {
+              ...mockState.entities?.products?.[1002],
+              brand: mockState.entities?.brands?.[mockBrandId],
+              categories: [mockState.entities.categories[mockCategoryId]],
+            },
           },
           {
             ...mockState.entities?.bagItems?.[103],
-            product: mockState.entities?.products?.[11766695],
+            product: {
+              ...mockState.entities?.products?.[11766695],
+              brand: mockState.entities?.brands?.[mockBrandId],
+              categories: [mockState.entities.categories[mockCategoryId]],
+            },
           },
           {
             ...mockState.entities?.bagItems?.[104],
-            product: mockState.entities?.products?.[11766695],
+            product: {
+              ...mockState.entities?.products?.[11766695],
+              brand: mockState.entities?.brands?.[mockBrandId],
+              categories: [mockState.entities.categories[mockCategoryId]],
+            },
           },
         ],
         hadUnavailableItems: false,

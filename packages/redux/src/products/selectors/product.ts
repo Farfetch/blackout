@@ -1,9 +1,14 @@
 import { createSelector } from 'reselect';
+import { getBrands } from '../../brands';
+import { getCategories } from '../../categories';
 import { getEntityById } from '../../entities/selectors/entity';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import orderBy from 'lodash/orderBy';
-import type { ProductEntity } from '../../entities/types';
+import type {
+  ProductEntity,
+  ProductEntityDenormalized,
+} from '../../entities/types';
 import type { StoreState } from '../../types';
 
 /**
@@ -16,6 +21,37 @@ import type { StoreState } from '../../types';
  */
 export const getProduct = (state: StoreState, productId: ProductEntity['id']) =>
   getEntityById(state, 'products', productId);
+
+/**
+ * Returns a specific product denormalized by its id .
+ *
+ * @param state     - Application state.
+ * @param productId - Numeric identifier of the product.
+ *
+ * @returns Product normalized.
+ */
+export const getProductDenormalized = (
+  state: StoreState,
+  productId: ProductEntity['id'],
+) => {
+  const product = getProduct(state, productId);
+
+  if (!product) {
+    return undefined;
+  }
+
+  const brands = getBrands(state);
+  const categories = getCategories(state);
+  const brand = brands?.[product.brand];
+  const productCategories =
+    categories && product.categories?.map(id => categories[id]);
+
+  return {
+    ...product,
+    brand,
+    categories: productCategories,
+  } as ProductEntityDenormalized;
+};
 
 /**
  * Checks if a specific product is "one size" by its id.

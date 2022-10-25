@@ -1,6 +1,7 @@
 import * as fromWishlistSetsReducer from '../reducer/wishlistsSets';
 import { createSelector } from 'reselect';
 import { getEntities, getEntityById } from '../../entities/selectors';
+import { getProductDenormalized } from '../../products';
 import type { StoreState } from '../../types';
 import type { WishlistSet } from '@farfetch/blackout-client';
 import type {
@@ -173,9 +174,9 @@ export const getWishlistSet: (
       setId: WishlistSet['setId'],
     ): WishlistSetEntity | undefined =>
       getEntityById(state, 'wishlistSets', setId),
-    (state: StoreState) => getEntities(state, 'products'),
+    (state: StoreState) => state,
   ],
-  (wishlistItems, wishlistSet, products) => {
+  (wishlistItems, wishlistSet, state) => {
     if (!wishlistSet) {
       return;
     }
@@ -188,7 +189,9 @@ export const getWishlistSet: (
         return {
           ...setItem,
           ...wishlistItems?.[setItem.wishlistItemId],
-          product: wishlistItemProductId && products?.[wishlistItemProductId],
+          product:
+            wishlistItemProductId &&
+            getProductDenormalized(state, wishlistItemProductId),
         };
       }) || [];
 

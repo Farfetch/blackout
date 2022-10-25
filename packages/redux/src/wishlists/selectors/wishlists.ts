@@ -3,7 +3,7 @@ import * as fromWishlistSetsReducer from '../reducer/wishlistsSets';
 import { buildWishlistItem, generateWishlistItemHash } from '../utils';
 import { createSelector } from 'reselect';
 import { getEntityById } from '../../entities/selectors';
-import { getProduct } from '../../products/selectors/product';
+import { getProductDenormalized } from '../../products/selectors/product';
 import type { BuildWishlistItemData } from '../utils/buildWishlistItem';
 import type {
   ProductEntity,
@@ -103,7 +103,7 @@ export const getWishlistItem: (
         wishlistItemId,
       ) as WishlistItemEntity;
 
-      return getProduct(state, wishlistItem?.product);
+      return getProductDenormalized(state, wishlistItem?.product);
     },
     (
       state: StoreState,

@@ -2,11 +2,13 @@ import * as fromBags from '../../../bags/selectors';
 import * as fromProductEntities from '../product';
 import * as selectors from '../details';
 import {
+  mockBrandId,
   mockBreadCrumbs,
   mockGroupedEntries,
   mockProductId,
   mockProductsState,
 } from 'tests/__fixtures__/products';
+import { mockCategoryId } from 'tests/__fixtures__/categories';
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -134,16 +136,28 @@ describe('Product', () => {
     const sizeId =
       mockProductsState.entities.products[mockProductId].sizes[0].id;
     const getProductReturn = mockProductsState.entities.products[mockProductId];
+    const getProductDenormalizedReturn = {
+      ...mockProductsState.entities.products[mockProductId],
+      brand: mockProductsState.entities.brands[mockBrandId],
+      categories: [mockProductsState.entities.categories[mockCategoryId]],
+    };
+
     let spyGetProduct;
+    let spyGetProductDenormalized;
     let spyGetBagItems;
 
     beforeEach(() => {
       spyGetProduct = jest.spyOn(fromProductEntities, 'getProduct');
+      spyGetProductDenormalized = jest.spyOn(
+        fromProductEntities,
+        'getProductDenormalized',
+      );
       spyGetBagItems = jest.spyOn(fromBags, 'getBagItems');
     });
 
     afterEach(() => {
       spyGetProduct.mockRestore();
+      spyGetProductDenormalized.mockRestore();
       spyGetBagItems.mockRestore();
     });
 
@@ -214,7 +228,9 @@ describe('Product', () => {
       const getBagItemsReturn = false;
       const globalQuantity = getProductReturn.sizes[0].globalQuantity;
 
-      spyGetProduct.mockImplementation(() => getProductReturn);
+      spyGetProductDenormalized.mockImplementation(
+        () => getProductDenormalizedReturn,
+      );
       spyGetBagItems.mockImplementation(() => getBagItemsReturn);
 
       expect(

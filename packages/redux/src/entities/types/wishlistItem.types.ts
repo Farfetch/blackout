@@ -1,6 +1,6 @@
 import type { AttributesAdapted, PriceAdapted } from '../../helpers/adapters';
 import type { WishlistItem as OriginalWishlistItem } from '@farfetch/blackout-client';
-import type { ProductEntity } from './product.types';
+import type { ProductEntity, ProductEntityDenormalized } from './product.types';
 
 export type WishlistItemEntity = {
   attributes: OriginalWishlistItem['attributes'];
@@ -24,6 +24,6 @@ export type WishlistItemsEntities = Record<
 >;
 
 export type WishlistItemHydrated = WishlistItemEntity & {
-  product: ProductEntity | undefined;
+  product: ProductEntityDenormalized | undefined;
   parentSets: Record<'id' | 'name', string>[] | undefined;
 };

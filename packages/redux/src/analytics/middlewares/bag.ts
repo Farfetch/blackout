@@ -1,14 +1,13 @@
 import { bagsActionTypes, getBagItem } from '../../bags';
 import {
   calculatePriceDiscount,
-  getBrand,
   getCategory,
   getCurrency,
   getSize,
   getSizeFullInformation,
   getVariant,
 } from './helpers';
-import { getProduct } from '../../products';
+import { getProductDenormalized } from '../../products';
 import Analytics, { eventTypes, utils } from '@farfetch/blackout-analytics';
 import get from 'lodash/get';
 import isNil from 'lodash/isNil';
@@ -142,11 +141,11 @@ const getProductData = async (
   // Now we can safely retrieve the correct bag item data from the store.
   const bagItem = getBagItem(state, bagItemId);
   const id = productIdMeta || get(bagItem, 'product.id'); // If no productId property exists on the action meta, use the id on the bagItem if available
-  const product = getProduct(state, id);
+  const product = getProductDenormalized(state, id);
   const { sku, shortDescription, name: productName } = product || {};
   const name = shortDescription || productName;
-  const category = getCategory(state, product);
-  const brand = getBrand(state, product);
+  const category = getCategory(product);
+  const brand = product?.brand?.name;
   const variant = getVariant(product);
   const priceWithDiscount =
     get(bagItem, 'price.includingTaxes') || // price might be defined only on bagItem on a hard-refresh of the bag page

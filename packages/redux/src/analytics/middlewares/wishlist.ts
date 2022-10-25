@@ -1,6 +1,5 @@
 import {
   calculatePriceDiscount,
-  getBrand,
   getCategory,
   getCurrency,
   getSizeFullInformation,
@@ -159,8 +158,8 @@ const getProductData = async (
   return {
     id: get(product, 'id'),
     name: get(product, 'name')?.trim(),
-    brand: getBrand(state, product),
-    category: getCategory(state, product),
+    brand: product?.brand?.name,
+    category: getCategory(product),
     discountValue: discount,
     price: priceWithDiscount,
     priceWithoutDiscount,

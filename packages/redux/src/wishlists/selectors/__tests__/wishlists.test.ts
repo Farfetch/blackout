@@ -101,7 +101,11 @@ describe('wishlists redux selectors', () => {
     const expectedResult = {
       ...wishlistItemEntity,
       ...mockWishlistStateEntity,
-      product: { ...mockProductsEntity[mockProductId] },
+      product: {
+        ...mockProductsEntity[mockProductId],
+        brand: mockWishlistState.entities.brands[2450],
+        categories: [mockWishlistState.entities.categories[136301]],
+      },
     };
 
     it('should return all data regarding a wishlist item', () => {
@@ -127,7 +131,11 @@ describe('wishlists redux selectors', () => {
               .name,
           },
         ],
-        product: mockWishlistState.entities.products[mockProductId],
+        product: {
+          ...mockWishlistState.entities.products[mockProductId],
+          brand: mockWishlistState.entities.brands[2450],
+          categories: [mockWishlistState.entities.categories[136301]],
+        },
       };
 
       expect(
@@ -151,7 +159,11 @@ describe('wishlists redux selectors', () => {
       const expectedResult = [
         {
           ...mockWishlistState.entities.wishlistItems[mockWishlistItemId],
-          product: mockWishlistState.entities.products[mockProductId],
+          product: {
+            ...mockWishlistState.entities.products[mockProductId],
+            brand: mockWishlistState.entities.brands[2450],
+            categories: [mockWishlistState.entities.categories[136301]],
+          },
         },
         {
           ...mockWishlistState.entities.wishlistItems[mockWishlistItemId],
@@ -160,6 +172,8 @@ describe('wishlists redux selectors', () => {
             ...mockProductsEntity[mockProductId],
             id: 1002,
             description: 'wide leg pant',
+            brand: mockWishlistState.entities.brands[2450],
+            categories: [mockWishlistState.entities.categories[136301]],
           },
           quantity: 2,
         },
@@ -181,7 +195,11 @@ describe('wishlists redux selectors', () => {
                 .name,
             },
           ],
-          product: mockWishlistState.entities.products[mockProductId],
+          product: {
+            ...mockWishlistState.entities.products[mockProductId],
+            brand: mockWishlistState.entities.brands[2450],
+            categories: [mockWishlistState.entities.categories[136301]],
+          },
         },
         {
           ...mockWishlistState.entities.wishlistItems[mockWishlistItemId],
@@ -191,6 +209,8 @@ describe('wishlists redux selectors', () => {
             ...mockProductsEntity[mockProductId],
             id: 1002,
             description: 'wide leg pant',
+            brand: mockWishlistState.entities.brands[2450],
+            categories: [mockWishlistState.entities.categories[136301]],
           },
           quantity: 2,
         },
@@ -263,6 +283,8 @@ describe('wishlists redux selectors', () => {
         ...mockWishlistStateEntity,
         product: {
           ...mockProductsEntity[mockProductId],
+          brand: mockWishlistState.entities.brands[2450],
+          categories: [mockWishlistState.entities.categories[136301]],
         },
       };
 

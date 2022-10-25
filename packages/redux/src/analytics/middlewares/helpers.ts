@@ -1,24 +1,24 @@
 import { getBrand as getBrandSelector } from '../../brands';
-import { getCategory as getCategorySelector } from '../../categories';
 import Analytics, { utils } from '@farfetch/blackout-analytics';
 import get from 'lodash/get';
-import type { ProductEntity } from '../../entities/types';
+import type {
+  ProductEntity,
+  ProductEntityDenormalized,
+} from '../../entities/types';
 import type { StoreState } from '../../types';
 
 /**
  * Returns the different product categories separated with a `/`.
  *
- * @param state   - The current application state.
  * @param product - The product object.
  *
  * @returns String with all category names joined with a '/' character.
  */
 export const getCategory = (
-  state: StoreState,
-  product: ProductEntity | undefined,
+  product: ProductEntityDenormalized | undefined,
 ): string =>
   get(product, 'categories', [])
-    .map(id => get(getCategorySelector(state, id), 'name'))
+    .map(category => category.name)
     .join('/');
 
 /**
@@ -50,7 +50,7 @@ export const getBrand = (
  * @returns The product variant.
  */
 export const getVariant = (
-  product: ProductEntity | undefined,
+  product: ProductEntity | ProductEntityDenormalized | undefined,
 ): string | undefined => {
   const mainVariant = get(product, 'colors', []).find(color =>
     get(color, 'tags', []).some(tag => tag === 'DesignerColor'),
@@ -68,7 +68,7 @@ export const getVariant = (
  * @returns The size name.
  */
 export const getSize = (
-  product: ProductEntity | undefined,
+  product: ProductEntity | ProductEntityDenormalized | undefined,
   sizeId: number,
 ): string | undefined =>
   get(
@@ -88,7 +88,7 @@ export const getSize = (
  * @returns The size information.
  */
 export const getSizeFullInformation = (
-  product: ProductEntity | undefined,
+  product: ProductEntity | ProductEntityDenormalized | undefined,
   sizeId: number,
 ) => get(product, 'sizes', []).find(size => get(size, 'id') === sizeId);
 

@@ -12,6 +12,7 @@ import {
   mockProductsState,
   mockSetId,
 } from 'tests/__fixtures__/products';
+import { mockCategory } from 'tests/__fixtures__/categories';
 import cloneDeep from 'lodash/cloneDeep';
 import type { FacetValue } from '@farfetch/blackout-client';
 
@@ -171,11 +172,17 @@ describe('products list redux selectors', () => {
 
   describe('getProductsListProducts()', () => {
     const expectedResult = [
-      { id: 12913172, shortDescription: 'foo', brand: mockBrandResponse },
+      {
+        id: 12913172,
+        shortDescription: 'foo',
+        brand: mockBrandResponse,
+        categories: [mockCategory],
+      },
       {
         id: 12913174,
         shortDescription: 'bar',
         brand: mockBrandResponse,
+        categories: [mockCategory],
         groupedEntries: mockGroupedEntries,
       },
     ];
@@ -201,18 +208,22 @@ describe('products list redux selectors', () => {
       {
         ...mockProductsListNormalizedPayload.entities.products[12913172],
         brand: mockBrandResponse,
+        categories: [mockCategory],
       },
       {
         ...mockProductsListNormalizedPayload.entities.products[12913174],
         brand: mockBrandResponse,
+        categories: [mockCategory],
       },
       {
         ...mockProductsListNormalizedPayload.entities.products[12913172],
         brand: mockBrandResponse,
+        categories: [mockCategory],
       },
       {
         ...mockProductsListNormalizedPayload.entities.products[12913174],
         brand: mockBrandResponse,
+        categories: [mockCategory],
       },
     ];
 
