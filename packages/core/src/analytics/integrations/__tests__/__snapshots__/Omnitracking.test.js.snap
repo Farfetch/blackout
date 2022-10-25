@@ -3,7 +3,7 @@
 exports[`Omnitracking definitions \`Address Info Added\` return should match the snapshot 1`] = `
 Object {
   "checkoutStep": "1",
-  "deliveryInformationDetails": "{\\"courierType\\":\\"Standard/Standard\\"}",
+  "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\"}",
   "interactionType": "click",
   "tid": 2911,
 }
@@ -87,7 +87,7 @@ Object {
 exports[`Omnitracking definitions \`Payment Info Added\` return should match the snapshot 1`] = `
 Object {
   "checkoutStep": "1",
-  "deliveryInformationDetails": "{\\"courierType\\":\\"Standard/Standard\\"}",
+  "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\"}",
   "interactionType": "click",
   "selectedPaymentMethod": "credit",
   "tid": 2912,
@@ -202,7 +202,7 @@ Object {
   "contentType": "Navbar",
   "interactionType": "click",
   "productId": "12345",
-  "tid": 2885,
+  "tid": 2895,
   "val": "123",
 }
 `;
@@ -218,7 +218,7 @@ Object {
 exports[`Omnitracking definitions \`Shipping Info Added\` return should match the snapshot 1`] = `
 Object {
   "checkoutStep": "2",
-  "deliveryInformationDetails": "{\\"courierType\\":\\"Standard/Standard\\"}",
+  "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\"}",
   "interactionType": "click",
   "selectedPaymentMethod": "credit",
   "tid": 2914,
@@ -228,7 +228,7 @@ Object {
 exports[`Omnitracking definitions \`Shipping Method Added\` return should match the snapshot 1`] = `
 Object {
   "checkoutStep": "2",
-  "deliveryInformationDetails": "{\\"courierType\\":\\"Standard/Standard\\"}",
+  "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\"}",
   "interactionType": "click",
   "selectedPaymentMethod": "credit",
   "tid": 2913,
