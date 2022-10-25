@@ -1467,6 +1467,7 @@ describe('GA4 Integration', () => {
                 some_other_property: 12312312,
                 interaction_type: interactionTypes.CLICK,
                 __blackoutAnalyticsEventId: expect.any(String),
+                state: 'dummy',
               });
             });
           });
