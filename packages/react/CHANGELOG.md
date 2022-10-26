@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.338](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.337...@farfetch/blackout-react@1.0.0-next.338) (2022-10-26)
+
+
+### Features
+
+* **react:** settings hooks ([ba1a0c8](https://github.com/Farfetch/blackout/commit/ba1a0c82b00dcf31e7fb5369692cde779cbf9e1a))
+
+
+
+
+
 # [1.0.0-next.337](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.336...@farfetch/blackout-react@1.0.0-next.337) (2022-10-26)
 
 **Note:** Version bump only for package @farfetch/blackout-react
