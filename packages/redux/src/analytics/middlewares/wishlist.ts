@@ -3,6 +3,7 @@ import {
   getBrand,
   getCategory,
   getCurrency,
+  getSizeFullInformation,
   getVariant,
 } from './helpers';
 import {
@@ -140,6 +141,11 @@ const getProductData = async (
   const priceWithDiscount = get(wishlistItem, 'price.includingTaxes');
   const quantity = get(wishlistItem, 'quantity');
   const size = get(wishlistItem, 'size.name');
+  const sizeId = get(wishlistItem, 'size.id');
+
+  const sizeScale =
+    get(wishlistItem, 'size.scale') ||
+    get(getSizeFullInformation(product, sizeId), 'scale'); // size might be defined only on wishlistItem on a hard-refresh of the bag page
 
   const priceWithoutDiscount = get(
     wishlistItem,
@@ -162,6 +168,8 @@ const getProductData = async (
     currency: await getCurrency(analyticsInstance),
     quantity,
     size,
+    sizeId,
+    sizeScaleId: sizeScale,
   };
 };
 
@@ -269,6 +277,8 @@ export function analyticsWishlistMiddleware(
         const analyticsData = {
           ...(await getProductData(analyticsInstance, state, wishlistItem)),
           oldSize: oldProductData.size,
+          oldSizeId: oldProductData.sizeId,
+          oldSizeScaleId: oldProductData.sizeScaleId,
           oldQuantity: oldProductData.quantity,
           ...getWishlistData(action, wishlistItem),
           wishlistId,
