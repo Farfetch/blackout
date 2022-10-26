@@ -210,6 +210,30 @@ Object {
 }
 `;
 
+exports[`Omnitracking track events definitions \`Product Updated\` return should match the snapshot 1`] = `
+Array [
+  Object {
+    "actionArea": "Bag",
+    "colourList": "2, 1",
+    "productId": "507f1f77bcf86cd799439011",
+    "tid": 2098,
+  },
+  Object {
+    "actionArea": "Bag",
+    "productId": "507f1f77bcf86cd799439011",
+    "scaleList": "10, 12",
+    "sizeList": "11, 10",
+    "tid": 2920,
+  },
+  Object {
+    "actionArea": "Bag",
+    "itemQuantity": 1,
+    "productId": "507f1f77bcf86cd799439011",
+    "tid": 2919,
+  },
+]
+`;
+
 exports[`Omnitracking track events definitions \`Promocode Applied\` return should match the snapshot 1`] = `
 Object {
   "errorMessage": "No promocode available.",

@@ -216,6 +216,7 @@ describe('analyticsBagMiddleware', () => {
         quantity,
         size: sizes[0]?.name,
         sizeId: sizes[0]?.id,
+        sizeScaleId: sizes[0]?.scale,
         sku,
         value,
         variant: colorName,
@@ -286,6 +287,7 @@ describe('analyticsBagMiddleware', () => {
         sku,
         size: sizes[0]?.name,
         sizeId: sizes[0]?.id,
+        sizeScaleId: sizes[0]?.scale,
         value,
         variant: colorName,
       });
@@ -329,9 +331,12 @@ describe('analyticsBagMiddleware', () => {
         quantity: 2,
         sku,
         size: sizes[0]?.name,
-        oldSize: sizes[0]?.name,
-        variant: colorName,
         sizeId: sizes[0]?.id,
+        sizeScaleId: sizes[0]?.scale,
+        oldSize: sizes[0]?.name,
+        oldSizeId: sizes[0]?.id,
+        oldSizeScaleId: sizes[0]?.scale,
+        variant: colorName,
       });
     });
 
@@ -371,9 +376,12 @@ describe('analyticsBagMiddleware', () => {
         quantity: 3,
         sku,
         size: sizes[0]?.name,
-        oldSize: sizes[0]?.name,
-        variant: colorName,
         sizeId: sizes[0]?.id,
+        sizeScaleId: sizes[0]?.scale,
+        oldSize: sizes[0]?.name,
+        oldSizeId: sizes[0]?.id,
+        oldSizeScaleId: sizes[0]?.scale,
+        variant: colorName,
       });
     });
 
@@ -416,13 +424,16 @@ describe('analyticsBagMiddleware', () => {
         name: productDescription,
         oldQuantity: 3,
         oldSize: sizes[0]?.name,
+        oldSizeId: sizes[0]?.id,
+        oldSizeScaleId: sizes[0]?.scale,
         price: priceWithDiscount,
         priceWithoutDiscount,
         quantity: 3,
         size: sizes[1]?.name,
+        sizeId: sizes[1]?.id,
+        sizeScaleId: sizes[1]?.scale,
         sku,
         variant: colorName,
-        sizeId: sizes[1]?.id,
       };
 
       expect(trackSpy).nthCalledWith(1, eventTypes.PRODUCT_UPDATED, baseData);
@@ -496,11 +507,14 @@ describe('analyticsBagMiddleware', () => {
         name: productDescription,
         oldQuantity,
         oldSize: sizes[0]?.name,
+        oldSizeId: sizes[0]?.id,
+        oldSizeScaleId: sizes[0]?.scale,
         price: productData?.price?.includingTaxes,
         priceWithoutDiscount: productData?.price?.includingTaxesWithoutDiscount,
         quantity: 1,
         size: sizes[0]?.name,
         sizeId: sizes[0]?.id,
+        sizeScaleId: sizes[0]?.scale,
         sku,
         variant: colorName,
       };

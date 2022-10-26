@@ -80,6 +80,19 @@ export const getSize = (
   );
 
 /**
+ * Returns the product size information by the selected size id.
+ *
+ * @param product - The product object.
+ * @param sizeId - The selected size ID.
+ *
+ * @returns The size information.
+ */
+export const getSizeFullInformation = (
+  product: ProductEntity | undefined,
+  sizeId: number,
+) => get(product, 'sizes', []).find(size => get(size, 'id') === sizeId);
+
+/**
  * Returns the currency code passed to analytics via `useContext()`.
  *
  * @param analyticsInstance - Analytics instance.

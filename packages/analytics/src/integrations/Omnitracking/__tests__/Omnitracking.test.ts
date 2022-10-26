@@ -40,11 +40,15 @@ import type {
 } from '../types/Omnitracking.types';
 
 const mockLoggerError = jest.fn();
+const mockLoggerWarn = jest.fn();
 
 jest.mock('../../../utils/logger', () => {
   return {
     error(message: string) {
       mockLoggerError(message);
+    },
+    warn(message: string) {
+      mockLoggerWarn(message);
     },
   };
 });
