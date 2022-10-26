@@ -9,6 +9,7 @@ import {
 } from './omnitracking-helper';
 import { logger } from '../../utils';
 import eventTypes from '../../types/eventTypes';
+import interactionTypes from '../../types/interactionTypes';
 import pageTypes from '../../types/pageTypes';
 import type { EventData, TrackTypesValues } from '../..';
 import type {
@@ -553,6 +554,25 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     filtersApplied: data.properties?.filters,
   }),
   [eventTypes.INTERACT_CONTENT]: (data: EventData<TrackTypesValues>) => {
+    if (data.properties?.interactionType === interactionTypes.SCROLL) {
+      if (data.properties?.target === document.body)
+        return {
+          tid: 668,
+          scrollDepth: data.properties?.percentageScrolled,
+        };
+
+      return;
+    }
+
+    if (!data.properties?.contentType || !data.properties?.id) {
+      logger.error(
+        `[Omnitracking] - Event ${data.event} properties "contentType" and "id" should be sent 
+                        on the payload when triggering a "select content" event. If you want to track this 
+                        event, make sure to pass these two properties.`,
+      );
+      return;
+    }
+
     return {
       tid: 2882,
       contentType: data.properties?.contentType,
