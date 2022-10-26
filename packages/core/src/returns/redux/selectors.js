@@ -15,6 +15,7 @@ import {
   getId,
   getIsLoading,
   getPickupCapabilities,
+  getPickupRescheduleRequests,
   getReferences,
   getReturns,
 } from './reducer';
@@ -179,3 +180,27 @@ export const isReferencesLoading = state =>
  * @returns {object} References error.
  */
 export const getReferencesError = state => getReferences(state.returns).error;
+
+/**
+ * Returns the loading status for the get reschedule request.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {boolean} Loading status.
+ */
+export const isPickupRescheduleRequestsLoading = state =>
+  getPickupRescheduleRequests(state.returns).isLoading;
+
+/**
+ * Returns the error for the get reschedule request.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {object} Pikcup Reschedule error.
+ */
+export const getPickupRescheduleRequestsError = state =>
+  getPickupRescheduleRequests(state.returns).error;

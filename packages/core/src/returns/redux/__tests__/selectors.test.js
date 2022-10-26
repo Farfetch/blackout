@@ -35,6 +35,10 @@ describe('returns redux selectors', () => {
         error: 'error: not loaded',
         isLoading: false,
       },
+      pickupRescheduleRequests: {
+        error: 'error: not loaded',
+        isLoading: false,
+      },
     },
     entities: {
       returnItems: { [returnItemId]: returnItem },
@@ -172,6 +176,31 @@ describe('returns redux selectors', () => {
       const spy = jest.spyOn(fromReturns, 'getPickupCapabilities');
 
       expect(selectors.getPickupCapabilitiesError(mockState)).toBe(
+        expectedResult,
+      );
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('isPickupRescheduleRequestsLoading()', () => {
+    it('should get the loading property from the pickup reschedule requests sub-area', () => {
+      const expectedResult =
+        mockState.returns.pickupRescheduleRequests.isLoading;
+      const spy = jest.spyOn(fromReturns, 'getPickupRescheduleRequests');
+
+      expect(selectors.isPickupRescheduleRequestsLoading(mockState)).toBe(
+        expectedResult,
+      );
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('getPickupRescheduleRequestsError()', () => {
+    it('should get the error property from the pickup reschedule requests sub-area', () => {
+      const expectedResult = mockState.returns.pickupRescheduleRequests.error;
+      const spy = jest.spyOn(fromReturns, 'getPickupRescheduleRequests');
+
+      expect(selectors.getPickupRescheduleRequestsError(mockState)).toBe(
         expectedResult,
       );
       expect(spy).toHaveBeenCalledTimes(1);
