@@ -24,6 +24,10 @@ const INITIAL_STATE = {
     error: null,
     isLoading: false,
   },
+  pickupRescheduleRequests: {
+    error: null,
+    isLoading: false,
+  },
 };
 
 const error = (state = INITIAL_STATE.error, action = {}) => {
@@ -34,6 +38,9 @@ const error = (state = INITIAL_STATE.error, action = {}) => {
     case actionTypes.GET_RETURNS_FROM_ORDER_FAILURE:
     case actionTypes.UPDATE_RETURN_FAILURE:
     case actionTypes.GET_REFERENCES_FAILURE:
+    case actionTypes.GET_PICKUP_RESCHEDULE_REQUEST_FAILURE:
+    case actionTypes.GET_PICKUP_RESCHEDULE_REQUESTS_FAILURE:
+    case actionTypes.POST_PICKUP_RESCHEDULE_REQUESTS_FAILURE:
       return action.payload.error;
     case actionTypes.CREATE_RETURN_REQUEST:
     case actionTypes.GET_PICKUP_CAPABILITIES_REQUEST:
@@ -41,6 +48,9 @@ const error = (state = INITIAL_STATE.error, action = {}) => {
     case actionTypes.GET_RETURNS_FROM_ORDER_REQUEST:
     case actionTypes.UPDATE_RETURN_REQUEST:
     case actionTypes.GET_REFERENCES_REQUEST:
+    case actionTypes.GET_PICKUP_RESCHEDULE_REQUEST_REQUEST:
+    case actionTypes.GET_PICKUP_RESCHEDULE_REQUESTS_REQUEST:
+    case actionTypes.POST_PICKUP_RESCHEDULE_REQUESTS_REQUEST:
     case actionTypes.RESET_RETURN:
       return INITIAL_STATE.error;
     default:
@@ -69,6 +79,9 @@ const isLoading = (state = INITIAL_STATE.isLoading, action = {}) => {
     case actionTypes.GET_RETURNS_FROM_ORDER_REQUEST:
     case actionTypes.UPDATE_RETURN_REQUEST:
     case actionTypes.GET_REFERENCES_REQUEST:
+    case actionTypes.GET_PICKUP_RESCHEDULE_REQUEST_REQUEST:
+    case actionTypes.GET_PICKUP_RESCHEDULE_REQUESTS_REQUEST:
+    case actionTypes.POST_PICKUP_RESCHEDULE_REQUESTS_REQUEST:
       return true;
     case actionTypes.CREATE_RETURN_SUCCESS:
     case actionTypes.CREATE_RETURN_FAILURE:
@@ -82,6 +95,12 @@ const isLoading = (state = INITIAL_STATE.isLoading, action = {}) => {
     case actionTypes.UPDATE_RETURN_FAILURE:
     case actionTypes.GET_REFERENCES_SUCCESS:
     case actionTypes.GET_REFERENCES_FAILURE:
+    case actionTypes.GET_PICKUP_RESCHEDULE_REQUEST_SUCCESS:
+    case actionTypes.GET_PICKUP_RESCHEDULE_REQUEST_FAILURE:
+    case actionTypes.GET_PICKUP_RESCHEDULE_REQUESTS_SUCCESS:
+    case actionTypes.GET_PICKUP_RESCHEDULE_REQUESTS_FAILURE:
+    case actionTypes.POST_PICKUP_RESCHEDULE_REQUESTS_SUCCESS:
+    case actionTypes.POST_PICKUP_RESCHEDULE_REQUESTS_FAILURE:
     case actionTypes.RESET_RETURN:
       return INITIAL_STATE.isLoading;
     default:
@@ -146,12 +165,24 @@ const pickupCapabilities = reducerFactory(
   actionTypes,
 );
 
+const pickupRescheduleRequests = reducerFactory(
+  [
+    'GET_PICKUP_RESCHEDULE_REQUEST',
+    'GET_PICKUP_RESCHEDULE_REQUESTS',
+    'POST_PICKUP_RESCHEDULE_REQUESTS',
+  ],
+  INITIAL_STATE.pickupRescheduleRequests,
+  actionTypes,
+);
+
 export const getError = state => state.error;
 export const getId = state => state.id;
 export const getIsLoading = state => state.isLoading;
 export const getReturns = state => state.returns;
 export const getReferences = state => state.references;
 export const getPickupCapabilities = state => state.pickupCapabilities;
+export const getPickupRescheduleRequests = state =>
+  state.pickupRescheduleRequests;
 
 /**
  * Reducer for returns state.
@@ -171,4 +202,5 @@ export default combineReducers({
   returns,
   references,
   pickupCapabilities,
+  pickupRescheduleRequests,
 });

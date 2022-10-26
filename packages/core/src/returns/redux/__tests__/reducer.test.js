@@ -23,6 +23,9 @@ describe('returns reducer', () => {
       actionTypes.GET_RETURN_REQUEST,
       actionTypes.UPDATE_RETURN_REQUEST,
       actionTypes.GET_REFERENCES_REQUEST,
+      actionTypes.GET_PICKUP_RESCHEDULE_REQUEST_REQUEST,
+      actionTypes.GET_PICKUP_RESCHEDULE_REQUESTS_REQUEST,
+      actionTypes.POST_PICKUP_RESCHEDULE_REQUESTS_REQUEST,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(
@@ -42,6 +45,9 @@ describe('returns reducer', () => {
       actionTypes.GET_RETURN_FAILURE,
       actionTypes.GET_REFERENCES_FAILURE,
       actionTypes.UPDATE_RETURN_FAILURE,
+      actionTypes.GET_PICKUP_RESCHEDULE_REQUEST_FAILURE,
+      actionTypes.GET_PICKUP_RESCHEDULE_REQUESTS_FAILURE,
+      actionTypes.POST_PICKUP_RESCHEDULE_REQUESTS_FAILURE,
     ])('should handle %s action type', actionType => {
       const error = 'foo';
       expect(
@@ -101,6 +107,9 @@ describe('returns reducer', () => {
       actionTypes.GET_RETURN_REQUEST,
       actionTypes.GET_REFERENCES_REQUEST,
       actionTypes.UPDATE_RETURN_REQUEST,
+      actionTypes.GET_PICKUP_RESCHEDULE_REQUEST_REQUEST,
+      actionTypes.GET_PICKUP_RESCHEDULE_REQUESTS_REQUEST,
+      actionTypes.POST_PICKUP_RESCHEDULE_REQUESTS_REQUEST,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
@@ -115,6 +124,9 @@ describe('returns reducer', () => {
       actionTypes.GET_RETURN_SUCCESS,
       actionTypes.GET_REFERENCES_SUCCESS,
       actionTypes.UPDATE_RETURN_SUCCESS,
+      actionTypes.GET_PICKUP_RESCHEDULE_REQUEST_SUCCESS,
+      actionTypes.GET_PICKUP_RESCHEDULE_REQUESTS_SUCCESS,
+      actionTypes.POST_PICKUP_RESCHEDULE_REQUESTS_SUCCESS,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
@@ -128,8 +140,11 @@ describe('returns reducer', () => {
       actionTypes.CREATE_RETURN_FAILURE,
       actionTypes.GET_PICKUP_CAPABILITIES_FAILURE,
       actionTypes.GET_RETURN_FAILURE,
-      actionTypes.GET_REFERNECES_FAILURE,
+      actionTypes.GET_REFERENCES_FAILURE,
       actionTypes.UPDATE_RETURN_FAILURE,
+      actionTypes.GET_PICKUP_RESCHEDULE_REQUEST_FAILURE,
+      actionTypes.GET_PICKUP_RESCHEDULE_REQUESTS_FAILURE,
+      actionTypes.POST_PICKUP_RESCHEDULE_REQUESTS_FAILURE,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
