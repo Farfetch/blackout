@@ -1418,10 +1418,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@castleio/castle-js@^2.1.13":
-  version "2.1.13"
-  resolved "https://registry.yarnpkg.com/@castleio/castle-js/-/castle-js-2.1.13.tgz#0ad1060bab79c47d397de3a3e723d9f022726a7c"
-  integrity sha512-/YiIO+O0OLET3re4XUnv45eYmSKOH/yYTVmMVxH2JCBjR2Svc3GVbXG3Fuuh809Lg+vnmvO8bHH+IwTtXZ4A9w==
+"@castleio/castle-js@^2.1.15":
+  version "2.1.15"
+  resolved "https://registry.yarnpkg.com/@castleio/castle-js/-/castle-js-2.1.15.tgz#40f75391451c2a3a677bf4c95c400a5c7ea69b4b"
+  integrity sha512-hD8SiOV7Txy4YWBW7C4gj+qmuGYIuugw4dJUbNTc2db+Phtbwd1WPLKIFuigmuK0EjtBxQFRGlvrHp6jxftG0g==
 
 "@commitlint/cli@^17.0.1":
   version "17.0.1"
