@@ -20,6 +20,7 @@ import {
 } from '../constants';
 import analyticsTrackTypes from '../../../types/trackTypes';
 import eventTypes from '../../../types/eventTypes';
+import interactionTypes from '../../../types/interactionTypes';
 import merge from 'lodash/merge';
 import mocked_view_uid from '../__fixtures__/mocked_view_uid';
 import pageTypes from '../../../types/pageTypes';
@@ -625,6 +626,87 @@ describe('Omnitracking', () => {
           expect.objectContaining({
             parameters: expect.objectContaining({
               tid: 2895,
+            }),
+          }),
+        );
+      });
+    });
+
+    describe('interact content', () => {
+      it('should not track an interact content event if the required parameters are missing', async () => {
+        const data = generateTrackMockData({
+          event: eventTypes.INTERACT_CONTENT,
+          properties: {
+            interactionType: undefined,
+          },
+        });
+
+        // setting unique view id to pass on validation of missing page event before event track
+        omnitracking.currentUniqueViewId = mocked_view_uid;
+        await omnitracking.track(data);
+
+        expect(mockLoggerError).toHaveBeenCalledWith(
+          expect.stringContaining(
+            'Event Interact Content properties "contentType" and "id" should be sent',
+          ),
+        );
+      });
+
+      it('should track scroll event', async () => {
+        const data = generateTrackMockData({
+          event: eventTypes.INTERACT_CONTENT,
+          properties: {
+            interactionType: interactionTypes.SCROLL,
+            target: document.body,
+            percentageScrolled: 50,
+          },
+        });
+
+        // setting unique view id to pass on validation of missing page event before event track
+        omnitracking.currentUniqueViewId = mocked_view_uid;
+        await omnitracking.track(data);
+
+        expect(postTrackingSpy).toHaveBeenCalledWith(
+          expect.objectContaining({
+            parameters: expect.objectContaining({
+              tid: 668,
+            }),
+          }),
+        );
+      });
+
+      it('should not track an event when interactionType is scroll but target is not document.body', async () => {
+        const data = generateTrackMockData({
+          event: eventTypes.INTERACT_CONTENT,
+          properties: {
+            interactionType: interactionTypes.SCROLL,
+            target: undefined,
+            percentageScrolled: 50,
+          },
+        });
+        await omnitracking.track(data);
+
+        expect(postTrackingSpy).toHaveBeenCalledTimes(0);
+      });
+
+      it('should track a default interact content event', async () => {
+        const data = generateTrackMockData({
+          event: eventTypes.INTERACT_CONTENT,
+          properties: {
+            interactionType: interactionTypes.CLICK,
+            contentType: 'logo',
+            id: 'home_logo',
+          },
+        });
+
+        // setting unique view id to pass on validation of missing page event before event track
+        omnitracking.currentUniqueViewId = mocked_view_uid;
+        await omnitracking.track(data);
+
+        expect(postTrackingSpy).toHaveBeenCalledWith(
+          expect.objectContaining({
+            parameters: expect.objectContaining({
+              tid: 2882,
             }),
           }),
         );
