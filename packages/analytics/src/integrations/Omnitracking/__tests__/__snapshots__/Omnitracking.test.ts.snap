@@ -31,6 +31,78 @@ Object {
 }
 `;
 
+exports[`Omnitracking track events definitions \`Filters Applied\` return should match the snapshot 1`] = `
+Object {
+  "filtersApplied": Object {
+    "brands": Array [
+      2765,
+      4062,
+    ],
+    "categories": Array [
+      135973,
+    ],
+    "colors": Array [
+      1,
+    ],
+    "discount": Array [
+      0,
+    ],
+    "gender": Array [
+      0,
+    ],
+    "price": Array [
+      0,
+      1950,
+    ],
+    "sizes": Array [
+      16,
+    ],
+  },
+  "tid": 2921,
+}
+`;
+
+exports[`Omnitracking track events definitions \`Filters Cleared\` return should match the snapshot 1`] = `
+Object {
+  "filtersApplied": Object {
+    "brands": Array [
+      2765,
+      4062,
+    ],
+    "categories": Array [
+      135973,
+    ],
+    "colors": Array [
+      1,
+    ],
+    "discount": Array [
+      0,
+    ],
+    "gender": Array [
+      0,
+    ],
+    "price": Array [
+      0,
+      1950,
+    ],
+    "sizes": Array [
+      16,
+    ],
+  },
+  "tid": 2917,
+}
+`;
+
+exports[`Omnitracking track events definitions \`Interact Content\` return should match the snapshot 1`] = `
+Object {
+  "actionArea": "dummy",
+  "contentType": "biz",
+  "interactionType": "Click",
+  "tid": 2882,
+  "val": "507f1f77bcf86cd799439011",
+}
+`;
+
 exports[`Omnitracking track events definitions \`Login\` return should match the snapshot 1`] = `
 Object {
   "loginType": "Acme",
@@ -124,6 +196,30 @@ Object {
 }
 `;
 
+exports[`Omnitracking track events definitions \`Product Updated\` return should match the snapshot 1`] = `
+Array [
+  Object {
+    "actionArea": "Bag",
+    "colourList": "2, 1",
+    "productId": "507f1f77bcf86cd799439011",
+    "tid": 2098,
+  },
+  Object {
+    "actionArea": "Bag",
+    "productId": "507f1f77bcf86cd799439011",
+    "scaleList": "10, 12",
+    "sizeList": "11, 10",
+    "tid": 2920,
+  },
+  Object {
+    "actionArea": "Bag",
+    "itemQuantity": 1,
+    "productId": "507f1f77bcf86cd799439011",
+    "tid": 2919,
+  },
+]
+`;
+
 exports[`Omnitracking track events definitions \`Promocode Applied\` return should match the snapshot 1`] = `
 Object {
   "errorMessage": "No promocode available.",
@@ -175,6 +271,13 @@ exports[`Omnitracking track events definitions \`Sign-up Form Completed\` return
 Object {
   "loginType": "Acme",
   "tid": 2927,
+}
+`;
+
+exports[`Omnitracking track events definitions \`Sign-up Newsletter\` return should match the snapshot 1`] = `
+Object {
+  "gender": "Woman",
+  "tid": 2831,
 }
 `;
 
