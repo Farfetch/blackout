@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.73.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.72.1...@farfetch/blackout-core@1.73.0) (2022-10-26)
+
+
+### Bug Fixes
+
+* **core|react:** fix checkout steps mapping for GA4 and omnitracking parity ([9b2faad](https://github.com/Farfetch/blackout/commit/9b2faadaa43e0d7ce40016fec0b940e6ceb79900))
+
+
+### Features
+
+* **core:** review return endpoints ([9d2a36a](https://github.com/Farfetch/blackout/commit/9d2a36a1aaf5ed3beeb9d2064bce3066a4321b71))
+
+
+
+
+
 ## [1.72.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.72.0...@farfetch/blackout-core@1.72.1) (2022-10-18)
 
 
