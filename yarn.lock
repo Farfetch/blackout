@@ -970,10 +970,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@castleio/castle-js@^2.1.8":
-  version "2.1.8"
-  resolved "https://registry.yarnpkg.com/@castleio/castle-js/-/castle-js-2.1.8.tgz#d7e893121fb79304a22c70ac5300049f2836b42f"
-  integrity sha512-Q/nNrfVGh6eWusBQ17qAB4yL2dQoCRCLReLji8CAnmr/DLbqwEqVRCiq3S3/T8bWV4MKE4pWJtqWGfU026bmOw==
+"@castleio/castle-js@^2.1.15":
+  version "2.1.15"
+  resolved "https://registry.yarnpkg.com/@castleio/castle-js/-/castle-js-2.1.15.tgz#40f75391451c2a3a677bf4c95c400a5c7ea69b4b"
+  integrity sha512-hD8SiOV7Txy4YWBW7C4gj+qmuGYIuugw4dJUbNTc2db+Phtbwd1WPLKIFuigmuK0EjtBxQFRGlvrHp6jxftG0g==
 
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
