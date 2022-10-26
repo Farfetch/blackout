@@ -13,9 +13,10 @@ const getListingSeoMetadataParams: GetListingSeoMetadataParams = ({
   filterSegments = [],
   listingName = '',
   lowestProductPrice = undefined,
-  countryCode = '',
-  currencyIsoCode = '',
-  countryName = '',
+  countryCode,
+  cultureCode,
+  currencyIsoCode,
+  countryName,
   breadCrumbs = [],
 }) => {
   const isOnSale =
@@ -29,7 +30,7 @@ const getListingSeoMetadataParams: GetListingSeoMetadataParams = ({
       ({ key, fromQueryString }) => key === BrandFacetKey && !fromQueryString,
     )?.description || '';
 
-  const formatCurrency = currencyFormatter(countryCode, currencyIsoCode || '', {
+  const formatCurrency = currencyFormatter(cultureCode, currencyIsoCode || '', {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
     useGrouping: false,

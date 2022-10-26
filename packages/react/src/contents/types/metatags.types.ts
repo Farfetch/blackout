@@ -94,8 +94,9 @@ export type GetListingSeoMetadataParams = (args: {
   filterSegments?: FilterSegment[];
   listingName?: string;
   lowestProductPrice?: number;
-  countryName?: string;
+  countryName: string;
   countryCode: string;
-  currencyIsoCode?: string;
+  cultureCode: string;
+  currencyIsoCode: string;
   breadCrumbs?: BreadCrumb[];
 }) => ListingSeoMetadataParams;
