@@ -193,8 +193,8 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
       }
 
       pageViewCommandList.push([
-        'config',
-        this.measurementId,
+        'event',
+        'page_view',
         {
           page_path: location.pathname + utils.stringifyQuery(location.query),
           path_clean: location.pathname,
