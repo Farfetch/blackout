@@ -289,8 +289,8 @@ describe('GA4 Integration', () => {
 
         const expectedCalls = [
           [
-            'config',
-            validOptions[OPTION_MEASUREMENT_ID],
+            'event',
+            'page_view',
             {
               page_path:
                 mockedPageData.context.web.window.location.pathname +

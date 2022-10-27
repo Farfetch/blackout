@@ -45,8 +45,8 @@ Array [
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Search events should not track search event with invalid search term or query, only page event. 1`] = `
 Array [
   Array [
-    "config",
-    "GA-123456-12",
+    "event",
+    "page_view",
     Object {
       "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
@@ -59,8 +59,8 @@ Array [
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Search events should track search event search term instead of search query. 1`] = `
 Array [
   Array [
-    "config",
-    "GA-123456-12",
+    "event",
+    "page_view",
     Object {
       "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
@@ -81,8 +81,8 @@ Array [
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Search events should track search event search without search term but with search query instead. 1`] = `
 Array [
   Array [
-    "config",
-    "GA-123456-12",
+    "event",
+    "page_view",
     Object {
       "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
@@ -789,8 +789,8 @@ Array [
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the bag event correctly 1`] = `
 Array [
   Array [
-    "config",
-    "GA-123456-12",
+    "event",
+    "page_view",
     Object {
       "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
@@ -839,8 +839,8 @@ Array [
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the search event correctly 1`] = `
 Array [
   Array [
-    "config",
-    "GA-123456-12",
+    "event",
+    "page_view",
     Object {
       "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
@@ -861,8 +861,8 @@ Array [
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the wishlist event correctly 1`] = `
 Array [
   Array [
-    "config",
-    "GA-123456-12",
+    "event",
+    "page_view",
     Object {
       "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
