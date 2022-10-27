@@ -94,8 +94,8 @@ Array [
     },
   ],
   Array [
-    "config",
-    "GA-123456-12",
+    "event",
+    "page_view",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
@@ -116,8 +116,8 @@ Array [
     },
   ],
   Array [
-    "config",
-    "GA-123456-12",
+    "event",
+    "page_view",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
@@ -138,8 +138,8 @@ Array [
     },
   ],
   Array [
-    "config",
-    "GA-123456-12",
+    "event",
+    "page_view",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
@@ -151,8 +151,8 @@ Array [
 
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Search events should not track search event with invalid search term or query, only page event. 1`] = `
 Array [
-  "config",
-  "GA-123456-12",
+  "event",
+  "page_view",
   Object {
     "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
     "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
