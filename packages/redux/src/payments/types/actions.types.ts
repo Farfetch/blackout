@@ -347,7 +347,7 @@ export interface ResetPaymentIntentChargeAction extends Action {
  * Reset Payment Instruments Action.
  */
 export interface ResetPaymentInstrumentsAction extends Action {
-  type: typeof actionTypes.RESET_PAYMENT_INSTRUMENTS_STATE;
+  type: typeof actionTypes.RESET_PAYMENT_INTENT_INSTRUMENTS_STATE;
 }
 
 /**

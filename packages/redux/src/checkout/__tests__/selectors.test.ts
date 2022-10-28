@@ -10,33 +10,24 @@ import {
   deliveryBundleUpgradeId_1,
   deliveryBundleUpgradesEntity,
   itemId1,
-  mockCheckoutDetailsEntity,
+  mockCheckoutDetailsEntityDenormalized,
   mockCheckoutOrderItemEntity,
+  mockCheckoutOrderResultDenormalized,
   mockCheckoutState,
   operation,
   productId,
   shippingOption,
 } from 'tests/__fixtures__/checkout';
+import { DeliveryWindowType } from '@farfetch/blackout-client';
 import type { StoreState } from '@farfetch/blackout-redux';
 
 describe('checkout redux selectors', () => {
   beforeEach(jest.clearAllMocks);
 
-  describe('getCheckoutShippingOptions()', () => {
-    it('should get the checkout shipping options', () => {
-      const spy = jest.spyOn(fromReducer, 'getId');
-
-      expect(selectors.getCheckoutShippingOptions(mockCheckoutState)).toEqual(
-        checkoutEntity.shippingOptions,
-      );
-      expect(spy).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('getCheckoutDeliveryBundle()', () => {
+  describe('getCheckoutOrderDeliveryBundle()', () => {
     it('should get the checkout delivery bundle by id', () => {
       expect(
-        selectors.getCheckoutDeliveryBundle(
+        selectors.getCheckoutOrderDeliveryBundle(
           mockCheckoutState,
           deliveryBundleId,
         ),
@@ -44,39 +35,36 @@ describe('checkout redux selectors', () => {
     });
   });
 
-  describe('getCheckoutDeliveryBundlesIds()', () => {
+  describe('getCheckoutOrderDeliveryBundlesIds()', () => {
     it('should get the checkout delivery bundles', () => {
-      const spy = jest.spyOn(fromReducer, 'getId');
-
       expect(
-        selectors.getCheckoutDeliveryBundlesIds(mockCheckoutState),
+        selectors.getCheckoutOrderDeliveryBundlesIds(mockCheckoutState),
       ).toEqual(checkoutEntity.deliveryBundles);
-      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getCheckoutDeliveryBundles()', () => {
+  describe('getCheckoutOrderDeliveryBundles()', () => {
     it('should get the checkout delivery bundles', () => {
-      expect(selectors.getCheckoutDeliveryBundles(mockCheckoutState)).toEqual([
-        deliveryBundlesEntity[deliveryBundleId],
-      ]);
+      expect(
+        selectors.getCheckoutOrderDeliveryBundles(mockCheckoutState),
+      ).toEqual([deliveryBundlesEntity[deliveryBundleId]]);
     });
   });
 
-  describe('getCheckoutSelectedDeliveryBundleId()', () => {
+  describe('getCheckoutOrderSelectedDeliveryBundleId()', () => {
     it('should get the selected checkout delivery bundle id', () => {
       expect(
-        selectors.getCheckoutSelectedDeliveryBundleId(mockCheckoutState),
+        selectors.getCheckoutOrderSelectedDeliveryBundleId(mockCheckoutState),
       ).toBe(deliveryBundleId);
     });
   });
 
-  describe('getCheckoutDeliveryBundleUpgrades()', () => {
+  describe('getCheckoutOrderDeliveryBundleUpgrades()', () => {
     it('should get the checkout delivery bundle by id', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(
-        selectors.getCheckoutDeliveryBundleUpgrades(
+        selectors.getCheckoutOrderDeliveryBundleUpgrades(
           mockCheckoutState,
           deliveryBundleId,
         ),
@@ -85,43 +73,43 @@ describe('checkout redux selectors', () => {
     });
   });
 
-  describe('getCheckoutDeliveryBundleUpgrade()', () => {
+  describe('getCheckoutOrderDeliveryBundleUpgrade()', () => {
     it('should get the checkout delivery bundle by id', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(
-        selectors.getCheckoutDeliveryBundleUpgrade(
+        selectors.getCheckoutOrderDeliveryBundleUpgrade(
           mockCheckoutState,
           deliveryBundleId,
           itemId1,
           'Estimated',
           deliveryBundleUpgradeId_1,
         ),
-      ).toEqual({
-        id: deliveryBundleUpgradeId_1,
-        name: 'Fast',
-        itemId: itemId1,
-      });
+      ).toEqual(
+        deliveryBundleUpgradesEntity[deliveryBundleId][itemId1]['Estimated'][0],
+      );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getCheckoutId()', () => {
+  describe('getCheckoutOrderId()', () => {
     it('should get the checkout id property from state', () => {
       const spy = jest.spyOn(fromReducer, 'getId');
 
-      expect(selectors.getCheckoutId(mockCheckoutState)).toEqual(
+      expect(selectors.getCheckoutOrderId(mockCheckoutState)).toEqual(
         checkoutEntity['id'],
       );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getCheckout()', () => {
+  describe('getCheckoutOrderResult()', () => {
     it('should get the checkout from state', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
-      expect(selectors.getCheckout(mockCheckoutState)).toEqual(checkoutEntity);
+      expect(selectors.getCheckoutOrderResult(mockCheckoutState)).toEqual(
+        mockCheckoutOrderResultDenormalized,
+      );
       expect(spy).toHaveBeenCalledWith(
         mockCheckoutState,
         'checkout',
@@ -135,7 +123,7 @@ describe('checkout redux selectors', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(selectors.getCheckoutOrderDetails(mockCheckoutState)).toEqual(
-        mockCheckoutDetailsEntity,
+        mockCheckoutDetailsEntityDenormalized,
       );
       expect(spy).toHaveBeenCalledWith(
         mockCheckoutState,
@@ -147,15 +135,8 @@ describe('checkout redux selectors', () => {
 
   describe('getCheckoutOrder()', () => {
     it('should get the checkout order from state', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntityById');
-
       expect(selectors.getCheckoutOrder(mockCheckoutState)).toEqual(
-        checkoutOrderEntity,
-      );
-      expect(spy).toHaveBeenCalledWith(
-        mockCheckoutState,
-        'checkoutOrders',
-        checkoutEntity['checkoutOrder'],
+        mockCheckoutOrderResultDenormalized.checkoutOrder,
       );
     });
   });
@@ -177,35 +158,6 @@ describe('checkout redux selectors', () => {
     });
   });
 
-  describe('getCheckoutOrderItemsIds()', () => {
-    it("should return a list of checkout order item id's from state", () => {
-      const expectedResult = checkoutOrderEntity.items;
-
-      expect(selectors.getCheckoutOrderItemsIds(mockCheckoutState)).toEqual(
-        expectedResult,
-      );
-    });
-
-    it('should return undefined', () => {
-      const state = {
-        ...mockCheckoutState,
-        entities: { checkoutOrders: { id: checkoutEntity['checkoutOrder'] } },
-      };
-
-      expect(selectors.getCheckoutOrderItemsIds(state)).toBeUndefined();
-    });
-  });
-
-  describe('getCheckoutOrderItems()', () => {
-    it('should return the checkout order items content from state', () => {
-      const expectedResult = [mockCheckoutOrderItemEntity];
-
-      expect(selectors.getCheckoutOrderItems(mockCheckoutState)).toEqual(
-        expectedResult,
-      );
-    });
-  });
-
   describe('getCheckoutOrderItemProduct()', () => {
     it('should return the checkout order item product content from state', () => {
       const expectedResult =
@@ -220,13 +172,13 @@ describe('checkout redux selectors', () => {
     });
   });
 
-  describe('getCheckoutOrderCollectPoints()', () => {
-    it('should return the checkout order collect points content from state', () => {
+  describe('getCollectPoints()', () => {
+    it('should return the collect points content from state', () => {
       const expectedResult = checkoutOrderEntity.collectpoints;
 
-      expect(
-        selectors.getCheckoutOrderCollectPoints(mockCheckoutState),
-      ).toEqual(expectedResult);
+      expect(selectors.getCollectPoints(mockCheckoutState)).toEqual(
+        expectedResult,
+      );
     });
   });
 
@@ -240,13 +192,13 @@ describe('checkout redux selectors', () => {
     });
   });
 
-  describe('getCheckoutShippingOptions()', () => {
+  describe('getCheckoutOrderShippingOptions()', () => {
     it('should return the checkout shipping options from state', () => {
       const expectedResult = checkoutEntity.shippingOptions;
 
-      expect(selectors.getCheckoutShippingOptions(mockCheckoutState)).toEqual(
-        expectedResult,
-      );
+      expect(
+        selectors.getCheckoutOrderShippingOptions(mockCheckoutState),
+      ).toEqual(expectedResult);
     });
   });
 
@@ -310,36 +262,24 @@ describe('checkout redux selectors', () => {
     });
   });
 
-  describe('getCheckoutError()', () => {
+  describe('getCheckoutOrderError()', () => {
     it('should get the checkout error property from state', () => {
       const expectedResult = mockCheckoutState.checkout.error;
       const spy = jest.spyOn(fromReducer, 'getError');
 
-      expect(selectors.getCheckoutError(mockCheckoutState)).toBe(
+      expect(selectors.getCheckoutOrderError(mockCheckoutState)).toBe(
         expectedResult,
       );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('isCheckoutLoading()', () => {
+  describe('isCheckoutOrderLoading()', () => {
     it('should get the checkout loading status from state', () => {
       const expectedResult = mockCheckoutState.checkout.isLoading;
       const spy = jest.spyOn(fromReducer, 'getIsLoading');
 
-      expect(selectors.isCheckoutLoading(mockCheckoutState)).toBe(
-        expectedResult,
-      );
-      expect(spy).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('getCheckoutOrderCharge()', () => {
-    it('should get the checkoutOrderCharge property from state', () => {
-      const expectedResult = mockCheckoutState.checkout.checkoutOrderCharge;
-      const spy = jest.spyOn(fromReducer, 'getCheckoutOrderCharge');
-
-      expect(selectors.getCheckoutOrderCharge(mockCheckoutState)).toBe(
+      expect(selectors.isCheckoutOrderLoading(mockCheckoutState)).toBe(
         expectedResult,
       );
       expect(spy).toHaveBeenCalledTimes(1);
@@ -372,7 +312,7 @@ describe('checkout redux selectors', () => {
     });
   });
 
-  describe('getCheckoutDeliveryBundleWindow()', () => {
+  describe('getCheckoutOrderDeliveryBundleWindow()', () => {
     it('should get the min and max delivery window dates for a bundle', () => {
       const expectedResult = {
         minEstimatedDeliveryDate: '2020-02-09T14:38:22.228Z',
@@ -381,7 +321,7 @@ describe('checkout redux selectors', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(
-        selectors.getCheckoutDeliveryBundleWindow(
+        selectors.getCheckoutOrderDeliveryBundleWindow(
           mockCheckoutState,
           deliveryBundleId,
         ),
@@ -394,7 +334,10 @@ describe('checkout redux selectors', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(
-        selectors.getCheckoutDeliveryBundleWindow(mockCheckoutState, 87879),
+        selectors.getCheckoutOrderDeliveryBundleWindow(
+          mockCheckoutState,
+          '87879',
+        ),
       ).toBe(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -420,7 +363,10 @@ describe('checkout redux selectors', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(
-        selectors.getCheckoutDeliveryBundleWindow(newState, deliveryBundleId),
+        selectors.getCheckoutOrderDeliveryBundleWindow(
+          newState,
+          deliveryBundleId,
+        ),
       ).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -455,7 +401,11 @@ describe('checkout redux selectors', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(
-        selectors.getCheckoutDeliveryBundleWindow(newState, deliveryBundleId),
+        selectors.getCheckoutOrderDeliveryBundleWindow(
+          // @ts-expect-error DeliveryWindow is not set on purpose in itemDeliveryOptions entries.
+          newState,
+          deliveryBundleId,
+        ),
       ).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -478,7 +428,7 @@ describe('checkout redux selectors', () => {
                   itemId: 0,
                   name: 'Standard',
                   deliveryWindow: {
-                    type: 'Estimated',
+                    type: DeliveryWindowType.Estimated,
                     min: '2020-02-09T14:38:22.228Z',
                     max: '2020-02-13T14:38:22.228Z',
                   },
@@ -495,7 +445,11 @@ describe('checkout redux selectors', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(
-        selectors.getCheckoutDeliveryBundleWindow(newState, deliveryBundleId),
+        selectors.getCheckoutOrderDeliveryBundleWindow(
+          // @ts-expect-error DeliveryWindow is not set on purpose in itemDeliveryOptions entries.
+          newState,
+          deliveryBundleId,
+        ),
       ).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });

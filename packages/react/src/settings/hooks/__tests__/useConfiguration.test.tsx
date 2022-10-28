@@ -117,7 +117,7 @@ describe('useConfiguration', () => {
         wrapper: withStore(mockConfigurationsInitialState),
       });
 
-      await expect(() => fetch()).rejects.toThrow(
+      await expect(fetch()).rejects.toThrow(
         'Invalid parameter `configurationCode` for `fetch`',
       );
 

@@ -547,9 +547,7 @@ describe('useUserAddresses', () => {
           wrapper: withStore(mockWithoutUserState),
         });
 
-        await expect(() => fetch()).rejects.toThrow(
-          'User is not authenticated',
-        );
+        await expect(fetch()).rejects.toThrow('User is not authenticated');
 
         expect(fetchUserAddresses).not.toHaveBeenCalled();
       });
@@ -568,9 +566,7 @@ describe('useUserAddresses', () => {
           wrapper: withStore(mockWithGuestUserState),
         });
 
-        await expect(() => fetch()).rejects.toThrow(
-          'User is not authenticated',
-        );
+        await expect(fetch()).rejects.toThrow('User is not authenticated');
 
         expect(fetchUserAddresses).not.toHaveBeenCalled();
       });
@@ -662,7 +658,7 @@ describe('useUserAddresses', () => {
           wrapper: withStore(mockWithoutUserState),
         });
 
-        await expect(() => add(address3)).rejects.toThrow(
+        await expect(add(address3)).rejects.toThrow(
           'User is not authenticated',
         );
 
@@ -683,7 +679,7 @@ describe('useUserAddresses', () => {
           wrapper: withStore(mockWithGuestUserState),
         });
 
-        await expect(() => add(address3)).rejects.toThrow(
+        await expect(add(address3)).rejects.toThrow(
           'User is not authenticated',
         );
 
@@ -775,7 +771,7 @@ describe('useUserAddresses', () => {
           wrapper: withStore(mockWithoutUserState),
         });
 
-        await expect(() => update(address1.id, address1)).rejects.toThrow(
+        await expect(update(address1.id, address1)).rejects.toThrow(
           'User is not authenticated',
         );
 
@@ -796,7 +792,7 @@ describe('useUserAddresses', () => {
           wrapper: withStore(mockWithGuestUserState),
         });
 
-        await expect(() => update(address1.id, address1)).rejects.toThrow(
+        await expect(update(address1.id, address1)).rejects.toThrow(
           'User is not authenticated',
         );
 
@@ -856,7 +852,7 @@ describe('useUserAddresses', () => {
           },
         );
 
-        await expect(() => remove(address1.id)).rejects.toThrow(
+        await expect(remove(address1.id)).rejects.toThrow(
           'User is not authenticated',
         );
 
@@ -884,7 +880,7 @@ describe('useUserAddresses', () => {
           },
         );
 
-        await expect(() => remove(address1.id)).rejects.toThrow(
+        await expect(remove(address1.id)).rejects.toThrow(
           'User is not authenticated',
         );
 
@@ -944,9 +940,9 @@ describe('useUserAddresses', () => {
           },
         );
 
-        await expect(() =>
-          setDefaultBillingAddress(address1.id),
-        ).rejects.toThrow('User is not authenticated');
+        await expect(setDefaultBillingAddress(address1.id)).rejects.toThrow(
+          'User is not authenticated',
+        );
 
         expect(setUserDefaultBillingAddress).not.toHaveBeenCalled();
       });
@@ -972,9 +968,9 @@ describe('useUserAddresses', () => {
           },
         );
 
-        await expect(() =>
-          setDefaultBillingAddress(address1.id),
-        ).rejects.toThrow('User is not authenticated');
+        await expect(setDefaultBillingAddress(address1.id)).rejects.toThrow(
+          'User is not authenticated',
+        );
 
         expect(setUserDefaultBillingAddress).not.toHaveBeenCalled();
       });
@@ -1032,9 +1028,9 @@ describe('useUserAddresses', () => {
           },
         );
 
-        await expect(() =>
-          setDefaultShippingAddress(address1.id),
-        ).rejects.toThrow('User is not authenticated');
+        await expect(setDefaultShippingAddress(address1.id)).rejects.toThrow(
+          'User is not authenticated',
+        );
 
         expect(setUserDefaultShippingAddress).not.toHaveBeenCalled();
       });
@@ -1060,9 +1056,9 @@ describe('useUserAddresses', () => {
           },
         );
 
-        await expect(() =>
-          setDefaultShippingAddress(address1.id),
-        ).rejects.toThrow('User is not authenticated');
+        await expect(setDefaultShippingAddress(address1.id)).rejects.toThrow(
+          'User is not authenticated',
+        );
 
         expect(setUserDefaultShippingAddress).not.toHaveBeenCalled();
       });
@@ -1120,9 +1116,9 @@ describe('useUserAddresses', () => {
           },
         );
 
-        await expect(() =>
-          setDefaultContactAddress(address1.id),
-        ).rejects.toThrow('User is not authenticated');
+        await expect(setDefaultContactAddress(address1.id)).rejects.toThrow(
+          'User is not authenticated',
+        );
 
         expect(setUserDefaultContactAddress).not.toHaveBeenCalled();
       });
@@ -1148,9 +1144,9 @@ describe('useUserAddresses', () => {
           },
         );
 
-        await expect(() =>
-          setDefaultContactAddress(address1.id),
-        ).rejects.toThrow('User is not authenticated');
+        await expect(setDefaultContactAddress(address1.id)).rejects.toThrow(
+          'User is not authenticated',
+        );
 
         expect(setUserDefaultContactAddress).not.toHaveBeenCalled();
       });

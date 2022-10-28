@@ -1,7 +1,7 @@
 import type {
   Amounts,
-  Payer,
   PayerAddressType,
+  PayerInput,
   PaymentInstrument,
   PaymentIntent,
   ShopperInteraction,
@@ -10,15 +10,15 @@ import type { Config } from '../../types';
 
 export type PutPaymentIntentInstrumentData = {
   createToken?: boolean;
-  payer?: Payer;
+  payer?: PayerInput;
   amounts: Amounts[];
   shopperInteraction?: ShopperInteraction;
   payerAddressType?: PayerAddressType;
 };
 
 export type PutPaymentIntentInstrument = (
-  id: PaymentIntent['id'],
-  instrumentId: PaymentInstrument['id'],
+  paymentIntentId: PaymentIntent['id'],
+  paymentInstrumentId: PaymentInstrument['id'],
   data: PutPaymentIntentInstrumentData,
   config?: Config,
 ) => void;

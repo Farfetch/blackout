@@ -33,7 +33,7 @@ export const INITIAL_STATE: T.PaymentsState = {
     isLoading: false,
     result: null,
   },
-  paymentInstruments: {
+  paymentIntentInstruments: {
     error: null,
     isLoading: false,
     result: null,
@@ -109,10 +109,10 @@ const giftCardBalance = createReducerWithResult(
   actionTypes.RESET_GIFT_CARD_BALANCE_STATE,
 );
 
-const paymentInstruments = (
-  state = INITIAL_STATE.paymentInstruments,
+const paymentIntentInstruments = (
+  state = INITIAL_STATE.paymentIntentInstruments,
   action: AnyAction,
-): PaymentsState['paymentInstruments'] => {
+): PaymentsState['paymentIntentInstruments'] => {
   switch (action.type) {
     case actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_REQUEST:
     case actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENTS_REQUEST:
@@ -121,7 +121,7 @@ const paymentInstruments = (
     case actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_REQUEST:
       return {
         ...state,
-        error: INITIAL_STATE.paymentInstruments.error,
+        error: INITIAL_STATE.paymentIntentInstruments.error,
         isLoading: true,
       };
     case actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_FAILURE:
@@ -137,7 +137,7 @@ const paymentInstruments = (
     case actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_SUCCESS:
     case actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENTS_SUCCESS:
       return {
-        error: INITIAL_STATE.paymentInstruments.error,
+        error: INITIAL_STATE.paymentIntentInstruments.error,
         isLoading: false,
         result: action.payload.result,
       };
@@ -145,20 +145,20 @@ const paymentInstruments = (
     case actionTypes.UPDATE_PAYMENT_INTENT_INSTRUMENT_SUCCESS:
       return {
         ...state,
-        error: INITIAL_STATE.paymentInstruments.error,
+        error: INITIAL_STATE.paymentIntentInstruments.error,
         isLoading: false,
       };
     case actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_SUCCESS:
       return {
-        error: INITIAL_STATE.paymentInstruments.error,
+        error: INITIAL_STATE.paymentIntentInstruments.error,
         isLoading: false,
         result: state?.result?.filter(
           (instrumentId: PaymentInstrument['id']) =>
             instrumentId !== action.meta.instrumentId,
         ),
       };
-    case actionTypes.RESET_PAYMENT_INSTRUMENTS_STATE:
-      return INITIAL_STATE.paymentInstruments;
+    case actionTypes.RESET_PAYMENT_INTENT_INSTRUMENTS_STATE:
+      return INITIAL_STATE.paymentIntentInstruments;
     default:
       return state;
   }
@@ -282,13 +282,12 @@ export const entitiesMapper = {
       paymentInstruments: omit(currentInstruments, instrumentId),
     };
   },
-  [actionTypes.RESET_PAYMENT_INSTRUMENTS_STATE]: (
+  [actionTypes.RESET_PAYMENT_INTENT_INSTRUMENTS_STATE]: (
     state: NonNullable<StoreState['entities']>,
   ) => {
-    return {
-      ...state,
-      paymentInstruments: {},
-    };
+    const { paymentInstruments, ...rest } = state;
+
+    return rest;
   },
   [LOGOUT_SUCCESS]: resetEntitiesStateReducer,
   [LOGIN_SUCCESS]: resetEntitiesStateReducer,
@@ -300,9 +299,10 @@ export const entitiesMapper = {
 export const getPaymentTokens = (
   state: T.PaymentsState,
 ): T.PaymentsState['paymentTokens'] => state.paymentTokens;
-export const getPaymentInstruments = (
+export const getPaymentIntentInstruments = (
   state: T.PaymentsState,
-): T.PaymentsState['paymentInstruments'] => state.paymentInstruments;
+): T.PaymentsState['paymentIntentInstruments'] =>
+  state.paymentIntentInstruments;
 export const getGiftCardBalance = (
   state: T.PaymentsState,
 ): T.PaymentsState['giftCardBalance'] => state.giftCardBalance;
@@ -323,7 +323,7 @@ const reducers = combineReducers({
   paymentIntentCharge,
   userCreditBalance,
   giftCardBalance,
-  paymentInstruments,
+  paymentIntentInstruments,
   paymentIntent,
   paymentMethods,
   paymentTokens,

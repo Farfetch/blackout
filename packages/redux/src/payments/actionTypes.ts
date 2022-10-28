@@ -81,8 +81,8 @@ export const FETCH_PAYMENT_INTENT_INSTRUMENTS_SUCCESS =
 /**
  * Action type dispatched when resetting the payment instruments state.
  */
-export const RESET_PAYMENT_INSTRUMENTS_STATE =
-  '@farfetch/blackout-redux/RESET_PAYMENT_INSTRUMENTS_STATE';
+export const RESET_PAYMENT_INTENT_INSTRUMENTS_STATE =
+  '@farfetch/blackout-redux/RESET_PAYMENT_INTENT_INSTRUMENTS_STATE';
 
 /**
  * Action type dispatched when the remove payment token request fails.

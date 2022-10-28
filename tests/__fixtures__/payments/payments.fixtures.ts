@@ -1,4 +1,5 @@
 import {
+  BlackoutError,
   ChargeStatus,
   Classification,
   DeclineCode,
@@ -137,7 +138,7 @@ export const mockInstrumentData = {
     quantity: 0,
   },
   shopperInteraction: ShopperInteraction.Ecommerce,
-};
+} as PaymentInstrument;
 export const mockFetchInstrumentsResponse = [mockInstrumentData];
 export const mockFetchInstrumentsNormalizedPayload = {
   entities: {
@@ -585,7 +586,7 @@ export const mockInitialState = {
       isLoading: false,
       result: null,
     },
-    paymentInstruments: {
+    paymentIntentInstruments: {
       error: null,
       isLoading: false,
       result: null,
@@ -609,5 +610,43 @@ export const mockInitialState = {
   entities: {
     paymentInstruments: {},
     paymentTokens: {},
+  },
+};
+
+export const mockPaymentInstrumentsWithDataState = {
+  payments: {
+    ...mockInitialState.payments,
+    paymentIntentInstruments: {
+      ...mockInitialState.payments.paymentIntentInstruments,
+      result: [instrumentId],
+    },
+  },
+  entities: {
+    ...mockInitialState.entities,
+    paymentInstruments: {
+      [instrumentId]: mockInstrumentData,
+    },
+  },
+};
+
+export const mockPaymentInstrumentsErrorState = {
+  ...mockInitialState,
+  payments: {
+    ...mockInitialState.payments,
+    paymentIntentInstruments: {
+      ...mockInitialState.payments.paymentIntentInstruments,
+      error: new Error('dummy error') as BlackoutError,
+    },
+  },
+};
+
+export const mockPaymentInstrumentsLoadingState = {
+  ...mockInitialState,
+  payments: {
+    ...mockInitialState.payments,
+    paymentIntentInstruments: {
+      ...mockInitialState.payments.paymentIntentInstruments,
+      isLoading: true,
+    },
   },
 };

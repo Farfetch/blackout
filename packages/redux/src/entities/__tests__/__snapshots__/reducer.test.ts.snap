@@ -53,7 +53,7 @@ Object {
     "@farfetch/blackout-redux/REMOVE_PAYMENT_INTENT_INSTRUMENT_SUCCESS": [Function],
     "@farfetch/blackout-redux/REMOVE_PAYMENT_TOKEN_SUCCESS": [Function],
     "@farfetch/blackout-redux/RESET_PAYMENTS": [Function],
-    "@farfetch/blackout-redux/RESET_PAYMENT_INSTRUMENTS_STATE": [Function],
+    "@farfetch/blackout-redux/RESET_PAYMENT_INTENT_INSTRUMENTS_STATE": [Function],
   },
   "products": Object {
     "@farfetch/blackout-redux/FETCH_PRODUCT_MEASUREMENTS_SUCCESS": [Function],

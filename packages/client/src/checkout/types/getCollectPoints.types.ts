@@ -1,10 +1,10 @@
-import type { CollectPoint } from '.';
+import type { CheckoutOrder, CollectPoint } from '.';
 import type { Config } from '../../types';
 
 export type GetCollectPointsQuery = {
-  orderId?: number;
-  IsStockAvailable?: boolean;
-  IsClickAndCollectAvailable?: boolean;
+  orderId?: CheckoutOrder['id'];
+  isStockAvailable?: boolean;
+  isClickAndCollectAvailable?: boolean;
 };
 
 export type GetCollectPoints = (

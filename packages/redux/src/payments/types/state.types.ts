@@ -17,7 +17,7 @@ export type PaymentsState = CombinedState<{
   paymentIntentCharge: StateWithResult<PaymentIntentChargeState>;
   userCreditBalance: StateWithResult<Balance>;
   giftCardBalance: StateWithResult<Balance>;
-  paymentInstruments: StateWithResultArray<PaymentInstrument['id']>;
+  paymentIntentInstruments: StateWithResultArray<PaymentInstrument['id']>;
   paymentIntent: StateWithResultArray<PaymentIntent['id']>;
   paymentMethods: StateWithResult<PaymentMethods | PaymentMethods[]>;
   paymentTokens: StateWithResultArray<PaymentToken['id']>;

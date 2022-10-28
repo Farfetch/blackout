@@ -280,9 +280,7 @@ describe('useUserAddress', () => {
           },
         );
 
-        await expect(() => fetch()).rejects.toThrow(
-          'User is not authenticated',
-        );
+        await expect(fetch()).rejects.toThrow('User is not authenticated');
 
         expect(fetchUserAddress).not.toHaveBeenCalled();
       });
@@ -304,9 +302,7 @@ describe('useUserAddress', () => {
           },
         );
 
-        await expect(() => fetch()).rejects.toThrow(
-          'User is not authenticated',
-        );
+        await expect(fetch()).rejects.toThrow('User is not authenticated');
 
         expect(fetchUserAddress).not.toHaveBeenCalled();
       });

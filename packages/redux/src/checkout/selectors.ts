@@ -3,13 +3,13 @@ import {
   getCheckoutOrderCharge as getCheckoutOrderChargeFromReducer,
   getCheckoutOrderDeliveryBundleProvisioning,
   getCheckoutOrderDeliveryBundleUpgradeProvisioning,
-  getCheckoutOrderDeliveryBundleUpgrades,
+  getCheckoutOrderDeliveryBundleUpgrades as getCheckoutOrderDeliveryBundleUpgradesFromReducer,
   getCheckoutOrderDetails as getCheckoutOrderDetailsFromReducer,
   getCheckoutOrderItems as getCheckoutOrderItemsFromReducer,
   getCheckoutOrderItemTags as getCheckoutOrderItemTagsFromReducer,
   getCheckoutOrderPromocode as getCheckoutOrderPromocodeFromReducer,
   getCheckoutOrderTags as getCheckoutOrderTagsFromReducer,
-  getCollectPoints,
+  getCollectPoints as getCollectPointsFromReducer,
   getError,
   getId,
   getIsLoading,
@@ -22,15 +22,21 @@ import { getEntities, getEntityById } from '../entities/selectors';
 import findKey from 'lodash/findKey';
 import get from 'lodash/get';
 import type {
+  CategoryEntity,
   CheckoutOrderItemEntity,
+  CheckoutOrderItemEntityDenormalized,
+  CheckoutOrderItemProductEntity,
   DeliveryBundleEntity,
+  MerchantEntity,
+  ProductEntity,
 } from '../entities';
-import type { CheckoutState } from './types';
 import type {
+  CheckoutOrderItem,
   DeliveryWindowType,
   ItemDeliveryOption,
   ShippingOption,
 } from '@farfetch/blackout-client';
+import type { CheckoutState } from './types';
 import type { StoreState } from '../types';
 
 export type DeliveryBundleWindow = {
@@ -55,7 +61,7 @@ interface INITIAL_VALUE {
  *
  * @returns Checkout id.
  */
-export const getCheckoutId = (state: StoreState) =>
+export const getCheckoutOrderId = (state: StoreState) =>
   getId(state.checkout as CheckoutState);
 
 /**
@@ -65,21 +71,97 @@ export const getCheckoutId = (state: StoreState) =>
  *
  * @returns Checkout object.
  */
-export const getCheckout = (state: StoreState) => {
-  const checkoutId = getCheckoutId(state);
+export const getCheckoutOrderResult = (state: StoreState) => {
+  const checkoutId = getCheckoutOrderId(state);
 
-  return checkoutId ? getEntityById(state, 'checkout', checkoutId) : undefined;
+  if (!checkoutId) {
+    return undefined;
+  }
+
+  const checkoutEntity = getEntityById(state, 'checkout', checkoutId);
+
+  if (!checkoutEntity) {
+    return undefined;
+  }
+
+  return {
+    ...checkoutEntity,
+    checkoutOrder: checkoutEntity.checkoutOrder
+      ? getCheckoutOrder(state)
+      : undefined,
+  };
 };
 
-/**
- * Returns the checkout order charge.
- *
- * @param state - Application state.
- *
- * @returns Charge object.
- */
-export const getCheckoutOrderCharge = (state: StoreState) =>
-  getCheckoutOrderChargeFromReducer(state.checkout as CheckoutState);
+const denormalizeOrderItem = (
+  orderItemId: CheckoutOrderItem['id'],
+  checkoutOrderItems:
+    | Record<CheckoutOrderItemEntity['id'], CheckoutOrderItemEntity>
+    | undefined,
+  checkoutOrderItemProducts:
+    | Record<
+        CheckoutOrderItemProductEntity['id'],
+        CheckoutOrderItemProductEntity
+      >
+    | undefined,
+  products: Record<ProductEntity['id'], ProductEntity> | undefined,
+  categories: Record<CategoryEntity['id'], CategoryEntity> | undefined,
+  merchants: Record<MerchantEntity['id'], MerchantEntity> | undefined,
+): CheckoutOrderItemEntityDenormalized | undefined => {
+  const checkoutOrderItemEntity = checkoutOrderItems?.[orderItemId];
+
+  if (!checkoutOrderItemEntity) {
+    return undefined;
+  }
+
+  const productId = checkoutOrderItemEntity.product;
+  const checkoutOrderItemProductEntity = checkoutOrderItemProducts?.[productId];
+  const productEntity = products?.[productId];
+  const merchantEntity = merchants?.[checkoutOrderItemEntity.merchant];
+
+  return {
+    ...checkoutOrderItemEntity,
+    merchant: merchantEntity,
+    product: checkoutOrderItemProductEntity
+      ? {
+          ...checkoutOrderItemProductEntity,
+          categories: checkoutOrderItemProductEntity.categories
+            .map(categoryId => categories?.[categoryId])
+            .filter(Boolean) as CategoryEntity[] | undefined,
+          merchant: merchants?.[checkoutOrderItemProductEntity.merchant],
+          labels: productEntity?.labels || [],
+        }
+      : undefined,
+  };
+};
+
+const denormalizeOrderItems = (
+  itemsIds: Array<CheckoutOrderItem['id']> | undefined,
+  checkoutOrderItems:
+    | Record<CheckoutOrderItemEntity['id'], CheckoutOrderItemEntity>
+    | undefined,
+  checkoutOrderItemProducts:
+    | Record<
+        CheckoutOrderItemProductEntity['id'],
+        CheckoutOrderItemProductEntity
+      >
+    | undefined,
+  products: Record<ProductEntity['id'], ProductEntity> | undefined,
+  categories: Record<CategoryEntity['id'], CategoryEntity> | undefined,
+  merchants: Record<MerchantEntity['id'], MerchantEntity> | undefined,
+) => {
+  return itemsIds
+    ?.map((orderItemId: number) =>
+      denormalizeOrderItem(
+        orderItemId,
+        checkoutOrderItems,
+        checkoutOrderItemProducts,
+        products,
+        categories,
+        merchants,
+      ),
+    )
+    .filter(Boolean) as CheckoutOrderItemEntityDenormalized[] | undefined;
+};
 
 /**
  * Returns the checkout order.
@@ -88,13 +170,69 @@ export const getCheckoutOrderCharge = (state: StoreState) =>
  *
  * @returns Checkout order entity or undefined.
  */
-export const getCheckoutOrder = (state: StoreState) => {
-  const checkoutId = getCheckoutId(state);
+export const getCheckoutOrder = createSelector(
+  [
+    (state: StoreState) => getEntities(state, 'checkoutOrderItems'),
+    (state: StoreState) => getEntities(state, 'checkoutOrders'),
+    (state: StoreState) => getEntities(state, 'checkoutOrderItemProducts'),
+    (state: StoreState) => getEntities(state, 'products'),
+    (state: StoreState) => getEntities(state, 'categories'),
+    (state: StoreState) => getEntities(state, 'merchants'),
+    (state: StoreState) => getEntities(state, 'checkout'),
+    getCheckoutOrderId,
+  ],
+  (
+    checkoutOrderItems,
+    checkoutOrders,
+    checkoutOrderItemProducts,
+    products,
+    categories,
+    merchants,
+    checkout,
+    checkoutOrderId,
+  ) => {
+    if (!checkoutOrderId) {
+      return undefined;
+    }
 
-  return checkoutId
-    ? getEntityById(state, 'checkoutOrders', checkoutId)
-    : undefined;
-};
+    const checkoutOrderEntity = checkoutOrders?.[checkoutOrderId];
+
+    if (!checkoutOrderEntity) {
+      return undefined;
+    }
+
+    const shippingOptions = checkout?.[checkoutOrderId]?.shippingOptions;
+
+    const newCheckoutOrderMerchants =
+      checkoutOrderEntity.checkoutOrderMerchants.map(orderMerchant => {
+        const orderMerchantShippingOptionId =
+          orderMerchant.shipping?.shippingService?.id;
+
+        const shippingOption = shippingOptions?.find(
+          shippingOption =>
+            shippingOption.shippingService.id === orderMerchantShippingOptionId,
+        );
+
+        return {
+          ...orderMerchant,
+          shipping: shippingOption ?? orderMerchant.shipping,
+        };
+      });
+
+    return {
+      ...checkoutOrderEntity,
+      checkoutOrderMerchants: newCheckoutOrderMerchants,
+      items: denormalizeOrderItems(
+        checkoutOrderEntity.items,
+        checkoutOrderItems,
+        checkoutOrderItemProducts,
+        products,
+        categories,
+        merchants,
+      ),
+    };
+  },
+);
 
 /**
  * Returns the checkout order details.
@@ -104,11 +242,23 @@ export const getCheckoutOrder = (state: StoreState) => {
  * @returns Checkout order details or undefined.
  */
 export const getCheckoutOrderDetails = (state: StoreState) => {
-  const checkoutId = getCheckoutId(state);
+  const checkoutOrderId = getCheckoutOrderId(state);
 
-  return checkoutId
-    ? getEntityById(state, 'checkoutDetails', checkoutId)
-    : undefined;
+  if (!checkoutOrderId) {
+    return undefined;
+  }
+
+  const checkoutDetailsEntity = getEntityById(
+    state,
+    'checkoutDetails',
+    checkoutOrderId,
+  );
+
+  if (!checkoutDetailsEntity) {
+    return undefined;
+  }
+
+  return { ...checkoutDetailsEntity, checkoutOrder: getCheckoutOrder(state) };
 };
 
 /**
@@ -147,43 +297,13 @@ export const getCheckoutOrderItemProduct = (
 };
 
 /**
- * Returns all the checkout order items ids.
- *
- * @param state - Application state.
- *
- * @returns List of checkout order items ids.
- */
-export const getCheckoutOrderItemsIds = createSelector(
-  [getCheckoutOrder],
-  checkoutOrder => checkoutOrder?.items,
-);
-
-/**
- * Returns all the checkout order items.
- *
- * @param state - Application state.
- *
- * @returns List of checkout order items.
- */
-export const getCheckoutOrderItems = createSelector(
-  [
-    (state: StoreState) => getEntities(state, 'checkoutOrderItems') || {},
-    getCheckoutOrderItemsIds,
-  ],
-  (checkoutOrderItems, checkoutOrderItemsIds) =>
-    checkoutOrderItemsIds
-      ?.map(checkoutOrderItemId => checkoutOrderItems[checkoutOrderItemId])
-      .filter(Boolean) as CheckoutOrderItemEntity[] | undefined,
-);
-
-/**
  * Returns all the checkout collect points.
  *
  * @param state - Application state.
  *
  * @returns List of checkout collect points.
  */
-export const getCheckoutOrderCollectPoints = createSelector(
+export const getCollectPoints = createSelector(
   [getCheckoutOrder],
   checkoutOrder => checkoutOrder?.collectpoints,
 );
@@ -201,14 +321,14 @@ export const getCheckoutOrderSelectedCollectPoint = createSelector(
 );
 
 /**
- * Returns the checkout shipping options.
+ * Returns the checkout order shipping options.
  *
  * @param state - Application state.
  *
  * @returns Checkout shipping options.
  */
-export const getCheckoutShippingOptions = createSelector(
-  [getCheckout],
+export const getCheckoutOrderShippingOptions = createSelector(
+  [getCheckoutOrderResult],
   checkout => checkout?.shippingOptions,
 );
 
@@ -220,7 +340,7 @@ export const getCheckoutShippingOptions = createSelector(
  *
  * @returns Delivery bundle.
  */
-export const getCheckoutDeliveryBundle = (
+export const getCheckoutOrderDeliveryBundle = (
   state: StoreState,
   deliveryBundleId: string,
 ) => getEntityById(state, 'deliveryBundles', deliveryBundleId);
@@ -232,20 +352,20 @@ export const getCheckoutDeliveryBundle = (
  *
  * @returns Selected delivery bundle id.
  */
-export const getCheckoutSelectedDeliveryBundleId = createSelector(
+export const getCheckoutOrderSelectedDeliveryBundleId = createSelector(
   [(state: StoreState) => getEntities(state, 'deliveryBundles')],
   deliveryBundles => findKey(deliveryBundles, 'isSelected'),
 );
 
 /**
- * Returns the checkout delivery bundles.
+ * Returns the checkout order delivery bundles.
  *
  * @param state - Application state.
  *
  * @returns Checkout delivery bundles ids.
  */
-export const getCheckoutDeliveryBundlesIds = createSelector(
-  [getCheckout],
+export const getCheckoutOrderDeliveryBundlesIds = createSelector(
+  [getCheckoutOrderResult],
   checkout => checkout?.deliveryBundles,
 );
 
@@ -256,9 +376,9 @@ export const getCheckoutDeliveryBundlesIds = createSelector(
  *
  * @returns Checkout delivery bundles.
  */
-export const getCheckoutDeliveryBundles = createSelector(
+export const getCheckoutOrderDeliveryBundles = createSelector(
   [
-    getCheckoutDeliveryBundlesIds,
+    getCheckoutOrderDeliveryBundlesIds,
     (state: StoreState) => getEntities(state, 'deliveryBundles'),
   ],
   (deliveryBundlesIds, deliveryBundles) =>
@@ -275,7 +395,7 @@ export const getCheckoutDeliveryBundles = createSelector(
  *
  * @returns Delivery bundle upgrades.
  */
-export const getCheckoutDeliveryBundleUpgrades = (
+export const getCheckoutOrderDeliveryBundleUpgrades = (
   state: StoreState,
   deliveryBundleId: string,
 ) => getEntityById(state, 'deliveryBundleUpgrades', deliveryBundleId);
@@ -291,10 +411,10 @@ export const getCheckoutDeliveryBundleUpgrades = (
  *
  * @returns Delivery bundle upgrade.
  */
-export const getCheckoutDeliveryBundleUpgrade = createSelector(
+export const getCheckoutOrderDeliveryBundleUpgrade = createSelector(
   [
     (state: StoreState, deliveryBundleId: string) =>
-      getCheckoutDeliveryBundleUpgrades(state, deliveryBundleId),
+      getCheckoutOrderDeliveryBundleUpgrades(state, deliveryBundleId),
     (
       state: StoreState,
       deliveryBundleId: string,
@@ -326,7 +446,7 @@ export const getCheckoutDeliveryBundleUpgrade = createSelector(
  */
 export const getCheckoutOrderSelectedCollectPointEstimatedDeliveryPeriod =
   createSelector(
-    [getCheckoutOrderSelectedCollectPoint, getCheckoutShippingOptions],
+    [getCheckoutOrderSelectedCollectPoint, getCheckoutOrderShippingOptions],
     (selectedCollectPoint, shippingOptions) => {
       const merchantLocationId = get(
         selectedCollectPoint,
@@ -370,27 +490,38 @@ export const getCheckoutOrderSelectedCollectPointEstimatedDeliveryPeriod =
   );
 
 /**
- * Returns the checkout error.
+ * Returns the error for the checkout order.
  *
  * @param state - Application state.
  *
  * @returns Checkout error.
  */
-export const getCheckoutError = (state: StoreState) =>
+export const getCheckoutOrderError = (state: StoreState) =>
   getError(state.checkout as CheckoutState);
 
 /**
- * Returns the loading status for the checkout.
+ * Returns the loading status for the checkout order.
  *
  * @param state - Application state.
  *
  * @returns Loading status.
  */
-export const isCheckoutLoading = (state: StoreState) =>
+export const isCheckoutOrderLoading = (state: StoreState) =>
   getIsLoading(state.checkout as CheckoutState);
 
 /**
- * Returns the loading status for the checkout details operation.
+ * Returns the fetched status for the checkout order.
+ *
+ * @param state - Application state.
+ *
+ * @returns - If checkout is fetched or not.
+ */
+export const isCheckoutOrderFetched = (state: StoreState) =>
+  (!!getCheckoutOrderResult(state) || !!getCheckoutOrderError(state)) &&
+  !isCheckoutOrderLoading(state);
+
+/**
+ * Returns the loading status for the checkout order details operation.
  *
  * @param state - Application state.
  *
@@ -400,7 +531,7 @@ export const areCheckoutOrderDetailsLoading = (state: StoreState) =>
   getCheckoutOrderDetailsFromReducer(state.checkout as CheckoutState).isLoading;
 
 /**
- * Returns the error for the checkout details operation.
+ * Returns the error for the checkout order details operation.
  *
  * @param state - Application state.
  *
@@ -410,6 +541,17 @@ export const getCheckoutOrderDetailsError = (state: StoreState) =>
   getCheckoutOrderDetailsFromReducer(state.checkout as CheckoutState).error;
 
 /**
+ * Returns the fetched status for the checkout order details operation.
+ *
+ * @param state - Application state.
+ *
+ * @returns Checkout order details operation fetched status.
+ */
+export const areCheckoutOrderDetailsFetched = (state: StoreState) =>
+  (!!getCheckoutOrderDetails(state) || !!getCheckoutOrderDetailsError(state)) &&
+  !areCheckoutOrderDetailsLoading(state);
+
+/**
  * Returns the loading status for the collect points operation.
  *
  * @param state - Application state.
@@ -417,7 +559,7 @@ export const getCheckoutOrderDetailsError = (state: StoreState) =>
  * @returns Collect points operation Loading status.
  */
 export const areCollectPointsLoading = (state: StoreState) =>
-  getCollectPoints(state.checkout as CheckoutState).isLoading;
+  getCollectPointsFromReducer(state.checkout as CheckoutState).isLoading;
 
 /**
  * Returns the error for the collect points operation.
@@ -427,7 +569,18 @@ export const areCollectPointsLoading = (state: StoreState) =>
  * @returns Collect points operation error.
  */
 export const getCollectPointsError = (state: StoreState) =>
-  getCollectPoints(state.checkout as CheckoutState).error;
+  getCollectPointsFromReducer(state.checkout as CheckoutState).error;
+
+/**
+ * Returns the fetched status for the collect points operation.
+ *
+ * @param state - Application state.
+ *
+ * @returns Collect points operation fetched status.
+ */
+export const areCollectPointsFetched = (state: StoreState) =>
+  (!!getCollectPoints(state) || !!getCollectPointsError(state)) &&
+  !areCollectPointsLoading(state);
 
 /**
  * Returns the loading status for the item tags operation.
@@ -542,6 +695,18 @@ export const getCheckoutOrderChargeResult = (state: StoreState) =>
   getCheckoutOrderChargeFromReducer(state.checkout as CheckoutState).result;
 
 /**
+ * Returns the fetched status for the charge checkout order operation.
+ *
+ * @param state - Application state.
+ *
+ * @returns Charges operation Loading status.
+ */
+export const isCheckoutOrderChargeFetched = (state: StoreState) =>
+  (!!getCheckoutOrderChargeResult(state) ||
+    !!getCheckoutOrderChargeError(state)) &&
+  !isCheckoutOrderChargeLoading(state);
+
+/**
  * Returns the loading status for the delivery bundle upgrades operation.
  *
  * @param state - Application state.
@@ -551,8 +716,9 @@ export const getCheckoutOrderChargeResult = (state: StoreState) =>
 export const areCheckoutOrderDeliveryBundleUpgradesLoading = (
   state: StoreState,
 ) =>
-  getCheckoutOrderDeliveryBundleUpgrades(state.checkout as CheckoutState)
-    .isLoading;
+  getCheckoutOrderDeliveryBundleUpgradesFromReducer(
+    state.checkout as CheckoutState,
+  ).isLoading;
 
 /**
  * Returns the delivery bundle upgrades error.
@@ -564,7 +730,9 @@ export const areCheckoutOrderDeliveryBundleUpgradesLoading = (
 export const getCheckoutOrderDeliveryBundleUpgradesError = (
   state: StoreState,
 ) =>
-  getCheckoutOrderDeliveryBundleUpgrades(state.checkout as CheckoutState).error;
+  getCheckoutOrderDeliveryBundleUpgradesFromReducer(
+    state.checkout as CheckoutState,
+  ).error;
 
 /**
  * Returns the loading status for the item delivery provisioning operation.
@@ -664,11 +832,14 @@ const getItemsDeliveryOptionsDate = (
  *
  * @returns Object with the minimum and maximum delivery days.
  */
-export const getCheckoutDeliveryBundleWindow = (
+export const getCheckoutOrderDeliveryBundleWindow = (
   state: StoreState,
   deliveryBundleId: string,
 ): DeliveryBundleWindow | undefined => {
-  const deliveryBundle = getCheckoutDeliveryBundle(state, deliveryBundleId);
+  const deliveryBundle = getCheckoutOrderDeliveryBundle(
+    state,
+    deliveryBundleId,
+  );
   if (!deliveryBundle) return;
 
   const { itemsDeliveryOptions } = deliveryBundle;

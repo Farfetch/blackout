@@ -68,7 +68,7 @@ export const FETCH_CHECKOUT_ORDER_SUCCESS =
   '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_SUCCESS';
 
 /**
- * Action type dispatched when resetting the checkout.
+ * Action type dispatched when resetting the checkout order.
  */
 export const RESET_CHECKOUT = '@farfetch/blackout-redux/RESET_CHECKOUT';
 

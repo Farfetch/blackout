@@ -13,7 +13,6 @@ describe('checkout client', () => {
   const data: PostCheckoutOrderDataWithBag = {
     bagId: '25cfbb10-f4d1-4684-8e52-45e4d3b001d3',
     guestUserEmail: 'test-email@acme.com',
-    usePaymentIntent: true,
     shippingMode: ShippingMode.ByMerchant,
   };
   const expectedConfig = undefined;

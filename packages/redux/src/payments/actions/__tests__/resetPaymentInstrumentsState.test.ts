@@ -1,6 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { mockStore } from '../../../../tests';
-import resetPaymentInstrumentsState from '../resetPaymentInstrumentsState';
+import resetPaymentInstrumentsState from '../resetPaymentIntentInstrumentsState';
 
 const paymentsMockStore = (state = {}) => mockStore(null, state);
 
@@ -18,7 +18,7 @@ describe('reset payment instruments state action', () => {
 
     expect(actionResults).toMatchObject([
       {
-        type: actionTypes.RESET_PAYMENT_INSTRUMENTS_STATE,
+        type: actionTypes.RESET_PAYMENT_INTENT_INSTRUMENTS_STATE,
       },
     ]);
   });
