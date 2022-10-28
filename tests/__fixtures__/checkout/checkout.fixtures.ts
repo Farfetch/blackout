@@ -4,18 +4,27 @@ import {
   PriceAdapted,
 } from '@farfetch/blackout-redux/src/helpers/adapters';
 import {
+  BlackoutError,
+  Category,
+  ChargeStatus,
+  CheckoutOrderItemStatus,
   CheckoutOrderStatus,
-  CreationChannel,
+  CreationChannelLegacy,
   CustomerType,
+  DeclineCode,
   DeliveryWindowType,
   GenderCode,
-  ItemStatus,
   OrderStatusError,
   ShippingCostType,
   ShippingMode,
   UserAddress,
+  UserGender,
+  UserStatus,
 } from '@farfetch/blackout-client';
-import type { DeliveryBundleEntity } from '@farfetch/blackout-redux';
+import type {
+  DeliveryBundleEntity,
+  UserEntity,
+} from '@farfetch/blackout-redux';
 
 export const checkoutId = 15338048;
 export const transactionId = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
@@ -31,8 +40,8 @@ export const merchantLocationId = 1212121212;
 export const collectPointId = 999;
 export const itemId1 = 0;
 export const itemId2 = 1;
-export const deliveryBundleUpgradeId_1 = 111;
-export const deliveryBundleUpgradeId_2 = 222;
+export const deliveryBundleUpgradeId_1 = '111';
+export const deliveryBundleUpgradeId_2 = '222';
 const merchantId = 10658;
 export const productId = 12640693;
 const brandId = 121212;
@@ -185,10 +194,10 @@ const mockCheckoutOrderItem = {
   productId: productId,
   brandName: '78 Stitches',
   checkoutOrderId: 122,
-  status: ItemStatus.Available,
+  status: CheckoutOrderItemStatus.Available,
   tags: ['GIFT'],
   quantity: 1,
-  creationChannel: CreationChannel.Mail,
+  creationChannel: CreationChannelLegacy.Mail,
   fulfillmentInfo: {
     isPreOrder: false,
     fulfillmentDate: '2020-11-06T14:19:14.4398538Z',
@@ -313,6 +322,20 @@ const mockCheckoutOrderItem = {
   productName: 'Navy Treated Bonded Cotton Dry Bag',
   productSlug: 'navy-treated-bonded-cotton-dry-bag-12640693',
   variants: [],
+  promotionDetail: {
+    totalDiscountValue: 0,
+    isProductOffer: false,
+    formattedTotalDiscountValue: '0,00 €',
+  },
+  variantId: 'f4e60000-3a25-000d-0998-08d48da399fa',
+  summary: {
+    formattedGrandTotal: '265,00 €',
+    formattedSubTotalAmount: '265,00 €',
+    formattedSubTotalOriginalAmount: '530,00 €',
+    grandTotal: 265,
+    subTotalAmount: 265,
+    subTotalOriginalAmount: 530,
+  },
 };
 
 export const mockResponse = {
@@ -770,10 +793,23 @@ export const mockCheckoutOrderItemEntity = {
   tags: mockCheckoutOrderItem.tags,
   // CheckoutOrderItemEntity new properties
   price: adaptPrice(mockCheckoutOrderItem.price) as PriceAdapted,
-  dateCreated: null,
   size: adaptAttributes(mockCheckoutOrderItem.attributes),
   merchant: mockCheckoutOrderItem.merchantId,
   product: productId,
+  promotionDetail: {
+    totalDiscountValue: 0,
+    isProductOffer: false,
+    formattedTotalDiscountValue: '0,00 €',
+  },
+  variantId: 'f4e60000-3a25-000d-0998-08d48da399fa',
+  summary: {
+    formattedGrandTotal: '265,00 €',
+    formattedSubTotalAmount: '265,00 €',
+    formattedSubTotalOriginalAmount: '530,00 €',
+    grandTotal: 265,
+    subTotalAmount: 265,
+    subTotalOriginalAmount: 530,
+  },
 };
 
 export const expectedDetailsNormalizedPayload = {
@@ -884,7 +920,9 @@ export const mockUpdateCheckoutResponse = {
 };
 
 export const mockCheckoutOrderItemProductsEntity = {
-  categories: [123],
+  categories: [mockCheckoutOrderItem.categories[0]?.id] as Array<
+    Category['id']
+  >,
   colors: [],
   tags: [''],
   customAttributes: '',
@@ -892,7 +930,7 @@ export const mockCheckoutOrderItemProductsEntity = {
   id: productId,
   isCustomizable: true,
   isExclusive: true,
-  merchant: 123,
+  merchant: mockCheckoutOrderItem.merchantId,
   name: '',
   price: {
     isFormatted: true,
@@ -957,7 +995,7 @@ const deliveryBundle = {
       itemId: itemId1,
       name: 'Standard',
       deliveryWindow: {
-        type: 'Estimated',
+        type: DeliveryWindowType.Estimated,
         min: '2020-02-09T14:38:22.228Z',
         max: '2020-02-13T14:38:22.228Z',
       },
@@ -966,17 +1004,23 @@ const deliveryBundle = {
       itemId: itemId2,
       name: 'Standard',
       deliveryWindow: {
-        type: 'Nominated',
+        type: DeliveryWindowType.Estimated,
         min: '2020-02-14T14:38:22.228Z',
         max: '2020-02-14T14:38:22.228Z',
       },
     },
   ],
+  formattedPrice: '25 €',
+  discount: 0,
+  currency: '€',
+  rank: 1,
+  itemDeliveryProvisioning: [],
 };
 
 export const deliveryBundlesEntity = {
   [deliveryBundleId]: deliveryBundle,
   '090998': {
+    ...deliveryBundle,
     id: '090998',
     name: 'fake bundle',
     isSelected: false,
@@ -991,6 +1035,17 @@ export const deliveryBundleUpgradesEntity = {
           id: deliveryBundleUpgradeId_1,
           name: 'Fast',
           itemId: itemId1,
+          index: 0,
+          isSelected: false,
+          price: 1,
+          formattedPrice: '1,00 €',
+          currency: '€',
+          rank: 1,
+          deliveryWindow: {
+            type: DeliveryWindowType.Estimated,
+            min: '2020-02-10T14:38:22.228Z',
+            max: '2020-02-13T14:38:22.228Z',
+          },
         },
       ],
     },
@@ -1000,16 +1055,27 @@ export const deliveryBundleUpgradesEntity = {
           id: deliveryBundleUpgradeId_2,
           name: 'NDD',
           itemId: itemId2,
+          index: 1,
+          isSelected: false,
+          price: 1,
+          formattedPrice: '1,00 €',
+          currency: '€',
+          rank: 2,
+          deliveryWindow: {
+            type: DeliveryWindowType.Nominated,
+            min: '2020-02-10T14:38:22.228Z',
+            max: '2020-02-13T14:38:22.228Z',
+          },
         },
       ],
     },
   },
 };
 
-export const mockCheckoutState = {
+export const mockInitialState = {
   checkout: {
     error: null,
-    id: checkoutId,
+    id: null,
     isLoading: false,
     completePaymentCheckout: {
       error: null,
@@ -1042,17 +1108,12 @@ export const mockCheckoutState = {
     checkoutOrderCharge: {
       error: null,
       isLoading: false,
-      result: {
-        id: '00000000-0000-0000-0000-000000000000',
-        status: 'Processing',
-        redirectUrl: 'some url',
-        returnUrl: 'some url',
-        cancelUrl: 'some url',
-      },
+      result: null,
     },
     checkoutOrderDeliveryBundleUpgrades: {
       error: null,
       isLoading: false,
+      result: null,
     },
     checkoutOrderDeliveryBundleProvisioning: {
       error: null,
@@ -1062,8 +1123,230 @@ export const mockCheckoutState = {
       error: null,
       isLoading: false,
     },
+    operation: {
+      error: null,
+      isLoading: false,
+    },
+    operations: {
+      error: null,
+      isLoading: false,
+      result: null,
+    },
+    removeOrderItem: {
+      error: null,
+      isLoading: false,
+    },
+    updateOrderItem: {
+      error: null,
+      isLoading: false,
+    },
+  },
+  users: {
+    error: null,
+    isLoading: false,
+    id: 56681854,
+    addresses: {
+      error: null,
+      isLoading: false,
+      result: null,
+      addresses: {
+        error: null,
+        isLoading: false,
+      },
+      address: {
+        error: {},
+        isLoading: {},
+      },
+      defaultAddressDetails: {
+        error: null,
+        isLoading: false,
+        result: null,
+      },
+    },
+    attributes: {
+      result: null,
+      error: null,
+      isLoading: false,
+    },
+    authentication: {
+      login: {
+        error: null,
+        isLoading: false,
+      },
+      logout: {
+        error: null,
+        isLoading: false,
+      },
+      register: {
+        error: null,
+        isLoading: false,
+      },
+      changePassword: {
+        error: null,
+        isLoading: false,
+      },
+      resetPassword: {
+        error: null,
+        isLoading: false,
+      },
+      recoverPassword: {
+        error: null,
+        isLoading: false,
+      },
+      validateEmail: {
+        error: null,
+        isLoading: false,
+      },
+      refreshEmailToken: {
+        error: null,
+        isLoading: false,
+      },
+      userToken: {
+        result: null,
+        error: null,
+        isLoading: false,
+      },
+    },
+    benefits: {
+      error: null,
+      isLoading: false,
+    },
+    contacts: {
+      error: null,
+      isLoading: false,
+    },
+    credits: {
+      error: null,
+      isLoading: false,
+    },
+    creditMovements: {
+      error: null,
+      isLoading: false,
+    },
+    preferences: {
+      error: null,
+      isLoading: false,
+    },
+    titles: {
+      error: null,
+      isLoading: false,
+    },
+    updatePreferences: {
+      error: null,
+      isLoading: false,
+    },
+    personalIds: {
+      error: null,
+      isLoading: false,
+      result: null,
+      defaultPersonalId: {
+        error: null,
+        isLoading: false,
+        result: null,
+      },
+    },
+  },
+  payments: {
+    paymentIntentCharge: {
+      error: null,
+      isLoading: false,
+      result: null,
+    },
+    userCreditBalance: {
+      error: null,
+      isLoading: false,
+      result: null,
+    },
+    giftCardBalance: {
+      error: null,
+      isLoading: false,
+      result: null,
+    },
+    paymentIntentInstruments: {
+      error: null,
+      isLoading: false,
+      result: null,
+    },
+    paymentIntent: {
+      error: null,
+      isLoading: false,
+      result: null,
+    },
+    paymentMethods: {
+      error: null,
+      isLoading: false,
+      result: null,
+    },
+    paymentTokens: {
+      error: null,
+      result: null,
+      isLoading: false,
+    },
   },
   entities: {
+    user: {
+      bagId: 'ada57d80-62a7-4cb4-8de4-f8937fe53213',
+      dateOfBirth: '/Date(636854400000)/',
+      email: 'user.name@test.com',
+      gender: UserGender.Male,
+      id: 56681854,
+      name: 'User Name',
+      phoneNumber: '',
+      phoneNumberConfirmed: false,
+      segments: [],
+      username: 'user.name@test.com',
+      wishlistId: '5d5ac3ee-62f3-46e3-a243-d7bc1d0c328d',
+      isExternalLogin: false,
+      isGuest: false,
+      guestBagItemsMerged: 0,
+      status: UserStatus.PendingEmailConfirmation,
+      lastName: 'Name',
+      firstName: 'User',
+      bag: null,
+      wishlist: null,
+      membership: null,
+      loyalty: null,
+      createdDate: '/Date(1601300185332)/',
+      updatedDate: '/Date(1655722263553)/',
+      countryCode: 'PT',
+    } as UserEntity,
+  },
+};
+
+export const mockCheckoutState = {
+  ...mockInitialState,
+  checkout: {
+    ...mockInitialState.checkout,
+    id: checkoutId,
+    checkoutOrderCharge: {
+      error: null,
+      isLoading: false,
+      result: {
+        id: chargeId,
+        status: ChargeStatus.Processing,
+        redirectUrl: 'some url',
+        returnUrl: 'some url',
+        cancelUrl: 'some url',
+        chargeInstruments: [
+          {
+            id: '00000000-0000-0000-0000-000000000000',
+            operationStatus: ChargeStatus.Processing,
+            declineCode: DeclineCode.NotApplicable,
+          },
+        ],
+      },
+    },
+  },
+  payments: {
+    ...mockInitialState.payments,
+    paymentIntentInstruments: {
+      error: null,
+      isLoading: false,
+      result: [],
+    },
+  },
+  entities: {
+    ...mockInitialState.entities,
     checkout: { [checkoutId]: checkoutEntity },
     checkoutOrders: { [checkoutOrderId]: checkoutOrderEntity },
     checkoutOrderItems: {
@@ -1077,25 +1360,130 @@ export const mockCheckoutState = {
     },
     deliveryBundles: deliveryBundlesEntity,
     deliveryBundleUpgrades: deliveryBundleUpgradesEntity,
+    merchants: {
+      [mockCheckoutOrderItem.merchantId]: {
+        id: 12455,
+        name: 'Test Merchant',
+        shoppingUrl: 'http://www.merchant.com',
+      },
+    },
+    categories: {
+      136301: {
+        color: {
+          id: 112495,
+          name: 'Black',
+        },
+        tags: ['MainColor'],
+        id: 136301,
+        name: 'Shoes',
+        gender: GenderCode.Man,
+      },
+    },
+  },
+};
+
+export const mockCheckoutStateWithoutDetails = {
+  ...mockCheckoutState,
+  entities: {
+    ...mockCheckoutState.entities,
+    checkoutDetails: {},
   },
 };
 
 export const mockLoadingState = {
+  ...mockInitialState,
   checkout: {
-    ...mockCheckoutState.checkout,
-    id: checkoutId,
-    error: null,
+    ...mockInitialState.checkout,
     isLoading: true,
+    collectPoints: {
+      ...mockInitialState.checkout.collectPoints,
+      isLoading: true,
+    },
+    checkoutOrderCharge: {
+      ...mockInitialState.checkout.checkoutOrderCharge,
+      isLoading: true,
+    },
+    checkoutOrderDetails: {
+      ...mockInitialState.checkout.checkoutOrderDetails,
+      isLoading: true,
+    },
   },
-  entities: {},
 };
 
 export const mockErrorState = {
+  ...mockInitialState,
   checkout: {
-    ...mockCheckoutState.checkout,
-    id: checkoutId,
-    error: 'Error: Checkout with error',
-    isLoading: false,
+    ...mockInitialState.checkout,
+    error: new Error('dummy error') as BlackoutError,
+    collectPoints: {
+      ...mockInitialState.checkout.collectPoints,
+      error: new Error('dummy error') as BlackoutError,
+    },
+    checkoutOrderCharge: {
+      ...mockInitialState.checkout.checkoutOrderCharge,
+      error: new Error('dummy error') as BlackoutError,
+    },
+    checkoutOrderDetails: {
+      ...mockInitialState.checkout.checkoutOrderDetails,
+      error: new Error('dummy error') as BlackoutError,
+    },
   },
-  entities: {},
+};
+
+export const mockInitialStateWithoutUser = {
+  ...mockInitialState,
+  entities: {
+    ...mockInitialState.entities,
+    user: undefined,
+  },
+};
+
+export const mockInitialStateWithGuestUser = {
+  ...mockInitialState,
+  entities: {
+    ...mockInitialState.entities,
+    user: {
+      ...mockInitialState.entities.user,
+      isGuest: true,
+    },
+  },
+};
+
+export const mockCheckoutStateWithGuestUser = {
+  ...mockCheckoutState,
+  entities: {
+    ...mockCheckoutState.entities,
+    user: mockInitialStateWithGuestUser.entities.user,
+  },
+};
+
+export const mockCheckoutOrderResultDenormalized = {
+  ...checkoutEntity,
+  checkoutOrder: {
+    ...checkoutOrderEntity,
+    items: [
+      {
+        ...mockCheckoutOrderItemEntity,
+        merchant:
+          mockCheckoutState.entities.merchants[
+            mockCheckoutOrderItemEntity.merchant
+          ],
+        product: {
+          ...mockCheckoutOrderItemProductsEntity,
+          categories: [mockCheckoutState.entities.categories[136301]],
+          merchant:
+            mockCheckoutState.entities.merchants[
+              mockCheckoutOrderItemEntity.merchant
+            ],
+          labels: [],
+        },
+      },
+    ],
+  },
+};
+
+export const mockCheckoutDetailsEntityDenormalized = {
+  checkoutOrder: mockCheckoutOrderResultDenormalized.checkoutOrder,
+  registered: true,
+  shippingOptions: [],
 };

@@ -21,8 +21,8 @@ import type { FetchPaymentIntentInstrumentAction } from '../../types';
 const fetchPaymentIntentInstrumentFactory =
   (getPaymentIntentInstrument: GetPaymentIntentInstrument) =>
   (
-    intentId: PaymentIntent['id'],
-    instrumentId: PaymentInstrument['id'],
+    paymentIntentId: PaymentIntent['id'],
+    paymentInstrumentId: PaymentInstrument['id'],
     config?: Config,
   ) =>
   async (
@@ -34,8 +34,8 @@ const fetchPaymentIntentInstrumentFactory =
       });
 
       const result = await getPaymentIntentInstrument(
-        intentId,
-        instrumentId,
+        paymentIntentId,
+        paymentInstrumentId,
         config,
       );
 

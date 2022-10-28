@@ -15,7 +15,7 @@ export { default as fetchPaymentTokens } from './fetchPaymentTokens';
 export { default as removePaymentIntentInstrument } from './removePaymentIntentInstrument';
 export { default as removePaymentToken } from './removePaymentToken';
 export { default as resetGiftCardBalanceState } from './resetGiftCardBalanceState';
-export { default as resetPaymentInstrumentsState } from './resetPaymentInstrumentsState';
+export { default as resetPaymentIntentInstrumentsState } from './resetPaymentIntentInstrumentsState';
 export { default as resetPaymentIntentChargeState } from './resetPaymentIntentChargeState';
 export { default as resetPaymentIntentState } from './resetPaymentIntentState';
 export { default as resetPaymentMethodsState } from './resetPaymentMethodsState';

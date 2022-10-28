@@ -5,7 +5,6 @@ import type { Product } from '../../products/types';
 
 export type PostCheckoutOrderData = {
   guestUserEmail?: string;
-  usePaymentIntent?: boolean;
   shippingMode?: ShippingMode;
 };
 

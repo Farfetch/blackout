@@ -95,8 +95,9 @@ describe('useContentPage', () => {
             { enableAutoFetch: false },
           ),
         {
-        wrapper: withStore(mockContentPageInitialState),
-      });
+          wrapper: withStore(mockContentPageInitialState),
+        },
+      );
 
       expect(fetchContentPage).not.toHaveBeenCalled();
     });

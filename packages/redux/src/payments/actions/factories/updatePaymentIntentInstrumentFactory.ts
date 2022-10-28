@@ -20,8 +20,8 @@ import type { UpdatePaymentIntentInstrumentAction } from '../../types';
 const updatePaymentIntentInstrumentFactory =
   (putPaymentIntentInstrument: PutPaymentIntentInstrument) =>
   (
-    intentId: PaymentIntent['id'],
-    instrumentId: PaymentInstrument['id'],
+    paymentIntentId: PaymentIntent['id'],
+    paymentInstrumentId: PaymentInstrument['id'],
     data: PutPaymentIntentInstrumentData,
     config?: Config,
   ) =>
@@ -34,8 +34,8 @@ const updatePaymentIntentInstrumentFactory =
       });
 
       const result = await putPaymentIntentInstrument(
-        intentId,
-        instrumentId,
+        paymentIntentId,
+        paymentInstrumentId,
         data,
         config,
       );

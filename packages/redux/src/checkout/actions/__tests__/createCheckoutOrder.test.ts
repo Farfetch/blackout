@@ -29,7 +29,6 @@ describe('createCheckoutOrder() action creator', () => {
   const checkoutMockStore = (state = {}) =>
     mockStore({ checkout: INITIAL_STATE }, state, mockMiddlewares);
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
-  const usePaymentIntent = true;
   const bagId = '3243-343424-2545';
   const guestUserEmail = 'optional@optinal.com';
   const expectedConfig = undefined;
@@ -46,7 +45,7 @@ describe('createCheckoutOrder() action creator', () => {
     (postCheckoutOrder as jest.Mock).mockRejectedValueOnce(expectedError);
     expect.assertions(4);
 
-    await createCheckoutOrder({ bagId, usePaymentIntent, guestUserEmail })(
+    await createCheckoutOrder({ bagId, guestUserEmail })(
       store.dispatch,
       store.getState as () => StoreState,
       { getOptions },
@@ -54,7 +53,7 @@ describe('createCheckoutOrder() action creator', () => {
       expect(error).toBe(expectedError);
       expect(postCheckoutOrder).toHaveBeenCalledTimes(1);
       expect(postCheckoutOrder).toHaveBeenCalledWith(
-        { bagId, usePaymentIntent, guestUserEmail },
+        { bagId, guestUserEmail },
         expectedConfig,
       );
       expect(store.getActions()).toEqual(
@@ -72,7 +71,7 @@ describe('createCheckoutOrder() action creator', () => {
   it('should create the correct actions for when the create checkout procedure is successful', async () => {
     (postCheckoutOrder as jest.Mock).mockResolvedValueOnce(mockResponse);
 
-    await createCheckoutOrder({ bagId, usePaymentIntent, guestUserEmail })(
+    await createCheckoutOrder({ bagId, guestUserEmail })(
       store.dispatch,
       store.getState as () => StoreState,
       { getOptions },
@@ -86,7 +85,7 @@ describe('createCheckoutOrder() action creator', () => {
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(postCheckoutOrder).toHaveBeenCalledTimes(1);
     expect(postCheckoutOrder).toHaveBeenCalledWith(
-      { bagId, usePaymentIntent, guestUserEmail },
+      { bagId, guestUserEmail },
       expectedConfig,
     );
 

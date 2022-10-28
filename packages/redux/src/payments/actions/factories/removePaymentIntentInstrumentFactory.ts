@@ -19,8 +19,8 @@ import type { RemovePaymentIntentInstrumentAction } from '../../types';
 const removePaymentIntentInstrumentFactory =
   (deletePaymentIntentInstrument: DeletePaymentIntentInstrument) =>
   (
-    intentId: PaymentIntent['id'],
-    instrumentId: PaymentInstrument['id'],
+    paymentIntentId: PaymentIntent['id'],
+    paymentInstrumentId: PaymentInstrument['id'],
     config?: Config,
   ) =>
   async (
@@ -32,13 +32,13 @@ const removePaymentIntentInstrumentFactory =
       });
 
       const result = await deletePaymentIntentInstrument(
-        intentId,
-        instrumentId,
+        paymentIntentId,
+        paymentInstrumentId,
         config,
       );
 
       dispatch({
-        meta: { instrumentId },
+        meta: { instrumentId: paymentInstrumentId },
         type: actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_SUCCESS,
       });
 

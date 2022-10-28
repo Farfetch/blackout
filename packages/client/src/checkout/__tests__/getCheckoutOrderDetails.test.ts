@@ -1,13 +1,13 @@
 import * as checkoutClient from '..';
 import {
   AttributeType,
+  CheckoutOrderItemStatus,
   CheckoutOrderStatus,
   CreationChannel,
   CustomerType,
   DeliveryWindowType,
   GenderCode,
   GetCheckoutOrderDetailsResponse,
-  ItemStatus,
   PurchaseChannel,
   ShippingCostType,
   ShippingMode,
@@ -152,7 +152,7 @@ describe('checkout client', () => {
               productName: 'string',
               productSlug: 'string',
               quantity: 0,
-              status: ItemStatus.Available,
+              status: CheckoutOrderItemStatus.Available,
               categories: [
                 {
                   id: 0,

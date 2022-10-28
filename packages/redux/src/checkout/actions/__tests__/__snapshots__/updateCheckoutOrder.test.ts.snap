@@ -56,7 +56,6 @@ Object {
             },
           ],
           "customAttributes": "",
-          "description": undefined,
           "id": 12640693,
           "images": Array [
             Object {
@@ -68,7 +67,6 @@ Object {
               "url": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg",
             },
           ],
-          "isAvailable": undefined,
           "isCustomizable": true,
           "isExclusive": true,
           "merchant": 12455,
@@ -102,7 +100,6 @@ Object {
             },
             "type": undefined,
           },
-          "sizes": undefined,
           "slug": "navy-treated-bonded-cotton-dry-bag-12640693",
           "variants": Array [],
         },
@@ -112,14 +109,14 @@ Object {
           "brandId": 121212,
           "brandName": "78 Stitches",
           "checkoutOrderId": 122,
-          "creationChannel": "Mail",
-          "dateCreated": null,
+          "creationChannel": 1,
           "fulfillmentInfo": Object {
             "fulfillmentDate": "2020-11-06T14:19:14.4398538Z",
             "isPreOrder": false,
           },
           "id": 30380051,
           "merchant": 12455,
+          "merchantShoppingUrl": "http://www.merchant.com",
           "price": Object {
             "discount": Object {
               "excludingTaxes": 0,
@@ -165,6 +162,11 @@ Object {
             ],
           },
           "promocodeDiscountPercentage": 123,
+          "promotionDetail": Object {
+            "formattedTotalDiscountValue": "0,00 €",
+            "isProductOffer": false,
+            "totalDiscountValue": 0,
+          },
           "quantity": 1,
           "scale": "",
           "size": Object {
@@ -173,9 +175,18 @@ Object {
           },
           "sizeDescription": "",
           "status": 0,
+          "summary": Object {
+            "formattedGrandTotal": "265,00 €",
+            "formattedSubTotalAmount": "265,00 €",
+            "formattedSubTotalOriginalAmount": "530,00 €",
+            "grandTotal": 265,
+            "subTotalAmount": 265,
+            "subTotalOriginalAmount": 530,
+          },
           "tags": Array [
             "GIFT",
           ],
+          "variantId": "f4e60000-3a25-000d-0998-08d48da399fa",
         },
       },
       "checkoutOrders": Object {
@@ -407,7 +418,6 @@ Object {
         "12455": Object {
           "id": 12455,
           "name": "Test Merchant",
-          "shoppingUrl": "http://www.merchant.com",
         },
       },
     },
@@ -473,7 +483,6 @@ Object {
             },
           ],
           "customAttributes": "",
-          "description": undefined,
           "id": 12640693,
           "images": Array [
             Object {
@@ -485,7 +494,6 @@ Object {
               "url": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg",
             },
           ],
-          "isAvailable": undefined,
           "isCustomizable": true,
           "isExclusive": true,
           "merchant": 12455,
@@ -519,7 +527,6 @@ Object {
             },
             "type": undefined,
           },
-          "sizes": undefined,
           "slug": "navy-treated-bonded-cotton-dry-bag-12640693",
           "variants": Array [],
         },
@@ -529,14 +536,14 @@ Object {
           "brandId": 121212,
           "brandName": "78 Stitches",
           "checkoutOrderId": 122,
-          "creationChannel": "Mail",
-          "dateCreated": null,
+          "creationChannel": 1,
           "fulfillmentInfo": Object {
             "fulfillmentDate": "2020-11-06T14:19:14.4398538Z",
             "isPreOrder": false,
           },
           "id": 30380051,
           "merchant": 12455,
+          "merchantShoppingUrl": "http://www.merchant.com",
           "price": Object {
             "discount": Object {
               "excludingTaxes": 0,
@@ -582,6 +589,11 @@ Object {
             ],
           },
           "promocodeDiscountPercentage": 123,
+          "promotionDetail": Object {
+            "formattedTotalDiscountValue": "0,00 €",
+            "isProductOffer": false,
+            "totalDiscountValue": 0,
+          },
           "quantity": 1,
           "scale": "",
           "size": Object {
@@ -590,9 +602,18 @@ Object {
           },
           "sizeDescription": "",
           "status": 0,
+          "summary": Object {
+            "formattedGrandTotal": "265,00 €",
+            "formattedSubTotalAmount": "265,00 €",
+            "formattedSubTotalOriginalAmount": "530,00 €",
+            "grandTotal": 265,
+            "subTotalAmount": 265,
+            "subTotalOriginalAmount": 530,
+          },
           "tags": Array [
             "GIFT",
           ],
+          "variantId": "f4e60000-3a25-000d-0998-08d48da399fa",
         },
       },
       "checkoutOrders": Object {
@@ -824,7 +845,6 @@ Object {
         "12455": Object {
           "id": 12455,
           "name": "Test Merchant",
-          "shoppingUrl": "http://www.merchant.com",
         },
       },
     },

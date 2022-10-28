@@ -25,10 +25,6 @@ export const isAuthenticated = (state: StoreState) =>
   Boolean(getUser(state) && !getUser(state)?.isGuest && getUser(state)?.id);
 
 /**
- * Returns the error or loading status of each sub-area.
- */
-
-/**
  * Returns the loading status for the login operation.
  *
  * @param state - Application state.
