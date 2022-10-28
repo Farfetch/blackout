@@ -5,7 +5,9 @@ import {
   expectedPaymentTokensNormalizedPayload,
   instrumentId,
   mockFetchInstrumentsNormalizedPayload,
+  mockFetchInstrumentsResponse,
   mockInitialState,
+  mockPaymentInstrumentsWithDataState,
   paymentTokenId,
 } from 'tests/__fixtures__/payments';
 import { selectorAssertions } from '../../../tests/helpers';
@@ -129,20 +131,26 @@ describe('Payments redux selectors', () => {
   });
 
   describe('Instruments', () => {
-    describe('getPaymentInstruments()', () => {
+    describe('getPaymentIntentInstruments()', () => {
       it('should get the payment instruments item from state', () => {
-        const spy = jest.spyOn(fromEntities, 'getEntities');
-        expect(selectors.getPaymentInstruments(mockState)).toEqual(
-          mockFetchInstrumentsNormalizedPayload.entities.paymentInstruments,
-        );
-        expect(spy).toHaveBeenCalledWith(mockState, 'paymentInstruments');
+        expect(
+          selectors.getPaymentIntentInstruments(
+            mockPaymentInstrumentsWithDataState,
+          ),
+        ).toEqual([
+          mockFetchInstrumentsNormalizedPayload.entities.paymentInstruments[
+            mockFetchInstrumentsResponse[0]?.id
+          ],
+        ]);
       });
     });
 
-    describe('getPaymentInstrument()', () => {
+    describe('getPaymentIntentInstrument()', () => {
       it('should get the payment instrument item from state', () => {
         const spy = jest.spyOn(fromEntities, 'getEntityById');
-        expect(selectors.getPaymentInstrument(mockState, instrumentId)).toEqual(
+        expect(
+          selectors.getPaymentIntentInstrument(mockState, instrumentId),
+        ).toEqual(
           mockFetchInstrumentsNormalizedPayload.entities.paymentInstruments[
             instrumentId
           ],
@@ -158,7 +166,7 @@ describe('Payments redux selectors', () => {
 
   describe('Sub-areas selectors', () => {
     const subAreaNames = [
-      'PaymentInstruments',
+      'PaymentIntentInstruments',
       'GiftCardBalance',
       'UserCreditBalance',
       'PaymentIntent',
@@ -186,7 +194,7 @@ describe('Payments redux selectors', () => {
     describe('sub-areas result selectors', () => {
       selectorAssertions.assertSubAreasResultSelector(
         [
-          'PaymentInstruments',
+          'PaymentIntentInstruments',
           'GiftCardBalance',
           'UserCreditBalance',
           'PaymentIntent',

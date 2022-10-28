@@ -4,6 +4,10 @@ import type {
   ProductImagesAdapted,
 } from '../../helpers/adapters';
 import type { CheckoutOrderItem } from '@farfetch/blackout-client';
+import type {
+  CheckoutOrderItemProductEntityDenormalized,
+  MerchantEntity,
+} from '..';
 
 export type CheckoutOrderItemEntity = Omit<
   CheckoutOrderItem,
@@ -11,14 +15,11 @@ export type CheckoutOrderItemEntity = Omit<
   | 'categories'
   | 'colors'
   | 'customAttributes'
-  | 'dateCreated'
   | 'images'
-  | 'isAvailable'
   | 'isCustomizable'
   | 'isExclusive'
   | 'merchantId'
   | 'merchantName'
-  | 'merchantShoppingUrl'
   | 'price'
   | 'productAggregator'
   | 'productDescription'
@@ -26,15 +27,21 @@ export type CheckoutOrderItemEntity = Omit<
   | 'productName'
   | 'productSlug'
   | 'size'
-  | 'sizes'
   | 'variants'
 > & {
   price: PriceAdapted;
-  dateCreated: number | null;
   size: AttributesAdapted;
   merchant: CheckoutOrderItem['merchantId'];
   product: CheckoutOrderItem['productId'];
   productAggregator?: Omit<CheckoutOrderItem['productAggregator'], 'images'> & {
     images: ProductImagesAdapted;
   };
+};
+
+export type CheckoutOrderItemEntityDenormalized = Omit<
+  CheckoutOrderItemEntity,
+  'product' | 'merchant'
+> & {
+  product: CheckoutOrderItemProductEntityDenormalized | undefined;
+  merchant: MerchantEntity | undefined;
 };

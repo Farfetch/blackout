@@ -8,7 +8,6 @@ import {
   mockCommercePagesState,
 } from 'tests/__fixtures__/contents';
 import { fetchCommercePages } from '@farfetch/blackout-redux';
-import { Strategy } from '../types/useCommercePages.types';
 import { withStore } from '../../../../tests/helpers';
 import useCommercePages from '../useCommercePages';
 

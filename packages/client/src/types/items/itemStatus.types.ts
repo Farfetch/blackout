@@ -1,5 +1,5 @@
 // Checkout item types
-export enum ItemStatus {
+export enum CheckoutOrderItemStatus {
   Available,
   NoStock,
   NotEnoughStock,

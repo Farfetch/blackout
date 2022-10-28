@@ -2,7 +2,6 @@ import {
   adaptCustomAttributes,
   adaptPrice,
   adaptProductImages,
-  adaptProductSizes,
 } from '../../helpers/adapters';
 import { schema } from 'normalizr';
 import category from './category';
@@ -29,7 +28,6 @@ export default new schema.Entity(
         customAttributes,
         images,
         price,
-        sizes,
         variants,
         productImgQueryParam,
         ...item
@@ -41,7 +39,6 @@ export default new schema.Entity(
         customAttributes: adaptCustomAttributes(customAttributes),
         images: adaptProductImages(imagesToAdapt, { productImgQueryParam }),
         price: adaptPrice(priceToAdapt),
-        sizes: adaptProductSizes(sizes, variants),
         variants: adaptVariants(variants),
         ...item,
       };

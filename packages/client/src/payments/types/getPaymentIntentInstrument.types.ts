@@ -2,7 +2,7 @@ import type { Config } from '../../types';
 import type { PaymentInstrument, PaymentIntent } from '.';
 
 export type GetPaymentIntentInstrument = (
-  intentId: PaymentIntent['id'],
-  instrumentId: PaymentInstrument['id'],
+  paymentIntentId: PaymentIntent['id'],
+  paymentInstrumentId: PaymentInstrument['id'],
   config?: Config,
 ) => Promise<PaymentInstrument>;

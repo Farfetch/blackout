@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import {
   Config,
-  PaymentInstrument,
+  PaymentIntent,
   PostPaymentIntentInstrument,
   PostPaymentIntentInstrumentData,
   PostPaymentIntentInstrumentResponse,
@@ -20,7 +20,7 @@ import type { Dispatch } from 'redux';
 const createPaymentIntentInstrumentFactory =
   (postPaymentIntentInstrument: PostPaymentIntentInstrument) =>
   (
-    id: PaymentInstrument['id'],
+    paymentIntentId: PaymentIntent['id'],
     data: PostPaymentIntentInstrumentData,
     config?: Config,
   ) =>
@@ -32,7 +32,11 @@ const createPaymentIntentInstrumentFactory =
         type: actionTypes.CREATE_PAYMENT_INTENT_INSTRUMENT_REQUEST,
       });
 
-      const result = await postPaymentIntentInstrument(id, data, config);
+      const result = await postPaymentIntentInstrument(
+        paymentIntentId,
+        data,
+        config,
+      );
 
       dispatch({
         type: actionTypes.CREATE_PAYMENT_INTENT_INSTRUMENT_SUCCESS,

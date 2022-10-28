@@ -20,7 +20,7 @@ import type { FetchPaymentIntentInstrumentsAction } from '../../types';
  */
 const fetchPaymentIntentInstrumentsFactory =
   (getPaymentIntentInstruments: GetPaymentIntentInstruments) =>
-  (intentId: PaymentIntent['id'], config?: Config) =>
+  (paymentIntentId: PaymentIntent['id'], config?: Config) =>
   async (
     dispatch: Dispatch<FetchPaymentIntentInstrumentsAction>,
   ): Promise<PaymentInstrument[]> => {
@@ -29,7 +29,7 @@ const fetchPaymentIntentInstrumentsFactory =
         type: actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENTS_REQUEST,
       });
 
-      const result = await getPaymentIntentInstruments(intentId, config);
+      const result = await getPaymentIntentInstruments(paymentIntentId, config);
 
       dispatch({
         payload: normalize(result, [paymentInstrumentSchema]),

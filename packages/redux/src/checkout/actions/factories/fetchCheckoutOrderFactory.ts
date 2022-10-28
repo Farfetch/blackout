@@ -24,7 +24,7 @@ const fetchCheckoutOrderFactory =
   (getCheckoutOrder: GetCheckoutOrder) =>
   (
     checkoutOrderId: CheckoutOrder['id'],
-    query: GetCheckoutOrderQuery,
+    query?: GetCheckoutOrderQuery,
     config?: Config,
   ) =>
   async (

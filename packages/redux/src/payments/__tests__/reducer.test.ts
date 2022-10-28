@@ -54,7 +54,7 @@ describe('payments reducer', () => {
               isLoading: true,
               result: null,
             },
-            paymentInstruments: {
+            paymentIntentInstruments: {
               error: null,
               isLoading: false,
               result: ['PayPalExp', 'AliPay'],
@@ -157,7 +157,7 @@ describe('payments reducer', () => {
     });
   });
 
-  describe('paymentInstruments reducer', () => {
+  describe('paymentIntentInstruments reducer', () => {
     describe('ERRORS', () => {
       it.each([
         actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_FAILURE,
@@ -170,7 +170,7 @@ describe('payments reducer', () => {
         const reducerResult = reducer(undefined, {
           payload: { error: expectedResult },
           type: actionType,
-        }).paymentInstruments;
+        }).paymentIntentInstruments;
 
         expect(reducerResult.error).toBe(expectedResult);
       });
@@ -186,10 +186,12 @@ describe('payments reducer', () => {
       ])('should handle %s action type', actionType => {
         const reducerResult = reducer(undefined, {
           type: actionType,
-        }).paymentInstruments;
+        }).paymentIntentInstruments;
 
         expect(reducerResult.isLoading).toBe(true);
-        expect(reducerResult.error).toBe(initialState.paymentInstruments.error);
+        expect(reducerResult.error).toBe(
+          initialState.paymentIntentInstruments.error,
+        );
       });
     });
 
@@ -202,10 +204,12 @@ describe('payments reducer', () => {
         const reducerResult = reducer(undefined, {
           payload: { result: expectedResult },
           type: actionType,
-        }).paymentInstruments;
+        }).paymentIntentInstruments;
 
         expect(reducerResult.isLoading).toBe(false);
-        expect(reducerResult.error).toBe(initialState.paymentInstruments.error);
+        expect(reducerResult.error).toBe(
+          initialState.paymentIntentInstruments.error,
+        );
         expect(reducerResult.result).toBe(expectedResult);
       });
 
@@ -215,17 +219,19 @@ describe('payments reducer', () => {
       ])('should handle %s action type', actionType => {
         const reducerResult = reducer(undefined, {
           type: actionType,
-        }).paymentInstruments;
+        }).paymentIntentInstruments;
 
         expect(reducerResult.isLoading).toBe(false);
-        expect(reducerResult.error).toBe(initialState.paymentInstruments.error);
+        expect(reducerResult.error).toBe(
+          initialState.paymentIntentInstruments.error,
+        );
       });
 
       it('should handle REMOVE_PAYMENT_INTENT_INSTRUMENT_SUCCESS action type', () => {
         const instrumentToRemove = 'PayPalExp';
         const mystate = {
           ...initialState,
-          paymentInstruments: {
+          paymentIntentInstruments: {
             result: ['PayPalExp', 'AliPay'],
           },
         } as PaymentsState;
@@ -234,17 +240,19 @@ describe('payments reducer', () => {
         const reducerResult = reducer(mystate, {
           meta: { instrumentId: instrumentToRemove },
           type: actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_SUCCESS,
-        }).paymentInstruments;
+        }).paymentIntentInstruments;
 
         expect(reducerResult.result).toEqual(expectedResult);
         expect(reducerResult.isLoading).toBe(false);
-        expect(reducerResult.error).toBe(initialState.paymentInstruments.error);
+        expect(reducerResult.error).toBe(
+          initialState.paymentIntentInstruments.error,
+        );
       });
 
-      it('should handle RESET_PAYMENT_INSTRUMENTS_STATE action type', () => {
+      it('should handle RESET_PAYMENT_INTENT_INSTRUMENTS_STATE action type', () => {
         const mystate = {
           ...initialState,
-          paymentInstruments: {
+          paymentIntentInstruments: {
             isLoading: true,
             error: toBlackoutError(new Error('some error')),
             result: ['instrument1', 'instrument2', 'instrument3'],
@@ -252,10 +260,10 @@ describe('payments reducer', () => {
         };
 
         const reducerResult = reducer(mystate, {
-          type: actionTypes.RESET_PAYMENT_INSTRUMENTS_STATE,
-        }).paymentInstruments;
+          type: actionTypes.RESET_PAYMENT_INTENT_INSTRUMENTS_STATE,
+        }).paymentIntentInstruments;
 
-        expect(reducerResult).toEqual(initialState.paymentInstruments);
+        expect(reducerResult).toEqual(initialState.paymentIntentInstruments);
       });
     });
   });
@@ -624,12 +632,14 @@ describe('payments reducer', () => {
 
       const expectedResult = {
         ...mockInitialState.entities,
-        paymentInstruments: {},
+        paymentInstruments: undefined,
       };
 
-      it('should handle RESET_PAYMENT_INSTRUMENTS_STATE action type', () => {
+      it('should handle RESET_PAYMENT_INTENT_INSTRUMENTS_STATE action type', () => {
         expect(
-          entitiesMapper[actionTypes.RESET_PAYMENT_INSTRUMENTS_STATE](state),
+          entitiesMapper[actionTypes.RESET_PAYMENT_INTENT_INSTRUMENTS_STATE](
+            state,
+          ),
         ).toEqual(expectedResult);
       });
     });
@@ -685,7 +695,7 @@ describe('payments reducer', () => {
         paymentIntentCharge: { ...subAreaCurrentState },
         userCreditBalance: { ...subAreaCurrentState },
         giftCardBalance: { ...subAreaCurrentState },
-        paymentInstruments: { ...subAreaCurrentState },
+        paymentIntentInstruments: { ...subAreaCurrentState },
         paymentIntent: { ...subAreaCurrentState },
         paymentMethods: { ...subAreaCurrentState },
         paymentTokens: { ...subAreaCurrentState },
@@ -695,7 +705,7 @@ describe('payments reducer', () => {
         'PaymentIntentCharge',
         'UserCreditBalance',
         'GiftCardBalance',
-        'PaymentInstruments',
+        'PaymentIntentInstruments',
         'PaymentIntent',
         'PaymentMethods',
         'PaymentTokens',

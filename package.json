@@ -27,7 +27,7 @@
     "release:build": "lerna run --concurrency 1 --stream --scope \"@farfetch/*\" build",
     "clean": "scripts/clean.sh && yarn clean:build",
     "clean:build": "lerna run --concurrency 4 --no-bail --parallel --scope \"@farfetch/*\" clean",
-    "lint": "npx eslint . --ext .js,.ts",
+    "lint": "npx eslint . --ext .js,.ts,.jsx,.tsx",
     "postinstall": "patch-package",
     "format": "prettier --write '**/*.{js,ts,json,md}'",
     "test": "rimraf coverage && yarn clean:build && jest",

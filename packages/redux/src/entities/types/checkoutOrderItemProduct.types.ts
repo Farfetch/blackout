@@ -1,11 +1,10 @@
-import type { ProductEntity } from '.';
+import type { CategoryEntity, MerchantEntity, ProductEntity } from '.';
 
 export type CheckoutOrderItemProductEntity = Pick<
   ProductEntity,
   | 'categories'
   | 'colors'
   | 'customAttributes'
-  | 'description'
   | 'id'
   | 'images'
   | 'isCustomizable'
@@ -13,7 +12,15 @@ export type CheckoutOrderItemProductEntity = Pick<
   | 'merchant'
   | 'name'
   | 'price'
-  | 'sizes'
   | 'slug'
   | 'variants'
 >;
+
+export type CheckoutOrderItemProductEntityDenormalized = Omit<
+  CheckoutOrderItemProductEntity,
+  'categories' | 'merchant'
+> & {
+  categories: CategoryEntity[] | undefined;
+  merchant: MerchantEntity | undefined;
+  labels: ProductEntity['labels'];
+};

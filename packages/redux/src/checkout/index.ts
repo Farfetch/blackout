@@ -9,4 +9,9 @@ export {
   entitiesMapper as checkoutEntitiesMapper,
 } from './reducer';
 
+export {
+  isCheckoutOrderAwaitingPayment,
+  isCheckoutOrderConfirmed,
+} from './helpers';
+
 export * from './types';

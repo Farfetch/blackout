@@ -7,7 +7,7 @@ export type PostPaymentIntentChargeData = {
 };
 
 export type PostPaymentIntentCharge = (
-  id: PaymentIntent['id'],
+  paymentIntentId: PaymentIntent['id'],
   data: PostPaymentIntentChargeData,
   config?: Config,
 ) => Promise<PostPaymentIntentChargeResponse>;

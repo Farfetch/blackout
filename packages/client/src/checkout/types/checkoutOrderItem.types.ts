@@ -1,9 +1,9 @@
 import type {
   Attribute,
   Brand,
+  CheckoutOrderItemStatus,
   Color,
-  CreationChannel,
-  ItemStatus,
+  CreationChannelLegacy,
   Price,
   Product,
   ProductCategory,
@@ -18,7 +18,7 @@ export type CheckoutOrderItem = {
   categories: ProductCategory[];
   checkoutOrderId: number;
   colors: Color[];
-  creationChannel: CreationChannel;
+  creationChannel: CreationChannelLegacy;
   customAttributes: string;
   fulfillmentInfo: {
     isPreOrder: boolean;
@@ -49,7 +49,21 @@ export type CheckoutOrderItem = {
   scale: string;
   size: string;
   sizeDescription: string;
-  status: ItemStatus;
+  status: CheckoutOrderItemStatus;
   tags: string[];
+  variantId: string;
   variants: ProductVariant[];
+  summary: {
+    formattedGrandTotal: string;
+    formattedSubTotalAmount: string;
+    formattedSubTotalOriginalAmount: string;
+    grandTotal: number;
+    subTotalAmount: number;
+    subTotalOriginalAmount: number;
+  };
+  promotionDetail: {
+    totalDiscountValue: number;
+    isProductOffer: boolean;
+    formattedTotalDiscountValue: string;
+  };
 };

@@ -13,7 +13,7 @@ describe('resetCheckout() action creator', () => {
     store = checkoutMockStore();
   });
 
-  it('should dispatch the correct action for when the reset checkout is called', () => {
+  it('should dispatch the correct action for when the reset checkout order is called', () => {
     resetCheckout()(store.dispatch);
     const actionResults = store.getActions();
 

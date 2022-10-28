@@ -6,5 +6,5 @@ import type {
 
 export type CheckoutOrderEntity = Omit<CheckoutOrder, 'items'> & {
   items: Array<CheckoutOrderItem['id']>;
-  collectpoints: Array<CollectPoint>;
+  collectpoints?: Array<CollectPoint>;
 };

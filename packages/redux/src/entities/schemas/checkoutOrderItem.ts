@@ -1,6 +1,5 @@
 import {
   adaptAttributes,
-  adaptDate,
   adaptPrice,
   adaptProductImages,
 } from '../../helpers/adapters';
@@ -18,22 +17,17 @@ export default new schema.Entity(
         categories,
         colors,
         customAttributes,
-        dateCreated,
         images,
-        isAvailable,
         isCustomizable,
         isExclusive,
         merchantId,
         merchantName,
-        merchantShoppingUrl,
         price,
         productImgQueryParam,
         productAggregator,
-        productDescription,
         productId,
         productName,
         productSlug,
-        sizes,
         variants,
         ...item
       } = value;
@@ -41,13 +35,11 @@ export default new schema.Entity(
       const finalProductImgQueryParam =
         productImgQueryParam || parent.productImgQueryParam;
 
-      item.dateCreated = adaptDate(dateCreated);
       item.size = adaptAttributes(attributes);
 
       const merchant = {
         id: merchantId,
         name: merchantName,
-        shoppingUrl: merchantShoppingUrl,
       };
 
       item.merchant = merchant;
@@ -71,17 +63,14 @@ export default new schema.Entity(
         categories,
         colors,
         customAttributes,
-        description: productDescription,
         id: productId,
         images,
-        isAvailable,
         isCustomizable,
         isExclusive,
         merchant, // NOTE: This prop is now redundant but I have kept it for backwards-compatibility. It might be better to remove this property (and maybe other properties) from here as they might clash when there are different order items for the same product but different merchants.
         name: productName,
         price, // NOTE: Same as merchant prop
         productImgQueryParam: finalProductImgQueryParam,
-        sizes,
         slug: productSlug,
         variants,
       };
