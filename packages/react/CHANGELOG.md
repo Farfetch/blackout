@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.46.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.45.1...@farfetch/blackout-react@0.46.0) (2022-11-02)
+
+
+### Features
+
+* **react:** update GA4 page view command ([cce42c8](https://github.com/Farfetch/blackout/commit/cce42c8491ea0a31e4e9b7dc31a75a0200ed50f0))
+
+
+
+
+
 ## [0.45.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.45.0...@farfetch/blackout-react@0.45.1) (2022-10-26)
 
 
