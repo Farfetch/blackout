@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.73.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.73.0...@farfetch/blackout-core@1.73.1) (2022-11-02)
+
+
+### Bug Fixes
+
+* **core:** pickup reschedule reducer ([d37403e](https://github.com/Farfetch/blackout/commit/d37403edd13be06c4c618d428ea0e294e5f1315f))
+
+
+
+
+
 # [1.73.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.72.1...@farfetch/blackout-core@1.73.0) (2022-10-26)
 
 
