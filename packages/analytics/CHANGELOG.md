@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.88](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.87...@farfetch/blackout-analytics@1.0.0-next.88) (2022-11-03)
+
+
+### Features
+
+* **analytics|react|redux:** add omnitracking's product updated events mappings ([0d8d626](https://github.com/Farfetch/blackout/commit/0d8d626da17f16f1fac370985e154c60287c4de4))
+* **analytics|react:** add omnitracking's signup newsletter mappings ([bc9a7f0](https://github.com/Farfetch/blackout/commit/bc9a7f03def5c80b1c1149808e6b5aa8b27e8389))
+* **analytics|redux:** add omnitracking's bag events mappings next ([18ddc86](https://github.com/Farfetch/blackout/commit/18ddc8686be3bdf88fe601eabc9a9a15a94794f7))
+* **analytics:** add omnitracking's filters events next ([6361ce9](https://github.com/Farfetch/blackout/commit/6361ce909d1c1ae4e73377c73059807a299368a3))
+* **analytics:** add omnitracking's interact content events mappings next ([3c7f930](https://github.com/Farfetch/blackout/commit/3c7f930c5fb117cf247827af94a34b3c7465bcad))
+* **analytics:** add omnitracking's scroll track on interact content event mappings next ([20bce8d](https://github.com/Farfetch/blackout/commit/20bce8d8f2adb3ec836e659310f7ab7f54ab1dc3))
+* **analytics:** add omnitracking's select content events mappings ([e50e456](https://github.com/Farfetch/blackout/commit/e50e4566d7c19946b716394059977b185ff9df34))
+* **analytics:** add omnitracking's wishlist events mappings next ([d3bca06](https://github.com/Farfetch/blackout/commit/d3bca0692f99e39cd7f32a476729d5ebe976f830))
+
+
+
+
+
 # [1.0.0-next.87](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.86...@farfetch/blackout-analytics@1.0.0-next.87) (2022-10-25)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
