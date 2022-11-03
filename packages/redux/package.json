@@ -38,8 +38,8 @@
     "reselect": "^4.1.5"
   },
   "peerDependencies": {
-    "@farfetch/blackout-analytics": "^1.0.0-next.47",
-    "@farfetch/blackout-client": "^2.0.0-next.182",
+    "@farfetch/blackout-analytics": "^1.0.0-next.87",
+    "@farfetch/blackout-client": "^2.0.0-next.216",
     "immer": "^9.0.6",
     "lodash": "^4.17.21",
     "redux": "^4.1.0",
