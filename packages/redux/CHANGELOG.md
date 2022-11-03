@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.333](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.332...@farfetch/blackout-redux@1.0.0-next.333) (2022-11-03)
+
+
+### Features
+
+* **analytics|react|redux:** add omnitracking's product updated events mappings ([0d8d626](https://github.com/Farfetch/blackout/commit/0d8d626da17f16f1fac370985e154c60287c4de4))
+* **analytics|redux:** add omnitracking's bag events mappings next ([18ddc86](https://github.com/Farfetch/blackout/commit/18ddc8686be3bdf88fe601eabc9a9a15a94794f7))
+* **react|redux:** change analytics dependencies on react and redux projects ([1a529ab](https://github.com/Farfetch/blackout/commit/1a529ab3fee464c0b3393bf5a4a5ad7fbe89a6b9))
+
+
+
+
+
 # [1.0.0-next.332](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.331...@farfetch/blackout-redux@1.0.0-next.332) (2022-10-25)
 
 
