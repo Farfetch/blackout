@@ -1,91 +1,87 @@
 import {
-  fetchCommercePages as fetchCommercePagesAction,
+  ContentTypeCode,
+  fetchCommercePages,
+  getContentByQuery,
   getContentError,
   getContents,
+  isContentFetched,
   isContentLoading,
-  resetContents as resetContentsAction,
   StoreState,
 } from '@farfetch/blackout-redux';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction';
-import type { CommercePagesParams } from '../types';
+import type { ComponentType } from '@farfetch/blackout-client';
+import type { UseCommercePagesOptions } from './types/useCommercePages.types';
 
-/**
- * Hook to return actions and selectors for Commerce page data. The action to fetch
- * content will be automatically called so there is no need to refetch.
- *
- * @param slug      - Slug of the commerce page to fetch for data.
- * @param params    - The target parameters that a commerce page is configured.
- * @param pageIndex - Number of the page to get, starting at 1. The default is 1.
- * @param pageSize  - Size of each page, as a number between 1 and 180. The default is 60.
- * @param strategy  - Strategy to get best ranking commerce page.
- *
- * @returns - Returns actions and selectors for commerce page data.
- */
-const useCommercePages = (
-  slug: string,
-  params: CommercePagesParams,
-  pageIndex?: number,
-  pageSize?: number,
-  strategy = 'default',
+const useCommercePages = <T = ComponentType[]>(
+  options: UseCommercePagesOptions,
 ) => {
-  const queryCommerce = {
-    type: params.type,
-    id: params?.id,
-    gender: params?.gender,
-    brand: params?.brand,
-    category: params?.category,
-    priceType: params?.priceType,
-    sku: params?.sku,
-    pageSize,
-    pageIndex,
-  };
-  const queryContent = {
-    codes: slug,
-    contentTypeCode: 'commerce_pages',
-    pageIndex,
-    pageSize,
-  };
+  const {
+    enableAutoFetch = true,
+    fetchConfig,
+    strategy,
+    ...fetchQuery
+  } = options;
+
+  const query = useMemo(
+    () => ({
+      contentTypeCode: ContentTypeCode.CommercePages,
+      ...fetchQuery,
+    }),
+    [fetchQuery],
+  );
   const error = useSelector((state: StoreState) =>
-    getContentError(state, queryContent),
+    getContentError(state, query),
   );
   const isLoading = useSelector((state: StoreState) =>
-    isContentLoading(state, queryContent),
+    isContentLoading(state, query),
   );
-  const commercePage = useSelector((state: StoreState) =>
-    getContents(state, queryContent),
+  const isFetched = useSelector((state: StoreState) =>
+    isContentFetched(state, query),
   );
-  const action = useAction(fetchCommercePagesAction);
-  const fetchCommercePages = () => action(queryCommerce, slug, strategy);
-  const resetContents = useAction(resetContentsAction);
+  const entries = useSelector((state: StoreState) =>
+    getContents<T>(state, query),
+  );
+  const contentGroup = useSelector((state: StoreState) =>
+    getContentByQuery(state, query),
+  );
+  const fetchCommercePagesAction = useAction(fetchCommercePages);
+
+  const fetch = useCallback(
+    () => fetchCommercePagesAction(fetchQuery, strategy, fetchConfig),
+    [fetchCommercePagesAction, fetchQuery, strategy, fetchConfig],
+  );
+
+  const data = useMemo(
+    () =>
+      !entries || !contentGroup
+        ? undefined
+        : {
+            entries,
+            pagination: {
+              pageIndex: contentGroup?.number,
+              totalPages: contentGroup?.totalPages,
+              totalItems: contentGroup?.totalItems,
+            },
+          },
+    [contentGroup, entries],
+  );
 
   useEffect(() => {
-    !commercePage && fetchCommercePages();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [commercePage, slug]);
+    if (!isLoading && !error && !isFetched && enableAutoFetch) {
+      fetch();
+    }
+  }, [enableAutoFetch, error, fetch, isFetched, isLoading]);
 
   return {
-    /**
-     * Get the result for a specific Commerce Page.
-     */
-    commercePage,
-    /**
-     * Reset contents.
-     */
-    resetContents,
-    /**
-     * Loading state for a specific Commerce Page.
-     */
     isLoading,
-    /**
-     * Error state for a specific Commerce Page.
-     */
+    isFetched,
     error,
-    /**
-     * Fetch Commerce Page content for a specific slug.
-     */
-    fetchCommercePages,
+    data,
+    actions: {
+      fetch,
+    },
   };
 };
 

@@ -9,8 +9,10 @@ import type {
   CommercePagesContent,
   ComponentType,
   Metadata,
+  QueryCommercePages,
+  QuerySearchContents,
 } from '@farfetch/blackout-client';
-import type { GenerateSEOPathnameQuery, QueryContentHash } from './types';
+import type { GenerateSEOPathnameQuery } from './types';
 
 /**
  * Constant that represent all possible static values to apply to an environment
@@ -239,7 +241,9 @@ export const getRankedCommercePage = (
  *
  * @returns - Hash built to identify a content.
  */
-export const generateContentHash = (query: QueryContentHash): string => {
+export const generateContentHash = (
+  query: QuerySearchContents | QueryCommercePages,
+): string => {
   if (
     isEmpty(query) ||
     (!get(query, 'contentTypeCode') && !get(query, 'codes'))
@@ -247,8 +251,19 @@ export const generateContentHash = (query: QueryContentHash): string => {
     return '';
   }
 
-  const contentType = get(query, 'contentTypeCode', 'all');
+  const contentTypeCode = get(query, 'contentTypeCode', 'all');
   const codes = get(query, 'codes', 'all');
+  const pageSize = get(query, 'pageSize', '');
+  const page = get(query, 'page', '');
+  const pageIndex = get(query, 'pageIndex', '');
+  const sort = get(query, 'sort', '');
+  const metadataSearchTagsValues = get(query, 'metadataSearchTagsValues', '');
+  const id = get(query, 'id', '');
+  const gender = get(query, 'gender', '');
+  const brand = get(query, 'brand', '');
+  const category = get(query, 'category', '');
+  const sku = get(query, 'sku', '');
+  const priceType = get(query, 'priceType', '');
   const targets = [
     get(query, 'target.benefits', ''),
     get(query, 'target.country', ''),
@@ -257,8 +272,23 @@ export const generateContentHash = (query: QueryContentHash): string => {
   ]
     .filter(Boolean)
     .join();
-  const pageSize = get(query, 'pageSize', '');
-  const hash = [contentType, codes, targets, pageSize];
+
+  const hash = [
+    contentTypeCode,
+    codes,
+    targets,
+    pageSize,
+    page,
+    pageIndex,
+    sort,
+    metadataSearchTagsValues,
+    id,
+    gender,
+    brand,
+    category,
+    sku,
+    priceType,
+  ];
 
   return hash.filter(Boolean).join('!');
 };

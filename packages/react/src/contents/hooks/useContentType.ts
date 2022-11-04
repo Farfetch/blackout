@@ -1,86 +1,85 @@
 import {
-  fetchContents as fetchContentsAction,
+  fetchContents,
+  getContentByQuery,
   getContentError,
   getContents,
+  isContentFetched,
   isContentLoading,
   StoreState,
 } from '@farfetch/blackout-redux';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction';
-import type { Params } from '../types';
+import type { ComponentType } from '@farfetch/blackout-client';
+import type { UseContentTypeOptions } from './types/useContentType.types';
 
-/**
- * Hook to return actions and selectors for custom content type data. The action to
- * fetch content will be automatically called so there is no need to refetch.
- *
- * @param codes           - List of codes that representing the content code
- *                          (about-us|today-news|header|productId...).
- * @param contentTypeCode - The custom content type unique code (e.g. 'careers').
- * @param params          - The target parameters that a content page is configured.
- * @param pageSize        - Size of each page, as a number between 1 and 180. The default is 60.
- *
- * @returns - Returns actions and selectors for custom content type data.
- */
-const useContentType = (
-  codes: string | string[],
+function useContentType<T = ComponentType[]>(
   contentTypeCode: string,
-  spaceCode: string,
-  params?: Params,
-  pageSize?: number,
-) => {
-  const query = {
-    ...(codes && { codes }),
-    contentTypeCode,
-    spaceCode,
-    // @ts-ignore
-    // dotenv does´t exist in this BOX and typing `process` will generate an error in tests.
-    environmentCode:
-      params?.environmentcode || process.env.WEB_APP_CONTENT_ENV || '',
-    target: {
-      country: params?.countryCode,
-      language: params?.cultureCode,
-      benefits: params?.benefits,
-      contentzone: params?.contentzone,
-      preview: params?.preview,
-    },
-    pageSize,
-  };
-  const isContentTypeLoading = useSelector((state: StoreState) =>
-    isContentLoading(state, query),
+  {
+    enableAutoFetch = true,
+    fetchConfig,
+    ...queryParams
+  }: UseContentTypeOptions,
+) {
+  const query = useMemo(
+    () => ({
+      ...queryParams,
+      contentTypeCode,
+    }),
+    [contentTypeCode, queryParams],
   );
-  const contentTypeError = useSelector((state: StoreState) =>
+
+  const error = useSelector((state: StoreState) =>
     getContentError(state, query),
   );
-  const contentType = useSelector((state: StoreState) =>
-    getContents(state, query),
+  const isLoading = useSelector((state: StoreState) =>
+    isContentLoading(state, query),
   );
-  const action = useAction(fetchContentsAction);
-  const fetchContentType = () => action(query);
+  const isFetched = useSelector((state: StoreState) =>
+    isContentFetched(state, query),
+  );
+  const entries = useSelector((state: StoreState) =>
+    getContents<T>(state, query),
+  );
+  const contentGroup = useSelector((state: StoreState) =>
+    getContentByQuery(state, query),
+  );
+  const fetchContentsAction = useAction(fetchContents);
+  const fetch = useCallback(
+    () => fetchContentsAction(query, fetchConfig),
+    [fetchContentsAction, query, fetchConfig],
+  );
 
   useEffect(() => {
-    !contentType && fetchContentType();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [contentType, codes, contentTypeCode]);
+    if (!isLoading && !error && !isFetched && enableAutoFetch) {
+      fetch();
+    }
+  }, [enableAutoFetch, error, fetch, isFetched, isLoading]);
+
+  const data = useMemo(
+    () =>
+      !entries || !contentGroup
+        ? undefined
+        : {
+            entries,
+            pagination: {
+              pageIndex: contentGroup?.number,
+              totalPages: contentGroup?.totalPages,
+              totalItems: contentGroup?.totalItems,
+            },
+          },
+    [contentGroup, entries],
+  );
 
   return {
-    /**
-     * Get the result for a specific Custom content type.
-     */
-    contentType,
-    /**
-     * Loading state for a specific Custom content type.
-     */
-    isContentTypeLoading,
-    /**
-     * Error state for a specific Custom content type.
-     */
-    contentTypeError,
-    /**
-     * Fetch custom content type editorial data.
-     */
-    fetchContentType,
+    isLoading,
+    isFetched,
+    error,
+    data,
+    actions: {
+      fetch,
+    },
   };
-};
+}
 
 export default useContentType;

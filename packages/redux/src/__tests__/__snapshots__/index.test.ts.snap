@@ -2,6 +2,9 @@
 
 exports[`root index file should export all public modules 1`] = `
 Object {
+  "ContentTypeCode": Object {
+    "CommercePages": "commerce_pages",
+  },
   "ENVIRONMENT_CODES": Object {
     "LIVE": "live",
     "PREVIEW": "preview",
@@ -1061,6 +1064,7 @@ Object {
   "isCheckoutOrderPromocodeLoading": [Function],
   "isConfigurationFetched": [Function],
   "isConfigurationLoading": [Function],
+  "isContentFetched": [Function],
   "isContentLoading": [Function],
   "isFormSchemaLoading": [Function],
   "isGiftCardBalanceLoading": [Function],
