@@ -9,9 +9,9 @@ export type Targets = {
 
 export type QuerySearchContents = {
   // The space the content belongs to (website|mobileapp|emailTool...).
-  spaceCode: string;
+  spaceCode?: string;
   // The environment identifier (live | preview).
-  environmentCode: string;
+  environmentCode?: string;
   // The content type unique code (page|post|menu|pages|posts|widgets|waterproof...).
   contentTypeCode: string;
   // List of codes that representing the content code (about-us|today-news|header|productId...).
@@ -37,6 +37,7 @@ export interface ComponentType {
   fields?: Record<string, unknown>;
   content?: string;
   customType?: string;
+  value?: string;
   name?: string;
   displayOptions?: Record<string, string>;
 }
@@ -51,7 +52,7 @@ export interface Metadata {
   };
 }
 
-export interface ContentEntry {
+export interface ContentEntry<T = ComponentType[]> {
   publicationId: string;
   publicationDate: string;
   versionId: string;
@@ -62,7 +63,7 @@ export interface ContentEntry {
   environmentCode: string;
   code: string;
   ranking?: number;
-  components: Array<ComponentType>;
+  components: T;
 }
 
 export type Contents = PagedResponse<ContentEntry>;

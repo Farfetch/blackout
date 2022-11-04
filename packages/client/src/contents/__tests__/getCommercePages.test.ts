@@ -63,7 +63,7 @@ describe('getCommercePages()', () => {
     await expect(getCommercePages(query)).resolves.toEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
-      '/content/v1/commercepages?id=100200&type=PRODUCT',
+      '/content/v2/commercepages?id=100200&type=PRODUCT',
       expectedConfig,
     );
   });
@@ -76,7 +76,7 @@ describe('getCommercePages()', () => {
     await expect(getCommercePages(query)).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(
-      '/content/v1/commercepages?id=100200&type=PRODUCT',
+      '/content/v2/commercepages?id=100200&type=PRODUCT',
       expectedConfig,
     );
   });

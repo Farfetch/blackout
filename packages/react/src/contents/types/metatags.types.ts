@@ -40,10 +40,6 @@ export type Link = {
   hreflang?: string;
 };
 
-export type UseSeoMetadataOptions = {
-  enableAutoFetch?: boolean;
-};
-
 export type ProductSeoMetadataParams = {
   pageType: SeoPageType;
   param: {

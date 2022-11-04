@@ -18,7 +18,7 @@ const getCommercePages = (
   config?: Config,
 ): Promise<CommercePages> =>
   client
-    .get(join('content/v1/commercepages', { query }), config)
+    .get(join('content/v2/commercepages', { query }), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);

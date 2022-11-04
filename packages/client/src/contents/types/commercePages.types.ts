@@ -22,7 +22,7 @@ export type QueryCommercePages = {
   // Query by a specified price type, separated by commas (E.g. 0,1,2).
   priceType?: PriceType;
   // Query by a specified sku identifier.
-  sku?: number;
+  sku?: string;
   // Number of the page to get, starting at 1. The default is 1.
   pageIndex?: number;
   // Size of each page, as a number between 1 and 180. The default is 60.

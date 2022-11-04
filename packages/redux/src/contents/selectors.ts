@@ -7,8 +7,10 @@ import { getEntityById } from '../entities';
 import type {
   ContentEntry,
   GetSEOMetadataQuery,
+  QueryCommercePages,
+  QuerySearchContents,
 } from '@farfetch/blackout-client';
-import type { ContentsState, Hash, QueryContentHash } from './types';
+import type { ContentsState, Hash } from './types';
 import type { StoreState } from '../types';
 
 /**
@@ -49,7 +51,10 @@ export const getContentsByHash = (state: StoreState, hash: Hash) =>
  *
  * @returns - Content error.
  */
-export const getContentError = (state: StoreState, query: QueryContentHash) => {
+export const getContentError = (
+  state: StoreState,
+  query: QuerySearchContents | QueryCommercePages,
+) => {
   const hash = generateContentHash(query);
   const contentByHash = getContentsByHash(state, hash);
 
@@ -75,7 +80,7 @@ export const getContentError = (state: StoreState, query: QueryContentHash) => {
  */
 export const isContentLoading = (
   state: StoreState,
-  query: QueryContentHash,
+  query: QuerySearchContents | QueryCommercePages,
 ) => {
   const hash = generateContentHash(query);
   const contentByHash = getContentsByHash(state, hash);
@@ -103,7 +108,7 @@ export const isContentLoading = (
  */
 export const getContentByQuery = (
   state: StoreState,
-  query: QueryContentHash,
+  query: QuerySearchContents | QueryCommercePages,
 ) => {
   const hash = generateContentHash(query);
   const contentByHash = getContentsByHash(state, hash);
@@ -130,16 +135,45 @@ export const getContentByQuery = (
  *
  * @returns - All the contents for the given content entry.
  */
-export const getContents = (state: StoreState, query: QueryContentHash) => {
+export const getContents = <T>(
+  state: StoreState,
+  query: QuerySearchContents | QueryCommercePages,
+) => {
   const result = getContentByQuery(state, query);
 
   return (
     result &&
     (result.entries
-      .map((hash: Hash) => getContent(state, hash))
-      .filter(Boolean) as ContentEntry[])
+      .map((hash: Hash) => getContent<T>(state, hash))
+      .filter(Boolean) as ContentEntry<T>[])
   );
 };
+
+/**
+ * Retrieves if the content has been fetched.
+ *
+ * Will return true if a fetch for a certain content entry
+ * has been made that returned either successfully or failed
+ * and false otherwise.
+ *
+ * @example
+ * ```
+ * import { isContentFetched } from '@farfetch/blackout-redux';
+ *
+ * const mapStateToProps = state => ({
+ *     isFetched: isContentFetched(state)
+ * });
+ * ```
+ * @param state - Application state.
+ *
+ * @returns isFetched status of the content.
+ */
+export const isContentFetched = (
+  state: StoreState,
+  query: QuerySearchContents | QueryCommercePages,
+) =>
+  (!!getContentByQuery(state, query) || !!getContentError(state, query)) &&
+  !isContentLoading(state, query);
 
 /**
  * Retrieves an array with the content types available.
@@ -282,5 +316,5 @@ export const getSEOMetadataResult = (
  *
  * @returns Content normalized.
  */
-export const getContent = (state: StoreState, hash: string) =>
-  getEntityById(state, 'contents', hash);
+export const getContent = <T>(state: StoreState, hash: string) =>
+  getEntityById(state, 'contents', hash) as ContentEntry<T> | undefined;

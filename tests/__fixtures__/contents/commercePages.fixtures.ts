@@ -1,4 +1,4 @@
-import { CommercePagesType } from '@farfetch/blackout-client';
+import { CommercePagesType, GenderCode } from '@farfetch/blackout-client';
 import { generateContentHash } from '@farfetch/blackout-redux/src/contents/utils';
 
 export const commercePagesQuery = {
@@ -9,12 +9,18 @@ export const commercePagesQuery = {
 };
 
 export const slug = 'woman/gucci';
-const contentQuery = {
-  codes: slug,
+export const commercePageQuery = {
+  brand: 5030844,
+  category: '136643',
+  type: CommercePagesType.LISTING,
+  gender: GenderCode.Woman,
   contentTypeCode: 'commerce_pages',
 };
 
-export const commercePagesHash = generateContentHash(contentQuery);
+export const commercePageContentPublicationId =
+  'dc9c0c95-9485-45c2-a76c-6923bb39b544';
+
+export const commercePagesHash = generateContentHash(commercePageQuery);
 
 export const mockCommercePages = {
   number: 1,
@@ -22,7 +28,7 @@ export const mockCommercePages = {
   totalItems: 2,
   entries: [
     {
-      publicationId: 'dc9c0c95-9485-45c2-a76c-6923bb39b544',
+      publicationId: commercePageContentPublicationId,
       versionId: '78f1922d-0ef1-46ed-b02c-ca541d0a0d80',
       spaceCode: 'website',
       contentTypeCode: 'commerce_pages',
@@ -197,13 +203,35 @@ export const mockCommercePagesInitialState = {
   },
 };
 
+export const mockCommercePagesState = {
+  entities: {
+    contents: {
+      [commercePageContentPublicationId]: mockCommercePages.entries[0],
+    },
+  },
+  contents: {
+    searchResults: {
+      [commercePagesHash]: {
+        error: null,
+        isLoading: false,
+        result: {
+          number: 1,
+          totalPages: 1,
+          totalItems: 1,
+          entries: [commercePageContentPublicationId],
+        },
+      },
+    },
+  },
+};
+
 export const mockCommercePagesLoadingState = {
   entities: {},
   contents: {
     searchResults: {
       [commercePagesHash]: {
         isLoading: true,
-        error: {},
+        error: null,
       },
     },
   },
