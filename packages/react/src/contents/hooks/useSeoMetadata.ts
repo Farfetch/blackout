@@ -15,7 +15,8 @@ import {
 import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction';
-import type { AppIconLinks, Link, Meta, UseSeoMetadataOptions } from '../types';
+import type { AppIconLinks, Link, Meta } from '../types';
+import type { UseSeoMetadataOptions } from './types/useSeoMetadataOptions.types';
 
 /**
  * Hook to return seo metadata to populate document head.

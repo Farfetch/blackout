@@ -1,18 +1,15 @@
 import { cleanup, renderHook } from '@testing-library/react';
 import {
-  fetchCommercePages as fetchCommercePagesAction,
-  getContents,
-} from '@farfetch/blackout-redux';
-import {
-  mockCommercePages,
+  commercePageContentPublicationId,
+  commercePageQuery,
   mockCommercePagesErrorState,
   mockCommercePagesInitialState,
   mockCommercePagesLoadingState,
-  slug,
+  mockCommercePagesState,
 } from 'tests/__fixtures__/contents';
-import { mockStore } from '../../../../tests/helpers';
-import { Provider } from 'react-redux';
-import React from 'react';
+import { fetchCommercePages } from '@farfetch/blackout-redux';
+import { Strategy } from '../types/useCommercePages.types';
+import { withStore } from '../../../../tests/helpers';
 import useCommercePages from '../useCommercePages';
 
 const mockDispatch = jest.fn();
@@ -24,70 +21,123 @@ jest.mock('react-redux', () => ({
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
-  fetchCommercePages: jest.fn(() => ({ type: 'foo-bar' })),
-  getContents: jest.fn(),
-  resetContents: jest.fn(() => ({ type: 'foo-bar' })),
+  fetchCommercePages: jest.fn(() => () => Promise.resolve()),
 }));
 
-const getRenderedHook = (state = mockCommercePagesInitialState) => {
-  const {
-    result: { current },
-  } = renderHook(() => useCommercePages(slug, { type: 'LISTING' }), {
-    wrapper: props => <Provider store={mockStore(state)} {...props} />,
+describe('useCommercePages', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
-  return current;
-};
-
-describe('useCommercePages', () => {
-  beforeEach(jest.clearAllMocks);
   afterEach(cleanup);
 
   it('should return values correctly with initial state', () => {
-    getContents.mockImplementationOnce(() => mockCommercePages);
-    const current = getRenderedHook();
+    const { result } = renderHook(() => useCommercePages(commercePageQuery), {
+      wrapper: withStore(mockCommercePagesState),
+    });
 
-    expect(current).toStrictEqual({
-      commercePage: expect.any(Object),
-      resetContents: expect.any(Function),
-      isLoading: undefined,
-      error: undefined,
-      fetchCommercePages: expect.any(Function),
+    const {
+      isLoading,
+      error,
+      isFetched,
+      data: { entries: dataResult, pagination },
+    } = result.current;
+
+    expect(isLoading).toBeFalsy();
+    expect(error).toBeNull();
+    expect(isFetched).toBeTruthy();
+    expect(pagination).toMatchObject({
+      pageIndex: 1,
+      totalPages: 1,
+      totalItems: 1,
+    });
+    expect(dataResult).toMatchObject([
+      mockCommercePagesState.entities.contents[
+        commercePageContentPublicationId
+      ],
+    ]);
+  });
+
+  it('should return in loading state', () => {
+    const { result } = renderHook(() => useCommercePages(commercePageQuery), {
+      wrapper: withStore(mockCommercePagesLoadingState),
+    });
+
+    const { isLoading, error, isFetched } = result.current;
+
+    expect(isLoading).toBeTruthy();
+    expect(error).toBeNull();
+    expect(isFetched).toBeFalsy();
+  });
+
+  it('should return in error state', () => {
+    const { result } = renderHook(() => useCommercePages(commercePageQuery), {
+      wrapper: withStore(mockCommercePagesErrorState),
+    });
+
+    const { error, isFetched } = result.current;
+
+    expect(error).toBeTruthy();
+    expect(isFetched).toBeTruthy();
+  });
+
+  describe('options', () => {
+    it('should call `fetch` action if `enableAutoFetch` option is true', async () => {
+      renderHook(() => useCommercePages(commercePageQuery), {
+        wrapper: withStore(mockCommercePagesInitialState),
+      });
+
+      expect(fetchCommercePages).toHaveBeenCalledWith(
+        {
+          brand: commercePageQuery.brand,
+          category: commercePageQuery.category,
+          contentTypeCode: commercePageQuery.contentTypeCode,
+          gender: commercePageQuery.gender,
+          type: commercePageQuery.type,
+        },
+        undefined,
+        undefined,
+      );
+    });
+
+    it('should not call `fetch` action if `enableAutoFetch` option is false', async () => {
+      renderHook(
+        () =>
+          useCommercePages({ ...commercePageQuery, enableAutoFetch: false }),
+        {
+          wrapper: withStore(mockCommercePagesInitialState),
+        },
+      );
+
+      expect(fetchCommercePages).not.toHaveBeenCalled();
     });
   });
 
-  it('should call `fetchCommercePages` when there is no commerce page result', () => {
-    const { commercePage } = getRenderedHook(mockCommercePagesInitialState);
+  describe('actions', () => {
+    it('should call `fetch` action', async () => {
+      const {
+        result: {
+          current: {
+            actions: { fetch },
+          },
+        },
+      } = renderHook(() => useCommercePages(commercePageQuery), {
+        wrapper: withStore(mockCommercePagesInitialState),
+      });
 
-    expect(commercePage).toBe(undefined);
-    expect(fetchCommercePagesAction).toHaveBeenCalledTimes(1);
-  });
+      await fetch();
 
-  it('should render in loading state', () => {
-    const { isLoading } = getRenderedHook(mockCommercePagesLoadingState);
-
-    expect(isLoading).toBe(true);
-  });
-
-  it('should render in error state', () => {
-    const { error } = getRenderedHook(mockCommercePagesErrorState);
-
-    expect(error).toEqual({ message: 'Error' });
-  });
-
-  it('should call `fetchCommercePages` action', () => {
-    const { fetchCommercePages } = getRenderedHook();
-
-    fetchCommercePages();
-
-    expect(mockDispatch).toHaveBeenCalledWith({ type: 'foo-bar' });
-  });
-
-  it('should call `resetContent` action', () => {
-    const { resetContents } = getRenderedHook();
-
-    resetContents();
-
-    expect(mockDispatch).toHaveBeenCalledWith({ type: 'foo-bar' });
+      expect(fetchCommercePages).toHaveBeenCalledWith(
+        {
+          brand: commercePageQuery.brand,
+          category: commercePageQuery.category,
+          contentTypeCode: commercePageQuery.contentTypeCode,
+          gender: commercePageQuery.gender,
+          type: commercePageQuery.type,
+        },
+        undefined,
+        undefined,
+      );
+    });
   });
 });

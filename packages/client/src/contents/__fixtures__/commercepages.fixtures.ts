@@ -1,7 +1,7 @@
 import { rest, RestHandler } from 'msw';
 import type { CommercePages } from '../types';
 
-const path = '/api/content/v1/commercepages';
+const path = '/api/content/v2/commercepages';
 
 const fixtures = {
   get: {
