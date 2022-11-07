@@ -46,7 +46,6 @@ import type { AxiosInstance, AxiosRequestConfig } from 'axios';
 import type { CastleIntegrationOptions } from './types';
 import type {
   ConfigureOptions,
-  CustomParams,
   FormParams,
   PageParams,
   Thenable,
@@ -202,21 +201,53 @@ class Castle extends integrations.Integration<CastleIntegrationOptions> {
     const userTraits: UserTraits = userData.traits || ({} as UserTraits);
 
     const formattedUserData: UserParams = {
-      id: userData.id?.toString() || 'USER NOT LOADED YET',
+      id: String(userData.id || 'USER NOT LOADED YET'),
+      email: userTraits.email,
+      phone: userTraits.phoneNumber,
+      name: userTraits.name,
+      registered_at: this.getNormalizedCreatedDate(userTraits.createdDate),
       traits: {
         isGuest: userTraits.isGuest,
       },
     };
 
-    if (!userTraits.isGuest) {
-      formattedUserData.email = userTraits.email;
-      formattedUserData.phone = userTraits.phoneNumber;
-      formattedUserData.name = userTraits.name;
-      formattedUserData.registered_at = userTraits.createdDate;
-    }
-
     // clean "falsy" values to ensure the SDK accepts the request.
     return pickBy(formattedUserData, identity) as UserParams;
+  }
+
+  /**
+   * Calculates the correct user account created date, if possible.
+   *
+   * TODO: Remove this 🔨 when the backend starts to send the correct format date on all endpoints.
+   *
+   * @param createdDate - The user trait.
+   *
+   * @returns - The ISO date string.
+   */
+  getNormalizedCreatedDate(createdDate: string | undefined) {
+    if (!createdDate) {
+      return undefined;
+    }
+
+    const isCreatedDateNaN = isNaN(new Date(createdDate).getTime());
+
+    if (isCreatedDateNaN) {
+      // Remove all non-numeric characters and convert the timestamp into a valid date format
+      const extractedTimestamp = parseInt(createdDate.replace(/[^0-9]/g, ''));
+
+      // If the timestamp is a valid number, create a date with it,
+      // If its not, send undefined
+      if (
+        typeof extractedTimestamp === 'number' &&
+        !isNaN(extractedTimestamp)
+      ) {
+        return new Date(extractedTimestamp).toISOString();
+      }
+
+      return undefined;
+    }
+
+    return createdDate;
   }
 
   /**
@@ -278,26 +309,9 @@ class Castle extends integrations.Integration<CastleIntegrationOptions> {
               ),
           );
       }
-
-      default: {
-        const eventData: CustomParams = {
-          user,
-          name: data.event,
-          properties: pickBy(data?.properties, isString),
-        };
-
-        return this.castleJS
-          .custom(eventData)
-          .then(
-            () =>
-              this.debugModeOn &&
-              utils.logger.info(
-                `${CASTLE_MESSAGE_PREFIX} Custom event track success. Payload:`,
-                eventData,
-              ),
-          );
-      }
     }
+
+    return null;
   }
 
   /**
