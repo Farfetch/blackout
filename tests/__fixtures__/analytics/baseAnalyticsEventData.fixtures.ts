@@ -17,6 +17,8 @@ const fixtures = {
       lastName: 'bar',
       phoneNumber: '+351-99999999',
       username: 'foo.bar',
+      wishlistId: '123123',
+      countryCode: 'US',
     },
   },
   consent: {
