@@ -212,23 +212,107 @@ describe('Castle integration', () => {
       );
     });
 
-    it('Should track other (custom) events', async () => {
+    it('Should not track other (custom) events', async () => {
       instance = createInstance();
 
       const castleCustomSpy = jest.spyOn(instance.castleJS, 'custom');
-      const mockEventData = analyticsTrackData[eventTypes.ORDER_COMPLETED];
-      const expectedCallPayload = {
-        user: instance.getUserData(mockEventData as TrackEventData),
-        name: mockEventData.event,
-        properties: pickBy(mockEventData.properties, isString),
+      const mockEventData = {
+        ...analyticsTrackData[eventTypes.ORDER_COMPLETED],
+        properties: {
+          foo: 'bar',
+          biz: 'baz',
+        },
       };
 
       await instance.track(mockEventData);
 
-      expect(castleCustomSpy).toHaveBeenCalledWith(expectedCallPayload);
+      expect(castleCustomSpy).not.toHaveBeenCalled();
+    });
+  });
+  describe('Handle user`s createdDate various date formats', () => {
+    it('Should handle values that are in the format `/Date(number)/`', async () => {
+      instance = createInstance();
+
+      const dateMilliseconds = 1651759914308;
+      const castleFormSpy = jest.spyOn(instance.castleJS, 'form');
+      const mockedEvent = analyticsTrackData[eventTypes.SIGNUP_FORM_COMPLETED];
+      const mockEventData = {
+        ...mockedEvent,
+        user: {
+          ...mockedEvent.user,
+          traits: {
+            ...mockedEvent.user.traits,
+            createdDate: `/Date(${dateMilliseconds})/`, // Date format that is not an ISO string
+          },
+        },
+      };
+
+      const expectedCallPayload = {
+        user: expect.objectContaining({
+          registered_at: new Date(dateMilliseconds).toISOString(),
+        }),
+        name: mockEventData.event,
+        values: mockEventData.properties,
+      };
+
+      await instance.track(mockEventData as TrackEventData);
+
+      expect(castleFormSpy).toHaveBeenCalledWith(expectedCallPayload);
 
       expect(utils.logger.info).toHaveBeenCalledWith(
-        `${CASTLE_MESSAGE_PREFIX} Custom event track success. Payload:`,
+        `${CASTLE_MESSAGE_PREFIX} Form track success. Payload:`,
+        expectedCallPayload,
+      );
+    });
+
+    it('Should handle values that are not valid dates', async () => {
+      instance = createInstance();
+
+      const castleFormSpy = jest.spyOn(instance.castleJS, 'form');
+      const mockedEvent = analyticsTrackData[eventTypes.SIGNUP_FORM_COMPLETED];
+      const mockEventData = {
+        ...mockedEvent,
+        user: {
+          ...mockedEvent.user,
+          traits: {
+            ...mockedEvent.user.traits,
+            createdDate: 'gibberish', // Invalid date value
+          },
+        },
+      };
+
+      const expectedCallPayload = {
+        user: expect.not.objectContaining({
+          createdDate: 'gibberish', // Invalid date value
+        }),
+        name: mockEventData.event,
+        values: mockEventData.properties,
+      };
+
+      await instance.track(mockEventData as TrackEventData);
+
+      expect(castleFormSpy).toHaveBeenCalledWith(expectedCallPayload);
+
+      expect(utils.logger.info).toHaveBeenCalledWith(
+        `${CASTLE_MESSAGE_PREFIX} Form track success. Payload:`,
+        expectedCallPayload,
+      );
+
+      jest.clearAllMocks();
+
+      // @ts-ignore
+      mockedEvent.user.traits.createdDate = null; // No createdDate value
+
+      expectedCallPayload.user = expect.not.objectContaining({
+        registered_at: null,
+      });
+
+      await instance.track(mockedEvent as TrackEventData);
+
+      expect(castleFormSpy).toHaveBeenCalledWith(expectedCallPayload);
+
+      expect(utils.logger.info).toHaveBeenCalledWith(
+        `${CASTLE_MESSAGE_PREFIX} Form track success. Payload:`,
         expectedCallPayload,
       );
     });
