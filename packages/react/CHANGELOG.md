@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.341](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.340...@farfetch/blackout-react@1.0.0-next.341) (2022-11-08)
+
+
+### Bug Fixes
+
+* **react:** remove unnecessary castle.io tracking requests ([e65b529](https://github.com/Farfetch/blackout/commit/e65b5295a3765a7583fad7c8087ed3c64bfef0b8))
+
+
+
+
+
 # [1.0.0-next.340](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.339...@farfetch/blackout-react@1.0.0-next.340) (2022-11-03)
 
 
