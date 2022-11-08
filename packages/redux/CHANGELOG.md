@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.334](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.333...@farfetch/blackout-redux@1.0.0-next.334) (2022-11-08)
+
+
+### Features
+
+* **react|redux|client:** add content hooks ([5c398a4](https://github.com/Farfetch/blackout/commit/5c398a4e1adc84cf435a1a66280f4d27d232da17))
+
+
+### BREAKING CHANGES
+
+* **react|redux|client:** commerce pages client endpoint updated and content hooks refactored
+
+
+
+
+
 # [1.0.0-next.333](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.332...@farfetch/blackout-redux@1.0.0-next.333) (2022-11-03)
 
 
