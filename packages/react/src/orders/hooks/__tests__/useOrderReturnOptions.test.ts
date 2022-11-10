@@ -8,6 +8,7 @@ import {
   mockState,
   orderEntityDenormalized,
   orderId,
+  orderId2,
 } from 'tests/__fixtures__/orders/orders.fixtures';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import { useOrderReturnOptions } from '../../..';
@@ -258,7 +259,7 @@ describe('useOrderReturnOptions', () => {
 
   describe('actions', () => {
     describe('reset', () => {
-      it('should call `resetOrderReturnOptions` action when orderId parameter is passed to the hook', () => {
+      it('should call `resetOrderReturnOptions` action with the orderId parameter passed to the hook if no orderId parameter is passed to the function', () => {
         const {
           result: {
             current: {
@@ -274,7 +275,23 @@ describe('useOrderReturnOptions', () => {
         expect(resetOrderReturnOptions).toHaveBeenCalledWith([orderId]);
       });
 
-      it('should fail when orderId parameter is not passed to the hook', () => {
+      it('should call `resetOrderReturnOptions` action with the orderId parameter passed to the function', () => {
+        const {
+          result: {
+            current: {
+              actions: { reset },
+            },
+          },
+        } = renderHook(() => useOrderReturnOptions(orderId), {
+          wrapper: withStore(mockInitialStateNoData),
+        });
+
+        reset(orderId2);
+
+        expect(resetOrderReturnOptions).toHaveBeenCalledWith([orderId2]);
+      });
+
+      it('should not call `resetOrderReturnOptions` when orderId parameter is not passed to both the hook and the function', () => {
         const {
           result: {
             current: {
@@ -286,12 +303,14 @@ describe('useOrderReturnOptions', () => {
           wrapper: withStore(mockInitialStateNoData),
         });
 
-        expect(() => reset()).toThrow('No order id was specified.');
+        reset();
+
+        expect(resetOrderReturnOptions).not.toHaveBeenCalled();
       });
     });
 
     describe('fetch', () => {
-      it('should call `fetchOrderReturnOptions` action when orderId parameter is passed to the hook', () => {
+      it('should call `fetchOrderReturnOptions` action with the orderId parameter passed to the hook if no orderId parameter is passed to the function', () => {
         const {
           result: {
             current: {
@@ -317,7 +336,35 @@ describe('useOrderReturnOptions', () => {
         );
       });
 
-      it('should fail when orderId parameter is not passed to the hook', () => {
+      it('should call `fetchOrderReturnOptions` action with the orderId and config parameters if they are passed to the function', () => {
+        const {
+          result: {
+            current: {
+              actions: { fetch },
+            },
+          },
+        } = renderHook(
+          () =>
+            useOrderReturnOptions(orderId, undefined, {
+              fetchConfig: mockFetchConfig,
+              enableAutoFetch: false,
+            }),
+          {
+            wrapper: withStore(mockInitialStateNoData),
+          },
+        );
+
+        const anotherConfig = {};
+
+        fetch(orderId2, anotherConfig);
+
+        expect(fetchOrderReturnOptions).toHaveBeenCalledWith(
+          orderId2,
+          anotherConfig,
+        );
+      });
+
+      it('should fail when orderId parameter is not passed to both the hook and the function', () => {
         const {
           result: {
             current: {
@@ -336,7 +383,7 @@ describe('useOrderReturnOptions', () => {
           },
         );
 
-        return expect(fetch()).rejects.toEqual('No order id was specified.');
+        return expect(fetch()).rejects.toThrow('No order id was specified.');
       });
     });
   });

@@ -5,6 +5,7 @@ import {
   mockState,
   orderEntityDenormalized,
   orderId,
+  orderId2,
 } from 'tests/__fixtures__/orders/orders.fixtures';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import { useOrderReturns } from '../../..';
@@ -250,7 +251,7 @@ describe('useOrderReturns', () => {
 
   describe('actions', () => {
     describe('reset', () => {
-      it('should call `resetOrderReturns` action when orderId parameter is passed to the hook', () => {
+      it('should call `resetOrderReturns` action with the orderId parameter passed to the hook if no orderId parameter is passed to the function', () => {
         const {
           result: {
             current: {
@@ -266,24 +267,42 @@ describe('useOrderReturns', () => {
         expect(resetOrderReturns).toHaveBeenCalledWith([orderId]);
       });
 
-      it('should fail when orderId parameter is not passed to the hook', () => {
+      it('should call `resetOrderReturns` action action with the orderId parameter passed to the function', () => {
         const {
           result: {
             current: {
               actions: { reset },
             },
           },
-          // @ts-expect-error Forcing orderId undefined to test
+        } = renderHook(() => useOrderReturns(orderId), {
+          wrapper: withStore(mockInitialStateNoData),
+        });
+
+        reset(orderId2);
+
+        expect(resetOrderReturns).toHaveBeenCalledWith([orderId2]);
+      });
+
+      it('should not call `resetOrderReturns` when orderId parameter is not passed to both the hook and the function', () => {
+        const {
+          result: {
+            current: {
+              actions: { reset },
+            },
+          },
+          // @ts-expect-error Force undefined orderId parameter
         } = renderHook(() => useOrderReturns(), {
           wrapper: withStore(mockInitialStateNoData),
         });
 
-        expect(() => reset()).toThrow('No order id was specified.');
+        reset();
+
+        expect(resetOrderReturns).not.toHaveBeenCalled();
       });
     });
 
     describe('fetch', () => {
-      it('should call `fetchOrderReturns` action when orderId parameter is passed to the hook', () => {
+      it('should call `fetchOrderReturns` action with the orderId parameter passed to the hook if no orderId parameter is passed to the function', () => {
         const {
           result: {
             current: {
@@ -309,7 +328,7 @@ describe('useOrderReturns', () => {
         );
       });
 
-      it('should fail when orderId parameter is not passed to the hook', () => {
+      it('should call `fetchOrderReturns` action with the orderId and config parameters passed to the function', () => {
         const {
           result: {
             current: {
@@ -318,7 +337,31 @@ describe('useOrderReturns', () => {
           },
         } = renderHook(
           () =>
-            // @ts-expect-error Forcing returnId undefined to test
+            useOrderReturns(orderId, undefined, {
+              fetchConfig: mockFetchConfig,
+              enableAutoFetch: false,
+            }),
+          {
+            wrapper: withStore(mockInitialStateNoData),
+          },
+        );
+
+        const anotherConfig = {};
+
+        fetch(orderId2, anotherConfig);
+
+        expect(fetchOrderReturns).toHaveBeenCalledWith(orderId2, anotherConfig);
+      });
+
+      it('should fail when orderId parameter is not passed to both the hook and the function', () => {
+        const {
+          result: {
+            current: {
+              actions: { fetch },
+            },
+          },
+        } = renderHook(
+          () =>
             useOrderReturns(undefined, {
               fetchConfig: mockFetchConfig,
               enableAutoFetch: false,
@@ -328,7 +371,7 @@ describe('useOrderReturns', () => {
           },
         );
 
-        return expect(fetch()).rejects.toEqual('No order id was specified.');
+        return expect(fetch()).rejects.toThrow('No order id was specified.');
       });
     });
   });

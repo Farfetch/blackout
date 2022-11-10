@@ -4,18 +4,25 @@ import {
   mockState,
   orderEntityDenormalized,
   orderId,
+  orderId2,
 } from 'tests/__fixtures__/orders/orders.fixtures';
 import { withStore } from '../../../../tests/helpers';
 import useOrder from '../useOrder';
+import useOrderReturnOptions from '../useOrderReturnOptions';
+import useOrderReturns from '../useOrderReturns';
 import useOrders from '../useOrders';
 
 const mockFetchOrderDetailsFn = jest.fn();
 const mockResetOrderDetailsStateFn = jest.fn();
+const mockFetchReturnOptions = jest.fn();
+const mockFetchReturns = jest.fn();
+const mockResetReturnOptions = jest.fn();
+const mockResetReturns = jest.fn();
 
 jest.mock('../useOrders', () => {
   return jest.fn(() => {
     return {
-      data: {},
+      data: undefined,
       actions: {
         fetchOrderDetails: mockFetchOrderDetailsFn,
         resetOrderDetailsState: mockResetOrderDetailsStateFn,
@@ -24,14 +31,54 @@ jest.mock('../useOrders', () => {
   });
 });
 
+jest.mock('../useOrderReturnOptions', () => {
+  return jest.fn(() => {
+    return {
+      data: undefined,
+      isLoading: false,
+      isFetched: false,
+      error: null,
+      actions: {
+        fetch: mockFetchReturnOptions,
+        reset: mockResetReturnOptions,
+      },
+    };
+  });
+});
+
+jest.mock('../useOrderReturns', () => {
+  return jest.fn(() => {
+    return {
+      data: undefined,
+      isLoading: false,
+      isFetched: false,
+      error: null,
+      actions: {
+        fetch: mockFetchReturns,
+        reset: mockResetReturns,
+      },
+    };
+  });
+});
+
 const defaultReturn = {
   data: undefined,
-  isLoading: false,
-  isFetched: false,
-  error: null,
+  isOrderLoading: false,
+  isOrderFetched: false,
+  orderError: null,
+  returnOptionsError: null,
+  returnsError: null,
+  areReturnOptionsFetched: false,
+  areReturnOptionsLoading: false,
+  areReturnsFetched: false,
+  areReturnsLoading: false,
   actions: {
     fetch: expect.any(Function),
     resetOrderDetailsState: expect.any(Function),
+    fetchReturnOptions: expect.any(Function),
+    fetchReturns: expect.any(Function),
+    resetReturnOptions: expect.any(Function),
+    resetReturns: expect.any(Function),
   },
 };
 
@@ -83,7 +130,7 @@ describe('useOrder', () => {
   beforeEach(jest.clearAllMocks);
   afterEach(cleanup);
 
-  it('should return correctly with initial state and call `useOrders` hook with the correct options', () => {
+  it('should return correctly with initial state and call all hook dependencies with the correct options', () => {
     const {
       result: { current },
     } = renderHook(() => useOrder(orderId), {
@@ -93,6 +140,14 @@ describe('useOrder', () => {
     expect(current).toStrictEqual(defaultReturn);
 
     expect(useOrders).toHaveBeenCalledWith({
+      enableAutoFetch: false,
+    });
+
+    expect(useOrderReturnOptions).toHaveBeenCalledWith(orderId, undefined, {
+      enableAutoFetch: false,
+    });
+
+    expect(useOrderReturns).toHaveBeenCalledWith(orderId, undefined, {
       enableAutoFetch: false,
     });
   });
@@ -107,7 +162,7 @@ describe('useOrder', () => {
     expect(current).toStrictEqual({
       ...defaultReturn,
       data: orderEntityDenormalized,
-      isFetched: true,
+      isOrderFetched: true,
     });
   });
 
@@ -120,8 +175,8 @@ describe('useOrder', () => {
 
     expect(current).toStrictEqual({
       ...defaultReturn,
-      isFetched: true,
-      error: mockErrorState.orders.orderDetails.error[orderId],
+      isOrderFetched: true,
+      orderError: mockErrorState.orders.orderDetails.error[orderId],
     });
   });
 
@@ -134,7 +189,7 @@ describe('useOrder', () => {
 
     expect(current).toStrictEqual({
       ...defaultReturn,
-      isLoading: true,
+      isOrderLoading: true,
     });
   });
 
@@ -192,56 +247,256 @@ describe('useOrder', () => {
         );
       });
     });
+  });
 
-    describe('actions', () => {
-      describe('fetch', () => {
-        it('should call `fetchOrderDetails` from the `useOrders` hook', async () => {
-          const {
-            result: {
-              current: {
-                actions: { fetch },
-              },
+  describe('actions', () => {
+    describe('fetch', () => {
+      it('should call `fetchOrderDetails` action with the orderId parameter passed to the hook if no orderId parameter is passed to the function', async () => {
+        const {
+          result: {
+            current: {
+              actions: { fetch },
             },
-          } = renderHook(
-            () =>
-              useOrder(orderId, mockGuestUserEmail, {
-                enableAutoFetch: false,
-                fetchConfig: mockFetchConfig,
-              }),
-            {
-              wrapper: withStore(mockInitialState),
-            },
-          );
+          },
+        } = renderHook(
+          () =>
+            useOrder(orderId, mockGuestUserEmail, {
+              enableAutoFetch: false,
+              fetchConfig: mockFetchConfig,
+            }),
+          {
+            wrapper: withStore(mockInitialState),
+          },
+        );
 
-          await fetch();
+        await fetch();
 
-          expect(mockFetchOrderDetailsFn).toHaveBeenCalledWith(
-            orderId,
-            mockGuestUserEmail,
-            mockFetchConfig,
-          );
-        });
+        expect(mockFetchOrderDetailsFn).toHaveBeenCalledWith(
+          orderId,
+          mockGuestUserEmail,
+          mockFetchConfig,
+        );
       });
 
-      describe('resetOrderDetailsState', () => {
-        it('should call `resetOrderDetailsState` from the `useOrders` hook', async () => {
-          const {
-            result: {
-              current: {
-                actions: { resetOrderDetailsState },
-              },
+      it('should call `fetchOrderDetails` action with the orderId, guestUserEmail and config parameters if they are passed to the function', async () => {
+        const {
+          result: {
+            current: {
+              actions: { fetch },
             },
-          } = renderHook(
-            () => useOrder(orderId, null, { enableAutoFetch: false }),
-            {
-              wrapper: withStore(mockInitialState),
+          },
+        } = renderHook(
+          () =>
+            useOrder(orderId, mockGuestUserEmail, {
+              enableAutoFetch: false,
+              fetchConfig: mockFetchConfig,
+            }),
+          {
+            wrapper: withStore(mockInitialState),
+          },
+        );
+
+        const anotherGuestEmail = 'test@dummy.com';
+        const anotherConfig = {};
+
+        await fetch(orderId2, anotherGuestEmail, anotherConfig);
+
+        expect(mockFetchOrderDetailsFn).toHaveBeenCalledWith(
+          orderId2,
+          anotherGuestEmail,
+          anotherConfig,
+        );
+      });
+
+      it('should fail when orderId parameter is not passed to both the hook and the function', async () => {
+        const {
+          result: {
+            current: {
+              actions: { fetch },
             },
-          );
+          },
+        } = renderHook(
+          () =>
+            // @ts-expect-error Force orderId as undefined for the test
+            useOrder(undefined, undefined, {
+              enableAutoFetch: false,
+              fetchConfig: mockFetchConfig,
+            }),
+          {
+            wrapper: withStore(mockInitialState),
+          },
+        );
 
-          await resetOrderDetailsState();
+        return expect(() => fetch()).rejects.toThrow(
+          'No order id was specified.',
+        );
+      });
+    });
 
-          expect(mockResetOrderDetailsStateFn).toHaveBeenCalledWith([orderId]);
-        });
+    describe('resetOrderDetailsState', () => {
+      it('should call `resetOrderDetailsState` action with the orderId parameter passed to the hook if no orderId parameter is passed to the function', async () => {
+        const {
+          result: {
+            current: {
+              actions: { resetOrderDetailsState },
+            },
+          },
+        } = renderHook(
+          () => useOrder(orderId, null, { enableAutoFetch: false }),
+          {
+            wrapper: withStore(mockInitialState),
+          },
+        );
+
+        await resetOrderDetailsState();
+
+        expect(mockResetOrderDetailsStateFn).toHaveBeenCalledWith([orderId]);
+      });
+
+      it('should call `resetOrderDetailsState` action with the orderId parameter passed to the function', async () => {
+        const {
+          result: {
+            current: {
+              actions: { resetOrderDetailsState },
+            },
+          },
+        } = renderHook(
+          () => useOrder(orderId, null, { enableAutoFetch: false }),
+          {
+            wrapper: withStore(mockInitialState),
+          },
+        );
+
+        await resetOrderDetailsState(orderId2);
+
+        expect(mockResetOrderDetailsStateFn).toHaveBeenCalledWith([orderId2]);
+      });
+
+      it('should not call `resetOrderDetailsState` when orderId parameter is not passed to both the hook and the function', async () => {
+        const {
+          result: {
+            current: {
+              actions: { resetOrderDetailsState },
+            },
+          },
+        } = renderHook(
+          // @ts-expect-error Force undefined to orderId
+          () => useOrder(undefined, null, { enableAutoFetch: false }),
+          {
+            wrapper: withStore(mockInitialState),
+          },
+        );
+
+        await resetOrderDetailsState();
+
+        expect(mockResetOrderDetailsStateFn).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('fetchReturnOptions', () => {
+      it('should call `fetch` from the `useOrderReturnOptions` hook', async () => {
+        const {
+          result: {
+            current: {
+              actions: { fetchReturnOptions },
+            },
+          },
+        } = renderHook(
+          () =>
+            useOrder(orderId, mockGuestUserEmail, {
+              enableAutoFetch: false,
+              fetchConfig: mockFetchConfig,
+            }),
+          {
+            wrapper: withStore(mockInitialState),
+          },
+        );
+
+        const anotherConfig = {};
+
+        await fetchReturnOptions(orderId2, anotherConfig);
+
+        expect(mockFetchReturnOptions).toHaveBeenCalledWith(
+          orderId2,
+          anotherConfig,
+        );
+      });
+    });
+
+    describe('resetReturnOptions', () => {
+      it('should call `reset` from the `useOrderReturnOptions` hook', async () => {
+        const {
+          result: {
+            current: {
+              actions: { resetReturnOptions },
+            },
+          },
+        } = renderHook(
+          () =>
+            useOrder(orderId, mockGuestUserEmail, {
+              enableAutoFetch: false,
+              fetchConfig: mockFetchConfig,
+            }),
+          {
+            wrapper: withStore(mockInitialState),
+          },
+        );
+
+        await resetReturnOptions(orderId2);
+
+        expect(mockResetReturnOptions).toHaveBeenCalledWith(orderId2);
+      });
+    });
+
+    describe('fetchReturns', () => {
+      it('should call `fetch` from the `useOrderReturns` hook', async () => {
+        const {
+          result: {
+            current: {
+              actions: { fetchReturns },
+            },
+          },
+        } = renderHook(
+          () =>
+            useOrder(orderId, mockGuestUserEmail, {
+              enableAutoFetch: false,
+              fetchConfig: mockFetchConfig,
+            }),
+          {
+            wrapper: withStore(mockInitialState),
+          },
+        );
+
+        const anotherConfig = {};
+
+        await fetchReturns(orderId2, anotherConfig);
+
+        expect(mockFetchReturns).toHaveBeenCalledWith(orderId2, anotherConfig);
+      });
+    });
+
+    describe('resetReturns', () => {
+      it('should call `reset` from the `useOrderReturns` hook', async () => {
+        const {
+          result: {
+            current: {
+              actions: { resetReturns },
+            },
+          },
+        } = renderHook(
+          () =>
+            useOrder(orderId, mockGuestUserEmail, {
+              enableAutoFetch: false,
+              fetchConfig: mockFetchConfig,
+            }),
+          {
+            wrapper: withStore(mockInitialState),
+          },
+        );
+
+        await resetReturns(orderId2);
+
+        expect(mockResetReturns).toHaveBeenCalledWith(orderId2);
       });
     });
   });
