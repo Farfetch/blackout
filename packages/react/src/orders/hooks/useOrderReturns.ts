@@ -11,7 +11,7 @@ import {
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction';
-import type { Order } from '@farfetch/blackout-client';
+import type { Config, Order } from '@farfetch/blackout-client';
 import type { UseOrderReturnsOptions } from './types';
 
 /**
@@ -22,43 +22,59 @@ function useOrderReturns(
   merchantId?: MerchantEntity['id'],
   options: UseOrderReturnsOptions = {},
 ) {
+  const orderIdHookParameter = orderId;
   const { enableAutoFetch = true, fetchConfig } = options;
   const isLoading = useSelector((state: StoreState) =>
-    areOrderReturnsLoading(state, orderId),
+    areOrderReturnsLoading(state, orderIdHookParameter),
   );
   const error = useSelector((state: StoreState) =>
-    getOrderReturnsError(state, orderId),
+    getOrderReturnsError(state, orderIdHookParameter),
   );
   const orderReturns = useSelector((state: StoreState) =>
-    getOrderReturns(state, orderId, merchantId),
+    getOrderReturns(state, orderIdHookParameter, merchantId),
   );
   const isFetched = useSelector((state: StoreState) =>
-    areOrderReturnsFetched(state, orderId),
+    areOrderReturnsFetched(state, orderIdHookParameter),
   );
   const fetchOrderReturns = useAction(fetchOrderReturnsAction);
   const resetOrderReturns = useAction(resetOrderReturnsAction);
 
-  const fetch = useCallback(() => {
-    if (!orderId) {
-      return Promise.reject('No order id was specified.');
-    }
+  const fetch = useCallback(
+    (orderId?: Order['id'], config?: Config) => {
+      const orderIdRequest = orderId || orderIdHookParameter;
 
-    return fetchOrderReturns(orderId, fetchConfig);
-  }, [fetchOrderReturns, orderId, fetchConfig]);
+      if (!orderIdRequest) {
+        return Promise.reject(new Error('No order id was specified.'));
+      }
 
-  const reset = useCallback(() => {
-    if (!orderId) {
-      throw new Error('No order id was specified.');
-    }
+      return fetchOrderReturns(orderIdRequest, config || fetchConfig);
+    },
+    [orderIdHookParameter, fetchOrderReturns, fetchConfig],
+  );
 
-    resetOrderReturns([orderId]);
-  }, [orderId, resetOrderReturns]);
+  const reset = useCallback(
+    (orderId?: Order['id']) => {
+      const orderIdRequest = orderId || orderIdHookParameter;
+
+      if (orderIdRequest) {
+        resetOrderReturns([orderIdRequest]);
+      }
+    },
+    [orderIdHookParameter, resetOrderReturns],
+  );
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch && orderId) {
+    if (!isLoading && !isFetched && enableAutoFetch && orderIdHookParameter) {
       fetch();
     }
-  }, [enableAutoFetch, fetchConfig, fetch, isFetched, isLoading, orderId]);
+  }, [
+    enableAutoFetch,
+    fetchConfig,
+    fetch,
+    isFetched,
+    isLoading,
+    orderIdHookParameter,
+  ]);
 
   return {
     actions: {

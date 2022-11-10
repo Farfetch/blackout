@@ -66,6 +66,7 @@ Object {
     "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
     "@farfetch/blackout-redux/REGISTER_SUCCESS": [Function],
     "@farfetch/blackout-redux/RESET_RETURNS": [Function],
+    "@farfetch/blackout-redux/RESET_RETURN_PICKUP_CAPABILITY_STATE": [Function],
     "@farfetch/blackout-redux/UPDATE_RETURN_SUCCESS": [Function],
   },
   "subscriptions": Object {

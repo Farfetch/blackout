@@ -32,14 +32,17 @@ const createReturnFactory =
         payload: normalize(result, returnSchema),
         type: actionTypes.CREATE_RETURN_SUCCESS,
       });
+
       return result;
     } catch (error) {
+      const blackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: blackoutError },
         type: actionTypes.CREATE_RETURN_FAILURE,
       });
 
-      throw error;
+      throw blackoutError;
     }
   };
 
