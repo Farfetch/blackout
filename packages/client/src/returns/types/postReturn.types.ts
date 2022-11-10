@@ -15,6 +15,7 @@ export type PostReturnData = Omit<
   | 'invoiceUrl'
   | 'references'
   | 'pickupSchedule'
+  | 'returnStatus'
 > & {
   items: PostReturnItemData[];
   type?: ReturnOptionType;

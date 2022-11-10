@@ -1,10 +1,9 @@
 import { createSelector } from 'reselect';
+import { getEntities, getEntityById } from '../entities/selectors';
 import {
-  getCreateReturn,
   getReturnDetails as getReturnDetailsFromReducer,
   getReturnPickupCapabilities as getReturnPickupCapabilitiesFromReducer,
 } from './reducer';
-import { getEntities, getEntityById } from '../entities/selectors';
 import generateReturnPickupCapabilityHash from './helpers/generateReturnPickupCapabilityHash';
 import type { Return, ReturnItem } from '@farfetch/blackout-client';
 import type { ReturnEntityDenormalized, ReturnItemEntity } from '../entities';
@@ -183,51 +182,3 @@ export const isReturnPickupCapabilityFetched = (
   (!!getReturnPickupCapability(state, returnId, pickupDay) ||
     !!getReturnPickupCapabilityError(state, returnId, pickupDay)) &&
   !isReturnPickupCapabilityLoading(state, returnId, pickupDay);
-
-/**
- * Returns the loading status for the create return request.
- *
- * @param state - Application state.
- *
- * @returns Loading status for the create return request.
- */
-export const isCreateReturnLoading = (state: StoreState) =>
-  getCreateReturn(state.returns as ReturnsState).isLoading;
-
-/**
- * Returns the error for the create return request.
- *
- * @param state - Application state.
- *
- * @returns Create return error.
- */
-export const getCreateReturnError = (state: StoreState) =>
-  getCreateReturn(state.returns as ReturnsState).error;
-
-/**
- * Returns the create return entity or undefined if not found.
- *
- * @param state - Application state.
- *
- * @returns The created return entity if found, undefined otherwise.
- */
-export const getCreatedReturn = (state: StoreState) => {
-  const createdReturnId = getCreateReturn(state.returns as ReturnsState).result;
-
-  if (!createdReturnId) {
-    return undefined;
-  }
-
-  return getReturn(state, createdReturnId);
-};
-
-/**
- * Returns the isFetched status for the create return request.
- *
- * @param state - Application state.
- *
- * @returns Is fetched status for the create return request.
- */
-export const isCreateReturnFetched = (state: StoreState) =>
-  (!!getCreatedReturn(state) || !!getCreateReturnError(state)) &&
-  !isCreateReturnLoading(state);

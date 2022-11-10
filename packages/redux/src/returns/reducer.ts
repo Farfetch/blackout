@@ -10,8 +10,6 @@ import generateReturnPickupCapabilityHash from './helpers/generateReturnPickupCa
 import omit from 'lodash/omit';
 import produce from 'immer';
 import type {
-  CreateReturnFailureAction,
-  CreateReturnSuccessAction,
   FetchReturnFailureAction,
   FetchReturnPickupCapabilityFailureAction,
   FetchReturnPickupCapabilityRequestAction,
@@ -32,11 +30,6 @@ export const INITIAL_STATE: ReturnsState = {
     error: {},
     isLoading: {},
   },
-  createReturn: {
-    error: null,
-    isLoading: false,
-    result: null,
-  },
   returnPickupCapabilities: {
     error: {},
     isLoading: {},
@@ -46,7 +39,7 @@ export const INITIAL_STATE: ReturnsState = {
 const resetEntitiesStateReducer = (
   state: NonNullable<StoreState['entities']>,
 ) => {
-  const { returns, returnItems, ...rest } = state;
+  const { returns, returnItems, returnPickupCapabilities, ...rest } = state;
 
   return {
     ...rest,
@@ -93,36 +86,42 @@ export const entitiesMapper = {
       }
     });
   },
-};
+  [actionTypes.RESET_RETURN_PICKUP_CAPABILITY_STATE]: (
+    state: NonNullable<StoreState['entities']>,
+    action: AnyAction,
+  ) => {
+    const resetReturnPickupCapabilityStateAction =
+      action as ResetReturnPickupCapabilityStateAction;
 
-export const createReturn = (
-  state = INITIAL_STATE.createReturn,
-  action: AnyAction,
-) => {
-  switch (action.type) {
-    case actionTypes.CREATE_RETURN_REQUEST:
-      return {
-        ...state,
-        isLoading: true,
-        error: INITIAL_STATE.createReturn.error,
-      };
-    case actionTypes.CREATE_RETURN_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        result: (action as CreateReturnSuccessAction).payload.result,
-      };
-    case actionTypes.CREATE_RETURN_FAILURE:
-      return {
-        ...state,
-        isLoading: false,
-        error: (action as CreateReturnFailureAction).payload.error,
-      };
-    case actionTypes.RESET_CREATE_RETURN_STATE:
-      return INITIAL_STATE.createReturn;
-    default:
-      return state;
-  }
+    const pickupCapabilitiesToReset =
+      resetReturnPickupCapabilityStateAction.payload;
+
+    if (!pickupCapabilitiesToReset || pickupCapabilitiesToReset.length === 0) {
+      const { returnPickupCapabilities, ...rest } = state;
+
+      return rest;
+    }
+
+    const hashesToReset = pickupCapabilitiesToReset.map(
+      pickupCapabilityToReset => {
+        return generateReturnPickupCapabilityHash(
+          pickupCapabilityToReset.returnId,
+          pickupCapabilityToReset.pickupDay,
+        );
+      },
+    );
+
+    const currentReturnPickupCapabilities = state.returnPickupCapabilities;
+    const newReturnPickupCapabilitiesEntities = omit(
+      currentReturnPickupCapabilities,
+      hashesToReset,
+    );
+
+    return {
+      ...state,
+      returnPickupCapabilities: newReturnPickupCapabilitiesEntities,
+    };
+  },
 };
 
 export const returnDetails = (
@@ -272,7 +271,6 @@ export const returnPickupCapabilities = (
 export const getReturnDetails = (state: ReturnsState) => state.returnDetails;
 export const getReturnPickupCapabilities = (state: ReturnsState) =>
   state.returnPickupCapabilities;
-export const getCreateReturn = (state: ReturnsState) => state.createReturn;
 
 /**
  * Reducer for returns state.
@@ -283,7 +281,6 @@ export const getCreateReturn = (state: ReturnsState) => state.createReturn;
  * @returns New state.
  */
 const reducer: Reducer<ReturnsState> = combineReducers({
-  createReturn,
   returnDetails,
   returnPickupCapabilities,
 });

@@ -170,7 +170,7 @@ describe('useReturnPickupCapability', () => {
         );
       });
 
-      it('should fetch data if `enableAutoFetch` option is true', () => {
+      it('should fetch data if `enableAutoFetch` option is true and both returnId and pickupDay parameters are passed', () => {
         renderHook(
           () =>
             useReturnPickupCapability(returnId, pickupDay, {
@@ -205,9 +205,7 @@ describe('useReturnPickupCapability', () => {
 
       it('should not fetch data if `enableAutoFetch` option is true and returnId parameter is not passed', () => {
         renderHook(
-          () =>
-            // @ts-expect-error Forcing returnId undefined to test
-            useReturnPickupCapability(undefined, pickupDay, undefined),
+          () => useReturnPickupCapability(undefined, pickupDay, undefined),
           {
             wrapper: withStore(mockInitialStateNoData),
           },
@@ -218,9 +216,7 @@ describe('useReturnPickupCapability', () => {
 
       it('should not fetch data if `enableAutoFetch` option is true and pickupDay parameter is not passed', () => {
         renderHook(
-          () =>
-            // @ts-expect-error Forcing pickupDay undefined to test
-            useReturnPickupCapability(returnId, undefined, undefined),
+          () => useReturnPickupCapability(returnId, undefined, undefined),
           {
             wrapper: withStore(mockInitialStateNoData),
           },
@@ -233,16 +229,23 @@ describe('useReturnPickupCapability', () => {
 
   describe('actions', () => {
     describe('reset', () => {
-      it('should call `resetReturnPickupCapabilityState` action when both returnId and pickupDay parameters are passed to the hook', () => {
+      it('should call `resetReturnPickupCapabilityState` action with the returnId and pickupDay parameters provided to the hook if no parameters are passed', () => {
         const {
           result: {
             current: {
               actions: { reset },
             },
           },
-        } = renderHook(() => useReturnPickupCapability(returnId, pickupDay), {
-          wrapper: withStore(mockInitialStateNoData),
-        });
+        } = renderHook(
+          () =>
+            useReturnPickupCapability(returnId, pickupDay, {
+              fetchConfig: mockFetchConfig,
+              enableAutoFetch: false,
+            }),
+          {
+            wrapper: withStore(mockInitialStateNoData),
+          },
+        );
 
         reset();
 
@@ -251,39 +254,130 @@ describe('useReturnPickupCapability', () => {
         ]);
       });
 
-      it('should fail when returnId parameter is not passed to the hook', () => {
+      it('should call `resetReturnPickupCapabilityState` action with the returnId passed as a parameter and use the pickupDay parameter provided to the hook if it is not passed', () => {
         const {
           result: {
             current: {
               actions: { reset },
             },
           },
-          // @ts-expect-error Forcing returnId undefined to test
-        } = renderHook(() => useReturnPickupCapability(undefined, pickupDay), {
-          wrapper: withStore(mockInitialStateNoData),
-        });
+        } = renderHook(
+          () =>
+            useReturnPickupCapability(undefined, pickupDay, {
+              fetchConfig: mockFetchConfig,
+              enableAutoFetch: false,
+            }),
+          {
+            wrapper: withStore(mockInitialStateNoData),
+          },
+        );
 
-        expect(() => reset()).toThrow('No return id was specified.');
+        reset(returnId);
+
+        expect(resetReturnPickupCapabilityState).toHaveBeenCalledWith([
+          { returnId, pickupDay },
+        ]);
       });
 
-      it('should fail when pickupDay parameter is not passed to the hook', () => {
+      it('should call `resetReturnPickupCapabilityState` action with the pickupDay passed as a parameter and use the returnId parameter provided to the hook if it is not passed', () => {
         const {
           result: {
             current: {
               actions: { reset },
             },
           },
-          // @ts-expect-error Forcing pickupDay undefined to test
-        } = renderHook(() => useReturnPickupCapability(returnId, undefined), {
-          wrapper: withStore(mockInitialStateNoData),
-        });
+        } = renderHook(
+          () =>
+            useReturnPickupCapability(returnId, undefined, {
+              fetchConfig: mockFetchConfig,
+              enableAutoFetch: false,
+            }),
+          {
+            wrapper: withStore(mockInitialStateNoData),
+          },
+        );
 
-        expect(() => reset()).toThrow('No pickup day was specified.');
+        reset(undefined, pickupDay);
+
+        expect(resetReturnPickupCapabilityState).toHaveBeenCalledWith([
+          { returnId, pickupDay },
+        ]);
+      });
+
+      it('should call `resetReturnPickupCapabilityState` action with the returnId and pickupDay parameters if both are passed to the function', () => {
+        const {
+          result: {
+            current: {
+              actions: { reset },
+            },
+          },
+        } = renderHook(
+          () =>
+            useReturnPickupCapability(undefined, undefined, {
+              fetchConfig: mockFetchConfig,
+              enableAutoFetch: false,
+            }),
+          {
+            wrapper: withStore(mockInitialStateNoData),
+          },
+        );
+
+        reset(returnId, pickupDay);
+
+        expect(resetReturnPickupCapabilityState).toHaveBeenCalledWith([
+          { returnId, pickupDay },
+        ]);
+      });
+
+      it('should not call `resetReturnPickupCapabilityState` when returnId parameter is not passed to both the hook and the function', () => {
+        const {
+          result: {
+            current: {
+              actions: { reset },
+            },
+          },
+        } = renderHook(
+          () =>
+            useReturnPickupCapability(undefined, pickupDay, {
+              fetchConfig: mockFetchConfig,
+              enableAutoFetch: false,
+            }),
+          {
+            wrapper: withStore(mockInitialStateNoData),
+          },
+        );
+
+        reset();
+
+        return expect(resetReturnPickupCapabilityState).not.toHaveBeenCalled();
+      });
+
+      it('should not call `resetReturnPickupCapabilityState` when pickupDay parameter is not passed to both the hook and the function', () => {
+        const {
+          result: {
+            current: {
+              actions: { reset },
+            },
+          },
+        } = renderHook(
+          () =>
+            useReturnPickupCapability(returnId, undefined, {
+              fetchConfig: mockFetchConfig,
+              enableAutoFetch: false,
+            }),
+          {
+            wrapper: withStore(mockInitialStateNoData),
+          },
+        );
+
+        reset();
+
+        expect(resetReturnPickupCapabilityState).not.toHaveBeenCalled();
       });
     });
 
     describe('fetch', () => {
-      it('should call `fetchReturnPickupCapability` action when both returnId and pickupDay parameters are passed to the hook', () => {
+      it('should call `fetchReturnPickupCapability` action with the returnId and pickupDay parameters provided to the hook if no parameters are passed', () => {
         const {
           result: {
             current: {
@@ -310,7 +404,7 @@ describe('useReturnPickupCapability', () => {
         );
       });
 
-      it('should fail when returnId parameter is not passed to the hook', () => {
+      it('should call `fetchReturnPickupCapability` action with the returnId passed as a parameter and use the pickupDay parameter provided to the hook if it is not passed', () => {
         const {
           result: {
             current: {
@@ -319,7 +413,6 @@ describe('useReturnPickupCapability', () => {
           },
         } = renderHook(
           () =>
-            // @ts-expect-error Forcing returnId undefined to test
             useReturnPickupCapability(undefined, pickupDay, {
               fetchConfig: mockFetchConfig,
               enableAutoFetch: false,
@@ -329,10 +422,16 @@ describe('useReturnPickupCapability', () => {
           },
         );
 
-        return expect(fetch()).rejects.toEqual('No return id was specified.');
+        fetch(returnId);
+
+        expect(fetchReturnPickupCapability).toHaveBeenCalledWith(
+          returnId,
+          pickupDay,
+          mockFetchConfig,
+        );
       });
 
-      it('should fail when pickupDay parameter is not passed to the hook', () => {
+      it('should call `fetchReturnPickupCapability` action with the pickupDay passed as a parameter and use the returnId parameter provided to the hook if it is not passed', () => {
         const {
           result: {
             current: {
@@ -341,7 +440,6 @@ describe('useReturnPickupCapability', () => {
           },
         } = renderHook(
           () =>
-            // @ts-expect-error Forcing pickupDay undefined to test
             useReturnPickupCapability(returnId, undefined, {
               fetchConfig: mockFetchConfig,
               enableAutoFetch: false,
@@ -351,7 +449,86 @@ describe('useReturnPickupCapability', () => {
           },
         );
 
-        return expect(fetch()).rejects.toEqual('No pickup day was specified.');
+        fetch(undefined, pickupDay);
+
+        expect(fetchReturnPickupCapability).toHaveBeenCalledWith(
+          returnId,
+          pickupDay,
+          mockFetchConfig,
+        );
+      });
+
+      it('should call `fetchReturnPickupCapability` action with the returnId, pickupDay and config parameters if those are passed to the function', () => {
+        const {
+          result: {
+            current: {
+              actions: { fetch },
+            },
+          },
+        } = renderHook(
+          () =>
+            useReturnPickupCapability(undefined, undefined, {
+              fetchConfig: mockFetchConfig,
+              enableAutoFetch: false,
+            }),
+          {
+            wrapper: withStore(mockInitialStateNoData),
+          },
+        );
+
+        const anotherConfig = {};
+
+        fetch(returnId, pickupDay, anotherConfig);
+
+        expect(fetchReturnPickupCapability).toHaveBeenCalledWith(
+          returnId,
+          pickupDay,
+          anotherConfig,
+        );
+      });
+
+      it('should fail when returnId parameter is not passed to both the hook and the function', () => {
+        const {
+          result: {
+            current: {
+              actions: { fetch },
+            },
+          },
+        } = renderHook(
+          () =>
+            useReturnPickupCapability(undefined, pickupDay, {
+              fetchConfig: mockFetchConfig,
+              enableAutoFetch: false,
+            }),
+          {
+            wrapper: withStore(mockInitialStateNoData),
+          },
+        );
+
+        return expect(fetch()).rejects.toThrow('No return id was specified.');
+      });
+
+      it('should fail when pickupDay parameter is not passed to both the hook and the function', () => {
+        const {
+          result: {
+            current: {
+              actions: { fetch },
+            },
+          },
+        } = renderHook(
+          () =>
+            useReturnPickupCapability(returnId, undefined, {
+              fetchConfig: mockFetchConfig,
+              enableAutoFetch: false,
+            }),
+          {
+            wrapper: withStore(mockInitialStateNoData),
+          },
+        );
+
+        return expect(fetch(returnId)).rejects.toThrow(
+          'No pickup day was specified.',
+        );
       });
     });
   });

@@ -218,6 +218,7 @@ export const responses = {
 
 export const orderId = responses.get.success.orderId;
 export const returnId = responses.get.success.id;
+export const returnId2 = returnId + 1;
 export const returnPickupCapabilityId = `${returnId}|${pickupDay}`;
 export const returnItemId = responses.get.success.items[0]
   ?.orderItemId as ReturnItem['id'];
@@ -306,11 +307,6 @@ export const mockState = {
     returnDetails: {
       error: { [returnId]: toBlackoutError(new Error('dummy error')) },
       isLoading: { [returnId]: false },
-    },
-    createReturn: {
-      error: toBlackoutError(new Error('dummy error')),
-      isLoading: false,
-      result: null,
     },
     returnPickupCapabilities: {
       error: {

@@ -206,7 +206,6 @@ Object {
   "useCountryAddressSchemas": [Function],
   "useCountryStateCities": [Function],
   "useCountryStates": [Function],
-  "useCreateReturn": [Function],
   "useLocale": [Function],
   "useOrder": [Function],
   "useOrderReturnOptions": [Function],
