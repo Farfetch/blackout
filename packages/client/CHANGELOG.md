@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.218](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.217...@farfetch/blackout-client@2.0.0-next.218) (2022-11-10)
+
+
+### Features
+
+* **client|redux:** create new client fetch Content Page ([41834cd](https://github.com/Farfetch/blackout/commit/41834cd6bf25cd3da7a7d37ca1209bd5ed554bde))
+
+
+
+
+
 # [2.0.0-next.217](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.216...@farfetch/blackout-client@2.0.0-next.217) (2022-11-08)
 
 
