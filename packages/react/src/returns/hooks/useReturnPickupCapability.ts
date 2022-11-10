@@ -10,31 +10,58 @@ import {
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction';
-import type { Return } from '@farfetch/blackout-client';
+import type { Config, Return } from '@farfetch/blackout-client';
 import type { UseReturnPickupCapabilityOptions } from './types/useReturnPickupCapability';
 
 /**
  * Obtains the pickup capability for a specific return and pickup day.
  */
 function useReturnPickupCapability(
-  returnId: Return['id'],
-  pickupDay: string,
+  returnId?: Return['id'],
+  pickupDay?: string,
   options: UseReturnPickupCapabilityOptions = {},
 ) {
+  const returnIdHookParameter = returnId;
+  const pickupDayHookParameter = pickupDay;
   const { enableAutoFetch = true, fetchConfig } = options;
 
   const isLoading = useSelector((state: StoreState) =>
-    isReturnPickupCapabilityLoading(state, returnId, pickupDay),
+    pickupDayHookParameter && returnIdHookParameter
+      ? isReturnPickupCapabilityLoading(
+          state,
+          returnIdHookParameter,
+          pickupDayHookParameter,
+        )
+      : false,
   );
   const error = useSelector((state: StoreState) =>
-    getReturnPickupCapabilityError(state, returnId, pickupDay),
+    pickupDayHookParameter && returnIdHookParameter
+      ? getReturnPickupCapabilityError(
+          state,
+          returnIdHookParameter,
+          pickupDayHookParameter,
+        )
+      : null,
   );
   const returnPickupCapability = useSelector((state: StoreState) =>
-    getReturnPickupCapability(state, returnId, pickupDay),
+    pickupDayHookParameter && returnIdHookParameter
+      ? getReturnPickupCapability(
+          state,
+          returnIdHookParameter,
+          pickupDayHookParameter,
+        )
+      : undefined,
   );
   const isFetched = useSelector((state: StoreState) =>
-    isReturnPickupCapabilityFetched(state, returnId, pickupDay),
+    pickupDayHookParameter && returnIdHookParameter
+      ? isReturnPickupCapabilityFetched(
+          state,
+          returnIdHookParameter,
+          pickupDayHookParameter,
+        )
+      : false,
   );
+
   const fetchReturnPickupCapability = useAction(
     fetchReturnPickupCapabilityAction,
   );
@@ -42,35 +69,71 @@ function useReturnPickupCapability(
     resetReturnPickupCapabilityStateAction,
   );
 
-  const fetch = useCallback(() => {
-    if (!returnId) {
-      return Promise.reject('No return id was specified.');
-    }
+  const fetch = useCallback(
+    (returnId?: Return['id'], pickupDay?: string, config?: Config) => {
+      const returnIdRequest = returnId || returnIdHookParameter;
 
-    if (!pickupDay) {
-      return Promise.reject('No pickup day was specified.');
-    }
+      if (!returnIdRequest) {
+        return Promise.reject(new Error('No return id was specified.'));
+      }
 
-    return fetchReturnPickupCapability(returnId, pickupDay, fetchConfig);
-  }, [returnId, pickupDay, fetchReturnPickupCapability, fetchConfig]);
+      const pickupDayRequest = pickupDay || pickupDayHookParameter;
 
-  const reset = useCallback(() => {
-    if (!returnId) {
-      throw new Error('No return id was specified.');
-    }
+      if (!pickupDayRequest) {
+        return Promise.reject(new Error('No pickup day was specified.'));
+      }
 
-    if (!pickupDay) {
-      throw new Error('No pickup day was specified.');
-    }
+      return fetchReturnPickupCapability(
+        returnIdRequest,
+        pickupDayRequest,
+        config || fetchConfig,
+      );
+    },
+    [
+      fetchConfig,
+      fetchReturnPickupCapability,
+      pickupDayHookParameter,
+      returnIdHookParameter,
+    ],
+  );
 
-    resetReturnPickupCapabilityState([{ returnId, pickupDay }]);
-  }, [pickupDay, resetReturnPickupCapabilityState, returnId]);
+  const reset = useCallback(
+    (returnId?: Return['id'], pickupDay?: string) => {
+      const returnIdRequest = returnId || returnIdHookParameter;
+      const pickupDayRequest = pickupDay || pickupDayHookParameter;
+
+      if (returnIdRequest && pickupDayRequest) {
+        resetReturnPickupCapabilityState([
+          { returnId: returnIdRequest, pickupDay: pickupDayRequest },
+        ]);
+      }
+    },
+    [
+      pickupDayHookParameter,
+      resetReturnPickupCapabilityState,
+      returnIdHookParameter,
+    ],
+  );
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch && returnId && pickupDay) {
-      fetch();
+    if (
+      !isLoading &&
+      !isFetched &&
+      enableAutoFetch &&
+      returnIdHookParameter &&
+      pickupDay
+    ) {
+      fetch(returnIdHookParameter, pickupDay, fetchConfig);
     }
-  }, [enableAutoFetch, fetch, isFetched, isLoading, returnId, pickupDay]);
+  }, [
+    enableAutoFetch,
+    fetch,
+    isFetched,
+    isLoading,
+    pickupDay,
+    fetchConfig,
+    returnIdHookParameter,
+  ]);
 
   return {
     actions: {

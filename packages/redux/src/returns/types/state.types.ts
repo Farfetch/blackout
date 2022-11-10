@@ -1,5 +1,4 @@
 import type { BlackoutError, Return } from '@farfetch/blackout-client';
-import type { StateWithResult } from '../../types/subAreaState.types';
 
 export type ReturnDetailsState = {
   error: Record<Return['id'], BlackoutError | null>;
@@ -14,5 +13,4 @@ export type ReturnPickupCapabilitiesState = {
 export type ReturnsState = {
   returnDetails: ReturnDetailsState;
   returnPickupCapabilities: ReturnPickupCapabilitiesState;
-  createReturn: StateWithResult<Return['id']>;
 };
