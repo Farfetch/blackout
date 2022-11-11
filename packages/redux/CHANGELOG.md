@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.336](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.335...@farfetch/blackout-redux@1.0.0-next.336) (2022-11-11)
+
+
+### chore
+
+* **react|redux:** remove checkout hooks ([36702bf](https://github.com/Farfetch/blackout/commit/36702bf412755c7b2ec92fe86ad670e5df0ded61))
+
+
+### BREAKING CHANGES
+
+* **react|redux:** - `useCheckout` hook was removed from @farfetch/blackout-react package.
+- `getCheckoutOrderOperation` and `fetchCheckoutOrderOperation` signatures
+have changed to accept separate parameters for the checkoutOrderId and
+operationId values instead of using an object.
+- `getPaymentMethods` client was renamed to `getCheckoutOrderPaymentMethods`.
+- `fetchPaymentMethods` action was renamed to `fetchCheckoutOrderPaymentMethods`.
+
+
+
+
+
 # [1.0.0-next.335](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.334...@farfetch/blackout-redux@1.0.0-next.335) (2022-11-10)
 
 
