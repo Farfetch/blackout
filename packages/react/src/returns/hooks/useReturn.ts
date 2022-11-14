@@ -21,6 +21,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction';
 import useReturnPickupCapability from './useReturnPickupCapability';
+import useReturnPickupRescheduleRequests from './useReturnPickupRescheduleRequests';
 import type { UseReturnOptions } from './types';
 
 /**
@@ -172,7 +173,7 @@ function useReturn(returnId?: Return['id'], options: UseReturnOptions = {}) {
   }
 
   // We can only export the actions here since the pickupDay parameter
-  // will be always undefined, so the pickup capability state can never
+  // will always be undefined, so the pickup capability state can never
   // be fetched correctly from the hook.
   const {
     actions: { fetch: fetchPickupCapability, reset: resetPickupCapability },
@@ -180,15 +181,31 @@ function useReturn(returnId?: Return['id'], options: UseReturnOptions = {}) {
     enableAutoFetch: false,
   });
 
+  const {
+    data: pickupRescheduleRequests,
+    isLoading: arePickupRescheduleRequestsLoading,
+    error: pickupRescheduleRequestsError,
+    actions: {
+      fetch: fetchPickupRescheduleRequests,
+      create: createPickupRescheduleRequest,
+      fetchPickupRescheduleRequest,
+    },
+  } = useReturnPickupRescheduleRequests(implicitReturnId, {
+    enableAutoFetch: false,
+  });
+
   const data = useMemo(() => {
-    if (!returnEntity) {
+    const hasAnyData = returnEntity || pickupRescheduleRequests;
+
+    if (!hasAnyData) {
       return undefined;
     }
 
     return {
       ...returnEntity,
+      pickupRescheduleRequests,
     };
-  }, [returnEntity]);
+  }, [returnEntity, pickupRescheduleRequests]);
 
   useEffect(() => {
     if (!isLoading && !isFetched && enableAutoFetch && returnIdHookParameter) {
@@ -204,11 +221,16 @@ function useReturn(returnId?: Return['id'], options: UseReturnOptions = {}) {
       create,
       fetchPickupCapability,
       resetPickupCapability,
+      fetchPickupRescheduleRequests,
+      createPickupRescheduleRequest,
+      fetchPickupRescheduleRequest,
     },
     data,
     returnError: error,
     isReturnLoading: isLoading,
     isReturnFetched: isFetched,
+    arePickupRescheduleRequestsLoading,
+    pickupRescheduleRequestsError,
   };
 }
 

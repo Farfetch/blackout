@@ -30,7 +30,7 @@ import {
   UserAddressInput,
 } from '@farfetch/blackout-client';
 import { withStore } from '../../../../tests/helpers';
-import flushPromises from '../../../../../../tests/flushPromises';
+import flushPromises from 'tests/flushPromises';
 import merge from 'lodash/merge';
 import React from 'react';
 import thunk from 'redux-thunk';

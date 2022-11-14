@@ -17,7 +17,7 @@ export const returnTimeWindowData = {
 };
 
 export const getReturnPickupRescheduleRequestsData = {
-  id: '',
+  id: rescheduleRequestId,
   timeWindow: returnTimeWindowData,
   status: RescheduleStatus.InProgress,
 };
