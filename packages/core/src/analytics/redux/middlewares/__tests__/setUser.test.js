@@ -456,7 +456,7 @@ describe('setUserMiddleware', () => {
       });
     });
 
-    it('Should trigger a logout event when the user changes to a guest user from a logged in user', async () => {
+    it('Should trigger a logout event when the user changes to a guest user from a logged in user (session expired)', async () => {
       const setUserMiddleware = require('../setUser').default;
 
       const store = mockStore(mockStateGuestUser, [
@@ -485,6 +485,36 @@ describe('setUserMiddleware', () => {
       assertSetUserSpyCalledWith(guestUserId, guestUserInfo);
 
       expect(trackSpy).toHaveBeenCalledWith(eventTypes.LOGOUT);
+    });
+
+    it('Should trigger a logout event when the user changes to a guest user from a logged in user (Manual logout)', async () => {
+      const setUserMiddleware = require('../setUser').default;
+
+      const store = mockStore(mockStateGuestUser, [
+        setUserMiddleware(analytics),
+      ]);
+
+      // Set user as logged in
+      await dispatchUserChangingAction(
+        store,
+        authenticationActionTypes.LOGIN_SUCCESS,
+        loggedInUserEntity,
+        { isLoginAction: true, method: loginMethodParameterTypes.TENANT },
+      );
+
+      assertSetUserSpyCalledWith(loggedInUserId, loggedInUserInfo);
+
+      jest.clearAllMocks();
+
+      // Change the user to a guest now
+      await dispatchUserChangingAction(
+        store,
+        authenticationActionTypes.LOGOUT_SUCCESS,
+        guestUserEntity,
+      );
+
+      expect(trackSpy).toHaveBeenCalledWith(eventTypes.LOGOUT);
+      expect(anonymizeSpy).toHaveBeenCalled();
     });
 
     it('Should not track any event if there was not a change to the user logged-in status', async () => {

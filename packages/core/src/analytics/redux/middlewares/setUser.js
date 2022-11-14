@@ -18,7 +18,6 @@ export const DEFAULT_TRIGGER_SET_USER_ACTION_TYPES = new Set([
 
 export const DEFAULT_TRIGGER_ANONYMIZE_ACTION_TYPES = new Set([
   authenticationActionTypes.LOGOUT_SUCCESS,
-  profileActionTypes.GET_PROFILE_FAILURE,
 ]);
 
 // Default user traits picker
@@ -176,7 +175,12 @@ export default (analyticsInstance, actionTypesOrOptions) => {
             analyticsInstance.track(eventTypeToTrack, eventPayload);
           }
         } else if (!previousIsGuest && isGuest) {
+          // When the session expires and there's still a `currentUser` stored
           analyticsInstance.track(eventTypes.LOGOUT);
+
+          await analyticsInstance.anonymize();
+
+          currentUser = null;
         }
       }
 
@@ -184,7 +188,11 @@ export default (analyticsInstance, actionTypesOrOptions) => {
     }
 
     if (triggerAnonymizeActions.has(actionType)) {
+      // When the user manually logs out
+      await analyticsInstance.track(eventTypes.LOGOUT);
+
       await analyticsInstance.anonymize();
+
       currentUser = null;
     }
 
