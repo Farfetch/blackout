@@ -15,6 +15,7 @@ import {
   mockPatchData,
   mockState,
   pickupDay,
+  rescheduleRequestId,
   returnEntityDenormalized,
   returnId,
   returnId2,
@@ -25,6 +26,7 @@ import { toBlackoutError } from '@farfetch/blackout-client';
 import { useReturn } from '../../..';
 import ReturnTest from '../__fixtures__/ReturnsTest.fixtures';
 import useReturnPickupCapability from '../useReturnPickupCapability';
+import useReturnPickupRescheduleRequests from '../useReturnPickupRescheduleRequests';
 
 jest.mock('@farfetch/blackout-redux', () => {
   const original = jest.requireActual('@farfetch/blackout-redux');
@@ -65,11 +67,34 @@ jest.mock('../useReturnPickupCapability', () => {
   });
 });
 
+const mockCreatePickupRescheduleRequestFn = jest.fn();
+const mockFetchPickupRescheduleRequestFn = jest.fn();
+const mockFetchPickupRescheduleRequestsFn = jest.fn();
+
+jest.mock('../useReturnPickupRescheduleRequests', () => {
+  return jest.fn(() => {
+    return {
+      ...jest.requireActual('../useReturnPickupRescheduleRequests'),
+      data: undefined,
+      isLoading: false,
+      isFetched: false,
+      error: null,
+      actions: {
+        fetch: mockFetchPickupRescheduleRequestsFn,
+        create: mockCreatePickupRescheduleRequestFn,
+        fetchPickupRescheduleRequest: mockFetchPickupRescheduleRequestFn,
+      },
+    };
+  });
+});
+
 const defaultReturn = {
   data: undefined,
   isReturnLoading: undefined,
   isReturnFetched: false,
   returnError: undefined,
+  arePickupRescheduleRequestsLoading: false,
+  pickupRescheduleRequestsError: null,
   actions: {
     fetch: expect.any(Function),
     reset: expect.any(Function),
@@ -77,6 +102,9 @@ const defaultReturn = {
     create: expect.any(Function),
     fetchPickupCapability: expect.any(Function),
     resetPickupCapability: expect.any(Function),
+    createPickupRescheduleRequest: expect.any(Function),
+    fetchPickupRescheduleRequest: expect.any(Function),
+    fetchPickupRescheduleRequests: expect.any(Function),
   },
 };
 
@@ -170,6 +198,10 @@ describe('useReturn', () => {
       undefined,
       { enableAutoFetch: false },
     );
+
+    expect(useReturnPickupRescheduleRequests).toHaveBeenCalledWith(returnId, {
+      enableAutoFetch: false,
+    });
   });
 
   it('should return correctly when the return is fetched', () => {
@@ -181,7 +213,10 @@ describe('useReturn', () => {
 
     expect(current).toStrictEqual({
       ...defaultReturn,
-      data: returnEntityDenormalized,
+      data: {
+        ...returnEntityDenormalized,
+        pickupRescheduleRequests: undefined,
+      },
       isReturnFetched: true,
     });
   });
@@ -673,6 +708,99 @@ describe('useReturn', () => {
         expect(mockResetPickupCapabilityFn).toHaveBeenCalledWith(
           returnId2,
           pickupDay,
+        );
+      });
+    });
+
+    describe('fetchPickupRescheduleRequests', () => {
+      it('should call `fetch` from the `useReturnPickupRescheduleRequests` hook', async () => {
+        const {
+          result: {
+            current: {
+              actions: { fetchPickupRescheduleRequests },
+            },
+          },
+        } = renderHook(
+          () =>
+            useReturn(returnId, {
+              enableAutoFetch: false,
+              fetchConfig: mockFetchConfig,
+            }),
+          {
+            wrapper: withStore(mockInitialStateNoData),
+          },
+        );
+
+        await fetchPickupRescheduleRequests(returnId, mockFetchConfig);
+
+        expect(mockFetchPickupRescheduleRequestsFn).toHaveBeenCalledWith(
+          returnId,
+          mockFetchConfig,
+        );
+      });
+    });
+
+    describe('createPickupRescheduleRequest', () => {
+      it('should call `create` from the `useReturnPickupRescheduleRequests` hook', async () => {
+        const {
+          result: {
+            current: {
+              actions: { createPickupRescheduleRequest },
+            },
+          },
+        } = renderHook(
+          () =>
+            useReturn(returnId, {
+              enableAutoFetch: false,
+              fetchConfig: mockFetchConfig,
+            }),
+          {
+            wrapper: withStore(mockInitialStateNoData),
+          },
+        );
+
+        const mockCreatePickupRescheduleData = {
+          timeWindow: {
+            start: '2022-11-23T13:18:58Z',
+            end: '2022-11-24T13:18:58Z',
+          },
+        }; 
+
+        await createPickupRescheduleRequest(mockCreatePickupRescheduleData, returnId, mockFetchConfig);
+
+        expect(mockCreatePickupRescheduleRequestFn).toHaveBeenCalledWith(
+          mockCreatePickupRescheduleData,
+          returnId,
+          mockFetchConfig,
+        );
+      });
+    });
+
+    describe('fetchPickupRescheduleRequest', () => {
+      it('should call `fetchPickupRescheduleRequest` from the `useReturnPickupRescheduleRequests` hook', async () => {
+        const {
+          result: {
+            current: {
+              actions: { fetchPickupRescheduleRequest },
+            },
+          },
+        } = renderHook(
+          () =>
+            useReturn(returnId, {
+              enableAutoFetch: false,
+              fetchConfig: mockFetchConfig,
+            }),
+          {
+            wrapper: withStore(mockInitialStateNoData),
+          },
+        );
+
+        await fetchPickupRescheduleRequest(rescheduleRequestId, returnId, mockFetchConfig);
+
+        expect(mockFetchPickupRescheduleRequestFn).toHaveBeenCalledWith(
+          rescheduleRequestId,
+          returnId,
+          mockFetchConfig,
         );
       });
     });

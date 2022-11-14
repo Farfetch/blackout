@@ -3,7 +3,7 @@ import { logger } from '../utils';
 import { PACKAGE_NAME } from '../utils/constants';
 import Analytics from '../';
 import eventTypes from '../types/eventTypes';
-import flushPromises from '../../../../tests/flushPromises';
+import flushPromises from 'tests/flushPromises';
 import pageTypes from '../types/pageTypes';
 import TestStorage from 'test-storage';
 import trackTypes from '../types/trackTypes';
