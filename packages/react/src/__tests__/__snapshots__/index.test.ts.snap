@@ -222,6 +222,8 @@ Object {
   "useRecentlyViewedProducts": [Function],
   "useReturn": [Function],
   "useReturnPickupCapability": [Function],
+  "useReturnPickupRescheduleRequest": [Function],
+  "useReturnPickupRescheduleRequests": [Function],
   "useSearchDidYouMean": [Function],
   "useSearchIntents": [Function],
   "useSearchSuggestions": [Function],
