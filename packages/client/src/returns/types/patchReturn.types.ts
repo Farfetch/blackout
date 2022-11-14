@@ -6,7 +6,7 @@ export type PatchReturnData = {
 };
 
 export type PatchReturn = (
-  id: Return['id'],
+  returnId: Return['id'],
   data: PatchReturnData,
   config?: Config,
 ) => Promise<void>;
