@@ -9,8 +9,8 @@ import {
   result,
   resultNoSocialMeta,
 } from './__fixtures__/useSeoMetadata.fixtures';
-import { withStore } from '../../../../tests/helpers';
 import { useSeoMetadata } from '..';
+import { withStore } from '../../../../tests/helpers';
 
 jest.mock('@farfetch/blackout-redux', () => {
   const original = jest.requireActual('@farfetch/blackout-redux');
@@ -20,11 +20,6 @@ jest.mock('@farfetch/blackout-redux', () => {
     fetchSEOMetadata: jest.fn(() => ({ type: 'foo-bar' })),
   };
 });
-
-jest.mock('../../utils/seoMetadata', () => ({
-  ...jest.requireActual('../../utils/seoMetadata'),
-  getDefaultAppLinks: () => mockDefaultAppLinks,
-}));
 
 describe('useSeoMetadata', () => {
   beforeEach(() => {
@@ -57,7 +52,10 @@ describe('useSeoMetadata', () => {
   });
 
   it('should return data', () => {
-    const props = { query };
+    const props = {
+      query,
+      appIconLinks: mockDefaultAppLinks,
+    };
 
     const {
       result: { current },
@@ -69,7 +67,7 @@ describe('useSeoMetadata', () => {
   });
 
   it('should return no social metatags', () => {
-    const props = { query };
+    const props = { query, appIconLinks: mockDefaultAppLinks };
 
     const {
       result: { current },
