@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.73.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.73.1...@farfetch/blackout-core@1.73.2) (2022-11-15)
+
+
+### Bug Fixes
+
+* **core:** fix analytics' setUser middleware on logout action ([90a28e6](https://github.com/Farfetch/blackout/commit/90a28e62a39a31f697f13844c7b52d35348e1857))
+
+
+
+
+
 ## [1.73.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.73.0...@farfetch/blackout-core@1.73.1) (2022-11-02)
 
 
