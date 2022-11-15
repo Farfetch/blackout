@@ -82,24 +82,19 @@ describe('bags redux reducer', () => {
       expect(state).toBeNull();
     });
 
-    it('should handle ADD_BAG_ITEM_FAILURE action type', () => {
+    it.each([
+      actionTypes.ADD_BAG_ITEM_FAILURE,
+      actionTypes.FETCH_BAG_FAILURE,
+      actionTypes.REMOVE_BAG_ITEM_FAILURE,
+      actionTypes.UPDATE_BAG_ITEM_FAILURE,
+    ])('should handle %s action type', actionType => {
       const expectedResult = 'foo';
 
       expect(
         reducer(undefined, {
           payload: { error: expectedResult },
-          type: actionTypes.ADD_BAG_ITEM_FAILURE,
-        }).error,
-      ).toBe(expectedResult);
-    });
-
-    it('should handle FETCH_BAG_FAILURE action type', () => {
-      const expectedResult = 'foo';
-
-      expect(
-        reducer(undefined, {
-          payload: { error: expectedResult },
-          type: actionTypes.FETCH_BAG_FAILURE,
+          type: actionType,
+          meta: { bagItemId: mockBagItemId },
         }).error,
       ).toBe(expectedResult);
     });
@@ -147,13 +142,19 @@ describe('bags redux reducer', () => {
       expect(state).toBe(initialState.result);
     });
 
-    it('should handle FETCH_BAG_SUCCESS action type', () => {
+    it.each([
+      actionTypes.ADD_BAG_ITEM_SUCCESS,
+      actionTypes.FETCH_BAG_SUCCESS,
+      actionTypes.REMOVE_BAG_ITEM_SUCCESS,
+      actionTypes.UPDATE_BAG_ITEM_SUCCESS,
+    ])('should handle %s action type', actionType => {
       const expectedResult = { bar: 'foo', id: mockBagId };
 
       expect(
         reducer(undefined, {
           payload: { result: expectedResult },
-          type: actionTypes.FETCH_BAG_SUCCESS,
+          type: actionType,
+          meta: { bagItemId: mockBagItemId },
         }).result,
       ).toBe(expectedResult);
     });
@@ -173,55 +174,58 @@ describe('bags redux reducer', () => {
       expect(state).toBe(false);
     });
 
-    it('should handle ADD_BAG_ITEM_REQUEST action type', () => {
-      expect(
-        reducer(undefined, {
-          type: actionTypes.ADD_BAG_ITEM_REQUEST,
-        }).isLoading,
-      ).toBe(true);
-    });
+    it.each([
+      actionTypes.ADD_BAG_ITEM_REQUEST,
+      actionTypes.FETCH_BAG_REQUEST,
+      actionTypes.REMOVE_BAG_ITEM_REQUEST,
+      actionTypes.UPDATE_BAG_ITEM_REQUEST,
+    ])(
+      'should change `isLoading` to true when %s action type is dispatched',
+      actionType => {
+        expect(
+          reducer(undefined, {
+            type: actionType,
+            meta: { bagItemId: mockBagItemId },
+          }).isLoading,
+        ).toBe(true);
+      },
+    );
 
-    it('should handle ADD_BAG_ITEM_FAILURE action type', () => {
-      expect(
-        reducer(undefined, {
-          payload: { error: '' },
-          type: actionTypes.ADD_BAG_ITEM_FAILURE,
-        }).isLoading,
-      ).toBe(initialState.isLoading);
-    });
+    it.each([
+      actionTypes.ADD_BAG_ITEM_FAILURE,
+      actionTypes.FETCH_BAG_FAILURE,
+      actionTypes.REMOVE_BAG_ITEM_FAILURE,
+      actionTypes.UPDATE_BAG_ITEM_FAILURE,
+    ])(
+      'should change `isLoading` to false when %s action type is dispatched',
+      actionType => {
+        expect(
+          reducer(undefined, {
+            type: actionType,
+            meta: { bagItemId: mockBagItemId },
+            payload: { error: new Error('dummy error') },
+          }).isLoading,
+        ).toBe(false);
+      },
+    );
 
-    it('should handle ADD_BAG_ITEM_SUCCESS action type', () => {
-      expect(
-        reducer(undefined, {
-          type: actionTypes.ADD_BAG_ITEM_SUCCESS,
-          payload: { result: { items: [mockBagItemId] } },
-        }).isLoading,
-      ).toBe(initialState.isLoading);
-    });
-
-    it('should handle FETCH_BAG_REQUEST action type', () => {
-      expect(
-        reducer(undefined, { type: actionTypes.FETCH_BAG_REQUEST }).isLoading,
-      ).toBe(true);
-    });
-
-    it('should handle FETCH_BAG_FAILURE action type', () => {
-      expect(
-        reducer(undefined, {
-          payload: { error: '' },
-          type: actionTypes.FETCH_BAG_FAILURE,
-        }).isLoading,
-      ).toBe(initialState.isLoading);
-    });
-
-    it('should handle FETCH_BAG_SUCCESS action type', () => {
-      expect(
-        reducer(undefined, {
-          payload: { result: { id: mockBagId } },
-          type: actionTypes.FETCH_BAG_SUCCESS,
-        }).isLoading,
-      ).toBe(initialState.isLoading);
-    });
+    it.each([
+      actionTypes.ADD_BAG_ITEM_SUCCESS,
+      actionTypes.FETCH_BAG_SUCCESS,
+      actionTypes.REMOVE_BAG_ITEM_SUCCESS,
+      actionTypes.UPDATE_BAG_ITEM_SUCCESS,
+    ])(
+      'should change `isLoading` to false when %s action type is dispatched',
+      actionType => {
+        expect(
+          reducer(undefined, {
+            type: actionType,
+            payload: { result: { id: mockBagId } },
+            meta: { bagItemId: mockBagItemId },
+          }).isLoading,
+        ).toBe(false);
+      },
+    );
 
     it('should handle other actions by returning the previous state', () => {
       const state = { ...initialState, isLoading: false };

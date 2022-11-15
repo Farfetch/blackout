@@ -26,6 +26,8 @@ const error = (
   switch (action.type) {
     case actionTypes.ADD_BAG_ITEM_FAILURE:
     case actionTypes.FETCH_BAG_FAILURE:
+    case actionTypes.UPDATE_BAG_ITEM_FAILURE:
+    case actionTypes.REMOVE_BAG_ITEM_FAILURE:
       return action.payload.error;
     case actionTypes.ADD_BAG_ITEM_REQUEST:
     case actionTypes.REMOVE_BAG_ITEM_REQUEST:
@@ -65,11 +67,17 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.ADD_BAG_ITEM_REQUEST:
     case actionTypes.FETCH_BAG_REQUEST:
+    case actionTypes.UPDATE_BAG_ITEM_REQUEST:
+    case actionTypes.REMOVE_BAG_ITEM_REQUEST:
       return true;
     case actionTypes.ADD_BAG_ITEM_FAILURE:
     case actionTypes.ADD_BAG_ITEM_SUCCESS:
     case actionTypes.FETCH_BAG_FAILURE:
     case actionTypes.FETCH_BAG_SUCCESS:
+    case actionTypes.UPDATE_BAG_ITEM_SUCCESS:
+    case actionTypes.UPDATE_BAG_ITEM_FAILURE:
+    case actionTypes.REMOVE_BAG_ITEM_SUCCESS:
+    case actionTypes.REMOVE_BAG_ITEM_FAILURE:
       return INITIAL_STATE.isLoading;
     default:
       return state;
