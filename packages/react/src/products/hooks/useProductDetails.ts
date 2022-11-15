@@ -56,7 +56,8 @@ const useProductDetails = (
     [fetchAction, productId, fetchQuery, fetchForceDispatch, fetchConfig],
   );
 
-  const shouldLoadDetails = enableAutoFetch && !isLoading && !error && !product;
+  const shouldLoadDetails =
+    enableAutoFetch && !isLoading && !error && !isFetched;
 
   useEffect(() => {
     shouldLoadDetails &&

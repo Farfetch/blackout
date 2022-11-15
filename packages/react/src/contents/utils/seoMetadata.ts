@@ -108,28 +108,3 @@ export const buildIconLinks = ({
 
   return [...regularIconsProps, ...appleIconsProps, ...maskIconProps];
 };
-
-export const getDefaultAppLinks = () => {
-  return {
-    appleIcons: [
-      {
-        href: require('shared/media/favicon/apple-touch-icon.png'),
-        sizes: '180x180',
-      },
-    ],
-    icons: [
-      {
-        href: require('shared/media/favicon/favicon-16x16.png'),
-        sizes: '16x16',
-      },
-      {
-        href: require('shared/media/favicon/favicon-32x32.png'),
-        sizes: '32x32',
-      },
-    ],
-    maskIcon: {
-      color: '#5bbad5',
-      href: require('shared/media/favicon/safari-pinned-tab.svg'),
-    },
-  };
-};
