@@ -1,4 +1,4 @@
-import { buildLinks, buildMetas, getDefaultAppLinks } from '../utils';
+import { buildLinks, buildMetas } from '../utils';
 import {
   fetchSEOMetadata,
   getSEOMetadataError,
@@ -28,7 +28,7 @@ import type { UseSeoMetadataOptions } from './types/useSeoMetadataOptions.types'
 const useSeoMetadata = (
   {
     query,
-    appIconLinks = getDefaultAppLinks(),
+    appIconLinks = {},
     links = [],
     metas = [],
   }: {
