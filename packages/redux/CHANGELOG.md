@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.337](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.336...@farfetch/blackout-redux@1.0.0-next.337) (2022-11-16)
+
+
+### Bug Fixes
+
+* **redux:** fix bag reducer ([299fcb8](https://github.com/Farfetch/blackout/commit/299fcb84d92f2bee7d35fbb9c0d42a69dfa68589))
+
+
+
+
+
 # [1.0.0-next.336](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.335...@farfetch/blackout-redux@1.0.0-next.336) (2022-11-11)
 
 
