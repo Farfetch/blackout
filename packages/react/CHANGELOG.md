@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.345](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.344...@farfetch/blackout-react@1.0.0-next.345) (2022-11-16)
+
+
+### Bug Fixes
+
+* **react:** remove useSeoMedata default app links and fix useProductDetails ([96c463b](https://github.com/Farfetch/blackout/commit/96c463bee8c843dc09b4d721957ad8b93f786652))
+
+
+
+
+
 # [1.0.0-next.344](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.343...@farfetch/blackout-react@1.0.0-next.344) (2022-11-11)
 
 
