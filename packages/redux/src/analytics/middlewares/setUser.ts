@@ -24,7 +24,6 @@ export const DEFAULT_TRIGGER_SET_USER_ACTION_TYPES = new Set([
 
 export const DEFAULT_TRIGGER_ANONYMIZE_ACTION_TYPES = new Set([
   authenticationActionTypes.LOGOUT_SUCCESS,
-  usersActionTypes.FETCH_USER_FAILURE,
 ]);
 
 // Default user traits picker
@@ -211,10 +210,14 @@ export function analyticsSetUserMiddleware(
               : undefined;
 
           if (eventTypeToTrack) {
-            analyticsInstance.track(eventTypeToTrack, eventPayload);
+            await analyticsInstance.track(eventTypeToTrack, eventPayload);
           }
         } else if (!previousIsGuest && isGuest) {
-          analyticsInstance.track(eventTypes.LOGOUT);
+          await analyticsInstance.track(eventTypes.LOGOUT);
+
+          await analyticsInstance.anonymize();
+
+          currentUser = undefined;
         }
       }
 
@@ -222,7 +225,10 @@ export function analyticsSetUserMiddleware(
     }
 
     if (triggerAnonymizeActions.has(actionType)) {
+      await analyticsInstance.track(eventTypes.LOGOUT);
+
       await analyticsInstance.anonymize();
+
       currentUser = undefined;
     }
 

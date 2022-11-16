@@ -430,13 +430,13 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   },
   [eventTypes.CHECKOUT_STARTED]: data => ({
     tid: 2918,
-    basketValue: data.properties.total,
-    basketCurrency: data.properties.currency,
+    basketValue: data.properties?.total,
+    basketCurrency: data.properties?.currency,
     lineItems: getProductLineItems(data),
   }),
   [eventTypes.CHECKOUT_STEP_EDITING]: data => ({
     tid: 2923,
-    checkoutStep: data.properties.step,
+    checkoutStep: data.properties?.step,
   }),
   [eventTypes.PAYMENT_INFO_ADDED]: data => ({
     ...getCommonCheckoutStepTrackingData(data),
@@ -530,8 +530,8 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
 
     if (!properties?.contentType || !properties?.id) {
       logger.error(
-        `[Omnitracking] - Event ${data.event} properties "contentType" and "id" should be sent 
-                        on the payload when triggering a "select content" event. If you want to track this 
+        `[Omnitracking] - Event ${data.event} properties "contentType" and "id" should be sent
+                        on the payload when triggering a "select content" event. If you want to track this
                         event, make sure to pass these two properties.`,
       );
       return undefined;
@@ -566,8 +566,8 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
 
     if (!data.properties?.contentType || !data.properties?.id) {
       logger.error(
-        `[Omnitracking] - Event ${data.event} properties "contentType" and "id" should be sent 
-                        on the payload when triggering a "select content" event. If you want to track this 
+        `[Omnitracking] - Event ${data.event} properties "contentType" and "id" should be sent
+                        on the payload when triggering a "select content" event. If you want to track this
                         event, make sure to pass these two properties.`,
       );
       return;
@@ -689,14 +689,14 @@ export const pageEventsMapper: Readonly<OmnitrackingPageEventsMapper> = {
     viewType: 'Wishlist',
     viewSubType: 'Wishlist',
     lineItems: getProductLineItems(data),
-    wishlistQuantity: getProductLineItemsQuantity(data.properties.products),
+    wishlistQuantity: getProductLineItemsQuantity(data.properties?.products),
   }),
   [pageTypes.BAG]: data => ({
     viewType: 'Shopping Bag',
     viewSubType: 'Bag',
     lineItems: getProductLineItems(data),
-    basketQuantity: getProductLineItemsQuantity(data.properties.products),
-    basketValue: data.properties.value,
+    basketQuantity: getProductLineItemsQuantity(data.properties?.products),
+    basketValue: data.properties?.value,
   }),
 };
 
