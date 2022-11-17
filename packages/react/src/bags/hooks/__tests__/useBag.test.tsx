@@ -6,14 +6,21 @@ import {
   resetBag,
   updateBagItem,
 } from '@farfetch/blackout-redux';
+import { AddUpdateItemBagError, BagItemNotFoundError } from '../errors';
+import { BlackoutError, toBlackoutError } from '@farfetch/blackout-client';
 import { cleanup, renderHook } from '@testing-library/react';
-import { mockBagId, mockBagItemId, mockState } from 'tests/__fixtures__/bags';
+import {
+  mockBagId,
+  mockBagItemId,
+  mockState,
+  mockStateWithSizeWithoutStock,
+  mockStateWithUnavailableStock,
+} from 'tests/__fixtures__/bags';
 import {
   mockMerchantId,
   mockProductId,
   mockSizeScaleId,
 } from 'tests/__fixtures__/products/ids.fixtures';
-import { toBlackoutError } from '@farfetch/blackout-client';
 import { withStore } from '../../../../tests/helpers';
 import useBag from '../useBag';
 
@@ -529,7 +536,7 @@ describe('useBag', () => {
       expect(resetBag).toHaveBeenCalled();
     });
 
-    it('should throw an error on calling `addBagItem` action with invalid product id', async () => {
+    it('should throw an error when calling `addItem` action with invalid product id', async () => {
       const {
         result: {
           current: {
@@ -545,7 +552,7 @@ describe('useBag', () => {
       );
     });
 
-    it('should throw an error calling `addBagItem` action with invalid size id', async () => {
+    it('should throw an error when calling `addItem` action with invalid size id', async () => {
       const {
         result: {
           current: {
@@ -559,6 +566,111 @@ describe('useBag', () => {
       expect(() => addItem(mockProductId, { quantity: 1, sizeId: 99 })).toThrow(
         'Invalid size id',
       );
+    });
+
+    it('should throw an error when calling `addItem` action for a size that does not contain stock property', async () => {
+      const {
+        result: {
+          current: {
+            actions: { addItem },
+          },
+        },
+      } = renderHook(() => useBag(), {
+        // @ts-expect-error State contains a product entity whose sizes property contain a size without stock property.
+        wrapper: withStore(mockStateWithSizeWithoutStock),
+      });
+
+      expect.assertions(2);
+
+      let error = toBlackoutError({});
+
+      try {
+        await addItem(mockProductId, { quantity: 1, sizeId: 1 });
+      } catch (e) {
+        error = e as BlackoutError;
+      }
+
+      expect(error.code).toBe(-1);
+      expect(error).toEqual(new AddUpdateItemBagError(-1));
+    });
+
+    it('should throw an error when calling `addItem` action if it was unable to add or update the item quantity in bag', async () => {
+      const {
+        result: {
+          current: {
+            actions: { addItem },
+          },
+        },
+      } = renderHook(() => useBag(), {
+        wrapper: withStore(mockStateWithUnavailableStock),
+      });
+
+      expect.assertions(2);
+
+      let error = toBlackoutError({});
+
+      try {
+        await addItem(mockProductId, { quantity: 1, sizeId: 23 });
+      } catch (e) {
+        error = e as BlackoutError;
+      }
+
+      expect(error.code).toBe(3);
+      expect(error).toEqual(new AddUpdateItemBagError(3));
+    });
+
+    it('should throw an error when calling `updateItem` for a bag item id that does not exist in the bag', async () => {
+      const {
+        result: {
+          current: {
+            actions: { updateItem },
+          },
+        },
+      } = renderHook(() => useBag(), {
+        wrapper: withStore(mockState),
+      });
+
+      expect.assertions(2);
+
+      let error = toBlackoutError({});
+
+      try {
+        await updateItem(
+          mockBagItemId + 10000,
+          { sizeId: 2, quantity: 2 },
+          metadata,
+        );
+      } catch (e) {
+        error = e as BlackoutError;
+      }
+
+      expect(error.code).toBe(1);
+      expect(error).toEqual(new BagItemNotFoundError());
+    });
+
+    it('should throw an error when calling `updateItem` if it was unable to add or update the item quantity in bag', async () => {
+      const {
+        result: {
+          current: {
+            actions: { updateItem },
+          },
+        },
+      } = renderHook(() => useBag(), {
+        wrapper: withStore(mockStateWithUnavailableStock),
+      });
+
+      expect.assertions(2);
+
+      let error = toBlackoutError({});
+
+      try {
+        await updateItem(mockBagItemId, { sizeId: 23, quantity: 20 }, metadata);
+      } catch (e) {
+        error = e as BlackoutError;
+      }
+
+      expect(error.code).toBe(3);
+      expect(error).toEqual(new AddUpdateItemBagError(3));
     });
   });
 });
