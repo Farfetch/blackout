@@ -7,9 +7,11 @@ import { mockBagItemEntity, mockBagItemId } from './bagItem.fixtures';
 import {
   mockProductEntity,
   mockProductId,
+  mockProductSizeAdapted,
   mockProductSizes,
   mockProductTypeToExclude,
 } from '../products';
+import type { SizeAdapted } from '@farfetch/blackout-redux';
 
 export const mockBagId = '7894746';
 export const mockError = {
@@ -346,4 +348,41 @@ export const mockNormalizedPayload = {
     products: { [mockProductId]: { id: mockProductId } },
   },
   result: { items: [mockBagItemId] },
+};
+
+export const mockStateWithSizeWithoutStock = {
+  ...mockState,
+  entities: {
+    ...mockState.entities,
+    products: {
+      ...mockState.entities.products,
+      [mockProductId]: {
+        ...mockState.entities.products[mockProductId],
+        sizes: [{ id: 1 }],
+      },
+    },
+  },
+};
+
+export const mockStateWithUnavailableStock = {
+  ...mockState,
+  entities: {
+    ...mockState.entities,
+    products: {
+      ...mockState.entities.products,
+      [mockProductId]: {
+        ...mockState.entities.products[mockProductId],
+        sizes: [
+          {
+            ...mockProductSizeAdapted,
+            id: 23,
+            name: '23',
+            stock: [
+              { ...mockProductSizeAdapted.stock[0], quantity: 0 },
+            ] as SizeAdapted['stock'],
+          },
+        ],
+      },
+    },
+  },
 };
