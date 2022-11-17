@@ -20,7 +20,12 @@ import {
   StoreState,
   updateBagItem as updateBagItemAction,
 } from '@farfetch/blackout-redux';
-import { ProductError, SizeError } from './errors';
+import {
+  AddUpdateItemBagError,
+  BagItemNotFoundError,
+  ProductError,
+  SizeError,
+} from './errors';
 import { useCallback, useEffect } from 'react';
 import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction';
@@ -71,8 +76,10 @@ const useBag = (options: UseBagOptions = {}) => {
     ) => {
       let quantityToHandle = quantity;
 
-      if (!size?.stock || !product) {
-        return;
+      // Throw an error to indicate for the consumer that nothing
+      // will be done.
+      if (!size?.stock) {
+        throw new AddUpdateItemBagError(-1);
       }
 
       // Iterate through the stock of different merchants
@@ -134,8 +141,15 @@ const useBag = (options: UseBagOptions = {}) => {
 
         // If there's no more quantity to add, we have finished
         if (quantityToHandle === 0) {
-          return;
+          break;
         }
+      }
+
+      // If after looping all the merchants we were
+      // unable to add any quantity of the product to the
+      // bag, throw an error.
+      if (quantityToHandle === quantity) {
+        throw new AddUpdateItemBagError(3);
       }
     },
     [addBagItem, items, updateBagItem],
@@ -414,8 +428,15 @@ const useBag = (options: UseBagOptions = {}) => {
 
         // If there's no more quantity, we have finished
         if (quantityToHandle === 0) {
-          return;
+          break;
         }
+      }
+
+      // If after looping all the merchants we were
+      // unable to add any quantity of the product to the
+      // bag, throw an error.
+      if (quantityToHandle === newQty) {
+        throw new AddUpdateItemBagError(3);
       }
     },
     [addBagItem, updateBagItem],
@@ -436,7 +457,7 @@ const useBag = (options: UseBagOptions = {}) => {
       const bagItem = items.find(item => item.id === bagItemId);
 
       if (!bagItem || !bagItem.product) {
-        return;
+        throw new BagItemNotFoundError();
       }
 
       const newQuantity = quantity || bagItem.quantity;
