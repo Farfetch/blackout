@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.92](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.91...@farfetch/blackout-analytics@1.0.0-next.92) (2022-11-21)
+
+
+### Bug Fixes
+
+* **analytics|redux:** fix analytics' setUser middleware on logout action ([8b5484d](https://github.com/Farfetch/blackout/commit/8b5484d1afad48a427dee8e7586893c6b8d41bb3))
+
+
+
+
+
 # [1.0.0-next.91](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.90...@farfetch/blackout-analytics@1.0.0-next.91) (2022-11-11)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
