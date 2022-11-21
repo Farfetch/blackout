@@ -38,3 +38,5 @@ export { default as doGetPersonalId } from './doGetPersonalId';
 export { default as doPatchPersonalId } from './doPatchPersonalId';
 export { default as doDeletePersonalId } from './doDeletePersonalId';
 export { default as doPostPersonalIdImage } from './doPostPersonalIdImage';
+export { default as doGetUserBenefits } from './doGetUserBenefits';
+export { default as doGetGuestUserBenefits } from './doGetGuestUserBenefits';

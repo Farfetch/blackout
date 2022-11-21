@@ -38,3 +38,5 @@ export { default as deletePersonalId } from './deletePersonalId';
 export { default as getPersonalId } from './getPersonalId';
 export { default as patchPersonalId } from './patchPersonalId';
 export { default as postPersonalIdImage } from './postPersonalIdImage';
+export { default as getUserBenefits } from './getUserBenefits';
+export { default as getGuestUserBenefits } from './getGuestUserBenefits';

@@ -316,3 +316,23 @@ export const DELETE_PERSONAL_ID_REQUEST =
 /** Action type dispatched when the delete personal id request succeeds. */
 export const DELETE_PERSONAL_ID_SUCCESS =
   '@farfetch/blackout-core/DELETE_PERSONAL_ID_SUCCESS';
+
+/** Action type dispatched when the get user benefits request fails. */
+export const GET_USER_BENEFITS_FAILURE =
+  '@farfetch/blackout-core/GET_USER_BENEFITS_FAILURE';
+/** Action type dispatched when the get user benefits request starts. */
+export const GET_USER_BENEFITS_REQUEST =
+  '@farfetch/blackout-core/GET_USER_BENEFITS_REQUEST';
+/** Action type dispatched when the get user benefits request succeeds. */
+export const GET_USER_BENEFITS_SUCCESS =
+  '@farfetch/blackout-core/GET_USER_BENEFITS_SUCCESS';
+
+/** Action type dispatched when the get guest user benefits request fails. */
+export const GET_GUEST_USER_BENEFITS_FAILURE =
+  '@farfetch/blackout-core/GET_GUEST_USER_BENEFITS_FAILURE';
+/** Action type dispatched when the get guest user benefits request starts. */
+export const GET_GUEST_USER_BENEFITS_REQUEST =
+  '@farfetch/blackout-core/GET_GUEST_USER_BENEFITS_REQUEST';
+/** Action type dispatched when the get guest user benefits request succeeds. */
+export const GET_GUEST_USER_BENEFITS_SUCCESS =
+  '@farfetch/blackout-core/GET_GUEST_USER_BENEFITS_SUCCESS';
