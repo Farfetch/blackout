@@ -24,7 +24,7 @@ const localeServerInitialState: ServerInitialState = ({ model }) => {
     currencyCode,
     currencyCultureCode,
     newsletterSubscriptionOptionDefault,
-    sourceCountryCode,
+    requestSourceCountryCode,
     subfolder,
   } = model;
   // Normalize it
@@ -49,7 +49,7 @@ const localeServerInitialState: ServerInitialState = ({ model }) => {
   return {
     locale: {
       countryCode,
-      sourceCountryCode,
+      sourceCountryCode: requestSourceCountryCode,
     },
     entities,
   };
