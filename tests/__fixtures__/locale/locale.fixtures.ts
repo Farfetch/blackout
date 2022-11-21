@@ -134,7 +134,7 @@ export const mockModel = {
   newsletterSubscriptionOptionDefault: false,
   defaultCulture: 'en-US',
   defaultSubfolder: '/en-us',
-  sourceCountryCode: 'PT',
+  requestSourceCountryCode: 'PT',
   addressType: AddressType.Any,
 };
 
