@@ -5,9 +5,7 @@ git remote set-url origin "https://${GITHUB_TOKEN}@github.com/Farfetch/blackout.
 SOURCE_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 CONTENTS="--contents dist"
 
-if [[ ${SOURCE_BRANCH_NAME} = main || ${SOURCE_BRANCH_NAME} = next ]]; then
-    yarn release:build
-
+if [[ ${SOURCE_BRANCH_NAME} = main || ${SOURCE_BRANCH_NAME} = next ]]; then    
     if [[ ${SOURCE_BRANCH_NAME} = next ]]; then
         PRE_ID_NAME='next'
         PRE_ID="--preid ${PRE_ID_NAME}"
@@ -15,5 +13,9 @@ if [[ ${SOURCE_BRANCH_NAME} = main || ${SOURCE_BRANCH_NAME} = next ]]; then
         CONVENTIONAL_PRERELEASE="--conventional-prerelease"
     fi
 
-    npx lerna publish --conventional-commits --message "${PUBLISH_COMMIT_MESSAGE}" --no-verify-access --yes ${CONTENTS} ${PRE_ID} ${PRE_DIST_TAG} ${CONVENTIONAL_PRERELEASE}
+    npx lerna version --conventional-commits --message "${PUBLISH_COMMIT_MESSAGE}" ${PRE_ID} ${CONVENTIONAL_PRERELEASE}
+
+    yarn release:build
+
+    npx lerna publish from-package --no-verify-access --yes ${CONTENTS} ${PRE_DIST_TAG} 
 fi
