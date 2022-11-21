@@ -29,7 +29,7 @@ type Common = {
   currencyCultureCode: string;
   designers: Designers;
   newsletterSubscriptionOptionDefault: boolean;
-  sourceCountryCode: string;
+  requestSourceCountryCode: string;
   defaultCulture: string;
   defaultSubfolder: string;
   pageType: string;
