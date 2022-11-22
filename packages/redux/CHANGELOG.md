@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.339](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.338...@farfetch/blackout-redux@1.0.0-next.339) (2022-11-22)
+
+
+### Bug Fixes
+
+* **redux:** fix countrySourceCode in locale initial state ([56939f7](https://github.com/Farfetch/blackout/commit/56939f74572b8dd6f948d002b285afdcb41828e9))
+
+
+
+
+
 # [1.0.0-next.338](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.337...@farfetch/blackout-redux@1.0.0-next.338) (2022-11-21)
 
 
