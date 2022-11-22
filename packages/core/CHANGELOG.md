@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.74.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.73.2...@farfetch/blackout-core@1.74.0) (2022-11-22)
+
+
+### Features
+
+* **core:** add user and guestUser benefits endpoints ([cb6067d](https://github.com/Farfetch/blackout/commit/cb6067dfad27300c792adde5f323e33702c8eda0))
+* **core:** update seo metadata endpoint ([59eb80b](https://github.com/Farfetch/blackout/commit/59eb80b2ba264099b6f3a71a08442cf101b439c2))
+
+
+
+
+
 ## [1.73.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.73.1...@farfetch/blackout-core@1.73.2) (2022-11-15)
 
 
