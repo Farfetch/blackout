@@ -4,7 +4,7 @@ import moxios from 'moxios';
 export default {
   success: params => {
     moxios.stubRequest(
-      join('/api/seo/metadata', {
+      join('/api/content/v1/seometadata', {
         query: params.queryParams,
       }),
       {
@@ -16,7 +16,7 @@ export default {
   },
   failure: params => {
     moxios.stubRequest(
-      join('/api/seo/metadata', {
+      join('/api/content/v1/seometadata', {
         query: params.queryParams,
       }),
       {
