@@ -9,6 +9,7 @@ import join from 'proper-url-join';
  *
  * @param {object} query - Query object with search terms to apply.
  * @param {string} query.pageType - The type of the page we are searching (pages|stories...).
+ * @param {string} query.baseUrl - The host and protocol of the client (https://hostname.com).
  * @param {object} query.param - An object containing some parameters for product listing (BrandName|CategoryName|TotalNumberItems...).
  * @param {string} query.path - The pathname of the location.
  * @param {string} query.subPageType - The sub group of pages about products.
@@ -19,7 +20,7 @@ import join from 'proper-url-join';
  */
 export default (query, config) =>
   client
-    .get(join('/seo/metadata', { query }), config)
+    .get(join('/content/v1/seometadata', { query }), config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
