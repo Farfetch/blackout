@@ -75,7 +75,7 @@ describe('SEO client', () => {
 
       await expect(getSEO(query)).resolves.toBe(response);
       expect(spy).toHaveBeenCalledWith(
-        '/seo/metadata?pageType=pages&param&path=about&subpageType=',
+        '/content/v1/seometadata?pageType=pages&param&path=about&subpageType=',
         expectedConfig,
       );
     });
@@ -87,7 +87,7 @@ describe('SEO client', () => {
 
       await expect(getSEO(query)).rejects.toMatchSnapshot();
       expect(spy).toHaveBeenCalledWith(
-        '/seo/metadata?pageType=pages&param&path=about&subpageType=',
+        '/content/v1/seometadata?pageType=pages&param&path=about&subpageType=',
         expectedConfig,
       );
     });
