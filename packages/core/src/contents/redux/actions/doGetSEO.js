@@ -8,6 +8,7 @@ import {
 /**
  * @typedef {object} GetSEOQuery
  * @property {string} pageType - The type of the page we are searching (pages|stories...).
+ * @property {string} baseUrl - The host and protocol of the client (https://hostname.com).
  * @property {object} param - An object containing some parameters for product listing (BrandName|CategoryName|TotalNumberItems...).
  * @property {string} path - The pathname of the location.
  * @property {string} subPageType - The sub group of pages about products.
