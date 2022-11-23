@@ -40,3 +40,4 @@ export { default as patchPersonalId } from './patchPersonalId';
 export { default as postPersonalIdImage } from './postPersonalIdImage';
 export { default as getUserBenefits } from './getUserBenefits';
 export { default as getGuestUserBenefits } from './getGuestUserBenefits';
+export { default as getUserReturns } from './getUserReturns';
