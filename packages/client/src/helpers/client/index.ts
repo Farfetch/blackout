@@ -1,11 +1,16 @@
 import * as headers from './headers';
+import {
+  adaptError,
+  isBlackoutErrorType,
+  toBlackoutError,
+} from './formatError';
 import { configApiBlackAndWhite } from './configs';
-import { isBlackoutErrorType, toBlackoutError } from './formatError';
 
 export {
   configApiBlackAndWhite,
   headers,
   isBlackoutErrorType,
   toBlackoutError,
+  adaptError,
 };
 export { default } from './axiosInstance';

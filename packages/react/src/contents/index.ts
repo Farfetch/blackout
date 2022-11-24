@@ -6,3 +6,5 @@ export {
   getListingSeoMetadataParams,
   getProductSeoMetadataParams,
 } from './utils';
+
+export * from './types';
