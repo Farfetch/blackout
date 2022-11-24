@@ -666,6 +666,7 @@ Object {
     "Tuesday": 2,
     "Wednesday": 3,
   },
+  "adaptError": [Function],
   "client": [Function],
   "configApiBlackAndWhite": Object {
     "baseURL": "https://api.blackandwhite-ff.com",

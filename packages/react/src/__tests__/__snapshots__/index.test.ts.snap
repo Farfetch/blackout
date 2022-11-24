@@ -3,6 +3,10 @@
 exports[`root index file should export all public modules 1`] = `
 Object {
   "Component": [Function],
+  "ProductListingTypes": Object {
+    "Listing": "Listing",
+    "Set": "Set",
+  },
   "analytics": AnalyticsWeb {
     "activeIntegrations": Map {},
     "consentInstance": null,
@@ -125,6 +129,7 @@ Object {
     "TAP": "Tap",
     "TOUCH": "Touch",
   },
+  "isSet": [Function],
   "loginMethodParameterTypes": Object {
     "APPLE": "Apple",
     "FACEBOOK": "Facebook",
