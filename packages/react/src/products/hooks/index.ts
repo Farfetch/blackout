@@ -9,3 +9,5 @@ export { default as useProductAttributes } from './useProductAttributes';
 export { default as useProductGrouping } from './useProductGrouping';
 export { default as useProductGroupingProperties } from './useProductGroupingProperties';
 export { default as useRecentlyViewedProducts } from './useRecentlyViewedProducts';
+
+export * from './types';

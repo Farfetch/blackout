@@ -4,3 +4,5 @@ export * from './actions';
 export * from './selectors';
 
 export { default as addressesReducer } from './reducer';
+
+export * from './types';
