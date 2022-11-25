@@ -80,10 +80,11 @@ describe('useBag', () => {
           {
             ...mockState.entities?.bagItems?.[mockBagItemId],
             product: {
-              ...mockState.entities?.products?.[
-                mockState.entities?.bagItems?.[mockBagItemId]?.product
+              ...mockState.entities!.products![
+                mockState.entities!.bagItems![mockBagItemId]!
+                  .product as keyof typeof mockState.entities.products
               ],
-              brand: mockState.entities?.brands?.[mockBrandId],
+              brand: mockState.entities!.brands![mockBrandId],
               categories: [mockState.entities.categories[mockCategoryId]],
             },
           },

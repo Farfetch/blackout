@@ -1518,7 +1518,7 @@ describe('useCheckout', () => {
             address: checkoutOrderEntity.billingAddress,
           },
           data: {
-            creditUserId: userEntity?.id,
+            creditUserId: `${userEntity?.id}`,
           },
           method: PaymentMethod.CreditCard,
         });
@@ -1566,7 +1566,7 @@ describe('useCheckout', () => {
           },
           method: PaymentMethod.Credit,
           data: {
-            creditUserId: 10000,
+            creditUserId: '10000',
           },
         };
 
@@ -1606,7 +1606,7 @@ describe('useCheckout', () => {
             address: checkoutOrderEntity.billingAddress,
           },
           data: {
-            creditUserId: userEntity?.id,
+            creditUserId: `${userEntity?.id}`,
           },
           method: PaymentMethod.CreditCard,
         });

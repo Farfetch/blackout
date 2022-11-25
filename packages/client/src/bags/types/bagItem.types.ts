@@ -42,6 +42,7 @@ export type BagItem = {
     totalDiscountValue: number | null;
     formattedTotalDiscountValue: string;
     isProductOffer: boolean;
+    promotionEvaluationItemId: string | null;
   };
   type: number;
   price: Price;

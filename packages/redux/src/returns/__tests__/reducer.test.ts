@@ -342,7 +342,7 @@ describe('returns reducer', () => {
             returnPickupCapabilities: {
               ...state.returnPickupCapabilities,
               [anotherReturnPickupCapabilityId]: {
-                ...state.returnPickupCapabilities?.[returnPickupCapabilityId],
+                ...state.returnPickupCapabilities![returnPickupCapabilityId]!,
               },
             },
           };

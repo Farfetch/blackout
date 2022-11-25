@@ -22,11 +22,13 @@ import {
   pageEventsData,
   trackEventsData,
 } from 'tests/__fixtures__/analytics';
+import { mockUsersResponse } from 'tests/__fixtures__/users';
 import { validationSchemaBuilder } from '../..';
 import defaultEventCommands from '../commands';
 import GA from '../GA';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
+import type { DefaultPageFixturesResult } from 'tests/__fixtures__/analytics/page';
 import type {
   GACommandList,
   GAIntegrationOptions,
@@ -34,7 +36,9 @@ import type {
 } from '../types';
 import type { TrackFixtures } from 'tests/__fixtures__/analytics/track';
 
-const mockedPageData = pageEventsData[pageTypes.HOMEPAGE];
+const mockedPageData = pageEventsData[
+  pageTypes.HOMEPAGE
+] as DefaultPageFixturesResult;
 
 const nonSupportedByDefaultTrackEvent = merge(
   {},
@@ -704,6 +708,7 @@ describe('GA Integration', () => {
                 user: {
                   id: 100,
                   traits: {
+                    ...mockUsersResponse,
                     isGuest: true,
                   },
                   localId: '123',
@@ -714,6 +719,7 @@ describe('GA Integration', () => {
                 user: {
                   id: 101,
                   traits: {
+                    ...mockUsersResponse,
                     isGuest: false,
                   },
 

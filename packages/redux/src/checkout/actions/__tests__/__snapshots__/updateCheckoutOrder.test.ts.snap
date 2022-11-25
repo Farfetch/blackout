@@ -26,8 +26,21 @@ Object {
           ],
           "id": 15338048,
           "orderStatus": 0,
-          "paymentMethods": Object {},
+          "paymentMethods": Object {
+            "creditCard": Object {
+              "creditCards": Array [
+                Object {
+                  "code": "",
+                  "description": "",
+                  "id": "",
+                },
+              ],
+              "type": "",
+            },
+            "customerAccounts": Array [],
+          },
           "shippingOptions": Array [],
+          "userPaymentTokens": undefined,
         },
       },
       "checkoutOrderItemProducts": Object {
@@ -86,9 +99,6 @@ Object {
             "includingTaxesWithoutDiscount": 265596.9995,
             "isFormatted": true,
             "priceType": undefined,
-            "promocode": Object {
-              "rate": undefined,
-            },
             "promotionType": undefined,
             "tags": Array [
               "DDP",
@@ -132,9 +142,6 @@ Object {
             "includingTaxesWithoutDiscount": 265596.9995,
             "isFormatted": true,
             "priceType": undefined,
-            "promocode": Object {
-              "rate": undefined,
-            },
             "promotionType": undefined,
             "tags": Array [
               "DDP",
@@ -165,6 +172,8 @@ Object {
           "promotionDetail": Object {
             "formattedTotalDiscountValue": "0,00 €",
             "isProductOffer": false,
+            "promotionEvaluationItemId": undefined,
+            "totalDiscountPercentage": undefined,
             "totalDiscountValue": 0,
           },
           "quantity": 1,
@@ -453,8 +462,21 @@ Object {
           ],
           "id": 15338048,
           "orderStatus": 0,
-          "paymentMethods": Object {},
+          "paymentMethods": Object {
+            "creditCard": Object {
+              "creditCards": Array [
+                Object {
+                  "code": "",
+                  "description": "",
+                  "id": "",
+                },
+              ],
+              "type": "",
+            },
+            "customerAccounts": Array [],
+          },
           "shippingOptions": Array [],
+          "userPaymentTokens": undefined,
         },
       },
       "checkoutOrderItemProducts": Object {
@@ -513,9 +535,6 @@ Object {
             "includingTaxesWithoutDiscount": 265596.9995,
             "isFormatted": true,
             "priceType": undefined,
-            "promocode": Object {
-              "rate": undefined,
-            },
             "promotionType": undefined,
             "tags": Array [
               "DDP",
@@ -559,9 +578,6 @@ Object {
             "includingTaxesWithoutDiscount": 265596.9995,
             "isFormatted": true,
             "priceType": undefined,
-            "promocode": Object {
-              "rate": undefined,
-            },
             "promotionType": undefined,
             "tags": Array [
               "DDP",
@@ -592,6 +608,8 @@ Object {
           "promotionDetail": Object {
             "formattedTotalDiscountValue": "0,00 €",
             "isProductOffer": false,
+            "promotionEvaluationItemId": undefined,
+            "totalDiscountPercentage": undefined,
             "totalDiscountValue": 0,
           },
           "quantity": 1,

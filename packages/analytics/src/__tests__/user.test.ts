@@ -1,3 +1,4 @@
+import { mockUsersResponse } from 'tests/__fixtures__/users';
 import { StorageWrapper } from '../utils';
 import TestStorage from 'test-storage';
 import User from '../User';
@@ -32,7 +33,7 @@ describe('User', () => {
   });
 
   it('Should delete the user', async () => {
-    await userInstance.set(123123, { name: 'foo' });
+    await userInstance.set(123123, mockUsersResponse);
     const beforeAnonymizeLocalId = await userInstance.localId();
 
     await userInstance.anonymize();
@@ -46,17 +47,13 @@ describe('User', () => {
 
   it('Should identify an user with parameters', async () => {
     const userId = 12345678;
-    const traits = {
-      name: 'Foo',
-      email: 'foo.bar@foo.bar',
-    };
 
-    await userInstance.set(userId, traits);
+    await userInstance.set(userId, mockUsersResponse);
 
     const data = await userInstance.get();
 
     expect(data.id).toBe(userId);
-    expect(data.traits).toMatchObject(traits);
+    expect(data.traits).toMatchObject(mockUsersResponse);
   });
 
   it('Should create a local ID and store it on the storage', async () => {

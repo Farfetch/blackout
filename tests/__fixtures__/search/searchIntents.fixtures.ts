@@ -45,7 +45,7 @@ export const mockSearchIntentsResponseRedirect = {
 
 export const mockSearchIntentsResponseProduct = {
   typeRequest: 1,
-  redirectUrl: null,
+  redirectUrl: '',
   resources: [
     {
       values: [{ value: 'dress', slug: 'beautiful-dress' }],
@@ -56,14 +56,14 @@ export const mockSearchIntentsResponseProduct = {
 
 export const mockSearchIntentsResponseListing = {
   typeRequest: 0,
-  redirectUrl: null,
+  redirectUrl: '',
   resources: [
     {
-      values: [{ value: 'woman', slug: null }],
+      values: [{ value: 'woman', slug: '' }],
       typeFilter: 3,
     },
     {
-      values: [{ value: 'pink', slug: null }],
+      values: [{ value: 'pink', slug: '' }],
       typeFilter: 8,
     },
   ],
@@ -71,7 +71,7 @@ export const mockSearchIntentsResponseListing = {
 
 export const mockSearchIntentsResponseListingWithParameters = {
   typeRequest: 0,
-  redirectUrl: null,
+  redirectUrl: '',
   resources: [
     { values: [{ value: '10533', slug: 'valentino' }], typeFilter: 1 },
     {
@@ -82,7 +82,7 @@ export const mockSearchIntentsResponseListingWithParameters = {
       typeFilter: 2,
     },
     {
-      values: [{ value: 'akdksaldkasld', slug: null }],
+      values: [{ value: 'akdksaldkasld', slug: '' }],
       typeFilter: 10,
     },
   ],
@@ -90,7 +90,7 @@ export const mockSearchIntentsResponseListingWithParameters = {
 
 export const mockSearchIntentsInvalidResponse = {
   typeRequest: 9999,
-  redirectUrl: null,
+  redirectUrl: '',
   resources: [],
 };
 

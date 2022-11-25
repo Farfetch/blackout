@@ -13,10 +13,14 @@ import {
   orderEntityDenormalized,
   orderId,
 } from 'tests/__fixtures__/orders/orders.fixtures';
-import { mockUserInitialState } from 'tests/__fixtures__/users';
+import {
+  mockUserInitialState,
+  mockUsersResponse,
+} from 'tests/__fixtures__/users';
 import { Orders } from './__fixtures__/Orders.fixtures';
 import { withStore, wrap } from '../../../../tests/helpers';
 import useOrders from '../useOrders';
+import type { BlackoutError } from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-redux', () => {
   const original = jest.requireActual('@farfetch/blackout-redux');
@@ -89,6 +93,7 @@ const mockInitialStateWithAuthenticatedUser = {
   entities: {
     ...mockInitialState.entities,
     user: {
+      ...mockUsersResponse,
       id: 100000,
       isGuest: false,
     },
@@ -111,6 +116,7 @@ const mockInitialStateWithGuestUser = {
   entities: {
     ...mockInitialState.entities,
     user: {
+      ...mockUsersResponse,
       id: 200000,
       isGuest: true,
     },
@@ -121,7 +127,7 @@ const mockErrorState = {
   ...mockInitialState,
   orders: {
     ...mockInitialState.orders,
-    error: new Error('dummy error'),
+    error: new Error('dummy error') as BlackoutError,
   },
 };
 
@@ -488,9 +494,9 @@ describe('useOrders', () => {
             wrapper: withStore(mockInitialState),
           });
 
-          await resetOrderDetailsState(orderId);
+          await resetOrderDetailsState([orderId]);
 
-          expect(resetOrderDetailsStateAction).toHaveBeenCalledWith(orderId);
+          expect(resetOrderDetailsStateAction).toHaveBeenCalledWith([orderId]);
         });
       });
     });

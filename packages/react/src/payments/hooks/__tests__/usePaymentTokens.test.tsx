@@ -12,6 +12,7 @@ import {
 } from '@farfetch/blackout-redux';
 import { withStore } from '../../../../tests/helpers';
 import usePaymentTokens from '../usePaymentTokens';
+import type { BlackoutError } from '@farfetch/blackout-client';
 
 const paymentTokens =
   expectedPaymentTokensNormalizedPayload.entities.paymentTokens;
@@ -61,7 +62,7 @@ describe('usePaymentTokens', () => {
   });
 
   it('should return error state', () => {
-    const mockError = { message: 'This is an error message' };
+    const mockError = new Error('This is an error message') as BlackoutError;
 
     const {
       result: {
@@ -71,9 +72,9 @@ describe('usePaymentTokens', () => {
       wrapper: withStore({
         ...stateMockData,
         payments: {
-          ...stateMockData.payments,
+          ...stateMockData.payments!,
           paymentTokens: {
-            ...stateMockData.payments?.paymentTokens,
+            ...stateMockData.payments!.paymentTokens,
             error: mockError,
           },
         },
@@ -92,9 +93,9 @@ describe('usePaymentTokens', () => {
       wrapper: withStore({
         ...stateMockData,
         payments: {
-          ...stateMockData.payments,
+          ...stateMockData.payments!,
           paymentTokens: {
-            ...stateMockData.payments?.paymentTokens,
+            ...stateMockData.payments!.paymentTokens,
             isLoading: true,
           },
         },

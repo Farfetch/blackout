@@ -20,6 +20,7 @@ import isEmpty from 'lodash/isEmpty';
 import sortBy from 'lodash/sortBy';
 import type {
   FacetEntity,
+  FacetEntityWithChildren,
   FacetGroupsNormalized,
   ProductEntity,
   ProductEntityDenormalized,
@@ -675,8 +676,8 @@ export const getHierarchicalFacetsWithChildren = createSelector(
         // }
         // This is impossible, having the parent id as itself, so we prevent the
         // infinite recursion of `buildFacetTree`.
-        if (facet?.id === facet?.parentId) {
-          return facet;
+        if (!facet || facet.id === facet.parentId) {
+          return facet as FacetEntityWithChildren;
         }
 
         return {
@@ -684,6 +685,6 @@ export const getHierarchicalFacetsWithChildren = createSelector(
           children: buildFacetTree(facetsByFacetGroupType, facet.id),
         };
       })
-      .filter(Boolean);
+      .filter(Boolean) as FacetEntityWithChildren[] | undefined;
   },
 );

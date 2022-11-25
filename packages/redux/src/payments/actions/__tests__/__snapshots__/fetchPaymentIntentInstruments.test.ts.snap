@@ -22,8 +22,6 @@ Object {
             "cardLastDigits": "111111",
             "cardNumber": "123",
             "creditUserId": "",
-            "giftCardCsc": "111212",
-            "giftCardNumber": "1232211",
           },
           "id": "316bc538-e7e5-4f6c-943f-686350fac5ae",
           "installments": Object {

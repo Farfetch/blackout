@@ -29,7 +29,7 @@ export const expectedRecentlyViewedLocalPayload = [
 export const mockRecentlyViewedState = {
   recentlyViewed: {
     error: null,
-    loading: false,
+    isLoading: false,
     result: {
       remote: {
         number: 1,

@@ -7,6 +7,7 @@ import { mockBrandResponse } from 'tests/__fixtures__/brands';
 import { mockCategory } from 'tests/__fixtures__/categories';
 import {
   mockProductId,
+  mockProductsListHash,
   mockProductsListHashWithProductIds,
   mockProductsListHashWithSingleProductId,
   mockProductsListNormalizedPayload,
@@ -15,6 +16,7 @@ import {
 import { renderHook } from '@testing-library/react';
 import { withStore } from '../../../../tests/helpers';
 import useRecentlyViewedProduct from '../useRecentlyViewedProducts';
+import type { BlackoutError } from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
@@ -52,6 +54,7 @@ describe('useRecentlyViewedProducts', () => {
         ...mockProductsState.entities,
         productsLists: {
           [mockProductsListHashWithProductIds]: {
+            ...mockProductsState.entities.productsLists[mockProductsListHash],
             hash: mockProductsListHashWithProductIds,
             products: {
               entries: [12913172, 12913174],
@@ -60,6 +63,8 @@ describe('useRecentlyViewedProducts', () => {
               totalPages: 1,
             },
             config: {
+              ...mockProductsState.entities.productsLists[mockProductsListHash]
+                .config,
               pageIndex: 1,
               pageSize: 9,
               mobilePageSize: 9,
@@ -92,11 +97,12 @@ describe('useRecentlyViewedProducts', () => {
   });
 
   it('should return error state', () => {
-    const mockError = { message: 'This is an error message' };
+    const mockError = new Error('This is an error message') as BlackoutError;
 
     const errorMockRecentlyViewedState = {
       entities: {},
       products: {
+        ...mockProductsState.products,
         lists: {
           error: {},
           isHydrated: {},
@@ -134,6 +140,7 @@ describe('useRecentlyViewedProducts', () => {
     const loadingMockRecentlyViewedState = {
       entities: {},
       products: {
+        ...mockProductsState.products,
         lists: {
           error: {},
           isHydrated: {},
@@ -233,6 +240,7 @@ describe('useRecentlyViewedProducts', () => {
           ...mockProductsState.entities,
           productsLists: {
             [mockProductsListHashWithSingleProductId]: {
+              ...mockProductsState.entities.productsLists[mockProductsListHash],
               hash: mockProductsListHashWithSingleProductId,
               products: {
                 entries: [12913172],
@@ -241,12 +249,16 @@ describe('useRecentlyViewedProducts', () => {
                 totalPages: 1,
               },
               config: {
+                ...mockProductsState.entities.productsLists[
+                  mockProductsListHash
+                ].config,
                 pageIndex: 1,
                 pageSize: 9,
                 mobilePageSize: 9,
               },
             },
             [mockProductsListHashWithProductIds]: {
+              ...mockProductsState.entities.productsLists[mockProductsListHash],
               hash: mockProductsListHashWithProductIds,
               products: {
                 entries: [12913172, 12913174],
@@ -255,6 +267,9 @@ describe('useRecentlyViewedProducts', () => {
                 totalPages: 1,
               },
               config: {
+                ...mockProductsState.entities.productsLists[
+                  mockProductsListHash
+                ].config,
                 pageIndex: 1,
                 pageSize: 9,
                 mobilePageSize: 9,

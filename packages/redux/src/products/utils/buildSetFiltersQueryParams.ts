@@ -32,7 +32,7 @@ import type { GetProductListingQuery } from '@farfetch/blackout-client';
  */
 const buildSetFiltersQueryParams = (
   query: GetProductListingQuery,
-  filterParams: Record<string, string[] | number[] | number>,
+  filterParams: Record<string, string[] | number[] | number | string>,
 ): Record<string, Array<FacetEntity['id']>> => {
   const finalObject = {
     ...query,

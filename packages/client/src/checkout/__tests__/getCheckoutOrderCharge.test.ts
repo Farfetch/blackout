@@ -17,7 +17,7 @@ describe('checkout client', () => {
 
     it('should handle a client request successfully', async () => {
       const response: CheckoutOrderCharge = {
-        chargeId: 'string',
+        id: 'string',
         status: ChargeStatus.Processing,
         redirectUrl: 'string',
         returnUrl: 'string',

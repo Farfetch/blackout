@@ -75,7 +75,7 @@ describe('useCountryAddressSchemas', () => {
       wrapper: withStore({
         ...stateMockData,
         locale: {
-          ...stateMockData.locale,
+          ...stateMockData.locale!,
           countriesAddressSchemas: {
             error: mockError,
             isLoading: false,
@@ -97,7 +97,7 @@ describe('useCountryAddressSchemas', () => {
       wrapper: withStore({
         ...stateMockData,
         locale: {
-          ...stateMockData.locale,
+          ...stateMockData.locale!,
           countriesAddressSchemas: {
             error: null,
             isLoading: true,

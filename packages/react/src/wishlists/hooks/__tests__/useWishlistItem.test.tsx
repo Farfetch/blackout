@@ -10,6 +10,7 @@ import {
 } from '@farfetch/blackout-redux';
 import { withStore } from '../../../../tests/helpers';
 import useWishlistItem from '../useWishlistItem';
+import type { BlackoutError } from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
@@ -39,9 +40,9 @@ describe('useWishlistItem', () => {
       data: {
         ...mockWishlistState.entities?.wishlistItems?.[mockWishlistItemId],
         product: {
-          ...mockWishlistState.entities?.products?.[
-            mockWishlistState.entities?.wishlistItems?.[mockWishlistItemId]
-              ?.product
+          ...mockWishlistState.entities!.products![
+            mockWishlistState.entities!.wishlistItems![mockWishlistItemId]!
+              .product
           ],
           brand: mockWishlistState.entities?.brands?.[2450],
           categories: [mockWishlistState.entities?.categories?.[136301]],
@@ -51,7 +52,7 @@ describe('useWishlistItem', () => {
   });
 
   it('should render in error state', () => {
-    const mockError = { message: 'This is an error message' };
+    const mockError = new Error('This is an error message') as BlackoutError;
 
     const {
       result: {
@@ -61,11 +62,11 @@ describe('useWishlistItem', () => {
       wrapper: withStore({
         ...mockWishlistState,
         wishlist: {
-          ...mockWishlistState.wishlist,
+          ...mockWishlistState.wishlist!,
           items: {
-            ...mockWishlistState.wishlist.items,
+            ...mockWishlistState.wishlist!.items,
             item: {
-              ...mockWishlistState.wishlist.items.item,
+              ...mockWishlistState.wishlist!.items.item,
               error: {
                 [mockWishlistItemId]: mockError,
               },

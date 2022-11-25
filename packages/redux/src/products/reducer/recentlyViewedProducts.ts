@@ -35,9 +35,9 @@ const isLoading = (
       return true;
     case actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS:
     case actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS:
-      return false;
     case actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE:
     case actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE:
+      return INITIAL_STATE.isLoading;
     default:
       return state;
   }

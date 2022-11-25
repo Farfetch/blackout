@@ -24,4 +24,4 @@ export const mockBaseState: NonNullable<StoreState> = {
     ...expectedGetContactsNormalized.entities,
     ...expectedGetAddressesNormalizedPayload.entities,
   },
-} as unknown as StoreState;
+};

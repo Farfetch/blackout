@@ -130,9 +130,6 @@ Object {
           "includingTaxesWithoutDiscount": 310,
           "isFormatted": true,
           "priceType": undefined,
-          "promocode": Object {
-            "rate": undefined,
-          },
           "promotionType": undefined,
           "tags": Array [
             "VAT",

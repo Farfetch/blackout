@@ -1,6 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import { fetchOrderDocuments } from '..';
-import { getOrderDocuments } from '@farfetch/blackout-client';
+import {
+  getOrderDocuments,
+  OrderDocumentType,
+} from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import { mockOrderDocumentsResponse, orderId } from 'tests/__fixtures__/orders';
 import { mockStore } from '../../../../tests';
@@ -13,7 +16,7 @@ jest.mock('@farfetch/blackout-client', () => ({
 const ordersMockStore = (state = {}) =>
   mockStore({ orders: INITIAL_STATE }, state);
 const expectedConfig = undefined;
-const types = ['ComercialInvoice'];
+const types = [OrderDocumentType.ComercialInvoice];
 let store: ReturnType<typeof ordersMockStore>;
 
 describe('fetchOrderDocuments() action creator', () => {

@@ -16,7 +16,7 @@ export const expectedBenefitsNormalizedPayload = {
   entities: {
     benefits: {
       [idBenefit]: {
-        ...mockGetBenefitsResponse[0],
+        ...mockGetBenefitsResponse[0]!,
       },
     },
   },

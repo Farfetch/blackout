@@ -1,14 +1,15 @@
-import { mockProductId } from 'tests/__fixtures__/products';
+import { mockProductId, mockProductsState } from 'tests/__fixtures__/products';
 import { productsActionTypes } from '../..';
 import reducer, {
   getError,
   getIsLoading,
   INITIAL_STATE,
 } from '../groupingProperties';
+import type { BlackoutError } from '@farfetch/blackout-client';
 
 const mockAction = { type: 'foo' };
 const meta = { productId: mockProductId };
-let initialState;
+let initialState: ReturnType<typeof reducer>;
 
 describe('groupingProperties redux reducer', () => {
   beforeEach(() => {
@@ -16,7 +17,7 @@ describe('groupingProperties redux reducer', () => {
   });
 
   describe('error() reducer', () => {
-    const error = 'An error occurred';
+    const error = new Error('An error occurred') as BlackoutError;
     const expectedError = {
       [mockProductId]: { '!all': error },
     };
@@ -50,6 +51,7 @@ describe('groupingProperties redux reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
+        ...mockProductsState.products.groupingProperties,
         error: { [mockProductId]: { '!all': error } },
         isLoading: {},
       };
@@ -109,8 +111,7 @@ describe('groupingProperties redux reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
-        error: {},
-        isLoading: { [mockProductId]: false },
+        ...mockProductsState.products.groupingProperties,
       };
 
       expect(reducer(state, mockAction).isLoading).toEqual(state.isLoading);
@@ -120,7 +121,9 @@ describe('groupingProperties redux reducer', () => {
   describe('selectors', () => {
     describe('getError()', () => {
       it('should return the `error` property from a given state', () => {
-        const error = { [mockProductId]: '234-foo' };
+        const error = {
+          [mockProductId]: { '!all': new Error('234-foo') as BlackoutError },
+        };
         const state = { ...initialState, error };
 
         expect(getError(state)).toBe(error);
@@ -129,7 +132,7 @@ describe('groupingProperties redux reducer', () => {
 
     describe('getIsLoading()', () => {
       it('should return the `isLoading` property from a given state', () => {
-        const isLoading = { [mockProductId]: true };
+        const isLoading = { [mockProductId]: { '!all': true } };
         const state = { ...initialState, isLoading };
 
         expect(getIsLoading(state)).toBe(isLoading);

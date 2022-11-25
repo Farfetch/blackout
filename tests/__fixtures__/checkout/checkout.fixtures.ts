@@ -326,6 +326,8 @@ const mockCheckoutOrderItem = {
     totalDiscountValue: 0,
     isProductOffer: false,
     formattedTotalDiscountValue: '0,00 €',
+    promotionEvaluationItemId: undefined,
+    totalDiscountPercentage: undefined,
   },
   variantId: 'f4e60000-3a25-000d-0998-08d48da399fa',
   summary: {
@@ -422,8 +424,14 @@ export const mockResponse = {
   },
   deliveryBundles: mockDeliveryBundlesResponse,
   shippingOptions: [],
-  paymentMethods: {},
-  userPaymentTokens: null,
+  paymentMethods: {
+    customerAccounts: [],
+    creditCard: {
+      type: '',
+      creditCards: [{ id: '', description: '', code: '' }],
+    },
+  },
+  userPaymentTokens: undefined,
   orderStatus: 0,
 };
 
@@ -797,9 +805,11 @@ export const mockCheckoutOrderItemEntity = {
   merchant: mockCheckoutOrderItem.merchantId,
   product: productId,
   promotionDetail: {
+    totalDiscountPercentage: undefined,
     totalDiscountValue: 0,
-    isProductOffer: false,
     formattedTotalDiscountValue: '0,00 €',
+    isProductOffer: false,
+    promotionEvaluationItemId: undefined,
   },
   variantId: 'f4e60000-3a25-000d-0998-08d48da399fa',
   summary: {
@@ -871,6 +881,7 @@ export const mockResponsePatchOrderItemsGiftMessage = [
 export const mockUpdateCheckoutResponse = {
   checkout: {
     1: {
+      checkoutOrder: checkoutId,
       shippingOptions: [
         {
           currency: 'EUR',
@@ -940,6 +951,11 @@ export const mockCheckoutOrderItemProductsEntity = {
       includingTaxes: '123',
       includingTaxesWithoutDiscount: '123',
     },
+    taxes: {
+      rate: 0,
+      amount: 0,
+      type: 'VAT',
+    },
   },
   sizes: undefined,
   slug: '',
@@ -1004,7 +1020,7 @@ const deliveryBundle = {
       itemId: itemId2,
       name: 'Standard',
       deliveryWindow: {
-        type: DeliveryWindowType.Estimated,
+        type: DeliveryWindowType.Nominated,
         min: '2020-02-14T14:38:22.228Z',
         max: '2020-02-14T14:38:22.228Z',
       },
@@ -1032,6 +1048,7 @@ export const deliveryBundleUpgradesEntity = {
     [itemId1]: {
       Estimated: [
         {
+          ...mockDeliveryBundleUpgradesResponse[95097041].Estimated[0]!,
           id: deliveryBundleUpgradeId_1,
           name: 'Fast',
           itemId: itemId1,
@@ -1052,6 +1069,7 @@ export const deliveryBundleUpgradesEntity = {
     [itemId2]: {
       Nominated: [
         {
+          ...mockDeliveryBundleUpgradesResponse[95097042].Estimated[0]!,
           id: deliveryBundleUpgradeId_2,
           name: 'NDD',
           itemId: itemId2,
@@ -1304,7 +1322,7 @@ export const mockInitialState = {
       firstName: 'User',
       bag: null,
       wishlist: null,
-      membership: null,
+      membership: undefined,
       loyalty: null,
       createdDate: '/Date(1601300185332)/',
       updatedDate: '/Date(1655722263553)/',

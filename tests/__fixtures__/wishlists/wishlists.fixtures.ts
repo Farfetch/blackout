@@ -1,5 +1,6 @@
 import { mockProductsEntity } from '../products';
-import type { WishlistItem } from '@farfetch/blackout-client';
+import type { BlackoutError, WishlistItem } from '@farfetch/blackout-client';
+import type { ProductEntity, StoreState } from '@farfetch/blackout-redux';
 
 export const mockWishlistId = 'b1a13891-6084-489f-96ed-300eed45b948';
 export const mockWishlistItemId = 481426747;
@@ -73,7 +74,7 @@ export const mockWishlistNormalizedPayload = {
   },
 };
 
-export const mockWishlistState = {
+export const mockWishlistState: StoreState = {
   wishlist: {
     error: null,
     id: mockWishlistId,
@@ -98,6 +99,7 @@ export const mockWishlistState = {
       id: mockWishlistId,
       items: [mockWishlistItemId],
       count: 4,
+      userId: null,
     },
     sets: {
       error: null,
@@ -110,7 +112,7 @@ export const mockWishlistState = {
             status: 400,
             name: 'error',
             message: 'error message',
-          },
+          } as BlackoutError,
         },
         isLoading: {
           [mockWishlistSetId]: true,
@@ -133,6 +135,11 @@ export const mockWishlistState = {
           includingTaxes: 129.7446,
           includingTaxesWithoutDiscount: 129.7446,
           isFormatted: true,
+          taxes: {
+            amount: 0,
+            rate: 0,
+            type: 'VAT',
+          },
         },
       },
       102: {
@@ -150,6 +157,11 @@ export const mockWishlistState = {
           includingTaxes: 129.7446,
           includingTaxesWithoutDiscount: 129.7446,
           isFormatted: true,
+          taxes: {
+            amount: 0,
+            rate: 0,
+            type: 'VAT',
+          },
         },
       },
     },
@@ -163,7 +175,7 @@ export const mockWishlistState = {
         id: 1002,
         description: 'wide leg pant',
       },
-    },
+    } as Record<number, ProductEntity>,
     categories: {
       136301: { id: 136301, name: 'Shoes', gender: 1, parentId: 0 },
     },

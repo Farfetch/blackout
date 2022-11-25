@@ -46,12 +46,12 @@ export const expectedCreateContactNormalized = expectedGetContactNormalized;
 export const expectedGetContactsNormalized = {
   entities: {
     contacts: {
-      [mockGetContactsResponse[0]?.id as string]: mockGetContactsResponse[0],
-      [mockGetContactsResponse[1]?.id as string]: mockGetContactsResponse[1],
+      [mockGetContactsResponse[0]!.id as string]: mockGetContactsResponse[0]!,
+      [mockGetContactsResponse[1]!.id as string]: mockGetContactsResponse[1]!,
     },
   },
   result: [
-    mockGetContactsResponse[0]?.id as string,
-    mockGetContactsResponse[1]?.id as string,
+    mockGetContactsResponse[0]!.id as string,
+    mockGetContactsResponse[1]!.id as string,
   ],
 };

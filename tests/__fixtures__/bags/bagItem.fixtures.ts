@@ -1,17 +1,12 @@
-import {
-  adaptProductSizes,
-  SizeAdapted,
-} from '@farfetch/blackout-redux/src/helpers/adapters';
+import { adaptProductSizes } from '@farfetch/blackout-redux/src/helpers/adapters';
 import {
   AttributeType,
   BagItem,
   PurchaseChannel,
 } from '@farfetch/blackout-client';
-import {
-  mockMerchantId,
-  mockProductEntityDenormalized,
-  mockProductId,
-} from '../products';
+import { mockMerchantId, mockProductId } from '../products/ids.fixtures';
+import { mockPriceAdaptedEmpty } from '../products/price.fixtures';
+import { mockProductEntityDenormalized } from '../products/products.fixtures';
 
 export const mockBagItemId = 134;
 export const mockProductAggregatorId = 321;
@@ -142,6 +137,7 @@ export const mockBagItem: BagItem = {
     isProductOffer: false,
     totalDiscountPercentage: null,
     totalDiscountValue: 0,
+    promotionEvaluationItemId: null,
   },
   type: 0,
   quantity: 5,
@@ -187,6 +183,7 @@ export const mockBagItemEntity = {
   id: mockBagItemId,
   merchant: mockMerchantId,
   price: {
+    ...mockPriceAdaptedEmpty,
     discount: {
       excludingTaxes: 0,
       includingTaxes: 0,
@@ -199,7 +196,6 @@ export const mockBagItemEntity = {
     },
     includingTaxes: 100,
     includingTaxesWithoutDiscount: 100,
-    tags: ['VAT'],
     taxes: {
       amount: 18.7,
       rate: 23,
@@ -208,11 +204,7 @@ export const mockBagItemEntity = {
     isFormatted: true,
   },
   product: mockProductId,
-  // @ts-expect-error object will never be undefined because we are mocking
-  size: adaptProductSizes(
-    mockBagItem?.sizes,
-    mockBagItem?.variants,
-  )[0] as SizeAdapted,
+  size: adaptProductSizes(mockBagItem!.sizes, mockBagItem!.variants)![0]!,
 };
 
 export const mockBagItemHydrated = {

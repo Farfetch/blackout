@@ -264,7 +264,7 @@ describe('wishlists reducer', () => {
       const state = {
         ...INITIAL_STATE,
         isLoading: true,
-        result: {},
+        result: null,
       };
 
       expect(reducer(state, mockAction).isLoading).toBe(state.isLoading);

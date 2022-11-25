@@ -67,7 +67,7 @@ const productEntity: ProductEntity = {
       rate: 0,
       amount: 0,
     },
-    isFormatted: false,
+    isFormatted: true,
   },
   sizes: [
     {
@@ -143,6 +143,11 @@ const wishListItemEntity: WishlistItemEntity = {
     includingTaxes: 371.62,
     includingTaxesWithoutDiscount: 371.62,
     isFormatted: true,
+    taxes: {
+      type: 'VAT',
+      rate: 0,
+      amount: 0,
+    },
   },
   quantity: 1,
   size: {

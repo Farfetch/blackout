@@ -1,6 +1,7 @@
 import * as fromEntities from '../../entities/selectors/entity';
 import * as fromReducer from '../reducer';
 import * as selectors from '../selectors';
+import { BlackoutError, DeliveryWindowType } from '@farfetch/blackout-client';
 import {
   checkoutEntity,
   checkoutOrderEntity,
@@ -18,8 +19,7 @@ import {
   productId,
   shippingOption,
 } from 'tests/__fixtures__/checkout';
-import { DeliveryWindowType } from '@farfetch/blackout-client';
-import type { StoreState } from '@farfetch/blackout-redux';
+import type { Nullable, StoreState } from '@farfetch/blackout-redux';
 
 describe('checkout redux selectors', () => {
   beforeEach(jest.clearAllMocks);
@@ -86,7 +86,7 @@ describe('checkout redux selectors', () => {
           deliveryBundleUpgradeId_1,
         ),
       ).toEqual(
-        deliveryBundleUpgradesEntity[deliveryBundleId][itemId1]['Estimated'][0],
+        deliveryBundleUpgradesEntity[deliveryBundleId][itemId1].Estimated[0],
       );
       expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -248,7 +248,9 @@ describe('checkout redux selectors', () => {
               ...mockCheckoutState.entities.checkoutOrders,
               [checkoutEntity['checkoutOrder']]: {
                 ...mockCheckoutState.entities.checkoutOrders[
-                  checkoutEntity['checkoutOrder']
+                  checkoutEntity[
+                    'checkoutOrder'
+                  ] as keyof typeof mockCheckoutState.entities.checkoutOrders
                 ],
                 clickAndCollect: {
                   id: 999,
@@ -475,15 +477,21 @@ describe('checkout redux selectors', () => {
         subArea => {
           let selectorName = `is${subArea}Loading`;
 
-          if (!selectors[selectorName]) {
+          if (!selectors[selectorName as keyof typeof selectors]) {
             selectorName = `are${subArea}Loading`;
 
-            if (!selectors[selectorName]) {
+            if (!selectors[selectorName as keyof typeof selectors]) {
               selectorName = `are${subArea}Updating`;
             }
           }
 
-          expect(selectors[selectorName](mockCheckoutState)).toEqual(false);
+          expect(
+            (
+              selectors[selectorName as keyof typeof selectors] as (
+                state: StoreState,
+              ) => boolean
+            )(mockCheckoutState),
+          ).toEqual(false);
         },
       );
     });
@@ -491,18 +499,27 @@ describe('checkout redux selectors', () => {
     describe('sub-areas error selectors', () => {
       it.each(subAreaNames)('should handle get%sError selector', subArea => {
         const selectorName = `get${subArea}Error`;
-        let selector = selectors[selectorName];
+        let selector = selectors[selectorName as keyof typeof selectors];
 
         if (!selector) {
-          selector = selectors[`get${subArea}UpdateError`];
+          selector =
+            selectors[`get${subArea}UpdateError` as keyof typeof selectors];
         }
 
         const reducerSubAreaName =
           subArea.charAt(0).toLowerCase() + subArea.slice(1);
-        const expectedResult =
-          mockCheckoutState.checkout[reducerSubAreaName].error;
 
-        expect(selector(mockCheckoutState)).toBe(expectedResult);
+        const subAreaState = mockCheckoutState.checkout[
+          reducerSubAreaName as keyof typeof mockCheckoutState.checkout
+        ] as { error: Nullable<BlackoutError> };
+
+        const expectedResult = subAreaState.error;
+
+        expect(
+          (selector as (state: StoreState) => Nullable<BlackoutError>)(
+            mockCheckoutState,
+          ),
+        ).toBe(expectedResult);
       });
     });
 
@@ -510,15 +527,20 @@ describe('checkout redux selectors', () => {
       it.each(['CheckoutOrderCharge'])(
         'should handle get%sResult selector',
         subArea => {
-          const selectorName = `get${subArea}Result`;
+          const selectorName = `get${subArea}Result` as keyof typeof selectors;
           const reducerSubAreaName =
             subArea.charAt(0).toLowerCase() + subArea.slice(1);
-          const expectedResult =
-            mockCheckoutState.checkout[reducerSubAreaName].result;
 
-          expect(selectors[selectorName](mockCheckoutState)).toBe(
-            expectedResult,
-          );
+          const subAreaState = mockCheckoutState.checkout[
+            reducerSubAreaName as keyof typeof mockCheckoutState.checkout
+          ] as { result: unknown };
+
+          const expectedResult = subAreaState.result;
+          const selector = selectors[selectorName] as (
+            state: StoreState,
+          ) => unknown;
+
+          expect(selector(mockCheckoutState)).toBe(expectedResult);
         },
       );
     });

@@ -7,7 +7,7 @@ const fixtures = {
   properties: {
     products: [
       {
-        id: 12345678,
+        id: '12345678',
         discountValue: 1,
         brand: 'designer name',
         category: 'shoes',

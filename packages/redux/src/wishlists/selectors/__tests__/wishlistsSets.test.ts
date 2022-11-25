@@ -18,9 +18,9 @@ describe('wishlists redux selectors', () => {
       const mockStateWithError = {
         ...mockWishlistState,
         wishlist: {
-          ...mockWishlistState.wishlist,
+          ...mockWishlistState.wishlist!,
           sets: {
-            ...mockWishlistState.wishlist.sets,
+            ...mockWishlistState.wishlist!.sets,
             error: toBlackoutError(new Error('error')),
           },
         },
@@ -36,7 +36,7 @@ describe('wishlists redux selectors', () => {
 
   describe('getWishlistSetsIds()', () => {
     it('should get the wishlist sets loading status from state', () => {
-      const expectedResult = mockWishlistState.wishlist.sets.ids;
+      const expectedResult = mockWishlistState.wishlist!.sets.ids;
       const spy = jest.spyOn(fromWishlistSets, 'getIds');
 
       expect(selectors.getWishlistSetsIds(mockWishlistState)).toBe(
@@ -48,7 +48,7 @@ describe('wishlists redux selectors', () => {
 
   describe('areWishlistSetsLoading()', () => {
     it('should get the wishlist sets loading status from state', () => {
-      const expectedResult = mockWishlistState.wishlist.sets.isLoading;
+      const expectedResult = mockWishlistState.wishlist!.sets.isLoading;
       const spy = jest.spyOn(fromWishlistSets, 'getIsLoading');
 
       expect(selectors.areWishlistSetsLoading(mockWishlistState)).toBe(
@@ -61,7 +61,7 @@ describe('wishlists redux selectors', () => {
   describe('getWishlistSetError()', () => {
     it('should get the wishlist set error', () => {
       const expectedResult =
-        mockWishlistState.wishlist.sets.set.error[mockWishlistSetId];
+        mockWishlistState.wishlist!.sets.set.error[mockWishlistSetId];
       const spy = jest.spyOn(fromWishlistSets, 'getSetError');
 
       expect(
@@ -74,7 +74,7 @@ describe('wishlists redux selectors', () => {
   describe('isWishlistSetLoading()', () => {
     it('should get the wishlist set loading status', () => {
       const expectedResult =
-        mockWishlistState.wishlist.sets.set.isLoading[mockWishlistSetId];
+        mockWishlistState.wishlist!.sets.set.isLoading[mockWishlistSetId];
       const spy = jest.spyOn(fromWishlistSets, 'getIsSetLoading');
 
       expect(
@@ -89,13 +89,13 @@ describe('wishlists redux selectors', () => {
       const newMockWishlistState = {
         ...mockWishlistState,
         wishlist: {
-          ...mockWishlistState.wishlist,
+          ...mockWishlistState.wishlist!,
           sets: {
-            ...mockWishlistState.wishlist.sets,
+            ...mockWishlistState.wishlist!.sets,
             set: {
-              ...mockWishlistState.wishlist.sets.set,
+              ...mockWishlistState.wishlist!.sets.set,
               isLoading: {
-                ...mockWishlistState.wishlist.sets.set.isLoading,
+                ...mockWishlistState.wishlist!.sets.set.isLoading,
                 [mockWishlistSetId]: false,
               },
             },
@@ -118,13 +118,13 @@ describe('wishlists redux selectors', () => {
       const newMockWishlistState = {
         ...mockWishlistState,
         wishlist: {
-          ...mockWishlistState.wishlist,
+          ...mockWishlistState.wishlist!,
           sets: {
-            ...mockWishlistState.wishlist.sets,
+            ...mockWishlistState.wishlist!.sets,
             set: {
-              ...mockWishlistState.wishlist.sets.set,
+              ...mockWishlistState.wishlist!.sets.set,
               isLoading: {
-                ...mockWishlistState.wishlist.sets.set.isLoading,
+                ...mockWishlistState.wishlist!.sets.set.isLoading,
                 [mockWishlistSetId]: undefined,
               },
             },
@@ -141,16 +141,16 @@ describe('wishlists redux selectors', () => {
   describe('getWishlistSet()', () => {
     it('should return all data regarding a wishlist set', () => {
       const expectedResult = {
-        ...mockWishlistState.entities.wishlistSets[mockWishlistSetId],
+        ...mockWishlistState.entities!.wishlistSets![mockWishlistSetId],
         wishlistSetItems: [
           {
-            ...mockWishlistState.entities.wishlistSets[mockWishlistSetId]
+            ...mockWishlistState.entities!.wishlistSets![mockWishlistSetId]!
               .wishlistSetItems[0],
-            ...mockWishlistState.entities.wishlistItems[mockWishlistItemId],
+            ...mockWishlistState.entities!.wishlistItems![mockWishlistItemId],
             product: {
-              ...mockWishlistState.entities.products[mockProductId],
-              brand: mockWishlistState.entities.brands[2450],
-              categories: [mockWishlistState.entities.categories[136301]],
+              ...mockWishlistState.entities!.products![mockProductId],
+              brand: mockWishlistState.entities!.brands![2450],
+              categories: [mockWishlistState.entities!.categories![136301]],
             },
           },
         ],
@@ -169,7 +169,7 @@ describe('wishlists redux selectors', () => {
 
     it('should return empty array for wishlist set items', () => {
       const expectedResult = {
-        ...mockWishlistState.entities.wishlistSets[mockWishlistSetId],
+        ...mockWishlistState.entities!.wishlistSets![mockWishlistSetId],
         wishlistSetItems: [],
       };
       const mockState = {
@@ -177,9 +177,9 @@ describe('wishlists redux selectors', () => {
         entities: {
           ...mockWishlistState.entities,
           wishlistSets: {
-            ...mockWishlistState.entities.wishlistSets,
+            ...mockWishlistState.entities!.wishlistSets,
             [mockWishlistSetId]: {
-              ...mockWishlistState.entities.wishlistSets[mockWishlistSetId],
+              ...mockWishlistState.entities!.wishlistSets![mockWishlistSetId]!,
               id: mockWishlistSetId,
               name: 'set name',
               wishlistSetItems: [],
@@ -204,16 +204,16 @@ describe('wishlists redux selectors', () => {
     it('should get the user wishlist sets from state', () => {
       const expectedResult = [
         {
-          ...mockWishlistState.entities.wishlistSets[mockWishlistSetId],
+          ...mockWishlistState.entities!.wishlistSets![mockWishlistSetId],
           wishlistSetItems: [
             {
-              ...mockWishlistState.entities.wishlistSets[mockWishlistSetId]
+              ...mockWishlistState.entities!.wishlistSets![mockWishlistSetId]!
                 .wishlistSetItems[0],
-              ...mockWishlistState.entities.wishlistItems[mockWishlistItemId],
+              ...mockWishlistState.entities!.wishlistItems![mockWishlistItemId],
               product: {
-                ...mockWishlistState.entities.products[mockProductId],
-                brand: mockWishlistState.entities.brands[2450],
-                categories: [mockWishlistState.entities.categories[136301]],
+                ...mockWishlistState.entities!.products![mockProductId],
+                brand: mockWishlistState.entities!.brands![2450],
+                categories: [mockWishlistState.entities!.categories![136301]],
               },
             },
           ],
@@ -277,9 +277,9 @@ describe('wishlists redux selectors', () => {
       const mockStateLoading = {
         ...mockWishlistState,
         wishlist: {
-          ...mockWishlistState.wishlist,
+          ...mockWishlistState.wishlist!,
           sets: {
-            ...mockWishlistState.wishlist.sets,
+            ...mockWishlistState.wishlist!.sets,
             isLoading: true,
           },
         },
@@ -296,11 +296,11 @@ describe('wishlists redux selectors', () => {
       const mockStateNotLoading = {
         ...mockWishlistState,
         wishlist: {
-          ...mockWishlistState.wishlist,
+          ...mockWishlistState.wishlist!,
           sets: {
-            ...mockWishlistState.wishlist.sets,
+            ...mockWishlistState.wishlist!.sets,
             set: {
-              ...mockWishlistState.wishlist.sets.set,
+              ...mockWishlistState.wishlist!.sets.set,
               isLoading: {},
             },
           },
@@ -316,9 +316,9 @@ describe('wishlists redux selectors', () => {
       const mockStateWithoutIds = {
         ...mockWishlistState,
         wishlist: {
-          ...mockWishlistState.wishlist,
+          ...mockWishlistState.wishlist!,
           sets: {
-            ...mockWishlistState.wishlist.sets,
+            ...mockWishlistState.wishlist!.sets,
             ids: null,
           },
         },
@@ -335,9 +335,9 @@ describe('wishlists redux selectors', () => {
       const mockStateWithError = {
         ...mockWishlistState,
         wishlist: {
-          ...mockWishlistState.wishlist,
+          ...mockWishlistState.wishlist!,
           sets: {
-            ...mockWishlistState.wishlist.sets,
+            ...mockWishlistState.wishlist!.sets,
             error: toBlackoutError(new Error('error')),
           },
         },
@@ -358,11 +358,11 @@ describe('wishlists redux selectors', () => {
       const mockStateWithoutError = {
         ...mockWishlistState,
         wishlist: {
-          ...mockWishlistState.wishlist,
+          ...mockWishlistState.wishlist!,
           sets: {
-            ...mockWishlistState.wishlist.sets,
+            ...mockWishlistState.wishlist!.sets,
             set: {
-              ...mockWishlistState.wishlist.sets.set,
+              ...mockWishlistState.wishlist!.sets.set,
               error: {},
             },
           },
@@ -378,9 +378,9 @@ describe('wishlists redux selectors', () => {
       const mockStateWithoutIds = {
         ...mockWishlistState,
         wishlist: {
-          ...mockWishlistState.wishlist,
+          ...mockWishlistState.wishlist!,
           sets: {
-            ...mockWishlistState.wishlist.sets,
+            ...mockWishlistState.wishlist!.sets,
             ids: null,
           },
         },
@@ -396,9 +396,10 @@ describe('wishlists redux selectors', () => {
     it('should return the error for each wishlist set with errors', () => {
       const expectedResult = [
         {
-          id: mockWishlistState.entities.wishlistSets[mockWishlistSetId].id,
-          name: mockWishlistState.entities.wishlistSets[mockWishlistSetId].name,
-          error: mockWishlistState.wishlist.sets.set.error[mockWishlistSetId],
+          id: mockWishlistState.entities!.wishlistSets![mockWishlistSetId]!.id,
+          name: mockWishlistState.entities!.wishlistSets![mockWishlistSetId]!
+            .name,
+          error: mockWishlistState.wishlist!.sets.set.error[mockWishlistSetId],
         },
       ];
 
@@ -411,11 +412,11 @@ describe('wishlists redux selectors', () => {
       const mockStateWithoutError = {
         ...mockWishlistState,
         wishlist: {
-          ...mockWishlistState.wishlist,
+          ...mockWishlistState.wishlist!,
           sets: {
-            ...mockWishlistState.wishlist.sets,
+            ...mockWishlistState.wishlist!.sets,
             set: {
-              ...mockWishlistState.wishlist.sets.set,
+              ...mockWishlistState.wishlist!.sets.set,
               error: {},
             },
           },
@@ -431,9 +432,9 @@ describe('wishlists redux selectors', () => {
       const mockStateWithoutIds = {
         ...mockWishlistState,
         wishlist: {
-          ...mockWishlistState.wishlist,
+          ...mockWishlistState.wishlist!,
           sets: {
-            ...mockWishlistState.wishlist.sets,
+            ...mockWishlistState.wishlist!.sets,
             ids: null,
           },
         },

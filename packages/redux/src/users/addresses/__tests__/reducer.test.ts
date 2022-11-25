@@ -1,5 +1,6 @@
 import * as actionTypes from '../actionTypes';
 import * as fromReducer from '../reducer';
+import { address1 } from 'tests/__fixtures__/users/addresses.fixtures';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, { entitiesMapper } from '../reducer';
 import type { AddressesEntity } from '../../../entities/types';
@@ -28,14 +29,16 @@ describe('addresses reducers', () => {
   describe('getDefaultAddress() function', () => {
     it('should return the default shipping and billing addresses given a list of addresses', () => {
       const defaultShippingAddress = {
-        id: 1,
+        ...address1,
+        id: '1',
         name: 'address1',
         isCurrentShipping: true,
         isCurrentBilling: false,
       };
 
       const defaultBillingAddress = {
-        id: 2,
+        ...address1,
+        id: '2',
         name: 'address2',
         isCurrentShipping: false,
         isCurrentBilling: true,
@@ -48,7 +51,7 @@ describe('addresses reducers', () => {
         [defaultBillingAddress.id]: {
           ...defaultBillingAddress,
         },
-      } as unknown as AddressesEntity;
+      } as AddressesEntity;
 
       const resultDefaultShippingAddress = fromReducer.getDefaultAddress(
         addressesList,
@@ -119,8 +122,8 @@ describe('addresses reducers', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...initialState,
-        result: 'foo',
-      } as unknown as UserAddressesState;
+        result: ['foo'],
+      };
 
       const randomActionWithResult = {
         type: 'random',
@@ -188,8 +191,8 @@ describe('addresses reducers', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...initialState,
-        error: 'foo',
-      } as unknown as UserAddressesState;
+        error: null,
+      };
 
       const randomActionWithError = {
         type: 'random',
@@ -273,8 +276,8 @@ describe('addresses reducers', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...initialState,
-        isLoading: 'foo',
-      } as unknown as UserAddressesState;
+        isLoading: true,
+      };
 
       const randomAction = {
         type: 'random_action',
@@ -288,10 +291,10 @@ describe('addresses reducers', () => {
     describe('create an address', () => {
       const state = {
         addresses: {
-          1: { id: 1, address: 'data' },
-          2: { id: 2, address: 'data' },
+          1: { ...address1, id: '1', address: 'data' },
+          2: { ...address1, id: '2', address: 'data' },
         },
-      } as unknown as NonNullable<StoreState['entities']>;
+      } as NonNullable<StoreState['entities']>;
 
       const newAddress = { id: 3, address: 'data' };
       const newAddressResultEntity = {
@@ -324,11 +327,17 @@ describe('addresses reducers', () => {
     describe('update an address', () => {
       const state = {
         addresses: {
-          1: { id: 1, address: 'data', zipCode: '1111', otherprop: 'prop' },
+          1: {
+            ...address1,
+            id: '1',
+            address: 'data',
+            zipCode: '1111',
+            otherprop: 'prop',
+          },
         },
-      } as unknown as NonNullable<StoreState['entities']>;
+      } as NonNullable<StoreState['entities']>;
 
-      const updatedAddress = { id: 1, address: 'updated address data' };
+      const updatedAddress = { id: '1', address: 'updated address data' };
       const updatedAddressResultEntity = {
         [updatedAddress.id]: { ...updatedAddress },
       };
@@ -359,14 +368,14 @@ describe('addresses reducers', () => {
     describe('delete adressbook address', () => {
       const state = {
         addresses: {
-          1: { id: 1, address: 'data' },
-          2: { id: 2, address: 'data' },
+          1: { ...address1, id: '1', address: 'data' },
+          2: { ...address1, id: '2', address: 'data' },
         },
-      } as unknown as NonNullable<StoreState['entities']>;
+      } as NonNullable<StoreState['entities']>;
 
       const expectedResult = {
         addresses: {
-          2: { id: 2, address: 'data' },
+          2: state.addresses!['2'],
         },
       };
 
@@ -385,30 +394,30 @@ describe('addresses reducers', () => {
         const state = {
           addresses: {
             1: {
-              id: 1,
+              ...address1,
+              id: '1',
               address: 'data',
               isCurrentShipping: false,
             },
             2: {
-              id: 2,
+              ...address1,
+              id: '2',
               address: 'data',
               isCurrentShipping: true,
             },
           },
-        } as unknown as NonNullable<StoreState['entities']>;
+        } as NonNullable<StoreState['entities']>;
 
         // Should unmark the previous default as the default address
         // Should mark the selected address as the default
         const expectedResult = {
           addresses: {
             1: {
-              id: 1,
-              address: 'data',
+              ...state.addresses!['1'],
               isCurrentShipping: true,
             },
             2: {
-              id: 2,
-              address: 'data',
+              ...state.addresses!['2'],
               isCurrentShipping: false,
             },
           },
@@ -429,30 +438,27 @@ describe('addresses reducers', () => {
         const state = {
           addresses: {
             1: {
-              id: 1,
+              ...address1,
+              id: '1',
               address: 'data',
               isCurrentShipping: false,
             },
             2: {
-              id: 2,
+              ...address1,
+              id: '2',
               address: 'data',
               isCurrentShipping: false,
             },
           },
-        } as unknown as NonNullable<StoreState['entities']>;
+        } as NonNullable<StoreState['entities']>;
 
         // Should mark the selected address as the default
         const expectedResult = {
           addresses: {
+            ...state.addresses,
             1: {
-              id: 1,
-              address: 'data',
+              ...state.addresses!['1'],
               isCurrentShipping: true,
-            },
-            2: {
-              id: 2,
-              address: 'data',
-              isCurrentShipping: false,
             },
           },
         };
@@ -474,30 +480,30 @@ describe('addresses reducers', () => {
         const state = {
           addresses: {
             1: {
-              id: 1,
+              ...address1,
+              id: '1',
               address: 'data',
               isCurrentBilling: false,
             },
             2: {
-              id: 2,
+              ...address1,
+              id: '2',
               address: 'data',
               isCurrentBilling: true,
             },
           },
-        } as unknown as NonNullable<StoreState['entities']>;
+        } as NonNullable<StoreState['entities']>;
 
         // Should unmark the previous default as the default address
         // Should mark the selected address as the default
         const expectedResult = {
           addresses: {
             1: {
-              id: 1,
-              address: 'data',
+              ...state.addresses!['1'],
               isCurrentBilling: true,
             },
             2: {
-              id: 2,
-              address: 'data',
+              ...state.addresses!['2'],
               isCurrentBilling: false,
             },
           },
@@ -517,30 +523,27 @@ describe('addresses reducers', () => {
         const state = {
           addresses: {
             1: {
-              id: 1,
+              ...address1,
+              id: '1',
               address: 'data',
               isCurrentBilling: false,
             },
             2: {
-              id: 2,
+              ...address1,
+              id: '2',
               address: 'data',
               isCurrentBilling: false,
             },
           },
-        } as unknown as NonNullable<StoreState['entities']>;
+        } as NonNullable<StoreState['entities']>;
 
         // Should mark the selected address as the default
         const expectedResult = {
           addresses: {
+            ...state.addresses,
             1: {
-              id: 1,
-              address: 'data',
+              ...state.addresses!['1'],
               isCurrentBilling: true,
-            },
-            2: {
-              id: 2,
-              address: 'data',
-              isCurrentBilling: false,
             },
           },
         };
@@ -562,30 +565,30 @@ describe('addresses reducers', () => {
         const state = {
           addresses: {
             1: {
-              id: 1,
+              ...address1,
+              id: '1',
               address: 'data',
               isCurrentPreferred: false,
             },
             2: {
-              id: 2,
+              ...address1,
+              id: '2',
               address: 'data',
               isCurrentPreferred: true,
             },
           },
-        } as unknown as NonNullable<StoreState['entities']>;
+        } as NonNullable<StoreState['entities']>;
 
         // Should unmark the previous default as the default address
         // Should mark the selected address as the default
         const expectedResult = {
           addresses: {
             1: {
-              id: 1,
-              address: 'data',
+              ...state.addresses!['1'],
               isCurrentPreferred: true,
             },
             2: {
-              id: 2,
-              address: 'data',
+              ...state.addresses!['2'],
               isCurrentPreferred: false,
             },
           },
@@ -606,30 +609,27 @@ describe('addresses reducers', () => {
         const state = {
           addresses: {
             1: {
-              id: 1,
+              ...address1,
+              id: '1',
               address: 'data',
               isCurrentPreferred: false,
             },
             2: {
-              id: 2,
+              ...address1,
+              id: '2',
               address: 'data',
               isCurrentPreferred: false,
             },
           },
-        } as unknown as NonNullable<StoreState['entities']>;
+        } as NonNullable<StoreState['entities']>;
 
         // Should mark the selected address as the default
         const expectedResult = {
           addresses: {
+            ...state.addresses,
             1: {
-              id: 1,
-              address: 'data',
+              ...state.addresses!['1'],
               isCurrentPreferred: true,
-            },
-            2: {
-              id: 2,
-              address: 'data',
-              isCurrentPreferred: false,
             },
           },
         };
@@ -651,19 +651,19 @@ describe('addresses reducers', () => {
         const state = {
           addresses: {
             1: {
-              id: 1,
+              ...address1,
+              id: '1',
               address: 'data',
               isCurrentPreferred: true,
             },
           },
-        } as unknown as NonNullable<StoreState['entities']>;
+        } as NonNullable<StoreState['entities']>;
 
         // Should unmark the previous default as the default address
         const expectedResult = {
           addresses: {
             1: {
-              id: 1,
-              address: 'data',
+              ...state.addresses!['1'],
               isCurrentPreferred: false,
             },
           },
@@ -765,8 +765,8 @@ describe('addresses reducers', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...initialState,
-        address: { isLoading: { foo: false } },
-      } as unknown as NonNullable<UserAddressesState>;
+        address: { isLoading: { foo: false }, error: { foo: null } },
+      } as NonNullable<UserAddressesState>;
 
       const randomAction = {
         type: 'randomAction',
@@ -835,7 +835,7 @@ describe('addresses reducers', () => {
       const state = {
         ...initialState,
         addresses: { isLoading: false },
-      } as unknown as NonNullable<UserAddressesState>;
+      } as NonNullable<UserAddressesState>;
 
       const randomAction = {
         type: 'randomAction',
@@ -903,7 +903,7 @@ describe('addresses reducers', () => {
       const state = {
         ...initialState,
         defaultAddressDetails: { isLoading: false },
-      } as unknown as NonNullable<UserAddressesState>;
+      } as NonNullable<UserAddressesState>;
 
       const randomAction = {
         type: 'random_action',

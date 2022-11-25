@@ -21,10 +21,10 @@ export const expectedTitlesNormalizedPayload = {
   entities: {
     titles: {
       [idTitle1]: {
-        ...mockGetTitlesResponse.entries[0],
+        ...mockGetTitlesResponse.entries[0]!,
       },
       [idTitle2]: {
-        ...mockGetTitlesResponse.entries[1],
+        ...mockGetTitlesResponse.entries[1]!,
       },
     },
   },

@@ -44,7 +44,14 @@ export type CheckoutOrderItem = {
   productId: Product['result']['id'];
   productName: string;
   productSlug: string;
-  promocodeDiscountPercentage: number;
+  promocodeDiscountPercentage?: number;
+  promotionDetail: {
+    totalDiscountPercentage?: number;
+    totalDiscountValue: number;
+    formattedTotalDiscountValue: string;
+    isProductOffer: boolean;
+    promotionEvaluationItemId?: string;
+  };
   quantity: number;
   scale: string;
   size: string;
@@ -60,10 +67,5 @@ export type CheckoutOrderItem = {
     grandTotal: number;
     subTotalAmount: number;
     subTotalOriginalAmount: number;
-  };
-  promotionDetail: {
-    totalDiscountValue: number;
-    isProductOffer: boolean;
-    formattedTotalDiscountValue: string;
   };
 };

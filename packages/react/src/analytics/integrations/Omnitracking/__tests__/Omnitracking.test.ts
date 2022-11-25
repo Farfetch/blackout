@@ -7,6 +7,7 @@ import {
   integrations as coreIntegrations,
   eventTypes,
   pageTypes,
+  PageviewEventData,
   StrippedDownAnalytics,
 } from '@farfetch/blackout-analytics';
 import { postTracking } from '@farfetch/blackout-client';
@@ -138,7 +139,9 @@ describe('Omnitracking', () => {
         });
 
         // Act
-        await omnitrackingInstance.track(analyticsPageData[pageTypes.HOMEPAGE]);
+        await omnitrackingInstance.track(
+          analyticsPageData[pageTypes.HOMEPAGE] as PageviewEventData,
+        );
 
         // Assert
         expect(storage.get(mockUrl)).toBe(
@@ -161,7 +164,9 @@ describe('Omnitracking', () => {
         );
 
         // Act
-        await omnitrackingInstance.track(analyticsPageData[pageTypes.HOMEPAGE]);
+        await omnitrackingInstance.track(
+          analyticsPageData[pageTypes.HOMEPAGE] as PageviewEventData,
+        );
 
         // Assert
         expect(postTracking).toHaveBeenCalledWith(
@@ -179,7 +184,7 @@ describe('Omnitracking', () => {
           loadIntegrationData,
           strippedDownAnalytics,
         );
-        const data = analyticsPageData[pageTypes.HOMEPAGE];
+        const data = analyticsPageData[pageTypes.HOMEPAGE] as PageviewEventData;
 
         // @ts-ignore
         data.context.web.window.location.pathname = '/en-pt';
@@ -201,7 +206,7 @@ describe('Omnitracking', () => {
           loadIntegrationData,
           strippedDownAnalytics,
         );
-        const data = analyticsPageData[pageTypes.HOMEPAGE];
+        const data = analyticsPageData[pageTypes.HOMEPAGE] as PageviewEventData;
 
         // @ts-ignore
         data.context.web.window.location.pathname = '/pt';

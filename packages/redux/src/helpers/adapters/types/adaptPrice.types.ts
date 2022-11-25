@@ -1,5 +1,4 @@
 import type {
-  CheckoutOrderItem,
   Price,
   ProductSummaryPrice,
   ProductSummaryTypedPrice,
@@ -27,15 +26,12 @@ export type PriceAdapted = {
   includingTaxesWithoutDiscount: Price['priceInclTaxesWithoutDiscount'];
   isFormatted: boolean;
   priceType?: ProductSummaryPrice['priceType'];
-  promocode?: {
-    rate: CheckoutOrderItem['promocodeDiscountPercentage'];
-  };
   promotionType?: ProductSummaryTypedPrice['promotionType'];
   tags?: Price['tags'];
-  taxes?: {
-    rate: Price['taxesRate'];
-    amount: Price['taxesValue'];
-    type: Price['taxType'];
+  taxes: {
+    rate: Price['taxesRate'] | undefined;
+    amount: Price['taxesValue'] | undefined;
+    type: Price['taxType'] | undefined;
   };
   type?: ProductSummaryTypedPrice['type'];
 };

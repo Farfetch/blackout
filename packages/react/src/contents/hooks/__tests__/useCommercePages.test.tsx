@@ -35,12 +35,8 @@ describe('useCommercePages', () => {
       wrapper: withStore(mockCommercePagesState),
     });
 
-    const {
-      isLoading,
-      error,
-      isFetched,
-      data: { entries: dataResult, pagination },
-    } = result.current;
+    const { isLoading, error, isFetched, data } = result.current;
+    const { entries: dataResult, pagination } = data!;
 
     expect(isLoading).toBeFalsy();
     expect(error).toBeNull();

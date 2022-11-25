@@ -18,7 +18,7 @@ Object {
           "contentTypeCode": "pages",
           "environmentCode": "live",
           "id": undefined,
-          "metadata": Object {},
+          "metadata": undefined,
           "publicationDate": 1606318282619,
           "publicationId": "1fa65fb0-49bf-43b3-902e-78d104f160a3",
           "spaceCode": "website",

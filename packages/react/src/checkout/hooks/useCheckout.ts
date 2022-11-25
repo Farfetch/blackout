@@ -387,7 +387,7 @@ function useCheckout(
         },
         data: {
           creditUserId:
-            method === PaymentMethod.CreditCard ? user.id : undefined,
+            method === PaymentMethod.CreditCard ? `${user.id}` : undefined,
           ...overridesCopy?.data,
         },
       };

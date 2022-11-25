@@ -139,7 +139,7 @@ describe('Payments redux selectors', () => {
           ),
         ).toEqual([
           mockFetchInstrumentsNormalizedPayload.entities.paymentInstruments[
-            mockFetchInstrumentsResponse[0]?.id
+            mockFetchInstrumentsResponse[0]!.id
           ],
         ]);
       });
@@ -185,7 +185,7 @@ describe('Payments redux selectors', () => {
     describe('sub-areas error selectors', () => {
       selectorAssertions.assertSubAreasErrorSelector(
         subAreaNames,
-        mockState,
+        { payments: { ...mockState.payments } },
         'payments',
         selectors,
       );
@@ -201,7 +201,7 @@ describe('Payments redux selectors', () => {
           'PaymentIntentCharge',
           'PaymentMethods',
         ],
-        mockState,
+        { payments: { ...mockState.payments } },
         'payments',
         selectors,
       );

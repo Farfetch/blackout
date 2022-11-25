@@ -1,9 +1,11 @@
 import { mockModel } from 'tests/__fixtures__/locale';
 import serverInitialState from '../serverInitialState';
+import type { Model } from '../../types';
 
 describe('local serverInitialState()', () => {
   it('should initialize server state for the locale', () => {
-    const model = mockModel;
+    // @ts-expect-error A lot of properties would need to be added to make the value comply with the type which are irrelevant for the test
+    const model = mockModel as Model;
     const state = serverInitialState({ model });
 
     expect(state).toEqual({
@@ -33,7 +35,7 @@ describe('local serverInitialState()', () => {
   });
 
   it('should initialise server state', () => {
-    const model = {};
+    const model = {} as Model;
     const state = serverInitialState({ model });
 
     expect(state).toEqual({

@@ -14,7 +14,7 @@ jest.mock('@farfetch/blackout-client', () => ({
 describe('fetchCheckoutOrderCharge() action creator', () => {
   const checkoutMockStore = (state = {}) =>
     mockStore({ checkout: INITIAL_STATE }, state);
-  const orderId = '12345';
+  const orderId = 12345;
   const chargeId = 'eb92d414-68de-496e-96db-a0c6582b74d4';
   const expectedConfig = undefined;
   let store: ReturnType<typeof checkoutMockStore>;

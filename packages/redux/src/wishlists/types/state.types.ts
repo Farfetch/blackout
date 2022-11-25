@@ -6,7 +6,7 @@ import type {
 import type { CombinedState } from 'redux';
 import type { WishlistItemEntity } from '../../entities/types';
 
-type WishlistNormalized = Omit<Wishlist, 'items'> & {
+export type WishlistNormalized = Omit<Wishlist, 'items'> & {
   items: Array<WishlistItemEntity['id']>;
 };
 

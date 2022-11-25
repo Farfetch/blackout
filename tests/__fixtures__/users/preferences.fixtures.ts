@@ -13,7 +13,7 @@ export const expectedPreferencesNormalizedPayload = {
   entities: {
     preferences: {
       [code]: {
-        ...mockGetPreferencesResponse[0],
+        ...mockGetPreferencesResponse[0]!,
       },
     },
   },

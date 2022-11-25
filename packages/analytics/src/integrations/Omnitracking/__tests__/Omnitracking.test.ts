@@ -13,6 +13,7 @@ import {
   expectedPagePayloadWeb as mockExpectedPagePayloadWeb,
   expectedTrackPayload as mockExpectedTrackPayload,
 } from '../__fixtures__';
+import { mockUsersResponse } from 'tests/__fixtures__/users';
 import {
   OPTION_HTTP_CLIENT,
   OPTION_SEARCH_QUERY_PARAMETERS,
@@ -262,6 +263,7 @@ describe('Omnitracking', () => {
 
     it('Should return the formatted object for the `ListingPageVisited` event', async () => {
       const data = generateMockData({
+        // @ts-expect-error Missing properties from EventContext just to facilitate testing
         context: {
           web: {
             window: {
@@ -270,7 +272,7 @@ describe('Omnitracking', () => {
               },
             },
           },
-        } as unknown as EventContext,
+        } as EventContext,
       });
 
       await omnitracking.track(data);
@@ -284,6 +286,7 @@ describe('Omnitracking', () => {
 
     it('Should return the formatted object for the `ProductPageVisited` event', async () => {
       const data = generateMockData({
+        // @ts-expect-error Missing properties from EventContext just to facilitate testing
         context: {
           web: {
             window: {
@@ -292,7 +295,7 @@ describe('Omnitracking', () => {
               },
             },
           },
-        } as unknown as EventContext,
+        } as EventContext,
       });
 
       await omnitracking.track(data);
@@ -306,6 +309,7 @@ describe('Omnitracking', () => {
 
     it('Should return the formatted object for the `CheckoutVisited` event', async () => {
       const data = generateMockData({
+        // @ts-expect-error Missing properties from EventContext just to facilitate testing
         context: {
           web: {
             window: {
@@ -314,7 +318,7 @@ describe('Omnitracking', () => {
               },
             },
           },
-        } as unknown as EventContext,
+        } as EventContext,
       });
 
       await omnitracking.track(data);
@@ -346,6 +350,7 @@ describe('Omnitracking', () => {
         user: {
           id: 123123,
           traits: {
+            ...mockUsersResponse,
             isGuest: true,
           },
           localId: 'dummy',
@@ -935,7 +940,7 @@ describe('Omnitracking', () => {
       // the mockedUuid so the uniqueViewId changes
       // on the next omnitracking.track call with a page event.
       // Remember that v4 is jest.fn() in this test file.
-      (uuid.v4 as unknown as jest.Mock<string>).mockImplementation(
+      (uuid.v4 as jest.Mock<string>).mockImplementation(
         () => '981945ad-b9d4-4c21-b3b0-2764b31bdc43',
       );
 
@@ -949,9 +954,7 @@ describe('Omnitracking', () => {
       // After this, we need to restore the mock for v4
       // to use the original implementation in other tests
       // that may be defined after this one.
-      (uuid.v4 as unknown as jest.Mock<string>).mockImplementation(
-        () => mockedUuid,
-      );
+      (uuid.v4 as jest.Mock<string>).mockImplementation(() => mockedUuid);
 
       expect(lastPayload.parameters.uniqueViewId).not.toBe(newUniqueViewId);
       expect(

@@ -84,9 +84,6 @@ Object {
             "includingTaxesWithoutDiscount": 265596.9995,
             "isFormatted": true,
             "priceType": undefined,
-            "promocode": Object {
-              "rate": undefined,
-            },
             "promotionType": undefined,
             "tags": Array [
               "DDP",
@@ -130,9 +127,6 @@ Object {
             "includingTaxesWithoutDiscount": 265596.9995,
             "isFormatted": true,
             "priceType": undefined,
-            "promocode": Object {
-              "rate": undefined,
-            },
             "promotionType": undefined,
             "tags": Array [
               "DDP",
@@ -163,6 +157,8 @@ Object {
           "promotionDetail": Object {
             "formattedTotalDiscountValue": "0,00 €",
             "isProductOffer": false,
+            "promotionEvaluationItemId": undefined,
+            "totalDiscountPercentage": undefined,
             "totalDiscountValue": 0,
           },
           "quantity": 1,

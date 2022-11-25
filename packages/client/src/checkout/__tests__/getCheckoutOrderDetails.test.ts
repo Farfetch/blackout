@@ -1,13 +1,13 @@
 import * as checkoutClient from '..';
 import {
   AttributeType,
+  CheckoutOrderDetails,
   CheckoutOrderItemStatus,
   CheckoutOrderStatus,
-  CreationChannel,
+  CreationChannelLegacy,
   CustomerType,
   DeliveryWindowType,
   GenderCode,
-  GetCheckoutOrderDetailsResponse,
   PurchaseChannel,
   ShippingCostType,
   ShippingMode,
@@ -27,7 +27,7 @@ describe('checkout client', () => {
     const urlToBeCalled = `/checkout/v1/orders/${id}/details`;
 
     it('should handle a client request successfully', async () => {
-      const response: GetCheckoutOrderDetailsResponse = {
+      const response: CheckoutOrderDetails = {
         checkoutOrder: {
           bagId: 'string',
           billingAddress: {
@@ -120,7 +120,7 @@ describe('checkout client', () => {
               brandName: 'string',
               brandId: 0,
               checkoutOrderId: 0,
-              creationChannel: CreationChannel.Catalog,
+              creationChannel: CreationChannelLegacy.Catalog,
               id: 0,
               images: {
                 images: [
@@ -269,6 +269,20 @@ describe('checkout client', () => {
                   tag: 'string',
                 },
                 bundleSlug: 'string',
+              },
+              promotionDetail: {
+                totalDiscountValue: 0,
+                formattedTotalDiscountValue: '0,00 €',
+                isProductOffer: false,
+              },
+              variantId: '',
+              summary: {
+                formattedGrandTotal: 'string',
+                formattedSubTotalAmount: 'string',
+                formattedSubTotalOriginalAmount: 'string',
+                grandTotal: 0,
+                subTotalAmount: 0,
+                subTotalOriginalAmount: 0,
               },
             },
           ],

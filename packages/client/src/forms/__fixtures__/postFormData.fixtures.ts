@@ -1,10 +1,10 @@
 import { rest, RestHandler } from 'msw';
-import type { SubmitFormSchema } from '../types';
+import type { SubmittedFormData } from '../types';
 
 const path = '/api/communication/v1/forms/:schemaCode/data';
 
 const fixtures = {
-  success: (response: SubmitFormSchema): RestHandler =>
+  success: (response: SubmittedFormData): RestHandler =>
     rest.post(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),

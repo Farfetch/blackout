@@ -12,6 +12,7 @@ import {
   getPageRanking,
   getRankedCommercePage,
 } from '../utils';
+import { SeoPageType } from '@farfetch/blackout-client';
 
 describe('getPageRanking', () => {
   it('should correctly construct a ranking number for a specific metadata', () => {
@@ -67,7 +68,7 @@ describe('getMergeStrategy', () => {
       number: 1,
       totalPages: 1,
       totalItems: 1,
-      entries: [mockCommercePages.entries[0]],
+      entries: [mockCommercePages.entries[0]!],
     });
 
     expect(commercePagesResult).toMatchObject(mergeStrategyResultOneEntry);
@@ -102,6 +103,7 @@ describe('generateContentHash', () => {
   it('should return an empty string if the query received not includes contentTypeCode or codes', () => {
     const mockQuery = { totalItems: 2 };
     const expectedResult = '';
+    // @ts-expect-error Force contentTypeCode to be undefined for test
     const result = generateContentHash(mockQuery);
 
     expect(result).toBe(expectedResult);
@@ -137,6 +139,7 @@ describe('generateContentHash', () => {
       'target.language': 'en_US',
     };
     const expectedResult = 'all!abc!en_US';
+    // @ts-expect-error Force contentTypeCode to be undefined for test
     const result = generateContentHash(mockQuery);
 
     expect(result).toBe(expectedResult);
@@ -153,7 +156,7 @@ describe('generateContentHash', () => {
 
 describe('generateSEOPathname', () => {
   it('should correctly construct the correct pathname with a query object', () => {
-    const mockQuery = { path: '/about', pageType: 'pages' };
+    const mockQuery = { path: '/about', pageType: SeoPageType.Pages };
     const expectedResult = '/about';
     const result = generateSEOPathname(mockQuery);
 
@@ -163,6 +166,7 @@ describe('generateSEOPathname', () => {
   it('should return an empty string if the query received is an empty object', () => {
     const mockQuery = { pageType: '', path: '' };
     const expectedResult = '';
+    // @ts-expect-error Force invalid pageType for test
     const result = generateSEOPathname(mockQuery);
 
     expect(result).toBe(expectedResult);

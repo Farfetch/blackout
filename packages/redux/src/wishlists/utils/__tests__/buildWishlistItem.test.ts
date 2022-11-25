@@ -2,6 +2,7 @@ import { buildWishlistItem } from '../';
 import {
   mockMerchantId,
   mockProduct,
+  mockProductEntity,
   mockProductId,
   mockProductSizeAdapted,
 } from 'tests/__fixtures__/products';
@@ -24,10 +25,11 @@ describe('buildWishlistItem()', () => {
 
   it('should return a valid wishlist item object without merchantId, size and scale', () => {
     const mockProduct = {
+      ...mockProductEntity,
       brand: 6598,
       name: 'Cotton shirt',
       id: 1234,
-      sizes: null,
+      sizes: undefined,
     };
 
     expect(

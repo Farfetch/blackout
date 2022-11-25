@@ -155,10 +155,11 @@ describe('GTM', () => {
               __uniqueEventId: expect.any(String),
             },
             libraryVersion: data.context.library.version,
-            location: (data.context as unknown as WebContextType).web.window
-              .location,
-            userAgent: (data.context as unknown as WebContextType).web.window
-              .navigator.userAgent,
+            // @ts-expect-error Force cast to facilitate testing
+            location: (data.context as WebContextType).web.window.location,
+            // @ts-expect-error Force cast to facilitate testing
+            userAgent: (data.context as WebContextType).web.window.navigator
+              .userAgent,
           },
         });
 

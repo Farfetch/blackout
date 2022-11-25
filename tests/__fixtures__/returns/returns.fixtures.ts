@@ -3,7 +3,11 @@ import {
   PickupRescheduleRequests,
   RescheduleStatus,
   ReturnItem,
+  ReturnItemStatus,
   ReturnOptionType,
+  ReturnReferenceName,
+  ReturnStatus,
+  ReturnStatusCode,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 
@@ -37,8 +41,8 @@ export const responses = {
       orderId: '8HYCEV',
       merchantId: 11554,
       userId: 34113438,
-      type: 'Courier',
-      status: 'Accepted',
+      type: ReturnOptionType.Courier,
+      status: ReturnStatus.Accepted,
       courier: 'NotKnown',
       numberOfBoxes: 0,
       numberOfItems: 1,
@@ -49,7 +53,10 @@ export const responses = {
           orderItemId: 49427539,
           reason: "Item doesn't fit",
           description: 'Fits too big',
-          status: 'Created',
+          status: ReturnItemStatus.Created,
+          itemStatus: {
+            code: ReturnItemStatus.Created,
+          },
         },
       ],
       createdDate: '2022-01-03T15:10:13.66Z',
@@ -57,10 +64,13 @@ export const responses = {
       invoiceUrl: '/account/v1/returns/25741579/Invoice',
       references: [
         {
-          name: 'ReturnNote',
+          name: ReturnReferenceName.ReturnNote,
           url: '/account/v1/returns/25741579/references/ReturnNote',
         },
       ],
+      returnStatus: {
+        code: ReturnStatusCode.Accepted,
+      },
     },
   },
   get: {
@@ -77,8 +87,8 @@ export const responses = {
       orderId: '8HYCEV',
       merchantId: 11554,
       userId: 34113438,
-      type: 'Courier',
-      status: 'Accepted',
+      type: ReturnOptionType.Courier,
+      status: ReturnStatus.Accepted,
       courier: 'NotKnown',
       numberOfBoxes: 0,
       numberOfItems: 1,
@@ -89,7 +99,10 @@ export const responses = {
           orderItemId: 49427539,
           reason: "Item doesn't fit",
           description: 'Fits too big',
-          status: 'Created',
+          status: ReturnItemStatus.Created,
+          itemStatus: {
+            code: '1',
+          },
         },
       ],
       createdDate: '2022-01-03T15:10:13.66Z',
@@ -97,10 +110,13 @@ export const responses = {
       invoiceUrl: '/account/v1/returns/25741579/Invoice',
       references: [
         {
-          name: 'ReturnNote',
+          name: ReturnReferenceName.ReturnNote,
           url: '/account/v1/returns/25741579/references/ReturnNote',
         },
       ],
+      returnStatus: {
+        code: ReturnStatusCode.Accepted,
+      },
     },
   },
   getReturnPickupCapability: {
@@ -273,28 +289,34 @@ export const returnEntity = {
   merchantId: 10973,
   userId: 29511627,
   items: [returnItemId],
-  type: 'CourierPickUp',
-  createdDate: '2022-09-06T09:53:10.193Z',
-  status: 'Accepted',
+  type: ReturnOptionType.CourierPickUp,
+  createdDate: 1539688029817,
+  status: ReturnStatus.Accepted,
   numberOfBoxes: 1,
   numberOfItems: 1,
-  maximumDateForPickup: '2022-09-30T23:59:58Z',
+  maximumDateForPickup: 1641654613690,
   awbUrl: '/account/v1/returns/30074873/AWB',
   invoiceUrl: '/account/v1/returns/30074873/Invoice',
   references: [
     {
-      name: 'ReturnCustomerRequestedAWB',
+      name: ReturnReferenceName.ReturnCustomerRequestedAWB,
       url: '/account/v1/returns/30074873/references/ReturnCustomerRequestedAWB',
     },
   ],
   availableDates: [1663156800000, 1663156900000, 1663157000000],
+  returnStatus: {
+    code: ReturnStatusCode.Accepted,
+  },
 };
 
 export const returnItem = {
   id: returnItemId,
   orderItemId: 333,
   reason: 'Item does not fit',
-  status: 'Accepted',
+  status: ReturnItemStatus.AcceptedWithShippingCosts,
+  itemStatus: {
+    code: '',
+  },
 };
 
 export const returnEntityDenormalized = {
@@ -332,8 +354,8 @@ export const mockState = {
 };
 
 export const mockPatchData = {
-  start: 1663156800000,
-  end: 1663164000000,
+  start: '2022-01-07T10:59:03.9169641Z',
+  end: '2022-01-07T10:59:03.9169641Z',
 };
 
 export const mockPostData = {

@@ -18,7 +18,7 @@ describe('findSpecificSizeGuide', () => {
     });
 
     it('with categories - deep 0 and brand id', () => {
-      const sizeGuides = [mockSizeGuides[0], mockSizeGuides[1]];
+      const sizeGuides = [mockSizeGuides[0]!, mockSizeGuides[1]!];
       const categories = [mockCategories[0]];
       const result = findSpecificSizeGuide({
         sizeGuides,
@@ -30,7 +30,7 @@ describe('findSpecificSizeGuide', () => {
     });
 
     it('with categories - deep 1 and brandId null', () => {
-      const sizeGuides = [mockSizeGuides[0], mockSizeGuides[1]];
+      const sizeGuides = [mockSizeGuides[0]!, mockSizeGuides[1]!];
       const categories = [mockCategories[0], mockCategories[1]];
       const result = findSpecificSizeGuide({
         sizeGuides,
@@ -42,7 +42,7 @@ describe('findSpecificSizeGuide', () => {
     });
 
     it('with categories - deep 0 and brandId null', () => {
-      const sizeGuides = [mockSizeGuides[0], mockSizeGuides[3]];
+      const sizeGuides = [mockSizeGuides[0]!, mockSizeGuides[3]!];
       const categories = [mockCategories[0]];
       const result = findSpecificSizeGuide({
         sizeGuides,

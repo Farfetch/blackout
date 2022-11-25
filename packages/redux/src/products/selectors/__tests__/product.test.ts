@@ -10,6 +10,7 @@ import {
   mockProduct,
   mockProductId,
   mockProductSizeAdapted,
+  mockProductsState,
   mockPromotions,
 } from 'tests/__fixtures__/products';
 
@@ -19,15 +20,7 @@ beforeEach(() => {
 
 describe('getProduct()', () => {
   it('should return the product entity', () => {
-    const state = {
-      entities: {
-        products: {
-          [mockProductId]: mockProduct,
-        },
-      },
-    };
-
-    expect(getProduct(state, mockProductId)).toEqual(mockProduct);
+    expect(getProduct(mockProductsState, mockProductId)).toEqual(mockProduct);
   });
 
   it('should return the default response', () => {
@@ -45,6 +38,7 @@ describe('isProductOneSize()', () => {
       entities: {
         products: {
           [mockProductId]: {
+            ...mockProductsState.entities.products[mockProductId],
             sizes: mockOneSizeSizes,
           },
         },
@@ -71,7 +65,8 @@ describe('isProductOneSize()', () => {
       entities: {
         products: {
           [mockProductId]: {
-            sizes: null,
+            ...mockProductsState.entities.products[mockProductId],
+            sizes: [],
           },
         },
       },
@@ -87,7 +82,8 @@ describe('isProductOutOfStock()', () => {
       entities: {
         products: {
           [mockProductId]: {
-            sizes: null,
+            ...mockProductsState.entities.products[mockProductId],
+            sizes: [],
           },
         },
       },
@@ -101,6 +97,7 @@ describe('isProductOutOfStock()', () => {
       entities: {
         products: {
           [mockProductId]: {
+            ...mockProductsState.entities.products[mockProductId],
             sizes: [{ ...mockProductSizeAdapted, globalQuantity: 0 }],
           },
         },
@@ -115,6 +112,7 @@ describe('isProductOutOfStock()', () => {
       entities: {
         products: {
           [mockProductId]: {
+            ...mockProductsState.entities.products[mockProductId],
             sizes: [
               {
                 ...mockProductSizeAdapted,
@@ -156,6 +154,7 @@ describe('getProductPromotions()', () => {
       },
     };
 
+    // @ts-expect-error Setting promotions to undefined for testing
     expect(getProductPromotions(state, mockProductId)).toHaveLength(0);
   });
 

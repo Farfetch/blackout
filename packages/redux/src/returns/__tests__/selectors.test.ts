@@ -113,7 +113,7 @@ describe('returns redux selectors', () => {
           returnDetails: {
             ...mockState.returns.returnDetails,
             error: {
-              [returnId]: undefined,
+              [returnId]: null,
             },
           },
         },
@@ -134,7 +134,7 @@ describe('returns redux selectors', () => {
           returnDetails: {
             ...mockState.returns.returnDetails,
             error: {
-              [returnId]: undefined,
+              [returnId]: null,
             },
           },
         },
@@ -206,7 +206,7 @@ describe('returns redux selectors', () => {
               [returnId]: true,
             },
             error: {
-              [returnId]: undefined,
+              [returnId]: null,
             },
           },
         },
@@ -227,7 +227,7 @@ describe('returns redux selectors', () => {
               [returnId]: true,
             },
             error: {
-              [returnId]: undefined,
+              [returnId]: null,
             },
           },
         },
@@ -367,7 +367,7 @@ describe('returns redux selectors', () => {
           returnPickupCapabilities: {
             ...mockState.returns.returnPickupCapabilities,
             error: {
-              [returnPickupCapabilityId]: undefined,
+              [returnPickupCapabilityId]: null,
             },
           },
         },
@@ -448,7 +448,7 @@ describe('returns redux selectors', () => {
               [returnPickupCapabilityId]: true,
             },
             error: {
-              [returnPickupCapabilityId]: undefined,
+              [returnPickupCapabilityId]: null,
             },
           },
         },
@@ -473,7 +473,7 @@ describe('returns redux selectors', () => {
               [returnPickupCapabilityId]: true,
             },
             error: {
-              [returnPickupCapabilityId]: undefined,
+              [returnPickupCapabilityId]: null,
             },
           },
         },
@@ -517,6 +517,7 @@ describe('returns redux selectors', () => {
             },
           },
           returnId,
+          pickupDay,
         ),
       ).toBe(undefined);
     });

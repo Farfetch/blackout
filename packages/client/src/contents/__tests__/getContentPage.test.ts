@@ -1,4 +1,4 @@
-import { ContentPageType } from '../types';
+import { ContentPage, ContentPageType } from '../types';
 import { getContentPage } from '..';
 import client from '../../helpers/client';
 import fixture from '../__fixtures__/contentPage.fixtures';
@@ -17,7 +17,7 @@ describe('getContentPage()', () => {
     slug: '/shopping/test',
   };
 
-  const response = {
+  const response: ContentPage = {
     number: 1,
     totalPages: 1,
     totalItems: 1,

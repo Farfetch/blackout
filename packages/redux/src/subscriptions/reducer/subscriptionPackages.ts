@@ -3,7 +3,10 @@ import type { AnyAction } from 'redux';
 import type { StoreState } from '../../types';
 import type { SubscriptionsState } from '../types';
 
-export const INITIAL_STATE: Record<string, SubscriptionsState['packages']> = {};
+export const INITIAL_STATE: Record<
+  string,
+  SubscriptionsState['packages'][string]
+> = {};
 
 const subscriptionPackagesReducer = (
   state = INITIAL_STATE,

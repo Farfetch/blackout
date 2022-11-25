@@ -5,6 +5,7 @@ import { getCategory } from '../../../categories';
 import { getProduct } from '../../../products/selectors/product';
 import { getWishlistItem } from '../../../wishlists';
 import { mockStore } from '../../../../tests';
+import { mockWishlistItem } from 'tests/__fixtures__/wishlists';
 import {
   wishlistMockData,
   wishlistSetId,
@@ -15,7 +16,6 @@ import Analytics, {
   utils,
 } from '@farfetch/blackout-analytics';
 import merge from 'lodash/merge';
-import type { PriceAdapted } from '../../../helpers/adapters';
 import type {
   ProductEntity,
   WishlistItemHydrated,
@@ -53,7 +53,7 @@ const { price, quantity, size } = wishlistItem;
 const {
   includingTaxes: priceWithDiscount,
   includingTaxesWithoutDiscount: priceWithoutDiscount,
-} = price as NonNullable<PriceAdapted>;
+} = price!;
 
 const discount = priceWithoutDiscount - priceWithDiscount;
 const value = priceWithDiscount;
@@ -621,17 +621,39 @@ describe('analyticsWishlistMiddleware', () => {
     const newWishlistItemId = 614727928;
     const newQuantity = 14;
     const newSize = '40';
+    const merchantId = 20;
+    const sizeId = 1;
+    const sizeScaleId = 2;
 
     const newWishlistItemEntity = {
       [newWishlistItemId]: {
+        ...mockWishlistItem,
         id: newWishlistItemId,
         price: {
           includingTaxes: priceWithDiscount,
           includingTaxesWithoutDiscount: priceWithoutDiscount,
+          formatted: {
+            includingTaxes: `${priceWithDiscount}`,
+            includingTaxesWithoutDiscount: `${priceWithoutDiscount}`,
+          },
+          isFormatted: true,
+          taxes: {
+            amount: 0,
+            rate: 0,
+            type: 'VAT',
+          },
         },
-        size: { name: newSize },
+        size: {
+          name: newSize,
+          id: sizeId,
+          scale: sizeScaleId,
+          scaleDescription: 'dummy_scale_description',
+          scaleAbbreviation: 'dummy_scale_abbreviation',
+          globalQuantity: 1,
+        },
         product: wishlistMockData.productId,
         quantity: newQuantity,
+        merchant: merchantId,
       },
     };
 
@@ -672,10 +694,39 @@ describe('analyticsWishlistMiddleware', () => {
           position,
           productId: wishlistMockData.productId,
           wishlistItemId: wishlistMockData.wishListItemId,
+          merchantId,
         },
       });
 
-      expect(trackSpy).toBeCalledWith(eventTypes.PRODUCT_UPDATED_WISHLIST, {
+      expect(trackSpy).nthCalledWith(1, eventTypes.PRODUCT_UPDATED, {
+        affiliation,
+        brand: brandName,
+        category: categoryName,
+        coupon,
+        currency: currencyCode,
+        discountValue: discount,
+        from: fromParameterTypes.WISHLIST,
+        id: wishlistMockData.productId,
+        list: wishlistName,
+        listId: wishlistMockData.wishlistId,
+        name: productDescription?.trim(),
+        position,
+        price: priceWithDiscount,
+        priceWithoutDiscount,
+        quantity: newQuantity,
+        size: newSize,
+        value,
+        variant: colorName,
+        wishlistId: wishlistMockData.wishlistId,
+        oldSize: undefined,
+        oldSizeId: undefined,
+        oldSizeScaleId: undefined,
+        oldQuantity: undefined,
+        sizeId,
+        sizeScaleId,
+      });
+
+      expect(trackSpy).nthCalledWith(2, eventTypes.PRODUCT_UPDATED_WISHLIST, {
         affiliation,
         brand: brandName,
         category: categoryName,
@@ -692,10 +743,15 @@ describe('analyticsWishlistMiddleware', () => {
         priceWithoutDiscount,
         quantity: newQuantity,
         size: newSize,
-
         value,
         variant: colorName,
         wishlistId: wishlistMockData.wishlistId,
+        oldSize: undefined,
+        oldSizeId: undefined,
+        oldSizeScaleId: undefined,
+        oldQuantity: undefined,
+        sizeId,
+        sizeScaleId,
       });
     });
   });

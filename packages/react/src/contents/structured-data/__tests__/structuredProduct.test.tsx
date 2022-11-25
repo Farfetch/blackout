@@ -25,13 +25,14 @@ describe('structuredProduct', () => {
 
   it('should correctly generate JSON-LD with stock available', () => {
     const metaWithAvailability = {
+      ...metadata,
       metatags: [
         {
+          tagName: '',
+          propertyType: 'property',
+          propertyDescription: 'product:availability',
           content: 'available',
-          property: {
-            type: 'property',
-            description: 'product:availability',
-          },
+          contentType: '',
         },
       ],
     };
