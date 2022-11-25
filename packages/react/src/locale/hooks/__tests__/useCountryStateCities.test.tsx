@@ -78,7 +78,7 @@ describe('useCountryStateCities', () => {
       wrapper: withStore({
         ...stateMockData,
         locale: {
-          ...stateMockData.locale,
+          ...stateMockData.locale!,
           cities: {
             error: mockError,
             isLoading: false,
@@ -100,7 +100,7 @@ describe('useCountryStateCities', () => {
       wrapper: withStore({
         ...stateMockData,
         locale: {
-          ...stateMockData.locale,
+          ...stateMockData.locale!,
           cities: {
             error: null,
             isLoading: true,
@@ -159,9 +159,12 @@ describe('useCountryStateCities', () => {
         },
       );
 
-      await fetch(mockCountryCode);
+      await fetch(mockCountryCode, mockStateId);
 
-      expect(fetchCountryStateCities).toHaveBeenCalledWith(mockCountryCode);
+      expect(fetchCountryStateCities).toHaveBeenCalledWith(
+        mockCountryCode,
+        mockStateId,
+      );
     });
   });
 });

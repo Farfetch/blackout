@@ -20,4 +20,7 @@ export type ReturnItem = {
   };
 };
 
-export type PostReturnItemData = Omit<ReturnItem, 'id' | 'status'>;
+export type PostReturnItemData = Omit<
+  ReturnItem,
+  'id' | 'status' | 'itemStatus'
+>;

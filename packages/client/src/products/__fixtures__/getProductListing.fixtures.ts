@@ -1,10 +1,10 @@
 import { rest, RestHandler } from 'msw';
-import type { Listing } from '../types';
+import type { ProductListing } from '../types';
 
 const path = '/api/commerce/v1/listing/*';
 
 const fixtures = {
-  success: (response: Listing): RestHandler =>
+  success: (response: ProductListing): RestHandler =>
     rest.get(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),

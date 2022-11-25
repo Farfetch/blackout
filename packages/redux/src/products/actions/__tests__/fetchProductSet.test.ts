@@ -35,7 +35,7 @@ let store: ReturnType<
   | typeof productsListsMockStoreWithoutMiddlewares
 >;
 
-describe('fetchSet() action creator', () => {
+describe('fetchProductSet() action creator', () => {
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
   const state = {
     products: {

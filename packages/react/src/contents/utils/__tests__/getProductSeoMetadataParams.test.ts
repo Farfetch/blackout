@@ -14,7 +14,9 @@ const mockProduct = {
     },
     includingTaxes: 30,
     includingTaxesWithoutDiscount: 30,
-    promocode: {},
+    promocode: {
+      rate: 0,
+    },
     tags: ['DAP'],
     taxes: {
       amount: 0,

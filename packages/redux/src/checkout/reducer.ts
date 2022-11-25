@@ -14,6 +14,7 @@ import produce from 'immer';
 import reducerFactory, {
   createReducerWithResult,
 } from '../helpers/reducerFactory';
+import type { CheckoutOrderEntity } from '../entities';
 import type { CheckoutState } from './types';
 import type { StoreState } from '../types';
 
@@ -168,7 +169,9 @@ const convertCheckoutOrder = (
   const tempMergedState = {};
   assignWith(tempMergedState, state, customizer);
   const entitiesMerged = mergeWith({}, entities, customizer);
-  const mergedState = createMergedObject(tempMergedState, entitiesMerged);
+  const mergedState = createMergedObject(tempMergedState, entitiesMerged) as {
+    checkoutOrders: Record<string, CheckoutOrderEntity>;
+  };
 
   const shouldResetClickAndCollect =
     !!get(mergedState, `checkoutOrders[${result}].clickAndCollect`) &&
@@ -183,7 +186,7 @@ const convertCheckoutOrder = (
     checkoutOrders: {
       ...mergedState.checkoutOrders,
       [result]: {
-        collectpoints: mergedState.checkoutOrders[result].collectpoints,
+        collectpoints: mergedState.checkoutOrders[result]?.collectpoints,
         ...entities?.checkoutOrders[result],
       },
     },

@@ -38,9 +38,6 @@ Object {
             "includingTaxesWithoutDiscount": undefined,
             "isFormatted": true,
             "priceType": undefined,
-            "promocode": Object {
-              "rate": undefined,
-            },
             "promotionType": undefined,
             "tags": undefined,
             "taxes": Object {

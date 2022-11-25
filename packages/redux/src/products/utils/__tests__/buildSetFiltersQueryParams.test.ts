@@ -3,7 +3,7 @@ import { buildSetFiltersQueryParams } from '..';
 describe('buildSetFiltersQueryParams', () => {
   it('should build the result when adding a non existing filter', () => {
     const mockFacetKey = 'colors';
-    const mockColorId = '1';
+    const mockColorId = 1;
     const mockQuery = {};
     const mockFilterParams = {
       [mockFacetKey]: mockColorId,
@@ -60,7 +60,9 @@ describe('buildSetFiltersQueryParams', () => {
     const mockColorId1 = '1';
     const mockColorId2 = '2';
     const mockColorId3 = '8';
-    const mockQuery = { [mockFacetKey]: [mockColorId1, mockColorId2] };
+    const mockQuery = {
+      [mockFacetKey]: [mockColorId1, mockColorId2].join('|'),
+    };
     const mockFilterParams = {
       [mockFacetKey]: mockColorId3,
     };

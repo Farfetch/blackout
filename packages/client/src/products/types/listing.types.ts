@@ -24,12 +24,12 @@ export type ProductListing = {
   _sorts: string[] | null;
   _clearUrl: string | null;
   _isClearHidden: boolean;
-  gender: GenderCode;
+  gender: GenderCode | null;
   redirectInformation: {
     redirectUrl: string;
     matchedType: FacetType;
     matchedId: number;
     searchRedirectSourceFeature: SearchRedirect;
   } | null;
-  genderName: string;
+  genderName: string | null;
 };

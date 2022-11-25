@@ -60,10 +60,11 @@ describe('Product', () => {
   describe('isProductDuplicated()', () => {
     it('should return true if the product is duplicated', () => {
       const changedMockState = {
-        products: mockProductsState,
+        products: mockProductsState.products,
         entities: {
           products: {
             [mockProductId]: {
+              ...mockProductsState.entities.products[mockProductId],
               isDuplicated: true,
             },
           },
@@ -134,17 +135,21 @@ describe('Product', () => {
 
   describe('getProductSizeRemainingQuantity()', () => {
     const sizeId =
-      mockProductsState.entities.products[mockProductId].sizes[0].id;
+      mockProductsState.entities.products[mockProductId].sizes![0]!.id;
     const getProductReturn = mockProductsState.entities.products[mockProductId];
     const getProductDenormalizedReturn = {
       ...mockProductsState.entities.products[mockProductId],
       brand: mockProductsState.entities.brands[mockBrandId],
-      categories: [mockProductsState.entities.categories[mockCategoryId]],
+      categories: [
+        mockProductsState.entities!.categories![
+          mockCategoryId as keyof typeof mockProductsState.entities.categories
+        ],
+      ],
     };
 
-    let spyGetProduct;
-    let spyGetProductDenormalized;
-    let spyGetBagItems;
+    let spyGetProduct: ReturnType<typeof jest.spyOn> | undefined;
+    let spyGetProductDenormalized: ReturnType<typeof jest.spyOn> | undefined;
+    let spyGetBagItems: ReturnType<typeof jest.spyOn> | undefined;
 
     beforeEach(() => {
       spyGetProduct = jest.spyOn(fromProductEntities, 'getProduct');
@@ -182,7 +187,7 @@ describe('Product', () => {
         product: mockProductsState.entities.products[mockProductId],
       };
 
-      const sizeSelected = getProductReturn.sizes[1];
+      const sizeSelected = getProductReturn.sizes![1]!;
       const globalQuantity = sizeSelected.globalQuantity;
 
       spyGetProduct.mockImplementation(() => getProductReturn);
@@ -219,14 +224,17 @@ describe('Product', () => {
     it('should get remaining quantity when there are no bagItems', () => {
       const state = {
         ...mockProductsState,
-        bag: { items: { ids: [] } },
+        bag: {
+          ...mockProductsState.bag,
+          items: { ...mockProductsState.bag.items, ids: [] },
+        },
         entities: {
           bagItems: undefined,
           products: undefined,
         },
       };
       const getBagItemsReturn = false;
-      const globalQuantity = getProductReturn.sizes[0].globalQuantity;
+      const globalQuantity = getProductReturn.sizes![0]!.globalQuantity;
 
       spyGetProductDenormalized.mockImplementation(
         () => getProductDenormalizedReturn,
@@ -241,7 +249,10 @@ describe('Product', () => {
     it('should get remaining quantity when product is added for the first time', () => {
       const state = {
         ...mockProductsState,
-        bag: { items: { ids: [102] } },
+        bag: {
+          ...mockProductsState.bag,
+          items: { ...mockProductsState.bag.items, ids: [102] },
+        },
         entities: {
           ...mockProductsState.entities,
           bagItems: {
@@ -255,7 +266,7 @@ describe('Product', () => {
           product: state.entities.products[mockProductId],
         },
       ];
-      const globalQuantity = getProductReturn.sizes[0].globalQuantity;
+      const globalQuantity = getProductReturn.sizes![0]!.globalQuantity;
 
       spyGetProduct.mockImplementation(() => getProductReturn);
       spyGetBagItems.mockImplementation(() => getBagItemsReturn);
@@ -267,8 +278,8 @@ describe('Product', () => {
   });
 
   describe('getAllProductSizesRemainingQuantity()', () => {
-    let spyGetProduct;
-    let spyGetBagItems;
+    let spyGetProduct: ReturnType<typeof jest.spyOn> | undefined;
+    let spyGetBagItems: ReturnType<typeof jest.spyOn> | undefined;
 
     beforeEach(() => {
       spyGetProduct = jest.spyOn(fromProductEntities, 'getProduct');
@@ -283,7 +294,7 @@ describe('Product', () => {
     it('should return the updated product sizes', () => {
       const bagItem = mockProductsState.entities.bagItems[102];
       const product = mockProductsState.entities.products[mockProductId];
-      const size = product.sizes.find(({ id }) => id === bagItem.size.id);
+      const size = product.sizes!.find(({ id }) => id === bagItem.size.id);
       const globalQuantity = bagItem.size.globalQuantity;
       const bagQuantity = bagItem.quantity;
       const expectedResult = globalQuantity - bagQuantity;
@@ -307,7 +318,7 @@ describe('Product', () => {
       expect(
         selectors.getAllProductSizesRemainingQuantity(
           mockProductsState,
-          'not-a-product-id-for-sure',
+          mockProductId + 1,
         ),
       ).toEqual([]);
     });

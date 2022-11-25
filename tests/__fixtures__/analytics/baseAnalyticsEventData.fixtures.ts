@@ -1,3 +1,5 @@
+import { UserGender } from '@farfetch/blackout-client';
+
 const fixtures = {
   type: null,
   properties: {},
@@ -10,7 +12,7 @@ const fixtures = {
       email: 'bar@foo.com',
       isGuest: false,
       bagId: '1ff36cd1-0dac-497f-8f32-4f2f7bdd2eaf',
-      gender: 1,
+      gender: UserGender.Male,
       dateOfBirth: '1/1/1970',
       createdDate: '1/1/1970',
       firstName: 'foo',

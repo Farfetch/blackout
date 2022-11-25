@@ -3,4 +3,4 @@ import thunk from 'redux-thunk';
 
 const store = configureStore([thunk]);
 
-export const mockStore = state => store(state);
+export const mockStore = (state: unknown) => store(state);

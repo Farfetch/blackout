@@ -30,7 +30,10 @@ export const PRICE_FACET_KEY = 'price';
  */
 const buildUnsetFiltersQueryParams = (
   query: GetProductListingQuery,
-  filterParams: Record<keyof GetProductListingQuery, number[] | number>,
+  filterParams: Record<
+    keyof GetProductListingQuery,
+    number[] | number | string | string[]
+  >,
 ): Record<string, Array<FacetEntity['id']>> => {
   const finalObject = {
     ...query,

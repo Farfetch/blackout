@@ -3,12 +3,13 @@ import {
   contentHash,
   contentPublicationId,
   contentQuery,
-  expectedNormalizedPayload,
   mockContentsInitialState,
+  mockContentsWithDataState,
 } from 'tests/__fixtures__/contents';
 import { fetchContents } from '@farfetch/blackout-redux';
 import { withStore } from '../../../../tests/helpers';
 import useContentType from '../useContentType';
+import type { BlackoutError } from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
@@ -27,16 +28,12 @@ describe('useContentType', () => {
           codes: contentQuery.codes,
         }),
       {
-        wrapper: withStore(expectedNormalizedPayload),
+        wrapper: withStore(mockContentsWithDataState),
       },
     );
 
-    const {
-      isLoading,
-      error,
-      isFetched,
-      data: { entries: dataResult, pagination },
-    } = result.current;
+    const { isLoading, error, isFetched, data } = result.current;
+    const { entries: dataResult, pagination } = data!;
 
     expect(isLoading).toBeFalsy();
     expect(error).toBeNull();
@@ -47,7 +44,7 @@ describe('useContentType', () => {
       totalItems: 1,
     });
     expect(dataResult).toMatchObject([
-      expectedNormalizedPayload.entities.contents[contentPublicationId],
+      mockContentsWithDataState.entities.contents[contentPublicationId],
     ]);
   });
 
@@ -59,13 +56,13 @@ describe('useContentType', () => {
         }),
       {
         wrapper: withStore({
-          ...expectedNormalizedPayload,
+          ...mockContentsWithDataState,
           contents: {
-            ...expectedNormalizedPayload.contents,
+            ...mockContentsWithDataState.contents,
             searchResults: {
-              ...expectedNormalizedPayload.contents.searchResults,
+              ...mockContentsWithDataState.contents.searchResults,
               [contentHash]: {
-                ...expectedNormalizedPayload.contents.searchResults[
+                ...mockContentsWithDataState.contents.searchResults[
                   contentHash
                 ],
                 isLoading: true,
@@ -91,16 +88,16 @@ describe('useContentType', () => {
         }),
       {
         wrapper: withStore({
-          ...expectedNormalizedPayload,
+          ...mockContentsWithDataState,
           contents: {
-            ...expectedNormalizedPayload.contents,
+            ...mockContentsWithDataState.contents,
             searchResults: {
-              ...expectedNormalizedPayload.contents.searchResults,
+              ...mockContentsWithDataState.contents.searchResults,
               [contentHash]: {
-                ...expectedNormalizedPayload.contents.searchResults[
+                ...mockContentsWithDataState.contents.searchResults[
                   contentHash
                 ],
-                error: true,
+                error: new Error('error') as BlackoutError,
               },
             },
           },

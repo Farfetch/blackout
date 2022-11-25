@@ -15,9 +15,9 @@ export const createReducerWithResult =
     state = initialState,
     action: {
       type?: string;
-      payload?: { error: BlackoutError; result: any };
+      payload?: any;
     } = {},
-  ): CombinedState<any> => {
+  ) => {
     const isActionTypeAnArray = Array.isArray(actionType);
     const actionTypesArray = isActionTypeAnArray ? actionType : [actionType];
 
@@ -74,8 +74,11 @@ const createReducer =
   ) =>
   (
     state = initialState,
-    action: { type?: string; payload?: { error: BlackoutError } } = {},
-  ): CombinedState<any> => {
+    action: {
+      type?: string;
+      payload?: { error?: BlackoutError; result?: unknown };
+    } = {},
+  ) => {
     const isActionTypeAnArray = Array.isArray(actionType);
     const actionTypesArray = isActionTypeAnArray ? actionType : [actionType];
 

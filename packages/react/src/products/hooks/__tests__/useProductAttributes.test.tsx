@@ -7,6 +7,7 @@ import {
 import { renderHook } from '@testing-library/react';
 import { withStore } from '../../../../tests/helpers';
 import useProductAttributes from '../useProductAttributes';
+import type { BlackoutError } from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
@@ -22,7 +23,7 @@ describe('useProductAttributes', () => {
     });
 
     expect(result.current).toStrictEqual({
-      error: null,
+      error: undefined,
       isFetched: true,
       isLoading: false,
       data: mockProductAttributes,
@@ -33,12 +34,15 @@ describe('useProductAttributes', () => {
   });
 
   it('should return error state', () => {
+    const mockError = new Error('Error - Not loaded.') as BlackoutError;
+
     const errorMockProductsState = {
       entities: {},
       products: {
+        ...mockProductsState.products,
         attributes: {
           error: {
-            [mockProductId]: 'Error - Not loaded.',
+            [mockProductId]: mockError,
           },
           isLoading: {
             [mockProductId]: false,
@@ -52,7 +56,7 @@ describe('useProductAttributes', () => {
     });
 
     expect(result.current).toStrictEqual({
-      error: 'Error - Not loaded.',
+      error: mockError,
       isFetched: true,
       isLoading: false,
       data: undefined,
@@ -66,6 +70,7 @@ describe('useProductAttributes', () => {
     const loadingMockProductsState = {
       entities: {},
       products: {
+        ...mockProductsState.products,
         attributes: {
           error: {},
           isLoading: {
@@ -95,6 +100,7 @@ describe('useProductAttributes', () => {
       const initialMockProductsState = {
         entities: {},
         products: {
+          ...mockProductsState.products,
           attributes: {
             error: {},
             isLoading: {},

@@ -362,6 +362,7 @@ describe('useOrderReturns', () => {
           },
         } = renderHook(
           () =>
+            // @ts-expect-error Force orderId parameter as undefined for test
             useOrderReturns(undefined, {
               fetchConfig: mockFetchConfig,
               enableAutoFetch: false,

@@ -16,7 +16,11 @@ import isPlainObject from 'lodash/isPlainObject';
  * @param target       - Target object of the merge operation.
  * @param source       - Source object with the props to merge into target.
  */
-function testMergedObjectDeepReferences(mergedObject, target, source) {
+function testMergedObjectDeepReferences(
+  mergedObject: Record<string, unknown>,
+  target: Record<string, unknown>,
+  source: Record<string, unknown>,
+) {
   Object.keys(mergedObject).forEach(prop => {
     const sourceValue = source[prop];
     const targetValue = target ? target[prop] : undefined;
@@ -53,9 +57,9 @@ function testMergedObjectDeepReferences(mergedObject, target, source) {
     // recurse into it to check for inner references changes.
     if (isPlainObject(targetValue) && isPlainObject(sourceValue)) {
       testMergedObjectDeepReferences(
-        mergedObjectValue,
-        targetValue,
-        sourceValue,
+        mergedObjectValue as Record<string, unknown>,
+        targetValue as Record<string, unknown>,
+        sourceValue as Record<string, unknown>,
       );
     }
   });

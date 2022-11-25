@@ -11,6 +11,7 @@ import useOrder from '../useOrder';
 import useOrderReturnOptions from '../useOrderReturnOptions';
 import useOrderReturns from '../useOrderReturns';
 import useOrders from '../useOrders';
+import type { BlackoutError } from '@farfetch/blackout-client';
 
 const mockFetchOrderDetailsFn = jest.fn();
 const mockResetOrderDetailsStateFn = jest.fn();
@@ -101,10 +102,11 @@ const mockInitialState = {
 const mockErrorState = {
   ...mockInitialState,
   orders: {
+    ...mockInitialState.orders,
     orderDetails: {
       ...mockInitialState.orders.orderDetails,
       error: {
-        [orderId]: new Error('dummy error'),
+        [orderId]: new Error('dummy error') as BlackoutError,
       },
     },
   },
@@ -113,6 +115,7 @@ const mockErrorState = {
 const mockLoadingState = {
   ...mockInitialState,
   orders: {
+    ...mockInitialState.orders,
     orderDetails: {
       ...mockInitialState.orders.orderDetails,
       isLoading: {

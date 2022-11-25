@@ -17,7 +17,7 @@ jest.mock('@farfetch/blackout-client', () => ({
 const productDetailsMockStore = (state = {}) =>
   mockStore({ products: { groupingProperties: INITIAL_STATE } }, state);
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof productDetailsMockStore>;
 
 describe('fetchProductGroupingProperties() action creator', () => {
   beforeEach(() => {
@@ -37,13 +37,14 @@ describe('fetchProductGroupingProperties() action creator', () => {
   it('should create the correct actions for when the fetch product grouping properties procedure fails', async () => {
     const expectedError = new Error('Fetch product grouping properties error');
 
-    getProductGroupingProperties.mockRejectedValueOnce(expectedError);
+    (getProductGroupingProperties as jest.Mock).mockRejectedValueOnce(
+      expectedError,
+    );
 
     expect.assertions(4);
 
-    await store
-      .dispatch(fetchProductGroupingProperties(mockProductId))
-      .catch(error => {
+    await fetchProductGroupingProperties(mockProductId)(store.dispatch).catch(
+      error => {
         expect(error).toBe(expectedError);
         expect(getProductGroupingProperties).toHaveBeenCalledTimes(1);
         expect(getProductGroupingProperties).toHaveBeenCalledWith(
@@ -63,21 +64,23 @@ describe('fetchProductGroupingProperties() action creator', () => {
             type: productsActionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_FAILURE,
           },
         ]);
-      });
+      },
+    );
   });
 
   it('should create the correct actions for when the fetch product grouping properties procedure is successful', async () => {
-    getProductGroupingProperties.mockResolvedValueOnce(
+    (getProductGroupingProperties as jest.Mock).mockResolvedValueOnce(
       mockProductGroupingProperties,
     );
 
     const query = { hasStock: true };
 
-    await store
-      .dispatch(fetchProductGroupingProperties(mockProductId, query))
-      .then(clientResult => {
-        expect(clientResult).toEqual(mockProductGroupingProperties);
-      });
+    await fetchProductGroupingProperties(
+      mockProductId,
+      query,
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toEqual(mockProductGroupingProperties);
+    });
 
     expect(getProductGroupingProperties).toHaveBeenCalledTimes(1);
     expect(getProductGroupingProperties).toHaveBeenCalledWith(

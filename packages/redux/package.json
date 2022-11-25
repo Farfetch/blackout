@@ -12,7 +12,7 @@
     "build:copy-package-json": "node ../../scripts/copy-package-json.js",
     "prebuild": "yarn clean",
     "clean": "rimraf dist tsconfig.release.tsbuildinfo",
-    "ci:types": "tsc -p tsconfig.ci.json",
+    "ci:types": "tsc -p tsconfig.ci.runtime.json",
     "prepack": "yarn build:copy-package-json"
   },
   "repository": {

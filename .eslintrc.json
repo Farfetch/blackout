@@ -62,12 +62,13 @@
   "overrides": [
     //Disable all tsdoc checking in test files
     {
-      "files": ["*.test.js"],
+      "files": ["*.test.[t|j]s*", "*.fixtures.[t|j]s*"],
       "rules": {
         "tsdoc/syntax": "off",
         // We use const xxx = () => {} many times in tests.
         "@typescript-eslint/no-empty-function": "off",
-        "@typescript-eslint/no-var-requires": "off"
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/no-non-null-assertion": "off"
       }
     },
     {

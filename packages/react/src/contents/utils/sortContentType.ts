@@ -1,9 +1,5 @@
+import { SortContentOption } from '../types/base.types';
 import type { ContentsEntity } from '@farfetch/blackout-redux';
-
-export enum SortContentOption {
-  PublishDate = 'PublishDate',
-  EventDate = 'EventDate',
-}
 
 /**
  * Sorts a content type by the most recent Publish or Event date.

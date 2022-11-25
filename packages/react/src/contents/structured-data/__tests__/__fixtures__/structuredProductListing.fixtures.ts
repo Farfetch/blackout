@@ -1,5 +1,5 @@
 import { product } from './structuredProduct.fixtures';
-import { StructuredProductListing } from '../../../types';
+import type { StructuredProductListing } from '../../../types';
 
 export const productListing: StructuredProductListing = {
   entries: [

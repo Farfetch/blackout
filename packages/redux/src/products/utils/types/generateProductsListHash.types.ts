@@ -8,7 +8,7 @@ export type GenerateProductsListHash = (
   // Slug from pathname.
   slug: string | number | null,
   // Object or string with query parameters.
-  query?: GetProductListingQuery | GetProductSetQuery,
+  query?: GetProductListingQuery | GetProductSetQuery | string,
   // Options to generate the hash.
   options?: {
     // If the hash represents a set or not.

@@ -1,4 +1,5 @@
 import { getInitialState } from '..';
+import type { AnyAction } from 'redux';
 
 export const defaultProps = {
   error: 'error',
@@ -6,7 +7,7 @@ export const defaultProps = {
   isLoading: 'isLoading',
 };
 
-let initialState;
+let initialState: Record<string, unknown>;
 
 /**
  * Asserts the initial state of the reducer.
@@ -14,7 +15,10 @@ let initialState;
  * @param reducer -
  * @param prop    -
  */
-const assertInitialState = (reducer, prop) => {
+const assertInitialState = (
+  reducer: () => Record<string, unknown>,
+  prop: string,
+) => {
   it('should return the initial state', () => {
     const state = reducer()[prop];
 
@@ -31,9 +35,12 @@ const assertInitialState = (reducer, prop) => {
  * @param reducer -
  * @param prop    -
  */
-const assertPreviousState = (reducer, prop) => {
+const assertPreviousState = (
+  reducer: (state: Record<string, unknown>) => Record<string, unknown>,
+  prop: string,
+) => {
   it('should handle other actions by returning the previous state', () => {
-    const state = {};
+    const state: Record<string, unknown> = {};
     state[prop] = 'foo';
 
     expect(reducer(state)[prop]).toBe(state[prop]);
@@ -48,9 +55,17 @@ const assertPreviousState = (reducer, prop) => {
  * @param prop         -
  * @param isNormalised -
  */
-const assertActionTypes = (reducer, actionTypes, prop, isNormalised = true) => {
+const assertActionTypes = (
+  reducer: (
+    state: Record<string, unknown> | undefined,
+    action: AnyAction,
+  ) => Record<string, unknown>,
+  actionTypes: string[],
+  prop: string,
+  isNormalised = true,
+) => {
   it.each(actionTypes)('should handle %s action type', actionType => {
-    const payload = {};
+    const payload: Record<string, unknown> = {};
     payload[prop] = 'foo';
 
     expect(
@@ -69,7 +84,14 @@ const assertActionTypes = (reducer, actionTypes, prop, isNormalised = true) => {
  * @param actionTypes -
  * @param prop        -
  */
-const assertResetActionTypes = (reducer, actionTypes, prop) => {
+const assertResetActionTypes = (
+  reducer: (
+    state: Record<string, unknown> | undefined,
+    action: AnyAction,
+  ) => Record<string, unknown>,
+  actionTypes: string[],
+  prop: string,
+) => {
   it.each(actionTypes)('should handle %s action type', actionType => {
     const payload = {
       [prop]: 'foo',
@@ -90,7 +112,13 @@ const assertResetActionTypes = (reducer, actionTypes, prop) => {
  * @param reducer     -
  * @param actionTypes -
  */
-const assertLoadingRequestActionTypes = (reducer, actionTypes) => {
+const assertLoadingRequestActionTypes = (
+  reducer: (
+    state: Record<string, unknown> | undefined,
+    action: AnyAction,
+  ) => Record<string, unknown>,
+  actionTypes: string[],
+) => {
   it.each(actionTypes)('should handle %s action type', actionType => {
     expect(
       reducer(undefined, {
@@ -106,7 +134,13 @@ const assertLoadingRequestActionTypes = (reducer, actionTypes) => {
  * @param reducer     -
  * @param actionTypes -
  */
-const assertLoadingSuccessActionTypes = (reducer, actionTypes) => {
+const assertLoadingSuccessActionTypes = (
+  reducer: (
+    state: Record<string, unknown> | undefined,
+    action: AnyAction,
+  ) => Record<string, unknown>,
+  actionTypes: string[],
+) => {
   it.each(actionTypes)('should handle %s action type', actionType => {
     expect(
       reducer(undefined, {
@@ -123,7 +157,13 @@ const assertLoadingSuccessActionTypes = (reducer, actionTypes) => {
  * @param reducer     -
  * @param actionTypes -
  */
-const assertLoadingFailureActionTypes = (reducer, actionTypes) => {
+const assertLoadingFailureActionTypes = (
+  reducer: (
+    state: Record<string, unknown> | undefined,
+    action: AnyAction,
+  ) => Record<string, unknown>,
+  actionTypes: string[],
+) => {
   it.each(actionTypes)('should handle %s action type', actionType => {
     expect(
       reducer(undefined, {
@@ -140,20 +180,27 @@ const assertLoadingFailureActionTypes = (reducer, actionTypes) => {
  * @param reducer -
  * @param prop    -
  */
-const assertGetter = (reducer, prop) => {
+const assertGetter = (
+  reducer: {
+    getError?: (state: Record<string, unknown>) => unknown;
+    getResult?: (state: Record<string, unknown>) => unknown;
+    getIsLoading?: (state: Record<string, unknown>) => unknown;
+  },
+  prop: string,
+) => {
   it(`should return the ${prop} property from a given state`, () => {
-    const result = {};
+    const result: Record<string, unknown> = {};
     result[prop] = 'foo';
 
     switch (prop) {
       case defaultProps.error:
-        expect(reducer.getError(result)).toBe(result[prop]);
+        expect(reducer.getError!(result)).toBe(result[prop]);
         break;
       case defaultProps.result:
-        expect(reducer.getResult(result)).toBe(result[prop]);
+        expect(reducer.getResult!(result)).toBe(result[prop]);
         break;
       case defaultProps.isLoading:
-        expect(reducer.getIsLoading(result)).toBe(result[prop]);
+        expect(reducer.getIsLoading!(result)).toBe(result[prop]);
         break;
       default:
         break;
@@ -161,7 +208,16 @@ const assertGetter = (reducer, prop) => {
   });
 };
 
-export const assertErrorReducer = (reducer, actionTypes) => {
+export const assertErrorReducer = (
+  reducer: (
+    state?: Record<string, unknown> | undefined,
+    action?: AnyAction,
+  ) => Record<string, unknown>,
+  actionTypes: {
+    failure: string[];
+    request: string[];
+  },
+) => {
   beforeEach(() => {
     initialState = getInitialState(reducer());
   });
@@ -175,8 +231,13 @@ export const assertErrorReducer = (reducer, actionTypes) => {
 };
 
 export const assertResultReducer = (
-  reducer,
-  actionTypes,
+  reducer: (
+    state?: Record<string, unknown> | undefined,
+    action?: AnyAction,
+  ) => Record<string, unknown>,
+  actionTypes: {
+    success: string[];
+  },
   isNormalised = true,
 ) => {
   beforeEach(() => {
@@ -195,7 +256,17 @@ export const assertResultReducer = (
   });
 };
 
-export const assertLoadingReducer = (reducer, actionTypes) => {
+export const assertLoadingReducer = (
+  reducer: (
+    state?: Record<string, unknown>,
+    action?: AnyAction,
+  ) => Record<string, unknown>,
+  actionTypes: {
+    request: string[];
+    success: string[];
+    failure: string[];
+  },
+) => {
   beforeEach(() => {
     initialState = getInitialState(reducer());
   });
@@ -209,7 +280,14 @@ export const assertLoadingReducer = (reducer, actionTypes) => {
   });
 };
 
-export const assertGetters = (reducer, props = defaultProps) => {
+export const assertGetters = (
+  reducer: {
+    getError?: (state: Record<string, unknown>) => unknown;
+    getResult?: (state: Record<string, unknown>) => unknown;
+    getIsLoading?: (state: Record<string, unknown>) => unknown;
+  },
+  props = defaultProps,
+) => {
   describe('getters', () => {
     Object.values(props).map(prop => assertGetter(reducer, prop));
   });
@@ -227,14 +305,18 @@ export const assertGetters = (reducer, props = defaultProps) => {
  *                                 for example \{ error: null, isLoading: false \}.
  */
 export const assertSubAreasReducer = (
-  fromReducer,
-  subAreaNames,
-  subAreasExpectedStates,
-  subAreaCurrentState,
+  fromReducer: Record<string, unknown>,
+  subAreaNames: string[],
+  subAreasExpectedStates: Record<string, unknown>,
+  subAreaCurrentState: Record<string, unknown>,
 ) => {
   it.each(subAreaNames)('return the `%s` property subarea state', subArea => {
     const { [`get${subArea}`]: reducerSelector } = fromReducer;
-    expect(reducerSelector(subAreasExpectedStates)).toEqual(
+    const reducerSelectorFunc = reducerSelector as (
+      state: Record<string, unknown>,
+    ) => Record<string, unknown>;
+
+    expect(reducerSelectorFunc(subAreasExpectedStates)).toEqual(
       subAreaCurrentState,
     );
   });

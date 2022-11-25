@@ -1,5 +1,6 @@
 import { fetchWishlistSets } from '../../actions';
 import { mockStore } from '../../../../tests';
+import { mockUsersResponse } from 'tests/__fixtures__/users';
 import { REMOVE_WISHLIST_ITEM_SUCCESS } from '../../actionTypes';
 import { updateWishlistSetsUponItemDeletion } from '../';
 import thunk from 'redux-thunk';
@@ -22,7 +23,7 @@ describe('updateWishlistSetsUponItemDeletion', () => {
     const store = mockStore(
       null,
       {
-        entities: { user: { isGuest: true } },
+        entities: { user: { ...mockUsersResponse, isGuest: true } },
       },
       [updateWishlistSetsUponItemDeletion],
     );
@@ -38,7 +39,7 @@ describe('updateWishlistSetsUponItemDeletion', () => {
     const store = mockStore(
       null,
       {
-        entities: { user: { isGuest: false } },
+        entities: { user: { ...mockUsersResponse, isGuest: false } },
       },
       [thunk, updateWishlistSetsUponItemDeletion],
     );

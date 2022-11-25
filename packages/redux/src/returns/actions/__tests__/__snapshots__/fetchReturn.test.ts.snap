@@ -11,6 +11,9 @@ Object {
         "49427539": Object {
           "description": "Fits too big",
           "id": 32283248,
+          "itemStatus": Object {
+            "code": "1",
+          },
           "orderItemId": 49427539,
           "reason": "Item doesn't fit",
           "status": "Created",
@@ -49,6 +52,9 @@ Object {
               "url": "/account/v1/returns/25741579/references/ReturnNote",
             },
           ],
+          "returnStatus": Object {
+            "code": "Accepted",
+          },
           "status": "Accepted",
           "type": "Courier",
           "userId": 34113438,

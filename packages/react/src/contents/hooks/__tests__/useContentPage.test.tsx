@@ -2,7 +2,7 @@ import { cleanup, renderHook } from '@testing-library/react';
 import { ContentPageType } from '@farfetch/blackout-client';
 import { fetchContentPage } from '@farfetch/blackout-redux';
 import {
-  mockContentPage,
+  mockContentPageEntry,
   mockContentPageErrorState,
   mockContentPageInitialState,
   mockContentPageLoadingState,
@@ -32,7 +32,7 @@ describe('useContentPage', () => {
     expect(result.current).toStrictEqual({
       data: [
         mockContentPageWithDataState.entities.contents[
-          mockContentPage.entries[0]!.publicationId
+          mockContentPageEntry.publicationId
         ],
       ],
       isLoading: false,

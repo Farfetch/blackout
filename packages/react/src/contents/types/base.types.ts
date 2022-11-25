@@ -1,5 +1,9 @@
 import type { ReactNode } from 'react';
-import type { SortContentOption } from '../utils/sortContentType';
+
+export enum SortContentOption {
+  PublishDate = 'PublishDate',
+  EventDate = 'EventDate',
+}
 
 export type Assets = {
   height: number;

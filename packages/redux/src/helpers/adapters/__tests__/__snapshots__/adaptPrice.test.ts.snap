@@ -16,9 +16,6 @@ Object {
   "includingTaxesWithoutDiscount": 0,
   "isFormatted": true,
   "priceType": undefined,
-  "promocode": Object {
-    "rate": undefined,
-  },
   "promotionType": undefined,
   "tags": Array [
     "VAT",
@@ -48,9 +45,6 @@ Object {
   "includingTaxesWithoutDiscount": 250,
   "isFormatted": true,
   "priceType": 0,
-  "promocode": Object {
-    "rate": 50,
-  },
   "promotionType": "FullPrice",
   "tags": Array [
     "VAT",
@@ -80,9 +74,6 @@ Object {
   "includingTaxesWithoutDiscount": 250,
   "isFormatted": true,
   "priceType": 0,
-  "promocode": Object {
-    "rate": 50,
-  },
   "promotionType": "FullPrice",
   "tags": Array [
     "VAT",
@@ -112,9 +103,6 @@ Object {
   "includingTaxesWithoutDiscount": 250,
   "isFormatted": true,
   "priceType": 0,
-  "promocode": Object {
-    "rate": 50,
-  },
   "promotionType": "FullPrice",
   "tags": Array [
     "VAT",
@@ -144,9 +132,6 @@ Object {
   "includingTaxesWithoutDiscount": 250,
   "isFormatted": true,
   "priceType": 0,
-  "promocode": Object {
-    "rate": 50,
-  },
   "promotionType": "FullPrice",
   "tags": Array [
     "VAT",
@@ -176,9 +161,6 @@ Object {
   "includingTaxesWithoutDiscount": 250,
   "isFormatted": true,
   "priceType": 0,
-  "promocode": Object {
-    "rate": 50,
-  },
   "promotionType": "FullPrice",
   "tags": Array [
     "VAT",

@@ -111,6 +111,7 @@ const defaultReturn = {
 const mockInitialStateNoData = {
   ...mockState,
   returns: {
+    ...mockState.returns,
     returnDetails: {
       error: {},
       isLoading: {},
@@ -129,6 +130,7 @@ const mockInitialStateWithData = {
 
 const mockErrorState = {
   returns: {
+    ...mockState.returns,
     returnDetails: {
       error: { [returnId]: toBlackoutError(new Error('dummy error')) },
       isLoading: {},
@@ -143,6 +145,7 @@ const mockErrorState = {
 const mockLoadingState = {
   ...mockState,
   returns: {
+    ...mockState.returns,
     returnDetails: {
       isLoading: { [returnId]: true },
       error: {},
@@ -521,7 +524,9 @@ describe('useReturn', () => {
       });
 
       describe('create return state updates', () => {
-        async function testCreateReturn(continuation) {
+        async function testCreateReturn(
+          continuation: (result: RenderResult) => Promise<unknown>,
+        ) {
           const createData = {
             orderId: 'ABCD3F',
             items: [],
@@ -572,7 +577,7 @@ describe('useReturn', () => {
             }, 10000);
           });
 
-          createReturn.mockImplementation(() => {
+          (createReturn as jest.Mock).mockImplementation(() => {
             return createReturnPromise;
           });
 
@@ -644,7 +649,7 @@ describe('useReturn', () => {
             }, 10000);
           });
 
-          createReturn.mockImplementation(() => {
+          (createReturn as jest.Mock).mockImplementation(() => {
             return createReturnPromise;
           });
 
@@ -764,9 +769,13 @@ describe('useReturn', () => {
             start: '2022-11-23T13:18:58Z',
             end: '2022-11-24T13:18:58Z',
           },
-        }; 
+        };
 
-        await createPickupRescheduleRequest(mockCreatePickupRescheduleData, returnId, mockFetchConfig);
+        await createPickupRescheduleRequest(
+          mockCreatePickupRescheduleData,
+          returnId,
+          mockFetchConfig,
+        );
 
         expect(mockCreatePickupRescheduleRequestFn).toHaveBeenCalledWith(
           mockCreatePickupRescheduleData,
@@ -795,7 +804,11 @@ describe('useReturn', () => {
           },
         );
 
-        await fetchPickupRescheduleRequest(rescheduleRequestId, returnId, mockFetchConfig);
+        await fetchPickupRescheduleRequest(
+          rescheduleRequestId,
+          returnId,
+          mockFetchConfig,
+        );
 
         expect(mockFetchPickupRescheduleRequestFn).toHaveBeenCalledWith(
           rescheduleRequestId,

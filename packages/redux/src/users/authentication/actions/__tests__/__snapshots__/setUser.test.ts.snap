@@ -6,17 +6,13 @@ Object {
     "entities": Object {
       "user": Object {
         "bagId": "3a52edfe-5b17-46b9-ba5d-ed87cb36aa67",
+        "countryCode": "0",
         "dateOfBirth": "/Date(631152000000)/",
         "email": "teste@conta.com",
-        "gender": 0,
-        "genderId": 0,
-        "genders": Array [
-          "NotDefined",
-          "Male",
-          "Female",
-        ],
+        "gender": "NotDefined",
         "id": 29538482,
         "isExternalLogin": false,
+        "isGuest": false,
         "name": "Ivo Mota",
         "phoneNumber": "910000000",
         "segments": Array [],

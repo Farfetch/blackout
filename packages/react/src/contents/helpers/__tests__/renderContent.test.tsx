@@ -4,13 +4,15 @@ import { registerComponent } from '../..';
 import React, { ReactElement } from 'react';
 import renderContent from '../renderContent';
 
-const MockTextComponent = (): ReactElement => (
-  <p data-test="textElement">Content</p>
-);
+const MockTextComponent = (): ReactElement => {
+  return <p data-test="textElement">Content</p>;
+};
 
 const location = {
   query: undefined,
 };
+
+console.warn = jest.fn();
 
 describe('renderContent', () => {
   beforeAll(() => {
@@ -31,6 +33,7 @@ describe('renderContent', () => {
 
   it('should deal with undefined components', () => {
     const { queryByTestId } = render(
+      // @ts-expect-error Set components to undefined for test
       renderContent({ components: undefined }, location, 'lg'),
     );
     const element = queryByTestId('textElement');

@@ -1,10 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import { getGiftCardBalance } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
-import {
-  mockGiftCardBalanceResponse,
-  mockInstrumentData,
-} from 'tests/__fixtures__/payments';
+import { mockGiftCardBalanceResponse } from 'tests/__fixtures__/payments';
 import { mockStore } from '../../../../tests';
 import fetchGiftCardBalance from '../fetchGiftCardBalance';
 import find from 'lodash/find';
@@ -22,8 +19,8 @@ let store: ReturnType<typeof paymentsMockStore>;
 
 describe('fetchGiftCardBalance() action creator', () => {
   const data = {
-    giftCardNumber: mockInstrumentData.data.giftCardNumber,
-    giftCardCsc: mockInstrumentData.data.giftCardCsc,
+    giftCardNumber: '1232211',
+    giftCardCsc: '111212',
   };
 
   beforeEach(() => {

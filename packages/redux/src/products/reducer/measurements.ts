@@ -1,6 +1,7 @@
 import * as actionTypes from '../actionTypes';
 import { AnyAction, combineReducers, Reducer } from 'redux';
 import createMergedObject from '../../helpers/createMergedObject';
+import type { ProductEntity } from '../../entities';
 import type { ProductsMeasurementsState } from '../types';
 import type { StoreState } from '../../types';
 
@@ -61,8 +62,13 @@ export const entitiesMapper = {
 
     const newMeasurements = entities.products[productId]?.measurements;
     const newState = createMergedObject(state, entities);
+    const productEntity = (
+      newState.products as Record<ProductEntity['id'], ProductEntity>
+    )[productId as ProductEntity['id']];
 
-    newState.products[productId].measurements = newMeasurements;
+    if (productEntity) {
+      productEntity.measurements = newMeasurements;
+    }
 
     return newState;
   },

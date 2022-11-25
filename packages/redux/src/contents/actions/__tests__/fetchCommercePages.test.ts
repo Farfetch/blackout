@@ -4,7 +4,6 @@ import {
   commercePagesQuery,
   expectedCommercePagesNormalizedPayload,
   mockCommercePages,
-  slug,
 } from 'tests/__fixtures__/contents';
 import { fetchCommercePages } from '..';
 import { getCommercePages } from '@farfetch/blackout-client';
@@ -44,43 +43,41 @@ describe('fetchCommercePages() action creator', () => {
 
     expect.assertions(4);
 
-    await fetchCommercePages(
-      commercePagesQuery,
-      slug,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getCommercePages).toHaveBeenCalledTimes(1);
-      expect(getCommercePages).toHaveBeenCalledWith(
-        commercePagesQuery,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          payload: {
-            hash: 'commerce_pages!woman',
+    await fetchCommercePages(commercePagesQuery)(store.dispatch).catch(
+      error => {
+        expect(error).toBe(expectedError);
+        expect(getCommercePages).toHaveBeenCalledTimes(1);
+        expect(getCommercePages).toHaveBeenCalledWith(
+          commercePagesQuery,
+          expectedConfig,
+        );
+        expect(store.getActions()).toEqual([
+          {
+            payload: {
+              hash: 'commerce_pages!woman',
+            },
+            type: actionTypes.FETCH_COMMERCE_PAGES_REQUEST,
           },
-          type: actionTypes.FETCH_COMMERCE_PAGES_REQUEST,
-        },
-        {
-          payload: {
-            error: expectedError,
-            hash: 'commerce_pages!woman',
+          {
+            payload: {
+              error: expectedError,
+              hash: 'commerce_pages!woman',
+            },
+            type: actionTypes.FETCH_COMMERCE_PAGES_FAILURE,
           },
-          type: actionTypes.FETCH_COMMERCE_PAGES_FAILURE,
-        },
-      ]);
-    });
+        ]);
+      },
+    );
   });
 
   it('should create the correct actions for when the get commerce pages procedure is successful', async () => {
     (getCommercePages as jest.Mock).mockResolvedValueOnce(mockCommercePages);
 
-    await fetchCommercePages(
-      commercePagesQuery,
-      slug,
-    )(store.dispatch).then(clientResult => {
-      expect(clientResult).toBe(mockCommercePages);
-    });
+    await fetchCommercePages(commercePagesQuery)(store.dispatch).then(
+      clientResult => {
+        expect(clientResult).toBe(mockCommercePages);
+      },
+    );
 
     const actionResults = store.getActions();
     expect(normalizeSpy).toHaveBeenCalledTimes(1);

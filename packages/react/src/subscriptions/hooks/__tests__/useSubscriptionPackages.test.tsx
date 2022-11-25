@@ -55,7 +55,7 @@ describe('useSubscriptionPackages', () => {
           ...mockState.subscriptions,
           packages: {
             [mockSubscriptionPackageHash]: {
-              ...mockState.subscriptions.packages,
+              ...mockState.subscriptions.packages[mockSubscriptionPackageHash],
               isLoading: true,
             },
           },
@@ -83,7 +83,7 @@ describe('useSubscriptionPackages', () => {
           ...mockState.subscriptions,
           packages: {
             [mockSubscriptionPackageHash]: {
-              ...mockState.subscriptions.packages,
+              ...mockState.subscriptions.packages[mockSubscriptionPackageHash],
               error: errorData,
             },
           },

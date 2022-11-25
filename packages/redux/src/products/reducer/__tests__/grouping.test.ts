@@ -53,6 +53,7 @@ describe('grouping redux reducer', () => {
           },
         },
         isLoading: {},
+        results: {},
       };
 
       expect(reducer(state, mockAction).error).toEqual(state.error);
@@ -112,6 +113,7 @@ describe('grouping redux reducer', () => {
       const state = {
         error: {},
         isLoading: { [mockProductId]: { '?pageindex=1': false } },
+        results: {},
       };
 
       expect(reducer(state, mockAction).isLoading).toEqual(state.isLoading);

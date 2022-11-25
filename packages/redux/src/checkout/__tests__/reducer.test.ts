@@ -1,12 +1,14 @@
 import * as actionTypes from '../actionTypes';
 import * as fromReducer from '../reducer';
 import {
+  checkoutEntity,
   checkoutId,
   checkoutOrderId,
   checkoutOrderItemId,
   expectedItemDeliveryProvisioningNormalizedPayload,
   expectedUpgradesNormalizedPayload,
   expectedUpgradesNormalizedProvisioningPayload,
+  mockCheckoutDetailsEntity,
   mockCheckoutOrderItemEntity,
   mockCheckoutOrderItemProductsEntity,
   mockCollectPointsResponse,
@@ -1150,6 +1152,7 @@ describe('checkout reducer', () => {
   describe('entitiesMapper()', () => {
     const mockCheckoutResponse = {
       [checkoutId]: {
+        ...checkoutEntity,
         id: 12,
         orderStatus: OrderStatusError.NoError,
       },
@@ -1234,7 +1237,7 @@ describe('checkout reducer', () => {
         const mockState = {
           ...state,
           deliveryBundles: {
-            12345678: mockDeliveryBundlesResponse[0],
+            12345678: mockDeliveryBundlesResponse[0]!,
           },
         } as NonNullable<StoreState['entities']>;
         expect(
@@ -1353,12 +1356,14 @@ describe('checkout reducer', () => {
         const state = {
           checkout: {
             [checkoutId]: {
+              ...checkoutEntity,
               id: 12,
               orderStatus: OrderStatusError.NoError,
             },
           },
           checkoutDetails: {
             [checkoutId]: {
+              ...mockCheckoutDetailsEntity,
               id: 15338084,
             } as CheckoutDetailsEntity,
           },

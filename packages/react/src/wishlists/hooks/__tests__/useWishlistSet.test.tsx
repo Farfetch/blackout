@@ -8,6 +8,7 @@ import {
 import { Provider } from 'react-redux';
 import React from 'react';
 import useWishlistSet from '../useWishlistSet';
+import type { BlackoutError } from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
@@ -52,15 +53,15 @@ describe('useWishlistSet', () => {
   });
 
   it('should render in error state', () => {
-    const mockError = { message: 'This is an error message' };
+    const mockError = new Error('This is an error message') as BlackoutError;
     const { error } = getRenderedHook({
       ...mockWishlistState,
       wishlist: {
-        ...mockWishlistState.wishlist,
+        ...mockWishlistState.wishlist!,
         sets: {
-          ...mockWishlistState.wishlist.sets,
+          ...mockWishlistState.wishlist!.sets,
           set: {
-            ...mockWishlistState.wishlist.sets.set,
+            ...mockWishlistState.wishlist!.sets.set,
             error: {
               [mockWishlistSetId]: mockError,
             },

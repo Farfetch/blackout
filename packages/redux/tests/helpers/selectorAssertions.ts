@@ -1,10 +1,13 @@
+import type { BlackoutError } from '@farfetch/blackout-client';
+import type { Nullable } from '../../src';
+
 /**
  * Converts the subArea naming into a compatible one for compatibility with the
  * subarea reducers naming.
  *
  * @param subArea - String that identifies the SubArea. Example: 'Profile', 'Benefits', (...).
  */
-const getSelectorSubAreaName = subArea => {
+const getSelectorSubAreaName = (subArea: string) => {
   return subArea.charAt(0).toLowerCase() + subArea.slice(1);
 };
 
@@ -20,9 +23,9 @@ const getSelectorSubAreaName = subArea => {
  * @param selectors    - Object containing the LOADING Selectors for the specified subAreas.
  */
 export const assertSubAreasLoadingSelector = (
-  subAreaNames,
-  subAreaState,
-  selectors,
+  subAreaNames: string[],
+  subAreaState: Record<string, unknown>,
+  selectors: Record<string, any>,
 ) => {
   it.each(subAreaNames)('should handle is|are%sLoading selector', subArea => {
     const isSelectorName = `is${subArea}Loading`;
@@ -51,17 +54,20 @@ export const assertSubAreasLoadingSelector = (
  * @param selectors           - Object containing the ERRORS selectors for the specified subAreas.
  */
 export const assertSubAreasErrorSelector = (
-  subAreaNames,
-  subAreaState,
-  subAreaStateWrapper,
-  selectors,
+  subAreaNames: string[],
+  subAreaState: Record<
+    string,
+    Record<string, { error: Nullable<BlackoutError> }>
+  >,
+  subAreaStateWrapper: string,
+  selectors: Record<string, any>,
 ) => {
   it.each(subAreaNames)('should handle get%sError selector', subArea => {
     const selectorName = `get${subArea}Error`;
     const reducerSubAreaName = getSelectorSubAreaName(subArea);
 
     const expectedResult =
-      subAreaState[subAreaStateWrapper][reducerSubAreaName].error;
+      subAreaState[subAreaStateWrapper]![reducerSubAreaName]!.error;
 
     expect(selectors[selectorName](subAreaState)).toBe(expectedResult);
   });
@@ -83,17 +89,17 @@ export const assertSubAreasErrorSelector = (
  * @param selectors           - Object containing the RESULT selectors for the specified subAreas.
  */
 export const assertSubAreasResultSelector = (
-  subAreaNames,
-  subAreaState,
-  subAreaStateWrapper,
-  selectors,
+  subAreaNames: string[],
+  subAreaState: Record<string, Record<string, { result: unknown }>>,
+  subAreaStateWrapper: string,
+  selectors: Record<string, any>,
 ) => {
   it.each(subAreaNames)('should handle get%sResult selector', subArea => {
     const selectorName = `get${subArea}Result`;
     const reducerSubAreaName = getSelectorSubAreaName(subArea);
 
     const expectedResult =
-      subAreaState[subAreaStateWrapper][reducerSubAreaName].result;
+      subAreaState[subAreaStateWrapper]![reducerSubAreaName]!.result;
 
     expect(selectors[selectorName](subAreaState)).toBe(expectedResult);
   });

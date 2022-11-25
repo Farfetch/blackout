@@ -14,14 +14,13 @@ import {
 } from 'tests/__fixtures__/products';
 import { mockCategory } from 'tests/__fixtures__/categories';
 import cloneDeep from 'lodash/cloneDeep';
-import type { FacetValue } from '@farfetch/blackout-client';
 
-const mockFacetId = mockFacets[0].id;
-const mockFacetId1 = mockFacets[1].id;
-const mockFacetId2 = mockFacets[2].id;
-const mockFacet = mockFacetsNormalized[mockFacetId] as FacetValue;
-const mockFacet1 = mockFacetsNormalized[mockFacetId1] as FacetValue;
-const mockFacet2 = mockFacetsNormalized[mockFacetId2] as FacetValue;
+const mockFacetId = mockFacets[0]!.id;
+const mockFacetId1 = mockFacets[1]!.id;
+const mockFacetId2 = mockFacets[2]!.id;
+const mockFacet = mockFacetsNormalized[mockFacetId];
+const mockFacet1 = mockFacetsNormalized[mockFacetId1];
+const mockFacet2 = mockFacetsNormalized[mockFacetId2];
 
 beforeEach(jest.clearAllMocks);
 
@@ -299,7 +298,12 @@ describe('products list redux selectors', () => {
         },
         products: {
           ...mockProductsState.products,
-          lists: {},
+          lists: {
+            error: {},
+            hash: '',
+            isHydrated: {},
+            isLoading: {},
+          },
         },
       };
 
@@ -397,6 +401,7 @@ describe('products list redux selectors', () => {
         entities: {
           productsLists: {
             [mockProductsListHash]: {
+              ...mockProductsState.entities.productsLists[mockProductsListHash],
               filterSegments: [
                 {
                   order: 0,
@@ -406,6 +411,12 @@ describe('products list redux selectors', () => {
                   value: 0,
                   valueUpperBound: 0,
                   fromQueryString: true,
+                  slug: '',
+                  description: '',
+                  deep: 0,
+                  parentId: 1,
+                  negativeFilter: false,
+                  facetId: '10',
                 },
                 {
                   order: 0,
@@ -415,6 +426,12 @@ describe('products list redux selectors', () => {
                   value: 30,
                   valueUpperBound: 50,
                   fromQueryString: true,
+                  slug: '',
+                  description: '',
+                  deep: 0,
+                  parentId: 1,
+                  negativeFilter: false,
+                  facetId: '20',
                 },
               ],
             },
@@ -436,6 +453,7 @@ describe('products list redux selectors', () => {
         entities: {
           productsLists: {
             [mockProductsListHash]: {
+              ...mockProductsState.entities.productsLists[mockProductsListHash],
               filterSegments: [
                 {
                   order: 0,
@@ -445,6 +463,12 @@ describe('products list redux selectors', () => {
                   value: 0,
                   valueUpperBound: 1200,
                   fromQueryString: true,
+                  slug: '',
+                  description: '',
+                  deep: 0,
+                  parentId: 1,
+                  negativeFilter: false,
+                  facetId: '20',
                 },
               ],
             },
@@ -542,7 +566,7 @@ describe('products list redux selectors', () => {
       expect(
         selectors.getProductsListFacetsGroupsByType(
           mockProductsState,
-          mockFacetGroup1.type,
+          mockFacetGroup1!.type,
         ),
       ).toEqual(expectedResult);
     });
@@ -562,7 +586,7 @@ describe('products list redux selectors', () => {
       expect(
         selectors.getProductsListFacetsGroupsByType(
           mockStateNoListAvailableForHash,
-          mockFacetGroup1.type,
+          mockFacetGroup1!.type,
         ),
       ).toBeUndefined();
     });
@@ -573,7 +597,7 @@ describe('products list redux selectors', () => {
       expect(
         selectors.getProductsListFacetsGroupsByType(
           mockProductsState,
-          mockFacetGroup1.type,
+          mockFacetGroup1!.type,
           mockProductsListHash,
         ),
       ).toEqual(expectedResult);
@@ -582,9 +606,9 @@ describe('products list redux selectors', () => {
 
   describe('getProductsListFacetsByFacetGroupType()', () => {
     const mockFacet1 =
-      mockProductsListNormalizedPayload.entities.facets[mockFacets[0].id];
+      mockProductsListNormalizedPayload.entities.facets[mockFacets[0]!.id];
     const mockFacet2 =
-      mockProductsListNormalizedPayload.entities.facets[mockFacets[1].id];
+      mockProductsListNormalizedPayload.entities.facets[mockFacets[1]!.id];
     const mockFacetGroup =
       mockProductsListNormalizedPayload.entities.productsLists[
         mockProductsListHash
@@ -596,7 +620,7 @@ describe('products list redux selectors', () => {
       expect(
         selectors.getProductsListFacetsByFacetGroupType(
           mockProductsState,
-          mockFacetGroup.type,
+          mockFacetGroup!.type,
         ),
       ).toEqual(expectedResult);
     });
@@ -604,17 +628,17 @@ describe('products list redux selectors', () => {
     it('should return undefined if there are no facet groups for specific type provided', () => {
       const state = cloneDeep(mockProductsState);
 
-      state.entities.productsLists[
+      state.entities.productsLists![
         mockProductsListHash
-      ].facetGroups[0].type = 5;
-      state.entities.productsLists[
+      ].facetGroups![0]!.type = 5;
+      state.entities.productsLists![
         mockProductsListHash
-      ].facetGroups[1].type = 5;
+      ].facetGroups![1]!.type = 5;
 
       expect(
         selectors.getProductsListFacetsByFacetGroupType(
           state,
-          mockFacetGroup.type,
+          mockFacetGroup!.type,
         ),
       ).toBeUndefined();
     });
@@ -627,7 +651,7 @@ describe('products list redux selectors', () => {
       expect(
         selectors.getProductsListFacetsByFacetGroupType(
           state,
-          mockFacetGroup.type,
+          mockFacetGroup!.type,
         ),
       ).toBeUndefined();
     });
@@ -638,7 +662,7 @@ describe('products list redux selectors', () => {
       expect(
         selectors.getProductsListFacetsByFacetGroupType(
           mockProductsState,
-          mockFacetGroup.type,
+          mockFacetGroup!.type,
           mockProductsListHash,
         ),
       ).toEqual(expectedResult);
@@ -647,9 +671,9 @@ describe('products list redux selectors', () => {
 
   describe('getHierarchicalFacetsWithChildren()', () => {
     const mockFacet1 =
-      mockProductsListNormalizedPayload.entities.facets[mockFacets[0].id];
+      mockProductsListNormalizedPayload.entities.facets[mockFacets[0]!.id];
     const mockFacet2 =
-      mockProductsListNormalizedPayload.entities.facets[mockFacets[1].id];
+      mockProductsListNormalizedPayload.entities.facets[mockFacets[1]!.id];
     const mockFacetGroup =
       mockProductsListNormalizedPayload.entities.productsLists[
         mockProductsListHash
@@ -659,7 +683,7 @@ describe('products list redux selectors', () => {
       expect(
         selectors.getHierarchicalFacetsWithChildren(
           mockProductsState,
-          mockFacetGroup.type,
+          mockFacetGroup!.type,
         ),
       ).toEqual([
         {
@@ -671,15 +695,18 @@ describe('products list redux selectors', () => {
 
     it('should return undefined if does not find facet groups belonging to the specific type', () => {
       const state = cloneDeep(mockProductsState);
-      state.entities.productsLists[
+      state.entities.productsLists![
         mockProductsListHash
-      ].facetGroups[0].type = 5;
-      state.entities.productsLists[
+      ]!.facetGroups![0]!.type = 5;
+      state.entities.productsLists![
         mockProductsListHash
-      ].facetGroups[1].type = 5;
+      ]!.facetGroups![1]!.type = 5;
 
       expect(
-        selectors.getHierarchicalFacetsWithChildren(state, mockFacetGroup.type),
+        selectors.getHierarchicalFacetsWithChildren(
+          state,
+          mockFacetGroup!.type,
+        ),
       ).toBeUndefined();
     });
 
@@ -689,7 +716,10 @@ describe('products list redux selectors', () => {
       state.products.lists.hash = 'foo';
 
       expect(
-        selectors.getHierarchicalFacetsWithChildren(state, mockFacetGroup.type),
+        selectors.getHierarchicalFacetsWithChildren(
+          state,
+          mockFacetGroup!.type,
+        ),
       ).toBeUndefined();
     });
 
@@ -702,7 +732,7 @@ describe('products list redux selectors', () => {
       expect(
         selectors.getHierarchicalFacetsWithChildren(
           mockProductsState,
-          mockFacetGroupFormatMultiple.type,
+          mockFacetGroupFormatMultiple!.type,
         ),
       ).toBeUndefined();
     });
@@ -720,6 +750,9 @@ describe('products list redux selectors', () => {
           url: 'shoes',
           value: 136301,
           valueUpperBound: 0,
+          _isDisabled: false,
+          _isActive: false,
+          count: 1,
         },
       };
       const mockFacetGroupWrongData = [
@@ -730,6 +763,11 @@ describe('products list redux selectors', () => {
           key: 'categories',
           type: 6,
           values: [[mockRepeatedFacetId]],
+          dynamic: 0,
+          _clearUrl: '',
+          _isClearHidden: false,
+          _isClosed: false,
+          order: 0,
         },
       ];
 
@@ -739,11 +777,11 @@ describe('products list redux selectors', () => {
 
       const result = selectors.getHierarchicalFacetsWithChildren(
         state,
-        mockFacetGroupWrongData[0].type,
+        mockFacetGroupWrongData[0]!.type,
       );
 
       expect(result).toEqual([mockFacetsWrongData.categories_0]);
-      expect(result[0].children).toBeUndefined();
+      expect(result![0]!.children).toBeUndefined();
     });
 
     describe('`hash` param', () => {
@@ -751,7 +789,7 @@ describe('products list redux selectors', () => {
         expect(
           selectors.getHierarchicalFacetsWithChildren(
             mockProductsState,
-            mockFacetGroup.type,
+            mockFacetGroup!.type,
             { hash: mockProductsListHash },
           ),
         ).toEqual([
@@ -768,7 +806,7 @@ describe('products list redux selectors', () => {
         expect(
           selectors.getHierarchicalFacetsWithChildren(
             mockProductsState,
-            mockFacetGroup.type,
+            mockFacetGroup!.type,
             { hash: mockProductsListHash, initialDepth: 2 },
           ),
         ).toEqual([
@@ -783,7 +821,7 @@ describe('products list redux selectors', () => {
         expect(
           selectors.getHierarchicalFacetsWithChildren(
             mockProductsState,
-            mockFacetGroup.type,
+            mockFacetGroup!.type,
             { hash: mockProductsListHash, initialDepth: 3 },
           ),
         ).toEqual([
@@ -800,7 +838,7 @@ describe('products list redux selectors', () => {
         expect(
           selectors.getHierarchicalFacetsWithChildren(
             mockProductsState,
-            mockFacetGroup.type,
+            mockFacetGroup!.type,
             { dynamic: 9999 },
           ),
         ).toBeUndefined();
@@ -817,6 +855,9 @@ describe('products list redux selectors', () => {
           url: 'clothing-jackets',
           value: 136335,
           valueUpperBound: 0,
+          _isDisabled: false,
+          _isActive: false,
+          count: 1,
         };
         const mockState = {
           ...mockProductsState,
@@ -834,6 +875,9 @@ describe('products list redux selectors', () => {
                 url: 'clothing',
                 value: 136330,
                 valueUpperBound: 0,
+                _isDisabled: false,
+                _isActive: false,
+                count: 1,
               },
               [mockFacet.id]: mockFacet,
             },
@@ -854,6 +898,10 @@ describe('products list redux selectors', () => {
                     key: 'categories',
                     type: 6,
                     values: [[mockFacet.id]],
+                    _clearUrl: '',
+                    _isClearHidden: false,
+                    order: 0,
+                    _isClosed: false,
                   },
                 ],
               },
@@ -864,7 +912,7 @@ describe('products list redux selectors', () => {
         expect(
           selectors.getHierarchicalFacetsWithChildren(
             mockState,
-            mockFacetGroup.type,
+            mockFacetGroup!.type,
             { dynamic: mockDynamic },
           ),
         ).toEqual([

@@ -1,10 +1,10 @@
 import { rest, RestHandler } from 'msw';
-import type { GetCheckoutOrderOperationsResponse } from '../types/getCheckoutOrderOperations.types';
+import type { CheckoutOrderOperations } from '../types/getCheckoutOrderOperations.types';
 
 const path = '/api/checkout/v1/orders/:id/operations';
 
 const fixtures = {
-  success: (response: GetCheckoutOrderOperationsResponse): RestHandler =>
+  success: (response: CheckoutOrderOperations): RestHandler =>
     rest.get(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),

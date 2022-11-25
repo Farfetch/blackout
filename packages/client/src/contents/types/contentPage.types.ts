@@ -1,6 +1,5 @@
-import type { ComponentType } from 'react';
+import type { ComponentType, ContentEntry } from './contents.types';
 import type { Config, PagedResponse } from '../../types';
-import type { ContentEntry } from './contents.types';
 
 export enum ContentPageType {
   Product = 'PRODUCT',

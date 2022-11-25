@@ -26,7 +26,10 @@ export type ProductsListEntity = Omit<
   ProductListing,
   'products' | 'facetGroups' | 'filterSegments'
 > &
-  Omit<ProductSet, 'products' | 'facetGroups' | 'filterSegments' | 'id'> & {
+  Omit<
+    ProductSet,
+    'products' | 'facetGroups' | 'filterSegments' | 'id' | 'name'
+  > & {
     // Entities
     products: ProductsNormalized;
     facetGroups: FacetGroupsNormalized;

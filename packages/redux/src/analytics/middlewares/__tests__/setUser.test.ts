@@ -11,6 +11,8 @@ import {
 } from '../setUser';
 import { getUser, getUserId } from '../../../users/selectors';
 import { mockStore } from './../tests/simplifiedStore';
+import { mockUsersResponse } from 'tests/__fixtures__/users';
+import { UserGender } from '@farfetch/blackout-client';
 import Analytics, {
   eventTypes,
   loginMethodParameterTypes,
@@ -38,29 +40,33 @@ let trackSpy: jest.SpyInstance;
 const loggedInUserId = 1;
 
 const loggedInUserInfo = {
+  ...mockUsersResponse,
   isGuest: false,
   email: 'user@test.com',
   segments: ['segment1', 'segment2'],
   username: 'user',
   bagId: '1ff36cd1-0dac-497f-8f32-4f2f7bdd2eaf',
-  gender: 1,
+  gender: UserGender.Male,
   membership: [],
+  id: undefined,
 };
 
 const loggedInUserEntity = {
-  id: loggedInUserId,
   ...loggedInUserInfo,
+  id: loggedInUserId,
 };
 
 const guestUserId = 2;
 const guestUserInfo = {
+  ...mockUsersResponse,
   isGuest: true,
   bagId: '522fa1f7-4ced-68e7-f9d4-Bc6s2eff43f5',
+  id: undefined,
 };
 
 const guestUserEntity = {
-  id: guestUserId,
   ...guestUserInfo,
+  id: guestUserId,
 };
 
 const mockStateLoggedInUser = {
@@ -268,10 +274,11 @@ describe('analyticsSetUserMiddleware', () => {
         loggedInUserEntity,
       );
 
-      assertSetUserSpyCalledWith(
-        loggedInUserId,
-        pick(loggedInUserInfo, traitsToPick),
-      );
+      // @ts-expect-error This cast is just to facilitate testing as we would need to specify all user properties for it to comply
+      assertSetUserSpyCalledWith(loggedInUserId, {
+        isGuest: loggedInUserInfo.isGuest,
+        membership: loggedInUserInfo.membership,
+      } as UserTraits);
 
       expect(options[OPTION_FETCH_USER_SELECTOR]).toHaveBeenCalledTimes(1);
       expect(options[OPTION_FETCH_USER_ID_SELECTOR]).toHaveBeenCalledTimes(2);
@@ -376,10 +383,11 @@ describe('analyticsSetUserMiddleware', () => {
         loggedInUserEntity,
       );
 
-      assertSetUserSpyCalledWith(
-        loggedInUserId,
-        pick(loggedInUserInfo, traitsToPick),
-      );
+      // @ts-expect-error This cast is just to facilitate testing as we would need to specify all user properties for it to comply
+      assertSetUserSpyCalledWith(loggedInUserId, {
+        isGuest: loggedInUserInfo.isGuest,
+        membership: loggedInUserInfo.membership,
+      } as UserTraits);
 
       jest.clearAllMocks();
       // Check for anonymize actions

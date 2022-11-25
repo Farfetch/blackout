@@ -1,7 +1,10 @@
 import React from 'react';
 import useAction from '../useAction';
+import type { AnyAction } from 'redux';
 
-export const Action = ({ mockAction }) => {
+type ActionFixture = (props: { mockAction: () => AnyAction }) => JSX.Element;
+
+export const Action: ActionFixture = ({ mockAction }) => {
   const mockUseAction = useAction(mockAction);
 
   return (

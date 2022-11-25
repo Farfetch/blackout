@@ -64,6 +64,12 @@ describe('Recently Viewed reducer', () => {
   });
 
   describe('isLoading() reducer', () => {
+    const mockIsLoadingState = {
+      error: null,
+      isLoading: true,
+      result: null,
+    };
+
     it('should return the initial state', () => {
       const state = reducer(undefined, mockAction);
 
@@ -90,7 +96,7 @@ describe('Recently Viewed reducer', () => {
 
     it(`should handle ${productsActionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS} action type`, () => {
       const expectedIsLoading = false;
-      const state = reducer(undefined, {
+      const state = reducer(mockIsLoadingState, {
         type: productsActionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
         payload: expectedRecentlyViewedRemotePayload,
       });
@@ -100,7 +106,7 @@ describe('Recently Viewed reducer', () => {
 
     it(`should handle ${productsActionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS} action type`, () => {
       const expectedIsLoading = false;
-      const state = reducer(undefined, {
+      const state = reducer(mockIsLoadingState, {
         type: productsActionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
         payload: expectedRecentlyViewedRemotePayload,
       });
@@ -110,7 +116,7 @@ describe('Recently Viewed reducer', () => {
 
     it(`should handle ${productsActionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE} action type`, () => {
       const expectedIsLoading = false;
-      const state = reducer(undefined, {
+      const state = reducer(mockIsLoadingState, {
         type: productsActionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE,
         payload: {
           error: 'this is an error',
@@ -122,7 +128,7 @@ describe('Recently Viewed reducer', () => {
 
     it(`should handle ${productsActionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE} action type`, () => {
       const expectedIsLoading = false;
-      const state = reducer(undefined, {
+      const state = reducer(mockIsLoadingState, {
         type: productsActionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE,
         payload: {
           error: 'this is an error',

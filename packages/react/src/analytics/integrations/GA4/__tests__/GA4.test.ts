@@ -34,6 +34,7 @@ import {
   pageEventsData,
   trackEventsData,
 } from 'tests/__fixtures__/analytics';
+import { mockUsersResponse } from 'tests/__fixtures__/users';
 import cloneDeep from 'lodash/cloneDeep';
 import eventMapping from '../eventMapping';
 import get from 'lodash/get';
@@ -118,11 +119,7 @@ describe('GA4 Integration', () => {
       user: {
         ...loadIntegrationData.user,
         id: 12345678,
-        traits: {
-          email: 'foo@biz.com',
-          name: 'John Doe',
-          isGuest: false,
-        },
+        traits: mockUsersResponse,
       },
     };
 
@@ -785,6 +782,7 @@ describe('GA4 Integration', () => {
                   ...onSetUserEventData.user,
                   id: 100,
                   traits: {
+                    ...mockUsersResponse,
                     isGuest: true,
                   },
                 },
@@ -795,6 +793,7 @@ describe('GA4 Integration', () => {
                   ...onSetUserEventData.user,
                   id: 101,
                   traits: {
+                    ...mockUsersResponse,
                     isGuest: false,
                   },
                 },
@@ -1024,7 +1023,7 @@ describe('GA4 Integration', () => {
                 ...onSetUserEventData,
                 user: {
                   id: userIdLoggedIn,
-                  traits: { isGuest: false },
+                  traits: { ...mockUsersResponse, isGuest: false },
                   localId: '123',
                 },
               });
@@ -1050,7 +1049,7 @@ describe('GA4 Integration', () => {
                 ...onSetUserEventData,
                 user: {
                   id: userIdGuest,
-                  traits: { isGuest: true },
+                  traits: { ...mockUsersResponse, isGuest: true },
                   localId: '123',
                 },
               });
@@ -1079,7 +1078,7 @@ describe('GA4 Integration', () => {
                 ...onSetUserEventData,
                 user: {
                   id: userIdLoggedIn,
-                  traits: { isGuest: false },
+                  traits: { ...mockUsersResponse, isGuest: false },
                   localId: '123',
                 },
               });
@@ -1106,7 +1105,7 @@ describe('GA4 Integration', () => {
                 ...onSetUserEventData,
                 user: {
                   id: userIdGuest,
-                  traits: { isGuest: true },
+                  traits: { ...mockUsersResponse, isGuest: true },
                   localId: '123',
                 },
               });
@@ -1266,11 +1265,15 @@ describe('GA4 Integration', () => {
               loadData,
             );
 
+            const bagPageEventData = pageEventsData[
+              pageTypes.BAG
+            ] as PageviewEventData;
+
             const ga4Spy = getWindowGa4Spy();
             const clonedEvent = {
-              ...pageEventsData[pageTypes.BAG],
+              ...bagPageEventData,
               properties: {
-                ...pageEventsData[pageTypes.BAG].properties,
+                ...bagPageEventData.properties,
                 value: 10,
               },
             };
@@ -1384,7 +1387,7 @@ describe('GA4 Integration', () => {
         });
         describe('Search events', () => {
           const defaultEvent = {
-            ...pageEventsData[pageTypes.SEARCH],
+            ...(pageEventsData[pageTypes.SEARCH] as PageviewEventData),
           };
           it('should not track search event with invalid search term or query, only page event.', async () => {
             ga4Instance = await createGA4InstanceAndLoad(

@@ -9,7 +9,7 @@ export const mockGuestUserResponse = {
   friendId: 'string',
   isGuest: true,
   expiryDate: '2020-03-31T15:21:55.109Z',
-};
+} as const;
 
 export const expectedNormalizedPayload = {
   entities: {

@@ -22,4 +22,5 @@ export type User = Omit<GuestUser, 'isGuest'> & {
   personalShopperId?: number;
   createdDate?: string;
   updatedDate?: string;
+  membership?: string[];
 };

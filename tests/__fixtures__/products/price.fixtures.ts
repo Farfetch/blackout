@@ -13,9 +13,6 @@ export const mockPriceAdaptedEmpty = {
   includingTaxesWithoutDiscount: undefined,
   isFormatted: true,
   priceType: undefined,
-  promocode: {
-    rate: undefined,
-  },
   promotionType: undefined,
   tags: undefined,
   taxes: {
@@ -82,8 +79,6 @@ export const mockPricesResponse = [
     includingTaxesWithoutDiscount: 100,
     isFormatted: true,
     priceType: undefined,
-    promocode: { rate: undefined },
-    promotionType: 'FullPrice',
     tags: undefined,
     taxes: {
       amount: undefined,
@@ -91,5 +86,6 @@ export const mockPricesResponse = [
       type: undefined,
     },
     type: 0,
+    promotionType: 'FullPrice',
   },
 ];

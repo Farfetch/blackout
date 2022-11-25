@@ -10,55 +10,59 @@ import {
   expectedNormalizedUserPayload,
   expectedPreferencesNormalizedPayload,
   expectedTitlesNormalizedPayload,
+  mockUserInitialState,
 } from 'tests/__fixtures__/users';
+import type { BlackoutError } from '@farfetch/blackout-client';
 
 describe('users redux selectors', () => {
-  const userId = '29538482';
+  const userId = 29538482;
   const mockState = {
     users: {
-      error: 'error: not loaded',
-      result: userId,
+      ...mockUserInitialState,
+      error: new Error('error: not loaded') as BlackoutError,
+      id: userId,
       isLoading: false,
       benefits: {
-        error: 'error: not loaded',
+        error: new Error('error: not loaded') as BlackoutError,
         isLoading: false,
       },
       preferences: {
-        error: 'error: not loaded',
+        error: new Error('error: not loaded') as BlackoutError,
         isLoading: false,
       },
       updatePreferences: {
-        error: 'error: not loaded',
+        error: new Error('error: not loaded') as BlackoutError,
         isLoading: false,
       },
       titles: {
-        error: 'error: not loaded',
+        error: new Error('error: not loaded') as BlackoutError,
         isLoading: false,
       },
       credits: {
-        error: 'error: not loaded',
+        error: new Error('error: not loaded') as BlackoutError,
         isLoading: false,
       },
       creditMovements: {
-        error: 'error: not loaded',
+        error: new Error('error: not loaded') as BlackoutError,
         isLoading: false,
       },
       contacts: {
-        error: 'error: not loaded',
+        error: new Error('error: not loaded') as BlackoutError,
         isLoading: false,
       },
       attributes: {
         result: null,
-        error: 'error: not loaded',
+        error: new Error('error: not loaded') as BlackoutError,
         isLoading: false,
       },
       addresses: {
-        error: 'error: not loaded',
+        ...mockUserInitialState.addresses,
+        error: new Error('error: not loaded') as BlackoutError,
         result: null,
         isLoading: false,
         address: {
           error: {
-            [addressId2]: 'error: not loaded',
+            [addressId2]: new Error('error: not loaded') as BlackoutError,
           },
           isLoading: {
             [addressId2]: false,
@@ -67,7 +71,7 @@ describe('users redux selectors', () => {
         /* Used for operations related with the default address that
           have a result associated, such as getting the default contact address */
         defaultAddressDetails: {
-          error: 'error: not loaded',
+          error: new Error('error: not loaded') as BlackoutError,
           isLoading: false,
           result: null,
         },
@@ -75,7 +79,7 @@ describe('users redux selectors', () => {
     },
     entities: {
       user: {
-        ...expectedNormalizedUserPayload.entities,
+        ...expectedNormalizedUserPayload.entities.user,
         credit: {
           currency: 'GB',
           value: 50,
@@ -130,7 +134,9 @@ describe('users redux selectors', () => {
     it('should get the users error property from state', () => {
       const spy = jest.spyOn(fromUsers, 'getError');
 
-      expect(selectors.getUserError(mockState)).toEqual('error: not loaded');
+      expect(selectors.getUserError(mockState)).toEqual(
+        new Error('error: not loaded'),
+      );
       expect(spy).toHaveBeenCalledWith(mockState.users);
     });
   });

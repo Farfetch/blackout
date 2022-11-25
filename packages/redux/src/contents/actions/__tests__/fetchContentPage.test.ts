@@ -28,7 +28,7 @@ const contentPagesMockStore = (state = {}) =>
   mockStore({ contents: INITIAL_STATE_CONTENT }, state);
 
 const expectedConfig = undefined;
-let store;
+let store: ReturnType<typeof contentPagesMockStore>;
 
 describe('fetchContentPage() action creator', () => {
   beforeEach(() => {
@@ -39,43 +39,43 @@ describe('fetchContentPage() action creator', () => {
   it('should create the correct actions for when the get content pages procedure fails', async () => {
     const expectedError = new Error('Get contet pages error');
 
-    getContentPage.mockRejectedValueOnce(expectedError);
+    (getContentPage as jest.Mock).mockRejectedValueOnce(expectedError);
 
     expect.assertions(4);
 
-    await store
-      .dispatch(fetchContentPage(contentPagesType, { slug: slugContent }))
-      .catch(error => {
-        expect(error).toBe(expectedError);
-        expect(getContentPage).toHaveBeenCalledTimes(1);
-        expect(getContentPage).toHaveBeenCalledWith(
-          contentPagesType,
-          { slug: slugContent, strategy: undefined },
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual([
-          {
-            payload: {
-              hash: 'content_pages!woman/gucci',
-            },
-            type: actionTypes.FETCH_CONTENT_PAGES_REQUEST,
+    await fetchContentPage(contentPagesType, { slug: slugContent })(
+      store.dispatch,
+    ).catch(error => {
+      expect(error).toBe(expectedError);
+      expect(getContentPage).toHaveBeenCalledTimes(1);
+      expect(getContentPage).toHaveBeenCalledWith(
+        contentPagesType,
+        { slug: slugContent, strategy: undefined },
+        expectedConfig,
+      );
+      expect(store.getActions()).toEqual([
+        {
+          payload: {
+            hash: 'content_pages!woman/gucci',
           },
-          {
-            payload: {
-              error: expectedError,
-              hash: 'content_pages!woman/gucci',
-            },
-            type: actionTypes.FETCH_CONTENT_PAGES_FAILURE,
+          type: actionTypes.FETCH_CONTENT_PAGES_REQUEST,
+        },
+        {
+          payload: {
+            error: expectedError,
+            hash: 'content_pages!woman/gucci',
           },
-        ]);
-      });
+          type: actionTypes.FETCH_CONTENT_PAGES_FAILURE,
+        },
+      ]);
+    });
   });
 
   it('should create the correct actions for when the get content pages procedure is successful', async () => {
-    getContentPage.mockResolvedValueOnce(mockContentPage);
+    (getContentPage as jest.Mock).mockResolvedValueOnce(mockContentPage);
 
-    await store.dispatch(
-      fetchContentPage(contentPagesType, { slug: slugContent }),
+    await fetchContentPage(contentPagesType, { slug: slugContent })(
+      store.dispatch,
     );
 
     const actionResults = store.getActions();

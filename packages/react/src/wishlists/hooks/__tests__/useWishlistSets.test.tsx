@@ -7,6 +7,7 @@ import {
 import { Provider } from 'react-redux';
 import React from 'react';
 import useWishlistSets from '../useWishlistSets';
+import type { BlackoutError } from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
@@ -55,13 +56,13 @@ describe('useWishlistSets', () => {
   });
 
   it('should render in error state', () => {
-    const mockError = { message: 'This is an error message' };
+    const mockError = new Error('This is an error message') as BlackoutError;
     const { error } = getRenderedHook({
       ...mockWishlistState,
       wishlist: {
-        ...mockWishlistState.wishlist,
+        ...mockWishlistState.wishlist!,
         sets: {
-          ...mockWishlistState.wishlist.sets,
+          ...mockWishlistState.wishlist!.sets,
           error: mockError,
         },
       },
@@ -71,15 +72,15 @@ describe('useWishlistSets', () => {
   });
 
   it('should render with any set in error state', () => {
-    const mockError = { message: 'This is an error message' };
+    const mockError = new Error('This is an error message') as BlackoutError;
     const { allWishlistSetsErrors } = getRenderedHook({
       ...mockWishlistState,
       wishlist: {
-        ...mockWishlistState.wishlist,
+        ...mockWishlistState.wishlist!,
         sets: {
-          ...mockWishlistState.wishlist.sets,
+          ...mockWishlistState!.wishlist!.sets,
           set: {
-            ...mockWishlistState.wishlist.sets.set,
+            ...mockWishlistState!.wishlist!.sets.set,
             error: {
               [mockWishlistSetId]: mockError,
             },
@@ -92,7 +93,8 @@ describe('useWishlistSets', () => {
       {
         error: mockError,
         id: mockWishlistSetId,
-        name: mockWishlistState.entities.wishlistSets[mockWishlistSetId].name,
+        name: mockWishlistState!.entities!.wishlistSets![mockWishlistSetId]!
+          .name,
       },
     ]);
   });
@@ -101,7 +103,7 @@ describe('useWishlistSets', () => {
     it('should call `addWishlistSet` action', () => {
       const { addWishlistSet } = getRenderedHook();
 
-      addWishlistSet({ name: 'test' });
+      addWishlistSet({ name: 'test', description: '', wishlistSetItems: [] });
 
       expect(mockDispatch).toHaveBeenCalledWith({ type: 'add' });
     });
