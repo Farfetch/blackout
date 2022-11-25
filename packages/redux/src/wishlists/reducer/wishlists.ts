@@ -11,7 +11,7 @@ export const INITIAL_STATE: WishlistsState = {
   error: null,
   id: null,
   isLoading: false,
-  result: {},
+  result: null,
   items: {
     ids: null,
     item: {
