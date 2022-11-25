@@ -1,4 +1,5 @@
 import { mockState as brandsMockState } from '../brands';
+import { mockBagItemEntity } from '../bags/bagItem.fixtures';
 import { mockCategoriesState } from '../categories';
 import { mockMerchantId, mockProductId } from './ids.fixtures';
 import { mockProduct } from './products.fixtures';
@@ -11,6 +12,8 @@ import {
 import { mockRecentlyViewedState } from './recentlyViewed.fixtures';
 import { mockRecommendedProductsState } from './recommendedProducts.fixtures';
 import { mockRecommendedSetState } from './recommendedSet.fixtures';
+import type { BlackoutError } from '@farfetch/blackout-client';
+import type { ProductEntity } from '@farfetch/blackout-redux';
 
 export const mockAttributesState = {
   attributes: {
@@ -19,7 +22,7 @@ export const mockAttributesState = {
       456: false,
     },
     error: {
-      [mockProductId]: null,
+      [mockProductId]: undefined,
     },
   },
 };
@@ -41,10 +44,10 @@ export const mockGroupingState = {
   grouping: {
     isLoading: {
       [mockProductId]: { '?pageindex=1': false },
-      456: false,
+      456: { '?pageindex=1': false },
     },
     error: {
-      [mockProductId]: { '?pageindex=1': null },
+      [mockProductId]: { '?pageindex=1': undefined },
     },
     results: {
       [mockProductId]: { '?pageindex=1': mockProductGroupingAdapted },
@@ -55,10 +58,10 @@ export const mockGroupingPropertiesState = {
   groupingProperties: {
     isLoading: {
       [mockProductId]: { '!all': false },
-      456: false,
+      456: { '!all': false },
     },
     error: {
-      [mockProductId]: { '!all': null },
+      [mockProductId]: { '!all': undefined },
     },
     results: {
       [mockProductId]: { '!all': mockProductGroupingPropertiesAdapted },
@@ -68,8 +71,8 @@ export const mockGroupingPropertiesState = {
 export const mockDetailsState = {
   details: {
     error: {
-      [mockProductId]: null,
-      456: null,
+      [mockProductId]: undefined,
+      456: undefined,
     },
     isHydrated: {
       [mockProductId]: false,
@@ -88,7 +91,7 @@ export const mockFittingsState = {
       456: false,
     },
     error: {
-      [mockProductId]: { message: 'Error' },
+      [mockProductId]: new Error('Error') as BlackoutError,
     },
   },
 };
@@ -109,7 +112,7 @@ export const mockMeasurementsState = {
       456: false,
     },
     error: {
-      [mockProductId]: { message: 'Error' },
+      [mockProductId]: new Error('Error') as BlackoutError,
     },
   },
 };
@@ -120,7 +123,7 @@ export const mockVariantsByMerchantsLocationsState = {
       456: false,
     },
     error: {
-      [mockProductId]: { message: 'Error' },
+      [mockProductId]: new Error('Error') as BlackoutError,
     },
   },
 };
@@ -131,7 +134,7 @@ export const mockSizeGuidesState = {
       456: false,
     },
     error: {
-      [mockProductId]: null,
+      [mockProductId]: undefined,
     },
   },
 };
@@ -142,7 +145,7 @@ export const mockSizesState = {
       456: false,
     },
     error: {
-      [mockProductId]: { message: 'Error' },
+      [mockProductId]: new Error('Error') as BlackoutError,
     },
   },
 };
@@ -164,9 +167,16 @@ export const mockProductsState = {
     ...mockRecentlyViewedState,
   },
   bag: {
-    id: 1,
+    error: null,
+    isLoading: false,
+    result: null,
+    id: '1',
     items: {
       ids: [101, 102, 103],
+      item: {
+        error: {},
+        isLoading: {},
+      },
     },
   },
   entities: {
@@ -185,15 +195,18 @@ export const mockProductsState = {
       ...mockCategoriesState.entities.categories,
       135967: {
         id: 135967,
+        name: '',
       },
     },
     bagItems: {
       101: {
+        ...mockBagItemEntity,
         id: 101,
         quantity: 1,
         product: mockProductId,
         merchant: mockMerchantId,
         size: {
+          ...mockBagItemEntity.size,
           id: 1,
           scale: 117,
           name: '37',
@@ -203,11 +216,13 @@ export const mockProductsState = {
         },
       },
       102: {
+        ...mockBagItemEntity,
         id: 102,
         quantity: 1,
         product: mockProductId,
         merchant: mockMerchantId,
         size: {
+          ...mockBagItemEntity.size,
           scale: 117,
           id: 6,
           name: '41',
@@ -217,11 +232,13 @@ export const mockProductsState = {
         },
       },
       103: {
+        ...mockBagItemEntity,
         id: 103,
         quantity: 1,
         product: mockProductId,
         merchant: 788,
         size: {
+          ...mockBagItemEntity.size,
           scale: 117,
           id: 1,
           name: '37',
@@ -232,7 +249,11 @@ export const mockProductsState = {
       },
     },
     products: {
-      ...mockProductsListNormalizedPayload.entities.products,
+      // @ts-expect-error Missing a lot of product entity properties to be compliant with
+      ...(mockProductsListNormalizedPayload.entities.products as Record<
+        string,
+        ProductEntity
+      >),
       [mockProductId]: mockProduct,
     },
   },

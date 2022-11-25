@@ -18,6 +18,7 @@ describe('Recommended set', () => {
               ...mockProductsState.products.sizes.isLoading,
               [mockRecommendedSetId]: true,
             },
+            result: {},
           },
         },
       };

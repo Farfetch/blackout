@@ -1,4 +1,4 @@
-import { Category, Gender } from '@farfetch/blackout-client';
+import { BlackoutError, Category, Gender } from '@farfetch/blackout-client';
 
 export const mockCategoryId = 135981;
 export const mockCategory = {
@@ -61,7 +61,7 @@ export const mockCategoriesInitialState = {
     },
   },
   entities: {
-    categories: null,
+    categories: undefined,
   },
 };
 
@@ -101,6 +101,7 @@ export const mockCategoriesLoadingState = {
     error: null,
     isFetched: false,
     isLoading: true,
+    result: null,
     category: {
       error: {},
       isLoading: {},
@@ -112,7 +113,7 @@ export const mockCategoriesLoadingState = {
     },
   },
   entities: {
-    categories: null,
+    categories: undefined,
   },
 };
 
@@ -121,6 +122,7 @@ export const mockCategoryLoadingState = {
     error: null,
     isFetched: false,
     isLoading: false,
+    result: null,
     category: {
       error: {
         135981: null,
@@ -145,6 +147,7 @@ export const mockTopCategoriesLoadingState = {
     error: null,
     isFetched: false,
     isLoading: false,
+    result: null,
     category: {
       error: {},
       isLoading: {},
@@ -156,7 +159,7 @@ export const mockTopCategoriesLoadingState = {
     },
   },
   entities: {
-    categories: null,
+    categories: undefined,
   },
 };
 
@@ -181,18 +184,23 @@ export const normalizedTopResponse = {
 
 export const mockCategoriesErrorState = {
   categories: {
-    error: {
-      message: 'An awesome, fascinating and incredible error',
-    },
+    error: new Error(
+      'An awesome, fascinating and incredible error',
+    ) as BlackoutError,
     isLoading: false,
+    result: null,
     category: {
       error: {},
       isLoading: {},
     },
-    top: {},
+    top: {
+      error: null,
+      isLoading: false,
+      result: null,
+    },
   },
   entities: {
-    categories: null,
+    categories: undefined,
   },
 };
 
@@ -200,18 +208,25 @@ export const mockCategoryErrorState = {
   categories: {
     error: null,
     isLoading: false,
+    result: null,
     category: {
       error: {
-        135981: { message: 'An awesome, fascinating and incredible error' },
+        135981: new Error(
+          'An awesome, fascinating and incredible error',
+        ) as BlackoutError,
       },
       isLoading: {
         135981: false,
       },
     },
-    top: {},
+    top: {
+      error: null,
+      isLoading: false,
+      result: null,
+    },
   },
   entities: {
-    categories: null,
+    categories: undefined,
   },
 };
 
@@ -219,14 +234,20 @@ export const mockTopCategoriesErrorState = {
   categories: {
     error: null,
     isLoading: false,
+    result: null,
+    category: {
+      error: {},
+      isLoading: {},
+    },
     top: {
-      error: {
-        message: 'An awesome, fascinating and incredible error',
-      },
+      error: new Error(
+        'An awesome, fascinating and incredible error',
+      ) as BlackoutError,
       isLoading: false,
+      result: null,
     },
   },
   entities: {
-    categories: null,
+    categories: undefined,
   },
 };

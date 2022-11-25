@@ -6,7 +6,7 @@ const fixtures = {
   properties: {
     searchQuery: 'shoes',
     currency: 'EUR',
-    products: [{ id: 10000 }, { id: 20000 }],
+    products: [{ id: '10000' }, { id: '20000' }],
   },
   event: pageTypes.SEARCH,
 };

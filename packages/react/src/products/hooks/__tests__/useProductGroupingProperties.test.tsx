@@ -7,6 +7,7 @@ import {
 import { renderHook } from '@testing-library/react';
 import { withStore } from '../../../../tests/helpers';
 import useProductGroupingProperties from '../useProductGroupingProperties';
+import type { BlackoutError } from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
@@ -25,7 +26,7 @@ describe('useProductGroupingProperties', () => {
     );
 
     expect(result.current).toStrictEqual({
-      error: null,
+      error: undefined,
       isFetched: true,
       isLoading: false,
       data: mockProductGroupingPropertiesAdapted,
@@ -36,12 +37,18 @@ describe('useProductGroupingProperties', () => {
   });
 
   it('should return error state', () => {
+    const mockError = new Error('Error - Not loaded.') as BlackoutError;
+
     const errorMockProductsState = {
       entities: {},
       products: {
+        ...mockProductsState.products,
         groupingProperties: {
+          results: {},
           error: {
-            [mockProductId]: { '!all': 'Error - Not loaded.' },
+            [mockProductId]: {
+              '!all': mockError,
+            },
           },
           isLoading: {
             [mockProductId]: { '!all': false },
@@ -58,7 +65,7 @@ describe('useProductGroupingProperties', () => {
     );
 
     expect(result.current).toStrictEqual({
-      error: 'Error - Not loaded.',
+      error: mockError,
       isFetched: true,
       isLoading: false,
       data: undefined,
@@ -72,7 +79,9 @@ describe('useProductGroupingProperties', () => {
     const loadingMockProductsState = {
       entities: {},
       products: {
+        ...mockProductsState.products,
         groupingProperties: {
+          results: {},
           error: {},
           isLoading: {
             [mockProductId]: { '!all': true },
@@ -104,7 +113,9 @@ describe('useProductGroupingProperties', () => {
       const initialMockProductsState = {
         entities: {},
         products: {
+          ...mockProductsState.products,
           groupingProperties: {
+            ...mockProductsState.products.groupingProperties,
             error: {},
             isLoading: {},
           },
@@ -131,7 +142,9 @@ describe('useProductGroupingProperties', () => {
       const initialMockProductsState = {
         entities: {},
         products: {
+          ...mockProductsState.products,
           groupingProperties: {
+            ...mockProductsState.products.groupingProperties,
             error: {},
             isLoading: {},
             results: {},
@@ -156,7 +169,9 @@ describe('useProductGroupingProperties', () => {
       const initialMockProductsState = {
         entities: {},
         products: {
+          ...mockProductsState.products,
           groupingProperties: {
+            ...mockProductsState.products.groupingProperties,
             error: {},
             isLoading: {},
           },

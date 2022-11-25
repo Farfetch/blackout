@@ -15,7 +15,12 @@ describe('checkout client', () => {
     const expectedUrl = `/checkout/v1/orders/${orderId}/operations/${operationId}`;
     const expectedConfig = undefined;
     const getSpy = jest.spyOn(client, 'get');
-    const response: CheckoutOrderOperation = { id: operationId };
+    const response: CheckoutOrderOperation = {
+      id: operationId,
+      createdDate: '',
+      changes: [],
+      violations: [],
+    };
 
     it('should handle a client request successfully', async () => {
       mswServer.use(fixtures.success(response));

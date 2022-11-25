@@ -1,6 +1,7 @@
 import * as selectors from '../sizes';
 import {
   mockOutOfStockSizes,
+  mockProductEntity,
   mockProductId,
   mockProductSizesAdapted,
   mockProductsState,
@@ -63,6 +64,7 @@ describe('Sizes', () => {
         entities: {
           products: {
             [mockProductId]: {
+              ...mockProductEntity,
               sizes: mockOutOfStockSizes,
             },
           },

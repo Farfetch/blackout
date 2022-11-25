@@ -34,7 +34,9 @@
     "prepare": "husky install",
     "yalc:publish": "scripts/yalc-publish.sh",
     "yalc:push": "scripts/yalc-push.sh",
-    "ci:types": "lerna run --concurrency 4 --no-bail --parallel --scope \"@farfetch/*\" ci:types",
+    "ci:types": "yarn ci:types:runtime && yarn ci:types:tests",
+    "ci:types:runtime": "lerna run --concurrency 4 --no-bail --parallel --scope \"@farfetch/*\" ci:types",
+    "ci:types:tests": "tsc -p tsconfig.ci.tests.json",
     "ci:release": "scripts/release.sh"
   },
   "devDependencies": {

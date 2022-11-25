@@ -16,15 +16,15 @@ import merge from 'lodash/merge';
  * more info).
  */
 export default function createMergedObject(
-  target: Record<string, any>,
-  source: Record<string, any>,
+  target: Record<string, unknown> | null | undefined,
+  source: Record<string, unknown>,
 ) {
   if (!target) {
     return merge({}, source);
   }
 
   const properties = Object.keys(source);
-  const targetUpdatedProperties: Record<string, any> = {};
+  const targetUpdatedProperties: Record<string, unknown> = {};
 
   properties.forEach(prop => {
     const targetValue = target[prop];
@@ -32,8 +32,8 @@ export default function createMergedObject(
 
     if (isPlainObject(targetValue) && isPlainObject(sourceValue)) {
       targetUpdatedProperties[prop] = createMergedObject(
-        targetValue as Record<string, any>,
-        sourceValue,
+        targetValue as Record<string, unknown>,
+        sourceValue as Record<string, unknown>,
       );
     } else if (sourceValue !== undefined) {
       // Only override a prop if its value is not undefined

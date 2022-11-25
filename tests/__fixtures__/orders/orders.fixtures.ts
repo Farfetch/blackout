@@ -1,19 +1,26 @@
 import {
+  AddressType,
+  AttributeType,
   CreationChannel,
   CustomerType,
+  Gender,
   MerchantOrderReturnOptions,
   MerchantOrderStatus,
   Order,
+  OrderDocumentRequestAction,
   OrderDocumentType,
   OrderItemActivities,
   OrderItemActivityType,
   OrderItemStatus,
   Orders,
+  OrderStatus,
   ProductType,
   ReturnItemStatus,
   ReturnOption,
   ReturnOptionType,
+  ReturnReferenceName,
   ReturnStatus,
+  ReturnStatusCode,
   TrackingEventType,
 } from '@farfetch/blackout-client';
 import type { OrderEntity } from '@farfetch/blackout-redux';
@@ -30,7 +37,7 @@ export const merchantOrderId = 100001339;
 export const merchantOrderId2 = 100001340;
 export const fileId = '98b1cb96-710e-437c-98b6-e904b91cf6f6';
 export const orderId = '3558DS';
-export const itemId = '3558DS';
+export const itemId = 3558;
 export const orderId2 = 'QUJ9AC';
 export const orderItemId = 10070161;
 export const orderItemId2 = 10070162;
@@ -274,17 +281,17 @@ export const mockOrderItem = {
   attributes: [
     {
       description: 'Scale',
-      type: 2,
+      type: AttributeType.Scale,
       value: '204',
     },
     {
       description: 'Size',
-      type: 0,
+      type: AttributeType.Size,
       value: '24',
     },
     {
       description: 'SizeDescription',
-      type: 1,
+      type: AttributeType.SizeDescription,
       value: '7.5',
     },
   ],
@@ -296,13 +303,13 @@ export const mockOrderItem = {
   },
   categories: [
     {
-      gender: 0,
+      gender: Gender.Woman,
       id: 136301,
       name: 'Shoes',
       parentId: 0,
     },
     {
-      gender: 0,
+      gender: Gender.Woman,
       id: 136308,
       name: 'Sandals',
       parentId: 136301,
@@ -433,17 +440,17 @@ export const mockOrderItem2 = {
   attributes: [
     {
       description: 'Scale',
-      type: 2,
+      type: AttributeType.Scale,
       value: '125',
     },
     {
       description: 'Size',
-      type: 0,
+      type: AttributeType.Size,
       value: '23',
     },
     {
       description: 'SizeDescription',
-      type: 1,
+      type: AttributeType.SizeDescription,
       value: '28',
     },
   ],
@@ -455,19 +462,19 @@ export const mockOrderItem2 = {
   },
   categories: [
     {
-      gender: 0,
+      gender: Gender.Woman,
       id: 135967,
       name: 'Clothing',
       parentId: 0,
     },
     {
-      gender: 0,
+      gender: Gender.Woman,
       id: 135981,
       name: 'Trousers',
       parentId: 135967,
     },
     {
-      gender: 0,
+      gender: Gender.Woman,
       id: 136273,
       name: 'Palazzo Pants',
       parentId: 135981,
@@ -564,7 +571,7 @@ export const mockOrderItem2 = {
     description: 'wide leg pant',
     shortDescription: 'wide leg pant',
   },
-  productType: 'Standard',
+  productType: 'Standard' as const,
   price: {
     discountExclTaxes: 0,
     discountInclTaxes: 0,
@@ -619,17 +626,17 @@ export const mockOrderItem3 = {
   attributes: [
     {
       description: 'Scale',
-      type: 2,
+      type: AttributeType.Scale,
       value: '14',
     },
     {
       description: 'Size',
-      type: 0,
+      type: AttributeType.Size,
       value: '17',
     },
     {
       description: 'SizeDescription',
-      type: 1,
+      type: AttributeType.SizeDescription,
       value: 'OS',
     },
   ],
@@ -641,25 +648,25 @@ export const mockOrderItem3 = {
   },
   categories: [
     {
-      gender: 1,
+      gender: Gender.Man,
       id: 135974,
       name: 'Lifestyle',
       parentId: 0,
     },
     {
-      gender: 0,
+      gender: Gender.Woman,
       id: 136383,
       name: 'Lifestyle',
       parentId: 0,
     },
     {
-      gender: 1,
+      gender: Gender.Man,
       id: 136380,
       name: 'Travel Accessories',
       parentId: 135974,
     },
     {
-      gender: 0,
+      gender: Gender.Woman,
       id: 136392,
       name: 'Luggage & Travel Accessories',
       parentId: 136383,
@@ -920,7 +927,7 @@ export const mockOrderDetailsResponse2 = {
     },
     zipCode: '4410-432',
     phone: '32131231231',
-    addressType: 'Any',
+    addressType: AddressType.Any,
     isCurrentShipping: false,
     isCurrentBilling: false,
     isCurrentPreferred: false,
@@ -955,7 +962,7 @@ export const mockOrderDetailsResponse2 = {
     },
     zipCode: '4410-432',
     phone: '32131231231',
-    addressType: 'Any',
+    addressType: AddressType.Any,
     isCurrentShipping: false,
     isCurrentBilling: false,
     isCurrentPreferred: false,
@@ -971,24 +978,24 @@ export const mockOrderDetailsResponse2 = {
       productId: 11831274,
       attributes: [
         {
-          type: 'Scale',
+          type: AttributeType.Scale,
           value: '16260',
           description: 'Scale',
         },
         {
-          type: 'Size',
+          type: AttributeType.Size,
           value: '20',
           description: 'Size',
         },
         {
-          type: 'SizeDescription',
+          type: AttributeType.SizeDescription,
           value: '48',
           description: 'SizeDescription',
         },
       ],
-      orderStatus: 'Cancelled',
-      orderItemStatus: 'None',
-      creationChannel: 'Catalog',
+      orderStatus: MerchantOrderStatus.Cancelled,
+      orderItemStatus: OrderItemStatus.None,
+      creationChannel: CreationChannel.Catalog,
       shippingService: {
         description: 'DHL Ground',
         id: 44,
@@ -1596,25 +1603,27 @@ export const mockOrderDetailsResponse2 = {
           measurements: [],
           globalId: '00000000-0000-0000-0000-000000000000',
         },
+        productSize: '26',
+        tag: 'string',
       },
       categories: [
         {
           id: 136330,
           name: 'Clothing',
           parentId: 0,
-          gender: 'Man',
+          gender: Gender.Man,
         },
         {
           id: 136335,
           name: 'Jackets',
           parentId: 136330,
-          gender: 'Man',
+          gender: Gender.Man,
         },
         {
           id: 136402,
           name: 'Blazers',
           parentId: 136335,
-          gender: 'Man',
+          gender: Gender.Man,
         },
       ],
       productSummary: {
@@ -1639,7 +1648,7 @@ export const mockOrderDetailsResponse2 = {
         },
       ],
       productSlug: 'logo-crown-blazer-11831274',
-      productType: 'Standard',
+      productType: 'Standard' as const,
       price: {
         priceExclTaxes: 0.81,
         priceInclTaxes: 1.0,
@@ -1670,7 +1679,7 @@ export const mockOrderDetailsResponse2 = {
   totalDomesticTaxes: 0.0,
   grandTotal: 3.0,
   credit: 0.0,
-  customerType: 'Normal',
+  customerType: CustomerType.Normal,
   subTotalAmountExclTaxes: 1.0,
   formattedCredit: '0 €',
   formattedGrandTotal: '3 €',
@@ -1756,12 +1765,12 @@ export const mockOrderDocumentsResponse = [
 ];
 
 export const mockOrderDocumentPayload = {
-  action: 'SendToCustomer',
-  documentTypes: ['ComercialInvoice'],
+  action: OrderDocumentRequestAction.SendToCustomer,
+  documentTypes: [OrderDocumentType.ComercialInvoice],
 };
 
 export const mockOrderItemActivityPayload = {
-  type: 'ConfirmDelivery',
+  type: OrderItemActivityType.ConfirmDelivery,
 };
 
 export const expectedOrdersResponseNormalizedPayload = {
@@ -1804,7 +1813,7 @@ export const expectedOrdersResponseNormalizedPayload = {
             merchantOrderCode: 'PZ1129361393',
             returnAvailable: false,
             returnId: 26678892,
-            status: 'Reviewing order',
+            status: OrderStatus.ReviewingOrder,
             tags: [],
             totalQuantity: 1,
             userId: userId,
@@ -2027,55 +2036,55 @@ export const getExpectedOrderDetailsNormalizedPayload = (
       },
       categories: {
         135967: {
-          gender: 0,
+          gender: Gender.Woman,
           id: 135967,
           name: 'Clothing',
           parentId: 0,
         },
         135974: {
-          gender: 1,
+          gender: Gender.Man,
           id: 135974,
           name: 'Lifestyle',
           parentId: 0,
         },
         135981: {
-          gender: 0,
+          gender: Gender.Woman,
           id: 135981,
           name: 'Trousers',
           parentId: 135967,
         },
         136273: {
-          gender: 0,
+          gender: Gender.Woman,
           id: 136273,
           name: 'Palazzo Pants',
           parentId: 135981,
         },
         136301: {
-          gender: 0,
+          gender: Gender.Woman,
           id: 136301,
           name: 'Shoes',
           parentId: 0,
         },
         136308: {
-          gender: 0,
+          gender: Gender.Woman,
           id: 136308,
           name: 'Sandals',
           parentId: 136301,
         },
         136380: {
-          gender: 1,
+          gender: Gender.Man,
           id: 136380,
           name: 'Travel Accessories',
           parentId: 135974,
         },
         136383: {
-          gender: 0,
+          gender: Gender.Woman,
           id: 136383,
           name: 'Lifestyle',
           parentId: 0,
         },
         136392: {
-          gender: 0,
+          gender: Gender.Woman,
           id: 136392,
           name: 'Luggage & Travel Accessories',
           parentId: 136383,
@@ -2175,9 +2184,6 @@ export const getExpectedOrderDetailsNormalizedPayload = (
             includingTaxesWithoutDiscount: 375,
             isFormatted: true,
             priceType: undefined,
-            promocode: {
-              rate: undefined,
-            },
             promotionType: undefined,
             taxes: {
               amount: 118.51,
@@ -2299,9 +2305,6 @@ export const getExpectedOrderDetailsNormalizedPayload = (
             includingTaxesWithoutDiscount: 690,
             isFormatted: true,
             priceType: undefined,
-            promocode: {
-              rate: undefined,
-            },
             promotionType: undefined,
             tags: ['DDP'],
             taxes: {
@@ -2407,9 +2410,6 @@ export const getExpectedOrderDetailsNormalizedPayload = (
             includingTaxesWithoutDiscount: 160,
             isFormatted: true,
             priceType: undefined,
-            promocode: {
-              rate: undefined,
-            },
             promotionType: undefined,
             tags: ['DDP'],
             taxes: {
@@ -2663,33 +2663,68 @@ export const expectedGuestOrdersNormalizedPayload = {
       },
     },
     categories: {
-      '135967': { gender: 0, id: 135967, name: 'Clothing', parentId: 0 },
-      '135974': { gender: 1, id: 135974, name: 'Lifestyle', parentId: 0 },
-      '135981': { gender: 0, id: 135981, name: 'Trousers', parentId: 135967 },
+      '135967': {
+        gender: Gender.Woman,
+        id: 135967,
+        name: 'Clothing',
+        parentId: 0,
+      },
+      '135974': {
+        gender: Gender.Man,
+        id: 135974,
+        name: 'Lifestyle',
+        parentId: 0,
+      },
+      '135981': {
+        gender: Gender.Woman,
+        id: 135981,
+        name: 'Trousers',
+        parentId: 135967,
+      },
       '136273': {
-        gender: 0,
+        gender: Gender.Woman,
         id: 136273,
         name: 'Palazzo Pants',
         parentId: 135981,
       },
-      '136301': { gender: 0, id: 136301, name: 'Shoes', parentId: 0 },
-      '136308': { gender: 0, id: 136308, name: 'Sandals', parentId: 136301 },
-      '136330': { id: 136330, name: 'Clothing', parentId: 0, gender: 'Man' },
+      '136301': {
+        gender: Gender.Woman,
+        id: 136301,
+        name: 'Shoes',
+        parentId: 0,
+      },
+      '136308': {
+        gender: Gender.Woman,
+        id: 136308,
+        name: 'Sandals',
+        parentId: 136301,
+      },
+      '136330': {
+        id: 136330,
+        name: 'Clothing',
+        parentId: 0,
+        gender: Gender.Man,
+      },
       '136335': {
         id: 136335,
         name: 'Jackets',
         parentId: 136330,
-        gender: 'Man',
+        gender: Gender.Man,
       },
       '136380': {
-        gender: 1,
+        gender: Gender.Man,
         id: 136380,
         name: 'Travel Accessories',
         parentId: 135974,
       },
-      '136383': { gender: 0, id: 136383, name: 'Lifestyle', parentId: 0 },
+      '136383': {
+        gender: Gender.Woman,
+        id: 136383,
+        name: 'Lifestyle',
+        parentId: 0,
+      },
       '136392': {
-        gender: 0,
+        gender: Gender.Woman,
         id: 136392,
         name: 'Luggage & Travel Accessories',
         parentId: 136383,
@@ -2698,7 +2733,7 @@ export const expectedGuestOrdersNormalizedPayload = {
         id: 136402,
         name: 'Blazers',
         parentId: 136335,
-        gender: 'Man',
+        gender: Gender.Man,
       },
     },
     merchants: {
@@ -2768,7 +2803,6 @@ export const expectedGuestOrdersNormalizedPayload = {
           includingTaxes: 375,
           includingTaxesWithoutDiscount: 375,
           priceType: undefined,
-          promocode: { rate: undefined },
           promotionType: undefined,
           tags: ['DDP'],
           taxes: { amount: 118.51, rate: 46.2071, type: 'DDP' },
@@ -2776,9 +2810,13 @@ export const expectedGuestOrdersNormalizedPayload = {
           isFormatted: true,
         },
         attributes: [
-          { description: 'Scale', type: 2, value: '204' },
-          { description: 'Size', type: 0, value: '24' },
-          { description: 'SizeDescription', type: 1, value: '7.5' },
+          { description: 'Scale', type: AttributeType.Scale, value: '204' },
+          { description: 'Size', type: AttributeType.Size, value: '24' },
+          {
+            description: 'SizeDescription',
+            type: AttributeType.SizeDescription,
+            value: '7.5',
+          },
         ],
         brand: 220482,
         categories: [136301, 136308],
@@ -2892,7 +2930,6 @@ export const expectedGuestOrdersNormalizedPayload = {
           includingTaxes: 690,
           includingTaxesWithoutDiscount: 690,
           priceType: undefined,
-          promocode: { rate: undefined },
           promotionType: undefined,
           tags: ['DDP'],
           taxes: { amount: 256.32, rate: 59.1032, type: 'DDP' },
@@ -2900,9 +2937,13 @@ export const expectedGuestOrdersNormalizedPayload = {
           isFormatted: true,
         },
         attributes: [
-          { description: 'Scale', type: 2, value: '125' },
-          { description: 'Size', type: 0, value: '23' },
-          { description: 'SizeDescription', type: 1, value: '28' },
+          { description: 'Scale', type: AttributeType.Scale, value: '125' },
+          { description: 'Size', type: AttributeType.Size, value: '23' },
+          {
+            description: 'SizeDescription',
+            type: AttributeType.SizeDescription,
+            value: '28',
+          },
         ],
         brand: 220482,
         categories: [135967, 135981, 136273],
@@ -2998,7 +3039,6 @@ export const expectedGuestOrdersNormalizedPayload = {
           includingTaxes: 160,
           includingTaxesWithoutDiscount: 160,
           priceType: undefined,
-          promocode: { rate: undefined },
           promotionType: undefined,
           tags: ['DDP'],
           taxes: { amount: 48.74, rate: 43.8107, type: 'DDP' },
@@ -3006,9 +3046,13 @@ export const expectedGuestOrdersNormalizedPayload = {
           isFormatted: true,
         },
         attributes: [
-          { description: 'Scale', type: 2, value: '14' },
-          { description: 'Size', type: 0, value: '17' },
-          { description: 'SizeDescription', type: 1, value: 'OS' },
+          { description: 'Scale', type: AttributeType.Scale, value: '14' },
+          { description: 'Size', type: AttributeType.Size, value: '17' },
+          {
+            description: 'SizeDescription',
+            type: AttributeType.SizeDescription,
+            value: 'OS',
+          },
         ],
         brand: 220482,
         categories: [135974, 136383, 136380, 136392],
@@ -3322,7 +3366,6 @@ export const expectedGuestOrdersNormalizedPayload = {
           includingTaxes: 1,
           includingTaxesWithoutDiscount: 1,
           priceType: undefined,
-          promocode: { rate: undefined },
           promotionType: undefined,
           tags: ['DDP', 'VAT'],
           taxes: { amount: 0.19, rate: 23, type: 'VAT_DDP' },
@@ -3333,10 +3376,10 @@ export const expectedGuestOrdersNormalizedPayload = {
         merchantOrderId: 123095473,
         productId: 11831274,
         attributes: [
-          { type: 'Scale', value: '16260', description: 'Scale' },
-          { type: 'Size', value: '20', description: 'Size' },
+          { type: AttributeType.Scale, value: '16260', description: 'Scale' },
+          { type: AttributeType.Size, value: '20', description: 'Size' },
           {
-            type: 'SizeDescription',
+            type: AttributeType.SizeDescription,
             value: '48',
             description: 'SizeDescription',
           },
@@ -3521,7 +3564,7 @@ export const expectedGuestOrdersNormalizedPayload = {
           },
           zipCode: '4410-432',
           phone: '32131231231',
-          addressType: 'Any',
+          addressType: AddressType.Any,
           isCurrentShipping: false,
           isCurrentBilling: false,
           isCurrentPreferred: false,
@@ -3547,7 +3590,7 @@ export const expectedGuestOrdersNormalizedPayload = {
           },
           zipCode: '4410-432',
           phone: '32131231231',
-          addressType: 'Any',
+          addressType: AddressType.Any,
           isCurrentShipping: false,
           isCurrentBilling: false,
           isCurrentPreferred: false,
@@ -3632,6 +3675,7 @@ export const returnId2 = 25741580;
 
 export const returnEntity = {
   id: returnId,
+  availableDates: [],
   orderId,
   merchantId,
   userId: 34113438,
@@ -3647,14 +3691,18 @@ export const returnEntity = {
   invoiceUrl: '/account/v1/returns/25741579/Invoice',
   references: [
     {
-      name: 'ReturnNote',
+      name: ReturnReferenceName.ReturnNote,
       url: '/account/v1/returns/25741579/references/ReturnNote',
     },
   ],
+  returnStatus: {
+    code: ReturnStatusCode.Accepted,
+  },
 };
 
 export const returnEntity2 = {
   id: returnId2,
+  availableDates: [],
   orderId,
   merchantId: merchantId2,
   userId: 34113438,
@@ -3670,10 +3718,13 @@ export const returnEntity2 = {
   invoiceUrl: '/account/v1/returns/25741579/Invoice',
   references: [
     {
-      name: 'ReturnNote',
+      name: ReturnReferenceName.ReturnNote,
       url: '/account/v1/returns/25741579/references/ReturnNote',
     },
   ],
+  returnStatus: {
+    code: ReturnStatusCode.Accepted,
+  },
 };
 
 export const returnItemId = 32283248;
@@ -3685,6 +3736,9 @@ export const returnItemEntity = {
   reason: "Item doesn't fit",
   description: 'Fits too big',
   status: ReturnItemStatus.Created,
+  itemStatus: {
+    code: ReturnItemStatus.Created,
+  },
 };
 
 export const returnItemEntity2 = {
@@ -3693,6 +3747,9 @@ export const returnItemEntity2 = {
   reason: "Item doesn't fit",
   description: 'Fits too big',
   status: ReturnItemStatus.Created,
+  itemStatus: {
+    code: ReturnItemStatus.Created,
+  },
 };
 
 export const orderEntity: OrderEntity = {
@@ -3811,6 +3868,11 @@ export const orderItemEntity = {
     includingTaxes: 375,
     includingTaxesWithoutDiscount: 375,
     isFormatted: true,
+    taxes: {
+      type: 'DDP',
+      rate: 46.2071,
+      amount: 118.51,
+    },
   },
   merchant: merchantId,
   productAggregator: { images: mockOrderItemEntityImages },
@@ -3836,6 +3898,11 @@ export const orderItemEntity2 = {
     includingTaxes: 375,
     includingTaxesWithoutDiscount: 375,
     isFormatted: true,
+    taxes: {
+      amount: 0,
+      rate: 0,
+      type: 'DAP',
+    },
   },
   merchant: merchantId2,
   productAggregator: { images: mockOrderItemEntityImages },

@@ -234,7 +234,11 @@ describe('locale redux selectors', () => {
     it('should get a state by stateId', () => {
       expect(
         selectors.getState(mockState, (mockStates[0] as CityEntity).id),
-      ).toEqual(mockStatesEntities[mockStates[0].id]);
+      ).toEqual(
+        mockStatesEntities[
+          mockStates[0]!.id as keyof typeof mockStatesEntities
+        ],
+      );
     });
   });
 

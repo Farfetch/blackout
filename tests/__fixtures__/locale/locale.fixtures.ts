@@ -65,10 +65,6 @@ export const mockCountry = {
   sourceCountryCode: 'US',
 };
 
-export const mockCountryStateCitiesResponse = {
-  items: mockCities,
-};
-
 export const mockCountryPT = {
   code: 'PT',
   cultures: ['en-US'],
@@ -118,10 +114,6 @@ export const mockCitiesEntities = {
 export const mockStatesEntities = {
   3: { ...mockStates[0], cities: [mockCities[0]?.id] } as StateEntity,
   6: { ...mockStates[1], cities: [mockCities[1]?.id] } as StateEntity,
-};
-
-export const mockCountryStatesResponse = {
-  items: mockStates,
 };
 
 export const mockModel = {

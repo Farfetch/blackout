@@ -7,6 +7,7 @@ import {
   PaymentInstrument,
   PaymentInstrumentStatus,
   PaymentIntentStatus,
+  PaymentMethod,
   PaymentToken,
   ShopperInteraction,
 } from '@farfetch/blackout-client';
@@ -78,6 +79,7 @@ export const mockCharge = {
     location: `http://localhost:9699/v1/intents/acb66f64-b2af-4ad5-8d32-d2323cc535f8/charges/${chargeId}`,
   },
   data: {
+    id: '00000000-0000-0000-0000-000000000000',
     status: ChargeStatus.Processing,
     returnUrl: 'string',
     redirectUrl: 'string',
@@ -105,7 +107,7 @@ export const mockCreditBalanceResponse = {
 };
 export const mockInstrumentData = {
   id: instrumentId,
-  method: 'CreditCard',
+  method: PaymentMethod.CreditCard,
   option: 'credit card',
   amounts: [
     {
@@ -129,8 +131,6 @@ export const mockInstrumentData = {
     cardExpiryMonth: 10,
     cardExpiryYear: 2020,
     creditUserId: '',
-    giftCardNumber: '1232211',
-    giftCardCsc: '111212',
     cardCvv: '037',
     cardNumber: '123',
   },
@@ -319,6 +319,7 @@ export const mockFetchPaymentMethodsResponse = {
   },
 };
 export const mockFetchPaymentIntentChargeResponse = {
+  id: '00000000-0000-0000-0000-000000000000',
   status: ChargeStatus.Processing,
   redirectUrl: 'string',
   returnUrl: 'string',

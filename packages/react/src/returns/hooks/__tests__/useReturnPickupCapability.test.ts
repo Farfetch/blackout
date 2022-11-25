@@ -41,6 +41,7 @@ const defaultReturn = {
 const mockInitialStateNoData = {
   ...mockState,
   returns: {
+    ...mockState.returns,
     returnPickupCapabilities: {
       error: {},
       isLoading: {},
@@ -59,6 +60,7 @@ const mockInitialStateWithData = {
 
 const mockErrorState = {
   returns: {
+    ...mockState.returns,
     returnPickupCapabilities: {
       error: {
         [returnPickupCapabilityId]: toBlackoutError(new Error('dummy error')),
@@ -75,6 +77,7 @@ const mockErrorState = {
 const mockLoadingState = {
   ...mockState,
   returns: {
+    ...mockState.returns,
     returnPickupCapabilities: {
       isLoading: { [returnPickupCapabilityId]: true },
       error: {},

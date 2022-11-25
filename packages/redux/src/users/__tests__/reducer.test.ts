@@ -1,5 +1,6 @@
 import * as actionTypes from '../actionTypes';
 import reducer, * as fromReducer from '../reducer';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { UsersState } from '../types';
 
 let initialState: UsersState;
@@ -80,7 +81,10 @@ describe('users redux reducer', () => {
     });
 
     it('should handle other actions by returning the initial state', () => {
-      const state = { ...initialState, error: 'foo' } as unknown as UsersState;
+      const state = {
+        ...initialState,
+        error: new Error('foo') as BlackoutError,
+      };
 
       expect(reducer(state, randomAction).error).toBe(state.error);
     });

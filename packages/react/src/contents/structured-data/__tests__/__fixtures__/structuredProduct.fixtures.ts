@@ -1,4 +1,4 @@
-import { StructuredProductData } from '../../../types';
+import type { StructuredProductData } from '../../../types';
 
 export const product: StructuredProductData = {
   brandName: 'Acme',

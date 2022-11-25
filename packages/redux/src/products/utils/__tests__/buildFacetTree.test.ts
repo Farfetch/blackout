@@ -1,9 +1,11 @@
 import { buildFacetTree } from '..';
-import { mockFacets } from 'tests/__fixtures__/products';
+import { mockFacetsNormalized } from 'tests/__fixtures__/products';
+
+const mockFacets = Object.values(mockFacetsNormalized);
 
 describe('buildFacetTree()', () => {
   it('should return undefined when a facet has no children', () => {
-    expect(buildFacetTree(mockFacets, mockFacets[2]?.id)).toBeUndefined();
+    expect(buildFacetTree(mockFacets, mockFacets[2]!.id)).toBeUndefined();
   });
 
   it('should find the children and have only one', () => {
@@ -14,15 +16,16 @@ describe('buildFacetTree()', () => {
       },
     ];
 
-    expect(buildFacetTree(mockFacets, mockFacets[0]?.id)).toEqual(
+    expect(buildFacetTree(mockFacets, mockFacets[0]!.id)).toEqual(
       expectedResult,
     );
   });
 
   it('should find the children and have two', () => {
     const mockFacetWithParent = {
+      ...mockFacets[1]!,
       id: 'categories_123',
-      parentId: mockFacets[1]?.id,
+      parentId: `${mockFacets[1]!.id}`,
     };
     const mockFacetsWithMultipleChildren = [...mockFacets, mockFacetWithParent];
     const expectedResult = [
@@ -38,7 +41,7 @@ describe('buildFacetTree()', () => {
     ];
 
     expect(
-      buildFacetTree(mockFacetsWithMultipleChildren, mockFacets[0]?.id),
+      buildFacetTree(mockFacetsWithMultipleChildren, mockFacets[0]!.id),
     ).toEqual(expectedResult);
   });
 });

@@ -129,10 +129,10 @@ const mockSizes: SizeAdapted[] = [
   },
 ];
 
+// @ts-expect-error This directive was added because to comply with the ProductEntity type, this mock would need an additional 39 properties which for this test does not make sense to add right now.
 const mockProductEntity: ProductEntity = {
   id: mockProductId,
   scaleId: mockSizeScaleId,
-
   associationsInformation: {
     hasColorGrouping: false,
     hasGrouping: false,
@@ -170,6 +170,8 @@ const mockProductEntity: ProductEntity = {
         54: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_54.jpg',
         600: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_600.jpg',
       },
+      size: 'dummy',
+      url: 'dummy',
     },
     {
       order: 2,
@@ -177,6 +179,8 @@ const mockProductEntity: ProductEntity = {
         54: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_54.jpg',
         600: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_600.jpg',
       },
+      size: 'dummy',
+      url: 'dummy',
     },
     {
       order: 3,
@@ -184,6 +188,8 @@ const mockProductEntity: ProductEntity = {
         54: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_54.jpg',
         600: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_600.jpg',
       },
+      size: 'dummy',
+      url: 'dummy',
     },
     {
       order: 4,
@@ -191,6 +197,8 @@ const mockProductEntity: ProductEntity = {
         54: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_54.jpg',
         600: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_600.jpg',
       },
+      size: 'dummy',
+      url: 'dummy',
     },
     {
       order: 5,
@@ -198,6 +206,8 @@ const mockProductEntity: ProductEntity = {
         54: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_54.jpg',
         600: 'https://cdn-images.farfetch-contents.com/converse-x-jw-anderson-chuck-70-hi-sneakers_13145097_17128969_600.jpg',
       },
+      size: 'dummy',
+      url: 'dummy',
     },
   ],
   measurements: [
@@ -234,7 +244,7 @@ const mockProductEntity: ProductEntity = {
       rate: 0,
       amount: 0,
     },
-    isFormatted: false,
+    isFormatted: true,
   },
   shortDescription: 'foo',
   sizes: [...mockSizes],
@@ -373,7 +383,12 @@ const mockProductEntity: ProductEntity = {
         },
         includingTaxes: 129.7446,
         includingTaxesWithoutDiscount: 129.7446,
-        isFormatted: false,
+        isFormatted: true,
+        taxes: {
+          type: 'VAT',
+          rate: 0,
+          amount: 0,
+        },
       },
       size: 'S',
       attributes: [],
@@ -445,13 +460,19 @@ const mockBagItem = (id: number = mockBagItemId) => ({
       },
       includingTaxes: 371.62,
       includingTaxesWithoutDiscount: 371.62,
-      isFormatted: false,
+      isFormatted: true,
+      taxes: {
+        type: 'VAT',
+        rate: 0,
+        amount: 0,
+      },
     },
     promotionDetail: {
       totalDiscountPercentage: null,
       totalDiscountValue: 0,
       formattedTotalDiscountValue: '0,00 €',
       isProductOffer: false,
+      promotionEvaluationItemId: null,
     },
     quantity: quantity,
     size: size,

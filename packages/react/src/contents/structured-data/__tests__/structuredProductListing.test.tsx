@@ -1,4 +1,5 @@
 import {
+  metadata,
   MockRenderScript,
   productListing,
   productListingResult,
@@ -9,7 +10,7 @@ describe('structuredProductListing', () => {
   it('should correctly generate JSON-LD for a list of products', () => {
     const renderStructuredProductList = structuredProductListing(
       productListing,
-      { metatags: [] },
+      { ...metadata, metatags: [] },
       '/en-pt/shopping/women',
     );
 

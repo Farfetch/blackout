@@ -4,8 +4,13 @@ import {
   resetWishlist,
   StoreState,
   updateWishlistItem,
+  WishlistNormalized,
 } from '@farfetch/blackout-redux';
 import { cleanup, renderHook } from '@testing-library/react';
+import {
+  mockUserInitialState,
+  mockUsersResponse,
+} from 'tests/__fixtures__/users';
 import {
   mockWishlistId,
   mockWishlistItemId,
@@ -13,15 +18,18 @@ import {
 } from 'tests/__fixtures__/wishlists';
 import { withStore } from '../../../../tests/helpers';
 import useWishlist from '../useWishlist';
+import type { BlackoutError } from '@farfetch/blackout-client';
 
 const mockUserState = {
   entities: {
     user: {
+      ...mockUsersResponse,
       id: 1234,
       wishlistId: mockWishlistId,
     },
   },
   users: {
+    ...mockUserInitialState,
     error: null,
     isLoading: false,
     result: 1234,
@@ -65,25 +73,26 @@ describe('useWishlist', () => {
         isEmpty: false,
         items: [
           {
-            ...stateMockData.entities?.wishlistItems?.[mockWishlistItemId],
+            ...stateMockData.entities!.wishlistItems![mockWishlistItemId],
             product: {
-              ...stateMockData.entities?.products?.[
-                stateMockData.entities?.wishlistItems?.[mockWishlistItemId]
-                  ?.product
+              ...stateMockData.entities!.products![
+                stateMockData.entities!.wishlistItems![mockWishlistItemId]!
+                  .product
               ],
               brand: stateMockData.entities?.brands?.[2450],
               categories: [stateMockData.entities?.categories?.[136301]],
             },
           },
           {
-            ...stateMockData.entities?.wishlistItems?.[102],
+            ...stateMockData.entities!.wishlistItems![102],
             product: {
-              ...stateMockData.entities?.products?.[1002],
-              brand: stateMockData.entities?.brands?.[2450],
-              categories: [stateMockData.entities?.categories?.[136301]],
+              ...stateMockData.entities!.products![1002],
+              brand: stateMockData.entities!.brands![2450],
+              categories: [stateMockData.entities!.categories![136301]],
             },
           },
         ],
+        userId: null,
         id: mockWishlistId,
       },
       actions: {
@@ -97,7 +106,7 @@ describe('useWishlist', () => {
   });
 
   it('should return error state', () => {
-    const mockError = { message: 'This is an error message' };
+    const mockError = new Error('This is an error message') as BlackoutError;
 
     const {
       result: {
@@ -107,7 +116,7 @@ describe('useWishlist', () => {
       wrapper: withStore({
         ...stateMockData,
         wishlist: {
-          ...stateMockData.wishlist,
+          ...stateMockData.wishlist!,
           error: mockError,
         },
       }),
@@ -128,14 +137,14 @@ describe('useWishlist', () => {
       wrapper: withStore({
         ...stateMockData,
         wishlist: {
-          ...stateMockData.wishlist,
+          ...stateMockData.wishlist!,
           result: {
-            ...stateMockData.wishlist.result,
+            ...(stateMockData.wishlist!.result as WishlistNormalized),
             count: 0,
             items: [],
           },
           items: {
-            ...stateMockData.wishlist.items,
+            ...stateMockData.wishlist!.items,
             ids: [],
           },
         },
@@ -155,7 +164,7 @@ describe('useWishlist', () => {
       wrapper: withStore({
         ...stateMockData,
         wishlist: {
-          ...stateMockData.wishlist,
+          ...stateMockData.wishlist!,
           isLoading: true,
         },
       }),
@@ -173,9 +182,9 @@ describe('useWishlist', () => {
       wrapper: withStore({
         ...stateMockData,
         wishlist: {
-          ...stateMockData.wishlist,
-          error: undefined,
-          result: {},
+          ...stateMockData.wishlist!,
+          error: null,
+          result: null,
         },
       }),
     });
@@ -221,14 +230,16 @@ describe('useWishlist', () => {
         wrapper: withStore(stateMockData),
       });
 
-      addItem({ productId: 123, quantity: 1, size: 17, from: 'PDP' });
+      addItem({ productId: 123, quantity: 1, size: 17 }, { from: 'PDP' });
 
-      expect(addWishlistItem).toHaveBeenCalledWith({
-        from: 'PDP',
-        productId: 123,
-        quantity: 1,
-        size: 17,
-      });
+      expect(addWishlistItem).toHaveBeenCalledWith(
+        {
+          productId: 123,
+          quantity: 1,
+          size: 17,
+        },
+        { from: 'PDP' },
+      );
     });
 
     it('should call `updateWishlistItem` action', () => {

@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import * as fromReducer from '../topCategories';
+import { INITIAL_STATE } from '../categories';
 import {
   mockCategories,
   mockTopCategories,
@@ -173,7 +174,7 @@ describe('top categories redux reducer', () => {
     it('should return the top `isLoading` property from a given state', () => {
       const topIsLoading = true;
       const state = {
-        ...initialState,
+        ...INITIAL_STATE,
         top: { ...initialState, isLoading: topIsLoading },
         isFetched: false,
       };
@@ -183,10 +184,10 @@ describe('top categories redux reducer', () => {
   });
 
   describe('getError() selector', () => {
-    it('should return the top `isLoading` property from a given state', () => {
+    it('should return the top `error` property from a given state', () => {
       const topError = toBlackoutError(new Error('foo'));
       const state = {
-        ...initialState,
+        ...INITIAL_STATE,
         top: { ...initialState, error: topError },
         isFetched: false,
       };
@@ -199,7 +200,7 @@ describe('top categories redux reducer', () => {
     it('should return the top `result` property from a given state', () => {
       const topResult = [1234, 5678];
       const state = {
-        ...initialState,
+        ...INITIAL_STATE,
         top: { ...initialState, result: topResult },
         isFetched: false,
       };

@@ -11,7 +11,7 @@ describe('generateBrandsHash', () => {
 
   it('should correctly construct the brands hash when does not receive query', () => {
     const expectedResult = 'brands';
-    const result = generateBrandsHash();
+    const result = generateBrandsHash({});
 
     expect(result).toBe(expectedResult);
   });

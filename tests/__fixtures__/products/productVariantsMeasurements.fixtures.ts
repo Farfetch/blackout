@@ -16,6 +16,9 @@ export const mockProductVariantsMeasurements = [
       },
     ],
     measurements: [],
+    description: '',
+    unit: '',
+    value: 0,
   },
 ];
 

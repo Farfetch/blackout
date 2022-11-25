@@ -1,4 +1,5 @@
 import {
+  User,
   UserAttributeType,
   UserGender,
   UserStatus,
@@ -10,11 +11,11 @@ export const contactId = '78910';
 export const personalId = '123456';
 export const attributeId = '123456';
 
-export const mockUsersResponse = {
+export const mockUsersResponse: User = {
   bagId: '3a52edfe-5b17-46b9-ba5d-ed87cb36aa67',
   dateOfBirth: '/Date(631152000000)/',
   email: 'teste@conta.com',
-  gender: 0,
+  gender: UserGender.NotDefined,
   id: 29538482,
   title: {
     id: '111',
@@ -26,8 +27,8 @@ export const mockUsersResponse = {
   username: 'teste@conta.com',
   wishlistId: '8e091868-b74b-47e1-ab27-a2c247c92242',
   isExternalLogin: false,
-  genders: ['NotDefined', 'Male', 'Female'],
-  genderId: 0,
+  countryCode: '0',
+  isGuest: false,
 };
 
 export const expectedNormalizedUserPayload = {
@@ -36,9 +37,7 @@ export const expectedNormalizedUserPayload = {
       bagId: '3a52edfe-5b17-46b9-ba5d-ed87cb36aa67',
       dateOfBirth: '/Date(631152000000)/',
       email: 'teste@conta.com',
-      gender: 0,
-      genderId: 0,
-      genders: ['NotDefined', 'Male', 'Female'],
+      gender: UserGender.NotDefined,
       id: 29538482,
       isExternalLogin: false,
       name: 'Ivo Mota',
@@ -50,6 +49,8 @@ export const expectedNormalizedUserPayload = {
         id: '111',
         value: 'Dr.',
       },
+      countryCode: '0',
+      isGuest: false,
     },
   },
   result: 29538482,
@@ -211,7 +212,7 @@ export const mockGuestUserEntities = {
     firstName: undefined,
     bag: null,
     wishlist: null,
-    membership: null,
+    membership: undefined,
     countryCode: 'PT',
   } as UserEntity,
 };
@@ -237,7 +238,7 @@ export const mockAuthenticatedUserEntities = {
     firstName: 'User',
     bag: null,
     wishlist: null,
-    membership: null,
+    membership: undefined,
     loyalty: null,
     createdDate: '/Date(1601300185332)/',
     updatedDate: '/Date(1655722263553)/',

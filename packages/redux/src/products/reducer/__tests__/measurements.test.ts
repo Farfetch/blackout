@@ -133,9 +133,10 @@ describe('measurements redux reducer', () => {
       };
       const state = {
         products: {
+          // @ts-expect-error Missing all other product entity properties that are not relevant for this test
           [mockProductId]: {
             measurements: [],
-          } as unknown as ProductEntity,
+          } as ProductEntity,
         },
         ...defaultState,
       } as NonNullable<StoreState['entities']>;

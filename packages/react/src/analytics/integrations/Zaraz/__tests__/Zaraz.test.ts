@@ -342,7 +342,7 @@ describe('options', () => {
           ) => [
             'ecommerce',
             ZARAZ_ECOMMERCE_EVENTS.CART_VIEWED,
-            data.properties as unknown as ZarazEventData<'ecommerce'>[2],
+            data.properties as ZarazEventData<'ecommerce'>[2],
           ],
         },
       });

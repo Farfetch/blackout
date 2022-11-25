@@ -6,7 +6,7 @@ import {
   expectedGetAddressesNormalizedPayload,
   mockGetAddressesResponse,
 } from 'tests/__fixtures__/users/addresses.fixtures';
-import { applyMiddleware, combineReducers, createStore } from 'redux';
+import { applyMiddleware, combineReducers, createStore, Reducer } from 'redux';
 import { cleanup, renderHook } from '@testing-library/react';
 import {
   createDefaultEntitiesReducer,
@@ -16,6 +16,7 @@ import {
   setUserDefaultBillingAddress,
   setUserDefaultContactAddress,
   setUserDefaultShippingAddress,
+  StoreState,
   updateUserAddress,
   usersReducer,
 } from '@farfetch/blackout-redux';
@@ -138,7 +139,9 @@ const defaultReturn = {
 };
 
 const reducer = combineReducers({
-  entities: createDefaultEntitiesReducer([]),
+  entities: createDefaultEntitiesReducer([]) as Reducer<
+    NonNullable<StoreState['entities']>
+  >,
   users: usersReducer,
 });
 

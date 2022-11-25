@@ -1,9 +1,16 @@
 import React from 'react';
 import useReturn from '../useReturn';
+import type { PostReturnData, Return } from '@farfetch/blackout-client';
 
-const booleanToText = (boolean: boolean) => (boolean ? 'yes' : 'no');
+const booleanToText = (boolean: boolean | null) => (boolean ? 'yes' : 'no');
 
-const ReturnTest = ({ returnId, createReturnData }) => {
+const ReturnTest = ({
+  returnId,
+  createReturnData,
+}: {
+  returnId?: Return['id'];
+  createReturnData?: PostReturnData;
+}) => {
   const {
     actions: { create },
     isReturnFetched,
@@ -27,7 +34,7 @@ const ReturnTest = ({ returnId, createReturnData }) => {
       <span data-test="return-fetched">{booleanToText(isReturnFetched)}</span>
       <button
         data-test="return-createButton"
-        onClick={() => create(createReturnData)}
+        onClick={() => create(createReturnData!)}
       >
         Create Return Button
       </button>

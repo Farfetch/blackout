@@ -2,6 +2,7 @@ import { cleanup, renderHook } from '@testing-library/react';
 import {
   fetchTopCategories,
   resetCategoriesState,
+  StoreState,
 } from '@farfetch/blackout-redux';
 import {
   mockCategoriesInitialState,
@@ -21,7 +22,10 @@ jest.mock('@farfetch/blackout-redux', () => ({
   fetchTopCategories: jest.fn(() => () => Promise.resolve()),
 }));
 
-const getRenderedHook = (state = mockCategoriesInitialState, config = {}) => {
+const getRenderedHook = (
+  state: StoreState = mockCategoriesInitialState,
+  config = {},
+) => {
   const {
     result: { current },
   } = renderHook(() => useTopCategories(config), {

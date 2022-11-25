@@ -46,7 +46,7 @@ const updateCheckoutOrderFactory =
       if (result.checkoutOrder) {
         const { productImgQueryParam } = getOptions(getState);
         (
-          result.checkoutOrder as unknown as { productImgQueryParam?: string }
+          result.checkoutOrder as { productImgQueryParam?: string }
         ).productImgQueryParam = productImgQueryParam;
       }
 
@@ -54,9 +54,8 @@ const updateCheckoutOrderFactory =
 
       // Cleanup productImgQueryParam
       if (result.checkoutOrder) {
-        delete (
-          result.checkoutOrder as unknown as { productImgQueryParam?: string }
-        ).productImgQueryParam;
+        delete (result.checkoutOrder as { productImgQueryParam?: string })
+          .productImgQueryParam;
 
         delete normalizedResult.entities.checkoutOrders?.[checkoutOrderId]
           .productImgQueryParam;

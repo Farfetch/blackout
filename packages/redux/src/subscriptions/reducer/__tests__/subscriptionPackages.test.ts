@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import reducer, { INITIAL_STATE } from '../subscriptionPackages';
+import type { BlackoutError } from '@farfetch/blackout-client';
 import type { SubscriptionsState } from '../../types';
 
 const hash = 'id=Newsletter';
@@ -38,10 +39,16 @@ describe('subscriptionPackages reducer', () => {
     it('should handle other actions by returning the previous state', () => {
       const state: SubscriptionsState['packages'] = {
         ...INITIAL_STATE,
-        error: { message: 'foo', name: 'error', code: -1 },
+        Newsletter: {
+          isLoading: false,
+          error: new Error('foo') as BlackoutError,
+          result: null,
+        },
       };
 
-      expect(reducer(state, randomAction).error).toBe(state.error);
+      expect(reducer(state, randomAction)['Newsletter']!.error).toBe(
+        state['Newsletter']!.error,
+      );
     });
   });
 

@@ -10,7 +10,6 @@ import { mockStore } from '../../../../tests';
 import Analytics, { eventTypes, utils } from '@farfetch/blackout-analytics';
 import merge from 'lodash/merge';
 import type { BagItemEntity, ProductEntity } from '../../../entities/types';
-import type { PriceAdapted } from '../../../helpers/adapters';
 import type { StoreState } from '../../../types';
 
 // Mock logger so it does not output to the console
@@ -43,7 +42,7 @@ const { price, quantity } = bagItem;
 const {
   includingTaxes: priceWithDiscount,
   includingTaxesWithoutDiscount: priceWithoutDiscount,
-} = price as NonNullable<PriceAdapted>;
+} = price!;
 
 const affiliation = 'random';
 const brandName = getBrand(

@@ -38,7 +38,9 @@ describe('details redux reducer', () => {
       const anotherProductId = mockProductId + 1;
 
       const state = {
-        error: { [anotherProductId]: new Error('dummy error') },
+        error: {
+          [anotherProductId]: toBlackoutError(new Error('dummy error')),
+        },
         isLoading: { [anotherProductId]: false },
         isHydrated: { [anotherProductId]: true },
       };

@@ -9,7 +9,7 @@ import type {
   OrderItemStatus,
   OrderItemStatusLegacy,
   Price,
-  ProductCategory,
+  ProductCategoryWithGenderDescription,
   ProductImageGroup,
   ProductType,
 } from '../..';
@@ -37,7 +37,7 @@ export type OrderItem = {
   productSlug: string;
   orderStatus: MerchantOrderStatus;
   orderItemStatus: OrderItemStatus;
-  categories: ProductCategory[];
+  categories: ProductCategoryWithGenderDescription[];
   colors: Color[];
   tags: string[];
   isExclusive?: boolean;

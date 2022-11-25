@@ -1,4 +1,6 @@
 import * as usersClient from '..';
+import { User, UserStatus } from '..';
+import { UserGender } from '../../../types';
 import { userId } from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/putUser.fixtures';
@@ -15,11 +17,11 @@ describe('putUser', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const response = {
+    const response: User = {
       bagId: '3a52edfe-5b17-46b9-ba5d-ed87cb36aa67',
       dateOfBirth: '1990-01-01T00:00:00.000Z',
       email: 'teste@conta.com',
-      gender: 0,
+      gender: UserGender.NotDefined,
       id: 29538482,
       title: {
         id: '111',
@@ -36,7 +38,7 @@ describe('putUser', () => {
       createdDate: '2022-06-09T21:12:24.116Z',
       updatedDate: '2022-06-09T21:12:24.116Z',
       isGuest: false,
-      status: 'Active',
+      status: UserStatus.Active,
       countryCode: 'PT',
       receiveNewsletters: false,
     };

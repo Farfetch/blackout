@@ -28,7 +28,9 @@ describe('<Component />', () => {
 
       registerComponent('MockComponent', MockComponent);
 
-      render(<Component component={props} />);
+      render(
+        <Component component={props} location={{}} viewportBreakpoint="" />,
+      );
 
       expect(consoleOutput).toEqual([]);
     });
@@ -38,7 +40,9 @@ describe('<Component />', () => {
         type: 'test',
         value: 'Foo',
       };
-      const { container } = render(<Component component={props} />);
+      const { container } = render(
+        <Component component={props} location={{}} viewportBreakpoint="" />,
+      );
 
       expect(container.firstChild).toBeNull();
       expect(consoleOutput).toEqual([

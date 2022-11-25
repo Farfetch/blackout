@@ -49,9 +49,6 @@ Object {
             "includingTaxesWithoutDiscount": 265596.9995,
             "isFormatted": true,
             "priceType": undefined,
-            "promocode": Object {
-              "rate": undefined,
-            },
             "promotionType": undefined,
             "tags": Array [
               "DDP",
@@ -164,9 +161,6 @@ Object {
             "includingTaxesWithoutDiscount": undefined,
             "isFormatted": true,
             "priceType": undefined,
-            "promocode": Object {
-              "rate": undefined,
-            },
             "promotionType": undefined,
             "tags": undefined,
             "taxes": Object {
@@ -243,9 +237,6 @@ Object {
                 "includingTaxesWithoutDiscount": 0,
                 "isFormatted": true,
                 "priceType": undefined,
-                "promocode": Object {
-                  "rate": undefined,
-                },
                 "promotionType": undefined,
                 "tags": Array [
                   "string",
@@ -354,9 +345,6 @@ Object {
             "includingTaxesWithoutDiscount": 265596.9995,
             "isFormatted": true,
             "priceType": undefined,
-            "promocode": Object {
-              "rate": undefined,
-            },
             "promotionType": undefined,
             "tags": Array [
               "DDP",
@@ -469,9 +457,6 @@ Object {
             "includingTaxesWithoutDiscount": undefined,
             "isFormatted": true,
             "priceType": undefined,
-            "promocode": Object {
-              "rate": undefined,
-            },
             "promotionType": undefined,
             "tags": undefined,
             "taxes": Object {
@@ -548,9 +533,6 @@ Object {
                 "includingTaxesWithoutDiscount": 0,
                 "isFormatted": true,
                 "priceType": undefined,
-                "promocode": Object {
-                  "rate": undefined,
-                },
                 "promotionType": undefined,
                 "tags": Array [
                   "string",

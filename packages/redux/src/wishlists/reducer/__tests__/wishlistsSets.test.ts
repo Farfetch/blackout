@@ -6,6 +6,7 @@ import {
   mockWishlistItemId,
   mockWishlistSetId,
   mockWishlistSets,
+  mockWishlistState,
 } from 'tests/__fixtures__/wishlists';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, {
@@ -432,29 +433,29 @@ describe('wishlistsSets reducer', () => {
 
   describe('entitiesMapper', () => {
     it('should map the REMOVE_WISHLIST_SET_SUCCESS action to a new state', () => {
+      const removedWishlistSetId = '1354986456-0000-0000-0000-000000000000';
+
       const state = {
         wishlistSets: {
-          '1354986456-0000-0000-0000-000000000000': {
-            id: '1354986456-0000-0000-0000-000000000000',
+          [removedWishlistSetId]: {
+            ...mockWishlistState.entities!.wishlistSets![mockWishlistSetId],
+            id: removedWishlistSetId,
           },
         },
         wishlistItems: {
-          [mockWishlistItemId]: { id: mockWishlistItemId },
+          [mockWishlistItemId]: {
+            ...mockWishlistState.entities!.wishlistItems![mockWishlistItemId],
+            id: mockWishlistItemId,
+          },
         },
-      } as unknown as NonNullable<StoreState['entities']>;
+      } as NonNullable<StoreState['entities']>;
 
       const expectedResult = {
-        wishlistSets: {
-          '1354986456-0000-0000-0000-000000000000': {
-            id: '1354986456-0000-0000-0000-000000000000',
-          },
-        },
-        wishlistItems: {
-          [mockWishlistItemId]: { id: mockWishlistItemId },
-        },
+        ...state,
+        wishlistSets: {},
       };
       const action = {
-        meta: { wishlistSetId: mockWishlistSetId },
+        meta: { wishlistSetId: removedWishlistSetId },
         type: actionTypes.REMOVE_WISHLIST_SET_SUCCESS,
       };
 

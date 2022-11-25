@@ -12,3 +12,10 @@ export type Category = {
 export type ProductCategory = Omit<Category, 'uuid' | 'gender'> & {
   gender: GenderCode;
 };
+
+export type ProductCategoryWithGenderDescription = Omit<
+  ProductCategory,
+  'gender'
+> & {
+  gender: Gender;
+};

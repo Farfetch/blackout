@@ -1,5 +1,6 @@
 import { Integration } from '../integrations';
 import { logger } from '../utils';
+import { mockUsersResponse } from 'tests/__fixtures__/users';
 import { PACKAGE_NAME } from '../utils/constants';
 import Analytics from '../';
 import eventTypes from '../types/eventTypes';
@@ -235,7 +236,7 @@ describe('analytics', () => {
     });
 
     it('should log an error when calling `analytics.setUser`', async () => {
-      await analytics.setUser(123456, {});
+      await analytics.setUser(123456, mockUsersResponse);
 
       expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
 
@@ -631,14 +632,13 @@ describe('analytics', () => {
       describe('User', () => {
         it("Should return user's data", async () => {
           const userId = 1;
-          const traits = { isGuest: false };
 
-          await analytics.setUser(userId, traits);
+          await analytics.setUser(userId, mockUsersResponse);
 
           const userData = (await analytics.user()) as UserData;
 
           expect(userData['id']).toEqual(userId);
-          expect(userData['traits']).toEqual(traits);
+          expect(userData['traits']).toEqual(mockUsersResponse);
         });
 
         it("Should return user's empty data structure if there's no data on storage", async () => {
@@ -668,22 +668,18 @@ describe('analytics', () => {
           expect(user.localId).not.toBeNull();
 
           const userId = 12345678;
-          const traits = {
-            name: 'Foo',
-            email: 'foo.bar@foo.bar',
-          };
 
-          await analytics.setUser(userId, traits);
+          await analytics.setUser(userId, mockUsersResponse);
 
           user = (await analytics.user()) as UserData;
 
           expect(user.id).toEqual(userId);
-          expect(user.traits).toEqual(traits);
+          expect(user.traits).toEqual(mockUsersResponse);
           expect(user.localId).not.toBeNull();
         });
 
         it('Should anonymize an user', async () => {
-          await analytics.setUser(12345678, { name: 'Dummy' });
+          await analytics.setUser(12345678, mockUsersResponse);
 
           const currentLocalId = ((await analytics.user()) as UserData).localId;
 
@@ -733,7 +729,7 @@ describe('analytics', () => {
         it('Should log an error message if setUser method throws', async () => {
           await setupAnalyticsWithFaultyStorage();
 
-          await analytics.setUser(12, { isGuest: false });
+          await analytics.setUser(12, mockUsersResponse);
 
           expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
           expect(loggerErrorSpy).toBeCalledWith(
@@ -776,12 +772,7 @@ describe('analytics', () => {
           );
 
           const userId = 12345678;
-          const traits = {
-            name: 'Foo',
-            email: 'foo.bar@foo.bar',
-          };
-
-          await analytics.setUser(userId, traits);
+          await analytics.setUser(userId, mockUsersResponse);
 
           expect(spyIntegration1).toBeCalled();
           expect(spyIntegration2).toBeCalled();

@@ -209,7 +209,13 @@ export const mockResponse = {
   hadUnavailableItems: false,
   items: [
     {
-      attributes: [{ type: 1, value: 'M', description: 'Size' }],
+      attributes: [
+        {
+          type: AttributeType.SizeDescription,
+          value: 'M',
+          description: 'Size',
+        },
+      ],
       brandId: 25354,
       brandName: 'Ralph Lauren',
       categories: [

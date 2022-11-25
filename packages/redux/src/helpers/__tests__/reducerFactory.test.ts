@@ -1,4 +1,5 @@
 import reducerFactory, { createReducerWithResult } from '../reducerFactory';
+import type { BlackoutError } from '@farfetch/blackout-client';
 
 describe('reducerFactory', () => {
   const actionType = 'ACTION_FACTORY';
@@ -16,7 +17,7 @@ describe('reducerFactory', () => {
   };
   const state = { foo: 'bar' };
 
-  let reducer;
+  let reducer: ReturnType<typeof reducerFactory>;
 
   beforeAll(() => {
     reducer = reducerFactory(actionType, initialState, actionTypes);
@@ -33,7 +34,9 @@ describe('reducerFactory', () => {
   });
 
   it('should handle a *_FAILURE action response successfully', () => {
-    const error = 'ACTION_FACTORY_FAILURE error response';
+    const error = new Error(
+      'ACTION_FACTORY_FAILURE error response',
+    ) as BlackoutError;
     const action = {
       type: actionTypes.ACTION_FACTORY_FAILURE,
       payload: { error },
@@ -98,7 +101,7 @@ describe('createReducerWithResult', () => {
   };
   const state = { foo: 'bar' };
 
-  let reducer;
+  let reducer: ReturnType<typeof createReducerWithResult>;
 
   beforeAll(() => {
     reducer = createReducerWithResult(actionType, initialState, actionTypes);
@@ -115,7 +118,9 @@ describe('createReducerWithResult', () => {
   });
 
   it('should handle a *_FAILURE action response successfully', () => {
-    const error = 'ACTION_FACTORY_FAILURE error response';
+    const error = new Error(
+      'ACTION_FACTORY_FAILURE error response',
+    ) as BlackoutError;
     const action = {
       type: actionTypes.ACTION_FACTORY_2_FAILURE,
       payload: { error },

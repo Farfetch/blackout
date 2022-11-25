@@ -17,7 +17,7 @@ describe('structuredBreadcrumbs', () => {
 
   it('should return no JSON-LD for a list of breadcrumbs', () => {
     const renderStructuredBreadcrumbs = structuredBreadcrumbs([
-      { text: 'foo', url: null, name: undefined },
+      { text: 'foo', url: '', name: '' },
     ]);
 
     expect(renderStructuredBreadcrumbs).toEqual(

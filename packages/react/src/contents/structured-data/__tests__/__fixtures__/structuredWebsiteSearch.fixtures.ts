@@ -1,5 +1,8 @@
+import { metadata } from './metadata.fixtures';
+
 export const websiteSearch = {
   metadata: {
+    ...metadata,
     metatags: [],
   },
   url: 'http://www.farfetch.com',

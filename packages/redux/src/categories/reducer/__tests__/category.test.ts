@@ -1,7 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import * as fromReducer from '../category';
+import { mockCategoryId } from 'tests/__fixtures__/categories';
+import type { BlackoutError } from '@farfetch/blackout-client';
+import type { CategoryState } from '../../types';
 
-let initialState;
+let initialState: CategoryState;
 const reducer = fromReducer.default;
 const randomAction = { type: 'this_is_a_random_action' };
 const id = 123;
@@ -40,7 +43,10 @@ describe('category redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, error: 'foo' };
+      const state = {
+        ...initialState,
+        error: { [mockCategoryId]: new Error('foo') as BlackoutError },
+      };
 
       expect(reducer(state, randomAction).error).toBe(state.error);
     });
@@ -90,7 +96,7 @@ describe('category redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { ...initialState, isLoading: 'foo' };
+      const state = { ...initialState, isLoading: { [mockCategoryId]: true } };
 
       expect(reducer(state, randomAction).isLoading).toEqual(state.isLoading);
     });
@@ -98,7 +104,7 @@ describe('category redux reducer', () => {
 
   describe('getError() selector', () => {
     it('should return the `error` property from a given state', () => {
-      const error = 'error';
+      const error = { [mockCategoryId]: new Error('error') as BlackoutError };
       const state = { ...initialState, error };
 
       expect(fromReducer.getError(state)).toBe(error);
@@ -107,7 +113,7 @@ describe('category redux reducer', () => {
 
   describe('getIsLoading() selector', () => {
     it('should return the `isLoading` property from a given state', () => {
-      const isLoading = true;
+      const isLoading = { [mockCategoryId]: true };
       const state = { ...initialState, isLoading };
 
       expect(fromReducer.getIsLoading(state)).toBe(isLoading);

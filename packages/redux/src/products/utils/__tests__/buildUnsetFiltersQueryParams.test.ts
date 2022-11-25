@@ -80,7 +80,7 @@ describe('buildUnsetFiltersQueryParams', () => {
   it('should correctly build the result if the respective facet in the query is an array', () => {
     const mockFacetKey = 'colors';
     const mockQuery = {
-      [mockFacetKey]: ['1', '2'],
+      [mockFacetKey]: ['1', '2'].join('|'),
     };
     const mockFilterParams = {
       [mockFacetKey]: 1,
@@ -97,10 +97,10 @@ describe('buildUnsetFiltersQueryParams', () => {
 
   it('should correctly build the result if the respective facet in the query is price', () => {
     const mockQuery = {
-      [PRICE_FACET_KEY]: ['1-2'],
+      [PRICE_FACET_KEY]: '1-2',
     };
     const mockFilterParams = {
-      [PRICE_FACET_KEY]: ['1-2'],
+      [PRICE_FACET_KEY]: '1-2',
     };
     const expectedResult = {
       pageindex: 1,
@@ -114,7 +114,7 @@ describe('buildUnsetFiltersQueryParams', () => {
   it('should return undefined if the last facet of a certain type is removed', () => {
     const mockFacetKey = 'colors';
     const mockQuery = {
-      [mockFacetKey]: ['1'],
+      [mockFacetKey]: '1',
     };
     const mockFilterParams = {
       [mockFacetKey]: 1,

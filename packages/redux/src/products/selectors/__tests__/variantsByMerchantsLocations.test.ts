@@ -26,7 +26,7 @@ describe('Merchants Locations', () => {
           products: {
             [mockProductId]: {
               ...mockProductsState.entities.products[mockProductId],
-              variants: null,
+              variants: undefined,
             },
           },
         },

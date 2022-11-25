@@ -19,7 +19,7 @@ const returnsMockStore = (state = {}) =>
 
 describe('createReturnPickupRescheduleRequest() action creator', () => {
   let store = returnsMockStore();
-  const id = '12345';
+  const id = 12345;
   const expectedConfig = undefined;
 
   beforeEach(() => {

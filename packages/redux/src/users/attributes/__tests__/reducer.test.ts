@@ -1,5 +1,9 @@
 import * as actionTypes from '../actionTypes';
-import { toBlackoutError, UserAttribute } from '@farfetch/blackout-client';
+import {
+  BlackoutError,
+  toBlackoutError,
+  UserAttribute,
+} from '@farfetch/blackout-client';
 import reducer, * as fromReducer from '../reducer';
 import type { UserAttributesState } from '../../types';
 
@@ -21,8 +25,10 @@ describe('attributes reducers', () => {
     it('should handle FETCH_USER_ATTRIBUTES_SUCCESS action type', () => {
       const newResult = [{ id: '111' }, { id: '222' }] as UserAttribute[];
       const previousState = {
-        result: [{ id: '333' }],
-      } as unknown as UserAttributesState;
+        error: null,
+        isLoading: false,
+        result: [{ id: '333' } as UserAttribute],
+      };
 
       const newState = reducer(previousState, {
         payload: newResult,
@@ -35,9 +41,11 @@ describe('attributes reducers', () => {
     it('should handle FETCH_USER_ATTRIBUTE_SUCCESS action type', () => {
       const newResult = { id: '111' } as UserAttribute;
 
-      let previousState = {
-        result: [{ id: '333' }],
-      } as unknown as UserAttributesState;
+      let previousState: UserAttributesState = {
+        result: [{ id: '333' } as UserAttribute],
+        isLoading: false,
+        error: null,
+      };
 
       const expectedResult = [{ id: '333' }, { id: '111' }] as UserAttribute[];
 
@@ -50,7 +58,9 @@ describe('attributes reducers', () => {
 
       previousState = {
         result: initialState.result,
-      } as unknown as UserAttributesState;
+        isLoading: false,
+        error: null,
+      };
 
       newState = reducer(previousState, {
         payload: newResult,
@@ -62,8 +72,10 @@ describe('attributes reducers', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
-        result: [{ id: '111' }],
-      } as unknown as UserAttributesState;
+        result: [{ id: '111' } as UserAttribute],
+        error: null,
+        isLoading: false,
+      };
 
       const randomActionWithResult = {
         type: 'random',
@@ -123,8 +135,8 @@ describe('attributes reducers', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...initialState,
-        error: 'foo',
-      } as unknown as UserAttributesState;
+        error: new Error('foo') as BlackoutError,
+      };
 
       const randomActionWithError = {
         type: 'random',
@@ -197,7 +209,7 @@ describe('attributes reducers', () => {
       const state = {
         ...initialState,
         isLoading: true,
-      } as unknown as UserAttributesState;
+      };
 
       const randomAction = {
         type: 'random_action',

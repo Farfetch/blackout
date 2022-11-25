@@ -38,7 +38,8 @@ export interface ComponentType {
   fields?: Record<string, unknown>;
   content?: string;
   customType?: string;
-  value?: string;
+  value?: string | number | boolean;
+  hex?: string;
   name?: string;
   displayOptions?: Record<string, string>;
 }

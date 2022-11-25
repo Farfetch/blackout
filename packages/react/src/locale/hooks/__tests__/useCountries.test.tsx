@@ -74,7 +74,7 @@ describe('useCountries', () => {
       wrapper: withStore({
         ...stateMockData,
         locale: {
-          ...stateMockData.locale,
+          ...stateMockData.locale!,
           countries: {
             error: mockError,
             isLoading: false,
@@ -96,7 +96,7 @@ describe('useCountries', () => {
       wrapper: withStore({
         ...stateMockData,
         locale: {
-          ...stateMockData.locale,
+          ...stateMockData.locale!,
           countries: {
             error: null,
             isLoading: true,

@@ -8,6 +8,7 @@ import {
   CreatePaymentInstrumentData,
   Payer,
   PayerAddressType,
+  PaymentMethod,
   ShopperInteraction,
 } from '../types';
 import { postPaymentIntentInstrument } from '..';
@@ -35,13 +36,13 @@ describe('postPaymentIntentInstrument', () => {
     cardNumber: '1111111111111111',
     cardExpiryMonth: 10,
     cardExpiryYear: 2020,
-    creditUserId: '',
+    creditUserId: '0',
     cardCvv: '123',
     giftCardNumber: '1232211',
     giftCardCsc: '111212',
   };
   const data = {
-    method: 'string',
+    method: PaymentMethod.CreditCard,
     option: 'string',
     token: 'string',
     createToken: true,

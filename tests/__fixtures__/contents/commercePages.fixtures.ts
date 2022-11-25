@@ -1,5 +1,10 @@
-import { CommercePagesType, GenderCode } from '@farfetch/blackout-client';
-import { generateContentHash } from '@farfetch/blackout-redux';
+import {
+  BlackoutError,
+  CommercePagesType,
+  ContentEntry,
+  GenderCode,
+} from '@farfetch/blackout-client';
+import { ContentsEntity, generateContentHash } from '@farfetch/blackout-redux';
 
 export const commercePagesQuery = {
   type: CommercePagesType.LISTING,
@@ -176,9 +181,9 @@ export const mergeStrategyResult = {
   entries: [
     {
       ...mockCommercePages.entries[0],
-      components: [].concat(
-        mockCommercePages.entries[0].components,
-        mockCommercePages.entries[1].components[0],
+      components: ([] as unknown[]).concat(
+        mockCommercePages.entries[0]?.components,
+        mockCommercePages.entries[1]?.components[0],
       ),
     },
   ],
@@ -191,7 +196,7 @@ export const mergeStrategyResultOneEntry = {
   entries: [
     {
       ...mockCommercePages.entries[0],
-      components: mockCommercePages.entries[0].components,
+      components: mockCommercePages.entries[0]?.components,
     },
   ],
 };
@@ -200,16 +205,28 @@ export const mockCommercePagesInitialState = {
   entities: {},
   contents: {
     searchResults: {},
+    contentTypes: {
+      isLoading: false,
+    },
+    metadata: {
+      error: {},
+      isLoading: {},
+      result: {},
+    },
   },
 };
 
 export const mockCommercePagesState = {
   entities: {
     contents: {
-      [commercePageContentPublicationId]: mockCommercePages.entries[0],
+      [commercePageContentPublicationId]: {
+        ...(mockCommercePages.entries[0] as ContentEntry),
+        publicationDate: 1606318282619,
+      } as ContentsEntity,
     },
   },
   contents: {
+    ...mockCommercePagesInitialState.contents,
     searchResults: {
       [commercePagesHash]: {
         error: null,
@@ -219,6 +236,7 @@ export const mockCommercePagesState = {
           totalPages: 1,
           totalItems: 1,
           entries: [commercePageContentPublicationId],
+          hash: commercePagesHash,
         },
       },
     },
@@ -228,6 +246,7 @@ export const mockCommercePagesState = {
 export const mockCommercePagesLoadingState = {
   entities: {},
   contents: {
+    ...mockCommercePagesInitialState.contents,
     searchResults: {
       [commercePagesHash]: {
         isLoading: true,
@@ -240,12 +259,11 @@ export const mockCommercePagesLoadingState = {
 export const mockCommercePagesErrorState = {
   entities: {},
   contents: {
+    ...mockCommercePagesInitialState.contents,
     searchResults: {
       [commercePagesHash]: {
         isLoading: false,
-        error: {
-          message: 'Error',
-        },
+        error: new Error('Error') as BlackoutError,
       },
     },
   },

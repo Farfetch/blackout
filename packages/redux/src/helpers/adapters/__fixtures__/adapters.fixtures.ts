@@ -1,4 +1,4 @@
-import type { ProductVariant } from '../../../products';
+import type { ProductVariant } from '@farfetch/blackout-client';
 
 export const basePrice = {
   discountExclTaxes: 104.17,
@@ -12,7 +12,6 @@ export const basePrice = {
   priceInclTaxes: 125,
   priceInclTaxesWithoutDiscount: 250,
   priceType: 0,
-  promocodeDiscountPercentage: 50,
   promotionType: 'FullPrice',
   tags: ['VAT'],
   taxesRate: 20,

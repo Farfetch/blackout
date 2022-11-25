@@ -161,9 +161,6 @@ const getMockProductResponseNormalized = (includeImageQueryParam = true) => ({
               includingTaxesWithoutDiscount: 100,
               isFormatted: true,
               priceType: undefined,
-              promocode: {
-                rate: undefined,
-              },
               promotionType: undefined,
               tags: ['VAT'],
               taxes: {
@@ -275,7 +272,6 @@ const getMockProductResponseNormalized = (includeImageQueryParam = true) => ({
             priority: 6,
           },
         ],
-        colorGrouping: undefined,
         groupedEntries: undefined,
         merchant: undefined,
         madeIn: 'Portugal',
@@ -373,9 +369,6 @@ export const mockProductsEntity = {
           includingTaxesWithoutDiscount: 100,
           isFormatted: true,
           priceType: undefined,
-          promocode: {
-            rate: 0,
-          },
           promotionType: undefined,
           tags: ['VAT'],
           taxes: {
@@ -510,6 +503,11 @@ export const mockProductsEntity = {
       },
       includingTaxes: 123,
       includingTaxesWithoutDiscount: 123,
+      taxes: {
+        amount: 18.7,
+        rate: 23,
+        type: 'VAT',
+      },
     },
     attributes: [],
     fittings: [],

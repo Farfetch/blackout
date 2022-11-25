@@ -46,13 +46,6 @@ const adaptPrice: AdaptPrice = priceToAdapt => {
       (priceToAdapt as Price).priceInclTaxesWithoutDiscount,
     // Type of price as an integer - { 0: FullPrice, 1: Sale, 2: PrivateSale }
     priceType: (priceToAdapt as ProductSummaryPrice).priceType,
-    promocode: {
-      // Only exists on the checkout order item
-      // @TODO: Verify if this is actually being done, because in the checkout order item entity
-      // only the price is being adapted, there's no reference to `promocodeDiscountPercentage`
-      // @ts-ignore
-      rate: priceToAdapt.promocodeDiscountPercentage,
-    },
     // Promotion type as a string ["FullPrice", "Sale", "PrivateSale"]. It comes
     // within the PLP's `prices`
     promotionType: (priceToAdapt as ProductSummaryTypedPrice).promotionType,

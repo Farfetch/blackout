@@ -1,6 +1,7 @@
 import * as fromEntities from '../../entities/selectors/entity';
 import * as fromOrders from '../reducer';
 import * as selectors from '../selectors';
+import { BlackoutError, toBlackoutError } from '@farfetch/blackout-client';
 import {
   courierEntity,
   courierId,
@@ -21,7 +22,6 @@ import {
   returnOptionId,
   trackingNumber,
 } from 'tests/__fixtures__/orders';
-import { toBlackoutError } from '@farfetch/blackout-client';
 import omit from 'lodash/omit';
 
 describe('orders redux selectors', () => {
@@ -1016,6 +1016,7 @@ describe('orders redux selectors', () => {
       const baseState = {
         entities: {},
         orders: {
+          ...mockState.orders,
           orderReturnOptions: {
             isLoading: {
               [orderId]: true,
@@ -1040,7 +1041,7 @@ describe('orders redux selectors', () => {
             ...baseState.orders,
             orderReturnOptions: {
               ...baseState.orders.orderReturnOptions,
-              error: { [orderId]: new Error('error') },
+              error: { [orderId]: new Error('error') as BlackoutError },
             },
           },
         };
@@ -1082,6 +1083,7 @@ describe('orders redux selectors', () => {
       const baseState = {
         entities: {},
         orders: {
+          ...mockState.orders,
           orderReturnOptions: {
             isLoading: {
               [orderId]: false,
@@ -1095,6 +1097,7 @@ describe('orders redux selectors', () => {
         const stateWithNoIsLoadingProp = {
           ...baseState,
           orders: {
+            ...baseState.orders,
             orderReturnOptions: {
               isLoading: {},
               error: {},
@@ -1126,7 +1129,7 @@ describe('orders redux selectors', () => {
             ...baseState.orders,
             orderReturnOptions: {
               ...baseState.orders.orderReturnOptions,
-              error: { [orderId]: new Error('error') },
+              error: { [orderId]: new Error('error') as BlackoutError },
             },
           },
         };
@@ -1170,6 +1173,7 @@ describe('orders redux selectors', () => {
       const baseState = {
         entities: {},
         orders: {
+          ...mockState.orders,
           orderReturns: {
             isLoading: {
               [orderId]: true,
@@ -1194,7 +1198,7 @@ describe('orders redux selectors', () => {
             ...baseState.orders,
             orderReturns: {
               ...baseState.orders.orderReturns,
-              error: { [orderId]: new Error('error') },
+              error: { [orderId]: new Error('error') as BlackoutError },
             },
           },
         };
@@ -1233,6 +1237,7 @@ describe('orders redux selectors', () => {
       const baseState = {
         entities: {},
         orders: {
+          ...mockState.orders,
           orderReturns: {
             isLoading: {
               [orderId]: false,
@@ -1246,6 +1251,7 @@ describe('orders redux selectors', () => {
         const stateWithNoIsLoadingProp = {
           ...baseState,
           orders: {
+            ...baseState.orders,
             orderReturns: {
               isLoading: {},
               error: {},
@@ -1274,7 +1280,7 @@ describe('orders redux selectors', () => {
             ...baseState.orders,
             orderReturns: {
               ...baseState.orders.orderReturns,
-              error: { [orderId]: new Error('error') },
+              error: { [orderId]: new Error('error') as BlackoutError },
             },
           },
         };

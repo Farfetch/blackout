@@ -1,12 +1,13 @@
 import { generateWishlistItemHash } from '../';
 import {
+  mockBrandId,
   mockMerchantId,
   mockProduct,
   mockProductId,
   mockProductSizesAdapted,
 } from 'tests/__fixtures__/products';
 
-const mockSize = mockProductSizesAdapted[0];
+const mockSize = mockProductSizesAdapted[0]!;
 const mockFromBuildWishlistItemUtil = {
   merchantId: mockMerchantId,
   productId: mockProductId,
@@ -17,7 +18,15 @@ const mockFromBuildWishlistItemUtil = {
 const mockFromWishlistItem = {
   id: '1234-5678-9012',
   merchant: mockMerchantId,
-  product: mockProduct,
+  product: {
+    ...mockProduct,
+    brand: {
+      id: mockBrandId,
+      name: '',
+      description: '',
+    },
+    categories: [],
+  },
   quantity: 1,
   size: mockSize,
 };

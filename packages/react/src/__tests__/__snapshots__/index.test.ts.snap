@@ -7,6 +7,10 @@ Object {
     "Listing": "Listing",
     "Set": "Set",
   },
+  "SortContentOption": Object {
+    "EventDate": "EventDate",
+    "PublishDate": "PublishDate",
+  },
   "analytics": AnalyticsWeb {
     "activeIntegrations": Map {},
     "consentInstance": null,

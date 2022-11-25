@@ -8,14 +8,33 @@ export const mockInitialState = {
       isLoading: {},
       result: null,
     },
+    searchResults: {},
+    contentTypes: {
+      isLoading: false,
+      error: undefined,
+    },
   },
   locale: {
     countryCode: 'GB',
+    sourceCountryCode: 'GB',
+    cities: { isLoading: false, error: null },
+    countries: { isLoading: false, error: null },
+    currencies: { isLoading: false, error: null },
+    states: { isLoading: false, error: null },
+    countriesAddressSchemas: { isLoading: false, error: null },
   },
   entities: {
     countries: {
       GB: {
         cultureCode: 'en-GB',
+        code: '',
+        name: '',
+        nativeName: '',
+        structures: [],
+        continentId: 10,
+        cultures: [],
+        defaultSubfolder: '',
+        defaultCulture: '',
       },
     },
   },
@@ -23,6 +42,7 @@ export const mockInitialState = {
 
 export const mockState = {
   contents: {
+    ...mockInitialState.contents,
     metadata: {
       error: {},
       isLoading: {
@@ -60,6 +80,7 @@ export const mockState = {
 
 export const mockStateEmptySocialMeta = {
   contents: {
+    ...mockInitialState.contents,
     metadata: {
       error: {},
       isLoading: {
@@ -79,6 +100,8 @@ export const mockStateEmptySocialMeta = {
               tagName: 'meta',
               contentType: 'content',
               content: 'en_US',
+              propertyType: '',
+              propertyDescription: '',
             },
           ],
           hrefLangs: [],
@@ -188,6 +211,8 @@ export const resultNoSocialMeta = {
           content: 'en_US',
           contentType: 'content',
           tagName: 'meta',
+          propertyDescription: '',
+          propertyType: '',
         },
       ],
       title: 'Test',

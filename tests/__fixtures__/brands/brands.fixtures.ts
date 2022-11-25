@@ -97,6 +97,7 @@ export const mockErrorState = {
     hash: mockHash,
     isLoading: {
       [mockHash]: false,
+      [mockBrandId]: false,
     },
     error: {
       [mockBrandId]: toBlackoutError(new Error('error')),

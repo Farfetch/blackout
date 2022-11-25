@@ -1,4 +1,5 @@
 import * as selectors from '../selectors';
+import { address1 } from 'tests/__fixtures__/addresses';
 import { mockBaseState } from '../../__fixtures__/state.fixtures';
 import merge from 'lodash/merge';
 import type { UserAddress } from '@farfetch/blackout-client';
@@ -163,8 +164,9 @@ describe('redux selectors', () => {
 
   describe('getUserDefaultAddressDetailsResult()', () => {
     const defaultUserAddress: UserAddress = {
+      ...address1,
       id: '11',
-    } as unknown as UserAddress;
+    };
 
     const mockStateWithResult = merge({}, mockBaseState, {
       users: {
