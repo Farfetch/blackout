@@ -43,8 +43,9 @@ const useWishlist = (options: UseWishlistOptions = {}) => {
   const fetch = useAction(fetchWishlist);
   const reset = useAction(resetWishlist);
   // Data with some logic
-  const count = wishlist.count;
-  const isEmpty = count === 0;
+  const count = wishlist?.count;
+  const isEmpty = count === 0 || count === undefined;
+
   useEffect(() => {
     if (!isLoading && !error && enableAutoFetch && userWishlistId) {
       fetch(userWishlistId, fetchConfig);
