@@ -13,7 +13,7 @@ if [[ ${SOURCE_BRANCH_NAME} = main || ${SOURCE_BRANCH_NAME} = next ]]; then
         CONVENTIONAL_PRERELEASE="--conventional-prerelease"
     fi
 
-    npx lerna version --conventional-commits --message --yes "${PUBLISH_COMMIT_MESSAGE}" ${PRE_ID} ${CONVENTIONAL_PRERELEASE} --loglevel=verbose
+    npx lerna version --conventional-commits --yes --message "${PUBLISH_COMMIT_MESSAGE}" ${PRE_ID} ${CONVENTIONAL_PRERELEASE} --loglevel=verbose
 
     yarn release:build
 
