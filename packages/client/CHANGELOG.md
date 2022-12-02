@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.221](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.220...@farfetch/blackout-client@2.0.0-next.221) (2022-12-02)
+
+
+### Features
+
+* **react:** add base components contents ([7a75bd4](https://github.com/Farfetch/blackout/commit/7a75bd428b7da18783ff4249aedeeef5ab55c96d))
+
+
+
+
+
 # [2.0.0-next.220](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.219...@farfetch/blackout-client@2.0.0-next.220) (2022-11-29)
 
 **Note:** Version bump only for package @farfetch/blackout-client
