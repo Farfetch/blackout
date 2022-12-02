@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.352](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.351...@farfetch/blackout-react@1.0.0-next.352) (2022-12-02)
+
+
+### Features
+
+* **react:** add base components contents ([7a75bd4](https://github.com/Farfetch/blackout/commit/7a75bd428b7da18783ff4249aedeeef5ab55c96d))
+
+
+
+
+
 # [1.0.0-next.351](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.350...@farfetch/blackout-react@1.0.0-next.351) (2022-11-29)
 
 **Note:** Version bump only for package @farfetch/blackout-react
