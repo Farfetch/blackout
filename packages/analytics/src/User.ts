@@ -92,7 +92,7 @@ class User {
    * @returns Promise that will resolve with the instance that was used when calling this method to allow
    * chaining.
    */
-  async anonymize(): Promise<User> {
+  anonymize(): User {
     // Reset the user with defaults
     this.dataStore.set({ id: null, traits: {} }, true);
 

@@ -19,12 +19,13 @@ import {
   updateUserAddress,
   usersReducer,
 } from '@farfetch/blackout-redux';
-import { flushPromises, withStore } from '../../../../tests/helpers';
 import {
   mockAuthenticatedUserEntities,
   mockUserInitialState,
 } from 'tests/__fixtures__/users';
 import { Provider } from 'react-redux';
+import { withStore } from '../../../../tests/helpers';
+import flushPromises from '../../../../../../tests/flushPromises';
 import merge from 'lodash/merge';
 import React from 'react';
 import thunk from 'redux-thunk';
