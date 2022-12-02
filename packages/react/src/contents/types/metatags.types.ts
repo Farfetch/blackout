@@ -74,7 +74,7 @@ export type ListingSeoMetadataParams = {
   pathname?: string;
   subPageType?: string;
   param: {
-    SetName?: string;
+    SetName?: string | null;
     TotalNumberItems?: number;
     BrandName?: string;
     CategoryName?: string;
@@ -88,7 +88,7 @@ export type GetListingSeoMetadataParams = (args: {
   location: { pathname: string; search: string };
   totalItems?: number;
   filterSegments?: FilterSegment[];
-  listingName?: string;
+  listingName?: string | null;
   lowestProductPrice?: number;
   countryName: string;
   countryCode: string;

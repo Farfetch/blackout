@@ -128,10 +128,7 @@ describe('useWishlist', () => {
   it('should return correctly if empty', () => {
     const {
       result: {
-        current: {
-          isFetched,
-          data: { isEmpty },
-        },
+        current: { isFetched, data },
       },
     } = renderHook(() => useWishlist(), {
       wrapper: withStore({
@@ -150,6 +147,8 @@ describe('useWishlist', () => {
         },
       }),
     });
+
+    const isEmpty = data?.isEmpty;
 
     expect(isEmpty).toBe(true);
     expect(isFetched).toBe(true);
