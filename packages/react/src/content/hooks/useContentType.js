@@ -33,8 +33,7 @@ export default (codes, contentTypeCode, params, pageSize) => {
   const query = {
     ...(codes && { codes }),
     contentTypeCode,
-    environmentCode:
-      params?.environmentcode || process.env.WEB_APP_CONTENT_ENV || '',
+    environmentCode: params?.environmentcode || 'live',
     'target.country': params?.countryCode,
     'target.language': params?.cultureCode,
     'target.benefits': params?.benefits,
