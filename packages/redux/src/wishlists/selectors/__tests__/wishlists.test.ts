@@ -1,4 +1,3 @@
-import * as fromEntities from '../../../entities/selectors/entity';
 import * as fromWishlist from '../../reducer/wishlists';
 import * as selectors from '..';
 import {
@@ -109,16 +108,9 @@ describe('wishlists redux selectors', () => {
     };
 
     it('should return all data regarding a wishlist item', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntityById');
-
       expect(
         selectors.getWishlistItem(mockWishlistState, mockWishlistItemId),
       ).toEqual(expectedResult);
-      expect(spy).toHaveBeenCalledWith(
-        mockWishlistState,
-        'wishlistItems',
-        mockWishlistItemId,
-      );
     });
 
     it('should return the wishlist item data with parent sets information', () => {

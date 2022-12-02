@@ -6,6 +6,7 @@ import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import orderBy from 'lodash/orderBy';
 import type {
+  CategoryEntity,
   ProductEntity,
   ProductEntityDenormalized,
 } from '../../entities/types';
@@ -44,7 +45,10 @@ export const getProductDenormalized = (
   const categories = getCategories(state);
   const brand = brands?.[product.brand];
   const productCategories =
-    categories && product.categories?.map(id => categories[id]);
+    categories &&
+    (product.categories
+      ?.map(id => categories[id])
+      .filter(Boolean) as CategoryEntity[]);
 
   return {
     ...product,

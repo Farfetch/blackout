@@ -8,7 +8,11 @@ import {
   getVariant,
 } from './helpers';
 import { getProductDenormalized } from '../../products';
-import Analytics, { eventTypes, utils } from '@farfetch/blackout-analytics';
+import Analytics, {
+  EventProperties,
+  eventTypes,
+  utils,
+} from '@farfetch/blackout-analytics';
 import get from 'lodash/get';
 import isNil from 'lodash/isNil';
 import type { AnyAction, Dispatch, Middleware } from 'redux';
@@ -297,7 +301,7 @@ export function analyticsBagMiddleware(
         analyticsInstance.track(eventTypes.PRODUCT_UPDATED, { ...data });
 
         if (data.oldSize && data.oldSize !== data.size) {
-          const removedProductData = { ...data };
+          const removedProductData: EventProperties = { ...data };
           removedProductData.size = data.oldSize;
           removedProductData.quantity = data.oldQuantity;
 

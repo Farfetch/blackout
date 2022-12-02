@@ -3,10 +3,10 @@ import type { DefaultMedia } from './base.types';
 
 export interface ComponentProps {
   component: ComponentType;
-  location: {
+  location?: {
     query?: Record<string, string>;
   };
-  viewportBreakpoint: string;
+  viewportBreakpoint?: string;
   media?: DefaultMedia;
   children?: React.ReactNode;
 }
