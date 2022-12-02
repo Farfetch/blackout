@@ -38,7 +38,7 @@ const productData = getProduct(
 const { name, shortDescription, sku } = productData;
 const sizes = bagMockData.mockSizes;
 const bagItem = getBagItem(bagMockData.mockState, bagMockData.mockBagItemId);
-const { price, quantity } = bagItem;
+const { price, quantity } = bagItem!;
 const {
   includingTaxes: priceWithDiscount,
   includingTaxesWithoutDiscount: priceWithoutDiscount,

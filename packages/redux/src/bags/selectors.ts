@@ -9,14 +9,14 @@ import {
   getItemsIds,
   getResult,
 } from './reducer';
-import { getEntities, getEntityById } from '../entities/selectors';
-import { getProductDenormalized } from '../products/selectors/product';
+import { getEntities } from '../entities/selectors';
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
-import type { BagItem, ProductType } from '@farfetch/blackout-client';
+import type { BagItem, Brand, ProductType } from '@farfetch/blackout-client';
 import type {
   BagItemEntity,
   BagItemHydrated,
+  CategoryEntity,
   ProductEntity,
   ProductEntityDenormalized,
 } from '../entities/types';
@@ -80,8 +80,53 @@ export const getBagError = (state: StoreState) =>
 export const getBagId = (state: StoreState) => getId(state.bag as BagsState);
 
 /**
- * Retrieves a specific bag item by its id, with all properties populated (ie, the
- * product).
+ * Denormalizes a bagItem
+ *
+ * @param bagItemId - The id of bagItem to denormalize
+ * @param bagItems - Bag item entities as obtained with getEntities(state, 'bagItems').
+ * @param products - Product entities as obtained with getEntities(state, 'products').
+ *
+ * @returns Bag item denormalized containing the product data if available.
+ */
+const denormalizeBagItem = (
+  bagItemId: BagItem['id'],
+  bagItems: Record<BagItemEntity['id'], BagItemEntity> | undefined,
+  products: Record<ProductEntity['id'], ProductEntity> | undefined,
+  brands: Record<Brand['id'], Brand> | undefined,
+  categories: Record<CategoryEntity['id'], CategoryEntity> | undefined,
+) => {
+  const bagItemEntity = bagItems?.[bagItemId];
+
+  if (!bagItemEntity) {
+    return undefined;
+  }
+
+  const product = products?.[bagItemEntity.product];
+  const productBrand = product?.brand;
+  const brand = productBrand ? brands?.[productBrand] : undefined;
+  const productCategories =
+    categories &&
+    (product?.categories
+      ?.map(id => categories[id])
+      .filter(Boolean) as CategoryEntity[]);
+
+  return {
+    ...bagItemEntity,
+    product: product
+      ? {
+          ...product,
+          brand,
+          categories: productCategories,
+        }
+      : undefined,
+  };
+};
+
+/**
+ * Retrieves a specific bag item denormalized by its id, with all properties populated (ie, the
+ * product). This selector will always return a different reference. If you need a stable
+ * reference, use getEntityById selector (note though that it will not contain the product
+ * properties).
  *
  * @example
  * ```
@@ -97,30 +142,26 @@ export const getBagId = (state: StoreState) => getId(state.bag as BagsState);
  *
  * @returns - Bag item entity for the given id.
  */
-// @TODO Remove cast from functions
-// Note: Apparently the type definition of the createSelector function
-//       is not defined correctly in reselect package as it is not inferring
-//       the additional parameter 'bagItemId' provided in each selector, so
-//       we need to type the returned selector ourselves instead of relying on
-//       the inferred type.
 export const getBagItem: (
   state: StoreState,
   bagItemId: BagItem['id'],
-) => BagItemHydrated = createSelector(
+) => BagItemHydrated | undefined = createSelector(
   [
-    (state: StoreState, bagItemId: BagItem['id']) =>
-      getEntityById(state, 'bagItems', bagItemId) as BagItemEntity,
-    (state: StoreState, bagItemId: BagItem['id']) => {
-      const bagItem = getEntityById(
-        state,
-        'bagItems',
-        bagItemId,
-      ) as BagItemEntity;
-
-      return getProductDenormalized(state, bagItem?.product);
-    },
+    (_, bagItemId) => bagItemId,
+    (state: StoreState) => getEntities(state, 'bagItems'),
+    (state: StoreState) => getEntities(state, 'products'),
+    (state: StoreState) => getEntities(state, 'brands'),
+    (state: StoreState) => getEntities(state, 'categories'),
   ],
-  (bagItem, product): BagItemHydrated => ({ ...bagItem, product }),
+  (bagItemId, bagItems, products, brands, categories) => {
+    return denormalizeBagItem(
+      bagItemId,
+      bagItems,
+      products,
+      brands,
+      categories,
+    );
+  },
 );
 
 /**
@@ -165,7 +206,7 @@ export const getBagItemsIds = (state: StoreState) =>
   getItemsIds(state.bag as BagsState);
 
 /**
- * Retrieves all bag items from the current user's bag.
+ * Retrieves all bag items denormalized from the current user's bag.
  *
  * @example
  * ```
@@ -182,27 +223,26 @@ export const getBagItemsIds = (state: StoreState) =>
  */
 export const getBagItems = createSelector(
   [
-    (state: StoreState) => state,
     getBagItemsIds,
     (state: StoreState) => getEntities(state, 'bagItems'),
+    (state: StoreState) => getEntities(state, 'products'),
+    (state: StoreState) => getEntities(state, 'brands'),
+    (state: StoreState) => getEntities(state, 'categories'),
   ],
-  (state, bagItemsIds, bagItems): BagItemHydrated[] =>
-    bagItemsIds?.reduce<BagItemHydrated[]>((acc, bagItemId) => {
-      const bagItem = bagItems?.[bagItemId];
-      const productId = bagItem?.product;
+  (bagItemsIds, bagItems, products, brands, categories): BagItemHydrated[] => {
+    const bagItemsDenormalized =
+      bagItemsIds?.map(bagItemId => {
+        return denormalizeBagItem(
+          bagItemId,
+          bagItems,
+          products,
+          brands,
+          categories,
+        );
+      }) || [];
 
-      if (productId && bagItem) {
-        return [
-          ...acc,
-          {
-            ...bagItem,
-            product: getProductDenormalized(state, productId),
-          },
-        ];
-      }
-
-      return acc;
-    }, []) || [],
+    return bagItemsDenormalized.filter(Boolean) as BagItemHydrated[];
+  },
 );
 
 /**
@@ -409,11 +449,9 @@ export const isBagFetched = (state: StoreState) =>
  * @returns - Available sizes for the given item.
  */
 export const getBagItemAvailableSizes = createSelector(
-  [
-    getBagItems,
-    (state: StoreState, itemId: BagItem['id']) => getBagItem(state, itemId),
-  ],
-  (bagItems, item) => {
+  [getBagItems, (state: StoreState, itemId: BagItem['id']) => itemId],
+  (bagItems, itemId) => {
+    const item = bagItems?.find(bagItem => bagItem.id === itemId);
     const sizes = item?.product?.sizes || [];
 
     return bagItems?.reduce((sizes, bagItem) => {

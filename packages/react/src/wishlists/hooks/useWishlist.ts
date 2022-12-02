@@ -15,7 +15,7 @@ import {
   resetWishlist,
   updateWishlistItem,
 } from '@farfetch/blackout-redux';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction';
 // Types
@@ -52,6 +52,19 @@ const useWishlist = (options: UseWishlistOptions = {}) => {
     }
   }, [enableAutoFetch, error, fetch, fetchConfig, isLoading, userWishlistId]);
 
+  const data = useMemo(() => {
+    if (!wishlist) {
+      return undefined;
+    }
+
+    return {
+      ...wishlist,
+      count,
+      isEmpty,
+      items,
+    };
+  }, [count, isEmpty, items, wishlist]);
+
   return {
     isLoading,
     error,
@@ -63,12 +76,7 @@ const useWishlist = (options: UseWishlistOptions = {}) => {
       updateItem,
       removeItem,
     },
-    data: {
-      ...wishlist,
-      count,
-      isEmpty,
-      items,
-    },
+    data,
   };
 };
 

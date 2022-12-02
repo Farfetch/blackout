@@ -23,7 +23,7 @@ describe('renderContent', () => {
 
   it('should render a component element with legacy data', () => {
     const { getByTestId } = render(
-      renderContent(mockLegacyData, location, 'lg'),
+      renderContent(mockLegacyData, { location, viewportBreakpoint: 'lg' }),
     );
     const element = getByTestId('textElement');
 

@@ -1,9 +1,9 @@
 import * as fromWishlistReducer from '../reducer/wishlists';
-import * as fromWishlistSetsReducer from '../reducer/wishlistsSets';
 import { buildWishlistItem, generateWishlistItemHash } from '../utils';
+import { CategoryEntity, getEntities } from '../../entities';
 import { createSelector } from 'reselect';
-import { getEntityById } from '../../entities/selectors';
-import { getProductDenormalized } from '../../products/selectors/product';
+import { getWishlistSetsIds } from './wishlistsSets';
+import type { Brand, WishlistItem } from '@farfetch/blackout-client';
 import type { BuildWishlistItemData } from '../utils/buildWishlistItem';
 import type {
   ProductEntity,
@@ -12,7 +12,6 @@ import type {
   WishlistSetEntity,
 } from '../../entities/types';
 import type { StoreState } from '../../types';
-import type { WishlistItem } from '@farfetch/blackout-client';
 import type { WishlistsState } from '../types';
 
 /**
@@ -53,24 +52,95 @@ export const getWishlistId = (state: StoreState) =>
 export const getWishlist = (state: StoreState) =>
   fromWishlistReducer.getResult(state.wishlist as WishlistsState);
 
-// NOTE: This is an auxiliary function just to have createSelector for the
-//       getWishlistItem selector infer the type correctly because
-//       the third argument is optional and createSelector uses the first function type
-//       to infer the type of the selector functions arguments. Maybe there is another
-//       cleaner way to do it, but for now this will do.
-const getWishlistItemSelectorAux: (
-  state: StoreState,
+/**
+ * Denormalizes a wishlist item.
+ *
+ * @param wishlistItemId - Wishlist item id.
+ * @param withParentSetsInfo - If the wishlist item info should include parent sets as well.
+ * @param wishlistItems - Wishlist item entities as obtained with getEntities(state, 'wishlistItems').
+ * @param products - Product entities as obtained with getEntities(state, 'products').
+ * @param wishlistSetsIds - Wishlist sets ids as obtained with getWishlistSetsIds selector.
+ * @param wishlistSets  - Wishlist set entities as obtained with getEntities(state, 'wishlistSets').
+ *
+ * @returns Wishlist item object containing product information and parent sets info if withParentSetsInfo is true.
+ */
+const denormalizeWishlistItem = (
   wishlistItemId: WishlistItem['id'],
-  withParentSetsInfo?: boolean,
-) => WishlistItemEntity | undefined = (
-  state: StoreState,
-  wishlistItemId: WishlistItem['id'],
-) => {
-  return getEntityById(state, 'wishlistItems', wishlistItemId);
+  withParentSetsInfo = false,
+  wishlistItems:
+    | Record<WishlistItemEntity['id'], WishlistItemEntity>
+    | undefined,
+  products: Record<ProductEntity['id'], ProductEntity> | undefined,
+  wishlistSetsIds: string[] | undefined,
+  wishlistSets: Record<WishlistSetEntity['id'], WishlistSetEntity> | undefined,
+  brands: Record<Brand['id'], Brand> | undefined,
+  categories: Record<CategoryEntity['id'], CategoryEntity> | undefined,
+): WishlistItemHydrated | undefined => {
+  const wishlistItemEntity = wishlistItems?.[wishlistItemId];
+
+  if (!wishlistItemEntity) {
+    return undefined;
+  }
+
+  const productEntity = products?.[wishlistItemEntity?.product];
+
+  let parentSetsInfo;
+
+  if (withParentSetsInfo) {
+    if (!wishlistSetsIds) {
+      return undefined;
+    }
+
+    // Gets parent sets info
+    parentSetsInfo = wishlistSetsIds.reduce((acc, setId) => {
+      const wishlistSet = wishlistSets?.[setId];
+
+      if (!wishlistSet) {
+        return acc;
+      }
+
+      const { id, name, wishlistSetItems } = wishlistSet;
+
+      for (const { wishlistItemId } of wishlistSetItems) {
+        if (wishlistItemEntity.id === wishlistItemId) {
+          acc.push({ id, name });
+        }
+      }
+
+      return acc;
+    }, [] as NonNullable<WishlistItemHydrated['parentSets']>);
+  }
+
+  const productBrand = productEntity?.brand;
+  const brand = productBrand ? brands?.[productBrand] : undefined;
+  const productCategories =
+    categories &&
+    (productEntity?.categories
+      ?.map(id => categories[id])
+      .filter(Boolean) as CategoryEntity[]);
+
+  const product = productEntity
+    ? {
+        ...productEntity,
+        brand,
+        categories: productCategories,
+      }
+    : undefined;
+
+  const wishlistItem: WishlistItemHydrated = {
+    ...wishlistItemEntity,
+    product,
+  };
+
+  if (withParentSetsInfo) {
+    wishlistItem.parentSets = parentSetsInfo;
+  }
+
+  return wishlistItem;
 };
 
 /**
- * Retrieves a specific wishlist item by its id, with all properties populated (ie,
+ * Retrieves a specific wishlist item denormalized by its id, with all properties populated (ie,
  * the product).
  *
  * @example
@@ -95,70 +165,35 @@ export const getWishlistItem: (
   withParentSetsInfo?: boolean,
 ) => WishlistItemHydrated | undefined = createSelector(
   [
-    getWishlistItemSelectorAux,
-    (state: StoreState, wishlistItemId: WishlistItem['id']) => {
-      const wishlistItem = getEntityById(
-        state,
-        'wishlistItems',
-        wishlistItemId,
-      ) as WishlistItemEntity;
-
-      return getProductDenormalized(state, wishlistItem?.product);
-    },
-    (
-      state: StoreState,
-      wishlistItemId: WishlistItem['id'],
-      withParentSetsInfo = false,
-    ): Record<'id' | 'name', string>[] | undefined => {
-      if (!withParentSetsInfo) {
-        return;
-      }
-
-      const wishlistItem = getEntityById(
-        state,
-        'wishlistItems',
-        wishlistItemId,
-      ) as WishlistItemEntity;
-      // Here I'm not using the wishlist sets selectors to avoid circular dependencies,
-      // since `./wishlistSets.js` already consumes selectors from this file
-      // (`getWishlistSet` uses `getWishlistItem` to populate the items of a set)
-      const wishlistSetsIds = fromWishlistSetsReducer.getIds(
-        (state.wishlist as WishlistsState).sets,
-      );
-
-      if (!wishlistSetsIds) {
-        return undefined;
-      }
-
-      // Gets parent sets info
-      return wishlistSetsIds.reduce((acc, setId) => {
-        const { id, name, wishlistSetItems } = getEntityById(
-          state,
-          'wishlistSets',
-          setId,
-        ) as WishlistSetEntity;
-
-        for (const { wishlistItemId } of wishlistSetItems) {
-          if (wishlistItem.id === wishlistItemId) {
-            acc.push({ id, name });
-          }
-        }
-
-        return acc;
-      }, [] as NonNullable<WishlistItemHydrated['parentSets']>);
-    },
+    (_, wishlistItemId) => wishlistItemId,
+    (_, __, withParentSetsInfo?: boolean) => withParentSetsInfo,
+    (state: StoreState) => getEntities(state, 'wishlistItems'),
+    (state: StoreState) => getEntities(state, 'products'),
+    getWishlistSetsIds,
+    (state: StoreState) => getEntities(state, 'wishlistSets'),
+    (state: StoreState) => getEntities(state, 'brands'),
+    (state: StoreState) => getEntities(state, 'categories'),
   ],
-  (wishlistItem, product, parentSetsInfo) => {
-    let newWishListItem = wishlistItem;
-
-    if (parentSetsInfo) {
-      newWishListItem = {
-        ...wishlistItem,
-        parentSets: parentSetsInfo,
-      } as WishlistItemHydrated;
-    }
-
-    return { ...newWishListItem, product } as WishlistItemHydrated | undefined;
+  (
+    wishlistItemId,
+    withParentSetsInfo,
+    wishlistItems,
+    products,
+    wishlistSetsIds,
+    wishlistSets,
+    brands,
+    categories,
+  ) => {
+    return denormalizeWishlistItem(
+      wishlistItemId,
+      withParentSetsInfo,
+      wishlistItems,
+      products,
+      wishlistSetsIds,
+      wishlistSets,
+      brands,
+      categories,
+    );
   },
 );
 
@@ -182,7 +217,7 @@ export const getWishlistItemsIds = (state: StoreState) =>
   fromWishlistReducer.getItemsIds(state.wishlist as WishlistsState);
 
 /**
- * Retrieves all wishlist items from the current user's wishlist.
+ * Retrieves all wishlist items denormalized from the current user's wishlist.
  *
  * @example
  * ```
@@ -203,15 +238,38 @@ export const getWishlistItemsIds = (state: StoreState) =>
 export const getWishlistItems = createSelector(
   [
     getWishlistItemsIds,
-    state => state,
-    (state, withParentSetsInfo = false) => withParentSetsInfo,
+    (_, withParentSetsInfo = false) => withParentSetsInfo,
+    (state: StoreState) => getEntities(state, 'wishlistItems'),
+    (state: StoreState) => getEntities(state, 'products'),
+    (state: StoreState) => getWishlistSetsIds(state),
+    (state: StoreState) => getEntities(state, 'wishlistSets'),
+    (state: StoreState) => getEntities(state, 'brands'),
+    (state: StoreState) => getEntities(state, 'categories'),
   ],
-  (wishlistItemsIds, state, withParentSetsInfo) =>
+  (
+    wishlistItemsIds,
+    withParentSetsInfo,
+    wishlistItems,
+    products,
+    wishlistSetsIds,
+    wishlistSets,
+    brands,
+    categories,
+  ) =>
     wishlistItemsIds?.map(wishlistItemId =>
-      getWishlistItem(state, wishlistItemId, withParentSetsInfo),
+      denormalizeWishlistItem(
+        wishlistItemId,
+        withParentSetsInfo,
+        wishlistItems,
+        products,
+        wishlistSetsIds,
+        wishlistSets,
+        brands,
+        categories,
+      ),
     ),
 ) as (
-  state: unknown,
+  state: StoreState,
   withParentSetsInfo?: boolean,
 ) => WishlistItemHydrated[] | undefined;
 
@@ -473,7 +531,7 @@ export const isProductInWishlist = (
   const wishlistItems = getWishlistItems(state) || [];
 
   return wishlistItems.some(
-    wishlistItem => wishlistItem.product.id === Number(productId),
+    wishlistItem => wishlistItem.product?.id === Number(productId),
   );
 };
 
@@ -499,6 +557,6 @@ export const getWishlistItemsByProductId = createSelector(
   ],
   (wishlistItems, productId) =>
     wishlistItems.filter(
-      wishlistItem => wishlistItem.product.id === Number(productId),
+      wishlistItem => wishlistItem.product?.id === Number(productId),
     ),
 );

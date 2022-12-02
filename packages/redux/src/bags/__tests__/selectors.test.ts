@@ -1,5 +1,4 @@
 import * as fromBag from '../reducer';
-import * as fromEntities from '../../entities/selectors/entity';
 import * as selectors from '../selectors';
 import {
   mockBagId,
@@ -94,12 +93,9 @@ describe('bags redux selectors', () => {
     };
 
     it('should return all data regarding a bag item', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntityById');
-
       expect(selectors.getBagItem(mockState, mockBagItemId)).toEqual(
         expectedResult,
       );
-      expect(spy).toHaveBeenCalledWith(mockState, 'bagItems', mockBagItemId);
     });
   });
 

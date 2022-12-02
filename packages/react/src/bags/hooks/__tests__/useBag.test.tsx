@@ -137,10 +137,7 @@ describe('useBag', () => {
   it('should render as empty', () => {
     const {
       result: {
-        current: {
-          isFetched,
-          data: { isEmpty },
-        },
+        current: { isFetched, data },
       },
     } = renderHook(() => useBag(), {
       wrapper: withStore({
@@ -159,6 +156,8 @@ describe('useBag', () => {
         },
       }),
     });
+
+    const isEmpty = data?.isEmpty;
 
     expect(isEmpty).toBe(true);
     expect(isFetched).toBe(true);

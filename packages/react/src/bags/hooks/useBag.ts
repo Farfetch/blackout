@@ -26,7 +26,7 @@ import {
   ProductError,
   SizeError,
 } from './errors';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction';
 import type { HandleAddOrUpdateItem, UseBagOptions } from './types';
@@ -480,6 +480,19 @@ const useBag = (options: UseBagOptions = {}) => {
     [handleFullUpdate, handleQuantityChange, handleSizeChange, items],
   );
 
+  const data = useMemo(() => {
+    if (!bag) {
+      return undefined;
+    }
+
+    return {
+      ...bag,
+      count,
+      isEmpty,
+      items,
+    };
+  }, [bag, count, isEmpty, items]);
+
   return {
     isLoading,
     error,
@@ -491,12 +504,7 @@ const useBag = (options: UseBagOptions = {}) => {
       updateItem,
       removeItem,
     },
-    data: {
-      ...bag,
-      count,
-      isEmpty,
-      items,
-    },
+    data,
   };
 };
 

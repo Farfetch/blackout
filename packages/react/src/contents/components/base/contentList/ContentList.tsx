@@ -42,7 +42,10 @@ const ContentList = ({
   return contentType && contentType.entries.length > 0 ? (
     <>
       {sortContentType(contentType.entries, orderOption.value).map(content => {
-        const component = renderContent(content, location, viewportBreakpoint);
+        const component = renderContent(content, {
+          location,
+          viewportBreakpoint,
+        });
 
         if (component.type === React.Fragment) {
           return component.props.children;
