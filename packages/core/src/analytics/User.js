@@ -85,9 +85,9 @@ class User extends Entity {
   /**
    * Deletes user data.
    *
-   * @returns {Promise<User>} Promise that will resolve with the instance that was used when calling this method to allow chaining.
+   * @returns {object} User instance to allow chaining of methods.
    */
-  async anonymize() {
+  anonymize() {
     // Reset the user with defaults
     super.set({ id: null, traits: {} }, true);
 
