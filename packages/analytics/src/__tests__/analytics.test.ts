@@ -3,6 +3,7 @@ import { logger } from '../utils';
 import { PACKAGE_NAME } from '../utils/constants';
 import Analytics from '../';
 import eventTypes from '../types/eventTypes';
+import flushPromises from '../../../../tests/flushPromises';
 import pageTypes from '../types/pageTypes';
 import TestStorage from 'test-storage';
 import trackTypes from '../types/trackTypes';
@@ -696,6 +697,37 @@ describe('analytics', () => {
             id: null,
             traits: {},
           });
+        });
+
+        it('Should wait for the new user after an anonymize before tracking an event', async () => {
+          await analytics
+            .addIntegration('myIntegration', MyIntegration, {})
+            .ready();
+
+          const integrationInstance = analytics.integration(
+            'myIntegration',
+          ) as MyIntegration<IntegrationOptions>;
+          const spyTrack = jest.spyOn(integrationInstance, 'track');
+
+          await analytics.setUser(12345678);
+
+          await analytics.track(eventTypes.ADDRESS_INFO_ADDED);
+
+          expect(spyTrack).toHaveBeenCalled();
+
+          spyTrack.mockClear();
+
+          await analytics.anonymize();
+
+          analytics.track(eventTypes.CHECKOUT_STARTED);
+
+          await flushPromises();
+
+          expect(spyTrack).not.toHaveBeenCalled();
+
+          await analytics.setUser(678789789);
+
+          expect(spyTrack).toHaveBeenCalled();
         });
 
         it('Should log an error message if setUser method throws', async () => {

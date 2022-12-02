@@ -343,6 +343,11 @@ class Analytics {
     try {
       await (this.userInstance && this.userInstance.set(userId, traits));
 
+      if (this.setUserPromiseResolve) {
+        this.setUserPromiseResolve();
+        this.setUserPromiseResolve = null;
+      }
+
       await this.handleOnUserChanged();
     } catch (error) {
       logger.error(`An error occurred when trying to set user data: ${error}`);
@@ -394,7 +399,7 @@ class Analytics {
    *
    * @returns The analytics instance that was used when calling this method to allow chaining.
    */
-  anonymize(): this {
+  async anonymize(): Promise<this> {
     if (!this.storage) {
       logger.error(
         'Tried to call `analytics.anonymize` before a storage was defined with `analytics.setStorage`. This will be a noop.',
@@ -406,7 +411,12 @@ class Analytics {
     try {
       this.userInstance && this.userInstance.anonymize();
 
-      this.handleOnUserChanged();
+      // Reset the user promise to force all tracks to wait for the next fetch of user data (guest user).
+      this.setUserPromise = new Promise(resolve => {
+        this.setUserPromiseResolve = resolve;
+      });
+
+      await this.handleOnUserChanged();
     } catch (e) {
       logger.error('`An error occurred in analytics.anonymize() call: `' + e);
     }
@@ -638,11 +648,6 @@ class Analytics {
    * methods and will call `onSetUser` on all integrations if it is ready.
    */
   private async handleOnUserChanged(): Promise<void> {
-    if (this.setUserPromiseResolve) {
-      this.setUserPromiseResolve();
-      this.setUserPromiseResolve = null;
-    }
-
     // If ready has not been called, do not try to call
     // integrations `onSetUser` method as its instances are
     // not yet created.
