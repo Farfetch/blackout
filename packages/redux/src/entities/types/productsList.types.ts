@@ -38,3 +38,11 @@ export type ProductsListEntity = Omit<
     filterSegments: FilterSegmentNormalized[];
     id?: ProductSet['id'];
   };
+
+export type FacetGroupDenormalized = Omit<FacetGroup, 'values'> & {
+  values: FacetEntity[];
+};
+
+export type HierarchicalFacet = FacetEntity & {
+  children: FacetEntity[] | undefined;
+};

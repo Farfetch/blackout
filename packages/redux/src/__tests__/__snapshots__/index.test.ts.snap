@@ -913,6 +913,7 @@ Object {
   "getProductsListActiveFilters": [Function],
   "getProductsListBreadcrumbs": [Function],
   "getProductsListError": [Function],
+  "getProductsListFacetGroups": [Function],
   "getProductsListFacetsByFacetGroupType": [Function],
   "getProductsListFacetsGroupsByType": [Function],
   "getProductsListHash": [Function],
