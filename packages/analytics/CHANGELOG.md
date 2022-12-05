@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.95](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.94...@farfetch/blackout-analytics@1.0.0-next.95) (2022-12-05)
+
+
+### Bug Fixes
+
+* **analytics:** reset analytics' setUser promise when user is anonymised ([6d0160b](https://github.com/Farfetch/blackout/commit/6d0160b2ce3641e5bb38f3f44f29f9100a34d224))
+
+
+
+
+
 # [1.0.0-next.94](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.93...@farfetch/blackout-analytics@1.0.0-next.94) (2022-12-02)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
