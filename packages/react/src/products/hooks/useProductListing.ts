@@ -3,6 +3,7 @@ import {
   fetchProductSet,
   generateProductsListHash,
   getProductsListError,
+  getProductsListFacetGroups,
   getProductsListPagination,
   getProductsListProducts,
   getProductsListResult,
@@ -63,6 +64,9 @@ const useProductListing = (
   const products = useSelector((state: StoreState) =>
     getProductsListProducts(state, productListingHash),
   );
+  const facetGroups = useSelector((state: StoreState) =>
+    getProductsListFacetGroups(state, productListingHash),
+  );
 
   const fetch = useCallback(
     () =>
@@ -105,6 +109,7 @@ const useProductListing = (
       ? {
           ...listing,
           pagination,
+          facetGroups,
           hash: productListingHash,
           items: products,
         }

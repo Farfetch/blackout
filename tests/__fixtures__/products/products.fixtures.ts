@@ -1,3 +1,4 @@
+import { FacetGroupFormat, FacetGroupKey } from '@farfetch/blackout-client';
 import {
   mockBrandId,
   mockMerchantId,
@@ -173,8 +174,8 @@ export const mockSet = {
           },
         ],
       ],
-      key: 'categories',
-      format: 'categories',
+      key: FacetGroupKey.Categories,
+      format: FacetGroupFormat.Hierarchical,
       _clearUrl: null,
       _isClearHidden: false,
       _isClosed: false,

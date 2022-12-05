@@ -32,7 +32,7 @@ const buildUnsetFiltersQueryParams = (
   query: GetProductListingQuery,
   filterParams: Record<
     keyof GetProductListingQuery,
-    number[] | number | string | string[]
+    (number | string)[] | number | string
   >,
 ): Record<string, Array<FacetEntity['id']>> => {
   const finalObject = {

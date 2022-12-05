@@ -20,8 +20,9 @@ import isEmpty from 'lodash/isEmpty';
 import sortBy from 'lodash/sortBy';
 import type {
   FacetEntity,
-  FacetEntityWithChildren,
+  FacetGroupDenormalized,
   FacetGroupsNormalized,
+  HierarchicalFacet,
   ProductEntity,
   ProductEntityDenormalized,
   ProductsListEntity,
@@ -539,7 +540,7 @@ export const getFacetsByIds = createSelector(
     (state: StoreState, facetIds: Array<FacetEntity['id']>) => facetIds,
   ],
   (state, facetIds: Array<FacetEntity['id']>) =>
-    facetIds.map(id => getFacet(state, id)),
+    facetIds?.map(id => getFacet(state, id)),
 ) as (
   state: StoreState,
   facetIds: Array<FacetEntity['id']>,
@@ -667,6 +668,8 @@ export const getHierarchicalFacetsWithChildren = createSelector(
       .map(id => {
         const facet = facets?.[id];
 
+        if (!facet) return null;
+
         // Prevent infinite loops if the parent id is the same as itself. This has
         // happened when we had wrong data from the API, namely a duplicate
         // "Black" color, which one of them had the following:
@@ -676,8 +679,8 @@ export const getHierarchicalFacetsWithChildren = createSelector(
         // }
         // This is impossible, having the parent id as itself, so we prevent the
         // infinite recursion of `buildFacetTree`.
-        if (!facet || facet.id === facet.parentId) {
-          return facet as FacetEntityWithChildren;
+        if (facet.id === facet.parentId) {
+          return facet;
         }
 
         return {
@@ -685,6 +688,26 @@ export const getHierarchicalFacetsWithChildren = createSelector(
           children: buildFacetTree(facetsByFacetGroupType, facet.id),
         };
       })
-      .filter(Boolean) as FacetEntityWithChildren[] | undefined;
+      .filter(Boolean) as HierarchicalFacet[];
   },
 );
+
+export const getProductsListFacetGroups = createSelector(
+  [getProductsListResult, getFacets],
+  (listing, allFacets) =>
+    listing?.facetGroups?.map(facetGroup => ({
+      ...facetGroup,
+      values: facetGroup.values[0]?.reduce((acc, facetGroupId) => {
+        const facetEntity = allFacets?.[facetGroupId];
+
+        if (facetEntity) {
+          acc.push(facetEntity);
+        }
+
+        return acc;
+      }, [] as FacetEntity[]),
+    })),
+) as (
+  state: StoreState,
+  hash?: string | number | null,
+) => FacetGroupDenormalized[] | undefined;
