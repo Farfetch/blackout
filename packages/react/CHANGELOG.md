@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.353](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.352...@farfetch/blackout-react@1.0.0-next.353) (2022-12-05)
+
+
+### Bug Fixes
+
+* **analytics:** reset analytics' setUser promise when user is anonymised ([6d0160b](https://github.com/Farfetch/blackout/commit/6d0160b2ce3641e5bb38f3f44f29f9100a34d224))
+
+
+
+
+
 # [1.0.0-next.352](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.351...@farfetch/blackout-react@1.0.0-next.352) (2022-12-02)
 
 
