@@ -1,11 +1,13 @@
 import * as fromReducer from '../../reducer/lists';
 import * as selectors from '../lists';
+import { FacetGroupFormat, FacetGroupKey } from '@farfetch/blackout-client';
 import { mockBrandResponse } from 'tests/__fixtures__/brands';
 import {
   mockBreadCrumbs,
   mockFacets,
   mockFacetsNormalized,
   mockGroupedEntries,
+  mockProductsListDenormalizedFacetGroups,
   mockProductsListHash,
   mockProductsListHashWithPageIndexParameter,
   mockProductsListNormalizedPayload,
@@ -759,8 +761,8 @@ describe('products list redux selectors', () => {
         {
           deep: 1,
           description: 'Categories',
-          format: 'hierarchical',
-          key: 'categories',
+          format: FacetGroupFormat.Hierarchical,
+          key: FacetGroupKey.Categories,
           type: 6,
           values: [[mockRepeatedFacetId]],
           dynamic: 0,
@@ -894,8 +896,8 @@ describe('products list redux selectors', () => {
                     deep: 1,
                     description: 'Categories',
                     dynamic: mockDynamic,
-                    format: 'hierarchical',
-                    key: 'categories',
+                    format: FacetGroupFormat.Hierarchical,
+                    key: FacetGroupKey.Categories,
                     type: 6,
                     values: [[mockFacet.id]],
                     _clearUrl: '',
@@ -962,6 +964,20 @@ describe('products list redux selectors', () => {
         state.entities.facets[mockFacetId],
         state.entities.facets[mockFacetId2],
       ]);
+    });
+  });
+
+  describe('getProductsListFacetGroups()', () => {
+    it('should return all the facet groups correctly', () => {
+      const expectedResult =
+        mockProductsListDenormalizedFacetGroups[mockProductsListHash];
+
+      expect(
+        selectors.getProductsListFacetGroups(
+          mockProductsState,
+          mockProductsListHash,
+        ),
+      ).toEqual(expectedResult);
     });
   });
 });

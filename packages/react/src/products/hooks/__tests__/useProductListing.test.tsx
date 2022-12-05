@@ -7,6 +7,7 @@ import {
 import { mockBrandResponse } from 'tests/__fixtures__/brands';
 import { mockCategory } from 'tests/__fixtures__/categories';
 import {
+  mockProductsListDenormalizedFacetGroups,
   mockProductsListHash,
   mockProductsListHashWithoutParameters,
   mockProductsListNormalizedPayload,
@@ -71,6 +72,10 @@ describe('useProductListing', () => {
       isLoading: false,
       data: {
         ...mockList,
+        facetGroups:
+          mockProductsListDenormalizedFacetGroups[
+            mockProductsListHashWithoutParameters
+          ],
         items: expectedProductsDenormalized,
         hash: mockProductsListHashWithoutParameters,
         pagination: {
@@ -212,6 +217,8 @@ describe('useProductListing', () => {
         isLoading: false,
         data: {
           ...mockList,
+          facetGroups:
+            mockProductsListDenormalizedFacetGroups[mockProductsListHash],
           hash: mockProductsListHash,
           items: expectedProductsDenormalized,
           pagination: {
