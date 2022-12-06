@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.96](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.95...@farfetch/blackout-analytics@1.0.0-next.96) (2022-12-06)
+
+
+### Features
+
+* **redux|react:** add pickup reschedule hooks ([b0087e8](https://github.com/Farfetch/blackout/commit/b0087e8753aec5a756bc5c26a4f23cd42d85059d))
+
+
+
+
+
 # [1.0.0-next.95](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.94...@farfetch/blackout-analytics@1.0.0-next.95) (2022-12-05)
 
 

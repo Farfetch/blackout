@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.344](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.343...@farfetch/blackout-redux@1.0.0-next.344) (2022-12-06)
+
+
+### Features
+
+* **react|redux:** improve order and returns hooks ([28b1aaf](https://github.com/Farfetch/blackout/commit/28b1aaf155ad1cdcb27fa4ea1fe4c869911acf9e))
+* **react:** add returns hooks ([cd7738e](https://github.com/Farfetch/blackout/commit/cd7738e3fd918887dab00b77005e125b38b0c7c5))
+* **redux|react:** add pickup reschedule hooks ([b0087e8](https://github.com/Farfetch/blackout/commit/b0087e8753aec5a756bc5c26a4f23cd42d85059d))
+
+
+### BREAKING CHANGES
+
+* **react:** The following modules were renamed:
+`getReturnPickupCapabilities` -> `getReturnPickupCapability` (client)
+`areReturnPickupCapabilitiesLoading` -> `isReturnPickupCapabilityLoading`
+`fetchReturnPickupCapabilities` -> `fetchReturnPickupCapability`
+`fetchReturnPickupCapabilitiesFactory` -> `fetchReturnPickupCapabilityFactory`
+`getReturnItemsEntity` -> `getReturnItemsEntities`
+`getReturnPickupCapabilitiesError` -> `getReturnPickupCapabilityError`
+`getReturnsEntity` -> `getReturnsEntities`
+
+The following modules were removed as they are not necessary anymore:
+`areReturnsLoading`
+`getReturnId`
+`getReturnItems`
+`getReturnItemsIds`
+`getReturnsError`
+`getTimeSlots` (use now `getReturnPickupCapability` to get all data
+instead of only getting the time slots)
+
+
+
+
+
 # [1.0.0-next.343](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.342...@farfetch/blackout-redux@1.0.0-next.343) (2022-12-05)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
