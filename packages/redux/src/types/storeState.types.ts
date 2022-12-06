@@ -29,6 +29,8 @@ import type {
   ReturnItemEntity,
   ReturnOptionEntity,
   ReturnPickupCapabilityEntity,
+  SharedWishlistEntity,
+  SharedWishlistItemEntity,
   StateEntity,
   StatementEntity,
   SubscriptionPackageEntity,
@@ -69,6 +71,7 @@ import type { PromotionEvaluationsState } from '../promotionEvaluations/types';
 import type { ReturnsState } from '../returns/types';
 import type { SearchState } from '../search/types';
 import type { SettingsState } from '../settings/types';
+import type { SharedWishlistState } from '../sharedWishlists/types';
 import type { SizeGuidesState } from '../sizeGuides/types';
 import type { SizeScalesState } from '../sizeScales/types';
 import type { StaffMembersState } from '../staffMembers/types';
@@ -137,6 +140,11 @@ export type StoreState = Partial<{
     returnOptions: Record<ReturnOptionEntity['id'], ReturnOptionEntity>;
     returnPickupCapabilities: Record<string, ReturnPickupCapabilityEntity>;
     sizeScales: Record<SizeScale['sizeScaleId'], SizeScale>;
+    sharedWishlists: Record<SharedWishlistEntity['id'], SharedWishlistEntity>;
+    sharedWishlistItems: Record<
+      SharedWishlistItemEntity['id'],
+      SharedWishlistItemEntity
+    >;
     statements: Record<StatementEntity['id'], StatementEntity>;
     states: Record<StateEntity['id'], StateEntity>;
     subscriptionPackages: Record<
@@ -164,6 +172,7 @@ export type StoreState = Partial<{
   products: ProductsState;
   promotionEvaluations: PromotionEvaluationsState;
   returns: ReturnsState;
+  sharedWishlist: SharedWishlistState;
   search: SearchState;
   settings: SettingsState;
   sizeGuides: SizeGuidesState;
