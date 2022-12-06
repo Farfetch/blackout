@@ -1,3 +1,4 @@
+import type { AdaptDate } from './types';
 /**
  * Checks if the given timestamp has the additional property for the timezone.
  * Example: '1580828400000-0600', where the timezone is after the '-' sign.
@@ -105,7 +106,7 @@ const getTimestampWithTimezone = (timestamp: string): string => {
  *
  * @returns The date timestamp (`null ` if the date to be adapted is invalid).
  */
-export const adaptDate = (str: string): number | null => {
+export const adaptDate: AdaptDate = str => {
   if (str && !str.includes('Date')) {
     return new Date(str).getTime();
   }
