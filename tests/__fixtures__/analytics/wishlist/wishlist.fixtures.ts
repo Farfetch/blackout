@@ -123,7 +123,7 @@ const productEntity: ProductEntity = {
 };
 
 const wishListItemEntity: WishlistItemEntity = {
-  dateCreated: '1562573174875',
+  dateCreated: 1562573174875,
   fulfillmentDate: null,
   createdByStaffMemberId: null,
   attributes: [],

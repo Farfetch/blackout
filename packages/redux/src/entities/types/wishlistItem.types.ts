@@ -1,11 +1,15 @@
-import type { AttributesAdapted, PriceAdapted } from '../../helpers/adapters';
+import type {
+  AttributesAdapted,
+  DateCreatedAdapted,
+  PriceAdapted,
+} from '../../helpers/adapters';
 import type { WishlistItem as OriginalWishlistItem } from '@farfetch/blackout-client';
 import type { ProductEntity, ProductEntityDenormalized } from './product.types';
 
 export type WishlistItemEntity = {
   attributes: OriginalWishlistItem['attributes'];
   createdByStaffMemberId: OriginalWishlistItem['createdByStaffMemberId'];
-  dateCreated: OriginalWishlistItem['dateCreated'];
+  dateCreated: DateCreatedAdapted;
   fulfillmentDate: OriginalWishlistItem['fulfillmentDate'];
   id: OriginalWishlistItem['id'];
   isAvailable: OriginalWishlistItem['isAvailable'];

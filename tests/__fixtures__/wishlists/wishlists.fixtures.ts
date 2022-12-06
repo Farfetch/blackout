@@ -124,6 +124,7 @@ export const mockWishlistState: StoreState = {
     wishlistItems: {
       [mockWishlistItemId]: {
         ...wishlistItemEntity,
+        dateCreated: 1612194217929,
         product: mockProductId,
         merchant: 123,
         size: {},
@@ -144,6 +145,7 @@ export const mockWishlistState: StoreState = {
       },
       102: {
         ...wishlistItemEntity,
+        dateCreated: 1612194217929,
         id: 102,
         product: 1002,
         quantity: 2,

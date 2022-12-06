@@ -628,6 +628,7 @@ describe('analyticsWishlistMiddleware', () => {
     const newWishlistItemEntity = {
       [newWishlistItemId]: {
         ...mockWishlistItem,
+        dateCreated: 1612194217929,
         id: newWishlistItemId,
         price: {
           includingTaxes: priceWithDiscount,

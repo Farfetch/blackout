@@ -36,6 +36,8 @@ export * from './returnItems.types';
 export * from './returnPickupCapability.types';
 export * from './returns.types';
 export * from './returnOptions.types';
+export * from './sharedWishlist.types';
+export * from './sharedWishlistItem.types';
 export * from './sizeScale.types';
 export * from './statement.types';
 export * from './states.types';
