@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.46.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.46.1...@farfetch/blackout-react@0.46.2) (2022-12-06)
+
+
+### Bug Fixes
+
+* change to 'live' ([cf2204d](https://github.com/Farfetch/blackout/commit/cf2204dffe49ae3e59a2f5edc2bc0ce87e77680a))
+
+
+
+
+
 ## [0.46.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.46.0...@farfetch/blackout-react@0.46.1) (2022-11-29)
 
 **Note:** Version bump only for package @farfetch/blackout-react

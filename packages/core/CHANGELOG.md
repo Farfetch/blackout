@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.74.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.74.1...@farfetch/blackout-core@1.74.2) (2022-12-06)
+
+
+### Bug Fixes
+
+* **core:** reset analytics' setUser promise when user is anonymized ([24d447d](https://github.com/Farfetch/blackout/commit/24d447d0714cdaef64567a2dc85e0690e428dbdd))
+
+
+
+
+
 ## [1.74.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.74.0...@farfetch/blackout-core@1.74.1) (2022-11-29)
 
 **Note:** Version bump only for package @farfetch/blackout-core
