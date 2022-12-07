@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.355](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.354...@farfetch/blackout-react@1.0.0-next.355) (2022-12-07)
+
+
+### Features
+
+* **react|redux:** add getProductDenormalized selector ([1ea953b](https://github.com/Farfetch/blackout/commit/1ea953b5bd6f180eba1b5d5f3bb552492649716c))
+
+
+
+
+
 # [1.0.0-next.354](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.353...@farfetch/blackout-react@1.0.0-next.354) (2022-12-06)
 
 
