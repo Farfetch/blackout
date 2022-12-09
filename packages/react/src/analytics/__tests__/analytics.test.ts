@@ -1,6 +1,6 @@
 import analytics from '../analytics';
 import AnalyticsCore, {
-  trackTypes as analyticsTrackTypes,
+  TrackTypes as analyticsTrackTypes,
   ConsentData,
   IntegrationOptions,
   integrations,

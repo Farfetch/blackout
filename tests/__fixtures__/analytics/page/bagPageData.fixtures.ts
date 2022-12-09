@@ -1,12 +1,12 @@
-import { fromParameterTypes, pageTypes } from '@farfetch/blackout-analytics';
+import { FromParameterTypes, PageTypes } from '@farfetch/blackout-analytics';
 import basePageData from './basePageData.fixtures';
 
 const fixtures = {
   ...basePageData,
-  event: pageTypes.BAG,
+  event: PageTypes.BAG,
   properties: {
     currency: 'USD',
-    from: fromParameterTypes.BAG,
+    from: FromParameterTypes.BAG,
     list: 'Bag',
     listId: 'e0030b3c-b970-4496-bc72-f9a38d6270b1',
     value: 13,

@@ -7,9 +7,9 @@ import {
   getProductLineItemsQuantity,
 } from './omnitracking-helper';
 import { getProductId, logger } from '../../utils';
-import eventTypes from '../../types/eventTypes';
-import interactionTypes from '../../types/interactionTypes';
-import pageTypes from '../../types/pageTypes';
+import EventTypes from '../../types/EventTypes';
+import InteractionTypes from '../../types/InteractionTypes';
+import PageTypes from '../../types/PageTypes';
 import type { EventData, TrackTypesValues } from '../..';
 import type {
   OmnitrackingPageEventsMapper,
@@ -382,24 +382,24 @@ export const pageEventsFilter: {
   >;
 } = {
   [pageViewEventTypes.ListingPageVisited]: [
-    pageTypes.PRODUCT_LISTING,
-    pageTypes.SEARCH,
+    PageTypes.PRODUCT_LISTING,
+    PageTypes.SEARCH,
     'ProductList',
     'listing',
     'search',
     'sets',
   ],
   [pageViewEventTypes.ProductPageVisited]: [
-    pageTypes.PRODUCT_DETAILS,
+    PageTypes.PRODUCT_DETAILS,
     'ProductDetail',
     'product',
   ],
   [pageViewEventTypes.CheckoutPageVisited]: [
-    pageTypes.CHECKOUT,
-    pageTypes.CHECKOUT_DELIVERY_METHOD,
-    pageTypes.CHECKOUT_PAYMENT,
-    pageTypes.CHECKOUT_REVIEW,
-    pageTypes.CHECKOUT_SHIPPING,
+    PageTypes.CHECKOUT,
+    PageTypes.CHECKOUT_DELIVERY_METHOD,
+    PageTypes.CHECKOUT_PAYMENT,
+    PageTypes.CHECKOUT_REVIEW,
+    PageTypes.CHECKOUT_SHIPPING,
     'Checkout',
     'confirm',
     'payment',
@@ -412,13 +412,13 @@ export const pageEventsFilter: {
  * specific parameter, if applicable.
  */
 export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
-  [eventTypes.ADDRESS_INFO_ADDED]: data => ({
+  [EventTypes.ADDRESS_INFO_ADDED]: data => ({
     tid: 2911,
     checkoutStep: data.properties?.step,
     deliveryInformationDetails: getDeliveryInformationDetails(data),
     interactionType: data.properties?.interactionType,
   }),
-  [eventTypes.PLACE_ORDER_STARTED]: data => {
+  [EventTypes.PLACE_ORDER_STARTED]: data => {
     return {
       tid: 188,
       ...getCheckoutEventGenericProperties(data),
@@ -426,40 +426,40 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
       shippingTotalValue: data.properties?.shipping,
     };
   },
-  [eventTypes.CHECKOUT_STARTED]: data => ({
+  [EventTypes.CHECKOUT_STARTED]: data => ({
     tid: 2918,
     basketValue: data.properties?.total,
     basketCurrency: data.properties?.currency,
     lineItems: getProductLineItems(data),
   }),
-  [eventTypes.CHECKOUT_STEP_EDITING]: data => ({
+  [EventTypes.CHECKOUT_STEP_EDITING]: data => ({
     tid: 2923,
     checkoutStep: data.properties?.step,
   }),
-  [eventTypes.PAYMENT_INFO_ADDED]: data => ({
+  [EventTypes.PAYMENT_INFO_ADDED]: data => ({
     ...getCommonCheckoutStepTrackingData(data),
     tid: 2912,
   }),
-  [eventTypes.SHIPPING_INFO_ADDED]: data => ({
+  [EventTypes.SHIPPING_INFO_ADDED]: data => ({
     ...getCommonCheckoutStepTrackingData(data),
     tid: 2914,
   }),
-  [eventTypes.SHIPPING_METHOD_ADDED]: data => ({
+  [EventTypes.SHIPPING_METHOD_ADDED]: data => ({
     ...getCommonCheckoutStepTrackingData(data),
     tid: 2913,
   }),
-  [eventTypes.ORDER_COMPLETED]: data => ({
+  [EventTypes.ORDER_COMPLETED]: data => ({
     tid: 2831,
     ...getCheckoutEventGenericProperties(data),
   }),
-  [eventTypes.LOGOUT]: () => ({
+  [EventTypes.LOGOUT]: () => ({
     tid: 431,
   }),
-  [eventTypes.SIGNUP_NEWSLETTER]: data => ({
+  [EventTypes.SIGNUP_NEWSLETTER]: data => ({
     tid: 2831,
     gender: getGenderValueFromProperties(data),
   }),
-  [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: (
+  [EventTypes.PRODUCT_ADDED_TO_WISHLIST]: (
     data: EventData<TrackTypesValues>,
   ) => ({
     tid: 2916,
@@ -468,7 +468,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     wishlistId: data.properties?.wishlistId,
     lineItems: getProductLineItems(data),
   }),
-  [eventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: (
+  [EventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: (
     data: EventData<TrackTypesValues>,
   ) => ({
     tid: 2925,
@@ -477,45 +477,45 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     wishlistId: data.properties?.wishlistId,
     lineItems: getProductLineItems(data),
   }),
-  [eventTypes.PRODUCT_LIST_VIEWED]: data => ({
+  [EventTypes.PRODUCT_LIST_VIEWED]: data => ({
     tid: 2832,
     lineItems: getProductLineItems(data),
   }),
-  [eventTypes.CHECKOUT_ABANDONED]: () => ({
+  [EventTypes.CHECKOUT_ABANDONED]: () => ({
     tid: 2084,
   }),
-  [eventTypes.PROMOCODE_APPLIED]: data => ({
+  [EventTypes.PROMOCODE_APPLIED]: data => ({
     tid: 311,
     promoCode: data.properties?.coupon,
     hasError: !!data.properties?.errorMessage,
     errorMessage: data.properties?.errorMessage,
   }),
-  [eventTypes.SHARE]: data => ({
+  [EventTypes.SHARE]: data => ({
     tid: 1205,
     actionArea: data.properties?.from,
     productId: getProductId(data.properties),
   }),
-  [eventTypes.LOGIN]: data => ({
+  [EventTypes.LOGIN]: data => ({
     tid: 2924,
     loginType: data.properties?.method,
   }),
-  [eventTypes.SIGNUP_FORM_COMPLETED]: data => ({
+  [EventTypes.SIGNUP_FORM_COMPLETED]: data => ({
     tid: 2927,
     loginType: data.properties?.method,
   }),
-  [eventTypes.PRODUCT_CLICKED]: data => ({
+  [EventTypes.PRODUCT_CLICKED]: data => ({
     tid: 2926,
     actionArea: data.properties?.from,
     productId: getProductId(data.properties),
     lineItems: getProductLineItems(data),
   }),
-  [eventTypes.PRODUCT_ADDED_TO_CART]: data => ({
+  [EventTypes.PRODUCT_ADDED_TO_CART]: data => ({
     tid: 2915,
     actionArea: data.properties?.from,
     priceCurrency: data.properties?.currency,
     lineItems: getProductLineItems(data),
   }),
-  [eventTypes.PRODUCT_REMOVED_FROM_CART]: (
+  [EventTypes.PRODUCT_REMOVED_FROM_CART]: (
     data: EventData<TrackTypesValues>,
   ) => ({
     tid: 131,
@@ -523,7 +523,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     priceCurrency: data.properties?.currency,
     lineItems: getProductLineItems(data),
   }),
-  [eventTypes.SELECT_CONTENT]: data => {
+  [EventTypes.SELECT_CONTENT]: data => {
     const properties = data.properties;
 
     if (!properties?.contentType || !properties?.id) {
@@ -543,16 +543,16 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
       productId: properties?.productId,
     } as OmnitrackingTrackEventParameters;
   },
-  [eventTypes.FILTERS_APPLIED]: (data: EventData<TrackTypesValues>) => ({
+  [EventTypes.FILTERS_APPLIED]: (data: EventData<TrackTypesValues>) => ({
     tid: 2921,
     filtersApplied: data.properties?.filters,
   }),
-  [eventTypes.FILTERS_CLEARED]: (data: EventData<TrackTypesValues>) => ({
+  [EventTypes.FILTERS_CLEARED]: (data: EventData<TrackTypesValues>) => ({
     tid: 2917,
     filtersApplied: data.properties?.filters,
   }),
-  [eventTypes.INTERACT_CONTENT]: (data: EventData<TrackTypesValues>) => {
-    if (data.properties?.interactionType === interactionTypes.SCROLL) {
+  [EventTypes.INTERACT_CONTENT]: (data: EventData<TrackTypesValues>) => {
+    if (data.properties?.interactionType === InteractionTypes.SCROLL) {
       if (data.properties?.target === document.body)
         return {
           tid: 668,
@@ -579,7 +579,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
       actionArea: data.properties?.state,
     } as OmnitrackingTrackEventParameters;
   },
-  [eventTypes.PRODUCT_UPDATED]: data => {
+  [EventTypes.PRODUCT_UPDATED]: data => {
     const eventList = [];
     const properties = data.properties;
 
@@ -666,30 +666,30 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
  * make sure to define it in this mapper.
  */
 export const pageEventsMapper: Readonly<OmnitrackingPageEventsMapper> = {
-  [pageTypes.PRODUCT_DETAILS]: data => ({
+  [PageTypes.PRODUCT_DETAILS]: data => ({
     viewType: 'Product',
     viewSubType: 'Product',
     lineItems: getProductLineItems(data),
   }),
-  [pageTypes.PRODUCT_LISTING]: data => ({
+  [PageTypes.PRODUCT_LISTING]: data => ({
     viewType: 'Listing',
     viewSubType: 'Listing',
     lineItems: getProductLineItems(data),
   }),
-  [pageTypes.CHECKOUT]: data => ({
+  [PageTypes.CHECKOUT]: data => ({
     ...getCheckoutEventGenericProperties(data),
     viewType: 'Checkout SPA',
     viewSubType: 'Checkout SPA',
     orderValue: data.properties?.total,
     shippingTotalValue: data.properties?.shipping,
   }),
-  [pageTypes.WISHLIST]: data => ({
+  [PageTypes.WISHLIST]: data => ({
     viewType: 'Wishlist',
     viewSubType: 'Wishlist',
     lineItems: getProductLineItems(data),
     wishlistQuantity: getProductLineItemsQuantity(data.properties?.products),
   }),
-  [pageTypes.BAG]: data => ({
+  [PageTypes.BAG]: data => ({
     viewType: 'Shopping Bag',
     viewSubType: 'Bag',
     lineItems: getProductLineItems(data),

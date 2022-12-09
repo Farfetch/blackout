@@ -4,29 +4,29 @@
  */
 
 import get from 'lodash/get';
-import trackTypes from '../types/trackTypes';
+import TrackTypes from '../types/TrackTypes';
 import type { EventData, TrackTypesValues } from '..';
 
 export const isScreenEventType = (
   data: EventData<TrackTypesValues>,
-): data is EventData<typeof trackTypes.SCREEN> => {
+): data is EventData<typeof TrackTypes.SCREEN> => {
   const type = get(data, 'type');
 
-  return type === trackTypes.SCREEN;
+  return type === TrackTypes.SCREEN;
 };
 
 export const isPageEventType = (
   data: EventData<TrackTypesValues>,
-): data is EventData<typeof trackTypes.PAGE> => {
+): data is EventData<typeof TrackTypes.PAGE> => {
   const type = get(data, 'type');
 
-  return type === trackTypes.PAGE;
+  return type === TrackTypes.PAGE;
 };
 
 export const isTrackEventType = (
   data: EventData<TrackTypesValues>,
-): data is EventData<typeof trackTypes.TRACK> => {
+): data is EventData<typeof TrackTypes.TRACK> => {
   const type = get(data, 'type');
 
-  return type === trackTypes.TRACK;
+  return type === TrackTypes.TRACK;
 };

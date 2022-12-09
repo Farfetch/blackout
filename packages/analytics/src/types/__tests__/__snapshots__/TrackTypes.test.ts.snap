@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should export trackTypes 1`] = `
+exports[`Should export TrackTypes 1`] = `
 Object {
   "PAGE": "page",
   "SCREEN": "screen",

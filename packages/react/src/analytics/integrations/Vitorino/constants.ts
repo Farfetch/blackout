@@ -1,4 +1,4 @@
-import { eventTypes, pageTypes } from '@farfetch/blackout-analytics';
+import { EventTypes, PageTypes } from '@farfetch/blackout-analytics';
 import type { EventsMapper } from './types/types';
 
 /**
@@ -32,14 +32,14 @@ export const ENVIRONMENT_TYPES = {
  * @returns - The mapper itself.
  */
 export const GET_EVENTS_MAPPER_FN = (): EventsMapper => ({
-  [pageTypes.CHECKOUT_SHIPPING]: window.Vitorino.PageTypes.SHIPPING,
-  [pageTypes.LOGIN]: window.Vitorino.PageTypes.LOGIN,
-  [pageTypes.REGISTER]: window.Vitorino.PageTypes.REGISTER,
-  [pageTypes.LOGIN_REGISTER]: [
+  [PageTypes.CHECKOUT_SHIPPING]: window.Vitorino.PageTypes.SHIPPING,
+  [PageTypes.LOGIN]: window.Vitorino.PageTypes.LOGIN,
+  [PageTypes.REGISTER]: window.Vitorino.PageTypes.REGISTER,
+  [PageTypes.LOGIN_REGISTER]: [
     window.Vitorino.PageTypes.REGISTER,
     window.Vitorino.PageTypes.LOGIN,
   ],
-  [eventTypes.PLACE_ORDER_STARTED]: window.Vitorino.PageTypes.CHECKOUT,
-  [eventTypes.SIGNUP_FORM_VIEWED]: window.Vitorino.PageTypes.REGISTER,
-  [eventTypes.CHECKOUT_STEP_VIEWED]: window.Vitorino.PageTypes.SHIPPING,
+  [EventTypes.PLACE_ORDER_STARTED]: window.Vitorino.PageTypes.CHECKOUT,
+  [EventTypes.SIGNUP_FORM_VIEWED]: window.Vitorino.PageTypes.REGISTER,
+  [EventTypes.CHECKOUT_STEP_VIEWED]: window.Vitorino.PageTypes.SHIPPING,
 });

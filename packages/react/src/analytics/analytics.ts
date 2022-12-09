@@ -1,9 +1,9 @@
 import Analytics, {
-  trackTypes as analyticsTrackTypes,
+  TrackTypes as analyticsTrackTypes,
   EventContextData,
   EventProperties,
   IntegrationRuntimeData,
-  platformTypes,
+  PlatformTypes,
 } from '@farfetch/blackout-analytics';
 import webContext from './context';
 
@@ -19,7 +19,7 @@ class AnalyticsWeb extends Analytics {
   } | null;
 
   constructor() {
-    super(platformTypes.Web);
+    super(PlatformTypes.Web);
 
     // Stores the last page call
     this.currentPageCallData = null;

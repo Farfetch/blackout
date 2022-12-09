@@ -10,9 +10,9 @@ import {
   getValParameterForEvent,
 } from '../omnitracking-helper';
 import { logger } from '../../../utils';
-import { signupNewsletterGenderTypes } from '../../../types';
-import platformTypes from '../../../types/platformTypes';
-import trackTypes from '../../../types/trackTypes';
+import { SignupNewsletterGenderTypes } from '../../../types';
+import PlatformTypes from '../../../types/PlatformTypes';
+import TrackTypes from '../../../types/TrackTypes';
 import type {
   EventData,
   TrackTypesValues,
@@ -56,8 +56,8 @@ describe('generatePaymentAttemptReferenceId', () => {
 describe('getPlatformSpecificParameters', () => {
   it('should not add parameters if the platform is mobile and track type is not screen', () => {
     const eventData = {
-      platform: platformTypes.Mobile,
-      type: trackTypes.TRACK,
+      platform: PlatformTypes.Mobile,
+      type: TrackTypes.TRACK,
     } as EventData<TrackTypesValues>;
 
     expect(getPlatformSpecificParameters(eventData)).toStrictEqual({});
@@ -67,7 +67,7 @@ describe('getPlatformSpecificParameters', () => {
 describe('getCheckoutEventGenericProperties', () => {
   it('should display some warn', () => {
     const eventData = {
-      type: trackTypes.TRACK,
+      type: TrackTypes.TRACK,
       properties: { orderId: '123' } as Record<string, unknown>,
     } as EventData<TrackTypesValues>;
 
@@ -171,14 +171,14 @@ describe('getCommonCheckoutStepTrackingData', () => {
   });
 });
 describe('getGenderValueFromProperties', () => {
-  it(`should test all ways to return ${signupNewsletterGenderTypes[0]} value`, () => {
+  it(`should test all ways to return ${SignupNewsletterGenderTypes[0]} value`, () => {
     expect(
       getGenderValueFromProperties({
         properties: {
           gender: 0,
         } as Record<string, unknown>,
       } as EventData<TrackTypesValues>),
-    ).toEqual(signupNewsletterGenderTypes[0]);
+    ).toEqual(SignupNewsletterGenderTypes[0]);
 
     expect(
       getGenderValueFromProperties({
@@ -186,7 +186,7 @@ describe('getGenderValueFromProperties', () => {
           gender: '0',
         } as Record<string, unknown>,
       } as EventData<TrackTypesValues>),
-    ).toEqual(signupNewsletterGenderTypes[0]);
+    ).toEqual(SignupNewsletterGenderTypes[0]);
 
     expect(
       getGenderValueFromProperties({
@@ -194,11 +194,11 @@ describe('getGenderValueFromProperties', () => {
           gender: { id: '0' },
         } as Record<string, unknown>,
       } as EventData<TrackTypesValues>),
-    ).toEqual(signupNewsletterGenderTypes[0]);
+    ).toEqual(SignupNewsletterGenderTypes[0]);
   });
 
-  it(`should test all ways to return ${signupNewsletterGenderTypes[0]} and ${signupNewsletterGenderTypes[1]} value`, () => {
-    const expected = `${signupNewsletterGenderTypes[0]},${signupNewsletterGenderTypes[1]}`;
+  it(`should test all ways to return ${SignupNewsletterGenderTypes[0]} and ${SignupNewsletterGenderTypes[1]} value`, () => {
+    const expected = `${SignupNewsletterGenderTypes[0]},${SignupNewsletterGenderTypes[1]}`;
 
     expect(
       getGenderValueFromProperties({

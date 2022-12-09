@@ -1,4 +1,9 @@
-import { pageTypes, PageviewEventData } from '@farfetch/blackout-analytics';
+import {
+  EventData,
+  PageTypes,
+  PageviewEventData,
+  TrackTypes,
+} from '@farfetch/blackout-analytics';
 import bagPageData from './bagPageData.fixtures';
 import checkoutPageData from './checkoutPageData.fixtures';
 import homepagePageData from './homepagePageData.fixtures';
@@ -11,20 +16,20 @@ export type DefaultPageFixturesResult = PageviewEventData & {
   event: string;
 };
 
-type pageEvents = keyof typeof pageTypes;
-
 export type PageFixtures = {
-  [event in typeof pageTypes[pageEvents]]?: DefaultPageFixturesResult;
+  [pageType in PageTypes]: EventData<TrackTypes> & {
+    event: PageTypes;
+  };
 };
 
-const pageFixtures: PageFixtures = {
-  [pageTypes.HOMEPAGE]: homepagePageData,
-  [pageTypes.SEARCH]: searchPageData,
-  [pageTypes.BAG]: bagPageData,
-  [pageTypes.WISHLIST]: wishlistPageData,
-  [pageTypes.PRODUCT_LISTING]: listingPageData,
-  [pageTypes.PRODUCT_DETAILS]: productPageData,
-  [pageTypes.CHECKOUT]: checkoutPageData,
+const pageFixtures: Partial<PageFixtures> = {
+  [PageTypes.HOMEPAGE]: homepagePageData,
+  [PageTypes.SEARCH]: searchPageData,
+  [PageTypes.BAG]: bagPageData,
+  [PageTypes.WISHLIST]: wishlistPageData,
+  [PageTypes.PRODUCT_LISTING]: listingPageData,
+  [PageTypes.PRODUCT_DETAILS]: productPageData,
+  [PageTypes.CHECKOUT]: checkoutPageData,
 };
 
 export default pageFixtures;

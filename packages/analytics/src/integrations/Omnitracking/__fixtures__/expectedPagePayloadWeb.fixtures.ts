@@ -1,4 +1,4 @@
-import { EventData, pageTypes, TrackTypesValues } from '../../..';
+import { EventData, PageTypes, TrackTypesValues } from '../../..';
 import { pageEventsData } from 'tests/__fixtures__/analytics/';
 import { userGenderValuesMapper } from '../definitions';
 import mockedUuid from './mocked_uuid';
@@ -7,7 +7,7 @@ import mockedUuid from './mocked_uuid';
 type PageMockData = EventData<TrackTypesValues> & { context: { web: any } };
 
 const pageMockData: PageMockData = pageEventsData[
-  pageTypes.HOMEPAGE
+  PageTypes.HOMEPAGE
 ] as PageMockData;
 
 const fixtures = {

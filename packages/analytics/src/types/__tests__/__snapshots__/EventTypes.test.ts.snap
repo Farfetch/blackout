@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should export eventTypes 1`] = `
+exports[`Should export EventTypes 1`] = `
 Object {
   "ADDRESS_INFO_ADDED": "Address Info Added",
   "CHECKOUT_ABANDONED": "Checkout Abandoned",
