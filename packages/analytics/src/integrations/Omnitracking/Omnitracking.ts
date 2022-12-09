@@ -34,13 +34,13 @@ import {
   viewGenderValuesMapper,
 } from './definitions';
 import { postTracking, User, UserGender } from '@farfetch/blackout-client';
-import analyticsTrackTypes from '../../types/trackTypes';
+import analyticsTrackTypes from '../../types/TrackTypes';
 import get from 'lodash/get';
 import Integration from '../Integration';
 import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
 import logger from '../../utils/logger';
-import platformTypes from '../../types/platformTypes';
+import PlatformTypes from '../../types/PlatformTypes';
 import type {
   EventData,
   LoadIntegrationEventData,
@@ -191,7 +191,7 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
         this.previousUniqueViewId;
       // This is a workaround to avoid calculate the parameter on helper's getPlatformSpecificParameters
       // in order to reduce the complexity of passing the options to the function
-      if (data.platform === platformTypes.Web) {
+      if (data.platform === PlatformTypes.Web) {
         const searchQuery = getSearchQuery(data, this.searchQueryParameters);
         if (searchQuery) {
           precalculatedPageViewParameters.searchQuery = searchQuery;

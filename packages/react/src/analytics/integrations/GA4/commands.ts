@@ -1,6 +1,6 @@
 import {
-  eventTypes,
-  interactionTypes,
+  EventTypes,
+  InteractionTypes,
   TrackEventData,
   utils,
 } from '@farfetch/blackout-analytics';
@@ -96,7 +96,7 @@ const interactContentEventCommandsBuilder = (data: TrackEventData) => {
   const eventProperties = data.properties;
 
   if (
-    eventProperties.interactionType === interactionTypes.SCROLL &&
+    eventProperties.interactionType === InteractionTypes.SCROLL &&
     eventProperties.target === document.body
   ) {
     return genericCommandsBuilder({
@@ -112,8 +112,8 @@ const interactContentEventCommandsBuilder = (data: TrackEventData) => {
 const specializedCommandsBuilderByEvent: {
   [event: string]: (data: TrackEventData) => GA4CommandList;
 } = {
-  [eventTypes.PRODUCT_UPDATED]: productUpdatedEventCommandsBuilder,
-  [eventTypes.INTERACT_CONTENT]: interactContentEventCommandsBuilder,
+  [EventTypes.PRODUCT_UPDATED]: productUpdatedEventCommandsBuilder,
+  [EventTypes.INTERACT_CONTENT]: interactContentEventCommandsBuilder,
 };
 
 // Schema used to validate the output of command functions
@@ -123,9 +123,9 @@ export const commandListSchema = validationSchemaBuilder
 
 // List of default non-interaction events
 export const nonInteractionEvents = {
-  [eventTypes.CHECKOUT_STEP_VIEWED]: true,
-  [eventTypes.PRODUCT_LIST_VIEWED]: true,
-  [eventTypes.PRODUCT_VIEWED]: true,
+  [EventTypes.CHECKOUT_STEP_VIEWED]: true,
+  [EventTypes.PRODUCT_LIST_VIEWED]: true,
+  [EventTypes.PRODUCT_VIEWED]: true,
 };
 
 /**

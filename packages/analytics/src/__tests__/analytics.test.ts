@@ -3,11 +3,11 @@ import { logger } from '../utils';
 import { mockUsersResponse } from 'tests/__fixtures__/users';
 import { PACKAGE_NAME } from '../utils/constants';
 import Analytics from '../';
-import eventTypes from '../types/eventTypes';
+import EventTypes from '../types/EventTypes';
 import flushPromises from 'tests/flushPromises';
-import pageTypes from '../types/pageTypes';
+import PageTypes from '../types/PageTypes';
 import TestStorage from 'test-storage';
-import trackTypes from '../types/trackTypes';
+import TrackTypes from '../types/TrackTypes';
 import type {
   ConsentData,
   IntegrationOptions,
@@ -317,7 +317,7 @@ describe('analytics', () => {
         const spyTrack = jest.spyOn(integrationInstance, 'track');
 
         // @ts-expect-error
-        analytics.trackInternal(trackTypes.PAGE, pageTypes.HOMEPAGE);
+        analytics.trackInternal(TrackTypes.PAGE, PageTypes.HOMEPAGE);
 
         analytics.track('myEvent');
 
@@ -707,7 +707,7 @@ describe('analytics', () => {
 
           await analytics.setUser(12345678);
 
-          await analytics.track(eventTypes.ADDRESS_INFO_ADDED);
+          await analytics.track(EventTypes.ADDRESS_INFO_ADDED);
 
           expect(spyTrack).toHaveBeenCalled();
 
@@ -715,7 +715,7 @@ describe('analytics', () => {
 
           await analytics.anonymize();
 
-          analytics.track(eventTypes.CHECKOUT_STARTED);
+          analytics.track(EventTypes.CHECKOUT_STARTED);
 
           await flushPromises();
 
@@ -858,7 +858,7 @@ describe('analytics', () => {
           });
 
           const expectedData = {
-            type: trackTypes.TRACK,
+            type: TrackTypes.TRACK,
             event,
             properties,
             context: {
@@ -891,7 +891,7 @@ describe('analytics', () => {
             'track',
           );
 
-          await analytics.track(eventTypes.PRODUCT_CLICKED);
+          await analytics.track(EventTypes.PRODUCT_CLICKED);
 
           expect(loggerErrorSpy).toBeCalled();
 
@@ -928,8 +928,8 @@ describe('analytics', () => {
           expect(myIntegrationInstance).toBeInstanceOf(MyIntegration);
 
           // @ts-expect-error
-          await analytics.track(trackTypes.PAGE, pageTypes.HOMEPAGE);
-          await analytics.track(eventTypes.PRODUCT_CLICKED);
+          await analytics.track(TrackTypes.PAGE, PageTypes.HOMEPAGE);
+          await analytics.track(EventTypes.PRODUCT_CLICKED);
 
           expect(spyTrack).toBeCalled();
         });
@@ -965,11 +965,11 @@ describe('analytics', () => {
           );
 
           // @ts-expect-error
-          await analytics.trackInternal(trackTypes.PAGE, pageTypes.HOMEPAGE);
+          await analytics.trackInternal(TrackTypes.PAGE, PageTypes.HOMEPAGE);
 
           expect(spyTrack).toBeCalled();
 
-          await analytics.track(eventTypes.PRODUCT_CLICKED);
+          await analytics.track(EventTypes.PRODUCT_CLICKED);
 
           expect(loggerErrorSpy).toBeCalled();
           expect(spyTrack).toBeCalled();

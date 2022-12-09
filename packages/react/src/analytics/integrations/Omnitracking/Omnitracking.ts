@@ -22,7 +22,7 @@ import {
   LoadIntegrationEventData,
   OmnitrackingOptions,
   StrippedDownAnalytics,
-  trackTypes,
+  TrackTypes,
   TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
@@ -78,7 +78,7 @@ class Omnitracking extends integrations.Omnitracking {
     const basePreCalculatedParameters =
       super.getPrecalculatedParametersForEvent(data);
 
-    if (data.type === trackTypes.PAGE) {
+    if (data.type === TrackTypes.PAGE) {
       if (basePreCalculatedParameters) {
         const subfolder = get(
           data,

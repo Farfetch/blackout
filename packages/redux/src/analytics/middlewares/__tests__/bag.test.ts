@@ -7,7 +7,7 @@ import { getCategory } from '../../../categories/selectors';
 import { getProduct } from '../../../products/selectors/product';
 import { mockStore as mockSimplifiedStore } from './../tests/simplifiedStore';
 import { mockStore } from '../../../../tests';
-import Analytics, { eventTypes, utils } from '@farfetch/blackout-analytics';
+import Analytics, { EventTypes, utils } from '@farfetch/blackout-analytics';
 import merge from 'lodash/merge';
 import type { BagItemEntity, ProductEntity } from '../../../entities/types';
 import type { StoreState } from '../../../types';
@@ -198,7 +198,7 @@ describe('analyticsBagMiddleware', () => {
         },
       });
 
-      expect(trackSpy).toBeCalledWith(eventTypes.PRODUCT_ADDED_TO_CART, {
+      expect(trackSpy).toBeCalledWith(EventTypes.PRODUCT_ADDED_TO_CART, {
         affiliation,
         brand: brandName,
         cartId: bagMockData.mockBagId,
@@ -272,7 +272,7 @@ describe('analyticsBagMiddleware', () => {
         },
       });
 
-      expect(trackSpy).toBeCalledWith(eventTypes.PRODUCT_REMOVED_FROM_CART, {
+      expect(trackSpy).toBeCalledWith(EventTypes.PRODUCT_REMOVED_FROM_CART, {
         brand: brandName,
         cartId: bagMockData.mockBagId,
         category: categoryName,
@@ -294,7 +294,7 @@ describe('analyticsBagMiddleware', () => {
   });
 
   describe('Update item in bag', () => {
-    it('Should call `analytics.track(eventTypes.PRODUCT_REMOVED_FROM_CART)` with the correct payload if new quantity is less than old quantity', async () => {
+    it('Should call `analytics.track(EventTypes.PRODUCT_REMOVED_FROM_CART)` with the correct payload if new quantity is less than old quantity', async () => {
       await store.dispatch({
         type: bagActionTypes.UPDATE_BAG_ITEM_SUCCESS,
         payload: {
@@ -317,7 +317,7 @@ describe('analyticsBagMiddleware', () => {
         },
       });
 
-      expect(trackSpy).toBeCalledWith(eventTypes.PRODUCT_REMOVED_FROM_CART, {
+      expect(trackSpy).toBeCalledWith(EventTypes.PRODUCT_REMOVED_FROM_CART, {
         brand: brandName,
         cartId: bagMockData.mockBagId,
         category: categoryName,
@@ -339,7 +339,7 @@ describe('analyticsBagMiddleware', () => {
       });
     });
 
-    it('Should call `analytics.track(eventTypes.PRODUCT_ADDED_TO_CART)` with the correct payload if new quantity is higher than old quantity', async () => {
+    it('Should call `analytics.track(EventTypes.PRODUCT_ADDED_TO_CART)` with the correct payload if new quantity is higher than old quantity', async () => {
       await store.dispatch({
         type: bagActionTypes.UPDATE_BAG_ITEM_SUCCESS,
         payload: {
@@ -362,7 +362,7 @@ describe('analyticsBagMiddleware', () => {
         },
       });
 
-      expect(trackSpy).toBeCalledWith(eventTypes.PRODUCT_ADDED_TO_CART, {
+      expect(trackSpy).toBeCalledWith(EventTypes.PRODUCT_ADDED_TO_CART, {
         brand: brandName,
         cartId: bagMockData.mockBagId,
         category: categoryName,
@@ -435,15 +435,15 @@ describe('analyticsBagMiddleware', () => {
         variant: colorName,
       };
 
-      expect(trackSpy).nthCalledWith(1, eventTypes.PRODUCT_UPDATED, baseData);
+      expect(trackSpy).nthCalledWith(1, EventTypes.PRODUCT_UPDATED, baseData);
 
-      expect(trackSpy).nthCalledWith(2, eventTypes.PRODUCT_REMOVED_FROM_CART, {
+      expect(trackSpy).nthCalledWith(2, EventTypes.PRODUCT_REMOVED_FROM_CART, {
         ...baseData,
         quantity: 3,
         size: sizes[0]?.name,
       });
 
-      expect(trackSpy).nthCalledWith(3, eventTypes.PRODUCT_ADDED_TO_CART, {
+      expect(trackSpy).nthCalledWith(3, EventTypes.PRODUCT_ADDED_TO_CART, {
         ...baseData,
         oldQuantity: undefined,
       });
@@ -519,7 +519,7 @@ describe('analyticsBagMiddleware', () => {
       };
 
       // expect trigger analytics product updated event
-      expect(trackSpy).toBeCalledWith(eventTypes.PRODUCT_UPDATED, expectedData);
+      expect(trackSpy).toBeCalledWith(EventTypes.PRODUCT_UPDATED, expectedData);
 
       // expect trigger analytics product removed event
       const expectedRemovedFromCartData = {
@@ -528,7 +528,7 @@ describe('analyticsBagMiddleware', () => {
         quantity: 2,
       };
       expect(trackSpy).toBeCalledWith(
-        eventTypes.PRODUCT_REMOVED_FROM_CART,
+        EventTypes.PRODUCT_REMOVED_FROM_CART,
         expectedRemovedFromCartData,
       );
     });

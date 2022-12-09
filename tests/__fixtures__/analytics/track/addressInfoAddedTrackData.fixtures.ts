@@ -1,9 +1,9 @@
-import { eventTypes } from '@farfetch/blackout-analytics';
+import { EventTypes } from '@farfetch/blackout-analytics';
 import baseTrackData from './baseTrackData.fixtures';
 
 const fixtures = {
   ...baseTrackData,
-  event: eventTypes.ADDRESS_INFO_ADDED,
+  event: EventTypes.ADDRESS_INFO_ADDED,
   properties: {
     orderId: '50314b8e9bcf000000000000',
     total: 24.64,

@@ -13,8 +13,8 @@
  * ```
  */
 import {
-  pageTypes as analyticsPageTypes,
-  trackTypes as analyticsTrackTypes,
+  PageTypes as analyticsPageTypes,
+  TrackTypes as analyticsTrackTypes,
   ConsentData,
   EventData,
   integrations,
@@ -23,7 +23,7 @@ import {
   SetUserEventData,
   StrippedDownAnalytics,
   TrackEventData,
-  trackTypes,
+  TrackTypes,
   TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
@@ -224,7 +224,7 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
       case analyticsPageTypes.SEARCH:
       case analyticsPageTypes.WISHLIST:
         return await Promise.all([
-          this.trackEvent({ ...data, type: trackTypes.TRACK }),
+          this.trackEvent({ ...data, type: TrackTypes.TRACK }),
           this.trackPage(data),
         ]);
       default:

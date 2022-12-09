@@ -1,11 +1,11 @@
-import { eventTypes, fromParameterTypes } from '@farfetch/blackout-analytics';
+import { EventTypes, FromParameterTypes } from '@farfetch/blackout-analytics';
 import baseTrackData from './baseTrackData.fixtures';
 
 const fixtures = {
   ...baseTrackData,
-  event: eventTypes.PRODUCT_LIST_VIEWED,
+  event: EventTypes.PRODUCT_LIST_VIEWED,
   properties: {
-    from: fromParameterTypes.PLP,
+    from: FromParameterTypes.PLP,
     category: 'Clothing',
     list: 'Woman shopping',
     currency: 'USD',

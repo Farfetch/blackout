@@ -1,9 +1,9 @@
-import { pageTypes } from '@farfetch/blackout-analytics';
+import { PageTypes } from '@farfetch/blackout-analytics';
 import basePageData from './basePageData.fixtures';
 
 const fixtures = {
   ...basePageData,
-  event: pageTypes.PRODUCT_LISTING,
+  event: PageTypes.PRODUCT_LISTING,
   properties: {
     products: [
       {

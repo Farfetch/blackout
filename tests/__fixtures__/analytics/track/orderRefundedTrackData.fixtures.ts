@@ -1,9 +1,9 @@
-import { eventTypes } from '@farfetch/blackout-analytics';
+import { EventTypes } from '@farfetch/blackout-analytics';
 import baseTrackData from './baseTrackData.fixtures';
 
 const fixtures = {
   ...baseTrackData,
-  event: eventTypes.ORDER_REFUNDED,
+  event: EventTypes.ORDER_REFUNDED,
   properties: {
     orderId: '50314b8e9bcf000000000000',
     total: 19,

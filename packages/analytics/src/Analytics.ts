@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Consent from './Consent';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
-import trackTypes from './types/trackTypes';
+import TrackTypes from './types/TrackTypes';
 import User from './User';
 import type {
   ConsentData,
@@ -440,7 +440,7 @@ class Analytics {
     eventContext?: EventContextData,
   ): Promise<this> {
     return await this.trackInternal(
-      trackTypes.TRACK,
+      TrackTypes.TRACK,
       event,
       properties,
       eventContext,
@@ -460,7 +460,7 @@ class Analytics {
    * chaining.
    */
   protected async trackInternal(
-    type: TrackTypesValues = trackTypes.TRACK,
+    type: TrackTypesValues = TrackTypes.TRACK,
     event: string,
     properties?: EventProperties,
     eventContext?: EventContextData,

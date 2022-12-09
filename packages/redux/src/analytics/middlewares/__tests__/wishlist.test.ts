@@ -11,8 +11,8 @@ import {
   wishlistSetId,
 } from 'tests/__fixtures__/analytics/wishlist';
 import Analytics, {
-  eventTypes,
-  fromParameterTypes,
+  EventTypes,
+  FromParameterTypes,
   utils,
 } from '@farfetch/blackout-analytics';
 import merge from 'lodash/merge';
@@ -59,7 +59,7 @@ const discount = priceWithoutDiscount - priceWithDiscount;
 const value = priceWithDiscount;
 const affiliation = 'farfetch';
 const coupon = 'super coupon';
-const from = fromParameterTypes.RECOMMENDATIONS;
+const from = FromParameterTypes.RECOMMENDATIONS;
 const position = 3;
 const productDescription = shortDescription || name;
 // Color name must be the one that has a tag of 'DesignerColor'
@@ -227,7 +227,7 @@ describe('analyticsWishlistMiddleware', () => {
         },
       });
 
-      expect(trackSpy).toBeCalledWith(eventTypes.PRODUCT_ADDED_TO_WISHLIST, {
+      expect(trackSpy).toBeCalledWith(EventTypes.PRODUCT_ADDED_TO_WISHLIST, {
         affiliation,
         brand: brandName,
         category: categoryName,
@@ -281,7 +281,7 @@ describe('analyticsWishlistMiddleware', () => {
       });
 
       expect(trackSpy).toBeCalledWith(
-        eventTypes.PRODUCT_REMOVED_FROM_WISHLIST,
+        EventTypes.PRODUCT_REMOVED_FROM_WISHLIST,
         {
           affiliation,
           brand: brandName,
@@ -338,7 +338,7 @@ describe('analyticsWishlistMiddleware', () => {
         });
 
         expect(trackSpy).toBeCalledWith(
-          eventTypes.PRODUCT_REMOVED_FROM_WISHLIST,
+          EventTypes.PRODUCT_REMOVED_FROM_WISHLIST,
           {
             affiliation,
             brand: brandName,
@@ -384,7 +384,7 @@ describe('analyticsWishlistMiddleware', () => {
         });
 
         expect(trackSpy).toBeCalledWith(
-          eventTypes.PRODUCT_REMOVED_FROM_WISHLIST,
+          EventTypes.PRODUCT_REMOVED_FROM_WISHLIST,
           {
             affiliation,
             brand: brandName,
@@ -504,7 +504,7 @@ describe('analyticsWishlistMiddleware', () => {
           },
         });
 
-        expect(trackSpy).toBeCalledWith(eventTypes.PRODUCT_ADDED_TO_WISHLIST, {
+        expect(trackSpy).toBeCalledWith(EventTypes.PRODUCT_ADDED_TO_WISHLIST, {
           affiliation,
           brand: brandName,
           category: categoryName,
@@ -547,7 +547,7 @@ describe('analyticsWishlistMiddleware', () => {
           },
         });
 
-        expect(trackSpy).toBeCalledWith(eventTypes.PRODUCT_ADDED_TO_WISHLIST, {
+        expect(trackSpy).toBeCalledWith(EventTypes.PRODUCT_ADDED_TO_WISHLIST, {
           affiliation,
           brand: brandName,
           category: categoryName,
@@ -689,7 +689,7 @@ describe('analyticsWishlistMiddleware', () => {
         meta: {
           affiliation,
           coupon,
-          from: fromParameterTypes.WISHLIST,
+          from: FromParameterTypes.WISHLIST,
           list: wishlistName,
           listId: wishlistMockData.wishlistId,
           position,
@@ -699,14 +699,14 @@ describe('analyticsWishlistMiddleware', () => {
         },
       });
 
-      expect(trackSpy).nthCalledWith(1, eventTypes.PRODUCT_UPDATED, {
+      expect(trackSpy).nthCalledWith(1, EventTypes.PRODUCT_UPDATED, {
         affiliation,
         brand: brandName,
         category: categoryName,
         coupon,
         currency: currencyCode,
         discountValue: discount,
-        from: fromParameterTypes.WISHLIST,
+        from: FromParameterTypes.WISHLIST,
         id: wishlistMockData.productId,
         list: wishlistName,
         listId: wishlistMockData.wishlistId,
@@ -727,14 +727,14 @@ describe('analyticsWishlistMiddleware', () => {
         sizeScaleId,
       });
 
-      expect(trackSpy).nthCalledWith(2, eventTypes.PRODUCT_UPDATED_WISHLIST, {
+      expect(trackSpy).nthCalledWith(2, EventTypes.PRODUCT_UPDATED_WISHLIST, {
         affiliation,
         brand: brandName,
         category: categoryName,
         coupon,
         currency: currencyCode,
         discountValue: discount,
-        from: fromParameterTypes.WISHLIST,
+        from: FromParameterTypes.WISHLIST,
         id: wishlistMockData.productId,
         list: wishlistName,
         listId: wishlistMockData.wishlistId,

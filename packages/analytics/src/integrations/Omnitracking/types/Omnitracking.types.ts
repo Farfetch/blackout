@@ -12,11 +12,11 @@ import type {
 } from '../definitions';
 import type {
   EventData,
-  eventTypes,
+  EventTypes,
   IntegrationOptions,
-  pageTypes,
-  platformTypes,
-  trackTypes,
+  PageTypes,
+  PlatformTypes,
+  TrackTypes,
   TrackTypesValues,
 } from '../../..';
 
@@ -72,10 +72,10 @@ export type OmnitrackingTrackOrPageEventMapper = (
 ) => OmnitrackingTrackOrPageMapperResult;
 
 export type OmnitrackingTrackMapperKey =
-  typeof eventTypes[keyof typeof eventTypes];
+  typeof EventTypes[keyof typeof EventTypes];
 
 export type OmnitrackingPageMapperKey =
-  typeof pageTypes[keyof typeof pageTypes];
+  typeof PageTypes[keyof typeof PageTypes];
 
 export type OmnitrackingTrackEventsMapper = {
   [k in OmnitrackingTrackMapperKey]?: OmnitrackingTrackOrPageEventMapper;
@@ -102,12 +102,12 @@ export interface OmnitrackingOptions extends IntegrationOptions {
 
 export type SpecificParametersForEventType<
   T extends EventData<TrackTypesValues>,
-> = T extends EventData<typeof trackTypes.PAGE | typeof trackTypes.SCREEN>
+> = T extends EventData<typeof TrackTypes.PAGE | typeof TrackTypes.SCREEN>
   ? OmnitrackingRequestPayload<PageViewEvents>['parameters']
   : OmnitrackingRequestPayload<PageActionEvents>['parameters'];
 
 export type SpecificParametersBuilderByPlatform = {
-  [K in typeof platformTypes[keyof typeof platformTypes]]: <
+  [K in typeof PlatformTypes[keyof typeof PlatformTypes]]: <
     T extends EventData<TrackTypesValues>,
   >(
     data: T,

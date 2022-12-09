@@ -2,7 +2,7 @@ import { authenticationActionTypes } from '../../users/authentication';
 import { getUser, getUserId, usersActionTypes } from '../../users';
 import { USER_ID_PROPERTY } from '../../users/constants';
 import Analytics, {
-  eventTypes,
+  EventTypes,
   UserTraits,
   utils,
 } from '@farfetch/blackout-analytics';
@@ -199,9 +199,9 @@ export function analyticsSetUserMiddleware(
           );
 
           const eventTypeToTrack: string | null = isRegisterAction
-            ? eventTypes.SIGNUP_FORM_COMPLETED
+            ? EventTypes.SIGNUP_FORM_COMPLETED
             : isLoginAction
-            ? eventTypes.LOGIN
+            ? EventTypes.LOGIN
             : null;
 
           const eventPayload: { method: string } | undefined =
@@ -213,7 +213,7 @@ export function analyticsSetUserMiddleware(
             await analyticsInstance.track(eventTypeToTrack, eventPayload);
           }
         } else if (!previousIsGuest && isGuest) {
-          await analyticsInstance.track(eventTypes.LOGOUT);
+          await analyticsInstance.track(EventTypes.LOGOUT);
 
           await analyticsInstance.anonymize();
 
@@ -225,7 +225,7 @@ export function analyticsSetUserMiddleware(
     }
 
     if (triggerAnonymizeActions.has(actionType)) {
-      await analyticsInstance.track(eventTypes.LOGOUT);
+      await analyticsInstance.track(EventTypes.LOGOUT);
 
       await analyticsInstance.anonymize();
 

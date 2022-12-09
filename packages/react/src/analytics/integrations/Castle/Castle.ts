@@ -27,13 +27,13 @@ import * as castleJS from '@castleio/castle-js';
 import { client as coreClient } from '@farfetch/blackout-client';
 import {
   EventData,
-  eventTypes,
+  EventTypes,
   integrations,
   LoadIntegrationEventData,
   PageviewEventData,
   StrippedDownAnalytics,
   TrackEventData,
-  trackTypes,
+  TrackTypes,
   TrackTypesValues,
   UserData,
   UserTraits,
@@ -261,10 +261,10 @@ class Castle extends integrations.Integration<CastleIntegrationOptions> {
     data: EventData<TrackTypesValues>,
   ): Promise<Thenable<boolean | null | undefined>> {
     switch (data.type) {
-      case trackTypes.PAGE:
+      case TrackTypes.PAGE:
         return this.trackPage(data as PageviewEventData);
 
-      case trackTypes.TRACK:
+      case TrackTypes.TRACK:
         return this.trackEvent(data as TrackEventData);
       /* istanbul ignore next */
       default:
@@ -283,15 +283,15 @@ class Castle extends integrations.Integration<CastleIntegrationOptions> {
     const user = this.getUserData(data);
 
     switch (data.event) {
-      case eventTypes.ADDRESS_INFO_ADDED:
-      case eventTypes.CHECKOUT_STEP_COMPLETED:
-      case eventTypes.LOGIN:
-      case eventTypes.PAYMENT_INFO_ADDED:
-      case eventTypes.PROMOCODE_APPLIED:
-      case eventTypes.SHIPPING_INFO_ADDED:
-      case eventTypes.SHIPPING_METHOD_ADDED:
-      case eventTypes.SIGNUP_FORM_COMPLETED:
-      case eventTypes.SIGNUP_NEWSLETTER: {
+      case EventTypes.ADDRESS_INFO_ADDED:
+      case EventTypes.CHECKOUT_STEP_COMPLETED:
+      case EventTypes.LOGIN:
+      case EventTypes.PAYMENT_INFO_ADDED:
+      case EventTypes.PROMOCODE_APPLIED:
+      case EventTypes.SHIPPING_INFO_ADDED:
+      case EventTypes.SHIPPING_METHOD_ADDED:
+      case EventTypes.SIGNUP_FORM_COMPLETED:
+      case EventTypes.SIGNUP_NEWSLETTER: {
         const formData: FormParams = {
           user,
           name: data.event,

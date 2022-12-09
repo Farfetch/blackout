@@ -5,9 +5,9 @@ import type {
 } from '../utils/constants';
 import type { Integration } from '../integrations';
 import type { User } from '@farfetch/blackout-client';
-import type trackTypes from '../types/trackTypes';
+import type TrackTypes from '../types/TrackTypes';
 
-export type TrackTypesValues = typeof trackTypes[keyof typeof trackTypes];
+export type TrackTypesValues = typeof TrackTypes[keyof typeof TrackTypes];
 
 export type ConsentData = {
   [key in typeof CONSENT_KEYS[number]]?: boolean;
@@ -56,9 +56,9 @@ export type LoadIntegrationEventData = EventData<
 >;
 export type SetUserEventData = EventData<typeof ON_SET_USER_TRACK_TYPE>;
 
-export type PageviewEventData = EventData<typeof trackTypes.PAGE>;
-export type ScreenviewEventData = EventData<typeof trackTypes.SCREEN>;
-export type TrackEventData = EventData<typeof trackTypes.TRACK>;
+export type PageviewEventData = EventData<TrackTypes.PAGE>;
+export type ScreenviewEventData = EventData<TrackTypes.SCREEN>;
+export type TrackEventData = EventData<TrackTypes.TRACK>;
 
 export type IntegrationRuntimeData = {
   instance: Integration<IntegrationOptions> | undefined;

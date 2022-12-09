@@ -19,13 +19,13 @@ import {
   OPTION_SEARCH_QUERY_PARAMETERS,
   OPTION_TRANSFORM_PAYLOAD,
 } from '../constants';
-import analyticsTrackTypes from '../../../types/trackTypes';
-import eventTypes from '../../../types/eventTypes';
-import interactionTypes from '../../../types/interactionTypes';
+import analyticsTrackTypes from '../../../types/TrackTypes';
+import EventTypes from '../../../types/EventTypes';
+import InteractionTypes from '../../../types/InteractionTypes';
 import merge from 'lodash/merge';
 import mocked_view_uid from '../__fixtures__/mocked_view_uid';
-import pageTypes from '../../../types/pageTypes';
-import platformTypes from '../../../types/platformTypes';
+import PageTypes from '../../../types/PageTypes';
+import PlatformTypes from '../../../types/PlatformTypes';
 import uuid from 'uuid';
 import type {
   EventContext,
@@ -63,8 +63,8 @@ jest.mock('uuid', () => ({
   v4: jest.fn(() => mockedUuid),
 }));
 
-const mockedPageData = pageEventsData[pageTypes.HOMEPAGE];
-const mockedTrackData = trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART];
+const mockedPageData = pageEventsData[PageTypes.HOMEPAGE];
+const mockedTrackData = trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART];
 
 const generateMockData = (
   data?: Partial<EventData<TrackTypesValues>>,
@@ -372,7 +372,7 @@ describe('Omnitracking', () => {
       describe('Unique view Id', () => {
         it('should not track an event if it has no unique view id', async () => {
           const data = generateTrackMockData({
-            event: eventTypes.PLACE_ORDER_STARTED,
+            event: EventTypes.PLACE_ORDER_STARTED,
           });
           await omnitracking.track(data);
 
@@ -392,7 +392,7 @@ describe('Omnitracking', () => {
           await omnitracking.track(data);
 
           data = generateTrackMockData({
-            event: eventTypes.PLACE_ORDER_STARTED,
+            event: EventTypes.PLACE_ORDER_STARTED,
           });
           await omnitracking.track(data);
 
@@ -410,7 +410,7 @@ describe('Omnitracking', () => {
         const placeOrderTid = 188;
 
         const data = generateTrackMockData({
-          event: eventTypes.PLACE_ORDER_STARTED,
+          event: EventTypes.PLACE_ORDER_STARTED,
           properties: {
             coupon: 'promo',
             shipping: 12,
@@ -513,7 +513,7 @@ describe('Omnitracking', () => {
 
       it('should log error if a select content does not contain a contentType parameter', async () => {
         const data = generateTrackMockData({
-          event: eventTypes.SELECT_CONTENT,
+          event: EventTypes.SELECT_CONTENT,
           properties: {
             id: 123,
           },
@@ -531,7 +531,7 @@ describe('Omnitracking', () => {
 
       it('should log error if a select content does not contain an id parameter', async () => {
         const data = generateTrackMockData({
-          event: eventTypes.SELECT_CONTENT,
+          event: EventTypes.SELECT_CONTENT,
           properties: {
             contentType: 'foo',
           },
@@ -549,7 +549,7 @@ describe('Omnitracking', () => {
 
       it('should not log error if an select content has all required parameters', async () => {
         const data = generateTrackMockData({
-          event: eventTypes.SELECT_CONTENT,
+          event: EventTypes.SELECT_CONTENT,
           properties: {
             contentType: 'foo',
             id: 123,
@@ -574,7 +574,7 @@ describe('Omnitracking', () => {
     describe('interact content', () => {
       it('should not track an interact content event if the required parameters are missing', async () => {
         const data = generateTrackMockData({
-          event: eventTypes.INTERACT_CONTENT,
+          event: EventTypes.INTERACT_CONTENT,
           properties: {
             interactionType: undefined,
           },
@@ -593,9 +593,9 @@ describe('Omnitracking', () => {
 
       it('should track scroll event', async () => {
         const data = generateTrackMockData({
-          event: eventTypes.INTERACT_CONTENT,
+          event: EventTypes.INTERACT_CONTENT,
           properties: {
-            interactionType: interactionTypes.SCROLL,
+            interactionType: InteractionTypes.SCROLL,
             target: document.body,
             percentageScrolled: 50,
           },
@@ -616,9 +616,9 @@ describe('Omnitracking', () => {
 
       it('should not track an event when interactionType is scroll but target is not document.body', async () => {
         const data = generateTrackMockData({
-          event: eventTypes.INTERACT_CONTENT,
+          event: EventTypes.INTERACT_CONTENT,
           properties: {
-            interactionType: interactionTypes.SCROLL,
+            interactionType: InteractionTypes.SCROLL,
             target: undefined,
             percentageScrolled: 50,
           },
@@ -630,9 +630,9 @@ describe('Omnitracking', () => {
 
       it('should track a default interact content event', async () => {
         const data = generateTrackMockData({
-          event: eventTypes.INTERACT_CONTENT,
+          event: EventTypes.INTERACT_CONTENT,
           properties: {
-            interactionType: interactionTypes.CLICK,
+            interactionType: InteractionTypes.CLICK,
             contentType: 'logo',
             id: 'home_logo',
           },
@@ -734,7 +734,7 @@ describe('Omnitracking', () => {
         omnitracking.currentUniqueViewId = mocked_view_uid;
 
         const data = generateTrackMockData({
-          event: eventTypes.PLACE_ORDER_STARTED,
+          event: EventTypes.PLACE_ORDER_STARTED,
         });
 
         await omnitracking.track(data);
@@ -923,7 +923,7 @@ describe('Omnitracking', () => {
       const currentUniqueViewId = lastPayload.parameters.uniqueViewId;
 
       const trackEventData = generateTrackMockData({
-        event: eventTypes.PLACE_ORDER_STARTED,
+        event: EventTypes.PLACE_ORDER_STARTED,
       });
 
       // Track an event to check if the
@@ -990,7 +990,7 @@ describe('Omnitracking', () => {
     it('Should handle mobile platform events', async () => {
       const pageEventData = generateMockData();
 
-      pageEventData.platform = platformTypes.Mobile;
+      pageEventData.platform = PlatformTypes.Mobile;
       pageEventData.type = analyticsTrackTypes.SCREEN;
 
       await omnitracking.track(pageEventData);

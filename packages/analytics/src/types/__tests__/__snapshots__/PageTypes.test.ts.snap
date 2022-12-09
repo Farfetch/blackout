@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`pageTypes Should provide the list of pageTypes 1`] = `
+exports[`PageTypes Should provide the list of PageTypes 1`] = `
 Object {
   "ABOUT": "about",
   "ACCOUNT": "account",

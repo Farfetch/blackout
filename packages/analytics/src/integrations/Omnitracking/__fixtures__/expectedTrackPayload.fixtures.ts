@@ -1,9 +1,9 @@
-import { eventTypes } from '../../..';
+import { EventTypes } from '../../..';
 import { trackEventsData } from 'tests/__fixtures__/analytics';
 import mocked_view_uid from './mocked_view_uid';
 import mockedUuid from './mocked_uuid';
 
-const trackMockData = trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART];
+const trackMockData = trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART];
 
 const fixtures = {
   clientId: trackMockData.context.clientId,

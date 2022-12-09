@@ -1,4 +1,4 @@
-import { pageTypes } from '@farfetch/blackout-analytics';
+import { PageTypes } from '@farfetch/blackout-analytics';
 import basePageData from './basePageData.fixtures';
 
 const data = {
@@ -8,7 +8,7 @@ const data = {
     cenas: 123123,
     didYouMean: 1123123,
   },
-  event: pageTypes.HOMEPAGE,
+  event: PageTypes.HOMEPAGE,
 };
 
 export default data;

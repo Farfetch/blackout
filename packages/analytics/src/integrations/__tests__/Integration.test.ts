@@ -1,5 +1,5 @@
 import {
-  eventTypes,
+  EventTypes,
   IntegrationOptions,
   LoadIntegrationEventData,
   StrippedDownAnalytics,
@@ -59,7 +59,7 @@ describe('Integration', () => {
     expect(() => {
       Integration.createInstance({}, loadData, {
         createEvent: type => Promise.resolve({ ...loadData, type }),
-      }).track(trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART]);
+      }).track(trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART]);
     }).toThrow('Method not implemented');
   });
 

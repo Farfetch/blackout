@@ -1,11 +1,11 @@
-import { eventTypes, fromParameterTypes } from '@farfetch/blackout-analytics';
+import { EventTypes, FromParameterTypes } from '@farfetch/blackout-analytics';
 import baseTrackData from './baseTrackData.fixtures';
 
 const fixtures = {
   ...baseTrackData,
-  event: eventTypes.PRODUCT_UPDATED_WISHLIST,
+  event: EventTypes.PRODUCT_UPDATED_WISHLIST,
   properties: {
-    from: fromParameterTypes.WISHLIST,
+    from: FromParameterTypes.WISHLIST,
     id: '507f1f77bcf86cd799439011',
     category: 'Clothing/Tops/T-shirts',
     name: 'Gareth McConnell Dreamscape T-Shirt',

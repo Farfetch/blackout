@@ -5,10 +5,10 @@ import {
 } from 'tests/__fixtures__/analytics';
 import {
   EventData,
-  eventTypes,
+  EventTypes,
   integrations,
   LoadIntegrationEventData,
-  pageTypes,
+  PageTypes,
   PageviewEventData,
   StrippedDownAnalytics,
   TrackEventData,
@@ -162,7 +162,7 @@ describe('Castle integration', () => {
 
       const castlePageSpy = jest.spyOn(instance.castleJS, 'page');
       const mockPageEvent = analyticsPageData[
-        pageTypes.HOMEPAGE
+        PageTypes.HOMEPAGE
       ] as EventData<TrackTypesValues> & { context: WebContextType };
       const expectedCallPayload = {
         referrer: mockPageEvent.context.web.document.referrer,
@@ -182,15 +182,15 @@ describe('Castle integration', () => {
     });
 
     it.each([
-      eventTypes.ADDRESS_INFO_ADDED,
-      eventTypes.CHECKOUT_STEP_COMPLETED,
-      eventTypes.LOGIN,
-      eventTypes.PAYMENT_INFO_ADDED,
-      eventTypes.PROMOCODE_APPLIED,
-      eventTypes.SHIPPING_INFO_ADDED,
-      eventTypes.SHIPPING_METHOD_ADDED,
-      eventTypes.SIGNUP_FORM_COMPLETED,
-      eventTypes.SIGNUP_NEWSLETTER,
+      EventTypes.ADDRESS_INFO_ADDED,
+      EventTypes.CHECKOUT_STEP_COMPLETED,
+      EventTypes.LOGIN,
+      EventTypes.PAYMENT_INFO_ADDED,
+      EventTypes.PROMOCODE_APPLIED,
+      EventTypes.SHIPPING_INFO_ADDED,
+      EventTypes.SHIPPING_METHOD_ADDED,
+      EventTypes.SIGNUP_FORM_COMPLETED,
+      EventTypes.SIGNUP_NEWSLETTER,
     ])('Should track the form related event: %s', async event => {
       instance = createInstance();
 
@@ -217,7 +217,7 @@ describe('Castle integration', () => {
 
       const castleCustomSpy = jest.spyOn(instance.castleJS, 'custom');
       const mockEventData = {
-        ...analyticsTrackData[eventTypes.ORDER_COMPLETED],
+        ...analyticsTrackData[EventTypes.ORDER_COMPLETED],
         properties: {
           foo: 'bar',
           biz: 'baz',
@@ -235,7 +235,7 @@ describe('Castle integration', () => {
 
       const dateMilliseconds = 1651759914308;
       const castleFormSpy = jest.spyOn(instance.castleJS, 'form');
-      const mockedEvent = analyticsTrackData[eventTypes.SIGNUP_FORM_COMPLETED];
+      const mockedEvent = analyticsTrackData[EventTypes.SIGNUP_FORM_COMPLETED];
       const mockEventData = {
         ...mockedEvent,
         user: {
@@ -269,7 +269,7 @@ describe('Castle integration', () => {
       instance = createInstance();
 
       const castleFormSpy = jest.spyOn(instance.castleJS, 'form');
-      const mockedEvent = analyticsTrackData[eventTypes.SIGNUP_FORM_COMPLETED];
+      const mockedEvent = analyticsTrackData[EventTypes.SIGNUP_FORM_COMPLETED];
       const mockEventData = {
         ...mockedEvent,
         user: {
