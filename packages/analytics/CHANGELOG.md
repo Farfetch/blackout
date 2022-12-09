@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.97](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.96...@farfetch/blackout-analytics@1.0.0-next.97) (2022-12-09)
+
+
+### Bug Fixes
+
+* fix unit tests typings ([8046bbd](https://github.com/Farfetch/blackout/commit/8046bbdc720bd1e280c1b11a0cf9c3e6891f9785))
+
+
+
+
+
 # [1.0.0-next.96](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.95...@farfetch/blackout-analytics@1.0.0-next.96) (2022-12-06)
 
 
