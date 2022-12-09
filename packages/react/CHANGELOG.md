@@ -3,6 +3,59 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.356](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.355...@farfetch/blackout-react@1.0.0-next.356) (2022-12-09)
+
+
+### Bug Fixes
+
+* fix unit tests typings ([8046bbd](https://github.com/Farfetch/blackout/commit/8046bbdc720bd1e280c1b11a0cf9c3e6891f9785))
+
+
+### Features
+
+* **react|redux:** add checkout hooks ([ca0f846](https://github.com/Farfetch/blackout/commit/ca0f846025afa9ebc91204e710babb88c469eaec))
+
+
+### BREAKING CHANGES
+
+* **react|redux:** The following modules were renamed:
+- `ItemStatus` to `CheckoutOrderItemStatus`
+- `arePaymentInstrumentsLoading` to `arePaymentIntentInstrumentsLoading`
+- `getCheckoutDeliveryBundle` to `getCheckoutOrderDeliveryBundle`.
+- `getCheckoutDeliveryBundleUpgrade` to `getCheckoutOrderDeliveryBundleUpgrade`
+- `getCheckoutDeliveryBundleUpgrades` to `getCheckoutOrderDeliveryBundleUpgrades`
+- `getCheckoutDeliveryBundleWindow` to `getCheckoutOrderDeliveryBundleWindow`
+- `getCheckoutDeliveryBundles` to `getCheckoutOrderDeliveryBundles`
+- `getCheckoutDeliveryBundlesIds` to `getCheckoutOrderDeliveryBundlesIds`
+- `getCheckoutError` to `getCheckoutOrderError`
+- `getCheckoutId` to `getCheckoutOrderId`
+- `getCheckout` to `getCheckoutOrderResult`
+- `getCheckoutOrderCollectPoints` to `getCollectPoints` (renamed back
+to get `getCollectPoints` as it does not depend on the order).
+- `getCheckoutSelectedDeliveryBundleId` to `getCheckoutOrderSelectedDeliveryBundleId`
+- `getCheckoutShippingOptions` to `getCheckoutOrderShippingOptions`
+- `getPaymentInstrument` to `getPaymentIntentInstrument`
+- `getPaymentInstruments` to `getPaymentIntentInstruments`
+- `getPaymentInstrumentsError` to `getPaymentIntentInstrumentsError`
+- `getPaymentInstrumentsResult` to `getPaymentIntentInstrumentsResult`
+- `isCheckoutLoading` to `isCheckoutOrderLoading`
+- `resetPaymentInstrumentsState` to `resetPaymentIntentInstrumentsState`
+
+The following checkout selectors were removed as they can be easily
+replaced by looking at the checkout order
+(returned by the getCheckoutOrder selector) directly:
+- getCheckoutOrderItems
+- getCheckoutOrderItemsIds
+
+Removed `getCheckoutOrderCharge` selector as it
+can be derived by the `isCheckoutOrderChargeLoading`,
+`getCheckoutOrderChargeError`
+ and `getCheckoutOrderChargeResult` selectors.
+
+
+
+
+
 # [1.0.0-next.355](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.354...@farfetch/blackout-react@1.0.0-next.355) (2022-12-07)
 
 
