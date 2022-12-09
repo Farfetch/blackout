@@ -27,11 +27,11 @@ import {
   wishlistIdSchema,
 } from '../../shared/validation/eventSchemas';
 import {
-  eventTypes,
-  interactionTypes,
-  pageTypes,
+  EventTypes,
+  InteractionTypes,
+  PageTypes,
+  SignupNewsletterGenderTypes,
 } from '@farfetch/blackout-analytics';
-import { SignupNewsletterGenderMappings } from '../../shared/dataMappings/';
 import isElement from 'lodash/isElement';
 import type { AnySchema } from 'yup';
 
@@ -218,9 +218,9 @@ const interactContentSchema = yup
       .string()
       .test(
         'match_interaction_type',
-        'The interactionType must match one of the built-in "interactionTypes"',
+        'The interactionType must match one of the built-in "InteractionTypes"',
         value =>
-          (Object.values(interactionTypes) as Array<string>).includes(
+          (Object.values(InteractionTypes) as Array<string>).includes(
             value as string,
           ),
       ),
@@ -229,7 +229,7 @@ const interactContentSchema = yup
     'scroll_invalid_target_parameter',
     "invalid 'target' parameter for 'SCROLL' interaction type. It must be a DOM Element.",
     (value: Record<string, unknown>) => {
-      if (value.interactionType === interactionTypes.SCROLL) {
+      if (value.interactionType === InteractionTypes.SCROLL) {
         return isElement(value.target);
       }
 
@@ -240,7 +240,7 @@ const interactContentSchema = yup
     'scroll_invalid_percentage_scrolled_parameter',
     "invalid 'percentageScrolled' parameter for 'SCROLL' interaction type. It must be a number representing a percentage between [0,100].",
     (value: Record<string, unknown>) => {
-      if (value.interactionType === interactionTypes.SCROLL) {
+      if (value.interactionType === InteractionTypes.SCROLL) {
         return (
           typeof value.percentageScrolled === 'number' &&
           value.percentageScrolled >= 0 &&
@@ -253,13 +253,13 @@ const interactContentSchema = yup
   );
 
 const signupNewsletterSchemaGenderValidationList = {
-  basic: yup.string().oneOf(Object.keys(SignupNewsletterGenderMappings)),
+  basic: yup.string().oneOf(Object.keys(SignupNewsletterGenderTypes)),
   multiple: yup
     .array()
-    .of(yup.string().oneOf(Object.keys(SignupNewsletterGenderMappings))),
+    .of(yup.string().oneOf(Object.keys(SignupNewsletterGenderTypes))),
   complex: yup.array().of(
     yup.object({
-      id: yup.string().oneOf(Object.keys(SignupNewsletterGenderMappings)),
+      id: yup.string().oneOf(Object.keys(SignupNewsletterGenderTypes)),
       name: yup.string().notRequired(),
     }),
   ),
@@ -289,32 +289,32 @@ const signupNewsletterSchema = yup.object({
 });
 
 const eventSchemas = {
-  [eventTypes.CHECKOUT_ABANDONED]: checkoutAbandonedSchema,
-  [eventTypes.CHECKOUT_STARTED]: beginCheckoutSchema,
-  [eventTypes.ORDER_COMPLETED]: purchaseAndRefundSchema,
-  [eventTypes.ORDER_REFUNDED]: purchaseAndRefundSchema,
-  [eventTypes.PAYMENT_INFO_ADDED]: checkoutPaymentStepSchema,
-  [eventTypes.PLACE_ORDER_STARTED]: placeOrderStartedSchema,
-  [eventTypes.PRODUCT_ADDED_TO_CART]: manageProductInCartSchema,
-  [eventTypes.PRODUCT_REMOVED_FROM_CART]: manageProductInCartSchema,
-  [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: manageProductInWishlistSchema,
-  [eventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: manageProductInWishlistSchema,
-  [eventTypes.PRODUCT_CLICKED]: selectItemSchema,
-  [eventTypes.PRODUCT_LIST_VIEWED]: viewItemListSchema,
-  [eventTypes.PRODUCT_VIEWED]: viewItemSchema,
-  [eventTypes.PROMOCODE_APPLIED]: promocodeAppliedSchema,
-  [eventTypes.SELECT_CONTENT]: selectContentSchema,
-  [eventTypes.SHIPPING_INFO_ADDED]: shippingInfoAddedSchema,
-  [pageTypes.BAG]: viewBagSchema,
-  [pageTypes.SEARCH]: searchSchema,
-  [pageTypes.WISHLIST]: viewWishlistSchema,
-  [eventTypes.SHARE]: shareSchema,
-  [eventTypes.CHECKOUT_STEP_EDITING]: checkoutStepEditingSchema,
-  [eventTypes.ADDRESS_INFO_ADDED]: addressInfoAddedSchema,
-  [eventTypes.SHIPPING_METHOD_ADDED]: shippingMethodAddedSchema,
-  [eventTypes.PRODUCT_UPDATED]: productUpdatedSchema,
-  [eventTypes.INTERACT_CONTENT]: interactContentSchema,
-  [eventTypes.SIGNUP_NEWSLETTER]: signupNewsletterSchema,
+  [EventTypes.CHECKOUT_ABANDONED]: checkoutAbandonedSchema,
+  [EventTypes.CHECKOUT_STARTED]: beginCheckoutSchema,
+  [EventTypes.ORDER_COMPLETED]: purchaseAndRefundSchema,
+  [EventTypes.ORDER_REFUNDED]: purchaseAndRefundSchema,
+  [EventTypes.PAYMENT_INFO_ADDED]: checkoutPaymentStepSchema,
+  [EventTypes.PLACE_ORDER_STARTED]: placeOrderStartedSchema,
+  [EventTypes.PRODUCT_ADDED_TO_CART]: manageProductInCartSchema,
+  [EventTypes.PRODUCT_REMOVED_FROM_CART]: manageProductInCartSchema,
+  [EventTypes.PRODUCT_ADDED_TO_WISHLIST]: manageProductInWishlistSchema,
+  [EventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: manageProductInWishlistSchema,
+  [EventTypes.PRODUCT_CLICKED]: selectItemSchema,
+  [EventTypes.PRODUCT_LIST_VIEWED]: viewItemListSchema,
+  [EventTypes.PRODUCT_VIEWED]: viewItemSchema,
+  [EventTypes.PROMOCODE_APPLIED]: promocodeAppliedSchema,
+  [EventTypes.SELECT_CONTENT]: selectContentSchema,
+  [EventTypes.SHIPPING_INFO_ADDED]: shippingInfoAddedSchema,
+  [PageTypes.BAG]: viewBagSchema,
+  [PageTypes.SEARCH]: searchSchema,
+  [PageTypes.WISHLIST]: viewWishlistSchema,
+  [EventTypes.SHARE]: shareSchema,
+  [EventTypes.CHECKOUT_STEP_EDITING]: checkoutStepEditingSchema,
+  [EventTypes.ADDRESS_INFO_ADDED]: addressInfoAddedSchema,
+  [EventTypes.SHIPPING_METHOD_ADDED]: shippingMethodAddedSchema,
+  [EventTypes.PRODUCT_UPDATED]: productUpdatedSchema,
+  [EventTypes.INTERACT_CONTENT]: interactContentSchema,
+  [EventTypes.SIGNUP_NEWSLETTER]: signupNewsletterSchema,
 };
 
 export default eventSchemas;

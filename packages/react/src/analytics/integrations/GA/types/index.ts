@@ -3,7 +3,7 @@ import type {
   IntegrationOptions,
   LoadIntegrationEventData,
   SetUserEventData,
-  trackTypes,
+  TrackTypes,
   TrackTypesValues,
 } from '@farfetch/blackout-analytics';
 import type { Schema } from '../../shared/types/shared.types';
@@ -32,15 +32,15 @@ export interface GAIntegrationOptions extends IntegrationOptions {
 }
 
 export type EventScopeCommandsHandlers = {
-  extras?: (data: EventData<typeof trackTypes.TRACK>) => GACommandList;
+  extras?: (data: EventData<typeof TrackTypes.TRACK>) => GACommandList;
   main?: (
-    data: EventData<typeof trackTypes.TRACK>,
+    data: EventData<typeof TrackTypes.TRACK>,
     productMappings: ProductMappings,
   ) => GACommandList;
 };
 
 export type PageviewScopeExtrasCommandsHandler = {
-  extras: (data: EventData<typeof trackTypes.PAGE>) => GACommandList;
+  extras: (data: EventData<typeof TrackTypes.PAGE>) => GACommandList;
 };
 
 export type UserScopeCommandsHandler = (

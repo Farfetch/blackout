@@ -8,7 +8,7 @@ import {
   SET_USER_TYPE,
 } from '../constants';
 import {
-  eventTypes,
+  EventTypes,
   integrations,
   LoadIntegrationEventData,
   TrackTypesValues,
@@ -34,7 +34,7 @@ utils.logger.error = jest.fn();
 const loggerErrorSpy = utils.logger.error;
 
 const analyticsTrackDataMock =
-  trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART];
+  trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART];
 
 const strippedDownAnalytics = {
   createEvent: (type: TrackTypesValues) =>
@@ -298,7 +298,7 @@ describe('GTM', () => {
     it('Should only track events mapped on the integration', () => {
       const analyticsEvent = {
         ...analyticsTrackDataMock,
-        event: eventTypes.PRODUCT_CLICKED,
+        event: EventTypes.PRODUCT_CLICKED,
         properties: {
           id: 123123,
         },
@@ -419,7 +419,7 @@ describe('GTM', () => {
       let dataLayerEntry;
       const myCustomProperty = 'myCustomProperty';
       const eventSchemas = {
-        [eventTypes.PRODUCT_CLICKED]: validationSchemaBuilder.object({
+        [EventTypes.PRODUCT_CLICKED]: validationSchemaBuilder.object({
           [myCustomProperty]: validationSchemaBuilder.string().required(),
         }),
       };
@@ -429,7 +429,7 @@ describe('GTM', () => {
 
       const analyticsEvent = {
         ...analyticsTrackDataMock,
-        event: eventTypes.PRODUCT_CLICKED,
+        event: EventTypes.PRODUCT_CLICKED,
         properties: {},
       };
 

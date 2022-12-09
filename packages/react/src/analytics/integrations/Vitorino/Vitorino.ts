@@ -286,13 +286,13 @@ export default class Vitorino extends integrations.Integration<VitorinoIntegrati
     await this.userIdPromise;
 
     try {
-      const pageTypes = this.getPageTypeFromEvent(data.event);
+      const PageTypes = this.getPageTypeFromEvent(data.event);
       let safePageTypes;
 
-      if (isArray(pageTypes)) {
-        safePageTypes = pageTypes.length ? pageTypes : [undefined];
+      if (isArray(PageTypes)) {
+        safePageTypes = PageTypes.length ? PageTypes : [undefined];
       } else {
-        safePageTypes = [pageTypes];
+        safePageTypes = [PageTypes];
       }
 
       safePageTypes.forEach(pageType => this.callVitorino(pageType));

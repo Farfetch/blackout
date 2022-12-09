@@ -1,9 +1,9 @@
-import { eventTypes } from '@farfetch/blackout-analytics';
+import { EventTypes } from '@farfetch/blackout-analytics';
 import baseTrackData from './baseTrackData.fixtures';
 
 const fixtures = {
   ...baseTrackData,
-  event: eventTypes.FILTERS_CLEARED,
+  event: EventTypes.FILTERS_CLEARED,
   properties: {
     filters: {
       brands: [2765, 4062],

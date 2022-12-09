@@ -10,7 +10,7 @@ import {
 import { getProductDenormalized } from '../../products';
 import Analytics, {
   EventProperties,
-  eventTypes,
+  EventTypes,
   utils,
 } from '@farfetch/blackout-analytics';
 import get from 'lodash/get';
@@ -265,7 +265,7 @@ export function analyticsBagMiddleware(
           ...getBagData(action),
         };
 
-        analyticsInstance.track(eventTypes.PRODUCT_ADDED_TO_CART, data);
+        analyticsInstance.track(EventTypes.PRODUCT_ADDED_TO_CART, data);
         return result;
       }
 
@@ -298,7 +298,7 @@ export function analyticsBagMiddleware(
         let eventType = null;
 
         // Track ga4 update event - Track data is being cloned here because it will be mutated later
-        analyticsInstance.track(eventTypes.PRODUCT_UPDATED, { ...data });
+        analyticsInstance.track(EventTypes.PRODUCT_UPDATED, { ...data });
 
         if (data.oldSize && data.oldSize !== data.size) {
           const removedProductData: EventProperties = { ...data };
@@ -306,7 +306,7 @@ export function analyticsBagMiddleware(
           removedProductData.quantity = data.oldQuantity;
 
           analyticsInstance.track(
-            eventTypes.PRODUCT_REMOVED_FROM_CART,
+            EventTypes.PRODUCT_REMOVED_FROM_CART,
             removedProductData,
           );
 
@@ -315,9 +315,9 @@ export function analyticsBagMiddleware(
 
         // Check if the quantity difference is less than it was in bag - use PRODUCT_REMOVED_FROM_CART in that case
         if (data.oldQuantity && data.quantity < data.oldQuantity) {
-          eventType = eventTypes.PRODUCT_REMOVED_FROM_CART;
+          eventType = EventTypes.PRODUCT_REMOVED_FROM_CART;
         } else {
-          eventType = eventTypes.PRODUCT_ADDED_TO_CART;
+          eventType = EventTypes.PRODUCT_ADDED_TO_CART;
         }
 
         data.quantity = Math.abs(data.quantity - (data.oldQuantity || 0));
@@ -337,7 +337,7 @@ export function analyticsBagMiddleware(
           ...getBagData(action),
         };
 
-        analyticsInstance.track(eventTypes.PRODUCT_REMOVED_FROM_CART, data);
+        analyticsInstance.track(EventTypes.PRODUCT_REMOVED_FROM_CART, data);
         break;
       }
 

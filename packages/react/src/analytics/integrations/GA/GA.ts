@@ -16,7 +16,7 @@
  * ```
  */
 import {
-  trackTypes as analyticsTrackTypes,
+  TrackTypes as analyticsTrackTypes,
   ConsentData,
   EventData,
   integrations,

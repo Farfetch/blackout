@@ -28,9 +28,9 @@ Make sure that you have installed the correct peer dependencies of this package:
 You just need to import and use what you need
 
 ```js
-import { fromParameterTypes } from '@farfetch/analytics';
+import { FromParameterTypes } from '@farfetch/analytics';
 
-console.log(fromParameterTypes.BAG);
+console.log(FromParameterTypes.BAG);
 ```
 
 ### Additional configuration

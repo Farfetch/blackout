@@ -14,8 +14,8 @@ import { mockStore } from './../tests/simplifiedStore';
 import { mockUsersResponse } from 'tests/__fixtures__/users';
 import { UserGender } from '@farfetch/blackout-client';
 import Analytics, {
-  eventTypes,
-  loginMethodParameterTypes,
+  EventTypes,
+  LoginMethodParameterTypes,
   UserData,
   UserTraits,
 } from '@farfetch/blackout-analytics';
@@ -413,13 +413,13 @@ describe('analyticsSetUserMiddleware', () => {
         store,
         authenticationActionTypes.LOGIN_SUCCESS,
         loggedInUserEntity,
-        { isLoginAction: true, method: loginMethodParameterTypes.TENANT },
+        { isLoginAction: true, method: LoginMethodParameterTypes.TENANT },
       );
 
       assertSetUserSpyCalledWith(loggedInUserId, loggedInUserInfo);
 
-      expect(trackSpy).toHaveBeenCalledWith(eventTypes.LOGIN, {
-        method: loginMethodParameterTypes.TENANT,
+      expect(trackSpy).toHaveBeenCalledWith(EventTypes.LOGIN, {
+        method: LoginMethodParameterTypes.TENANT,
       });
     });
 
@@ -435,13 +435,13 @@ describe('analyticsSetUserMiddleware', () => {
         store,
         authenticationActionTypes.REGISTER_SUCCESS,
         loggedInUserEntity,
-        { isRegisterAction: true, method: loginMethodParameterTypes.TENANT },
+        { isRegisterAction: true, method: LoginMethodParameterTypes.TENANT },
       );
 
       assertSetUserSpyCalledWith(loggedInUserId, loggedInUserInfo);
 
-      expect(trackSpy).toHaveBeenCalledWith(eventTypes.SIGNUP_FORM_COMPLETED, {
-        method: loginMethodParameterTypes.TENANT,
+      expect(trackSpy).toHaveBeenCalledWith(EventTypes.SIGNUP_FORM_COMPLETED, {
+        method: LoginMethodParameterTypes.TENANT,
       });
     });
 
@@ -458,7 +458,7 @@ describe('analyticsSetUserMiddleware', () => {
         store,
         authenticationActionTypes.LOGIN_SUCCESS,
         loggedInUserEntity,
-        { isLoginAction: true, method: loginMethodParameterTypes.TENANT },
+        { isLoginAction: true, method: LoginMethodParameterTypes.TENANT },
       );
 
       assertSetUserSpyCalledWith(loggedInUserId, loggedInUserInfo);
@@ -474,7 +474,7 @@ describe('analyticsSetUserMiddleware', () => {
 
       assertSetUserSpyCalledWith(guestUserId, guestUserInfo);
 
-      expect(trackSpy).toHaveBeenCalledWith(eventTypes.LOGOUT);
+      expect(trackSpy).toHaveBeenCalledWith(EventTypes.LOGOUT);
     });
 
     it('Should trigger a logout event when the user changes to a guest user from a logged in user (Manual logout)', async () => {
@@ -490,7 +490,7 @@ describe('analyticsSetUserMiddleware', () => {
         store,
         authenticationActionTypes.LOGIN_SUCCESS,
         loggedInUserEntity,
-        { isLoginAction: true, method: loginMethodParameterTypes.TENANT },
+        { isLoginAction: true, method: LoginMethodParameterTypes.TENANT },
       );
 
       assertSetUserSpyCalledWith(loggedInUserId, loggedInUserInfo);
@@ -504,7 +504,7 @@ describe('analyticsSetUserMiddleware', () => {
         guestUserEntity,
       );
 
-      expect(trackSpy).toHaveBeenCalledWith(eventTypes.LOGOUT);
+      expect(trackSpy).toHaveBeenCalledWith(EventTypes.LOGOUT);
       expect(anonymizeSpy).toHaveBeenCalled();
     });
 
@@ -520,7 +520,7 @@ describe('analyticsSetUserMiddleware', () => {
         store,
         usersActionTypes.FETCH_USER_SUCCESS,
         loggedInUserEntity,
-        { isLoginAction: false, method: loginMethodParameterTypes.TENANT },
+        { isLoginAction: false, method: LoginMethodParameterTypes.TENANT },
       );
 
       assertSetUserSpyCalledWith(loggedInUserId, loggedInUserInfo);

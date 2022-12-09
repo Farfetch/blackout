@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should export interactionTypes 1`] = `
+exports[`Should export InteractionTypes 1`] = `
 Object {
   "CLICK": "Click",
   "DOUBLE_CLICK": "Double Click",

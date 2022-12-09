@@ -1,11 +1,11 @@
-import { eventTypes, interactionTypes } from '@farfetch/blackout-analytics';
+import { EventTypes, InteractionTypes } from '@farfetch/blackout-analytics';
 import baseTrackData from './baseTrackData.fixtures';
 
 const fixtures = {
   ...baseTrackData,
-  event: eventTypes.INTERACT_CONTENT,
+  event: EventTypes.INTERACT_CONTENT,
   properties: {
-    interactionType: interactionTypes.CLICK,
+    interactionType: InteractionTypes.CLICK,
     contentType: 'biz',
     someOtherProperty: 12312312,
     state: 'dummy',

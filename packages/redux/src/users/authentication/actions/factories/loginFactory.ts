@@ -6,7 +6,7 @@ import {
   PostLogin,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import { loginMethodParameterTypes } from '@farfetch/blackout-analytics';
+import { LoginMethodParameterTypes } from '@farfetch/blackout-analytics';
 import type { Dispatch } from 'redux';
 
 const UNVERIFIED_USER = 4;
@@ -38,7 +38,7 @@ const loginFactory =
       dispatch({
         payload: userEntity,
         type: actionTypes.LOGIN_SUCCESS,
-        meta: { isLoginAction: true, method: loginMethodParameterTypes.TENANT },
+        meta: { isLoginAction: true, method: LoginMethodParameterTypes.TENANT },
       });
 
       return result;

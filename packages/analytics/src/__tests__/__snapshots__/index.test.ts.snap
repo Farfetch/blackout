@@ -2,8 +2,7 @@
 
 exports[`root index file should export all public modules 1`] = `
 Object {
-  "default": [Function],
-  "eventTypes": Object {
+  "EventTypes": Object {
     "ADDRESS_INFO_ADDED": "Address Info Added",
     "CHECKOUT_ABANDONED": "Checkout Abandoned",
     "CHECKOUT_STARTED": "Checkout Started",
@@ -38,7 +37,7 @@ Object {
     "SIGNUP_FORM_VIEWED": "Sign-up Form Viewed",
     "SIGNUP_NEWSLETTER": "Sign-up Newsletter",
   },
-  "fromParameterTypes": Object {
+  "FromParameterTypes": Object {
     "BAG": "Bag",
     "EDITORIAL": "Editorial",
     "OTHER": "Other",
@@ -48,11 +47,7 @@ Object {
     "RECOMMENDATIONS": "Recommendations",
     "WISHLIST": "Wishlist",
   },
-  "integrations": Object {
-    "Integration": [Function],
-    "Omnitracking": [Function],
-  },
-  "interactionTypes": Object {
+  "InteractionTypes": Object {
     "CLICK": "Click",
     "DOUBLE_CLICK": "Double Click",
     "DRAG": "Drag",
@@ -66,7 +61,7 @@ Object {
     "TAP": "Tap",
     "TOUCH": "Touch",
   },
-  "loginMethodParameterTypes": Object {
+  "LoginMethodParameterTypes": Object {
     "APPLE": "Apple",
     "FACEBOOK": "Facebook",
     "GOOGLE": "Google",
@@ -74,7 +69,7 @@ Object {
     "TENANT": "Tenant",
     "TWITTER": "Twitter",
   },
-  "pageTypes": Object {
+  "PageTypes": Object {
     "ABOUT": "about",
     "ACCOUNT": "account",
     "ARTICLE": "article",
@@ -113,20 +108,29 @@ Object {
     "UNSUBSCRIBE": "unsubscribe",
     "WISHLIST": "wishlist",
   },
-  "platformTypes": Object {
+  "PlatformTypes": Object {
     "Mobile": "mobile",
     "Web": "web",
   },
-  "signupNewsletterGenderTypes": Object {
+  "SignupNewsletterGenderTypes": Object {
     "0": "Woman",
     "1": "Man",
     "2": "Unisex",
     "3": "Kids",
+    "Kids": 3,
+    "Man": 1,
+    "Unisex": 2,
+    "Woman": 0,
   },
-  "trackTypes": Object {
+  "TrackTypes": Object {
     "PAGE": "page",
     "SCREEN": "screen",
     "TRACK": "track",
+  },
+  "default": [Function],
+  "integrations": Object {
+    "Integration": [Function],
+    "Omnitracking": [Function],
   },
   "utils": Object {
     "ANALYTICS_UNIQUE_EVENT_ID": "__uniqueEventId",

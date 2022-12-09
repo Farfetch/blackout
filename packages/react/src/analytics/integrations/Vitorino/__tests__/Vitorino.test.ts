@@ -11,10 +11,10 @@ import {
   VITORINO_CALL_ERROR_MESSAGE,
 } from '../constants';
 import {
-  eventTypes,
+  EventTypes,
   integrations,
   LoadIntegrationEventData,
-  pageTypes,
+  PageTypes,
   TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
@@ -33,10 +33,10 @@ const defaultOptions = {};
 const customVitorinoPageType = "vitorino's pageType";
 
 const mockCustomEventsMapper = () => ({
-  [eventTypes.CHECKOUT_STEP_VIEWED]: customVitorinoPageType,
+  [EventTypes.CHECKOUT_STEP_VIEWED]: customVitorinoPageType,
 });
 const analyticsTrackDataMock =
-  trackEventsData[eventTypes.PRODUCT_ADDED_TO_CART];
+  trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART];
 const strippedDownAnalytics = {
   createEvent: (type: TrackTypesValues) =>
     Promise.resolve({ ...analyticsTrackDataMock, type }),
@@ -190,13 +190,13 @@ describe('Vitorino', () => {
 
         await instance.track({
           ...analyticsTrackDataMock,
-          event: eventTypes.CHECKOUT_STEP_VIEWED,
+          event: EventTypes.CHECKOUT_STEP_VIEWED,
         });
 
         expect(utils.logger.info).toHaveBeenCalledWith('Vitorino track: ', {
           config: generateMockVitorinoPayload(),
           vitorinoPageType:
-            GET_EVENTS_MAPPER_FN()[eventTypes.CHECKOUT_STEP_VIEWED],
+            GET_EVENTS_MAPPER_FN()[EventTypes.CHECKOUT_STEP_VIEWED],
         });
       });
     });
@@ -278,7 +278,7 @@ describe('Vitorino', () => {
     describe('Track page views', () => {
       it('Should track a mapped page view for an event', async () => {
         const instance = await getIntegrationInstance();
-        const mockEvent = eventTypes.CHECKOUT_STEP_VIEWED;
+        const mockEvent = EventTypes.CHECKOUT_STEP_VIEWED;
 
         await instance.track({
           ...analyticsTrackDataMock,
@@ -292,29 +292,29 @@ describe('Vitorino', () => {
 
       it('Should track a valid event that maps more than one Vitorino page type', async () => {
         const instance = await getIntegrationInstance();
-        const mockEvent = pageTypes.LOGIN_REGISTER;
+        const mockEvent = PageTypes.LOGIN_REGISTER;
 
         await instance.track({
           ...analyticsTrackDataMock,
           event: mockEvent,
         });
 
-        const pageTypesList = GET_EVENTS_MAPPER_FN()[mockEvent];
+        const PageTypesList = GET_EVENTS_MAPPER_FN()[mockEvent];
 
         expect(mockVitorinoTrackCallback).toHaveBeenCalledTimes(2);
 
         expect(mockVitorinoTrackCallback).toHaveBeenCalledWith(
-          pageTypesList?.[0],
+          PageTypesList?.[0],
         );
 
         expect(mockVitorinoTrackCallback).toHaveBeenCalledWith(
-          pageTypesList?.[1],
+          PageTypesList?.[1],
         );
       });
 
       it('Should track a valid event that is NOT mapped on the mapper without the Vitorino page type', async () => {
         const instance = await getIntegrationInstance();
-        const mockEvent = eventTypes.PRODUCT_REMOVED_FROM_WISHLIST;
+        const mockEvent = EventTypes.PRODUCT_REMOVED_FROM_WISHLIST;
 
         await instance.track({
           ...analyticsTrackDataMock,
@@ -325,7 +325,7 @@ describe('Vitorino', () => {
       });
 
       it('Should track a valid event that maps an empty array on the mapper', async () => {
-        const mockEvent = eventTypes.PRODUCT_REMOVED_FROM_WISHLIST;
+        const mockEvent = EventTypes.PRODUCT_REMOVED_FROM_WISHLIST;
         const instance = await getIntegrationInstance({
           eventsMapper: () => ({
             [mockEvent]: [],

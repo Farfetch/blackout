@@ -1,9 +1,9 @@
-import eventTypes from '../eventTypes';
-import pageTypes from '../pageTypes';
+import EventTypes from '../EventTypes';
+import PageTypes from '../PageTypes';
 
 it('Should validate if event and page do not have same values', () => {
-  const eventValues = Object.values(eventTypes);
-  const pageValues = Object.values(pageTypes);
+  const eventValues = Object.values(EventTypes);
+  const pageValues = Object.values(PageTypes);
 
   expect(
     // @ts-expect-error

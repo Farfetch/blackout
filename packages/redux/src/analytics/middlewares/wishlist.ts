@@ -12,8 +12,8 @@ import {
   wishlistsActionTypes,
 } from '../../wishlists';
 import Analytics, {
-  eventTypes,
-  fromParameterTypes,
+  EventTypes,
+  FromParameterTypes,
   utils,
 } from '@farfetch/blackout-analytics';
 import get from 'lodash/get';
@@ -210,7 +210,7 @@ export function analyticsWishlistMiddleware(
         const wishlistItem = getWishlistItem(state, wishlistItemId);
         const wishlistId = getWishlistId(state);
 
-        analyticsInstance.track(eventTypes.PRODUCT_ADDED_TO_WISHLIST, {
+        analyticsInstance.track(EventTypes.PRODUCT_ADDED_TO_WISHLIST, {
           ...(await getProductData(analyticsInstance, state, wishlistItem)),
           ...getWishlistData(action, wishlistItem),
           wishlistId,
@@ -227,7 +227,7 @@ export function analyticsWishlistMiddleware(
         const wishlistItem = getWishlistItem(state, wishlistItemId);
         const wishlistId = getWishlistId(state);
 
-        analyticsInstance.track(eventTypes.PRODUCT_REMOVED_FROM_WISHLIST, {
+        analyticsInstance.track(EventTypes.PRODUCT_REMOVED_FROM_WISHLIST, {
           ...(await getProductData(analyticsInstance, state, wishlistItem)),
           ...getWishlistData(action, wishlistItem),
           wishlistId,
@@ -281,16 +281,16 @@ export function analyticsWishlistMiddleware(
           oldSizeScaleId: oldProductData.sizeScaleId,
           oldQuantity: oldProductData.quantity,
           ...wishlistData,
-          from: wishlistData?.from || fromParameterTypes.WISHLIST,
+          from: wishlistData?.from || FromParameterTypes.WISHLIST,
           wishlistId,
         };
 
         // Track analytics Product Updated Event (from Wishlist)
-        analyticsInstance.track(eventTypes.PRODUCT_UPDATED, analyticsData);
+        analyticsInstance.track(EventTypes.PRODUCT_UPDATED, analyticsData);
 
         // Track analytics Wishlist Product Updated Event
         analyticsInstance.track(
-          eventTypes.PRODUCT_UPDATED_WISHLIST,
+          EventTypes.PRODUCT_UPDATED_WISHLIST,
           analyticsData,
         );
 
@@ -318,7 +318,7 @@ export function analyticsWishlistMiddleware(
         if (isDeleteOperation && !isNil(wishlistItemId)) {
           const wishlistItem = getWishlistItem(state, wishlistItemId);
 
-          analyticsInstance.track(eventTypes.PRODUCT_REMOVED_FROM_WISHLIST, {
+          analyticsInstance.track(EventTypes.PRODUCT_REMOVED_FROM_WISHLIST, {
             ...(await getProductData(analyticsInstance, state, wishlistItem)),
             ...getWishlistData(action, wishlistItem),
             wishlistId: wishlistSetId, // We can infer the wishlistId parameter from the wishlistSet
@@ -336,7 +336,7 @@ export function analyticsWishlistMiddleware(
           state = store.getState();
           const wishlistItem = getWishlistItem(state, wishlistItemId);
 
-          analyticsInstance.track(eventTypes.PRODUCT_ADDED_TO_WISHLIST, {
+          analyticsInstance.track(EventTypes.PRODUCT_ADDED_TO_WISHLIST, {
             ...(await getProductData(analyticsInstance, state, wishlistItem)),
             ...getWishlistData(action, wishlistItem),
             wishlistId: wishlistSetId, // We can infer the wishlistId parameter from the wishlistSet
@@ -375,7 +375,7 @@ export function analyticsWishlistMiddleware(
 
         await Promise.all(
           removedItems.map(async wishlistItem => {
-            analyticsInstance.track(eventTypes.PRODUCT_REMOVED_FROM_WISHLIST, {
+            analyticsInstance.track(EventTypes.PRODUCT_REMOVED_FROM_WISHLIST, {
               ...(await getProductData(analyticsInstance, state, wishlistItem)),
               ...getWishlistData(action, wishlistItem),
               wishlistId: wishlistSetId, // We can infer the wishlistId parameter from the wishlistSet
@@ -414,7 +414,7 @@ export function analyticsWishlistMiddleware(
 
         await Promise.all(
           addedItems.map(async wishlistItem => {
-            analyticsInstance.track(eventTypes.PRODUCT_ADDED_TO_WISHLIST, {
+            analyticsInstance.track(EventTypes.PRODUCT_ADDED_TO_WISHLIST, {
               ...(await getProductData(analyticsInstance, state, wishlistItem)),
               ...getWishlistData(action, wishlistItem),
               wishlistId: wishlistSetId, // We can infer the wishlistId parameter from the wishlistSet
