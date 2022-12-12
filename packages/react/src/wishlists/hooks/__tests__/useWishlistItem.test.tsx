@@ -93,7 +93,10 @@ describe('useWishlistItem', () => {
 
       remove();
 
-      expect(removeWishlistItem).toHaveBeenCalledWith(mockWishlistItemId);
+      expect(removeWishlistItem).toHaveBeenCalledWith(
+        mockWishlistItemId,
+        undefined,
+      );
     });
 
     it('should call `updateWishlistItem` action', () => {
@@ -112,6 +115,7 @@ describe('useWishlistItem', () => {
       expect(updateWishlistItem).toHaveBeenCalledWith(
         mockWishlistItemId,
         mockWishlistItemPatchData,
+        undefined,
       );
     });
   });

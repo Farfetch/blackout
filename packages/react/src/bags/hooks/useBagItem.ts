@@ -42,7 +42,8 @@ const useBagItem = (bagItemId: BagItemId) => {
   );
 
   const remove = useCallback(
-    () => removeItem(bagItemId),
+    (metadata?: BagItemActionMetadata) =>
+      removeItem(bagItemId, undefined, metadata),
     [removeItem, bagItemId],
   );
 

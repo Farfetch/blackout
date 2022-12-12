@@ -6,6 +6,7 @@ import {
   getWishlistItemError,
   isWishlistItemLoading,
   StoreState,
+  WishlistItemActionMetadata,
 } from '@farfetch/blackout-redux';
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
@@ -37,12 +38,14 @@ const useWishlistItem = (wishlistItemId: WishlistItemId) => {
   );
 
   const update = useCallback(
-    (data: PatchWishlistItemData) => updateItem(wishlistItemId, data),
+    (data: PatchWishlistItemData, metadata?: WishlistItemActionMetadata) =>
+      updateItem(wishlistItemId, data, metadata),
     [updateItem, wishlistItemId],
   );
 
   const remove = useCallback(
-    () => removeItem(wishlistItemId),
+    (metadata?: WishlistItemActionMetadata) =>
+      removeItem(wishlistItemId, metadata),
     [removeItem, wishlistItemId],
   );
 

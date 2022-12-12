@@ -24,6 +24,7 @@ import type { UseWishlistSets } from './types';
  * @returns All the handlers, state, actions and relevant data needed to manage any wishlist sets
  * operation.
  */
+
 const useWishlistSets: UseWishlistSets = () => {
   // Selectors
   const allWishlistSetsErrors = useSelector(getAllWishlistSetsErrors);

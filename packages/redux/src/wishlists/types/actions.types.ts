@@ -45,6 +45,10 @@ export type WishlistSetNormalizedPayload = NormalizedSchema<
   WishlistSet['setId']
 >;
 
+export type WishlistSetActionMetadata = {
+  from?: string;
+} & Record<string, unknown>;
+
 // ===== Wishlist =====
 
 //

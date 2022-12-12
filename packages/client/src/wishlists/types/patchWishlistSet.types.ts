@@ -4,7 +4,6 @@ import type { WishlistSet } from './wishlistSet.types';
 
 // JSON patch
 export type PatchWishlistSetData = Array<{
-  from: string;
   op: string;
   path: string;
   value: unknown;
