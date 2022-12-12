@@ -19,6 +19,7 @@ const loggerErrorSpy = jest
   .mockImplementation(message => message);
 
 const originalWindow = window;
+const consoleWarnSpy = jest.spyOn(console, 'warn');
 
 beforeEach(() => {
   window.zaraz = null;
@@ -67,9 +68,13 @@ function createZarazInstance(options) {
 }
 
 describe('Zaraz integration', () => {
-  it('"createInstance" should return an instance of itself', () => {
+  it('"createInstance" should return an instance of itself and print deprecation warning', () => {
     expect(ZarazIntegration.createInstance({})).toBeInstanceOf(
       ZarazIntegration,
+    );
+
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      '@farfetch/blackout-react: DEPRECATED integration Zaraz. This integration will be removed in the next major release.',
     );
   });
 

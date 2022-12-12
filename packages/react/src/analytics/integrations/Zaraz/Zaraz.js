@@ -29,6 +29,10 @@ class Zaraz extends integrations.Integration {
   constructor(options, loadData, analytics) {
     super(options, loadData, analytics);
 
+    console.warn(
+      '@farfetch/blackout-react: DEPRECATED integration Zaraz. This integration will be removed in the next major release.',
+    );
+
     this.initializePromise = new Promise((resolve, reject) => {
       this.initializePromiseResolve = resolve;
       this.initializePromiseReject = reject;
