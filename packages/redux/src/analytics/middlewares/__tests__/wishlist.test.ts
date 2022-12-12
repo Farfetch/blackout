@@ -688,7 +688,7 @@ describe('analyticsWishlistMiddleware', () => {
         meta: {
           affiliation,
           coupon,
-          from,
+          from: fromParameterTypes.WISHLIST,
           list: wishlistName,
           listId: wishlistMockData.wishlistId,
           position,
@@ -733,7 +733,7 @@ describe('analyticsWishlistMiddleware', () => {
         coupon,
         currency: currencyCode,
         discountValue: discount,
-        from,
+        from: fromParameterTypes.WISHLIST,
         id: wishlistMockData.productId,
         list: wishlistName,
         listId: wishlistMockData.wishlistId,
