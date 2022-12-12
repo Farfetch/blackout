@@ -125,7 +125,11 @@ describe('useBagItem', () => {
 
       await remove();
 
-      expect(removeBagItem).toHaveBeenCalledWith(mockBagItemId);
+      expect(removeBagItem).toHaveBeenCalledWith(
+        mockBagItemId,
+        undefined,
+        undefined,
+      );
     });
 
     it('should call `updateBagItem` action on size and quantity update', async () => {

@@ -272,6 +272,7 @@ export function analyticsWishlistMiddleware(
         const wishlistItemId = getWishlistItemIdFromAction(action, false);
         const wishlistItem = getWishlistItem(state, wishlistItemId);
         const wishlistId = getWishlistId(state);
+        const wishlistData = getWishlistData(action, wishlistItem);
 
         const analyticsData = {
           ...(await getProductData(analyticsInstance, state, wishlistItem)),
@@ -279,15 +280,13 @@ export function analyticsWishlistMiddleware(
           oldSizeId: oldProductData.sizeId,
           oldSizeScaleId: oldProductData.sizeScaleId,
           oldQuantity: oldProductData.quantity,
-          ...getWishlistData(action, wishlistItem),
+          ...wishlistData,
+          from: wishlistData?.from || fromParameterTypes.WISHLIST,
           wishlistId,
         };
 
         // Track analytics Product Updated Event (from Wishlist)
-        analyticsInstance.track(eventTypes.PRODUCT_UPDATED, {
-          ...analyticsData,
-          from: fromParameterTypes.WISHLIST,
-        });
+        analyticsInstance.track(eventTypes.PRODUCT_UPDATED, analyticsData);
 
         // Track analytics Wishlist Product Updated Event
         analyticsInstance.track(

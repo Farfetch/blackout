@@ -12,6 +12,7 @@ import fetchWishlistSetFactory from './fetchWishlistSetFactory';
 import type {
   FetchWishlistSetAction,
   UpdateWishlistSetAction,
+  WishlistSetActionMetadata,
 } from '../../types';
 import type { StoreState } from '../../../types';
 import type { ThunkDispatch } from 'redux-thunk';
@@ -30,6 +31,7 @@ const updateWishlistSetFactory =
   (
     wishlistSetId: WishlistSet['setId'],
     data: PatchWishlistSetData,
+    metadata?: WishlistSetActionMetadata,
     config?: Config,
   ) =>
   async (
@@ -56,7 +58,7 @@ const updateWishlistSetFactory =
       await patchWishlistSet(wishlistId, wishlistSetId, data, config);
 
       dispatch({
-        meta: { wishlistSetId, data, ...config },
+        meta: { ...metadata, wishlistSetId, data, ...config },
         type: actionTypes.UPDATE_WISHLIST_SET_SUCCESS,
       });
 
