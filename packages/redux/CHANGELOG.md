@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.347](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.346...@farfetch/blackout-redux@1.0.0-next.347) (2022-12-13)
+
+
+### Bug Fixes
+
+* **react|redux:** fix wishlist and bag selectors ([071ed5d](https://github.com/Farfetch/blackout/commit/071ed5dea7351d83465ac92102d4df9f5eca188d))
+* **redux:** add missing selectors exports ([c27ec21](https://github.com/Farfetch/blackout/commit/c27ec213433c282be7be52983a3420c30967384a))
+
+
+
+
+
 # [1.0.0-next.346](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.345...@farfetch/blackout-redux@1.0.0-next.346) (2022-12-09)
 
 
