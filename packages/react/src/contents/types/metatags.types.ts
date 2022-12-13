@@ -74,7 +74,7 @@ export type ListingSeoMetadataParams = {
   pathname?: string;
   subPageType?: string;
   param: {
-    SetName?: string | null;
+    SetName?: string;
     TotalNumberItems?: number;
     BrandName?: string;
     CategoryName?: string;

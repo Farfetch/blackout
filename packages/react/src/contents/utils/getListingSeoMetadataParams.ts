@@ -11,7 +11,7 @@ const getListingSeoMetadataParams: GetListingSeoMetadataParams = ({
   location,
   totalItems = 0,
   filterSegments = [],
-  listingName = '',
+  listingName,
   lowestProductPrice = undefined,
   countryCode,
   cultureCode,
@@ -53,7 +53,7 @@ const getListingSeoMetadataParams: GetListingSeoMetadataParams = ({
       param: {
         Country: countryName,
         CountryCode: countryCode,
-        SetName: listingName,
+        SetName: listingName || '',
       },
       subPageType: SeoSubPageType.Default,
     };
