@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.348](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.347...@farfetch/blackout-redux@1.0.0-next.348) (2022-12-13)
+
+
+### Features
+
+* **client|redux|react:** add support to metadata on bag and wishlist hooks ([ab9def2](https://github.com/Farfetch/blackout/commit/ab9def21429b812779c885fb87de7ec69964e7bb))
+
+
+
+
+
 # [1.0.0-next.347](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.346...@farfetch/blackout-redux@1.0.0-next.347) (2022-12-13)
 
 
