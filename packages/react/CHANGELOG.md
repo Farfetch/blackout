@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.47.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.46.2...@farfetch/blackout-react@0.47.0) (2022-12-13)
+
+
+### Features
+
+* **react:** add deprecation warning for Zaraz ([f5815be](https://github.com/Farfetch/blackout/commit/f5815be69ec199e63780a3a7a7e3e8589a7694dc))
+
+
+
+
+
 ## [0.46.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.46.1...@farfetch/blackout-react@0.46.2) (2022-12-06)
 
 
