@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.359](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.358...@farfetch/blackout-react@1.0.0-next.359) (2022-12-13)
+
+
+### Bug Fixes
+
+* **react:** fix getListingSeoMetadataParams ([dd17607](https://github.com/Farfetch/blackout/commit/dd176073f5da212db36c3ab28b27b672469f860a))
+
+
+
+
+
 # [1.0.0-next.358](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.357...@farfetch/blackout-react@1.0.0-next.358) (2022-12-13)
 
 
