@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.225](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.224...@farfetch/blackout-client@2.0.0-next.225) (2022-12-14)
+
+
+### Features
+
+* **client:** add share wishlist endpoints ([60b3b8a](https://github.com/Farfetch/blackout/commit/60b3b8a3751633a23690746b0c0bbe65643c670b))
+
+
+
+
+
 # [2.0.0-next.224](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.223...@farfetch/blackout-client@2.0.0-next.224) (2022-12-13)
 
 
