@@ -73,6 +73,7 @@ import {
  * @property {string} [data.giftCardNumber] - Gift card number.
  * @property {string} [data.giftCardCsc] - Gift card csc.
  * @property {string} [data.creditUserId] - Credit user id.
+ * @property {string} [data.issuer] - Issuer for iDEAL method.
  */
 
 /**

@@ -21,6 +21,18 @@ export const getPaymentMethodsResponse = {
       code: 'PayPalExp',
       paymentOptions: [],
     },
+    {
+      type: 'CustomerAccount',
+      id: 'cada88b2-aa03-460a-8483-c53f431ff9b0',
+      description: 'iDEAL',
+      code: 'iDEAL',
+      paymentOptions: [],
+      issuers: [
+        { id: '0805', name: 'RaboBank' },
+        { id: '0805', name: 'Revolut' },
+        { id: '0721', name: 'ING Bank' },
+      ],
+    },
   ],
   creditCard: {
     type: 'CreditCard',
