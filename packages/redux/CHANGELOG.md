@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.349](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.348...@farfetch/blackout-redux@1.0.0-next.349) (2022-12-14)
+
+
+### Features
+
+* **redux:** add redux shared whislists ([581a76b](https://github.com/Farfetch/blackout/commit/581a76baae4dabf2534c24a92a75be062fab3054))
+
+
+
+
+
 # [1.0.0-next.348](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.347...@farfetch/blackout-redux@1.0.0-next.348) (2022-12-13)
 
 
