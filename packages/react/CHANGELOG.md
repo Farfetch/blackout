@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.361](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.360...@farfetch/blackout-react@1.0.0-next.361) (2022-12-15)
+
+
+### Bug Fixes
+
+* **redux|react|client:** fix product listing hook and filters related types ([baced32](https://github.com/Farfetch/blackout/commit/baced32db6c7155b25134c20927e88baef3e36bb))
+
+
+
+
+
 # [1.0.0-next.360](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.359...@farfetch/blackout-react@1.0.0-next.360) (2022-12-14)
 
 **Note:** Version bump only for package @farfetch/blackout-react
