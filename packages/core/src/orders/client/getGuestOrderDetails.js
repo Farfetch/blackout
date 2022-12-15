@@ -20,7 +20,11 @@ import join from 'proper-url-join';
 export default (orderId, guestUserEmail, config) => {
   const containsGuestUserEmail = isString(guestUserEmail);
   const args = containsGuestUserEmail
-    ? ['/legacy/v1/guestorders/', orderId, { query: { guestUserEmail } }]
+    ? [
+        '/legacy/v1/guestorders/',
+        orderId,
+        { query: { guestUserEmail, guestUserSecretCode: orderId } },
+      ]
     : ['/account/v1/guestorders/', orderId];
 
   return client
