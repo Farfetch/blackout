@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import { getProduct } from './product';
 import type { ProductEntity } from '../../entities/types';
+import type { RelatedSet } from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 /**
@@ -12,7 +13,11 @@ import type { StoreState } from '../../types';
  *
  * @returns Related sets of the given type.
  */
-export const getProductRelatedSetsIdsByType = createSelector(
+export const getProductRelatedSetsIdsByType: (
+  state: StoreState,
+  productId: ProductEntity['id'],
+  setType: RelatedSet['setType'],
+) => RelatedSet['setId'][] = createSelector(
   (state: StoreState, productId: ProductEntity['id']) =>
     getProduct(state, productId),
   (state: StoreState, productId: ProductEntity['id'], setType: number) =>

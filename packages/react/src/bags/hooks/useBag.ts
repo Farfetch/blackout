@@ -4,7 +4,7 @@
 import {
   addBagItem as addBagItemAction,
   BagItemActionMetadata,
-  BagItemHydrated,
+  BagItemDenormalized,
   buildBagItem,
   fetchBag as fetchBagAction,
   generateBagItemHash,
@@ -189,7 +189,7 @@ const useBag = (options: UseBagOptions = {}) => {
 
   const handleQuantityChange = useCallback(
     (
-      bagItem: BagItemHydrated,
+      bagItem: BagItemDenormalized,
       newQuantity: number,
       metadata?: BagItemActionMetadata,
     ) => {
@@ -253,7 +253,7 @@ const useBag = (options: UseBagOptions = {}) => {
    */
   const handleSizeChange = useCallback(
     async (
-      bagItem: BagItemHydrated,
+      bagItem: BagItemDenormalized,
       newSize: SizeAdapted['id'],
       metadata?: BagItemActionMetadata,
     ) => {
@@ -365,7 +365,7 @@ const useBag = (options: UseBagOptions = {}) => {
    */
   const handleFullUpdate = useCallback(
     async (
-      bagItem: BagItemHydrated,
+      bagItem: BagItemDenormalized,
       newSizeId: number,
       newQty: number,
       metadata?: BagItemActionMetadata,

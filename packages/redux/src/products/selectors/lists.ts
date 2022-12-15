@@ -20,6 +20,7 @@ import isEmpty from 'lodash/isEmpty';
 import sortBy from 'lodash/sortBy';
 import type {
   FacetEntity,
+  FacetEntityWithChildren,
   FacetGroupDenormalized,
   FacetGroupsNormalized,
   HierarchicalFacet,
@@ -136,16 +137,18 @@ export const getProductsListResult = (
  *
  * @returns List of products ids.
  */
-export const getProductsListProductsIds = createSelector(
-  [
-    (state, hash = getProductsListHash(state)) =>
-      getProductsListResult(state, checkHash(hash)),
-  ],
-  result => result?.products.entries,
-) as (
+export const getProductsListProductsIds: (
   state: StoreState,
   hash?: string | number | null,
-) => ProductEntity['id'][];
+) => ProductEntity['id'][] | undefined = createSelector(
+  [
+    (
+      state,
+      hash: string | number | null | undefined = getProductsListHash(state),
+    ) => getProductsListResult(state, checkHash(hash)),
+  ],
+  result => result?.products.entries,
+);
 
 /**
  * Retrieves a list of products for the current products list.
@@ -156,29 +159,39 @@ export const getProductsListProductsIds = createSelector(
  *
  * @returns Array of products.
  */
-export const getProductsListProducts = createSelector(
+export const getProductsListProducts: (
+  state: StoreState,
+  hash?: string | number | null,
+) => ProductEntityDenormalized[] | undefined = createSelector(
   [
-    (state, hash = getProductsListHash(state)) =>
-      getProductsListProductsIds(state, checkHash(hash)),
+    (
+      state,
+      hash: string | number | null | undefined = getProductsListHash(state),
+    ) => getProductsListProductsIds(state, checkHash(hash)),
     state => getEntities(state, 'products'),
     getBrands,
     getCategories,
   ],
   (listProductsIds, products, brands, categories) => {
-    return listProductsIds?.map(id => {
-      const product = products?.[id];
-      const brand =
-        brands && product?.brand ? brands[product.brand] : undefined;
-      const productCategories =
-        categories && product?.categories?.map(id => categories[id]);
+    return listProductsIds
+      ?.map(id => {
+        const product = products?.[id];
 
-      return { ...product, brand, categories: productCategories };
-    });
+        if (!product) {
+          return undefined;
+        }
+
+        const brand =
+          brands && product?.brand ? brands[product.brand] : undefined;
+        const productCategories =
+          categories && product?.categories?.map(id => categories[id]);
+
+        return { ...product, brand, categories: productCategories };
+      })
+      .filter(Boolean) as ProductEntityDenormalized[];
   },
-) as (
-  state: StoreState,
-  hash?: string | number | null,
-) => ProductEntityDenormalized[];
+);
+
 /**
  * Retrieves a list of all products of multiple pages (of a single products list -
  * listings or sets) to allow the tenant to build an infinite scroll layout. This
@@ -191,10 +204,16 @@ export const getProductsListProducts = createSelector(
  *
  * @returns Array of products.
  */
-export const getProductsListProductsFromAllPages = createSelector(
+export const getProductsListProductsFromAllPages: (
+  state: StoreState,
+  hash?: string | number | null,
+) => ProductEntityDenormalized[] = createSelector(
   [
     state => state,
-    (state, hash = getProductsListHash(state)) => checkHash(hash),
+    (
+      state,
+      hash: string | number | null | undefined = getProductsListHash(state),
+    ) => checkHash(hash),
     state => getEntities(state, 'productsLists'),
   ],
   (state, hash, productsLists) => {
@@ -245,16 +264,13 @@ export const getProductsListProductsFromAllPages = createSelector(
     // the products order
     const productsListPagesSorted = sortBy(productsListPages, 'pageIndex');
     // Get all the products from the product list pages sorted
-    const allProducts = productsListPagesSorted.map(({ hash }) =>
-      getProductsListProducts(state, hash),
-    );
+    const allProducts = productsListPagesSorted
+      .map(({ hash }) => getProductsListProducts(state, hash))
+      .filter(Boolean) as ProductEntityDenormalized[][];
 
     return flatten(allProducts);
   },
-) as (
-  state: StoreState,
-  hash?: string | number | null,
-) => ProductEntityDenormalized[];
+);
 
 /**
  * Retrieves pagination information about current products list.
@@ -276,10 +292,22 @@ export const getProductsListProductsFromAllPages = createSelector(
  *
  * @returns Pagination object.
  */
-export const getProductsListPagination = createSelector(
+export const getProductsListPagination: (
+  state: StoreState,
+  hash?: string | number | null,
+) =>
+  | {
+      number: ProductsListEntity['products']['number'];
+      pageSize: ProductsListEntity['config']['pageSize'];
+      totalItems: ProductsListEntity['products']['totalItems'];
+      totalPages: ProductsListEntity['products']['totalPages'];
+    }
+  | undefined = createSelector(
   [
-    (state, hash = getProductsListHash(state)) =>
-      getProductsListResult(state, checkHash(hash)),
+    (
+      state,
+      hash: string | number | null | undefined = getProductsListHash(state),
+    ) => getProductsListResult(state, checkHash(hash)),
   ],
   result => {
     if (!result) {
@@ -293,17 +321,7 @@ export const getProductsListPagination = createSelector(
       totalPages: result?.products.totalPages,
     };
   },
-) as (
-  state: StoreState,
-  hash?: string | number | null,
-) =>
-  | {
-      number: ProductsListEntity['products']['number'];
-      pageSize: ProductsListEntity['config']['pageSize'];
-      totalItems: ProductsListEntity['products']['totalItems'];
-      totalPages: ProductsListEntity['products']['totalPages'];
-    }
-  | undefined;
+);
 
 /**
  * Retrieves breadcrumbs information about current products list.
@@ -369,10 +387,15 @@ export const isProductsListCached = (
  *
  * @returns Applied filters in the format of `{ facetKey: [valueId] }`.
  */
-export const getProductsListActiveFilters = createSelector(
+export const getProductsListActiveFilters: (
+  state: StoreState,
+  hash?: string | number | null,
+) => Record<string, Array<string | number>> | undefined = createSelector(
   [
-    (state, hash = getProductsListHash(state)) =>
-      getProductsListResult(state, checkHash(hash)),
+    (
+      state,
+      hash: string | number | null | undefined = getProductsListHash(state),
+    ) => getProductsListResult(state, checkHash(hash)),
   ],
   result =>
     result?.filterSegments?.reduce((acc, { key, value, valueUpperBound }) => {
@@ -399,10 +422,7 @@ export const getProductsListActiveFilters = createSelector(
 
       return acc;
     }, {} as Record<string, Array<string | number>>),
-) as (
-  state: StoreState,
-  hash?: string | number | null,
-) => Record<string, Array<string | number>>;
+);
 
 /**
  * Retrieves the count of the current selected filters by the user - i.e. Number of
@@ -457,10 +477,18 @@ export const getProductsListSelectedFiltersCount = (
  *
  * @returns Sort and sort direction.
  */
-export const getProductsListSort = createSelector(
+export const getProductsListSort: (
+  state: StoreState,
+  hash?: string | number | null,
+) => {
+  sort: ProductsListEntity['config']['sort'] | undefined;
+  sortDirection: ProductsListEntity['config']['sortDirection'] | undefined;
+} = createSelector(
   [
-    (state, hash = getProductsListHash(state)) =>
-      getProductsListResult(state, checkHash(hash)),
+    (
+      state,
+      hash: string | number | null | undefined = getProductsListHash(state),
+    ) => getProductsListResult(state, checkHash(hash)),
   ],
   result => {
     const sort = result?.config.sort;
@@ -468,13 +496,7 @@ export const getProductsListSort = createSelector(
 
     return { sort, sortDirection };
   },
-) as (
-  state: StoreState,
-  hash?: string | number | null,
-) => {
-  sort: ProductsListEntity['config']['sort'];
-  sortDirection: ProductsListEntity['config']['sortDirection'];
-};
+);
 
 /**
  * Find all facets groups belonging to the specific type.
@@ -487,10 +509,17 @@ export const getProductsListSort = createSelector(
  *
  * @returns Array with all facets groups filtered by the type received, undefined otherwise.
  */
-export const getProductsListFacetsGroupsByType = createSelector(
+export const getProductsListFacetsGroupsByType: (
+  state: StoreState,
+  facetGroupType: FacetGroup['type'],
+  hash?: string | number | null,
+) => FacetGroupsNormalized | undefined = createSelector(
   [
-    (state, facetGroupType, hash = getProductsListHash(state)) =>
-      getProductsListResult(state, checkHash(hash)),
+    (
+      state,
+      facetGroupType,
+      hash: string | number | null | undefined = getProductsListHash(state),
+    ) => getProductsListResult(state, checkHash(hash)),
     (state: StoreState, facetGroupType: FacetGroup['type']) => facetGroupType,
   ],
   (result, facetGroupType) => {
@@ -500,11 +529,7 @@ export const getProductsListFacetsGroupsByType = createSelector(
 
     return result.facetGroups.filter(({ type }) => type === facetGroupType);
   },
-) as (
-  state: StoreState,
-  facetGroupType: FacetGroup['type'],
-  hash?: string | number | null,
-) => FacetGroupsNormalized | undefined;
+);
 
 /**
  * Returns a specific facet by its id.
@@ -534,13 +559,16 @@ export const getFacets = (state: StoreState) => getEntities(state, 'facets');
  *
  * @returns Array with all facets content requested.
  */
-export const getFacetsByIds = createSelector(
+export const getFacetsByIds: (
+  state: StoreState,
+  facetIds: Array<FacetEntity['id']>,
+) => FacetEntity[] | undefined = createSelector(
   [
     (state: StoreState) => state,
     (state: StoreState, facetIds: Array<FacetEntity['id']>) => facetIds,
   ],
   (state, facetIds: Array<FacetEntity['id']>) =>
-    facetIds?.map(id => getFacet(state, id)),
+    facetIds?.map(id => getFacet(state, id)).filter(Boolean) as FacetEntity[],
 ) as (
   state: StoreState,
   facetIds: Array<FacetEntity['id']>,
@@ -599,18 +627,30 @@ export const getProductsListFacetsByFacetGroupType = (
  *
  * @returns - All facets built with children, undefined otherwise.
  */
-export const getHierarchicalFacetsWithChildren = createSelector(
+export const getHierarchicalFacetsWithChildren: (
+  state: StoreState,
+  facetGroupType: FacetGroup['type'],
+  options?: {
+    hash?: string | number | null;
+    initialDepth?: number;
+    dynamic?: number;
+  },
+) => FacetEntityWithChildren[] | undefined = createSelector(
   [
     (
       state: StoreState,
       facetGroupType: FacetGroup['type'],
-      { hash = getProductsListHash(state) }: { hash?: string | null } = {},
+      {
+        hash = getProductsListHash(state),
+      }: { hash?: string | null | number } = {},
     ) =>
       getProductsListFacetsGroupsByType(state, facetGroupType, checkHash(hash)),
     (
       state: StoreState,
       facetGroupType: FacetGroup['type'],
-      { hash = getProductsListHash(state) }: { hash?: string | null } = {},
+      {
+        hash = getProductsListHash(state),
+      }: { hash?: string | null | number } = {},
     ) =>
       getProductsListFacetsByFacetGroupType(
         state,

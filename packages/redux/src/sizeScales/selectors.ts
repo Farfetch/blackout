@@ -1,5 +1,5 @@
+import { CategoryEntity, getEntities, getEntityById } from '../entities';
 import { createSelector } from 'reselect';
-import { getEntities, getEntityById } from '../entities';
 import {
   getError,
   getIsLoading,
@@ -43,7 +43,10 @@ export const getSizeScales = (state: StoreState) =>
  *
  * @returns Size scales for the provided category id.
  */
-export const getSizeScalesByCategory = createSelector(
+export const getSizeScalesByCategory: (
+  state: StoreState,
+  categoryId: CategoryEntity['id'],
+) => SizeScale[] = createSelector(
   [
     getSizeScales,
     (state: StoreState, categoryId: Category['id']) => categoryId,

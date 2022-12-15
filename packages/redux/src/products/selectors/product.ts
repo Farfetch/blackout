@@ -10,6 +10,7 @@ import type {
   ProductEntity,
   ProductEntityDenormalized,
 } from '../../entities/types';
+import type { Label, Promotion } from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 /**
@@ -103,7 +104,10 @@ export const isProductOutOfStock = (
  *
  * @returns List of product promotions for the given ID.
  */
-export const getProductPromotions = createSelector(
+export const getProductPromotions: (
+  state: StoreState,
+  productId: ProductEntity['id'],
+) => Promotion[] = createSelector(
   [
     (state: StoreState, productId: ProductEntity['id']) =>
       getProduct(state, productId),
@@ -120,7 +124,11 @@ export const getProductPromotions = createSelector(
  *
  * @returns Labels sorted by the given order.
  */
-export const getProductLabelsByPriority = createSelector(
+export const getProductLabelsByPriority: (
+  state: StoreState,
+  productId: ProductEntity['id'],
+  sortOrder?: 'asc' | 'desc',
+) => Label[] = createSelector(
   [
     (state: StoreState, productId: ProductEntity['id']) =>
       getProduct(state, productId),

@@ -40,19 +40,22 @@ export const getTopCategoriesError = (state: StoreState) =>
  *
  * @returns - Top categories list.
  */
-export const getTopCategories = createSelector(
-  [
-    (state: StoreState) => getResult(state.categories as CategoriesState),
-    (state: StoreState) => getCategories(state),
-  ],
-  (topCategories, categories): CategoryEntity[] => {
-    if (!topCategories) {
-      return [];
-    }
+export const getTopCategories: (state: StoreState) => CategoryEntity[] =
+  createSelector(
+    [
+      (state: StoreState) => getResult(state.categories as CategoriesState),
+      (state: StoreState) => getCategories(state),
+    ],
+    (topCategories, categories): CategoryEntity[] => {
+      if (!topCategories) {
+        return [];
+      }
 
-    return topCategories.map(id => categories?.[id] as CategoryEntity);
-  },
-);
+      return topCategories
+        .map(id => categories?.[id])
+        .filter(Boolean) as CategoryEntity[];
+    },
+  );
 
 /**
  * Retrieves the loading state of top categories.

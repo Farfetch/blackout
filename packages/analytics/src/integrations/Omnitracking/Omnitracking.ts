@@ -380,7 +380,7 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
 
       if (!finalPayload) {
         logger.error(
-          '`transformPayload` function did not return any payload data to be sent to Omnitracking. No request will be sent for eventData: ',
+          '[Omnitracking] - `transformPayload` function did not return any payload data to be sent to Omnitracking. No request will be sent for eventData: ',
           eventData,
         );
 

@@ -4,8 +4,8 @@ import type {
   WishlistSets,
 } from '@farfetch/blackout-client';
 import type {
+  WishlistSetsDenormalized,
   WishlistSetsErrors,
-  WishlistSetsHydrated,
   WishlistSetsState,
 } from '@farfetch/blackout-redux';
 
@@ -21,5 +21,5 @@ export type UseWishlistSets = () => {
   isAnyWishlistSetWithError: boolean;
   resetWishlistSets: () => void;
   resetWishlistSetsState: (fieldsToReset?: string[]) => void;
-  wishlistSets: WishlistSetsHydrated;
+  wishlistSets: WishlistSetsDenormalized | undefined;
 };

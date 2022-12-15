@@ -14,8 +14,8 @@ import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
 import type { BagItem, Brand, ProductType } from '@farfetch/blackout-client';
 import type {
+  BagItemDenormalized,
   BagItemEntity,
-  BagItemHydrated,
   CategoryEntity,
   ProductEntity,
   ProductEntityDenormalized,
@@ -145,7 +145,7 @@ const denormalizeBagItem = (
 export const getBagItem: (
   state: StoreState,
   bagItemId: BagItem['id'],
-) => BagItemHydrated | undefined = createSelector(
+) => BagItemDenormalized | undefined = createSelector(
   [
     (_, bagItemId) => bagItemId,
     (state: StoreState) => getEntities(state, 'bagItems'),
@@ -221,29 +221,36 @@ export const getBagItemsIds = (state: StoreState) =>
  *
  * @returns - List of each bag item entity (with the respective products) from the current user's bag.
  */
-export const getBagItems = createSelector(
-  [
-    getBagItemsIds,
-    (state: StoreState) => getEntities(state, 'bagItems'),
-    (state: StoreState) => getEntities(state, 'products'),
-    (state: StoreState) => getEntities(state, 'brands'),
-    (state: StoreState) => getEntities(state, 'categories'),
-  ],
-  (bagItemsIds, bagItems, products, brands, categories): BagItemHydrated[] => {
-    const bagItemsDenormalized =
-      bagItemsIds?.map(bagItemId => {
-        return denormalizeBagItem(
-          bagItemId,
-          bagItems,
-          products,
-          brands,
-          categories,
-        );
-      }) || [];
+export const getBagItems: (state: StoreState) => BagItemDenormalized[] =
+  createSelector(
+    [
+      getBagItemsIds,
+      (state: StoreState) => getEntities(state, 'bagItems'),
+      (state: StoreState) => getEntities(state, 'products'),
+      (state: StoreState) => getEntities(state, 'brands'),
+      (state: StoreState) => getEntities(state, 'categories'),
+    ],
+    (
+      bagItemsIds,
+      bagItems,
+      products,
+      brands,
+      categories,
+    ): BagItemDenormalized[] => {
+      const bagItemsDenormalized =
+        bagItemsIds?.map(bagItemId => {
+          return denormalizeBagItem(
+            bagItemId,
+            bagItems,
+            products,
+            brands,
+            categories,
+          );
+        }) || [];
 
-    return bagItemsDenormalized.filter(Boolean) as BagItemHydrated[];
-  },
-);
+      return bagItemsDenormalized.filter(Boolean) as BagItemDenormalized[];
+    },
+  );
 
 /**
  * Retrieves the number of different items in the bag, regardless of each one's
@@ -312,7 +319,9 @@ export const getBagItemsCounter = (
  * @returns - List of each bag unavailable item entity (with the respective products) from the current
  * user's bag.
  */
-export const getBagItemsUnavailable = createSelector([getBagItems], bagItems =>
+export const getBagItemsUnavailable: (
+  state: StoreState,
+) => BagItemDenormalized[] = createSelector([getBagItems], bagItems =>
   bagItems.filter(bagItem => !bagItem?.isAvailable),
 );
 
@@ -448,7 +457,10 @@ export const isBagFetched = (state: StoreState) =>
  *
  * @returns - Available sizes for the given item.
  */
-export const getBagItemAvailableSizes = createSelector(
+export const getBagItemAvailableSizes: (
+  state: StoreState,
+  bagItemId: BagItem['id'],
+) => SizeAdapted[] = createSelector(
   [getBagItems, (state: StoreState, itemId: BagItem['id']) => itemId],
   (bagItems, itemId) => {
     const item = bagItems?.find(bagItem => bagItem.id === itemId);
@@ -496,7 +508,15 @@ export const getBagItemAvailableSizes = createSelector(
  *
  * @returns - Bag item matching provided product params.
  */
-export const findProductInBag = createSelector(
+export const findProductInBag: (
+  state: StoreState,
+  productParams: {
+    customAttributes?: CustomAttributesAdapted;
+    product: ProductEntityDenormalized;
+    size: SizeAdapted;
+    merchantId: number;
+  },
+) => BagItemDenormalized | undefined = createSelector(
   [
     getBagItems,
     (

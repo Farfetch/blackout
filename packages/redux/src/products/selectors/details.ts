@@ -7,9 +7,12 @@ import {
 } from '../../bags';
 import { getError, getIsHydrated, getIsLoading } from '../reducer/details';
 import { getProduct, getProductDenormalized } from './product';
-import type { ProductEntity } from '../../entities/types';
+import type {
+  GroupedEntriesAdapted,
+  ProductEntity,
+} from '../../entities/types';
 import type { ProductsState } from '../types';
-import type { SizeAdapted } from '../../helpers/adapters';
+import type { SizeAdapted, SizesAdapted } from '../../helpers/adapters';
 import type { StoreState } from '../../types';
 
 /**
@@ -145,7 +148,10 @@ export const getProductSizeRemainingQuantity = (
  * @returns Product sizes array with updated quantity, as the difference between the total quantity of
  * product size and the respective bag quantity.
  */
-export const getAllProductSizesRemainingQuantity = createSelector(
+export const getAllProductSizesRemainingQuantity: (
+  state: StoreState,
+  productId: ProductEntity['id'],
+) => SizesAdapted = createSelector(
   [
     (state: StoreState, productId: ProductEntity['id']) =>
       getProductDenormalized(state, productId),
@@ -243,7 +249,16 @@ export const getAllProductSizesRemainingQuantity = createSelector(
  *
  * @returns Color grouping object.
  */
-export const getProductGroupedEntries = createSelector(
+export const getProductGroupedEntries: (
+  state: StoreState,
+  productId: ProductEntity['id'],
+) =>
+  | {
+      totalItems: number;
+      remaining: number;
+      entries: NonNullable<GroupedEntriesAdapted>['entries'];
+    }
+  | undefined = createSelector(
   [
     (state: StoreState, productId: ProductEntity['id']) =>
       getProduct(state, productId),

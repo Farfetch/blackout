@@ -18,7 +18,7 @@ import Analytics, {
 import merge from 'lodash/merge';
 import type {
   ProductEntity,
-  WishlistItemHydrated,
+  WishlistItemDenormalized,
 } from '../../../entities/types';
 import type { StoreState } from '../../../types';
 
@@ -46,7 +46,7 @@ const { name, shortDescription } = productData;
 const wishlistItem = getWishlistItem(
   wishlistMockData.state,
   wishlistMockData.wishListItemId,
-) as WishlistItemHydrated;
+) as WishlistItemDenormalized;
 
 const { price, quantity, size } = wishlistItem;
 

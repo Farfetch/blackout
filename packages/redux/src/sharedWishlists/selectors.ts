@@ -1,12 +1,14 @@
 import * as fromSharedWishlistReducer from './reducer';
 import { createSelector } from 'reselect';
-import { getEntityById } from '../entities/selectors';
-import { getProduct } from '../products/selectors/product';
+import { getEntities, getEntityById } from '../entities/selectors';
+import type { Brand, SharedWishlist } from '@farfetch/blackout-client';
 import type {
-  SharedWishlist,
-  SharedWishlistItem,
-} from '@farfetch/blackout-client';
-import type { SharedWishlistEntity } from '../entities/types';
+  CategoryEntity,
+  ProductEntity,
+  SharedWishlistEntity,
+  SharedWishlistItemDenormalized,
+  SharedWishlistItemEntity,
+} from '../entities/types';
 import type { SharedWishlistState } from './types';
 import type { StoreState } from '../types';
 
@@ -120,26 +122,27 @@ export const getSharedWishlist = (
  * @returns - Shared Wishlist item entity for the given id.
  */
 
-export const getSharedWishlistItem = (
+export const getSharedWishlistItem: (
   state: StoreState,
-  sharedWishlistItemId: SharedWishlistItem['id'],
-) => {
-  const sharedWishlistItem = getEntityById(
-    state,
-    'sharedWishlistItems',
-    sharedWishlistItemId,
-  );
-
-  if (!sharedWishlistItem) {
-    return;
-  }
-  const product = getProduct(state, sharedWishlistItem.product);
-
-  return {
-    ...sharedWishlistItem,
-    product,
-  };
-};
+  sharedWishlistItemId: SharedWishlistItemEntity['id'],
+) => SharedWishlistItemDenormalized | undefined = createSelector(
+  [
+    (_, sharedWishlistItemId) => sharedWishlistItemId,
+    (state: StoreState) => getEntities(state, 'sharedWishlistItems'),
+    (state: StoreState) => getEntities(state, 'products'),
+    (state: StoreState) => getEntities(state, 'brands'),
+    (state: StoreState) => getEntities(state, 'categories'),
+  ],
+  (sharedWishlistItemId, sharedWishlistItems, products, brands, categories) => {
+    return denormalizeSharedWishlistItem(
+      sharedWishlistItemId,
+      sharedWishlistItems,
+      products,
+      brands,
+      categories,
+    );
+  },
+);
 
 /**
  * Retrieves shared wishlist items from a specific wishlist
@@ -153,23 +156,98 @@ export const getSharedWishlistItem = (
  * });
  * ```
  *
- * @param state     - Application state.
- * @param sharedWishlistId - Numeric identifier of the shared wishlist.
+ * @param state            - Application state.
+ * @param sharedWishlistId - The id of the shared wishlist to get the items from.
  *
  * @returns - Shared Wishlist Items entity for the given id.
  */
-export const getSharedWishlistItems = createSelector(
+export const getSharedWishlistItems: (
+  state: StoreState,
+  sharedWishlistId: SharedWishlistEntity['id'],
+) => SharedWishlistItemDenormalized[] | undefined = createSelector(
   [
-    (state: StoreState, sharedWishlistId: SharedWishlist['id']) =>
-      getEntityById(
-        state,
-        'sharedWishlists',
-        sharedWishlistId,
-      ) as SharedWishlistEntity,
-    state => state,
+    (_, sharedWishlistId) => sharedWishlistId,
+    (state: StoreState) => getEntities(state, 'sharedWishlists'),
+    (state: StoreState) => getEntities(state, 'sharedWishlistItems'),
+    (state: StoreState) => getEntities(state, 'products'),
+    (state: StoreState) => getEntities(state, 'brands'),
+    (state: StoreState) => getEntities(state, 'categories'),
   ],
-  (sharedWishlist, state) =>
-    sharedWishlist.items.map(sharedWishlistItemId => {
-      return getSharedWishlistItem(state, sharedWishlistItemId);
-    }),
+  (
+    sharedWishlistId,
+    sharedWishlists,
+    sharedWishlistItems,
+    products,
+    brands,
+    categories,
+  ) => {
+    const sharedWishlistEntity = sharedWishlists?.[sharedWishlistId];
+
+    if (!sharedWishlistEntity) {
+      return undefined;
+    }
+
+    return sharedWishlistEntity.items
+      .map(itemId =>
+        denormalizeSharedWishlistItem(
+          itemId,
+          sharedWishlistItems,
+          products,
+          brands,
+          categories,
+        ),
+      )
+      .filter(Boolean) as SharedWishlistItemDenormalized[];
+  },
 );
+
+/**
+ * Denormalizes a shared wishlist item.
+ *
+ * @param sharedWishlistItemId - Shared wishlist item id.
+ * @param sharedWishlistItems - Shared wishlist item entities as obtained with getEntities(state, 'sharedWishlistItems').
+ * @param products - Product entities as obtained with getEntities(state, 'products').
+ * @param brands - Brand entities as obtained with getEntities(state, 'brands').
+ * @param categories  - Category entities as obtained with getEntities(state, 'categories').
+ *
+ * @returns Shared wishlist item object containing product information.
+ */
+const denormalizeSharedWishlistItem = (
+  sharedWishlistItemId: SharedWishlistItemEntity['id'],
+  sharedWishlistItems:
+    | Record<SharedWishlistItemEntity['id'], SharedWishlistItemEntity>
+    | undefined,
+  products: Record<ProductEntity['id'], ProductEntity> | undefined,
+  brands: Record<Brand['id'], Brand> | undefined,
+  categories: Record<CategoryEntity['id'], CategoryEntity> | undefined,
+): SharedWishlistItemDenormalized | undefined => {
+  const sharedWishlistItemEntity = sharedWishlistItems?.[sharedWishlistItemId];
+
+  if (!sharedWishlistItemEntity) {
+    return undefined;
+  }
+
+  const productEntity = products?.[sharedWishlistItemEntity?.product];
+  const productBrand = productEntity?.brand;
+  const brand = productBrand ? brands?.[productBrand] : undefined;
+  const productCategories =
+    categories &&
+    (productEntity?.categories
+      ?.map(id => categories[id])
+      .filter(Boolean) as CategoryEntity[]);
+
+  const product = productEntity
+    ? {
+        ...productEntity,
+        brand,
+        categories: productCategories,
+      }
+    : undefined;
+
+  const sharedWishlistItem: SharedWishlistItemDenormalized = {
+    ...sharedWishlistItemEntity,
+    product,
+  };
+
+  return sharedWishlistItem;
+};
