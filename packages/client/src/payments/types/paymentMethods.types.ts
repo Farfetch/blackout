@@ -1,3 +1,8 @@
+export type Issuer = {
+  name: string;
+  id: string;
+};
+
 export type PaymentMethods = {
   customerAccounts: {
     type: string;
@@ -5,6 +10,7 @@ export type PaymentMethods = {
     description: string;
     code: string;
     paymentOptions: string[];
+    issuers?: Issuer[];
   }[];
   creditCard: {
     type: string;

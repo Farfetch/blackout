@@ -6,4 +6,5 @@ export type PaymentInstrumentData = {
   cardExpiryYear?: number;
   giftCardLastDigits?: string;
   creditUserId?: string;
+  issuer?: string;
 };
