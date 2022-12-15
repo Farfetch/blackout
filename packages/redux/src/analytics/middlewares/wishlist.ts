@@ -26,8 +26,8 @@ import type {
   WishlistProductUpdateSetActionMetadata,
 } from './types';
 import type {
+  WishlistItemDenormalized,
   WishlistItemEntity,
-  WishlistItemHydrated,
 } from '../../entities/types';
 
 /**
@@ -108,7 +108,7 @@ const getWishlistItemIdFromAction = (action: AnyAction, searchMeta = true) => {
  */
 const getWishlistData = (
   action: AnyAction,
-  wishlistItem: WishlistItemHydrated | undefined,
+  wishlistItem: WishlistItemDenormalized | undefined,
 ) => {
   return {
     affiliation: get(action, 'meta.affiliation'),
@@ -134,7 +134,7 @@ const getWishlistData = (
 const getProductData = async (
   analyticsInstance: Analytics,
   state: StoreState,
-  wishlistItem: WishlistItemHydrated | undefined,
+  wishlistItem: WishlistItemDenormalized | undefined,
 ) => {
   const product = get(wishlistItem, 'product');
   const priceWithDiscount = get(wishlistItem, 'price.includingTaxes');
@@ -410,7 +410,7 @@ export function analyticsWishlistMiddleware(
 
             return getWishlistItem(state, wishlistItemId);
           })
-          .filter(Boolean) as WishlistItemHydrated[];
+          .filter(Boolean) as WishlistItemDenormalized[];
 
         await Promise.all(
           addedItems.map(async wishlistItem => {

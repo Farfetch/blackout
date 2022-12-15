@@ -4,7 +4,7 @@ import type {
   PatchWishlistSetData,
   WishlistSet,
 } from '@farfetch/blackout-client';
-import type { WishlistSetHydrated } from '@farfetch/blackout-redux';
+import type { WishlistSetDenormalized } from '@farfetch/blackout-redux';
 
 export type UseWishlistSet = (setId: WishlistSet['setId']) => {
   error: BlackoutError | null | undefined;
@@ -21,5 +21,5 @@ export type UseWishlistSet = (setId: WishlistSet['setId']) => {
     data: PatchWishlistSetData,
     config?: Config,
   ) => Promise<WishlistSet | undefined>;
-  wishlistSet: WishlistSetHydrated | undefined;
+  wishlistSet: WishlistSetDenormalized | undefined;
 };

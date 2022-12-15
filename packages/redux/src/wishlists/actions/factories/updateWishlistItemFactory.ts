@@ -16,7 +16,7 @@ import type {
   UpdateWishlistItemAction,
   WishlistItemActionMetadata,
 } from '../../types';
-import type { WishlistItemHydrated } from '../../../entities/types';
+import type { WishlistItemDenormalized } from '../../../entities/types';
 
 /**
  * Creates a thunk factory configured with the specified client to update a
@@ -41,7 +41,7 @@ const updateWishlistItemFactory =
       getOptions = ({ productImgQueryParam }) => ({ productImgQueryParam }),
     }: GetOptionsArgument,
   ): Promise<Wishlist | undefined> => {
-    let wishlistItem: WishlistItemHydrated | undefined;
+    let wishlistItem: WishlistItemDenormalized | undefined;
 
     try {
       const state = getState();

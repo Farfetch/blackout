@@ -27,7 +27,7 @@ export type WishlistItemsEntities = Record<
   WishlistItemEntity
 >;
 
-export type WishlistItemHydrated = Omit<WishlistItemEntity, 'product'> & {
+export type WishlistItemDenormalized = Omit<WishlistItemEntity, 'product'> & {
   product: ProductEntityDenormalized | undefined;
   parentSets?: Record<'id' | 'name', string>[] | undefined;
 };

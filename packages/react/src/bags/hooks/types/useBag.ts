@@ -1,6 +1,6 @@
 import type {
   BagItemActionMetadata,
-  BagItemHydrated,
+  BagItemDenormalized,
   CustomAttributesAdapted,
   ProductEntityDenormalized,
   SizeAdapted,
@@ -20,7 +20,7 @@ export type HandleAddOrUpdateItem = (
     from?: string;
     product: ProductEntityDenormalized;
     productAggregatorId?: Exclude<
-      BagItemHydrated['productAggregator'],
+      BagItemDenormalized['productAggregator'],
       null
     >['id'];
     quantity: number;
