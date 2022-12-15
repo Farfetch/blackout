@@ -78,6 +78,27 @@ Object {
                 "paymentOptions": Array [],
                 "type": "CustomerAccount",
               },
+              Object {
+                "code": "iDEAL",
+                "description": "iDEAL",
+                "id": "cada88b2-aa03-460a-8483-c53f431ff9b0",
+                "issuers": Array [
+                  Object {
+                    "id": "0771",
+                    "name": "RaboBank",
+                  },
+                  Object {
+                    "id": "0805",
+                    "name": "Revolut",
+                  },
+                  Object {
+                    "id": "0721",
+                    "name": "ING Bank",
+                  },
+                ],
+                "paymentOptions": Array [],
+                "type": "CustomerAccount",
+              },
             ],
           },
         },
@@ -152,6 +173,27 @@ Object {
           "code": "PayPalExp",
           "description": "PPE",
           "id": "f56d6086-f08d-4c2e-b55b-63b2d32aa645",
+          "paymentOptions": Array [],
+          "type": "CustomerAccount",
+        },
+        Object {
+          "code": "iDEAL",
+          "description": "iDEAL",
+          "id": "cada88b2-aa03-460a-8483-c53f431ff9b0",
+          "issuers": Array [
+            Object {
+              "id": "0771",
+              "name": "RaboBank",
+            },
+            Object {
+              "id": "0805",
+              "name": "Revolut",
+            },
+            Object {
+              "id": "0721",
+              "name": "ING Bank",
+            },
+          ],
           "paymentOptions": Array [],
           "type": "CustomerAccount",
         },
