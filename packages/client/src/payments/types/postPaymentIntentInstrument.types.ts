@@ -1,5 +1,6 @@
 import type {
   Amounts,
+  Issuer,
   PayerAddressType,
   PayerInput,
   PaymentIntent,
@@ -17,6 +18,7 @@ export type CreatePaymentInstrumentData = {
   giftCardNumber?: string;
   giftCardCsc?: string;
   creditUserId?: string;
+  issuer?: Issuer['id'];
 };
 
 export enum PaymentMethod {
