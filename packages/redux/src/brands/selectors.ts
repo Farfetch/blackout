@@ -91,9 +91,15 @@ export const getBrand = (state: StoreState, brandId: Brand['id']) =>
  *
  * @returns Brands result with pagination.
  */
-export const getBrandsResult = createSelector(
+export const getBrandsResult: (
+  state: StoreState,
+  hash?: string | null,
+) => Brands | undefined = createSelector(
   [
-    (state: StoreState, hash = getBrandsHash(state)) => hash,
+    (
+      state: StoreState,
+      hash: string | null | undefined = getBrandsHash(state),
+    ) => hash,
     (state: StoreState) => getResult(state.brands as BrandsState),
     getBrands,
   ],
@@ -106,13 +112,12 @@ export const getBrandsResult = createSelector(
 
     return {
       ...result,
-      entries: result.entries.map((id: number) => brands?.[id]),
+      entries: result.entries
+        .map((id: number) => brands?.[id])
+        .filter(Boolean) as Brand[],
     };
   },
-  // Little workaround to "explain" to typescript the function signature, to
-  // avoid the "Expected 1 arguments, but got 2." error.
-  // https://github.com/reduxjs/reselect/issues/459#issuecomment-804335461
-) as (state: StoreState, hash?: string | null) => Brands | undefined;
+);
 
 /**
  * Retrieves if a brands result is cached by its hash.

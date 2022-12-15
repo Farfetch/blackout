@@ -17,7 +17,7 @@ import { getEntities, getEntityById } from '../entities/selectors';
 import { getMerchants } from '../products';
 import { getReturnsEntities } from '../returns';
 import get from 'lodash/get';
-import type { Brand, Order } from '@farfetch/blackout-client';
+import type { Brand, Order, OrderItem } from '@farfetch/blackout-client';
 import type {
   CategoryEntity,
   CourierEntity,
@@ -124,7 +124,13 @@ export const getShipmentTrackingLabel = (
  *
  * @returns Pagination object.
  */
-export const getOrdersPagination = createSelector(
+export const getOrdersPagination: (state: StoreState) =>
+  | {
+      number: number;
+      totalItems: number;
+      totalPages: number;
+    }
+  | undefined = createSelector(
   [(state: StoreState) => getResult(state.orders as OrdersState)],
   result => {
     if (!result) {
@@ -214,7 +220,10 @@ export const getReturnOption = (state: StoreState, returnOptionId: string) =>
  *
  * @returns Order object.
  */
-export const getOrder = createSelector(
+export const getOrder: (
+  state: StoreState,
+  orderId: Order['id'],
+) => OrderEntityDenormalized | undefined = createSelector(
   [
     (_, orderId) => orderId,
     getOrders,
@@ -328,7 +337,10 @@ export const getOrderReturns: (
  *
  * @returns List of merchants objects.
  */
-export const getOrderMerchants = createSelector(
+export const getOrderMerchants: (
+  state: StoreState,
+  orderId: Order['id'],
+) => MerchantEntity[] | undefined = createSelector(
   [(state, orderId) => getOrder(state, orderId), getMerchants],
   (order, merchants) => {
     const ordersByMerchant = get(order, 'byMerchant');
@@ -356,7 +368,10 @@ export const getOrderMerchants = createSelector(
  *
  * @returns List of order items objects.
  */
-export const getOrderItemsByOrder = createSelector(
+export const getOrderItemsByOrder: (
+  state: StoreState,
+  orderId: Order['id'],
+) => OrderItemEntityDenormalized[] = createSelector(
   [(state, orderId) => getOrder(state, orderId)],
   order => {
     return order?.items ?? [];
@@ -371,7 +386,10 @@ export const getOrderItemsByOrder = createSelector(
  *
  * @returns Order items objects.
  */
-export const getOrderItemsByMerchant = createSelector(
+export const getOrderItemsByMerchant: (
+  state: StoreState,
+  orderId: Order['id'],
+) => Record<number, OrderItemEntityDenormalized[]> | undefined = createSelector(
   [(state, orderId) => getOrder(state, orderId)],
   order => {
     const orderDetailsByMerchant = get(order, 'byMerchant');
@@ -407,7 +425,11 @@ export const getOrderItemsByMerchant = createSelector(
  *
  * @returns Number of orderItems in the order.
  */
-export const getOrderItemQuantity = createSelector(
+export const getOrderItemQuantity: (
+  state: StoreState,
+  orderId: Order['id'],
+  orderItemId: OrderItem['id'],
+) => number | undefined = createSelector(
   [
     (state, orderId) => getOrder(state, orderId),
     (state, orderId) => getOrderItemsByOrder(state, orderId),
@@ -881,70 +903,73 @@ const denormalizeOrder = (
 /**
  * Get orders result, denormalized.
  */
-export const getOrdersResult = createSelector(
-  [
-    (state: StoreState) => getResult(state.orders as OrdersState),
-    getOrders,
-    getOrderItems,
-    getMerchants,
-    getCategories,
-    getBrands,
-    getReturnOptions,
-    getReturnsEntities,
-  ],
-  (
-    result,
-    orders,
-    orderItems,
-    merchants,
-    categories,
-    brands,
-    returnOptions,
-    returns,
-  ) => {
-    if (!result || !orders) {
-      return;
-    }
+export const getOrdersResult: (
+  state: StoreState,
+) => OrderEntityDenormalized[] | OrdersDenormalized | undefined =
+  createSelector(
+    [
+      (state: StoreState) => getResult(state.orders as OrdersState),
+      getOrders,
+      getOrderItems,
+      getMerchants,
+      getCategories,
+      getBrands,
+      getReturnOptions,
+      getReturnsEntities,
+    ],
+    (
+      result,
+      orders,
+      orderItems,
+      merchants,
+      categories,
+      brands,
+      returnOptions,
+      returns,
+    ) => {
+      if (!result || !orders) {
+        return;
+      }
 
-    // If result is an array, it means it contains the result
-    // of the fetchGuestOrders request, so we have the full
-    // order details available in entities.
-    if (Array.isArray(result)) {
-      return result
-        .map(orderId =>
-          denormalizeOrder(
-            orderId,
-            orders,
-            orderItems,
-            merchants,
-            categories,
-            brands,
-            returnOptions,
-            returns,
-          ),
-        )
-        .filter(Boolean) as OrderEntityDenormalized[];
-    }
+      // If result is an array, it means it contains the result
+      // of the fetchGuestOrders request, so we have the full
+      // order details available in entities.
+      if (Array.isArray(result)) {
+        return result
+          .map(orderId =>
+            denormalizeOrder(
+              orderId,
+              orders,
+              orderItems,
+              merchants,
+              categories,
+              brands,
+              returnOptions,
+              returns,
+            ),
+          )
+          .filter(Boolean) as OrderEntityDenormalized[];
+      }
 
-    // If result is not an array and not undefined, it means
-    // it contains the result of the fetchUserOrders request, so
-    // we only have order summaries here.
-    return {
-      ...result,
-      entries: result.entries
-        .map(orderId =>
-          denormalizeOrder(
-            orderId,
-            orders,
-            orderItems,
-            merchants,
-            categories,
-            brands,
-            returnOptions,
-            returns,
-          ),
-        )
-        .filter(Boolean) as OrderEntityDenormalized[],
-    } as OrdersDenormalized;
-  },
-);
+      // If result is not an array and not undefined, it means
+      // it contains the result of the fetchUserOrders request, so
+      // we only have order summaries here.
+      return {
+        ...result,
+        entries: result.entries
+          .map(orderId =>
+            denormalizeOrder(
+              orderId,
+              orders,
+              orderItems,
+              merchants,
+              categories,
+              brands,
+              returnOptions,
+              returns,
+            ),
+          )
+          .filter(Boolean) as OrderEntityDenormalized[],
+      } as OrdersDenormalized;
+    },
+  );

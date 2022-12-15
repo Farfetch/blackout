@@ -61,7 +61,10 @@ export const getMerchantsLocations = (state: StoreState) =>
  *
  * @returns Merchants locations of the provided ids.
  */
-export const getMerchantsLocationsByIds = createSelector(
+export const getMerchantsLocationsByIds: (
+  state: StoreState,
+  merchantLocationsIds: Array<MerchantLocationEntity['id']>,
+) => MerchantLocation[] = createSelector(
   [
     state => state,
     (state: StoreState, ids: Array<MerchantLocationEntity['id']>) => ids,

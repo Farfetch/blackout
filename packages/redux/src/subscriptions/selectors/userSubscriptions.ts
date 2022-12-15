@@ -2,7 +2,10 @@ import * as userSubscriptionReducer from '../reducer/userSubscriptions';
 import { createSelector } from 'reselect';
 import defaultTo from 'lodash/defaultTo';
 import type { StoreState } from '../../types';
-import type { SubscriptionsState } from './../types';
+import type {
+  SubscriptionsState,
+  UnsubscribeRecipientFromTopicType,
+} from './../types';
 import type { SubscriptionTopic } from '@farfetch/blackout-client';
 
 // Default user subscriptions value for the following selectors.
@@ -50,7 +53,10 @@ export const getUserSubscriptions = (state: StoreState) =>
  *
  * @returns User subscribed topics for the specified platform.
  */
-export const getUserSubscribedTopicsForPlatform = createSelector(
+export const getUserSubscribedTopicsForPlatform: (
+  state: StoreState,
+  platform: string,
+) => SubscriptionTopic[] = createSelector(
   (state: StoreState) =>
     defaultTo(getUserSubscriptions(state), DEFAULT_USER_SUBSCRIPTIONS_VALUE),
   (_: unknown, platform: string) => platform,
@@ -84,7 +90,10 @@ export const getUserSubscribedTopicsForPlatform = createSelector(
  *
  * @returns User subscribed topics for the specified address.
  */
-export const getUserSubscribedTopicsForAddress = createSelector(
+export const getUserSubscribedTopicsForAddress: (
+  state: StoreState,
+  address: string,
+) => SubscriptionTopic[] = createSelector(
   (state: StoreState) =>
     defaultTo(getUserSubscriptions(state), DEFAULT_USER_SUBSCRIPTIONS_VALUE),
   (_: unknown, address: string) => address,
@@ -172,18 +181,21 @@ export const getUnsubscribeRecipientFromTopicRequest = (
  *
  * @returns All unsubscribe recipient from topic requests state.
  */
-export const getUnsubscribeRecipientFromTopicRequests = createSelector(
-  (state: StoreState) =>
-    userSubscriptionReducer.getUnsubscribeRecipientFromTopicRequests(
-      state.subscriptions?.user,
-    ),
-  unsubscribeRecipientFromTopicRequests =>
-    Object.entries(unsubscribeRecipientFromTopicRequests || {}).map(
-      ([recipientId, unsubscribeRequestState]) => {
-        return {
-          ...unsubscribeRequestState,
-          recipientId,
-        };
-      },
-    ),
-);
+export const getUnsubscribeRecipientFromTopicRequests: (
+  state: StoreState,
+) => (UnsubscribeRecipientFromTopicType & { recipientId: string })[] =
+  createSelector(
+    (state: StoreState) =>
+      userSubscriptionReducer.getUnsubscribeRecipientFromTopicRequests(
+        state.subscriptions?.user,
+      ),
+    unsubscribeRecipientFromTopicRequests =>
+      Object.entries(unsubscribeRecipientFromTopicRequests || {}).map(
+        ([recipientId, unsubscribeRequestState]) => {
+          return {
+            ...unsubscribeRequestState,
+            recipientId,
+          };
+        },
+      ),
+  );

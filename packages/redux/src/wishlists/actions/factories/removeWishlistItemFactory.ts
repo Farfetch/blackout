@@ -15,7 +15,7 @@ import type {
   RemoveWishlistItemAction,
   WishlistItemActionMetadata,
 } from '../../types';
-import type { WishlistItemHydrated } from '../../../entities/types';
+import type { WishlistItemDenormalized } from '../../../entities/types';
 
 /**
  * Creates a thunk factory configured with the specified client to remove a
@@ -39,7 +39,7 @@ const removeWishlistItemFactory =
       getOptions = ({ productImgQueryParam }) => ({ productImgQueryParam }),
     }: GetOptionsArgument,
   ): Promise<Wishlist | undefined> => {
-    let wishlistItem: WishlistItemHydrated | undefined;
+    let wishlistItem: WishlistItemDenormalized | undefined;
     try {
       const state = getState();
       const wishlistId = getWishlistId(state);

@@ -59,7 +59,7 @@ describe('shared wishlists redux selectors', () => {
       ...sharedWishlistEntity,
     };
 
-    it('should return all data regarding a shared wishlist item', () => {
+    it('should return all data regarding a shared wishlist', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
 
       expect(
@@ -79,23 +79,20 @@ describe('shared wishlists redux selectors', () => {
   describe('getSharedWishlistItem()', () => {
     const expectedResult = {
       ...sharedWishlistItemEntity,
-      product: { ...mockProductsEntity[mockProductId] },
+      product: {
+        ...mockProductsEntity[mockProductId],
+        brand: mockSharedWishlistState.entities.brands[2450],
+        categories: [mockSharedWishlistState.entities.categories[136301]],
+      },
     };
 
     it('should return all data regarding a shared wishlist item', () => {
-      const spy = jest.spyOn(fromEntities, 'getEntityById');
-
       expect(
         selectors.getSharedWishlistItem(
           mockSharedWishlistState,
           mockSharedWishlistItemId,
         ),
       ).toEqual(expectedResult);
-      expect(spy).toHaveBeenCalledWith(
-        mockSharedWishlistState,
-        'sharedWishlistItems',
-        mockSharedWishlistItemId,
-      );
     });
   });
 
@@ -106,7 +103,11 @@ describe('shared wishlists redux selectors', () => {
           ...mockSharedWishlistState.entities.sharedWishlistItems[
             mockSharedWishlistItemId
           ],
-          product: mockSharedWishlistState.entities.products[mockProductId],
+          product: {
+            ...mockSharedWishlistState.entities.products[mockProductId],
+            brand: mockSharedWishlistState.entities.brands[2450],
+            categories: [mockSharedWishlistState.entities.categories[136301]],
+          },
         },
         {
           ...mockSharedWishlistState.entities.sharedWishlistItems[102],
@@ -115,6 +116,8 @@ describe('shared wishlists redux selectors', () => {
             ...mockProductsEntity[mockProductId],
             id: 1002,
             description: 'wide leg pant',
+            brand: mockSharedWishlistState.entities.brands[2450],
+            categories: [mockSharedWishlistState.entities.categories[136301]],
           },
           quantity: 2,
         },

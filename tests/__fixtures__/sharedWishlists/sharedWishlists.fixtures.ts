@@ -1,5 +1,5 @@
+import { Gender, SharedWishlistItem } from '@farfetch/blackout-client';
 import { mockProductsEntity } from '../products';
-import type { SharedWishlistItem } from '@farfetch/blackout-client';
 
 export const mockSharedWishlistId = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
 export const mockSharedWishlistItemId = 481426747;
@@ -136,6 +136,13 @@ export const mockSharedWishlistState = {
         name: 'Balenciaga',
         priceType: 0,
         slug: 'rockstud-sling-back-flats-12854475',
+      },
+    },
+    categories: {
+      136301: {
+        id: 136301,
+        name: 'Trousers',
+        gender: Gender.Man,
       },
     },
   },

@@ -5,9 +5,9 @@ import { getProductDenormalized } from '../../products';
 import type { StoreState } from '../../types';
 import type { WishlistSet } from '@farfetch/blackout-client';
 import type {
+  WishlistSetDenormalized,
   WishlistSetEntity,
-  WishlistSetHydrated,
-  WishlistSetsHydrated,
+  WishlistSetsDenormalized,
 } from '../../entities/types';
 import type { WishlistSetsErrors } from './types/wishlistsSets.types';
 import type { WishlistsState } from '../types';
@@ -166,7 +166,7 @@ export const isWishlistSetFetched = (
 export const getWishlistSet: (
   state: StoreState,
   setId: WishlistSet['setId'],
-) => WishlistSetHydrated | undefined = createSelector(
+) => WishlistSetDenormalized | undefined = createSelector(
   [
     (state: StoreState) => getEntities(state, 'wishlistItems'),
     (
@@ -198,7 +198,7 @@ export const getWishlistSet: (
     return {
       ...wishlistSet,
       wishlistSetItems,
-    } as WishlistSetHydrated;
+    } as WishlistSetDenormalized;
   },
 );
 
@@ -218,13 +218,14 @@ export const getWishlistSet: (
  *
  * @returns List of wishlist sets.
  */
-export const getWishlistSets = createSelector(
-  [getWishlistSetsIds, state => state],
-  (wishlistSetsIds, state) =>
-    wishlistSetsIds?.map(setId =>
-      getWishlistSet(state, setId),
-    ) as WishlistSetsHydrated,
-);
+export const getWishlistSets: (state: StoreState) => WishlistSetsDenormalized =
+  createSelector(
+    [getWishlistSetsIds, state => state],
+    (wishlistSetsIds, state) =>
+      wishlistSetsIds
+        ?.map(setId => getWishlistSet(state, setId))
+        .filter(Boolean) as WishlistSetDenormalized[],
+  );
 
 /**
  * Retrieves the number of different items in the wishlist set, regardless of each
@@ -371,7 +372,9 @@ export const areWishlistSetsWithAnyError = (state: StoreState) => {
  * @returns Errors that occurred for a specific wishlist set, with the "id", "name" and "error"
  * information. Undefined if there are no errors.
  */
-export const getAllWishlistSetsErrors = createSelector(
+export const getAllWishlistSetsErrors: (
+  state: StoreState,
+) => WishlistSetsErrors | undefined = createSelector(
   [
     getWishlistSetsIds,
     state => fromWishlistSetsReducer.getSetError(state.wishlist.sets),

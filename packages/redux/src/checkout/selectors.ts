@@ -23,6 +23,7 @@ import findKey from 'lodash/findKey';
 import get from 'lodash/get';
 import type {
   CategoryEntity,
+  CheckoutOrderEntityDenormalized,
   CheckoutOrderItemEntity,
   CheckoutOrderItemEntityDenormalized,
   CheckoutOrderItemProductEntity,
@@ -32,11 +33,14 @@ import type {
 } from '../entities';
 import type {
   CheckoutOrderItem,
+  ClickAndCollect,
+  CollectPoint,
+  DeliveryBundleUpgrade,
   DeliveryWindowType,
   ItemDeliveryOption,
   ShippingOption,
 } from '@farfetch/blackout-client';
-import type { CheckoutState } from './types';
+import type { CheckoutOrderOperationsNormalized, CheckoutState } from './types';
 import type { StoreState } from '../types';
 
 export type DeliveryBundleWindow = {
@@ -170,7 +174,9 @@ const denormalizeOrderItems = (
  *
  * @returns Checkout order entity or undefined.
  */
-export const getCheckoutOrder = createSelector(
+export const getCheckoutOrder: (
+  state: StoreState,
+) => CheckoutOrderEntityDenormalized | undefined = createSelector(
   [
     (state: StoreState) => getEntities(state, 'checkoutOrderItems'),
     (state: StoreState) => getEntities(state, 'checkoutOrders'),
@@ -303,7 +309,9 @@ export const getCheckoutOrderItemProduct = (
  *
  * @returns List of checkout collect points.
  */
-export const getCollectPoints = createSelector(
+export const getCollectPoints: (
+  state: StoreState,
+) => CollectPoint[] | undefined = createSelector(
   [getCheckoutOrder],
   checkoutOrder => checkoutOrder?.collectpoints,
 );
@@ -315,7 +323,9 @@ export const getCollectPoints = createSelector(
  *
  * @returns Selected collect point.
  */
-export const getCheckoutOrderSelectedCollectPoint = createSelector(
+export const getCheckoutOrderSelectedCollectPoint: (
+  state: StoreState,
+) => ClickAndCollect | undefined = createSelector(
   [getCheckoutOrder],
   checkoutOrder => checkoutOrder?.clickAndCollect,
 );
@@ -327,7 +337,9 @@ export const getCheckoutOrderSelectedCollectPoint = createSelector(
  *
  * @returns Checkout shipping options.
  */
-export const getCheckoutOrderShippingOptions = createSelector(
+export const getCheckoutOrderShippingOptions: (
+  state: StoreState,
+) => ShippingOption[] | undefined = createSelector(
   [getCheckoutOrderResult],
   checkout => checkout?.shippingOptions,
 );
@@ -352,7 +364,9 @@ export const getCheckoutOrderDeliveryBundle = (
  *
  * @returns Selected delivery bundle id.
  */
-export const getCheckoutOrderSelectedDeliveryBundleId = createSelector(
+export const getCheckoutOrderSelectedDeliveryBundleId: (
+  state: StoreState,
+) => string | undefined = createSelector(
   [(state: StoreState) => getEntities(state, 'deliveryBundles')],
   deliveryBundles => findKey(deliveryBundles, 'isSelected'),
 );
@@ -364,7 +378,9 @@ export const getCheckoutOrderSelectedDeliveryBundleId = createSelector(
  *
  * @returns Checkout delivery bundles ids.
  */
-export const getCheckoutOrderDeliveryBundlesIds = createSelector(
+export const getCheckoutOrderDeliveryBundlesIds: (
+  state: StoreState,
+) => Array<DeliveryBundleEntity['id']> | undefined = createSelector(
   [getCheckoutOrderResult],
   checkout => checkout?.deliveryBundles,
 );
@@ -376,7 +392,9 @@ export const getCheckoutOrderDeliveryBundlesIds = createSelector(
  *
  * @returns Checkout delivery bundles.
  */
-export const getCheckoutOrderDeliveryBundles = createSelector(
+export const getCheckoutOrderDeliveryBundles: (
+  state: StoreState,
+) => DeliveryBundleEntity[] | undefined = createSelector(
   [
     getCheckoutOrderDeliveryBundlesIds,
     (state: StoreState) => getEntities(state, 'deliveryBundles'),
@@ -397,7 +415,7 @@ export const getCheckoutOrderDeliveryBundles = createSelector(
  */
 export const getCheckoutOrderDeliveryBundleUpgrades = (
   state: StoreState,
-  deliveryBundleId: string,
+  deliveryBundleId: DeliveryBundleUpgrade['id'],
 ) => getEntityById(state, 'deliveryBundleUpgrades', deliveryBundleId);
 
 /**
@@ -411,7 +429,13 @@ export const getCheckoutOrderDeliveryBundleUpgrades = (
  *
  * @returns Delivery bundle upgrade.
  */
-export const getCheckoutOrderDeliveryBundleUpgrade = createSelector(
+export const getCheckoutOrderDeliveryBundleUpgrade: (
+  state: StoreState,
+  deliveryBundleId: DeliveryBundleEntity['id'],
+  itemId: DeliveryBundleUpgrade['itemId'],
+  deliveryWindowType: DeliveryWindowType | string,
+  upgradeId: DeliveryBundleUpgrade['id'],
+) => DeliveryBundleUpgrade | undefined = createSelector(
   [
     (state: StoreState, deliveryBundleId: string) =>
       getCheckoutOrderDeliveryBundleUpgrades(state, deliveryBundleId),
@@ -444,50 +468,53 @@ export const getCheckoutOrderDeliveryBundleUpgrade = createSelector(
  *
  * @returns Checkout estimated delivery period.
  */
-export const getCheckoutOrderSelectedCollectPointEstimatedDeliveryPeriod =
-  createSelector(
-    [getCheckoutOrderSelectedCollectPoint, getCheckoutOrderShippingOptions],
-    (selectedCollectPoint, shippingOptions) => {
-      const merchantLocationId = get(
-        selectedCollectPoint,
-        'merchantLocationId',
-      );
-      if (!merchantLocationId) return;
+export const getCheckoutOrderSelectedCollectPointEstimatedDeliveryPeriod: (
+  state: StoreState,
+) =>
+  | {
+      start: number | null | undefined;
+      end: number | null | undefined;
+    }
+  | undefined = createSelector(
+  [getCheckoutOrderSelectedCollectPoint, getCheckoutOrderShippingOptions],
+  (selectedCollectPoint, shippingOptions) => {
+    const merchantLocationId = get(selectedCollectPoint, 'merchantLocationId');
+    if (!merchantLocationId) return;
 
-      const initialValue: INITIAL_VALUE = {
-        minEstimatedDeliveryHour: null,
-        maxEstimatedDeliveryHour: null,
-      };
+    const initialValue: INITIAL_VALUE = {
+      minEstimatedDeliveryHour: null,
+      maxEstimatedDeliveryHour: null,
+    };
 
-      const selectedShippingService = shippingOptions?.reduce(
-        (
-          service: {
-            minEstimatedDeliveryHour: number | null;
-            maxEstimatedDeliveryHour: number | null;
-          },
-          shippingOption: ShippingOption,
-        ) => {
-          const emptyArray: number[] = [];
-          const merchants = get(shippingOption, 'merchants', emptyArray);
-          if (merchants.includes(merchantLocationId)) {
-            const { minEstimatedDeliveryHour, maxEstimatedDeliveryHour } =
-              shippingOption.shippingService;
-
-            service.minEstimatedDeliveryHour = minEstimatedDeliveryHour;
-            service.maxEstimatedDeliveryHour = maxEstimatedDeliveryHour;
-          }
-
-          return service;
+    const selectedShippingService = shippingOptions?.reduce(
+      (
+        service: {
+          minEstimatedDeliveryHour: number | null;
+          maxEstimatedDeliveryHour: number | null;
         },
-        initialValue,
-      );
+        shippingOption: ShippingOption,
+      ) => {
+        const emptyArray: number[] = [];
+        const merchants = get(shippingOption, 'merchants', emptyArray);
+        if (merchants.includes(merchantLocationId)) {
+          const { minEstimatedDeliveryHour, maxEstimatedDeliveryHour } =
+            shippingOption.shippingService;
 
-      return {
-        start: selectedShippingService?.minEstimatedDeliveryHour,
-        end: selectedShippingService?.maxEstimatedDeliveryHour,
-      };
-    },
-  );
+          service.minEstimatedDeliveryHour = minEstimatedDeliveryHour;
+          service.maxEstimatedDeliveryHour = maxEstimatedDeliveryHour;
+        }
+
+        return service;
+      },
+      initialValue,
+    );
+
+    return {
+      start: selectedShippingService?.minEstimatedDeliveryHour,
+      end: selectedShippingService?.maxEstimatedDeliveryHour,
+    };
+  },
+);
 
 /**
  * Returns the error for the checkout order.
@@ -915,7 +942,9 @@ export const getCheckoutOrderOperationsError = (state: StoreState) =>
  * \};
  *
  */
-export const getCheckoutOrderOperationsPagination = createSelector(
+export const getCheckoutOrderOperationsPagination: (
+  state: StoreState,
+) => CheckoutOrderOperationsNormalized | undefined = createSelector(
   [(state: StoreState) => getOperations(state.checkout as CheckoutState)],
   operations => {
     if (!operations || !operations.result) {

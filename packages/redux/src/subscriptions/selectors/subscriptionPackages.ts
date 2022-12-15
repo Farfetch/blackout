@@ -3,6 +3,7 @@ import { getEntities } from '../../entities';
 import defaultTo from 'lodash/defaultTo';
 import get from 'lodash/get';
 import type { StoreState } from '../../types';
+import type { SubscriptionPackage } from '@farfetch/blackout-client';
 
 /*
  * @param state - Application state.
@@ -30,15 +31,18 @@ export const getSubscriptionPackagesError = (state: StoreState, hash: string) =>
  *
  * @returns Subscription package result.
  */
-export const getSubscriptionPackages = createSelector(
+export const getSubscriptionPackages: (
+  state: StoreState,
+  hash: string,
+) => SubscriptionPackage[] | null | undefined = createSelector(
   (state: StoreState, hash: string) => getContentByHash(state, hash)?.result,
   (state: StoreState) => getEntities(state, 'subscriptionPackages'),
   (subscriptionPackagesResult, subscriptionPackagesEntity) => {
     return (
       subscriptionPackagesResult &&
-      subscriptionPackagesResult.packages
+      (subscriptionPackagesResult.packages
         .map(packageId => get(subscriptionPackagesEntity, packageId))
-        .filter(Boolean)
+        .filter(Boolean) as SubscriptionPackage[])
     );
   },
 );

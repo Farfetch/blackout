@@ -10,7 +10,7 @@ export type WishlistSetEntities = Record<
   WishlistSetEntity
 >;
 
-export type WishlistSetHydrated = Omit<
+export type WishlistSetDenormalized = Omit<
   WishlistSetEntity,
   'wishlistSetItems'
 > & {
@@ -21,4 +21,6 @@ export type WishlistSetHydrated = Omit<
   >;
 };
 
-export type WishlistSetsHydrated = Array<WishlistSetHydrated> | undefined;
+export type WishlistSetsDenormalized =
+  | Array<WishlistSetDenormalized>
+  | undefined;

@@ -3,7 +3,7 @@ import { getError, getIsLoading } from '../reducer/sizes';
 import { getProduct } from './product';
 import type { ProductEntity } from '../../entities/types';
 import type { ProductsState } from '../types';
-import type { StoreState } from '../../types';
+import type { SizeAdapted, StoreState } from '../../types';
 
 /**
  * Returns the loading product sizes condition to a specific product.
@@ -68,7 +68,10 @@ export const getProductSizes = (state: StoreState, id: ProductEntity['id']) => {
  *
  * @returns The sizes with stock for a given product id.
  */
-export const getProductSizesWithStock = createSelector(
+export const getProductSizesWithStock: (
+  state: StoreState,
+  productId: ProductEntity['id'],
+) => SizeAdapted[] | undefined = createSelector(
   (state: StoreState, id: ProductEntity['id']) => getProductSizes(state, id),
   sizes => sizes?.filter(size => !size.isOutOfStock),
 );

@@ -7,8 +7,8 @@ import type { Brand, WishlistItem } from '@farfetch/blackout-client';
 import type { BuildWishlistItemData } from '../utils/buildWishlistItem';
 import type {
   ProductEntity,
+  WishlistItemDenormalized,
   WishlistItemEntity,
-  WishlistItemHydrated,
   WishlistSetEntity,
 } from '../../entities/types';
 import type { StoreState } from '../../types';
@@ -38,7 +38,7 @@ export const getWishlistId = (state: StoreState) =>
  *
  * @example
  * ```
- * import { getWishlist } from '@farfetch/blackout-redux/wishlists';
+ * import { getWishlist } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     wishlist: getWishlist(state)
@@ -75,7 +75,7 @@ const denormalizeWishlistItem = (
   wishlistSets: Record<WishlistSetEntity['id'], WishlistSetEntity> | undefined,
   brands: Record<Brand['id'], Brand> | undefined,
   categories: Record<CategoryEntity['id'], CategoryEntity> | undefined,
-): WishlistItemHydrated | undefined => {
+): WishlistItemDenormalized | undefined => {
   const wishlistItemEntity = wishlistItems?.[wishlistItemId];
 
   if (!wishlistItemEntity) {
@@ -108,7 +108,7 @@ const denormalizeWishlistItem = (
       }
 
       return acc;
-    }, [] as NonNullable<WishlistItemHydrated['parentSets']>);
+    }, [] as NonNullable<WishlistItemDenormalized['parentSets']>);
   }
 
   const productBrand = productEntity?.brand;
@@ -127,7 +127,7 @@ const denormalizeWishlistItem = (
       }
     : undefined;
 
-  const wishlistItem: WishlistItemHydrated = {
+  const wishlistItem: WishlistItemDenormalized = {
     ...wishlistItemEntity,
     product,
   };
@@ -163,7 +163,7 @@ export const getWishlistItem: (
   state: StoreState,
   wishlistItemId: WishlistItem['id'],
   withParentSetsInfo?: boolean,
-) => WishlistItemHydrated | undefined = createSelector(
+) => WishlistItemDenormalized | undefined = createSelector(
   [
     (_, wishlistItemId) => wishlistItemId,
     (_, __, withParentSetsInfo?: boolean) => withParentSetsInfo,
@@ -235,10 +235,13 @@ export const getWishlistItemsIds = (state: StoreState) =>
  * @returns List of each wishlist item entity (with the respective products) from the current user's
  * wishlist.
  */
-export const getWishlistItems = createSelector(
+export const getWishlistItems: (
+  state: StoreState,
+  withParentSetsInfo?: boolean,
+) => WishlistItemDenormalized[] | undefined = createSelector(
   [
     getWishlistItemsIds,
-    (_, withParentSetsInfo = false) => withParentSetsInfo,
+    (_, withParentSetsInfo: boolean | undefined = false) => withParentSetsInfo,
     (state: StoreState) => getEntities(state, 'wishlistItems'),
     (state: StoreState) => getEntities(state, 'products'),
     (state: StoreState) => getWishlistSetsIds(state),
@@ -256,22 +259,21 @@ export const getWishlistItems = createSelector(
     brands,
     categories,
   ) =>
-    wishlistItemsIds?.map(wishlistItemId =>
-      denormalizeWishlistItem(
-        wishlistItemId,
-        withParentSetsInfo,
-        wishlistItems,
-        products,
-        wishlistSetsIds,
-        wishlistSets,
-        brands,
-        categories,
-      ),
-    ),
-) as (
-  state: StoreState,
-  withParentSetsInfo?: boolean,
-) => WishlistItemHydrated[] | undefined;
+    wishlistItemsIds
+      ?.map(wishlistItemId =>
+        denormalizeWishlistItem(
+          wishlistItemId,
+          withParentSetsInfo,
+          wishlistItems,
+          products,
+          wishlistSetsIds,
+          wishlistSets,
+          brands,
+          categories,
+        ),
+      )
+      .filter(Boolean) as WishlistItemDenormalized[],
+);
 
 /**
  * Retrieves the error state of the current user's wishlist.
@@ -466,12 +468,16 @@ export const getWishlistItemError = (
  *
  * @returns Returns the item found in the wishlist, undefined otherwise.
  */
-export const findProductInWishlist = createSelector(
+export const findProductInWishlist: (
+  state: StoreState,
+  data: BuildWishlistItemData,
+  withParentSetsInfo?: boolean,
+) => WishlistItemDenormalized | undefined = createSelector(
   [
     (
       state: StoreState,
       data: BuildWishlistItemData,
-      withParentSetsInfo = false,
+      withParentSetsInfo: boolean | undefined = false,
     ) => getWishlistItems(state, withParentSetsInfo),
     (state: StoreState, { product, size }: BuildWishlistItemData) => ({
       product,
@@ -546,7 +552,10 @@ export const isProductInWishlist = (
  *
  * @returns List of wishlist items.
  */
-export const getWishlistItemsByProductId = createSelector(
+export const getWishlistItemsByProductId: (
+  state: StoreState,
+  productId: ProductEntity['id'],
+) => WishlistItemDenormalized[] = createSelector(
   [
     (
       state: StoreState,

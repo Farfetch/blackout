@@ -13,6 +13,12 @@ export default new schema.Entity(
   { items: [orderItem] },
   {
     processStrategy: (order: Order | OrderLegacy) => {
+      // This is needed since the Farfetch Checkout service is merging
+      // both Address Line 2 and Address Line 3 not checking correctly if the
+      // second is empty, when the user fills the third address line but not
+      // the second it adds a space when merging the values and returns it
+      // in the second line.
+      // This only occurs in the order details not in the address book.
       const preprocessedOrder = preprocessOrder(order);
 
       if (typeof preprocessedOrder.customerType === 'number') {
@@ -25,13 +31,7 @@ export default new schema.Entity(
         }
       }
 
-      // This is needed since the Farfetch Checkout service is merging
-      // both Address Line 2 and Address Line 3 not checking correctly if the
-      // second is empty, when the user fills the third address line but not
-      // the second it adds a space when merging the values and returns it
-      // in the second line.
-      // This only occurs in the order details not in the address book.
-      return preprocessOrder(order);
+      return preprocessedOrder;
     },
   },
 );

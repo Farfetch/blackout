@@ -38,6 +38,6 @@ export type BagItemEntity = Omit<
   size: SizeAdapted;
 };
 
-export type BagItemHydrated = Omit<BagItemEntity, 'product'> & {
+export type BagItemDenormalized = Omit<BagItemEntity, 'product'> & {
   product: ProductEntityDenormalized | undefined;
 };
