@@ -82,10 +82,14 @@ export const getCheckoutProperties = (
   };
 };
 
-export const getProductId = (unmappedProduct: AnalyticsProduct): string => {
+export const getProductId = (
+  unmappedProduct: AnalyticsProduct,
+): string | undefined => {
   // Validation of event properties are done before this function is called
   // so the cast is acceptable here.
-  return unmappedProduct.id as string;
+  const productId = unmappedProduct.productId || unmappedProduct.id;
+
+  return productId ? `${productId}` : undefined;
 };
 
 export const getProductName = (unmappedProduct: AnalyticsProduct): string => {

@@ -633,7 +633,7 @@ const getCheckoutStepEditingParametersFromEvent = (
 const getShareParametersFromEvent = (eventProperties: EventProperties) => ({
   method: eventProperties.method,
   content_type: eventProperties.contentType,
-  item_id: eventProperties.id,
+  item_id: utils.getProductId(eventProperties),
 });
 
 /**
