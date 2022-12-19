@@ -52,7 +52,9 @@ export const getCheckoutProperties = data => {
 };
 
 export const getProductId = unmappedProduct => {
-  return unmappedProduct.id;
+  const productId = unmappedProduct.productId || unmappedProduct.id;
+
+  return productId ? `${productId}` : undefined;
 };
 
 export const getProductName = unmappedProduct => {

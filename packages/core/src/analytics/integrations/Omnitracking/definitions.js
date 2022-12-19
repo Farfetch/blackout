@@ -8,18 +8,17 @@ import {
   getCheckoutEventGenericProperties,
   getCommonCheckoutStepTrackingData,
   getGenderValueFromProperties,
-  getOmnitrackingProductId,
   getProductLineItems,
   getProductLineItemsQuantity,
   getValParameterForEvent,
 } from './omnitracking-helper';
+import { getProductId } from '../../utils/getters';
 import eventTypes from '../../types/eventTypes';
 import interactionTypes from '../../types/interactionTypes';
 import logger from '../../utils/logger';
 import pageTypes from '../../types/pageTypes';
 
 export const PRODUCT_ID_PARAMETER = 'productId';
-export const PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST = 'id';
 
 /**
  * Common parameters to any event.
@@ -465,7 +464,7 @@ export const trackEventsMapper = {
   [eventTypes.SHARE]: data => ({
     tid: 1205,
     actionArea: data.properties?.method,
-    productId: getOmnitrackingProductId(data),
+    productId: getProductId(data.properties),
   }),
   [eventTypes.PROMOCODE_APPLIED]: data => ({
     tid: 311,
@@ -529,7 +528,7 @@ export const trackEventsMapper = {
   [eventTypes.PRODUCT_CLICKED]: data => ({
     tid: 2926,
     actionArea: data.properties?.from,
-    productId: getOmnitrackingProductId(data),
+    productId: getProductId(data.properties),
     lineItems: getProductLineItems(data),
   }),
   [eventTypes.FILTERS_APPLIED]: data => ({
@@ -569,8 +568,8 @@ export const trackEventsMapper = {
 
     if (!properties?.contentType || !properties?.interactionType) {
       logger.error(
-        `[Omnitracking] - Event ${data.event} properties "contentType" and "interactionType" should be sent 
-                        on the payload when triggering a "interact content" event. If you want to track this event, make 
+        `[Omnitracking] - Event ${data.event} properties "contentType" and "interactionType" should be sent
+                        on the payload when triggering a "interact content" event. If you want to track this event, make
                         sure to pass these two properties.`,
       );
       return;
@@ -589,8 +588,8 @@ export const trackEventsMapper = {
 
     if (!properties?.contentType || !properties?.id) {
       logger.error(
-        `[Omnitracking] - Event ${data.event} properties "contentType" and "id" should be sent 
-                        on the payload when triggering a "select content" event. If you want to track this 
+        `[Omnitracking] - Event ${data.event} properties "contentType" and "id" should be sent
+                        on the payload when triggering a "select content" event. If you want to track this
                         event, make sure to pass these two properties.`,
       );
       return;
@@ -627,7 +626,7 @@ export const trackEventsMapper = {
       eventList.push({
         ...additionalParameters,
         tid: 2098,
-        productId: getOmnitrackingProductId(data),
+        productId: getProductId(properties),
         actionArea: properties?.from,
       });
     }
@@ -663,7 +662,7 @@ export const trackEventsMapper = {
       eventList.push({
         ...additionalParameters,
         tid: 2920,
-        productId: getOmnitrackingProductId(data),
+        productId: getProductId(properties),
         actionArea: properties?.from,
       });
     }
@@ -676,7 +675,7 @@ export const trackEventsMapper = {
 
       eventList.push({
         tid: 2919,
-        productId: getOmnitrackingProductId(data),
+        productId: getProductId(properties),
         actionArea: properties?.from,
         itemQuantity: properties?.quantity,
       });
