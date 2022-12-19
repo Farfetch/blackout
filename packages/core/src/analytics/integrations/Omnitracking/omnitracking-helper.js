@@ -8,6 +8,7 @@ import {
   DEFAULT_CLIENT_LANGUAGE,
   DEFAULT_SEARCH_QUERY_PARAMETERS,
 } from './constants';
+import { getProductId } from '../../utils/getters';
 import {
   pageActionEventTypes,
   pageDefinitions,
@@ -467,17 +468,6 @@ export const getClientLanguageFromCulture = (culture = '') => {
 };
 
 /**
- * Obtain product Id omnitracking parameter.
- *
- * @param {object} data - The event tracking data.
- *
- * @returns {string} - The product id.
- */
-export const getOmnitrackingProductId = data => {
-  return data?.properties?.productId || data?.properties?.id;
-};
-
-/**
  * Transforms the products list payload into `lineItems` omnitracking parameter.
  *
  * @param {object} data - The event tracking data.
@@ -487,11 +477,11 @@ export const getOmnitrackingProductId = data => {
 export const getProductLineItems = data => {
   const properties = data?.properties || {};
   const productsList = properties.products;
-  const productId = getOmnitrackingProductId(data);
+  const productId = getProductId(properties);
 
   if (productsList && productsList.length) {
     const mappedProductList = productsList.map(product => ({
-      productId: product.id,
+      productId: getProductId(product),
       itemPromotion: product.discountValue,
       designerName: product.brand,
       category: (product.category || '').split('/')[0],
@@ -551,7 +541,7 @@ export const getCheckoutEventGenericProperties = (data, addOrderId = false) => {
   if (!validOrderCode) {
     logger.warn(
       `[Omnitracking] - Event ${data.event} property orderId should be an alphanumeric value.
-                        If you send the internal orderId, please use 'orderId' (e.g.: 5H5QYB) 
+                        If you send the internal orderId, please use 'orderId' (e.g.: 5H5QYB)
                         and 'checkoutOrderId' (e.g.:123123123)`,
     );
   }
