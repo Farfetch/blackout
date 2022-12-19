@@ -3,11 +3,10 @@ import {
   getCommonCheckoutStepTrackingData,
   getDeliveryInformationDetails,
   getGenderValueFromProperties,
-  getOmnitrackingProductId,
   getProductLineItems,
   getProductLineItemsQuantity,
 } from './omnitracking-helper';
-import { logger } from '../../utils';
+import { getProductId, logger } from '../../utils';
 import eventTypes from '../../types/eventTypes';
 import interactionTypes from '../../types/interactionTypes';
 import pageTypes from '../../types/pageTypes';
@@ -19,7 +18,6 @@ import type {
 } from './types/Omnitracking.types';
 
 export const PRODUCT_ID_PARAMETER = 'productId';
-export const PRODUCT_ID_PARAMETER_FROM_BAG_WISHLIST = 'id';
 
 /**
  * Common parameters to any event. This list is extended by each page event
@@ -495,7 +493,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   [eventTypes.SHARE]: data => ({
     tid: 1205,
     actionArea: data.properties?.from,
-    productId: getOmnitrackingProductId(data),
+    productId: getProductId(data.properties),
   }),
   [eventTypes.LOGIN]: data => ({
     tid: 2924,
@@ -508,7 +506,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   [eventTypes.PRODUCT_CLICKED]: data => ({
     tid: 2926,
     actionArea: data.properties?.from,
-    productId: getOmnitrackingProductId(data),
+    productId: getProductId(data.properties),
     lineItems: getProductLineItems(data),
   }),
   [eventTypes.PRODUCT_ADDED_TO_CART]: data => ({
@@ -542,7 +540,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
       contentType: properties?.contentType,
       interactionType: properties?.interactionType,
       val: properties?.id,
-      productId: getOmnitrackingProductId(data, true),
+      productId: properties?.productId,
     } as OmnitrackingTrackEventParameters;
   },
   [eventTypes.FILTERS_APPLIED]: (data: EventData<TrackTypesValues>) => ({
@@ -603,7 +601,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
       eventList.push({
         ...additionalParameters,
         tid: 2098,
-        productId: properties?.id,
+        productId: getProductId(properties),
         actionArea: properties?.from,
       });
     }
@@ -639,7 +637,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
       eventList.push({
         ...additionalParameters,
         tid: 2920,
-        productId: properties?.id,
+        productId: getProductId(properties),
         actionArea: properties?.from,
       });
     }
@@ -652,7 +650,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
 
       eventList.push({
         tid: 2919,
-        productId: properties?.id,
+        productId: getProductId(properties),
         actionArea: properties?.from,
         itemQuantity: properties?.quantity,
       });

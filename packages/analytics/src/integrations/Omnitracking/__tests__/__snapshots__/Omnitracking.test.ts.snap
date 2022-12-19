@@ -986,7 +986,7 @@ Object {
 
 exports[`Omnitracking track events definitions \`product-details\` return should match the snapshot 1`] = `
 Object {
-  "lineItems": "[{\\"productId\\":12122479,\\"itemPromotion\\":1,\\"designerName\\":\\"Saint Laurent\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":2,\\"sizeID\\":\\"20\\",\\"itemQuantity\\":13,\\"promoCode\\":\\"EASTER2022\\",\\"storeID\\":20000}]",
+  "lineItems": "[{\\"productId\\":\\"12122479\\",\\"itemPromotion\\":1,\\"designerName\\":\\"Saint Laurent\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":2,\\"sizeID\\":\\"20\\",\\"itemQuantity\\":13,\\"promoCode\\":\\"EASTER2022\\",\\"storeID\\":20000}]",
   "viewSubType": "Product",
   "viewType": "Product",
 }
