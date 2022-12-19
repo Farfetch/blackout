@@ -12,7 +12,7 @@ import {
   DEFAULT_CLIENT_LANGUAGE,
   DEFAULT_SEARCH_QUERY_PARAMETERS,
 } from './constants';
-import { getCustomerIdFromUser, logger } from '../../utils';
+import { getCustomerIdFromUser, getProductId, logger } from '../../utils';
 import { isPageEventType, isScreenEventType } from '../../utils/typePredicates';
 import {
   pageActionEventTypes,
@@ -549,24 +549,6 @@ export const getClientLanguageFromCulture = (culture = '') => {
 };
 
 /**
- * Obtain product Id omnitracking parameter.
- *
- * @param data - The event tracking data.
- * @param useOnlyProductIdField - Should be true when it's only to use productId field.
- *
- * @returns The product id.
- */
-export const getOmnitrackingProductId = (
-  data: EventData<TrackTypesValues>,
-  useOnlyProductIdField = false,
-) => {
-  return (
-    data?.properties?.productId ||
-    (useOnlyProductIdField ? undefined : data?.properties?.id)
-  );
-};
-
-/**
  * Transforms the products list payload into `lineItems` omnitracking parameter.
  *
  * @param data - The event tracking data.
@@ -576,11 +558,11 @@ export const getOmnitrackingProductId = (
 export const getProductLineItems = (data: EventData<TrackTypesValues>) => {
   const properties = data?.properties || {};
   const productsList = properties.products;
-  const productId = getOmnitrackingProductId(data);
+  const productId = getProductId(properties);
 
   if (productsList && productsList.length) {
     const mappedProductList = productsList.map(product => ({
-      productId: product.id,
+      productId: getProductId(product),
       itemPromotion: product.discountValue,
       designerName: product.brand,
       category: (product.category || '').split('/')[0],
@@ -629,7 +611,7 @@ export const getCheckoutEventGenericProperties = (
   if (!validOrderCode) {
     logger.warn(
       `[Omnitracking] - Event ${data.event} property orderId should be an alphanumeric value.
-                        If you send the internal orderId, please use 'orderId' (e.g.: 5H5QYB) 
+                        If you send the internal orderId, please use 'orderId' (e.g.: 5H5QYB)
                         and 'checkoutOrderId' (e.g.:123123123)`,
     );
   }

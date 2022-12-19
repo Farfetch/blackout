@@ -327,7 +327,7 @@ const commands = {
         EVENT_CATEGORY_ECOMMERCE,
         eventTypes.PRODUCT_ADDED_TO_CART,
         getProductEventLabel(
-          utils.getProductId(productData),
+          utils.getProductId(productData) as string,
           utils.getProductName(productData),
         ),
       ),
@@ -360,7 +360,7 @@ const commands = {
         EVENT_CATEGORY_ECOMMERCE,
         eventTypes.PRODUCT_REMOVED_FROM_CART,
         getProductEventLabel(
-          utils.getProductId(productData),
+          utils.getProductId(productData) as string,
           utils.getProductName(productData),
         ),
       ),
@@ -377,7 +377,7 @@ const commands = {
         EVENT_CATEGORY_ECOMMERCE,
         `${eventTypes.PRODUCT_ADDED_TO_WISHLIST} - ${utils.getList(data)}`,
         getProductEventLabel(
-          utils.getProductId(productData),
+          utils.getProductId(productData) as string,
           utils.getProductName(productData),
         ),
       ),
@@ -394,7 +394,7 @@ const commands = {
         EVENT_CATEGORY_ECOMMERCE,
         `${eventTypes.PRODUCT_REMOVED_FROM_WISHLIST} - ${utils.getList(data)}`,
         getProductEventLabel(
-          utils.getProductId(productData),
+          utils.getProductId(productData) as string,
           utils.getProductName(productData),
         ),
       ),
@@ -411,7 +411,7 @@ const commands = {
         EVENT_CATEGORY_ECOMMERCE,
         utils.getList(data),
         getProductEventLabel(
-          utils.getProductId(productData),
+          utils.getProductId(productData) as string,
           utils.getProductName(productData),
         ),
       ),
@@ -438,7 +438,7 @@ const commands = {
         EVENT_CATEGORY_ECOMMERCE,
         eventTypes.PRODUCT_CLICKED,
         getProductEventLabel(
-          utils.getProductId(productData),
+          utils.getProductId(productData) as string,
           utils.getProductName(productData),
         ),
       ),
@@ -470,7 +470,7 @@ const commands = {
         EVENT_CATEGORY_ECOMMERCE,
         eventTypes.PRODUCT_VIEWED,
         getProductEventLabel(
-          utils.getProductId(productData),
+          utils.getProductId(productData) as string,
           utils.getProductName(productData),
         ),
       ),
