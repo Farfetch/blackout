@@ -1465,13 +1465,15 @@ describe('GA4 Integration', () => {
                 trackEventsData[eventTypes.INTERACT_CONTENT],
               );
 
-              expect(ga4Spy).toHaveBeenCalledWith('event', 'interact_content', {
-                content_type: 'biz',
-                some_other_property: 12312312,
-                interaction_type: interactionTypes.CLICK,
-                __blackoutAnalyticsEventId: expect.any(String),
-                state: 'dummy',
-              });
+              expect(ga4Spy).toHaveBeenCalledWith(
+                'event',
+                'interact_content',
+                expect.objectContaining({
+                  content_type: 'biz',
+                  some_other_property: 12312312,
+                  interaction_type: interactionTypes.CLICK,
+                }),
+              );
             });
           });
         });

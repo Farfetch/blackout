@@ -1,9 +1,11 @@
 import type {
+  EventData,
   IntegrationOptions,
   LoadIntegrationEventData,
   PageviewEventData,
   SetUserEventData,
   TrackEventData,
+  TrackTypesValues,
 } from '@farfetch/blackout-analytics';
 import type {
   OPTION_DATA_LAYER_NAME,
@@ -41,8 +43,7 @@ export type NonInteractionEvents = Record<string, boolean>;
 export type OnPreProcessCommandsHandler = (
   commandList: GA4CommandList,
   data:
-    | TrackEventData
-    | PageviewEventData
+    | EventData<TrackTypesValues>
     | SetUserEventData
     | LoadIntegrationEventData,
 ) => GA4CommandList;
