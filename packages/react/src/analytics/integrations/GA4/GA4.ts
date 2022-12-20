@@ -359,10 +359,9 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
   processCommandList(
     commandList: GA4CommandList | undefined,
     data:
-      | TrackEventData
-      | PageviewEventData
-      | LoadIntegrationEventData
-      | SetUserEventData,
+      | EventData<TrackTypesValues>
+      | SetUserEventData
+      | LoadIntegrationEventData,
   ): void {
     if (commandList) {
       if (this.onPreProcessCommands) {
@@ -380,7 +379,7 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
       this.processInteractionEvents(commandList, data?.event);
 
       each(commandList, command => {
-        this.attachUniqueEventIdToCommand(command, data);
+        this.postProcessEvent(command, data);
 
         window.gtag.apply(null, command);
       });
@@ -395,15 +394,15 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
    *
    * @returns The modified command.
    */
-  attachUniqueEventIdToCommand(
+  postProcessEvent(
     command: GA4Command,
     data:
-      | TrackEventData
-      | PageviewEventData
-      | LoadIntegrationEventData
-      | SetUserEventData,
+      | EventData<TrackTypesValues>
+      | SetUserEventData
+      | LoadIntegrationEventData,
   ) {
-    const eventProperties = command[2];
+    const eventProperties = command[2] as Record<string, string>;
+    const contextLocation = utils.getLocation(data);
 
     if (eventProperties && typeof eventProperties === 'object') {
       const uniqueEventId = get(
@@ -411,8 +410,14 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
         `context.event.${utils.ANALYTICS_UNIQUE_EVENT_ID}`,
       ) as string;
 
-      (eventProperties as Record<string, string>)[OPTION_UNIQUE_EVENT_ID_KEY] =
-        uniqueEventId;
+      eventProperties[OPTION_UNIQUE_EVENT_ID_KEY] = uniqueEventId;
+
+      if (data.type === analyticsTrackTypes.TRACK) {
+        eventProperties['page_path'] =
+          contextLocation.pathname +
+          utils.stringifyQuery(contextLocation.query);
+        eventProperties['path_clean'] = contextLocation.pathname;
+      }
     }
 
     return command;
