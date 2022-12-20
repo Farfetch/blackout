@@ -3,6 +3,8 @@ import type {
   AnalyticsProduct,
   EventData,
   EventProperties,
+  LoadIntegrationEventData,
+  SetUserEventData,
   TrackTypesValues,
 } from '../types/analytics.types';
 import type URLParse from 'url-parse';
@@ -99,7 +101,10 @@ export const getProductName = (unmappedProduct: AnalyticsProduct): string => {
 };
 
 export const getLocation = (
-  data: EventData<TrackTypesValues>,
+  data:
+    | EventData<TrackTypesValues>
+    | SetUserEventData
+    | LoadIntegrationEventData,
 ): URLParse<Record<string, string | undefined>> => {
   return get(data, 'context.web.window.location', {});
 };
