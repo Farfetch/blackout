@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.75.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.74.2...@farfetch/blackout-core@1.75.0) (2022-12-21)
+
+
+### Features
+
+* **core|react:** normalize property of productId on Analytics ([cd4ef37](https://github.com/Farfetch/blackout/commit/cd4ef37b2f9a17627b545950efe6d48ecda6c9b2))
+
+
+
+
+
 ## [1.74.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.74.1...@farfetch/blackout-core@1.74.2) (2022-12-06)
 
 
