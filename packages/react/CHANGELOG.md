@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.362](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.361...@farfetch/blackout-react@1.0.0-next.362) (2022-12-21)
+
+
+### Bug Fixes
+
+* **react:** add page context to GA4 events ([b1cf4c0](https://github.com/Farfetch/blackout/commit/b1cf4c046eb8acb123c63a736441da2f202a7287))
+
+
+### Features
+
+* **analytics|react:** normalize property of productId on Analytics for next ([1833eb3](https://github.com/Farfetch/blackout/commit/1833eb324b6ca51c9a46bacb7dd27ddc7179af78))
+
+
+
+
+
 # [1.0.0-next.361](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.360...@farfetch/blackout-react@1.0.0-next.361) (2022-12-15)
 
 
