@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.103](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.102...@farfetch/blackout-analytics@1.0.0-next.103) (2022-12-22)
+
+
+### Bug Fixes
+
+* **analytics:** fix omnitrackings's 'navigatedFrom' parameter logic next ([e18de7c](https://github.com/Farfetch/blackout/commit/e18de7c48df279653d8194d58fc8026e8f7ff76d))
+
+
+
+
+
 # [1.0.0-next.102](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.101...@farfetch/blackout-analytics@1.0.0-next.102) (2022-12-21)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
