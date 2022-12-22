@@ -203,11 +203,6 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
       }
 
       const { user } = data;
-
-      this.lastFromParameter = (data?.properties?.from || null) as
-        | string
-        | null;
-
       const userTraits = get(user, 'traits', {}) as UserTraits;
 
       precalculatedPageViewParameters.userGender = get(
@@ -239,6 +234,14 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
         getClientLanguageFromCulture(culture);
       precalculatedPageViewParameters.clientCulture = culture;
     }
+
+    // Always set the `lastFromParameter` with what comes from the current event (pageview or not),
+    // so if there's a pageview being tracked right after this one,
+    // it will send the correct `navigatedFrom` parameter.
+    // Here we always set the value even if it comes `undefined` or `null`,
+    // otherwise we could end up with a stale `lastFromParameter` if some events are tracked
+    // without the `from` parameter.
+    this.lastFromParameter = (data?.properties?.from || null) as string | null;
 
     precalculatedParameters.uniqueViewId = this.currentUniqueViewId;
     precalculatedParameters.viewCurrency = currencyCode;
@@ -345,7 +348,7 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
     if (!this.validateTrackingRequisites()) {
       logger.error(
         `[Omnitracking] - Event ${data.event} could not be tracked since it had no unique view id.
-         A possible cause is trying to track an event before tracking a page view. 
+         A possible cause is trying to track an event before tracking a page view.
          Make sure you are tracking events after page views are tracked.
          This event will not be tracked with Omnitracking.`,
       );
