@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.354](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.353...@farfetch/blackout-redux@1.0.0-next.354) (2023-01-02)
+
+
+### Features
+
+* **analytics|react|redux:** transform analytics types into enums ([cd551c3](https://github.com/Farfetch/blackout/commit/cd551c33713c40a30b36ee305913e944da9d2416))
+
+
+
+
+
 # [1.0.0-next.353](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.352...@farfetch/blackout-redux@1.0.0-next.353) (2022-12-22)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
