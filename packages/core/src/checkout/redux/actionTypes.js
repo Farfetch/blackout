@@ -177,6 +177,9 @@ export const SET_PROMOCODE_REQUEST =
 export const SET_PROMOCODE_SUCCESS =
   '@farfetch/blackout-core/SET_PROMOCODE_SUCCESS';
 
+/** Action type dispatched when reseting the promocode. */
+export const SET_PROMOCODE_RESET =
+  '@farfetch/blackout-core/SET_PROMOCODE_RESET';
 /** Action type dispatched when the set tags request fails. */
 export const SET_TAGS_FAILURE = '@farfetch/blackout-core/SET_TAGS_FAILURE';
 /** Action type dispatched when the set tags request starts. */
