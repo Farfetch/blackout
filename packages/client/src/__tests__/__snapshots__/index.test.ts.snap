@@ -894,6 +894,7 @@ Object {
   "getUserPersonalId": [Function],
   "getUserPersonalIds": [Function],
   "getUserPreferences": [Function],
+  "getUserReturns": [Function],
   "getUserTitles": [Function],
   "getWishlist": [Function],
   "getWishlistSet": [Function],
