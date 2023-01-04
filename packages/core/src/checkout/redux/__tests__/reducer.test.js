@@ -175,6 +175,20 @@ describe('checkout reducer', () => {
       ).toBe(expectedResult);
     });
 
+    it('should handle SET_PROMOCODE_RESET action type', () => {
+      const currentState = {
+        promoCode: {
+          error: 'foo',
+          isLoading: true,
+        },
+      };
+      expect(
+        reducer(currentState, {
+          type: actionTypes.SET_PROMOCODE_RESET,
+        }).promocode,
+      ).toBe(initialState.promocode);
+    });
+
     it('should handle SET_TAGS_SUCCESS action type', () => {
       const expectedResult = 'foo';
 
