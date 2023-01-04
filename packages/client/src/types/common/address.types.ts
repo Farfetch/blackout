@@ -10,13 +10,13 @@ export type Continent = {
 export type CountryAddress = {
   id: number;
   name: string;
-  nativeName: string;
+  nativeName?: string | null;
   alpha2Code: string;
-  alpha3Code: string;
-  culture: string;
-  region: string;
+  alpha3Code?: string | null;
+  culture?: string | null;
+  region?: string | null;
   regionId?: number;
-  subRegion?: string;
+  subRegion?: string | null;
   continentId: number;
 };
 
@@ -30,9 +30,9 @@ export type AddressBase = {
   country: CountryAddress;
   zipCode: string;
   phone?: string;
-  neighbourhood?: string;
-  ddd?: string;
-  continent?: Continent;
+  neighbourhood?: string | null;
+  ddd?: string | null;
+  continent?: Continent | null;
 };
 
 export type PaymentAddress = AddressBase & {
