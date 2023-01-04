@@ -232,6 +232,7 @@ Object {
   "useReturnPickupCapability": [Function],
   "useReturnPickupRescheduleRequest": [Function],
   "useReturnPickupRescheduleRequests": [Function],
+  "useReturns": [Function],
   "useSearchDidYouMean": [Function],
   "useSearchIntents": [Function],
   "useSearchSuggestions": [Function],
