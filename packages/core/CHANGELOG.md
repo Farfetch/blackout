@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.76.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.75.0...@farfetch/blackout-core@1.76.0) (2023-01-05)
+
+
+### Features
+
+* **core:** add new get user returns endpoints ([53d84ed](https://github.com/Farfetch/blackout/commit/53d84edeb8e37237bb43f57756af30e7c4d89cbd))
+
+
+
+
+
 # [1.75.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.74.2...@farfetch/blackout-core@1.75.0) (2022-12-21)
 
 
