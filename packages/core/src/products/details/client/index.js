@@ -13,6 +13,7 @@ export { default as getMeasurements } from './getMeasurements';
 export { default as getProductAttributes } from './getProductAttributes';
 export { default as getProductDetails } from './getProductDetails';
 export { default as getProductMerchantsLocations } from './getProductMerchantsLocations';
+export { default as getProductOutfits } from './getProductOutfits';
 export { default as getProductSizeguides } from './getProductSizeguides';
 export { default as getProductSizes } from './getProductSizes';
 export { default as getRecommendedSetWithOutOfStock } from './getRecommendedSetWithOutOfStock';

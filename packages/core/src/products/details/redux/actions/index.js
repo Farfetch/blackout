@@ -13,6 +13,7 @@ export { default as doGetProductAttributes } from './doGetProductAttributes';
 export { default as fetchProductFittings } from './fetchProductFittings';
 export { default as doGetProductDetails } from './doGetProductDetails';
 export { default as doGetProductMerchantsLocations } from './doGetProductMerchantsLocations';
+export { default as doGetProductOutfits } from './doGetProductOutfits';
 export { default as doGetProductSizeguides } from './doGetProductSizeguides';
 export { default as doGetProductSizes } from './doGetProductSizes';
 export { default as doGetRecommendedSet } from './doGetRecommendedSet';

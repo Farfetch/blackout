@@ -872,6 +872,57 @@ describe('details redux reducer', () => {
     });
   });
 
+  describe('outfits() reducer', () => {
+    it('should return the initial state', () => {
+      const state = reducer().outfits;
+
+      expect(state).toEqual(initialState.outfits);
+      expect(state).toEqual({ error: {}, isLoading: {} });
+    });
+
+    it('should handle GET_PRODUCT_OUTFITS_REQUEST action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.GET_PRODUCT_OUTFITS_REQUEST,
+          payload: { productId: mockProductId },
+        }).outfits,
+      ).toEqual({
+        error: {},
+        isLoading: { [mockProductId]: true },
+      });
+    });
+
+    it('should handle GET_PRODUCT_OUTFITS_FAILURE action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.GET_PRODUCT_OUTFITS_FAILURE,
+          payload: { error: '', productId: mockProductId },
+        }).outfits,
+      ).toEqual({
+        error: { [mockProductId]: '' },
+        isLoading: { [mockProductId]: undefined },
+      });
+    });
+
+    it('should handle GET_PRODUCT_OUTFITS_SUCCESS action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.GET_PRODUCT_OUTFITS_SUCCESS,
+          payload: {
+            productId: mockProductId,
+            result: mockProductId,
+          },
+        }).outfits,
+      ).toEqual({ error: {}, isLoading: { [mockProductId]: false } });
+    });
+
+    it('should handle other actions by returning the previous state', () => {
+      const state = { outfits: { isLoading: { 456: false } } };
+
+      expect(reducer(state).outfits).toEqual(state.outfits);
+    });
+  });
+
   describe('entitiesMapper', () => {
     it('should map the GET_MEASUREMENTS_SUCCESS action to a new state', () => {
       const defaultState = { otherState: 'foo' };
@@ -1139,6 +1190,26 @@ describe('details redux reducer', () => {
             merchantsLocations,
           }),
         ).toEqual(merchantsLocations.isLoading);
+      });
+    });
+
+    describe('getOutfitsError()', () => {
+      it('should return the `outfits.error` property from a given state', () => {
+        const outfits = { error: 'foo-bar' };
+
+        expect(fromReducer.getOutfitsError({ outfits })).toEqual(
+          outfits.error,
+        );
+      });
+    });
+
+    describe('getAreOutfitsLoading()', () => {
+      it('should return the `outfits.loading` property from a given state', () => {
+        const outfits = { isLoading: { foo: true } };
+
+        expect(fromReducer.getAreOutfitsLoading({ outfits })).toEqual(
+          outfits.isLoading,
+        );
       });
     });
   });
