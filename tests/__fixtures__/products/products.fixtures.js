@@ -504,6 +504,47 @@ export const mockAttributes = [
   },
 ];
 
+export const mockOutfits = [
+  {
+    id: 8957053,
+    mainProductId: 11766695,
+    description: "11766695",
+    countryId: 215,
+    dateCreated: "2022-12-05T09:39:25.043Z",
+    onlineState: 4,
+    targetTenantId: 10000,
+    products: [
+      {
+        outfitId: 8957053,
+        productId: 18641812,
+      },
+      {
+        outfitId: 8957053,
+        productId: 19131048,
+      },
+    ],
+  },
+  {
+    id: 8957054,
+    mainProductId: 11766695,
+    description: "11766695",
+    countryId: 215,
+    dateCreated: "2022-12-05T09:39:25.043Z",
+    onlineState: 4,
+    targetTenantId: 10000,
+    products: [
+      {
+        outfitId: 8957054,
+        productId: 18641812,
+      },
+      {
+        outfitId: 8957054,
+        productId: 19131048,
+      }
+    ]
+  },
+];
+
 export const mockMerchantsLocations = [
   { merchantLocationId: 1, quantity: 0, variantId: mockVariantId },
   { merchantLocationId: 2, quantity: 1, variantId: 123 },

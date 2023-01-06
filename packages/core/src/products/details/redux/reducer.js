@@ -42,6 +42,10 @@ export const INITIAL_STATE = {
     error: {},
     isLoading: {},
   },
+  outfits: {
+    error: {},
+    isLoading: {},
+  },
   recommendedSets: {
     error: {},
     isLoading: {},
@@ -544,6 +548,43 @@ const merchantsLocations = (
   }
 };
 
+const outfits = (
+  state = INITIAL_STATE.outfits,
+  /* istanbul ignore next */ action = {},
+) => {
+  switch (action.type) {
+    case actionTypes.GET_PRODUCT_OUTFITS_REQUEST:
+      return {
+        isLoading: {
+          ...state.isLoading,
+          [action.payload.productId]: true,
+        },
+        error: INITIAL_STATE.outfits.error,
+      };
+    case actionTypes.GET_PRODUCT_OUTFITS_SUCCESS:
+      return {
+        ...state,
+        isLoading: {
+          ...state.isLoading,
+          [action.payload.productId]: false,
+        },
+      };
+    case actionTypes.GET_PRODUCT_OUTFITS_FAILURE:
+      return {
+        isLoading: {
+          ...state.isLoading,
+          [action.payload.productId]: undefined,
+        },
+        error: {
+          ...state.error,
+          [action.payload.productId]: action.payload.error,
+        },
+      };
+    default:
+      return state;
+  }
+};
+
 const grouping = (
   state = INITIAL_STATE.grouping,
   /* istanbul ignore next */ action = {},
@@ -714,6 +755,9 @@ export const getMerchantsLocationsError = state =>
   state.merchantsLocations.error;
 export const getMerchantsLocationsIsLoading = state =>
   state.merchantsLocations.isLoading;
+// Outfits
+export const getOutfitsError = state => state.outfits.error;
+export const getAreOutfitsLoading = state => state.outfits.isLoading;
 
 const reducers = combineReducers({
   attributes,
@@ -727,6 +771,7 @@ const reducers = combineReducers({
   isLoading,
   measurements,
   merchantsLocations,
+  outfits,
   recommendedSets: recommendedSetsReducer,
   recommendedSetsWithOutOfStock,
   sets,
