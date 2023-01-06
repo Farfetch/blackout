@@ -477,7 +477,7 @@ export const trackEventsMapper = {
     ...getCheckoutEventGenericProperties(data),
   }),
   [eventTypes.SIGNUP_NEWSLETTER]: data => ({
-    tid: 2831,
+    tid: 1040,
     gender: getGenderValueFromProperties(data),
   }),
   [eventTypes.ADDRESS_INFO_ADDED]: data => ({
