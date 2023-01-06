@@ -277,7 +277,7 @@ Object {
 exports[`Omnitracking track events definitions \`Sign-up Newsletter\` return should match the snapshot 1`] = `
 Object {
   "gender": "Woman",
-  "tid": 2831,
+  "tid": 1040,
 }
 `;
 

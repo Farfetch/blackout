@@ -456,7 +456,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     tid: 431,
   }),
   [EventTypes.SIGNUP_NEWSLETTER]: data => ({
-    tid: 2831,
+    tid: 1040,
     gender: getGenderValueFromProperties(data),
   }),
   [EventTypes.PRODUCT_ADDED_TO_WISHLIST]: (
