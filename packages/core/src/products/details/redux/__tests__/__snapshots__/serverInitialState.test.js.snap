@@ -118,6 +118,46 @@ Object {
         },
         "measurements": undefined,
         "merchant": undefined,
+        "outfits": Array [
+          Object {
+            "id": 8957053,
+            "mainProductId": 11766695,
+            "description": "11766695",
+            "countryId": 215,
+            "dateCreated": "2022-12-05T09:39:25.043Z",
+            "onlineState": 4,
+            "targetTenantId": 10000,
+            "products": Array [
+              Object {
+                "outfitId": 8957053,
+                "productId": 18641812,
+              },
+              Object {
+                "outfitId": 8957053,
+                "productId": 19131048,
+              },
+            ],
+          },
+          Object {
+            "id": 8957054,
+            "mainProductId": 11766695,
+            "description": "11766695",
+            "countryId": 215,
+            "dateCreated": "2022-12-05T09:39:25.043Z",
+            "onlineState": 4,
+            "targetTenantId": 10000,
+            "products": Array [
+              Object {
+                "outfitId": 8957054,
+                "productId": 18641812
+              },
+              Object {
+                "outfitId": 8957054,
+                "productId": 19131048
+              }
+            ]
+          }
+        ],
         "preferedMerchant": Object {
           "merchantId": 9359,
         },
