@@ -41,6 +41,7 @@ const error = (state = INITIAL_STATE.error, action = {}) => {
     case actionTypes.GET_PICKUP_RESCHEDULE_REQUEST_FAILURE:
     case actionTypes.GET_PICKUP_RESCHEDULE_REQUESTS_FAILURE:
     case actionTypes.POST_PICKUP_RESCHEDULE_REQUESTS_FAILURE:
+    case actionTypes.GET_USER_RETURNS_FAILURE:
       return action.payload.error;
     case actionTypes.CREATE_RETURN_REQUEST:
     case actionTypes.GET_PICKUP_CAPABILITIES_REQUEST:
@@ -51,6 +52,7 @@ const error = (state = INITIAL_STATE.error, action = {}) => {
     case actionTypes.GET_PICKUP_RESCHEDULE_REQUEST_REQUEST:
     case actionTypes.GET_PICKUP_RESCHEDULE_REQUESTS_REQUEST:
     case actionTypes.POST_PICKUP_RESCHEDULE_REQUESTS_REQUEST:
+    case actionTypes.GET_USER_RETURNS_REQUEST:
     case actionTypes.RESET_RETURN:
       return INITIAL_STATE.error;
     default:
@@ -82,6 +84,7 @@ const isLoading = (state = INITIAL_STATE.isLoading, action = {}) => {
     case actionTypes.GET_PICKUP_RESCHEDULE_REQUEST_REQUEST:
     case actionTypes.GET_PICKUP_RESCHEDULE_REQUESTS_REQUEST:
     case actionTypes.POST_PICKUP_RESCHEDULE_REQUESTS_REQUEST:
+    case actionTypes.GET_USER_RETURNS_REQUEST:
       return true;
     case actionTypes.CREATE_RETURN_SUCCESS:
     case actionTypes.CREATE_RETURN_FAILURE:
@@ -101,6 +104,8 @@ const isLoading = (state = INITIAL_STATE.isLoading, action = {}) => {
     case actionTypes.GET_PICKUP_RESCHEDULE_REQUESTS_FAILURE:
     case actionTypes.POST_PICKUP_RESCHEDULE_REQUESTS_SUCCESS:
     case actionTypes.POST_PICKUP_RESCHEDULE_REQUESTS_FAILURE:
+    case actionTypes.GET_USER_RETURNS_SUCCESS:
+    case actionTypes.GET_USER_RETURNS_FAILURE:
     case actionTypes.RESET_RETURN:
       return INITIAL_STATE.isLoading;
     default:
@@ -148,7 +153,13 @@ export const entitiesMapper = {
 };
 
 const returns = reducerFactory(
-  ['CREATE_RETURN', 'GET_RETURN', 'UPDATE_RETURN', 'GET_RETURNS_FROM_ORDER'],
+  [
+    'CREATE_RETURN',
+    'GET_RETURN',
+    'UPDATE_RETURN',
+    'GET_RETURNS_FROM_ORDER',
+    'GET_USER_RETURNS',
+  ],
   INITIAL_STATE.returns,
   actionTypes,
 );

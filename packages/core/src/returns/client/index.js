@@ -15,3 +15,4 @@ export { default as postReturn } from './postReturn';
 export { default as getPickupRescheduleRequests } from './getPickupRescheduleRequests';
 export { default as postPickupRescheduleRequests } from './postPickupRescheduleRequests';
 export { default as getPickupRescheduleRequest } from './getPickupRescheduleRequest';
+export { default as getUserReturns } from './getUserReturns';

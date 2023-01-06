@@ -336,13 +336,3 @@ export const GET_GUEST_USER_BENEFITS_REQUEST =
 /** Action type dispatched when the get guest user benefits request succeeds. */
 export const GET_GUEST_USER_BENEFITS_SUCCESS =
   '@farfetch/blackout-core/GET_GUEST_USER_BENEFITS_SUCCESS';
-
-/** Action type dispatched when the get user returns request fails. */
-export const GET_USER_RETURNS_FAILURE =
-  '@farfetch/blackout-core/GET_USER_RETURNS_FAILURE';
-/** Action type dispatched when the get user returns request starts. */
-export const GET_USER_RETURNS_REQUEST =
-  '@farfetch/blackout-core/GET_USER_RETURNS_REQUEST';
-/** Action type dispatched when the get user returns request succeeds. */
-export const GET_USER_RETURNS_SUCCESS =
-  '@farfetch/blackout-core/GET_USER_RETURNS_SUCCESS';
