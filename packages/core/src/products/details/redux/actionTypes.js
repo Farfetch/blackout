@@ -64,6 +64,16 @@ export const GET_PRODUCT_MERCHANTS_LOCATIONS_REQUEST =
 export const GET_PRODUCT_MERCHANTS_LOCATIONS_SUCCESS =
   '@farfetch/blackout-core/GET_PRODUCT_MERCHANTS_LOCATIONS_SUCCESS';
 
+/** Action type dispatched when the get product outfits request fails. */
+export const GET_PRODUCT_OUTFITS_FAILURE =
+  '@farfetch/blackout-core/GET_PRODUCT_OUTFITS_FAILURE';
+/** Action type dispatched when the get product outfits request starts. */
+export const GET_PRODUCT_OUTFITS_REQUEST =
+  '@farfetch/blackout-core/GET_PRODUCT_OUTFITS_REQUEST';
+/** Action type dispatched when the get product outfits request succeeds. */
+export const GET_PRODUCT_OUTFITS_SUCCESS =
+  '@farfetch/blackout-core/GET_PRODUCT_OUTFITS_SUCCESS';
+
 /** Action type dispatched when the get product sizeguides request fails. */
 export const GET_PRODUCT_SIZEGUIDES_FAILURE =
   '@farfetch/blackout-core/GET_PRODUCT_SIZEGUIDES_FAILURE';

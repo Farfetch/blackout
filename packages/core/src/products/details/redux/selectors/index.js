@@ -10,6 +10,7 @@ export * from './grouping';
 export * from './groupingProperties';
 export * from './measurements';
 export * from './merchantsLocations';
+export * from './outfits';
 export * from './products';
 export * from './recommendedSets';
 export * from './recommendedSetsWithOutOfStock';
