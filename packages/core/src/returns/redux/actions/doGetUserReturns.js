@@ -3,6 +3,8 @@ import {
   GET_USER_RETURNS_REQUEST,
   GET_USER_RETURNS_SUCCESS,
 } from '../actionTypes';
+import { normalize } from 'normalizr';
+import returnSchema from '../../../entities/schemas/return';
 
 /**
  * @callback GetUserReturnsThunkFactory
@@ -30,9 +32,12 @@ export default getUserReturns => (id, config) => async dispatch => {
 
   try {
     const result = await getUserReturns(id, config);
+    const normalizedReturns = normalize(result, {
+      entries: [returnSchema],
+    });
 
     dispatch({
-      payload: result,
+      payload: normalizedReturns,
       type: GET_USER_RETURNS_SUCCESS,
     });
 

@@ -43,12 +43,14 @@ export default getPickupCapabilities =>
     });
 
     try {
+      const result = await getPickupCapabilities(id, pickupDay, query, config);
+
       const {
         availableEndHours,
         availableStartHours,
         availableTimeSlots,
         pickupDate,
-      } = await getPickupCapabilities(id, pickupDay, query, config);
+      } = result;
 
       dispatch({
         meta: { id },
@@ -69,6 +71,8 @@ export default getPickupCapabilities =>
         },
         type: GET_PICKUP_CAPABILITIES_SUCCESS,
       });
+
+      return result;
     } catch (error) {
       dispatch({
         payload: { error },

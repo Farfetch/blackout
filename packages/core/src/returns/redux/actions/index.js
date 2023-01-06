@@ -16,3 +16,4 @@ export { default as doUpdateReturn } from './doUpdateReturn';
 export { default as doGetPickupRescheduleRequest } from './doGetPickupRescheduleRequest';
 export { default as doGetPickupRescheduleRequests } from './doGetPickupRescheduleRequests';
 export { default as doPostPickupRescheduleRequests } from './doPostPickupRescheduleRequests';
+export { default as doGetUserReturns } from './doGetUserReturns';

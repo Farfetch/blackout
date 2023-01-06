@@ -1,6 +1,9 @@
 import { doGetUserReturns } from '../';
-import { mockGetUserReturnsResponse } from '../../__fixtures__/userReturns.fixtures';
 import { mockStore } from '../../../../../tests';
+import {
+  responses,
+  userReturnsNormalizedPayload,
+} from '../../__fixtures__/returns.fixtures';
 import find from 'lodash/find';
 import reducer, { actionTypes } from '../../';
 
@@ -44,7 +47,7 @@ describe('doGetUserReturns action creator', () => {
   });
 
   it('should create the correct actions for when the get user returns procedure is successful', async () => {
-    getUserReturns.mockResolvedValueOnce(mockGetUserReturnsResponse);
+    getUserReturns.mockResolvedValueOnce(responses.getUserReturns.get.success);
 
     await store.dispatch(action(userId));
 
@@ -55,7 +58,7 @@ describe('doGetUserReturns action creator', () => {
     expect(actionResults).toMatchObject([
       { type: actionTypes.GET_USER_RETURNS_REQUEST },
       {
-        payload: mockGetUserReturnsResponse,
+        payload: userReturnsNormalizedPayload,
         type: actionTypes.GET_USER_RETURNS_SUCCESS,
       },
     ]);

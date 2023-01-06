@@ -93,3 +93,13 @@ export const POST_PICKUP_RESCHEDULE_REQUESTS_REQUEST =
 /** Action type dispatched when the post pickup reschedule requests request succeeds. */
 export const POST_PICKUP_RESCHEDULE_REQUESTS_SUCCESS =
   '@farfetch/blackout-core/POST_PICKUP_RESCHEDULE_REQUESTS_SUCCESS';
+
+/** Action type dispatched when the get user returns request fails. */
+export const GET_USER_RETURNS_FAILURE =
+  '@farfetch/blackout-core/GET_USER_RETURNS_FAILURE';
+/** Action type dispatched when the get user returns request starts. */
+export const GET_USER_RETURNS_REQUEST =
+  '@farfetch/blackout-core/GET_USER_RETURNS_REQUEST';
+/** Action type dispatched when the get user returns request succeeds. */
+export const GET_USER_RETURNS_SUCCESS =
+  '@farfetch/blackout-core/GET_USER_RETURNS_SUCCESS';
