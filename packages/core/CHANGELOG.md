@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.76.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.76.0...@farfetch/blackout-core@1.76.1) (2023-01-06)
+
+
+### Bug Fixes
+
+* **core:** save get user returns on store ([6989357](https://github.com/Farfetch/blackout/commit/698935759bbdeacf9eded12671b4b863232d4787))
+
+
+
+
+
 # [1.76.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.75.0...@farfetch/blackout-core@1.76.0) (2023-01-05)
 
 
