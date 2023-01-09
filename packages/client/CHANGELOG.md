@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.228](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.227...@farfetch/blackout-client@2.0.0-next.228) (2023-01-09)
+
+
+### Bug Fixes
+
+* **redux|react:** fix createSelector types ([883a337](https://github.com/Farfetch/blackout/commit/883a33718428e9463fdcfcfe08dd7815d03f2038))
+
+
+
+
+
 # [2.0.0-next.227](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.226...@farfetch/blackout-client@2.0.0-next.227) (2022-12-21)
 
 **Note:** Version bump only for package @farfetch/blackout-client

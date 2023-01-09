@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.105](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.104...@farfetch/blackout-analytics@1.0.0-next.105) (2023-01-09)
+
+
+### Bug Fixes
+
+* **analytics:** fix omnitracking TID value for signup newsletter event ([a7ed222](https://github.com/Farfetch/blackout/commit/a7ed2223e4e44c1b05102bb44f5bc8fcd62b6d76))
+* **redux|react:** fix createSelector types ([883a337](https://github.com/Farfetch/blackout/commit/883a33718428e9463fdcfcfe08dd7815d03f2038))
+
+
+
+
+
 # [1.0.0-next.104](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.103...@farfetch/blackout-analytics@1.0.0-next.104) (2023-01-02)
 
 
