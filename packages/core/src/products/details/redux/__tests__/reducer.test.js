@@ -1197,9 +1197,7 @@ describe('details redux reducer', () => {
       it('should return the `outfits.error` property from a given state', () => {
         const outfits = { error: 'foo-bar' };
 
-        expect(fromReducer.getOutfitsError({ outfits })).toEqual(
-          outfits.error,
-        );
+        expect(fromReducer.getOutfitsError({ outfits })).toEqual(outfits.error);
       });
     });
 
