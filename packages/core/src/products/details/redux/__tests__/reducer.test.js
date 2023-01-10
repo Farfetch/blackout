@@ -917,7 +917,7 @@ describe('details redux reducer', () => {
     });
 
     it('should handle other actions by returning the previous state', () => {
-      const state = { outfits: { isLoading: { 456: false } } };
+      const state = { outfits: { isLoading: { [mockProductId]: false } } };
 
       expect(reducer(state).outfits).toEqual(state.outfits);
     });

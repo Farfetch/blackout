@@ -559,7 +559,10 @@ const outfits = (
           ...state.isLoading,
           [action.payload.productId]: true,
         },
-        error: INITIAL_STATE.outfits.error,
+        error: {
+          ...state.error,
+          [action.payload.productId]: undefined,
+        },
       };
     case actionTypes.GET_PRODUCT_OUTFITS_SUCCESS:
       return {
