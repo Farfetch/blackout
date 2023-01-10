@@ -23,8 +23,6 @@ describe('getProductOutfits', () => {
       response,
     });
 
-    expect.assertions(2);
-
     await expect(getProductOutfits(mockProductId)).resolves.toBe(response);
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/products/${mockProductId}/outfits`,
