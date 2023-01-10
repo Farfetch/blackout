@@ -508,9 +508,9 @@ export const mockOutfits = [
   {
     id: 8957053,
     mainProductId: 11766695,
-    description: "11766695",
+    description: '11766695',
     countryId: 215,
-    dateCreated: "2022-12-05T09:39:25.043Z",
+    dateCreated: '2022-12-05T09:39:25.043Z',
     onlineState: 4,
     targetTenantId: 10000,
     products: [
@@ -527,9 +527,9 @@ export const mockOutfits = [
   {
     id: 8957054,
     mainProductId: 11766695,
-    description: "11766695",
+    description: '11766695',
     countryId: 215,
-    dateCreated: "2022-12-05T09:39:25.043Z",
+    dateCreated: '2022-12-05T09:39:25.043Z',
     onlineState: 4,
     targetTenantId: 10000,
     products: [
@@ -540,8 +540,8 @@ export const mockOutfits = [
       {
         outfitId: 8957054,
         productId: 19131048,
-      }
-    ]
+      },
+    ],
   },
 ];
 
