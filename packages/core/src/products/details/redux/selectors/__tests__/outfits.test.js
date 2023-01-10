@@ -1,7 +1,7 @@
 import * as selectors from '..';
 import {
-  mockOutfits,
   mockDetailsState,
+  mockOutfits,
   mockProductId,
 } from 'tests/__fixtures__/products';
 
