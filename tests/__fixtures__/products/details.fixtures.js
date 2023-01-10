@@ -164,6 +164,15 @@ export const mockDetailsState = {
         [mockProductId]: 'Error',
       },
     },
+    outfits: {
+      isLoading: {
+        [mockProductId]: false,
+        456: false,
+      },
+      error: {
+        [mockProductId]: 'Error',
+      },
+    },
     recommendedSets: {
       isLoading: {
         [mockSetId]: false,
