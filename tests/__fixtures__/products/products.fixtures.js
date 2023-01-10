@@ -524,25 +524,6 @@ export const mockOutfits = [
       },
     ],
   },
-  {
-    id: 8957054,
-    mainProductId: 11766695,
-    description: '11766695',
-    countryId: 215,
-    dateCreated: '2022-12-05T09:39:25.043Z',
-    onlineState: 4,
-    targetTenantId: 10000,
-    products: [
-      {
-        outfitId: 8957054,
-        productId: 18641812,
-      },
-      {
-        outfitId: 8957054,
-        productId: 19131048,
-      },
-    ],
-  },
 ];
 
 export const mockMerchantsLocations = [
@@ -728,6 +709,7 @@ export const mockProduct = {
   grouping: mockGrouping,
   groupingProperties: mockGroupingProperties,
   attributes: mockAttributes,
+  outfits: mockOutfits,
   variants: mockVariants,
   fittings: mockFittings,
   sizeguides: mockSizeguides,
