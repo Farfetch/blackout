@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.229](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.228...@farfetch/blackout-client@2.0.0-next.229) (2023-01-11)
+
+
+### Features
+
+* **client:** add new get user returns endpoints ([1042b4c](https://github.com/Farfetch/blackout/commit/1042b4cf02bb7698f9b59516ee816967bcd52d5f))
+
+
+
+
+
 # [2.0.0-next.228](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.227...@farfetch/blackout-client@2.0.0-next.228) (2023-01-09)
 
 
