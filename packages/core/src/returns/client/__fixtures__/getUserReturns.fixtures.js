@@ -1,3 +1,4 @@
+import get from 'lodash/get';
 import join from 'proper-url-join';
 import moxios from 'moxios';
 
@@ -7,7 +8,9 @@ import moxios from 'moxios';
 export default {
   success: params => {
     moxios.stubRequest(
-      join('/api/account/v1/users', params.userId, '/returns'),
+      join('/api/account/v1/users', params.userId, '/returns', {
+        query: get(params, 'query'),
+      }),
       {
         method: 'get',
         response: params.response,
@@ -17,7 +20,9 @@ export default {
   },
   failure: params => {
     moxios.stubRequest(
-      join('/api/account/v1/users', params.userId, '/returns'),
+      join('/api/account/v1/users', params.userId, '/returns', {
+        query: get(params, 'query'),
+      }),
       {
         method: 'get',
         response: 'stub error',
