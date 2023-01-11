@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.77.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.76.1...@farfetch/blackout-core@1.77.0) (2023-01-11)
+
+
+### Bug Fixes
+
+* **core:** add query to get user returns ([ecc4a3d](https://github.com/Farfetch/blackout/commit/ecc4a3d77f105d9b24b013e2cb72f42c9246d5ff))
+* **core:** fix omnitracking TID value for signup newsletter event ([4023ade](https://github.com/Farfetch/blackout/commit/4023adef625b7c19449948d4789cf7c83281b0de))
+* **redux:** Fix action promocode reset ([ed8dbc2](https://github.com/Farfetch/blackout/commit/ed8dbc2384bd840b432f93e7849a882bc6653ba6))
+
+
+### Features
+
+* **core:** added product outfits client, redux, tests ([024fc6f](https://github.com/Farfetch/blackout/commit/024fc6f5a29bede7678d7396cece730a6ed9402c))
+* **core:** fixed prettier issues ([70e7ca4](https://github.com/Farfetch/blackout/commit/70e7ca4ec991df8d76afd3ece059a8ca1c719428))
+* **core:** fixed test mock data issues ([9c9b295](https://github.com/Farfetch/blackout/commit/9c9b295bd23f24ca82b71f3342088cbfdae2e20c))
+* **core:** fixed test snap issues ([979829f](https://github.com/Farfetch/blackout/commit/979829fab1251993d06c7355aad0c60af61072c0))
+* **core:** tweaked reducer, tests ([7ef4b5b](https://github.com/Farfetch/blackout/commit/7ef4b5b50b1c35b31dd435d420745c824d813f5b))
+
+
+
+
+
 ## [1.76.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.76.0...@farfetch/blackout-core@1.76.1) (2023-01-06)
 
 

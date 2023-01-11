@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.49.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.48.0...@farfetch/blackout-react@0.49.0) (2023-01-11)
+
+
+### Features
+
+* **react:** add password strength helper ([11a3e72](https://github.com/Farfetch/blackout/commit/11a3e727a8a4fde4c95b4a294afeba61e4311d11))
+
+
+
+
+
 # [0.48.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.47.1...@farfetch/blackout-react@0.48.0) (2022-12-21)
 
 
