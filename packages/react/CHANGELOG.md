@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.367](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.366...@farfetch/blackout-react@1.0.0-next.367) (2023-01-11)
+
+
+### Features
+
+* **client:** add new get user returns endpoints ([1042b4c](https://github.com/Farfetch/blackout/commit/1042b4cf02bb7698f9b59516ee816967bcd52d5f))
+
+
+
+
+
 # [1.0.0-next.366](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.365...@farfetch/blackout-react@1.0.0-next.366) (2023-01-09)
 
 
