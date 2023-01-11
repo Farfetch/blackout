@@ -1,13 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`doGetProductOutfits() action creator should create the correct actions for when the get product attributes procedure is successful: Get product attributes success payload 1`] = `
+exports[`doGetProductOutfits() action creator should create the correct actions for when the get product outfits procedure is successful: Get product outfits success payload 1`] = `
 Object {
   "payload": Object {
     "entities": Object {
       "products": Object {
         "11766695": Object {
           "DEPRECATED_images": undefined,
-          "attributes": undefined,
           "colorGrouping": undefined,
           "customAttributes": undefined,
           "groupedEntries": undefined,
@@ -18,13 +17,12 @@ Object {
           "merchant": undefined,
           "outfits": Array [
             Object {
-              "id": 8957053,
-              "mainProductId": 11766695,
-              "description": "11766695",
               "countryId": 215,
               "dateCreated": "2022-12-05T09:39:25.043Z",
+              "description": "11766695",
+              "id": 8957053,
+              "mainProductId": 11766695,
               "onlineState": 4,
-              "targetTenantId": 10000,
               "products": Array [
                 Object {
                   "outfitId": 8957053,
@@ -35,6 +33,7 @@ Object {
                   "productId": 19131048,
                 },
               ],
+              "targetTenantId": 10000,
             },
           ],
           "price": undefined,
@@ -54,27 +53,3 @@ Object {
   "type": "@farfetch/blackout-core/GET_PRODUCT_OUTFITS_SUCCESS",
 }
 `;
-
-
-Array [
-            Object {
-              "id": 7,
-              "name": "Sleeve Length",
-              "values": Array [
-                Object {
-                  "id": 12,
-                  "value": "Longsleeved",
-                },
-              ],
-            },
-            Object {
-              "id": 8,
-              "name": "Neckline",
-              "values": Array [
-                Object {
-                  "id": 14,
-                  "value": "Round Neck",
-                },
-              ],
-            },
-          ],
