@@ -7,6 +7,7 @@ describe('getUserReturns', () => {
   const expectedConfig = undefined;
   const userId = '123456';
   const spy = jest.spyOn(client, 'get');
+  const query = { page: 1 };
 
   beforeEach(() => {
     moxios.install(client);
@@ -18,25 +19,25 @@ describe('getUserReturns', () => {
   it('should handle a client request successfully', async () => {
     const response = {};
 
-    fixtures.success({ userId, response });
+    fixtures.success({ userId, response, query });
 
     expect.assertions(2);
 
-    await expect(getUserReturns(userId)).resolves.toBe(response);
+    await expect(getUserReturns(userId, query)).resolves.toBe(response);
 
     expect(spy).toHaveBeenCalledWith(
-      `/account/v1/users/${userId}/returns`,
+      `/account/v1/users/${userId}/returns?page=${query.page}`,
       expectedConfig,
     );
   });
 
   it('should receive a client request error', async () => {
-    fixtures.failure({ userId });
+    fixtures.failure({ userId, query });
 
     expect.assertions(2);
-    await expect(getUserReturns(userId)).rejects.toMatchSnapshot();
+    await expect(getUserReturns(userId, query)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      `/account/v1/users/${userId}/returns`,
+      `/account/v1/users/${userId}/returns?page=${query.page}`,
       expectedConfig,
     );
   });

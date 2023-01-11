@@ -16,6 +16,7 @@ describe('doGetUserReturns action creator', () => {
   const action = doGetUserReturns(getUserReturns);
   const userId = 123456789;
   const expectedConfig = undefined;
+  const query = {};
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -29,11 +30,15 @@ describe('doGetUserReturns action creator', () => {
     expect.assertions(4);
 
     try {
-      await store.dispatch(action(userId));
+      await store.dispatch(action(userId, query));
     } catch (error) {
       expect(error).toBe(expectedError);
       expect(getUserReturns).toHaveBeenCalledTimes(1);
-      expect(getUserReturns).toHaveBeenCalledWith(userId, expectedConfig);
+      expect(getUserReturns).toHaveBeenCalledWith(
+        userId,
+        query,
+        expectedConfig,
+      );
       expect(store.getActions()).toEqual(
         expect.arrayContaining([
           { type: actionTypes.GET_USER_RETURNS_REQUEST },
@@ -49,12 +54,12 @@ describe('doGetUserReturns action creator', () => {
   it('should create the correct actions for when the get user returns procedure is successful', async () => {
     getUserReturns.mockResolvedValueOnce(responses.getUserReturns.get.success);
 
-    await store.dispatch(action(userId));
+    await store.dispatch(action(userId, query));
 
     const actionResults = store.getActions();
 
     expect(getUserReturns).toHaveBeenCalledTimes(1);
-    expect(getUserReturns).toHaveBeenCalledWith(userId, expectedConfig);
+    expect(getUserReturns).toHaveBeenCalledWith(userId, query, expectedConfig);
     expect(actionResults).toMatchObject([
       { type: actionTypes.GET_USER_RETURNS_REQUEST },
       {
