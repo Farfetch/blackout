@@ -1,10 +1,11 @@
 import * as actionTypes from '../../actionTypes';
-import type {
+import {
   CheckoutOrder,
   CheckoutOrderItem,
   Config,
   PatchCheckoutOrderItem,
   PatchCheckoutOrderItemData,
+  toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
@@ -42,12 +43,14 @@ const updateCheckoutOrderItemFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

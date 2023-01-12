@@ -34,12 +34,14 @@ const fetchGiftCardBalanceFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_GIFT_CARD_BALANCE_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

@@ -67,7 +67,7 @@ describe('useCountryStateCities', () => {
     const mockError = {
       message: 'This is an error message',
       name: 'error',
-      code: 500,
+      code: '500',
     };
 
     const {

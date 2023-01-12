@@ -36,12 +36,14 @@ const createGuestUserFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.CREATE_GUEST_USER_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

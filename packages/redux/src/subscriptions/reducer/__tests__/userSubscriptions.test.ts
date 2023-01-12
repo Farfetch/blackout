@@ -77,7 +77,7 @@ describe('userSubscriptions reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state: SubscriptionsState['user'] = {
-        error: { message: 'foo', name: 'error', code: -1 },
+        error: { message: 'foo', name: 'error', code: '-1' },
         isLoading: false,
         result: [],
         unsubscribeRecipientFromTopicRequests: {},
@@ -112,7 +112,7 @@ describe('userSubscriptions reducer', () => {
     it('should handle other actions by returning the previous state', () => {
       const state: SubscriptionsState['user'] = {
         ...mockUserSubscriptionsState,
-        updateSubscriptionsError: { code: -1, name: 'foo', message: 'bar' },
+        updateSubscriptionsError: { code: '-1', name: 'foo', message: 'bar' },
       };
 
       expect(reducer(state, randomAction).updateSubscriptionsError).toEqual(
@@ -506,7 +506,7 @@ describe('userSubscriptions reducer', () => {
 
   describe('getSubscriptionsError() selector', () => {
     it('should return the error state', () => {
-      const error = { message: 'This is an error', name: 'error', code: -1 };
+      const error = { message: 'This is an error', name: 'error', code: '-1' };
 
       expect(getUserSubscriptionsError({ ...initialState, error })).toBe(error);
     });
@@ -552,7 +552,7 @@ describe('userSubscriptions reducer', () => {
       const updateSubscriptionsError: BlackoutError = {
         name: 'error',
         message: 'foo',
-        code: -1,
+        code: '-1',
       };
 
       expect(

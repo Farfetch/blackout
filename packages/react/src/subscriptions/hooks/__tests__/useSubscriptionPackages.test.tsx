@@ -70,7 +70,7 @@ describe('useSubscriptionPackages', () => {
     const errorData = {
       message: 'An awesome, fascinating and incredible error',
       name: 'error',
-      code: 400,
+      code: '400',
     };
     const {
       result: {

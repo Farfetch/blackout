@@ -70,12 +70,14 @@ const setCheckoutOrderPromocodeFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

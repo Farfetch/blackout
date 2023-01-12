@@ -62,13 +62,15 @@ const fetchProductGroupingFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: { productId },
-        payload: { error: toBlackoutError(error), hash },
+        payload: { error: errorAsBlackoutError, hash },
         type: FETCH_PRODUCT_GROUPING_PROPERTIES_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

@@ -23,12 +23,14 @@ const updateUserSubscriptionsFactory: UpdateUserSubscriptionsFactory<
       type: actionTypes.UPDATE_USER_SUBSCRIPTIONS_SUCCESS,
     });
   } catch (error) {
+    const errorAsBlackoutError = toBlackoutError(error);
+
     dispatch({
-      payload: { error: toBlackoutError(error) },
+      payload: { error: errorAsBlackoutError },
       type: actionTypes.UPDATE_USER_SUBSCRIPTIONS_FAILURE,
     });
 
-    throw error;
+    throw errorAsBlackoutError;
   }
 };
 

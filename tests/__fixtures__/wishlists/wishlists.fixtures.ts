@@ -84,7 +84,7 @@ export const mockWishlistState: StoreState = {
       item: {
         error: {
           [mockWishlistItemId]: {
-            code: -1,
+            code: '-1',
             status: 400,
             name: 'error',
             message: 'error message',
@@ -108,7 +108,7 @@ export const mockWishlistState: StoreState = {
       set: {
         error: {
           [mockWishlistSetId]: {
-            code: -1,
+            code: '-1',
             status: 400,
             name: 'error',
             message: 'error message',

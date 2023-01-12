@@ -66,12 +66,14 @@ const fetchCheckoutOrderFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_CHECKOUT_ORDER_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 export default fetchCheckoutOrderFactory;

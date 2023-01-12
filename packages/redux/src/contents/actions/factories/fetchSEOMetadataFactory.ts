@@ -40,15 +40,17 @@ const fetchSEOMetadataFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         payload: {
-          error: toBlackoutError(error),
+          error: errorAsBlackoutError,
           pathname,
         },
         type: actionTypes.FETCH_SEO_METADATA_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

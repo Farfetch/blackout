@@ -62,7 +62,7 @@ describe('removeWishlistItem() action creator', () => {
           payload: {
             error: expect.objectContaining({
               message: 'No wishlist id is set',
-              code: -1,
+              code: '-1',
             }),
           },
         }),

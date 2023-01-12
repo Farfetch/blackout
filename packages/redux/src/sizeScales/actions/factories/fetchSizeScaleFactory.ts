@@ -38,13 +38,15 @@ const fetchSizeScaleFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: { sizeScaleId },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_SIZE_SCALE_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

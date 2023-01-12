@@ -33,12 +33,14 @@ const removeSharedWishlistFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.REMOVE_SHARED_WISHLIST_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

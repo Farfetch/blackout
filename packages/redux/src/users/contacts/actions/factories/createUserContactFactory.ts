@@ -34,12 +34,14 @@ const createUserContactFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.CREATE_USER_CONTACT_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

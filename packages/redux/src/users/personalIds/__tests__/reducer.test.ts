@@ -218,7 +218,7 @@ describe('personalIds reducers', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...initialState,
-        error: { code: 123, name: 'error', message: 'error' },
+        error: { code: '123', name: 'error', message: 'error' },
       };
 
       const randomActionWithError = {

@@ -2,7 +2,7 @@
 
 exports[`postToken Create a valid guest user token should receive a client request error 1`] = `
 Object {
-  "code": -1,
+  "code": "-1",
   "message": "stub error",
   "status": 404,
   "toJSON": [Function],

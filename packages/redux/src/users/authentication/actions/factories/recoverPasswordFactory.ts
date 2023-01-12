@@ -30,12 +30,14 @@ const recoverPasswordFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.PASSWORD_RECOVER_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

@@ -22,11 +22,7 @@ export const mockCreateUserTokenData = {
     'd5b4f8e72f652d9e048d7e5c75f1ec97bb9eeaec2b080497eba0965abc0ade4d',
 };
 
-export const mockErrorObject = {
-  errorMessage: 'post user token error',
-  errorCode: 0,
-  status: 400,
-};
+export const mockErrorObject = new Error('post user token error');
 
 export const mockUserTokenResponse = {
   accessToken: '04b55bb7-f1af-4b45-aa10-5c4667a48936',

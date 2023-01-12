@@ -78,8 +78,10 @@ const addBagItemFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.ADD_BAG_ITEM_FAILURE,
         meta: {
           ...metadata,
@@ -88,7 +90,7 @@ const addBagItemFactory =
         },
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

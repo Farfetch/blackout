@@ -48,16 +48,18 @@ const fetchCountryStateCitiesFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: {
           countryCode,
           stateId,
         },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_COUNTRY_STATE_CITIES_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

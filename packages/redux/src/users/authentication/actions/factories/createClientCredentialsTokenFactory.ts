@@ -29,12 +29,14 @@ const createClientCredentialsTokenFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.CREATE_CLIENT_CREDENTIALS_TOKEN_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

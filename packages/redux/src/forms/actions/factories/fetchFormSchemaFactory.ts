@@ -36,13 +36,15 @@ const fetchFormSchemaFactory: FetchFormSchemaFactory<GetFormSchema> =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: { schemaCode },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_FORM_SCHEMA_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

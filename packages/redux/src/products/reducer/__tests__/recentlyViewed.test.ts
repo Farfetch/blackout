@@ -22,7 +22,7 @@ describe('Recently Viewed reducer', () => {
     const expectedError = {
       message: 'An error occurred',
       name: 'error',
-      code: -1,
+      code: '-1',
     };
 
     it('should return the initial state', () => {
@@ -216,7 +216,7 @@ describe('Recently Viewed reducer', () => {
     it('should return the `recentlyViewed.error` property from a given state', () => {
       const state = {
         ...initialState,
-        error: { message: 'This is an error', name: 'error', code: -1 },
+        error: { message: 'This is an error', name: 'error', code: '-1' },
       };
 
       expect(getError(state)).toEqual(state.error);

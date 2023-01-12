@@ -39,12 +39,14 @@ const addOrderItemActivityFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.ADD_ORDER_ITEM_ACTIVITY_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

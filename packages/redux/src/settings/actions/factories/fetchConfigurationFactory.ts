@@ -41,13 +41,15 @@ const fetchConfigurationFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: { code },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_CONFIGURATION_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

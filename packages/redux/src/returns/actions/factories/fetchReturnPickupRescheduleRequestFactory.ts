@@ -37,12 +37,14 @@ const fetchReturnPickupRescheduleRequestFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

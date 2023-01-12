@@ -44,12 +44,14 @@ const fetchCountryAddressSchemasFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

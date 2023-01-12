@@ -38,13 +38,15 @@ const fetchBrandFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: { brandId },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_BRAND_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

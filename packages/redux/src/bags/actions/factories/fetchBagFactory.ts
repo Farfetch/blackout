@@ -50,12 +50,14 @@ const fetchBagFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_BAG_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 
