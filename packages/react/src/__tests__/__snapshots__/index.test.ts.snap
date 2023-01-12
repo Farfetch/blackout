@@ -109,6 +109,13 @@ Object {
     "UNSUBSCRIBE": "unsubscribe",
     "WISHLIST": "wishlist",
   },
+  "PasswordValidationErrorsConstants": Object {
+    "PasswordMinSizeError": 1201000,
+    "PasswordWithNoLowerCaseError": 1201001,
+    "PasswordWithNoNumberCaseError": 1201004,
+    "PasswordWithNoSpecialCharacterError": 1201003,
+    "PasswordWithNoUpperCaseError": 1201002,
+  },
   "PlatformTypes": Object {
     "Mobile": "mobile",
     "Web": "web",
@@ -247,6 +254,7 @@ Object {
   "useWishlistItem": [Function],
   "useWishlistSet": [Function],
   "useWishlistSets": [Function],
+  "validatePassword": [Function],
   "webContext": [Function],
 }
 `;
