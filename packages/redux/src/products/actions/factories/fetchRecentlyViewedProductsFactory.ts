@@ -50,12 +50,14 @@ const fetchRecentlyViewedProductsFactory: FetchRecentlyViewedProductsFactory<
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         type: actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE,
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

@@ -42,13 +42,15 @@ const fetchPromotionEvaluationItemsFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: { promotionEvaluationId },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_PROMOTION_EVALUATION_ITEMS_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

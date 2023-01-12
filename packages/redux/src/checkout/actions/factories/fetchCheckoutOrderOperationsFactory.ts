@@ -1,13 +1,14 @@
 import * as actionTypes from '../../actionTypes';
-import { normalize } from 'normalizr';
-import checkoutOrderOperation from '../../../entities/schemas/checkoutOrderOperation';
-import type {
+import {
   CheckoutOrder,
   CheckoutOrderOperations,
   Config,
   GetCheckoutOrderOperations,
   GetCheckoutOrderOperationsQuery,
+  toBlackoutError,
 } from '@farfetch/blackout-client';
+import { normalize } from 'normalizr';
+import checkoutOrderOperation from '../../../entities/schemas/checkoutOrderOperation';
 import type { Dispatch } from 'redux';
 
 /**
@@ -43,12 +44,14 @@ const fetchCheckoutOrderOperationsFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATIONS_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

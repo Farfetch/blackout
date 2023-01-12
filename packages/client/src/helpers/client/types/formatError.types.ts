@@ -2,7 +2,7 @@ export type DefaultErrorAdapterData = {
   // Error message received.
   message: string | null;
   // Error code received.
-  code: number;
+  code: string;
   // Developer message received.
   developerMessage: string | null;
   moreInformation: string;
@@ -12,7 +12,7 @@ export type LegacyErrorAdapterData = {
   // Error message received.
   errorMessage: string;
   // Error code received.
-  errorCode: number;
+  errorCode: string;
   success: boolean;
 } & { [name: string]: unknown };
 

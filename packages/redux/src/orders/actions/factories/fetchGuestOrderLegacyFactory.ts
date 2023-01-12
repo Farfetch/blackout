@@ -48,13 +48,15 @@ const fetchGuestOrderLegacyFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: { orderId },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_ORDER_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

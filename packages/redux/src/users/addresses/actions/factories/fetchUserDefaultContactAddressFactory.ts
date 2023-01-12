@@ -36,12 +36,14 @@ const fetchUserDefaultContactAddressFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

@@ -36,13 +36,15 @@ const fetchReturnFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         type: actionTypes.FETCH_RETURN_FAILURE,
         meta: { returnId },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

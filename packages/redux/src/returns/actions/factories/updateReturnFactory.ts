@@ -44,13 +44,15 @@ const updateReturnFactory =
         type: actionTypes.UPDATE_RETURN_SUCCESS,
       });
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: { returnId },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.UPDATE_RETURN_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

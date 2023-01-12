@@ -38,12 +38,14 @@ const fetchPaymentMethodsByCountryAndCurrencyFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

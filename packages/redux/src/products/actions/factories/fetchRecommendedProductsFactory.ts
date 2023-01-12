@@ -49,13 +49,15 @@ const fetchRecommendedProductsFactory: FetchRecommendedProductsFactory<
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         type: actionTypes.FETCH_RECOMMENDED_PRODUCTS_FAILURE,
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         meta: { strategyName },
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

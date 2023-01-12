@@ -47,13 +47,15 @@ const removeWishlistSetFactory =
 
       return;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: { wishlistSetId },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.REMOVE_WISHLIST_SET_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

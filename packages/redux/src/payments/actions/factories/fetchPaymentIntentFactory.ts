@@ -35,12 +35,14 @@ const fetchPaymentIntentFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_PAYMENT_INTENT_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

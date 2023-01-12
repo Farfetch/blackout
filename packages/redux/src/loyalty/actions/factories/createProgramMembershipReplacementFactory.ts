@@ -50,12 +50,14 @@ const createProgramMembershipReplacementFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

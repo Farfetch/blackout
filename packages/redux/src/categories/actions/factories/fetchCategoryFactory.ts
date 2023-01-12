@@ -38,13 +38,15 @@ const fetchCategoryFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: { id },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_CATEGORY_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

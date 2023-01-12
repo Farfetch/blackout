@@ -4,7 +4,7 @@ import type { BlackoutError } from '../../types';
 import type { DefaultErrorAdapterData, LegacyErrorAdapterData } from './types';
 
 export const defaultError = {
-  code: -1,
+  code: '-1',
   message: 'Unexpected error',
 };
 
@@ -24,7 +24,7 @@ export const legacyErrorAdapter = (
     ...rest
   }: LegacyErrorAdapterData,
   status: number,
-): { code: number } & Record<string, unknown> => ({
+): { code: string } & Record<string, unknown> => ({
   code: errorCode,
   message: errorMessage,
   status,
@@ -48,7 +48,7 @@ export const defaultErrorAdapter = (
     ...rest
   }: DefaultErrorAdapterData,
   status: number,
-): { code: number } & Record<string, unknown> => ({
+): { code: string } & Record<string, unknown> => ({
   code,
   message: message || developerMessage || defaultError.message,
   status,

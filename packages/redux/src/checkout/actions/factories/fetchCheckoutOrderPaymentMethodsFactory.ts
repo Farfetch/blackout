@@ -48,12 +48,14 @@ const fetchCheckoutOrderPaymentMethodsFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_CHECKOUT_ORDER_PAYMENT_METHODS_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

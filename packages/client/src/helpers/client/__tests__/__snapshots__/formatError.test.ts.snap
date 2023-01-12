@@ -2,7 +2,7 @@
 
 exports[`formatError() should format the error properly when the api returns a LIST with errors 1`] = `
 Object {
-  "code": 14,
+  "code": "14",
   "exception": Object {},
   "message": "Could not authenticate",
   "moreInformation": "more information",
@@ -12,7 +12,7 @@ Object {
 
 exports[`formatError() should format the error properly when the api returns an OBJECT with the error  1`] = `
 Object {
-  "code": 14,
+  "code": "14",
   "exception": Object {},
   "message": "Could not authenticate",
   "moreInformation": "more information",
@@ -22,7 +22,7 @@ Object {
 
 exports[`formatError() should format the error properly when the api returns the error (legacy) 1`] = `
 Object {
-  "code": 14,
+  "code": "14",
   "errorData": Object {
     "key": "value",
     "productId": "13981125",
@@ -35,7 +35,7 @@ Object {
 
 exports[`formatError() should format the error properly when the request has no description 1`] = `
 Object {
-  "code": -1,
+  "code": "-1",
   "message": "Request failed with status code 404",
   "status": 404,
 }
@@ -43,7 +43,7 @@ Object {
 
 exports[`formatError() should format the error properly when the request has no response 1`] = `
 Object {
-  "code": -1,
+  "code": "-1",
   "description": "i am error",
   "message": "i am error",
   "status": 400,

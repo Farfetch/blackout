@@ -42,13 +42,15 @@ const fetchSearchDidYouMeanFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: { query, hash },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_SEARCH_DID_YOU_MEAN_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

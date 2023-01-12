@@ -45,12 +45,14 @@ const unsubscribeSubscriptionTopicRecipient: UnsubscribeSubscriptionTopicRecipie
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { recipientId, error: toBlackoutError(error) },
+        payload: { recipientId, error: errorAsBlackoutError },
         type: actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

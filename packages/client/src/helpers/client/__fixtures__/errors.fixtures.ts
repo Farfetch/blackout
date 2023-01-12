@@ -65,7 +65,7 @@ const mockAxiosApiError = (
 
 export const legacyApiErrorData = mockAxiosApiError({
   success: false,
-  errorCode: 14,
+  errorCode: '14',
   errorMessage: 'Could not authenticate',
   errorData: {
     key: 'value',
@@ -75,7 +75,7 @@ export const legacyApiErrorData = mockAxiosApiError({
 
 export const ApiErrorData = mockAxiosApiError({
   message: 'Could not authenticate',
-  code: 14,
+  code: '14',
   developerMessage: 'Could not authenticate',
   moreInformation: 'more information',
   exception: {},
@@ -83,7 +83,7 @@ export const ApiErrorData = mockAxiosApiError({
 
 export const ApiErrorDataNoMessage = mockAxiosApiError({
   message: null,
-  code: 14,
+  code: '14',
   developerMessage: 'Could not authenticate',
   moreInformation: 'more information',
   exception: {},
@@ -91,7 +91,7 @@ export const ApiErrorDataNoMessage = mockAxiosApiError({
 
 export const ApiErrorDataNoMessageNorDeveloperMessage = mockAxiosApiError({
   message: null,
-  code: 14,
+  code: '14',
   developerMessage: null,
   moreInformation: 'more information',
   exception: {},
@@ -103,14 +103,14 @@ export const APIListErrorData = mockAxiosApiError({
   errors: [
     {
       message: 'Could not authenticate',
-      code: 14,
+      code: '14',
       developerMessage: 'Could not authenticate',
       moreInformation: 'more information',
       exception: {},
     },
     {
       message: 'Could not authenticate',
-      code: 18,
+      code: '18',
       developerMessage: 'This is another error',
       moreInformation: 'More information on this new error',
       exception: {},

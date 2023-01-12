@@ -44,13 +44,15 @@ const updateUserAddressFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: { addressId },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.UPDATE_USER_ADDRESS_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

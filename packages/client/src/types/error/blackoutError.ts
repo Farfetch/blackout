@@ -1,5 +1,5 @@
 export type BlackoutError = Error & {
-  code: number;
+  code: string;
   developerMessage?: string;
   exception?: Record<string, string | number>;
   moreInformation?: string;

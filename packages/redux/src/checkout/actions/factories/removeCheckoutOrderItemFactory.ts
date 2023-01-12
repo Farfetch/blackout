@@ -1,9 +1,10 @@
 import * as actionTypes from '../../actionTypes';
-import type {
+import {
   CheckoutOrder,
   CheckoutOrderItem,
   Config,
   DeleteCheckoutOrderItem,
+  toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
@@ -39,12 +40,14 @@ const removeCheckoutOrderItemFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.REMOVE_CHECKOUT_ORDER_ITEM_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 
