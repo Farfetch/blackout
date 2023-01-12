@@ -33,12 +33,14 @@ const fetchUserFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_USER_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

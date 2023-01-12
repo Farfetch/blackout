@@ -118,13 +118,15 @@ const fetchProductsListFactory = async (
 
     return result;
   } catch (error) {
+    const errorAsBlackoutError = toBlackoutError(error);
+
     dispatch({
       meta: { hash: hash as string },
-      payload: { error: toBlackoutError(error) },
+      payload: { error: errorAsBlackoutError },
       type: actionTypes.FETCH_PRODUCTS_LIST_FAILURE,
     });
 
-    throw error;
+    throw errorAsBlackoutError;
   }
 };
 

@@ -38,13 +38,15 @@ const fetchCountryFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: { countryCode },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_COUNTRY_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

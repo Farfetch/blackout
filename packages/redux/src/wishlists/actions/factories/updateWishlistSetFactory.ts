@@ -70,13 +70,15 @@ const updateWishlistSetFactory =
 
       return updatedResult;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: { wishlistSetId },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.UPDATE_WISHLIST_SET_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

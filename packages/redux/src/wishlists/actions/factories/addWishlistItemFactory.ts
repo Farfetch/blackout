@@ -70,13 +70,15 @@ const addWishlistItemFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: { ...metadata, productId: data.productId },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.ADD_WISHLIST_ITEM_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

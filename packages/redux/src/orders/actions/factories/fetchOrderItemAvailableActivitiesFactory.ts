@@ -37,12 +37,14 @@ const fetchOrderItemAvailableActivities =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

@@ -38,13 +38,15 @@ const removeRecentlyViewedProductFactory: RemoveRecentlyViewedProductFactory<
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: { productId },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

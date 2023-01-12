@@ -50,12 +50,14 @@ const addWishlistSetFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.ADD_WISHLIST_SET_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

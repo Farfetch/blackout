@@ -36,12 +36,14 @@ const fetchUserCreditBalanceFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_USER_CREDIT_BALANCE_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

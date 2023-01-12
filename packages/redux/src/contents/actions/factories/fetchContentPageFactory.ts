@@ -53,12 +53,14 @@ const fetchContentPageFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error), hash },
+        payload: { error: errorAsBlackoutError, hash },
         type: actionTypes.FETCH_CONTENT_PAGES_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

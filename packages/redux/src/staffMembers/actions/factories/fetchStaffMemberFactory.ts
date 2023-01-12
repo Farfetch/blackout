@@ -36,13 +36,15 @@ const fetchStaffMemberFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         type: actionTypes.FETCH_STAFF_MEMBER_FAILURE,
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         meta: { id },
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

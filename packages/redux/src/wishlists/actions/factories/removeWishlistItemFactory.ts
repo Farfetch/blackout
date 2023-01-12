@@ -87,17 +87,19 @@ const removeWishlistItemFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: {
           ...metadata,
           productId: wishlistItem?.product?.id,
           wishlistItemId,
         },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.REMOVE_WISHLIST_ITEM_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

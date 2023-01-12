@@ -38,13 +38,15 @@ const fetchRecommendedSetFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: { recommendedSetId },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_RECOMMENDED_SET_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

@@ -620,7 +620,7 @@ describe('orders redux selectors', () => {
             isLoading: { [orderId]: false },
           },
           trackings: {
-            error: { name: '', message: 'Error', code: 123 },
+            error: { name: '', message: 'Error', code: '123' },
             isLoading: false,
           },
           documents: {

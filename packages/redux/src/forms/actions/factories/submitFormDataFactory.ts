@@ -37,13 +37,15 @@ const submitFormDataFactory: SubmitFormDataFactory<PostFormData> =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         meta: { schemaCode, data },
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.SUBMIT_FORM_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

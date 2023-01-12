@@ -51,12 +51,14 @@ const fetchWishlistFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_WISHLIST_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

@@ -119,7 +119,7 @@ export const mockConfigurationsErrorState = {
       error: {
         message: 'An awesome, fascinating and incredible error',
         name: 'Error name',
-        code: 501,
+        code: '501',
       },
       isLoading: false,
       configuration: {
@@ -144,7 +144,7 @@ export const mockConfigurationErrorState = {
           [mockConfigurationCode]: {
             message: 'An awesome, fascinating and incredible error',
             name: 'Error name',
-            code: 501,
+            code: '501',
           },
         },
         isLoading: {

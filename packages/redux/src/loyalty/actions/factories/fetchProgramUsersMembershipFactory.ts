@@ -39,12 +39,14 @@ const fetchProgramUsersMembershipFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error) },
+        payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_PROGRAM_USERS_MEMBERSHIP_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 

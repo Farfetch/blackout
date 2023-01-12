@@ -55,12 +55,14 @@ const fetchCommercePagesFactory =
 
       return result;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
-        payload: { error: toBlackoutError(error), hash: hash as string },
+        payload: { error: errorAsBlackoutError, hash: hash as string },
         type: actionTypes.FETCH_COMMERCE_PAGES_FAILURE,
       });
 
-      throw error;
+      throw errorAsBlackoutError;
     }
   };
 
