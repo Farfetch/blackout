@@ -16,6 +16,7 @@ const UNVERIFIED_USER = 4;
  * @property {string} [titleId] - User title identifier.
  * @property {string} [firstName] - User's first name.
  * @property {string} [lastName] - User's last name.
+ * @property {object} [metadata] - User's metadata.
  * @property {boolean} [receiveNewsletters] - If should receive newsletter.
  * @property {object} [loyalty] - Loyalty program details.
  */

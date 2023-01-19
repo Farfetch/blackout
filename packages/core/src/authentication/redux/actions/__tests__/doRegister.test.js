@@ -24,6 +24,14 @@ describe('doRegister() action creator', () => {
     Password: 'pepe123',
     ReceiveNewsLetters: true,
     Username: 'pepe@acme.com',
+    metadata: {
+      allows_promos_marketing: true,
+      allows_marketing_analysis_research: true,
+      is_over_18: false,
+      performance_cookies: true,
+      functional_cookies: true,
+      advertising_cookies: false,
+    },
   };
 
   beforeEach(() => {
