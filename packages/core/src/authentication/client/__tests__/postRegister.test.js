@@ -26,6 +26,14 @@ describe('postRegister', () => {
   const requestDataAccSVC = {
     ...requestDataLegacy,
     countryCode: 'PT',
+    metadata: {
+      allows_promos_marketing: true,
+      allows_marketing_analysis_research: true,
+      is_over_18: false,
+      performance_cookies: true,
+      functional_cookies: true,
+      advertising_cookies: false,
+    },
   };
 
   describe('legacy', () => {

@@ -29,6 +29,7 @@ import client, { adaptError } from '../../helpers/client';
  * @property {string} [titleId] - User title identifier.
  * @property {string} [firstName] - User's first name.
  * @property {string} [lastName] - User's last name.
+ * @property {object} [metadata] - User's metadata.
  * @property {boolean} [receiveNewsletters] - If should receive newsletter.
  * @property {LoyaltyData} [loyalty] - Loyalty program details.
  *
