@@ -2,56 +2,82 @@
 
 export default function loadForterScriptForSiteId(siteId) {
   (function () {
+    var eu = 'g68x4yj4t5;e6z1forxgiurqw1qhw2vq2(VQ(2vfulsw1mv';
     function t(t, e) {
       for (var n = t.split(''), r = 0; r < n.length; ++r)
         n[r] = String.fromCharCode(n[r].charCodeAt(0) + e);
       return n.join('');
     }
     function e(e) {
-      return t(e, -l).replace(/%SN%/g, siteId);
+      return t(e, -v).replace(/%SN%/g, siteId);
     }
-    function n(t) {
+    function n() {
+      var t = 'no' + 'op' + 'fn',
+        e = 'g' + 'a',
+        n = 'n' + 'ame';
+      return window[e] && window[e][n] === t;
+    }
+    function r(t) {
       try {
-        (S.ex = t), g(S);
+        (D.ex = t), n() && D.ex.indexOf(S.uB) === -1 && (D.ex += S.uB), y(D);
       } catch (e) {}
     }
-    function r(t, e, n) {
-      var r = document.createElement('script');
-      (r.onerror = n),
-        (r.onload = e),
-        (r.type = 'text/javascript'),
-        (r.id = 'ftr__script'),
-        (r.async = !0),
-        (r.src = 'https://' + t);
-      var o = document.getElementsByTagName('script')[0];
-      o.parentNode.insertBefore(r, o);
+    function o(t, e, n, r) {
+      function o(e) {
+        try {
+          e.blockedURI === t &&
+            (r(!0),
+            (i = !0),
+            document.removeEventListener('securitypolicyviolation', o));
+        } catch (n) {
+          document.removeEventListener('securitypolicyviolation', o);
+        }
+      }
+      var i = !1;
+      (t = 'https://' + t),
+        document.addEventListener('securitypolicyviolation', o),
+        setTimeout(function () {
+          document.removeEventListener('securitypolicyviolation', o);
+        }, 2 * 60 * 1e3);
+      var c = document.createElement('script');
+      (c.onerror = function () {
+        if (!i)
+          try {
+            r(!1), (i = !0);
+          } catch (t) {}
+      }),
+        (c.onload = n),
+        (c.type = 'text/javascript'),
+        (c.id = 'ftr__script'),
+        (c.async = !0),
+        (c.src = t);
+      var a = document.getElementsByTagName('script')[0];
+      a.parentNode.insertBefore(c, a);
     }
-    function o() {
-      k(T.uAL), setTimeout(i, v, T.uAL);
+    function i() {
+      I(S.uAL), setTimeout(c, w, S.uAL);
     }
-    function i(t) {
+    function c(t) {
       try {
-        var e = t === T.uDF ? h : m;
-        r(
-          e,
-          function () {
+        var e = t === S.uDF ? h : p,
+          n = function () {
             try {
-              U(), n(t + T.uS);
+              b(), r(t + S.uS);
             } catch (e) {}
           },
-          function () {
+          c = function (e) {
             try {
-              U(),
-                (S.td = 1 * new Date() - S.ts),
-                n(t + T.uF),
-                t === T.uDF && o();
-            } catch (e) {
-              n(T.eUoe);
+              b(),
+                (D.td = 1 * new Date() - D.ts),
+                r(e ? t + S.uF + S.cP : t + S.uF),
+                t === S.uDF && i();
+            } catch (n) {
+              r(S.eUoe);
             }
-          },
-        );
-      } catch (i) {
-        n(t + T.eTlu);
+          };
+        o(e, void 0, n, c);
+      } catch (a) {
+        r(t + S.eTlu);
       }
     }
     var a = {
@@ -68,48 +94,88 @@ export default function loadForterScriptForSiteId(siteId) {
           )
             return void (document.cookie =
               escape(t) + '=' + escape(e) + i + '; path=/');
-          var a, c, u;
+          var c, a, u;
           if (((u = location.host), 1 === u.split('.').length))
             document.cookie = escape(t) + '=' + escape(e) + i + '; path=/';
           else {
-            (c = u.split('.')),
-              c.shift(),
-              (a = '.' + c.join('.')),
+            (a = u.split('.')),
+              a.shift(),
+              (c = '.' + a.join('.')),
               (document.cookie =
-                escape(t) + '=' + escape(e) + i + '; path=/; domain=' + a);
-            var s = this.read(t);
-            (null != s && s == e) ||
-              ((a = '.' + u),
+                escape(t) + '=' + escape(e) + i + '; path=/; domain=' + c);
+            var d = this.read(t);
+            (null != d && d == e) ||
+              ((c = '.' + u),
               (document.cookie =
-                escape(t) + '=' + escape(e) + i + '; path=/; domain=' + a));
+                escape(t) + '=' + escape(e) + i + '; path=/; domain=' + c));
           }
         },
         read: function (t) {
-          for (
-            var e = escape(t) + '=', n = document.cookie.split(';'), r = 0;
-            r < n.length;
-            r++
-          ) {
-            for (var o = n[r]; ' ' == o.charAt(0); )
-              o = o.substring(1, o.length);
-            if (0 === o.indexOf(e))
-              return unescape(o.substring(e.length, o.length));
+          var e = null;
+          try {
+            for (
+              var n = escape(t) + '=', r = document.cookie.split(';'), o = 0;
+              o < r.length;
+              o++
+            ) {
+              for (var i = r[o]; ' ' == i.charAt(0); )
+                i = i.substring(1, i.length);
+              0 === i.indexOf(n) &&
+                (e = unescape(i.substring(n.length, i.length)));
+            }
+          } finally {
+            return e;
           }
-          return null;
         },
       },
-      c = 'fort',
-      u = 'erTo',
+      u = 'fort',
+      d = 'erTo',
       s = 'ken',
-      d = c + u + s,
-      f = '9';
-    f += 'ck';
-    var l = 3,
+      f = u + d + s,
+      l = '11';
+    l += 'ck';
+    var m = function (t) {
+        var e = function () {
+          var e = document.createElement('link');
+          return (
+            e.setAttribute('rel', 'pre' + 'con' + 'nect'),
+            e.setAttribute('cros' + 'sori' + 'gin', 'anonymous'),
+            (e.onload = function () {
+              document.head.removeChild(e);
+            }),
+            (e.onerror = function (t) {
+              document.head.removeChild(e);
+            }),
+            e.setAttribute('href', t),
+            document.head.appendChild(e),
+            e
+          );
+        };
+        if (document.head) {
+          var n = e();
+          setTimeout(function () {
+            document.head.removeChild(n);
+          }, 3e3);
+        }
+      },
+      v = 3,
       h = e('(VQ(1fgq71iruwhu1frp2vq2(VQ(2vfulsw1mv'),
-      m = e('g68x4yj4t5;e6z1forxgiurqw1qhw2vq2(VQ(2vfulsw1mv'),
-      v = 10;
+      p = e(eu || 'g68x4yj4t5;e6z1forxgiurqw1qhw2vq2(VQ(2vfulsw1mv'),
+      w = 10;
     window.ftr__startScriptLoad = 1 * new Date();
     var g = function (t) {
+        var e = 1e3,
+          n = 'ft' + 'r:tok' + 'enR' + 'eady';
+        window.ftr__tt && clearTimeout(window.ftr__tt),
+          (window.ftr__tt = setTimeout(function () {
+            try {
+              delete window.ftr__tt, (t += '_tt');
+              var e = document.createEvent('Event');
+              e.initEvent(n, !1, !1), (e.detail = t), document.dispatchEvent(e);
+            } catch (r) {}
+          }, e));
+      },
+      y = function (t) {
         var e = function (t) {
             return t || '';
           },
@@ -122,37 +188,37 @@ export default function loadForterScriptForSiteId(siteId) {
             '_' +
             e(t.ex) +
             '_' +
-            e(f);
-        a.write(d, n, 1825, !0);
+            e(l);
+        a.write(f, n, 1825, !0), g(n);
       },
-      p = function () {
-        var t = a.read(d) || '',
+      T = function () {
+        var t = a.read(f) || '',
           e = t.split('_'),
           n = function (t) {
             return e[t] || void 0;
           };
         return { id: n(0), ts: n(1), td: n(2), ex: n(3), vr: n(4) };
       },
-      w = (function () {
+      _ = (function () {
         for (var t = {}, e = 'fgu', n = [], r = 0; r < 256; r++)
           n[r] = (r < 16 ? '0' : '') + r.toString(16);
         var o = function (t, e, r, o, i) {
-            var a = i ? '-' : '';
+            var c = i ? '-' : '';
             return (
               n[255 & t] +
               n[(t >> 8) & 255] +
               n[(t >> 16) & 255] +
               n[(t >> 24) & 255] +
-              a +
+              c +
               n[255 & e] +
               n[(e >> 8) & 255] +
-              a +
+              c +
               n[((e >> 16) & 15) | 64] +
               n[(e >> 24) & 255] +
-              a +
+              c +
               n[(63 & r) | 128] +
               n[(r >> 8) & 255] +
-              a +
+              c +
               n[(r >> 16) & 255] +
               n[(r >> 24) & 255] +
               n[255 & o] +
@@ -180,7 +246,7 @@ export default function loadForterScriptForSiteId(siteId) {
               d3: (4294967296 * Math.random()) >>> 0,
             };
           },
-          a = function () {
+          c = function () {
             var t = '',
               e = function (t, e) {
                 for (var n = '', r = t; r > 0; --r)
@@ -200,7 +266,7 @@ export default function loadForterScriptForSiteId(siteId) {
               return o(t.d0, t.d1, t.d2, t.d3, !1);
             } catch (n) {
               try {
-                return e + a();
+                return e + c();
               } catch (n) {}
             }
           }),
@@ -222,7 +288,7 @@ export default function loadForterScriptForSiteId(siteId) {
           t
         );
       })(),
-      T = {
+      S = {
         uDF: 'UDF',
         uAL: 'UAL',
         mLd: '1',
@@ -233,34 +299,48 @@ export default function loadForterScriptForSiteId(siteId) {
         tmos: ['T5', 'T10', 'T15', 'T30', 'T60'],
         tmosSecs: [5, 10, 15, 30, 60],
         bIR: '43',
+        uB: 'u',
+        cP: 'c',
       },
-      y = function (t, e) {
-        for (var n = T.tmos, r = 0; r < n.length; r++)
+      k = function (t, e) {
+        for (var n = S.tmos, r = 0; r < n.length; r++)
           if (t + n[r] === e) return !0;
         return !1;
       };
     try {
-      var S = p();
+      var D = T();
       try {
-        (S.id &&
-          (w.isValidNumericalToken(S.id) ||
-            w.isValidUUIDToken(S.id) ||
-            w.isValidFGUToken(S.id))) ||
-          (S.id = w.safeGenerateNoDash()),
-          (S.ts = window.ftr__startScriptLoad),
-          g(S);
-        var D = new Array(T.tmosSecs.length),
-          k = function (t) {
-            for (var e = 0; e < T.tmosSecs.length; e++)
-              D[e] = setTimeout(n, 1e3 * T.tmosSecs[e], t + T.tmos[e]);
+        D.id &&
+        (_.isValidNumericalToken(D.id) ||
+          _.isValidUUIDToken(D.id) ||
+          _.isValidFGUToken(D.id))
+          ? (window.ftr__ncd = !1)
+          : ((D.id = _.safeGenerateNoDash()), (window.ftr__ncd = !0)),
+          (D.ts = window.ftr__startScriptLoad),
+          y(D);
+        for (
+          var x = 'for' + 'ter' + '.co' + 'm',
+            A = 'ht' + 'tps://c' + 'dn9.' + x,
+            U = 'ht' + 'tps://' + D.id + '-' + siteId + '.cd' + 'n.' + x,
+            F = 'http' + 's://cd' + 'n3.' + x,
+            L = [A, U, F],
+            E = 0;
+          E < L.length;
+          E++
+        )
+          m(L[E]);
+        var V = new Array(S.tmosSecs.length),
+          I = function (t) {
+            for (var e = 0; e < S.tmosSecs.length; e++)
+              V[e] = setTimeout(r, 1e3 * S.tmosSecs[e], t + S.tmos[e]);
           },
-          U = function () {
-            for (var t = 0; t < T.tmosSecs.length; t++) clearTimeout(D[t]);
+          b = function () {
+            for (var t = 0; t < S.tmosSecs.length; t++) clearTimeout(V[t]);
           };
-        y(T.uDF, S.ex) ? o() : (k(T.uDF), setTimeout(i, v, T.uDF));
-      } catch (F) {
-        n(T.mLd);
+        k(S.uDF, D.ex) ? i() : (I(S.uDF), setTimeout(c, w, S.uDF));
+      } catch (C) {
+        r(S.mLd);
       }
-    } catch (F) {}
+    } catch (C) {}
   })();
 }

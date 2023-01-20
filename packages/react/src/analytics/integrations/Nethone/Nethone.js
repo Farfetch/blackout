@@ -20,18 +20,7 @@
  * @subcategory Integrations
  */
 
-import {
-  trackTypes as analyticsTrackTypes,
-  integrations,
-  utils,
-} from '@farfetch/blackout-core/analytics';
-import {
-  events,
-  isEventOfInterest,
-  isValidCulture,
-  validSubfolders,
-} from './nethone-helper';
-import get from 'lodash/get';
+import { integrations, utils } from '@farfetch/blackout-core/analytics';
 
 /**
  * Nethone integration.
@@ -50,21 +39,10 @@ class Nethone extends integrations.Integration {
     super(options, loadData);
     this.isLoaded = false;
     this.initialized = false;
-    this.baseUrl = 'https://iequ7wai.urjohmgbuuwi.com/s/4799/dja.js';
 
     utils.logger.warn(
-      '[Analytics] Nethone - This integration will be deprecated in the next major version. Please make sure you use "Vitorino" integration instead.',
+      '[Analytics] Nethone - This integration is not supported. Consider remove the usage of Nethone, because it will not trigger any inner event.',
     );
-  }
-
-  /**
-   * Method to validate if the integration is ready to load or not.
-   * Since this integration is required, we return true right away.
-   *
-   * @returns {boolean} The status if its ready to load or not.
-   */
-  static shouldLoad() {
-    return true;
   }
 
   /**
@@ -78,106 +56,6 @@ class Nethone extends integrations.Integration {
   static createInstance(options, loadData) {
     return new Nethone(options, loadData);
   }
-
-  /**
-   * Method responsible for tracking events.
-   *
-   * @param {object} data - Payload sent by analytics.
-   *
-   * @returns {Nethone} This allows chaining of class methods.
-   */
-  track(data) {
-    switch (data.type) {
-      case analyticsTrackTypes.TRACK:
-        return this.trackEvent(data);
-
-      case analyticsTrackTypes.PAGE:
-        return null;
-
-      default:
-        break;
-    }
-  }
-
-  /**
-   * Method responsible for tracking custom events.
-   * It will filter the event passed to check if is within the interest of the integration.
-   * If the script is already loaded on the DOM, do not load again, according to Nethone rules.
-   *
-   * @param {object} data - Payload sent by analytics.
-   *
-   * @returns {Nethone} This allows chaining of class methods.
-   */
-  trackEvent(data) {
-    const { event } = data;
-
-    if (this.isLoaded) {
-      return this;
-    }
-
-    if (isEventOfInterest(events, event)) {
-      this.loadScript(data);
-    }
-  }
-
-  /**
-   * Loads the script tag with the source for the third party endpoint.
-   *
-   * @param {object} data - Payload sent by analytics.
-   *
-   * @returns {Nethone} This allows chaining of class methods.
-   */
-  loadScript(data) {
-    const culture = get(data, 'context.culture', '').toUpperCase();
-
-    if (!isValidCulture(culture, validSubfolders)) {
-      return this;
-    }
-
-    const script = document.createElement('script');
-
-    document.head.appendChild(script);
-    script.onload = this.getOnload(data);
-    script.setAttribute('data-test', 'nethone');
-    script.async = true;
-    script.src = this.baseUrl;
-
-    this.isLoaded = true;
-
-    return this;
-  }
-
-  /**
-   * Returns a function to be added to `onload` of script tag.
-   * Calculates the `attemptReference` and `sensitiveFields` for the call of Nethone function,
-   * injected by the script.
-   * If the initialization already occured, it does not call Nethone function again, according to Nethone rules.
-   *
-   * @param {object} data - Payload sent by analytics.
-   *
-   * @returns {void}
-   */
-  getOnload = data => () => {
-    if (this.initialized) {
-      return;
-    }
-
-    const {
-      event,
-      user: { localId },
-    } = data;
-    const correlationId = localId;
-    const attemptReference = `${correlationId}_${data.timestamp}`;
-    const fieldList = get(this.options, 'sensitiveFields');
-    const sensitiveFields = get(fieldList, event, []);
-
-    window.dftp.init({
-      attemptReference,
-      sensitiveFields,
-    });
-
-    this.initialized = true;
-  };
 }
 
 export default Nethone;

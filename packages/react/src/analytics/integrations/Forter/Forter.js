@@ -20,6 +20,7 @@
 
 import { formatTrackEvent } from '@farfetch/blackout-core/analytics/integrations/Omnitracking/omnitracking-helper';
 import { ForterTokenLoadedAnalyticsEvent, ForterTokenTid } from './constants';
+import { getDefaultSiteId } from './forterHelper';
 import {
   integrations,
   trackTypes,
@@ -68,17 +69,13 @@ class Forter extends integrations.Integration {
    * @param {object} analytics - Stripped down analytics instance with helper methods.
    */
   constructor(options, loadData, analytics) {
-    const safeOptions = defaultTo(options, {});
-
+    const safeOptions = defaultTo({ ...options }, {});
+    safeOptions.siteId ??= getDefaultSiteId(safeOptions);
     super(safeOptions, loadData, analytics);
 
     this.analytics = analytics;
 
     this.initialize();
-
-    utils.logger.warn(
-      '[Analytics] Forter - This integration will be deprecated in the next major version. Please make sure you use "Vitorino" integration instead.',
-    );
   }
 
   /**
@@ -88,15 +85,7 @@ class Forter extends integrations.Integration {
    * script with the passed in siteId.
    */
   initialize() {
-    const { siteId } = this.options;
-
-    if (!siteId) {
-      throw new Error(
-        '[Forter] - Missing required `siteId` parameter in options.',
-      );
-    }
-
-    const { origin } = this.options;
+    const { siteId, origin } = this.options;
 
     if (!origin) {
       utils.logger.warn(

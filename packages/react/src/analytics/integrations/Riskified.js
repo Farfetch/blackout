@@ -18,7 +18,6 @@
 import {
   trackTypes as analyticsTrackTypes,
   integrations,
-  utils,
 } from '@farfetch/blackout-core/analytics';
 import get from 'lodash/get';
 
@@ -60,13 +59,10 @@ class Riskified extends integrations.Integration {
     super(options, loadData);
 
     this.isReady = false;
-    this.baseUrl = 'https://beacon.riskified.com?shop=farfetch.com&sid=';
+    this.siteId = options.siteId || 'farfetch.com';
+    this.baseUrl = `https://beacon.riskified.com?shop=${this.siteId}&sid=`;
 
     this.setupScript(loadData);
-
-    utils.logger.warn(
-      '[Analytics] Riskified - This integration will be deprecated in the next major version. Please make sure you use "Vitorino" integration instead.',
-    );
   }
 
   /**
