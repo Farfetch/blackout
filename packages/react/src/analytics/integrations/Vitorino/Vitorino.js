@@ -14,22 +14,14 @@
  */
 
 import {
-  DATA_TEST_SELECTOR,
-  ENVIRONMENT_TYPES,
-  ERROR_MESSAGE_PREFIX,
-  GET_EVENTS_MAPPER_FN,
-  INVALID_CUSTOM_MAPPER_ERROR_MESSAGE,
-  INVALID_MAPPER_RETURN_TYPE_ERROR,
-  MARKETING_API_PREFIX,
-  MISSING_CONTEXT_ERROR_MESSAGE,
-  PROD_SCRIPT_SRC,
-  VITORINO_CALL_ERROR_MESSAGE,
-} from './constants';
-import { getCustomerIdFromUser } from '@farfetch/blackout-core/analytics/integrations/Omnitracking/omnitracking-helper';
-import { getEnvironmentFromOptions } from './vitorino-helper';
+  getEnvironmentFromOptions,
+  getSafeOptionsForIntegration,
+} from './vitorino-helper';
 import { integrations, utils } from '@farfetch/blackout-core/analytics';
-import { POST_TRACKINGS_PATHNAME } from '@farfetch/blackout-core/analytics/integrations/Omnitracking/client';
-import isArray from 'lodash/isArray';
+import { VITORINO_PROVIDERS } from './constants';
+import Forter from './../Forter/Forter';
+import omit from 'lodash/omit';
+import Riskified from './../Riskified';
 
 /**
  * Vitorino integration.
@@ -71,28 +63,37 @@ export default class Vitorino extends integrations.Integration {
   constructor(options = {}, loadData, analytics) {
     super(options, loadData, analytics);
 
-    this.isScriptLoaded = false;
+    const baseOptions = omit(options, ['riskified', 'forter']);
+    baseOptions.environment = getEnvironmentFromOptions(options);
 
-    this.getEventsMapper = null;
+    // load default if not set
+    options.activeIntegrations ??= [
+      VITORINO_PROVIDERS.forter,
+      VITORINO_PROVIDERS.riskified,
+    ];
 
-    this.isVitorinoConfigured = false;
+    // Check if activeIntegrations is an array
+    if (!Array.isArray(options.activeIntegrations)) {
+      utils.logger.error(
+        '[Analytics] Vitorino - The value `activeIntegrations` from Vitorino integration options must be an array.',
+      );
+      return;
+    }
 
-    this.vitorinoTrackCallback = null;
+    if (options.activeIntegrations.includes(VITORINO_PROVIDERS.forter)) {
+      this.forter = Forter.createInstance(
+        getSafeOptionsForIntegration(baseOptions, options, 'forter'),
+        loadData,
+        analytics,
+      );
+    }
 
-    this.initializePromiseResolve = null;
-
-    this.userIdPromiseResolve = null;
-
-    this.initializePromise = new Promise(resolve => {
-      this.initializePromiseResolve = resolve;
-    });
-
-    this.userIdPromise = new Promise(resolve => {
-      this.userIdPromiseResolve = resolve;
-    });
-
-    this.buildMapper(options);
-    this.loadScript(options);
+    if (options.activeIntegrations.includes(VITORINO_PROVIDERS.riskified)) {
+      this.riskified = Riskified.createInstance(
+        getSafeOptionsForIntegration(baseOptions, options, 'riskified'),
+        loadData,
+      );
+    }
   }
 
   /**
@@ -103,176 +104,8 @@ export default class Vitorino extends integrations.Integration {
    * @param {object} data - Analytics' event data.
    */
   async onSetUser(data) {
-    await this.initializePromise;
-
-    if (data.user?.id) {
-      try {
-        this.configVitorino(data);
-
-        if (this.userIdPromiseResolve) {
-          this.userIdPromiseResolve();
-          this.userIdPromiseResolve = null;
-        }
-      } catch (error) {
-        utils.logger.error(
-          `${ERROR_MESSAGE_PREFIX} There was an error when trying to config Vitorino: ${error}`,
-        );
-      }
-    }
-  }
-
-  /**
-   * Makes the first call to Vitorino to configure it
-   * and receive the callback function to be called later when a page change occurs.
-   *
-   * @param {object} data - Analytics' event data.
-   */
-  configVitorino(data) {
-    this.config = this.buildConfigData(data);
-
-    this.vitorinoTrackCallback = window.Vitorino.track(this.config);
-
-    this.isVitorinoConfigured = true;
-  }
-
-  /**
-   * Prepares the mapper for the integration to work with.
-   *
-   * @param {object} options - Integration options.
-   */
-  buildMapper(options) {
-    const customMapperFn = options.eventsMapper;
-
-    if (!customMapperFn) {
-      this.getEventsMapper = GET_EVENTS_MAPPER_FN;
-
-      return;
-    }
-
-    if (customMapperFn && typeof customMapperFn !== 'function') {
-      utils.logger.error(INVALID_CUSTOM_MAPPER_ERROR_MESSAGE);
-
-      return;
-    }
-
-    this.getEventsMapper = customMapperFn;
-  }
-
-  /**
-   * Method that will load the script and append it to the DOM.
-   *
-   * @param {object} options - Integration options.
-   */
-  loadScript(options) {
-    const script = document.createElement('script');
-    const environment =
-      options.environment || window?.__BUILD_CONTEXT__?.env?.NODE_ENV;
-    const devScriptSrc = options.devScriptSource;
-    const isDevEnvironment = environment === ENVIRONMENT_TYPES.dev;
-
-    if (isDevEnvironment && !devScriptSrc) {
-      throw new Error(`${ERROR_MESSAGE_PREFIX} Looks like you're running Vitorino integration on a
-           development environment without passing in the "developmentScriptSrc", so it will not load.
-           Please make sure a valid script source is passed via the integration options.`);
-    }
-
-    document.body.appendChild(script);
-
-    script.onload = this.scriptOnload;
-
-    script.setAttribute('data-test', DATA_TEST_SELECTOR);
-    script.async = true;
-    script.src =
-      isDevEnvironment && devScriptSrc ? devScriptSrc : PROD_SCRIPT_SRC;
-  }
-
-  /**
-   * Method that will be executed when the script is loaded.
-   */
-  scriptOnload = () => {
-    if (this.initializePromiseResolve) {
-      this.initializePromiseResolve();
-      this.initializePromiseResolve = null;
-    }
-  };
-
-  /**
-   * Builds the object needed for the Vitorino pixel configuration with all necessary data.
-   *
-   * @param {object} data - Analytics' track data.
-   *
-   * @returns {object} - The payload to be sent to the pixel.
-   */
-  buildConfigData(data) {
-    const { tenantId, clientId, web } = data.context;
-    const correlationId = data.user.localId;
-    const origin = web?.window?.location?.origin;
-
-    if (!tenantId || !clientId) {
-      throw new Error(MISSING_CONTEXT_ERROR_MESSAGE);
-    }
-
-    return {
-      correlationId,
-      tenantId,
-      clientId,
-      origin,
-      customerId: getCustomerIdFromUser(data.user),
-      environment: getEnvironmentFromOptions(this.options),
-      fields: this.getFieldsFromOptions(this.options),
-      network: this.options.network || {
-        proxy: origin,
-        path: `${MARKETING_API_PREFIX}${POST_TRACKINGS_PATHNAME}`,
-      },
-    };
-  }
-
-  /**
-   * Returns the fields object with the correct sensitiveFields and/or secretFields.
-   * Runs every entry (event) and builds two Arrays with all the field IDs.
-   *
-   * TODO: on the next major version (@farfetch/blackout-react@1.0.0) we can simplify this logic and remove the events entry,
-   * so the fields can be passed directly on two Arrays for the secretFields and sensitiveFields, respectively.
-   *
-   * @param {object} options - Integration options.
-   *
-   * @returns {object} - The fields object.
-   */
-  getFieldsFromOptions(options) {
-    const safeSensitiveFields = options.sensitiveFields || {};
-    const safeSecretFields = options.secretFields || {};
-    const sensitiveFieldsIDs = [];
-    const secretFieldsIDs = [];
-
-    for (let event in safeSensitiveFields) {
-      sensitiveFieldsIDs.push(...safeSensitiveFields[event]);
-    }
-
-    for (let event in safeSecretFields) {
-      secretFieldsIDs.push(...safeSecretFields[event]);
-    }
-
-    return {
-      sensitiveFields: sensitiveFieldsIDs,
-      secretFields: secretFieldsIDs,
-    };
-  }
-
-  /**
-   * Returns the correspondent Vitorino page type for the event.
-   *
-   * @param {string} event - The analytics event to filter by.
-   
-   * @returns {string | Array} - The correspondent Vitorino's page view(s).
-   */
-  getPageTypeFromEvent(event) {
-    const mapper = this.getEventsMapper();
-
-    if (!mapper || typeof mapper !== 'object') {
-      throw new Error(INVALID_MAPPER_RETURN_TYPE_ERROR);
-    }
-
-    return mapper[event];
+    await this.forter?.onSetUser(data);
+    await this.riskified?.onSetUser(data);
   }
 
   /**
@@ -286,40 +119,7 @@ export default class Vitorino extends integrations.Integration {
    * @returns {Promise} Promise that will resolve when the method finishes.
    */
   async track(data) {
-    await this.initializePromise;
-    await this.userIdPromise;
-
-    try {
-      const pageTypes = this.getPageTypeFromEvent(data.event);
-      let safePageTypes;
-
-      if (isArray(pageTypes)) {
-        safePageTypes = pageTypes.length ? pageTypes : [undefined];
-      } else {
-        safePageTypes = [pageTypes];
-      }
-
-      safePageTypes.forEach(pageType => this.callVitorino(pageType));
-    } catch (error) {
-      utils.logger.error(`${VITORINO_CALL_ERROR_MESSAGE} ${error}`);
-    }
-  }
-
-  /**
-   * Calls the callback function given from the config call to register a page view change.
-   *
-   * @param {string} page - The `page` parameter of the event.
-   */
-  callVitorino(page) {
-    if (this.isVitorinoConfigured) {
-      this.vitorinoTrackCallback(page);
-    }
-
-    if (this.options.debugger) {
-      utils.logger.info('Vitorino track: ', {
-        config: this.config,
-        vitorinoPageType: page,
-      });
-    }
+    await this.forter?.track(data);
+    await this.riskified?.track(data);
   }
 }

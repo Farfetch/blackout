@@ -1,4 +1,9 @@
-import { ForterTokenTid } from '../Forter/constants';
+import { AnalyticsConstants } from '../shared/constants';
+import {
+  ForterProductionSiteId,
+  ForterSandboxSiteId,
+  ForterTokenTid,
+} from '../Forter/constants';
 import { postTrackings } from '@farfetch/blackout-core/analytics/integrations/Omnitracking/client';
 import { utils } from '@farfetch/blackout-core/analytics';
 import Forter from '../Forter/Forter';
@@ -50,10 +55,26 @@ describe('Forter', () => {
     ).toBeInstanceOf(Forter);
   });
 
-  it('should throw an error if `siteId` is not specified in options', () => {
-    expect(() => Forter.createInstance({}, {}, {})).toThrow(
-      new Error('[Forter] - Missing required `siteId` parameter in options.'),
+  it('should return default `siteId` if empty value are passed on options', () => {
+    const forter = Forter.createInstance({}, {}, {});
+
+    expect(forter.options.siteId).toEqual(ForterSandboxSiteId);
+  });
+
+  it('should return default `siteId` (for production) if empty value are passed on options', () => {
+    const forter = Forter.createInstance(
+      { environment: AnalyticsConstants.ENVIRONMENT_TYPES.prod },
+      {},
+      {},
     );
+
+    expect(forter.options.siteId).toEqual(ForterProductionSiteId);
+  });
+
+  it('should return custom `siteId` if empty value are passed on options', () => {
+    const forter = Forter.createInstance({ siteId: 'sampleKey' }, {}, {});
+
+    expect(forter.options.siteId).toEqual('sampleKey');
   });
 
   it('should log a warn message if `origin` is not specified in options', () => {
