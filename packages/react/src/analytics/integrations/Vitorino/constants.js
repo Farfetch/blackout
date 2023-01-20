@@ -1,4 +1,10 @@
+import { AnalyticsConstants } from '..';
 import { eventTypes, pageTypes } from '@farfetch/blackout-core/analytics';
+
+export const VITORINO_PROVIDERS = {
+  riskified: 'riskified',
+  forter: 'forter',
+};
 
 /**
  * Error messages and other constants.
@@ -17,10 +23,7 @@ export const PROD_SCRIPT_SRC =
 /**
  * Environment types to be passed in to Vitorino.
  */
-export const ENVIRONMENT_TYPES = {
-  prod: 'production',
-  dev: 'development',
-};
+export const ENVIRONMENT_TYPES = AnalyticsConstants.ENVIRONMENT_TYPES;
 
 /**
  * This mapper is stored in a function because having a direct assignment to a variable
