@@ -18,6 +18,7 @@ Object {
   "bag": Object {
     "@farfetch/blackout-core/DELETE_BAG_ITEM_SUCCESS": [Function],
     "@farfetch/blackout-core/RESET_BAG_ENTITIES": [Function],
+    "@farfetch/blackout-core/RESET_BAG_OPERATIONS ": [Function],
   },
   "checkout": Object {
     "@farfetch/blackout-core/COMPLETE_PAYMENT_CHECKOUT_SUCCESS": [Function],
