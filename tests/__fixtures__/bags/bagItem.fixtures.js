@@ -1,14 +1,8 @@
-import { mockBagId } from './bag.fixtures';
 import { mockMerchantId, mockProduct, mockProductId } from '../products';
 import { mockPromotionEvaluationItemId } from '../promotionEvaluations';
 
 export const mockBagItemId = 134;
 export const mockProductAggregatorId = 321;
-
-export const mockBagEntity = {
-  id: mockBagId,
-  items: [mockBagItemId, 101, 102, 103, 104],
-};
 
 export const mockBagItem = {
   id: mockBagItemId,

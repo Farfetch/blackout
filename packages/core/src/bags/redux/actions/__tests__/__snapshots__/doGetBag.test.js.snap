@@ -14,6 +14,11 @@ Object {
       },
       "bagItems": Object {
         "134": Object {
+          "@controls": Object {
+            "BagGet_operation": Object {
+              "href": "/v1/bags/7894746/operations/134",
+            },
+          },
           "attributes": Array [
             Object {
               "type": "1",
@@ -123,6 +128,11 @@ Object {
       },
       "bagItems": Object {
         "134": Object {
+          "@controls": Object {
+            "BagGet_operation": Object {
+              "href": "/v1/bags/7894746/operations/134",
+            },
+          },
           "attributes": Array [
             Object {
               "type": "1",

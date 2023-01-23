@@ -1,5 +1,10 @@
 import * as fromReducer from '../reducer';
-import { mockBagId, mockError, mockState } from 'tests/__fixtures__/bags';
+import {
+  mockBagId,
+  mockBagOperationId,
+  mockError,
+  mockState,
+} from 'tests/__fixtures__/bags';
 import reducer, { actionTypes } from '..';
 
 let initialState;
@@ -47,6 +52,19 @@ describe('bags redux reducer', () => {
         reducer(mockState.bag, {
           payload: { fieldsToReset: ['error'] },
           type: actionTypes.RESET_BAG_STATE,
+        }),
+      ).toEqual(expectedState);
+    });
+
+    it('should only reset the bag operations to the initial state', () => {
+      const expectedState = {
+        ...mockState.bag,
+        bagOperations: initialState.bagOperations,
+      };
+
+      expect(
+        reducer(mockState.bag, {
+          type: actionTypes.RESET_BAG_OPERATIONS,
         }),
       ).toEqual(expectedState);
     });
@@ -265,6 +283,78 @@ describe('bags redux reducer', () => {
     });
   });
 
+  describe('bagOperations() reducer', () => {
+    it('should return the initial state', () => {
+      const state = reducer().bagOperations;
+
+      expect(state).toEqual(initialState.bagOperations);
+      expect(state).toEqual({ error: {}, isLoading: {} });
+    });
+
+    it('should handle GET_BAG_OPERATION_REQUEST action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.GET_BAG_OPERATION_REQUEST,
+          payload: { bagOperationId: mockBagOperationId },
+        }).bagOperations,
+      ).toEqual({
+        error: { [mockBagOperationId]: null },
+        isLoading: { [mockBagOperationId]: true },
+      });
+    });
+
+    it('should handle GET_BAG_OPERATION_FAILURE action type', () => {
+      expect(
+        reducer(
+          {
+            bagOperations: {
+              error: {},
+              isLoading: { [mockBagOperationId]: true },
+            },
+          },
+          {
+            type: actionTypes.GET_BAG_OPERATION_FAILURE,
+            payload: {
+              error: mockError,
+              bagOperationId: mockBagOperationId,
+            },
+          },
+        ).bagOperations,
+      ).toEqual({
+        error: { [mockBagOperationId]: mockError },
+        isLoading: { [mockBagOperationId]: false },
+      });
+    });
+
+    it('should handle GET_BAG_OPERATION_SUCCESS action type', () => {
+      expect(
+        reducer(
+          {
+            bagOperations: {
+              error: {},
+              isLoading: { [mockBagOperationId]: true },
+            },
+          },
+          {
+            type: actionTypes.GET_BAG_OPERATION_SUCCESS,
+            payload: { bagOperationId: mockBagOperationId },
+          },
+        ).bagOperations,
+      ).toEqual({ error: {}, isLoading: { [mockBagOperationId]: false } });
+    });
+
+    it('should handle other actions by returning the previous state', () => {
+      const state = {
+        bagOperations: {
+          error: { foo: 'Error' },
+          isLoading: { foo: false },
+        },
+      };
+
+      expect(reducer(state).bagOperations).toEqual(state.bagOperations);
+    });
+  });
+
   describe('entitiesMapper()', () => {
     it('should map the DELETE_BAG_ITEM_SUCCESS action to a new state', () => {
       const defaultState = { otherState: 'foo' };
@@ -364,6 +454,28 @@ describe('bags redux reducer', () => {
       const bagItems = { error: { [mockBagId]: 'Error' } };
 
       expect(fromReducer.getItemError({ bagItems })).toEqual(bagItems.error);
+    });
+  });
+
+  describe('getIsBagOperationLoading() selector', () => {
+    it('should return the `bagOperations.isLoading` property from a given state', () => {
+      const bagOperations = { isLoading: { [mockBagOperationId]: true } };
+
+      expect(
+        fromReducer.getIsBagOperationLoading({
+          bagOperations,
+        }),
+      ).toEqual(bagOperations.isLoading);
+    });
+  });
+
+  describe('getBagOperationError() selector', () => {
+    it('should return the `bagOperations.error` property from a given state', () => {
+      const bagOperations = { error: { [mockBagOperationId]: 'Error' } };
+
+      expect(fromReducer.getBagOperationError({ bagOperations })).toEqual(
+        bagOperations.error,
+      );
     });
   });
 });

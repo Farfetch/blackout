@@ -1,0 +1,15 @@
+export default {
+  ItemIsUnavailable: 'ItemIsUnavailable',
+  ItemOriginChanged: 'ItemOriginChanged',
+  PromoCodeEligibilityChanged: 'PromoCodeEligibilityChanged',
+  ShippingCostChanged: 'ShippingCostChanged',
+  ShippingFlatRateEligibilityChanged: 'ShippingFlatRateEligibilityChanged',
+  ItemPriceChanged: 'ItemPriceChanged',
+  PromotionNotApplied: 'PromotionNotApplied',
+  TotalDiscountChanged: 'TotalDiscountChanged',
+  ItemDiscountChanged: 'ItemDiscountChanged',
+  NotEnoughStock: 'NotEnoughStock',
+  ItemQuantityChanged: 'ItemQuantityChanged',
+  ItemIsNowAvailable: 'ItemIsNowAvailable',
+  ItemMerged: 'ItemMerged',
+};
