@@ -1,4 +1,4 @@
-import { RESET_BAG_ENTITIES } from '../actionTypes';
+import { RESET_BAG_ENTITIES, RESET_BAG_OPERATIONS } from '../actionTypes';
 import resetState from './resetState';
 
 /**
@@ -25,6 +25,39 @@ import resetState from './resetState';
 const resetEntities = () => dispatch => {
   dispatch({
     type: RESET_BAG_ENTITIES,
+  });
+};
+
+/**
+ * Reset bag operations entities to its initial value.
+ *
+ * @private
+ * @function
+ * @memberof module:bags/actions
+ *
+ * @example
+ * // Store before executing action
+ * const store = {
+ *     entities: {
+ *         bag: { 123: {...} },
+ *         bagItems: { 1: {...} },
+ *         bagOperations: { 1: {...} }
+ *     }
+ * }
+ *
+ * // Result of reset bag operations entities:
+ * const store = {
+ *     entities: {
+ *         bag: { 123: {...} },
+ *         bagItems: { 1: {...} }
+ *     }
+ * }
+ *
+ * @returns {Function} Dispatch reset bag operations entities action.
+ */
+export const resetBagOperationsEntities = () => dispatch => {
+  dispatch({
+    type: RESET_BAG_OPERATIONS,
   });
 };
 

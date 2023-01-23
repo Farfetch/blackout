@@ -45,3 +45,17 @@ export const UPDATE_BAG_ITEM_REQUEST =
 /** Action type dispatched when the update bag request succeeds. */
 export const UPDATE_BAG_ITEM_SUCCESS =
   '@farfetch/blackout-core/UPDATE_BAG_ITEM_SUCCESS';
+
+/** Action type dispatched when the get bag operation request fails. */
+export const GET_BAG_OPERATION_FAILURE =
+  '@farfetch/blackout-core/GET_BAG_OPERATION_FAILURE';
+/** Action type dispatched when the get bag operation request starts. */
+export const GET_BAG_OPERATION_REQUEST =
+  '@farfetch/blackout-core/GET_BAG_OPERATION_REQUEST';
+/** Action type dispatched when the get bag operation request succeeds. */
+export const GET_BAG_OPERATION_SUCCESS =
+  '@farfetch/blackout-core/GET_BAG_OPERATION_SUCCESS';
+
+/** Action type dispatched when the reset bag operations entities occurs. */
+export const RESET_BAG_OPERATIONS =
+  '@farfetch/blackout-core/RESET_BAG_OPERATIONS ';

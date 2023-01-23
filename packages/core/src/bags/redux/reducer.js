@@ -15,6 +15,10 @@ const INITIAL_STATE = {
     error: {},
     isLoading: {},
   },
+  bagOperations: {
+    error: {},
+    isLoading: {},
+  },
 };
 
 const error = (
@@ -29,6 +33,7 @@ const error = (
     case actionTypes.DELETE_BAG_ITEM_REQUEST:
     case actionTypes.GET_BAG_REQUEST:
     case actionTypes.UPDATE_BAG_ITEM_REQUEST:
+    case actionTypes.GET_BAG_OPERATION_REQUEST:
       return INITIAL_STATE.error;
     default:
       return state;
@@ -108,6 +113,46 @@ const bagItems = (
   }
 };
 
+const bagOperations = (
+  state = INITIAL_STATE.bagOperations,
+  /* istanbul ignore next */ action = {},
+) => {
+  switch (action.type) {
+    case actionTypes.GET_BAG_OPERATION_REQUEST:
+      return {
+        isLoading: {
+          ...state.isLoading,
+          [action.payload.bagOperationId]: true,
+        },
+        error: {
+          ...state.error,
+          [action.payload.bagOperationId]: null,
+        },
+      };
+    case actionTypes.GET_BAG_OPERATION_SUCCESS:
+      return {
+        ...state,
+        isLoading: {
+          ...state.isLoading,
+          [action.payload.bagOperationId]: false,
+        },
+      };
+    case actionTypes.GET_BAG_OPERATION_FAILURE:
+      return {
+        isLoading: {
+          ...state.isLoading,
+          [action.payload.bagOperationId]: false,
+        },
+        error: {
+          ...state.error,
+          [action.payload.bagOperationId]: action.payload.error,
+        },
+      };
+    default:
+      return state;
+  }
+};
+
 export const entitiesMapper = {
   [actionTypes.DELETE_BAG_ITEM_SUCCESS]: (
     state,
@@ -122,7 +167,12 @@ export const entitiesMapper = {
     return newState;
   },
   [actionTypes.RESET_BAG_ENTITIES]: state => {
-    const { bag, bagItems, ...rest } = state;
+    const { bag, bagItems, bagOperations, ...rest } = state;
+
+    return rest;
+  },
+  [actionTypes.RESET_BAG_OPERATIONS]: state => {
+    const { bagOperations, ...rest } = state;
 
     return rest;
   },
@@ -133,12 +183,15 @@ export const getId = state => state.id;
 export const getIsLoading = state => state.isLoading;
 export const getIsBagItemLoading = state => state.bagItems.isLoading;
 export const getItemError = state => state.bagItems.error;
+export const getIsBagOperationLoading = state => state.bagOperations.isLoading;
+export const getBagOperationError = state => state.bagOperations.error;
 
 const reducer = combineReducers({
   error,
   id,
   isLoading,
   bagItems,
+  bagOperations,
 });
 
 /**

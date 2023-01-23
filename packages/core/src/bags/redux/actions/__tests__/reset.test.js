@@ -1,6 +1,6 @@
 import { actionTypes } from '../..';
 import { mockStore } from '../../../../../tests';
-import { reset } from '../';
+import { reset, resetBagOperationsEntities } from '../';
 
 describe('reset() action creator', () => {
   let store;
@@ -21,6 +21,17 @@ describe('reset() action creator', () => {
       },
       {
         type: actionTypes.RESET_BAG_ENTITIES,
+      },
+    ]);
+  });
+
+  it('should dispatch the correct action to reset bag operations entities', () => {
+    store.dispatch(resetBagOperationsEntities());
+    const actionResults = store.getActions();
+
+    expect(actionResults).toMatchObject([
+      {
+        type: actionTypes.RESET_BAG_OPERATIONS,
       },
     ]);
   });

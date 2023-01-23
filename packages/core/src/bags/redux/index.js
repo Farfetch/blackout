@@ -1,5 +1,6 @@
 // @TODO: Remove the whole `redux` folder in version 2.0.0.
 import * as actionTypes from './actionTypes';
+import * as middlewares from './middlewares';
 import { warnDeprecatedMethod } from '../../helpers';
 import reducer, { entitiesMapper } from './reducer';
 
@@ -10,7 +11,8 @@ warnDeprecatedMethod(
 
 export * from './actions';
 export * from './selectors';
+export * from './middlewares';
 
-export { actionTypes, entitiesMapper };
+export { actionTypes, middlewares, entitiesMapper };
 
 export default reducer;

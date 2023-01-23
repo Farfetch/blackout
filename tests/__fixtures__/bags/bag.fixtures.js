@@ -1,8 +1,5 @@
-import {
-  mockBagEntity,
-  mockBagItemEntity,
-  mockBagItemId,
-} from './bagItem.fixtures';
+import { mockBagItemEntity, mockBagItemId } from './bagItem.fixtures';
+import { mockBagOperation, mockBagOperationId } from './bagOperations.fixtures';
 import {
   mockProduct,
   mockProductId,
@@ -21,12 +18,27 @@ export const mockData = {
   quantity: 1,
 };
 
+export const mockBagEntity = {
+  id: mockBagId,
+  items: [mockBagItemId, 101, 102, 103, 104],
+  bagOperations: [mockBagOperationId, 101, 102, 103, 104],
+  '@controls': {
+    BagGet_operation: {
+      href: `/v1/bags/${mockBagId}/operations/${mockBagOperationId}`,
+    },
+  },
+};
+
 export const mockInitialState = {
   bag: {
     error: null,
     id: mockBagId,
     isLoading: false,
     bagItems: {
+      error: {},
+      isLoading: {},
+    },
+    bagOperations: {
       error: {},
       isLoading: {},
     },
@@ -45,6 +57,12 @@ export const mockLoadingState = {
       error: {},
       isLoading: {
         [mockBagItemId]: true,
+      },
+    },
+    bagOperations: {
+      error: {},
+      isLoading: {
+        [mockBagOperationId]: true,
       },
     },
   },
@@ -66,6 +84,14 @@ export const mockErrorState = {
         [mockBagItemId]: false,
       },
     },
+    bagOperations: {
+      error: {
+        [mockBagOperationId]: { message: 'An unexpected error occurred' },
+      },
+      isLoading: {
+        [mockBagOperationId]: false,
+      },
+    },
   },
   entities: {
     bag: {},
@@ -84,6 +110,10 @@ export const mockState = {
       error: {
         [mockBagItemId]: { message: 'error: not loaded' },
       },
+    },
+    bagOperations: {
+      isLoading: {},
+      error: {},
     },
   },
   entities: {
@@ -147,6 +177,13 @@ export const mockState = {
         ],
       },
     },
+    bagOperations: {
+      [mockBagOperationId]: mockBagOperation,
+      101: {
+        ...mockBagOperation,
+        id: '101',
+      },
+    },
   },
 };
 export const mockResponse = {
@@ -184,6 +221,11 @@ export const mockResponse = {
       productName: 'Oxford Shirt',
       type: 0,
       promotionEvaluationId: mockPromotionEvaluationId,
+      '@controls': {
+        BagGet_operation: {
+          href: `/v1/bags/${mockBagId}/operations/${mockBagOperationId}`,
+        },
+      },
     },
   ],
 };
