@@ -33,7 +33,7 @@ const useProductAttributes = (
   );
 
   const shouldLoadAttributes =
-    enableAutoFetch && !isLoading && !error && !productAttributes;
+    enableAutoFetch && !isLoading && !productAttributes;
 
   const fetch = useCallback(
     () => fetchAction(productId, fetchConfig),

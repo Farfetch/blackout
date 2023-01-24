@@ -7,21 +7,17 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import {
-  createReturn as createReturnAction,
-  fetchReturn as fetchReturnAction,
   getReturn,
   getReturnError,
   isReturnFetched,
   isReturnLoading,
-  resetReturnState as resetReturnStateAction,
   type StoreState,
-  updateReturn as updateReturnAction,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction.js';
 import useReturnPickupCapability from './useReturnPickupCapability.js';
 import useReturnPickupRescheduleRequests from './useReturnPickupRescheduleRequests.js';
+import useUserReturns from './useUserReturns.js';
 import type { UseReturnOptions } from './types/index.js';
 
 /**
@@ -65,29 +61,52 @@ function useReturn(returnId?: Return['id'], options: UseReturnOptions = {}) {
       : (!!returnEntity || createReturnError) && !isCreatingReturn,
   );
 
-  const fetchReturn = useAction(fetchReturnAction);
-  const resetReturnState = useAction(resetReturnStateAction);
-  const updateReturn = useAction(updateReturnAction);
-  const createReturn = useAction(createReturnAction);
+  const {
+    actions: { fetchReturn, resetReturnState, updateReturn, createReturn },
+  } = useUserReturns({ enableAutoFetch: false });
 
+  /**
+   * Fetches the return details. You can override the return id to fetch
+   * by using the optional `returnId` parameter. However, the output from
+   * the hook will respect the return id passed to it and not the override.
+   *
+   * @param config - Custom configurations to send to the client instance (axios). If undefined, the `fetchConfig` passed to the hook will be used instead.
+   * @param returnId  - Overrides the return id from the hook. If undefined, the `returnId` passed to the hook will be used instead. Note that the output of the hook will respect the `returnId` parameter from the hook.
+   *
+   * @returns Promise that will resolve when the call to the endpoint finishes.
+   */
   const fetch = useCallback(
-    (returnId?: Return['id'], config?: Config) => {
-      const returnIdRequest = returnId || implicitReturnId;
-
-      if (!returnIdRequest) {
+    (
+      config: Config | undefined = fetchConfig,
+      returnId: Return['id'] | undefined = implicitReturnId,
+    ) => {
+      if (!returnId) {
         return Promise.reject(new Error('No return id was specified.'));
       }
 
-      return fetchReturn(returnIdRequest, config || fetchConfig);
+      return fetchReturn(returnId, config);
     },
     [fetchReturn, fetchConfig, implicitReturnId],
   );
 
+  /**
+   * Updates the return. You can override the return id to update by using
+   * the optional `returnId` parameter. However, the output from
+   * the hook will respect the return id passed to it and not the override.
+   *
+   * @param data - Patch return data.
+   * @param config - Custom configurations to send to the client instance (axios).
+   * @param returnId  - Overrides the return id from the hook. If undefined, the `returnId` passed to the hook will be used instead. Note that the output of the hook will respect the `returnId` parameter from the hook.
+   *
+   * @returns Promise that will resolve when the call to the endpoint finishes.
+   */
   const update = useCallback(
-    (returnId?: Return['id'], data?: PatchReturnData, config?: Config) => {
-      const returnIdRequest = returnId || implicitReturnId;
-
-      if (!returnIdRequest) {
+    (
+      data?: PatchReturnData,
+      config?: Config,
+      returnId: Return['id'] | undefined = implicitReturnId,
+    ) => {
+      if (!returnId) {
         return Promise.reject(new Error('No return id was specified.'));
       }
 
@@ -95,7 +114,7 @@ function useReturn(returnId?: Return['id'], options: UseReturnOptions = {}) {
         return Promise.reject(new Error('No data was specified.'));
       }
 
-      return updateReturn(returnIdRequest, data, config);
+      return updateReturn(returnId, data, config);
     },
     [updateReturn, implicitReturnId],
   );
@@ -141,16 +160,20 @@ function useReturn(returnId?: Return['id'], options: UseReturnOptions = {}) {
     [createReturn, returnIdHookParameter],
   );
 
+  /**
+   * Reset return state. You can override the return id to reset by using
+   * the optional `returnId` parameter.
+   *
+   * @param returnId  - Overrides the return id from the hook. If undefined, the `returnId` passed to the hook or the created return id will be used instead.
+   */
   const reset = useCallback(
-    (returnId?: Return['id']) => {
-      const returnIdRequest = returnId || implicitReturnId;
-
+    (returnId: Return['id'] | undefined = implicitReturnId) => {
       setCreateReturnError(null);
       setCreatedReturnId(undefined);
       setIsCreatingReturn(false);
 
-      if (returnIdRequest) {
-        resetReturnState([returnIdRequest]);
+      if (returnId) {
+        resetReturnState([returnId]);
       }
     },
     [implicitReturnId, resetReturnState],

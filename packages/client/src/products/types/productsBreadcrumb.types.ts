@@ -1,4 +1,4 @@
-export type BreadCrumb = {
+export type ProductsBreadcrumb = {
   text: string;
   slug: string | null;
   link: string;

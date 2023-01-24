@@ -1,6 +1,9 @@
 import * as actionTypes from './actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes.js';
+import {
+  FETCH_USER_SUCCESS,
+  LOGOUT_SUCCESS,
+} from '../users/authentication/actionTypes.js';
 import reducerFactory from '../helpers/reducerFactory.js';
 import type { BagItem } from '@farfetch/blackout-client';
 import type { BagItemsState, BagsState } from './types/index.js';
@@ -267,6 +270,14 @@ const reducer = combineReducers({
 const bagReducer: Reducer<BagsState> = (state, action) => {
   if (action.type === LOGOUT_SUCCESS) {
     return INITIAL_STATE;
+  }
+
+  if (action.type === FETCH_USER_SUCCESS) {
+    const user = action.payload.entities.user;
+
+    if (state?.id && user.bagId !== state.id) {
+      return INITIAL_STATE;
+    }
   }
 
   if (action.type === actionTypes.RESET_BAG_STATE && state) {

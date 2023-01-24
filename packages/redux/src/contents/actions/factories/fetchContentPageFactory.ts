@@ -32,10 +32,11 @@ const fetchContentPageFactory =
   ) =>
   async (dispatch: Dispatch<FetchContentPageAction>): Promise<ContentPage> => {
     const { slug } = query;
+    const slugWithoutQueryString = slug.split('?')[0] as string;
 
     const hash = generateContentHash({
       contentTypeCode: ContentTypeCode.ContentPage,
-      codes: slug,
+      codes: slugWithoutQueryString,
     });
 
     dispatch({
@@ -44,7 +45,11 @@ const fetchContentPageFactory =
     });
 
     try {
-      const result = await getContentPage(contentPagesType, query, config);
+      const result = await getContentPage(
+        contentPagesType,
+        { ...query, slug: slugWithoutQueryString },
+        config,
+      );
 
       dispatch({
         payload: {

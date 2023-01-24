@@ -276,7 +276,7 @@ describe('useReturnPickupCapability', () => {
           },
         );
 
-        reset(returnId);
+        reset(undefined, returnId);
 
         expect(resetReturnPickupCapabilityState).toHaveBeenCalledWith([
           { returnId, pickupDay },
@@ -301,7 +301,7 @@ describe('useReturnPickupCapability', () => {
           },
         );
 
-        reset(undefined, pickupDay);
+        reset(pickupDay);
 
         expect(resetReturnPickupCapabilityState).toHaveBeenCalledWith([
           { returnId, pickupDay },
@@ -326,7 +326,7 @@ describe('useReturnPickupCapability', () => {
           },
         );
 
-        reset(returnId, pickupDay);
+        reset(pickupDay, returnId);
 
         expect(resetReturnPickupCapabilityState).toHaveBeenCalledWith([
           { returnId, pickupDay },
@@ -426,7 +426,7 @@ describe('useReturnPickupCapability', () => {
           },
         );
 
-        fetch(returnId);
+        fetch(undefined, undefined, returnId);
 
         expect(fetchReturnPickupCapability).toHaveBeenCalledWith(
           returnId,
@@ -482,7 +482,7 @@ describe('useReturnPickupCapability', () => {
 
         const anotherConfig = {};
 
-        fetch(returnId, pickupDay, anotherConfig);
+        fetch(anotherConfig, pickupDay, returnId);
 
         expect(fetchReturnPickupCapability).toHaveBeenCalledWith(
           returnId,
@@ -530,7 +530,7 @@ describe('useReturnPickupCapability', () => {
           },
         );
 
-        return expect(fetch(returnId)).rejects.toThrow(
+        return expect(fetch(undefined, undefined, returnId)).rejects.toThrow(
           'No pickup day was specified.',
         );
       });

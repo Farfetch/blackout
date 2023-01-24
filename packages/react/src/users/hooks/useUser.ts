@@ -10,6 +10,7 @@ import {
   getResetPasswordError,
   getUser,
   getUserError,
+  isAuthenticated as isAuthenticatedSelector,
   isChangePasswordLoading as isChangePasswordLoadingSelector,
   isLoginLoading as isLoginLoadingSelector,
   isLogoutLoading as isLogoutLoadingSelector,
@@ -24,9 +25,14 @@ import {
   resetPassword as resetPasswordAction,
   setUser as setUserAction,
 } from '@farfetch/blackout-redux';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
+import type {
+  Config,
+  PostPasswordChangeData,
+  PutUserData,
+} from '@farfetch/blackout-client';
 import type { UseUserOptions } from './types/index.js';
 
 function useUser(options: UseUserOptions = {}) {
@@ -53,14 +59,57 @@ function useUser(options: UseUserOptions = {}) {
   // Actions
   const login = useAction(loginAction);
   const register = useAction(registerAction);
-  const changePassword = useAction(changePasswordAction);
+  const changePasswordActionDispatcher = useAction(changePasswordAction);
   const resetPassword = useAction(resetPasswordAction);
   const recoverPassword = useAction(recoverPasswordAction);
   const fetch = useAction(fetchUserAction);
-  const update = useAction(setUserAction);
+  const updateActionDispatcher = useAction(setUserAction);
   const logout = useAction(logoutAction);
+  const userId = user?.id;
+  const username = user?.username;
   // Custom logic
   const isFetched = !!user && !!user.id;
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
+
+  const changePassword = useCallback(
+    (
+      data: Omit<PostPasswordChangeData, 'userId' | 'username'>,
+      config?: Config,
+    ) => {
+      if (!isAuthenticated) {
+        return Promise.reject(
+          new Error('Only authenticated users can perform this operation'),
+        );
+      }
+
+      // Both user id and username are guaranteed to be defined if isAuthenticated is true.
+      const fullPostData: PostPasswordChangeData = {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        userId: userId!,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        username: username!,
+        ...data,
+      };
+
+      return changePasswordActionDispatcher(fullPostData, config);
+    },
+    [changePasswordActionDispatcher, isAuthenticated, userId, username],
+  );
+
+  const update = useCallback(
+    (data: PutUserData, config?: Config) => {
+      if (!isAuthenticated) {
+        return Promise.reject(
+          new Error('Only authenticated users can perform this operation'),
+        );
+      }
+
+      // User id is guaranteed to be defined if isAuthenticated is true.
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return updateActionDispatcher(userId!, data, config);
+    },
+    [isAuthenticated, updateActionDispatcher, userId],
+  );
 
   useEffect(() => {
     if (enableAutoFetch && !isUserLoading && !userError) {

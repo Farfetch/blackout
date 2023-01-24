@@ -311,7 +311,7 @@ describe('useOrderReturnOptions', () => {
 
         const anotherConfig = {};
 
-        fetch(orderId2, anotherConfig);
+        fetch(anotherConfig, orderId2);
 
         expect(fetchOrderReturnOptions).toHaveBeenCalledWith(
           orderId2,

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import useOrders from '../../useOrders.js';
+import useUserOrders from '../../useUserOrders.js';
 
 export const Orders = () => {
   const [fetchQuery, setFetchQuery] = useState({ page: 1, pageSize: 60 });
 
-  useOrders({ fetchQuery });
+  useUserOrders({ fetchQuery });
 
   return (
     <div data-test="orders-body">

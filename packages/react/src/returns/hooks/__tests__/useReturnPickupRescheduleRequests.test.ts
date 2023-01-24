@@ -270,7 +270,7 @@ describe('useReturnPickupRescheduleRequests', () => {
             }),
           );
 
-          fetch(returnId);
+          fetch(undefined, returnId);
 
           expect(getReturnPickupRescheduleRequests).toHaveBeenCalledWith(
             returnId,
@@ -319,7 +319,7 @@ describe('useReturnPickupRescheduleRequests', () => {
             },
           };
 
-          await create(createPickupRescheduleData, undefined, anotherConfig);
+          await create(createPickupRescheduleData, anotherConfig);
 
           expect(postReturnPickupRescheduleRequest).toHaveBeenCalledWith(
             returnId,
@@ -350,7 +350,7 @@ describe('useReturnPickupRescheduleRequests', () => {
             },
           };
 
-          await create(createPickupRescheduleData, returnId, anotherConfig);
+          await create(createPickupRescheduleData, anotherConfig, returnId);
 
           expect(postReturnPickupRescheduleRequest).toHaveBeenCalledWith(
             returnId,
@@ -382,7 +382,7 @@ describe('useReturnPickupRescheduleRequests', () => {
           };
 
           return expect(
-            create(createPickupRescheduleData, undefined, anotherConfig),
+            create(createPickupRescheduleData, anotherConfig),
           ).rejects.toThrow('No returnId provided');
         });
       });
@@ -404,8 +404,8 @@ describe('useReturnPickupRescheduleRequests', () => {
 
           await fetchPickupRescheduleRequest(
             rescheduleRequestId,
-            undefined,
             mockFetchConfig,
+            undefined,
           );
 
           expect(getReturnPickupRescheduleRequest).toHaveBeenCalledWith(
@@ -431,8 +431,8 @@ describe('useReturnPickupRescheduleRequests', () => {
 
           await fetchPickupRescheduleRequest(
             rescheduleRequestId,
-            returnId,
             mockFetchConfig,
+            returnId,
           );
 
           expect(getReturnPickupRescheduleRequest).toHaveBeenCalledWith(
@@ -459,8 +459,8 @@ describe('useReturnPickupRescheduleRequests', () => {
           return expect(
             fetchPickupRescheduleRequest(
               rescheduleRequestId,
-              undefined,
               mockFetchConfig,
+              undefined,
             ),
           ).rejects.toThrow('No returnId provided');
         });

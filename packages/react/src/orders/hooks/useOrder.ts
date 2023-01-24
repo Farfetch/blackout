@@ -8,7 +8,7 @@ import {
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useOrderReturnOptions from './useOrderReturnOptions.js';
-import useOrders from './useOrders.js';
+import useUserOrders from './useUserOrders.js';
 import type { Config, Order } from '@farfetch/blackout-client';
 import type { UseOrderOptions } from './types/index.js';
 
@@ -28,7 +28,7 @@ function useOrder(
       fetchOrderDetails,
       resetOrderDetailsState: resetOrderDetailsStateFromUseOrders,
     },
-  } = useOrders({ enableAutoFetch: false });
+  } = useUserOrders({ enableAutoFetch: false });
   const isLoading = useSelector((state: StoreState) =>
     isOrderLoading(state, orderIdHookParameter),
   );
@@ -42,26 +42,28 @@ function useOrder(
     isOrderFetched(state, orderIdHookParameter),
   );
 
+  /**
+   * Fetches the order details. You can override the order id to fetch by using
+   * the optional `orderId` parameter. However, the output from
+   * the hook will respect the order id passed to it and not the override.
+   *
+   * @param config - Custom configurations to send to the client instance (axios). If undefined, the `fetchConfig` passed to the hook will be used instead.
+   * @param guestUserEmail - Overrides the guest user email from the hook. If undefined, the `guestUserEmail` passed to the hook will be used instead.
+   * @param orderId  - Overrides the order id from the hook. If undefined, the `orderId` passed to the hook will be used instead. Note that the output of the hook will respect the `orderId` parameter from the hook.
+   *
+   * @returns Promise that will resolve when the call to the endpoint finishes.
+   */
   const fetch = useCallback(
     (
-      orderId?: Order['id'],
-      guestUserEmail?: string | null,
-      config?: Config,
+      config: Config | undefined = fetchConfig,
+      guestUserEmail: string | null | undefined = guestUserEmailHookParameter,
+      orderId: Order['id'] = orderIdHookParameter,
     ) => {
-      const orderIdRequest = orderId || orderIdHookParameter;
-
-      if (!orderIdRequest) {
+      if (!orderId) {
         return Promise.reject(new Error('No order id was specified.'));
       }
 
-      const guestUserEmailRequest =
-        guestUserEmail || guestUserEmailHookParameter;
-
-      return fetchOrderDetails(
-        orderIdRequest,
-        guestUserEmailRequest,
-        config || fetchConfig,
-      );
+      return fetchOrderDetails(orderId, guestUserEmail, config);
     },
     [
       orderIdHookParameter,
@@ -71,12 +73,16 @@ function useOrder(
     ],
   );
 
-  const resetOrderDetailsState = useCallback(
-    (orderId?: Order['id']) => {
-      const orderIdRequest = orderId || orderIdHookParameter;
-
-      if (orderIdRequest) {
-        resetOrderDetailsStateFromUseOrders([orderIdRequest]);
+  /**
+   * Reset order details state. You can override the order id to reset by using
+   * the optional `orderId` parameter.
+   *
+   * @param orderId  - Overrides the order id from the hook. If undefined, the `orderId` passed to the hook will be used instead.
+   */
+  const reset = useCallback(
+    (orderId: Order['id'] = orderIdHookParameter) => {
+      if (orderId) {
+        resetOrderDetailsStateFromUseOrders([orderId]);
       }
     },
     [orderIdHookParameter, resetOrderDetailsStateFromUseOrders],
@@ -100,7 +106,7 @@ function useOrder(
   return {
     actions: {
       fetch,
-      resetOrderDetailsState,
+      reset,
       fetchReturnOptions,
       resetReturnOptions,
     },

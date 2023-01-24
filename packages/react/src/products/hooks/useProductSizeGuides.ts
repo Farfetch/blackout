@@ -33,7 +33,7 @@ const useProductSizeGuides = (
   );
 
   const shouldLoadSizeGuides =
-    enableAutoFetch && !isLoading && !error && !productSizeGuides;
+    enableAutoFetch && !isLoading && !productSizeGuides;
 
   const fetch = useCallback(
     () => fetchAction(productId, fetchConfig),

@@ -21,16 +21,21 @@ const useCategories = (options: UseCategoriesOptions = {}) => {
   const reset = useAction(resetCategoriesState);
 
   useEffect(() => {
-    if (!isLoading && !error && !isFetched && enableAutoFetch) {
+    if (!isLoading && !isFetched && enableAutoFetch) {
       fetch(fetchConfig);
     }
-  }, [enableAutoFetch, error, fetch, fetchConfig, isFetched, isLoading]);
+  }, [enableAutoFetch, fetch, fetchConfig, isFetched, isLoading]);
+
+  const data = useMemo(
+    () => categories && Object.values(categories),
+    [categories],
+  );
 
   return {
     isLoading,
     error,
     isFetched,
-    data: useMemo(() => categories && Object.values(categories), [categories]),
+    data,
     actions: {
       fetch,
       reset,

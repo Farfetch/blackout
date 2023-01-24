@@ -25,7 +25,7 @@ const resetEntities =
  *
  * @example
  * ```
- * import { resetWishlist } from '@farfetch/blackout-redux/wishlists';
+ * import { resetWishlist } from '@farfetch/blackout-redux';
  *
  * // State object before executing action
  * const state = { id: '123', error: null, isLoading: false,

@@ -254,6 +254,76 @@ describe('bags redux selectors', () => {
     });
   });
 
+  describe('isBagItemFetched()', () => {
+    it('should return true if the bag item is fetched and it is not loading', () => {
+      const mockInitialState = {
+        ...mockState,
+        bag: {
+          ...mockState.bag,
+          items: {
+            ids: null,
+            item: {
+              isLoading: {},
+              error: {},
+            },
+          },
+        },
+      };
+
+      expect(selectors.isBagItemFetched(mockInitialState, mockBagItemId)).toBe(
+        true,
+      );
+    });
+
+    it('should return true if there is an error and it is not loading', () => {
+      const mockStateWithBagItemError = {
+        ...mockState,
+        bag: {
+          ...mockState.bag,
+          items: {
+            ids: null,
+            item: {
+              isLoading: {
+                [mockBagItemId]: false,
+              },
+              error: {
+                [mockBagItemId]: toBlackoutError(
+                  new Error('error: not loaded'),
+                ),
+              },
+            },
+          },
+        },
+      };
+
+      expect(
+        selectors.isBagItemFetched(mockStateWithBagItemError, mockBagItemId),
+      ).toBe(true);
+    });
+
+    it('should return false if it is loading', () => {
+      const mockStateWithBagItemLoading = {
+        ...mockState,
+        bag: {
+          ...mockState.bag,
+          items: {
+            ids: null,
+            item: {
+              isLoading: {
+                [mockBagItemId]: true,
+              },
+              error: {},
+            },
+          },
+        },
+      };
+
+      expect(
+        selectors.isBagItemFetched(mockStateWithBagItemLoading, mockBagItemId),
+      ).toBe(false);
+    });
+  });
+
   describe('getBagItemError()', () => {
     it('should get the bag item error', () => {
       const expectedResult = mockState.bag.items.item.error[mockBagItemId];

@@ -70,7 +70,7 @@ export const resetBagOperationsEntities =
  *
  * @example
  * ```
- * import { resetBag } from '@farfetch/blackout-redux/bags';
+ * import { resetBag } from '@farfetch/blackout-redux';
  *
  * // State and store before executing action
  * const state = { id: '123', error: null, isLoading: false, result: {...}, items: {...} };

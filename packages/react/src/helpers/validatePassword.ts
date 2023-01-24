@@ -6,12 +6,13 @@
  * * 1201003 - The password should contain a special character
  * * 1201004 - The password should contain at least one number
  */
-export type PasswordValidationErrors =
-  | 1201000
-  | 1201001
-  | 1201002
-  | 1201003
-  | 1201004;
+export enum PasswordValidationErrors {
+  MinSizeError = 1201000,
+  NoLowerCaseLetterError = 1201001,
+  NoUpperCaseLetterError = 1201002,
+  NoSpecialCharacterError = 1201003,
+  NoNumberError = 1201004,
+}
 
 export type PasswordValidationResult = {
   isValid: boolean;
@@ -25,40 +26,29 @@ const PASSWORD_VALIDATIONS: Array<{
   {
     // Password length validation
     validation: /^[a-zA-Z0-9\W]{10,}$/,
-    errorCode: 1201000,
+    errorCode: PasswordValidationErrors.MinSizeError,
   },
   {
     // Password lower case validation
     validation: /(?=.*[a-z])/,
-    errorCode: 1201001,
+    errorCode: PasswordValidationErrors.NoLowerCaseLetterError,
   },
   {
     // Password upper case validation
     validation: /(?=.*[A-Z])/,
-    errorCode: 1201002,
+    errorCode: PasswordValidationErrors.NoUpperCaseLetterError,
   },
   {
     // Password special character validation
     validation: /(?=.*\W)/,
-    errorCode: 1201003,
+    errorCode: PasswordValidationErrors.NoSpecialCharacterError,
   },
   {
     // Password numbers validation
     validation: /(?=.*\d)/,
-    errorCode: 1201004,
+    errorCode: PasswordValidationErrors.NoNumberError,
   },
 ];
-
-export const PasswordValidationErrorsConstants: Record<
-  string,
-  PasswordValidationErrors
-> = {
-  PasswordMinSizeError: 1201000,
-  PasswordWithNoLowerCaseError: 1201001,
-  PasswordWithNoUpperCaseError: 1201002,
-  PasswordWithNoSpecialCharacterError: 1201003,
-  PasswordWithNoNumberCaseError: 1201004,
-};
 
 /**
  * Validates the password strength, it provides all the errors that aren't fulfilled.

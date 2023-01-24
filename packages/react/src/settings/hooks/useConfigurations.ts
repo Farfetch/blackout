@@ -21,18 +21,10 @@ const useConfigurations = (options: UseConfigurationsOptions = {}) => {
   const reset = useAction(resetConfigurationsState);
 
   useEffect(() => {
-    if (!isLoading && !error && !isFetched && enableAutoFetch) {
+    if (!isLoading && !isFetched && enableAutoFetch) {
       fetch(fetchQuery, fetchConfig);
     }
-  }, [
-    enableAutoFetch,
-    error,
-    isFetched,
-    isLoading,
-    fetch,
-    fetchQuery,
-    fetchConfig,
-  ]);
+  }, [enableAutoFetch, isFetched, isLoading, fetch, fetchQuery, fetchConfig]);
 
   return {
     isLoading,

@@ -41,7 +41,8 @@ describe('setUserDefaultShippingAddress() action creator', () => {
 
     expect(putUserDefaultShippingAddress).toHaveBeenCalledTimes(1);
     expect(putUserDefaultShippingAddress).toHaveBeenCalledWith(
-      { userId, id: addressId2 },
+      userId,
+      addressId2,
       expectedConfig,
     );
     expect(store.getActions()).toEqual(
@@ -69,7 +70,8 @@ describe('setUserDefaultShippingAddress() action creator', () => {
 
     expect(putUserDefaultShippingAddress).toHaveBeenCalledTimes(1);
     expect(putUserDefaultShippingAddress).toHaveBeenCalledWith(
-      { userId, id: addressId2 },
+      userId,
+      addressId2,
       expectedConfig,
     );
     expect(actionResults).toMatchObject([

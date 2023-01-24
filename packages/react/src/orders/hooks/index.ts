@@ -1,4 +1,4 @@
-export { default as useOrders } from './useOrders.js';
+export { default as useUserOrders } from './useUserOrders.js';
 export { default as useOrder } from './useOrder.js';
 export { default as useOrderReturnOptions } from './useOrderReturnOptions.js';
 

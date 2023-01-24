@@ -17,12 +17,12 @@ describe('putUserDefaultShippingAddress', () => {
     it('should handle a client request successfully', async () => {
       mswServer.use(fixtures.success());
 
-      await expect(putUserDefaultShippingAddress({ id, userId })).resolves.toBe(
+      await expect(putUserDefaultShippingAddress(userId, id)).resolves.toBe(
         200,
       );
+
       expect(spy).toHaveBeenCalledWith(
         `/account/v1/users/${userId}/addresses/shipping/${id}`,
-        {},
         expectedConfig,
       );
     });
@@ -31,11 +31,10 @@ describe('putUserDefaultShippingAddress', () => {
       mswServer.use(fixtures.failure());
 
       await expect(
-        putUserDefaultShippingAddress({ id, userId }),
+        putUserDefaultShippingAddress(userId, id),
       ).rejects.toMatchSnapshot();
       expect(spy).toHaveBeenCalledWith(
         `/account/v1/users/${userId}/addresses/shipping/${id}`,
-        {},
         expectedConfig,
       );
     });

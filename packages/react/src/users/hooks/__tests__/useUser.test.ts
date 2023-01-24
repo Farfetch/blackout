@@ -333,27 +333,58 @@ describe('useUser', () => {
       expect(register).toHaveBeenCalledWith(registerData);
     });
 
-    it('should call `changePassword` action', () => {
-      const {
-        result: {
-          current: {
-            actions: { changePassword: changePasswordAction },
+    describe('changePassword', () => {
+      it('should call `changePassword` action', () => {
+        const {
+          result: {
+            current: {
+              actions: { changePassword: changePasswordAction },
+            },
           },
-        },
-      } = renderHook(() => useUser(), {
-        wrapper: withStore(mockStore),
+        } = renderHook(() => useUser(), {
+          wrapper: withStore(mockStore),
+        });
+
+        const changePasswordData = {
+          newPassword: 'new',
+          oldPassword: 'old',
+        };
+
+        changePasswordAction(changePasswordData);
+
+        expect(changePassword).toHaveBeenCalledWith(
+          {
+            userId: mockStore.entities.user.id,
+            username: mockStore.entities.user.username,
+            ...changePasswordData,
+          },
+          undefined,
+        );
       });
 
-      const changePasswordData = {
-        newPassword: 'new',
-        oldPassword: 'old',
-        username: 'username',
-        userId: 123,
-      };
+      it('should throw an error if the user is not authenticated and `changePassword` action is called', () => {
+        const {
+          result: {
+            current: {
+              actions: { changePassword },
+            },
+          },
+        } = renderHook(() => useUser(), {
+          wrapper: withStore({
+            entities: mockGuestUserEntities,
+            users: mockUserInitialState,
+          }),
+        });
 
-      changePasswordAction(changePasswordData);
+        const changePasswordData = {
+          newPassword: 'new',
+          oldPassword: 'old',
+        };
 
-      expect(changePassword).toHaveBeenCalledWith(changePasswordData);
+        return expect(changePassword(changePasswordData)).rejects.toThrow(
+          'Only authenticated users can perform this operation',
+        );
+      });
     });
 
     it('should call `resetPassword` action', () => {
@@ -398,17 +429,7 @@ describe('useUser', () => {
       expect(recoverPassword).toHaveBeenCalledWith(recoverPasswordData);
     });
 
-    it('should call `update` action', () => {
-      const {
-        result: {
-          current: {
-            actions: { update: updateAction },
-          },
-        },
-      } = renderHook(() => useUser(), {
-        wrapper: withStore(mockStore),
-      });
-
+    describe('update', () => {
       const updateData = {
         name: 'name',
         username: 'username',
@@ -423,11 +444,44 @@ describe('useUser', () => {
         lastName: 'lastName',
       };
 
-      const userId = 123456789;
+      it('should call `update` action', () => {
+        const {
+          result: {
+            current: {
+              actions: { update: updateAction },
+            },
+          },
+        } = renderHook(() => useUser(), {
+          wrapper: withStore(mockStore),
+        });
 
-      updateAction(userId, updateData);
+        updateAction(updateData);
 
-      expect(setUser).toHaveBeenCalledWith(userId, updateData);
+        expect(setUser).toHaveBeenCalledWith(
+          mockStore.entities.user.id,
+          updateData,
+          undefined,
+        );
+      });
+
+      it('should throw an error if the user is not authenticated and `update` action is called', () => {
+        const {
+          result: {
+            current: {
+              actions: { update },
+            },
+          },
+        } = renderHook(() => useUser(), {
+          wrapper: withStore({
+            entities: mockGuestUserEntities,
+            users: mockUserInitialState,
+          }),
+        });
+
+        return expect(update(updateData)).rejects.toThrow(
+          'Only authenticated users can perform this operation',
+        );
+      });
     });
   });
 });

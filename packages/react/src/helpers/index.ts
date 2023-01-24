@@ -2,8 +2,7 @@ import * as headers from './headers.js';
 import getTimeInMinutes from './getTimeInMinutes.js';
 import usePrevious from './usePrevious.js';
 import validatePassword, {
-  type PasswordValidationErrors,
-  PasswordValidationErrorsConstants,
+  PasswordValidationErrors,
   type PasswordValidationResult,
 } from './validatePassword.js';
 
@@ -12,6 +11,6 @@ export {
   headers,
   usePrevious,
   validatePassword,
-  PasswordValidationErrorsConstants,
+  PasswordValidationErrors,
 };
-export type { PasswordValidationErrors, PasswordValidationResult };
+export type { PasswordValidationResult };

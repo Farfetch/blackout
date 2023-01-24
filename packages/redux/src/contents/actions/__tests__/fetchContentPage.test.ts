@@ -5,6 +5,7 @@ import {
   expectedContentPageNormalizedPayload,
   mockContentPage,
   slugContent,
+  slugContentWithoutQuery,
 } from 'tests/__fixtures__/contents/index.mjs';
 import { fetchContentPage } from '../index.js';
 import { find } from 'lodash-es';
@@ -51,7 +52,7 @@ describe('fetchContentPage() action creator', () => {
     expect(getContentPage).toHaveBeenCalledTimes(1);
     expect(getContentPage).toHaveBeenCalledWith(
       contentPagesType,
-      { slug: slugContent, strategy: undefined },
+      { slug: slugContentWithoutQuery, strategy: undefined },
       expectedConfig,
     );
     expect(store.getActions()).toEqual([
@@ -84,7 +85,7 @@ describe('fetchContentPage() action creator', () => {
     expect(getContentPage).toHaveBeenCalledTimes(1);
     expect(getContentPage).toHaveBeenCalledWith(
       contentPagesType,
-      { slug: slugContent, strategy: undefined },
+      { slug: slugContentWithoutQuery, strategy: undefined },
       expectedConfig,
     );
     expect(actionResults).toMatchObject([
