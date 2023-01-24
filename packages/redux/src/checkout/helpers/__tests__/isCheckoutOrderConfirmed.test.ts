@@ -1,5 +1,4 @@
-import { ChargeStatus } from '@farfetch/blackout-client/src/payments';
-import { CheckoutOrderStatus } from '@farfetch/blackout-client/src/checkout/types';
+import { ChargeStatus, CheckoutOrderStatus } from '@farfetch/blackout-client';
 import isCheckoutOrderConfirmed from '../isCheckoutOrderConfirmed';
 
 describe('isCheckoutOrderConfirmed', () => {

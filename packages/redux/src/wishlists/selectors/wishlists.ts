@@ -19,7 +19,7 @@ import type { WishlistsState } from '../types';
  *
  * @example
  * ```
- * import { getWishlistId } from '@farfetch/blackout-redux/wishlists';
+ * import { getWishlistId } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     wishlistId: getWishlistId(state)
@@ -145,7 +145,7 @@ const denormalizeWishlistItem = (
  *
  * @example
  * ```
- * import { getWishlistItem } from '@farfetch/blackout-redux/wishlists';
+ * import { getWishlistItem } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, { wishlistItem: { id } }) => ({
  *     wishlistItem: getWishlistItem(state, id)
@@ -221,7 +221,7 @@ export const getWishlistItemsIds = (state: StoreState) =>
  *
  * @example
  * ```
- * import { getWishlistItems } from '@farfetch/blackout-redux/wishlists';
+ * import { getWishlistItems } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  * wishlistItems: getWishlistItems(state),
@@ -280,7 +280,7 @@ export const getWishlistItems: (
  *
  * @example
  * ```
- * import { getWishlistError } from '@farfetch/blackout-redux/wishlists';
+ * import { getWishlistError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     error: getWishlistError(state)
@@ -302,7 +302,7 @@ export const getWishlistError = (state: StoreState) =>
  *
  * @example
  * ```
- * import { isWishlistLoading } from '@farfetch/blackout-redux/wishlists';
+ * import { isWishlistLoading } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     isLoading: isWishlistLoading(state)
@@ -325,7 +325,7 @@ export const isWishlistLoading = (state: StoreState) =>
  *
  * @example
  * ```
- * import { isWishlistFetched } from '@farfetch/blackout-redux/wishlists';
+ * import { isWishlistFetched } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     isFetched: isWishlistFetched(state)
@@ -345,7 +345,7 @@ export const isWishlistFetched = (state: StoreState) =>
  *
  * @example
  * ```
- * import { getWishlistItemsCounter } from '@farfetch/blackout-redux/wishlists';
+ * import { getWishlistItemsCounter } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     wishlistItemsCounter: getWishlistItemsCounter(state),
@@ -373,7 +373,7 @@ export const getWishlistItemsCounter = (state: StoreState): number => {
  *
  * @example
  * ```
- * import { getWishlistTotalQuantity } from '@farfetch/blackout-redux/wishlists';
+ * import { getWishlistTotalQuantity } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     wishlistItemsCount: getWishlistTotalQuantity(state),
@@ -402,7 +402,7 @@ export const getWishlistTotalQuantity = (state: StoreState): number => {
  *
  * @example
  * ```
- * import { isWishlistItemLoading } from '@farfetch/blackout-redux/wishlists';
+ * import { isWishlistItemLoading } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, { wishlistItem: { id } }) => ({
  *     isLoading: isWishlistItemLoading(state, id)
@@ -418,16 +418,40 @@ export const isWishlistItemLoading = (
   state: StoreState,
   itemId: WishlistItem['id'],
 ) =>
-  fromWishlistReducer.getAreItemsLoading(state.wishlist as WishlistsState)[
+  !!fromWishlistReducer.getAreItemsLoading(state.wishlist as WishlistsState)[
     itemId
   ];
+
+/**
+ * Retrieves the fetched status of a specific wishlist item by its id.
+ *
+ * @example
+ * ```
+ * import { isWishlistItemFetched } from '@farfetch/blackout-redux';
+ *
+ * const mapStateToProps = (state, { wishlistItem: { id } }) => ({
+ *     isLoading: isWishlistItemFetched(state, id)
+ * });
+ * ```
+ *
+ * @param state  - Application state.
+ * @param itemId - Numeric identifier of the wishlist item in the wishlist.
+ *
+ * @returns Whether the given wishlist item is fetched.
+ */
+export const isWishlistItemFetched = (
+  state: StoreState,
+  itemId: WishlistItem['id'],
+) =>
+  (!!getWishlistItem(state, itemId) || !!getWishlistItemError(state, itemId)) &&
+  !isWishlistItemLoading(state, itemId);
 
 /**
  * Retrieves the error state of a specific wishlist item product by its id.
  *
  * @example
  * ```
- * import { getWishlistItemError } from '@farfetch/blackout-redux/wishlists';
+ * import { getWishlistItemError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (
  *      state,
@@ -454,7 +478,7 @@ export const getWishlistItemError = (
  *
  * @example
  * ```
- * import { findProductInWishlist } from '@farfetch/blackout-redux/wishlists';
+ * import { findProductInWishlist } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state) => ({
  *     getItemInWishlist: findProductInWishlist(state, { product, size: selectedSize });
@@ -498,7 +522,7 @@ export const findProductInWishlist: (
  *
  * @example
  * ```
- * import { isWishlistWithAnyError } from '@farfetch/blackout-redux/wishlists';
+ * import { isWishlistWithAnyError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state) => ({
  *     hasWishlistError: isWishlistWithAnyError(state),

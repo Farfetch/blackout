@@ -29,7 +29,8 @@ const setUserDefaultBillingAddressFactory =
       });
 
       const result = await putUserDefaultBillingAddress(
-        { id: addressId, userId },
+        userId,
+        addressId,
         config,
       );
 

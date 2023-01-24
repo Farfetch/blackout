@@ -8,7 +8,7 @@ import type { StoreState } from '../../types';
  *
  * @example
  * ```
- * import { getCategoriesError } from '@farfetch/blackout-redux/categories';
+ * import { getCategoriesError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     error: getCategoriesError(state)
@@ -27,7 +27,7 @@ export const getCategoriesError = (state: StoreState) =>
  *
  * @example
  * ```
- * import { areCategoriesLoading } from '@farfetch/blackout-redux/categories';
+ * import { areCategoriesLoading } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     isLoading: areCategoriesLoading(state)
@@ -46,7 +46,7 @@ export const areCategoriesLoading = (state: StoreState) =>
  *
  * @example
  * ```
- * import { areCategoriesFetched } from '@farfetch/blackout-redux/categories';
+ * import { areCategoriesFetched } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     areCategoriesFetched: areCategoriesFetched(state)
@@ -67,7 +67,7 @@ export const areCategoriesFetched = (state: StoreState) =>
  *
  * @example
  * ```
- * import { getCategories } from '@farfetch/blackout-redux/entities/selectors';
+ * import { getCategories } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     categories: getCategories(state)

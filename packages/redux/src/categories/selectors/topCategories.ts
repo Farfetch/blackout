@@ -10,7 +10,7 @@ import type { StoreState } from '../../types';
  *
  * @example
  * ```
- * import { getTopCategoriesError } from '@farfetch/blackout-redux/categories';
+ * import { getTopCategoriesError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     error: getTopCategoriesError(state)
@@ -29,7 +29,7 @@ export const getTopCategoriesError = (state: StoreState) =>
  *
  * @example
  * ```
- * import { getTopCategories } from '@farfetch/blackout-redux/categories';
+ * import { getTopCategories } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     topCategories: getTopCategories(state)
@@ -62,7 +62,7 @@ export const getTopCategories: (state: StoreState) => CategoryEntity[] =
  *
  * @example
  * ```
- * import { areTopCategoriesLoading } from '@farfetch/blackout-redux/categories';
+ * import { areTopCategoriesLoading } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     isLoading: areTopCategoriesLoading(state)
@@ -81,7 +81,7 @@ export const areTopCategoriesLoading = (state: StoreState) =>
  *
  * @example
  * ```
- * import { areTopCategoriesFetched } from '@farfetch/blackout-redux/categories';
+ * import { areTopCategoriesFetched } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     areTopCategoriesFetched: areTopCategoriesFetched(state)

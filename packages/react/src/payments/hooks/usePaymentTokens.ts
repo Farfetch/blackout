@@ -23,18 +23,10 @@ function usePaymentTokens(options: UsePaymentTokensOptions = {}) {
   const remove = useAction(removePaymentToken);
 
   useEffect(() => {
-    if (enableAutoFetch && !isLoading && !error && !isFetched) {
+    if (enableAutoFetch && !isLoading && !isFetched) {
       fetch(fetchQuery, fetchConfig);
     }
-  }, [
-    enableAutoFetch,
-    error,
-    fetch,
-    fetchConfig,
-    fetchQuery,
-    isFetched,
-    isLoading,
-  ]);
+  }, [enableAutoFetch, fetch, fetchConfig, fetchQuery, isFetched, isLoading]);
 
   const items = useMemo(
     () => (paymentTokens ? Object.values(paymentTokens) : undefined),

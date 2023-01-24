@@ -27,7 +27,7 @@ import type { StoreState } from '../types';
  *
  * @example
  * ```
- * import { getCountryCode } from '@farfetch/blackout-redux/locale';
+ * import { getCountryCode } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     activeCountryCode: getCountryCode(state)
@@ -47,7 +47,7 @@ export const getCountryCode = (state: StoreState) =>
  *
  * @example
  * ```
- * import { getCountryCurrencyCode } from '@farfetch/blackout-redux/locale';
+ * import { getCountryCurrencyCode } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     activeCurrencyCode: getCountryCurrencyCode(state)
@@ -78,7 +78,7 @@ export const getCountryCurrencyCode = (
  *
  * @example
  * ```
- * import { getCountryCulture } from '@farfetch/blackout-redux/locale';
+ * import { getCountryCulture } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     activeCultureCode: getCountryCulture(state)
@@ -109,7 +109,7 @@ export const getCountryCulture = (
  *
  * @example
  * ```
- * import { getCountryCultures } from '@farfetch/blackout-redux/locale';
+ * import { getCountryCultures } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     activeCultureCode: getCountryCulture(state)
@@ -140,7 +140,7 @@ export const getCountryCultures = (
  *
  * @example
  * ```
- * import { getCountryStructure } from '@farfetch/blackout-redux/locale';
+ * import { getCountryStructure } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     activeStructure: getCountryStructure(state)
@@ -171,7 +171,7 @@ export const getCountryStructure = (
  *
  * @example
  * ```
- * import { getCountryStructures } from '@farfetch/blackout-redux/locale';
+ * import { getCountryStructures } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     activeStructures: getCountryStructures(state)
@@ -201,7 +201,7 @@ export const getCountryStructures = (
  *
  * @example
  * ```
- * import { getSourceCountryCode } from '@farfetch/blackout-redux/locale';
+ * import { getSourceCountryCode } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     sourceCountryCode: getSourceCountryCode(state)
@@ -272,7 +272,7 @@ export const areCountriesFetched = (state: StoreState) => {
  *
  * @example
  * ```
- * import { getCountriesError } from '@farfetch/blackout-redux/locale';
+ * import { getCountriesError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     error: getCountriesError(state)
@@ -291,7 +291,7 @@ export const getCountriesError = (state: StoreState) =>
  *
  * @example
  * ```
- * import { areCountriesLoading } from '@farfetch/blackout-redux/locale';
+ * import { areCountriesLoading } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     isLoading: areCountriesLoading(state)
@@ -310,7 +310,7 @@ export const areCountriesLoading = (state: StoreState) =>
  *
  * @example
  * ```
- * import { getCountryCurrenciesError } from '@farfetch/blackout-redux/locale';
+ * import { getCountryCurrenciesError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     error: getCountryCurrenciesError(state)
@@ -329,7 +329,7 @@ export const getCountryCurrenciesError = (state: StoreState) =>
  *
  * @example
  * ```
- * import { areCountryCurrenciesLoading } from '@farfetch/blackout-redux/locale';
+ * import { areCountryCurrenciesLoading } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     isLoading: areCountryCurrenciesLoading(state)
@@ -348,7 +348,7 @@ export const areCountryCurrenciesLoading = (state: StoreState) =>
  *
  * @example
  * ```
- * import { getCountryStatesError } from '@farfetch/blackout-redux/locale';
+ * import { getCountryStatesError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     error: getCountryStatesError(state)
@@ -367,7 +367,7 @@ export const getCountryStatesError = (state: StoreState) =>
  *
  * @example
  * ```
- * import { areCountryStatesLoading } from '@farfetch/blackout-redux/locale';
+ * import { areCountryStatesLoading } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     isLoading: areCountryStatesLoading(state)
@@ -387,7 +387,7 @@ export const areCountryStatesLoading = (state: StoreState) =>
  *
  * @example
  * ```
- * import { getCountryStates } from '@farfetch/blackout-redux/locale';
+ * import { getCountryStates } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     states: getCountryStates(state)
@@ -464,7 +464,7 @@ export const areCountryStatesFetched = (
  *
  * @example
  * ```
- * import { getCountryStateCitiesError } from '@farfetch/blackout-redux/locale';
+ * import { getCountryStateCitiesError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     error: getCountryStateCitiesError(state)
@@ -483,7 +483,7 @@ export const getCountryStateCitiesError = (state: StoreState) =>
  *
  * @example
  * ```
- * import { areCountryStateCitiesLoading } from '@farfetch/blackout-redux/locale';
+ * import { areCountryStateCitiesLoading } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     isLoading: areCountryStateCitiesLoading(state)
@@ -513,7 +513,7 @@ export const getCity = (state: StoreState, id: number) =>
  *
  * @example
  * ```
- * import { getCountryStateCities } from '@farfetch/blackout-redux/locale';
+ * import { getCountryStateCities } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     cities: getCountryStateCities(state, stateId)
@@ -579,7 +579,7 @@ export const areCountryStateCitiesFetched = (
  *
  * @example
  * ```
- * import { getCountryCurrencies } from '@farfetch/blackout-redux/locale';
+ * import { getCountryCurrencies } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     currencies: getCountryCurrencies(state)

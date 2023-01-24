@@ -1,6 +1,6 @@
 import { mockProductsEntity } from '../products';
-import type { BlackoutError, WishlistItem } from '@farfetch/blackout-client';
 import type { ProductEntity, StoreState } from '@farfetch/blackout-redux';
+import type { WishlistItem } from '@farfetch/blackout-client';
 
 export const mockWishlistId = 'b1a13891-6084-489f-96ed-300eed45b948';
 export const mockWishlistItemId = 481426747;
@@ -82,17 +82,8 @@ export const mockWishlistState: StoreState = {
     items: {
       ids: [mockWishlistItemId, 102],
       item: {
-        error: {
-          [mockWishlistItemId]: {
-            code: '-1',
-            status: 400,
-            name: 'error',
-            message: 'error message',
-          },
-        },
-        isLoading: {
-          [mockWishlistItemId]: true,
-        },
+        error: {},
+        isLoading: {},
       },
     },
     result: {
@@ -106,17 +97,8 @@ export const mockWishlistState: StoreState = {
       ids: [mockWishlistSetId],
       isLoading: false,
       set: {
-        error: {
-          [mockWishlistSetId]: {
-            code: '-1',
-            status: 400,
-            name: 'error',
-            message: 'error message',
-          } as BlackoutError,
-        },
-        isLoading: {
-          [mockWishlistSetId]: true,
-        },
+        error: {},
+        isLoading: {},
       },
     },
   },
@@ -207,3 +189,47 @@ export const mockWishlistState: StoreState = {
     },
   },
 };
+
+export const mockWishlistInitialState: StoreState = {
+  wishlist: {
+    error: null,
+    id: null,
+    isLoading: false,
+    result: null,
+    items: {
+      ids: null,
+      item: {
+        error: {},
+        isLoading: {},
+      },
+    },
+    sets: {
+      error: null,
+      ids: null,
+      isLoading: false,
+      set: {
+        error: {},
+        isLoading: {},
+      },
+    },
+  },
+  entities: {},
+};
+
+export const expectedWishlistSetDataDenormalized = {
+  ...mockWishlistState.entities!.wishlistSets![mockWishlistSetId],
+  wishlistSetItems: [
+    {
+      ...mockWishlistState.entities!.wishlistItems![mockWishlistItemId],
+      product: {
+        ...mockWishlistState.entities!.products![mockProductId],
+        brand: mockWishlistState.entities!.brands![2450],
+        categories: [mockWishlistState.entities!.categories![136301]],
+      },
+    },
+  ],
+};
+
+export const expectedWishlistSetsDataDenormalized = [
+  expectedWishlistSetDataDenormalized,
+];

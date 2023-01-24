@@ -32,10 +32,10 @@ const useBrand = (brandId: Brand['id'], options: UseBrandOptions = {}) => {
   );
 
   useEffect(() => {
-    if (!isLoading && !error && !isFetched && enableAutoFetch && brandId) {
+    if (!isLoading && !isFetched && enableAutoFetch && brandId) {
       fetchBrand();
     }
-  }, [brandId, enableAutoFetch, error, fetchBrand, isFetched, isLoading]);
+  }, [brandId, enableAutoFetch, fetchBrand, isFetched, isLoading]);
 
   return {
     isLoading,

@@ -41,13 +41,12 @@ const useBrands = (options: UseBrandsOptions = {}) => {
   const reset = useAction(resetBrandsState);
 
   useEffect(() => {
-    if (!isLoading && !error && !isFetched && enableAutoFetch) {
+    if (!isLoading && !isFetched && enableAutoFetch) {
       fetch(query, useCache, setBrandsHash, fetchConfig);
     }
   }, [
     fetchConfig,
     enableAutoFetch,
-    error,
     fetch,
     isFetched,
     isLoading,

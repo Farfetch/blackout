@@ -9,7 +9,7 @@ import type { VideoObject, WithContext } from 'schema-dts';
  *
  * @example
  * ```
- * import { structuredVideoObject } from '@farfetch/blackout-react/content/structured-data';
+ * import { structuredVideoObject } from '@farfetch/blackout-react';
  *
  * <Helmet>
  * {structuredVideoObject(

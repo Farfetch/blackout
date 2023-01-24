@@ -28,10 +28,7 @@ const setUserDefaultShippingAddressFactory =
         type: actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_REQUEST,
       });
 
-      const result = await putDefaultShippingAddress(
-        { userId, id: addressId },
-        config,
-      );
+      const result = await putDefaultShippingAddress(userId, addressId, config);
 
       dispatch({
         meta: { addressId },

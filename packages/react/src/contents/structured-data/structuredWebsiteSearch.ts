@@ -11,7 +11,7 @@ import type { WebSite, WithContext } from 'schema-dts';
  *
  * @example
  * ```
- * import { structuredWebsiteSearch } from '@farfetch/blackout-react/content/structured-data';
+ * import { structuredWebsiteSearch } from '@farfetch/blackout-react';
  *
  * <Helmet>
  *  {structuredWebsiteSearch(

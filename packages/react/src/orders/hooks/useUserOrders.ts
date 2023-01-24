@@ -8,6 +8,7 @@ import {
   fetchUserOrders as fetchUserOrdersAction,
   getOrdersError,
   getOrdersResult,
+  isAuthenticated as isAuthenticatedSelector,
   resetOrderDetailsState as resetOrderDetailsStateAction,
   resetOrders,
 } from '@farfetch/blackout-redux';
@@ -17,7 +18,7 @@ import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction';
 import useUser from '../../users/hooks/useUser';
 import type { Config, Order, User } from '@farfetch/blackout-client';
-import type { UseOrdersOptions } from './types';
+import type { UseUserOrdersOptions } from './types';
 
 /**
  * Obtains the user orders and actions to perform on them.
@@ -30,7 +31,7 @@ import type { UseOrdersOptions } from './types';
  * the same time with different query parameters, do not use this hook or the default
  * orders reducer implementation.
  */
-function useOrders(options: UseOrdersOptions = {}) {
+function useUserOrders(options: UseUserOrdersOptions = {}) {
   const { enableAutoFetch = true, fetchConfig, fetchQuery } = options;
   const fetchUserOrders = useAction(fetchUserOrdersAction);
   const fetchGuestOrders = useAction(fetchGuestOrdersAction);
@@ -42,8 +43,8 @@ function useOrders(options: UseOrdersOptions = {}) {
   const error = useSelector(getOrdersError);
   const ordersResult = useSelector(getOrdersResult);
   const isFetched = useSelector(areOrdersFetched);
-  const { data: user, isFetched: isUserFetched } = useUser();
-  const isAuthenticated = isUserFetched && user && !user.isGuest;
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
+  const { data: user } = useUser();
   const userId = user?.id;
 
   const queryHash = useMemo(() => {
@@ -128,4 +129,4 @@ function useOrders(options: UseOrdersOptions = {}) {
   };
 }
 
-export default useOrders;
+export default useUserOrders;

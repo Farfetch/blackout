@@ -1,4 +1,4 @@
-import { ChargeStatus } from '@farfetch/blackout-client/src/payments';
+import { ChargeStatus } from '@farfetch/blackout-client';
 import isCheckoutOrderAwaitingPayment from '../isCheckoutOrderAwaitingPayment';
 
 describe('isCheckoutOrderAwaitingPayment', () => {

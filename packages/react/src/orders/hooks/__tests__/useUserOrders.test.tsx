@@ -19,7 +19,7 @@ import {
 } from 'tests/__fixtures__/users';
 import { Orders } from './__fixtures__/Orders.fixtures';
 import { withStore, wrap } from '../../../../tests/helpers';
-import useOrders from '../useOrders';
+import useUserOrders from '../useUserOrders';
 import type { BlackoutError } from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-redux', () => {
@@ -147,14 +147,14 @@ const mockFetchConfig = {
   myCustomParameter: 10,
 };
 
-describe('useOrders', () => {
+describe('useUserOrders', () => {
   beforeEach(jest.clearAllMocks);
   afterEach(cleanup);
 
   it('should return correctly with initial state', () => {
     const {
       result: { current },
-    } = renderHook(() => useOrders(), {
+    } = renderHook(() => useUserOrders(), {
       wrapper: withStore(mockInitialState),
     });
 
@@ -164,7 +164,7 @@ describe('useOrders', () => {
   it('should return correctly when the orders are fetched', () => {
     const {
       result: { current },
-    } = renderHook(() => useOrders(), {
+    } = renderHook(() => useUserOrders(), {
       wrapper: withStore(mockInitialStateWithData),
     });
 
@@ -181,7 +181,7 @@ describe('useOrders', () => {
   it('should return correctly when there is an error', () => {
     const {
       result: { current },
-    } = renderHook(() => useOrders(), {
+    } = renderHook(() => useUserOrders(), {
       wrapper: withStore(mockErrorState),
     });
 
@@ -195,7 +195,7 @@ describe('useOrders', () => {
   it('should return correctly when it is loading', () => {
     const {
       result: { current },
-    } = renderHook(() => useOrders(), {
+    } = renderHook(() => useUserOrders(), {
       wrapper: withStore(mockLoadingState),
     });
 
@@ -211,7 +211,7 @@ describe('useOrders', () => {
         it('should call `fetchUserOrders` action if the current user is authenticated', () => {
           renderHook(
             () =>
-              useOrders({
+              useUserOrders({
                 enableAutoFetch: true,
                 fetchQuery: mockFetchQuery,
                 fetchConfig: mockFetchConfig,
@@ -231,7 +231,7 @@ describe('useOrders', () => {
         it('should call `fetchGuestOrders` action if the current user is _NOT_ authenticated', () => {
           renderHook(
             () =>
-              useOrders({
+              useUserOrders({
                 enableAutoFetch: true,
                 fetchQuery: mockFetchQuery,
                 fetchConfig: mockFetchConfig,
@@ -283,7 +283,7 @@ describe('useOrders', () => {
 
       describe('when false', () => {
         it('should not fetch data if it is false and the user is authenticated', () => {
-          renderHook(() => useOrders({ enableAutoFetch: false }), {
+          renderHook(() => useUserOrders({ enableAutoFetch: false }), {
             wrapper: withStore(mockInitialStateWithAuthenticatedUser),
           });
 
@@ -291,7 +291,7 @@ describe('useOrders', () => {
         });
 
         it('should not fetch data if it is false and the user is _NOT_ authenticated', () => {
-          renderHook(() => useOrders({ enableAutoFetch: false }), {
+          renderHook(() => useUserOrders({ enableAutoFetch: false }), {
             wrapper: withStore(mockInitialStateWithGuestUser),
           });
 
@@ -303,7 +303,7 @@ describe('useOrders', () => {
         it('should call `fetchUserOrders` action if the current user is authenticated', () => {
           renderHook(
             () =>
-              useOrders({
+              useUserOrders({
                 fetchConfig: mockFetchConfig,
                 fetchQuery: mockFetchQuery,
               }),
@@ -322,7 +322,7 @@ describe('useOrders', () => {
         it('should call `fetchGuestOrders` action if the current user is _NOT_ authenticated', () => {
           renderHook(
             () =>
-              useOrders({
+              useUserOrders({
                 fetchConfig: mockFetchConfig,
                 fetchQuery: mockFetchQuery,
               }),
@@ -347,7 +347,7 @@ describe('useOrders', () => {
             },
           } = renderHook(
             () =>
-              useOrders({
+              useUserOrders({
                 enableAutoFetch: false,
                 fetchConfig: mockFetchConfig,
                 fetchQuery: mockFetchQuery,
@@ -375,7 +375,7 @@ describe('useOrders', () => {
             },
           } = renderHook(
             () =>
-              useOrders({
+              useUserOrders({
                 enableAutoFetch: false,
                 fetchConfig: mockFetchConfig,
                 fetchQuery: mockFetchQuery,
@@ -399,7 +399,7 @@ describe('useOrders', () => {
                 actions: { fetchOrderDetails },
               },
             },
-          } = renderHook(() => useOrders({ enableAutoFetch: false }), {
+          } = renderHook(() => useUserOrders({ enableAutoFetch: false }), {
             wrapper: withStore(mockInitialStateWithAuthenticatedUser),
           });
 
@@ -415,7 +415,7 @@ describe('useOrders', () => {
                 actions: { fetchOrderDetails },
               },
             },
-          } = renderHook(() => useOrders({ enableAutoFetch: false }), {
+          } = renderHook(() => useUserOrders({ enableAutoFetch: false }), {
             wrapper: withStore(mockInitialStateWithGuestUser),
           });
 
@@ -435,7 +435,7 @@ describe('useOrders', () => {
                 actions: { fetchOrderDetails },
               },
             },
-          } = renderHook(() => useOrders({ enableAutoFetch: false }), {
+          } = renderHook(() => useUserOrders({ enableAutoFetch: false }), {
             wrapper: withStore(mockInitialStateWithAuthenticatedUser),
           });
 
@@ -452,7 +452,7 @@ describe('useOrders', () => {
                 actions: { fetchOrderDetails },
               },
             },
-          } = renderHook(() => useOrders({ enableAutoFetch: false }), {
+          } = renderHook(() => useUserOrders({ enableAutoFetch: false }), {
             wrapper: withStore(mockInitialStateWithAuthenticatedUser),
           });
 
@@ -472,7 +472,7 @@ describe('useOrders', () => {
                 actions: { reset },
               },
             },
-          } = renderHook(() => useOrders({ enableAutoFetch: false }), {
+          } = renderHook(() => useUserOrders({ enableAutoFetch: false }), {
             wrapper: withStore(mockInitialState),
           });
 
@@ -490,7 +490,7 @@ describe('useOrders', () => {
                 actions: { resetOrderDetailsState },
               },
             },
-          } = renderHook(() => useOrders({ enableAutoFetch: false }), {
+          } = renderHook(() => useUserOrders({ enableAutoFetch: false }), {
             wrapper: withStore(mockInitialState),
           });
 

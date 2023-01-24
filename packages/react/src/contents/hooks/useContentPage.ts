@@ -53,10 +53,10 @@ const useContentPage = <T = [ComponentType]>(
   }, [contentPagesType, fetchConfig, fetchContentPage, fetchQuery]);
 
   useEffect(() => {
-    if (!isLoading && !error && !isFetched && enableAutoFetch) {
+    if (!isLoading && !isFetched && enableAutoFetch) {
       fetch();
     }
-  }, [enableAutoFetch, error, fetch, isFetched, isLoading]);
+  }, [enableAutoFetch, fetch, isFetched, isLoading]);
 
   return {
     data: contentPage,

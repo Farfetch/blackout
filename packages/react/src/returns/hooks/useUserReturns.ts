@@ -8,7 +8,7 @@ import { buildQueryStringFromObject } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo, useReducer, useRef } from 'react';
 import { usePrevious } from '../../helpers';
 import useUser from '../../users/hooks/useUser';
-import type { UseReturnsOptions } from './types';
+import type { UseUserReturnsOptions } from './types';
 
 const actionTypes = {
   FetchUserReturnsRequest: 'FETCH_USER_RETURNS_REQUEST',
@@ -127,7 +127,7 @@ function reducer(state: State, action: Action) {
   }
 }
 
-function useReturns(options: UseReturnsOptions = {}) {
+function useUserReturns(options: UseUserReturnsOptions = {}) {
   const { enableAutoFetch = true, fetchConfig, fetchQuery } = options;
   const currentRequestId = useRef(0);
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -181,7 +181,7 @@ function useReturns(options: UseReturnsOptions = {}) {
       },
     );
     return result;
-  }, [userId, fetchQuery, fetchConfig]);
+  }, [userId, queryHash, fetchQuery, fetchConfig]);
 
   useEffect(() => {
     if (
@@ -210,4 +210,4 @@ function useReturns(options: UseReturnsOptions = {}) {
   };
 }
 
-export default useReturns;
+export default useUserReturns;

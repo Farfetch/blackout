@@ -1,6 +1,7 @@
 import {
   addWishlistItem,
   fetchWishlist,
+  removeWishlistItem,
   resetWishlist,
   StoreState,
   updateWishlistItem,
@@ -45,12 +46,41 @@ const stateMockData: StoreState = {
   },
 };
 
+const mockInitialState = {
+  entities: {
+    user: mockUserState.entities.user,
+  },
+  wishlist: {
+    error: null,
+    id: null,
+    isLoading: false,
+    result: null,
+    items: {
+      ids: null,
+      item: {
+        error: {},
+        isLoading: {},
+      },
+    },
+    sets: {
+      error: null,
+      ids: null,
+      isLoading: false,
+      set: {
+        error: {},
+        isLoading: {},
+      },
+    },
+  },
+};
+
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
   addWishlistItem: jest.fn(() => () => Promise.resolve()),
   updateWishlistItem: jest.fn(() => () => Promise.resolve()),
   fetchWishlist: jest.fn(() => () => Promise.resolve()),
   resetWishlist: jest.fn(() => () => Promise.resolve()),
+  removeWishlistItem: jest.fn(() => () => Promise.resolve()),
 }));
 
 describe('useWishlist', () => {
@@ -105,7 +135,7 @@ describe('useWishlist', () => {
     });
   });
 
-  it('should return error state', () => {
+  it('should return correctly with an error state', () => {
     const mockError = new Error('This is an error message') as BlackoutError;
 
     const {
@@ -154,7 +184,7 @@ describe('useWishlist', () => {
     expect(isFetched).toBe(true);
   });
 
-  it('should return loading state', () => {
+  it('should return correctly with a loading state', () => {
     const {
       result: {
         current: { isLoading },
@@ -194,7 +224,7 @@ describe('useWishlist', () => {
   describe('options', () => {
     it('should call fetch data if `enableAutoFetch` option is true', () => {
       renderHook(() => useWishlist({ enableAutoFetch: true }), {
-        wrapper: withStore(stateMockData),
+        wrapper: withStore(mockInitialState),
       });
 
       expect(fetchWishlist).toHaveBeenCalledWith(mockWishlistId, undefined);
@@ -202,7 +232,7 @@ describe('useWishlist', () => {
 
     it('should not fetch data if `enableAutoFetch` option is false', () => {
       renderHook(() => useWishlist(), {
-        wrapper: withStore(stateMockData),
+        wrapper: withStore(mockInitialState),
       });
 
       expect(fetchWishlist).not.toHaveBeenCalled();
@@ -210,77 +240,133 @@ describe('useWishlist', () => {
   });
 
   describe('actions', () => {
-    it('should call `fetch` action', () => {
-      renderHook(() => useWishlist({ enableAutoFetch: true }), {
-        wrapper: withStore(stateMockData),
+    describe('fetch', () => {
+      it('should call `fetch` action', () => {
+        const {
+          result: {
+            current: {
+              actions: { fetch },
+            },
+          },
+        } = renderHook(() => useWishlist({ enableAutoFetch: false }), {
+          wrapper: withStore(stateMockData),
+        });
+
+        fetch();
+
+        expect(fetchWishlist).toHaveBeenCalledWith(mockWishlistId, undefined);
       });
 
-      expect(fetchWishlist).toHaveBeenCalledWith(mockWishlistId, undefined);
+      it('should throw an error when calling `fetch` if user is not loaded', () => {
+        const {
+          result: {
+            current: {
+              actions: { fetch },
+            },
+          },
+        } = renderHook(() => useWishlist({ enableAutoFetch: false }), {
+          wrapper: withStore({
+            ...mockInitialState,
+            entities: {
+              ...mockInitialState.entities,
+              user: undefined,
+            },
+          }),
+        });
+
+        return expect(fetch()).rejects.toThrow(
+          "User's wishlist id is not loaded. Please, fetch the user before using this action",
+        );
+      });
     });
 
-    it('should call `addWishlistItem` action', () => {
-      const {
-        result: {
-          current: {
-            actions: { addItem },
+    describe('addItem', () => {
+      it('should call `addWishlistItem` action', () => {
+        const {
+          result: {
+            current: {
+              actions: { addItem },
+            },
           },
-        },
-      } = renderHook(() => useWishlist(), {
-        wrapper: withStore(stateMockData),
+        } = renderHook(() => useWishlist(), {
+          wrapper: withStore(stateMockData),
+        });
+
+        addItem({ productId: 123, quantity: 1, size: 17 }, { from: 'PDP' });
+
+        expect(addWishlistItem).toHaveBeenCalledWith(
+          {
+            productId: 123,
+            quantity: 1,
+            size: 17,
+          },
+          { from: 'PDP' },
+        );
       });
+    });
 
-      addItem({ productId: 123, quantity: 1, size: 17 }, { from: 'PDP' });
+    describe('updateItem', () => {
+      it('should call `updateWishlistItem` action', () => {
+        const {
+          result: {
+            current: {
+              actions: { updateItem },
+            },
+          },
+        } = renderHook(() => useWishlist(), {
+          wrapper: withStore(stateMockData),
+        });
 
-      expect(addWishlistItem).toHaveBeenCalledWith(
-        {
-          productId: 123,
+        updateItem(123, {
           quantity: 1,
           size: 17,
-        },
-        { from: 'PDP' },
-      );
-    });
+          merchantId: 456,
+          productId: 123,
+        });
 
-    it('should call `updateWishlistItem` action', () => {
-      const {
-        result: {
-          current: {
-            actions: { updateItem },
-          },
-        },
-      } = renderHook(() => useWishlist(), {
-        wrapper: withStore(stateMockData),
-      });
-
-      updateItem(123, {
-        quantity: 1,
-        size: 17,
-        merchantId: 456,
-        productId: 123,
-      });
-
-      expect(updateWishlistItem).toHaveBeenCalledWith(123, {
-        quantity: 1,
-        size: 17,
-        merchantId: 456,
-        productId: 123,
+        expect(updateWishlistItem).toHaveBeenCalledWith(123, {
+          quantity: 1,
+          size: 17,
+          merchantId: 456,
+          productId: 123,
+        });
       });
     });
 
-    it('should call `resetWishlist` action', () => {
-      const {
-        result: {
-          current: {
-            actions: { reset },
+    describe('removeItem', () => {
+      it('should call `removeWishlistItem` action', () => {
+        const {
+          result: {
+            current: {
+              actions: { removeItem },
+            },
           },
-        },
-      } = renderHook(() => useWishlist(), {
-        wrapper: withStore(stateMockData),
+        } = renderHook(() => useWishlist(), {
+          wrapper: withStore(stateMockData),
+        });
+
+        removeItem(123);
+
+        expect(removeWishlistItem).toHaveBeenCalledWith(123);
       });
+    });
 
-      reset();
+    describe('reset', () => {
+      it('should call `resetWishlist` action', () => {
+        const {
+          result: {
+            current: {
+              actions: { reset },
+            },
+          },
+        } = renderHook(() => useWishlist(), {
+          wrapper: withStore(stateMockData),
+        });
 
-      expect(resetWishlist).toHaveBeenCalled();
+        reset();
+
+        expect(resetWishlist).toHaveBeenCalled();
+      });
     });
   });
 });

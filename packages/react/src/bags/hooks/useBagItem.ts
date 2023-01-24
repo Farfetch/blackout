@@ -6,6 +6,7 @@ import {
   BagItemActionMetadata,
   getBagItem,
   getBagItemError,
+  isBagItemFetched,
   isBagItemLoading,
   StoreState,
 } from '@farfetch/blackout-redux';
@@ -34,6 +35,9 @@ const useBagItem = (bagItemId: BagItemId) => {
   const isLoading = useSelector((state: StoreState) =>
     isBagItemLoading(state, bagItemId),
   );
+  const isFetched = useSelector((state: StoreState) =>
+    isBagItemFetched(state, bagItemId),
+  );
 
   const update = useCallback(
     (data: HandleUpdateBagItemData, metadata?: BagItemActionMetadata) =>
@@ -50,7 +54,7 @@ const useBagItem = (bagItemId: BagItemId) => {
   return {
     isLoading,
     error,
-    isFetched: !!item,
+    isFetched,
     data: item,
     actions: {
       update,

@@ -679,12 +679,12 @@ describe('useReturn', () => {
 
         const anotherConfig = {};
 
-        await fetchPickupCapability(returnId2, pickupDay, anotherConfig);
+        await fetchPickupCapability(pickupDay, anotherConfig, returnId2);
 
         expect(mockFetchPickupCapabilityFn).toHaveBeenCalledWith(
-          returnId2,
           pickupDay,
           anotherConfig,
+          returnId2,
         );
       });
     });
@@ -806,14 +806,14 @@ describe('useReturn', () => {
 
         await fetchPickupRescheduleRequest(
           rescheduleRequestId,
-          returnId,
           mockFetchConfig,
+          returnId,
         );
 
         expect(mockFetchPickupRescheduleRequestFn).toHaveBeenCalledWith(
           rescheduleRequestId,
-          returnId,
           mockFetchConfig,
+          returnId,
         );
       });
     });

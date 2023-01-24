@@ -7,7 +7,7 @@ import type { ResetSharedWishlistStateAction } from '../types';
  *
  * @example <caption>Reset with no fields to reset, resetting all</caption>
  * ```
- * import { resetWishlistState } from '@farfetch/blackout-redux/wishlists';
+ * import { resetWishlistState } from '@farfetch/blackout-redux';
  *
  * dispatch(resetWishlistState());
  *
@@ -47,7 +47,7 @@ import type { ResetSharedWishlistStateAction } from '../types';
  * ```
  * @example <caption>Reset with fields to reset</caption>
  * ```
- * import { resetSharedWishlistState } from '@farfetch/blackout-redux/sharedWishlists';
+ * import { resetSharedWishlistState } from '@farfetch/blackout-redux';
  *
  * dispatch(resetWishlistState(["error"]));
  *

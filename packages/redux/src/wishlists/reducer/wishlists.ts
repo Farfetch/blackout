@@ -1,6 +1,9 @@
 import * as actionTypes from '../actionTypes';
 import { AnyAction, combineReducers, Reducer } from 'redux';
-import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
+import {
+  FETCH_USER_SUCCESS,
+  LOGOUT_SUCCESS,
+} from '../../users/authentication/actionTypes';
 import wishlistsSetReducer, {
   INITIAL_STATE as SETS_INITIAL_STATE,
 } from './wishlistsSets';
@@ -190,6 +193,14 @@ const reducer = combineReducers({
 const wishlistsReducer: Reducer<WishlistsState> = (state, action) => {
   if (action.type === LOGOUT_SUCCESS) {
     return INITIAL_STATE;
+  }
+
+  if (action.type === FETCH_USER_SUCCESS) {
+    const user = action.payload.entities.user;
+
+    if (state?.id && user.wishlistId !== state.id) {
+      return INITIAL_STATE;
+    }
   }
 
   if (action.type === actionTypes.RESET_WISHLIST_STATE) {

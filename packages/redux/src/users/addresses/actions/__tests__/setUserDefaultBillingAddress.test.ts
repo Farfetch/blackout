@@ -42,7 +42,8 @@ describe('setUserDefaultBillingAddress() action creator', () => {
       expect(error).toBe(expectedError);
       expect(putUserDefaultBillingAddress).toHaveBeenCalledTimes(1);
       expect(putUserDefaultBillingAddress).toHaveBeenCalledWith(
-        { userId, id: addressId2 },
+        userId,
+        addressId2,
         expectedConfig,
       );
       expect(store.getActions()).toEqual(
@@ -72,7 +73,8 @@ describe('setUserDefaultBillingAddress() action creator', () => {
     expect.assertions(4);
     expect(putUserDefaultBillingAddress).toHaveBeenCalledTimes(1);
     expect(putUserDefaultBillingAddress).toHaveBeenCalledWith(
-      { userId, id: addressId2 },
+      userId,
+      addressId2,
       expectedConfig,
     );
     expect(actionResults).toMatchObject([

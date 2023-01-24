@@ -4,6 +4,7 @@
 import {
   getWishlistItem,
   getWishlistItemError,
+  isWishlistItemFetched,
   isWishlistItemLoading,
   StoreState,
   WishlistItemActionMetadata,
@@ -36,23 +37,36 @@ const useWishlistItem = (wishlistItemId: WishlistItemId) => {
   const item = useSelector((state: StoreState) =>
     getWishlistItem(state, wishlistItemId),
   );
+  const isFetched = useSelector((state: StoreState) =>
+    isWishlistItemFetched(state, wishlistItemId),
+  );
 
   const update = useCallback(
-    (data: PatchWishlistItemData, metadata?: WishlistItemActionMetadata) =>
-      updateItem(wishlistItemId, data, metadata),
+    (data: PatchWishlistItemData, metadata?: WishlistItemActionMetadata) => {
+      if (!wishlistItemId) {
+        return Promise.reject(new Error('No wishlist item id was specified'));
+      }
+
+      return updateItem(wishlistItemId, data, metadata);
+    },
     [updateItem, wishlistItemId],
   );
 
   const remove = useCallback(
-    (metadata?: WishlistItemActionMetadata) =>
-      removeItem(wishlistItemId, metadata),
+    (metadata?: WishlistItemActionMetadata) => {
+      if (!wishlistItemId) {
+        return Promise.reject(new Error('No wishlist item id was specified'));
+      }
+
+      return removeItem(wishlistItemId, metadata);
+    },
     [removeItem, wishlistItemId],
   );
 
   return {
     isLoading,
     error,
-    isFetched: !!item,
+    isFetched,
     data: item,
     actions: {
       update,

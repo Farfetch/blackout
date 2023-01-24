@@ -25,7 +25,7 @@ const resetEntities =
  *
  * @example
  * ```
- * import { resetWishlistSets } from '@farfetch/blackout-redux/wishlists';
+ * import { resetWishlistSets } from '@farfetch/blackout-redux';
  *
  * dispatch(resetWishlistSets());
  *

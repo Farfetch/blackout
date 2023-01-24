@@ -70,8 +70,7 @@ const useSeoMetadata = (
     [seo, metas, appIconLinks, links],
   );
 
-  const shouldLoadMetaTags =
-    enableAutoFetch && !isLoading && !error && !isFetched;
+  const shouldLoadMetaTags = enableAutoFetch && !isLoading && !isFetched;
 
   useEffect(() => {
     if (shouldLoadMetaTags) {

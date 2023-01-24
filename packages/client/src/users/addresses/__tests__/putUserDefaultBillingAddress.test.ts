@@ -15,12 +15,9 @@ describe('putUserDefaultBillingAddress', () => {
 
     expect.assertions(2);
 
-    await expect(putUserDefaultBillingAddress({ id, userId })).resolves.toBe(
-      200,
-    );
+    await expect(putUserDefaultBillingAddress(userId, id)).resolves.toBe(200);
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/addresses/billing/${id}`,
-      {},
       expectedConfig,
     );
   });
@@ -31,11 +28,10 @@ describe('putUserDefaultBillingAddress', () => {
     expect.assertions(2);
 
     await expect(
-      putUserDefaultBillingAddress({ id, userId }),
+      putUserDefaultBillingAddress(userId, id),
     ).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/addresses/billing/${id}`,
-      {},
       expectedConfig,
     );
   });

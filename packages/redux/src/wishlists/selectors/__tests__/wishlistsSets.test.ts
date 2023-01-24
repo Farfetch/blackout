@@ -58,6 +58,44 @@ describe('wishlists redux selectors', () => {
     });
   });
 
+  describe('areWishlistSetsFetched()', () => {
+    it('should return true if the wishlist sets are fetched and are not loading', () => {
+      expect(selectors.areWishlistSetsFetched(mockWishlistState)).toBe(true);
+    });
+
+    it('should return true if there is an error and are not loading', () => {
+      const mockStateWithError = {
+        ...mockWishlistState,
+        wishlist: {
+          ...mockWishlistState.wishlist!,
+          sets: {
+            ...mockWishlistState.wishlist!.sets,
+            error: toBlackoutError(new Error('error')),
+          },
+        },
+      };
+
+      expect(selectors.areWishlistSetsFetched(mockStateWithError)).toEqual(
+        true,
+      );
+    });
+
+    it('should return false if it is loading', () => {
+      const mockStateLoading = {
+        ...mockWishlistState,
+        wishlist: {
+          ...mockWishlistState.wishlist!,
+          sets: {
+            ...mockWishlistState.wishlist!.sets,
+            isLoading: true,
+          },
+        },
+      };
+
+      expect(selectors.areWishlistSetsFetched(mockStateLoading)).toEqual(false);
+    });
+  });
+
   describe('getWishlistSetError()', () => {
     it('should get the wishlist set error', () => {
       const expectedResult =
@@ -74,7 +112,7 @@ describe('wishlists redux selectors', () => {
   describe('isWishlistSetLoading()', () => {
     it('should get the wishlist set loading status', () => {
       const expectedResult =
-        mockWishlistState.wishlist!.sets.set.isLoading[mockWishlistSetId];
+        !!mockWishlistState.wishlist!.sets.set.isLoading[mockWishlistSetId];
       const spy = jest.spyOn(fromWishlistSets, 'getIsSetLoading');
 
       expect(
@@ -85,7 +123,7 @@ describe('wishlists redux selectors', () => {
   });
 
   describe('isWishlistSetFetched()', () => {
-    it('should get true if the wishlist has been fetched and it is not loading', () => {
+    it('should return true if the wishlist has been fetched and it is not loading', () => {
       const newMockWishlistState = {
         ...mockWishlistState,
         wishlist: {
@@ -108,13 +146,30 @@ describe('wishlists redux selectors', () => {
       ).toBe(true);
     });
 
-    it('should get false if it is loading', () => {
+    it('should return true if there is an error and it is not loading', () => {
+      const newMockWishlistState = {
+        ...mockWishlistState,
+        wishlist: {
+          ...mockWishlistState.wishlist!,
+          sets: {
+            ...mockWishlistState.wishlist!.sets,
+            set: {
+              ...mockWishlistState.wishlist!.sets.set,
+              error: {
+                ...mockWishlistState.wishlist!.sets.set.error,
+                [mockWishlistSetId]: toBlackoutError(new Error('dummy error')),
+              },
+            },
+          },
+        },
+      };
+
       expect(
-        selectors.isWishlistSetFetched(mockWishlistState, mockWishlistSetId),
-      ).toBe(false);
+        selectors.isWishlistSetFetched(newMockWishlistState, mockWishlistSetId),
+      ).toBe(true);
     });
 
-    it('should get false if it has not a wishlist set for the specific id', () => {
+    it('should get false if it is loading', () => {
       const newMockWishlistState = {
         ...mockWishlistState,
         wishlist: {
@@ -125,11 +180,22 @@ describe('wishlists redux selectors', () => {
               ...mockWishlistState.wishlist!.sets.set,
               isLoading: {
                 ...mockWishlistState.wishlist!.sets.set.isLoading,
-                [mockWishlistSetId]: undefined,
+                [mockWishlistSetId]: true,
               },
             },
           },
         },
+      };
+
+      expect(
+        selectors.isWishlistSetFetched(newMockWishlistState, mockWishlistSetId),
+      ).toBe(false);
+    });
+
+    it('should get false if it has not a wishlist set for the specific id', () => {
+      const newMockWishlistState = {
+        ...mockWishlistState,
+        entities: {},
       };
 
       expect(
@@ -147,6 +213,7 @@ describe('wishlists redux selectors', () => {
             ...mockWishlistState.entities!.wishlistSets![mockWishlistSetId]!
               .wishlistSetItems[0],
             ...mockWishlistState.entities!.wishlistItems![mockWishlistItemId],
+            wishlistItemId: undefined,
             product: {
               ...mockWishlistState.entities!.products![mockProductId],
               brand: mockWishlistState.entities!.brands![2450],
@@ -160,6 +227,7 @@ describe('wishlists redux selectors', () => {
       expect(
         selectors.getWishlistSet(mockWishlistState, mockWishlistSetId),
       ).toEqual(expectedResult);
+
       expect(spy).toHaveBeenCalledWith(
         mockWishlistState,
         'wishlistSets',
@@ -210,6 +278,7 @@ describe('wishlists redux selectors', () => {
               ...mockWishlistState.entities!.wishlistSets![mockWishlistSetId]!
                 .wishlistSetItems[0],
               ...mockWishlistState.entities!.wishlistItems![mockWishlistItemId],
+              wishlistItemId: undefined,
               product: {
                 ...mockWishlistState.entities!.products![mockProductId],
                 brand: mockWishlistState.entities!.brands![2450],
@@ -288,8 +357,27 @@ describe('wishlists redux selectors', () => {
       expect(selectors.isAnyWishlistSetLoading(mockStateLoading)).toBe(true);
     });
 
-    it('should return true if at least on wishlist set is loading', () => {
-      expect(selectors.isAnyWishlistSetLoading(mockWishlistState)).toBe(true);
+    it('should return true if at least one wishlist set is loading', () => {
+      const newMockWishlistState = {
+        ...mockWishlistState,
+        wishlist: {
+          ...mockWishlistState.wishlist!,
+          sets: {
+            ...mockWishlistState.wishlist!.sets,
+            set: {
+              ...mockWishlistState.wishlist!.sets.set,
+              isLoading: {
+                ...mockWishlistState.wishlist!.sets.set.isLoading,
+                [mockWishlistSetId]: true,
+              },
+            },
+          },
+        },
+      };
+
+      expect(selectors.isAnyWishlistSetLoading(newMockWishlistState)).toBe(
+        true,
+      );
     });
 
     it('should return false if nothing is loading', () => {
@@ -348,8 +436,25 @@ describe('wishlists redux selectors', () => {
       );
     });
 
-    it('should return true if at least on wishlist set has errors', () => {
-      expect(selectors.areWishlistSetsWithAnyError(mockWishlistState)).toBe(
+    it('should return true if at least one wishlist set has errors', () => {
+      const newMockWishlistState = {
+        ...mockWishlistState,
+        wishlist: {
+          ...mockWishlistState.wishlist!,
+          sets: {
+            ...mockWishlistState.wishlist!.sets,
+            set: {
+              ...mockWishlistState.wishlist!.sets.set,
+              error: {
+                ...mockWishlistState.wishlist!.sets.set.error,
+                [mockWishlistSetId]: toBlackoutError(new Error('dummy error')),
+              },
+            },
+          },
+        },
+      };
+
+      expect(selectors.areWishlistSetsWithAnyError(newMockWishlistState)).toBe(
         true,
       );
     });
@@ -394,16 +499,35 @@ describe('wishlists redux selectors', () => {
 
   describe('getAllWishlistSetsErrors()', () => {
     it('should return the error for each wishlist set with errors', () => {
+      const newMockWishlistState = {
+        ...mockWishlistState,
+        wishlist: {
+          ...mockWishlistState.wishlist!,
+          sets: {
+            ...mockWishlistState.wishlist!.sets,
+            set: {
+              ...mockWishlistState.wishlist!.sets.set,
+              error: {
+                ...mockWishlistState.wishlist!.sets.set.error,
+                [mockWishlistSetId]: toBlackoutError(new Error('dummy error')),
+              },
+            },
+          },
+        },
+      };
+
       const expectedResult = [
         {
-          id: mockWishlistState.entities!.wishlistSets![mockWishlistSetId]!.id,
-          name: mockWishlistState.entities!.wishlistSets![mockWishlistSetId]!
+          id: newMockWishlistState.entities!.wishlistSets![mockWishlistSetId]!
+            .id,
+          name: newMockWishlistState.entities!.wishlistSets![mockWishlistSetId]!
             .name,
-          error: mockWishlistState.wishlist!.sets.set.error[mockWishlistSetId],
+          error:
+            newMockWishlistState.wishlist!.sets.set.error[mockWishlistSetId],
         },
       ];
 
-      expect(selectors.getAllWishlistSetsErrors(mockWishlistState)).toEqual(
+      expect(selectors.getAllWishlistSetsErrors(newMockWishlistState)).toEqual(
         expectedResult,
       );
     });

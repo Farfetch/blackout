@@ -1,4 +1,4 @@
 export * from './useOrder';
-export * from './useOrders';
+export * from './useUserOrders';
 export * from './useOrderReturnOptions';
 export * from './useOrderReturns';

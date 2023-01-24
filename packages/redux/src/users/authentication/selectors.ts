@@ -19,7 +19,7 @@ import type { UsersState } from '../types';
  *
  * @param state - Application state.
  *
- * @returns IsAuthenticated.
+ * @returns True if the user is authenticated, false otherwise.
  */
 export const isAuthenticated = (state: StoreState) =>
   Boolean(getUser(state) && !getUser(state)?.isGuest && getUser(state)?.id);

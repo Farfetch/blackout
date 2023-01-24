@@ -2,6 +2,7 @@ import {
   fetchUserAddress as fetchUserAddressAction,
   getUserAddress,
   getUserAddressError,
+  isAuthenticated as isAuthenticatedSelector,
   isUserAddressFetched,
   isUserAddressLoading,
   StoreState,
@@ -25,7 +26,7 @@ function useUserAddress(
   },
 ) {
   const { enableAutoFetch, fetchConfig } = options;
-  const { data: user, isFetched: isUserFetched } = useUser();
+  const { data: user } = useUser();
   const {
     actions: {
       update: updateUserAddressAction,
@@ -38,7 +39,7 @@ function useUserAddress(
     enableAutoFetch: false,
     manageDefaultsOnRemoveAddress: false,
   });
-  const isAuthenticated = isUserFetched && !user?.isGuest;
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
   const userId = user?.id;
   const fetchUserAddressActionDispatcher = useAction(fetchUserAddressAction);
 

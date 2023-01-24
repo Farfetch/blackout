@@ -7,7 +7,7 @@ import type { ResetBagStateAction } from '../types';
  *
  * @example <caption>Reset with no fields to reset, resetting all</caption>
  * ```
- * import { resetBagState } from '@farfetch/blackout-redux/bags';
+ * import { resetBagState } from '@farfetch/blackout-redux';
  *
  * // State before executing action
  * const state = {
@@ -53,7 +53,7 @@ import type { ResetBagStateAction } from '../types';
  * ```
  * @example <caption>Reset with fields to reset</caption>
  * ```
- * import { resetBagState } from '@farfetch/blackout-redux/bags';
+ * import { resetBagState } from '@farfetch/blackout-redux';
  *
  * // State object before executing action
  * const state = {

@@ -10,7 +10,7 @@ import { withStore } from '../../../../tests/helpers';
 import useOrder from '../useOrder';
 import useOrderReturnOptions from '../useOrderReturnOptions';
 import useOrderReturns from '../useOrderReturns';
-import useOrders from '../useOrders';
+import useUserOrders from '../useUserOrders';
 import type { BlackoutError } from '@farfetch/blackout-client';
 
 const mockFetchOrderDetailsFn = jest.fn();
@@ -20,7 +20,7 @@ const mockFetchReturns = jest.fn();
 const mockResetReturnOptions = jest.fn();
 const mockResetReturns = jest.fn();
 
-jest.mock('../useOrders', () => {
+jest.mock('../useUserOrders', () => {
   return jest.fn(() => {
     return {
       data: undefined,
@@ -142,7 +142,7 @@ describe('useOrder', () => {
 
     expect(current).toStrictEqual(defaultReturn);
 
-    expect(useOrders).toHaveBeenCalledWith({
+    expect(useUserOrders).toHaveBeenCalledWith({
       enableAutoFetch: false,
     });
 

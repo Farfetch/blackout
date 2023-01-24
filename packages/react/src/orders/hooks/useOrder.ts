@@ -9,7 +9,7 @@ import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useOrderReturnOptions from './useOrderReturnOptions';
 import useOrderReturns from './useOrderReturns';
-import useOrders from './useOrders';
+import useUserOrders from './useUserOrders';
 import type { Config, Order } from '@farfetch/blackout-client';
 import type { UseOrderOptions } from './types';
 
@@ -29,7 +29,7 @@ function useOrder(
       fetchOrderDetails,
       resetOrderDetailsState: resetOrderDetailsStateFromUseOrders,
     },
-  } = useOrders({ enableAutoFetch: false });
+  } = useUserOrders({ enableAutoFetch: false });
   const isLoading = useSelector((state: StoreState) =>
     isOrderLoading(state, orderIdHookParameter),
   );

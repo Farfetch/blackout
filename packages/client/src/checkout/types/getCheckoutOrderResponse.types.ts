@@ -7,6 +7,7 @@ export enum OrderStatusError {
   ShippingOptionsError,
   DeliveryBundleError,
   Recovered,
+  Recoverable,
 }
 
 export type GetCheckoutOrderResponse = {

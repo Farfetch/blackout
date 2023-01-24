@@ -3,21 +3,24 @@
  * wishlist set.
  */
 import {
-  fetchWishlistSet as fetchWishlistSetAction,
   getWishlistSet,
   getWishlistSetError,
   getWishlistSetItemsCounter,
   getWishlistSetTotalQuantity,
   isWishlistSetFetched,
   isWishlistSetLoading,
-  removeWishlistSet as removeWishlistSetAction,
   StoreState,
-  updateWishlistSet as updateWishlistSetAction,
+  WishlistSetActionMetadata,
 } from '@farfetch/blackout-redux';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
-import type { UseWishlistSet } from './types';
+import useWishlistSets from './useWishlistSets';
+import type {
+  Config,
+  PatchWishlistSetData,
+  WishlistSet,
+} from '@farfetch/blackout-client';
+import type { UseWishlistSetOptions } from './types';
 
 /**
  * Provides Redux actions and state access to deal with wishlist set business
@@ -27,7 +30,12 @@ import type { UseWishlistSet } from './types';
  *
  * @returns All the state, actions and relevant data needed to manage a wishlist set.
  */
-const useWishlistSet: UseWishlistSet = setId => {
+const useWishlistSet = (
+  setId: WishlistSet['setId'],
+  options: UseWishlistSetOptions = {},
+) => {
+  const { enableAutoFetch = true, fetchConfig } = options;
+
   const error = useSelector((state: StoreState) =>
     getWishlistSetError(state, setId),
   );
@@ -46,15 +54,69 @@ const useWishlistSet: UseWishlistSet = setId => {
   const isFetched = useSelector((state: StoreState) =>
     isWishlistSetFetched(state, setId),
   );
-  const fetchWishlistSet = useAction(fetchWishlistSetAction);
-  const removeWishlistSet = useAction(removeWishlistSetAction);
-  const updateWishlistSet = useAction(updateWishlistSetAction);
+
+  const {
+    actions: {
+      fetchWishlistSet,
+      remove: removeWishlistSet,
+      update: updateWishlistSet,
+    },
+  } = useWishlistSets({ enableAutoFetch: false });
+
+  const fetch = useCallback(
+    (config?: Config) => {
+      if (!setId) {
+        return Promise.reject(new Error('No set id was specified'));
+      }
+
+      return fetchWishlistSet(setId, config);
+    },
+    [fetchWishlistSet, setId],
+  );
+
+  const remove = useCallback(
+    (config?: Config) => {
+      if (!setId) {
+        return Promise.reject(new Error('No set id was specified'));
+      }
+
+      return removeWishlistSet(setId, config);
+    },
+    [removeWishlistSet, setId],
+  );
+
+  const update = useCallback(
+    (
+      data: PatchWishlistSetData,
+      metadata?: WishlistSetActionMetadata,
+      config?: Config,
+    ) => {
+      if (!setId) {
+        return Promise.reject(new Error('No set id was specified'));
+      }
+
+      return updateWishlistSet(setId, data, metadata, config);
+    },
+    [updateWishlistSet, setId],
+  );
 
   useEffect(() => {
-    if (setId && !isLoading && !isFetched) {
-      fetchWishlistSet(setId);
+    if (setId && !isLoading && !isFetched && enableAutoFetch) {
+      fetch(fetchConfig);
     }
-  }, [isFetched, fetchWishlistSet, isLoading, setId]);
+  }, [isFetched, fetch, isLoading, setId, enableAutoFetch, fetchConfig]);
+
+  const data = useMemo(() => {
+    if (!wishlistSet) {
+      return undefined;
+    }
+
+    return {
+      itemsCounter,
+      totalQuantity,
+      ...wishlistSet,
+    };
+  }, [itemsCounter, totalQuantity, wishlistSet]);
 
   return {
     /**
@@ -69,26 +131,21 @@ const useWishlistSet: UseWishlistSet = setId => {
      * Whether the wishlist set is loading.
      */
     isLoading,
-    /**
-     * Number of different items in the wishlist set.
-     */
-    itemsCounter,
-    /**
-     * Removes the wishlist set.
-     */
-    removeWishlistSet,
-    /**
-     * Total quantity of the items in the wishlist set.
-     */
-    totalQuantity,
-    /**
-     * Updates the wishlist set.
-     */
-    updateWishlistSet,
-    /**
-     * Fetched wishlist set.
-     */
-    wishlistSet,
+    actions: {
+      /**
+       * Removes the wishlist set.
+       */
+      remove,
+      /**
+       * Updates the wishlist set.
+       */
+      update,
+      /**
+       * Fetches the wishlist set.
+       */
+      fetch,
+    },
+    data,
   };
 };
 

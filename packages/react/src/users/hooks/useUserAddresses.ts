@@ -5,6 +5,7 @@ import {
   fetchUserAddresses as fetchAddressesAction,
   getUserAddresses,
   getUserAddressesError,
+  isAuthenticated as isAuthenticatedSelector,
   removeUserAddress as removeAddressAction,
   setUserDefaultBillingAddress as setDefaultBillingAddressAction,
   setUserDefaultContactAddress as setDefaultContactAddressAction,
@@ -36,8 +37,8 @@ function useUserAddresses(
 ) {
   const { enableAutoFetch, manageDefaultsOnRemoveAddress, fetchConfig } =
     options;
-  const { data: user, isFetched: isUserFetched } = useUser();
-  const isAuthenticated = isUserFetched && !user?.isGuest;
+  const { data: user } = useUser();
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
   const userId = user?.id;
   const createAddressActionDispatcher = useAction(createAddressAction);
   const fetchAddressesActionDispatcher = useAction(fetchAddressesAction);

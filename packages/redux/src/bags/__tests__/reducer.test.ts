@@ -1,5 +1,8 @@
 import * as actionTypes from '../actionTypes';
-import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
+import {
+  FETCH_USER_SUCCESS,
+  LOGOUT_SUCCESS,
+} from '../../users/authentication/actionTypes';
 import {
   mockBagId,
   mockBagItemEntity,
@@ -36,6 +39,37 @@ describe('bags redux reducer', () => {
           type: LOGOUT_SUCCESS,
         }),
       ).toEqual(initialState);
+    });
+
+    it('should return the initial state when is a LOGOUT_SUCCESS action', () => {
+      expect(
+        reducer(undefined, {
+          payload: {},
+          type: LOGOUT_SUCCESS,
+        }),
+      ).toEqual(initialState);
+    });
+
+    describe('resetting when FETCH_USER_SUCCESS is dispatched', () => {
+      it("should return the initial state if the user's bag id has changed", () => {
+        const newBagId = mockBagId + '1';
+
+        expect(
+          reducer(mockState.bag, {
+            payload: { entities: { user: { bagId: newBagId } } },
+            type: FETCH_USER_SUCCESS,
+          }),
+        ).toEqual(initialState);
+      });
+
+      it("should return the same state if the user's bag id has _NOT_ changed", () => {
+        expect(
+          reducer(mockState.bag, {
+            payload: { entities: { user: { bagId: mockBagId } } },
+            type: FETCH_USER_SUCCESS,
+          }),
+        ).toEqual(mockState.bag);
+      });
     });
 
     it('should only reset to the initial state the fields specified to reset - reducer root (id)', () => {

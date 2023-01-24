@@ -21,10 +21,10 @@ const useTopCategories = (options: UseTopCategoriesOptions = {}) => {
   const reset = useAction(resetCategoriesState);
 
   useEffect(() => {
-    if (!isLoading && !error && !isFetched && enableAutoFetch) {
+    if (!isLoading && !isFetched && enableAutoFetch) {
       fetch(fetchConfig);
     }
-  }, [enableAutoFetch, error, fetch, fetchConfig, isFetched, isLoading]);
+  }, [enableAutoFetch, fetch, fetchConfig, isFetched, isLoading]);
 
   return {
     isLoading,

@@ -318,12 +318,95 @@ describe('wishlists redux selectors', () => {
 
   describe('isWishlistItemLoading()', () => {
     it('should get the wishlist item loading status', () => {
-      const spy = jest.spyOn(fromWishlist, 'getAreItemsLoading');
+      const mockStatewithWishlistItemLoading = {
+        ...mockWishlistState,
+        wishlist: {
+          ...mockWishlistState.wishlist!,
+          error: null,
+          id: mockWishlistId,
+          isLoading: false,
+          items: {
+            ids: [mockWishlistItemId],
+            item: {
+              isLoading: {
+                [mockWishlistItemId]: true,
+              },
+              error: {},
+            },
+          },
+        },
+      };
 
       expect(
-        selectors.isWishlistItemLoading(mockWishlistState, mockWishlistItemId),
+        selectors.isWishlistItemLoading(
+          mockStatewithWishlistItemLoading,
+          mockWishlistItemId,
+        ),
       ).toEqual(true);
-      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('isWishlistItemFetched()', () => {
+    it('should return true if the wishlist item is fetched and it is not loading', () => {
+      expect(
+        selectors.isWishlistItemFetched(mockWishlistState, mockWishlistItemId),
+      ).toEqual(true);
+    });
+
+    it('should return true if there is an error and it is not loading', () => {
+      const mockStateWithWishlistItemError = {
+        ...mockWishlistState,
+        wishlist: {
+          ...mockWishlistState.wishlist!,
+          error: null,
+          id: mockWishlistId,
+          isLoading: false,
+          items: {
+            ids: [mockWishlistItemId],
+            item: {
+              isLoading: {},
+              error: {
+                [mockWishlistItemId]: toBlackoutError(new Error('dummy error')),
+              },
+            },
+          },
+        },
+      };
+
+      expect(
+        selectors.isWishlistItemFetched(
+          mockStateWithWishlistItemError,
+          mockWishlistItemId,
+        ),
+      ).toEqual(true);
+    });
+
+    it('should return false if it is loading', () => {
+      const mockStatewithWishlistItemLoading = {
+        ...mockWishlistState,
+        wishlist: {
+          ...mockWishlistState.wishlist!,
+          error: null,
+          id: mockWishlistId,
+          isLoading: false,
+          items: {
+            ids: [mockWishlistItemId],
+            item: {
+              isLoading: {
+                [mockWishlistItemId]: true,
+              },
+              error: {},
+            },
+          },
+        },
+      };
+
+      expect(
+        selectors.isWishlistItemFetched(
+          mockStatewithWishlistItemLoading,
+          mockWishlistItemId,
+        ),
+      ).toEqual(false);
     });
   });
 
@@ -369,7 +452,7 @@ describe('wishlists redux selectors', () => {
     });
 
     it('should return true if there is an error in a wishlist item', () => {
-      const mockStatewithWishlistItemError = {
+      const mockStateWithWishlistItemError = {
         ...mockWishlistState,
         wishlist: {
           ...mockWishlistState.wishlist!,
@@ -391,7 +474,7 @@ describe('wishlists redux selectors', () => {
       };
 
       expect(
-        selectors.isWishlistWithAnyError(mockStatewithWishlistItemError),
+        selectors.isWishlistWithAnyError(mockStateWithWishlistItemError),
       ).toEqual(true);
     });
 

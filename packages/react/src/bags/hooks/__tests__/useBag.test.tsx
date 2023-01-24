@@ -12,6 +12,7 @@ import { cleanup, renderHook } from '@testing-library/react';
 import {
   mockBagId,
   mockBagItemId,
+  mockInitialStateWithoutBagId,
   mockState,
   mockStateWithSizeWithoutStock,
   mockStateWithUnavailableStock,
@@ -222,18 +223,22 @@ describe('useBag', () => {
   describe('options', () => {
     it('should call `fetch` action if `enableAutoFetch` option is true', async () => {
       renderHook(() => useBag({ enableAutoFetch: true }), {
-        wrapper: withStore(mockState),
+        wrapper: withStore(mockInitialStateWithoutBagId),
       });
 
-      expect(fetchBag).toHaveBeenCalledWith(mockBagId, undefined, undefined);
+      expect(fetchBag).toHaveBeenCalledWith(
+        mockInitialStateWithoutBagId.entities.user.bagId,
+        undefined,
+        undefined,
+      );
     });
 
     it('should not call `fetch` action if `enableAutoFetch` option is false', async () => {
       renderHook(() => useBag(), {
-        wrapper: withStore(mockState),
+        wrapper: withStore(mockInitialStateWithoutBagId),
       });
 
-      expect(fetchBag).not.toHaveBeenCalledWith('123', undefined, undefined);
+      expect(fetchBag).not.toHaveBeenCalled();
     });
   });
 
@@ -692,6 +697,22 @@ describe('useBag', () => {
 
       expect(error.code).toBe(3);
       expect(error).toEqual(new AddUpdateItemBagError(3));
+    });
+
+    it('should throw an error when calling `fetch` if user is not loaded', () => {
+      const {
+        result: {
+          current: {
+            actions: { fetch },
+          },
+        },
+      } = renderHook(() => useBag({ enableAutoFetch: false }), {
+        wrapper: withStore(mockState),
+      });
+
+      return expect(fetch()).rejects.toThrow(
+        "User's bag id is not loaded. Please, fetch the user before using this action",
+      );
     });
   });
 });

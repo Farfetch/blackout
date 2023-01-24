@@ -255,8 +255,8 @@ describe('useReturnPickupRescheduleRequest', () => {
 
         expect(mockFetchPickupRescheduleRequest).toHaveBeenCalledWith(
           rescheduleRequestId,
-          returnId,
           mockFetchConfig,
+          returnId,
         );
       });
 
@@ -270,8 +270,8 @@ describe('useReturnPickupRescheduleRequest', () => {
 
         expect(mockFetchPickupRescheduleRequest).toHaveBeenCalledWith(
           rescheduleRequestId,
-          returnId,
           mockFetchConfig,
+          returnId,
         );
       });
 
@@ -330,8 +330,8 @@ describe('useReturnPickupRescheduleRequest', () => {
 
         expect(mockFetchPickupRescheduleRequest).toHaveBeenCalledWith(
           rescheduleRequestId,
-          returnId,
           mockFetchConfig,
+          returnId,
         );
       });
 
@@ -349,12 +349,12 @@ describe('useReturnPickupRescheduleRequest', () => {
           }),
         );
 
-        fetch(rescheduleRequestId, returnId);
+        fetch(rescheduleRequestId, undefined, returnId);
 
         expect(mockFetchPickupRescheduleRequest).toHaveBeenCalledWith(
           rescheduleRequestId,
-          returnId,
           mockFetchConfig,
+          returnId,
         );
       });
 

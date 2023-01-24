@@ -403,8 +403,8 @@ describe('useReturnPickupRescheduleRequests', () => {
 
           await fetchPickupRescheduleRequest(
             rescheduleRequestId,
-            undefined,
             mockFetchConfig,
+            undefined,
           );
 
           expect(getReturnPickupRescheduleRequest).toHaveBeenCalledWith(
@@ -430,8 +430,8 @@ describe('useReturnPickupRescheduleRequests', () => {
 
           await fetchPickupRescheduleRequest(
             rescheduleRequestId,
-            returnId,
             mockFetchConfig,
+            returnId,
           );
 
           expect(getReturnPickupRescheduleRequest).toHaveBeenCalledWith(
@@ -458,8 +458,8 @@ describe('useReturnPickupRescheduleRequests', () => {
           return expect(
             fetchPickupRescheduleRequest(
               rescheduleRequestId,
-              undefined,
               mockFetchConfig,
+              undefined,
             ),
           ).rejects.toThrow('No returnId provided');
         });

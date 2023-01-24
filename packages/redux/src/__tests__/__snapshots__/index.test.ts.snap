@@ -130,6 +130,7 @@ Object {
   "areUserSubscriptionsFetched": [Function],
   "areUserSubscriptionsLoading": [Function],
   "areUserTitlesLoading": [Function],
+  "areWishlistSetsFetched": [Function],
   "areWishlistSetsLoading": [Function],
   "areWishlistSetsWithAnyError": [Function],
   "authenticationActionTypes": Object {
@@ -1073,6 +1074,7 @@ Object {
   "isAuthenticated": [Function],
   "isAuthenticationLoading": [Function],
   "isBagFetched": [Function],
+  "isBagItemFetched": [Function],
   "isBagItemLoading": [Function],
   "isBagLoading": [Function],
   "isBagWithAnyError": [Function],
@@ -1148,6 +1150,7 @@ Object {
   "isUserTokenLoading": [Function],
   "isValidateEmailLoading": [Function],
   "isWishlistFetched": [Function],
+  "isWishlistItemFetched": [Function],
   "isWishlistItemLoading": [Function],
   "isWishlistLoading": [Function],
   "isWishlistSetFetched": [Function],

@@ -38,18 +38,10 @@ function useSubscriptionPackages(
   const reset = useAction(resetSubscriptionPackages);
 
   useEffect(() => {
-    if (!isLoading && !error && !isFetched && enableAutoFetch) {
+    if (!isLoading && !isFetched && enableAutoFetch) {
       fetch({ id: packagesIds }, fetchConfig);
     }
-  }, [
-    enableAutoFetch,
-    error,
-    fetch,
-    fetchConfig,
-    isFetched,
-    isLoading,
-    packagesIds,
-  ]);
+  }, [enableAutoFetch, fetch, fetchConfig, isFetched, isLoading, packagesIds]);
 
   return {
     isLoading,

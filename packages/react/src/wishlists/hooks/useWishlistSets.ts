@@ -3,19 +3,24 @@
  */
 import {
   addWishlistSet as addWishlistSetAction,
+  areWishlistSetsFetched,
   areWishlistSetsLoading,
   areWishlistSetsWithAnyError,
+  fetchWishlistSet as fetchWishlistSetAction,
   fetchWishlistSets as fetchWishlistSetsAction,
   getAllWishlistSetsErrors,
   getWishlistSets,
   getWishlistSetsError,
   isAnyWishlistSetLoading as isAnyWishlistSetLoadingSelector,
+  removeWishlistSet as removeWishlistSetAction,
   resetWishlistSets as resetWishlistSetsAction,
   resetWishlistSetsState as resetWishlistSetsStateAction,
+  updateWishlistSet as updateWishlistSetAction,
 } from '@farfetch/blackout-redux';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction';
-import type { UseWishlistSets } from './types';
+import type { UseWishlistSetsOptions } from './types';
 
 /**
  * Provides Redux actions and state access for dealing with wishlist sets business
@@ -25,10 +30,12 @@ import type { UseWishlistSets } from './types';
  * operation.
  */
 
-const useWishlistSets: UseWishlistSets = () => {
+const useWishlistSets = (options: UseWishlistSetsOptions = {}) => {
+  const { enableAutoFetch = true, fetchConfig } = options;
   // Selectors
   const allWishlistSetsErrors = useSelector(getAllWishlistSetsErrors);
   const areLoading = useSelector(areWishlistSetsLoading);
+  const areFetched = useSelector(areWishlistSetsFetched);
   const error = useSelector(getWishlistSetsError);
   const isAnyWishlistSetLoading = useSelector(isAnyWishlistSetLoadingSelector);
   const isAnyWishlistSetWithError = useSelector(areWishlistSetsWithAnyError);
@@ -36,14 +43,49 @@ const useWishlistSets: UseWishlistSets = () => {
   // Actions
   const addWishlistSet = useAction(addWishlistSetAction);
   const fetchWishlistSets = useAction(fetchWishlistSetsAction);
+  const fetchWishlistSet = useAction(fetchWishlistSetAction);
+  const removeWishlistSet = useAction(removeWishlistSetAction);
+  const updateWishlistSet = useAction(updateWishlistSetAction);
   const resetWishlistSets = useAction(resetWishlistSetsAction);
   const resetWishlistSetsState = useAction(resetWishlistSetsStateAction);
 
+  useEffect(() => {
+    if (!areLoading && !areFetched && enableAutoFetch) {
+      fetchWishlistSets(fetchConfig);
+    }
+  }, [areFetched, areLoading, enableAutoFetch, fetchConfig, fetchWishlistSets]);
+
   return {
-    /**
-     * Adds a wishlist set.
-     */
-    addWishlistSet,
+    actions: {
+      /**
+       * Adds a wishlist set.
+       */
+      add: addWishlistSet,
+      /**
+       * Removes the wishlist set.
+       */
+      remove: removeWishlistSet,
+      /**
+       * Updates the wishlist set.
+       */
+      update: updateWishlistSet,
+      /**
+       * Fetches the wishlist set.
+       */
+      fetchWishlistSet,
+      /**
+       * Fetches the wishlist sets.
+       */
+      fetch: fetchWishlistSets,
+      /**
+       * Resets the wishlist sets.
+       */
+      reset: resetWishlistSets,
+      /**
+       * Resets the wishlist sets state.
+       */
+      resetWishlistSetsState,
+    },
     /**
      * List of error states for the wishlist sets.
      */
@@ -53,13 +95,13 @@ const useWishlistSets: UseWishlistSets = () => {
      */
     areLoading,
     /**
+     * Whether the fetch request of the wishlist sets finished either with success or error.
+     */
+    areFetched,
+    /**
      * Error state of the fetched wishlist sets.
      */
     error,
-    /**
-     * Fetches the wishlist sets.
-     */
-    fetchWishlistSets,
     /**
      * Whether any of the wishlist sets is loading.
      */
@@ -69,17 +111,9 @@ const useWishlistSets: UseWishlistSets = () => {
      */
     isAnyWishlistSetWithError,
     /**
-     * Resets the wishlist sets.
-     */
-    resetWishlistSets,
-    /**
-     * Resets the wishlist sets state.
-     */
-    resetWishlistSetsState,
-    /**
      * Fetched wishlist sets data.
      */
-    wishlistSets,
+    data: wishlistSets,
   };
 };
 
