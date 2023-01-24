@@ -37,10 +37,10 @@ const useCategory = (
   );
 
   useEffect(() => {
-    if (!isLoading && !error && !isFetched && enableAutoFetch) {
+    if (!isLoading && !isFetched && enableAutoFetch && categoryId) {
       fetchCategory();
     }
-  }, [enableAutoFetch, error, fetchCategory, isFetched, isLoading]);
+  }, [categoryId, enableAutoFetch, fetchCategory, isFetched, isLoading]);
 
   return {
     isLoading,

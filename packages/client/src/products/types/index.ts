@@ -1,4 +1,3 @@
-export * from './breadCrumb.types.js';
 export * from './facetGroup.types.js';
 export * from './facetTypeEnum.types.js';
 export * from './facetValue.types.js';
@@ -23,6 +22,7 @@ export * from './listingQuery.types.js';
 export * from './price.types.js';
 export * from './product.types.js';
 export * from './productAttribute.types.js';
+export * from './productsBreadcrumb.types.js';
 export * from './productDetailsQuery.types.js';
 export * from './productFitting.types.js';
 export * from './productOutfit.types.js';

@@ -4,7 +4,7 @@
  */
 import {
   addWishlistItem,
-  fetchWishlist,
+  fetchWishlist as fetchWishlistAction,
   getUser,
   getWishlist,
   getWishlistError,
@@ -15,15 +15,16 @@ import {
   resetWishlist,
   updateWishlistItem,
 } from '@farfetch/blackout-redux';
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 // Types
+import type { Config } from '@farfetch/blackout-client';
 import type { UseWishlistOptions } from './types/index.js';
 
 /**
  * Provides Redux actions and state access, as well as handlers for dealing with
- * wishlist business logic.
+ * wishlist business logic. It will fetch wishlist data from the current user's wishlist.
  *
  * @returns All the handlers, state, actions and relevant data needed to manage any wishlist operation.
  */
@@ -40,17 +41,40 @@ const useWishlist = (options: UseWishlistOptions = {}) => {
   const addItem = useAction(addWishlistItem);
   const updateItem = useAction(updateWishlistItem);
   const removeItem = useAction(removeWishlistItem);
-  const fetch = useAction(fetchWishlist);
+  const fetchWishlist = useAction(fetchWishlistAction);
+
+  const fetch = useCallback(
+    (config?: Config) => {
+      if (!userWishlistId) {
+        return Promise.reject(
+          new Error(
+            "User's wishlist id is not loaded. Please, fetch the user before using this action",
+          ),
+        );
+      }
+
+      return fetchWishlist(userWishlistId, config);
+    },
+    [fetchWishlist, userWishlistId],
+  );
+
   const reset = useAction(resetWishlist);
   // Data with some logic
   const count = wishlist?.count;
   const isEmpty = count === 0 || count === undefined;
 
   useEffect(() => {
-    if (!isLoading && !error && enableAutoFetch && userWishlistId) {
-      fetch(userWishlistId, fetchConfig);
+    if (!isLoading && !isFetched && enableAutoFetch && userWishlistId) {
+      fetch(fetchConfig);
     }
-  }, [enableAutoFetch, error, fetch, fetchConfig, isLoading, userWishlistId]);
+  }, [
+    enableAutoFetch,
+    fetch,
+    fetchConfig,
+    isFetched,
+    isLoading,
+    userWishlistId,
+  ]);
 
   const data = useMemo(() => {
     if (!wishlist) {

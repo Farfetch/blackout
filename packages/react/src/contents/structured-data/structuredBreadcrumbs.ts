@@ -9,7 +9,7 @@ import type { ReactElement } from 'react';
  *
  * @example
  * ```
- * import { structuredBreadcrumbs } from '@farfetch/blackout-react/content/structured-data';
+ * import { structuredBreadcrumbs } from '@farfetch/blackout-react';
  *
  * <Helmet>
  *  {structuredBreadcrumbs(breadcrumbsList, 2)}

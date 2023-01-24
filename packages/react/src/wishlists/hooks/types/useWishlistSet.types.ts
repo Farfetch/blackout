@@ -1,25 +1,6 @@
-import type {
-  BlackoutError,
-  Config,
-  PatchWishlistSetData,
-  WishlistSet,
-} from '@farfetch/blackout-client';
-import type { WishlistSetDenormalized } from '@farfetch/blackout-redux';
+import type { Config } from '@farfetch/blackout-client';
 
-export type UseWishlistSet = (setId: WishlistSet['setId']) => {
-  error: BlackoutError | null | undefined;
-  isFetched: boolean | undefined;
-  isLoading: boolean | undefined;
-  itemsCounter: number;
-  removeWishlistSet: (
-    wishlistSetId: WishlistSet['setId'],
-    config?: Config,
-  ) => Promise<undefined>;
-  totalQuantity: number;
-  updateWishlistSet: (
-    wishlistSetId: WishlistSet['setId'],
-    data: PatchWishlistSetData,
-    config?: Config,
-  ) => Promise<WishlistSet | undefined>;
-  wishlistSet: WishlistSetDenormalized | undefined;
+export type UseWishlistSetOptions = {
+  enableAutoFetch?: boolean;
+  fetchConfig?: Config;
 };

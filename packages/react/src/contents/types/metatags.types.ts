@@ -1,9 +1,9 @@
 import type {
   Brand,
-  BreadCrumb,
   Composition,
   FilterSegment,
   Label,
+  ProductsBreadcrumb,
   SeoPageType,
   SeoSubPageType,
 } from '@farfetch/blackout-client';
@@ -94,5 +94,5 @@ export type GetListingSeoMetadataParams = (args: {
   countryCode: string;
   cultureCode: string;
   currencyIsoCode: string;
-  breadCrumbs?: BreadCrumb[];
+  breadCrumbs?: ProductsBreadcrumb[];
 }) => ListingSeoMetadataParams;

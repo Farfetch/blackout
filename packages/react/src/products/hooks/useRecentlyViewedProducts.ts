@@ -67,18 +67,10 @@ const useRecentlyViewedProducts = (
     );
 
   useEffect(() => {
-    if (!isLoading && !error && !isFetched && enableAutoFetch) {
+    if (!isLoading && !isFetched && enableAutoFetch) {
       fetch(fetchQuery, fetchConfig);
     }
-  }, [
-    enableAutoFetch,
-    error,
-    fetch,
-    fetchConfig,
-    fetchQuery,
-    isFetched,
-    isLoading,
-  ]);
+  }, [enableAutoFetch, fetch, fetchConfig, fetchQuery, isFetched, isLoading]);
 
   return {
     isLoading: isLoading || !!isProductListLoading,

@@ -33,10 +33,10 @@ function useUserSubscriptions(
   );
 
   useEffect(() => {
-    if (!isLoading && !error && !isFetched && enableAutoFetch) {
+    if (!isLoading && !isFetched && enableAutoFetch) {
       fetch(query, fetchConfig);
     }
-  }, [enableAutoFetch, error, fetch, fetchConfig, isFetched, isLoading, query]);
+  }, [enableAutoFetch, fetch, fetchConfig, isFetched, isLoading, query]);
 
   return {
     isLoading,

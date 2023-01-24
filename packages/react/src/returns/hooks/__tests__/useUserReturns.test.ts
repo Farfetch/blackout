@@ -5,7 +5,7 @@ import {
   mockUserInitialState,
 } from 'tests/__fixtures__/users/index.mjs';
 import { mockUserReturnsResponse } from 'tests/__fixtures__/users/userReturns.fixtures.mjs';
-import { useReturns } from '../../../index.js';
+import { useUserReturns } from '../../../index.js';
 import { withStore } from '../../../../tests/helpers/index.js';
 import flushPromises from 'tests/flushPromises.mjs';
 
@@ -26,7 +26,11 @@ const defaultUserReturns = {
   error: null,
   isFetched: false,
   actions: {
+    createReturn: expect.any(Function),
     fetch: expect.any(Function),
+    fetchReturn: expect.any(Function),
+    resetReturnState: expect.any(Function),
+    updateReturn: expect.any(Function),
   },
 };
 
@@ -42,7 +46,7 @@ const mockFetchConfig = {
   myCustomParameter: 10,
 };
 
-describe('useReturns', () => {
+describe('useUserReturns', () => {
   beforeEach(jest.clearAllMocks);
 
   afterEach(cleanup);
@@ -52,7 +56,7 @@ describe('useReturns', () => {
       result: { current },
     } = renderHook(
       () =>
-        useReturns({
+        useUserReturns({
           enableAutoFetch: false,
           fetchConfig: mockFetchConfig,
         }),
@@ -72,7 +76,7 @@ describe('useReturns', () => {
   it('should return correctly when the user returns request is fetched', async () => {
     const { result } = renderHook(
       () =>
-        useReturns({
+        useUserReturns({
           enableAutoFetch: false,
           fetchConfig: mockFetchConfig,
         }),
@@ -100,7 +104,7 @@ describe('useReturns', () => {
 
     const { result } = renderHook(
       () =>
-        useReturns({
+        useUserReturns({
           enableAutoFetch: true,
           fetchConfig: mockFetchConfig,
         }),
@@ -127,7 +131,7 @@ describe('useReturns', () => {
   it('should return correctly when it is loading', () => {
     const { result } = renderHook(
       () =>
-        useReturns({
+        useUserReturns({
           enableAutoFetch: true,
           fetchConfig: mockFetchConfig,
         }),
@@ -150,7 +154,7 @@ describe('useReturns', () => {
       it('should fetch data if `enableAutoFetch` option is true', () => {
         renderHook(
           () =>
-            useReturns({
+            useUserReturns({
               enableAutoFetch: true,
               fetchConfig: mockFetchConfig,
             }),
@@ -172,7 +176,7 @@ describe('useReturns', () => {
       it('should fetch data if `enableAutoFetch` option is not passed', () => {
         renderHook(
           () =>
-            useReturns({
+            useUserReturns({
               fetchConfig: mockFetchConfig,
             }),
           {
@@ -193,7 +197,7 @@ describe('useReturns', () => {
       it('should fetch data if fetchQuery option is passed', () => {
         renderHook(
           () =>
-            useReturns({
+            useUserReturns({
               fetchQuery: mockFetchQuery,
               fetchConfig: mockFetchConfig,
             }),
@@ -215,7 +219,7 @@ describe('useReturns', () => {
       it('should not fetch data if `enableAutoFetch` option is false', () => {
         renderHook(
           () =>
-            useReturns({
+            useUserReturns({
               enableAutoFetch: false,
               fetchConfig: mockFetchConfig,
             }),
@@ -242,7 +246,7 @@ describe('useReturns', () => {
             },
           } = renderHook(
             () =>
-              useReturns({
+              useUserReturns({
                 enableAutoFetch: false,
                 fetchQuery: mockFetchQuery,
                 fetchConfig: mockFetchConfig,

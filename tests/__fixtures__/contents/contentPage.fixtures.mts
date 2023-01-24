@@ -2,13 +2,14 @@ import { type BlackoutError, ContentPageType } from '@farfetch/blackout-client';
 import { generateContentHash } from '@farfetch/blackout-redux';
 
 export const contentPagesType = ContentPageType.Listing;
-export const slugContent = 'woman/gucci';
+export const slugContent = 'woman/gucci?categories=123&colors=1';
+export const slugContentWithoutQuery = 'woman/gucci';
 export const contentPagesQuery = {
   slug: slugContent,
 };
 
 const contentQuery = {
-  codes: slugContent,
+  codes: slugContentWithoutQuery,
   contentTypeCode: 'content_pages',
 };
 

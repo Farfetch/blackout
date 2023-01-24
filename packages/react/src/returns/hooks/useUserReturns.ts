@@ -4,11 +4,18 @@ import {
   type User,
   type UserReturns,
 } from '@farfetch/blackout-client';
-import { buildQueryStringFromObject } from '@farfetch/blackout-redux';
+import {
+  buildQueryStringFromObject,
+  createReturn as createReturnAction,
+  fetchReturn as fetchReturnAction,
+  resetReturnState as resetReturnStateAction,
+  updateReturn as updateReturnAction,
+} from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo, useReducer, useRef } from 'react';
 import { usePrevious } from '../../helpers/index.js';
+import useAction from '../../helpers/useAction.js';
 import useUser from '../../users/hooks/useUser.js';
-import type { UseReturnsOptions } from './types/index.js';
+import type { UseUserReturnsOptions } from './types/index.js';
 
 const actionTypes = {
   FetchUserReturnsRequest: 'FETCH_USER_RETURNS_REQUEST',
@@ -127,7 +134,7 @@ function reducer(state: State, action: Action) {
   }
 }
 
-function useReturns(options: UseReturnsOptions = {}) {
+function useUserReturns(options: UseUserReturnsOptions = {}) {
   const { enableAutoFetch = true, fetchConfig, fetchQuery } = options;
   const currentRequestId = useRef(0);
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -150,6 +157,10 @@ function useReturns(options: UseReturnsOptions = {}) {
   const error = userIdRequestState?.error || null;
   const data = userIdRequestState?.result;
   const isFetched = !!(data || error) && !isLoading;
+  const fetchReturn = useAction(fetchReturnAction);
+  const resetReturnState = useAction(resetReturnStateAction);
+  const updateReturn = useAction(updateReturnAction);
+  const createReturn = useAction(createReturnAction);
 
   const fetch = useCallback(async () => {
     if (!userId) {
@@ -209,8 +220,12 @@ function useReturns(options: UseReturnsOptions = {}) {
     data,
     actions: {
       fetch,
+      fetchReturn,
+      resetReturnState,
+      updateReturn,
+      createReturn,
     },
   };
 }
 
-export default useReturns;
+export default useUserReturns;

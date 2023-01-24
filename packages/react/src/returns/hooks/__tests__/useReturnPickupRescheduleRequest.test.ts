@@ -212,7 +212,7 @@ describe('useReturnPickupRescheduleRequest', () => {
     // Call fetch with a different reschedule request id than the one passed
     // when invoking the hook. This request should success immediately as it will use
     // the default mock instead of the one used on the previous request.
-    await result.current.actions.fetch(rescheduleRequestId + 1);
+    await result.current.actions.fetch(undefined, rescheduleRequestId + 1);
 
     // Awaits for the microtasks to finish so we can assure that all the promises
     // were completed and the reference updated.
@@ -256,8 +256,8 @@ describe('useReturnPickupRescheduleRequest', () => {
 
         expect(mockFetchPickupRescheduleRequest).toHaveBeenCalledWith(
           rescheduleRequestId,
-          returnId,
           mockFetchConfig,
+          returnId,
         );
       });
 
@@ -271,8 +271,8 @@ describe('useReturnPickupRescheduleRequest', () => {
 
         expect(mockFetchPickupRescheduleRequest).toHaveBeenCalledWith(
           rescheduleRequestId,
-          returnId,
           mockFetchConfig,
+          returnId,
         );
       });
 
@@ -331,8 +331,8 @@ describe('useReturnPickupRescheduleRequest', () => {
 
         expect(mockFetchPickupRescheduleRequest).toHaveBeenCalledWith(
           rescheduleRequestId,
-          returnId,
           mockFetchConfig,
+          returnId,
         );
       });
 
@@ -350,12 +350,12 @@ describe('useReturnPickupRescheduleRequest', () => {
           }),
         );
 
-        fetch(rescheduleRequestId, returnId);
+        fetch(undefined, rescheduleRequestId, returnId);
 
         expect(mockFetchPickupRescheduleRequest).toHaveBeenCalledWith(
           rescheduleRequestId,
-          returnId,
           mockFetchConfig,
+          returnId,
         );
       });
 
@@ -419,12 +419,12 @@ describe('useReturnPickupRescheduleRequest', () => {
           },
         };
 
-        await create(createPickupRescheduleData, returnId, anotherConfig);
+        await create(createPickupRescheduleData, anotherConfig, returnId);
 
         expect(mockCreatePickupRescheduleRequestFn).toHaveBeenCalledWith(
           createPickupRescheduleData,
-          returnId,
           anotherConfig,
+          returnId,
         );
       });
     });

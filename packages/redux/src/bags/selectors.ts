@@ -40,7 +40,7 @@ import type { StoreState } from '../types/index.js';
  *
  * @example
  * ```
- * import { getBag } from '@farfetch/blackout-redux/bags';
+ * import { getBag } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     bag: getBag(state)
@@ -58,7 +58,7 @@ export const getBag = (state: StoreState) => getResult(state.bag as BagsState);
  *
  * @example
  * ```
- * import { getBagError } from '@farfetch/blackout-redux/bags';
+ * import { getBagError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     error: getBagError(state)
@@ -77,7 +77,7 @@ export const getBagError = (state: StoreState) =>
  *
  * @example
  * ```
- * import { getBagId } from '@farfetch/blackout-redux/bags';
+ * import { getBagId } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     bagId: getBagId(state)
@@ -141,7 +141,7 @@ const denormalizeBagItem = (
  *
  * @example
  * ```
- * import { getBagItem } from '@farfetch/blackout-redux/bags';
+ * import { getBagItem } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, { bagItem: { id } }) => ({
  *     bagItem: getBagItem(state, id)
@@ -180,7 +180,7 @@ export const getBagItem: (
  *
  * @example
  * ```
- * import { getBagItemError } from '@farfetch/blackout-redux/bags';
+ * import { getBagItemError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, { bagItem: { bagItem: { id } } }) => ({
  *     error: getBagItemError(state, id)
@@ -202,7 +202,7 @@ export const getBagItemError = (state: StoreState, bagItemId: BagItem['id']) =>
  *
  * @example
  * ```
- * import { getBagItemsIds } from '@farfetch/blackout-redux/bags';
+ * import { getBagItemsIds } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state) => ({
  *     error: getBagItemsIds(state)
@@ -221,7 +221,7 @@ export const getBagItemsIds = (state: StoreState) =>
  *
  * @example
  * ```
- * import { getBagItems } from '@farfetch/blackout-redux/bags';
+ * import { getBagItems } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     bagItems: getBagItems(state),
@@ -269,7 +269,7 @@ export const getBagItems: (state: StoreState) => BagItemDenormalized[] =
  *
  * @example
  * ```
- * import { getBagItemsCounter } from '@farfetch/blackout-redux/bags';
+ * import { getBagItemsCounter } from '@farfetch/blackout-redux';
  *
  * const excludeProductTypes = [3];
  * const mapStateToProps = state => ({
@@ -318,7 +318,7 @@ export const getBagItemsCounter = (
  *
  * @example
  * ```
- * import { getBagItemsUnavailable } from '@farfetch/blackout-redux/bags';
+ * import { getBagItemsUnavailable } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     unavailableItems: getBagItemsUnavailable(state)
@@ -342,7 +342,7 @@ export const getBagItemsUnavailable: (
  *
  * @example
  * ```
- * import { getBagTotalQuantity } from '@farfetch/blackout-redux/bags';
+ * import { getBagTotalQuantity } from '@farfetch/blackout-redux';
  *
  * const excludeProductTypes = [3];
  * const mapStateToProps = state => ({
@@ -389,7 +389,7 @@ export const getBagTotalQuantity = (
  *
  * @example
  * ```
- * import { isBagItemLoading } from '@farfetch/blackout-redux/bags';
+ * import { isBagItemLoading } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, { bagItem: { id } }) => ({
  *     isLoading: isBagItemLoading(state, id)
@@ -405,6 +405,27 @@ export const isBagItemLoading = (state: StoreState, itemId: BagItem['id']) =>
   getAreItemsLoading(state.bag as BagsState)[itemId];
 
 /**
+ * Retrieves the fetched status of a specific bag item by its id.
+ *
+ * @example
+ * ```
+ * import { isBagItemFetched } from '@farfetch/blackout-redux';
+ *
+ * const mapStateToProps = (state, { bagItem: { id } }) => ({
+ *     isFetched: isBagItemFetched(state, id)
+ * });
+ * ```
+ *
+ * @param state  - Application state.
+ * @param itemId - Numeric identifier of the bag item in the bag.
+ *
+ * @returns - Whether the given bag item is fetched.
+ */
+export const isBagItemFetched = (state: StoreState, itemId: BagItem['id']) =>
+  (!!getBagItem(state, itemId) || !!getBagItemError(state, itemId)) &&
+  !isBagItemLoading(state, itemId);
+
+/**
  * Retrieves the loading status of the bag.
  *
  * This status is affected by the loading of the bag itself, as well as any "add"
@@ -412,7 +433,7 @@ export const isBagItemLoading = (state: StoreState, itemId: BagItem['id']) =>
  *
  * @example
  * ```
- * import { isBagLoading } from '@farfetch/blackout-redux/bags';
+ * import { isBagLoading } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     isLoading: isBagLoading(state)
@@ -435,7 +456,7 @@ export const isBagLoading = (state: StoreState) =>
  *
  * @example
  * ```
- * import { isBagFetched } from '@farfetch/blackout-redux/bags';
+ * import { isBagFetched } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     isFetched: isBagFetched(state)
@@ -456,7 +477,7 @@ export const isBagFetched = (state: StoreState) =>
  *
  * @example
  * ```
- * import { getBagItemAvailableSizes } from '@farfetch/blackout-redux/bags';
+ * import { getBagItemAvailableSizes } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, { bagItem: { id } }) => ({
  *     availableSizes: getBagItemAvailableSizes(state, id)
@@ -506,7 +527,7 @@ export const getBagItemAvailableSizes: (
  *
  * @example
  * ```
- * import { findProductInBag } from '@farfetch/blackout-redux/bags';
+ * import { findProductInBag } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, {size, product}) => ({
  *     bagItem: findProductInBag(state, {size, product})
@@ -553,7 +574,7 @@ export const findProductInBag: (
  *
  * @example
  * ```
- * import { isBagWithAnyError } from '@farfetch/blackout-redux/bags';
+ * import { isBagWithAnyError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state) => ({
  *     hasBagError: isBagWithAnyError(state),
@@ -578,7 +599,7 @@ export const isBagWithAnyError = (state: StoreState) => {
  *
  * @example
  * ```
- * import { getProductQuantityInBag } from '@farfetch/blackout-redux/bags';
+ * import { getProductQuantityInBag } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, { productId, sizeId }) => ({
  * itemWholeQuantity: getProductQuantityInBag(state, productId, sizeId),

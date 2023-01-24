@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`useOrders options enableAutoFetch when true refetching should _NOT_ refetch if fetch query contents have not changed 1`] = `
+exports[`useUserOrders options enableAutoFetch when true refetching should _NOT_ refetch if fetch query contents have not changed 1`] = `
 <div>
   <div
     data-test="orders-body"
@@ -20,7 +20,7 @@ exports[`useOrders options enableAutoFetch when true refetching should _NOT_ ref
 </div>
 `;
 
-exports[`useOrders options enableAutoFetch when true refetching should refetch if fetch query contents have changed 1`] = `
+exports[`useUserOrders options enableAutoFetch when true refetching should refetch if fetch query contents have changed 1`] = `
 <div>
   <div
     data-test="orders-body"

@@ -15,7 +15,7 @@ import type { SEOMetadata } from '@farfetch/blackout-client';
  *
  * @example
  * ```
- * import { structuredArticle } from '@farfetch/blackout-react/content/structured-data';
+ * import { structuredArticle } from '@farfetch/blackout-react';
  *
  * <Helmet>
  *  {structuredArticle(

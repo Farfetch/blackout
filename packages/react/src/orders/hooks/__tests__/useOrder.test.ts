@@ -9,7 +9,7 @@ import {
 import { withStore } from '../../../../tests/helpers/index.js';
 import useOrder from '../useOrder.js';
 import useOrderReturnOptions from '../useOrderReturnOptions.js';
-import useOrders from '../useOrders.js';
+import useUserOrders from '../useUserOrders.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
 
 const mockFetchOrderDetailsFn = jest.fn();
@@ -17,7 +17,7 @@ const mockResetOrderDetailsStateFn = jest.fn();
 const mockFetchReturnOptions = jest.fn();
 const mockResetReturnOptions = jest.fn();
 
-jest.mock('../useOrders', () => {
+jest.mock('../useUserOrders', () => {
   return jest.fn(() => {
     return {
       data: undefined,
@@ -54,7 +54,7 @@ const defaultReturn = {
   areReturnOptionsLoading: false,
   actions: {
     fetch: expect.any(Function),
-    resetOrderDetailsState: expect.any(Function),
+    reset: expect.any(Function),
     fetchReturnOptions: expect.any(Function),
     resetReturnOptions: expect.any(Function),
   },
@@ -120,7 +120,7 @@ describe('useOrder', () => {
 
     expect(current).toStrictEqual(defaultReturn);
 
-    expect(useOrders).toHaveBeenCalledWith({
+    expect(useUserOrders).toHaveBeenCalledWith({
       enableAutoFetch: false,
     });
 
@@ -276,7 +276,7 @@ describe('useOrder', () => {
         const anotherGuestEmail = 'test@dummy.com';
         const anotherConfig = {};
 
-        await fetch(orderId2, anotherGuestEmail, anotherConfig);
+        await fetch(anotherConfig, anotherGuestEmail, orderId2);
 
         expect(mockFetchOrderDetailsFn).toHaveBeenCalledWith(
           orderId2,
@@ -310,12 +310,12 @@ describe('useOrder', () => {
       });
     });
 
-    describe('resetOrderDetailsState', () => {
+    describe('reset', () => {
       it('should call `resetOrderDetailsState` action with the orderId parameter passed to the hook if no orderId parameter is passed to the function', async () => {
         const {
           result: {
             current: {
-              actions: { resetOrderDetailsState },
+              actions: { reset },
             },
           },
         } = renderHook(
@@ -325,7 +325,7 @@ describe('useOrder', () => {
           },
         );
 
-        await resetOrderDetailsState();
+        await reset();
 
         expect(mockResetOrderDetailsStateFn).toHaveBeenCalledWith([orderId]);
       });
@@ -334,7 +334,7 @@ describe('useOrder', () => {
         const {
           result: {
             current: {
-              actions: { resetOrderDetailsState },
+              actions: { reset },
             },
           },
         } = renderHook(
@@ -344,7 +344,7 @@ describe('useOrder', () => {
           },
         );
 
-        await resetOrderDetailsState(orderId2);
+        await reset(orderId2);
 
         expect(mockResetOrderDetailsStateFn).toHaveBeenCalledWith([orderId2]);
       });
@@ -353,7 +353,7 @@ describe('useOrder', () => {
         const {
           result: {
             current: {
-              actions: { resetOrderDetailsState },
+              actions: { reset },
             },
           },
         } = renderHook(
@@ -364,7 +364,7 @@ describe('useOrder', () => {
           },
         );
 
-        await resetOrderDetailsState();
+        await reset();
 
         expect(mockResetOrderDetailsStateFn).not.toHaveBeenCalled();
       });
@@ -391,11 +391,11 @@ describe('useOrder', () => {
 
         const anotherConfig = {};
 
-        await fetchReturnOptions(orderId2, anotherConfig);
+        await fetchReturnOptions(anotherConfig, orderId2);
 
         expect(mockFetchReturnOptions).toHaveBeenCalledWith(
-          orderId2,
           anotherConfig,
+          orderId2,
         );
       });
     });

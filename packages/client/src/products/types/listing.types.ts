@@ -1,8 +1,8 @@
-import type { BreadCrumb } from './breadCrumb.types.js';
 import type { FacetGroup } from './facetGroup.types.js';
 import type { FacetType } from './facetTypeEnum.types.js';
 import type { FilterSegment } from './filterSegment.types.js';
 import type { GenderCode, PagedResponse } from '../../types/index.js';
+import type { ProductsBreadcrumb } from './productsBreadcrumb.types.js';
 import type { ProductSummary } from './productSummary.types.js';
 import type { ShoppingConfig } from './shoppingConfig.types.js';
 
@@ -18,7 +18,7 @@ export type ProductListing = {
   filterSegments: FilterSegment[];
   config: ShoppingConfig;
   didYouMean: string[];
-  breadCrumbs: BreadCrumb[];
+  breadCrumbs: ProductsBreadcrumb[];
   searchTerm: string | null;
   facetsBaseUrl: string;
   _sorts: string[] | null;
