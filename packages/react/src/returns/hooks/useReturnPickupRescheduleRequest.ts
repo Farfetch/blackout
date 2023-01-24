@@ -177,13 +177,24 @@ function useReturnPickupRescheduleRequest(
     actions: { create, fetchPickupRescheduleRequest },
   } = useReturnPickupRescheduleRequests(returnId, { enableAutoFetch: false });
 
+  /**
+   * Fetches the specified pickup reschedule request. You can override the
+   * pickup reschedule request id and return id to fetch by using the optional `pickupRescheduleRequestId` and `returnId` parameters. However, the output from the
+   * hook will respect the pickup reschedule request id and return id passed to it and not the overrides.
+   *
+   * @param config - Custom configurations to send to the client instance (axios). If undefined, the `fetchConfig` passed to the hook will be used instead.
+   * @param pickupRescheduleRequestId - Overrides the pickup reschedule request id from the hook. If undefined, the `pickupRescheduleRequestId` passed to the hook will be used instead. Note that the output of the hook will respect the `pickupRescheduleRequestId` parameter from the hook.
+   * @param returnId - Overrides the return id from the hook. If undefined, the `returnId` passed to the hook will be used instead. Note that the output of the hook will respect the `returnId` parameter from the hook.
+   *
+   * @returns Promise that will resolve when the call to the endpoint finishes.
+   */
   const fetch = useCallback(
     (
+      config: Config | undefined = fetchConfig,
       pickupRescheduleRequestId:
         | PickupRescheduleRequest['id']
         | undefined = pickupRescheduleRequestIdHookParameter,
       returnId: Return['id'] | undefined = returnIdHookParameter,
-      config: Config | undefined = fetchConfig,
     ) => {
       if (!returnId) {
         return Promise.reject(new Error('No returnId provided'));
@@ -213,8 +224,8 @@ function useReturnPickupRescheduleRequest(
 
       fetchPickupRescheduleRequest(
         pickupRescheduleRequestId,
-        returnId,
         config,
+        returnId,
       ).then(
         pickupRescheduleRequest => {
           dispatch({

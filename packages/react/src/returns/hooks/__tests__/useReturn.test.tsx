@@ -6,12 +6,6 @@ import {
   waitFor,
 } from '@testing-library/react';
 import {
-  createReturn,
-  fetchReturn,
-  resetReturnState,
-  updateReturn,
-} from '@farfetch/blackout-redux';
-import {
   mockPatchData,
   mockState,
   pickupDay,
@@ -23,21 +17,28 @@ import {
 import { mockStore, withStore, wrap } from '../../../../tests/helpers/index.js';
 import { Provider } from 'react-redux';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import { useReturn } from '../../../index.js';
+import { useReturn, useUserReturns } from '../../../index.js';
 import ReturnTest from '../__fixtures__/ReturnsTest.fixtures.js';
 import useReturnPickupCapability from '../useReturnPickupCapability.js';
 import useReturnPickupRescheduleRequests from '../useReturnPickupRescheduleRequests.js';
 
-jest.mock('@farfetch/blackout-redux', () => {
-  const original = jest.requireActual('@farfetch/blackout-redux');
+const mockFetchReturnFn = jest.fn();
+const mockResetReturnStateFn = jest.fn();
+const mockUpdateReturnFn = jest.fn();
+const mockCreateReturnFn = jest.fn();
 
-  return {
-    ...original,
-    fetchReturn: jest.fn(),
-    resetReturnState: jest.fn(),
-    updateReturn: jest.fn(),
-    createReturn: jest.fn(),
-  };
+jest.mock('../useUserReturns', () => {
+  return jest.fn(() => {
+    return {
+      data: undefined,
+      actions: {
+        fetchReturn: mockFetchReturnFn,
+        resetReturnState: mockResetReturnStateFn,
+        updateReturn: mockUpdateReturnFn,
+        createReturn: mockCreateReturnFn,
+      },
+    };
+  });
 });
 
 jest.mock('../../../helpers/useAction', () => {
@@ -196,7 +197,9 @@ describe('useReturn', () => {
 
     expect(current).toStrictEqual(defaultReturn);
 
-    expect(resetReturnState).not.toHaveBeenCalled();
+    expect(mockResetReturnStateFn).not.toHaveBeenCalled();
+
+    expect(useUserReturns).toHaveBeenCalledWith({ enableAutoFetch: false });
 
     expect(useReturnPickupCapability).toHaveBeenCalledWith(
       returnId,
@@ -266,7 +269,10 @@ describe('useReturn', () => {
           },
         );
 
-        expect(fetchReturn).toHaveBeenCalledWith(returnId, mockFetchConfig);
+        expect(mockFetchReturnFn).toHaveBeenCalledWith(
+          returnId,
+          mockFetchConfig,
+        );
       });
 
       it('should fetch data if `enableAutoFetch` option is true', () => {
@@ -281,7 +287,10 @@ describe('useReturn', () => {
           },
         );
 
-        expect(fetchReturn).toHaveBeenCalledWith(returnId, mockFetchConfig);
+        expect(mockFetchReturnFn).toHaveBeenCalledWith(
+          returnId,
+          mockFetchConfig,
+        );
       });
 
       it('should not fetch data if `enableAutoFetch` option is false', () => {
@@ -295,7 +304,7 @@ describe('useReturn', () => {
           },
         );
 
-        expect(fetchReturn).not.toHaveBeenCalled();
+        expect(mockFetchReturnFn).not.toHaveBeenCalled();
       });
 
       it('should not fetch data if `enableAutoFetch` option is true and returnId parameter is not passed', () => {
@@ -303,7 +312,7 @@ describe('useReturn', () => {
           wrapper: withStore(mockInitialStateNoData),
         });
 
-        expect(fetchReturn).not.toHaveBeenCalled();
+        expect(mockFetchReturnFn).not.toHaveBeenCalled();
       });
     });
   });
@@ -323,7 +332,7 @@ describe('useReturn', () => {
 
         reset();
 
-        expect(resetReturnState).toHaveBeenCalledWith([returnId]);
+        expect(mockResetReturnStateFn).toHaveBeenCalledWith([returnId]);
       });
 
       it('should call `resetReturnState` action with the returnId parameter passed to the function', () => {
@@ -339,7 +348,7 @@ describe('useReturn', () => {
 
         reset(returnId);
 
-        expect(resetReturnState).toHaveBeenCalledWith([returnId]);
+        expect(mockResetReturnStateFn).toHaveBeenCalledWith([returnId]);
       });
 
       it('should not call `resetReturnState` when returnId parameter is not passed to both the hook and the function', () => {
@@ -355,7 +364,7 @@ describe('useReturn', () => {
 
         reset();
 
-        expect(resetReturnState).not.toHaveBeenCalled();
+        expect(mockResetReturnStateFn).not.toHaveBeenCalled();
       });
     });
 
@@ -380,7 +389,10 @@ describe('useReturn', () => {
 
         fetch();
 
-        expect(fetchReturn).toHaveBeenCalledWith(returnId, mockFetchConfig);
+        expect(mockFetchReturnFn).toHaveBeenCalledWith(
+          returnId,
+          mockFetchConfig,
+        );
       });
 
       it('should call `fetchReturn` action with the returnId parameter passed to the function', () => {
@@ -401,9 +413,12 @@ describe('useReturn', () => {
           },
         );
 
-        fetch(returnId);
+        fetch(undefined, returnId);
 
-        expect(fetchReturn).toHaveBeenCalledWith(returnId, mockFetchConfig);
+        expect(mockFetchReturnFn).toHaveBeenCalledWith(
+          returnId,
+          mockFetchConfig,
+        );
       });
 
       it('should fail when returnId parameter is not passed to both the hook and the function', () => {
@@ -440,9 +455,9 @@ describe('useReturn', () => {
           wrapper: withStore(mockInitialStateNoData),
         });
 
-        update(undefined, mockPatchData, mockFetchConfig);
+        update(mockPatchData, mockFetchConfig);
 
-        expect(updateReturn).toHaveBeenCalledWith(
+        expect(mockUpdateReturnFn).toHaveBeenCalledWith(
           returnId,
           mockPatchData,
           mockFetchConfig,
@@ -460,9 +475,9 @@ describe('useReturn', () => {
           wrapper: withStore(mockInitialStateNoData),
         });
 
-        update(returnId, mockPatchData, mockFetchConfig);
+        update(mockPatchData, mockFetchConfig, returnId);
 
-        expect(updateReturn).toHaveBeenCalledWith(
+        expect(mockUpdateReturnFn).toHaveBeenCalledWith(
           returnId,
           mockPatchData,
           mockFetchConfig,
@@ -480,9 +495,9 @@ describe('useReturn', () => {
           wrapper: withStore(mockInitialStateNoData),
         });
 
-        return expect(
-          update(undefined, mockPatchData, mockFetchConfig),
-        ).rejects.toThrow('No return id was specified.');
+        return expect(update(mockPatchData, mockFetchConfig)).rejects.toThrow(
+          'No return id was specified.',
+        );
       });
 
       it('should fail when data parameter is not passed', () => {
@@ -497,7 +512,7 @@ describe('useReturn', () => {
         });
 
         return expect(
-          update(returnId, undefined, mockFetchConfig),
+          update(undefined, mockFetchConfig, returnId),
         ).rejects.toThrow('No data was specified.');
       });
     });
@@ -551,7 +566,10 @@ describe('useReturn', () => {
 
           fireEvent.click(getByTestId('return-createButton'));
 
-          expect(createReturn).toHaveBeenCalledWith(createData, undefined);
+          expect(mockCreateReturnFn).toHaveBeenCalledWith(
+            createData,
+            undefined,
+          );
 
           await continuation(renderResult);
 
@@ -579,7 +597,7 @@ describe('useReturn', () => {
             }, 10000);
           });
 
-          (createReturn as jest.Mock).mockImplementation(() => {
+          (mockCreateReturnFn as jest.Mock).mockImplementation(() => {
             return createReturnPromise;
           });
 
@@ -602,7 +620,7 @@ describe('useReturn', () => {
           expect(queryByTestId('return-error')).toBeNull();
           expect(queryByTestId('return-id')).toBeNull();
 
-          expect(resetReturnState).toHaveBeenCalledWith([returnId2]);
+          expect(mockResetReturnStateFn).toHaveBeenCalledWith([returnId2]);
 
           // Test cleanup 2: The hook is rerendered with the same returnId
           // as the one that was created. A call to resetReturnState must not
@@ -630,7 +648,7 @@ describe('useReturn', () => {
           expect(queryByTestId('return-error')).toBeNull();
           expect(getByTestId('return-id').textContent).toBe(`${returnId2}`);
 
-          expect(resetReturnState).not.toHaveBeenCalled();
+          expect(mockResetReturnStateFn).not.toHaveBeenCalled();
         });
 
         it('should return an error if the call to `createReturn` fails', async () => {
@@ -652,7 +670,7 @@ describe('useReturn', () => {
             }, 10000);
           });
 
-          (createReturn as jest.Mock).mockImplementation(() => {
+          (mockCreateReturnFn as jest.Mock).mockImplementation(() => {
             return createReturnPromise;
           });
 
@@ -682,12 +700,12 @@ describe('useReturn', () => {
 
         const anotherConfig = {};
 
-        await fetchPickupCapability(returnId2, pickupDay, anotherConfig);
+        await fetchPickupCapability(anotherConfig, pickupDay, returnId2);
 
         expect(mockFetchPickupCapabilityFn).toHaveBeenCalledWith(
-          returnId2,
-          pickupDay,
           anotherConfig,
+          pickupDay,
+          returnId2,
         );
       });
     });
@@ -711,11 +729,11 @@ describe('useReturn', () => {
           },
         );
 
-        await resetPickupCapability(returnId2, pickupDay);
+        await resetPickupCapability(pickupDay, returnId2);
 
         expect(mockResetPickupCapabilityFn).toHaveBeenCalledWith(
-          returnId2,
           pickupDay,
+          returnId2,
         );
       });
     });
@@ -739,11 +757,11 @@ describe('useReturn', () => {
           },
         );
 
-        await fetchPickupRescheduleRequests(returnId, mockFetchConfig);
+        await fetchPickupRescheduleRequests(mockFetchConfig, returnId);
 
         expect(mockFetchPickupRescheduleRequestsFn).toHaveBeenCalledWith(
-          returnId,
           mockFetchConfig,
+          returnId,
         );
       });
     });
@@ -776,14 +794,14 @@ describe('useReturn', () => {
 
         await createPickupRescheduleRequest(
           mockCreatePickupRescheduleData,
-          returnId,
           mockFetchConfig,
+          returnId,
         );
 
         expect(mockCreatePickupRescheduleRequestFn).toHaveBeenCalledWith(
           mockCreatePickupRescheduleData,
-          returnId,
           mockFetchConfig,
+          returnId,
         );
       });
     });
@@ -809,14 +827,14 @@ describe('useReturn', () => {
 
         await fetchPickupRescheduleRequest(
           rescheduleRequestId,
-          returnId,
           mockFetchConfig,
+          returnId,
         );
 
         expect(mockFetchPickupRescheduleRequestFn).toHaveBeenCalledWith(
           rescheduleRequestId,
-          returnId,
           mockFetchConfig,
+          returnId,
         );
       });
     });

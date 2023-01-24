@@ -1,6 +1,9 @@
 import * as actionTypes from '../../actionTypes.js';
 import * as fromReducer from '../wishlists.js';
-import { LOGOUT_SUCCESS } from '../../../users/authentication/actionTypes.js';
+import {
+  FETCH_USER_SUCCESS,
+  LOGOUT_SUCCESS,
+} from '../../../users/authentication/actionTypes.js';
 import { mockProduct } from 'tests/__fixtures__/products/index.mjs';
 import {
   mockWishlistId,
@@ -8,6 +11,7 @@ import {
   mockWishlistItemId,
   mockWishlistSets,
   mockWishlistsResponse,
+  mockWishlistState,
 } from 'tests/__fixtures__/wishlists/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, { entitiesMapper } from '..//index.js';
@@ -43,6 +47,28 @@ describe('wishlists reducer', () => {
           type: LOGOUT_SUCCESS,
         }),
       ).toEqual(initialState);
+    });
+
+    describe('resetting when FETCH_USER_SUCCESS is dispatched', () => {
+      it("should return the initial state if the user's wishlist id has changed", () => {
+        const newWishlistId = mockWishlistId + '1';
+
+        expect(
+          reducer(mockWishlistState.wishlist, {
+            payload: { entities: { user: { wishlistId: newWishlistId } } },
+            type: FETCH_USER_SUCCESS,
+          }),
+        ).toEqual(initialState);
+      });
+
+      it("should return the same state if the user's wishlist id has _NOT_ changed", () => {
+        expect(
+          reducer(mockWishlistState.wishlist, {
+            payload: { entities: { user: { wishlistId: mockWishlistId } } },
+            type: FETCH_USER_SUCCESS,
+          }),
+        ).toEqual(mockWishlistState.wishlist);
+      });
     });
 
     it('should only reset to the initial state the fields specified to reset - reducer root (id)', () => {

@@ -27,10 +27,17 @@ const useContentPage = <T = [ComponentType]>(
   const query = useMemo(
     () => ({
       contentTypeCode: ContentTypeCode.ContentPage,
-      codes: fetchQuery.slug,
+      codes: fetchQuery.slug.split('?')[0] as string,
     }),
     [fetchQuery.slug],
   );
+
+  const fetchQueryWithoutSlug = useMemo(() => {
+    return {
+      ...fetchQuery,
+      slug: query.codes,
+    };
+  }, [query, fetchQuery]);
 
   const error = useSelector((state: StoreState) =>
     getContentError(state, query),
@@ -49,14 +56,18 @@ const useContentPage = <T = [ComponentType]>(
   const fetchContentPage = useAction(fetchContentPageAction);
 
   const fetch = useCallback(() => {
-    return fetchContentPage(contentPagesType, fetchQuery, fetchConfig);
-  }, [contentPagesType, fetchConfig, fetchContentPage, fetchQuery]);
+    return fetchContentPage(
+      contentPagesType,
+      fetchQueryWithoutSlug,
+      fetchConfig,
+    );
+  }, [contentPagesType, fetchConfig, fetchContentPage, fetchQueryWithoutSlug]);
 
   useEffect(() => {
-    if (!isLoading && !error && !isFetched && enableAutoFetch) {
+    if (!isLoading && !isFetched && enableAutoFetch) {
       fetch();
     }
-  }, [enableAutoFetch, error, fetch, isFetched, isLoading]);
+  }, [enableAutoFetch, fetch, isFetched, isLoading]);
 
   return {
     data: contentPage,

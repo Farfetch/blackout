@@ -12,7 +12,7 @@ import type { StoreState } from '../../types/index.js';
  *
  * @example
  * ```
- * import { getConfigurationsError } from '@farfetch/blackout-redux/settings';
+ * import { getConfigurationsError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     error: getConfigurationsError(state)
@@ -31,7 +31,7 @@ export const getConfigurationsError = (state: StoreState) =>
  *
  * @example
  * ```
- * import { areConfigurationsLoading } from '@farfetch/blackout-redux/settings';
+ * import { areConfigurationsLoading } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     isLoading: areConfigurationsLoading(state)
@@ -50,7 +50,7 @@ export const areConfigurationsLoading = (state: StoreState) =>
  *
  * @example
  * ```
- * import { areConfigurationsFetched } from '@farfetch/blackout-redux/settings';
+ * import { areConfigurationsFetched } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     areConfigurationsFetched: areConfigurationsFetched(state)
@@ -71,7 +71,7 @@ export const areConfigurationsFetched = (state: StoreState) =>
  *
  * @example
  * ```
- * import { getConfigurations } from '@farfetch/blackout-redux/entities/selectors';
+ * import { getConfigurations } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *     configurations: getConfigurations(state)

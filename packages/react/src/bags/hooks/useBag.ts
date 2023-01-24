@@ -13,6 +13,7 @@ import {
   getBagError,
   getBagItems,
   getProductDenormalized,
+  getUser,
   isBagFetched,
   isBagLoading,
   type ProductEntityDenormalized,
@@ -28,10 +29,10 @@ import {
   ProductError,
   SizeError,
 } from './errors/index.js';
-import { type Config } from '@farfetch/blackout-client';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
+import type { BagQueryBase, Config } from '@farfetch/blackout-client';
 import type { UseBagOptions } from './types/index.js';
 
 type HandleAddOrUpdateItem = (
@@ -59,7 +60,7 @@ type HandleAddOrUpdateItem = (
 
 /**
  * Provides Redux actions and state access, as well as handlers for dealing with
- * bag business logic.
+ * bag business logic. It will fetch bag data from the current user's bag.
  *
  * @returns All the handlers, state, actions and relevant data needed to manage any bag operation.
  */
@@ -74,25 +75,40 @@ const useBag = (options: UseBagOptions = {}) => {
   const count = bag?.count;
   const isEmpty = count === 0;
   const isFetched = useSelector(isBagFetched);
+  const userBagId = useSelector(getUser)?.bagId;
   // Actions
   const addBagItem = useAction(addBagItemAction);
   const updateBagItem = useAction(updateBagItemAction);
   const removeItem = useAction(removeBagItemAction);
-  const fetch = useAction(fetchBagAction);
+  const fetchBag = useAction(fetchBagAction);
   const reset = useAction(resetBagAction);
+  const fetch = useCallback(
+    (query?: BagQueryBase, config?: Config) => {
+      if (!userBagId) {
+        return Promise.reject(
+          new Error(
+            "User's bag id is not loaded. Please, fetch the user before using this action",
+          ),
+        );
+      }
+
+      return fetchBag(userBagId, query, config);
+    },
+    [fetchBag, userBagId],
+  );
 
   useEffect(() => {
-    if (!isLoading && !error && enableAutoFetch && bag?.id) {
-      fetch(bag.id, fetchQuery, fetchConfig);
+    if (!isLoading && !isFetched && enableAutoFetch && userBagId) {
+      fetch(fetchQuery, fetchConfig);
     }
   }, [
-    bag?.id,
     enableAutoFetch,
-    error,
     fetch,
     fetchConfig,
     fetchQuery,
+    isFetched,
     isLoading,
+    userBagId,
   ]);
 
   const handleAddOrUpdateItem: HandleAddOrUpdateItem = useCallback(

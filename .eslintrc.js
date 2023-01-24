@@ -127,7 +127,7 @@ module.exports = {
   overrides: [
     // Disable all tsdoc checking in test files
     {
-      files: ['*.test.[t|j]s*', '*.fixtures.[t|j]s*'],
+      files: ['*.test.*[t|j]s*', '*.fixtures.*[t|j]s*'],
       rules: {
         'tsdoc/syntax': 'off',
         // We use const xxx = () => {} many times in tests.

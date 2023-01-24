@@ -8,7 +8,7 @@ import type { StoreState } from '../types/index.js';
  *
  * @example
  * ```
- * import { getPromotionEvaluationItems } from '@farfetch/blackout-redux/promotionEvaluations';
+ * import { getPromotionEvaluationItems } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *   promotionEvaluationsItems: getPromotionEvaluationItems(state)
@@ -27,7 +27,7 @@ export const getPromotionEvaluationItems = (state: StoreState) =>
  *
  * @example
  * ```
- * import { getPromotionEvaluationItemById } from '@farfetch/blackout-redux/promotionEvaluations';
+ * import { getPromotionEvaluationItemById } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, { id } ) => ({
  *   promotionEvaluationsItem: getPromotionEvaluationItemById(state, id)
@@ -55,7 +55,7 @@ export const getPromotionEvaluationItemById = (
  *
  * @example
  * ```
- * import { getPromotionEvaluationId } from '@farfetch/blackout-redux/promotionEvaluations';
+ * import { getPromotionEvaluationId } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *   promotionEvaluationId: getPromotionEvaluationId(state)
@@ -74,7 +74,7 @@ export const getPromotionEvaluationId = (state: StoreState) =>
  *
  * @example
  * ```
- * import { getPromotionEvaluationItemsError } from '@farfetch/blackout-redux/promotionEvaluations';
+ * import { getPromotionEvaluationItemsError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *   error: getPromotionEvaluationItemsError(state)
@@ -93,7 +93,7 @@ export const getPromotionEvaluationItemsError = (state: StoreState) =>
  *
  * @example
  * ```
- * import { arePromotionEvaluationItemsLoading } from '@farfetch/blackout-redux/promotionEvaluations';
+ * import { arePromotionEvaluationItemsLoading } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *   isLoading: arePromotionEvaluationItemsLoading(state)

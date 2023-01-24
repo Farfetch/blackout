@@ -42,10 +42,10 @@ function useContents<T = ComponentType[]>({
   );
 
   useEffect(() => {
-    if (!isLoading && !error && !isFetched && enableAutoFetch) {
+    if (!isLoading && !isFetched && enableAutoFetch) {
       fetch();
     }
-  }, [enableAutoFetch, error, fetch, isFetched, isLoading]);
+  }, [enableAutoFetch, fetch, isFetched, isLoading]);
 
   const data = useMemo(
     () =>

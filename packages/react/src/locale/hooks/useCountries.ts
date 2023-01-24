@@ -36,10 +36,10 @@ export function useCountries(options: UseCountriesOptions = {}) {
   );
 
   useEffect(() => {
-    if (!isLoading && !error && !isFetched && enableAutoFetch) {
+    if (!isLoading && !isFetched && enableAutoFetch) {
       fetch(fetchConfig);
     }
-  }, [enableAutoFetch, error, fetch, fetchConfig, isFetched, isLoading]);
+  }, [enableAutoFetch, fetch, fetchConfig, isFetched, isLoading]);
 
   return {
     error,

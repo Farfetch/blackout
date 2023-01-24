@@ -18,6 +18,7 @@ import {
   mockProductTypeToExclude,
 } from '../products/index.mjs';
 import { mockCategoryId } from '../categories/index.mjs';
+import { mockUsersResponse } from '../users/index.mjs';
 import type {
   BrandEntity,
   CategoryEntity,
@@ -68,6 +69,7 @@ export const mockInitialState = {
     error: null,
     id: mockBagId,
     isLoading: false,
+    result: null,
     items: {
       ids: [],
       item: {
@@ -83,6 +85,17 @@ export const mockInitialState = {
       error: null,
       isLoading: false,
     },
+  },
+  entities: {
+    user: mockUsersResponse,
+  },
+};
+
+export const mockInitialStateWithoutBagId = {
+  ...mockInitialState,
+  bag: {
+    ...mockInitialState.bag,
+    id: null,
   },
 };
 

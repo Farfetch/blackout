@@ -30,13 +30,12 @@ export function useCountryStateCities(
   );
 
   useEffect(() => {
-    if (!isLoading && !error && !isFetched && enableAutoFetch) {
+    if (!isLoading && !isFetched && enableAutoFetch) {
       fetch(countryCode, stateId, fetchConfig);
     }
   }, [
     countryCode,
     enableAutoFetch,
-    error,
     fetch,
     fetchConfig,
     isFetched,

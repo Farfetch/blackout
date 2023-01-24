@@ -29,18 +29,10 @@ export function useCountryStates(
   );
 
   useEffect(() => {
-    if (!isLoading && !error && !isFetched && enableAutoFetch) {
+    if (!isLoading && !isFetched && enableAutoFetch) {
       fetch(countryCode, fetchConfig);
     }
-  }, [
-    countryCode,
-    enableAutoFetch,
-    error,
-    fetch,
-    fetchConfig,
-    isFetched,
-    isLoading,
-  ]);
+  }, [countryCode, enableAutoFetch, fetch, fetchConfig, isFetched, isLoading]);
 
   return {
     error,

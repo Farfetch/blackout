@@ -37,25 +37,40 @@ function useOrderReturnOptions(
   const fetchOrderReturnOptions = useAction(fetchOrderReturnOptionsAction);
   const resetOrderReturnOptions = useAction(resetOrderReturnOptionsAction);
 
+  /**
+   * Fetches the order return options. You can override the order id to fetch return
+   * options by using  the optional `orderId` parameter. However, the output from
+   * the hook will respect the order id passed to it and not the override.
+   *
+   * @param config - Custom configurations to send to the client instance (axios). If undefined, the `fetchConfig` passed to the hook will be used instead.
+   * @param orderId - Overrides the order id from the hook. If undefined, the `orderId` passed to the hook will be used instead. Note that the output of the hook will respect the `orderId` parameter from the hook.
+   *
+   * @returns Promise that will resolve when the call to the endpoint finishes.
+   */
   const fetch = useCallback(
-    (orderId?: Order['id'], config?: Config) => {
-      const orderIdRequest = orderId || orderIdHookParameter;
-
-      if (!orderIdRequest) {
+    (
+      config: Config | undefined = fetchConfig,
+      orderId: Order['id'] = orderIdHookParameter,
+    ) => {
+      if (!orderId) {
         return Promise.reject(new Error('No order id was specified.'));
       }
 
-      return fetchOrderReturnOptions(orderIdRequest, config || fetchConfig);
+      return fetchOrderReturnOptions(orderId, config);
     },
     [fetchConfig, fetchOrderReturnOptions, orderIdHookParameter],
   );
 
+  /**
+   * Reset order return options state. You can override the order id to reset by using
+   * the optional `orderId` parameter.
+   *
+   * @param orderId  - Overrides the order id from the hook. If undefined, the orderId passed to the hook will be used instead.
+   */
   const reset = useCallback(
-    (orderId?: Order['id']) => {
-      const orderIdRequest = orderId || orderIdHookParameter;
-
-      if (orderIdRequest) {
-        resetOrderReturnOptions([orderIdRequest]);
+    (orderId: Order['id'] = orderIdHookParameter) => {
+      if (orderId) {
+        resetOrderReturnOptions([orderId]);
       }
     },
     [orderIdHookParameter, resetOrderReturnOptions],
@@ -63,7 +78,7 @@ function useOrderReturnOptions(
 
   useEffect(() => {
     if (!isLoading && !isFetched && enableAutoFetch && orderIdHookParameter) {
-      fetch(orderIdHookParameter, fetchConfig);
+      fetch();
     }
   }, [
     enableAutoFetch,

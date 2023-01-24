@@ -42,7 +42,7 @@ export const getContentsByHash = (state: StoreState, hash: Hash) =>
  *
  * @example
  * ```
- * import { getContentError } from '@farfetch/blackout-redux/contents';
+ * import { getContentError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, { query }) => ({
  * error: getContentError(state, query)
@@ -69,7 +69,7 @@ export const getContentError = (
  *
  * @example
  * ```
- * import { isContentLoading } from '@farfetch/blackout-redux/contents';
+ * import { isContentLoading } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, { query }) => ({
  * isLoading: isContentLoading(state, query)
@@ -125,7 +125,7 @@ export const getContentByQuery = (
  *
  * @example
  * ```
- * import { getContents } from '@farfetch/blackout-redux/contents';
+ * import { getContents } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, { query }) => ({
  *     contents: getContents(state, query)
@@ -183,7 +183,7 @@ export const isContentFetched = (
  *
  * @example
  * ```
- * import { getContentTypes } from '@farfetch/blackout-redux/contents';
+ * import { getContentTypes } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
  *      contentTypes: getContentTypes(state)
@@ -202,7 +202,7 @@ export const getAllContentTypes = (state: StoreState) =>
  *
  * @example
  * ```
- * import { getSEOMetadataError } from '@farfetch/blackout-redux/contents';
+ * import { getSEOMetadataError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, { query }) => ({
  *     seoError: getSEOMetadataError(state, query)
@@ -230,7 +230,7 @@ export const getSEOMetadataError = (
  *
  * @example
  * ```
- * import { isSEOMetadataLoading } from '@farfetch/blackout-redux/contents';
+ * import { isSEOMetadataLoading } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, { query }) => ({
  *     isSEOMetadataLoading: isSEOMetadataLoading(state, query)
@@ -257,7 +257,7 @@ export const isSEOMetadataLoading = (
  *
  * @example
  * ```
- * import { isSEOMetadataFetched } from '@farfetch/blackout-redux/contents';
+ * import { isSEOMetadataFetched } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, { query }) => ({
  *     isSEOMetadataFetched: isSEOMetadataFetched(state, query)
@@ -288,7 +288,7 @@ export const isSEOMetadataFetched = (
  *
  * @example
  * ```
- * import { getSEO } from '@farfetch/blackout-redux/contents';
+ * import { getSEO } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, { query }) => ({
  *     seo: getSEO(state, query)

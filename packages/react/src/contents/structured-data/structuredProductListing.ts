@@ -14,7 +14,7 @@ import type {
  *
  * @example
  * ```
- * import { structuredProductListing } from '@farfetch/blackout-react/contents/structured-data';
+ * import { structuredProductListing } from '@farfetch/blackout-react';
  *
  * <Helmet>
  *  {structuredProductListing(

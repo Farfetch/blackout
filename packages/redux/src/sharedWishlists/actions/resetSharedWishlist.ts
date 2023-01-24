@@ -25,7 +25,7 @@ const resetEntities =
  *
  * @example
  * ```
- * import { resetSharedWishlist } from '@farfetch/blackout-redux/sharedWishlists';
+ * import { resetSharedWishlist } from '@farfetch/blackout-redux';
  *
  * // State object before executing action
  * const state = { result: '123', error: null, isLoading: false};

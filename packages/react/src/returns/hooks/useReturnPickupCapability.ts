@@ -69,25 +69,32 @@ function useReturnPickupCapability(
     resetReturnPickupCapabilityStateAction,
   );
 
+  /**
+   * Fetches the pickup capability for the specified day. You can override both the
+   * pickup day and return id to fetch by using the optional `pickupDay` and `returnId` parameters.
+   * However, the output from the hook will respect the pickup day and return id passed to it and not the overrides.
+   *
+   * @param config - Custom configurations to send to the client instance (axios). If undefined, the `fetchConfig` passed to the hook will be used instead.
+   * @param pickupDay - Overrides the pickup day from the hook. If undefined, the `pickupDay` passed to the hook will be used instead. Note that the output of the hook will respect the `pickupDay` parameter from the hook.
+   * @param returnId  - Overrides the return id from the hook. If undefined, the `returnId` passed to the hook will be used instead. Note that the output of the hook will respect the `returnId` parameter from the hook.
+   *
+   * @returns Promise that will resolve when the call to the endpoint finishes.
+   */
   const fetch = useCallback(
-    (returnId?: Return['id'], pickupDay?: string, config?: Config) => {
-      const returnIdRequest = returnId || returnIdHookParameter;
-
-      if (!returnIdRequest) {
+    (
+      config: Config | undefined = fetchConfig,
+      pickupDay: string | undefined = pickupDayHookParameter,
+      returnId: Return['id'] | undefined = returnIdHookParameter,
+    ) => {
+      if (!returnId) {
         return Promise.reject(new Error('No return id was specified.'));
       }
 
-      const pickupDayRequest = pickupDay || pickupDayHookParameter;
-
-      if (!pickupDayRequest) {
+      if (!pickupDay) {
         return Promise.reject(new Error('No pickup day was specified.'));
       }
 
-      return fetchReturnPickupCapability(
-        returnIdRequest,
-        pickupDayRequest,
-        config || fetchConfig,
-      );
+      return fetchReturnPickupCapability(returnId, pickupDay, config);
     },
     [
       fetchConfig,
@@ -97,15 +104,20 @@ function useReturnPickupCapability(
     ],
   );
 
+  /**
+   * Reset return pickup capability state. You can override both the pickup day and return id
+   * to reset by using the optional `pickupDay` and `returnId` parameters.
+   *
+   * @param pickupDay  - Overrides the pickup day from the hook. If undefined, the `pickupDay` passed to the hook will be used instead.
+   * @param returnId  - Overrides the return id from the hook. If undefined, the `returnId` passed to the hook will be used instead.
+   */
   const reset = useCallback(
-    (returnId?: Return['id'], pickupDay?: string) => {
-      const returnIdRequest = returnId || returnIdHookParameter;
-      const pickupDayRequest = pickupDay || pickupDayHookParameter;
-
-      if (returnIdRequest && pickupDayRequest) {
-        resetReturnPickupCapabilityState([
-          { returnId: returnIdRequest, pickupDay: pickupDayRequest },
-        ]);
+    (
+      pickupDay: string | undefined = pickupDayHookParameter,
+      returnId: Return['id'] | undefined = returnIdHookParameter,
+    ) => {
+      if (returnId && pickupDay) {
+        resetReturnPickupCapabilityState([{ returnId, pickupDay }]);
       }
     },
     [
@@ -123,7 +135,7 @@ function useReturnPickupCapability(
       returnIdHookParameter &&
       pickupDay
     ) {
-      fetch(returnIdHookParameter, pickupDay, fetchConfig);
+      fetch();
     }
   }, [
     enableAutoFetch,
