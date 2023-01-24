@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.50.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.49.0...@farfetch/blackout-react@0.50.0) (2023-01-24)
+
+
+### Features
+
+* **react:** remove vitorino from external script ([c65c5d2](https://github.com/Farfetch/blackout/commit/c65c5d201492216d42773099dd62e1c506ae5199))
+
+
+
+
+
 # [0.49.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.48.0...@farfetch/blackout-react@0.49.0) (2023-01-11)
 
 

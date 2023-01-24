@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.78.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.77.0...@farfetch/blackout-core@1.78.0) (2023-01-24)
+
+
+### Features
+
+* **core:** add bag operations endpoints ([47993b9](https://github.com/Farfetch/blackout/commit/47993b92c144b8058f16baca0154043ae1f08634))
+
+
+
+
+
 # [1.77.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.76.1...@farfetch/blackout-core@1.77.0) (2023-01-11)
 
 
