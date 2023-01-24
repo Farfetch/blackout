@@ -5,6 +5,7 @@ import mswServer from '../../../tests/mswServer';
 
 describe('SEO client', () => {
   const expectedConfig = undefined;
+  const baseUrl = 'https://api.blackout.com/';
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -13,6 +14,7 @@ describe('SEO client', () => {
   describe('getSEOMetadata()', () => {
     const spy = jest.spyOn(client, 'get');
     const query = {
+      baseUrl,
       path: 'about',
       pageType: SeoPageType.Pages,
       subPageType: '',
@@ -48,7 +50,7 @@ describe('SEO client', () => {
           propertyType: 'property',
           propertyDescription: 'og:url',
           contentType: 'content',
-          content: 'https://api.blackout.com/about',
+          content: '/about',
         },
         {
           tagName: 'meta',
@@ -74,7 +76,7 @@ describe('SEO client', () => {
       await expect(getSEOMetadata(query)).resolves.toEqual(response);
 
       expect(spy).toHaveBeenCalledWith(
-        '/content/v1/seometadata?pageType=5&param.subParam=mockValue&path=about&subPageType=',
+        '/content/v1/seometadata?baseUrl=https%3A%2F%2Fapi.blackout.com%2F&pageType=5&param.subParam=mockValue&path=about&subPageType=',
         expectedConfig,
       );
     });
@@ -87,7 +89,7 @@ describe('SEO client', () => {
       await expect(getSEOMetadata(query)).rejects.toMatchSnapshot();
 
       expect(spy).toHaveBeenCalledWith(
-        '/content/v1/seometadata?pageType=5&param.subParam=mockValue&path=about&subPageType=',
+        '/content/v1/seometadata?baseUrl=https%3A%2F%2Fapi.blackout.com%2F&pageType=5&param.subParam=mockValue&path=about&subPageType=',
         expectedConfig,
       );
     });
