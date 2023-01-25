@@ -58,6 +58,10 @@ Object {
     "@farfetch/blackout-redux/RESET_PRODUCTS_LISTS_ENTITIES": [Function],
     "@farfetch/blackout-redux/RESET_PRODUCT_DETAILS_ENTITIES": [Function],
   },
+  "raffles": Object {
+    "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
+    "@farfetch/blackout-redux/RESET_RAFFLES_STATE": [Function],
+  },
   "returns": Object {
     "@farfetch/blackout-redux/FETCH_USER_SUCCESS": [Function],
     "@farfetch/blackout-redux/LOGIN_SUCCESS": [Function],
