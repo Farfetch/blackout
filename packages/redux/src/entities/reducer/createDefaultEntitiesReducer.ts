@@ -3,6 +3,7 @@ import { entitiesMapper as entitiesMapperCheckout } from '../../checkout/reducer
 import { entitiesMapper as entitiesMapperMerchantsLocations } from '../../merchantsLocations/reducer';
 import { entitiesMapper as entitiesMapperOrders } from '../../orders/reducer';
 import { entitiesMapper as entitiesMapperPayments } from '../../payments/reducer';
+import { entitiesMapper as entitiesMapperRaffles } from '../../raffles/reducer';
 import { entitiesMapper as entitiesMapperReturns } from '../../returns/reducer';
 import { entitiesMapper as entitiesMapperUsers } from '../../users/reducer';
 import { entitiesMapper as entitiesMapperWishlist } from '../../wishlists/reducer';
@@ -57,6 +58,7 @@ export const defaultEntitiesReducers: DefaultEntitiesReducers = {
   returns: entitiesMapperReturns,
   subscriptions: subscriptionsEntitiesMapper,
   wishlist: entitiesMapperWishlist,
+  raffles: entitiesMapperRaffles,
 };
 
 // Function that merges entities mappers and runs duplicate action keys.

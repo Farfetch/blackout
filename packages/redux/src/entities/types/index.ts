@@ -46,3 +46,6 @@ export * from './titles.types';
 export * from './wishlistItem.types';
 export * from './wishlistSet.types';
 export * from './user.types';
+export * from './raffle.types';
+export * from './raffleParticipations.types';
+export * from './raffleEstimation.types';

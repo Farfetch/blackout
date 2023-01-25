@@ -24,6 +24,8 @@ import type {
   ProductEntity,
   ProductsListEntity,
   ProgramEntity,
+  RaffleEntity,
+  RaffleParticipationEntity,
   ReplacementEntity,
   ReturnEntity,
   ReturnItemEntity,
@@ -68,6 +70,8 @@ import type { OrdersState } from '../orders/types';
 import type { PaymentsState } from '../payments/types';
 import type { ProductsState } from '../products/types';
 import type { PromotionEvaluationsState } from '../promotionEvaluations/types';
+import type { RaffleEstimationEntity } from '../entities/types/raffleEstimation.types';
+import type { RafflesState } from '../raffles/types';
 import type { ReturnsState } from '../returns/types';
 import type { SearchState } from '../search/types';
 import type { SettingsState } from '../settings/types';
@@ -134,6 +138,12 @@ export type StoreState = Partial<{
     products: Record<ProductEntity['id'], ProductEntity>;
     productsLists: Record<ProductsListEntity['hash'], ProductsListEntity>;
     programs: Record<ProgramEntity['id'], ProgramEntity>;
+    raffles: Record<RaffleEntity['id'], RaffleEntity>;
+    raffleParticipations: Record<
+      RaffleParticipationEntity['id'],
+      RaffleParticipationEntity
+    >;
+    raffleEstimations: Record<RaffleEntity['id'], RaffleEstimationEntity>;
     replacements: Record<ReplacementEntity['id'], ReplacementEntity>;
     returnItems: Record<ReturnItemEntity['id'], ReturnItemEntity>;
     returns: Record<ReturnEntity['id'], ReturnEntity>;
@@ -171,6 +181,7 @@ export type StoreState = Partial<{
   payments: PaymentsState;
   products: ProductsState;
   promotionEvaluations: PromotionEvaluationsState;
+  raffles: RafflesState;
   returns: ReturnsState;
   sharedWishlist: SharedWishlistState;
   search: SearchState;
