@@ -30,3 +30,4 @@ export * from './subscriptions';
 export * from './types';
 export * from './users';
 export * from './wishlists';
+export * from './raffles';
