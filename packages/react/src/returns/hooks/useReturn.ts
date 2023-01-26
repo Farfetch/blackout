@@ -7,21 +7,17 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import {
-  createReturn as createReturnAction,
-  fetchReturn as fetchReturnAction,
   getReturn,
   getReturnError,
   isReturnFetched,
   isReturnLoading,
-  resetReturnState as resetReturnStateAction,
   StoreState,
-  updateReturn as updateReturnAction,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
 import useReturnPickupCapability from './useReturnPickupCapability';
 import useReturnPickupRescheduleRequests from './useReturnPickupRescheduleRequests';
+import useUserReturns from './useUserReturns';
 import type { UseReturnOptions } from './types';
 
 /**
@@ -65,13 +61,12 @@ function useReturn(returnId?: Return['id'], options: UseReturnOptions = {}) {
       : (!!returnEntity || createReturnError) && !isCreatingReturn,
   );
 
-  const fetchReturn = useAction(fetchReturnAction);
-  const resetReturnState = useAction(resetReturnStateAction);
-  const updateReturn = useAction(updateReturnAction);
-  const createReturn = useAction(createReturnAction);
+  const {
+    actions: { fetchReturn, resetReturnState, updateReturn, createReturn },
+  } = useUserReturns({ enableAutoFetch: false });
 
   const fetch = useCallback(
-    (returnId?: Return['id'], config?: Config) => {
+    (config?: Config, returnId?: Return['id']) => {
       const returnIdRequest = returnId || implicitReturnId;
 
       if (!returnIdRequest) {
@@ -84,7 +79,7 @@ function useReturn(returnId?: Return['id'], options: UseReturnOptions = {}) {
   );
 
   const update = useCallback(
-    (returnId?: Return['id'], data?: PatchReturnData, config?: Config) => {
+    (data?: PatchReturnData, config?: Config, returnId?: Return['id']) => {
       const returnIdRequest = returnId || implicitReturnId;
 
       if (!returnIdRequest) {
