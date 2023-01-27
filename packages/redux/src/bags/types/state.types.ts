@@ -1,4 +1,8 @@
-import type { BagItem, BlackoutError } from '@farfetch/blackout-client';
+import type {
+  BagItem,
+  BagOperation,
+  BlackoutError,
+} from '@farfetch/blackout-client';
 import type { BagNormalized } from '../types';
 import type { CombinedState } from 'redux';
 
@@ -12,11 +16,17 @@ export type BagItemsState = CombinedState<{
   [k: string]: unknown;
 }>;
 
+export type BagOperationsState = CombinedState<{
+  error: Record<BagOperation['id'], BlackoutError | null>;
+  isLoading: Record<BagOperation['id'], boolean>;
+}>;
+
 export type BagsState = CombinedState<{
   error: BlackoutError | null;
   id: BagNormalized['id'] | null;
   isLoading: boolean;
   result: BagNormalized | null;
   items: BagItemsState;
+  bagOperations: BagOperationsState;
   [k: string]: unknown;
 }>;

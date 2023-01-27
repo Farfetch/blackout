@@ -67,3 +67,25 @@ export const UPDATE_BAG_ITEM_REQUEST =
  */
 export const UPDATE_BAG_ITEM_SUCCESS =
   '@farfetch/blackout-redux/UPDATE_BAG_ITEM_SUCCESS';
+
+/**
+ * Action type dispatched when the fetch bag operation request fails.
+ */
+export const FETCH_BAG_OPERATION_FAILURE =
+  '@farfetch/blackout-redux/FETCH_BAG_OPERATION_FAILURE';
+/**
+ * Action type dispatched when the fetch bag operation request starts.
+ */
+export const FETCH_BAG_OPERATION_REQUEST =
+  '@farfetch/blackout-redux/FETCH_BAG_OPERATION_REQUEST';
+/**
+ * Action type dispatched when the fetch bag operation request succeeds.
+ */
+export const FETCH_BAG_OPERATION_SUCCESS =
+  '@farfetch/blackout-redux/FETCH_BAG_OPERATION_SUCCESS';
+
+/**
+ * Action type dispatched when the reset bag operations entities occurs.
+ */
+export const RESET_BAG_OPERATIONS_ENTITIES =
+  '@farfetch/blackout-redux/RESET_BAG_OPERATIONS_ENTITIES ';

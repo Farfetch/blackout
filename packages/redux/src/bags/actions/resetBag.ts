@@ -1,7 +1,11 @@
 import * as actionTypes from '../actionTypes';
 import resetBagState from './resetBagState';
 import type { Dispatch } from 'redux';
-import type { ResetBagAction, ResetBagEntitiesAction } from '../types';
+import type {
+  ResetBagAction,
+  ResetBagEntitiesAction,
+  ResetBagOperationsEntitiesAction,
+} from '../types';
 import type { StoreState } from '../../types';
 import type { ThunkDispatch } from 'redux-thunk';
 
@@ -28,6 +32,38 @@ const resetEntities = () => (dispatch: Dispatch<ResetBagEntitiesAction>) => {
     type: actionTypes.RESET_BAG_ENTITIES,
   });
 };
+
+/**
+ * Reset bag operations entities to its initial value.
+ *
+ * @example
+ * ```
+ * // Store before executing action
+ * const store = {
+ *     entities: {
+ *         bag: { 123: {...} },
+ *         bagItems: { 1: {...} },
+ *         bagOperations: { 1: {...} }
+ *     }
+ * }
+ *
+ * // Result of reset bag operations entities:
+ * const store = {
+ *     entities: {
+ *         bag: { 123: {...} },
+ *         bagItems: { 1: {...} }
+ *     }
+ * }
+ * ```
+ *
+ * @returns Dispatch reset bag operations entities action.
+ */
+export const resetBagOperationsEntities =
+  () => (dispatch: Dispatch<ResetBagOperationsEntitiesAction>) => {
+    dispatch({
+      type: actionTypes.RESET_BAG_OPERATIONS_ENTITIES,
+    });
+  };
 
 /**
  * Reset bag state and related entities to its initial value.

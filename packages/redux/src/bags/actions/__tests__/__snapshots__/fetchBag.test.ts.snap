@@ -251,6 +251,11 @@ Object {
       },
     },
     "result": Object {
+      "@controls": Object {
+        "BagGet_operation": Object {
+          "href": "/v1/bags/7894746/operations/134",
+        },
+      },
       "bagSummary": Object {
         "currency": "USD",
         "currencySymbol": "$",
@@ -535,6 +540,11 @@ Object {
       },
     },
     "result": Object {
+      "@controls": Object {
+        "BagGet_operation": Object {
+          "href": "/v1/bags/7894746/operations/134",
+        },
+      },
       "bagSummary": Object {
         "currency": "USD",
         "currencySymbol": "$",

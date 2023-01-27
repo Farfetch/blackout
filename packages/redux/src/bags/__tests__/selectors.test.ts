@@ -1,9 +1,12 @@
 import * as fromBag from '../reducer';
+import * as fromEntities from '../../entities/selectors/entity';
 import * as selectors from '../selectors';
 import {
   mockBagId,
   mockBagItemEntity,
   mockBagItemId,
+  mockBagOperation,
+  mockBagOperationId,
   mockState,
 } from 'tests/__fixtures__/bags';
 import {
@@ -159,6 +162,7 @@ describe('bags redux selectors', () => {
       const mockStateWithoutBagItems = {
         ...mockState,
         bag: {
+          ...mockState.bag,
           error: null,
           id: null,
           isLoading: false,
@@ -409,6 +413,7 @@ describe('bags redux selectors', () => {
       const mockStateWithGeneralError = {
         ...mockState,
         bag: {
+          ...mockState.bag,
           error: toBlackoutError(new Error('error: not loaded')),
           id: mockBagId,
           isLoading: false,
@@ -436,6 +441,7 @@ describe('bags redux selectors', () => {
       const mockStatewithBagItemError = {
         ...mockState,
         bag: {
+          ...mockState.bag,
           error: null,
           id: mockBagId,
           isLoading: false,
@@ -465,6 +471,7 @@ describe('bags redux selectors', () => {
       const mockStateWithoutError = {
         ...mockState,
         bag: {
+          ...mockState.bag,
           error: null,
           id: mockBagId,
           isLoading: false,
@@ -489,6 +496,7 @@ describe('bags redux selectors', () => {
       const mockStateWithoutBagItems = {
         ...mockState,
         bag: {
+          ...mockState.bag,
           error: null,
           id: mockBagId,
           isLoading: false,
@@ -515,6 +523,7 @@ describe('bags redux selectors', () => {
           bag: { [mockBagId]: { id: mockBagId } },
         },
         bag: {
+          ...mockState.bag,
           error: null,
           id: mockBagId,
           isLoading: false,
@@ -569,6 +578,57 @@ describe('bags redux selectors', () => {
           mockProductId,
         ),
       ).toBe(false);
+    });
+  });
+
+  describe('getBagOperations()', () => {
+    it('should return the latest bag operations content from state', () => {
+      const expectedResult = [
+        mockState.entities.bagOperations[101],
+        mockState.entities.bagOperations[mockBagOperationId],
+      ];
+
+      expect(selectors.getBagOperations(mockState)).toEqual(expectedResult);
+    });
+  });
+
+  describe('getBagOperation()', () => {
+    it('should return all data regarding a bag operation', () => {
+      const expectedResult = mockBagOperation;
+      const spy = jest.spyOn(fromEntities, 'getEntityById');
+
+      expect(selectors.getBagOperation(mockState, mockBagOperationId)).toEqual(
+        expectedResult,
+      );
+      expect(spy).toHaveBeenCalledWith(
+        mockState,
+        'bagOperations',
+        mockBagOperationId,
+      );
+    });
+  });
+
+  describe('isBagOperationLoading()', () => {
+    it('should get the bag operation loading status', () => {
+      const spy = jest.spyOn(fromBag, 'getIsBagOperationLoading');
+
+      expect(
+        selectors.isBagOperationLoading(mockState, mockBagOperationId),
+      ).toEqual(true);
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('getBagOperationError()', () => {
+    it('should get the bag operation error', () => {
+      const expectedResult =
+        mockState.bag.bagOperations.error[mockBagOperationId];
+      const spy = jest.spyOn(fromBag, 'getBagOperationError');
+
+      expect(
+        selectors.getBagOperationError(mockState, mockBagOperationId),
+      ).toBe(expectedResult);
+      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 });

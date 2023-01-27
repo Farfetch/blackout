@@ -123,6 +123,7 @@ describe('useBag', () => {
         ],
         hadUnavailableItems: false,
         id: mockBagId,
+        '@controls': mockState.bag.result['@controls'],
       },
       actions: {
         fetch: expect.any(Function),

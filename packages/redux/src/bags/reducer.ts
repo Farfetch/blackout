@@ -17,6 +17,10 @@ export const INITIAL_STATE: BagsState = {
       isLoading: {},
     },
   },
+  bagOperations: {
+    error: {},
+    isLoading: {},
+  },
 };
 
 const error = (
@@ -146,6 +150,46 @@ const items = (
   }
 };
 
+const bagOperations = (
+  state = INITIAL_STATE.bagOperations,
+  action: AnyAction,
+) => {
+  switch (action.type) {
+    case actionTypes.FETCH_BAG_OPERATION_REQUEST:
+      return {
+        isLoading: {
+          ...state.isLoading,
+          [action.meta.bagOperationId]: true,
+        },
+        error: {
+          ...state.error,
+          [action.meta.bagOperationId]: null,
+        },
+      };
+    case actionTypes.FETCH_BAG_OPERATION_SUCCESS:
+      return {
+        ...state,
+        isLoading: {
+          ...state.isLoading,
+          [action.meta.bagOperationId]: false,
+        },
+      };
+    case actionTypes.FETCH_BAG_OPERATION_FAILURE:
+      return {
+        isLoading: {
+          ...state.isLoading,
+          [action.meta.bagOperationId]: false,
+        },
+        error: {
+          ...state.error,
+          [action.meta.bagOperationId]: action.payload.error,
+        },
+      };
+    default:
+      return state;
+  }
+};
+
 export const entitiesMapper = {
   [actionTypes.RESET_BAG_ENTITIES]: (
     state: NonNullable<StoreState['entities']>,
@@ -154,7 +198,14 @@ export const entitiesMapper = {
       return state;
     }
 
-    const { bagItems, ...rest } = state;
+    const { bagItems, bagOperations, ...rest } = state;
+
+    return rest;
+  },
+  [actionTypes.RESET_BAG_OPERATIONS_ENTITIES]: (
+    state: NonNullable<StoreState['entities']>,
+  ) => {
+    const { bagOperations, ...rest } = state;
 
     return rest;
   },
@@ -183,8 +234,13 @@ export const getItemsIds = (state: BagsState): BagItemsState['ids'] =>
 export const getItemsError = (
   state: BagsState,
 ): BagItemsState['item']['error'] => state.items.item.error;
+export const getIsBagOperationLoading = (state: BagsState) =>
+  state.bagOperations.isLoading;
+export const getBagOperationError = (state: BagsState) =>
+  state.bagOperations.error;
 
 const reducer = combineReducers({
+  bagOperations,
   error,
   id,
   isLoading,
