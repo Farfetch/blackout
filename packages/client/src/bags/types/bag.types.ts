@@ -1,4 +1,5 @@
 import type { BagItem } from './bagItem.types';
+import type { HypermediaLink } from './hypermediaLink.types';
 
 export type Bag = {
   bagSummary: {
@@ -26,4 +27,7 @@ export type Bag = {
   id: string;
   items: BagItem[];
   hadUnavailableItems: boolean;
+  '@controls'?: {
+    [key: string]: HypermediaLink;
+  };
 };
