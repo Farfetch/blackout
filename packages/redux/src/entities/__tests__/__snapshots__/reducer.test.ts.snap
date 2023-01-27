@@ -5,6 +5,7 @@ Object {
   "bag": Object {
     "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
     "@farfetch/blackout-redux/RESET_BAG_ENTITIES": [Function],
+    "@farfetch/blackout-redux/RESET_BAG_OPERATIONS_ENTITIES ": [Function],
   },
   "checkout": Object {
     "@farfetch/blackout-redux/CREATE_CHECKOUT_ORDER_SUCCESS": [Function],

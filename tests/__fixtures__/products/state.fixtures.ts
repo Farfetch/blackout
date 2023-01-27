@@ -178,6 +178,10 @@ export const mockProductsState = {
         isLoading: {},
       },
     },
+    bagOperations: {
+      error: {},
+      isLoading: {},
+    },
   },
   entities: {
     ...mockProductsListNormalizedPayload.entities,
