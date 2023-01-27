@@ -139,4 +139,27 @@ export interface ResetBagEntitiesAction extends Action {
   type: typeof actionTypes.RESET_BAG_ENTITIES;
 }
 
+export interface ResetBagOperationsEntitiesAction extends Action {
+  type: typeof actionTypes.RESET_BAG_OPERATIONS_ENTITIES;
+}
+
 export type ResetBagAction = ResetBagStateAction | ResetBagEntitiesAction;
+
+export interface FetchBagOperationRequestAction extends Action {
+  type: typeof actionTypes.FETCH_BAG_OPERATION_REQUEST;
+}
+export interface FetchBagOperationSuccessAction extends Action {
+  type: typeof actionTypes.FETCH_BAG_OPERATION_SUCCESS;
+  payload: Payload;
+}
+export interface FetchBagOperationFailureAction extends Action {
+  type: typeof actionTypes.FETCH_BAG_OPERATION_FAILURE;
+  payload: { error: BlackoutError };
+}
+/**
+ * Actions dispatched when the fetch bag operation request is made.
+ */
+export type FetchBagOperationAction =
+  | FetchBagRequestAction
+  | FetchBagSuccessAction
+  | FetchBagFailureAction;

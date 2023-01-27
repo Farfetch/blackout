@@ -1,9 +1,11 @@
 import {
   AttributeType,
+  BlackoutError,
   PurchaseChannel,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { mockBagItemEntity, mockBagItemId } from './bagItem.fixtures';
+import { mockBagOperation, mockBagOperationId } from './bagOperations.fixtures';
 import {
   mockBrandId,
   mockProductEntity,
@@ -57,6 +59,10 @@ export const mockInitialState = {
         isLoading: {},
       },
     },
+    bagOperations: {
+      error: {},
+      isLoading: {},
+    },
   },
 };
 
@@ -74,6 +80,12 @@ export const mockLoadingState = {
         },
       },
     },
+    bagOperations: {
+      error: {},
+      isLoading: {
+        [mockBagOperationId]: true,
+      },
+    },
   },
 };
 
@@ -86,11 +98,23 @@ export const mockErrorState = {
       ids: [],
       item: {
         error: {
-          [mockBagItemId]: { message: 'An unexpected error occurred' },
+          [mockBagItemId]: new Error(
+            'An unexpected error occurred',
+          ) as BlackoutError,
         },
         isLoading: {
           [mockBagItemId]: false,
         },
+      },
+    },
+    bagOperations: {
+      error: {
+        [mockBagOperationId]: new Error(
+          'An unexpected error occurred',
+        ) as BlackoutError,
+      },
+      isLoading: {
+        [mockBagOperationId]: false,
       },
     },
   },
@@ -127,6 +151,11 @@ export const mockState = {
       count: 7,
       items: [mockBagItemId, 101, 102, 103, 104],
       hadUnavailableItems: false,
+      '@controls': {
+        BagGet_operation: {
+          href: `/v1/bags/${mockBagId}/operations/${mockBagOperationId}`,
+        },
+      },
     },
     items: {
       ids: [mockBagItemId, 101, 102, 103, 104],
@@ -137,6 +166,14 @@ export const mockState = {
         error: {
           [mockBagItemId]: toBlackoutError(new Error('error: not loaded')),
         },
+      },
+    },
+    bagOperations: {
+      isLoading: {
+        [mockBagOperationId]: true,
+      },
+      error: {
+        [mockBagOperationId]: toBlackoutError(new Error('unexpected error')),
       },
     },
   },
@@ -198,6 +235,13 @@ export const mockState = {
         id: 1002,
         description: 'bar product',
         type: mockProductTypeToExclude,
+      },
+    },
+    bagOperations: {
+      [mockBagOperationId]: mockBagOperation,
+      101: {
+        ...mockBagOperation,
+        id: '101',
       },
     },
   },
@@ -368,6 +412,11 @@ export const mockResponse = {
     taxType: 'DDP',
     formattedTotalProductPromotionDiscount: '$0',
     totalProductPromotionDiscount: 0,
+  },
+  '@controls': {
+    BagGet_operation: {
+      href: `/v1/bags/${mockBagId}/operations/${mockBagOperationId}`,
+    },
   },
 };
 

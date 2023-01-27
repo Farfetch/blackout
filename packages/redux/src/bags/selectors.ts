@@ -4,15 +4,22 @@ import {
   getAreItemsLoading,
   getError,
   getId,
+  getIsBagOperationLoading,
   getIsLoading,
   getItemsError,
   getItemsIds,
+  getBagOperationError as getOperationError,
   getResult,
 } from './reducer';
-import { getEntities } from '../entities/selectors';
+import { getEntities, getEntityById } from '../entities/selectors';
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
-import type { BagItem, Brand, ProductType } from '@farfetch/blackout-client';
+import type {
+  BagItem,
+  BagOperation,
+  Brand,
+  ProductType,
+} from '@farfetch/blackout-client';
 import type {
   BagItemDenormalized,
   BagItemEntity,
@@ -619,3 +626,88 @@ export const isProductInBag = (
 
   return bagItems.some(bagItem => bagItem.product?.id === Number(productId));
 };
+
+/**
+ * Retrieves a specific bag operation by its id.
+ *
+ * @param state - Application state.
+ * @param bagOperationId - Unique identifier of the operation.
+ *
+ * @returns - Bag operation entity for the given id or undefined if not existent.
+ *
+ * @example
+ * ```
+ * import { getBagOperation } from '@farfetch/blackout-redux';
+ *
+ * const mapStateToProps = (state, { bagOperation: { id } }) => ({
+ *     bagOperation: getBagOperation(state, id)
+ * });
+ * ```
+ */
+export const getBagOperation = (
+  state: StoreState,
+  bagOperationId: BagOperation['id'],
+) => getEntityById(state, 'bagOperations', bagOperationId);
+
+/**
+ * Retrieves the error state of a specific bag operation by its id.
+ *
+ * @param state - Application state.
+ * @param bagOperationId - Unique identifier of the bag operation.
+ *
+ * @returns - Error information, `undefined` if there are no errors.
+ *
+ * @example
+ * ```
+ * import { getBagOperationError } from '@farfetch/blackout-redux';
+ *
+ * const mapStateToProps = (state, { bagOperation: { bagOperation: { id } } }) => ({
+ *     error: getBagOperationError(state, id)
+ * });
+ * ```
+ */
+export const getBagOperationError = (
+  state: StoreState,
+  bagOperationId: BagOperation['id'],
+) => getOperationError(state.bag as BagsState)[bagOperationId];
+
+/**
+ * Retrieves latest bag operations from the current user's bag.
+ *
+ * @param state - Application state.
+ *
+ * @returns - List of each bag operation entity from the current user's bag.
+ *
+ * @example
+ * ```
+ * import { getBagOperations } from '@farfetch/blackout-redux';
+ *
+ * const mapStateToProps = state => ({
+ *     bagOperations: getBagOperations(state),
+ * });
+ * ```
+ */
+export const getBagOperations = (state: StoreState) =>
+  Object.values(getEntities(state, 'bagOperations') || {});
+
+/**
+ * Retrieves the loading status of a specific bag operation by its id.
+ *
+ * @param state - Application state.
+ * @param bagOperationId - Unique identifier of the bag operation in the bag.
+ *
+ * @returns - Whether the given bag operation is loading.
+ *
+ * @example
+ * ```
+ * import { isBagItemLoading } from '@farfetch/blackout-redux';
+ *
+ * const mapStateToProps = (state, { bagItem: { id } }) => ({
+ *     isLoading: isBagItemLoading(state, id)
+ * });
+ * ```
+ */
+export const isBagOperationLoading = (
+  state: StoreState,
+  bagOperationId: BagOperation['id'],
+) => getIsBagOperationLoading(state.bag as BagsState)[bagOperationId];

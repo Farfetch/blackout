@@ -1,6 +1,7 @@
 import type {
   AddressEntity,
   BagItemEntity,
+  BagOperationEntity,
   CategoryEntity,
   CheckoutDetailsEntity,
   CheckoutEntity,
@@ -84,6 +85,7 @@ export type StoreState = Partial<{
   entities: Partial<{
     addresses: Record<AddressEntity['id'], AddressEntity>;
     bagItems: Record<BagItemEntity['id'], BagItemEntity>;
+    bagOperations: Record<BagOperationEntity['id'], BagOperationEntity>;
     benefits: Record<UserBenefitEntity['id'], UserBenefitEntity>;
     brands: Record<Brand['id'], Brand>;
     categories: Record<CategoryEntity['id'], CategoryEntity>;
