@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.231](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.230...@farfetch/blackout-client@2.0.0-next.231) (2023-01-27)
+
+
+### Features
+
+* add baseUrl to seo metadata ([6e663dc](https://github.com/Farfetch/blackout/commit/6e663dc11cffe1e98b1a81ad220e2ae42d147bb9))
+
+
+
+
+
 # [2.0.0-next.230](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.229...@farfetch/blackout-client@2.0.0-next.230) (2023-01-23)
 
 
