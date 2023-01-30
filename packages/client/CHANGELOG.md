@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.232](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.231...@farfetch/blackout-client@2.0.0-next.232) (2023-01-30)
+
+
+### Features
+
+* **client:** add bag operations endpoints ([c630500](https://github.com/Farfetch/blackout/commit/c630500a51d5b1285ae52f9bb1d02c4644137f3f))
+
+
+
+
+
 # [2.0.0-next.231](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.230...@farfetch/blackout-client@2.0.0-next.231) (2023-01-27)
 
 

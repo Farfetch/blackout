@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.359](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.358...@farfetch/blackout-redux@1.0.0-next.359) (2023-01-30)
+
+
+### Features
+
+* **redux:** add bag operations endpoints ([374b3e6](https://github.com/Farfetch/blackout/commit/374b3e652d22c384a19d11a5d7be4a7df45801dd))
+
+
+
+
+
 # [1.0.0-next.358](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.357...@farfetch/blackout-redux@1.0.0-next.358) (2023-01-27)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
