@@ -20,6 +20,7 @@ describe('contents client', () => {
       target: {
         channel: 'channel',
         language: 'en-US',
+        segments: 'private-sale,private-sale-guest-user',
       },
     };
     const response = {
@@ -90,7 +91,7 @@ describe('contents client', () => {
       await expect(getSearchContents(query)).resolves.toEqual(response);
 
       expect(spy).toHaveBeenCalledWith(
-        '/content/v1/search/contents?codes=123456789&contentTypeCode=pages&environmentCode=live&spaceCode=website&target.channel=channel&target.language=en-US',
+        '/content/v1/search/contents?codes=123456789&contentTypeCode=pages&environmentCode=live&spaceCode=website&target.channel=channel&target.language=en-US&target.segments=private-sale,private-sale-guest-user',
         expectedConfig,
       );
     });
@@ -103,7 +104,7 @@ describe('contents client', () => {
       await expect(getSearchContents(query)).rejects.toMatchSnapshot();
 
       expect(spy).toHaveBeenCalledWith(
-        '/content/v1/search/contents?codes=123456789&contentTypeCode=pages&environmentCode=live&spaceCode=website&target.channel=channel&target.language=en-US',
+        '/content/v1/search/contents?codes=123456789&contentTypeCode=pages&environmentCode=live&spaceCode=website&target.channel=channel&target.language=en-US&target.segments=private-sale,private-sale-guest-user',
         expectedConfig,
       );
     });
