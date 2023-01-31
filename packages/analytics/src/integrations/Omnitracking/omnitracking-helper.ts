@@ -1,26 +1,23 @@
 import { ANALYTICS_UNIQUE_EVENT_ID } from '../../utils/constants';
 import {
   AnalyticsProduct,
-  EventContext,
   EventData,
   SignupNewsletterGenderTypes,
   TrackTypes,
   TrackTypesValues,
-  UserTraits,
 } from '../..';
 import {
   CLIENT_LANGUAGES_LIST,
   DEFAULT_CLIENT_LANGUAGE,
   DEFAULT_SEARCH_QUERY_PARAMETERS,
 } from './constants';
-import { getCustomerIdFromUser, getProductId, logger } from '../../utils';
+import { getProductId, logger } from '../../utils';
 import { isPageEventType, isScreenEventType } from '../../utils/typePredicates';
 import {
   pageActionEventTypes,
   pageDefinitions,
   pageEventsFilter,
   pageViewEventTypes,
-  systemActionParameters,
   trackDefinitions,
 } from './definitions';
 import { v4 as uuidV4 } from 'uuid';
@@ -280,47 +277,6 @@ export const pickPageParameters = (
 };
 
 /**
- * Formats page data to be sent to omnitracking service to register a page view.
- * Merges common parameters with the filtered ones sent via `analytics.page()`,
- * along some other properties.
- *
- * @param data                 - Event data passed by analytics.
- * @param additionalParameters - Additional parameters to be considered.
- *
- * @returns Formatted data.
- */
-export const formatPageEvent = (
-  data: EventData<TrackTypesValues>,
-  additionalParameters: OmnitrackingPageEventParameters,
-): OmnitrackingRequestPayload<PageViewEvents> => {
-  const correlationId = get(data, 'user.localId', null);
-  const user = get(data, 'user', {
-    id: -1,
-    traits: {} as UserTraits,
-    localId: '',
-  });
-  const customerId = getCustomerIdFromUser(user);
-  const context: EventContext = get(data, 'context', {}) as EventContext;
-  const event = getPageEvent(data);
-  const defaultPageParameters = { viewType: 'Others', viewSubType: 'Others' };
-
-  return {
-    event,
-    customerId,
-    correlationId,
-    tenantId: context.tenantId as number,
-    clientId: context.clientId as number,
-    parameters: {
-      ...defaultPageParameters,
-      ...additionalParameters,
-      ...getPlatformSpecificParameters(data),
-      ...getCommonParameters(data),
-      ...pickPageParameters(data, event),
-    },
-  };
-};
-
-/**
  * @param data      - Event data passed by analytics.
  * @param parameter - Name of the parameter to obtain.
  *
@@ -400,64 +356,6 @@ export const pickTrackParameters = (
     ...pick(data.context.event, propertiesToPick),
     ...pick(data.properties, propertiesToPick),
   } as OmnitrackingTrackEventParameters;
-};
-
-/**
- * Formats tracking data to be sent to omnitracking service to register a custom
- * event.
- *
- * @param data                 - Event data passed by analytics.
- * @param additionalParameters - Additional parameters to be considered.
- *
- * @returns Formatted track data.
- */
-export const formatTrackEvent = (
-  data: EventData<TrackTypesValues>,
-  additionalParameters: OmnitrackingTrackEventParameters,
-): OmnitrackingRequestPayload<PageActionEvents> => {
-  const user = get(data, 'user', {
-    id: -1,
-    traits: {} as UserTraits,
-    localId: '',
-  });
-  const customerId = getCustomerIdFromUser(user);
-  const correlationId = get(data, 'user.localId', null);
-  const context = get(data, 'context', {}) as EventContext;
-
-  const parameters = {
-    ...additionalParameters,
-    ...getPlatformSpecificParameters(data),
-    ...getCommonParameters(data),
-    ...pickTrackParameters(data),
-  };
-
-  const hasSystemActionParameter = systemActionParameters.some(
-    systemActionParameter => {
-      return parameters.hasOwnProperty(systemActionParameter);
-    },
-  );
-
-  // We infer the PageAction event type by checking the payload for
-  // SystemAction parameters. If it does have any SystemAction parameter,
-  // we infer it to be a SystemAction type. Else, we assume it is a PageAction.
-  // TODO: There are some parameters that may need to be removed from the
-  //      parameters object because each PageAction type has a list of
-  //      supported parameters but we only know the PageAction type of the event after
-  //      we have the full parameters object constructed, which may include
-  //      parameters that are not necessary to be sent for the then determined
-  //      PageAction event type.
-  const event = hasSystemActionParameter
-    ? pageActionEventTypes.SYSTEM_ACTION
-    : pageActionEventTypes.PAGE_ACTION;
-
-  return {
-    tenantId: context.tenantId as number,
-    clientId: context.clientId as number,
-    correlationId,
-    customerId,
-    event,
-    parameters,
-  };
 };
 
 /**

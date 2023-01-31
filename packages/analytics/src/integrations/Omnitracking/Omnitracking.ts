@@ -14,13 +14,17 @@
  */
 
 import {
-  formatPageEvent,
-  formatTrackEvent,
   getClientLanguageFromCulture,
+  getCommonParameters,
+  getPageEvent,
+  getPlatformSpecificParameters,
   getSearchQuery,
   getUniqueViewIdParameter,
+  pickPageParameters,
+  pickTrackParameters,
   validateOutgoingOmnitrackingPayload,
 } from './omnitracking-helper';
+import { getCustomerIdFromUser } from '../../utils';
 import { isPageEventType, isScreenEventType } from '../../utils/typePredicates';
 import {
   OPTION_HTTP_CLIENT,
@@ -28,7 +32,9 @@ import {
   OPTION_TRANSFORM_PAYLOAD,
 } from './constants';
 import {
+  pageActionEventTypes,
   pageEventsMapper,
+  systemActionParameters,
   trackEventsMapper,
   userGenderValuesMapper,
   viewGenderValuesMapper,
@@ -42,6 +48,7 @@ import isObject from 'lodash/isObject';
 import logger from '../../utils/logger';
 import PlatformTypes from '../../types/PlatformTypes';
 import type {
+  EventContext,
   EventData,
   LoadIntegrationEventData,
   StrippedDownAnalytics,
@@ -54,6 +61,7 @@ import type {
   OmnitrackingPageEventsMapper,
   OmnitrackingPreCalculatedEventParameters,
   OmnitrackingRequestPayload,
+  OmnitrackingTrackEventParameters,
   OmnitrackingTrackEventsMapper,
   OmnitrackingTrackOrPageEventMapper,
   OmnitrackingTrackOrPageMapperResult,
@@ -340,9 +348,15 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
       data.type === analyticsTrackTypes.PAGE ||
       data.type === analyticsTrackTypes.SCREEN
     ) {
-      formattedEventData = formatPageEvent(data, additionalParameters);
+      formattedEventData = Omnitracking.formatPageEvent(
+        data,
+        additionalParameters,
+      );
     } else {
-      formattedEventData = formatTrackEvent(data, additionalParameters);
+      formattedEventData = Omnitracking.formatTrackEvent(
+        data,
+        additionalParameters,
+      );
     }
 
     if (!this.validateTrackingRequisites()) {
@@ -409,6 +423,105 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
 
     await postTracking({ ...finalPayload });
   }
+
+  /**
+   * Formats page data to be sent to omnitracking service to register a page view.
+   * Merges common parameters with the filtered ones sent via `analytics.page()`,
+   * along some other properties.
+   *
+   * @param data                 - Event data passed by analytics.
+   * @param additionalParameters - Additional parameters to be considered.
+   *
+   * @returns Formatted data.
+   */
+  static formatPageEvent = (
+    data: EventData<TrackTypesValues>,
+    additionalParameters: OmnitrackingPageEventParameters,
+  ): OmnitrackingRequestPayload<PageViewEvents> => {
+    const correlationId = get(data, 'user.localId', null);
+    const user = get(data, 'user', {
+      id: -1,
+      traits: {} as UserTraits,
+      localId: '',
+    });
+    const customerId = getCustomerIdFromUser(user);
+    const context: EventContext = get(data, 'context', {}) as EventContext;
+    const event = getPageEvent(data);
+    const defaultPageParameters = { viewType: 'Others', viewSubType: 'Others' };
+
+    return {
+      event,
+      customerId,
+      correlationId,
+      tenantId: context.tenantId as number,
+      clientId: context.clientId as number,
+      parameters: {
+        ...defaultPageParameters,
+        ...additionalParameters,
+        ...getPlatformSpecificParameters(data),
+        ...getCommonParameters(data),
+        ...pickPageParameters(data, event),
+      },
+    };
+  };
+
+  /**
+   * Formats tracking data to be sent to omnitracking service to register a custom
+   * event.
+   *
+   * @param data                 - Event data passed by analytics.
+   * @param additionalParameters - Additional parameters to be considered.
+   *
+   * @returns Formatted track data.
+   */
+  static formatTrackEvent = (
+    data: EventData<TrackTypesValues>,
+    additionalParameters: OmnitrackingTrackEventParameters,
+  ): OmnitrackingRequestPayload<PageActionEvents> => {
+    const user = get(data, 'user', {
+      id: -1,
+      traits: {} as UserTraits,
+      localId: '',
+    });
+    const customerId = getCustomerIdFromUser(user);
+    const correlationId = get(data, 'user.localId', null);
+    const context = get(data, 'context', {}) as EventContext;
+
+    const parameters = {
+      ...additionalParameters,
+      ...getPlatformSpecificParameters(data),
+      ...getCommonParameters(data),
+      ...pickTrackParameters(data),
+    };
+
+    const hasSystemActionParameter = systemActionParameters.some(
+      systemActionParameter => {
+        return parameters.hasOwnProperty(systemActionParameter);
+      },
+    );
+
+    // We infer the PageAction event type by checking the payload for
+    // SystemAction parameters. If it does have any SystemAction parameter,
+    // we infer it to be a SystemAction type. Else, we assume it is a PageAction.
+    // TODO: There are some parameters that may need to be removed from the
+    //      parameters object because each PageAction type has a list of
+    //      supported parameters but we only know the PageAction type of the event after
+    //      we have the full parameters object constructed, which may include
+    //      parameters that are not necessary to be sent for the then determined
+    //      PageAction event type.
+    const event = hasSystemActionParameter
+      ? pageActionEventTypes.SYSTEM_ACTION
+      : pageActionEventTypes.PAGE_ACTION;
+
+    return {
+      tenantId: context.tenantId as number,
+      clientId: context.clientId as number,
+      correlationId,
+      customerId,
+      event,
+      parameters,
+    };
+  };
 }
 
 export default Omnitracking;
