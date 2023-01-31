@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doDeleteOrderItem() action creator should create the correct actions for when the delete order item procedure is successful: delete order item success payload 1`] = `
+Object {
+  "meta": Object {
+    "itemId": "8234758754",
+  },
+  "type": "@farfetch/blackout-core/DELETE_ORDER_ITEM_SUCCESS",
+}
+`;

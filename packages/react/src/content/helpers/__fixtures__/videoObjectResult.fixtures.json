@@ -1,0 +1,9 @@
+{
+  "@context": "http://schema.org/",
+  "@type": "VideoObject",
+  "name": "The acme App shown on a smartphone",
+  "@id": "/BWStaticContent/50000/50000/ba395803-3657-472a-a2a4-1fec1d6c5304_acme-app-navigaton-gps.mp4",
+  "thumbnailUrl": "https://cdn-static.blackandwhite-ff.com/BWStaticCo…0-8385-022bf7cc3926_acme-app-navigaton-gps.jpg",
+  "embedUrl": "/BWStaticContent/50000/50000/ba395803-3657-472a-a2a4-1fec1d6c5304_acme-app-navigaton-gps.mp4",
+  "uploadDate": "2020-07-13T15:01:55.4526159Z"
+}

@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetUserReturns action creator should create the correct actions for when the get user returns procedure is successful: get guest user success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "returnItems": Object {
+        "10076742": Object {
+          "description": "",
+          "id": 0,
+          "orderItemId": 10076742,
+          "reason": "Item does not fit",
+          "status": 0,
+        },
+      },
+      "returns": Object {
+        "5926969": Object {
+          "availableDates": Array [
+            1549538022607,
+            1549624422607,
+            1549883622607,
+            1549970022607,
+            1550056422607,
+            1550142822607,
+            1550229222607,
+            1550488422607,
+            1550574822607,
+            1550661222607,
+            1550747622607,
+          ],
+          "availableEndHours": undefined,
+          "availableStartHours": undefined,
+          "awbUrl": "/pt/api/returns/5926969/awb",
+          "courier": 1,
+          "createdDate": 1549538021917,
+          "id": 5926969,
+          "invoiceUrl": "/pt/api/returns/5926969/invoice",
+          "items": Array [
+            10076742,
+          ],
+          "maximumDateForPickup": 1550793599000,
+          "merchantId": 10973,
+          "merchantLocationId": null,
+          "numberOfBoxes": 1,
+          "numberOfItems": 1,
+          "orderId": "8VXRHN",
+          "pickupDate": undefined,
+          "pickupSchedule": Object {
+            "end": 1549994400000,
+            "start": 1549965600000,
+          },
+          "references": Array [
+            Object {
+              "name": 3,
+              "url": "/en-pt/api/returns/5926969/references/ReturnLabelAWB",
+            },
+          ],
+          "status": 2,
+          "type": 0,
+          "userId": 29511627,
+          "userPickupAddress": Object {
+            "addressLine1": "Rua da Lionesa nº 446, Edificio G1",
+            "addressLine2": "",
+            "addressLine3": null,
+            "city": Object {
+              "countryId": 165,
+              "id": 0,
+              "name": "Leca do Balio",
+              "stateId": null,
+            },
+            "country": Object {
+              "alpha2Code": "PT",
+              "alpha3Code": "PRT",
+              "continentId": 3,
+              "culture": "pt-PT",
+              "id": 165,
+              "name": "Portugal",
+              "nativeName": "Portugal",
+              "region": "Europe",
+              "regionId": 0,
+              "subRegion": null,
+              "subfolder": null,
+            },
+            "ddd": null,
+            "firstName": "Rafael",
+            "id": "00000000-0000-0000-0000-000000000000",
+            "lastName": null,
+            "neighbourhood": null,
+            "phone": "4564132",
+            "state": null,
+            "vatNumber": null,
+            "zipCode": "4465-671",
+          },
+        },
+      },
+    },
+    "result": Object {
+      "entries": Array [
+        5926969,
+      ],
+      "number": 1,
+      "totalItems": 1,
+      "totalPages": 1,
+    },
+  },
+  "type": "@farfetch/blackout-core/GET_USER_RETURNS_SUCCESS",
+}
+`;

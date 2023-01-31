@@ -1,0 +1,45 @@
+{
+  "name": "@farfetch/blackout-core",
+  "version": "1.78.0",
+  "description": "Clients to connect to the Farfetch Platform Solutions' services and modules to manage the application data layer and global state",
+  "license": "MIT",
+  "main": "src/index.js",
+  "files": [
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Farfetch/blackout.git"
+  },
+  "dependencies": {
+    "axios-token-interceptor": "^0.2.0",
+    "crypto-js": "3.1.9-1",
+    "deep-compact": "^1.1.0",
+    "deep-sort-object": "^1.0.2",
+    "invariant": "^2.2.4",
+    "normalizr": "^3.3.0",
+    "prop-types": "^15.7.2",
+    "proper-url-join": "^1.2.0",
+    "recompose": "^0.30.0",
+    "reselect": "^4.0.0",
+    "url-parse": "^1.4.4",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "axios": "^0.21.4",
+    "js-cookie": "^2.2.0",
+    "moxios": "^0.4.0",
+    "redux": "^4.0.5",
+    "redux-mock-store": "^1.5.4",
+    "redux-thunk": "^2.3.0"
+  },
+  "peerDependencies": {
+    "axios": "^0.21.4",
+    "immer": "^9.0.6",
+    "lodash": "^4.17.21",
+    "redux": "^4.0.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

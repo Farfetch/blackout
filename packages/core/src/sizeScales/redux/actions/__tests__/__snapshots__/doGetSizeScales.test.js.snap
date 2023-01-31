@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetSizeScales() action creator should create the correct actions for when the get search procedure is successful: Get size scales success payload 1`] = `
+Object {
+  "meta": Object {
+    "query": Object {
+      "categoryId": 135968,
+    },
+  },
+  "payload": Object {
+    "entities": Object {
+      "sizeScales": Object {
+        "117": Object {
+          "abbreviation": "US",
+          "categoryId": 135968,
+          "description": "M.FILTER US",
+          "isDefault": true,
+          "maps": Array [
+            Object {
+              "description": "3",
+              "position": 17,
+            },
+            Object {
+              "description": "3.5",
+              "position": 18,
+            },
+            Object {
+              "description": "4",
+              "position": 19,
+            },
+            Object {
+              "description": "4.5",
+              "position": 20,
+            },
+            Object {
+              "description": "5",
+              "position": 21,
+            },
+          ],
+          "sizeScaleId": 117,
+        },
+      },
+    },
+    "result": Array [
+      117,
+    ],
+  },
+  "type": "@farfetch/blackout-core/GET_SIZESCALES_SUCCESS",
+}
+`;

@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doLogin() action creator should create the correct actions for when the login procedure is successful: login success payload 1`] = `
+Object {
+  "meta": Object {
+    "isLoginAction": true,
+    "method": "Tenant",
+  },
+  "payload": Object {
+    "entities": Object {
+      "user": Object {
+        "bagId": "cb805dc8-86f5-409e-84d1-3209c2be9517",
+        "dateOfBirth": null,
+        "email": "pepe@acme.com",
+        "gender": 0,
+        "guestBagItemsMerged": 0,
+        "id": 29556478,
+        "isExternalLogin": false,
+        "isGuest": false,
+        "name": "Pedro Guilherme Fernandes",
+        "phoneNumber": null,
+        "segments": Array [],
+        "title": Object {
+          "id": "111",
+          "value": "Dr.",
+        },
+        "username": "pepe@acme.com",
+        "wishlistId": "1e5232f8-7af0-4fba-b6b1-b87e2cb3a88f",
+      },
+    },
+    "result": 29556478,
+  },
+  "type": "@farfetch/blackout-core/LOGIN_SUCCESS",
+}
+`;
+
+exports[`doLogin() action creator should create the correct actions for when the unverified login procedure is successful: login success payload 1`] = `
+Object {
+  "meta": Object {
+    "isLoginAction": true,
+    "method": "Tenant",
+  },
+  "payload": Object {
+    "entities": Object {
+      "user": Object {},
+    },
+    "result": null,
+  },
+  "type": "@farfetch/blackout-core/LOGIN_SUCCESS",
+}
+`;

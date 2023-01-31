@@ -1,0 +1,366 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetProductDetails() action creator should create the correct actions for when the get product details procedure is successful from server: Get product details hydrated 1`] = `
+Object {
+  "payload": Object {
+    "productId": 11766695,
+  },
+  "type": "@farfetch/blackout-core/DEHYDRATE_PRODUCT_DETAILS",
+}
+`;
+
+exports[`doGetProductDetails() action creator should create the correct actions for when the get product details procedure is successful without receiving options: Get product details success payload without receiving options 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "brands": Object {
+        "1053": Object {
+          "id": 1053,
+        },
+      },
+      "categories": Object {
+        "136301": Object {
+          "id": 136301,
+          "name": "Shoes",
+        },
+      },
+      "products": Object {
+        "11766695": Object {
+          "DEPRECATED_images": Object {
+            "contextual": Object {},
+            "details": Array [],
+            "primary": Object {
+              "sources": Object {
+                "120": "https://cdn-images.farfetch-contents.com/services-unknown-x-browns-east-stadium-goods-tri-band-hoodie_14074610_18494976_120.jpg",
+              },
+              "type": "image",
+            },
+            "secondary": undefined,
+          },
+          "brand": 1053,
+          "breadCrumbs": Array [
+            Object {
+              "link": "shopping/woman",
+              "slug": "woman",
+              "text": "Woman",
+            },
+          ],
+          "categories": Array [
+            136301,
+          ],
+          "colorGrouping": undefined,
+          "colorSet": Array [
+            Object {
+              "image": "",
+              "name": "stadium-goods-spider-print-t-shirt",
+              "productId": 14074682,
+              "url": "/en-pt/shopping/-stadium-goods-spider-print-t-shirt-14074682",
+            },
+          ],
+          "colorSwatch": null,
+          "complementaryInformation": Array [
+            Object {
+              "title": "Designer",
+              "value": "<p>Product designed by Chloé, originally from France.</p>",
+            },
+            Object {
+              "title": "Care Information",
+              "value": "<p>Wash the item in low temperatures.</p>",
+            },
+          ],
+          "customAttributes": null,
+          "description": "Luxury Italian",
+          "gender": 0,
+          "groupedEntries": undefined,
+          "grouping": undefined,
+          "groupingProperties": undefined,
+          "id": 11766695,
+          "images": Array [
+            Object {
+              "order": 1,
+              "size": "120",
+              "sources": Object {
+                "120": "https://cdn-images.farfetch-contents.com/services-unknown-x-browns-east-stadium-goods-tri-band-hoodie_14074610_18494976_120.jpg",
+              },
+              "url": "https://cdn-images.farfetch-contents.com/services-unknown-x-browns-east-stadium-goods-tri-band-hoodie_14074610_18494976_120.jpg",
+            },
+          ],
+          "isDuplicated": false,
+          "liveModel": Object {
+            "id": 0,
+          },
+          "merchant": undefined,
+          "preferedMerchant": Object {
+            "merchantId": 9359,
+          },
+          "price": Object {
+            "discount": Object {
+              "excludingTaxes": 0,
+              "includingTaxes": 0,
+              "rate": 0,
+            },
+            "excludingTaxes": 500,
+            "formatted": Object {
+              "includingTaxes": "610,00 €",
+              "includingTaxesWithoutDiscount": "610,00 €",
+            },
+            "includingTaxes": 610,
+            "includingTaxesWithoutDiscount": 610,
+            "isFormatted": true,
+            "tags": Array [
+              "VAT",
+            ],
+            "taxes": Object {
+              "amount": 110,
+              "rate": 22,
+              "type": "VAT",
+            },
+          },
+          "prices": undefined,
+          "productAttributes": Array [
+            Object {
+              "id": 7,
+              "name": "Sleeve Length",
+              "values": Array [
+                Object {
+                  "id": 12,
+                  "value": "Longsleeved",
+                },
+              ],
+            },
+            Object {
+              "id": 8,
+              "name": "Neckline",
+              "values": Array [
+                Object {
+                  "id": 14,
+                  "value": "Round Neck",
+                },
+              ],
+            },
+          ],
+          "recommendedSet": 1050,
+          "relatedSets": Array [],
+          "scaleId": 117,
+          "shortDescription": "Rockstud sling-back flats",
+          "sizes": Array [
+            Object {
+              "globalQuantity": 2,
+              "id": 21,
+              "isOneSize": false,
+              "isOutOfStock": false,
+              "name": "36",
+              "scale": 206,
+              "scaleAbbreviation": "IT",
+              "scaleDescription": undefined,
+              "stock": Array [
+                Object {
+                  "barcodes": Array [
+                    "2013323497172",
+                  ],
+                  "merchantId": 11554,
+                  "price": Object {
+                    "formatted": Object {
+                      "includingTaxes": "4 300 €",
+                      "includingTaxesWithoutDiscount": "4 300 €",
+                    },
+                  },
+                  "purchaseChannel": null,
+                  "quantity": 2,
+                },
+              ],
+            },
+          ],
+          "slug": "rockstud-sling-back-flats-12854475",
+          "tag": Object {
+            "id": undefined,
+            "name": undefined,
+          },
+          "variants": undefined,
+        },
+      },
+    },
+    "productId": 11766695,
+    "result": 11766695,
+  },
+  "type": "@farfetch/blackout-core/GET_PRODUCT_DETAILS_SUCCESS",
+}
+`;
+
+exports[`doGetProductDetails() action creator should create the correct actions for when the get product details procedure is successful: Get product details success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "brands": Object {
+        "1053": Object {
+          "id": 1053,
+        },
+      },
+      "categories": Object {
+        "136301": Object {
+          "id": 136301,
+          "name": "Shoes",
+        },
+      },
+      "products": Object {
+        "11766695": Object {
+          "DEPRECATED_images": Object {
+            "contextual": Object {},
+            "details": Array [],
+            "primary": Object {
+              "sources": Object {
+                "120": "https://cdn-images.farfetch-contents.com/services-unknown-x-browns-east-stadium-goods-tri-band-hoodie_14074610_18494976_120.jpg",
+              },
+              "type": "image",
+            },
+            "secondary": undefined,
+          },
+          "brand": 1053,
+          "breadCrumbs": Array [
+            Object {
+              "link": "shopping/woman",
+              "slug": "woman",
+              "text": "Woman",
+            },
+          ],
+          "categories": Array [
+            136301,
+          ],
+          "colorGrouping": undefined,
+          "colorSet": Array [
+            Object {
+              "image": "",
+              "name": "stadium-goods-spider-print-t-shirt",
+              "productId": 14074682,
+              "url": "/en-pt/shopping/-stadium-goods-spider-print-t-shirt-14074682",
+            },
+          ],
+          "colorSwatch": null,
+          "complementaryInformation": Array [
+            Object {
+              "title": "Designer",
+              "value": "<p>Product designed by Chloé, originally from France.</p>",
+            },
+            Object {
+              "title": "Care Information",
+              "value": "<p>Wash the item in low temperatures.</p>",
+            },
+          ],
+          "customAttributes": null,
+          "description": "Luxury Italian",
+          "gender": 0,
+          "groupedEntries": undefined,
+          "grouping": undefined,
+          "groupingProperties": undefined,
+          "id": 11766695,
+          "images": Array [
+            Object {
+              "order": 1,
+              "size": "120",
+              "sources": Object {
+                "120": "https://cdn-images.farfetch-contents.com/services-unknown-x-browns-east-stadium-goods-tri-band-hoodie_14074610_18494976_120.jpg?c=2",
+              },
+              "url": "https://cdn-images.farfetch-contents.com/services-unknown-x-browns-east-stadium-goods-tri-band-hoodie_14074610_18494976_120.jpg",
+            },
+          ],
+          "isDuplicated": false,
+          "liveModel": Object {
+            "id": 0,
+          },
+          "merchant": undefined,
+          "preferedMerchant": Object {
+            "merchantId": 9359,
+          },
+          "price": Object {
+            "discount": Object {
+              "excludingTaxes": 0,
+              "includingTaxes": 0,
+              "rate": 0,
+            },
+            "excludingTaxes": 500,
+            "formatted": Object {
+              "includingTaxes": "610,00 €",
+              "includingTaxesWithoutDiscount": "610,00 €",
+            },
+            "includingTaxes": 610,
+            "includingTaxesWithoutDiscount": 610,
+            "isFormatted": true,
+            "tags": Array [
+              "VAT",
+            ],
+            "taxes": Object {
+              "amount": 110,
+              "rate": 22,
+              "type": "VAT",
+            },
+          },
+          "prices": undefined,
+          "productAttributes": Array [
+            Object {
+              "id": 7,
+              "name": "Sleeve Length",
+              "values": Array [
+                Object {
+                  "id": 12,
+                  "value": "Longsleeved",
+                },
+              ],
+            },
+            Object {
+              "id": 8,
+              "name": "Neckline",
+              "values": Array [
+                Object {
+                  "id": 14,
+                  "value": "Round Neck",
+                },
+              ],
+            },
+          ],
+          "recommendedSet": 1050,
+          "relatedSets": Array [],
+          "scaleId": 117,
+          "shortDescription": "Rockstud sling-back flats",
+          "sizes": Array [
+            Object {
+              "globalQuantity": 2,
+              "id": 21,
+              "isOneSize": false,
+              "isOutOfStock": false,
+              "name": "36",
+              "scale": 206,
+              "scaleAbbreviation": "IT",
+              "scaleDescription": undefined,
+              "stock": Array [
+                Object {
+                  "barcodes": Array [
+                    "2013323497172",
+                  ],
+                  "merchantId": 11554,
+                  "price": Object {
+                    "formatted": Object {
+                      "includingTaxes": "4 300 €",
+                      "includingTaxesWithoutDiscount": "4 300 €",
+                    },
+                  },
+                  "purchaseChannel": null,
+                  "quantity": 2,
+                },
+              ],
+            },
+          ],
+          "slug": "rockstud-sling-back-flats-12854475",
+          "tag": Object {
+            "id": undefined,
+            "name": undefined,
+          },
+          "variants": undefined,
+        },
+      },
+    },
+    "productId": 11766695,
+    "result": 11766695,
+  },
+  "type": "@farfetch/blackout-core/GET_PRODUCT_DETAILS_SUCCESS",
+}
+`;

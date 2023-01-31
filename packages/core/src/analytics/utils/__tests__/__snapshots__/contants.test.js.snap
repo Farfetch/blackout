@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`constants Should export CONSENT_KEYS 1`] = `
+Array [
+  "marketing",
+  "statistics",
+  "preferences",
+]
+`;
+
+exports[`constants Should export PACKAGE_NAME 1`] = `"@farfetch/blackout-core/analytics"`;

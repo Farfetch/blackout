@@ -1,0 +1,20 @@
+":package: core":
+  - 'packages/core/**/*'
+  - 'packages/core/**/.*'
+  - 'packages/core/.**/*'
+  - 'packages/core/.**/.*'
+
+":package: react":
+  - 'packages/react/**/*'
+  - 'packages/react/**/.*'
+  - 'packages/react/.**/*'
+  - 'packages/react/.**/.*'
+
+"type: maintenance":
+  - any: ['.github/**/*', '!**/*.md', '!.**/*.md']
+
+"type: documentation":
+  - '**/*.md'
+  - '**/.*.md'
+  - '.**/*.md'
+  - '.**/.*.md'

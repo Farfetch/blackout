@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doPutDefaultPersonalId action creator should create the correct actions for when the put default personal id procedure is successful: put default personal id success payload 1`] = `
+Object {
+  "payload": Object {
+    "backImageId": "string",
+    "expiryDate": "string",
+    "frontImageId": "string",
+    "id": "string",
+    "isDefault": true,
+    "maskedIdNumber": "string",
+    "maskedName": "string",
+    "verifyLevel": "UNVERIFIED",
+  },
+  "type": "@farfetch/blackout-core/PUT_DEFAULT_PERSONAL_ID_SUCCESS",
+}
+`;

@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchStaffMember() action creator should create the correct actions for when the fetch staff member procedure is successful: fetch staff member success payload 1`] = `
+Object {
+  "meta": Object {
+    "id": "01804f99-06f8-4feb-a94e-e7a22e3ad0a2",
+  },
+  "payload": Object {
+    "result": Object {
+      "displayName": "Pepe",
+      "email": "pepe@acme.com",
+      "id": "01804f99-06f8-4feb-a94e-e7a22e3ad0a2",
+      "tenantId": 25000,
+      "userName": "pepe",
+    },
+  },
+  "type": "@farfetch/blackout-core/FETCH_STAFF_MEMBER_SUCCESS",
+}
+`;

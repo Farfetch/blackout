@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchBrand() action creator should create the correct actions for when the fetch brand procedure is successful: Fetch brand success payload 1`] = `
+Object {
+  "meta": Object {
+    "brandId": 211376,
+  },
+  "payload": Object {
+    "entities": Object {
+      "brands": Object {
+        "211376": Object {
+          "description": "Derek Lam is an American fashion designer.",
+          "id": 211376,
+          "name": "Derek Lam 10 Crosby",
+        },
+      },
+    },
+    "result": 211376,
+  },
+  "type": "@farfetch/blackout-core/FETCH_BRAND_SUCCESS",
+}
+`;

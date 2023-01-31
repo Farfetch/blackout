@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetCategories() action creator should create the correct actions in case the get categories procedure is successful: Get categories success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "categories": Object {
+        "135967": Object {
+          "gender": "Woman",
+          "id": 135967,
+          "name": "Clothing",
+        },
+        "135973": Object {
+          "gender": "Woman",
+          "id": 135973,
+          "name": "Accessories",
+        },
+        "135981": Object {
+          "gender": "Woman",
+          "id": 135981,
+          "name": "Trousers",
+          "parentId": 135967,
+        },
+        "136330": Object {
+          "gender": "Man",
+          "id": 136330,
+          "name": "Clothing",
+        },
+        "136337": Object {
+          "gender": "Man",
+          "id": 136337,
+          "name": "Denim",
+          "parentId": 136330,
+        },
+        "136338": Object {
+          "gender": "Man",
+          "id": 136338,
+          "name": "Trousers",
+          "parentId": 136330,
+        },
+      },
+    },
+    "result": Array [
+      135967,
+      135973,
+      136330,
+      135981,
+      136338,
+      136337,
+    ],
+  },
+  "type": "@farfetch/blackout-core/GET_CATEGORIES_SUCCESS",
+}
+`;

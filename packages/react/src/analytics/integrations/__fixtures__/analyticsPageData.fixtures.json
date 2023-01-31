@@ -1,0 +1,70 @@
+{
+  "type": "page",
+  "event": "home",
+  "properties": {
+    "storeId": 123123,
+    "some_property": 123123,
+    "uuid": 213123,
+    "didYouMean": 1123123
+  },
+  "user": {
+    "id": 680968743,
+    "localId": "d9864a1c112d-47ff-8ee4-968c-5acecae23",
+    "traits": {
+      "name": "foo",
+      "email": "bar",
+      "isGuest": false
+    }
+  },
+  "context": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36",
+    "library": {
+      "version": "0.1.0",
+      "name": "@farfetch/blackout-core/analytics"
+    },
+    "culture": "en-US",
+    "tenantId": 26000,
+    "clientId": 26000,
+    "web": {
+      "window": {
+        "location": {
+          "slashes": true,
+          "protocol": "http:",
+          "hash": "",
+          "query": {
+            "utm_term": "utm_term",
+            "utm_source": "utm_source",
+            "utm_medium": "utm_medium",
+            "utm_content": "utm_content",
+            "utm_campaign": "utm_campaign"
+          },
+          "pathname": "/pt/",
+          "auth": "",
+          "host": "127.0.0.1:3000",
+          "port": "3000",
+          "hostname": "127.0.0.1",
+          "password": "",
+          "username": "",
+          "origin": "http://127.0.0.1:3000",
+          "href": "http://127.0.0.1:3000/pt/"
+        },
+        "navigator": {
+          "language": "en-US",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36"
+        },
+        "screen": {
+          "width": 0,
+          "height": 0
+        }
+      },
+      "document": {
+        "title": "Thom Browne",
+        "referrer": "https://example.com"
+      }
+    },
+    "event": {
+      "__uniqueEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111"
+    }
+  },
+  "timestamp": 1567010265879
+}

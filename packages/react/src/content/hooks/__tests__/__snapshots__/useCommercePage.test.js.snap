@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useCommercePage should render with the state and commerce page content for the specified slug 1`] = `
+<div>
+  <span
+    data-test="commerce-page-data"
+  >
+    Commerce Page
+  </span>
+  <button
+    data-test="commerce-page-reset"
+  />
+  <button
+    data-test="commerce-page-fetchContent"
+  />
+</div>
+`;

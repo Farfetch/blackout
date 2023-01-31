@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doGetOperations() action creator should create the correct actions for when the get operations procedure is successful: get operations success payload 1`] = `
+Object {
+  "payload": Object {
+    "entries": Array [
+      Object {
+        "changes": Array [
+          Object {
+            "changeType": "ItemIsUnavailable",
+            "productId": 0,
+            "variantId": "00000000-0000-0000-0000-000000000000",
+          },
+        ],
+        "createdDate": "2022-02-16T11:24:12.234Z",
+        "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      },
+    ],
+    "number": 1,
+    "totalItems": 1,
+    "totalPages": 1,
+  },
+  "type": "@farfetch/blackout-core/GET_OPERATIONS_SUCCESS",
+}
+`;

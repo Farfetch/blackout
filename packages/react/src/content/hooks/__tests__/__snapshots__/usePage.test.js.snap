@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`usePage should render with the state and page content for the specified slug 1`] = `
+<div>
+  <span
+    data-test="page-data"
+  >
+    Browns South Molton Street
+  </span>
+  <button
+    data-test="page-reset"
+  />
+  <button
+    data-test="page-fetchContent"
+  />
+</div>
+`;

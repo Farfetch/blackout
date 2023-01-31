@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useSEO should render with the initial state 1`] = `
+<div>
+  <button
+    data-test="trigger-action"
+  >
+    Trigger action
+  </button>
+</div>
+`;
+
+exports[`useSEO should render with the initial state 2`] = `
+<div>
+  <button
+    data-test="trigger-action"
+  >
+    Trigger action
+  </button>
+</div>
+`;
