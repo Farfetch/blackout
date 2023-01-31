@@ -9,6 +9,7 @@ import {
 import { getProductId, logger } from '../../utils';
 import EventTypes from '../../types/EventTypes';
 import InteractionTypes from '../../types/InteractionTypes';
+import isNil from 'lodash/isNil';
 import PageTypes from '../../types/PageTypes';
 import type { EventData, TrackTypesValues } from '../..';
 import type {
@@ -526,7 +527,8 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   [EventTypes.SELECT_CONTENT]: data => {
     const properties = data.properties;
 
-    if (!properties?.contentType || !properties?.id) {
+    // Treat id=0 as a truthy value in this event
+    if (!properties?.contentType || isNil(properties?.id)) {
       logger.error(
         `[Omnitracking] - Event ${data.event} properties "contentType" and "id" should be sent
                         on the payload when triggering a "select content" event. If you want to track this
