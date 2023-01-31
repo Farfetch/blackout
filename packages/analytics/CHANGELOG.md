@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.110](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.109...@farfetch/blackout-analytics@1.0.0-next.110) (2023-01-31)
+
+
+### Bug Fixes
+
+* select content analytics event ([454d22d](https://github.com/Farfetch/blackout/commit/454d22d2db60594f25e7e36c714900f3b7466551))
+
+
+
+
+
 # [1.0.0-next.109](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.108...@farfetch/blackout-analytics@1.0.0-next.109) (2023-01-30)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
