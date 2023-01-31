@@ -49,19 +49,6 @@ class Forter extends integrations.Integration {
   }
 
   /**
-   * Method used to create a new Forter instance by analytics.
-   *
-   * @param {object} options   - User configured options.
-   * @param {object} loadData  - Analytics's load event data.
-   * @param {object} analytics - Stripped down analytics instance with helper methods.
-   *
-   * @returns {Forter} An instance of Forter class.
-   */
-  static createInstance(options, loadData, analytics) {
-    return new Forter(options, loadData, analytics);
-  }
-
-  /**
    * Creates an instance of Forter integration.
    *
    * @param {object} options  - User configured options.

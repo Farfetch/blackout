@@ -60,18 +60,6 @@ class CastleV2 extends integrations.Integration {
   }
 
   /**
-   * Creates and returns the instance for CastleV2 integration.
-   *
-   * @param {object} options - Integration options.
-   * @param {object} loadData - Analytics's load event data.
-   *
-   * @returns {CastleV2} The instance created.
-   */
-  static createInstance(options, loadData) {
-    return new CastleV2(options, loadData);
-  }
-
-  /**
    * Creates an instance of CastleV2 integration.
    *
    * @param {object} options - Integration options.

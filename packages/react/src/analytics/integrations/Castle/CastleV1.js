@@ -45,18 +45,6 @@ class Castle extends integrations.Integration {
   }
 
   /**
-   * Creates and returns the instance for Castle integration.
-   *
-   * @param {object} options - Integration options.
-   * @param {object} loadData - Analytics's load event data.
-   *
-   * @returns {Castle} The instance created.
-   */
-  static createInstance(options, loadData) {
-    return new Castle(options, loadData);
-  }
-
-  /**
    * Creates an instance of Castle integration.
    *
    * @param {object} options - Integration options.

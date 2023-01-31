@@ -88,18 +88,6 @@ class GTM extends Integration {
   }
 
   /**
-   * Method used to create a new GTM instance by analytics.
-   *
-   * @param {object} options - Integration options.
-   * @param {object} loadData - Analytics's load event data.
-   *
-   * @returns {object} An instance of GTM class.
-   */
-  static createInstance(options, loadData) {
-    return new GTM(options, loadData);
-  }
-
-  /**
    * Method to check if the integration is ready to be loaded.
    * This integration should always load. Then, in the container,
    * each tag should be configured with the proper trigger according its category: Preferences, statistics or marketing.

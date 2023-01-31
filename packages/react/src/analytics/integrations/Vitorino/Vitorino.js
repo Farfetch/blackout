@@ -40,19 +40,6 @@ export default class Vitorino extends integrations.Integration {
   }
 
   /**
-   * Creates and returns the instance for Vitorino integration.
-   *
-   * @param {object} options - Integration options.
-   * @param {object} loadData - Analytics' load event data.
-   * @param {object} analytics - Analytics stripped down instance.
-   *
-   * @returns {Vitorino} The instance created.
-   */
-  static createInstance(options, loadData, analytics) {
-    return new Vitorino(options, loadData, analytics);
-  }
-
-  /**
    * Creates an instance of Vitorino integration.
    *
    * @param {object} options - Integration options.

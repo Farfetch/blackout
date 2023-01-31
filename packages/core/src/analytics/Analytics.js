@@ -174,7 +174,7 @@ class Analytics {
   }
 
   /**
-   * This method will be called whenever integrations are loaded into analytics. To be overriden by subclasses.
+   * This method will be called whenever integrations are loaded into analytics. To be overridden by subclasses.
    *
    * @protected
    * @returns {Promise} Promise that will resolve when the method finishes.
@@ -421,7 +421,10 @@ class Analytics {
         return;
       }
 
-      const shouldLoad = integration.Factory.shouldLoad(loadEventData.consent);
+      const shouldLoad = integration.Factory.shouldLoad(
+        loadEventData.consent,
+        integration?.options,
+      );
 
       if (!shouldLoad) {
         // Nothing to do as well if the integration shouldn't load

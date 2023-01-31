@@ -1,3 +1,4 @@
+import { CONSENT_CATEGORIES_PROPERTY } from '../utils';
 /**
  * Base class for integrations.
  * It ensures the base functionality in order to work with analytics.
@@ -20,15 +21,54 @@ class Integration {
   }
 
   /**
-   * Method to check if the integration is ready to be loaded.
+   * "consentCategories" that each integration can specify accordingly.
+   */
+  static [CONSENT_CATEGORIES_PROPERTY] = null;
+
+  /**
+   * Sets the given consent on the Class static property, so it can be accessed before the instance gets created.
    *
-   * @param {object} consent - The current consent given by the user.
+   * @param {object} options - Integration options.
+   */
+  static validateConsentCategories(options) {
+    const consentCategories = options?.[CONSENT_CATEGORIES_PROPERTY];
+
+    if (
+      consentCategories &&
+      typeof consentCategories !== 'string' &&
+      !Array.isArray(consentCategories)
+    ) {
+      throw new TypeError(
+        `[${this.prototype.constructor.name}] - "${CONSENT_CATEGORIES_PROPERTY}" is not an array nor a string. Make sure you are passing a valid consent type.`,
+      );
+    }
+  }
+
+  /**
+   * Method to check if the integration is ready to be loaded.
+   * It will set any given categories if provided via the options before proceeding with the check.
+   *
+   * @param {object} consented - The current consent given by the user.
+   * @param {object} options   - Integration options.
    *
    * @returns {boolean} If the integration is ready to be loaded.
    */
-  // eslint-disable-next-line no-unused-vars
-  static shouldLoad(consent) {
-    return false;
+  static shouldLoad(consented, options) {
+    this.validateConsentCategories(options);
+
+    const consentCategories =
+      options?.[CONSENT_CATEGORIES_PROPERTY] ||
+      this[CONSENT_CATEGORIES_PROPERTY];
+
+    if (!consented || !consentCategories) {
+      return false;
+    }
+
+    const safeConsentCategories = Array.isArray(consentCategories)
+      ? consentCategories
+      : [consentCategories];
+
+    return safeConsentCategories.every(category => !!consented[category]);
   }
 
   /**
@@ -37,9 +77,12 @@ class Integration {
    * @param {object} options   - Integration options.
    * @param {object} loadData  - Analytics's load event data.
    * @param {object} analytics - Analytics instance stripped down with only helpers.
+   *
+   * @returns {Integration} - The created instance of an integration.
    */
-  // eslint-disable-next-line no-unused-vars
-  static createInstance(options, loadData, analytics) {}
+  static createInstance(options, loadData, analytics) {
+    return new this(options, loadData, analytics);
+  }
 
   /**
    *
