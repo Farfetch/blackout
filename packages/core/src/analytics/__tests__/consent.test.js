@@ -59,29 +59,6 @@ describe('Consent', () => {
     expect(consentInStorage).toMatchObject(data);
   });
 
-  it('Should only set valid consent parameters on storage', async () => {
-    const invalidData = {
-      foo: true,
-    };
-
-    const data = {
-      marketing: false,
-      statistics: true,
-    };
-
-    await consentInstance.set(invalidData);
-
-    const consentInStorage = await storage.getItem('consent');
-
-    expect(consentInStorage).not.toHaveProperty('foo');
-
-    await consentInstance.set(data);
-
-    const newConsentInStorage = await storage.getItem('consent');
-
-    expect(newConsentInStorage).toMatchObject(data);
-  });
-
   it('Should throw if an invalid storage instance is passed to the constructor', () => {
     expect(() => new Consent()).toThrow();
   });

@@ -62,29 +62,8 @@ class GA extends integrations.Integration {
     this.onSetUser(loadData);
   }
 
-  /**
-   * Method to check if the integration is ready to be loaded.
-   *
-   * @param {object} consent - The consent object representing the user preferences.
-   *
-   * @returns {boolean} If the integration is ready to be loaded.
-   */
-  static shouldLoad(consent) {
-    return !!consent && !!consent.statistics;
-  }
-
-  /**
-   * Method used to create a new GA instance by analytics.
-   *
-   * @param {object} options - Integration options.
-   * @param {object} loadData - Analytics's load event data.
-   *
-   * @returns {GA} An instance of GA class.
-   */
-  static createInstance(options, loadData) {
-    return new GA(options, loadData);
-  }
-
+  static [utils.CONSENT_CATEGORIES_PROPERTY] =
+    utils.DefaultConsentKeys.STATISTICS;
   /**
    * Send page hits to GA.
    *

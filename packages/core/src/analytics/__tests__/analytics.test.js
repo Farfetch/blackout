@@ -43,12 +43,6 @@ class NoIntegrationInstanceIntegration extends Integration {
   }
 }
 
-class DefaultCreateInstanceIntegration extends Integration {
-  static shouldLoad() {
-    return true;
-  }
-}
-
 class CreateInstanceThrowsIntegration extends Integration {
   static shouldLoad() {
     return true;
@@ -535,20 +529,12 @@ describe('analytics', () => {
               'noIntegrationInstanceIntegration',
               NoIntegrationInstanceIntegration,
             )
-            .addIntegration(
-              'defaultCreateInstanceIntegration',
-              DefaultCreateInstanceIntegration,
-            )
             .ready();
 
-          expect(loggerErrorSpy).toBeCalledTimes(2);
+          expect(loggerErrorSpy).toBeCalledTimes(1);
 
           expect(
             analytics.integration('noIntegrationInstanceIntegration'),
-          ).toBeNull();
-
-          expect(
-            analytics.integration('defaultCreateInstanceIntegration'),
           ).toBeNull();
         });
 

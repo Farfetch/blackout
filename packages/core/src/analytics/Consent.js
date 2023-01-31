@@ -1,6 +1,4 @@
-import { CONSENT_KEYS } from './utils';
 import merge from 'lodash/merge';
-import pick from 'lodash/pick';
 
 /**
  * Stores the consent values in a new instance.
@@ -47,12 +45,10 @@ class Consent {
    * @returns {Promise<Consent>} Promise that will resolve with the instance that was used when calling this method to allow chaining.
    */
   async set(data = {}) {
-    const consent = pick(data, CONSENT_KEYS);
-
     const currentConsentFromStorage =
       (await this.storage.getItem('consent')) || {};
 
-    const newConsent = merge(currentConsentFromStorage, consent);
+    const newConsent = merge(currentConsentFromStorage, data);
 
     await this.storage.setItem('consent', newConsent);
 
