@@ -80,32 +80,8 @@ class GA4 extends integrations.Integration {
     this.onSetUser(loadData);
   }
 
-  /**
-   * Method to check if the integration is ready to be loaded.
-   *
-   * @param {object} consent - The consent object representing the user preferences.
-   *
-   * @returns {boolean} If the integration is ready to be loaded.
-   */
-  static shouldLoad(consent) {
-    return !!consent?.statistics;
-  }
-
-  /**
-   * Method used to create a new GA4 instance by analytics.
-   *
-   * @async
-   *
-   * @param {object} options - Integration options.
-   * @param {object} loadData - Analytics's load event data.
-   * @param {object} analytics - Analytics stripped down instance.
-   *
-   * @returns {GA4} An instance of GA4 class.
-   *
-   */
-  static createInstance(options, loadData, analytics) {
-    return new GA4(options, loadData, analytics);
-  }
+  static [utils.CONSENT_CATEGORIES_PROPERTY] =
+    utils.DefaultConsentKeys.STATISTICS;
 
   /**
    * Initializes member variables from options and tries to initialize Google Analytics 4.

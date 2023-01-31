@@ -38,18 +38,6 @@ class Riskified extends integrations.Integration {
   }
 
   /**
-   * Method used to create a new Riskified instance by analytics.
-   *
-   * @param {object} options - Integration options.
-   * @param {object} loadData - Analytics's load event data.
-   *
-   * @returns {Riskified} The Riskified instance to allow chaining calls.
-   */
-  static createInstance(options, loadData) {
-    return new Riskified(options, loadData);
-  }
-
-  /**
    * Creates an instance of Riskified and sets the script on the page.
    *
    * @param {object} options - Custom options for the integration.

@@ -2,8 +2,8 @@
 
 exports[`constants Should export CONSENT_KEYS 1`] = `
 Array [
-  "marketing",
   "statistics",
+  "marketing",
   "preferences",
 ]
 `;
