@@ -26,6 +26,7 @@ const getSearchContents: GetSearchContents = (query, config?) => {
     .get(
       join('/content/v1/search/contents', {
         query: payload as Omit<QuerySearchContents, 'target'>,
+        queryOptions: { encode: false },
       }),
       config,
     )

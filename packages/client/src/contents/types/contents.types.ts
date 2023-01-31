@@ -6,6 +6,7 @@ export type Targets = {
   country?: string;
   benefits?: string;
   channel?: string;
+  segments?: string;
 } & Record<string, string | undefined>;
 
 export type QuerySearchContents = {
@@ -17,7 +18,7 @@ export type QuerySearchContents = {
   contentTypeCode: string;
   // List of codes that representing the content code (about-us|today-news|header|productId...).
   codes?: string | string[];
-  // The targets and respective values that a content type is configured (contentzone:ROW | country:GB | language:en-GB | benefits:test).
+  // The targets and respective values that a content type is configured (contentzone:ROW | country:GB | language:en-GB | benefits:test | segments: 'private-sale,private-sale-guest-user').  // The segments list should contain less than 10 strings. They should separated by a comma (,).
   target?: Targets;
   // Sort content by (publicationDate:desc | publicationDate:asc | metadataCustom.eventDate:desc | metadataCustom.X:asc).
   sort?: string;
