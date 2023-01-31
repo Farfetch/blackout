@@ -200,12 +200,13 @@ Object {
   },
   "integrations": Object {
     "Castle": [Function],
+    "Forter": [Function],
     "GA": [Function],
     "GA4": [Function],
     "GTM": [Function],
     "Integration": [Function],
     "Omnitracking": [Function],
-    "Vitorino": [Function],
+    "Riskified": [Function],
     "validationSchemaBuilder": Object {
       "ArraySchema": [Function],
       "BaseSchema": [Function],

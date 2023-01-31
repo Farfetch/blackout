@@ -27,7 +27,7 @@ module.exports = {
     '/node_modules/',
     '__tests__/',
     'packages/client/src/entities/schemas',
-    'packages/react/src/analytics/integrations/Forter/loadForterScriptForSiteId.js',
+    'packages/react/src/analytics/integrations/Forter/loadForterScriptForSiteId.ts',
     'packages/react/src/payments/components/constants.js',
     'packages/react/src/checkout/hooks', // TODO - https://farfetch.atlassian.net/browse/FPSCH-1454
     'packages/redux/src/entities/schemas',

@@ -50,6 +50,7 @@
     "@testing-library/react": "^13.3.0",
     "@types/invariant": "^2.2.34",
     "@types/jest": "^27.5.1",
+    "@types/jquery": "^3.5.16",
     "@types/lodash": "^4.14.168",
     "@types/node": "^17.0.35",
     "@types/react": "^18.0.10",
