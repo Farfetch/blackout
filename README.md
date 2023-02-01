@@ -33,8 +33,6 @@ Please read the [CONTRIBUTING](CONTRIBUTING.md) file to know what we expect from
 Blackout is a project maintained by some awesome [contributors](https://github.com/Farfetch/blackout/graphs/contributors) from [Farfetch Platform Solutions](https://www.farfetchplatformsolutions.com/).
 
 ## Maintainers
-
-- [Helder Burato Berto](https://github.com/helderburato)
 - [João Ramalho Costa](https://github.com/joaoprcosta)
 - [Nelson Leite](https://github.com/nelsonleite)
 - [Rui Nunes](https://github.com/ruifcnunes)
