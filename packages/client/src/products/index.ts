@@ -13,6 +13,7 @@ export { default as getProductVariantsMerchantsLocations } from './getProductVar
 export { default as getProductVariantsMeasurements } from './getProductVariantsMeasurements';
 export { default as getProductRecommendedSet } from './getProductRecommendedSet';
 export { default as getProductSet } from './getProductSet';
+export { default as getProductOutfits } from './getProductOutfits';
 export { default as getRecentlyViewedProducts } from './getRecentlyViewedProducts';
 export { default as deleteRecentlyViewedProduct } from './deleteRecentlyViewedProduct';
 export { default as getRecommendedProducts } from './getRecommendedProducts';

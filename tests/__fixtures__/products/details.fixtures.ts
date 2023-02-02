@@ -511,6 +511,7 @@ export const mockProductsEntity = {
     },
     attributes: [],
     fittings: [],
+    outfits: [],
     genderName: 'woman',
     isInWishlist: true,
     quantity: 1,
