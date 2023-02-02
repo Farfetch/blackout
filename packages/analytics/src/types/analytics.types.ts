@@ -1,5 +1,5 @@
 import type {
-  CONSENT_KEYS,
+  CONSENT_CATEGORIES_PROPERTY,
   LOAD_INTEGRATION_TRACK_TYPE,
   ON_SET_USER_TRACK_TYPE,
 } from '../utils/constants';
@@ -10,7 +10,7 @@ import type TrackTypes from '../types/TrackTypes';
 export type TrackTypesValues = typeof TrackTypes[keyof typeof TrackTypes];
 
 export type ConsentData = {
-  [key in typeof CONSENT_KEYS[number]]?: boolean;
+  [k: string]: boolean;
 };
 
 type CommonContextData = {
@@ -67,7 +67,9 @@ export type IntegrationRuntimeData = {
   name: string;
 };
 
-export type IntegrationOptions = Record<string, unknown>;
+export type IntegrationOptions = Record<string, unknown> & {
+  [CONSENT_CATEGORIES_PROPERTY]?: string | string[] | null;
+};
 
 export interface IntegrationFactory<T extends IntegrationOptions> {
   new (
@@ -81,7 +83,10 @@ export interface IntegrationFactory<T extends IntegrationOptions> {
     loadData: LoadIntegrationEventData,
     analytics: StrippedDownAnalytics,
   ): Integration<Options>;
-  shouldLoad(consent: ConsentData | null | undefined): boolean;
+  shouldLoad(
+    consent: ConsentData | null | undefined,
+    options: IntegrationOptions,
+  ): boolean;
 }
 
 export type ExtendedTrackTypes =

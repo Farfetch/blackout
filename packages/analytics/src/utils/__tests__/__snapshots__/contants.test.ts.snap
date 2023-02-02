@@ -2,10 +2,18 @@
 
 exports[`constants Should export CONSENT_KEYS 1`] = `
 Array [
-  "marketing",
   "statistics",
+  "marketing",
   "preferences",
 ]
+`;
+
+exports[`constants Should export DefaultConsentKeys 1`] = `
+Object {
+  "MARKETING": "marketing",
+  "PREFERENCES": "preferences",
+  "STATISTICS": "statistics",
+}
 `;
 
 exports[`constants Should export PACKAGE_NAME 1`] = `"@farfetch/blackout-analytics"`;
