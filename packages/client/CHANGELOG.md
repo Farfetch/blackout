@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.233](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.232...@farfetch/blackout-client@2.0.0-next.233) (2023-02-02)
+
+
+### Features
+
+* add segment at targets on searchContents ([d81a96a](https://github.com/Farfetch/blackout/commit/d81a96a542d35c41d60bb55f8ef29a6e9b3961c9))
+
+
+
+
+
 # [2.0.0-next.232](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.231...@farfetch/blackout-client@2.0.0-next.232) (2023-01-30)
 
 
