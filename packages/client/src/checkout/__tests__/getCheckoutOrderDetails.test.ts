@@ -385,6 +385,8 @@ describe('checkout client', () => {
             discount: 0,
             currency: 'string',
             rank: 0,
+            finalPrice: 0,
+            formattedFinalPrice: 'string',
             itemsDeliveryOptions: [
               {
                 itemId: 0,
