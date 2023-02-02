@@ -1,6 +1,4 @@
-import { CONSENT_KEYS } from './utils';
 import merge from 'lodash/merge';
-import pick from 'lodash/pick';
 import type { ConsentData } from './types/analytics.types';
 import type StorageWrapper from './utils/StorageWrapper';
 
@@ -47,12 +45,11 @@ class Consent {
    * chaining.
    */
   async set(data: ConsentData | undefined): Promise<Consent> {
-    const consent = pick(data, CONSENT_KEYS);
     const currentConsentFromStorage = ((await this.storage.getItem(
       'consent',
     )) || {}) as typeof data;
 
-    const newConsent = merge(currentConsentFromStorage, consent);
+    const newConsent = merge(currentConsentFromStorage, data);
 
     await this.storage.setItem('consent', newConsent);
 

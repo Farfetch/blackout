@@ -49,12 +49,6 @@ describe('Integration', () => {
     expect(constructorSpy).toHaveBeenCalled();
   });
 
-  it('`shouldLoad` should throw a `Method not implemented` error by default', () => {
-    expect(() => {
-      Integration.shouldLoad(loadData.consent);
-    }).toThrow('Method not implemented');
-  });
-
   it('`track` should throw a `Method not implemented` error by default', () => {
     expect(() => {
       Integration.createInstance({}, loadData, {
@@ -72,7 +66,63 @@ describe('Integration', () => {
     expect(integration.track).toBeInstanceOf(Function);
   });
 
-  it('Should have a setConsent method', () => {
-    expect(integration.setConsent).toBeInstanceOf(Function);
+  it('should return an instance of itself or of an extended class', () => {
+    class MyIntegration extends Integration<IntegrationOptions> {}
+
+    expect(integration).toBeInstanceOf(Integration);
+    // @ts-expect-error - No need to pass options to test what we need here
+    expect(MyIntegration.createInstance()).toBeInstanceOf(Integration);
+  });
+
+  describe('Consent', () => {
+    it('Should not be ready to load by default', () => {
+      // @ts-expect-error - Ensure it returns false even when there's no consent
+      expect(Integration.shouldLoad()).toEqual(false);
+    });
+
+    it('Should have a setConsent method', () => {
+      expect(integration.setConsent).toBeInstanceOf(Function);
+    });
+
+    it('Should load only when ALL the provided consent categories are true', () => {
+      expect(
+        Integration.shouldLoad(
+          { foo: true, bar: true },
+          {
+            consentCategories: ['foo', 'bar'],
+          },
+        ),
+      ).toBe(true);
+
+      expect(
+        Integration.shouldLoad(
+          { foo: true, bar: false },
+          {
+            consentCategories: ['foo', 'bar'],
+          },
+        ),
+      ).toBe(false);
+
+      expect(
+        Integration.shouldLoad(
+          { foo: true, bar: false },
+          {
+            consentCategories: 'foo',
+          },
+        ),
+      ).toBe(true);
+    });
+
+    it('Should throw an error if passed an invalid consent type', () => {
+      expect(() =>
+        Integration.shouldLoad(
+          {},
+          {
+            // @ts-expect-error - Test an invalid type scenario
+            consentCategories: 123,
+          },
+        ),
+      ).toThrowError();
+    });
   });
 });

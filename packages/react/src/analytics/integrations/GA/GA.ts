@@ -17,7 +17,6 @@
  */
 import {
   TrackTypes as analyticsTrackTypes,
-  ConsentData,
   EventData,
   integrations,
   LoadIntegrationEventData,
@@ -88,16 +87,8 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
     this.onSetUser(loadData);
   }
 
-  /**
-   * Method to check if the integration is ready to be loaded.
-   *
-   * @param consent - The consent object representing the user preferences.
-   *
-   * @returns If the integration is ready to be loaded.
-   */
-  static override shouldLoad(consent: ConsentData | null): boolean {
-    return !!consent && !!consent.statistics;
-  }
+  static override [utils.CONSENT_CATEGORIES_PROPERTY] =
+    utils.DefaultConsentKeys.STATISTICS;
 
   /**
    * Send page hits to GA.

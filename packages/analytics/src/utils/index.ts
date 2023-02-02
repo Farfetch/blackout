@@ -3,6 +3,8 @@ export {
   LOAD_INTEGRATION_TRACK_TYPE,
   ON_SET_USER_TRACK_TYPE,
   ANALYTICS_UNIQUE_EVENT_ID,
+  DefaultConsentKeys,
+  CONSENT_CATEGORIES_PROPERTY,
 } from './constants';
 export * from './defaults';
 export * from './getters';
