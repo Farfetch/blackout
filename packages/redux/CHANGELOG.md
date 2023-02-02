@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.362](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.361...@farfetch/blackout-redux@1.0.0-next.362) (2023-02-02)
+
+
+### Bug Fixes
+
+* **redux:** fix product attributes server render ([88b650f](https://github.com/Farfetch/blackout/commit/88b650fe814015e926af05e6e1bd39fd1a029bb5))
+
+
+
+
+
 # [1.0.0-next.361](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.360...@farfetch/blackout-redux@1.0.0-next.361) (2023-02-02)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
