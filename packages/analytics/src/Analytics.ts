@@ -529,10 +529,11 @@ class Analytics {
         return;
       }
 
-      let shouldLoad;
-
       try {
-        shouldLoad = integration.Factory.shouldLoad(loadEventData.consent);
+        const shouldLoad = integration.Factory.shouldLoad(
+          loadEventData.consent,
+          integration?.options,
+        );
 
         if (!shouldLoad) {
           // Nothing to do as well if the integration shouldn't load

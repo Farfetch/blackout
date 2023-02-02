@@ -134,11 +134,17 @@ Object {
   },
   "utils": Object {
     "ANALYTICS_UNIQUE_EVENT_ID": "__uniqueEventId",
+    "CONSENT_CATEGORIES_PROPERTY": "consentCategories",
     "CONSENT_KEYS": Array [
-      "marketing",
       "statistics",
+      "marketing",
       "preferences",
     ],
+    "DefaultConsentKeys": Object {
+      "MARKETING": "marketing",
+      "PREFERENCES": "preferences",
+      "STATISTICS": "statistics",
+    },
     "LOAD_INTEGRATION_TRACK_TYPE": "loadIntegration",
     "ON_SET_USER_TRACK_TYPE": "onSetUser",
     "StorageWrapper": [Function],

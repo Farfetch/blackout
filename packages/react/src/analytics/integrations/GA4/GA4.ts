@@ -15,7 +15,6 @@
 import {
   PageTypes as analyticsPageTypes,
   TrackTypes as analyticsTrackTypes,
-  ConsentData,
   EventData,
   integrations,
   LoadIntegrationEventData,
@@ -107,16 +106,8 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
     this.onSetUser(loadData);
   }
 
-  /**
-   * Method to check if the integration is ready to be loaded.
-   *
-   * @param consent - The consent object representing the user preferences.
-   *
-   * @returns If the integration is ready to be loaded.
-   */
-  static override shouldLoad(consent: ConsentData): boolean {
-    return !!consent?.statistics;
-  }
+  static override [utils.CONSENT_CATEGORIES_PROPERTY] =
+    utils.DefaultConsentKeys.STATISTICS;
 
   /**
    * Initializes member variables from options and tries to initialize Google

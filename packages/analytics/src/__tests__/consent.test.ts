@@ -60,34 +60,6 @@ describe('Consent', () => {
     expect(consentInStorage).toMatchObject(data);
   });
 
-  it('Should only set valid consent parameters on storage', async () => {
-    const invalidData = {
-      foo: true,
-    };
-
-    const inputConsentData = {
-      marketing: false,
-      statistics: true,
-    };
-
-    const outputConsentData = {
-      ...inputConsentData,
-    };
-
-    // @ts-expect-error
-    await consentInstance.set(invalidData);
-
-    const consentInStorage = await storage.getItem('consent');
-
-    expect(consentInStorage).not.toHaveProperty('foo');
-
-    await consentInstance.set(inputConsentData);
-
-    const newConsentInStorage = await storage.getItem('consent');
-
-    expect(newConsentInStorage).toMatchObject(outputConsentData);
-  });
-
   it('Should throw if an invalid storage instance is passed to the constructor', () => {
     const invalidData = undefined;
     // @ts-expect-error
