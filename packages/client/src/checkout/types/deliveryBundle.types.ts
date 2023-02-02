@@ -12,6 +12,8 @@ export type DeliveryBundle = {
   isSelected: boolean;
   price: number;
   formattedPrice: string;
+  finalPrice: number;
+  formattedFinalPrice: string;
   discount: number;
   currency: string;
   rank: number;

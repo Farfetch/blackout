@@ -51,7 +51,11 @@ const serverInitialState: ProductsServerInitialState = ({
     // Send this to the entity's `adaptProductImages`
     productImgQueryParam,
     // Data needed to support product information
-    attributes: productAttributes,
+    // Set attributes to undefined if the productAttributes array
+    // is empty. This is because by default the server render will
+    // return an empty array, even when no request to fetch the
+    // product attributes was made.
+    attributes: productAttributes?.length === 0 ? undefined : productAttributes,
     breadCrumbs,
     colorSet,
     colorSwatch,
