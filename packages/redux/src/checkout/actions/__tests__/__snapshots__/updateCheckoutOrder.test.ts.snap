@@ -367,6 +367,8 @@ Object {
         "12345678": Object {
           "currency": "EUR",
           "discount": 0,
+          "finalPrice": 10,
+          "formattedFinalPrice": "10",
           "formattedPrice": "10",
           "id": "12345678",
           "isSelected": true,
@@ -803,6 +805,8 @@ Object {
         "12345678": Object {
           "currency": "EUR",
           "discount": 0,
+          "finalPrice": 10,
+          "formattedFinalPrice": "10",
           "formattedPrice": "10",
           "id": "12345678",
           "isSelected": true,

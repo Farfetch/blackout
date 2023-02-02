@@ -152,6 +152,8 @@ export const mockDeliveryBundlesResponse = [
     discount: 0,
     currency: 'EUR',
     rank: 1,
+    finalPrice: 10,
+    formattedFinalPrice: '10',
     itemsDeliveryOptions: [
       {
         itemId: 95097041,
@@ -1030,6 +1032,8 @@ const deliveryBundle = {
   discount: 0,
   currency: '€',
   rank: 1,
+  finalPrice: 25,
+  formattedFinalPrice: '25 €',
   itemDeliveryProvisioning: [],
 };
 
