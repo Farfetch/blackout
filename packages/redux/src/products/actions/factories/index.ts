@@ -11,6 +11,7 @@ export { default as fetchProductGroupingFactory } from './fetchProductGroupingFa
 export { default as fetchProductGroupingPropertiesFactory } from './fetchProductGroupingPropertiesFactory';
 export { default as fetchProductMeasurementsFactory } from './fetchProductMeasurementsFactory';
 export { default as fetchProductSizeGuidesFactory } from './fetchProductSizeGuidesFactory';
+export { default as fetchProductOutfitsFactory } from './fetchProductOutfitsFactory';
 export { default as fetchProductSizesFactory } from './fetchProductSizesFactory';
 export { default as fetchProductVariantsByMerchantsLocationsFactory } from './fetchProductVariantsByMerchantsLocationsFactory';
 export { default as fetchRecommendedSetFactory } from './fetchRecommendedSetFactory';

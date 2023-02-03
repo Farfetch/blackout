@@ -10,6 +10,7 @@ import listsReducer, { entitiesMapper as listsEntitiesMapper } from './lists';
 import measurementsReducer, {
   entitiesMapper as measurementsEntitiesMapper,
 } from './measurements';
+import outfitsReducer from './outfits';
 import recentlyViewedProductsReducer from './recentlyViewedProducts';
 import recommendedProductsReducer from './recommendedProducts';
 import recommendedSetsReducer from './recommendedSet';
@@ -29,6 +30,7 @@ const reducers = combineReducers({
   groupingProperties: groupingPropertiesReducer,
   details: detailsReducer,
   fittings: fittingsReducer,
+  outfits: outfitsReducer,
   lists: listsReducer,
   measurements: measurementsReducer,
   recentlyViewed: recentlyViewedProductsReducer,
