@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.113](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.112...@farfetch/blackout-analytics@1.0.0-next.113) (2023-02-03)
+
+
+### Features
+
+* **analytics|react:** allow analytics to work with any consent categories ([b39bec3](https://github.com/Farfetch/blackout/commit/b39bec33b27ee9f7139a95643750fb602d5a91f1))
+
+
+
+
+
 # [1.0.0-next.112](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.111...@farfetch/blackout-analytics@1.0.0-next.112) (2023-02-02)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics

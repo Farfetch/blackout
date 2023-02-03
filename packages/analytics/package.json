@@ -1,6 +1,6 @@
 {
   "name": "@farfetch/blackout-analytics",
-  "version": "1.0.0-next.112",
+  "version": "1.0.0-next.113",
   "description": "Centralized and agnostic way of tracking data with built-in integrations",
   "license": "MIT",
   "main": "src/index.ts",
