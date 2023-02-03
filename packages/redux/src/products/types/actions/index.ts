@@ -5,6 +5,7 @@ export * from './productGrouping.types';
 export * from './productGroupingProperties.types';
 export * from './productMeasurements.types';
 export * from './productMerchantsLocations.types';
+export * from './productOutfits.types';
 export * from './productSizeGuides.types';
 export * from './productSizes.types';
 export * from './productsLists.types';

@@ -11,6 +11,7 @@ export { default as fetchProductFittings } from './fetchProductFittings';
 export { default as fetchProductGrouping } from './fetchProductGrouping';
 export { default as fetchProductGroupingProperties } from './fetchProductGroupingProperties';
 export { default as fetchProductMeasurements } from './fetchProductMeasurements';
+export { default as fetchProductOutfits } from './fetchProductOutfits';
 export { default as fetchProductSizeGuides } from './fetchProductSizeGuides';
 export { default as fetchProductSizes } from './fetchProductSizes';
 export { default as fetchProductVariantsByMerchantsLocations } from './fetchProductVariantsByMerchantsLocations';

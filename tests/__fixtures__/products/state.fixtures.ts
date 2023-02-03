@@ -95,6 +95,17 @@ export const mockFittingsState = {
     },
   },
 };
+export const mockOutfitsState = {
+  outfits: {
+    isLoading: {
+      [mockProductId]: false,
+      456: false,
+    },
+    error: {
+      [mockProductId]: new Error('Error') as BlackoutError,
+    },
+  },
+};
 export const mockProductsListsState = {
   lists: {
     error: { [mockProductsListHash]: undefined },
@@ -158,6 +169,7 @@ export const mockProductsState = {
     ...mockDetailsState,
     ...mockFittingsState,
     ...mockMeasurementsState,
+    ...mockOutfitsState,
     ...mockProductsListsState,
     ...mockRecommendedSetState,
     ...mockSizeGuidesState,

@@ -5,6 +5,7 @@ export * from './productGrouping.actionTypes';
 export * from './productGroupingProperties.actionTypes';
 export * from './productMeasurements.actionTypes';
 export * from './productMerchantsLocations.actionTypes';
+export * from './productOutfits.actionTypes';
 export * from './productSizeGuides.actionTypes';
 export * from './productSizes.actionTypes';
 export * from './productsLists.actionTypes';
