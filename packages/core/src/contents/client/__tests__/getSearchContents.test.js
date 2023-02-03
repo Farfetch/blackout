@@ -20,6 +20,7 @@ describe('contents client', () => {
       environmentCode: 'live',
       codes: 123456789,
       contentTypeCode: 'pages',
+      'target.segments': 'private-sale,private-sale-guest-user',
     };
     const response = {
       number: 1,
@@ -35,6 +36,7 @@ describe('contents client', () => {
           code: 'cttpage',
           target: {
             contentzone: '10674',
+            segment: 'private-sale',
           },
           components: [
             {
@@ -85,7 +87,7 @@ describe('contents client', () => {
 
       await expect(getSearchContents(query)).resolves.toBe(response);
       expect(spy).toHaveBeenCalledWith(
-        '/content/v1/search/contents?codes=123456789&contentTypeCode=pages&environmentCode=live&spaceCode=website',
+        '/content/v1/search/contents?codes=123456789&contentTypeCode=pages&environmentCode=live&spaceCode=website&target.segments=private-sale,private-sale-guest-user',
         expectedConfig,
       );
     });
@@ -97,7 +99,7 @@ describe('contents client', () => {
 
       await expect(getSearchContents(query)).rejects.toMatchSnapshot();
       expect(spy).toHaveBeenCalledWith(
-        '/content/v1/search/contents?codes=123456789&contentTypeCode=pages&environmentCode=live&spaceCode=website',
+        '/content/v1/search/contents?codes=123456789&contentTypeCode=pages&environmentCode=live&spaceCode=website&target.segments=private-sale,private-sale-guest-user',
         expectedConfig,
       );
     });

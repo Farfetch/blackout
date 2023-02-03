@@ -10,6 +10,7 @@ export default {
       moxios.stubRequest(
         join('/api/content/v1/search/contents', {
           query: params.queryParams,
+          queryOptions: { encode: false },
         }),
         {
           method: 'get',
@@ -22,6 +23,7 @@ export default {
       moxios.stubRequest(
         join('/api/content/v1/search/contents', {
           query: params.queryParams,
+          queryOptions: { encode: false },
         }),
         {
           method: 'get',
