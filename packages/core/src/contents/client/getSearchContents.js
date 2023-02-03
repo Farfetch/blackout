@@ -11,6 +11,8 @@ import join from 'proper-url-join';
  * @property {string} [language] - Using country code to query by a specific language (US).
  * @property {string} [country] - Using culture code to query by a specific country (en-US).
  * @property {string} [benefits] - Query content for a benefit (sale).
+ * @property {string} [segments] - String of segments to filter the query by a specific segment. This string should contain less than 10 segments.
+ * The segments should be separated by commas (,).
  */
 
 /**
@@ -39,7 +41,13 @@ import join from 'proper-url-join';
  */
 export default (query, config) =>
   client
-    .get(join('/content/v1/search/contents', { query }), config)
+    .get(
+      join('/content/v1/search/contents', {
+        query,
+        queryOptions: { encode: false },
+      }),
+      config,
+    )
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);
