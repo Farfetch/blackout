@@ -1,4 +1,5 @@
 import { mockOutfitId, mockProductId } from './ids.fixtures';
+import { mockPriceAdaptedEmpty } from './price.fixtures';
 
 export const mockProductOutfits = [
   {
@@ -17,3 +18,29 @@ export const mockProductOutfits = [
     ],
   },
 ];
+
+export const mockProductOutfitsNormalizedResponse = {
+  entities: {
+    products: {
+      [mockProductId]: {
+        id: mockProductId,
+        fittings: undefined,
+        outfits: mockProductOutfits,
+        colorGrouping: undefined,
+        customAttributes: undefined,
+        groupedEntries: undefined,
+        images: undefined,
+        merchant: undefined,
+        price: mockPriceAdaptedEmpty,
+        prices: undefined,
+        sizes: undefined,
+        tag: {
+          id: undefined,
+          name: undefined,
+        },
+        variants: undefined,
+      },
+    },
+  },
+  result: mockProductId,
+};

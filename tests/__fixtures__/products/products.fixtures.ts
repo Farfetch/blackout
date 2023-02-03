@@ -2,6 +2,7 @@ import { FacetGroupFormat, FacetGroupKey } from '@farfetch/blackout-client';
 import {
   mockBrandId,
   mockMerchantId,
+  mockOutfitId,
   mockProductId,
   mockSetId,
   mockSizeScaleId,
@@ -11,6 +12,7 @@ import { mockCategoryId } from '../categories';
 import { mockPriceAdapted, mockPriceAdaptedEmpty } from './price.fixtures';
 import { mockProductAttributes } from './productAttributes.fixtures';
 import { mockProductFittings } from './productFittings.fixtures';
+import { mockProductOutfits } from './productOutfits.fixtures';
 import { mockProductSizeGuides } from './productSizeGuides.fixtures';
 import { mockProductSizesAdapted } from './productSizes.fixtures';
 import { mockProductVariants } from './productVariantsMerchantsLocations.fixtures';
@@ -245,6 +247,7 @@ export const mockProduct: ProductEntity = {
   breadCrumbs: mockBreadCrumbs,
   categories: [mockCategoryId],
   fittings: mockProductFittings,
+  outfits: mockProductOutfits,
   id: mockProductId,
   isDuplicated: false,
   labels: mockLabels,
@@ -307,6 +310,38 @@ export const mockProductEntity: ProductEntity = {
     {
       type: 'Fabric weight & type',
       description: 'Made with a mid-weight fabric',
+    },
+  ],
+  outfits: [
+    {
+      id: mockOutfitId,
+      mainProductId: mockProductId,
+      description: 'string',
+      countryId: 0,
+      dateCreated: '2023-01-30T15:32:49.623Z',
+      onlineState: 0,
+      targetTenantId: 50000,
+      products: [
+        {
+          outfitId: mockOutfitId,
+          productId: mockProductId,
+        },
+      ],
+    },
+    {
+      id: 123,
+      mainProductId: mockProductId,
+      description: 'string',
+      countryId: 0,
+      dateCreated: '2023-01-29T18:22:50.623Z',
+      onlineState: 0,
+      targetTenantId: 50000,
+      products: [
+        {
+          outfitId: 123,
+          productId: mockProductId,
+        },
+      ],
     },
   ],
   images: [

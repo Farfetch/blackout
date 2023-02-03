@@ -3,6 +3,7 @@ import type {
   Brand,
   Category,
   Product as OriginalProduct,
+  Outfit,
   ProductAttribute,
   ProductFitting,
   ProductGroup,
@@ -115,6 +116,7 @@ export type ProductEntity = {
   description: OriginalProduct['result']['description'];
   digitalAssets: OriginalProduct['result']['digitalAssets'];
   fittings: ProductFitting[];
+  outfits: Outfit[];
   fulfillmentDate: OriginalProduct['result']['fulfillmentDate'];
   gender: OriginalProduct['result']['gender'];
   genderName: string;

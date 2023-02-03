@@ -6,6 +6,7 @@ export * from './groupingProperties';
 export * from './lists';
 export * from './measurements';
 export * from './merchants';
+export * from './outfits';
 export * from './product';
 export * from './recentlyViewedProducts';
 export * from './recommendedProducts';

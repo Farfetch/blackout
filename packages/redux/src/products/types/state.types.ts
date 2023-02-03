@@ -7,6 +7,7 @@ import type {
   ProductsGroupingState,
   ProductsListsState,
   ProductsMeasurementsState,
+  ProductsOutfitsState,
   ProductsSizeGuidesState,
   ProductsSizesState,
   ProductsVariantsByMerchantsLocationsState,
@@ -23,6 +24,7 @@ export type ProductsState = CombinedState<{
   fittings: ProductsFittingsState;
   lists: ProductsListsState;
   measurements: ProductsMeasurementsState;
+  outfits: ProductsOutfitsState;
   recentlyViewed: RecentlyViewedState;
   recommendedProducts: RecommendedProductsState;
   recommendedSets: RecommendedSetState;
