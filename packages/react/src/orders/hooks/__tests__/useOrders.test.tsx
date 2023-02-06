@@ -1,5 +1,16 @@
 import { cleanup, fireEvent, renderHook } from '@testing-library/react';
 import {
+  defaultHashedQuery,
+  mockGuestUserEmail,
+  mockState,
+  orderId,
+  orderId2,
+  orderSummaryEntityDenormalized,
+  orderSummaryEntityDenormalized2,
+  orderSummaryEntityDenormalized3,
+  userId,
+} from 'tests/__fixtures__/orders/orders.fixtures';
+import {
   fetchGuestOrderLegacy,
   fetchGuestOrders,
   fetchOrder,
@@ -7,12 +18,6 @@ import {
   resetOrderDetailsState as resetOrderDetailsStateAction,
   resetOrders,
 } from '@farfetch/blackout-redux';
-import {
-  mockGuestUserEmail,
-  mockState,
-  orderEntityDenormalized,
-  orderId,
-} from 'tests/__fixtures__/orders/orders.fixtures';
 import {
   mockUserInitialState,
   mockUsersResponse,
@@ -65,7 +70,7 @@ const mockInitialState = {
   ...mockState,
   orders: {
     ...mockState.orders,
-    result: null,
+    result: {},
   },
   users: mockUserInitialState,
   entities: {
@@ -127,7 +132,9 @@ const mockErrorState = {
   ...mockInitialState,
   orders: {
     ...mockInitialState.orders,
-    error: new Error('dummy error') as BlackoutError,
+    error: {
+      [defaultHashedQuery]: new Error('dummy error') as BlackoutError,
+    },
   },
 };
 
@@ -135,12 +142,15 @@ const mockLoadingState = {
   ...mockInitialState,
   orders: {
     ...mockInitialState.orders,
-    isLoading: true,
+    isLoading: {
+      [defaultHashedQuery]: true,
+    },
   },
 };
 
 const mockFetchQuery = {
   page: 1,
+  pageSize: 60,
 };
 
 const mockFetchConfig = {
@@ -171,8 +181,11 @@ describe('useOrders', () => {
     expect(current).toStrictEqual({
       ...defaultReturn,
       data: {
-        ...mockState.orders.result,
-        entries: [orderEntityDenormalized],
+        [orderId]: [
+          orderSummaryEntityDenormalized,
+          orderSummaryEntityDenormalized2,
+        ],
+        [orderId2]: [orderSummaryEntityDenormalized3],
       },
       isFetched: true,
     });
@@ -181,14 +194,14 @@ describe('useOrders', () => {
   it('should return correctly when there is an error', () => {
     const {
       result: { current },
-    } = renderHook(() => useOrders(), {
+    } = renderHook(() => useOrders({ fetchQuery: mockFetchQuery }), {
       wrapper: withStore(mockErrorState),
     });
 
     expect(current).toStrictEqual({
       ...defaultReturn,
       isFetched: true,
-      error: mockErrorState.orders.error,
+      error: mockErrorState.orders.error[defaultHashedQuery],
     });
   });
 
@@ -255,7 +268,7 @@ describe('useOrders', () => {
             fireEvent.click(getByTestId('orders-updateFetchQueryButton'));
 
             expect(fetchUserOrders).toHaveBeenCalledWith(
-              100000,
+              userId,
               { page: 2 },
               undefined,
             );

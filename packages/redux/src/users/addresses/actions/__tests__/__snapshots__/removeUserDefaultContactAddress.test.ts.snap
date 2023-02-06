@@ -4,7 +4,7 @@ exports[`removeUserDefaultContactAddress() action creator should create the corr
 Object {
   "meta": Object {
     "addressId": "2222222",
-    "userId": 123456,
+    "userId": 29556478,
   },
   "type": "@farfetch/blackout-redux/REMOVE_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS",
 }

@@ -1,10 +1,10 @@
 import { rest, RestHandler } from 'msw';
-import type { Orders } from '../types/orderSummary.types';
+import type { OrderSummaries } from '../types/orderSummary.types';
 
 const path = '/api/account/v1/users/:userId/orders';
 
 const fixtures = {
-  success: (response: Orders): RestHandler =>
+  success: (response: OrderSummaries): RestHandler =>
     rest.get(path, async (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),

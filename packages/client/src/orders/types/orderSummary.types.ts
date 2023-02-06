@@ -1,6 +1,6 @@
 import type { PagedResponse } from '../../types';
 
-export type Orders = PagedResponse<OrderSummary>;
+export type OrderSummaries = PagedResponse<OrderSummary>;
 
 export enum OrderTag {
   PreOrder = 'PreOrder',

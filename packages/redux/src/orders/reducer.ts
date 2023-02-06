@@ -9,27 +9,29 @@ import {
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
 import produce from 'immer';
-import reducerFactory from '../helpers/reducerFactory';
+import reducerFactory, {
+  createReducerWithResult,
+} from '../helpers/reducerFactory';
 import type * as T from './types';
 import type {
-  FetchOrderReturnOptionsSuccessAction,
-  FetchOrderReturnsSuccessAction,
+  // FetchOrderReturnOptionsSuccessAction,
+  // FetchOrderReturnsSuccessAction,
   ResetOrderDetailsStateAction,
   ResetOrderReturnOptionsStateAction,
-  ResetOrderReturnsEntitiesAction,
+  // ResetOrderReturnsEntitiesAction,
   ResetOrderReturnsStateAction,
 } from './types';
-import type {
-  OrderEntity,
-  ReturnEntity,
-  ReturnOptionEntity,
-} from '../entities/types';
+// import type {
+//   // OrderEntity,
+//   // ReturnEntity,
+//   ReturnOptionEntity,
+// } from '../entities/types';
 import type { StoreState } from '../types';
 
 export const INITIAL_STATE: T.OrdersState = {
-  error: null,
-  isLoading: false,
-  result: null,
+  error: {},
+  isLoading: {},
+  result: {},
   orderDetails: {
     error: {},
     isLoading: {},
@@ -58,16 +60,19 @@ export const INITIAL_STATE: T.OrdersState = {
     error: null,
     isLoading: false,
   },
+  guestOrders: {
+    result: null,
+    isLoading: false,
+    error: null,
+  },
 };
 
 const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
-    case actionTypes.FETCH_USER_ORDERS_FAILURE:
-    case actionTypes.FETCH_GUEST_ORDERS_FAILURE:
-      return action.payload.error;
     case actionTypes.FETCH_USER_ORDERS_REQUEST:
-    case actionTypes.FETCH_GUEST_ORDERS_REQUEST:
-      return INITIAL_STATE.error;
+      return { ...state, [action.meta.hash]: null };
+    case actionTypes.FETCH_USER_ORDERS_FAILURE:
+      return { ...state, [action.meta.hash]: action.payload.error };
     default:
       return state;
   }
@@ -76,13 +81,10 @@ const error = (state = INITIAL_STATE.error, action: AnyAction) => {
 const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_USER_ORDERS_REQUEST:
-    case actionTypes.FETCH_GUEST_ORDERS_REQUEST:
-      return true;
+      return { ...state, [action.meta.hash]: true };
     case actionTypes.FETCH_USER_ORDERS_FAILURE:
     case actionTypes.FETCH_USER_ORDERS_SUCCESS:
-    case actionTypes.FETCH_GUEST_ORDERS_FAILURE:
-    case actionTypes.FETCH_GUEST_ORDERS_SUCCESS:
-      return INITIAL_STATE.isLoading;
+      return { ...state, [action.meta.hash]: false };
     default:
       return state;
   }
@@ -91,8 +93,10 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
 const result = (state = INITIAL_STATE.result, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_USER_ORDERS_SUCCESS:
-    case actionTypes.FETCH_GUEST_ORDERS_SUCCESS:
-      return action.payload.result;
+      return {
+        ...state,
+        [action.meta.hash]: action.payload.result,
+      };
     default:
       return state;
   }
@@ -101,58 +105,27 @@ const result = (state = INITIAL_STATE.result, action: AnyAction) => {
 const resetEntitiesStateReducer = (
   state: NonNullable<StoreState['entities']>,
 ) => {
-  const { orders, orderItems, labelTracking, returnOptions, returns, ...rest } =
-    state;
+  const {
+    orders,
+    orderItems,
+    orderSummaries,
+    labelTracking,
+    returnOptions,
+    returns,
+    ...rest
+  } = state;
 
   return rest;
 };
 
-const getReturnOptionIdWithOrder = (
-  orderId: OrderEntity['id'],
-  returnOptionId: ReturnOptionEntity['id'],
-) => {
-  return `${orderId}_${returnOptionId}`;
-};
+// const getReturnOptionIdWithOrder = (
+//   orderId: OrderEntity['id'],
+//   returnOptionId: ReturnOptionEntity['id'],
+// ) => {
+//   return `${orderId}_${returnOptionId}`;
+// };
 
 export const entitiesMapper = {
-  [actionTypes.FETCH_USER_ORDERS_SUCCESS]: (
-    state: NonNullable<StoreState['entities']>,
-    action: AnyAction,
-  ) => {
-    const { entities } = action.payload;
-
-    // Reset orders before merging with entities
-    const stateWithResetOrders = {
-      ...state,
-      orders: {},
-      orderItems: {},
-      returnOptions: {},
-      returns: {},
-    };
-
-    return produce(stateWithResetOrders, draftState => {
-      merge(draftState, entities);
-    });
-  },
-  [actionTypes.FETCH_GUEST_ORDERS_SUCCESS]: (
-    state: NonNullable<StoreState['entities']>,
-    action: AnyAction,
-  ) => {
-    const { entities } = action.payload;
-
-    // Reset orders before merging with entities
-    const stateWithResetOrders = {
-      ...state,
-      orders: {},
-      orderItems: {},
-      returnOptions: {},
-      returns: {},
-    };
-
-    return produce(stateWithResetOrders, draftState => {
-      merge(draftState, entities);
-    });
-  },
   [actionTypes.FETCH_ORDER_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
@@ -163,224 +136,224 @@ export const entitiesMapper = {
       merge(draftState, entities);
     });
   },
-  [actionTypes.FETCH_ORDER_RETURN_OPTIONS_SUCCESS]: (
-    state: NonNullable<StoreState['entities']>,
-    action: AnyAction,
-  ) => {
-    const orderReturnOptionsSuccessAction =
-      action as FetchOrderReturnOptionsSuccessAction;
+  // [actionTypes.FETCH_ORDER_RETURN_OPTIONS_SUCCESS]: (
+  //   state: NonNullable<StoreState['entities']>,
+  //   action: AnyAction,
+  // ) => {
+  //   const orderReturnOptionsSuccessAction =
+  //     action as FetchOrderReturnOptionsSuccessAction;
 
-    const { orderId } = orderReturnOptionsSuccessAction.meta;
-    const {
-      entities: { returnOptions },
-      result,
-    } = orderReturnOptionsSuccessAction.payload;
+  //   const { orderId } = orderReturnOptionsSuccessAction.meta;
+  //   const {
+  //     entities: { returnOptions },
+  //     result,
+  //   } = orderReturnOptionsSuccessAction.payload;
 
-    const newReturnOptions: typeof returnOptions = {};
+  //   const newReturnOptions: typeof returnOptions = {};
 
-    Object.values(returnOptions).forEach(value => {
-      const newReturnOptionId = getReturnOptionIdWithOrder(orderId, value.id);
+  //   Object.values(returnOptions).forEach(value => {
+  //     const newReturnOptionId = getReturnOptionIdWithOrder(orderId, value.id);
 
-      newReturnOptions[newReturnOptionId] = {
-        ...value,
-        id: newReturnOptionId,
-      };
-    });
+  //     newReturnOptions[newReturnOptionId] = {
+  //       ...value,
+  //       id: newReturnOptionId,
+  //     };
+  //   });
 
-    const newPayloadEntities = {
-      ...action.payload.entities,
-      returnOptions: newReturnOptions,
-    };
+  //   const newPayloadEntities = {
+  //     ...action.payload.entities,
+  //     returnOptions: newReturnOptions,
+  //   };
 
-    return produce(state, (draftState: typeof state) => {
-      merge(draftState, newPayloadEntities);
+  //   return produce(state, (draftState: typeof state) => {
+  //     merge(draftState, newPayloadEntities);
 
-      let orders = draftState.orders;
+  //     let orders = draftState.orders;
 
-      if (!orders) {
-        orders = {};
-        draftState.orders = orders;
-      }
+  //     if (!orders) {
+  //       orders = {};
+  //       draftState.orders = orders;
+  //     }
 
-      let order = orders[orderId];
+  //     let order = orders[orderId];
 
-      if (!order) {
-        order = {
-          byMerchant: {},
-          id: orderId,
-          totalItems: 1,
-          createdDate: null,
-        } as NonNullable<typeof order>;
-        orders[orderId] = order;
-      }
+  //     if (!order) {
+  //       order = {
+  //         byMerchant: {},
+  //         id: orderId,
+  //         totalItems: 1,
+  //         createdDate: null,
+  //       } as NonNullable<typeof order>;
+  //       orders[orderId] = order;
+  //     }
 
-      order.returnOptions =
-        result && result.length >= 0
-          ? result.reduce<Array<ReturnOptionEntity['id']>>(
-              (acc, merchantReturnOptions) => {
-                return acc.concat(
-                  merchantReturnOptions.options.map(returnOptionId =>
-                    getReturnOptionIdWithOrder(orderId, returnOptionId),
-                  ),
-                );
-              },
-              [],
-            )
-          : null;
+  //     order.returnOptions =
+  //       result && result.length >= 0
+  //         ? result.reduce<Array<ReturnOptionEntity['id']>>(
+  //             (acc, merchantReturnOptions) => {
+  //               return acc.concat(
+  //                 merchantReturnOptions.options.map(returnOptionId =>
+  //                   getReturnOptionIdWithOrder(orderId, returnOptionId),
+  //                 ),
+  //               );
+  //             },
+  //             [],
+  //           )
+  //         : null;
 
-      for (const returnOptionId in newReturnOptions) {
-        const returnOption = newReturnOptions[
-          returnOptionId
-        ] as ReturnOptionEntity;
+  //     for (const returnOptionId in newReturnOptions) {
+  //       const returnOption = newReturnOptions[
+  //         returnOptionId
+  //       ] as ReturnOptionEntity;
 
-        const merchantId = returnOption.merchant;
+  //       const merchantId = returnOption.merchant;
 
-        let orderMerchant = order.byMerchant[merchantId];
+  //       let orderMerchant = order.byMerchant[merchantId];
 
-        if (!orderMerchant) {
-          orderMerchant = { merchant: merchantId } as NonNullable<
-            typeof orderMerchant
-          >;
-          order.byMerchant[merchantId] = orderMerchant;
-        }
+  //       if (!orderMerchant) {
+  //         orderMerchant = { merchant: merchantId } as NonNullable<
+  //           typeof orderMerchant
+  //         >;
+  //         order.byMerchant[merchantId] = orderMerchant;
+  //       }
 
-        let existingReturnOptions = orderMerchant.returnOptions;
+  //       let existingReturnOptions = orderMerchant.returnOptions;
 
-        if (!existingReturnOptions) {
-          existingReturnOptions = [];
-          orderMerchant.returnOptions = existingReturnOptions;
-        }
+  //       if (!existingReturnOptions) {
+  //         existingReturnOptions = [];
+  //         orderMerchant.returnOptions = existingReturnOptions;
+  //       }
 
-        if (!existingReturnOptions.includes(returnOptionId)) {
-          existingReturnOptions.push(returnOptionId);
-        }
-      }
-    });
-  },
-  [actionTypes.FETCH_ORDER_RETURNS_SUCCESS]: (
-    state: NonNullable<StoreState['entities']>,
-    action: AnyAction,
-  ) => {
-    const orderReturnsSuccessAction = action as FetchOrderReturnsSuccessAction;
-    const { orderId } = orderReturnsSuccessAction.meta;
-    const { entities, result } = orderReturnsSuccessAction.payload;
-    const returns = entities.returns;
+  //       if (!existingReturnOptions.includes(returnOptionId)) {
+  //         existingReturnOptions.push(returnOptionId);
+  //       }
+  //     }
+  //   });
+  // },
+  // [actionTypes.FETCH_ORDER_RETURNS_SUCCESS]: (
+  //   state: NonNullable<StoreState['entities']>,
+  //   action: AnyAction,
+  // ) => {
+  //   const orderReturnsSuccessAction = action as FetchOrderReturnsSuccessAction;
+  //   const { orderId } = orderReturnsSuccessAction.meta;
+  //   const { entities, result } = orderReturnsSuccessAction.payload;
+  //   const returns = entities.returns;
 
-    return produce(state, (draftState: typeof state) => {
-      merge(draftState, entities);
+  //   return produce(state, (draftState: typeof state) => {
+  //     merge(draftState, entities);
 
-      let orders = draftState.orders;
+  //     let orders = draftState.orders;
 
-      if (!orders) {
-        orders = {};
-        draftState.orders = orders;
-      }
+  //     if (!orders) {
+  //       orders = {};
+  //       draftState.orders = orders;
+  //     }
 
-      let order = orders[orderId];
+  //     let order = orders[orderId];
 
-      if (!order) {
-        order = {
-          byMerchant: {},
-          id: orderId,
-          totalItems: 1,
-          createdDate: null,
-        } as NonNullable<typeof order>;
-        orders[orderId] = order;
-      }
+  //     if (!order) {
+  //       order = {
+  //         byMerchant: {},
+  //         id: orderId,
+  //         totalItems: 1,
+  //         createdDate: null,
+  //       } as NonNullable<typeof order>;
+  //       orders[orderId] = order;
+  //     }
 
-      order.returns = result;
+  //     order.returns = result;
 
-      for (const returnId in returns) {
-        const returnEntity = returns[returnId] as ReturnEntity;
-        const merchantId = returnEntity.merchantId;
+  //     for (const returnId in returns) {
+  //       const returnEntity = returns[returnId] as ReturnEntity;
+  //       const merchantId = returnEntity.merchantId;
 
-        let orderMerchant = order.byMerchant[merchantId];
+  //       let orderMerchant = order.byMerchant[merchantId];
 
-        if (!orderMerchant) {
-          orderMerchant = { merchant: merchantId } as NonNullable<
-            typeof orderMerchant
-          >;
-          order.byMerchant[merchantId] = orderMerchant;
-        }
+  //       if (!orderMerchant) {
+  //         orderMerchant = { merchant: merchantId } as NonNullable<
+  //           typeof orderMerchant
+  //         >;
+  //         order.byMerchant[merchantId] = orderMerchant;
+  //       }
 
-        let existingReturns = orderMerchant.returns;
+  //       let existingReturns = orderMerchant.returns;
 
-        if (!existingReturns) {
-          existingReturns = [];
-          orderMerchant.returns = existingReturns;
-        }
+  //       if (!existingReturns) {
+  //         existingReturns = [];
+  //         orderMerchant.returns = existingReturns;
+  //       }
 
-        const returnIdAsNumber = parseInt(returnId);
+  //       const returnIdAsNumber = parseInt(returnId);
 
-        if (!existingReturns.includes(returnIdAsNumber)) {
-          existingReturns.push(returnIdAsNumber);
-        }
-      }
-    });
-  },
-  [actionTypes.RESET_ORDER_RETURN_OPTIONS_ENTITIES]: (
-    state: NonNullable<StoreState['entities']>,
-    action: AnyAction,
-  ) => {
-    const orderIdsPayload = (action as ResetOrderReturnOptionsStateAction)
-      .payload;
-    const orderIdsToEnumerate = orderIdsPayload?.length
-      ? orderIdsPayload
-      : Object.keys(state.orders ?? {});
+  //       if (!existingReturns.includes(returnIdAsNumber)) {
+  //         existingReturns.push(returnIdAsNumber);
+  //       }
+  //     }
+  //   });
+  // },
+  // [actionTypes.RESET_ORDER_RETURN_OPTIONS_ENTITIES]: (
+  //   state: NonNullable<StoreState['entities']>,
+  //   action: AnyAction,
+  // ) => {
+  //   const orderIdsPayload = (action as ResetOrderReturnOptionsStateAction)
+  //     .payload;
+  //   const orderIdsToEnumerate = orderIdsPayload?.length
+  //     ? orderIdsPayload
+  //     : Object.keys(state.orders ?? {});
 
-    return produce(state, draftState => {
-      orderIdsToEnumerate.forEach(orderId => {
-        const order = draftState.orders?.[orderId];
+  //   return produce(state, draftState => {
+  //     orderIdsToEnumerate.forEach(orderId => {
+  //       const order = draftState.orders?.[orderId];
 
-        if (order) {
-          delete order.returnOptions;
+  //       if (order) {
+  //         delete order.returnOptions;
 
-          Object.values(order.byMerchant).forEach(merchantOrder => {
-            const orderReturnOptions = merchantOrder.returnOptions;
+  //         Object.values(order.byMerchant).forEach(merchantOrder => {
+  //           const orderReturnOptions = merchantOrder.returnOptions;
 
-            if (orderReturnOptions) {
-              orderReturnOptions.forEach(returnOptionId => {
-                delete draftState.returnOptions?.[returnOptionId];
-              });
-            }
+  //           if (orderReturnOptions) {
+  //             orderReturnOptions.forEach(returnOptionId => {
+  //               delete draftState.returnOptions?.[returnOptionId];
+  //             });
+  //           }
 
-            delete merchantOrder.returnOptions;
-          });
-        }
-      });
-    });
-  },
-  [actionTypes.RESET_ORDER_RETURNS_ENTITIES]: (
-    state: NonNullable<StoreState['entities']>,
-    action: AnyAction,
-  ) => {
-    const orderIdsPayload = (action as ResetOrderReturnsEntitiesAction).payload;
-    const orderIdsToEnumerate = orderIdsPayload?.length
-      ? orderIdsPayload
-      : Object.keys(state.orders ?? {});
+  //           delete merchantOrder.returnOptions;
+  //         });
+  //       }
+  //     });
+  //   });
+  // },
+  // [actionTypes.RESET_ORDER_RETURNS_ENTITIES]: (
+  //   state: NonNullable<StoreState['entities']>,
+  //   action: AnyAction,
+  // ) => {
+  //   const orderIdsPayload = (action as ResetOrderReturnsEntitiesAction).payload;
+  //   const orderIdsToEnumerate = orderIdsPayload?.length
+  //     ? orderIdsPayload
+  //     : Object.keys(state.orders ?? {});
 
-    return produce(state, draftState => {
-      orderIdsToEnumerate.forEach(orderId => {
-        const order = draftState.orders?.[orderId];
+  //   return produce(state, draftState => {
+  //     orderIdsToEnumerate.forEach(orderId => {
+  //       const order = draftState.orders?.[orderId];
 
-        if (order) {
-          delete order.returns;
+  //       if (order) {
+  //         delete order.returns;
 
-          Object.values(order.byMerchant).forEach(merchantOrder => {
-            const orderReturns = merchantOrder.returns;
+  //         Object.values(order.byMerchant).forEach(merchantOrder => {
+  //           const orderReturns = merchantOrder.returns;
 
-            if (orderReturns) {
-              orderReturns.forEach(returnId => {
-                delete draftState.returns?.[returnId];
-              });
-            }
+  //           if (orderReturns) {
+  //             orderReturns.forEach(returnId => {
+  //               delete draftState.returns?.[returnId];
+  //             });
+  //           }
 
-            delete merchantOrder.returns;
-          });
-        }
-      });
-    });
-  },
+  //           delete merchantOrder.returns;
+  //         });
+  //       }
+  //     });
+  //   });
+  // },
   [actionTypes.RESET_ORDERS]: resetEntitiesStateReducer,
   [LOGOUT_SUCCESS]: resetEntitiesStateReducer,
   [LOGIN_SUCCESS]: resetEntitiesStateReducer,
@@ -568,6 +541,12 @@ export const orderItemAvailableActivities = reducerFactory(
   actionTypes,
 );
 
+export const guestOrders = createReducerWithResult(
+  'FETCH_GUEST_ORDERS',
+  INITIAL_STATE.guestOrders,
+  actionTypes,
+);
+
 export const getError = (state: T.OrdersState): T.OrdersState['error'] =>
   state.error;
 export const getIsLoading = (
@@ -598,18 +577,22 @@ export const getOrderItemAvailableActivities = (
   state: T.OrdersState,
 ): T.OrdersState['orderItemAvailableActivities'] =>
   state.orderItemAvailableActivities;
+export const getGuestOrders = (
+  state: T.OrdersState,
+): T.OrdersState['guestOrders'] => state.guestOrders;
 
 const reducer = combineReducers({
-  error,
-  isLoading,
-  result,
-  orderDetails,
-  orderReturns,
-  orderReturnOptions,
-  trackings,
   documents,
+  error,
+  guestOrders,
+  isLoading,
   orderAvailableItemsActivities,
+  orderDetails,
   orderItemAvailableActivities,
+  orderReturnOptions,
+  orderReturns,
+  result,
+  trackings,
 });
 
 /**

@@ -12,8 +12,8 @@ import {
   OrderItemActivities,
   OrderItemActivityType,
   OrderItemStatus,
-  Orders,
   OrderStatus,
+  OrderSummaries,
   ProductType,
   ReturnItemStatus,
   ReturnOption,
@@ -23,7 +23,8 @@ import {
   ReturnStatusCode,
   TrackingEventType,
 } from '@farfetch/blackout-client';
-import type { OrderEntity } from '@farfetch/blackout-redux';
+import { mockResponse as userEntity } from '../authentication';
+import type { OrderEntity, OrderSummaryEntity } from '@farfetch/blackout-redux';
 
 export const checkoutId = 15338048;
 export const checkoutOrderId = 15338048;
@@ -46,8 +47,11 @@ export const returnOptionId = '10537_CourierPickUp';
 export const returnOptionId2 = '10538_InStore';
 export const trackingNumber = '4538009162';
 export const trackingNumber2 = '4538009163';
-export const userId = 29521154;
+export const userId = 29556478;
 export const mockGuestUserEmail = 'qat5@farfetch.com';
+export const merchantOrderCode = 'PZ1129361393';
+export const merchantOrderCode2 = 'PZ1128781830';
+export const merchantOrderCode3 = 'PZ1129361394';
 
 export const mockOrdersResponse = {
   entries: [
@@ -85,7 +89,7 @@ export const mockOrdersResponse = {
       id: orderId2,
       merchantId,
       merchantName: 'TOMAS MAIER MADISON',
-      merchantOrderCode: 'PZ1129361393',
+      merchantOrderCode: 'PZ1129361394',
       returnAvailable: false,
       returnId: 26678892,
       status: 'Reviewing order',
@@ -97,7 +101,7 @@ export const mockOrdersResponse = {
   number: 1,
   totalItems: 3,
   totalPages: 1,
-} as Orders;
+} as OrderSummaries;
 
 export const mockTrackingResponse = {
   number: 1,
@@ -895,7 +899,7 @@ export const mockOrderDetailsResponse = {
 export const mockOrderDetailsResponse2 = {
   id: 'DVN7EE',
   checkoutOrderId: 126892294,
-  userId: 34113438,
+  userId,
   paymentIntentIds: ['073257f2-11a8-4c24-8084-67a8d901b13e'],
   currency: 'EUR',
   shippingAddress: {
@@ -1775,68 +1779,53 @@ export const mockOrderItemActivityPayload = {
 
 export const expectedOrdersResponseNormalizedPayload = {
   entities: {
-    orders: {
-      [orderId]: {
-        byMerchant: {
-          [merchantId]: {
-            checkoutOrderId: checkoutOrderId,
-            merchant: merchantId,
-            merchantOrderCode: 'PZ1129361393',
-            returnAvailable: false,
-            returnId: 26821464,
-            status: 'Reviewing order',
-            tags: [],
-            totalQuantity: 2,
-            userId: userId,
-          },
-          [merchantId2]: {
-            checkoutOrderId: checkoutOrderId,
-            merchant: merchantId2,
-            merchantOrderCode: 'PZ1128781830',
-            returnAvailable: false,
-            returnId: 26678630,
-            status: 'Reviewing order',
-            tags: [],
-            totalQuantity: 1,
-            userId: userId,
-          },
-        },
+    orderSummaries: {
+      [merchantOrderCode]: {
+        checkoutOrderId: checkoutOrderId,
+        merchantId,
+        merchantName: 'TOMAS MAIER MADISON',
+        createdDate: 1539688029817,
+        merchantOrderCode,
+        returnAvailable: false,
+        returnId: 26821464,
+        status: 'Reviewing order',
+        tags: [],
+        totalQuantity: 2,
+        userId: userId,
+        id: orderId,
+      },
+      [merchantOrderCode2]: {
+        checkoutOrderId: checkoutOrderId,
+        merchantId: merchantId2,
+        merchantName: 'TOMAS MAIER BLEECKER',
+        merchantOrderCode: merchantOrderCode2,
+        returnAvailable: false,
+        returnId: 26678630,
+        status: 'Reviewing order',
+        tags: [],
+        totalQuantity: 1,
+        userId: userId,
         createdDate: 1539688029817,
         id: orderId,
-        totalItems: 3,
       },
-      [orderId2]: {
-        byMerchant: {
-          [merchantId]: {
-            checkoutOrderId: checkoutOrderId,
-            merchant: merchantId,
-            merchantOrderCode: 'PZ1129361393',
-            returnAvailable: false,
-            returnId: 26678892,
-            status: OrderStatus.ReviewingOrder,
-            tags: [],
-            totalQuantity: 1,
-            userId: userId,
-          },
-        },
+      [merchantOrderCode3]: {
+        checkoutOrderId: checkoutOrderId,
+        merchantId: merchantId,
+        merchantName: 'TOMAS MAIER MADISON',
+        merchantOrderCode: merchantOrderCode3,
+        returnAvailable: false,
+        returnId: 26678892,
+        status: OrderStatus.ReviewingOrder,
+        tags: [],
+        totalQuantity: 1,
+        userId: userId,
         createdDate: 1534245134007,
         id: orderId2,
-        totalItems: 1,
-      },
-    },
-    merchants: {
-      [merchantId]: {
-        id: merchantId,
-        name: 'TOMAS MAIER MADISON',
-      },
-      [merchantId2]: {
-        id: merchantId2,
-        name: 'TOMAS MAIER BLEECKER',
       },
     },
   },
   result: {
-    entries: [orderId, orderId, orderId2],
+    entries: [merchantOrderCode, merchantOrderCode2, merchantOrderCode3],
     number: 1,
     totalItems: 3,
     totalPages: 1,
@@ -2490,7 +2479,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
               checkoutOrderId: 15338048,
               merchantOrderCode: 'PZ1132281368',
               totalQuantity: 2,
-              userId: 29521154,
+              userId,
             },
             [merchantId2]: {
               merchant: merchantId2,
@@ -2499,7 +2488,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
               checkoutOrderId: 15338048,
               merchantOrderCode: 'PZ1132281368',
               totalQuantity: 1,
-              userId: 29521154,
+              userId,
             },
           },
           checkoutOrderId: 15338048,
@@ -3515,7 +3504,7 @@ export const expectedGuestOrdersNormalizedPayload = {
         totalShippingFee: 0,
         totalTaxes: 423.57,
         updatedDate: 1539688029817,
-        userId: 29521154,
+        userId,
         byMerchant: {
           [merchantId]: {
             merchant: merchantId,
@@ -3524,7 +3513,7 @@ export const expectedGuestOrdersNormalizedPayload = {
             checkoutOrderId: 15338048,
             merchantOrderCode: 'PZ1132281368',
             totalQuantity: 2,
-            userId: 29521154,
+            userId,
           },
           [merchantId2]: {
             merchant: merchantId2,
@@ -3533,7 +3522,7 @@ export const expectedGuestOrdersNormalizedPayload = {
             checkoutOrderId: 15338048,
             merchantOrderCode: 'PZ1132281368',
             totalQuantity: 1,
-            userId: 29521154,
+            userId,
           },
         },
         totalItems: 3,
@@ -3541,7 +3530,7 @@ export const expectedGuestOrdersNormalizedPayload = {
       DVN7EE: {
         id: 'DVN7EE',
         checkoutOrderId: 126892294,
-        userId: 34113438,
+        userId,
         paymentIntentIds: ['073257f2-11a8-4c24-8084-67a8d901b13e'],
         currency: 'EUR',
         shippingAddress: {
@@ -3628,7 +3617,7 @@ export const expectedGuestOrdersNormalizedPayload = {
             checkoutOrderId: 126892294,
             merchantOrderCode: 'PZ1123095473',
             totalQuantity: 1,
-            userId: 34113438,
+            userId,
           },
         },
         totalItems: 1,
@@ -3678,7 +3667,7 @@ export const returnEntity = {
   availableDates: [],
   orderId,
   merchantId,
-  userId: 34113438,
+  userId,
   type: ReturnOptionType.Courier,
   status: ReturnStatus.Accepted,
   courier: 'NotKnown',
@@ -3705,7 +3694,7 @@ export const returnEntity2 = {
   availableDates: [],
   orderId,
   merchantId: merchantId2,
-  userId: 34113438,
+  userId,
   type: ReturnOptionType.Courier,
   status: ReturnStatus.Accepted,
   courier: 'NotKnown',
@@ -3753,23 +3742,9 @@ export const returnItemEntity2 = {
 };
 
 export const orderEntity: OrderEntity = {
-  id: orderId,
-  createdDate: 1662544285853,
-  totalItems: 2,
-  byMerchant: {
-    [merchantId]: {
-      merchant: merchantId,
-      returnOptions: [`${orderId}_${returnOptionId}`],
-      orderItems: [orderItemId],
-      returns: [returnId],
-    },
-    [merchantId2]: {
-      merchant: merchantId2,
-      returnOptions: [`${orderId}_${returnOptionId2}`],
-      orderItems: [orderItemId2],
-      returns: [returnId2],
-    },
-  },
+  ...mockOrderDetailsResponse,
+  createdDate: 1539688029817,
+  updatedDate: 1539688029817,
   items: [orderItemId, orderItemId2],
   shippingAddress: {
     ...mockOrderDetailsResponse.shippingAddress,
@@ -3777,11 +3752,20 @@ export const orderEntity: OrderEntity = {
   billingAddress: {
     ...mockOrderDetailsResponse.billingAddress,
   },
-  returnOptions: [
-    `${orderId}_${returnOptionId}`,
-    `${orderId}_${returnOptionId2}`,
-  ],
-  returns: [returnId, returnId2],
+};
+
+export const orderEntity2: OrderEntity = {
+  ...mockOrderDetailsResponse,
+  createdDate: 1539688029817,
+  updatedDate: 1539688029817,
+  items: [orderItemId, orderItemId2],
+  shippingAddress: {
+    ...mockOrderDetailsResponse.shippingAddress,
+  },
+  billingAddress: {
+    ...mockOrderDetailsResponse.billingAddress,
+  },
+  id: orderId2,
 };
 
 export const labelTrackingEntity = {
@@ -3914,6 +3898,50 @@ export const orderItemEntity2 = {
   },
 };
 
+export const orderSummary: OrderSummaryEntity = {
+  checkoutOrderId: checkoutOrderId,
+  merchantId,
+  merchantName: 'TOMAS MAIER MADISON',
+  createdDate: 1539688029817,
+  merchantOrderCode,
+  returnAvailable: false,
+  returnId,
+  status: OrderStatus.ReviewingOrder,
+  tags: [],
+  totalQuantity: 2,
+  userId,
+  id: orderId,
+};
+
+export const orderSummary2: OrderSummaryEntity = {
+  checkoutOrderId: checkoutOrderId,
+  merchantId: merchantId2,
+  merchantName: 'TOMAS MAIER BLEECKER',
+  merchantOrderCode: merchantOrderCode2,
+  returnAvailable: false,
+  returnId: 26678630,
+  status: OrderStatus.ReviewingOrder,
+  tags: [],
+  totalQuantity: 1,
+  userId,
+  createdDate: 1539688029817,
+  id: orderId,
+};
+
+export const orderSummary3: OrderSummaryEntity = {
+  checkoutOrderId: checkoutOrderId,
+  merchantId: 123456,
+  merchantName: 'FAKE MERCHANT',
+  merchantOrderCode: merchantOrderCode3,
+  returnAvailable: false,
+  status: OrderStatus.ReviewingOrder,
+  tags: [],
+  totalQuantity: 1,
+  userId,
+  createdDate: 1534245134007,
+  id: orderId2,
+};
+
 export const countryEntity = {
   code: countryCode,
   name: 'Portugal',
@@ -3938,15 +3966,19 @@ export const countryEntity = {
   defaultCulture: 'en-US',
 };
 
+export const defaultHashedQuery = `${userId}|1|60`;
+
 export const mockState = {
   orders: {
-    error: null,
-    isLoading: false,
+    error: { [defaultHashedQuery]: null },
+    isLoading: { [defaultHashedQuery]: false },
     result: {
-      entries: [orderId],
-      number: 1,
-      totalItems: 2,
-      totalPages: 1,
+      [defaultHashedQuery]: {
+        entries: [merchantOrderCode, merchantOrderCode2, merchantOrderCode3],
+        number: 1,
+        totalItems: 3,
+        totalPages: 1,
+      },
     },
     orderDetails: {
       error: { [orderId]: null },
@@ -3975,6 +4007,11 @@ export const mockState = {
     orderItemAvailableActivities: {
       error: null,
       isLoading: false,
+    },
+    guestOrders: {
+      error: null,
+      isLoading: false,
+      result: [orderId, orderId2],
     },
   },
   entities: {
@@ -4006,7 +4043,15 @@ export const mockState = {
     labelTracking: {
       [trackingNumber]: labelTrackingEntity,
     },
-    orders: { [orderId]: orderEntity },
+    orderSummaries: {
+      [merchantOrderCode]: orderSummary,
+      [merchantOrderCode2]: orderSummary2,
+      [merchantOrderCode3]: orderSummary3,
+    },
+    orders: {
+      [orderId]: orderEntity,
+      [orderId2]: orderEntity2,
+    },
     merchants: {
       [merchantId]: merchantEntity,
       [merchantId2]: merchantEntity2,
@@ -4027,6 +4072,7 @@ export const mockState = {
       [returnItemId2]: returnItemEntity2,
     },
     returns: { [returnId]: returnEntity, [returnId2]: returnEntity2 },
+    user: userEntity,
   },
 };
 
@@ -4082,21 +4128,30 @@ export const orderEntityDenormalized = {
     vatNumber: '123456789',
     zipCode: '1234-567',
   },
-  byMerchant: {
-    [merchantId]: {
-      merchant: merchantEntity,
-      orderItems: [mockOrderItemEntityDenormalized],
-      returnOptions: [returnOptionEntityDenormalized],
-      returns: [returnEntity],
-    },
-    [merchantId2]: {
-      merchant: merchantEntity2,
-      orderItems: [mockOrderItemEntity2Denormalized],
-      returnOptions: [returnOptionEntity2Denormalized],
-      returns: [returnEntity2],
-    },
-  },
-  createdDate: 1662544285853,
+  checkoutOrderId: 15338048,
+  createdDate: 1539688029817,
+  credit: 0,
+  currency: 'EUR',
+  customerType: 'Normal',
+  formattedCredit: '0,00 €',
+  formattedGrandTotal: '1 225,00 €',
+  formattedSubTotalAmount: '1 225,00 €',
+  formattedTotalDiscount: '0,00 €',
+  formattedTotalDomesticTaxes: '0,00 €',
+  formattedTotalShippingFee: '0,00 €',
+  formattedTotalTaxes: '423,57 €',
+  grandTotal: 1225,
+  newsletterSubscriptionOptionDefault: false,
+  paymentId: 'TMADRWWJX2DPH2M7CTUX',
+  subTotalAmount: 1225,
+  taxType: 'DDP',
+  totalDiscount: 0,
+  totalDomesticTaxes: 0,
+  totalQuantity: 3,
+  totalShippingFee: 0,
+  totalTaxes: 423.57,
+  updatedDate: 1539688029817,
+  userId,
   id: '3558DS',
   items: [mockOrderItemEntityDenormalized, mockOrderItemEntity2Denormalized],
   shippingAddress: {
@@ -4130,23 +4185,77 @@ export const orderEntityDenormalized = {
     vatNumber: '123456789',
     zipCode: '1234-567',
   },
-  totalItems: 2,
-  returnOptions: [
-    returnOptionEntityDenormalized,
-    returnOptionEntity2Denormalized,
-  ],
-  returns: [returnEntity, returnEntity2],
+};
+
+export const orderEntityDenormalized2 = {
+  ...orderEntityDenormalized,
+  id: orderId2,
+};
+
+export const orderSummaryEntityDenormalized = {
+  checkoutOrderId,
+  createdDate: 1539688029817,
+  id: orderId,
+  merchantId,
+  merchantName: 'TOMAS MAIER MADISON',
+  merchantOrderCode: 'PZ1129361393',
+  returnAvailable: false,
+  returnId,
+  merchant: merchantEntity,
+  status: 'Reviewing order',
+  tags: [],
+  totalQuantity: 2,
+  userId,
+};
+
+export const orderSummaryEntityDenormalized2 = {
+  checkoutOrderId,
+  createdDate: 1539688029817,
+  id: orderId,
+  merchantId: merchantId2,
+  merchantName: 'TOMAS MAIER BLEECKER',
+  merchantOrderCode: 'PZ1128781830',
+  returnId: 26678630,
+  merchant: merchantEntity2,
+  returnAvailable: false,
+  status: 'Reviewing order',
+  tags: [],
+  totalQuantity: 1,
+  userId,
+};
+
+export const orderSummaryEntityDenormalized3 = {
+  checkoutOrderId,
+  createdDate: 1534245134007,
+  id: orderId2,
+  merchantId: 123456,
+  merchantName: 'FAKE MERCHANT',
+  merchantOrderCode: 'PZ1129361394',
+  merchant: undefined,
+  returnAvailable: false,
+  status: 'Reviewing order',
+  tags: [],
+  totalQuantity: 1,
+  userId,
+};
+
+export const expectedGetUserOrdersResultByOrderId = {
+  [orderId]: [orderSummaryEntityDenormalized, orderSummaryEntityDenormalized2],
+  [orderId2]: [orderSummaryEntityDenormalized3],
 };
 
 export const expectedGetUserOrdersResult = {
-  entries: [orderEntityDenormalized],
-  number: 1,
-  totalItems: 2,
-  totalPages: 1,
+  ...mockState?.orders?.result[defaultHashedQuery],
+  entries: [
+    orderSummaryEntityDenormalized,
+    orderSummaryEntityDenormalized2,
+    orderSummaryEntityDenormalized3,
+  ],
 };
 
 export const expectedGetGuestOrdersResult = [
-  expectedGetUserOrdersResult.entries[0],
+  orderEntityDenormalized,
+  orderEntityDenormalized2,
 ];
 
 export const expectedOrderReturnsNormalizedPayload = {
