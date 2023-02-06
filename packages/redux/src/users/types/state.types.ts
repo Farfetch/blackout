@@ -19,6 +19,7 @@ import type {
 import type { TitlesState } from '../titles/types/index.js';
 import type { UserAddressesState } from '../addresses/types/index.js';
 import type { UserPersonalIdsState } from '../personalIds/types/index.js';
+import type { UserReturnsState } from '../returns/types/index.js';
 
 export type UsersState = CombinedState<{
   error: Nullable<BlackoutError>;
@@ -33,6 +34,7 @@ export type UsersState = CombinedState<{
   credits: CreditsState;
   personalIds: UserPersonalIdsState;
   preferences: PreferencesState;
+  returns: UserReturnsState;
   titles: TitlesState;
   updatePreferences: UpdatePreferencesState;
 }>;

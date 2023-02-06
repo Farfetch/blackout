@@ -1,13 +1,13 @@
 import type { Config } from '../../../types/index.js';
 import type { GuestToken } from './tokens.types.js';
 
-interface Data {
+export interface PostGuestTokenData {
   guestUserId?: number;
   guestUserEmail?: string;
   guestUserSecret?: string;
 }
 
 export type PostGuestToken = (
-  data: Data,
+  data: PostGuestTokenData,
   config?: Config,
 ) => Promise<GuestToken>;

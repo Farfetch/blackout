@@ -1,9 +1,9 @@
 import type { AxiosResponse } from 'axios';
 import type { Config } from '../../../types/index.js';
 
-export interface PostRefreshEmailTokenData {
+export type PostRefreshEmailTokenData = {
   username: string;
-}
+};
 
 export type PostRefreshEmailToken = (
   data: PostRefreshEmailTokenData,

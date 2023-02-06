@@ -12,11 +12,11 @@ import {
   type OrderItemActivities,
   OrderItemActivityType,
   OrderItemStatus,
-  type Orders,
+  OrderShippingAddressChangeRequestStatus,
   OrderStatus,
+  type OrderSummaries,
   ProductType,
   ReturnItemStatus,
-  type ReturnOption,
   ReturnOptionType,
   ReturnReferenceName,
   ReturnStatus,
@@ -24,7 +24,8 @@ import {
   SelectedSaleIntent,
   TrackingEventType,
 } from '@farfetch/blackout-client';
-import type { OrderEntity } from '@farfetch/blackout-redux';
+import { mockResponse as userEntity } from '../authentication/index.mjs';
+import type { OrderEntity, OrderSummaryEntity } from '@farfetch/blackout-redux';
 
 export const checkoutId = 15338048;
 export const checkoutOrderId = 15338048;
@@ -36,6 +37,7 @@ export const merchantId = 10537;
 export const merchantId2 = 10538;
 export const merchantOrderId = 100001339;
 export const merchantOrderId2 = 100001340;
+export const merchantOrderId3 = 118999819;
 export const fileId = '98b1cb96-710e-437c-98b6-e904b91cf6f6';
 export const orderId = '3558DS';
 export const itemId = 3558;
@@ -43,12 +45,17 @@ export const orderId2 = 'QUJ9AC';
 export const orderItemId = 10070161;
 export const orderItemId2 = 10070162;
 export const orderItemId3 = 10070163;
-export const returnOptionId = '10537_CourierPickUp';
-export const returnOptionId2 = '10538_InStore';
+export const productId = 12091686;
+export const productId2 = 12511241;
+export const productId3 = 12092633;
 export const trackingNumber = '4538009162';
 export const trackingNumber2 = '4538009163';
-export const userId = 29521154;
+export const userId = 29556478;
 export const mockGuestUserEmail = 'qat5@farfetch.com';
+export const merchantOrderCode = 'PZ1129361393';
+export const merchantOrderCode2 = 'PZ1128781830';
+export const merchantOrderCode3 = 'PZ1129361394';
+export const changeAddressId = '367c55b3-ff52-40b7-a892-26649d010555';
 
 export const mockGuestUserData = {
   guestUserEmail: mockGuestUserEmail,
@@ -90,7 +97,7 @@ export const mockOrdersResponse = {
       id: orderId2,
       merchantId,
       merchantName: 'TOMAS MAIER MADISON',
-      merchantOrderCode: 'PZ1129361393',
+      merchantOrderCode: 'PZ1129361394',
       returnAvailable: false,
       returnId: 26678892,
       status: 'Reviewing order',
@@ -102,7 +109,14 @@ export const mockOrdersResponse = {
   number: 1,
   totalItems: 3,
   totalPages: 1,
-} as Orders;
+} as OrderSummaries;
+
+export const mockOrdersResponse2 = {
+  ...mockOrdersResponse,
+  totalItems: 10005,
+  number: 1,
+  totalPages: 2,
+} as OrderSummaries;
 
 export const mockTrackingResponse = {
   number: 1,
@@ -384,7 +398,7 @@ export const mockOrderItem = {
   orderItemStatus: OrderItemStatus.None,
   orderStatus: MerchantOrderStatus.CheckingStock,
   isReturnAvailable: false,
-  merchantOrderCode: 'PZ1132281368',
+  merchantOrderCode: merchantOrderCode,
   productSummary: {
     productId: '12091686',
     description: 'stud sandal',
@@ -407,7 +421,7 @@ export const mockOrderItem = {
     taxesRate: 46.2071,
     taxesValue: 118.51,
   },
-  productId: 12091686,
+  productId,
   productSlug: 'stud-sandal-12091686',
   shippingService: {
     description: 'Express',
@@ -572,7 +586,7 @@ export const mockOrderItem2 = {
   orderItemStatus: OrderItemStatus.None,
   orderStatus: MerchantOrderStatus.CheckingStock,
   isReturnAvailable: false,
-  merchantOrderCode: 'PZ1132281368',
+  merchantOrderCode: merchantOrderCode2,
   productSummary: {
     productId: '12511241',
     description: 'wide leg pant',
@@ -595,7 +609,7 @@ export const mockOrderItem2 = {
     taxesRate: 59.1032,
     taxesValue: 256.32,
   },
-  productId: 12511241,
+  productId: productId2,
   productSlug: 'wide-leg-pant-12511241',
   shippingService: {
     description: 'Express',
@@ -735,9 +749,9 @@ export const mockOrderItem3 = {
   orderItemStatus: OrderItemStatus.None,
   orderStatus: MerchantOrderStatus.CheckingStock,
   isReturnAvailable: false,
-  merchantOrderCode: 'PZ1132281368',
+  merchantOrderCode: merchantOrderCode3,
   productSummary: {
-    productId: '12511241',
+    productId: '12092633',
     description: 'beach sheet',
     shortDescription: 'beach sheet',
   },
@@ -758,7 +772,7 @@ export const mockOrderItem3 = {
     taxesRate: 43.8107,
     taxesValue: 48.74,
   },
-  productId: 12092633,
+  productId: productId3,
   productSlug: 'beach-sheet-12092633',
   shippingService: {
     description: 'Express',
@@ -906,7 +920,7 @@ export const mockOrderDetailsResponse = {
 export const mockOrderDetailsResponse2 = {
   id: 'DVN7EE',
   checkoutOrderId: 126892294,
-  userId: 34113438,
+  userId,
   paymentIntentIds: ['073257f2-11a8-4c24-8084-67a8d901b13e'],
   currency: 'EUR',
   shippingAddress: {
@@ -1706,15 +1720,12 @@ export const mockOrderDetailsResponse2 = {
   promotionOffers: [],
 };
 
-export const mockGuestOrdersResponse = [
-  mockOrderDetailsResponse,
-  mockOrderDetailsResponse2,
-];
+export const mockGuestOrderResponse = mockOrderDetailsResponse;
 
 export const mockOrderReturnOptionsResponse = [
   {
     merchantId,
-    merchantOrderId: 100001340,
+    merchantOrderId,
     options: [
       {
         type: ReturnOptionType.CourierPickUp,
@@ -1739,8 +1750,8 @@ export const mockOrderReturnOptionsResponse = [
     ],
   },
   {
-    merchantId: 10538,
-    merchantOrderId: 100001339,
+    merchantId: merchantId2,
+    merchantOrderId: merchantOrderId2,
     options: [
       {
         type: ReturnOptionType.InStore,
@@ -1787,68 +1798,53 @@ export const mockOrderItemActivityPayload = {
 
 export const expectedOrdersResponseNormalizedPayload = {
   entities: {
-    orders: {
-      [orderId]: {
-        byMerchant: {
-          [merchantId]: {
-            checkoutOrderId: checkoutOrderId,
-            merchant: merchantId,
-            merchantOrderCode: 'PZ1129361393',
-            returnAvailable: false,
-            returnId: 26821464,
-            status: 'Reviewing order',
-            tags: [],
-            totalQuantity: 2,
-            userId: userId,
-          },
-          [merchantId2]: {
-            checkoutOrderId: checkoutOrderId,
-            merchant: merchantId2,
-            merchantOrderCode: 'PZ1128781830',
-            returnAvailable: false,
-            returnId: 26678630,
-            status: 'Reviewing order',
-            tags: [],
-            totalQuantity: 1,
-            userId: userId,
-          },
-        },
+    orderSummaries: {
+      [merchantOrderCode]: {
+        checkoutOrderId: checkoutOrderId,
+        merchantId,
+        merchantName: 'TOMAS MAIER MADISON',
+        createdDate: 1539688029817,
+        merchantOrderCode,
+        returnAvailable: false,
+        returnId: 26821464,
+        status: 'Reviewing order',
+        tags: [],
+        totalQuantity: 2,
+        userId: userId,
+        id: orderId,
+      },
+      [merchantOrderCode2]: {
+        checkoutOrderId: checkoutOrderId,
+        merchantId: merchantId2,
+        merchantName: 'TOMAS MAIER BLEECKER',
+        merchantOrderCode: merchantOrderCode2,
+        returnAvailable: false,
+        returnId: 26678630,
+        status: 'Reviewing order',
+        tags: [],
+        totalQuantity: 1,
+        userId: userId,
         createdDate: 1539688029817,
         id: orderId,
-        totalItems: 3,
       },
-      [orderId2]: {
-        byMerchant: {
-          [merchantId]: {
-            checkoutOrderId: checkoutOrderId,
-            merchant: merchantId,
-            merchantOrderCode: 'PZ1129361393',
-            returnAvailable: false,
-            returnId: 26678892,
-            status: OrderStatus.ReviewingOrder,
-            tags: [],
-            totalQuantity: 1,
-            userId: userId,
-          },
-        },
+      [merchantOrderCode3]: {
+        checkoutOrderId: checkoutOrderId,
+        merchantId: merchantId,
+        merchantName: 'TOMAS MAIER MADISON',
+        merchantOrderCode: merchantOrderCode3,
+        returnAvailable: false,
+        returnId: 26678892,
+        status: OrderStatus.ReviewingOrder,
+        tags: [],
+        totalQuantity: 1,
+        userId: userId,
         createdDate: 1534245134007,
         id: orderId2,
-        totalItems: 1,
-      },
-    },
-    merchants: {
-      [merchantId]: {
-        id: merchantId,
-        name: 'TOMAS MAIER MADISON',
-      },
-      [merchantId2]: {
-        id: merchantId2,
-        name: 'TOMAS MAIER BLEECKER',
       },
     },
   },
   result: {
-    entries: [orderId, orderId, orderId2],
+    entries: [merchantOrderCode, merchantOrderCode2, merchantOrderCode3],
     number: 1,
     totalItems: 3,
     totalPages: 1,
@@ -2102,7 +2098,6 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           parentId: 136383,
         },
       },
-      merchants: { 10537: { id: 10537 }, 10538: { id: 10538 } },
       orderItems: {
         [orderItemId]: {
           attributes: mockOrderItem.attributes,
@@ -2159,12 +2154,12 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           isCustomizable: false,
           isExclusive: false,
           isPreOrder: false,
-          merchant: merchantId,
+          merchantId,
           merchantOrderId: merchantOrderId,
           orderItemStatus: OrderItemStatus.None,
           orderStatus: MerchantOrderStatus.CheckingStock,
           isReturnAvailable: false,
-          merchantOrderCode: 'PZ1132281368',
+          merchantOrderCode: merchantOrderCode,
           productSummary: {
             productId: '12091686',
             description: 'stud sandal',
@@ -2282,12 +2277,12 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           isCustomizable: false,
           isExclusive: false,
           isPreOrder: false,
-          merchant: merchantId2,
+          merchantId: merchantId2,
           merchantOrderId: merchantOrderId2,
           orderItemStatus: OrderItemStatus.None,
           orderStatus: MerchantOrderStatus.CheckingStock,
           isReturnAvailable: false,
-          merchantOrderCode: 'PZ1132281368',
+          merchantOrderCode: merchantOrderCode2,
           productSummary: {
             productId: '12511241',
             description: 'wide leg pant',
@@ -2389,14 +2384,14 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           isCustomizable: false,
           isExclusive: false,
           isPreOrder: false,
-          merchant: merchantId,
+          merchantId,
           merchantOrderId: merchantOrderId2,
           orderItemStatus: OrderItemStatus.None,
           orderStatus: MerchantOrderStatus.CheckingStock,
           isReturnAvailable: false,
-          merchantOrderCode: 'PZ1132281368',
+          merchantOrderCode: merchantOrderCode3,
           productSummary: {
-            productId: '12511241',
+            productId: '12092633',
             description: 'beach sheet',
             shortDescription: 'beach sheet',
           },
@@ -2500,26 +2495,6 @@ export const getExpectedOrderDetailsNormalizedPayload = (
             vatNumber: '123456789',
             zipCode: '1234-567',
           },
-          byMerchant: {
-            [merchantId]: {
-              merchant: merchantId,
-              orderItems: [orderItemId, orderItemId3],
-              returnAvailable: false,
-              checkoutOrderId: 15338048,
-              merchantOrderCode: 'PZ1132281368',
-              totalQuantity: 2,
-              userId: 29521154,
-            },
-            [merchantId2]: {
-              merchant: merchantId2,
-              orderItems: [orderItemId2],
-              returnAvailable: false,
-              checkoutOrderId: 15338048,
-              merchantOrderCode: 'PZ1132281368',
-              totalQuantity: 1,
-              userId: 29521154,
-            },
-          },
           checkoutOrderId: 15338048,
           createdDate: 1539688029817,
           credit: 0,
@@ -2586,7 +2561,6 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           totalTaxes: 423.57,
           updatedDate: 1539688029817,
           userId,
-          totalItems: 3,
         },
       },
     },
@@ -2596,71 +2570,64 @@ export const getExpectedOrderDetailsNormalizedPayload = (
 
 export const expectedOrderReturnOptionsNormalizedPayload = {
   entities: {
-    merchants: {
-      [merchantId]: { id: merchantId, name: undefined },
-      [merchantId2]: { id: merchantId2, name: undefined },
-    },
     returnOptions: {
-      [returnOptionId]: {
-        allowedCountries: [
+      [merchantOrderId]: {
+        options: [
           {
-            alpha2Code: 'PT',
-            alpha3Code: 'PRT',
-            continentId: 3,
-            culture: 'pt-PT',
-            id: countryId,
-            name: 'Portugal',
-            nativeName: 'Portugal',
-            region: 'Europe',
-            subRegion: '',
+            allowedCountries: [
+              {
+                alpha2Code: 'PT',
+                alpha3Code: 'PRT',
+                continentId: 3,
+                culture: 'pt-PT',
+                id: countryId,
+                name: 'Portugal',
+                nativeName: 'Portugal',
+                region: 'Europe',
+                subRegion: '',
+              },
+            ],
+            isAddressMandatory: true,
+            isMerchantLocationMandatory: false,
+            isNumberOfBoxesMandatory: true,
+            isSchedulePickup: true,
+            type: ReturnOptionType.CourierPickUp,
           },
         ],
-        id: returnOptionId,
-        isAddressMandatory: true,
-        isMerchantLocationMandatory: false,
-        isNumberOfBoxesMandatory: true,
-        isSchedulePickup: true,
-        merchant: 10537,
-        merchantOrderId: 100001340,
-        type: ReturnOptionType.CourierPickUp,
+        merchantId: 10537,
+        merchantOrderId,
+        orderId: '3558DS',
       },
-      [returnOptionId2]: {
-        allowedCountries: [
+      [merchantOrderId2]: {
+        options: [
           {
-            alpha2Code: 'PT',
-            alpha3Code: 'PRT',
-            continentId: 3,
-            culture: 'pt-PT',
-            id: countryId,
-            name: 'Portugal',
-            nativeName: 'Portugal',
-            region: 'Europe',
-            subRegion: '',
+            allowedCountries: [
+              {
+                alpha2Code: 'PT',
+                alpha3Code: 'PRT',
+                continentId: 3,
+                culture: 'pt-PT',
+                id: countryId,
+                name: 'Portugal',
+                nativeName: 'Portugal',
+                region: 'Europe',
+                subRegion: '',
+              },
+            ],
+            type: ReturnOptionType.InStore,
+            isAddressMandatory: false,
+            isMerchantLocationMandatory: true,
+            isNumberOfBoxesMandatory: false,
+            isSchedulePickup: false,
           },
         ],
-        id: returnOptionId2,
-        isAddressMandatory: false,
-        isMerchantLocationMandatory: true,
-        isNumberOfBoxesMandatory: false,
-        isSchedulePickup: false,
-        merchant: 10538,
-        merchantOrderId: 100001339,
-        type: ReturnOptionType.InStore,
+        merchantId: 10538,
+        merchantOrderId: merchantOrderId2,
+        orderId: '3558DS',
       },
     },
   },
-  result: [
-    {
-      merchantId: 10537,
-      merchantOrderId: 100001340,
-      options: [returnOptionId],
-    },
-    {
-      merchantId: 10538,
-      merchantOrderId: 100001339,
-      options: [returnOptionId2],
-    },
-  ],
+  result: [merchantOrderId, merchantOrderId2],
 };
 
 export const expectedGuestOrdersNormalizedPayload = {
@@ -2754,11 +2721,6 @@ export const expectedGuestOrdersNormalizedPayload = {
         gender: Gender.Man,
       },
     },
-    merchants: {
-      '10537': { id: 10537 },
-      '10538': { id: 10538 },
-      '11554': { id: 11554 },
-    },
     orderItems: {
       [orderItemId]: {
         customAttributes: null,
@@ -2811,7 +2773,7 @@ export const expectedGuestOrdersNormalizedPayload = {
             },
           },
         ],
-        merchant: merchantId,
+        merchantId,
         price: {
           discount: { excludingTaxes: 0, includingTaxes: 0, rate: 0 },
           excludingTaxes: 256.49,
@@ -2857,7 +2819,7 @@ export const expectedGuestOrdersNormalizedPayload = {
         orderItemStatus: 'None',
         orderStatus: 'CheckingStock',
         isReturnAvailable: false,
-        merchantOrderCode: 'PZ1132281368',
+        merchantOrderCode: merchantOrderCode,
         productSummary: {
           productId: '12091686',
           description: 'stud sandal',
@@ -2940,7 +2902,7 @@ export const expectedGuestOrdersNormalizedPayload = {
             },
           },
         ],
-        merchant: merchantId2,
+        merchantId: merchantId2,
         price: {
           discount: { excludingTaxes: 0, includingTaxes: 0, rate: 0 },
           excludingTaxes: 433.68,
@@ -2986,7 +2948,7 @@ export const expectedGuestOrdersNormalizedPayload = {
         orderItemStatus: 'None',
         orderStatus: 'CheckingStock',
         isReturnAvailable: false,
-        merchantOrderCode: 'PZ1132281368',
+        merchantOrderCode: merchantOrderCode2,
         productSummary: {
           productId: '12511241',
           description: 'wide leg pant',
@@ -3051,7 +3013,7 @@ export const expectedGuestOrdersNormalizedPayload = {
             },
           },
         ],
-        merchant: merchantId,
+        merchantId,
         price: {
           discount: { excludingTaxes: 0, includingTaxes: 0, rate: 0 },
           excludingTaxes: 111.26,
@@ -3097,7 +3059,7 @@ export const expectedGuestOrdersNormalizedPayload = {
         orderItemStatus: 'None',
         orderStatus: 'CheckingStock',
         isReturnAvailable: false,
-        merchantOrderCode: 'PZ1132281368',
+        merchantOrderCode: merchantOrderCode3,
         productSummary: {
           productId: '12511241',
           description: 'beach sheet',
@@ -3379,7 +3341,7 @@ export const expectedGuestOrdersNormalizedPayload = {
             },
           },
         ],
-        merchant: 11554,
+        merchantId: 11554,
         price: {
           discount: { excludingTaxes: 0, includingTaxes: 0, rate: 0 },
           excludingTaxes: 0.81,
@@ -3540,33 +3502,12 @@ export const expectedGuestOrdersNormalizedPayload = {
         totalShippingFee: 0,
         totalTaxes: 423.57,
         updatedDate: 1539688029817,
-        userId: 29521154,
-        byMerchant: {
-          [merchantId]: {
-            merchant: merchantId,
-            orderItems: [orderItemId, orderItemId3],
-            returnAvailable: false,
-            checkoutOrderId: 15338048,
-            merchantOrderCode: 'PZ1132281368',
-            totalQuantity: 2,
-            userId: 29521154,
-          },
-          [merchantId2]: {
-            merchant: merchantId2,
-            orderItems: [orderItemId2],
-            returnAvailable: false,
-            checkoutOrderId: 15338048,
-            merchantOrderCode: 'PZ1132281368',
-            totalQuantity: 1,
-            userId: 29521154,
-          },
-        },
-        totalItems: 3,
+        userId,
       },
       DVN7EE: {
         id: 'DVN7EE',
         checkoutOrderId: 126892294,
-        userId: 34113438,
+        userId,
         paymentIntentIds: ['073257f2-11a8-4c24-8084-67a8d901b13e'],
         currency: 'EUR',
         shippingAddress: {
@@ -3645,18 +3586,6 @@ export const expectedGuestOrdersNormalizedPayload = {
         taxType: 'DDP',
         customerEmail: mockGuestUserEmail,
         promotionOffers: [],
-        byMerchant: {
-          '11554': {
-            merchant: 11554,
-            orderItems: [36898703],
-            returnAvailable: false,
-            checkoutOrderId: 126892294,
-            merchantOrderCode: 'PZ1123095473',
-            totalQuantity: 1,
-            userId: 34113438,
-          },
-        },
-        totalItems: 1,
       },
     },
   },
@@ -3671,28 +3600,38 @@ export const merchantEntity2 = {
 };
 
 export const returnOptionEntity = {
-  ...((mockOrderReturnOptionsResponse[0] as MerchantOrderReturnOptions)
-    .options[0] as ReturnOption),
-  id: `${orderId}_${returnOptionId}`,
-  merchant: merchantId,
-  merchantOrderId: merchantOrderId,
+  ...(mockOrderReturnOptionsResponse[0] as MerchantOrderReturnOptions),
+  orderId,
 };
 
 export const returnOptionEntity2 = {
-  ...returnOptionEntity,
-  id: `${orderId}_${returnOptionId2}`,
-  merchant: merchantId2,
-  merchantOrderId: merchantOrderId2,
+  ...(mockOrderReturnOptionsResponse[1] as MerchantOrderReturnOptions),
+  orderId,
+};
+
+export const returnOptionEntity3 = {
+  ...(mockOrderReturnOptionsResponse[1] as MerchantOrderReturnOptions),
+  merchantOrderId: merchantOrderId3,
+  orderId: orderId2,
 };
 
 export const returnOptionEntityDenormalized = {
   ...returnOptionEntity,
+  orderId,
   merchant: merchantEntity,
 };
 
 export const returnOptionEntity2Denormalized = {
   ...returnOptionEntity2,
   merchant: merchantEntity2,
+  orderId,
+};
+
+export const returnOptionEntity3Denormalized = {
+  ...returnOptionEntity2,
+  merchant: merchantEntity2,
+  merchantOrderId: merchantOrderId3,
+  orderId: orderId2,
 };
 
 export const returnId = 25741579;
@@ -3703,7 +3642,7 @@ export const returnEntity = {
   availableDates: [],
   orderId,
   merchantId,
-  userId: 34113438,
+  userId,
   type: ReturnOptionType.Courier,
   status: ReturnStatus.Accepted,
   courier: 'NotKnown',
@@ -3730,7 +3669,7 @@ export const returnEntity2 = {
   availableDates: [],
   orderId,
   merchantId: merchantId2,
-  userId: 34113438,
+  userId,
   type: ReturnOptionType.Courier,
   status: ReturnStatus.Accepted,
   courier: 'NotKnown',
@@ -3778,23 +3717,9 @@ export const returnItemEntity2 = {
 };
 
 export const orderEntity: OrderEntity = {
-  id: orderId,
-  createdDate: 1662544285853,
-  totalItems: 2,
-  byMerchant: {
-    [merchantId]: {
-      merchant: merchantId,
-      returnOptions: [`${orderId}_${returnOptionId}`],
-      orderItems: [orderItemId],
-      returns: [returnId],
-    },
-    [merchantId2]: {
-      merchant: merchantId2,
-      returnOptions: [`${orderId}_${returnOptionId2}`],
-      orderItems: [orderItemId2],
-      returns: [returnId2],
-    },
-  },
+  ...mockOrderDetailsResponse,
+  createdDate: 1539688029817,
+  updatedDate: 1539688029817,
   items: [orderItemId, orderItemId2],
   shippingAddress: {
     ...mockOrderDetailsResponse.shippingAddress,
@@ -3802,11 +3727,20 @@ export const orderEntity: OrderEntity = {
   billingAddress: {
     ...mockOrderDetailsResponse.billingAddress,
   },
-  returnOptions: [
-    `${orderId}_${returnOptionId}`,
-    `${orderId}_${returnOptionId2}`,
-  ],
-  returns: [returnId, returnId2],
+};
+
+export const orderEntity2: OrderEntity = {
+  ...mockOrderDetailsResponse,
+  createdDate: 1539688029817,
+  updatedDate: 1539688029817,
+  items: [orderItemId, orderItemId2],
+  shippingAddress: {
+    ...mockOrderDetailsResponse.shippingAddress,
+  },
+  billingAddress: {
+    ...mockOrderDetailsResponse.billingAddress,
+  },
+  id: orderId2,
 };
 
 export const labelTrackingEntity = {
@@ -3939,6 +3873,50 @@ export const orderItemEntity2 = {
   },
 };
 
+export const orderSummary: OrderSummaryEntity = {
+  checkoutOrderId: checkoutOrderId,
+  merchantId,
+  merchantName: 'TOMAS MAIER MADISON',
+  createdDate: 1539688029817,
+  merchantOrderCode,
+  returnAvailable: false,
+  returnId,
+  status: OrderStatus.ReviewingOrder,
+  tags: [],
+  totalQuantity: 2,
+  userId,
+  id: orderId,
+};
+
+export const orderSummary2: OrderSummaryEntity = {
+  checkoutOrderId: checkoutOrderId,
+  merchantId: merchantId2,
+  merchantName: 'TOMAS MAIER BLEECKER',
+  merchantOrderCode: merchantOrderCode2,
+  returnAvailable: false,
+  returnId: 26678630,
+  status: OrderStatus.ReviewingOrder,
+  tags: [],
+  totalQuantity: 1,
+  userId,
+  createdDate: 1539688029817,
+  id: orderId,
+};
+
+export const orderSummary3: OrderSummaryEntity = {
+  checkoutOrderId: checkoutOrderId,
+  merchantId: 123456,
+  merchantName: 'FAKE MERCHANT',
+  merchantOrderCode: merchantOrderCode3,
+  returnAvailable: false,
+  status: OrderStatus.ReviewingOrder,
+  tags: [],
+  totalQuantity: 1,
+  userId,
+  createdDate: 1534245134007,
+  id: orderId2,
+};
+
 export const countryEntity = {
   code: countryCode,
   name: 'Portugal',
@@ -3963,27 +3941,31 @@ export const countryEntity = {
   defaultCulture: 'en-US',
 };
 
+export const defaultHashedQuery = `${userId}|1|60`;
+
 export const mockState = {
   orders: {
-    error: null,
-    isLoading: false,
+    error: { [defaultHashedQuery]: null },
+    isLoading: { [defaultHashedQuery]: false },
     result: {
-      entries: [orderId],
-      number: 1,
-      totalItems: 2,
-      totalPages: 1,
+      [defaultHashedQuery]: {
+        entries: [merchantOrderCode, merchantOrderCode2, merchantOrderCode3],
+        number: 1,
+        totalItems: 3,
+        totalPages: 1,
+      },
     },
     orderDetails: {
-      error: { [orderId]: null },
-      isLoading: { [orderId]: false },
-    },
-    orderReturns: {
       error: { [orderId]: null },
       isLoading: { [orderId]: false },
     },
     orderReturnOptions: {
       error: { [orderId]: null },
       isLoading: { [orderId]: false },
+      result: {
+        [orderId]: [merchantOrderId, merchantOrderId2],
+        [orderId2]: [merchantOrderId3],
+      },
     },
     trackings: {
       error: null,
@@ -4031,7 +4013,15 @@ export const mockState = {
     labelTracking: {
       [trackingNumber]: labelTrackingEntity,
     },
-    orders: { [orderId]: orderEntity },
+    orderSummaries: {
+      [merchantOrderCode]: orderSummary,
+      [merchantOrderCode2]: orderSummary2,
+      [merchantOrderCode3]: orderSummary3,
+    },
+    orders: {
+      [orderId]: orderEntity,
+      [orderId2]: orderEntity2,
+    },
     merchants: {
       [merchantId]: merchantEntity,
       [merchantId2]: merchantEntity2,
@@ -4044,14 +4034,16 @@ export const mockState = {
       [countryCode]: countryEntity,
     },
     returnOptions: {
-      [`${orderId}_${returnOptionId}`]: returnOptionEntity,
-      [`${orderId}_${returnOptionId2}`]: returnOptionEntity2,
+      [merchantOrderId]: returnOptionEntity,
+      [merchantOrderId2]: returnOptionEntity2,
+      [merchantOrderId3]: returnOptionEntity3,
     },
     returnItems: {
       [returnItemId]: returnItemEntity,
       [returnItemId2]: returnItemEntity2,
     },
     returns: { [returnId]: returnEntity, [returnId2]: returnEntity2 },
+    user: userEntity,
   },
 };
 
@@ -4107,21 +4099,30 @@ export const orderEntityDenormalized = {
     vatNumber: '123456789',
     zipCode: '1234-567',
   },
-  byMerchant: {
-    [merchantId]: {
-      merchant: merchantEntity,
-      orderItems: [mockOrderItemEntityDenormalized],
-      returnOptions: [returnOptionEntityDenormalized],
-      returns: [returnEntity],
-    },
-    [merchantId2]: {
-      merchant: merchantEntity2,
-      orderItems: [mockOrderItemEntity2Denormalized],
-      returnOptions: [returnOptionEntity2Denormalized],
-      returns: [returnEntity2],
-    },
-  },
-  createdDate: 1662544285853,
+  checkoutOrderId: 15338048,
+  createdDate: 1539688029817,
+  credit: 0,
+  currency: 'EUR',
+  customerType: 'Normal',
+  formattedCredit: '0,00 €',
+  formattedGrandTotal: '1 225,00 €',
+  formattedSubTotalAmount: '1 225,00 €',
+  formattedTotalDiscount: '0,00 €',
+  formattedTotalDomesticTaxes: '0,00 €',
+  formattedTotalShippingFee: '0,00 €',
+  formattedTotalTaxes: '423,57 €',
+  grandTotal: 1225,
+  newsletterSubscriptionOptionDefault: false,
+  paymentId: 'TMADRWWJX2DPH2M7CTUX',
+  subTotalAmount: 1225,
+  taxType: 'DDP',
+  totalDiscount: 0,
+  totalDomesticTaxes: 0,
+  totalQuantity: 3,
+  totalShippingFee: 0,
+  totalTaxes: 423.57,
+  updatedDate: 1539688029817,
+  userId,
   id: '3558DS',
   items: [mockOrderItemEntityDenormalized, mockOrderItemEntity2Denormalized],
   shippingAddress: {
@@ -4155,37 +4156,83 @@ export const orderEntityDenormalized = {
     vatNumber: '123456789',
     zipCode: '1234-567',
   },
-  totalItems: 2,
-  returnOptions: [
-    returnOptionEntityDenormalized,
-    returnOptionEntity2Denormalized,
+};
+
+export const orderEntityDenormalized2 = {
+  ...orderEntityDenormalized,
+  id: orderId2,
+};
+
+export const orderSummaryEntityDenormalized = {
+  checkoutOrderId,
+  createdDate: 1539688029817,
+  id: orderId,
+  merchantId,
+  merchantName: 'TOMAS MAIER MADISON',
+  merchantOrderCode: 'PZ1129361393',
+  returnAvailable: false,
+  returnId,
+  merchant: merchantEntity,
+  status: 'Reviewing order',
+  tags: [],
+  totalQuantity: 2,
+  userId,
+};
+
+export const orderSummaryEntityDenormalized2 = {
+  checkoutOrderId,
+  createdDate: 1539688029817,
+  id: orderId,
+  merchantId: merchantId2,
+  merchantName: 'TOMAS MAIER BLEECKER',
+  merchantOrderCode: 'PZ1128781830',
+  returnId: 26678630,
+  merchant: merchantEntity2,
+  returnAvailable: false,
+  status: 'Reviewing order',
+  tags: [],
+  totalQuantity: 1,
+  userId,
+};
+
+export const orderSummaryEntityDenormalized3 = {
+  checkoutOrderId,
+  createdDate: 1534245134007,
+  id: orderId2,
+  merchantId: 123456,
+  merchantName: 'FAKE MERCHANT',
+  merchantOrderCode: 'PZ1129361394',
+  merchant: undefined,
+  returnAvailable: false,
+  status: 'Reviewing order',
+  tags: [],
+  totalQuantity: 1,
+  userId,
+};
+
+export const expectedGetUserOrdersResultByOrderId = {
+  ...mockState?.orders?.result[defaultHashedQuery],
+  totalOrders: 2,
+  entries: [
+    {
+      orderId,
+      orderSummaries: [
+        orderSummaryEntityDenormalized,
+        orderSummaryEntityDenormalized2,
+      ],
+    },
+    { orderId: orderId2, orderSummaries: [orderSummaryEntityDenormalized3] },
   ],
-  returns: [returnEntity, returnEntity2],
 };
 
 export const expectedGetUserOrdersResult = {
-  entries: [orderEntityDenormalized],
-  number: 1,
-  totalItems: 2,
-  totalPages: 1,
-};
-
-export const expectedGetGuestOrdersResult = [
-  expectedGetUserOrdersResult.entries[0],
-];
-
-export const expectedOrderReturnsNormalizedPayload = {
-  entities: {
-    returns: {
-      [returnId]: returnEntity,
-      [returnId2]: returnEntity2,
-    },
-    returnItems: {
-      [returnItemId]: returnItemEntity,
-      [returnItemId2]: returnItemEntity2,
-    },
-  },
-  result: [returnId, returnId2],
+  ...mockState?.orders?.result[defaultHashedQuery],
+  totalOrders: 2,
+  entries: [
+    orderSummaryEntityDenormalized,
+    orderSummaryEntityDenormalized2,
+    orderSummaryEntityDenormalized3,
+  ],
 };
 
 export const mockOrderAvailableItemsActivities = [
@@ -4199,3 +4246,75 @@ export const mockOrderAvailableItemsActivities = [
 export const mockOrderItemAvailableActivities = [
   mockOrderAvailableItemsActivities[0],
 ] as OrderItemActivities[];
+
+export const mockOrderShippingAddressChangeRequestsResponse = [
+  {
+    id: changeAddressId,
+    checkoutOrderId,
+    orderId,
+    status: OrderShippingAddressChangeRequestStatus.Approved,
+    createdDate: '2023-02-22T10:07:42.91+00:00',
+    updatedDate: '2023-02-22T10:07:49.05+00:00',
+    merchantOrders: [
+      {
+        id: merchantOrderCode,
+      },
+    ],
+    shippingAddress: {
+      id: '00000000-0000-0000-0000-000000000000',
+      firstName: 'John',
+      lastName: 'Doe',
+      addressLine1: 'Rua As Camponesas do Corvo 1',
+      addressLine2: 'Arcozelo 1',
+      city: { id: 0, name: 'Vila Nova de Gaia', countryId: 165 },
+      state: { id: 0, code: 'Porto', name: 'Porto', countryId: 0 },
+      country: {
+        id: 165,
+        name: 'Portugal',
+        nativeName: 'Portugal',
+        alpha2Code: 'PT',
+        alpha3Code: 'PRT',
+        culture: 'pt-PT',
+        region: 'Europe',
+        continentId: 3,
+      },
+      zipCode: '4410-432',
+      phone: '32131231231',
+      addressType: AddressType.Any,
+      createdDate: '0001-01-01T00:00:00Z',
+    },
+    isForcedUpdate: false,
+  },
+];
+
+export const mockOrderShippingAddressChangeRequestsPayload = {
+  merchantOrders: [
+    {
+      id: merchantOrderCode,
+    },
+  ],
+  shippingAddress: {
+    id: '00000000-0000-0000-0000-000000000000',
+    firstName: 'John',
+    lastName: 'Doe',
+    addressLine1: 'Rua As Camponesas do Corvo 1',
+    addressLine2: 'Arcozelo 1',
+    city: { id: 0, name: 'Vila Nova de Gaia', countryId: 165 },
+    state: { id: 0, code: 'Porto', name: 'Porto', countryId: 0 },
+    country: {
+      id: 165,
+      name: 'Portugal',
+      nativeName: 'Portugal',
+      alpha2Code: 'PT',
+      alpha3Code: 'PRT',
+      culture: 'pt-PT',
+      region: 'Europe',
+      continentId: 3,
+    },
+    zipCode: '4410-432',
+    phone: '32131231231',
+    addressType: AddressType.Any,
+    createdDate: '0001-01-01T00:00:00Z',
+  },
+  isForcedUpdate: false,
+};

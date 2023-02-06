@@ -17,13 +17,12 @@ import type { ThunkDispatch } from 'redux-thunk';
  * // Store before executing action
  * const store = {
  *  entities: {
- *    returnOptions: { 10537_CourierPickUp: {...} },
- *    orders: { ABCD2F: { byMerchant: { '10000': { returnOptions: ['10537_CourierPickUp'] } } } }
+ *    returnOptions: { 100001339: { merchantOrderId: 100001339, orderId: ABCD2F...} },
  *  }
  * }
  *
  * // Result of reset entities:
- * const store = { entities: { returnOptions: {} }, orders: { ABCD2F: { byMerchant: { '10000': {} } } } }
+ * const store = { entities: { returnOptions: {} } }
  * ```
  *
  * @param orderIds - Order ids whose return options entities state should be reset.
@@ -47,17 +46,16 @@ const resetEntities =
  * import { resetOrderReturnOptions } from '@farfetch/blackout-redux';
  *
  * // State and store before executing action
- * const state = { orders: { orderReturnOptions: { error: { ABCD2F: null }, isLoading: { ABCD2F: true }, } } };
+ * const state = { orders: { orderReturnOptions: { error: { ABCD2F: null }, isLoading: { ABCD2F: true }, result: { ABCD2F : [151073263, 151073264]} } } };
  * const store = {
  *  entities: {
- *    returnOptions: { 10537_CourierPickUp: {...} },
- *    orders: { ABCD2F: { byMerchant: { '10000': { returnOptions: ['10537_CourierPickUp'] } } } }
+ *    returnOptions: { 151073263: {...}, 151073264: {...} },
  *  }
  * }
  *
  * // Result of resetOrderReturnOptions:
- * const state = { orders: { orderReturnOptions: { error: {}, isLoading: {}, } } };
- * const store = { entities: { returnOptions: {} }, orders: { ABCD2F: { byMerchant: { '10000': {} } } } }
+ * const state = { orders: { orderReturnOptions: { error: {}, isLoading: {}, result: {} } } };
+ * const store = { entities: { returnOptions: {} } }
  *
  * // Usage
  * dispatch(resetOrderReturnOptions());

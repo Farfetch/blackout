@@ -1,19 +1,22 @@
 import { cleanup, fireEvent, renderHook } from '@testing-library/react';
 import {
+  defaultHashedQuery,
+  mockGuestUserData,
+  mockGuestUserEmail,
+  mockState,
+  orderId,
+  orderSummaryEntityDenormalized,
+  orderSummaryEntityDenormalized2,
+  orderSummaryEntityDenormalized3,
+  userId,
+} from 'tests/__fixtures__/orders/orders.fixtures.mjs';
+import {
   fetchGuestOrderLegacy,
-  fetchGuestOrders,
   fetchOrder,
   fetchUserOrders,
   resetOrderDetailsState as resetOrderDetailsStateAction,
   resetOrders,
 } from '@farfetch/blackout-redux';
-import {
-  mockGuestUserData,
-  mockGuestUserEmail,
-  mockState,
-  orderEntityDenormalized,
-  orderId,
-} from 'tests/__fixtures__/orders/orders.fixtures.mjs';
 import {
   mockUserInitialState,
   mockUsersResponse,
@@ -31,8 +34,8 @@ jest.mock('@farfetch/blackout-redux', () => {
     fetchGuestOrderLegacy: jest.fn(() => ({
       type: 'fetch_guest_order_legacy',
     })),
-    fetchGuestOrders: jest.fn(() => ({
-      type: 'fetch_guest_orders',
+    fetchGuestOrder: jest.fn(() => ({
+      type: 'fetch_guest_order',
     })),
     fetchOrder: jest.fn(() => ({
       type: 'fetch_order',
@@ -66,7 +69,7 @@ const mockInitialState = {
   ...mockState,
   orders: {
     ...mockState.orders,
-    result: null,
+    result: {},
   },
   users: mockUserInitialState,
   entities: {
@@ -128,7 +131,9 @@ const mockErrorState = {
   ...mockInitialState,
   orders: {
     ...mockInitialState.orders,
-    error: new Error('dummy error') as BlackoutError,
+    error: {
+      [defaultHashedQuery]: new Error('dummy error') as BlackoutError,
+    },
   },
 };
 
@@ -136,12 +141,15 @@ const mockLoadingState = {
   ...mockInitialState,
   orders: {
     ...mockInitialState.orders,
-    isLoading: true,
+    isLoading: {
+      [defaultHashedQuery]: true,
+    },
   },
 };
 
 const mockFetchQuery = {
   page: 1,
+  pageSize: 60,
 };
 
 const mockFetchConfig = {
@@ -170,11 +178,41 @@ describe('useOrders', () => {
       wrapper: withStore(mockInitialStateWithData),
     });
 
+    // ordersResult, ordersResultByOrderId
+
     expect(current).toStrictEqual({
       ...defaultReturn,
       data: {
-        ...mockState.orders.result,
-        entries: [orderEntityDenormalized],
+        ordersResult: {
+          entries: [
+            orderSummaryEntityDenormalized,
+            orderSummaryEntityDenormalized2,
+            orderSummaryEntityDenormalized3,
+          ],
+          number: 1,
+          totalItems: 3,
+          totalOrders: 2,
+          totalPages: 1,
+        },
+        ordersResultByOrderId: {
+          entries: [
+            {
+              orderId: orderSummaryEntityDenormalized.id,
+              orderSummaries: [
+                orderSummaryEntityDenormalized,
+                orderSummaryEntityDenormalized2,
+              ],
+            },
+            {
+              orderId: orderSummaryEntityDenormalized3.id,
+              orderSummaries: [orderSummaryEntityDenormalized3],
+            },
+          ],
+          number: 1,
+          totalItems: 3,
+          totalOrders: 2,
+          totalPages: 1,
+        },
       },
       isFetched: true,
     });
@@ -183,14 +221,14 @@ describe('useOrders', () => {
   it('should return correctly when there is an error', () => {
     const {
       result: { current },
-    } = renderHook(() => useOrders(), {
+    } = renderHook(() => useOrders({ fetchQuery: mockFetchQuery }), {
       wrapper: withStore(mockErrorState),
     });
 
     expect(current).toStrictEqual({
       ...defaultReturn,
       isFetched: true,
-      error: mockErrorState.orders.error,
+      error: mockErrorState.orders.error[defaultHashedQuery],
     });
   });
 
@@ -230,22 +268,6 @@ describe('useOrders', () => {
           );
         });
 
-        it('should call `fetchGuestOrders` action if the current user is _NOT_ authenticated', () => {
-          renderHook(
-            () =>
-              useOrders({
-                enableAutoFetch: true,
-                fetchQuery: mockFetchQuery,
-                fetchConfig: mockFetchConfig,
-              }),
-            {
-              wrapper: withStore(mockInitialStateWithGuestUser),
-            },
-          );
-
-          expect(fetchGuestOrders).toHaveBeenCalledWith(mockFetchConfig);
-        });
-
         describe('refetching', () => {
           it('should refetch if fetch query contents have changed', () => {
             const { container, getByTestId } = wrap(<Orders />)
@@ -257,8 +279,8 @@ describe('useOrders', () => {
             fireEvent.click(getByTestId('orders-updateFetchQueryButton'));
 
             expect(fetchUserOrders).toHaveBeenCalledWith(
-              100000,
-              { page: 2 },
+              userId,
+              { page: 2, pageSize: 60 },
               undefined,
             );
 
@@ -291,14 +313,6 @@ describe('useOrders', () => {
 
           expect(fetchUserOrders).not.toHaveBeenCalled();
         });
-
-        it('should not fetch data if it is false and the user is _NOT_ authenticated', () => {
-          renderHook(() => useOrders({ enableAutoFetch: false }), {
-            wrapper: withStore(mockInitialStateWithGuestUser),
-          });
-
-          expect(fetchGuestOrders).not.toHaveBeenCalled();
-        });
       });
 
       describe('when default value is used', () => {
@@ -319,21 +333,6 @@ describe('useOrders', () => {
             mockFetchQuery,
             mockFetchConfig,
           );
-        });
-
-        it('should call `fetchGuestOrders` action if the current user is _NOT_ authenticated', () => {
-          renderHook(
-            () =>
-              useOrders({
-                fetchConfig: mockFetchConfig,
-                fetchQuery: mockFetchQuery,
-              }),
-            {
-              wrapper: withStore(mockInitialStateWithGuestUser),
-            },
-          );
-
-          expect(fetchGuestOrders).toHaveBeenCalledWith(mockFetchConfig);
         });
       });
     });
@@ -366,30 +365,6 @@ describe('useOrders', () => {
             mockFetchQuery,
             mockFetchConfig,
           );
-        });
-
-        it('should call `fetchGuestOrders` action if the user is _NOT_ authenticated', async () => {
-          const {
-            result: {
-              current: {
-                actions: { fetch },
-              },
-            },
-          } = renderHook(
-            () =>
-              useOrders({
-                enableAutoFetch: false,
-                fetchConfig: mockFetchConfig,
-                fetchQuery: mockFetchQuery,
-              }),
-            {
-              wrapper: withStore(mockInitialStateWithGuestUser),
-            },
-          );
-
-          await fetch();
-
-          expect(fetchGuestOrders).toHaveBeenCalledWith(mockFetchConfig);
         });
       });
 

@@ -4,7 +4,6 @@ import {
   fetchOrderReturnOptions as fetchOrderReturnOptionsAction,
   getOrderReturnOptions,
   getOrderReturnOptionsError,
-  type MerchantEntity,
   resetOrderReturnOptions as resetOrderReturnOptionsAction,
   type StoreState,
 } from '@farfetch/blackout-redux';
@@ -19,7 +18,6 @@ import type { UseOrderReturnOptions } from './types/index.js';
  */
 function useOrderReturnOptions(
   orderId: Order['id'],
-  merchantId?: MerchantEntity['id'],
   options: UseOrderReturnOptions = {},
 ) {
   const orderIdHookParameter = orderId;
@@ -31,7 +29,7 @@ function useOrderReturnOptions(
     getOrderReturnOptionsError(state, orderIdHookParameter),
   );
   const orderReturnOptions = useSelector((state: StoreState) =>
-    getOrderReturnOptions(state, orderIdHookParameter, merchantId),
+    getOrderReturnOptions(state, orderIdHookParameter),
   );
   const isFetched = useSelector((state: StoreState) =>
     areOrderReturnOptionsFetched(state, orderIdHookParameter),
