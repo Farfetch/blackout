@@ -21,6 +21,7 @@ import type {
   MerchantEntity,
   OrderEntity,
   OrderItemEntity,
+  OrderSummaryEntity,
   PaymentInstrumentEntity,
   PaymentTokenEntity,
   ProductEntity,
@@ -139,6 +140,10 @@ export type StoreState = Partial<{
     merchantsLocations: Record<MerchantLocation['id'], MerchantLocation>;
     orders: Record<OrderEntity['id'], OrderEntity>;
     orderItems: Record<OrderItemEntity['id'], OrderItemEntity>;
+    orderSummaries: Record<
+      OrderSummaryEntity['merchantOrderCode'],
+      OrderSummaryEntity
+    >;
     paymentTokens: Record<PaymentTokenEntity['id'], PaymentTokenEntity>;
     preferences: Record<UserPreferenceEntity['code'], UserPreferenceEntity>;
     products: Record<ProductEntity['id'], ProductEntity>;
@@ -153,7 +158,10 @@ export type StoreState = Partial<{
     replacements: Record<ReplacementEntity['id'], ReplacementEntity>;
     returnItems: Record<ReturnItemEntity['id'], ReturnItemEntity>;
     returns: Record<ReturnEntity['id'], ReturnEntity>;
-    returnOptions: Record<ReturnOptionEntity['id'], ReturnOptionEntity>;
+    returnOptions: Record<
+      ReturnOptionEntity['merchantOrderId'],
+      ReturnOptionEntity
+    >;
     returnPickupCapabilities: Record<string, ReturnPickupCapabilityEntity>;
     sizeScales: Record<SizeScale['sizeScaleId'], SizeScale>;
     sharedWishlists: Record<SharedWishlistEntity['id'], SharedWishlistEntity>;

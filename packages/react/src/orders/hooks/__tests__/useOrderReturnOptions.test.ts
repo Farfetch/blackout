@@ -4,11 +4,13 @@ import {
   resetOrderReturnOptions,
 } from '@farfetch/blackout-redux';
 import {
-  merchantId2,
+  merchantOrderId,
+  merchantOrderId2,
   mockState,
-  orderEntityDenormalized,
   orderId,
   orderId2,
+  returnOptionEntity2Denormalized,
+  returnOptionEntityDenormalized,
 } from 'tests/__fixtures__/orders/orders.fixtures.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import { useOrderReturnOptions } from '../../../index.js';
@@ -100,95 +102,47 @@ describe('useOrderReturnOptions', () => {
     expect(current).toStrictEqual(defaultReturn);
   });
 
-  describe('should return correctly when the order return options are fetched', () => {
-    it('when merchantId is not passed, data should contain all order return options', () => {
-      const {
-        result: { current },
-      } = renderHook(() => useOrderReturnOptions(orderId), {
-        wrapper: withStore(mockState),
-      });
-
-      expect(current).toStrictEqual({
-        ...defaultReturn,
-        data: orderEntityDenormalized.returnOptions,
-        isFetched: true,
-      });
+  it('should return correctly when the order return options are fetched', () => {
+    const {
+      result: { current },
+    } = renderHook(() => useOrderReturnOptions(orderId), {
+      wrapper: withStore(mockState),
     });
 
-    it('when merchantId is passed, data should contain only the order return options for the passed merchantId', () => {
-      const {
-        result: { current },
-      } = renderHook(() => useOrderReturnOptions(orderId, merchantId2), {
-        wrapper: withStore(mockState),
-      });
-
-      expect(current).toStrictEqual({
-        ...defaultReturn,
-        data: orderEntityDenormalized.byMerchant[merchantId2].returnOptions,
-        isFetched: true,
-      });
-
-      expect(current.data).not.toStrictEqual(
-        orderEntityDenormalized.returnOptions,
-      );
+    expect(current).toStrictEqual({
+      ...defaultReturn,
+      data: {
+        [merchantOrderId]: returnOptionEntityDenormalized,
+        [merchantOrderId2]: returnOptionEntity2Denormalized,
+      },
+      isFetched: true,
     });
   });
 
-  describe('should return correctly when there is an error', () => {
-    it('when merchantId parameter is not passed', () => {
-      const {
-        result: { current },
-      } = renderHook(() => useOrderReturnOptions(orderId), {
-        wrapper: withStore(mockErrorState),
-      });
-
-      expect(current).toStrictEqual({
-        ...defaultReturn,
-        isFetched: true,
-        error: mockErrorState.orders.orderReturnOptions.error[orderId],
-      });
+  it('should return correctly when there is an error', () => {
+    const {
+      result: { current },
+    } = renderHook(() => useOrderReturnOptions(orderId), {
+      wrapper: withStore(mockErrorState),
     });
 
-    it('when merchantId parameter is passed', () => {
-      const {
-        result: { current },
-      } = renderHook(() => useOrderReturnOptions(orderId, merchantId2), {
-        wrapper: withStore(mockErrorState),
-      });
-
-      expect(current).toStrictEqual({
-        ...defaultReturn,
-        isFetched: true,
-        error: mockErrorState.orders.orderReturnOptions.error[orderId],
-      });
+    expect(current).toStrictEqual({
+      ...defaultReturn,
+      isFetched: true,
+      error: mockErrorState.orders.orderReturnOptions.error[orderId],
     });
   });
 
-  describe('should return correctly when it is loading', () => {
-    it('when merchantId parameter is not passed', () => {
-      const {
-        result: { current },
-      } = renderHook(() => useOrderReturnOptions(orderId), {
-        wrapper: withStore(mockLoadingState),
-      });
-
-      expect(current).toStrictEqual({
-        ...defaultReturn,
-        isLoading: true,
-      });
+  it('should return correctly when it is loading', () => {
+    const {
+      result: { current },
+    } = renderHook(() => useOrderReturnOptions(orderId), {
+      wrapper: withStore(mockLoadingState),
     });
 
-    it('when merchantId parameter is passed', () => {
-      const {
-        result: { current },
-      } = renderHook(() => useOrderReturnOptions(orderId, merchantId2), {
-        wrapper: withStore(mockLoadingState),
-      });
-
-      expect(current).toStrictEqual({
-        ...defaultReturn,
-        isLoading: true,
-      });
+    expect(current).toStrictEqual({
+      ...defaultReturn,
+      isLoading: true,
     });
   });
 
@@ -197,7 +151,7 @@ describe('useOrderReturnOptions', () => {
       it('should fetch data if `enableAutoFetch` option is not specified', () => {
         renderHook(
           () =>
-            useOrderReturnOptions(orderId, undefined, {
+            useOrderReturnOptions(orderId, {
               fetchConfig: mockFetchConfig,
             }),
           {
@@ -214,7 +168,7 @@ describe('useOrderReturnOptions', () => {
       it('should fetch data if `enableAutoFetch` option is true', () => {
         renderHook(
           () =>
-            useOrderReturnOptions(orderId, undefined, {
+            useOrderReturnOptions(orderId, {
               fetchConfig: mockFetchConfig,
               enableAutoFetch: true,
             }),
@@ -232,7 +186,7 @@ describe('useOrderReturnOptions', () => {
       it('should not fetch data if `enableAutoFetch` option is false', () => {
         renderHook(
           () =>
-            useOrderReturnOptions(orderId, undefined, {
+            useOrderReturnOptions(orderId, {
               enableAutoFetch: false,
             }),
           {
@@ -320,7 +274,7 @@ describe('useOrderReturnOptions', () => {
           },
         } = renderHook(
           () =>
-            useOrderReturnOptions(orderId, undefined, {
+            useOrderReturnOptions(orderId, {
               fetchConfig: mockFetchConfig,
               enableAutoFetch: false,
             }),
@@ -346,7 +300,7 @@ describe('useOrderReturnOptions', () => {
           },
         } = renderHook(
           () =>
-            useOrderReturnOptions(orderId, undefined, {
+            useOrderReturnOptions(orderId, {
               fetchConfig: mockFetchConfig,
               enableAutoFetch: false,
             }),

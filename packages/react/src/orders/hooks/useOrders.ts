@@ -1,15 +1,16 @@
 import {
-  areOrdersFetched,
-  areOrdersLoading,
+  areUserOrdersFetched,
+  areUserOrdersLoading,
   buildQueryStringFromObject,
   fetchGuestOrderLegacy as fetchGuestOrderLegacyAction,
-  fetchGuestOrders as fetchGuestOrdersAction,
   fetchOrder as fetchOrderAction,
   fetchUserOrders as fetchUserOrdersAction,
-  getOrdersError,
-  getOrdersResult,
+  getUserOrdersError,
+  getUserOrdersResult,
+  getUserOrdersResultByOrderId,
   resetOrderDetailsState as resetOrderDetailsStateAction,
   resetOrders,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
 import { usePrevious } from '../../helpers/index.js';
@@ -21,27 +22,30 @@ import type { UseOrdersOptions } from './types/index.js';
 
 /**
  * Obtains the user orders and actions to perform on them.
- *
- * Important: The implementation imposes the way that the orders reducer
- * implementation works, which is, you cannot request
- * user orders with different query parameters between them
- * in more than 1 component at the same time, as there is not a necessity to have so.
- * If you need to request the same user orders in 2 different components at
- * the same time with different query parameters, do not use this hook or the default
- * orders reducer implementation.
  */
 function useOrders(options: UseOrdersOptions = {}) {
   const { enableAutoFetch = true, fetchConfig, fetchQuery } = options;
+
   const fetchUserOrders = useAction(fetchUserOrdersAction);
-  const fetchGuestOrders = useAction(fetchGuestOrdersAction);
   const fetchOrder = useAction(fetchOrderAction);
   const fetchGuestOrderLegacy = useAction(fetchGuestOrderLegacyAction);
   const reset = useAction(resetOrders);
   const resetOrderDetailsState = useAction(resetOrderDetailsStateAction);
-  const isLoading = useSelector(areOrdersLoading);
-  const error = useSelector(getOrdersError);
-  const ordersResult = useSelector(getOrdersResult);
-  const isFetched = useSelector(areOrdersFetched);
+  const isLoading = useSelector((state: StoreState) =>
+    areUserOrdersLoading(state, fetchQuery),
+  );
+  const error = useSelector((state: StoreState) =>
+    getUserOrdersError(state, fetchQuery),
+  );
+  const ordersResult = useSelector((state: StoreState) =>
+    getUserOrdersResult(state, fetchQuery),
+  );
+  const ordersResultByOrderId = useSelector((state: StoreState) =>
+    getUserOrdersResultByOrderId(state, fetchQuery),
+  );
+  const isFetched = useSelector((state: StoreState) =>
+    areUserOrdersFetched(state, fetchQuery),
+  );
   const { data: user, isFetched: isUserFetched } = useUser();
   const isAuthenticated = isUserFetched && user && !user.isGuest;
   const userId = user?.id;
@@ -64,19 +68,8 @@ function useOrders(options: UseOrdersOptions = {}) {
       return fetchUserOrders(userId as User['id'], fetchQuery, fetchConfig);
     }
 
-    // By default if the user is not authenticated, it is assumed that it can
-    // request for the guest orders. However, that request might not be available
-    // yet for the tenant, so the tenant must control via the `enableAutoFetch` option
-    // if he wants to skip fetching orders for guest users.
-    return fetchGuestOrders(fetchConfig);
-  }, [
-    fetchConfig,
-    fetchGuestOrders,
-    fetchQuery,
-    fetchUserOrders,
-    isAuthenticated,
-    userId,
-  ]);
+    return Promise.reject(new Error('User is not authenticated'));
+  }, [fetchConfig, fetchQuery, fetchUserOrders, isAuthenticated, userId]);
 
   const fetchOrderDetails = useCallback(
     (orderId: Order['id'], guestUserEmail?: string | null, config?: Config) => {
@@ -114,6 +107,14 @@ function useOrders(options: UseOrdersOptions = {}) {
     }
   }, [enableAutoFetch, fetch, hasQueryHashChanged, isFetched, isLoading]);
 
+  const data = useMemo(() => {
+    if (!ordersResult && !ordersResultByOrderId) {
+      return undefined;
+    }
+
+    return { ordersResult, ordersResultByOrderId };
+  }, [ordersResult, ordersResultByOrderId]);
+
   return {
     actions: {
       fetch,
@@ -121,7 +122,7 @@ function useOrders(options: UseOrdersOptions = {}) {
       reset,
       resetOrderDetailsState,
     },
-    data: ordersResult,
+    data,
     error,
     isLoading,
     isFetched,

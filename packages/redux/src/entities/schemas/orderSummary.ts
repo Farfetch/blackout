@@ -1,36 +1,19 @@
 import { adaptDate } from '../../helpers/adapters/index.js';
 import { schema } from 'normalizr';
-import merchant from './merchant.js';
+import type { OrderSummary } from '@farfetch/blackout-client';
+import type { OrderSummaryEntity } from '../types/orders.types.js';
 
-export default new schema.Entity(
-  'orders',
-  { merchant },
+export default new schema.Entity<OrderSummaryEntity>(
+  'orderSummaries',
+  undefined,
   {
-    mergeStrategy: (entityA, entityB) => {
-      return {
-        ...entityA,
-        ...entityB,
-        totalItems: entityA.totalItems + entityB.totalItems,
-        byMerchant: { ...entityA.byMerchant, ...entityB.byMerchant },
-      };
-    },
-    processStrategy: value => {
-      const { id, merchantId, createdDate, merchantName, ...item } = value;
+    idAttribute: ({ merchantOrderCode }) => merchantOrderCode,
+    processStrategy: (value: OrderSummary) => {
+      const { createdDate, ...item } = value;
 
       const convertedItem = {
-        id,
         createdDate: adaptDate(createdDate),
-        totalItems: item.totalQuantity,
-        merchant: {
-          id: merchantId,
-          name: merchantName,
-        },
-        byMerchant: {
-          [merchantId]: {
-            ...item,
-            merchant: merchantId,
-          },
-        },
+        ...item,
       };
 
       return convertedItem;

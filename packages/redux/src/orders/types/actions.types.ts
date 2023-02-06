@@ -5,13 +5,11 @@ import type {
   CategoryEntity,
   CourierEntity,
   LabelTrackingEntity,
-  MerchantEntity,
   MerchantOrderReturnOptionsNormalized,
   OrderEntity,
   OrderItemEntity,
-  OrdersNormalized,
-  ReturnEntity,
-  ReturnItemEntity,
+  OrderSummariesNormalized,
+  OrderSummaryEntity,
   ReturnOptionEntity,
   ShipmentTrackingsNormalized,
 } from '../../entities/types/index.js';
@@ -21,7 +19,6 @@ type OrderPayload = NormalizedSchema<
   {
     orders: Record<OrderEntity['id'], OrderEntity>;
     orderItems: Record<OrderItemEntity['id'], OrderItemEntity>;
-    merchants: Record<MerchantEntity['id'], MerchantEntity>;
     brands: Record<Brand['id'], Brand>;
     categories: Record<CategoryEntity['id'], CategoryEntity>;
   },
@@ -30,36 +27,22 @@ type OrderPayload = NormalizedSchema<
 
 type UserOrdersPayload = NormalizedSchema<
   {
-    orders: Record<OrderEntity['id'], OrderEntity>;
-    merchants: Record<MerchantEntity['id'], MerchantEntity>;
+    orderSummaries: Record<
+      OrderSummaryEntity['merchantOrderCode'],
+      OrderSummaryEntity
+    >;
   },
-  OrdersNormalized
->;
-
-type GuestOrdersPayload = NormalizedSchema<
-  {
-    orders: Record<OrderEntity['id'], OrderEntity>;
-    orderItems: Record<OrderItemEntity['id'], OrderItemEntity>;
-    merchants: Record<MerchantEntity['id'], MerchantEntity>;
-    brands: Record<Brand['id'], Brand>;
-    categories: Record<CategoryEntity['id'], CategoryEntity>;
-  },
-  Array<OrderEntity['id']>
->;
-
-type ReturnsPayload = NormalizedSchema<
-  {
-    returnItems: Record<ReturnItemEntity['id'], ReturnItemEntity>;
-    returns: Record<ReturnEntity['id'], ReturnEntity>;
-  },
-  Array<ReturnEntity['id']>
+  OrderSummariesNormalized
 >;
 
 type ReturnOptionsPayload = NormalizedSchema<
   {
-    returnOptions: Record<ReturnOptionEntity['id'], ReturnOptionEntity>;
+    returnOptions: Record<
+      ReturnOptionEntity['merchantOrderId'],
+      ReturnOptionEntity
+    >;
   },
-  MerchantOrderReturnOptionsNormalized[]
+  MerchantOrderReturnOptionsNormalized
 >;
 
 type ShipmentTrackingsPayload = NormalizedSchema<
@@ -95,29 +78,6 @@ export type FetchOrderAction =
   | FetchOrderRequestAction
   | FetchOrderSuccessAction
   | FetchOrderFailureAction;
-
-export interface FetchOrderReturnsRequestAction extends Action {
-  type: typeof actionTypes.FETCH_ORDER_RETURNS_REQUEST;
-  meta: { orderId: Order['id'] };
-}
-export interface FetchOrderReturnsSuccessAction extends Action {
-  type: typeof actionTypes.FETCH_ORDER_RETURNS_SUCCESS;
-  payload: ReturnsPayload;
-  meta: { orderId: Order['id'] };
-}
-export interface FetchOrderReturnsFailureAction extends Action {
-  type: typeof actionTypes.FETCH_ORDER_RETURNS_FAILURE;
-  payload: { error: BlackoutError };
-  meta: { orderId: Order['id'] };
-}
-
-/**
- * Actions dispatched when the order returns request is made.
- */
-export type FetchOrderReturnsAction =
-  | FetchOrderReturnsRequestAction
-  | FetchOrderReturnsSuccessAction
-  | FetchOrderReturnsFailureAction;
 
 export interface FetchOrderReturnOptionsRequestAction extends Action {
   type: typeof actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST;
@@ -161,26 +121,6 @@ export type FetchOrdersAction =
   | FetchUserOrdersRequestAction
   | FetchUserOrdersSuccessAction
   | FetchUserOrdersFailureAction;
-
-export interface FetchGuestOrdersRequestAction extends Action {
-  type: typeof actionTypes.FETCH_GUEST_ORDERS_REQUEST;
-}
-export interface FetchGuestOrdersSuccessAction extends Action {
-  type: typeof actionTypes.FETCH_GUEST_ORDERS_SUCCESS;
-  payload: GuestOrdersPayload;
-}
-export interface FetchGuestOrdersFailureAction extends Action {
-  type: typeof actionTypes.FETCH_GUEST_ORDERS_FAILURE;
-  payload: { error: BlackoutError };
-}
-
-/**
- * Actions dispatched when the fetch guest orders request is made.
- */
-export type FetchGuestOrdersAction =
-  | FetchGuestOrdersRequestAction
-  | FetchGuestOrdersSuccessAction
-  | FetchGuestOrdersFailureAction;
 
 export interface FetchShipmentTrackingsRequestAction extends Action {
   type: typeof actionTypes.FETCH_SHIPMENT_TRACKINGS_REQUEST;
@@ -275,34 +215,10 @@ export interface ResetOrderDetailsStateAction extends Action {
 }
 
 /**
- * Actions dispatched when the reset order returns state request is made.
- */
-export interface ResetOrderReturnsStateAction extends Action {
-  type: typeof actionTypes.RESET_ORDER_RETURNS_STATE;
-  payload: Array<Order['id']> | undefined;
-}
-
-/**
- * Actions dispatched when the reset order returns request is made.
- */
-export interface ResetOrderReturnsEntitiesAction extends Action {
-  type: typeof actionTypes.RESET_ORDER_RETURNS_ENTITIES;
-  payload: Array<Order['id']> | undefined;
-}
-
-/**
  * Actions dispatched when the reset order return options state request is made.
  */
 export interface ResetOrderReturnOptionsStateAction extends Action {
   type: typeof actionTypes.RESET_ORDER_RETURN_OPTIONS_STATE;
-  payload: Array<Order['id']> | undefined;
-}
-
-/**
- * Actions dispatched when the reset order return options entities request is made.
- */
-export interface ResetOrderReturnOptionsEntitiesAction extends Action {
-  type: typeof actionTypes.RESET_ORDER_RETURN_OPTIONS_ENTITIES;
   payload: Array<Order['id']> | undefined;
 }
 
@@ -328,6 +244,14 @@ export type FetchOrderAvailableItemsActivitiesAction =
   | FetchOrderAvailableItemsActivitiesRequestAction
   | FetchOrderAvailableItemsActivitiesSuccessAction
   | FetchOrderAvailableItemsActivitiesFailureAction;
+
+/**
+ * Actions dispatched when the reset order return options entities request is made.
+ */
+export interface ResetOrderReturnOptionsEntitiesAction extends Action {
+  type: typeof actionTypes.RESET_ORDER_RETURN_OPTIONS_ENTITIES;
+  payload: Array<Order['id']> | undefined;
+}
 
 export interface FetchOrderItemAvailableActivitiesRequestAction extends Action {
   type: typeof actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST;

@@ -7,3 +7,4 @@ export * from './credits/actions/index.js';
 export * from './personalIds/actions/index.js';
 export * from './preferences/actions/index.js';
 export * from './titles/actions/index.js';
+export * from './returns/actions/index.js';

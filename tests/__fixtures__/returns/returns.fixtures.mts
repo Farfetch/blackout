@@ -190,7 +190,7 @@ export const responses = {
       ],
     },
   },
-  getReturnsFromOrder: {
+  getOrderReturns: {
     get: {
       success: [
         {
@@ -297,11 +297,6 @@ export const returnsNormalizedPayload = {
   },
 };
 
-export const orderReturnsNormalizedPayload = {
-  ...returnsNormalizedPayload,
-  result: [returnId],
-};
-
 export const returnEntity = {
   id: returnId,
   orderId: '8VXRHN',
@@ -326,6 +321,12 @@ export const returnEntity = {
   returnStatus: {
     code: ReturnStatusCode.Accepted,
   },
+};
+
+export const returnEntity2 = {
+  ...returnEntity,
+  id: returnId2,
+  orderId: 'fakeOrder',
 };
 
 export const returnItem = {
@@ -358,7 +359,7 @@ export const mockState = {
   },
   entities: {
     returnItems: { [returnItemId]: returnItem },
-    returns: { [returnId]: returnEntity },
+    returns: { [returnId]: returnEntity, [returnId2]: returnEntity2 },
     returnPickupCapabilities: {
       [returnPickupCapabilityId]: {
         availableTimeSlots: [

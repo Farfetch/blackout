@@ -1,7 +1,7 @@
-import type { Config, QuerySearchUserReturns } from '@farfetch/blackout-client';
+import type { Config, GetUserReturnsQuery } from '@farfetch/blackout-client';
 
 export type UseReturnsOptions = {
   enableAutoFetch?: boolean;
   fetchConfig?: Config;
-  fetchQuery?: QuerySearchUserReturns;
+  fetchQuery?: GetUserReturnsQuery;
 };

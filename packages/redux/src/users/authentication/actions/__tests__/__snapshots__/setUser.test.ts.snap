@@ -10,7 +10,7 @@ Object {
         "dateOfBirth": "/Date(631152000000)/",
         "email": "teste@conta.com",
         "gender": "NotDefined",
-        "id": 29538482,
+        "id": 29556478,
         "isExternalLogin": false,
         "isGuest": false,
         "name": "Ivo Mota",
@@ -24,7 +24,7 @@ Object {
         "wishlistId": "8e091868-b74b-47e1-ab27-a2c247c92242",
       },
     },
-    "result": 29538482,
+    "result": 29556478,
   },
   "type": "@farfetch/blackout-redux/UPDATE_USER_SUCCESS",
 }
