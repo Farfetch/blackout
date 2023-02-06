@@ -9,7 +9,8 @@ import type {
   MerchantOrderReturnOptionsNormalized,
   OrderEntity,
   OrderItemEntity,
-  OrdersNormalized,
+  OrderSummariesNormalized,
+  OrderSummaryEntity,
   ReturnEntity,
   ReturnItemEntity,
   ReturnOptionEntity,
@@ -28,12 +29,15 @@ type OrderPayload = NormalizedSchema<
   OrderEntity['id']
 >;
 
+// ///////////
 type UserOrdersPayload = NormalizedSchema<
   {
-    orders: Record<OrderEntity['id'], OrderEntity>;
-    merchants: Record<MerchantEntity['id'], MerchantEntity>;
+    orderSummaries: Record<
+      OrderSummaryEntity['merchantOrderCode'],
+      OrderSummaryEntity
+    >;
   },
-  OrdersNormalized
+  OrderSummariesNormalized
 >;
 
 type GuestOrdersPayload = NormalizedSchema<

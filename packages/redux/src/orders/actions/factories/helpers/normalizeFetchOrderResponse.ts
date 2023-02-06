@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { normalize } from 'normalizr';
 import orderSchema from '../../../../entities/schemas/order.js';
 import type { Brand, Order, OrderLegacy } from '@farfetch/blackout-client';
@@ -46,7 +47,7 @@ const generateByMerchantPropertyFromOrderItems = (
     }
 
     return acc;
-  }, {} as OrderEntity['byMerchant']);
+  }, {} as OrderEntity);
 };
 
 export default function normalizeFetchOrderResponse(

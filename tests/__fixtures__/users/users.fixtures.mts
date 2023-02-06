@@ -6,7 +6,7 @@ import {
 } from '@farfetch/blackout-client';
 import type { UserEntity, UsersState } from '@farfetch/blackout-redux';
 
-export const userId = 123456;
+export const userId = 29556478;
 export const contactId = '78910';
 export const personalId = '123456';
 export const attributeId = '123456';
@@ -16,7 +16,7 @@ export const mockUsersResponse: User = {
   dateOfBirth: '/Date(631152000000)/',
   email: 'teste@conta.com',
   gender: UserGender.NotDefined,
-  id: 29538482,
+  id: userId,
   title: {
     id: '111',
     value: 'Dr.',
@@ -38,7 +38,7 @@ export const expectedNormalizedUserPayload = {
       dateOfBirth: '/Date(631152000000)/',
       email: 'teste@conta.com',
       gender: UserGender.NotDefined,
-      id: 29538482,
+      id: userId,
       isExternalLogin: false,
       name: 'Ivo Mota',
       phoneNumber: '910000000',
@@ -53,7 +53,7 @@ export const expectedNormalizedUserPayload = {
       isGuest: false,
     },
   },
-  result: 29538482,
+  result: userId,
 };
 
 export const mockUserAttributeResponse = {

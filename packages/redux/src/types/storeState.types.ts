@@ -21,6 +21,7 @@ import type {
   MerchantEntity,
   OrderEntity,
   OrderItemEntity,
+  OrderSummaryEntity,
   PaymentInstrumentEntity,
   PaymentTokenEntity,
   ProductEntity,
@@ -138,6 +139,10 @@ export type StoreState = Partial<{
     merchantsLocations: Record<MerchantLocation['id'], MerchantLocation>;
     orders: Record<OrderEntity['id'], OrderEntity>;
     orderItems: Record<OrderItemEntity['id'], OrderItemEntity>;
+    orderSummaries: Record<
+      OrderSummaryEntity['merchantOrderCode'],
+      OrderSummaryEntity
+    >;
     paymentTokens: Record<PaymentTokenEntity['id'], PaymentTokenEntity>;
     preferences: Record<UserPreferenceEntity['code'], UserPreferenceEntity>;
     products: Record<ProductEntity['id'], ProductEntity>;

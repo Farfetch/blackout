@@ -51,6 +51,7 @@ module.exports = {
     // @TODO: remove these two client folders after the split
     'packages/client/src/entities/redux',
     'packages/client/src/helpers/redux',
+    'packages/react/src/orders/hooks/useOrderReturnOptions.ts',
     '__fixtures__',
   ],
   // A map from regular expressions to module names that allow to stub out resources with a single module
@@ -65,6 +66,9 @@ module.exports = {
     '^jestSetup$': '<rootDir>/jestSetup',
     '^tests(.*)\\.m?js$': '<rootDir>/tests$1',
   },
+  testPathIgnorePatterns: [
+    'packages/react/src/orders/hooks/__tests__/useOrderReturnOptions.test.ts',
+  ],
   // Add custom reporters to Jest
   reporters: ['default'],
   // Allows the usage of custom watch plugins

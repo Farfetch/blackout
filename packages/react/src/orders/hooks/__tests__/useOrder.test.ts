@@ -9,16 +9,13 @@ import {
 import { withStore } from '../../../../tests/helpers/index.js';
 import useOrder from '../useOrder.js';
 import useOrderReturnOptions from '../useOrderReturnOptions.js';
-import useOrderReturns from '../useOrderReturns.js';
 import useOrders from '../useOrders.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
 
 const mockFetchOrderDetailsFn = jest.fn();
 const mockResetOrderDetailsStateFn = jest.fn();
 const mockFetchReturnOptions = jest.fn();
-const mockFetchReturns = jest.fn();
 const mockResetReturnOptions = jest.fn();
-const mockResetReturns = jest.fn();
 
 jest.mock('../useOrders', () => {
   return jest.fn(() => {
@@ -47,39 +44,19 @@ jest.mock('../useOrderReturnOptions', () => {
   });
 });
 
-jest.mock('../useOrderReturns', () => {
-  return jest.fn(() => {
-    return {
-      data: undefined,
-      isLoading: false,
-      isFetched: false,
-      error: null,
-      actions: {
-        fetch: mockFetchReturns,
-        reset: mockResetReturns,
-      },
-    };
-  });
-});
-
 const defaultReturn = {
   data: undefined,
   isOrderLoading: false,
   isOrderFetched: false,
   orderError: null,
   returnOptionsError: null,
-  returnsError: null,
   areReturnOptionsFetched: false,
   areReturnOptionsLoading: false,
-  areReturnsFetched: false,
-  areReturnsLoading: false,
   actions: {
     fetch: expect.any(Function),
     resetOrderDetailsState: expect.any(Function),
     fetchReturnOptions: expect.any(Function),
-    fetchReturns: expect.any(Function),
     resetReturnOptions: expect.any(Function),
-    resetReturns: expect.any(Function),
   },
 };
 
@@ -148,10 +125,6 @@ describe('useOrder', () => {
     });
 
     expect(useOrderReturnOptions).toHaveBeenCalledWith(orderId, undefined, {
-      enableAutoFetch: false,
-    });
-
-    expect(useOrderReturns).toHaveBeenCalledWith(orderId, undefined, {
       enableAutoFetch: false,
     });
   });
@@ -449,58 +422,6 @@ describe('useOrder', () => {
         await resetReturnOptions(orderId2);
 
         expect(mockResetReturnOptions).toHaveBeenCalledWith(orderId2);
-      });
-    });
-
-    describe('fetchReturns', () => {
-      it('should call `fetch` from the `useOrderReturns` hook', async () => {
-        const {
-          result: {
-            current: {
-              actions: { fetchReturns },
-            },
-          },
-        } = renderHook(
-          () =>
-            useOrder(orderId, mockGuestUserEmail, {
-              enableAutoFetch: false,
-              fetchConfig: mockFetchConfig,
-            }),
-          {
-            wrapper: withStore(mockInitialState),
-          },
-        );
-
-        const anotherConfig = {};
-
-        await fetchReturns(orderId2, anotherConfig);
-
-        expect(mockFetchReturns).toHaveBeenCalledWith(orderId2, anotherConfig);
-      });
-    });
-
-    describe('resetReturns', () => {
-      it('should call `reset` from the `useOrderReturns` hook', async () => {
-        const {
-          result: {
-            current: {
-              actions: { resetReturns },
-            },
-          },
-        } = renderHook(
-          () =>
-            useOrder(orderId, mockGuestUserEmail, {
-              enableAutoFetch: false,
-              fetchConfig: mockFetchConfig,
-            }),
-          {
-            wrapper: withStore(mockInitialState),
-          },
-        );
-
-        await resetReturns(orderId2);
-
-        expect(mockResetReturns).toHaveBeenCalledWith(orderId2);
       });
     });
   });
