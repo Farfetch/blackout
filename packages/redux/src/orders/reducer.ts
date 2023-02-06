@@ -6,40 +6,28 @@ import {
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
 } from '../users/authentication/actionTypes.js';
-import { merge, omit } from 'lodash-es';
+import { omit } from 'lodash-es';
 import { produce } from 'immer';
 import reducerFactory from '../helpers/reducerFactory.js';
 import type * as T from './types/index.js';
 import type {
-  FetchOrderReturnOptionsSuccessAction,
-  FetchOrderReturnsSuccessAction,
   ResetOrderDetailsStateAction,
   ResetOrderReturnOptionsStateAction,
-  ResetOrderReturnsEntitiesAction,
-  ResetOrderReturnsStateAction,
 } from './types/index.js';
-import type {
-  OrderEntity,
-  ReturnEntity,
-  ReturnOptionEntity,
-} from '../entities/types/index.js';
 import type { StoreState } from '../types/index.js';
 
 export const INITIAL_STATE: T.OrdersState = {
-  error: null,
-  isLoading: false,
-  result: null,
+  error: {},
+  isLoading: {},
+  result: {},
   orderDetails: {
-    error: {},
-    isLoading: {},
-  },
-  orderReturns: {
     error: {},
     isLoading: {},
   },
   orderReturnOptions: {
     error: {},
     isLoading: {},
+    result: {},
   },
   trackings: {
     error: null,
@@ -61,12 +49,10 @@ export const INITIAL_STATE: T.OrdersState = {
 
 const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
-    case actionTypes.FETCH_USER_ORDERS_FAILURE:
-    case actionTypes.FETCH_GUEST_ORDERS_FAILURE:
-      return action.payload.error;
     case actionTypes.FETCH_USER_ORDERS_REQUEST:
-    case actionTypes.FETCH_GUEST_ORDERS_REQUEST:
-      return INITIAL_STATE.error;
+      return { ...state, [action.meta.hash]: null };
+    case actionTypes.FETCH_USER_ORDERS_FAILURE:
+      return { ...state, [action.meta.hash]: action.payload.error };
     default:
       return state;
   }
@@ -75,13 +61,10 @@ const error = (state = INITIAL_STATE.error, action: AnyAction) => {
 const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_USER_ORDERS_REQUEST:
-    case actionTypes.FETCH_GUEST_ORDERS_REQUEST:
-      return true;
+      return { ...state, [action.meta.hash]: true };
     case actionTypes.FETCH_USER_ORDERS_FAILURE:
     case actionTypes.FETCH_USER_ORDERS_SUCCESS:
-    case actionTypes.FETCH_GUEST_ORDERS_FAILURE:
-    case actionTypes.FETCH_GUEST_ORDERS_SUCCESS:
-      return INITIAL_STATE.isLoading;
+      return { ...state, [action.meta.hash]: false };
     default:
       return state;
   }
@@ -90,8 +73,10 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
 const result = (state = INITIAL_STATE.result, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_USER_ORDERS_SUCCESS:
-    case actionTypes.FETCH_GUEST_ORDERS_SUCCESS:
-      return action.payload.result;
+      return {
+        ...state,
+        [action.meta.hash]: action.payload.result,
+      };
     default:
       return state;
   }
@@ -100,223 +85,25 @@ const result = (state = INITIAL_STATE.result, action: AnyAction) => {
 const resetEntitiesStateReducer = (
   state: NonNullable<StoreState['entities']>,
 ) => {
-  const { orders, orderItems, labelTracking, returnOptions, returns, ...rest } =
-    state;
+  const {
+    orders,
+    orderItems,
+    orderSummaries,
+    labelTracking,
+    returnOptions,
+    returns,
+    ...rest
+  } = state;
 
   return rest;
 };
 
-const getReturnOptionIdWithOrder = (
-  orderId: OrderEntity['id'],
-  returnOptionId: ReturnOptionEntity['id'],
-) => {
-  return `${orderId}_${returnOptionId}`;
-};
-
 export const entitiesMapper = {
-  [actionTypes.FETCH_USER_ORDERS_SUCCESS]: (
-    state: NonNullable<StoreState['entities']>,
-    action: AnyAction,
-  ) => {
-    const { entities } = action.payload;
-
-    // Reset orders before merging with entities
-    const stateWithResetOrders = {
-      ...state,
-      orders: {},
-      orderItems: {},
-      returnOptions: {},
-      returns: {},
-    };
-
-    return produce(stateWithResetOrders, draftState => {
-      merge(draftState, entities);
-    });
-  },
-  [actionTypes.FETCH_GUEST_ORDERS_SUCCESS]: (
-    state: NonNullable<StoreState['entities']>,
-    action: AnyAction,
-  ) => {
-    const { entities } = action.payload;
-
-    // Reset orders before merging with entities
-    const stateWithResetOrders = {
-      ...state,
-      orders: {},
-      orderItems: {},
-      returnOptions: {},
-      returns: {},
-    };
-
-    return produce(stateWithResetOrders, draftState => {
-      merge(draftState, entities);
-    });
-  },
-  [actionTypes.FETCH_ORDER_SUCCESS]: (
-    state: NonNullable<StoreState['entities']>,
-    action: AnyAction,
-  ) => {
-    const { entities } = action.payload;
-
-    return produce(state, draftState => {
-      merge(draftState, entities);
-    });
-  },
-  [actionTypes.FETCH_ORDER_RETURN_OPTIONS_SUCCESS]: (
-    state: NonNullable<StoreState['entities']>,
-    action: AnyAction,
-  ) => {
-    const orderReturnOptionsSuccessAction =
-      action as FetchOrderReturnOptionsSuccessAction;
-
-    const { orderId } = orderReturnOptionsSuccessAction.meta;
-    const {
-      entities: { returnOptions },
-      result,
-    } = orderReturnOptionsSuccessAction.payload;
-
-    const newReturnOptions: typeof returnOptions = {};
-
-    Object.values(returnOptions).forEach(value => {
-      const newReturnOptionId = getReturnOptionIdWithOrder(orderId, value.id);
-
-      newReturnOptions[newReturnOptionId] = {
-        ...value,
-        id: newReturnOptionId,
-      };
-    });
-
-    const newPayloadEntities = {
-      ...action.payload.entities,
-      returnOptions: newReturnOptions,
-    };
-
-    return produce(state, (draftState: typeof state) => {
-      merge(draftState, newPayloadEntities);
-
-      let orders = draftState.orders;
-
-      if (!orders) {
-        orders = {};
-        draftState.orders = orders;
-      }
-
-      let order = orders[orderId];
-
-      if (!order) {
-        order = {
-          byMerchant: {},
-          id: orderId,
-          totalItems: 1,
-          createdDate: null,
-        } as NonNullable<typeof order>;
-        orders[orderId] = order;
-      }
-
-      order.returnOptions =
-        result && result.length >= 0
-          ? result.reduce<Array<ReturnOptionEntity['id']>>(
-              (acc, merchantReturnOptions) => {
-                return acc.concat(
-                  merchantReturnOptions.options.map(returnOptionId =>
-                    getReturnOptionIdWithOrder(orderId, returnOptionId),
-                  ),
-                );
-              },
-              [],
-            )
-          : null;
-
-      for (const returnOptionId in newReturnOptions) {
-        const returnOption = newReturnOptions[
-          returnOptionId
-        ] as ReturnOptionEntity;
-
-        const merchantId = returnOption.merchant;
-
-        let orderMerchant = order.byMerchant[merchantId];
-
-        if (!orderMerchant) {
-          orderMerchant = { merchant: merchantId } as NonNullable<
-            typeof orderMerchant
-          >;
-          order.byMerchant[merchantId] = orderMerchant;
-        }
-
-        let existingReturnOptions = orderMerchant.returnOptions;
-
-        if (!existingReturnOptions) {
-          existingReturnOptions = [];
-          orderMerchant.returnOptions = existingReturnOptions;
-        }
-
-        if (!existingReturnOptions.includes(returnOptionId)) {
-          existingReturnOptions.push(returnOptionId);
-        }
-      }
-    });
-  },
-  [actionTypes.FETCH_ORDER_RETURNS_SUCCESS]: (
-    state: NonNullable<StoreState['entities']>,
-    action: AnyAction,
-  ) => {
-    const orderReturnsSuccessAction = action as FetchOrderReturnsSuccessAction;
-    const { orderId } = orderReturnsSuccessAction.meta;
-    const { entities, result } = orderReturnsSuccessAction.payload;
-    const returns = entities.returns;
-
-    return produce(state, (draftState: typeof state) => {
-      merge(draftState, entities);
-
-      let orders = draftState.orders;
-
-      if (!orders) {
-        orders = {};
-        draftState.orders = orders;
-      }
-
-      let order = orders[orderId];
-
-      if (!order) {
-        order = {
-          byMerchant: {},
-          id: orderId,
-          totalItems: 1,
-          createdDate: null,
-        } as NonNullable<typeof order>;
-        orders[orderId] = order;
-      }
-
-      order.returns = result;
-
-      for (const returnId in returns) {
-        const returnEntity = returns[returnId] as ReturnEntity;
-        const merchantId = returnEntity.merchantId;
-
-        let orderMerchant = order.byMerchant[merchantId];
-
-        if (!orderMerchant) {
-          orderMerchant = { merchant: merchantId } as NonNullable<
-            typeof orderMerchant
-          >;
-          order.byMerchant[merchantId] = orderMerchant;
-        }
-
-        let existingReturns = orderMerchant.returns;
-
-        if (!existingReturns) {
-          existingReturns = [];
-          orderMerchant.returns = existingReturns;
-        }
-
-        const returnIdAsNumber = parseInt(returnId);
-
-        if (!existingReturns.includes(returnIdAsNumber)) {
-          existingReturns.push(returnIdAsNumber);
-        }
-      }
-    });
-  },
+  [actionTypes.RESET_ORDERS]: resetEntitiesStateReducer,
+  [LOGOUT_SUCCESS]: resetEntitiesStateReducer,
+  [LOGIN_SUCCESS]: resetEntitiesStateReducer,
+  [FETCH_USER_SUCCESS]: resetEntitiesStateReducer,
+  [REGISTER_SUCCESS]: resetEntitiesStateReducer,
   [actionTypes.RESET_ORDER_RETURN_OPTIONS_ENTITIES]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
@@ -328,63 +115,17 @@ export const entitiesMapper = {
       : Object.keys(state.orders ?? {});
 
     return produce(state, draftState => {
-      orderIdsToEnumerate.forEach(orderId => {
-        const order = draftState.orders?.[orderId];
+      const returnOptions = draftState.returnOptions;
 
-        if (order) {
-          delete order.returnOptions;
-
-          Object.values(order.byMerchant).forEach(merchantOrder => {
-            const orderReturnOptions = merchantOrder.returnOptions;
-
-            if (orderReturnOptions) {
-              orderReturnOptions.forEach(returnOptionId => {
-                delete draftState.returnOptions?.[returnOptionId];
-              });
-            }
-
-            delete merchantOrder.returnOptions;
-          });
-        }
-      });
+      if (returnOptions) {
+        Object.values(returnOptions).forEach(({ merchantOrderId, orderId }) => {
+          if (orderIdsToEnumerate.includes(orderId)) {
+            delete returnOptions?.[merchantOrderId];
+          }
+        });
+      }
     });
   },
-  [actionTypes.RESET_ORDER_RETURNS_ENTITIES]: (
-    state: NonNullable<StoreState['entities']>,
-    action: AnyAction,
-  ) => {
-    const orderIdsPayload = (action as ResetOrderReturnsEntitiesAction).payload;
-    const orderIdsToEnumerate = orderIdsPayload?.length
-      ? orderIdsPayload
-      : Object.keys(state.orders ?? {});
-
-    return produce(state, draftState => {
-      orderIdsToEnumerate.forEach(orderId => {
-        const order = draftState.orders?.[orderId];
-
-        if (order) {
-          delete order.returns;
-
-          Object.values(order.byMerchant).forEach(merchantOrder => {
-            const orderReturns = merchantOrder.returns;
-
-            if (orderReturns) {
-              orderReturns.forEach(returnId => {
-                delete draftState.returns?.[returnId];
-              });
-            }
-
-            delete merchantOrder.returns;
-          });
-        }
-      });
-    });
-  },
-  [actionTypes.RESET_ORDERS]: resetEntitiesStateReducer,
-  [LOGOUT_SUCCESS]: resetEntitiesStateReducer,
-  [LOGIN_SUCCESS]: resetEntitiesStateReducer,
-  [FETCH_USER_SUCCESS]: resetEntitiesStateReducer,
-  [REGISTER_SUCCESS]: resetEntitiesStateReducer,
 };
 
 export const orderDetails = (
@@ -439,58 +180,6 @@ export const orderDetails = (
   }
 };
 
-export const orderReturns = (
-  state = INITIAL_STATE.orderReturns,
-  action: AnyAction,
-) => {
-  switch (action.type) {
-    case actionTypes.FETCH_ORDER_RETURNS_REQUEST:
-      return {
-        isLoading: {
-          ...state.isLoading,
-          [action.meta.orderId]: true,
-        },
-        error: {
-          ...state.error,
-          [action.meta.orderId]: null,
-        },
-      };
-    case actionTypes.FETCH_ORDER_RETURNS_SUCCESS:
-      return {
-        ...state,
-        isLoading: {
-          ...state.isLoading,
-          [action.meta.orderId]: false,
-        },
-      };
-    case actionTypes.FETCH_ORDER_RETURNS_FAILURE:
-      return {
-        ...state,
-        isLoading: {
-          ...state.isLoading,
-          [action.meta.orderId]: false,
-        },
-        error: {
-          ...state.error,
-          [action.meta.orderId]: action.payload.error,
-        },
-      };
-    case actionTypes.RESET_ORDER_RETURNS_STATE:
-      const orderIds = (action as ResetOrderReturnsStateAction).payload;
-
-      if (!orderIds?.length) {
-        return INITIAL_STATE.orderReturns;
-      }
-
-      return {
-        isLoading: omit(state.isLoading, orderIds),
-        error: omit(state.error, orderIds),
-      };
-    default:
-      return state;
-  }
-};
-
 export const orderReturnOptions = (
   state = INITIAL_STATE.orderReturnOptions,
   action: AnyAction,
@@ -498,6 +187,7 @@ export const orderReturnOptions = (
   switch (action.type) {
     case actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST:
       return {
+        ...state,
         isLoading: {
           ...state.isLoading,
           [action.meta.orderId]: true,
@@ -513,6 +203,10 @@ export const orderReturnOptions = (
         isLoading: {
           ...state.isLoading,
           [action.meta.orderId]: false,
+        },
+        result: {
+          ...state.result,
+          [action.meta.orderId]: action.payload.result,
         },
       };
     case actionTypes.FETCH_ORDER_RETURN_OPTIONS_FAILURE:
@@ -537,6 +231,7 @@ export const orderReturnOptions = (
       return {
         isLoading: omit(state.isLoading, orderIds),
         error: omit(state.error, orderIds),
+        result: omit(state.result, orderIds),
       };
     default:
       return state;
@@ -577,9 +272,6 @@ export const getResult = (state: T.OrdersState): T.OrdersState['result'] =>
 export const getOrderDetails = (
   state: T.OrdersState,
 ): T.OrdersState['orderDetails'] => state.orderDetails;
-export const getOrderReturns = (
-  state: T.OrdersState,
-): T.OrdersState['orderReturns'] => state.orderReturns;
 export const getOrderReturnOptions = (
   state: T.OrdersState,
 ): T.OrdersState['orderReturnOptions'] => state.orderReturnOptions;
@@ -599,16 +291,15 @@ export const getOrderItemAvailableActivities = (
   state.orderItemAvailableActivities;
 
 const reducer = combineReducers({
+  documents,
   error,
   isLoading,
-  result,
-  orderDetails,
-  orderReturns,
-  orderReturnOptions,
-  trackings,
-  documents,
   orderAvailableItemsActivities,
+  orderDetails,
   orderItemAvailableActivities,
+  orderReturnOptions,
+  result,
+  trackings,
 });
 
 /**

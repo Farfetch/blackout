@@ -1,11 +1,18 @@
 import * as actionTypes from '../../actionTypes.js';
 import {
+  type Brand,
   type Config,
   type GetOrder,
   type Order,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import normalizeFetchOrderResponse from './helpers/normalizeFetchOrderResponse.js';
+import { normalize } from 'normalizr';
+import orderSchema from '../../../entities/schemas/order.js';
+import type {
+  CategoryEntity,
+  OrderEntity,
+  OrderItemEntity,
+} from '../../../entities/index.js';
 import type { Dispatch } from 'redux';
 import type { FetchOrderAction } from '../../types/actions.types.js';
 import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
@@ -19,7 +26,7 @@ import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
  */
 const fetchOrderFactory =
   (getOrder: GetOrder) =>
-  (orderId: string, config?: Config) =>
+  (orderId: Order['id'], config?: Config) =>
   async (
     dispatch: Dispatch<FetchOrderAction>,
     getState: () => StoreState,
@@ -35,10 +42,31 @@ const fetchOrderFactory =
 
       const { productImgQueryParam } = getOptions(getState);
       const result = await getOrder(orderId, config);
-      const normalizedResult = normalizeFetchOrderResponse(
-        result,
-        productImgQueryParam,
+
+      const normalizedResult = normalize<
+        OrderEntity,
+        {
+          orders: Record<OrderEntity['id'], OrderEntity>;
+          orderItems: Record<OrderItemEntity['id'], OrderItemEntity>;
+          brands: Record<Brand['id'], Brand>;
+          categories: Record<CategoryEntity['id'], CategoryEntity>;
+        },
+        OrderEntity['id']
+      >(
+        {
+          // Send productImgQueryParam so order items entity can use it in `adaptProductImages`
+          productImgQueryParam,
+          ...result,
+        },
+        orderSchema,
       );
+
+      const normalizedOrder = normalizedResult.entities.orders?.[orderId];
+
+      if (normalizedOrder) {
+        delete (normalizedOrder as Record<string, unknown>)
+          .productImgQueryParam;
+      }
 
       dispatch({
         meta: { orderId },

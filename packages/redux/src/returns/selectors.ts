@@ -5,7 +5,7 @@ import {
   getReturnPickupCapabilities as getReturnPickupCapabilitiesFromReducer,
 } from './reducer.js';
 import generateReturnPickupCapabilityHash from './helpers/generateReturnPickupCapabilityHash.js';
-import type { Return, ReturnItem } from '@farfetch/blackout-client';
+import type { Order, Return, ReturnItem } from '@farfetch/blackout-client';
 import type {
   ReturnEntityDenormalized,
   ReturnItemEntity,
@@ -185,3 +185,35 @@ export const isReturnPickupCapabilityFetched = (
   (!!getReturnPickupCapability(state, returnId, pickupDay) ||
     !!getReturnPickupCapabilityError(state, returnId, pickupDay)) &&
   !isReturnPickupCapabilityLoading(state, returnId, pickupDay);
+
+/**
+ * Returns all the returns associated to a provided order id.
+ *
+ * @param state - Application state.
+ * @param orderId - Identifier of an order
+ *
+ * @returns Array of returns
+ */
+export const getOrderReturns: (
+  state: StoreState,
+  orderId: Order['id'],
+) => Array<ReturnEntityDenormalized> | undefined = (state, orderId) => {
+  const returnEntities = getReturnsEntities(state);
+
+  if (!returnEntities) {
+    return;
+  }
+
+  const result = [];
+
+  for (const returnId in returnEntities) {
+    const parsedReturnId = parseInt(returnId);
+    const returnEntityDenormalized = getReturn(state, parsedReturnId);
+
+    if (returnEntityDenormalized?.orderId === orderId) {
+      result.push(returnEntityDenormalized);
+    }
+  }
+
+  return result;
+};

@@ -8,7 +8,6 @@ import {
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useOrderReturnOptions from './useOrderReturnOptions.js';
-import useOrderReturns from './useOrderReturns.js';
 import useOrders from './useOrders.js';
 import type { Config, Order } from '@farfetch/blackout-client';
 import type { UseOrderOptions } from './types/index.js';
@@ -88,16 +87,7 @@ function useOrder(
     isFetched: areReturnOptionsFetched,
     error: returnOptionsError,
     actions: { fetch: fetchReturnOptions, reset: resetReturnOptions },
-  } = useOrderReturnOptions(orderIdHookParameter, undefined, {
-    enableAutoFetch: false,
-  });
-
-  const {
-    isLoading: areReturnsLoading,
-    isFetched: areReturnsFetched,
-    error: returnsError,
-    actions: { fetch: fetchReturns, reset: resetReturns },
-  } = useOrderReturns(orderIdHookParameter, undefined, {
+  } = useOrderReturnOptions(orderIdHookParameter, {
     enableAutoFetch: false,
   });
 
@@ -113,19 +103,14 @@ function useOrder(
       resetOrderDetailsState,
       fetchReturnOptions,
       resetReturnOptions,
-      fetchReturns,
-      resetReturns,
     },
     data: order,
     orderError: error,
     returnOptionsError,
-    returnsError,
     isOrderLoading: isLoading,
     isOrderFetched: isFetched,
     areReturnOptionsFetched,
     areReturnOptionsLoading,
-    areReturnsLoading,
-    areReturnsFetched,
   };
 }
 

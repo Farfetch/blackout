@@ -3,15 +3,22 @@ import {
   type Config,
   type GetUserOrders,
   type GetUserOrdersQuery,
-  type Orders,
+  type OrderSummaries,
   toBlackoutError,
+  type User,
 } from '@farfetch/blackout-client';
-import normalizeFetchOrdersResponse from './helpers/normalizeFetchOrdersResponse.js';
+import { normalize } from 'normalizr';
+import generateUserOrdersRequestHash from './helpers/generateUserOrdersRequestHash.js';
+import orderSummary from '../../../entities/schemas/orderSummary.js';
 import type { Dispatch } from 'redux';
 import type { FetchOrdersAction } from '../../types/actions.types.js';
+import type {
+  OrderSummariesNormalized,
+  OrderSummaryEntity,
+} from '../../../entities/index.js';
 
 /**
- * Fetches orders.
+ * Fetches user orders using the specified client.
  *
  * @param getUserOrders - Get user orders client.
  *
@@ -19,18 +26,31 @@ import type { FetchOrdersAction } from '../../types/actions.types.js';
  */
 const fetchUserOrdersFactory =
   (getUserOrders: GetUserOrders) =>
-  (userId: number, query?: GetUserOrdersQuery, config?: Config) =>
-  async (dispatch: Dispatch<FetchOrdersAction>): Promise<Orders> => {
+  (userId: User['id'], query?: GetUserOrdersQuery, config?: Config) =>
+  async (dispatch: Dispatch<FetchOrdersAction>): Promise<OrderSummaries> => {
+    const hashedQuery = generateUserOrdersRequestHash(userId, query);
+
     try {
       dispatch({
         type: actionTypes.FETCH_USER_ORDERS_REQUEST,
+        meta: { hash: hashedQuery },
       });
 
       const result = await getUserOrders(userId, query, config);
-      const normalizedResult = normalizeFetchOrdersResponse(result);
+      const normalizedResult = normalize<
+        OrderSummaryEntity,
+        {
+          orderSummaries: Record<
+            OrderSummaryEntity['merchantOrderCode'],
+            OrderSummaryEntity
+          >;
+        },
+        OrderSummariesNormalized
+      >(result, { entries: [orderSummary] });
 
       dispatch({
         payload: normalizedResult,
+        meta: { hash: hashedQuery },
         type: actionTypes.FETCH_USER_ORDERS_SUCCESS,
       });
 
@@ -40,6 +60,7 @@ const fetchUserOrdersFactory =
 
       dispatch({
         payload: { error: errorAsBlackoutError },
+        meta: { hash: hashedQuery },
         type: actionTypes.FETCH_USER_ORDERS_FAILURE,
       });
 

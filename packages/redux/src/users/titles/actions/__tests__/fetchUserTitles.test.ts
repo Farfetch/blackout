@@ -24,7 +24,7 @@ const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 describe('fetchUserTitles() action creator', () => {
   const query = {
     page: 1,
-    pageSize: 10,
+    pageSize: 60,
   };
 
   beforeEach(() => {
